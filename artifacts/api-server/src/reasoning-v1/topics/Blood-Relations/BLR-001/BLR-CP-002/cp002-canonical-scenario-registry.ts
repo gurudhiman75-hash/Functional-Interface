@@ -1,3 +1,4 @@
+import { BLR_CP002_LONG_CHAIN_SCENARIOS } from "./cp002-long-chain-scenarios";
 import { BLR_CP002_ONLY_CHILD_SCENARIOS } from "./cp002-only-child-scenarios";
 import {
   cp002ScenariosFor,
@@ -6,9 +7,10 @@ import {
 import { BLR_CP002_SOURCE_WIDENING_SCENARIOS } from "./cp002-source-widening-scenarios";
 import type { BlrCp002PrototypeId } from "./cp002-types";
 
-const WIDENING_SCENARIOS: readonly BlrCp002ScenarioTemplate[] = [
+const EXTENDED_SCENARIOS: readonly BlrCp002ScenarioTemplate[] = [
   ...BLR_CP002_SOURCE_WIDENING_SCENARIOS,
   ...BLR_CP002_ONLY_CHILD_SCENARIOS,
+  ...BLR_CP002_LONG_CHAIN_SCENARIOS,
 ];
 
 export function cp002CanonicalScenariosFor(
@@ -16,7 +18,7 @@ export function cp002CanonicalScenariosFor(
 ): readonly BlrCp002ScenarioTemplate[] {
   const scenarios = [
     ...cp002ScenariosFor(prototypeId),
-    ...WIDENING_SCENARIOS.filter((entry) => entry.prototypeId === prototypeId),
+    ...EXTENDED_SCENARIOS.filter((entry) => entry.prototypeId === prototypeId),
   ];
   if (scenarios.length === 0) {
     throw new Error(`No canonical CP-002 scenarios for ${prototypeId}.`);
