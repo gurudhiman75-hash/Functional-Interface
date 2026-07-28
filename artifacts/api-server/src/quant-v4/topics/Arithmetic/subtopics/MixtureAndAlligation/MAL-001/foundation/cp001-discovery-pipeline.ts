@@ -34,6 +34,10 @@ function polishPluralMaterialGrammar(stem: string): string {
       /How much ([^?]+?(?:tea leaves|beans)) (?:is|was) (used|present|added)\?/giu,
       "What quantity of $1 is $2?",
     )
+    .replace(
+      /How much ([^?]+?(?:tea leaves|beans)) (?=(?:at|priced at))/giu,
+      "What quantity of $1 ",
+    )
     .replace(/^A (\d+) litres mixture\b/u, "A $1-litre mixture");
 }
 
@@ -160,7 +164,7 @@ function polishCoreQuestion(
   ) {
     const labelledAnswer = labelledCorePairText(question, question.solution);
     stem = stem.replace(
-      /(?:What quantity of each grade was used|How much of each grade is present|What are the two component quantities|What quantity of each was mixed)\?$/u,
+      /(?:What quantity of each grade was used|How much of each grade is present|What are the two component quantities|What quantity of each was mixed)\?$/iu,
       `What are the quantities of ${request.lowerComponentLabel} and ${request.higherComponentLabel}, respectively?`,
     );
     optionAudit = question.optionAudit.map((option) => ({
