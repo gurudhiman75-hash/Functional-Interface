@@ -74,7 +74,7 @@ export interface BlrCp002StructuredPrompt {
   pointedPersonId?: string;
   personNames: Readonly<Record<string, string>>;
   familyGraph: FamilyGraph;
-  constraints: readonly BlrRoleCardinalityConstraint[];
+  constraints?: readonly BlrRoleCardinalityConstraint[];
   assertion: BlrRoleAssertion;
   query: BlrCp002Query;
 }
