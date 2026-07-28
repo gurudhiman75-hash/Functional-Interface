@@ -1,8 +1,11 @@
 import { rationalKey } from "../foundation/rational";
 import { normaliseIntCp001Wave2Stem } from "./editorial-normalizer";
+import { normaliseIntCp001Wave2Options } from "./option-normalizer";
 import { buildIntCp001Wave2Options } from "./options";
 import { generateIntCp001Wave2Parameters } from "./parameter-generator";
+import { normaliseIntCp001Wave2Presentation } from "./presentation-normalizer";
 import { presentIntCp001Wave2 } from "./presentation";
+import { applyIntCp001Wave2PostValidation } from "./post-validator";
 import { getIntCp001Wave2RegistryEntry } from "./registry";
 import { solveIntCp001Wave2 } from "./solver";
 import type {
@@ -18,10 +21,18 @@ export function generateIntCp001Wave2Prototype(
   const registry = getIntCp001Wave2RegistryEntry(prototypeId);
   const parameters = generateIntCp001Wave2Parameters(prototypeId, seed);
   const solution = solveIntCp001Wave2(parameters.request);
-  const optionPackage = buildIntCp001Wave2Options(parameters, solution);
-  const presentation = presentIntCp001Wave2(parameters, solution);
+  const optionPackage = normaliseIntCp001Wave2Options(
+    parameters,
+    solution,
+    buildIntCp001Wave2Options(parameters, solution),
+  );
+  const presentation = normaliseIntCp001Wave2Presentation(
+    parameters,
+    solution,
+    presentIntCp001Wave2(parameters, solution),
+  );
   const stem = normaliseIntCp001Wave2Stem(presentation.stem);
-  const validation = validateIntCp001Wave2({
+  const baseValidation = validateIntCp001Wave2({
     parameters,
     solution,
     stem,
@@ -30,6 +41,14 @@ export function generateIntCp001Wave2Prototype(
     correctIndex: optionPackage.correctIndex,
     explanation: presentation.explanation,
     reasoningGraph: presentation.reasoningGraph,
+  });
+  const validation = applyIntCp001Wave2PostValidation({
+    parameters,
+    solution,
+    stem,
+    optionAudit: optionPackage.optionAudit,
+    explanation: presentation.explanation,
+    base: baseValidation,
   });
 
   return {
