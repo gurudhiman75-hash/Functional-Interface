@@ -379,10 +379,7 @@ function refinedTrapLines(
           ? undefined
           : unrestrictedSelection * teamSize * teamSize;
         if (option === unrestrictedWithCaptains) {
-          return natural.replace(
-            /uses the wrong team or committee selection before the role choices are applied|omits either the member-selection stage or the later role choices/i,
-            "forms Team A without enforcing the required number of women",
-          );
+          return natural.replace(/: .*\.$/, ": forms Team A without enforcing the required number of women.");
         }
       }
     }
