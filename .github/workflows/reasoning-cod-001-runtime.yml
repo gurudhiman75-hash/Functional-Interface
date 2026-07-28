@@ -10,7 +10,7 @@ on:
 jobs:
   cod-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 40
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -31,6 +31,9 @@ jobs:
 
       - name: Run COD-CP-004 exhaustive runtime audit
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-004/cod-cp-004.test.ts
+
+      - name: Run COD-CP-007 permanent runtime audit
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-007/cp007-runtime.test.ts
 
       - name: Run CP-001 to CP-004 editorial regression audit
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/review/cod-cp001-cp004-editorial.test.ts
