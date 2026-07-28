@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { INT_CP001_FINAL_QL_IDS } from "./cp001-final-registry";
-import { generateIntCp001LocalizedQuestion } from "./cp001-localized-runtime";
+import { generateIntCp001ApprovedLocalizedQuestion } from "./cp001-localized-runtime-approved";
 import {
   INT_CP001_HINDI_RELEASE_ID,
   INT_CP001_MULTILINGUAL_STANDARD,
@@ -23,12 +23,13 @@ const localeTitle: Record<IntCp001Locale, string> = {
   pa: "ਪੰਜਾਬੀ",
 };
 const localeStatus: Record<IntCp001Locale, string> = {
-  hi: "हिन्दी स्थानीयकरण मानव समीक्षा के लिए लंबित है; प्रकाशन बंद है।",
-  pa: "ਪੰਜਾਬੀ ਸਥਾਨਕੀਕਰਨ ਮਨੁੱਖੀ ਸਮੀਖਿਆ ਲਈ ਬਾਕੀ ਹੈ; ਪ੍ਰਕਾਸ਼ਨ ਬੰਦ ਹੈ।",
+  hi: "हिन्दी स्थानीयकरण मानव समीक्षा में स्वीकृत है; प्रकाशन अभी बंद है।",
+  pa: "ਪੰਜਾਬੀ ਸਥਾਨਕੀਕਰਨ ਮਨੁੱਖੀ ਸਮੀਖਿਆ ਵਿੱਚ ਮਨਜ਼ੂਰ ਹੈ; ਪ੍ਰਕਾਸ਼ਨ ਹਾਲੇ ਬੰਦ ਹੈ।",
 };
 
 const summary: Record<string, unknown> = {
   generatedAt: new Date().toISOString(),
+  approvedAt: "2026-07-28",
   packageId: "INT-001",
   cpId: "INT-CP-001",
   editorialStandard: INT_CP001_MULTILINGUAL_STANDARD,
@@ -36,18 +37,30 @@ const summary: Record<string, unknown> = {
     hi: INT_CP001_HINDI_RELEASE_ID,
     pa: INT_CP001_PUNJABI_RELEASE_ID,
   },
+  maturity: "APPROVED_MULTILINGUAL_CONTRACT",
+  reviewStatus: "APPROVED_MULTILINGUAL_CONTRACT",
+  localeReviewStatus: "APPROVED_HUMAN_REVIEW",
   qlCount: INT_CP001_FINAL_QL_IDS.length,
   samplesPerQlPerLocale: seeds.length,
+  questionBankStatus: "NOT_STORED",
+  testEligibility: "INELIGIBLE",
   publiclyPublishable: false,
   questionStudioDiscoverable: false,
 };
 
 for (const locale of locales) {
   const items = INT_CP001_FINAL_QL_IDS.flatMap((qlId) =>
-    seeds.map((seed) => generateIntCp001LocalizedQuestion(qlId, seed, locale)),
+    seeds.map((seed) => generateIntCp001ApprovedLocalizedQuestion(qlId, seed, locale)),
   );
   for (const item of items) {
     if (!item.validation.ok) throw new Error(`${item.qlId}/${item.seed}/${locale}: ${item.validation.errors.join(" | ")}`);
+    if (
+      item.maturity !== "APPROVED_MULTILINGUAL_CONTRACT"
+      || item.reviewStatus !== "APPROVED_MULTILINGUAL_CONTRACT"
+      || item.localeReviewStatus !== "APPROVED_HUMAN_REVIEW"
+    ) {
+      throw new Error(`${item.qlId}/${item.seed}/${locale}: approval lifecycle is not frozen.`);
+    }
   }
 
   const releaseId = locale === "hi" ? INT_CP001_HINDI_RELEASE_ID : INT_CP001_PUNJABI_RELEASE_ID;
@@ -61,12 +74,12 @@ for (const locale of locales) {
     releaseId,
     languageId: items[0]?.questionLanguageId,
     sampleCount: items.length,
-    status: "PENDING_HUMAN_REVIEW",
+    status: "APPROVED_HUMAN_REVIEW",
     items,
   }), "utf8");
 
   const markdown: string[] = [
-    `# INT-001 / CP-001 ${localeTitle[locale]} Review Pack`,
+    `# INT-001 / CP-001 ${localeTitle[locale]} Approved Locale Pack`,
     "",
     `Release: **${releaseId}**`,
     "",
@@ -89,6 +102,7 @@ for (const locale of locales) {
       `- Difficulty: **${item.difficulty}**`,
       `- Correct option: **${item.correctIndex + 1}**`,
       `- Source: **${item.internalProvenance.sourceKind} / ${item.internalProvenance.sourcePrototypeId}**`,
+      `- Locale status: **${item.localeReviewStatus}**`,
       "",
       `> **${locale === "hi" ? "प्रश्न" : "ਪ੍ਰਸ਼ਨ"}:** ${item.stem}`,
       "",
@@ -119,7 +133,7 @@ for (const locale of locales) {
       `### ${item.explanation.trapAnalysis.heading}`,
       "",
       ...item.explanation.trapAnalysis.items.map((trap) =>
-        `- **${locale === "hi" ? "विकल्प" : "ਵਿਕਲਪ"} ${trap.optionNumber} (${trap.optionText}):** ${trap.explanation}`
+        `- **${locale === "hi" ? "विकल्प" : "ਵਿਕਲਪ"} ${trap.optionNumber} (${trap.optionText}) [${trap.misconceptionId}]:** ${trap.explanation}`
       ),
       "",
       `Validation: **${item.validation.ok ? "PASS" : "FAIL"}**`,
@@ -146,6 +160,8 @@ await writeFile(
 console.log(serialise({
   status: "PASS",
   editorialStandard: INT_CP001_MULTILINGUAL_STANDARD,
+  maturity: "APPROVED_MULTILINGUAL_CONTRACT",
+  localeReviewStatus: "APPROVED_HUMAN_REVIEW",
   qlCount: INT_CP001_FINAL_QL_IDS.length,
   samplesPerLocale: INT_CP001_FINAL_QL_IDS.length * seeds.length,
   totalSamples: INT_CP001_FINAL_QL_IDS.length * seeds.length * locales.length,
