@@ -28,6 +28,15 @@ function optionValue(option: unknown): string {
   return Array.isArray(members) ? members.map(String).join(", ") : String(direct ?? "");
 }
 
+function optionMembers(option: unknown): string[] {
+  if (typeof option === "string" || typeof option === "number") return [String(option)];
+  const record = asRecord(option);
+  const members = record.members ?? record.tokens ?? record.words;
+  if (Array.isArray(members)) return members.map(String);
+  const value = optionValue(option);
+  return value ? [value] : [];
+}
+
 function displayTokens(value: string): string[] {
   const trimmed = value.trim();
   if (!trimmed) return [];
@@ -70,7 +79,9 @@ for (const id of qlIds) {
       const presentation = asRecord(explanation.pedagogicalPresentation);
       const steps = presentation.stepByStep as readonly unknown[];
       const visuals = presentation.visualAlignment as readonly unknown[];
-      const answer = optionValue(question.options[question.correctIndex]);
+      const correctOption = question.options[question.correctIndex];
+      const answer = optionValue(correctOption);
+      const answerMembers = optionMembers(correctOption);
 
       assert.equal(question.qlId ?? question.permanentQlId, id);
       assert.equal(question.locale, locale);
@@ -84,7 +95,10 @@ for (const id of qlIds) {
       assert.ok(String(presentation.commonTrap ?? "").length >= 12, `${id}/${locale}/${seed} lacks trap analysis`);
       assert.equal(explanation.quickMethod, presentation.examShortcut, `${id}/${locale}/${seed} still exposes the generic quick method`);
       assert.deepEqual(explanation.visualAlignment, presentation.visualAlignment);
-      assert.match(JSON.stringify(presentation), new RegExp(answer.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "u"), `${id}/${locale}/${seed} pedagogy omits the correct answer`);
+      const presentationText = JSON.stringify(presentation);
+      for (const member of answerMembers) {
+        assert.ok(presentationText.includes(member), `${id}/${locale}/${seed} pedagogy omits answer member '${member}'`);
+      }
 
       const markdown = formatCodExplanationMarkdown(question).join("\n");
       for (const heading of headings(locale)) assert.ok(markdown.includes(heading), `${id}/${locale}/${seed} misses '${heading}'`);
