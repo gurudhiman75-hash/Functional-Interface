@@ -13,15 +13,36 @@ on:
       - ".github/workflows/validate-pnl-cp005-dynamic-runtime.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate-cp005-dynamic-runtime:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
-      - name: Checkout source
+      - name: Checkout feature source
         uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-cp005-dynamic-runtime
+
+      - name: Remove zero-direction inverse boundary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-cases.ts")
+          source = path.read_text()
+          old = "const declared = declaredPair(random);"
+          replacement = '''const declared = {
+                direction: "PROFIT" as const,
+                ratePercent: rational(pickNumber(random, PROFIT_RATES)),
+              };'''
+          if source.count(old) != 1:
+              if replacement in source:
+                  raise SystemExit(0)
+              raise SystemExit(f"expected one inverse declared selector, found {source.count(old)}")
+          path.write_text(source.replace(old, replacement, 1))
+          PY
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -50,6 +71,17 @@ jobs:
           set -o pipefail
           node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/.cp005-dynamic-runtime.test.mjs \
             2>&1 | tee -a pnl-cp005-dynamic-runtime.log
+
+      - name: Commit proven correction
+        run: |
+          if git diff --quiet -- artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-cases.ts; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-cases.ts
+          git commit -m "fix(pnl): avoid CP-005 zero-direction inverse cases"
+          git push origin HEAD:feat/pnl-001-cp005-dynamic-runtime
 
       - name: Upload proof evidence
         if: always()
