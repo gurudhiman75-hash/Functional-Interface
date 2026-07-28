@@ -19,13 +19,21 @@ function unorderedKey(personAId: string, personBId: string): string {
   return [personAId, personBId].sort().join("::");
 }
 
-export function graphFromStructuredPrompt(prompt: BlrStructuredPrompt): FamilyGraph {
+export function graphFromClues(
+  clues: readonly DirectRelationClue[],
+  personNames: Readonly<Record<string, string>>,
+  extraPersonIds: readonly string[] = [],
+): FamilyGraph {
   const genders = new Map<string, "MALE" | "FEMALE">();
   const parentEdges = new Map<string, { parentId: string; childId: string }>();
   const spouseEdges = new Map<string, { personAId: string; personBId: string }>();
   const siblingEdges = new Map<string, { personAId: string; personBId: string }>();
 
-  const setGender = (personId: string, gender: "MALE" | "FEMALE", source: string): void => {
+  const setGender = (
+    personId: string,
+    gender: "MALE" | "FEMALE",
+    source: string,
+  ): void => {
     const existing = genders.get(personId);
     if (existing && existing !== gender) {
       throw new Error(`Contradictory gender for ${personId} while applying ${source}.`);
@@ -37,7 +45,7 @@ export function graphFromStructuredPrompt(prompt: BlrStructuredPrompt): FamilyGr
     parentEdges.set(`${parentId}->${childId}`, { parentId, childId });
   };
 
-  for (const clue of prompt.clues) {
+  for (const clue of clues) {
     setGender(clue.subjectId, directRelationSubjectGender(clue.relationId), clue.relationId);
     switch (clue.relationId) {
       case "FATHER":
@@ -73,15 +81,14 @@ export function graphFromStructuredPrompt(prompt: BlrStructuredPrompt): FamilyGr
   }
 
   const personIds = new Set<string>([
-    ...Object.keys(prompt.personNames),
-    ...prompt.clues.flatMap((clue) => [clue.subjectId, clue.referenceId]),
-    prompt.query.subjectId,
-    prompt.query.referenceId,
+    ...Object.keys(personNames),
+    ...clues.flatMap((clue) => [clue.subjectId, clue.referenceId]),
+    ...extraPersonIds,
   ]);
 
   const persons: FamilyPerson[] = [...personIds].map((personId) => ({
     personId,
-    name: prompt.personNames[personId] ?? personId,
+    name: personNames[personId] ?? personId,
     gender: genders.get(personId) ?? "UNKNOWN",
   }));
 
@@ -95,9 +102,21 @@ export function graphFromStructuredPrompt(prompt: BlrStructuredPrompt): FamilyGr
   return graph;
 }
 
+export function graphFromStructuredPrompt(prompt: BlrStructuredPrompt): FamilyGraph {
+  return graphFromClues(prompt.clues, prompt.personNames, [
+    prompt.query.subjectId,
+    prompt.query.referenceId,
+  ]);
+}
+
 function adjacencyFor(graph: FamilyGraph): Map<string, AdjacencyStep[]> {
   const adjacency = new Map<string, AdjacencyStep[]>();
+  const edgeKeys = new Set<string>();
+
   const add = (fromId: string, toId: string, step: PrimitivePathStep): void => {
+    const key = `${fromId}->${toId}:${step}`;
+    if (edgeKeys.has(key)) return;
+    edgeKeys.add(key);
     const entries = adjacency.get(fromId) ?? [];
     entries.push({ toId, step });
     adjacency.set(fromId, entries);
@@ -115,6 +134,26 @@ function adjacencyFor(graph: FamilyGraph): Map<string, AdjacencyStep[]> {
     add(edge.personAId, edge.personBId, "SIBLING");
     add(edge.personBId, edge.personAId, "SIBLING");
   }
+
+  // Generated BLR-001 families treat children sharing a modelled parent as siblings.
+  // This lets a branching graph prove cousin/uncle/aunt paths without restating a
+  // redundant sibling clue.
+  const childrenByParent = new Map<string, string[]>();
+  for (const edge of graph.parentEdges) {
+    const children = childrenByParent.get(edge.parentId) ?? [];
+    children.push(edge.childId);
+    childrenByParent.set(edge.parentId, children);
+  }
+  for (const children of childrenByParent.values()) {
+    const uniqueChildren = [...new Set(children)];
+    for (let first = 0; first < uniqueChildren.length; first += 1) {
+      for (let second = first + 1; second < uniqueChildren.length; second += 1) {
+        add(uniqueChildren[first]!, uniqueChildren[second]!, "SIBLING");
+        add(uniqueChildren[second]!, uniqueChildren[first]!, "SIBLING");
+      }
+    }
+  }
+
   return adjacency;
 }
 
@@ -144,7 +183,12 @@ export function enumerateSimplePaths(
       if (seen.has(edge.toId)) continue;
       const nextSeen = new Set(seen);
       nextSeen.add(edge.toId);
-      visit(edge.toId, [...personIds, edge.toId], [...steps, edge.step], nextSeen);
+      visit(
+        edge.toId,
+        [...personIds, edge.toId],
+        [...steps, edge.step],
+        nextSeen,
+      );
     }
   };
 
@@ -186,6 +230,9 @@ export function solveRelationFromPrompt(prompt: BlrStructuredPrompt): RelationSo
   return solveRelationFromGraph(graph, prompt.query.subjectId, prompt.query.referenceId);
 }
 
-export function clueToNormalizedText(clue: DirectRelationClue, names: Readonly<Record<string, string>>): string {
+export function clueToNormalizedText(
+  clue: DirectRelationClue,
+  names: Readonly<Record<string, string>>,
+): string {
   return `${names[clue.subjectId] ?? clue.subjectId} is ${clue.relationId.toLocaleLowerCase("en-IN").replaceAll("_", " ")} of ${names[clue.referenceId] ?? clue.referenceId}.`;
 }
