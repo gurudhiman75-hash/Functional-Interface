@@ -1,0 +1,62 @@
+import { getIntCp001PrototypeEntry } from "./cp001-registry";
+import { buildIntCp001Options } from "./cp001-options";
+import { generateIntCp001Parameters } from "./cp001-parameter-generator";
+import { presentIntCp001 } from "./cp001-presentation";
+import { solveIntCp001 } from "./cp001-solver";
+import { validateIntCp001Prototype } from "./cp001-validator";
+import { rationalKey } from "./rational";
+import type { IntCp001GeneratedPrototype, IntCp001PrototypeId } from "./types";
+
+export function generateIntCp001Prototype(
+  prototypeId: IntCp001PrototypeId,
+  seed: string,
+): IntCp001GeneratedPrototype {
+  const registry = getIntCp001PrototypeEntry(prototypeId);
+  const parameters = generateIntCp001Parameters(prototypeId, seed);
+  const solution = solveIntCp001(parameters.request);
+  const optionPackage = buildIntCp001Options(parameters, solution);
+  const presentation = presentIntCp001(parameters, solution);
+  const validation = validateIntCp001Prototype({
+    parameters,
+    solution,
+    stem: presentation.stem,
+    options: optionPackage.options,
+    optionAudit: optionPackage.optionAudit,
+    correctIndex: optionPackage.correctIndex,
+    explanation: presentation.explanation,
+    reasoningGraph: presentation.reasoningGraph,
+  });
+
+  return {
+    archetypeId: "INT-001",
+    canonicalProblemId: "INT-CP-001",
+    prototypeId,
+    permanentQlId: null,
+    questionLanguageId: `${prototypeId}:en`,
+    language: "en",
+    seed,
+    difficulty: parameters.difficulty,
+    difficultyEvidence: parameters.difficultyEvidence,
+    taskDirection: registry.taskDirection,
+    answerSemantic: registry.answerSemantic,
+    stem: presentation.stem,
+    parameters,
+    solution,
+    options: optionPackage.options,
+    optionAudit: optionPackage.optionAudit,
+    correctIndex: optionPackage.correctIndex,
+    explanation: presentation.explanation,
+    reasoningGraph: presentation.reasoningGraph,
+    mathematicalFingerprint: [
+      parameters.generationFingerprint,
+      solution.semantic,
+      rationalKey(solution.value),
+    ].join("::"),
+    validation,
+    reviewStatus: "UNREVIEWED",
+    questionBankStatus: "NOT_STORED",
+    testEligibility: "INELIGIBLE",
+    publiclyPublishable: false,
+    questionStudioDiscoverable: false,
+  };
+}
