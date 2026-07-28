@@ -37,6 +37,16 @@ function localizeVisualLine(locale: AlpLocale, value: string): string {
   return replacements.reduce((current, [pattern, replacement]) => current.replace(pattern, replacement), value);
 }
 
+function strengthenShortcut(locale: AlpLocale, value: string): string {
+  if (value.length >= 25) return value;
+  const extension = locale === "en-IN"
+    ? " Apply this check to every option."
+    : locale === "hi-IN"
+      ? " इसे हर विकल्प पर जाँचें।"
+      : " ਇਸ ਨੂੰ ਹਰ ਵਿਕਲਪ ਉੱਤੇ ਜਾਂਚੋ।";
+  return `${value}${extension}`;
+}
+
 export function renderAlpExplanationV2(
   ql: AlpQuestionLogic,
   data: AlpInstanceData,
@@ -49,6 +59,7 @@ export function renderAlpExplanationV2(
   return {
     ...explanation,
     visualWorking: explanation.visualWorking.map((line) => localizeVisualLine(locale, line)),
+    examShortcut: strengthenShortcut(locale, explanation.examShortcut),
   };
 }
 
