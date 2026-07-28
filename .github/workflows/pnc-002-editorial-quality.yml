@@ -60,9 +60,10 @@ jobs:
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-exam-authentic.ts \
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-teacher.ts \
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-teacher-reviewed.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-teacher-final.ts \
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher.test.ts \
-            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-regression.test.ts
-      - name: Bundle teacher-style editorial proof
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-final.test.ts
+      - name: Bundle baseline teacher proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher.test.ts
@@ -70,37 +71,37 @@ jobs:
           --platform=node
           --format=esm
           --outfile=dist/quant-v4/pnc-002-editorial-quality-teacher-proof.mjs
-      - name: Bundle adversarial editorial regressions
+      - name: Bundle final adversarial teacher proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-regression.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-final.test.ts
           --bundle
           --platform=node
           --format=esm
-          --outfile=dist/quant-v4/pnc-002-editorial-quality-teacher-regression.mjs
-      - name: Run teacher-style editorial proof
+          --outfile=dist/quant-v4/pnc-002-editorial-quality-teacher-final-proof.mjs
+      - name: Run baseline teacher proof
         working-directory: artifacts/api-server
         shell: bash
         run: |
           mkdir -p dist/quant-v4/pnc-002-editorial-quality-diagnostics
           set +e
-          node dist/quant-v4/pnc-002-editorial-quality-teacher-proof.mjs 2>&1 | tee dist/quant-v4/pnc-002-editorial-quality-diagnostics/runtime.log
+          node dist/quant-v4/pnc-002-editorial-quality-teacher-proof.mjs 2>&1 | tee dist/quant-v4/pnc-002-editorial-quality-diagnostics/baseline.log
           status=${PIPESTATUS[0]}
           exit "$status"
-      - name: Run adversarial editorial regressions
+      - name: Run final adversarial teacher proof
         working-directory: artifacts/api-server
         shell: bash
         run: |
           set +e
-          node dist/quant-v4/pnc-002-editorial-quality-teacher-regression.mjs 2>&1 | tee dist/quant-v4/pnc-002-editorial-quality-diagnostics/regression.log
+          node dist/quant-v4/pnc-002-editorial-quality-teacher-final-proof.mjs 2>&1 | tee dist/quant-v4/pnc-002-editorial-quality-diagnostics/final.log
           status=${PIPESTATUS[0]}
           exit "$status"
-      - name: Publish teacher-style editorial review
+      - name: Publish final teacher-style editorial review
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pnc-002-teacher-style-editorial-review
-          path: artifacts/api-server/dist/quant-v4/pnc-002-editorial-quality-teacher/
+          name: pnc-002-teacher-style-editorial-review-final
+          path: artifacts/api-server/dist/quant-v4/pnc-002-editorial-quality-teacher-final/
           if-no-files-found: error
           retention-days: 14
       - name: Publish diagnostics
