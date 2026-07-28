@@ -24,6 +24,26 @@ export {
   MAL_CP001_SOURCE_FIXTURE_LEDGER,
   getMalCp001SourceFixtureLedgerEntry,
 } from "./foundation/cp001-source-fixture-ledger";
+export {
+  MAL_CP001_PRODUCT_APPROVAL_METADATA,
+  MAL_CP001_CANDIDATE_PRODUCT_APPROVALS,
+  MAL_CP001_PROTOTYPE_PRODUCT_APPROVALS,
+  MAL_CP001_APPROVED_PROTOTYPE_IDS,
+  MAL_CP001_DEFERRED_PROTOTYPE_IDS,
+  MAL_CP001_HELD_PROTOTYPE_IDS,
+  MAL_CP001_CP002_REFERRED_PROTOTYPE_IDS,
+} from "./foundation/cp001-product-approval";
+export {
+  MAL_CP001_PROVISIONAL_SOLVE_MODE_IDS,
+  MAL_CP001_PROVISIONAL_SOLVE_MODES,
+  MAL_CP001_PROVISIONAL_QL_TEMPLATE_IDS,
+  MAL_CP001_PROVISIONAL_QL_TEMPLATES,
+  getMalCp001ProvisionalQlTemplate,
+} from "./foundation/cp001-ql-expansion-ledger";
+export {
+  MAL_CP001_QL_EXPANSION_REVIEW_SEEDS,
+  buildMalCp001QlExpansionReviewModel,
+} from "./foundation/cp001-ql-expansion-review-model";
 export { generateMalCp001PrototypeParameters } from "./foundation/cp001-parameter-generator";
 export { generateMalCp001GapParameters } from "./foundation/cp001-gap-generator";
 export { generateMalCp001Prototype } from "./foundation/pipeline";
@@ -40,3 +60,10 @@ export {
 export { verifyMalCp001ResultIndependently } from "./foundation/independent-verifier";
 export * from "./foundation/types";
 export * from "./foundation/cp001-gap-types";
+export type {
+  MalCp001ProvisionalSolveModeId,
+  MalCp001ProvisionalQlTemplateId,
+  MalCp001QlSplitDimension,
+  MalCp001ProvisionalSolveMode,
+  MalCp001ProvisionalQlTemplate,
+} from "./foundation/cp001-ql-expansion-ledger";
