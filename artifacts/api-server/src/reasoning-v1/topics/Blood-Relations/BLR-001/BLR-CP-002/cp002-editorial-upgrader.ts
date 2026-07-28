@@ -32,6 +32,14 @@ function naturalPhotoOpening(stem: string): string {
     .replace("Pointing to a photograph of a person,", "Pointing to a person in a photograph,");
 }
 
+function naturalAnchorGrammar(stem: string): string {
+  return stem
+    .replace(/\bis the ([a-z -]+) of me\./gi, "is my $1.")
+    .replace(/\bis the ([a-z -]+) of you\./gi, "is your $1.")
+    .replace(/\bI is\b/g, "I am")
+    .replace(/\bYou is\b/g, "You are");
+}
+
 function addListenerContext(
   question: GeneratedBlrCp002PrototypeQuestion,
   stem: string,
@@ -67,16 +75,22 @@ function isPicturedSelf(question: GeneratedBlrCp002PrototypeQuestion): boolean {
 function upgradedStem(question: GeneratedBlrCp002PrototypeQuestion): string {
   const isOwnership = question.metadata.questionForm !== "HOW_RELATED";
   const picturedSelf = isPicturedSelf(question);
-  if (isOwnership) return addListenerContext(question, question.stem);
+  if (isOwnership) {
+    return naturalAnchorGrammar(addListenerContext(question, question.stem));
+  }
   if (!picturedSelf) {
-    return addListenerContext(question, naturalPhotoOpening(question.stem));
+    return naturalAnchorGrammar(
+      addListenerContext(question, naturalPhotoOpening(question.stem)),
+    );
   }
 
   const speakerName =
     question.structuredPrompt.personNames[question.structuredPrompt.speakerId] ??
     question.structuredPrompt.speakerId;
   const gender = speakerGender(question);
-  return `Pointing to a ${personNoun(gender)} in a photograph, ${speakerName} said, “${quotedAssertion(question.stem)}” How is the person in the photograph related to ${speakerName}?`;
+  return naturalAnchorGrammar(
+    `Pointing to a ${personNoun(gender)} in a photograph, ${speakerName} said, “${quotedAssertion(question.stem)}” How is the person in the photograph related to ${speakerName}?`,
+  );
 }
 
 export function upgradeBlrCp002EditorialQuestion(
