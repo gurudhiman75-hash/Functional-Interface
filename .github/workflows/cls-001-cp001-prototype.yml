@@ -43,12 +43,18 @@ jobs:
           set -euo pipefail
           ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-001
           OUT=dist/reasoning-v1/cls-001
+          LOG="$RUNNER_TEMP/cls-cp001-audit.log"
           mkdir -p artifacts/api-server/$OUT
           pnpm --dir artifacts/api-server exec esbuild \
             "$ROOT/prototype.test.ts" \
             --bundle --platform=node --format=esm \
             --outfile="$OUT/prototype.test.mjs"
-          (cd artifacts/api-server && node "$OUT/prototype.test.mjs")
+          if ! (cd artifacts/api-server && node "$OUT/prototype.test.mjs") >"$LOG" 2>&1; then
+            echo "CLS-CP-001 prototype audit failed. Last 80 lines:"
+            tail -n 80 "$LOG"
+            exit 1
+          fi
+          cat "$LOG"
 
       - name: Generate CLS-CP-001 review export
         run: |
