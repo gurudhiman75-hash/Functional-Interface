@@ -1,0 +1,201 @@
+name: One-shot PNL CP-002 Question Studio routing patch
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-cp002-question-studio-dynamic-review
+    paths:
+      - ".github/workflows/tmp-pnl-cp002-question-studio-patch.yml"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - ".github/workflows/tmp-pnl-cp002-question-studio-patch.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-prove:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-cp002-question-studio-dynamic-review
+
+      - name: Patch CP-specific dynamic routing and regression proof
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_once(path: Path, old: str, new: str, label: str):
+              source = path.read_text()
+              count = source.count(old)
+              if count != 1:
+                  raise SystemExit(f"{path}: expected one {label}, found {count}")
+              path.write_text(source.replace(old, new, 1))
+
+          engine = Path("artifacts/api-server/src/quant-v4/generation-engine.ts")
+          replace_once(
+              engine,
+              'import { runPnlCp001DynamicPipeline } from "./topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-001/cp001-dynamic-runtime";',
+              '''import { runPnlCp001DynamicPipeline } from "./topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-001/cp001-dynamic-runtime";
+          import { runPnlCp002DynamicPipeline } from "./topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime";'''.replace("          ", ""),
+              "CP-002 dynamic runtime import",
+          )
+          replace_once(
+              engine,
+              'const PNL_DYNAMIC_CP_IDS = ["PNL-CP-001"] as const;',
+              'const PNL_DYNAMIC_CP_IDS = ["PNL-CP-001", "PNL-CP-002"] as const;',
+              "dynamic CP capability list",
+          )
+
+          source = engine.read_text()
+          block_start = source.index(
+              '    const questionPackage = pnlRuntimeMode === "DYNAMIC_CANDIDATE"'
+          )
+          block_end = source.index("    results.push({", block_start)
+          replacement = '''    const questionPackage =
+              pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+                ? cpId === "PNL-CP-001"
+                  ? runPnlCp001DynamicPipeline({
+                      difficultyBand,
+                      language: language as "en",
+                      questionLanguageId: request.questionLanguageId,
+                      seed,
+                    })
+                  : cpId === "PNL-CP-002"
+                    ? runPnlCp002DynamicPipeline({
+                        difficultyBand,
+                        language: language as "en",
+                        questionLanguageId: request.questionLanguageId,
+                        seed,
+                      })
+                    : (() => {
+                        throw new QuantV4RequestError(
+                          `No dynamic PNL runtime is registered for '${cpId}'.`,
+                        );
+                      })()
+                : await pkg.run(cpId, {
+                    difficulty: difficultyBand,
+                    language,
+                    questionLanguageId: request.questionLanguageId,
+                    seed,
+                  });
+          '''.replace("          ", "")
+          engine.write_text(source[:block_start] + replacement + source[block_end:])
+
+          integration = Path(
+              "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-integration.test.ts"
+          )
+          replace_once(
+              integration,
+              'assert.deepEqual((pnl as any).dynamicCandidateCpIds, ["PNL-CP-001"]);',
+              '''assert.deepEqual((pnl as any).dynamicCandidateCpIds, [
+            "PNL-CP-001",
+            "PNL-CP-002",
+          ]);'''.replace("          ", ""),
+              "dynamic capability assertion",
+          )
+          replace_once(
+              integration,
+              '''assert.deepEqual(
+            [...new Set(dynamicBatch.questionPackages.map((pkg: any) => pkg.canonicalProblemId))],
+            ["PNL-CP-001"],
+            "Dynamic candidate mode must be restricted to CP-001.",
+          );'''.replace("          ", ""),
+              '''assert.deepEqual(
+            [
+              ...new Set(
+                dynamicBatch.questionPackages.map((pkg: any) => pkg.canonicalProblemId),
+              ),
+            ].sort(),
+            ["PNL-CP-001", "PNL-CP-002"],
+            "Dynamic candidate mode must be restricted to the two proven CP runtimes.",
+          );'''.replace("          ", ""),
+              "mixed dynamic CP assertion",
+          )
+          replace_once(
+              integration,
+              '  assert.equal(questionPackage.canonicalProblemId, "PNL-CP-001");',
+              '''  assert.ok(
+              questionPackage.canonicalProblemId === "PNL-CP-001" ||
+                questionPackage.canonicalProblemId === "PNL-CP-002",
+            );'''.replace("            ", ""),
+              "dynamic package CP assertion",
+          )
+          replace_once(
+              integration,
+              '''      canonicalProblemId: "PNL-CP-002",
+                seed: "pnl-dynamic-cp-safety",
+              }),
+            /Unknown canonical problem 'PNL-CP-002'/,'''.replace("            ", ""),
+              '''      canonicalProblemId: "PNL-CP-003",
+                seed: "pnl-dynamic-cp-safety",
+              }),
+            /Unknown canonical problem 'PNL-CP-003'/,'''.replace("            ", ""),
+              "unproved dynamic CP rejection",
+          )
+          replace_once(
+              integration,
+              '      dynamicCandidateCpIds: ["PNL-CP-001"],',
+              '      dynamicCandidateCpIds: ["PNL-CP-001", "PNL-CP-002"],',
+              "proof summary dynamic CP list",
+          )
+          PY
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle and run existing PNL routing regression
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-integration.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-integration.test.mjs \
+            2>&1 | tee pnl-cp002-question-studio-patch.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-integration.test.mjs \
+            2>&1 | tee -a pnl-cp002-question-studio-patch.log
+
+      - name: Bundle and run CP-002 routing proof
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-cp002-dynamic-integration.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-cp002-dynamic-integration.test.mjs \
+            2>&1 | tee -a pnl-cp002-question-studio-patch.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-cp002-dynamic-integration.test.mjs \
+            2>&1 | tee -a pnl-cp002-question-studio-patch.log
+
+      - name: Commit proven routing patch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            artifacts/api-server/src/quant-v4/generation-engine.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-integration.test.ts
+          git commit -m "feat(pnl): route CP-002 dynamic candidates in Question Studio"
+          git push origin HEAD:feat/pnl-001-cp002-question-studio-dynamic-review
+
+      - name: Upload patch proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-cp002-question-studio-patch-proof
+          path: pnl-cp002-question-studio-patch.log
+          if-no-files-found: warn
+          retention-days: 2
