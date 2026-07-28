@@ -1,7 +1,4 @@
-import {
-  fillSingleDigit,
-  validSingleDigits,
-} from "../../foundation/divisibility";
+import { validSingleDigits } from "../../foundation/divisibility";
 import { createRandom, type DeterministicRandom } from "../../foundation/prng";
 import { completedNumber, shuffle } from "./core";
 import { linkedAdditionDivisibilityExtremum } from "./linked-arithmetic-generator";
@@ -72,6 +69,7 @@ export function generateNumCp003Wave05(
   if (!NUM_CP003_WAVE05_IDS.includes(id)) throw new Error(`Unknown Wave 05 prototype ${id}`);
   const random = createRandom(`${id}:${seed}`);
   const raw = rawFor(id, random);
+  const stem = raw.stem.endsWith("?") ? raw.stem : `${raw.stem.replace(/[.]+$/u, "")}?`;
   const shuffled = shuffle(random, raw.options);
   const verifierAnswer = verify(raw.hiddenState);
   const errors: string[] = [];
@@ -79,7 +77,7 @@ export function generateNumCp003Wave05(
   if (verifierAnswer !== raw.answer) errors.push(`Verifier ${verifierAnswer} != answer ${raw.answer}`);
   if (shuffled.rows[shuffled.correctIndex]?.text !== raw.answer) errors.push("Correct option mismatch");
   if (shuffled.rows.length !== 4 || new Set(shuffled.rows.map((row) => row.text)).size !== 4) errors.push("Expected four unique options");
-  if (!raw.stem.endsWith("?")) errors.push("Stem is not interrogative");
+  if (!stem.endsWith("?")) errors.push("Stem is not interrogative");
   if (raw.explanation.steps.length < 3) errors.push("Expected at least three explanation steps");
   if (raw.explanation.traps.length !== 3) errors.push("Expected exactly three traps");
   if (raw.options.some((row) => row.diagnostic.trim().length < 16)) errors.push("Option diagnostic is missing or too short");
@@ -98,7 +96,7 @@ export function generateNumCp003Wave05(
     seed,
     difficulty: raw.difficulty,
     answerSemantic: raw.answerSemantic,
-    stem: raw.stem,
+    stem,
     answer: raw.answer,
     options: shuffled.rows.map((row) => row.text),
     correctIndex: shuffled.correctIndex,
