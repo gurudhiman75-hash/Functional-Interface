@@ -165,6 +165,7 @@ function generatedExplanation(strategyId: string) {
   switch (action) {
     case "report":
     case "retain": {
+      if (as) return `stopping at ${withArticle(as[0])} and treating it as ${withArticle(as[1])}`;
       const source = instead?.[0] ?? afterText;
       const destination = instead?.[1] ?? beforeText;
       return destination
@@ -291,11 +292,17 @@ function correctMethod(entry: Men001QuestionLanguageEntry) {
   if (/Parallelogram/.test(mode)) {
     return "Use base × perpendicular height; a sloping side is not the height.";
   }
+  if (/RhombusPerimeterFromDiagonals/.test(mode)) {
+    return "Halve both diagonals, use Pythagoras to find one rhombus side, then multiply that side by 4 for the perimeter.";
+  }
   if (/Rhombus|Kite|Diagonal/.test(mode)) {
     return "Use the correct diagonal relation and retain the 1/2 factor where the area formula requires it.";
   }
   if (/Trapezium/.test(mode)) {
     return "Use A = 1/2(a + b)h with the two parallel sides and the perpendicular height.";
+  }
+  if (/(?:Path|Border).*Cost|Cost.*(?:Path|Border)/.test(mode)) {
+    return "Find path or border area = outer area − inner area, then multiply that area by the stated rate to obtain the total cost.";
   }
   if (/Path|Border|Shaded|Remaining|Uncovered|Annulus/.test(mode)) {
     return "Calculate the complete outer area and subtract the inner or excluded area exactly once.";
