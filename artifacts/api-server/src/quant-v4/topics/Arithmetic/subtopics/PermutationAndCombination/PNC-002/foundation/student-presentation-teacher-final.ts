@@ -142,7 +142,8 @@ function finalStepSection(source: PncStudentSourcePackage, section: PncStudentEx
       && current !== "Interpret the formula"
       && current !== "Combine the evaluated stages"
       && current !== "Calculate the required count"
-      && current !== "Substitute the evaluated factors";
+      && current !== "Substitute the evaluated factors"
+      && current !== "Verify the successful candidate";
   });
   const interpret = raw.filter((line) => label(line) === "Interpret the formula").slice(0, 1);
   const existing = raw
@@ -152,9 +153,12 @@ function finalStepSection(source: PncStudentSourcePackage, section: PncStudentEx
   const allExpansions = [...existing, ...missingArithmeticExpansions(source, existing)]
     .sort((a, b) => source.solver.mathJax.indexOf(a.token) - source.solver.mathJax.indexOf(b.token));
 
-  const formulaValue = substitute(source, allExpansions);
+  const recover = source.solveMode.toLowerCase().includes("recover");
+  const formulaValue = recover ? undefined : substitute(source, allExpansions);
   let formula: string | undefined;
-  if (formulaValue) {
+  if (recover) {
+    formula = `**Verify the successful candidate:** $$${source.solver.mathJax}$$`;
+  } else if (formulaValue) {
     const compact = formulaValue.replace(/\s|\\times/g, "");
     if (!/^\d+$/.test(compact) || Number(compact) !== source.solver.numericAnswer) {
       formula = `**Combine the evaluated stages:** $$${formulaValue} = ${source.solver.numericAnswer}$$`;
