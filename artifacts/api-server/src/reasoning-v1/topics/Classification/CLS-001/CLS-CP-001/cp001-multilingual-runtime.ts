@@ -1,4 +1,5 @@
 import type { ClsCp001QlId } from "./cp001-permanent-contracts";
+import { polishClsCp001PlainLanguage } from "./cp001-plain-language";
 import {
   generateClsCp001EnglishQuestion,
   type GeneratedClsCp001EnglishQuestion,
@@ -19,5 +20,7 @@ export function generateClsCp001Question(
   seed = 0,
 ): GeneratedClsCp001PermanentQuestion {
   const english = generateClsCp001EnglishQuestion(qlId, seed);
-  return locale === "en-IN" ? english : localizeClsCp001Question(english, locale);
+  return locale === "en-IN"
+    ? english
+    : polishClsCp001PlainLanguage(localizeClsCp001Question(english, locale));
 }
