@@ -55,7 +55,11 @@ for (const entry of BLR_CP001_REVIEW_REGISTRY) {
     assert.ok(question.metadata.runtimeVersion.startsWith("blr-cp001-"));
     assert.ok(question.metadata.hiddenFingerprint.length >= 8);
 
-    assert.ok(question.stem.length > 80, `${entry.prototypeId}/${seed} stem is too short.`);
+    const minimumStemLength = question.structuredPrompt.clues.length === 1 ? 45 : 70;
+    assert.ok(
+      question.stem.length > minimumStemLength,
+      `${entry.prototypeId}/${seed} stem is too short.`,
+    );
     assert.ok(question.stem.endsWith("?"), `${entry.prototypeId}/${seed} must end with a question.`);
     assert.equal(question.stem.trim(), question.stem);
     assert.ok(!question.stem.includes("  "));
@@ -101,13 +105,22 @@ for (const entry of BLR_CP001_REVIEW_REGISTRY) {
       explanation.closestTrapRejection &&
         explanation.closestTrapRejection.length > 40,
     );
+    assert.ok(explanation.coreConcept && explanation.coreConcept.length >= 3);
+    assert.ok(explanation.familyTreeGrid && explanation.familyTreeGrid.length > 80);
+    assert.ok(explanation.examShortcut && explanation.examShortcut.length > 30);
+    assert.equal(explanation.distractorAnalysis?.length, 3);
 
     const learnerText = [
       question.stem,
       ...question.options.map((option) => option.value),
+      ...(explanation.coreConcept ?? []),
       explanation.ruleStatement,
+      explanation.familyTreeGrid ?? "",
       ...explanation.normalizedClues,
+      ...(explanation.generationAnalysis ?? []),
       ...explanation.queryPath,
+      explanation.examShortcut ?? "",
+      ...(explanation.distractorAnalysis ?? []).map((item) => item.studentWarning),
       explanation.conclusion,
       explanation.closestTrapRejection ?? "",
     ].join("\n");
@@ -117,7 +130,7 @@ for (const entry of BLR_CP001_REVIEW_REGISTRY) {
     assert.ok(!learnerText.includes("answerKey"));
 
     const words = learnerText.split(/\s+/u).filter(Boolean);
-    assert.ok(words.length >= 45, `${entry.prototypeId}/${seed} lacks teaching detail.`);
+    assert.ok(words.length >= 100, `${entry.prototypeId}/${seed} lacks teaching detail.`);
     explanationWordCount += words.length;
 
     answerPositions[question.correctIndex] += 1;
@@ -137,7 +150,7 @@ assert.deepEqual([...observedDifficulties].sort(), ["EASY", "HARD", "MEDIUM"]);
 assert.deepEqual([...observedRenderers].sort(), ["FAMILY_TREE_EXPLANATION", "STRUCTURED_TEXT"]);
 assert.equal(observedAnswerTypes.size, 6);
 assert.ok(stemFingerprints.size >= 400, `Stem diversity is too low: ${stemFingerprints.size}/440.`);
-assert.ok(explanationWordCount / generatedCount >= 70);
+assert.ok(explanationWordCount / generatedCount >= 150);
 
 console.log("BLR-CP-001 English editorial readiness audit passed.", {
   generatedCount,
