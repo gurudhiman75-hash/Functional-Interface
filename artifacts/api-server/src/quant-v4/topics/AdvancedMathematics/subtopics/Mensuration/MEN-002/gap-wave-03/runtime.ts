@@ -499,7 +499,7 @@ function cubeWireRateDraft(prototypeId: MenCp007Wave03PrototypeId, seed: string,
       { title: "Find the Wire Length", body: "Multiply one edge by twelve.", equation: `$$E=12\\times${state.side}=${edgeLength}\\text{ m}$$` },
       { title: "Divide Cost by Length", body: "Rupees divided by metres gives rupees per metre.", equation: `$$Rate=\\frac{\\text{₹}${formatIndianInteger(cost)}}{${edgeLength}\\text{ m}}=\\frac{\\text{₹}${formatIndianInteger(state.rate)}}{\\text{m}}$$` },
     ],
-    shortcut: `The cube uses $12\times${state.side}=${edgeLength}\text{ m}$ of wire, so $Rate=\frac{\text{₹}${formatIndianInteger(cost)}}{${edgeLength}\text{ m}}=\frac{\text{₹}${formatIndianInteger(state.rate)}}{\text{m}}$.`,
+    shortcut: `The cube uses $12\\times${state.side}=${edgeLength}\\text{ m}$ of wire, so $Rate=\\frac{\\text{₹}${formatIndianInteger(cost)}}{${edgeLength}\\text{ m}}=\\frac{\\text{₹}${formatIndianInteger(state.rate)}}{\\text{m}}$.`,
   };
 }
 
