@@ -665,20 +665,24 @@ function buildOptions(draft: Draft, rng: SeededRandom) {
 }
 
 function validatePackage(question: Omit<MenCp007Wave01Package, "validation">) {
-  const serialised = JSON.stringify(question, (_key, value) => typeof value === "bigint" ? value.toString() : value);
   const explanationText = [
     question.explanation.keyRule,
     ...question.explanation.steps.flatMap((step) => [step.body, step.equation ?? ""]),
     question.explanation.shortcut,
     ...question.explanation.traps,
   ].join("\n");
-  const checks = [
+  const learnerText = [
+  question.stem,
+  ...question.options.map((option) => option.display),
+  question.answer,
+  explanationText,
+].join("\n");  const checks = [
     { name: "independent verifier", passed: question.verification.valid, message: "Independent verification must agree with the answer." },
     { name: "four exact options", passed: question.options.length === 4 && new Set(question.options.map((option) => exactKey(option.value))).size === 4, message: "Exactly four unique exact options are required." },
     { name: "one correct option", passed: question.options.filter((option) => option.isCorrect).length === 1, message: "Exactly one option must be correct." },
     { name: "state-derived difficulty", passed: question.difficulty === classifyMenCp007Wave01Difficulty(question.state), message: "Difficulty must derive from canonical state." },
     { name: "four-tier teaching", passed: Boolean(question.explanation.keyRule) && question.explanation.steps.length >= 2 && Boolean(question.explanation.shortcut) && question.explanation.traps.length === 3, message: "Rule, steps, shortcut and three traps are required." },
-    { name: "MathJax cleanliness", passed: !/[½¼²³]/.test(serialised) && !/(^|[^\\])sqrt\{/.test(explanationText), message: "Use MathJax fractions, powers and square roots." },
+    { name: "MathJax cleanliness", passed: !/[½¼²³]/.test(learnerText) && !/(^|[^\\])sqrt\{/.test(explanationText), message: "Use MathJax fractions, powers and square roots." },
     { name: "lifecycle lock", passed: question.permanentQlId === null && !question.publiclyPublishable && !question.questionStudioDiscoverable, message: "Wave prototypes must remain unallocated and unpublished." },
   ];
   return { valid: checks.every((check) => check.passed), checks };

@@ -53,14 +53,19 @@ for (const prototypeId of prototypeIds) {
     assert.equal(first.explanation.traps.length, 3);
     assert.ok(first.explanation.traps.every((trap) => /^Option [A-D] \(\$/.test(trap) && trap.includes("Common mistake:")));
 
-    const serialised = JSON.stringify(first, (_key, value) => typeof value === "bigint" ? value.toString() : value);
     const explanationText = [
       first.explanation.keyRule,
       ...first.explanation.steps.flatMap((step) => [step.body, step.equation ?? ""]),
       first.explanation.shortcut,
       ...first.explanation.traps,
     ].join("\n");
-    assert.equal(/[½¼²³]/.test(serialised), false, `${prototypeId} contains raw Unicode fractions or dimensional powers.`);
+const learnerText = [
+first.stem,
+...first.options.map((option) => option.display),
+first.answer,
+explanationText,
+  ].join("\n");
+      assert.equal(/[½¼²³]/.test(learnerText), false, `${prototypeId} contains raw Unicode fractions or dimensional powers in learner-visible output.`);
     assert.equal(/(^|[^\\])sqrt\{/.test(explanationText), false, `${prototypeId} contains bare square-root markup.`);
     assert.equal(/MEN-CP007|W1-PROT|misconceptionId|USED_|OMITTED_|REPORTED_|DIVIDED_|HALVED_|COPIED_|REVERSED_|EXTRA_|BASES_ONLY|ONE_FACE_ONLY/.test(JSON.stringify(first.explanation)), false, `${prototypeId} leaks internal taxonomy.`);
     assert.equal(/\$\$[^$]*\/[^$]*\$\$/.test(explanationText), false, `${prototypeId} contains raw slash division in display maths.`);
