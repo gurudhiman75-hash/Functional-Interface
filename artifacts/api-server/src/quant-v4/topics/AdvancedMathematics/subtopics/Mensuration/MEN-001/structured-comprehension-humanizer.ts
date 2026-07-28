@@ -216,6 +216,10 @@ function stepDirective(title: string, mode: string, existing: string | undefined
       return "First confirm the correct area or boundary length, then multiply it by the stated rate. Keep the currency already used in the question.";
     case "Calculate the Rate":
       return "Divide the total cost by the matching area or boundary length. The unit tells you whether the rate is per metre or per square metre.";
+    case "Calculate the Cost or Rate":
+      return /Rate/.test(mode)
+        ? "First find the complete area or boundary length, then divide the stated total cost by that measure to obtain the rate per matching unit."
+        : "First find the complete area or boundary length, then multiply it by the stated rate to obtain the total cost in the currency used by the question.";
     case "Apply the Scale Relation":
       return /Area/.test(mode)
         ? "Use the square of the linear scale factor because area changes in both length and breadth."
