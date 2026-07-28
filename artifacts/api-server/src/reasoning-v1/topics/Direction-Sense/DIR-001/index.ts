@@ -2,6 +2,7 @@ export * from "./DIR-001-CHAPTER-MANIFEST";
 export * from "./DIR-001-ENGLISH-FREEZE";
 export * from "./chapter-registry";
 export * from "./foundation";
+export * from "./localization";
 export * from "./DIR-CP-001";
 export * from "./DIR-CP-002";
 export * from "./DIR-CP-003";
