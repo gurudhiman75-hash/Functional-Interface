@@ -6,6 +6,8 @@ import { generateBlrCp002ReviewQuestion } from "./cp002-review-registry";
 const QUESTIONS_PER_PROTOTYPE = 80;
 const answerPositions = [0, 0, 0, 0];
 let selfQuestions = 0;
+let picturedSelfQuestions = 0;
+let derivedSelfQuestions = 0;
 let onlyQuestions = 0;
 let photographQuestions = 0;
 let ownershipQuestions = 0;
@@ -18,6 +20,10 @@ for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
     assert.deepEqual(reproduced, question, `${contract.prototypeId}/${seed} editorial output is not deterministic.`);
 
     const isOwnership = question.metadata.questionForm !== "HOW_RELATED";
+    const picturedSelf =
+      question.metadata.selfIdentity &&
+      question.structuredPrompt.pointedPersonId !== undefined &&
+      question.structuredPrompt.pointedPersonId === question.structuredPrompt.speakerId;
     if (!isOwnership) {
       assert.ok(!question.stem.includes("photograph of a man"));
       assert.ok(!question.stem.includes("photograph of a woman"));
@@ -58,9 +64,10 @@ for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
       question.structuredPrompt.speakerId;
     if (question.metadata.selfIdentity) {
       selfQuestions += 1;
-      assert.equal(question.metadata.presentation, "PHOTOGRAPH");
-      assert.equal(question.structuredPrompt.presentation, "PHOTOGRAPH");
       if (isOwnership) {
+        picturedSelfQuestions += 1;
+        assert.equal(question.metadata.presentation, "PHOTOGRAPH");
+        assert.equal(question.structuredPrompt.presentation, "PHOTOGRAPH");
         assert.ok(
           question.stem.includes("Whose photograph was it?") ||
             question.stem.includes("At whose portrait was"),
@@ -72,12 +79,27 @@ for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
             line.includes("choose the possessive option 'His own'"),
           ),
         );
-      } else {
+      } else if (picturedSelf) {
+        picturedSelfQuestions += 1;
+        assert.equal(question.metadata.presentation, "PHOTOGRAPH");
+        assert.equal(question.structuredPrompt.presentation, "PHOTOGRAPH");
         assert.ok(question.stem.includes("the person in the photograph"));
         assert.ok(!question.stem.includes(`How is ${speakerName} related to ${speakerName}?`));
         assert.ok(question.explanation.conclusion.includes("the speaker her") || question.explanation.conclusion.includes("the speaker him"));
         assert.ok(
           question.explanation.coreConcept?.some((line) => line.includes("correct answer is Self")),
+        );
+      } else {
+        derivedSelfQuestions += 1;
+        assert.equal(question.metadata.presentation, "CONVERSATION");
+        assert.equal(question.structuredPrompt.presentation, "CONVERSATION");
+        assert.ok(question.stem.includes("said to"));
+        assert.ok(question.explanation.conclusion.includes("both queried role chains"));
+        assert.ok(
+          question.explanation.coreConcept?.some((line) => line.includes("correct answer is Self")),
+        );
+        assert.ok(
+          question.explanation.closestTrapRejection?.includes("both derived query endpoints"),
         );
       }
       assert.ok(
@@ -142,6 +164,8 @@ for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
 const expectedPerPosition = BLR_CP002_PROTOTYPE_CONTRACTS.length * 20;
 assert.deepEqual(answerPositions, [expectedPerPosition, expectedPerPosition, expectedPerPosition, expectedPerPosition]);
 assert.ok(selfQuestions > 0);
+assert.ok(picturedSelfQuestions > 0);
+assert.ok(derivedSelfQuestions > 0);
 assert.ok(onlyQuestions > 0);
 assert.ok(photographQuestions > 0);
 assert.ok(ownershipQuestions > 0);
@@ -151,10 +175,12 @@ console.log(
   JSON.stringify(
     {
       checkpointId: "BLR-CP-002",
-      gate: "ENGLISH_EDITORIAL_V3",
+      gate: "ENGLISH_EDITORIAL_V4",
       questions: BLR_CP002_PROTOTYPE_CONTRACTS.length * QUESTIONS_PER_PROTOTYPE,
       answerPositions,
       selfQuestions,
+      picturedSelfQuestions,
+      derivedSelfQuestions,
       onlyQuestions,
       photographQuestions,
       ownershipQuestions,
