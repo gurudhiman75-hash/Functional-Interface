@@ -7,11 +7,14 @@ import { solveBlrCp002Prompt } from "./cp002-role-solver";
 const QUESTIONS_PER_PROTOTYPE = 120;
 const answerPositions = [0, 0, 0, 0];
 const presentations = new Set<string>();
+const questionForms = new Set<string>();
 const scenarioIds = new Set<string>();
 const answers = new Set<string>();
 const errorLabels = new Set<string>();
 const difficulties = new Set<string>();
 let onlyQuestionCount = 0;
+let negativeConstraintCount = 0;
+let ownershipQuestionCount = 0;
 let conversationCount = 0;
 let selfCount = 0;
 let nestedQueryCount = 0;
@@ -41,13 +44,37 @@ for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
     assert.equal(question.options[question.correctIndex]?.answerId, question.metadata.answerId);
     assert.ok(question.stem.length > 80);
     assert.ok(!question.stem.includes("undefined"));
-    assert.ok(question.stem.includes("How is"));
-    assert.ok(question.stem.includes("related to"));
+    assert.equal(question.metadata.questionForm, question.structuredPrompt.questionForm);
+
+    if (question.metadata.questionForm === "HOW_RELATED") {
+      assert.ok(question.stem.includes("How is"));
+      assert.ok(question.stem.includes("related to"));
+      assert.ok(
+        question.options.every((option) => !/^(His|Her|Their) /.test(option.value)),
+      );
+    } else {
+      ownershipQuestionCount += 1;
+      assert.ok(!question.stem.includes("How is"));
+      assert.ok(!question.stem.includes("related to"));
+      assert.ok(
+        question.stem.includes("Whose photograph was it?") ||
+          question.stem.includes("At whose portrait was"),
+      );
+      assert.ok(
+        question.options.every(
+          (option) =>
+            /^(His|Her|Their) /.test(option.value) &&
+            (option.value.endsWith("'s") || option.value.endsWith(" own")),
+        ),
+      );
+    }
+
     assert.ok(question.explanation.coreConcept && question.explanation.coreConcept.length >= 3);
     assert.ok(question.explanation.familyTreeGrid?.includes("Generation"));
     assert.ok(question.explanation.generationAnalysis?.some((line) => line.includes("ΔGen")));
     assert.ok(question.explanation.examShortcut?.includes("speaker"));
     assert.equal(question.explanation.distractorAnalysis?.length, 3);
+    assert.equal(question.metadata.constraintsVerified, true);
     assert.equal(question.metadata.assertionVerified, true);
     assert.equal(question.metadata.independentSolverAgreed, true);
     assert.equal(question.metadata.familyGraphValid, true);
@@ -65,6 +92,7 @@ for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
 
     const solvedAgain = solveBlrCp002Prompt(question.structuredPrompt);
     assert.equal(solvedAgain.answerId, question.metadata.answerId);
+    assert.equal(solvedAgain.constraintsVerified, true);
     assert.equal(solvedAgain.assertionVerified, true);
 
     for (const option of question.options) {
@@ -77,10 +105,12 @@ for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
     perPrototypePositions[question.correctIndex] += 1;
     answerPositions[question.correctIndex] += 1;
     presentations.add(question.metadata.presentation);
+    questionForms.add(question.metadata.questionForm);
     scenarioIds.add(question.metadata.scenarioId);
     answers.add(question.metadata.answerId);
     difficulties.add(question.difficulty);
     if (question.metadata.onlyConstraintCount > 0) onlyQuestionCount += 1;
+    if (question.metadata.negativeConstraintCount > 0) negativeConstraintCount += 1;
     if (question.metadata.presentation === "CONVERSATION") conversationCount += 1;
     if (question.metadata.selfIdentity) selfCount += 1;
     if (question.metadata.queryRoleDepth > 0) nestedQueryCount += 1;
@@ -98,7 +128,11 @@ assert.deepEqual(
   [...presentations].sort(),
   ["CONVERSATION", "INTRODUCTION", "PHOTOGRAPH", "POINTING", "STAGE"],
 );
-assert.ok(scenarioIds.size >= 30, `Expected broad source coverage, saw ${scenarioIds.size} scenarios.`);
+assert.deepEqual(
+  [...questionForms].sort(),
+  ["HOW_RELATED", "WHOSE_PHOTOGRAPH", "WHOSE_PORTRAIT"],
+);
+assert.ok(scenarioIds.size >= 36, `Expected broad source coverage, saw ${scenarioIds.size} scenarios.`);
 assert.ok(answers.has("SELF"));
 assert.ok(answers.has("SON"));
 assert.ok(answers.has("MOTHER"));
@@ -119,6 +153,8 @@ assert.ok(difficulties.has("EASY"));
 assert.ok(difficulties.has("MEDIUM"));
 assert.ok(difficulties.has("HARD"));
 assert.ok(onlyQuestionCount > 0);
+assert.ok(negativeConstraintCount > 0);
+assert.ok(ownershipQuestionCount > 0);
 assert.ok(conversationCount > 0);
 assert.ok(selfCount > 0);
 assert.ok(nestedQueryCount > 0);
@@ -133,10 +169,13 @@ console.log(
       scenarios: scenarioIds.size,
       answerPositions,
       presentations: [...presentations].sort(),
+      questionForms: [...questionForms].sort(),
       answers: [...answers].sort(),
       errorLabels: [...errorLabels].sort(),
       difficulties: [...difficulties].sort(),
       onlyQuestionCount,
+      negativeConstraintCount,
+      ownershipQuestionCount,
       conversationCount,
       selfCount,
       nestedQueryCount,
