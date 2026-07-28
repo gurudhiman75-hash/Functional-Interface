@@ -16,6 +16,12 @@ function text(locale: AlpLocale, en: string, hi: string, pa: string): string {
   return locale === "en-IN" ? en : locale === "hi-IN" ? hi : pa;
 }
 
+const rejectedResidualTrapPhrases = [
+  "does not reproduce the complete worked condition that leads to",
+  "पूरी हल की गई शर्त को पूरा नहीं करता",
+  "ਪੂਰੀ ਹੱਲ ਕੀਤੀ ਸ਼ਰਤ ਨੂੰ ਪੂਰਾ ਨਹੀਂ ਕਰਦਾ",
+] as const;
+
 function localizeVisualLine(locale: AlpLocale, value: string): string {
   if (locale === "en-IN") return value;
   const replacements: readonly (readonly [RegExp, string])[] = locale === "hi-IN"
@@ -123,6 +129,11 @@ export function renderAlpExplanationV2(
 ): AlpExplanation {
   const explanation = renderQualityExplanation(ql, data, solved, options, correctIndex, locale);
   const distractorAnalyses = explanation.distractorAnalyses.map((analysis) => refineResidualTrap(analysis, solved, locale));
+  for (const analysis of distractorAnalyses) {
+    if (rejectedResidualTrapPhrases.some((phrase) => analysis.explanation.includes(phrase))) {
+      throw new Error(`${ql.qlId} retained a residual generic trap explanation for option ${analysis.optionIndex + 1}.`);
+    }
+  }
   return {
     ...explanation,
     visualWorking: explanation.visualWorking.map((line) => localizeVisualLine(locale, line)),
