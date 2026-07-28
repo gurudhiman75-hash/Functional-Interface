@@ -39,7 +39,7 @@ interface Draft {
 }
 
 const CYLINDER_STATES = [
-  { radius: 3n, height: 8n },
+  { radius: 8n, height: 11n },
   { radius: 4n, height: 9n },
   { radius: 5n, height: 12n },
   { radius: 6n, height: 10n },
