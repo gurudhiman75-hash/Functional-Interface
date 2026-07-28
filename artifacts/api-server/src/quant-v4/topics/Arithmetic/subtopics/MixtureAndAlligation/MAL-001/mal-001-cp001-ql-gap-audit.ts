@@ -11,6 +11,10 @@ import {
   MAL_CP001_QL_GAP_IDS,
   MAL_CP001_QL_GAP_LEDGER,
 } from "./foundation/cp001-ql-gap-ledger";
+import {
+  MAL_CP001_OWNERSHIP_RESOLUTION_IDS,
+  MAL_CP001_OWNERSHIP_RESOLUTIONS,
+} from "./foundation/cp001-ownership-resolution-ledger";
 
 function fail(message: string): never {
   throw new Error(message);
@@ -31,7 +35,7 @@ for (const gapId of MAL_CP001_QL_GAP_IDS) {
 
 const dispositionCounts = new Map<string, number>();
 const sourceStatusCounts = new Map<string, number>();
-let openEvidenceGapCount = 0;
+let rawOpenEvidenceOrOwnershipGapCount = 0;
 let directSourceRequiredCount = 0;
 let admittedTemplateCount = 0;
 
@@ -44,7 +48,7 @@ for (const entry of MAL_CP001_QL_GAP_LEDGER) {
     entry.sourceStatus,
     (sourceStatusCounts.get(entry.sourceStatus) ?? 0) + 1,
   );
-  if (entry.openEvidenceGap) openEvidenceGapCount += 1;
+  if (entry.openEvidenceGap) rawOpenEvidenceOrOwnershipGapCount += 1;
   if (entry.requiresDirectSourceEvidence) directSourceRequiredCount += 1;
   if (entry.newQlTemplateAdmitted) admittedTemplateCount += 1;
 
@@ -65,8 +69,10 @@ for (const entry of MAL_CP001_QL_GAP_LEDGER) {
 if (admittedTemplateCount !== 0) {
   fail(`The gap audit silently admitted ${admittedTemplateCount} new QL templates.`);
 }
-if (openEvidenceGapCount !== 5) {
-  fail(`Expected 5 open evidence/ownership gaps, received ${openEvidenceGapCount}.`);
+if (rawOpenEvidenceOrOwnershipGapCount !== 5) {
+  fail(
+    `Expected the historical gap pass to contain 5 open evidence/ownership rows, received ${rawOpenEvidenceOrOwnershipGapCount}.`,
+  );
 }
 if (MAL_CP001_PROVISIONAL_SOLVE_MODES.length !== 7) {
   fail("Gap audit changed the provisional solve-mode frontier.");
@@ -76,6 +82,53 @@ if (MAL_CP001_PROVISIONAL_QL_TEMPLATES.length !== 11) {
 }
 
 const gapById = new Map(MAL_CP001_QL_GAP_LEDGER.map((entry) => [entry.gapId, entry]));
+
+if (MAL_CP001_OWNERSHIP_RESOLUTIONS.length !== 2) {
+  fail(
+    `Expected 2 ownership resolutions, received ${MAL_CP001_OWNERSHIP_RESOLUTIONS.length}.`,
+  );
+}
+const resolutionIds = MAL_CP001_OWNERSHIP_RESOLUTIONS.map(
+  (entry) => entry.resolutionId,
+);
+if (
+  resolutionIds.length !== MAL_CP001_OWNERSHIP_RESOLUTION_IDS.length ||
+  new Set(resolutionIds).size !== resolutionIds.length
+) {
+  fail("Ownership-resolution IDs are incomplete or duplicated.");
+}
+for (const resolutionId of MAL_CP001_OWNERSHIP_RESOLUTION_IDS) {
+  if (!resolutionIds.includes(resolutionId)) {
+    fail(`Missing ownership resolution ${resolutionId}.`);
+  }
+}
+
+const resolvedGapIds = new Set<string>();
+for (const resolution of MAL_CP001_OWNERSHIP_RESOLUTIONS) {
+  const supersededGap = gapById.get(resolution.supersededGapId);
+  if (!supersededGap || !supersededGap.openEvidenceGap) {
+    fail(`${resolution.resolutionId} does not supersede an open ownership row.`);
+  }
+  if (
+    resolution.newQlTemplateAdmitted ||
+    resolution.openOwnershipGap ||
+    !resolution.representedBy.trim() ||
+    resolution.sourceBasis.length < 2
+  ) {
+    fail(`${resolution.resolutionId} is incomplete or escaped the non-admitting boundary.`);
+  }
+  if (resolvedGapIds.has(resolution.supersededGapId)) {
+    fail(`Ownership gap resolved twice: ${resolution.supersededGapId}.`);
+  }
+  resolvedGapIds.add(resolution.supersededGapId);
+}
+
+const effectiveOpenEvidenceGapCount =
+  rawOpenEvidenceOrOwnershipGapCount - resolvedGapIds.size;
+if (effectiveOpenEvidenceGapCount !== 3) {
+  fail(`Expected 3 effective open source gaps, received ${effectiveOpenEvidenceGapCount}.`);
+}
+
 const finalTotal = gapById.get("MAL-CP001-GAP-FINAL-TOTAL-QUANTITY");
 const differenceOutput = gapById.get("MAL-CP001-GAP-QUANTITY-DIFFERENCE-OUTPUT");
 const determinacy = gapById.get("MAL-CP001-GAP-IMPOSSIBLE-OR-INDETERMINATE");
@@ -84,27 +137,47 @@ for (const entry of [finalTotal, differenceOutput, determinacy]) {
     !entry ||
     entry.disposition !== "SOURCE_EVIDENCE_REQUIRED" ||
     entry.sourceStatus !== "NO_DIRECT_FIXTURE_RECOVERED" ||
-    entry.newQlTemplateAdmitted
+    entry.newQlTemplateAdmitted ||
+    resolvedGapIds.has(entry.gapId)
   ) {
-    fail("An unsupported learner-output gap was prematurely admitted or dismissed.");
+    fail("An unsupported learner-output gap was prematurely admitted, dismissed or ownership-resolved.");
   }
 }
 
 const concentration = gapById.get("MAL-CP001-GAP-STATIC-CONCENTRATION-OWNERSHIP");
+const concentrationResolution = MAL_CP001_OWNERSHIP_RESOLUTIONS.find(
+  (entry) =>
+    entry.resolutionId === "MAL-CP001-OWNERSHIP-STATIC-CONCENTRATION",
+);
 if (
   !concentration ||
   concentration.disposition !== "OWNERSHIP_BOUNDARY_CP004" ||
-  !concentration.openEvidenceGap
+  !concentration.openEvidenceGap ||
+  !concentrationResolution ||
+  concentrationResolution.supersededGapId !== concentration.gapId ||
+  concentrationResolution.boundaryOwner !== "MAL-CP-004" ||
+  concentrationResolution.openOwnershipGap ||
+  concentrationResolution.newQlTemplateAdmitted
 ) {
-  fail("Static concentration ownership must remain open against CP-004.");
+  fail("Static concentration ownership was not resolved to CP-001 static blend / CP-004 transformation boundary.");
 }
+
 const vessel = gapById.get("MAL-CP001-GAP-VESSEL-COMBINATION-OWNERSHIP");
+const vesselResolution = MAL_CP001_OWNERSHIP_RESOLUTIONS.find(
+  (entry) =>
+    entry.resolutionId === "MAL-CP001-OWNERSHIP-DIRECT-VESSEL-COMBINATION",
+);
 if (
   !vessel ||
   vessel.disposition !== "OWNERSHIP_BOUNDARY_CP006" ||
-  !vessel.openEvidenceGap
+  !vessel.openEvidenceGap ||
+  !vesselResolution ||
+  vesselResolution.supersededGapId !== vessel.gapId ||
+  vesselResolution.boundaryOwner !== "MAL-CP-006" ||
+  vesselResolution.openOwnershipGap ||
+  vesselResolution.newQlTemplateAdmitted
 ) {
-  fail("Direct vessel-combination ownership must remain open against CP-006.");
+  fail("Direct vessel-combination ownership was not resolved to CP-001 static blend / CP-006 transfer-ledger boundary.");
 }
 
 const differenceInput = gapById.get("MAL-CP001-GAP-DIFFERENCE-AS-SCALE-INPUT");
@@ -150,12 +223,14 @@ if (rendererOrMergeCount !== 9) {
 }
 
 console.log(JSON.stringify({
-  status: "PASS_QL_GAP_AUDIT_WITH_OPEN_EVIDENCE_GAPS",
+  status: "PASS_QL_GAP_AUDIT_WITH_THREE_OPEN_SOURCE_GAPS",
   gapDecisionCount: MAL_CP001_QL_GAP_LEDGER.length,
   admittedNewQlTemplateCount: admittedTemplateCount,
   provisionalSolveModeCount: MAL_CP001_PROVISIONAL_SOLVE_MODES.length,
   provisionalQlTemplateCount: MAL_CP001_PROVISIONAL_QL_TEMPLATES.length,
-  openEvidenceGapCount,
+  historicalOpenEvidenceOrOwnershipGapCount: rawOpenEvidenceOrOwnershipGapCount,
+  resolvedOwnershipGapCount: resolvedGapIds.size,
+  effectiveOpenEvidenceGapCount,
   directSourceRequiredCount,
   rendererOrMergeDecisionCount: rendererOrMergeCount,
   dispositionCounts: Object.fromEntries([...dispositionCounts.entries()].sort()),
