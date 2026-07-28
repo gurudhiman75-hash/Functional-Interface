@@ -26,12 +26,12 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           path = Path("artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/gap-wave-02/runtime.ts")
-          text = path.read_text()
-          old = r'=\text{£}${rate}/\text{m}^{2}$$'
-          new = r'=\frac{\text{£}${rate}}{\text{m}^{2}}$$'
-          if text.count(old) != 1:
-            raise SystemExit(f"Expected one rate-result suffix, found {text.count(old)}")
-          path.write_text(text.replace(old, new, 1))
+          lines = path.read_text().splitlines()
+          matches = [index for index, line in enumerate(lines) if 'title: "Divide Cost by Area"' in line]
+          if len(matches) != 1:
+            raise SystemExit(f"Expected one rate step line, found {len(matches)}")
+          lines[matches[0]] = r'      { title: "Divide Cost by Area", body: "Pounds divided by square metres gives pounds per square metre.", equation: `$$Rate=\\frac{\\text{£}${cost}}{${tsa}\\text{ m}^{2}}=\\frac{\\text{£}${rate}}{\\text{m}^{2}}$$` },'
+          path.write_text("\n".join(lines) + "\n")
           PY
 
       - name: Commit patch
