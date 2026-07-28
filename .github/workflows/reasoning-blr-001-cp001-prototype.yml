@@ -10,7 +10,7 @@ on:
 jobs:
   cp001-prototype:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -28,3 +28,16 @@ jobs:
 
       - name: Run gender and exact-lineage audit
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/lineage-prototype.test.ts
+
+      - name: Run English editorial readiness audit
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/cp001-editorial-review.test.ts
+
+      - name: Export English review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/export-cp001-review.ts blr-cp001-review-output
+
+      - name: Upload English review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp001-english-review
+          path: blr-cp001-review-output
+          retention-days: 14
