@@ -50,6 +50,9 @@ jobs:
       - name: Export second source-gap appendix
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/export-cp001-second-gap-review.ts blr-cp001-review-output
 
+      - name: Export permanent seven-QL review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/export-cp001-permanent-review.ts blr-cp001-review-output
+
       - name: Upload BLR-CP-001 frozen English review pack
         uses: actions/upload-artifact@v4
         with:
