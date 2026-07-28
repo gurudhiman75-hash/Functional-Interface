@@ -8,6 +8,12 @@ import type {
   MalCp001PermanentAllocationEntry,
   MalCp001PermanentQlId,
 } from "./cp001-permanent-allocation";
+import {
+  buildMalCp001TeacherExplanation,
+} from "./cp001-teacher-explanation";
+import type {
+  MalCp001TeacherExplanation,
+} from "./cp001-teacher-explanation";
 
 function hashIndex(text: string, modulus: number): number {
   let hash = 2166136261;
@@ -46,6 +52,7 @@ type ReplacedFoundationFields =
   | "difficulty"
   | "taskDirection"
   | "answerSemantic"
+  | "explanation"
   | "publiclyPublishable"
   | "questionStudioDiscoverable";
 
@@ -60,6 +67,7 @@ export type MalCp001PermanentQuestion = Omit<
   difficulty: MalCp001PermanentAllocationEntry["difficulty"];
   taskDirection: MalCp001PermanentAllocationEntry["taskDirection"];
   answerSemantic: MalCp001PermanentAllocationEntry["answerSemantic"];
+  explanation: MalCp001TeacherExplanation;
   maturity: "IMPLEMENTATION_PROOF";
   allocationStatus: "ALLOCATED_IMPLEMENTATION_PROOF";
   permanentIdentityFrozen: true;
@@ -125,6 +133,11 @@ export function runMalCp001PermanentPipeline(
     );
   }
 
+  const explanation = buildMalCp001TeacherExplanation(
+    foundationQuestion,
+    allocation.qlId,
+  );
+
   return {
     ...foundationQuestion,
     permanentQlId: allocation.qlId,
@@ -134,6 +147,7 @@ export function runMalCp001PermanentPipeline(
     difficulty: allocation.difficulty,
     taskDirection: allocation.taskDirection,
     answerSemantic: allocation.answerSemantic,
+    explanation,
     maturity: "IMPLEMENTATION_PROOF",
     allocationStatus: "ALLOCATED_IMPLEMENTATION_PROOF",
     permanentIdentityFrozen: true,
