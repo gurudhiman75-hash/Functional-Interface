@@ -4,6 +4,7 @@ import {
   enforceMalCp001ContextCoherence,
   polishMalCp001Stem,
 } from "./cp001-editorial-gate";
+import { applyMalCp001CorePairEditorial } from "./cp001-core-pair-editorial";
 import { solveMalCp001 } from "./solver";
 import { verifyMalCp001ResultIndependently } from "./independent-verifier";
 import { buildMalCp001Options } from "./cp001-options";
@@ -76,6 +77,7 @@ export function generateMalCp001Prototype(
     publiclyPublishable: false,
     questionStudioDiscoverable: false,
   };
+  applyMalCp001CorePairEditorial(question);
   question.validation = validateMalCp001GeneratedPrototype(question);
   if (!question.validation.ok) {
     throw new Error(
