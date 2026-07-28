@@ -1,0 +1,58 @@
+name: Export ALP-001 review questions
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - .github/workflows/alp-001-review-export.yml
+      - artifacts/api-server/src/reasoning-v1/topics/Alphabet-Test/ALP-001/**
+
+permissions:
+  contents: read
+
+jobs:
+  export-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build review exporter
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Alphabet-Test/ALP-001/export-review.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/alp-001/export-review.mjs
+      - name: Generate review files
+        run: |
+          mkdir -p artifacts/api-server/alp-001-review
+          cd artifacts/api-server
+          node dist/reasoning-v1/alp-001/export-review.mjs en-IN 3 alp-001-review/alp-001-cp001-cp005-en-IN-review.md
+          node dist/reasoning-v1/alp-001/export-review.mjs hi-IN 2 alp-001-review/alp-001-cp001-cp005-hi-IN-review.md
+          node dist/reasoning-v1/alp-001/export-review.mjs pa-IN 2 alp-001-review/alp-001-cp001-cp005-pa-IN-review.md
+          cat > alp-001-review/README.txt <<'EOF'
+ALP-001 review package
+
+English: 104 QLs x 3 seeds = 312 generated questions
+Hindi:   104 QLs x 2 seeds = 208 generated questions
+Punjabi: 104 QLs x 2 seeds = 208 generated questions
+
+Total: 728 generated questions covering ALP-CP-001 through ALP-CP-005.
+EOF
+      - name: Upload review package
+        uses: actions/upload-artifact@v4
+        with:
+          name: alp-001-cp001-cp005-review-questions
+          path: artifacts/api-server/alp-001-review/**
+          if-no-files-found: error
+          retention-days: 14
