@@ -14,7 +14,8 @@ source and boundary audit
   -> editorial saturation
   -> merge/split audit
   -> inverse-contract audit
-  -> gap audit
+  -> human review and remediation
+  -> second gap audit
   -> discovery freeze
   -> permanent sequential QL allocation
 ```
@@ -45,14 +46,18 @@ COMPARE_GENERATIONS
 RESOLVE_EXACT_LINEAGE_RELATION
 ```
 
-This provisional inventory does **not** establish seven eventual QLs. It remains subject to human English review and a second source/gap pass.
+This provisional inventory does **not** establish seven eventual QLs. It remains subject to the second source/gap pass.
 
 ## Current proof state
 
 - mathematical and structural prototype gates: passed;
 - machine English editorial gate across 440 questions: passed;
-- hosted 88-record HTML/CSV/JSONL review pack: generated;
-- human English approval: pending;
+- external human review of the 88-record pack: completed;
+- human-review result: logic fully correct, learner-facing remediation required;
+- V2 stem, visual-tree, generation-arithmetic, shortcut and distractor remediation: implemented;
+- 440-question human-audit remediation gate: passed;
+- final synced dedicated run `30331197065` on head `b514d02b2d4684e966ba94eccc1763252167dcbc`: passed;
+- remediated 88-record HTML/CSV/JSONL artifact: generated;
 - second source/gap audit: pending;
 - discovery freeze: not authorised.
 
@@ -79,11 +84,10 @@ Seven solve authorities use six answer shapes because both person-identification
 
 ## Remaining CP-001 freeze blockers
 
-- human review of the 88-record English pack;
-- approved remediation of any wording or distractor issues;
-- second source and gap audit after that review;
-- final freeze evidence showing no new materially distinct authority;
-- guarded permanent sequential allocation in a later change.
+- inspect and approve the remediated V2 review pack;
+- execute the second source and gap audit;
+- produce final freeze evidence showing no new materially distinct authority;
+- allocate permanent sequential identities only in a guarded later change.
 
 ## Prohibited actions before freeze
 
