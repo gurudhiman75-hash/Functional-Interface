@@ -15,15 +15,18 @@ export function diversifyIntCp001StemOpening(
   const matchedLead = existingLeads.find((lead) => stem.startsWith(lead));
   if (!matchedLead) return stem;
 
+  const institution = context.scenarioId === "PERSONAL_LENDING"
+    ? "a local lender"
+    : context.institution;
   const alternatives = [
-    `${context.actor}'s ${context.instrument} is administered by ${context.institution}`,
-    `At ${context.institution}, ${context.actor} has the ${context.instrument}`,
-    `${context.institution} maintains the ${context.instrument} for ${context.actor}`,
-    `For ${context.purpose}, ${context.actor} arranged the ${context.instrument} through ${context.institution}`,
-    `The ${context.instrument} held by ${context.actor} is with ${context.institution}`,
-    `${context.actor} obtained the ${context.instrument} through ${context.institution}`,
-    `${context.actor}'s ${context.instrument} appears in records held by ${context.institution}`,
-    `${context.institution} provided the ${context.instrument} used by ${context.actor} for ${context.purpose}`,
+    `${context.actor}'s ${context.instrument} is administered by ${institution}`,
+    `At ${institution}, ${context.actor} has the ${context.instrument}`,
+    `${institution} maintains the ${context.instrument} for ${context.actor}`,
+    `For ${context.purpose}, ${context.actor} arranged the ${context.instrument} through ${institution}`,
+    `The ${context.instrument} held by ${context.actor} is with ${institution}`,
+    `${context.actor} obtained the ${context.instrument} through ${institution}`,
+    `${context.actor}'s ${context.instrument} appears in records held by ${institution}`,
+    `${institution} provided the ${context.instrument} used by ${context.actor} for ${context.purpose}`,
   ];
   const replacement = alternatives[
     deterministicIndex(
