@@ -1,0 +1,69 @@
+name: Validate CLS-001 CP-001 Semantic Prototypes
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/**
+      - .github/workflows/cls-001-cp001-prototype.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cls-001-cp001-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-semantic-classification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle and run CLS-CP-001 prototype audit
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-001
+          OUT=dist/reasoning-v1/cls-001
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/prototype.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/prototype.test.mjs"
+          (cd artifacts/api-server && node "$OUT/prototype.test.mjs")
+
+      - name: Generate CLS-CP-001 review export
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-001
+          OUT=dist/reasoning-v1/cls-001
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/export-review.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/export-review.mjs"
+          (cd artifacts/api-server && node "$OUT/export-review.mjs")
+
+      - name: Upload semantic prototype review
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp001-semantic-prototype-review
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp001-review
+          if-no-files-found: error
