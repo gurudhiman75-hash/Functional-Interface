@@ -1,0 +1,421 @@
+import { generationDelta } from "../foundation/family-analysis";
+import { solveRelationFromGraph } from "../foundation/graph-closure";
+import { SeededRandom, stableHash } from "../foundation/prng";
+import { relationLabel } from "../foundation/relation-ontology";
+import type { BlrDifficulty, BlrGender, FamilyGraph } from "../foundation/types";
+import { getBlrCp002PrototypeContract } from "./cp002-contracts";
+import { buildBlrCp002Distractors } from "./cp002-distractor-builder";
+import {
+  cp002AnswerLabel,
+  cp002AssertionOnlyConstraintCount,
+  cp002OnlyConstraintCount,
+  cp002RoleDepth,
+  resolveBlrCp002Expression,
+  solveBlrCp002Prompt,
+} from "./cp002-role-solver";
+import {
+  buildCp002StructuredPrompt,
+  cp002ScenariosFor,
+} from "./cp002-scenario-library";
+import type {
+  BlrCp002AnswerId,
+  BlrCp002PrototypeId,
+  BlrCp002StructuredPrompt,
+  BlrEntityExpression,
+  BlrRoleAssertion,
+  GeneratedBlrCp002Option,
+  GeneratedBlrCp002PrototypeQuestion,
+} from "./cp002-types";
+
+function personGender(prompt: BlrCp002StructuredPrompt, personId: string): BlrGender {
+  return prompt.familyGraph.persons.find((person) => person.personId === personId)?.gender ?? "UNKNOWN";
+}
+
+function subjectPronoun(gender: BlrGender): string {
+  if (gender === "MALE") return "He";
+  if (gender === "FEMALE") return "She";
+  return "This person";
+}
+
+function possessivePronoun(gender: BlrGender): string {
+  if (gender === "MALE") return "his";
+  if (gender === "FEMALE") return "her";
+  return "their";
+}
+
+function objectPronoun(gender: BlrGender): string {
+  if (gender === "MALE") return "him";
+  if (gender === "FEMALE") return "her";
+  return "that person";
+}
+
+function personNoun(gender: BlrGender): string {
+  if (gender === "MALE") return "a man";
+  if (gender === "FEMALE") return "a woman";
+  return "a person";
+}
+
+function roleStepPhrase(
+  relationId: Parameters<typeof relationLabel>[0],
+  only: boolean,
+): string {
+  return `${only ? "only " : ""}${relationLabel(relationId).toLocaleLowerCase("en-IN")}`;
+}
+
+function roleChainPhrase(expression: Extract<BlrEntityExpression, { kind: "ROLE_CHAIN" }>): string {
+  return expression.steps
+    .map((step, index) => {
+      const phrase = roleStepPhrase(step.relationId, step.quantifier === "ONLY");
+      return index < expression.steps.length - 1 ? `${phrase}'s` : phrase;
+    })
+    .join(" ");
+}
+
+function expressionPhrase(
+  prompt: BlrCp002StructuredPrompt,
+  expression: BlrEntityExpression,
+  mode: "SUBJECT" | "REFERENCE",
+  sentenceStart = false,
+): string {
+  if (expression.kind === "ANCHOR") {
+    if (expression.anchor === "SPEAKER") return mode === "SUBJECT" ? "I" : "me";
+    if (expression.anchor === "LISTENER") return "you";
+    const gender = personGender(prompt, prompt.pointedPersonId!);
+    return mode === "SUBJECT" ? subjectPronoun(gender) : objectPronoun(gender);
+  }
+
+  const prefix =
+    expression.anchor === "SPEAKER"
+      ? "my"
+      : expression.anchor === "LISTENER"
+        ? "your"
+        : possessivePronoun(personGender(prompt, prompt.pointedPersonId!));
+  const phrase = `${prefix} ${roleChainPhrase(expression)}`;
+  return sentenceStart ? phrase[0]!.toLocaleUpperCase("en-IN") + phrase.slice(1) : phrase;
+}
+
+function assertionSentence(
+  prompt: BlrCp002StructuredPrompt,
+  assertion: BlrRoleAssertion,
+): string {
+  const subject = expressionPhrase(prompt, assertion.subject, "SUBJECT", true);
+  const reference = expressionPhrase(prompt, assertion.reference, "REFERENCE");
+  if (assertion.relation.kind === "SAME_PERSON") return `${subject} is ${reference}.`;
+  const relation = roleStepPhrase(
+    assertion.relation.relationId,
+    assertion.relation.quantifier === "ONLY",
+  );
+  return `${subject} is the ${relation} of ${reference}.`;
+}
+
+function anchorName(prompt: BlrCp002StructuredPrompt, anchor: "SPEAKER" | "LISTENER" | "POINTED_PERSON"): string {
+  const personId =
+    anchor === "SPEAKER"
+      ? prompt.speakerId
+      : anchor === "LISTENER"
+        ? prompt.listenerId!
+        : prompt.pointedPersonId!;
+  return prompt.personNames[personId] ?? personId;
+}
+
+function queryExpressionLabel(
+  prompt: BlrCp002StructuredPrompt,
+  expression: BlrEntityExpression,
+): string {
+  if (expression.kind === "ANCHOR") {
+    if (expression.anchor === "POINTED_PERSON") {
+      if (prompt.presentation === "INTRODUCTION" || prompt.presentation === "STAGE") {
+        return anchorName(prompt, "POINTED_PERSON");
+      }
+      return prompt.presentation === "PHOTOGRAPH"
+        ? "the person in the photograph"
+        : "the indicated person";
+    }
+    return anchorName(prompt, expression.anchor);
+  }
+  return `${anchorName(prompt, expression.anchor)}'s ${roleChainPhrase(expression)}`;
+}
+
+function buildStem(prompt: BlrCp002StructuredPrompt): string {
+  const speakerName = anchorName(prompt, "SPEAKER");
+  const statement = assertionSentence(prompt, prompt.assertion);
+  const question = `How is ${queryExpressionLabel(prompt, prompt.query.subject)} related to ${queryExpressionLabel(prompt, prompt.query.reference)}?`;
+
+  if (prompt.presentation === "CONVERSATION") {
+    return `${speakerName} said to ${anchorName(prompt, "LISTENER")}, “${statement}” ${question}`;
+  }
+
+  const pointedGender = personGender(prompt, prompt.pointedPersonId!);
+  if (prompt.presentation === "PHOTOGRAPH") {
+    return `Pointing to a photograph of ${personNoun(pointedGender)}, ${speakerName} said, “${statement}” ${question}`;
+  }
+  if (prompt.presentation === "POINTING") {
+    return `Pointing to ${personNoun(pointedGender)}, ${speakerName} said, “${statement}” ${question}`;
+  }
+  if (prompt.presentation === "STAGE") {
+    return `Showing ${anchorName(prompt, "POINTED_PERSON")} on the stage, ${speakerName} said, “${statement}” ${question}`;
+  }
+  if (prompt.pointedPersonId === prompt.speakerId) {
+    return `Showing a photograph of ${personNoun(pointedGender)}, ${speakerName} said, “${statement}” ${question}`;
+  }
+  return `Introducing ${anchorName(prompt, "POINTED_PERSON")}, ${speakerName} said, “${statement}” ${question}`;
+}
+
+function difficultyFor(
+  prototypeId: BlrCp002PrototypeId,
+  roleDepth: number,
+  onlyCount: number,
+  seed: number,
+): BlrDifficulty {
+  if (prototypeId === "BLR-CP002-PROT-SELF-IDENTITY") {
+    return seed % 4 === 0 ? "MEDIUM" : "EASY";
+  }
+  const score = roleDepth + onlyCount + (prototypeId.includes("CONVERSATION") ? 2 : 0);
+  if (score <= 3) return "EASY";
+  if (score <= 6) return seed % 5 === 0 ? "HARD" : "MEDIUM";
+  return "HARD";
+}
+
+function reverseAnswer(
+  prompt: BlrCp002StructuredPrompt,
+  subjectId: string,
+  referenceId: string,
+): BlrCp002AnswerId | null {
+  if (subjectId === referenceId) return "SELF";
+  try {
+    return solveRelationFromGraph(prompt.familyGraph, referenceId, subjectId).relationId;
+  } catch {
+    return null;
+  }
+}
+
+function genderMark(gender: BlrGender): string {
+  return gender === "MALE" ? "+" : gender === "FEMALE" ? "-" : "?";
+}
+
+function familyTreeGrid(
+  graph: FamilyGraph,
+  names: Readonly<Record<string, string>>,
+  referenceId: string,
+): string {
+  const rows = new Map<number, string[]>();
+  for (const person of graph.persons) {
+    let delta = 0;
+    try {
+      delta = generationDelta(graph, person.personId, referenceId);
+    } catch {
+      continue;
+    }
+    const entries = rows.get(delta) ?? [];
+    entries.push(`[${names[person.personId] ?? person.name}] (${genderMark(person.gender)})`);
+    rows.set(delta, entries);
+  }
+  const lines = [...rows.entries()]
+    .sort(([first], [second]) => second - first)
+    .map(([delta, entries]) => `Generation ${delta >= 0 ? "+" : ""}${delta}: ${entries.sort().join("   ")}`);
+  const connections = [
+    ...graph.parentEdges.map(
+      (edge) => `  [${names[edge.parentId]}] --parent of--> [${names[edge.childId]}]`,
+    ),
+    ...graph.spouseEdges.map(
+      (edge) => `  [${names[edge.personAId]}] --spouse of-- [${names[edge.personBId]}]`,
+    ),
+    ...graph.siblingEdges.map(
+      (edge) => `  [${names[edge.personAId]}] --sibling of-- [${names[edge.personBId]}]`,
+    ),
+  ];
+  return [`Reference: [${names[referenceId]}] = Generation 0`, ...lines, "Connections:", ...connections].join("\n");
+}
+
+function distractorWarning(errorLabel: string): string {
+  if (errorLabel === "REVERSED_QUERY_DIRECTION") {
+    return "This reads the relationship in the opposite direction from the question.";
+  }
+  if (errorLabel === "WRONG_GENDER") {
+    return "The generation may be close, but the gendered relation does not match the resolved person.";
+  }
+  if (errorLabel === "IGNORED_SELF_IDENTITY_COLLAPSE") {
+    return "This ignores that the full role chain returns to the speaker herself or himself.";
+  }
+  return "This stops at a nearby role instead of completing every possessive step.";
+}
+
+function explanationFor(
+  prompt: BlrCp002StructuredPrompt,
+  solution: ReturnType<typeof solveBlrCp002Prompt>,
+  options: readonly GeneratedBlrCp002Option[],
+): GeneratedBlrCp002PrototypeQuestion["explanation"] {
+  const assertionSubject = resolveBlrCp002Expression(prompt, prompt.assertion.subject);
+  const assertionReference = resolveBlrCp002Expression(prompt, prompt.assertion.reference);
+  const subjectName = prompt.personNames[solution.querySubjectId] ?? solution.querySubjectId;
+  const referenceName = prompt.personNames[solution.queryReferenceId] ?? solution.queryReferenceId;
+  const pathNames = solution.pathPersonIds.map((id) => prompt.personNames[id] ?? id);
+  const delta =
+    solution.answerId === "SELF"
+      ? 0
+      : generationDelta(prompt.familyGraph, solution.querySubjectId, solution.queryReferenceId);
+  const normalizedAssertion =
+    prompt.assertion.relation.kind === "SAME_PERSON"
+      ? `${prompt.personNames[assertionSubject.resolvedPersonId]} and ${prompt.personNames[assertionReference.resolvedPersonId]} are the same resolved person.`
+      : `${prompt.personNames[assertionSubject.resolvedPersonId]} is the ${relationLabel(prompt.assertion.relation.relationId).toLocaleLowerCase("en-IN")} of ${prompt.personNames[assertionReference.resolvedPersonId]}.`;
+
+  return {
+    ruleStatement:
+      "Replace my, your, his and her with explicit people first. Then reduce the nested role chain from left to right and read the final query in the requested direction.",
+    coreConcept: [
+      `my = ${anchorName(prompt, "SPEAKER")}`,
+      ...(prompt.listenerId ? [`your = ${anchorName(prompt, "LISTENER")}`] : []),
+      ...(prompt.pointedPersonId
+        ? [`indicated person = ${anchorName(prompt, "POINTED_PERSON")}`]
+        : []),
+      "An 'only' role must have exactly one matching person in the active family scope.",
+    ],
+    normalizedClues: [
+      normalizedAssertion,
+      ...assertionSubject.trace,
+      ...assertionReference.trace,
+    ],
+    familyTreeGrid: familyTreeGrid(
+      prompt.familyGraph,
+      prompt.personNames,
+      solution.queryReferenceId,
+    ),
+    generationAnalysis: [
+      `${subjectName} is at generation ${delta >= 0 ? "+" : ""}${delta} relative to ${referenceName}.`,
+      `ΔGen = ${delta >= 0 ? "+" : ""}${delta}.`,
+    ],
+    queryPath: [
+      ...solution.subjectExpression.trace,
+      ...solution.referenceExpression.trace,
+      solution.answerId === "SELF"
+        ? `${subjectName} and ${referenceName} resolve to the same person.`
+        : pathNames.join(" → "),
+    ],
+    conclusion:
+      solution.answerId === "SELF"
+        ? "Therefore, the described person is the speaker herself or himself."
+        : `Therefore, ${subjectName} is the ${cp002AnswerLabel(solution.answerId).toLocaleLowerCase("en-IN")} of ${referenceName}.`,
+    examShortcut:
+      "Write S for speaker, L for listener and P for the pointed person. Replace each pronoun, then move through one possessive role at a time; never reverse the final question.",
+    closestTrapRejection:
+      solution.answerId === "SELF"
+        ? "Do not force a family label after the chain has returned to the speaker."
+        : "The nearest wrong answer usually comes from reversing the endpoint order or stopping one role early.",
+    distractorAnalysis: options
+      .filter((option) => !option.isCorrect)
+      .map((option) => ({
+        optionValue: option.value,
+        errorLabel: option.errorLabel!,
+        studentWarning: distractorWarning(option.errorLabel!),
+      })),
+  };
+}
+
+export function generateBlrCp002PrototypeQuestion(
+  prototypeId: BlrCp002PrototypeId,
+  seed = 0,
+): GeneratedBlrCp002PrototypeQuestion {
+  const contract = getBlrCp002PrototypeContract(prototypeId);
+  const random = new SeededRandom(seed ^ Number.parseInt(stableHash([prototypeId]), 16));
+  const template = random.pick(cp002ScenariosFor(prototypeId));
+  const prompt = buildCp002StructuredPrompt(template, random);
+
+  if (contract.requiresListener && !prompt.listenerId) {
+    throw new Error(`${prototypeId} requires a listener anchor.`);
+  }
+  if (contract.requiresPointedPerson && !prompt.pointedPersonId) {
+    throw new Error(`${prototypeId} requires a pointed-person anchor.`);
+  }
+
+  const solution = solveBlrCp002Prompt(prompt);
+  if (solution.answerId !== template.expectedAnswerId) {
+    throw new Error(
+      `${template.scenarioId} expected ${template.expectedAnswerId} but solver returned ${solution.answerId}.`,
+    );
+  }
+
+  const assertionRoleDepth =
+    cp002RoleDepth(prompt.assertion.subject) + cp002RoleDepth(prompt.assertion.reference);
+  const queryRoleDepth =
+    cp002RoleDepth(prompt.query.subject) + cp002RoleDepth(prompt.query.reference);
+  const totalRoleDepth = assertionRoleDepth + queryRoleDepth;
+  if (totalRoleDepth < contract.minimumRoleDepth) {
+    throw new Error(`${template.scenarioId} violates the minimum role-depth contract.`);
+  }
+
+  const reverseAnswerId = reverseAnswer(
+    prompt,
+    solution.querySubjectId,
+    solution.queryReferenceId,
+  );
+  const distractors = buildBlrCp002Distractors(solution.answerId, reverseAnswerId, random);
+  const correctIndex = ((Math.trunc(seed) % 4) + 4) % 4;
+  const options: GeneratedBlrCp002Option[] = [];
+  let distractorIndex = 0;
+  for (let index = 0; index < 4; index += 1) {
+    if (index === correctIndex) {
+      options.push({
+        value: cp002AnswerLabel(solution.answerId),
+        answerId: solution.answerId,
+        isCorrect: true,
+      });
+    } else {
+      const distractor = distractors[distractorIndex++]!;
+      options.push({
+        value: cp002AnswerLabel(distractor.answerId),
+        answerId: distractor.answerId,
+        isCorrect: false,
+        errorLabel: distractor.errorLabel,
+      });
+    }
+  }
+
+  const onlyConstraintCount =
+    cp002AssertionOnlyConstraintCount(prompt.assertion) +
+    cp002OnlyConstraintCount(prompt.query.subject) +
+    cp002OnlyConstraintCount(prompt.query.reference);
+
+  return {
+    packageId: "BLR-001",
+    checkpointId: "BLR-CP-002",
+    prototypeId,
+    permanentQlId: null,
+    prototypeOnly: true,
+    publiclyPublishable: false,
+    questionStudioVisible: false,
+    questionBankEligible: false,
+    mockTestEligible: false,
+    ruleId: "BLOOD_ROLE_CHAIN_RELATION",
+    seed,
+    locale: "en-IN",
+    difficulty: difficultyFor(prototypeId, totalRoleDepth, onlyConstraintCount, seed),
+    renderer: "DIALOGUE_STRUCTURED_TEXT",
+    answerType: "RELATION_LABEL_OR_SELF",
+    stem: buildStem(prompt),
+    structuredPrompt: prompt,
+    options,
+    correctIndex,
+    explanation: explanationFor(prompt, solution, options),
+    metadata: {
+      runtimeVersion: "blr-cp002-prototype-v1",
+      scenarioId: template.scenarioId,
+      hiddenFingerprint: stableHash([
+        template.scenarioId,
+        JSON.stringify(prompt.assertion),
+        JSON.stringify(prompt.query),
+      ]),
+      answerId: solution.answerId,
+      presentation: prompt.presentation,
+      assertionRoleDepth,
+      queryRoleDepth,
+      onlyConstraintCount,
+      pathLength: solution.pathLength,
+      selfIdentity: solution.answerId === "SELF",
+      familyGraphValid: true,
+      assertionVerified: true,
+      independentSolverAgreed: true,
+      ambiguityAccepted: true,
+      distractorErrorLabels: distractors.map((entry) => entry.errorLabel),
+    },
+  };
+}
