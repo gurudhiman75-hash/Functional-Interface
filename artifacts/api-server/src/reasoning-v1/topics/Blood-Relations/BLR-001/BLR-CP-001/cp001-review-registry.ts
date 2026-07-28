@@ -1,6 +1,8 @@
+import type { BlrDistractorExplanation } from "../foundation/types";
 import { BLR_CP001_ADVANCED_PROTOTYPE_CONTRACTS } from "./advanced-prototype-contracts";
 import { generateBlrCp001AdvancedPrototypeQuestion } from "./advanced-prototype-generator";
 import type { BlrCp001AdvancedPrototypeId } from "./advanced-prototype-types";
+import { upgradeCp001Question } from "./cp001-editorial-upgrader";
 import { BLR_CP001_LINEAGE_PROTOTYPE_CONTRACTS } from "./lineage-prototype-contracts";
 import { generateBlrCp001LineagePrototypeQuestion } from "./lineage-prototype-generator";
 import type { BlrCp001LineagePrototypeId } from "./lineage-prototype-types";
@@ -39,6 +41,7 @@ export interface BlrCp001ReviewQuestion {
   };
   options: readonly {
     value: string;
+    answerKey?: string;
     isCorrect: boolean;
     errorLabel?: string;
   }[];
@@ -49,6 +52,11 @@ export interface BlrCp001ReviewQuestion {
     queryPath: readonly string[];
     conclusion: string;
     closestTrapRejection?: string;
+    coreConcept?: readonly string[];
+    familyTreeGrid?: string;
+    generationAnalysis?: readonly string[];
+    examShortcut?: string;
+    distractorAnalysis?: readonly BlrDistractorExplanation[];
   };
   metadata: {
     runtimeVersion: string;
@@ -96,33 +104,28 @@ function lineageAuthority(
     : "RESOLVE_EXACT_LINEAGE_RELATION";
 }
 
+function reviewed<T>(question: T): BlrCp001ReviewQuestion {
+  return upgradeCp001Question(question) as unknown as BlrCp001ReviewQuestion;
+}
+
 export const BLR_CP001_REVIEW_REGISTRY: readonly BlrCp001ReviewEntry[] = [
   ...BLR_CP001_PROTOTYPE_CONTRACTS.map((contract) => ({
     prototypeId: contract.prototypeId,
     authority: initialAuthority(contract.prototypeId),
     generate: (seed: number) =>
-      generateBlrCp001PrototypeQuestion(
-        contract.prototypeId,
-        seed,
-      ) as unknown as BlrCp001ReviewQuestion,
+      reviewed(generateBlrCp001PrototypeQuestion(contract.prototypeId, seed)),
   })),
   ...BLR_CP001_ADVANCED_PROTOTYPE_CONTRACTS.map((contract) => ({
     prototypeId: contract.prototypeId,
     authority: advancedAuthority(contract.prototypeId),
     generate: (seed: number) =>
-      generateBlrCp001AdvancedPrototypeQuestion(
-        contract.prototypeId,
-        seed,
-      ) as unknown as BlrCp001ReviewQuestion,
+      reviewed(generateBlrCp001AdvancedPrototypeQuestion(contract.prototypeId, seed)),
   })),
   ...BLR_CP001_LINEAGE_PROTOTYPE_CONTRACTS.map((contract) => ({
     prototypeId: contract.prototypeId,
     authority: lineageAuthority(contract.prototypeId),
     generate: (seed: number) =>
-      generateBlrCp001LineagePrototypeQuestion(
-        contract.prototypeId,
-        seed,
-      ) as unknown as BlrCp001ReviewQuestion,
+      reviewed(generateBlrCp001LineagePrototypeQuestion(contract.prototypeId, seed)),
   })),
 ] as const;
 
