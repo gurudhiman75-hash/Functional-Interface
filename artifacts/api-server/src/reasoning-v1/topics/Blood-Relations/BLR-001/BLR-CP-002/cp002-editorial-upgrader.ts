@@ -57,6 +57,8 @@ function addListenerContext(
 }
 
 function upgradedStem(question: GeneratedBlrCp002PrototypeQuestion): string {
+  const isOwnership = question.metadata.questionForm !== "HOW_RELATED";
+  if (isOwnership) return addListenerContext(question, question.stem);
   if (!question.metadata.selfIdentity) {
     return addListenerContext(question, naturalPhotoOpening(question.stem));
   }
@@ -74,6 +76,7 @@ export function upgradeBlrCp002EditorialQuestion(
   const gender = speakerGender(question);
   const reflexive = reflexivePronoun(gender);
   const isSelf = question.metadata.selfIdentity;
+  const isOwnership = question.metadata.questionForm !== "HOW_RELATED";
   const hasOnly = question.metadata.onlyConstraintCount > 0;
   const speakerName =
     question.structuredPrompt.personNames[question.structuredPrompt.speakerId] ??
@@ -87,15 +90,17 @@ export function upgradeBlrCp002EditorialQuestion(
     ...(hasOnly
       ? ["An 'only' role must resolve to exactly one matching person in the displayed family scope."]
       : []),
-    ...(isSelf
-      ? ["When both resolved endpoints are the same person, the correct answer is Self; do not force a kinship label."]
-      : []),
+    ...(isSelf && isOwnership
+      ? ["When the pictured person and the speaker are the same person, choose the possessive option 'His own', 'Her own' or 'Their own'."]
+      : isSelf
+        ? ["When both resolved endpoints are the same person, the correct answer is Self; do not force a kinship label."]
+        : []),
   ];
 
   const queryPath = isSelf
     ? [
         ...question.explanation.queryPath.slice(0, -1),
-        `The person in the photograph and ${speakerName} resolve to the same identity.`,
+        `The pictured person and ${speakerName} resolve to the same identity.`,
       ]
     : question.explanation.queryPath;
 
@@ -111,23 +116,29 @@ export function upgradeBlrCp002EditorialQuestion(
   return {
     ...question,
     stem: upgradedStem(question),
-    structuredPrompt: isSelf
-      ? { ...question.structuredPrompt, presentation: "PHOTOGRAPH" }
-      : question.structuredPrompt,
+    structuredPrompt:
+      isSelf && !isOwnership
+        ? { ...question.structuredPrompt, presentation: "PHOTOGRAPH" }
+        : question.structuredPrompt,
     explanation: {
       ...question.explanation,
       coreConcept,
       queryPath,
-      conclusion: isSelf
-        ? `Therefore, the person in the photograph is the speaker ${reflexive}.`
-        : question.explanation.conclusion,
-      closestTrapRejection: isSelf
-        ? "Once the complete chain returns to the speaker, any family-relation label is incorrect."
-        : question.explanation.closestTrapRejection,
+      conclusion:
+        isSelf && !isOwnership
+          ? `Therefore, the person in the photograph is the speaker ${reflexive}.`
+          : question.explanation.conclusion,
+      closestTrapRejection:
+        isSelf && isOwnership
+          ? "Once the pictured person resolves to the speaker, every relative's possessive option is wrong; choose His/Her own."
+          : isSelf
+            ? "Once the complete chain returns to the speaker, any family-relation label is incorrect."
+            : question.explanation.closestTrapRejection,
       distractorAnalysis,
     },
-    metadata: isSelf
-      ? { ...question.metadata, presentation: "PHOTOGRAPH" }
-      : question.metadata,
+    metadata:
+      isSelf && !isOwnership
+        ? { ...question.metadata, presentation: "PHOTOGRAPH" }
+        : question.metadata,
   };
 }
