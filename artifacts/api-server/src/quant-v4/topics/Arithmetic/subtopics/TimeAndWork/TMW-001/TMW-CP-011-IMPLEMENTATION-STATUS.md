@@ -38,6 +38,19 @@
 - answer/unknown leakage into givens: 0;
 - invalid packages, option failures, MathJax failures, negative trap commands, mechanical wording, internal-ID leaks and cross-QL stem collisions: 0.
 
+## Hosted-review correction
+
+The first hosted review artefact exposed three fractional `TMW-QL-196` distractor labels whose `\\frac` expressions were outside the canonical inline MathJax delimiters. The mathematical values and answer keys were correct, but the learner rendering was not production-safe.
+
+The source now:
+
+- emits every fractional daily rate-change value through literal inline MathJax `\\(...\\)`;
+- applies the same formatter to correct answers and misconception-driven distractors;
+- strips valid MathJax blocks and rejects any remaining raw `\\frac` in runtime validation;
+- repeats that raw-fraction rejection across the structural/editorial corpus audit.
+
+The focused correction reran the complete 950-case runtime proof and 228-case audit successfully. A new permanent exact-head workflow and hosted review artefact are required before this branch can be presented for approval.
+
 ## Current gate
 
-The branch must pass exact-head GitHub Actions, hosted-artifact inspection and user review before merge. The exact tested head, workflow and artifact digest will be recorded in PR evidence without changing the tested branch afterward.
+Final exact-head GitHub Actions, hosted-artifact inspection and user review remain required before merge. The exact tested head, workflow and artefact digest will be recorded in PR evidence without changing the tested branch afterwards.
