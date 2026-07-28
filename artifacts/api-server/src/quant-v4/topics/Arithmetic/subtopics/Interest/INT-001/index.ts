@@ -22,3 +22,4 @@ export * from "./cp001-localization-foundation";
 export * from "./cp001-localized-runtime";
 export * from "./cp001-localized-runtime-final";
 export * from "./cp001-localized-runtime-release";
+export * from "./cp001-localized-runtime-approved";
