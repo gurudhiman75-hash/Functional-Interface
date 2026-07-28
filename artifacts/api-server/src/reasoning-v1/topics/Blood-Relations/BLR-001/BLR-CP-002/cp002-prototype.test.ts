@@ -15,6 +15,7 @@ let onlyQuestionCount = 0;
 let conversationCount = 0;
 let selfCount = 0;
 let nestedQueryCount = 0;
+let threeAnchorCount = 0;
 
 for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
   const perPrototypePositions = [0, 0, 0, 0];
@@ -53,6 +54,15 @@ for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
     assert.equal(question.metadata.ambiguityAccepted, true);
     assert.ok(question.metadata.assertionRoleDepth + question.metadata.queryRoleDepth >= contract.minimumRoleDepth);
 
+    if (contract.prototypeId === "BLR-CP002-PROT-THREE-ANCHOR-INTRODUCTION") {
+      threeAnchorCount += 1;
+      assert.ok(question.structuredPrompt.listenerId);
+      assert.ok(question.structuredPrompt.pointedPersonId);
+      assert.notEqual(question.structuredPrompt.listenerId, question.structuredPrompt.speakerId);
+      assert.notEqual(question.structuredPrompt.pointedPersonId, question.structuredPrompt.speakerId);
+      assert.notEqual(question.structuredPrompt.pointedPersonId, question.structuredPrompt.listenerId);
+    }
+
     const solvedAgain = solveBlrCp002Prompt(question.structuredPrompt);
     assert.equal(solvedAgain.answerId, question.metadata.answerId);
     assert.equal(solvedAgain.assertionVerified, true);
@@ -82,12 +92,13 @@ for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
   );
 }
 
-assert.deepEqual(answerPositions, [150, 150, 150, 150]);
+const expectedPerPosition = BLR_CP002_PROTOTYPE_CONTRACTS.length * 30;
+assert.deepEqual(answerPositions, [expectedPerPosition, expectedPerPosition, expectedPerPosition, expectedPerPosition]);
 assert.deepEqual(
   [...presentations].sort(),
   ["CONVERSATION", "INTRODUCTION", "PHOTOGRAPH", "POINTING", "STAGE"],
 );
-assert.ok(scenarioIds.size >= 14, `Expected all source scenarios, saw ${scenarioIds.size}.`);
+assert.ok(scenarioIds.size >= 30, `Expected broad source coverage, saw ${scenarioIds.size} scenarios.`);
 assert.ok(answers.has("SELF"));
 assert.ok(answers.has("SON"));
 assert.ok(answers.has("MOTHER"));
@@ -98,6 +109,8 @@ assert.ok(answers.has("GRANDMOTHER"));
 assert.ok(answers.has("NEPHEW"));
 assert.ok(answers.has("NIECE"));
 assert.ok(answers.has("COUSIN"));
+assert.ok(answers.has("BROTHER_IN_LAW"));
+assert.ok(answers.has("SISTER_IN_LAW"));
 assert.ok(errorLabels.has("REVERSED_QUERY_DIRECTION"));
 assert.ok(errorLabels.has("WRONG_GENDER"));
 assert.ok(errorLabels.has("IGNORED_SELF_IDENTITY_COLLAPSE"));
@@ -109,6 +122,7 @@ assert.ok(onlyQuestionCount > 0);
 assert.ok(conversationCount > 0);
 assert.ok(selfCount > 0);
 assert.ok(nestedQueryCount > 0);
+assert.equal(threeAnchorCount, QUESTIONS_PER_PROTOTYPE);
 
 console.log(
   JSON.stringify(
@@ -126,6 +140,7 @@ console.log(
       conversationCount,
       selfCount,
       nestedQueryCount,
+      threeAnchorCount,
       permanentQlCount: 0,
     },
     null,
