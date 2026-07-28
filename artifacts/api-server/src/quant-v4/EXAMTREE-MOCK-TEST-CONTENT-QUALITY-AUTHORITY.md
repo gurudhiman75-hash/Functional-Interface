@@ -227,12 +227,12 @@ Required release sequence:
 MEN-CP-007 is the first package hardened under this authority.
 
 ```text
-Final documentation-inclusive head:    aa4aec9d559e5e152c8c6ac8fa1675c9c093ad01
+Latest recorded validated head:         1c57ed5dedf7bd611a466931555752531b984026
 Workflow:                               Validate MEN-CP-007 Indian editorial production
-Workflow run:                           30382125855
+Workflow run:                           30382340730
 Conclusion:                             PASS
-Artifact ID:                            8697446221
-Artifact digest:                        sha256:a47c058a54db91b6ec3960ab3eb5e48bccad011a3ce853ccec19c208fcda3a21
+Artifact ID:                            8697532128
+Artifact digest:                        sha256:18bf29c749a1355face34aece2e5f02c53173a3b6555d2972e2387b48b41ca14
 Temporary contracts:                    64
 Total audited packages:                 5,120
 Rupee packages audited:                 400
