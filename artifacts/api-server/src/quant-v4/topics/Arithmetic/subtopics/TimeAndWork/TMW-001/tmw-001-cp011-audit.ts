@@ -52,7 +52,7 @@ for (const entry of TMW_CP_011_REGISTRY) {
     if (/arithmetic progression|geometric progression|sum identity|inverse relation|recover the unknown parameter|substitute parameters/i.test(learnerText)) failures.push(`${entry.qlId}:${index}:academic jargon`);
     if (/TMW-QL-|TMW_CP_|misconceptionId|publiclyPublishable/.test(learnerText)) failures.push(`${entry.qlId}:${index}:internal ID leak`);
     if (/undefined|null|NaN|Infinity|\{\{/.test(learnerText)) failures.push(`${entry.qlId}:${index}:unresolved value`);
-    if (/per day and changes by|increases by \\(0\\\)|decreases by \\(0\\\)/i.test(learnerText)) failures.push(`${entry.qlId}:${index}:mechanical change wording`);
+    if (/per day and changes by/i.test(learnerText) || learnerText.includes("increases by \\(0\\)") || learnerText.includes("decreases by \\(0\\)")) failures.push(`${entry.qlId}:${index}:mechanical change wording`);
     if (/\+\s*-|--|−\s*-/.test(learnerText)) failures.push(`${entry.qlId}:${index}:awkward signed expression`);
     const outsideMath = learnerText.replace(/\\\([\s\S]*?\\\)/g, "");
     if (/\\frac/.test(outsideMath)) failures.push(`${entry.qlId}:${index}:raw LaTeX fraction outside MathJax`);
