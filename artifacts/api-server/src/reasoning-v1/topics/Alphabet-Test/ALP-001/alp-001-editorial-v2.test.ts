@@ -30,17 +30,28 @@ function instructionalText(question: ReturnType<typeof generateAlp001Question>):
   return withoutProtectedData.replace(/\b[A-Z]{2,}\b/g, "");
 }
 
-function optionMatchesAnswerType(answerType: AlpAnswerType, value: string): boolean {
+function optionMatchesAnswerType(answerType: AlpAnswerType, value: string, locale: AlpLocale): boolean {
   switch (answerType) {
     case "LETTER": return /^[A-Z]$/.test(value);
     case "NUMBER": return /^\d+$/.test(value);
     case "NUMBER_PAIR": return /^\d+\s*,\s*\d+$/.test(value);
     case "LETTER_PAIR": return /^[A-Z]\s*(?:,|:)\s*[A-Z]$/.test(value);
     case "PAIR_SELECTION": return /^[A-Z]\s*:\s*[A-Z]$/.test(value);
-    case "DIRECTION_OFFSET": return /^\d+ to the (?:left|right)$/.test(value);
+    case "DIRECTION_OFFSET":
+      if (locale === "en-IN") return /^\d+ to the (?:left|right)$/.test(value);
+      if (locale === "hi-IN") return /^\d+ स्थान (?:बाईं|दाईं) ओर$/.test(value);
+      return /^\d+ (?:ਥਾਂ|ਥਾਵਾਂ) (?:ਖੱਬੇ|ਸੱਜੇ) ਪਾਸੇ$/.test(value);
     case "LETTER_SET":
-      return value === "None"
-        || /^(?:(?:first|second|third|\d+th) [A-Z])(?:; (?:first|second|third|\d+th) [A-Z])*$/.test(value);
+      if (locale === "en-IN") {
+        return value === "None"
+          || /^(?:(?:first|second|third|\d+th) [A-Z])(?:; (?:first|second|third|\d+th) [A-Z])*$/.test(value);
+      }
+      if (locale === "hi-IN") {
+        return value === "कोई नहीं"
+          || /^(?:(?:पहला|दूसरा|तीसरा|चौथा|पाँचवाँ|\d+वाँ) [A-Z])(?:; (?:पहला|दूसरा|तीसरा|चौथा|पाँचवाँ|\d+वाँ) [A-Z])*$/.test(value);
+      }
+      return value === "ਕੋਈ ਨਹੀਂ"
+        || /^(?:(?:ਪਹਿਲਾ|ਦੂਜਾ|ਤੀਜਾ|ਚੌਥਾ|ਪੰਜਵਾਂ|\d+ਵਾਂ) [A-Z])(?:; (?:ਪਹਿਲਾ|ਦੂਜਾ|ਤੀਜਾ|ਚੌਥਾ|ਪੰਜਵਾਂ|\d+ਵਾਂ) [A-Z])*$/.test(value);
   }
 }
 
@@ -69,6 +80,9 @@ const rejectedGenericTraps = [
   "ਉੱਪਰ ਦਿਖਾਈ ਪੂਰੀ ਥਾਂ-ਗਿਣਤੀ ਨੂੰ ਪੂਰਾ ਨਹੀਂ ਕਰਦਾ",
   "ਗਲਤ ਥਾਂ ਪੜ੍ਹਨ ਜਾਂ ਪੂਰੀ ਮੁੜ-ਵਿਵਸਥਾ ਦੀ ਬਜਾਏ ਮੂਲ ਸ਼ਬਦ ਵੇਖਣ ਨਾਲ ਮਿਲਦਾ ਹੈ",
   "ਥਾਂ-ਫਰਕ, ਕੇਵਲ ਵਿਚਕਾਰਲੇ ਅੱਖਰ ਅਤੇ ਦੋਵੇਂ ਸਿਰਿਆਂ ਸਮੇਤ ਗਿਣਤੀ ਨੂੰ ਆਪਸ ਵਿੱਚ ਮਿਲਾ ਦਿੰਦਾ ਹੈ",
+  "does not reproduce the complete worked condition that leads to",
+  "पूरी हल की गई शर्त को पूरा नहीं करता",
+  "ਪੂਰੀ ਹੱਲ ਕੀਤੀ ਸ਼ਰਤ ਨੂੰ ਪੂਰਾ ਨਹੀਂ ਕਰਦਾ",
 ];
 const rejectedGenericPedagogy = [
   "Use the relevant ranks and endpoint convention.",
@@ -95,6 +109,7 @@ let transformationGrids = 0;
 let trapAnalyses = 0;
 let wordOptionChecks = 0;
 let answerTypeChecks = 0;
+let localizedAnswerSurfaceChecks = 0;
 let repairedPedagogyChecks = 0;
 const coreConceptsByMode = new Map<string, Set<string>>();
 
@@ -112,12 +127,19 @@ for (const ql of ALP_001_QLS) {
       assert(question.explanation.visualWorking.length >= 1, `${ql.qlId} ${seed} ${locale} missing visual working`);
       assert(question.explanation.examShortcut.length >= 25, `${ql.qlId} ${seed} ${locale} weak shortcut`);
       assert(question.explanation.conclusion.includes(question.answer), `${ql.qlId} ${seed} ${locale} conclusion omits answer`);
+      assert(question.options[question.correctIndex]?.value === question.answer, `${ql.qlId} ${seed} ${locale} answer does not match correct localized option`);
       assert(question.explanation.distractorAnalyses.length === 3, `${ql.qlId} ${seed} ${locale} distractor analysis count`);
       assert(new Set(question.explanation.distractorAnalyses.map((analysis) => analysis.explanation)).size === 3, `${ql.qlId} ${seed} ${locale} duplicate trap explanations`);
 
       for (const option of question.options) {
         answerTypeChecks += 1;
-        assert(optionMatchesAnswerType(ql.answerType, option.value), `${ql.qlId} ${seed} ${locale} ${ql.answerType} option-shape mismatch: ${option.value}`);
+        assert(optionMatchesAnswerType(ql.answerType, option.value, locale), `${ql.qlId} ${seed} ${locale} ${ql.answerType} option-shape mismatch: ${option.value}`);
+      }
+      if (locale !== "en-IN" && (ql.answerType === "DIRECTION_OFFSET" || ql.answerType === "LETTER_SET")) {
+        localizedAnswerSurfaceChecks += question.options.length;
+        const optionText = question.options.map((option) => option.value).join(" | ");
+        assert(!/\bto the (?:left|right)\b/.test(optionText), `${ql.qlId} ${seed} ${locale} English direction option retained`);
+        assert(!/\b(?:first|second|third|\d+th|None)\b/.test(optionText), `${ql.qlId} ${seed} ${locale} English occurrence option retained`);
       }
 
       const wrongOptionIndices = question.options
@@ -203,6 +225,7 @@ console.log("ALP-001 editorial-v2 adversarial audit passed.", {
   trapAnalyses,
   wordOptionChecks,
   answerTypeChecks,
+  localizedAnswerSurfaceChecks,
   repairedPedagogyChecks,
   solveModes: coreConceptsByMode.size,
 });
