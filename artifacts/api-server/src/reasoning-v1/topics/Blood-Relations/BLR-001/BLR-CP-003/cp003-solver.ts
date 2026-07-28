@@ -2,6 +2,7 @@ import {
   generationDelta,
   generationRelationForDelta,
 } from "../foundation/family-analysis";
+import { assertValidFamilyGraph } from "../foundation/family-validity";
 import { graphFromClues, solveRelationFromGraph } from "../foundation/graph-closure";
 import type { FamilyGraph } from "../foundation/types";
 import type {
@@ -82,6 +83,33 @@ export function blrCp003SemanticKey(answer: BlrCp003SemanticAnswer): string {
   }
 }
 
+export function materializeBlrCp003HiddenGraph(
+  scenario: BlrCp003ScenarioTemplate,
+  personNames: Readonly<Record<string, string>>,
+): FamilyGraph {
+  const graph: FamilyGraph = {
+    ...scenario.hiddenGraph,
+    persons: scenario.hiddenGraph.persons.map((person) => ({
+      ...person,
+      name: personNames[person.personId] ?? person.name,
+    })),
+  };
+  assertValidFamilyGraph(graph);
+  return graph;
+}
+
+export function solveBlrCp003ScenarioFromHiddenGraph(
+  scenario: BlrCp003ScenarioTemplate,
+  personNames: Readonly<Record<string, string>>,
+): {
+  graph: FamilyGraph;
+  answers: readonly BlrCp003SemanticAnswer[];
+} {
+  const graph = materializeBlrCp003HiddenGraph(scenario, personNames);
+  const answers = scenario.questions.map((spec) => solveBlrCp003Question(graph, spec));
+  return { graph, answers };
+}
+
 export function solveBlrCp003ScenarioFromClues(
   scenario: BlrCp003ScenarioTemplate,
   personNames: Readonly<Record<string, string>>,
@@ -92,6 +120,23 @@ export function solveBlrCp003ScenarioFromClues(
   const graph = graphFromClues(scenario.clues, personNames, Object.keys(personNames));
   const answers = scenario.questions.map((spec) => solveBlrCp003Question(graph, spec));
   return { graph, answers };
+}
+
+export function proveBlrCp003HiddenGraphAgreesWithClues(
+  scenario: BlrCp003ScenarioTemplate,
+  personNames: Readonly<Record<string, string>>,
+): boolean {
+  const hiddenAnswers = solveBlrCp003ScenarioFromHiddenGraph(
+    scenario,
+    personNames,
+  ).answers.map(blrCp003SemanticKey);
+  const clueAnswers = solveBlrCp003ScenarioFromClues(scenario, personNames).answers.map(
+    blrCp003SemanticKey,
+  );
+  return (
+    hiddenAnswers.length === clueAnswers.length &&
+    hiddenAnswers.every((answer, index) => answer === clueAnswers[index])
+  );
 }
 
 export function proveEveryBlrCp003ClueContributes(
