@@ -10,6 +10,7 @@ const answers = new Set<string>();
 let selfRecords = 0;
 let onlyRecords = 0;
 let bothDerivedRecords = 0;
+let naturalMyRelationRecords = 0;
 
 assert.equal(BLR_CP002_BOTH_DERIVED_QUERY_SCENARIOS.length, 3);
 
@@ -33,6 +34,15 @@ for (const scenario of BLR_CP002_BOTH_DERIVED_QUERY_SCENARIOS) {
     assert.ok(question.stem.includes("related to"));
     assert.ok(question.stem.endsWith("?"));
     assert.ok(!question.stem.includes("undefined"));
+    assert.ok(!question.stem.includes(" of me."));
+    assert.ok(!question.stem.includes(" of you."));
+    assert.ok(!question.stem.includes("I is"));
+    assert.ok(!question.stem.includes("You is"));
+    if (scenario.scenarioId === "CP002-BOTH-DERIVED-MY-AUNT-TO-YOUR-FATHER") {
+      naturalMyRelationRecords += 1;
+      assert.ok(question.stem.includes("is my aunt."));
+      assert.ok(!question.stem.includes("aunt of me"));
+    }
     assert.ok(
       question.explanation.coreConcept?.some((line) => line.startsWith("my = ")),
     );
@@ -83,12 +93,13 @@ assert.deepEqual([...answers].sort(), ["MOTHER", "SELF", "SISTER"]);
 assert.equal(bothDerivedRecords, 192);
 assert.equal(selfRecords, 64);
 assert.equal(onlyRecords, 64);
+assert.equal(naturalMyRelationRecords, 64);
 
 console.log(
   JSON.stringify(
     {
       checkpointId: "BLR-CP-002",
-      gate: "BOTH_DERIVED_QUERY_ENDPOINTS_V1",
+      gate: "BOTH_DERIVED_QUERY_ENDPOINTS_V2",
       scenarios: BLR_CP002_BOTH_DERIVED_QUERY_SCENARIOS.length,
       questions: BLR_CP002_BOTH_DERIVED_QUERY_SCENARIOS.length * SEEDS_PER_SCENARIO,
       answerPositions,
@@ -96,6 +107,7 @@ console.log(
       bothDerivedRecords,
       selfRecords,
       onlyRecords,
+      naturalMyRelationRecords,
       permanentQlCount: 0,
       provisionalAuthorityCount: 1,
     },
