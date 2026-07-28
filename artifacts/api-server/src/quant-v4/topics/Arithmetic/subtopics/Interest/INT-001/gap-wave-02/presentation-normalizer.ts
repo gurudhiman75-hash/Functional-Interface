@@ -3,10 +3,12 @@ import {
   divideRational,
   formatDecimalIfTerminating,
   formatMoney,
+  formatPercent,
   formatRational,
   isWholeRational,
   multiplyRational,
   rational,
+  subtractRational,
 } from "../foundation/rational";
 import type {
   IntCp001Wave2Explanation,
@@ -43,6 +45,14 @@ function normaliseArticle(value: string): string {
     .replace(/\ba equipment loan\b/giu, "an equipment loan");
 }
 
+function normaliseFractionalYearGrammar(value: string): string {
+  return value.replace(/\b(\d+\/\d+) years\b/gu, "$1 of a year");
+}
+
+function cleanText(value: string): string {
+  return normaliseFractionalYearGrammar(normaliseArticle(value));
+}
+
 function ratioStem(parameters: IntCp001Wave2PrototypeParameters): string {
   const ratio = parameters.display.laterToEarlierAmountRatio!;
   const earlier = naturalDuration(parameters.hiddenState.earlierTimeYears);
@@ -64,7 +74,7 @@ function normaliseStem(
   parameters: IntCp001Wave2PrototypeParameters,
   stem: string,
 ): string {
-  let result = normaliseArticle(stem);
+  let result = cleanText(stem);
   if (parameters.prototypeId === "INT-CP001-W2-PROT-RATE-FROM-TWO-AMOUNT-RATIO") {
     result = ratioStem(parameters);
   }
@@ -82,18 +92,23 @@ function normaliseExplanation(
 ): IntCp001Wave2Explanation {
   const next: IntCp001Wave2Explanation = {
     ...explanation,
-    notice: normaliseArticle(explanation.notice),
-    relation: normaliseArticle(explanation.relation),
-    steps: explanation.steps.map(normaliseArticle),
-    verification: normaliseArticle(explanation.verification),
-    conclusion: normaliseArticle(explanation.conclusion),
-    commonTrap: normaliseArticle(explanation.commonTrap),
+    notice: cleanText(explanation.notice),
+    relation: cleanText(explanation.relation),
+    steps: explanation.steps.map(cleanText),
+    verification: cleanText(explanation.verification),
+    conclusion: cleanText(explanation.conclusion),
+    commonTrap: cleanText(explanation.commonTrap),
   };
   const request = parameters.request;
   const state = parameters.hiddenState;
 
   if (request.mode === "AMOUNT_FROM_PRT") {
     next.steps[1] = `The displayed duration is ${naturalDuration(request.timeYears)}.`;
+    if (parameters.display.displayedDays !== undefined) {
+      next.verification = `${formatMoney(state.laterAmount)} − ${formatMoney(state.principal)} = ${formatMoney(state.laterInterest)}, matching the exact interest for ${parameters.display.displayedDays} days on a 365-day basis.`;
+    } else if (parameters.display.displayedMonths !== undefined) {
+      next.verification = `${formatMoney(state.laterAmount)} − ${formatMoney(state.principal)} = ${formatMoney(state.laterInterest)}, matching the exact interest for ${parameters.display.displayedMonths} months.`;
+    }
   }
   if (request.mode === "PRINCIPAL_FROM_INTEREST") {
     const factor = multiplyRational(state.annualRate, request.timeYears);
@@ -105,23 +120,32 @@ function normaliseExplanation(
   }
   if (request.mode === "RATE_FROM_TWO_AMOUNT_RATIO") {
     const ratio = request.laterToEarlierAmountRatio;
+    const denominator = subtractRational(
+      request.laterTimeYears,
+      multiplyRational(ratio, request.earlierTimeYears),
+    );
     next.steps[0] = `The later-to-earlier amount ratio is ${ratio.numerator}:${ratio.denominator}.`;
-    next.verification = `Using ${solution.value.numerator}/${solution.value.denominator}% per annum in both amount factors reproduces the ratio ${ratio.numerator}:${ratio.denominator} exactly.`;
+    next.steps[1] = `Here k − 1 = ${formatRational(subtractRational(ratio, rational(1)))} and t₂ − kt₁ = ${denominator.denominator === 1n ? denominator.numerator : `${denominator.numerator}/${denominator.denominator}`}.`;
+    next.verification = `Using ${formatPercent(solution.value)} per annum in both amount factors reproduces the ratio ${ratio.numerator}:${ratio.denominator} exactly.`;
   }
   if (request.mode === "ANNUAL_INTEREST_FROM_TWO_AMOUNTS") {
     next.steps[1] = `The time gap is ${naturalDuration(
-      {
-        numerator: request.laterTimeYears.numerator * request.earlierTimeYears.denominator
-          - request.earlierTimeYears.numerator * request.laterTimeYears.denominator,
-        denominator: request.laterTimeYears.denominator * request.earlierTimeYears.denominator,
-      },
+      subtractRational(request.laterTimeYears, request.earlierTimeYears),
     )}.`;
   }
   if (request.mode === "AMOUNT_MULTIPLE_FROM_RATE_TIME") {
     next.conclusion = `Therefore, the final amount is ${solution.value.denominator === 1n ? solution.value.numerator : formatRational(solution.value)} times the principal.`;
   }
 
-  return next;
+  return {
+    ...next,
+    notice: cleanText(next.notice),
+    relation: cleanText(next.relation),
+    steps: next.steps.map(cleanText),
+    verification: cleanText(next.verification),
+    conclusion: cleanText(next.conclusion),
+    commonTrap: cleanText(next.commonTrap),
+  };
 }
 
 export function normaliseIntCp001Wave2Presentation(
@@ -135,7 +159,7 @@ export function normaliseIntCp001Wave2Presentation(
     reasoningGraph: {
       nodes: presentation.reasoningGraph.nodes.map((node) => ({
         ...node,
-        text: normaliseArticle(node.text),
+        text: cleanText(node.text),
       })),
     },
   };
