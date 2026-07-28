@@ -1,6 +1,6 @@
 # BLR-001 — Open QL Discovery Policy
 
-Status: **authoritative for unfinished BLR-001 checkpoints; CP-001 is frozen and allocated; CP-002 awaits human review**.
+Status: **authoritative for unfinished BLR-001 checkpoints; CP-001 and CP-002 are frozen and allocated**.
 
 No total chapter QL count is fixed by the end-to-end design. Each checkpoint discovers, audits and freezes its own solve identities before receiving the next continuous chapter range.
 
@@ -24,19 +24,12 @@ A technical source-gap pass may be run before human review to expose missing run
 
 ## Frozen BLR-CP-001 state
 
-CP-001 completed the full sequence under:
-
-`BLR_CP001_ENGLISH_DISCOVERY_FREEZE_V1`
+Freeze version: `BLR_CP001_ENGLISH_DISCOVERY_FREEZE_V1`
 
 ```text
 Exploratory prototypes:       11
 Frozen solve authorities:      7
 Permanent QL range:            BLR-QL-001..007
-Next available chapter ID:     BLR-QL-008
-Question Studio:               disabled
-Question Bank/mock tests:      disabled
-Public publication:            disabled
-Localisation:                  not started
 ```
 
 The seven permanent authorities are:
@@ -51,59 +44,41 @@ COMPARE_GENERATIONS
 RESOLVE_EXACT_LINEAGE_RELATION
 ```
 
-Great-grandfather, great-grandmother, great-grandson and great-granddaughter were added during the second source pass and merged into `BLR-QL-001`; they did not create a new solve authority.
+Great-grandfather, great-grandmother, great-grandson and great-granddaughter remain outputs inside `BLR-QL-001`.
 
-## Frozen CP-001 merge decisions
+## Frozen BLR-CP-002 state
 
-- direct versus reverse relation is query direction;
-- one-, two- and three-edge paths are depth/topology properties;
-- linear versus branching relation is topology;
-- true versus false claim is requested polarity;
-- male versus female is a target value;
-- maternal versus paternal and grandfather/grandmother/uncle/aunt are outputs of one exact-lineage authority;
-- relation labels, family size, names, clue order, renderer and difficulty do not create identities by themselves.
-
-Changing these decisions requires new direct source evidence, a new executable audit and a new freeze version. The existing seven identities must not be silently redefined.
-
-## Current BLR-CP-002 state
-
-The English technical pre-freeze pass currently records:
+Freeze version: `BLR_CP002_ENGLISH_DISCOVERY_FREEZE_V1`
 
 ```text
-positive canonical scenarios:       45
-negative model families:              2
-exploratory prototypes:               6
-provisional authority recommendation: 1
-CP-002 deterministic proof:       3,492
-permanent CP-002 QLs:                 0
-candidate next ID:            BLR-QL-008 (unclaimed)
+Positive canonical scenarios: 45
+Exploratory prototypes:         6
+Frozen solve authorities:       1
+Permanent QL range:             BLR-QL-008
 ```
 
-The provisional authority is:
+The permanent authority is:
 
 ```text
 RESOLVE_ANCHORED_ROLE_CHAIN_RELATION
 ```
 
-Covered dimensions include one- to three-anchor prompts, one- through four-step chains, direct/reverse/both-derived endpoints, `ANY`/`ONLY`/`NONE` constraints, blood and affinal relations, pictured and derived self identity, and semantic or possessive photograph/portrait option rendering.
+The following are frozen instance properties, not separate identities:
 
-Remaining required sequence:
-
-```text
-human editorial review
-  -> remediation if required
-  -> affected deterministic reruns
-  -> post-human source-gap confirmation
-  -> formal discovery freeze
-  -> allocation decision
-```
-
-`BLR-QL-008` must not be claimed before these gates pass.
+- presentation and question renderer;
+- one-, two- or three-anchor structure;
+- direct, reverse, one-derived or both-derived endpoints;
+- one- through four-step role depth;
+- broad or gendered roles;
+- `ONLY` and zero-cardinality constraints;
+- blood or affinal output;
+- relation value or `SELF`;
+- names, clue wording and difficulty.
 
 ## Current ownership boundary
 
 - CP-001: direct declarative named-person relations — frozen;
-- CP-002: pointer, photograph, portrait, conversation and nested self-reference — technical pre-freeze pass complete; human review pending;
+- CP-002: pointer, photograph, portrait, conversation and nested self-reference — frozen;
 - CP-003: shared passages — open;
 - CP-004: counts and family composition — open;
 - CP-005: possible, impossible, one-of-two and indeterminate semantics — open;
@@ -113,10 +88,10 @@ human editorial review
 
 ## Identity sequencing rule
 
-Later BLR-001 checkpoints must not use `BLR-QL-001..007`. The next checkpoint to complete exhaustive discovery starts from `BLR-QL-008` and reserves only the exact number of solve identities justified by its own final freeze.
+Later BLR-001 checkpoints must not use `BLR-QL-001..008`. The next checkpoint to complete exhaustive discovery starts from `BLR-QL-009` and reserves only the exact number of solve identities justified by its own final freeze.
 
 The final BLR-001 chapter total remains open until every checkpoint completes this process.
 
 ## Release rule
 
-Permanent identity is not production approval. A frozen QL may remain English review-only with all delivery surfaces disabled. Question Studio, Question Bank, mock tests, localisation and public publication require separate explicit gates.
+Permanent identity is not production approval. All currently frozen BLR QLs remain English review-only with Question Studio, Question Bank, mock tests, localisation and public publication disabled until separate explicit release gates pass.
