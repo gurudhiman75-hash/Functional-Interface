@@ -1,6 +1,6 @@
 # CLS-001 — Classification / Odd One Out
 
-Status: `OPEN_EXECUTABLE_DISCOVERY`
+Status: `CP001_FROZEN__CHAPTER_DISCOVERY_CONTINUES`
 
 ## Product identity
 
@@ -17,46 +17,78 @@ Status: `OPEN_EXECUTABLE_DISCOVERY`
 
 ## Governing rule
 
-Classification asks the learner to identify the option that does not share the uniquely intended class, property or relation of the remaining options.
+Classification asks the learner to identify the item, pair or complete option-group that differs from—or uniquely belongs to—the intended class, property or relation.
 
-The chapter is not implemented as a bag of static facts or a generic "three are alike" template. Every admitted question must expose a machine-readable classification rule, construct a valid four-option state, prove that exactly one option is the outlier, and be independently re-solved from the displayed options.
+The chapter is not implemented as a bag of static facts or a generic “three are alike” template. Every admitted question must:
 
-## Open-inventory policy
+1. define a bounded machine-readable rule universe;
+2. construct a valid state before rendering;
+3. prove one unique answer;
+4. reject equally defensible competing answers;
+5. be independently re-solved from the displayed state;
+6. preserve identical logic across supported locales.
 
-Permanent QL and solve-mode totals are not predetermined. They will be discovered from source evidence and executable coverage across:
+Four and five answer options are presentation and difficulty properties. They do not create separate QLs by themselves.
 
-- semantic classes and relationships;
-- lexical and word-structure properties;
-- number properties and transformations;
-- number pairs, triples and sets;
-- alphabet and letter-pair properties;
-- letter-cluster and word-pattern rules;
-- mixed alpha-numeric-symbol states;
-- direct outlier, odd-pair, class-member and equivalent-group task directions;
-- inverse, edge, representation, ambiguity and misconception audits.
+## Inventory policy
 
-No `CLS-QL-*` identity is reserved by this design foundation.
+Permanent QL and solve-mode totals are not fixed for the chapter in advance. Each checkpoint is frozen only after source, task-direction, inverse, answer-object, representation, ambiguity, ownership and no-new-contract audits close.
 
-## Provisional checkpoint ownership hypotheses
+`CLS-CP-001` has completed that process and owns:
 
-The following checkpoints organise discovery work only. They may be merged, split, reassigned or rejected after executable audits.
+| QL | Student task | Status |
+|---|---|---|
+| `CLS-QL-001` | Find the semantic outlier among four or five items | Frozen multilingual runtime proof |
+| `CLS-QL-002` | Select another member of the shared semantic class | Frozen multilingual runtime proof |
+| `CLS-QL-003` | Select the only internally coherent semantic word-group | Frozen multilingual runtime proof |
 
-| Checkpoint | Working scope |
-|---|---|
-| `CLS-CP-001` | Semantic word and entity classification |
-| `CLS-CP-002` | Semantic pair and relationship classification |
-| `CLS-CP-003` | Lexical, spelling and word-structure classification |
-| `CLS-CP-004` | Number-property classification |
-| `CLS-CP-005` | Number-pair, triple and set classification |
-| `CLS-CP-006` | Alphabet, letter-pair and letter-class classification |
-| `CLS-CP-007` | Letter-cluster and explicit word-pattern classification |
-| `CLS-CP-008` | Mixed token and bounded synthesis classification |
+No later `CLS-QL-*` identity is reserved. Later checkpoints will allocate only after their own exhaustive audits.
 
-These are ownership hypotheses, not QL allocations.
+## Checkpoint map
+
+| Checkpoint | Working scope | Status |
+|---|---|---|
+| `CLS-CP-001` | Semantic word and entity classification | `FROZEN_MULTILINGUAL_RUNTIME_PROOF` |
+| `CLS-CP-002` | Semantic pair and relationship classification | Pending executable discovery |
+| `CLS-CP-003` | Lexical, spelling and word-structure classification | Pending executable discovery |
+| `CLS-CP-004` | Number-property classification | Pending executable discovery |
+| `CLS-CP-005` | Number-pair, triple and set classification | Pending executable discovery |
+| `CLS-CP-006` | Alphabet, letter-pair and letter-class classification | Pending executable discovery |
+| `CLS-CP-007` | Letter-cluster and explicit word-pattern classification | Pending executable discovery |
+| `CLS-CP-008` | Mixed-token and bounded synthesis classification | Pending ownership audit |
+
+The pending checkpoint names remain organisational hypotheses and may still be merged, split, reassigned or rejected.
+
+## CLS-CP-001 frozen foundation
+
+```text
+Permanent QLs:                 3
+Frozen solve contracts:        3
+Source controls:               8
+Semantic classes:              27
+Unique English entities:       187
+Inherited multi-membership:    91 entities
+Direct multi-membership:       10 entities
+Locales:                       en-IN, hi-IN, pa-IN
+Answer-option counts:          4 and 5
+```
+
+The checkpoint supports:
+
+- direct semantic category;
+- primary function;
+- part/whole and system membership;
+- hierarchy-aware narrower classes;
+- cross-cutting multi-membership;
+- inverse class-member selection;
+- internally coherent three-word option groups;
+- item-valued and group-valued answers;
+- deterministic answer placement and independent verification;
+- natural English, Hindi and Punjabi review output.
 
 ## Strict chapter boundary
 
-CLS-001 owns questions whose final task is classification by a visible or inferable common property or pair-local relation.
+CLS-001 owns questions whose final task is classification by a visible or inferable common property or option-local relation.
 
 It excludes:
 
@@ -71,37 +103,17 @@ It excludes:
 - open-ended free-text semantic generation;
 - questions with several equally defensible grouping rules.
 
-## Source foundation
+Semantic odd word-pair relationships belong to `CLS-CP-002`, because pair direction and relation signatures require a different solver contract.
 
-Initial uploaded-source review confirms recurring competitive-exam forms covering:
-
-- single-word semantic odd-one-out;
-- word-pair relation odd-one-out;
-- number odd-one-out;
-- number-pair and number-set odd-one-out;
-- letter, letter-pair and letter-cluster odd-one-out;
-- jumbled-word semantic grouping;
-- identify another member of a supplied class;
-- identify the set most similar to a given set.
-
-Source examples are discovery evidence only. They are not copied into production and do not determine a fixed QL count.
-
-## First implementation milestone
-
-Start `CLS-CP-001` with non-permanent English prototypes for curated semantic word classification. The first executable wave must establish:
-
-1. a versioned semantic entity/class dataset;
-2. positive class membership and explicit exclusion evidence;
-3. four-option valid-state-first construction;
-4. a canonical classifier and a materially separate independent verifier;
-5. ambiguity rejection against alternative supported classes;
-6. misconception-labelled distractors and balanced answer placement;
-7. teacher-style explanations showing why three options form one class and why the fourth does not;
-8. deterministic review exports;
-9. zero permanent QLs until source, ownership, merge/split and gap audits close.
-
-See:
+## Authority documents
 
 - `CLS-001-END-TO-END-DESIGN.md`
 - `CLS-001-SOURCE-AND-OWNERSHIP-AUDIT.md`
-- `CLS-CP-001/CLS-CP-001-EXECUTABLE-DISCOVERY-PLAN.md`
+- `CLS-CP-001/CLS-CP-001-SOURCE-SATURATION-AND-BOUNDARY-CLOSURE.md`
+- `CLS-CP-001/CLS-CP-001-FINAL-MULTILINGUAL-FREEZE.md`
+- `CLS-CP-001/CLS-CP-001-HIERARCHY-AND-MERGE-SPLIT-AUDIT.md`
+- `CLS-CP-001/CLS-CP-001-INSTANCE-DIFFICULTY-AND-EDITORIAL-REMEDIATION.md`
+
+## Release locks
+
+`CLS-CP-001` is complete as a multilingual review-only runtime proof. It remains unavailable to Question Studio, Question Bank, tests and public users until an explicit integration approval is given.
