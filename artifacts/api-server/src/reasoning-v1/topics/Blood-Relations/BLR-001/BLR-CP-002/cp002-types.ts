@@ -21,6 +21,11 @@ export type BlrCp002Presentation =
   | "STAGE"
   | "CONVERSATION";
 
+export type BlrCp002QuestionForm =
+  | "HOW_RELATED"
+  | "WHOSE_PHOTOGRAPH"
+  | "WHOSE_PORTRAIT";
+
 export type BlrCp002Anchor = "SPEAKER" | "LISTENER" | "POINTED_PERSON";
 export type BlrCp002AnswerId = BlrRelationId | "SELF";
 
@@ -69,6 +74,7 @@ export interface BlrCp002Query {
 
 export interface BlrCp002StructuredPrompt {
   presentation: BlrCp002Presentation;
+  questionForm?: BlrCp002QuestionForm;
   speakerId: string;
   listenerId?: string;
   pointedPersonId?: string;
@@ -134,6 +140,7 @@ export interface GeneratedBlrCp002PrototypeQuestion {
     hiddenFingerprint: string;
     answerId: BlrCp002AnswerId;
     presentation: BlrCp002Presentation;
+    questionForm: BlrCp002QuestionForm;
     assertionRoleDepth: number;
     queryRoleDepth: number;
     onlyConstraintCount: number;
