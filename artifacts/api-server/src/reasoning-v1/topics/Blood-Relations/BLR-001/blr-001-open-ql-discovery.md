@@ -19,11 +19,24 @@ source and boundary audit
   -> permanent sequential QL allocation
 ```
 
-## Current state
+## Current BLR-CP-001 state
 
-`BLR-CP-001` currently has four executable prototype contracts and zero permanent QLs.
+CP-001 currently has nine executable prototype contracts and zero permanent QLs.
 
-The prototypes prove the shared graph foundation and relation-path solver. They do not establish that CP-001 has exactly four eventual QLs. Query shape, answer semantics and source-backed exam ownership remain under discovery.
+The first four prototypes prove direct, reverse and composed relation-label solving. The second five prototypes explore materially different query and answer contracts:
+
+- identify one person;
+- identify one ordered pair;
+- select a true or false claim;
+- compare generations;
+- solve a non-linear branching relation.
+
+This inventory does **not** establish that CP-001 has exactly nine eventual QLs. In particular:
+
+- true versus false claim polarity may remain one contract or split only if source and explanation evidence requires it;
+- branching relation may merge into composed relation solving if topology does not justify a distinct permanent contract;
+- path length, family size, names, clue order and difficulty do not create QLs by themselves;
+- gender-only, maternal/paternal specificity and other source-backed inverse forms still require discovery.
 
 ## Prohibited actions before freeze
 
@@ -32,4 +45,4 @@ The prototypes prove the shared graph foundation and relation-path solver. They 
 - making the runtime Question Studio visible;
 - localising unstable English contracts;
 - marking any prototype publicly publishable;
-- treating path length, names or difficulty alone as separate QLs.
+- treating path length, family topology, names or difficulty alone as separate QLs.
