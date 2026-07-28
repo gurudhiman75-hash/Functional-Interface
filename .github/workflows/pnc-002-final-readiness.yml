@@ -10,7 +10,7 @@ on:
       - .github/workflows/pnc-002-final-readiness.yml
   pull_request:
     branches:
-      - feat/pnc-002-cp011-grouping-distribution
+      - New-main
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/**
@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: validate-pnc-002-final-readiness-${{ github.ref }}
@@ -30,8 +30,23 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - name: Checkout source
+      - name: Checkout final PNC branch
         uses: actions/checkout@v4
+        with:
+          ref: feat/pnc-002-cp012-mixed-advanced-runtime-proof
+          fetch-depth: 0
+      - name: Synchronise New-main once
+        shell: bash
+        run: |
+          git fetch origin New-main
+          if git merge-base --is-ancestor origin/New-main HEAD; then
+            echo "Final PNC branch already contains current New-main."
+            exit 0
+          fi
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git merge --no-edit -X ours origin/New-main
+          git push origin HEAD:feat/pnc-002-cp012-mixed-advanced-runtime-proof
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
