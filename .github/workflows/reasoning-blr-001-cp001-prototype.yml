@@ -10,7 +10,7 @@ on:
 jobs:
   cp001-prototype:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 45
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -35,12 +35,18 @@ jobs:
       - name: Run human audit remediation gate
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/cp001-human-audit-remediation.test.ts
 
+      - name: Run second source and gap audit
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/cp001-second-source-gap.test.ts
+
       - name: Export remediated English review pack
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/export-cp001-review.ts blr-cp001-review-output
 
-      - name: Upload remediated English review pack
+      - name: Export second source-gap appendix
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/export-cp001-second-gap-review.ts blr-cp001-review-output
+
+      - name: Upload BLR-CP-001 V3 review pack
         uses: actions/upload-artifact@v4
         with:
-          name: blr-001-cp001-english-review-remediated
+          name: blr-001-cp001-english-review-v3-source-gap
           path: blr-cp001-review-output
           retention-days: 14
