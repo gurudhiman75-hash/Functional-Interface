@@ -9,7 +9,7 @@ const MALFORMED_TRAP = /(?:instead of .* instead of|dividing by the .* by|multip
 const GENERIC_TRAP_SHELL = /(?:Check what the question asks for|Follow the formula once, line by line|This removes a factor that the formula still needs|This adds an extra factor and makes the answer too large|That is only an intermediate value\. Continue until)/i;
 const RAW_NARRATIVE_FRACTION = /[½¼]/;
 const RAW_DISPLAY_DIVISION = /\//;
-const BARE_WIRE_STEM = /^(?:A circular wire|A wire rectangle|A wire forming|A square wire frame|An equilateral triangular wire frame)\b/i;
+const BARE_WIRE_STEM = /^(?:A circular wire|A wire rectangle|A wire forming|A wire square|A square wire frame|An equilateral triangular wire frame|A wire boundary)\b/i;
 const SIDE_VALUE_KEY = /^(?:side|sideA|sideB|sideC|legA|legB|height|halfBase|base|equalSide|hypotenuse|diagonal|diagonalA|diagonalB|halfDiagonalA|halfDiagonalB|length|breadth|ratioA|ratioB|ratioC)$/i;
 const PYTHAGOREAN_MODE = /RightTriangle|Isosceles|Pythag|Diagonal|Rhombus|TriangleAreaFromSideRatio/i;
 
