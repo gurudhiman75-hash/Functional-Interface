@@ -36,6 +36,10 @@ export function applyMalCp001CorePairEditorial(
     /(?:What quantity of each grade was used|How much of each grade is present|What are the two component quantities|What quantity of each was mixed)\?$/iu,
     `What are the quantities of ${request.lowerComponentLabel} and ${request.higherComponentLabel}, respectively?`,
   );
+  question.stem = question.stem.replace(
+    /,\s+What are the quantities/u,
+    ", what are the quantities",
+  );
   question.optionAudit = question.optionAudit.map((option) => ({
     ...option,
     text: option.result.kind === "COMPONENT_QUANTITY_PAIR"
