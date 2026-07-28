@@ -13,6 +13,7 @@ export type Men002Target =
   | "DIAGONAL"
   | "COUNT"
   | "COST"
+  | "RATE"
   | "PERCENT_CHANGE"
   | "RATIO";
 
@@ -25,8 +26,11 @@ export type Men002Unit =
   | "m³"
   | "litres"
   | "cubes"
+  | "bricks"
   | "%"
   | "£"
+  | "£/m²"
+  | "£/m³"
   | "times";
 
 export type ExactRational = {
