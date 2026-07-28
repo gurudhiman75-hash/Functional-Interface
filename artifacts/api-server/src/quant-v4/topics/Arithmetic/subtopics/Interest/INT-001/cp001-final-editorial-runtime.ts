@@ -1,7 +1,7 @@
 import {
   buildIntCp001FourTierExplanation,
-  formatIndianCurrencyText,
   type IntCp001FourTierExplanation,
+  type LegacyExplanationLike,
 } from "./cp001-editorial-v2";
 import { getIntCp001FinalRegistryEntry, type IntCp001FinalQlId } from "./cp001-final-registry";
 import {
@@ -20,6 +20,8 @@ export type IntCp001FinalEditorialQuestion = Omit<
   validation: IntCp001FinalGeneratedQuestion["validation"];
 };
 
+const CURRENCY_COMMA_TOKEN = "⟦CURRENCY_COMMA⟧";
+
 function formatIndianInteger(raw: string): string {
   const negative = raw.startsWith("-");
   const digits = raw.replace(/[-,]/gu, "").replace(/^0+(?=\d)/u, "");
@@ -29,9 +31,25 @@ function formatIndianInteger(raw: string): string {
   return `${negative ? "-" : ""}${leading},${lastThree}`;
 }
 
+function protectCurrencyPunctuation(text: string): string {
+  return text.replace(/(₹\s*-?\d+),(?=\s)/gu, `$1${CURRENCY_COMMA_TOKEN}`);
+}
+
+function protectLegacyExplanation(explanation: LegacyExplanationLike): LegacyExplanationLike {
+  return {
+    notice: protectCurrencyPunctuation(explanation.notice),
+    relation: protectCurrencyPunctuation(explanation.relation),
+    steps: explanation.steps.map(protectCurrencyPunctuation),
+    verification: protectCurrencyPunctuation(explanation.verification),
+    conclusion: protectCurrencyPunctuation(explanation.conclusion),
+    commonTrap: protectCurrencyPunctuation(explanation.commonTrap),
+  };
+}
+
 function normaliseCurrency(text: string): string {
-  return formatIndianCurrencyText(text).replace(
-    /₹\s*(-?\d{4,})(?=[^\d,]|$)/gu,
+  const restored = text.replaceAll(CURRENCY_COMMA_TOKEN, ",");
+  return restored.replace(
+    /₹\s*(-?\d+)(?=(?:\.\d+)?(?:\D|$))/gu,
     (_match, raw: string) => `₹${formatIndianInteger(raw)}`,
   );
 }
@@ -98,7 +116,7 @@ export function generateIntCp001FinalEditorialQuestion(
   const explanation = normaliseExplanationCurrency(buildIntCp001FourTierExplanation({
     qlId,
     entry,
-    legacy: core.explanation,
+    legacy: protectLegacyExplanation(core.explanation),
     parameters: core.internalProvenance.sourceParameters,
     options,
     optionAudit,
@@ -117,6 +135,9 @@ export function generateIntCp001FinalEditorialQuestion(
   }
   if (!explanation.stepByStep.conclusion.includes(options[core.correctIndex]!)) {
     errors.push("Four-tier conclusion does not state the displayed correct option.");
+  }
+  if (/₹[\d,]+\s+(?:the|and|but|while|whereas)\b/iu.test(stem)) {
+    errors.push("Currency normalisation appears to have removed required sentence punctuation.");
   }
 
   const learnerText = [
