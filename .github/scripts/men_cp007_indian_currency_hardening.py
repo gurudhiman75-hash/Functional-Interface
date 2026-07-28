@@ -82,5 +82,9 @@ patch(
             "shortcut: `Rate equals total cost divided by the twelve-edge wire length.`,",
             "shortcut: `The cube uses $12\\times${state.side}=${edgeLength}\\text{ m}$ of wire, so $Rate=\\frac{\\text{₹}${formatIndianInteger(cost)}}{${edgeLength}\\text{ m}}=\\frac{\\text{₹}${formatIndianInteger(state.rate)}}{\\text{m}}$.`,",
         ),
+        (
+            '{ name: "currency locale", passed: !/₹/.test(learnerText), message: "Generic money must use en-GB pounds sterling." },',
+            '{ name: "currency locale", passed: !/[£€¥]/.test(learnerText), message: "Indian exam money must not use foreign currency symbols." },',
+        ),
     ],
 )
