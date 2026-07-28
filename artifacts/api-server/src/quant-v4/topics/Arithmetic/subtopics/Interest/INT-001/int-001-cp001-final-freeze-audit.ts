@@ -3,7 +3,8 @@ import {
   INT_CP001_FINAL_REGISTRY,
 } from "./cp001-final-registry";
 import { INT_CP001_EDITORIAL_RELEASE_ID, INT_CP001_EDITORIAL_STANDARD } from "./cp001-editorial-release";
-import { generateIntCp001FinalEditorialQuestion } from "./cp001-final-editorial-runtime";
+import { generateIntCp001FinalEditorialV3Question } from "./cp001-final-editorial-runtime-v3";
+import { containsRawAsciiMath, hasGenericTextbookStemOpening } from "./cp001-editorial-v3";
 import { assertIntCp001ClosureFoundation } from "./final-closure/final-closure";
 import { runIntCp001LegacyFixtureAudit } from "./cp001-legacy-fixture-audit";
 
@@ -45,6 +46,8 @@ let ungroupedCurrencyFindings = 0;
 let fourTierPackages = 0;
 let shortcutPackages = 0;
 let shortcutMathPackages = 0;
+let inlineMathPackages = 0;
+let genericTextbookOpenings = 0;
 let analysedDistractors = 0;
 
 for (const entry of INT_CP001_FINAL_REGISTRY) {
@@ -57,14 +60,14 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
 
   for (let index = 0; index < 80; index += 1) {
     const seed = `freeze-${index}`;
-    const item = generateIntCp001FinalEditorialQuestion(entry.qlId, seed);
-    const repeat = generateIntCp001FinalEditorialQuestion(entry.qlId, seed);
+    const item = generateIntCp001FinalEditorialV3Question(entry.qlId, seed);
+    const repeat = generateIntCp001FinalEditorialV3Question(entry.qlId, seed);
     generated += 1;
 
     if (stable(item) !== stable(repeat)) fail(`${entry.qlId}/${seed} is not deterministic.`);
     if (!item.validation.ok) fail(`${entry.qlId}/${seed}: ${item.validation.errors.join(" | ")}`);
     if (item.permanentQlId !== entry.qlId || item.qlId !== entry.qlId) fail(`${entry.qlId}/${seed} lost permanent identity.`);
-    if (item.releaseId !== INT_CP001_EDITORIAL_RELEASE_ID || item.maturity !== "FROZEN_ENGLISH_CONTRACT") fail(`${entry.qlId}/${seed} lost editorial-v2 release traceability.`);
+    if (item.releaseId !== INT_CP001_EDITORIAL_RELEASE_ID || item.maturity !== "FROZEN_ENGLISH_CONTRACT") fail(`${entry.qlId}/${seed} lost editorial release traceability.`);
     if (item.publiclyPublishable || item.questionStudioDiscoverable) fail(`${entry.qlId}/${seed} breached review-only safety.`);
     if (item.questionBankStatus !== "NOT_STORED" || item.testEligibility !== "INELIGIBLE") fail(`${entry.qlId}/${seed} breached storage/test safety.`);
     if (item.options.length !== 4 || new Set(item.options).size !== 4) fail(`${entry.qlId}/${seed} does not have four unique options.`);
@@ -118,6 +121,12 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
       ungroupedCurrencyFindings += 1;
       fail(`${entry.qlId}/${seed} contains an ungrouped four-or-more-digit rupee value.`);
     }
+    if (containsRawAsciiMath(learnerText)) fail(`${entry.qlId}/${seed} contains raw ASCII fractions or variable notation outside MathJax.`);
+    inlineMathPackages += 1;
+    if (hasGenericTextbookStemOpening(item.stem)) {
+      genericTextbookOpenings += 1;
+      fail(`${entry.qlId}/${seed} retains a generic textbook opening that should be contextualised.`);
+    }
     if (!item.stem.endsWith("?")) fail(`${entry.qlId}/${seed} stem is not a complete interrogative question.`);
     if (/(?:^|[.!?]\s+)(?:Find|Determine)\b/u.test(item.stem)) fail(`${entry.qlId}/${seed} uses an imperative question fragment.`);
     if (/^For [A-Z][\p{L}-]*'s .+ earns /u.test(item.stem)) fail(`${entry.qlId}/${seed} uses a malformed 'For <name>\'s ... earns' opening.`);
@@ -147,7 +156,11 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
     topologyCounts.set(item.topology, (topologyCounts.get(item.topology) ?? 0) + 1);
     sourceKindCounts.set(item.internalProvenance.sourceKind, (sourceKindCounts.get(item.internalProvenance.sourceKind) ?? 0) + 1);
 
-    const normalisedStem = item.stem.toLowerCase().replace(/₹[\d,.]+/gu, "₹#").replace(/\d+(?:\.\d+)?(?:\/\d+)?/gu, "#");
+    const normalisedStem = item.stem
+      .toLowerCase()
+      .replace(/₹[\d,.]+/gu, "₹#")
+      .replace(/\$-?\d*\\frac\{\d+\}\{\d+\}\$/gu, "#")
+      .replace(/\d+(?:\.\d+)?(?:\/\d+)?/gu, "#");
     const existingQl = globalStems.get(normalisedStem);
     if (existingQl && existingQl !== entry.qlId) fail(`Cross-QL normalised stem collision: ${existingQl} and ${entry.qlId}.`);
     globalStems.set(normalisedStem, entry.qlId);
@@ -170,6 +183,7 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
     fourTierPackages: 80,
     shortcutPackages: 80,
     shortcutMathPackages: 80,
+    inlineMathPackages: 80,
     analysedDistractors: 240,
   };
 }
@@ -184,6 +198,8 @@ if (fractionalMoneyOptions !== 0) fail(`Final audit found ${fractionalMoneyOptio
 if (fourTierPackages !== generated) fail(`Only ${fourTierPackages}/${generated} packages passed the four-tier gate.`);
 if (shortcutPackages !== generated) fail(`Only ${shortcutPackages}/${generated} packages contain shortcuts.`);
 if (shortcutMathPackages !== generated) fail(`Only ${shortcutMathPackages}/${generated} packages contain shortcut MathJax.`);
+if (inlineMathPackages !== generated) fail(`Only ${inlineMathPackages}/${generated} packages passed inline-MathJax normalisation.`);
+if (genericTextbookOpenings !== 0) fail(`Final audit found ${genericTextbookOpenings} generic textbook openings.`);
 if (analysedDistractors !== generated * 3) fail(`Expected ${generated * 3} distractor analyses; found ${analysedDistractors}.`);
 
 console.log(JSON.stringify({
@@ -202,6 +218,8 @@ console.log(JSON.stringify({
   fourTierPackages,
   shortcutPackages,
   shortcutMathPackages,
+  inlineMathPackages,
+  genericTextbookOpenings,
   analysedDistractors,
   fractionalMoneyOptions,
   ungroupedCurrencyFindings,
