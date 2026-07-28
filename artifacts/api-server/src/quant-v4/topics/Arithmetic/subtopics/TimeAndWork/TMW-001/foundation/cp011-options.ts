@@ -9,7 +9,7 @@ function format(entry:TmwCp011RegistryEntry,p:TmwCp011Parameters,value:Rational)
  if(entry.answerType==="TIME"){if(value.denominator===1)return `${value.numerator} days`;const whole=Math.trunc(value.numerator/value.denominator),rem=value.numerator-whole*value.denominator;return whole>0?`\\(${whole}\\frac{${rem}}{${value.denominator}}\\;\\text{days}\\)`:`\\(${toLatex(value)}\\;\\text{day}\\)`;}
  if(entry.answerType==="DAY_INDEX")return `after day ${value.numerator}`;
  if(entry.answerType==="MULTIPLIER")return `\\(${toLatex(value)}\\)`;
- if(entry.answerType==="RATE_CHANGE"){const magnitude=rational(Math.abs(value.numerator),value.denominator);const direction=value.numerator<0?"decrease":"increase";const unit=magnitude.numerator===magnitude.denominator?p.context.unit.replace(/s$/," ").trim():p.context.unit;const cadence=p.sequenceKind==="THRESHOLD"?"per day":"each day";return `${direction} of ${magnitude.denominator===1?magnitude.numerator:`\(${toLatex(magnitude)}\)`} ${unit} ${cadence}`; }
+ if(entry.answerType==="RATE_CHANGE"){const magnitude=rational(Math.abs(value.numerator),value.denominator);const direction=value.numerator<0?"decrease":"increase";const unit=magnitude.numerator===magnitude.denominator?p.context.unit.replace(/s$/," ").trim():p.context.unit;const cadence=p.sequenceKind==="THRESHOLD"?"per day":"each day";return `${direction} of ${magnitude.denominator===1?magnitude.numerator:`\\(${toLatex(magnitude)}\\)`} ${unit} ${cadence}`; }
  if(entry.answerType==="RATE")return `${value.denominator===1?value.numerator:`\\(${toLatex(value)}\\)`} ${p.context.unit} per day`;
  return `${value.denominator===1?value.numerator:`\\(${toLatex(value)}\\)`} ${p.context.unit}`;
 }

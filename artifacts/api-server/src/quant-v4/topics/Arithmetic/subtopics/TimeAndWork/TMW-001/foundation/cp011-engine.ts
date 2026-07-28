@@ -52,7 +52,7 @@ export function generateTmwCp011Parameters(entry:TmwCp011RegistryEntry,seed:stri
 function answerText(type:TmwCp011Solution["answerType"],answer:Rational,p:TmwCp011Parameters){
  if(type==="TIME"){if(answer.denominator===1)return `${answer.numerator} days`;const whole=integerPart(answer),rem=answer.numerator-whole*answer.denominator;return whole===0?`\\(${toLatex(answer)}\\;\\text{day}\\)`:`\\(${whole}\\frac{${rem}}{${answer.denominator}}\\;\\text{days}\\)`;}
  if(type==="MULTIPLIER")return `\\(${toLatex(answer)}\\)`;
- if(type==="RATE_CHANGE"){const magnitude=rational(Math.abs(answer.numerator),answer.denominator);const direction=answer.numerator<0?"decrease":"increase";const unit=magnitude.numerator===magnitude.denominator?p.context.unit.replace(/s$/," ").trim():p.context.unit;const cadence=p.sequenceKind==="THRESHOLD"?"per day":"each day";return `${direction} of ${magnitude.denominator===1?magnitude.numerator:`\(${toLatex(magnitude)}\)`} ${unit} ${cadence}`; }
+ if(type==="RATE_CHANGE"){const magnitude=rational(Math.abs(answer.numerator),answer.denominator);const direction=answer.numerator<0?"decrease":"increase";const unit=magnitude.numerator===magnitude.denominator?p.context.unit.replace(/s$/," ").trim():p.context.unit;const cadence=p.sequenceKind==="THRESHOLD"?"per day":"each day";return `${direction} of ${magnitude.denominator===1?magnitude.numerator:`\\(${toLatex(magnitude)}\\)`} ${unit} ${cadence}`; }
  if(type==="DAY_INDEX")return `after day ${answer.numerator}`;
  if(type==="RATE")return `${answer.denominator===1?answer.numerator:`\\(${toLatex(answer)}\\)`} ${p.context.unit} per day`;
  return `${answer.denominator===1?answer.numerator:`\\(${toLatex(answer)}\\)`} ${p.context.unit}`;

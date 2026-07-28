@@ -47,6 +47,8 @@ for (const entry of TMW_CP_011_REGISTRY) {
     if (/undefined|null|NaN|Infinity|\{\{/.test(learnerText)) failures.push(`${entry.qlId}:${index}:unresolved value`);
     if (/per day and changes by|increases by \\(0\\)|decreases by \\(0\\)/i.test(learnerText)) failures.push(`${entry.qlId}:${index}:mechanical change wording`);
     if (/\+\s*-|--|−\s*-/.test(learnerText)) failures.push(`${entry.qlId}:${index}:awkward signed expression`);
+    const outsideMath = learnerText.replace(/\\\([\s\S]*?\\\)/g, "");
+    if (/\\frac/.test(outsideMath)) failures.push(`${entry.qlId}:${index}:raw LaTeX fraction outside MathJax`);
     if (question.explanation.steps.length < 3) failures.push(`${entry.qlId}:${index}:brief standard working`);
     if (question.explanation.commonTrap.optionText !== question.options["ABCD".indexOf(question.explanation.commonTrap.optionLabel.at(-1)!)] ) failures.push(`${entry.qlId}:${index}:trap option mapping mismatch`);
     if (entry.qlId === "TMW-QL-196" && !question.solution.answerText.endsWith("each day")) failures.push(`${entry.qlId}:${index}:AP change cadence mismatch`);

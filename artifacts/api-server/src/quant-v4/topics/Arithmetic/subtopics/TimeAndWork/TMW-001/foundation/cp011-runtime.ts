@@ -21,6 +21,7 @@ export function validateTmwCp011Question(q:TmwCp011GeneratedQuestion){const erro
  if(/\b\d+\s+\d+\/\d+\s+days?\b|\b\d+\/\d+\s+days?\b/.test(text))errors.push("ASCII fractional time");
  if(/\+\s*-|--|−\s*-/.test(text))errors.push("awkward signed expression");
  if((text.match(/\\\(/g)||[]).length!==(text.match(/\\\)/g)||[]).length)errors.push("unbalanced MathJax");
+ const outsideMath=text.replace(/\\\([\s\S]*?\\\)/g,"");if(/\\frac/.test(outsideMath))errors.push("raw LaTeX fraction outside MathJax");
  if(/undefined|null|NaN|Infinity|\{\{/.test(text))errors.push("unresolved value");
  if(q.publiclyPublishable!==false)errors.push("publication safety");
  return{valid:errors.length===0,errors};}
