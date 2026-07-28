@@ -1,0 +1,132 @@
+name: Validate PNC-002 teacher-style editorial quality
+
+on:
+  push:
+    branches:
+      - feat/pnc-002-editorial-quality-upgrade
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/**
+      - .github/workflows/pnc-002-editorial-quality.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/**
+      - .github/workflows/pnc-002-editorial-quality.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-pnc-002-editorial-quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-pnc-002-editorial-quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        run: |
+          cd artifacts/api-server
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --resolveJsonModule \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-reviewed.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-final.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-exam-authentic.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-teacher.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-teacher-reviewed.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-teacher-final.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-teacher-production.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-final.test.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-production.test.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-shortcut-regression.test.ts
+      - name: Bundle final teacher proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-final.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-002-editorial-quality-teacher-final-proof.mjs
+      - name: Bundle production teacher proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-production.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-002-editorial-quality-teacher-production-proof.mjs
+      - name: Bundle shortcut regression proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-shortcut-regression.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-002-editorial-quality-teacher-shortcut-regression.mjs
+      - name: Run final adversarial teacher proof
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          mkdir -p dist/quant-v4/pnc-002-editorial-quality-diagnostics
+          set +e
+          node dist/quant-v4/pnc-002-editorial-quality-teacher-final-proof.mjs 2>&1 | tee dist/quant-v4/pnc-002-editorial-quality-diagnostics/final.log
+          status=${PIPESTATUS[0]}
+          exit "$status"
+      - name: Run production teacher proof
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set +e
+          node dist/quant-v4/pnc-002-editorial-quality-teacher-production-proof.mjs 2>&1 | tee dist/quant-v4/pnc-002-editorial-quality-diagnostics/production.log
+          status=${PIPESTATUS[0]}
+          exit "$status"
+      - name: Run shortcut regression proof
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set +e
+          node dist/quant-v4/pnc-002-editorial-quality-teacher-shortcut-regression.mjs 2>&1 | tee dist/quant-v4/pnc-002-editorial-quality-diagnostics/shortcuts.log
+          status=${PIPESTATUS[0]}
+          exit "$status"
+      - name: Publish production teacher-style editorial review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-002-teacher-style-editorial-review-production
+          path: artifacts/api-server/dist/quant-v4/pnc-002-editorial-quality-teacher-production/
+          if-no-files-found: error
+          retention-days: 14
+      - name: Publish diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-002-editorial-quality-diagnostics
+          path: artifacts/api-server/dist/quant-v4/pnc-002-editorial-quality-diagnostics/
+          if-no-files-found: error
+          retention-days: 3
