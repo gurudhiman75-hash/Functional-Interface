@@ -1,0 +1,34 @@
+name: Reasoning BLR-001 CP-002 Role Chains
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
+      - ".github/workflows/reasoning-blr-001-cp002-prototype.yml"
+  workflow_dispatch:
+
+jobs:
+  cp002-role-chain-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run pointer, photograph and conversation audit
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-prototype.test.ts
+
+      - name: Export CP-002 English review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/export-cp002-review.ts blr-cp002-review-output
+
+      - name: Upload CP-002 English review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp002-english-open-discovery-v1
+          path: blr-cp002-review-output
+          retention-days: 14
