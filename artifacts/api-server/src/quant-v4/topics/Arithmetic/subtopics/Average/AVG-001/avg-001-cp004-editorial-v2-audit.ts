@@ -1,7 +1,7 @@
 import { strict as assert } from "node:assert";
 
 import { AVG_001_CP004_EDITORIAL_V2 } from "./foundation/cp004-editorial-v2";
-import { applyAvg001Cp004EditorialV2Candidate } from "./foundation/cp004-editorial-v2-polish";
+import { applyAvg001Cp004EditorialV2ReviewedCandidate } from "./foundation/cp004-editorial-v2-distractor-polish";
 import { getAvg001QuestionEntries } from "./foundation/library";
 import { runAvg001Pipeline } from "./foundation/pipeline";
 import { hasConsistentSemanticOptions, semanticUnitFor } from "./foundation/presentation-quality-v2";
@@ -26,6 +26,11 @@ function normalizeStem(stem: string) {
   return stem.toLowerCase().replace(/\s+/g, " ").trim();
 }
 
+function ratioParts(value: string) {
+  const match = value.match(/^(\d+):(\d+)$/);
+  return match ? [Number(match[1]), Number(match[2])] as const : undefined;
+}
+
 assert.equal(entries.length, 85, `Expected 85 CP-004 QLs; found ${entries.length}`);
 
 for (const entry of entries) {
@@ -33,7 +38,7 @@ for (const entry of entries) {
   for (let seedIndex = 0; seedIndex < 5; seedIndex += 1) {
     const seed = `avg-cp004-editorial-v2:${entry.qlId}:${seedIndex}`;
     const original = runAvg001Pipeline({ questionLanguageId: entry.qlId, seed, language: "en" });
-    const candidate = applyAvg001Cp004EditorialV2Candidate(original);
+    const candidate = applyAvg001Cp004EditorialV2ReviewedCandidate(original);
     generated += 1;
 
     if (candidate.mathematicalFingerprint !== original.mathematicalFingerprint) fail(`${entry.qlId}:${seedIndex}: mathematical fingerprint changed`);
@@ -48,8 +53,18 @@ for (const entry of entries) {
     if (candidate.options.length !== 4 || new Set(candidate.options).size !== 4) fail(`${entry.qlId}:${seedIndex}: options are not four and unique`);
     if (candidate.options[candidate.correctIndex] !== candidate.answer) fail(`${entry.qlId}:${seedIndex}: correct option does not equal candidate answer`);
     if (!hasConsistentSemanticOptions(candidate)) fail(`${entry.qlId}:${seedIndex}: semantic option units are inconsistent unit=${semanticUnitFor(candidate)} options=${JSON.stringify(candidate.options)}`);
+    if (candidate.options.some((option, index) => index !== candidate.correctIndex && /^-₹/.test(option))) fail(`${entry.qlId}:${seedIndex}: implausible negative currency distractor survived`);
+    if (candidate.parameters.answerType === "RATIO") {
+      const correct = ratioParts(candidate.answer);
+      for (const option of candidate.options.filter((_, index) => index !== candidate.correctIndex)) {
+        const wrong = ratioParts(option);
+        if (correct && wrong && wrong[0] * correct[1] === wrong[1] * correct[0]) fail(`${entry.qlId}:${seedIndex}: mathematically equivalent ratio distractor ${option}`);
+      }
+    }
     if (/^(?:Combine|Three groups contain|Four groups contain)|\bFind the (?:combined )?average\.?$/i.test(candidate.stem.trim())) fail(`${entry.qlId}:${seedIndex}: mechanical stem survived: ${candidate.stem}`);
     if (candidate.stem.length < 70 || /[{}]|undefined|NaN|Infinity|null/.test(candidate.stem)) fail(`${entry.qlId}:${seedIndex}: stem is short or unresolved`);
+    if (/^In [^,]+ \d+/i.test(candidate.stem)) fail(`${entry.qlId}:${seedIndex}: introductory sentence fragment survived: ${candidate.stem}`);
+    if (/\bmembers\b/.test(candidate.stem) && candidate.solveMode === "findCombinedAverageOfThreeOrFourGroups") fail(`${entry.qlId}:${seedIndex}: generic multi-group member noun survived`);
     if (candidate.explanation.lines.length !== 4) fail(`${entry.qlId}:${seedIndex}: explanation does not have exactly four tiers`);
 
     const tierPrefixes = ["📌 Key rule:", "📝 Step-by-step solution:", "⚡ Exam speed shortcut:", "⚠️ Common traps and distractors:"];
@@ -61,6 +76,8 @@ for (const entry of entries) {
       .filter((_, index) => index !== candidate.correctIndex)
       .filter((option) => candidate.explanation.lines[3]?.includes(`(${option})`));
     if (wrongMentions.length !== 3) fail(`${entry.qlId}:${seedIndex}: not all three distractors are analysed`);
+    const tags = [...(candidate.explanation.lines[3]?.matchAll(/\[([A-Z0-9_]+)\]/g) ?? [])].map((match) => match[1]);
+    if (tags.length !== 3) fail(`${entry.qlId}:${seedIndex}: expected three explicit misconception tags; got ${tags.length}`);
     if (!candidate.explanation.lines.join(" ").includes(candidate.answer)) fail(`${entry.qlId}:${seedIndex}: explanation omits qualified answer`);
     if (/\b(?:get|find) the average\b|Thus, the final value confirms|completed calculation shows/i.test(candidate.explanation.lines.join(" "))) fail(`${entry.qlId}:${seedIndex}: generic explanation filler survived`);
 
@@ -82,6 +99,7 @@ console.log(JSON.stringify({
   generated,
   semanticOptionCases: generated,
   fourTierExplanationCases: generated,
+  valueBasedDistractorAnalysisCases: generated,
   allDistractorsAnalysedCases: generated,
   duplicateStemGroups: duplicateStems.length,
   fingerprintChanges: 0,
