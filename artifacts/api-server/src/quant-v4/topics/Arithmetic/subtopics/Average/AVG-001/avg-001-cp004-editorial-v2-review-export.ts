@@ -1,7 +1,7 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { applyAvg001Cp004EditorialV2ReviewedCandidate } from "./foundation/cp004-editorial-v2-distractor-polish";
+import { applyAvg001Cp004EditorialV2FinalCandidate } from "./foundation/cp004-editorial-v2-final";
 import { getAvg001QuestionEntries } from "./foundation/library";
 import { runAvg001Pipeline } from "./foundation/pipeline";
 
@@ -15,7 +15,7 @@ const rows = getAvg001QuestionEntries()
   .map((entry) => {
     const seed = `avg-cp004-editorial-v2-review:${entry.qlId}`;
     const original = runAvg001Pipeline({ questionLanguageId: entry.qlId, seed, language: "en" });
-    const candidate = applyAvg001Cp004EditorialV2ReviewedCandidate(original);
+    const candidate = applyAvg001Cp004EditorialV2FinalCandidate(original);
     return {
       qlId: entry.qlId,
       solveMode: entry.solveMode,
@@ -33,6 +33,7 @@ const rows = getAvg001QuestionEntries()
       releaseCandidate: candidate.traceability.releaseCandidate,
       semanticUnit: candidate.traceability.semanticAnswerUnit,
       distractorAnalysisVersion: candidate.traceability.cp004DistractorAnalysisV2,
+      finalEditorialVersion: candidate.traceability.cp004EditorialV2Final,
     };
   });
 
