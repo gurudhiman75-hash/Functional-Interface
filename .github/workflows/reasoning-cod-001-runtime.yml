@@ -35,6 +35,9 @@ jobs:
       - name: Run COD-CP-007 permanent runtime audit
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-007/cp007-runtime.test.ts
 
+      - name: Run COD-CP-008 permanent runtime audit
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-008/cp008-runtime.test.ts
+
       - name: Run CP-001 to CP-004 editorial regression audit
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/review/cod-cp001-cp004-editorial.test.ts
 
