@@ -36,6 +36,10 @@ function explanationText(explanation: IntCp001Explanation): string {
   ].join("\n");
 }
 
+function namesInterestStructure(value: string): boolean {
+  return /simple interest|annual interest|interest-to-principal|amount multiplier|\bI\s*=\s*P|\bP\s*=|\bR\s*=|\bT\s*=/iu.test(value);
+}
+
 export function validateIntCp001Prototype(input: ValidationInput): VerificationResult {
   const independent = verifyIntCp001Independently(input.parameters, input.solution);
   const errors = [...independent.errors];
@@ -84,8 +88,8 @@ export function validateIntCp001Prototype(input: ValidationInput): VerificationR
   if (containsUnsafePlaceholder(renderedExplanation)) {
     errors.push("Explanation contains an unresolved placeholder.");
   }
-  if (!/simple interest|annual interest|interest-to-principal|amount multiplier/iu.test(renderedExplanation)) {
-    errors.push("Explanation does not name the decisive interest structure.");
+  if (!namesInterestStructure(renderedExplanation)) {
+    errors.push("Explanation does not identify the decisive interest relation.");
   }
   if (!input.explanation.verification || input.explanation.verification.length < 35) {
     errors.push("Explanation lacks a meaningful verification step.");
