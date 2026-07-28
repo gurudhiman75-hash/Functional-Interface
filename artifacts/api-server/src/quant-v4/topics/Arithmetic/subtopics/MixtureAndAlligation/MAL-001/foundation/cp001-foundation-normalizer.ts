@@ -188,14 +188,19 @@ function normalizeStem(question: any): string {
       question.parameters?.context?.quantityUnit === "kg" &&
       /(?:leaves|beans)$/iu.test(shareLabel)
     ) {
+      const clearPluralPrompt = `How many kilograms of ${shareLabel} are used?`;
       stem = stem
         .replace(
-          new RegExp(`What quantity of ${escapedShareLabel} is used\\?`, "u"),
-          `How many kilograms of ${shareLabel} are used?`,
+          new RegExp(`What quantity of ${escapedShareLabel} (?:is used|is present)\\?`, "u"),
+          clearPluralPrompt,
         )
         .replace(
-          new RegExp(`How much ${escapedShareLabel} is used\\?`, "u"),
-          `How many kilograms of ${shareLabel} are used?`,
+          new RegExp(`What quantity of ${escapedShareLabel} does it contain\\?`, "u"),
+          clearPluralPrompt,
+        )
+        .replace(
+          new RegExp(`How much ${escapedShareLabel} (?:is used|is present)\\?`, "u"),
+          clearPluralPrompt,
         );
     }
   }
