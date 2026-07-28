@@ -1,6 +1,6 @@
 import { ALPHABET, positionTrack } from "./foundation/alphabet";
 import { auditAlpInstance } from "./ambiguity-checker";
-import { buildAlpOptions, validateAlpOptions } from "./distractors";
+import { buildAlpOptions, validateAlpOptions } from "./distractors-safe";
 import { renderAlpExplanationV2, renderAlpStemV2 } from "./editorial-v2-safe";
 import { generateAlpInstance } from "./instance-generator";
 import { solveAlpInstance } from "./independent-solver";
