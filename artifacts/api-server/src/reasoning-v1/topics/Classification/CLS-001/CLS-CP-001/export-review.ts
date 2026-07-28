@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { generateClsCp001Prototype, getClsCp001PrototypeDefinitions } from "./runtime";
+import type { Difficulty } from "./types";
 
 const outputDir = path.resolve(process.cwd(), "dist/reasoning-v1/cls-001/cp001-review");
 
@@ -11,16 +12,27 @@ const rows = getClsCp001PrototypeDefinitions().flatMap((prototype, prototypeInde
   }),
 );
 
+const difficultyCounts = rows.reduce<Record<Difficulty, number>>((counts, question) => {
+  counts[question.difficulty] += 1;
+  return counts;
+}, { EASY: 0, MEDIUM: 0, HARD: 0 });
+
 function section(title: string, lines: readonly string[]): string {
   return [`### ${title}`, ...lines.map((line) => `- ${line}`)].join("\n");
+}
+
+function yesNo(value: boolean): string {
+  return value ? "yes" : "no";
 }
 
 const markdown = [
   "# CLS-CP-001 Semantic Classification Hierarchy Review",
   "",
   `Dataset: ${rows[0]?.metadata.datasetVersion ?? "unknown"}`,
+  `Difficulty model: ${rows[0]?.metadata.difficultyModel ?? "unknown"}`,
   `Questions: ${rows.length}`,
   `Prototypes: ${getClsCp001PrototypeDefinitions().length}`,
+  `Difficulty distribution: Easy ${difficultyCounts.EASY}, Medium ${difficultyCounts.MEDIUM}, Hard ${difficultyCounts.HARD}`,
   "Hierarchy aware: yes",
   "Multi-membership aware: yes",
   "Permanent QLs: 0",
@@ -39,6 +51,8 @@ const markdown = [
     `**Intended class:** ${question.intendedClassLabel}`,
     `**Ambiguity audit:** ${question.ambiguityAudit.result}`,
     `**Winning-support classes:** ${question.ambiguityAudit.competingClassIds.join(", ") || "none"}`,
+    `**Difficulty score:** ${question.difficultyFeatures.score}`,
+    `**Difficulty evidence:** hierarchy depth ${question.difficultyFeatures.hierarchyDepth}; shared parent ${yesNo(question.difficultyFeatures.allItemsShareParent)}; direct multi-membership items ${question.difficultyFeatures.multiMembershipItemCount}; candidate rules ${question.difficultyFeatures.candidateRuleCount}; inverse task ${yesNo(question.difficultyFeatures.inverseTask)}; cross-cutting ${yesNo(question.difficultyFeatures.crossCutting)}; semantic demand ${question.difficultyFeatures.semanticDemand}`,
     "",
     section("Core Rule", question.explanation.coreRule),
     "",
@@ -61,6 +75,10 @@ console.log("CLS-CP-001 hierarchy review export written.", {
   outputDir,
   questions: rows.length,
   prototypes: getClsCp001PrototypeDefinitions().length,
-  hardQuestions: rows.filter((question) => question.difficulty === "HARD").length,
+  difficultyCounts,
+  scoreRange: [
+    Math.min(...rows.map((question) => question.difficultyFeatures.score)),
+    Math.max(...rows.map((question) => question.difficultyFeatures.score)),
+  ],
   hierarchyQuestions: rows.filter((question) => question.metadata.hierarchyAware).length,
 });
