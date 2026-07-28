@@ -1,17 +1,19 @@
-name: Reasoning COD-001 CP-010 Prototype
+name: Reasoning COD-001 CP-010 Runtime
 
 on:
   pull_request:
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-010/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-001-MANIFEST-AMENDMENT-CP010.md"
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/cod-001-open-ql-discovery-amendment.md"
       - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/README.md"
       - ".github/workflows/reasoning-cod-001-cp010-prototype.yml"
   workflow_dispatch:
 
 jobs:
-  cp010-prototype:
+  cp010-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -24,5 +26,18 @@ jobs:
       - name: Enforce final English discovery freeze
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-010/cp010-final-discovery-freeze.test.ts
 
-      - name: Run CP-010 executable discovery audit
+      - name: Run permanent English runtime audit
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-010/cp010-runtime.test.ts
+
+      - name: Run executable prototype regression
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-010/cp010-prototype.test.ts
+
+      - name: Export English review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-010/export-cp010-review.ts cod-cp010-review-output
+
+      - name: Upload English review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: cod-001-cp010-english-review
+          path: cod-cp010-review-output
+          retention-days: 14

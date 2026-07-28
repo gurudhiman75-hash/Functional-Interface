@@ -1,21 +1,23 @@
 # COD-CP-010 — Conditional Table and Mixed-Symbol Coding
 
-Status: **English discovery frozen under `COD_CP010_ENGLISH_DISCOVERY_FREEZE_V1`; one executable solve contract; zero permanent QLs in this PR**.
+Status: **`COD-QL-199` implemented at English runtime-proof maturity under `COD_CP010_ENGLISH_DISCOVERY_FREEZE_V1`; review-only**.
 
 ## Read in this order
 
 1. `../cod-001-open-ql-discovery-amendment.md`;
-2. `COD-CP-010-SOURCE-AND-BOUNDARY-AUDIT.md`;
-3. `COD-CP-010-FINAL-DISCOVERY-FREEZE.md`;
-4. `cp010-final-discovery-freeze.ts`;
-5. `cp010-prototype-contracts.ts`;
-6. `cp010-prototype-runtime.ts`;
-7. `cp010-prototype-solver.ts`;
-8. the executable audits.
+2. `../COD-001-MANIFEST-AMENDMENT-CP010.md`;
+3. `COD-CP-010-SOURCE-AND-BOUNDARY-AUDIT.md`;
+4. `COD-CP-010-FINAL-DISCOVERY-FREEZE.md`;
+5. `COD-CP-010-IMPLEMENTATION-REPORT.md`;
+6. the permanent contract, runtime and executable audits.
 
-## Frozen boundary
+## Permanent contract
 
-The checkpoint owns explicit conditional lookup-table questions in which the student:
+```text
+COD-QL-199 — APPLY_CONDITIONAL_TABLE_FORWARD
+```
+
+The student:
 
 1. codes every source token through a displayed table;
 2. classifies the first and last source tokens;
@@ -23,46 +25,43 @@ The checkpoint owns explicit conditional lookup-table questions in which the stu
 4. applies its override once;
 5. chooses the complete mixed-code sequence.
 
-Exactly one solve contract survives:
-
-```text
-APPLY_CONDITIONAL_TABLE_FORWARD
-```
-
-The executable prototype covers letter and digit tables, all eight vowel/consonant and odd/even endpoint signatures, constant endpoint replacement, endpoint-code interchange, left/right endpoint copying and a class-wide vowel override.
-
 Input domain, endpoint signature, source length, table order, override action, stem wording, difficulty and answer position remain instance properties rather than separate QLs.
+
+## Runtime coverage
+
+The permanent runtime covers:
+
+- letter and digit tables;
+- all eight vowel/consonant and odd/even endpoint signatures;
+- constant endpoint replacement;
+- endpoint-code interchange;
+- copying the left endpoint code to both endpoints;
+- copying the right endpoint code to both endpoints;
+- class-wide vowel replacement by a designated table code;
+- Easy, Medium and Hard instances;
+- all four answer positions.
 
 ## Executable proof
 
-The 800-question audit proves:
+The permanent gate runs:
 
-- deterministic generation;
-- independent solver agreement;
-- all eight endpoint signatures;
-- all five admitted override actions;
-- all four answer positions;
-- Easy, Medium and Hard reach;
-- four unique options with one correct answer;
-- complete table, condition and explanation payloads;
-- no public or Question Studio exposure.
+- the final discovery-freeze audit;
+- 800 permanent English runtime questions;
+- the 800-question prototype regression;
+- a 40-question English review export.
 
-## Guarded allocation
+The runtime preserves the frozen prototype solver and payload while replacing prototype identity with permanent `COD-QL-199` identity and provenance metadata.
 
-After this freeze merges, exactly one permanent identity may be assigned:
+## Exclusions retained
 
-```text
-COD-QL-199 — APPLY_CONDITIONAL_TABLE_FORWARD
-```
-
-Inverse decoding, missing-token recovery, hidden-condition inference and overlapping-condition precedence remain excluded for source gaps.
+Inverse decoding, missing-token recovery, hidden-condition inference, overlapping-condition precedence and separate domain/action QLs remain excluded for source gaps. Arithmetic and relation-symbol substitution remain owned by `OPS-001`.
 
 ## Safety
 
 ```text
-Permanent CP-010 QLs in this PR: 0
-Next available chapter ID: COD-QL-199 (unallocated)
-English: frozen executable prototype
+Permanent CP-010 range: COD-QL-199
+English: runtime-proof complete
 Hindi/Punjabi: not started
-Question Studio/publication: disabled
+Question Studio: disabled
+Question Bank/mock-test/publication: disabled
 ```
