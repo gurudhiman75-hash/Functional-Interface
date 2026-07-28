@@ -227,18 +227,18 @@ Required release sequence:
 MEN-CP-007 is the first package hardened under this authority.
 
 ```text
-Validated head:                    1450adc89e408efefae10d81e4fbe5a3c5acefe7
-Workflow:                          Validate MEN-CP-007 Indian editorial production
-Workflow run:                      30381590084
-Conclusion:                        PASS
-Artifact ID:                       8697225322
-Artifact digest:                   sha256:dd5d0f263e634d94d4853a0e3728d7ffb80ff76dfce2374863f5ca549a8b0408
-Temporary contracts:               64
-Total audited packages:            5,120
-Rupee packages audited:            400
-Hardened human-review rows:         192
-Exact Render production build:     PASS
-Permanent QL allocations:          0
+Final documentation-inclusive head:    6f3cb0761fc07e81636306e429a27a6ab5b6c6ce
+Workflow:                               Validate MEN-CP-007 Indian editorial production
+Workflow run:                           30381942961
+Conclusion:                             PASS
+Artifact ID:                            8697359644
+Artifact digest:                        sha256:46b35546bacb91e74a422d0572864d19a39445100229771621c58b5ddcc238aa
+Temporary contracts:                    64
+Total audited packages:                 5,120
+Rupee packages audited:                 400
+Hardened human-review rows:              192
+Exact Render production build:          PASS
+Permanent QL allocations:               0
 ```
 
 The reference proof validates all four CP-007 discovery layers together and enforces Indian currency, Indian grouping, MathJax hygiene, hidden-control rejection, displayed distractor analysis, problem-specific shortcuts, lifecycle locks and exact production build.
