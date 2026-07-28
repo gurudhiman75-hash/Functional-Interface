@@ -1,6 +1,6 @@
 # COD-001 — Coding–Decoding
 
-Status: **multilingual runtime closed at review-proof maturity for all 199 permanent QLs in English, Hindi and natural Punjabi**.
+Status: **multilingual runtime and pedagogical presentation closed at review-proof maturity for all 199 permanent QLs in English, Hindi and natural Punjabi**.
 
 Student-facing chapter: **Coding–Decoding**  
 Reasoning V1 package: `COD-001`  
@@ -17,7 +17,8 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/CO
 7. `COD-CP-008/COD-CP-008-MULTILINGUAL-REPORT.md` and its language-adapted audit.
 8. `COD-CP-009/COD-CP-009-MULTILINGUAL-REPORT.md` and its language-adapted audit.
 9. `COD-001-MULTILINGUAL-CLOSURE.md` and the final three-locale closure gate.
-10. checkpoint-specific discovery, implementation and review authorities.
+10. `COD-001-PEDAGOGICAL-REMEDIATION.md` and the all-QL explanation-quality gate.
+11. checkpoint-specific discovery, implementation and review authorities.
 
 ## Frozen permanent identity
 
@@ -68,7 +69,28 @@ Answer-position counts are identical across all three locales:
 319 / 283 / 289 / 303
 ```
 
-The final editorial export contains one sample per QL per locale: 597 review questions in JSONL and Markdown.
+## Pedagogical explanation closure
+
+Every runtime question now includes a structured `cod-001-pedagogy-v1` presentation:
+
+```text
+core rule
+problem-specific step-by-step solution
+visual alignment or evidence table
+exam-speed shortcut
+common-trap analysis
+```
+
+The all-QL pedagogical gate generates 1,194 additional audit questions across two seeds and three locales. It proves that explanations include the correct answer or set members, actual source/target transformations, visual working, localized four-tier headings, non-generic Hindi/Punjabi shortcuts and natural Punjabi terminology.
+
+Observed diversity:
+
+```text
+Shortcut variants — English 356, Hindi 355, Punjabi 355
+Visual variants   — English 370, Hindi 370, Punjabi 370
+```
+
+Markdown review exports contain no raw JSON explanation dumps. The upgraded final export contains one clean sample per QL per locale: 597 questions in Markdown and JSONL.
 
 ## Final chapter state
 
@@ -76,6 +98,8 @@ The final editorial export contains one sample per QL per locale: 597 review que
 English runtime: complete
 Hindi runtime: complete
 Punjabi runtime: complete
+Pedagogical presentation: complete
+Human-review Markdown rendering: complete
 Question Studio: disabled
 Question Bank conversion: disabled
 Mock-test eligibility: disabled
