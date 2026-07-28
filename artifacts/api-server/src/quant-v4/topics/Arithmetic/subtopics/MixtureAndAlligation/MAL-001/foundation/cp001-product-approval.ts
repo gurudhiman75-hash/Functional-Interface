@@ -8,7 +8,7 @@ export type MalCp001CandidateProductDecision =
   | "DEFERRED_FROM_CP001_REFER_CP002";
 
 export type MalCp001PrototypeProductDecision =
-  | "APPROVED"
+  | "IN_APPROVED_SCOPE"
   | "DEFERRED_VARIANT"
   | "HELD"
   | "REFERRED_TO_CP002";
@@ -16,7 +16,7 @@ export type MalCp001PrototypeProductDecision =
 export interface MalCp001CandidateProductApproval {
   freezeCandidateId: MalCp001FreezeCandidateId;
   decision: MalCp001CandidateProductDecision;
-  approvedPrototypeIds: readonly MalCp001DiscoveryPrototypeId[];
+  includedPrototypeIds: readonly MalCp001DiscoveryPrototypeId[];
   excludedPrototypeIds: readonly MalCp001DiscoveryPrototypeId[];
   rationale: string;
 }
@@ -25,7 +25,7 @@ export interface MalCp001PrototypeProductApproval {
   prototypeId: MalCp001DiscoveryPrototypeId;
   freezeCandidateId: MalCp001FreezeCandidateId;
   decision: MalCp001PrototypeProductDecision;
-  approvedReviewRowCount: number;
+  reviewRowCountInScope: number;
   rationale: string;
 }
 
@@ -34,7 +34,9 @@ export const MAL_CP001_PRODUCT_APPROVAL_METADATA = {
   approvalDate: "2026-07-28",
   approvalSource:
     "Explicit approval of the scoped non-allocating recommendation in the ExamTree project conversation.",
-  languageReviewed: "en",
+  approvedLanguageScope: "en",
+  candidateScopeApproved: true,
+  individualQuestionRowsApproved: false,
   allocationScopeFrozen: true,
   qlTemplateCountFrozen: false,
   permanentQlCount: 0,
@@ -47,7 +49,7 @@ export const MAL_CP001_CANDIDATE_PRODUCT_APPROVALS:
     {
       freezeCandidateId: "MAL-CP001-FREEZE-TARGET-RATIO",
       decision: "APPROVED_FIRST_ALLOCATION_SCOPE",
-      approvedPrototypeIds: ["MAL-CP001-PROT-RATIO-FROM-TARGET"],
+      includedPrototypeIds: ["MAL-CP001-PROT-RATIO-FROM-TARGET"],
       excludedPrototypeIds: [],
       rationale:
         "The product owner approved the directly sourced target-ratio contract for the first CP-001 allocation scope.",
@@ -55,7 +57,7 @@ export const MAL_CP001_CANDIDATE_PRODUCT_APPROVALS:
     {
       freezeCandidateId: "MAL-CP001-FREEZE-FINAL-MEAN",
       decision: "APPROVED_FIRST_ALLOCATION_SCOPE",
-      approvedPrototypeIds: [
+      includedPrototypeIds: [
         "MAL-CP001-PROT-MEAN-FROM-QUANTITIES",
         "MAL-CP001-PROT-MEAN-FROM-RATIO",
         "MAL-CP001-PROT-THREE-COMPONENT-MEAN",
@@ -67,7 +69,7 @@ export const MAL_CP001_CANDIDATE_PRODUCT_APPROVALS:
     {
       freezeCandidateId: "MAL-CP001-FREEZE-UNKNOWN-SOURCE-VALUE",
       decision: "APPROVED_FIRST_ALLOCATION_SCOPE",
-      approvedPrototypeIds: [
+      includedPrototypeIds: [
         "MAL-CP001-PROT-UNKNOWN-SOURCE-VALUE",
         "MAL-CP001-PROT-SOURCE-VALUE-FROM-RATIO",
       ],
@@ -78,7 +80,7 @@ export const MAL_CP001_CANDIDATE_PRODUCT_APPROVALS:
     {
       freezeCandidateId: "MAL-CP001-FREEZE-UNKNOWN-COMPONENT-QUANTITY",
       decision: "APPROVED_FIRST_ALLOCATION_SCOPE",
-      approvedPrototypeIds: [
+      includedPrototypeIds: [
         "MAL-CP001-PROT-UNKNOWN-COMPONENT-QUANTITY",
         "MAL-CP001-PROT-ADDED-QUANTITY-FOR-TARGET",
         "MAL-CP001-PROT-THIRD-COMPONENT-QUANTITY",
@@ -90,7 +92,7 @@ export const MAL_CP001_CANDIDATE_PRODUCT_APPROVALS:
     {
       freezeCandidateId: "MAL-CP001-FREEZE-QUANTITIES-FROM-RATIO-SCALE",
       decision: "APPROVED_WITH_VARIANT_DEFERRED",
-      approvedPrototypeIds: [
+      includedPrototypeIds: [
         "MAL-CP001-PROT-TWO-QUANTITIES-FROM-TOTAL",
         "MAL-CP001-PROT-COMPONENT-SHARE-FROM-TARGET",
       ],
@@ -101,7 +103,7 @@ export const MAL_CP001_CANDIDATE_PRODUCT_APPROVALS:
     {
       freezeCandidateId: "MAL-CP001-FREEZE-TWO-STAGE-FINAL-MEAN",
       decision: "APPROVED_FIRST_ALLOCATION_SCOPE",
-      approvedPrototypeIds: ["MAL-CP001-PROT-TWO-STAGE-BLEND-MEAN"],
+      includedPrototypeIds: ["MAL-CP001-PROT-TWO-STAGE-BLEND-MEAN"],
       excludedPrototypeIds: [],
       rationale:
         "The product owner approved the directly sourced forward two-stage final-mean contract.",
@@ -109,7 +111,7 @@ export const MAL_CP001_CANDIDATE_PRODUCT_APPROVALS:
     {
       freezeCandidateId: "MAL-CP001-FREEZE-TWO-STAGE-UNKNOWN-QUANTITY",
       decision: "HELD_FOR_SOURCE_OR_EXPLICIT_ACCEPTANCE",
-      approvedPrototypeIds: [],
+      includedPrototypeIds: [],
       excludedPrototypeIds: ["MAL-CP001-PROT-TWO-STAGE-UNKNOWN"],
       rationale:
         "The approved recommendation keeps the exact inverse two-stage topology on hold because its external support remains analogous rather than direct.",
@@ -117,7 +119,7 @@ export const MAL_CP001_CANDIDATE_PRODUCT_APPROVALS:
     {
       freezeCandidateId: "MAL-CP001-FREEZE-THREE-WAY-RELATION-QUANTITY",
       decision: "DEFERRED_FROM_CP001_REFER_CP002",
-      approvedPrototypeIds: [],
+      includedPrototypeIds: [],
       excludedPrototypeIds: ["MAL-CP001-PROT-THREE-WAY-TARGET-WITH-RELATION"],
       rationale:
         "The approved recommendation excludes this candidate from CP-001 and retains it only as CP-002 ownership-boundary evidence.",
@@ -127,11 +129,11 @@ export const MAL_CP001_CANDIDATE_PRODUCT_APPROVALS:
 export const MAL_CP001_PROTOTYPE_PRODUCT_APPROVALS:
   readonly MalCp001PrototypeProductApproval[] =
   MAL_CP001_CANDIDATE_PRODUCT_APPROVALS.flatMap((candidate) => [
-    ...candidate.approvedPrototypeIds.map((prototypeId) => ({
+    ...candidate.includedPrototypeIds.map((prototypeId) => ({
       prototypeId,
       freezeCandidateId: candidate.freezeCandidateId,
-      decision: "APPROVED" as const,
-      approvedReviewRowCount: 4,
+      decision: "IN_APPROVED_SCOPE" as const,
+      reviewRowCountInScope: 4,
       rationale: candidate.rationale,
     })),
     ...candidate.excludedPrototypeIds.map((prototypeId) => ({
@@ -143,14 +145,14 @@ export const MAL_CP001_PROTOTYPE_PRODUCT_APPROVALS:
           : candidate.decision === "HELD_FOR_SOURCE_OR_EXPLICIT_ACCEPTANCE"
             ? "HELD" as const
             : "REFERRED_TO_CP002" as const,
-      approvedReviewRowCount: 0,
+      reviewRowCountInScope: 4,
       rationale: candidate.rationale,
     })),
   ]);
 
-export const MAL_CP001_APPROVED_PROTOTYPE_IDS =
+export const MAL_CP001_APPROVED_SCOPE_PROTOTYPE_IDS =
   MAL_CP001_PROTOTYPE_PRODUCT_APPROVALS
-    .filter((entry) => entry.decision === "APPROVED")
+    .filter((entry) => entry.decision === "IN_APPROVED_SCOPE")
     .map((entry) => entry.prototypeId);
 
 export const MAL_CP001_DEFERRED_PROTOTYPE_IDS =
