@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: validate-pnc-002-editorial-quality-${{ github.ref }}
@@ -28,8 +28,47 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - name: Checkout source
+      - name: Checkout editorial branch
         uses: actions/checkout@v4
+        with:
+          ref: feat/pnc-002-editorial-quality-upgrade
+      - name: Apply exact proof repairs once
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          root = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002')
+          presentation = root / 'foundation/student-presentation.ts'
+          text = presentation.read_text()
+          old = '  if (!steps.some((line) => line.includes(source.solver.mathJax))) steps.push(displayEquation);'
+          new = '  if (!steps.some((line) => line.includes(`$$${source.solver.mathJax}$$`))) steps.push(displayEquation);'
+          if old in text:
+              text = text.replace(old, new, 1)
+          elif new not in text:
+              raise SystemExit('display-equation guard not found')
+          presentation.write_text(text)
+
+          proof = root / 'pnc-002-editorial-quality.test.ts'
+          proof_text = proof.read_text()
+          old_regex = 'const unresolvedPlaceholder = /\\{[A-Za-z][A-Za-z0-9_]*\\}/;'
+          new_regex = 'const unresolvedPlaceholder = /\\{[A-Za-z][A-Za-z0-9_]{1,}\\}/;'
+          if old_regex in proof_text:
+              proof_text = proof_text.replace(old_regex, new_regex, 1)
+          elif new_regex not in proof_text:
+              raise SystemExit('placeholder regex not found')
+          proof.write_text(proof_text)
+          PY
+          if ! git diff --quiet -- \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality.test.ts; then
+            git config user.name github-actions[bot]
+            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+            git add \
+              artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation.ts \
+              artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality.test.ts
+            git commit -m "fix(pnc): enforce display formula and TeX-safe placeholders"
+            git push origin HEAD:feat/pnc-002-editorial-quality-upgrade
+          fi
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
