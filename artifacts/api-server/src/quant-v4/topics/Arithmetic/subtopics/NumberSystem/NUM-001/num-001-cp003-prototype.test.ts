@@ -14,6 +14,8 @@ function assertOk(value: unknown, message = "Assertion failed"): void {
   if (!value) throw new Error(message);
 }
 
+const rawMathCommand = /(?<!\\)\([^)]*(?<!\\)\b(?:div|lceil|rceil|times)\b[^)]*(?<!\\)\)/u;
+
 assertEqual(NUM_CP003_PROTOTYPE_REGISTRY.length, NUM_CP003_PROTOTYPE_IDS.length);
 assertEqual(new Set(NUM_CP003_PROTOTYPE_IDS).size, NUM_CP003_PROTOTYPE_IDS.length);
 
@@ -52,7 +54,7 @@ for (const prototypeId of NUM_CP003_PROTOTYPE_IDS) {
     assertOk(first.explanation.traps.length >= 3);
     assertOk(first.reasoningGraph.nodes.some((node) => node.kind === "VERIFICATION"));
     assertOk(first.difficultyEvidence.length > 0);
-    assertOk(!first.explanation.steps.some((step) => /\([^)]*\b(?:div|lceil|rceil|times)\b[^)]*\)/u.test(step)));
+    assertOk(!first.explanation.steps.some((step) => rawMathCommand.test(step)));
 
     answerPositions.add(first.correctIndex);
     stems.add(first.stem);
