@@ -27,21 +27,17 @@ jobs:
 
           path = Path("artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/structured-comprehension-humanizer.ts")
           text = path.read_text()
-          old = '''    case "Calculate the Cost":
-              return "First confirm the correct area or boundary length, then multiply it by the stated rate. Keep the currency already used in the question.";
-            case "Calculate the Rate":
+          anchor = '''    case "Calculate the Rate":
               return "Divide the total cost by the matching area or boundary length. The unit tells you whether the rate is per metre or per square metre.";'''
-          new = '''    case "Calculate the Cost":
-              return "First confirm the correct area or boundary length, then multiply it by the stated rate. Keep the currency already used in the question.";
-            case "Calculate the Rate":
+          addition = '''    case "Calculate the Rate":
               return "Divide the total cost by the matching area or boundary length. The unit tells you whether the rate is per metre or per square metre.";
             case "Calculate the Cost or Rate":
               return /Rate/.test(mode)
                 ? "First find the complete area or boundary length, then divide the stated total cost by that measure to obtain the rate per matching unit."
                 : "First find the complete area or boundary length, then multiply it by the stated rate to obtain the total cost in the currency used by the question.";'''
-          if old not in text:
-              raise SystemExit("Expected cost/rate step block not found")
-          path.write_text(text.replace(old, new, 1))
+          if anchor not in text:
+              raise SystemExit("Expected cost/rate anchor not found")
+          path.write_text(text.replace(anchor, addition, 1))
           PY
 
       - name: Commit patch
