@@ -60,4 +60,4 @@ Permanent runtime and corpus guards enforce teacher voice, expanded working, dir
 
 ## Current gate
 
-A fresh exact-head GitHub Actions run, hosted-artifact inspection and user review are required before merge. Question Studio routing, Question Bank writes, localisation, test assembly and public delivery remain disabled.
+All temporary staging and patch workflows have been removed. A fresh exact-head GitHub Actions run, hosted-artifact inspection and user review are required before merge. Question Studio routing, Question Bank writes, localisation, test assembly and public delivery remain disabled.
