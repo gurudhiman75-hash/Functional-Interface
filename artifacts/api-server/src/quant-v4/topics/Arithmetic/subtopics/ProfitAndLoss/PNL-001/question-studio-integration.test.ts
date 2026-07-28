@@ -7,7 +7,11 @@ import {
 
 const packages = listQuantV4Packages();
 const pnlPackages = packages.filter((pkg) => pkg.packageId === "PNL-001");
-assert.equal(pnlPackages.length, 1, "Question Studio must expose one PNL-001 package.");
+assert.equal(
+  pnlPackages.length,
+  1,
+  "Question Studio must expose one PNL-001 package.",
+);
 
 const pnl = pnlPackages[0]!;
 assert.equal(pnl.enabled, true);
@@ -55,14 +59,17 @@ const batch = await generateQuestion({
 assert.equal(batch.questionPackages.length, 12);
 assert.equal(batch.questions.length, 12);
 assert.equal(batch.generationContext.runtimeMode, "CANONICAL_REVIEW");
-assert.equal(batch.generationContext.reviewStatus, "APPROVED_EDITORIAL_CANONICAL");
+assert.equal(
+  batch.generationContext.reviewStatus,
+  "APPROVED_EDITORIAL_CANONICAL",
+);
 assert.equal(batch.generationContext.questionBankStatus, "NOT_STORED");
 assert.equal(batch.generationContext.testEligibility, "INELIGIBLE");
 assert.equal(batch.generationContext.publiclyPublishable, false);
 assert.equal(
   new Set(
-    batch.questionPackages.map((questionPackage: any) =>
-      questionPackage.canonicalProblemId,
+    batch.questionPackages.map(
+      (questionPackage: any) => questionPackage.canonicalProblemId,
     ),
   ).size,
   6,
@@ -113,7 +120,11 @@ assert.equal(dynamicBatch.generationContext.questionBankStatus, "NOT_STORED");
 assert.equal(dynamicBatch.generationContext.testEligibility, "INELIGIBLE");
 assert.equal(dynamicBatch.generationContext.publiclyPublishable, false);
 assert.deepEqual(
-  [...new Set(dynamicBatch.questionPackages.map((pkg: any) => pkg.canonicalProblemId))],
+  [
+    ...new Set(
+      dynamicBatch.questionPackages.map((pkg: any) => pkg.canonicalProblemId),
+    ),
+  ],
   ["PNL-CP-001"],
   "Dynamic candidate mode must be restricted to CP-001.",
 );
@@ -129,7 +140,10 @@ for (const questionPackage of dynamicBatch.questionPackages as any[]) {
     questionPackage.options[questionPackage.correctIndex],
     questionPackage.answer,
   );
-  assert.equal(questionPackage.traceability.generationMode, "DYNAMIC_CANDIDATE");
+  assert.equal(
+    questionPackage.traceability.generationMode,
+    "DYNAMIC_CANDIDATE",
+  );
   assert.equal(
     questionPackage.traceability.reviewStatus,
     "UNREVIEWED_DYNAMIC_CANDIDATE",
