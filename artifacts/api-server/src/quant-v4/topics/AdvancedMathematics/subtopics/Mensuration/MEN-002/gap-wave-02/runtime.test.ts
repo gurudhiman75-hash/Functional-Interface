@@ -33,15 +33,16 @@ for (const prototypeId of prototypeIds) {
     const second = generateMenCp007Wave02Prototype(prototypeId, seed);
 
     assert.deepEqual(first, second, `${prototypeId} must regenerate deterministically for ${seed}.`);
+    const validationFailures = first.validation.checks
+      .filter((check) => !check.passed)
+      .map((check) => `${check.name}: ${check.message}`)
+      .join("; ");
     assert.equal(
       first.validation.valid,
       true,
-      first.validation.checks
-        .filter((check) => !check.passed)
-        .map((check) => `${check.name}: ${check.message}`)
-        .join("; "),
+      `${prototypeId} ${seed}: ${validationFailures}`,
     );
-    assert.equal(first.verification.valid, true, `${prototypeId} failed independent verification.`);
+    assert.equal(first.verification.valid, true, `${prototypeId} failed independent verification for ${seed}.`);
     assert.equal(first.difficulty, classifyMenCp007Wave02Difficulty(first.state));
     assert.equal(first.options.length, 4);
     assert.equal(new Set(first.options.map((option) => exactKey(option.value))).size, 4);
