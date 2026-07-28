@@ -5,6 +5,7 @@ import {
   NAV_GROUPS,
   NAV_LOOKUP,
   WORKSPACE_STATUS_LABELS,
+  WORKSPACE_STATUS_OPTIONS,
 } from '@/app/nav/navigation';
 
 describe('admin navigation roadmap', () => {
@@ -14,12 +15,23 @@ describe('admin navigation roadmap', () => {
     expect(NAV_GROUPS.map((group) => group.id)).toEqual([
       'overview', 'content', 'tests', 'commerce', 'users', 'analytics', 'settings',
     ]);
-    expect(items).toHaveLength(34);
+    expect(items).toHaveLength(40);
     expect(items.map((item) => item.label)).toEqual(expect.arrayContaining([
       'Question Studio', 'Content Review', 'Coverage Planner', 'Sections & Topics',
       'Test QA', 'Test Series', 'Exam Blueprints', 'Publishing Calendar', 'Packages', 'Students', 'Admin Team',
       'Question Analytics', 'System Health', 'Request Failures', 'Languages', 'Roles & Permissions', 'Audit Logs',
     ]));
+  });
+
+  it('supports every roadmap status without inventing current occupancy', () => {
+    expect(WORKSPACE_STATUS_OPTIONS.map((entry) => entry.status)).toEqual([
+      'live', 'in_progress', 'planned',
+    ]);
+    expect(WORKSPACE_STATUS_LABELS).toEqual({
+      live: 'Live',
+      in_progress: 'In progress',
+      planned: 'Planned',
+    });
   });
 
   it('has unique paths and complete roadmap metadata', () => {
@@ -47,15 +59,30 @@ describe('admin navigation roadmap', () => {
       '/tests/series',
       '/tests/blueprints',
       '/tests/calendar',
+      '/commerce/packages',
+      '/commerce/orders',
+      '/commerce/coupons',
+      '/commerce/entitlements',
       '/users/students',
+      '/users/attempts',
+      '/users/attempt-investigations',
+      '/users/attempt-exports',
+      '/users/recovery',
       '/users/team',
+      '/analytics/business',
+      '/analytics/tests',
+      '/analytics/tests/quality',
+      '/analytics/questions',
+      '/analytics/questions/quality',
+      '/analytics/content-quality',
       '/analytics/system-health',
       '/analytics/request-failures',
+      '/settings/exam-config',
       '/settings/languages',
       '/settings/roles',
       '/settings/audit-logs',
     ]);
-    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 19, in_progress: 4, planned: 11 });
+    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 34, in_progress: 0, planned: 6 });
   });
 
   it('protects canonical operations with read permissions', () => {
