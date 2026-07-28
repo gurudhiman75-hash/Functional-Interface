@@ -1,5 +1,5 @@
 import { generateMalCp001Prototype } from "./pipeline";
-import { generateMalCp001GapPrototype } from "./cp001-gap-pipeline";
+import { generateMalCp001GapRuntimePrototype } from "./cp001-gap-runtime";
 import { isMalCp001GapPrototypeId } from "./cp001-gap-registry";
 import type { MalCp001DiscoveryPrototypeId } from "./cp001-gap-registry";
 
@@ -10,10 +10,9 @@ function stable(value: unknown): string {
 }
 
 /**
- * Discovery wrapper. Gap prototypes may reject an otherwise exact hidden state
- * when its displayed answer or distractors are unsuitable for learner review.
- * Retrying deterministic derived seeds is equivalent to valid-state-first
- * rejection sampling and preserves reproducibility for the external seed.
+ * Unified discovery wrapper. Every external seed is deterministic; derived
+ * retry seeds are used only when an exact hidden state is unsuitable for
+ * learner-facing integral answers or four-option construction.
  */
 export function generateMalCp001DiscoveryPrototype(
   prototypeId: MalCp001DiscoveryPrototypeId,
@@ -27,7 +26,10 @@ export function generateMalCp001DiscoveryPrototype(
   for (let attempt = 0; attempt < 160; attempt += 1) {
     const candidateSeed = attempt === 0 ? seed : `${seed}@review-${attempt}`;
     try {
-      const generated = generateMalCp001GapPrototype(prototypeId, candidateSeed);
+      const generated = generateMalCp001GapRuntimePrototype(
+        prototypeId,
+        candidateSeed,
+      );
       return {
         ...generated,
         seed,
