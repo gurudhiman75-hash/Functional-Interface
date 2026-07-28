@@ -210,15 +210,16 @@ The legacy scenario stores the answer directly and does not prove a separate ver
 ## Provisional disposition summary
 
 ```text
-RETAIN_AS_CANDIDATE:                 8
-MERGE_AS_TRANSFORMATION_FAMILY:      1
-MERGE_AS_CONTEXT_PRESENTATION:       1
-MERGE_AS_SOURCE_TARGET_REPRESENTATION: 1
-MERGE_AS_COMPOSITE_REPRESENTATION:   1
-MERGE_AS_CROSS_SHAPE_TRANSFORMATION: 1
+RETAIN_AS_CANDIDATE:                    9
+MERGE_AS_TRANSFORMATION_FAMILY:         1
+MERGE_AS_CONTEXT_PRESENTATION:          1
+MERGE_AS_SOURCE_TARGET_REPRESENTATION:  1
+MERGE_AS_COMPOSITE_REPRESENTATION:      1
+MERGE_AS_CROSS_SHAPE_TRANSFORMATION:    1
+TOTAL:                                 14
 ```
 
-The count above totals thirteen disposition rows because the two recasting merge categories are reported separately and all fourteen motif rows remain individually accounted in the table. Final disposition counts will be generated programmatically in the executable audit to prevent reporting drift.
+All fourteen recovered motifs are accounted exactly once. Final dispositions will be generated programmatically in the executable audit to prevent reporting drift.
 
 ## Next recovery milestone
 
