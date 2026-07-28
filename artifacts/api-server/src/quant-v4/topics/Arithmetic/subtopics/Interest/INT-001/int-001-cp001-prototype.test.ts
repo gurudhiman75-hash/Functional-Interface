@@ -54,7 +54,8 @@ for (const prototypeId of INT_CP001_PROTOTYPE_IDS) {
     assertEqual(first.publiclyPublishable, false);
     assertEqual(first.questionStudioDiscoverable, false);
     assertOk(first.stem.endsWith("?"));
-    assertOk(first.explanation.verification.length >= 25);
+    assertOk(first.explanation.verification.trim().length >= 12);
+    assertOk(/\d|₹|%|=|matches|reproduces|confirm|exactly|equals/iu.test(first.explanation.verification));
     assertOk(first.reasoningGraph.nodes.some((node) => node.kind === "VERIFICATION"));
     assertOk(first.reasoningGraph.nodes.some((node) => node.kind === "NORMALISATION"));
     assertOk(first.difficultyEvidence.length > 0);
