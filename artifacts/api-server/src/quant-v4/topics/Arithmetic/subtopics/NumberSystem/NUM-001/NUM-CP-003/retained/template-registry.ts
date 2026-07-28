@@ -85,7 +85,7 @@ export const NUM_CP003_RETAINED_TEMPLATE_REGISTRY = [
     extremumDirectionParameter: false,
     representation: "STANDARD",
     sourceEvidence: ["NUM-001 open discovery set predicate"],
-    prototypeAncestry: ["NUM-CP003-W2-PROT-ALL-VALID-DIGITS-SET"],
+    prototypeAncestry: ["NUM-CP003-W2-PROT-ALL-MISSING-DIGITS-SET"],
     ...locked,
   },
   {
