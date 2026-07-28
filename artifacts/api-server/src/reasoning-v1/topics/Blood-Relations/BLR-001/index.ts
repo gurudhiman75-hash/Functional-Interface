@@ -27,6 +27,7 @@ export * from "./BLR-CP-002/cp002-scenario-library";
 export * from "./BLR-CP-002/cp002-source-widening-scenarios";
 export * from "./BLR-CP-002/cp002-only-child-scenarios";
 export * from "./BLR-CP-002/cp002-long-chain-scenarios";
+export * from "./BLR-CP-002/cp002-three-anchor-scenarios";
 export * from "./BLR-CP-002/cp002-canonical-scenario-registry";
 export * from "./BLR-CP-002/cp002-generator";
 export * from "./BLR-CP-002/cp002-editorial-upgrader";
