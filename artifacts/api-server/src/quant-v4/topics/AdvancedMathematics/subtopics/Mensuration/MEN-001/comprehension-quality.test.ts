@@ -4,6 +4,7 @@ import { runMen001Pipeline } from "./pipeline";
 import type { Men001ActiveCanonicalProblemId, Men001QuestionPackage } from "./types";
 
 const ROBOTIC_LANGUAGE = /\b(?:governing relation|required stage|rearrange the relevant|rearrange the governing|isolate the|fixes the|supplies the complete boundary|requested result|geometric quantity|evaluate the displayed|this normally overstates|this normally understates|applies the mistaken operation|misconception strategy)\b/i;
+const CROSS_FAMILY_BOILERPLATE = /(?:Substitute the supplied values into the formula|Use the perpendicular measurements found above in the correct area formula|Put the known values into the formula, then solve to find the required .* first, then substitute the measurements once)/i;
 const SIDE_VALUE_KEY = /^(?:side|sideA|sideB|sideC|legA|legB|height|halfBase|base|equalSide|hypotenuse|diagonal|diagonalA|diagonalB|halfDiagonalA|halfDiagonalB|length|breadth|ratioA|ratioB|ratioC)$/i;
 const PYTHAGOREAN_MODE = /RightTriangle|Isosceles|Pythag|Diagonal|Rhombus|TriangleAreaFromSideRatio/i;
 
@@ -67,6 +68,10 @@ for (const entry of getMen001QuestionEntries()) {
     for (const section of question.explanation.sections) {
       for (const paragraph of section.paragraphs) {
         assert.ok(!ROBOTIC_LANGUAGE.test(paragraph), `${entry.qlId} contains robotic prose: ${paragraph}`);
+        assert.ok(
+          !CROSS_FAMILY_BOILERPLATE.test(paragraph),
+          `${entry.qlId} contains cross-family boilerplate instead of solve-specific guidance: ${paragraph}`,
+        );
       }
     }
 
@@ -98,6 +103,17 @@ for (const entry of getMen001QuestionEntries()) {
   }
 }
 
+const inverseTriangle = generate("MEN-CP-001", "MEN-001-QL-004", "men-001-structured-review:MEN-001-QL-004");
+const inverseHeightStep = inverseTriangle.explanation.sections.find(
+  (section) => section.kind === "STEP" && section.title === "Find the Height",
+);
+assert.ok(inverseHeightStep, "QL-004 must contain a Find the Height step.");
+assert.ok(
+  inverseHeightStep.paragraphs.some((paragraph) => /multiply the area by 2|double the area/i.test(paragraph)) &&
+    inverseHeightStep.paragraphs.some((paragraph) => /divide by the base/i.test(paragraph)),
+  "QL-004 must explain why h = 2A/b, not merely display the rearranged equation.",
+);
+
 const isosceles = generate("MEN-CP-001", "MEN-001-QL-017", "men-001-structured-review:MEN-001-QL-017");
 assert.match(isosceles.explanation.sections[0]!.paragraphs[0]!, /cuts? the base into two equal halves|two equal halves/i);
 assert.match(isosceles.explanation.sections[0]!.paragraphs[0]!, /right-angled triangles/i);
@@ -111,6 +127,12 @@ assert.ok(ratio.explanation.sections.find((section) => section.kind === "EXAM_SH
 
 const conversion = generate("MEN-CP-006", "MEN-001-QL-403", "men-001-structured-review:MEN-001-QL-403");
 assert.match(conversion.explanation.sections[0]!.paragraphs[0]!, /100 cm × 100 cm = 10,000 cm²/);
+const conversionSteps = conversion.explanation.sections
+  .filter((section) => section.kind === "STEP")
+  .flatMap((section) => section.paragraphs)
+  .join(" ");
+assert.match(conversionSteps, /divide(?: the cm² value)? by 10,000/i);
+assert.ok(!/perpendicular measurements/i.test(conversionSteps));
 assert.ok(conversion.explanation.sections.find((section) => section.kind === "COMMON_TRAPS")?.paragraphs.some((paragraph) => /100² = 10,000/i.test(paragraph)));
 
 const percentage = generate("MEN-CP-006", "MEN-001-QL-414", "men-001-structured-review:MEN-001-QL-414");
@@ -128,4 +150,4 @@ assert.deepEqual(
 assert.ok(wire.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT")?.paragraphs.some((paragraph) => /s = πr\/2/.test(paragraph)));
 assert.ok(wire.explanation.sections.find((section) => section.kind === "COMMON_TRAPS")?.paragraphs.some((paragraph) => /original circle/i.test(paragraph) && /Do not stop/i.test(paragraph)));
 
-console.log(`MEN-001 comprehension audit passed for ${audited} generated explanations, including ${tripletStates} states with explicitly named Pythagorean Triplets.`);
+console.log(`MEN-001 comprehension audit passed for ${audited} generated explanations, including ${tripletStates} states with explicitly named Pythagorean Triplets and no cross-family boilerplate.`);
