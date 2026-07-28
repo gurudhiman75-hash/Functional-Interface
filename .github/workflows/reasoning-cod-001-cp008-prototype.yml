@@ -31,3 +31,13 @@ jobs:
 
       - name: Run executable prototype regression
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-008/cp008-prototype.test.ts
+
+      - name: Export English review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-008/export-cp008-review.ts cod-cp008-review-output
+
+      - name: Upload English review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: cod-001-cp008-English-review
+          path: cod-cp008-review-output
+          retention-days: 14
