@@ -11,7 +11,8 @@ Create natural, exam-appropriate Hindi and Punjabi learner presentations for all
 - Every localisation is parameter-safe across generated seeds.
 - Hindi and Punjabi text must be authored naturally; word-for-word translation is not accepted.
 - Punjabi uses everyday competitive-exam wording and avoids unnecessarily technical Sanskritised vocabulary.
-- Every checkpoint remains `editorialStatus: PENDING` and `publiclyPublishable: false` until manual review.
+- Every checkpoint remains `editorialStatus: PENDING` until manual review is explicitly approved.
+- Editorial approval does not make a checkpoint publicly publishable; registration and publication remain separate gates.
 
 ## Localisation order
 
@@ -38,13 +39,30 @@ Each checkpoint must prove:
 - multiple-seed runtime validation;
 - manual-review export in JSON and CSV.
 
-## Current checkpoint
+## Approved checkpoints
 
-`PNC-CP-007` is implemented as `PNC-002-CP007-HI-PA-v1-CANDIDATE`.
+### `PNC-CP-007`
 
+- Release: `PNC-002-CP007-HI-PA-v1-CANDIDATE`
 - QLs: `PNC-QL-107` through `PNC-QL-124`
 - Locales: `hi-IN`, `pa-IN`
 - Seeded audit packages: 108
-- Status: `MANUAL_REVIEW`
-- Editorial status: `PENDING`
+- Merge commit: `0f113c093ee699de2acadfe8684c004f9b03065e`
 - Publicly publishable: `false`
+
+### `PNC-CP-008`
+
+- Approved release: `PNC-002-CP008-HI-PA-v1-APPROVED`
+- QLs: `PNC-QL-125` through `PNC-QL-147`
+- Locales: `hi-IN`, `pa-IN`
+- Localised review rows: 46
+- Seeded review packages: 138
+- Editorial status: `APPROVED`
+- Approval date: `2026-07-28`
+- Punjabi numbered-position terminology: `ਟਾਂਕ` (odd), `ਜਿਸਤ` (even)
+- Publicly publishable: `false`
+- Merge checkpoint: PR `#304`
+
+## Current checkpoint
+
+`PNC-CP-009` is next in the controlled localisation order after the approved CP-008 checkpoint is merged.
