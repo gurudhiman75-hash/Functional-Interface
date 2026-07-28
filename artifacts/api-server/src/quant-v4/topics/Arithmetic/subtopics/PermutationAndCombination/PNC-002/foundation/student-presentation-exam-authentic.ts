@@ -39,10 +39,28 @@ function parseOptionValue(value: string): number | undefined {
   return Number.isSafeInteger(numeric) ? numeric : undefined;
 }
 
+function singularUnit(unit: string): string {
+  const singulars: Record<string, string> = {
+    arrangements: "arrangement",
+    distributions: "distribution",
+    groupings: "grouping",
+    objects: "object",
+    paths: "path",
+    people: "person",
+    permutations: "permutation",
+    receivers: "receiver",
+    seatings: "seating",
+    selections: "selection",
+    ways: "way",
+  };
+  return singulars[unit] ?? unit.replace(/s$/, "");
+}
+
 function formatOption(value: string, unit: string): string {
   const numeric = Number(value.replace(/,/g, "").trim());
   if (!Number.isSafeInteger(numeric) || numeric <= 0) throw new Error(`Invalid PNC option: ${value}`);
-  return `${numberFormatter.format(numeric)} ${unit}`;
+  const displayUnit = numeric === 1 ? singularUnit(unit) : unit;
+  return `${numberFormatter.format(numeric)} ${displayUnit}`;
 }
 
 function uniqueLines(lines: string[]): string[] {
@@ -69,7 +87,7 @@ function naturalise(value: string): string {
     .replace(/\bdistinct\b/gi, "different")
     .replace(/\bspecified\b/gi, "particular")
     .replace(/\bunnamed\b/gi, "unlabelled")
-    .replace(/\bnumbered teams\b/gi, "named teams")
+    .replace(/\bnumbered team(s)?\b/gi, "named team$1")
     .replace(/\b(is|gives|equals|becomes|using|as|produce|produces)\$(?!\$)/gi, "$1 $")
     .replace(/\s+/g, " ")
     .trim();
@@ -78,7 +96,8 @@ function naturalise(value: string): string {
 function naturaliseForSource(source: PncStudentSourcePackage, value: string): string {
   const mode = source.solveMode.toLowerCase();
   let natural = naturalise(value);
-  if (mode.includes("derangement") || mode.includes("fixedpoint")) {
+  const qlNumber = Number(source.questionLanguageId.split("-").at(-1));
+  if ((qlNumber >= 253 && qlNumber <= 257) || mode.includes("derangement") || mode.includes("fixedpoint")) {
     natural = natural
       .replace(/\bdifferent objects\b/gi, "numbered cards")
       .replace(/\bobjects\b/gi, "cards")
@@ -89,8 +108,20 @@ function naturaliseForSource(source: PncStudentSourcePackage, value: string): st
       || source.questionLanguageId === "PNC-QL-228") {
     natural = natural
       .replace(/\bidentical boxes\b/gi, "unlabelled groups")
+      .replace(/\bidentical groups\b/gi, "unlabelled groups")
+      .replace(/\bidentical group\b/gi, "unlabelled group")
       .replace(/\bboxes\b/gi, "groups")
       .replace(/\bbox\b/gi, "group");
+  }
+  if (source.questionLanguageId === "PNC-QL-229") {
+    natural = natural
+      .replace(/\bobjects\b/gi, "marbles")
+      .replace(/\bobject\b/gi, "marble");
+  }
+  if (source.questionLanguageId === "PNC-QL-262" || source.questionLanguageId === "PNC-QL-263") {
+    natural = natural
+      .replace(/\bobjects\b/gi, "balls")
+      .replace(/\bobject\b/gi, "ball");
   }
   return natural;
 }
@@ -199,7 +230,8 @@ function authoredProcessLines(source: PncStudentSourcePackage): string[] {
   return uniqueLines(
     source.explanation.lines
       .map((line) => naturaliseForSource(source, line))
-      .filter((line) => !isCalculationOrAnswerSummary(line, source.solver.mathJax)),
+      .filter((line) => !isCalculationOrAnswerSummary(line, source.solver.mathJax))
+      .filter((line) => !(line.includes("$") && line.includes(String(source.solver.numericAnswer)))),
   );
 }
 
@@ -213,7 +245,8 @@ function baseProcessLines(
     stepSection.lines
       .map(stripStepNumber)
       .map((line) => naturaliseForSource(source, line))
-      .filter((line) => !isCalculationOrAnswerSummary(line, source.solver.mathJax)),
+      .filter((line) => !isCalculationOrAnswerSummary(line, source.solver.mathJax))
+      .filter((line) => !(line.includes("$") && line.includes(String(source.solver.numericAnswer)))),
   );
 }
 
@@ -367,7 +400,12 @@ function refinedTrapLines(
 
   return trapSection.lines.map((line) => {
     const natural = naturaliseForSource(source, line);
-    const option = parseOptionValue(natural);
+    const labelMatch = natural.match(/^Option ([A-D]) \([^)]*\):(.*)$/);
+    const optionIndex = labelMatch ? labelMatch[1]!.charCodeAt(0) - 65 : undefined;
+    const labelled = optionIndex === undefined
+      ? natural
+      : `Option ${labelMatch![1]} (${presentation.displayOptions[optionIndex]}):${labelMatch![2]}`;
+    const option = parseOptionValue(labelled);
 
     if (source.questionLanguageId === "PNC-QL-269" && option !== undefined) {
       const women = numericValue(source, "womenCount");
@@ -379,7 +417,7 @@ function refinedTrapLines(
           ? undefined
           : unrestrictedSelection * teamSize * teamSize;
         if (option === unrestrictedWithCaptains) {
-          return natural.replace(/: .*\.$/, ": forms Team A without enforcing the required number of women.");
+          return labelled.replace(/: .*\.$/, ": forms Team A without enforcing the required number of women.");
         }
       }
     }
@@ -387,17 +425,20 @@ function refinedTrapLines(
     if (source.questionLanguageId === "PNC-QL-226"
         || source.questionLanguageId === "PNC-QL-227"
         || source.questionLanguageId === "PNC-QL-228") {
-      if (/treats identical objects as different/i.test(natural)) {
-        return natural.replace(
+      if (/treats identical objects as different/i.test(labelled)) {
+        return labelled.replace(
           /treats identical objects as different and uses one receiver choice per object/i,
           "treats the unlabelled groups as labelled and counts assignments to labelled receivers",
         );
       }
     }
-    if (/does not match the required formula|incomplete count or arithmetic distractor/i.test(natural)) {
-      return natural.replace(/does not match the required formula .*?(?: and represents an incomplete count or arithmetic distractor)?\.$/i, `${familyReason}.`);
+    if (/does not match the required formula|incomplete count or arithmetic distractor/i.test(labelled)) {
+      return labelled.replace(/does not match the required formula .*?(?: and represents an incomplete count or arithmetic distractor)?\.$/i, `${familyReason}.`);
     }
-    return natural;
+    if (source.questionLanguageId === "PNC-QL-228" && option === source.solver.numericAnswer - 1) {
+      return labelled.replace(/: .*\.$/, ": omits the all-singleton partition, which contributes one Bell-number case.");
+    }
+    return labelled;
   });
 }
 
