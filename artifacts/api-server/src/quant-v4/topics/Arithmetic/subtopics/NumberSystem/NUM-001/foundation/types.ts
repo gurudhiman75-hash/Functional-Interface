@@ -29,7 +29,11 @@ export type NumCp003MisconceptionId =
   | "TESTED_ONLY_THE_SOURCE_BLOCK"
   | "USED_PREVIOUS_MULTIPLE"
   | "USED_NEXT_MULTIPLE_AFTER_ANSWER"
-  | "USED_N_PLUS_ONE_DIGIT_BOUNDARY";
+  | "USED_N_PLUS_ONE_DIGIT_BOUNDARY"
+  | "NON_ZERO_REMAINDER"
+  | "COUNTED_INVALID_DIGITS"
+  | "FAILED_COMBINED_CONSTRAINT_CHECK"
+  | "ADDED_REMAINDER_INSTEAD_OF_COMPLEMENT";
 
 export interface NumCp003PrototypeRegistryEntry {
   prototypeId: NumCp003PrototypeId;
@@ -53,6 +57,7 @@ export interface NumCp003OptionAudit {
   text: string;
   value: string;
   misconceptionId: NumCp003MisconceptionId;
+  diagnostic: string;
 }
 
 export interface NumReasoningNode {
