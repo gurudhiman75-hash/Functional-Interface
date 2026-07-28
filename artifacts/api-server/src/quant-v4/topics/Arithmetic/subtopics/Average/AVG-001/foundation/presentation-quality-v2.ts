@@ -149,7 +149,7 @@ export function hasConsistentSemanticOptions(pkg: Avg001QuestionPackage) {
   }
   const unit = semanticUnitFor(pkg);
   const patterns: Record<Exclude<SemanticUnit, "none" | "count">, RegExp> = {
-    currency: /^₹\d{1,3}(?:,\d{2})*(?:,\d{3})?(?:\.\d+)?$/,
+    currency: /^₹(?:\d{1,3}|\d{1,2}(?:,\d{2})*,\d{3})(?:\.\d+)?$/,
     marks: / marks$/,
     kg: / kg$/,
     years: / years$/,
