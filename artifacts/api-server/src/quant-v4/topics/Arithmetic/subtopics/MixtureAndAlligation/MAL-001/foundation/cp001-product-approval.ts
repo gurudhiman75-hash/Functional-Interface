@@ -155,6 +155,10 @@ export const MAL_CP001_APPROVED_SCOPE_PROTOTYPE_IDS =
     .filter((entry) => entry.decision === "IN_APPROVED_SCOPE")
     .map((entry) => entry.prototypeId);
 
+/** Compatibility alias used by expansion-stage modules. */
+export const MAL_CP001_APPROVED_PROTOTYPE_IDS =
+  MAL_CP001_APPROVED_SCOPE_PROTOTYPE_IDS;
+
 export const MAL_CP001_DEFERRED_PROTOTYPE_IDS =
   MAL_CP001_PROTOTYPE_PRODUCT_APPROVALS
     .filter((entry) => entry.decision === "DEFERRED_VARIANT")
