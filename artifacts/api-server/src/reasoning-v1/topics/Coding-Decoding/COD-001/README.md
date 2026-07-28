@@ -1,6 +1,6 @@
 # COD-001 — Coding–Decoding
 
-Status: **COD-CP-001 through COD-CP-006 implemented at English runtime-proof maturity; COD-CP-007 open discovery has one mathematically and editorially saturated prototype family; COD-CP-009 English discovery is frozen under `COD_CP009_ENGLISH_DISCOVERY_FREEZE_V1`; COD-CP-008 and COD-CP-010 remain unimplemented**.
+Status: **COD-CP-001 through COD-CP-006 implemented at English runtime-proof maturity; COD-CP-007 English discovery frozen under `COD_CP007_ENGLISH_DISCOVERY_FREEZE_V1`; COD-CP-009 English discovery frozen under `COD_CP009_ENGLISH_DISCOVERY_FREEZE_V1`; COD-CP-008 and COD-CP-010 remain unimplemented**.
 
 Student-facing chapter: **Coding–Decoding**  
 Reasoning V1 package: `COD-001`  
@@ -17,7 +17,7 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/CO
 7. `cod-001-implementation-plan.md` — staged implementation roadmap, subject to later amendments.
 8. `cod-001-source-audit.md` — source taxonomy and legacy-code assessment.
 
-For CP-001 through CP-006, merged QL identities remain permanent. For CP-007 through CP-010, the open-discovery amendment supersedes old fixed counts, ranges and chapter totals.
+For CP-001 through CP-006, merged QL identities remain permanent. For CP-007 through CP-010, the open-discovery amendment supersedes old fixed counts, ranges and chapter totals until each checkpoint's own freeze and allocation.
 
 ## Current stable English runtime
 
@@ -32,49 +32,61 @@ Total stable implemented QLs: **168**.
 
 ## Future checkpoint sequence
 
-- `COD-CP-007`: digit, symbol and alphanumeric coding — open English discovery; uniform modular digit translation prototype saturated;
+- `COD-CP-007`: digit, symbol and alphanumeric coding — English discovery frozen; permanent allocation next;
 - `COD-CP-008`: renaming and substitution coding — not started;
 - `COD-CP-009`: sentence and artificial-language coding — English discovery frozen, permanent allocation deferred;
 - `COD-CP-010`: conditional table and mixed-symbol coding — not started.
 
-Their permanent QL counts and ranges are not fixed in advance. CP-009 cannot receive IDs before CP-007 and CP-008 discover and allocate their preceding ranges.
+CP-009 cannot receive IDs before CP-007 and CP-008 allocate their preceding ranges.
 
-## COD-CP-007 open discovery state
+## COD-CP-007 frozen discovery state
 
-CP-007 has completed its initial source/boundary design and the first executable prototype family:
+Freeze version:
+
+```text
+COD_CP007_ENGLISH_DISCOVERY_FREEZE_V1
+```
+
+Retained rule family:
 
 ```text
 UNIFORM_MODULAR_DIGIT_TRANSLATION
 ```
 
-Current evidence:
+The targeted source expansion and ownership audit closed all other candidates:
 
-- five non-permanent task contracts: explicit encode, inverse decode, missing digit, infer-and-encode and choose-matching;
-- digit codes represented as ordered token strings so leading zeroes are preserved;
-- exactly one surviving non-zero uniform shift required;
-- whole-number arithmetic and reversal competitors rejected;
-- independent verifier agreement;
-- 500/500 distinct mathematical audit questions and stems;
+- recurring number/symbol tables with conditions belong to CP-010;
+- arbitrary character-to-digit substitution belongs to CP-001;
+- pure digit permutation belongs to CP-005;
+- two-symbol positional numeral codes belong to Number System;
+- position-dependent digit and mixed alphanumeric candidates lack recurring standalone source evidence.
+
+The five executable prototype presentations collapse to four solve contracts:
+
+1. explicit forward application;
+2. inverse decode;
+3. missing code digit;
+4. inferred forward coding.
+
+`CHOOSE_MATCHING_CODE` merges into inferred forward coding as a stem/presentation variant.
+
+Prototype evidence remains:
+
+- 500/500 distinct mathematical questions and stems;
+- 500 polished-English editorial questions;
 - leading-zero source/code coverage of 140/132 cases;
-- 370 wrapped targets and first/middle/final missing-position coverage;
-- 45/45/59/41/45 normalised explanation skeletons across the five tasks;
-- zero cross-contract normalised explanation collisions;
-- zero permanent CP-007 QLs.
+- 370 wrapped targets;
+- first/middle/final missing-position coverage;
+- independent verifier agreement;
+- zero permanent CP-007 QLs in the discovery freeze.
 
-Source- and collision-pending candidates remain:
+The next available ID is `COD-QL-169`. The guarded allocation step may assign exactly `COD-QL-169..172`.
 
-- arbitrary digit substitution;
-- digit-to-symbol maps;
-- position-dependent digit transforms;
-- pure digit permutation, presumptively owned by CP-005 unless material numeric semantics survive audit;
-- alphanumeric dual-channel coding;
-- mixed-token substitution.
-
-Question Studio, localisation and public publication remain disabled. The next work is targeted source expansion followed by checkpoint-wide merge/split and ownership closure.
+Question Studio, localisation and public publication remain disabled.
 
 ## COD-CP-009 frozen discovery state
 
-CP-009 now has:
+CP-009 has:
 
 - freeze version `COD_CP009_ENGLISH_DISCOVERY_FREEZE_V1`;
 - 16 source-backed English task contracts;
@@ -90,7 +102,7 @@ The 24 solve contracts arise because the two exact atomic directions each split 
 
 The uploaded sources directly support exact overlap deduction, genuine indeterminacy, complete either/or candidate domains, new-message composition and may-represent questions. Missing-member and impossible-atomic forms are retained as executable distinct competitive-exam extensions. Impossible phrase/set forms remain excluded without direct recurring evidence.
 
-### Exact freeze evidence
+### Exact CP-009 freeze evidence
 
 ```text
 Head SHA:       14d29e7cbebb298798118c0ae6ced31542f142a8
@@ -101,25 +113,15 @@ Artifact digest: sha256:cadd83367483713559d7ec69bc0f7ff1bebdf7b7c9acaad5fb97d7e9
 COD runtime:    30285907974 — success
 ```
 
-The freeze workflow reran the full combined saturation gate and then enforced:
-
-- exactly 16 task contracts, 8 inverse pairs, 10 topology families and 24 solve contracts;
-- all 30 final contract/topology edge pairings;
-- exact, possible, impossible, set, missing-member and resolved-composition semantics;
-- the complete ownership and exclusion matrix;
-- prototype-only, non-publishable safety;
-- zero permanent IDs and a sequencing lock behind CP-007 and CP-008.
-
 ## Remaining chapter sequence
 
-1. complete targeted source expansion and prototype comparison for CP-007;
-2. freeze and allocate CP-007 only after source, ownership and merge/split closure;
-3. design and implement CP-008 through exhaustive discovery;
-4. assign sequential IDs to the frozen CP-009 solve contracts and implement its English runtime;
-5. design and implement CP-010;
-6. complete chapter-wide English saturation and review;
-7. implement Hindi and Punjabi only after English ownership freezes;
-8. integrate reviewed content into Question Studio and later publication gates.
+1. allocate and promote the four frozen CP-007 solve contracts;
+2. design and implement CP-008 through exhaustive discovery;
+3. assign sequential IDs to the frozen CP-009 solve contracts and implement its English runtime;
+4. design and implement CP-010;
+5. complete chapter-wide English saturation and review;
+6. implement Hindi and Punjabi only after English ownership freezes;
+7. integrate reviewed content into Question Studio and later publication gates.
 
 ## Release boundary
 

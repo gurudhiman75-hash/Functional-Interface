@@ -20,6 +20,9 @@ jobs:
         with:
           node-version: 22
 
+      - name: Enforce final English discovery freeze
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-007/cp007-final-discovery-freeze.test.ts
+
       - name: Run mathematical prototype audit
         id: prototype_audit
         shell: bash
