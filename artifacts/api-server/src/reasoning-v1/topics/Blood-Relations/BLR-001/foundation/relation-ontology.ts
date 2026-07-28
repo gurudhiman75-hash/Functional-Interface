@@ -72,8 +72,12 @@ export function relationForPath(
   if (key === "PARENT>PARENT>PARENT") {
     return subjectGender === "MALE" ? "GREAT_GRANDSON" : "GREAT_GRANDDAUGHTER";
   }
-  if (key === "SIBLING>CHILD") return subjectGender === "MALE" ? "UNCLE" : "AUNT";
-  if (key === "PARENT>SIBLING") return subjectGender === "MALE" ? "NEPHEW" : "NIECE";
+  if (key === "SIBLING>CHILD" || key === "SPOUSE>SIBLING>CHILD") {
+    return subjectGender === "MALE" ? "UNCLE" : "AUNT";
+  }
+  if (key === "PARENT>SIBLING" || key === "PARENT>SIBLING>SPOUSE") {
+    return subjectGender === "MALE" ? "NEPHEW" : "NIECE";
+  }
   if (key === "PARENT>SIBLING>CHILD") return "COUSIN";
   if (key === "CHILD>SPOUSE") return subjectGender === "MALE" ? "FATHER_IN_LAW" : "MOTHER_IN_LAW";
   if (key === "SPOUSE>PARENT") return subjectGender === "MALE" ? "SON_IN_LAW" : "DAUGHTER_IN_LAW";
