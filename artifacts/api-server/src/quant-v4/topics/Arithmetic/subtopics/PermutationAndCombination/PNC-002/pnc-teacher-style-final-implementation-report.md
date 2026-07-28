@@ -71,7 +71,7 @@ The workflow `.github/workflows/pnc-002-editorial-quality.yml` performs:
 4. a zero-generic-shortcut regression proof;
 5. publication of the production JSON, CSV and report artifacts.
 
-The exact validation head and workflow run are recorded in pull request #248 after the final documentation commit passes.
+The exact final head and workflow run are recorded in pull request #248 after this documentation commit passes the same read-only gates.
 
 ## Integration boundary
 
