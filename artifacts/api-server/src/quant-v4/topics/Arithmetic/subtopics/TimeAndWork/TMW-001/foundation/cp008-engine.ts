@@ -24,9 +24,11 @@ function key(values:Rational[]):string{return values.map(value=>`${value.numerat
 function gcd(a:number,b:number):number{let x=Math.abs(a),y=Math.abs(b);while(y!==0)[x,y]=[y,x%y];return x||1;}
 function lcm(a:number,b:number):number{return Math.abs(a*b)/gcd(a,b);}
 function integerRatio(values:Rational[]):Rational[]{const denominator=values.reduce((total,value)=>lcm(total,value.denominator),1),ints=values.map(value=>value.numerator*(denominator/value.denominator)),divisor=ints.reduce((total,value)=>gcd(total,value),0);return ints.map(value=>r(value/divisor));}
-function ratioText(values:Rational[]):string{return integerRatio(values).map(value=>String(Math.abs(value.numerator))).join(":");}
-export function formatTmwCp008Money(value:Rational):string{return `£${formatRational(value)}`;}
-export function formatTmwCp008Answer(entry:TmwCp008RegistryEntry,p:TmwCp008Parameters,values:Rational[]):string{switch(entry.answerType){case"RATIO":return ratioText(values);case"MONEY":return formatTmwCp008Money(values[0]);case"MONEY_TRIPLE":return values.map(formatTmwCp008Money).join(", ");case"TIME":return `${formatRational(values[0])} days`;case"EFFICIENCY":return `${formatRational(values[0])} ${p.context.outputUnit} per hour`;}}
+function ratioText(values:Rational[]):string{return integerRatio(values).map(value=>String(Math.abs(value.numerator))).join(" : ");}
+function indianInteger(value:number):string{const sign=value<0?"-":"",digits=String(Math.abs(value));if(digits.length<=3)return `${sign}${digits}`;const tail=digits.slice(-3),head=digits.slice(0,-3),groups:string[]=[];for(let end=head.length;end>0;end-=2)groups.unshift(head.slice(Math.max(0,end-2),end));return `${sign}${groups.join(",")},${tail}`;}
+export function formatTmwCp008Money(value:Rational):string{return value.denominator===1?`₹${indianInteger(value.numerator)}`:`₹${formatRational(value)}`;}
+function answerOutputUnit(p:TmwCp008Parameters,value:Rational):string{if(value.numerator===value.denominator){if(p.context.outputUnit==="square metres")return "square metre";return p.context.outputUnit.replace(/s$/," ").trim();}return p.context.outputUnit;}
+export function formatTmwCp008Answer(entry:TmwCp008RegistryEntry,p:TmwCp008Parameters,values:Rational[]):string{switch(entry.answerType){case"RATIO":return ratioText(values);case"MONEY":return formatTmwCp008Money(values[0]);case"MONEY_TRIPLE":return values.map(formatTmwCp008Money).join(", ");case"TIME":return `${formatRational(values[0])} days`;case"EFFICIENCY":return `${formatRational(values[0])} ${answerOutputUnit(p,values[0])} per hour`;}}
 
 export function buildTmwCp008Parameters(entry:TmwCp008RegistryEntry,seed:string):TmwCp008Parameters{
   const t=template(seed,`${entry.qlId}:context`);
@@ -128,22 +130,70 @@ export function buildTmwCp008Parameters(entry:TmwCp008RegistryEntry,seed:string)
   }
 }
 
+function contributionStep(role:TmwCp008Role,label:string):string{return `C_${label}=${toLatex(role.count)}\\times${toLatex(role.efficiency)}\\times${toLatex(role.days)}\\times${toLatex(role.hoursPerDay)}=${toLatex(standardContribution(role))}`;}
+function sumExpression(values:Rational[],symbol:string):string{return `${symbol}=${values.map(toLatex).join("+")}=${toLatex(sum(values))}`;}
+
 export function solveTmwCp008(entry:TmwCp008RegistryEntry,p:TmwCp008Parameters):TmwCp008Solution{
-  const weights=tmwCp008ContributionVector(p),totalWeight=sum(weights),target=p.targetIndex??0,reported=p.reportedPayments;let answerValues:Rational[],formulaLatex:string,workedLatex:string[];
+  const weights=tmwCp008ContributionVector(p),totalWeight=sum(weights),target=p.targetIndex??0,reported=p.reportedPayments,roles=p.context.roles;let answerValues:Rational[],formulaLatex:string,workedLatex:string[];
   switch(entry.solveMode){
-    case"findPaymentRatioFromContributionFactors":answerValues=integerRatio([weights[0],weights[1]]);formulaLatex="P_A:P_B=(N_AE_AD_AH_A):(N_BE_BD_BH_B)";workedLatex=[`C_A=${toLatex(weights[0])},\\quad C_B=${toLatex(weights[1])}`,`P_A:P_B=${ratioText(answerValues)}`];break;
-    case"findSelectedPartyPayment":{const chosen=selected(weights,required(p.selectedIndices,"selectedIndices")),answer=divide(multiply(p.totalPayment,chosen),totalWeight);answerValues=[answer];formulaLatex="P_S=P_{total}\\frac{C_S}{\\sum C}";workedLatex=[`C_S=${toLatex(chosen)},\\quad \\sum C=${toLatex(totalWeight)}`,`P_S=${toLatex(p.totalPayment)}\\times\\frac{${toLatex(chosen)}}{${toLatex(totalWeight)}}=${toLatex(answer)}`];break;}
-    case"findTotalPaymentPoolFromKnownShare":{const known=required(reported,"reportedPayments")[target],answer=divide(multiply(known,totalWeight),weights[target]);answerValues=[answer];formulaLatex="P_{total}=P_i\\frac{\\sum C}{C_i}";workedLatex=[`C_i=${toLatex(weights[target])},\\quad \\sum C=${toLatex(totalWeight)}`,`P_{total}=${toLatex(known)}\\times\\frac{${toLatex(totalWeight)}}{${toLatex(weights[target])}}=${toLatex(answer)}`];break;}
-    case"findResidualPayment":{const knownIndices=required(p.knownPaymentIndices,"knownPaymentIndices"),knownPayments=required(reported,"reportedPayments"),knownTotal=selected(knownPayments,knownIndices),answer=subtract(p.totalPayment,knownTotal);answerValues=[answer];formulaLatex="P_{residual}=P_{total}-\\sum P_{known}";workedLatex=[`\\sum P_{known}=${toLatex(knownTotal)}`,`P_{residual}=${toLatex(p.totalPayment)}-${toLatex(knownTotal)}=${toLatex(answer)}`];break;}
-    case"findPaymentAfterStagedParticipation":{const answer=divide(multiply(p.totalPayment,weights[target]),totalWeight);answerValues=[answer];formulaLatex="P_i=P_{total}\\frac{E_it_i}{\\sum E_jt_j}";workedLatex=[`C_i=${toLatex(weights[target])},\\quad \\sum C=${toLatex(totalWeight)}`,`P_i=${toLatex(p.totalPayment)}\\times\\frac{${toLatex(weights[target])}}{${toLatex(totalWeight)}}=${toLatex(answer)}`];break;}
-    case"findPaymentFromCompletedFractions":{const answer=divide(multiply(p.totalPayment,weights[target]),totalWeight);answerValues=[answer];formulaLatex="P_i=P_{total}\\frac{f_i}{\\sum f}";workedLatex=[`f_i=${toLatex(weights[target])},\\quad \\sum f=${toLatex(totalWeight)}`,`P_i=${toLatex(p.totalPayment)}\\times\\frac{${toLatex(weights[target])}}{${toLatex(totalWeight)}}=${toLatex(answer)}`];break;}
-    case"findContributionFactorRatioFromPayments":{const pay=required(reported,"reportedPayments"),a=p.context.roles[0],b=p.context.roles[1];if(p.factorTarget==="EFFICIENCY_RATIO"){answerValues=integerRatio([a.efficiency,b.efficiency]);formulaLatex="E_A:E_B=(P_A:P_B)\\times(D_BH_B:D_AH_A)";workedLatex=[`P_A:P_B=${ratioText([pay[0],pay[1]])}`,`E_A:E_B=${ratioText(answerValues)}`];}else{answerValues=integerRatio([a.days,b.days]);formulaLatex="D_A:D_B=(P_A:P_B)\\times(E_BH_B:E_AH_A)";workedLatex=[`P_A:P_B=${ratioText([pay[0],pay[1]])}`,`D_A:D_B=${ratioText(answerValues)}`];}break;}
-    case"findMissingTimeFromPayment":{const pay=required(reported,"reportedPayments"),a=p.context.roles[target],other=p.context.roles[target===0?1:0],otherPay=pay[target===0?1:0],answer=divide(multiply(multiply(divide(pay[target],otherPay),other.efficiency),multiply(other.days,other.hoursPerDay)),multiply(a.efficiency,a.hoursPerDay));answerValues=[answer];formulaLatex="D_x=\\frac{P_x}{P_k}\\frac{E_kD_kH_k}{E_xH_x}";workedLatex=[`\\frac{P_x}{P_k}=\\frac{${toLatex(pay[target])}}{${toLatex(otherPay)}}`,`D_x=${toLatex(answer)}\\;\\text{days}`];break;}
-    case"findMissingEfficiencyFromPayment":{const pay=required(reported,"reportedPayments"),a=p.context.roles[target],other=p.context.roles[target===0?1:0],otherPay=pay[target===0?1:0],answer=divide(multiply(multiply(divide(pay[target],otherPay),other.efficiency),multiply(other.days,other.hoursPerDay)),multiply(a.days,a.hoursPerDay));answerValues=[answer];formulaLatex="E_x=\\frac{P_x}{P_k}\\frac{E_kD_kH_k}{D_xH_x}";workedLatex=[`\\frac{P_x}{P_k}=\\frac{${toLatex(pay[target])}}{${toLatex(otherPay)}}`,`E_x=${toLatex(answer)}\\;\\text{${p.context.outputUnit} per hour}`];break;}
-    case"findMixedCategoryPaymentDistribution":{answerValues=payments(p.totalPayment,weights);formulaLatex="P_k=P_{total}\\frac{N_kE_kD_kH_k}{\\sum_jN_jE_jD_jH_j}";workedLatex=[`C_A:C_B:C_C=${ratioText(weights)}`,`(P_A,P_B,P_C)=(${answerValues.map(toLatex).join(",")})`];break;}
-    case"findPieceRatePaymentFromOutput":{const output=p.context.roles[target].output,rate=required(p.pieceRate,"pieceRate"),answer=multiply(output,rate);answerValues=[answer];formulaLatex="P=Q\\times p";workedLatex=[`Q=${toLatex(output)},\\quad p=${toLatex(rate)}`,`P=${toLatex(output)}\\times${toLatex(rate)}=${toLatex(answer)}`];break;}
-    case"findBonusShareFromExtraContribution":{const bonus=required(p.bonusPool,"bonusPool"),answer=divide(multiply(bonus,weights[target]),totalWeight);answerValues=[answer];formulaLatex="B_i=B_{total}\\frac{Q_i-Q_{base,i}}{\\sum_j(Q_j-Q_{base,j})}";workedLatex=[`Q_i-Q_{base,i}=${toLatex(weights[target])},\\quad \\sum \\Delta Q=${toLatex(totalWeight)}`,`B_i=${toLatex(bonus)}\\times\\frac{${toLatex(weights[target])}}{${toLatex(totalWeight)}}=${toLatex(answer)}`];break;}
-    case"findPaymentAfterSignedContribution":{const answer=divide(multiply(p.totalPayment,weights[target]),totalWeight);answerValues=[answer];formulaLatex="P_i=P_{total}\\frac{Q_i-Q_{defect,i}}{\\sum_j(Q_j-Q_{defect,j})}";workedLatex=[`Q_{net,i}=${toLatex(weights[target])},\\quad \\sum Q_{net}=${toLatex(totalWeight)}`,`P_i=${toLatex(p.totalPayment)}\\times\\frac{${toLatex(weights[target])}}{${toLatex(totalWeight)}}=${toLatex(answer)}`];break;}
+    case"findPaymentRatioFromContributionFactors":{
+      answerValues=integerRatio([weights[0],weights[1]]);formulaLatex="P_A:P_B=(N_AE_AD_AH_A):(N_BE_BD_BH_B)";
+      workedLatex=[contributionStep(roles[0],"A"),contributionStep(roles[1],"B"),`P_A:P_B=${toLatex(weights[0])}:${toLatex(weights[1])}=${ratioText(answerValues)}`];break;
+    }
+    case"findSelectedPartyPayment":{
+      const indices=required(p.selectedIndices,"selectedIndices"),chosen=selected(weights,indices),answer=divide(multiply(p.totalPayment,chosen),totalWeight);answerValues=[answer];formulaLatex="P_S=P_{total}\\frac{C_S}{\\sum C}";
+      workedLatex=[contributionStep(roles[0],"A"),contributionStep(roles[1],"B"),contributionStep(roles[2],"C"),`C_S=${indices.map(index=>toLatex(weights[index])).join("+")}=${toLatex(chosen)},\\quad \\sum C=${toLatex(totalWeight)}`,`P_S=${toLatex(p.totalPayment)}\\times\\frac{${toLatex(chosen)}}{${toLatex(totalWeight)}}=${toLatex(answer)}`];break;
+    }
+    case"findTotalPaymentPoolFromKnownShare":{
+      const known=required(reported,"reportedPayments")[target],answer=divide(multiply(known,totalWeight),weights[target]);answerValues=[answer];formulaLatex="P_{total}=P_i\\frac{\\sum C}{C_i}";
+      workedLatex=[contributionStep(roles[0],"A"),contributionStep(roles[1],"B"),contributionStep(roles[2],"C"),sumExpression(weights,"\\sum C"),`\\frac{P_i}{P_{total}}=\\frac{${toLatex(weights[target])}}{${toLatex(totalWeight)}}`,`P_{total}=${toLatex(known)}\\times\\frac{${toLatex(totalWeight)}}{${toLatex(weights[target])}}=${toLatex(answer)}`];break;
+    }
+    case"findResidualPayment":{
+      const knownIndices=required(p.knownPaymentIndices,"knownPaymentIndices"),knownPayments=required(reported,"reportedPayments"),knownValues=knownIndices.map(index=>knownPayments[index]),knownTotal=sum(knownValues),answer=subtract(p.totalPayment,knownTotal);answerValues=[answer];formulaLatex="P_{residual}=P_{total}-\\sum P_{known}";
+      workedLatex=[`P_{total}=${toLatex(p.totalPayment)}`,`\\sum P_{known}=${knownValues.map(toLatex).join("+")}=${toLatex(knownTotal)}`,`P_{residual}=${toLatex(p.totalPayment)}-${toLatex(knownTotal)}=${toLatex(answer)}`];break;
+    }
+    case"findPaymentAfterStagedParticipation":{
+      const answer=divide(multiply(p.totalPayment,weights[target]),totalWeight);answerValues=[answer];formulaLatex="P_i=P_{total}\\frac{E_it_i}{\\sum E_jt_j}";
+      workedLatex=[contributionStep(roles[0],"A"),contributionStep(roles[1],"B"),`\\sum C=${toLatex(weights[0])}+${toLatex(weights[1])}=${toLatex(totalWeight)}`,`P_i=${toLatex(p.totalPayment)}\\times\\frac{${toLatex(weights[target])}}{${toLatex(totalWeight)}}=${toLatex(answer)}`];break;
+    }
+    case"findPaymentFromCompletedFractions":{
+      const answer=divide(multiply(p.totalPayment,weights[target]),totalWeight);answerValues=[answer];formulaLatex="P_i=P_{total}\\frac{f_i}{\\sum f}";
+      workedLatex=[`\\sum f=${weights.map(toLatex).join("+")}=${toLatex(totalWeight)}`,`\\text{Target fraction}=f_i=${toLatex(weights[target])}`,`P_i=${toLatex(p.totalPayment)}\\times\\frac{${toLatex(weights[target])}}{${toLatex(totalWeight)}}=${toLatex(answer)}`];break;
+    }
+    case"findContributionFactorRatioFromPayments":{
+      const pay=required(reported,"reportedPayments"),a=roles[0],b=roles[1],paymentRatio=ratioText([pay[0],pay[1]]);
+      if(p.factorTarget==="EFFICIENCY_RATIO"){
+        answerValues=integerRatio([a.efficiency,b.efficiency]);formulaLatex="E_A:E_B=(P_A:P_B)\\times(D_BH_B:D_AH_A)";
+        workedLatex=[`P_A:P_B=${toLatex(pay[0])}:${toLatex(pay[1])}=${paymentRatio}`,`E_A:E_B=(${toLatex(pay[0])}\\times${toLatex(b.days)}\\times${toLatex(b.hoursPerDay)}):(${toLatex(pay[1])}\\times${toLatex(a.days)}\\times${toLatex(a.hoursPerDay)})`,`E_A:E_B=${ratioText(answerValues)}`];
+      }else{
+        answerValues=integerRatio([a.days,b.days]);formulaLatex="D_A:D_B=(P_A:P_B)\\times(E_BH_B:E_AH_A)";
+        workedLatex=[`P_A:P_B=${toLatex(pay[0])}:${toLatex(pay[1])}=${paymentRatio}`,`D_A:D_B=(${toLatex(pay[0])}\\times${toLatex(b.efficiency)}\\times${toLatex(b.hoursPerDay)}):(${toLatex(pay[1])}\\times${toLatex(a.efficiency)}\\times${toLatex(a.hoursPerDay)})`,`D_A:D_B=${ratioText(answerValues)}`];
+      }break;
+    }
+    case"findMissingTimeFromPayment":{
+      const pay=required(reported,"reportedPayments"),a=roles[target],otherIndex=target===0?1:0,other=roles[otherIndex],otherPay=pay[otherIndex],answer=divide(multiply(multiply(divide(pay[target],otherPay),other.efficiency),multiply(other.days,other.hoursPerDay)),multiply(a.efficiency,a.hoursPerDay));answerValues=[answer];formulaLatex="D_x=\\frac{P_x}{P_k}\\frac{E_kD_kH_k}{E_xH_x}";
+      workedLatex=[`\\frac{P_x}{P_k}=\\frac{${toLatex(pay[target])}}{${toLatex(otherPay)}}`,`D_x=\\frac{${toLatex(pay[target])}\\times${toLatex(other.efficiency)}\\times${toLatex(other.days)}\\times${toLatex(other.hoursPerDay)}}{${toLatex(otherPay)}\\times${toLatex(a.efficiency)}\\times${toLatex(a.hoursPerDay)}}`,`D_x=${toLatex(answer)}\\;\\text{days}`];break;
+    }
+    case"findMissingEfficiencyFromPayment":{
+      const pay=required(reported,"reportedPayments"),a=roles[target],otherIndex=target===0?1:0,other=roles[otherIndex],otherPay=pay[otherIndex],answer=divide(multiply(multiply(divide(pay[target],otherPay),other.efficiency),multiply(other.days,other.hoursPerDay)),multiply(a.days,a.hoursPerDay));answerValues=[answer];formulaLatex="E_x=\\frac{P_x}{P_k}\\frac{E_kD_kH_k}{D_xH_x}";
+      workedLatex=[`\\frac{P_x}{P_k}=\\frac{${toLatex(pay[target])}}{${toLatex(otherPay)}}`,`E_x=\\frac{${toLatex(pay[target])}\\times${toLatex(other.efficiency)}\\times${toLatex(other.days)}\\times${toLatex(other.hoursPerDay)}}{${toLatex(otherPay)}\\times${toLatex(a.days)}\\times${toLatex(a.hoursPerDay)}}`,`E_x=${toLatex(answer)}\\;\\text{${p.context.outputUnit} per hour}`];break;
+    }
+    case"findMixedCategoryPaymentDistribution":{
+      answerValues=payments(p.totalPayment,weights);formulaLatex="P_k=P_{total}\\frac{N_kE_kD_kH_k}{\\sum_jN_jE_jD_jH_j}";
+      workedLatex=[contributionStep(roles[0],"A"),contributionStep(roles[1],"B"),contributionStep(roles[2],"C"),`C_A:C_B:C_C=${ratioText(weights)},\\quad \\sum C=${toLatex(totalWeight)}`,`P_A=${toLatex(p.totalPayment)}\\times\\frac{${toLatex(weights[0])}}{${toLatex(totalWeight)}}=${toLatex(answerValues[0])}`,`P_B=${toLatex(p.totalPayment)}\\times\\frac{${toLatex(weights[1])}}{${toLatex(totalWeight)}}=${toLatex(answerValues[1])}`,`P_C=${toLatex(p.totalPayment)}\\times\\frac{${toLatex(weights[2])}}{${toLatex(totalWeight)}}=${toLatex(answerValues[2])}`];break;
+    }
+    case"findPieceRatePaymentFromOutput":{
+      const output=roles[target].output,rate=required(p.pieceRate,"pieceRate"),answer=multiply(output,rate);answerValues=[answer];formulaLatex="P=Q\\times p";
+      workedLatex=[`Q=${toLatex(output)}\\;\\text{accepted ${p.context.outputUnit}}`,`p=${toLatex(rate)}\\;\\text{per accepted unit}`,`P=${toLatex(output)}\\times${toLatex(rate)}=${toLatex(answer)}`];break;
+    }
+    case"findBonusShareFromExtraContribution":{
+      const bonus=required(p.bonusPool,"bonusPool"),answer=divide(multiply(bonus,weights[target]),totalWeight);answerValues=[answer];formulaLatex="B_i=B_{total}\\frac{Q_i-Q_{base,i}}{\\sum_j(Q_j-Q_{base,j})}";
+      workedLatex=roles.map((role,index)=>`\\Delta Q_${"ABC"[index]}=${toLatex(role.output)}-${toLatex(role.baselineOutput)}=${toLatex(weights[index])}`);workedLatex.push(`\\sum \\Delta Q=${weights.map(toLatex).join("+")}=${toLatex(totalWeight)}`,`B_i=${toLatex(bonus)}\\times\\frac{${toLatex(weights[target])}}{${toLatex(totalWeight)}}=${toLatex(answer)}`);break;
+    }
+    case"findPaymentAfterSignedContribution":{
+      const answer=divide(multiply(p.totalPayment,weights[target]),totalWeight);answerValues=[answer];formulaLatex="P_i=P_{total}\\frac{Q_i-Q_{defect,i}}{\\sum_j(Q_j-Q_{defect,j})}";
+      workedLatex=roles.map((role,index)=>`Q_{net,${"ABC"[index]}}=${toLatex(role.output)}-${toLatex(role.defectiveOutput)}=${toLatex(weights[index])}`);workedLatex.push(`\\sum Q_{net}=${weights.map(toLatex).join("+")}=${toLatex(totalWeight)}`,`P_i=${toLatex(p.totalPayment)}\\times\\frac{${toLatex(weights[target])}}{${toLatex(totalWeight)}}=${toLatex(answer)}`);break;
+    }
   }
   return{answerValues,answerType:entry.answerType,answerText:formatTmwCp008Answer(entry,p,answerValues),answerKey:key(answerValues),formulaLatex,workedLatex};
 }
