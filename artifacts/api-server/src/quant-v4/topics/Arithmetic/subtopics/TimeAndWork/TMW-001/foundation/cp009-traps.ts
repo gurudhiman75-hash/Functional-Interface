@@ -17,7 +17,7 @@ function trapReason(id:TmwCp009Option["misconceptionId"]):string{switch(id){
  case"RATIO_ORDER_REVERSED":return "contains the correct comparison in the reverse order from the one asked.";
  case"TIME_EFFICIENCY_INVERSION_MISSED":return "results from treating filling time and pipe efficiency as directly proportional.";
  case"BLOCKAGE_REPORTED_AS_REMAINING_EFFICIENCY":return "reports the efficiency still available rather than the percentage efficiency lost to blockage.";
- case"DIRECTION_FROM_PIPE_COUNT":return "judges the outcome from the number of pipes rather than comparing their actual rates.";
+ case"DIRECTION_FROM_PIPE_COUNT":return "results from counting pipes or assuming opposing pipes cancel without comparing their signed rates.";
  case"BOUNDARY_TIME_NOT_CHECKED":return "states an outcome without comparing the exact boundary time with the available time window.";
  case"PLAUSIBLE_SCALE_ERROR":return "is a nearby value but does not satisfy the signed-flow equation and target condition.";
  case"CORRECT":return "";
