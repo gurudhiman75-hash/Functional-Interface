@@ -1,0 +1,79 @@
+name: Validate MAL-CP-001 permanent allocation
+
+on:
+  pull_request:
+    branches:
+      - feat/mal-001-cp001-prototype-foundation
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/**
+      - .github/workflows/mal-cp001-permanent-allocation.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-mal-cp001-permanent-allocation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-mal-cp001-permanent-allocation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle frozen foundation regression audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-foundation-freeze-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-foundation-freeze-audit.mjs
+      - name: Run frozen foundation regression audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/mal-001-cp001-foundation-freeze-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-foundation-freeze-audit.log
+      - name: Bundle permanent allocation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-permanent-allocation-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-permanent-allocation-audit.mjs
+      - name: Run permanent allocation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-allocation-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-allocation-audit.log
+      - name: Bundle permanent allocation review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-permanent-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-permanent-review-export.mjs
+      - name: Generate permanent allocation review pack
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/mal-001-cp001-permanent-review-export.mjs
+      - name: Upload permanent allocation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mal-cp001-permanent-allocation
+          path: |
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-foundation-freeze-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-allocation-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-allocation-review.json
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-allocation-review.md
+          if-no-files-found: error
+          retention-days: 7
