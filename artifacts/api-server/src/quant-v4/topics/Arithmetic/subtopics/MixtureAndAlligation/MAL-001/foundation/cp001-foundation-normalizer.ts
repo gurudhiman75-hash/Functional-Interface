@@ -159,8 +159,12 @@ function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+function isPluralMaterialLabel(label: string): boolean {
+  return /(?:leaves|beans)$/iu.test(label);
+}
+
 function costVerb(label: string): "cost" | "costs" {
-  return /(?:leaves|beans)$/iu.test(label) ? "cost" : "costs";
+  return isPluralMaterialLabel(label) ? "cost" : "costs";
 }
 
 function normalizeStem(question: any): string {
@@ -205,10 +209,30 @@ function normalizeStem(question: any): string {
 
   const quantityLabel = unknownQuantityLabel(question);
   if (quantityLabel) {
+    const escapedQuantityLabel = escapeRegExp(quantityLabel);
     stem = stem
       .replace(/What quantity should be added\?$/u, `What quantity of ${quantityLabel} should be added?`)
       .replace(/What quantity of the third grade is present\?$/u, `What quantity of ${quantityLabel} is present?`)
       .replace(/[Ww]hat is that quantity\?$/u, `What quantity of ${quantityLabel} is used?`);
+
+    if (
+      question.parameters?.context?.quantityUnit === "kg" &&
+      isPluralMaterialLabel(quantityLabel)
+    ) {
+      const pluralAction =
+        request.mode === "ADD_SOURCE_TO_REACH_TARGET" ? "added" : "present";
+      const clearPluralPrompt =
+        `How many kilograms of ${quantityLabel} are ${pluralAction}?`;
+      stem = stem
+        .replace(
+          new RegExp(`What quantity of ${escapedQuantityLabel} (?:should be added|is present|is used)\\?`, "u"),
+          clearPluralPrompt,
+        )
+        .replace(
+          new RegExp(`How much ${escapedQuantityLabel} (?:was used|was added|must be added)\\?`, "u"),
+          clearPluralPrompt,
+        );
+    }
   }
 
   const shareLabel = requestedShareLabel(question);
@@ -221,7 +245,7 @@ function normalizeStem(question: any): string {
 
     if (
       question.parameters?.context?.quantityUnit === "kg" &&
-      /(?:leaves|beans)$/iu.test(shareLabel)
+      isPluralMaterialLabel(shareLabel)
     ) {
       const clearPluralPrompt = `How many kilograms of ${shareLabel} are used?`;
       stem = stem
