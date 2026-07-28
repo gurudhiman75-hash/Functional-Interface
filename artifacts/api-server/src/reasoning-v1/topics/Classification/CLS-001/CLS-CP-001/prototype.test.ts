@@ -102,6 +102,7 @@ for (const prototype of CLS_CP001_PROTOTYPES) {
     assert.equal(generated.seed, seed);
     assert.equal(generated.generationProfile, prototype.generationProfile);
     assert.equal(generated.options.length, 4);
+    assert.equal(generated.optionGroups.length, 0);
     assert.equal(new Set(generated.options.map((option) => option.toLocaleLowerCase("en-IN"))).size, 4);
     assert.equal(generated.options[generated.correctIndex], generated.answer);
     assert.equal(generated.ambiguityAudit.result, "UNIQUE");
@@ -135,9 +136,10 @@ for (const prototype of CLS_CP001_PROTOTYPES) {
     const membershipCount = optionEntities.filter((entity) => entity.classIds.includes(generated.intendedClassId)).length;
     if (generated.task === "FIND_OUTLIER") {
       assert.equal(generated.givens.length, 0);
-      assert.equal(membershipCount, 3);
+      assert.equal(membershipCount, generated.options.length - 1);
       assert.ok(!optionEntities[generated.correctIndex]!.classIds.includes(generated.intendedClassId));
     } else {
+      assert.equal(generated.task, "SELECT_CLASS_MEMBER");
       assert.equal(generated.givens.length, 3);
       assert.equal(membershipCount, 1);
       assert.ok(optionEntities[generated.correctIndex]!.classIds.includes(generated.intendedClassId));
@@ -149,7 +151,7 @@ for (const prototype of CLS_CP001_PROTOTYPES) {
     );
     const expectedMultiMembership = allItemEntities.filter((entity) => entity.directClassIds.length > 1).length;
     const expectedCandidateRules = generated.task === "FIND_OUTLIER"
-      ? generated.ambiguityAudit.supports.filter((support) => support.supportCount === 3 && support.outlierIndex !== null).length
+      ? generated.ambiguityAudit.supports.filter((support) => support.supportCount === generated.options.length - 1 && support.outlierIndex !== null).length
       : prototype.eligibleClassIds.filter((classId) => givenEntities.every((entity) => entity.classIds.includes(classId))).length;
     const expectedDemand = expectedSemanticDemand(prototype, intendedClass!);
     const expectedScore = Math.min(2, intendedClass!.hierarchyDepth)
@@ -168,14 +170,15 @@ for (const prototype of CLS_CP001_PROTOTYPES) {
       inverseTask: generated.task === "SELECT_CLASS_MEMBER",
       crossCutting: prototype.generationProfile === "CROSS_CUTTING",
       semanticDemand: expectedDemand,
+      optionCount: 4,
       score: expectedScore,
     });
     assert.equal(generated.difficulty, expectedDifficulty(expectedScore));
 
-    assert.equal(generated.evidenceByOption.length, 4);
+    assert.equal(generated.evidenceByOption.length, generated.options.length);
     assert.ok(generated.evidenceByOption.every((line) => line.length > 20));
     assert.ok(generated.explanation.coreRule.length >= 3);
-    assert.equal(generated.explanation.optionChecks.length, 4);
+    assert.equal(generated.explanation.optionChecks.length, generated.options.length);
     assert.ok(generated.explanation.examSpeedShortcut.length >= 2);
     assert.ok(generated.explanation.commonTraps.length >= 2);
 
@@ -231,6 +234,7 @@ assert.deepEqual(prototypeSummaries["CLS-CP001-PROT-006"]!.difficulties, new Set
 
 assert.throws(() => generateClsCp001Prototype("CLS-CP001-PROT-001", -1));
 assert.throws(() => generateClsCp001Prototype("CLS-CP001-PROT-001", Number.MAX_SAFE_INTEGER + 1));
+assert.throws(() => generateClsCp001Prototype("CLS-CP001-PROT-001", 0, 3 as never));
 
 console.log("CLS-CP-001 instance-difficulty prototype audit passed.", {
   prototypes: CLS_CP001_PROTOTYPES.length,
