@@ -6,7 +6,6 @@ type ShortcutSection = Extract<Men001ExplanationSection, { kind: "EXAM_SHORTCUT"
 
 const TARGET_CONCEPTS: Readonly<Record<string, string>> = {
   "MEN-001-QL-017": "In an isosceles triangle, a perpendicular drawn from the top vertex cuts the base into two equal halves. This creates two right-angled triangles, so Pythagoras gives the vertical height.",
-  "MEN-001-QL-020": "A triangle in the ratio 5 : 12 : 13 is right-angled. First use the perimeter to find the actual side lengths; then use the two shorter sides as the perpendicular base and height.",
   "MEN-001-QL-403": "A length conversion uses 1 m = 100 cm, but area has two dimensions. Therefore 1 m² = 100 cm × 100 cm = 10,000 cm².",
   "MEN-001-QL-414": "Area depends on two dimensions: length × breadth. When both dimensions increase, the two percentage changes multiply, so the area increase is more than simply adding the two percentages.",
   "MEN-001-QL-436": "When the same wire is bent from a circle into a square, no wire is added or removed. Therefore the circle's circumference and the square's perimeter are equal.",
@@ -59,10 +58,22 @@ function wireConcept(mode: string) {
 
 function conceptFor(
   parameters: Men001Parameters,
+  solver: Men001SolverResult,
   existing: string | undefined,
 ) {
   const targeted = TARGET_CONCEPTS[parameters.questionLanguageId];
   if (targeted) return targeted;
+
+  if (parameters.questionLanguageId === "MEN-001-QL-020") {
+    const triplet = findPythagoreanTriplet(parameters, solver);
+    const ratios = [parameters.values.ratioA, parameters.values.ratioB, parameters.values.ratioC]
+      .filter((value): value is number => typeof value === "number");
+    const ratioLabel = ratios.length === 3 ? ratios.join(" : ") : "the given side ratio";
+    if (triplet) {
+      return `The side ratio ${ratioLabel} forms a right-angled Pythagorean Triplet. Use the perimeter to scale the ratio, then use the two shorter sides as perpendicular base and height.`;
+    }
+    return `The side ratio ${ratioLabel} gives relative lengths only. Use the perimeter to find the actual sides; because this state is not right-angled, use Heron's formula for the area.`;
+  }
 
   const mode = parameters.solveMode;
   if (/Wire/.test(mode)) return wireConcept(mode);
@@ -279,16 +290,29 @@ function humanizeShortcut(
   solver: Men001SolverResult,
 ): ShortcutSection {
   const qlId = parameters.questionLanguageId;
+  const triplet = findPythagoreanTriplet(parameters, solver);
+  if (qlId === "MEN-001-QL-017" && triplet) {
+    const reducedNote = tripletLabel(triplet.actual) === tripletLabel(triplet.reduced)
+      ? ""
+      : `, a scaled ${tripletLabel(triplet.reduced)} pattern`;
+    return {
+      ...section,
+      paragraphs: [`Pythagorean Triplet spotted: ${tripletLabel(triplet.actual)}${reducedNote}. Read the perpendicular height immediately, then use the full base in the area formula.`],
+    };
+  }
+  if (qlId === "MEN-001-QL-020" && triplet) {
+    return {
+      ...section,
+      paragraphs: [`Pythagorean Triplet spotted: ${tripletLabel(triplet.actual)}. Use the two shorter sides directly as perpendicular base and height instead of applying Heron's formula.`],
+    };
+  }
+
   const targeted: Readonly<Record<string, string>> = {
-    "MEN-001-QL-017": "Pythagorean Triplet spotted: the half-base, height and equal side form a scaled 3–4–5 triangle. Read the height immediately, then use the full base in the area formula.",
-    "MEN-001-QL-020": "Pythagorean Triplet spotted: 5–12–13 is a right-angled triangle. After scaling the ratio, use the two shorter sides directly as base and height; the longest side is not needed for area.",
     "MEN-001-QL-403": "Quick memory rule: length conversion uses 100, but area conversion uses 100² = 10,000. For cm² → m², divide by 10,000.",
     "MEN-001-QL-414": "For the same increase p% in both dimensions, use 2p + p²/100. The p²/100 term is the extra compounding effect that simple addition misses.",
     "MEN-001-QL-436": "For circle → square wire reshaping, go straight to s = πr/2. With π = 22/7, this becomes s = 11r/7; then square s for the area.",
   };
   if (targeted[qlId]) return { ...section, paragraphs: [targeted[qlId]!] };
-
-  const triplet = findPythagoreanTriplet(parameters, solver);
   if (triplet) {
     const reducedNote = tripletLabel(triplet.actual) === tripletLabel(triplet.reduced)
       ? ""
@@ -323,7 +347,7 @@ export function humanizeMen001Comprehension(
     if (section.kind === "KEY_RULE") {
       return {
         ...section,
-        paragraphs: [conceptFor(parameters, section.paragraphs[0])],
+        paragraphs: [conceptFor(parameters, solver, section.paragraphs[0])],
       };
     }
     if (section.kind === "STEP") return humanizeStep(section, parameters);
