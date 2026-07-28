@@ -26,54 +26,44 @@ jobs:
           from pathlib import Path
 
           path = Path("artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/structured-common-traps.ts")
-          text = path.read_text()
+          lines = path.read_text().splitlines()
 
-          old_report = '''    case "report":
-            case "retain": {
-              const source = instead?.[0] ?? afterText;
-              const destination = instead?.[1] ?? beforeText;
-              return destination
-                ? `stopping at ${withArticle(source)} instead of calculating ${withArticle(destination)}`
-                : `stopping at ${withArticle(source)} before the requested calculation is complete`;
-            }'''
-          new_report = '''    case "report":
-            case "retain": {
-              if (as) return `stopping at ${withArticle(as[0])} and treating it as ${withArticle(as[1])}`;
-              const source = instead?.[0] ?? afterText;
-              const destination = instead?.[1] ?? beforeText;
-              return destination
-                ? `stopping at ${withArticle(source)} instead of calculating ${withArticle(destination)}`
-                : `stopping at ${withArticle(source)} before the requested calculation is complete`;
-            }'''
-          if old_report not in text:
-              raise SystemExit("report/retain block not found")
-          text = text.replace(old_report, new_report, 1)
+          report_marker = '    case "retain": {'
+          try:
+              report_index = lines.index(report_marker)
+          except ValueError:
+              raise SystemExit("report/retain marker not found")
+          report_line = '      if (as) return `stopping at ${withArticle(as[0])} and treating it as ${withArticle(as[1])}`;'
+          if report_line not in lines[report_index + 1:report_index + 4]:
+              lines.insert(report_index + 1, report_line)
 
-          rhombus_anchor = '''  if (/Rhombus|Kite|Diagonal/.test(mode)) {
-              return "Use the correct diagonal relation and retain the 1/2 factor where the area formula requires it.";
-            }'''
-          rhombus_replacement = '''  if (/RhombusPerimeterFromDiagonals/.test(mode)) {
-              return "Halve both diagonals, use Pythagoras to find one rhombus side, then multiply that side by 4 for the perimeter.";
-            }
-            if (/Rhombus|Kite|Diagonal/.test(mode)) {
-              return "Use the correct diagonal relation and retain the 1/2 factor where the area formula requires it.";
-            }'''
-          if rhombus_anchor not in text:
-              raise SystemExit("rhombus correction block not found")
-          text = text.replace(rhombus_anchor, rhombus_replacement, 1)
+          rhombus_marker = '  if (/Rhombus|Kite|Diagonal/.test(mode)) {'
+          try:
+              rhombus_index = lines.index(rhombus_marker)
+          except ValueError:
+              raise SystemExit("rhombus correction marker not found")
+          rhombus_block = [
+              '  if (/RhombusPerimeterFromDiagonals/.test(mode)) {',
+              '    return "Halve both diagonals, use Pythagoras to find one rhombus side, then multiply that side by 4 for the perimeter.";',
+              '  }',
+          ]
+          if rhombus_block[0] not in lines:
+              lines[rhombus_index:rhombus_index] = rhombus_block
 
-          path_anchor = '''  if (/Path|Border|Shaded|Remaining|Uncovered|Annulus/.test(mode)) {
-              return "Calculate the complete outer area and subtract the inner or excluded area exactly once.";
-            }'''
-          path_replacement = '''  if (/(?:Path|Border).*Cost|Cost.*(?:Path|Border)/.test(mode)) {
-              return "Find path or border area = outer area − inner area, then multiply that area by the stated rate to obtain the total cost.";
-            }
-            if (/Path|Border|Shaded|Remaining|Uncovered|Annulus/.test(mode)) {
-              return "Calculate the complete outer area and subtract the inner or excluded area exactly once.";
-            }'''
-          if path_anchor not in text:
-              raise SystemExit("path correction block not found")
-          path.write_text(text.replace(path_anchor, path_replacement, 1))
+          path_marker = '  if (/Path|Border|Shaded|Remaining|Uncovered|Annulus/.test(mode)) {'
+          try:
+              path_index = lines.index(path_marker)
+          except ValueError:
+              raise SystemExit("path correction marker not found")
+          path_block = [
+              '  if (/(?:Path|Border).*Cost|Cost.*(?:Path|Border)/.test(mode)) {',
+              '    return "Find path or border area = outer area − inner area, then multiply that area by the stated rate to obtain the total cost.";',
+              '  }',
+          ]
+          if path_block[0] not in lines:
+              lines[path_index:path_index] = path_block
+
+          path.write_text("\n".join(lines) + "\n")
           PY
 
       - name: Commit patch
