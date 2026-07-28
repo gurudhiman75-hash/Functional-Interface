@@ -253,6 +253,7 @@ function chooseDifficulty(prototype: PrototypeDefinition, seed: number): Difficu
 function buildStem(
   prototype: PrototypeDefinition,
   givens: readonly SemanticEntity[],
+  seed: number,
   rng: Rng,
 ): string {
   if (prototype.task === "SELECT_CLASS_MEMBER") {
@@ -262,8 +263,12 @@ function buildStem(
       `${joined} belong to the same category. Select the option that belongs to that category as well.`,
       `Consider the group ${joined}. Which of the following can be added to this group?`,
       `Which option belongs with ${joined}?`,
+      `The items ${joined} share one classification. Choose another item from that classification.`,
+      `Select the option that can join the group ${joined}.`,
+      `Which candidate is a member of the same class as ${joined}?`,
+      `Choose the item that completes the category represented by ${joined}.`,
     ];
-    return templates[rng.int(templates.length)]!;
+    return templates[(rng.int(templates.length) + seed) % templates.length]!;
   }
 
   const templates = [
@@ -271,8 +276,12 @@ function buildStem(
     "Choose the option that is different from the other three.",
     "Which of the following is the odd one out?",
     "Identify the option that does not share the common classification of the other three.",
+    "Three options can be placed in the same category. Select the remaining option.",
+    "Find the item that cannot be grouped with the other three.",
+    "One option falls outside the class formed by the others. Which is it?",
+    "Select the differently classified option.",
   ];
-  return templates[rng.int(templates.length)]!;
+  return templates[(rng.int(templates.length) + seed) % templates.length]!;
 }
 
 function buildExplanation(
@@ -359,7 +368,7 @@ function generateOutlier(prototype: PrototypeDefinition, seed: number, rng: Rng)
     difficulty: chooseDifficulty(prototype, seed),
     intendedClassId: positiveClass.classId,
     intendedClassLabel: positiveClass.label,
-    stem: buildStem(prototype, [], rng),
+    stem: buildStem(prototype, [], seed, rng),
     givens: [],
     options: displayedEntities.map((entity) => entity.label),
     correctIndex: canonicalCorrectIndex,
@@ -407,7 +416,7 @@ function generateClassMember(prototype: PrototypeDefinition, seed: number, rng: 
     difficulty: chooseDifficulty(prototype, seed),
     intendedClassId: positiveClass.classId,
     intendedClassLabel: positiveClass.label,
-    stem: buildStem(prototype, givens, rng),
+    stem: buildStem(prototype, givens, seed, rng),
     givens: givens.map((entity) => entity.label),
     options: displayedEntities.map((entity) => entity.label),
     correctIndex: canonicalCorrectIndex,
