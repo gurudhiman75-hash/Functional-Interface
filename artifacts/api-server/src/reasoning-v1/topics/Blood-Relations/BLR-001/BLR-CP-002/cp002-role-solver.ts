@@ -1,7 +1,11 @@
 import { personsWithRelation } from "../foundation/family-analysis";
 import { solveRelationFromGraph } from "../foundation/graph-closure";
 import { relationLabel } from "../foundation/relation-ontology";
-import type { BlrRelationId } from "../foundation/types";
+import type {
+  BlrRelationId,
+  BlrRoleId,
+  PrimitivePathStep,
+} from "../foundation/types";
 import type {
   BlrCp002Anchor,
   BlrCp002AnswerId,
@@ -12,6 +16,40 @@ import type {
   BlrRoleStep,
   BlrCp002SolvedExpression,
 } from "./cp002-types";
+
+const BROAD_ROLE_RELATIONS: Readonly<
+  Record<PrimitivePathStep, readonly BlrRelationId[]>
+> = {
+  PARENT: ["FATHER", "MOTHER"],
+  CHILD: ["SON", "DAUGHTER"],
+  SIBLING: ["BROTHER", "SISTER"],
+  SPOUSE: ["HUSBAND", "WIFE"],
+};
+
+function isBroadRole(roleId: BlrRoleId): roleId is PrimitivePathStep {
+  return roleId in BROAD_ROLE_RELATIONS;
+}
+
+function personsForRole(
+  prompt: BlrCp002StructuredPrompt,
+  referenceId: string,
+  roleId: BlrRoleId,
+): string[] {
+  const relationIds = isBroadRole(roleId)
+    ? BROAD_ROLE_RELATIONS[roleId]
+    : [roleId];
+  const matches = new Set<string>();
+  for (const relationId of relationIds) {
+    for (const personId of personsWithRelation(
+      prompt.familyGraph,
+      referenceId,
+      relationId,
+    )) {
+      matches.add(personId);
+    }
+  }
+  return [...matches];
+}
 
 export function cp002AnswerLabel(answerId: BlrCp002AnswerId): string {
   return answerId === "SELF" ? "Self" : relationLabel(answerId);
@@ -53,11 +91,7 @@ function nextCandidates(
 ): string[] {
   const next = new Set<string>();
   for (const currentId of currentIds) {
-    const matches = personsWithRelation(
-      prompt.familyGraph,
-      currentId,
-      step.relationId,
-    );
+    const matches = personsForRole(prompt, currentId, step.relationId);
     if (step.quantifier === "ONLY" && matches.length !== 1) {
       throw new Error(
         `${nameFor(prompt, currentId)} does not have exactly one ${relationLabel(step.relationId).toLocaleLowerCase("en-IN")} in the active scope.`,
@@ -126,26 +160,22 @@ function verifyAssertion(
     return;
   }
 
-  const solved = solveRelationFromGraph(
-    prompt.familyGraph,
-    subject.resolvedPersonId,
+  const matches = personsForRole(
+    prompt,
     reference.resolvedPersonId,
+    assertion.relation.relationId,
   );
-  if (solved.relationId !== assertion.relation.relationId) {
+  if (!matches.includes(subject.resolvedPersonId)) {
     throw new Error(
-      `Assertion expected ${assertion.relation.relationId} but graph proves ${solved.relationId}.`,
+      `Assertion does not prove ${nameFor(prompt, subject.resolvedPersonId)} as the ${relationLabel(assertion.relation.relationId).toLocaleLowerCase("en-IN")} of ${nameFor(prompt, reference.resolvedPersonId)}.`,
     );
   }
 
-  if (assertion.relation.quantifier === "ONLY") {
-    const matches = personsWithRelation(
-      prompt.familyGraph,
-      reference.resolvedPersonId,
-      assertion.relation.relationId,
-    );
-    if (matches.length !== 1 || matches[0] !== subject.resolvedPersonId) {
-      throw new Error("The displayed ONLY assertion is not true in the active family scope.");
-    }
+  if (
+    assertion.relation.quantifier === "ONLY" &&
+    (matches.length !== 1 || matches[0] !== subject.resolvedPersonId)
+  ) {
+    throw new Error("The displayed ONLY assertion is not true in the active family scope.");
   }
 }
 
