@@ -1,0 +1,99 @@
+name: Simplify TMW-CP-011 explanations
+
+on:
+  pull_request:
+    branches:
+      - design/tmw-001-blueprint
+    types: [opened, reopened, synchronize]
+    paths:
+      - .github/cp011-simplify-parts/**
+      - .github/workflows/tmw-cp011-explanation-simplify.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: simplify-tmw-cp011-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  simplify:
+    if: github.head_ref == 'feat/tmw-cp011'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: feat/tmw-cp011
+
+      - name: Verify and apply editorial patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          find .github/cp011-simplify-parts -maxdepth 1 -type f -printf '%f\n' | sort | while read -r part; do
+            cat ".github/cp011-simplify-parts/$part"
+          done > /tmp/cp011_simplify.b64
+          echo '60c48b8a7b09cf529c0d89c0e5365005fcdec53f35f9517afd3998c6320e16fe  /tmp/cp011_simplify.b64' | sha256sum -c -
+          base64 --decode /tmp/cp011_simplify.b64 > /tmp/cp011_simplify.py
+          echo '6c99359337e26816748b377ece33dee9305c461caaec75e509bca5b06fc547e3  /tmp/cp011_simplify.py' | sha256sum -c -
+          python -m py_compile /tmp/cp011_simplify.py
+          python /tmp/cp011_simplify.py
+
+      - name: Install locked workspace dependencies
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile
+
+      - name: Validate revised runtime proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-cp011.simplified-test.mjs
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp011.simplified-test.mjs
+
+      - name: Validate revised structural audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-cp011.simplified-audit.mjs
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp011.simplified-audit.mjs
+
+      - name: Generate and inspect revised review corpus
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011-review-export.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-cp011.simplified-review.mjs
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp011.simplified-review.mjs
+          node - <<'NODE'
+          const fs = require('fs');
+          const path = 'artifacts/api-server/dist/quant-v4/tmw-001-cp011-review.json';
+          const rows = JSON.parse(fs.readFileSync(path, 'utf8')).rows;
+          if (rows.length !== 57) throw new Error(`expected 57 rows, got ${rows.length}`);
+          const banned = /arithmetic progression|geometric progression|AP sum identity|inverse relation|unknown parameter|terminal fraction|finite geometric-sum factor|substitute parameters/i;
+          for (const [index, row] of rows.entries()) {
+            const text = [row.keyRule, ...row.standardSteps, ...row.shortcutSteps, row.commonTrap.explanation].join('\n');
+            if (banned.test(text)) throw new Error(`jargon remains in review row ${index + 1}`);
+            if (row.standardSteps.length < 4) throw new Error(`brief working in review row ${index + 1}`);
+            if (!/^Don't fall for Option [A-D] \(/.test(row.commonTrap.explanation)) throw new Error(`trap style failure in review row ${index + 1}`);
+          }
+          NODE
+
+      - name: Commit simplified learner explanations
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          root='artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001'
+          git add "$root/foundation/cp011-engine.ts"
+          git add "$root/foundation/cp011-presentation.ts"
+          git add "$root/foundation/cp011-options.ts"
+          git add "$root/foundation/cp011-runtime.ts"
+          git add "$root/tmw-001-cp011-audit.ts"
+          git add "$root/TMW-CP-011-EDITORIAL-REVIEW.md"
+          git add "$root/TMW-CP-011-IMPLEMENTATION-STATUS.md"
+          git diff --cached --quiet && { echo 'No editorial changes to commit'; exit 0; }
+          git commit -m 'refactor(tmw): simplify CP-011 learner explanations'
+          git push origin HEAD:feat/tmw-cp011
