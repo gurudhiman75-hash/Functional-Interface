@@ -1,0 +1,86 @@
+name: Validate INT-CP-001 multilingual parity
+
+on:
+  pull_request:
+    branches:
+      - feat/int-001-cp001-final-closure-freeze
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/**
+      - .github/workflows/int-cp001-multilingual.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-int-cp001-multilingual-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-int-cp001-multilingual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle approved English regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-final-freeze-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-english-regression.mjs
+      - name: Run approved English regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/int-001-cp001-english-regression.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-english-regression.log
+
+      - name: Bundle multilingual parity audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-multilingual-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-multilingual-audit.mjs
+      - name: Run multilingual parity audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/int-001-cp001-multilingual-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-multilingual-audit.log
+
+      - name: Bundle multilingual review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-multilingual-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-multilingual-review-export.mjs
+      - name: Generate multilingual review packs
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/int-001-cp001-multilingual-review-export.mjs
+
+      - name: Upload multilingual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp001-multilingual-review
+          path: |
+            artifacts/api-server/dist/quant-v4/int-001-cp001-english-regression.log
+            artifacts/api-server/dist/quant-v4/int-001-cp001-multilingual-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp001-hindi-review.json
+            artifacts/api-server/dist/quant-v4/int-001-cp001-hindi-review.md
+            artifacts/api-server/dist/quant-v4/int-001-cp001-punjabi-review.json
+            artifacts/api-server/dist/quant-v4/int-001-cp001-punjabi-review.md
+            artifacts/api-server/dist/quant-v4/int-001-cp001-multilingual-review-summary.json
+          if-no-files-found: warn
+          retention-days: 7
