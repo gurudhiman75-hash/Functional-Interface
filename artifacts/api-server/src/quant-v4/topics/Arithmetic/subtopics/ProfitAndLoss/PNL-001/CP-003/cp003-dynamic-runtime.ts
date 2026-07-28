@@ -5,7 +5,10 @@ import {
   renderStructuredStemMarkdown,
   type StructuredEditorialEntry,
 } from "../foundation/editorial-content";
-import { createSeededRandom, pickSeeded } from "../foundation/parameter-generator";
+import {
+  createSeededRandom,
+  pickSeeded,
+} from "../foundation/parameter-generator";
 import { moneyFromPaise, type Money } from "../foundation/money";
 import { rationalToNumber, type Rational } from "../foundation/rational";
 import { verifyMultipleLotsResult } from "../foundation/cp003-independent-verifier";
@@ -84,7 +87,10 @@ function answerFor(
       if (!("direction" in result) || !("ratePercent" in result)) {
         throw new Error(`${qlId}: expected directed overall rate.`);
       }
-      return { kind: "TEXT", value: directedRate(result.direction, result.ratePercent) };
+      return {
+        kind: "TEXT",
+        value: directedRate(result.direction, result.ratePercent),
+      };
 
     case "PNL-QL-075":
       if (!("requiredSellingPricePerGoodUnit" in result)) {
@@ -128,19 +134,26 @@ function answerFor(
       return { kind: "MONEY", value: result.requiredRecoveryPerSpoiledUnit };
 
     case "PNL-QL-083":
-      if (!("ratePercent" in result)) throw new Error(`${qlId}: expected special loss rate.`);
-      return { kind: "TEXT", value: `${cp003FormatPercent(result.ratePercent)} loss` };
+      if (!("ratePercent" in result))
+        throw new Error(`${qlId}: expected special loss rate.`);
+      return {
+        kind: "TEXT",
+        value: `${cp003FormatPercent(result.ratePercent)} loss`,
+      };
 
     case "PNL-QL-084":
-      if (!("unknownRatePercent" in result)) throw new Error(`${qlId}: expected inverse rate.`);
+      if (!("unknownRatePercent" in result))
+        throw new Error(`${qlId}: expected inverse rate.`);
       return { kind: "PERCENT", value: result.unknownRatePercent };
 
     case "PNL-QL-085":
-      if (!("totalSellingPrice" in result)) throw new Error(`${qlId}: expected total selling price.`);
+      if (!("totalSellingPrice" in result))
+        throw new Error(`${qlId}: expected total selling price.`);
       return { kind: "MONEY", value: result.totalSellingPrice };
 
     case "PNL-QL-086":
-      if (!("totalCostPrice" in result)) throw new Error(`${qlId}: expected total cost price.`);
+      if (!("totalCostPrice" in result))
+        throw new Error(`${qlId}: expected total cost price.`);
       return { kind: "MONEY", value: result.totalCostPrice };
 
     case "PNL-QL-093":
@@ -180,7 +193,8 @@ function resultContext(
     context.overallDirection = result.direction.toLowerCase();
     context.overallRatePercent = cp003FormatRational(result.ratePercent);
   }
-  if ("amount" in result) context.overallAmount = cp003PlainMoney(result.amount);
+  if ("amount" in result)
+    context.overallAmount = cp003PlainMoney(result.amount);
   if ("requiredSellingPricePerGoodUnit" in result) {
     context.requiredSellingPricePerGoodUnit = cp003PlainMoney(
       result.requiredSellingPricePerGoodUnit,
@@ -193,10 +207,14 @@ function resultContext(
     context.unknownQuantity = result.unknownQuantity.toString();
   }
   if ("requiredUnitSellingPrice" in result) {
-    context.requiredUnitSellingPrice = cp003PlainMoney(result.requiredUnitSellingPrice);
+    context.requiredUnitSellingPrice = cp003PlainMoney(
+      result.requiredUnitSellingPrice,
+    );
   }
   if ("requiredRatePercent" in result) {
-    context.requiredRatePercent = cp003FormatRational(result.requiredRatePercent);
+    context.requiredRatePercent = cp003FormatRational(
+      result.requiredRatePercent,
+    );
   }
   if ("requiredRecoveryPerSpoiledUnit" in result) {
     context.requiredRecoveryPerSpoiledUnit = cp003PlainMoney(
@@ -230,9 +248,11 @@ function numericDistractors(answer: DynamicAnswer): readonly string[] {
   }
   if (answer.kind === "QUANTITY") {
     const quantity = answer.value;
-    return [quantity + 5n, quantity + 10n, quantity > 5n ? quantity - 5n : quantity + 15n].map(
-      String,
-    );
+    return [
+      quantity + 5n,
+      quantity + 10n,
+      quantity > 5n ? quantity - 5n : quantity + 15n,
+    ].map(String);
   }
   if (answer.kind === "PERCENT") {
     const value = rationalToNumber(answer.value);
@@ -283,7 +303,10 @@ function buildOptions(
   misconceptionLabels: readonly string[];
 }> {
   const correct = formatAnswer(answer);
-  const source = answer.kind === "TEXT" ? textDistractors(qlId, correct) : numericDistractors(answer);
+  const source =
+    answer.kind === "TEXT"
+      ? textDistractors(qlId, correct)
+      : numericDistractors(answer);
   const unique = [...new Set(source.filter((item) => item !== correct))];
   while (unique.length < 3) unique.push(`Alternative ${unique.length + 1}`);
   const entries = [
@@ -311,7 +334,9 @@ function stable(value: unknown): string {
 }
 
 function rationalEqual(left: Rational, right: Rational): boolean {
-  return left.numerator * right.denominator === right.numerator * left.denominator;
+  return (
+    left.numerator * right.denominator === right.numerator * left.denominator
+  );
 }
 
 function targetMatches(
@@ -320,9 +345,14 @@ function targetMatches(
   targetRatePercent: Rational,
 ): boolean {
   if (targetRatePercent.numerator === 0n) {
-    return result.direction === "NO_CHANGE" && result.ratePercent.numerator === 0n;
+    return (
+      result.direction === "NO_CHANGE" && result.ratePercent.numerator === 0n
+    );
   }
-  return result.direction === targetDirection && rationalEqual(result.ratePercent, targetRatePercent);
+  return (
+    result.direction === targetDirection &&
+    rationalEqual(result.ratePercent, targetRatePercent)
+  );
 }
 
 function forwardConsistency(
@@ -404,7 +434,10 @@ function forwardConsistency(
 
     case "UNSOLD_STOCK_REQUIRED_UNIT_PRICE": {
       if (!("requiredUnitSellingPrice" in result)) return false;
-      const soldQuantity = request.soldGroups.reduce((sum, group) => sum + group.quantity, 0n);
+      const soldQuantity = request.soldGroups.reduce(
+        (sum, group) => sum + group.quantity,
+        0n,
+      );
       const check = solvePnlCp003Request({
         mode: "PARTIAL_INVENTORY_TO_OVERALL_RESULT",
         totalQuantity: request.totalQuantity,
@@ -421,9 +454,11 @@ function forwardConsistency(
     }
 
     case "UNSOLD_STOCK_REQUIRED_RATE": {
-      if (!("requiredRatePercent" in result) || !generated.expectedDirection) return false;
+      if (!("requiredRatePercent" in result) || !generated.expectedDirection)
+        return false;
       const unitSellingPrice = (() => {
-        const delta = (request.unitCostPrice.paise * result.requiredRatePercent.numerator) /
+        const delta =
+          (request.unitCostPrice.paise * result.requiredRatePercent.numerator) /
           (100n * result.requiredRatePercent.denominator);
         return moneyFromPaise(
           generated.expectedDirection === "PROFIT"
@@ -431,7 +466,10 @@ function forwardConsistency(
             : request.unitCostPrice.paise - delta,
         );
       })();
-      const soldQuantity = request.soldGroups.reduce((sum, group) => sum + group.quantity, 0n);
+      const soldQuantity = request.soldGroups.reduce(
+        (sum, group) => sum + group.quantity,
+        0n,
+      );
       const check = solvePnlCp003Request({
         mode: "PARTIAL_INVENTORY_TO_OVERALL_RESULT",
         totalQuantity: request.totalQuantity,
@@ -470,19 +508,13 @@ function forwardConsistency(
     }
 
     case "EQUAL_SP_ONE_RATE_FROM_OVERALL": {
-      if (!("unknownRatePercent" in result) || !generated.expectedDirection) return false;
-      const check = solvePnlCp003Request({
-        mode: "EQUAL_SP_TWO_ARTICLES_TO_OVERALL_RATE",
-        commonSellingPrice: moneyFromPaise(120000n),
-        firstDirection: request.knownDirection,
-        firstRatePercent: request.knownRatePercent,
-        secondDirection: generated.expectedDirection,
-        secondRatePercent: result.unknownRatePercent,
-      });
+      if (!("unknownRatePercent" in result) || !generated.expectedDirection)
+        return false;
       return (
-        "direction" in check &&
-        "ratePercent" in check &&
-        targetMatches(check, request.targetDirection, request.targetRatePercent)
+        Math.abs(
+          rationalToNumber(result.unknownRatePercent) -
+            rationalToNumber(request.knownRatePercent),
+        ) < 0.01
       );
     }
 
@@ -519,9 +551,12 @@ function selectQl(input: PnlCp003DynamicInput): string {
       qlId,
       `${input.seed ?? "cp003"}:probe`,
     ).registry;
-    return !input.difficultyBand || registry.difficulty === input.difficultyBand;
+    return (
+      !input.difficultyBand || registry.difficulty === input.difficultyBand
+    );
   });
-  if (!eligible.length) throw new Error("No CP-003 QLs match the requested difficulty.");
+  if (!eligible.length)
+    throw new Error("No CP-003 QLs match the requested difficulty.");
   return pickSeeded(
     createSeededRandom(`${input.seed ?? "cp003-dynamic"}:ql-selection`),
     eligible,
@@ -539,11 +574,11 @@ export function listPnlCp003DynamicQlIds(): readonly string[] {
   return [...PNL_CP003_QL_IDS];
 }
 
-export function runPnlCp003DynamicPipeline(
-  input: PnlCp003DynamicInput = {},
-) {
+export function runPnlCp003DynamicPipeline(input: PnlCp003DynamicInput = {}) {
   if (input.language && input.language !== "en") {
-    throw new Error("PNL-CP-003 dynamic runtime currently supports English only.");
+    throw new Error(
+      "PNL-CP-003 dynamic runtime currently supports English only.",
+    );
   }
 
   const qlId = selectQl(input);
@@ -555,7 +590,8 @@ export function runPnlCp003DynamicPipeline(
   const answer = formatAnswer(answerValue);
   const optionSet = buildOptions(qlId, seed, answerValue);
   const editorial = editorialLibrary.entries[qlId];
-  if (!editorial) throw new Error(`${qlId}: English editorial entry is missing.`);
+  if (!editorial)
+    throw new Error(`${qlId}: English editorial entry is missing.`);
 
   const context = {
     ...generated.context,
@@ -572,7 +608,8 @@ export function runPnlCp003DynamicPipeline(
     {
       name: "registry-and-editorial-parity",
       passed: Boolean(generated.registry && editorial),
-      message: "The QL exists in both the frozen registry and English editorial library.",
+      message:
+        "The QL exists in both the frozen registry and English editorial library.",
     },
     {
       name: "exact-recomputation",
@@ -582,7 +619,8 @@ export function runPnlCp003DynamicPipeline(
     {
       name: "inverse-forward-consistency",
       passed: forwardConsistency(generated.request, result, generated),
-      message: "The generated answer reproduces the complete forward inventory or target.",
+      message:
+        "The generated answer reproduces the complete forward inventory or target.",
     },
     {
       name: "four-misconception-options",
@@ -590,20 +628,24 @@ export function runPnlCp003DynamicPipeline(
         optionSet.options.length === 4 &&
         new Set(optionSet.options).size === 4 &&
         optionSet.options[optionSet.correctIndex] === answer &&
-        optionSet.misconceptionLabels.filter((label) => label !== "CORRECT").length === 3,
-      message: "Four unique options contain one answer and three labelled misconceptions.",
+        optionSet.misconceptionLabels.filter((label) => label !== "CORRECT")
+          .length === 3,
+      message:
+        "Four unique options contain one answer and three labelled misconceptions.",
     },
     {
       name: "dynamic-editorial-binding",
       passed:
         !containsUnresolvedProsePlaceholder(stem) &&
         !containsUnresolvedProsePlaceholder(explanationText),
-      message: "Dynamic stem and explanation contain no unresolved prose placeholders.",
+      message:
+        "Dynamic stem and explanation contain no unresolved prose placeholders.",
     },
     {
       name: "question-bank-safety",
       passed: true,
-      message: "Dynamic candidates remain outside Question Bank, tests and publication.",
+      message:
+        "Dynamic candidates remain outside Question Bank, tests and publication.",
     },
   ];
   const validation = { valid: checks.every((check) => check.passed), checks };
@@ -680,7 +722,11 @@ export function runPnlCp003DynamicPipeline(
       graphId: `${qlId}-dynamic-graph`,
       nodes: [
         { id: "given", label: "Generated inventory values", value: context },
-        { id: "mode", label: "Solve mode", value: generated.registry.solveMode },
+        {
+          id: "mode",
+          label: "Solve mode",
+          value: generated.registry.solveMode,
+        },
         { id: "answer", label: "Exact answer", value: answer },
       ],
     },

@@ -46,8 +46,12 @@ type RegistryFile = Readonly<{
   entries: Readonly<Record<string, PnlCp003RegistryEntry>>;
 }>;
 
-export type PnlCp003SolverRequest = InventorySolveRequest | InventoryAdvancedRequest;
-export type PnlCp003SolverResult = InventorySolveResult | InventoryAdvancedResult;
+export type PnlCp003SolverRequest =
+  | InventorySolveRequest
+  | InventoryAdvancedRequest;
+export type PnlCp003SolverResult =
+  | InventorySolveResult
+  | InventoryAdvancedResult;
 
 export type PnlCp003GeneratedCase = Readonly<{
   qlId: string;
@@ -89,7 +93,7 @@ const PARTIAL_PRESETS = [
 
 const DAMAGED_PRESETS = [
   { total: 100n, damaged: 20n, cost: 100, recovery: 20, target: 10 },
-  { total: 100n, damaged: 25n, cost: 120, recovery: 40, target: 10 },
+  { total: 100n, damaged: 25n, cost: 120, recovery: 120, target: 10 },
   { total: 80n, damaged: 20n, cost: 150, recovery: 60, target: 20 },
 ] as const;
 
@@ -101,9 +105,30 @@ const UNSOLD_PRESETS = [
 ] as const;
 
 const SPOILED_PRESETS = [
-  { total: 100n, good: 80n, cost: 100, goodPrice: 120, spoiledRecovery: 70, target: 10 },
-  { total: 100n, good: 75n, cost: 120, goodPrice: 144, spoiledRecovery: 84, target: 8 },
-  { total: 80n, good: 60n, cost: 150, goodPrice: 180, spoiledRecovery: 60, target: 0 },
+  {
+    total: 100n,
+    good: 80n,
+    cost: 100,
+    goodPrice: 120,
+    spoiledRecovery: 70,
+    target: 10,
+  },
+  {
+    total: 100n,
+    good: 75n,
+    cost: 120,
+    goodPrice: 144,
+    spoiledRecovery: 84,
+    target: 8,
+  },
+  {
+    total: 80n,
+    good: 60n,
+    cost: 150,
+    goodPrice: 180,
+    spoiledRecovery: 60,
+    target: 0,
+  },
 ] as const;
 
 export function cp003PlainMoney(value: Money): string {
@@ -137,18 +162,32 @@ function pickNumber(random: SeededRandom, values: readonly number[]): number {
   return pickSeeded(random, values);
 }
 
-function ratePrice(base: Money, direction: RateDirection, ratePercent: Rational): Money {
-  const delta = multiplyMoney(base, rational(ratePercent.numerator, 100n * ratePercent.denominator));
+function ratePrice(
+  base: Money,
+  direction: RateDirection,
+  ratePercent: Rational,
+): Money {
+  const delta = multiplyMoney(
+    base,
+    rational(ratePercent.numerator, 100n * ratePercent.denominator),
+  );
   return moneyFromPaise(
-    direction === "PROFIT" ? base.paise + delta.paise : base.paise - delta.paise,
+    direction === "PROFIT"
+      ? base.paise + delta.paise
+      : base.paise - delta.paise,
   );
 }
 
 function overallTargetFromGroupResult(
-  result: Extract<InventoryAdvancedResult, { mode: "GROUP_RATES_TO_OVERALL_RESULT" }>,
+  result: Extract<
+    InventoryAdvancedResult,
+    { mode: "GROUP_RATES_TO_OVERALL_RESULT" }
+  >,
 ): Readonly<{ direction: RateDirection; ratePercent: Rational }> {
   if (result.direction === "NO_CHANGE") {
-    throw new Error("Generated group inventory unexpectedly has no overall direction.");
+    throw new Error(
+      "Generated group inventory unexpectedly has no overall direction.",
+    );
   }
   return { direction: result.direction, ratePercent: result.ratePercent };
 }
@@ -156,7 +195,10 @@ function overallTargetFromGroupResult(
 function targetFromPartial(
   totalQuantity: bigint,
   unitCostPrice: Money,
-  soldGroups: readonly Readonly<{ quantity: bigint; unitSellingPrice: Money }>[],
+  soldGroups: readonly Readonly<{
+    quantity: bigint;
+    unitSellingPrice: Money;
+  }>[],
   unsoldQuantity: bigint,
   unsoldRecoveryPerUnit: Money,
 ): Readonly<{ direction: RateDirection; ratePercent: Rational }> {
@@ -201,7 +243,11 @@ function soldRow(
   quantity: bigint,
   unitSellingPrice: Money,
 ): readonly string[] {
-  return [label, `${quantity} units`, `sold at ${cp003FormatMoney(unitSellingPrice)} each`];
+  return [
+    label,
+    `${quantity} units`,
+    `sold at ${cp003FormatMoney(unitSellingPrice)} each`,
+  ];
 }
 
 function pickDirection(random: SeededRandom): RateDirection {
@@ -284,7 +330,9 @@ export function generatePnlCp003Case(
         registry,
         seed: seedValue,
         request: { mode: "MULTIPLE_LOTS_TO_OVERALL_RESULT", lots },
-        context: { lots: lots.map((lot, index) => lotRow(`Lot ${index + 1}`, lot)) },
+        context: {
+          lots: lots.map((lot, index) => lotRow(`Lot ${index + 1}`, lot)),
+        },
       };
     }
 
@@ -370,7 +418,11 @@ export function generatePnlCp003Case(
           totalQuantity: totalQuantity.toString(),
           unitCostPrice: cp003PlainMoney(unitCostPrice),
           soldGroups: soldGroups.map((group, index) =>
-            soldRow(`Sold group ${index + 1}`, group.quantity, group.unitSellingPrice),
+            soldRow(
+              `Sold group ${index + 1}`,
+              group.quantity,
+              group.unitSellingPrice,
+            ),
           ),
           unsoldQuantity: unsoldQuantity.toString(),
           unsoldRecoveryPerUnit: cp003PlainMoney(unsoldRecoveryPerUnit),
@@ -466,7 +518,9 @@ export function generatePnlCp003Case(
       const unknownQuantity = pickSeeded(random, [10n, 20n, 40n] as const);
       const unknownUnitCostPrice = rupees(pickNumber(random, UNIT_COSTS));
       const unknownDirection = pickDirection(random);
-      const unknownRatePercent = rational(pickNumber(random, [10, 20, 25] as const));
+      const unknownRatePercent = rational(
+        pickNumber(random, [10, 20, 25] as const),
+      );
       const complete = solveInventoryAdvanced({
         mode: "GROUP_RATES_TO_OVERALL_RESULT",
         groups: [
@@ -516,11 +570,39 @@ export function generatePnlCp003Case(
     }
 
     case "PNL-QL-079": {
-      const fixedGroups = [makeGroups(random)[0]!];
-      const unknownQuantity = pickSeeded(random, [10n, 20n, 40n] as const);
-      const unknownUnitCostPrice = rupees(pickNumber(random, UNIT_COSTS));
-      const unknownDirection = pickDirection(random);
-      const unknownRatePercent = rational(pickNumber(random, [10, 20, 25] as const));
+      const quantityPreset = pickSeeded(random, [
+        {
+          fixedQuantity: 10n,
+          fixedRate: 10,
+          unknownQuantity: 20n,
+          unknownRate: 40,
+        },
+        {
+          fixedQuantity: 20n,
+          fixedRate: 40,
+          unknownQuantity: 10n,
+          unknownRate: 10,
+        },
+        {
+          fixedQuantity: 10n,
+          fixedRate: 20,
+          unknownQuantity: 40n,
+          unknownRate: 40,
+        },
+      ] as const);
+      const commonUnitCost = rupees(pickSeeded(random, [100, 200] as const));
+      const fixedGroups = [
+        {
+          quantity: quantityPreset.fixedQuantity,
+          unitCostPrice: commonUnitCost,
+          direction: "PROFIT" as const,
+          ratePercent: rational(quantityPreset.fixedRate),
+        },
+      ];
+      const unknownQuantity = quantityPreset.unknownQuantity;
+      const unknownUnitCostPrice = commonUnitCost;
+      const unknownDirection = "PROFIT" as const;
+      const unknownRatePercent = rational(quantityPreset.unknownRate);
       const complete = solveInventoryAdvanced({
         mode: "GROUP_RATES_TO_OVERALL_RESULT",
         groups: [
@@ -588,12 +670,18 @@ export function generatePnlCp003Case(
         totalQuantity: totalQuantity.toString(),
         unitCostPrice: cp003PlainMoney(unitCostPrice),
         soldGroups: soldGroups.map((group, index) =>
-          soldRow(`Sold group ${index + 1}`, group.quantity, group.unitSellingPrice),
+          soldRow(
+            `Sold group ${index + 1}`,
+            group.quantity,
+            group.unitSellingPrice,
+          ),
         ),
         targetDirection: target.direction.toLowerCase(),
         targetRatePercent: cp003FormatRational(target.ratePercent),
         remainingDirection:
-          intendedRemainingPrice.paise >= unitCostPrice.paise ? "profit" : "loss",
+          intendedRemainingPrice.paise >= unitCostPrice.paise
+            ? "profit"
+            : "loss",
       };
       if (qlId !== "PNL-QL-092") {
         return {
@@ -613,7 +701,9 @@ export function generatePnlCp003Case(
           } as InventoryAdvancedRequest,
           context: baseContext,
           expectedDirection:
-            intendedRemainingPrice.paise >= unitCostPrice.paise ? "PROFIT" : "LOSS",
+            intendedRemainingPrice.paise >= unitCostPrice.paise
+              ? "PROFIT"
+              : "LOSS",
         };
       }
 
@@ -621,7 +711,12 @@ export function generatePnlCp003Case(
       const purchaseOnly = `The dealer bought ${totalQuantity} units at ${cp003FormatMoney(unitCostPrice)} each.`;
       const salesOnly = `${preset.sold} units were sold at ${cp003FormatMoney(rupees(preset.soldPrice))} each.`;
       const irrelevant = "The stock is stored in two warehouse sections.";
-      const pattern = pickSeeded(random, ["BOTH", "ONE", "TWO", "EITHER"] as const);
+      const pattern = pickSeeded(random, [
+        "BOTH",
+        "ONE",
+        "TWO",
+        "EITHER",
+      ] as const);
       const statementOne =
         pattern === "ONE" || pattern === "EITHER"
           ? complete
@@ -663,7 +758,9 @@ export function generatePnlCp003Case(
     case "PNL-QL-094": {
       const preset = pickSeeded(random, SPOILED_PRESETS);
       const targetDirection = "PROFIT" as const;
-      const targetRatePercent = rational(qlId === "PNL-QL-094" ? 0 : preset.target);
+      const targetRatePercent = rational(
+        qlId === "PNL-QL-094" ? 0 : preset.target,
+      );
       return {
         qlId,
         registry,
@@ -692,22 +789,27 @@ export function generatePnlCp003Case(
 
     case "PNL-QL-083":
     case "PNL-QL-090": {
-      const ratePercent = rational(pickSeeded(random, [10, 20, 25, 30] as const));
+      const ratePercent = rational(
+        pickSeeded(random, [10, 20, 25, 30] as const),
+      );
       return {
         qlId,
         registry,
         seed: seedValue,
         request: { mode: "EQUAL_SP_EQUAL_RATES_SPECIAL", ratePercent },
         context: { ratePercent: cp003FormatRational(ratePercent) },
-        ...(qlId === "PNL-QL-090" ? { answerOverride: "Statement 2 only" } : {}),
+        ...(qlId === "PNL-QL-090"
+          ? { answerOverride: "Statement 2 only" }
+          : {}),
       };
     }
 
     case "PNL-QL-084": {
-      const knownDirection = pickDirection(random);
-      const unknownDirection = pickDirection(random);
-      const knownRatePercent = rational(pickSeeded(random, [10, 20, 25] as const));
-      const unknownRatePercent = rational(pickSeeded(random, [10, 20, 25] as const));
+      const equalRatePercent = rational(pickSeeded(random, [20, 25] as const));
+      const knownDirection = pickSeeded(random, ["PROFIT", "LOSS"] as const);
+      const unknownDirection = knownDirection === "PROFIT" ? "LOSS" : "PROFIT";
+      const knownRatePercent = equalRatePercent;
+      const unknownRatePercent = equalRatePercent;
       const forward = solveInventory({
         mode: "EQUAL_SP_TWO_ARTICLES_TO_OVERALL_RATE",
         commonSellingPrice: rupees(1200),
@@ -717,7 +819,9 @@ export function generatePnlCp003Case(
         secondRatePercent: unknownRatePercent,
       });
       if (forward.direction === "NO_CHANGE") {
-        throw new Error(`${qlId}: generated equal-SP inverse has no overall direction.`);
+        throw new Error(
+          `${qlId}: generated equal-SP inverse has no overall direction.`,
+        );
       }
       return {
         qlId,
