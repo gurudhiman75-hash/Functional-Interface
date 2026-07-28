@@ -29,7 +29,7 @@ function translateString(value: string, locale: CodTranslatedLocale): string {
       try {
         output = output.replace(new RegExp(`\\b${escapeRegex(word)}\\b`, "gu"), pack.lexeme(word));
       } catch {
-        // Artificial code tokens and non-lexical labels remain unchanged.
+        // Artificial code tokens, placeholders and non-lexical labels remain unchanged.
       }
     }
     return output;
@@ -44,14 +44,26 @@ function translateUnknown(value: unknown, locale: CodTranslatedLocale): unknown 
     .map(([key, item]) => [key, translateUnknown(item, locale)]));
 }
 
-function localizeRows(rows: readonly RowLike[], locale: CodTranslatedLocale): RowLike[] {
+function localizeRows(
+  rows: readonly RowLike[],
+  locale: CodTranslatedLocale,
+  missingWordEnglish?: string,
+): RowLike[] {
   const pack = getCp009LanguagePack(locale);
   return rows.map((row) => {
-    const words = row.words.map((word) => pack.lexeme(word));
+    const containsBlank = row.words.includes("_____");
+    if (containsBlank && !missingWordEnglish) {
+      throw new Error(`${row.statementId} contains a missing-word placeholder without its hidden word`);
+    }
+    const completeEnglishWords = row.words.map((word) => word === "_____" ? missingWordEnglish! : word);
+    const completeLocalizedWords = completeEnglishWords.map((word) => pack.lexeme(word));
+    const localizedMissingWord = containsBlank ? pack.lexeme(missingWordEnglish!) : undefined;
+    const words = row.words.map((word) => word === "_____" ? "_____" : pack.lexeme(word));
+    const completeSentence = pack.renderSentence(completeLocalizedWords);
     return {
       ...row,
       words,
-      sentence: pack.renderSentence(words),
+      sentence: localizedMissingWord ? completeSentence.replace(localizedMissingWord, "_____") : completeSentence,
     };
   });
 }
@@ -60,17 +72,15 @@ function localizePrompt(promptValue: unknown, locale: CodTranslatedLocale): Reco
   const original = asRecord(promptValue);
   const translated = translateUnknown(original, locale) as Record<string, unknown>;
   const originalRows = Array.isArray(original.rows) ? original.rows as unknown as RowLike[] : [];
-  const rows = localizeRows(originalRows, locale);
+  const missingWordEnglish = typeof original.correctWord === "string" ? original.correctWord : undefined;
+  const rows = localizeRows(originalRows, locale, missingWordEnglish);
   translated.rows = rows;
 
   const incompleteStatementId = typeof original.incompleteStatementId === "string" ? original.incompleteStatementId : undefined;
   if (incompleteStatementId) {
     const row = rows.find((candidate) => candidate.statementId === incompleteStatementId);
     if (row && "incompleteSentence" in original) translated.incompleteSentence = row.sentence;
-    if (row && "displayedSentenceWithBlank" in original) {
-      const correctWord = String(translated.correctWord ?? "");
-      translated.displayedSentenceWithBlank = row.sentence.replace(correctWord, "_____");
-    }
+    if (row && "displayedSentenceWithBlank" in original) translated.displayedSentenceWithBlank = row.sentence;
   }
   return translated;
 }
@@ -124,8 +134,11 @@ export function localizeCp009Question(
   const trap = optionDisplay(options.find((_, index) => index !== english.correctIndex));
   const rows = rowsFromPrompt(prompt);
 
-  const visibleWords = rows.flatMap((row) => row.words);
-  if (new Set(visibleWords).size !== new Set(rowsFromPrompt(asRecord(english.structuredPrompt)).flatMap((row) => row.words)).size) {
+  const visibleWords = rows.flatMap((row) => row.words).filter((word) => word !== "_____");
+  const englishVisibleWords = rowsFromPrompt(asRecord(english.structuredPrompt))
+    .flatMap((row) => row.words)
+    .filter((word) => word !== "_____");
+  if (new Set(visibleWords).size !== new Set(englishVisibleWords).size) {
     throw new Error(`${english.qlId}/${locale}/${english.seed} localized lexeme collision`);
   }
 
