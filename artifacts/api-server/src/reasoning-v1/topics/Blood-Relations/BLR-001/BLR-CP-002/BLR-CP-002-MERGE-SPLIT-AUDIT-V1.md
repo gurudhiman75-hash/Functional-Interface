@@ -1,25 +1,29 @@
 # BLR-CP-002 — Merge/Split and Inverse Audit V1
 
-Status: **provisional compression only; discovery remains open; no permanent QL allocation**.
+Status: **provisional compression strengthened; discovery remains open; no permanent QL allocation**.
 
 ## Evidence reviewed
 
 - five executable prototypes;
-- fourteen source-backed scenarios;
+- twenty-six positive source-backed scenarios;
+- one negative two-child cardinality model;
 - five dialogue/presentation forms;
 - direct and reverse endpoint questions;
 - nested assertion chains;
 - nested query endpoints;
 - one-speaker and two-speaker anchors;
-- formal `ONLY` checks;
+- relation-specific and broad-role `ONLY` checks;
+- exact `ONLY_CHILD = ONLY(SON ∪ DAUGHTER)` semantics;
+- blood and affinal outputs;
 - `SELF` identity output;
 - 600-question mathematical audit;
+- 832-question source-widening and cardinality audit;
 - 400-question English editorial audit;
 - 60-record V2 review pack.
 
 ## Provisional solve authority
 
-All five current prototypes provisionally compress into one authority:
+All five current prototypes continue to compress provisionally into one authority:
 
 ```text
 RESOLVE_ANCHORED_ROLE_CHAIN_RELATION
@@ -30,14 +34,15 @@ The authority contract is:
 ```text
 resolve speaker/listener/pointed-person anchors
 -> reduce every structured role expression
--> validate ONLY cardinality
+-> expand broad roles such as CHILD when required
+-> validate ONLY cardinality after role-set union
 -> verify the displayed assertion
 -> resolve both query endpoints
 -> return SELF when the endpoint identities coincide
 -> otherwise return the entailed kinship relation
 ```
 
-This is not a one-QL freeze. It is the current merge decision subject to source widening and a second gap audit.
+This is not a one-QL freeze. It is the current merge decision subject to canonical widening integration, longer-chain review and a second independent source-gap audit.
 
 ## Why the five prototypes merge
 
@@ -46,8 +51,8 @@ This is not a one-QL freeze. It is the current merge decision subject to source 
 | pointed person to speaker | merge | endpoint order is a query property |
 | speaker to pointed person | merge | reverse endpoint order uses the same solver and answer contract |
 | nested query endpoint | merge | role depth and endpoint expression are instance properties |
-| two-speaker conversation | merge | listener anchoring is already a supported anchor parameter |
-| self identity | merge provisionally | `SELF` is a valid result of endpoint identity collapse inside the same solve route |
+| two-speaker conversation | merge | listener anchoring is already an anchor parameter |
+| self identity | merge provisionally | `SELF` is a result of endpoint identity collapse inside the same solve route |
 
 ## Properties that must remain instance metadata
 
@@ -58,6 +63,7 @@ This is not a one-QL freeze. It is the current merge decision subject to source 
 - query role depth;
 - endpoint direction;
 - relation output;
+- role vocabulary: gendered or broad;
 - number and location of `ONLY` constraints;
 - spouse bridge and blood/affinal nature;
 - self-identity collapse;
@@ -73,9 +79,11 @@ This is not a one-QL freeze. It is the current merge decision subject to source 
 | one speaker with `my` | two anchors with `my` and `your` | executable |
 | external relative | chain resolves to speaker | executable as `SELF` |
 | assertion role chain | query role chain | executable |
+| affinal uncle/aunt | inverse nephew/niece | executable |
+| only child positive | two-child cardinality rejection | executable |
 | ordinary relation output | underdetermined/model-space output | deferred to CP-005 |
 
-## Split tests not yet justified
+## Split tests not justified by current evidence
 
 No current evidence justifies separate permanent identities merely for:
 
@@ -84,22 +92,30 @@ No current evidence justifies separate permanent identities merely for:
 - one speaker versus two speakers;
 - direct versus reverse endpoint order;
 - one, two or several possessive steps;
-- `ONLY_SON`, `ONLY_DAUGHTER` or ordinary role steps;
+- `ONLY_SON`, `ONLY_DAUGHTER`, `ONLY_CHILD` or ordinary role steps;
 - blood versus affinal answer;
-- `SELF` versus an ordinary relation, while both use the same relation-or-self answer contract.
+- `SELF` versus an ordinary relation, while both use the relation-or-self answer contract.
 
-A split will be reconsidered only if source widening proves a materially different query, answer, ambiguity, localization or renderer contract.
+`ONLY_CHILD` is a role-set and cardinality parameter, not a different question task. A split will be reconsidered only if the remaining source pass proves a materially different query, answer, ambiguity, localization or renderer contract.
+
+## Coverage closed since the first inventory
+
+- mother-in-law, father-in-law and daughter-in-law outputs;
+- brother-in-law and sister-in-law outputs;
+- broad affinal uncle/aunt and inverse nephew/niece paths;
+- pointed-person and speaker reverse questions over those paths;
+- exact broad `ONLY_CHILD` union-cardinality semantics;
+- positive daughter, reverse-mother and self-identity only-child cases;
+- rejection when one son and one daughter make two children;
+- source rejection register for invalid or underdetermined published answers.
 
 ## Remaining source and coverage gaps
 
-1. affinal output breadth: mother-in-law, daughter-in-law, brother-in-law and sister-in-law;
-2. exact `ONLY_CHILD` evidence distinct from only son/daughter;
-3. more pointed-person-relative and speaker-relative assertions;
-4. broader `SAME_PERSON` assertion patterns;
-5. direct source evidence for role chains producing grandparent, aunt/uncle and cousin outputs in both directions;
-6. editorial audit of longer four-plus-step chains;
-7. source rejection register for logically invalid published answers;
-8. second independent source/gap pass.
+1. integrate all twelve widening scenarios into the canonical generator and review appendix;
+2. audit editorial quality and determinism for four-plus-step role chains;
+3. run the second independent source/gap pass;
+4. rerun the merge/split decision against the complete English evidence;
+5. freeze and allocate only if no materially distinct solve contract remains.
 
 ## Boundary decisions retained
 
@@ -117,4 +133,4 @@ next available chapter ID: BLR-QL-008
 claimed by CP-002: no
 ```
 
-The next audit must widen source coverage before this provisional one-authority compression can be reconsidered or frozen.
+The current one-authority compression is stronger than V1's initial evidence, but it remains provisional until canonical widening integration, the longer-chain gate and the second source audit pass.
