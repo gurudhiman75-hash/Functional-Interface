@@ -1,11 +1,12 @@
 import type {
   BlrGender,
   BlrRelationId,
+  BlrRoleId,
   DirectRelationId,
   PrimitivePathStep,
 } from "./types";
 
-const DISPLAY_LABELS: Readonly<Record<BlrRelationId, string>> = {
+const DISPLAY_LABELS: Readonly<Record<BlrRoleId, string>> = {
   FATHER: "Father",
   MOTHER: "Mother",
   SON: "Son",
@@ -33,6 +34,10 @@ const DISPLAY_LABELS: Readonly<Record<BlrRelationId, string>> = {
   DAUGHTER_IN_LAW: "Daughter-in-law",
   BROTHER_IN_LAW: "Brother-in-law",
   SISTER_IN_LAW: "Sister-in-law",
+  PARENT: "Parent",
+  CHILD: "Child",
+  SIBLING: "Sibling",
+  SPOUSE: "Spouse",
 };
 
 const DIRECT_SUBJECT_GENDER: Readonly<Record<DirectRelationId, "MALE" | "FEMALE">> = {
@@ -46,7 +51,7 @@ const DIRECT_SUBJECT_GENDER: Readonly<Record<DirectRelationId, "MALE" | "FEMALE"
   WIFE: "FEMALE",
 };
 
-export function relationLabel(relationId: BlrRelationId): string {
+export function relationLabel(relationId: BlrRoleId): string {
   return DISPLAY_LABELS[relationId];
 }
 
