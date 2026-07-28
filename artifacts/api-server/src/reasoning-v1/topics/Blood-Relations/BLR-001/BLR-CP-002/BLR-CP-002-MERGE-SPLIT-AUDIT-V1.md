@@ -1,29 +1,29 @@
-# BLR-CP-002 — Merge/Split and Inverse Audit V1
+# BLR-CP-002 — Merge/Split and Inverse Audit V2
 
-Status: **provisional compression strengthened; discovery remains open; no permanent QL allocation**.
+Status: **second source-gap rerun recommends one solve authority; human review and formal freeze remain pending**.
 
 ## Evidence reviewed
 
-- five executable prototypes;
-- twenty-six positive source-backed scenarios;
-- one negative two-child cardinality model;
-- five dialogue/presentation forms;
-- direct and reverse endpoint questions;
-- nested assertion chains;
-- nested query endpoints;
-- one-speaker and two-speaker anchors;
+- six executable exploratory prototypes;
+- forty-five positive canonical source scenarios;
+- two negative model families;
+- five presentation contexts;
+- three question forms;
+- one-, two- and three-anchor prompts;
+- direct, reverse, nested and both-derived query endpoints;
+- one- through four-step role expressions;
 - relation-specific and broad-role `ONLY` checks;
+- zero-cardinality `no brother or sister` checks;
 - exact `ONLY_CHILD = ONLY(SON ∪ DAUGHTER)` semantics;
 - blood and affinal outputs;
-- `SELF` identity output;
-- 600-question mathematical audit;
-- 832-question source-widening and cardinality audit;
-- 400-question English editorial audit;
-- 60-record V2 review pack.
+- ordinary relation and `SELF` outputs;
+- possessive photograph/portrait option rendering;
+- 3,492-question CP-002 deterministic proof;
+- 180-record canonical appendix.
 
-## Provisional solve authority
+## Recommended solve authority
 
-All five current prototypes continue to compress provisionally into one authority:
+All six exploratory prototypes and all reviewed question forms compress into:
 
 ```text
 RESOLVE_ANCHORED_ROLE_CHAIN_RELATION
@@ -33,89 +33,97 @@ The authority contract is:
 
 ```text
 resolve speaker/listener/pointed-person anchors
+-> validate explicit zero-cardinality constraints
+-> expand broad role sets when required
 -> reduce every structured role expression
--> expand broad roles such as CHILD when required
 -> validate ONLY cardinality after role-set union
 -> verify the displayed assertion
 -> resolve both query endpoints
--> return SELF when the endpoint identities coincide
+-> return SELF when endpoint identities coincide
 -> otherwise return the entailed kinship relation
+-> apply the selected question and option renderer
 ```
 
-This is not a one-QL freeze. It is the current merge decision subject to canonical widening integration, longer-chain review and a second independent source-gap audit.
+This is a freeze recommendation, not a permanent allocation. `BLR-QL-008` remains unclaimed until human review and the formal freeze record pass.
 
-## Why the five prototypes merge
+## Prototype merge decisions
 
-| Prototype distinction | Decision | Reason |
+| Exploratory distinction | Decision | Reason |
 |---|---|---|
 | pointed person to speaker | merge | endpoint order is a query property |
-| speaker to pointed person | merge | reverse endpoint order uses the same solver and answer contract |
-| nested query endpoint | merge | role depth and endpoint expression are instance properties |
-| two-speaker conversation | merge | listener anchoring is already an anchor parameter |
-| self identity | merge provisionally | `SELF` is a result of endpoint identity collapse inside the same solve route |
+| speaker to pointed person | merge | reverse order uses the same solver and answer contract |
+| nested query endpoint | merge | endpoint expression and role depth are instance properties |
+| two-speaker conversation | merge | `my` and `your` are anchor parameters |
+| three-anchor introduction | merge | adding an introduced person changes anchor count, not the solve task |
+| self identity | merge | `SELF` is endpoint identity collapse inside the same relation-or-self contract |
 
-## Properties that must remain instance metadata
+## Renderer merge decisions
 
-- renderer: pointing, photograph, introduction, stage or conversation;
-- speaker/listener/pointed-person anchor count;
-- first-person, second-person and pointed-person pronoun use;
-- assertion role depth;
-- query role depth;
+| Renderer distinction | Decision | Reason |
+|---|---|---|
+| pointing / photograph / introduction / stage / conversation | merge | presentation context only |
+| `How is X related to Y?` | merge | ordinary semantic relation rendering |
+| `Whose photograph was it?` | merge | same semantic answer with possessive option labels |
+| `At whose portrait was ... looking?` | merge | same semantic answer with portrait wording |
+| `His own` / `Her own` | merge | possessive display of semantic `SELF` |
+
+## Cardinality merge decisions
+
+| Constraint | Decision | Reason |
+|---|---|---|
+| `ONLY_SON` / `ONLY_DAUGHTER` | merge | exact cardinality on a gendered role set |
+| `ONLY_CHILD` | merge | exact cardinality on `SON ∪ DAUGHTER` |
+| `no brother or sister` | merge | zero cardinality on `BROTHER ∪ SISTER` |
+
+The quantifier and role set vary; the query and answer contract do not.
+
+## Inverse and topology audit
+
+| Forward form | Inverse or extension | Status |
+|---|---|---|
+| pointed person relative to speaker | speaker relative to pointed person | executable |
+| direct query endpoints | one or both endpoints as role chains | executable |
+| one speaker with `my` | listener with `your` | executable |
+| two anchors | speaker, listener and introduced person | executable |
+| ordinary relation | `SELF` identity collapse | executable |
+| pictured self | derived-endpoint self | separately rendered, same semantic result |
+| blood relation | affinal relation | executable |
+| affinal uncle/aunt | inverse nephew/niece | executable |
+| only-child positive | two-child rejection | executable |
+| no-sibling positive | hidden-sibling rejection | executable |
+| relation-label option | possessive photograph/portrait option | executable |
+| exact entailed answer | underdetermined/model-space answer | deferred to CP-005 |
+
+## Instance metadata retained
+
+- presentation and question form;
+- anchor count and anchor identities;
+- pronoun ownership;
+- assertion and query role depth;
+- whether neither, one or both query endpoints are derived;
 - endpoint direction;
 - relation output;
 - role vocabulary: gendered or broad;
-- number and location of `ONLY` constraints;
-- spouse bridge and blood/affinal nature;
-- self-identity collapse;
-- difficulty;
-- names and clue wording.
+- `ANY`, `ONLY` and zero-cardinality constraints;
+- blood or affinal path;
+- self-identity collapse type;
+- difficulty, names and clue wording.
 
-## Inverse-contract audit
+## Split tests not justified
 
-| Forward form | Inverse | Status |
-|---|---|---|
-| pointed person relative to speaker | speaker relative to pointed person | executable |
-| direct query endpoints | one endpoint as a role chain | executable |
-| one speaker with `my` | two anchors with `my` and `your` | executable |
-| external relative | chain resolves to speaker | executable as `SELF` |
-| assertion role chain | query role chain | executable |
-| affinal uncle/aunt | inverse nephew/niece | executable |
-| only child positive | two-child cardinality rejection | executable |
-| ordinary relation output | underdetermined/model-space output | deferred to CP-005 |
+No reviewed evidence justifies separate permanent identities merely for:
 
-## Split tests not justified by current evidence
-
-No current evidence justifies separate permanent identities merely for:
-
-- photograph versus live pointing;
-- introduction versus stage wording;
-- one speaker versus two speakers;
+- photograph versus pointing;
+- introduction versus conversation;
+- one, two or three anchors;
 - direct versus reverse endpoint order;
-- one, two or several possessive steps;
-- `ONLY_SON`, `ONLY_DAUGHTER`, `ONLY_CHILD` or ordinary role steps;
-- blood versus affinal answer;
-- `SELF` versus an ordinary relation, while both use the relation-or-self answer contract.
-
-`ONLY_CHILD` is a role-set and cardinality parameter, not a different question task. A split will be reconsidered only if the remaining source pass proves a materially different query, answer, ambiguity, localization or renderer contract.
-
-## Coverage closed since the first inventory
-
-- mother-in-law, father-in-law and daughter-in-law outputs;
-- brother-in-law and sister-in-law outputs;
-- broad affinal uncle/aunt and inverse nephew/niece paths;
-- pointed-person and speaker reverse questions over those paths;
-- exact broad `ONLY_CHILD` union-cardinality semantics;
-- positive daughter, reverse-mother and self-identity only-child cases;
-- rejection when one son and one daughter make two children;
-- source rejection register for invalid or underdetermined published answers.
-
-## Remaining source and coverage gaps
-
-1. integrate all twelve widening scenarios into the canonical generator and review appendix;
-2. audit editorial quality and determinism for four-plus-step role chains;
-3. run the second independent source/gap pass;
-4. rerun the merge/split decision against the complete English evidence;
-5. freeze and allocate only if no materially distinct solve contract remains.
+- one- through four-step role depth;
+- one-derived versus both-derived query endpoints;
+- `ONLY_CHILD` versus gendered only roles;
+- negative sibling facts;
+- blood versus affinal answers;
+- `SELF` versus ordinary relation output;
+- semantic versus possessive option display.
 
 ## Boundary decisions retained
 
@@ -123,14 +131,15 @@ No current evidence justifies separate permanent identities merely for:
 - shared family passages remain CP-003;
 - count answers remain CP-004;
 - coded pointer statements remain CP-006;
-- presentation wording alone never creates a QL.
+- coded construction and validation remain CP-007.
 
 ## Current allocation decision
 
 ```text
-permanent CP-002 QLs: 0
-next available chapter ID: BLR-QL-008
+recommended eventual permanent authorities: 1
+permanent CP-002 QLs now: 0
+candidate next chapter ID: BLR-QL-008
 claimed by CP-002: no
 ```
 
-The current one-authority compression is stronger than V1's initial evidence, but it remains provisional until canonical widening integration, the longer-chain gate and the second source audit pass.
+The source and merge/split evidence is sufficient for a one-authority freeze recommendation. Permanent allocation remains blocked on human editorial approval of the final English pack and a formal discovery-freeze record.
