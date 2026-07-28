@@ -82,6 +82,18 @@ export type Wave05HiddenState =
       answerDigit: number;
     };
 
+export interface RawWave05 {
+  hiddenState: Wave05HiddenState;
+  difficulty: NumDifficulty;
+  answerSemantic: Wave05AnswerSemantic;
+  stem: string;
+  answer: string;
+  options: Wave05OptionAudit[];
+  explanation: Wave05Explanation;
+  nodes: NumReasoningNode[];
+  fingerprint: string;
+}
+
 export interface NumCp003Wave05Question {
   canonicalProblemId: "NUM-CP-003";
   prototypeId: NumCp003Wave05Id;
