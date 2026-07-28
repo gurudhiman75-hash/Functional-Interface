@@ -14,10 +14,14 @@ function learnerText(q:TmwCp011GeneratedQuestion){return [q.stem,...q.options,q.
 export function validateTmwCp011Question(q:TmwCp011GeneratedQuestion){const errors:string[]=[];
  if(q.options.length!==4||new Set(q.options).size!==4)errors.push("options must be four unique values");
  if(q.options[q.correctIndex]!==q.solution.answerText)errors.push("correct option mismatch");
- if(q.explanation.steps.length<3)errors.push("standard working too brief");
+ if(q.explanation.steps.length<4)errors.push("standard working too brief");
  const text=learnerText(q);
  if(/TMW-QL-|TMW_CP_|misconceptionId|publiclyPublishable/.test(text))errors.push("internal identifier leaked");
- if(/Do not choose|Don't choose/i.test(text))errors.push("negative trap command");
+ if(/Do not choose|Don't choose/i.test(text))errors.push("legacy trap command");
+ const expectedTrapPrefix=`Don't fall for ${q.explanation.commonTrap.optionLabel} (${q.explanation.commonTrap.optionText})!`;
+ if(!q.explanation.commonTrap.explanation.startsWith(expectedTrapPrefix))errors.push("direct trap advice missing");
+ if(!q.explanation.opening.startsWith("Let's"))errors.push("teacher voice missing");
+ if(/arithmetic progression|geometric progression|sum identity|inverse relation|recover the unknown parameter|substitute parameters/i.test(text))errors.push("academic jargon");
  if(/\b\d+\s+\d+\/\d+\s+days?\b|\b\d+\/\d+\s+days?\b/.test(text))errors.push("ASCII fractional time");
  if(/\+\s*-|--|−\s*-/.test(text))errors.push("awkward signed expression");
  if((text.match(/\\\(/g)||[]).length!==(text.match(/\\\)/g)||[]).length)errors.push("unbalanced MathJax");
