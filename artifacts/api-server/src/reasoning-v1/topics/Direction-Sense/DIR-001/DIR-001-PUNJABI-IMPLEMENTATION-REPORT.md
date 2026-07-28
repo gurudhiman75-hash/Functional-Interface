@@ -1,6 +1,6 @@
 # DIR-001 Punjabi Localization Report
 
-Status: implementation prepared; exact-head validation and manual editorial approval pending.
+Status: implementation and automated audit complete; manual Punjabi approval pending.
 
 ## Scope
 
@@ -31,51 +31,91 @@ Only learner-facing text is language-adapted.
 
 Punjabi is generated directly from structured question data rather than translated from Hindi output.
 
-The runtime prefers natural competitive-exam Punjabi, including:
+The reviewed runtime uses:
 
 - `ਮੂੰਹ ... ਵੱਲ` for facing;
 - `ਖੱਬੇ/ਸੱਜੇ ਮੁੜਨਾ` for turns;
 - `ਸਭ ਤੋਂ ਘੱਟ ਦੂਰੀ` for shortest distance;
 - `ਦੂਜੇ ਨਾਮ ਦੇ ... ਵੱਲ` for coded relation meaning;
-- everyday words such as `ਰਸਤਾ`, `ਚਾਲ`, `ਥਾਂ`, `ਪਰਛਾਂਵਾਂ` and `ਕਥਨ`;
-- no technical analogy-style vocabulary such as `ਪਦ` or `ਸਾਦ੍ਰਿਸ਼ਤਾ`.
+- gender-neutral journey constructions such as `ਦੀ ਯਾਤਰਾ ... ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ`;
+- everyday words such as `ਰਸਤਾ`, `ਚਾਲ`, `ਥਾਂ`, `ਪਰਛਾਂਵਾਂ`, `ਨਕਸ਼ਾ` and `ਕਥਨ`;
+- natural postpositions such as `ਤੋਂ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ`;
+- no analogy-style vocabulary such as `ਪਦ` or `ਸਾਦ੍ਰਿਸ਼ਤਾ`;
+- no formal direction language such as `ਦਿਸ਼ਾ-ਫਰੇਮ`, `ਅੰਤਿਮ ਖਿਸਕਾਅ` or `ਸ਼ੁੱਧ ਲੰਬਕਾਰੀ`.
 
-## Automated proof
+## Exact-head automated proof
 
-The exact-head Punjabi workflow validates:
+Validated implementation head before this report update:
+
+```text
+6c2fca4b6c9f42362aee2b4f10bfd659e089bca5
+```
+
+Punjabi workflow run:
+
+```text
+30322922091
+```
+
+Validated corpus:
 
 ```text
 44 QLs × 40 seeds = 1,760 Punjabi questions
 ```
 
-It checks:
+The proof passed:
 
 - deterministic output;
-- exact English state/answer/option parity;
-- four unique Punjabi options;
+- exact English structured-state, answer, option-value, error-label and correct-position parity;
+- four unique Punjabi options per item;
 - Gurmukhi presence;
 - Devanagari and multi-letter Latin leak rejection;
-- internal-ID, placeholder and unnatural slash-gender rejection;
-- QL-010 decimal display parity;
-- accessible localized SVGs;
-- stem and explanation diversity;
+- internal-ID and placeholder rejection;
+- gendered journey and rejected technical-language rejection;
+- duplicate-copula rejection;
+- natural direction-postposition enforcement;
+- QL-010 radical and one-decimal display parity;
+- accessible localized SVG checks;
+- at least 30 distinct stems and explanations per QL across 40 seeds;
 - answer-position balance;
 - QL-042/043 paired-caselet parity.
 
-## Review artifact
+The same implementation head also passed:
 
-The workflow publishes:
+- English freeze;
+- Hindi localization;
+- chapter-wide foundation and CP-001 through CP-004 runtime proof;
+- CP-007 runtime proof;
+- CP-008 runtime proof.
+
+## Final hosted review artifact
+
+Artifact:
 
 ```text
-44 QLs × 2 seeds = 88 review questions
+dir-001-punjabi-question-review
 ```
 
-The artifact includes Punjabi stems, options, answers, explanations, diagrams and JSONL machine output.
+Evidence:
+
+- artifact ID: `8674654207`;
+- digest: `sha256:b4fba00c04b0caffa24dd15f410b53619bd75a4b91888d45a25a0915ef9fc12a`;
+- 44 QLs × 2 seeds = 88 review questions;
+- 88 unique displayed stems;
+- 74 embedded question or explanation diagrams;
+- exactly four unique options and one correct answer per item;
+- zero multi-letter Latin learner-text leaks;
+- zero Devanagari letter/digit leaks;
+- zero gendered journey constructions;
+- zero rejected technical-language findings;
+- zero duplicate-copula findings;
+- zero incorrect `ਦੇ ਕਿਹੜੀ ਦਿਸ਼ਾ` findings;
+- approved decimal and radical display retained;
+- paired caselet state and metadata parity retained.
 
 ## Remaining gates
 
-1. exact-head Punjabi workflow;
-2. all existing English/Hindi/checkpoint regressions;
-3. hosted artifact audit;
-4. manual Punjabi editorial approval;
-5. merge into `feat/reasoning-dir-001-design`.
+1. current-head workflow rerun after this evidence-only report update;
+2. manual Punjabi editorial approval;
+3. merge into `feat/reasoning-dir-001-design`;
+4. Question Studio exposure and final multilingual integration/freeze.
