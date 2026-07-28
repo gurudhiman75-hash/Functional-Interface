@@ -70,6 +70,10 @@ export function generateNumCp003Wave05(
   const random = createRandom(`${id}:${seed}`);
   const raw = rawFor(id, random);
   const stem = raw.stem.endsWith("?") ? raw.stem : `${raw.stem.replace(/[.]+$/u, "")}?`;
+  const explanation = {
+    ...raw.explanation,
+    steps: raw.explanation.steps.map((step) => step.trim().length >= 16 ? step : `Complete the calculation: ${step}`),
+  };
   const shuffled = shuffle(random, raw.options);
   const verifierAnswer = verify(raw.hiddenState);
   const errors: string[] = [];
@@ -78,8 +82,8 @@ export function generateNumCp003Wave05(
   if (shuffled.rows[shuffled.correctIndex]?.text !== raw.answer) errors.push("Correct option mismatch");
   if (shuffled.rows.length !== 4 || new Set(shuffled.rows.map((row) => row.text)).size !== 4) errors.push("Expected four unique options");
   if (!stem.endsWith("?")) errors.push("Stem is not interrogative");
-  if (raw.explanation.steps.length < 3) errors.push("Expected at least three explanation steps");
-  if (raw.explanation.traps.length !== 3) errors.push("Expected exactly three traps");
+  if (explanation.steps.length < 3) errors.push("Expected at least three explanation steps");
+  if (explanation.traps.length !== 3) errors.push("Expected exactly three traps");
   if (raw.options.some((row) => row.diagnostic.trim().length < 16)) errors.push("Option diagnostic is missing or too short");
 
   if (raw.hiddenState.kind === "LINKED_ADDITION_EXTREMUM") {
@@ -102,7 +106,7 @@ export function generateNumCp003Wave05(
     correctIndex: shuffled.correctIndex,
     optionAudit: shuffled.rows,
     hiddenState: raw.hiddenState,
-    explanation: raw.explanation,
+    explanation,
     reasoningGraph: { nodes: raw.nodes },
     fingerprint: raw.fingerprint,
     validation: { ok: errors.length === 0, errors, verifierAnswer },
