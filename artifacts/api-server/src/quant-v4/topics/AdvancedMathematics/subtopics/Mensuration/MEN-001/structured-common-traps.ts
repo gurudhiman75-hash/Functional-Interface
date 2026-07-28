@@ -212,10 +212,18 @@ function generatedExplanation(strategyId: string) {
       : `taking ${withArticle(afterText)}`;
     case "single": return `counting only one ${afterText || "part"}`;
     case "average": return `using an average of ${withArticle(afterText)}`;
-    case "cost": return `calculating the cost of ${withArticle(afterText)} instead of the required region or boundary`;
-    case "count": return `counting ${withArticle(afterText)} instead of the complete requirement`;
-    case "tile": return `covering ${withArticle(afterText)} instead of the required region`;
-    case "paint": return `painting ${withArticle(afterText)} instead of the exposed region`;
+    case "cost": return instead
+      ? `calculating the cost of ${withArticle(instead[0])} instead of ${withArticle(instead[1])}`
+      : `calculating the cost of ${withArticle(afterText)} instead of the required region or boundary`;
+    case "count": return instead
+      ? `counting ${withArticle(instead[0])} instead of ${withArticle(instead[1])}`
+      : `counting ${withArticle(afterText)} instead of the complete requirement`;
+    case "tile": return instead
+      ? `covering ${withArticle(instead[0])} instead of ${withArticle(instead[1])}`
+      : `covering ${withArticle(afterText)} instead of the required region`;
+    case "paint": return instead
+      ? `painting ${withArticle(instead[0])} instead of ${withArticle(instead[1])}`
+      : `painting ${withArticle(afterText)} instead of the exposed region`;
     case "expand": return `applying the increase to ${withArticle(afterText)} only once even though both dimensions change`;
     case "shrink": return `applying the decrease to ${withArticle(afterText)} only once even though both dimensions change`;
     case "treat": return as
