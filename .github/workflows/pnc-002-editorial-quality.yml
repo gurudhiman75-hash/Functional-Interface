@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: validate-pnc-002-editorial-quality-${{ github.ref }}
@@ -28,50 +28,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - name: Checkout editorial branch
+      - name: Checkout source
         uses: actions/checkout@v4
-        with:
-          ref: feat/pnc-002-editorial-quality-upgrade
-      - name: Apply MathJax-aware placeholder audit once
-        shell: bash
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          proof = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality.test.ts')
-          lines = proof.read_text().splitlines()
-
-          if not any(line.startswith('function stripDelimitedMath(') for line in lines):
-              declaration_index = next(index for index, line in enumerate(lines) if line.startswith('const unresolvedPlaceholder = '))
-              helper = [
-                  '',
-                  'function stripDelimitedMath(value: string): string {',
-                  '  return value.replace(/\\$\\$[\\s\\S]*?\\$\\$/g, " ").replace(/\\$[^$\\n]+?\\$/g, " ");',
-                  '}',
-              ]
-              lines[declaration_index + 1:declaration_index + 1] = helper
-
-          replaced = False
-          for index, line in enumerate(lines):
-              if 'assert.ok(!unresolvedPlaceholder.test(allStudentText)' in line:
-                  lines[index] = line.replace(
-                      'unresolvedPlaceholder.test(allStudentText)',
-                      'unresolvedPlaceholder.test(stripDelimitedMath(allStudentText))',
-                  )
-                  replaced = True
-                  break
-          if not replaced and not any('unresolvedPlaceholder.test(stripDelimitedMath(allStudentText))' in line for line in lines):
-              raise SystemExit('all-student-text placeholder assertion not found')
-
-          proof.write_text('\n'.join(lines) + '\n')
-          PY
-          if ! git diff --quiet -- artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality.test.ts; then
-            git config user.name github-actions[bot]
-            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-            git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality.test.ts
-            git commit -m "fix(pnc): ignore delimited TeX in placeholder audit"
-            git push origin HEAD:feat/pnc-002-editorial-quality-upgrade
-          fi
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
