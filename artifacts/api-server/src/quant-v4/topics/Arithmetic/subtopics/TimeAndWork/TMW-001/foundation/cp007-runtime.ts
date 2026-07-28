@@ -2,7 +2,7 @@ import { getTmwCp007Entry } from "./cp007-registry";
 import { buildTmwCp007Options } from "./cp007-options";
 import { buildTmwCp007Parameters } from "./cp007-parameters";
 import { explainTmwCp007Target, isTmwCp007ExamStyleStem, renderTmwCp007ExamStem, tmwCp007ExamShortcut, tmwCp007FriendlyTrap, tmwCp007PlainEnglishOpening } from "./cp007-exam-language";
-import { tmwCp007Conclusion, tmwCp007Givens, tmwCp007Shortcut, wrapTmwCp007Math } from "./cp007-presentation";
+import { tmwCp007CommonTrap, tmwCp007Conclusion, tmwCp007Givens, tmwCp007Shortcut, wrapTmwCp007Math } from "./cp007-presentation";
 import { isValidTmwCp007Answer, solveTmwCp007, verifyTmwCp007 } from "./cp007-solver";
 import { rationalKey } from "./rational";
 import type { TmwCp007GeneratedQuestion, TmwCp007Parameters } from "./cp007-types";
