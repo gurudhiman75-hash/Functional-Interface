@@ -13,71 +13,32 @@ permissions:
 jobs:
   finalize-integration:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout feature branch
         uses: actions/checkout@v4
         with:
           ref: feat/pnl-001-cp001-question-studio-dynamic-review
 
-      - name: Normalize source formatting
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
         run: |
-          python - <<'PY'
-          from pathlib import Path
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
 
-          engine = Path("artifacts/api-server/src/quant-v4/generation-engine.ts")
-          source = engine.read_text()
-
-          question_start = source.index(
-              '    const questionPackage = pnlRuntimeMode === "DYNAMIC_CANDIDATE"'
-          )
-          question_end = source.index("    results.push({", question_start)
-          question_block = '''    const questionPackage = pnlRuntimeMode === "DYNAMIC_CANDIDATE"
-              ? runPnlCp001DynamicPipeline({
-                  difficultyBand,
-                  language: language as "en",
-                  questionLanguageId: request.questionLanguageId,
-                  seed,
-                })
-              : await pkg.run(cpId, {
-                  difficulty: difficultyBand,
-                  language,
-                  questionLanguageId: request.questionLanguageId,
-                  seed,
-                });
-          '''
-          source = source[:question_start] + question_block + source[question_end:]
-
-          safety_start = source.index("      ...(isPnl\n        ? {")
-          safety_end_marker = "        : {}),"
-          safety_end = source.index(safety_end_marker, safety_start) + len(safety_end_marker)
-          safety_block = '''      ...(isPnl
-                ? {
-                    reviewStatus:
-                      pnlRuntimeMode === "DYNAMIC_CANDIDATE"
-                        ? "UNREVIEWED_DYNAMIC_CANDIDATE"
-                        : "APPROVED_EDITORIAL_CANONICAL",
-                    questionBankStatus: "NOT_STORED",
-                    testEligibility: "INELIGIBLE",
-                    publiclyPublishable: false,
-                  }
-                : {}),'''
-          source = source[:safety_start] + safety_block + source[safety_end:]
-          engine.write_text(source)
-
-          admin = Path("artifacts/api-server/src/routes/admin-question-studio.ts")
-          source = admin.read_text()
-          malformed = '''      publiclyPublishable:
-                typeof (pkg as any).publiclyPublishable === "boolean"
-          ? (pkg as any).publiclyPublishable
-          : undefined,'''
-          normalized = '''      publiclyPublishable:
-                typeof (pkg as any).publiclyPublishable === "boolean"
-                  ? (pkg as any).publiclyPublishable
-                  : undefined,'''
-          if malformed not in source:
-              raise SystemExit("Admin capability formatting block was not found")
-          admin.write_text(source.replace(malformed, normalized, 1))
-          PY
+      - name: Normalize changed TypeScript files
+        run: |
+          pnpm dlx prettier@3.6.2 --write \
+            artifacts/api-server/src/quant-v4/generation-engine.ts \
+            artifacts/api-server/src/quant-v4/generation-engine-core.ts \
+            artifacts/api-server/src/routes/generator.ts \
+            artifacts/api-server/src/routes/admin-question-studio.ts \
+            artifacts/api-server/src/lib/admin-question-conversion.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-integration.test.ts
 
       - name: Remove temporary patch machinery
         run: |
@@ -91,6 +52,10 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
             artifacts/api-server/src/quant-v4/generation-engine.ts \
-            artifacts/api-server/src/routes/admin-question-studio.ts
+            artifacts/api-server/src/quant-v4/generation-engine-core.ts \
+            artifacts/api-server/src/routes/generator.ts \
+            artifacts/api-server/src/routes/admin-question-studio.ts \
+            artifacts/api-server/src/lib/admin-question-conversion.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-integration.test.ts
           git commit -m "chore(pnl): finalize dynamic review integration"
           git push origin HEAD:feat/pnl-001-cp001-question-studio-dynamic-review
