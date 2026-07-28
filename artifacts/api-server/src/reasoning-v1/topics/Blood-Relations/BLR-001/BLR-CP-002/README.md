@@ -1,6 +1,6 @@
 # BLR-CP-002 — Pointer, Photograph and Conversation Relations
 
-Status: **English open discovery; first executable role-chain slice; zero permanent QLs**.
+Status: **English open discovery; first executable role-chain slice and V2 editorial gate green; zero permanent QLs**.
 
 ## Implemented prototype surface
 
@@ -36,19 +36,35 @@ The solver:
 6. returns `SELF` when both endpoints collapse to one identity;
 7. otherwise delegates the final relation to the frozen family-graph closure.
 
-## Source boundary
+## Source and ownership boundary
 
-Pointing, photograph, introduction and stage wording are renderer variants. Two-speaker anchoring, nested query endpoints and self identity remain separate prototypes until merge/split evidence is complete.
-
-Pointer items requiring `data inadequate`, possible, impossible or one-of-two semantics remain owned by CP-005.
-
-## Current deterministic gate
+Pointing, photograph, introduction and stage wording are renderer variants. The current merge/split audit provisionally compresses all five prototypes into one solve authority:
 
 ```text
-5 prototypes × 120 seeds = 600 questions
+RESOLVE_ANCHORED_ROLE_CHAIN_RELATION
 ```
 
-The audit checks deterministic reproduction, statement verification, exact only-role cardinality, four unique options, one correct answer, balanced answer placement, all five presentations, conversation anchors, nested query endpoints, self identity, relation breadth, misconception labels and release locks.
+This is provisional only. Pointer items requiring `data inadequate`, possible, impossible or one-of-two semantics remain owned by CP-005.
+
+## Current deterministic gates
+
+```text
+mathematical role-chain audit      600 questions
+English editorial V2 audit         400 questions
+-----------------------------------------------
+current CP-002 proof             1,000 questions
+```
+
+The mathematical audit checks deterministic reproduction, assertion verification, exact only-role cardinality, four unique options, one correct answer, balanced answer placement, all five presentations, conversation anchors, nested query endpoints, self identity, relation breadth, misconception labels and release locks.
+
+The editorial gate additionally rejects exposed self identities, unnatural photograph openings, generic reflexive wording, irrelevant only-role teaching, incomplete teaching blocks and missing explanation tiers.
+
+## Review records
+
+- `BLR-CP-002-SOURCE-AND-BOUNDARY-AUDIT.md`;
+- `BLR-CP-002-MERGE-SPLIT-AUDIT-V1.md`;
+- `BLR-CP-002-ENGLISH-REVIEW-V2.md`;
+- 60-record V2 HTML/CSV/JSONL review artifact.
 
 ## Release boundary
 
@@ -62,8 +78,9 @@ The audit checks deterministic reproduction, statement verification, exact only-
 
 ## Next discovery work
 
-- widen source scenarios for pointed-person-relative and speaker-relative assertions;
-- audit derived in-law role chains and exact/broad boundaries;
-- add English review export;
-- perform merge/split and inverse audits;
+- widen affinal outputs and source scenarios;
+- prove exact only-child patterns separately from only son/daughter;
+- widen pointed-person-relative and speaker-relative assertions;
+- audit longer four-plus-step chains;
+- maintain a rejection register for logically invalid published answers;
 - run a second source-gap pass before any permanent allocation.
