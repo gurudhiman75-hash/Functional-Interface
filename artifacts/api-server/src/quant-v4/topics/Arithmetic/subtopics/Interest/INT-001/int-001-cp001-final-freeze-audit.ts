@@ -72,7 +72,9 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
       item.explanation.conclusion,
       item.explanation.commonTrap,
     ].join(" ");
-    if (/INT-(?:CP|QL)|PROT-|undefined|null|NaN|Infinity|PLACEHOLDER|TODO|TBD/iu.test(learnerText)) {
+    const hasInternalIdentity = /INT-(?:CP|QL)|PROT-/iu.test(learnerText);
+    const hasUnresolvedToken = /\b(?:undefined|null|NaN|Infinity|PLACEHOLDER|TODO|TBD)\b/iu.test(learnerText);
+    if (hasInternalIdentity || hasUnresolvedToken) {
       internalLeaks += 1;
       fail(`${entry.qlId}/${seed} contains an internal or unresolved learner token.`);
     }
