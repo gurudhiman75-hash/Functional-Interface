@@ -41,6 +41,15 @@ jobs:
           python -m py_compile /tmp/cp011_simplify.py
           python /tmp/cp011_simplify.py
 
+      - name: Upload reconstructed patch stream
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cp011-simplify-reconstructed
+          path: /tmp/cp011_simplify.b64
+          if-no-files-found: error
+          retention-days: 1
+
       - name: Install locked workspace dependencies
         run: |
           corepack enable
