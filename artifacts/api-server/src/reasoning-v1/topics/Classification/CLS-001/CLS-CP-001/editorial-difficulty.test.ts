@@ -42,6 +42,7 @@ const explanationFingerprints = new Set<string>();
 let generatedCount = 0;
 let parentAwareCount = 0;
 let multiMembershipCount = 0;
+let crossCuttingCount = 0;
 
 for (const prototype of CLS_CP001_PROTOTYPES) {
   const difficulties = new Set<Difficulty>();
@@ -95,8 +96,9 @@ for (const prototype of CLS_CP001_PROTOTYPES) {
       assert.match(coreText, /broader group/i);
     }
     if (question.difficultyFeatures.crossCutting) {
+      crossCuttingCount += 1;
       assert.equal(question.difficulty, "HARD");
-      assert.ok(question.difficultyFeatures.multiMembershipItemCount >= 1);
+      assert.ok(question.difficultyFeatures.score >= 5);
     }
 
     assert.equal(question.explanation.optionChecks.length, 4);
@@ -125,6 +127,7 @@ assert.ok((difficultyCounts.get("HARD") ?? 0) > 0);
 assert.ok(scoreCounts.size >= 5, `Difficulty score range is too narrow: ${[...scoreCounts.keys()].join(", ")}`);
 assert.ok(parentAwareCount > 250);
 assert.ok(multiMembershipCount > 100);
+assert.equal(crossCuttingCount, 120);
 assert.ok(profileDifficulties.get("CLS-CP001-PROT-001")!.size >= 2);
 assert.deepEqual(profileDifficulties.get("CLS-CP001-PROT-006"), new Set<Difficulty>(["HARD"]));
 
@@ -134,5 +137,6 @@ console.log("CLS-CP-001 editorial and instance-difficulty audit passed.", {
   scoreCounts: Object.fromEntries([...scoreCounts.entries()].sort((left, right) => left[0] - right[0])),
   parentAwareCount,
   multiMembershipCount,
+  crossCuttingCount,
   profileDifficulties: Object.fromEntries([...profileDifficulties].map(([id, values]) => [id, [...values].sort()])),
 });
