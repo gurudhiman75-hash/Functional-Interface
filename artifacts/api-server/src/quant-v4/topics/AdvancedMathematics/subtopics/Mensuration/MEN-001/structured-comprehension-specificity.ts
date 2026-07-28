@@ -2,6 +2,8 @@ import type { Men001ExplanationSection } from "./structured-explanation";
 import type { Men001Parameters } from "./types";
 
 type StepSection = Extract<Men001ExplanationSection, { kind: "STEP" }>;
+type KeyRuleSection = Extract<Men001ExplanationSection, { kind: "KEY_RULE" }>;
+type TrapSection = Extract<Men001ExplanationSection, { kind: "COMMON_TRAPS" }>;
 
 function boundaryStep(title: string, mode: string) {
   if (title === "Calculate the Boundary") {
@@ -108,13 +110,76 @@ function refineRectangleWireToSquare(
   });
 }
 
+function refineKeyRule(section: KeyRuleSection, parameters: Men001Parameters): KeyRuleSection {
+  if (parameters.questionLanguageId !== "MEN-001-QL-004") return section;
+  return {
+    ...section,
+    paragraphs: [
+      "The triangle formula A = ½bh can be used backwards. Since the area and base are known, double the area and divide by the base to get the perpendicular height.",
+    ],
+  };
+}
+
+function keepTrapPrefix(paragraph: string) {
+  const match = paragraph.match(/^(Option [A-D] \(.+?\): )/);
+  return match?.[1] ?? "";
+}
+
+function firstMistakeSentence(paragraph: string) {
+  const start = paragraph.indexOf("Common mistake:");
+  if (start < 0) return "Common mistake: using the wrong intermediate value.";
+  const remainder = paragraph.slice(start);
+  const end = remainder.indexOf(". ");
+  return end < 0 ? remainder : remainder.slice(0, end + 1);
+}
+
+function refineCentralAngleTraps(section: TrapSection, parameters: Men001Parameters): TrapSection {
+  const mode = parameters.solveMode;
+  if (!/CentralAngleFromArcLength|CentralAngleFromSectorArea/.test(mode)) return section;
+  const method = /CentralAngleFromArcLength/.test(mode)
+    ? "Find the full circumference first, then use θ = (arc length ÷ circumference) × 360°."
+    : "Find the full circle area first, then use θ = (sector area ÷ circle area) × 360°.";
+  return {
+    ...section,
+    paragraphs: section.paragraphs.map((paragraph) =>
+      `${keepTrapPrefix(paragraph)}${firstMistakeSentence(paragraph)} ${method}`
+    ),
+  };
+}
+
+function refineRectangleWireTraps(section: TrapSection, parameters: Men001Parameters): TrapSection {
+  if (parameters.solveMode !== "findSquareSideFromRectangleWire") return section;
+  return {
+    ...section,
+    paragraphs: section.paragraphs.map((paragraph) => {
+      const prefix = keepTrapPrefix(paragraph);
+      if (/by two|by 2\b/i.test(paragraph)) {
+        return `${prefix}Common mistake: dividing the total rectangle wire by 2 instead of 4. A square has four equal sides, so divide the complete wire length by 4.`;
+      }
+      if (/by three|by 3\b/i.test(paragraph)) {
+        return `${prefix}Common mistake: dividing the total rectangle wire by 3. A square has four equal sides, so divide the complete wire length by 4.`;
+      }
+      return `${prefix}Common mistake: dividing the total rectangle wire by 8, which halves the correct side. Divide the complete wire length by 4 once.`;
+    }),
+  };
+}
+
+function refineTraps(section: TrapSection, parameters: Men001Parameters): TrapSection {
+  return refineRectangleWireTraps(
+    refineCentralAngleTraps(section, parameters),
+    parameters,
+  );
+}
+
 export function ensureMen001ComprehensionSpecificity(
   sections: readonly Men001ExplanationSection[],
   parameters: Men001Parameters,
 ): Men001ExplanationSection[] {
-  const wireToSquare = refineRectangleWireToSquare(sections, parameters);
-  if (wireToSquare) return wireToSquare;
-  return sections.map((section): Men001ExplanationSection =>
-    section.kind === "STEP" ? refineStep(section, parameters) : section
-  );
+  const baseSections = refineRectangleWireToSquare(sections, parameters) ?? sections;
+  return baseSections.map((section): Men001ExplanationSection => {
+    if (section.kind === "KEY_RULE") return refineKeyRule(section, parameters);
+    if (section.kind === "STEP") return refineStep(section, parameters);
+    if (section.kind === "COMMON_TRAPS") return refineTraps(section, parameters);
+    return section;
+  });
 }
