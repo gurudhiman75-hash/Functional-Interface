@@ -101,6 +101,12 @@ function hasBalancedDisplayMath(text: string): boolean {
   return matches.length >= 2 && matches.length % 2 === 0;
 }
 
+function appearsToLoseCurrencyPunctuation(text: string): boolean {
+  const indianNumber = String.raw`(?:\d{1,3}(?:,\d{2})*,\d{3}|\d+)`;
+  const pattern = new RegExp(`₹\\s*-?${indianNumber}\\s+(?:the|and|but|while|whereas)\\b`, "iu");
+  return pattern.test(text);
+}
+
 export function generateIntCp001FinalEditorialQuestion(
   qlId: IntCp001FinalQlId,
   seed: string,
@@ -136,7 +142,7 @@ export function generateIntCp001FinalEditorialQuestion(
   if (!explanation.stepByStep.conclusion.includes(options[core.correctIndex]!)) {
     errors.push("Four-tier conclusion does not state the displayed correct option.");
   }
-  if (/₹[\d,]+\s+(?:the|and|but|while|whereas)\b/iu.test(stem)) {
+  if (appearsToLoseCurrencyPunctuation(stem)) {
     errors.push("Currency normalisation appears to have removed required sentence punctuation.");
   }
 
