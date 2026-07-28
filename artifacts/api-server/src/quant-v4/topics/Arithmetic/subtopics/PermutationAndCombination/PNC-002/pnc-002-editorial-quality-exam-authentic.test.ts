@@ -201,11 +201,20 @@ for (const entry of allEntries) {
     assert.ok(steps.length >= 3 && steps.length <= 5, `${entry.qlId}: solution should contain 3 to 5 concise steps`);
     assert.ok(steps.every((line, index) => line.startsWith(`${index + 1}. `)), `${entry.qlId}: solution steps must be numbered`);
     assert.equal(steps.filter((line) => line.includes(`$$${source.solver.mathJax}$$`)).length, 1, `${entry.qlId}: calculation should appear once as display MathJax`);
+    assert.ok(steps.slice(0, -2).every((line) => !(line.includes("$") && line.includes(String(source.solver.numericAnswer)))), `${entry.qlId}: calculation is repeated before the display-math step`);
+    const processKeys = steps.slice(0, -2).map((line) => line.replace(/^\d+\.\s*/, "").toLowerCase().replace(/\s+/g, ""));
+    assert.equal(new Set(processKeys).size, processKeys.length, `${entry.qlId}: repeated process line remains`);
     assert.ok(steps.at(-1)?.includes(presentation.answerLabel), `${entry.qlId}: final labelled answer is missing`);
 
     const traps = presentation.explanationSections[3]!.lines;
     assert.equal(traps.length, 3, `${entry.qlId}: every wrong option requires a trap explanation`);
     assert.ok(traps.every((line) => /^Option [A-D] \(/.test(line)), `${entry.qlId}: trap warnings must identify actual options`);
+    assert.ok(traps.every((line) => {
+      const match = line.match(/^Option ([A-D]) \(([^)]*)\):/);
+      if (!match) return false;
+      const index = match[1]!.charCodeAt(0) - 65;
+      return match[2] === presentation.displayOptions[index];
+    }), `${entry.qlId}: trap option labels must match displayed options exactly`);
     assert.ok(traps.every((line) => !forbiddenExplanationPhrases.some((phrase) => line.toLowerCase().includes(phrase))), `${entry.qlId}: generic trap language remains`);
     const wrongLetters = [0, 1, 2, 3].filter((index) => index !== presentation.correctIndex).map((index) => String.fromCharCode(65 + index));
     assert.deepEqual(traps.map((line) => line.slice(7, 8)).sort(), wrongLetters.sort(), `${entry.qlId}: trap coverage must match all wrong options`);
@@ -266,11 +275,18 @@ assert.ok(byQl.get("PNC-QL-107")?.upgradedStem.startsWith("In how many different
 assert.ok(byQl.get("PNC-QL-148")?.upgradedStem.startsWith("A committee of "));
 assert.ok(byQl.get("PNC-QL-177")?.upgradedStem.startsWith("In how many different ways can "));
 assert.ok(byQl.get("PNC-QL-210")?.upgradedStem.includes("named teams"));
+assert.equal(byQl.get("PNC-QL-210")?.optionUnit, "groupings");
+assert.ok(![...(byQl.get("PNC-QL-210")?.coreConcept ?? []), ...(byQl.get("PNC-QL-210")?.stepByStep ?? [])].join(" ").includes("numbered team"));
 assert.ok(byQl.get("PNC-QL-219")?.upgradedStem.startsWith("Each of "));
 assert.ok(byQl.get("PNC-QL-253")?.upgradedStem.includes("numbered cards"));
 assert.ok(byQl.get("PNC-QL-269")?.upgradedStem.startsWith("A sports club has"));
 assert.equal(byQl.get("PNC-QL-226")?.examAlignment, "ADVANCED_ENRICHMENT");
+assert.equal(byQl.get("PNC-QL-226")?.optionUnit, "groupings");
+assert.ok(byQl.get("PNC-QL-226")?.coreConcept.join(" ").includes("Stirling"));
+assert.ok(!byQl.get("PNC-QL-226")?.coreConcept.join(" ").includes("Identical objects"));
 assert.equal(byQl.get("PNC-QL-262")?.examAlignment, "ADVANCED_ENRICHMENT");
+assert.ok(!byQl.get("PNC-QL-262")?.stepByStep.join(" ").includes("objects are identical"));
+assert.ok(byQl.get("PNC-QL-269")?.commonTrapWarning.some((line) => line.includes("without enforcing the required number of women")));
 
 const normalizedStems = new Map<string, string[]>();
 for (const row of outputRows) {
