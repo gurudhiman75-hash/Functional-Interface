@@ -20,7 +20,8 @@ import type {
   SemanticEntity,
 } from "./types";
 
-const DATASET_VERSION = "CLS-CP001-SEMANTIC-EN-v1" as const;
+const DATASET_VERSION = "CLS-CP001-SEMANTIC-EN-v2" as const;
+const MAX_GENERATION_ATTEMPTS = 160;
 
 const LIFECYCLE: Lifecycle = {
   permanentQlId: null,
@@ -40,6 +41,13 @@ type IndependentSolution = {
   readonly correctIndex: number;
   readonly classId: string;
   readonly audit: AmbiguityAudit;
+};
+
+type ClassPair = {
+  readonly positiveClass: SemanticClass;
+  readonly contrastClass: SemanticClass;
+  readonly positiveExclusive: readonly SemanticEntity[];
+  readonly contrastExclusive: readonly SemanticEntity[];
 };
 
 function hashText(text: string): number {
@@ -86,6 +94,10 @@ function sampleDistinct<T>(values: readonly T[], count: number, rng: Rng): T[] {
   return shuffled(values, rng).slice(0, count);
 }
 
+function uniqueEntities(values: readonly SemanticEntity[]): SemanticEntity[] {
+  return [...new Map(values.map((entity) => [entity.entityId, entity])).values()];
+}
+
 function requirePrototype(prototypeId: PrototypeId): PrototypeDefinition {
   const prototype = PROTOTYPE_BY_ID.get(prototypeId);
   if (!prototype) throw new Error(`Unknown CLS prototype: ${prototypeId}`);
@@ -104,34 +116,55 @@ function requireEntity(entityId: string): SemanticEntity {
   return entity;
 }
 
+function entityForLabel(label: string): SemanticEntity {
+  const entity = ENTITY_BY_LABEL.get(label.trim().toLocaleLowerCase("en-IN"));
+  if (!entity) throw new Error(`Independent solver could not resolve displayed value: ${label}`);
+  return entity;
+}
+
 function entitiesForClass(semanticClass: SemanticClass): SemanticEntity[] {
   return semanticClass.memberEntityIds.map(requireEntity);
 }
 
-function eligibleClasses(prototype: PrototypeDefinition): SemanticClass[] {
-  return prototype.eligibleClassIds.map(requireClass);
-}
-
-function contrastClasses(
-  positiveClass: SemanticClass,
-  classes: readonly SemanticClass[],
-): SemanticClass[] {
-  return classes.filter((candidate) =>
-    candidate.classId !== positiveClass.classId
-    && candidate.contrastGroup === positiveClass.contrastGroup
-    && candidate.surfaceKind === positiveClass.surfaceKind,
-  );
-}
-
-function choosePositiveClass(prototype: PrototypeDefinition, rng: Rng): SemanticClass {
-  const classes = eligibleClasses(prototype);
-  const viable = classes.filter((candidate) => contrastClasses(candidate, classes).length > 0);
-  if (viable.length === 0) throw new Error(`Prototype ${prototype.prototypeId} has no viable class`);
-  return viable[rng.int(viable.length)]!;
+function classesFromIds(classIds: readonly string[]): SemanticClass[] {
+  return classIds.map(requireClass);
 }
 
 function classMembership(entity: SemanticEntity, classId: string): boolean {
   return entity.classIds.includes(classId);
+}
+
+function sameContrastSpace(left: SemanticClass, right: SemanticClass): boolean {
+  return left.classId !== right.classId
+    && left.contrastGroup === right.contrastGroup
+    && left.surfaceKind === right.surfaceKind;
+}
+
+function exclusiveMembers(source: SemanticClass, other: SemanticClass): SemanticEntity[] {
+  return entitiesForClass(source).filter((entity) => !classMembership(entity, other.classId));
+}
+
+function viableClassPairs(prototype: PrototypeDefinition): ClassPair[] {
+  const intended = classesFromIds(prototype.intendedClassIds);
+  return intended.flatMap((positiveClass) => intended
+    .filter((contrastClass) => sameContrastSpace(positiveClass, contrastClass))
+    .map((contrastClass) => ({
+      positiveClass,
+      contrastClass,
+      positiveExclusive: exclusiveMembers(positiveClass, contrastClass),
+      contrastExclusive: exclusiveMembers(contrastClass, positiveClass),
+    }))
+    .filter((pair) => pair.positiveExclusive.length >= 4 && pair.contrastExclusive.length >= 1));
+}
+
+function chooseClassPair(prototype: PrototypeDefinition, rng: Rng): ClassPair {
+  const pairs = viableClassPairs(prototype);
+  if (pairs.length === 0) throw new Error(`Prototype ${prototype.prototypeId} has no viable class pair`);
+  return pairs[rng.int(pairs.length)]!;
+}
+
+function parentLabels(semanticClass: SemanticClass): string[] {
+  return semanticClass.parentClassIds.map((classId) => requireClass(classId).label);
 }
 
 function evidenceLine(entity: SemanticEntity, semanticClass: SemanticClass): string {
@@ -141,12 +174,7 @@ function evidenceLine(entity: SemanticEntity, semanticClass: SemanticClass): str
 }
 
 function ruleSupports(labels: readonly string[], eligibleClassIds: readonly string[]): RuleSupport[] {
-  const entities = labels.map((label) => {
-    const entity = ENTITY_BY_LABEL.get(label.toLocaleLowerCase("en-IN"));
-    if (!entity) throw new Error(`Independent solver could not resolve displayed option: ${label}`);
-    return entity;
-  });
-
+  const entities = labels.map(entityForLabel);
   return eligibleClassIds.map((classId) => {
     const semanticClass = requireClass(classId);
     const matchingIndices = entities
@@ -161,22 +189,42 @@ function ruleSupports(labels: readonly string[], eligibleClassIds: readonly stri
       matchingIndices,
       outlierIndex,
       qualityRank: semanticClass.qualityRank,
+      hierarchyDepth: semanticClass.hierarchyDepth,
     };
   });
+}
+
+function bestRuleSupports(candidates: readonly RuleSupport[]): RuleSupport[] {
+  if (candidates.length === 0) return [];
+  const bestQuality = Math.max(...candidates.map((candidate) => candidate.qualityRank));
+  const qualityWinners = candidates.filter((candidate) => candidate.qualityRank === bestQuality);
+  const deepest = Math.max(...qualityWinners.map((candidate) => candidate.hierarchyDepth));
+  return qualityWinners.filter((candidate) => candidate.hierarchyDepth === deepest);
 }
 
 function auditOutlier(labels: readonly string[], eligibleClassIds: readonly string[]): AmbiguityAudit {
   const supports = ruleSupports(labels, eligibleClassIds);
   const candidates = supports.filter((support) => support.supportCount === labels.length - 1 && support.outlierIndex !== null);
   if (candidates.length === 0) {
-    return { result: "NO_VALID_RULE", winningClassId: null, winningOutlierIndex: null, supports };
+    return {
+      result: "NO_VALID_RULE",
+      winningClassId: null,
+      winningOutlierIndex: null,
+      competingClassIds: [],
+      supports,
+    };
   }
 
-  const bestRank = Math.max(...candidates.map((candidate) => candidate.qualityRank));
-  const best = candidates.filter((candidate) => candidate.qualityRank === bestRank);
+  const best = bestRuleSupports(candidates);
   const distinctOutliers = new Set(best.map((candidate) => candidate.outlierIndex));
   if (distinctOutliers.size !== 1) {
-    return { result: "AMBIGUOUS", winningClassId: null, winningOutlierIndex: null, supports };
+    return {
+      result: "AMBIGUOUS",
+      winningClassId: null,
+      winningOutlierIndex: null,
+      competingClassIds: best.map((candidate) => candidate.classId).sort(),
+      supports,
+    };
   }
 
   const winner = [...best].sort((left, right) => left.classId.localeCompare(right.classId))[0]!;
@@ -184,17 +232,38 @@ function auditOutlier(labels: readonly string[], eligibleClassIds: readonly stri
     result: "UNIQUE",
     winningClassId: winner.classId,
     winningOutlierIndex: winner.outlierIndex,
+    competingClassIds: best.map((candidate) => candidate.classId).sort(),
     supports,
   };
 }
 
-function sharedEligibleClasses(labels: readonly string[], eligibleClassIds: readonly string[]): string[] {
-  const entities = labels.map((label) => {
-    const entity = ENTITY_BY_LABEL.get(label.toLocaleLowerCase("en-IN"));
-    if (!entity) throw new Error(`Independent solver could not resolve displayed given: ${label}`);
-    return entity;
-  });
-  return eligibleClassIds.filter((classId) => entities.every((entity) => classMembership(entity, classId)));
+function resolveSharedClass(labels: readonly string[], eligibleClassIds: readonly string[]): {
+  readonly result: "UNIQUE" | "AMBIGUOUS" | "NO_VALID_RULE";
+  readonly classId: string | null;
+  readonly competingClassIds: readonly string[];
+} {
+  const entities = labels.map(entityForLabel);
+  const shared = classesFromIds(eligibleClassIds).filter((semanticClass) =>
+    entities.every((entity) => classMembership(entity, semanticClass.classId)),
+  );
+  if (shared.length === 0) return { result: "NO_VALID_RULE", classId: null, competingClassIds: [] };
+
+  const bestQuality = Math.max(...shared.map((semanticClass) => semanticClass.qualityRank));
+  const qualityWinners = shared.filter((semanticClass) => semanticClass.qualityRank === bestQuality);
+  const deepest = Math.max(...qualityWinners.map((semanticClass) => semanticClass.hierarchyDepth));
+  const best = qualityWinners.filter((semanticClass) => semanticClass.hierarchyDepth === deepest);
+  if (best.length !== 1) {
+    return {
+      result: "AMBIGUOUS",
+      classId: null,
+      competingClassIds: best.map((semanticClass) => semanticClass.classId).sort(),
+    };
+  }
+  return {
+    result: "UNIQUE",
+    classId: best[0]!.classId,
+    competingClassIds: best.map((semanticClass) => semanticClass.classId),
+  };
 }
 
 function solveIndependently(
@@ -214,23 +283,18 @@ function solveIndependently(
     };
   }
 
-  const shared = sharedEligibleClasses(givens, prototype.eligibleClassIds);
-  if (shared.length !== 1) {
-    throw new Error(`Expected one shared class for givens, found ${shared.length}`);
+  const shared = resolveSharedClass(givens, prototype.eligibleClassIds);
+  if (shared.result !== "UNIQUE" || shared.classId === null) {
+    throw new Error(`Independent class-member premise failed: ${shared.result}`);
   }
-  const classId = shared[0]!;
-  const resolvedOptions = options.map((label) => {
-    const entity = ENTITY_BY_LABEL.get(label.toLocaleLowerCase("en-IN"));
-    if (!entity) throw new Error(`Independent solver could not resolve displayed option: ${label}`);
-    return entity;
-  });
+  const classId = shared.classId;
+  const resolvedOptions = options.map(entityForLabel);
   const matchingIndices = resolvedOptions
     .map((entity, index) => classMembership(entity, classId) ? index : -1)
     .filter((index) => index >= 0);
   if (matchingIndices.length !== 1) {
     throw new Error(`Expected one class-member option, found ${matchingIndices.length}`);
   }
-  const supports = ruleSupports(options, prototype.eligibleClassIds);
   return {
     correctIndex: matchingIndices[0]!,
     classId,
@@ -238,12 +302,17 @@ function solveIndependently(
       result: "UNIQUE",
       winningClassId: classId,
       winningOutlierIndex: matchingIndices[0]!,
-      supports,
+      competingClassIds: shared.competingClassIds,
+      supports: ruleSupports(options, prototype.eligibleClassIds),
     },
   };
 }
 
 function chooseDifficulty(prototype: PrototypeDefinition, seed: number): Difficulty {
+  if (prototype.generationProfile === "HIERARCHY_SIBLING" || prototype.generationProfile === "CROSS_CUTTING") {
+    return seed % 4 === 0 ? "MEDIUM" : "HARD";
+  }
+  if (prototype.generationProfile === "HIERARCHY_CLASS_MEMBER") return "HARD";
   if (prototype.family === "DIRECT_CATEGORY") return seed % 4 === 0 ? "MEDIUM" : "EASY";
   if (prototype.family === "INVERSE_CLASS_MEMBER") return seed % 5 === 0 ? "HARD" : "MEDIUM";
   if (prototype.family === "PART_WHOLE") return seed % 3 === 0 ? "HARD" : "MEDIUM";
@@ -290,33 +359,45 @@ function buildExplanation(
   givens: readonly SemanticEntity[],
   options: readonly SemanticEntity[],
   correctIndex: number,
+  audit: AmbiguityAudit,
 ): Explanation {
   const answer = options[correctIndex]!;
+  const parents = parentLabels(semanticClass);
+  const hierarchyNote = parents.length > 0
+    ? `The class ${semanticClass.label} sits inside the broader class ${parents.join(" and ")}; the narrower class is what separates the options.`
+    : "The intended class is already the most precise admitted class needed for this question.";
+  const competitionNote = audit.competingClassIds.length > 1
+    ? "More than one admitted class supports the same answer, but no admitted class produces a different answer at the winning quality level."
+    : "The bounded competing-class audit finds no equally strong rule with a different answer.";
+
   if (prototype.task === "SELECT_CLASS_MEMBER") {
     return {
       coreRule: [
         `${givens.map((entity) => entity.label).join(", ")} are all ${semanticClass.label}.`,
-        `${answer.label} is the only option that belongs to the same class.`,
+        hierarchyNote,
+        `${answer.label} is the only option that belongs to the same resolved class.`,
       ],
       optionChecks: options.map((entity) => evidenceLine(entity, semanticClass)),
-      examSpeedShortcut: [semanticClass.shortcut, "First name the class formed by the given items, then test each option against that exact class."],
-      commonTraps: [semanticClass.trap, "Do not select a merely related item; it must be a genuine member of the same class."],
+      examSpeedShortcut: [semanticClass.shortcut, "Name the narrowest shared class of the given items, then test each option against that class."],
+      commonTraps: [semanticClass.trap, "Do not select an option that belongs only to a broader parent class."],
     };
   }
 
   return {
     coreRule: [
       semanticClass.explanation,
+      hierarchyNote,
       `${answer.label} is the outlier because it does not belong to that class.`,
+      competitionNote,
     ],
     optionChecks: options.map((entity) => evidenceLine(entity, semanticClass)),
     examSpeedShortcut: [semanticClass.shortcut, "Confirm the rule on three options before marking the remaining option."],
-    commonTraps: [semanticClass.trap, "Avoid using a broader similarity that includes all four options."],
+    commonTraps: [semanticClass.trap, "Reject a question if another equally strong admitted rule points to a different option."],
   };
 }
 
 function assertNoLearnerLeak(text: string): void {
-  if (/CLS[-_]|PROT|classId|entityId/i.test(text)) {
+  if (/CLS[-_]|PROT|classId|entityId|qualityRank|hierarchyDepth/i.test(text)) {
     throw new Error(`Learner-facing internal identifier leak: ${text}`);
   }
 }
@@ -346,18 +427,16 @@ function validateQuestion(question: GeneratedClassificationQuestion): void {
   learnerText.forEach(assertNoLearnerLeak);
 }
 
-function generateOutlier(prototype: PrototypeDefinition, seed: number, rng: Rng): GeneratedClassificationQuestion {
-  const positiveClass = choosePositiveClass(prototype, rng);
-  const contrasts = contrastClasses(positiveClass, eligibleClasses(prototype));
-  const contrastClass = contrasts[rng.int(contrasts.length)]!;
-  const positiveEntities = sampleDistinct(entitiesForClass(positiveClass), 3, rng);
-  const outlier = sampleDistinct(entitiesForClass(contrastClass), 1, rng)[0]!;
-  const displayedEntities = shuffled([...positiveEntities, outlier], rng);
-  const canonicalCorrectIndex = displayedEntities.findIndex((entity) => entity.entityId === outlier.entityId);
-  const independent = solveIndependently(prototype, [], displayedEntities.map((entity) => entity.label));
-  if (canonicalCorrectIndex !== independent.correctIndex || independent.classId !== positiveClass.classId) {
-    throw new Error("Canonical and independent classification solvers disagree");
-  }
+function questionFromState(
+  prototype: PrototypeDefinition,
+  seed: number,
+  intendedClass: SemanticClass,
+  givens: readonly SemanticEntity[],
+  displayedEntities: readonly SemanticEntity[],
+  correctIndex: number,
+  audit: AmbiguityAudit,
+  rng: Rng,
+): GeneratedClassificationQuestion {
   const question: GeneratedClassificationQuestion = {
     chapterId: "CLS-001",
     checkpointId: "CLS-CP-001",
@@ -365,22 +444,25 @@ function generateOutlier(prototype: PrototypeDefinition, seed: number, rng: Rng)
     seed,
     task: prototype.task,
     family: prototype.family,
+    generationProfile: prototype.generationProfile,
     difficulty: chooseDifficulty(prototype, seed),
-    intendedClassId: positiveClass.classId,
-    intendedClassLabel: positiveClass.label,
-    stem: buildStem(prototype, [], seed, rng),
-    givens: [],
+    intendedClassId: intendedClass.classId,
+    intendedClassLabel: intendedClass.label,
+    stem: buildStem(prototype, givens, seed, rng),
+    givens: givens.map((entity) => entity.label),
     options: displayedEntities.map((entity) => entity.label),
-    correctIndex: canonicalCorrectIndex,
-    answer: outlier.label,
-    evidenceByOption: displayedEntities.map((entity) => evidenceLine(entity, positiveClass)),
-    ambiguityAudit: independent.audit,
-    explanation: buildExplanation(prototype, positiveClass, [], displayedEntities, canonicalCorrectIndex),
+    correctIndex,
+    answer: displayedEntities[correctIndex]!.label,
+    evidenceByOption: displayedEntities.map((entity) => evidenceLine(entity, intendedClass)),
+    ambiguityAudit: audit,
+    explanation: buildExplanation(prototype, intendedClass, givens, displayedEntities, correctIndex, audit),
     metadata: {
       datasetVersion: DATASET_VERSION,
       locale: "en-IN",
       renderer: "TEXT",
       independentSolverVerified: true,
+      hierarchyAware: true,
+      multiMembershipAware: true,
     },
     lifecycle: LIFECYCLE,
   };
@@ -388,52 +470,73 @@ function generateOutlier(prototype: PrototypeDefinition, seed: number, rng: Rng)
   return question;
 }
 
-function generateClassMember(prototype: PrototypeDefinition, seed: number, rng: Rng): GeneratedClassificationQuestion {
-  const positiveClass = choosePositiveClass(prototype, rng);
-  const contrasts = contrastClasses(positiveClass, eligibleClasses(prototype));
-  const positivePool = sampleDistinct(entitiesForClass(positiveClass), 4, rng);
-  const givens = positivePool.slice(0, 3);
-  const correctEntity = positivePool[3]!;
-  const negativePool = contrasts.flatMap(entitiesForClass);
-  const negatives = sampleDistinct(negativePool, 3, rng);
-  const displayedEntities = shuffled([correctEntity, ...negatives], rng);
-  const canonicalCorrectIndex = displayedEntities.findIndex((entity) => entity.entityId === correctEntity.entityId);
-  const independent = solveIndependently(
-    prototype,
-    givens.map((entity) => entity.label),
-    displayedEntities.map((entity) => entity.label),
-  );
-  if (canonicalCorrectIndex !== independent.correctIndex || independent.classId !== positiveClass.classId) {
-    throw new Error("Canonical and independent class-member solvers disagree");
+function generateOutlier(prototype: PrototypeDefinition, seed: number, rng: Rng): GeneratedClassificationQuestion {
+  for (let attempt = 0; attempt < MAX_GENERATION_ATTEMPTS; attempt += 1) {
+    const pair = chooseClassPair(prototype, rng);
+    const positiveEntities = sampleDistinct(pair.positiveExclusive, 3, rng);
+    const outlier = sampleDistinct(pair.contrastExclusive, 1, rng)[0]!;
+    const displayedEntities = shuffled([...positiveEntities, outlier], rng);
+    const canonicalCorrectIndex = displayedEntities.findIndex((entity) => entity.entityId === outlier.entityId);
+    const audit = auditOutlier(displayedEntities.map((entity) => entity.label), prototype.eligibleClassIds);
+    if (
+      audit.result !== "UNIQUE"
+      || audit.winningClassId !== pair.positiveClass.classId
+      || audit.winningOutlierIndex !== canonicalCorrectIndex
+    ) {
+      continue;
+    }
+    const independent = solveIndependently(prototype, [], displayedEntities.map((entity) => entity.label));
+    if (independent.correctIndex !== canonicalCorrectIndex || independent.classId !== pair.positiveClass.classId) continue;
+    return questionFromState(
+      prototype,
+      seed,
+      pair.positiveClass,
+      [],
+      displayedEntities,
+      canonicalCorrectIndex,
+      independent.audit,
+      rng,
+    );
   }
-  const question: GeneratedClassificationQuestion = {
-    chapterId: "CLS-001",
-    checkpointId: "CLS-CP-001",
-    prototypeId: prototype.prototypeId,
-    seed,
-    task: prototype.task,
-    family: prototype.family,
-    difficulty: chooseDifficulty(prototype, seed),
-    intendedClassId: positiveClass.classId,
-    intendedClassLabel: positiveClass.label,
-    stem: buildStem(prototype, givens, seed, rng),
-    givens: givens.map((entity) => entity.label),
-    options: displayedEntities.map((entity) => entity.label),
-    correctIndex: canonicalCorrectIndex,
-    answer: correctEntity.label,
-    evidenceByOption: displayedEntities.map((entity) => evidenceLine(entity, positiveClass)),
-    ambiguityAudit: independent.audit,
-    explanation: buildExplanation(prototype, positiveClass, givens, displayedEntities, canonicalCorrectIndex),
-    metadata: {
-      datasetVersion: DATASET_VERSION,
-      locale: "en-IN",
-      renderer: "TEXT",
-      independentSolverVerified: true,
-    },
-    lifecycle: LIFECYCLE,
-  };
-  validateQuestion(question);
-  return question;
+  throw new Error(`Unable to construct an unambiguous ${prototype.prototypeId} state after ${MAX_GENERATION_ATTEMPTS} attempts`);
+}
+
+function generateClassMember(prototype: PrototypeDefinition, seed: number, rng: Rng): GeneratedClassificationQuestion {
+  for (let attempt = 0; attempt < MAX_GENERATION_ATTEMPTS; attempt += 1) {
+    const pair = chooseClassPair(prototype, rng);
+    const positivePool = sampleDistinct(pair.positiveExclusive, 4, rng);
+    const givens = positivePool.slice(0, 3);
+    const correctEntity = positivePool[3]!;
+    const negativePool = uniqueEntities(classesFromIds(prototype.intendedClassIds)
+      .filter((semanticClass) => sameContrastSpace(pair.positiveClass, semanticClass))
+      .flatMap(entitiesForClass)
+      .filter((entity) => !classMembership(entity, pair.positiveClass.classId)));
+    if (negativePool.length < 3) continue;
+    const negatives = sampleDistinct(negativePool, 3, rng);
+    const displayedEntities = shuffled([correctEntity, ...negatives], rng);
+    const canonicalCorrectIndex = displayedEntities.findIndex((entity) => entity.entityId === correctEntity.entityId);
+    try {
+      const independent = solveIndependently(
+        prototype,
+        givens.map((entity) => entity.label),
+        displayedEntities.map((entity) => entity.label),
+      );
+      if (independent.correctIndex !== canonicalCorrectIndex || independent.classId !== pair.positiveClass.classId) continue;
+      return questionFromState(
+        prototype,
+        seed,
+        pair.positiveClass,
+        givens,
+        displayedEntities,
+        canonicalCorrectIndex,
+        independent.audit,
+        rng,
+      );
+    } catch {
+      continue;
+    }
+  }
+  throw new Error(`Unable to construct a unique ${prototype.prototypeId} member state after ${MAX_GENERATION_ATTEMPTS} attempts`);
 }
 
 export function generateClsCp001Prototype(
@@ -453,6 +556,17 @@ export function independentlyVerifyClsCp001Question(
 ): IndependentSolution {
   const prototype = requirePrototype(question.prototypeId);
   return solveIndependently(prototype, question.givens, question.options);
+}
+
+export function auditClsCp001DisplayedOptions(
+  labels: readonly string[],
+  eligibleClassIds: readonly string[],
+): AmbiguityAudit {
+  if (labels.length !== 4 || new Set(labels.map((label) => label.trim().toLocaleLowerCase("en-IN"))).size !== 4) {
+    throw new Error("Adversarial classification audit requires four unique displayed options");
+  }
+  eligibleClassIds.forEach(requireClass);
+  return auditOutlier(labels, eligibleClassIds);
 }
 
 export function getClsCp001PrototypeDefinitions(): readonly PrototypeDefinition[] {
