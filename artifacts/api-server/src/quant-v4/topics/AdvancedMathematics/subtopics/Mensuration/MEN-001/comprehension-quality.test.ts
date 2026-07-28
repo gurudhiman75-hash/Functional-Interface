@@ -7,6 +7,9 @@ const ROBOTIC_LANGUAGE = /\b(?:governing relation|required stage|rearrange the r
 const CROSS_FAMILY_BOILERPLATE = /(?:Substitute the supplied values into the formula|Use the perpendicular measurements found above in the correct area formula|Put the known values into the formula, then solve to find the required .* first, then substitute the measurements once|Keep all lengths in one unit, cancel common factors before multiplying|Write the formula before the numbers, cancel common factors early)/i;
 const MALFORMED_TRAP = /(?:instead of .* instead of|dividing by the .* by|multiplying by the .* by|only once only once)/i;
 const GENERIC_TRAP_SHELL = /(?:Check what the question asks for|Follow the formula once, line by line|This removes a factor that the formula still needs|This adds an extra factor and makes the answer too large|That is only an intermediate value\. Continue until)/i;
+const RAW_NARRATIVE_FRACTION = /[½¼]/;
+const RAW_DISPLAY_DIVISION = /\//;
+const BARE_WIRE_STEM = /^(?:A circular wire|A wire rectangle|A wire forming|A square wire frame|An equilateral triangular wire frame)\b/i;
 const SIDE_VALUE_KEY = /^(?:side|sideA|sideB|sideC|legA|legB|height|halfBase|base|equalSide|hypotenuse|diagonal|diagonalA|diagonalB|halfDiagonalA|halfDiagonalB|length|breadth|ratioA|ratioB|ratioC)$/i;
 const PYTHAGOREAN_MODE = /RightTriangle|Isosceles|Pythag|Diagonal|Rhombus|TriangleAreaFromSideRatio/i;
 
@@ -56,6 +59,11 @@ for (const entry of getMen001QuestionEntries()) {
         .join("; "),
     );
 
+    assert.ok(!BARE_WIRE_STEM.test(question.stem), `${entry.qlId} retains a bare algorithmic wire stem: ${question.stem}`);
+    if (/Wire/i.test(question.solveMode) && /(?:reshap|rebent|bent)/i.test(question.stem)) {
+      assert.match(question.stem, /(?:metallic wire|frame)/i, `${entry.qlId} wire stem lacks a realistic object or frame context.`);
+    }
+
     const keyRule = question.explanation.sections.find((section) => section.kind === "KEY_RULE");
     const steps = question.explanation.sections.filter((section) => section.kind === "STEP");
     const shortcut = question.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT");
@@ -70,10 +78,15 @@ for (const entry of getMen001QuestionEntries()) {
     for (const section of question.explanation.sections) {
       for (const paragraph of section.paragraphs) {
         assert.ok(!ROBOTIC_LANGUAGE.test(paragraph), `${entry.qlId} contains robotic prose: ${paragraph}`);
+        assert.ok(!RAW_NARRATIVE_FRACTION.test(paragraph), `${entry.qlId} contains a raw Unicode fraction in learner prose: ${paragraph}`);
         assert.ok(
           !CROSS_FAMILY_BOILERPLATE.test(paragraph),
           `${entry.qlId} contains cross-family boilerplate instead of solve-specific guidance: ${paragraph}`,
         );
+      }
+      for (const equation of section.equations) {
+        assert.ok(!RAW_NARRATIVE_FRACTION.test(equation), `${entry.qlId} equation contains a raw Unicode fraction: ${equation}`);
+        assert.ok(!RAW_DISPLAY_DIVISION.test(equation), `${entry.qlId} equation contains a raw division slash instead of \\frac: ${equation}`);
       }
     }
 
@@ -113,6 +126,11 @@ for (const entry of getMen001QuestionEntries()) {
     audited += 1;
   }
 }
+
+const directTriangle = generate("MEN-CP-001", "MEN-001-QL-001", "men-001-structured-review:MEN-001-QL-001");
+assert.match(directTriangle.stem, /triangular field/i);
+assert.ok(directTriangle.explanation.sections.flatMap((section) => section.paragraphs).every((paragraph) => !/[½¼]/.test(paragraph)));
+assert.ok(directTriangle.explanation.sections.flatMap((section) => section.equations).some((equation) => /\\frac\{1\}\{2\}/.test(equation)));
 
 const inverseTriangle = generate("MEN-CP-001", "MEN-001-QL-004", "men-001-structured-review:MEN-001-QL-004");
 assert.match(inverseTriangle.explanation.sections[0]!.paragraphs[0]!, /used backwards|double the area/i);
@@ -163,6 +181,7 @@ assert.match(percentage.explanation.sections[0]!.paragraphs[0]!, /multiply|compo
 assert.ok(percentage.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT")?.paragraphs.some((paragraph) => /p²\/100|compounding/i.test(paragraph)));
 
 const rectangleWire = generate("MEN-CP-006", "MEN-001-QL-424", "men-001-structured-review:MEN-001-QL-424");
+assert.match(rectangleWire.stem, /metallic wire.*rectangular frame.*rebent into a square frame/i);
 assert.deepEqual(
   rectangleWire.explanation.sections.filter((section) => section.kind === "STEP").map((step) => step.title),
   ["Find the Wire Length", "Use the Same Wire for the Square", "Find the Side of the Square"],
@@ -172,6 +191,7 @@ assert.ok(rectangleWire.explanation.sections.find((section) => section.kind === 
 assert.ok(rectangleWire.explanation.sections.find((section) => section.kind === "COMMON_TRAPS")?.paragraphs.every((paragraph) => !/squaring the divide wire/i.test(paragraph)));
 
 const wire = generate("MEN-CP-006", "MEN-001-QL-436", "men-001-structured-review:MEN-001-QL-436");
+assert.match(wire.stem, /metallic wire.*circular frame.*straightened and rebent into a square frame/i);
 assert.match(wire.explanation.sections[0]!.paragraphs[0]!, /no wire is added or removed/i);
 assert.match(wire.explanation.sections[0]!.paragraphs[0]!, /circumference.*perimeter/i);
 assert.deepEqual(
@@ -180,5 +200,7 @@ assert.deepEqual(
 );
 assert.ok(wire.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT")?.paragraphs.some((paragraph) => /s = πr\/2/.test(paragraph)));
 assert.ok(wire.explanation.sections.find((section) => section.kind === "COMMON_TRAPS")?.paragraphs.some((paragraph) => /original circle/i.test(paragraph) && /Do not stop/i.test(paragraph)));
+assert.ok(wire.explanation.sections.flatMap((section) => section.equations).some((equation) => /\\frac\{22\}\{7\}/.test(equation)));
+assert.ok(wire.explanation.sections.flatMap((section) => section.equations).every((equation) => !equation.includes("/")));
 
-console.log(`MEN-001 comprehension audit passed for ${audited} generated explanations, including ${tripletStates} states with explicitly named Pythagorean Triplets, no cross-family boilerplate, no generic trap shells, no repeated adjacent teaching steps and focused semantic checks for inverse, angle, conversion, scaling and wire families.`);
+console.log(`MEN-001 comprehension audit passed for ${audited} generated explanations, including ${tripletStates} states with explicitly named Pythagorean Triplets, MathJax-normalized fractions, authentic wire stems, no cross-family boilerplate, no generic trap shells and no repeated adjacent teaching steps.`);
