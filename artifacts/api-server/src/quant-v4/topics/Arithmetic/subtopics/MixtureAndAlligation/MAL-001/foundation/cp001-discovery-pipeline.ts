@@ -246,6 +246,15 @@ function polishGapQuestion(
     request.mode === "TWO_STAGE_UNKNOWN_QUANTITY" &&
     question.solution.kind === "COMPONENT_QUANTITY"
   ) {
+    stem = stem
+      .replace(
+        `How much ${request.finalComponentLabel} priced at`,
+        `What quantity of ${request.finalComponentLabel} priced at`,
+      )
+      .replace(
+        `How much ${request.finalComponentLabel} at`,
+        `What quantity of ${request.finalComponentLabel} at`,
+      );
     explanation = {
       ...explanation,
       conclusion:
@@ -254,10 +263,15 @@ function polishGapQuestion(
   }
 
   if (request.mode === "THREE_WAY_TARGET_WITH_RELATION") {
+    const multiplier = formatRational(request.middleToLowerMultiplier);
     stem = stem
       .replace(
         /The middle component is used in ([^ ]+) times the quantity of the lower component\./u,
         "The middle component is used in a quantity $1 times that of the lower component.",
+      )
+      .replace(
+        `The middle-priced component has ${multiplier} times the quantity of the lower-priced component.`,
+        `The quantity of the middle-priced component is ${multiplier} times that of the lower-priced component.`,
       )
       .replace(
         /what is the quantity of the highest-priced component\?$/iu,
@@ -266,6 +280,10 @@ function polishGapQuestion(
       .replace(
         /how much of the higher component is used\?$/iu,
         `what quantity of ${request.higherComponentLabel} is used?`,
+      )
+      .replace(
+        `How much ${request.higherComponentLabel} is used?`,
+        `What quantity of ${request.higherComponentLabel} is used?`,
       );
     if (question.solution.kind === "COMPONENT_QUANTITY") {
       explanation = {
