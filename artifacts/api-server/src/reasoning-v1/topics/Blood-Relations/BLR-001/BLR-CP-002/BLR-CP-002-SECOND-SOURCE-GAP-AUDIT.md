@@ -1,6 +1,6 @@
 # BLR-CP-002 — Second Source and Gap Audit
 
-Status: **English solve-contract source gap pass completed; one authority recommended; freeze deferred for human review**.
+Status: **completed and confirmed after human review; one authority frozen at BLR-QL-008**.
 
 ## Audit question
 
@@ -27,50 +27,30 @@ The second pass reviewed and executable-tested:
 
 ## Gaps closed in the second pass
 
-### 1. Three-anchor topology
+### Three-anchor topology
 
-A speaker can introduce or point out one person to a listener. All three anchors are independently stored and resolved:
+A speaker can introduce or point out one person to a listener. Four source scenarios and a 256-question gate prove independent speaker, listener and pointed-person directionality.
 
-```text
-SPEAKER
-LISTENER
-POINTED_PERSON
-```
+### Both query endpoints derived
 
-Four scenarios and 256 deterministic questions prove listener, speaker and introduced-person directionality.
+Three scenarios prove direct, inverse and `SELF` outcomes when both `my ...` and `your ...` expressions must be reduced. The focused gate contains 192 questions.
 
-### 2. Both query endpoints derived
+### Four-step role chains
 
-Some conversation questions require reducing both `my ...` and `your ...` expressions before comparing them.
+Six scenarios cover direct, reverse, nested, conversation and self forms. The focused gate contains 384 questions. Depth is an instance difficulty property.
 
-Three scenarios prove:
-
-- direct relation between two derived endpoints;
-- inverse/same-generation relation between two derived endpoints;
-- `SELF` when two independent chains resolve to one person.
-
-This adds 192 deterministic questions and does not change the answer contract.
-
-### 3. Four-step role chains
-
-Six scenarios cover direct, reverse, nested, conversation and self forms with at least one four-step expression.
-
-The focused gate contains 384 deterministic questions. Depth is therefore an instance difficulty property, not a QL boundary.
-
-### 4. Exact broad `ONLY_CHILD`
-
-The runtime implements:
+### Exact broad `ONLY_CHILD`
 
 ```text
 CHILD = SON ∪ DAUGHTER
 ONLY_CHILD = cardinality one after union
 ```
 
-Positive daughter, reverse-mother and self cases pass. A model containing one son and one daughter is correctly rejected as having two children.
+Positive daughter, reverse-mother and self cases pass. A model with one son and one daughter is correctly rejected.
 
-### 5. Negative sibling wording
+### Negative sibling wording
 
-`I have no brother or sister` is represented as an explicit closed-world cardinality constraint:
+`I have no brother or sister` is represented as:
 
 ```text
 NONE(SIBLING)
@@ -79,45 +59,19 @@ SIBLING = BROTHER ∪ SISTER
 
 Three positive scenarios pass, while a hidden-brother model is rejected before assertion or query solving.
 
-### 6. Affinal breadth
+### Affinal breadth
 
-The relation closure and source scenarios cover:
+The closure covers father-in-law, mother-in-law, son-in-law, daughter-in-law, brother-in-law, sister-in-law, affinal uncle/aunt and inverse nephew/niece. Blood versus affinal output does not require a distinct solver.
 
-```text
-father-in-law
-mother-in-law
-son-in-law
-daughter-in-law
-brother-in-law
-sister-in-law
-affinal uncle/aunt
-inverse nephew/niece
-```
+### Photograph and portrait ownership wording
 
-No distinct solver is required for blood versus affinal output.
+`Whose photograph?` and portrait questions retain the semantic answer while rendering possessive options such as `His son's`, `Her mother-in-law's` and `His own`.
 
-### 7. Photograph and portrait ownership wording
+### Pictured self versus derived self
 
-`Whose photograph?` and `At whose portrait?` preserve the same semantic relation answer while displaying possessive options such as:
+The editorial layer distinguishes a hidden pictured person who is the speaker from two derived conversation endpoints that independently resolve to one identity.
 
-```text
-His son's
-Her mother-in-law's
-His own
-```
-
-This is a question/option renderer parameter, not a new solve identity.
-
-### 8. Pictured self versus derived self
-
-The editorial layer now distinguishes:
-
-- a hidden pictured person who is the speaker;
-- two derived conversation endpoints that happen to identify the same person.
-
-Only the first is rewritten into the hidden-photograph self presentation. The second retains its conversation renderer.
-
-## Complete deterministic proof
+## Deterministic proof before permanent allocation
 
 ```text
 core mathematical audit                    720 questions
@@ -130,27 +84,20 @@ photograph/portrait ownership renderer      192 questions
 four-step role chains                       384 questions
 canonical 45-scenario appendix              180 questions
 --------------------------------------------------------
-CP-002 deterministic proof                3,492 questions
+CP-002 technical discovery proof          3,492 questions
 ```
 
-With frozen CP-001:
+The permanent `BLR-QL-008` runtime adds a 900-question gate covering all six source prototypes and all forty-five canonical scenarios.
 
-```text
-CP-001 frozen proof                        3,556 questions
-CP-002 open-discovery proof                3,492 questions
---------------------------------------------------------
-current BLR-001 chapter proof              7,048 questions
-```
+## Merge/split result
 
-## Merge/split rerun
-
-All reviewed exact-answer modes continue to use:
+All exact-answer modes share:
 
 ```text
 RESOLVE_ANCHORED_ROLE_CHAIN_RELATION
 ```
 
-The shared contract is:
+The solve route is:
 
 ```text
 resolve anchors
@@ -165,39 +112,27 @@ resolve anchors
 -> apply the requested question/option renderer
 ```
 
-No source-backed evidence currently justifies a second CP-002 solve authority.
+No source-backed evidence justifies a second CP-002 solve authority.
+
+## Human and post-human confirmation
+
+The user approved the v8 English human-review pack. The final grammar remediation changed only learner-facing wording and did not alter the solve contract. `BLR-CP-002-POST-HUMAN-GAP-CONFIRMATION.md` therefore confirmed the one-authority result.
 
 ## Boundary confirmation
 
-The following remain outside CP-002 exact-answer ownership:
-
-- `data inadequate`, possible, impossible and one-of-two answers: CP-005;
-- shared family passages and grouped questions: CP-003;
-- family member counts and compositions: CP-004;
+- indeterminate, possible, impossible and one-of-two answers: CP-005;
+- shared family passages: CP-003;
+- count and composition answers: CP-004;
 - coded relation decoding: CP-006;
 - coded construction and validation: CP-007.
 
-## Audit conclusion
-
-The English source-gap pass is complete at the solve-contract level.
-
-Recommended eventual allocation after approval:
+## Final allocation
 
 ```text
-one permanent CP-002 solve identity
-candidate next ID: BLR-QL-008
+freeze version: BLR_CP002_ENGLISH_DISCOVERY_FREEZE_V1
+permanent identity: BLR-QL-008
+solve authority: RESOLVE_ANCHORED_ROLE_CHAIN_RELATION
+next available chapter ID: BLR-QL-009
 ```
 
-This recommendation is **not yet a freeze**. The final English review pack requires human editorial review and approval before permanent allocation, manifest amendment or delivery integration.
-
-## Current release state
-
-```text
-permanent CP-002 QLs: 0
-BLR-QL-008 claimed: no
-Question Studio visible: no
-Question Bank eligible: no
-mock-test eligible: no
-publicly publishable: no
-Hindi/Punjabi implementation: not started
-```
+All delivery surfaces remain locked: Question Studio, Question Bank, mock tests, public publication and localisation are disabled.
