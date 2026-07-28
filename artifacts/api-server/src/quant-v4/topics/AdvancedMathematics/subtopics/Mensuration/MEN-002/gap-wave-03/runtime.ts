@@ -789,7 +789,7 @@ function validatePackage(question: Omit<MenCp007Wave03Package, "validation">) {
     { name: "four-tier teaching", passed: Boolean(question.explanation.keyRule) && question.explanation.steps.length >= 2 && Boolean(question.explanation.shortcut) && question.explanation.traps.length === 3, message: "Rule, steps, shortcut and three traps are required." },
     { name: "MathJax cleanliness", passed: !/[½¼²³]/.test(learnerText) && !/(^|[^\\])sqrt\{/.test(explanationText) && !/\$\$[^$]*\/[^$]*\$\$/.test(explanationText), message: "Use MathJax fractions, powers, roots and division." },
     { name: "control characters", passed: !/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/.test(learnerText), message: "Learner text must not contain hidden control characters." },
-    { name: "currency locale", passed: !/₹/.test(learnerText), message: "Generic money must use en-GB pounds sterling." },
+    { name: "currency locale", passed: !/[£€¥]/.test(learnerText), message: "Indian exam money must not use foreign currency symbols." },
     { name: "lifecycle lock", passed: question.permanentQlId === null && !question.publiclyPublishable && !question.questionStudioDiscoverable, message: "Wave prototypes must remain unallocated and unpublished." },
   ];
   return { valid: checks.every((check) => check.passed), checks };
