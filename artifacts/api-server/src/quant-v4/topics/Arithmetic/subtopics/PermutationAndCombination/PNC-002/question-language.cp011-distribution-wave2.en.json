@@ -1,0 +1,57 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-011",
+  "language": "en",
+  "entries": [
+    {
+      "qlId": "PNC-QL-229",
+      "difficulty": "Easy",
+      "template": "In how many ways can {objectCount} identical marbles be distributed among {boxCount} labelled boxes when a box may remain empty?"
+    },
+    {
+      "qlId": "PNC-QL-230",
+      "difficulty": "Medium",
+      "template": "In how many ways can {objectCount} identical sweets be distributed among {boxCount} named children if every child must receive at least one sweet?"
+    },
+    {
+      "qlId": "PNC-QL-231",
+      "difficulty": "Hard",
+      "template": "In how many ways can {objectCount} identical tokens be placed in {boxCount} numbered boxes if exactly {nonEmptyBoxCount} boxes must be non-empty?"
+    },
+    {
+      "qlId": "PNC-QL-232",
+      "difficulty": "Medium",
+      "template": "In how many ways can {objectCount} identical balls be distributed among {boxCount} labelled bags so that at least one bag is empty?"
+    },
+    {
+      "qlId": "PNC-QL-233",
+      "difficulty": "Medium",
+      "template": "In how many ways can {objectCount} identical notebooks be distributed among {boxCount} named students if each student receives at least {minimumPerBox} notebooks?"
+    },
+    {
+      "qlId": "PNC-QL-234",
+      "difficulty": "Medium",
+      "template": "In how many ways can {objectCount} identical coins be distributed among {boxCount} named persons if one specified person must receive at least {specifiedMinimum} coins? The others may receive none."
+    },
+    {
+      "qlId": "PNC-QL-235",
+      "difficulty": "Hard",
+      "template": "In how many ways can {objectCount} identical prizes be distributed among {boxCount} named participants if everyone receives at least one prize and one specified participant receives at least {specifiedMinimum} prizes?"
+    },
+    {
+      "qlId": "PNC-QL-236",
+      "difficulty": "Hard",
+      "template": "In how many ways can {objectCount} identical beads be placed in {boxCount} labelled jars if no jar can hold more than {capacity} beads?"
+    },
+    {
+      "qlId": "PNC-QL-237",
+      "difficulty": "Medium",
+      "template": "In how many ways can {objectCount} identical balls be placed into exactly {nonEmptyBoxCount} identical non-empty boxes?"
+    },
+    {
+      "qlId": "PNC-QL-238",
+      "difficulty": "Hard",
+      "template": "In how many ways can {objectCount} identical counters be divided among at most {maximumNonEmptyBoxes} identical non-empty boxes?"
+    }
+  ]
+}

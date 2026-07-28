@@ -1,0 +1,42 @@
+{
+  "packageId": "PNC-002",
+  "language": "en",
+  "ownership": "HUMAN_OWNED",
+  "entries": {
+    "PNC-QL-204": {
+      "lines": [
+        "Count every round-table seating first, then remove the seatings in which the whole specified group forms one circular block.",
+        "That complement is {equation}.",
+        "So the group is not entirely consecutive in {answer} arrangements."
+      ]
+    },
+    "PNC-QL-205": {
+      "lines": [
+        "Exactly one pair together means either the first pair forms a block and the second does not, or the second pair forms a block and the first does not.",
+        "The two symmetric cases give {equation}.",
+        "Therefore, exactly one specified pair sits together in {answer} arrangements."
+      ]
+    },
+    "PNC-QL-206": {
+      "lines": [
+        "First choose the {selectedObjects} symbols that will appear, then arrange those chosen symbols around the one-sided circle.",
+        "Rotations are identical but a reversed order is different, so the calculation is {equation}.",
+        "Hence, the required number of circular displays is {answer}."
+      ]
+    },
+    "PNC-QL-207": {
+      "lines": [
+        "Choose the {selectedObjects} beads first and form their rotation-normalized circular orders.",
+        "Turning a ring over also identifies each order with its reverse, giving {equation}.",
+        "Therefore, {answer} distinct rings can be formed."
+      ]
+    },
+    "PNC-QL-208": {
+      "lines": [
+        "Fix one person to remove rotation and count the resulting round-table orders.",
+        "Reversing an order leaves every person's two neighbours unchanged, so each neighbour pattern is counted twice; thus {equation}.",
+        "Therefore, there are {answer} essentially different neighbour-set arrangements."
+      ]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "packageId": "PNC-002",
+  "pools": {
+    "circularSelectionStates": [
+      { "totalObjects": 6, "selectedObjects": 3 },
+      { "totalObjects": 6, "selectedObjects": 4 },
+      { "totalObjects": 7, "selectedObjects": 4 },
+      { "totalObjects": 8, "selectedObjects": 4 },
+      { "totalObjects": 8, "selectedObjects": 5 }
+    ],
+    "neighborSetTotals": [5, 6, 7, 8, 9]
+  }
+}

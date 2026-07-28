@@ -1,0 +1,195 @@
+{
+  "packageId": "PNC-002",
+  "language": "en",
+  "entries": {
+    "PNC-QL-177": {
+      "lines": [
+        "Rotationally identical seatings are removed by fixing one person as the circular reference.",
+        "The remaining {totalObjectsMinusOne} people can be permuted, so the count is {equation}.",
+        "Therefore, the number of distinct round-table arrangements is {answer}."
+      ]
+    },
+    "PNC-QL-178": {
+      "lines": [
+        "The fixed reference person removes the freedom to rotate the whole seating without changing relative positions.",
+        "Arrange only the other {totalObjectsMinusOne} people: {equation}.",
+        "Hence, the required number of relative seatings is {answer}."
+      ]
+    },
+    "PNC-QL-179": {
+      "lines": [
+        "Treat the specified pair as one circular unit; the pair can reverse internally.",
+        "The circular units and the two internal orders give {equation}.",
+        "Thus, the pair can sit together in {answer} arrangements."
+      ]
+    },
+    "PNC-QL-180": {
+      "lines": [
+        "Count every round-table seating, then remove the seatings in which the specified pair forms one block.",
+        "The complement calculation is {equation}.",
+        "So the specified people remain apart in {answer} arrangements."
+      ]
+    },
+    "PNC-QL-181": {
+      "lines": [
+        "Compress the {blockSize} consecutive people into one circular block, while keeping every possible internal order of that group.",
+        "Applying the block count gives {equation}.",
+        "Therefore, the stated group is consecutive in {answer} arrangements."
+      ]
+    },
+    "PNC-QL-182": {
+      "lines": [
+        "Each specified pair is first compressed into a block, and each pair has two internal orders.",
+        "The two circular blocks with the remaining people contribute {equation}.",
+        "Hence, both pairs sit together in {answer} arrangements."
+      ]
+    },
+    "PNC-QL-183": {
+      "lines": [
+        "Form one pair-block and one {secondBlockSize}-person block before arranging the resulting units around the table.",
+        "Including both internal block permutations gives {equation}.",
+        "Therefore, the two required blocks occur in {answer} arrangements."
+      ]
+    },
+    "PNC-QL-184": {
+      "lines": [
+        "First count circular seatings with the required pair-block, then subtract those where the second pair also becomes a block.",
+        "This direct complement within the first restriction is {equation}.",
+        "Thus, exactly the stated together/apart condition holds in {answer} arrangements."
+      ]
+    },
+    "PNC-QL-185": {
+      "lines": [
+        "After both pair-blocks are formed, exclude circular unit arrangements where those two blocks are adjacent.",
+        "Multiplying the valid unit arrangements by the internal pair orders gives {equation}.",
+        "Hence, the separated pair-block count is {answer}."
+      ]
+    },
+    "PNC-QL-186": {
+      "lines": [
+        "Use inclusion–exclusion on the events that the first pair or the second pair sits together.",
+        "Adding the two single-pair counts and removing the double count gives {equation}.",
+        "Therefore, at least one pair is together in {answer} arrangements."
+      ]
+    },
+    "PNC-QL-187": {
+      "lines": [
+        "Start from all circular seatings, remove each pair-adjacency event, and restore the overlap where both pairs are adjacent.",
+        "The inclusion–exclusion complement is {equation}.",
+        "So neither pair is adjacent in {answer} arrangements."
+      ]
+    },
+    "PNC-QL-188": {
+      "lines": [
+        "Fix A as the circular reference; B and C must occupy A's two neighbouring seats in either order.",
+        "Arrange the remaining people after those neighbour seats are filled: {equation}.",
+        "Therefore, A sits between B and C in {answer} arrangements."
+      ]
+    },
+    "PNC-QL-189": {
+      "lines": [
+        "Fix A to remove rotation; the seat opposite A is then uniquely determined for B.",
+        "The remaining people can be arranged as shown by {equation}.",
+        "Hence, A and B are opposite in {answer} arrangements."
+      ]
+    },
+    "PNC-QL-190": {
+      "lines": [
+        "Fix one of the named people; the immediately clockwise seat of the other named person is forced.",
+        "Only the remaining {totalObjectsMinusTwo} people are free, giving {equation}.",
+        "Thus, the directed adjacent condition has {answer} arrangements."
+      ]
+    },
+    "PNC-QL-191": {
+      "lines": [
+        "After A is fixed, the stated clockwise gap fixes B in exactly one circular position.",
+        "The remaining people can be permuted according to {equation}.",
+        "Therefore, the exact clockwise-gap count is {answer}."
+      ]
+    },
+    "PNC-QL-192": {
+      "lines": [
+        "With A fixed, B has {clockwisePositionChoices} eligible clockwise positions satisfying the minimum gap.",
+        "For every eligible position, arrange the remaining people: {equation}.",
+        "Hence, the at-least-gap condition gives {answer} arrangements."
+      ]
+    },
+    "PNC-QL-193": {
+      "lines": [
+        "With A fixed, B has {clockwisePositionChoices} eligible positions whose clockwise gap does not exceed the limit.",
+        "Each eligible position leaves the same remaining permutation count, so {equation}.",
+        "Therefore, the at-most-gap count is {answer}."
+      ]
+    },
+    "PNC-QL-194": {
+      "lines": [
+        "Fix A as the circular reference; among the remaining named people, only one of their possible relative orders is accepted.",
+        "Divide the unrestricted circular count by the relative-order divisor: {equation}.",
+        "Thus, A, B and C occur in the stated clockwise order in {answer} arrangements."
+      ]
+    },
+    "PNC-QL-195": {
+      "lines": [
+        "The four named people have {clockwiseOrderDivisor} possible circular relative orders once A is the reference.",
+        "Keeping only the stated order gives {equation}.",
+        "Hence, the required clockwise-order count is {answer}."
+      ]
+    },
+    "PNC-QL-196": {
+      "lines": [
+        "Fix one Category A member, place the remaining A members in alternate positions, then fill every intervening seat with Category B.",
+        "The two category permutations produce {equation}.",
+        "Therefore, strict circular alternation is possible in {answer} arrangements."
+      ]
+    },
+    "PNC-QL-197": {
+      "lines": [
+        "Arrange Category A around the circle to create {largeCount} circular gaps, then choose gaps for Category B and permute its members.",
+        "The gap construction gives {equation}.",
+        "Thus, no two Category B members are adjacent in {answer} arrangements."
+      ]
+    },
+    "PNC-QL-198": {
+      "lines": [
+        "Arrange the ordinary people first; their circular gaps are the only safe positions for the identified people.",
+        "Choosing distinct gaps and permuting the identified people yields {equation}.",
+        "Therefore, the non-adjacent identified group has {answer} arrangements."
+      ]
+    },
+    "PNC-QL-199": {
+      "lines": [
+        "For distinct people around a round table, fix one person and arrange everyone else.",
+        "Search the stated bounded domain until this count equals {target}; the matching equation is {equation}.",
+        "Therefore, n = {answer}."
+      ]
+    },
+    "PNC-QL-200": {
+      "lines": [
+        "Treat the specified pair as one circular block and retain its two internal orders.",
+        "The bounded inverse search matches this count to {target}: {equation}.",
+        "Hence, n = {answer}."
+      ]
+    },
+    "PNC-QL-201": {
+      "lines": [
+        "Only rotations are identified on this one-sided display, so one symbol can be fixed as a rotational reference.",
+        "The remaining symbols are arranged by {equation}.",
+        "Therefore, the rotation-only display count is {answer}."
+      ]
+    },
+    "PNC-QL-202": {
+      "lines": [
+        "Fixing one bead removes rotations, and turning the necklace over identifies each clockwise order with its reverse.",
+        "The rotational count is divided by the reflection factor: {equation}.",
+        "Hence, the number of distinct necklaces is {answer}."
+      ]
+    },
+    "PNC-QL-203": {
+      "lines": [
+        "First count rotation-normalized circular arrangements with the specified pair adjacent, then identify each arrangement with its mirror image.",
+        "The separate dihedral pair calculation is {equation}.",
+        "Therefore, the required necklace count is {answer}."
+      ]
+    }
+  }
+}

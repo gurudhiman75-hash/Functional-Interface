@@ -1,0 +1,49 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-011",
+  "answerCeiling": 1000000000,
+  "pools": {
+    "labelledTwoUnequalGroups": [
+      { "firstGroupSize": 2, "secondGroupSize": 3 },
+      { "firstGroupSize": 2, "secondGroupSize": 4 },
+      { "firstGroupSize": 3, "secondGroupSize": 4 },
+      { "firstGroupSize": 3, "secondGroupSize": 5 }
+    ],
+    "labelledEqualGroups": [
+      { "groupCount": 2, "groupSize": 3 },
+      { "groupCount": 2, "groupSize": 4 },
+      { "groupCount": 3, "groupSize": 2 },
+      { "groupCount": 3, "groupSize": 3 }
+    ],
+    "unlabelledThreeDistinctSizes": [
+      { "firstGroupSize": 1, "secondGroupSize": 2, "thirdGroupSize": 3 },
+      { "firstGroupSize": 1, "secondGroupSize": 3, "thirdGroupSize": 4 },
+      { "firstGroupSize": 2, "secondGroupSize": 3, "thirdGroupSize": 4 },
+      { "firstGroupSize": 2, "secondGroupSize": 3, "thirdGroupSize": 5 }
+    ],
+    "unlabelledEqualGroups": [
+      { "groupCount": 2, "groupSize": 3 },
+      { "groupCount": 2, "groupSize": 4 },
+      { "groupCount": 3, "groupSize": 2 },
+      { "groupCount": 3, "groupSize": 3 }
+    ],
+    "unlabelledMixedRepeatedSizes": [
+      { "smallGroupCount": 2, "smallGroupSize": 2, "largeGroupCount": 2, "largeGroupSize": 3 },
+      { "smallGroupCount": 2, "smallGroupSize": 2, "largeGroupCount": 2, "largeGroupSize": 4 },
+      { "smallGroupCount": 3, "smallGroupSize": 2, "largeGroupCount": 2, "largeGroupSize": 3 }
+    ],
+    "unnamedPairCounts": [3, 4, 5],
+    "specifiedPairLabelledEqualGroups": [
+      { "groupCount": 2, "groupSize": 3 },
+      { "groupCount": 2, "groupSize": 4 },
+      { "groupCount": 3, "groupSize": 2 },
+      { "groupCount": 3, "groupSize": 3 }
+    ],
+    "specifiedPairUnlabelledEqualGroups": [
+      { "groupCount": 2, "groupSize": 3 },
+      { "groupCount": 2, "groupSize": 4 },
+      { "groupCount": 3, "groupSize": 2 },
+      { "groupCount": 3, "groupSize": 3 }
+    ]
+  }
+}

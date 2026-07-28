@@ -1,0 +1,96 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-011",
+  "groups": [
+    {
+      "qlIds": ["PNC-QL-219"],
+      "solveMode": "countDistinctObjectsToLabelledBoxes",
+      "scenarioFamily": "distinctLabelledUnrestricted",
+      "requiredVariables": ["objectCount", "boxCount"],
+      "constraintProfile": "cp011DistinctLabelledUnrestricted",
+      "distractorProfile": "cp011ForgetObjectIndependence",
+      "difficulty": "Easy"
+    },
+    {
+      "qlIds": ["PNC-QL-220"],
+      "solveMode": "countDistinctObjectsToNonEmptyLabelledBoxes",
+      "scenarioFamily": "distinctLabelledNonEmpty",
+      "requiredVariables": ["objectCount", "boxCount"],
+      "constraintProfile": "cp011DistinctLabelledAllNonEmpty",
+      "distractorProfile": "cp011IgnoreNonEmptyCondition",
+      "difficulty": "Medium"
+    },
+    {
+      "qlIds": ["PNC-QL-221"],
+      "solveMode": "countDistinctObjectsUsingExactlyKLabelledBoxes",
+      "scenarioFamily": "distinctLabelledExactlyKUsed",
+      "requiredVariables": ["objectCount", "boxCount", "nonEmptyBoxCount"],
+      "constraintProfile": "cp011DistinctLabelledExactlyKUsed",
+      "distractorProfile": "cp011ForgetReceiverChoiceOrLabels",
+      "difficulty": "Hard"
+    },
+    {
+      "qlIds": ["PNC-QL-222"],
+      "solveMode": "countDistinctObjectsWithAtLeastOneEmptyLabelledBox",
+      "scenarioFamily": "distinctLabelledAtLeastOneEmpty",
+      "requiredVariables": ["objectCount", "boxCount"],
+      "constraintProfile": "cp011DistinctLabelledAtLeastOneEmpty",
+      "distractorProfile": "cp011UseUnrestrictedOrOntoOnly",
+      "difficulty": "Medium"
+    },
+    {
+      "qlIds": ["PNC-QL-223"],
+      "solveMode": "countDistinctObjectsByExactOccupancyVector",
+      "scenarioFamily": "distinctLabelledExactOccupancies",
+      "requiredVariables": ["objectCount", "firstOccupancy", "secondOccupancy", "thirdOccupancy"],
+      "constraintProfile": "cp011DistinctLabelledExactOccupancies",
+      "distractorProfile": "cp011ForgetWithinReceiverOrder",
+      "difficulty": "Medium"
+    },
+    {
+      "qlIds": ["PNC-QL-224"],
+      "solveMode": "countDistinctObjectsWithSpecifiedBoxOccupancy",
+      "scenarioFamily": "distinctSpecifiedBoxExact",
+      "requiredVariables": ["objectCount", "boxCount", "specifiedOccupancy"],
+      "constraintProfile": "cp011DistinctSpecifiedBoxExact",
+      "distractorProfile": "cp011ForgetChooseOrExcludeSpecifiedBox",
+      "difficulty": "Medium"
+    },
+    {
+      "qlIds": ["PNC-QL-225"],
+      "solveMode": "countSpecifiedBoxOccupancyWithOtherBoxesNonEmpty",
+      "scenarioFamily": "distinctSpecifiedBoxExactOthersNonEmpty",
+      "requiredVariables": ["objectCount", "boxCount", "specifiedOccupancy"],
+      "constraintProfile": "cp011DistinctSpecifiedBoxExactOthersNonEmpty",
+      "distractorProfile": "cp011AllowOtherBoxesEmptyOrForgetLabels",
+      "difficulty": "Hard"
+    },
+    {
+      "qlIds": ["PNC-QL-226"],
+      "solveMode": "countDistinctObjectsToExactlyKIdenticalBoxes",
+      "scenarioFamily": "distinctIdenticalExactlyK",
+      "requiredVariables": ["objectCount", "nonEmptyBoxCount"],
+      "constraintProfile": "cp011DistinctIdenticalExactlyK",
+      "distractorProfile": "cp011TreatIdenticalBoxesAsLabelled",
+      "difficulty": "Medium"
+    },
+    {
+      "qlIds": ["PNC-QL-227"],
+      "solveMode": "countDistinctObjectsToAtMostKIdenticalBoxes",
+      "scenarioFamily": "distinctIdenticalAtMostK",
+      "requiredVariables": ["objectCount", "maximumNonEmptyBoxes"],
+      "constraintProfile": "cp011DistinctIdenticalAtMostK",
+      "distractorProfile": "cp011CountExactlyKInsteadOfAtMost",
+      "difficulty": "Hard"
+    },
+    {
+      "qlIds": ["PNC-QL-228"],
+      "solveMode": "countAllUnlabelledSetPartitions",
+      "scenarioFamily": "distinctIdenticalAnyNonEmptyCount",
+      "requiredVariables": ["objectCount"],
+      "constraintProfile": "cp011DistinctIdenticalAnyNonEmptyCount",
+      "distractorProfile": "cp011UseOneStirlingTermOrLabelledAssignments",
+      "difficulty": "Hard"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-011",
+  "language": "en",
+  "status": "RUNTIME_PROOF",
+  "entries": [
+    {
+      "qlId": "PNC-QL-209",
+      "difficulty": "Easy",
+      "template": "In how many ways can {totalObjects} distinct trainees be divided between two named teams containing {firstGroupSize} and {secondGroupSize} trainees respectively?"
+    },
+    {
+      "qlId": "PNC-QL-210",
+      "difficulty": "Medium",
+      "template": "In how many ways can {totalObjects} distinct players be placed into {groupCount} numbered teams of {groupSize} players each?"
+    },
+    {
+      "qlId": "PNC-QL-211",
+      "difficulty": "Medium",
+      "template": "In how many ways can {totalObjects} distinct volunteers be divided into three unnamed groups containing {firstGroupSize}, {secondGroupSize} and {thirdGroupSize} volunteers?"
+    },
+    {
+      "qlId": "PNC-QL-212",
+      "difficulty": "Medium",
+      "template": "In how many ways can {totalObjects} distinct students be divided into {groupCount} unnamed groups of {groupSize} students each?"
+    },
+    {
+      "qlId": "PNC-QL-213",
+      "difficulty": "Hard",
+      "template": "In how many ways can {totalObjects} distinct workers be divided into {smallGroupCount} unnamed groups of {smallGroupSize} workers each and {largeGroupCount} unnamed groups of {largeGroupSize} workers each?"
+    },
+    {
+      "qlId": "PNC-QL-214",
+      "difficulty": "Medium",
+      "template": "In how many ways can {totalObjects} distinct people be divided into {pairCount} unnamed pairs?"
+    },
+    {
+      "qlId": "PNC-QL-215",
+      "difficulty": "Medium",
+      "template": "{totalObjects} distinct students are divided into {groupCount} named groups of {groupSize} students each. In how many divisions are two specified students in the same group?"
+    },
+    {
+      "qlId": "PNC-QL-216",
+      "difficulty": "Medium",
+      "template": "{totalObjects} distinct employees are divided into {groupCount} named groups of {groupSize} employees each. In how many divisions are two specified employees in different groups?"
+    },
+    {
+      "qlId": "PNC-QL-217",
+      "difficulty": "Hard",
+      "template": "{totalObjects} distinct players are divided into {groupCount} unnamed groups of {groupSize} players each. In how many divisions are two specified players in the same group?"
+    },
+    {
+      "qlId": "PNC-QL-218",
+      "difficulty": "Hard",
+      "template": "{totalObjects} distinct candidates are divided into {groupCount} unnamed groups of {groupSize} candidates each. In how many divisions are two specified candidates in different groups?"
+    }
+  ]
+}

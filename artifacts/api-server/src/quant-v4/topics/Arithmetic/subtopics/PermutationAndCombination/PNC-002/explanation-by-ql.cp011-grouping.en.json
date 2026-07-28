@@ -1,0 +1,87 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-011",
+  "language": "en",
+  "entries": {
+    "PNC-QL-209": {
+      "lines": [
+        "The two teams are named, so exchanging their complete memberships creates a different division.",
+        "Choose the required members for one team; the remaining trainees automatically form the other named team.",
+        "The multinomial calculation is {equation}.",
+        "Therefore, the number of divisions is {answer}."
+      ]
+    },
+    "PNC-QL-210": {
+      "lines": [
+        "Each numbered team has its own identity even though all teams have the same size.",
+        "Successively fill the numbered teams; do not divide for swapping whole teams because their numbers distinguish them.",
+        "The prescribed-group count is {equation}.",
+        "Hence, {answer} labelled team divisions are possible."
+      ]
+    },
+    "PNC-QL-211": {
+      "lines": [
+        "The groups are unnamed, but their three different sizes identify them without any additional swap correction.",
+        "Select the members for each prescribed size; once two groups are chosen, the last group is fixed.",
+        "The resulting count is {equation}.",
+        "So the required number of unnamed divisions is {answer}."
+      ]
+    },
+    "PNC-QL-212": {
+      "lines": [
+        "First count as though the equal groups were labelled.",
+        "Because the groups are unnamed and equal in size, every final division is repeated once for each ordering of the complete groups.",
+        "Applying the interchangeable-group correction gives {equation}.",
+        "Thus, the number of distinct groupings is {answer}."
+      ]
+    },
+    "PNC-QL-213": {
+      "lines": [
+        "Begin with the prescribed-size multinomial count for all workers.",
+        "Groups of the same size are interchangeable, so divide separately for the small-group swaps and the large-group swaps.",
+        "The complete mixed-size correction is {equation}.",
+        "Therefore, {answer} valid unnamed divisions remain."
+      ]
+    },
+    "PNC-QL-214": {
+      "lines": [
+        "Treating each pair as named would count the same pairing many times.",
+        "Within every pair, reversing the two people changes nothing, and reordering the complete pairs also changes nothing.",
+        "After both overcount corrections, the calculation is {equation}.",
+        "Hence, the people can be paired in {answer} ways."
+      ]
+    },
+    "PNC-QL-215": {
+      "lines": [
+        "Count all equal divisions into named groups, then focus on the two specified students.",
+        "After placing the first student, the number of favourable places for the second is {samePartnerSlots}, out of {remainingPartnerSlots} remaining places.",
+        "Multiplying the unrestricted count by this exact fraction gives {equation}.",
+        "Therefore, the specified students are together in {answer} divisions."
+      ]
+    },
+    "PNC-QL-216": {
+      "lines": [
+        "Every named equal-group division places the specified employees either together or apart.",
+        "Subtract the together count from the unrestricted labelled-group count.",
+        "The complementary calculation is {equation}.",
+        "Thus, they are in different groups in {answer} divisions."
+      ]
+    },
+    "PNC-QL-217": {
+      "lines": [
+        "First impose the condition that the specified players belong to the same equal group.",
+        "Then remove the overcount caused by permuting the unnamed equal groups as complete units.",
+        "The condition and symmetry correction combine as {equation}.",
+        "Hence, {answer} unnamed divisions keep the two players together."
+      ]
+    },
+    "PNC-QL-218": {
+      "lines": [
+        "Count all unnamed equal-group divisions and separate the cases where the specified candidates are together.",
+        "The required different-group cases are the complement within the same unlabelled sample space.",
+        "This gives the calculation {equation}.",
+        "Therefore, the two candidates are separated in {answer} divisions."
+      ]
+    }
+  }
+}

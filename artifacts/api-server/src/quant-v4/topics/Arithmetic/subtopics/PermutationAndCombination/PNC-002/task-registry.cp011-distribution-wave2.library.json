@@ -1,0 +1,96 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-011",
+  "groups": [
+    {
+      "qlIds": ["PNC-QL-229"],
+      "solveMode": "countIdenticalObjectsToLabelledBoxes",
+      "scenarioFamily": "identicalLabelledUnrestricted",
+      "requiredVariables": ["objectCount", "boxCount"],
+      "constraintProfile": "CP011-IDL-UNRESTRICTED",
+      "distractorProfile": "IDENTICAL_VS_DISTINCT_AND_NONEMPTY",
+      "difficulty": "Easy"
+    },
+    {
+      "qlIds": ["PNC-QL-230"],
+      "solveMode": "countIdenticalObjectsToNonEmptyLabelledBoxes",
+      "scenarioFamily": "identicalLabelledNonEmpty",
+      "requiredVariables": ["objectCount", "boxCount"],
+      "constraintProfile": "CP011-IDL-NONEMPTY",
+      "distractorProfile": "NONEMPTY_SHIFT_ERRORS",
+      "difficulty": "Medium"
+    },
+    {
+      "qlIds": ["PNC-QL-231"],
+      "solveMode": "countIdenticalObjectsUsingExactlyKLabelledBoxes",
+      "scenarioFamily": "identicalLabelledExactlyKUsed",
+      "requiredVariables": ["objectCount", "boxCount", "nonEmptyBoxCount"],
+      "constraintProfile": "CP011-IDL-EXACTLY-K-USED",
+      "distractorProfile": "OMIT_RECEIVER_SELECTION_OR_POSITIVITY",
+      "difficulty": "Hard"
+    },
+    {
+      "qlIds": ["PNC-QL-232"],
+      "solveMode": "countIdenticalObjectsWithAtLeastOneEmptyLabelledBox",
+      "scenarioFamily": "identicalLabelledAtLeastOneEmpty",
+      "requiredVariables": ["objectCount", "boxCount"],
+      "constraintProfile": "CP011-IDL-AT-LEAST-ONE-EMPTY",
+      "distractorProfile": "COMPLEMENT_CONFUSION",
+      "difficulty": "Medium"
+    },
+    {
+      "qlIds": ["PNC-QL-233"],
+      "solveMode": "countIdenticalObjectsWithCommonMinimum",
+      "scenarioFamily": "identicalLabelledCommonMinimum",
+      "requiredVariables": ["objectCount", "boxCount", "minimumPerBox"],
+      "constraintProfile": "CP011-IDL-COMMON-MINIMUM",
+      "distractorProfile": "SUBTRACT_MINIMUM_ONCE_OR_IGNORE_SHIFT",
+      "difficulty": "Medium"
+    },
+    {
+      "qlIds": ["PNC-QL-234"],
+      "solveMode": "countIdenticalObjectsWithSpecifiedRecipientMinimum",
+      "scenarioFamily": "identicalSpecifiedRecipientMinimum",
+      "requiredVariables": ["objectCount", "boxCount", "specifiedMinimum"],
+      "constraintProfile": "CP011-IDL-SPECIFIED-MINIMUM",
+      "distractorProfile": "APPLY_MINIMUM_TO_ALL_RECEIVERS",
+      "difficulty": "Medium"
+    },
+    {
+      "qlIds": ["PNC-QL-235"],
+      "solveMode": "countAllNonEmptyWithSpecifiedRecipientMinimum",
+      "scenarioFamily": "identicalAllNonEmptySpecifiedMinimum",
+      "requiredVariables": ["objectCount", "boxCount", "specifiedMinimum"],
+      "constraintProfile": "CP011-IDL-ALL-NONEMPTY-SPECIFIED-MINIMUM",
+      "distractorProfile": "MISS_ONE_OF_TWO_MINIMUM_CONDITIONS",
+      "difficulty": "Hard"
+    },
+    {
+      "qlIds": ["PNC-QL-236"],
+      "solveMode": "countIdenticalObjectsWithUniformCapacity",
+      "scenarioFamily": "identicalLabelledUniformCapacity",
+      "requiredVariables": ["objectCount", "boxCount", "capacity"],
+      "constraintProfile": "CP011-IDL-UNIFORM-CAPACITY",
+      "distractorProfile": "IGNORE_CAPACITY_OR_USE_NONEMPTY_COUNT",
+      "difficulty": "Hard"
+    },
+    {
+      "qlIds": ["PNC-QL-237"],
+      "solveMode": "countIdenticalObjectsToExactlyKIdenticalBoxes",
+      "scenarioFamily": "identicalObjectsIdenticalExactlyK",
+      "requiredVariables": ["objectCount", "nonEmptyBoxCount"],
+      "constraintProfile": "CP011-IDI-EXACTLY-K",
+      "distractorProfile": "LABELLED_RECEIVER_OVERCOUNT",
+      "difficulty": "Medium"
+    },
+    {
+      "qlIds": ["PNC-QL-238"],
+      "solveMode": "countIdenticalObjectsToAtMostKIdenticalBoxes",
+      "scenarioFamily": "identicalObjectsIdenticalAtMostK",
+      "requiredVariables": ["objectCount", "maximumNonEmptyBoxes"],
+      "constraintProfile": "CP011-IDI-AT-MOST-K",
+      "distractorProfile": "EXACTLY_K_INSTEAD_OF_SUM",
+      "difficulty": "Hard"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-011",
+  "language": "en",
+  "entries": {
+    "PNC-QL-229": {
+      "lines": [
+        "The objects are identical, but the receivers are labelled, so only the number sent to each receiver matters.",
+        "Empty receivers are allowed; this is a weak-composition or stars-and-bars count.",
+        "The calculation is {equation}.",
+        "Therefore, the number of distributions is {answer}."
+      ]
+    },
+    "PNC-QL-230": {
+      "lines": [
+        "Give one object to every named receiver first so that none is empty.",
+        "Distribute the remaining objects freely among the same labelled receivers.",
+        "The positive-composition count is {equation}.",
+        "Hence, {answer} distributions satisfy the condition."
+      ]
+    },
+    "PNC-QL-231": {
+      "lines": [
+        "First choose which {nonEmptyBoxCount} labelled receivers will be used.",
+        "Then distribute all objects positively among only those chosen receivers.",
+        "Multiplying the receiver choice by the positive-composition count gives {equation}.",
+        "Thus, the required number of distributions is {answer}."
+      ]
+    },
+    "PNC-QL-232": {
+      "lines": [
+        "Count every weak composition, including those in which all receivers are non-empty.",
+        "Subtract the positive compositions where no receiver is empty.",
+        "The complement calculation is {equation}.",
+        "Therefore, {answer} distributions leave at least one receiver empty."
+      ]
+    },
+    "PNC-QL-233": {
+      "lines": [
+        "Reserve the common minimum for each labelled receiver before counting the remaining freedom.",
+        "After removing {reservedObjects} compulsory objects, {residualObjects} identical objects remain.",
+        "Applying stars and bars to the residual amount gives {equation}.",
+        "Hence, the number of valid distributions is {answer}."
+      ]
+    },
+    "PNC-QL-234": {
+      "lines": [
+        "Reserve the required minimum only for the specified receiver.",
+        "The other receivers may still receive zero, so the remaining allocation is a weak composition.",
+        "The shifted count is {equation}.",
+        "Therefore, {answer} distributions meet the specified-receiver condition."
+      ]
+    },
+    "PNC-QL-235": {
+      "lines": [
+        "Reserve the larger minimum for the specified receiver and one object for every other receiver.",
+        "The residual objects can then be distributed without further lower bounds.",
+        "Combining both minimum conditions gives {equation}.",
+        "Thus, the required number of distributions is {answer}."
+      ]
+    },
+    "PNC-QL-236": {
+      "lines": [
+        "Begin with all weak compositions and exclude allocations that exceed the common capacity.",
+        "Inclusion-exclusion selects the receivers that violate the capacity and shifts each selected receiver by {capacityPlusOne} objects.",
+        "The general controlled-capacity formula is \\(\\sum_{j=0}^b(-1)^j\\binom bj\\binom{n-j(c+1)+b-1}{b-1}\\).",
+        "In this combinatorial sum, a binomial term is zero whenever its upper entry is smaller than its lower entry.",
+        "Therefore, {answer} allocations obey the capacity limit."
+      ]
+    },
+    "PNC-QL-237": {
+      "lines": [
+        "Both the objects and receivers are identical, so permuting whole receivers produces no new distribution.",
+        "A distribution is therefore an integer partition of the total into exactly {nonEmptyBoxCount} positive parts.",
+        "The exact-part partition count is {equation}.",
+        "Hence, the number of distributions is {answer}."
+      ]
+    },
+    "PNC-QL-238": {
+      "lines": [
+        "For identical receivers, each possible number of used receivers gives an integer-partition count.",
+        "Add the counts for one used receiver through {maximumNonEmptyBoxes} used receivers.",
+        "The required sum is {equation}.",
+        "Therefore, the number of distributions is {answer}."
+      ]
+    }
+  }
+}

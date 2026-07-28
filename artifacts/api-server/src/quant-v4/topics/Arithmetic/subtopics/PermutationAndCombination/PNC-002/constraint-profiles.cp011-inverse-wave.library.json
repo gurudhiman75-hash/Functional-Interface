@@ -1,0 +1,27 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-011",
+  "profiles": {
+    "CP011-INV-TWO-UNNAMED-EQUAL-GROUPS": {
+      "solveDirection": "INVERSE",
+      "objectIdentity": "DISTINCT",
+      "receiverIdentity": "UNNAMED",
+      "groupPolicy": "TWO_EQUAL_GROUPS",
+      "searchDomain": "BOUNDED_EVEN_TOTALS_ONLY"
+    },
+    "CP011-INV-DISTINCT-LABELLED-RECEIVERS": {
+      "solveDirection": "INVERSE",
+      "objectIdentity": "DISTINCT",
+      "receiverIdentity": "LABELLED",
+      "emptyReceiverPolicy": "ALLOWED",
+      "searchDomain": "BOUNDED_RECEIVER_COUNT"
+    },
+    "CP011-INV-IDENTICAL-LABELLED-RECEIVERS": {
+      "solveDirection": "INVERSE",
+      "objectIdentity": "IDENTICAL",
+      "receiverIdentity": "LABELLED",
+      "emptyReceiverPolicy": "ALLOWED",
+      "searchDomain": "BOUNDED_RECEIVER_COUNT"
+    }
+  }
+}

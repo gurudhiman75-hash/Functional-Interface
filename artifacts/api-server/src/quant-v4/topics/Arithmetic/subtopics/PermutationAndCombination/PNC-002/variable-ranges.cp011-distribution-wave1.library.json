@@ -1,0 +1,62 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-011",
+  "answerCeiling": 1000000000,
+  "pools": {
+    "distinctLabelledUnrestricted": [
+      { "objectCount": 4, "boxCount": 2 },
+      { "objectCount": 5, "boxCount": 3 },
+      { "objectCount": 6, "boxCount": 3 },
+      { "objectCount": 7, "boxCount": 4 }
+    ],
+    "distinctLabelledNonEmpty": [
+      { "objectCount": 4, "boxCount": 2 },
+      { "objectCount": 5, "boxCount": 3 },
+      { "objectCount": 6, "boxCount": 3 },
+      { "objectCount": 7, "boxCount": 4 }
+    ],
+    "distinctLabelledExactlyKUsed": [
+      { "objectCount": 5, "boxCount": 4, "nonEmptyBoxCount": 2 },
+      { "objectCount": 6, "boxCount": 4, "nonEmptyBoxCount": 3 },
+      { "objectCount": 6, "boxCount": 5, "nonEmptyBoxCount": 2 },
+      { "objectCount": 7, "boxCount": 4, "nonEmptyBoxCount": 3 }
+    ],
+    "distinctLabelledAtLeastOneEmpty": [
+      { "objectCount": 4, "boxCount": 3 },
+      { "objectCount": 5, "boxCount": 3 },
+      { "objectCount": 6, "boxCount": 4 },
+      { "objectCount": 7, "boxCount": 4 }
+    ],
+    "distinctLabelledExactOccupancies": [
+      { "occupancies": [2, 1, 1], "firstOccupancy": 2, "secondOccupancy": 1, "thirdOccupancy": 1 },
+      { "occupancies": [2, 2, 1], "firstOccupancy": 2, "secondOccupancy": 2, "thirdOccupancy": 1 },
+      { "occupancies": [3, 2, 1], "firstOccupancy": 3, "secondOccupancy": 2, "thirdOccupancy": 1 },
+      { "occupancies": [3, 2, 2], "firstOccupancy": 3, "secondOccupancy": 2, "thirdOccupancy": 2 }
+    ],
+    "distinctSpecifiedBoxExact": [
+      { "objectCount": 5, "boxCount": 3, "specifiedOccupancy": 2 },
+      { "objectCount": 6, "boxCount": 3, "specifiedOccupancy": 2 },
+      { "objectCount": 6, "boxCount": 4, "specifiedOccupancy": 3 },
+      { "objectCount": 7, "boxCount": 4, "specifiedOccupancy": 2 }
+    ],
+    "distinctSpecifiedBoxExactOthersNonEmpty": [
+      { "objectCount": 5, "boxCount": 3, "specifiedOccupancy": 2 },
+      { "objectCount": 6, "boxCount": 3, "specifiedOccupancy": 2 },
+      { "objectCount": 7, "boxCount": 4, "specifiedOccupancy": 2 },
+      { "objectCount": 7, "boxCount": 3, "specifiedOccupancy": 3 }
+    ],
+    "distinctIdenticalExactlyK": [
+      { "objectCount": 5, "boxCount": 2, "nonEmptyBoxCount": 2 },
+      { "objectCount": 5, "boxCount": 3, "nonEmptyBoxCount": 3 },
+      { "objectCount": 6, "boxCount": 3, "nonEmptyBoxCount": 3 },
+      { "objectCount": 7, "boxCount": 4, "nonEmptyBoxCount": 4 }
+    ],
+    "distinctIdenticalAtMostK": [
+      { "objectCount": 5, "boxCount": 2, "maximumNonEmptyBoxes": 2 },
+      { "objectCount": 6, "boxCount": 3, "maximumNonEmptyBoxes": 3 },
+      { "objectCount": 7, "boxCount": 3, "maximumNonEmptyBoxes": 3 },
+      { "objectCount": 8, "boxCount": 4, "maximumNonEmptyBoxes": 4 }
+    ],
+    "distinctIdenticalAnyNonEmptyCount": [4, 5, 6, 7, 8]
+  }
+}
