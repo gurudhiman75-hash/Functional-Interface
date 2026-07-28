@@ -16,8 +16,82 @@ const rows = CLS_CP001_PERMANENT_CONTRACTS.flatMap((contract, contractIndex) =>
   ),
 );
 
-function section(title: string, lines: readonly string[]): string {
-  return [`### ${title}`, ...lines.map((line) => `- ${line}`)].join("\n");
+type ReviewLabels = {
+  readonly question: string;
+  readonly givenGroup: string;
+  readonly options: string;
+  readonly answer: string;
+  readonly coreConcept: string;
+  readonly solution: string;
+  readonly shortcut: string;
+  readonly trap: string;
+};
+
+function reviewLabels(locale: ClsCp001Locale): ReviewLabels {
+  if (locale === "hi-IN") {
+    return {
+      question: "प्रश्न",
+      givenGroup: "दिया गया समूह",
+      options: "विकल्प",
+      answer: "उत्तर",
+      coreConcept: "📌 मुख्य बात",
+      solution: "📝 हल",
+      shortcut: "⚡ जल्दी तरीका",
+      trap: "⚠️ ध्यान रखें",
+    };
+  }
+  if (locale === "pa-IN") {
+    return {
+      question: "ਪ੍ਰਸ਼ਨ",
+      givenGroup: "ਦਿੱਤਾ ਸਮੂਹ",
+      options: "ਵਿਕਲਪ",
+      answer: "ਜਵਾਬ",
+      coreConcept: "📌 ਮੁੱਖ ਗੱਲ",
+      solution: "📝 ਹੱਲ",
+      shortcut: "⚡ ਤੇਜ਼ ਤਰੀਕਾ",
+      trap: "⚠️ ਧਿਆਨ ਰੱਖੋ",
+    };
+  }
+  return {
+    question: "Question",
+    givenGroup: "Given group",
+    options: "Options",
+    answer: "Answer",
+    coreConcept: "📌 Core Concept",
+    solution: "📝 Step-by-Step Solution",
+    shortcut: "⚡ Exam Speed Shortcut",
+    trap: "⚠️ Common Trap",
+  };
+}
+
+function paragraphSection(title: string, lines: readonly string[]): string {
+  return [`### ${title}`, "", lines.join(" ")].join("\n");
+}
+
+function numberedSection(title: string, lines: readonly string[]): string {
+  return [
+    `### ${title}`,
+    "",
+    ...lines.map((line, index) => `${index + 1}. ${line}`),
+  ].join("\n");
+}
+
+function reviewerMetadata(question: (typeof rows)[number]): string {
+  return [
+    "<details>",
+    "<summary>Reviewer metadata</summary>",
+    "",
+    `- Source control: ${question.metadata.sourcePrototypeId} / ${question.metadata.sourcePrototypeSeed}`,
+    `- Solve contract: ${question.metadata.solveContractId}`,
+    `- Task: ${question.task}`,
+    `- Option count: ${question.options.length}`,
+    `- Intended class: ${question.intendedClassLabel}`,
+    `- Ambiguity result: ${question.ambiguityAudit.result}`,
+    `- Difficulty score: ${question.difficultyFeatures.score}`,
+    `- Difficulty features: \`${JSON.stringify(question.difficultyFeatures)}\``,
+    "",
+    "</details>",
+  ].join("\n");
 }
 
 const markdown = [
@@ -31,36 +105,39 @@ const markdown = [
   "Question Bank: disabled",
   "Test/publication eligibility: disabled",
   "",
-  ...rows.flatMap((question, index) => [
-    `## ${index + 1}. ${question.qlId} · ${question.metadata.locale} · seed ${question.seed} · ${question.task} · ${question.difficulty}`,
-    "",
-    `Source control: ${question.metadata.sourcePrototypeId} / ${question.metadata.sourcePrototypeSeed}`,
-    `Solve contract: ${question.metadata.solveContractId}`,
-    `Option count: ${question.options.length}`,
-    `Difficulty score: ${question.difficultyFeatures.score}`,
-    `Difficulty features: ${JSON.stringify(question.difficultyFeatures)}`,
-    "",
-    question.stem,
-    question.givens.length > 0 ? `\nGiven group: ${question.givens.join(", ")}` : "",
-    "",
-    ...question.options.map((option, optionIndex) => `${String.fromCharCode(65 + optionIndex)}. ${option}`),
-    "",
-    `**Answer:** ${String.fromCharCode(65 + question.correctIndex)}. ${question.answer}`,
-    `**Intended class:** ${question.intendedClassLabel}`,
-    `**Ambiguity result:** ${question.ambiguityAudit.result}`,
-    "",
-    section("Core Rule", question.explanation.coreRule),
-    "",
-    section("Check the Options", question.explanation.optionChecks),
-    "",
-    section("Exam Speed Shortcut", question.explanation.examSpeedShortcut),
-    "",
-    section("Common Traps", question.explanation.commonTraps),
-    "",
-    "---",
-    "",
-  ]),
-].filter((line) => line !== "").join("\n");
+  ...rows.flatMap((question, index) => {
+    const labels = reviewLabels(question.metadata.locale);
+    return [
+      `## ${index + 1}. ${question.qlId} · ${question.metadata.locale} · ${question.difficulty}`,
+      "",
+      `**${labels.question}:** ${question.stem}`,
+      question.givens.length > 0
+        ? `\n**${labels.givenGroup}:** ${question.givens.join(", ")}`
+        : "",
+      "",
+      `**${labels.options}:**`,
+      "",
+      ...question.options.map((option, optionIndex) =>
+        `${String.fromCharCode(65 + optionIndex)}. ${option}`
+      ),
+      "",
+      `**${labels.answer}:** ${String.fromCharCode(65 + question.correctIndex)}. ${question.answer}`,
+      "",
+      paragraphSection(labels.coreConcept, question.explanation.coreRule),
+      "",
+      numberedSection(labels.solution, question.explanation.optionChecks),
+      "",
+      paragraphSection(labels.shortcut, question.explanation.examSpeedShortcut),
+      "",
+      paragraphSection(labels.trap, question.explanation.commonTraps),
+      "",
+      reviewerMetadata(question),
+      "",
+      "---",
+      "",
+    ];
+  }),
+].join("\n");
 
 await mkdir(outputDir, { recursive: true });
 await writeFile(
@@ -79,6 +156,11 @@ console.log("CLS-CP-001 permanent multilingual review written.", {
   questions: rows.length,
   qls: CLS_CP001_PERMANENT_CONTRACTS.length,
   locales,
-  optionCounts: Object.fromEntries([4, 5].map((count) => [count, rows.filter((question) => question.options.length === count).length])),
-  tasks: Object.fromEntries([...new Set(rows.map((question) => question.task))].map((task) => [task, rows.filter((question) => question.task === task).length])),
+  optionCounts: Object.fromEntries(
+    [4, 5].map((count) => [count, rows.filter((question) => question.options.length === count).length]),
+  ),
+  tasks: Object.fromEntries(
+    [...new Set(rows.map((question) => question.task))]
+      .map((task) => [task, rows.filter((question) => question.task === task).length]),
+  ),
 });
