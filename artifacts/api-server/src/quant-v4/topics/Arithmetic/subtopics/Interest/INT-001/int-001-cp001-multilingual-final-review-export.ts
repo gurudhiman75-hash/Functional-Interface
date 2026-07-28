@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { INT_CP001_FINAL_QL_IDS } from "./cp001-final-registry";
-import { generateIntCp001ReleaseLocalizedQuestion } from "./cp001-localized-runtime-release";
+import { generateIntCp001ApprovedLocalizedQuestion } from "./cp001-localized-runtime-approved";
 import {
   INT_CP001_HINDI_RELEASE_ID,
   INT_CP001_MULTILINGUAL_STANDARD,
@@ -20,10 +20,17 @@ const locales: readonly IntCp001Locale[] = ["hi", "pa"];
 
 for (const locale of locales) {
   const items = INT_CP001_FINAL_QL_IDS.flatMap((qlId) => seeds.map((seed) =>
-    generateIntCp001ReleaseLocalizedQuestion(qlId, seed, locale)
+    generateIntCp001ApprovedLocalizedQuestion(qlId, seed, locale)
   ));
   for (const item of items) {
     if (!item.validation.ok) throw new Error(`${item.qlId}/${item.seed}/${locale}: ${item.validation.errors.join(" | ")}`);
+    if (
+      item.maturity !== "APPROVED_MULTILINGUAL_CONTRACT"
+      || item.reviewStatus !== "APPROVED_MULTILINGUAL_CONTRACT"
+      || item.localeReviewStatus !== "APPROVED_HUMAN_REVIEW"
+    ) {
+      throw new Error(`${item.qlId}/${item.seed}/${locale}: approval lifecycle is not frozen.`);
+    }
   }
 
   const hindi = locale === "hi";
@@ -33,14 +40,19 @@ for (const locale of locales) {
     path.join(outputDirectory, `int-001-cp001-${prefix}-review.json`),
     json({
       generatedAt: new Date().toISOString(),
+      approvedAt: "2026-07-28",
       packageId: "INT-001",
       cpId: "INT-CP-001",
       locale,
       releaseId,
       editorialStandard: INT_CP001_MULTILINGUAL_STANDARD,
-      status: "PENDING_HUMAN_REVIEW",
+      maturity: "APPROVED_MULTILINGUAL_CONTRACT",
+      reviewStatus: "APPROVED_MULTILINGUAL_CONTRACT",
+      localeReviewStatus: "APPROVED_HUMAN_REVIEW",
       qlCount: INT_CP001_FINAL_QL_IDS.length,
       sampleCount: items.length,
+      questionBankStatus: "NOT_STORED",
+      testEligibility: "INELIGIBLE",
       publiclyPublishable: false,
       questionStudioDiscoverable: false,
       items,
@@ -49,11 +61,11 @@ for (const locale of locales) {
   );
 
   const markdown: string[] = [
-    `# INT-001 / CP-001 ${hindi ? "हिन्दी" : "ਪੰਜਾਬੀ"} Review Pack`,
+    `# INT-001 / CP-001 ${hindi ? "हिन्दी" : "ਪੰਜਾਬੀ"} Approved Locale Pack`,
     "",
     `Release: **${releaseId}**`,
     `Editorial standard: **${INT_CP001_MULTILINGUAL_STANDARD}**`,
-    `Status: **${hindi ? "मानव समीक्षा लंबित; प्रकाशन बंद" : "ਮਨੁੱਖੀ ਸਮੀਖਿਆ ਬਾਕੀ; ਪ੍ਰਕਾਸ਼ਨ ਬੰਦ"}**`,
+    `Status: **${hindi ? "मानव समीक्षा में स्वीकृत; प्रकाशन बंद" : "ਮਨੁੱਖੀ ਸਮੀਖਿਆ ਵਿੱਚ ਮਨਜ਼ੂਰ; ਪ੍ਰਕਾਸ਼ਨ ਬੰਦ"}**`,
     `Permanent QLs: **${INT_CP001_FINAL_QL_IDS.length}**`,
     `Samples: **${items.length}**`,
     "",
@@ -69,6 +81,7 @@ for (const locale of locales) {
       `- Difficulty: **${item.difficulty}**`,
       `- Correct option: **${item.correctIndex + 1}**`,
       `- Source: **${item.internalProvenance.sourceKind} / ${item.internalProvenance.sourcePrototypeId}**`,
+      `- Locale status: **${item.localeReviewStatus}**`,
       "",
       `> **${hindi ? "प्रश्न" : "ਪ੍ਰਸ਼ਨ"}:** ${item.stem}`,
       "",
@@ -115,20 +128,30 @@ await writeFile(
   path.join(outputDirectory, "int-001-cp001-multilingual-review-summary.json"),
   json({
     status: "PASS",
+    approvedAt: "2026-07-28",
     editorialStandard: INT_CP001_MULTILINGUAL_STANDARD,
+    maturity: "APPROVED_MULTILINGUAL_CONTRACT",
+    reviewStatus: "APPROVED_MULTILINGUAL_CONTRACT",
+    localeReviewStatus: "APPROVED_HUMAN_REVIEW",
     qlCount: INT_CP001_FINAL_QL_IDS.length,
     samplesPerLocale: INT_CP001_FINAL_QL_IDS.length * seeds.length,
     totalSamples: INT_CP001_FINAL_QL_IDS.length * seeds.length * locales.length,
     releases: { hi: INT_CP001_HINDI_RELEASE_ID, pa: INT_CP001_PUNJABI_RELEASE_ID },
+    questionBankStatus: "NOT_STORED",
+    testEligibility: "INELIGIBLE",
     publiclyPublishable: false,
+    questionStudioDiscoverable: false,
   }),
   "utf8",
 );
 
 console.log(json({
   status: "PASS",
+  maturity: "APPROVED_MULTILINGUAL_CONTRACT",
+  localeReviewStatus: "APPROVED_HUMAN_REVIEW",
   qlCount: INT_CP001_FINAL_QL_IDS.length,
   samplesPerLocale: INT_CP001_FINAL_QL_IDS.length * seeds.length,
   totalSamples: INT_CP001_FINAL_QL_IDS.length * seeds.length * locales.length,
   outputDirectory,
+  publiclyPublishable: false,
 }));
