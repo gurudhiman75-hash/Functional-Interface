@@ -56,6 +56,17 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-allocation-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-allocation-audit.log
+      - name: Bundle permanent English editorial audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-permanent-editorial-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-permanent-editorial-audit.mjs
+      - name: Run permanent English editorial audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-editorial-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-editorial-audit.log
       - name: Bundle permanent allocation review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -73,6 +84,7 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/mal-001-cp001-foundation-freeze-audit.log
             artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-allocation-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-editorial-audit.log
             artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-allocation-review.json
             artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-allocation-review.md
           if-no-files-found: error
