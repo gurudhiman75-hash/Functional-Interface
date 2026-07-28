@@ -14,7 +14,7 @@ const ALL_RELATIONS: readonly BlrRelationId[] = [
   "FATHER", "MOTHER", "SON", "DAUGHTER", "BROTHER", "SISTER", "HUSBAND", "WIFE",
   "GRANDFATHER", "GRANDMOTHER", "GRANDSON", "GRANDDAUGHTER", "UNCLE", "AUNT",
   "NEPHEW", "NIECE", "COUSIN", "FATHER_IN_LAW", "MOTHER_IN_LAW",
-  "SON_IN_LAW", "DAUGHTER_IN_LAW",
+  "SON_IN_LAW", "DAUGHTER_IN_LAW", "BROTHER_IN_LAW", "SISTER_IN_LAW",
 ] as const;
 
 export function buildBlrCp001Distractors(
