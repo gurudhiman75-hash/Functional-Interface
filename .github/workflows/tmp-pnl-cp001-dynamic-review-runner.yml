@@ -32,12 +32,13 @@ jobs:
           start = next(index for index, line in enumerate(workflow) if "python - <<'PY'" in line) + 1
           end = next(index for index in range(start, len(workflow)) if workflow[index].strip() == "PY")
           embedded = workflow[start:end]
-          common_indent = min(
-              len(line) - len(line.lstrip())
+          first_code_line = next(line for line in embedded if line.strip())
+          code_indent = len(first_code_line) - len(first_code_line.lstrip())
+          indent_prefix = " " * code_indent
+          code = "\n".join(
+              line[code_indent:] if line.startswith(indent_prefix) else line
               for line in embedded
-              if line.strip()
           )
-          code = "\n".join(line[common_indent:] for line in embedded)
           exec(compile(code, "pnl-cp001-dynamic-review-patch", "exec"))
           PY
 
