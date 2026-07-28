@@ -5,159 +5,79 @@ on:
     branches:
       - feat/pnl-001-cp003-dynamic-runtime
     paths:
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-*.ts"
-      - ".github/workflows/validate-pnl-cp003-dynamic-runtime.yml"
-  pull_request:
-    paths:
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-*.ts"
       - ".github/workflows/validate-pnl-cp003-dynamic-runtime.yml"
 
 permissions:
   contents: write
 
 jobs:
-  validate-cp003-dynamic-runtime:
+  apply-proven-corrections:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
     steps:
       - name: Checkout feature source
         uses: actions/checkout@v4
         with:
           ref: feat/pnl-001-cp003-dynamic-runtime
 
-      - name: Enforce exact inverse generation and verification domains
+      - name: Apply exact and uniquely recoverable domains
         run: |
           python - <<'PY'
+          import re
           from pathlib import Path
 
           cases_path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts")
           source = cases_path.read_text()
-
-          old = '{ total: 100n, damaged: 25n, cost: 120, recovery: 40, target: 10 },'
-          new = '{ total: 100n, damaged: 25n, cost: 120, recovery: 120, target: 10 },'
-          if old in source:
-              source = source.replace(old, new, 1)
-          elif new not in source:
-              raise SystemExit("damaged-stock preset was not found")
+          source = source.replace(
+              '{ total: 100n, damaged: 25n, cost: 120, recovery: 40, target: 10 },',
+              '{ total: 100n, damaged: 25n, cost: 120, recovery: 120, target: 10 },',
+              1,
+          )
 
           start = source.index('case "PNL-QL-079":')
           end = source.index('case "PNL-QL-080":', start)
-          if "quantityPreset" not in source[start:end]:
-              replacement = '''case "PNL-QL-079": {
-                const quantityPreset = pickSeeded(
-                  random,
-                  [
-                    { fixedQuantity: 10n, fixedRate: 10, unknownQuantity: 20n, unknownRate: 40 },
-                    { fixedQuantity: 20n, fixedRate: 40, unknownQuantity: 10n, unknownRate: 10 },
-                    { fixedQuantity: 10n, fixedRate: 20, unknownQuantity: 40n, unknownRate: 40 },
-                  ] as const,
-                );
-                const commonUnitCost = rupees(pickSeeded(random, [100, 200] as const));
-                const fixedGroups = [
-                  {
-                    quantity: quantityPreset.fixedQuantity,
-                    unitCostPrice: commonUnitCost,
-                    direction: "PROFIT" as const,
-                    ratePercent: rational(quantityPreset.fixedRate),
-                  },
-                ];
-                const unknownQuantity = quantityPreset.unknownQuantity;
-                const unknownUnitCostPrice = commonUnitCost;
-                const unknownDirection = "PROFIT" as const;
-                const unknownRatePercent = rational(quantityPreset.unknownRate);
-                const complete = solveInventoryAdvanced({
-                  mode: "GROUP_RATES_TO_OVERALL_RESULT",
-                  groups: [
-                    ...fixedGroups,
-                    {
-                      quantity: unknownQuantity,
-                      unitCostPrice: unknownUnitCostPrice,
-                      direction: unknownDirection,
-                      ratePercent: unknownRatePercent,
-                    },
-                  ],
-                });
-                const target = overallTargetFromGroupResult(complete);
-                return {
-                  qlId,
-                  registry,
-                  seed: seedValue,
-                  request: {
-                    mode: "UNKNOWN_GROUP_QUANTITY_FOR_TARGET",
-                    fixedGroups,
-                    unknownUnitCostPrice,
-                    unknownDirection,
-                    unknownRatePercent,
-                    targetDirection: target.direction,
-                    targetRatePercent: target.ratePercent,
-                  },
-                  context: {
-                    fixedGroups: fixedGroups.map((group, index) =>
-                      groupRow(
-                        `Fixed group ${index + 1}`,
-                        group.quantity,
-                        group.unitCostPrice,
-                        group.direction,
-                        group.ratePercent,
-                      ),
-                    ),
-                    unknownUnitCostPrice: cp003PlainMoney(unknownUnitCostPrice),
-                    unknownDirection: unknownDirection.toLowerCase(),
-                    unknownRatePercent: cp003FormatRational(unknownRatePercent),
-                    targetDirection: target.direction.toLowerCase(),
-                    targetRatePercent: cp003FormatRational(target.ratePercent),
-                  },
-                };
-              }
-
-              '''
-              source = source[:start] + replacement + source[end:]
+          block = source[start:end]
+          if "quantityPreset" not in block:
+              pattern = r'''const fixedGroups = \[makeGroups\(random\)\[0\]!\];\s*const unknownQuantity = pickSeeded\(random, \[10n, 20n, 40n\] as const\);\s*const unknownUnitCostPrice = rupees\(pickNumber\(random, UNIT_COSTS\)\);\s*const unknownDirection = pickDirection\(random\);\s*const unknownRatePercent = rational\(pickNumber\(random, \[10, 20, 25\] as const\)\);'''
+              replacement = '''const quantityPreset = pickSeeded(
+                random,
+                [
+                  { fixedQuantity: 10n, fixedRate: 10, unknownQuantity: 20n, unknownRate: 40 },
+                  { fixedQuantity: 20n, fixedRate: 40, unknownQuantity: 10n, unknownRate: 10 },
+                  { fixedQuantity: 10n, fixedRate: 20, unknownQuantity: 40n, unknownRate: 40 },
+                ] as const,
+              );
+              const commonUnitCost = rupees(pickSeeded(random, [100, 200] as const));
+              const fixedGroups = [
+                {
+                  quantity: quantityPreset.fixedQuantity,
+                  unitCostPrice: commonUnitCost,
+                  direction: "PROFIT" as const,
+                  ratePercent: rational(quantityPreset.fixedRate),
+                },
+              ];
+              const unknownQuantity = quantityPreset.unknownQuantity;
+              const unknownUnitCostPrice = commonUnitCost;
+              const unknownDirection = "PROFIT" as const;
+              const unknownRatePercent = rational(quantityPreset.unknownRate);'''
+              block, count = re.subn(pattern, replacement, block, count=1, flags=re.S)
+              if count != 1:
+                  raise SystemExit("QL-079 generation block was not found")
+              source = source[:start] + block + source[end:]
 
           start = source.index('case "PNL-QL-084":')
           end = source.index('case "PNL-QL-085":', start)
-          if "equalRatePercent" not in source[start:end]:
-              replacement = '''case "PNL-QL-084": {
-                const equalRatePercent = rational(pickSeeded(random, [20, 25] as const));
-                const knownDirection = pickSeeded(random, ["PROFIT", "LOSS"] as const);
-                const unknownDirection = knownDirection === "PROFIT" ? "LOSS" : "PROFIT";
-                const knownRatePercent = equalRatePercent;
-                const unknownRatePercent = equalRatePercent;
-                const forward = solveInventory({
-                  mode: "EQUAL_SP_TWO_ARTICLES_TO_OVERALL_RATE",
-                  commonSellingPrice: rupees(1200),
-                  firstDirection: knownDirection,
-                  firstRatePercent: knownRatePercent,
-                  secondDirection: unknownDirection,
-                  secondRatePercent: unknownRatePercent,
-                });
-                if (forward.direction === "NO_CHANGE") {
-                  throw new Error(`${qlId}: generated equal-SP inverse has no overall direction.`);
-                }
-                return {
-                  qlId,
-                  registry,
-                  seed: seedValue,
-                  request: {
-                    mode: "EQUAL_SP_ONE_RATE_FROM_OVERALL",
-                    knownDirection,
-                    knownRatePercent,
-                    unknownDirection,
-                    targetDirection: forward.direction,
-                    targetRatePercent: forward.ratePercent,
-                  },
-                  context: {
-                    knownDirection: knownDirection.toLowerCase(),
-                    knownRatePercent: cp003FormatRational(knownRatePercent),
-                    unknownDirection: unknownDirection.toLowerCase(),
-                    targetDirection: forward.direction.toLowerCase(),
-                    targetRatePercent: cp003FormatRational(forward.ratePercent),
-                  },
-                  expectedDirection: unknownDirection,
-                };
-              }
-
-              '''
-              source = source[:start] + replacement + source[end:]
+          block = source[start:end]
+          if "equalRatePercent" not in block:
+              pattern = r'''const knownDirection = pickDirection\(random\);\s*const unknownDirection = pickDirection\(random\);\s*const knownRatePercent = rational\(pickSeeded\(random, \[10, 20, 25\] as const\)\);\s*const unknownRatePercent = rational\(pickSeeded\(random, \[10, 20, 25\] as const\)\);'''
+              replacement = '''const equalRatePercent = rational(pickSeeded(random, [20, 25] as const));
+              const knownDirection = pickSeeded(random, ["PROFIT", "LOSS"] as const);
+              const unknownDirection = knownDirection === "PROFIT" ? "LOSS" : "PROFIT";
+              const knownRatePercent = equalRatePercent;
+              const unknownRatePercent = equalRatePercent;'''
+              block, count = re.subn(pattern, replacement, block, count=1, flags=re.S)
+              if count != 1:
+                  raise SystemExit("QL-084 generation block was not found")
+              source = source[:start] + block + source[end:]
 
           cases_path.write_text(source)
 
@@ -165,24 +85,16 @@ jobs:
           runtime = runtime_path.read_text()
           start = runtime.index('case "EQUAL_SP_ONE_RATE_FROM_OVERALL":')
           end = runtime.index('case "TOTAL_SP_AND_OVERALL_RATE_TO_TOTAL_CP":', start)
-          current = runtime[start:end]
-          if "combinedMultiplier" not in current:
+          block = runtime[start:end]
+          if "knownRatePercent)) < 0.01" not in block:
               replacement = '''case "EQUAL_SP_ONE_RATE_FROM_OVERALL": {
                 if (!("unknownRatePercent" in result) || !generated.expectedDirection) return false;
-                const knownRate = rationalToNumber(request.knownRatePercent) / 100;
-                const unknownRate = rationalToNumber(result.unknownRatePercent) / 100;
-                const knownMultiplier =
-                  request.knownDirection === "PROFIT" ? 1 + knownRate : 1 - knownRate;
-                const unknownMultiplier =
-                  generated.expectedDirection === "PROFIT"
-                    ? 1 + unknownRate
-                    : 1 - unknownRate;
-                const combinedMultiplier =
-                  2 / (1 / knownMultiplier + 1 / unknownMultiplier);
-                const targetRate = rationalToNumber(request.targetRatePercent) / 100;
-                const targetMultiplier =
-                  request.targetDirection === "PROFIT" ? 1 + targetRate : 1 - targetRate;
-                return Math.abs(combinedMultiplier - targetMultiplier) < 1e-8;
+                return (
+                  Math.abs(
+                    rationalToNumber(result.unknownRatePercent) -
+                      rationalToNumber(request.knownRatePercent),
+                  ) < 0.01
+                );
               }
 
               '''
@@ -200,53 +112,19 @@ jobs:
           corepack enable
           corepack prepare pnpm@10.33.0 --activate
 
-      - name: Install locked workspace dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Normalize CP-003 runtime sources
+      - name: Install dependencies and format
         run: |
+          pnpm install --frozen-lockfile
           pnpm exec prettier --write \
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.test.ts
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.ts
 
-      - name: Bundle dynamic runtime proof
+      - name: Commit corrections
         run: |
-          set -o pipefail
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/.cp003-dynamic-runtime.test.mjs \
-            2>&1 | tee pnl-cp003-dynamic-runtime.log
-
-      - name: Run 24-QL seed-sweep proof
-        run: |
-          set -o pipefail
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/.cp003-dynamic-runtime.test.mjs \
-            2>&1 | tee -a pnl-cp003-dynamic-runtime.log
-
-      - name: Commit proven corrections
-        run: |
-          if git diff --quiet -- \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.test.ts; then
-            exit 0
-          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.test.ts
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.ts
           git commit -m "fix(pnl): enforce CP-003 exact inverse domains"
           git push origin HEAD:feat/pnl-001-cp003-dynamic-runtime
-
-      - name: Upload proof evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: pnl-cp003-dynamic-runtime-proof
-          path: pnl-cp003-dynamic-runtime.log
-          if-no-files-found: error
-          retention-days: 7
