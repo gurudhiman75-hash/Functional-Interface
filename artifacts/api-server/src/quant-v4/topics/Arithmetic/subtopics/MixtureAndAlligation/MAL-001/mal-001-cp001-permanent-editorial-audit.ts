@@ -18,6 +18,10 @@ const forbiddenStemPatterns = [
   ["awkward quantity-worth construction", /\bto obtain \d+(?:\s+\d+\/\d+)? (?:kg|litres) worth\b/iu],
   ["unnatural unknown-price tail", /\bwhat price must [^?]+ have\?/iu],
   ["generic unknown-value tail", /\bwhat is the value of [^?]+ per unit\?/iu],
+  ["compact ratio formatting", /\b\d+:\d+\b/u],
+  ["hard respectively wording", /\brespectively\b/iu],
+  ["hard uniform-blend wording", /\buniform blend\b/iu],
+  ["unneeded weighted wording", /\bweighted average price\b/iu],
 ] as const;
 
 const forbiddenExplanationPatterns = [
@@ -36,6 +40,12 @@ const forbiddenExplanationPatterns = [
   ["hard supplied wording", /\bsupplied\b/iu],
   ["hard belonging wording", /\bbelonging\b/iu],
   ["internal component wording", /\bcomponents?\b/iu],
+  ["bad simplified article", /\ban (?:normal|first)\b/iu],
+  ["hard value-total wording", /\bvalue-total\b/iu],
+  ["hard actual-quantity wording", /\bactual quantity\b/iu],
+  ["hard algebra wording", /\balgebra variables?\b/iu],
+  ["hard requested-share wording", /\brequested share\b/iu],
+  ["hard source-price wording", /\bsource prices?\b/iu],
 ] as const;
 
 function expectedNamedAnswerLabel(question: any): string | null {
