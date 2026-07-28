@@ -23,9 +23,12 @@ jobs:
         shell: bash
         run: |
           python - <<'PY'
+          import re
           from pathlib import Path
+
           path = Path("artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/foundation/runtime.ts")
           text = path.read_text()
+
           marker = "function cubeCountDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: SeededRandom, difficulty: Men002Difficulty): Draft {"
           replacement = """const SAFE_CUBE_COUNT_ARRANGEMENTS = [
             [3n, 2n, 2n],
@@ -41,17 +44,21 @@ jobs:
             raise SystemExit("cubeCountDraft marker mismatch")
           text = text.replace(marker, replacement, 1)
 
-          old = """  const smallSide = BigInt(rng.int(2, 5));
-          const alongLength = BigInt(rng.int(3, 7));
-          const alongBreadth = BigInt(rng.int(2, 6));
-          const alongHeight = BigInt(rng.int(2, 5));"""
-          old = "\n".join(line[10:] if line.startswith("          ") else line for line in old.splitlines())
-          new = """  const smallSide = BigInt(rng.int(2, 5));
-          const [alongLength, alongBreadth, alongHeight] = rng.pick(SAFE_CUBE_COUNT_ARRANGEMENTS);"""
-          new = "\n".join(line[10:] if line.startswith("          ") else line for line in new.splitlines())
-          if text.count(old) != 1:
-            raise SystemExit("cube-count random block mismatch")
-          path.write_text(text.replace(old, new, 1))
+          pattern = re.compile(
+            r"  const smallSide = BigInt\(rng\.int\(2, 5\)\);\n"
+            r"  const alongLength = BigInt\(rng\.int\(3, 7\)\);\n"
+            r"  const alongBreadth = BigInt\(rng\.int\(2, 6\)\);\n"
+            r"  const alongHeight = BigInt\(rng\.int\(2, 5\)\);"
+          )
+          text, count = pattern.subn(
+            "  const smallSide = BigInt(rng.int(2, 5));\n"
+            "  const [alongLength, alongBreadth, alongHeight] = rng.pick(SAFE_CUBE_COUNT_ARRANGEMENTS);",
+            text,
+          )
+          if count != 1:
+            raise SystemExit(f"cube-count random block: expected one match, found {count}")
+
+          path.write_text(text)
           PY
 
       - name: Commit patch
