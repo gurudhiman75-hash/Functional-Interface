@@ -1,0 +1,25 @@
+{
+  "packageId": "PNC-002",
+  "profiles": {
+    "COUNTCIRCULAREXACTLYONEPAIRTOGETHER": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "Exactly one of two disjoint specified pairs is adjacent in a rotation-normalized circular arrangement."
+    },
+    "COUNTCIRCULARSELECTIONROTATIONONLY": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "Choose a proper subset of distinct objects and arrange the chosen objects circularly, identifying rotations but not reflections."
+    },
+    "COUNTCIRCULARSELECTIONDIHEDRAL": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "Choose a proper subset of distinct objects and arrange the chosen objects on a reversible ring, identifying both rotations and reflections."
+    },
+    "COUNTCIRCULARDISTINCTNEIGHBORSETS": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "Round-table seatings are equivalent when every person retains the same unordered pair of neighbours, so reversed cycles are identified."
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-011",
+  "groups": [
+    {
+      "qlIds": ["PNC-QL-239"],
+      "solveMode": "recoverTotalObjectsFromTwoUnnamedEqualGroups",
+      "scenarioFamily": "inverseTwoUnnamedEqualGroups",
+      "requiredVariables": ["target", "searchMinimum", "searchMaximum"],
+      "constraintProfile": "CP011-INV-TWO-UNNAMED-EQUAL-GROUPS",
+      "distractorProfile": "OTHER_BOUNDED_EVEN_TOTALS",
+      "difficulty": "Hard"
+    },
+    {
+      "qlIds": ["PNC-QL-240"],
+      "solveMode": "recoverLabelledReceiverCountForDistinctObjects",
+      "scenarioFamily": "inverseDistinctLabelledReceiverCount",
+      "requiredVariables": ["objectCount", "target", "searchMinimum", "searchMaximum"],
+      "constraintProfile": "CP011-INV-DISTINCT-LABELLED-RECEIVERS",
+      "distractorProfile": "OTHER_BOUNDED_RECEIVER_COUNTS",
+      "difficulty": "Medium"
+    },
+    {
+      "qlIds": ["PNC-QL-241"],
+      "solveMode": "recoverLabelledReceiverCountForIdenticalObjects",
+      "scenarioFamily": "inverseIdenticalLabelledReceiverCount",
+      "requiredVariables": ["objectCount", "target", "searchMinimum", "searchMaximum"],
+      "constraintProfile": "CP011-INV-IDENTICAL-LABELLED-RECEIVERS",
+      "distractorProfile": "OTHER_BOUNDED_RECEIVER_COUNTS",
+      "difficulty": "Hard"
+    }
+  ]
+}

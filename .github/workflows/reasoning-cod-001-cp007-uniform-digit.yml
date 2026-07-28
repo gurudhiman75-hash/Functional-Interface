@@ -1,14 +1,15 @@
-name: Reasoning COD-001 CP-007 Uniform Digit Prototype
+name: Reasoning COD-001 CP-007 Runtime
 
 on:
   pull_request:
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-007/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-001-MANIFEST-AMENDMENT-CP007.md"
       - ".github/workflows/reasoning-cod-001-cp007-uniform-digit.yml"
   workflow_dispatch:
 
 jobs:
-  cp007-uniform-digit-prototype:
+  cp007-runtime:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -20,7 +21,13 @@ jobs:
         with:
           node-version: 22
 
-      - name: Run mathematical prototype audit
+      - name: Enforce final English discovery freeze
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-007/cp007-final-discovery-freeze.test.ts
+
+      - name: Run permanent English runtime audit
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-007/cp007-runtime.test.ts
+
+      - name: Run mathematical prototype regression
         id: prototype_audit
         shell: bash
         run: |
@@ -30,7 +37,7 @@ jobs:
           echo "exit_code=$status" >> "$GITHUB_OUTPUT"
           exit 0
 
-      - name: Run editorial diversity audit
+      - name: Run editorial diversity regression
         id: editorial_audit
         shell: bash
         run: |
@@ -45,34 +52,34 @@ jobs:
         shell: bash
         run: |
           {
-            echo "=== MATHEMATICAL PROTOTYPE AUDIT ==="
+            echo "=== MATHEMATICAL PROTOTYPE REGRESSION ==="
             cat cod-cp007-uniform-digit-mathematical.log
             echo
-            echo "=== EDITORIAL DIVERSITY AUDIT ==="
+            echo "=== EDITORIAL DIVERSITY REGRESSION ==="
             cat cod-cp007-uniform-digit-editorial.log
           } > cod-cp007-uniform-digit.log
 
-      - name: Upload prototype diagnostics
+      - name: Upload runtime diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cod-001-cp007-uniform-digit-audit
+          name: cod-001-cp007-runtime-audit
           path: cod-cp007-uniform-digit.log
           retention-days: 14
 
-      - name: Enforce prototype results
+      - name: Enforce regression results
         shell: bash
         run: |
           cat cod-cp007-uniform-digit.log
           test "${{ steps.prototype_audit.outputs.exit_code }}" = "0"
           test "${{ steps.editorial_audit.outputs.exit_code }}" = "0"
 
-      - name: Export polished English prototype review pack
+      - name: Export polished English review pack
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-007/export-uniform-digit-polished-review.ts cod-cp007-uniform-digit-review-output
 
-      - name: Upload polished English prototype review pack
+      - name: Upload polished English review pack
         uses: actions/upload-artifact@v4
         with:
-          name: cod-001-cp007-uniform-digit-review
+          name: cod-001-cp007-runtime-review
           path: cod-cp007-uniform-digit-review-output
           retention-days: 14

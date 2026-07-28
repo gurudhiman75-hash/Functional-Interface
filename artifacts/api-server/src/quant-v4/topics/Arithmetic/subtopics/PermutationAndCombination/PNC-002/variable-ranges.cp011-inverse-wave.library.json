@@ -1,0 +1,24 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-011",
+  "answerCeiling": 1000000000,
+  "pools": {
+    "inverseTwoUnnamedEqualGroups": [
+      { "solution": 6, "searchMinimum": 4, "searchMaximum": 10 },
+      { "solution": 8, "searchMinimum": 4, "searchMaximum": 10 },
+      { "solution": 10, "searchMinimum": 4, "searchMaximum": 10 }
+    ],
+    "inverseDistinctLabelledReceiverCount": [
+      { "objectCount": 3, "solution": 2, "searchMinimum": 2, "searchMaximum": 5 },
+      { "objectCount": 4, "solution": 3, "searchMinimum": 2, "searchMaximum": 5 },
+      { "objectCount": 3, "solution": 4, "searchMinimum": 2, "searchMaximum": 5 },
+      { "objectCount": 4, "solution": 5, "searchMinimum": 2, "searchMaximum": 5 }
+    ],
+    "inverseIdenticalLabelledReceiverCount": [
+      { "objectCount": 5, "solution": 2, "searchMinimum": 2, "searchMaximum": 5 },
+      { "objectCount": 6, "solution": 3, "searchMinimum": 2, "searchMaximum": 5 },
+      { "objectCount": 5, "solution": 4, "searchMinimum": 2, "searchMaximum": 5 },
+      { "objectCount": 6, "solution": 5, "searchMinimum": 2, "searchMaximum": 5 }
+    ]
+  }
+}

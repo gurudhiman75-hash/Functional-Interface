@@ -1,0 +1,91 @@
+name: Validate PNC-002 CP-011 inverse wave
+
+on:
+  push:
+    branches:
+      - feat/pnc-002-cp011-grouping-distribution
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/**
+      - .github/workflows/pnc-002-cp011-inverse-wave-runtime.yml
+  pull_request:
+    branches:
+      - feat/pnc-002-cp010-circular-runtime-proof
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/**
+      - .github/workflows/pnc-002-cp011-inverse-wave-runtime.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-pnc-002-cp011-inverse-wave-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-pnc-002-cp011-inverse-wave:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        run: |
+          cd artifacts/api-server
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --resolveJsonModule \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/cp011-inverse-wave-runtime.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-cp011-inverse-wave.test.ts
+      - name: Bundle CP-011 inverse runtime proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-cp011-inverse-wave.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-002-cp011-inverse-proof.mjs
+      - name: Run CP-011 inverse proof and generate review export
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          mkdir -p dist/quant-v4/pnc-002-cp011-inverse-diagnostics
+          set +e
+          node dist/quant-v4/pnc-002-cp011-inverse-proof.mjs 2>&1 | tee dist/quant-v4/pnc-002-cp011-inverse-diagnostics/runtime.log
+          status=${PIPESTATUS[0]}
+          exit "$status"
+      - name: Publish CP-011 inverse review files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-002-cp011-inverse-question-explanation-review
+          path: artifacts/api-server/dist/quant-v4/pnc-002-cp011-inverse-review/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Publish CP-011 inverse diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-002-cp011-inverse-diagnostics
+          path: artifacts/api-server/dist/quant-v4/pnc-002-cp011-inverse-diagnostics/
+          if-no-files-found: error
+          retention-days: 3

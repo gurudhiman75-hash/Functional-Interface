@@ -1,0 +1,22 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-011",
+  "language": "en",
+  "entries": [
+    {
+      "qlId": "PNC-QL-239",
+      "difficulty": "Hard",
+      "template": "An even number of people, from {searchMinimum} to {searchMaximum}, are divided into two unnamed equal groups. If exactly {target} distinct divisions are possible, how many people are there?"
+    },
+    {
+      "qlId": "PNC-QL-240",
+      "difficulty": "Medium",
+      "template": "Each of {objectCount} distinct documents is assigned independently to one of an unknown number of labelled folders. The folder count is from {searchMinimum} to {searchMaximum}. If {target} assignments are possible, how many folders are there?"
+    },
+    {
+      "qlId": "PNC-QL-241",
+      "difficulty": "Hard",
+      "template": "{objectCount} identical balls are distributed among an unknown number of labelled boxes, with empty boxes allowed. The box count is from {searchMinimum} to {searchMaximum}. If {target} distributions are possible, how many boxes are there?"
+    }
+  ]
+}

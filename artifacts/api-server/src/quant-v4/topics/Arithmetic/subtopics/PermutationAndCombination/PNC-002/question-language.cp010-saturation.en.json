@@ -1,0 +1,37 @@
+{
+  "packageId": "PNC-002",
+  "language": "en",
+  "ownership": "HUMAN_OWNED",
+  "entries": [
+    {
+      "qlId": "PNC-QL-204",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Medium",
+      "template": "Among {totalObjects} people seated around a round table, a specified group of {blockSize} people must not all occupy consecutive seats. How many arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-205",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Hard",
+      "template": "Among {totalObjects} people seated around a round table, there are two disjoint specified pairs. In how many arrangements does exactly one of the two pairs sit together?"
+    },
+    {
+      "qlId": "PNC-QL-206",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Medium",
+      "template": "From {totalObjects} distinct symbols, {selectedObjects} are chosen and placed on a one-sided circular display. If rotations are identical but mirror images are different, how many displays are possible?"
+    },
+    {
+      "qlId": "PNC-QL-207",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Medium",
+      "template": "From {totalObjects} distinct beads, {selectedObjects} are chosen and strung into a ring. If rotations and mirror images are both treated as identical, how many rings are possible?"
+    },
+    {
+      "qlId": "PNC-QL-208",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Hard",
+      "template": "In how many essentially different ways can {totalObjects} people sit around a round table if two seatings are treated as the same whenever every person has the same two neighbours?"
+    }
+  ]
+}

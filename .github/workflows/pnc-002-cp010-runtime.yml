@@ -1,0 +1,90 @@
+name: Validate PNC-002 CP-010 runtime proof
+
+on:
+  push:
+    branches:
+      - feat/pnc-002-cp010-circular-runtime-proof
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/**
+      - .github/workflows/pnc-002-cp010-runtime.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/**
+      - .github/workflows/pnc-002-cp010-runtime.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-pnc-002-cp010-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-pnc-002-cp010:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        run: |
+          cd artifacts/api-server
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --resolveJsonModule \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002 -name '*.ts' -print)
+      - name: Bundle CP-010 runtime proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-cp010.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-002-cp010-proof.mjs
+      - name: Run CP-010 proof and generate review export
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          mkdir -p dist/quant-v4/pnc-002-cp010-diagnostics
+          set +e
+          node dist/quant-v4/pnc-002-cp010-proof.mjs 2>&1 | tee dist/quant-v4/pnc-002-cp010-diagnostics/runtime.log
+          status=${PIPESTATUS[0]}
+          exit "$status"
+      - name: Publish CP-010 review files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-002-cp010-question-explanation-review
+          path: artifacts/api-server/dist/quant-v4/pnc-002-cp010-review/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Publish CP-010 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-002-cp010-diagnostics
+          path: artifacts/api-server/dist/quant-v4/pnc-002-cp010-diagnostics/
+          if-no-files-found: error
+          retention-days: 3

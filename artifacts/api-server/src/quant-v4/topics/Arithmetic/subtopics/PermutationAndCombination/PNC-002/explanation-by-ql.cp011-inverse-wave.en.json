@@ -1,0 +1,31 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-011",
+  "language": "en",
+  "entries": {
+    "PNC-QL-239": {
+      "lines": [
+        "Only even totals in the stated range can be divided into two equal groups.",
+        "For each candidate total, count the equal divisions and divide by two because the two groups are unnamed.",
+        "The unique matching calculation is {equation}.",
+        "Therefore, the total number of people is {answer}."
+      ]
+    },
+    "PNC-QL-240": {
+      "lines": [
+        "With distinct objects and labelled receivers, each object independently chooses one receiver.",
+        "Evaluate the assignment count for every allowed receiver count and compare it with the target.",
+        "The unique match is {equation}.",
+        "Hence, the number of labelled receivers is {answer}."
+      ]
+    },
+    "PNC-QL-241": {
+      "lines": [
+        "Identical objects distributed among labelled receivers with empties allowed form weak compositions.",
+        "Test each permitted receiver count with the stars-and-bars authority.",
+        "The unique target match is {equation}.",
+        "Therefore, the number of labelled receivers is {answer}."
+      ]
+    }
+  }
+}

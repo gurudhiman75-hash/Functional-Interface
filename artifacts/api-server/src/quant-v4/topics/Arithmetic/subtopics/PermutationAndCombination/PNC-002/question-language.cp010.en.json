@@ -1,0 +1,169 @@
+{
+  "packageId": "PNC-002",
+  "language": "en",
+  "ownership": "HUMAN_OWNED",
+  "entries": [
+    {
+      "qlId": "PNC-QL-177",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Easy",
+      "template": "In how many different ways can {totalObjects} people sit around a round table if rotations of the same seating are treated as identical?"
+    },
+    {
+      "qlId": "PNC-QL-178",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Easy",
+      "template": "At a round-table meeting of {totalObjects} people, one person is fixed as the reference. In how many relative seatings can the remaining people be arranged?"
+    },
+    {
+      "qlId": "PNC-QL-179",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Easy",
+      "template": "Among {totalObjects} people seated around a round table, two specified people must sit together. How many arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-180",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Medium",
+      "template": "Among {totalObjects} people seated around a round table, two specified people must not sit together. How many arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-181",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Medium",
+      "template": "Among {totalObjects} people seated around a round table, {blockSize} specified people must occupy consecutive seats. How many arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-182",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Medium",
+      "template": "Among {totalObjects} people seated around a round table, two disjoint specified pairs must each sit together. How many arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-183",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Hard",
+      "template": "Among {totalObjects} people seated around a round table, one specified pair and a separate specified group of {secondBlockSize} people must each sit together. How many arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-184",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Hard",
+      "template": "Among {totalObjects} people seated around a round table, one specified pair must sit together while another disjoint specified pair must not sit together. How many arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-185",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Hard",
+      "template": "Among {totalObjects} people seated around a round table, two specified pairs must each sit together, but the two formed pair-blocks must not be adjacent. How many arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-186",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Hard",
+      "template": "Among {totalObjects} people seated around a round table, at least one of two disjoint specified pairs must sit together. How many arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-187",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Hard",
+      "template": "Among {totalObjects} people seated around a round table, neither of two disjoint specified pairs may sit together. How many arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-188",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Medium",
+      "template": "Among {totalObjects} people seated around a round table, A must sit between B and C and be adjacent to both. How many arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-189",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Medium",
+      "template": "An even number of {totalObjects} people sit around a round table. In how many arrangements do A and B occupy opposite seats?"
+    },
+    {
+      "qlId": "PNC-QL-190",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Medium",
+      "template": "Among {totalObjects} people seated around a round table, A must sit immediately clockwise of B. How many arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-191",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Medium",
+      "template": "Among {totalObjects} people seated around a round table, exactly {gapCount} people must lie between A and B when moving clockwise from A to B. How many arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-192",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Hard",
+      "template": "Among {totalObjects} people seated around a round table, at least {minimumGap} people must lie between A and B when moving clockwise from A to B. How many arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-193",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Hard",
+      "template": "Among {totalObjects} people seated around a round table, at most {maximumGap} people may lie between A and B when moving clockwise from A to B. How many arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-194",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Medium",
+      "template": "Among {totalObjects} people seated around a round table, A, B and C must occur in that clockwise order, not necessarily consecutively. How many arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-195",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Hard",
+      "template": "Among {totalObjects} people seated around a round table, A, B, C and D must occur in that clockwise order, not necessarily consecutively. How many arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-196",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Medium",
+      "template": "There are {categorySize} members of Category A and {categorySize} members of Category B. In how many round-table arrangements do the two categories alternate?"
+    },
+    {
+      "qlId": "PNC-QL-197",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Hard",
+      "template": "There are {largeCount} members of Category A and {smallCount} members of Category B. In how many round-table arrangements are no two Category B members adjacent?"
+    },
+    {
+      "qlId": "PNC-QL-198",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Hard",
+      "template": "Among {totalObjects} people seated around a round table, {specifiedCount} are specially identified. In how many arrangements are no two identified people adjacent?"
+    },
+    {
+      "qlId": "PNC-QL-199",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Medium",
+      "template": "The number of distinct round-table seatings of n people is {target}, where rotations are identical. Find n."
+    },
+    {
+      "qlId": "PNC-QL-200",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Hard",
+      "template": "The number of round-table arrangements of n people in which a specified pair sits together is {target}. Find n."
+    },
+    {
+      "qlId": "PNC-QL-201",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Medium",
+      "template": "In how many ways can {totalObjects} distinct symbols be placed on a one-sided circular display if rotations are identical but mirror images are different?"
+    },
+    {
+      "qlId": "PNC-QL-202",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Medium",
+      "template": "In how many necklaces can {totalObjects} distinct beads be arranged if rotations and mirror images are both treated as identical?"
+    },
+    {
+      "qlId": "PNC-QL-203",
+      "cpId": "PNC-CP-010",
+      "difficulty": "Hard",
+      "template": "In how many necklaces can {totalObjects} distinct beads be arranged if two specified beads must be adjacent and rotations and mirror images are both treated as identical?"
+    }
+  ]
+}

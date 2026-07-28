@@ -1,0 +1,105 @@
+name: Validate PNC-002 CP-012 mixed advanced runtime
+
+on:
+  push:
+    branches:
+      - feat/pnc-002-cp012-mixed-advanced-runtime-proof
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/**
+      - .github/workflows/pnc-002-cp012-runtime.yml
+  pull_request:
+    branches:
+      - feat/pnc-002-cp011-grouping-distribution
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/**
+      - .github/workflows/pnc-002-cp012-runtime.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-pnc-002-cp012-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-pnc-002-cp012:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        shell: bash
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/pnc-002-cp012-diagnostics
+          cp artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/cp012-mixed-runtime.ts artifacts/api-server/dist/quant-v4/pnc-002-cp012-diagnostics/cp012-mixed-runtime.ts
+          cd artifacts/api-server
+          set +e
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --resolveJsonModule \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/cp012-mixed-runtime.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/cp012-mixed-runtime-reviewed.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-cp012-mixed.test.ts \
+            2>&1 | tee dist/quant-v4/pnc-002-cp012-diagnostics/typescript.log
+          status=${PIPESTATUS[0]}
+          exit "$status"
+      - name: Bundle CP-012 runtime proof
+        shell: bash
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/pnc-002-cp012-diagnostics
+          set +e
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-cp012-mixed.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/pnc-002-cp012-proof.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/pnc-002-cp012-diagnostics/bundle.log
+          status=${PIPESTATUS[0]}
+          exit "$status"
+      - name: Run CP-012 proof and generate review export
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          mkdir -p dist/quant-v4/pnc-002-cp012-diagnostics
+          set +e
+          node dist/quant-v4/pnc-002-cp012-proof.mjs 2>&1 | tee dist/quant-v4/pnc-002-cp012-diagnostics/runtime.log
+          status=${PIPESTATUS[0]}
+          exit "$status"
+      - name: Publish CP-012 review files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-002-cp012-question-explanation-review
+          path: artifacts/api-server/dist/quant-v4/pnc-002-cp012-review/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Publish CP-012 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-002-cp012-diagnostics
+          path: artifacts/api-server/dist/quant-v4/pnc-002-cp012-diagnostics/
+          if-no-files-found: error
+          retention-days: 3

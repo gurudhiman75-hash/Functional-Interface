@@ -1,0 +1,97 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-011",
+  "status": "RUNTIME_PROOF",
+  "groups": [
+    {
+      "qlIds": ["PNC-QL-209"],
+      "solveMode": "countLabelledPrescribedGroups",
+      "scenarioFamily": "labelledTwoUnequalGroups",
+      "requiredVariables": ["totalObjects", "firstGroupSize", "secondGroupSize"],
+      "constraintProfile": "cp011-labelled-prescribed-groups",
+      "distractorProfile": "cp011-labelled-vs-unlabelled",
+      "difficulty": "Easy"
+    },
+    {
+      "qlIds": ["PNC-QL-210"],
+      "solveMode": "countLabelledPrescribedGroups",
+      "scenarioFamily": "labelledEqualGroups",
+      "requiredVariables": ["totalObjects", "groupCount", "groupSize"],
+      "constraintProfile": "cp011-labelled-prescribed-groups",
+      "distractorProfile": "cp011-labelled-vs-unlabelled",
+      "difficulty": "Medium"
+    },
+    {
+      "qlIds": ["PNC-QL-211"],
+      "solveMode": "countUnlabelledPrescribedGroups",
+      "scenarioFamily": "unlabelledThreeDistinctSizes",
+      "requiredVariables": ["totalObjects", "firstGroupSize", "secondGroupSize", "thirdGroupSize"],
+      "constraintProfile": "cp011-unlabelled-prescribed-groups",
+      "distractorProfile": "cp011-ignore-group-identity",
+      "difficulty": "Medium"
+    },
+    {
+      "qlIds": ["PNC-QL-212"],
+      "solveMode": "countUnlabelledEqualGroups",
+      "scenarioFamily": "unlabelledEqualGroups",
+      "requiredVariables": ["totalObjects", "groupCount", "groupSize"],
+      "constraintProfile": "cp011-unlabelled-equal-groups",
+      "distractorProfile": "cp011-forget-interchange-correction",
+      "difficulty": "Medium"
+    },
+    {
+      "qlIds": ["PNC-QL-213"],
+      "solveMode": "countUnlabelledPrescribedGroups",
+      "scenarioFamily": "unlabelledMixedRepeatedSizes",
+      "requiredVariables": ["totalObjects", "smallGroupCount", "smallGroupSize", "largeGroupCount", "largeGroupSize"],
+      "constraintProfile": "cp011-unlabelled-mixed-repeated-sizes",
+      "distractorProfile": "cp011-partial-interchange-correction",
+      "difficulty": "Hard"
+    },
+    {
+      "qlIds": ["PNC-QL-214"],
+      "solveMode": "countUnlabelledEqualGroups",
+      "scenarioFamily": "unnamedPairs",
+      "requiredVariables": ["totalObjects", "pairCount"],
+      "constraintProfile": "cp011-unnamed-pairs",
+      "distractorProfile": "cp011-pair-order-overcount",
+      "difficulty": "Medium"
+    },
+    {
+      "qlIds": ["PNC-QL-215"],
+      "solveMode": "countSpecifiedPairSameLabelledEqualGroup",
+      "scenarioFamily": "specifiedPairLabelledEqualGroups",
+      "requiredVariables": ["totalObjects", "groupCount", "groupSize"],
+      "constraintProfile": "cp011-pair-same-labelled-equal",
+      "distractorProfile": "cp011-use-unrestricted-group-count",
+      "difficulty": "Medium"
+    },
+    {
+      "qlIds": ["PNC-QL-216"],
+      "solveMode": "countSpecifiedPairDifferentLabelledEqualGroups",
+      "scenarioFamily": "specifiedPairLabelledEqualGroups",
+      "requiredVariables": ["totalObjects", "groupCount", "groupSize"],
+      "constraintProfile": "cp011-pair-different-labelled-equal",
+      "distractorProfile": "cp011-confuse-same-and-different",
+      "difficulty": "Medium"
+    },
+    {
+      "qlIds": ["PNC-QL-217"],
+      "solveMode": "countSpecifiedPairSameUnlabelledEqualGroup",
+      "scenarioFamily": "specifiedPairUnlabelledEqualGroups",
+      "requiredVariables": ["totalObjects", "groupCount", "groupSize"],
+      "constraintProfile": "cp011-pair-same-unlabelled-equal",
+      "distractorProfile": "cp011-forget-unlabelled-quotient",
+      "difficulty": "Hard"
+    },
+    {
+      "qlIds": ["PNC-QL-218"],
+      "solveMode": "countSpecifiedPairDifferentUnlabelledEqualGroups",
+      "scenarioFamily": "specifiedPairUnlabelledEqualGroups",
+      "requiredVariables": ["totalObjects", "groupCount", "groupSize"],
+      "constraintProfile": "cp011-pair-different-unlabelled-equal",
+      "distractorProfile": "cp011-double-count-unnamed-groups",
+      "difficulty": "Hard"
+    }
+  ]
+}

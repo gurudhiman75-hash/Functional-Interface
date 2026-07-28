@@ -1,0 +1,13 @@
+{
+  "packageId": "PNC-002",
+  "language": "en",
+  "ownership": "HUMAN_OWNED_EDITORIAL_OVERRIDE",
+  "entries": {
+    "PNC-QL-189": {
+      "template": "{totalObjects} people are seated around a round table. In how many arrangements do A and B occupy diametrically opposite seats?"
+    },
+    "PNC-QL-192": {
+      "template": "Among {totalObjects} people seated around a round table, the number of people between A and B when moving clockwise from A to B must be at least {minimumGap}. How many arrangements are possible?"
+    }
+  }
+}

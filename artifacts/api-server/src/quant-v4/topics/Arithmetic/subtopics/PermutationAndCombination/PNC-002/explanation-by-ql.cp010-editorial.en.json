@@ -1,0 +1,21 @@
+{
+  "packageId": "PNC-002",
+  "language": "en",
+  "ownership": "HUMAN_OWNED_EDITORIAL_OVERRIDE",
+  "entries": {
+    "PNC-QL-199": {
+      "lines": [
+        "For distinct people around a round table, fix one person and arrange everyone else.",
+        "Search the stated bounded domain until this count equals {target}; the matching equation is {equation}.",
+        "Therefore, the required number of people is {answer}."
+      ]
+    },
+    "PNC-QL-200": {
+      "lines": [
+        "Treat the specified pair as one circular block and retain its two internal orders.",
+        "The bounded inverse search matches this count to {target}: {equation}.",
+        "Hence, the original circular group contains {answer} people."
+      ]
+    }
+  }
+}

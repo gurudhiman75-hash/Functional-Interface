@@ -1,0 +1,202 @@
+{
+  "packageId": "PNC-002",
+  "answerCeiling": 1000000000,
+  "pools": {
+    "roundTableTotals": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "blockStates": [
+      {
+        "totalObjects": 6,
+        "blockSize": 2
+      },
+      {
+        "totalObjects": 7,
+        "blockSize": 2
+      },
+      {
+        "totalObjects": 7,
+        "blockSize": 3
+      },
+      {
+        "totalObjects": 8,
+        "blockSize": 3
+      },
+      {
+        "totalObjects": 9,
+        "blockSize": 4
+      }
+    ],
+    "twoPairTotals": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "pairGroupStates": [
+      {
+        "totalObjects": 7,
+        "firstBlockSize": 2,
+        "secondBlockSize": 3
+      },
+      {
+        "totalObjects": 8,
+        "firstBlockSize": 2,
+        "secondBlockSize": 3
+      },
+      {
+        "totalObjects": 9,
+        "firstBlockSize": 2,
+        "secondBlockSize": 4
+      }
+    ],
+    "pairConditionTotals": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "neighborTotals": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "oppositeTotals": [
+      6,
+      8
+    ],
+    "exactClockwiseGapStates": [
+      {
+        "totalObjects": 6,
+        "gapCount": 1
+      },
+      {
+        "totalObjects": 7,
+        "gapCount": 2
+      },
+      {
+        "totalObjects": 8,
+        "gapCount": 3
+      },
+      {
+        "totalObjects": 9,
+        "gapCount": 4
+      }
+    ],
+    "minimumClockwiseGapStates": [
+      {
+        "totalObjects": 6,
+        "minimumGap": 1
+      },
+      {
+        "totalObjects": 7,
+        "minimumGap": 2
+      },
+      {
+        "totalObjects": 8,
+        "minimumGap": 3
+      },
+      {
+        "totalObjects": 9,
+        "minimumGap": 2
+      }
+    ],
+    "maximumClockwiseGapStates": [
+      {
+        "totalObjects": 6,
+        "maximumGap": 1
+      },
+      {
+        "totalObjects": 7,
+        "maximumGap": 2
+      },
+      {
+        "totalObjects": 8,
+        "maximumGap": 3
+      },
+      {
+        "totalObjects": 9,
+        "maximumGap": 2
+      }
+    ],
+    "clockwiseOrderStates": [
+      {
+        "totalObjects": 6,
+        "orderLength": 3
+      },
+      {
+        "totalObjects": 7,
+        "orderLength": 3
+      },
+      {
+        "totalObjects": 8,
+        "orderLength": 4
+      },
+      {
+        "totalObjects": 9,
+        "orderLength": 4
+      }
+    ],
+    "alternationCategorySizes": [
+      3,
+      4
+    ],
+    "categoryNonAdjacentStates": [
+      {
+        "largeCount": 4,
+        "smallCount": 2
+      },
+      {
+        "largeCount": 5,
+        "smallCount": 2
+      },
+      {
+        "largeCount": 5,
+        "smallCount": 3
+      },
+      {
+        "largeCount": 6,
+        "smallCount": 3
+      }
+    ],
+    "specifiedNonAdjacentStates": [
+      {
+        "totalObjects": 7,
+        "specifiedCount": 2
+      },
+      {
+        "totalObjects": 8,
+        "specifiedCount": 3
+      },
+      {
+        "totalObjects": 9,
+        "specifiedCount": 3
+      }
+    ],
+    "inverseCircularValues": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "inverseCircularPairValues": [
+      5,
+      6,
+      7,
+      8
+    ],
+    "ornamentTotals": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  }
+}
