@@ -9,7 +9,8 @@ def patch(path: Path, replacements: list[tuple[str, str]]) -> None:
     text = path.read_text(encoding="utf8")
     for old, new in replacements:
         text = text.replace(old, new)
-    if "£" in text or "€" in text or "¥" in text:
+    source_without_audit_literal = text.replace("[£€¥]", "")
+    if "£" in source_without_audit_literal or "€" in source_without_audit_literal or "¥" in source_without_audit_literal:
         raise SystemExit(f"{path}: foreign currency remains after hardening")
     if "formatIndianInteger" not in text:
         raise SystemExit(f"{path}: Indian number formatter was not imported or used")
