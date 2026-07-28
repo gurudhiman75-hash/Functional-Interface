@@ -2,15 +2,24 @@ import { getTmwCp008Entry } from "./cp008-registry";
 import { buildTmwCp008Parameters, solveTmwCp008, validTmwCp008Solution, verifyTmwCp008 } from "./cp008-engine";
 import { buildTmwCp008Options } from "./cp008-options";
 import { renderTmwCp008Stem, tmwCp008CommonTrap, tmwCp008Conclusion, tmwCp008Givens, tmwCp008Opening, tmwCp008Shortcut } from "./cp008-presentation";
-import { rationalKey } from "./rational";
+import { equals, formatRational, rational, rationalKey } from "./rational";
+import type { Rational } from "./types";
 import type { TmwCp008GeneratedQuestion, TmwCp008Parameters } from "./cp008-types";
 function inline(value:string):string{return `\\(${value}\\)`;}
 function balanced(value:string):boolean{return (value.match(/\\\(/g)??[]).length===(value.match(/\\\)/g)??[]).length;}
 function fingerprint(p:TmwCp008Parameters):string{const role=(x:TmwCp008Parameters["context"]["roles"][number])=>[x.count,x.efficiency,x.days,x.hoursPerDay,x.output,x.baselineOutput,x.defectiveOutput].map(rationalKey).join(":");return[...p.context.roles.map(role),rationalKey(p.totalPayment),String(p.targetIndex??"-"),(p.selectedIndices??[]).join(","),(p.contributionWeights??[]).map(rationalKey).join(","),(p.reportedPayments??[]).map(rationalKey).join(","),(p.knownPaymentIndices??[]).join(","),p.eventKind??"-",p.factorTarget??"-",p.pieceRate?rationalKey(p.pieceRate):"-",p.bonusPool?rationalKey(p.bonusPool):"-"].join("|");}
 function moneyAnswer(answerType:string):boolean{return answerType==="MONEY"||answerType==="MONEY_TRIPLE";}
+function singularOutputUnit(p:TmwCp008Parameters):string{return p.context.outputUnit==="square metres"?"square metre":p.context.outputUnit.replace(/s$/ ,"");}
+function rateText(p:TmwCp008Parameters,value:Rational):string{return `${formatRational(value)} ${equals(value,rational(1))?singularOutputUnit(p):p.context.outputUnit} per hour`;}
+function polishStem(p:TmwCp008Parameters,raw:string):string{
+ const c=p.context.roles,target=p.targetIndex??0,other=target===0?1:0;let stem=raw;
+ if(p.eventKind==="HANDOFF")stem=stem.replace(`Their relative efficiencies are ${formatRational(c[0].efficiency)} and ${formatRational(c[1].efficiency)}.`,`Their individual work rates are ${rateText(p,c[0].efficiency)} and ${rateText(p,c[1].efficiency)}.`);
+ if(p.factorTarget==="TIME")stem=stem.replace(`Their efficiencies are ${formatRational(c[target].efficiency)} and ${formatRational(c[other].efficiency)}, and they work equal daily hours.`,`Their individual work rates are ${rateText(p,c[target].efficiency)} and ${rateText(p,c[other].efficiency)}, and they work equal daily hours.`);
+ return stem;
+}
 export function runTmwCp008Pipeline(input:{questionLanguageId:string;seed:string;language?:"en"|"hi"|"pa"}):TmwCp008GeneratedQuestion{
  if(input.language&&input.language!=="en")throw new Error("TMW-CP-008 is English only at the current runtime-proof stage");
- const entry=getTmwCp008Entry(input.questionLanguageId),parameters=buildTmwCp008Parameters(entry,input.seed),solution=solveTmwCp008(entry,parameters),optionSet=buildTmwCp008Options(entry,parameters,solution,input.seed),stem=renderTmwCp008Stem(entry,parameters),formula=inline(solution.formulaLatex),steps=solution.workedLatex.map(inline),shortcut=tmwCp008Shortcut(entry,parameters,solution),commonTrap=tmwCp008CommonTrap(optionSet.options,optionSet.correctIndex),opening=tmwCp008Opening(entry),givens=tmwCp008Givens(entry,parameters),conclusion=tmwCp008Conclusion(entry,parameters,solution.answerText),errors:string[]=[];
+ const entry=getTmwCp008Entry(input.questionLanguageId),parameters=buildTmwCp008Parameters(entry,input.seed),solution=solveTmwCp008(entry,parameters),optionSet=buildTmwCp008Options(entry,parameters,solution,input.seed),stem=polishStem(parameters,renderTmwCp008Stem(entry,parameters)),formula=inline(solution.formulaLatex),steps=solution.workedLatex.map(inline),shortcut=tmwCp008Shortcut(entry,parameters,solution),commonTrap=tmwCp008CommonTrap(optionSet.options,optionSet.correctIndex),opening=tmwCp008Opening(entry),givens=tmwCp008Givens(entry,parameters),conclusion=tmwCp008Conclusion(entry,parameters,solution.answerText),errors:string[]=[];
  const learnerText=[stem,opening,formula,...givens,...steps,shortcut.title,...shortcut.steps,commonTrap.optionLabel,commonTrap.optionText,commonTrap.explanation,conclusion].join(" ");
  if(!verifyTmwCp008(entry,parameters,solution))errors.push("Independent contribution invariant disagrees with canonical solver");
  if(!validTmwCp008Solution(solution))errors.push("Answer is not a positive admissible value");
