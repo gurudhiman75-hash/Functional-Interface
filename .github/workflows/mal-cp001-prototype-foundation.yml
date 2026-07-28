@@ -1,4 +1,4 @@
-name: Validate MAL-CP-001 discovery foundation
+name: Validate MAL-CP-001 discovery and freeze preparation
 
 on:
   pull_request:
@@ -56,6 +56,17 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/mal-001-cp001-discovery-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-discovery-audit.log
+      - name: Bundle MAL-CP-001 freeze-preparation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-freeze-preparation-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-freeze-preparation-audit.mjs
+      - name: Run MAL-CP-001 freeze-preparation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/mal-001-cp001-freeze-preparation-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-freeze-preparation-audit.log
       - name: Bundle MAL-CP-001 discovery review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -73,6 +84,7 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/mal-001-cp001-discovery-proof.log
             artifacts/api-server/dist/quant-v4/mal-001-cp001-discovery-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-freeze-preparation-audit.log
             artifacts/api-server/dist/quant-v4/mal-001-cp001-discovery-review.json
             artifacts/api-server/dist/quant-v4/mal-001-cp001-discovery-review.md
           if-no-files-found: error
