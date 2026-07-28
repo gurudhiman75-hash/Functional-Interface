@@ -30,12 +30,18 @@ const EXPLANATION_OVERRIDES: Readonly<Record<string, string>> = {
   "add-inner-area": "adding the inner area even though a path or border is the outer area minus the inner area",
   "omit-inner-area": "using the whole outer area and forgetting to remove the inner region",
   "use-linear-conversion-factor": "dividing or multiplying by 100 as though the measurement were a length instead of an area",
+
   "cp006-cm2-to-m2-divide-by-100": "dividing by 100 as though cm² were a length conversion instead of an area conversion",
   "cp006-cm2-to-m2-divide-by-1000": "dividing by 1,000 instead of the full square-unit factor 10,000",
   "cp006-cm2-to-m2-no-conversion": "keeping the square-centimetre number unchanged while labelling it as square metres",
   "cp006-m2-to-cm2-multiply-by-100": "multiplying by 100 as though m² were a length conversion instead of an area conversion",
   "cp006-m2-to-cm2-multiply-by-1000": "multiplying by 1,000 instead of the full square-unit factor 10,000",
   "cp006-m2-to-cm2-no-conversion": "keeping the square-metre number unchanged while labelling it as square centimetres",
+
+  "cp006-square-area-report-circle-area": "stopping at the area of the original circle instead of finding the area of the reshaped square",
+  "cp006-square-area-use-radius-square": "using r² as though the circle's radius were also the side of the square",
+  "cp006-square-area-use-wire-square-over-eight": "using the wire length in an incorrect area expression instead of first dividing it among four square sides",
+  "cp006-circle-area-report-source-square-area": "stopping at the area of the original square instead of finding the area of the reshaped circle",
 };
 
 const CORRECTION_OVERRIDES: Readonly<Record<string, string>> = {
@@ -61,12 +67,18 @@ const CORRECTION_OVERRIDES: Readonly<Record<string, string>> = {
   "add-inner-area": "A border is the ring between two boundaries, so subtract inner area from outer area.",
   "omit-inner-area": "Remove the inner region: border or path area = outer area − inner area.",
   "use-linear-conversion-factor": "Area conversion uses 100² = 10,000, not 100.",
+
   "cp006-cm2-to-m2-divide-by-100": "Length conversion uses 100, but area conversion uses 100² = 10,000. Divide cm² by 10,000 to obtain m².",
   "cp006-cm2-to-m2-divide-by-1000": "Use 1 m² = 10,000 cm², so divide by 10,000.",
   "cp006-cm2-to-m2-no-conversion": "Convert the unit as well as the label: divide the cm² value by 10,000.",
   "cp006-m2-to-cm2-multiply-by-100": "Length conversion uses 100, but area conversion uses 100² = 10,000. Multiply m² by 10,000 to obtain cm².",
   "cp006-m2-to-cm2-multiply-by-1000": "Use 1 m² = 10,000 cm², so multiply by 10,000.",
   "cp006-m2-to-cm2-no-conversion": "Convert the numerical value too: multiply the m² value by 10,000.",
+
+  "cp006-square-area-report-circle-area": "This is the original circle's area. Do not stop here—the question asks for the reshaped square, so find its side from the same wire and then square it.",
+  "cp006-square-area-use-radius-square": "The square's side is not equal to r. First use 4s = 2πr, then calculate s².",
+  "cp006-square-area-use-wire-square-over-eight": "First divide the full wire length by 4 to get the square's side; only then square that side.",
+  "cp006-circle-area-report-source-square-area": "This is the original square's area. Continue by using its perimeter as the circle's circumference, find r, and then calculate πr².",
 };
 
 const PRIMARY_ACTIONS = new Set([
