@@ -1,7 +1,7 @@
 # TMW-CP-008 Editorial Review
 
 **Sample:** 13 QLs × 3 mathematically distinct states = 39 candidate questions  
-**Language:** English  
+**Language:** English for Indian competitive examinations  
 **Publication:** disabled
 
 ## Learner contract
@@ -9,13 +9,14 @@
 Every question contains:
 
 1. a realistic workplace, construction, banking, warehouse or factory setting;
-2. an explicit payment target and £ unit where applicable;
-3. a plain-English contribution rule;
-4. a literal inline MathJax formula;
-5. generated givens and complete standard working;
-6. a solve-mode-specific 10-second shortcut;
-7. an actual-option common-trap warning without internal misconception IDs;
-8. a contextual conclusion.
+2. an explicit payment target and Indian Rupee (`₹`) unit where applicable;
+3. Indian comma grouping for larger amounts, such as `₹1,200`;
+4. a plain-English contribution rule;
+5. a literal inline MathJax formula;
+6. generated givens and complete standard working with explicit arithmetic substitutions;
+7. a solve-mode-specific 10-second shortcut;
+8. an actual-option diagnostic trap explanation without learner-facing internal IDs;
+9. a contextual conclusion.
 
 ## Editorial decisions
 
@@ -24,22 +25,23 @@ Every question contains:
 - selected payment, total pool and residual amount are explicitly distinguished;
 - join, leave and handoff stems state actual participation intervals;
 - mixed-category roles are genuinely different within each scenario;
-- category ratios are shown in reduced form;
+- category and answer ratios are shown in reduced form with readable spacing;
 - piece-rate stems name the contextual paid unit;
 - bonus questions subtract baseline output before allocation;
 - rejected or rework output is deducted before payment;
-- money options always carry £;
-- generic fallback values such as answer+1 are not used when a meaningful misconception option is available.
+- all generic money uses `₹`, matching the Indian exam contexts and audience;
+- standard solutions show each multiplication, subtraction or inverse-share substitution before the final answer;
+- common-trap explanations diagnose how the displayed distractor arises instead of saying “Do not choose Option X”;
+- misconception IDs remain reviewer metadata and do not appear in student prose.
 
-## Review corrections after first proof
+## Adversarial review corrections
 
-- split missing time and missing efficiency because they require different answer units;
-- bounded distractor fallback after an inadmissible fractional bonus state exposed a possible loop;
-- changed one bonus pool so every generated share is integral;
-- replaced repeated warehouse role labels with packer, quality checker and loader;
-- reduced raw contribution totals before presenting ratios;
-- replaced generic “work units per day” with contextual output per hour;
-- required three distinct mathematical fingerprints, not context-only stem variation, in the review export.
+- replaced pounds sterling with Indian Rupees throughout stems, options, conclusions and learning blocks;
+- added deterministic Indian-number formatting;
+- expanded contribution products, staged weights, inverse equations, bonus differences and accepted-net-output calculations;
+- changed ratio stems from compact name-colon-name wording to natural “X to Y” wording;
+- converted negative trap commands into direct option-specific diagnoses;
+- added permanent guards for currency mismatch, working brevity and negative trap phrasing.
 
 ## Current verdict
 
