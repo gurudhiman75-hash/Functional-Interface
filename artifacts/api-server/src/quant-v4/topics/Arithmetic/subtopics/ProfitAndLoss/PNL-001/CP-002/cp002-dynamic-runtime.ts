@@ -546,8 +546,9 @@ function generateCase(qlId: string, seed: string): GeneratedCase {
       const units = pickSeeded(random, BUNDLE_PAIRS);
       const paidUnits = BigInt(units[0]);
       const freeUnits = BigInt(units[1]);
+      const totalUnits = Number(paidUnits + freeUnits);
       const unitMarkedPrice = rupees(
-        pickNumber(random, [120, 150, 180, 200, 240, 300, 360, 400]),
+        totalUnits * pickNumber(random, [80, 100, 120, 150, 200]),
       );
       return {
         qlId,
