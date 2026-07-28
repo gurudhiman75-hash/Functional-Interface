@@ -7,6 +7,7 @@ export interface BlrCp002PrototypeContract {
     | "SPEAKER_TO_POINTED"
     | "NESTED_QUERY_ENDPOINT"
     | "TWO_SPEAKER_CONVERSATION"
+    | "THREE_ANCHOR_INTRODUCTION"
     | "SELF_IDENTITY";
   requiredAnswerShape: "RELATION_LABEL" | "RELATION_LABEL_OR_SELF";
   requiresListener: boolean;
@@ -53,6 +54,16 @@ export const BLR_CP002_PROTOTYPE_CONTRACTS: readonly BlrCp002PrototypeContract[]
     requiredAnswerShape: "RELATION_LABEL",
     requiresListener: true,
     requiresPointedPerson: false,
+    minimumRoleDepth: 2,
+    status: "PROTOTYPE",
+    permanentQlId: null,
+  },
+  {
+    prototypeId: "BLR-CP002-PROT-THREE-ANCHOR-INTRODUCTION",
+    taskKind: "THREE_ANCHOR_INTRODUCTION",
+    requiredAnswerShape: "RELATION_LABEL",
+    requiresListener: true,
+    requiresPointedPerson: true,
     minimumRoleDepth: 2,
     status: "PROTOTYPE",
     permanentQlId: null,
