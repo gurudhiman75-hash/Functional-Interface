@@ -111,6 +111,17 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/mal-001-cp001-product-approval-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-product-approval-audit.log
+      - name: Bundle MAL-CP-001 provisional QL expansion audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-ql-expansion-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-ql-expansion-audit.mjs
+      - name: Run MAL-CP-001 provisional QL expansion audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/mal-001-cp001-ql-expansion-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-ql-expansion-audit.log
       - name: Bundle MAL-CP-001 discovery review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -129,6 +140,15 @@ jobs:
       - name: Generate MAL-CP-001 eight-candidate review matrix
         working-directory: artifacts/api-server
         run: node dist/quant-v4/mal-001-cp001-freeze-candidate-review-export.mjs
+      - name: Bundle MAL-CP-001 provisional QL expansion review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-ql-expansion-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-ql-expansion-review-export.mjs
+      - name: Generate MAL-CP-001 provisional QL expansion review
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/mal-001-cp001-ql-expansion-review-export.mjs
       - name: Upload MAL-CP-001 discovery evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -142,9 +162,12 @@ jobs:
             artifacts/api-server/dist/quant-v4/mal-001-cp001-editorial-v2-audit.log
             artifacts/api-server/dist/quant-v4/mal-001-cp001-allocation-recommendation-audit.log
             artifacts/api-server/dist/quant-v4/mal-001-cp001-product-approval-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-ql-expansion-audit.log
             artifacts/api-server/dist/quant-v4/mal-001-cp001-discovery-review.json
             artifacts/api-server/dist/quant-v4/mal-001-cp001-discovery-review.md
             artifacts/api-server/dist/quant-v4/mal-001-cp001-freeze-candidate-review.json
             artifacts/api-server/dist/quant-v4/mal-001-cp001-freeze-candidate-review.md
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-ql-expansion-review.json
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-ql-expansion-review.md
           if-no-files-found: error
           retention-days: 7
