@@ -100,6 +100,17 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/mal-001-cp001-allocation-recommendation-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-allocation-recommendation-audit.log
+      - name: Bundle MAL-CP-001 product approval audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-product-approval-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-product-approval-audit.mjs
+      - name: Run MAL-CP-001 product approval audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/mal-001-cp001-product-approval-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-product-approval-audit.log
       - name: Bundle MAL-CP-001 discovery review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -130,6 +141,7 @@ jobs:
             artifacts/api-server/dist/quant-v4/mal-001-cp001-freeze-candidate-review-audit.log
             artifacts/api-server/dist/quant-v4/mal-001-cp001-editorial-v2-audit.log
             artifacts/api-server/dist/quant-v4/mal-001-cp001-allocation-recommendation-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-product-approval-audit.log
             artifacts/api-server/dist/quant-v4/mal-001-cp001-discovery-review.json
             artifacts/api-server/dist/quant-v4/mal-001-cp001-discovery-review.md
             artifacts/api-server/dist/quant-v4/mal-001-cp001-freeze-candidate-review.json
