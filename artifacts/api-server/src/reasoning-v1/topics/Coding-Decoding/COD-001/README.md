@@ -1,6 +1,6 @@
 # COD-001 — Coding–Decoding
 
-Status: **COD-CP-001 through COD-CP-007 implemented at English runtime-proof maturity; COD-CP-009 English discovery frozen under `COD_CP009_ENGLISH_DISCOVERY_FREEZE_V1`; COD-CP-008 and COD-CP-010 remain unimplemented**.
+Status: **COD-CP-001 through COD-CP-007 implemented at English runtime-proof maturity; COD-CP-008 English discovery frozen under `COD_CP008_ENGLISH_DISCOVERY_FREEZE_V1`; COD-CP-009 English discovery frozen under `COD_CP009_ENGLISH_DISCOVERY_FREEZE_V1`; COD-CP-010 remains unimplemented**.
 
 Student-facing chapter: **Coding–Decoding**  
 Reasoning V1 package: `COD-001`  
@@ -52,6 +52,32 @@ Choose-matching-code is a presentation variant of `COD-QL-172`. The runtime reus
 
 The next available chapter identity is `COD-QL-173`.
 
+## COD-CP-008 frozen discovery state
+
+Freeze version:
+
+```text
+COD_CP008_ENGLISH_DISCOVERY_FREEZE_V1
+```
+
+Exactly two non-permanent English solve contracts survive:
+
+1. `DIRECT_RENAMED_LABEL` — apply the renamed label to a directly stated referent;
+2. `SEMANTIC_REFERENT_THEN_RENAME` — resolve one curated ordinary fact, property, role, category or use, then apply one renaming edge.
+
+The prototype proof covers 400 deterministic questions, 15 curated facts, four semantic categories, open chains and cycles, all answer positions, all three renderers and Easy/Medium/Hard reach. Chain length, topology, context and option wording are instance properties.
+
+Character substitution remains in CP-001; sentence overlap remains in CP-009; conditional tables remain in CP-010. No recurring materially distinct inverse-original-referent contract was found.
+
+CP-008 currently has zero permanent QLs. After this freeze merges, the guarded allocation may assign exactly:
+
+```text
+COD-QL-173 — DIRECT_RENAMED_LABEL
+COD-QL-174 — SEMANTIC_REFERENT_THEN_RENAME
+```
+
+Question Studio, localisation and public publication remain disabled.
+
 ## COD-CP-009 frozen discovery state
 
 CP-009 has:
@@ -69,7 +95,7 @@ Its allocation remains sequenced behind CP-008.
 
 ## Remaining chapter sequence
 
-1. design and implement CP-008 through exhaustive discovery;
+1. allocate and implement the two frozen CP-008 contracts;
 2. allocate the frozen CP-009 contracts sequentially after CP-008;
 3. design and implement CP-010;
 4. complete chapter-wide English saturation and review;
@@ -80,5 +106,5 @@ Its allocation remains sequenced behind CP-008.
 
 - Question Studio visibility remains disabled.
 - No COD-001 QL is publicly publishable yet.
-- Hindi and Punjabi are not started for CP-007.
+- Hindi and Punjabi are not started for CP-007 or CP-008.
 - Mathematical operations, coded inequalities, input-output, figure coding and cross-topic coded relations remain outside COD-001.
