@@ -25,8 +25,11 @@ export function finaliseIntCp001HumanisedStem(
   );
   if (reordered !== initial) return reordered;
 
-  return initial.replace(
+  const contextualClause = initial.replace(
     /^At (.+?), an investment\b/u,
     `For ${context}, at $1, the investment`,
   );
+  if (contextualClause !== initial) return contextualClause;
+
+  return initial.replace(/^A sum becomes /u, `${context} becomes `);
 }
