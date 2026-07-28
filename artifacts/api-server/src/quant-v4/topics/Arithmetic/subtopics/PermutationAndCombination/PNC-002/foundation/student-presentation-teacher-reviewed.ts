@@ -60,14 +60,31 @@ function reviewedStepSection(
   };
 }
 
+function reviewedCoreSection(
+  source: PncStudentSourcePackage,
+  section: PncStudentExplanationSection,
+): PncStudentExplanationSection {
+  if (source.questionLanguageId !== "PNC-QL-269") return section;
+  return {
+    ...section,
+    heading: "📌 Core Concept — Build the Team Quota, Then Choose Captains",
+    lines: [
+      "Form Team A with the required women–men split; because the teams are named, every remaining member then belongs to Team B automatically.",
+      "Only after both teams are fixed should one captain be chosen independently from each team.",
+    ],
+  };
+}
+
 export function buildPnc002ReviewedTeacherStudentPresentation(
   source: PncStudentSourcePackage,
 ): PncStudentPresentation {
   const teacher = buildPnc002TeacherStudentPresentation(source);
   return {
     ...teacher,
-    explanationSections: teacher.explanationSections.map((section) => (
-      section.kind === "stepByStep" ? reviewedStepSection(source, section) : section
-    )),
+    explanationSections: teacher.explanationSections.map((section) => {
+      if (section.kind === "coreConcept") return reviewedCoreSection(source, section);
+      if (section.kind === "stepByStep") return reviewedStepSection(source, section);
+      return section;
+    }),
   };
 }
