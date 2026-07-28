@@ -1,0 +1,86 @@
+name: MEN-001 Final Trap Specificity
+
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize]
+    paths:
+      - .github/workflows/men-001-final-trap-specificity.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Refine remaining trap explanations
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/structured-common-traps.ts")
+          text = path.read_text()
+
+          old_report = '''    case "report":
+            case "retain": {
+              const source = instead?.[0] ?? afterText;
+              const destination = instead?.[1] ?? beforeText;
+              return destination
+                ? `stopping at ${withArticle(source)} instead of calculating ${withArticle(destination)}`
+                : `stopping at ${withArticle(source)} before the requested calculation is complete`;
+            }'''
+          new_report = '''    case "report":
+            case "retain": {
+              if (as) return `stopping at ${withArticle(as[0])} and treating it as ${withArticle(as[1])}`;
+              const source = instead?.[0] ?? afterText;
+              const destination = instead?.[1] ?? beforeText;
+              return destination
+                ? `stopping at ${withArticle(source)} instead of calculating ${withArticle(destination)}`
+                : `stopping at ${withArticle(source)} before the requested calculation is complete`;
+            }'''
+          if old_report not in text:
+              raise SystemExit("report/retain block not found")
+          text = text.replace(old_report, new_report, 1)
+
+          rhombus_anchor = '''  if (/Rhombus|Kite|Diagonal/.test(mode)) {
+              return "Use the correct diagonal relation and retain the 1/2 factor where the area formula requires it.";
+            }'''
+          rhombus_replacement = '''  if (/RhombusPerimeterFromDiagonals/.test(mode)) {
+              return "Halve both diagonals, use Pythagoras to find one rhombus side, then multiply that side by 4 for the perimeter.";
+            }
+            if (/Rhombus|Kite|Diagonal/.test(mode)) {
+              return "Use the correct diagonal relation and retain the 1/2 factor where the area formula requires it.";
+            }'''
+          if rhombus_anchor not in text:
+              raise SystemExit("rhombus correction block not found")
+          text = text.replace(rhombus_anchor, rhombus_replacement, 1)
+
+          path_anchor = '''  if (/Path|Border|Shaded|Remaining|Uncovered|Annulus/.test(mode)) {
+              return "Calculate the complete outer area and subtract the inner or excluded area exactly once.";
+            }'''
+          path_replacement = '''  if (/(?:Path|Border).*Cost|Cost.*(?:Path|Border)/.test(mode)) {
+              return "Find path or border area = outer area − inner area, then multiply that area by the stated rate to obtain the total cost.";
+            }
+            if (/Path|Border|Shaded|Remaining|Uncovered|Annulus/.test(mode)) {
+              return "Calculate the complete outer area and subtract the inner or excluded area exactly once.";
+            }'''
+          if path_anchor not in text:
+              raise SystemExit("path correction block not found")
+          path.write_text(text.replace(path_anchor, path_replacement, 1))
+          PY
+
+      - name: Commit patch
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/structured-common-traps.ts
+          git commit -m "fix(mensuration): refine remaining trap methods"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
