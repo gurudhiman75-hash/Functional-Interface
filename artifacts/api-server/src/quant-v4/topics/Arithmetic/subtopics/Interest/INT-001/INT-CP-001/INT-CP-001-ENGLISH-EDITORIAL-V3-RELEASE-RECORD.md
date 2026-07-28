@@ -5,7 +5,23 @@ Editorial standard: `FOUR_TIER_GOLD_V3`
 Mathematical baseline: `INT-CP-001-EN-v1`  
 Supersedes editorial presentation: `INT-CP-001-EN-v2`  
 Permanent QL range: `INT-QL-001..INT-QL-021`  
-Status: **FROZEN_ENGLISH_CONTRACT — REVIEW ONLY**
+Status: **FROZEN_ENGLISH_CONTRACT — ENGLISH EDITORIAL APPROVED; UNPUBLISHED**
+
+## Approval
+
+English editorial approval was granted by the project owner on **2026-07-28**.
+
+Approval covers:
+
+- the 21-QL English mathematical inventory;
+- the `FOUR_TIER_GOLD_V3` learner presentation;
+- inline and display MathJax conventions;
+- Indian currency grouping;
+- exam-speed shortcuts;
+- contextualised English stems;
+- distractor explanations and misconception alignment.
+
+Approval does **not** activate Question Bank storage, test eligibility, public publication or Question Studio routing. Hindi and Punjabi parity remain separate downstream gates.
 
 ## Scope
 
@@ -87,4 +103,4 @@ publiclyPublishable:         false
 questionStudioDiscoverable:  false
 ```
 
-The audit's statement that the content is production ready is an editorial-quality judgement. Actual live deployment still requires explicit downstream publication approval, multilingual parity and routing activation.
+The English package is approved for downstream localisation and release preparation. Live deployment still requires Hindi/Punjabi parity, explicit publication-state changes and routing activation.
