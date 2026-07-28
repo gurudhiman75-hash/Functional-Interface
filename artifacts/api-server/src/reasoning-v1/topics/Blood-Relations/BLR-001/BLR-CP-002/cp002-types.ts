@@ -2,6 +2,7 @@ import type {
   BlrDifficulty,
   BlrExplanationTrace,
   BlrRelationId,
+  BlrRoleId,
   FamilyGraph,
 } from "../foundation/types";
 
@@ -23,7 +24,7 @@ export type BlrCp002Anchor = "SPEAKER" | "LISTENER" | "POINTED_PERSON";
 export type BlrCp002AnswerId = BlrRelationId | "SELF";
 
 export interface BlrRoleStep {
-  relationId: BlrRelationId;
+  relationId: BlrRoleId;
   quantifier: "ANY" | "ONLY";
 }
 
@@ -44,7 +45,7 @@ export type BlrRoleAssertionRelation =
     }
   | {
       kind: "KINSHIP";
-      relationId: BlrRelationId;
+      relationId: BlrRoleId;
       quantifier: "ANY" | "ONLY";
     };
 
