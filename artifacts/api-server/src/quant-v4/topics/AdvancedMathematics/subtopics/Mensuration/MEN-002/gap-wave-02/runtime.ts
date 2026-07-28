@@ -94,7 +94,7 @@ const EQUAL_VOLUME_STATES = [
   { oldL: 14n, oldB: 9n, oldH: 12n, newL: 21n, newB: 8n, newH: 9n },
   { oldL: 16n, oldB: 10n, oldH: 9n, newL: 24n, newB: 10n, newH: 6n },
   { oldL: 18n, oldB: 12n, oldH: 10n, newL: 20n, newB: 18n, newH: 6n },
-  { oldL: 20n, oldB: 15n, oldH: 12n, newL: 25n, newB: 18n, newH: 8n },
+  { oldL: 20n, oldB: 15n, oldH: 12n, newL: 30n, newB: 24n, newH: 5n },
 ] as const;
 const RATIO_PAIRS = [
   [2n, 3n],
