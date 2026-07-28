@@ -116,11 +116,15 @@ function assertOptionFormatting(question: any, qlId: string, seed: string): void
           fail(`${qlId}/${seed}: quantity option lacks unit: ${option}`);
         }
         break;
-      case "COMPONENT_QUANTITY_PAIR":
-        if (!/\band\b/u.test(option) || !/\b(?:kg|litres?)$/u.test(option)) {
-          fail(`${qlId}/${seed}: pair option lacks labels or units: ${option}`);
+      case "COMPONENT_QUANTITY_PAIR": {
+        const unitBearingQuantities = option.match(
+          /\b\d+(?:\s+\d+\/\d+)?\s+(?:kg|litres?)\b/gu,
+        ) ?? [];
+        if (!/\band\b/u.test(option) || unitBearingQuantities.length !== 2) {
+          fail(`${qlId}/${seed}: pair option lacks two labelled quantities with units: ${option}`);
         }
         break;
+      }
     }
   }
 }
