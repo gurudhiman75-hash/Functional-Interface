@@ -1,0 +1,44 @@
+name: MEN-002 CP008 Cylinder State Patch
+
+on:
+  pull_request:
+    branches:
+      - design/men-002-end-to-end-discovery
+    types: [opened, reopened, synchronize]
+    paths:
+      - .github/workflows/men-002-cp008-cylinder-state-patch.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Replace collision-prone cylinder state
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp008-foundation/runtime.ts")
+          lines = path.read_text().splitlines()
+          matches = [index for index, line in enumerate(lines) if line == "  { radius: 3n, height: 8n },"]
+          if len(matches) != 1:
+            raise SystemExit(f"Expected one cylinder state match, found {len(matches)}")
+          lines[matches[0]] = "  { radius: 8n, height: 11n },"
+          path.write_text("\n".join(lines) + "\n")
+          PY
+
+      - name: Commit patch
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp008-foundation/runtime.ts
+          git commit -m "fix(mensuration): replace collision-prone CP-008 cylinder state"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
