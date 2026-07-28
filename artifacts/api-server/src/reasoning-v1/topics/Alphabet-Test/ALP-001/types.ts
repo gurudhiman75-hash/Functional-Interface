@@ -177,10 +177,22 @@ export interface AlpOption {
   readonly errorLabel: string | null;
 }
 
+export interface AlpDistractorAnalysis {
+  readonly optionIndex: number;
+  readonly optionValue: string;
+  readonly errorLabel: string;
+  readonly explanation: string;
+}
+
 export interface AlpExplanation {
+  readonly schemaVersion: "ALP-001-PEDAGOGY-V2";
+  readonly coreConcept: string;
   readonly ruleStatement: string;
   readonly steps: readonly string[];
+  readonly visualWorking: readonly string[];
+  readonly examShortcut: string;
   readonly conclusion: string;
+  readonly distractorAnalyses: readonly AlpDistractorAnalysis[];
   readonly closestTrapRejection: string;
 }
 
@@ -208,7 +220,7 @@ export interface GeneratedAlpQuestion {
   readonly answer: string;
   readonly explanation: AlpExplanation;
   readonly metadata: {
-    readonly runtimeVersion: "ALP-001-RUNTIME-V1";
+    readonly runtimeVersion: "ALP-001-RUNTIME-V2";
     readonly localeMode: "TRANSLATABLE";
     readonly independentSolverVerified: true;
     readonly ambiguityAudit: "EXPLICIT_OPERATION_UNIQUE";
