@@ -32,19 +32,13 @@ jobs:
 
           path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-cases.ts")
           source = path.read_text()
-          anchor = "function middleTraderCase(random: SeededRandom)"
-          start = source.index(anchor)
-          end = source.index("\n}\n\nfunction forwardContext", start)
-          block = source[start:end]
           old = "const commissionPercent = rational(pickNumber(random, COMMISSION_RATES));"
-          if block.count(old) != 1:
-              raise SystemExit(f"expected one middle-trader commission selector, found {block.count(old)}")
-          block = block.replace(
-              old,
-              "// A 20% commission leaves 4/5 of gross; all generated net targets are exact multiples of 4 paise.\n  const commissionPercent = rational(20);",
-              1,
-          )
-          path.write_text(source[:start] + block + source[end:])
+          replacement = "// A 20% commission leaves 4/5 of gross, keeping every generated inverse exact to the paise.\n  const commissionPercent = rational(20);"
+          if source.count(old) < 1:
+              if replacement in source:
+                  raise SystemExit(0)
+              raise SystemExit("middle-trader commission selector was not found")
+          path.write_text(source.replace(old, replacement, 1))
           PY
 
       - name: Set up Node
