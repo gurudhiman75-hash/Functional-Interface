@@ -93,9 +93,11 @@ function repairCandidates(
   }
 
   if (ql.answerType === "NUMBER_PAIR") {
-    const parts = pairParts(correct)?.map(Number);
-    if (!parts || parts.some((value) => !Number.isInteger(value))) return [];
-    const [first, second] = parts;
+    const parts = pairParts(correct);
+    if (!parts) return [];
+    const first = Number(parts[0]);
+    const second = Number(parts[1]);
+    if (!Number.isInteger(first) || !Number.isInteger(second)) return [];
     return uniqueRepairCandidates([
       { value: `${second}, ${first}`, errorLabel: "REVERSED_PAIR_ORDER" },
       { value: `${Math.max(0, first - 1)}, ${second}`, errorLabel: "FIRST_COUNT_OFF_BY_ONE" },
@@ -122,8 +124,8 @@ function repairCandidates(
   if (ql.answerType === "DIRECTION_OFFSET") {
     const match = correct.match(/^(\d+) to the (left|right)$/);
     if (!match) return [];
-    const amount = Number(match[1]);
-    const direction = match[2];
+    const amount = Number(match[1]!);
+    const direction = match[2]!;
     const opposite = direction === "left" ? "right" : "left";
     return uniqueRepairCandidates([
       { value: `${amount} to the ${opposite}`, errorLabel: "CORRECT_DISTANCE_WRONG_DIRECTION" },
@@ -142,7 +144,7 @@ function repairCandidates(
       { value: answerRefs[0] ?? wordRefs[0] ?? "", errorLabel: "CHECKED_FIRST_POSITION_ONLY" },
       { value: answerRefs.at(-1) ?? wordRefs.at(-1) ?? "", errorLabel: "CHECKED_LAST_POSITION_ONLY" },
       { value: answerRefs.slice(0, Math.max(1, answerRefs.length - 1)).join("; "), errorLabel: "PARTIAL_POSITION_COMPARISON" },
-      { value: [...answerRefs].reverse().join("; "), errorLabel: "REVERSED_PAIR_ORDER" },
+      { value: wordRefs.slice(0, 2).join("; "), errorLabel: "PARTIAL_POSITION_COMPARISON" },
       { value: wordRefs.filter((_, index) => index % 2 === 0).slice(0, 3).join("; "), errorLabel: "CHECKED_ALTERNATE_POSITIONS_ONLY" },
     ], correct);
   }
