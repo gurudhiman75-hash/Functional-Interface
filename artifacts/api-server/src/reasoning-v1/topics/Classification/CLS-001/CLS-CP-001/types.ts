@@ -30,6 +30,17 @@ export type SurfaceKind = "COMMON_NOUN" | "PROPER_NOUN" | "UNIT_TERM";
 
 export type FactRisk = "LOW" | "MEDIUM";
 
+export type DifficultyFeatures = {
+  readonly hierarchyDepth: number;
+  readonly allItemsShareParent: boolean;
+  readonly multiMembershipItemCount: number;
+  readonly candidateRuleCount: number;
+  readonly inverseTask: boolean;
+  readonly crossCutting: boolean;
+  readonly semanticDemand: 0 | 1 | 2;
+  readonly score: number;
+};
+
 export type SemanticEntity = {
   readonly entityId: string;
   readonly label: string;
@@ -107,6 +118,7 @@ export type GeneratedClassificationQuestion = {
   readonly family: PrototypeFamily;
   readonly generationProfile: GenerationProfile;
   readonly difficulty: Difficulty;
+  readonly difficultyFeatures: DifficultyFeatures;
   readonly intendedClassId: string;
   readonly intendedClassLabel: string;
   readonly stem: string;
@@ -124,6 +136,7 @@ export type GeneratedClassificationQuestion = {
     readonly independentSolverVerified: true;
     readonly hierarchyAware: true;
     readonly multiMembershipAware: true;
+    readonly difficultyModel: "CLS-CP001-INSTANCE-DIFFICULTY-v1";
   };
   readonly lifecycle: Lifecycle;
 };
