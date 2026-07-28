@@ -355,28 +355,28 @@ async function generateWithRuntimePackage(
     pnlRuntimeMode === "DYNAMIC_CANDIDATE"
       ? cpId === "PNL-CP-001"
         ? runPnlCp001DynamicPipeline({
-  difficultyBand,
-  language: language as "en",
-  questionLanguageId: request.questionLanguageId,
-  seed,
-})
+            difficultyBand,
+            language: language as "en",
+            questionLanguageId: request.questionLanguageId,
+            seed,
+          })
         : cpId === "PNL-CP-002"
-? runPnlCp002DynamicPipeline({
-    difficultyBand,
-    language: language as "en",
-    questionLanguageId: request.questionLanguageId,
-    seed,
-  })
-: (() => {
-    throw new QuantV4RequestError(
-      `No dynamic PNL runtime is registered for '${cpId}'.`,
-    );
-  })()
+          ? runPnlCp002DynamicPipeline({
+              difficultyBand,
+              language: language as "en",
+              questionLanguageId: request.questionLanguageId,
+              seed,
+            })
+          : (() => {
+              throw new QuantV4RequestError(
+                `No dynamic PNL runtime is registered for '${cpId}'.`,
+              );
+            })()
       : await pkg.run(cpId, {
-difficulty: difficultyBand,
-language,
-questionLanguageId: request.questionLanguageId,
-seed,
+          difficulty: difficultyBand,
+          language,
+          questionLanguageId: request.questionLanguageId,
+          seed,
         });
     results.push({
       questionPackage,
