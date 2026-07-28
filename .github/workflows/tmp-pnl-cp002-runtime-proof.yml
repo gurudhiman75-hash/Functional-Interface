@@ -33,11 +33,11 @@ jobs:
           source = path.read_text()
           old = '''      const unitMarkedPrice = rupees(
                 pickNumber(random, [120, 150, 180, 200, 240, 300, 360, 400]),
-              );'''
+              );'''.replace("              ", "")
           new = '''      const totalUnits = Number(paidUnits + freeUnits);
-              const unitMarkedPrice = rupees(
-                totalUnits * pickNumber(random, [80, 100, 120, 150, 200]),
-              );'''
+          const unitMarkedPrice = rupees(
+            totalUnits * pickNumber(random, [80, 100, 120, 150, 200]),
+          );'''
           if old not in source:
               raise SystemExit("Expected CP-002 bundle-price block was not found")
           path.write_text(source.replace(old, new, 1))
