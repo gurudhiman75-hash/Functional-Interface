@@ -18,6 +18,10 @@ const DISPLAY_LABELS: Readonly<Record<BlrRelationId, string>> = {
   GRANDMOTHER: "Grandmother",
   GRANDSON: "Grandson",
   GRANDDAUGHTER: "Granddaughter",
+  GREAT_GRANDFATHER: "Great-grandfather",
+  GREAT_GRANDMOTHER: "Great-grandmother",
+  GREAT_GRANDSON: "Great-grandson",
+  GREAT_GRANDDAUGHTER: "Great-granddaughter",
   UNCLE: "Uncle",
   AUNT: "Aunt",
   NEPHEW: "Nephew",
@@ -62,6 +66,12 @@ export function relationForPath(
   if (key === "SPOUSE") return subjectGender === "MALE" ? "HUSBAND" : "WIFE";
   if (key === "CHILD>CHILD") return subjectGender === "MALE" ? "GRANDFATHER" : "GRANDMOTHER";
   if (key === "PARENT>PARENT") return subjectGender === "MALE" ? "GRANDSON" : "GRANDDAUGHTER";
+  if (key === "CHILD>CHILD>CHILD") {
+    return subjectGender === "MALE" ? "GREAT_GRANDFATHER" : "GREAT_GRANDMOTHER";
+  }
+  if (key === "PARENT>PARENT>PARENT") {
+    return subjectGender === "MALE" ? "GREAT_GRANDSON" : "GREAT_GRANDDAUGHTER";
+  }
   if (key === "SIBLING>CHILD") return subjectGender === "MALE" ? "UNCLE" : "AUNT";
   if (key === "PARENT>SIBLING") return subjectGender === "MALE" ? "NEPHEW" : "NIECE";
   if (key === "PARENT>SIBLING>CHILD") return "COUSIN";
@@ -87,6 +97,10 @@ export function genderSwap(relationId: BlrRelationId): BlrRelationId | null {
     GRANDMOTHER: "GRANDFATHER",
     GRANDSON: "GRANDDAUGHTER",
     GRANDDAUGHTER: "GRANDSON",
+    GREAT_GRANDFATHER: "GREAT_GRANDMOTHER",
+    GREAT_GRANDMOTHER: "GREAT_GRANDFATHER",
+    GREAT_GRANDSON: "GREAT_GRANDDAUGHTER",
+    GREAT_GRANDDAUGHTER: "GREAT_GRANDSON",
     UNCLE: "AUNT",
     AUNT: "UNCLE",
     NEPHEW: "NIECE",
@@ -115,6 +129,10 @@ export function defaultDistractorPool(relationId: BlrRelationId): readonly BlrRe
     GRANDMOTHER: ["MOTHER", "AUNT", "GRANDDAUGHTER", "MOTHER_IN_LAW"],
     GRANDSON: ["SON", "NEPHEW", "GRANDFATHER", "SON_IN_LAW"],
     GRANDDAUGHTER: ["DAUGHTER", "NIECE", "GRANDMOTHER", "DAUGHTER_IN_LAW"],
+    GREAT_GRANDFATHER: ["GRANDFATHER", "FATHER", "GREAT_GRANDSON", "UNCLE"],
+    GREAT_GRANDMOTHER: ["GRANDMOTHER", "MOTHER", "GREAT_GRANDDAUGHTER", "AUNT"],
+    GREAT_GRANDSON: ["GRANDSON", "SON", "GREAT_GRANDFATHER", "NEPHEW"],
+    GREAT_GRANDDAUGHTER: ["GRANDDAUGHTER", "DAUGHTER", "GREAT_GRANDMOTHER", "NIECE"],
     UNCLE: ["BROTHER", "FATHER", "NEPHEW", "BROTHER_IN_LAW"],
     AUNT: ["SISTER", "MOTHER", "NIECE", "SISTER_IN_LAW"],
     NEPHEW: ["SON", "BROTHER", "UNCLE", "COUSIN"],
