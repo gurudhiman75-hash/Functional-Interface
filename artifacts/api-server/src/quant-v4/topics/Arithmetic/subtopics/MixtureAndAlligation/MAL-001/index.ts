@@ -68,6 +68,14 @@ export {
   MAL_CP001_FOUNDATION_REVIEW_SEEDS,
   buildMalCp001FoundationReviewModel,
 } from "./foundation/cp001-foundation-review-model";
+export {
+  MAL_CP001_PERMANENT_QL_IDS,
+  MAL_CP001_PERMANENT_ALLOCATION,
+  getMalCp001PermanentAllocation,
+} from "./foundation/cp001-permanent-allocation";
+export {
+  runMalCp001PermanentPipeline,
+} from "./foundation/cp001-permanent-runtime";
 export { generateMalCp001PrototypeParameters } from "./foundation/cp001-parameter-generator";
 export { generateMalCp001GapParameters } from "./foundation/cp001-gap-generator";
 export { generateMalCp001Prototype } from "./foundation/pipeline";
@@ -111,3 +119,11 @@ export type {
   MalCp001FoundationTemplateGroup,
   MalCp001FoundationReviewModel,
 } from "./foundation/cp001-foundation-review-model";
+export type {
+  MalCp001PermanentQlId,
+  MalCp001PermanentAllocationEntry,
+} from "./foundation/cp001-permanent-allocation";
+export type {
+  MalCp001PermanentRuntimeInput,
+  MalCp001PermanentQuestion,
+} from "./foundation/cp001-permanent-runtime";
