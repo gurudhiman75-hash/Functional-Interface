@@ -2,6 +2,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { generateCod001Question } from "../multilingual-runtime";
+import { formatCodExplanationMarkdown } from "./explanation-markdown";
 
 const outputDirectory = process.argv[2] ?? "cod-cp008-adapted-review-output";
 mkdirSync(outputDirectory, { recursive: true });
@@ -25,7 +26,6 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
   ];
   questions.forEach((question, index) => {
     const options = question.options as readonly { value: string; isCorrect: boolean }[];
-    const explanation = question.explanation as Record<string, unknown>;
     markdown.push(
       `## ${index + 1}. ${question.qlId ?? question.permanentQlId} — Seed ${question.seed}`,
       "",
@@ -33,7 +33,7 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
       "",
       ...options.map((option, optionIndex) => `${String.fromCharCode(65 + optionIndex)}. ${option.value}${option.isCorrect ? " **✓**" : ""}`),
       "",
-      `**Explanation:** ${JSON.stringify(explanation, null, 2)}`,
+      ...formatCodExplanationMarkdown(question),
       "",
       "---",
       "",
