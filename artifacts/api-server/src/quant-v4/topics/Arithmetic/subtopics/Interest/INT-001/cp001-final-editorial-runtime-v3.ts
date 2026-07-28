@@ -4,10 +4,10 @@ import {
   type IntCp001FinalEditorialQuestion as IntCp001FinalEditorialV2Question,
 } from "./cp001-final-editorial-runtime";
 import type { IntCp001FinalQlId } from "./cp001-final-registry";
+import { finaliseIntCp001HumanisedStem } from "./cp001-editorial-v3-context-fix";
 import {
   containsRawAsciiMath,
   hasGenericTextbookStemOpening,
-  humaniseIntCp001Stem,
   normaliseIntCp001InlineMath,
   normaliseIntCp001InlineMathText,
 } from "./cp001-editorial-v3";
@@ -29,7 +29,7 @@ export function generateIntCp001FinalEditorialV3Question(
   seed: string,
 ): IntCp001FinalEditorialV3Question {
   const v2 = generateIntCp001FinalEditorialV2Question(qlId, seed);
-  const stem = normaliseIntCp001InlineMathText(humaniseIntCp001Stem(qlId, seed, v2.stem));
+  const stem = normaliseIntCp001InlineMathText(finaliseIntCp001HumanisedStem(qlId, seed, v2.stem));
   const options = v2.options.map(normaliseIntCp001InlineMathText);
   const optionAudit = v2.optionAudit.map((option, index) => ({
     ...option,
