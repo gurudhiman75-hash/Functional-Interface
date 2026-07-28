@@ -118,6 +118,7 @@ router.post(
         difficulty,
         targetDifficulty,
         questionLanguageId,
+        runtimeMode,
       } = req.body as {
         patternId?: string;
         packageId?: string;
@@ -133,6 +134,7 @@ router.post(
         difficulty?: unknown;
         targetDifficulty?: number;
         questionLanguageId?: string;
+        runtimeMode?: "CANONICAL_REVIEW" | "DYNAMIC_CANDIDATE";
       };
 
       if (
@@ -174,6 +176,7 @@ router.post(
         difficulty:
           difficulty ?? targetDifficulty,
         questionLanguageId,
+        runtimeMode,
       });
 
       return res.json({
