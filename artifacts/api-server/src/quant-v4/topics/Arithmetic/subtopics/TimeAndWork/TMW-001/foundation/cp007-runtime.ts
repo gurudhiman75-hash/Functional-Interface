@@ -28,7 +28,7 @@ function polishStem(entry:TmwCp007RegistryEntry,p:TmwCp007Parameters,raw:string)
   if(entry.solveMode==="findTwoCategoryEfficiencyRatio")stem=stem.replace("the same production assignment",p.context.jobPhrase);
   if(entry.solveMode==="findThreeCategoryEfficiencyRatio"){
     stem=stem.replace(/\b1 ([^.]+?) match the output of\b/,"1 $1 matches the output of");
-    stem=stem.replace(/Find the efficiency ratio ([^.]+)\./,"What is the efficiency ratio of one $1?");
+    stem=stem.replace(/Find the efficiency ratio [^.]+\./,`What is the efficiency ratio of one ${displayCategory(c[0].singular)} to one ${displayCategory(c[1].singular)} to one ${displayCategory(c[2].singular)}?`);
   }
   if(entry.solveMode==="findMixedCrewCompletionTime")stem=stem.replace("One unit of the three categories can produce",`One ${displayCategory(c[0].singular)}, one ${displayCategory(c[1].singular)} and one ${displayCategory(c[2].singular)} can produce`);
   if(entry.solveMode==="findHeterogeneousGroupRate")stem=stem.replace("During one operating period at","At").replace("One unit of the three categories produces",`One ${displayCategory(c[0].singular)}, one ${displayCategory(c[1].singular)} and one ${displayCategory(c[2].singular)} produce`);
@@ -39,12 +39,14 @@ function polishStem(entry:TmwCp007RegistryEntry,p:TmwCp007Parameters,raw:string)
   if(entry.solveMode==="findIntegerCrewCompositionUnderConstraints")stem=stem.replace("One member of the two categories produces",`One ${displayCategory(c[0].singular)} and one ${displayCategory(c[1].singular)} produce`);
   return stem;
 }
+function restoreOpeningMathJax(value:string):string{return value.replace("(n_Ae_A=n_Be_B)","\\(n_Ae_A=n_Be_B\\)");}
+function balancedInlineMath(value:string):boolean{return (value.match(/\\\(/g)??[]).length===(value.match(/\\\)/g)??[]).length;}
 
 export function runTmwCp007Pipeline(input:{questionLanguageId:string;seed:string;language?:"en"|"hi"|"pa"}):TmwCp007GeneratedQuestion{
   if(input.language&&input.language!=="en")throw new Error("TMW-CP-007 is English only at the current runtime-proof stage");
   const entry=getTmwCp007Entry(input.questionLanguageId),parameters=buildTmwCp007Parameters(entry,input.seed),solution=solveTmwCp007(entry,parameters),optionSet=buildTmwCp007Options(entry,parameters,solution,input.seed),stem=polishStem(entry,parameters,renderTmwCp007ExamStem(entry,parameters)),formula=wrapTmwCp007Math(solution.formulaLatex),steps=solution.workedLatex.map(wrapTmwCp007Math),shortcut=tmwCp007ExamShortcut(tmwCp007Shortcut(entry,parameters,solution)),commonTrap=tmwCp007FriendlyTrap(tmwCp007CommonTrap(optionSet.options,optionSet.correctIndex)),errors:string[]=[];
   const givens=[...tmwCp007Givens(entry,parameters),explainTmwCp007Target(entry,parameters,solution)];
-  const opening=tmwCp007PlainEnglishOpening(entry,parameters);
+  const opening=restoreOpeningMathJax(tmwCp007PlainEnglishOpening(entry,parameters));
   const explanationText=[opening,formula,...givens,...steps,shortcut.title,...shortcut.steps,commonTrap.optionLabel,commonTrap.optionText,commonTrap.explanation].join(" ");
   if(!verifyTmwCp007(entry,parameters,solution))errors.push("Independent heterogeneous-crew invariant check disagrees with the canonical solver");
   if(!isValidTmwCp007Answer(solution))errors.push("Answer is not positive");
@@ -53,6 +55,7 @@ export function runTmwCp007Pipeline(input:{questionLanguageId:string;seed:string
   if(/^(?:\d|How many |A crew containing|Group A contains|A crew has)/.test(stem))errors.push("Stem begins with a mechanical template phrase");
   if(/\b1\s+[^.]{0,60}\bmatch\b/.test(stem))errors.push("Stem contains a singular-subject verb error");
   if(/production assignment|One unit of the three categories|positive-integer composition|per-unit efficiencies|individual category efficiencies/.test(stem))errors.push("Stem contains a rejected mechanical phrase");
+  if(entry.solveMode==="findThreeCategoryEfficiencyRatio"&&/efficiency ratio of one [^?]*:[^?]*\?/.test(stem))errors.push("Three-category ratio question uses colon-separated nouns instead of natural order wording");
   if(/\{\{[^}]+\}\}|\$\{[^}]+\}/.test(stem))errors.push("Stem contains an unresolved placeholder");
   if(optionSet.options.length!==4)errors.push("Question does not contain exactly four options");
   if(new Set(optionSet.options.map(option=>option.text)).size!==4)errors.push("Options are not textually unique");
@@ -62,6 +65,8 @@ export function runTmwCp007Pipeline(input:{questionLanguageId:string;seed:string
   if(requiresUnitBearingOptions(entry.answerType)&&optionSet.options.some(option=>/^[-+]?\d+(?:\s+\d+\/\d+|\/\d+)?$/.test(option.text.trim())))errors.push("A unit-bearing answer option is missing its contextual unit");
   if(!/^\\\(.+\\\)$/.test(formula))errors.push("Explanation formula lacks inline MathJax delimiters");
   if(steps.some(step=>!/^\\\(.+\\\)$/.test(step)))errors.push("Explanation step lacks inline MathJax delimiters");
+  if(entry.ruleId==="TMW_CATEGORY_EQUIVALENCE"&&!opening.includes("\\(n_Ae_A=n_Be_B\\)"))errors.push("Category-equivalence rule lacks literal inline MathJax");
+  if(!balancedInlineMath(explanationText))errors.push("Explanation contains unbalanced inline MathJax delimiters");
   if(givens.length<2)errors.push("Explanation does not define the supplied data and answer target");
   if(!shortcut.title.startsWith("10-Second ")||shortcut.steps.length<2)errors.push("Exam shortcut is incomplete");
   if(commonTrap.optionText===solution.answerText)errors.push("Common trap points to the correct answer");
