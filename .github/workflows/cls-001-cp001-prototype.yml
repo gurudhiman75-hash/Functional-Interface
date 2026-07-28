@@ -12,14 +12,10 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: cls-001-cp001-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   validate-semantic-classification:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 45
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -40,62 +36,43 @@ jobs:
 
       - name: Bundle CLS-CP-001 audits
         run: |
-          set -euo pipefail
           ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-001
           OUT=dist/reasoning-v1/cls-001
           mkdir -p artifacts/api-server/$OUT
-          for TEST in prototype hierarchy-ambiguity editorial-difficulty; do
-            pnpm --dir artifacts/api-server exec esbuild \
-              "$ROOT/$TEST.test.ts" \
-              --bundle --platform=node --format=esm \
-              --outfile="$OUT/$TEST.test.mjs"
+          for TEST in prototype hierarchy-ambiguity editorial-difficulty cp001-coherent-group-runtime cp001-permanent-runtime cp001-multilingual-runtime; do
+            pnpm --dir artifacts/api-server exec esbuild "$ROOT/$TEST.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/$TEST.test.mjs"
           done
 
       - name: Run CLS-CP-001 audits
-        id: cls_audit
         run: |
-          set +e
-          DIAG=artifacts/api-server/dist/reasoning-v1/cls-001/diagnostics
-          mkdir -p "$DIAG"
-          STATUS=0
-          for TEST in prototype hierarchy-ambiguity editorial-difficulty; do
-            (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/$TEST.test.mjs") >"$DIAG/$TEST-audit.log" 2>&1
-            if [ $? -ne 0 ]; then STATUS=1; fi
+          for TEST in prototype hierarchy-ambiguity editorial-difficulty cp001-coherent-group-runtime cp001-permanent-runtime cp001-multilingual-runtime; do
+            (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/$TEST.test.mjs")
           done
-          echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
-          exit 0
 
-      - name: Upload CLS audit diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: cls-001-cp001-audit-diagnostics
-          path: artifacts/api-server/dist/reasoning-v1/cls-001/diagnostics
-          if-no-files-found: error
-
-      - name: Enforce CLS-CP-001 audits
-        if: steps.cls_audit.outputs.exit_code != '0'
+      - name: Generate discovery review export
         run: |
-          for LOG in artifacts/api-server/dist/reasoning-v1/cls-001/diagnostics/*.log; do
-            echo "===== $LOG ====="
-            cat "$LOG"
-          done
-          exit 1
-
-      - name: Generate CLS-CP-001 review export
-        run: |
-          set -euo pipefail
           ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-001
           OUT=dist/reasoning-v1/cls-001
-          pnpm --dir artifacts/api-server exec esbuild \
-            "$ROOT/export-review.ts" \
-            --bundle --platform=node --format=esm \
-            --outfile="$OUT/export-review.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-review.mjs"
           (cd artifacts/api-server && node "$OUT/export-review.mjs")
 
-      - name: Upload semantic prototype review
+      - name: Generate permanent multilingual review export
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-001
+          OUT=dist/reasoning-v1/cls-001
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-cp001-permanent-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-cp001-permanent-review.mjs"
+          (cd artifacts/api-server && node "$OUT/export-cp001-permanent-review.mjs")
+
+      - name: Upload semantic discovery review
         uses: actions/upload-artifact@v4
         with:
           name: cls-001-cp001-semantic-prototype-review
           path: artifacts/api-server/dist/reasoning-v1/cls-001/cp001-review
+          if-no-files-found: error
+
+      - name: Upload permanent multilingual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp001-permanent-multilingual-review
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp001-permanent-review
           if-no-files-found: error
