@@ -1,0 +1,137 @@
+name: One-shot PNL CP-002 runtime proof
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-cp002-dynamic-runtime
+    paths:
+      - ".github/workflows/tmp-pnl-cp002-runtime-proof.yml"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - ".github/workflows/tmp-pnl-cp002-runtime-proof.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-prove:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-cp002-dynamic-runtime
+
+      - name: Correct QL-070 data sufficiency
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          runtime = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime.ts")
+          source = runtime.read_text()
+
+          old_context = '''                statementOne: `The target selling price is ${formatMoney(targetSellingPrice)}.`,
+                statementTwo: `The required reduction from marked price is ${formatMoney(discountAmount)}.`,
+                requiredDiscountPercent: formatRational(
+                  targetResult.discountPercent,
+                ),'''
+          new_context = '''                statementOne: `The cost price is ${formatMoney(costPrice)}, and the target result is ${formatPercent(targetRatePercent)} ${scenario.direction.toLowerCase()}.`,
+                statementTwo: `The marked price is ${formatMoney(scenarioMarkedPrice)}.`,
+                requiredDiscountPercent: formatRational(
+                  targetResult.discountPercent,
+                ),'''
+          if old_context not in source:
+              raise SystemExit("QL-070 context block was not found")
+          source = source.replace(old_context, new_context, 1)
+
+          old_answer = '''    case "PNL-QL-070":
+      return { kind: "TEXT", value: "Either statement alone is sufficient" };'''
+          new_answer = '''    case "PNL-QL-070":
+      return { kind: "TEXT", value: "Both statements together are required" };'''
+          if old_answer not in source:
+              raise SystemExit("QL-070 answer block was not found")
+          source = source.replace(old_answer, new_answer, 1)
+
+          old_stem = '''  const stem = renderStructuredStemMarkdown(editorial.stem, generated.context);'''
+          new_stem = '''  const stem =
+    qlId === "PNL-QL-070"
+      ? [
+          "A trader wants to sell a product at a stated target profit or loss. Is the required discount percentage uniquely determinable?",
+          "",
+          `**Statement I:** ${String(generated.context.statementOne)}`,
+          `**Statement II:** ${String(generated.context.statementTwo)}`,
+          "",
+          "Decide whether either statement alone or both statements together are sufficient.",
+        ].join("\\n")
+      : renderStructuredStemMarkdown(editorial.stem, generated.context);'''
+          if old_stem not in source:
+              raise SystemExit("Dynamic stem binding line was not found")
+          runtime.write_text(source.replace(old_stem, new_stem, 1))
+
+          test = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime.test.ts")
+          test_source = test.read_text()
+          marker = '''for (const difficulty of ["Easy", "Medium", "Hard"] as const) {'''
+          assertion = '''const ql070 = runPnlCp002DynamicPipeline({
+  questionLanguageId: "PNL-QL-070",
+  seed: "cp002-ql070-data-sufficiency",
+});
+assert.equal(ql070.answer, "Both statements together are required");
+assert.match(ql070.stem, /Statement I:/);
+assert.match(ql070.stem, /Statement II:/);
+assert.doesNotMatch(
+  ql070.stem.split("**Statement I:**")[0]!,
+  /cost price is|marked price is|target profit of/i,
+  "QL-070 lead must not disclose the values needed to solve the discount.",
+);
+
+'''
+          if marker not in test_source:
+              raise SystemExit("CP-002 proof insertion marker was not found")
+          test.write_text(test_source.replace(marker, assertion + marker, 1))
+          PY
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle and run complete proof
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/.cp002-dynamic-runtime.test.mjs \
+            2>&1 | tee pnl-cp002-ql070-proof.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/.cp002-dynamic-runtime.test.mjs \
+            2>&1 | tee -a pnl-cp002-ql070-proof.log
+
+      - name: Commit corrected runtime and proof
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime.test.ts
+          git commit -m "fix(pnl): make CP-002 QL-070 genuinely data sufficient"
+          git push origin HEAD:feat/pnl-001-cp002-dynamic-runtime
+
+      - name: Upload proof evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-cp002-ql070-proof
+          path: pnl-cp002-ql070-proof.log
+          if-no-files-found: warn
+          retention-days: 2
