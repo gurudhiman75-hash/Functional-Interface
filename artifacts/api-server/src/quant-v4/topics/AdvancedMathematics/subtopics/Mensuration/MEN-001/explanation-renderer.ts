@@ -5,6 +5,7 @@ import { getMen001SolveModeDefinition } from "./solve-mode-registry.all";
 import { buildMen001CommonTraps, type Men001OptionResult } from "./structured-common-traps";
 import { humanizeMen001Comprehension } from "./structured-comprehension-humanizer";
 import { refineMen001Comprehension } from "./structured-comprehension-refiner";
+import { ensureMen001ComprehensionSpecificity } from "./structured-comprehension-specificity";
 import { buildMen001StructuredExplanation } from "./structured-explanation";
 import { enhanceMen001StructuredSections } from "./structured-explanation-enhancer";
 import { addMen001ExamShortcut } from "./structured-exam-shortcuts";
@@ -75,7 +76,11 @@ export function renderMen001Explanation(
     teacherSections,
     parameters,
   );
-  const sections = latexizeMen001StructuredSections(refinedSections);
+  const specificSections = ensureMen001ComprehensionSpecificity(
+    refinedSections,
+    parameters,
+  );
+  const sections = latexizeMen001StructuredSections(specificSections);
   return {
     strategyId: entry.explanationStrategyId,
     displayFormat: "FOUR_TIER_COMPETITIVE_EXPLANATION",
