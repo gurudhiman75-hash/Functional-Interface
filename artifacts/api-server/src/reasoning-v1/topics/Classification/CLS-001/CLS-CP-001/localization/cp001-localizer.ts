@@ -8,11 +8,12 @@ import {
 
 export type GeneratedClsCp001LocalizedQuestion = Omit<
   GeneratedClsCp001EnglishQuestion,
-  "stem" | "givens" | "options" | "answer" | "intendedClassLabel" | "evidenceByOption" | "explanation" | "metadata"
+  "stem" | "givens" | "options" | "optionGroups" | "answer" | "intendedClassLabel" | "evidenceByOption" | "explanation" | "metadata"
 > & {
   readonly stem: string;
   readonly givens: readonly string[];
   readonly options: readonly string[];
+  readonly optionGroups: readonly (readonly string[])[];
   readonly answer: string;
   readonly intendedClassLabel: string;
   readonly evidenceByOption: readonly string[];
@@ -46,12 +47,29 @@ function localStem(
   givens: readonly string[],
   locale: ClsCp001TranslatedLocale,
 ): string {
+  if (question.task === "SELECT_COHERENT_GROUP") {
+    const hindi = [
+      "केवल एक विकल्प के सभी शब्द एक ही स्पष्ट वर्ग में आते हैं। वह विकल्प चुनिए।",
+      "उस विकल्प को चुनिए जिसके सभी शब्द मिलकर एक अर्थपूर्ण वर्ग बनाते हैं।",
+      "किस विकल्प में दिए गए सभी शब्द एक समान वर्ग से जुड़े हैं?",
+      "वह एकमात्र शब्द-समूह चुनिए जिसके सभी सदस्य एक ही वर्ग में आते हैं।",
+    ];
+    const punjabi = [
+      "ਕੇਵਲ ਇੱਕ ਵਿਕਲਪ ਦੇ ਸਾਰੇ ਸ਼ਬਦ ਇੱਕੋ ਸਪਸ਼ਟ ਵਰਗ ਵਿੱਚ ਆਉਂਦੇ ਹਨ। ਉਹ ਵਿਕਲਪ ਚੁਣੋ।",
+      "ਉਹ ਵਿਕਲਪ ਚੁਣੋ ਜਿਸ ਦੇ ਸਾਰੇ ਸ਼ਬਦ ਮਿਲ ਕੇ ਇੱਕ ਅਰਥਪੂਰਨ ਵਰਗ ਬਣਾਉਂਦੇ ਹਨ।",
+      "ਕਿਹੜੇ ਵਿਕਲਪ ਦੇ ਸਾਰੇ ਸ਼ਬਦ ਇੱਕੋ ਵਰਗ ਨਾਲ ਸਬੰਧਤ ਹਨ?",
+      "ਉਹ ਇਕੱਲਾ ਸ਼ਬਦ-ਸਮੂਹ ਚੁਣੋ ਜਿਸ ਦੇ ਸਾਰੇ ਮੈਂਬਰ ਇੱਕੋ ਵਰਗ ਵਿੱਚ ਆਉਂਦੇ ਹਨ।",
+    ];
+    const templates = locale === "hi-IN" ? hindi : punjabi;
+    return templates[question.seed % templates.length]!;
+  }
+
   if (question.task === "SELECT_CLASS_MEMBER") {
     const group = formatList(givens, locale);
     const hindi = [
       `${group} एक ही वर्ग के सदस्य हैं। उसी वर्ग का एक और सदस्य चुनिए।`,
       `दिए गए शब्द ${group} एक समान वर्ग बनाते हैं। कौन-सा विकल्प इस वर्ग में जोड़ा जा सकता है?`,
-      `${group} को ध्यान से देखिए। इनमें जिस वर्ग की समानता है, उसी वर्ग का विकल्प चुनिए।`,
+      `${group} को ध्यान से देखिए। इनके साझा वर्ग वाला विकल्प चुनिए।`,
       `कौन-सा विकल्प ${group} के साथ उसी वर्ग में आएगा?`,
     ];
     const punjabi = [
@@ -65,16 +83,16 @@ function localStem(
   }
 
   const hindi = [
-    "निम्नलिखित चार विकल्पों में से तीन एक ही वर्ग में आते हैं। अलग विकल्प चुनिए।",
-    "तीन विकल्पों में एक समान विशेषता है। वह विकल्प चुनिए जो इस समूह में नहीं आता।",
-    "बाकी तीनों से अलग विकल्प चुनिए।",
-    "कौन-सा विकल्प बाकी तीनों के साथ एक ही वर्ग में नहीं आता?",
+    "अधिकांश विकल्प एक ही वर्ग में आते हैं। अलग विकल्प चुनिए।",
+    "बाकी विकल्पों से अलग विकल्प चुनिए।",
+    "निम्नलिखित में से अलग विकल्प कौन-सा है?",
+    "कौन-सा विकल्प अन्य विकल्पों के साथ एक ही वर्ग में नहीं आता?",
   ];
   const punjabi = [
-    "ਹੇਠਾਂ ਦਿੱਤੇ ਚਾਰ ਵਿਕਲਪਾਂ ਵਿੱਚੋਂ ਤਿੰਨ ਇੱਕੋ ਵਰਗ ਨਾਲ ਸਬੰਧਤ ਹਨ। ਵੱਖਰਾ ਵਿਕਲਪ ਚੁਣੋ।",
-    "ਤਿੰਨ ਵਿਕਲਪਾਂ ਵਿੱਚ ਇੱਕ ਸਾਂਝੀ ਵਿਸ਼ੇਸ਼ਤਾ ਹੈ। ਉਹ ਵਿਕਲਪ ਚੁਣੋ ਜੋ ਇਸ ਸਮੂਹ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦਾ।",
-    "ਬਾਕੀ ਤਿੰਨਾਂ ਤੋਂ ਵੱਖਰਾ ਵਿਕਲਪ ਚੁਣੋ।",
-    "ਕਿਹੜਾ ਵਿਕਲਪ ਬਾਕੀ ਤਿੰਨਾਂ ਨਾਲ ਇੱਕੋ ਵਰਗ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦਾ?",
+    "ਜ਼ਿਆਦਾਤਰ ਵਿਕਲਪ ਇੱਕੋ ਵਰਗ ਨਾਲ ਸਬੰਧਤ ਹਨ। ਵੱਖਰਾ ਵਿਕਲਪ ਚੁਣੋ।",
+    "ਬਾਕੀ ਵਿਕਲਪਾਂ ਤੋਂ ਵੱਖਰਾ ਵਿਕਲਪ ਚੁਣੋ।",
+    "ਹੇਠਾਂ ਦਿੱਤਿਆਂ ਵਿੱਚੋਂ ਵੱਖਰਾ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?",
+    "ਕਿਹੜਾ ਵਿਕਲਪ ਹੋਰ ਵਿਕਲਪਾਂ ਨਾਲ ਇੱਕੋ ਵਰਗ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦਾ?",
   ];
   const templates = locale === "hi-IN" ? hindi : punjabi;
   return templates[question.seed % templates.length]!;
@@ -109,7 +127,63 @@ function competitionLine(
     : "ਕੋਈ ਹੋਰ ਢੁੱਕਵਾਂ ਵਰਗ ਕਿਸੇ ਦੂਜੇ ਵਿਕਲਪ ਨੂੰ ਵੱਖਰਾ ਨਹੀਂ ਕਰਦਾ।";
 }
 
-function localizedExplanation(
+function coherentGroupExplanation(
+  question: GeneratedClsCp001EnglishQuestion,
+  localizedGroups: readonly (readonly string[])[],
+  localizedOptions: readonly string[],
+  locale: ClsCp001TranslatedLocale,
+): GeneratedClsCp001LocalizedQuestion["explanation"] {
+  const classLabel = localizedClassLabel(question.intendedClassId, locale);
+  const correctGroup = localizedGroups[question.correctIndex]!;
+  const answer = localizedOptions[question.correctIndex]!;
+  const groupList = formatList(correctGroup, locale);
+  const optionChecks = localizedGroups.map((group, index) => {
+    const display = group.join(", ");
+    if (index === question.correctIndex) {
+      return locale === "hi-IN"
+        ? `${display}: तीनों शब्द ${classLabel} हैं।`
+        : `${display}: ਤਿੰਨੇ ਸ਼ਬਦ ${classLabel} ਹਨ।`;
+    }
+    return locale === "hi-IN"
+      ? `${display}: ये सभी शब्द एक ही सटीक वर्ग में नहीं आते।`
+      : `${display}: ਇਹ ਸਾਰੇ ਸ਼ਬਦ ਇੱਕੋ ਸਪਸ਼ਟ ਵਰਗ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦੇ।`;
+  });
+
+  return {
+    coreRule: locale === "hi-IN"
+      ? [
+        `${groupList} — ये सभी ${classLabel} हैं।`,
+        "अन्य प्रत्येक विकल्प में अलग-अलग वर्गों के शब्द मिले हुए हैं।",
+        `${answer} ही एकमात्र पूरा और सही शब्द-समूह है।`,
+      ]
+      : [
+        `${groupList} — ਇਹ ਸਾਰੇ ${classLabel} ਹਨ।`,
+        "ਹਰ ਹੋਰ ਵਿਕਲਪ ਵਿੱਚ ਵੱਖ-ਵੱਖ ਵਰਗਾਂ ਦੇ ਸ਼ਬਦ ਮਿਲੇ ਹੋਏ ਹਨ।",
+        `${answer} ਹੀ ਇਕੱਲਾ ਪੂਰਾ ਅਤੇ ਸਹੀ ਸ਼ਬਦ-ਸਮੂਹ ਹੈ।`,
+      ],
+    optionChecks,
+    examSpeedShortcut: locale === "hi-IN"
+      ? [
+        "हर विकल्प को अपने भीतर जाँचिए; अलग-अलग विकल्पों के समान स्थान वाले शब्दों की तुलना न करें।",
+        "सही विकल्प में तीनों शब्द एक ही सटीक वर्ग के सदस्य होने चाहिए।",
+      ]
+      : [
+        "ਹਰ ਵਿਕਲਪ ਨੂੰ ਉਸ ਦੇ ਅੰਦਰ ਜਾਂਚੋ; ਵੱਖ-ਵੱਖ ਵਿਕਲਪਾਂ ਵਿੱਚ ਇੱਕੋ ਥਾਂ ਵਾਲੇ ਸ਼ਬਦਾਂ ਦੀ ਤੁਲਨਾ ਨਾ ਕਰੋ।",
+        "ਸਹੀ ਵਿਕਲਪ ਦੇ ਤਿੰਨੇ ਸ਼ਬਦ ਇੱਕੋ ਸਪਸ਼ਟ ਵਰਗ ਦੇ ਮੈਂਬਰ ਹੋਣੇ ਚਾਹੀਦੇ ਹਨ।",
+      ],
+    commonTraps: locale === "hi-IN"
+      ? [
+        "केवल दो संबंधित शब्द होने से कोई समूह सही नहीं हो जाता।",
+        "बहुत व्यापक समानता स्वीकार न करें जिससे कई मिले-जुले समूह सही लगने लगें।",
+      ]
+      : [
+        "ਸਿਰਫ਼ ਦੋ ਸੰਬੰਧਿਤ ਸ਼ਬਦ ਹੋਣ ਨਾਲ ਕੋਈ ਸਮੂਹ ਸਹੀ ਨਹੀਂ ਬਣ ਜਾਂਦਾ।",
+        "ਬਹੁਤ ਵੱਡੀ ਸਮਾਨਤਾ ਨੂੰ ਨਾ ਮੰਨੋ ਜਿਸ ਨਾਲ ਕਈ ਮਿਲੇ-ਜੁਲੇ ਸਮੂਹ ਸਹੀ ਲੱਗਣ ਲੱਗ ਪੈਣ।",
+      ],
+  };
+}
+
+function itemExplanation(
   question: GeneratedClsCp001EnglishQuestion,
   localizedGivens: readonly string[],
   localizedOptions: readonly string[],
@@ -129,42 +203,39 @@ function localizedExplanation(
       ? `${label} ${classLabel} ਦੇ ਵਰਗ ਵਿੱਚ ਆਉਂਦਾ ਹੈ।`
       : `${label} ${classLabel} ਦੇ ਵਰਗ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦਾ।`;
   });
-
   const hierarchy = hierarchyLine(question, locale);
 
   if (question.task === "SELECT_CLASS_MEMBER") {
     const group = formatList(localizedGivens, locale);
-    const coreRule = locale === "hi-IN"
-      ? [
-        `${group} — ये सभी ${classLabel} हैं।`,
-        ...(hierarchy ? [hierarchy] : []),
-        `${answer} ही वह विकल्प है जो इसी वर्ग में आता है।`,
-      ]
-      : [
-        `${group} — ਇਹ ਸਾਰੇ ${classLabel} ਹਨ।`,
-        ...(hierarchy ? [hierarchy] : []),
-        `${answer} ਹੀ ਉਹ ਵਿਕਲਪ ਹੈ ਜੋ ਇਸੇ ਵਰਗ ਵਿੱਚ ਆਉਂਦਾ ਹੈ।`,
-      ];
-
     return {
-      coreRule,
+      coreRule: locale === "hi-IN"
+        ? [
+          `${group} — ये सभी ${classLabel} हैं।`,
+          ...(hierarchy ? [hierarchy] : []),
+          `${answer} ही वह विकल्प है जो इसी वर्ग में आता है।`,
+        ]
+        : [
+          `${group} — ਇਹ ਸਾਰੇ ${classLabel} ਹਨ।`,
+          ...(hierarchy ? [hierarchy] : []),
+          `${answer} ਹੀ ਉਹ ਵਿਕਲਪ ਹੈ ਜੋ ਇਸੇ ਵਰਗ ਵਿੱਚ ਆਉਂਦਾ ਹੈ।`,
+        ],
       optionChecks,
       examSpeedShortcut: locale === "hi-IN"
         ? [
-          "पहले दिए गए तीन शब्दों का सबसे सटीक साझा वर्ग पहचानिए।",
+          "पहले दिए गए शब्दों का सबसे सटीक साझा वर्ग पहचानिए।",
           "फिर हर विकल्प को उसी वर्ग से मिलाइए; केवल संबंधित होना पर्याप्त नहीं है।",
         ]
         : [
-          "ਪਹਿਲਾਂ ਦਿੱਤੇ ਤਿੰਨ ਸ਼ਬਦਾਂ ਦਾ ਸਭ ਤੋਂ ਸਪਸ਼ਟ ਸਾਂਝਾ ਵਰਗ ਪਛਾਣੋ।",
+          "ਪਹਿਲਾਂ ਦਿੱਤੇ ਸ਼ਬਦਾਂ ਦਾ ਸਭ ਤੋਂ ਸਪਸ਼ਟ ਸਾਂਝਾ ਵਰਗ ਪਛਾਣੋ।",
           "ਫਿਰ ਹਰ ਵਿਕਲਪ ਨੂੰ ਉਸੇ ਵਰਗ ਨਾਲ ਮਿਲਾਓ; ਸਿਰਫ਼ ਸੰਬੰਧਿਤ ਹੋਣਾ ਕਾਫ਼ੀ ਨਹੀਂ ਹੈ।",
         ],
       commonTraps: locale === "hi-IN"
         ? [
-          "किसी बड़े सामान्य वर्ग का सदस्य चुनने के बजाय ठीक वही छोटा वर्ग देखिए जो दिए गए शब्द बनाते हैं।",
+          "बड़े सामान्य वर्ग के बजाय ठीक वही छोटा वर्ग देखिए जो दिए गए शब्द बनाते हैं।",
           "सिर्फ आकार, रंग, स्थान या उपयोग की हल्की समानता पर उत्तर न चुनें।",
         ]
         : [
-          "ਕਿਸੇ ਵੱਡੇ ਆਮ ਵਰਗ ਦਾ ਮੈਂਬਰ ਚੁਣਨ ਦੀ ਬਜਾਏ ਠੀਕ ਉਹੀ ਛੋਟਾ ਵਰਗ ਵੇਖੋ ਜੋ ਦਿੱਤੇ ਸ਼ਬਦ ਬਣਾਉਂਦੇ ਹਨ।",
+          "ਵੱਡੇ ਆਮ ਵਰਗ ਦੀ ਬਜਾਏ ਠੀਕ ਉਹੀ ਛੋਟਾ ਵਰਗ ਵੇਖੋ ਜੋ ਦਿੱਤੇ ਸ਼ਬਦ ਬਣਾਉਂਦੇ ਹਨ।",
           "ਸਿਰਫ਼ ਆਕਾਰ, ਰੰਗ, ਥਾਂ ਜਾਂ ਵਰਤੋਂ ਦੀ ਹਲਕੀ ਸਮਾਨਤਾ ਦੇ ਆਧਾਰ ਤੇ ਜਵਾਬ ਨਾ ਚੁਣੋ।",
         ],
     };
@@ -172,40 +243,38 @@ function localizedExplanation(
 
   const positive = localizedOptions.filter((_, index) => index !== question.correctIndex);
   const positiveList = formatList(positive, locale);
-  const coreRule = locale === "hi-IN"
-    ? [
-      `${positiveList} — ये तीनों ${classLabel} हैं।`,
-      ...(hierarchy ? [hierarchy] : []),
-      `${answer} ${classLabel} नहीं है, इसलिए यही अलग विकल्प है।`,
-      competitionLine(question, locale),
-    ]
-    : [
-      `${positiveList} — ਇਹ ਤਿੰਨੇ ${classLabel} ਹਨ।`,
-      ...(hierarchy ? [hierarchy] : []),
-      `${answer} ${classLabel} ਨਹੀਂ ਹੈ, ਇਸ ਲਈ ਇਹੀ ਵੱਖਰਾ ਵਿਕਲਪ ਹੈ।`,
-      competitionLine(question, locale),
-    ];
-
   return {
-    coreRule,
+    coreRule: locale === "hi-IN"
+      ? [
+        `${positiveList} — ये सभी ${classLabel} हैं।`,
+        ...(hierarchy ? [hierarchy] : []),
+        `${answer} ${classLabel} नहीं है, इसलिए यही अलग विकल्प है।`,
+        competitionLine(question, locale),
+      ]
+      : [
+        `${positiveList} — ਇਹ ਸਾਰੇ ${classLabel} ਹਨ।`,
+        ...(hierarchy ? [hierarchy] : []),
+        `${answer} ${classLabel} ਨਹੀਂ ਹੈ, ਇਸ ਲਈ ਇਹੀ ਵੱਖਰਾ ਵਿਕਲਪ ਹੈ।`,
+        competitionLine(question, locale),
+      ],
     optionChecks,
     examSpeedShortcut: locale === "hi-IN"
       ? [
-        "पहले तीन विकल्पों पर लागू होने वाला सबसे सटीक वर्ग खोजिए।",
-        "तीनों की पुष्टि करने के बाद ही चौथे विकल्प को अलग मानिए।",
+        "अधिकांश विकल्पों पर लागू होने वाला सबसे सटीक वर्ग खोजिए।",
+        "समान विकल्पों की पुष्टि करने के बाद ही शेष विकल्प को अलग मानिए।",
       ]
       : [
-        "ਪਹਿਲਾਂ ਤਿੰਨ ਵਿਕਲਪਾਂ ਉੱਤੇ ਲਾਗੂ ਹੋਣ ਵਾਲਾ ਸਭ ਤੋਂ ਸਪਸ਼ਟ ਵਰਗ ਲੱਭੋ।",
-        "ਤਿੰਨਾਂ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਤੋਂ ਬਾਅਦ ਹੀ ਚੌਥੇ ਵਿਕਲਪ ਨੂੰ ਵੱਖਰਾ ਮੰਨੋ।",
+        "ਜ਼ਿਆਦਾਤਰ ਵਿਕਲਪਾਂ ਉੱਤੇ ਲਾਗੂ ਹੋਣ ਵਾਲਾ ਸਭ ਤੋਂ ਸਪਸ਼ਟ ਵਰਗ ਲੱਭੋ।",
+        "ਇੱਕੋ ਵਰਗ ਵਾਲੇ ਵਿਕਲਪਾਂ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਤੋਂ ਬਾਅਦ ਹੀ ਬਚੇ ਵਿਕਲਪ ਨੂੰ ਵੱਖਰਾ ਮੰਨੋ।",
       ],
     commonTraps: locale === "hi-IN"
       ? [
-        "बहुत बड़े वर्ग पर न रुकें; वह चारों विकल्पों को भी शामिल कर सकता है।",
-        "यदि कोई दूसरा उचित वर्ग अलग उत्तर देता हो, तो प्रश्न अस्पष्ट होगा और उसे स्वीकार नहीं करना चाहिए।",
+        "बहुत बड़े वर्ग पर न रुकें; वह सभी विकल्पों को भी शामिल कर सकता है।",
+        "यदि कोई दूसरा उचित वर्ग अलग उत्तर देता हो, तो प्रश्न अस्पष्ट होगा।",
       ]
       : [
-        "ਬਹੁਤ ਵੱਡੇ ਵਰਗ ਉੱਤੇ ਨਾ ਰੁਕੋ; ਉਹ ਚਾਰੇ ਵਿਕਲਪਾਂ ਨੂੰ ਵੀ ਸ਼ਾਮਲ ਕਰ ਸਕਦਾ ਹੈ।",
-        "ਜੇ ਕੋਈ ਹੋਰ ਢੁੱਕਵਾਂ ਵਰਗ ਵੱਖਰਾ ਜਵਾਬ ਦੇਵੇ, ਤਾਂ ਪ੍ਰਸ਼ਨ ਅਸਪਸ਼ਟ ਹੋਵੇਗਾ ਅਤੇ ਉਸਨੂੰ ਸਵੀਕਾਰ ਨਹੀਂ ਕਰਨਾ ਚਾਹੀਦਾ।",
+        "ਬਹੁਤ ਵੱਡੇ ਵਰਗ ਉੱਤੇ ਨਾ ਰੁਕੋ; ਉਹ ਸਾਰੇ ਵਿਕਲਪਾਂ ਨੂੰ ਵੀ ਸ਼ਾਮਲ ਕਰ ਸਕਦਾ ਹੈ।",
+        "ਜੇ ਕੋਈ ਹੋਰ ਢੁੱਕਵਾਂ ਵਰਗ ਵੱਖਰਾ ਜਵਾਬ ਦੇਵੇ, ਤਾਂ ਪ੍ਰਸ਼ਨ ਅਸਪਸ਼ਟ ਹੋਵੇਗਾ।",
       ],
   };
 }
@@ -215,22 +284,35 @@ export function localizeClsCp001Question(
   locale: ClsCp001TranslatedLocale,
 ): GeneratedClsCp001LocalizedQuestion {
   const givens = question.givens.map((label) => localizedEntityLabel(label, locale));
-  const options = question.options.map((label) => localizedEntityLabel(label, locale));
+  const optionGroups = question.optionGroups.map((group) =>
+    group.map((label) => localizedEntityLabel(label, locale)),
+  );
+  const options = question.task === "SELECT_COHERENT_GROUP"
+    ? optionGroups.map((group) => group.join(", "))
+    : question.options.map((label) => localizedEntityLabel(label, locale));
   const answer = options[question.correctIndex]!;
 
   if (new Set(options).size !== options.length) {
     throw new Error(`${question.qlId}/${question.seed}/${locale} produced duplicate localized options`);
   }
+  if (optionGroups.some((group) => new Set(group).size !== group.length)) {
+    throw new Error(`${question.qlId}/${question.seed}/${locale} produced a duplicate word inside a localized group`);
+  }
+
+  const explanation = question.task === "SELECT_COHERENT_GROUP"
+    ? coherentGroupExplanation(question, optionGroups, options, locale)
+    : itemExplanation(question, givens, options, locale);
 
   return {
     ...question,
     stem: localStem(question, givens, locale),
     givens,
     options,
+    optionGroups,
     answer,
     intendedClassLabel: localizedClassLabel(question.intendedClassId, locale),
-    evidenceByOption: localizedExplanation(question, givens, options, locale).optionChecks,
-    explanation: localizedExplanation(question, givens, options, locale),
+    evidenceByOption: explanation.optionChecks,
+    explanation,
     metadata: {
       ...question.metadata,
       locale,
