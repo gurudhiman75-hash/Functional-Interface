@@ -1,0 +1,63 @@
+name: MEN-001 Area Conversion Trap Patch
+
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize]
+    paths:
+      - .github/workflows/men-001-area-conversion-trap-patch.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Add concrete square-unit conversion traps
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/structured-common-traps.ts")
+          text = path.read_text()
+
+          explanation_anchor = '  "use-linear-conversion-factor": "dividing or multiplying by 100 as though the measurement were a length instead of an area",\n'
+          explanation_addition = explanation_anchor + '''  "cp006-cm2-to-m2-divide-by-100": "dividing by 100 as though cm² were a length conversion instead of an area conversion",
+            "cp006-cm2-to-m2-divide-by-1000": "dividing by 1,000 instead of the full square-unit factor 10,000",
+            "cp006-cm2-to-m2-no-conversion": "keeping the square-centimetre number unchanged while labelling it as square metres",
+            "cp006-m2-to-cm2-multiply-by-100": "multiplying by 100 as though m² were a length conversion instead of an area conversion",
+            "cp006-m2-to-cm2-multiply-by-1000": "multiplying by 1,000 instead of the full square-unit factor 10,000",
+            "cp006-m2-to-cm2-no-conversion": "keeping the square-metre number unchanged while labelling it as square centimetres",
+'''
+          if explanation_anchor not in text:
+              raise SystemExit("Explanation anchor not found")
+          text = text.replace(explanation_anchor, explanation_addition, 1)
+
+          correction_anchor = '  "use-linear-conversion-factor": "Area conversion uses 100² = 10,000, not 100.",\n'
+          correction_addition = correction_anchor + '''  "cp006-cm2-to-m2-divide-by-100": "Length conversion uses 100, but area conversion uses 100² = 10,000. Divide cm² by 10,000 to obtain m².",
+            "cp006-cm2-to-m2-divide-by-1000": "Use 1 m² = 10,000 cm², so divide by 10,000.",
+            "cp006-cm2-to-m2-no-conversion": "Convert the unit as well as the label: divide the cm² value by 10,000.",
+            "cp006-m2-to-cm2-multiply-by-100": "Length conversion uses 100, but area conversion uses 100² = 10,000. Multiply m² by 10,000 to obtain cm².",
+            "cp006-m2-to-cm2-multiply-by-1000": "Use 1 m² = 10,000 cm², so multiply by 10,000.",
+            "cp006-m2-to-cm2-no-conversion": "Convert the numerical value too: multiply the m² value by 10,000.",
+'''
+          if correction_anchor not in text:
+              raise SystemExit("Correction anchor not found")
+          path.write_text(text.replace(correction_anchor, correction_addition, 1))
+          PY
+
+      - name: Commit patch
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/structured-common-traps.ts
+          git commit -m "fix(mensuration): explain square-unit conversion traps"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
