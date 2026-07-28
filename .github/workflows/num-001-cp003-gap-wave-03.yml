@@ -1,0 +1,119 @@
+name: Validate NUM-CP-003 gap wave 03
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**
+      - .github/workflows/num-001-cp003-gap-wave-03.yml
+      - .github/workflows/num-001-cp003-gap-wave-02.yml
+      - .github/workflows/num-001-cp003-prototype-foundation.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-num-cp003-gap-wave-03-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-num-cp003-gap-wave-03:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Wave 1 regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/num-001-cp003-prototype.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp003-wave01-regression-for-wave03.mjs
+
+      - name: Run Wave 1 regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp003-wave01-regression-for-wave03.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp003-wave01-regression-for-wave03.log
+
+      - name: Bundle Wave 2 regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-003/wave02/wave02.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp003-wave02-regression-for-wave03.mjs
+
+      - name: Run Wave 2 regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp003-wave02-regression-for-wave03.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp003-wave02-regression-for-wave03.log
+
+      - name: Bundle Wave 3 deterministic proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-003/wave03/wave03.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp003-gap-wave-03.test.mjs
+
+      - name: Run Wave 3 deterministic proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp003-gap-wave-03.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp003-gap-wave-03-proof.log
+
+      - name: Bundle Wave 3 structural audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-003/wave03/wave03-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp003-gap-wave-03-audit.mjs
+
+      - name: Run Wave 3 structural audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp003-gap-wave-03-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp003-gap-wave-03-audit.log
+
+      - name: Bundle Wave 3 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-003/wave03/wave03-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp003-gap-wave-03-review-export.mjs
+
+      - name: Generate Wave 3 review pack
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/num-001-cp003-gap-wave-03-review-export.mjs
+
+      - name: Upload Wave 3 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-001-cp003-gap-wave-03
+          path: |
+            artifacts/api-server/dist/quant-v4/num-001-cp003-wave01-regression-for-wave03.log
+            artifacts/api-server/dist/quant-v4/num-001-cp003-wave02-regression-for-wave03.log
+            artifacts/api-server/dist/quant-v4/num-001-cp003-gap-wave-03-proof.log
+            artifacts/api-server/dist/quant-v4/num-001-cp003-gap-wave-03-audit.log
+            artifacts/api-server/dist/quant-v4/num-001-cp003-gap-wave-03-review.json
+            artifacts/api-server/dist/quant-v4/num-001-cp003-gap-wave-03-review.md
+          if-no-files-found: error
+          retention-days: 7
