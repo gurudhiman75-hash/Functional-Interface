@@ -16,7 +16,7 @@ function stable(value: unknown): string {
 
 function polishPluralMaterialGrammar(stem: string): string {
   return stem
-    .replace(/\bA tea leaves blend\b/gu, "A tea blend")
+    .replace(/\btea leaves blend\b/giu, "tea blend")
     .replace(/\b((?:regular|premium|reserve) tea leaves) costs\b/giu, "$1 cost")
     .replace(/\b((?:house-blend|estate|reserve) beans) costs\b/giu, "$1 cost")
     .replace(
@@ -104,9 +104,10 @@ function polishGapQuestion(
     reasoningGraph: {
       nodes: question.reasoningGraph.nodes.map((node) => {
         if (node.kind !== "CONCLUSION") return node;
+        const fingerprintSuffix = node.text.match(/\[[^\]]+\]$/u)?.[0] ?? "";
         return {
           ...node,
-          text: `${explanation.conclusion} [${node.text.split("[").at(-1) ?? ""}`,
+          text: `${explanation.conclusion}${fingerprintSuffix ? ` ${fingerprintSuffix}` : ""}`,
         };
       }),
     },
