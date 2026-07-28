@@ -7,6 +7,12 @@ import {
   buildMalCp001PermanentReviewModel,
 } from "./foundation/cp001-permanent-review-model";
 
+function sentenceCase(value: string): string {
+  return value.replace(/^([a-z])/u, (_match, firstLetter: string) =>
+    firstLetter.toUpperCase(),
+  );
+}
+
 const model = buildMalCp001PermanentReviewModel();
 const outputDirectory = resolve(process.cwd(), "dist/quant-v4");
 mkdirSync(outputDirectory, { recursive: true });
@@ -59,6 +65,10 @@ for (const group of model.groups) {
   for (const row of group.questions) {
     const question = row.question;
     const explanation = question.explanation;
+    const quickCheck = explanation.verification.replace(/^Check:\s*/u, "");
+    const trap = sentenceCase(
+      explanation.commonTrap.replace(/^Common trap:\s*/u, ""),
+    );
     lines.push(
       `### ${row.reviewKey}`,
       "",
@@ -84,7 +94,7 @@ for (const group of model.groups) {
       "",
       ...explanation.steps.map((step) => `${step}`),
       "",
-      `**Quick check:** ${explanation.verification}`,
+      `**Quick check:** ${quickCheck}`,
       "",
       `**Final answer:** ${explanation.conclusion}`,
       "",
@@ -94,7 +104,7 @@ for (const group of model.groups) {
       "",
       `#### ${explanation.sectionTitles.trap}`,
       "",
-      explanation.commonTrap.replace(/^Common trap:\s*/u, ""),
+      trap,
       "",
     );
   }
