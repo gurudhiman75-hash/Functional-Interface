@@ -2,6 +2,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { generateCod001Question } from "../multilingual-runtime";
+import { formatCodExplanationMarkdown } from "./explanation-markdown";
 
 const outputDirectory = process.argv[2] ?? "cod-cp009-adapted-review-output";
 mkdirSync(outputDirectory, { recursive: true });
@@ -26,7 +27,10 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
   ];
   questions.forEach((question, index) => {
     const options = question.options as readonly Record<string, unknown>[];
-    const optionText = (option: Record<string, unknown>) => String(option.value ?? option.members ?? option);
+    const optionText = (option: Record<string, unknown>) => {
+      const value = option.value ?? option.members ?? option.tokens ?? option.words ?? option;
+      return Array.isArray(value) ? value.join(", ") : String(value);
+    };
     markdown.push(
       `## ${index + 1}. ${question.qlId ?? question.permanentQlId} — Seed ${question.seed}`,
       "",
@@ -37,7 +41,7 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
       "",
       ...options.map((option, optionIndex) => `${String.fromCharCode(65 + optionIndex)}. ${optionText(option)}${option.isCorrect ? " **✓**" : ""}`),
       "",
-      `**Explanation:** ${JSON.stringify(question.explanation, null, 2)}`,
+      ...formatCodExplanationMarkdown(question),
       "",
       "---",
       "",
@@ -51,5 +55,7 @@ console.log(JSON.stringify({
   seedsPerQl: 4,
   questionsPerLocale: qlIds.length * 4,
   locales: ["hi-IN", "pa-IN"],
+  explanationSchema: "cod-001-pedagogy-v1",
+  rawJsonExplanationDump: false,
   outputDirectory,
 }, null, 2));
