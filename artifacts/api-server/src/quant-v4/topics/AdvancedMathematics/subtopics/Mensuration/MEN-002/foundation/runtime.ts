@@ -421,7 +421,7 @@ function cubeScalingDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: S
     wrongAnswers: [
       { value: q(factor), misconceptionId: "USED_LINEAR_SCALE", explanation: "applying the edge multiplier only once even though volume has three dimensions" },
       { value: q(factor ** 2n), misconceptionId: "USED_AREA_SCALE", explanation: "using the square law for surface area instead of the cube law for volume" },
-      { value: q(3n * factor), misconceptionId: "ADDED_THREE_FACTORS", explanation: "adding three copies of the scale factor instead of multiplying them" },
+      { value: q(factor + 3n), misconceptionId: "ADDED_POWER_TO_FACTOR", explanation: "adding the exponent $3$ to the scale factor instead of cubing the factor" },
     ],
     keyRule: "When every linear dimension is multiplied by $k$, volume is multiplied by $k^3$.",
     steps: [

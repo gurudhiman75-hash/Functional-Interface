@@ -139,11 +139,8 @@ export function formatExactPlain(value: ExactValue) {
 
 export function formatWithUnit(value: ExactValue, unit: Men002Unit) {
   const maths = formatExactMath(value);
-  const unitMath = unit === "%"
-    ? "\\%"
-    : unit === "£"
-      ? "\\text{£}"
-      : `\\text{ ${unit}}`;
+  if (unit === "£") return `$\\text{£}${maths}$`;
+  const unitMath = unit === "%" ? "\\%" : `\\text{ ${unit}}`;
   return `$${maths}${unitMath}$`;
 }
 
