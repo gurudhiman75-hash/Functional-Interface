@@ -1,8 +1,8 @@
 import {
   INT_CP001_FINAL_QL_IDS,
   INT_CP001_FINAL_REGISTRY,
-  INT_CP001_RELEASE_ID,
 } from "./cp001-final-registry";
+import { INT_CP001_EDITORIAL_RELEASE_ID, INT_CP001_EDITORIAL_STANDARD } from "./cp001-editorial-release";
 import { generateIntCp001FinalEditorialQuestion } from "./cp001-final-editorial-runtime";
 import { assertIntCp001ClosureFoundation } from "./final-closure/final-closure";
 import { runIntCp001LegacyFixtureAudit } from "./cp001-legacy-fixture-audit";
@@ -44,6 +44,7 @@ let fractionalMoneyOptions = 0;
 let ungroupedCurrencyFindings = 0;
 let fourTierPackages = 0;
 let shortcutPackages = 0;
+let shortcutMathPackages = 0;
 let analysedDistractors = 0;
 
 for (const entry of INT_CP001_FINAL_REGISTRY) {
@@ -63,7 +64,7 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
     if (stable(item) !== stable(repeat)) fail(`${entry.qlId}/${seed} is not deterministic.`);
     if (!item.validation.ok) fail(`${entry.qlId}/${seed}: ${item.validation.errors.join(" | ")}`);
     if (item.permanentQlId !== entry.qlId || item.qlId !== entry.qlId) fail(`${entry.qlId}/${seed} lost permanent identity.`);
-    if (item.releaseId !== INT_CP001_RELEASE_ID || item.maturity !== "FROZEN_ENGLISH_CONTRACT") fail(`${entry.qlId}/${seed} lost release traceability.`);
+    if (item.releaseId !== INT_CP001_EDITORIAL_RELEASE_ID || item.maturity !== "FROZEN_ENGLISH_CONTRACT") fail(`${entry.qlId}/${seed} lost editorial-v2 release traceability.`);
     if (item.publiclyPublishable || item.questionStudioDiscoverable) fail(`${entry.qlId}/${seed} breached review-only safety.`);
     if (item.questionBankStatus !== "NOT_STORED" || item.testEligibility !== "INELIGIBLE") fail(`${entry.qlId}/${seed} breached storage/test safety.`);
     if (item.options.length !== 4 || new Set(item.options).size !== 4) fail(`${entry.qlId}/${seed} does not have four unique options.`);
@@ -77,8 +78,9 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
     if (explanation.examShortcut.heading !== "⚡ Exam Speed Shortcut") fail(`${entry.qlId}/${seed} lacks the shortcut tier.`);
     if (explanation.trapAnalysis.heading !== "⚠️ Common Traps & Distractor Analysis") fail(`${entry.qlId}/${seed} lacks the trap-analysis tier.`);
     if (!hasBalancedDisplayMath(explanation.coreConcept.displayMath)) fail(`${entry.qlId}/${seed} has invalid core MathJax.`);
-    if (explanation.examShortcut.displayMath && !hasBalancedDisplayMath(explanation.examShortcut.displayMath)) fail(`${entry.qlId}/${seed} has invalid shortcut MathJax.`);
+    if (!explanation.examShortcut.displayMath || !hasBalancedDisplayMath(explanation.examShortcut.displayMath)) fail(`${entry.qlId}/${seed} has invalid shortcut MathJax.`);
     if (!explanation.examShortcut.narrative.trim()) fail(`${entry.qlId}/${seed} has an empty exam shortcut.`);
+    if (/^(?:Find|Determine)\b/u.test(explanation.examShortcut.narrative)) fail(`${entry.qlId}/${seed} shortcut begins with an imperative fragment.`);
     if (explanation.trapAnalysis.items.length !== 3) fail(`${entry.qlId}/${seed} does not analyse all three distractors.`);
     for (const trap of explanation.trapAnalysis.items) {
       const optionIndex = trap.optionNumber - 1;
@@ -89,6 +91,7 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
     }
     fourTierPackages += 1;
     shortcutPackages += 1;
+    shortcutMathPackages += 1;
     analysedDistractors += explanation.trapAnalysis.items.length;
 
     const learnerText = [
@@ -100,7 +103,7 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
       explanation.stepByStep.verification,
       explanation.stepByStep.conclusion,
       explanation.examShortcut.narrative,
-      explanation.examShortcut.displayMath ?? "",
+      explanation.examShortcut.displayMath,
       ...explanation.trapAnalysis.items.flatMap((trap) => [trap.optionText, trap.explanation]),
     ].join(" ");
     const hasInternalIdentity = /INT-(?:CP|QL)|PROT-/iu.test(learnerText);
@@ -166,6 +169,7 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
     representations: [...representations].sort(),
     fourTierPackages: 80,
     shortcutPackages: 80,
+    shortcutMathPackages: 80,
     analysedDistractors: 240,
   };
 }
@@ -179,12 +183,13 @@ for (const sourceKind of ["FOUNDATION", "WAVE2", "CLOSURE"]) {
 if (fractionalMoneyOptions !== 0) fail(`Final audit found ${fractionalMoneyOptions} fractional-money options.`);
 if (fourTierPackages !== generated) fail(`Only ${fourTierPackages}/${generated} packages passed the four-tier gate.`);
 if (shortcutPackages !== generated) fail(`Only ${shortcutPackages}/${generated} packages contain shortcuts.`);
+if (shortcutMathPackages !== generated) fail(`Only ${shortcutMathPackages}/${generated} packages contain shortcut MathJax.`);
 if (analysedDistractors !== generated * 3) fail(`Expected ${generated * 3} distractor analyses; found ${analysedDistractors}.`);
 
 console.log(JSON.stringify({
   status: "PASS",
-  releaseId: INT_CP001_RELEASE_ID,
-  editorialStandard: "FOUR_TIER_GOLD_V2",
+  releaseId: INT_CP001_EDITORIAL_RELEASE_ID,
+  editorialStandard: INT_CP001_EDITORIAL_STANDARD,
   cpId: "INT-CP-001",
   finalQlCount: INT_CP001_FINAL_REGISTRY.length,
   generated,
@@ -196,6 +201,7 @@ console.log(JSON.stringify({
   sourceKindCounts: Object.fromEntries([...sourceKindCounts.entries()].sort()),
   fourTierPackages,
   shortcutPackages,
+  shortcutMathPackages,
   analysedDistractors,
   fractionalMoneyOptions,
   ungroupedCurrencyFindings,
