@@ -1,18 +1,17 @@
-name: One-shot PNL CP-001 dynamic review patch runner
+name: Finalize PNL CP-001 dynamic review integration
 
 on:
   pull_request:
     branches:
       - New-main
     paths:
-      - ".github/workflows/tmp-pnl-cp001-dynamic-review-patch.yml"
       - ".github/workflows/tmp-pnl-cp001-dynamic-review-runner.yml"
 
 permissions:
   contents: write
 
 jobs:
-  run-reviewed-patch:
+  finalize-integration:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout feature branch
@@ -20,63 +19,78 @@ jobs:
         with:
           ref: feat/pnl-001-cp001-question-studio-dynamic-review
 
-      - name: Execute reviewed embedded patch
-        id: patch
-        continue-on-error: true
+      - name: Normalize source formatting
         run: |
-          set -o pipefail
-          python - <<'PY' 2>&1 | tee pnl-dynamic-review-patch.log
+          python - <<'PY'
           from pathlib import Path
 
-          workflow = Path(".github/workflows/tmp-pnl-cp001-dynamic-review-patch.yml").read_text().splitlines()
-          start = next(index for index, line in enumerate(workflow) if "python - <<'PY'" in line) + 1
-          end = next(index for index in range(start, len(workflow)) if workflow[index].strip() == "PY")
-          embedded = workflow[start:end]
-          first_code_line = next(line for line in embedded if line.strip())
-          code_indent = len(first_code_line) - len(first_code_line.lstrip())
-          indent_prefix = " " * code_indent
-          code = "\n".join(
-              line[code_indent:] if line.startswith(indent_prefix) else line
-              for line in embedded
+          engine = Path("artifacts/api-server/src/quant-v4/generation-engine.ts")
+          source = engine.read_text()
+
+          question_start = source.index(
+              '    const questionPackage = pnlRuntimeMode === "DYNAMIC_CANDIDATE"'
           )
+          question_end = source.index("    results.push({", question_start)
+          question_block = '''    const questionPackage = pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+              ? runPnlCp001DynamicPipeline({
+                  difficultyBand,
+                  language: language as "en",
+                  questionLanguageId: request.questionLanguageId,
+                  seed,
+                })
+              : await pkg.run(cpId, {
+                  difficulty: difficultyBand,
+                  language,
+                  questionLanguageId: request.questionLanguageId,
+                  seed,
+                });
+          '''
+          source = source[:question_start] + question_block + source[question_end:]
 
-          stale_exact_replacement = 'replace_once(engine, old_function, new_function, "runtime package generator")'
-          stable_boundary_replacement = '''engine_source = engine.read_text()
-          function_start = engine_source.index("async function generateWithRuntimePackage(")
-          function_end_marker = "\\n}\\n\\nexport async function generateQuestion"
-          function_end = engine_source.index(function_end_marker, function_start) + 2
-          engine.write_text(
-              engine_source[:function_start] + new_function + engine_source[function_end:]
-          )'''
-          if stale_exact_replacement not in code:
-              raise SystemExit("Reviewed patch no longer contains the expected runtime replacement hook")
-          code = code.replace(stale_exact_replacement, stable_boundary_replacement)
+          safety_start = source.index("      ...(isPnl\n        ? {")
+          safety_end_marker = "        : {}),"
+          safety_end = source.index(safety_end_marker, safety_start) + len(safety_end_marker)
+          safety_block = '''      ...(isPnl
+                ? {
+                    reviewStatus:
+                      pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+                        ? "UNREVIEWED_DYNAMIC_CANDIDATE"
+                        : "APPROVED_EDITORIAL_CANONICAL",
+                    questionBankStatus: "NOT_STORED",
+                    testEligibility: "INELIGIBLE",
+                    publiclyPublishable: false,
+                  }
+                : {}),'''
+          source = source[:safety_start] + safety_block + source[safety_end:]
+          engine.write_text(source)
 
-          exec(compile(code, "pnl-cp001-dynamic-review-patch", "exec"))
+          admin = Path("artifacts/api-server/src/routes/admin-question-studio.ts")
+          source = admin.read_text()
+          malformed = '''      publiclyPublishable:
+                typeof (pkg as any).publiclyPublishable === "boolean"
+          ? (pkg as any).publiclyPublishable
+          : undefined,'''
+          normalized = '''      publiclyPublishable:
+                typeof (pkg as any).publiclyPublishable === "boolean"
+                  ? (pkg as any).publiclyPublishable
+                  : undefined,'''
+          if malformed not in source:
+              raise SystemExit("Admin capability formatting block was not found")
+          admin.write_text(source.replace(malformed, normalized, 1))
           PY
 
-      - name: Upload patch diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: pnl-dynamic-review-patch-diagnostics
-          path: pnl-dynamic-review-patch.log
-          if-no-files-found: error
-          retention-days: 2
+      - name: Remove temporary patch machinery
+        run: |
+          git rm \
+            .github/workflows/tmp-pnl-cp001-dynamic-review-patch.yml \
+            .github/workflows/tmp-pnl-cp001-dynamic-review-runner.yml
 
-      - name: Enforce patch result
-        if: steps.patch.outcome != 'success'
-        run: exit 1
-
-      - name: Commit patched integration
+      - name: Commit finalized integration
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
             artifacts/api-server/src/quant-v4/generation-engine.ts \
-            artifacts/api-server/src/quant-v4/generation-engine-core.ts \
-            artifacts/api-server/src/routes/generator.ts \
-            artifacts/api-server/src/routes/admin-question-studio.ts \
-            artifacts/api-server/src/lib/admin-question-conversion.ts
-          git commit -m "feat(pnl): add safe CP-001 dynamic review routing"
+            artifacts/api-server/src/routes/admin-question-studio.ts
+          git commit -m "chore(pnl): finalize dynamic review integration"
           git push origin HEAD:feat/pnl-001-cp001-question-studio-dynamic-review
