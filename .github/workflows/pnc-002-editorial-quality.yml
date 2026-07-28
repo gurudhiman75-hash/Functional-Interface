@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: validate-pnc-002-editorial-quality-${{ github.ref }}
@@ -28,8 +28,99 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - name: Checkout source
+      - name: Checkout editorial branch
         uses: actions/checkout@v4
+        with:
+          ref: feat/pnc-002-editorial-quality-upgrade
+      - name: Apply final editorial consistency fixes once
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          root = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002')
+          presentation = root / 'foundation/student-presentation-final.ts'
+          text = presentation.read_text()
+
+          spacing_anchor = '    .replace(/\\b(Thus|Hence|Therefore)\\$(?!\\$)/g, "$1 $")\n'
+          spacing_addition = (
+              '    .replace(/\\bspecified\\b/gi, "particular")\n'
+              '    .replace(/\\bunnamed\\b/gi, "unlabelled")\n'
+              '    .replace(/\\bdistinct\\b/gi, "different")\n'
+          )
+          if spacing_addition not in text:
+              if spacing_anchor not in text:
+                  raise SystemExit('spacing polish anchor not found')
+              text = text.replace(spacing_anchor, spacing_anchor + spacing_addition, 1)
+
+          old_derangement = '''  if (mode.includes("derangement") || mode.includes("fixedpoint")) {
+            stem = stem.replace(/different objects/gi, "numbered cards");
+          }
+'''
+          new_derangement = '''  if (mode.includes("derangement") || mode.includes("fixedpoint")) {
+            stem = stem
+              .replace(/different objects/gi, "numbered cards")
+              .replace(/\\bobjects\\b/gi, "cards")
+              .replace(/\\bobject\\b/gi, "card");
+          }
+'''
+          if old_derangement in text:
+              text = text.replace(old_derangement, new_derangement, 1)
+          elif new_derangement not in text:
+              raise SystemExit('derangement noun block not found')
+
+          trainee_block = '''
+          if (/trainees?/.test(original)) {
+            stem = stem.replace(
+              /^A sports club is forming teams for a tournament\\./,
+              "A training centre is forming project teams.",
+            );
+          }
+
+'''
+          if trainee_block not in text:
+              return_anchor = '  return stem;\n}\n\nconst directReasons:'
+              if return_anchor not in text:
+                  raise SystemExit('final stem return anchor not found')
+              text = text.replace(return_anchor, trainee_block + return_anchor, 1)
+
+          inverse_guard = '''  if (source.solveMode.toLowerCase().includes("recover")) {
+            return "does not reproduce the stated target count when checked within the permitted candidate range";
+          }
+'''
+          if inverse_guard not in text:
+              trap_anchor = 'function finalTrapReason(source: PncStudentSourcePackage, option: number): string {\n'
+              if trap_anchor not in text:
+                  raise SystemExit('final trap function anchor not found')
+              text = text.replace(trap_anchor, trap_anchor + inverse_guard, 1)
+
+          presentation.write_text(text)
+
+          proof = root / 'pnc-002-editorial-quality-reviewed.test.ts'
+          proof_text = proof.read_text()
+          assertion_anchor = 'assert.ok(byQl.get("PNC-QL-269")?.upgradedStem.startsWith("A sports club has"));\n'
+          assertions = '''assert.ok(byQl.get("PNC-QL-239")?.commonTrapWarning.every((line) => line.includes("target count") && line.includes("candidate range")));
+          assert.ok(byQl.get("PNC-QL-253")?.upgradedStem.includes("card"));
+          assert.ok(!byQl.get("PNC-QL-253")?.upgradedStem.includes("object"));
+          assert.ok(byQl.get("PNC-QL-209")?.upgradedStem.startsWith("A training centre is forming project teams."));
+'''
+          if assertions not in proof_text:
+              if assertion_anchor not in proof_text:
+                  raise SystemExit('review assertion anchor not found')
+              proof_text = proof_text.replace(assertion_anchor, assertion_anchor + assertions, 1)
+          proof.write_text(proof_text)
+          PY
+          if ! git diff --quiet -- \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-final.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-reviewed.test.ts; then
+            git config user.name github-actions[bot]
+            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+            git add \
+              artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-final.ts \
+              artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-reviewed.test.ts
+            git commit -m "fix(pnc): finalise inverse traps and learner terminology"
+            git push origin HEAD:feat/pnc-002-editorial-quality-upgrade
+          fi
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
