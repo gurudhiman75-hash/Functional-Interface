@@ -1,0 +1,65 @@
+name: Bootstrap TMW-CP-011 source package
+
+on:
+  push:
+    branches:
+      - feat/tmw-cp011
+    paths:
+      - .github/cp011-payload-*
+      - .github/workflows/tmw-cp011-bootstrap.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bootstrap-tmw-cp011-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Decode reviewed CP-011 package
+        shell: bash
+        run: |
+          set -euo pipefail
+          target="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001"
+          work="$(mktemp -d)"
+          cat .github/cp011-payload-* | base64 --decode > "$work/cp011.tar.gz"
+          mkdir -p "$work/extracted" "$target/foundation"
+          tar -xzf "$work/cp011.tar.gz" -C "$work/extracted"
+
+          cp "$work"/extracted/foundation/cp011-*.ts "$target/foundation/"
+          cp "$work"/extracted/tmw-001-cp011*.ts "$target/"
+          cp "$work"/extracted/TMW-CP-011-*.md "$target/"
+          cp "$work/extracted/tmw-cp011-runtime-proof.yml" .github/workflows/tmw-cp011-runtime-proof.yml
+
+          if ! grep -q 'foundation/cp011-types' "$target/index.ts"; then
+            cat >> "$target/index.ts" <<'EXPORTS'
+          export * from "./foundation/cp011-types";
+          export * from "./foundation/cp011-registry";
+          export * from "./foundation/cp011-engine";
+          export * from "./foundation/cp011-presentation";
+          export * from "./foundation/cp011-options";
+          export * from "./foundation/cp011-runtime";
+          export * from "./foundation/cp011-review";
+          EXPORTS
+          fi
+
+          rm -f .github/cp011-payload-*
+          rm -f .github/workflows/tmw-cp011-bootstrap.yml
+
+      - name: Commit materialised package
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "feat(tmw): materialise CP-011 variable-productivity runtime proof"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
