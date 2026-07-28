@@ -29,6 +29,7 @@ const csvHeader = [
   "prototypeId",
   "seed",
   "presentation",
+  "questionForm",
   "difficulty",
   "stem",
   "optionA",
@@ -38,6 +39,7 @@ const csvHeader = [
   "correctIndex",
   "answerId",
   "onlyConstraintCount",
+  "negativeConstraintCount",
   "assertionRoleDepth",
   "queryRoleDepth",
   "pathLength",
@@ -50,6 +52,7 @@ const csvRows = questions.map((question) =>
     question.prototypeId,
     question.seed,
     question.metadata.presentation,
+    question.metadata.questionForm,
     question.difficulty,
     question.stem,
     question.options[0]?.value,
@@ -59,6 +62,7 @@ const csvRows = questions.map((question) =>
     question.correctIndex,
     question.metadata.answerId,
     question.metadata.onlyConstraintCount,
+    question.metadata.negativeConstraintCount,
     question.metadata.assertionRoleDepth,
     question.metadata.queryRoleDepth,
     question.metadata.pathLength,
@@ -72,7 +76,7 @@ const cards = questions.map((question, index) => {
       `<li class="${option.isCorrect ? "correct" : ""}"><strong>${String.fromCharCode(65 + optionIndex)}.</strong> ${escapeHtml(option.value)}${option.errorLabel ? ` <code>${escapeHtml(option.errorLabel)}</code>` : ""}</li>`,
   ).join("");
   return `<article>
-    <header><span>#${index + 1}</span><code>${escapeHtml(question.metadata.scenarioId)}</code><code>${escapeHtml(question.prototypeId)}</code></header>
+    <header><span>#${index + 1}</span><code>${escapeHtml(question.metadata.scenarioId)}</code><code>${escapeHtml(question.prototypeId)}</code><code>${escapeHtml(question.metadata.questionForm)}</code></header>
     <p class="meta">Seed ${question.seed} · ${escapeHtml(question.metadata.presentation)} · ${escapeHtml(question.difficulty)} · Answer ${question.correctIndex + 1}</p>
     <h2>${escapeHtml(question.stem)}</h2>
     <ol>${options}</ol>
@@ -88,12 +92,12 @@ const cards = questions.map((question, index) => {
 
 const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BLR-CP-002 canonical scenario appendix</title><style>
 body{font-family:system-ui,sans-serif;margin:0;background:#f5f5f5;color:#18181b}main{max-width:1100px;margin:auto;padding:24px}article{background:white;border:1px solid #ddd;border-radius:12px;padding:22px;margin:18px 0}header{display:flex;gap:10px;flex-wrap:wrap}.meta{color:#52525b}h2{font-size:1.08rem;line-height:1.55}h3{font-size:.95rem;margin-top:22px}li{margin:7px 0}.correct{font-weight:700}code{background:#f4f4f5;padding:2px 6px;border-radius:4px;font-size:.78rem}pre{white-space:pre-wrap;background:#fafafa;border:1px solid #e4e4e7;padding:12px;border-radius:8px;line-height:1.45}
-</style></head><body><main><h1>BLR-CP-002 canonical scenario appendix</h1><p>Every one of the 26 positive source scenarios is rendered at all four answer positions. These remain non-permanent English discovery records.</p>${cards}</main></body></html>`;
+</style></head><body><main><h1>BLR-CP-002 canonical scenario appendix</h1><p>Every one of the ${scenarios.length} positive canonical source scenarios is rendered at all four answer positions. These remain non-permanent English discovery records.</p>${cards}</main></body></html>`;
 
 const summary = {
   packageId: "BLR-001",
   checkpointId: "BLR-CP-002",
-  status: "CANONICAL_SCENARIO_APPENDIX_V1",
+  status: "CANONICAL_SCENARIO_APPENDIX_V2",
   permanentQlCount: 0,
   provisionalAuthorityCount: 1,
   scenarioCount: scenarios.length,
@@ -101,6 +105,10 @@ const summary = {
   scenarioIds: scenarios.map((scenario) => scenario.scenarioId),
   answerIds: [...new Set(questions.map((question) => question.metadata.answerId))].sort(),
   presentations: [...new Set(questions.map((question) => question.metadata.presentation))].sort(),
+  questionForms: [...new Set(questions.map((question) => question.metadata.questionForm))].sort(),
+  negativeConstraintRecords: questions.filter(
+    (question) => question.metadata.negativeConstraintCount > 0,
+  ).length,
   answerPositions: [0, 1, 2, 3].map(
     (index) => questions.filter((question) => question.correctIndex === index).length,
   ),
