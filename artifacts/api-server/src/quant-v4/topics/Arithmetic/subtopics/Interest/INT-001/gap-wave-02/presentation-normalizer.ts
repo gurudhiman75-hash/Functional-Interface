@@ -46,7 +46,7 @@ function normaliseArticle(value: string): string {
 }
 
 function normaliseFractionalYearGrammar(value: string): string {
-  return value.replace(/\b(\d+\/\d+) years\b/gu, "$1 of a year");
+  return value.replace(/(?<!\d )\b(\d+\/\d+) years\b/gu, "$1 of a year");
 }
 
 function cleanText(value: string): string {
