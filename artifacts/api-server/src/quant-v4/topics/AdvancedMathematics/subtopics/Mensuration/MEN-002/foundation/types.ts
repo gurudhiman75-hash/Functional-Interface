@@ -29,6 +29,7 @@ export type Men002Unit =
   | "bricks"
   | "%"
   | "£"
+  | "£/m"
   | "£/m²"
   | "£/m³"
   | "times";
