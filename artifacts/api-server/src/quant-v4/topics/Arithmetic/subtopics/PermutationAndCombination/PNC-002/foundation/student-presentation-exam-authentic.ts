@@ -113,10 +113,10 @@ function naturaliseForSource(source: PncStudentSourcePackage, value: string): st
       .replace(/\bidentical boxes\b/gi, "unlabelled groups")
       .replace(/\bidentical groups\b/gi, "unlabelled groups")
       .replace(/\bidentical group\b/gi, "unlabelled group")
-      .replace(/groups are identical/gi, "groups are unlabelled")
-      .replace(/group is identical/gi, "group is unlabelled")
       .replace(/\bboxes\b/gi, "groups")
-      .replace(/\bbox\b/gi, "group");
+      .replace(/\bbox\b/gi, "group")
+      .replace(/groups are identical/gi, "groups are unlabelled")
+      .replace(/group is identical/gi, "group is unlabelled");
   }
   if (source.questionLanguageId === "PNC-QL-229") {
     natural = natural
