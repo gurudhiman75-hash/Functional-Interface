@@ -49,6 +49,10 @@ export {
   MAL_CP001_QL_GAP_IDS,
   MAL_CP001_QL_GAP_LEDGER,
 } from "./foundation/cp001-ql-gap-ledger";
+export {
+  MAL_CP001_OWNERSHIP_RESOLUTION_IDS,
+  MAL_CP001_OWNERSHIP_RESOLUTIONS,
+} from "./foundation/cp001-ownership-resolution-ledger";
 export { generateMalCp001PrototypeParameters } from "./foundation/cp001-parameter-generator";
 export { generateMalCp001GapParameters } from "./foundation/cp001-gap-generator";
 export { generateMalCp001Prototype } from "./foundation/pipeline";
@@ -78,3 +82,7 @@ export type {
   MalCp001QlGapSourceStatus,
   MalCp001QlGapLedgerEntry,
 } from "./foundation/cp001-ql-gap-ledger";
+export type {
+  MalCp001OwnershipResolutionId,
+  MalCp001OwnershipResolutionEntry,
+} from "./foundation/cp001-ownership-resolution-ledger";
