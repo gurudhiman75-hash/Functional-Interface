@@ -1,4 +1,4 @@
-name: Validate PNC-002 exam-authentic editorial quality
+name: Validate PNC-002 teacher-style editorial quality
 
 on:
   push:
@@ -58,30 +58,31 @@ jobs:
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-reviewed.ts \
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-final.ts \
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-exam-authentic.ts \
-            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-exam-authentic.test.ts
-      - name: Bundle exam-authentic editorial proof
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-teacher.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher.test.ts
+      - name: Bundle teacher-style editorial proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-exam-authentic.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher.test.ts
           --bundle
           --platform=node
           --format=esm
-          --outfile=dist/quant-v4/pnc-002-editorial-quality-exam-authentic-proof.mjs
-      - name: Run exam-authentic editorial proof
+          --outfile=dist/quant-v4/pnc-002-editorial-quality-teacher-proof.mjs
+      - name: Run teacher-style editorial proof
         working-directory: artifacts/api-server
         shell: bash
         run: |
           mkdir -p dist/quant-v4/pnc-002-editorial-quality-diagnostics
           set +e
-          node dist/quant-v4/pnc-002-editorial-quality-exam-authentic-proof.mjs 2>&1 | tee dist/quant-v4/pnc-002-editorial-quality-diagnostics/runtime.log
+          node dist/quant-v4/pnc-002-editorial-quality-teacher-proof.mjs 2>&1 | tee dist/quant-v4/pnc-002-editorial-quality-diagnostics/runtime.log
           status=${PIPESTATUS[0]}
           exit "$status"
-      - name: Publish exam-authentic editorial review
+      - name: Publish teacher-style editorial review
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pnc-002-exam-authentic-editorial-review
-          path: artifacts/api-server/dist/quant-v4/pnc-002-editorial-quality-exam-authentic/
+          name: pnc-002-teacher-style-editorial-review
+          path: artifacts/api-server/dist/quant-v4/pnc-002-editorial-quality-teacher/
           if-no-files-found: error
           retention-days: 14
       - name: Publish diagnostics
