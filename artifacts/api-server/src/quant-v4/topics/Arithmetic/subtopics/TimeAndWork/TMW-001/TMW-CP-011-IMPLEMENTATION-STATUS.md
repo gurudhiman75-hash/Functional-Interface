@@ -58,25 +58,10 @@ Following the 9.5/10 editorial audit, the learner package was revised without ch
 
 Permanent runtime and corpus guards enforce teacher voice, expanded working, direct trap advice, valid MathJax and absence of the removed jargon.
 
-## Final exact-head validation
+## Evidence policy
 
-Final head: `d6d1a49f5f3e84e1689e08009ddfc35871f6f6de`  
-Dedicated workflow: `30380767386` — PASS  
-Evidence artefact: `8696871733`  
-Digest: `sha256:e69ca7af5587d40d592ee30a993d899238da2783cb794e2829bc616e84bf1224`
-
-- 950 deterministic runtime cases — PASS;
-- 228 teacher-language structural/editorial cases — PASS;
-- 57 exact-head review rows — PASS;
-- teacher-voice passes: 228 / 228;
-- direct friendly-trap passes: 228 / 228;
-- expanded-working passes: 228 / 228;
-- MathJax fractional-time occurrences: 60;
-- mathematical fingerprint changes from the previously reviewed corpus: 0;
-- option changes: 0;
-- correct-answer/index changes: 0;
-- all available same-head TMW regressions from CP-001 through CP-011 — PASS.
+The immutable exact tested head, workflow run, artefact ID and digest are recorded in PR #302 after CI completes. They are intentionally not embedded here because updating this file would create a new branch head and immediately make an embedded self-SHA stale.
 
 ## Current gate
 
-All temporary staging and patch workflows have been removed. Question Studio routing, Question Bank writes, localisation, test assembly and public delivery remain disabled. PR #302 remains draft and unmerged pending user review and approval of the simplified 57-question pack.
+All temporary staging and patch workflows have been removed. Question Studio routing, Question Bank writes, localisation, test assembly and public delivery remain disabled. PR #302 remains draft and unmerged pending exact-head evidence, hosted-artifact review and user approval of the simplified 57-question pack.
