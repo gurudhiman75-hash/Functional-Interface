@@ -31,7 +31,10 @@ export function applyPunjabiEditorialOverrides(input: string): string {
       const baseText = BASE_PLACE_PA[base.toLowerCase()] ?? base;
       const qualifierText = qualifier ? QUALIFIER_PA[qualifier.toLowerCase()] : undefined;
       return qualifierText ? `${qualifierText} ${baseText}` : baseText;
-    });
+    })
+    .replace(/([^।]+?) ਇੱਕੋ ਬਿੰਦੂ ([A-Z]) ਤੋਂ ਸ਼ੁਰੂ ਕਰਦੇ ਹਨ।/g, "$1 ਦੀਆਂ ਯਾਤਰਾਵਾਂ ਇੱਕੋ ਬਿੰਦੂ $2 ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦੀਆਂ ਹਨ।")
+    .replace(/([^।]+?) ਬਿੰਦੂ ([A-Z]) ਤੋਂ ਅਤੇ ([^।]+?) ਬਿੰਦੂ ([A-Z]) ਤੋਂ ਸ਼ੁਰੂ ਕਰਦੇ ਹਨ।/g, "$1 ਅਤੇ $3 ਦੀਆਂ ਯਾਤਰਾਵਾਂ ਕ੍ਰਮਵਾਰ ਬਿੰਦੂ $2 ਅਤੇ ਬਿੰਦੂ $4 ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦੀਆਂ ਹਨ।")
+    .replace(/([^।]+?) ਆਪਣੇ ਦਿੱਤੇ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂਆਂ ਤੋਂ ਸ਼ੁਰੂ ਕਰਦੇ ਹਨ।/g, "$1 ਦੀਆਂ ਯਾਤਰਾਵਾਂ ਆਪਣੇ ਦਿੱਤੇ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂਆਂ ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦੀਆਂ ਹਨ।");
 }
 
 export function optionLabelPunjabi(option: R): string {
