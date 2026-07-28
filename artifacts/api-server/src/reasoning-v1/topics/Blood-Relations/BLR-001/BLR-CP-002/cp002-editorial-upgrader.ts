@@ -32,8 +32,34 @@ function naturalPhotoOpening(stem: string): string {
     .replace("Pointing to a photograph of a person,", "Pointing to a person in a photograph,");
 }
 
+function addListenerContext(
+  question: GeneratedBlrCp002PrototypeQuestion,
+  stem: string,
+): string {
+  const { listenerId, pointedPersonId, presentation, personNames, speakerId } =
+    question.structuredPrompt;
+  if (!listenerId || !pointedPersonId) return stem;
+
+  const speakerName = personNames[speakerId] ?? speakerId;
+  const listenerName = personNames[listenerId] ?? listenerId;
+  const pointedName = personNames[pointedPersonId] ?? pointedPersonId;
+
+  if (presentation === "INTRODUCTION") {
+    return stem.replace(
+      `Introducing ${pointedName}, ${speakerName} said,`,
+      `Introducing ${pointedName} to ${listenerName}, ${speakerName} said,`,
+    );
+  }
+  return stem.replace(
+    `${speakerName} said,`,
+    `${speakerName} said to ${listenerName},`,
+  );
+}
+
 function upgradedStem(question: GeneratedBlrCp002PrototypeQuestion): string {
-  if (!question.metadata.selfIdentity) return naturalPhotoOpening(question.stem);
+  if (!question.metadata.selfIdentity) {
+    return addListenerContext(question, naturalPhotoOpening(question.stem));
+  }
 
   const speakerName =
     question.structuredPrompt.personNames[question.structuredPrompt.speakerId] ??
