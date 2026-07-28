@@ -16,3 +16,6 @@ export * from "./cp001-editorial-v2";
 export * from "./cp001-editorial-v3";
 export * from "./cp001-final-editorial-runtime";
 export * from "./cp001-final-editorial-runtime-v3";
+export * from "./cp001-multilingual-release";
+export * from "./cp001-localization-foundation";
+export * from "./cp001-localized-runtime";
