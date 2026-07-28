@@ -1,5 +1,5 @@
 import { NUM_CP003_PROTOTYPE_REGISTRY } from "./foundation/registry";
-import { generateNumCp003Prototype } from "./foundation/runtime";
+import { generateNumCp003Prototype } from "./foundation/runtime-reviewed";
 import { NUM_CP003_PROTOTYPE_IDS } from "./foundation/types";
 
 function stable(value: unknown): string {
@@ -40,6 +40,7 @@ for (const prototypeId of NUM_CP003_PROTOTYPE_IDS) {
     assertEqual(new Set(first.options).size, 4);
     assertEqual(first.options[first.correctIndex], first.answer);
     assertEqual(first.optionAudit[first.correctIndex]?.misconceptionId, "CORRECT");
+    assertOk(first.optionAudit.every((row) => row.diagnostic.trim().length >= 16));
     assertEqual(first.permanentQlId, null);
     assertEqual(first.reviewStatus, "UNREVIEWED_DISCOVERY_CANDIDATE");
     assertEqual(first.questionBankStatus, "NOT_STORED");
@@ -51,6 +52,7 @@ for (const prototypeId of NUM_CP003_PROTOTYPE_IDS) {
     assertOk(first.explanation.traps.length >= 3);
     assertOk(first.reasoningGraph.nodes.some((node) => node.kind === "VERIFICATION"));
     assertOk(first.difficultyEvidence.length > 0);
+    assertOk(!first.explanation.steps.some((step) => /\([^)]*\b(?:div|lceil|rceil|times)\b[^)]*\)/u.test(step)));
 
     answerPositions.add(first.correctIndex);
     stems.add(first.stem);
