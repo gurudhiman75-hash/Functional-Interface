@@ -279,7 +279,9 @@ function normalizeStem(question: any): string {
 
   stem = stem
     .replace(/,\s+What\b/g, ", what")
-    .replace(/,\s+How\b/g, ", how");
+    .replace(/,\s+How\b/g, ", how")
+    .replace(/\.\s+what\b/g, ". What")
+    .replace(/\.\s+how\b/g, ". How");
 
   return stem;
 }
