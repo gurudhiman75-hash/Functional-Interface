@@ -129,38 +129,80 @@ function inverseDirective(title: string, mode: string) {
       return "Use L = (θ/360)2πr and solve for r. Divide by the angle fraction and by 2π.";
     }
     if (/RadiusFromSectorArea/.test(mode)) {
-      return "Use A = (θ/360)πr², isolate r², and take the positive square root.";
+      return "Use A = (θ/360)πr², leave r² alone, and then take the positive square root.";
     }
   }
   return undefined;
 }
 
 function shortcutFor(mode: string) {
+  if (/TriangleAreaBaseHeight|RightTriangleAreaFromLegs/.test(mode)) {
+    return "Halve an even base or height before multiplying. This removes the 1/2 immediately and keeps the arithmetic small.";
+  }
   if (/MissingHeightFromAreaAndBase|MissingBaseFromAreaAndHeight/.test(mode)) {
-    return "Rearrange A = ½bh before inserting numbers: double the area first, then divide by the known perpendicular measurement.";
+    return "From A = 1/2 bh, double the area first and then divide by the known perpendicular measurement.";
+  }
+  if (/Isosceles/.test(mode)) {
+    return "Look for a Pythagorean Triplet in half-base, height and equal side. If one appears, read the height without expanding a square root.";
+  }
+  if (/Heron|TriangleAreaFromSideRatio/.test(mode)) {
+    return "Check whether the three actual sides form a Pythagorean Triplet. If they do, use the two shorter sides in A = 1/2 bh; otherwise complete Heron's formula.";
+  }
+  if (/EquilateralTriangleArea/.test(mode)) {
+    return "Square the side first, then multiply by √3/4. Keeping the coefficient separate reduces arithmetic mistakes.";
+  }
+  if (/RectangleArea|FloorArea/.test(mode)) {
+    return "For a rectangle, multiply the two perpendicular sides directly. Convert units before multiplying, not after.";
+  }
+  if (/SquareArea/.test(mode) && !/Wire/.test(mode)) {
+    return "For a square, one multiplication is enough: A = s². Do not confuse side² with perimeter 4s.";
   }
   if (/RectanglePerimeter/.test(mode)) {
-    return "Add length and breadth first, then double once: P = 2(l + b). This avoids doubling each value separately.";
+    return "Add length and breadth first, then double once: P = 2(l + b). This avoids counting one pair of sides twice.";
+  }
+  if (/SquarePerimeter|RegularHexagonSideFromPerimeter|EquilateralSideFromPerimeter/.test(mode)) {
+    return "A regular figure has equal sides, so divide its perimeter by the number of sides—or multiply one side by that count.";
+  }
+  if (/Parallelogram/.test(mode)) {
+    return "Use the perpendicular height, not the sloping side. Once base and height are identified, multiply them directly.";
+  }
+  if (/Rhombus|Kite|QuadrilateralAreaFromDiagonal/.test(mode)) {
+    return "Pair the perpendicular diagonals and apply the 1/2 factor before multiplying. Halving one even diagonal first is fastest.";
+  }
+  if (/Trapezium/.test(mode)) {
+    return "Add the parallel sides first, halve that sum, and then multiply by the perpendicular height.";
   }
   if (/CircleCircumference/.test(mode)) {
     return "Use C = πd when the diameter is known and C = 2πr when the radius is known. Choose the form that avoids an extra conversion.";
   }
+  if (/CircleArea|AreaFromCircumference/.test(mode)) {
+    return "Make sure you have the radius, then square it before multiplying by π. If circumference is given, recover r first.";
+  }
   if (/RadiusFromArea/.test(mode)) {
-    return "Divide the area by π before taking the square root. Never take the square root of the area before removing π.";
+    return "Divide the area by π before taking the square root. Never take the square root before removing π.";
+  }
+  if (/Semicircle|Quadrant|Sector/.test(mode)) {
+    return "Start with the full-circle formula, then apply the fraction 1/2, 1/4 or θ/360 only once.";
   }
   if (/Scale|Map/.test(mode)) {
     return /Area/.test(mode)
-      ? "Quick rule: lengths use k, but areas use k². Square the stated linear scale factor before applying it to area."
+      ? "Quick rule: lengths use k, but areas use k². Square the linear factor before applying it to area."
       : "Quick rule: a length or perimeter uses the linear scale factor k only once.";
   }
-  if (/Path|Border|Shaded|Remaining|Uncovered/.test(mode)) {
-    return "Draw or imagine the complete outer figure first. For a path or cut-out, calculate outer area − inner area directly.";
+  if (/AreaPercent|PercentageDimensionChanges/.test(mode)) {
+    return "For equal change p% in both dimensions, use 2p ± p²/100. For different changes, multiply their percentage factors.";
+  }
+  if (/Wire/.test(mode)) {
+    return "Write old perimeter = new perimeter first. Cancel common factors before solving for the new side or radius.";
+  }
+  if (/Path|Border|Shaded|Remaining|Uncovered|Annulus/.test(mode)) {
+    return "Calculate outer area − inner area directly. Label the two areas before subtracting so they are not reversed.";
   }
   if (/Tile/.test(mode)) {
     return "Convert units before finding either area, then use number of tiles = total area ÷ area of one tile.";
   }
   if (/Cost|Rate/.test(mode)) {
-    return "Finish the geometry first. Apply the money rate only to the final area or boundary length, with the rate's matching unit.";
+    return "Finish the geometry first. Apply the money rate only to the final area or boundary length, using the rate's matching unit.";
   }
   if (/Revolution|Wheel/.test(mode)) {
     return "One revolution covers one circumference. Divide total distance by πd, or multiply revolutions by πd, depending on what is unknown.";
@@ -168,14 +210,17 @@ function shortcutFor(mode: string) {
   if (/Composite|LShape|Union|CrossRoad|Stadium/.test(mode)) {
     return "Choose a decomposition with the fewest pieces. Add non-overlapping parts and subtract any overlap or cut-out only once.";
   }
-  if (/RegularHexagonSideFromPerimeter|EquilateralTriangleSideFromSquareWire/.test(mode)) {
-    return "For a regular figure, divide its perimeter equally by the number of sides after conserving the original boundary length.";
+  if (/convertSquareCentimetres|convertSquareMetres/.test(mode)) {
+    return "Remember the squared conversion: 1 m² = 10,000 cm². Use 10,000, never 100, for area.";
   }
-  return "Write the formula before the numbers, cancel common factors early, and keep the unit visible so an area is not confused with a length.";
+  if (/convertCentimetres|convertMetres|MixedLengthUnits|SideUnitConversion/.test(mode)) {
+    return "Convert all lengths to one unit before using the formula. Linear units use a factor of 100 between metres and centimetres.";
+  }
+  return "Identify exactly what the question asks for, write its matching formula, and simplify with the unit visible at every stage.";
 }
 
 function isGenericShortcut(paragraph: string) {
-  return /Put the known values into the formula|find the required .* first, then substitute|substitute the measurements once|rearrange the formula.*then solve/i.test(paragraph);
+  return /Put the known values into the formula|find the required .* first, then substitute|substitute the measurements once|rearrange the formula.*then solve|Keep all lengths in one unit, cancel common factors|Write the formula before the numbers, cancel common factors/i.test(paragraph);
 }
 
 function refineStep(section: StepSection, mode: string): StepSection {
