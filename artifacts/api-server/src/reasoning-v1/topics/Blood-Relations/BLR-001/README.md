@@ -1,6 +1,6 @@
 # BLR-001 — Blood Relations
 
-Status: **BLR-CP-001 English discovery frozen; BLR-CP-002 English role-chain discovery active**.
+Status: **BLR-CP-001 English discovery frozen; BLR-CP-002 English source-gap pass complete and awaiting human review**.
 
 Student-facing chapter: **Blood Relations**  
 Reasoning V1 package: `BLR-001`  
@@ -29,12 +29,16 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BL
 - blood and affinal uncle/aunt with inverse nephew/niece closure;
 - broad role vocabulary for parent, child, sibling and spouse;
 - union-cardinality semantics for exact `ONLY_CHILD`;
+- zero-cardinality validation for negative relation facts;
 - independent clue-only solvers;
 - misconception-labelled four-option construction;
 - four-tier learner-facing editorial layer;
 - structured speaker/listener/pointed-person anchors;
+- one-, two- and three-anchor dialogue contexts;
 - nested role-chain reduction with formal `ONLY` checks;
-- explicit self-identity resolution.
+- direct, reverse and both-derived query endpoints;
+- pictured and derived self-identity resolution;
+- semantic and possessive photograph/portrait option rendering.
 
 ## Frozen BLR-CP-001 range
 
@@ -52,43 +56,50 @@ Freeze version: `BLR_CP001_ENGLISH_DISCOVERY_FREEZE_V1`
 
 Eleven exploratory prototypes were compressed into seven permanent solve identities. Direction, depth, topology, claim polarity, target gender, lineage side, relation output, names and difficulty remain instance properties.
 
-## Active BLR-CP-002 discovery surface
+## BLR-CP-002 English discovery result
 
-Five non-permanent prototypes currently cover:
+Six non-permanent prototypes cover:
 
 - pointed person to speaker;
 - speaker to pointed person;
-- a nested role chain as a query endpoint;
+- nested query endpoints;
 - two-speaker `my`/`your` conversations;
+- three-anchor introductions;
 - self identity after role-chain collapse.
 
-Pointing, photograph, introduction and stage forms are renderer variants. The first merge/split audit provisionally compresses the five prototypes into one authority:
+The completed second source-gap and merge/split rerun recommends one eventual authority:
 
 ```text
 RESOLVE_ANCHORED_ROLE_CHAIN_RELATION
 ```
 
-This is not a one-QL freeze. Canonical widening integration, longer-chain review and a second gap audit remain mandatory.
+This is not yet a freeze. Human review of the final English pack remains mandatory, and `BLR-QL-008` remains unclaimed.
 
 ## Current executable gates
 
 ```text
-BLR-CP-001 frozen workflow                     3,556 questions
-BLR-CP-002 mathematical audit                    600 questions
+BLR-CP-001 frozen workflow                    3,556 questions
+BLR-CP-002 core mathematical audit              720 questions
 BLR-CP-002 affinal + only-child widening         832 questions
-BLR-CP-002 English editorial V2 audit            400 questions
+BLR-CP-002 English editorial audit               480 questions
+BLR-CP-002 three-anchor topology                 256 questions
+BLR-CP-002 both-derived query endpoints          192 questions
+BLR-CP-002 negative sibling constraints          256 questions
+BLR-CP-002 ownership renderer                    192 questions
+BLR-CP-002 four-step role chains                 384 questions
+BLR-CP-002 canonical appendix                    180 questions
 -----------------------------------------------------------
-current deterministic chapter proof            5,388 questions
+current deterministic chapter proof            7,048 questions
 ```
 
-CP-002 verifies pronoun anchors, assertion truth, nested query endpoints, self identity, all dialogue renderers, broad only-child cardinality, nine affinal relation families, hidden-identity preservation, natural photograph wording and complete explanation tiers. The complete CP-001 regression remains green after the shared foundation extensions.
+CP-002 verifies five presentation contexts, three question forms, up to three anchors, one- through four-step role chains, both-derived endpoints, broad only-child cardinality, negative sibling facts, blood and affinal outputs, pictured and derived self identity, and possessive photograph/portrait options.
 
 ## Checkpoint state
 
 | Checkpoint | Ownership | State |
 |---|---|---|
 | `BLR-CP-001` | direct declarative named-person relations | frozen; `BLR-QL-001..007` |
-| `BLR-CP-002` | pointer/photo/conversation/nested self-reference | English open discovery; 26 positive scenarios plus one negative model, five prototypes, provisionally one authority; zero new QLs |
+| `BLR-CP-002` | pointer/photo/portrait/conversation/nested self-reference | English source-gap pass complete; 45 positive scenarios, six prototypes, one authority recommended; human review pending; zero new QLs |
 | `BLR-CP-003` | shared family passages | open |
 | `BLR-CP-004` | counts and family composition | open |
 | `BLR-CP-005` | possible/impossible/one-of-two/indeterminate semantics | open |
@@ -111,13 +122,15 @@ The next available chapter identity is `BLR-QL-008`, but CP-002 has not claimed 
 ### CP-002
 
 - `BLR-CP-002/BLR-CP-002-SOURCE-AND-BOUNDARY-AUDIT.md`;
-- `BLR-CP-002/BLR-CP-002-MERGE-SPLIT-AUDIT-V1.md`;
-- `BLR-CP-002/BLR-CP-002-ENGLISH-REVIEW-V2.md`;
 - `BLR-CP-002/BLR-CP-002-SOURCE-WIDENING-AUDIT-V1.md`;
 - `BLR-CP-002/BLR-CP-002-ONLY-CHILD-AUDIT-V1.md`;
 - `BLR-CP-002/BLR-CP-002-SOURCE-REJECTION-REGISTER-V1.md`;
+- `BLR-CP-002/BLR-CP-002-OWNERSHIP-RENDERER-AUDIT-V1.md`;
+- `BLR-CP-002/BLR-CP-002-SECOND-SOURCE-GAP-AUDIT.md`;
+- `BLR-CP-002/BLR-CP-002-MERGE-SPLIT-AUDIT-V1.md`;
+- `BLR-CP-002/BLR-CP-002-ENGLISH-REVIEW-V2.md`;
 - `BLR-CP-002/README.md`;
-- executable role-chain contracts, solver, scenario libraries, raw generator, editorial registry, audits and review exports.
+- executable contracts, solvers, scenario libraries, editorial registry, deterministic gates and review exports.
 
 ## Release boundary
 
@@ -130,4 +143,4 @@ CP-001 permanent identity and CP-002 prototypes do not enable delivery:
 - Hindi and Punjabi: not started;
 - public publication: disabled.
 
-The next CP-002 boundary is canonical integration of all widening scenarios, longer-chain review and the second source-gap pass before any allocation beginning at `BLR-QL-008`.
+The next CP-002 action is human editorial review of the final English pack. A formal one-authority freeze and allocation of `BLR-QL-008` may occur only after that approval.
