@@ -29,6 +29,18 @@ for (const entry of entries) {
     if (/ਵਿਅਕਤੀਆਂ|ਕਲਾਕਾਰਾਂ/.test(presentation.stem)) {
       assert.doesNotMatch(presentation.stem, /ਤਰੀਕਿਆਂ ਨਾਲ ਲਗਾਇਆ ਜਾ ਸਕਦਾ ਹੈ/);
     }
+    if (entry.qlId === "PNC-QL-114") {
+      assert.doesNotMatch(presentation.stem, /सदस्यों|ਮੈਂਬਰਾਂ/);
+      assert.match(presentation.stem, locale === "hi-IN" ? /समूह में साथ रहें/ : /ਸਮੂਹ ਵਿੱਚ ਇਕੱਠੀਆਂ ਰਹਿਣ/);
+    }
+    if (entry.qlId === "PNC-QL-115") {
+      assert.doesNotMatch(presentation.stem, /पास नहीं बैठ|ਨਾਲ-ਨਾਲ ਨਾ ਬੈਠ/);
+      assert.match(presentation.stem, locale === "hi-IN" ? /पास खड़े नहीं/ : /ਨਾਲ-ਨਾਲ ਨਾ ਖੜ੍ਹਨ/);
+    }
+    if (entry.qlId === "PNC-QL-122") {
+      assert.doesNotMatch(presentation.stem, /फाइलों.*खड़ा|ਫਾਈਲਾਂ.*ਖੜ੍ਹਾ/);
+      assert.match(presentation.stem, locale === "hi-IN" ? /फाइलों को सीधी पंक्ति.*लगाया/ : /ਫਾਈਲਾਂ ਨੂੰ ਸਿੱਧੀ ਕਤਾਰ.*ਲਗਾਇਆ/);
+    }
     assert.equal(presentation.publiclyPublishable, false);
     assert.equal(presentation.editorialStatus, "PENDING");
   }
