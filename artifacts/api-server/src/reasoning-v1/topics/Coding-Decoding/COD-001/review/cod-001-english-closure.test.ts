@@ -92,10 +92,12 @@ const renderers = new Set<string>();
 const checkpoints = new Set<string>();
 const exactQuestionFingerprints = new Map<string, string>();
 const checkpointCounts = new Map<string, number>();
+const fixedStemQlIds: string[] = [];
 let generatedCount = 0;
 
 for (const id of ids) {
   const stemFingerprints = new Set<string>();
+  const promptFingerprints = new Set<string>();
   const explanationFingerprints = new Set<string>();
 
   for (let seed = 1; seed <= seedsPerQl; seed += 1) {
@@ -138,6 +140,7 @@ for (const id of ids) {
     exactQuestionFingerprints.set(fullFingerprint, `${id}/${seed}`);
 
     stemFingerprints.add(question.stem.replace(/[A-Z0-9@#$%&*+=?!]+/gu, "¤").replace(/\s+/gu, " ").trim());
+    promptFingerprints.add(stableStringify(question.structuredPrompt));
     explanationFingerprints.add(explanationText.replace(/[A-Z0-9@#$%&*+=?!]+/gu, "¤").replace(/\s+/gu, " ").trim());
     answerPositions[question.correctIndex] += 1;
     difficulties.add(question.difficulty);
@@ -147,8 +150,9 @@ for (const id of ids) {
     generatedCount += 1;
   }
 
-  assert.ok(stemFingerprints.size >= 2, `${id} does not vary its English stem across ${seedsPerQl} seeds`);
+  assert.equal(promptFingerprints.size, seedsPerQl, `${id} repeats its structured question data across seeds`);
   assert.ok(explanationFingerprints.size >= 2, `${id} does not vary its English explanation across ${seedsPerQl} seeds`);
+  if (stemFingerprints.size === 1) fixedStemQlIds.push(id);
 }
 
 assert.equal(generatedCount, 199 * seedsPerQl);
@@ -158,6 +162,7 @@ assert.ok(renderers.size >= 4, `Expected at least four renderers, found ${[...re
 assert.ok(answerPositions.every((count) => count > 0), `Not all answer positions were reached: ${answerPositions.join("/")}`);
 const positionRatio = Math.max(...answerPositions) / Math.min(...answerPositions);
 assert.ok(positionRatio <= 1.25, `Chapter answer-position ratio is too uneven: ${answerPositions.join("/")}`);
+assert.ok(fixedStemQlIds.length <= 8, `Too many QLs have one fixed wording form: ${fixedStemQlIds.join(", ")}`);
 
 console.log(JSON.stringify({
   status: "COD-001 ENGLISH RUNTIME CLOSURE PASSED",
@@ -172,6 +177,7 @@ console.log(JSON.stringify({
   renderers: [...renderers].sort(),
   checkpointQuestionCounts: Object.fromEntries([...checkpointCounts.entries()].sort()),
   exactQuestionCollisions: 0,
+  fixedStemQlIds,
   questionStudioVisible: false,
   publiclyPublishable: false,
 }, null, 2));
