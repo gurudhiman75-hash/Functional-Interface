@@ -79,13 +79,13 @@ function polishStepLine(value: string, locale: PncStudentLocale): string {
 function naturalInverseLine(value: string, locale: PncStudentLocale): string {
   if (locale === "hi-IN") {
     return value
-      .replace(/\$([nk])\$ के हर अनुमत मान पर/g, "दी गई सीमा में $\1$ के हर संभव मान पर")
+      .replace(/\$([nk])\$ के हर अनुमत मान पर/g, (_match, variable: string) => `दी गई सीमा में $${variable}$ के हर संभव मान पर`)
       .replace(/केवल दी गई सीमा के मान जाँचिए/g, "दी गई सीमा के मान एक-एक करके जाँचिए")
       .replace(/लक्ष्य संख्या/g, "दी गई संख्या")
       .replace(/स्वीकार्य उत्तर/g, "सही उत्तर");
   }
   return value
-    .replace(/\$([nk])\$ ਦੇ ਹਰ ਮਨਜ਼ੂਰ ਮੁੱਲ ਉੱਤੇ/g, "ਦਿੱਤੀ ਹੱਦ ਵਿੱਚ $\1$ ਦੇ ਹਰ ਸੰਭਵ ਮੁੱਲ ਉੱਤੇ")
+    .replace(/\$([nk])\$ ਦੇ ਹਰ ਮਨਜ਼ੂਰ ਮੁੱਲ ਉੱਤੇ/g, (_match, variable: string) => `ਦਿੱਤੀ ਹੱਦ ਵਿੱਚ $${variable}$ ਦੇ ਹਰ ਸੰਭਵ ਮੁੱਲ ਉੱਤੇ`)
     .replace(/ਸਿਰਫ਼ ਦਿੱਤੀ ਹੱਦ ਦੇ ਮੁੱਲ ਜਾਂਚੋ/g, "ਦਿੱਤੀ ਹੱਦ ਦੇ ਮੁੱਲ ਇੱਕ-ਇੱਕ ਕਰਕੇ ਜਾਂਚੋ")
     .replace(/ਟੀਚਾ ਗਿਣਤੀ/g, "ਦਿੱਤੀ ਗਿਣਤੀ")
     .replace(/ਮਨਜ਼ੂਰ ਉੱਤਰ/g, "ਸਹੀ ਉੱਤਰ");
