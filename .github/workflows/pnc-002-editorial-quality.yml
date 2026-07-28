@@ -37,26 +37,34 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
+
           root = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002')
+
           presentation = root / 'foundation/student-presentation.ts'
-          text = presentation.read_text()
-          old = '  if (!steps.some((line) => line.includes(source.solver.mathJax))) steps.push(displayEquation);'
-          new = '  if (!steps.some((line) => line.includes(`$$${source.solver.mathJax}$$`))) steps.push(displayEquation);'
-          if old in text:
-              text = text.replace(old, new, 1)
-          elif new not in text:
+          presentation_lines = presentation.read_text().splitlines()
+          presentation_changed = False
+          for index, line in enumerate(presentation_lines):
+              if 'if (!steps.some((line) => line.includes(source.solver.mathJax))) steps.push(displayEquation);' in line:
+                  presentation_lines[index] = '  if (!steps.some((line) => line.includes(`$$${source.solver.mathJax}$$`))) steps.push(displayEquation);'
+                  presentation_changed = True
+                  break
+          if not presentation_changed and not any('line.includes(`$$${source.solver.mathJax}$$`)' in line for line in presentation_lines):
               raise SystemExit('display-equation guard not found')
-          presentation.write_text(text)
+          presentation.write_text('\n'.join(presentation_lines) + '\n')
 
           proof = root / 'pnc-002-editorial-quality.test.ts'
-          proof_text = proof.read_text()
-          old_regex = 'const unresolvedPlaceholder = /\\{[A-Za-z][A-Za-z0-9_]*\\}/;'
-          new_regex = 'const unresolvedPlaceholder = /\\{[A-Za-z][A-Za-z0-9_]{1,}\\}/;'
-          if old_regex in proof_text:
-              proof_text = proof_text.replace(old_regex, new_regex, 1)
-          elif new_regex not in proof_text:
-              raise SystemExit('placeholder regex not found')
-          proof.write_text(proof_text)
+          proof_lines = proof.read_text().splitlines()
+          proof_changed = False
+          for index, line in enumerate(proof_lines):
+              if line.startswith('const unresolvedPlaceholder = '):
+                  replacement = 'const unresolvedPlaceholder = /\\{[A-Za-z][A-Za-z0-9_]{1,}\\}/;'
+                  if line != replacement:
+                      proof_lines[index] = replacement
+                      proof_changed = True
+                  break
+          else:
+              raise SystemExit('placeholder-regex declaration not found')
+          proof.write_text('\n'.join(proof_lines) + '\n')
           PY
           if ! git diff --quiet -- \
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation.ts \
