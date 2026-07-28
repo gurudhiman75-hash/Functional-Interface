@@ -109,9 +109,19 @@ function withTeacherLabels(
   } as MalCp001FoundationQuestion;
 }
 
+function sentenceCase(value: string): string {
+  return value.replace(/^([a-z])/u, (_match, firstLetter: string) =>
+    firstLetter.toUpperCase(),
+  );
+}
+
 function normaliseTeacherLanguage(
   explanation: MalCp001TeacherExplanation,
 ): MalCp001TeacherExplanation {
+  const conclusionWithAgreement = explanation.conclusion.replace(
+    /\b((?:tea\s+)?leaves|beans) costs\b/giu,
+    "$1 cost",
+  );
   return {
     ...explanation,
     commonTrap: explanation.commonTrap.replace(
@@ -119,10 +129,7 @@ function normaliseTeacherLanguage(
       (_match, firstLetter: string) =>
         `Common trap: ${firstLetter.toLowerCase()}`,
     ),
-    conclusion: explanation.conclusion.replace(
-      /\b((?:tea\s+)?leaves|beans) costs\b/giu,
-      "$1 cost",
-    ),
+    conclusion: sentenceCase(conclusionWithAgreement),
   };
 }
 
