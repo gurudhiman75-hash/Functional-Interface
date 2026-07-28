@@ -121,6 +121,20 @@ function formatRationalPlain(value: ExactRational) {
   return `${value.numerator}/${value.denominator}`;
 }
 
+export function formatIndianInteger(value: bigint | number) {
+  const integer = BigInt(value);
+  const negative = integer < 0n;
+  const digits = (negative ? -integer : integer).toString();
+  if (digits.length <= 3) return `${negative ? "-" : ""}${digits}`;
+  const lastThree = digits.slice(-3);
+  const leading = digits.slice(0, -3);
+  const groups: string[] = [];
+  for (let index = leading.length; index > 0; index -= 2) {
+    groups.unshift(leading.slice(Math.max(0, index - 2), index));
+  }
+  return `${negative ? "-" : ""}${groups.join(",")},${lastThree}`;
+}
+
 export function formatExactMath(value: ExactValue) {
   if (value.kind === "RATIONAL") return formatRationalMath(value);
   const coefficient = value.coefficient;
@@ -137,6 +151,24 @@ export function formatExactPlain(value: ExactValue) {
   return `${formatRationalPlain(coefficient)}√${value.radicand}`;
 }
 
+function formatCurrencyAmountMath(value: ExactValue) {
+  if (value.kind !== "RATIONAL") return `\\text{₹}${formatExactMath(value)}`;
+  const numerator = formatIndianInteger(value.numerator);
+  if (value.denominator === 1n) return `\\text{₹}${numerator}`;
+  return `\\text{₹}\\frac{${numerator}}{${formatIndianInteger(value.denominator)}}`;
+}
+
+function formatCurrencyRateMath(value: ExactValue, denominatorMath: string) {
+  if (value.kind !== "RATIONAL") {
+    return `\\frac{\\text{₹}${formatExactMath(value)}}{${denominatorMath}}`;
+  }
+  const numerator = formatIndianInteger(value.numerator);
+  const rationalDenominator = value.denominator === 1n
+    ? denominatorMath
+    : `${formatIndianInteger(value.denominator)}${denominatorMath}`;
+  return `\\frac{\\text{₹}${numerator}}{${rationalDenominator}}`;
+}
+
 function formatUnitMath(unit: Men002Unit) {
   switch (unit) {
     case "cm²": return "\\text{ cm}^{2}";
@@ -144,24 +176,20 @@ function formatUnitMath(unit: Men002Unit) {
     case "cm³": return "\\text{ cm}^{3}";
     case "m³": return "\\text{ m}^{3}";
     case "%": return "\\%";
-    case "£": return "\\text{£}";
-    case "£/m": return "\\text{£}/\\text{m}";
-    case "£/m²": return "\\text{£}/\\text{m}^{2}";
-    case "£/m³": return "\\text{£}/\\text{m}^{3}";
+    case "₹": return "\\text{₹}";
+    case "₹/m": return "\\frac{\\text{₹}}{\\text{m}}";
+    case "₹/m²": return "\\frac{\\text{₹}}{\\text{m}^{2}}";
+    case "₹/m³": return "\\frac{\\text{₹}}{\\text{m}^{3}}";
     default: return `\\text{ ${unit}}`;
   }
 }
 
 export function formatWithUnit(value: ExactValue, unit: Men002Unit) {
   const maths = formatExactMath(value);
-  if (unit === "£") return `$${formatUnitMath(unit)}${maths}$`;
-  if (unit === "£/m" || unit === "£/m²" || unit === "£/m³") {
-    const denominator = unit === "£/m" ? "\\text{m}" : unit === "£/m²" ? "\\text{m}^{2}" : "\\text{m}^{3}";
-    const rateValue = value.kind === "RATIONAL" && value.denominator !== 1n
-      ? `\\left(${maths}\\right)`
-      : maths;
-    return `$\\text{£}${rateValue}/${denominator}$`;
-  }
+  if (unit === "₹") return `$${formatCurrencyAmountMath(value)}$`;
+  if (unit === "₹/m") return `$${formatCurrencyRateMath(value, "\\text{m}")}$`;
+  if (unit === "₹/m²") return `$${formatCurrencyRateMath(value, "\\text{m}^{2}")}$`;
+  if (unit === "₹/m³") return `$${formatCurrencyRateMath(value, "\\text{m}^{3}")}$`;
   return `$${maths}${formatUnitMath(unit)}$`;
 }
 
