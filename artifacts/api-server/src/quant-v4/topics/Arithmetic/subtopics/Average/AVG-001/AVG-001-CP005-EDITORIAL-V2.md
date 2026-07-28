@@ -2,48 +2,61 @@
 
 ## Status
 
-**IMPLEMENTED AS A REVIEW CANDIDATE — NOT WIRED INTO THE FROZEN ENGLISH RELEASE**
+**ADVERSARIAL REVIEW REMEDIATION COMPLETE — REVIEW CANDIDATE ONLY**
 
-This wave upgrades all 56 `AVG-CP-005` question-language units while preserving the current `AVG-001-EN-v1` production pipeline.
+This wave upgrades all 56 `AVG-CP-005` question-language units while preserving the current `AVG-001-EN-v1` runtime until the complete chapter-wide v2 review is finished.
 
-## Coverage
+## Scope
 
-- QL range: `AVG-QL-274` through `AVG-QL-329`;
+- QL range: `AVG-QL-274` through `AVG-QL-329` — 56 QLs;
 - eight correction solve modes;
-- examination marks, salaries, ages, production, sales, innings, parcel weights and abstract records;
-- natural competitive-exam stems with explicit targets;
-- semantic answer units and Indian currency grouping;
-- misconception-derived distractors rather than nearby-number filler;
+- examination marks, payroll, age, factory output, shop sales, innings, parcel-weight and numerical-record contexts;
+- context-specific stems and explicit targets;
+- misconception-derived options;
+- semantic units and Indian currency grouping;
 - exact four-tier explanations;
-- value-to-misconception traceability for every wrong option;
+- all three wrong options mapped to explicit misconception tags;
 - unchanged solver state, exact answer and mathematical fingerprint.
 
-## Distractor policy
+## Adversarial review remediation
 
-The candidate generates wrong options from the actual error path for each solve mode, including:
+The 56-question external audit scored the candidate 9.2/10 and approved its mathematics and answer keys, subject to three presentation fixes. The reviewed layer now provides:
 
-- ignoring the correction;
-- reversing the correction sign;
-- using count plus or minus one;
-- failing to scale an average shift by the count;
-- applying only one of two corrections;
-- multiplying where division is required.
+1. **MathJax-safe units**
+   - every unit inside a display equation is wrapped with `\\text{...}`;
+   - final answers use bold MathJax forms such as `\\mathbf{50\\text{ marks}}`;
+   - signed currency uses `-\\text{₹}...`, never `\\text{₹}-...`.
 
-Fallback arithmetic distractors are used only when two misconception calculations collapse to the same displayed value.
+2. **Numerical exam shortcuts**
+   - every shortcut substitutes the actual generated values;
+   - generic repeated sentences were removed;
+   - the 56-question review export contains 56 distinct shortcut strings.
 
-## Validation
+3. **Grammar guards**
+   - singular quantities use `1 mark`, `1 year`, `1 run` and `1 unit`;
+   - indefinite articles are corrected for relevant vowel-sound nouns, including `An inspection...`;
+   - count-answer labels remain separate from measurement units.
 
-The dedicated audit generates five deterministic instances for each QL, producing 280 candidate packages. It checks:
+## Final validation
 
-- exact-answer and mathematical-fingerprint preservation;
-- resolved, contextual stems;
-- four unique, positive and consistently qualified options;
-- correct-index integrity;
-- explicit misconception trace for all three wrong options;
-- four-tier explanation structure and answer evidence;
-- absence of known mechanical correction phrasing;
-- cross-QL rendered-stem uniqueness.
+Dedicated workflow run `30325018472` validates five deterministic instances for each QL, producing 280 candidate packages.
+
+Passed checks:
+
+- API server build;
+- 56 QLs and eight solve modes;
+- 280 mathematical-fingerprint preservation cases;
+- 280 MathJax unit-safety cases;
+- 280 numerical-shortcut cases;
+- 280 misconception-option cases;
+- 280 four-tier explanations;
+- every wrong option analysed;
+- zero raw unit words inside display math;
+- zero generic shortcut boilerplate;
+- zero article errors;
+- zero duplicate rendered stems;
+- zero audit failures.
 
 ## Release boundary
 
-The candidate is applied only by the CP-005 v2 audit and review export. Production wiring and `AVG-001-EN-v2` publication remain deferred until the remaining editorial waves pass review.
+The reviewed candidate is applied only by the CP-005 audit and review-export path. The existing `AVG-001-EN-v1` runtime remains unchanged. Production wiring and the final `AVG-001-EN-v2` release ID remain chapter-wide follow-up work.
