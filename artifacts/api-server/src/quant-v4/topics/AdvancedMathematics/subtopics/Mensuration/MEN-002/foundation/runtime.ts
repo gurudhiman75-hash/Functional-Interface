@@ -3,6 +3,7 @@ import {
   exactFromSquaredLength,
   exactKey,
   formatExactMath,
+  formatIndianInteger,
   formatWithUnit,
   integerCubeRoot,
   rational,
@@ -531,8 +532,8 @@ function paintingCostDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: 
   const lsa = 2n * height * (length + breadth);
   const answer = q(tsa * rate);
   return {
-    state: makeState(prototypeId, seed, difficulty, "£", "painting-cost", { length, breadth, height, rate }, { surfaceArea: q(tsa), answer }),
-    stem: `A closed cuboidal display box measures ${dimensionText(length, "m")} by ${dimensionText(breadth, "m")} by ${dimensionText(height, "m")}. Painting costs $\\text{£}${rate}$ per square metre. Find the total painting cost.`,
+    state: makeState(prototypeId, seed, difficulty, "₹", "painting-cost", { length, breadth, height, rate }, { surfaceArea: q(tsa), answer }),
+    stem: `A closed cuboidal display box measures ${dimensionText(length, "m")} by ${dimensionText(breadth, "m")} by ${dimensionText(height, "m")}. Painting costs $\\text{₹}${formatIndianInteger(rate)}$ per square metre. Find the total painting cost.`,
     answer,
     wrongAnswers: [
       { value: q(tsa), misconceptionId: "REPORTED_AREA_NOT_COST", explanation: "stopping at the total surface area and not multiplying by the rate" },
@@ -542,9 +543,9 @@ function paintingCostDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: 
     keyRule: "Painting cost equals the actual painted area multiplied by the rate per square metre. A closed cuboid uses $2(lb+bh+hl)$.",
     steps: [
       { title: "Find the Painted Surface Area", body: "All six faces are painted because the box is closed.", equation: `$$TSA=2(${length * breadth}+${breadth * height}+${height * length})=${tsa}\\text{ m}^2$$` },
-      { title: "Apply the Area Rate", body: `Multiply by $\\text{£}${rate}$ for each square metre.`, equation: `$$Cost=${tsa}\\times\\text{£}${rate}=\\text{£}${tsa * rate}$$` },
+      { title: "Apply the Area Rate", body: `Multiply by $\\text{₹}${formatIndianInteger(rate)}$ for each square metre.`, equation: `$$Cost=${tsa}\\times\\text{₹}${rate}=\\text{₹}${formatIndianInteger(tsa * rate)}$$` },
     ],
-    shortcut: `Calculate $lb+bh+hl$, double once, then multiply by the painting rate.`,
+    shortcut: `Here $lb+bh+hl=${length * breadth}+${breadth * height}+${height * length}$, so the painted area is $${tsa}\text{ m}^{2}$ and the cost is $${tsa}\times\text{₹}${formatIndianInteger(rate)}=\text{₹}${formatIndianInteger(tsa * rate)}$.`,
   };
 }
 

@@ -2,6 +2,7 @@ import {
   exactEquals,
   exactFromSquaredLength,
   exactKey,
+  formatIndianInteger,
   formatWithUnit,
   integerCubeRoot,
   integerSquareRoot,
@@ -394,8 +395,8 @@ function paintingRateDraft(prototypeId: MenCp007Wave02PrototypeId, seed: string,
   const cost = tsa * rate;
   const answer = q(rate);
   return {
-    state: makeState(prototypeId, seed, "£/m²", "UNIT", { length, breadth, height, rate, tsa, lsa, cost }, { answer }),
-    stem: `Painting all six faces of a closed cuboidal display box costs $\\text{£}${cost}$. The box measures ${dimension(length, "m")} × ${dimension(breadth, "m")} × ${dimension(height, "m")}. Find the painting rate per square metre.`,
+    state: makeState(prototypeId, seed, "₹/m²", "UNIT", { length, breadth, height, rate, tsa, lsa, cost }, { answer }),
+    stem: `Painting all six faces of a closed cuboidal display box costs $\\text{₹}${formatIndianInteger(cost)}$. The box measures ${dimension(length, "m")} × ${dimension(breadth, "m")} × ${dimension(height, "m")}. Find the painting rate per square metre.`,
     answer,
     wrongAnswers: [
       { value: q(cost, lsa), misconceptionId: "USED_LATERAL_AREA", explanation: "dividing by the four-wall area and omitting the top and bottom from the painted area" },
@@ -405,9 +406,9 @@ function paintingRateDraft(prototypeId: MenCp007Wave02PrototypeId, seed: string,
     keyRule: "Rate equals total cost divided by the actual painted area. For all six faces of a closed cuboid, use $TSA=2(lb+bh+hl)$.",
     steps: [
       { title: "Find the Painted Area", body: "All six faces are included.", equation: `$$TSA=2(${length * breadth}+${breadth * height}+${height * length})=${tsa}\\text{ m}^{2}$$` },
-      { title: "Divide Cost by Area", body: "Pounds divided by square metres gives pounds per square metre.", equation: `$$Rate=\\frac{\\text{£}${cost}}{${tsa}\\text{ m}^{2}}=\\frac{\\text{£}${rate}}{\\text{m}^{2}}$$` },
+      { title: "Divide Cost by Area", body: "Rupees divided by square metres gives rupees per square metre.", equation: `$$Rate=\\frac{\\text{₹}${formatIndianInteger(cost)}}{${tsa}\\text{ m}^{2}}=\\frac{\\text{₹}${formatIndianInteger(rate)}}{\\text{m}^{2}}$$` },
     ],
-    shortcut: `Rate $=Cost/TSA$; do not stop after finding the area.`,
+    shortcut: `For this box, $Rate=\frac{\text{₹}${formatIndianInteger(cost)}}{${tsa}\text{ m}^{2}}=\frac{\text{₹}${formatIndianInteger(rate)}}{\text{m}^{2}}$.`,
   };
 }
 
@@ -474,8 +475,8 @@ function materialCostDraft(prototypeId: MenCp007Wave02PrototypeId, seed: string,
   const cost = volume * rate;
   const answer = q(cost);
   return {
-    state: makeState(prototypeId, seed, "£", "UNIT", { length, breadth, height, rate, volume }, { answer }),
-    stem: `A solid cuboidal block measures ${dimension(length, "m")} × ${dimension(breadth, "m")} × ${dimension(height, "m")}. Material costs $\\text{£}${rate}$ per cubic metre. Find the total material cost.`,
+    state: makeState(prototypeId, seed, "₹", "UNIT", { length, breadth, height, rate, volume }, { answer }),
+    stem: `A solid cuboidal block measures ${dimension(length, "m")} × ${dimension(breadth, "m")} × ${dimension(height, "m")}. Material costs $\\text{₹}${formatIndianInteger(rate)}$ per cubic metre. Find the total material cost.`,
     answer,
     wrongAnswers: [
       { value: q(volume), misconceptionId: "REPORTED_VOLUME", explanation: "stopping at the block's volume and not applying the price per cubic metre" },
@@ -485,9 +486,9 @@ function materialCostDraft(prototypeId: MenCp007Wave02PrototypeId, seed: string,
     keyRule: "Material cost at a cubic-metre rate equals volume × rate. Keep the rate dimension aligned with the measured quantity.",
     steps: [
       { title: "Find the Solid Volume", body: "Multiply the three metre dimensions.", equation: `$$V=${length}\\times${breadth}\\times${height}=${volume}\\text{ m}^{3}$$` },
-      { title: "Apply the Cubic-Metre Rate", body: `Multiply by $\\text{£}${rate}$ for each cubic metre.`, equation: `$$Cost=${volume}\\times\\text{£}${rate}=\\text{£}${cost}$$` },
+      { title: "Apply the Cubic-Metre Rate", body: `Multiply by $\\text{₹}${formatIndianInteger(rate)}$ for each cubic metre.`, equation: `$$Cost=${volume}\\times\\text{₹}${rate}=\\text{₹}${cost}$$` },
     ],
-    shortcut: `Volume first, then multiply once by the £ per cubic metre rate.`,
+    shortcut: `Here $V=${volume}\text{ m}^{3}$, so $Cost=${volume}\times\text{₹}${formatIndianInteger(rate)}=\text{₹}${formatIndianInteger(cost)}$.`,
   };
 }
 

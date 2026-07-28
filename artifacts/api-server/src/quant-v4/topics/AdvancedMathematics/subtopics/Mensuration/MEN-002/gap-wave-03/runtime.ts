@@ -2,6 +2,7 @@ import {
   exactEquals,
   exactFromSquaredLength,
   exactKey,
+  formatIndianInteger,
   formatWithUnit,
   integerCubeRoot,
   integerSquareRoot,
@@ -462,8 +463,8 @@ function wireFrameCostDraft(prototypeId: MenCp007Wave03PrototypeId, seed: string
   const tsa = 2n * (state.length * state.breadth + state.breadth * state.height + state.height * state.length);
   const answer = q(cost);
   return {
-    state: makeState(prototypeId, seed, "£", { ...state, edgeLength, cost }, { answer }),
-    stem: `A wire frame is made along all edges of a cuboid measuring ${dimension(state.length, "m")} × ${dimension(state.breadth, "m")} × ${dimension(state.height, "m")}. Wire costs $\\text{£}${state.rate}$ per metre. Find the total cost.`,
+    state: makeState(prototypeId, seed, "₹", { ...state, edgeLength, cost }, { answer }),
+    stem: `A wire frame is made along all edges of a cuboid measuring ${dimension(state.length, "m")} × ${dimension(state.breadth, "m")} × ${dimension(state.height, "m")}. Wire costs $\\text{₹}${formatIndianInteger(state.rate)}$ per metre. Find the total cost.`,
     answer,
     wrongAnswers: [
       { value: q(2n * (state.length + state.breadth) * state.rate), misconceptionId: "USED_BASE_PERIMETER", explanation: "pricing only the four edges around one base" },
@@ -473,9 +474,9 @@ function wireFrameCostDraft(prototypeId: MenCp007Wave03PrototypeId, seed: string
     keyRule: "A cuboid has four edges of each dimension, so total wire length is $4(l+b+h)$. Multiply that length by the price per metre.",
     steps: [
       { title: "Find the Total Edge Length", body: "Count four lengths, four breadths and four heights.", equation: `$$E=4(${state.length}+${state.breadth}+${state.height})=${edgeLength}\\text{ m}$$` },
-      { title: "Apply the Wire Rate", body: `Multiply by $\\text{£}${state.rate}$ for each metre.`, equation: `$$Cost=${edgeLength}\\times\\text{£}${state.rate}=\\text{£}${cost}$$` },
+      { title: "Apply the Wire Rate", body: `Multiply by $\\text{₹}${formatIndianInteger(state.rate)}$ for each metre.`, equation: `$$Cost=${edgeLength}\\times\\text{₹}${state.rate}=\\text{₹}${cost}$$` },
     ],
-    shortcut: `Find $4(l+b+h)$ first; surface area is irrelevant to a wire frame.`,
+    shortcut: `Here $4(l+b+h)=${edgeLength}\text{ m}$, so the wire costs $${edgeLength}\times\text{₹}${formatIndianInteger(state.rate)}=\text{₹}${formatIndianInteger(cost)}$.`,
   };
 }
 
@@ -485,8 +486,8 @@ function cubeWireRateDraft(prototypeId: MenCp007Wave03PrototypeId, seed: string,
   const cost = edgeLength * state.rate;
   const answer = q(state.rate);
   return {
-    state: makeState(prototypeId, seed, "£/m", { ...state, edgeLength, cost }, { answer }),
-    stem: `Wire along all twelve edges of a cube of side ${dimension(state.side, "m")} costs $\\text{£}${cost}$. Find the wire rate per metre.`,
+    state: makeState(prototypeId, seed, "₹/m", { ...state, edgeLength, cost }, { answer }),
+    stem: `Wire along all twelve edges of a cube of side ${dimension(state.side, "m")} costs $\\text{₹}${formatIndianInteger(cost)}$. Find the wire rate per metre.`,
     answer,
     wrongAnswers: [
       { value: q(3n * state.rate), misconceptionId: "USED_FOUR_EDGES", explanation: "dividing the cost by only four side lengths instead of all twelve edges" },
@@ -496,9 +497,9 @@ function cubeWireRateDraft(prototypeId: MenCp007Wave03PrototypeId, seed: string,
     keyRule: "A cube has twelve equal edges. Find total wire length $12a$, then divide the total cost by that length.",
     steps: [
       { title: "Find the Wire Length", body: "Multiply one edge by twelve.", equation: `$$E=12\\times${state.side}=${edgeLength}\\text{ m}$$` },
-      { title: "Divide Cost by Length", body: "Pounds divided by metres gives pounds per metre.", equation: `$$Rate=\\frac{\\text{£}${cost}}{${edgeLength}\\text{ m}}=\\frac{\\text{£}${state.rate}}{\\text{m}}$$` },
+      { title: "Divide Cost by Length", body: "Rupees divided by metres gives rupees per metre.", equation: `$$Rate=\\frac{\\text{₹}${formatIndianInteger(cost)}}{${edgeLength}\\text{ m}}=\\frac{\\text{₹}${formatIndianInteger(state.rate)}}{\\text{m}}$$` },
     ],
-    shortcut: `Rate equals total cost divided by the twelve-edge wire length.`,
+    shortcut: `The cube uses $12\times${state.side}=${edgeLength}\text{ m}$ of wire, so $Rate=\frac{\text{₹}${formatIndianInteger(cost)}}{${edgeLength}\text{ m}}=\frac{\text{₹}${formatIndianInteger(state.rate)}}{\text{m}}$.`,
   };
 }
 
