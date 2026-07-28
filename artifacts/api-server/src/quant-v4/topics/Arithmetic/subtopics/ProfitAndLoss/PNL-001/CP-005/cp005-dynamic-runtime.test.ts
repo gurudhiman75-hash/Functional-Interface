@@ -83,13 +83,43 @@ for (const qlId of qlIds) {
       `${qlId}: unresolved prose placeholder.`,
     );
 
+    if (qlId === "PNL-QL-127" || qlId === "PNL-QL-146") {
+      assert.match(
+        pkg.answer,
+        /profit/i,
+        `${qlId}: must remain a profit question.`,
+      );
+    }
+    if (qlId === "PNL-QL-143") {
+      assert.equal(
+        pkg.parameters.variables.actualDirection,
+        "profit",
+        "PNL-QL-143 must remain a false-count profit question.",
+      );
+    }
+    if (qlId === "PNL-QL-141") {
+      assert.match(
+        pkg.answer,
+        /^₹\d+(?:\.\d{1,2})?$/,
+        "PNL-QL-141 must remain exact to the paise.",
+      );
+    }
+
     const replay = runPnlCp005DynamicPipeline({
       questionLanguageId: qlId,
       language: "en",
       seed,
     });
-    assert.equal(replay.stem, pkg.stem, `${qlId}: same seed must reproduce stem.`);
-    assert.equal(replay.answer, pkg.answer, `${qlId}: same seed must reproduce answer.`);
+    assert.equal(
+      replay.stem,
+      pkg.stem,
+      `${qlId}: same seed must reproduce stem.`,
+    );
+    assert.equal(
+      replay.answer,
+      pkg.answer,
+      `${qlId}: same seed must reproduce answer.`,
+    );
     assert.deepEqual(
       replay.options,
       pkg.options,
@@ -99,7 +129,10 @@ for (const qlId of qlIds) {
 
   assert.ok(stems.size >= 2, `${qlId}: seed sweep did not vary the stem.`);
   if (qlId !== "PNL-QL-147") {
-    assert.ok(answers.size >= 2, `${qlId}: seed sweep did not vary the answer.`);
+    assert.ok(
+      answers.size >= 2,
+      `${qlId}: seed sweep did not vary the answer.`,
+    );
   }
 }
 
@@ -124,7 +157,10 @@ const table = runPnlCp005DynamicPipeline({
   questionLanguageId: "PNL-QL-145",
   seed: "cp005-table-proof",
 });
-assert.match(table.stem, /\| Scheme \| Price condition \| Quantity condition \|/);
+assert.match(
+  table.stem,
+  /\| Scheme \| Price condition \| Quantity condition \|/,
+);
 
 const caselet = runPnlCp005DynamicPipeline({
   questionLanguageId: "PNL-QL-146",

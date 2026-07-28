@@ -268,9 +268,10 @@ export function generatePnlCp005Case(
 
     case "PNL-QL-122":
     case "PNL-QL-143": {
-      const quotedSellingPricePerNominalQuantity = rupees(
-        pickNumber(random, QUOTED_PRICES),
-      );
+      const quotedSellingPricePerNominalQuantity =
+        qlId === "PNL-QL-143"
+          ? costPricePerTrueQuantity
+          : rupees(pickNumber(random, QUOTED_PRICES));
       return {
         qlId,
         registry,
@@ -317,9 +318,7 @@ export function generatePnlCp005Case(
     case "PNL-QL-125":
     case "PNL-QL-148": {
       const targetDirection = "PROFIT" as const;
-      const targetRatePercent = rational(
-        pickSeeded(random, [20, 25] as const),
-      );
+      const targetRatePercent = rational(pickSeeded(random, [20, 25] as const));
       const quotedSellingPricePerNominalQuantity = solveDishonestTrade({
         mode: "TARGET_RATE_AND_FALSE_QUANTITY_TO_QUOTED_SP",
         costPricePerTrueQuantity,
@@ -357,10 +356,12 @@ export function generatePnlCp005Case(
       const costOnly = `The nominal cost is ${cp005FormatMoney(costPricePerTrueQuantity)}.`;
       const sellingOnly = `The selling amount is ${cp005FormatMoney(quotedSellingPricePerNominalQuantity)}.`;
       const irrelevant = "The goods are packed in an unbranded container.";
-      const pattern = pickSeeded(
-        random,
-        ["BOTH", "ONE", "TWO", "EITHER"] as const,
-      );
+      const pattern = pickSeeded(random, [
+        "BOTH",
+        "ONE",
+        "TWO",
+        "EITHER",
+      ] as const);
       const statementOne =
         pattern === "ONE" || pattern === "EITHER"
           ? full
@@ -433,9 +434,10 @@ export function generatePnlCp005Case(
       const purchasePricePerNominalQuantity = rupees(
         pickSeeded(random, [1000, 1200, 1500] as const),
       );
-      const sellingPricePerNominalQuantity = rupees(
-        pickSeeded(random, [1000, 1200, 1500] as const),
-      );
+      const sellingPricePerNominalQuantity =
+        qlId === "PNL-QL-127"
+          ? purchasePricePerNominalQuantity
+          : rupees(pickSeeded(random, [1000, 1200, 1500] as const));
       const receivedQuantity = pickSeeded(random, RECEIVED_QUANTITIES);
       const lightQuantity = pickDelivered(random);
       return {
@@ -466,8 +468,12 @@ export function generatePnlCp005Case(
 
     case "PNL-QL-129":
     case "PNL-QL-146": {
-      const markupPercent = rational(pickNumber(random, MARKUPS));
-      const discountPercent = rational(pickNumber(random, DISCOUNTS));
+      const markupPercent = rational(
+        qlId === "PNL-QL-146" ? 50 : pickNumber(random, MARKUPS),
+      );
+      const discountPercent = rational(
+        qlId === "PNL-QL-146" ? 10 : pickNumber(random, DISCOUNTS),
+      );
       return {
         qlId,
         registry,
@@ -615,9 +621,9 @@ export function generatePnlCp005Case(
     case "PNL-QL-136":
     case "PNL-QL-149": {
       const declared = {
-      direction: "PROFIT" as const,
-      ratePercent: rational(pickNumber(random, PROFIT_RATES)),
-    };
+        direction: "PROFIT" as const,
+        ratePercent: rational(pickNumber(random, PROFIT_RATES)),
+      };
       const forward = solveDishonestTrade({
         mode: "DECLARED_RATE_FALSE_QUANTITY_TO_ACTUAL_RATE",
         costPricePerTrueQuantity,
@@ -736,7 +742,9 @@ export function generatePnlCp005Case(
         lightQuantity,
       );
       if (forward.direction === "NO_CHANGE") {
-        throw new Error(`${qlId}: generated heavy/light result has no direction.`);
+        throw new Error(
+          `${qlId}: generated heavy/light result has no direction.`,
+        );
       }
       const context = {
         purchasePricePerNominalQuantity: cp005PlainMoney(
@@ -782,9 +790,14 @@ export function generatePnlCp005Case(
     }
 
     case "PNL-QL-141": {
-      const quotedSellingPricePerNominalQuantity = rupees(
-        pickNumber(random, QUOTED_PRICES),
-      );
+      const pair = pickSeeded(random, [
+        [800n, 1000],
+        [800n, 1200],
+        [900n, 900],
+        [900n, 1800],
+      ] as const);
+      const effectiveDeliveredQuantity = pair[0];
+      const quotedSellingPricePerNominalQuantity = rupees(pair[1]);
       return {
         qlId,
         registry,
@@ -793,14 +806,14 @@ export function generatePnlCp005Case(
           mode: "FALSE_QUANTITY_TO_EFFECTIVE_PRICE_PER_TRUE_QUANTITY",
           quotedSellingPricePerNominalQuantity,
           trueQuantity: TRUE_QUANTITY,
-          deliveredQuantity,
+          deliveredQuantity: effectiveDeliveredQuantity,
         },
         context: {
           quotedSellingPricePerNominalQuantity: cp005PlainMoney(
             quotedSellingPricePerNominalQuantity,
           ),
           trueQuantity: TRUE_QUANTITY.toString(),
-          deliveredQuantity: deliveredQuantity.toString(),
+          deliveredQuantity: effectiveDeliveredQuantity.toString(),
         },
       };
     }
