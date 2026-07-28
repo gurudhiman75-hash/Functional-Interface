@@ -39,11 +39,10 @@ The 56-question external audit scored the candidate 9.2/10 and approved its math
 
 ## Final validation
 
-The dedicated CP-005 workflow validates five deterministic instances for each QL, producing 280 candidate packages.
+The dedicated CP-005 workflow validates five deterministic instances for each QL, producing 280 candidate packages. The exact final branch head passed the API build, the strict 280-case audit, CSV generation and artifact upload.
 
 Passed checks:
 
-- API server build;
 - 56 QLs and eight solve modes;
 - 280 mathematical-fingerprint preservation cases;
 - 280 MathJax unit-safety cases;
