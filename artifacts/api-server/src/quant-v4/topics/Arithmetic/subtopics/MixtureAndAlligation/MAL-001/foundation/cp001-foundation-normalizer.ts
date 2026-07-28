@@ -6,6 +6,16 @@ import type {
 } from "./cp001-ql-expansion-ledger";
 import type { MalAnswerSemantic, MalTaskDirection } from "./types";
 
+const bigIntPrototype = BigInt.prototype as unknown as { toJSON?: () => string };
+if (typeof bigIntPrototype.toJSON !== "function") {
+  Object.defineProperty(bigIntPrototype, "toJSON", {
+    configurable: true,
+    value(this: bigint): string {
+      return this.toString();
+    },
+  });
+}
+
 export interface MalCp001FoundationQuestionContract {
   qlTemplateId: MalCp001ProvisionalQlTemplateId;
   solveModeId: MalCp001ProvisionalSolveModeId;
