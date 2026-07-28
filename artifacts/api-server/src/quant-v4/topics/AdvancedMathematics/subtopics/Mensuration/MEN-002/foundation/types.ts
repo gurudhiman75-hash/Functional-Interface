@@ -26,7 +26,8 @@ export type Men002Unit =
   | "litres"
   | "cubes"
   | "%"
-  | "£";
+  | "£"
+  | "times";
 
 export type ExactRational = {
   kind: "RATIONAL";
