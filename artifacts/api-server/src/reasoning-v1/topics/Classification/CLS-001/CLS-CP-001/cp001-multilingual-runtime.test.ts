@@ -10,6 +10,7 @@ import {
 
 const LOCALES: readonly ClsCp001Locale[] = ["en-IN", "hi-IN", "pa-IN"];
 
+assert.equal(CLS_CP001_PERMANENT_CONTRACTS.length, 3);
 assert.ok(CLS_CP001_CLASSES.every((semanticClass) => CLS_CP001_CLASS_LABELS[semanticClass.classId]));
 assert.ok(CLS_CP001_ENTITIES.every((entity) => CLS_CP001_ENTITY_LABELS[entity.label]));
 assert.equal(Object.keys(CLS_CP001_CLASS_LABELS).length, CLS_CP001_CLASSES.length);
@@ -19,14 +20,17 @@ const localeFingerprints = new Map<ClsCp001Locale, Set<string>>(
   LOCALES.map((locale) => [locale, new Set<string>()]),
 );
 const answerPositions = new Map<ClsCp001Locale, number[]>(
-  LOCALES.map((locale) => [locale, [0, 0, 0, 0]]),
+  LOCALES.map((locale) => [locale, [0, 0, 0, 0, 0]]),
 );
 const stemCoverage = new Map<ClsCp001Locale, Set<string>>(
   LOCALES.map((locale) => [locale, new Set<string>()]),
 );
+const taskCoverage = new Map<ClsCp001Locale, Set<string>>(
+  LOCALES.map((locale) => [locale, new Set<string>()]),
+);
 
 for (const contract of CLS_CP001_PERMANENT_CONTRACTS) {
-  for (let seed = 0; seed < 300; seed += 1) {
+  for (let seed = 0; seed < 200; seed += 1) {
     const english = generateClsCp001Question(contract.qlId, "en-IN", seed);
 
     for (const locale of LOCALES) {
@@ -36,6 +40,7 @@ for (const contract of CLS_CP001_PERMANENT_CONTRACTS) {
 
       assert.equal(question.qlId, contract.qlId);
       assert.equal(question.permanentQlId, contract.qlId);
+      assert.equal(question.task, contract.task);
       assert.equal(question.metadata.locale, locale);
       assert.equal(question.correctIndex, english.correctIndex);
       assert.equal(question.intendedClassId, english.intendedClassId);
@@ -43,16 +48,27 @@ for (const contract of CLS_CP001_PERMANENT_CONTRACTS) {
       assert.deepEqual(question.difficultyFeatures, english.difficultyFeatures);
       assert.equal(question.metadata.sourcePrototypeId, english.metadata.sourcePrototypeId);
       assert.equal(question.metadata.sourcePrototypeSeed, english.metadata.sourcePrototypeSeed);
+      assert.equal(question.metadata.sourceOptionCount, english.metadata.sourceOptionCount);
       assert.equal(question.metadata.solveContractId, english.metadata.solveContractId);
-      assert.equal(question.options.length, 4);
-      assert.equal(new Set(question.options).size, 4);
+      assert.equal(question.options.length, english.options.length);
+      assert.equal(question.options.length, question.metadata.sourceOptionCount);
+      assert.ok(question.options.length === 4 || question.options.length === 5);
+      assert.equal(new Set(question.options).size, question.options.length);
       assert.equal(question.options[question.correctIndex], question.answer);
-      assert.equal(question.evidenceByOption.length, 4);
+      assert.equal(question.evidenceByOption.length, question.options.length);
       assert.deepEqual(question.evidenceByOption, question.explanation.optionChecks);
+      assert.equal(question.optionGroups.length, english.optionGroups.length);
       assert.equal(question.lifecycle.reviewStatus, "FROZEN_RUNTIME_PROOF");
       assert.equal(question.questionStudioVisible, false);
       assert.equal(question.lifecycle.publiclyPublishable, false);
       assert.equal(question.lifecycle.testEligibility, "INELIGIBLE");
+
+      if (question.task === "SELECT_COHERENT_GROUP") {
+        assert.equal(question.optionGroups.length, question.options.length);
+        assert.ok(question.optionGroups.every((group) => group.length === 3 && new Set(group).size === 3));
+      } else {
+        assert.equal(question.optionGroups.length, 0);
+      }
 
       if (locale === "en-IN") {
         assert.deepEqual(question, english);
@@ -60,11 +76,13 @@ for (const contract of CLS_CP001_PERMANENT_CONTRACTS) {
         assert.equal(question.metadata.localizationVersion, "cls-cp001-localization-v1");
         assert.notDeepEqual(question.options, english.options);
         assert.notEqual(question.intendedClassLabel, english.intendedClassLabel);
+        if (question.optionGroups.length > 0) assert.notDeepEqual(question.optionGroups, english.optionGroups);
 
         const learnerText = [
           question.stem,
           ...question.givens,
           ...question.options,
+          ...question.optionGroups.flat(),
           question.answer,
           question.intendedClassLabel,
           ...question.explanation.coreRule,
@@ -76,10 +94,12 @@ for (const contract of CLS_CP001_PERMANENT_CONTRACTS) {
         if (locale === "hi-IN") {
           assert.match(learnerText, /[\u0900-\u097F]/u);
           assert.ok(question.options.every((value) => /[\u0900-\u097F]/u.test(value)));
+          assert.ok(question.optionGroups.flat().every((value) => /[\u0900-\u097F]/u.test(value)));
           assert.ok(!/[\u0A00-\u0A7F]/u.test(question.stem));
         } else {
           assert.match(learnerText, /[\u0A00-\u0A7F]/u);
           assert.ok(question.options.every((value) => /[\u0A00-\u0A7F]/u.test(value)));
+          assert.ok(question.optionGroups.flat().every((value) => /[\u0A00-\u0A7F]/u.test(value)));
           assert.ok(!/[\u0900-\u097F]/u.test(question.stem));
           assert.ok(!/(?:^|\s)(?:ਪਦ|ਸਾਦ੍ਰਿਸ਼ਤਾ)(?:\s|$)/u.test(learnerText));
         }
@@ -94,11 +114,13 @@ for (const contract of CLS_CP001_PERMANENT_CONTRACTS) {
         stem: question.stem,
         givens: question.givens,
         options: question.options,
+        optionGroups: question.optionGroups,
       });
       assert.ok(!localeFingerprints.get(locale)!.has(fingerprint), `${contract.qlId}/${locale}/${seed} collided`);
       localeFingerprints.get(locale)!.add(fingerprint);
       answerPositions.get(locale)![question.correctIndex] += 1;
       stemCoverage.get(locale)!.add(question.stem);
+      taskCoverage.get(locale)!.add(question.task);
     }
   }
 }
@@ -106,9 +128,11 @@ for (const contract of CLS_CP001_PERMANENT_CONTRACTS) {
 for (const locale of LOCALES) {
   assert.equal(localeFingerprints.get(locale)!.size, 600);
   const positions = answerPositions.get(locale)!;
-  assert.deepEqual(positions.map((count) => count > 0), [true, true, true, true]);
-  assert.ok(Math.max(...positions) / Math.min(...positions) < 1.4, `${locale} answer positions are imbalanced: ${positions}`);
-  assert.ok(stemCoverage.get(locale)!.size >= 8);
+  assert.deepEqual(positions.map((count) => count > 0), [true, true, true, true, true]);
+  assert.ok(Math.max(...positions.slice(0, 4)) / Math.min(...positions.slice(0, 4)) < 1.5, `${locale} first four answer positions are imbalanced: ${positions}`);
+  assert.ok(positions[4]! > 20, `${locale} did not materially exercise fifth-position answers: ${positions}`);
+  assert.ok(stemCoverage.get(locale)!.size >= 12);
+  assert.deepEqual(taskCoverage.get(locale), new Set(["FIND_OUTLIER", "SELECT_CLASS_MEMBER", "SELECT_COHERENT_GROUP"]));
 }
 
 console.log("CLS-CP-001 multilingual runtime audit passed.", {
@@ -120,4 +144,5 @@ console.log("CLS-CP-001 multilingual runtime audit passed.", {
   totalQuestions: 1800,
   answerPositions: Object.fromEntries(answerPositions),
   stemCounts: Object.fromEntries([...stemCoverage].map(([locale, values]) => [locale, values.size])),
+  taskCoverage: Object.fromEntries([...taskCoverage].map(([locale, values]) => [locale, [...values].sort()])),
 });
