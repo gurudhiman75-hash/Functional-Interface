@@ -40,6 +40,11 @@ function namesInterestStructure(value: string): boolean {
   return /simple interest|annual interest|interest-to-principal|amount multiplier|\bI\s*=\s*P|\bP\s*=|\bR\s*=|\bT\s*=/iu.test(value);
 }
 
+function hasMeaningfulVerification(value: string): boolean {
+  return value.trim().length >= 12
+    && /\d|₹|%|=|matches|reproduces|confirm|exactly|equals/iu.test(value);
+}
+
 export function validateIntCp001Prototype(input: ValidationInput): VerificationResult {
   const independent = verifyIntCp001Independently(input.parameters, input.solution);
   const errors = [...independent.errors];
@@ -91,7 +96,7 @@ export function validateIntCp001Prototype(input: ValidationInput): VerificationR
   if (!namesInterestStructure(renderedExplanation)) {
     errors.push("Explanation does not identify the decisive interest relation.");
   }
-  if (!input.explanation.verification || input.explanation.verification.length < 25) {
+  if (!hasMeaningfulVerification(input.explanation.verification)) {
     errors.push("Explanation lacks a meaningful verification step.");
   }
   if (!input.explanation.conclusion.includes(input.options[input.correctIndex] ?? "__missing__")) {
