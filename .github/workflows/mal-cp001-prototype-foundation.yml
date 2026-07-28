@@ -1,4 +1,4 @@
-name: Validate MAL-CP-001 discovery and freeze preparation
+name: Validate MAL-CP-001 foundation freeze
 
 on:
   pull_request:
@@ -22,7 +22,7 @@ concurrency:
 jobs:
   validate-mal-cp001-prototype:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -133,6 +133,17 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/mal-001-cp001-ql-gap-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-ql-gap-audit.log
+      - name: Bundle MAL-CP-001 foundation freeze audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-foundation-freeze-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-foundation-freeze-audit.mjs
+      - name: Run MAL-CP-001 foundation freeze audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/mal-001-cp001-foundation-freeze-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-foundation-freeze-audit.log
       - name: Bundle MAL-CP-001 discovery review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -160,11 +171,20 @@ jobs:
       - name: Generate MAL-CP-001 provisional QL expansion review
         working-directory: artifacts/api-server
         run: node dist/quant-v4/mal-001-cp001-ql-expansion-review-export.mjs
-      - name: Upload MAL-CP-001 discovery evidence
+      - name: Bundle MAL-CP-001 frozen foundation review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-foundation-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-foundation-review-export.mjs
+      - name: Generate MAL-CP-001 frozen foundation review
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/mal-001-cp001-foundation-review-export.mjs
+      - name: Upload MAL-CP-001 foundation evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: mal-cp001-discovery-foundation
+          name: mal-cp001-foundation-freeze
           path: |
             artifacts/api-server/dist/quant-v4/mal-001-cp001-discovery-proof.log
             artifacts/api-server/dist/quant-v4/mal-001-cp001-discovery-audit.log
@@ -175,11 +195,14 @@ jobs:
             artifacts/api-server/dist/quant-v4/mal-001-cp001-product-approval-audit.log
             artifacts/api-server/dist/quant-v4/mal-001-cp001-ql-expansion-audit.log
             artifacts/api-server/dist/quant-v4/mal-001-cp001-ql-gap-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-foundation-freeze-audit.log
             artifacts/api-server/dist/quant-v4/mal-001-cp001-discovery-review.json
             artifacts/api-server/dist/quant-v4/mal-001-cp001-discovery-review.md
             artifacts/api-server/dist/quant-v4/mal-001-cp001-freeze-candidate-review.json
             artifacts/api-server/dist/quant-v4/mal-001-cp001-freeze-candidate-review.md
             artifacts/api-server/dist/quant-v4/mal-001-cp001-ql-expansion-review.json
             artifacts/api-server/dist/quant-v4/mal-001-cp001-ql-expansion-review.md
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-foundation-review.json
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-foundation-review.md
           if-no-files-found: error
           retention-days: 7
