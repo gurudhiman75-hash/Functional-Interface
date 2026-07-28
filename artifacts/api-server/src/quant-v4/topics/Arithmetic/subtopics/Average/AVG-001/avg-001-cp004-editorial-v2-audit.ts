@@ -1,7 +1,7 @@
 import { strict as assert } from "node:assert";
 
 import { AVG_001_CP004_EDITORIAL_V2 } from "./foundation/cp004-editorial-v2";
-import { applyAvg001Cp004EditorialV2ReviewedCandidate } from "./foundation/cp004-editorial-v2-distractor-polish";
+import { applyAvg001Cp004EditorialV2FinalCandidate } from "./foundation/cp004-editorial-v2-final";
 import { getAvg001QuestionEntries } from "./foundation/library";
 import { runAvg001Pipeline } from "./foundation/pipeline";
 import { hasConsistentSemanticOptions, semanticUnitFor } from "./foundation/presentation-quality-v2";
@@ -38,7 +38,7 @@ for (const entry of entries) {
   for (let seedIndex = 0; seedIndex < 5; seedIndex += 1) {
     const seed = `avg-cp004-editorial-v2:${entry.qlId}:${seedIndex}`;
     const original = runAvg001Pipeline({ questionLanguageId: entry.qlId, seed, language: "en" });
-    const candidate = applyAvg001Cp004EditorialV2ReviewedCandidate(original);
+    const candidate = applyAvg001Cp004EditorialV2FinalCandidate(original);
     generated += 1;
 
     if (candidate.mathematicalFingerprint !== original.mathematicalFingerprint) fail(`${entry.qlId}:${seedIndex}: mathematical fingerprint changed`);
@@ -80,6 +80,7 @@ for (const entry of entries) {
     if (tags.length !== 3) fail(`${entry.qlId}:${seedIndex}: expected three explicit misconception tags; got ${tags.length}`);
     if (!candidate.explanation.lines.join(" ").includes(candidate.answer)) fail(`${entry.qlId}:${seedIndex}: explanation omits qualified answer`);
     if (/\b(?:get|find) the average\b|Thus, the final value confirms|completed calculation shows/i.test(candidate.explanation.lines.join(" "))) fail(`${entry.qlId}:${seedIndex}: generic explanation filler survived`);
+    if (/Equal travel times/.test(candidate.explanation.lines.join(" ")) && /machine|worker|abstract/i.test(String(candidate.parameters.scenarioVariant))) fail(`${entry.qlId}:${seedIndex}: travel-language leak survived in non-travel rate context`);
 
     if (seedIndex === 0) {
       const normalized = normalizeStem(candidate.stem);
