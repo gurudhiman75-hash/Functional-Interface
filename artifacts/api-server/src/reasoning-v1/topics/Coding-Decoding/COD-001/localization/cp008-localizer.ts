@@ -1,5 +1,5 @@
 import type { GeneratedCp008Question } from "../COD-CP-008/cp008-runtime";
-import { solveCp008Prompt } from "../COD-CP-008/cp008-prototype-solver";
+import { renamedLabel } from "../COD-CP-008/cp008-prototype-solver";
 import type { Cp008StructuredPrompt } from "../COD-CP-008/cp008-prototype-types";
 import { getCp008LanguagePack } from "./cp008-language-pack";
 import type { CodTranslatedLocale } from "./translational-language-pack";
@@ -58,7 +58,7 @@ export function localizeCp008Question(
     value: pack.label(option.value),
   }));
   const correct = options[english.correctIndex]!.value;
-  const independentlySolved = solveCp008Prompt(localizedPrompt);
+  const independentlySolved = renamedLabel(mapping, ordinaryAnswer);
   if (independentlySolved !== correct) {
     throw new Error(`${english.qlId}/${locale}/${english.seed} localized solver disagreement`);
   }
