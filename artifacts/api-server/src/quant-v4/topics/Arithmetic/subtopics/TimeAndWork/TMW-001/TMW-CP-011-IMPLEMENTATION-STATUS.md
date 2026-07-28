@@ -18,11 +18,11 @@
 - exact rational sequence and terminal-partial-day engine;
 - independent explicit accumulation and bounded inverse verification;
 - misconception-labelled four-option construction;
-- teacher-style English presentation;
+- simplified teacher-style English presentation;
 - 57-row distinct-state review export;
 - focused proof and strengthened editorial audit.
 
-## Local validation before PR
+## Mathematical validation baseline
 
 - 19 QLs × 50 seeds = 950 deterministic runtime cases — PASS;
 - 412 distinct stems;
@@ -36,21 +36,28 @@
 - 57 review rows with three distinct mathematical states per QL — PASS;
 - fractional discrete targets/options: 0;
 - answer/unknown leakage into givens: 0;
-- invalid packages, option failures, MathJax failures, negative trap commands, mechanical wording, internal-ID leaks and cross-QL stem collisions: 0.
+- invalid packages, option failures, MathJax failures, internal-ID leaks and cross-QL stem collisions: 0.
 
-## Hosted-review correction
+## Hosted-review fraction correction
 
-The first hosted review artefact exposed three fractional `TMW-QL-196` distractor labels whose `\\frac` expressions were outside the canonical inline MathJax delimiters. The mathematical values and answer keys were correct, but the learner rendering was not production-safe.
+The first hosted review artefact exposed three fractional `TMW-QL-196` distractor labels whose `\frac` expressions were outside canonical inline MathJax. The source now formats every fractional rate-change value through `\(...\)` and rejects raw `\frac` outside valid MathJax in both runtime and corpus validation.
 
-The source now:
+## Teacher-language refinement
 
-- emits every fractional daily rate-change value through literal inline MathJax `\\(...\\)`;
-- applies the same formatter to correct answers and misconception-driven distractors;
-- strips valid MathJax blocks and rejects any remaining raw `\\frac` in runtime validation;
-- repeats that raw-fraction rejection across the structural/editorial corpus audit.
+Following the 9.5/10 editorial audit, the learner package was revised without changing any numerical state, answer key, solve mode or QL ownership.
 
-The focused correction reran the complete 950-case runtime proof and 228-case audit successfully. A new permanent exact-head workflow and hosted review artefact are required before this branch can be presented for approval.
+- all concept openings use a supportive “Let’s …” teacher voice;
+- academic phrases such as “arithmetic progression”, “geometric progression”, “sum identity” and “inverse relation” are rejected;
+- direct AP and multiplier questions display daily outputs and the final sum;
+- inverse questions show each doubled total, change product, difference, denominator and final division separately;
+- completion questions show complete-day output, remaining work, finishing-day output, final-day fraction and total time;
+- threshold, crew, combined and signed-output questions show every phase or daily product explicitly;
+- every standard solution contains at least four purposeful lines;
+- every trap begins with “Don’t fall for Option X (…)!” and gives plain-English diagnostic advice;
+- misconception IDs remain reviewer-only metadata.
+
+Permanent runtime and corpus guards enforce teacher voice, expanded working, direct trap advice, valid MathJax and absence of the removed jargon.
 
 ## Current gate
 
-Final exact-head GitHub Actions, hosted-artifact inspection and user review remain required before merge. The exact tested head, workflow and artefact digest will be recorded in PR evidence without changing the tested branch afterwards.
+A fresh exact-head GitHub Actions run, hosted-artifact inspection and user review are required before merge. Question Studio routing, Question Bank writes, localisation, test assembly and public delivery remain disabled.
