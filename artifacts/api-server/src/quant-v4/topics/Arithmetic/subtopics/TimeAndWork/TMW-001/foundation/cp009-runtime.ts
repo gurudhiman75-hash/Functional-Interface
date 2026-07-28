@@ -6,6 +6,8 @@ import { rationalKey } from "./rational";
 import type { TmwCp009GeneratedQuestion, TmwCp009Parameters } from "./cp009-types";
 function inline(value:string):string{return `\\(${value}\\)`;}
 function balanced(value:string):boolean{return (value.match(/\\\(/g)??[]).length===(value.match(/\\\)/g)??[]).length;}
+function normaliseEqualityTerm(value:string):string{return value.replace(/\\(?:quad|;|,|!)/g,"").replace(/\\text\{[^}]*\}/g,"").replace(/[{}\s]/g,"").trim();}
+function repeatsTerminalEquality(value:string):boolean{const terms=value.split("=");if(terms.length<3)return false;const previous=normaliseEqualityTerm(terms.at(-2)??""),last=normaliseEqualityTerm(terms.at(-1)??"");return previous.length>0&&previous===last;}
 function fingerprint(p:TmwCp009Parameters):string{return[
  p.pipes.map(pipe=>`${pipe.kind}:${rationalKey(pipe.soloTime)}`).join(","),
  p.duration?rationalKey(p.duration):"-",p.initialLevel?rationalKey(p.initialLevel):"-",p.targetBoundary??"-",String(p.unknownPipeIndex??"-"),
@@ -33,6 +35,7 @@ export function runTmwCp009Pipeline(input:{questionLanguageId:string;seed:string
  if(!balanced(learner))errors.push("Learner text has unbalanced inline MathJax");
  if(givens.length<2)errors.push("Explanation does not identify givens and target");
  if(steps.length<3)errors.push("Standard working is too brief");
+ if(solution.workedLatex.some(repeatsTerminalEquality))errors.push("Standard working repeats an identical terminal equality");
  if(!shortcut.title.startsWith("10-Second ")||shortcut.steps.length<2)errors.push("Exam shortcut is incomplete");
  if(commonTrap.optionText===solution.answerText)errors.push("Common trap points to the correct answer");
  if(!commonTrap.explanation.startsWith(`${commonTrap.optionLabel} (${commonTrap.optionText})`))errors.push("Common trap is not a direct option-specific diagnosis");
