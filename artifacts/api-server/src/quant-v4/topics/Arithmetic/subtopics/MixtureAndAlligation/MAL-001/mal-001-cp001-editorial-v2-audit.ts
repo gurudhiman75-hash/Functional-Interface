@@ -18,17 +18,20 @@ function fail(message: string): never {
 const forbiddenStemPatterns = [
   ["plural material blend", /\b(?:tea leaves|coffee beans) blend\b/iu],
   ["how-much plural material", /\bHow much [^?]*(?:tea leaves|beans)\b/iu],
+  ["how-much priced quantity", /\bHow much [^?]+ priced at\b/iu],
   ["vague latter reference", /\bthe latter\b/iu],
   ["awkward component share", /\bWhat is the share of\b/iu],
   ["awkward mean tail", /\bWhat value per unit does the final\b/iu],
   ["awkward resulting material", /\baverage value of the resulting (?!blend\b)/iu],
   ["awkward change framing", /\bwants to change\b/iu],
+  ["clause capitalisation", /,\s+What are the quantities\b/u],
   ["unrepaired stage portion", /\bFrom this blend, \d+(?:\s+\d+\/\d+)?\s+(?:kg|litres) is mixed\b/iu],
   ["unrepaired stage portion", /\bThen \d+(?:\s+\d+\/\d+)?\s+(?:kg|litres) of this blend is mixed\b/iu],
   ["unrepaired stage portion", /\bIf \d+(?:\s+\d+\/\d+)?\s+(?:kg|litres) of it is combined\b/iu],
   ["unrepaired stage portion", /\bNext, \d+(?:\s+\d+\/\d+)?\s+(?:kg|litres) of that uniform blend is combined\b/iu],
   ["unrepaired stage portion", /, \d+(?:\s+\d+\/\d+)?\s+(?:kg|litres) is taken\./iu],
   ["three-way multiplier grammar", /\bmiddle component is used in [^ ]+ times the quantity\b/iu],
+  ["three-way multiplier grammar", /\bmiddle-priced component has [^ ]+ times the quantity\b/iu],
   ["vague three-way component", /\b(?:highest-priced|higher) component\?/iu],
 ] as const;
 
@@ -67,11 +70,13 @@ function assertOrderedPairPresentation(question: ReturnType<typeof generateMalCp
 
 function assertModeSpecificClarity(question: ReturnType<typeof generateMalCp001DiscoveryPrototype>, key: string): void {
   const request = question.parameters.request;
-  if (
-    request.mode === "TWO_STAGE_UNKNOWN_QUANTITY" &&
-    !question.explanation.conclusion.includes(request.finalComponentLabel)
-  ) {
-    fail(`${key}: two-stage inverse conclusion omits the final component label.`);
+  if (request.mode === "TWO_STAGE_UNKNOWN_QUANTITY") {
+    if (!question.explanation.conclusion.includes(request.finalComponentLabel)) {
+      fail(`${key}: two-stage inverse conclusion omits the final component label.`);
+    }
+    if (question.stem.includes(`How much ${request.finalComponentLabel}`)) {
+      fail(`${key}: two-stage inverse stem uses an unpolished how-much quantity prompt.`);
+    }
   }
   if (request.mode === "THREE_WAY_TARGET_WITH_RELATION") {
     if (!question.stem.includes(request.higherComponentLabel)) {
@@ -79,6 +84,9 @@ function assertModeSpecificClarity(question: ReturnType<typeof generateMalCp001D
     }
     if (!question.explanation.conclusion.includes(request.higherComponentLabel)) {
       fail(`${key}: three-way conclusion does not name the requested higher component.`);
+    }
+    if (question.stem.includes(`How much ${request.higherComponentLabel}`)) {
+      fail(`${key}: three-way stem uses an unpolished how-much quantity prompt.`);
     }
   }
   if (request.mode === "COMPONENT_SHARE_FROM_TARGET") {
