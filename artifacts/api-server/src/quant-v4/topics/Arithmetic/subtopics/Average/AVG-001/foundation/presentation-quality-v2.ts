@@ -84,7 +84,7 @@ export function semanticUnitFor(pkg: Avg001QuestionPackage): SemanticUnit {
 
 function bareValue(value: string) {
   return value
-    .replace(/^₹\s*/, "")
+    .replace(/^-?₹\s*/, (match) => match.startsWith("-") ? "-" : "")
     .replace(/\s*(?:marks?|kg|years?|units? per hour|units?|runs?|km\/h|passengers? per trip|members?|students?|employees?|workers?|outlets?|parcels?|people|women|girls|trips|machines|branches).*$/i, "")
     .trim();
 }
@@ -101,8 +101,10 @@ export function qualifyAvg001Value(
   const bare = bareValue(value);
   const grouped = formatIndianNumber(bare);
   switch (unit) {
-    case "currency":
-      return `₹${grouped}`;
+    case "currency": {
+      const negative = grouped.startsWith("-");
+      return `${negative ? "-" : ""}₹${grouped.replace(/^-/, "")}`;
+    }
     case "marks":
       return `${grouped} marks`;
     case "kg":
@@ -149,7 +151,7 @@ export function hasConsistentSemanticOptions(pkg: Avg001QuestionPackage) {
   }
   const unit = semanticUnitFor(pkg);
   const patterns: Record<Exclude<SemanticUnit, "none" | "count">, RegExp> = {
-    currency: /^₹(?:\d{1,3}|\d{1,2}(?:,\d{2})*,\d{3})(?:\.\d+)?$/,
+    currency: /^-?₹(?:\d{1,3}|\d{1,2}(?:,\d{2})*,\d{3})(?:\.\d+)?$/,
     marks: / marks$/,
     kg: / kg$/,
     years: / years$/,
