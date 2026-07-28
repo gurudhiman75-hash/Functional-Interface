@@ -116,7 +116,6 @@ export interface GeneratedBlrCp003Question {
   answer: BlrCp003SemanticAnswer;
   explanation: BlrCp003Explanation;
   metadata: {
-    hiddenGraphAnswerAgreed: true;
     independentSolverAgreed: true;
     uniqueAnswer: true;
     optionSemanticsUnique: true;
@@ -144,9 +143,8 @@ export interface GeneratedBlrCp003QuestionGroup {
   reconstructedFamily: FamilyGraph;
   questions: readonly GeneratedBlrCp003Question[];
   metadata: {
-    runtimeVersion: "blr-cp003-prototype-v2";
+    runtimeVersion: "blr-cp003-prototype-v1";
     familyGraphValid: true;
-    hiddenGraphAgreedWithClueGraph: true;
     sharedPromptSolvedOnce: true;
     allItemsIndependentlySolved: true;
     everyClueContributes: true;
