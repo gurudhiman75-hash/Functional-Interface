@@ -90,6 +90,25 @@ export type MalCp001PermanentQuestion = Omit<
   };
 };
 
+function withTeacherLabels(
+  question: MalCp001FoundationQuestion,
+  qlId: MalCp001PermanentQlId,
+): MalCp001FoundationQuestion {
+  if (qlId !== "MAL-QL-001") return question;
+  const request = question.parameters.request as any;
+  return {
+    ...question,
+    parameters: {
+      ...question.parameters,
+      request: {
+        ...request,
+        lowerComponentLabel: question.parameters.context.lowerLabel,
+        higherComponentLabel: question.parameters.context.higherLabel,
+      },
+    },
+  } as MalCp001FoundationQuestion;
+}
+
 /**
  * Generates one permanently identified CP-001 question in implementation-proof
  * mode. The package is deliberately inactive and cannot be routed to any
@@ -134,7 +153,7 @@ export function runMalCp001PermanentPipeline(
   }
 
   const explanation = buildMalCp001TeacherExplanation(
-    foundationQuestion,
+    withTeacherLabels(foundationQuestion, allocation.qlId),
     allocation.qlId,
   );
 
