@@ -25,6 +25,7 @@ import {
 import type {
   BlrCp002AnswerId,
   BlrCp002PrototypeId,
+  BlrCp002QuestionForm,
   BlrCp002StructuredPrompt,
   BlrEntityExpression,
   BlrRoleAssertion,
@@ -47,6 +48,12 @@ function possessivePronoun(gender: BlrGender): string {
   if (gender === "MALE") return "his";
   if (gender === "FEMALE") return "her";
   return "their";
+}
+
+function possessiveDeterminer(gender: BlrGender): string {
+  if (gender === "MALE") return "His";
+  if (gender === "FEMALE") return "Her";
+  return "Their";
 }
 
 function objectPronoun(gender: BlrGender): string {
@@ -146,6 +153,10 @@ function anchorName(
   return prompt.personNames[personId] ?? personId;
 }
 
+function resolvedQuestionForm(prompt: BlrCp002StructuredPrompt): BlrCp002QuestionForm {
+  return prompt.questionForm ?? "HOW_RELATED";
+}
+
 function queryExpressionLabel(
   prompt: BlrCp002StructuredPrompt,
   expression: BlrEntityExpression,
@@ -164,6 +175,24 @@ function queryExpressionLabel(
   return `${anchorName(prompt, expression.anchor)}'s ${roleChainPhrase(expression)}`;
 }
 
+function ownershipOptionLabel(
+  prompt: BlrCp002StructuredPrompt,
+  answerId: BlrCp002AnswerId,
+): string {
+  const determiner = possessiveDeterminer(personGender(prompt, prompt.speakerId));
+  if (answerId === "SELF") return `${determiner} own`;
+  return `${determiner} ${cp002AnswerLabel(answerId).toLocaleLowerCase("en-IN")}'s`;
+}
+
+function renderedOptionLabel(
+  prompt: BlrCp002StructuredPrompt,
+  answerId: BlrCp002AnswerId,
+): string {
+  return resolvedQuestionForm(prompt) === "HOW_RELATED"
+    ? cp002AnswerLabel(answerId)
+    : ownershipOptionLabel(prompt, answerId);
+}
+
 function buildStem(prompt: BlrCp002StructuredPrompt): string {
   const speakerName = anchorName(prompt, "SPEAKER");
   const statement = [
@@ -172,13 +201,22 @@ function buildStem(prompt: BlrCp002StructuredPrompt): string {
     ),
     assertionSentence(prompt, prompt.assertion),
   ].join(" ");
-  const question = `How is ${queryExpressionLabel(prompt, prompt.query.subject)} related to ${queryExpressionLabel(prompt, prompt.query.reference)}?`;
+  const questionForm = resolvedQuestionForm(prompt);
+  const question =
+    questionForm === "HOW_RELATED"
+      ? `How is ${queryExpressionLabel(prompt, prompt.query.subject)} related to ${queryExpressionLabel(prompt, prompt.query.reference)}?`
+      : questionForm === "WHOSE_PHOTOGRAPH"
+        ? "Whose photograph was it?"
+        : `At whose portrait was ${speakerName} looking?`;
 
   if (prompt.presentation === "CONVERSATION") {
     return `${speakerName} said to ${anchorName(prompt, "LISTENER")}, “${statement}” ${question}`;
   }
 
   const pointedGender = personGender(prompt, prompt.pointedPersonId!);
+  if (questionForm === "WHOSE_PORTRAIT") {
+    return `Looking at a portrait of ${personNoun(pointedGender)}, ${speakerName} said, “${statement}” ${question}`;
+  }
   if (prompt.presentation === "PHOTOGRAPH") {
     return `Pointing to a photograph of ${personNoun(pointedGender)}, ${speakerName} said, “${statement}” ${question}`;
   }
@@ -286,6 +324,15 @@ function distractorWarning(errorLabel: string): string {
   return "This stops at a nearby role instead of completing every possessive step.";
 }
 
+function ownershipConclusion(
+  prompt: BlrCp002StructuredPrompt,
+  answerId: BlrCp002AnswerId,
+): string {
+  const item = resolvedQuestionForm(prompt) === "WHOSE_PORTRAIT" ? "portrait" : "photograph";
+  if (answerId === "SELF") return `Therefore, the ${item} is the speaker's own.`;
+  return `Therefore, the ${item} is of the speaker's ${cp002AnswerLabel(answerId).toLocaleLowerCase("en-IN")}.`;
+}
+
 function explanationFor(
   prompt: BlrCp002StructuredPrompt,
   solution: ReturnType<typeof solveBlrCp002Prompt>,
@@ -304,6 +351,7 @@ function explanationFor(
     prompt.assertion.relation.kind === "SAME_PERSON"
       ? `${prompt.personNames[assertionSubject.resolvedPersonId]} and ${prompt.personNames[assertionReference.resolvedPersonId]} are the same resolved person.`
       : `${prompt.personNames[assertionSubject.resolvedPersonId]} is the ${relationLabel(prompt.assertion.relation.relationId).toLocaleLowerCase("en-IN")} of ${prompt.personNames[assertionReference.resolvedPersonId]}.`;
+  const questionForm = resolvedQuestionForm(prompt);
 
   return {
     ruleStatement:
@@ -317,6 +365,9 @@ function explanationFor(
       "An 'only' role must have exactly one matching person in the active family scope.",
       ...((prompt.constraints ?? []).length > 0
         ? ["A 'no brother or sister' condition means the complete sibling set must contain zero people."]
+        : []),
+      ...(questionForm !== "HOW_RELATED"
+        ? ["A possessive option such as 'His son's' means that the pictured person is the speaker's son."]
         : []),
     ],
     normalizedClues: [
@@ -342,11 +393,15 @@ function explanationFor(
         : pathNames.join(" → "),
     ],
     conclusion:
-      solution.answerId === "SELF"
-        ? "Therefore, the described person is the speaker herself or himself."
-        : `Therefore, ${subjectName} is the ${cp002AnswerLabel(solution.answerId).toLocaleLowerCase("en-IN")} of ${referenceName}.`,
+      questionForm === "HOW_RELATED"
+        ? solution.answerId === "SELF"
+          ? "Therefore, the described person is the speaker herself or himself."
+          : `Therefore, ${subjectName} is the ${cp002AnswerLabel(solution.answerId).toLocaleLowerCase("en-IN")} of ${referenceName}.`
+        : ownershipConclusion(prompt, solution.answerId),
     examShortcut:
-      "Write S for speaker, L for listener and P for the pointed person. Mark no-sibling facts before moving through one possessive role at a time; never reverse the final question.",
+      questionForm === "HOW_RELATED"
+        ? "Write S for speaker, L for listener and P for the pointed person. Mark no-sibling facts before moving through one possessive role at a time; never reverse the final question."
+        : "Resolve the pictured person relative to the speaker, then convert the result into the possessive option form: son becomes 'His/Her son's' and Self becomes 'His/Her own'.",
     closestTrapRejection:
       solution.answerId === "SELF"
         ? "Do not force a family label after the chain has returned to the speaker."
@@ -371,6 +426,33 @@ function scenarioConstraints(
   ).constraints ?? [];
 }
 
+function scenarioQuestionForm(
+  template: BlrCp002ScenarioTemplate,
+): BlrCp002QuestionForm {
+  return (
+    template as BlrCp002ScenarioTemplate & {
+      questionForm?: BlrCp002QuestionForm;
+    }
+  ).questionForm ?? "HOW_RELATED";
+}
+
+function validateQuestionForm(prompt: BlrCp002StructuredPrompt): void {
+  if (resolvedQuestionForm(prompt) === "HOW_RELATED") return;
+  if (
+    prompt.query.subject.kind !== "ANCHOR" ||
+    prompt.query.subject.anchor !== "POINTED_PERSON" ||
+    prompt.query.reference.kind !== "ANCHOR" ||
+    prompt.query.reference.anchor !== "SPEAKER"
+  ) {
+    throw new Error(
+      "Whose photograph/portrait questions must ask for the pointed person relative to the speaker.",
+    );
+  }
+  if (prompt.presentation !== "PHOTOGRAPH") {
+    throw new Error("Whose photograph/portrait questions require the photograph presentation.");
+  }
+}
+
 function generateFromScenario(
   template: BlrCp002ScenarioTemplate,
   seed: number,
@@ -382,6 +464,7 @@ function generateFromScenario(
   );
   const prompt: BlrCp002StructuredPrompt = {
     ...buildCp002StructuredPrompt(template, random),
+    questionForm: scenarioQuestionForm(template),
     constraints: scenarioConstraints(template),
   };
 
@@ -391,6 +474,7 @@ function generateFromScenario(
   if (contract.requiresPointedPerson && !prompt.pointedPersonId) {
     throw new Error(`${prototypeId} requires a pointed-person anchor.`);
   }
+  validateQuestionForm(prompt);
 
   const solution = solveBlrCp002Prompt(prompt);
   if (solution.answerId !== template.expectedAnswerId) {
@@ -420,14 +504,14 @@ function generateFromScenario(
   for (let index = 0; index < 4; index += 1) {
     if (index === correctIndex) {
       options.push({
-        value: cp002AnswerLabel(solution.answerId),
+        value: renderedOptionLabel(prompt, solution.answerId),
         answerId: solution.answerId,
         isCorrect: true,
       });
     } else {
       const distractor = distractors[distractorIndex++]!;
       options.push({
-        value: cp002AnswerLabel(distractor.answerId),
+        value: renderedOptionLabel(prompt, distractor.answerId),
         answerId: distractor.answerId,
         isCorrect: false,
         errorLabel: distractor.errorLabel,
@@ -440,6 +524,7 @@ function generateFromScenario(
     cp002OnlyConstraintCount(prompt.query.subject) +
     cp002OnlyConstraintCount(prompt.query.reference);
   const negativeConstraintCount = cp002NegativeConstraintCount(prompt);
+  const questionForm = resolvedQuestionForm(prompt);
 
   return {
     packageId: "BLR-001",
@@ -473,12 +558,14 @@ function generateFromScenario(
       scenarioId: template.scenarioId,
       hiddenFingerprint: stableHash([
         template.scenarioId,
+        questionForm,
         JSON.stringify(prompt.constraints ?? []),
         JSON.stringify(prompt.assertion),
         JSON.stringify(prompt.query),
       ]),
       answerId: solution.answerId,
       presentation: prompt.presentation,
+      questionForm,
       assertionRoleDepth,
       queryRoleDepth,
       onlyConstraintCount,
