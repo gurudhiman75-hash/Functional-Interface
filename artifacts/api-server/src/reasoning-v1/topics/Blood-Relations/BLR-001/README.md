@@ -1,6 +1,6 @@
 # BLR-001 — Blood Relations
 
-Status: **BLR-CP-001 and BLR-CP-002 English discovery frozen; stable range `BLR-QL-001..008`**.
+Status: **BLR-CP-001 and BLR-CP-002 English discovery frozen; BLR-CP-003 active open discovery; stable range `BLR-QL-001..008`**.
 
 Student-facing chapter: **Blood Relations**  
 Reasoning V1 package: `BLR-001`  
@@ -20,6 +20,8 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BL
 - typed family graph with parent, spouse and sibling edges;
 - family validity and ancestry-cycle rejection;
 - graph reconstruction from displayed relation clues;
+- hidden-graph versus clue-only answer agreement;
+- shared family-passage groups with multiple independently solved items;
 - inferred sibling closure for children sharing a modelled parent;
 - deterministic seeded Indian names;
 - broad kinship and in-law closure;
@@ -77,10 +79,13 @@ BLR-CP-001 frozen workflow                    3,556 questions
 BLR-CP-002 technical pre-freeze proof          3,492 questions
 BLR-CP-002 permanent runtime audit                900 questions
 -----------------------------------------------------------
-current deterministic chapter proof            7,948 questions
+Frozen deterministic proof                     7,948 questions
+BLR-CP-003 open shared-family proof             2,220 questions
+-----------------------------------------------------------
+Combined current deterministic proof           10,168 questions
 ```
 
-CP-002 proves five presentation contexts, three question forms, up to three anchors, one- through four-step role chains, both-derived endpoints, broad only-child cardinality, negative sibling facts, blood and affinal outputs, pictured and derived self identity, possessive photograph/portrait options and complete release locks.
+The CP-003 number is an open-discovery milestone, not a frozen inventory. It currently covers four graph-first topologies, 340 generated groups, ten item prototypes plus the group assembly handle, 340 hidden-graph agreement checks and complete release locks.
 
 ## Checkpoint state
 
@@ -88,13 +93,13 @@ CP-002 proves five presentation contexts, three question forms, up to three anch
 |---|---|---|
 | `BLR-CP-001` | direct declarative named-person relations | frozen; `BLR-QL-001..007` |
 | `BLR-CP-002` | pointer/photo/portrait/conversation/nested self-reference | frozen; `BLR-QL-008` |
-| `BLR-CP-003` | shared family passages | open |
+| `BLR-CP-003` | shared family passages | active English discovery; 4 scenarios; 0 permanent QLs |
 | `BLR-CP-004` | counts and family composition | open |
 | `BLR-CP-005` | possible/impossible/one-of-two/indeterminate semantics | open |
 | `BLR-CP-006` | coded relation decoding | open |
 | `BLR-CP-007` | coded construction and validation | open |
 
-The next available chapter identity is `BLR-QL-009`. The final chapter total remains open.
+The next available chapter identity is `BLR-QL-009`. It remains unclaimed. The final chapter total remains open.
 
 ## Authoritative freeze records
 
@@ -114,6 +119,13 @@ The next available chapter identity is `BLR-QL-009`. The final chapter total rem
 - `BLR-001-MANIFEST-AMENDMENT-CP002.md`;
 - `BLR-CP-002/cp002-final-discovery-freeze.ts`;
 - `BLR-CP-002/cp002-runtime.ts`.
+
+### CP-003 open discovery
+
+- `BLR-CP-003/BLR-CP-003-SOURCE-AND-BOUNDARY-AUDIT.md`;
+- `BLR-CP-003/README.md`;
+- `BLR-CP-003/cp003-prototype.test.ts`;
+- `BLR-CP-003/cp003-extended.test.ts`.
 
 ## Release boundary
 
