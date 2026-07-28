@@ -8,6 +8,7 @@ const answerPositions = [0, 0, 0, 0];
 let selfQuestions = 0;
 let onlyQuestions = 0;
 let photographQuestions = 0;
+let ownershipQuestions = 0;
 let threeAnchorQuestions = 0;
 
 for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
@@ -16,14 +17,41 @@ for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
     const reproduced = generateBlrCp002ReviewQuestion(contract.prototypeId, seed);
     assert.deepEqual(reproduced, question, `${contract.prototypeId}/${seed} editorial output is not deterministic.`);
 
-    assert.ok(!question.stem.includes("photograph of a man"));
-    assert.ok(!question.stem.includes("photograph of a woman"));
+    const isOwnership = question.metadata.questionForm !== "HOW_RELATED";
+    if (!isOwnership) {
+      assert.ok(!question.stem.includes("photograph of a man"));
+      assert.ok(!question.stem.includes("photograph of a woman"));
+    }
     assert.ok(!question.stem.includes("herself or himself"));
     assert.ok(!question.stem.includes("undefined"));
     assert.ok(!question.explanation.conclusion.includes("herself or himself"));
     assert.ok(!question.explanation.closestTrapRejection?.includes("herself or himself"));
     assert.ok(question.stem.endsWith("?"));
-    assert.equal((question.stem.match(/How is /g) ?? []).length, 1);
+
+    if (isOwnership) {
+      ownershipQuestions += 1;
+      assert.equal((question.stem.match(/How is /g) ?? []).length, 0);
+      assert.ok(
+        question.stem.includes("Whose photograph was it?") ||
+          question.stem.includes("At whose portrait was"),
+      );
+      assert.ok(
+        question.options.every(
+          (option) =>
+            /^(His|Her|Their) /.test(option.value) &&
+            (option.value.endsWith("'s") || option.value.endsWith(" own")),
+        ),
+      );
+      assert.ok(
+        question.explanation.coreConcept?.some((line) => line.includes("possessive option")),
+      );
+      assert.ok(
+        question.explanation.examShortcut?.includes("possessive option form"),
+      );
+    } else {
+      assert.equal((question.stem.match(/How is /g) ?? []).length, 1);
+      assert.ok(question.explanation.examShortcut?.includes("S for speaker"));
+    }
 
     const speakerName =
       question.structuredPrompt.personNames[question.structuredPrompt.speakerId] ??
@@ -32,12 +60,26 @@ for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
       selfQuestions += 1;
       assert.equal(question.metadata.presentation, "PHOTOGRAPH");
       assert.equal(question.structuredPrompt.presentation, "PHOTOGRAPH");
-      assert.ok(question.stem.includes("the person in the photograph"));
-      assert.ok(!question.stem.includes(`How is ${speakerName} related to ${speakerName}?`));
-      assert.ok(question.explanation.conclusion.includes("the speaker her") || question.explanation.conclusion.includes("the speaker him"));
-      assert.ok(
-        question.explanation.coreConcept?.some((line) => line.includes("correct answer is Self")),
-      );
+      if (isOwnership) {
+        assert.ok(
+          question.stem.includes("Whose photograph was it?") ||
+            question.stem.includes("At whose portrait was"),
+        );
+        assert.ok(question.options[question.correctIndex]?.value.endsWith(" own"));
+        assert.ok(question.explanation.conclusion.includes("speaker's own"));
+        assert.ok(
+          question.explanation.coreConcept?.some((line) =>
+            line.includes("choose the possessive option 'His own'"),
+          ),
+        );
+      } else {
+        assert.ok(question.stem.includes("the person in the photograph"));
+        assert.ok(!question.stem.includes(`How is ${speakerName} related to ${speakerName}?`));
+        assert.ok(question.explanation.conclusion.includes("the speaker her") || question.explanation.conclusion.includes("the speaker him"));
+        assert.ok(
+          question.explanation.coreConcept?.some((line) => line.includes("correct answer is Self")),
+        );
+      }
       assert.ok(
         question.explanation.queryPath.some((line) => line.includes("same identity")),
       );
@@ -74,14 +116,19 @@ for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
 
     if (question.metadata.presentation === "PHOTOGRAPH") {
       photographQuestions += 1;
-      assert.ok(question.stem.includes("in a photograph"));
+      if (question.metadata.questionForm === "HOW_RELATED") {
+        assert.ok(question.stem.includes("in a photograph"));
+      } else if (question.metadata.questionForm === "WHOSE_PHOTOGRAPH") {
+        assert.ok(question.stem.startsWith("Pointing to a photograph of"));
+      } else {
+        assert.ok(question.stem.startsWith("Looking at a portrait of"));
+      }
     }
 
     assert.ok(question.explanation.coreConcept && question.explanation.coreConcept.length >= 3);
     assert.ok(question.explanation.normalizedClues.length >= 3);
     assert.ok(question.explanation.familyTreeGrid?.includes("Connections:"));
     assert.ok(question.explanation.generationAnalysis?.some((line) => line.includes("ΔGen")));
-    assert.ok(question.explanation.examShortcut?.includes("S for speaker"));
     assert.equal(question.explanation.distractorAnalysis?.length, 3);
     assert.equal(
       new Set(question.explanation.distractorAnalysis?.map((entry) => entry.optionValue)).size,
@@ -97,18 +144,20 @@ assert.deepEqual(answerPositions, [expectedPerPosition, expectedPerPosition, exp
 assert.ok(selfQuestions > 0);
 assert.ok(onlyQuestions > 0);
 assert.ok(photographQuestions > 0);
+assert.ok(ownershipQuestions > 0);
 assert.equal(threeAnchorQuestions, QUESTIONS_PER_PROTOTYPE);
 
 console.log(
   JSON.stringify(
     {
       checkpointId: "BLR-CP-002",
-      gate: "ENGLISH_EDITORIAL_V2",
+      gate: "ENGLISH_EDITORIAL_V3",
       questions: BLR_CP002_PROTOTYPE_CONTRACTS.length * QUESTIONS_PER_PROTOTYPE,
       answerPositions,
       selfQuestions,
       onlyQuestions,
       photographQuestions,
+      ownershipQuestions,
       threeAnchorQuestions,
       permanentQlCount: 0,
     },
