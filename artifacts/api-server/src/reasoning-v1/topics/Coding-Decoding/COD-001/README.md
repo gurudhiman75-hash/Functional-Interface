@@ -1,6 +1,6 @@
 # COD-001 — Coding–Decoding
 
-Status: **multilingual runtime and pedagogical presentation closed at review-proof maturity for all 199 permanent QLs in English, Hindi and natural Punjabi**.
+Status: **editorially approved and integration-ready for all 199 permanent QLs in English, Hindi and natural Punjabi**.
 
 Student-facing chapter: **Coding–Decoding**  
 Reasoning V1 package: `COD-001`  
@@ -18,7 +18,8 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/CO
 8. `COD-CP-009/COD-CP-009-MULTILINGUAL-REPORT.md` and its language-adapted audit.
 9. `COD-001-MULTILINGUAL-CLOSURE.md` and the final three-locale closure gate.
 10. `COD-001-PEDAGOGICAL-REMEDIATION.md` and the all-QL explanation-quality gate.
-11. checkpoint-specific discovery, implementation and review authorities.
+11. `COD-001-EDITORIAL-APPROVAL.md` — product-owner approval and integration boundary.
+12. checkpoint-specific discovery, implementation and review authorities.
 
 ## Frozen permanent identity
 
@@ -92,21 +93,23 @@ Visual variants   — English 370, Hindi 370, Punjabi 370
 
 Markdown review exports contain no raw JSON explanation dumps. The upgraded final export contains one clean sample per QL per locale: 597 questions in Markdown and JSONL.
 
-## Final chapter state
+## Approved chapter state
 
 ```text
-English runtime: complete
-Hindi runtime: complete
-Punjabi runtime: complete
-Pedagogical presentation: complete
-Human-review Markdown rendering: complete
+English runtime: complete and approved
+Hindi runtime: complete and approved
+Punjabi runtime: complete and approved
+Pedagogical presentation: complete and approved
+Human-review Markdown rendering: complete and approved
+Permanent QL identity: frozen
+Integration readiness: ready for a separate guarded integration phase
 Question Studio: disabled
 Question Bank conversion: disabled
 Mock-test eligibility: disabled
 Public routing/publication: disabled
 ```
 
-Coding–Decoding is closed as a multilingual review-only chapter. A later explicitly approved integration phase may connect the frozen runtime to Question Studio without changing QL identity or solver authority.
+Coding–Decoding is closed as an editorially approved, multilingual and pedagogically complete chapter. A later explicitly instructed integration phase may connect the frozen runtime to Question Studio without changing QL identity or solver authority.
 
 ## Scope exclusions
 
