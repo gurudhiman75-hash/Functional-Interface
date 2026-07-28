@@ -12,6 +12,7 @@ import { buildBlrCp002Distractors } from "./cp002-distractor-builder";
 import {
   cp002AnswerLabel,
   cp002AssertionOnlyConstraintCount,
+  cp002NegativeConstraintCount,
   cp002OnlyConstraintCount,
   cp002RoleDepth,
   resolveBlrCp002Expression,
@@ -27,6 +28,7 @@ import type {
   BlrCp002StructuredPrompt,
   BlrEntityExpression,
   BlrRoleAssertion,
+  BlrRoleCardinalityConstraint,
   GeneratedBlrCp002Option,
   GeneratedBlrCp002PrototypeQuestion,
 } from "./cp002-types";
@@ -66,6 +68,16 @@ function roleStepPhrase(
   return `${only ? "only " : ""}${relationLabel(relationId).toLocaleLowerCase("en-IN")}`;
 }
 
+function negativeRolePhrase(
+  relationId: BlrRoleCardinalityConstraint["relationId"],
+): string {
+  if (relationId === "SIBLING") return "brother or sister";
+  if (relationId === "CHILD") return "son or daughter";
+  if (relationId === "PARENT") return "father or mother";
+  if (relationId === "SPOUSE") return "husband or wife";
+  return relationLabel(relationId).toLocaleLowerCase("en-IN");
+}
+
 function roleChainPhrase(expression: Extract<BlrEntityExpression, { kind: "ROLE_CHAIN" }>): string {
   return expression.steps
     .map((step, index) => {
@@ -96,6 +108,15 @@ function expressionPhrase(
         : possessivePronoun(personGender(prompt, prompt.pointedPersonId!));
   const phrase = `${prefix} ${roleChainPhrase(expression)}`;
   return sentenceStart ? phrase[0]!.toLocaleUpperCase("en-IN") + phrase.slice(1) : phrase;
+}
+
+function constraintSentence(
+  prompt: BlrCp002StructuredPrompt,
+  constraint: BlrRoleCardinalityConstraint,
+): string {
+  const subject = expressionPhrase(prompt, constraint.reference, "SUBJECT", true);
+  const verb = subject === "I" || subject.toLocaleLowerCase("en-IN") === "you" ? "have" : "has";
+  return `${subject} ${verb} no ${negativeRolePhrase(constraint.relationId)}.`;
 }
 
 function assertionSentence(
@@ -145,7 +166,12 @@ function queryExpressionLabel(
 
 function buildStem(prompt: BlrCp002StructuredPrompt): string {
   const speakerName = anchorName(prompt, "SPEAKER");
-  const statement = assertionSentence(prompt, prompt.assertion);
+  const statement = [
+    ...(prompt.constraints ?? []).map((constraint) =>
+      constraintSentence(prompt, constraint),
+    ),
+    assertionSentence(prompt, prompt.assertion),
+  ].join(" ");
   const question = `How is ${queryExpressionLabel(prompt, prompt.query.subject)} related to ${queryExpressionLabel(prompt, prompt.query.reference)}?`;
 
   if (prompt.presentation === "CONVERSATION") {
@@ -172,12 +198,17 @@ function difficultyFor(
   prototypeId: BlrCp002PrototypeId,
   roleDepth: number,
   onlyCount: number,
+  negativeCount: number,
   seed: number,
 ): BlrDifficulty {
   if (prototypeId === "BLR-CP002-PROT-SELF-IDENTITY") {
-    return seed % 4 === 0 ? "MEDIUM" : "EASY";
+    return seed % 4 === 0 || negativeCount > 0 ? "MEDIUM" : "EASY";
   }
-  const score = roleDepth + onlyCount + (prototypeId.includes("CONVERSATION") ? 2 : 0);
+  const score =
+    roleDepth +
+    onlyCount +
+    negativeCount +
+    (prototypeId.includes("CONVERSATION") ? 2 : 0);
   if (score <= 3) return "EASY";
   if (score <= 6) return seed % 5 === 0 ? "HARD" : "MEDIUM";
   return "HARD";
@@ -276,7 +307,7 @@ function explanationFor(
 
   return {
     ruleStatement:
-      "Replace my, your, his and her with explicit people first. Then reduce the nested role chain from left to right and read the final query in the requested direction.",
+      "Replace my, your, his and her with explicit people first. Validate every only or no-relation condition, then reduce the nested role chain from left to right and read the final query in the requested direction.",
     coreConcept: [
       `my = ${anchorName(prompt, "SPEAKER")}`,
       ...(prompt.listenerId ? [`your = ${anchorName(prompt, "LISTENER")}`] : []),
@@ -284,8 +315,12 @@ function explanationFor(
         ? [`indicated person = ${anchorName(prompt, "POINTED_PERSON")}`]
         : []),
       "An 'only' role must have exactly one matching person in the active family scope.",
+      ...((prompt.constraints ?? []).length > 0
+        ? ["A 'no brother or sister' condition means the complete sibling set must contain zero people."]
+        : []),
     ],
     normalizedClues: [
+      ...solution.constraintTrace,
       normalizedAssertion,
       ...assertionSubject.trace,
       ...assertionReference.trace,
@@ -311,11 +346,11 @@ function explanationFor(
         ? "Therefore, the described person is the speaker herself or himself."
         : `Therefore, ${subjectName} is the ${cp002AnswerLabel(solution.answerId).toLocaleLowerCase("en-IN")} of ${referenceName}.`,
     examShortcut:
-      "Write S for speaker, L for listener and P for the pointed person. Replace each pronoun, then move through one possessive role at a time; never reverse the final question.",
+      "Write S for speaker, L for listener and P for the pointed person. Mark no-sibling facts before moving through one possessive role at a time; never reverse the final question.",
     closestTrapRejection:
       solution.answerId === "SELF"
         ? "Do not force a family label after the chain has returned to the speaker."
-        : "The nearest wrong answer usually comes from reversing the endpoint order or stopping one role early.",
+        : "The nearest wrong answer usually comes from ignoring a cardinality fact, reversing the endpoint order or stopping one role early.",
     distractorAnalysis: options
       .filter((option) => !option.isCorrect)
       .map((option) => ({
@@ -324,6 +359,16 @@ function explanationFor(
         studentWarning: distractorWarning(option.errorLabel!),
       })),
   };
+}
+
+function scenarioConstraints(
+  template: BlrCp002ScenarioTemplate,
+): readonly BlrRoleCardinalityConstraint[] {
+  return (
+    template as BlrCp002ScenarioTemplate & {
+      constraints?: readonly BlrRoleCardinalityConstraint[];
+    }
+  ).constraints ?? [];
 }
 
 function generateFromScenario(
@@ -335,7 +380,10 @@ function generateFromScenario(
   const random = new SeededRandom(
     seed ^ Number.parseInt(stableHash([prototypeId, template.scenarioId]), 16),
   );
-  const prompt = buildCp002StructuredPrompt(template, random);
+  const prompt: BlrCp002StructuredPrompt = {
+    ...buildCp002StructuredPrompt(template, random),
+    constraints: scenarioConstraints(template),
+  };
 
   if (contract.requiresListener && !prompt.listenerId) {
     throw new Error(`${prototypeId} requires a listener anchor.`);
@@ -391,6 +439,7 @@ function generateFromScenario(
     cp002AssertionOnlyConstraintCount(prompt.assertion) +
     cp002OnlyConstraintCount(prompt.query.subject) +
     cp002OnlyConstraintCount(prompt.query.reference);
+  const negativeConstraintCount = cp002NegativeConstraintCount(prompt);
 
   return {
     packageId: "BLR-001",
@@ -405,7 +454,13 @@ function generateFromScenario(
     ruleId: "BLOOD_ROLE_CHAIN_RELATION",
     seed,
     locale: "en-IN",
-    difficulty: difficultyFor(prototypeId, totalRoleDepth, onlyConstraintCount, seed),
+    difficulty: difficultyFor(
+      prototypeId,
+      totalRoleDepth,
+      onlyConstraintCount,
+      negativeConstraintCount,
+      seed,
+    ),
     renderer: "DIALOGUE_STRUCTURED_TEXT",
     answerType: "RELATION_LABEL_OR_SELF",
     stem: buildStem(prompt),
@@ -418,6 +473,7 @@ function generateFromScenario(
       scenarioId: template.scenarioId,
       hiddenFingerprint: stableHash([
         template.scenarioId,
+        JSON.stringify(prompt.constraints ?? []),
         JSON.stringify(prompt.assertion),
         JSON.stringify(prompt.query),
       ]),
@@ -426,9 +482,11 @@ function generateFromScenario(
       assertionRoleDepth,
       queryRoleDepth,
       onlyConstraintCount,
+      negativeConstraintCount,
       pathLength: solution.pathLength,
       selfIdentity: solution.answerId === "SELF",
       familyGraphValid: true,
+      constraintsVerified: true,
       assertionVerified: true,
       independentSolverAgreed: true,
       ambiguityAccepted: true,
