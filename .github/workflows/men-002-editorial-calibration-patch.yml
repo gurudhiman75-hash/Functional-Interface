@@ -1,0 +1,43 @@
+name: MEN-002 Editorial Calibration Patch
+
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize]
+    paths:
+      - .github/workflows/men-002-editorial-calibration-patch.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Correct square-root MathJax escape
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/foundation/runtime.ts")
+          text = path.read_text()
+          old = 'explanation: `taking $\\sqrt{${volume}}$ as though the given cubic measure were an area`'
+          new = 'explanation: `taking $\\\\sqrt{${volume}}$ as though the given cubic measure were an area`'
+          if text.count(old) != 1:
+            raise SystemExit(f"Expected one square-root escape match, found {text.count(old)}")
+          path.write_text(text.replace(old, new, 1))
+          PY
+
+      - name: Commit patch
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/foundation/runtime.ts
+          git commit -m "fix(mensuration): preserve square-root MathJax in trap"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
