@@ -141,11 +141,16 @@ function normaliseTemporalTimeOptions(
 
   if (candidates.length < 4) return source;
   const optionAudit = candidates.slice(0, 4);
+  const correctText = optionAudit[0]!.text;
   return {
     ...source,
     options: optionAudit.map((option) => option.text),
     optionAudit,
     correctIndex: 0,
+    explanation: {
+      ...source.explanation,
+      conclusion: `Therefore, the later time is ${correctText}.`,
+    },
   };
 }
 
