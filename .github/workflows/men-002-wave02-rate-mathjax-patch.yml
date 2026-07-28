@@ -27,10 +27,10 @@ jobs:
           from pathlib import Path
           path = Path("artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/gap-wave-02/runtime.ts")
           text = path.read_text()
-          old = r'equation: `$$Rate=\frac{\text{£}${cost}}{${tsa}\text{ m}^{2}}=\text{£}${rate}/\text{m}^{2}$$`'
-          new = r'equation: `$$Rate=\frac{\text{£}${cost}}{${tsa}\text{ m}^{2}}=\frac{\text{£}${rate}}{\text{m}^{2}}$$`'
+          old = r'=\text{£}${rate}/\text{m}^{2}$$'
+          new = r'=\frac{\text{£}${rate}}{\text{m}^{2}}$$'
           if text.count(old) != 1:
-            raise SystemExit(f"Expected one rate equation match, found {text.count(old)}")
+            raise SystemExit(f"Expected one rate-result suffix, found {text.count(old)}")
           path.write_text(text.replace(old, new, 1))
           PY
 
