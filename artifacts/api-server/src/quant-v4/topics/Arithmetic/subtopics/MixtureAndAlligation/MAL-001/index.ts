@@ -76,6 +76,10 @@ export {
 export {
   runMalCp001PermanentPipeline,
 } from "./foundation/cp001-permanent-runtime";
+export {
+  MAL_CP001_PERMANENT_REVIEW_SEEDS,
+  buildMalCp001PermanentReviewModel,
+} from "./foundation/cp001-permanent-review-model";
 export { generateMalCp001PrototypeParameters } from "./foundation/cp001-parameter-generator";
 export { generateMalCp001GapParameters } from "./foundation/cp001-gap-generator";
 export { generateMalCp001Prototype } from "./foundation/pipeline";
@@ -127,3 +131,9 @@ export type {
   MalCp001PermanentRuntimeInput,
   MalCp001PermanentQuestion,
 } from "./foundation/cp001-permanent-runtime";
+export type {
+  MalCp001PermanentReviewStatus,
+  MalCp001PermanentReviewRow,
+  MalCp001PermanentReviewGroup,
+  MalCp001PermanentReviewModel,
+} from "./foundation/cp001-permanent-review-model";
