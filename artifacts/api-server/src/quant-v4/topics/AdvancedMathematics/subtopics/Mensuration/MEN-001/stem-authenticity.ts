@@ -31,6 +31,22 @@ function humanizeWireStem(stem: string) {
       "A metallic wire is bent into a square frame of side $1. The same wire is then straightened and rebent into a circular frame.",
     )
     .replace(
+      /^A wire square has side ([^.]+?)\. The wire is reshaped into an equilateral triangle\./i,
+      "A metallic wire is bent into a square frame of side $1. The same wire is then straightened and rebent into an equilateral triangular frame.",
+    )
+    .replace(
+      /^A wire square of side ([^.]+?) is reshaped into a regular hexagon\./i,
+      "A metallic wire is bent into a square frame of side $1. The same wire is then straightened and rebent into a regular hexagonal frame.",
+    )
+    .replace(
+      /^A wire rectangle measures ([^.]+?) by ([^.]+?)\. The wire is reshaped into a square\./i,
+      "A metallic wire is bent into a rectangular frame measuring $1 by $2. The same wire is then straightened and rebent into a square frame.",
+    )
+    .replace(
+      /^A wire boundary forms a rectangle of length ([^.]+?) and breadth ([^.]+?)\. The same wire is reshaped into a square\./i,
+      "A metallic wire is bent into a rectangular frame of length $1 and breadth $2. The same wire is then straightened and rebent into a square frame.",
+    )
+    .replace(
       /^An equilateral triangular wire frame has side ([^.]+?)\. It is reshaped into a square\./i,
       "A metallic wire is bent into an equilateral triangular frame of side $1. The same wire is then straightened and rebent into a square frame.",
     )
