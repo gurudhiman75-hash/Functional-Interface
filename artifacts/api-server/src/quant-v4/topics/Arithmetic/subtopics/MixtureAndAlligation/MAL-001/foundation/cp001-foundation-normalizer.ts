@@ -277,6 +277,10 @@ function normalizeStem(question: any): string {
     }
   }
 
+  stem = stem
+    .replace(/,\s+What\b/g, ", what")
+    .replace(/,\s+How\b/g, ", how");
+
   return stem;
 }
 
