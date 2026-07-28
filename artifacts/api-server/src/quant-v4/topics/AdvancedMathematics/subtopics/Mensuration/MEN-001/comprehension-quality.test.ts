@@ -97,7 +97,7 @@ for (const entry of getMen001QuestionEntries()) {
       assert.ok(!MALFORMED_TRAP.test(paragraph), `${entry.qlId} trap contains malformed generated grammar: ${paragraph}`);
       assert.ok(!GENERIC_TRAP_SHELL.test(paragraph), `${entry.qlId} trap uses a generic correction shell instead of the solve method: ${paragraph}`);
       assert.ok(
-        /(?:Remember|Use|Do not|Don't|Check|Continue|Divide|Multiply|Subtract|Add|Put|Keep|Take|Find|First|Area conversion|From |Set |Calculate |Apply |Write |Finish |Convert )/i.test(paragraph),
+        /(?:Remember|Use|Do not|Don't|Check|Continue|Divide|Multiply|Subtract|Add|Put|Keep|Take|Find|First|Area conversion|From |Set |Calculate |Apply |Write |Finish |Convert |A square has)/i.test(paragraph),
         `${entry.qlId} trap must tell the learner how to correct the mistake: ${paragraph}`,
       );
     }
@@ -115,6 +115,7 @@ for (const entry of getMen001QuestionEntries()) {
 }
 
 const inverseTriangle = generate("MEN-CP-001", "MEN-001-QL-004", "men-001-structured-review:MEN-001-QL-004");
+assert.match(inverseTriangle.explanation.sections[0]!.paragraphs[0]!, /used backwards|double the area/i);
 const inverseHeightStep = inverseTriangle.explanation.sections.find(
   (section) => section.kind === "STEP" && section.title === "Find the Height",
 );
@@ -136,6 +137,16 @@ assert.match(ratio.explanation.sections[0]!.paragraphs[0]!, /5\s*:\s*12\s*:\s*13
 assert.match(ratio.explanation.sections[0]!.paragraphs[0]!, /right-angled/i);
 assert.ok(ratio.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT")?.paragraphs.some((paragraph) => /Pythagorean Triplet/i.test(paragraph)));
 
+const arcAngle = generate("MEN-CP-003", "MEN-001-QL-218", "men-001-structured-review:MEN-001-QL-218");
+const arcAngleStep = arcAngle.explanation.sections.find((section) => section.kind === "STEP" && section.title === "Find the Central Angle");
+assert.ok(arcAngleStep?.paragraphs.some((paragraph) => /arc length.*circumference.*360°/i.test(paragraph)));
+assert.ok(arcAngle.explanation.sections.find((section) => section.kind === "COMMON_TRAPS")?.paragraphs.every((paragraph) => /full circumference|arc length/i.test(paragraph)));
+
+const sectorAngle = generate("MEN-CP-003", "MEN-001-QL-219", "men-001-structured-review:MEN-001-QL-219");
+const sectorAngleStep = sectorAngle.explanation.sections.find((section) => section.kind === "STEP" && section.title === "Find the Central Angle");
+assert.ok(sectorAngleStep?.paragraphs.some((paragraph) => /sector area.*circle area.*360°/i.test(paragraph)));
+assert.ok(sectorAngle.explanation.sections.find((section) => section.kind === "COMMON_TRAPS")?.paragraphs.every((paragraph) => /full circle area|sector area/i.test(paragraph)));
+
 const conversion = generate("MEN-CP-006", "MEN-001-QL-403", "men-001-structured-review:MEN-001-QL-403");
 assert.match(conversion.explanation.sections[0]!.paragraphs[0]!, /100 cm × 100 cm = 10,000 cm²/);
 const conversionSteps = conversion.explanation.sections
@@ -151,6 +162,15 @@ assert.match(percentage.explanation.sections[0]!.paragraphs[0]!, /length × brea
 assert.match(percentage.explanation.sections[0]!.paragraphs[0]!, /multiply|compounding/i);
 assert.ok(percentage.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT")?.paragraphs.some((paragraph) => /p²\/100|compounding/i.test(paragraph)));
 
+const rectangleWire = generate("MEN-CP-006", "MEN-001-QL-424", "men-001-structured-review:MEN-001-QL-424");
+assert.deepEqual(
+  rectangleWire.explanation.sections.filter((section) => section.kind === "STEP").map((step) => step.title),
+  ["Find the Wire Length", "Use the Same Wire for the Square", "Find the Side of the Square"],
+);
+assert.ok(rectangleWire.explanation.sections.every((section) => section.kind !== "STEP" || !/central angle/i.test(section.title + " " + section.paragraphs.join(" "))));
+assert.ok(rectangleWire.explanation.sections.find((section) => section.kind === "COMMON_TRAPS")?.paragraphs.every((paragraph) => /four equal sides|divide.*by 4/i.test(paragraph)));
+assert.ok(rectangleWire.explanation.sections.find((section) => section.kind === "COMMON_TRAPS")?.paragraphs.every((paragraph) => !/squaring the divide wire/i.test(paragraph)));
+
 const wire = generate("MEN-CP-006", "MEN-001-QL-436", "men-001-structured-review:MEN-001-QL-436");
 assert.match(wire.explanation.sections[0]!.paragraphs[0]!, /no wire is added or removed/i);
 assert.match(wire.explanation.sections[0]!.paragraphs[0]!, /circumference.*perimeter/i);
@@ -161,4 +181,4 @@ assert.deepEqual(
 assert.ok(wire.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT")?.paragraphs.some((paragraph) => /s = πr\/2/.test(paragraph)));
 assert.ok(wire.explanation.sections.find((section) => section.kind === "COMMON_TRAPS")?.paragraphs.some((paragraph) => /original circle/i.test(paragraph) && /Do not stop/i.test(paragraph)));
 
-console.log(`MEN-001 comprehension audit passed for ${audited} generated explanations, including ${tripletStates} states with explicitly named Pythagorean Triplets, no cross-family boilerplate, no generic trap shells and no repeated adjacent teaching steps.`);
+console.log(`MEN-001 comprehension audit passed for ${audited} generated explanations, including ${tripletStates} states with explicitly named Pythagorean Triplets, no cross-family boilerplate, no generic trap shells, no repeated adjacent teaching steps and focused semantic checks for inverse, angle, conversion, scaling and wire families.`);
