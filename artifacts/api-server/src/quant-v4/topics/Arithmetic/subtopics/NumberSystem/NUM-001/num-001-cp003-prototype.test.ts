@@ -15,6 +15,7 @@ function assertOk(value: unknown, message = "Assertion failed"): void {
 }
 
 const rawMathCommand = /(?<!\\)\([^)]*(?<!\\)\b(?:div|lceil|rceil|times)\b[^)]*(?<!\\)\)/u;
+const controlCharacter = /[\u0009\u000d]/u;
 
 assertEqual(NUM_CP003_PROTOTYPE_REGISTRY.length, NUM_CP003_PROTOTYPE_IDS.length);
 assertEqual(new Set(NUM_CP003_PROTOTYPE_IDS).size, NUM_CP003_PROTOTYPE_IDS.length);
@@ -34,6 +35,11 @@ for (const prototypeId of NUM_CP003_PROTOTYPE_IDS) {
     const seed = `proof-${index}`;
     const first = generateNumCp003Prototype(prototypeId, seed);
     const second = generateNumCp003Prototype(prototypeId, seed);
+    const mathematicalText = [
+      ...first.explanation.steps,
+      first.explanation.shortcut,
+      first.explanation.verification,
+    ];
 
     assertEqual(stable(first), stable(second), `${prototypeId}/${seed} is not deterministic`);
     assertEqual(first.validation.ok, true, `${prototypeId}/${seed}: ${first.validation.errors.join(" | ")}`);
@@ -54,7 +60,8 @@ for (const prototypeId of NUM_CP003_PROTOTYPE_IDS) {
     assertOk(first.explanation.traps.length >= 3);
     assertOk(first.reasoningGraph.nodes.some((node) => node.kind === "VERIFICATION"));
     assertOk(first.difficultyEvidence.length > 0);
-    assertOk(!first.explanation.steps.some((step) => rawMathCommand.test(step)));
+    assertOk(!mathematicalText.some((text) => rawMathCommand.test(text)));
+    assertOk(!mathematicalText.some((text) => controlCharacter.test(text)));
 
     answerPositions.add(first.correctIndex);
     stems.add(first.stem);
