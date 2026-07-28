@@ -75,17 +75,28 @@ jobs:
           safe_block = "\n".join(line[10:] if line.startswith("          ") else line for line in safe_block.splitlines())
           replace_once(marker, safe_block, "safe cuboid domain insertion")
 
-          pattern = re.compile(
+          standard_pattern = re.compile(
             r"  const length = BigInt\(rng\.int\(8, 20\)\);\n"
             r"  const breadth = BigInt\(rng\.int\(4, 12\)\);\n"
             r"  const height = BigInt\(rng\.int\(3, 10\)\);"
           )
-          text, count = pattern.subn(
+          text, count = standard_pattern.subn(
             "  const [length, breadth, height] = rng.pick(SAFE_CUBOID_DIMENSIONS);",
             text,
           )
-          if count < 5:
-            raise SystemExit(f"cuboid dimension replacement: expected at least five matches, found {count}")
+          if count != 3:
+            raise SystemExit(f"standard cuboid replacement: expected three matches, found {count}")
+
+          replace_once(
+            "  const length = BigInt(rng.int(8, 20));\n  const breadth = BigInt(rng.int(5, 12));\n  const height = BigInt(rng.int(3, 10));",
+            "  const [length, breadth, height] = rng.pick(SAFE_CUBOID_DIMENSIONS);",
+            "open-top cuboid domain",
+          )
+          replace_once(
+            "  const length = BigInt(rng.int(4, 12));\n  const breadth = BigInt(rng.int(3, 9));\n  const height = BigInt(rng.int(2, 7));",
+            "  const [length, breadth, height] = rng.pick(SAFE_CUBOID_DIMENSIONS);",
+            "painting cuboid domain",
+          )
 
           path.write_text(text)
           PY
