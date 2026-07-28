@@ -35,7 +35,17 @@ export function generateIntCp001FinalEditorialV3Question(
     ...option,
     text: options[index]!,
   }));
-  const explanation = normaliseIntCp001InlineMath(v2.explanation);
+  const inlineExplanation = normaliseIntCp001InlineMath(v2.explanation);
+  const explanation = {
+    ...inlineExplanation,
+    trapAnalysis: {
+      ...inlineExplanation.trapAnalysis,
+      items: inlineExplanation.trapAnalysis.items.map((item) => ({
+        ...item,
+        optionText: options[item.optionNumber - 1]!,
+      })),
+    },
+  };
   const errors = [...v2.validation.errors];
 
   if (hasGenericTextbookStemOpening(stem)) {
