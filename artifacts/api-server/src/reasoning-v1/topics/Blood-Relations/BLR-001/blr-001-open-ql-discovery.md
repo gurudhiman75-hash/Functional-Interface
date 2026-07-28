@@ -1,6 +1,6 @@
 # BLR-001 — Open QL Discovery Policy
 
-Status: **authoritative for unfinished BLR-001 checkpoints; CP-001 is frozen and allocated**.
+Status: **authoritative for unfinished BLR-001 checkpoints; CP-001 is frozen and allocated; CP-002 awaits human review**.
 
 No total chapter QL count is fixed by the end-to-end design. Each checkpoint discovers, audits and freezes its own solve identities before receiving the next continuous chapter range.
 
@@ -15,10 +15,12 @@ source and boundary audit
   -> merge/split audit
   -> inverse-contract audit
   -> human review and remediation
-  -> second source and gap audit
+  -> second source and gap confirmation
   -> discovery freeze
   -> permanent sequential QL allocation
 ```
+
+A technical source-gap pass may be run before human review to expose missing runtime modes. It does not replace the required post-human confirmation. If human remediation changes stems, renderers, constraints, options, explanations or solve contracts, the affected deterministic gates and source-gap decision must be rerun before freeze.
 
 ## Frozen BLR-CP-001 state
 
@@ -63,10 +65,45 @@ Great-grandfather, great-grandmother, great-grandson and great-granddaughter wer
 
 Changing these decisions requires new direct source evidence, a new executable audit and a new freeze version. The existing seven identities must not be silently redefined.
 
+## Current BLR-CP-002 state
+
+The English technical pre-freeze pass currently records:
+
+```text
+positive canonical scenarios:       45
+negative model families:              2
+exploratory prototypes:               6
+provisional authority recommendation: 1
+CP-002 deterministic proof:       3,492
+permanent CP-002 QLs:                 0
+candidate next ID:            BLR-QL-008 (unclaimed)
+```
+
+The provisional authority is:
+
+```text
+RESOLVE_ANCHORED_ROLE_CHAIN_RELATION
+```
+
+Covered dimensions include one- to three-anchor prompts, one- through four-step chains, direct/reverse/both-derived endpoints, `ANY`/`ONLY`/`NONE` constraints, blood and affinal relations, pictured and derived self identity, and semantic or possessive photograph/portrait option rendering.
+
+Remaining required sequence:
+
+```text
+human editorial review
+  -> remediation if required
+  -> affected deterministic reruns
+  -> post-human source-gap confirmation
+  -> formal discovery freeze
+  -> allocation decision
+```
+
+`BLR-QL-008` must not be claimed before these gates pass.
+
 ## Current ownership boundary
 
 - CP-001: direct declarative named-person relations — frozen;
-- CP-002: pointer, photograph, conversation and nested self-reference — open;
+- CP-002: pointer, photograph, portrait, conversation and nested self-reference — technical pre-freeze pass complete; human review pending;
 - CP-003: shared passages — open;
 - CP-004: counts and family composition — open;
 - CP-005: possible, impossible, one-of-two and indeterminate semantics — open;
