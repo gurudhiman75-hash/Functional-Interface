@@ -1,8 +1,8 @@
 # BLR-001 — Open QL Discovery Policy
 
-Status: **authoritative for unfinished BLR-001 checkpoints**.
+Status: **authoritative for unfinished BLR-001 checkpoints; CP-001 is frozen and allocated**.
 
-No total chapter QL count and no checkpoint QL range is frozen by the end-to-end design. Permanent identities are allocated only after executable prototype discovery.
+No total chapter QL count is fixed by the end-to-end design. Each checkpoint discovers, audits and freezes its own solve identities before receiving the next continuous chapter range.
 
 ## Required sequence
 
@@ -15,26 +15,29 @@ source and boundary audit
   -> merge/split audit
   -> inverse-contract audit
   -> human review and remediation
-  -> second gap audit
+  -> second source and gap audit
   -> discovery freeze
   -> permanent sequential QL allocation
 ```
 
-## Current BLR-CP-001 state
+## Frozen BLR-CP-001 state
 
-CP-001 currently has eleven executable exploratory prototype contracts and zero permanent QLs.
+CP-001 completed the full sequence under:
 
-The prototype surface covers:
+`BLR_CP001_ENGLISH_DISCOVERY_FREEZE_V1`
 
-- broad named-person relation solving across direct, reverse, composed and branching paths;
-- identify one person by a relation predicate;
-- identify one person by a gender predicate;
-- identify one ordered pair;
-- select a true or false relation claim;
-- compare generations;
-- resolve exact paternal or maternal grandfather, grandmother, uncle and aunt relations.
+```text
+Exploratory prototypes:       11
+Frozen solve authorities:      7
+Permanent QL range:            BLR-QL-001..007
+Next available chapter ID:     BLR-QL-008
+Question Studio:               disabled
+Question Bank/mock tests:      disabled
+Public publication:            disabled
+Localisation:                  not started
+```
 
-The source and merge/split audits provisionally compress the eleven prototypes into seven solve authorities:
+The seven permanent authorities are:
 
 ```text
 RESOLVE_NAMED_PERSON_RELATION
@@ -46,54 +49,37 @@ COMPARE_GENERATIONS
 RESOLVE_EXACT_LINEAGE_RELATION
 ```
 
-This provisional inventory does **not** establish seven eventual QLs. It remains subject to the second source/gap pass.
+Great-grandfather, great-grandmother, great-grandson and great-granddaughter were added during the second source pass and merged into `BLR-QL-001`; they did not create a new solve authority.
 
-## Current proof state
+## Frozen CP-001 merge decisions
 
-- mathematical and structural prototype gates: passed;
-- machine English editorial gate across 440 questions: passed;
-- external human review of the 88-record pack: completed;
-- human-review result: logic fully correct, learner-facing remediation required;
-- V2 stem, visual-tree, generation-arithmetic, shortcut and distractor remediation: implemented;
-- 440-question human-audit remediation gate: passed;
-- final synced dedicated run `30331197065` on head `b514d02b2d4684e966ba94eccc1763252167dcbc`: passed;
-- remediated 88-record HTML/CSV/JSONL artifact: generated;
-- second source/gap audit: pending;
-- discovery freeze: not authorised.
-
-Seven solve authorities use six answer shapes because both person-identification authorities return `PERSON_NAME` while retaining different predicates and explanation contracts.
-
-## Current merge decisions
-
-- direct versus reverse relation is query direction, not a separate authority;
-- one-edge, two-edge, three-edge and branching paths are topology/depth properties;
+- direct versus reverse relation is query direction;
+- one-, two- and three-edge paths are depth/topology properties;
+- linear versus branching relation is topology;
 - true versus false claim is requested polarity;
 - male versus female is a target value;
-- paternal versus maternal and grandparent versus aunt/uncle are outputs of one exact-lineage solver;
-- family size, names, clue order, renderer and difficulty do not create QLs by themselves.
+- maternal versus paternal and grandfather/grandmother/uncle/aunt are outputs of one exact-lineage authority;
+- relation labels, family size, names, clue order, renderer and difficulty do not create identities by themselves.
+
+Changing these decisions requires new direct source evidence, a new executable audit and a new freeze version. The existing seven identities must not be silently redefined.
 
 ## Current ownership boundary
 
-- direct declarative named-person clues remain in CP-001;
-- pointer, photograph, conversation and nested self-reference forms belong to CP-002;
-- shared passages belong to CP-003;
-- counts and family composition belong to CP-004;
-- possible, impossible and indeterminate questions belong to CP-005;
-- coded relation decoding and construction belong to CP-006 and CP-007;
-- family-plus-profession/height/colour puzzles and Data Sufficiency remain outside BLR-001 checkpoint ownership.
+- CP-001: direct declarative named-person relations — frozen;
+- CP-002: pointer, photograph, conversation and nested self-reference — open;
+- CP-003: shared passages — open;
+- CP-004: counts and family composition — open;
+- CP-005: possible, impossible, one-of-two and indeterminate semantics — open;
+- CP-006: coded relation decoding — open;
+- CP-007: coded expression construction and validation — open;
+- family-plus-profession/height/colour puzzles and Data Sufficiency — outside checkpoint ownership.
 
-## Remaining CP-001 freeze blockers
+## Identity sequencing rule
 
-- inspect and approve the remediated V2 review pack;
-- execute the second source and gap audit;
-- produce final freeze evidence showing no new materially distinct authority;
-- allocate permanent sequential identities only in a guarded later change.
+Later BLR-001 checkpoints must not use `BLR-QL-001..007`. The next checkpoint to complete exhaustive discovery starts from `BLR-QL-008` and reserves only the exact number of solve identities justified by its own final freeze.
 
-## Prohibited actions before freeze
+The final BLR-001 chapter total remains open until every checkpoint completes this process.
 
-- assigning `BLR-QL-*` IDs;
-- declaring a final QL count;
-- making the runtime Question Studio visible;
-- localising unstable English contracts;
-- marking any prototype publicly publishable;
-- treating path length, topology, query direction, names, claim polarity or difficulty alone as separate QLs.
+## Release rule
+
+Permanent identity is not production approval. A frozen QL may remain English review-only with all delivery surfaces disabled. Question Studio, Question Bank, mock tests, localisation and public publication require separate explicit gates.
