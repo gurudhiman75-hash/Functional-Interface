@@ -6,6 +6,11 @@ on:
       - feat/pnl-001-cp002-dynamic-runtime
     paths:
       - ".github/workflows/tmp-pnl-cp002-runtime-proof.yml"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - ".github/workflows/tmp-pnl-cp002-runtime-proof.yml"
 
 permissions:
   contents: write
@@ -20,34 +25,22 @@ jobs:
         with:
           ref: feat/pnl-001-cp002-dynamic-runtime
 
-      - name: Repair type-only imports
+      - name: Enforce exact bundle-unit money
         run: |
           python - <<'PY'
           from pathlib import Path
           path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime.ts")
           source = path.read_text()
-          source = source.replace(
-              '''import {
-            rational,
-            rationalToNumber,
-            type Rational,
-          } from "../foundation/rational";
-          import {
-            moneyFromPaise,
-            moneyFromRupees,
-            type Money,
-          } from "../foundation/money";''',
-              '''import {
-            rational,
-            rationalToNumber,
-          } from "../foundation/rational";
-          import {
-            moneyFromPaise,
-            moneyFromRupees,
-          } from "../foundation/money";
-          import type { Money, Rational } from "../foundation/types";''',
-          )
-          path.write_text(source)
+          old = '''      const unitMarkedPrice = rupees(
+                pickNumber(random, [120, 150, 180, 200, 240, 300, 360, 400]),
+              );'''
+          new = '''      const totalUnits = Number(paidUnits + freeUnits);
+              const unitMarkedPrice = rupees(
+                totalUnits * pickNumber(random, [80, 100, 120, 150, 200]),
+              );'''
+          if old not in source:
+              raise SystemExit("Expected CP-002 bundle-price block was not found")
+          path.write_text(source.replace(old, new, 1))
           PY
 
       - name: Set up Node
@@ -80,7 +73,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git rm .github/workflows/tmp-pnl-cp002-runtime-proof.yml
           git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime.ts
-          git commit -m "fix(pnl): prove CP-002 dynamic runtime"
+          git commit -m "fix(pnl): keep CP-002 bundle pricing exact"
           git push origin HEAD:feat/pnl-001-cp002-dynamic-runtime
 
       - name: Upload proof evidence
