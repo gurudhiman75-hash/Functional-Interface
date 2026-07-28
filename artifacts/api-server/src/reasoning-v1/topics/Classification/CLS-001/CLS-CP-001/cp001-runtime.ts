@@ -3,6 +3,7 @@ import {
   type ClsCp001QlId,
   type ClsCp001SolveContractId,
 } from "./cp001-permanent-contracts";
+import { generateClsCp001CoherentGroupPrototype } from "./cp001-coherent-group-runtime";
 import { generateClsCp001Prototype } from "./runtime";
 import type {
   GeneratedClassificationQuestion,
@@ -34,6 +35,7 @@ export type GeneratedClsCp001EnglishQuestion = Omit<
     readonly runtimeVersion: "cls-cp001-runtime-v1";
     readonly sourcePrototypeId: PrototypeId;
     readonly sourcePrototypeSeed: number;
+    readonly sourceOptionCount: 4 | 5;
     readonly solveContractId: ClsCp001SolveContractId;
   };
   readonly lifecycle: ClsCp001FrozenLifecycle;
@@ -62,6 +64,20 @@ function sourceSeed(seed: number, prototypeIndex: number, prototypeCount: number
   return seed * prototypeCount + prototypeIndex;
 }
 
+function optionCountForSeed(qlId: ClsCp001QlId, seed: number): 4 | 5 {
+  return hashText(`${qlId}:option-count:${seed}`) % 4 === 0 ? 5 : 4;
+}
+
+function generateSourceQuestion(
+  sourcePrototypeId: PrototypeId,
+  sourcePrototypeSeed: number,
+  optionCount: 4 | 5,
+): GeneratedClassificationQuestion {
+  return sourcePrototypeId === "CLS-CP001-PROT-008"
+    ? generateClsCp001CoherentGroupPrototype(sourcePrototypeSeed, optionCount)
+    : generateClsCp001Prototype(sourcePrototypeId, sourcePrototypeSeed, optionCount);
+}
+
 export function generateClsCp001EnglishQuestion(
   qlId: ClsCp001QlId,
   seed = 0,
@@ -74,10 +90,14 @@ export function generateClsCp001EnglishQuestion(
   const sourcePrototypeId = selectPrototypeId(qlId, seed);
   const prototypeIndex = contract.allowedPrototypeIds.indexOf(sourcePrototypeId);
   const sourcePrototypeSeed = sourceSeed(seed, prototypeIndex, contract.allowedPrototypeIds.length);
-  const generated = generateClsCp001Prototype(sourcePrototypeId, sourcePrototypeSeed);
+  const sourceOptionCount = optionCountForSeed(qlId, seed);
+  const generated = generateSourceQuestion(sourcePrototypeId, sourcePrototypeSeed, sourceOptionCount);
 
   if (generated.task !== contract.task) {
     throw new Error(`${qlId}/${seed} produced task '${generated.task}' instead of '${contract.task}'`);
+  }
+  if (generated.options.length !== sourceOptionCount) {
+    throw new Error(`${qlId}/${seed} produced ${generated.options.length} options instead of ${sourceOptionCount}`);
   }
 
   const {
@@ -101,6 +121,7 @@ export function generateClsCp001EnglishQuestion(
       runtimeVersion: "cls-cp001-runtime-v1",
       sourcePrototypeId,
       sourcePrototypeSeed,
+      sourceOptionCount,
       solveContractId: contract.solveContractId,
     },
     lifecycle: {
