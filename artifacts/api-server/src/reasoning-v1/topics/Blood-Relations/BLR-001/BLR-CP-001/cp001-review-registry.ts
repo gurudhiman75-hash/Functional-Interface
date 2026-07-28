@@ -3,6 +3,7 @@ import { BLR_CP001_ADVANCED_PROTOTYPE_CONTRACTS } from "./advanced-prototype-con
 import { generateBlrCp001AdvancedPrototypeQuestion } from "./advanced-prototype-generator";
 import type { BlrCp001AdvancedPrototypeId } from "./advanced-prototype-types";
 import { upgradeCp001Question } from "./cp001-editorial-upgrader";
+import { applyCp001SecondGapEditorial } from "./cp001-second-gap-editorial";
 import { BLR_CP001_LINEAGE_PROTOTYPE_CONTRACTS } from "./lineage-prototype-contracts";
 import { generateBlrCp001LineagePrototypeQuestion } from "./lineage-prototype-generator";
 import type { BlrCp001LineagePrototypeId } from "./lineage-prototype-types";
@@ -105,7 +106,10 @@ function lineageAuthority(
 }
 
 function reviewed<T>(question: T): BlrCp001ReviewQuestion {
-  return upgradeCp001Question(question) as unknown as BlrCp001ReviewQuestion;
+  const upgraded = upgradeCp001Question(
+    question,
+  ) as unknown as BlrCp001ReviewQuestion;
+  return applyCp001SecondGapEditorial(upgraded);
 }
 
 export const BLR_CP001_REVIEW_REGISTRY: readonly BlrCp001ReviewEntry[] = [
