@@ -18,9 +18,10 @@ def literal(old: str, new: str, label: str) -> None:
     text = text.replace(old, new, 1)
 
 
-def regex(pattern: str, replacement: str, label: str, flags: int = 0) -> None:
+def regex(pattern: str, replacement, label: str, flags: int = 0) -> None:
     global text
-    text, count = re.subn(pattern, replacement, text, count=1, flags=flags)
+    replacement_fn = replacement if callable(replacement) else lambda _match: replacement
+    text, count = re.subn(pattern, replacement_fn, text, count=1, flags=flags)
     if count != 1:
         raise SystemExit(f"{label}: expected 1 regex match, found {count}")
 
