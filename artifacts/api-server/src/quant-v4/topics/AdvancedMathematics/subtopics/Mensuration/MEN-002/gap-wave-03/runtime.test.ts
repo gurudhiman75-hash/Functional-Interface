@@ -45,6 +45,12 @@ for (const prototypeId of prototypeIds) {
     assert.equal(first.options.filter((option) => option.isCorrect).length, 1);
     assert.equal(first.options[first.correctIndex]?.isCorrect, true);
     assert.equal(first.answer, first.options[first.correctIndex]?.display);
+    if (["cubes", "blocks", "bricks", "cuts"].includes(first.unit)) {
+      assert.ok(
+        first.options.every((option) => option.value.kind === "RATIONAL" && option.value.denominator === 1n),
+        `${prototypeId} count options must all be whole numbers.`,
+      );
+    }
     assert.ok(first.options.every((option) => isPositive(option.value)), `${prototypeId} generated a non-positive option.`);
     assert.equal(first.permanentQlId, null);
     assert.equal(first.state.permanentQlId, null);

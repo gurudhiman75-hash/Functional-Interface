@@ -545,7 +545,7 @@ function prismPerimeterInverseDraft(prototypeId: MenCp007Wave03PrototypeId, seed
       { title: "Remove the Two Bases", body: "Subtract twice the base area from the total surface area.", equation: `$$Ph=${tsa}-2\\times${state.baseArea}=${state.basePerimeter * state.height}\\text{ cm}^{2}$$` },
       { title: "Divide by the Prism Height", body: "This recovers the boundary length of the base.", equation: `$$P=\\frac{${state.basePerimeter * state.height}}{${state.height}}=${state.basePerimeter}\\text{ cm}$$` },
     ],
-    shortcut: `Use $P=(TSA-2A_{base})/h$.`,
+    shortcut: `Use $P=\frac{TSA-2A_{base}}{h}$.`,
   };
 }
 
@@ -590,8 +590,8 @@ function mixedUnitBrickCountDraft(prototypeId: MenCp007Wave03PrototypeId, seed: 
     stem: `Ignoring mortar, how many bricks measuring ${dimension(state.brickL)} × ${dimension(state.brickB)} × ${dimension(state.brickH)} are needed for a rectangular wall measuring ${dimension(state.wallLMetres, "m")} × ${dimension(state.wallBMetres, "m")} × ${dimension(state.wallHMetres, "m")}?`,
     answer,
     wrongAnswers: [
-      { value: q(state.wallLMetres * state.wallBMetres * state.wallHMetres, brickVolume), misconceptionId: "MIXED_METRES_AND_CENTIMETRES", explanation: "dividing metre-based wall numbers by a cubic-centimetre brick volume without converting units" },
-      { value: q(wallLCm * state.wallBMetres * state.wallHMetres, brickVolume), misconceptionId: "CONVERTED_ONE_DIMENSION", explanation: "converting only the wall length to centimetres and leaving the other two dimensions in metres" },
+      { value: q(count, 100n), misconceptionId: "LEFT_ONE_METRE_DIMENSION_UNCONVERTED", explanation: "leaving one wall dimension in metres, which makes the count one hundred times too small" },
+      { value: q(alongLength + alongBreadth + alongHeight), misconceptionId: "ADDED_DIRECTION_COUNTS", explanation: "adding the brick counts along the three directions instead of multiplying rows, columns and layers" },
       { value: q(alongLength * alongBreadth), misconceptionId: "COUNTED_ONE_LAYER", explanation: "counting one rectangular layer of bricks and omitting the layers through the wall height" },
     ],
     keyRule: "Convert all wall dimensions to centimetres, then count exact brick fits along length, breadth and height and multiply the three counts.",
