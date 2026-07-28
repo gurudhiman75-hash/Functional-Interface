@@ -113,10 +113,10 @@ assert.ok(triangleShortcut?.paragraphs.some((paragraph) => /Halve an even base o
 assert.ok(triangle.explanation.sections.find((section) => section.kind === "COMMON_TRAPS")?.paragraphs.some((paragraph) => /1\/2|\\frac\{1\}\{2\}/.test(paragraph)));
 
 const tripletRatio = generate("MEN-CP-001", "MEN-001-QL-020", "men-001-human-review:MEN-001-QL-020:0");
-assert.ok(tripletRatio.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT")?.paragraphs.some((paragraph) => /Pythagorean triplet/.test(paragraph)));
+assert.ok(tripletRatio.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT")?.paragraphs.some((paragraph) => /Pythagorean Triplet/i.test(paragraph)));
 const nonTripletRatio = generate("MEN-CP-001", "MEN-001-QL-020", "men-001-human-review:MEN-001-QL-020:1");
 assert.ok(nonTripletRatio.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT"));
-assert.ok(nonTripletRatio.explanation.sections.every((section) => section.kind !== "EXAM_SHORTCUT" || section.paragraphs.every((paragraph) => !/Pythagorean triplet/.test(paragraph))));
+assert.ok(nonTripletRatio.explanation.sections.every((section) => section.kind !== "EXAM_SHORTCUT" || section.paragraphs.every((paragraph) => !/Pythagorean Triplet/i.test(paragraph))));
 
 const percentage = generate("MEN-CP-006", "MEN-001-QL-414", "men-001-human-review:MEN-001-QL-414:1");
 assert.ok(percentage.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT")?.equations.some((equation) => /2\s*\\times\s*20/.test(equation) && /44\\%/.test(equation)));
