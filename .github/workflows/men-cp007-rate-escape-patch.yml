@@ -1,0 +1,44 @@
+name: MEN-CP-007 Rate Escape Patch
+
+on:
+  pull_request:
+    branches:
+      - feat/men-002-cp007-gap-wave-03
+    types: [opened, reopened, synchronize]
+    paths:
+      - .github/workflows/men-cp007-rate-escape-patch.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Correct rate shortcut MathJax escapes
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/gap-wave-03/runtime.ts")
+          lines = path.read_text(encoding="utf8").splitlines()
+          matches = [i for i, line in enumerate(lines) if 'shortcut: `The cube uses' in line]
+          if len(matches) != 1:
+            raise SystemExit(f"Expected one cube wire-rate shortcut, found {len(matches)}")
+          lines[matches[0]] = '    shortcut: `The cube uses $12\\\\times${state.side}=${edgeLength}\\\\text{ m}$ of wire, so $Rate=\\\\frac{\\\\text{₹}${formatIndianInteger(cost)}}{${edgeLength}\\\\text{ m}}=\\\\frac{\\\\text{₹}${formatIndianInteger(state.rate)}}{\\\\text{m}}$.`,'
+          path.write_text("\n".join(lines) + "\n", encoding="utf8")
+          PY
+
+      - name: Commit correction
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/gap-wave-03/runtime.ts
+          git commit -m "fix(mensuration): preserve MathJax in rupee rate shortcut"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
