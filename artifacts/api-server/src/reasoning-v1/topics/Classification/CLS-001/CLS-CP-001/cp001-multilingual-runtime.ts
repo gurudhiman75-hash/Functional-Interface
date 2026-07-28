@@ -6,7 +6,7 @@ import {
 import {
   localizeClsCp001Question,
   type GeneratedClsCp001LocalizedQuestion,
-} from "./localization/cp001-localizer";
+} from "./localization/cp001-student-localizer";
 import type { ClsCp001Locale } from "./localization/cp001-language-pack";
 
 export type GeneratedClsCp001PermanentQuestion =
