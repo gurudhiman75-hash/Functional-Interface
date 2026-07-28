@@ -59,25 +59,32 @@ Five non-permanent prototypes currently cover:
 - two-speaker `my`/`your` conversations;
 - self identity after role-chain collapse.
 
-Pointing, photograph, introduction and stage forms are renderer variants. The five prototypes do not establish a five-QL freeze.
+Pointing, photograph, introduction and stage forms are renderer variants. The first merge/split audit provisionally compresses the five prototypes into one authority:
+
+```text
+RESOLVE_ANCHORED_ROLE_CHAIN_RELATION
+```
+
+This is not a one-QL freeze. Source widening and a second gap audit remain mandatory.
 
 ## Current executable gates
 
 ```text
 BLR-CP-001 frozen workflow              3,556 questions
-BLR-CP-002 first role-chain slice         600 questions
+BLR-CP-002 mathematical audit             600 questions
+BLR-CP-002 English editorial V2 audit     400 questions
 -------------------------------------------------------
-current deterministic chapter proof     4,156 questions
+current deterministic chapter proof     4,556 questions
 ```
 
-CP-002 additionally verifies formal only-role cardinality, pronoun anchors, assertion truth, nested query endpoints, self identity and all dialogue renderers.
+CP-002 verifies formal only-role cardinality, pronoun anchors, assertion truth, nested query endpoints, self identity, all dialogue renderers, hidden-identity preservation, natural photograph wording and complete explanation tiers.
 
 ## Checkpoint state
 
 | Checkpoint | Ownership | State |
 |---|---|---|
 | `BLR-CP-001` | direct declarative named-person relations | frozen; `BLR-QL-001..007` |
-| `BLR-CP-002` | pointer/photo/conversation/nested self-reference | English open discovery; five executable prototypes; zero new QLs |
+| `BLR-CP-002` | pointer/photo/conversation/nested self-reference | English open discovery; five prototypes provisionally one authority; zero new QLs |
 | `BLR-CP-003` | shared family passages | open |
 | `BLR-CP-004` | counts and family composition | open |
 | `BLR-CP-005` | possible/impossible/one-of-two/indeterminate semantics | open |
@@ -100,8 +107,10 @@ The next available chapter identity is `BLR-QL-008`, but CP-002 has not claimed 
 ### CP-002
 
 - `BLR-CP-002/BLR-CP-002-SOURCE-AND-BOUNDARY-AUDIT.md`;
+- `BLR-CP-002/BLR-CP-002-MERGE-SPLIT-AUDIT-V1.md`;
+- `BLR-CP-002/BLR-CP-002-ENGLISH-REVIEW-V2.md`;
 - `BLR-CP-002/README.md`;
-- executable role-chain contracts, solver, scenarios, generator and audit.
+- executable role-chain contracts, solver, scenario library, raw generator, editorial registry, audits and review exports.
 
 ## Release boundary
 
@@ -114,4 +123,4 @@ CP-001 permanent identity and CP-002 prototypes do not enable delivery:
 - Hindi and Punjabi: not started;
 - public publication: disabled.
 
-The next CP-002 boundary is source widening, English review export, merge/split and inverse audits before any allocation beginning at `BLR-QL-008`.
+The next CP-002 boundary is affinal/source widening and a second source-gap pass before any allocation beginning at `BLR-QL-008`.
