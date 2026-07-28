@@ -7,7 +7,14 @@ import {
 } from 'lucide-react';
 
 export type AdminWorkspaceStatus = 'live' | 'in_progress' | 'planned';
-export const WORKSPACE_STATUS_LABELS: Record<AdminWorkspaceStatus, string> = { live: 'Live', in_progress: 'In progress', planned: 'Planned' };
+export const WORKSPACE_STATUS_OPTIONS = [
+  { status: 'live', label: 'Live' },
+  { status: 'in_progress', label: 'In progress' },
+  { status: 'planned', label: 'Planned' },
+] as const satisfies readonly { status: AdminWorkspaceStatus; label: string }[];
+export const WORKSPACE_STATUS_LABELS = Object.fromEntries(
+  WORKSPACE_STATUS_OPTIONS.map(({ status, label }) => [status, label]),
+) as Record<AdminWorkspaceStatus, string>;
 export interface NavItem { label: string; path: string; icon: LucideIcon; status: AdminWorkspaceStatus; permission?: string; summary: string; milestone?: string; }
 export interface NavGroup { id: string; label: string; items: NavItem[]; }
 

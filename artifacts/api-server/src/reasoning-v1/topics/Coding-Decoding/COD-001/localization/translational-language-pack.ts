@@ -148,7 +148,7 @@ const PUNJABI: CodTranslationalLanguagePack = {
     `ਆਖਰੀ ਨਤੀਜਾ ‘${answer}’ ਮਿਲਦਾ ਹੈ।`,
   ][style % 3]!,
   trap: (option) => `ਚੋਣ ‘${option}’ ਵਿੱਚ ਨਿਯਮ ਕਿਸੇ ਥਾਂ ਗਲਤ ਜਾਂ ਅਧੂਰਾ ਲਾਇਆ ਗਿਆ ਹੈ, ਇਸ ਲਈ ਇਹ ਸਾਰੇ ਕਦਮਾਂ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦੀ।`,
-  className: (value) => ({ VOWEL: "ਸਵਰ", CONSONANT: "ਵਿਅੰਜਨ", ODD: "ਟਾਂਕ ਅੰਕ", EVEN: "ਜੋੜਾ ਅੰਕ" }[value] ?? value),
+  className: (value) => ({ VOWEL: "ਸਵਰ", CONSONANT: "ਵਿਅੰਜਨ", ODD: "ਬੇ-ਜੋੜ ਅੰਕ", EVEN: "ਜੋੜ ਅੰਕ" }[value] ?? value),
   conditionDescription: (firstClass, lastClass) => `ਜੇ ਪਹਿਲਾ ਨਿਸ਼ਾਨ ${firstClass} ਅਤੇ ਆਖਰੀ ਨਿਸ਼ਾਨ ${lastClass} ਹੋਵੇ`,
 };
 
