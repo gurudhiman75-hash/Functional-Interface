@@ -1,6 +1,6 @@
 # BLR-CP-002 — Pointer, Photograph and Conversation Relations
 
-Status: **English open discovery; core, affinal widening and V2 editorial gates green; zero permanent QLs**.
+Status: **English open discovery; core, affinal, exact only-child and V2 editorial gates green; zero permanent QLs**.
 
 ## Implemented prototype surface
 
@@ -22,6 +22,7 @@ The runtime stores dialogue as structured role assertions:
 speaker / listener / pointed-person anchors
 + nested role chains
 + SAME_PERSON or kinship assertion
++ gendered or broad role vocabulary
 + explicit ONLY quantifier
 + role-chain query endpoints
 ```
@@ -29,12 +30,24 @@ speaker / listener / pointed-person anchors
 The solver:
 
 1. resolves every pronoun to an anchor;
-2. reduces each role chain in order;
-3. checks every `ONLY` claim against the active family scope;
-4. independently verifies the displayed assertion;
-5. resolves both query endpoints;
-6. returns `SELF` when both endpoints collapse to one identity;
-7. otherwise delegates the final relation to the frozen family-graph closure.
+2. expands broad roles when required;
+3. reduces each role chain in order;
+4. checks every `ONLY` claim after forming the complete role set;
+5. independently verifies the displayed assertion;
+6. resolves both query endpoints;
+7. returns `SELF` when both endpoints collapse to one identity;
+8. otherwise delegates the final relation to the frozen family-graph closure.
+
+Broad role semantics include:
+
+```text
+PARENT = FATHER ∪ MOTHER
+CHILD = SON ∪ DAUGHTER
+SIBLING = BROTHER ∪ SISTER
+SPOUSE = HUSBAND ∪ WIFE
+```
+
+Therefore `ONLY_CHILD` is true only when the union of sons and daughters contains exactly one person.
 
 ## Source and ownership boundary
 
@@ -49,16 +62,16 @@ This is provisional only. Pointer items requiring `data inadequate`, possible, i
 ## Current deterministic gates
 
 ```text
-mathematical role-chain audit          600 questions
-affinal source-widening audit          576 questions
-English editorial V2 audit             400 questions
----------------------------------------------------
-current CP-002 proof                  1,576 questions
+mathematical role-chain audit                 600 questions
+affinal + only-child source-widening audit    832 questions
+English editorial V2 audit                    400 questions
+------------------------------------------------------
+current CP-002 proof                         1,832 questions
 ```
 
-The core audit checks deterministic reproduction, assertion verification, exact only-role cardinality, four unique options, one correct answer, balanced answer placement, all five presentations, conversation anchors, nested query endpoints, self identity, relation breadth, misconception labels and release locks.
+The core audit checks deterministic reproduction, assertion verification, only-role cardinality, four unique options, one correct answer, balanced answer placement, all five presentations, conversation anchors, nested query endpoints, self identity, relation breadth, misconception labels and release locks.
 
-The affinal gate proves mother/father-in-law, daughter-in-law, brother/sister-in-law and broad affinal uncle/aunt with inverse nephew/niece paths. The complete frozen CP-001 regression workflow remains green after the ontology extension.
+The widening gate proves nine affinal relation families, three exact only-child forms and rejection of a false only-child claim when one son and one daughter are both present. The complete frozen CP-001 regression workflow remains green after the shared foundation extensions.
 
 The editorial gate rejects exposed self identities, unnatural photograph openings, generic reflexive wording, irrelevant only-role teaching, incomplete teaching blocks and missing explanation tiers.
 
@@ -68,12 +81,22 @@ The editorial gate rejects exposed self identities, unnatural photograph opening
 - `BLR-CP-002-MERGE-SPLIT-AUDIT-V1.md`;
 - `BLR-CP-002-ENGLISH-REVIEW-V2.md`;
 - `BLR-CP-002-SOURCE-WIDENING-AUDIT-V1.md`;
+- `BLR-CP-002-ONLY-CHILD-AUDIT-V1.md`;
 - `BLR-CP-002-SOURCE-REJECTION-REGISTER-V1.md`;
 - 60-record V2 HTML/CSV/JSONL review artifact.
 
+## Current discovery inventory
+
+```text
+positive source scenarios:         26
+negative cardinality models:        1
+exploratory prototypes:             5
+provisional solve authorities:      1
+permanent CP-002 QLs:               0
+```
+
 ## Release boundary
 
-- permanent `BLR-QL-*` allocation: **0**;
 - next chapter identity remains `BLR-QL-008` but is not claimed;
 - English prototype only;
 - Question Studio visibility disabled;
@@ -83,8 +106,8 @@ The editorial gate rejects exposed self identities, unnatural photograph opening
 
 ## Remaining discovery work
 
-- implement a genuine broad `ONLY_CHILD` role with union-cardinality semantics;
-- integrate the nine affinal widening scenarios into the canonical question generator and review appendix;
-- widen longer four-plus-step chains;
+- integrate the twelve widening scenarios into the canonical question generator and review appendix;
+- audit longer four-plus-step chains;
 - run a second independent source-gap pass;
-- reconsider the provisional one-authority merge only after those gates pass.
+- rerun merge/split against the complete evidence;
+- allocate only after a successful discovery freeze.
