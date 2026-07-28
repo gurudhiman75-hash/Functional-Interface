@@ -1,4 +1,4 @@
-name: Reasoning BLR-001 CP-002 Role Chains
+name: Reasoning BLR-001 CP-002 Runtime
 
 on:
   pull_request:
@@ -10,7 +10,7 @@ on:
 jobs:
   cp002-role-chain-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 65
+    timeout-minutes: 75
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -64,15 +64,24 @@ jobs:
       - name: Prove every canonical CP-002 scenario
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-canonical-integration.test.ts
 
-      - name: Export remediated CP-002 English review pack
-        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/export-cp002-review-v2.ts blr-cp002-review-output
+      - name: Enforce CP-002 final discovery freeze
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-final-discovery-freeze.test.ts
+
+      - name: Prove permanent BLR-QL-008 runtime
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-runtime.test.ts
+
+      - name: Export approved CP-002 English review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/export-cp002-review-v2.ts blr-cp002-frozen-output
 
       - name: Export exhaustive CP-002 canonical appendix
-        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/export-cp002-canonical-review.ts blr-cp002-review-output
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/export-cp002-canonical-review.ts blr-cp002-frozen-output
 
-      - name: Upload CP-002 English review pack
+      - name: Export permanent BLR-QL-008 review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/export-cp002-permanent-review.ts blr-cp002-frozen-output
+
+      - name: Upload frozen CP-002 English package
         uses: actions/upload-artifact@v4
         with:
-          name: blr-001-cp002-english-open-discovery-v8
-          path: blr-cp002-review-output
+          name: blr-001-cp002-english-frozen-v1
+          path: blr-cp002-frozen-output
           retention-days: 14
