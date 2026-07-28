@@ -26,7 +26,7 @@ const SINGLE_LETTER_SYMBOLS = new Set([
 ]);
 
 const LATEX_NAMED_ATOM = String.raw`(?:[A-Za-z]+_\{\\text\{[^{}]+\}\})`;
-const LATEX_ATOM = String.raw`(?:${LATEX_NAMED_ATOM}|\\sqrt\{[^{}]+\}|\\(?:pi|theta)|(?<!\\)[A-Za-z0-9]+(?:_\{[^{}]+\})?(?:\^\{[^{}]+\})?)`;
+const LATEX_ATOM = String.raw`(?:${LATEX_NAMED_ATOM}|\\sqrt\{[^{}]+\}|\\(?:pi|theta)|(?<![\\A-Za-z0-9])[A-Za-z0-9]+(?:_\{[^{}]+\})?(?:\^\{[^{}]+\})?)`;
 const LATEX_PRODUCT = String.raw`${LATEX_ATOM}(?:\s*${LATEX_ATOM})*`;
 const SIMPLE_FRACTION = new RegExp(String.raw`(${LATEX_PRODUCT})\s*\/\s*(${LATEX_PRODUCT})`, "g");
 const PAREN_NUMERATOR_FRACTION = new RegExp(String.raw`\(([^()]+)\)\s*\/\s*(${LATEX_PRODUCT})`, "g");
