@@ -1,6 +1,11 @@
 import { optionMatchesSolution } from "./cp001-options";
 import { verifyIntCp001Independently } from "./cp001-independent-verifier";
-import { compareRational, equalsRational, rational } from "./rational";
+import {
+  compareRational,
+  equalsRational,
+  isWholeRational,
+  rational,
+} from "./rational";
 import type {
   IntCp001Explanation,
   IntCp001OptionAudit,
@@ -45,6 +50,13 @@ function hasMeaningfulVerification(value: string): boolean {
     && /\d|₹|%|=|matches|reproduces|confirm|exactly|equals/iu.test(value);
 }
 
+function usesMoneySemantic(solution: IntCp001SolveResult): boolean {
+  return solution.semantic === "SIMPLE_INTEREST"
+    || solution.semantic === "TOTAL_AMOUNT"
+    || solution.semantic === "PRINCIPAL"
+    || solution.semantic === "ANNUAL_INTEREST";
+}
+
 export function validateIntCp001Prototype(input: ValidationInput): VerificationResult {
   const independent = verifyIntCp001Independently(input.parameters, input.solution);
   const errors = [...independent.errors];
@@ -79,12 +91,24 @@ export function validateIntCp001Prototype(input: ValidationInput): VerificationR
     if (!input.options[index] || input.options[index] !== option.text) {
       errors.push(`Option audit text is misaligned at index ${index}.`);
     }
+    if (usesMoneySemantic(input.solution) && !isWholeRational(option.result.value)) {
+      errors.push(`Money option ${index + 1} is fractional.`);
+    }
   }
 
   if (!input.stem.endsWith("?")) errors.push("Stem must end with a question mark.");
   if (input.stem.length < 60) errors.push("Stem is too short to carry a natural exam context.");
+  if (input.stem[0] && input.stem[0] !== input.stem[0].toUpperCase()) {
+    errors.push("Stem begins with a lowercase character.");
+  }
   if (/\bFind\b[^.?!]*\?/u.test(input.stem)) {
     errors.push("Stem uses the discouraged 'Find ...?' fragment form.");
+  }
+  if (/\bDetermine\b[^.?!]*\?$/u.test(input.stem)) {
+    errors.push("Stem uses an imperative 'Determine ...?' question form.");
+  }
+  if (/private lending agreement/iu.test(input.stem)) {
+    errors.push("Stem exposes an unnatural personal-lending institution label.");
   }
   if (containsUnsafePlaceholder(input.stem)) errors.push("Stem contains an unresolved placeholder.");
 
