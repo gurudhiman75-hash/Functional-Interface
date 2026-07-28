@@ -4,7 +4,7 @@ import {
 import {
   generateMalCp001DiscoveryPrototype,
   stableMalCp001DiscoveryPrototype,
-} from "./foundation/cp001-gap-pipeline";
+} from "./foundation/cp001-discovery-pipeline";
 
 function assertEqual(actual: unknown, expected: unknown, message = "Values are not equal"): void {
   if (actual !== expected) throw new Error(`${message}: ${String(actual)} !== ${String(expected)}`);
