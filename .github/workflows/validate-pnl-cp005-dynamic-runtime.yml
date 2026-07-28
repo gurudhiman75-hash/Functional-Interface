@@ -13,148 +13,15 @@ on:
       - ".github/workflows/validate-pnl-cp005-dynamic-runtime.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   validate-cp005-dynamic-runtime:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
-      - name: Checkout feature source
+      - name: Checkout source
         uses: actions/checkout@v4
-        with:
-          ref: feat/pnl-001-cp005-dynamic-runtime
-
-      - name: Enforce semantic and exact-money generation domains
-        run: |
-          python - <<'PY'
-          import re
-          from pathlib import Path
-
-          cases = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-cases.ts")
-          source = cases.read_text()
-
-          def scoped_regex(start_anchor, end_anchor, pattern, replacement, label):
-              global source
-              start = source.index(start_anchor)
-              end = source.index(end_anchor, start)
-              block = source[start:end]
-              updated, count = re.subn(pattern, replacement, block, count=1, flags=re.S)
-              if count == 1:
-                  source = source[:start] + updated + source[end:]
-              elif replacement.strip() not in block:
-                  raise SystemExit(f"{label}: expected source was not found")
-
-          scoped_regex(
-              'case "PNL-QL-122":',
-              'case "PNL-QL-123":',
-              r'const quotedSellingPricePerNominalQuantity\s*=\s*rupees\(\s*pickNumber\(random, QUOTED_PRICES\),\s*\);',
-              '''const quotedSellingPricePerNominalQuantity =
-                qlId === "PNL-QL-143"
-                  ? costPricePerTrueQuantity
-                  : rupees(pickNumber(random, QUOTED_PRICES));''',
-              "false-count profit domain",
-          )
-
-          scoped_regex(
-              'case "PNL-QL-127":',
-              'case "PNL-QL-129":',
-              r'const sellingPricePerNominalQuantity\s*=\s*rupees\(\s*pickSeeded\(random, \[1000, 1200, 1500\] as const\),\s*\);',
-              '''const sellingPricePerNominalQuantity =
-                qlId === "PNL-QL-127"
-                  ? purchasePricePerNominalQuantity
-                  : rupees(pickSeeded(random, [1000, 1200, 1500] as const));''',
-              "heavy-buy light-sell profit domain",
-          )
-
-          scoped_regex(
-              'case "PNL-QL-129":',
-              'case "PNL-QL-130":',
-              r'const markupPercent\s*=\s*rational\(pickNumber\(random, MARKUPS\)\);',
-              '''const markupPercent = rational(
-                qlId === "PNL-QL-146" ? 50 : pickNumber(random, MARKUPS),
-              );''',
-              "caselet markup domain",
-          )
-          scoped_regex(
-              'case "PNL-QL-129":',
-              'case "PNL-QL-130":',
-              r'const discountPercent\s*=\s*rational\(pickNumber\(random, DISCOUNTS\)\);',
-              '''const discountPercent = rational(
-                qlId === "PNL-QL-146" ? 10 : pickNumber(random, DISCOUNTS),
-              );''',
-              "caselet discount domain",
-          )
-
-          start = source.index('case "PNL-QL-141":')
-          end = source.index('case "PNL-QL-142":', start)
-          current = source[start:end]
-          if "const pair = pickSeeded" not in current:
-              replacement = '''case "PNL-QL-141": {
-                const pair = pickSeeded(
-                  random,
-                  [
-                    [800n, 1000],
-                    [800n, 1200],
-                    [900n, 900],
-                    [900n, 1800],
-                  ] as const,
-                );
-                const effectiveDeliveredQuantity = pair[0];
-                const quotedSellingPricePerNominalQuantity = rupees(pair[1]);
-                return {
-                  qlId,
-                  registry,
-                  seed: seedValue,
-                  request: {
-                    mode: "FALSE_QUANTITY_TO_EFFECTIVE_PRICE_PER_TRUE_QUANTITY",
-                    quotedSellingPricePerNominalQuantity,
-                    trueQuantity: TRUE_QUANTITY,
-                    deliveredQuantity: effectiveDeliveredQuantity,
-                  },
-                  context: {
-                    quotedSellingPricePerNominalQuantity: cp005PlainMoney(
-                      quotedSellingPricePerNominalQuantity,
-                    ),
-                    trueQuantity: TRUE_QUANTITY.toString(),
-                    deliveredQuantity: effectiveDeliveredQuantity.toString(),
-                  },
-                };
-              }
-
-              '''
-              source = source[:start] + replacement + source[end:]
-
-          cases.write_text(source)
-
-          test = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.test.ts")
-          test_source = test.read_text()
-          marker = 'PNL-QL-141 must remain exact to the paise.'
-          if marker not in test_source:
-              anchor = '''    const replay = runPnlCp005DynamicPipeline({'''
-              assertions = '''    if (qlId === "PNL-QL-127" || qlId === "PNL-QL-146") {
-                assert.match(pkg.answer, /profit/i, `${qlId}: must remain a profit question.`);
-              }
-              if (qlId === "PNL-QL-143") {
-                assert.equal(
-                  pkg.parameters.variables.actualDirection,
-                  "profit",
-                  "PNL-QL-143 must remain a false-count profit question.",
-                );
-              }
-              if (qlId === "PNL-QL-141") {
-                assert.match(
-                  pkg.answer,
-                  /^₹\\d+(?:\\.\\d{1,2})?$/,
-                  "PNL-QL-141 must remain exact to the paise.",
-                );
-              }
-
-          '''
-              if test_source.count(anchor) != 1:
-                  raise SystemExit("test assertion insertion anchor was not unique")
-              test.write_text(test_source.replace(anchor, assertions + anchor, 1))
-          PY
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -168,13 +35,6 @@ jobs:
 
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: Normalize CP-005 runtime sources
-        run: |
-          pnpm exec prettier --write \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-cases.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.test.ts
 
       - name: Bundle dynamic runtime proof
         run: |
@@ -190,23 +50,6 @@ jobs:
           set -o pipefail
           node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/.cp005-dynamic-runtime.test.mjs \
             2>&1 | tee -a pnl-cp005-dynamic-runtime.log
-
-      - name: Commit proven semantic corrections
-        run: |
-          if git diff --quiet -- \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-cases.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.test.ts; then
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-cases.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.test.ts
-          git commit -m "fix(pnl): enforce CP-005 semantic generation domains"
-          git push origin HEAD:feat/pnl-001-cp005-dynamic-runtime
 
       - name: Upload proof evidence
         if: always()
