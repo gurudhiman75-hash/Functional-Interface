@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-import { solveCp008Prompt } from "../COD-CP-008/cp008-prototype-solver";
+import { renamedLabel } from "../COD-CP-008/cp008-prototype-solver";
 import type { Cp008StructuredPrompt } from "../COD-CP-008/cp008-prototype-types";
 import { generateCod001EnglishQuestion, generateCod001Question } from "../multilingual-runtime";
 
@@ -67,7 +67,10 @@ for (const qlId of qlIds) {
       assert.equal(new Set(question.options.map((option) => option.value)).size, 4);
       assert.equal(question.options.filter((option) => option.isCorrect).length, 1);
       assert.equal(question.options[question.correctIndex]!.isCorrect, true);
-      assert.equal(solveCp008Prompt(question.structuredPrompt), question.options[question.correctIndex]!.value);
+      assert.equal(
+        renamedLabel(question.structuredPrompt.mapping, question.structuredPrompt.ordinaryAnswer),
+        question.options[question.correctIndex]!.value,
+      );
 
       assert.equal(question.structuredPrompt.taskKind, english.structuredPrompt.taskKind);
       assert.equal(question.structuredPrompt.topology, english.structuredPrompt.topology);
