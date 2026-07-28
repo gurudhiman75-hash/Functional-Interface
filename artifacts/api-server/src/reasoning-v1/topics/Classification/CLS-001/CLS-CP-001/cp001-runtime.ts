@@ -4,6 +4,7 @@ import {
   type ClsCp001SolveContractId,
 } from "./cp001-permanent-contracts";
 import { generateClsCp001CoherentGroupPrototype } from "./cp001-coherent-group-runtime";
+import { polishClsCp001PlainLanguage } from "./cp001-plain-language";
 import { simplifyClsCp001EnglishQuestion } from "./cp001-student-editorial";
 import { generateClsCp001Prototype } from "./runtime";
 import type {
@@ -182,7 +183,9 @@ export function generateClsCp001EnglishQuestion(
     sourcePrototypeBaseSeed,
     sourceOptionCount,
   );
-  const generated = simplifyClsCp001EnglishQuestion(safeSource.question);
+  const generated = polishClsCp001PlainLanguage(
+    simplifyClsCp001EnglishQuestion(safeSource.question),
+  );
 
   if (generated.task !== contract.task) {
     throw new Error(`${qlId}/${seed} produced task '${generated.task}' instead of '${contract.task}'`);
