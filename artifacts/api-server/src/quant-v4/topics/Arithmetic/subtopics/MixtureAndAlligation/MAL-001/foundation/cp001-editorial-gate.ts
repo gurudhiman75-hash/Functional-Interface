@@ -73,6 +73,10 @@ export function polishMalCp001Stem(stem: string): string {
   );
   polished = replaceHowMuchQuantity(polished, "added");
   polished = replaceHowMuchQuantity(polished, "used");
+  polished = polished.replace(
+    /How much\s+([^?]+?(?:tea leaves|beans))\s+at\s+/iu,
+    "What quantity of $1 at ",
+  );
   polished = polished.replace(/,\s+and\s+([^,?]+),\s+and\s+/iu, ", $1, and ");
   polished = polished.replace(
     /,\s+(\d+\s+(?:kg|litres)\s+of\s+[^,?]+)\s+are used/iu,
