@@ -1,0 +1,43 @@
+import { BLR_CP002_ONLY_CHILD_SCENARIOS } from "./cp002-only-child-scenarios";
+import {
+  cp002ScenariosFor,
+  type BlrCp002ScenarioTemplate,
+} from "./cp002-scenario-library";
+import { BLR_CP002_SOURCE_WIDENING_SCENARIOS } from "./cp002-source-widening-scenarios";
+import type { BlrCp002PrototypeId } from "./cp002-types";
+
+const WIDENING_SCENARIOS: readonly BlrCp002ScenarioTemplate[] = [
+  ...BLR_CP002_SOURCE_WIDENING_SCENARIOS,
+  ...BLR_CP002_ONLY_CHILD_SCENARIOS,
+];
+
+export function cp002CanonicalScenariosFor(
+  prototypeId: BlrCp002PrototypeId,
+): readonly BlrCp002ScenarioTemplate[] {
+  const scenarios = [
+    ...cp002ScenariosFor(prototypeId),
+    ...WIDENING_SCENARIOS.filter((entry) => entry.prototypeId === prototypeId),
+  ];
+  if (scenarios.length === 0) {
+    throw new Error(`No canonical CP-002 scenarios for ${prototypeId}.`);
+  }
+  return scenarios;
+}
+
+export function allBlrCp002CanonicalScenarios(): readonly BlrCp002ScenarioTemplate[] {
+  const prototypeIds: readonly BlrCp002PrototypeId[] = [
+    "BLR-CP002-PROT-POINTED-TO-SPEAKER",
+    "BLR-CP002-PROT-SPEAKER-TO-POINTED",
+    "BLR-CP002-PROT-NESTED-QUERY-ENDPOINT",
+    "BLR-CP002-PROT-TWO-SPEAKER-CONVERSATION",
+    "BLR-CP002-PROT-SELF-IDENTITY",
+  ];
+  const scenarios = prototypeIds.flatMap((prototypeId) =>
+    cp002CanonicalScenariosFor(prototypeId),
+  );
+  const ids = scenarios.map((scenario) => scenario.scenarioId);
+  if (new Set(ids).size !== ids.length) {
+    throw new Error("Duplicate CP-002 canonical scenario ID detected.");
+  }
+  return scenarios;
+}
