@@ -167,7 +167,8 @@ function middleTraderCase(random: SeededRandom) {
       ? (effectiveCost.paise * BigInt(100 + targetRate)) / 100n
       : (effectiveCost.paise * BigInt(100 - targetRate)) / 100n,
   );
-  const commissionPercent = rational(pickNumber(random, COMMISSION_RATES));
+  // A 20% commission leaves 4/5 of gross; all generated net targets are exact multiples of 4 paise.
+  const commissionPercent = rational(20);
   const grossSellingPrice = solveTransactionFee({
     mode: "NET_TARGET_AND_COMMISSION_TO_GROSS_SP",
     requiredNetReceipt: targetNet,
