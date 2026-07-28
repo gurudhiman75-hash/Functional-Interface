@@ -104,12 +104,10 @@ function hierarchyLine(
 ): string | null {
   const semanticClass = CLASS_BY_ID.get(question.intendedClassId);
   if (!semanticClass || semanticClass.parentClassIds.length === 0) return null;
-  const parentLabels = semanticClass.parentClassIds.map((classId) => localizedClassLabel(classId, locale));
-  const parent = formatList(parentLabels, locale);
   const child = localizedClassLabel(question.intendedClassId, locale);
   return locale === "hi-IN"
-    ? `ये शब्द ${parent} जैसे बड़े वर्ग से भी जुड़े हैं, लेकिन सही उत्तर तय करने वाला अधिक सटीक वर्ग ${child} है।`
-    : `ਇਹ ਸ਼ਬਦ ${parent} ਵਰਗੇ ਵੱਡੇ ਵਰਗ ਨਾਲ ਵੀ ਜੁੜੇ ਹਨ, ਪਰ ਸਹੀ ਜਵਾਬ ਤੈਅ ਕਰਨ ਵਾਲਾ ਹੋਰ ਸਪਸ਼ਟ ਵਰਗ ${child} ਹੈ।`;
+    ? `ये सभी किसी बड़े सामान्य वर्ग में भी आ सकते हैं, लेकिन सही उत्तर तय करने वाला अधिक सटीक वर्ग ${child} है।`
+    : `ਇਹ ਸਾਰੇ ਕਿਸੇ ਵੱਡੇ ਆਮ ਵਰਗ ਵਿੱਚ ਵੀ ਆ ਸਕਦੇ ਹਨ, ਪਰ ਸਹੀ ਜਵਾਬ ਤੈਅ ਕਰਨ ਵਾਲਾ ਹੋਰ ਸਪਸ਼ਟ ਵਰਗ ${child} ਹੈ।`;
 }
 
 function competitionLine(
@@ -141,8 +139,8 @@ function coherentGroupExplanation(
     const display = group.join(", ");
     if (index === question.correctIndex) {
       return locale === "hi-IN"
-        ? `${display}: तीनों शब्द ${classLabel} हैं।`
-        : `${display}: ਤਿੰਨੇ ਸ਼ਬਦ ${classLabel} ਹਨ।`;
+        ? `${display}: इन तीनों का साझा वर्ग ${classLabel} है।`
+        : `${display}: ਇਨ੍ਹਾਂ ਤਿੰਨਾਂ ਦਾ ਸਾਂਝਾ ਵਰਗ ${classLabel} ਹੈ।`;
     }
     return locale === "hi-IN"
       ? `${display}: ये सभी शब्द एक ही सटीक वर्ग में नहीं आते।`
@@ -152,12 +150,12 @@ function coherentGroupExplanation(
   return {
     coreRule: locale === "hi-IN"
       ? [
-        `${groupList} — ये सभी ${classLabel} हैं।`,
+        `${groupList} — इन तीनों का साझा वर्ग ${classLabel} है।`,
         "अन्य प्रत्येक विकल्प में अलग-अलग वर्गों के शब्द मिले हुए हैं।",
         `${answer} ही एकमात्र पूरा और सही शब्द-समूह है।`,
       ]
       : [
-        `${groupList} — ਇਹ ਸਾਰੇ ${classLabel} ਹਨ।`,
+        `${groupList} — ਇਨ੍ਹਾਂ ਤਿੰਨਾਂ ਦਾ ਸਾਂਝਾ ਵਰਗ ${classLabel} ਹੈ।`,
         "ਹਰ ਹੋਰ ਵਿਕਲਪ ਵਿੱਚ ਵੱਖ-ਵੱਖ ਵਰਗਾਂ ਦੇ ਸ਼ਬਦ ਮਿਲੇ ਹੋਏ ਹਨ।",
         `${answer} ਹੀ ਇਕੱਲਾ ਪੂਰਾ ਅਤੇ ਸਹੀ ਸ਼ਬਦ-ਸਮੂਹ ਹੈ।`,
       ],
@@ -196,12 +194,12 @@ function itemExplanation(
     const label = localizedOptions[index]!;
     if (locale === "hi-IN") {
       return member
-        ? `${label} ${classLabel} के वर्ग में आता है।`
-        : `${label} ${classLabel} के वर्ग में नहीं आता।`;
+        ? `${label}: यह पहचाने गए साझा वर्ग में आता है।`
+        : `${label}: यह पहचाने गए साझा वर्ग में नहीं आता।`;
     }
     return member
-      ? `${label} ${classLabel} ਦੇ ਵਰਗ ਵਿੱਚ ਆਉਂਦਾ ਹੈ।`
-      : `${label} ${classLabel} ਦੇ ਵਰਗ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦਾ।`;
+      ? `${label}: ਇਹ ਪਛਾਣੇ ਗਏ ਸਾਂਝੇ ਵਰਗ ਵਿੱਚ ਆਉਂਦਾ ਹੈ।`
+      : `${label}: ਇਹ ਪਛਾਣੇ ਗਏ ਸਾਂਝੇ ਵਰਗ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦਾ।`;
   });
   const hierarchy = hierarchyLine(question, locale);
 
@@ -210,12 +208,12 @@ function itemExplanation(
     return {
       coreRule: locale === "hi-IN"
         ? [
-          `${group} — ये सभी ${classLabel} हैं।`,
+          `${group} — इन सभी का साझा वर्ग ${classLabel} है।`,
           ...(hierarchy ? [hierarchy] : []),
           `${answer} ही वह विकल्प है जो इसी वर्ग में आता है।`,
         ]
         : [
-          `${group} — ਇਹ ਸਾਰੇ ${classLabel} ਹਨ।`,
+          `${group} — ਇਨ੍ਹਾਂ ਸਾਰਿਆਂ ਦਾ ਸਾਂਝਾ ਵਰਗ ${classLabel} ਹੈ।`,
           ...(hierarchy ? [hierarchy] : []),
           `${answer} ਹੀ ਉਹ ਵਿਕਲਪ ਹੈ ਜੋ ਇਸੇ ਵਰਗ ਵਿੱਚ ਆਉਂਦਾ ਹੈ।`,
         ],
@@ -246,15 +244,15 @@ function itemExplanation(
   return {
     coreRule: locale === "hi-IN"
       ? [
-        `${positiveList} — ये सभी ${classLabel} हैं।`,
+        `${positiveList} — इन सभी का साझा वर्ग ${classLabel} है।`,
         ...(hierarchy ? [hierarchy] : []),
-        `${answer} ${classLabel} नहीं है, इसलिए यही अलग विकल्प है।`,
+        `${answer} इस वर्ग में नहीं आता, इसलिए यही अलग विकल्प है।`,
         competitionLine(question, locale),
       ]
       : [
-        `${positiveList} — ਇਹ ਸਾਰੇ ${classLabel} ਹਨ।`,
+        `${positiveList} — ਇਨ੍ਹਾਂ ਸਾਰਿਆਂ ਦਾ ਸਾਂਝਾ ਵਰਗ ${classLabel} ਹੈ।`,
         ...(hierarchy ? [hierarchy] : []),
-        `${answer} ${classLabel} ਨਹੀਂ ਹੈ, ਇਸ ਲਈ ਇਹੀ ਵੱਖਰਾ ਵਿਕਲਪ ਹੈ।`,
+        `${answer} ਇਸ ਵਰਗ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦਾ, ਇਸ ਲਈ ਇਹੀ ਵੱਖਰਾ ਵਿਕਲਪ ਹੈ।`,
         competitionLine(question, locale),
       ],
     optionChecks,
