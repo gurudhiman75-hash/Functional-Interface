@@ -1,0 +1,24 @@
+name: Reasoning BLR-001 CP-001 Prototype
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
+      - ".github/workflows/reasoning-blr-001-cp001-prototype.yml"
+  workflow_dispatch:
+
+jobs:
+  cp001-prototype:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run BLR-CP-001 English prototype audit
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/prototype.test.ts
