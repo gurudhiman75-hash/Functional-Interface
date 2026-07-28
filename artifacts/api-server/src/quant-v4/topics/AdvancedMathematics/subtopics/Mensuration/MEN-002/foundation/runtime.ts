@@ -615,7 +615,7 @@ function verifyDraft(draft: Draft) {
       method = "recomputed scaled dimensions and volume power law";
       break;
     case "findCuboidVolumePercentageChange": {
-      const numerator = (100n + d.lengthChange!) * (100n + d.breadth!) * (100n + d.heightChange!);
+      const numerator = (100n + d.lengthChange!) * (100n + d.breadthChange!) * (100n + d.heightChange!);
       reconstructed = q(numerator - 1_000_000n, 10_000n);
       method = "exact multiplier comparison with original volume index";
       break;
