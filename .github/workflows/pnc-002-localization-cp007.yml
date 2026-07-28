@@ -38,12 +38,12 @@ jobs:
         run: corepack enable
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
-      - name: Prepare reviewed localization proof
+      - name: Prepare polished localization proof
         shell: bash
         run: |
           source="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007.test.ts"
-          reviewed="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-reviewed.test.ts"
-          sed 's#"./foundation/localization-cp007"#"./foundation/localization-cp007-reviewed"#' "$source" > "$reviewed"
+          polished="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-polished-review.test.ts"
+          sed 's#"./foundation/localization-cp007"#"./foundation/localization-cp007-polished"#' "$source" > "$polished"
       - name: Strict TypeScript check
         run: |
           cd artifacts/api-server
@@ -66,16 +66,26 @@ jobs:
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-glossary.ts \
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-cp007.ts \
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-cp007-reviewed.ts \
-            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-reviewed.test.ts
-      - name: Bundle localization proof
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-cp007-polished.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-polished-review.test.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-polish.test.ts
+      - name: Bundle localization review proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-reviewed.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-polished-review.test.ts
           --bundle
           --platform=node
           --format=esm
           --outfile=dist/quant-v4/pnc-002-localization-cp007-proof.mjs
-      - name: Run localization proof
+      - name: Bundle naturalness regression proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-polish.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-002-localization-cp007-polish-proof.mjs
+      - name: Run localization review proof
         working-directory: artifacts/api-server
         shell: bash
         run: |
@@ -84,6 +94,15 @@ jobs:
           node dist/quant-v4/pnc-002-localization-cp007-proof.mjs > dist/quant-v4/pnc-002-localization-diagnostics/cp007.log 2>&1
           status=$?
           tail -n 160 dist/quant-v4/pnc-002-localization-diagnostics/cp007.log
+          exit "$status"
+      - name: Run naturalness regression proof
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set +e
+          node dist/quant-v4/pnc-002-localization-cp007-polish-proof.mjs > dist/quant-v4/pnc-002-localization-diagnostics/cp007-polish.log 2>&1
+          status=$?
+          cat dist/quant-v4/pnc-002-localization-diagnostics/cp007-polish.log
           exit "$status"
       - name: Publish Hindi Punjabi review artifact
         if: success()
