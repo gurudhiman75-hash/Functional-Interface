@@ -9,6 +9,7 @@ export type {
   AmbiguityAudit,
   ClassificationTask,
   Difficulty,
+  DifficultyFeatures,
   Explanation,
   FactRisk,
   GeneratedClassificationQuestion,
