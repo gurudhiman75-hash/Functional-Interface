@@ -254,6 +254,10 @@ function polishGapQuestion(
       .replace(
         `How much ${request.finalComponentLabel} at`,
         `What quantity of ${request.finalComponentLabel} at`,
+      )
+      .replace(
+        `How much ${request.finalComponentLabel} is added?`,
+        `What quantity of ${request.finalComponentLabel} is added?`,
       );
     explanation = {
       ...explanation,
