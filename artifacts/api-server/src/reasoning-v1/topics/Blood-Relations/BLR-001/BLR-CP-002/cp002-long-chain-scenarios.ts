@@ -1,0 +1,182 @@
+import type { BlrCp002ScenarioTemplate } from "./cp002-scenario-library";
+import { cp002Anchor, cp002Chain, cp002Step } from "./cp002-scenario-library";
+
+const speaker = cp002Anchor("SPEAKER");
+const listener = cp002Anchor("LISTENER");
+const pointed = cp002Anchor("POINTED_PERSON");
+
+const AUNT_FAMILY_CLUES = [
+  { subjectId: "P", relationId: "DAUGHTER", referenceId: "F" },
+  { subjectId: "F", relationId: "FATHER", referenceId: "P" },
+  { subjectId: "B", relationId: "SON", referenceId: "F" },
+  { subjectId: "F", relationId: "FATHER", referenceId: "B" },
+  { subjectId: "BW", relationId: "WIFE", referenceId: "B" },
+  { subjectId: "B", relationId: "HUSBAND", referenceId: "BW" },
+  { subjectId: "W", relationId: "DAUGHTER", referenceId: "B" },
+  { subjectId: "W", relationId: "DAUGHTER", referenceId: "BW" },
+  { subjectId: "S", relationId: "SON", referenceId: "B" },
+  { subjectId: "S", relationId: "SON", referenceId: "BW" },
+  { subjectId: "W", relationId: "SISTER", referenceId: "S" },
+] as const;
+
+const POINTED_FOUR_STEP_TO_DAUGHTER = cp002Chain(
+  "POINTED_PERSON",
+  cp002Step("FATHER"),
+  cp002Step("SON", "ONLY"),
+  cp002Step("WIFE"),
+  cp002Step("DAUGHTER"),
+);
+
+export const BLR_CP002_LONG_CHAIN_SCENARIOS: readonly BlrCp002ScenarioTemplate[] = [
+  {
+    scenarioId: "CP002-LONG-P2S-AUNT-FOUR-STEP-IDENTITY",
+    prototypeId: "BLR-CP002-PROT-POINTED-TO-SPEAKER",
+    presentation: "INTRODUCTION",
+    sourcePattern: "INTRODUCTION",
+    clues: AUNT_FAMILY_CLUES,
+    speakerId: "S",
+    pointedPersonId: "P",
+    assertion: {
+      subject: POINTED_FOUR_STEP_TO_DAUGHTER,
+      relation: { kind: "SAME_PERSON" },
+      reference: cp002Chain("SPEAKER", cp002Step("SISTER")),
+    },
+    query: { subject: pointed, reference: speaker },
+    expectedAnswerId: "AUNT",
+  },
+  {
+    scenarioId: "CP002-LONG-S2P-NEPHEW-FOUR-STEP-IDENTITY",
+    prototypeId: "BLR-CP002-PROT-SPEAKER-TO-POINTED",
+    presentation: "POINTING",
+    sourcePattern: "POINTER",
+    clues: AUNT_FAMILY_CLUES,
+    speakerId: "S",
+    pointedPersonId: "P",
+    assertion: {
+      subject: POINTED_FOUR_STEP_TO_DAUGHTER,
+      relation: { kind: "SAME_PERSON" },
+      reference: cp002Chain("SPEAKER", cp002Step("SISTER")),
+    },
+    query: { subject: speaker, reference: pointed },
+    expectedAnswerId: "NEPHEW",
+  },
+  {
+    scenarioId: "CP002-LONG-NESTED-NIECE-FOUR-STEP-IDENTITY",
+    prototypeId: "BLR-CP002-PROT-NESTED-QUERY-ENDPOINT",
+    presentation: "PHOTOGRAPH",
+    sourcePattern: "PHOTO",
+    clues: [
+      { subjectId: "P", relationId: "DAUGHTER", referenceId: "F" },
+      { subjectId: "F", relationId: "FATHER", referenceId: "P" },
+      { subjectId: "B", relationId: "SON", referenceId: "F" },
+      { subjectId: "F", relationId: "FATHER", referenceId: "B" },
+      { subjectId: "BW", relationId: "WIFE", referenceId: "B" },
+      { subjectId: "B", relationId: "HUSBAND", referenceId: "BW" },
+      { subjectId: "W", relationId: "DAUGHTER", referenceId: "B" },
+      { subjectId: "W", relationId: "DAUGHTER", referenceId: "BW" },
+      { subjectId: "H", relationId: "HUSBAND", referenceId: "W" },
+      { subjectId: "W", relationId: "WIFE", referenceId: "H" },
+    ],
+    speakerId: "H",
+    pointedPersonId: "P",
+    assertion: {
+      subject: POINTED_FOUR_STEP_TO_DAUGHTER,
+      relation: { kind: "SAME_PERSON" },
+      reference: cp002Chain("SPEAKER", cp002Step("WIFE")),
+    },
+    query: {
+      subject: cp002Chain("SPEAKER", cp002Step("WIFE")),
+      reference: pointed,
+    },
+    expectedAnswerId: "NIECE",
+  },
+  {
+    scenarioId: "CP002-LONG-NESTED-AUNT-FOUR-STEP-IDENTITY",
+    prototypeId: "BLR-CP002-PROT-NESTED-QUERY-ENDPOINT",
+    presentation: "STAGE",
+    sourcePattern: "STAGE",
+    clues: [
+      { subjectId: "P", relationId: "DAUGHTER", referenceId: "F" },
+      { subjectId: "F", relationId: "FATHER", referenceId: "P" },
+      { subjectId: "B", relationId: "SON", referenceId: "F" },
+      { subjectId: "F", relationId: "FATHER", referenceId: "B" },
+      { subjectId: "BW", relationId: "WIFE", referenceId: "B" },
+      { subjectId: "B", relationId: "HUSBAND", referenceId: "BW" },
+      { subjectId: "W", relationId: "DAUGHTER", referenceId: "B" },
+      { subjectId: "W", relationId: "DAUGHTER", referenceId: "BW" },
+      { subjectId: "H", relationId: "HUSBAND", referenceId: "W" },
+      { subjectId: "W", relationId: "WIFE", referenceId: "H" },
+    ],
+    speakerId: "H",
+    pointedPersonId: "P",
+    assertion: {
+      subject: POINTED_FOUR_STEP_TO_DAUGHTER,
+      relation: { kind: "SAME_PERSON" },
+      reference: cp002Chain("SPEAKER", cp002Step("WIFE")),
+    },
+    query: {
+      subject: pointed,
+      reference: cp002Chain("SPEAKER", cp002Step("WIFE")),
+    },
+    expectedAnswerId: "AUNT",
+  },
+  {
+    scenarioId: "CP002-LONG-CONVERSATION-FATHER-FOUR-STEP-CHAIN",
+    prototypeId: "BLR-CP002-PROT-TWO-SPEAKER-CONVERSATION",
+    presentation: "CONVERSATION",
+    sourcePattern: "TWO_SPEAKER",
+    clues: [
+      { subjectId: "M", relationId: "MOTHER", referenceId: "S" },
+      { subjectId: "S", relationId: "SON", referenceId: "M" },
+      { subjectId: "W", relationId: "WIFE", referenceId: "S" },
+      { subjectId: "S", relationId: "HUSBAND", referenceId: "W" },
+      { subjectId: "D", relationId: "DAUGHTER", referenceId: "S" },
+      { subjectId: "D", relationId: "DAUGHTER", referenceId: "W" },
+      { subjectId: "L", relationId: "SON", referenceId: "S" },
+      { subjectId: "L", relationId: "SON", referenceId: "W" },
+      { subjectId: "D", relationId: "SISTER", referenceId: "L" },
+    ],
+    speakerId: "S",
+    listenerId: "L",
+    assertion: {
+      subject: cp002Chain(
+        "SPEAKER",
+        cp002Step("MOTHER"),
+        cp002Step("SON", "ONLY"),
+        cp002Step("WIFE"),
+        cp002Step("DAUGHTER"),
+      ),
+      relation: { kind: "KINSHIP", relationId: "SISTER", quantifier: "ANY" },
+      reference: listener,
+    },
+    query: { subject: speaker, reference: listener },
+    expectedAnswerId: "FATHER",
+  },
+  {
+    scenarioId: "CP002-LONG-SELF-HUSBANDS-FATHERS-ONLY-SONS-WIFE",
+    prototypeId: "BLR-CP002-PROT-SELF-IDENTITY",
+    presentation: "PHOTOGRAPH",
+    sourcePattern: "PHOTO",
+    clues: [
+      { subjectId: "S", relationId: "WIFE", referenceId: "H" },
+      { subjectId: "H", relationId: "HUSBAND", referenceId: "S" },
+      { subjectId: "H", relationId: "SON", referenceId: "F" },
+      { subjectId: "F", relationId: "FATHER", referenceId: "H" },
+    ],
+    speakerId: "S",
+    pointedPersonId: "S",
+    assertion: {
+      subject: pointed,
+      relation: { kind: "SAME_PERSON" },
+      reference: cp002Chain(
+        "SPEAKER",
+        cp002Step("HUSBAND"),
+        cp002Step("FATHER"),
+        cp002Step("SON", "ONLY"),
+        cp002Step("WIFE"),
+      ),
+    },
+    query: { subject: pointed, reference: speaker },
+    expectedAnswerId: "SELF",
+  },
+] as const;
