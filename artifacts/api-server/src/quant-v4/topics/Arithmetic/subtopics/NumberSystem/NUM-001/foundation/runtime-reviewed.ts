@@ -9,6 +9,8 @@ import type {
 
 function mathJax(text: string): string {
   return text
+    .replace(/\u000dceil/g, " rceil")
+    .replace(/\u0009imes/g, " times")
     .replace(/\\\((.*?)\\\)/g, "($1)")
     .replace(/\((\d+)\)/g, "\\($1\\)")
     .replace(/\(([^()]*(?: div |lceil |rceil| times | = )[^()]*)\)/g, (_match, inner: string) => {
