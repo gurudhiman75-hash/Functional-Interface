@@ -1,10 +1,8 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { generateClsCp001Prototype, getClsCp001PrototypeDefinitions } from "./runtime";
 
-const currentFile = fileURLToPath(import.meta.url);
-const outputDir = path.resolve(path.dirname(currentFile), "../../../../../../../dist/reasoning-v1/cls-001/cp001-review");
+const outputDir = path.resolve(process.cwd(), "dist/reasoning-v1/cls-001/cp001-review");
 
 const rows = getClsCp001PrototypeDefinitions().flatMap((prototype, prototypeIndex) =>
   Array.from({ length: 12 }, (_, sampleIndex) => {
