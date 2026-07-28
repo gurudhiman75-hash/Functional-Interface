@@ -8,7 +8,7 @@ import { tmwCp006Conclusion } from "./cp006-presentation";
 import { polishTmwCp006Solution } from "./cp006-solution-polish";
 import { isPositiveCp006Answer, solveTmwCp006, verifyTmwCp006 } from "./cp006-solver";
 import { rationalKey } from "./rational";
-import type { TmwCp006GeneratedQuestion, TmwCp006Parameters } from "./cp006-types";
+import type { TmwCp006GeneratedQuestion, TmwCp006Parameters, TmwCp006RegistryEntry } from "./cp006-types";
 
 function stateKey(p:TmwCp006Parameters):string{
   const state=(s:TmwCp006Parameters["stateA"]):string=>[s.resources,s.days,s.hoursPerDay,s.efficiency,s.work].map(rationalKey).join(":");
@@ -18,7 +18,15 @@ function stateKey(p:TmwCp006Parameters):string{
 function inlineMath(latex:string):string{return `\\(${latex}\\)`;}
 function balancedInlineMath(value:string):boolean{return (value.match(/\\\(/g)??[]).length===(value.match(/\\\)/g)??[]).length;}
 function requiresUnitBearingOptions(answerType:string):boolean{return ["COUNT","TIME","HOURS","WORK","SHIFT","RESOURCE_TIME"].includes(answerType);}
-function hasApprovedScenarioOpening(stem:string):boolean{return /^(?:At |A contractor |A project manager |A relief camp |A department |A team |The |For capacity planning )/.test(stem);}
+function hasApprovedScenarioOpening(stem:string):boolean{return /^(?:At |A contractor |A project manager |A supervisor |A relief camp |A department |A team |The |For capacity planning )/.test(stem);}
+function polishStem(entry:TmwCp006RegistryEntry,raw:string):string{
+  let stem=raw.replace(/^The the /,"The ");
+  if(entry.solveMode==="findAdditionalWorkersForDeadline"||entry.solveMode==="findWorkersRemovedForDelay")stem=stem.replace(/^A contractor at /,"A project manager at ");
+  if(entry.solveMode==="findExtraWorkersFromPlannedVsActualProgress")stem=stem.replace(/^A contractor assigned /,"A project manager assigned ");
+  if(entry.solveMode==="findCompletionWithBatchWorkerAdditions")stem=stem.replace(/^A contractor at /,"A supervisor at ");
+  if(entry.solveMode==="findDimensionalWorkRatio")stem=stem.replace("The first has ","The first job has dimensions of ").replace("while the second has ","while the second has dimensions of ");
+  return stem;
+}
 
 export function runTmwCp006Pipeline(input:{questionLanguageId:string;seed:string;language?:"en"|"hi"|"pa"}):TmwCp006GeneratedQuestion{
   if(input.language&&input.language!=="en")throw new Error("TMW-CP-006 is English only at the current runtime-proof stage");
@@ -27,7 +35,7 @@ export function runTmwCp006Pipeline(input:{questionLanguageId:string;seed:string
   const rawSolution=solveTmwCp006(entry,parameters);
   const solution=polishTmwCp006Solution(entry,parameters,rawSolution);
   const optionSet=buildTmwCp006Options(entry,parameters,solution,input.seed);
-  const stem=renderTmwCp006ExamStem(entry,parameters);
+  const stem=polishStem(entry,renderTmwCp006ExamStem(entry,parameters));
   const formula=inlineMath(solution.formulaLatex),steps=solution.workedLatex.map(inlineMath),errors:string[]=[];
   const rawShortcut=buildTmwCp006Shortcut(entry,parameters,solution);
   const rawTrap=buildTmwCp006CommonTrap(entry,optionSet.options);
@@ -46,6 +54,7 @@ export function runTmwCp006Pipeline(input:{questionLanguageId:string;seed:string
   if(!stem.trim())errors.push("Stem is empty");
   if(!hasApprovedScenarioOpening(stem))errors.push("Stem does not use an approved scenario-led opening");
   if(/^(?:\d|One team|Each |The available food|Find the equivalent)/.test(stem))errors.push("Stem begins with a mechanical template phrase");
+  if(/The the |contractor at a (?:bank verification centre|quality-control department)/i.test(stem))errors.push("Stem contains a context-role or duplicated-article defect");
   if(/\{\{[^}]+\}\}|\$\{[^}]+\}/.test(stem))errors.push("Stem contains an unresolved placeholder");
   if(optionSet.options.length!==4)errors.push("Question does not contain exactly four options");
   if(new Set(optionSet.options.map(option=>option.text)).size!==4)errors.push("Options are not textually unique");
