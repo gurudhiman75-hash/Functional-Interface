@@ -1,0 +1,36 @@
+name: Reasoning COD-001 CP-008 Adapted Locales
+on:
+  pull_request:
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/**
+      - .github/workflows/reasoning-cod-001-cp008-adapted-locales.yml
+  workflow_dispatch:
+jobs:
+  cp008-adapted-locales:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run CP-008 Hindi and Punjabi audit
+        id: audit
+        shell: bash
+        run: |
+          set +e
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/review/cod-cp008-adapted-locales.test.ts > cod-cp008-adapted-locales.log 2>&1
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: Upload CP-008 locale diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cod-cp008-adapted-locales
+          path: cod-cp008-adapted-locales.log
+          retention-days: 14
+      - name: Enforce CP-008 locale audit
+        run: |
+          cat cod-cp008-adapted-locales.log
+          test "${{ steps.audit.outputs.exit_code }}" = "0"
