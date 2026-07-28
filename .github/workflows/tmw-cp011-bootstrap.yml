@@ -5,7 +5,7 @@ on:
     branches:
       - feat/tmw-cp011
     paths:
-      - .github/cp011-payload-*
+      - .github/cp011v2-*
       - .github/workflows/tmw-cp011-bootstrap.yml
   pull_request:
     branches:
@@ -30,13 +30,16 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.head_ref || github.ref_name }}
-      - name: Decode reviewed CP-011 package
+      - name: Verify and decode reviewed CP-011 package
         shell: bash
         run: |
           set -euo pipefail
           target="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001"
           work="$(mktemp -d)"
-          cat .github/cp011-payload-* | base64 --decode > "$work/cp011.tar.gz"
+          cat .github/cp011v2-* > "$work/cp011.b64"
+          echo "c043689426c68eb1d66d2ae51352c8ed0f63dc2e22599543e5e01832f7279a54  $work/cp011.b64" | sha256sum --check --strict
+          base64 --decode "$work/cp011.b64" > "$work/cp011.tar.gz"
+          echo "6ca90b61b997f580c0e5e8a6070b974c6543eba62c8ba9b3e8d0eed76bc4afea  $work/cp011.tar.gz" | sha256sum --check --strict
           mkdir -p "$work/extracted" "$target/foundation"
           tar -xzf "$work/cp011.tar.gz" -C "$work/extracted"
 
@@ -57,6 +60,7 @@ jobs:
           EXPORTS
           fi
 
+          rm -f .github/cp011v2-*
           rm -f .github/cp011-payload-*
           rm -f .github/workflows/tmw-cp011-bootstrap.yml
 
