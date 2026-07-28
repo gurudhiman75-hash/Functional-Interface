@@ -107,8 +107,11 @@ for (const prototypeId of INT_CP001_PROTOTYPE_IDS) {
   };
 }
 
-const maximumOpeningRepeat = Math.max(...openingCounts.values());
-if (maximumOpeningRepeat > 70) fail(`A six-word opening repeats ${maximumOpeningRepeat} times.`);
+const [mostRepeatedOpening, maximumOpeningRepeat] = [...openingCounts.entries()]
+  .sort((left, right) => right[1] - left[1])[0] ?? ["", 0];
+if (maximumOpeningRepeat > 70) {
+  fail(`Six-word opening "${mostRepeatedOpening}" repeats ${maximumOpeningRepeat} times.`);
+}
 if (!["Easy", "Medium", "Hard"].every((difficulty) => difficultyCounts.has(difficulty))) {
   fail("The generated audit does not reach all three difficulty labels.");
 }
@@ -123,6 +126,7 @@ console.log(JSON.stringify({
   semanticCounts: Object.fromEntries([...semanticCounts.entries()].sort()),
   contextCounts: Object.fromEntries([...contextCounts.entries()].sort()),
   misconceptionCounts: Object.fromEntries([...misconceptionCounts.entries()].sort()),
+  mostRepeatedOpening,
   maximumOpeningRepeat,
   fractionalMoneyOptions,
   longestStem,
