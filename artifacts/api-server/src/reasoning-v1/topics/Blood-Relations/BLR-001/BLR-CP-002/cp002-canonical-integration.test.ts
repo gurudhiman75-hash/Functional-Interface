@@ -16,6 +16,7 @@ let affinalRecords = 0;
 let selfRecords = 0;
 let longChainRecords = 0;
 let threeAnchorRecords = 0;
+let bothDerivedRecords = 0;
 let noSiblingScenarioRecords = 0;
 let negativeConstraintRecords = 0;
 let ownershipRecords = 0;
@@ -29,8 +30,8 @@ function expressionHasOnlyChild(expression: BlrEntityExpression): boolean {
   );
 }
 
-assert.equal(scenarios.length, 42);
-assert.equal(new Set(scenarios.map((scenario) => scenario.scenarioId)).size, 42);
+assert.equal(scenarios.length, 45);
+assert.equal(new Set(scenarios.map((scenario) => scenario.scenarioId)).size, 45);
 
 for (const scenario of scenarios) {
   for (let seed = 0; seed < 4; seed += 1) {
@@ -142,6 +143,12 @@ for (const scenario of scenarios) {
         question.explanation.coreConcept.some((line) => line === `your = ${listenerName}`),
       );
     }
+    if (scenario.scenarioId.startsWith("CP002-BOTH-DERIVED-")) {
+      bothDerivedRecords += 1;
+      assert.equal(question.structuredPrompt.query.subject.kind, "ROLE_CHAIN");
+      assert.equal(question.structuredPrompt.query.reference.kind, "ROLE_CHAIN");
+      assert.ok(question.metadata.queryRoleDepth >= 2);
+    }
     if (scenario.scenarioId.startsWith("CP002-NO-SIBLING-")) {
       noSiblingScenarioRecords += 1;
     }
@@ -167,13 +174,14 @@ for (const scenario of scenarios) {
   }
 }
 
-assert.deepEqual(answerPositions, [42, 42, 42, 42]);
-assert.equal(reviewedScenarioIds.size, 42);
+assert.deepEqual(answerPositions, [45, 45, 45, 45]);
+assert.equal(reviewedScenarioIds.size, 45);
 assert.equal(onlyChildRecords, 12);
 assert.ok(affinalRecords >= 64);
-assert.ok(selfRecords >= 24);
+assert.ok(selfRecords >= 28);
 assert.equal(longChainRecords, 24);
 assert.equal(threeAnchorRecords, 16);
+assert.equal(bothDerivedRecords, 12);
 assert.equal(noSiblingScenarioRecords, 12);
 assert.equal(negativeConstraintRecords, 20);
 assert.equal(ownershipRecords, 12);
@@ -211,7 +219,7 @@ console.log(
   JSON.stringify(
     {
       checkpointId: "BLR-CP-002",
-      gate: "CANONICAL_SCENARIO_INTEGRATION_V5",
+      gate: "CANONICAL_SCENARIO_INTEGRATION_V6",
       scenarios: scenarios.length,
       questions: scenarios.length * 4,
       answerPositions,
@@ -223,6 +231,7 @@ console.log(
       selfRecords,
       longChainRecords,
       threeAnchorRecords,
+      bothDerivedRecords,
       noSiblingScenarioRecords,
       negativeConstraintRecords,
       ownershipRecords,
