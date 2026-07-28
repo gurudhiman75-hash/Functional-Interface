@@ -1,6 +1,6 @@
 # COD-CP-007 — Digit, Symbol and Alphanumeric Coding
 
-Status: **open English discovery; uniform modular digit translation prototype mathematically and editorially saturated; no permanent QLs**.
+Status: **English discovery frozen; `COD-QL-169..172` implemented at runtime-proof maturity; review-only**.
 
 ## Read in this order
 
@@ -8,89 +8,50 @@ Status: **open English discovery; uniform modular digit translation prototype ma
 2. `COD-CP-007-SOURCE-AND-BOUNDARY-AUDIT.md`
 3. `COD-CP-007-END-TO-END-DESIGN.md`
 4. `COD-CP-007-QL-DISCOVERY-AUDIT.md`
-5. `COD-CP-007-IMPLEMENTATION-PLAN.md`
-6. `COD-CP-007-UNIFORM-DIGIT-PROTOTYPE-STATUS.md`
+5. `COD-CP-007-UNIFORM-DIGIT-PROTOTYPE-STATUS.md`
+6. `COD-CP-007-FINAL-DISCOVERY-FREEZE.md`
+7. `../COD-001-MANIFEST-AMENDMENT-CP007.md`
+8. `COD-CP-007-IMPLEMENTATION-REPORT.md`
 
-## Current decision
-
-The old manifest's exact 24-QL reservation is revoked. CP-007 will discover its contracts exhaustively.
-
-The first directly source-supported family is:
+## Frozen family
 
 ```text
 UNIFORM_MODULAR_DIGIT_TRANSLATION
 ```
 
-Example form:
+Each digit is transformed independently by one non-zero decimal shift. Ordered digit strings preserve leading zeroes and never become whole-number arithmetic values.
 
-```text
-35674 → 57896
-4213  → ?
-```
+## Permanent solve contracts
 
-Each digit is transformed independently by the same decimal shift. Code strings preserve leading zeroes and are never coerced into whole numbers.
+| QL | Authority |
+|---|---|
+| `COD-QL-169` | apply a stated forward digit shift |
+| `COD-QL-170` | infer and apply the inverse shift |
+| `COD-QL-171` | recover one missing coded digit |
+| `COD-QL-172` | infer the shift and code the target |
 
-## Executable prototype inventory
+Choose-matching-code is a presentation variant of `COD-QL-172`, not a separate QL.
 
-Five non-permanent task contracts are implemented:
+## Ownership closure
 
-1. encode a target with an explicit digit-wise rule;
-2. infer and decode a coded digit string;
-3. recover one missing code digit;
-4. infer the shift and encode a target;
-5. choose the only matching complete code.
+- conditional number/symbol tables → COD-CP-010;
+- arbitrary token substitution → COD-CP-001;
+- pure permutation → COD-CP-005;
+- two-symbol positional numerals → Number System;
+- position-dependent digit and mixed alphanumeric candidates → excluded for recurring standalone source gap.
 
-The prototype provides:
+## Runtime proof
 
-- token-string parsing and serialization;
-- forward and inverse decimal translation;
-- leading-zero preservation;
-- decimal-wrap and repeated-digit scenarios;
-- eligible-rule rejection for whole-number arithmetic and reversal competitors;
-- explicit acknowledgement that arbitrary substitution is a more complex compatible explanation, not the canonical winner;
-- independent arithmetic verification;
-- four misconception-labelled options with one correct answer;
-- task-specific, evidence-based English explanations;
-- mathematical and editorial audits over 500 questions each;
-- a polished 25-question English review export;
-- a checkpoint-local GitHub Actions workflow.
-
-Exact proof metrics:
-
-```text
-Generated mathematical questions:           500
-Distinct questions/stems:                500/500
-Leading-zero source/code cases:          140/132
-Wrapped targets:                              370
-Missing first/middle/final:              22/55/23
-Normalised explanation skeletons: 45/45/59/41/45
-Cross-contract explanation collisions:          0
-Permanent QLs:                                  0
-```
-
-These remain prototype contracts. They are not permanent QLs and are not discoverable in Question Studio.
-
-## Open candidates
-
-The following remain source- or collision-pending:
-
-- arbitrary digit substitution;
-- digit-to-symbol bijection;
-- position-dependent digit transformation;
-- pure digit permutation;
-- alphanumeric dual-channel transformation;
-- mixed-token substitution.
-
-Formal symmetry does not create a QL. Each candidate must have recurring exam evidence and survive collision testing against CP-001 through CP-006 and CP-010.
+The permanent English audit covers 100 seeds per QL and checks deterministic generation, independent ambiguity proof, option uniqueness, answer positions, all renderers, Easy/Medium/Hard reach, decimal wrap, leading zeroes and all missing-token positions.
 
 ## Safety boundary
 
-- permanent QLs: `0`;
-- next available chapter ID: `COD-QL-169`, not reserved;
+- permanent QLs: `COD-QL-169..172`;
+- next available chapter ID: `COD-QL-173`;
 - Question Studio: disabled;
 - localisation: not started;
 - public publication: false.
 
 ## Next action
 
-Run targeted source expansion for the remaining candidate families, then perform a checkpoint-wide task and solve-mode merge/split audit. Do not allocate permanent IDs yet.
+Begin exhaustive discovery for COD-CP-008 before allocating any later checkpoint IDs.
