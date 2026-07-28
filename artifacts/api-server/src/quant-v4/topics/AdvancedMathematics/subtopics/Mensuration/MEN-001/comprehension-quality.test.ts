@@ -77,12 +77,19 @@ for (const entry of getMen001QuestionEntries()) {
       }
     }
 
-    for (const step of steps) {
+    for (const [index, step] of steps.entries()) {
       assert.ok(step.paragraphs.length > 0, `${entry.qlId} step '${step.title}' needs a direct teacher explanation.`);
       assert.ok(
         step.paragraphs[0]!.length >= 25,
         `${entry.qlId} step '${step.title}' does not explain what to do and why.`,
       );
+      if (index > 0) {
+        assert.notEqual(
+          step.paragraphs[0],
+          steps[index - 1]!.paragraphs[0],
+          `${entry.qlId} repeats the same teacher explanation in adjacent steps '${steps[index - 1]!.title}' and '${step.title}'.`,
+        );
+      }
     }
 
     for (const paragraph of traps?.paragraphs ?? []) {
@@ -154,4 +161,4 @@ assert.deepEqual(
 assert.ok(wire.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT")?.paragraphs.some((paragraph) => /s = πr\/2/.test(paragraph)));
 assert.ok(wire.explanation.sections.find((section) => section.kind === "COMMON_TRAPS")?.paragraphs.some((paragraph) => /original circle/i.test(paragraph) && /Do not stop/i.test(paragraph)));
 
-console.log(`MEN-001 comprehension audit passed for ${audited} generated explanations, including ${tripletStates} states with explicitly named Pythagorean Triplets, no cross-family boilerplate and no generic trap shells.`);
+console.log(`MEN-001 comprehension audit passed for ${audited} generated explanations, including ${tripletStates} states with explicitly named Pythagorean Triplets, no cross-family boilerplate, no generic trap shells and no repeated adjacent teaching steps.`);
