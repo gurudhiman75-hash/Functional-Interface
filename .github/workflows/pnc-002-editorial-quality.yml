@@ -63,7 +63,8 @@ jobs:
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-teacher-final.ts \
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-teacher-production.ts \
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-final.test.ts \
-            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-production.test.ts
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-production.test.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-shortcut-regression.test.ts
       - name: Bundle final teacher proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -80,6 +81,14 @@ jobs:
           --platform=node
           --format=esm
           --outfile=dist/quant-v4/pnc-002-editorial-quality-teacher-production-proof.mjs
+      - name: Bundle shortcut regression proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-shortcut-regression.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-002-editorial-quality-teacher-shortcut-regression.mjs
       - name: Run final adversarial teacher proof
         working-directory: artifacts/api-server
         shell: bash
@@ -95,6 +104,14 @@ jobs:
         run: |
           set +e
           node dist/quant-v4/pnc-002-editorial-quality-teacher-production-proof.mjs 2>&1 | tee dist/quant-v4/pnc-002-editorial-quality-diagnostics/production.log
+          status=${PIPESTATUS[0]}
+          exit "$status"
+      - name: Run shortcut regression proof
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set +e
+          node dist/quant-v4/pnc-002-editorial-quality-teacher-shortcut-regression.mjs 2>&1 | tee dist/quant-v4/pnc-002-editorial-quality-diagnostics/shortcuts.log
           status=${PIPESTATUS[0]}
           exit "$status"
       - name: Publish production teacher-style editorial review
