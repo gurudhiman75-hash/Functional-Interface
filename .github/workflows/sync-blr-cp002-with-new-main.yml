@@ -1,0 +1,61 @@
+name: Diagnose BLR-CP-002 New-main Sync
+
+on:
+  push:
+    branches:
+      - feat/blr-001-cp002-pointer-runtime
+    paths:
+      - ".github/workflows/sync-blr-cp002-with-new-main.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose-sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out CP-002 feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/blr-001-cp002-pointer-runtime
+          fetch-depth: 0
+
+      - name: Fetch current New-main
+        run: git fetch origin New-main
+
+      - name: Attempt merge and capture conflicts
+        id: merge
+        continue-on-error: true
+        run: |
+          set +e
+          git merge --no-commit --no-ff origin/New-main > sync-merge.log 2>&1
+          status=$?
+          echo "merge_exit=$status" >> "$GITHUB_OUTPUT"
+          {
+            echo
+            echo "=== MERGE OUTPUT ==="
+            cat sync-merge.log
+            echo
+            echo "=== UNMERGED PATHS ==="
+            git diff --name-only --diff-filter=U
+            echo
+            echo "=== STATUS ==="
+            git status --short
+            echo
+            echo "=== CONFLICT MARKERS ==="
+            for path in $(git diff --name-only --diff-filter=U); do
+              echo "--- $path ---"
+              grep -n -C 8 -E '^(<<<<<<<|=======|>>>>>>>)' "$path" || true
+            done
+          } | tee blr-cp002-sync-diagnostics.log
+          exit 0
+
+      - name: Upload sync diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-cp002-new-main-sync-diagnostics
+          path: blr-cp002-sync-diagnostics.log
+          if-no-files-found: error
+          retention-days: 3
