@@ -65,4 +65,15 @@ Each checkpoint must prove:
 
 ## Current checkpoint
 
-`PNC-CP-009` is next in the controlled localisation order after the approved CP-008 checkpoint is merged.
+`PNC-CP-009` is implemented as `PNC-002-CP009-HI-PA-v1-CANDIDATE` for automated validation and manual review.
+
+- QLs: `PNC-QL-148` through `PNC-QL-176`
+- English source QLs: 29
+- Locales: `hi-IN`, `pa-IN`
+- Localised review rows: 58
+- Seeded audit packages: 174
+- Covered solve modes: 21
+- Status: `MANUAL_REVIEW`
+- Editorial status: `PENDING`
+- Publicly publishable: `false`
+- Next checkpoint after approval: `PNC-CP-010`
