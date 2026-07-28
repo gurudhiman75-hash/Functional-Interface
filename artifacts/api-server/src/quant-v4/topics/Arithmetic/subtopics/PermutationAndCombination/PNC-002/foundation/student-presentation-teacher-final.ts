@@ -24,6 +24,26 @@ function powerProduct(base: number, exponent: number): string {
   return Array.from({ length: exponent }, () => String(base)).join(" \\times ");
 }
 
+function descendingProduct(start: number, terms: number): string {
+  if (terms <= 0) return "1";
+  return Array.from({ length: terms }, (_, index) => String(start - index)).join(" \\times ");
+}
+
+function combination(total: number, selected: number): number | undefined {
+  if (!Number.isInteger(total) || !Number.isInteger(selected) || selected < 0 || selected > total || total > 30) return undefined;
+  const k = Math.min(selected, total - selected);
+  let result = 1;
+  for (let index = 1; index <= k; index += 1) result = (result * (total - k + index)) / index;
+  return Number.isInteger(result) ? result : undefined;
+}
+
+function permutation(total: number, selected: number): number | undefined {
+  if (!Number.isInteger(total) || !Number.isInteger(selected) || selected < 0 || selected > total || total > 12) return undefined;
+  let result = 1;
+  for (let index = 0; index < selected; index += 1) result *= total - index;
+  return result;
+}
+
 function stripNumber(value: string): string {
   return value.replace(/^\d+\.\s*/, "").trim();
 }
@@ -46,6 +66,42 @@ function missingArithmeticExpansions(source: PncStudentSourcePackage, existing: 
   const present = new Set(existing.map((item) => item.token));
   const additions: Expansion[] = [];
   const math = source.solver.mathJax;
+
+  for (const match of math.matchAll(/\\binom\{(\d+)\}\{(\d+)\}/g)) {
+  const token = match[0];
+  if (present.has(token)) continue;
+  const total = Number(match[1]);
+  const selected = Number(match[2]);
+  const value = combination(total, selected);
+  if (value === undefined) continue;
+  const line = `**Evaluate the selection factor:** $${token} = \\frac{${descendingProduct(total, selected)}}{${factorialProduct(selected)}} = ${value}$.`;
+  additions.push({ token, value, line });
+  present.add(token);
+}
+
+for (const match of math.matchAll(/\{\}\^\{?(\d+)\}?P_\{?(\d+)\}?/g)) {
+  const token = match[0];
+  if (present.has(token)) continue;
+  const total = Number(match[1]);
+  const selected = Number(match[2]);
+  const value = permutation(total, selected);
+  if (value === undefined) continue;
+  const line = `**Evaluate the ordered factor:** $${token} = ${descendingProduct(total, selected)} = ${value}$.`;
+  additions.push({ token, value, line });
+  present.add(token);
+}
+
+for (const match of math.matchAll(/\{\}\^\{?(\d+)\}?C_\{?(\d+)\}?/g)) {
+  const token = match[0];
+  if (present.has(token)) continue;
+  const total = Number(match[1]);
+  const selected = Number(match[2]);
+  const value = combination(total, selected);
+  if (value === undefined) continue;
+  const line = `**Evaluate the selection factor:** $${token} = \\frac{${descendingProduct(total, selected)}}{${factorialProduct(selected)}} = ${value}$.`;
+  additions.push({ token, value, line });
+  present.add(token);
+}
 
   for (const match of math.matchAll(/(\d+)!/g)) {
     const before = math.slice(0, match.index);

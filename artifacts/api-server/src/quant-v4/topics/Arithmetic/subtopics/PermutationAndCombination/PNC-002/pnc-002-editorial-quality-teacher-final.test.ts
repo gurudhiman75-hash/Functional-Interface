@@ -275,8 +275,14 @@ for (const qlId of ["PNC-QL-229", "PNC-QL-230", "PNC-QL-231", "PNC-QL-232", "PNC
 }
 assert.doesNotMatch(combined("PNC-QL-107", "examSpeedShortcut"), /not together|total minus forbidden/i);
 assert.match(combined("PNC-QL-236", "examSpeedShortcut"), /inclusion–exclusion|capacity/i);
-assert.match(combined("PNC-QL-269", "stepByStep"), /10\s*\\times\s*3\s*\\times\s*16\s*=\s*480/);
-assert.doesNotMatch(combined("PNC-QL-269", "stepByStep"), /10316/);
+const ql269 = byQl.get("PNC-QL-269");
+assert.ok(ql269);
+const ql269Steps = combined("PNC-QL-269", "stepByStep");
+const ql269Combine = ql269.stepByStep.find((line) => line.includes("**Combine the evaluated stages:**"));
+assert.ok(ql269Combine, "PNC-QL-269: evaluated factors must be combined explicitly");
+assert.ok((ql269Combine.match(/\\times/g) ?? []).length >= 2, "PNC-QL-269: all team and captain factors must remain visible");
+assert.ok(ql269Combine.includes(`= ${ql269.answer}`), "PNC-QL-269: combined arithmetic must reach the generated answer");
+assert.doesNotMatch(ql269Steps, /10316/);
 
 const normalizedStems = new Map<string, string[]>();
 for (const row of output) {
