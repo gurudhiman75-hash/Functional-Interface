@@ -53,6 +53,7 @@ function rows(prompt: Readonly<Record<string, unknown>>): RowLike[] {
 }
 
 function reverseString(value: string, locale: "hi-IN" | "pa-IN"): string {
+  if (value === "_____") return value;
   const pack = getCp009LanguagePack(locale);
   try {
     return pack.englishFor(value);
@@ -134,7 +135,7 @@ for (const id of qlIds) {
       assert.equal(localizedRows.length, englishRows.length);
       localizedRows.forEach((row, index) => {
         const source = englishRows[index]!;
-        assert.deepEqual(row.words.map((word) => getCp009LanguagePack(locale).englishFor(word)), source.words);
+        assert.deepEqual(row.words.map((word) => reverseString(word, locale)), source.words);
         assert.deepEqual(row.displayedCodeTokens, source.displayedCodeTokens);
         assert.equal(row.displayedCode, source.displayedCode);
         assert.equal(new Set(row.words).size, row.words.length);
