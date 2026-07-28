@@ -1,7 +1,7 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { applyAvg001Cp004EditorialV2Candidate } from "./foundation/cp004-editorial-v2-polish";
+import { applyAvg001Cp004EditorialV2ReviewedCandidate } from "./foundation/cp004-editorial-v2-distractor-polish";
 import { getAvg001QuestionEntries } from "./foundation/library";
 import { runAvg001Pipeline } from "./foundation/pipeline";
 
@@ -15,7 +15,7 @@ const rows = getAvg001QuestionEntries()
   .map((entry) => {
     const seed = `avg-cp004-editorial-v2-review:${entry.qlId}`;
     const original = runAvg001Pipeline({ questionLanguageId: entry.qlId, seed, language: "en" });
-    const candidate = applyAvg001Cp004EditorialV2Candidate(original);
+    const candidate = applyAvg001Cp004EditorialV2ReviewedCandidate(original);
     return {
       qlId: entry.qlId,
       solveMode: entry.solveMode,
@@ -31,6 +31,8 @@ const rows = getAvg001QuestionEntries()
       mathematicalFingerprint: candidate.mathematicalFingerprint,
       validation: candidate.validation.valid ? "PASS" : "FAIL",
       releaseCandidate: candidate.traceability.releaseCandidate,
+      semanticUnit: candidate.traceability.semanticAnswerUnit,
+      distractorAnalysisVersion: candidate.traceability.cp004DistractorAnalysisV2,
     };
   });
 
