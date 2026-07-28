@@ -22,7 +22,7 @@ export function diversifyIntCp001StemOpening(
     `For ${context.purpose}, ${context.actor} arranged the ${context.instrument} through ${context.institution}`,
     `The ${context.instrument} held by ${context.actor} is with ${context.institution}`,
     `${context.actor} obtained the ${context.instrument} through ${context.institution}`,
-    `According to records held by ${context.institution}, ${context.actor}'s ${context.instrument}`,
+    `${context.actor}'s ${context.instrument} appears in records held by ${context.institution}`,
     `${context.institution} provided the ${context.instrument} used by ${context.actor} for ${context.purpose}`,
   ];
   const replacement = alternatives[
