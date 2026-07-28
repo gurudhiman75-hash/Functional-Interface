@@ -39,7 +39,7 @@ The 56-question external audit scored the candidate 9.2/10 and approved its math
 
 ## Final validation
 
-Dedicated workflow run `30325148787` validates five deterministic instances for each QL, producing 280 candidate packages.
+Dedicated workflow run `30325195564` validates five deterministic instances for each QL, producing 280 candidate packages.
 
 Passed checks:
 
