@@ -25,23 +25,138 @@ jobs:
         with:
           ref: feat/pnl-001-cp005-dynamic-runtime
 
-      - name: Remove zero-direction inverse boundary
+      - name: Enforce semantic and exact-money generation domains
         run: |
           python - <<'PY'
           from pathlib import Path
 
-          path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-cases.ts")
-          source = path.read_text()
-          old = "const declared = declaredPair(random);"
-          replacement = '''const declared = {
-                direction: "PROFIT" as const,
-                ratePercent: rational(pickNumber(random, PROFIT_RATES)),
-              };'''
-          if source.count(old) != 1:
-              if replacement in source:
-                  raise SystemExit(0)
-              raise SystemExit(f"expected one inverse declared selector, found {source.count(old)}")
-          path.write_text(source.replace(old, replacement, 1))
+          cases = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-cases.ts")
+          source = cases.read_text()
+
+          def scoped_replace(start_anchor, end_anchor, old, new, label):
+              global source
+              start = source.index(start_anchor)
+              end = source.index(end_anchor, start)
+              block = source[start:end]
+              if old in block:
+                  block = block.replace(old, new, 1)
+                  source = source[:start] + block + source[end:]
+              elif new not in block:
+                  raise SystemExit(f"{label}: expected source was not found")
+
+          scoped_replace(
+              'case "PNL-QL-122":',
+              'case "PNL-QL-123":',
+              '''const quotedSellingPricePerNominalQuantity = rupees(
+                pickNumber(random, QUOTED_PRICES),
+              );''',
+              '''const quotedSellingPricePerNominalQuantity =
+                qlId === "PNL-QL-143"
+                  ? costPricePerTrueQuantity
+                  : rupees(pickNumber(random, QUOTED_PRICES));''',
+              "false-count profit domain",
+          )
+
+          scoped_replace(
+              'case "PNL-QL-127":',
+              'case "PNL-QL-129":',
+              '''const sellingPricePerNominalQuantity = rupees(
+                pickSeeded(random, [1000, 1200, 1500] as const),
+              );''',
+              '''const sellingPricePerNominalQuantity =
+                qlId === "PNL-QL-127"
+                  ? purchasePricePerNominalQuantity
+                  : rupees(pickSeeded(random, [1000, 1200, 1500] as const));''',
+              "heavy-buy light-sell profit domain",
+          )
+
+          scoped_replace(
+              'case "PNL-QL-129":',
+              'case "PNL-QL-130":',
+              'const markupPercent = rational(pickNumber(random, MARKUPS));',
+              '''const markupPercent = rational(
+                qlId === "PNL-QL-146" ? 50 : pickNumber(random, MARKUPS),
+              );''',
+              "caselet markup domain",
+          )
+          scoped_replace(
+              'case "PNL-QL-129":',
+              'case "PNL-QL-130":',
+              'const discountPercent = rational(pickNumber(random, DISCOUNTS));',
+              '''const discountPercent = rational(
+                qlId === "PNL-QL-146" ? 10 : pickNumber(random, DISCOUNTS),
+              );''',
+              "caselet discount domain",
+          )
+
+          start = source.index('case "PNL-QL-141":')
+          end = source.index('case "PNL-QL-142":', start)
+          replacement = '''case "PNL-QL-141": {
+                const pair = pickSeeded(
+                  random,
+                  [
+                    [800n, 1000],
+                    [800n, 1200],
+                    [900n, 900],
+                    [900n, 1800],
+                  ] as const,
+                );
+                const effectiveDeliveredQuantity = pair[0];
+                const quotedSellingPricePerNominalQuantity = rupees(pair[1]);
+                return {
+                  qlId,
+                  registry,
+                  seed: seedValue,
+                  request: {
+                    mode: "FALSE_QUANTITY_TO_EFFECTIVE_PRICE_PER_TRUE_QUANTITY",
+                    quotedSellingPricePerNominalQuantity,
+                    trueQuantity: TRUE_QUANTITY,
+                    deliveredQuantity: effectiveDeliveredQuantity,
+                  },
+                  context: {
+                    quotedSellingPricePerNominalQuantity: cp005PlainMoney(
+                      quotedSellingPricePerNominalQuantity,
+                    ),
+                    trueQuantity: TRUE_QUANTITY.toString(),
+                    deliveredQuantity: effectiveDeliveredQuantity.toString(),
+                  },
+                };
+              }
+
+              '''
+          current = source[start:end]
+          if "const pair = pickSeeded" not in current:
+              source = source[:start] + replacement + source[end:]
+
+          cases.write_text(source)
+
+          test = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.test.ts")
+          test_source = test.read_text()
+          anchor = '''    const replay = runPnlCp005DynamicPipeline({'''
+          assertions = '''    if (qlId === "PNL-QL-127" || qlId === "PNL-QL-146") {
+                assert.match(pkg.answer, /profit/i, `${qlId}: must remain a profit question.`);
+              }
+              if (qlId === "PNL-QL-143") {
+                assert.equal(
+                  pkg.parameters.variables.actualDirection,
+                  "profit",
+                  "PNL-QL-143 must remain a false-count profit question.",
+                );
+              }
+              if (qlId === "PNL-QL-141") {
+                assert.match(
+                  pkg.answer,
+                  /^₹\\d+(?:\\.\\d{1,2})?$/,
+                  "PNL-QL-141 must remain exact to the paise.",
+                );
+              }
+
+          '''
+          if assertions.strip() not in test_source:
+              if test_source.count(anchor) != 1:
+                  raise SystemExit("test assertion insertion anchor was not unique")
+              test_source = test_source.replace(anchor, assertions + anchor, 1)
+              test.write_text(test_source)
           PY
 
       - name: Set up Node
@@ -56,6 +171,13 @@ jobs:
 
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Normalize CP-005 runtime sources
+        run: |
+          pnpm exec prettier --write \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-cases.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.test.ts
 
       - name: Bundle dynamic runtime proof
         run: |
@@ -72,15 +194,21 @@ jobs:
           node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/.cp005-dynamic-runtime.test.mjs \
             2>&1 | tee -a pnl-cp005-dynamic-runtime.log
 
-      - name: Commit proven correction
+      - name: Commit proven semantic corrections
         run: |
-          if git diff --quiet -- artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-cases.ts; then
+          if git diff --quiet -- \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-cases.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.test.ts; then
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-cases.ts
-          git commit -m "fix(pnl): avoid CP-005 zero-direction inverse cases"
+          git add \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-cases.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.test.ts
+          git commit -m "fix(pnl): enforce CP-005 semantic generation domains"
           git push origin HEAD:feat/pnl-001-cp005-dynamic-runtime
 
       - name: Upload proof evidence
