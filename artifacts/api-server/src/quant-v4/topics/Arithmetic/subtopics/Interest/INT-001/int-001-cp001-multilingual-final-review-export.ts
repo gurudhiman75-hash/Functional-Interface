@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { INT_CP001_FINAL_QL_IDS } from "./cp001-final-registry";
-import { generateIntCp001FinalLocalizedQuestion } from "./cp001-localized-runtime-final";
+import { generateIntCp001ReleaseLocalizedQuestion } from "./cp001-localized-runtime-release";
 import {
   INT_CP001_HINDI_RELEASE_ID,
   INT_CP001_MULTILINGUAL_STANDARD,
@@ -20,7 +20,7 @@ const locales: readonly IntCp001Locale[] = ["hi", "pa"];
 
 for (const locale of locales) {
   const items = INT_CP001_FINAL_QL_IDS.flatMap((qlId) => seeds.map((seed) =>
-    generateIntCp001FinalLocalizedQuestion(qlId, seed, locale)
+    generateIntCp001ReleaseLocalizedQuestion(qlId, seed, locale)
   ));
   for (const item of items) {
     if (!item.validation.ok) throw new Error(`${item.qlId}/${item.seed}/${locale}: ${item.validation.errors.join(" | ")}`);
