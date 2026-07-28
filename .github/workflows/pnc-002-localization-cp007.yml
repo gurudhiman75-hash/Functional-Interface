@@ -45,8 +45,11 @@ jobs:
           polished="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-polished-review.test.ts"
           sed 's#"./foundation/localization-cp007"#"./foundation/localization-cp007-polished"#' "$source" > "$polished"
       - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        shell: bash
         run: |
-          cd artifacts/api-server
+          mkdir -p dist/quant-v4/pnc-002-localization-diagnostics
+          set +e
           pnpm exec tsc \
             --noEmit \
             --target es2022 \
@@ -68,7 +71,10 @@ jobs:
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-cp007-reviewed.ts \
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-cp007-polished.ts \
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-polished-review.test.ts \
-            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-polish.test.ts
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-polish.test.ts \
+            2>&1 | tee dist/quant-v4/pnc-002-localization-diagnostics/tsc.log
+          status=${PIPESTATUS[0]}
+          exit "$status"
       - name: Bundle localization review proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -89,7 +95,6 @@ jobs:
         working-directory: artifacts/api-server
         shell: bash
         run: |
-          mkdir -p dist/quant-v4/pnc-002-localization-diagnostics
           set +e
           node dist/quant-v4/pnc-002-localization-cp007-proof.mjs > dist/quant-v4/pnc-002-localization-diagnostics/cp007.log 2>&1
           status=$?
