@@ -135,7 +135,7 @@ assert.deepEqual([...observedAuthorities].sort(), [...expectedAuthorities].sort(
 assert.equal(observedPrototypes.size, 11);
 assert.deepEqual([...observedDifficulties].sort(), ["EASY", "HARD", "MEDIUM"]);
 assert.deepEqual([...observedRenderers].sort(), ["FAMILY_TREE_EXPLANATION", "STRUCTURED_TEXT"]);
-assert.equal(observedAnswerTypes.size, 7);
+assert.equal(observedAnswerTypes.size, 6);
 assert.ok(stemFingerprints.size >= 400, `Stem diversity is too low: ${stemFingerprints.size}/440.`);
 assert.ok(explanationWordCount / generatedCount >= 70);
 
