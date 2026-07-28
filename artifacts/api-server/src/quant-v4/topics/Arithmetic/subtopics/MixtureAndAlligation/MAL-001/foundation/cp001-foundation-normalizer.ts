@@ -143,6 +143,10 @@ function requestedShareLabel(question: any): string | null {
     : request.higherComponentLabel;
 }
 
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function normalizeStem(question: any): string {
   const unit = perUnitNoun(question);
   const request = question.parameters?.request;
@@ -174,10 +178,26 @@ function normalizeStem(question: any): string {
 
   const shareLabel = requestedShareLabel(question);
   if (shareLabel) {
+    const escapedShareLabel = escapeRegExp(shareLabel);
     stem = stem.replace(
-      new RegExp(`What is the share of ${shareLabel.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\?`, "u"),
+      new RegExp(`What is the share of ${escapedShareLabel}\\?`, "u"),
       `What quantity of ${shareLabel} is used?`,
     );
+
+    if (
+      question.parameters?.context?.quantityUnit === "kg" &&
+      /(?:leaves|beans)$/iu.test(shareLabel)
+    ) {
+      stem = stem
+        .replace(
+          new RegExp(`What quantity of ${escapedShareLabel} is used\\?`, "u"),
+          `How many kilograms of ${shareLabel} are used?`,
+        )
+        .replace(
+          new RegExp(`How much ${escapedShareLabel} is used\\?`, "u"),
+          `How many kilograms of ${shareLabel} are used?`,
+        );
+    }
   }
 
   return stem;
