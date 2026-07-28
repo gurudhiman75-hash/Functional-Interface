@@ -24,48 +24,42 @@ jobs:
         shell: bash
         run: |
           python - <<'PY'
+          import re
           from pathlib import Path
 
           root = Path("artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/gap-wave-02")
           runtime = root / "runtime.ts"
           text = runtime.read_text()
 
-          def replace_once(old: str, new: str, label: str) -> None:
+          def literal(old: str, new: str, label: str) -> None:
             global text
             count = text.count(old)
             if count != 1:
               raise SystemExit(f"{label}: expected one match, found {count}")
             text = text.replace(old, new, 1)
 
-          replace_once(
+          literal(
             "  integerSquareRoot,\n",
             "  integerCubeRoot,\n  integerSquareRoot,\n",
             "integer cube-root import",
           )
-          replace_once(
+          literal(
             "  { lengthMetres: 2n, breadthCm: 150n, heightCm: 80n },\n  { lengthMetres: 3n, breadthCm: 120n, heightCm: 75n },",
             "  { lengthMetres: 2n, breadthCm: 200n, heightCm: 100n },\n  { lengthMetres: 3n, breadthCm: 150n, heightCm: 100n },",
-            "mixed-unit state coverage",
+            "mixed-unit states",
           )
-          replace_once(
+          literal(
             "  { oldL: 20n, oldB: 15n, oldH: 12n, newL: 30n, newB: 10n, newH: 12n },",
             "  { oldL: 20n, oldB: 15n, oldH: 12n, newL: 25n, newB: 18n, newH: 8n },",
-            "equal-volume collision state",
+            "equal-volume state",
           )
-          replace_once(
+          literal(
             '      return d.breadthCm! % 100n === 0n && d.heightCm! % 100n === 0n ? "Medium" : "Hard";',
             '      return d.breadthCm! % 100n === 0n || d.heightCm! % 100n === 0n ? "Medium" : "Hard";',
-            "mixed-unit difficulty rule",
+            "mixed-unit difficulty",
           )
 
-          old_surface = '''    case "findCubeSurfaceAreaRatioFromVolumeRatio": {
-            const candidate = requireRational(draft.answer);
-            reconstructed = q(candidate.numerator ** 3n, candidate.denominator ** 3n);
-            method = "recovered side ratio from candidate surface ratio then reconstructed source volume ratio";
-            return { valid: exactEquals(reconstructed, q(d.evidenceFirst!, d.evidenceSecond!)), method, reconstructed: exactKey(reconstructed) };
-          }'''
-          old_surface = "\n".join(line[4:] if line.startswith("    ") else line for line in old_surface.splitlines())
-          new_surface = '''    case "findCubeSurfaceAreaRatioFromVolumeRatio": {
+          ratio_block = '''    case "findCubeSurfaceAreaRatioFromVolumeRatio": {
             const candidate = requireRational(draft.answer);
             const sideNumerator = integerSquareRoot(candidate.numerator);
             const sideDenominator = integerSquareRoot(candidate.denominator);
@@ -75,39 +69,32 @@ jobs:
             reconstructed = q(sideNumerator ** 3n, sideDenominator ** 3n);
             method = "square-rooted candidate surface ratio to side ratio, then cubed it to reconstruct volume ratio";
             return { valid: exactEquals(reconstructed, q(d.evidenceFirst!, d.evidenceSecond!)), method, reconstructed: exactKey(reconstructed) };
-          }'''
-          new_surface = "\n".join(line[4:] if line.startswith("    ") else line for line in new_surface.splitlines())
-          replace_once(old_surface, new_surface, "surface-from-volume verifier")
-
-          old_volume = '''    case "findCubeVolumeRatioFromSurfaceAreaRatio": {
-            const candidate = requireRational(draft.answer);
-            const sideNumerator = integerSquareRoot(candidate.numerator ** 2n) ?? candidate.numerator;
-            const sideDenominator = integerSquareRoot(candidate.denominator ** 2n) ?? candidate.denominator;
-            reconstructed = q(sideNumerator ** 2n, sideDenominator ** 2n);
-            method = "recovered side ratio from candidate volume ratio and reconstructed source surface ratio";
-            return { valid: exactEquals(reconstructed, q(d.evidenceFirst!, d.evidenceSecond!)), method, reconstructed: exactKey(reconstructed) };
-          }'''
-          old_volume = "\n".join(line[4:] if line.startswith("    ") else line for line in old_volume.splitlines())
-          new_volume = '''    case "findCubeVolumeRatioFromSurfaceAreaRatio": {
+          }
+          case "findCubeVolumeRatioFromSurfaceAreaRatio": {
             const candidate = requireRational(draft.answer);
             const sideNumerator = integerCubeRoot(candidate.numerator);
             const sideDenominator = integerCubeRoot(candidate.denominator);
             reconstructed = q(sideNumerator ** 2n, sideDenominator ** 2n);
             method = "cube-rooted candidate volume ratio to side ratio, then squared it to reconstruct surface ratio";
             return { valid: exactEquals(reconstructed, q(d.evidenceFirst!, d.evidenceSecond!)), method, reconstructed: exactKey(reconstructed) };
-          }'''
-          new_volume = "\n".join(line[4:] if line.startswith("    ") else line for line in new_volume.splitlines())
-          replace_once(old_volume, new_volume, "volume-from-surface verifier")
-
+          }
+          '''
+          ratio_block = "\n".join(line[6:] if line.startswith("      ") else line for line in ratio_block.splitlines())
+          pattern = r'    case "findCubeSurfaceAreaRatioFromVolumeRatio": \{.*?\n    case "findMaterialCostFromCuboidVolume":'
+          replacement = ratio_block + '    case "findMaterialCostFromCuboidVolume":'
+          text, count = re.subn(pattern, lambda _match: replacement, text, count=1, flags=re.S)
+          if count != 1:
+            raise SystemExit(f"ratio verifier block: expected one match, found {count}")
           runtime.write_text(text)
 
           test = root / "runtime.test.ts"
           test_text = test.read_text()
-          old = '    assert.equal(/[₹$]\\s?\\d/.test(learnerText.replace(/\\$\\\\text\\{£\\}/g, "")), false, `${prototypeId} leaks an unintended currency symbol.`);'
-          new = '    assert.equal(/₹/.test(learnerText), false, `${prototypeId} leaks an unintended currency symbol.`);'
-          if test_text.count(old) != 1:
-            raise SystemExit(f"currency assertion: expected one match, found {test_text.count(old)}")
-          test.write_text(test_text.replace(old, new, 1))
+          pattern = r'^    assert\.equal\(/\[₹\$\].*?leaks an unintended currency symbol\.\`\);$'
+          replacement = '    assert.equal(/₹/.test(learnerText), false, `${prototypeId} leaks an unintended currency symbol.`);'
+          test_text, count = re.subn(pattern, replacement, test_text, count=1, flags=re.M)
+          if count != 1:
+            raise SystemExit(f"currency assertion: expected one match, found {count}")
+          test.write_text(test_text)
           PY
 
       - name: Commit patch
