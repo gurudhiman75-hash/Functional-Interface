@@ -116,7 +116,7 @@ export function solveInventoryAdvanced(request: InventoryAdvancedRequest): Inven
     case "EQUAL_SP_ONE_RATE_FROM_OVERALL": {
       const p = Number(request.knownRatePercent.numerator) / Number(request.knownRatePercent.denominator);
       const t = Number(request.targetRatePercent.numerator) / Number(request.targetRatePercent.denominator) * (request.targetDirection === "PROFIT" ? 1 : -1);
-      const s1 = request.knownDirection === "PROFIT" ? 100 / (100 + p) : 100 / (100 - p);
+      const s1 = request.knownDirection === "PROFIT" ? 10000 / (100 + p) : 10000 / (100 - p);
       const targetCp = 200 / (1 + t / 100);
       const s2 = targetCp - s1;
       const unknown = request.unknownDirection === "PROFIT" ? 100 / s2 - 1 : 1 - 100 / s2;
