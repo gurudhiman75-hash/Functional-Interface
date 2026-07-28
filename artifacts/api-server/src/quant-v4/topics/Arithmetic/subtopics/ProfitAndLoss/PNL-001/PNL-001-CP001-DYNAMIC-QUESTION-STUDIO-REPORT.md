@@ -49,3 +49,7 @@ The shared Question Studio integration proof validates:
 - continued English-only enforcement for the current PNL Question Studio runtime.
 
 The permanent workflow is `.github/workflows/validate-pnl-question-studio-review-runtime.yml`.
+
+## Final review scope
+
+The finalized pull request contains only the shared runtime, preview-safety propagation, API forwarding, Question Studio capability and conversion-guard changes required for this integration, together with its proof and report. Temporary patch workflows and unrelated whole-file formatting changes were removed before final validation.
