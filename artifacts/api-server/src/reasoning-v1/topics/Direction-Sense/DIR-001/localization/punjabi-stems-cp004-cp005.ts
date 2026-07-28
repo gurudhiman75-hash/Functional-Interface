@@ -5,7 +5,7 @@ export function renderPunjabiStem011To022(english: R): string | null {
   const s = asR(english.structuredPrompt);
   switch (qlId) {
     case "DIR-QL-011":
-      return `${(s.relations ?? []).map((r: R) => relationSentencePa(r)).join(" ")} ${namePa(s.query.subject)}, ${namePa(s.query.reference)} ਦੇ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਹੈ?`;
+      return `${(s.relations ?? []).map((r: R) => relationSentencePa(r)).join(" ")} ${namePa(s.query.subject)}, ${namePa(s.query.reference)} ਤੋਂ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਹੈ?`;
     case "DIR-QL-012":
       return `${(s.relations ?? []).map((r: R) => relationSentencePa(r)).join(" ")} ${namePa(s.query.subject)}, ${namePa(s.query.reference)} ਤੋਂ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਅਤੇ ਕਿੰਨੀ ਸਭ ਤੋਂ ਘੱਟ ਦੂਰੀ ਉੱਤੇ ਹੈ?`;
     case "DIR-QL-013":
