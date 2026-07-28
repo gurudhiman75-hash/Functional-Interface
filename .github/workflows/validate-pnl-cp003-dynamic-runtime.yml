@@ -25,19 +25,96 @@ jobs:
         with:
           ref: feat/pnl-001-cp003-dynamic-runtime
 
-      - name: Keep damaged-stock unit recovery exact
+      - name: Enforce exact damaged-stock and unique unknown-quantity domains
         run: |
           python - <<'PY'
           from pathlib import Path
 
           path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts")
           source = path.read_text()
+
           old = '{ total: 100n, damaged: 25n, cost: 120, recovery: 40, target: 10 },'
           new = '{ total: 100n, damaged: 25n, cost: 120, recovery: 120, target: 10 },'
           if old in source:
-              path.write_text(source.replace(old, new, 1))
+              source = source.replace(old, new, 1)
           elif new not in source:
               raise SystemExit("damaged-stock preset was not found")
+
+          start = source.index('case "PNL-QL-079":')
+          end = source.index('case "PNL-QL-080":', start)
+          current = source[start:end]
+          if "quantityPreset" not in current:
+              replacement = '''case "PNL-QL-079": {
+                const quantityPreset = pickSeeded(
+                  random,
+                  [
+                    { fixedQuantity: 10n, fixedRate: 10, unknownQuantity: 20n, unknownRate: 40 },
+                    { fixedQuantity: 20n, fixedRate: 40, unknownQuantity: 10n, unknownRate: 10 },
+                    { fixedQuantity: 10n, fixedRate: 20, unknownQuantity: 40n, unknownRate: 40 },
+                  ] as const,
+                );
+                const commonUnitCost = rupees(pickSeeded(random, [100, 200] as const));
+                const fixedGroups = [
+                  {
+                    quantity: quantityPreset.fixedQuantity,
+                    unitCostPrice: commonUnitCost,
+                    direction: "PROFIT" as const,
+                    ratePercent: rational(quantityPreset.fixedRate),
+                  },
+                ];
+                const unknownQuantity = quantityPreset.unknownQuantity;
+                const unknownUnitCostPrice = commonUnitCost;
+                const unknownDirection = "PROFIT" as const;
+                const unknownRatePercent = rational(quantityPreset.unknownRate);
+                const complete = solveInventoryAdvanced({
+                  mode: "GROUP_RATES_TO_OVERALL_RESULT",
+                  groups: [
+                    ...fixedGroups,
+                    {
+                      quantity: unknownQuantity,
+                      unitCostPrice: unknownUnitCostPrice,
+                      direction: unknownDirection,
+                      ratePercent: unknownRatePercent,
+                    },
+                  ],
+                });
+                const target = overallTargetFromGroupResult(complete);
+                return {
+                  qlId,
+                  registry,
+                  seed: seedValue,
+                  request: {
+                    mode: "UNKNOWN_GROUP_QUANTITY_FOR_TARGET",
+                    fixedGroups,
+                    unknownUnitCostPrice,
+                    unknownDirection,
+                    unknownRatePercent,
+                    targetDirection: target.direction,
+                    targetRatePercent: target.ratePercent,
+                  },
+                  context: {
+                    fixedGroups: fixedGroups.map((group, index) =>
+                      groupRow(
+                        `Fixed group ${index + 1}`,
+                        group.quantity,
+                        group.unitCostPrice,
+                        group.direction,
+                        group.ratePercent,
+                      ),
+                    ),
+                    unknownUnitCostPrice: cp003PlainMoney(unknownUnitCostPrice),
+                    unknownDirection: unknownDirection.toLowerCase(),
+                    unknownRatePercent: cp003FormatRational(unknownRatePercent),
+                    targetDirection: target.direction.toLowerCase(),
+                    targetRatePercent: cp003FormatRational(target.ratePercent),
+                  },
+                };
+              }
+
+              '''
+              source = source[:start] + replacement + source[end:]
+
+          path.write_text(source)
           PY
 
       - name: Set up Node
@@ -52,6 +129,13 @@ jobs:
 
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Normalize CP-003 runtime sources
+        run: |
+          pnpm exec prettier --write \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.test.ts
 
       - name: Bundle dynamic runtime proof
         run: |
@@ -68,15 +152,21 @@ jobs:
           node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/.cp003-dynamic-runtime.test.mjs \
             2>&1 | tee -a pnl-cp003-dynamic-runtime.log
 
-      - name: Commit proven correction
+      - name: Commit proven corrections
         run: |
-          if git diff --quiet -- artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts; then
+          if git diff --quiet -- \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.test.ts; then
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts
-          git commit -m "fix(pnl): keep CP-003 damaged-stock pricing exact"
+          git add \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.test.ts
+          git commit -m "fix(pnl): enforce CP-003 exact inverse domains"
           git push origin HEAD:feat/pnl-001-cp003-dynamic-runtime
 
       - name: Upload proof evidence
