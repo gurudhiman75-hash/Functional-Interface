@@ -47,6 +47,13 @@ for (const prototypeId of prototypes) {
     assert.ok(first.explanation.traps.every((trap) => /^Option [A-D] \(\$/.test(trap) && trap.includes("Common mistake:")));
     assert.equal(/MEN-CP007|PROT-|misconceptionId|USED_|OMITTED_|IGNORED_|REPORTED_|EXTRA_|ADDED_|PAINTED_/.test(JSON.stringify(first.explanation)), false);
     assert.equal(/[½¼]/.test(JSON.stringify(first, (_key, value) => typeof value === "bigint" ? value.toString() : value)), false);
+    const explanationText = [
+      first.explanation.keyRule,
+      ...first.explanation.steps.flatMap((step) => [step.body, step.equation ?? ""]),
+      first.explanation.shortcut,
+      ...first.explanation.traps,
+    ].join("\n");
+    assert.equal(/(^|[^\\])sqrt\{/.test(explanationText), false, `${prototypeId} contains bare square-root markup without a MathJax backslash.`);
     assert.ok(first.stem.endsWith("?") || first.stem.endsWith("."));
 
     if (first.exactAnswer.kind === "SURD") {
