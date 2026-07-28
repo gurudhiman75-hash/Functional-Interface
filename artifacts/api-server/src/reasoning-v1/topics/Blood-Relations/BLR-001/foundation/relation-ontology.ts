@@ -27,6 +27,8 @@ const DISPLAY_LABELS: Readonly<Record<BlrRelationId, string>> = {
   MOTHER_IN_LAW: "Mother-in-law",
   SON_IN_LAW: "Son-in-law",
   DAUGHTER_IN_LAW: "Daughter-in-law",
+  BROTHER_IN_LAW: "Brother-in-law",
+  SISTER_IN_LAW: "Sister-in-law",
 };
 
 const DIRECT_SUBJECT_GENDER: Readonly<Record<DirectRelationId, "MALE" | "FEMALE">> = {
@@ -65,6 +67,9 @@ export function relationForPath(
   if (key === "PARENT>SIBLING>CHILD") return "COUSIN";
   if (key === "CHILD>SPOUSE") return subjectGender === "MALE" ? "FATHER_IN_LAW" : "MOTHER_IN_LAW";
   if (key === "SPOUSE>PARENT") return subjectGender === "MALE" ? "SON_IN_LAW" : "DAUGHTER_IN_LAW";
+  if (key === "SPOUSE>SIBLING" || key === "SIBLING>SPOUSE") {
+    return subjectGender === "MALE" ? "BROTHER_IN_LAW" : "SISTER_IN_LAW";
+  }
   return null;
 }
 
@@ -90,6 +95,8 @@ export function genderSwap(relationId: BlrRelationId): BlrRelationId | null {
     MOTHER_IN_LAW: "FATHER_IN_LAW",
     SON_IN_LAW: "DAUGHTER_IN_LAW",
     DAUGHTER_IN_LAW: "SON_IN_LAW",
+    BROTHER_IN_LAW: "SISTER_IN_LAW",
+    SISTER_IN_LAW: "BROTHER_IN_LAW",
   };
   return swaps[relationId] ?? null;
 }
@@ -108,8 +115,8 @@ export function defaultDistractorPool(relationId: BlrRelationId): readonly BlrRe
     GRANDMOTHER: ["MOTHER", "AUNT", "GRANDDAUGHTER", "MOTHER_IN_LAW"],
     GRANDSON: ["SON", "NEPHEW", "GRANDFATHER", "SON_IN_LAW"],
     GRANDDAUGHTER: ["DAUGHTER", "NIECE", "GRANDMOTHER", "DAUGHTER_IN_LAW"],
-    UNCLE: ["BROTHER", "FATHER", "NEPHEW", "FATHER_IN_LAW"],
-    AUNT: ["SISTER", "MOTHER", "NIECE", "MOTHER_IN_LAW"],
+    UNCLE: ["BROTHER", "FATHER", "NEPHEW", "BROTHER_IN_LAW"],
+    AUNT: ["SISTER", "MOTHER", "NIECE", "SISTER_IN_LAW"],
     NEPHEW: ["SON", "BROTHER", "UNCLE", "COUSIN"],
     NIECE: ["DAUGHTER", "SISTER", "AUNT", "COUSIN"],
     COUSIN: ["BROTHER", "SISTER", "NEPHEW", "NIECE"],
@@ -117,6 +124,8 @@ export function defaultDistractorPool(relationId: BlrRelationId): readonly BlrRe
     MOTHER_IN_LAW: ["MOTHER", "AUNT", "DAUGHTER_IN_LAW", "GRANDMOTHER"],
     SON_IN_LAW: ["SON", "NEPHEW", "FATHER_IN_LAW", "HUSBAND"],
     DAUGHTER_IN_LAW: ["DAUGHTER", "NIECE", "MOTHER_IN_LAW", "WIFE"],
+    BROTHER_IN_LAW: ["BROTHER", "UNCLE", "SON_IN_LAW", "FATHER_IN_LAW"],
+    SISTER_IN_LAW: ["SISTER", "AUNT", "DAUGHTER_IN_LAW", "MOTHER_IN_LAW"],
   };
   return pools[relationId] ?? ["BROTHER", "SISTER", "FATHER", "MOTHER"];
 }
