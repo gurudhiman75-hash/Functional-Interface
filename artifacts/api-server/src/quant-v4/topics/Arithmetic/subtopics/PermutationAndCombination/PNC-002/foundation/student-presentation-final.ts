@@ -67,6 +67,9 @@ function cleanMathSpacing(value: string): string {
   return value
     .replace(/\b(is|gives|becomes|equals|using|as)\$(?!\$)/gi, "$1 $")
     .replace(/\b(Thus|Hence|Therefore)\$(?!\$)/g, "$1 $")
+    .replace(/\bspecified\b/gi, "particular")
+    .replace(/\bunnamed\b/gi, "unlabelled")
+    .replace(/\bdistinct\b/gi, "different")
     .replace(/(calculation|formula|count):\$\$/gi, (_match, label: string) => `${label}: $$`)
     .replace(/\s+/g, " ")
     .trim();
@@ -78,7 +81,10 @@ function finalStem(source: PncStudentSourcePackage, reviewedStem: string): strin
   let stem = reviewedStem;
 
   if (mode.includes("derangement") || mode.includes("fixedpoint")) {
-    stem = stem.replace(/different objects/gi, "numbered cards");
+    stem = stem
+      .replace(/different objects/gi, "numbered cards")
+      .replace(/\bobjects\b/gi, "cards")
+      .replace(/\bobject\b/gi, "card");
   }
 
   if (/identical marbles?/.test(original)) {
@@ -97,6 +103,13 @@ function finalStem(source: PncStudentSourcePackage, reviewedStem: string): strin
     } else {
       stem = stem.replace("A college is forming a committee or team for an official event.", "A college is forming a committee for an official event.");
     }
+  }
+
+  if (/trainees?/.test(original)) {
+    stem = stem.replace(
+      /^A sports club is forming teams for a tournament\./,
+      "A training centre is forming project teams.",
+    );
   }
 
   return stem;
@@ -214,6 +227,10 @@ function factorialReason(source: PncStudentSourcePackage, option: number): strin
 }
 
 function finalTrapReason(source: PncStudentSourcePackage, option: number): string {
+  if (source.solveMode.toLowerCase().includes("recover")) {
+    return "does not reproduce the stated target count when checked within the permitted candidate range";
+  }
+
   const matched = evidenceReason(source, option)
     ?? derangementReason(source, option)
     ?? gridReason(source, option)
