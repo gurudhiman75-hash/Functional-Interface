@@ -131,7 +131,7 @@ function words(tokens: readonly string[]) {
 
 function withArticle(value: string) {
   if (!value) return "an intermediate value";
-  if (/^(the|a|an|one|only|half|double|triple|four|all|both|its|their)\b/i.test(value)) return value;
+  if (/^(the|a|an|one|two|three|four|five|six|seven|eight|nine|ten|only|half|double|triple|all|both|its|their|\d)\b/i.test(value)) return value;
   return `the ${value}`;
 }
 
@@ -184,10 +184,12 @@ function generatedExplanation(strategyId: string) {
       return `using ${withArticle(afterText)} in a formula where it does not belong`;
     }
     case "divide":
+      if (afterText.startsWith("by ")) return `dividing by ${afterText.slice(3)} unnecessarily`;
       return by
         ? `dividing ${withArticle(by[0])} by ${withArticle(by[1])}`
         : `dividing by ${withArticle(afterText)} unnecessarily`;
     case "multiply":
+      if (afterText.startsWith("by ")) return `multiplying by ${afterText.slice(3)} unnecessarily`;
       return by
         ? `multiplying ${withArticle(by[0])} by ${withArticle(by[1])}`
         : `multiplying by ${withArticle(afterText)} unnecessarily`;
