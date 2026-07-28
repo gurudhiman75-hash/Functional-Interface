@@ -30,6 +30,7 @@ import {
   type Pnl001CanonicalProblemId,
 } from "./topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-review-runtime";
 import { runPnlCp001DynamicPipeline } from "./topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-001/cp001-dynamic-runtime";
+import { runPnlCp002DynamicPipeline } from "./topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime";
 
 export type QuantV4PackageId = CoreQuantV4PackageId | "PNL-001";
 export type QuantV4GenerationRequest = Omit<
@@ -50,7 +51,7 @@ export { QUANT_V4_PERCENTAGE_ALL_PATTERN_ID, toQuestionStudioPreview };
 
 const RAP_LANGUAGES: readonly QuantV4Language[] = ["en", "hi", "pa"];
 const PNL_LANGUAGES: readonly QuantV4Language[] = ["en"];
-const PNL_DYNAMIC_CP_IDS = ["PNL-CP-001"] as const;
+const PNL_DYNAMIC_CP_IDS = ["PNL-CP-001", "PNL-CP-002"] as const;
 type Pnl001RuntimeMode = "CANONICAL_REVIEW" | "DYNAMIC_CANDIDATE";
 
 const normalizeSelectorText = (value: unknown) =>
@@ -350,19 +351,33 @@ async function generateWithRuntimePackage(
     }
     const cpId = cpOrder[index % cpOrder.length]!;
     const seed = `${batchSeed}:${cpId}:${index}`;
-    const questionPackage = pnlRuntimeMode === "DYNAMIC_CANDIDATE"
-    ? runPnlCp001DynamicPipeline({
-        difficultyBand,
-        language: language as "en",
-        questionLanguageId: request.questionLanguageId,
-        seed,
-      })
-    : await pkg.run(cpId, {
-        difficulty: difficultyBand,
-        language,
-        questionLanguageId: request.questionLanguageId,
-        seed,
-      });
+    const questionPackage =
+    pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+      ? cpId === "PNL-CP-001"
+        ? runPnlCp001DynamicPipeline({
+            difficultyBand,
+            language: language as "en",
+            questionLanguageId: request.questionLanguageId,
+            seed,
+          })
+        : cpId === "PNL-CP-002"
+          ? runPnlCp002DynamicPipeline({
+              difficultyBand,
+              language: language as "en",
+              questionLanguageId: request.questionLanguageId,
+              seed,
+            })
+          : (() => {
+              throw new QuantV4RequestError(
+                `No dynamic PNL runtime is registered for '${cpId}'.`,
+              );
+            })()
+      : await pkg.run(cpId, {
+          difficulty: difficultyBand,
+          language,
+          questionLanguageId: request.questionLanguageId,
+          seed,
+        });
     results.push({
       questionPackage,
       question: toQuestionStudioPreview(questionPackage, {
