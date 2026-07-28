@@ -1,5 +1,6 @@
 import { normaliseIntCp001EditorialStem } from "./cp001-editorial-normalizer";
 import { normaliseIntCp001MoneyOptions } from "./cp001-option-normalizer";
+import { normaliseIntCp001MoneyState } from "./cp001-money-state-normalizer";
 import { getIntCp001PrototypeEntry } from "./cp001-registry";
 import { buildIntCp001Options } from "./cp001-options";
 import { generateIntCp001Parameters } from "./cp001-parameter-generator";
@@ -22,8 +23,10 @@ export function generateIntCp001Prototype(
   seed: string,
 ): IntCp001GeneratedPrototype {
   const registry = getIntCp001PrototypeEntry(prototypeId);
-  const parameters = expandIntCp001TimeInverseState(
-    generateIntCp001Parameters(prototypeId, seed),
+  const parameters = normaliseIntCp001MoneyState(
+    expandIntCp001TimeInverseState(
+      generateIntCp001Parameters(prototypeId, seed),
+    ),
   );
   const solution = solveIntCp001(parameters.request);
   const optionPackage = normaliseIntCp001MoneyOptions(
