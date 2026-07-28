@@ -26,6 +26,7 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BL
 - generation propagation and comparison;
 - exact paternal/maternal lineage resolution;
 - great-generation relation closure;
+- blood and affinal uncle/aunt with inverse nephew/niece closure;
 - independent clue-only solvers;
 - misconception-labelled four-option construction;
 - four-tier learner-facing editorial layer;
@@ -65,26 +66,27 @@ Pointing, photograph, introduction and stage forms are renderer variants. The fi
 RESOLVE_ANCHORED_ROLE_CHAIN_RELATION
 ```
 
-This is not a one-QL freeze. Source widening and a second gap audit remain mandatory.
+This is not a one-QL freeze. Source widening, broad `ONLY_CHILD` support and a second gap audit remain mandatory.
 
 ## Current executable gates
 
 ```text
-BLR-CP-001 frozen workflow              3,556 questions
-BLR-CP-002 mathematical audit             600 questions
-BLR-CP-002 English editorial V2 audit     400 questions
--------------------------------------------------------
-current deterministic chapter proof     4,556 questions
+BLR-CP-001 frozen workflow                3,556 questions
+BLR-CP-002 mathematical audit               600 questions
+BLR-CP-002 affinal source widening          576 questions
+BLR-CP-002 English editorial V2 audit       400 questions
+---------------------------------------------------------
+current deterministic chapter proof       5,132 questions
 ```
 
-CP-002 verifies formal only-role cardinality, pronoun anchors, assertion truth, nested query endpoints, self identity, all dialogue renderers, hidden-identity preservation, natural photograph wording and complete explanation tiers.
+CP-002 verifies formal only-role cardinality, pronoun anchors, assertion truth, nested query endpoints, self identity, all dialogue renderers, hidden-identity preservation, natural photograph wording, complete explanation tiers and nine affinal relation families. The complete CP-001 regression remains green after the shared ontology extension.
 
 ## Checkpoint state
 
 | Checkpoint | Ownership | State |
 |---|---|---|
 | `BLR-CP-001` | direct declarative named-person relations | frozen; `BLR-QL-001..007` |
-| `BLR-CP-002` | pointer/photo/conversation/nested self-reference | English open discovery; five prototypes provisionally one authority; zero new QLs |
+| `BLR-CP-002` | pointer/photo/conversation/nested self-reference | English open discovery; 23 scenarios, five prototypes, provisionally one authority; zero new QLs |
 | `BLR-CP-003` | shared family passages | open |
 | `BLR-CP-004` | counts and family composition | open |
 | `BLR-CP-005` | possible/impossible/one-of-two/indeterminate semantics | open |
@@ -109,8 +111,10 @@ The next available chapter identity is `BLR-QL-008`, but CP-002 has not claimed 
 - `BLR-CP-002/BLR-CP-002-SOURCE-AND-BOUNDARY-AUDIT.md`;
 - `BLR-CP-002/BLR-CP-002-MERGE-SPLIT-AUDIT-V1.md`;
 - `BLR-CP-002/BLR-CP-002-ENGLISH-REVIEW-V2.md`;
+- `BLR-CP-002/BLR-CP-002-SOURCE-WIDENING-AUDIT-V1.md`;
+- `BLR-CP-002/BLR-CP-002-SOURCE-REJECTION-REGISTER-V1.md`;
 - `BLR-CP-002/README.md`;
-- executable role-chain contracts, solver, scenario library, raw generator, editorial registry, audits and review exports.
+- executable role-chain contracts, solver, scenario libraries, raw generator, editorial registry, audits and review exports.
 
 ## Release boundary
 
@@ -123,4 +127,4 @@ CP-001 permanent identity and CP-002 prototypes do not enable delivery:
 - Hindi and Punjabi: not started;
 - public publication: disabled.
 
-The next CP-002 boundary is affinal/source widening and a second source-gap pass before any allocation beginning at `BLR-QL-008`.
+The next CP-002 boundary is genuine broad `ONLY_CHILD` support, canonical integration of the affinal scenarios and a second source-gap pass before any allocation beginning at `BLR-QL-008`.
