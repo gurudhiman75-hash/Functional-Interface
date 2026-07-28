@@ -44,7 +44,7 @@ jobs:
           ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-001
           OUT=dist/reasoning-v1/cls-001
           mkdir -p artifacts/api-server/$OUT
-          for TEST in prototype hierarchy-ambiguity; do
+          for TEST in prototype hierarchy-ambiguity editorial-difficulty; do
             pnpm --dir artifacts/api-server exec esbuild \
               "$ROOT/$TEST.test.ts" \
               --bundle --platform=node --format=esm \
@@ -58,7 +58,7 @@ jobs:
           DIAG=artifacts/api-server/dist/reasoning-v1/cls-001/diagnostics
           mkdir -p "$DIAG"
           STATUS=0
-          for TEST in prototype hierarchy-ambiguity; do
+          for TEST in prototype hierarchy-ambiguity editorial-difficulty; do
             (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/$TEST.test.mjs") >"$DIAG/$TEST-audit.log" 2>&1
             if [ $? -ne 0 ]; then STATUS=1; fi
           done
