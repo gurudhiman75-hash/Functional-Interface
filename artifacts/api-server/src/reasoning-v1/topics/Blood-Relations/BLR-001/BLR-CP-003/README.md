@@ -1,33 +1,43 @@
 # BLR-CP-003 — Family-Set Passages and Shared Graphs
 
-Status: **English open discovery; initial grouped runtime implemented; zero permanent QLs**.
+Status: **English open discovery; graph-first grouped runtime active; zero permanent QLs**.
 
 ## Ownership
 
-This checkpoint owns pure-kinship shared passages. One clue block reconstructs one family graph and supports several item contracts.
+This checkpoint owns pure-kinship shared passages. One hidden family graph yields one compact clue block, and the clue-only reconstruction supports several independently solved items.
 
-Current initial slice:
+The current executable slice covers:
 
-- three graph-first family topologies;
-- six non-permanent prototype handles;
-- relation, married-pair, gender, generation and definitely-true claim items;
+- four graph-first family topologies;
+- eleven non-permanent handles, including the group assembly handle;
+- relation between named members;
+- identify a member by relation;
+- married, sibling and parent-child pair selection;
+- gender and generation questions;
+- definitely true and definitely false claims;
+- a complete set of all members satisfying a relation;
 - six or seven questions per shared passage;
-- direct clue reconstruction through the shared BLR graph foundation;
+- hidden-graph versus clue-only answer agreement;
 - item-specific four-option construction;
 - per-clue contribution rejection;
-- deterministic names, prompts, item answers and option order;
+- deterministic names, prompts, answers and option order;
 - release locks on every group.
 
-## Initial executable inventory
+## Current executable inventory
 
 ```text
-3 canonical scenarios
-240 deterministic groups in the repository gate
-1,520 independently solved items
-0 permanent QLs
+Base graph-first scenarios                 3
+Extended sibling/set scenarios             1
+------------------------------------------------
+Canonical prototype scenarios              4
+Deterministic groups                     340
+Independently solved items             2,220
+Hidden-graph agreement checks            340
+Explicit extended clue checks            100
+Permanent QLs                              0
 ```
 
-The scenario and item counts describe only the first proof slice. They are not freeze targets.
+These figures describe an open-discovery milestone, not freeze targets.
 
 ## Main files
 
@@ -37,32 +47,45 @@ The scenario and item counts describe only the first proof slice. They are not f
 - `cp003-solver.ts`
 - `cp003-generator.ts`
 - `cp003-prototype.test.ts`
+- `cp003-extended-types.ts`
+- `cp003-extended-scenario.ts`
+- `cp003-extended-solver.ts`
+- `cp003-extended-generator.ts`
+- `cp003-extended.test.ts`
 
 ## Current prototype handles
 
 ```text
 BLR-CP003-PROT-SHARED-RELATION
+BLR-CP003-PROT-SHARED-IDENTIFY-PERSON
 BLR-CP003-PROT-SHARED-MARRIED-PAIR
+BLR-CP003-PROT-SHARED-SIBLING-PAIR
+BLR-CP003-PROT-SHARED-PARENT-CHILD-PAIR
 BLR-CP003-PROT-SHARED-GENDER
 BLR-CP003-PROT-SHARED-GENERATION
 BLR-CP003-PROT-SHARED-TRUE-CLAIM
+BLR-CP003-PROT-SHARED-FALSE-CLAIM
+BLR-CP003-PROT-SHARED-MEMBER-SET
 BLR-CP003-PROT-MULTI-ITEM-GROUP
 ```
 
 These IDs are temporary discovery handles. `BLR-QL-009` remains unclaimed.
 
-## Next discovery expansion
+## Explicit marital-status rule
 
-- identify a person by relation;
-- sibling-pair and parent-child-pair options;
-- marital-status questions;
-- definitely-false claim questions;
-- identify all members satisfying a relation;
+The runtime does not infer `UNMARRIED` merely because no spouse edge is displayed. A later marital-status prototype must carry an explicit unmarried fact or another logically sufficient source-backed constraint.
+
+## Remaining discovery work
+
+- explicit marital-status facts and options;
 - wider two-, three- and four-generation topology saturation;
+- additional maternal/paternal and affinal shared-passage routes;
 - clue minimisation beyond per-item contribution;
-- shared-prompt editorial review and family-tree explanation rendering;
+- shared-prompt English editorial review;
+- family-tree explanation rendering;
+- source-backed option-style widening;
 - merge/split audit against frozen CP-001 item authorities;
-- inverse and second source-gap audits.
+- inverse audit, human review and second source-gap confirmation.
 
 ## Release boundary
 
