@@ -23,6 +23,11 @@ jobs:
           ref: feat/blr-001-cp002-pointer-runtime
           fetch-depth: 0
 
+      - name: Configure diagnostic Git identity
+        run: |
+          git config user.name "ExamTree CI"
+          git config user.email "exam-tree-ci@users.noreply.github.com"
+
       - name: Fetch current New-main
         run: git fetch origin New-main
 
