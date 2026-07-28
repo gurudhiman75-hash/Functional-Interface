@@ -145,7 +145,7 @@ function cubeSideFromVolumeDraft(prototypeId: MenCp007PrototypeId, seed: string,
     stem: `A ${context} has volume $${volume}\\text{ cm}^3$. Find its side length.`,
     answer,
     wrongAnswers: [
-      { value: exactFromSquaredLength(volume), misconceptionId: "TOOK_SQUARE_ROOT", explanation: `taking $\sqrt{${volume}}$ as though the given cubic measure were an area` },
+      { value: exactFromSquaredLength(volume), misconceptionId: "TOOK_SQUARE_ROOT", explanation: `taking $\\sqrt{${volume}}$ as though the given cubic measure were an area` },
       { value: q(volume, 3n), misconceptionId: "DIVIDED_VOLUME_BY_THREE", explanation: `dividing $${volume}$ by $3$ instead of taking its cube root` },
       { value: q(side + 1n), misconceptionId: "CUBE_ROOT_SLIP", explanation: `choosing a nearby integer even though only $${side}^3=${volume}$ reconstructs the given volume` },
     ],
