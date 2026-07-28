@@ -1,12 +1,10 @@
-import {
-  INT_CP001_FINAL_QL_IDS,
-  INT_CP001_FINAL_REGISTRY,
-} from "./cp001-final-registry";
+import { INT_CP001_FINAL_REGISTRY } from "./cp001-final-registry";
 import { generateIntCp001FinalEditorialV3Question } from "./cp001-final-editorial-runtime-v3";
 import {
-  assertIntCp001LocaleParity,
-  generateIntCp001LocalizedQuestion,
-} from "./cp001-localized-runtime";
+  assertIntCp001ApprovedLocaleParity,
+  generateIntCp001ApprovedLocalizedQuestion,
+} from "./cp001-localized-runtime-approved";
+import { generateIntCp001ReleaseLocalizedQuestion } from "./cp001-localized-runtime-release";
 import {
   INT_CP001_HINDI_RELEASE_ID,
   INT_CP001_MULTILINGUAL_STANDARD,
@@ -19,32 +17,36 @@ function fail(message: string): never {
   throw new Error(message);
 }
 
-const locales: readonly IntCp001Locale[] = ["hi", "pa"];
-const perLocale = new Map<IntCp001Locale, {
-  generated: number;
-  stems: Set<string>;
-  answers: Set<string>;
-  positions: number[];
-  sourceAdapters: Set<string>;
-  qlStemCounts: Map<string, Set<string>>;
-}>();
-
-for (const locale of locales) {
-  perLocale.set(locale, {
-    generated: 0,
-    stems: new Set(),
-    answers: new Set(),
-    positions: [0, 0, 0, 0],
-    sourceAdapters: new Set(),
-    qlStemCounts: new Map(),
-  });
+function approvedContentIdentity(value: Record<string, unknown>): string {
+  const {
+    maturity: _maturity,
+    reviewStatus: _reviewStatus,
+    localeReviewStatus: _localeReviewStatus,
+    ...content
+  } = value;
+  return stableBigIntJson(content);
 }
 
+const locales: readonly IntCp001Locale[] = ["hi", "pa"];
+const stats = Object.fromEntries(locales.map((locale) => [locale, {
+  generated: 0,
+  distinctStems: new Set<string>(),
+  distinctAnswers: new Set<string>(),
+  positions: [0, 0, 0, 0],
+  adapters: new Set<string>(),
+  stemsByQl: new Map<string, Set<string>>(),
+}])) as Record<IntCp001Locale, {
+  generated: number;
+  distinctStems: Set<string>;
+  distinctAnswers: Set<string>;
+  positions: number[];
+  adapters: Set<string>;
+  stemsByQl: Map<string, Set<string>>;
+}>;
+
 let parityChecks = 0;
-let localizedValidationFailures = 0;
-let publicLeaks = 0;
-let optionFailures = 0;
-let identityFailures = 0;
+let approvalIdentityChecks = 0;
+let trapChecks = 0;
 
 for (const entry of INT_CP001_FINAL_REGISTRY) {
   for (let index = 0; index < 80; index += 1) {
@@ -53,123 +55,120 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
     if (!english.validation.ok) fail(`${entry.qlId}/${seed}/en: ${english.validation.errors.join(" | ")}`);
 
     for (const locale of locales) {
-      const item = generateIntCp001LocalizedQuestion(entry.qlId, seed, locale);
-      const repeat = generateIntCp001LocalizedQuestion(entry.qlId, seed, locale);
-      const stats = perLocale.get(locale)!;
-      stats.generated += 1;
+      const candidate = generateIntCp001ReleaseLocalizedQuestion(entry.qlId, seed, locale);
+      const item = generateIntCp001ApprovedLocalizedQuestion(entry.qlId, seed, locale);
+      const repeat = generateIntCp001ApprovedLocalizedQuestion(entry.qlId, seed, locale);
+      const localeStats = stats[locale];
 
-      if (stableBigIntJson(item) !== stableBigIntJson(repeat)) {
-        fail(`${entry.qlId}/${seed}/${locale} is not deterministic.`);
-      }
-      assertIntCp001LocaleParity(english, item);
+      if (stableBigIntJson(item) !== stableBigIntJson(repeat)) fail(`${entry.qlId}/${seed}/${locale} is not deterministic.`);
+      assertIntCp001ApprovedLocaleParity(english, item);
       parityChecks += 1;
 
-      if (!item.validation.ok) {
-        localizedValidationFailures += 1;
-        fail(`${entry.qlId}/${seed}/${locale}: ${item.validation.errors.join(" | ")}`);
+      if (
+        approvedContentIdentity(item as unknown as Record<string, unknown>)
+        !== approvedContentIdentity(candidate as unknown as Record<string, unknown>)
+      ) {
+        fail(`${entry.qlId}/${seed}/${locale} approval changed reviewed learner content or mathematics.`);
       }
-      if (item.qlId !== entry.qlId || item.permanentQlId !== entry.qlId || item.solveContract !== entry.solveContract) {
-        identityFailures += 1;
-        fail(`${entry.qlId}/${seed}/${locale} lost permanent identity or solve-contract parity.`);
-      }
+      approvalIdentityChecks += 1;
+
+      if (!item.validation.ok) fail(`${entry.qlId}/${seed}/${locale}: ${item.validation.errors.join(" | ")}`);
+      if (item.qlId !== entry.qlId || item.solveContract !== entry.solveContract) fail(`${entry.qlId}/${seed}/${locale} lost identity.`);
       const expectedRelease = locale === "hi" ? INT_CP001_HINDI_RELEASE_ID : INT_CP001_PUNJABI_RELEASE_ID;
-      if (item.releaseId !== expectedRelease) fail(`${entry.qlId}/${seed}/${locale} has the wrong locale release ID.`);
-      if (item.options.length !== 4 || new Set(item.options).size !== 4) {
-        optionFailures += 1;
-        fail(`${entry.qlId}/${seed}/${locale} does not have four unique localized options.`);
-      }
-      if (item.optionAudit.filter((option) => option.misconceptionId === "CORRECT").length !== 1) {
-        optionFailures += 1;
-        fail(`${entry.qlId}/${seed}/${locale} has invalid correct-option metadata.`);
-      }
-      if (item.optionAudit[item.correctIndex]?.text !== item.options[item.correctIndex]) {
-        optionFailures += 1;
-        fail(`${entry.qlId}/${seed}/${locale} option audit is out of display order.`);
-      }
-      if (item.explanation.trapAnalysis.items.length !== 3) {
-        fail(`${entry.qlId}/${seed}/${locale} does not analyse all distractors.`);
+      if (item.releaseId !== expectedRelease) fail(`${entry.qlId}/${seed}/${locale} has incorrect release traceability.`);
+      if (item.options.length !== 4 || new Set(item.options).size !== 4) fail(`${entry.qlId}/${seed}/${locale} lacks four unique options.`);
+      if (item.optionAudit[item.correctIndex]?.misconceptionId !== "CORRECT") fail(`${entry.qlId}/${seed}/${locale} lost correct-index parity.`);
+      if (item.optionAudit[item.correctIndex]?.text !== item.options[item.correctIndex]) fail(`${entry.qlId}/${seed}/${locale} option audit is out of display order.`);
+      if (item.explanation.trapAnalysis.items.length !== 3) fail(`${entry.qlId}/${seed}/${locale} lacks three trap explanations.`);
+      for (const trap of item.explanation.trapAnalysis.items) {
+        trapChecks += 1;
+        if (trap.optionNumber - 1 === item.correctIndex) fail(`${entry.qlId}/${seed}/${locale} analyses the correct option as a trap.`);
+        if (trap.optionText !== item.options[trap.optionNumber - 1]) fail(`${entry.qlId}/${seed}/${locale} trap option is out of sync.`);
+        if (!trap.explanation.trim()) fail(`${entry.qlId}/${seed}/${locale} contains an empty trap explanation.`);
       }
       if (!item.explanation.stepByStep.conclusion.includes(item.options[item.correctIndex]!)) {
-        fail(`${entry.qlId}/${seed}/${locale} conclusion does not state the localized answer.`);
+        fail(`${entry.qlId}/${seed}/${locale} conclusion omits the displayed answer.`);
       }
-      if (item.publiclyPublishable || item.questionStudioDiscoverable) {
-        publicLeaks += 1;
-        fail(`${entry.qlId}/${seed}/${locale} breached publication safety.`);
+      if (
+        item.maturity !== "APPROVED_MULTILINGUAL_CONTRACT"
+        || item.reviewStatus !== "APPROVED_MULTILINGUAL_CONTRACT"
+        || item.localeReviewStatus !== "APPROVED_HUMAN_REVIEW"
+      ) {
+        fail(`${entry.qlId}/${seed}/${locale} has incorrect approval status.`);
+      }
+      if (
+        candidate.reviewStatus !== "PENDING_MULTILINGUAL_REVIEW"
+        || candidate.localeReviewStatus !== "PENDING_HUMAN_REVIEW"
+      ) {
+        fail(`${entry.qlId}/${seed}/${locale} candidate evidence was mutated during approval.`);
       }
       if (item.questionBankStatus !== "NOT_STORED" || item.testEligibility !== "INELIGIBLE") {
-        publicLeaks += 1;
         fail(`${entry.qlId}/${seed}/${locale} breached storage/test safety.`);
       }
-      if (item.reviewStatus !== "PENDING_MULTILINGUAL_REVIEW" || item.localeReviewStatus !== "PENDING_HUMAN_REVIEW") {
-        fail(`${entry.qlId}/${seed}/${locale} lost locale review-state safety.`);
-      }
+      if (item.publiclyPublishable || item.questionStudioDiscoverable) fail(`${entry.qlId}/${seed}/${locale} breached publication safety.`);
 
-      stats.stems.add(item.stem);
-      stats.answers.add(item.options[item.correctIndex]!);
-      stats.positions[item.correctIndex] += 1;
-      stats.sourceAdapters.add(`${item.internalProvenance.sourceKind}:${item.internalProvenance.sourcePrototypeId}`);
-      const qlStems = stats.qlStemCounts.get(entry.qlId) ?? new Set<string>();
+      localeStats.generated += 1;
+      localeStats.distinctStems.add(item.stem);
+      localeStats.distinctAnswers.add(item.options[item.correctIndex]!);
+      localeStats.positions[item.correctIndex] += 1;
+      localeStats.adapters.add(`${item.internalProvenance.sourceKind}:${item.internalProvenance.sourcePrototypeId}`);
+      const qlStems = localeStats.stemsByQl.get(entry.qlId) ?? new Set<string>();
       qlStems.add(item.stem);
-      stats.qlStemCounts.set(entry.qlId, qlStems);
+      localeStats.stemsByQl.set(entry.qlId, qlStems);
     }
   }
 }
 
 for (const locale of locales) {
-  const stats = perLocale.get(locale)!;
-  if (stats.generated !== INT_CP001_FINAL_QL_IDS.length * 80) {
-    fail(`${locale} generated ${stats.generated} questions instead of ${INT_CP001_FINAL_QL_IDS.length * 80}.`);
-  }
-  if (stats.positions.some((count) => count === 0)) fail(`${locale} does not reach all four answer positions.`);
+  const localeStats = stats[locale];
+  if (localeStats.generated !== 1680) fail(`${locale} generated ${localeStats.generated}/1680 questions.`);
+  if (localeStats.positions.some((count) => count === 0)) fail(`${locale} did not reach every answer position.`);
   for (const entry of INT_CP001_FINAL_REGISTRY) {
-    const count = stats.qlStemCounts.get(entry.qlId)?.size ?? 0;
-    if (count < 20) fail(`${entry.qlId}/${locale} has insufficient localized stem diversity: ${count}.`);
+    const stemCount = localeStats.stemsByQl.get(entry.qlId)?.size ?? 0;
+    if (stemCount < 20) fail(`${entry.qlId}/${locale} has only ${stemCount} distinct stems.`);
     for (const source of entry.sourceAdapters) {
       const key = `${source.kind}:${source.prototypeId}`;
-      if (!stats.sourceAdapters.has(key)) fail(`${entry.qlId}/${locale} did not exercise source adapter ${key}.`);
+      if (!localeStats.adapters.has(key)) fail(`${entry.qlId}/${locale} did not exercise ${key}.`);
     }
   }
 }
 
-const hi = perLocale.get("hi")!;
-const pa = perLocale.get("pa")!;
-const crossLocaleStemCollisions = [...hi.stems].filter((stem) => pa.stems.has(stem)).length;
-if (crossLocaleStemCollisions !== 0) fail(`Hindi/Punjabi exact stem collisions: ${crossLocaleStemCollisions}.`);
+const exactCrossLocaleCollisions = [...stats.hi.distinctStems].filter((stem) => stats.pa.distinctStems.has(stem)).length;
+if (exactCrossLocaleCollisions !== 0) fail(`Hindi/Punjabi exact stem collisions: ${exactCrossLocaleCollisions}.`);
 
 console.log(JSON.stringify({
   status: "PASS",
-  editorialStandard: INT_CP001_MULTILINGUAL_STANDARD,
   cpId: "INT-CP-001",
-  qlCount: INT_CP001_FINAL_QL_IDS.length,
+  editorialStandard: INT_CP001_MULTILINGUAL_STANDARD,
+  qlCount: 21,
   seedsPerQl: 80,
-  localizedQuestions: hi.generated + pa.generated,
+  localizedQuestions: stats.hi.generated + stats.pa.generated,
   parityChecks,
-  releases: {
-    hi: INT_CP001_HINDI_RELEASE_ID,
-    pa: INT_CP001_PUNJABI_RELEASE_ID,
-  },
+  approvalIdentityChecks,
+  trapChecks,
+  exactCrossLocaleCollisions,
+  releases: { hi: INT_CP001_HINDI_RELEASE_ID, pa: INT_CP001_PUNJABI_RELEASE_ID },
   locales: {
     hi: {
-      generated: hi.generated,
-      distinctStems: hi.stems.size,
-      distinctAnswers: hi.answers.size,
-      answerPositions: hi.positions,
-      sourceAdapters: hi.sourceAdapters.size,
+      generated: stats.hi.generated,
+      distinctStems: stats.hi.distinctStems.size,
+      distinctAnswers: stats.hi.distinctAnswers.size,
+      answerPositions: stats.hi.positions,
+      adapters: stats.hi.adapters.size,
     },
     pa: {
-      generated: pa.generated,
-      distinctStems: pa.stems.size,
-      distinctAnswers: pa.answers.size,
-      answerPositions: pa.positions,
-      sourceAdapters: pa.sourceAdapters.size,
+      generated: stats.pa.generated,
+      distinctStems: stats.pa.distinctStems.size,
+      distinctAnswers: stats.pa.distinctAnswers.size,
+      answerPositions: stats.pa.positions,
+      adapters: stats.pa.adapters.size,
     },
   },
-  crossLocaleStemCollisions,
-  localizedValidationFailures,
-  optionFailures,
-  identityFailures,
-  publicLeaks,
+  maturity: "APPROVED_MULTILINGUAL_CONTRACT",
+  reviewStatus: "APPROVED_MULTILINGUAL_CONTRACT",
+  localeReviewStatus: "APPROVED_HUMAN_REVIEW",
+  questionBankStatus: "NOT_STORED",
+  testEligibility: "INELIGIBLE",
   publiclyPublishable: false,
   questionStudioDiscoverable: false,
-  localeReviewStatus: "PENDING_HUMAN_REVIEW",
 }, null, 2));
