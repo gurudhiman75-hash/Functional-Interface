@@ -77,6 +77,10 @@ export {
   runMalCp001PermanentPipeline,
 } from "./foundation/cp001-permanent-runtime";
 export {
+  MAL_CP001_TEACHER_LAYOUT_ID,
+  buildMalCp001TeacherExplanation,
+} from "./foundation/cp001-teacher-explanation";
+export {
   MAL_CP001_PERMANENT_REVIEW_SEEDS,
   buildMalCp001PermanentReviewModel,
 } from "./foundation/cp001-permanent-review-model";
@@ -131,6 +135,9 @@ export type {
   MalCp001PermanentRuntimeInput,
   MalCp001PermanentQuestion,
 } from "./foundation/cp001-permanent-runtime";
+export type {
+  MalCp001TeacherExplanation,
+} from "./foundation/cp001-teacher-explanation";
 export type {
   MalCp001PermanentReviewStatus,
   MalCp001PermanentReviewRow,
