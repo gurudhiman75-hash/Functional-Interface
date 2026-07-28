@@ -125,8 +125,11 @@ for (const contract of CLS_CP001_PERMANENT_CONTRACTS) {
 
   const positions = answerPositions.get(contract.qlId)!;
   assert.deepEqual(positions.map((count) => count > 0), [true, true, true, true, true]);
-  const nonZero = positions.filter((count) => count > 0);
-  assert.ok(Math.max(...nonZero) / Math.min(...nonZero) < 1.8, `${contract.qlId} answer positions are imbalanced: ${positions}`);
+  assert.ok(
+    Math.max(...positions.slice(0, 4)) / Math.min(...positions.slice(0, 4)) < 1.5,
+    `${contract.qlId} first four answer positions are imbalanced: ${positions}`,
+  );
+  assert.ok(positions[4]! > 15, `${contract.qlId} did not materially exercise fifth-position answers: ${positions}`);
   assert.deepEqual(optionCountCoverage.get(contract.qlId), new Set([4, 5]));
   assert.deepEqual(
     sourcePrototypeCoverage.get(contract.qlId),
