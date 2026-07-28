@@ -8,6 +8,10 @@ import { BLR_CP002_SOURCE_WIDENING_SCENARIOS } from "./cp002-source-widening-sce
 import { BLR_CP002_THREE_ANCHOR_SCENARIOS } from "./cp002-three-anchor-scenarios";
 import type { BlrCp002PrototypeId } from "./cp002-types";
 
+const EXTENDED_ONLY_PROTOTYPES = new Set<BlrCp002PrototypeId>([
+  "BLR-CP002-PROT-THREE-ANCHOR-INTRODUCTION",
+]);
+
 const EXTENDED_SCENARIOS: readonly BlrCp002ScenarioTemplate[] = [
   ...BLR_CP002_SOURCE_WIDENING_SCENARIOS,
   ...BLR_CP002_ONLY_CHILD_SCENARIOS,
@@ -18,8 +22,11 @@ const EXTENDED_SCENARIOS: readonly BlrCp002ScenarioTemplate[] = [
 export function cp002CanonicalScenariosFor(
   prototypeId: BlrCp002PrototypeId,
 ): readonly BlrCp002ScenarioTemplate[] {
+  const baseScenarios = EXTENDED_ONLY_PROTOTYPES.has(prototypeId)
+    ? []
+    : cp002ScenariosFor(prototypeId);
   const scenarios = [
-    ...cp002ScenariosFor(prototypeId),
+    ...baseScenarios,
     ...EXTENDED_SCENARIOS.filter((entry) => entry.prototypeId === prototypeId),
   ];
   if (scenarios.length === 0) {
