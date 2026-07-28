@@ -3,6 +3,7 @@ import {
   exactFromSquaredLength,
   exactKey,
   formatWithUnit,
+  integerCubeRoot,
   integerSquareRoot,
   isPositive,
   rational,
@@ -60,8 +61,8 @@ const TRAPEZOID_PRISM_STATES = [
   { parallelA: 18n, parallelB: 30n, trapezoidHeight: 12n, prismLength: 20n },
 ] as const;
 const MIXED_UNIT_STATES = [
-  { lengthMetres: 2n, breadthCm: 150n, heightCm: 80n },
-  { lengthMetres: 3n, breadthCm: 120n, heightCm: 75n },
+  { lengthMetres: 2n, breadthCm: 200n, heightCm: 100n },
+  { lengthMetres: 3n, breadthCm: 150n, heightCm: 100n },
   { lengthMetres: 4n, breadthCm: 250n, heightCm: 60n },
   { lengthMetres: 5n, breadthCm: 180n, heightCm: 40n },
   { lengthMetres: 6n, breadthCm: 125n, heightCm: 90n },
@@ -93,7 +94,7 @@ const EQUAL_VOLUME_STATES = [
   { oldL: 14n, oldB: 9n, oldH: 12n, newL: 21n, newB: 8n, newH: 9n },
   { oldL: 16n, oldB: 10n, oldH: 9n, newL: 24n, newB: 10n, newH: 6n },
   { oldL: 18n, oldB: 12n, oldH: 10n, newL: 20n, newB: 18n, newH: 6n },
-  { oldL: 20n, oldB: 15n, oldH: 12n, newL: 30n, newB: 10n, newH: 12n },
+  { oldL: 20n, oldB: 15n, oldH: 12n, newL: 25n, newB: 18n, newH: 8n },
 ] as const;
 const RATIO_PAIRS = [
   [2n, 3n],
@@ -503,7 +504,7 @@ export function classifyMenCp007Wave02Difficulty(state: MenCp007Wave02State): Me
     case "findTrapezoidalPrismVolume":
       return d.prismLength! >= 15n ? "Hard" : "Medium";
     case "findCuboidVolumeFromMixedLinearUnits":
-      return d.breadthCm! % 100n === 0n && d.heightCm! % 100n === 0n ? "Medium" : "Hard";
+      return d.breadthCm! % 100n === 0n || d.heightCm! % 100n === 0n ? "Medium" : "Hard";
     case "findBrickCountInWall":
       return d.wallL! / d.brickL! >= 16n ? "Hard" : "Medium";
     case "findCuboidTotalEdgeLength":
@@ -611,20 +612,24 @@ function verifyDraft(draft: Draft) {
       return { valid: reconstructed.kind === "RATIONAL" && reconstructed.numerator === d.volume!, method, reconstructed: exactKey(reconstructed) };
     }
     case "findCubeSurfaceAreaRatioFromVolumeRatio": {
-      const candidate = requireRational(draft.answer);
-      reconstructed = q(candidate.numerator ** 3n, candidate.denominator ** 3n);
-      method = "recovered side ratio from candidate surface ratio then reconstructed source volume ratio";
-      return { valid: exactEquals(reconstructed, q(d.evidenceFirst!, d.evidenceSecond!)), method, reconstructed: exactKey(reconstructed) };
-    }
-    case "findCubeVolumeRatioFromSurfaceAreaRatio": {
-      const candidate = requireRational(draft.answer);
-      const sideNumerator = integerSquareRoot(candidate.numerator ** 2n) ?? candidate.numerator;
-      const sideDenominator = integerSquareRoot(candidate.denominator ** 2n) ?? candidate.denominator;
-      reconstructed = q(sideNumerator ** 2n, sideDenominator ** 2n);
-      method = "recovered side ratio from candidate volume ratio and reconstructed source surface ratio";
-      return { valid: exactEquals(reconstructed, q(d.evidenceFirst!, d.evidenceSecond!)), method, reconstructed: exactKey(reconstructed) };
-    }
-    case "findMaterialCostFromCuboidVolume":
+  const candidate = requireRational(draft.answer);
+  const sideNumerator = integerSquareRoot(candidate.numerator);
+  const sideDenominator = integerSquareRoot(candidate.denominator);
+  if (sideNumerator === null || sideDenominator === null) {
+    return { valid: false, method: "candidate surface ratio was not a perfect-square ratio", reconstructed: exactKey(candidate) };
+  }
+  reconstructed = q(sideNumerator ** 3n, sideDenominator ** 3n);
+  method = "square-rooted candidate surface ratio to side ratio, then cubed it to reconstruct volume ratio";
+  return { valid: exactEquals(reconstructed, q(d.evidenceFirst!, d.evidenceSecond!)), method, reconstructed: exactKey(reconstructed) };
+}
+case "findCubeVolumeRatioFromSurfaceAreaRatio": {
+  const candidate = requireRational(draft.answer);
+  const sideNumerator = integerCubeRoot(candidate.numerator);
+  const sideDenominator = integerCubeRoot(candidate.denominator);
+  reconstructed = q(sideNumerator ** 2n, sideDenominator ** 2n);
+  method = "cube-rooted candidate volume ratio to side ratio, then squared it to reconstruct surface ratio";
+  return { valid: exactEquals(reconstructed, q(d.evidenceFirst!, d.evidenceSecond!)), method, reconstructed: exactKey(reconstructed) };
+}    case "findMaterialCostFromCuboidVolume":
       reconstructed = q(d.length! * d.breadth! * d.height! * d.rate!);
       method = "reconstructed cuboid volume then applied cubic-metre rate";
       break;

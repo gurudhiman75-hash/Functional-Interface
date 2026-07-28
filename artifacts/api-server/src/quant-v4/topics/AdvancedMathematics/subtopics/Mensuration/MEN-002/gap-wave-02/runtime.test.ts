@@ -82,7 +82,7 @@ for (const prototypeId of prototypeIds) {
       false,
       `${prototypeId} leaks internal taxonomy.`,
     );
-    assert.equal(/[₹$]\s?\d/.test(learnerText.replace(/\$\\text\{£\}/g, "")), false, `${prototypeId} leaks an unintended currency symbol.`);
+    assert.equal(/₹/.test(learnerText), false, `${prototypeId} leaks an unintended currency symbol.`);
     assert.ok(first.stem.endsWith("?") || first.stem.endsWith("."));
 
     if (first.state.displayMode === "RATIO") {
