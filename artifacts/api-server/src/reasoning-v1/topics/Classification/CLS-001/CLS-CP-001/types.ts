@@ -1,4 +1,7 @@
-export type ClassificationTask = "FIND_OUTLIER" | "SELECT_CLASS_MEMBER";
+export type ClassificationTask =
+  | "FIND_OUTLIER"
+  | "SELECT_CLASS_MEMBER"
+  | "SELECT_COHERENT_GROUP";
 
 export type PrototypeId =
   | "CLS-CP001-PROT-001"
@@ -7,7 +10,8 @@ export type PrototypeId =
   | "CLS-CP001-PROT-004"
   | "CLS-CP001-PROT-005"
   | "CLS-CP001-PROT-006"
-  | "CLS-CP001-PROT-007";
+  | "CLS-CP001-PROT-007"
+  | "CLS-CP001-PROT-008";
 
 export type PrototypeFamily =
   | "DIRECT_CATEGORY"
@@ -22,7 +26,8 @@ export type GenerationProfile =
   | "HIERARCHY_SIBLING"
   | "CROSS_CUTTING"
   | "CLASS_MEMBER"
-  | "HIERARCHY_CLASS_MEMBER";
+  | "HIERARCHY_CLASS_MEMBER"
+  | "COHERENT_GROUP";
 
 export type Difficulty = "EASY" | "MEDIUM" | "HARD";
 
@@ -38,6 +43,7 @@ export type DifficultyFeatures = {
   readonly inverseTask: boolean;
   readonly crossCutting: boolean;
   readonly semanticDemand: 0 | 1 | 2;
+  readonly optionCount: 4 | 5;
   readonly score: number;
 };
 
@@ -124,6 +130,7 @@ export type GeneratedClassificationQuestion = {
   readonly stem: string;
   readonly givens: readonly string[];
   readonly options: readonly string[];
+  readonly optionGroups: readonly (readonly string[])[];
   readonly correctIndex: number;
   readonly answer: string;
   readonly evidenceByOption: readonly string[];
