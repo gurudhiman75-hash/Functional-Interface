@@ -20,3 +20,8 @@ export * from "./BLR-CP-001/cp001-review-registry";
 export * from "./BLR-CP-001/cp001-permanent-contracts";
 export * from "./BLR-CP-001/cp001-runtime";
 export * from "./BLR-CP-001/cp001-final-discovery-freeze";
+export * from "./BLR-CP-002/cp002-types";
+export * from "./BLR-CP-002/cp002-contracts";
+export * from "./BLR-CP-002/cp002-role-solver";
+export * from "./BLR-CP-002/cp002-scenario-library";
+export * from "./BLR-CP-002/cp002-generator";
