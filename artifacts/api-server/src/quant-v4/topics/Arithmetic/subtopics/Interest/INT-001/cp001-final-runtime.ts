@@ -9,7 +9,7 @@ import {
 import type { IntCp001PrototypeId, Rational } from "./foundation/types";
 import { generateIntCp001Wave2Prototype } from "./gap-wave-02/pipeline";
 import type { IntCp001Wave2PrototypeId } from "./gap-wave-02/types";
-import { generateIntCp001ClosurePrototype } from "./final-closure/final-closure";
+import { generateIntCp001RobustClosurePrototype } from "./final-closure/final-closure-robust";
 import type { IntCp001ClosurePrototypeId } from "./final-closure/final-closure";
 import {
   getIntCp001FinalRegistryEntry,
@@ -56,7 +56,7 @@ function generateSource(adapter: IntCp001SourceAdapter, seed: string): CommonSou
     case "WAVE2":
       return generateIntCp001Wave2Prototype(adapter.prototypeId as IntCp001Wave2PrototypeId, seed) as unknown as CommonSourceItem;
     case "CLOSURE":
-      return generateIntCp001ClosurePrototype(adapter.prototypeId as IntCp001ClosurePrototypeId, seed) as unknown as CommonSourceItem;
+      return generateIntCp001RobustClosurePrototype(adapter.prototypeId as IntCp001ClosurePrototypeId, seed) as unknown as CommonSourceItem;
   }
 }
 
