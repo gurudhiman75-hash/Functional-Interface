@@ -7,6 +7,12 @@ import { validateIntCp001Prototype } from "./cp001-validator";
 import { rationalKey } from "./rational";
 import type { IntCp001GeneratedPrototype, IntCp001PrototypeId } from "./types";
 
+function normaliseQuestionPunctuation(stem: string): string {
+  if (stem.endsWith("?")) return stem;
+  if (stem.endsWith(".")) return `${stem.slice(0, -1)}?`;
+  return `${stem}?`;
+}
+
 export function generateIntCp001Prototype(
   prototypeId: IntCp001PrototypeId,
   seed: string,
@@ -16,10 +22,11 @@ export function generateIntCp001Prototype(
   const solution = solveIntCp001(parameters.request);
   const optionPackage = buildIntCp001Options(parameters, solution);
   const presentation = presentIntCp001(parameters, solution);
+  const stem = normaliseQuestionPunctuation(presentation.stem);
   const validation = validateIntCp001Prototype({
     parameters,
     solution,
-    stem: presentation.stem,
+    stem,
     options: optionPackage.options,
     optionAudit: optionPackage.optionAudit,
     correctIndex: optionPackage.correctIndex,
@@ -39,7 +46,7 @@ export function generateIntCp001Prototype(
     difficultyEvidence: parameters.difficultyEvidence,
     taskDirection: registry.taskDirection,
     answerSemantic: registry.answerSemantic,
-    stem: presentation.stem,
+    stem,
     parameters,
     solution,
     options: optionPackage.options,
