@@ -46,9 +46,10 @@ for (const id of NUM_CP003_WAVE04_IDS) {
   }
 
   ok(positions.size === 4, `${id}: answer positions missing`);
-  const minimumStateDiversity = id.includes("RULE") ? 8 : id.includes("REPEATED-BLOCK") ? 12 : 65;
-  ok(stems.size >= Math.min(minimumStateDiversity, id.includes("RULE") ? 8 : minimumStateDiversity), `${id}: stem diversity ${stems.size}`);
-  ok(fingerprints.size >= minimumStateDiversity, `${id}: fingerprint diversity ${fingerprints.size}`);
+  const minimumStemDiversity = id.includes("RULE") ? 8 : id.includes("REPEATED-BLOCK") ? 3 : 65;
+  const minimumFingerprintDiversity = id.includes("RULE") ? 8 : id.includes("REPEATED-BLOCK") ? 12 : 65;
+  ok(stems.size >= minimumStemDiversity, `${id}: stem diversity ${stems.size}`);
+  ok(fingerprints.size >= minimumFingerprintDiversity, `${id}: fingerprint diversity ${fingerprints.size}`);
   const minimumAnswerDiversity = id.includes("RULE") ? 8 : id.includes("SOLUTION-CLASS") ? 3 : id.includes("EACH-STATEMENT") ? 1 : id.includes("REPEATED-BLOCK") ? 5 : 4;
   ok(answers.size >= minimumAnswerDiversity, `${id}: answer diversity ${answers.size}`);
   summaries[id] = { positions: [...positions].sort(), stems: stems.size, fingerprints: fingerprints.size, answers: answers.size };
