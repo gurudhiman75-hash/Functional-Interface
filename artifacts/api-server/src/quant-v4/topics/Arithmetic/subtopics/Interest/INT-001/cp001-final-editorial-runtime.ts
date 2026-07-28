@@ -20,6 +20,60 @@ export type IntCp001FinalEditorialQuestion = Omit<
   validation: IntCp001FinalGeneratedQuestion["validation"];
 };
 
+function formatIndianInteger(raw: string): string {
+  const negative = raw.startsWith("-");
+  const digits = raw.replace(/[-,]/gu, "").replace(/^0+(?=\d)/u, "");
+  if (digits.length <= 3) return `${negative ? "-" : ""}${digits}`;
+  const lastThree = digits.slice(-3);
+  const leading = digits.slice(0, -3).replace(/\B(?=(\d{2})+(?!\d))/gu, ",");
+  return `${negative ? "-" : ""}${leading},${lastThree}`;
+}
+
+function normaliseCurrency(text: string): string {
+  return formatIndianCurrencyText(text).replace(
+    /₹\s*(-?\d{4,})(?=[^\d,]|$)/gu,
+    (_match, raw: string) => `₹${formatIndianInteger(raw)}`,
+  );
+}
+
+function normaliseExplanationCurrency(explanation: IntCp001FourTierExplanation): IntCp001FourTierExplanation {
+  return {
+    ...explanation,
+    notice: normaliseCurrency(explanation.notice),
+    relation: normaliseCurrency(explanation.relation),
+    steps: explanation.steps.map(normaliseCurrency),
+    verification: normaliseCurrency(explanation.verification),
+    conclusion: normaliseCurrency(explanation.conclusion),
+    commonTrap: normaliseCurrency(explanation.commonTrap),
+    coreConcept: {
+      ...explanation.coreConcept,
+      narrative: normaliseCurrency(explanation.coreConcept.narrative),
+      displayMath: normaliseCurrency(explanation.coreConcept.displayMath),
+    },
+    stepByStep: {
+      ...explanation.stepByStep,
+      steps: explanation.stepByStep.steps.map(normaliseCurrency),
+      verification: normaliseCurrency(explanation.stepByStep.verification),
+      conclusion: normaliseCurrency(explanation.stepByStep.conclusion),
+    },
+    examShortcut: {
+      ...explanation.examShortcut,
+      narrative: normaliseCurrency(explanation.examShortcut.narrative),
+      displayMath: explanation.examShortcut.displayMath
+        ? normaliseCurrency(explanation.examShortcut.displayMath)
+        : undefined,
+    },
+    trapAnalysis: {
+      ...explanation.trapAnalysis,
+      items: explanation.trapAnalysis.items.map((item) => ({
+        ...item,
+        optionText: normaliseCurrency(item.optionText),
+        explanation: normaliseCurrency(item.explanation),
+      })),
+    },
+  };
+}
+
 function hasUngroupedRupees(text: string): boolean {
   return /₹\s*-?\d{4,}(?![\d,])/u.test(text);
 }
@@ -35,13 +89,13 @@ export function generateIntCp001FinalEditorialQuestion(
 ): IntCp001FinalEditorialQuestion {
   const core = generateIntCp001FinalCoreQuestion(qlId, seed);
   const entry = getIntCp001FinalRegistryEntry(qlId);
-  const stem = formatIndianCurrencyText(core.stem);
-  const options = core.options.map(formatIndianCurrencyText);
+  const stem = normaliseCurrency(core.stem);
+  const options = core.options.map(normaliseCurrency);
   const optionAudit = core.optionAudit.map((option, index) => ({
     ...option,
     text: options[index]!,
   }));
-  const explanation = buildIntCp001FourTierExplanation({
+  const explanation = normaliseExplanationCurrency(buildIntCp001FourTierExplanation({
     qlId,
     entry,
     legacy: core.explanation,
@@ -49,7 +103,7 @@ export function generateIntCp001FinalEditorialQuestion(
     options,
     optionAudit,
     correctIndex: core.correctIndex,
-  });
+  }));
 
   const errors = [...core.validation.errors];
   if (!explanation.coreConcept.displayMath || !hasBalancedDisplayMath(explanation.coreConcept.displayMath)) {
