@@ -127,7 +127,7 @@ assert.deepEqual(wireSteps.map((step) => step.title), ["Find the Wire Length", "
 assert.ok(wire.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT")?.paragraphs.some((paragraph) => /s = πr\/2/.test(paragraph)));
 const wireTraps = wire.explanation.sections.find((section) => section.kind === "COMMON_TRAPS");
 assert.equal(wireTraps?.paragraphs.length, 3);
-assert.ok(wireTraps?.paragraphs.some((paragraph) => /circle area/i.test(paragraph)));
+assert.ok(wireTraps?.paragraphs.some((paragraph) => /(?:circle area|area of the original circle|original circle's area)/i.test(paragraph)));
 assert.ok(wireTraps?.paragraphs.every((paragraph) => !forbiddenTrapLanguage.test(paragraph)));
 
 console.log(`MEN-001 exact four-tier explanation audit passed for ${audited} generated states.`);
