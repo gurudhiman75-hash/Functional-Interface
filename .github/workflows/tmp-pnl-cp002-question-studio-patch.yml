@@ -199,3 +199,5 @@ jobs:
           path: pnl-cp002-question-studio-patch.log
           if-no-files-found: warn
           retention-days: 2
+
+# Trigger after opening PR #264.
