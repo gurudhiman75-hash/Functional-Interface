@@ -32,9 +32,9 @@ Depending on the speaker and the selected grandparent, the woman may be the spea
 
 ### 5. Gender-neutral `only child` forced into `only son` or `only daughter`
 
-**Decision:** prohibited.
+**Decision:** prohibited; architecture support is now implemented.
 
-The current executable role-step vocabulary is gendered. `ONLY_CHILD` requires a broad child role and union-cardinality semantics across sons and daughters. It remains an explicit architecture gap; it must not be simulated by choosing one gender.
+`ONLY_CHILD` now uses the broad role `CHILD = SON ∪ DAUGHTER`, and cardinality is checked after unioning both genders. The prohibition remains: a source phrase saying `only child` must never be rewritten or modelled as only son or only daughter.
 
 ### 6. Co-in-law relation forced into a standard in-law label
 
