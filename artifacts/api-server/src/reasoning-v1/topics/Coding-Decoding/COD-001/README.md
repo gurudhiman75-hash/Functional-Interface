@@ -1,6 +1,6 @@
 # COD-001 — Coding–Decoding
 
-Status: **COD-CP-001 through COD-CP-006 implemented at English runtime-proof maturity; COD-CP-007 open discovery has one mathematically and editorially saturated prototype family; COD-CP-009 English discovery is frozen under `COD_CP009_ENGLISH_DISCOVERY_FREEZE_V1`; COD-CP-008 and COD-CP-010 remain unimplemented**.
+Status: **COD-CP-001 through COD-CP-010 implemented at English runtime-proof maturity; stable permanent range `COD-QL-001..199`; whole-chapter English closure audit added**.
 
 Student-facing chapter: **Coding–Decoding**  
 Reasoning V1 package: `COD-001`  
@@ -8,122 +8,81 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/CO
 
 ## Authority order
 
-1. `../../../REASONING-V1-MASTER-BLUEPRINT.md` — product taxonomy and chapter boundaries.
-2. `../../../REASONING-V1-ARCHITECTURE.md` — product-wide runtime, validation and localisation contracts.
-3. `cod-001-open-ql-discovery-amendment.md` — authoritative allocation policy for unimplemented checkpoints.
-4. `cod-001-chapter-manifest.md` — permanent identity authority for implemented QLs.
-5. checkpoint-specific approved discovery, freeze and design documents.
-6. `cod-001-consolidated-design.md` — chapter runtime, solver, ambiguity, distractor, renderer and localisation design.
-7. `cod-001-implementation-plan.md` — staged implementation roadmap, subject to later amendments.
-8. `cod-001-source-audit.md` — source taxonomy and legacy-code assessment.
+1. `../../../REASONING-V1-MASTER-BLUEPRINT.md` — taxonomy and chapter boundaries.
+2. `../../../REASONING-V1-ARCHITECTURE.md` — runtime, validation and localisation contracts.
+3. `cod-001-open-ql-discovery-amendment.md` — evidence-led identity policy.
+4. `COD-001-MANIFEST-AMENDMENT-CP007.md` through `COD-001-MANIFEST-AMENDMENT-CP010.md` and earlier merged identities.
+5. `COD-001-ENGLISH-CLOSURE-AUDIT.md` and the executable whole-chapter closure test.
+6. checkpoint-specific approved discovery, freeze, implementation and review documents.
+7. legacy chapter design documents where not superseded.
 
-For CP-001 through CP-006, merged QL identities remain permanent. For CP-007 through CP-010, the open-discovery amendment supersedes old fixed counts, ranges and chapter totals.
+## Stable English runtime
 
-## Current stable English runtime
+| Checkpoint | Permanent range | Count |
+|---|---:|---:|
+| `COD-CP-001` | `COD-QL-001..024` | 24 |
+| `COD-CP-002` | `COD-QL-025..052` | 28 |
+| `COD-CP-003` | `COD-QL-053..080` | 28 |
+| `COD-CP-004` | `COD-QL-081..112` | 32 |
+| `COD-CP-005` | `COD-QL-113..136` | 24 |
+| `COD-CP-006` | `COD-QL-137..168` | 32 |
+| `COD-CP-007` | `COD-QL-169..172` | 4 |
+| `COD-CP-008` | `COD-QL-173..174` | 2 |
+| `COD-CP-009` | `COD-QL-175..198` | 24 |
+| `COD-CP-010` | `COD-QL-199` | 1 |
+| **Total** | **`COD-QL-001..199`** | **199** |
 
-- `COD-CP-001`: `COD-QL-001..024`;
-- `COD-CP-002`: `COD-QL-025..052`;
-- `COD-CP-003`: `COD-QL-053..080`;
-- `COD-CP-004`: `COD-QL-081..112`;
-- `COD-CP-005`: `COD-QL-113..136`;
-- `COD-CP-006`: `COD-QL-137..168`.
+## Late-checkpoint ownership result
 
-Total stable implemented QLs: **168**.
+### COD-CP-007
 
-## Future checkpoint sequence
+Four permanent QLs cover explicit uniform digit translation, inverse decoding, missing-digit recovery and inferred forward application. Leading zeroes and decimal wrapping are preserved.
 
-- `COD-CP-007`: digit, symbol and alphanumeric coding — open English discovery; uniform modular digit translation prototype saturated;
-- `COD-CP-008`: renaming and substitution coding — not started;
-- `COD-CP-009`: sentence and artificial-language coding — English discovery frozen, permanent allocation deferred;
-- `COD-CP-010`: conditional table and mixed-symbol coding — not started.
+### COD-CP-008
 
-Their permanent QL counts and ranges are not fixed in advance. CP-009 cannot receive IDs before CP-007 and CP-008 discover and allocate their preceding ranges.
+Two permanent QLs cover direct renamed-label lookup and semantic-referent resolution followed by one renaming edge. Chain length, topology and context remain instance properties.
 
-## COD-CP-007 open discovery state
+### COD-CP-009
 
-CP-007 has completed its initial source/boundary design and the first executable prototype family:
+Freeze version `COD_CP009_ENGLISH_DISCOVERY_FREEZE_V1` produced 24 permanent solve contracts:
 
-```text
-UNIFORM_MODULAR_DIGIT_TRANSLATION
-```
+- `COD-QL-175..184`: exact atomic word/token relations across five distinct proof topologies in both directions;
+- `COD-QL-185..188`: exact set and missing-member contracts;
+- `COD-QL-189..194`: possible, impossible and possible-set contracts;
+- `COD-QL-195..196`: independently resolved set composition;
+- `COD-QL-197..198`: complete candidate-domain contracts.
 
-Current evidence:
+The runtime wraps the frozen sentence-code constraint solver.
 
-- five non-permanent task contracts: explicit encode, inverse decode, missing digit, infer-and-encode and choose-matching;
-- digit codes represented as ordered token strings so leading zeroes are preserved;
-- exactly one surviving non-zero uniform shift required;
-- whole-number arithmetic and reversal competitors rejected;
-- independent verifier agreement;
-- 500/500 distinct mathematical audit questions and stems;
-- leading-zero source/code coverage of 140/132 cases;
-- 370 wrapped targets and first/middle/final missing-position coverage;
-- 45/45/59/41/45 normalised explanation skeletons across the five tasks;
-- zero cross-contract normalised explanation collisions;
-- zero permanent CP-007 QLs.
+### COD-CP-010
 
-Source- and collision-pending candidates remain:
-
-- arbitrary digit substitution;
-- digit-to-symbol maps;
-- position-dependent digit transforms;
-- pure digit permutation, presumptively owned by CP-005 unless material numeric semantics survive audit;
-- alphanumeric dual-channel coding;
-- mixed-token substitution.
-
-Question Studio, localisation and public publication remain disabled. The next work is targeted source expansion followed by checkpoint-wide merge/split and ownership closure.
-
-## COD-CP-009 frozen discovery state
-
-CP-009 now has:
-
-- freeze version `COD_CP009_ENGLISH_DISCOVERY_FREEZE_V1`;
-- 16 source-backed English task contracts;
-- eight forward/inverse pairs;
-- ten topology families;
-- 24 provisional solve contracts after executable merge/split;
-- 30 contract/topology pairings in its final edge matrix;
-- a 720-question combined saturation gate;
-- a frozen source-evidence ledger and ownership matrix;
-- zero permanent CP-009 QLs.
-
-The 24 solve contracts arise because the two exact atomic directions each split across five materially different proof modes: direct intersection, chained propagation, set difference, forked evidence and global bijection. Two-way/three-way uncertainty, statement count, row order and renderer variation remain generated-instance properties.
-
-The uploaded sources directly support exact overlap deduction, genuine indeterminacy, complete either/or candidate domains, new-message composition and may-represent questions. Missing-member and impossible-atomic forms are retained as executable distinct competitive-exam extensions. Impossible phrase/set forms remain excluded without direct recurring evidence.
-
-### Exact freeze evidence
+Freeze version `COD_CP010_ENGLISH_DISCOVERY_FREEZE_V1` authorises one permanent solve contract:
 
 ```text
-Head SHA:       14d29e7cbebb298798118c0ae6ced31542f142a8
-Freeze run:     30285908074
-Conclusion:     success
-Artifact ID:    8660774184
-Artifact digest: sha256:cadd83367483713559d7ec69bc0f7ff1bebdf7b7c9acaad5fb97d7e90f25da44
-COD runtime:    30285907974 — success
+COD-QL-199 — APPLY_CONDITIONAL_TABLE_FORWARD
 ```
 
-The freeze workflow reran the full combined saturation gate and then enforced:
+It applies a displayed letter/digit lookup table, classifies the first and last source tokens, selects one mutually exclusive condition and applies its override once. Domain, endpoint signature, source length, table order and override action remain instance properties.
 
-- exactly 16 task contracts, 8 inverse pairs, 10 topology families and 24 solve contracts;
-- all 30 final contract/topology edge pairings;
-- exact, possible, impossible, set, missing-member and resolved-composition semantics;
-- the complete ownership and exclusion matrix;
-- prototype-only, non-publishable safety;
-- zero permanent IDs and a sequencing lock behind CP-007 and CP-008.
+## Whole-chapter English closure
+
+`review/cod-001-english-closure.test.ts` generates every permanent QL for twelve seeds, producing 2,388 questions. It checks identity continuity, determinism, option truth, exact collisions, editorial leakage, stem/explanation diversity, answer-position balance, difficulty and renderer reach, and review-only release safety.
+
+The old predetermined 260-QL total remains revoked. No additional COD-001 QL may be created without recurring source evidence, ownership and collision audit, executable prototype proof, a new discovery freeze and an explicit manifest amendment.
 
 ## Remaining chapter sequence
 
-1. complete targeted source expansion and prototype comparison for CP-007;
-2. freeze and allocate CP-007 only after source, ownership and merge/split closure;
-3. design and implement CP-008 through exhaustive discovery;
-4. assign sequential IDs to the frozen CP-009 solve contracts and implement its English runtime;
-5. design and implement CP-010;
-6. complete chapter-wide English saturation and review;
-7. implement Hindi and Punjabi only after English ownership freezes;
-8. integrate reviewed content into Question Studio and later publication gates.
+1. merge the whole-chapter English closure gate after exact-head CI;
+2. implement Hindi and natural Punjabi for translational checkpoints `CP-001..007` and `CP-010`;
+3. implement language-adapted Hindi and Punjabi datasets for `CP-008` and `CP-009`;
+4. run one final three-locale parity and editorial audit;
+5. complete manual multilingual review packs;
+6. connect reviewed content to Question Studio later.
 
 ## Release boundary
 
-- English is implemented and reviewed before Hindi or Punjabi is frozen.
-- No COD-001 QL is publicly publishable or discoverable in Question Studio until its checkpoint passes the required runtime, ambiguity, editorial and localisation gates.
-- Mathematical-operation substitution, coded inequalities, input-output, figure coding and cross-topic coded relations remain outside COD-001.
-- Sentence coding embedded inside Data Sufficiency remains owned by the Data Sufficiency chapter.
+- Question Studio visibility remains disabled.
+- No COD-001 QL is publicly publishable yet.
+- Hindi and Punjabi are not complete.
+- Question Bank, mock-test and public routing remain disabled.
+- Mathematical operations, coded inequalities, Input-Output, figure coding and cross-topic coded relations remain outside COD-001.

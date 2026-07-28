@@ -1,0 +1,43 @@
+name: Reasoning COD-001 CP-009 Runtime
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-001-MANIFEST-AMENDMENT-CP009.md"
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/cod-001-open-ql-discovery-amendment.md"
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/README.md"
+      - ".github/workflows/reasoning-cod-001-cp009-runtime.yml"
+  workflow_dispatch:
+
+jobs:
+  cp009-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enforce final English discovery freeze
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/cp009-final-discovery-freeze.test.ts
+
+      - name: Run permanent English runtime audit
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/cp009-runtime.test.ts
+
+      - name: Run combined prototype saturation regression
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/prototype-saturation-audit.ts
+
+      - name: Export English review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/export-cp009-review.ts cod-cp009-review-output
+
+      - name: Upload English review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: cod-001-cp009-english-review
+          path: cod-cp009-review-output
+          retention-days: 14

@@ -30,6 +30,42 @@ function asText(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
+export function getGeneratedQuestionBankEligibilityIssue(value: unknown): string | null {
+  const payload = asRecord(value);
+  const generationContext = asRecord(payload.generationContext);
+  const runtimeMode = asText(payload.runtimeMode || generationContext.runtimeMode).toUpperCase();
+  const questionBankStatus = asText(
+    payload.questionBankStatus || generationContext.questionBankStatus,
+  ).toUpperCase();
+  const testEligibility = asText(
+    payload.testEligibility || generationContext.testEligibility,
+  ).toUpperCase();
+  const publiclyPublishable = payload.publiclyPublishable ?? generationContext.publiclyPublishable;
+
+  if (questionBankStatus === "NOT_STORED") {
+    return "questionBankStatus is NOT_STORED";
+  }
+  if (testEligibility === "INELIGIBLE") {
+    return "testEligibility is INELIGIBLE";
+  }
+  if (publiclyPublishable === false) {
+    return "publiclyPublishable is false";
+  }
+  if (runtimeMode === "CANONICAL_REVIEW" || runtimeMode === "DYNAMIC_CANDIDATE") {
+    return `runtimeMode ${runtimeMode} is review-only`;
+  }
+  return null;
+}
+
+export function assertGeneratedQuestionBankEligible(value: unknown): void {
+  const issue = getGeneratedQuestionBankEligibilityIssue(value);
+  if (issue) {
+    throw new Error(
+      `Generated question cannot be converted to Question Bank: ${issue}.`,
+    );
+  }
+}
+
 export function optionKey(index: number): string {
   return String.fromCharCode(65 + index);
 }
@@ -45,6 +81,7 @@ export function normalizeGeneratedQuestionPayload(
   context: { itemId: string; generationRunCode: string },
 ): NormalizedGeneratedQuestion {
   const payload = asRecord(value);
+  assertGeneratedQuestionBankEligible(payload);
   const stem = asText(payload.text) || asText(payload.stem);
   const explanation = asText(payload.explanation) || "Explanation pending editorial review.";
   const difficulty = asText(payload.difficultyLabel) || asText(payload.difficulty) || "Medium";

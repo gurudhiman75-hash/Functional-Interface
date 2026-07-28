@@ -1,0 +1,63 @@
+name: Validate AVG-001 CP-005 editorial v2
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/**
+      - .github/workflows/avg-001-cp005-editorial-v2.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: avg-001-cp005-editorial-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp005-editorial-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Run CP-005 editorial v2 audit
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp005-editorial-v2-audit.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/avg-001-cp005-editorial-v2-audit.mjs
+          (cd artifacts/api-server && node dist/quant-v4/avg-001-cp005-editorial-v2-audit.mjs) \
+            | tee artifacts/api-server/avg-001-cp005-editorial-v2-diagnostics.log
+      - name: Generate review CSV
+        if: always()
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp005-editorial-v2-review-export.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/avg-001-cp005-editorial-v2-review-export.mjs
+          (cd artifacts/api-server && node dist/quant-v4/avg-001-cp005-editorial-v2-review-export.mjs)
+      - name: Upload diagnostics and review corpus
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: avg-001-cp005-editorial-v2-review
+          path: |
+            artifacts/api-server/avg-001-cp005-editorial-v2-diagnostics.log
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp005-editorial-v2-review.csv
+          if-no-files-found: error
+          retention-days: 14

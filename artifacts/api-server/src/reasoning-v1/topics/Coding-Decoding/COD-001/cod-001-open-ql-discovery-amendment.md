@@ -1,82 +1,77 @@
-# COD-001 Open QL Discovery Amendment
+# COD-001 Evidence-Led QL Discovery Amendment
 
-Status: **authoritative amendment for all unimplemented COD-001 checkpoints**.
+Status: **authoritative identity and future-expansion policy for COD-001**.
 
-This document supersedes the fixed future allocations in `cod-001-chapter-manifest.md`, `cod-001-consolidated-design.md`, `cod-001-implementation-plan.md`, and the old README headline wherever those files prescribe a fixed chapter total, fixed future QL counts, fixed future QL ranges, or fixed difficulty counts before exhaustive discovery.
+This document supersedes fixed allocations in legacy COD-001 design documents wherever they prescribe chapter totals, QL counts, ranges, rule-family counts or difficulty quotas before exhaustive discovery.
 
 ## 1. Stable implemented authority
 
-The following merged identities remain permanent:
+The following permanent English identities are authoritative:
 
 - `COD-CP-001`: `COD-QL-001` through `COD-QL-024`;
 - `COD-CP-002`: `COD-QL-025` through `COD-QL-052`;
 - `COD-CP-003`: `COD-QL-053` through `COD-QL-080`;
 - `COD-CP-004`: `COD-QL-081` through `COD-QL-112`;
 - `COD-CP-005`: `COD-QL-113` through `COD-QL-136`;
-- `COD-CP-006`: `COD-QL-137` through `COD-QL-168`.
+- `COD-CP-006`: `COD-QL-137` through `COD-QL-168`;
+- `COD-CP-007`: `COD-QL-169` through `COD-QL-172`, governed by `COD-001-MANIFEST-AMENDMENT-CP007.md`;
+- `COD-CP-008`: `COD-QL-173` through `COD-QL-174`, governed by `COD-001-MANIFEST-AMENDMENT-CP008.md`;
+- `COD-CP-009`: `COD-QL-175` through `COD-QL-198`, governed by `COD-001-MANIFEST-AMENDMENT-CP009.md`;
+- `COD-CP-010`: `COD-QL-199`, governed by `COD-001-MANIFEST-AMENDMENT-CP010.md`.
 
-These 168 IDs must not be reassigned.
+These **199 IDs** must not be reassigned.
 
-## 2. Revoked future reservations
+## 2. Revoked legacy reservations
 
-The following old reservations are no longer authoritative:
+The following old reservations are not authoritative:
 
-- `COD-CP-007` as exactly 24 QLs or `COD-QL-169..192`;
-- `COD-CP-008` as exactly 16 QLs or `COD-QL-193..208`;
-- `COD-CP-009` as exactly 32 QLs or `COD-QL-209..240`;
-- `COD-CP-010` as exactly 20 QLs or `COD-QL-241..260`;
+- `COD-CP-007` as 24 QLs or `COD-QL-169..192`; its actual allocation is four QLs ending at 172;
+- `COD-CP-008` as 16 QLs or `COD-QL-193..208`; its actual allocation is two QLs ending at 174;
+- `COD-CP-009` as 32 QLs or `COD-QL-209..240`; its actual allocation is 24 QLs ending at 198;
+- `COD-CP-010` as 20 QLs or `COD-QL-241..260`; its actual allocation is one QL ending at 199;
 - the chapter total of exactly 260 QLs;
 - the chapter total of exactly 54 rule families;
-- any fixed checkpoint difficulty quota derived from those counts.
+- fixed checkpoint difficulty quotas derived from those counts.
 
-Checkpoint numbering and scope boundaries remain valid. Only premature identity and count allocation is revoked.
+Checkpoint numbering and scope boundaries remain valid. Only premature count and identity allocation is revoked.
 
-## 3. Governing discovery rule
+## 3. Current English implementation frontier
 
-A future QL is created only after the checkpoint has completed all of the following:
+```text
+Stable permanent range: COD-QL-001..199
+Permanent English QLs: 199
+Implemented checkpoints: COD-CP-001..010
+Next automatically available identity: none
+```
 
-1. concept and source-format audit;
-2. task-direction audit;
-3. inverse-contract audit;
+The evidence-backed English checkpoint implementation closes at `COD-QL-199`. `COD-QL-200` is not reserved or automatically available.
+
+## 4. Governing rule for any future expansion
+
+A future COD-001 QL may be proposed only after all of the following complete:
+
+1. new direct recurring exam-source evidence;
+2. concept and source-format audit;
+3. task-direction and inverse-contract audit;
 4. answer-semantics audit;
 5. edge-case and ambiguity audit;
 6. representation and renderer audit;
 7. solve-mode prototype audit;
-8. merge/split audit proving that each surviving contract is materially distinct;
-9. gap audit showing no meaningful uncovered contract;
-10. collision audit against existing chapter ownership.
+8. merge/split audit proving material distinction from all 199 existing QLs;
+9. chapter ownership and collision audit;
+10. a new versioned discovery freeze;
+11. an explicit manifest amendment authorising the new identity.
 
-Counts remain open while any meaningful gap or duplicate contract is unresolved.
+Implementation convenience, extra contexts, static renderer differences, action parameters and difficulty quotas are not sufficient grounds for a new QL.
 
-## 4. Identity policy during design and prototyping
+## 5. Prototype identity policy
 
-Before freeze, candidate contracts use non-permanent prototype IDs such as:
-
-```text
-COD-CP009-PROT-EXACT-WORD-TO-TOKEN
-COD-CP009-PROT-POSSIBLE-TOKEN
-```
-
-Prototype IDs are not QLs, are not discoverable in Question Studio, and may be merged, split, renamed, or removed without migration.
-
-Permanent `COD-QL-*` IDs are assigned sequentially from the next available chapter ID only after the checkpoint discovery audit is approved.
-
-## 5. Out-of-order checkpoint work
-
-A later checkpoint may be designed or prototyped before earlier checkpoints, provided that:
-
-- it creates no permanent QL IDs that would pre-empt unknown earlier counts;
-- it does not edit chapter-wide registries as though its range were frozen;
-- it uses checkpoint-local prototype registries;
-- it remains non-publishable and undiscoverable;
-- its final QL allocation waits for the chapter sequence to be resolved.
-
-This permits independent CP-009 design work while CP-007 and CP-008 remain unimplemented.
+Any future candidate must use a non-permanent prototype ID until its new freeze is approved. Prototype IDs are not QLs, are not discoverable in Question Studio and may be merged, split, renamed or removed without migration.
 
 ## 6. Difficulty policy
 
-Difficulty is calculated from generated instance properties. During discovery, coverage is measured rather than preallocated. A checkpoint is accepted when its reachable instance space contains appropriate Easy, Medium, and Hard cases for the underlying skill; no QL is created merely to satisfy a percentage target.
+Difficulty is calculated from generated instance properties. Coverage is measured rather than preallocated. No QL is created merely to satisfy a percentage target.
 
 ## 7. Freeze effect
 
-The COD-001 chapter is not frozen at 260 QLs. Its final count becomes authoritative only after CP-007 through CP-010 complete their own exhaustive discovery and chapter-wide gap audits.
+The old 260-QL chapter is permanently revoked. The current evidence-backed English implementation contains **199 QLs**, subject to chapter-wide saturation, editorial and multilingual review before publication. Any later scope expansion must follow Section 4 and cannot silently extend the current range.

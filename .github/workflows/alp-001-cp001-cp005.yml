@@ -1,0 +1,61 @@
+name: Validate ALP-001 CP-001 through CP-005
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Alphabet-Test/ALP-001/**
+      - .github/workflows/alp-001-cp001-cp005.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: alp-001-cp001-cp005-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-alphabet-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Run ALP-001 chapter and localization audits
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Alphabet-Test/ALP-001
+          OUT=dist/reasoning-v1/alp-001
+          mkdir -p artifacts/api-server/$OUT
+          for TEST in alp-001.test alp-001-localized.test; do
+            pnpm --dir artifacts/api-server exec esbuild \
+              "$ROOT/$TEST.ts" \
+              --bundle --platform=node --format=esm \
+              --outfile="$OUT/$TEST.mjs"
+            (cd artifacts/api-server && node "$OUT/$TEST.mjs")
+          done
+      - name: Run checkpoint audits
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Alphabet-Test/ALP-001
+          OUT=dist/reasoning-v1/alp-001
+          for CP in 001 002 003 004 005; do
+            TEST="ALP-CP-$CP/alp-cp-$CP.test"
+            pnpm --dir artifacts/api-server exec esbuild \
+              "$ROOT/$TEST.ts" \
+              --bundle --platform=node --format=esm \
+              --outfile="$OUT/alp-cp-$CP.test.mjs"
+            (cd artifacts/api-server && node "$OUT/alp-cp-$CP.test.mjs")
+          done
