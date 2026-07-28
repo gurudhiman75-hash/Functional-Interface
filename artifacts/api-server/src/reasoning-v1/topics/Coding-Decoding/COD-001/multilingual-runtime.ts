@@ -10,7 +10,7 @@ import { generateCp009Question } from "./COD-CP-009/cp009-runtime";
 import { generateCp010Question } from "./COD-CP-010/cp010-runtime";
 import { localizeCp008Question } from "./localization/cp008-localizer";
 import { localizeCp009Question } from "./localization/cp009-localizer";
-import { withCodPedagogicalExplanation } from "./localization/pedagogical-explanation";
+import { finalizeCodPedagogicalQuestion } from "./localization/pedagogical-sanitizer";
 import { localizeCodTranslationalQuestion } from "./localization/translational-localizer";
 import type { CodTranslatedLocale } from "./localization/translational-language-pack";
 
@@ -52,7 +52,7 @@ function generateCod001RawEnglishQuestion(qlId: string, seed = 0): QuestionLike 
 }
 
 export function generateCod001EnglishQuestion(qlId: string, seed = 0): QuestionLike {
-  return withCodPedagogicalExplanation(generateCod001RawEnglishQuestion(qlId, seed));
+  return finalizeCodPedagogicalQuestion(generateCod001RawEnglishQuestion(qlId, seed));
 }
 
 export function isCod001TranslationalQl(qlId: string): boolean {
@@ -84,5 +84,5 @@ export function generateCod001Question(
   else if (isCod001Cp009Ql(qlId)) localized = localizeCp009Question(english as never, locale) as QuestionLike;
   else throw new Error(`No ${locale} runtime for '${qlId}'`);
 
-  return withCodPedagogicalExplanation(localized);
+  return finalizeCodPedagogicalQuestion(localized);
 }
