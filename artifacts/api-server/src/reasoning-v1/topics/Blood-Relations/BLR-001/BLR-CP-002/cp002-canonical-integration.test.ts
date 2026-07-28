@@ -9,13 +9,16 @@ const scenarios = allBlrCp002CanonicalScenarios();
 const answerPositions = [0, 0, 0, 0];
 const answers = new Set<string>();
 const presentations = new Set<string>();
+const questionForms = new Set<string>();
 const reviewedScenarioIds = new Set<string>();
 let onlyChildRecords = 0;
 let affinalRecords = 0;
 let selfRecords = 0;
 let longChainRecords = 0;
 let threeAnchorRecords = 0;
-let negativeSiblingRecords = 0;
+let noSiblingScenarioRecords = 0;
+let negativeConstraintRecords = 0;
+let ownershipRecords = 0;
 
 function expressionHasOnlyChild(expression: BlrEntityExpression): boolean {
   return (
@@ -26,8 +29,8 @@ function expressionHasOnlyChild(expression: BlrEntityExpression): boolean {
   );
 }
 
-assert.equal(scenarios.length, 39);
-assert.equal(new Set(scenarios.map((scenario) => scenario.scenarioId)).size, 39);
+assert.equal(scenarios.length, 42);
+assert.equal(new Set(scenarios.map((scenario) => scenario.scenarioId)).size, 42);
 
 for (const scenario of scenarios) {
   for (let seed = 0; seed < 4; seed += 1) {
@@ -51,8 +54,28 @@ for (const scenario of scenarios) {
     assert.ok(question.stem.endsWith("?"));
     assert.ok(!question.stem.includes("undefined"));
     assert.ok(!question.stem.includes("herself or himself"));
-    assert.ok(!question.stem.includes("photograph of a man"));
-    assert.ok(!question.stem.includes("photograph of a woman"));
+    if (question.metadata.questionForm === "HOW_RELATED") {
+      assert.ok(!question.stem.includes("photograph of a man"));
+      assert.ok(!question.stem.includes("photograph of a woman"));
+      assert.ok(question.stem.includes("How is"));
+    } else {
+      ownershipRecords += 1;
+      assert.ok(!question.stem.includes("How is"));
+      assert.ok(
+        question.stem.includes("Whose photograph was it?") ||
+          question.stem.includes("At whose portrait was"),
+      );
+      assert.ok(
+        question.options.every(
+          (option) =>
+            /^(His|Her|Their) /.test(option.value) &&
+            (option.value.endsWith("'s") || option.value.endsWith(" own")),
+        ),
+      );
+      assert.ok(
+        question.explanation.coreConcept?.some((line) => line.includes("possessive option")),
+      );
+    }
     assert.ok(question.explanation.coreConcept && question.explanation.coreConcept.length >= 3);
     assert.ok(question.explanation.familyTreeGrid?.includes("Connections:"));
     assert.ok(question.explanation.generationAnalysis?.some((line) => line.includes("ΔGen")));
@@ -120,7 +143,10 @@ for (const scenario of scenarios) {
       );
     }
     if (scenario.scenarioId.startsWith("CP002-NO-SIBLING-")) {
-      negativeSiblingRecords += 1;
+      noSiblingScenarioRecords += 1;
+    }
+    if (question.metadata.negativeConstraintCount > 0) {
+      negativeConstraintRecords += 1;
       assert.equal(question.metadata.negativeConstraintCount, 1);
       assert.equal(question.metadata.constraintsVerified, true);
       assert.ok(question.stem.includes("I have no brother or sister."));
@@ -136,21 +162,28 @@ for (const scenario of scenarios) {
     answerPositions[question.correctIndex] += 1;
     answers.add(question.metadata.answerId);
     presentations.add(question.metadata.presentation);
+    questionForms.add(question.metadata.questionForm);
     reviewedScenarioIds.add(question.metadata.scenarioId);
   }
 }
 
-assert.deepEqual(answerPositions, [39, 39, 39, 39]);
-assert.equal(reviewedScenarioIds.size, 39);
+assert.deepEqual(answerPositions, [42, 42, 42, 42]);
+assert.equal(reviewedScenarioIds.size, 42);
 assert.equal(onlyChildRecords, 12);
-assert.ok(affinalRecords >= 60);
-assert.ok(selfRecords >= 20);
+assert.ok(affinalRecords >= 64);
+assert.ok(selfRecords >= 24);
 assert.equal(longChainRecords, 24);
 assert.equal(threeAnchorRecords, 16);
-assert.equal(negativeSiblingRecords, 12);
+assert.equal(noSiblingScenarioRecords, 12);
+assert.equal(negativeConstraintRecords, 20);
+assert.equal(ownershipRecords, 12);
 assert.deepEqual(
   [...presentations].sort(),
   ["CONVERSATION", "INTRODUCTION", "PHOTOGRAPH", "POINTING", "STAGE"],
+);
+assert.deepEqual(
+  [...questionForms].sort(),
+  ["HOW_RELATED", "WHOSE_PHOTOGRAPH", "WHOSE_PORTRAIT"],
 );
 for (const answerId of [
   "SELF",
@@ -178,18 +211,21 @@ console.log(
   JSON.stringify(
     {
       checkpointId: "BLR-CP-002",
-      gate: "CANONICAL_SCENARIO_INTEGRATION_V4",
+      gate: "CANONICAL_SCENARIO_INTEGRATION_V5",
       scenarios: scenarios.length,
       questions: scenarios.length * 4,
       answerPositions,
       answers: [...answers].sort(),
       presentations: [...presentations].sort(),
+      questionForms: [...questionForms].sort(),
       onlyChildRecords,
       affinalRecords,
       selfRecords,
       longChainRecords,
       threeAnchorRecords,
-      negativeSiblingRecords,
+      noSiblingScenarioRecords,
+      negativeConstraintRecords,
+      ownershipRecords,
       permanentQlCount: 0,
       provisionalAuthorityCount: 1,
     },
