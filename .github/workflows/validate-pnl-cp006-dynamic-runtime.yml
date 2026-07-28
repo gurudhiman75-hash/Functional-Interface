@@ -13,15 +13,74 @@ on:
       - ".github/workflows/validate-pnl-cp006-dynamic-runtime.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate-cp006-dynamic-runtime:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
-      - name: Checkout source
+      - name: Checkout feature source
         uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-cp006-dynamic-runtime
+
+      - name: Apply QL-165 and QL-184 corrections
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+
+          path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-cases.ts")
+          source = path.read_text()
+
+          start = source.index('case "PNL-QL-165":')
+          end = source.index('case "PNL-QL-166":', start)
+          block = source[start:end]
+          if "const expensePercent" not in block:
+              pattern = r'''const purchasePrice = rupees\(pickNumber\(random, PURCHASE_PRICES\)\);\s*const totalExpense = rupees\(pickNumber\(random, FLAT_EXPENSES\)\);\s*const finalEffectiveCost = moneyFromPaise\(\s*purchasePrice\.paise \+ totalExpense\.paise,\s*\);'''
+              replacement = '''const purchasePrice = rupees(pickNumber(random, PURCHASE_PRICES));
+              const expensePercent = rational(pickNumber(random, OVERHEAD_RATES));
+              const totalExpense = moneyFromPaise(
+                (purchasePrice.paise * expensePercent.numerator) /
+                  (100n * expensePercent.denominator),
+              );
+              const finalEffectiveCost = moneyFromPaise(
+                purchasePrice.paise + totalExpense.paise,
+              );'''
+              block, count = re.subn(pattern, replacement, block, count=1, flags=re.S)
+              if count != 1:
+                  raise SystemExit("QL-165 expense block was not found")
+              source = source[:start] + block + source[end:]
+
+          start = source.index('case "PNL-QL-179":')
+          end = source.index('case "PNL-QL-180":', start)
+          block = source[start:end]
+          if "The same percentage profit after a loss" not in block:
+              old = '''context: {
+                  lossPercent: cp006FormatRational(lossPercent),
+                  correctStatement: "Statement 2 only",
+                },'''
+              new = '''context: {
+                  lossPercent: cp006FormatRational(lossPercent),
+                  correctStatement: "Statement 2 only",
+                  ...(qlId === "PNL-QL-184"
+                    ? {
+                        statements: [
+                          "The same percentage profit after a loss is always sufficient to restore the original capital.",
+                          "After a loss, the required recovery percentage is measured on the smaller remaining capital.",
+                          `A ${cp006FormatRational(lossPercent)}% loss is exactly recovered by a ${cp006FormatRational(lossPercent)}% profit on the remaining capital.`,
+                        ],
+                      }
+                    : {}),
+                },'''
+              if old not in block:
+                  raise SystemExit("QL-184 statement context anchor was not found")
+              block = block.replace(old, new, 1)
+              source = source[:start] + block + source[end:]
+
+          path.write_text(source)
+          PY
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -35,6 +94,13 @@ jobs:
 
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Normalize CP-006 runtime sources
+        run: |
+          pnpm exec prettier --write \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-cases.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.test.ts
 
       - name: Bundle dynamic runtime proof
         run: |
@@ -50,6 +116,23 @@ jobs:
           set -o pipefail
           node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/.cp006-dynamic-runtime.test.mjs \
             2>&1 | tee -a pnl-cp006-dynamic-runtime.log
+
+      - name: Commit proven corrections
+        run: |
+          if git diff --quiet -- \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-cases.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.test.ts; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-cases.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.test.ts
+          git commit -m "fix(pnl): complete CP-006 semantic bindings"
+          git push origin HEAD:feat/pnl-001-cp006-dynamic-runtime
 
       - name: Upload proof evidence
         if: always()
