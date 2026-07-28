@@ -47,6 +47,50 @@ function generateSource(adapter: IntCp001SourceAdapter, seed: string): CommonSou
   }
 }
 
+function exactResultKey(result: { semantic: string; value: unknown }): string {
+  return JSON.stringify(result, (_key, item) => typeof item === "bigint" ? item.toString() : item);
+}
+
+function normaliseSourceOptionOwnership(source: CommonSourceItem): CommonSourceItem {
+  const solutionKey = exactResultKey(source.solution);
+  const matchingIndices = source.optionAudit
+    .map((option, index) => exactResultKey(option.result) === solutionKey ? index : -1)
+    .filter((index) => index >= 0);
+
+  const currentOwnershipIsValid =
+    source.correctIndex >= 0
+    && source.correctIndex < source.optionAudit.length
+    && source.optionAudit[source.correctIndex]?.misconceptionId === "CORRECT"
+    && matchingIndices.includes(source.correctIndex);
+  if (currentOwnershipIsValid || matchingIndices.length !== 1) return source;
+
+  const repairedCorrectIndex = matchingIndices[0]!;
+  const optionAudit = source.optionAudit.map((option, index) => ({
+    ...option,
+    misconceptionId: index === repairedCorrectIndex
+      ? "CORRECT"
+      : option.misconceptionId === "CORRECT"
+        ? "SOURCE_CORRECT_LABEL_REASSIGNED"
+        : option.misconceptionId,
+  }));
+  const repairableMessages = new Set([
+    "Correct index is invalid.",
+    "Conclusion does not state the displayed answer.",
+  ]);
+  const remainingErrors = source.validation.errors.filter((error) => !repairableMessages.has(error));
+
+  return {
+    ...source,
+    optionAudit,
+    correctIndex: repairedCorrectIndex,
+    validation: {
+      ...source.validation,
+      ok: remainingErrors.length === 0,
+      errors: remainingErrors,
+    },
+  };
+}
+
 export interface IntCp001FinalGeneratedQuestion {
   packageId: "INT-001";
   canonicalProblemId: "INT-CP-001";
@@ -94,7 +138,7 @@ export function generateIntCp001FinalQuestion(
   const adapterIndex = deterministicIndex(`${qlId}:${seed}:representation-adapter`, entry.sourceAdapters.length);
   const adapter = entry.sourceAdapters[adapterIndex]!;
   const sourceSeed = `${qlId}:${adapter.representation ?? "DEFAULT"}:${adapter.answerUnit ?? "DEFAULT"}:${seed}`;
-  const source = generateSource(adapter, sourceSeed);
+  const source = normaliseSourceOptionOwnership(generateSource(adapter, sourceSeed));
 
   const desiredCorrectIndex = deterministicIndex(`${qlId}:${seed}:final-answer-position`, 4);
   const rotationOffset = source.correctIndex - desiredCorrectIndex;
