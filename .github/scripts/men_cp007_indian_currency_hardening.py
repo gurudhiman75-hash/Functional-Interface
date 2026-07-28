@@ -11,6 +11,7 @@ def replace_once(path: Path, old: str, new: str, label: str) -> None:
     if count != 1:
         raise SystemExit(f"{path}: {label}: expected one match, found {count}")
     path.write_text(text.replace(old, new, 1), encoding="utf8")
+    print(f"patched: {label}")
 
 
 def replace_all(path: Path, old: str, new: str, label: str, minimum: int = 1) -> None:
@@ -19,6 +20,7 @@ def replace_all(path: Path, old: str, new: str, label: str, minimum: int = 1) ->
     if count < minimum:
         raise SystemExit(f"{path}: {label}: expected at least {minimum} matches, found {count}")
     path.write_text(text.replace(old, new), encoding="utf8")
+    print(f"patched: {label} ({count})")
 
 
 foundation = ROOT / "foundation/runtime.ts"
@@ -146,56 +148,3 @@ replace_once(
     'shortcut: `The cube uses $12\\times${state.side}=${edgeLength}\\text{ m}$ of wire, so $Rate=\\frac{\\text{₹}${formatIndianInteger(cost)}}{${edgeLength}\\text{ m}}=\\frac{\\text{₹}${formatIndianInteger(state.rate)}}{\\text{m}}$.`,',
     "wave03 wire rate numerical shortcut",
 )
-
-foundation_test = ROOT / "foundation/runtime.test.ts"
-replace_once(foundation_test, 'if (first.unit === "£") {', 'if (first.unit === "₹") {', "foundation rupee test unit")
-replace_once(foundation_test, 'first.stem.includes("\\\\text{£}")', 'first.stem.includes("\\\\text{₹}")', "foundation rupee stem assertion")
-replace_once(foundation_test, 'first.answer.startsWith("$\\\\text{£}"), "Pound sterling must precede the amount in en-GB output."', 'first.answer.startsWith("$\\\\text{₹}"), "Indian rupee must precede the amount in Indian exam output."', "foundation rupee answer assertion")
-
-wave02_test = ROOT / "gap-wave-02/runtime.test.ts"
-replace_all(wave02_test, "sterlingAnswers", "rupeeAnswers", "wave02 counter rename")
-replace_all(wave02_test, '"£/m²"', '"₹/m²"', "wave02 test area-rate unit")
-replace_all(wave02_test, '"£/m³"', '"₹/m³"', "wave02 test volume-rate unit")
-replace_all(wave02_test, '"£"', '"₹"', "wave02 test cost unit")
-replace_all(wave02_test, '$\\\\text{£}', '$\\\\frac{\\\\text{₹}', "wave02 rate prefix", minimum=1)
-# Cost output is not a fraction, so restore its cost assertion after the global rate-prefix replacement.
-replace_once(
-    wave02_test,
-    'if (first.unit === "₹") {\n      rupeeAnswers += 1;\n      assert.ok(first.answer.startsWith("$\\\\frac{\\\\text{₹}"));\n    }',
-    'if (first.unit === "₹") {\n      rupeeAnswers += 1;\n      assert.ok(first.answer.startsWith("$\\\\text{₹}"));\n    }',
-    "wave02 cost prefix restore",
-)
-replace_once(
-    wave02_test,
-    'assert.equal(/₹/.test(learnerText), false, `${prototypeId} leaks an unintended currency symbol.`);',
-    'assert.equal(/[£€¥]/.test(learnerText), false, `${prototypeId} contains a foreign currency symbol.`);',
-    "wave02 foreign currency assertion",
-)
-replace_once(wave02_test, 'Wave 02 must prove en-GB rate rendering.', 'Wave 02 must prove Indian rupee rate rendering.', "wave02 rate message")
-replace_once(wave02_test, 'Wave 02 must prove en-GB cost rendering.', 'Wave 02 must prove Indian rupee cost rendering.', "wave02 cost message")
-
-wave03_test = ROOT / "gap-wave-03/runtime.test.ts"
-replace_all(wave03_test, "sterlingCostAnswers", "rupeeCostAnswers", "wave03 cost counter rename")
-replace_all(wave03_test, "sterlingRateAnswers", "rupeeRateAnswers", "wave03 rate counter rename")
-replace_all(wave03_test, '"£/m"', '"₹/m"', "wave03 test rate unit")
-replace_all(wave03_test, '"£"', '"₹"', "wave03 test cost unit")
-replace_once(
-    wave03_test,
-    'assert.equal(/₹/.test(learnerText), false, `${prototypeId} leaks an unintended currency symbol.`);',
-    'assert.equal(/[£€¥]/.test(learnerText), false, `${prototypeId} contains a foreign currency symbol.`);',
-    "wave03 foreign currency assertion",
-)
-replace_once(
-    wave03_test,
-    'assert.ok(first.answer.startsWith("$\\\\text{£}"));',
-    'assert.ok(first.answer.startsWith("$\\\\text{₹}"));',
-    "wave03 cost prefix",
-)
-replace_once(
-    wave03_test,
-    'assert.ok(first.answer.startsWith("$\\\\text{£}"));\n      assert.ok(first.answer.includes("/\\\\text{m}$"));',
-    'assert.ok(first.answer.startsWith("$\\\\frac{\\\\text{₹}"));\n      assert.ok(first.answer.includes("{\\\\text{m}}$"));',
-    "wave03 rate format",
-)
-replace_once(wave03_test, 'Wave 03 must prove en-GB cost rendering.', 'Wave 03 must prove Indian rupee cost rendering.', "wave03 cost message")
-replace_once(wave03_test, 'Wave 03 must prove en-GB wire-rate rendering.', 'Wave 03 must prove Indian rupee wire-rate rendering.', "wave03 rate message")
