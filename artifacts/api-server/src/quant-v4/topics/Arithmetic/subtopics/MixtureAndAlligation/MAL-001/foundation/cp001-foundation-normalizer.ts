@@ -167,6 +167,10 @@ function costVerb(label: string): "cost" | "costs" {
   return isPluralMaterialLabel(label) ? "cost" : "costs";
 }
 
+function sentenceCaseLabel(label: string): string {
+  return label.length === 0 ? label : `${label[0]!.toUpperCase()}${label.slice(1)}`;
+}
+
 function normalizeStem(question: any): string {
   const unit = perUnitNoun(question);
   const request = question.parameters?.request;
@@ -178,6 +182,9 @@ function normalizeStem(question: any): string {
     .replace(/\ba (\d+(?:\s+\d+\/\d+)?) litres portion\b/giu, "a $1-litre portion")
     .replace(/\bA (\d+(?:\s+\d+\/\d+)?) litres portion\b/gu, "A $1-litre portion")
     .replace(/\.\s+a (\d+(?:\s+\d+\/\d+)?-litre portion)\b/giu, ". A $1")
+    .replace(/,\s+What\b/g, ", what")
+    .replace(/,\s+How\b/g, ", how")
+    .replace(/\bto obtain (\d+(?:\s+\d+\/\d+)? (?:kg|litres)) worth\b/giu, "to obtain $1 of a blend worth")
     .replace(/\bits average value is\b/giu, "its average price is")
     .replace(/\bWhat is the final blend's value per unit\?/giu, `What is the final blend's price per ${unit}?`)
     .replace(/\bwhat is the resulting value per unit\?/giu, `what is the resulting price per ${unit}?`)
@@ -197,6 +204,7 @@ function normalizeStem(question: any): string {
 
   const unknownLabel = unknownSourceLabel(question);
   if (unknownLabel) {
+    const escapedUnknownLabel = escapeRegExp(unknownLabel);
     const replacement = `What is the price of ${unknownLabel} per ${unit}?`;
     stem = stem
       .replace(/[Ww]hat is the value of [^?]+(?: per unit)?\?$/u, replacement)
@@ -205,7 +213,11 @@ function normalizeStem(question: any): string {
       .replace(/[Ww]hat is the unit price of [^?]+\?$/u, replacement)
       .replace(/[Ww]hat is the cost of [^?]+\?$/u, replacement)
       .replace(/[Ww]hat does [^?]+ cost\?$/u, replacement)
-      .replace(/[Ww]hat price must [^?]+ have\?$/u, replacement);
+      .replace(/[Ww]hat price must [^?]+ have\?$/u, replacement)
+      .replace(
+        new RegExp(`[Ww]hat is the price of (?:the )?${escapedUnknownLabel}(?: per (?:kg|litre))?\\?$`, "u"),
+        replacement,
+      );
   }
 
   const quantityLabel = unknownQuantityLabel(question);
@@ -269,11 +281,12 @@ function normalizeStem(question: any): string {
 }
 
 function normalizeCommonTrap(value: unknown): string {
-  const normalized = String(value).replace(/^Common Trap:/u, "Common trap:");
-  return normalized.replace(
+  let normalized = String(value).replace(/^Common Trap:/u, "Common trap:");
+  normalized = normalized.replace(
     /^Common trap:\s+([A-Z])/u,
     (_match, firstLetter: string) => `Common trap: ${firstLetter.toLowerCase()}`,
   );
+  return normalized.replace(/\btwo stage\b/giu, "two-stage");
 }
 
 function normalizeExplanation(question: any): any {
@@ -283,7 +296,8 @@ function normalizeExplanation(question: any): any {
   const unknownLabel = unknownSourceLabel(question);
   if (unknownLabel) {
     const answer = question.options[question.correctIndex];
-    explanation.conclusion = `${unknownLabel} ${costVerb(unknownLabel)} ${answer}.`;
+    const conclusionLabel = sentenceCaseLabel(unknownLabel);
+    explanation.conclusion = `${conclusionLabel} ${costVerb(unknownLabel)} ${answer}.`;
   }
 
   const shareLabel = requestedShareLabel(question);
