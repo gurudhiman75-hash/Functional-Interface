@@ -56,24 +56,43 @@ for (const contract of CLS_CP001_PERMANENT_CONTRACTS) {
       assert.equal(new Set(question.options).size, question.options.length);
       assert.equal(question.options[question.correctIndex], question.answer);
       assert.equal(question.evidenceByOption.length, question.options.length);
-      assert.deepEqual(question.evidenceByOption, question.explanation.optionChecks);
+      assert.equal(question.explanation.coreRule.length, 1);
+      assert.ok(question.explanation.optionChecks.length >= 3 && question.explanation.optionChecks.length <= 4);
+      assert.equal(question.explanation.examSpeedShortcut.length, 1);
+      assert.equal(question.explanation.commonTraps.length, 1);
       assert.equal(question.optionGroups.length, english.optionGroups.length);
       assert.equal(question.lifecycle.reviewStatus, "FROZEN_RUNTIME_PROOF");
       assert.equal(question.questionStudioVisible, false);
       assert.equal(question.lifecycle.publiclyPublishable, false);
       assert.equal(question.lifecycle.testEligibility, "INELIGIBLE");
 
+      const solutionText = question.explanation.optionChecks.join(" ");
+      assert.ok(solutionText.includes(question.answer), `${contract.qlId}/${locale}/${seed} solution omitted answer`);
+
       if (question.task === "SELECT_COHERENT_GROUP") {
         assert.equal(question.optionGroups.length, question.options.length);
         assert.ok(question.optionGroups.every((group) => group.length === 3 && new Set(group).size === 3));
+        for (const label of question.optionGroups[question.correctIndex]!) {
+          assert.ok(solutionText.includes(label), `${contract.qlId}/${locale}/${seed} solution omitted ${label}`);
+        }
       } else {
         assert.equal(question.optionGroups.length, 0);
+        if (question.task === "SELECT_CLASS_MEMBER") {
+          for (const label of question.givens) {
+            assert.ok(solutionText.includes(label), `${contract.qlId}/${locale}/${seed} solution omitted ${label}`);
+          }
+        } else {
+          for (const [optionIndex, label] of question.options.entries()) {
+            if (optionIndex === question.correctIndex) continue;
+            assert.ok(solutionText.includes(label), `${contract.qlId}/${locale}/${seed} solution omitted ${label}`);
+          }
+        }
       }
 
       if (locale === "en-IN") {
         assert.deepEqual(question, english);
       } else {
-        assert.equal(question.metadata.localizationVersion, "cls-cp001-localization-v1");
+        assert.equal(question.metadata.localizationVersion, "cls-cp001-localization-v2");
         assert.notDeepEqual(question.options, english.options);
         assert.notEqual(question.intendedClassLabel, english.intendedClassLabel);
         if (question.optionGroups.length > 0) assert.notDeepEqual(question.optionGroups, english.optionGroups);
@@ -92,14 +111,14 @@ for (const contract of CLS_CP001_PERMANENT_CONTRACTS) {
         ].join("\n");
 
         if (locale === "hi-IN") {
-          assert.match(learnerText, /[\u0900-\u097F]/u);
-          assert.ok(question.options.every((value) => /[\u0900-\u097F]/u.test(value)));
-          assert.ok(question.optionGroups.flat().every((value) => /[\u0900-\u097F]/u.test(value)));
-          assert.ok(!/[\u0A00-\u0A7F]/u.test(question.stem));
+          assert.match(learnerText, /[\u0904-\u0939\u0958-\u0961]/u);
+          assert.ok(question.options.every((value) => /[\u0904-\u0939\u0958-\u0961]/u.test(value)));
+          assert.ok(question.optionGroups.flat().every((value) => /[\u0904-\u0939\u0958-\u0961]/u.test(value)));
+          assert.ok(!/[\u0A05-\u0A39\u0A59-\u0A5E]/u.test(question.stem));
         } else {
-          assert.match(learnerText, /[\u0A00-\u0A7F]/u);
-          assert.ok(question.options.every((value) => /[\u0A00-\u0A7F]/u.test(value)));
-          assert.ok(question.optionGroups.flat().every((value) => /[\u0A00-\u0A7F]/u.test(value)));
+          assert.match(learnerText, /[\u0A05-\u0A39\u0A59-\u0A5E]/u);
+          assert.ok(question.options.every((value) => /[\u0A05-\u0A39\u0A59-\u0A5E]/u.test(value)));
+          assert.ok(question.optionGroups.flat().every((value) => /[\u0A05-\u0A39\u0A59-\u0A5E]/u.test(value)));
           assert.ok(!/[\u0904-\u0939\u0958-\u0961]/u.test(question.stem));
           assert.ok(!/(?:^|\s)(?:ਪਦ|ਸਾਦ੍ਰਿਸ਼ਤਾ)(?:\s|$)/u.test(learnerText));
         }
@@ -129,10 +148,16 @@ for (const locale of LOCALES) {
   assert.equal(localeFingerprints.get(locale)!.size, 600);
   const positions = answerPositions.get(locale)!;
   assert.deepEqual(positions.map((count) => count > 0), [true, true, true, true, true]);
-  assert.ok(Math.max(...positions.slice(0, 4)) / Math.min(...positions.slice(0, 4)) < 1.5, `${locale} first four answer positions are imbalanced: ${positions}`);
+  assert.ok(
+    Math.max(...positions.slice(0, 4)) / Math.min(...positions.slice(0, 4)) < 1.5,
+    `${locale} first four answer positions are imbalanced: ${positions}`,
+  );
   assert.ok(positions[4]! > 20, `${locale} did not materially exercise fifth-position answers: ${positions}`);
   assert.ok(stemCoverage.get(locale)!.size >= 12);
-  assert.deepEqual(taskCoverage.get(locale), new Set(["FIND_OUTLIER", "SELECT_CLASS_MEMBER", "SELECT_COHERENT_GROUP"]));
+  assert.deepEqual(
+    taskCoverage.get(locale),
+    new Set(["FIND_OUTLIER", "SELECT_CLASS_MEMBER", "SELECT_COHERENT_GROUP"]),
+  );
 }
 
 console.log("CLS-CP-001 multilingual runtime audit passed.", {
@@ -144,5 +169,7 @@ console.log("CLS-CP-001 multilingual runtime audit passed.", {
   totalQuestions: 1800,
   answerPositions: Object.fromEntries(answerPositions),
   stemCounts: Object.fromEntries([...stemCoverage].map(([locale, values]) => [locale, values.size])),
-  taskCoverage: Object.fromEntries([...taskCoverage].map(([locale, values]) => [locale, [...values].sort()])),
+  taskCoverage: Object.fromEntries(
+    [...taskCoverage].map(([locale, values]) => [locale, [...values].sort()]),
+  ),
 });
