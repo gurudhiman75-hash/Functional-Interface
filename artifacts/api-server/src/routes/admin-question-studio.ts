@@ -68,6 +68,19 @@ router.get("/capabilities", requireAdminPermission("content.generation.read"), a
       supportedLanguages: Array.isArray(pkg.supportedLanguages)
         ? pkg.supportedLanguages.map(String)
         : ["en"],
+      runtimeMode: asString((pkg as any).runtimeMode) || undefined,
+      supportedRuntimeModes: Array.isArray((pkg as any).supportedRuntimeModes)
+        ? (pkg as any).supportedRuntimeModes.map(String)
+        : [],
+      dynamicCandidateCpIds: Array.isArray((pkg as any).dynamicCandidateCpIds)
+        ? (pkg as any).dynamicCandidateCpIds.map(String)
+        : [],
+      questionBankStatus: asString((pkg as any).questionBankStatus) || undefined,
+      testEligibility: asString((pkg as any).testEligibility) || undefined,
+      publiclyPublishable:
+      typeof (pkg as any).publiclyPublishable === "boolean"
+        ? (pkg as any).publiclyPublishable
+        : undefined,
     }));
 
     res.json({
@@ -202,6 +215,10 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
   const language = normalizeLanguage(req.body?.language);
   const difficulty = normalizeDifficulty(req.body?.difficulty);
   const seed = asString(req.body?.seed) || undefined;
+  const runtimeMode = asString(req.body?.runtimeMode) || undefined;
+  const canonicalProblemId =
+    asString(req.body?.canonicalProblemId) || asString(req.body?.cpId) || undefined;
+  const questionLanguageId = asString(req.body?.questionLanguageId) || undefined;
 
   if (!packageId && !patternId && !(topic && subtopic)) {
     res.status(400).json({
@@ -225,6 +242,9 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
     subtopic,
     language,
     seed,
+    runtimeMode,
+    canonicalProblemId,
+    questionLanguageId,
     requestedByFirebaseUid: req.user?.id,
   };
 
@@ -238,6 +258,9 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
       language: language as "en" | "hi" | "pa",
       seed,
       count,
+      runtimeMode: runtimeMode as "CANONICAL_REVIEW" | "DYNAMIC_CANDIDATE" | undefined,
+      canonicalProblemId,
+      questionLanguageId,
     });
 
     const generatedQuestions = Array.isArray(result.questions)

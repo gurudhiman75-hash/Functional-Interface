@@ -1,17 +1,26 @@
-name: Validate PNL-001 Question Studio review runtime
+name: Validate PNL-001 Question Studio runtimes
 
 on:
   push:
     branches:
       - feat/pnl-001-question-studio-review-runtime
+      - feat/pnl-001-cp001-question-studio-dynamic-review
     paths:
       - "artifacts/api-server/src/quant-v4/generation-engine.ts"
+      - "artifacts/api-server/src/quant-v4/generation-engine-core.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
+      - "artifacts/api-server/src/routes/generator.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio.ts"
+      - "artifacts/api-server/src/lib/admin-question-conversion.ts"
       - ".github/workflows/validate-pnl-question-studio-review-runtime.yml"
   pull_request:
     paths:
       - "artifacts/api-server/src/quant-v4/generation-engine.ts"
+      - "artifacts/api-server/src/quant-v4/generation-engine-core.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
+      - "artifacts/api-server/src/routes/generator.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio.ts"
+      - "artifacts/api-server/src/lib/admin-question-conversion.ts"
       - ".github/workflows/validate-pnl-question-studio-review-runtime.yml"
 
 permissions:
@@ -49,7 +58,7 @@ jobs:
           node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-review-runtime.test.mjs \
             2>&1 | tee -a pnl-question-studio-review-runtime.log
 
-      - name: Bundle and run shared registration proof
+      - name: Bundle and run shared routing and safety proof
         run: |
           set -o pipefail
           pnpm --dir artifacts/api-server exec esbuild \
@@ -64,7 +73,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pnl-question-studio-review-runtime-proof
+          name: pnl-question-studio-runtime-proof
           path: |
             pnl-question-studio-review-runtime.log
             pnl-question-studio-integration.log
