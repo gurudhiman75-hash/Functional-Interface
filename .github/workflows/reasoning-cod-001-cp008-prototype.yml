@@ -1,15 +1,17 @@
-name: Reasoning COD-001 CP-008 Prototype
+name: Reasoning COD-001 CP-008 Runtime
 
 on:
   pull_request:
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-008/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-001-MANIFEST-AMENDMENT-CP008.md"
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/cod-001-open-ql-discovery-amendment.md"
       - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/README.md"
       - ".github/workflows/reasoning-cod-001-cp008-prototype.yml"
   workflow_dispatch:
 
 jobs:
-  cp008-prototype:
+  cp008-runtime:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -24,5 +26,8 @@ jobs:
       - name: Enforce final English discovery freeze
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-008/cp008-final-discovery-freeze.test.ts
 
-      - name: Run CP-008 executable discovery audit
+      - name: Run permanent English runtime audit
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-008/cp008-runtime.test.ts
+
+      - name: Run executable prototype regression
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-008/cp008-prototype.test.ts
