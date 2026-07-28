@@ -1,0 +1,77 @@
+name: One-shot PNL CP-004 exact-money correction
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-cp004-dynamic-runtime
+    paths:
+      - ".github/workflows/tmp-pnl-cp004-exact-money-fix.yml"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - ".github/workflows/tmp-pnl-cp004-exact-money-fix.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  correct-and-prove:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-cp004-dynamic-runtime
+
+      - name: Constrain middle-trader commission to exact retained fraction
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-cases.ts")
+          source = path.read_text()
+          anchor = "function middleTraderCase(random: SeededRandom)"
+          start = source.index(anchor)
+          end = source.index("\n}\n\nfunction forwardContext", start)
+          block = source[start:end]
+          old = "const commissionPercent = rational(pickNumber(random, COMMISSION_RATES));"
+          if block.count(old) != 1:
+              raise SystemExit(f"expected one middle-trader commission selector, found {block.count(old)}")
+          block = block.replace(
+              old,
+              "// A 20% commission leaves 4/5 of gross; all generated net targets are exact multiples of 4 paise.\n  const commissionPercent = rational(20);",
+              1,
+          )
+          path.write_text(source[:start] + block + source[end:])
+          PY
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run complete CP-004 proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-runtime.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/.cp004-dynamic-runtime.test.mjs
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/.cp004-dynamic-runtime.test.mjs
+
+      - name: Commit proven correction
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-cases.ts
+          git commit -m "fix(pnl): keep CP-004 commission inverse exact"
+          git push origin HEAD:feat/pnl-001-cp004-dynamic-runtime
