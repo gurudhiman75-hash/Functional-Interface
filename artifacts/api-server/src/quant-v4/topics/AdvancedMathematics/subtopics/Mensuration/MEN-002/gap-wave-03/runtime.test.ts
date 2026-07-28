@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { exactKey, isPositive } from "../foundation/exact";
+import { exactKey, formatIndianInteger, isPositive } from "../foundation/exact";
 import {
   getMenCp007Wave03PrototypeIds,
   MEN_CP_007_WAVE_03_PROTOTYPES,
@@ -18,8 +18,8 @@ const seenShapes = new Set<string>();
 const seenDifficulties = new Set<string>();
 let generated = 0;
 let percentageAnswers = 0;
-let sterlingCostAnswers = 0;
-let sterlingRateAnswers = 0;
+let rupeeCostAnswers = 0;
+let rupeeRateAnswers = 0;
 
 for (const prototypeId of prototypeIds) {
   const positions = new Set<number>();
@@ -86,21 +86,24 @@ for (const prototypeId of prototypeIds) {
       false,
       `${prototypeId} leaks internal taxonomy.`,
     );
-    assert.equal(/₹/.test(learnerText), false, `${prototypeId} leaks an unintended currency symbol.`);
+    assert.equal(/[£€¥]/.test(learnerText), false, `${prototypeId} contains a foreign currency symbol.`);
     assert.ok(first.stem.endsWith("?") || first.stem.endsWith("."));
 
     if (first.unit === "%") {
       percentageAnswers += 1;
       assert.ok(first.answer.endsWith("\\%$"));
     }
-    if (first.unit === "£") {
-      sterlingCostAnswers += 1;
-      assert.ok(first.answer.startsWith("$\\text{£}"));
+    if (first.unit === "₹") {
+      rupeeCostAnswers += 1;
+      assert.ok(first.answer.startsWith("$\\text{₹}"));
+      if (first.exactAnswer.kind === "RATIONAL" && first.exactAnswer.denominator === 1n && first.exactAnswer.numerator >= 1000n) {
+        assert.ok(first.answer.includes(formatIndianInteger(first.exactAnswer.numerator)), "Rupee amounts must use Indian digit grouping.");
+      }
     }
-    if (first.unit === "£/m") {
-      sterlingRateAnswers += 1;
-      assert.ok(first.answer.startsWith("$\\text{£}"));
-      assert.ok(first.answer.includes("/\\text{m}$"));
+    if (first.unit === "₹/m") {
+      rupeeRateAnswers += 1;
+      assert.ok(first.answer.startsWith("$\\frac{\\text{₹}"));
+      assert.ok(first.answer.includes("{\\text{m}}$"));
     }
 
     positions.add(first.correctIndex);
@@ -125,8 +128,8 @@ for (const target of ["LENGTH", "VOLUME", "COUNT", "PERCENT_CHANGE", "COST", "RA
 }
 assert.deepEqual([...seenDifficulties].sort(), ["Easy", "Hard", "Medium"]);
 assert.ok(percentageAnswers > 0, "Wave 03 must prove exact percentage rendering.");
-assert.ok(sterlingCostAnswers > 0, "Wave 03 must prove en-GB cost rendering.");
-assert.ok(sterlingRateAnswers > 0, "Wave 03 must prove en-GB wire-rate rendering.");
+assert.ok(rupeeCostAnswers > 0, "Wave 03 must prove Indian rupee cost rendering.");
+assert.ok(rupeeRateAnswers > 0, "Wave 03 must prove Indian rupee wire-rate rendering.");
 
 const dispositions = MEN_CP_007_WAVE_03_PROTOTYPES.reduce<Record<string, number>>((counts, prototype) => {
   counts[prototype.disposition] = (counts[prototype.disposition] ?? 0) + 1;
