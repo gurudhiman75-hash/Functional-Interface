@@ -2,14 +2,14 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { INT_CP001_EDITORIAL_RELEASE_ID, INT_CP001_EDITORIAL_STANDARD } from "./cp001-editorial-release";
 import { INT_CP001_FINAL_QL_IDS } from "./cp001-final-registry";
-import { generateIntCp001FinalEditorialQuestion } from "./cp001-final-editorial-runtime";
+import { generateIntCp001FinalEditorialV3Question } from "./cp001-final-editorial-runtime-v3";
 
 function serialise(value: unknown): string {
   return JSON.stringify(value, (_key, item) => typeof item === "bigint" ? item.toString() : item, 2);
 }
 
 const items = INT_CP001_FINAL_QL_IDS.flatMap((qlId) =>
-  ["review-a", "review-b", "review-c"].map((seed) => generateIntCp001FinalEditorialQuestion(qlId, seed)),
+  ["review-a", "review-b", "review-c"].map((seed) => generateIntCp001FinalEditorialV3Question(qlId, seed)),
 );
 for (const item of items) {
   if (!item.validation.ok) throw new Error(`${item.qlId}/${item.seed}: ${item.validation.errors.join(" | ")}`);
@@ -36,16 +36,18 @@ await writeFile(jsonPath, serialise({
 }), "utf8");
 
 const markdown: string[] = [
-  "# INT-001 / CP-001 Final English Review Pack — Four-Tier Gold V2",
+  "# INT-001 / CP-001 Final English Review Pack — Four-Tier Gold V3",
   "",
   `Release: **${INT_CP001_EDITORIAL_RELEASE_ID}**`,
   "",
-  "Status: **frozen English solve contracts; editorial-v2 review-only and unpublished**",
+  "Status: **frozen English solve contracts; editorial-v3 review-only and unpublished**",
   "",
   `Permanent QLs: **${INT_CP001_FINAL_QL_IDS.length}**`,
   `Samples: **${items.length}**`,
   "",
   "Every explanation follows: 📌 Core Concept & Formula → 📝 Step-by-Step Solution → ⚡ Exam Speed Shortcut → ⚠️ Common Traps & Distractor Analysis.",
+  "",
+  "V3 adds uniform inline MathJax for fractions and variables plus light exam-realistic context for generic textbook stems.",
   "",
   "---",
   "",
