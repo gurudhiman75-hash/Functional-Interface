@@ -13,4 +13,6 @@ export * from "./cp001-final-registry";
 export * from "./cp001-final-runtime";
 export * from "./cp001-editorial-release";
 export * from "./cp001-editorial-v2";
+export * from "./cp001-editorial-v3";
 export * from "./cp001-final-editorial-runtime";
+export * from "./cp001-final-editorial-runtime-v3";
