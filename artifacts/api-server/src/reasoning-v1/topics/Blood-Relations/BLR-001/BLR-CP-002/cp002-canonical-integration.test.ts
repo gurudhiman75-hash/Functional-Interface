@@ -12,9 +12,10 @@ const reviewedScenarioIds = new Set<string>();
 let onlyChildRecords = 0;
 let affinalRecords = 0;
 let selfRecords = 0;
+let longChainRecords = 0;
 
-assert.equal(scenarios.length, 26);
-assert.equal(new Set(scenarios.map((scenario) => scenario.scenarioId)).size, 26);
+assert.equal(scenarios.length, 32);
+assert.equal(new Set(scenarios.map((scenario) => scenario.scenarioId)).size, 32);
 
 for (const scenario of scenarios) {
   for (let seed = 0; seed < 4; seed += 1) {
@@ -73,6 +74,20 @@ for (const scenario of scenarios) {
       affinalRecords += 1;
     }
     if (question.metadata.selfIdentity) selfRecords += 1;
+    if (scenario.scenarioId.startsWith("CP002-LONG-")) {
+      longChainRecords += 1;
+      const expressions = [
+        question.structuredPrompt.assertion.subject,
+        question.structuredPrompt.assertion.reference,
+        question.structuredPrompt.query.subject,
+        question.structuredPrompt.query.reference,
+      ];
+      assert.ok(
+        expressions.some(
+          (expression) => expression.kind === "ROLE_CHAIN" && expression.steps.length >= 4,
+        ),
+      );
+    }
 
     answerPositions[question.correctIndex] += 1;
     answers.add(question.metadata.answerId);
@@ -81,17 +96,19 @@ for (const scenario of scenarios) {
   }
 }
 
-assert.deepEqual(answerPositions, [26, 26, 26, 26]);
-assert.equal(reviewedScenarioIds.size, 26);
+assert.deepEqual(answerPositions, [32, 32, 32, 32]);
+assert.equal(reviewedScenarioIds.size, 32);
 assert.equal(onlyChildRecords, 12);
-assert.ok(affinalRecords >= 36);
-assert.ok(selfRecords >= 12);
+assert.ok(affinalRecords >= 52);
+assert.ok(selfRecords >= 16);
+assert.equal(longChainRecords, 24);
 assert.deepEqual(
   [...presentations].sort(),
   ["CONVERSATION", "INTRODUCTION", "PHOTOGRAPH", "POINTING", "STAGE"],
 );
 for (const answerId of [
   "SELF",
+  "FATHER",
   "DAUGHTER",
   "MOTHER",
   "GRANDSON",
@@ -114,7 +131,7 @@ console.log(
   JSON.stringify(
     {
       checkpointId: "BLR-CP-002",
-      gate: "CANONICAL_SCENARIO_INTEGRATION_V1",
+      gate: "CANONICAL_SCENARIO_INTEGRATION_V2",
       scenarios: scenarios.length,
       questions: scenarios.length * 4,
       answerPositions,
@@ -123,6 +140,7 @@ console.log(
       onlyChildRecords,
       affinalRecords,
       selfRecords,
+      longChainRecords,
       permanentQlCount: 0,
       provisionalAuthorityCount: 1,
     },
