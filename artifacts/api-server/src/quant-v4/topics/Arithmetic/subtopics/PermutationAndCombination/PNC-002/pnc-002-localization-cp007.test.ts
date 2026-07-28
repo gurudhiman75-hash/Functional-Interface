@@ -115,7 +115,7 @@ for (const entry of entries) {
         assert.deepEqual(mathTokens(localized.stem), mathTokens(english.stem));
 
         const scriptPattern = locale === "hi-IN" ? /[\u0900-\u097F]/ : /[\u0A00-\u0A7F]/;
-        const foreignScriptPattern = locale === "hi-IN" ? /[\u0A00-\u0A7F]/ : /[\u0900-\u097F]/;
+        const foreignScriptPattern = locale === "hi-IN" ? /[\u0A05-\u0A39]/ : /[\u0904-\u0939\u0958-\u0961]/;
         const studentText = [
           localized.stem,
           ...localized.displayOptions,
