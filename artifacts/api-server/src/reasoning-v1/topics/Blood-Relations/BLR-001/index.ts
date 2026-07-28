@@ -17,3 +17,6 @@ export * from "./BLR-CP-001/lineage-prototype-generator";
 export * from "./BLR-CP-001/lineage-prototype-solver";
 export * from "./BLR-CP-001/cp001-editorial-upgrader";
 export * from "./BLR-CP-001/cp001-review-registry";
+export * from "./BLR-CP-001/cp001-permanent-contracts";
+export * from "./BLR-CP-001/cp001-runtime";
+export * from "./BLR-CP-001/cp001-final-discovery-freeze";
