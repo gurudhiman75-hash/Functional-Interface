@@ -1,9 +1,48 @@
+import type { BlrGender, FamilyGraph } from "../foundation/types";
 import type { BlrCp003ScenarioTemplate } from "./cp003-types";
+
+function hiddenFamily(
+  genders: Readonly<Record<string, Exclude<BlrGender, "UNKNOWN">>>,
+  parentEdges: readonly { parentId: string; childId: string }[],
+  spouseEdges: readonly { personAId: string; personBId: string }[],
+): FamilyGraph {
+  return {
+    persons: Object.entries(genders).map(([personId, gender]) => ({
+      personId,
+      name: personId,
+      gender,
+    })),
+    parentEdges,
+    spouseEdges,
+    siblingEdges: [],
+  };
+}
 
 export const BLR_CP003_SCENARIOS: readonly BlrCp003ScenarioTemplate[] = [
   {
     scenarioId: "BLR-CP003-SCN-THREE-GENERATION-TWO-BRANCH",
     topologyId: "THREE_GENERATION_TWO_BRANCH",
+    hiddenGraph: hiddenFamily(
+      {
+        A: "MALE",
+        B: "FEMALE",
+        C: "MALE",
+        D: "FEMALE",
+        E: "FEMALE",
+        F: "MALE",
+        G: "FEMALE",
+      },
+      [
+        { parentId: "A", childId: "C" },
+        { parentId: "A", childId: "D" },
+        { parentId: "C", childId: "F" },
+        { parentId: "D", childId: "G" },
+      ],
+      [
+        { personAId: "A", personBId: "B" },
+        { personAId: "C", personBId: "E" },
+      ],
+    ),
     clues: [
       { subjectId: "A", relationId: "HUSBAND", referenceId: "B" },
       { subjectId: "C", relationId: "SON", referenceId: "A" },
@@ -53,6 +92,25 @@ export const BLR_CP003_SCENARIOS: readonly BlrCp003ScenarioTemplate[] = [
   {
     scenarioId: "BLR-CP003-SCN-AFFINAL-CHILD-BRANCH",
     topologyId: "AFFINAL_CHILD_BRANCH",
+    hiddenGraph: hiddenFamily(
+      {
+        A: "MALE",
+        B: "FEMALE",
+        C: "FEMALE",
+        D: "MALE",
+        E: "MALE",
+        F: "MALE",
+      },
+      [
+        { parentId: "A", childId: "C" },
+        { parentId: "A", childId: "D" },
+        { parentId: "C", childId: "F" },
+      ],
+      [
+        { personAId: "A", personBId: "B" },
+        { personAId: "C", personBId: "E" },
+      ],
+    ),
     clues: [
       { subjectId: "A", relationId: "HUSBAND", referenceId: "B" },
       { subjectId: "C", relationId: "DAUGHTER", referenceId: "A" },
@@ -107,6 +165,29 @@ export const BLR_CP003_SCENARIOS: readonly BlrCp003ScenarioTemplate[] = [
   {
     scenarioId: "BLR-CP003-SCN-TWO-COUPLE-COUSIN-BRANCH",
     topologyId: "TWO_COUPLE_COUSIN_BRANCH",
+    hiddenGraph: hiddenFamily(
+      {
+        A: "MALE",
+        B: "FEMALE",
+        C: "FEMALE",
+        D: "MALE",
+        E: "MALE",
+        F: "FEMALE",
+        G: "FEMALE",
+        H: "MALE",
+      },
+      [
+        { parentId: "A", childId: "C" },
+        { parentId: "A", childId: "D" },
+        { parentId: "C", childId: "F" },
+        { parentId: "D", childId: "H" },
+      ],
+      [
+        { personAId: "A", personBId: "B" },
+        { personAId: "C", personBId: "E" },
+        { personAId: "D", personBId: "G" },
+      ],
+    ),
     clues: [
       { subjectId: "A", relationId: "HUSBAND", referenceId: "B" },
       { subjectId: "C", relationId: "DAUGHTER", referenceId: "A" },
