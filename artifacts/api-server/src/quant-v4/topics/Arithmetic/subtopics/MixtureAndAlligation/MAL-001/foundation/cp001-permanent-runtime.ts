@@ -145,8 +145,10 @@ function normaliseSimpleWords(value: string): string {
     .replace(/\bintermediate result\b/giu, "first result")
     .replace(/\bordinary\b/giu, "normal")
     .replace(/\bpre-blend\b/giu, "first blend")
+    .replace(/\bvalue already supplied by\b/giu, "value already given by")
     .replace(/\bvalue supplied by\b/giu, "value from")
     .replace(/\bvalue belonging to\b/giu, "value for")
+    .replace(/\bbelongs to\b/giu, "is for")
     .replace(/\bcomponents\b/giu, "items")
     .replace(/\bcomponent\b/giu, "item");
 }
