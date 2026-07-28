@@ -74,6 +74,12 @@ export const BLR_CP003_SCENARIOS: readonly BlrCp003ScenarioTemplate[] = [
         referenceId: "E",
       },
       {
+        kind: "RELATION",
+        prototypeId: "BLR-CP003-PROT-SHARED-RELATION",
+        subjectId: "A",
+        referenceId: "F",
+      },
+      {
         kind: "MARRIED_PAIR",
         prototypeId: "BLR-CP003-PROT-SHARED-MARRIED-PAIR",
         personAId: "C",
