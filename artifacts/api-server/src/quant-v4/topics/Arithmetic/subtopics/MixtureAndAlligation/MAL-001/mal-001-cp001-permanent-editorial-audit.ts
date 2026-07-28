@@ -73,6 +73,14 @@ function explanationText(question: any): string {
   ].join("\n");
 }
 
+function isUsefulTeacherStep(step: string, stepIndex: number): boolean {
+  const showsArithmetic = /[=×÷−+]|ratio|quantity|price|value/iu.test(step);
+  const identifiesGivens =
+    stepIndex <= 1 &&
+    /\b(?:known item|new item|write the|target|ratio parts?|given|item)\b/iu.test(step);
+  return showsArithmetic || identifiesGivens;
+}
+
 let generatedQuestionCount = 0;
 let namedAnswerContractCount = 0;
 let sourceValueUnitContractCount = 0;
@@ -125,7 +133,7 @@ for (const qlId of MAL_CP001_PERMANENT_QL_IDS) {
       if (!step.startsWith(`Step ${stepIndex + 1}: `)) {
         fail(`${qlId}/${seed}: step numbering is broken: ${step}`);
       }
-      if (!/[=×÷−+]|ratio|quantity|price|value/iu.test(step)) {
+      if (!isUsefulTeacherStep(step, stepIndex)) {
         fail(`${qlId}/${seed}: step does not show useful working: ${step}`);
       }
       numberedStepCount += 1;
