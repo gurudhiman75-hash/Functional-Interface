@@ -3,6 +3,10 @@ import { solveRelationFromGraph } from "../foundation/graph-closure";
 import { SeededRandom, stableHash } from "../foundation/prng";
 import { relationLabel } from "../foundation/relation-ontology";
 import type { BlrDifficulty, BlrGender, FamilyGraph } from "../foundation/types";
+import {
+  allBlrCp002CanonicalScenarios,
+  cp002CanonicalScenariosFor,
+} from "./cp002-canonical-scenario-registry";
 import { getBlrCp002PrototypeContract } from "./cp002-contracts";
 import { buildBlrCp002Distractors } from "./cp002-distractor-builder";
 import {
@@ -15,7 +19,7 @@ import {
 } from "./cp002-role-solver";
 import {
   buildCp002StructuredPrompt,
-  cp002ScenariosFor,
+  type BlrCp002ScenarioTemplate,
 } from "./cp002-scenario-library";
 import type {
   BlrCp002AnswerId,
@@ -108,7 +112,10 @@ function assertionSentence(
   return `${subject} is the ${relation} of ${reference}.`;
 }
 
-function anchorName(prompt: BlrCp002StructuredPrompt, anchor: "SPEAKER" | "LISTENER" | "POINTED_PERSON"): string {
+function anchorName(
+  prompt: BlrCp002StructuredPrompt,
+  anchor: "SPEAKER" | "LISTENER" | "POINTED_PERSON",
+): string {
   const personId =
     anchor === "SPEAKER"
       ? prompt.speakerId
@@ -212,7 +219,10 @@ function familyTreeGrid(
   }
   const lines = [...rows.entries()]
     .sort(([first], [second]) => second - first)
-    .map(([delta, entries]) => `Generation ${delta >= 0 ? "+" : ""}${delta}: ${entries.sort().join("   ")}`);
+    .map(
+      ([delta, entries]) =>
+        `Generation ${delta >= 0 ? "+" : ""}${delta}: ${entries.sort().join("   ")}`,
+    );
   const connections = [
     ...graph.parentEdges.map(
       (edge) => `  [${names[edge.parentId]}] --parent of--> [${names[edge.childId]}]`,
@@ -224,7 +234,12 @@ function familyTreeGrid(
       (edge) => `  [${names[edge.personAId]}] --sibling of-- [${names[edge.personBId]}]`,
     ),
   ];
-  return [`Reference: [${names[referenceId]}] = Generation 0`, ...lines, "Connections:", ...connections].join("\n");
+  return [
+    `Reference: [${names[referenceId]}] = Generation 0`,
+    ...lines,
+    "Connections:",
+    ...connections,
+  ].join("\n");
 }
 
 function distractorWarning(errorLabel: string): string {
@@ -311,13 +326,15 @@ function explanationFor(
   };
 }
 
-export function generateBlrCp002PrototypeQuestion(
-  prototypeId: BlrCp002PrototypeId,
-  seed = 0,
+function generateFromScenario(
+  template: BlrCp002ScenarioTemplate,
+  seed: number,
 ): GeneratedBlrCp002PrototypeQuestion {
+  const prototypeId = template.prototypeId;
   const contract = getBlrCp002PrototypeContract(prototypeId);
-  const random = new SeededRandom(seed ^ Number.parseInt(stableHash([prototypeId]), 16));
-  const template = random.pick(cp002ScenariosFor(prototypeId));
+  const random = new SeededRandom(
+    seed ^ Number.parseInt(stableHash([prototypeId, template.scenarioId]), 16),
+  );
   const prompt = buildCp002StructuredPrompt(template, random);
 
   if (contract.requiresListener && !prompt.listenerId) {
@@ -418,4 +435,26 @@ export function generateBlrCp002PrototypeQuestion(
       distractorErrorLabels: distractors.map((entry) => entry.errorLabel),
     },
   };
+}
+
+export function generateBlrCp002PrototypeQuestion(
+  prototypeId: BlrCp002PrototypeId,
+  seed = 0,
+): GeneratedBlrCp002PrototypeQuestion {
+  const selectionRandom = new SeededRandom(
+    seed ^ Number.parseInt(stableHash([prototypeId, "canonical-scenario-selection"]), 16),
+  );
+  const template = selectionRandom.pick(cp002CanonicalScenariosFor(prototypeId));
+  return generateFromScenario(template, seed);
+}
+
+export function generateBlrCp002ScenarioQuestion(
+  scenarioId: string,
+  seed = 0,
+): GeneratedBlrCp002PrototypeQuestion {
+  const template = allBlrCp002CanonicalScenarios().find(
+    (scenario) => scenario.scenarioId === scenarioId,
+  );
+  if (!template) throw new Error(`Unknown canonical CP-002 scenario: ${scenarioId}.`);
+  return generateFromScenario(template, seed);
 }
