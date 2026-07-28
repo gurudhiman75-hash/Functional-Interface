@@ -1,6 +1,6 @@
 # BLR-CP-001 — Implementation Report
 
-Status: **third executable English discovery slice implemented; machine editorial gate passed; human review pending; no permanent QLs**.
+Status: **human audit remediation V2 implemented and exact-head CI passed; second gap audit pending; no permanent QLs**.
 
 ## Implemented foundation
 
@@ -38,89 +38,75 @@ Status: **third executable English discovery slice implemented; machine editoria
 10. `BLR-CP001-PROT-IDENTIFY-PERSON-BY-GENDER`;
 11. `BLR-CP001-PROT-EXACT-LINEAGE-RELATION`.
 
-These are discovery prototypes, not permanent QLs. The first merge/split audit compresses them provisionally into seven solve authorities.
+These remain discovery prototypes, not permanent QLs. The first merge/split audit compresses them provisionally into seven solve authorities.
 
-## Local executable proofs
+## Mathematical executable proofs
 
 ### Original-slice regression
 
-A compiled local harness regenerated 400 questions:
-
-- four contracts × 100 seeds;
-- deterministic repeat equality;
-- clue-only solver agreement;
-- four unique options and one correct answer;
-- answer positions `[100, 100, 100, 100]`;
-- existing broad relation coverage retained.
+The original harness regenerates 400 questions with deterministic repeat equality, clue-only solver agreement, four unique options, one correct answer and answer positions `[100, 100, 100, 100]`.
 
 ### Query-contract proof
 
-A separate compiled harness generated 500 questions:
-
-- five contracts × 100 seeds;
-- deterministic repeat equality;
-- independent answer-key agreement;
-- graph validity for every instance;
-- five distinct answer shapes;
-- answer positions `[125, 125, 125, 125]`;
-- Easy, Medium and Hard reach;
-- both `TRUE` and `FALSE` claim modes;
-- generation deltas `-2`, `-1`, `0`, `1` and `2`;
-- 100 branching questions proven through inferred sibling closure.
+The advanced harness generates 500 questions with five answer contracts, graph validity, answer positions `[125, 125, 125, 125]`, Easy/Medium/Hard reach, both claim polarities, generation deltas `-2` through `2` and inferred-sibling branching.
 
 ### Gender and exact-lineage proof
 
-A third compiled harness generated 240 questions:
+The lineage harness generates 240 questions with answer positions `[60, 60, 60, 60]`, both target genders, both lineage sides, all eight exact lineage relations, ten source-natural scenarios and spouse-direction gender inference. A focused ontology proof covers brother-in-law and sister-in-law through both `spouse -> sibling` and `sibling -> spouse`.
 
-- two contracts × 120 seeds;
-- deterministic repeat equality;
-- independent solver agreement;
-- answer positions `[60, 60, 60, 60]`;
-- male and female target coverage;
-- paternal and maternal side coverage;
-- all eight exact lineage relations;
-- broad grandfather, grandmother, uncle and aunt coverage;
-- ten source-natural scenarios;
-- 60 cases where gender was inferred from spouse direction rather than the queried person's own relation word.
+## English editorial and human-audit remediation
 
-A focused ontology harness also proved brother-in-law and sister-in-law through:
+The first machine editorial gate generates 440 reviewed questions across all eleven prototypes and seven provisional authorities.
 
-```text
-spouse -> sibling
-sibling -> spouse
-```
+The external human review scored the 88-record pack **8.7/10** and confirmed full logical correctness. It required:
 
-## English editorial readiness proof
+- compact exam-authentic stems;
+- removal of robotic filler and direct-question double phrasing;
+- generation-level family-tree grids;
+- explicit `ΔGen` arithmetic;
+- ten-second shortcuts;
+- option-specific student warnings derived from misconception labels.
 
-The machine editorial audit generates 440 additional review cases:
+The shared editorial V2 layer now upgrades every question emitted through the canonical CP-001 review/runtime registry without changing graph, answer or option identity.
 
-- all eleven prototypes;
-- all seven provisional authorities;
-- six answer shapes;
-- answer positions `[110, 110, 110, 110]`;
-- learner-text cleanliness;
-- unique options and labelled wrong answers;
-- complete clue, query, conclusion and trap explanations;
-- substantial stem diversity.
+A second 440-question remediation gate enforces the four teacher tiers:
 
-The workflow exports an 88-record HTML/CSV/JSONL review pack with answer positions `[22, 22, 22, 22]`.
+1. core concept and generation mapping;
+2. step-by-step ASCII family-tree solution;
+3. ten-second exam shortcut;
+4. common traps and distractor analysis.
 
-## Repository CI
+## Exact-head repository CI
 
-On code-bearing head `c371e6990ffa872eb014f4ceed0260fa96ee54da`, dedicated run `30328891306` completed successfully. Every stage passed:
+Final synced head:
 
 ```text
-prototype.test.ts
-advanced-prototype.test.ts
-lineage-prototype.test.ts
-cp001-editorial-review.test.ts
-export-cp001-review.ts
-review artifact upload
+b514d02b2d4684e966ba94eccc1763252167dcbc
 ```
 
-The Render production build also passed on that head. The broader integrated-admin workflow continued to fail at its existing `Enforce truthful frontend surface` check before any BLR-specific or Question Studio gate ran.
+Dedicated run:
 
-Documentation-only status commits after that proof continue to trigger the same dedicated workflow and must remain green before merge.
+```text
+30331197065 — PASS
+```
+
+Every stage passed:
+
+```text
+prototype.test.ts                         400 questions
+advanced-prototype.test.ts                500 questions
+lineage-prototype.test.ts                 240 questions
+cp001-editorial-review.test.ts            440 questions
+cp001-human-audit-remediation.test.ts     440 questions
+export-cp001-review.ts                    passed
+review artifact upload                    passed
+-------------------------------------------------------
+current deterministic workflow          2,020 questions
+```
+
+The final artifact `blr-001-cp001-english-review-remediated` contains 88 balanced records, HTML/CSV/JSONL/summary output and answer positions `[22, 22, 22, 22]`.
+
+The unrelated integrated-admin workflow continues to stop at its existing truthful-frontend check before any BLR or Question Studio gate executes.
 
 ## Discovery decisions
 
@@ -134,15 +120,14 @@ The first source, merge/split and inverse audits provisionally retain seven solv
 6. compare generations;
 7. resolve an exact paternal/maternal relation.
 
-Direct versus reverse, path length, branching topology, true versus false claim wording, target gender and lineage side are instance properties. No additional inverse authority was justified by the current evidence.
+Direct versus reverse, path length, branching topology, true versus false wording, target gender and lineage side remain instance properties.
 
 ## Remaining work before freeze
 
-- human review of the 88-record English pack;
-- remediation of any approved wording or distractor findings;
-- second source and gap audit;
-- final discovery freeze if no new material contract appears;
-- guarded permanent sequential QL allocation in a later change.
+- inspect and approve the remediated 88-record V2 pack;
+- execute the second source and gap audit;
+- freeze only if no new material solve authority appears;
+- allocate guarded permanent sequential QLs in a later change.
 
 ## Not implemented in CP-001
 
