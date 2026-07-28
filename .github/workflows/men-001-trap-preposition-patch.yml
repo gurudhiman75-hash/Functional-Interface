@@ -1,0 +1,71 @@
+name: MEN-001 Trap Preposition Patch
+
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize]
+    paths:
+      - .github/workflows/men-001-trap-preposition-patch.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Fix preposition-led distractor grammar
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/structured-common-traps.ts")
+          text = path.read_text()
+
+          text = text.replace(
+              '/^(the|a|an|one|only|half|double|triple|four|all|both|its|their)\\b/i.test(value)',
+              '/^(the|a|an|one|two|three|four|five|six|seven|eight|nine|ten|only|half|double|triple|all|both|its|their|\\d)\\b/i.test(value)',
+              1,
+          )
+
+          old_divide = '''    case "divide":
+              return by
+                ? `dividing ${withArticle(by[0])} by ${withArticle(by[1])}`
+                : `dividing by ${withArticle(afterText)} unnecessarily`;'''
+          new_divide = '''    case "divide":
+              if (afterText.startsWith("by ")) return `dividing by ${afterText.slice(3)} unnecessarily`;
+              return by
+                ? `dividing ${withArticle(by[0])} by ${withArticle(by[1])}`
+                : `dividing by ${withArticle(afterText)} unnecessarily`;'''
+          if old_divide not in text:
+              raise SystemExit("divide block not found")
+          text = text.replace(old_divide, new_divide, 1)
+
+          old_multiply = '''    case "multiply":
+              return by
+                ? `multiplying ${withArticle(by[0])} by ${withArticle(by[1])}`
+                : `multiplying by ${withArticle(afterText)} unnecessarily`;'''
+          new_multiply = '''    case "multiply":
+              if (afterText.startsWith("by ")) return `multiplying by ${afterText.slice(3)} unnecessarily`;
+              return by
+                ? `multiplying ${withArticle(by[0])} by ${withArticle(by[1])}`
+                : `multiplying by ${withArticle(afterText)} unnecessarily`;'''
+          if old_multiply not in text:
+              raise SystemExit("multiply block not found")
+          path.write_text(text.replace(old_multiply, new_multiply, 1))
+          PY
+
+      - name: Commit patch
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/structured-common-traps.ts
+          git commit -m "fix(mensuration): parse divide-by and multiply-by traps"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
