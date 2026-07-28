@@ -1,4 +1,5 @@
 export {
+  auditClsCp001DisplayedOptions,
   generateClsCp001Prototype,
   getClsCp001PrototypeDefinitions,
   getClsCp001SemanticDataset,
@@ -9,7 +10,9 @@ export type {
   ClassificationTask,
   Difficulty,
   Explanation,
+  FactRisk,
   GeneratedClassificationQuestion,
+  GenerationProfile,
   PrototypeDefinition,
   PrototypeFamily,
   PrototypeId,
