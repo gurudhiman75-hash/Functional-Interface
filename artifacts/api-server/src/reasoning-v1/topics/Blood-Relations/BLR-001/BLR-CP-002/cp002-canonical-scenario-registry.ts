@@ -1,3 +1,4 @@
+import { BLR_CP002_BOTH_DERIVED_QUERY_SCENARIOS } from "./cp002-both-derived-query-scenarios";
 import { BLR_CP002_LONG_CHAIN_SCENARIOS } from "./cp002-long-chain-scenarios";
 import { BLR_CP002_NEGATIVE_SIBLING_SCENARIOS } from "./cp002-negative-sibling-scenarios";
 import { BLR_CP002_ONLY_CHILD_SCENARIOS } from "./cp002-only-child-scenarios";
@@ -21,6 +22,7 @@ const EXTENDED_SCENARIOS: readonly BlrCp002ScenarioTemplate[] = [
   ...BLR_CP002_THREE_ANCHOR_SCENARIOS,
   ...BLR_CP002_NEGATIVE_SIBLING_SCENARIOS,
   ...BLR_CP002_OWNERSHIP_QUESTION_SCENARIOS,
+  ...BLR_CP002_BOTH_DERIVED_QUERY_SCENARIOS,
 ];
 
 export function cp002CanonicalScenariosFor(
