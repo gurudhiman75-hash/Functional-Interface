@@ -155,6 +155,7 @@ function normaliseFinalStem(stem: string): string {
     /^For (.+) earns (.+)\. The amount at a later time is (\d+:\d+) of the amount after (.+)\. Find that later time\.$/u,
     "$1 earns $2. The later amount and the amount after $4 are in the ratio $3. What is the later time?",
   );
+  result = result.replace(/^For ([A-Z][\p{L}-]*'s .+?) earns /u, "$1 earns ");
   result = result.replace(
     /\. Find the amount at the end of ([^.]+)\.$/u,
     ". What is the amount at the end of $1?",
