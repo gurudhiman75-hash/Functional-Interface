@@ -1,0 +1,47 @@
+name: Reasoning BLR-001 CP-003 Runtime
+
+on:
+  push:
+    branches:
+      - feat/blr-001-cp003-shared-family-runtime
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
+      - ".github/workflows/reasoning-blr-001-cp003-prototype.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
+      - ".github/workflows/reasoning-blr-001-cp003-prototype.yml"
+  workflow_dispatch:
+
+jobs:
+  cp003-shared-family-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run CP-003 grouped family runtime proof
+        id: cp003_runtime
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-prototype.test.ts > cp003-runtime.log 2>&1
+
+      - name: Upload CP-003 runtime diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp003-runtime-log
+          path: cp003-runtime.log
+          if-no-files-found: error
+          retention-days: 3
+
+      - name: Enforce CP-003 runtime result
+        if: steps.cp003_runtime.outcome == 'failure'
+        run: |
+          cat cp003-runtime.log
+          exit 1
