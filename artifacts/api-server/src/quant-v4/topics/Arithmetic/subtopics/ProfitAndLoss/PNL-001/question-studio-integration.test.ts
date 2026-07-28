@@ -30,7 +30,10 @@ assert.deepEqual((pnl as any).supportedRuntimeModes, [
   "CANONICAL_REVIEW",
   "DYNAMIC_CANDIDATE",
 ]);
-assert.deepEqual((pnl as any).dynamicCandidateCpIds, ["PNL-CP-001"]);
+assert.deepEqual((pnl as any).dynamicCandidateCpIds, [
+  "PNL-CP-001",
+  "PNL-CP-002",
+]);
 assert.equal((pnl as any).questionBankStatus, "NOT_STORED");
 assert.equal((pnl as any).testEligibility, "INELIGIBLE");
 assert.equal((pnl as any).publiclyPublishable, false);
@@ -113,14 +116,21 @@ assert.equal(dynamicBatch.generationContext.questionBankStatus, "NOT_STORED");
 assert.equal(dynamicBatch.generationContext.testEligibility, "INELIGIBLE");
 assert.equal(dynamicBatch.generationContext.publiclyPublishable, false);
 assert.deepEqual(
-  [...new Set(dynamicBatch.questionPackages.map((pkg: any) => pkg.canonicalProblemId))],
-  ["PNL-CP-001"],
-  "Dynamic candidate mode must be restricted to CP-001.",
+  [
+    ...new Set(
+      dynamicBatch.questionPackages.map((pkg: any) => pkg.canonicalProblemId),
+    ),
+  ].sort(),
+  ["PNL-CP-001", "PNL-CP-002"],
+  "Dynamic candidate mode must be restricted to the two proven CP runtimes.",
 );
 
 for (const questionPackage of dynamicBatch.questionPackages as any[]) {
   assert.equal(questionPackage.archetypeId, "PNL-001");
-  assert.equal(questionPackage.canonicalProblemId, "PNL-CP-001");
+  assert.ok(
+    questionPackage.canonicalProblemId === "PNL-CP-001" ||
+      questionPackage.canonicalProblemId === "PNL-CP-002",
+  );
   assert.equal(questionPackage.language, "en");
   assert.equal(questionPackage.validation.valid, true);
   assert.equal(questionPackage.options.length, 4);
@@ -184,10 +194,10 @@ await assert.rejects(
     generateQuestion({
       packageId: "PNL-001",
       runtimeMode: "DYNAMIC_CANDIDATE",
-      canonicalProblemId: "PNL-CP-002",
+      canonicalProblemId: "PNL-CP-003",
       seed: "pnl-dynamic-cp-safety",
     }),
-  /Unknown canonical problem 'PNL-CP-002'/,
+  /Unknown canonical problem 'PNL-CP-003'/,
 );
 await assert.rejects(
   () =>
@@ -280,7 +290,7 @@ console.log(
       dynamicBatchSize: dynamicBatch.questionPackages.length,
       defaultRuntimeMode: "CANONICAL_REVIEW",
       optInRuntimeMode: "DYNAMIC_CANDIDATE",
-      dynamicCandidateCpIds: ["PNL-CP-001"],
+      dynamicCandidateCpIds: ["PNL-CP-001", "PNL-CP-002"],
       questionBankStatus: "NOT_STORED",
       testEligibility: "INELIGIBLE",
       publiclyPublishable: false,
