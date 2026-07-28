@@ -26,39 +26,34 @@ jobs:
           from pathlib import Path
 
           path = Path("artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/structured-common-traps.ts")
-          text = path.read_text()
+          lines = path.read_text().splitlines()
 
-          text = text.replace(
-              '/^(the|a|an|one|only|half|double|triple|four|all|both|its|their)\\b/i.test(value)',
-              '/^(the|a|an|one|two|three|four|five|six|seven|eight|nine|ten|only|half|double|triple|all|both|its|their|\\d)\\b/i.test(value)',
-              1,
-          )
+          for index, line in enumerate(lines):
+              if 'if (/^(the|a|an|one|only|half|double|triple|four|all|both|its|their)' in line:
+                  lines[index] = line.replace(
+                      'the|a|an|one|only|half|double|triple|four|all|both|its|their',
+                      'the|a|an|one|two|three|four|five|six|seven|eight|nine|ten|only|half|double|triple|all|both|its|their|\\d',
+                  )
+                  break
+          else:
+              raise SystemExit("withArticle pattern not found")
 
-          old_divide = '''    case "divide":
-              return by
-                ? `dividing ${withArticle(by[0])} by ${withArticle(by[1])}`
-                : `dividing by ${withArticle(afterText)} unnecessarily`;'''
-          new_divide = '''    case "divide":
-              if (afterText.startsWith("by ")) return `dividing by ${afterText.slice(3)} unnecessarily`;
-              return by
-                ? `dividing ${withArticle(by[0])} by ${withArticle(by[1])}`
-                : `dividing by ${withArticle(afterText)} unnecessarily`;'''
-          if old_divide not in text:
-              raise SystemExit("divide block not found")
-          text = text.replace(old_divide, new_divide, 1)
+          for case_name in ("divide", "multiply"):
+              marker = f'    case "{case_name}":'
+              for index, line in enumerate(lines):
+                  if line == marker:
+                      guard = f'      if (afterText.startsWith("by ")) return `{case_name[:-1] if case_name.endswith("e") else case_name}ing by ${{afterText.slice(3)}} unnecessarily`;'
+                      if case_name == "divide":
+                          guard = '      if (afterText.startsWith("by ")) return `dividing by ${afterText.slice(3)} unnecessarily`;'
+                      else:
+                          guard = '      if (afterText.startsWith("by ")) return `multiplying by ${afterText.slice(3)} unnecessarily`;'
+                      if guard not in lines[index + 1:index + 3]:
+                          lines.insert(index + 1, guard)
+                      break
+              else:
+                  raise SystemExit(f"{case_name} case not found")
 
-          old_multiply = '''    case "multiply":
-              return by
-                ? `multiplying ${withArticle(by[0])} by ${withArticle(by[1])}`
-                : `multiplying by ${withArticle(afterText)} unnecessarily`;'''
-          new_multiply = '''    case "multiply":
-              if (afterText.startsWith("by ")) return `multiplying by ${afterText.slice(3)} unnecessarily`;
-              return by
-                ? `multiplying ${withArticle(by[0])} by ${withArticle(by[1])}`
-                : `multiplying by ${withArticle(afterText)} unnecessarily`;'''
-          if old_multiply not in text:
-              raise SystemExit("multiply block not found")
-          path.write_text(text.replace(old_multiply, new_multiply, 1))
+          path.write_text("\n".join(lines) + "\n")
           PY
 
       - name: Commit patch
