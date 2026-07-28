@@ -26,10 +26,19 @@ interface ReviewRecord {
   }[];
   correctLetter: string;
   correctValue: string;
+  coreConcept: readonly string[];
   normalizedClues: readonly string[];
+  familyTreeGrid: string;
+  generationAnalysis: readonly string[];
   ruleStatement: string;
   queryPath: readonly string[];
   conclusion: string;
+  examShortcut: string;
+  distractorAnalysis: readonly {
+    optionValue: string;
+    errorLabel: string;
+    studentWarning: string;
+  }[];
   closestTrapRejection: string | null;
   personNames: Readonly<Record<string, string>>;
   query: unknown;
@@ -56,10 +65,15 @@ function makeRecord(
     })),
     correctLetter: OPTION_LETTERS[question.correctIndex]!,
     correctValue: question.options[question.correctIndex]!.value,
+    coreConcept: question.explanation.coreConcept ?? [],
     normalizedClues: question.explanation.normalizedClues,
+    familyTreeGrid: question.explanation.familyTreeGrid ?? "",
+    generationAnalysis: question.explanation.generationAnalysis ?? [],
     ruleStatement: question.explanation.ruleStatement,
     queryPath: question.explanation.queryPath,
     conclusion: question.explanation.conclusion,
+    examShortcut: question.explanation.examShortcut ?? "",
+    distractorAnalysis: question.explanation.distractorAnalysis ?? [],
     closestTrapRejection:
       question.explanation.closestTrapRejection ?? null,
     personNames: question.structuredPrompt.personNames,
@@ -69,8 +83,7 @@ function makeRecord(
 }
 
 function csvCell(value: unknown): string {
-  const text =
-    typeof value === "string" ? value : JSON.stringify(value ?? "");
+  const text = typeof value === "string" ? value : JSON.stringify(value ?? "");
   return `"${text.replaceAll('"', '""')}"`;
 }
 
@@ -89,11 +102,15 @@ function toCsv(records: readonly ReviewRecord[]): string {
     "optionD",
     "correctLetter",
     "correctValue",
-    "distractorErrorLabels",
+    "coreConcept",
     "normalizedClues",
+    "familyTreeGrid",
+    "generationAnalysis",
     "ruleStatement",
     "queryPath",
     "conclusion",
+    "examShortcut",
+    "distractorAnalysis",
     "closestTrapRejection",
     "query",
     "metadata",
@@ -112,14 +129,15 @@ function toCsv(records: readonly ReviewRecord[]): string {
     record.options[3]!.value,
     record.correctLetter,
     record.correctValue,
-    record.options
-      .filter((option) => !option.isCorrect)
-      .map((option) => option.errorLabel)
-      .join(" | "),
+    record.coreConcept.join(" | "),
     record.normalizedClues.join(" | "),
+    record.familyTreeGrid,
+    record.generationAnalysis.join(" | "),
     record.ruleStatement,
     record.queryPath.join(" | "),
     record.conclusion,
+    record.examShortcut,
+    record.distractorAnalysis,
     record.closestTrapRejection ?? "",
     record.query,
     record.metadata,
@@ -133,15 +151,17 @@ function toCsv(records: readonly ReviewRecord[]): string {
 
 function escapeHtml(value: unknown): string {
   const text =
-    typeof value === "string"
-      ? value
-      : JSON.stringify(value, null, 2);
+    typeof value === "string" ? value : JSON.stringify(value, null, 2);
   return text
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+function list(items: readonly string[]): string {
+  return items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
 }
 
 function toHtml(records: readonly ReviewRecord[]): string {
@@ -152,15 +172,19 @@ function toHtml(records: readonly ReviewRecord[]): string {
           (option) => `
             <li class="${option.isCorrect ? "correct" : "wrong"}">
               <strong>${option.letter}.</strong> ${escapeHtml(option.value)}
-              ${option.isCorrect ? "<span class=\"badge\">Correct</span>" : `<span class="error">${escapeHtml(option.errorLabel ?? "")}</span>`}
+              ${option.isCorrect ? '<span class="badge">Correct</span>' : `<span class="error">${escapeHtml(option.errorLabel ?? "")}</span>`}
             </li>`,
         )
         .join("");
-      const clues = record.normalizedClues
-        .map((clue) => `<li>${escapeHtml(clue)}</li>`)
-        .join("");
-      const pathSteps = record.queryPath
-        .map((step) => `<li>${escapeHtml(step)}</li>`)
+      const distractors = record.distractorAnalysis
+        .map(
+          (item) => `
+            <li>
+              <strong>${escapeHtml(item.optionValue)}</strong>
+              <span class="error-code">${escapeHtml(item.errorLabel)}</span><br>
+              ${escapeHtml(item.studentWarning)}
+            </li>`,
+        )
         .join("");
 
       return `
@@ -178,14 +202,26 @@ function toHtml(records: readonly ReviewRecord[]): string {
           <ol class="options">${options}</ol>
         </section>
         <section class="explanation">
-          <h3>Explanation</h3>
-          <p><strong>Rule:</strong> ${escapeHtml(record.ruleStatement)}</p>
+          <h3>📌 Tier 1 — Core Concept &amp; Generation Mapping</h3>
+          <ul>${list(record.coreConcept)}</ul>
+          <p><strong>Solver rule:</strong> ${escapeHtml(record.ruleStatement)}</p>
+
+          <h3>📝 Tier 2 — Step-by-Step Family Tree Solution</h3>
+          <pre class="tree">${escapeHtml(record.familyTreeGrid)}</pre>
           <p><strong>Normalised clues</strong></p>
-          <ul>${clues}</ul>
-          <p><strong>Query path</strong></p>
-          <ol>${pathSteps}</ol>
-          <p><strong>Conclusion:</strong> ${escapeHtml(record.conclusion)}</p>
-          <p><strong>Trap rejection:</strong> ${escapeHtml(record.closestTrapRejection ?? "")}</p>
+          <ul>${list(record.normalizedClues)}</ul>
+          <p><strong>Generation arithmetic</strong></p>
+          <ul>${list(record.generationAnalysis)}</ul>
+          <p><strong>Reasoning path</strong></p>
+          <ol>${list(record.queryPath)}</ol>
+          <p class="conclusion"><strong>Conclusion:</strong> ${escapeHtml(record.conclusion)}</p>
+
+          <h3>💡 Tier 3 — 10-Second Exam Shortcut</h3>
+          <p>${escapeHtml(record.examShortcut)}</p>
+
+          <h3>⚠️ Tier 4 — Common Traps &amp; Distractor Analysis</h3>
+          <ul class="trap-list">${distractors}</ul>
+          <p><strong>Closest trap:</strong> ${escapeHtml(record.closestTrapRejection ?? "")}</p>
         </section>
         <details>
           <summary>Structured review metadata</summary>
@@ -204,7 +240,7 @@ function toHtml(records: readonly ReviewRecord[]): string {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BLR-CP-001 English Review Pack</title>
+  <title>BLR-CP-001 Remediated English Review Pack</title>
   <style>
     body { font-family: system-ui, sans-serif; margin: 0; background: #f4f5f7; color: #17202a; }
     main { max-width: 1080px; margin: 0 auto; padding: 32px 20px 80px; }
@@ -213,23 +249,29 @@ function toHtml(records: readonly ReviewRecord[]): string {
     .index { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #e9eef6; font-weight: 700; }
     h1, h2, h3 { margin-top: 0; }
     header p { margin: 4px 0 0; color: #566573; }
-    .stem { font-size: 1.05rem; line-height: 1.65; }
+    .stem { font-size: 1.08rem; line-height: 1.65; }
     .options { padding-left: 0; list-style: none; }
     .options li { border: 1px solid #dfe4ea; border-radius: 9px; padding: 11px 12px; margin: 8px 0; }
     .options li.correct { border-width: 2px; }
     .badge, .error { float: right; margin-left: 12px; font-size: .82rem; }
     .badge { font-weight: 700; }
-    .error { color: #5d6d7e; }
+    .error, .error-code { color: #5d6d7e; }
+    .error-code { margin-left: 8px; font-family: ui-monospace, monospace; font-size: .8rem; }
     .explanation { background: #fafbfc; border-radius: 10px; padding: 18px; margin-top: 18px; }
+    .explanation h3 { margin-top: 26px; padding-top: 8px; border-top: 1px solid #e6e9ee; }
+    .explanation h3:first-child { margin-top: 0; border-top: 0; }
+    .tree { white-space: pre; overflow-x: auto; background: #f0f3f6; border: 1px solid #dfe4ea; padding: 16px; border-radius: 8px; line-height: 1.5; }
+    .trap-list li { margin-bottom: 12px; }
+    .conclusion { font-size: 1.04rem; }
     li, p { line-height: 1.55; }
-    pre { white-space: pre-wrap; overflow-wrap: anywhere; background: #f4f5f7; padding: 14px; border-radius: 8px; }
+    details pre { white-space: pre-wrap; overflow-wrap: anywhere; background: #f4f5f7; padding: 14px; border-radius: 8px; }
   </style>
 </head>
 <body>
   <main>
     <section class="intro">
-      <h1>BLR-CP-001 English Review Pack</h1>
-      <p>${records.length} deterministic questions across eleven exploratory prototypes and seven provisional solve authorities. These are review-only prototypes with no permanent QL IDs or publication eligibility.</p>
+      <h1>BLR-CP-001 Remediated English Review Pack</h1>
+      <p>${records.length} deterministic questions across eleven exploratory prototypes and seven provisional solve authorities. Stems and explanations have passed the human-audit remediation gate. These remain review-only prototypes with no permanent QL IDs or publication eligibility.</p>
     </section>
     ${cards}
   </main>
@@ -257,7 +299,8 @@ const answerPositions = OPTION_LETTERS.map(
 const summary = {
   packageId: "BLR-001",
   checkpointId: "BLR-CP-001",
-  status: "REVIEW_ONLY_OPEN_DISCOVERY",
+  status: "REVIEW_ONLY_HUMAN_AUDIT_REMEDIATED",
+  remediationVersion: "blr-cp001-editorial-v2",
   permanentQlCount: 0,
   prototypeCount: BLR_CP001_REVIEW_REGISTRY.length,
   provisionalAuthorityCount: Object.keys(authorityCounts).length,
@@ -265,6 +308,12 @@ const summary = {
   reviewSeeds: REVIEW_SEEDS,
   authorityCounts,
   answerPositions,
+  pedagogyTiers: [
+    "CORE_CONCEPT_AND_GENERATION_MAPPING",
+    "STEP_BY_STEP_FAMILY_TREE",
+    "TEN_SECOND_EXAM_SHORTCUT",
+    "DISTRACTOR_ANALYSIS",
+  ],
 };
 
 await mkdir(outputDirectory, { recursive: true });
@@ -291,4 +340,4 @@ await Promise.all([
   ),
 ]);
 
-console.log("BLR-CP-001 English review pack exported.", summary);
+console.log("BLR-CP-001 remediated English review pack exported.", summary);
