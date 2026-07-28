@@ -139,18 +139,43 @@ function normaliseQuantityUnits(value: string): string {
 
 function normaliseSimpleWords(value: string): string {
   return normaliseMoneyGrouping(normaliseQuantityUnits(value))
+    .replace(
+      /Then solve it like an ordinary value-total question\./giu,
+      "Then use the same multiply, add and divide steps.",
+    )
+    .replace(
+      /The first-blend price is only an intermediate result\./giu,
+      "The first-blend price is only the result from the first mixing step.",
+    )
     .replace(/\b1 parts\b/giu, "1 part")
     .replace(/\bsmall imaginary quantities\b/giu, "small sample quantities")
     .replace(/\btemporary quantities\b/giu, "sample quantities")
     .replace(/\bintermediate result\b/giu, "first result")
     .replace(/\bordinary\b/giu, "normal")
     .replace(/\bpre-blend\b/giu, "first blend")
+    .replace(/\bone first blend\b/giu, "one combined blend")
     .replace(/\bvalue already supplied by\b/giu, "value already given by")
     .replace(/\bvalue supplied by\b/giu, "value from")
     .replace(/\bvalue belonging to\b/giu, "value for")
     .replace(/\bbelongs to\b/giu, "is for")
+    .replace(/\bthe requested share\b/giu, "the answer")
+    .replace(/\bfits the same ratio and total quantity\b/giu, "matches the ratio and total quantity")
+    .replace(/\bactual quantity\b/giu, "real quantity")
+    .replace(/\balgebra variables\b/giu, "unknown letters")
+    .replace(/\bsource prices\b/giu, "item prices")
     .replace(/\bcomponents\b/giu, "items")
-    .replace(/\bcomponent\b/giu, "item");
+    .replace(/\bcomponent\b/giu, "item")
+    .replace(/\ban normal\b/giu, "a normal")
+    .replace(/\ban first\b/giu, "a first");
+}
+
+function normalisePermanentStem(value: string): string {
+  return normaliseMoneyGrouping(normaliseQuantityUnits(value))
+    .replace(/\b(\d+)\s*:\s*(\d+)\b/gu, "$1 : $2")
+    .replace(/,\s*respectively\?/giu, ", in that order?")
+    .replace(/\bthat uniform blend\b/giu, "that first blend")
+    .replace(/\bsource grades\b/giu, "two grades")
+    .replace(/\bweighted average price\b/giu, "average price");
 }
 
 function sentenceCase(value: string): string {
@@ -188,6 +213,7 @@ function normalisePermanentOptionSurface(
   }));
   return {
     ...question,
+    stem: normalisePermanentStem(question.stem),
     options,
     optionAudit,
   } as MalCp001FoundationQuestion;
