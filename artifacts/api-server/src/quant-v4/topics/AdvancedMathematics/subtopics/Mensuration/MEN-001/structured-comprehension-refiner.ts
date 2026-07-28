@@ -135,7 +135,19 @@ function inverseDirective(title: string, mode: string) {
   return undefined;
 }
 
-function shortcutFor(mode: string) {
+function ratioFormsRightTriangle(parameters: Men001Parameters) {
+  const ratios = [
+    parameters.values.ratioA,
+    parameters.values.ratioB,
+    parameters.values.ratioC,
+  ].filter((value): value is number => typeof value === "number");
+  if (ratios.length !== 3) return false;
+  const [a, b, c] = [...ratios].sort((left, right) => left - right);
+  return a ** 2 + b ** 2 === c ** 2;
+}
+
+function shortcutFor(parameters: Men001Parameters) {
+  const mode = parameters.solveMode;
   if (/TriangleAreaBaseHeight|RightTriangleAreaFromLegs/.test(mode)) {
     return "Halve an even base or height before multiplying. This removes the 1/2 immediately and keeps the arithmetic small.";
   }
@@ -145,8 +157,13 @@ function shortcutFor(mode: string) {
   if (/Isosceles/.test(mode)) {
     return "Look for a Pythagorean Triplet in half-base, height and equal side. If one appears, read the height without expanding a square root.";
   }
-  if (/Heron|TriangleAreaFromSideRatio/.test(mode)) {
-    return "Check whether the three actual sides form a Pythagorean Triplet. If they do, use the two shorter sides in A = 1/2 bh; otherwise complete Heron's formula.";
+  if (/TriangleAreaFromSideRatio/.test(mode)) {
+    return ratioFormsRightTriangle(parameters)
+      ? "Pythagorean Triplet spotted: after scaling the ratio, use the two shorter sides directly in A = 1/2 bh."
+      : "This side ratio is not right-angled, so keep the three actual sides and complete Heron's formula without using a base-height shortcut.";
+  }
+  if (/Heron/.test(mode)) {
+    return "Test the largest side with a² + b² = c². If the triangle is not right-angled, complete Heron's formula from the three sides.";
   }
   if (/EquilateralTriangleArea/.test(mode)) {
     return "Square the side first, then multiply by √3/4. Keeping the coefficient separate reduces arithmetic mistakes.";
@@ -235,9 +252,9 @@ function refineStep(section: StepSection, mode: string): StepSection {
   return section;
 }
 
-function refineShortcut(section: ShortcutSection, mode: string): ShortcutSection {
+function refineShortcut(section: ShortcutSection, parameters: Men001Parameters): ShortcutSection {
   if (!section.paragraphs.some(isGenericShortcut)) return section;
-  return { ...section, paragraphs: [shortcutFor(mode)] };
+  return { ...section, paragraphs: [shortcutFor(parameters)] };
 }
 
 export function refineMen001Comprehension(
@@ -246,7 +263,7 @@ export function refineMen001Comprehension(
 ): Men001ExplanationSection[] {
   return sections.map((section): Men001ExplanationSection => {
     if (section.kind === "STEP") return refineStep(section, parameters.solveMode);
-    if (section.kind === "EXAM_SHORTCUT") return refineShortcut(section, parameters.solveMode);
+    if (section.kind === "EXAM_SHORTCUT") return refineShortcut(section, parameters);
     return section;
   });
 }
