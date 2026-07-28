@@ -35,6 +35,7 @@ jobs:
         run: pnpm --dir artifacts/api-server build
       - name: Run CP-004 editorial v2 audit
         run: |
+          set -o pipefail
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp004-editorial-v2-audit.ts \
             --bundle --platform=node --format=esm \
@@ -44,6 +45,7 @@ jobs:
       - name: Generate review CSV
         if: always()
         run: |
+          set -o pipefail
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp004-editorial-v2-review-export.ts \
             --bundle --platform=node --format=esm \
@@ -57,5 +59,5 @@ jobs:
           path: |
             artifacts/api-server/avg-001-cp004-editorial-v2-diagnostics.log
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp004-editorial-v2-review.csv
-          if-no-files-found: warn
+          if-no-files-found: error
           retention-days: 14
