@@ -244,7 +244,7 @@ function exactTrapReason(source: PncStudentSourcePackage, option: number): strin
     return "is a nearby arithmetic distractor and does not equal the condition-aware calculation";
   }
 
-  return `does not satisfy the required calculation $${source.solver.mathJax}$$ and represents an incomplete count or arithmetic distractor`;
+  return `does not satisfy the required calculation $$${source.solver.mathJax}$$ and represents an incomplete count or arithmetic distractor`;
 }
 
 function reviewedTrapLines(source: PncStudentSourcePackage, displayOptions: string[]): string[] {
