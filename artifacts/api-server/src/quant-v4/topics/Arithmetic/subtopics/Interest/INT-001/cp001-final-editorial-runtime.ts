@@ -3,6 +3,7 @@ import {
   type IntCp001FourTierExplanation,
   type LegacyExplanationLike,
 } from "./cp001-editorial-v2";
+import { INT_CP001_EDITORIAL_RELEASE_ID } from "./cp001-editorial-release";
 import { getIntCp001FinalRegistryEntry, type IntCp001FinalQlId } from "./cp001-final-registry";
 import {
   generateIntCp001FinalQuestion as generateIntCp001FinalCoreQuestion,
@@ -11,8 +12,9 @@ import {
 
 export type IntCp001FinalEditorialQuestion = Omit<
   IntCp001FinalGeneratedQuestion,
-  "stem" | "options" | "optionAudit" | "explanation" | "validation"
+  "stem" | "options" | "optionAudit" | "explanation" | "validation" | "releaseId"
 > & {
+  releaseId: typeof INT_CP001_EDITORIAL_RELEASE_ID;
   stem: string;
   options: string[];
   optionAudit: IntCp001FinalGeneratedQuestion["optionAudit"];
@@ -55,6 +57,13 @@ function normaliseCurrency(text: string): string {
 }
 
 function normaliseExplanationCurrency(explanation: IntCp001FourTierExplanation): IntCp001FourTierExplanation {
+  const coreDisplayMath = normaliseCurrency(explanation.coreConcept.displayMath);
+  const shortcutNarrative = normaliseCurrency(explanation.examShortcut.narrative)
+    .replace(/^Find /u, "First calculate ");
+  const shortcutDisplayMath = explanation.examShortcut.displayMath
+    ? normaliseCurrency(explanation.examShortcut.displayMath)
+    : coreDisplayMath;
+
   return {
     ...explanation,
     notice: normaliseCurrency(explanation.notice),
@@ -66,7 +75,7 @@ function normaliseExplanationCurrency(explanation: IntCp001FourTierExplanation):
     coreConcept: {
       ...explanation.coreConcept,
       narrative: normaliseCurrency(explanation.coreConcept.narrative),
-      displayMath: normaliseCurrency(explanation.coreConcept.displayMath),
+      displayMath: coreDisplayMath,
     },
     stepByStep: {
       ...explanation.stepByStep,
@@ -76,10 +85,8 @@ function normaliseExplanationCurrency(explanation: IntCp001FourTierExplanation):
     },
     examShortcut: {
       ...explanation.examShortcut,
-      narrative: normaliseCurrency(explanation.examShortcut.narrative),
-      displayMath: explanation.examShortcut.displayMath
-        ? normaliseCurrency(explanation.examShortcut.displayMath)
-        : undefined,
+      narrative: shortcutNarrative,
+      displayMath: shortcutDisplayMath,
     },
     trapAnalysis: {
       ...explanation.trapAnalysis,
@@ -136,6 +143,12 @@ export function generateIntCp001FinalEditorialQuestion(
   if (!explanation.examShortcut.narrative.trim()) {
     errors.push("Four-tier explanation is missing an exam-speed shortcut.");
   }
+  if (!explanation.examShortcut.displayMath || !hasBalancedDisplayMath(explanation.examShortcut.displayMath)) {
+    errors.push("Four-tier shortcut is missing balanced display MathJax.");
+  }
+  if (/^(?:Find|Determine)\b/u.test(explanation.examShortcut.narrative)) {
+    errors.push("Exam shortcut begins with an imperative fragment.");
+  }
   if (explanation.trapAnalysis.items.length !== 3) {
     errors.push(`Four-tier explanation must analyse three distractors; found ${explanation.trapAnalysis.items.length}.`);
   }
@@ -155,7 +168,7 @@ export function generateIntCp001FinalEditorialQuestion(
     explanation.stepByStep.verification,
     explanation.stepByStep.conclusion,
     explanation.examShortcut.narrative,
-    explanation.examShortcut.displayMath ?? "",
+    explanation.examShortcut.displayMath,
     ...explanation.trapAnalysis.items.flatMap((item) => [item.optionText, item.explanation]),
   ].join(" ");
   if (hasUngroupedRupees(learnerText)) {
@@ -164,6 +177,7 @@ export function generateIntCp001FinalEditorialQuestion(
 
   return {
     ...core,
+    releaseId: INT_CP001_EDITORIAL_RELEASE_ID,
     stem,
     options,
     optionAudit,
