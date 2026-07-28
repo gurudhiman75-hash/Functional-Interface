@@ -167,7 +167,7 @@ The closure workflow validates:
 - complete translation coverage and script checks;
 - zero learner-facing lifecycle or internal-ID leakage.
 
-The exact workflow run and artifact identifiers are recorded in the draft PR once the documentation-only head has completed CI.
+The exact final head, workflow runs and artifact identifiers are recorded in draft PR `#285`, whose metadata can be updated without changing the validated source head.
 
 ---
 
