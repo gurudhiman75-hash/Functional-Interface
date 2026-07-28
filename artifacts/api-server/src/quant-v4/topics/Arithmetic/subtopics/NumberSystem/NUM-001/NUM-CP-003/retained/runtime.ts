@@ -60,6 +60,22 @@ function rawFor(label: NumCp003RetainedTemplateLabel, random: DeterministicRando
   throw new Error(`Unsupported retained template ${label}`);
 }
 
+function constructRawWithRetry(
+  label: NumCp003RetainedTemplateLabel,
+  seed: string,
+): { raw: NumCp003RawRetainedQuestion; random: DeterministicRandom; constructionAttempt: number } {
+  let lastError: unknown = null;
+  for (let attempt = 0; attempt < 40; attempt += 1) {
+    const random = createRandom(`${label}:${seed}:construction-${attempt}`);
+    try {
+      return { raw: rawFor(label, random), random, constructionAttempt: attempt };
+    } catch (error) {
+      lastError = error;
+    }
+  }
+  throw new Error(`${label}/${seed}: unable to construct a valid retained package after 40 attempts: ${String(lastError)}`);
+}
+
 function classifySufficiency(
   first: readonly number[],
   second: readonly number[],
@@ -203,8 +219,7 @@ export function generateNumCp003RetainedQuestion(
   seed: string,
 ): NumCp003RetainedQuestion {
   if (!NUM_CP003_RETAINED_TEMPLATE_LABELS.includes(label)) throw new Error(`Unknown retained template ${label}`);
-  const random = createRandom(`${label}:${seed}`);
-  const raw = rawFor(label, random);
+  const { raw, random, constructionAttempt } = constructRawWithRetry(label, seed);
   const stem = raw.stem.endsWith("?") ? raw.stem : `${raw.stem.replace(/[.]+$/u, "")}?`;
   const shuffled = shuffleOptions(random, raw.optionAudit);
   const verifierAnswer = verifyRetainedAnswer(raw.hiddenState);
@@ -237,7 +252,7 @@ export function generateNumCp003RetainedQuestion(
     hiddenState: raw.hiddenState,
     explanation: raw.explanation,
     reasoningGraph: { nodes: raw.reasoningNodes },
-    fingerprint: raw.fingerprint,
+    fingerprint: `${raw.fingerprint}:construction-${constructionAttempt}`,
     validation: { ok: errors.length === 0, errors, verifierAnswer },
     reviewStatus: "UNREVIEWED_RETAINED_CANDIDATE",
     questionBankStatus: "NOT_STORED",
