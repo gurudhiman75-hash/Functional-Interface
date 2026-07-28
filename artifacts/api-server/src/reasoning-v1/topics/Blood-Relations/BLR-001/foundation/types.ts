@@ -95,12 +95,23 @@ export interface GeneratedBlrOption {
   errorLabel?: string;
 }
 
+export interface BlrDistractorExplanation {
+  optionValue: string;
+  errorLabel: string;
+  studentWarning: string;
+}
+
 export interface BlrExplanationTrace {
   ruleStatement: string;
   normalizedClues: readonly string[];
   queryPath: readonly string[];
   conclusion: string;
   closestTrapRejection?: string;
+  coreConcept?: readonly string[];
+  familyTreeGrid?: string;
+  generationAnalysis?: readonly string[];
+  examShortcut?: string;
+  distractorAnalysis?: readonly BlrDistractorExplanation[];
 }
 
 export type BlrCp001PrototypeId =
