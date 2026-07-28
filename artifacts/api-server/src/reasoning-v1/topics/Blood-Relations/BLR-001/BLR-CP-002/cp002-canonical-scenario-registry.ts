@@ -5,12 +5,14 @@ import {
   type BlrCp002ScenarioTemplate,
 } from "./cp002-scenario-library";
 import { BLR_CP002_SOURCE_WIDENING_SCENARIOS } from "./cp002-source-widening-scenarios";
+import { BLR_CP002_THREE_ANCHOR_SCENARIOS } from "./cp002-three-anchor-scenarios";
 import type { BlrCp002PrototypeId } from "./cp002-types";
 
 const EXTENDED_SCENARIOS: readonly BlrCp002ScenarioTemplate[] = [
   ...BLR_CP002_SOURCE_WIDENING_SCENARIOS,
   ...BLR_CP002_ONLY_CHILD_SCENARIOS,
   ...BLR_CP002_LONG_CHAIN_SCENARIOS,
+  ...BLR_CP002_THREE_ANCHOR_SCENARIOS,
 ];
 
 export function cp002CanonicalScenariosFor(
@@ -32,6 +34,7 @@ export function allBlrCp002CanonicalScenarios(): readonly BlrCp002ScenarioTempla
     "BLR-CP002-PROT-SPEAKER-TO-POINTED",
     "BLR-CP002-PROT-NESTED-QUERY-ENDPOINT",
     "BLR-CP002-PROT-TWO-SPEAKER-CONVERSATION",
+    "BLR-CP002-PROT-THREE-ANCHOR-INTRODUCTION",
     "BLR-CP002-PROT-SELF-IDENTITY",
   ];
   const scenarios = prototypeIds.flatMap((prototypeId) =>
