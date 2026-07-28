@@ -56,8 +56,8 @@ function candidatePool(entry:TmwCp009RegistryEntry,p:TmwCp009Parameters,s:TmwCp0
   {values:[multiply(capacity,time)],label:"CAPACITY_FLOW_TIME_REVERSED"},
   {values:[divide(capacity,add(time,ONE))],label:"PLAUSIBLE_SCALE_ERROR"},
  ];}
- case"findTimeFromCapacityAndNetFlow":{const flow=required(p.physicalFlow,"physicalFlow");return[
-  {values:[flow],label:"TIME_USED_AS_RATE"},
+ case"findTimeFromCapacityAndNetFlow":{const capacity=required(p.capacity,"capacity"),flow=required(p.physicalFlow,"physicalFlow");return[
+  {values:[divide(flow,capacity)],label:"CAPACITY_FLOW_TIME_REVERSED"},
   {values:[multiply(a[0],r(2))],label:"CAPACITY_FLOW_TIME_REVERSED"},
   {values:[divide(a[0],r(2))],label:"CAPACITY_FLOW_TIME_REVERSED"},
  ];}
@@ -94,12 +94,12 @@ function candidatePool(entry:TmwCp009RegistryEntry,p:TmwCp009Parameters,s:TmwCp0
  ];}
  case"findNetRateDirection":case"findBoundaryEventFeasibility":return[];
  }}
-function directionOptions(entry:TmwCp009RegistryEntry,p:TmwCp009Parameters,s:TmwCp009Solution,seed:string):{options:TmwCp009Option[];correctIndex:number}{const choices:[Rational,string,TmwCp009MisconceptionId][]=[
- [r(1),"The tank fills","DIRECTION_FROM_PIPE_COUNT"],
- [r(-1),"The tank empties","DIRECTION_FROM_PIPE_COUNT"],
- [ZERO,"The water level remains unchanged","DIRECTION_FROM_PIPE_COUNT"],
- [r(2),"The direction cannot be determined","TIME_USED_AS_RATE"],
- ],correctIndex=seedNumber(seed,`${entry.qlId}:position`)%4,correctKey=s.answerKey;const wrong=choices.filter(([value])=>key([value])!==correctKey).slice(0,3).map(([value,text,label])=>({text,key:key([value]),misconceptionId:label})),correct:TmwCp009Option={text:s.answerText,key:s.answerKey,misconceptionId:"CORRECT"},options:TmwCp009Option[]=[...wrong];options.splice(correctIndex,0,correct);return{options,correctIndex};}
+function directionOptions(entry:TmwCp009RegistryEntry,p:TmwCp009Parameters,s:TmwCp009Solution,seed:string):{options:TmwCp009Option[];correctIndex:number}{const correctCode=s.answerValues[0].numerator,labelFor=(value:number):TmwCp009MisconceptionId=>{if(value===2)return"TIME_USED_AS_RATE";if(correctCode===0)return"KNOWN_PIPE_SIGN_IGNORED";if(value===0)return"DIRECTION_FROM_PIPE_COUNT";return"INFLOW_SUBTRACTED_FROM_OUTFLOW_WRONGLY";},choices:[Rational,string][]=[
+ [r(1),"The tank fills"],
+ [r(-1),"The tank empties"],
+ [ZERO,"The water level remains unchanged"],
+ [r(2),"The direction cannot be determined"],
+ ],correctIndex=seedNumber(seed,`${entry.qlId}:position`)%4,correctKey=s.answerKey;const wrong=choices.filter(([value])=>key([value])!==correctKey).slice(0,3).map(([value,text])=>({text,key:key([value]),misconceptionId:labelFor(value.numerator)})),correct:TmwCp009Option={text:s.answerText,key:s.answerKey,misconceptionId:"CORRECT"},options:TmwCp009Option[]=[...wrong];options.splice(correctIndex,0,correct);return{options,correctIndex};}
 function decisionOptions(entry:TmwCp009RegistryEntry,p:TmwCp009Parameters,s:TmwCp009Solution,seed:string):{options:TmwCp009Option[];correctIndex:number}{const boundary=required(p.targetBoundary,"targetBoundary")==="FULL"?"full":"empty",opposite=boundary==="full"?"empty":"full",window=required(p.decisionWindow,"decisionWindow"),eventTime=s.answerValues[1],event=s.answerValues[0].numerator===1;const wrongTexts=event?[
  `No — the tank does not become ${boundary} within ${formatTmwCp009Answer({...entry,answerType:"TIME"},p,[window])}`,
  `Yes — the tank becomes ${boundary} in ${formatTmwCp009Answer({...entry,answerType:"TIME"},p,[window])}`,
