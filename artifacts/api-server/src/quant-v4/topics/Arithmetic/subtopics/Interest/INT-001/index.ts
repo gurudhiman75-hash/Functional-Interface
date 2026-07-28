@@ -8,3 +8,6 @@ export * from "./foundation/cp001-options";
 export * from "./foundation/cp001-presentation";
 export * from "./foundation/cp001-validator";
 export * from "./foundation/cp001-pipeline";
+export * from "./final-closure/final-closure";
+export * from "./cp001-final-registry";
+export * from "./cp001-final-runtime";
