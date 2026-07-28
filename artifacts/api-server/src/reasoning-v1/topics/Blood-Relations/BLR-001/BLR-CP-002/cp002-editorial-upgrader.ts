@@ -57,6 +57,7 @@ export function upgradeBlrCp002EditorialQuestion(
     ...(question.explanation.coreConcept ?? []).filter(
       (line) => !line.startsWith("An 'only' role"),
     ),
+    "Resolve every possessive role completely before evaluating the final relationship.",
     ...(hasOnly
       ? ["An 'only' role must resolve to exactly one matching person in the displayed family scope."]
       : []),
