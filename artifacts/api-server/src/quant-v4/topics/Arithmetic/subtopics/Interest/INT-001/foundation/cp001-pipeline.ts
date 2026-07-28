@@ -1,3 +1,4 @@
+import { normaliseIntCp001EditorialStem } from "./cp001-editorial-normalizer";
 import { getIntCp001PrototypeEntry } from "./cp001-registry";
 import { buildIntCp001Options } from "./cp001-options";
 import { generateIntCp001Parameters } from "./cp001-parameter-generator";
@@ -26,8 +27,10 @@ export function generateIntCp001Prototype(
   const solution = solveIntCp001(parameters.request);
   const optionPackage = buildIntCp001Options(parameters, solution);
   const presentation = presentIntCp001(parameters, solution);
-  const stem = normaliseQuestionPunctuation(
-    diversifyIntCp001StemOpening(presentation.stem, parameters),
+  const stem = normaliseIntCp001EditorialStem(
+    normaliseQuestionPunctuation(
+      diversifyIntCp001StemOpening(presentation.stem, parameters),
+    ),
   );
   const validation = validateIntCp001Prototype({
     parameters,
