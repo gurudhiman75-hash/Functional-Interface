@@ -24,61 +24,62 @@ jobs:
         shell: bash
         run: |
           python - <<'PY'
+          import re
           from pathlib import Path
 
           root = Path("artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/gap-wave-01")
 
           runtime = root / "runtime.ts"
           text = runtime.read_text()
-          old = '''  const serialised = JSON.stringify(question, (_key, value) => typeof value === "bigint" ? value.toString() : value);
-          const explanationText = ['''.replace("          ", "")
-          new = '''  const explanationText = ['''.replace("          ", "")
-          if text.count(old) != 1:
-            raise SystemExit(f"runtime serialised block: expected one match, found {text.count(old)}")
-          text = text.replace(old, new, 1)
+          text, count = re.subn(
+            r'  const serialised = JSON\.stringify\(question,.*?\);\n',
+            '',
+            text,
+            count=1,
+          )
+          if count != 1:
+            raise SystemExit(f"runtime serialised declaration: expected one match, found {count}")
 
-          old = '''  ].join("\\n");
-          const checks = ['''.replace("          ", "")
-          new = '''  ].join("\\n");
-          const learnerText = [
+          marker = '  const checks = ['
+          learner = '''  const learnerText = [
             question.stem,
             ...question.options.map((option) => option.display),
             question.answer,
             explanationText,
           ].join("\\n");
-          const checks = ['''.replace("          ", "")
-          if text.count(old) != 1:
-            raise SystemExit(f"runtime learner block: expected one match, found {text.count(old)}")
-          text = text.replace(old, new, 1)
-
-          old = '''    { name: "MathJax cleanliness", passed: !/[½¼²³]/.test(serialised) && !/(^|[^\\\\])sqrt\\{/.test(explanationText), message: "Use MathJax fractions, powers and square roots." },'''
-          new = '''    { name: "MathJax cleanliness", passed: !/[½¼²³]/.test(learnerText) && !/(^|[^\\\\])sqrt\\{/.test(explanationText), message: "Use MathJax fractions, powers and square roots." },'''
-          if text.count(old) != 1:
-            raise SystemExit(f"runtime MathJax check: expected one match, found {text.count(old)}")
-          runtime.write_text(text.replace(old, new, 1))
+          '''
+          learner = "\n".join(line[10:] if line.startswith("          ") else line for line in learner.splitlines())
+          if text.count(marker) != 1:
+            raise SystemExit(f"runtime checks marker: expected one match, found {text.count(marker)}")
+          text = text.replace(marker, learner + marker, 1)
+          if text.count('.test(serialised)') != 1:
+            raise SystemExit(f"runtime serialised check: expected one match, found {text.count('.test(serialised)')}")
+          runtime.write_text(text.replace('.test(serialised)', '.test(learnerText)', 1))
 
           test = root / "runtime.test.ts"
           text = test.read_text()
-          old = '''    const serialised = JSON.stringify(first, (_key, value) => typeof value === "bigint" ? value.toString() : value);
-              const explanationText = ['''.replace("              ", "")
-          new = '''    const explanationText = ['''.replace("              ", "")
-          if text.count(old) != 1:
-            raise SystemExit(f"test serialised block: expected one match, found {text.count(old)}")
-          text = text.replace(old, new, 1)
+          text, count = re.subn(
+            r'    const serialised = JSON\.stringify\(first,.*?\);\n',
+            '',
+            text,
+            count=1,
+          )
+          if count != 1:
+            raise SystemExit(f"test serialised declaration: expected one match, found {count}")
 
-          old = '''    ].join("\\n");
-              assert.equal(/[½¼²³]/.test(serialised), false, `${prototypeId} contains raw Unicode fractions or dimensional powers.`);'''.replace("              ", "")
-          new = '''    ].join("\\n");
-              const learnerText = [
-                first.stem,
-                ...first.options.map((option) => option.display),
-                first.answer,
-                explanationText,
-              ].join("\\n");
-              assert.equal(/[½¼²³]/.test(learnerText), false, `${prototypeId} contains raw Unicode fractions or dimensional powers in learner-visible output.`);'''.replace("              ", "")
-          if text.count(old) != 1:
-            raise SystemExit(f"test learner block: expected one match, found {text.count(old)}")
-          test.write_text(text.replace(old, new, 1))
+          marker = '    assert.equal(/[½¼²³]/.test(serialised), false, `${prototypeId} contains raw Unicode fractions or dimensional powers.`);'
+          learner = '''    const learnerText = [
+              first.stem,
+              ...first.options.map((option) => option.display),
+              first.answer,
+              explanationText,
+            ].join("\\n");
+            '''
+          learner = "\n".join(line[4:] if line.startswith("    ") else line for line in learner.splitlines())
+          if text.count(marker) != 1:
+            raise SystemExit(f"test Unicode assertion marker: expected one match, found {text.count(marker)}")
+          replacement = learner + '    assert.equal(/[½¼²³]/.test(learnerText), false, `${prototypeId} contains raw Unicode fractions or dimensional powers in learner-visible output.`);'
+          test.write_text(text.replace(marker, replacement, 1))
           PY
 
       - name: Commit patch
