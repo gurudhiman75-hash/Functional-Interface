@@ -1,0 +1,44 @@
+name: MEN-CP-007 Prism Shortcut Patch
+
+on:
+  pull_request:
+    branches:
+      - feat/men-002-cp007-gap-wave-03
+    types: [opened, reopened, synchronize]
+    paths:
+      - .github/workflows/men-cp007-prism-shortcut-patch.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Expand prism perimeter shortcut
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/gap-wave-02/runtime.ts")
+          text = path.read_text(encoding="utf8")
+          old = '    shortcut: `Perimeter $=LSA/h$.`,'
+          new = '    shortcut: `Here $P=\\\\frac{${lsa}}{${height}}=${basePerimeter}\\\\text{ cm}$; divide the lateral area by the prism height once.`,'
+          if text.count(old) != 1:
+            raise SystemExit(f"Expected one short prism shortcut, found {text.count(old)}")
+          path.write_text(text.replace(old, new, 1), encoding="utf8")
+          PY
+
+      - name: Commit correction
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/gap-wave-02/runtime.ts
+          git commit -m "fix(mensuration): expand prism perimeter shortcut"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
