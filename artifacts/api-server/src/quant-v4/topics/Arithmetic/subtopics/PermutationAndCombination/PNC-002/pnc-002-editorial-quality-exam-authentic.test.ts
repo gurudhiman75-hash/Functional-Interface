@@ -127,6 +127,7 @@ const forbiddenExplanationPhrases = [
   "solver-owned calculation",
   "does not match the required formula",
   "incomplete count or arithmetic distractor",
+  "drops or adds one of the required counting stages",
 ];
 
 const outputRows: Array<{
@@ -276,14 +277,14 @@ assert.ok(byQl.get("PNC-QL-148")?.upgradedStem.startsWith("A committee of "));
 assert.ok(byQl.get("PNC-QL-177")?.upgradedStem.startsWith("In how many different ways can "));
 assert.ok(byQl.get("PNC-QL-210")?.upgradedStem.includes("named teams"));
 assert.equal(byQl.get("PNC-QL-210")?.optionUnit, "groupings");
-assert.ok(![...(byQl.get("PNC-QL-210")?.coreConcept ?? []), ...(byQl.get("PNC-QL-210")?.stepByStep ?? [])].join(" ").includes("numbered team"));
+assert.ok(![...(byQl.get("PNC-QL-210")?.coreConcept ?? []), ...(byQl.get("PNC-QL-210")?.stepByStep ?? [])].join(" ").match(/numbered team|their numbers distinguish/i));
 assert.ok(byQl.get("PNC-QL-219")?.upgradedStem.startsWith("Each of "));
 assert.ok(byQl.get("PNC-QL-253")?.upgradedStem.includes("numbered cards"));
 assert.ok(byQl.get("PNC-QL-269")?.upgradedStem.startsWith("A sports club has"));
 assert.equal(byQl.get("PNC-QL-226")?.examAlignment, "ADVANCED_ENRICHMENT");
 assert.equal(byQl.get("PNC-QL-226")?.optionUnit, "groupings");
 assert.ok(byQl.get("PNC-QL-226")?.coreConcept.join(" ").includes("Stirling"));
-assert.ok(!byQl.get("PNC-QL-226")?.coreConcept.join(" ").includes("Identical objects"));
+assert.ok(!byQl.get("PNC-QL-226")?.coreConcept.join(" ").match(/Identical objects|groups are identical/i));
 assert.equal(byQl.get("PNC-QL-262")?.examAlignment, "ADVANCED_ENRICHMENT");
 assert.ok(!byQl.get("PNC-QL-262")?.stepByStep.join(" ").includes("objects are identical"));
 assert.ok(byQl.get("PNC-QL-269")?.commonTrapWarning.some((line) => line.includes("without enforcing the required number of women")));
