@@ -15,6 +15,7 @@ const forbidden = [
   /\}\}/u,
 ];
 const rawMathCommand = /(?<!\\)\([^)]*(?<!\\)\b(?:div|lceil|rceil|times)\b[^)]*(?<!\\)\)/u;
+const controlCharacter = /[\u0009\u000d]/u;
 
 let audited = 0;
 const misconceptionIds = new Set<string>();
@@ -34,6 +35,11 @@ for (const prototypeId of NUM_CP003_PROTOTYPE_IDS) {
       question.explanation.conclusion,
       ...question.explanation.traps,
     ].join("\n");
+    const mathematicalText = [
+      ...question.explanation.steps,
+      question.explanation.shortcut,
+      question.explanation.verification,
+    ];
 
     assertOk(question.validation.ok, `${prototypeId}: ${question.validation.errors.join(" | ")}`);
     assertOk(question.optionAudit.length === 4, `${prototypeId}: option audit must contain four rows`);
@@ -45,7 +51,8 @@ for (const prototypeId of NUM_CP003_PROTOTYPE_IDS) {
     assertOk(question.explanation.shortcut.trim().length >= 20, `${prototypeId}: shortcut too short`);
     assertOk(question.explanation.verification.trim().length >= 20, `${prototypeId}: verification too short`);
     assertOk(!forbidden.some((pattern) => pattern.test(learnerText)), `${prototypeId}: forbidden learner-facing text`);
-    assertOk(!question.explanation.steps.some((step) => rawMathCommand.test(step)), `${prototypeId}: unescaped mathematical command`);
+    assertOk(!mathematicalText.some((text) => rawMathCommand.test(text)), `${prototypeId}: unescaped mathematical command`);
+    assertOk(!mathematicalText.some((text) => controlCharacter.test(text)), `${prototypeId}: mathematical control character leaked`);
 
     for (const row of question.optionAudit) misconceptionIds.add(row.misconceptionId);
     topologyCounts[question.hiddenState.kind] = (topologyCounts[question.hiddenState.kind] ?? 0) + 1;
