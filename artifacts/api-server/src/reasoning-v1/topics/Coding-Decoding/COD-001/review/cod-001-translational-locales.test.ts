@@ -139,7 +139,8 @@ for (const id of ids) {
 
 for (const locale of locales) assert.ok(answerPositions[locale]!.every((count) => count > 0), `${locale} misses an answer position`);
 assert.doesNotThrow(() => generateCod001Question("COD-QL-173", "hi-IN", 1));
-assert.throws(() => generateCod001Question("COD-QL-175", "pa-IN", 1), /CP-009 runtime/u);
+assert.doesNotThrow(() => generateCod001Question("COD-QL-175", "pa-IN", 1));
+assert.doesNotThrow(() => generateCod001Question("COD-QL-198", "hi-IN", 1));
 assert.equal(generated, ids.length * seedsPerQl * locales.length);
 
 console.log(JSON.stringify({
@@ -151,8 +152,8 @@ console.log(JSON.stringify({
   generatedQuestions: generated,
   answerPositions,
   checkpointCounts,
-  additionallyAvailableAdaptedQls: "COD-QL-173..174",
-  remainingLanguageAdaptedQls: "COD-QL-175..198",
+  additionallyAvailableAdaptedQls: "COD-QL-173..198",
+  remainingLanguageAdaptedQls: 0,
   questionStudioVisible: false,
   publiclyPublishable: false,
 }, null, 2));

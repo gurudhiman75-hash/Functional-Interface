@@ -1,6 +1,6 @@
 # COD-001 — Coding–Decoding
 
-Status: **all 199 English QLs are runtime-closed; 175 QLs now have Hindi and natural-Punjabi runtime support; only CP-009 remains multilingual**.
+Status: **multilingual runtime closed at review-proof maturity for all 199 permanent QLs in English, Hindi and natural Punjabi**.
 
 Student-facing chapter: **Coding–Decoding**  
 Reasoning V1 package: `COD-001`  
@@ -15,9 +15,11 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/CO
 5. `COD-001-ENGLISH-CLOSURE-AUDIT.md` and the whole-chapter English closure test.
 6. `COD-001-TRANSLATIONAL-LOCALES-REPORT.md` and the translational Hindi/Punjabi audit.
 7. `COD-CP-008/COD-CP-008-MULTILINGUAL-REPORT.md` and its language-adapted audit.
-8. checkpoint-specific discovery, implementation and review authorities.
+8. `COD-CP-009/COD-CP-009-MULTILINGUAL-REPORT.md` and its language-adapted audit.
+9. `COD-001-MULTILINGUAL-CLOSURE.md` and the final three-locale closure gate.
+10. checkpoint-specific discovery, implementation and review authorities.
 
-## Permanent identity
+## Frozen permanent identity
 
 | Checkpoint | Permanent range | Count |
 |---|---:|---:|
@@ -33,45 +35,55 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/CO
 | `COD-CP-010` | `COD-QL-199` | 1 |
 | **Total** | **`COD-QL-001..199`** | **199** |
 
-The old predetermined 260-QL total remains revoked. A new QL requires recurring source evidence, ownership and collision audit, executable prototype proof, a new discovery freeze and an explicit manifest amendment.
+The old predetermined 260-QL total remains revoked. `COD-QL-199` is the evidence-backed chapter endpoint. A new QL requires recurring source evidence, ownership and collision audit, executable prototype proof, a new discovery freeze and an explicit manifest amendment.
 
-## English closure
-
-The whole-chapter closure audit generates every permanent QL for twelve seeds, producing 2,388 questions. It validates identity continuity, determinism, option truth, exact collisions, teaching-text completeness, answer-position balance, difficulty and renderer reach, and review-only release safety.
-
-## Hindi and Punjabi runtime
+## Multilingual runtime
 
 ```text
-English:  COD-QL-001..199  199 / 199
-Hindi:    COD-QL-001..174, COD-QL-199  175 / 199
-Punjabi:  COD-QL-001..174, COD-QL-199  175 / 199
+English: COD-QL-001..199  199 / 199
+Hindi:   COD-QL-001..199  199 / 199
+Punjabi: COD-QL-001..199  199 / 199
 ```
 
-`COD-CP-001..007` and `COD-CP-010` use the translational layer, preserving Latin source data and the frozen English solver while authoring native instructions and explanations.
+`COD-CP-001..007` and `COD-CP-010` use the translational layer, preserving logic-neutral Latin source data and the frozen English solver while authoring native instructions and explanations.
 
-`COD-CP-008` uses language-adapted referent dictionaries and separately authored versions of all fifteen semantic facts. Its localized mapping is independently solved using the same one-edge renaming rule. The 480-question audit reaches all fact categories, open chains, cycles and answer positions, with Hindi/Gurmukhi and no-English-fallback gates.
+`COD-CP-008` uses language-adapted referent dictionaries and separately authored versions of all fifteen semantic facts, with independent localized mapping-solver agreement.
 
-## Remaining multilingual gap
+`COD-CP-009` uses complete injective Hindi and Punjabi lexicons and grammar-aware sentence rendering while preserving artificial code tokens and abstract constraint topology. Reverse lexical isomorphism proves equivalence to the frozen English authority.
 
-Only `COD-CP-009` remains:
+## Final whole-chapter proof
+
+The final closure gate generates:
 
 ```text
-COD-QL-175..198 — 24 sentence and artificial-language QLs
+199 QLs × 6 seeds × 3 locales = 3,582 questions
+1,194 questions per locale
 ```
 
-CP-009 requires separately authored Hindi and Punjabi vocabulary and sentences while preserving the same abstract word-token constraint topology and code tokens.
+It verifies all ten checkpoints, all three difficulties, all five approved renderers, exact option truth, deterministic parity, native scripts, no English instructional fallback, natural Punjabi, review-only safety and zero exact displayed-question collisions in each language.
 
-## Remaining sequence
+Answer-position counts are identical across all three locales:
 
-1. merge CP-008 adapted locales after exact-head CI;
-2. implement and audit CP-009 Hindi/Punjabi datasets and grammar;
-3. run a final 199-QL, three-locale parity and editorial gate;
-4. complete manual multilingual review packs;
-5. connect reviewed content to Question Studio later.
+```text
+319 / 283 / 289 / 303
+```
 
-## Release boundary
+The final editorial export contains one sample per QL per locale: 597 review questions in JSONL and Markdown.
 
-- Question Studio visibility remains disabled.
-- No COD-001 QL is publicly publishable yet.
-- Question Bank conversion, mock-test eligibility and public routing remain disabled.
-- Mathematical operations, coded inequalities, Input-Output, figure coding and cross-topic coded relations remain outside COD-001.
+## Final chapter state
+
+```text
+English runtime: complete
+Hindi runtime: complete
+Punjabi runtime: complete
+Question Studio: disabled
+Question Bank conversion: disabled
+Mock-test eligibility: disabled
+Public routing/publication: disabled
+```
+
+Coding–Decoding is closed as a multilingual review-only chapter. A later explicitly approved integration phase may connect the frozen runtime to Question Studio without changing QL identity or solver authority.
+
+## Scope exclusions
+
+Mathematical operations, coded inequalities, Input-Output, figure coding and cross-topic coded relations remain outside COD-001.

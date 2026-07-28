@@ -9,6 +9,7 @@ import { generateCp008Question } from "./COD-CP-008/cp008-runtime";
 import { generateCp009Question } from "./COD-CP-009/cp009-runtime";
 import { generateCp010Question } from "./COD-CP-010/cp010-runtime";
 import { localizeCp008Question } from "./localization/cp008-localizer";
+import { localizeCp009Question } from "./localization/cp009-localizer";
 import { localizeCodTranslationalQuestion } from "./localization/translational-localizer";
 import type { CodTranslatedLocale } from "./localization/translational-language-pack";
 
@@ -54,6 +55,11 @@ export function isCod001Cp008Ql(qlId: string): boolean {
   return number === 173 || number === 174;
 }
 
+export function isCod001Cp009Ql(qlId: string): boolean {
+  const number = qlNumber(qlId);
+  return number >= 175 && number <= 198;
+}
+
 export function generateCod001Question(
   qlId: string,
   locale: Cod001Locale,
@@ -61,11 +67,8 @@ export function generateCod001Question(
 ): QuestionLike {
   const english = generateCod001EnglishQuestion(qlId, seed);
   if (locale === "en-IN") return english;
-  if (isCod001TranslationalQl(qlId)) {
-    return localizeCodTranslationalQuestion(english as never, locale) as QuestionLike;
-  }
-  if (isCod001Cp008Ql(qlId)) {
-    return localizeCp008Question(english as never, locale) as QuestionLike;
-  }
-  throw new Error(`${qlId} requires the language-adapted ${locale} CP-009 runtime, which is not implemented in this facade version`);
+  if (isCod001TranslationalQl(qlId)) return localizeCodTranslationalQuestion(english as never, locale) as QuestionLike;
+  if (isCod001Cp008Ql(qlId)) return localizeCp008Question(english as never, locale) as QuestionLike;
+  if (isCod001Cp009Ql(qlId)) return localizeCp009Question(english as never, locale) as QuestionLike;
+  throw new Error(`No ${locale} runtime for '${qlId}'`);
 }
