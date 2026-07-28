@@ -61,17 +61,10 @@ jobs:
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-teacher.ts \
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-teacher-reviewed.ts \
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-teacher-final.ts \
-            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher.test.ts \
-            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-final.test.ts
-      - name: Bundle baseline teacher proof
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher.test.ts
-          --bundle
-          --platform=node
-          --format=esm
-          --outfile=dist/quant-v4/pnc-002-editorial-quality-teacher-proof.mjs
-      - name: Bundle final adversarial teacher proof
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-teacher-production.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-final.test.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-production.test.ts
+      - name: Bundle final teacher proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-final.test.ts
@@ -79,29 +72,37 @@ jobs:
           --platform=node
           --format=esm
           --outfile=dist/quant-v4/pnc-002-editorial-quality-teacher-final-proof.mjs
-      - name: Run baseline teacher proof
+      - name: Bundle production teacher proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-production.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-002-editorial-quality-teacher-production-proof.mjs
+      - name: Run final adversarial teacher proof
         working-directory: artifacts/api-server
         shell: bash
         run: |
           mkdir -p dist/quant-v4/pnc-002-editorial-quality-diagnostics
           set +e
-          node dist/quant-v4/pnc-002-editorial-quality-teacher-proof.mjs 2>&1 | tee dist/quant-v4/pnc-002-editorial-quality-diagnostics/baseline.log
+          node dist/quant-v4/pnc-002-editorial-quality-teacher-final-proof.mjs 2>&1 | tee dist/quant-v4/pnc-002-editorial-quality-diagnostics/final.log
           status=${PIPESTATUS[0]}
           exit "$status"
-      - name: Run final adversarial teacher proof
+      - name: Run production teacher proof
         working-directory: artifacts/api-server
         shell: bash
         run: |
           set +e
-          node dist/quant-v4/pnc-002-editorial-quality-teacher-final-proof.mjs 2>&1 | tee dist/quant-v4/pnc-002-editorial-quality-diagnostics/final.log
+          node dist/quant-v4/pnc-002-editorial-quality-teacher-production-proof.mjs 2>&1 | tee dist/quant-v4/pnc-002-editorial-quality-diagnostics/production.log
           status=${PIPESTATUS[0]}
           exit "$status"
-      - name: Publish final teacher-style editorial review
+      - name: Publish production teacher-style editorial review
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pnc-002-teacher-style-editorial-review-final
-          path: artifacts/api-server/dist/quant-v4/pnc-002-editorial-quality-teacher-final/
+          name: pnc-002-teacher-style-editorial-review-production
+          path: artifacts/api-server/dist/quant-v4/pnc-002-editorial-quality-teacher-production/
           if-no-files-found: error
           retention-days: 14
       - name: Publish diagnostics
