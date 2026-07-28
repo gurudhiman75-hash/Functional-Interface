@@ -60,10 +60,10 @@ Permanent runtime and corpus guards enforce teacher voice, expanded working, dir
 
 ## Final exact-head validation
 
-Final head: `9aeeefd94114674d084ab2c7bc6f300a885383e3`  
-Dedicated workflow: `30380452252` — PASS  
-Evidence artefact: `8696748347`  
-Digest: `sha256:6ccc438e7c4a8f382eee19e37d881297d4942a9ec491df4041447626226ee431`
+Final head: `d6d1a49f5f3e84e1689e08009ddfc35871f6f6de`  
+Dedicated workflow: `30380767386` — PASS  
+Evidence artefact: `8696871733`  
+Digest: `sha256:e69ca7af5587d40d592ee30a993d899238da2783cb794e2829bc616e84bf1224`
 
 - 950 deterministic runtime cases — PASS;
 - 228 teacher-language structural/editorial cases — PASS;
