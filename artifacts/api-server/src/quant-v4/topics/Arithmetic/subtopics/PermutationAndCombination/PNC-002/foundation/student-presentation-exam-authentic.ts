@@ -41,29 +41,69 @@ function examAuthenticStem(source: PncStudentSourcePackage): string {
     .replace(/people must not stand together/gi, "people must not sit next to each other")
     .replace(/pair-blocks must not be adjacent to one another/gi, "pair-blocks must not be adjacent");
 
-  const reviewedStems: Record<string, string> = {
-    "PNC-QL-107": "In how many different ways can 8 people be seated in a straight row if two particular people must sit next to each other?",
-    "PNC-QL-108": "Eight different books are to be arranged on a shelf. In how many arrangements will a particular set of 4 books remain together?",
-    "PNC-QL-110": "Eight different files are to be arranged in a row. In how many arrangements will a particular set of 4 files not all be consecutive?",
-    "PNC-QL-178": "Seven people are seated around a round table, with one person fixed as a reference. In how many relative seatings can the other six people be arranged?",
-    "PNC-QL-196": "Three members of Category A and three members of Category B are seated around a round table. In how many arrangements do the two categories alternate?",
-    "PNC-QL-197": "Five members of Category A and two members of Category B are seated around a round table. In how many arrangements are the two Category B members non-adjacent?",
-    "PNC-QL-210": "In how many ways can 9 different players be divided into 3 named teams of 3 players each?",
-    "PNC-QL-226": "In how many ways can 7 different tokens be divided into exactly 4 non-empty unlabelled groups?",
-    "PNC-QL-227": "In how many ways can 5 different records be divided into at most 2 non-empty unlabelled groups?",
-    "PNC-QL-228": "In how many ways can 5 different volunteers be divided into any number of non-empty unlabelled groups?",
-    "PNC-QL-253": "In how many permutations of 6 numbered cards does no card remain in its original position?",
-    "PNC-QL-254": "In how many permutations of 6 numbered cards do exactly 2 cards remain in their original positions?",
-    "PNC-QL-255": "In how many permutations of 7 numbered cards does at least one card remain in its original position?",
-    "PNC-QL-256": "Five numbered cards are rearranged. In how many permutations is exactly one of two particular cards left in its original position?",
-    "PNC-QL-257": "Eight numbered cards are rearranged. In how many permutations is neither of two particular cards left in its original position?",
-    "PNC-QL-262": "In how many ways can 6 identical balls be placed in three labelled boxes with capacities 2, 3 and 4 respectively?",
-    "PNC-QL-263": "In how many ways can 10 identical balls be placed in three labelled boxes with minimum occupancies 1, 2 and 1 and maximum capacities 4, 5 and 5 respectively?",
-    "PNC-QL-264": "In how many ways can 8 different parcels be assigned to three labelled boxes with capacities 3, 3 and 4 respectively?",
-    "PNC-QL-269": "A sports club has 6 women and 4 men. They are divided into named teams A and B of 5 members each, with exactly 3 women in Team A. If each team chooses a captain from its own members, in how many ways can the teams and captains be chosen?",
-  };
-
-  stem = reviewedStems[qlId] ?? stem;
+  if (qlId === "PNC-QL-107") {
+    stem = stem.replace(
+      /^In how many ways can (\d+) different people be seated in a straight row/i,
+      "In how many different ways can $1 people be seated in a straight row",
+    );
+  } else if (qlId === "PNC-QL-108") {
+    stem = stem.replace(
+      /^In how many linear arrangements of (\d+) different books will a particular set of (\d+) books remain together\?/i,
+      "$1 different books are to be arranged on a shelf. In how many arrangements will a particular set of $2 books remain together?",
+    );
+  } else if (qlId === "PNC-QL-110") {
+    stem = stem.replace(
+      /^In how many arrangements of (\d+) different files will a particular set of (\d+) files not all appear consecutively\?/i,
+      "$1 different files are to be arranged in a row. In how many arrangements will a particular set of $2 files not all be consecutive?",
+    );
+  } else if (qlId === "PNC-QL-178") {
+    stem = stem.replace(
+      /^At a round-table meeting of (\d+) people, one person is fixed as the reference\. In how many relative seatings can the remaining people be arranged\?/i,
+      "$1 people are seated around a round table, with one person fixed as a reference. In how many relative seatings can the others be arranged?",
+    );
+  } else if (qlId === "PNC-QL-196") {
+    stem = stem.replace(
+      /^There are (\d+) members of Category A and (\d+) members of Category B\. In how many round-table arrangements do the two categories alternate\?/i,
+      "$1 members of Category A and $2 members of Category B are seated around a round table. In how many arrangements do the two categories alternate?",
+    );
+  } else if (qlId === "PNC-QL-197") {
+    stem = stem.replace(
+      /^There are (\d+) members of Category A and (\d+) members of Category B\. In how many round-table arrangements are no two Category B members adjacent\?/i,
+      "$1 members of Category A and $2 members of Category B are seated around a round table. In how many arrangements are no two Category B members adjacent?",
+    );
+  } else if (qlId === "PNC-QL-210") {
+    stem = stem.replace(/\bnumbered teams\b/gi, "named teams");
+  } else if (qlId === "PNC-QL-226") {
+    stem = stem.replace(
+      /be divided among exactly (\d+) non-empty identical boxes, where swapping complete boxes does not create a new distribution/i,
+      "be divided into exactly $1 non-empty unlabelled groups",
+    );
+  } else if (qlId === "PNC-QL-227") {
+    stem = stem.replace(
+      /be divided among at most (\d+) non-empty identical boxes, where the boxes have no labels/i,
+      "be divided into at most $1 non-empty unlabelled groups",
+    );
+  } else if (qlId >= "PNC-QL-253" && qlId <= "PNC-QL-257") {
+    stem = stem
+      .replace(/\bdifferent objects\b/gi, "numbered cards")
+      .replace(/\bobjects\b/gi, "cards")
+      .replace(/\bobject\b/gi, "card")
+      .replace(
+        /^For two particular cards among (\d+) numbered cards,/i,
+        "$1 numbered cards are rearranged. For two particular cards,",
+      );
+  } else if (qlId === "PNC-QL-262" || qlId === "PNC-QL-263") {
+    stem = stem
+      .replace(/\bidentical objects\b/gi, "identical balls")
+      .replace(/three labelled boxes whose maximum capacities are/gi, "three labelled boxes with capacities");
+  } else if (qlId === "PNC-QL-264") {
+    stem = stem.replace(/\bdifferent objects\b/gi, "different parcels");
+  } else if (qlId === "PNC-QL-269") {
+    stem = stem.replace(
+      /^There are (\d+) women and (\d+) men\. They are divided into two named teams of (\d+) each, with Team A containing exactly (\d+) women\. Afterward, a captain is chosen for each team\. How many outcomes are possible\?/i,
+      "A sports club has $1 women and $2 men. They are divided into named teams A and B of $3 members each, with exactly $4 women in Team A. If each team chooses a captain from its own members, in how many ways can the teams and captains be chosen?",
+    );
+  }
   return ensureQuestionEnding(stem);
 }
 
