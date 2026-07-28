@@ -145,6 +145,7 @@ function formatUnitMath(unit: Men002Unit) {
     case "m³": return "\\text{ m}^{3}";
     case "%": return "\\%";
     case "£": return "\\text{£}";
+    case "£/m": return "\\text{£}/\\text{m}";
     case "£/m²": return "\\text{£}/\\text{m}^{2}";
     case "£/m³": return "\\text{£}/\\text{m}^{3}";
     default: return `\\text{ ${unit}}`;
@@ -154,12 +155,12 @@ function formatUnitMath(unit: Men002Unit) {
 export function formatWithUnit(value: ExactValue, unit: Men002Unit) {
   const maths = formatExactMath(value);
   if (unit === "£") return `$${formatUnitMath(unit)}${maths}$`;
-  if (unit === "£/m²" || unit === "£/m³") {
-    const exponent = unit === "£/m²" ? "2" : "3";
+  if (unit === "£/m" || unit === "£/m²" || unit === "£/m³") {
+    const denominator = unit === "£/m" ? "\\text{m}" : unit === "£/m²" ? "\\text{m}^{2}" : "\\text{m}^{3}";
     const rateValue = value.kind === "RATIONAL" && value.denominator !== 1n
       ? `\\left(${maths}\\right)`
       : maths;
-    return `$\\text{£}${rateValue}/\\text{m}^{${exponent}}$`;
+    return `$\\text{£}${rateValue}/${denominator}$`;
   }
   return `$${maths}${formatUnitMath(unit)}$`;
 }
