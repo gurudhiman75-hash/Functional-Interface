@@ -109,6 +109,19 @@ function withTeacherLabels(
   } as MalCp001FoundationQuestion;
 }
 
+function normaliseTeacherWarning(
+  explanation: MalCp001TeacherExplanation,
+): MalCp001TeacherExplanation {
+  return {
+    ...explanation,
+    commonTrap: explanation.commonTrap.replace(
+      /^Common trap:\s+([A-Z])/u,
+      (_match, firstLetter: string) =>
+        `Common trap: ${firstLetter.toLowerCase()}`,
+    ),
+  };
+}
+
 /**
  * Generates one permanently identified CP-001 question in implementation-proof
  * mode. The package is deliberately inactive and cannot be routed to any
@@ -152,9 +165,11 @@ export function runMalCp001PermanentPipeline(
     );
   }
 
-  const explanation = buildMalCp001TeacherExplanation(
-    withTeacherLabels(foundationQuestion, allocation.qlId),
-    allocation.qlId,
+  const explanation = normaliseTeacherWarning(
+    buildMalCp001TeacherExplanation(
+      withTeacherLabels(foundationQuestion, allocation.qlId),
+      allocation.qlId,
+    ),
   );
 
   return {
