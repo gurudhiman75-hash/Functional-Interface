@@ -39,6 +39,19 @@ jobs:
               line[code_indent:] if line.startswith(indent_prefix) else line
               for line in embedded
           )
+
+          stale_exact_replacement = 'replace_once(engine, old_function, new_function, "runtime package generator")'
+          stable_boundary_replacement = '''engine_source = engine.read_text()
+          function_start = engine_source.index("async function generateWithRuntimePackage(")
+          function_end_marker = "\\n}\\n\\nexport async function generateQuestion"
+          function_end = engine_source.index(function_end_marker, function_start) + 2
+          engine.write_text(
+              engine_source[:function_start] + new_function + engine_source[function_end:]
+          )'''
+          if stale_exact_replacement not in code:
+              raise SystemExit("Reviewed patch no longer contains the expected runtime replacement hook")
+          code = code.replace(stale_exact_replacement, stable_boundary_replacement)
+
           exec(compile(code, "pnl-cp001-dynamic-review-patch", "exec"))
           PY
 
