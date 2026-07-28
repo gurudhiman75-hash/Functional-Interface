@@ -1,0 +1,96 @@
+name: Validate INT-CP-001 final closure and freeze
+
+on:
+  pull_request:
+    branches:
+      - feat/int-001-cp001-gap-wave-02
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/**
+      - .github/workflows/int-cp001-final-freeze.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-int-cp001-final-freeze-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-int-cp001-final-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle foundation regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-prototype.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-foundation-regression.mjs
+      - name: Run foundation regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/int-001-cp001-foundation-regression.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-foundation-regression.log
+
+      - name: Bundle wave 02 regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-gap-wave-02.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-wave02-regression.mjs
+      - name: Run wave 02 regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/int-001-cp001-wave02-regression.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-wave02-regression.log
+
+      - name: Bundle final freeze audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-final-freeze-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-final-freeze-audit.mjs
+      - name: Run final freeze audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/int-001-cp001-final-freeze-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-final-freeze-audit.log
+
+      - name: Bundle final review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-final-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-final-review-export.mjs
+      - name: Generate final review pack
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/int-001-cp001-final-review-export.mjs
+
+      - name: Upload final freeze evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp001-final-freeze
+          path: |
+            artifacts/api-server/dist/quant-v4/int-001-cp001-foundation-regression.log
+            artifacts/api-server/dist/quant-v4/int-001-cp001-wave02-regression.log
+            artifacts/api-server/dist/quant-v4/int-001-cp001-final-freeze-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp001-final-review.json
+            artifacts/api-server/dist/quant-v4/int-001-cp001-final-review.md
+          if-no-files-found: error
+          retention-days: 7
