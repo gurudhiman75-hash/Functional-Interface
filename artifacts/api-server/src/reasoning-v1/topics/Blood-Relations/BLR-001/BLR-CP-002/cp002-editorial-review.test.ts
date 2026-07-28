@@ -8,6 +8,7 @@ const answerPositions = [0, 0, 0, 0];
 let selfQuestions = 0;
 let onlyQuestions = 0;
 let photographQuestions = 0;
+let threeAnchorQuestions = 0;
 
 for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
   for (let seed = 0; seed < QUESTIONS_PER_PROTOTYPE; seed += 1) {
@@ -42,6 +43,24 @@ for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
       );
     }
 
+    if (contract.prototypeId === "BLR-CP002-PROT-THREE-ANCHOR-INTRODUCTION") {
+      threeAnchorQuestions += 1;
+      const listenerId = question.structuredPrompt.listenerId!;
+      const pointedPersonId = question.structuredPrompt.pointedPersonId!;
+      const listenerName = question.structuredPrompt.personNames[listenerId] ?? listenerId;
+      const pointedName = question.structuredPrompt.personNames[pointedPersonId] ?? pointedPersonId;
+      assert.ok(question.stem.includes(listenerName));
+      assert.ok(question.stem.includes(pointedName) || question.stem.includes("the person in the photograph") || question.stem.includes("the indicated person"));
+      if (question.metadata.presentation === "INTRODUCTION") {
+        assert.ok(question.stem.includes(`to ${listenerName}`));
+      } else {
+        assert.ok(question.stem.includes(`said to ${listenerName}`));
+      }
+      assert.ok(
+        question.explanation.coreConcept?.some((line) => line === `your = ${listenerName}`),
+      );
+    }
+
     if (question.metadata.onlyConstraintCount > 0) {
       onlyQuestions += 1;
       assert.ok(
@@ -73,21 +92,24 @@ for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
   }
 }
 
-assert.deepEqual(answerPositions, [100, 100, 100, 100]);
+const expectedPerPosition = BLR_CP002_PROTOTYPE_CONTRACTS.length * 20;
+assert.deepEqual(answerPositions, [expectedPerPosition, expectedPerPosition, expectedPerPosition, expectedPerPosition]);
 assert.ok(selfQuestions > 0);
 assert.ok(onlyQuestions > 0);
 assert.ok(photographQuestions > 0);
+assert.equal(threeAnchorQuestions, QUESTIONS_PER_PROTOTYPE);
 
 console.log(
   JSON.stringify(
     {
       checkpointId: "BLR-CP-002",
-      gate: "ENGLISH_EDITORIAL_V1",
+      gate: "ENGLISH_EDITORIAL_V2",
       questions: BLR_CP002_PROTOTYPE_CONTRACTS.length * QUESTIONS_PER_PROTOTYPE,
       answerPositions,
       selfQuestions,
       onlyQuestions,
       photographQuestions,
+      threeAnchorQuestions,
       permanentQlCount: 0,
     },
     null,
