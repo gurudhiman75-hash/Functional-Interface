@@ -43,7 +43,6 @@ interface Draft {
 const CUBE_CONTEXTS = ["solid wooden cube", "cubical storage block", "metal cube", "cubical packing box"] as const;
 const CUBOID_CONTEXTS = ["rectangular carton", "wooden block", "storage box", "rectangular solid"] as const;
 const PRISM_CONTEXTS = ["glass prism", "solid prism", "prismatic block", "concrete prism"] as const;
-const DIFFICULTIES: readonly Men002Difficulty[] = ["Easy", "Medium", "Hard"];
 
 function q(value: bigint | number, denominator: bigint | number = 1) {
   return rational(value, denominator);
@@ -146,8 +145,8 @@ function cubeSideFromVolumeDraft(prototypeId: MenCp007PrototypeId, seed: string,
     stem: `A ${context} has volume $${volume}\\text{ cm}^3$. Find its side length.`,
     answer,
     wrongAnswers: [
-      { value: q(side ** 2n), misconceptionId: "TOOK_SQUARE_ROOT_INCORRECTLY", explanation: "treating the volume as an area and stopping at a squared side value" },
-      { value: q(3n * side), misconceptionId: "DIVIDED_BY_THREE", explanation: "dividing the volume idea into three parts instead of taking the cube root" },
+      { value: exactFromSquaredLength(volume), misconceptionId: "TOOK_SQUARE_ROOT", explanation: `taking $\sqrt{${volume}}$ as though the given cubic measure were an area` },
+      { value: q(volume, 3n), misconceptionId: "DIVIDED_VOLUME_BY_THREE", explanation: `dividing $${volume}$ by $3$ instead of taking its cube root` },
       { value: q(side + 1n), misconceptionId: "CUBE_ROOT_SLIP", explanation: `choosing a nearby integer even though only $${side}^3=${volume}$ reconstructs the given volume` },
     ],
     keyRule: "For a cube, $V=a^3$. Recover the side by taking the exact cube root: $a=\\sqrt[3]{V}$.",
@@ -162,7 +161,7 @@ function cubeSideFromVolumeDraft(prototypeId: MenCp007PrototypeId, seed: string,
 function cubeSpaceDiagonalDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: SeededRandom, difficulty: Men002Difficulty): Draft {
   const side = BigInt(rng.int(3, 15));
   const answer = surd(side, 3n);
-  const context = rng.pick(["cube", "cubical room", "cubical crate"] as const);
+  const context = rng.pick(["cube", "cubical crate", "cubical display box"] as const);
   return {
     state: makeState(prototypeId, seed, difficulty, "cm", context, { side }, { answer }),
     stem: `Find the space diagonal of a ${context} whose side is ${dimensionText(side, "cm")}.`,
@@ -191,7 +190,7 @@ function cubeSideFromDiagonalDraft(prototypeId: MenCp007PrototypeId, seed: strin
     answer,
     wrongAnswers: [
       { value: q(3n * side), misconceptionId: "MULTIPLIED_BY_ROOT_FACTOR", explanation: "multiplying by the diagonal factor instead of dividing out $\\sqrt3$" },
-      { value: q(2n * side), misconceptionId: "TREATED_AS_DIAMETER", explanation: "treating the space diagonal like a diameter and doubling the side" },
+      { value: surd(side, 3n, 2n), misconceptionId: "HALVED_AS_DIAMETER", explanation: "halving the given space diagonal as though it were a circle diameter" },
       { value: q(side, 3n), misconceptionId: "DIVIDED_BY_THREE", explanation: "dividing the coefficient by $3$ rather than cancelling the common factor $\\sqrt3$" },
     ],
     keyRule: "A cube's space diagonal is $d=a\\sqrt3$. Divide the given diagonal by $\\sqrt3$ to recover the side.",
@@ -267,7 +266,7 @@ function cuboidHeightFromVolumeDraft(prototypeId: MenCp007PrototypeId, seed: str
     wrongAnswers: [
       { value: q(volume / length), misconceptionId: "DIVIDED_BY_ONE_DIMENSION", explanation: "dividing by the length only and leaving the breadth unaccounted for" },
       { value: q(volume, length + breadth), misconceptionId: "DIVIDED_BY_SUM", explanation: "dividing by $l+b$ instead of the rectangular base area $lb$" },
-      { value: q(2n * height), misconceptionId: "EXTRA_FACTOR_TWO", explanation: "introducing a surface-area factor of $2$ into a volume inverse" },
+      { value: q(height, 2n), misconceptionId: "EXTRA_FACTOR_TWO", explanation: "putting an unnecessary factor of $2$ in the denominator of $h=V/(lb)$" },
     ],
     keyRule: "Since $V=lbh$, the missing height equals volume divided by the base area: $h=V/(lb)$.",
     steps: [
@@ -439,10 +438,42 @@ function cubeScalingDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: S
 }
 
 const PERCENT_SCENARIOS = [
-  { length: 20n, breadth: -10n, correct: 8n, wrong: [10n, 30n, 108n] as const },
-  { length: 10n, breadth: 20n, correct: 32n, wrong: [30n, 12n, 132n] as const },
-  { length: 50n, breadth: -20n, correct: 20n, wrong: [30n, 70n, 120n] as const },
-  { length: 25n, breadth: 20n, correct: 50n, wrong: [45n, 30n, 150n] as const },
+  {
+    length: 20n, breadth: -10n, correct: 8n,
+    wrong: [10n, 30n, 108n] as const,
+    explanations: [
+      "subtracting the stated percentages directly: $20-10=10$",
+      "adding the percentage magnitudes: $20+10=30$",
+      "reporting the final volume index $108$ instead of the $8\%$ increase",
+    ] as const,
+  },
+  {
+    length: 10n, breadth: 20n, correct: 32n,
+    wrong: [30n, 10n, 132n] as const,
+    explanations: [
+      "adding the two increases directly: $10+20=30$",
+      "subtracting the smaller increase from the larger: $20-10=10$",
+      "reporting the final volume index $132$ instead of the $32\%$ increase",
+    ] as const,
+  },
+  {
+    length: 50n, breadth: -20n, correct: 20n,
+    wrong: [30n, 70n, 120n] as const,
+    explanations: [
+      "combining the signed percentages directly: $50-20=30$",
+      "adding the percentage magnitudes: $50+20=70$",
+      "reporting the final volume index $120$ instead of the $20\%$ increase",
+    ] as const,
+  },
+  {
+    length: 25n, breadth: 20n, correct: 50n,
+    wrong: [45n, 5n, 150n] as const,
+    explanations: [
+      "adding the two increases directly: $25+20=45$",
+      "subtracting the smaller increase from the larger: $25-20=5$",
+      "reporting the final volume index $150$ instead of the $50\%$ increase",
+    ] as const,
+  },
 ] as const;
 
 function percentPhrase(value: bigint) {
@@ -457,9 +488,9 @@ function cuboidPercentDraft(prototypeId: MenCp007PrototypeId, seed: string, rng:
     stem: `The length of a cuboid is ${percentPhrase(scenario.length)} and its breadth is ${percentPhrase(scenario.breadth)}, while its height remains unchanged. Find the percentage increase in volume.`,
     answer,
     wrongAnswers: [
-      { value: q(scenario.wrong[0]), misconceptionId: "ADDED_SIGNED_PERCENTAGES", explanation: "adding or subtracting the stated percentages directly instead of multiplying dimension factors" },
-      { value: q(scenario.wrong[1]), misconceptionId: "IGNORED_DIRECTION", explanation: "combining the percentage magnitudes without respecting increase versus decrease" },
-      { value: q(scenario.wrong[2]), misconceptionId: "REPORTED_NEW_PERCENT", explanation: "reporting the new volume index rather than the percentage increase over the original" },
+      { value: q(scenario.wrong[0]), misconceptionId: "DIRECT_PERCENTAGE_COMBINATION", explanation: scenario.explanations[0] },
+      { value: q(scenario.wrong[1]), misconceptionId: "WRONG_PERCENTAGE_DIRECTION", explanation: scenario.explanations[1] },
+      { value: q(scenario.wrong[2]), misconceptionId: "REPORTED_NEW_PERCENT", explanation: scenario.explanations[2] },
     ],
     keyRule: "For independent dimension changes, multiply the new dimension factors. The volume percentage change comes from the final multiplier, not from simply adding percentages.",
     steps: [
@@ -517,9 +548,39 @@ function paintingCostDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: 
   };
 }
 
+export function classifyMenCp007Difficulty(state: MenCp007CanonicalState): Men002Difficulty {
+  const d = state.dimensions;
+  let score = 0;
+  switch (state.solveMode) {
+    case "findCubeVolume":
+    case "findCubeTotalSurfaceArea": score = d.side! >= 10n ? 1 : 0; break;
+    case "findCubeSideFromVolume":
+    case "findCubeSpaceDiagonal":
+    case "findCubeSideFromSpaceDiagonal": score = 1 + (d.side! >= 10n ? 1 : 0); break;
+    case "findCuboidVolume": score = d.length! >= 18n ? 1 : 0; break;
+    case "findCuboidTotalSurfaceArea":
+    case "findCuboidHeightFromVolume": score = 1 + (d.length! >= 18n ? 1 : 0); break;
+    case "findCuboidSpaceDiagonal":
+    case "findLongestRodInCuboid": score = 1 + (d.height! >= 20n ? 1 : 0); break;
+    case "findTriangularPrismVolume": score = 1 + (d.prismLength! >= 15n ? 1 : 0); break;
+    case "findPrismHeightFromVolumeAndBaseArea": score = 1 + (d.height! >= 12n ? 1 : 0); break;
+    case "findSmallCubeCountFromCuboid": {
+      const count = d.alongLength! * d.alongBreadth! * d.alongHeight!;
+      score = 1 + (count >= 60n ? 1 : 0);
+      break;
+    }
+    case "findOpenTopCuboidSheetArea": score = 1 + (d.length! >= 18n ? 1 : 0); break;
+    case "findCubeVolumeScaleRatio": score = d.factor! >= 5n ? 1 : 0; break;
+    case "findCuboidVolumePercentageChange": score = 1 + (d.lengthChange! * d.breadthChange! < 0n ? 1 : 0); break;
+    case "convertCubicCentimetresToLitres": score = d.cubicCentimetres! >= 30_000n ? 1 : 0; break;
+    case "findCuboidPaintingCost": score = 1 + (d.length! >= 18n || d.rate! >= 8n ? 1 : 0); break;
+  }
+  return score === 0 ? "Easy" : score === 1 ? "Medium" : "Hard";
+}
+
 function generateDraft(prototypeId: MenCp007PrototypeId, seed: string): Draft {
   const rng = createSeededRandom(`${prototypeId}:${seed}`);
-  const difficulty = rng.pick(DIFFICULTIES);
+  const difficulty: Men002Difficulty = "Easy";
   switch (prototypeId) {
     case "MEN-CP007-PROT-CUBE-VOLUME": return cubeVolumeDraft(prototypeId, seed, rng, difficulty);
     case "MEN-CP007-PROT-CUBE-TSA": return cubeTsaDraft(prototypeId, seed, rng, difficulty);
@@ -672,6 +733,7 @@ function validatePackage(question: Omit<MenCp007QuestionPackage, "validation">) 
 
 export function generateMenCp007Prototype(prototypeId: MenCp007PrototypeId, seed: string): MenCp007QuestionPackage {
   const draft = generateDraft(prototypeId, seed);
+  draft.state.difficulty = classifyMenCp007Difficulty(draft.state);
   const verification = verifyDraft(draft);
   const optionRng = createSeededRandom(`${prototypeId}:${seed}:options`);
   const { options, traps } = buildOptions(draft, optionRng);
