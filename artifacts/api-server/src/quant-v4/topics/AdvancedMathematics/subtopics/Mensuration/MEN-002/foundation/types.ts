@@ -30,10 +30,10 @@ export type Men002Unit =
   | "bricks"
   | "cuts"
   | "%"
-  | "£"
-  | "£/m"
-  | "£/m²"
-  | "£/m³"
+  | "₹"
+  | "₹/m"
+  | "₹/m²"
+  | "₹/m³"
   | "times";
 
 export type ExactRational = {
