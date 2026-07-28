@@ -4,7 +4,7 @@ import { AVG_001_CP004_EDITORIAL_V2 } from "./foundation/cp004-editorial-v2";
 import { applyAvg001Cp004EditorialV2Candidate } from "./foundation/cp004-editorial-v2-polish";
 import { getAvg001QuestionEntries } from "./foundation/library";
 import { runAvg001Pipeline } from "./foundation/pipeline";
-import { hasConsistentSemanticOptions } from "./foundation/presentation-quality-v2";
+import { hasConsistentSemanticOptions, semanticUnitFor } from "./foundation/presentation-quality-v2";
 
 const entries = getAvg001QuestionEntries().filter((entry) => entry.cpId === "AVG-CP-004");
 const failures: string[] = [];
@@ -43,11 +43,11 @@ for (const entry of entries) {
     if (candidate.traceability.releaseCandidate !== "AVG-001-EN-v2") fail(`${entry.qlId}:${seedIndex}: missing release-candidate trace`);
     if (!candidate.validation.valid || candidate.validation.checks.some((check) => !check.passed)) {
       const failed = candidate.validation.checks.filter((check) => !check.passed).map((check) => check.name).join(", ");
-      fail(`${entry.qlId}:${seedIndex}: candidate validation failed [${failed}]`);
+      fail(`${entry.qlId}:${seedIndex}: candidate validation failed [${failed}] unit=${semanticUnitFor(candidate)} options=${JSON.stringify(candidate.options)}`);
     }
     if (candidate.options.length !== 4 || new Set(candidate.options).size !== 4) fail(`${entry.qlId}:${seedIndex}: options are not four and unique`);
     if (candidate.options[candidate.correctIndex] !== candidate.answer) fail(`${entry.qlId}:${seedIndex}: correct option does not equal candidate answer`);
-    if (!hasConsistentSemanticOptions(candidate)) fail(`${entry.qlId}:${seedIndex}: semantic option units are inconsistent`);
+    if (!hasConsistentSemanticOptions(candidate)) fail(`${entry.qlId}:${seedIndex}: semantic option units are inconsistent unit=${semanticUnitFor(candidate)} options=${JSON.stringify(candidate.options)}`);
     if (/^(?:Combine|Three groups contain|Four groups contain)|\bFind the (?:combined )?average\.?$/i.test(candidate.stem.trim())) fail(`${entry.qlId}:${seedIndex}: mechanical stem survived: ${candidate.stem}`);
     if (candidate.stem.length < 70 || /[{}]|undefined|NaN|Infinity|null/.test(candidate.stem)) fail(`${entry.qlId}:${seedIndex}: stem is short or unresolved`);
     if (candidate.explanation.lines.length !== 4) fail(`${entry.qlId}:${seedIndex}: explanation does not have exactly four tiers`);
