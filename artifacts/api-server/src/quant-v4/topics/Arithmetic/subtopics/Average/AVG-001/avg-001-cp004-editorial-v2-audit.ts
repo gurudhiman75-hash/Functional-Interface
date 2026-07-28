@@ -1,6 +1,7 @@
 import { strict as assert } from "node:assert";
 
-import { applyAvg001Cp004EditorialV2, AVG_001_CP004_EDITORIAL_V2 } from "./foundation/cp004-editorial-v2";
+import { AVG_001_CP004_EDITORIAL_V2 } from "./foundation/cp004-editorial-v2";
+import { applyAvg001Cp004EditorialV2Candidate } from "./foundation/cp004-editorial-v2-polish";
 import { getAvg001QuestionEntries } from "./foundation/library";
 import { runAvg001Pipeline } from "./foundation/pipeline";
 import { hasConsistentSemanticOptions } from "./foundation/presentation-quality-v2";
@@ -32,7 +33,7 @@ for (const entry of entries) {
   for (let seedIndex = 0; seedIndex < 5; seedIndex += 1) {
     const seed = `avg-cp004-editorial-v2:${entry.qlId}:${seedIndex}`;
     const original = runAvg001Pipeline({ questionLanguageId: entry.qlId, seed, language: "en" });
-    const candidate = applyAvg001Cp004EditorialV2(original);
+    const candidate = applyAvg001Cp004EditorialV2Candidate(original);
     generated += 1;
 
     if (candidate.mathematicalFingerprint !== original.mathematicalFingerprint) fail(`${entry.qlId}:${seedIndex}: mathematical fingerprint changed`);
