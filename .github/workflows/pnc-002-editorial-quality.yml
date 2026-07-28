@@ -32,36 +32,25 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: feat/pnc-002-editorial-quality-upgrade
-      - name: Switch proof to final presentation once
+      - name: Preserve display delimiters once
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
-          path = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-reviewed.test.ts')
+          path = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-final.ts')
           text = path.read_text()
-          old_import = '''import {
-            buildPnc002ReviewedStudentPresentation,
-          } from "./foundation/student-presentation-reviewed";'''
-          new_import = '''import {
-            buildPnc002FinalStudentPresentation,
-          } from "./foundation/student-presentation-final";'''
-          if old_import in text:
-              text = text.replace(old_import, new_import, 1)
-          elif new_import not in text:
-              raise SystemExit('reviewed presentation import not found')
-          old_call = 'const presentation = buildPnc002ReviewedStudentPresentation(source);'
-          new_call = 'const presentation = buildPnc002FinalStudentPresentation(source);'
-          if old_call in text:
-              text = text.replace(old_call, new_call, 1)
-          elif new_call not in text:
-              raise SystemExit('reviewed presentation call not found')
-          path.write_text(text)
+          old = '.replace(/(calculation|formula|count):\\$\\$/gi, "$1: $$")'
+          new = '.replace(/(calculation|formula|count):\\$\\$/gi, (_match, label: string) => `${label}: $$`)'
+          if old in text:
+              path.write_text(text.replace(old, new, 1))
+          elif new not in text:
+              raise SystemExit('display-spacing replacement not found')
           PY
-          if ! git diff --quiet -- artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-reviewed.test.ts; then
+          if ! git diff --quiet -- artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-final.ts; then
             git config user.name github-actions[bot]
             git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-            git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-reviewed.test.ts
-            git commit -m "test(pnc): use final student presentation in editorial proof"
+            git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-final.ts
+            git commit -m "fix(pnc): preserve display delimiters during spacing cleanup"
             git push origin HEAD:feat/pnc-002-editorial-quality-upgrade
           fi
       - name: Set up Node
