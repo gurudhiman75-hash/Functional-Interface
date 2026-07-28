@@ -1,9 +1,10 @@
 import { INT_CP001_FINAL_REGISTRY } from "./cp001-final-registry";
 import { generateIntCp001FinalEditorialV3Question } from "./cp001-final-editorial-runtime-v3";
 import {
-  assertIntCp001LocaleParity,
-  generateIntCp001ReleaseLocalizedQuestion,
-} from "./cp001-localized-runtime-release";
+  assertIntCp001ApprovedLocaleParity,
+  generateIntCp001ApprovedLocalizedQuestion,
+} from "./cp001-localized-runtime-approved";
+import { generateIntCp001ReleaseLocalizedQuestion } from "./cp001-localized-runtime-release";
 import {
   INT_CP001_HINDI_RELEASE_ID,
   INT_CP001_MULTILINGUAL_STANDARD,
@@ -14,6 +15,16 @@ import { stableBigIntJson } from "./cp001-localization-foundation";
 
 function fail(message: string): never {
   throw new Error(message);
+}
+
+function approvalContentIdentity(value: Record<string, unknown>): string {
+  const {
+    maturity: _maturity,
+    reviewStatus: _reviewStatus,
+    localeReviewStatus: _localeReviewStatus,
+    ...content
+  } = value;
+  return stableBigIntJson(content);
 }
 
 const locales: readonly IntCp001Locale[] = ["hi", "pa"];
@@ -34,6 +45,7 @@ const stats = Object.fromEntries(locales.map((locale) => [locale, {
 }>;
 
 let parityChecks = 0;
+let approvalIdentityChecks = 0;
 let trapChecks = 0;
 
 for (const entry of INT_CP001_FINAL_REGISTRY) {
@@ -43,13 +55,22 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
     if (!english.validation.ok) fail(`${entry.qlId}/${seed}/en: ${english.validation.errors.join(" | ")}`);
 
     for (const locale of locales) {
-      const item = generateIntCp001ReleaseLocalizedQuestion(entry.qlId, seed, locale);
-      const repeat = generateIntCp001ReleaseLocalizedQuestion(entry.qlId, seed, locale);
+      const candidate = generateIntCp001ReleaseLocalizedQuestion(entry.qlId, seed, locale);
+      const item = generateIntCp001ApprovedLocalizedQuestion(entry.qlId, seed, locale);
+      const repeat = generateIntCp001ApprovedLocalizedQuestion(entry.qlId, seed, locale);
       const localeStats = stats[locale];
 
       if (stableBigIntJson(item) !== stableBigIntJson(repeat)) fail(`${entry.qlId}/${seed}/${locale} is not deterministic.`);
-      assertIntCp001LocaleParity(english, item);
+      assertIntCp001ApprovedLocaleParity(english, item);
       parityChecks += 1;
+
+      if (
+        approvalContentIdentity(item as unknown as Record<string, unknown>)
+        !== approvalContentIdentity(candidate as unknown as Record<string, unknown>)
+      ) {
+        fail(`${entry.qlId}/${seed}/${locale} approval changed reviewed learner content or mathematics.`);
+      }
+      approvalIdentityChecks += 1;
 
       if (!item.validation.ok) fail(`${entry.qlId}/${seed}/${locale}: ${item.validation.errors.join(" | ")}`);
       if (item.qlId !== entry.qlId || item.solveContract !== entry.solveContract) fail(`${entry.qlId}/${seed}/${locale} lost identity.`);
@@ -74,8 +95,18 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
       if (/%%|%\\%/u.test([item.stem, ...item.options, ...item.explanation.stepByStep.steps].join(" "))) {
         fail(`${entry.qlId}/${seed}/${locale} contains malformed percentage notation.`);
       }
-      if (item.reviewStatus !== "PENDING_MULTILINGUAL_REVIEW" || item.localeReviewStatus !== "PENDING_HUMAN_REVIEW") {
-        fail(`${entry.qlId}/${seed}/${locale} has unsafe review status.`);
+      if (
+        item.maturity !== "APPROVED_MULTILINGUAL_CONTRACT"
+        || item.reviewStatus !== "APPROVED_MULTILINGUAL_CONTRACT"
+        || item.localeReviewStatus !== "APPROVED_HUMAN_REVIEW"
+      ) {
+        fail(`${entry.qlId}/${seed}/${locale} has incorrect approval status.`);
+      }
+      if (
+        candidate.reviewStatus !== "PENDING_MULTILINGUAL_REVIEW"
+        || candidate.localeReviewStatus !== "PENDING_HUMAN_REVIEW"
+      ) {
+        fail(`${entry.qlId}/${seed}/${locale} candidate evidence was mutated during approval.`);
       }
       if (item.questionBankStatus !== "NOT_STORED" || item.testEligibility !== "INELIGIBLE") {
         fail(`${entry.qlId}/${seed}/${locale} breached storage/test safety.`);
@@ -119,6 +150,7 @@ console.log(JSON.stringify({
   seedsPerQl: 80,
   localizedQuestions: stats.hi.generated + stats.pa.generated,
   parityChecks,
+  approvalIdentityChecks,
   trapChecks,
   exactCrossLocaleCollisions,
   releases: { hi: INT_CP001_HINDI_RELEASE_ID, pa: INT_CP001_PUNJABI_RELEASE_ID },
@@ -138,8 +170,11 @@ console.log(JSON.stringify({
       adapters: stats.pa.adapters.size,
     },
   },
-  reviewStatus: "PENDING_MULTILINGUAL_REVIEW",
-  localeReviewStatus: "PENDING_HUMAN_REVIEW",
+  maturity: "APPROVED_MULTILINGUAL_CONTRACT",
+  reviewStatus: "APPROVED_MULTILINGUAL_CONTRACT",
+  localeReviewStatus: "APPROVED_HUMAN_REVIEW",
+  questionBankStatus: "NOT_STORED",
+  testEligibility: "INELIGIBLE",
   publiclyPublishable: false,
   questionStudioDiscoverable: false,
 }, null, 2));
