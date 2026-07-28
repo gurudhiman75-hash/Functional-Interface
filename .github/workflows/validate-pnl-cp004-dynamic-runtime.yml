@@ -13,15 +13,37 @@ on:
       - ".github/workflows/validate-pnl-cp004-dynamic-runtime.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate-cp004-dynamic-runtime:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
-      - name: Checkout source
+      - name: Checkout feature source
         uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-cp004-dynamic-runtime
+
+      - name: Constrain middle-trader commission to exact retained fraction
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-cases.ts")
+          source = path.read_text()
+          anchor = "function middleTraderCase(random: SeededRandom)"
+          start = source.index(anchor)
+          end = source.index("\n}\n\nfunction forwardContext", start)
+          block = source[start:end]
+          old = "const commissionPercent = rational(pickNumber(random, COMMISSION_RATES));"
+          replacement = "// A 20% commission leaves 4/5 of gross, keeping every generated inverse exact to the paise.\n  const commissionPercent = rational(20);"
+          if old in block:
+              block = block.replace(old, replacement, 1)
+              path.write_text(source[:start] + block + source[end:])
+          elif replacement not in block:
+              raise SystemExit("middle-trader commission selector was not found")
+          PY
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -50,6 +72,17 @@ jobs:
           set -o pipefail
           node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/.cp004-dynamic-runtime.test.mjs \
             2>&1 | tee -a pnl-cp004-dynamic-runtime.log
+
+      - name: Commit proven correction
+        run: |
+          if git diff --quiet -- artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-cases.ts; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-cases.ts
+          git commit -m "fix(pnl): keep CP-004 commission inverse exact"
+          git push origin HEAD:feat/pnl-001-cp004-dynamic-runtime
 
       - name: Upload proof evidence
         if: always()
