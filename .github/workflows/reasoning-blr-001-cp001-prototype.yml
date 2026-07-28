@@ -1,4 +1,4 @@
-name: Reasoning BLR-001 CP-001 Prototype
+name: Reasoning BLR-001 CP-001 Runtime
 
 on:
   pull_request:
@@ -8,9 +8,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  cp001-prototype:
+  cp001-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 55
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -38,15 +38,21 @@ jobs:
       - name: Run second source and gap audit
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/cp001-second-source-gap.test.ts
 
+      - name: Enforce final discovery freeze
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/cp001-final-discovery-freeze.test.ts
+
+      - name: Prove permanent English runtime
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/cp001-runtime.test.ts
+
       - name: Export remediated English review pack
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/export-cp001-review.ts blr-cp001-review-output
 
       - name: Export second source-gap appendix
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/export-cp001-second-gap-review.ts blr-cp001-review-output
 
-      - name: Upload BLR-CP-001 V3 review pack
+      - name: Upload BLR-CP-001 frozen English review pack
         uses: actions/upload-artifact@v4
         with:
-          name: blr-001-cp001-english-review-v3-source-gap
+          name: blr-001-cp001-english-frozen-v1
           path: blr-cp001-review-output
           retention-days: 14
