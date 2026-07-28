@@ -103,6 +103,9 @@ function naturaliseForSource(source: PncStudentSourcePackage, value: string): st
       .replace(/\bobjects\b/gi, "cards")
       .replace(/\bobject\b/gi, "card");
   }
+  if (source.questionLanguageId === "PNC-QL-210") {
+    natural = natural.replace(/their numbers distinguish them/gi, "their names distinguish them");
+  }
   if (source.questionLanguageId === "PNC-QL-226"
       || source.questionLanguageId === "PNC-QL-227"
       || source.questionLanguageId === "PNC-QL-228") {
@@ -110,6 +113,8 @@ function naturaliseForSource(source: PncStudentSourcePackage, value: string): st
       .replace(/\bidentical boxes\b/gi, "unlabelled groups")
       .replace(/\bidentical groups\b/gi, "unlabelled groups")
       .replace(/\bidentical group\b/gi, "unlabelled group")
+      .replace(/groups are identical/gi, "groups are unlabelled")
+      .replace(/group is identical/gi, "group is unlabelled")
       .replace(/\bboxes\b/gi, "groups")
       .replace(/\bbox\b/gi, "group");
   }
@@ -353,9 +358,24 @@ function familyTrapReason(source: PncStudentSourcePackage): string {
   const qlId = source.questionLanguageId;
 
   if (mode.includes("recover")) return "fails the bounded candidate check and does not reproduce the stated target";
-  if (mode.includes("derangement") || mode.includes("fixedpoint")) return "counts the wrong fixed-point case";
+  if (mode.includes("derangement") || mode.includes("fixedpoint") || mode.includes("fixed")) return "counts the wrong fixed-point case";
   if (mode.includes("grid") || mode.includes("path")) return "does not apply the checkpoint or complement condition correctly";
   if (/captain|chairperson|secretary|treasurer/.test(stem)) return "uses the wrong team or committee selection before the role choices are applied";
+  if (mode.includes("eitherend") || mode.includes("bothends") || /at (?:either|both) end/.test(stem)) {
+    return "uses the wrong end-position choices or arranges the remaining objects incorrectly";
+  }
+  if (mode.includes("between") || mode.includes("neighbor") || mode.includes("neighbour")) {
+    return "handles the neighbour block or its two internal orders incorrectly";
+  }
+  if (mode.includes("clockwiseorder") || mode.includes("prescribedorder")) {
+    return "does not apply the prescribed-order factor correctly";
+  }
+  if (mode.includes("occupancy")) {
+    return "uses the wrong occupancy selection or assignment count";
+  }
+  if (mode.includes("reversiblering") || /reversible ring/.test(stem)) {
+    return "misses the compulsory inclusion choice or applies reflection equivalence incorrectly";
+  }
   if (mode.includes("alternation") || mode.includes("adjacent") || mode.includes("gap")
       || mode.includes("relativeorder") || mode.includes("position")) {
     return "uses the wrong admissible positions, gaps or relative-order factor";
@@ -366,9 +386,10 @@ function familyTrapReason(source: PncStudentSourcePackage): string {
   if (mode.includes("block") || mode.includes("together") || mode.includes("apart")) {
     return "uses an incomplete block or complement count, with an outside arrangement, internal order or subtraction factor missing";
   }
-  if (mode.includes("committee") || mode.includes("selection") || mode.includes("category")
-      || mode.includes("compulsory") || mode.includes("excluded")) {
-    return "uses the wrong eligible pool or omits one of the valid quota cases";
+  if (mode.includes("committee") || mode.includes("selection") || mode.includes("categor")
+      || mode.includes("specifiedmember") || mode.includes("compulsory") || mode.includes("excluded")
+      || /committee|selected from|chosen from|selection/.test(stem)) {
+    return "uses the wrong eligible pool, specified-member count or category quota range";
   }
   if (qlId === "PNC-QL-226" || qlId === "PNC-QL-227" || qlId === "PNC-QL-228") {
     return "treats the unlabelled groups as labelled or uses the wrong Stirling-number range";
