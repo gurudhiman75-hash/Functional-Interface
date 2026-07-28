@@ -1,6 +1,12 @@
 import { deterministicIndex, rotate } from "./foundation/prng";
 import { generateIntCp001Prototype } from "./foundation/cp001-pipeline";
-import type { IntCp001PrototypeId } from "./foundation/types";
+import { formatDurationYears } from "./foundation/cp001-presentation";
+import {
+  addRational,
+  rational,
+  subtractRational,
+} from "./foundation/rational";
+import type { IntCp001PrototypeId, Rational } from "./foundation/types";
 import { generateIntCp001Wave2Prototype } from "./gap-wave-02/pipeline";
 import type { IntCp001Wave2PrototypeId } from "./gap-wave-02/types";
 import { generateIntCp001ClosurePrototype } from "./final-closure/final-closure";
@@ -34,6 +40,13 @@ interface CommonSourceItem {
   parameters: unknown;
   taskDirection: string;
   answerSemantic: string;
+}
+
+interface ClosureTimelineParameters {
+  hiddenState: {
+    earlierTimeYears: Rational;
+    laterTimeYears: Rational;
+  };
 }
 
 function generateSource(adapter: IntCp001SourceAdapter, seed: string): CommonSourceItem {
@@ -91,6 +104,67 @@ function normaliseSourceOptionOwnership(source: CommonSourceItem): CommonSourceI
   };
 }
 
+function normaliseTemporalTimeOptions(
+  source: CommonSourceItem,
+  adapter: IntCp001SourceAdapter,
+): CommonSourceItem {
+  if (adapter.prototypeId !== "INT-CP001-CLOSE-PROT-TIME-FROM-TWO-AMOUNT-RATIO") return source;
+
+  const parameters = source.parameters as ClosureTimelineParameters;
+  const earlier = parameters.hiddenState.earlierTimeYears;
+  const later = parameters.hiddenState.laterTimeYears;
+  const candidates: CommonSourceItem["optionAudit"] = [];
+  const seen = new Set<string>();
+  const addCandidate = (value: Rational, misconceptionId: string): void => {
+    if (value.numerator <= 0n || value.denominator > 2n) return;
+    const text = formatDurationYears(value);
+    if (seen.has(text)) return;
+    seen.add(text);
+    candidates.push({
+      text,
+      misconceptionId,
+      result: { semantic: source.solution.semantic, value },
+    });
+  };
+
+  addCandidate(source.solution.value as Rational, "CORRECT");
+  addCandidate(subtractRational(later, earlier), "REPORTED_TIME_GAP");
+  addCandidate(earlier, "RETURNED_KNOWN_TIME");
+  addCandidate(addRational(earlier, rational(1)), "ADDED_ONE_YEAR_TO_KNOWN_TIME");
+  addCandidate(subtractRational(later, rational(1)), "REMOVED_ONE_YEAR_FROM_LATER_TIME");
+  for (const fallback of [
+    rational(1, 2), rational(1), rational(3, 2), rational(2), rational(5, 2),
+    rational(3), rational(7, 2), rational(4), rational(5), rational(6),
+  ]) {
+    addCandidate(fallback, "ADMISSIBLE_TIME_FROM_WRONG_RELATION");
+  }
+
+  if (candidates.length < 4) return source;
+  const optionAudit = candidates.slice(0, 4);
+  return {
+    ...source,
+    options: optionAudit.map((option) => option.text),
+    optionAudit,
+    correctIndex: 0,
+  };
+}
+
+function normaliseFinalStem(stem: string): string {
+  let result = stem.trim();
+  result = result.replace(
+    /^For (.+) earns (.+)\. The amount at a later time is (\d+:\d+) of the amount after (.+)\. Find that later time\.$/u,
+    "$1 earns $2. The later amount and the amount after $4 are in the ratio $3. What is the later time?",
+  );
+  result = result.replace(
+    /\. Find the amount at the end of ([^.]+)\.$/u,
+    ". What is the amount at the end of $1?",
+  );
+  result = result.replace(/\. Find that later time\.$/u, ". What is the later time?");
+  result = result.replace(/\. Determine the ([^.]+)\.$/u, ". What is the $1?");
+  if (result && /^\p{Ll}/u.test(result)) result = `${result[0]!.toUpperCase()}${result.slice(1)}`;
+  return result;
+}
+
 export interface IntCp001FinalGeneratedQuestion {
   packageId: "INT-001";
   canonicalProblemId: "INT-CP-001";
@@ -138,7 +212,9 @@ export function generateIntCp001FinalQuestion(
   const adapterIndex = deterministicIndex(`${qlId}:${seed}:representation-adapter`, entry.sourceAdapters.length);
   const adapter = entry.sourceAdapters[adapterIndex]!;
   const sourceSeed = `${qlId}:${adapter.representation ?? "DEFAULT"}:${adapter.answerUnit ?? "DEFAULT"}:${seed}`;
-  const source = normaliseSourceOptionOwnership(generateSource(adapter, sourceSeed));
+  const ownedSource = normaliseSourceOptionOwnership(generateSource(adapter, sourceSeed));
+  const source = normaliseTemporalTimeOptions(ownedSource, adapter);
+  const stem = normaliseFinalStem(source.stem);
 
   const desiredCorrectIndex = deterministicIndex(`${qlId}:${seed}:final-answer-position`, 4);
   const rotationOffset = source.correctIndex - desiredCorrectIndex;
@@ -158,7 +234,7 @@ export function generateIntCp001FinalQuestion(
   }
 
   const learnerText = [
-    source.stem,
+    stem,
     ...options,
     source.explanation.notice,
     source.explanation.relation,
@@ -187,7 +263,7 @@ export function generateIntCp001FinalQuestion(
     answerSemantic: entry.answerSemantic,
     difficulty: source.difficulty,
     difficultyEvidence: source.difficultyEvidence,
-    stem: source.stem,
+    stem,
     options,
     optionAudit,
     correctIndex,
