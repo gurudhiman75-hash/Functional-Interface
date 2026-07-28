@@ -1,0 +1,40 @@
+name: Apply PNC localization script detector fix
+
+on:
+  push:
+    branches:
+      - feat/pnc-002-hi-pa-localization
+    paths:
+      - .github/workflows/pnc-002-localization-validator-fix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/pnc-002-hi-pa-localization
+      - name: Narrow cross-script detection to letters
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007.test.ts")
+          text = path.read_text(encoding="utf-8")
+          old = 'const foreignScriptPattern = locale === "hi-IN" ? /[\\u0A00-\\u0A7F]/ : /[\\u0900-\\u097F]/;'
+          new = 'const foreignScriptPattern = locale === "hi-IN" ? /[\\u0A05-\\u0A39]/ : /[\\u0904-\\u0939\\u0958-\\u0961]/;'
+          if old not in text:
+              raise SystemExit("script detector anchor not found")
+          path.write_text(text.replace(old, new, 1), encoding="utf-8")
+          PY
+      - name: Commit repair
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007.test.ts
+          git commit -m "fix(pnc): narrow localization script detector"
+          git push origin HEAD:feat/pnc-002-hi-pa-localization
