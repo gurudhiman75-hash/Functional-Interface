@@ -20,6 +20,8 @@ let fractionalMoneyOptions = 0;
 let longestStem = 0;
 let longestExplanation = 0;
 
+const obviousAgreementDefect = /\b(?:the|this|that|a|an)\s+(?:principal|interest|rate)\s+are\b|\b(?:the|this|that)\s+(?:years|months|days)\s+is\b/iu;
+
 for (const prototypeId of INT_CP001_PROTOTYPE_IDS) {
   const stems = new Set<string>();
   const fingerprints = new Set<string>();
@@ -28,9 +30,10 @@ for (const prototypeId of INT_CP001_PROTOTYPE_IDS) {
   const misconceptions = new Set<string>();
 
   for (let index = 0; index < 80; index += 1) {
-    const item = generateIntCp001Prototype(prototypeId, `audit-${index}`);
+    const seed = `audit-${index}`;
+    const item = generateIntCp001Prototype(prototypeId, seed);
     generated += 1;
-    if (!item.validation.ok) fail(`${prototypeId}/audit-${index}: ${item.validation.errors.join(" | ")}`);
+    if (!item.validation.ok) fail(`${prototypeId}/${seed}: ${item.validation.errors.join(" | ")}`);
     if (item.permanentQlId !== null) fail(`${prototypeId} allocated a permanent QL during discovery.`);
     if (item.publiclyPublishable || item.questionStudioDiscoverable) fail(`${prototypeId} breached publication safety.`);
     if (item.reviewStatus !== "UNREVIEWED" || item.questionBankStatus !== "NOT_STORED" || item.testEligibility !== "INELIGIBLE") {
@@ -47,21 +50,22 @@ for (const prototypeId of INT_CP001_PROTOTYPE_IDS) {
     ].join(" ");
     const combined = `${item.stem}\n${explanation}\n${item.options.join("\n")}`;
     if (/\b(?:undefined|null|NaN|Infinity|TODO|TBD|PLACEHOLDER)\b/u.test(combined)) {
-      fail(`${prototypeId} contains unresolved or non-finite text.`);
+      fail(`${prototypeId}/${seed} contains unresolved or non-finite text.`);
     }
-    if (/\{\{[^}]+\}\}/u.test(combined)) fail(`${prototypeId} contains a template placeholder.`);
-    if (/\bFind\b[^.?!]*\?/u.test(item.stem)) fail(`${prototypeId} uses a 'Find ...?' fragment.`);
-    if (/ {2,}/u.test(combined)) fail(`${prototypeId} contains repeated spaces.`);
-    if (/principal are|interest are|rate are|years is|months is|days is/iu.test(combined)) {
-      fail(`${prototypeId} contains a subject–verb agreement defect.`);
+    if (/\{\{[^}]+\}\}/u.test(combined)) fail(`${prototypeId}/${seed} contains a template placeholder.`);
+    if (/\bFind\b[^.?!]*\?/u.test(item.stem)) fail(`${prototypeId}/${seed} uses a 'Find ...?' fragment.`);
+    if (/ {2,}/u.test(combined)) fail(`${prototypeId}/${seed} contains repeated spaces.`);
+    const agreementMatch = combined.match(obviousAgreementDefect)?.[0];
+    if (agreementMatch) {
+      fail(`${prototypeId}/${seed} contains a subject–verb agreement defect: ${agreementMatch}.`);
     }
-    if (/\p{Cc}/u.test(combined.replace(/\n/gu, ""))) fail(`${prototypeId} contains a control character.`);
-    if (item.explanation.steps.length < 3) fail(`${prototypeId} explanation is too shallow.`);
+    if (/\p{Cc}/u.test(combined.replace(/\n/gu, ""))) fail(`${prototypeId}/${seed} contains a control character.`);
+    if (item.explanation.steps.length < 3) fail(`${prototypeId}/${seed} explanation is too shallow.`);
     if (!item.explanation.conclusion.includes(item.options[item.correctIndex]!)) {
-      fail(`${prototypeId} conclusion does not state the answer.`);
+      fail(`${prototypeId}/${seed} conclusion does not state the answer.`);
     }
     if (item.optionAudit.filter((option) => option.misconceptionId === "CORRECT").length !== 1) {
-      fail(`${prototypeId} option audit has an invalid correct-label count.`);
+      fail(`${prototypeId}/${seed} option audit has an invalid correct-label count.`);
     }
 
     for (const option of item.options) {
