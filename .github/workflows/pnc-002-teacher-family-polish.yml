@@ -1,0 +1,168 @@
+name: Apply final PNC family teacher polish
+
+on:
+  push:
+    branches:
+      - feat/pnc-002-editorial-quality-upgrade
+    paths:
+      - .github/workflows/pnc-002-teacher-family-polish.yml
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/pnc-002-editorial-quality-upgrade
+      - name: Add family-specific teaching rules
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          root = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002")
+          presentation = root / "foundation/student-presentation-teacher-final.ts"
+          text = presentation.read_text(encoding="utf-8")
+          anchor = '''export function buildPnc002FinalTeacherStudentPresentation(source: PncStudentSourcePackage): PncStudentPresentation {
+          '''
+          helper = '''function finalFamilySection(
+            source: PncStudentSourcePackage,
+            section: PncStudentExplanationSection,
+          ): PncStudentExplanationSection {
+            const ql = source.questionLanguageId;
+            const math = source.solver.mathJax;
+
+            if (ql === "PNC-QL-211") {
+              if (section.kind === "examSpeedShortcut") {
+                return {
+                  ...section,
+                  lines: [`Choose the groups in their prescribed sizes. Since the sizes are different, no whole-group symmetry division is needed: $${math}$.`],
+                };
+              }
+              return section;
+            }
+
+            if (ql === "PNC-QL-242") {
+              if (section.kind === "coreConcept") return { ...section, heading: "📌 Core Concept — Select the Quota, Then Assign Two Ordered Offices" };
+              if (section.kind === "examSpeedShortcut") return { ...section, lines: [`Choose the required women and men first, then multiply by the ordered choices for the two offices: $${math}$.`] };
+            }
+            if (ql === "PNC-QL-243") {
+              if (section.kind === "coreConcept") return { ...section, heading: "📌 Core Concept — Form the Quota, Then Choose a Woman Chairperson" };
+              if (section.kind === "examSpeedShortcut") return { ...section, lines: [`Form the quota committee, choose its chairperson from the selected women and then assign the remaining stated role: $${math}$.`] };
+            }
+            if (ql === "PNC-QL-244") {
+              if (section.kind === "coreConcept") return { ...section, heading: "📌 Core Concept — Form the Quota, Then Assign Category-Specific Offices" };
+              if (section.kind === "examSpeedShortcut") return { ...section, lines: [`Select the required women and men, then choose the chairperson from the selected women and the secretary from the selected men: $${math}$.`] };
+            }
+            if (ql === "PNC-QL-245") {
+              if (section.kind === "coreConcept") return { ...section, heading: "📌 Core Concept — Include the Compulsory Member, Then Assign Two Offices" };
+              if (section.kind === "examSpeedShortcut") return { ...section, lines: [`Reserve the compulsory member, choose the remaining committee and finally assign the two ordered offices: $${math}$.`] };
+            }
+
+            if (ql === "PNC-QL-247") {
+              if (section.kind === "coreConcept") {
+                return {
+                  ...section,
+                  heading: "📌 Core Concept — Include the Pair, Then Arrange the Chosen Set",
+                  lines: [
+                    "Reserve the two compulsory people first, then choose only the remaining required people from the eligible pool.",
+                    "After the complete set is selected, arrange all selected people in a row using the factorial of the selected-set size.",
+                  ],
+                };
+              }
+              if (section.kind === "examSpeedShortcut") {
+                return { ...section, lines: [`Fix the compulsory pair, choose the remaining members and multiply by the arrangements of the complete selected set: $${math}$.`] };
+              }
+            }
+
+            if (ql === "PNC-QL-250") {
+              if (section.kind === "coreConcept") {
+                return {
+                  ...section,
+                  heading: "📌 Core Concept — Select the Category Quota, Then Arrange in a Circle",
+                  lines: [
+                    "Choose the required women and men separately to form the selected group.",
+                    "Once selected, fix one person as the circular reference and arrange the remaining selected people around the table.",
+                  ],
+                };
+              }
+              if (section.kind === "examSpeedShortcut") {
+                return { ...section, lines: [`Multiply the two quota selections by the circular arrangement factor $(r-1)!$ for the selected group: $${math}$.`] };
+              }
+            }
+
+            if (ql === "PNC-QL-252") {
+              if (section.kind === "coreConcept") {
+                return {
+                  ...section,
+                  heading: "📌 Core Concept — Include the Required Ornament, Then Remove Ring Symmetry",
+                  lines: [
+                    "Keep the compulsory ornament and choose the remaining ornaments needed for the ring.",
+                    "For each chosen set, remove rotational and reflection duplicates from the circular arrangements.",
+                  ],
+                };
+              }
+              if (section.kind === "examSpeedShortcut") {
+                return { ...section, lines: [`Choose the remaining ornaments after fixing the compulsory one, then use $(r-1)!/2$ for a reversible ring: $${math}$.`] };
+              }
+            }
+            return section;
+          }
+
+          ''' + anchor
+          if anchor not in text:
+            raise SystemExit("final export anchor not found")
+          text = text.replace(anchor, helper, 1)
+          old_map = '''    const explanationSections = initialSections.map((section) => {
+              if (section.kind === "coreConcept") return { ...section, lines: section.lines.map(naturalCoreLine) };
+              if (section.kind === "stepByStep") return { ...section, lines: section.lines.map((line) => line.replace(reviewed.answerLabel, answerLabel)) };
+              if (section.kind === "commonTrapWarning") return { ...section, lines: section.lines.map((line) => polishTrap(source, line, optionUnit)) };
+              return section;
+            });
+          '''
+          new_map = '''    const explanationSections = initialSections.map((section) => {
+              let polished: PncStudentExplanationSection = section;
+              if (section.kind === "coreConcept") polished = { ...section, lines: section.lines.map(naturalCoreLine) };
+              else if (section.kind === "stepByStep") polished = { ...section, lines: section.lines.map((line) => line.replace(reviewed.answerLabel, answerLabel)) };
+              else if (section.kind === "commonTrapWarning") polished = { ...section, lines: section.lines.map((line) => polishTrap(source, line, optionUnit)) };
+              return finalFamilySection(source, polished);
+            });
+          '''
+          if old_map not in text:
+            raise SystemExit("section map anchor not found")
+          presentation.write_text(text.replace(old_map, new_map, 1), encoding="utf-8")
+
+          proof = root / "pnc-002-editorial-quality-teacher-final.test.ts"
+          proof_text = proof.read_text(encoding="utf-8")
+          anchor2 = '''assert.doesNotMatch(combined("PNC-QL-248", "commonTrapWarning"), /whole-group symmetry|interchangeable groups/i);
+          for (const row of output) {
+          '''
+          replacement2 = '''assert.doesNotMatch(combined("PNC-QL-248", "commonTrapWarning"), /whole-group symmetry|interchangeable groups/i);
+          assert.match(combined("PNC-QL-211", "examSpeedShortcut"), /sizes are different|no whole-group symmetry/i);
+          assert.doesNotMatch(combined("PNC-QL-247", "coreConcept"), /group|symmetry/i);
+          assert.match(combined("PNC-QL-247", "coreConcept"), /compulsory|selected|arrange/i);
+          assert.match(combined("PNC-QL-247", "examSpeedShortcut"), /compulsory pair|remaining members|arrangements/i);
+          assert.match(combined("PNC-QL-250", "coreConcept"), /quota|circle|circular/i);
+          assert.match(combined("PNC-QL-252", "coreConcept"), /ornament|ring symmetry|reflection/i);
+          for (const qlId of ["PNC-QL-242", "PNC-QL-243", "PNC-QL-244", "PNC-QL-245"]) {
+            assert.match(byQl.get(qlId)?.coreHeading ?? "", /Office|Chairperson|Offices/);
+            assert.match(combined(qlId, "examSpeedShortcut"), /office|chairperson|role/i);
+          }
+          for (const row of output) {
+          '''
+          if anchor2 not in proof_text:
+            raise SystemExit("family regression anchor not found")
+          proof.write_text(proof_text.replace(anchor2, replacement2, 1), encoding="utf-8")
+          PY
+      - name: Commit family polish
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-teacher-final.ts
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-final.test.ts
+          git commit -m "fix(pnc): add family-specific teacher explanations"
+          git push origin HEAD:feat/pnc-002-editorial-quality-upgrade
