@@ -22,9 +22,26 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Apply Indian currency and editorial hardening
-        run: python .github/scripts/men_cp007_indian_currency_hardening.py
+        id: hardening
+        shell: bash
+        run: |
+          set +e
+          python .github/scripts/men_cp007_indian_currency_hardening.py 2>&1 | tee men-cp007-currency-hardening.log
+          status=${PIPESTATUS[0]}
+          echo "status=${status}" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload hardening diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: men-cp007-currency-hardening-diagnostic
+          path: men-cp007-currency-hardening.log
+          if-no-files-found: error
+          retention-days: 7
 
       - name: Commit hardened content
+        if: steps.hardening.outputs.status == '0'
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
@@ -32,3 +49,7 @@ jobs:
           git add artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002
           git commit -m "fix(mensuration): harden MEN-CP-007 for Indian exam currency"
           git push origin HEAD:${{ github.event.pull_request.head.ref }}
+
+      - name: Fail unsuccessful hardening
+        if: steps.hardening.outputs.status != '0'
+        run: exit 1
