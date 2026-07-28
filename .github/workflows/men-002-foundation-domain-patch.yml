@@ -1,0 +1,75 @@
+name: MEN-002 Foundation Domain Patch
+
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize]
+    paths:
+      - .github/workflows/men-002-foundation-domain-patch.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Apply collision-safe parameter domains
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/foundation/runtime.ts")
+          text = path.read_text()
+
+          replacements = {
+            'const side = BigInt(rng.int(3, 14));': 'const side = rng.pick([4n, 5n, 7n, 8n, 9n, 10n, 11n, 12n, 13n, 14n]);',
+            'const side = BigInt(rng.int(3, 15));\n  const faceArea = side ** 2n;': 'const side = rng.pick([3n, 5n, 7n, 8n, 9n, 10n, 11n, 12n, 13n, 14n, 15n]);\n  const faceArea = side ** 2n;',
+            'const side = BigInt(rng.int(3, 16));\n  const volume = side ** 3n;': 'const side = rng.pick([4n, 5n, 6n, 7n, 8n, 9n, 10n, 11n, 12n, 13n, 14n, 15n, 16n]);\n  const volume = side ** 3n;',
+            'const baseArea = BigInt(rng.int(18, 80));': 'const baseArea = BigInt(rng.int(24, 80));',
+            'const factor = BigInt(rng.int(2, 5));': 'const factor = rng.pick([2n, 4n, 5n, 6n]);',
+          }
+          for old, new in replacements.items():
+            if old not in text:
+              raise SystemExit(f"Missing replacement target: {old}")
+            text = text.replace(old, new, 1)
+
+          marker = '''function cuboidVolumeDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: SeededRandom, difficulty: Men002Difficulty): Draft {'''
+          safe_block = '''const SAFE_CUBOID_DIMENSIONS = [
+            [12n, 8n, 5n],
+            [14n, 9n, 6n],
+            [16n, 10n, 7n],
+            [18n, 12n, 8n],
+            [20n, 11n, 9n],
+          ] as const;
+
+          function cuboidVolumeDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: SeededRandom, difficulty: Men002Difficulty): Draft {'''.replace("          ", "")
+          if marker not in text:
+            raise SystemExit("Cuboid marker not found")
+          text = text.replace(marker, safe_block, 1)
+
+          random_block = '''  const length = BigInt(rng.int(8, 20));
+            const breadth = BigInt(rng.int(4, 12));
+            const height = BigInt(rng.int(3, 10));'''.replace("            ", "")
+          safe_pick = '''  const [length, breadth, height] = rng.pick(SAFE_CUBOID_DIMENSIONS);'''
+          occurrences = text.count(random_block)
+          if occurrences < 5:
+            raise SystemExit(f"Expected at least five cuboid random blocks, found {occurrences}")
+          text = text.replace(random_block, safe_pick, 5)
+
+          path.write_text(text)
+          PY
+
+      - name: Commit patch
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/foundation/runtime.ts
+          git commit -m "fix(mensuration): use collision-safe MEN-CP-007 generation domains"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
