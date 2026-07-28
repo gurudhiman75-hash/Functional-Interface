@@ -28,28 +28,27 @@ jobs:
       - name: Enforce semantic and exact-money generation domains
         run: |
           python - <<'PY'
+          import re
           from pathlib import Path
 
           cases = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-cases.ts")
           source = cases.read_text()
 
-          def scoped_replace(start_anchor, end_anchor, old, new, label):
+          def scoped_regex(start_anchor, end_anchor, pattern, replacement, label):
               global source
               start = source.index(start_anchor)
               end = source.index(end_anchor, start)
               block = source[start:end]
-              if old in block:
-                  block = block.replace(old, new, 1)
-                  source = source[:start] + block + source[end:]
-              elif new not in block:
+              updated, count = re.subn(pattern, replacement, block, count=1, flags=re.S)
+              if count == 1:
+                  source = source[:start] + updated + source[end:]
+              elif replacement.strip() not in block:
                   raise SystemExit(f"{label}: expected source was not found")
 
-          scoped_replace(
+          scoped_regex(
               'case "PNL-QL-122":',
               'case "PNL-QL-123":',
-              '''const quotedSellingPricePerNominalQuantity = rupees(
-                pickNumber(random, QUOTED_PRICES),
-              );''',
+              r'const quotedSellingPricePerNominalQuantity\s*=\s*rupees\(\s*pickNumber\(random, QUOTED_PRICES\),\s*\);',
               '''const quotedSellingPricePerNominalQuantity =
                 qlId === "PNL-QL-143"
                   ? costPricePerTrueQuantity
@@ -57,12 +56,10 @@ jobs:
               "false-count profit domain",
           )
 
-          scoped_replace(
+          scoped_regex(
               'case "PNL-QL-127":',
               'case "PNL-QL-129":',
-              '''const sellingPricePerNominalQuantity = rupees(
-                pickSeeded(random, [1000, 1200, 1500] as const),
-              );''',
+              r'const sellingPricePerNominalQuantity\s*=\s*rupees\(\s*pickSeeded\(random, \[1000, 1200, 1500\] as const\),\s*\);',
               '''const sellingPricePerNominalQuantity =
                 qlId === "PNL-QL-127"
                   ? purchasePricePerNominalQuantity
@@ -70,19 +67,19 @@ jobs:
               "heavy-buy light-sell profit domain",
           )
 
-          scoped_replace(
+          scoped_regex(
               'case "PNL-QL-129":',
               'case "PNL-QL-130":',
-              'const markupPercent = rational(pickNumber(random, MARKUPS));',
+              r'const markupPercent\s*=\s*rational\(pickNumber\(random, MARKUPS\)\);',
               '''const markupPercent = rational(
                 qlId === "PNL-QL-146" ? 50 : pickNumber(random, MARKUPS),
               );''',
               "caselet markup domain",
           )
-          scoped_replace(
+          scoped_regex(
               'case "PNL-QL-129":',
               'case "PNL-QL-130":',
-              'const discountPercent = rational(pickNumber(random, DISCOUNTS));',
+              r'const discountPercent\s*=\s*rational\(pickNumber\(random, DISCOUNTS\)\);',
               '''const discountPercent = rational(
                 qlId === "PNL-QL-146" ? 10 : pickNumber(random, DISCOUNTS),
               );''',
@@ -91,7 +88,9 @@ jobs:
 
           start = source.index('case "PNL-QL-141":')
           end = source.index('case "PNL-QL-142":', start)
-          replacement = '''case "PNL-QL-141": {
+          current = source[start:end]
+          if "const pair = pickSeeded" not in current:
+              replacement = '''case "PNL-QL-141": {
                 const pair = pickSeeded(
                   random,
                   [
@@ -124,16 +123,16 @@ jobs:
               }
 
               '''
-          current = source[start:end]
-          if "const pair = pickSeeded" not in current:
               source = source[:start] + replacement + source[end:]
 
           cases.write_text(source)
 
           test = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.test.ts")
           test_source = test.read_text()
-          anchor = '''    const replay = runPnlCp005DynamicPipeline({'''
-          assertions = '''    if (qlId === "PNL-QL-127" || qlId === "PNL-QL-146") {
+          marker = 'PNL-QL-141 must remain exact to the paise.'
+          if marker not in test_source:
+              anchor = '''    const replay = runPnlCp005DynamicPipeline({'''
+              assertions = '''    if (qlId === "PNL-QL-127" || qlId === "PNL-QL-146") {
                 assert.match(pkg.answer, /profit/i, `${qlId}: must remain a profit question.`);
               }
               if (qlId === "PNL-QL-143") {
@@ -152,11 +151,9 @@ jobs:
               }
 
           '''
-          if assertions.strip() not in test_source:
               if test_source.count(anchor) != 1:
                   raise SystemExit("test assertion insertion anchor was not unique")
-              test_source = test_source.replace(anchor, assertions + anchor, 1)
-              test.write_text(test_source)
+              test.write_text(test_source.replace(anchor, assertions + anchor, 1))
           PY
 
       - name: Set up Node
