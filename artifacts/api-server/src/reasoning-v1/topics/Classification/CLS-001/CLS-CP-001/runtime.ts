@@ -10,6 +10,7 @@ import {
 import type {
   AmbiguityAudit,
   Difficulty,
+  DifficultyFeatures,
   Explanation,
   GeneratedClassificationQuestion,
   Lifecycle,
@@ -21,6 +22,7 @@ import type {
 } from "./types";
 
 const DATASET_VERSION = "CLS-CP001-SEMANTIC-EN-v2" as const;
+const DIFFICULTY_MODEL = "CLS-CP001-INSTANCE-DIFFICULTY-v1" as const;
 const MAX_GENERATION_ATTEMPTS = 160;
 
 const LIFECYCLE: Lifecycle = {
@@ -169,8 +171,8 @@ function parentLabels(semanticClass: SemanticClass): string[] {
 
 function evidenceLine(entity: SemanticEntity, semanticClass: SemanticClass): string {
   return classMembership(entity, semanticClass.classId)
-    ? `${entity.label} belongs to the class ${semanticClass.label}.`
-    : `${entity.label} does not belong to the class ${semanticClass.label}.`;
+    ? `${entity.label} belongs to the group of ${semanticClass.label}.`
+    : `${entity.label} does not belong to the group of ${semanticClass.label}.`;
 }
 
 function ruleSupports(labels: readonly string[], eligibleClassIds: readonly string[]): RuleSupport[] {
@@ -237,15 +239,19 @@ function auditOutlier(labels: readonly string[], eligibleClassIds: readonly stri
   };
 }
 
+function sharedClasses(labels: readonly string[], eligibleClassIds: readonly string[]): SemanticClass[] {
+  const entities = labels.map(entityForLabel);
+  return classesFromIds(eligibleClassIds).filter((semanticClass) =>
+    entities.every((entity) => classMembership(entity, semanticClass.classId)),
+  );
+}
+
 function resolveSharedClass(labels: readonly string[], eligibleClassIds: readonly string[]): {
   readonly result: "UNIQUE" | "AMBIGUOUS" | "NO_VALID_RULE";
   readonly classId: string | null;
   readonly competingClassIds: readonly string[];
 } {
-  const entities = labels.map(entityForLabel);
-  const shared = classesFromIds(eligibleClassIds).filter((semanticClass) =>
-    entities.every((entity) => classMembership(entity, semanticClass.classId)),
-  );
+  const shared = sharedClasses(labels, eligibleClassIds);
   if (shared.length === 0) return { result: "NO_VALID_RULE", classId: null, competingClassIds: [] };
 
   const bestQuality = Math.max(...shared.map((semanticClass) => semanticClass.qualityRank));
@@ -308,15 +314,59 @@ function solveIndependently(
   };
 }
 
-function chooseDifficulty(prototype: PrototypeDefinition, seed: number): Difficulty {
-  if (prototype.generationProfile === "HIERARCHY_SIBLING" || prototype.generationProfile === "CROSS_CUTTING") {
-    return seed % 4 === 0 ? "MEDIUM" : "HARD";
-  }
-  if (prototype.generationProfile === "HIERARCHY_CLASS_MEMBER") return "HARD";
-  if (prototype.family === "DIRECT_CATEGORY") return seed % 4 === 0 ? "MEDIUM" : "EASY";
-  if (prototype.family === "INVERSE_CLASS_MEMBER") return seed % 5 === 0 ? "HARD" : "MEDIUM";
-  if (prototype.family === "PART_WHOLE") return seed % 3 === 0 ? "HARD" : "MEDIUM";
-  return seed % 4 === 0 ? "HARD" : "MEDIUM";
+function semanticDemand(prototype: PrototypeDefinition, intendedClass: SemanticClass): 0 | 1 | 2 {
+  if (prototype.family === "FUNCTIONAL_USE" || prototype.family === "PART_WHOLE") return 2;
+  if (
+    prototype.family === "HIERARCHY_CATEGORY"
+    || prototype.family === "CROSS_CUTTING_CATEGORY"
+    || intendedClass.surfaceKind === "PROPER_NOUN"
+  ) return 1;
+  return 0;
+}
+
+function calculateDifficultyFeatures(
+  prototype: PrototypeDefinition,
+  intendedClass: SemanticClass,
+  givens: readonly SemanticEntity[],
+  displayedEntities: readonly SemanticEntity[],
+  audit: AmbiguityAudit,
+): DifficultyFeatures {
+  const allItems = uniqueEntities([...givens, ...displayedEntities]);
+  const allItemsShareParent = intendedClass.parentClassIds.some((parentClassId) =>
+    allItems.every((entity) => classMembership(entity, parentClassId)),
+  );
+  const multiMembershipItemCount = allItems.filter((entity) => entity.directClassIds.length > 1).length;
+  const candidateRuleCount = prototype.task === "FIND_OUTLIER"
+    ? audit.supports.filter((support) => support.supportCount === displayedEntities.length - 1 && support.outlierIndex !== null).length
+    : sharedClasses(givens.map((entity) => entity.label), prototype.eligibleClassIds).length;
+  const inverseTask = prototype.task === "SELECT_CLASS_MEMBER";
+  const crossCutting = prototype.generationProfile === "CROSS_CUTTING";
+  const demand = semanticDemand(prototype, intendedClass);
+
+  const score = Math.min(2, intendedClass.hierarchyDepth)
+    + (allItemsShareParent ? 1 : 0)
+    + (multiMembershipItemCount >= 3 ? 2 : multiMembershipItemCount > 0 ? 1 : 0)
+    + (candidateRuleCount > 1 ? 1 : 0)
+    + (inverseTask ? 1 : 0)
+    + (crossCutting ? 2 : 0)
+    + demand;
+
+  return {
+    hierarchyDepth: intendedClass.hierarchyDepth,
+    allItemsShareParent,
+    multiMembershipItemCount,
+    candidateRuleCount,
+    inverseTask,
+    crossCutting,
+    semanticDemand: demand,
+    score,
+  };
+}
+
+function difficultyFromFeatures(features: DifficultyFeatures): Difficulty {
+  if (features.score <= 1) return "EASY";
+  if (features.score <= 4) return "MEDIUM";
+  return "HARD";
 }
 
 function buildStem(
@@ -353,6 +403,13 @@ function buildStem(
   return templates[(rng.int(templates.length) + seed) % templates.length]!;
 }
 
+function naturalList(labels: readonly string[]): string {
+  if (labels.length === 0) return "";
+  if (labels.length === 1) return labels[0]!;
+  if (labels.length === 2) return `${labels[0]} and ${labels[1]}`;
+  return `${labels.slice(0, -1).join(", ")} and ${labels.at(-1)}`;
+}
+
 function buildExplanation(
   prototype: PrototypeDefinition,
   semanticClass: SemanticClass,
@@ -360,45 +417,59 @@ function buildExplanation(
   options: readonly SemanticEntity[],
   correctIndex: number,
   audit: AmbiguityAudit,
+  difficultyFeatures: DifficultyFeatures,
 ): Explanation {
   const answer = options[correctIndex]!;
   const parents = parentLabels(semanticClass);
-  const hierarchyNote = parents.length > 0
-    ? `The class ${semanticClass.label} sits inside the broader class ${parents.join(" and ")}; the narrower class is what separates the options.`
-    : "The intended class is already the most precise admitted class needed for this question.";
-  const competitionNote = audit.competingClassIds.length > 1
-    ? "More than one admitted class supports the same answer, but no admitted class produces a different answer at the winning quality level."
-    : "The bounded competing-class audit finds no equally strong rule with a different answer.";
+  const parentText = parents.length > 0 ? naturalList(parents) : null;
 
   if (prototype.task === "SELECT_CLASS_MEMBER") {
+    const premise = naturalList(givens.map((entity) => entity.label));
+    const hierarchyLine = parentText && difficultyFeatures.allItemsShareParent
+      ? `The given items also belong to the broader group of ${parentText}, but that description is too broad to choose the answer.`
+      : `The useful common group is ${semanticClass.label}.`;
     return {
       coreRule: [
-        `${givens.map((entity) => entity.label).join(", ")} are all ${semanticClass.label}.`,
-        hierarchyNote,
-        `${answer.label} is the only option that belongs to the same resolved class.`,
+        `${premise} are ${semanticClass.label}.`,
+        hierarchyLine,
+        `${answer.label} is the only option that belongs to this same specific group.`,
       ],
       optionChecks: options.map((entity) => evidenceLine(entity, semanticClass)),
-      examSpeedShortcut: [semanticClass.shortcut, "Name the narrowest shared class of the given items, then test each option against that class."],
-      commonTraps: [semanticClass.trap, "Do not select an option that belongs only to a broader parent class."],
+      examSpeedShortcut: [semanticClass.shortcut, "Name the most specific common group formed by the given items, then check each option against it."],
+      commonTraps: [semanticClass.trap, "An option from only the broader group is not enough; it must belong to the same specific group."],
     };
   }
 
+  const positiveLabels = options
+    .filter((_, index) => index !== correctIndex)
+    .map((entity) => entity.label);
+  const positiveLine = `${naturalList(positiveLabels)} are ${semanticClass.label}.`;
+  const hierarchyLine = parentText && difficultyFeatures.allItemsShareParent
+    ? `All four items belong to the broader group of ${parentText}, but only those three belong to the more specific group of ${semanticClass.label}.`
+    : `${answer.label} does not share that classification.`;
+  const sameAnswerRules = audit.supports.filter((support) =>
+    support.supportCount === options.length - 1 && support.outlierIndex === correctIndex,
+  );
+  const competitionLine = sameAnswerRules.length > 1
+    ? "A broader description also leads to the same odd item, so the answer does not change."
+    : "No other relevant grouping points to a different option.";
+
   return {
     coreRule: [
-      semanticClass.explanation,
-      hierarchyNote,
-      `${answer.label} is the outlier because it does not belong to that class.`,
-      competitionNote,
+      positiveLine,
+      hierarchyLine,
+      `${answer.label} is therefore the odd one out.`,
+      competitionLine,
     ],
     optionChecks: options.map((entity) => evidenceLine(entity, semanticClass)),
-    examSpeedShortcut: [semanticClass.shortcut, "Confirm the rule on three options before marking the remaining option."],
-    commonTraps: [semanticClass.trap, "Reject a question if another equally strong admitted rule points to a different option."],
+    examSpeedShortcut: [semanticClass.shortcut, "Confirm the common group on three options before marking the remaining one."],
+    commonTraps: [semanticClass.trap, "Do not stop at a broad similarity that includes all four items."],
   };
 }
 
 function assertNoLearnerLeak(text: string): void {
-  if (/CLS[-_]|PROT|classId|entityId|qualityRank|hierarchyDepth/i.test(text)) {
-    throw new Error(`Learner-facing internal identifier leak: ${text}`);
+  if (/CLS[-_]|PROT|classId|entityId|qualityRank|hierarchyDepth|bounded competing-class audit|resolved class|admitted class|quality level/i.test(text)) {
+    throw new Error(`Learner-facing internal or technical wording leak: ${text}`);
   }
 }
 
@@ -411,6 +482,9 @@ function validateQuestion(question: GeneratedClassificationQuestion): void {
   }
   if (question.ambiguityAudit.result !== "UNIQUE") {
     throw new Error(`Classification ambiguity audit failed: ${question.ambiguityAudit.result}`);
+  }
+  if (question.difficulty !== difficultyFromFeatures(question.difficultyFeatures)) {
+    throw new Error("Classification difficulty does not match generated-instance features");
   }
   if (question.lifecycle.publiclyPublishable || question.lifecycle.questionStudioDiscoverable) {
     throw new Error("Discovery question escaped lifecycle locks");
@@ -437,6 +511,13 @@ function questionFromState(
   audit: AmbiguityAudit,
   rng: Rng,
 ): GeneratedClassificationQuestion {
+  const difficultyFeatures = calculateDifficultyFeatures(
+    prototype,
+    intendedClass,
+    givens,
+    displayedEntities,
+    audit,
+  );
   const question: GeneratedClassificationQuestion = {
     chapterId: "CLS-001",
     checkpointId: "CLS-CP-001",
@@ -445,7 +526,8 @@ function questionFromState(
     task: prototype.task,
     family: prototype.family,
     generationProfile: prototype.generationProfile,
-    difficulty: chooseDifficulty(prototype, seed),
+    difficulty: difficultyFromFeatures(difficultyFeatures),
+    difficultyFeatures,
     intendedClassId: intendedClass.classId,
     intendedClassLabel: intendedClass.label,
     stem: buildStem(prototype, givens, seed, rng),
@@ -455,7 +537,15 @@ function questionFromState(
     answer: displayedEntities[correctIndex]!.label,
     evidenceByOption: displayedEntities.map((entity) => evidenceLine(entity, intendedClass)),
     ambiguityAudit: audit,
-    explanation: buildExplanation(prototype, intendedClass, givens, displayedEntities, correctIndex, audit),
+    explanation: buildExplanation(
+      prototype,
+      intendedClass,
+      givens,
+      displayedEntities,
+      correctIndex,
+      audit,
+      difficultyFeatures,
+    ),
     metadata: {
       datasetVersion: DATASET_VERSION,
       locale: "en-IN",
@@ -463,6 +553,7 @@ function questionFromState(
       independentSolverVerified: true,
       hierarchyAware: true,
       multiMembershipAware: true,
+      difficultyModel: DIFFICULTY_MODEL,
     },
     lifecycle: LIFECYCLE,
   };
