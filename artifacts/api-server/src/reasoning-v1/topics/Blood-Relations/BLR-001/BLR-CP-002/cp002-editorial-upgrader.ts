@@ -56,10 +56,19 @@ function addListenerContext(
   );
 }
 
+function isPicturedSelf(question: GeneratedBlrCp002PrototypeQuestion): boolean {
+  return (
+    question.metadata.selfIdentity &&
+    question.structuredPrompt.pointedPersonId !== undefined &&
+    question.structuredPrompt.pointedPersonId === question.structuredPrompt.speakerId
+  );
+}
+
 function upgradedStem(question: GeneratedBlrCp002PrototypeQuestion): string {
   const isOwnership = question.metadata.questionForm !== "HOW_RELATED";
+  const picturedSelf = isPicturedSelf(question);
   if (isOwnership) return addListenerContext(question, question.stem);
-  if (!question.metadata.selfIdentity) {
+  if (!picturedSelf) {
     return addListenerContext(question, naturalPhotoOpening(question.stem));
   }
 
@@ -76,11 +85,9 @@ export function upgradeBlrCp002EditorialQuestion(
   const gender = speakerGender(question);
   const reflexive = reflexivePronoun(gender);
   const isSelf = question.metadata.selfIdentity;
+  const picturedSelf = isPicturedSelf(question);
   const isOwnership = question.metadata.questionForm !== "HOW_RELATED";
   const hasOnly = question.metadata.onlyConstraintCount > 0;
-  const speakerName =
-    question.structuredPrompt.personNames[question.structuredPrompt.speakerId] ??
-    question.structuredPrompt.speakerId;
 
   const coreConcept = [
     ...(question.explanation.coreConcept ?? []).filter(
@@ -100,7 +107,9 @@ export function upgradeBlrCp002EditorialQuestion(
   const queryPath = isSelf
     ? [
         ...question.explanation.queryPath.slice(0, -1),
-        `The pictured person and ${speakerName} resolve to the same identity.`,
+        picturedSelf
+          ? "The pictured person and the speaker resolve to the same identity."
+          : "Both queried role chains resolve to the same identity.",
       ]
     : question.explanation.queryPath;
 
@@ -108,7 +117,9 @@ export function upgradeBlrCp002EditorialQuestion(
     entry.errorLabel === "IGNORED_SELF_IDENTITY_COLLAPSE"
       ? {
           ...entry,
-          studentWarning: `This ignores that the full role chain returns to the speaker ${reflexive}.`,
+          studentWarning: picturedSelf
+            ? `This ignores that the full role chain returns to the speaker ${reflexive}.`
+            : "This ignores that the two independently resolved query endpoints are the same person.",
         }
       : entry,
   );
@@ -117,7 +128,7 @@ export function upgradeBlrCp002EditorialQuestion(
     ...question,
     stem: upgradedStem(question),
     structuredPrompt:
-      isSelf && !isOwnership
+      picturedSelf && !isOwnership
         ? { ...question.structuredPrompt, presentation: "PHOTOGRAPH" }
         : question.structuredPrompt,
     explanation: {
@@ -125,19 +136,23 @@ export function upgradeBlrCp002EditorialQuestion(
       coreConcept,
       queryPath,
       conclusion:
-        isSelf && !isOwnership
+        picturedSelf && !isOwnership
           ? `Therefore, the person in the photograph is the speaker ${reflexive}.`
-          : question.explanation.conclusion,
+          : isSelf && !isOwnership
+            ? "Therefore, both queried role chains identify the same person; the answer is Self."
+            : question.explanation.conclusion,
       closestTrapRejection:
         isSelf && isOwnership
           ? "Once the pictured person resolves to the speaker, every relative's possessive option is wrong; choose His/Her own."
-          : isSelf
+          : picturedSelf
             ? "Once the complete chain returns to the speaker, any family-relation label is incorrect."
-            : question.explanation.closestTrapRejection,
+            : isSelf
+              ? "Do not force a relation label after both derived query endpoints resolve to one identity."
+              : question.explanation.closestTrapRejection,
       distractorAnalysis,
     },
     metadata:
-      isSelf && !isOwnership
+      picturedSelf && !isOwnership
         ? { ...question.metadata, presentation: "PHOTOGRAPH" }
         : question.metadata,
   };
