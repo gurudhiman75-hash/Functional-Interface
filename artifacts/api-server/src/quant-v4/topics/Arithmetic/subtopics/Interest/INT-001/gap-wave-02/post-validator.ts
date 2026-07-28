@@ -31,6 +31,14 @@ export function applyIntCp001Wave2PostValidation(
   input: PostValidationInput,
 ): IntCp001Wave2VerificationResult {
   const errors = [...input.base.errors];
+  const combinedPresentation = [
+    input.stem,
+    input.explanation.notice,
+    input.explanation.relation,
+    ...input.explanation.steps,
+    input.explanation.verification,
+    input.explanation.conclusion,
+  ].join(" ");
 
   if (/\ba (?:education|equipment) loan\b/iu.test(input.stem)) {
     errors.push("Stem contains an incorrect indefinite article before a vowel sound.");
@@ -41,15 +49,14 @@ export function applyIntCp001Wave2PostValidation(
   if (/\bratio\s+1:\d+\s+\d+\/\d+/iu.test(input.stem)) {
     errors.push("Amount-ratio stem exposes an unreadable mixed-number ratio.");
   }
-  if (/\byear\(s\)/iu.test([
-    input.stem,
-    input.explanation.notice,
-    input.explanation.relation,
-    ...input.explanation.steps,
-    input.explanation.verification,
-    input.explanation.conclusion,
-  ].join(" "))) {
+  if (/\byear\(s\)/iu.test(combinedPresentation)) {
     errors.push("Presentation contains the mechanical label 'year(s)'.");
+  }
+  if (/\b\d+\/\d+ years\b/u.test(combinedPresentation)) {
+    errors.push("Presentation uses a singular fractional year with plural grammar.");
+  }
+  if (/\bUsing \d+\/1%/u.test(combinedPresentation)) {
+    errors.push("Verification exposes an unreduced denominator-one percentage.");
   }
 
   if (input.solution.semantic === "TIME_MONTHS") {
