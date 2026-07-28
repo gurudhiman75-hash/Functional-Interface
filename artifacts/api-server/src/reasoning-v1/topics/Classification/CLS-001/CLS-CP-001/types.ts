@@ -4,21 +4,36 @@ export type PrototypeId =
   | "CLS-CP001-PROT-001"
   | "CLS-CP001-PROT-002"
   | "CLS-CP001-PROT-003"
-  | "CLS-CP001-PROT-004";
+  | "CLS-CP001-PROT-004"
+  | "CLS-CP001-PROT-005"
+  | "CLS-CP001-PROT-006"
+  | "CLS-CP001-PROT-007";
 
 export type PrototypeFamily =
   | "DIRECT_CATEGORY"
   | "FUNCTIONAL_USE"
   | "PART_WHOLE"
+  | "HIERARCHY_CATEGORY"
+  | "CROSS_CUTTING_CATEGORY"
   | "INVERSE_CLASS_MEMBER";
+
+export type GenerationProfile =
+  | "CLEAN_SIBLING"
+  | "HIERARCHY_SIBLING"
+  | "CROSS_CUTTING"
+  | "CLASS_MEMBER"
+  | "HIERARCHY_CLASS_MEMBER";
 
 export type Difficulty = "EASY" | "MEDIUM" | "HARD";
 
 export type SurfaceKind = "COMMON_NOUN" | "PROPER_NOUN" | "UNIT_TERM";
 
+export type FactRisk = "LOW" | "MEDIUM";
+
 export type SemanticEntity = {
   readonly entityId: string;
   readonly label: string;
+  readonly directClassIds: readonly string[];
   readonly classIds: readonly string[];
   readonly aliases?: readonly string[];
 };
@@ -30,7 +45,11 @@ export type SemanticClass = {
   readonly contrastGroup: string;
   readonly surfaceKind: SurfaceKind;
   readonly qualityRank: number;
+  readonly hierarchyDepth: number;
+  readonly parentClassIds: readonly string[];
   readonly memberEntityIds: readonly string[];
+  readonly directMemberEntityIds: readonly string[];
+  readonly factRisk: FactRisk;
   readonly explanation: string;
   readonly shortcut: string;
   readonly trap: string;
@@ -39,8 +58,10 @@ export type SemanticClass = {
 export type PrototypeDefinition = {
   readonly prototypeId: PrototypeId;
   readonly family: PrototypeFamily;
+  readonly generationProfile: GenerationProfile;
   readonly task: ClassificationTask;
   readonly title: string;
+  readonly intendedClassIds: readonly string[];
   readonly eligibleClassIds: readonly string[];
 };
 
@@ -50,12 +71,14 @@ export type RuleSupport = {
   readonly matchingIndices: readonly number[];
   readonly outlierIndex: number | null;
   readonly qualityRank: number;
+  readonly hierarchyDepth: number;
 };
 
 export type AmbiguityAudit = {
   readonly result: "UNIQUE" | "AMBIGUOUS" | "NO_VALID_RULE";
   readonly winningClassId: string | null;
   readonly winningOutlierIndex: number | null;
+  readonly competingClassIds: readonly string[];
   readonly supports: readonly RuleSupport[];
 };
 
@@ -82,6 +105,7 @@ export type GeneratedClassificationQuestion = {
   readonly seed: number;
   readonly task: ClassificationTask;
   readonly family: PrototypeFamily;
+  readonly generationProfile: GenerationProfile;
   readonly difficulty: Difficulty;
   readonly intendedClassId: string;
   readonly intendedClassLabel: string;
@@ -94,10 +118,12 @@ export type GeneratedClassificationQuestion = {
   readonly ambiguityAudit: AmbiguityAudit;
   readonly explanation: Explanation;
   readonly metadata: {
-    readonly datasetVersion: "CLS-CP001-SEMANTIC-EN-v1";
+    readonly datasetVersion: "CLS-CP001-SEMANTIC-EN-v2";
     readonly locale: "en-IN";
     readonly renderer: "TEXT";
     readonly independentSolverVerified: true;
+    readonly hierarchyAware: true;
+    readonly multiMembershipAware: true;
   };
   readonly lifecycle: Lifecycle;
 };
