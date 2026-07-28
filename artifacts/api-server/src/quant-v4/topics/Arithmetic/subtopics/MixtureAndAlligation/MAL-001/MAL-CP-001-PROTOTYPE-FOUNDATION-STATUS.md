@@ -1,218 +1,185 @@
-# MAL-CP-001 Prototype Foundation Status
+# MAL-CP-001 Executable Discovery Status
 
-Status: **executable discovery foundation implemented; exact-head CI passed; manual product review pending**  
+Status: **15-prototype executable discovery frontier implemented and validated; permanent allocation still blocked**  
 Branch: `feat/mal-001-cp001-prototype-foundation`  
 Base: `design/mal-001-end-to-end-discovery`  
 Permanent QLs: **0**  
 Question Studio exposure: **disabled**  
 Public publication: **disabled**
 
-## 1. Architecture authority
+## 1. Current executable frontier
 
-This checkpoint is built on the current Quant V4 chapter pattern:
+MAL-CP-001 now contains fifteen temporary executable-discovery identities covering:
 
-- exact typed state;
+- target ratio from two source values;
+- final mean from quantities or ratio evidence;
+- unknown source value from quantities or ratio evidence;
+- unknown component quantity, including addition framing;
+- two quantities from a stated total and target;
+- one requested component share from total and target;
+- two quantities reconstructed from their stated difference;
+- three-component final mean and unknown quantity;
+- two-stage final mean;
+- two-stage unknown quantity;
+- three-way target with a quantity relation.
+
+These identities are evidence for learner-contract discovery. They are not permanent QLs and do not freeze solve-mode counts.
+
+## 2. Architecture authority
+
+The active runtime uses:
+
+- exact normalised `bigint` rational arithmetic;
+- typed weighted-blend state;
 - valid-state-first deterministic generation;
-- canonical solver;
-- materially separate independent verifier;
-- explicit prototype registry;
-- misconception-labelled options;
-- structured reasoning graph;
-- task-specific explanation rendering;
-- focused proof, structural audit and review export.
+- canonical exact solvers;
+- materially separate independent verification;
+- four unique misconception-labelled options;
+- task-specific English stems and explanations;
+- structured reasoning graphs with exact verification;
+- deterministic proof, structural/editorial audit and review export;
+- explicit non-publishable discovery flags.
 
-The Quant V2 Mixture & Alligation code is used only as prior art for:
+Quant V2 remains prior art only. No legacy motif-factory identity, fixed inventory or floating-point authority is reused.
 
-- source fixtures;
-- alligation diagram expectations;
-- misconception ideas;
-- diversity and editorial audit ideas;
-- boundary-disposition evidence.
+## 3. Provisional classification
 
-No Quant V2 motif-factory runtime, family identity or fixed count has been copied into MAL-001.
-
-## 2. Implemented non-QL prototype contracts
-
-The first executable-discovery set contains nine temporary contracts:
+Across all fifteen executable identities:
 
 ```text
-MAL-CP001-PROT-RATIO-FROM-TARGET
-MAL-CP001-PROT-MEAN-FROM-QUANTITIES
-MAL-CP001-PROT-MEAN-FROM-RATIO
-MAL-CP001-PROT-UNKNOWN-SOURCE-VALUE
-MAL-CP001-PROT-UNKNOWN-COMPONENT-QUANTITY
-MAL-CP001-PROT-ADDED-QUANTITY-FOR-TARGET
-MAL-CP001-PROT-THREE-COMPONENT-MEAN
-MAL-CP001-PROT-THIRD-COMPONENT-QUANTITY
-MAL-CP001-PROT-TWO-QUANTITIES-FROM-TOTAL
+RETAIN: 10
+MERGE: 5
+candidate learner contracts: 10
+permanent QLs: 0
 ```
 
-These are executable candidates for merge/split review. They are not QLs and do not freeze the eventual CP-001 count.
-
-## 3. Exact mathematical foundation
-
-### Rational arithmetic
-
-- normalised `bigint` numerator/denominator representation;
-- exact addition, subtraction, multiplication and division;
-- exact comparison and equality;
-- reduced rational ratios;
-- fraction and MathJax formatting;
-- no floating-point solver decisions.
-
-### Blend state
-
-For every component:
+The ten provisional candidate contracts are:
 
 ```text
-quantity q_i
-per-unit value v_i
-weighted contribution q_i × v_i
+MAL-CP001-CAND-TARGET-RATIO
+MAL-CP001-CAND-FINAL-MEAN
+MAL-CP001-CAND-UNKNOWN-SOURCE-VALUE
+MAL-CP001-CAND-UNKNOWN-COMPONENT-QUANTITY
+MAL-CP001-CAND-TWO-QUANTITIES-FROM-TOTAL
+MAL-CP001-CAND-COMPONENT-SHARE-FROM-TOTAL
+MAL-CP001-CAND-DIFFERENCE-BASED-QUANTITIES
+MAL-CP001-CAND-TWO-STAGE-FINAL-MEAN
+MAL-CP001-CAND-TWO-STAGE-UNKNOWN-QUANTITY
+MAL-CP001-CAND-THREE-WAY-RELATION-QUANTITY
 ```
 
-The state engine derives exactly:
+The count remains provisional pending final source-fixture and ownership approval.
+
+## 4. Validation evidence
+
+The exact checkpoint branch head and its current GitHub Actions evidence are recorded in PR #229. The focused workflow validates:
 
 ```text
-total quantity = Σq_i
-weighted total = Σ(q_i v_i)
-mean value = weighted total / total quantity
+15 prototypes × 120 seeds = 1,800 deterministic proof cases
+15 prototypes × 80 seeds = 1,200 structural/editorial audit cases
+15 prototypes × 4 examples = 60 English review questions
 ```
 
-### Canonical solver
+The latest audit confirms:
 
-The solver supports:
+```text
+fractional displayed answers/options: 0
+all four answer positions reached by every prototype
+all five approved contexts reached by every prototype
+Easy, Medium and Hard coverage present
+maximum repeated five-word opening: 40
+Question Studio/public exposure: 0
+permanent QLs: 0
+```
 
-- weighted mean from two or three components;
-- two-source alligation ratio;
-- unknown source value;
-- unknown component quantity;
-- required added quantity;
-- two component quantities from total quantity and target mean.
+## 5. Options, explanations and misconception coverage
 
-### Independent verifier
-
-The independent verifier does not call the canonical solver or trust its explanation/options. It reconstructs:
-
-- direct weighted totals;
-- target balance;
-- positivity and uniqueness coefficients;
-- source-ratio balance;
-- total-quantity equality;
-- final target-mean equality.
-
-For the alligation shortcut, the verifier substitutes the reported ratio into the direct weighted equation.
-
-## 4. Generation and language
-
-The parameter generator constructs a complete valid hidden blend first, then derives the displayed target and hides only the requested unknown.
-
-Current approved discovery contexts:
-
-- rice grades;
-- tea leaves;
-- coffee beans;
-- edible oil grades;
-- wheat grades.
-
-Every prototype reaches all five contexts. Four English stem phrasings are available per task family, while values, quantities, source ordering and answer positions vary deterministically by seed. The valid-state generator rejects awkward mixed-fraction price states and constructs integral per-unit values instead of rounding them at presentation time.
-
-## 5. Options and explanations
-
-Each question has:
+Each generated question has:
 
 - four visibly and mathematically unique options;
 - exactly one correct result;
-- three explicit misconception labels;
 - deterministic correct-answer placement;
+- explicit misconception labels;
 - a task-specific explanation;
 - exact MathJax working;
 - direct final-state verification;
-- one genuine Common Trap statement;
+- a genuine Common Trap statement;
 - a structured reasoning graph.
 
-Implemented misconception families include:
+Implemented misconception evidence includes:
 
 - reversed alligation ratio;
-- same-side rather than cross differences;
+- same-side rather than opposite differences;
 - simple average instead of weighted mean;
+- stage-one mean reported as the final answer;
+- unweighted averaging of stage values;
 - swapped quantities;
-- known source or quantity reported;
-- target value reported;
-- omitted third component;
 - equal split assumed;
-- total quantity reported;
-- plausible scale error.
+- target, total, known source or known quantity reported;
+- difference used directly as scale;
+- one component omitted;
+- relation component reported;
+- plausible scale errors.
 
-Alligation-cross data is emitted only for tasks where it is instructionally useful.
+## 6. Manual product-review corrections
 
-## 6. Local exact validation
+Review-found defects converted into executable guards include:
 
-### Runtime proof
+- lower/higher grade-label inversion;
+- lower-case sentence starts;
+- numeric-subject agreement;
+- plural-material agreement such as `tea leaves costs`;
+- unnatural `tea leaves blend` wording;
+- `25 litres mixture` rather than `25-litre mixture`;
+- `How much ... beans is present?` constructions;
+- missing conjunctions in three-component lists;
+- ambiguous ordered quantity pairs without component labels;
+- generic two-stage conclusions that omitted the final component name;
+- inconsistent MathJax delimiter escaping.
 
-```text
-9 prototypes × 120 seeds = 1,080 generated cases
-```
+The final review pack has zero matches for these known defect patterns.
 
-Passed locally:
+## 7. Ownership boundary
 
-- deterministic regeneration;
-- canonical solver and independent verifier agreement;
-- four unique options and exactly one correct label;
-- all four answer positions for every prototype;
-- all three difficulty bands reached;
-- at least 116 distinct stems and mathematical fingerprints for every 120-case prototype run;
-- no permanent QL identity;
-- no Question Studio or publication exposure.
+CP-001 retains static weighted blending and alligation, including homogeneous two-stage use without replacement. It excludes:
 
-### Structural/editorial audit
+- generic Average contracts where mixture semantics are not material;
+- repeated removal and replacement;
+- conserved-solute concentration decay;
+- multi-vessel transfer and equalisation;
+- false weight and short measure;
+- Profit & Loss-only transformations.
 
-```text
-9 prototypes × 80 seeds = 720 generated cases
-```
+## 8. Review artifact
 
-Observed locally:
-
-```text
-Easy:   240
-Medium: 400
-Hard:   80
-Alligation diagrams: 160
-Fractional-answer cases: 0
-Maximum repeated five-word opening: 21
-```
-
-All five approved contexts were reached by every prototype. The audit also passed ownership-leakage, generic-explanation, exact-verification, option-contract, learner-facing grammar, integral-display and safety checks.
-
-These figures describe the generated discovery space. They are not difficulty quotas or QL allocations.
-
-## 7. Review artifact
-
-The exporter produces:
+The current exporter produces:
 
 ```text
-dist/quant-v4/mal-001-cp001-prototype-review.json
-dist/quant-v4/mal-001-cp001-prototype-review.md
+dist/quant-v4/mal-001-cp001-discovery-review.json
+dist/quant-v4/mal-001-cp001-discovery-review.md
 ```
 
-The pack contains 36 questions: four deterministic examples for each prototype contract.
+The pack contains 60 questions: four deterministic examples for each of the fifteen executable identities.
 
-## 8. Deliberately not implemented
+## 9. Deliberately not implemented
 
-- permanent `MAL-QL-*` IDs;
+- permanent `MAL-QL-*` identities;
 - frozen solve-mode count;
 - Hindi or Punjabi generation;
 - Question Studio registration;
 - Question Bank writes;
 - test eligibility;
 - student/public routing;
-- production SVG renderer;
-- CP-002 through CP-006 runtime work.
+- CP-002 through CP-006 production runtime.
 
-## 9. Next review gates
+## 10. Next gate
 
-1. inspect the 36-question English review pack in full;
-2. classify each prototype as retain, merge, split, defer or reassign;
-3. recover official/source fixtures for boundary-sensitive cases;
-4. run inverse, representation and source-format gap audits;
-5. add any genuinely missing prototype contract;
-6. freeze CP-001 QLs only after the final gap audit and manual approval.
+Before permanent allocation:
+
+1. reconcile representative official/source fixtures against all ten provisional contracts;
+2. complete the final source-format, answer-semantic and representation ledger review;
+3. obtain final AVG and MAL CP-002, CP-004 and CP-006 ownership approval;
+4. obtain final product approval for the 60-question English review pack;
+5. run the freeze audit and record any justified merge, split, reassignment or rejection.
+
+Permanent IDs remain prohibited until those gates close.
