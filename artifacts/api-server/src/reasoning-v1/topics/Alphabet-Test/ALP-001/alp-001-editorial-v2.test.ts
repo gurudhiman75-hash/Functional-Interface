@@ -18,10 +18,16 @@ function learnerText(question: ReturnType<typeof generateAlp001Question>): strin
 }
 
 function instructionalText(question: ReturnType<typeof generateAlp001Question>): string {
-  const protectedTokens = [question.answer, ...question.options.map((option) => option.value)]
-    .filter(Boolean)
+  const protectedTokens = [
+    question.answer,
+    question.structuredPrompt.word ?? "",
+    question.structuredPrompt.transformedWord ?? "",
+    ...question.options.map((option) => option.value),
+  ]
+    .filter((token) => token.length > 1)
     .sort((a, b) => b.length - a.length);
-  return protectedTokens.reduce((current, token) => current.split(token).join(""), learnerText(question));
+  const withoutProtectedData = protectedTokens.reduce((current, token) => current.split(token).join(""), learnerText(question));
+  return withoutProtectedData.replace(/\b[A-Z]{2,}\b/g, "");
 }
 
 const locales: readonly AlpLocale[] = ["en-IN", "hi-IN", "pa-IN"];
