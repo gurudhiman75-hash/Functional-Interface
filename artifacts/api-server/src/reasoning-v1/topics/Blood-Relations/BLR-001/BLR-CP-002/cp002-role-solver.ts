@@ -10,11 +10,12 @@ import type {
   BlrCp002Anchor,
   BlrCp002AnswerId,
   BlrCp002Solution,
+  BlrCp002SolvedExpression,
   BlrCp002StructuredPrompt,
   BlrEntityExpression,
   BlrRoleAssertion,
+  BlrRoleCardinalityConstraint,
   BlrRoleStep,
-  BlrCp002SolvedExpression,
 } from "./cp002-types";
 
 const BROAD_ROLE_RELATIONS: Readonly<
@@ -28,6 +29,14 @@ const BROAD_ROLE_RELATIONS: Readonly<
 
 function isBroadRole(roleId: BlrRoleId): roleId is PrimitivePathStep {
   return roleId in BROAD_ROLE_RELATIONS;
+}
+
+function roleSetPhrase(roleId: BlrRoleId): string {
+  if (roleId === "SIBLING") return "brother or sister";
+  if (roleId === "CHILD") return "son or daughter";
+  if (roleId === "PARENT") return "father or mother";
+  if (roleId === "SPOUSE") return "husband or wife";
+  return relationLabel(roleId).toLocaleLowerCase("en-IN");
 }
 
 function personsForRole(
@@ -63,6 +72,14 @@ export function cp002OnlyConstraintCount(expression: BlrEntityExpression): numbe
   return expression.kind === "ROLE_CHAIN"
     ? expression.steps.filter((step) => step.quantifier === "ONLY").length
     : 0;
+}
+
+export function cp002NegativeConstraintCount(
+  prompt: BlrCp002StructuredPrompt,
+): number {
+  return (prompt.constraints ?? []).filter(
+    (constraint) => constraint.cardinality === "NONE",
+  ).length;
 }
 
 function anchorPersonId(
@@ -146,6 +163,32 @@ export function resolveBlrCp002Expression(
   };
 }
 
+function verifyConstraint(
+  prompt: BlrCp002StructuredPrompt,
+  constraint: BlrRoleCardinalityConstraint,
+): string {
+  const reference = resolveBlrCp002Expression(prompt, constraint.reference);
+  const matches = personsForRole(
+    prompt,
+    reference.resolvedPersonId,
+    constraint.relationId,
+  );
+
+  if (constraint.cardinality === "NONE" && matches.length !== 0) {
+    throw new Error(
+      `${nameFor(prompt, reference.resolvedPersonId)} was required to have no ${roleSetPhrase(constraint.relationId)}, but the active family contains ${matches.map((id) => nameFor(prompt, id)).join(", ")}.`,
+    );
+  }
+
+  return `${nameFor(prompt, reference.resolvedPersonId)} has no ${roleSetPhrase(constraint.relationId)} in the displayed family.`;
+}
+
+function verifyConstraints(prompt: BlrCp002StructuredPrompt): readonly string[] {
+  return (prompt.constraints ?? []).map((constraint) =>
+    verifyConstraint(prompt, constraint),
+  );
+}
+
 function verifyAssertion(
   prompt: BlrCp002StructuredPrompt,
   assertion: BlrRoleAssertion,
@@ -182,6 +225,7 @@ function verifyAssertion(
 export function solveBlrCp002Prompt(
   prompt: BlrCp002StructuredPrompt,
 ): BlrCp002Solution {
+  const constraintTrace = verifyConstraints(prompt);
   verifyAssertion(prompt, prompt.assertion);
   const subjectExpression = resolveBlrCp002Expression(prompt, prompt.query.subject);
   const referenceExpression = resolveBlrCp002Expression(prompt, prompt.query.reference);
@@ -195,6 +239,8 @@ export function solveBlrCp002Prompt(
       queryReferenceId,
       pathPersonIds: [querySubjectId],
       pathLength: 0,
+      constraintsVerified: true,
+      constraintTrace,
       assertionVerified: true,
       subjectExpression,
       referenceExpression,
@@ -212,6 +258,8 @@ export function solveBlrCp002Prompt(
     queryReferenceId,
     pathPersonIds: relation.path.personIds,
     pathLength: relation.path.steps.length,
+    constraintsVerified: true,
+    constraintTrace,
     assertionVerified: true,
     subjectExpression,
     referenceExpression,
