@@ -109,10 +109,86 @@ function withTeacherLabels(
   } as MalCp001FoundationQuestion;
 }
 
+function formatIndianDigits(value: string): string {
+  const digits = value.replace(/,/gu, "");
+  if (digits.length <= 3) return digits;
+  const lastThree = digits.slice(-3);
+  let rest = digits.slice(0, -3);
+  const groups: string[] = [];
+  while (rest.length > 2) {
+    groups.unshift(rest.slice(-2));
+    rest = rest.slice(0, -2);
+  }
+  if (rest) groups.unshift(rest);
+  return `${groups.join(",")},${lastThree}`;
+}
+
+function normaliseMoneyGrouping(value: string): string {
+  return value.replace(/₹(\d{4,})(?![\d,])/gu, (_match, digits: string) =>
+    `₹${formatIndianDigits(digits)}`,
+  );
+}
+
+function normaliseQuantityUnits(value: string): string {
+  return value.replace(
+    /\b(\d[\d,]*(?: \d+\/\d+)?|\d+\/\d+) litre\b/gu,
+    (_match, amount: string) =>
+      `${amount} ${amount.replace(/,/gu, "") === "1" ? "litre" : "litres"}`,
+  );
+}
+
+function normaliseSimpleWords(value: string): string {
+  return normaliseMoneyGrouping(normaliseQuantityUnits(value))
+    .replace(/\b1 parts\b/giu, "1 part")
+    .replace(/\bsmall imaginary quantities\b/giu, "small sample quantities")
+    .replace(/\btemporary quantities\b/giu, "sample quantities")
+    .replace(/\bintermediate result\b/giu, "first result")
+    .replace(/\bordinary\b/giu, "normal")
+    .replace(/\bpre-blend\b/giu, "first blend")
+    .replace(/\bvalue supplied by\b/giu, "value from")
+    .replace(/\bvalue belonging to\b/giu, "value for")
+    .replace(/\bcomponents\b/giu, "items")
+    .replace(/\bcomponent\b/giu, "item");
+}
+
 function sentenceCase(value: string): string {
   return value.replace(/^([a-z])/u, (_match, firstLetter: string) =>
     firstLetter.toUpperCase(),
   );
+}
+
+function sentenceCaseTeacherStep(value: string): string {
+  return value.replace(
+    /^(Step \d+: )([a-z])/u,
+    (_match, prefix: string, firstLetter: string) =>
+      `${prefix}${firstLetter.toUpperCase()}`,
+  );
+}
+
+function normaliseRatioOption(value: string): string {
+  const spaced = value.replace(/\s*:\s*/u, " : ").trim();
+  return /\bratio$/iu.test(spaced) ? spaced : `${spaced} ratio`;
+}
+
+function normalisePermanentOptionSurface(
+  question: MalCp001FoundationQuestion,
+  answerSemantic: MalCp001PermanentAllocationEntry["answerSemantic"],
+): MalCp001FoundationQuestion {
+  const options = question.options.map((option) => {
+    const grouped = normaliseMoneyGrouping(option);
+    return answerSemantic === "COMPONENT_RATIO"
+      ? normaliseRatioOption(grouped)
+      : grouped;
+  });
+  const optionAudit = question.optionAudit.map((item, index) => ({
+    ...item,
+    text: options[index]!,
+  }));
+  return {
+    ...question,
+    options,
+    optionAudit,
+  } as MalCp001FoundationQuestion;
 }
 
 function normaliseTeacherLanguage(
@@ -122,14 +198,23 @@ function normaliseTeacherLanguage(
     /\b((?:tea\s+)?leaves|beans) costs\b/giu,
     "$1 cost",
   );
+  const coreConcept = normaliseSimpleWords(explanation.coreConcept);
   return {
     ...explanation,
-    commonTrap: explanation.commonTrap.replace(
+    opening: coreConcept,
+    coreConcept,
+    formula: normaliseSimpleWords(explanation.formula),
+    steps: explanation.steps.map((step) =>
+      sentenceCaseTeacherStep(normaliseSimpleWords(step)),
+    ),
+    examShortcut: normaliseSimpleWords(explanation.examShortcut),
+    verification: normaliseSimpleWords(explanation.verification),
+    commonTrap: normaliseSimpleWords(explanation.commonTrap).replace(
       /^Common trap:\s+([A-Z])/u,
       (_match, firstLetter: string) =>
         `Common trap: ${firstLetter.toLowerCase()}`,
     ),
-    conclusion: sentenceCase(conclusionWithAgreement),
+    conclusion: sentenceCase(normaliseSimpleWords(conclusionWithAgreement)),
   };
 }
 
@@ -176,15 +261,19 @@ export function runMalCp001PermanentPipeline(
     );
   }
 
+  const optionQuestion = normalisePermanentOptionSurface(
+    foundationQuestion,
+    allocation.answerSemantic,
+  );
   const explanation = normaliseTeacherLanguage(
     buildMalCp001TeacherExplanation(
-      withTeacherLabels(foundationQuestion, allocation.qlId),
+      withTeacherLabels(optionQuestion, allocation.qlId),
       allocation.qlId,
     ),
   );
 
   return {
-    ...foundationQuestion,
+    ...optionQuestion,
     permanentQlId: allocation.qlId,
     questionLanguageId: allocation.qlId,
     questionId: `MAL-001:${allocation.qlId}:${seed}`,
