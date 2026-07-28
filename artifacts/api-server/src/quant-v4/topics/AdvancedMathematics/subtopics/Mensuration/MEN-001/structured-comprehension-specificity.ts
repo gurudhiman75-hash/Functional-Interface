@@ -45,17 +45,75 @@ function boundaryStep(title: string, mode: string) {
   return undefined;
 }
 
+function centralAngleStep(title: string, mode: string) {
+  if (title !== "Find the Central Angle") return undefined;
+  if (/CentralAngleFromArcLength/.test(mode)) {
+    return "The arc covers the same fraction of 360° as its length covers of the full circumference. Use θ = (arc length ÷ circumference) × 360°.";
+  }
+  if (/CentralAngleFromSectorArea/.test(mode)) {
+    return "The sector covers the same fraction of 360° as its area covers of the full circle. Use θ = (sector area ÷ circle area) × 360°.";
+  }
+  return "Compare the given part with the complete circle, then multiply that fraction by 360°.";
+}
+
 function refineStep(section: StepSection, parameters: Men001Parameters): StepSection {
-  const paragraph = boundaryStep(section.title, parameters.solveMode);
+  const paragraph = centralAngleStep(section.title, parameters.solveMode)
+    ?? boundaryStep(section.title, parameters.solveMode);
   return paragraph
     ? { ...section, paragraphs: [paragraph, ...section.paragraphs.slice(1)] }
     : section;
+}
+
+function refineRectangleWireToSquare(
+  sections: readonly Men001ExplanationSection[],
+  parameters: Men001Parameters,
+) {
+  if (parameters.solveMode !== "findSquareSideFromRectangleWire") return undefined;
+  let stepIndex = 0;
+  return sections.map((section): Men001ExplanationSection => {
+    if (section.kind !== "STEP") return section;
+    stepIndex += 1;
+    if (stepIndex === 1) {
+      return {
+        ...section,
+        stepNumber: 1,
+        title: "Find the Wire Length",
+        paragraphs: [
+          "A rectangle has two lengths and two breadths. Calculate 2(l + b) to find the complete length of the wire.",
+        ],
+      };
+    }
+    if (stepIndex === 2) {
+      return {
+        ...section,
+        stepNumber: 2,
+        title: "Use the Same Wire for the Square",
+        paragraphs: [
+          "No wire is added or removed, so the square's perimeter is exactly the rectangle's wire length.",
+        ],
+      };
+    }
+    if (stepIndex === 3) {
+      return {
+        ...section,
+        stepNumber: 3,
+        title: "Find the Side of the Square",
+        paragraphs: [
+          "A square has four equal sides. Divide the conserved wire length by 4 to obtain one side.",
+          ...section.paragraphs.slice(1),
+        ],
+      };
+    }
+    return section;
+  });
 }
 
 export function ensureMen001ComprehensionSpecificity(
   sections: readonly Men001ExplanationSection[],
   parameters: Men001Parameters,
 ): Men001ExplanationSection[] {
+  const wireToSquare = refineRectangleWireToSquare(sections, parameters);
+  if (wireToSquare) return wireToSquare;
   return sections.map((section): Men001ExplanationSection =>
     section.kind === "STEP" ? refineStep(section, parameters) : section
   );
