@@ -4,6 +4,7 @@ import {
   type ClsCp001SolveContractId,
 } from "./cp001-permanent-contracts";
 import { generateClsCp001CoherentGroupPrototype } from "./cp001-coherent-group-runtime";
+import { simplifyClsCp001EnglishQuestion } from "./cp001-student-editorial";
 import { generateClsCp001Prototype } from "./runtime";
 import type {
   GeneratedClassificationQuestion,
@@ -41,6 +42,25 @@ export type GeneratedClsCp001EnglishQuestion = Omit<
   readonly lifecycle: ClsCp001FrozenLifecycle;
 };
 
+const SOURCE_SEED_STRIDE = 32;
+const MAX_SAFE_SOURCE_ATTEMPTS = SOURCE_SEED_STRIDE;
+
+const FACTUALLY_FLYING_LABELS = new Set([
+  "Eagle",
+  "Sparrow",
+  "Parrot",
+  "Pigeon",
+  "Peacock",
+  "Crow",
+  "Owl",
+  "Duck",
+  "Hen",
+  "Bat",
+  "Butterfly",
+  "Bee",
+  "Dragonfly",
+]);
+
 function hashText(text: string): number {
   let hash = 2166136261;
   for (let index = 0; index < text.length; index += 1) {
@@ -57,11 +77,14 @@ function selectPrototypeId(qlId: ClsCp001QlId, seed: number): PrototypeId {
 }
 
 function sourceSeed(seed: number, prototypeIndex: number, prototypeCount: number): number {
-  const maximumSeed = Math.floor((Number.MAX_SAFE_INTEGER - prototypeIndex) / prototypeCount);
+  const maximumBaseSeed = Math.floor(
+    (Number.MAX_SAFE_INTEGER - (SOURCE_SEED_STRIDE - 1)) / SOURCE_SEED_STRIDE,
+  );
+  const maximumSeed = Math.floor((maximumBaseSeed - prototypeIndex) / prototypeCount);
   if (seed > maximumSeed) {
     throw new Error(`Seed ${seed} is too large for CLS-CP-001 permanent runtime expansion`);
   }
-  return seed * prototypeCount + prototypeIndex;
+  return (seed * prototypeCount + prototypeIndex) * SOURCE_SEED_STRIDE;
 }
 
 function optionCountForSeed(qlId: ClsCp001QlId, seed: number): 4 | 5 {
@@ -78,6 +101,69 @@ function generateSourceQuestion(
     : generateClsCp001Prototype(sourcePrototypeId, sourcePrototypeSeed, optionCount);
 }
 
+function isFactuallyFlying(label: string): boolean {
+  return FACTUALLY_FLYING_LABELS.has(label);
+}
+
+function hasHiddenFlyingConflict(question: GeneratedClassificationQuestion): boolean {
+  if (question.task === "FIND_OUTLIER") {
+    const flyingIndices = question.options
+      .map((label, index) => isFactuallyFlying(label) ? index : -1)
+      .filter((index) => index >= 0);
+
+    if (question.intendedClassId === "CLS_FLYING_ANIMALS") {
+      return flyingIndices.length !== question.options.length - 1
+        || flyingIndices.includes(question.correctIndex);
+    }
+
+    if (flyingIndices.length === question.options.length - 1) {
+      const hiddenOutlierIndex = question.options.findIndex((_, index) => !flyingIndices.includes(index));
+      return hiddenOutlierIndex !== question.correctIndex;
+    }
+    return false;
+  }
+
+  if (question.task === "SELECT_CLASS_MEMBER") {
+    const givensFormFlyingGroup = question.givens.every(isFactuallyFlying);
+    if (question.intendedClassId !== "CLS_FLYING_ANIMALS" && !givensFormFlyingGroup) return false;
+
+    const matchingIndices = question.options
+      .map((label, index) => isFactuallyFlying(label) ? index : -1)
+      .filter((index) => index >= 0);
+    return matchingIndices.length !== 1 || matchingIndices[0] !== question.correctIndex;
+  }
+
+  const flyingGroupIndices = question.optionGroups
+    .map((group, index) => group.every(isFactuallyFlying) ? index : -1)
+    .filter((index) => index >= 0);
+
+  if (question.intendedClassId === "CLS_FLYING_ANIMALS") {
+    return flyingGroupIndices.length !== 1 || flyingGroupIndices[0] !== question.correctIndex;
+  }
+
+  return flyingGroupIndices.some((index) => index !== question.correctIndex);
+}
+
+function generateSafeSourceQuestion(
+  sourcePrototypeId: PrototypeId,
+  sourcePrototypeBaseSeed: number,
+  optionCount: 4 | 5,
+): {
+  readonly question: GeneratedClassificationQuestion;
+  readonly sourcePrototypeSeed: number;
+} {
+  for (let attempt = 0; attempt < MAX_SAFE_SOURCE_ATTEMPTS; attempt += 1) {
+    const candidateSeed = sourcePrototypeBaseSeed + attempt;
+    const question = generateSourceQuestion(sourcePrototypeId, candidateSeed, optionCount);
+    if (!hasHiddenFlyingConflict(question)) {
+      return { question, sourcePrototypeSeed: candidateSeed };
+    }
+  }
+  throw new Error(
+    `Unable to find a fact-safe ${sourcePrototypeId} state after ${MAX_SAFE_SOURCE_ATTEMPTS} attempts`,
+  );
+}
+
 export function generateClsCp001EnglishQuestion(
   qlId: ClsCp001QlId,
   seed = 0,
@@ -89,9 +175,14 @@ export function generateClsCp001EnglishQuestion(
   const contract = getClsCp001PermanentContract(qlId);
   const sourcePrototypeId = selectPrototypeId(qlId, seed);
   const prototypeIndex = contract.allowedPrototypeIds.indexOf(sourcePrototypeId);
-  const sourcePrototypeSeed = sourceSeed(seed, prototypeIndex, contract.allowedPrototypeIds.length);
+  const sourcePrototypeBaseSeed = sourceSeed(seed, prototypeIndex, contract.allowedPrototypeIds.length);
   const sourceOptionCount = optionCountForSeed(qlId, seed);
-  const generated = generateSourceQuestion(sourcePrototypeId, sourcePrototypeSeed, sourceOptionCount);
+  const safeSource = generateSafeSourceQuestion(
+    sourcePrototypeId,
+    sourcePrototypeBaseSeed,
+    sourceOptionCount,
+  );
+  const generated = simplifyClsCp001EnglishQuestion(safeSource.question);
 
   if (generated.task !== contract.task) {
     throw new Error(`${qlId}/${seed} produced task '${generated.task}' instead of '${contract.task}'`);
@@ -120,7 +211,7 @@ export function generateClsCp001EnglishQuestion(
       locale: "en-IN",
       runtimeVersion: "cls-cp001-runtime-v1",
       sourcePrototypeId,
-      sourcePrototypeSeed,
+      sourcePrototypeSeed: safeSource.sourcePrototypeSeed,
       sourceOptionCount,
       solveContractId: contract.solveContractId,
     },
