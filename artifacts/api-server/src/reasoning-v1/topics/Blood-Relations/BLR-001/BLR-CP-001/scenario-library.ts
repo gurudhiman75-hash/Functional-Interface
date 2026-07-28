@@ -178,6 +178,34 @@ const TWO_EDGE_SCENARIOS: readonly BlrCp001ScenarioTemplate[] = [
     "C",
     "DAUGHTER_IN_LAW",
   ),
+  scenario(
+    "brother-in-law-sisters-husband",
+    [clue("A", "HUSBAND", "B"), clue("B", "SISTER", "C")],
+    "A",
+    "C",
+    "BROTHER_IN_LAW",
+  ),
+  scenario(
+    "sister-in-law-brothers-wife",
+    [clue("A", "WIFE", "B"), clue("B", "BROTHER", "C")],
+    "A",
+    "C",
+    "SISTER_IN_LAW",
+  ),
+  scenario(
+    "brother-in-law-spouses-brother",
+    [clue("A", "BROTHER", "B"), clue("B", "WIFE", "C")],
+    "A",
+    "C",
+    "BROTHER_IN_LAW",
+  ),
+  scenario(
+    "sister-in-law-spouses-sister",
+    [clue("A", "SISTER", "B"), clue("B", "HUSBAND", "C")],
+    "A",
+    "C",
+    "SISTER_IN_LAW",
+  ),
 ];
 
 const THREE_EDGE_SCENARIOS: readonly BlrCp001ScenarioTemplate[] = [
