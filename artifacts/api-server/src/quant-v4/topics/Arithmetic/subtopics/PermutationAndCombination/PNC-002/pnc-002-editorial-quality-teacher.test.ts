@@ -8,7 +8,7 @@ import { getCp011DistributionWave1Entries, runPnc002Cp011DistributionWave1Pipeli
 import { getCp011DistributionWave2Entries, runPnc002Cp011DistributionWave2Pipeline } from "./foundation/cp011-distribution-wave2-runtime";
 import { getCp011InverseEntries, runPnc002Cp011InversePipeline } from "./foundation/cp011-inverse-wave-runtime";
 import { getCp012Entries, runPnc002Cp012Pipeline } from "./foundation/cp012-mixed-runtime-reviewed";
-import { buildPnc002TeacherStudentPresentation } from "./foundation/student-presentation-teacher";
+import { buildPnc002ReviewedTeacherStudentPresentation } from "./foundation/student-presentation-teacher-reviewed";
 import type { PncStudentSourcePackage } from "./foundation/student-presentation";
 
 type ValidatedSourcePackage = PncStudentSourcePackage & {
@@ -161,7 +161,7 @@ for (const entry of allEntries) {
     assert.equal(source.validation.valid, true, `${entry.qlId}: original runtime validation failed`);
     assert.equal(source.publiclyPublishable, false);
 
-    const presentation = buildPnc002TeacherStudentPresentation(source);
+    const presentation = buildPnc002ReviewedTeacherStudentPresentation(source);
     const alignment = examAlignment(entry);
     cpCounts.set(entry.cpId, (cpCounts.get(entry.cpId) ?? 0) + 1);
     alignmentCounts.set(alignment, (alignmentCounts.get(alignment) ?? 0) + 1);
