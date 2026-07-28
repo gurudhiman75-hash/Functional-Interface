@@ -8,6 +8,7 @@ on:
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/gap-wave-02/**
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-gap-wave-02*
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-001/INT-CP-001-GAP-WAVE-02-*.md
       - .github/workflows/int-cp001-gap-wave-02.yml
       - package.json
       - pnpm-lock.yaml
