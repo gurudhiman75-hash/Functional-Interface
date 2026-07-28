@@ -1,6 +1,6 @@
 # BLR-CP-001 — Implementation Report
 
-Status: **second executable English discovery slice implemented; no permanent QLs**.
+Status: **third executable English discovery slice implemented; no permanent QLs**.
 
 ## Implemented foundation
 
@@ -8,13 +8,15 @@ Status: **second executable English discovery slice implemented; no permanent QL
 - structural validation and ancestry-cycle rejection;
 - graph reconstruction directly from displayed relation clues;
 - sibling inference for children sharing a modelled parent;
-- canonical exact relation closure through three meaningful kinship steps;
+- canonical relation closure through bounded kinship paths;
 - supported-relation fact enumeration;
 - generation-level propagation with consistency checking;
+- exact maternal/paternal lineage resolution;
+- brother-in-law and sister-in-law closure through both spouse/sibling path orders;
 - shared deterministic culturally natural name registry;
 - deterministic semantic fingerprints.
 
-## Prototype inventory
+## Exploratory prototype inventory
 
 ### Initial relation-label slice
 
@@ -23,7 +25,7 @@ Status: **second executable English discovery slice implemented; no permanent QL
 3. `BLR-CP001-PROT-COMPOSED-TWO-EDGE`;
 4. `BLR-CP001-PROT-COMPOSED-THREE-EDGE`.
 
-### Second query-contract slice
+### Query-contract slice
 
 5. `BLR-CP001-PROT-IDENTIFY-PERSON`;
 6. `BLR-CP001-PROT-IDENTIFY-PAIR`;
@@ -31,11 +33,14 @@ Status: **second executable English discovery slice implemented; no permanent QL
 8. `BLR-CP001-PROT-GENERATION-COMPARISON`;
 9. `BLR-CP001-PROT-BRANCHING-RELATION`.
 
-These are discovery prototypes, not permanent QLs. Path length, names, difficulty and claim polarity remain instance properties.
+### Gender and exact-lineage slice
 
-## Executed before repository write
+10. `BLR-CP001-PROT-IDENTIFY-PERSON-BY-GENDER`;
+11. `BLR-CP001-PROT-EXACT-LINEAGE-RELATION`.
 
-A strict standalone TypeScript compile was executed for the modified foundation, the original slice and the new slice.
+These are discovery prototypes, not permanent QLs. The first merge/split audit compresses them provisionally into seven solve authorities.
+
+## Local executable proofs
 
 ### Original-slice regression
 
@@ -46,11 +51,11 @@ A compiled local harness regenerated 400 questions:
 - clue-only solver agreement;
 - four unique options and one correct answer;
 - answer positions `[100, 100, 100, 100]`;
-- all 19 previously observed relation labels retained.
+- existing broad relation coverage retained.
 
-### Second-slice proof
+### Query-contract proof
 
-A separate compiled local harness generated 500 questions:
+A separate compiled harness generated 500 questions:
 
 - five contracts × 100 seeds;
 - deterministic repeat equality;
@@ -63,32 +68,66 @@ A separate compiled local harness generated 500 questions:
 - generation deltas `-2`, `-1`, `0`, `1` and `2`;
 - 100 branching questions proven through inferred sibling closure.
 
+### Gender and exact-lineage proof
+
+A third compiled harness generated 240 questions:
+
+- two contracts × 120 seeds;
+- deterministic repeat equality;
+- independent solver agreement;
+- answer positions `[60, 60, 60, 60]`;
+- male and female target coverage;
+- paternal and maternal side coverage;
+- all eight exact lineage relations;
+- broad grandfather, grandmother, uncle and aunt coverage;
+- ten source-natural scenarios;
+- 60 cases where gender was inferred from spouse direction rather than the queried person's own relation word.
+
+A focused ontology harness also proved brother-in-law and sister-in-law through:
+
+```text
+spouse -> sibling
+sibling -> spouse
+```
+
 ## Repository CI
 
-The dedicated workflow now executes both:
+The dedicated workflow now executes:
 
 ```text
 prototype.test.ts
 advanced-prototype.test.ts
+lineage-prototype.test.ts
 ```
 
-The updated workflow result remains pending until GitHub Actions completes on the latest head. The previously published initial-slice run passed, but that older result is not treated as proof of the newly modified branch.
+The exact-head result must be recorded only after GitHub Actions completes on the final synced branch.
 
-## Discovery decisions not yet frozen
+## Discovery decisions
 
-- identity and ordered-pair contracts remain separate prototypes because their answer types differ;
-- true and false claim polarity remains one prototype until source and merge/split review says otherwise;
-- generation comparison is separate because it uses level propagation rather than a kinship label;
-- branching relation remains a provisional contract so the audit can decide whether it is a distinct QL or merely a topology of composed relation solving;
-- no total CP-001 QL count is asserted.
+The first source, merge/split and inverse audits provisionally retain seven solve authorities:
 
-## Not yet implemented
+1. resolve a named-person relation;
+2. identify a person by relation;
+3. identify a person by gender;
+4. identify an ordered relation pair;
+5. select a relation claim;
+6. compare generations;
+7. resolve an exact paternal/maternal relation.
 
-- permanent QL allocation or discovery freeze;
-- gender-only task contracts;
-- exact maternal/paternal relation ontology;
-- pointer and photograph chains;
-- family-set grouped runtime;
+Direct versus reverse, path length, branching topology, true versus false claim wording, target gender and lineage side are instance properties. No additional inverse authority was justified by the current evidence.
+
+## Remaining work before freeze
+
+- exact-head combined CI;
+- generated English editorial review across all provisional authorities;
+- second source and gap audit;
+- final discovery freeze if no new material contract appears;
+- guarded permanent sequential QL allocation in a later change.
+
+## Not implemented in CP-001
+
+- pointer, photograph, conversation or nested self-reference chains;
+- shared family-set grouped runtime;
 - cardinality and count semantics;
 - model-space uncertainty;
 - coded relations;
