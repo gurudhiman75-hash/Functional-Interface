@@ -39,15 +39,21 @@ jobs:
           base64 --decode /tmp/cp011_simplify.b64 > /tmp/cp011_simplify.py
           echo '6c99359337e26816748b377ece33dee9305c461caaec75e509bca5b06fc547e3  /tmp/cp011_simplify.py' | sha256sum -c -
           python -m py_compile /tmp/cp011_simplify.py
-          python /tmp/cp011_simplify.py
+          set +e
+          python /tmp/cp011_simplify.py 2>&1 | tee /tmp/cp011_patch.log
+          patch_rc=${PIPESTATUS[0]}
+          set -e
+          exit "$patch_rc"
 
-      - name: Upload reconstructed patch stream
+      - name: Upload patch diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cp011-simplify-reconstructed
-          path: /tmp/cp011_simplify.b64
-          if-no-files-found: error
+          name: cp011-simplify-diagnostics
+          path: |
+            /tmp/cp011_simplify.b64
+            /tmp/cp011_patch.log
+          if-no-files-found: warn
           retention-days: 1
 
       - name: Install locked workspace dependencies
