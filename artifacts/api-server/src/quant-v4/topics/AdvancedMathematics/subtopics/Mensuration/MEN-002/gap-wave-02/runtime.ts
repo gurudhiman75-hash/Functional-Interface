@@ -408,7 +408,7 @@ function paintingRateDraft(prototypeId: MenCp007Wave02PrototypeId, seed: string,
       { title: "Find the Painted Area", body: "All six faces are included.", equation: `$$TSA=2(${length * breadth}+${breadth * height}+${height * length})=${tsa}\\text{ m}^{2}$$` },
       { title: "Divide Cost by Area", body: "Rupees divided by square metres gives rupees per square metre.", equation: `$$Rate=\\frac{\\text{₹}${formatIndianInteger(cost)}}{${tsa}\\text{ m}^{2}}=\\frac{\\text{₹}${formatIndianInteger(rate)}}{\\text{m}^{2}}$$` },
     ],
-    shortcut: `For this box, $Rate=\frac{\text{₹}${formatIndianInteger(cost)}}{${tsa}\text{ m}^{2}}=\frac{\text{₹}${formatIndianInteger(rate)}}{\text{m}^{2}}$.`,
+    shortcut: `For this box, $Rate=\\frac{\\text{₹}${formatIndianInteger(cost)}}{${tsa}\\text{ m}^{2}}=\\frac{\\text{₹}${formatIndianInteger(rate)}}{\\text{m}^{2}}$.`,
   };
 }
 
@@ -486,9 +486,9 @@ function materialCostDraft(prototypeId: MenCp007Wave02PrototypeId, seed: string,
     keyRule: "Material cost at a cubic-metre rate equals volume × rate. Keep the rate dimension aligned with the measured quantity.",
     steps: [
       { title: "Find the Solid Volume", body: "Multiply the three metre dimensions.", equation: `$$V=${length}\\times${breadth}\\times${height}=${volume}\\text{ m}^{3}$$` },
-      { title: "Apply the Cubic-Metre Rate", body: `Multiply by $\\text{₹}${formatIndianInteger(rate)}$ for each cubic metre.`, equation: `$$Cost=${volume}\\times\\text{₹}${rate}=\\text{₹}${cost}$$` },
+      { title: "Apply the Cubic-Metre Rate", body: `Multiply by $\\text{₹}${formatIndianInteger(rate)}$ for each cubic metre.`, equation: `$$Cost=${volume}\\times\\text{₹}${formatIndianInteger(rate)}=\\text{₹}${formatIndianInteger(cost)}$$` },
     ],
-    shortcut: `Here $V=${volume}\text{ m}^{3}$, so $Cost=${volume}\times\text{₹}${formatIndianInteger(rate)}=\text{₹}${formatIndianInteger(cost)}$.`,
+    shortcut: `Here $V=${volume}\\text{ m}^{3}$, so $Cost=${volume}\\times\\text{₹}${formatIndianInteger(rate)}=\\text{₹}${formatIndianInteger(cost)}$.`,
   };
 }
 
