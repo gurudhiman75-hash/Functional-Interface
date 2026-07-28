@@ -12,6 +12,7 @@ const forbiddenStemPatterns = [
   ["generic third-grade reference", /\bquantity of the third grade\b/iu],
   ["vague quantity reference", /\bwhat is that quantity\?/iu],
   ["lowercase sentence start", /\.\s+a\s+\d/u],
+  ["lowercase question after full stop", /\.\s+(?:what|how)\b/u],
   ["capitalised question word after comma", /,\s+(?:What|How)\b/u],
   ["awkward quantity-worth construction", /\bto obtain \d+(?:\s+\d+\/\d+)? (?:kg|litres) worth\b/iu],
   ["unnatural unknown-price tail", /\bwhat price must [^?]+ have\?/iu],
