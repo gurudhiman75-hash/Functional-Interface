@@ -11,7 +11,7 @@ export function renderPunjabiStem011To022(english: R): string | null {
     case "DIR-QL-013":
       return `${(s.relations ?? []).map((r: R) => relationSentencePa(r)).join(" ")} ${namePa(s.query.reference)} ਦੇ ${directionPa(s.query.direction)} ਵੱਲ ਕੌਣ ਹੈ?`;
     case "DIR-QL-014":
-      return `${(s.relations ?? []).map((r: R) => relationSentencePa(r)).join(" ")} ਕਿਹੜੇ ਤਿੰਨ ਵਿਅਕਤੀ ਇੱਕ ਸਿੱਧੀ ਲਾਈਨ ਵਿੱਚ ਖੜ੍ਹੇ ਹਨ?`;
+      return `${(s.relations ?? []).map((r: R) => relationSentencePa(r)).join(" ")} ਕਿਹੜੇ ਤਿੰਨ ਵਿਅਕਤੀ ਇੱਕੋ ਸਿੱਧੀ ਕਤਾਰ ਵਿੱਚ ਖੜ੍ਹੇ ਹਨ?`;
     case "DIR-QL-015":
       return `${(s.relations ?? []).map((r: R) => relationSentencePa(r)).join(" ")} ਕਿਹੜੀ ਜੋੜੀ ਇੱਕੋ ਥਾਂ ਖੜ੍ਹੀ ਹੈ?`;
     case "DIR-QL-016":
