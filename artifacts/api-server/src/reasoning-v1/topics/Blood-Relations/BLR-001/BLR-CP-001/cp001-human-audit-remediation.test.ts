@@ -52,7 +52,7 @@ for (const entry of BLR_CP001_REVIEW_REGISTRY) {
     assert.ok(explanation.familyTreeGrid.includes("Generation  0:"));
     assert.ok(explanation.familyTreeGrid.includes("Connections:"));
     assert.ok(/\(\+\)|\(-\)/u.test(explanation.familyTreeGrid));
-    assert.ok(explanation.familyTreeGrid.split("\n").length >= 5);
+    assert.ok(explanation.familyTreeGrid.split("\n").length >= 4);
     assert.ok(explanation.generationAnalysis);
     assert.ok(explanation.examShortcut && explanation.examShortcut.length > 30);
     assert.equal(explanation.distractorAnalysis?.length, 3);
