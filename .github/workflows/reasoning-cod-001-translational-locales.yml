@@ -1,0 +1,36 @@
+name: Reasoning COD-001 Translational Locales
+on:
+  pull_request:
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/**
+      - .github/workflows/reasoning-cod-001-translational-locales.yml
+  workflow_dispatch:
+jobs:
+  cod-translational-locales:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run Hindi and Punjabi translational audit
+        id: audit
+        shell: bash
+        run: |
+          set +e
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/review/cod-001-translational-locales.test.ts > cod-001-translational-locales.log 2>&1
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: Upload locale diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cod-001-translational-locales
+          path: cod-001-translational-locales.log
+          retention-days: 14
+      - name: Enforce locale audit
+        run: |
+          cat cod-001-translational-locales.log
+          test "${{ steps.audit.outputs.exit_code }}" = "0"
