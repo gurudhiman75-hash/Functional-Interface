@@ -52,8 +52,8 @@ export function applyIntCp001Wave2PostValidation(
   if (/\byear\(s\)/iu.test(combinedPresentation)) {
     errors.push("Presentation contains the mechanical label 'year(s)'.");
   }
-  if (/\b\d+\/\d+ years\b/u.test(combinedPresentation)) {
-    errors.push("Presentation uses a singular fractional year with plural grammar.");
+  if (/(?<!\d )\b\d+\/\d+ years\b/u.test(combinedPresentation)) {
+    errors.push("Presentation uses a standalone fractional year with plural grammar.");
   }
   if (/\bUsing \d+\/1%/u.test(combinedPresentation)) {
     errors.push("Verification exposes an unreduced denominator-one percentage.");
