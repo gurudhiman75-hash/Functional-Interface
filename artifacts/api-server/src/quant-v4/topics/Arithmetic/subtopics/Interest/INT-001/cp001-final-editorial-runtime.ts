@@ -59,7 +59,11 @@ function normaliseCurrency(text: string): string {
 function normaliseExplanationCurrency(explanation: IntCp001FourTierExplanation): IntCp001FourTierExplanation {
   const coreDisplayMath = normaliseCurrency(explanation.coreConcept.displayMath);
   const shortcutNarrative = normaliseCurrency(explanation.examShortcut.narrative)
-    .replace(/^Find /u, "First calculate ");
+    .replace(
+      /^Find the total interest percentage of principal first,/u,
+      "Calculate the total interest percentage of principal,",
+    )
+    .replace(/^Find /u, "Calculate ");
   const shortcutDisplayMath = explanation.examShortcut.displayMath
     ? normaliseCurrency(explanation.examShortcut.displayMath)
     : coreDisplayMath;
@@ -148,6 +152,9 @@ export function generateIntCp001FinalEditorialQuestion(
   }
   if (/^(?:Find|Determine)\b/u.test(explanation.examShortcut.narrative)) {
     errors.push("Exam shortcut begins with an imperative fragment.");
+  }
+  if (/\bfirst\b[^.]*\bfirst\b/iu.test(explanation.examShortcut.narrative)) {
+    errors.push("Exam shortcut repeats the word 'first'.");
   }
   if (explanation.trapAnalysis.items.length !== 3) {
     errors.push(`Four-tier explanation must analyse three distractors; found ${explanation.trapAnalysis.items.length}.`);
