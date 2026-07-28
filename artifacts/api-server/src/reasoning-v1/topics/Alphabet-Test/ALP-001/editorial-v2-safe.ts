@@ -71,7 +71,20 @@ function localizeStructuralText(locale: AlpLocale, value: string): string {
   return replacements.reduce((current, [pattern, replacement]) => current.replace(pattern, replacement), value);
 }
 
-function localizeExplanation(locale: AlpLocale, explanation: AlpExplanation): AlpExplanation {
+function localizeWithProtectedValues(locale: AlpLocale, value: string, protectedValues: readonly string[]): string {
+  if (locale === "en-IN") return value;
+  let protectedText = value;
+  const stored: string[] = [];
+  for (const token of [...new Set(protectedValues.filter(Boolean))].sort((a, b) => b.length - a.length)) {
+    const placeholder = `§§${stored.length}§§`;
+    stored.push(token);
+    protectedText = protectedText.split(token).join(placeholder);
+  }
+  const localized = localizeStructuralText(locale, protectedText);
+  return stored.reduce((current, token, index) => current.split(`§§${index}§§`).join(token), localized);
+}
+
+function localizeExplanation(locale: AlpLocale, explanation: AlpExplanation, answer: string): AlpExplanation {
   if (locale === "en-IN") return explanation;
   return {
     ...explanation,
@@ -80,10 +93,10 @@ function localizeExplanation(locale: AlpLocale, explanation: AlpExplanation): Al
     steps: explanation.steps.map((step) => localizeStructuralText(locale, step)),
     visualWorking: explanation.visualWorking.map((line) => localizeStructuralText(locale, line)),
     examShortcut: localizeStructuralText(locale, explanation.examShortcut),
-    conclusion: localizeStructuralText(locale, explanation.conclusion),
+    conclusion: localizeWithProtectedValues(locale, explanation.conclusion, [answer]),
     distractorAnalyses: explanation.distractorAnalyses.map((analysis) => ({
       ...analysis,
-      explanation: localizeStructuralText(locale, analysis.explanation),
+      explanation: localizeWithProtectedValues(locale, analysis.explanation, [analysis.optionValue]),
     })),
     closestTrapRejection: localizeStructuralText(locale, explanation.closestTrapRejection),
   };
@@ -97,7 +110,7 @@ export function renderAlpExplanationV2(
   correctIndex: number,
   locale: AlpLocale,
 ): AlpExplanation {
-  return localizeExplanation(locale, renderBaseExplanation(ql, data, solved, options, correctIndex, locale));
+  return localizeExplanation(locale, renderBaseExplanation(ql, data, solved, options, correctIndex, locale), solved.answer);
 }
 
 export { renderAlpStemV2 };
