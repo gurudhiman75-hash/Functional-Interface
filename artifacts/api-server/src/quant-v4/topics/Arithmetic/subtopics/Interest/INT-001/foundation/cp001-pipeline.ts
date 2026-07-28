@@ -3,6 +3,7 @@ import { buildIntCp001Options } from "./cp001-options";
 import { generateIntCp001Parameters } from "./cp001-parameter-generator";
 import { presentIntCp001 } from "./cp001-presentation";
 import { solveIntCp001 } from "./cp001-solver";
+import { diversifyIntCp001StemOpening } from "./cp001-stem-diversifier";
 import { expandIntCp001TimeInverseState } from "./cp001-time-inverse-expander";
 import { validateIntCp001Prototype } from "./cp001-validator";
 import { rationalKey } from "./rational";
@@ -25,7 +26,9 @@ export function generateIntCp001Prototype(
   const solution = solveIntCp001(parameters.request);
   const optionPackage = buildIntCp001Options(parameters, solution);
   const presentation = presentIntCp001(parameters, solution);
-  const stem = normaliseQuestionPunctuation(presentation.stem);
+  const stem = normaliseQuestionPunctuation(
+    diversifyIntCp001StemOpening(presentation.stem, parameters),
+  );
   const validation = validateIntCp001Prototype({
     parameters,
     solution,
