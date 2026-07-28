@@ -178,6 +178,7 @@ function normalizeStem(question: any): string {
     .replace(/\ba (\d+(?:\s+\d+\/\d+)?) litres portion\b/giu, "a $1-litre portion")
     .replace(/\bA (\d+(?:\s+\d+\/\d+)?) litres portion\b/gu, "A $1-litre portion")
     .replace(/\.\s+a (\d+(?:\s+\d+\/\d+)?-litre portion)\b/giu, ". A $1")
+    .replace(/\bits average value is\b/giu, "its average price is")
     .replace(/\bWhat is the final blend's value per unit\?/giu, `What is the final blend's price per ${unit}?`)
     .replace(/\bwhat is the resulting value per unit\?/giu, `what is the resulting price per ${unit}?`)
     .replace(/\bWhat is the weighted average value of the blend\?/giu, `What is the blend's weighted average price per ${unit}?`)
