@@ -34,7 +34,8 @@ function optionMembers(option: unknown): string[] {
   const members = record.members ?? record.tokens ?? record.words;
   if (Array.isArray(members)) return members.map(String);
   const value = optionValue(option);
-  return value ? [value] : [];
+  if (!value) return [];
+  return value.includes(",") ? value.split(",").map((item) => item.trim()).filter(Boolean) : [value];
 }
 
 function displayTokens(value: string): string[] {
