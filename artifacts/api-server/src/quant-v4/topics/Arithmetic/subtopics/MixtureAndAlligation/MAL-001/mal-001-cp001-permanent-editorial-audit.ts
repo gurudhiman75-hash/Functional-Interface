@@ -11,7 +11,7 @@ const forbiddenStemPatterns = [
   ["unnamed added component", /\bWhat quantity should be added\?/u],
   ["generic third-grade reference", /\bquantity of the third grade\b/iu],
   ["vague quantity reference", /\bwhat is that quantity\?/iu],
-  ["lowercase sentence start", /\.\s+a\s+\d/iu],
+  ["lowercase sentence start", /\.\s+a\s+\d/u],
   ["unnatural unknown-price tail", /\bwhat price must [^?]+ have\?/iu],
   ["generic unknown-value tail", /\bwhat is the value of [^?]+ per unit\?/iu],
 ] as const;
