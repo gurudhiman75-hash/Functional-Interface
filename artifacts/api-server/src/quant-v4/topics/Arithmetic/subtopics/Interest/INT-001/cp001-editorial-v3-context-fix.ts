@@ -19,8 +19,14 @@ export function finaliseIntCp001HumanisedStem(
     deterministicIndex(`${qlId}:${seed}:editorial-story-v3`, FALLBACK_CONTEXTS.length)
   ]!;
 
-  return initial.replace(
+  const reordered = initial.replace(
     /^At (.+?) simple interest per annum, an investment amounts to (.+?) after (.+?)\. (.+)$/u,
     `${context} amounts to $2 after $3 at $1 simple interest per annum. $4`,
+  );
+  if (reordered !== initial) return reordered;
+
+  return initial.replace(
+    /^At (.+?), an investment\b/u,
+    `For ${context}, at $1, the investment`,
   );
 }
