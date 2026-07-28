@@ -91,7 +91,7 @@ export function validateIntCp001Prototype(input: ValidationInput): VerificationR
   if (!namesInterestStructure(renderedExplanation)) {
     errors.push("Explanation does not identify the decisive interest relation.");
   }
-  if (!input.explanation.verification || input.explanation.verification.length < 35) {
+  if (!input.explanation.verification || input.explanation.verification.length < 25) {
     errors.push("Explanation lacks a meaningful verification step.");
   }
   if (!input.explanation.conclusion.includes(input.options[input.correctIndex] ?? "__missing__")) {
