@@ -3,7 +3,7 @@ import { buildTmwCp006Options } from "./cp006-options";
 import { buildTmwCp006Parameters } from "./cp006-parameters";
 import { buildTmwCp006CommonTrap, buildTmwCp006Givens, buildTmwCp006Shortcut } from "./cp006-learning";
 import { tmwCp006KeyRule } from "./cp006-key-rule";
-import { isTmwCp006ExamStyleStem, renderTmwCp006ExamStem, tmwCp006ExamShortcut, tmwCp006FriendlyTrap, tmwCp006PlainEnglishBridge } from "./cp006-exam-language";
+import { renderTmwCp006ExamStem, tmwCp006ExamShortcut, tmwCp006FriendlyTrap, tmwCp006PlainEnglishBridge } from "./cp006-exam-language";
 import { tmwCp006Conclusion } from "./cp006-presentation";
 import { polishTmwCp006Solution } from "./cp006-solution-polish";
 import { isPositiveCp006Answer, solveTmwCp006, verifyTmwCp006 } from "./cp006-solver";
@@ -18,6 +18,7 @@ function stateKey(p:TmwCp006Parameters):string{
 function inlineMath(latex:string):string{return `\\(${latex}\\)`;}
 function balancedInlineMath(value:string):boolean{return (value.match(/\\\(/g)??[]).length===(value.match(/\\\)/g)??[]).length;}
 function requiresUnitBearingOptions(answerType:string):boolean{return ["COUNT","TIME","HOURS","WORK","SHIFT","RESOURCE_TIME"].includes(answerType);}
+function hasApprovedScenarioOpening(stem:string):boolean{return /^(?:At |A contractor |A project manager |A relief camp |A department |A team |The |For capacity planning )/.test(stem);}
 
 export function runTmwCp006Pipeline(input:{questionLanguageId:string;seed:string;language?:"en"|"hi"|"pa"}):TmwCp006GeneratedQuestion{
   if(input.language&&input.language!=="en")throw new Error("TMW-CP-006 is English only at the current runtime-proof stage");
@@ -43,7 +44,7 @@ export function runTmwCp006Pipeline(input:{questionLanguageId:string;seed:string
   if(!verifyTmwCp006(entry,parameters,solution))errors.push("Independent invariant check disagrees with the canonical solver");
   if(!isPositiveCp006Answer(solution))errors.push("Answer is not positive");
   if(!stem.trim())errors.push("Stem is empty");
-  if(!isTmwCp006ExamStyleStem(stem))errors.push("Stem does not contain an approved realistic exam scenario");
+  if(!hasApprovedScenarioOpening(stem))errors.push("Stem does not use an approved scenario-led opening");
   if(/^(?:\d|One team|Each |The available food|Find the equivalent)/.test(stem))errors.push("Stem begins with a mechanical template phrase");
   if(/\{\{[^}]+\}\}|\$\{[^}]+\}/.test(stem))errors.push("Stem contains an unresolved placeholder");
   if(optionSet.options.length!==4)errors.push("Question does not contain exactly four options");
