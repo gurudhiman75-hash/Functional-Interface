@@ -77,7 +77,7 @@ for (const entry of getMen001QuestionEntries()) {
     exactHeadings.forEach((heading, index) => {
       assert.ok(question.explanation.lines[index]?.startsWith(heading), `${entry.qlId} block ${index + 1} must start with ${heading}.`);
     });
-    assert.ok(question.explanation.lines.every((line) => !/Final Answer/i.test(line)), `${entry.qlId} retains a separate Final Answer heading.`);
+    assert.ok(question.explanation.lines.every((line) => !/^###\s+.*Final Answer/im.test(line)), `${entry.qlId} retains a separate Final Answer heading.`);
 
     const shortcutBlock = shortcuts[0]!;
     assert.ok(

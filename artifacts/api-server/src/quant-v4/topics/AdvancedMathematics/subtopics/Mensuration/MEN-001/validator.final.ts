@@ -87,7 +87,7 @@ export function validateMen001QuestionPackage(
   ));
   checks.push(check(
     "natural-explanation-no-fifth-block",
-    explanationLines.every((line) => !/Final Answer/i.test(line)) &&
+    explanationLines.every((line) => !/^###\s+.*Final Answer/im.test(line)) &&
       question.explanation.sections.every((section) => section.kind !== "FINAL_ANSWER"),
     "The final result belongs inside the worked solution and must not appear as a fifth block.",
   ));

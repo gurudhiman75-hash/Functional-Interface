@@ -127,7 +127,7 @@ function actionDetails(strategyId: string) {
 
 function generatedExplanation(strategyId: string) {
   const { tokens, actionIndex, action, context, target } = actionDetails(strategyId);
-  if (actionIndex < 0) return `using ${withArticle(target)} as the final answer before the calculation is complete`;
+  if (actionIndex < 0) return `using ${withArticle(target)} as the answer before the calculation is complete`;
 
   const object = withArticle(target);
   const required = context ? `the ${context}` : "the value asked for";
