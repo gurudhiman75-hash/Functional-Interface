@@ -1,6 +1,6 @@
 # BLR-CP-001 — Implementation Report
 
-Status: **third executable English discovery slice implemented; no permanent QLs**.
+Status: **third executable English discovery slice implemented; machine editorial gate passed; human review pending; no permanent QLs**.
 
 ## Implemented foundation
 
@@ -90,17 +90,37 @@ spouse -> sibling
 sibling -> spouse
 ```
 
+## English editorial readiness proof
+
+The machine editorial audit generates 440 additional review cases:
+
+- all eleven prototypes;
+- all seven provisional authorities;
+- six answer shapes;
+- answer positions `[110, 110, 110, 110]`;
+- learner-text cleanliness;
+- unique options and labelled wrong answers;
+- complete clue, query, conclusion and trap explanations;
+- substantial stem diversity.
+
+The workflow exports an 88-record HTML/CSV/JSONL review pack with answer positions `[22, 22, 22, 22]`.
+
 ## Repository CI
 
-The dedicated workflow now executes:
+On code-bearing head `c371e6990ffa872eb014f4ceed0260fa96ee54da`, dedicated run `30328891306` completed successfully. Every stage passed:
 
 ```text
 prototype.test.ts
 advanced-prototype.test.ts
 lineage-prototype.test.ts
+cp001-editorial-review.test.ts
+export-cp001-review.ts
+review artifact upload
 ```
 
-The exact-head result must be recorded only after GitHub Actions completes on the final synced branch.
+The Render production build also passed on that head. The broader integrated-admin workflow continued to fail at its existing `Enforce truthful frontend surface` check before any BLR-specific or Question Studio gate ran.
+
+Documentation-only status commits after that proof continue to trigger the same dedicated workflow and must remain green before merge.
 
 ## Discovery decisions
 
@@ -118,8 +138,8 @@ Direct versus reverse, path length, branching topology, true versus false claim 
 
 ## Remaining work before freeze
 
-- exact-head combined CI;
-- generated English editorial review across all provisional authorities;
+- human review of the 88-record English pack;
+- remediation of any approved wording or distractor findings;
 - second source and gap audit;
 - final discovery freeze if no new material contract appears;
 - guarded permanent sequential QL allocation in a later change.
