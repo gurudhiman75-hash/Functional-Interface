@@ -1,0 +1,28 @@
+name: Reasoning COD-001 CP-010 Prototype
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-010/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/README.md"
+      - ".github/workflows/reasoning-cod-001-cp010-prototype.yml"
+  workflow_dispatch:
+
+jobs:
+  cp010-prototype:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enforce final English discovery freeze
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-010/cp010-final-discovery-freeze.test.ts
+
+      - name: Run CP-010 executable discovery audit
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-010/cp010-prototype.test.ts
