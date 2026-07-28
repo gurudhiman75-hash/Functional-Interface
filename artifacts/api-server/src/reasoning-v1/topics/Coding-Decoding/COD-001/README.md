@@ -1,6 +1,6 @@
 # COD-001 — Coding–Decoding
 
-Status: **COD-CP-001 through COD-CP-010 implemented at English runtime-proof maturity; stable permanent range `COD-QL-001..199`**.
+Status: **COD-CP-001 through COD-CP-010 implemented at English runtime-proof maturity; stable permanent range `COD-QL-001..199`; whole-chapter English closure audit added**.
 
 Student-facing chapter: **Coding–Decoding**  
 Reasoning V1 package: `COD-001`  
@@ -12,8 +12,9 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/CO
 2. `../../../REASONING-V1-ARCHITECTURE.md` — runtime, validation and localisation contracts.
 3. `cod-001-open-ql-discovery-amendment.md` — evidence-led identity policy.
 4. `COD-001-MANIFEST-AMENDMENT-CP007.md` through `COD-001-MANIFEST-AMENDMENT-CP010.md` and earlier merged identities.
-5. checkpoint-specific approved discovery, freeze, implementation and review documents.
-6. legacy chapter design documents where not superseded.
+5. `COD-001-ENGLISH-CLOSURE-AUDIT.md` and the executable whole-chapter closure test.
+6. checkpoint-specific approved discovery, freeze, implementation and review documents.
+7. legacy chapter design documents where not superseded.
 
 ## Stable English runtime
 
@@ -63,26 +64,20 @@ COD-QL-199 — APPLY_CONDITIONAL_TABLE_FORWARD
 
 It applies a displayed letter/digit lookup table, classifies the first and last source tokens, selects one mutually exclusive condition and applies its override once. Domain, endpoint signature, source length, table order and override action remain instance properties.
 
-The runtime covers both input domains, all eight endpoint signatures, all five admitted actions, all answer positions and Easy/Medium/Hard reach. Inverse decoding, missing-token recovery, hidden-condition inference and overlapping precedence remain excluded for source gaps.
+## Whole-chapter English closure
 
-## English implementation boundary
+`review/cod-001-english-closure.test.ts` generates every permanent QL for twelve seeds, producing 2,388 questions. It checks identity continuity, determinism, option truth, exact collisions, editorial leakage, stem/explanation diversity, answer-position balance, difficulty and renderer reach, and review-only release safety.
 
-All ten Coding–Decoding checkpoints now have permanent English runtime identities. The old predetermined 260-QL total remains revoked; the evidence-backed English implementation count is **199**.
-
-No additional COD-001 QL may be created without:
-
-1. direct recurring source evidence;
-2. a collision and ownership audit;
-3. executable prototype proof;
-4. a new discovery freeze;
-5. an explicit manifest amendment.
+The old predetermined 260-QL total remains revoked. No additional COD-001 QL may be created without recurring source evidence, ownership and collision audit, executable prototype proof, a new discovery freeze and an explicit manifest amendment.
 
 ## Remaining chapter sequence
 
-1. run chapter-wide English saturation, collision and editorial review over `COD-QL-001..199`;
-2. implement and audit Hindi and natural Punjabi across the frozen chapter;
-3. complete manual multilingual review packs;
-4. connect reviewed content to Question Studio and later publication gates.
+1. merge the whole-chapter English closure gate after exact-head CI;
+2. implement Hindi and natural Punjabi for translational checkpoints `CP-001..007` and `CP-010`;
+3. implement language-adapted Hindi and Punjabi datasets for `CP-008` and `CP-009`;
+4. run one final three-locale parity and editorial audit;
+5. complete manual multilingual review packs;
+6. connect reviewed content to Question Studio later.
 
 ## Release boundary
 
