@@ -13,10 +13,10 @@ export function renderPunjabiStem001To010(english: R): string | null {
       return `${n} ਦਾ ਮੂੰਹ ਪਹਿਲਾਂ ${directionPa(s.initialFacing)} ਵੱਲ ਸੀ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ${directionPa(s.finalFacing)} ਵੱਲ ਹੋ ਗਿਆ। ਇਹ ਬਦਲਾਅ ਕਰਨ ਲਈ ਕਿਹੜਾ ਹੁਕਮ ਠੀਕ ਹੈ?`;
     case "DIR-QL-004": {
       const reverse = s.queryReference === "START_FROM_FINAL";
-      return `${n} ਦੀ ਯਾਤਰਾ ਇੱਕ ਬਿੰਦੂ ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ; ਸ਼ੁਰੂ ਵਿੱਚ ਮੂੰਹ ${directionPa(s.initialFacing)} ਵੱਲ ਹੈ। ਰਸਤਾ: ${relativeOperationsPa(s.operations ?? [])}। ${reverse ? "ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਅੰਤਿਮ ਥਾਂ ਦੇ" : "ਅੰਤਿਮ ਥਾਂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਦੇ"} ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਹੈ?`;
+      return `${n} ਦੀ ਯਾਤਰਾ ਇੱਕ ਬਿੰਦੂ ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ; ਸ਼ੁਰੂ ਵਿੱਚ ਮੂੰਹ ${directionPa(s.initialFacing)} ਵੱਲ ਹੈ। ਰਸਤਾ: ${relativeOperationsPa(s.operations ?? [])}। ${reverse ? "ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਅੰਤਿਮ ਥਾਂ ਤੋਂ" : "ਅੰਤਿਮ ਥਾਂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ"} ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਹੈ?`;
     }
     case "DIR-QL-005":
-      return `${n} ਦੀ ਯਾਤਰਾ ਇੱਕ ਬਿੰਦੂ ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ; ਸ਼ੁਰੂ ਵਿੱਚ ਮੂੰਹ ${directionPa(s.initialFacing)} ਵੱਲ ਹੈ। ਰਸਤਾ: ${relativeOperationsPa(s.operations ?? [])}। ਅੰਤਿਮ ਥਾਂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਦੇ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਹੈ ਅਤੇ ਅੰਤ ਵਿੱਚ ਮੂੰਹ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਹੈ?`;
+      return `${n} ਦੀ ਯਾਤਰਾ ਇੱਕ ਬਿੰਦੂ ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ; ਸ਼ੁਰੂ ਵਿੱਚ ਮੂੰਹ ${directionPa(s.initialFacing)} ਵੱਲ ਹੈ। ਰਸਤਾ: ${relativeOperationsPa(s.operations ?? [])}। ਅੰਤਿਮ ਥਾਂ ਸ਼ੁਰੂਆਤੀ ਬਿੰਦੂ ਤੋਂ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਹੈ ਅਤੇ ਅੰਤ ਵਿੱਚ ਮੂੰਹ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਹੈ?`;
     case "DIR-QL-006":
       return `${n} ਦੀ ਯਾਤਰਾ ਇੱਕ ਬਿੰਦੂ ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ; ਸ਼ੁਰੂ ਵਿੱਚ ਮੂੰਹ ${directionPa(s.initialFacing)} ਵੱਲ ਹੈ। ਰਸਤਾ: ${relativeOperationsPa(s.operations ?? [])}। ਸ਼ੁਰੂਆਤੀ ਅਤੇ ਅੰਤਿਮ ਬਿੰਦੂ ਵਿਚਕਾਰ ਸਭ ਤੋਂ ਘੱਟ ਦੂਰੀ ਕਿੰਨੀ ਹੈ?`;
     case "DIR-QL-007": {
