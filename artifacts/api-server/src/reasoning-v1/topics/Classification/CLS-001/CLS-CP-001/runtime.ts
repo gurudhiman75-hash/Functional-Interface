@@ -52,7 +52,7 @@ function hashText(text: string): number {
 }
 
 function makeRng(seed: number, salt: string): Rng {
-  let state = (seed >>> 0) ^ hashText(salt) ^ 0x9e3779b9;
+  let state = hashText(`${salt}:${seed}`) ^ 0x9e3779b9;
   if (state === 0) state = 0x6d2b79f5;
   return {
     next(): number {
