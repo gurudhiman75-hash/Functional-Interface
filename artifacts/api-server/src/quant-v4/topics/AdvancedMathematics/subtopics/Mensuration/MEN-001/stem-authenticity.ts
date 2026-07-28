@@ -1,5 +1,7 @@
 import type { Men001Parameters } from "./types";
 
+const WIRE_STEM = /\bwire\b/i;
+
 function humanizeWireStem(stem: string) {
   return stem
     .replace(
@@ -43,10 +45,6 @@ function humanizeWireStem(stem: string) {
       "A metallic wire is bent into a square frame of side $1. The same wire is then straightened and rebent into a circular frame.",
     )
     .replace(
-      /^A wire rectangle measures ([^.]+?) by ([^.]+?)\. The wire is reshaped into a square\./i,
-      "A metallic wire is bent into a rectangular frame measuring $1 by $2. The same wire is then straightened and rebent into a square frame.",
-    )
-    .replace(
       /^A wire boundary forms a rectangle of length ([^.]+?) and breadth ([^.]+?)\. The same wire is reshaped into a square\./i,
       "A metallic wire is bent into a rectangular frame of length $1 and breadth $2. The same wire is then straightened and rebent into a square frame.",
     )
@@ -79,9 +77,9 @@ function humanizeBareShapeStem(stem: string) {
 
 export function humanizeMen001Stem(
   rawStem: string,
-  parameters: Men001Parameters,
+  _parameters: Men001Parameters,
 ) {
-  const wireAware = /Wire/i.test(parameters.solveMode)
+  const wireAware = WIRE_STEM.test(rawStem)
     ? humanizeWireStem(rawStem)
     : rawStem;
   return humanizeBareShapeStem(wireAware)
