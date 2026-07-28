@@ -59,3 +59,34 @@ jobs:
               --outfile="$OUT/alp-cp-$CP.test.mjs"
             (cd artifacts/api-server && node "$OUT/alp-cp-$CP.test.mjs")
           done
+      - name: Generate multilingual review questions
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Alphabet-Test/ALP-001
+          OUT=dist/reasoning-v1/alp-001
+          REVIEW=alp-001-review
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/export-review.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/export-review.mjs"
+          mkdir -p artifacts/api-server/$REVIEW
+          cd artifacts/api-server
+          node "$OUT/export-review.mjs" en-IN 3 "$REVIEW/alp-001-cp001-cp005-en-IN-review.md"
+          node "$OUT/export-review.mjs" hi-IN 2 "$REVIEW/alp-001-cp001-cp005-hi-IN-review.md"
+          node "$OUT/export-review.mjs" pa-IN 2 "$REVIEW/alp-001-cp001-cp005-pa-IN-review.md"
+          cat > "$REVIEW/README.txt" <<'EOF'
+          ALP-001 review package
+
+          English: 104 QLs x 3 seeds = 312 generated questions
+          Hindi:   104 QLs x 2 seeds = 208 generated questions
+          Punjabi: 104 QLs x 2 seeds = 208 generated questions
+
+          Total: 728 generated questions covering ALP-CP-001 through ALP-CP-005.
+          EOF
+      - name: Upload multilingual review package
+        uses: actions/upload-artifact@v4
+        with:
+          name: alp-001-cp001-cp005-review-questions
+          path: artifacts/api-server/alp-001-review/**
+          if-no-files-found: error
+          retention-days: 14
