@@ -361,11 +361,17 @@ function prismHeightInverseDraft(prototypeId: MenCp007PrototypeId, seed: string,
   };
 }
 
+const SAFE_CUBE_COUNT_ARRANGEMENTS = [
+  [3n, 2n, 2n],
+  [4n, 3n, 2n],
+  [5n, 4n, 3n],
+  [6n, 5n, 4n],
+  [7n, 4n, 5n],
+] as const;
+
 function cubeCountDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: SeededRandom, difficulty: Men002Difficulty): Draft {
   const smallSide = BigInt(rng.int(2, 5));
-  const alongLength = BigInt(rng.int(3, 7));
-  const alongBreadth = BigInt(rng.int(2, 6));
-  const alongHeight = BigInt(rng.int(2, 5));
+  const [alongLength, alongBreadth, alongHeight] = rng.pick(SAFE_CUBE_COUNT_ARRANGEMENTS);
   const length = smallSide * alongLength;
   const breadth = smallSide * alongBreadth;
   const height = smallSide * alongHeight;
