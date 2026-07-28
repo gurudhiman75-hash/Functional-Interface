@@ -1,0 +1,105 @@
+name: Minimize PNL dynamic review diff
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-cp001-question-studio-dynamic-review
+    paths:
+      - ".github/workflows/tmp-pnl-diff-minimize.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  minimize-diff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-cp001-question-studio-dynamic-review
+          fetch-depth: 0
+
+      - name: Restore pre-formatter source versions
+        run: |
+          git checkout f32752ac2d6c491cee323c4c9ab8290f15aa5bca -- \
+            artifacts/api-server/src/quant-v4/generation-engine.ts \
+            artifacts/api-server/src/quant-v4/generation-engine-core.ts \
+            artifacts/api-server/src/routes/generator.ts \
+            artifacts/api-server/src/routes/admin-question-studio.ts \
+            artifacts/api-server/src/lib/admin-question-conversion.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-integration.test.ts
+
+      - name: Normalize only touched blocks
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          engine = Path("artifacts/api-server/src/quant-v4/generation-engine.ts")
+          source = engine.read_text()
+
+          question_start = source.index(
+              '    const questionPackage = pnlRuntimeMode === "DYNAMIC_CANDIDATE"'
+          )
+          question_end = source.index("    results.push({", question_start)
+          question_block = '''    const questionPackage = pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+              ? runPnlCp001DynamicPipeline({
+                  difficultyBand,
+                  language: language as "en",
+                  questionLanguageId: request.questionLanguageId,
+                  seed,
+                })
+              : await pkg.run(cpId, {
+                  difficulty: difficultyBand,
+                  language,
+                  questionLanguageId: request.questionLanguageId,
+                  seed,
+                });
+          '''
+          source = source[:question_start] + question_block + source[question_end:]
+
+          safety_start = source.index("      ...(isPnl\n        ? {")
+          safety_end_marker = "        : {}),"
+          safety_end = source.index(safety_end_marker, safety_start) + len(safety_end_marker)
+          safety_block = '''      ...(isPnl
+                ? {
+                    reviewStatus:
+                      pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+                        ? "UNREVIEWED_DYNAMIC_CANDIDATE"
+                        : "APPROVED_EDITORIAL_CANONICAL",
+                    questionBankStatus: "NOT_STORED",
+                    testEligibility: "INELIGIBLE",
+                    publiclyPublishable: false,
+                  }
+                : {}),'''
+          engine.write_text(source[:safety_start] + safety_block + source[safety_end:])
+
+          admin = Path("artifacts/api-server/src/routes/admin-question-studio.ts")
+          source = admin.read_text()
+          capabilities_start = source.index("      dynamicCandidateCpIds:")
+          field_start = source.index("      publiclyPublishable:", capabilities_start)
+          field_end = source.index("\n    }));", field_start)
+          field_block = '''      publiclyPublishable:
+                typeof (pkg as any).publiclyPublishable === "boolean"
+                  ? (pkg as any).publiclyPublishable
+                  : undefined,'''
+          admin.write_text(source[:field_start] + field_block + source[field_end:])
+          PY
+
+      - name: Remove one-shot workflow
+        run: git rm .github/workflows/tmp-pnl-diff-minimize.yml
+
+      - name: Commit minimized diff
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            artifacts/api-server/src/quant-v4/generation-engine.ts \
+            artifacts/api-server/src/quant-v4/generation-engine-core.ts \
+            artifacts/api-server/src/routes/generator.ts \
+            artifacts/api-server/src/routes/admin-question-studio.ts \
+            artifacts/api-server/src/lib/admin-question-conversion.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-integration.test.ts
+          git diff --cached --stat
+          git commit -m "chore(pnl): minimize dynamic review integration diff"
+          git push origin HEAD:feat/pnl-001-cp001-question-studio-dynamic-review
