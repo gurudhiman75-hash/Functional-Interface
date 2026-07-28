@@ -109,7 +109,7 @@ function withTeacherLabels(
   } as MalCp001FoundationQuestion;
 }
 
-function normaliseTeacherWarning(
+function normaliseTeacherLanguage(
   explanation: MalCp001TeacherExplanation,
 ): MalCp001TeacherExplanation {
   return {
@@ -118,6 +118,10 @@ function normaliseTeacherWarning(
       /^Common trap:\s+([A-Z])/u,
       (_match, firstLetter: string) =>
         `Common trap: ${firstLetter.toLowerCase()}`,
+    ),
+    conclusion: explanation.conclusion.replace(
+      /\b((?:tea\s+)?leaves|beans) costs\b/giu,
+      "$1 cost",
     ),
   };
 }
@@ -165,7 +169,7 @@ export function runMalCp001PermanentPipeline(
     );
   }
 
-  const explanation = normaliseTeacherWarning(
+  const explanation = normaliseTeacherLanguage(
     buildMalCp001TeacherExplanation(
       withTeacherLabels(foundationQuestion, allocation.qlId),
       allocation.qlId,
