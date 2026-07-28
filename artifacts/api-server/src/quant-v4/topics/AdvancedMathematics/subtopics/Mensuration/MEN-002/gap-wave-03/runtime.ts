@@ -474,9 +474,9 @@ function wireFrameCostDraft(prototypeId: MenCp007Wave03PrototypeId, seed: string
     keyRule: "A cuboid has four edges of each dimension, so total wire length is $4(l+b+h)$. Multiply that length by the price per metre.",
     steps: [
       { title: "Find the Total Edge Length", body: "Count four lengths, four breadths and four heights.", equation: `$$E=4(${state.length}+${state.breadth}+${state.height})=${edgeLength}\\text{ m}$$` },
-      { title: "Apply the Wire Rate", body: `Multiply by $\\text{₹}${formatIndianInteger(state.rate)}$ for each metre.`, equation: `$$Cost=${edgeLength}\\times\\text{₹}${state.rate}=\\text{₹}${cost}$$` },
+      { title: "Apply the Wire Rate", body: `Multiply by $\\text{₹}${formatIndianInteger(state.rate)}$ for each metre.`, equation: `$$Cost=${edgeLength}\\times\\text{₹}${formatIndianInteger(state.rate)}=\\text{₹}${formatIndianInteger(cost)}$$` },
     ],
-    shortcut: `Here $4(l+b+h)=${edgeLength}\text{ m}$, so the wire costs $${edgeLength}\times\text{₹}${formatIndianInteger(state.rate)}=\text{₹}${formatIndianInteger(cost)}$.`,
+    shortcut: `Here $4(l+b+h)=${edgeLength}\\text{ m}$, so the wire costs $${edgeLength}\\times\\text{₹}${formatIndianInteger(state.rate)}=\\text{₹}${formatIndianInteger(cost)}$.`,
   };
 }
 
