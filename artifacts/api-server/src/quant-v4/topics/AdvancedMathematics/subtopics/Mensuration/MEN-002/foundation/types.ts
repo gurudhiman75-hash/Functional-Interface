@@ -26,6 +26,7 @@ export type Men002Unit =
   | "m³"
   | "litres"
   | "cubes"
+  | "revolutions"
   | "%"
   | "£"
   | "times";
