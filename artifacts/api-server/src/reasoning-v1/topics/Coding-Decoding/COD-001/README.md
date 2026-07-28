@@ -1,6 +1,6 @@
 # COD-001 — Coding–Decoding
 
-Status: **COD-CP-001 through COD-CP-009 implemented at English runtime-proof maturity; COD-CP-010 remains unimplemented**.
+Status: **COD-CP-001 through COD-CP-009 implemented at English runtime-proof maturity; COD-CP-010 has one executable English discovery prototype and zero permanent QLs**.
 
 Student-facing chapter: **Coding–Decoding**  
 Reasoning V1 package: `COD-001`  
@@ -55,28 +55,42 @@ Permanent inventory:
 
 The checkpoint contains 16 source-backed task contracts and 24 permanent solve contracts across ten topology families. The permanent runtime wraps the frozen constraint solver rather than recreating its logic.
 
-Dedicated proof target:
+## COD-CP-010 discovery state
 
-- 576 permanent-runtime questions;
-- 720-question prototype saturation regression;
-- 30 contract/topology pairings;
-- deterministic identity and provenance;
-- four unique options with one marked answer;
-- Easy, Medium and Hard reach;
-- no Question Studio or public exposure.
+The first source, boundary and merge/split pass retains one non-permanent English prototype contract:
+
+```text
+APPLY_CONDITIONAL_TABLE_FORWARD
+```
+
+It applies a displayed letter/digit lookup table, classifies the first and last source tokens, selects one mutually exclusive condition and applies its override once. Letter versus digit input, vowel/consonant versus odd/even classification, source length and override action are generated-instance properties.
+
+The executable prototype covers:
+
+- letter and digit tables;
+- eight domain/endpoint signatures;
+- constant endpoint replacement;
+- endpoint-code interchange;
+- copying the left or right endpoint code to both endpoints;
+- class-wide vowel replacement by a designated table code;
+- Easy, Medium and Hard instances;
+- 800-question deterministic audit coverage.
+
+Inverse decoding, missing-token recovery, hidden-condition inference and overlapping-condition precedence remain excluded for source gaps. CP-010 currently has zero permanent QLs.
 
 The next available chapter identity is `COD-QL-199`.
 
 ## Remaining chapter sequence
 
-1. design and implement COD-CP-010 through exhaustive discovery;
-2. run chapter-wide English saturation, collision and editorial review;
-3. implement Hindi and Punjabi after English ownership freezes;
-4. connect reviewed content to Question Studio and later publication gates.
+1. close CP-010 executable discovery and freeze only if its prototype audit passes;
+2. allocate the frozen CP-010 contract sequentially from `COD-QL-199`;
+3. run chapter-wide English saturation, collision and editorial review;
+4. implement Hindi and Punjabi after English ownership freezes;
+5. connect reviewed content to Question Studio and later publication gates.
 
 ## Release boundary
 
 - Question Studio visibility remains disabled.
 - No COD-001 QL is publicly publishable yet.
-- Hindi and Punjabi are not started for CP-007 through CP-009.
+- Hindi and Punjabi are not started for CP-007 through CP-010.
 - Mathematical operations, coded inequalities, Input-Output, figure coding and cross-topic coded relations remain outside COD-001.
