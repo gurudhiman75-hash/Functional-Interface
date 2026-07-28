@@ -43,7 +43,7 @@ export const BLR_CP002_PROTOTYPE_CONTRACTS: readonly BlrCp002PrototypeContract[]
     requiredAnswerShape: "RELATION_LABEL",
     requiresListener: false,
     requiresPointedPerson: true,
-    minimumRoleDepth: 3,
+    minimumRoleDepth: 2,
     status: "PROTOTYPE",
     permanentQlId: null,
   },
