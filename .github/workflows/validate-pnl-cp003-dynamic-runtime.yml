@@ -25,7 +25,7 @@ jobs:
         with:
           ref: feat/pnl-001-cp003-dynamic-runtime
 
-      - name: Enforce exact damaged-stock and unique unknown-quantity domains
+      - name: Enforce exact inverse generation domains
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -108,6 +108,53 @@ jobs:
                     targetDirection: target.direction.toLowerCase(),
                     targetRatePercent: cp003FormatRational(target.ratePercent),
                   },
+                };
+              }
+
+              '''
+              source = source[:start] + replacement + source[end:]
+
+          start = source.index('case "PNL-QL-084":')
+          end = source.index('case "PNL-QL-085":', start)
+          current = source[start:end]
+          if "equalRatePercent" not in current:
+              replacement = '''case "PNL-QL-084": {
+                const equalRatePercent = rational(pickSeeded(random, [20, 25] as const));
+                const knownDirection = pickSeeded(random, ["PROFIT", "LOSS"] as const);
+                const unknownDirection = knownDirection === "PROFIT" ? "LOSS" : "PROFIT";
+                const knownRatePercent = equalRatePercent;
+                const unknownRatePercent = equalRatePercent;
+                const forward = solveInventory({
+                  mode: "EQUAL_SP_TWO_ARTICLES_TO_OVERALL_RATE",
+                  commonSellingPrice: rupees(1200),
+                  firstDirection: knownDirection,
+                  firstRatePercent: knownRatePercent,
+                  secondDirection: unknownDirection,
+                  secondRatePercent: unknownRatePercent,
+                });
+                if (forward.direction === "NO_CHANGE") {
+                  throw new Error(`${qlId}: generated equal-SP inverse has no overall direction.`);
+                }
+                return {
+                  qlId,
+                  registry,
+                  seed: seedValue,
+                  request: {
+                    mode: "EQUAL_SP_ONE_RATE_FROM_OVERALL",
+                    knownDirection,
+                    knownRatePercent,
+                    unknownDirection,
+                    targetDirection: forward.direction,
+                    targetRatePercent: forward.ratePercent,
+                  },
+                  context: {
+                    knownDirection: knownDirection.toLowerCase(),
+                    knownRatePercent: cp003FormatRational(knownRatePercent),
+                    unknownDirection: unknownDirection.toLowerCase(),
+                    targetDirection: forward.direction.toLowerCase(),
+                    targetRatePercent: cp003FormatRational(forward.ratePercent),
+                  },
+                  expectedDirection: unknownDirection,
                 };
               }
 
