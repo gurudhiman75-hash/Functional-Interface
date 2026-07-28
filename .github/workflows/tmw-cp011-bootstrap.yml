@@ -17,7 +17,7 @@ permissions:
 
 concurrency:
   group: bootstrap-tmw-cp011-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   materialize:
@@ -46,7 +46,6 @@ jobs:
           cp "$work"/extracted/foundation/cp011-*.ts "$target/foundation/"
           cp "$work"/extracted/tmw-001-cp011*.ts "$target/"
           cp "$work"/extracted/TMW-CP-011-*.md "$target/"
-          cp "$work/extracted/tmw-cp011-runtime-proof.yml" .github/workflows/tmw-cp011-runtime-proof.yml
 
           if ! grep -q 'foundation/cp011-types' "$target/index.ts"; then
             cat >> "$target/index.ts" <<'EXPORTS'
@@ -62,9 +61,8 @@ jobs:
 
           rm -f .github/cp011v2-*
           rm -f .github/cp011-payload-*
-          rm -f .github/workflows/tmw-cp011-bootstrap.yml
 
-      - name: Commit materialised package
+      - name: Commit materialised source package
         shell: bash
         run: |
           set -euo pipefail
