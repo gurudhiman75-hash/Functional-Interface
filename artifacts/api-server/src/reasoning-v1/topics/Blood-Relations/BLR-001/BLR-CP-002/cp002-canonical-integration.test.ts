@@ -13,9 +13,10 @@ let onlyChildRecords = 0;
 let affinalRecords = 0;
 let selfRecords = 0;
 let longChainRecords = 0;
+let threeAnchorRecords = 0;
 
-assert.equal(scenarios.length, 32);
-assert.equal(new Set(scenarios.map((scenario) => scenario.scenarioId)).size, 32);
+assert.equal(scenarios.length, 36);
+assert.equal(new Set(scenarios.map((scenario) => scenario.scenarioId)).size, 36);
 
 for (const scenario of scenarios) {
   for (let seed = 0; seed < 4; seed += 1) {
@@ -88,6 +89,21 @@ for (const scenario of scenarios) {
         ),
       );
     }
+    if (scenario.scenarioId.startsWith("CP002-THREE-ANCHOR-")) {
+      threeAnchorRecords += 1;
+      const listenerId = question.structuredPrompt.listenerId!;
+      const pointedPersonId = question.structuredPrompt.pointedPersonId!;
+      const listenerName = question.structuredPrompt.personNames[listenerId] ?? listenerId;
+      assert.ok(pointedPersonId);
+      assert.ok(question.stem.includes(listenerName));
+      assert.ok(
+        question.stem.includes(`to ${listenerName}`) ||
+          question.stem.includes(`said to ${listenerName}`),
+      );
+      assert.ok(
+        question.explanation.coreConcept.some((line) => line === `your = ${listenerName}`),
+      );
+    }
 
     answerPositions[question.correctIndex] += 1;
     answers.add(question.metadata.answerId);
@@ -96,12 +112,13 @@ for (const scenario of scenarios) {
   }
 }
 
-assert.deepEqual(answerPositions, [32, 32, 32, 32]);
-assert.equal(reviewedScenarioIds.size, 32);
+assert.deepEqual(answerPositions, [36, 36, 36, 36]);
+assert.equal(reviewedScenarioIds.size, 36);
 assert.equal(onlyChildRecords, 12);
-assert.ok(affinalRecords >= 52);
+assert.ok(affinalRecords >= 60);
 assert.ok(selfRecords >= 16);
 assert.equal(longChainRecords, 24);
+assert.equal(threeAnchorRecords, 16);
 assert.deepEqual(
   [...presentations].sort(),
   ["CONVERSATION", "INTRODUCTION", "PHOTOGRAPH", "POINTING", "STAGE"],
@@ -109,6 +126,7 @@ assert.deepEqual(
 for (const answerId of [
   "SELF",
   "FATHER",
+  "SON",
   "DAUGHTER",
   "MOTHER",
   "GRANDSON",
@@ -131,7 +149,7 @@ console.log(
   JSON.stringify(
     {
       checkpointId: "BLR-CP-002",
-      gate: "CANONICAL_SCENARIO_INTEGRATION_V2",
+      gate: "CANONICAL_SCENARIO_INTEGRATION_V3",
       scenarios: scenarios.length,
       questions: scenarios.length * 4,
       answerPositions,
@@ -141,6 +159,7 @@ console.log(
       affinalRecords,
       selfRecords,
       longChainRecords,
+      threeAnchorRecords,
       permanentQlCount: 0,
       provisionalAuthorityCount: 1,
     },
