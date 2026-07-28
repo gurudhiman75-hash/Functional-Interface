@@ -30,6 +30,10 @@ for (const contract of BLR_CP002_PROTOTYPE_CONTRACTS) {
     }
     assert.ok(!question.stem.includes("herself or himself"));
     assert.ok(!question.stem.includes("undefined"));
+    assert.ok(!question.stem.includes(" of me."));
+    assert.ok(!question.stem.includes(" of you."));
+    assert.ok(!question.stem.includes("I is"));
+    assert.ok(!question.stem.includes("You is"));
     assert.ok(!question.explanation.conclusion.includes("herself or himself"));
     assert.ok(!question.explanation.closestTrapRejection?.includes("herself or himself"));
     assert.ok(question.stem.endsWith("?"));
@@ -175,7 +179,7 @@ console.log(
   JSON.stringify(
     {
       checkpointId: "BLR-CP-002",
-      gate: "ENGLISH_EDITORIAL_V4",
+      gate: "ENGLISH_EDITORIAL_V5",
       questions: BLR_CP002_PROTOTYPE_CONTRACTS.length * QUESTIONS_PER_PROTOTYPE,
       answerPositions,
       selfQuestions,
