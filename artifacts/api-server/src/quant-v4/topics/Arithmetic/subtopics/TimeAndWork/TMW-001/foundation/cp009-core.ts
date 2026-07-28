@@ -22,7 +22,8 @@ function lcm(a:number,b:number):number{return Math.abs(a*b)/gcd(a,b);}
 export function integerRatio(values:Rational[]):Rational[]{const denominator=values.reduce((total,value)=>lcm(total,value.denominator),1),ints=values.map(value=>value.numerator*(denominator/value.denominator)),divisor=ints.reduce((total,value)=>gcd(total,value),0);return ints.map(value=>r(value/divisor));}
 export function ratioText(values:Rational[]):string{return integerRatio(values).map(value=>String(Math.abs(value.numerator))).join(" : ");}
 export function key(values:Rational[]):string{return values.map(value=>`${value.numerator}/${value.denominator}`).join("|");}
-export function timeText(value:Rational):string{return `${formatRational(value)} ${equals(value,ONE)?"hour":"hours"}`;}
+function mixedTimeLatex(value:Rational):string{const sign=value.numerator<0?"-":"",absolute=Math.abs(value.numerator),whole=Math.trunc(absolute/value.denominator),remainder=absolute%value.denominator;if(whole===0)return`${sign}\\frac{${absolute}}{${value.denominator}}`;if(remainder===0)return`${sign}${whole}`;return`${sign}${whole}\\frac{${remainder}}{${value.denominator}}`;}
+export function timeText(value:Rational):string{if(value.denominator===1)return`${value.numerator} ${equals(value,ONE)?"hour":"hours"}`;return`\\(${mixedTimeLatex(value)}\\;\\text{hours}\\)`;}
 export function indianInteger(value:Rational):string{if(value.denominator!==1)return formatRational(value);return new Intl.NumberFormat("en-IN",{maximumFractionDigits:0}).format(value.numerator);}
 export function flowUnitText(unit:TmwCp009FlowUnit):string{return unit==="LITRES_PER_MINUTE"?"litres per minute":"litres per hour";}
 export function directionCode(rate:Rational):Rational{return compare(rate,ZERO)>0?r(1):compare(rate,ZERO)<0?r(-1):ZERO;}
