@@ -67,6 +67,7 @@ jobs:
         run: node artifacts/api-server/dist/quant-v4/men-002-cp007-review-export.mjs
 
       - name: Upload MEN-CP-007 proof and review
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: men-002-cp007-prototype-foundation
