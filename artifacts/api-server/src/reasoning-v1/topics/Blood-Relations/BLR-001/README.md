@@ -1,6 +1,6 @@
 # BLR-001 — Blood Relations
 
-Status: **BLR-CP-001 English open discovery active; three executable slices; permanent QL discovery remains open**.
+Status: **BLR-CP-001 English discovery frozen and permanently allocated; later checkpoints remain open**.
 
 Student-facing chapter: **Blood Relations**  
 Reasoning V1 package: `BLR-001`  
@@ -12,68 +12,86 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BL
 2. `../../../REASONING-V1-ARCHITECTURE.md`;
 3. `BLR-001-END-TO-END-DESIGN.md`;
 4. `blr-001-open-ql-discovery.md`;
-5. checkpoint-specific source, merge/split, freeze, implementation and review records.
+5. checkpoint-specific source, merge/split, freeze, implementation and review records;
+6. `BLR-001-MANIFEST-AMENDMENT-CP001.md` for permanent CP-001 identity.
 
-## Current implemented foundation
+## Shared implemented foundation
 
 - typed family graph with parent, spouse and sibling edges;
 - family validity and ancestry-cycle rejection;
 - graph reconstruction from displayed relation clues;
 - inferred sibling closure for children sharing a modelled parent;
-- deterministic seeded names and generation;
-- broad kinship closure including brother-in-law and sister-in-law;
-- generation comparison;
+- deterministic seeded Indian names;
+- broad kinship and in-law closure;
+- generation propagation and comparison;
 - exact paternal/maternal lineage resolution;
+- great-generation relation closure;
 - independent clue-only solvers;
-- misconception-labelled four-option construction.
+- misconception-labelled four-option construction;
+- four-tier learner-facing editorial layer.
 
-## BLR-CP-001 discovery surface
+## Frozen BLR-CP-001 range
 
-Eleven non-permanent exploratory prototypes currently prove:
+```text
+BLR-QL-001  resolve named-person relation
+BLR-QL-002  identify person by relation
+BLR-QL-003  identify person by gender
+BLR-QL-004  identify ordered relation pair
+BLR-QL-005  select relation claim
+BLR-QL-006  compare generations
+BLR-QL-007  resolve exact maternal/paternal relation
+```
 
-- direct, reverse, composed and branching relation-label questions;
-- identify-person and ordered-pair questions;
-- true/false relation-claim questions;
-- generation comparison;
-- identify-person-by-gender questions;
-- exact paternal/maternal grandfather, grandmother, uncle and aunt questions.
+Freeze version: `BLR_CP001_ENGLISH_DISCOVERY_FREEZE_V1`
 
-The first merge/split audit provisionally compresses these into seven solve authorities. This is not a freeze and does not establish a final QL count.
+Eleven exploratory prototypes were compressed into seven permanent solve identities. Direction, depth, topology, claim polarity, target gender, lineage side, relation output, names and difficulty remain instance properties.
 
 ## Current executable gate
 
 ```text
-initial relation-label slice       400 questions
-advanced query-contract slice      500 questions
-gender and exact-lineage slice     240 questions
-------------------------------------------------
-combined current audit           1,140 questions
+mathematical prototype gates            1,140 questions
+machine editorial gate                    440 questions
+human-remediation gate                    440 questions
+second source-gap gate                    512 questions
+permanent runtime gate                  1,024 questions
+-------------------------------------------------------
+current deterministic workflow          3,556 questions
 ```
 
-The workflow validates deterministic reproduction, graph validity, independent-solver agreement, four unique options, one correct answer, balanced answer placement, explanation completeness, relation breadth, claim polarity, generation deltas, inferred-sibling branching, both genders, both lineage sides and all eight exact lineage relations.
+The workflow also enforces the final prototype/authority/ownership/identity freeze and exports exploratory, source-gap and permanent review packs.
 
-## Discovery records
+## Checkpoint state
+
+| Checkpoint | Ownership | State |
+|---|---|---|
+| `BLR-CP-001` | direct declarative named-person relations | frozen; `BLR-QL-001..007` |
+| `BLR-CP-002` | pointer/photo/conversation/nested self-reference | open |
+| `BLR-CP-003` | shared family passages | open |
+| `BLR-CP-004` | counts and family composition | open |
+| `BLR-CP-005` | possible/impossible/one-of-two/indeterminate semantics | open |
+| `BLR-CP-006` | coded relation decoding | open |
+| `BLR-CP-007` | coded construction and validation | open |
+
+The next available chapter identity is `BLR-QL-008`. The final chapter total remains open.
+
+## CP-001 authoritative records
 
 - `BLR-CP-001/BLR-CP-001-SOURCE-SATURATION-AUDIT.md`;
 - `BLR-CP-001/BLR-CP-001-MERGE-SPLIT-AUDIT-V1.md`;
-- `BLR-CP-001/BLR-CP-001-IMPLEMENTATION-REPORT.md`.
+- `BLR-CP-001/BLR-CP-001-HUMAN-AUDIT-REMEDIATION-V2.md`;
+- `BLR-CP-001/BLR-CP-001-SECOND-SOURCE-GAP-AUDIT.md`;
+- `BLR-CP-001/BLR-CP-001-FINAL-DISCOVERY-FREEZE.md`;
+- `BLR-001-MANIFEST-AMENDMENT-CP001.md`.
 
-## Safety boundary
+## Release boundary
 
-- permanent `BLR-QL-*` identities: **0**;
-- English prototype only;
-- no Question Studio visibility;
-- no Question Bank write path;
-- no mock-test eligibility;
-- no public publication.
+CP-001 permanent identity does not enable delivery:
 
-Pointer/photo/conversation relations, shared family passages, counts, uncertainty and coded-relation checkpoints remain unimplemented and retain their provisional CP-002 through CP-007 ownership.
+- English review-only: true;
+- Question Studio: disabled;
+- Question Bank: disabled;
+- mock-test eligibility: disabled;
+- Hindi and Punjabi: not started;
+- public publication: disabled.
 
-## Next boundary
-
-1. run exact-head combined CP-001 CI;
-2. export and review English samples across the seven provisional solve authorities;
-3. perform the second source and gap audit;
-4. freeze CP-001 only if no materially distinct solve contract remains uncovered;
-5. allocate permanent sequential QLs in a guarded later change;
-6. begin CP-002 on the stable shared graph foundation.
+The next implementation boundary is BLR-CP-002 on the stable shared family-graph foundation.
