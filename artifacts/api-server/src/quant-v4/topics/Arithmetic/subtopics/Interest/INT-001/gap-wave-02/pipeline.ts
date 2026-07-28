@@ -1,4 +1,5 @@
 import { rationalKey } from "../foundation/rational";
+import { normaliseIntCp001Wave2Stem } from "./editorial-normalizer";
 import { buildIntCp001Wave2Options } from "./options";
 import { generateIntCp001Wave2Parameters } from "./parameter-generator";
 import { presentIntCp001Wave2 } from "./presentation";
@@ -10,13 +11,6 @@ import type {
 } from "./types";
 import { validateIntCp001Wave2 } from "./validator";
 
-function normaliseQuestionPunctuation(stem: string): string {
-  const trimmed = stem.trim();
-  if (trimmed.endsWith("?")) return trimmed;
-  if (trimmed.endsWith(".")) return `${trimmed.slice(0, -1)}?`;
-  return `${trimmed}?`;
-}
-
 export function generateIntCp001Wave2Prototype(
   prototypeId: IntCp001Wave2PrototypeId,
   seed: string,
@@ -26,7 +20,7 @@ export function generateIntCp001Wave2Prototype(
   const solution = solveIntCp001Wave2(parameters.request);
   const optionPackage = buildIntCp001Wave2Options(parameters, solution);
   const presentation = presentIntCp001Wave2(parameters, solution);
-  const stem = normaliseQuestionPunctuation(presentation.stem);
+  const stem = normaliseIntCp001Wave2Stem(presentation.stem);
   const validation = validateIntCp001Wave2({
     parameters,
     solution,
