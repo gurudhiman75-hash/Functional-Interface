@@ -1,2 +1,2 @@
-export const INT_CP001_EDITORIAL_RELEASE_ID = "INT-CP-001-EN-v2" as const;
-export const INT_CP001_EDITORIAL_STANDARD = "FOUR_TIER_GOLD_V2" as const;
+export const INT_CP001_EDITORIAL_RELEASE_ID = "INT-CP-001-EN-v3" as const;
+export const INT_CP001_EDITORIAL_STANDARD = "FOUR_TIER_GOLD_V3" as const;
