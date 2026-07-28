@@ -58,6 +58,25 @@ Following the 9.5/10 editorial audit, the learner package was revised without ch
 
 Permanent runtime and corpus guards enforce teacher voice, expanded working, direct trap advice, valid MathJax and absence of the removed jargon.
 
+## Final exact-head validation
+
+Final head: `9aeeefd94114674d084ab2c7bc6f300a885383e3`  
+Dedicated workflow: `30380452252` — PASS  
+Evidence artefact: `8696748347`  
+Digest: `sha256:6ccc438e7c4a8f382eee19e37d881297d4942a9ec491df4041447626226ee431`
+
+- 950 deterministic runtime cases — PASS;
+- 228 teacher-language structural/editorial cases — PASS;
+- 57 exact-head review rows — PASS;
+- teacher-voice passes: 228 / 228;
+- direct friendly-trap passes: 228 / 228;
+- expanded-working passes: 228 / 228;
+- MathJax fractional-time occurrences: 60;
+- mathematical fingerprint changes from the previously reviewed corpus: 0;
+- option changes: 0;
+- correct-answer/index changes: 0;
+- all available same-head TMW regressions from CP-001 through CP-011 — PASS.
+
 ## Current gate
 
-All temporary staging and patch workflows have been removed. A fresh exact-head GitHub Actions run, hosted-artifact inspection and user review are required before merge. Question Studio routing, Question Bank writes, localisation, test assembly and public delivery remain disabled.
+All temporary staging and patch workflows have been removed. Question Studio routing, Question Bank writes, localisation, test assembly and public delivery remain disabled. PR #302 remains draft and unmerged pending user review and approval of the simplified 57-question pack.
