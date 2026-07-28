@@ -31,5 +31,10 @@ export function finaliseIntCp001HumanisedStem(
   );
   if (contextualClause !== initial) return contextualClause;
 
-  return initial.replace(/^A sum becomes /u, `${context} becomes `);
+  return initial
+    .replace(/^Under simple interest, a sum\b/u, `Under simple interest, ${context}`)
+    .replace(/^The amounts of one sum\b/u, `The amounts of ${context}`)
+    .replace(/^A sum\b/u, context)
+    .replace(/^A principal\b/u, context)
+    .replace(/^An investment\b/u, context);
 }
