@@ -17,8 +17,21 @@ export function shuffleOptions(
 ): { rows: NumCp003RetainedOptionAudit[]; correctIndex: number } {
   const unique = new Map<string, NumCp003RetainedOptionAudit>();
   for (const candidate of candidates) if (!unique.has(candidate.text)) unique.set(candidate.text, candidate);
-  if (![4, 5].includes(unique.size)) throw new Error(`Expected four or five unique options, received ${unique.size}`);
-  const rows = random.shuffle([...unique.values()]);
+
+  const values = [...unique.values()];
+  const isFiveClassDataSufficiency = values.length === 5
+    && values.filter((row) => row.misconceptionId === "CORRECT").length === 1
+    && values.filter((row) => row.misconceptionId !== "CORRECT").every((row) => row.misconceptionId.startsWith("MISCLASSIFIED_"));
+  const expectedCount = isFiveClassDataSufficiency ? 5 : 4;
+  if (values.length < expectedCount) {
+    throw new Error(`Expected at least ${expectedCount} unique options, received ${values.length}`);
+  }
+
+  const selected = values.slice(0, expectedCount);
+  if (selected.filter((row) => row.misconceptionId === "CORRECT").length !== 1) {
+    throw new Error("Option normalisation must retain exactly one correct row");
+  }
+  const rows = random.shuffle(selected);
   const correctIndex = rows.findIndex((row) => row.misconceptionId === "CORRECT");
   if (correctIndex < 0) throw new Error("Correct option missing");
   return { rows, correctIndex };
