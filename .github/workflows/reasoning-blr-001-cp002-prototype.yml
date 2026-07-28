@@ -10,7 +10,7 @@ on:
 jobs:
   cp002-role-chain-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 40
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -40,18 +40,24 @@ jobs:
           cat cp002-audit.log
           exit 1
 
-      - name: Run CP-002 affinal source-widening gate
+      - name: Run CP-002 affinal and only-child widening gate
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-source-widening.test.ts
 
       - name: Run CP-002 English editorial gate
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-editorial-review.test.ts
 
+      - name: Prove every canonical CP-002 scenario
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-canonical-integration.test.ts
+
       - name: Export remediated CP-002 English review pack
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/export-cp002-review-v2.ts blr-cp002-review-output
+
+      - name: Export exhaustive CP-002 canonical appendix
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/export-cp002-canonical-review.ts blr-cp002-review-output
 
       - name: Upload CP-002 English review pack
         uses: actions/upload-artifact@v4
         with:
-          name: blr-001-cp002-english-open-discovery-v2
+          name: blr-001-cp002-english-open-discovery-v3
           path: blr-cp002-review-output
           retention-days: 14
