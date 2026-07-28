@@ -2,8 +2,8 @@ import { INT_CP001_FINAL_REGISTRY } from "./cp001-final-registry";
 import { generateIntCp001FinalEditorialV3Question } from "./cp001-final-editorial-runtime-v3";
 import {
   assertIntCp001LocaleParity,
-  generateIntCp001FinalLocalizedQuestion,
-} from "./cp001-localized-runtime-final";
+  generateIntCp001ReleaseLocalizedQuestion,
+} from "./cp001-localized-runtime-release";
 import {
   INT_CP001_HINDI_RELEASE_ID,
   INT_CP001_MULTILINGUAL_STANDARD,
@@ -43,8 +43,8 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
     if (!english.validation.ok) fail(`${entry.qlId}/${seed}/en: ${english.validation.errors.join(" | ")}`);
 
     for (const locale of locales) {
-      const item = generateIntCp001FinalLocalizedQuestion(entry.qlId, seed, locale);
-      const repeat = generateIntCp001FinalLocalizedQuestion(entry.qlId, seed, locale);
+      const item = generateIntCp001ReleaseLocalizedQuestion(entry.qlId, seed, locale);
+      const repeat = generateIntCp001ReleaseLocalizedQuestion(entry.qlId, seed, locale);
       const localeStats = stats[locale];
 
       if (stableBigIntJson(item) !== stableBigIntJson(repeat)) fail(`${entry.qlId}/${seed}/${locale} is not deterministic.`);
@@ -59,6 +59,9 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
       if (item.optionAudit[item.correctIndex]?.misconceptionId !== "CORRECT") fail(`${entry.qlId}/${seed}/${locale} lost correct-index parity.`);
       if (item.optionAudit[item.correctIndex]?.text !== item.options[item.correctIndex]) fail(`${entry.qlId}/${seed}/${locale} option audit is out of display order.`);
       if (item.explanation.trapAnalysis.items.length !== 3) fail(`${entry.qlId}/${seed}/${locale} lacks three trap explanations.`);
+      if (new Set(item.explanation.trapAnalysis.items.map((trap) => trap.explanation)).size !== 3) {
+        fail(`${entry.qlId}/${seed}/${locale} has repeated distractor explanations.`);
+      }
       for (const trap of item.explanation.trapAnalysis.items) {
         trapChecks += 1;
         if (trap.optionNumber - 1 === item.correctIndex) fail(`${entry.qlId}/${seed}/${locale} analyses the correct option as a trap.`);
@@ -67,6 +70,9 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
       }
       if (!item.explanation.stepByStep.conclusion.includes(item.options[item.correctIndex]!)) {
         fail(`${entry.qlId}/${seed}/${locale} conclusion omits the displayed answer.`);
+      }
+      if (/%%|%\\%/u.test([item.stem, ...item.options, ...item.explanation.stepByStep.steps].join(" "))) {
+        fail(`${entry.qlId}/${seed}/${locale} contains malformed percentage notation.`);
       }
       if (item.reviewStatus !== "PENDING_MULTILINGUAL_REVIEW" || item.localeReviewStatus !== "PENDING_HUMAN_REVIEW") {
         fail(`${entry.qlId}/${seed}/${locale} has unsafe review status.`);
