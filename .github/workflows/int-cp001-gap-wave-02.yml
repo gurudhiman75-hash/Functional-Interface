@@ -1,0 +1,80 @@
+name: Validate INT-CP-001 gap wave 02
+
+on:
+  pull_request:
+    branches:
+      - feat/int-001-cp001-prototype-foundation
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/gap-wave-02/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-gap-wave-02*
+      - .github/workflows/int-cp001-gap-wave-02.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-int-cp001-gap-wave-02-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-int-cp001-gap-wave-02:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle gap wave 02 deterministic proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-gap-wave-02.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-gap-wave-02.test.mjs
+      - name: Run gap wave 02 deterministic proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/int-001-cp001-gap-wave-02.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-gap-wave-02-proof.log
+      - name: Bundle gap wave 02 structural audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-gap-wave-02-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-gap-wave-02-audit.mjs
+      - name: Run gap wave 02 structural audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/int-001-cp001-gap-wave-02-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-gap-wave-02-audit.log
+      - name: Bundle gap wave 02 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-gap-wave-02-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-gap-wave-02-review-export.mjs
+      - name: Generate gap wave 02 review pack
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/int-001-cp001-gap-wave-02-review-export.mjs
+      - name: Upload gap wave 02 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp001-gap-wave-02
+          path: |
+            artifacts/api-server/dist/quant-v4/int-001-cp001-gap-wave-02-proof.log
+            artifacts/api-server/dist/quant-v4/int-001-cp001-gap-wave-02-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp001-gap-wave-02-review.json
+            artifacts/api-server/dist/quant-v4/int-001-cp001-gap-wave-02-review.md
+          if-no-files-found: error
+          retention-days: 7
