@@ -1,0 +1,104 @@
+name: Reasoning BLR-001 CP-002 Runtime
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
+      - ".github/workflows/reasoning-blr-001-cp002-prototype.yml"
+  workflow_dispatch:
+
+jobs:
+  cp002-role-chain-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run pointer, photograph and conversation audit
+        id: cp002_audit
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-prototype.test.ts > cp002-audit.log 2>&1
+
+      - name: Upload CP-002 audit diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp002-audit-log
+          path: cp002-audit.log
+          if-no-files-found: error
+          retention-days: 3
+
+      - name: Enforce CP-002 audit result
+        if: steps.cp002_audit.outcome == 'failure'
+        run: |
+          cat cp002-audit.log
+          exit 1
+
+      - name: Run CP-002 affinal and only-child widening gate
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-source-widening.test.ts
+
+      - name: Run CP-002 English editorial gate
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-editorial-review.test.ts
+
+      - name: Run CP-002 three-anchor introduction gate
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-three-anchor.test.ts
+
+      - name: Run CP-002 both-derived query endpoint gate
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-both-derived-query.test.ts
+
+      - name: Run CP-002 negative sibling constraint gate
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-negative-sibling.test.ts
+
+      - name: Run CP-002 photograph ownership renderer gate
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-ownership-question.test.ts
+
+      - name: Run CP-002 focused four-step role-chain gate
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-long-chain.test.ts
+
+      - name: Prove every canonical CP-002 scenario
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-canonical-integration.test.ts
+
+      - name: Enforce CP-002 final discovery freeze
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-final-discovery-freeze.test.ts
+
+      - name: Prove permanent BLR-QL-008 runtime
+        id: cp002_permanent_runtime
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-runtime.test.ts > cp002-permanent-runtime.log 2>&1
+
+      - name: Upload permanent runtime diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp002-permanent-runtime-log
+          path: cp002-permanent-runtime.log
+          if-no-files-found: error
+          retention-days: 3
+
+      - name: Enforce permanent runtime result
+        if: steps.cp002_permanent_runtime.outcome == 'failure'
+        run: |
+          cat cp002-permanent-runtime.log
+          exit 1
+
+      - name: Export approved CP-002 English review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/export-cp002-review-v2.ts blr-cp002-frozen-output
+
+      - name: Export exhaustive CP-002 canonical appendix
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/export-cp002-canonical-review.ts blr-cp002-frozen-output
+
+      - name: Export permanent BLR-QL-008 review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/export-cp002-permanent-review.ts blr-cp002-frozen-output
+
+      - name: Upload frozen CP-002 English package
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp002-english-frozen-v1
+          path: blr-cp002-frozen-output
+          retention-days: 14

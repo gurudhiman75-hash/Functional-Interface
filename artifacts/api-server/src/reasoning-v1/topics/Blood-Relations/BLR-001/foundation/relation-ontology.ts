@@ -1,11 +1,12 @@
 import type {
   BlrGender,
   BlrRelationId,
+  BlrRoleId,
   DirectRelationId,
   PrimitivePathStep,
 } from "./types";
 
-const DISPLAY_LABELS: Readonly<Record<BlrRelationId, string>> = {
+const DISPLAY_LABELS: Readonly<Record<BlrRoleId, string>> = {
   FATHER: "Father",
   MOTHER: "Mother",
   SON: "Son",
@@ -33,6 +34,10 @@ const DISPLAY_LABELS: Readonly<Record<BlrRelationId, string>> = {
   DAUGHTER_IN_LAW: "Daughter-in-law",
   BROTHER_IN_LAW: "Brother-in-law",
   SISTER_IN_LAW: "Sister-in-law",
+  PARENT: "Parent",
+  CHILD: "Child",
+  SIBLING: "Sibling",
+  SPOUSE: "Spouse",
 };
 
 const DIRECT_SUBJECT_GENDER: Readonly<Record<DirectRelationId, "MALE" | "FEMALE">> = {
@@ -46,7 +51,7 @@ const DIRECT_SUBJECT_GENDER: Readonly<Record<DirectRelationId, "MALE" | "FEMALE"
   WIFE: "FEMALE",
 };
 
-export function relationLabel(relationId: BlrRelationId): string {
+export function relationLabel(relationId: BlrRoleId): string {
   return DISPLAY_LABELS[relationId];
 }
 
@@ -72,8 +77,12 @@ export function relationForPath(
   if (key === "PARENT>PARENT>PARENT") {
     return subjectGender === "MALE" ? "GREAT_GRANDSON" : "GREAT_GRANDDAUGHTER";
   }
-  if (key === "SIBLING>CHILD") return subjectGender === "MALE" ? "UNCLE" : "AUNT";
-  if (key === "PARENT>SIBLING") return subjectGender === "MALE" ? "NEPHEW" : "NIECE";
+  if (key === "SIBLING>CHILD" || key === "SPOUSE>SIBLING>CHILD") {
+    return subjectGender === "MALE" ? "UNCLE" : "AUNT";
+  }
+  if (key === "PARENT>SIBLING" || key === "PARENT>SIBLING>SPOUSE") {
+    return subjectGender === "MALE" ? "NEPHEW" : "NIECE";
+  }
   if (key === "PARENT>SIBLING>CHILD") return "COUSIN";
   if (key === "CHILD>SPOUSE") return subjectGender === "MALE" ? "FATHER_IN_LAW" : "MOTHER_IN_LAW";
   if (key === "SPOUSE>PARENT") return subjectGender === "MALE" ? "SON_IN_LAW" : "DAUGHTER_IN_LAW";
