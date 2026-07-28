@@ -1,6 +1,6 @@
 # BLR-CP-001 — Direct Named-Person Relations
 
-Status: **three English executable discovery slices; source and merge/split audits active; no permanent QLs**.
+Status: **three English executable discovery slices; machine editorial gate passed; human review pending; no permanent QLs**.
 
 ## Implemented prototype coverage
 
@@ -63,14 +63,28 @@ The shared runtime includes:
 Repository CI runs:
 
 ```text
-prototype.test.ts           4 contracts × 100 seeds = 400 questions
-advanced-prototype.test.ts  5 contracts × 100 seeds = 500 questions
-lineage-prototype.test.ts   2 contracts × 120 seeds = 240 questions
--------------------------------------------------------------------
-combined current gate                                  1,140 questions
+prototype.test.ts                4 contracts × 100 seeds = 400 questions
+advanced-prototype.test.ts       5 contracts × 100 seeds = 500 questions
+lineage-prototype.test.ts        2 contracts × 120 seeds = 240 questions
+cp001-editorial-review.test.ts  11 contracts ×  40 seeds = 440 questions
+------------------------------------------------------------------------
+current workflow generation                               1,580 questions
 ```
 
-The gate checks determinism, family validity, independent-solver agreement, four unique options, exactly one correct answer, answer-position balance, explanation completeness, broad relation coverage, true/false claim modes, generation deltas from -2 through +2, inferred-sibling branching, both genders, both lineage sides and all eight exact lineage relations.
+The mathematical gates check determinism, family validity, independent-solver agreement, four unique options, exactly one correct answer, answer-position balance, relation breadth, claim polarity, generation deltas from -2 through +2, inferred-sibling branching, both genders, both lineage sides and all eight exact lineage relations.
+
+The editorial gate additionally checks all seven provisional authorities, six answer shapes, learner-text cleanliness, explanation completeness, wrong-option labels, balanced answer positions and stem diversity.
+
+## English review pack
+
+The workflow exports 88 balanced review records:
+
+```text
+11 prototypes × 8 seeds
+answer positions: 22 / 22 / 22 / 22
+```
+
+It produces HTML, CSV, JSONL and summary JSON artifacts with full learner text, options, error labels, normalised clues, query trace and runtime metadata.
 
 ## Discovery records
 
@@ -78,12 +92,13 @@ Read next:
 
 1. `BLR-CP-001-SOURCE-SATURATION-AUDIT.md`;
 2. `BLR-CP-001-MERGE-SPLIT-AUDIT-V1.md`;
-3. `BLR-CP-001-IMPLEMENTATION-REPORT.md`.
+3. `BLR-CP-001-IMPLEMENTATION-REPORT.md`;
+4. `BLR-CP-001-ENGLISH-EDITORIAL-READINESS.md`.
 
 ## Remaining freeze blockers
 
-- exact-head combined CI;
-- generated English editorial review across all seven provisional authorities;
+- human review of the 88-record English pack;
+- any required wording or distractor remediation;
 - a second source and gap pass after editorial review;
 - final freeze record and guarded sequential QL allocation.
 
