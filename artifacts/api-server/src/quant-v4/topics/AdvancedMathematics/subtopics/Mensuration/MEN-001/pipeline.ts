@@ -4,6 +4,7 @@ import { getMen001QuestionEntry, renderMen001Template } from "./library";
 import { generateMen001Parameters, type Men001ParameterInput } from "./parameter-generator";
 import { buildMen001ReasoningGraph } from "./reasoning-graph";
 import { solveMen001 } from "./solver";
+import { humanizeMen001Stem } from "./stem-authenticity";
 import {
   MEN_001_PACKAGE_ID,
   type Men001ActiveCanonicalProblemId,
@@ -17,7 +18,8 @@ export function runMen001Pipeline(
 ): Men001QuestionPackage {
   const parameters = generateMen001Parameters(cpId, input);
   const entry = getMen001QuestionEntry(parameters.questionLanguageId);
-  const stem = renderMen001Template(entry.template, parameters.renderVariables);
+  const rawStem = renderMen001Template(entry.template, parameters.renderVariables);
+  const stem = humanizeMen001Stem(rawStem, parameters);
   const solver = solveMen001(parameters);
   const reasoningGraph = buildMen001ReasoningGraph(parameters, solver);
   const optionResult = buildMen001Options(entry, parameters, solver);
