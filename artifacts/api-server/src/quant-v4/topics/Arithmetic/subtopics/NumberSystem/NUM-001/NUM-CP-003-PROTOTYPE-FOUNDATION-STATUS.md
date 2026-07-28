@@ -6,7 +6,9 @@ Wave 1 temporary prototypes:   6
 Wave 2 temporary prototypes:   9
 Wave 3 temporary prototypes:   9
 Wave 4 temporary prototypes:   8
-Current temporary total:       32
+Wave 5 temporary prototypes:   6
+Current temporary total:       38
+Provisional learner templates: 22
 Permanent QLs:                 0
 Frozen solve modes:            0
 English runtime:               executable discovery candidate
@@ -76,12 +78,11 @@ Wave 4 covers:
 - guaranteed divisors of repeated blocks;
 - guaranteed divisors of odd power sums.
 
-Exact workflow proof on head `bd2e478892568efc377737f1dd95e6984067ff37`:
-
 ```text
 Workflow:  Validate NUM-CP-003 gap wave 04
 Run:       30377123485
 Result:    PASS
+Head:      bd2e478892568efc377737f1dd95e6984067ff37
 
 Wave 1 regression:            PASS
 Wave 2 regression:            PASS
@@ -89,52 +90,78 @@ Wave 3 regression:            PASS
 Wave 4 deterministic proof:   8 × 100 = 800 packages
 Wave 4 structural audit:      8 × 60  = 480 packages
 Wave 4 review export:         8 × 3   = 24 questions
-Render production build:      PASS — run 30377123585
-Integrated admin panel:       PASS — run 30377123875
+Artifact ID:                  8695406912
+Digest: sha256:e337f2995967c98ff0941e25a913e94fea1dc0d5d49bcb49eab1ceffea6baf14
 ```
 
-Observed Wave 4 coverage:
+## Wave 5 — source-backed legacy outputs and genuine linked divisibility
+
+Wave 5 closes the uploaded-source and Quant V3 answer-contract gaps:
+
+- largest valid digit;
+- smallest valid digit;
+- sum of all valid digits;
+- greatest valid completed number;
+- smallest valid completed number;
+- linked addition/divisibility with a genuine largest-or-smallest target.
+
+The linked hybrid proves that arithmetic alone leaves multiple `(A, B)` pairs and divisibility materially reduces the set before the extremum is chosen.
 
 ```text
-Answer positions:          all four for every temporary contract
-Difficulties:              Easy, Medium, Hard
-Answer semantics:          6
-Primitive rule identities: 8
-Pair-solution classes:     no solution, unique, multiple
-Hidden-state topologies:   7
-Misconception labels:      24 including CORRECT
-Permanent QLs:             0
+Workflow:  Validate NUM-CP-003 gap wave 05
+Run:       30379776771
+Result:    PASS
+Head:      fd68556673debae4a751d60a904afc24f4c72cb5
+
+Wave 1 regression:            PASS
+Wave 2 regression:            PASS
+Wave 3 regression:            PASS
+Wave 4 regression:            PASS
+Wave 5 deterministic proof:   6 × 100 = 600 packages
+Wave 5 structural audit:      6 × 60  = 360 packages
+Wave 5 review export:         6 × 3   = 18 questions
+Artifact ID:                  8696481084
+Digest: sha256:9875d8c50aa6685b998b9c251bbb5c457b656488ba9c8240cc5229b10f6ab260
 ```
 
-Evidence artifact:
+The hosted 18-question pack was manually inspected. It has exact answer/verifier parity, all lifecycle locks, complete option diagnostics and no control-character or placeholder leakage. Arithmetic-compatible linked states contain 6–9 pairs and divisibility reduces them to 2–3 valid pairs in the reviewed examples.
+
+## Adversarial disposition
+
+Three earlier arithmetic-result prototypes are mathematically valid but rejected as CP-003 authorities because arithmetic alone fixes the digit:
 
 ```text
-Artifact ID: 8695406912
-Digest:      sha256:e337f2995967c98ff0941e25a913e94fea1dc0d5d49bcb49eab1ceffea6baf14
+NUM-CP003-W2-PROT-MISSING-DIGIT-IN-SUM
+NUM-CP003-W3-PROT-MISSING-DIGIT-IN-DIFFERENCE
+NUM-CP003-W3-PROT-MISSING-DIGIT-IN-PRODUCT
 ```
 
-The hosted 24-question Wave 4 corpus was manually inspected. Rule mappings, ordered-pair sets, sufficiency classes, inclusion–exclusion counts and algebraic divisibility identities are exact. The pack has four unique options, value-specific diagnostics, no temporary-ID/control-character leakage and complete lifecycle locks.
+The retained-contract audit also:
+
+- refers repunit length and modular-power divisibility to `NUM-CP-008`;
+- holds five multi-divisor range contracts for CP-003/CP-006/set-counting ownership;
+- holds three algebraic/modular identity contracts for CP-003/CP-008/Algebra ownership;
+- merges leading-digit, optional-pair-relation and data-sufficiency duplicate contracts.
 
 ## Aggregate exact proof currently on record
 
 ```text
-Deterministic mathematical packages:  720 + 900 + 900 + 800 = 3,320
-Structural/editorial packages:         480 + 540 + 540 + 480 = 2,040
-English review questions:              18 + 27 + 27 + 24 = 96
-Temporary executable contracts:        32
+Deterministic mathematical packages:  720 + 900 + 900 + 800 + 600 = 3,920
+Structural/editorial packages:         480 + 540 + 540 + 480 + 360 = 2,400
+English review questions:              18 + 27 + 27 + 24 + 18 = 114
+Temporary executable contracts:        38
+Provisional learner templates:         22
 Permanent QLs:                          0
 ```
 
-## Current safety and maturity boundary
+## Current proposal
 
 ```text
-Temporary executable contracts: 32
-Permanent QLs:                   0
-Frozen solve modes:              0
-Question Studio exposure:        0
-Question Bank records:           0
-Test-eligible questions:         0
-Public questions:                0
+Numerical solve authorities:       7
+Numerical/task templates:         20
+Representation templates:         2
+Provisional learner templates:    22
+Permanent QLs:                     0
 ```
 
-All principal designed task directions now have executable evidence. The remaining gates are source saturation, legacy disposition, cross-CP ownership and checkpoint-wide merge/split analysis. No permanent allocation is authorised yet.
+The source-saturation, Quant V2/V3 disposition, table/caselet and combined English-review gates are closed. The 22-template proposal awaits boundary approval. No permanent ID allocation, Question Studio exposure, localisation production or publishing is authorised.
