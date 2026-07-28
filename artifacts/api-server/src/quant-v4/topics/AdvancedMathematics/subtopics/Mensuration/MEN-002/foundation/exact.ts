@@ -137,11 +137,22 @@ export function formatExactPlain(value: ExactValue) {
   return `${formatRationalPlain(coefficient)}√${value.radicand}`;
 }
 
+function formatUnitMath(unit: Men002Unit) {
+  switch (unit) {
+    case "cm²": return "\\text{ cm}^{2}";
+    case "m²": return "\\text{ m}^{2}";
+    case "cm³": return "\\text{ cm}^{3}";
+    case "m³": return "\\text{ m}^{3}";
+    case "%": return "\\%";
+    case "£": return "\\text{£}";
+    default: return `\\text{ ${unit}}`;
+  }
+}
+
 export function formatWithUnit(value: ExactValue, unit: Men002Unit) {
   const maths = formatExactMath(value);
-  if (unit === "£") return `$\\text{£}${maths}$`;
-  const unitMath = unit === "%" ? "\\%" : `\\text{ ${unit}}`;
-  return `$${maths}${unitMath}$`;
+  if (unit === "£") return `$${formatUnitMath(unit)}${maths}$`;
+  return `$${maths}${formatUnitMath(unit)}$`;
 }
 
 export function integerCubeRoot(value: bigint) {
