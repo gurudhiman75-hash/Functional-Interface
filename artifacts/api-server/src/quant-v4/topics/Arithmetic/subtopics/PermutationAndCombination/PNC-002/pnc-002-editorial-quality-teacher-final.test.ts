@@ -284,6 +284,19 @@ assert.ok((ql269Combine.match(/\\times/g) ?? []).length >= 2, "PNC-QL-269: all t
 assert.ok(ql269Combine.includes(`= ${ql269.answer}`), "PNC-QL-269: combined arithmetic must reach the generated answer");
 assert.doesNotMatch(ql269Steps, /10316/);
 
+for (const qlId of ["PNC-QL-247", "PNC-QL-248", "PNC-QL-249"]) {
+  const row = byQl.get(qlId);
+  assert.ok(row);
+  assert.equal(row.optionUnit, "arrangements");
+  assert.ok(row.displayOptions.every((option) => option.endsWith(" arrangements")));
+  assert.ok(row.answerLabel.endsWith(" arrangements"));
+}
+assert.doesNotMatch(combined("PNC-QL-247", "commonTrapWarning"), /whole-group symmetry|interchangeable groups/i);
+assert.doesNotMatch(combined("PNC-QL-248", "commonTrapWarning"), /whole-group symmetry|interchangeable groups/i);
+for (const row of output) {
+  assert.doesNotMatch(row.coreConcept.join(" "), /This people|This books|This group formation|In this people|In this books|In this files/i);
+}
+
 const normalizedStems = new Map<string, string[]>();
 for (const row of output) {
   const normalized = row.upgradedStem.toLowerCase().replace(/\d[\d,]*/g, "{value}").replace(/\s+/g, " ").trim();

@@ -268,14 +268,59 @@ function finalTrapSection(section: PncStudentExplanationSection): PncStudentExpl
   };
 }
 
+function naturalCoreLine(value: string): string {
+  return value
+    .replace(/This people in an arrangement question/gi, "This arrangement question")
+    .replace(/This books on a shelf question/gi, "This shelf-arrangement question")
+    .replace(/This group formation question/gi, "This grouping question")
+    .replace(/In this people in an arrangement question/gi, "In this arrangement question")
+    .replace(/In this books on a shelf question/gi, "In this shelf-arrangement question")
+    .replace(/In this files in a row question/gi, "In this file-arrangement question");
+}
+
+function optionNumber(value: string): number | undefined {
+  const match = value.match(/([\d,]+)/);
+  if (!match) return undefined;
+  const number = Number(match[1].replace(/,/g, ""));
+  return Number.isSafeInteger(number) ? number : undefined;
+}
+
+function polishTrap(source: PncStudentSourcePackage, line: string, unit: string): string {
+  let polished = line.replace(/\(([^)]*?) (?:groupings|selections)\)/, (_match, value: string) => `(${value} ${unit})`);
+  if ((source.questionLanguageId === "PNC-QL-247" || source.questionLanguageId === "PNC-QL-248") && /whole-group symmetry|interchangeable groups/i.test(polished)) {
+    polished = polished.replace(/This happens when you .*?\.$/, "This happens when you use the wrong eligible pool or arrangement factor after applying the two-person condition.");
+  }
+  if (/nearby arithmetic distractor/i.test(polished)) {
+    const option = optionNumber(polished);
+    const correct = source.solver.numericAnswer;
+    if (option !== undefined && Math.abs(option - correct) === 1) {
+      const direction = option < correct ? "one less" : "one more";
+      polished = polished.replace(/This option is a nearby arithmetic distractor and does not equal the condition-aware result\./i, `This is ${direction} than the correct total, so recheck the final arithmetic.`);
+    } else {
+      polished = polished.replace(/This option is a nearby arithmetic distractor and does not equal the condition-aware result\./i, "This comes from a small arithmetic slip in the final calculation.");
+    }
+  }
+  return polished;
+}
+
 export function buildPnc002FinalTeacherStudentPresentation(source: PncStudentSourcePackage): PncStudentPresentation {
   const reviewed = buildPnc002ReviewedTeacherStudentPresentation(source);
-  return {
-    ...reviewed,
-    explanationSections: reviewed.explanationSections.map((section) => {
-      if (section.kind === "stepByStep") return finalStepSection(source, section);
-      if (section.kind === "commonTrapWarning") return finalTrapSection(section);
-      return section;
-    }),
-  };
+  const initialSections = reviewed.explanationSections.map((section) => {
+    if (section.kind === "stepByStep") return finalStepSection(source, section);
+    if (section.kind === "commonTrapWarning") return finalTrapSection(section);
+    return section;
+  });
+  const arrangementUnit = ["PNC-QL-247", "PNC-QL-248", "PNC-QL-249"].includes(source.questionLanguageId);
+  const optionUnit = arrangementUnit ? "arrangements" : reviewed.optionUnit;
+  const displayOptions = arrangementUnit
+    ? reviewed.displayOptions.map((option) => option.replace(/ (?:groupings|selections)$/, " arrangements"))
+    : [...reviewed.displayOptions];
+  const answerLabel = displayOptions[reviewed.correctIndex]!;
+  const explanationSections = initialSections.map((section) => {
+    if (section.kind === "coreConcept") return { ...section, lines: section.lines.map(naturalCoreLine) };
+    if (section.kind === "stepByStep") return { ...section, lines: section.lines.map((line) => line.replace(reviewed.answerLabel, answerLabel)) };
+    if (section.kind === "commonTrapWarning") return { ...section, lines: section.lines.map((line) => polishTrap(source, line, optionUnit)) };
+    return section;
+  });
+  return { ...reviewed, optionUnit, displayOptions, answerLabel, explanationSections };
 }
