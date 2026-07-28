@@ -38,12 +38,12 @@ jobs:
         run: corepack enable
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
-      - name: Prepare polished localization proof
+      - name: Prepare release localization proof
         shell: bash
         run: |
           source="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007.test.ts"
-          polished="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-polished-review.test.ts"
-          sed 's#"./foundation/localization-cp007"#"./foundation/localization-cp007-polished"#' "$source" > "$polished"
+          release="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-release-review.test.ts"
+          sed 's#"./foundation/localization-cp007"#"./foundation/localization-cp007-release"#' "$source" > "$release"
       - name: Strict TypeScript check
         working-directory: artifacts/api-server
         shell: bash
@@ -70,15 +70,17 @@ jobs:
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-cp007.ts \
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-cp007-reviewed.ts \
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-cp007-polished.ts \
-            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-polished-review.test.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-cp007-release.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-release-review.test.ts \
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-polish.test.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-release.test.ts \
             2>&1 | tee dist/quant-v4/pnc-002-localization-diagnostics/tsc.log
           status=${PIPESTATUS[0]}
           exit "$status"
       - name: Bundle localization review proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-polished-review.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-release-review.test.ts
           --bundle
           --platform=node
           --format=esm
@@ -91,6 +93,14 @@ jobs:
           --platform=node
           --format=esm
           --outfile=dist/quant-v4/pnc-002-localization-cp007-polish-proof.mjs
+      - name: Bundle release language proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-release.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-002-localization-cp007-release-proof.mjs
       - name: Run localization review proof
         working-directory: artifacts/api-server
         shell: bash
@@ -108,6 +118,15 @@ jobs:
           node dist/quant-v4/pnc-002-localization-cp007-polish-proof.mjs > dist/quant-v4/pnc-002-localization-diagnostics/cp007-polish.log 2>&1
           status=$?
           cat dist/quant-v4/pnc-002-localization-diagnostics/cp007-polish.log
+          exit "$status"
+      - name: Run release language proof
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set +e
+          node dist/quant-v4/pnc-002-localization-cp007-release-proof.mjs > dist/quant-v4/pnc-002-localization-diagnostics/cp007-release.log 2>&1
+          status=$?
+          cat dist/quant-v4/pnc-002-localization-diagnostics/cp007-release.log
           exit "$status"
       - name: Publish Hindi Punjabi review artifact
         if: success()
