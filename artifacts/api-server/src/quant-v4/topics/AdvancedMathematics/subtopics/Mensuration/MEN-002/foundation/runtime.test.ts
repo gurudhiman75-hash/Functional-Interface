@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { exactKey } from "./exact";
+import { exactKey, formatIndianInteger } from "./exact";
 import { getMenCp007PrototypeIds, MEN_CP_007_PROTOTYPES } from "./prototype-registry";
 import { classifyMenCp007Difficulty, generateMenCp007Prototype } from "./runtime";
 
@@ -12,6 +12,7 @@ const seenShapes = new Set<string>();
 const seenDifficulties = new Set<string>();
 let generated = 0;
 let exactSurdAnswers = 0;
+let rupeeAnswers = 0;
 
 for (const prototypeId of prototypes) {
   const answerPositions = new Set<number>();
@@ -46,14 +47,18 @@ for (const prototypeId of prototypes) {
     assert.equal(first.explanation.traps.length, 3);
     assert.ok(first.explanation.traps.every((trap) => /^Option [A-D] \(\$/.test(trap) && trap.includes("Common mistake:")));
     assert.equal(/MEN-CP007|PROT-|misconceptionId|USED_|OMITTED_|IGNORED_|REPORTED_|EXTRA_|ADDED_|PAINTED_/.test(JSON.stringify(first.explanation)), false);
-    assert.equal(/[½¼]/.test(JSON.stringify(first, (_key, value) => typeof value === "bigint" ? value.toString() : value)), false);
+
     const explanationText = [
       first.explanation.keyRule,
       ...first.explanation.steps.flatMap((step) => [step.body, step.equation ?? ""]),
       first.explanation.shortcut,
       ...first.explanation.traps,
     ].join("\n");
+    const learnerText = [first.stem, ...first.options.map((option) => option.display), first.answer, explanationText].join("\n");
+
+    assert.equal(/[½¼]/.test(learnerText), false);
     assert.equal(/(^|[^\\])sqrt\{/.test(explanationText), false, `${prototypeId} contains bare square-root markup without a MathJax backslash.`);
+    assert.equal(/[£€¥]/.test(learnerText), false, `${prototypeId} contains a foreign currency symbol.`);
     assert.ok(first.stem.endsWith("?") || first.stem.endsWith("."));
 
     if (first.exactAnswer.kind === "SURD") {
@@ -61,9 +66,13 @@ for (const prototypeId of prototypes) {
       assert.equal(/\.\d{2}/.test(first.answer), false, "Exact surd answers must not be replaced by rounded decimals.");
       assert.ok(first.answer.includes("\\sqrt"));
     }
-    if (first.unit === "£") {
-      assert.ok(first.stem.includes("\\text{£}"));
-      assert.ok(first.answer.startsWith("$\\text{£}"), "Pound sterling must precede the amount in en-GB output.");
+    if (first.unit === "₹") {
+      rupeeAnswers += 1;
+      assert.ok(first.stem.includes("\\text{₹}"));
+      assert.ok(first.answer.startsWith("$\\text{₹}"), "Indian rupee must precede the amount in Indian exam output.");
+      if (first.exactAnswer.kind === "RATIONAL" && first.exactAnswer.denominator === 1n && first.exactAnswer.numerator >= 1000n) {
+        assert.ok(first.answer.includes(formatIndianInteger(first.exactAnswer.numerator)), "Rupee amounts must use Indian digit grouping.");
+      }
     }
 
     answerPositions.add(first.correctIndex);
@@ -88,6 +97,7 @@ for (const target of ["VOLUME", "CAPACITY", "SURFACE_AREA", "TOTAL_SURFACE_AREA"
 }
 assert.deepEqual([...seenDifficulties].sort(), ["Easy", "Hard", "Medium"]);
 assert.ok(exactSurdAnswers > 0, "The foundation must prove exact surd output.");
+assert.ok(rupeeAnswers > 0, "The foundation must prove Indian rupee rendering.");
 
 const provisionalCounts = MEN_CP_007_PROTOTYPES.reduce<Record<string, number>>((counts, prototype) => {
   counts[prototype.provisionalDisposition] = (counts[prototype.provisionalDisposition] ?? 0) + 1;
