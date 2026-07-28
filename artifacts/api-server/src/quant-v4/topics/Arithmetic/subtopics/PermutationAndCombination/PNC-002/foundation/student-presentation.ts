@@ -311,7 +311,7 @@ function stepByStepLines(source: PncStudentSourcePackage, answerLabel: string): 
     if (!steps.includes(line)) steps.push(line);
   }
   const displayEquation = `Use the solver-owned calculation: $$${source.solver.mathJax}$$`;
-  if (!steps.some((line) => line.includes(source.solver.mathJax))) steps.push(displayEquation);
+  if (!steps.some((line) => line.includes(`$$${source.solver.mathJax}$$`))) steps.push(displayEquation);
   const finalLine = `Therefore, the required answer is **${answerLabel}**.`;
   if (!steps.some((line) => line.includes(answerLabel))) steps.push(finalLine);
   while (steps.length < 3) steps.splice(Math.max(1, steps.length - 1), 0, "Complete the independent counting stages and multiply their counts.");

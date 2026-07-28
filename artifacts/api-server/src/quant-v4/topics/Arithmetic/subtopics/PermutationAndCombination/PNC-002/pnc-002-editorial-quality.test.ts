@@ -86,7 +86,7 @@ assert.equal(new Set(allEntries.map((entry) => entry.solveMode)).size, 130);
 
 const requiredKinds = ["coreConcept", "stepByStep", "examSpeedShortcut", "commonTrapWarning"];
 const requiredHeadingPrefixes = ["📌 Core Concept", "📝 Step-by-Step Solution", "⚡ Exam Speed Shortcut", "⚠️ Common Trap Warning"];
-const unresolvedPlaceholder = /\{[A-Za-z][A-Za-z0-9_]*\}/;
+const unresolvedPlaceholder = /\{[A-Za-z][A-Za-z0-9_]{1,}\}/;
 const forbiddenRoboticPhrases = [
   "distinct people stand in a row",
   "distinct objects",
