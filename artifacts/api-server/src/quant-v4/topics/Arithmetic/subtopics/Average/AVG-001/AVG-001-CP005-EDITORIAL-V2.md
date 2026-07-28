@@ -2,9 +2,9 @@
 
 ## Status
 
-**ADVERSARIAL REVIEW REMEDIATION COMPLETE — REVIEW CANDIDATE ONLY**
+**ADVERSARIAL REVIEW REMEDIATION COMPLETE AND APPROVED**
 
-This wave upgrades all 56 `AVG-CP-005` question-language units while preserving the current `AVG-001-EN-v1` runtime until the complete chapter-wide v2 review is finished.
+This wave upgrades all 56 `AVG-CP-005` question-language units while preserving the current `AVG-001-EN-v1` runtime until the complete chapter-wide v2 release is assembled.
 
 ## Scope
 
@@ -39,7 +39,7 @@ The 56-question external audit scored the candidate 9.2/10 and approved its math
 
 ## Final validation
 
-Dedicated workflow run `30325018472` validates five deterministic instances for each QL, producing 280 candidate packages.
+Dedicated workflow run `30325148787` validates five deterministic instances for each QL, producing 280 candidate packages.
 
 Passed checks:
 
@@ -59,4 +59,4 @@ Passed checks:
 
 ## Release boundary
 
-The reviewed candidate is applied only by the CP-005 audit and review-export path. The existing `AVG-001-EN-v1` runtime remains unchanged. Production wiring and the final `AVG-001-EN-v2` release ID remain chapter-wide follow-up work.
+The reviewed candidate remains separate from the existing `AVG-001-EN-v1` production runtime. Production wiring and the final `AVG-001-EN-v2` release ID remain chapter-wide follow-up work.
