@@ -38,13 +38,25 @@ Each checkpoint must prove:
 - multiple-seed runtime validation;
 - manual-review export in JSON and CSV.
 
-## Current checkpoint
+## Completed checkpoint
 
-`PNC-CP-007` is implemented as `PNC-002-CP007-HI-PA-v1-CANDIDATE`.
+`PNC-CP-007` was approved and merged as `PNC-002-CP007-HI-PA-v1-CANDIDATE`.
 
 - QLs: `PNC-QL-107` through `PNC-QL-124`
 - Locales: `hi-IN`, `pa-IN`
 - Seeded audit packages: 108
+- Merge commit: `0f113c093ee699de2acadfe8684c004f9b03065e`
+- Publicly publishable: `false`
+
+## Current checkpoint
+
+`PNC-CP-008` is implemented as `PNC-002-CP008-HI-PA-v1-CANDIDATE` for automated validation and manual review.
+
+- QLs: `PNC-QL-125` through `PNC-QL-147`
+- Locales: `hi-IN`, `pa-IN`
+- Localised review rows: 46
+- Seeded audit packages: 138
 - Status: `MANUAL_REVIEW`
 - Editorial status: `PENDING`
 - Publicly publishable: `false`
+- Next checkpoint after approval: `PNC-CP-009`
