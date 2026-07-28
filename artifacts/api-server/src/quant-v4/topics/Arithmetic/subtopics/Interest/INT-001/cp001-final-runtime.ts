@@ -1,4 +1,4 @@
-import { deterministicIndex } from "./foundation/prng";
+import { deterministicIndex, rotate } from "./foundation/prng";
 import { generateIntCp001Prototype } from "./foundation/cp001-pipeline";
 import type { IntCp001PrototypeId } from "./foundation/types";
 import { generateIntCp001Wave2Prototype } from "./gap-wave-02/pipeline";
@@ -95,18 +95,27 @@ export function generateIntCp001FinalQuestion(
   const adapter = entry.sourceAdapters[adapterIndex]!;
   const sourceSeed = `${qlId}:${adapter.representation ?? "DEFAULT"}:${adapter.answerUnit ?? "DEFAULT"}:${seed}`;
   const source = generateSource(adapter, sourceSeed);
+
+  const desiredCorrectIndex = deterministicIndex(`${qlId}:${seed}:final-answer-position`, 4);
+  const rotationOffset = source.correctIndex - desiredCorrectIndex;
+  const options = rotate(source.options, rotationOffset);
+  const optionAudit = rotate(source.optionAudit, rotationOffset);
+  const correctIndex = desiredCorrectIndex;
   const errors = [...source.validation.errors];
 
   if (!source.validation.ok) errors.push("Source prototype validation failed.");
-  if (source.options.length !== 4 || new Set(source.options).size !== 4) errors.push("Permanent package must contain four unique options.");
-  if (source.correctIndex < 0 || source.correctIndex > 3) errors.push("Permanent package correct index is invalid.");
-  if (!source.explanation.conclusion.includes(source.options[source.correctIndex]!)) {
+  if (options.length !== 4 || new Set(options).size !== 4) errors.push("Permanent package must contain four unique options.");
+  if (correctIndex < 0 || correctIndex > 3) errors.push("Permanent package correct index is invalid.");
+  if (optionAudit[correctIndex]?.misconceptionId !== "CORRECT") {
+    errors.push("Permanent QL-owned rotation did not place the correct option at the requested index.");
+  }
+  if (!source.explanation.conclusion.includes(options[correctIndex]!)) {
     errors.push("Permanent package conclusion does not state the displayed correct option.");
   }
 
   const learnerText = [
     source.stem,
-    ...source.options,
+    ...options,
     source.explanation.notice,
     source.explanation.relation,
     ...source.explanation.steps,
@@ -135,9 +144,9 @@ export function generateIntCp001FinalQuestion(
     difficulty: source.difficulty,
     difficultyEvidence: source.difficultyEvidence,
     stem: source.stem,
-    options: source.options,
-    optionAudit: source.optionAudit,
-    correctIndex: source.correctIndex,
+    options,
+    optionAudit,
+    correctIndex,
     explanation: source.explanation,
     reasoningGraph: source.reasoningGraph,
     solution: source.solution,
