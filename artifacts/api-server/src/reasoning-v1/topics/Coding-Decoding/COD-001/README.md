@@ -1,6 +1,6 @@
 # COD-001 — Coding–Decoding
 
-Status: **all 199 English QLs are runtime-closed; 175 QLs now have Hindi and natural-Punjabi runtime support; only CP-009 remains multilingual**.
+Status: **all 199 permanent QLs have English, Hindi and natural-Punjabi runtime support; final whole-chapter multilingual closure gate remains**.
 
 Student-facing chapter: **Coding–Decoding**  
 Reasoning V1 package: `COD-001`  
@@ -15,7 +15,8 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/CO
 5. `COD-001-ENGLISH-CLOSURE-AUDIT.md` and the whole-chapter English closure test.
 6. `COD-001-TRANSLATIONAL-LOCALES-REPORT.md` and the translational Hindi/Punjabi audit.
 7. `COD-CP-008/COD-CP-008-MULTILINGUAL-REPORT.md` and its language-adapted audit.
-8. checkpoint-specific discovery, implementation and review authorities.
+8. `COD-CP-009/COD-CP-009-MULTILINGUAL-REPORT.md` and its language-adapted audit.
+9. checkpoint-specific discovery, implementation and review authorities.
 
 ## Permanent identity
 
@@ -39,34 +40,26 @@ The old predetermined 260-QL total remains revoked. A new QL requires recurring 
 
 The whole-chapter closure audit generates every permanent QL for twelve seeds, producing 2,388 questions. It validates identity continuity, determinism, option truth, exact collisions, teaching-text completeness, answer-position balance, difficulty and renderer reach, and review-only release safety.
 
-## Hindi and Punjabi runtime
+## Multilingual runtime
 
 ```text
-English:  COD-QL-001..199  199 / 199
-Hindi:    COD-QL-001..174, COD-QL-199  175 / 199
-Punjabi:  COD-QL-001..174, COD-QL-199  175 / 199
+English: COD-QL-001..199  199 / 199
+Hindi:   COD-QL-001..199  199 / 199
+Punjabi: COD-QL-001..199  199 / 199
 ```
 
-`COD-CP-001..007` and `COD-CP-010` use the translational layer, preserving Latin source data and the frozen English solver while authoring native instructions and explanations.
+`COD-CP-001..007` and `COD-CP-010` use the translational layer, preserving Latin source data and the frozen English solver while authoring native instructions and explanations. Its audit covers 2,768 Hindi/Punjabi questions.
 
-`COD-CP-008` uses language-adapted referent dictionaries and separately authored versions of all fifteen semantic facts. Its localized mapping is independently solved using the same one-edge renaming rule. The 480-question audit reaches all fact categories, open chains, cycles and answer positions, with Hindi/Gurmukhi and no-English-fallback gates.
+`COD-CP-008` uses language-adapted referent dictionaries and separately authored versions of all fifteen semantic facts. Its 480-question audit reaches all fact categories, open chains, cycles and answer positions with independent localized mapping-solver agreement.
 
-## Remaining multilingual gap
+`COD-CP-009` uses complete injective Hindi and Punjabi lexicons and grammar-aware sentence rendering while preserving artificial code tokens and abstract constraint topology. Its 1,152-question audit reaches all ten topology families, all sixteen source prototypes, all four answer types and fifty scenarios. Prompt and option reverse-isomorphism proves equivalence to the frozen English authority.
 
-Only `COD-CP-009` remains:
+## Remaining closure sequence
 
-```text
-COD-QL-175..198 — 24 sentence and artificial-language QLs
-```
-
-CP-009 requires separately authored Hindi and Punjabi vocabulary and sentences while preserving the same abstract word-token constraint topology and code tokens.
-
-## Remaining sequence
-
-1. merge CP-008 adapted locales after exact-head CI;
-2. implement and audit CP-009 Hindi/Punjabi datasets and grammar;
-3. run a final 199-QL, three-locale parity and editorial gate;
-4. complete manual multilingual review packs;
+1. merge CP-009 adapted locales after exact-head CI;
+2. run one final 199-QL, three-locale parity, collision and editorial gate;
+3. export final manual multilingual review packs;
+4. close Coding–Decoding as a multilingual review-only chapter;
 5. connect reviewed content to Question Studio later.
 
 ## Release boundary
