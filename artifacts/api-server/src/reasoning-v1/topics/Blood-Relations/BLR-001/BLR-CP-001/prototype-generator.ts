@@ -17,6 +17,7 @@ import {
   formatClue,
   scenariosFor,
 } from "./scenario-library";
+import { scenariosWithSecondGapCoverage } from "./source-gap-scenarios";
 import { solveBlrCp001Prompt } from "./prototype-solver";
 
 function tryReverseRelation(prompt: BlrStructuredPrompt): BlrRelationId | null {
@@ -74,7 +75,11 @@ export function generateBlrCp001PrototypeQuestion(
 ): GeneratedBlrCp001PrototypeQuestion {
   const contract = getBlrCp001PrototypeContract(prototypeId);
   const random = new SeededRandom(seed ^ Number.parseInt(stableHash([prototypeId]), 16));
-  const template = random.pick(scenariosFor(prototypeId));
+  const templates = scenariosWithSecondGapCoverage(
+    prototypeId,
+    scenariosFor(prototypeId),
+  );
+  const template = random.pick(templates);
   const prompt: BlrStructuredPrompt = {
     clues: template.clues,
     query: template.query,
