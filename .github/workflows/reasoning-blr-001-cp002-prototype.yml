@@ -10,7 +10,7 @@ on:
 jobs:
   cp002-role-chain-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -39,6 +39,9 @@ jobs:
         run: |
           cat cp002-audit.log
           exit 1
+
+      - name: Run CP-002 affinal source-widening gate
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-source-widening.test.ts
 
       - name: Run CP-002 English editorial gate
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-editorial-review.test.ts
