@@ -179,7 +179,7 @@ function cuboidFaceDiagonalDraft(prototypeId: MenCp007Wave02PrototypeId, seed: s
       { title: "Square the Two Face Dimensions", body: "Only the length and breadth of the chosen face are perpendicular components.", equation: `$$d_f^2=${length}^2+${breadth}^2=${diagonal ** 2n}$$` },
       { title: "Take the Positive Square Root", body: "A length is positive.", equation: `$$d_f=\\sqrt{${diagonal ** 2n}}=${diagonal}\\text{ cm}$$` },
     ],
-    shortcut: `Recognise the Pythagorean pair $${length},${breadth},${diagonal}$.`,
+    shortcut: `Recognise the Pythagorean triplet $${length},${breadth},${diagonal}$.`,
   };
 }
 
@@ -431,7 +431,7 @@ function equalVolumeHeightDraft(prototypeId: MenCp007Wave02PrototypeId, seed: st
       { title: "Find the New Base Area", body: "Multiply the new length and breadth.", equation: `$$A'=${state.newL}\\times${state.newB}=${state.newL * state.newB}\\text{ cm}^{2}$$` },
       { title: "Divide Volume by New Base Area", body: "This gives the height required to preserve volume.", equation: `$$H'=\\frac{${volume}}{${state.newL * state.newB}}=${state.newH}\\text{ cm}$$` },
     ],
-    shortcut: `Use $H'=old\\ volume/new\\ base\\ area$.`,
+    shortcut: `Divide the conserved old volume by the new base area.`,
   };
 }
 
