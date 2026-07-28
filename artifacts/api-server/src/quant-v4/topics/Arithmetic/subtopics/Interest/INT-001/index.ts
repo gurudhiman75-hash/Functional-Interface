@@ -11,3 +11,5 @@ export * from "./foundation/cp001-pipeline";
 export * from "./final-closure/final-closure";
 export * from "./cp001-final-registry";
 export * from "./cp001-final-runtime";
+export * from "./cp001-editorial-v2";
+export * from "./cp001-final-editorial-runtime";
