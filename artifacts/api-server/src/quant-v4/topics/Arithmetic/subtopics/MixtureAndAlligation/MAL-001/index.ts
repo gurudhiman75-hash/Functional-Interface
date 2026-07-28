@@ -15,6 +15,15 @@ export {
   MAL_CP001_GAP_DISCOVERY_CLASSIFICATION,
   getMalCp001GapDiscoveryClassification,
 } from "./foundation/cp001-gap-classification";
+export {
+  MAL_CP001_FREEZE_CANDIDATE_IDS,
+  MAL_CP001_FREEZE_CLASSIFICATION,
+  getMalCp001FreezeClassification,
+} from "./foundation/cp001-freeze-candidate-ledger";
+export {
+  MAL_CP001_SOURCE_FIXTURE_LEDGER,
+  getMalCp001SourceFixtureLedgerEntry,
+} from "./foundation/cp001-source-fixture-ledger";
 export { generateMalCp001PrototypeParameters } from "./foundation/cp001-parameter-generator";
 export { generateMalCp001GapParameters } from "./foundation/cp001-gap-generator";
 export { generateMalCp001Prototype } from "./foundation/pipeline";
