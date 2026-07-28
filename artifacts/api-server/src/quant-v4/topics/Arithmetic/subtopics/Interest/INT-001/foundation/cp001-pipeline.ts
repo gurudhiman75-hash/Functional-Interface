@@ -1,4 +1,5 @@
 import { normaliseIntCp001EditorialStem } from "./cp001-editorial-normalizer";
+import { normaliseIntCp001MoneyOptions } from "./cp001-option-normalizer";
 import { getIntCp001PrototypeEntry } from "./cp001-registry";
 import { buildIntCp001Options } from "./cp001-options";
 import { generateIntCp001Parameters } from "./cp001-parameter-generator";
@@ -25,7 +26,11 @@ export function generateIntCp001Prototype(
     generateIntCp001Parameters(prototypeId, seed),
   );
   const solution = solveIntCp001(parameters.request);
-  const optionPackage = buildIntCp001Options(parameters, solution);
+  const optionPackage = normaliseIntCp001MoneyOptions(
+    parameters,
+    solution,
+    buildIntCp001Options(parameters, solution),
+  );
   const presentation = presentIntCp001(parameters, solution);
   const stem = normaliseIntCp001EditorialStem(
     normaliseQuestionPunctuation(
