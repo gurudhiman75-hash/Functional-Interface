@@ -4,7 +4,9 @@ import { runMen001Pipeline } from "./pipeline";
 import type { Men001ActiveCanonicalProblemId, Men001QuestionPackage } from "./types";
 
 const ROBOTIC_LANGUAGE = /\b(?:governing relation|required stage|rearrange the relevant|rearrange the governing|isolate the|fixes the|supplies the complete boundary|requested result|geometric quantity|evaluate the displayed|this normally overstates|this normally understates|applies the mistaken operation|misconception strategy)\b/i;
-const CROSS_FAMILY_BOILERPLATE = /(?:Substitute the supplied values into the formula|Use the perpendicular measurements found above in the correct area formula|Put the known values into the formula, then solve to find the required .* first, then substitute the measurements once)/i;
+const CROSS_FAMILY_BOILERPLATE = /(?:Substitute the supplied values into the formula|Use the perpendicular measurements found above in the correct area formula|Put the known values into the formula, then solve to find the required .* first, then substitute the measurements once|Keep all lengths in one unit, cancel common factors before multiplying|Write the formula before the numbers, cancel common factors early)/i;
+const MALFORMED_TRAP = /(?:instead of .* instead of|dividing by the .* by|multiplying by the .* by|only once only once)/i;
+const GENERIC_TRAP_SHELL = /(?:Check what the question asks for|Follow the formula once, line by line|This removes a factor that the formula still needs|This adds an extra factor and makes the answer too large|That is only an intermediate value\. Continue until)/i;
 const SIDE_VALUE_KEY = /^(?:side|sideA|sideB|sideC|legA|legB|height|halfBase|base|equalSide|hypotenuse|diagonal|diagonalA|diagonalB|halfDiagonalA|halfDiagonalB|length|breadth|ratioA|ratioB|ratioC)$/i;
 const PYTHAGOREAN_MODE = /RightTriangle|Isosceles|Pythag|Diagonal|Rhombus|TriangleAreaFromSideRatio/i;
 
@@ -85,8 +87,10 @@ for (const entry of getMen001QuestionEntries()) {
 
     for (const paragraph of traps?.paragraphs ?? []) {
       assert.match(paragraph, /^Option [A-D] \(.+\): Common mistake:/, `${entry.qlId} trap must name the real option and explain the mistake plainly.`);
+      assert.ok(!MALFORMED_TRAP.test(paragraph), `${entry.qlId} trap contains malformed generated grammar: ${paragraph}`);
+      assert.ok(!GENERIC_TRAP_SHELL.test(paragraph), `${entry.qlId} trap uses a generic correction shell instead of the solve method: ${paragraph}`);
       assert.ok(
-        /(?:Remember|Use|Do not|Don't|Check|Continue|Divide|Multiply|Subtract|Add|Put|Keep|Take|Find|First|Area conversion)/i.test(paragraph),
+        /(?:Remember|Use|Do not|Don't|Check|Continue|Divide|Multiply|Subtract|Add|Put|Keep|Take|Find|First|Area conversion|From |Set |Calculate |Apply |Write |Finish |Convert )/i.test(paragraph),
         `${entry.qlId} trap must tell the learner how to correct the mistake: ${paragraph}`,
       );
     }
@@ -150,4 +154,4 @@ assert.deepEqual(
 assert.ok(wire.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT")?.paragraphs.some((paragraph) => /s = πr\/2/.test(paragraph)));
 assert.ok(wire.explanation.sections.find((section) => section.kind === "COMMON_TRAPS")?.paragraphs.some((paragraph) => /original circle/i.test(paragraph) && /Do not stop/i.test(paragraph)));
 
-console.log(`MEN-001 comprehension audit passed for ${audited} generated explanations, including ${tripletStates} states with explicitly named Pythagorean Triplets and no cross-family boilerplate.`);
+console.log(`MEN-001 comprehension audit passed for ${audited} generated explanations, including ${tripletStates} states with explicitly named Pythagorean Triplets, no cross-family boilerplate and no generic trap shells.`);
