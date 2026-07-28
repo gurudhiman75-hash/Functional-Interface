@@ -65,9 +65,9 @@ export function semanticUnitFor(pkg: Avg001QuestionPackage): SemanticUnit {
     pkg.solveMode === "findAverageSpeedForUnequalDistances" ||
     pkg.solveMode === "findAverageSpeedForUnequalTimes"
   ) {
-    return /machine|worker/i.test(String(pkg.parameters.scenarioVariant))
-      ? "unitsPerHour"
-      : "kmh";
+    const scenario = scenarioKey(pkg);
+    if (scenario === "abstractEqualWeights") return "none";
+    return /machine|worker/i.test(scenario) ? "unitsPerHour" : "kmh";
   }
 
   const entry = getAvg001QuestionEntry(pkg.questionLanguageId);
@@ -159,7 +159,9 @@ export function hasConsistentSemanticOptions(pkg: Avg001QuestionPackage) {
     unitsPerHour: / units per hour$/,
     passengersPerTrip: / passengers per trip$/,
   };
-  if (unit === "none") return true;
+  if (unit === "none") {
+    return pkg.options.every((option) => /^-?\d+(?:\.\d+)?$/.test(option));
+  }
   if (unit === "count") {
     const label = countLabel(pkg);
     return pkg.options.every((option) => option.endsWith(` ${label}`));
