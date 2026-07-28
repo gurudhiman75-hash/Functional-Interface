@@ -53,6 +53,21 @@ export {
   MAL_CP001_OWNERSHIP_RESOLUTION_IDS,
   MAL_CP001_OWNERSHIP_RESOLUTIONS,
 } from "./foundation/cp001-ownership-resolution-ledger";
+export {
+  MAL_CP001_FOUNDATION_FREEZE_METADATA,
+  MAL_CP001_FROZEN_SOLVE_MODES,
+  MAL_CP001_FROZEN_QL_TEMPLATES,
+  MAL_CP001_FOUNDATION_SOURCE_DISPOSITIONS,
+  MAL_CP001_FOUNDATION_PRESERVED_EXCLUSIONS,
+} from "./foundation/cp001-foundation-freeze-ledger";
+export {
+  MAL_CP001_FOUNDATION_PROTOTYPE_CONTRACTS,
+  generateMalCp001FoundationQuestion,
+} from "./foundation/cp001-foundation-normalizer";
+export {
+  MAL_CP001_FOUNDATION_REVIEW_SEEDS,
+  buildMalCp001FoundationReviewModel,
+} from "./foundation/cp001-foundation-review-model";
 export { generateMalCp001PrototypeParameters } from "./foundation/cp001-parameter-generator";
 export { generateMalCp001GapParameters } from "./foundation/cp001-gap-generator";
 export { generateMalCp001Prototype } from "./foundation/pipeline";
@@ -86,3 +101,13 @@ export type {
   MalCp001OwnershipResolutionId,
   MalCp001OwnershipResolutionEntry,
 } from "./foundation/cp001-ownership-resolution-ledger";
+export type {
+  MalCp001FoundationQuestionContract,
+} from "./foundation/cp001-foundation-normalizer";
+export type {
+  MalCp001FoundationReviewStatus,
+  MalCp001FoundationReviewRow,
+  MalCp001FoundationPrototypeGroup,
+  MalCp001FoundationTemplateGroup,
+  MalCp001FoundationReviewModel,
+} from "./foundation/cp001-foundation-review-model";
