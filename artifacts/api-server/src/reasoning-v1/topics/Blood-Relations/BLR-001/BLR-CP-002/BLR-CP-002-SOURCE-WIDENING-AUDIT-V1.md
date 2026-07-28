@@ -1,6 +1,6 @@
 # BLR-CP-002 — Source Widening Audit V1
 
-Status: **affinal widening passed; no new solve authority; discovery remains open**.
+Status: **affinal widening passed; no new solve authority; subsequently extended by the exact only-child audit**.
 
 ## Purpose
 
@@ -84,18 +84,26 @@ RESOLVE_ANCHORED_ROLE_CHAIN_RELATION
 
 Affinal versus blood relation is an instance property.
 
-## Remaining blocker: exact only child
+## Subsequent only-child closure
 
-The source material repeatedly uses `only child`, but the current CP-002 role-step vocabulary is gendered (`son` and `daughter`). Exact `ONLY_CHILD` requires union-cardinality semantics across male and female children.
+The role-vocabulary gap identified during this V1 pass has since been closed in `BLR-CP-002-ONLY-CHILD-AUDIT-V1.md`.
 
-This gap is explicitly open. It must be implemented as a broad role rather than simulated with `only son` or `only daughter`.
-
-## Current state after widening
+The runtime now supports:
 
 ```text
-source scenarios proved:       23
-exploratory prototypes:         5
-provisional solve authorities:  1
-permanent CP-002 QLs:           0
-next available ID:              BLR-QL-008 (unclaimed)
+CHILD = SON ∪ DAUGHTER
+ONLY_CHILD = exact cardinality one after union
+```
+
+That later audit adds three positive scenarios and one two-child rejection model, bringing the complete source-widening gate to 832 deterministic cases.
+
+## Current state after both widening passes
+
+```text
+positive source scenarios proved: 26
+negative cardinality models:        1
+exploratory prototypes:             5
+provisional solve authorities:      1
+permanent CP-002 QLs:               0
+next available ID:                  BLR-QL-008 (unclaimed)
 ```
