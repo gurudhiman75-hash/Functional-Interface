@@ -71,6 +71,8 @@ The workflow `.github/workflows/pnc-002-editorial-quality.yml` performs:
 4. a zero-generic-shortcut regression proof;
 5. publication of the production JSON, CSV and report artifacts.
 
+The exact validation head and workflow run are recorded in pull request #248 after the final documentation commit passes.
+
 ## Integration boundary
 
 This implementation is English-only and remains outside Question Studio, Question Bank, student/public-test routing and public publication. Hindi and Punjabi localisation are separate phases.
