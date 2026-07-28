@@ -71,10 +71,10 @@ for (let seed = 0; seed < SEED_COUNT; seed += 1) {
   assert.ok(question.stem.endsWith("?"));
   assert.ok(question.stem.length > 70);
   assert.ok(!question.stem.includes("undefined"));
-  assert.ok(!question.stem.includes(" of me"));
-  assert.ok(!question.stem.includes(" of you"));
-  assert.ok(!question.stem.includes("I is"));
-  assert.ok(!question.stem.includes("You is"));
+  assert.ok(!/\bof me\b/i.test(question.stem));
+  assert.ok(!/\bof you\b/i.test(question.stem));
+  assert.ok(!/\bI is\b/.test(question.stem));
+  assert.ok(!/\bYou is\b/.test(question.stem));
   assert.equal(question.options.length, 4);
   assert.equal(new Set(question.options.map((option) => option.answerId)).size, 4);
   assert.equal(new Set(question.options.map((option) => option.value)).size, 4);
