@@ -45,7 +45,9 @@ function chooseSourcePrototype(
   seed: number,
 ): BlrCp001SourcePrototypeId {
   const sourceIds = getBlrCp001PermanentContract(qlId).sourcePrototypeIds;
-  const index = ((Math.trunc(seed) % sourceIds.length) + sourceIds.length) % sourceIds.length;
+  const index =
+    ((Math.trunc(seed) % sourceIds.length) + sourceIds.length) %
+    sourceIds.length;
   return sourceIds[index]!;
 }
 
@@ -56,9 +58,10 @@ export function generateBlrCp001Question(
   const contract = getBlrCp001PermanentContract(qlId);
   const sourcePrototypeId = chooseSourcePrototype(qlId, seed);
   const source = getBlrCp001ReviewEntry(sourcePrototypeId).generate(seed);
-  const sourceRuntimeVersion = String(source.metadata.runtimeVersion);
-  const sourceMetadata = { ...source.metadata };
-  delete sourceMetadata.runtimeVersion;
+  const {
+    runtimeVersion: sourceRuntimeVersion,
+    ...sourceMetadata
+  } = source.metadata;
 
   if (source.answerType !== contract.answerType) {
     throw new Error(`Answer type mismatch for ${qlId}.`);
@@ -91,7 +94,7 @@ export function generateBlrCp001Question(
       qlId,
       solveAuthority: contract.solveAuthority,
       sourcePrototypeId,
-      sourceRuntimeVersion,
+      sourceRuntimeVersion: String(sourceRuntimeVersion),
       sourceSeed: seed,
       hiddenFingerprint: source.metadata.hiddenFingerprint,
     },
