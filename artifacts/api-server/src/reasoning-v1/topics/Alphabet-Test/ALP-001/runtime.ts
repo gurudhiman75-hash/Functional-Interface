@@ -1,9 +1,9 @@
 import { ALPHABET, positionTrack } from "./foundation/alphabet";
 import { auditAlpInstance } from "./ambiguity-checker";
 import { buildAlpOptions, validateAlpOptions } from "./distractors";
+import { renderAlpExplanationV2, renderAlpStemV2 } from "./editorial-v2";
 import { generateAlpInstance } from "./instance-generator";
 import { solveAlpInstance } from "./independent-solver";
-import { renderAlpExplanation, renderAlpStem } from "./localization-safe";
 import { alp001QlById } from "./ql-registry";
 import type { AlpDifficulty, AlpInstanceData, AlpLocale, AlpQuestionLogic, GeneratedAlpQuestion } from "./types";
 
@@ -48,8 +48,8 @@ export function generateAlp001Question(
   }
   const options = buildAlpOptions(ql, data, solved, seed);
   const correctIndex = validateAlpOptions(options, solved.answer);
-  const stem = renderAlpStem(ql, data, locale);
-  const explanation = renderAlpExplanation(ql, data, solved, locale);
+  const stem = renderAlpStemV2(ql, data, locale);
+  const explanation = renderAlpExplanationV2(ql, data, solved, options, correctIndex, locale);
   if (!stem.trim() || /\{\{|\}\}|undefined|null/.test(stem)) throw new Error(`${qlId} rendered an unresolved stem.`);
 
   return {
@@ -70,7 +70,7 @@ export function generateAlp001Question(
     answer: solved.answer,
     explanation,
     metadata: {
-      runtimeVersion: "ALP-001-RUNTIME-V1",
+      runtimeVersion: "ALP-001-RUNTIME-V2",
       localeMode: "TRANSLATABLE",
       independentSolverVerified: true,
       ambiguityAudit: "EXPLICIT_OPERATION_UNIQUE",
