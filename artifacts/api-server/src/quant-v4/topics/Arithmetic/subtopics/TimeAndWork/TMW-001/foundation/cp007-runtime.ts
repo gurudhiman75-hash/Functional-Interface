@@ -46,8 +46,8 @@ function restoreOpeningMathJax(value:string):string{return value.replace("(n_Ae_
 function balancedInlineMath(value:string):boolean{return (value.match(/\\\(/g)??[]).length===(value.match(/\\\)/g)??[]).length;}
 function buildOpening(entry:TmwCp007RegistryEntry,p:TmwCp007Parameters):string{
   const c=p.context.categories;
-  if(entry.solveMode==="findCrewCompositionFromTwoOutputFacts")return `Let \(x\) be the number of ${displayCategory(c[0].plural)} and \(y\) the number of ${displayCategory(c[1].plural)} in the first team. Convert each output record into a per-${p.context.categories.every(category=>category.resourceTimeUnit.endsWith("hours"))?"hour":"day"} equation; subtracting the equations isolates \(x\), after which \(y\) follows.`;
-  if(entry.solveMode==="findIntegerCrewCompositionUnderConstraints")return `Let \(x\) and \(y\) be the numbers of ${displayCategory(c[0].plural)} and ${displayCategory(c[1].plural)}. Use the headcount equation \(x+y=N\) together with the weighted-rate equation \(e_Ax+e_By=R\), then solve for the two whole-number counts.`;
+  if(entry.solveMode==="findCrewCompositionFromTwoOutputFacts")return `Let \\(x\\) be the number of ${displayCategory(c[0].plural)} and \\(y\\) the number of ${displayCategory(c[1].plural)} in the first team. Convert each output record into a per-${p.context.categories.every(category=>category.resourceTimeUnit.endsWith("hours"))?"hour":"day"} equation; subtracting the equations isolates \\(x\\), after which \\(y\\) follows.`;
+  if(entry.solveMode==="findIntegerCrewCompositionUnderConstraints")return `Let \\(x\\) and \\(y\\) be the numbers of ${displayCategory(c[0].plural)} and ${displayCategory(c[1].plural)}. Use the headcount equation \\(x+y=N\\) together with the weighted-rate equation \\(e_Ax+e_By=R\\), then solve for the two whole-number counts.`;
   return restoreOpeningMathJax(tmwCp007PlainEnglishOpening(entry,p));
 }
 function polishSolution(solution:TmwCp007Solution):TmwCp007Solution{return {...solution,answerText:displayText(solution.answerText)};}
