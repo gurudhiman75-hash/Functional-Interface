@@ -14,6 +14,7 @@ const forbidden = [
   /\{\{/u,
   /\}\}/u,
 ];
+const rawMathCommand = /(?<!\\)\([^)]*(?<!\\)\b(?:div|lceil|rceil|times)\b[^)]*(?<!\\)\)/u;
 
 let audited = 0;
 const misconceptionIds = new Set<string>();
@@ -44,7 +45,7 @@ for (const prototypeId of NUM_CP003_PROTOTYPE_IDS) {
     assertOk(question.explanation.shortcut.trim().length >= 20, `${prototypeId}: shortcut too short`);
     assertOk(question.explanation.verification.trim().length >= 20, `${prototypeId}: verification too short`);
     assertOk(!forbidden.some((pattern) => pattern.test(learnerText)), `${prototypeId}: forbidden learner-facing text`);
-    assertOk(!question.explanation.steps.some((step) => /\([^)]*\b(?:div|lceil|rceil|times)\b[^)]*\)/u.test(step)), `${prototypeId}: unescaped mathematical command`);
+    assertOk(!question.explanation.steps.some((step) => rawMathCommand.test(step)), `${prototypeId}: unescaped mathematical command`);
 
     for (const row of question.optionAudit) misconceptionIds.add(row.misconceptionId);
     topologyCounts[question.hiddenState.kind] = (topologyCounts[question.hiddenState.kind] ?? 0) + 1;
