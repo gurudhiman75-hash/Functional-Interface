@@ -487,7 +487,7 @@ function materialCostDraft(prototypeId: MenCp007Wave02PrototypeId, seed: string,
       { title: "Find the Solid Volume", body: "Multiply the three metre dimensions.", equation: `$$V=${length}\\times${breadth}\\times${height}=${volume}\\text{ m}^{3}$$` },
       { title: "Apply the Cubic-Metre Rate", body: `Multiply by $\\text{£}${rate}$ for each cubic metre.`, equation: `$$Cost=${volume}\\times\\text{£}${rate}=\\text{£}${cost}$$` },
     ],
-    shortcut: `Volume first, then multiply once by the £/m³ rate.`,
+    shortcut: `Volume first, then multiply once by the £ per cubic metre rate.`,
   };
 }
 
