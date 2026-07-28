@@ -124,6 +124,18 @@ Punjabi source adapters:            32
 
 Approved evidence packs contain 63 Hindi and 63 Punjabi samples, covering all 21 permanent QLs with three review seeds each.
 
+## Record-inclusive verification
+
+The approval record itself is included in the final validated head:
+
+```text
+Head:       22eb70efe951da604c1fd0352fe3964f8b548469
+Workflow:   30355428439
+Conclusion: PASS
+Artifact:   8686595540
+Digest:     sha256:414390d2f973d27173f4900a168c0e215d6d86ad02c7af8436f83a014ce05a7b
+```
+
 ## Final boundary
 
 Hindi and Punjabi are now human-approved multilingual contracts. They remain deliberately unavailable to Question Bank, mock tests, public publication and Question Studio until those downstream lifecycle gates are explicitly authorised.
