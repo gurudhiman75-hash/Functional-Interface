@@ -31,6 +31,7 @@ const lines: string[] = [
   `permanent QL range: ${model.permanentQlRange}`,
   `permanent QLs: ${model.permanentQlCount}`,
   `review questions: ${model.reviewQuestionCount}`,
+  "explanation layout: SIMPLE FOUR-TIER TEACHER STYLE",
   "maturity: IMPLEMENTATION_PROOF",
   "active QLs: 0",
   "publicly publishable: false",
@@ -57,33 +58,43 @@ for (const group of model.groups) {
 
   for (const row of group.questions) {
     const question = row.question;
+    const explanation = question.explanation;
     lines.push(
       `### ${row.reviewKey}`,
       "",
       `- Selected prototype: \`${row.selectedPrototypeId}\``,
       `- Review status: **${row.reviewStatus}**`,
+      `- Explanation layout: \`${explanation.layoutId}\``,
       "",
       `**Question:** ${question.stem}`,
       "",
       `**Options:** ${question.options
-        .map((option, index) => `${index + 1}. ${option}`)
+        .map((option, index) => `${String.fromCharCode(65 + index)}. ${option}`)
         .join(" | ")}`,
       "",
       `**Correct answer:** ${question.options[question.correctIndex]}`,
       "",
-      `**Opening:** ${question.explanation.opening}`,
+      `#### ${explanation.sectionTitles.coreConcept}`,
       "",
-      `**Formula:** ${question.explanation.formula}`,
+      explanation.coreConcept,
       "",
-      ...question.explanation.steps.map(
-        (step, index) => `${index + 1}. ${step}`,
-      ),
+      `**Formula:** ${explanation.formula}`,
       "",
-      `**Verification:** ${question.explanation.verification}`,
+      `#### ${explanation.sectionTitles.steps}`,
       "",
-      `**Conclusion:** ${question.explanation.conclusion}`,
+      ...explanation.steps.map((step) => `${step}`),
       "",
-      `**Common trap:** ${question.explanation.commonTrap.replace(/^Common trap:\s*/u, "")}`,
+      `**Quick check:** ${explanation.verification}`,
+      "",
+      `**Final answer:** ${explanation.conclusion}`,
+      "",
+      `#### ${explanation.sectionTitles.shortcut}`,
+      "",
+      explanation.examShortcut,
+      "",
+      `#### ${explanation.sectionTitles.trap}`,
+      "",
+      explanation.commonTrap.replace(/^Common trap:\s*/u, ""),
       "",
     );
   }
@@ -103,6 +114,7 @@ console.log(JSON.stringify({
   permanentQlCount: model.permanentQlCount,
   reviewQuestionCount: model.reviewQuestionCount,
   reviewStatus: model.reviewStatus,
+  explanationLayout: "SIMPLE_FOUR_TIER_TEACHER_STYLE",
   publiclyPublishable: model.publiclyPublishable,
   questionStudioDiscoverable: model.questionStudioDiscoverable,
   questionBankWritable: model.questionBankWritable,
