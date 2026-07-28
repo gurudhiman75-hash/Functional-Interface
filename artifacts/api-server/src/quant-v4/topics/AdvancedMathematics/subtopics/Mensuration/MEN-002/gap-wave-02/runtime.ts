@@ -245,7 +245,7 @@ function prismBasePerimeterFromLsaDraft(prototypeId: MenCp007Wave02PrototypeId, 
       { title: "Use the Unfolded-Side Relation", body: "The side surface is base perimeter × height.", equation: `$$${lsa}=P\\times${height}$$` },
       { title: "Divide by the Height", body: "Square units divided by height leave a boundary length.", equation: `$$P=\\frac{${lsa}}{${height}}=${basePerimeter}\\text{ cm}$$` },
     ],
-    shortcut: `Perimeter $=LSA/h$.`,
+    shortcut: `Here $P=\\frac{${lsa}}{${height}}=${basePerimeter}\\text{ cm}$; divide the lateral area by the prism height once.`,
   };
 }
 
