@@ -59,7 +59,9 @@ jobs:
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-final.ts \
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-exam-authentic.ts \
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-teacher.ts \
-            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher.test.ts
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-teacher-reviewed.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher.test.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-regression.test.ts
       - name: Bundle teacher-style editorial proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -68,6 +70,14 @@ jobs:
           --platform=node
           --format=esm
           --outfile=dist/quant-v4/pnc-002-editorial-quality-teacher-proof.mjs
+      - name: Bundle adversarial editorial regressions
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-regression.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-002-editorial-quality-teacher-regression.mjs
       - name: Run teacher-style editorial proof
         working-directory: artifacts/api-server
         shell: bash
@@ -75,6 +85,14 @@ jobs:
           mkdir -p dist/quant-v4/pnc-002-editorial-quality-diagnostics
           set +e
           node dist/quant-v4/pnc-002-editorial-quality-teacher-proof.mjs 2>&1 | tee dist/quant-v4/pnc-002-editorial-quality-diagnostics/runtime.log
+          status=${PIPESTATUS[0]}
+          exit "$status"
+      - name: Run adversarial editorial regressions
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set +e
+          node dist/quant-v4/pnc-002-editorial-quality-teacher-regression.mjs 2>&1 | tee dist/quant-v4/pnc-002-editorial-quality-diagnostics/regression.log
           status=${PIPESTATUS[0]}
           exit "$status"
       - name: Publish teacher-style editorial review
