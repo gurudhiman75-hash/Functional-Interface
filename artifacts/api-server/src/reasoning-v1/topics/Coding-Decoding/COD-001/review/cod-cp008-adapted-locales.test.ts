@@ -101,7 +101,8 @@ assert.deepEqual([...categories].sort(), ["ATTRIBUTE", "CATEGORY", "FUNCTION", "
 assert.deepEqual([...topologies].sort(), ["CYCLE", "OPEN_CHAIN"]);
 for (const locale of locales) assert.ok(answerPositions[locale]!.every((count) => count > 0));
 assert.equal(generated, qlIds.length * seedsPerQl * locales.length);
-assert.throws(() => generateCod001Question("COD-QL-175", "hi-IN", 1), /CP-009 runtime/u);
+assert.doesNotThrow(() => generateCod001Question("COD-QL-175", "hi-IN", 1));
+assert.doesNotThrow(() => generateCod001Question("COD-QL-198", "pa-IN", 1));
 
 console.log(JSON.stringify({
   status: "COD-CP-008 HINDI/PUNJABI LANGUAGE-ADAPTED RUNTIME PASSED",
@@ -113,7 +114,7 @@ console.log(JSON.stringify({
   categories: [...categories].sort(),
   topologies: [...topologies].sort(),
   answerPositions,
-  remainingMultilingualGap: "COD-QL-175..198",
+  remainingMultilingualGap: 0,
   questionStudioVisible: false,
   publiclyPublishable: false,
 }, null, 2));
