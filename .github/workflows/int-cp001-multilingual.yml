@@ -50,7 +50,7 @@ jobs:
       - name: Bundle multilingual parity audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-multilingual-audit.ts
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-multilingual-final-audit.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/int-001-cp001-multilingual-audit.mjs
       - name: Run multilingual parity audit
@@ -62,7 +62,7 @@ jobs:
       - name: Bundle multilingual review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-multilingual-review-export.ts
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-multilingual-final-review-export.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/int-001-cp001-multilingual-review-export.mjs
       - name: Generate multilingual review packs
