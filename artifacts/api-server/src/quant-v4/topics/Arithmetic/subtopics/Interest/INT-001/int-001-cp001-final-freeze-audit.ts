@@ -3,7 +3,7 @@ import {
   INT_CP001_FINAL_REGISTRY,
   INT_CP001_RELEASE_ID,
 } from "./cp001-final-registry";
-import { generateIntCp001FinalQuestion } from "./cp001-final-runtime";
+import { generateIntCp001FinalEditorialQuestion } from "./cp001-final-editorial-runtime";
 import { assertIntCp001ClosureFoundation } from "./final-closure/final-closure";
 import { runIntCp001LegacyFixtureAudit } from "./cp001-legacy-fixture-audit";
 
@@ -13,6 +13,11 @@ function stable(value: unknown): string {
 
 function fail(message: string): never {
   throw new Error(message);
+}
+
+function hasBalancedDisplayMath(value: string): boolean {
+  const delimiters = value.match(/\$\$/gu) ?? [];
+  return value.startsWith("$$") && value.endsWith("$$") && delimiters.length % 2 === 0;
 }
 
 assertIntCp001ClosureFoundation();
@@ -36,6 +41,10 @@ const globalStems = new Map<string, string>();
 let generated = 0;
 let internalLeaks = 0;
 let fractionalMoneyOptions = 0;
+let ungroupedCurrencyFindings = 0;
+let fourTierPackages = 0;
+let shortcutPackages = 0;
+let analysedDistractors = 0;
 
 for (const entry of INT_CP001_FINAL_REGISTRY) {
   const stems = new Set<string>();
@@ -47,8 +56,8 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
 
   for (let index = 0; index < 80; index += 1) {
     const seed = `freeze-${index}`;
-    const item = generateIntCp001FinalQuestion(entry.qlId, seed);
-    const repeat = generateIntCp001FinalQuestion(entry.qlId, seed);
+    const item = generateIntCp001FinalEditorialQuestion(entry.qlId, seed);
+    const repeat = generateIntCp001FinalEditorialQuestion(entry.qlId, seed);
     generated += 1;
 
     if (stable(item) !== stable(repeat)) fail(`${entry.qlId}/${seed} is not deterministic.`);
@@ -60,17 +69,39 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
     if (item.options.length !== 4 || new Set(item.options).size !== 4) fail(`${entry.qlId}/${seed} does not have four unique options.`);
     if (item.optionAudit.filter((option) => option.misconceptionId === "CORRECT").length !== 1) fail(`${entry.qlId}/${seed} has an invalid correct-option audit.`);
     if (item.options[item.correctIndex] !== item.optionAudit[item.correctIndex]?.text) fail(`${entry.qlId}/${seed} option audit ordering mismatch.`);
-    if (!item.explanation.conclusion.includes(item.options[item.correctIndex]!)) fail(`${entry.qlId}/${seed} conclusion does not state the answer.`);
+    if (!item.explanation.stepByStep.conclusion.includes(item.options[item.correctIndex]!)) fail(`${entry.qlId}/${seed} conclusion does not state the answer.`);
+
+    const explanation = item.explanation;
+    if (explanation.coreConcept.heading !== "📌 Core Concept & Formula") fail(`${entry.qlId}/${seed} lacks the core-concept tier.`);
+    if (explanation.stepByStep.heading !== "📝 Step-by-Step Solution") fail(`${entry.qlId}/${seed} lacks the step-by-step tier.`);
+    if (explanation.examShortcut.heading !== "⚡ Exam Speed Shortcut") fail(`${entry.qlId}/${seed} lacks the shortcut tier.`);
+    if (explanation.trapAnalysis.heading !== "⚠️ Common Traps & Distractor Analysis") fail(`${entry.qlId}/${seed} lacks the trap-analysis tier.`);
+    if (!hasBalancedDisplayMath(explanation.coreConcept.displayMath)) fail(`${entry.qlId}/${seed} has invalid core MathJax.`);
+    if (explanation.examShortcut.displayMath && !hasBalancedDisplayMath(explanation.examShortcut.displayMath)) fail(`${entry.qlId}/${seed} has invalid shortcut MathJax.`);
+    if (!explanation.examShortcut.narrative.trim()) fail(`${entry.qlId}/${seed} has an empty exam shortcut.`);
+    if (explanation.trapAnalysis.items.length !== 3) fail(`${entry.qlId}/${seed} does not analyse all three distractors.`);
+    for (const trap of explanation.trapAnalysis.items) {
+      const optionIndex = trap.optionNumber - 1;
+      if (optionIndex === item.correctIndex) fail(`${entry.qlId}/${seed} analyses the correct option as a trap.`);
+      if (trap.optionText !== item.options[optionIndex]) fail(`${entry.qlId}/${seed} trap option text is out of sync.`);
+      if (trap.misconceptionId !== item.optionAudit[optionIndex]?.misconceptionId) fail(`${entry.qlId}/${seed} trap misconception ID is out of sync.`);
+      if (!trap.explanation.trim()) fail(`${entry.qlId}/${seed} contains an empty distractor explanation.`);
+    }
+    fourTierPackages += 1;
+    shortcutPackages += 1;
+    analysedDistractors += explanation.trapAnalysis.items.length;
 
     const learnerText = [
       item.stem,
       ...item.options,
-      item.explanation.notice,
-      item.explanation.relation,
-      ...item.explanation.steps,
-      item.explanation.verification,
-      item.explanation.conclusion,
-      item.explanation.commonTrap,
+      explanation.coreConcept.narrative,
+      explanation.coreConcept.displayMath,
+      ...explanation.stepByStep.steps,
+      explanation.stepByStep.verification,
+      explanation.stepByStep.conclusion,
+      explanation.examShortcut.narrative,
+      explanation.examShortcut.displayMath ?? "",
+      ...explanation.trapAnalysis.items.flatMap((trap) => [trap.optionText, trap.explanation]),
     ].join(" ");
     const hasInternalIdentity = /INT-(?:CP|QL)|PROT-/iu.test(learnerText);
     const hasUnresolvedToken = /\b(?:undefined|null|NaN|Infinity|PLACEHOLDER|TODO|TBD)\b/iu.test(learnerText);
@@ -80,6 +111,10 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
     }
     if (/\{\{[^}]+\}\}/u.test(learnerText)) fail(`${entry.qlId}/${seed} contains a template placeholder.`);
     if (/\ba (?:education|equipment) loan\b/iu.test(learnerText)) fail(`${entry.qlId}/${seed} contains an article error.`);
+    if (/₹\s*-?\d{4,}(?![\d,])/u.test(learnerText)) {
+      ungroupedCurrencyFindings += 1;
+      fail(`${entry.qlId}/${seed} contains an ungrouped four-or-more-digit rupee value.`);
+    }
     if (!item.stem.endsWith("?")) fail(`${entry.qlId}/${seed} stem is not a complete interrogative question.`);
     if (/(?:^|[.!?]\s+)(?:Find|Determine)\b/u.test(item.stem)) fail(`${entry.qlId}/${seed} uses an imperative question fragment.`);
     if (/^For [A-Z][\p{L}-]*'s .+ earns /u.test(item.stem)) fail(`${entry.qlId}/${seed} uses a malformed 'For <name>\'s ... earns' opening.`);
@@ -95,7 +130,7 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
     }
 
     for (const option of item.options) {
-      if (/^₹-?\d+ \d+\/\d+$/u.test(option) || /^₹-?\d+\/\d+$/u.test(option)) fractionalMoneyOptions += 1;
+      if (/^₹-?[\d,]+ \d+\/\d+$/u.test(option) || /^₹-?[\d,]+\/\d+$/u.test(option)) fractionalMoneyOptions += 1;
     }
 
     stems.add(item.stem);
@@ -129,6 +164,9 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
     answerPositions: [...positions].sort(),
     adapters: [...adapters].sort(),
     representations: [...representations].sort(),
+    fourTierPackages: 80,
+    shortcutPackages: 80,
+    analysedDistractors: 240,
   };
 }
 
@@ -139,10 +177,14 @@ for (const sourceKind of ["FOUNDATION", "WAVE2", "CLOSURE"]) {
   if (!sourceKindCounts.has(sourceKind)) fail(`Final audit does not exercise source kind ${sourceKind}.`);
 }
 if (fractionalMoneyOptions !== 0) fail(`Final audit found ${fractionalMoneyOptions} fractional-money options.`);
+if (fourTierPackages !== generated) fail(`Only ${fourTierPackages}/${generated} packages passed the four-tier gate.`);
+if (shortcutPackages !== generated) fail(`Only ${shortcutPackages}/${generated} packages contain shortcuts.`);
+if (analysedDistractors !== generated * 3) fail(`Expected ${generated * 3} distractor analyses; found ${analysedDistractors}.`);
 
 console.log(JSON.stringify({
   status: "PASS",
   releaseId: INT_CP001_RELEASE_ID,
+  editorialStandard: "FOUR_TIER_GOLD_V2",
   cpId: "INT-CP-001",
   finalQlCount: INT_CP001_FINAL_REGISTRY.length,
   generated,
@@ -152,7 +194,11 @@ console.log(JSON.stringify({
   semanticCounts: Object.fromEntries([...semanticCounts.entries()].sort()),
   topologyCounts: Object.fromEntries([...topologyCounts.entries()].sort()),
   sourceKindCounts: Object.fromEntries([...sourceKindCounts.entries()].sort()),
+  fourTierPackages,
+  shortcutPackages,
+  analysedDistractors,
   fractionalMoneyOptions,
+  ungroupedCurrencyFindings,
   internalLeaks,
   publiclyPublishable: false,
   questionStudioDiscoverable: false,
