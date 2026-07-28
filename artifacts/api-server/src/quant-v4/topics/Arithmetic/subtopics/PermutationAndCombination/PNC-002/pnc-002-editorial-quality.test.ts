@@ -87,6 +87,10 @@ assert.equal(new Set(allEntries.map((entry) => entry.solveMode)).size, 130);
 const requiredKinds = ["coreConcept", "stepByStep", "examSpeedShortcut", "commonTrapWarning"];
 const requiredHeadingPrefixes = ["📌 Core Concept", "📝 Step-by-Step Solution", "⚡ Exam Speed Shortcut", "⚠️ Common Trap Warning"];
 const unresolvedPlaceholder = /\{[A-Za-z][A-Za-z0-9_]{1,}\}/;
+
+function stripDelimitedMath(value: string): string {
+  return value.replace(/\$\$[\s\S]*?\$\$/g, " ").replace(/\$[^$\n]+?\$/g, " ");
+}
 const forbiddenRoboticPhrases = [
   "distinct people stand in a row",
   "distinct objects",
@@ -161,7 +165,7 @@ for (const entry of allEntries) {
       ...presentation.displayOptions,
       ...presentation.explanationSections.flatMap((section) => [section.heading, ...section.lines]),
     ].join(" ");
-    assert.ok(!unresolvedPlaceholder.test(allStudentText), `${entry.qlId}: unresolved editorial placeholder`);
+    assert.ok(!unresolvedPlaceholder.test(stripDelimitedMath(allStudentText)), `${entry.qlId}: unresolved editorial placeholder`);
     assert.equal((allStudentText.match(/\$\$/g) ?? []).length % 2, 0, `${entry.qlId}: unbalanced display-math delimiters`);
 
     outputRows.push({
