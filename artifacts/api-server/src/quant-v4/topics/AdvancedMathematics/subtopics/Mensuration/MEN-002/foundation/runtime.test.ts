@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { exactKey } from "./exact";
 import { getMenCp007PrototypeIds, MEN_CP_007_PROTOTYPES } from "./prototype-registry";
-import { generateMenCp007Prototype } from "./runtime";
+import { classifyMenCp007Difficulty, generateMenCp007Prototype } from "./runtime";
 
 const prototypes = getMenCp007PrototypeIds();
 assert.equal(prototypes.length, 18, "The first checkpoint should expose its current prototype count without treating it as final inventory.");
@@ -27,11 +27,14 @@ for (const prototypeId of prototypes) {
     assert.deepEqual(first, second, `${prototypeId} must regenerate deterministically for seed ${seed}.`);
     assert.equal(first.validation.valid, true, first.validation.checks.filter((check) => !check.passed).map((check) => `${check.name}: ${check.message}`).join("; "));
     assert.equal(first.verification.valid, true, `${prototypeId} failed independent verification.`);
+    assert.equal(first.difficulty, classifyMenCp007Difficulty(first.state), `${prototypeId} difficulty must derive from the canonical generated state.`);
     assert.equal(first.options.length, 4);
     assert.equal(new Set(first.options.map((option) => exactKey(option.value))).size, 4);
     assert.equal(first.options.filter((option) => option.isCorrect).length, 1);
     assert.equal(first.options[first.correctIndex]?.isCorrect, true);
     assert.equal(first.answer, first.options[first.correctIndex]?.display);
+    assert.ok(first.options.every((option) => !/[²³]/.test(option.display)), `${prototypeId} option units must use MathJax powers rather than Unicode superscripts.`);
+    assert.equal(/[²³]/.test(first.answer), false, `${prototypeId} answer units must use MathJax powers.`);
     assert.equal(first.permanentQlId, null);
     assert.equal(first.state.permanentQlId, null);
     assert.equal(first.reviewStatus, "UNREVIEWED");
@@ -44,7 +47,7 @@ for (const prototypeId of prototypes) {
     assert.ok(first.explanation.traps.every((trap) => /^Option [A-D] \(\$/.test(trap) && trap.includes("Common mistake:")));
     assert.equal(/MEN-CP007|PROT-|misconceptionId|USED_|OMITTED_|IGNORED_|REPORTED_|EXTRA_|ADDED_|PAINTED_/.test(JSON.stringify(first.explanation)), false);
     assert.equal(/[½¼]/.test(JSON.stringify(first, (_key, value) => typeof value === "bigint" ? value.toString() : value)), false);
-    assert.ok(first.stem.endsWith("?" ) || first.stem.endsWith("."));
+    assert.ok(first.stem.endsWith("?") || first.stem.endsWith("."));
 
     if (first.exactAnswer.kind === "SURD") {
       exactSurdAnswers += 1;
@@ -53,7 +56,7 @@ for (const prototypeId of prototypes) {
     }
     if (first.unit === "£") {
       assert.ok(first.stem.includes("\\text{£}"));
-      assert.ok(first.answer.includes("\\text{£}"));
+      assert.ok(first.answer.startsWith("$\\text{£}"), "Pound sterling must precede the amount in en-GB output.");
     }
 
     answerPositions.add(first.correctIndex);
@@ -69,7 +72,7 @@ for (const prototypeId of prototypes) {
   assert.deepEqual([...answerPositions].sort(), [0, 1, 2, 3], `${prototypeId} must reach every correct-answer position.`);
   assert.ok(stems.size >= 4, `${prototypeId} has insufficient deterministic stem diversity: ${stems.size}.`);
   assert.ok(answers.size >= 4, `${prototypeId} has insufficient exact answer diversity: ${answers.size}.`);
-  assert.ok(localDifficulties.size >= 2, `${prototypeId} must demonstrate instance-level difficulty variation.`);
+  assert.ok(localDifficulties.size >= 2, `${prototypeId} must demonstrate state-derived difficulty variation.`);
 }
 
 assert.deepEqual([...seenShapes].sort(), ["CUBE", "CUBOID", "RIGHT_PRISM"]);
