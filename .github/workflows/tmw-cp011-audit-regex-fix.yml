@@ -1,0 +1,69 @@
+name: Fix TMW-CP-011 audit wording guard
+
+on:
+  pull_request:
+    branches:
+      - design/tmw-001-blueprint
+    types: [opened, reopened, synchronize]
+    paths:
+      - .github/workflows/tmw-cp011-audit-regex-fix.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fix-tmw-cp011-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  fix:
+    if: github.head_ref == 'feat/tmw-cp011'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: feat/tmw-cp011
+
+      - name: Replace fragile wording regex
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011-audit.ts')
+          lines = path.read_text().splitlines()
+          matches = [i for i, line in enumerate(lines) if 'mechanical change wording' in line]
+          if len(matches) != 1:
+              raise SystemExit(f'expected one wording-guard line, found {len(matches)}')
+          lines[matches[0]] = r'    if (/per day and changes by/i.test(learnerText) || learnerText.includes("increases by \\(0\\)") || learnerText.includes("decreases by \\(0\\)")) failures.push(`${entry.qlId}:${index}:mechanical change wording`);'
+          path.write_text('\n'.join(lines) + '\n')
+          PY
+
+      - name: Install locked workspace dependencies
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile
+
+      - name: Validate proof, audit and review export
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-cp011.regex-test.mjs
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp011.regex-test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-cp011.regex-audit.mjs
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp011.regex-audit.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011-review-export.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-cp011.regex-review.mjs
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp011.regex-review.mjs
+
+      - name: Commit audit correction
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011-audit.ts
+          git commit -m 'fix(tmw): correct CP-011 teacher audit wording guard'
+          git push origin HEAD:feat/tmw-cp011
