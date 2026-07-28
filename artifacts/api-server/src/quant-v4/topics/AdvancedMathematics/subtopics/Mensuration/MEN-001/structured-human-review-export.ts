@@ -14,11 +14,18 @@ fs.mkdirSync(outputDir, { recursive: true });
 
 function escapeHtml(value: unknown) {
   return String(value)
+    .replaceAll("&#39;", "'")
+    .replaceAll("&apos;", "'")
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
+    .replaceAll('"', "&quot;");
+}
+
+function assertCleanUtf8Html(html: string, filename: string) {
+  if (/&(?:amp;)?#39;|&apos;/.test(html)) {
+    throw new Error(`${filename} contains an encoded apostrophe entity instead of a clean UTF-8 apostrophe.`);
+  }
 }
 
 function renderEquation(equation: string) {
@@ -260,6 +267,7 @@ for (const button of buttons) {
 </body>
 </html>`;
 
+assertCleanUtf8Html(html, "men-001-structured-review.html");
 fs.writeFileSync(
   path.join(outputDir, "men-001-structured-review.html"),
   html,

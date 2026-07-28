@@ -21,11 +21,18 @@ function csvCell(value: unknown) {
 
 function escapeHtml(value: unknown) {
   return String(value)
+    .replaceAll("&#39;", "'")
+    .replaceAll("&apos;", "'")
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
+    .replaceAll('"', "&quot;");
+}
+
+function assertCleanUtf8Html(html: string, filename: string) {
+  if (/&(?:amp;)?#39;|&apos;/.test(html)) {
+    throw new Error(`${filename} contains an encoded apostrophe entity instead of a clean UTF-8 apostrophe.`);
+  }
 }
 
 const rows: string[][] = [[
@@ -191,6 +198,10 @@ const html = `<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MEN-001 Visual Human Review</title>
+<script>
+window.MathJax = { tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["$$", "$$"], ["\\[", "\\]"]] } };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
 :root { color-scheme: light dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
 body { margin: 0; background: #eef2f7; color: #162033; }
@@ -224,6 +235,7 @@ h3 { font-size: 15px; text-transform: uppercase; letter-spacing: .05em; color: #
 .no-diagram { color: #64748b; text-align: center; padding: 28px 12px; font-style: italic; }
 .options, .explanation { padding-left: 28px; line-height: 1.55; }
 .options li, .explanation li { padding: 4px 7px; }
+.explanation li { white-space: pre-wrap; }
 .options .correct { background: #e8f7ec; border-radius: 7px; font-weight: 700; }
 .answer { font-weight: 800; font-size: 18px; }
 details { margin-top: 12px; color: #526176; }
@@ -278,6 +290,7 @@ for (const button of buttons) {
 </script>
 </body>
 </html>`;
+assertCleanUtf8Html(html, "men-001-human-review.html");
 fs.writeFileSync(path.join(outputDir, "men-001-human-review.html"), html, "utf8");
 
 console.log(`MEN-001 human review export created: ${rows.length - 1} CSV samples, ${getMen001QuestionLanguageIds().length} Markdown/HTML samples and ${renderedIllustrationCount} rendered SVG illustrations.`);

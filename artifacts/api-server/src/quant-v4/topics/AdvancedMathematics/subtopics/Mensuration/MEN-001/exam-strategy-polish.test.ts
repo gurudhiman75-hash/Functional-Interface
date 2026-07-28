@@ -30,8 +30,8 @@ const isosceles = generate(
 );
 assert(shortcut(isosceles), "QL-017 must expose the Pythagorean-triplet exam shortcut.");
 assert(
-  shortcut(isosceles)!.paragraphs.some((paragraph) => /Pythagorean triplet/.test(paragraph)),
-  "QL-017 shortcut must explain why the triplet saves time.",
+  shortcut(isosceles)!.paragraphs.some((paragraph) => /Pythagorean Triplet/i.test(paragraph)),
+  "QL-017 shortcut must explicitly name the triplet and explain why it saves time.",
 );
 
 const ratioTriplet = generate(
@@ -41,7 +41,7 @@ const ratioTriplet = generate(
 );
 assert(shortcut(ratioTriplet), "QL-020 must use the right-triangle shortcut when the generated sides form a triplet.");
 assert(
-  shortcut(ratioTriplet)!.paragraphs.some((paragraph) => /instead of applying Heron's formula/.test(paragraph)),
+  shortcut(ratioTriplet)!.paragraphs.some((paragraph) => /instead of applying Heron's formula/i.test(paragraph)),
   "QL-020 shortcut must explicitly replace Heron's formula only for a valid triplet state.",
 );
 
@@ -52,7 +52,7 @@ const ratioNonTriplet = generate(
 );
 assert(shortcut(ratioNonTriplet), "QL-020 must still expose a safe exam-speed block for a non-right triangle.");
 assert(
-  shortcut(ratioNonTriplet)!.paragraphs.every((paragraph) => !/Pythagorean triplet/.test(paragraph)),
+  shortcut(ratioNonTriplet)!.paragraphs.every((paragraph) => !/Pythagorean Triplet/i.test(paragraph)),
   "QL-020 must not claim a triplet shortcut for a non-right triangle.",
 );
 

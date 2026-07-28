@@ -33,7 +33,7 @@ const CP006_STEM_REALISM_FRAGMENTS: Record<string, string> = {
   "MEN-001-QL-403": "A tarpaulin section covers",
   "MEN-001-QL-404": "A floor section covers",
   "MEN-001-QL-420": "A mapped land region occupies",
-  "MEN-001-QL-431": "A wire boundary forms a rectangle",
+  "MEN-001-QL-431": "A metallic wire is bent into a rectangular frame",
   "MEN-001-QL-432": "A farmer has exactly",
 };
 
