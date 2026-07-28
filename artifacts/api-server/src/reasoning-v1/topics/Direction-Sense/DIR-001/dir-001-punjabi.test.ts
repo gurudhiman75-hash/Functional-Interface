@@ -8,7 +8,7 @@ const explanations = new Map<string, Set<string>>();
 const multiLetterLatin = /\b[A-Za-z]{2,}\b/;
 const devanagariLettersOrDigits = /[\u0900-\u0963\u0966-\u097F]/;
 const internalLeak = /DIR-(?:QL|CP)-\d+|\bundefined\b|\bnull\b/;
-const unnatural = /ਕਰਦਾ\/ਕਰਦੀ|ਸੀ\/ਸਨ|ਹੈ ਹੈ|ਹੈ। ਹੈ|ਪਦ|ਸਾਦ੍ਰਿਸ਼ਤਾ|ਤੁਰਨਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ|ਤੁਰਨਾ ਸ਼ੁਰੂ ਕਰਦੀ ਹੈ|ਇੱਕ ਵਿਅਕਤੀ[^।]*(?:ਤੁਰਦਾ|ਜਾਂਦਾ) ਹੈ|ਦਿਸ਼ਾ-ਫਰੇਮ|ਸ਼ੁੱਧ ਚਾਲ|ਅੰਤਿਮ ਖਿਸਕਾਅ|ਮਾਤਰਾਂ|ਸ਼ੁੱਧ ਲੰਬਕਾਰੀ|ਇੱਕ ਸਿੱਧੀ ਲਾਈਨ|ਠੀਕ ਬੰਦ ਬਣਤਰ|ਪੂਰੀ ਬਣਤਰ/;
+const unnatural = /ਕਰਦਾ\/ਕਰਦੀ|ਸੀ\/ਸਨ|ਹੈ ਹੈ|ਹੈ। ਹੈ|ਪਦ|ਸਾਦ੍ਰਿਸ਼ਤਾ|ਤੁਰਨਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ|ਤੁਰਨਾ ਸ਼ੁਰੂ ਕਰਦੀ ਹੈ|ਇੱਕ ਵਿਅਕਤੀ[^।]*(?:ਤੁਰਦਾ|ਜਾਂਦਾ) ਹੈ|ਦਿਸ਼ਾ-ਫਰੇਮ|ਸ਼ੁੱਧ ਚਾਲ|ਅੰਤਿਮ ਖਿਸਕਾਅ|ਮਾਤਰਾਂ|ਸ਼ੁੱਧ ਲੰਬਕਾਰੀ|ਇੱਕ ਸਿੱਧੀ ਲਾਈਨ|ਠੀਕ ਬੰਦ ਬਣਤਰ|ਪੂਰੀ ਬਣਤਰ|ਦੇ ਕਿਹੜੀ ਦਿਸ਼ਾ/;
 const diagramEnglish = /\b(?:North|South|East|West|metres?|Morning|Evening|Shadow|Sun|Start|Finish|Final|Person|Reference|Endpoint|Movement)\b/;
 
 assert.equal(DIR_001_QLS.length, 44);
