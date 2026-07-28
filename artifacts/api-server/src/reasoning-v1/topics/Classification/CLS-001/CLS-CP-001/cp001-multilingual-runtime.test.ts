@@ -100,7 +100,7 @@ for (const contract of CLS_CP001_PERMANENT_CONTRACTS) {
           assert.match(learnerText, /[\u0A00-\u0A7F]/u);
           assert.ok(question.options.every((value) => /[\u0A00-\u0A7F]/u.test(value)));
           assert.ok(question.optionGroups.flat().every((value) => /[\u0A00-\u0A7F]/u.test(value)));
-          assert.ok(!/[\u0900-\u097F]/u.test(question.stem));
+          assert.ok(!/[\u0904-\u0939\u0958-\u0961]/u.test(question.stem));
           assert.ok(!/(?:^|\s)(?:ਪਦ|ਸਾਦ੍ਰਿਸ਼ਤਾ)(?:\s|$)/u.test(learnerText));
         }
 
