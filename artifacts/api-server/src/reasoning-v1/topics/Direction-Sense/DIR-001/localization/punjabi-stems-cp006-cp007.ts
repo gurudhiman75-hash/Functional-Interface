@@ -5,7 +5,7 @@ export function renderPunjabiStem023To035(english: R): string | null {
   const s = asR(english.structuredPrompt);
   switch (qlId) {
     case "DIR-QL-023":
-      return `ਦਿਸ਼ਾ-ਚਿੰਨ੍ਹਾਂ ਦੇ ਇਸ ਨਿਯਮ ਵਿੱਚ ${codeMapTextPa(s.codeMap)}। ਦਿੱਤੇ ਕਥਨ ਹਨ: ${codedChainPa(s.relations ?? [])}। ${namePa(s.query.subject)}, ${namePa(s.query.reference)} ਦੇ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਹੈ?`;
+      return `ਦਿਸ਼ਾ-ਚਿੰਨ੍ਹਾਂ ਦੇ ਇਸ ਨਿਯਮ ਵਿੱਚ ${codeMapTextPa(s.codeMap)}। ਦਿੱਤੇ ਕਥਨ ਹਨ: ${codedChainPa(s.relations ?? [])}। ${namePa(s.query.subject)}, ${namePa(s.query.reference)} ਤੋਂ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਹੈ?`;
     case "DIR-QL-024":
       return `ਦਿਸ਼ਾ-ਚਿੰਨ੍ਹਾਂ ਦੇ ਇਸ ਨਿਯਮ ਵਿੱਚ ${codeMapTextPa(s.codeMap)}। ਦਿੱਤੇ ਕਥਨ ਹਨ: ${codedChainPa(s.relations ?? [])}। ${namePa(s.query.reference)} ਦੇ ${directionPa(s.query.direction)} ਵੱਲ ਕੌਣ ਹੈ?`;
     case "DIR-QL-025":
@@ -17,7 +17,7 @@ export function renderPunjabiStem023To035(english: R): string | null {
     case "DIR-QL-028":
       return `ਦਿਸ਼ਾ-ਚਿੰਨ੍ਹਾਂ ਦੇ ਇਸ ਨਿਯਮ ਵਿੱਚ ${codeMapTextPa(s.codeMap)}। ਲੜੀ “${codedChainPa(s.relations ?? [], s.hiddenIndex)}” ਵਿੱਚ ? ਦੀ ਥਾਂ ਕਿਹੜਾ ਚਿੰਨ੍ਹ ਆਵੇਗਾ, ਤਾਂ ਜੋ ${namePa(s.targetRelation.subject)}, ${namePa(s.targetRelation.reference)} ਦੇ ${directionPa(s.targetRelation.direction)} ਵੱਲ ਹੋਵੇ?`;
     case "DIR-QL-029":
-      return `ਚਾਲਾਂ ਦੇ ਚਿੰਨ੍ਹਾਂ ਦੇ ਇਸ ਨਿਯਮ ਵਿੱਚ ${codeMapTextPa(s.codeMap, true)}। ਚਾਲ ਬਿੰਦੂ O ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ: ${s.steps.map((step: R) => `${step.symbol} ${metresPa(step.distance)}`).join(", ਫਿਰ ")}। ਅੰਤਿਮ ਥਾਂ ਬਿੰਦੂ O ਦੇ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਹੈ?`;
+      return `ਚਾਲ-ਚਿੰਨ੍ਹਾਂ ਦੇ ਇਸ ਨਿਯਮ ਵਿੱਚ ${codeMapTextPa(s.codeMap, true)}। ਚਾਲ ਬਿੰਦੂ O ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦੀ ਹੈ: ${s.steps.map((step: R) => `${step.symbol} ${metresPa(step.distance)}`).join(", ਫਿਰ ")}। ਅੰਤਿਮ ਥਾਂ ਬਿੰਦੂ O ਤੋਂ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਹੈ?`;
     case "DIR-QL-030":
       return `${sunTimePa(s.period, s.variation ?? english.seed)} ਸਾਫ਼ ਮੌਸਮ ਵਿੱਚ ${s.target === "SUN" ? "ਸੂਰਜ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਦਿੱਸੇਗਾ" : "ਖੜ੍ਹੇ ਖੰਭੇ ਦੀ ਪਰਛਾਂਵਾਂ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਪਵੇਗੀ"}?`;
     case "DIR-QL-031":
