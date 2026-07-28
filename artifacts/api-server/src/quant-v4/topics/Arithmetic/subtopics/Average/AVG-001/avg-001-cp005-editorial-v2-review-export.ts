@@ -1,7 +1,7 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { applyAvg001Cp005EditorialV2Candidate } from "./foundation/cp005-editorial-v2";
+import { applyAvg001Cp005EditorialV2FinalCandidate } from "./foundation/cp005-editorial-v2-final";
 import { getAvg001QuestionEntries } from "./foundation/library";
 import { runAvg001Pipeline } from "./foundation/pipeline";
 
@@ -15,7 +15,7 @@ const rows = getAvg001QuestionEntries()
   .map((entry) => {
     const seed = `avg-cp005-editorial-v2-review:${entry.qlId}`;
     const original = runAvg001Pipeline({ questionLanguageId: entry.qlId, seed, language: "en" });
-    const candidate = applyAvg001Cp005EditorialV2Candidate(original);
+    const candidate = applyAvg001Cp005EditorialV2FinalCandidate(original);
     return {
       qlId: entry.qlId,
       solveMode: entry.solveMode,
