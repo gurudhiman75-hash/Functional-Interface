@@ -12,6 +12,8 @@ const forbiddenStemPatterns = [
   ["generic third-grade reference", /\bquantity of the third grade\b/iu],
   ["vague quantity reference", /\bwhat is that quantity\?/iu],
   ["lowercase sentence start", /\.\s+a\s+\d/u],
+  ["capitalised question word after comma", /,\s+(?:What|How)\b/u],
+  ["awkward quantity-worth construction", /\bto obtain \d+(?:\s+\d+\/\d+)? (?:kg|litres) worth\b/iu],
   ["unnatural unknown-price tail", /\bwhat price must [^?]+ have\?/iu],
   ["generic unknown-value tail", /\bwhat is the value of [^?]+ per unit\?/iu],
 ] as const;
@@ -39,11 +41,19 @@ function expectedNamedAnswerLabel(question: any): string | null {
   }
 }
 
+function isSourceValueRequest(question: any): boolean {
+  const mode = question.parameters?.request?.mode;
+  return mode === "UNKNOWN_COMPONENT_VALUE" || mode === "SOURCE_VALUE_FROM_RATIO";
+}
+
 let generatedQuestionCount = 0;
 let namedAnswerContractCount = 0;
+let sourceValueUnitContractCount = 0;
 let forbiddenPatternMatchCount = 0;
 let pluralVerbMismatchCount = 0;
+let conclusionSentenceCaseMismatchCount = 0;
 let commonTrapCasingMismatchCount = 0;
+let commonTrapHyphenationMismatchCount = 0;
 
 for (const qlId of MAL_CP001_PERMANENT_QL_IDS) {
   for (let index = 0; index < 100; index += 1) {
@@ -68,10 +78,18 @@ for (const qlId of MAL_CP001_PERMANENT_QL_IDS) {
       if (!question.stem.includes(expectedLabel)) {
         fail(`${qlId}/${seed}: stem omits requested component ${expectedLabel}: ${question.stem}`);
       }
-      if (!question.explanation.conclusion.includes(expectedLabel)) {
+      if (!question.explanation.conclusion.toLowerCase().includes(expectedLabel.toLowerCase())) {
         fail(
           `${qlId}/${seed}: conclusion omits requested component ${expectedLabel}: ${question.explanation.conclusion}`,
         );
+      }
+    }
+
+    if (isSourceValueRequest(question)) {
+      sourceValueUnitContractCount += 1;
+      const unit = question.parameters.context.quantityUnit === "kg" ? "kg" : "litre";
+      if (!new RegExp(`per ${unit}\\?$`, "u").test(question.stem)) {
+        fail(`${qlId}/${seed}: source-value prompt omits terminal unit: ${question.stem}`);
       }
     }
 
@@ -80,9 +98,18 @@ for (const qlId of MAL_CP001_PERMANENT_QL_IDS) {
       fail(`${qlId}/${seed}: plural material uses singular cost verb: ${question.explanation.conclusion}`);
     }
 
+    if (!/^[A-Z]/u.test(question.explanation.conclusion)) {
+      conclusionSentenceCaseMismatchCount += 1;
+      fail(`${qlId}/${seed}: conclusion does not start with a capital letter: ${question.explanation.conclusion}`);
+    }
+
     if (!/^Common trap:\s+[a-z]/u.test(question.explanation.commonTrap)) {
       commonTrapCasingMismatchCount += 1;
       fail(`${qlId}/${seed}: common-trap casing is not normalised: ${question.explanation.commonTrap}`);
+    }
+    if (/\btwo stage\b/iu.test(question.explanation.commonTrap)) {
+      commonTrapHyphenationMismatchCount += 1;
+      fail(`${qlId}/${seed}: two-stage wording is not hyphenated: ${question.explanation.commonTrap}`);
     }
   }
 }
@@ -92,9 +119,12 @@ console.log(JSON.stringify({
   permanentQlCount: MAL_CP001_PERMANENT_QL_IDS.length,
   generatedQuestionCount,
   namedAnswerContractCount,
+  sourceValueUnitContractCount,
   forbiddenPatternMatchCount,
   pluralVerbMismatchCount,
+  conclusionSentenceCaseMismatchCount,
   commonTrapCasingMismatchCount,
+  commonTrapHyphenationMismatchCount,
   publiclyPublishable: false,
   questionStudioDiscoverable: false,
   questionBankWritable: false,
