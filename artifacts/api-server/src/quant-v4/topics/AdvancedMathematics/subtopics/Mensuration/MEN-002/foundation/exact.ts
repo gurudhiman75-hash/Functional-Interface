@@ -145,6 +145,8 @@ function formatUnitMath(unit: Men002Unit) {
     case "m³": return "\\text{ m}^{3}";
     case "%": return "\\%";
     case "£": return "\\text{£}";
+    case "£/m²": return "\\text{£}/\\text{m}^{2}";
+    case "£/m³": return "\\text{£}/\\text{m}^{3}";
     default: return `\\text{ ${unit}}`;
   }
 }
@@ -152,6 +154,10 @@ function formatUnitMath(unit: Men002Unit) {
 export function formatWithUnit(value: ExactValue, unit: Men002Unit) {
   const maths = formatExactMath(value);
   if (unit === "£") return `$${formatUnitMath(unit)}${maths}$`;
+  if (unit === "£/m²" || unit === "£/m³") {
+    const denominator = unit === "£/m²" ? "2" : "3";
+    return `$\\text{£}${maths}/\\text{m}^{${denominator}}$`;
+  }
   return `$${maths}${formatUnitMath(unit)}$`;
 }
 
