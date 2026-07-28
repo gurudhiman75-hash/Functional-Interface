@@ -67,7 +67,7 @@ function cleanMathSpacing(value: string): string {
   return value
     .replace(/\b(is|gives|becomes|equals|using|as)\$(?!\$)/gi, "$1 $")
     .replace(/\b(Thus|Hence|Therefore)\$(?!\$)/g, "$1 $")
-    .replace(/(calculation|formula|count):\$\$/gi, "$1: $$")
+    .replace(/(calculation|formula|count):\$\$/gi, (_match, label: string) => `${label}: $$`)
     .replace(/\s+/g, " ")
     .trim();
 }
