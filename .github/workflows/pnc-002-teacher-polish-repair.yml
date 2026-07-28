@@ -1,0 +1,137 @@
+name: Apply final PNC teacher polish
+
+on:
+  push:
+    branches:
+      - feat/pnc-002-editorial-quality-upgrade
+    paths:
+      - .github/workflows/pnc-002-teacher-polish-repair.yml
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/pnc-002-editorial-quality-upgrade
+      - name: Patch learner-facing polish and regressions
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          root = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002")
+          presentation = root / "foundation/student-presentation-teacher-final.ts"
+          text = presentation.read_text(encoding="utf-8")
+          old = '''export function buildPnc002FinalTeacherStudentPresentation(source: PncStudentSourcePackage): PncStudentPresentation {
+            const reviewed = buildPnc002ReviewedTeacherStudentPresentation(source);
+            return {
+              ...reviewed,
+              explanationSections: reviewed.explanationSections.map((section) => {
+                if (section.kind === "stepByStep") return finalStepSection(source, section);
+                if (section.kind === "commonTrapWarning") return finalTrapSection(section);
+                return section;
+              }),
+            };
+          }
+          '''
+          new = '''function naturalCoreLine(value: string): string {
+            return value
+              .replace(/This people in an arrangement question/gi, "This arrangement question")
+              .replace(/This books on a shelf question/gi, "This shelf-arrangement question")
+              .replace(/This group formation question/gi, "This grouping question")
+              .replace(/In this people in an arrangement question/gi, "In this arrangement question")
+              .replace(/In this books on a shelf question/gi, "In this shelf-arrangement question")
+              .replace(/In this files in a row question/gi, "In this file-arrangement question");
+          }
+
+          function optionNumber(value: string): number | undefined {
+            const match = value.match(/([\\d,]+)/);
+            if (!match) return undefined;
+            const number = Number(match[1].replace(/,/g, ""));
+            return Number.isSafeInteger(number) ? number : undefined;
+          }
+
+          function polishTrap(source: PncStudentSourcePackage, line: string, unit: string): string {
+            let polished = line.replace(/\\(([^)]*?) (?:groupings|selections)\\)/, (_match, value: string) => `(${value} ${unit})`);
+            if ((source.questionLanguageId === "PNC-QL-247" || source.questionLanguageId === "PNC-QL-248") && /whole-group symmetry|interchangeable groups/i.test(polished)) {
+              polished = polished.replace(/This happens when you .*?\\.$/, "This happens when you use the wrong eligible pool or arrangement factor after applying the two-person condition.");
+            }
+            if (/nearby arithmetic distractor/i.test(polished)) {
+              const option = optionNumber(polished);
+              const correct = source.solver.numericAnswer;
+              if (option !== undefined && Math.abs(option - correct) === 1) {
+                const direction = option < correct ? "one less" : "one more";
+                polished = polished.replace(/This option is a nearby arithmetic distractor and does not equal the condition-aware result\\./i, `This is ${direction} than the correct total, so recheck the final arithmetic.`);
+              } else {
+                polished = polished.replace(/This option is a nearby arithmetic distractor and does not equal the condition-aware result\\./i, "This comes from a small arithmetic slip in the final calculation.");
+              }
+            }
+            return polished;
+          }
+
+          export function buildPnc002FinalTeacherStudentPresentation(source: PncStudentSourcePackage): PncStudentPresentation {
+            const reviewed = buildPnc002ReviewedTeacherStudentPresentation(source);
+            const initialSections = reviewed.explanationSections.map((section) => {
+              if (section.kind === "stepByStep") return finalStepSection(source, section);
+              if (section.kind === "commonTrapWarning") return finalTrapSection(section);
+              return section;
+            });
+            const arrangementUnit = ["PNC-QL-247", "PNC-QL-248", "PNC-QL-249"].includes(source.questionLanguageId);
+            const optionUnit = arrangementUnit ? "arrangements" : reviewed.optionUnit;
+            const displayOptions = arrangementUnit
+              ? reviewed.displayOptions.map((option) => option.replace(/ (?:groupings|selections)$/, " arrangements"))
+              : [...reviewed.displayOptions];
+            const answerLabel = displayOptions[reviewed.correctIndex]!;
+            const explanationSections = initialSections.map((section) => {
+              if (section.kind === "coreConcept") return { ...section, lines: section.lines.map(naturalCoreLine) };
+              if (section.kind === "stepByStep") return { ...section, lines: section.lines.map((line) => line.replace(reviewed.answerLabel, answerLabel)) };
+              if (section.kind === "commonTrapWarning") return { ...section, lines: section.lines.map((line) => polishTrap(source, line, optionUnit)) };
+              return section;
+            });
+            return { ...reviewed, optionUnit, displayOptions, answerLabel, explanationSections };
+          }
+          '''
+          if old not in text:
+            raise SystemExit("final export anchor not found")
+          presentation.write_text(text.replace(old, new, 1), encoding="utf-8")
+
+          proof = root / "pnc-002-editorial-quality-teacher-final.test.ts"
+          proof_text = proof.read_text(encoding="utf-8")
+          anchor = '''assert.doesNotMatch(ql269Steps, /10316/);
+
+          const normalizedStems = new Map<string, string[]>();
+          '''
+          replacement = '''assert.doesNotMatch(ql269Steps, /10316/);
+
+          for (const qlId of ["PNC-QL-247", "PNC-QL-248", "PNC-QL-249"]) {
+            const row = byQl.get(qlId);
+            assert.ok(row);
+            assert.equal(row.optionUnit, "arrangements");
+            assert.ok(row.displayOptions.every((option) => option.endsWith(" arrangements")));
+            assert.ok(row.answerLabel.endsWith(" arrangements"));
+          }
+          assert.doesNotMatch(combined("PNC-QL-247", "commonTrapWarning"), /whole-group symmetry|interchangeable groups/i);
+          assert.doesNotMatch(combined("PNC-QL-248", "commonTrapWarning"), /whole-group symmetry|interchangeable groups/i);
+          for (const row of output) {
+            assert.doesNotMatch(row.coreConcept.join(" "), /This people|This books|This group formation|In this people|In this books|In this files/i);
+          }
+
+          const normalizedStems = new Map<string, string[]>();
+          '''
+          if anchor not in proof_text:
+            raise SystemExit("final proof polish anchor not found")
+          proof.write_text(proof_text.replace(anchor, replacement, 1), encoding="utf-8")
+          PY
+      - name: Commit polish
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-teacher-final.ts
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality-teacher-final.test.ts
+          git commit -m "fix(pnc): polish final teacher presentation"
+          git push origin HEAD:feat/pnc-002-editorial-quality-upgrade
