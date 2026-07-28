@@ -431,7 +431,8 @@ export function generatePnlCp004Case(
 
     case "PNL-QL-108": {
       const grossSellingPrice = rupees(pickNumber(random, BASE_PRICES));
-      const commissionPercent = rational(pickNumber(random, COMMISSION_RATES));
+      // A 20% commission leaves 4/5 of gross, keeping every generated inverse exact to the paise.
+  const commissionPercent = rational(20);
       return {
         qlId,
         registry,
