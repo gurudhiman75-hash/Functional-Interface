@@ -1,6 +1,7 @@
 export interface DeterministicRandom {
   nextUint32(): number;
   int(minimum: number, maximum: number): number;
+  bool(probability?: number): boolean;
   pick<T>(values: readonly T[]): T;
   shuffle<T>(values: readonly T[]): T[];
 }
@@ -31,6 +32,12 @@ export function createRandom(seed: string): DeterministicRandom {
         throw new Error(`Invalid integer range ${minimum}..${maximum}`);
       }
       return minimum + (nextUint32() % (maximum - minimum + 1));
+    },
+    bool(probability = 0.5) {
+      if (!Number.isFinite(probability) || probability < 0 || probability > 1) {
+        throw new Error(`Invalid Boolean probability ${probability}`);
+      }
+      return nextUint32() / 0x1_0000_0000 < probability;
     },
     pick<T>(values: readonly T[]): T {
       if (values.length === 0) throw new Error("Cannot pick from an empty collection");
