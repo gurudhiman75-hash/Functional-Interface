@@ -29,6 +29,7 @@ import {
   runPnl001ReviewPipeline,
   type Pnl001CanonicalProblemId,
 } from "./topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-review-runtime";
+import { runPnlCp001DynamicPipeline } from "./topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-001/cp001-dynamic-runtime";
 
 export type QuantV4PackageId = CoreQuantV4PackageId | "PNL-001";
 export type QuantV4GenerationRequest = Omit<
@@ -37,6 +38,7 @@ export type QuantV4GenerationRequest = Omit<
 > & {
   packageId?: QuantV4PackageId;
   archetypeId?: QuantV4PackageId;
+  runtimeMode?: "CANONICAL_REVIEW" | "DYNAMIC_CANDIDATE";
 };
 
 export type {
@@ -48,6 +50,8 @@ export { QUANT_V4_PERCENTAGE_ALL_PATTERN_ID, toQuestionStudioPreview };
 
 const RAP_LANGUAGES: readonly QuantV4Language[] = ["en", "hi", "pa"];
 const PNL_LANGUAGES: readonly QuantV4Language[] = ["en"];
+const PNL_DYNAMIC_CP_IDS = ["PNL-CP-001"] as const;
+type Pnl001RuntimeMode = "CANONICAL_REVIEW" | "DYNAMIC_CANDIDATE";
 
 const normalizeSelectorText = (value: unknown) =>
   String(value ?? "")
@@ -137,6 +141,16 @@ class QuantV4RequestError extends Error {
     super(message);
     this.name = "QuantV4RequestError";
   }
+}
+
+function normalizePnlRuntimeMode(value: unknown): Pnl001RuntimeMode {
+  const normalized = String(value ?? "CANONICAL_REVIEW").trim().toUpperCase();
+  if (normalized === "CANONICAL_REVIEW" || normalized === "DYNAMIC_CANDIDATE") {
+    return normalized;
+  }
+  throw new QuantV4RequestError(
+    `Unsupported PNL-001 runtime mode '${String(value ?? "")}'.`,
+  );
 }
 
 function normalizeDifficulty(value: unknown): QuantV4Difficulty | undefined {
@@ -255,6 +269,8 @@ function pnlPackageForQuestionStudio() {
     supportedLanguages: [...PNL_LANGUAGES],
     enabled: true,
     runtimeMode: "CANONICAL_REVIEW",
+    supportedRuntimeModes: ["CANONICAL_REVIEW", "DYNAMIC_CANDIDATE"],
+    dynamicCandidateCpIds: [...PNL_DYNAMIC_CP_IDS],
     questionBankStatus: "NOT_STORED",
     testEligibility: "INELIGIBLE",
     publiclyPublishable: false,
@@ -290,6 +306,17 @@ async function generateWithRuntimePackage(
     );
   }
 
+  const isPnl = pkg.packageId === PNL_RUNTIME_PACKAGE.packageId;
+  const pnlRuntimeMode = isPnl
+    ? normalizePnlRuntimeMode(request.runtimeMode)
+    : undefined;
+  const runtimeCpIds = pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+    ? [...PNL_DYNAMIC_CP_IDS]
+    : pkg.cpIds;
+  const runtimePackage = runtimeCpIds === pkg.cpIds
+    ? pkg
+    : { ...pkg, cpIds: runtimeCpIds };
+
   const count = Math.min(
     1000,
     Math.max(1, Math.floor(Number(request.count ?? 1) || 1)),
@@ -305,15 +332,16 @@ async function generateWithRuntimePackage(
         request.subtopic ??
         pkg.packageId,
       request.canonicalProblemId ?? request.cpId ?? "mixed",
+      pnlRuntimeMode ?? "DYNAMIC",
       Date.now(),
       Math.random().toString(36).slice(2),
     ].join(":");
 
   const explicitCp = request.canonicalProblemId ?? request.cpId;
-  const selectedCp = resolveCpId(pkg, request);
+  const selectedCp = resolveCpId(runtimePackage, request);
   const cpOrder = explicitCp
     ? [selectedCp]
-    : shuffled(pkg.cpIds, `${batchSeed}:${pkg.packageId}:cp-order`);
+    : shuffled(runtimeCpIds, `${batchSeed}:${pkg.packageId}:cp-order`);
   const results: Array<{ questionPackage: any; question: any }> = [];
 
   for (let index = 0; index < count; index += 1) {
@@ -322,12 +350,19 @@ async function generateWithRuntimePackage(
     }
     const cpId = cpOrder[index % cpOrder.length]!;
     const seed = `${batchSeed}:${cpId}:${index}`;
-    const questionPackage = await pkg.run(cpId, {
-      difficulty: difficultyBand,
-      language,
-      questionLanguageId: request.questionLanguageId,
-      seed,
-    });
+    const questionPackage = pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+      ? runPnlCp001DynamicPipeline({
+difficultyBand,
+language: language as "en",
+questionLanguageId: request.questionLanguageId,
+seed,
+        })
+      : await pkg.run(cpId, {
+difficulty: difficultyBand,
+language,
+questionLanguageId: request.questionLanguageId,
+seed,
+        });
     results.push({
       questionPackage,
       question: toQuestionStudioPreview(questionPackage, {
@@ -344,10 +379,18 @@ async function generateWithRuntimePackage(
       generationDomain: "quant-v4",
       seed: batchSeed,
       timestamp: Date.now(),
-      runtimeMode:
-        pkg.packageId === PNL_RUNTIME_PACKAGE.packageId
-          ? "CANONICAL_REVIEW"
-          : "DYNAMIC",
+      runtimeMode: pnlRuntimeMode ?? "DYNAMIC",
+      ...(isPnl
+        ? {
+  reviewStatus:
+    pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+      ? "UNREVIEWED_DYNAMIC_CANDIDATE"
+      : "APPROVED_EDITORIAL_CANONICAL",
+  questionBankStatus: "NOT_STORED",
+  testEligibility: "INELIGIBLE",
+  publiclyPublishable: false,
+}
+        : {}),
     },
     questionPackages: results.map((item) => item.questionPackage),
     questions: results.map((item) => item.question),

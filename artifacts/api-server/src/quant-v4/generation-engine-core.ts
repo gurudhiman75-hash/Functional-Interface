@@ -823,6 +823,13 @@ export function toQuestionStudioPreview(
     parameters.semanticContext?.scenario;
   const taskKind = traceability.taskKind ?? parameters.taskKind;
   const language = pkg.language ?? "en";
+  const runtimeMode = parameters.runtimeMode ?? traceability.generationMode;
+  const reviewStatus = parameters.reviewStatus ?? traceability.reviewStatus;
+  const questionBankStatus =
+    parameters.questionBankStatus ?? traceability.questionBankStatus;
+  const testEligibility = parameters.testEligibility ?? traceability.testEligibility;
+  const publiclyPublishable =
+    parameters.publiclyPublishable ?? traceability.publiclyPublishable;
   const packageOptions = Array.isArray(pkg.options)
     ? pkg.options.map((option: unknown) => String(option ?? ""))
     : [];
@@ -867,6 +874,11 @@ export function toQuestionStudioPreview(
     seed: context.seed ?? pkg.questionId,
     answer: pkg.answer,
     canonicalAnswer: optionResult.canonicalAnswer,
+    runtimeMode,
+    reviewStatus,
+    questionBankStatus,
+    testEligibility,
+    publiclyPublishable,
     packageSource: "quant-v4-package-runtime",
     packageId: pkg.archetypeId,
     taskKind,
@@ -880,6 +892,11 @@ export function toQuestionStudioPreview(
       explanationId: pkg.explanationId,
       taskKind,
       scenarioId,
+      runtimeMode,
+      reviewStatus,
+      questionBankStatus,
+      testEligibility,
+      publiclyPublishable,
     },
     questionIndex: context.questionIndex,
     questionCount: context.questionCount,
