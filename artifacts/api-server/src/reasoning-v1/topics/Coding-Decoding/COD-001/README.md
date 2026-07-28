@@ -1,6 +1,6 @@
 # COD-001 — Coding–Decoding
 
-Status: **COD-CP-001 through COD-CP-007 implemented at English runtime-proof maturity; COD-CP-009 English discovery frozen under `COD_CP009_ENGLISH_DISCOVERY_FREEZE_V1`; COD-CP-008 and COD-CP-010 remain unimplemented**.
+Status: **COD-CP-001 through COD-CP-007 implemented at English runtime-proof maturity; COD-CP-008 open English discovery has two executable renaming prototypes; COD-CP-009 English discovery is frozen under `COD_CP009_ENGLISH_DISCOVERY_FREEZE_V1`; COD-CP-010 remains unimplemented**.
 
 Student-facing chapter: **Coding–Decoding**  
 Reasoning V1 package: `COD-001`  
@@ -52,6 +52,17 @@ Choose-matching-code is a presentation variant of `COD-QL-172`. The runtime reus
 
 The next available chapter identity is `COD-QL-173`.
 
+## COD-CP-008 open discovery state
+
+The first source and merge/split pass retains two non-permanent English prototype contracts:
+
+1. `DIRECT_RENAMED_LABEL` — apply the renamed label to a directly stated referent;
+2. `SEMANTIC_REFERENT_THEN_RENAME` — resolve an ordinary fact, property, role or use, then apply one renaming edge.
+
+Open-chain versus cycle topology, context family and option wording remain generated-instance properties. Character substitution remains in CP-001; sentence overlap remains in CP-009; conditional tables remain in CP-010.
+
+CP-008 currently has zero permanent QLs. Question Studio, localisation and public publication remain disabled while executable discovery is audited.
+
 ## COD-CP-009 frozen discovery state
 
 CP-009 has:
@@ -69,7 +80,7 @@ Its allocation remains sequenced behind CP-008.
 
 ## Remaining chapter sequence
 
-1. design and implement CP-008 through exhaustive discovery;
+1. freeze and implement CP-008 after executable discovery closes;
 2. allocate the frozen CP-009 contracts sequentially after CP-008;
 3. design and implement CP-010;
 4. complete chapter-wide English saturation and review;
@@ -80,5 +91,5 @@ Its allocation remains sequenced behind CP-008.
 
 - Question Studio visibility remains disabled.
 - No COD-001 QL is publicly publishable yet.
-- Hindi and Punjabi are not started for CP-007.
+- Hindi and Punjabi are not started for CP-007 or CP-008.
 - Mathematical operations, coded inequalities, input-output, figure coding and cross-topic coded relations remain outside COD-001.
