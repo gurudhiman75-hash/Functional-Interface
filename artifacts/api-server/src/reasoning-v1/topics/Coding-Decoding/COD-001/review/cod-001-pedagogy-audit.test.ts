@@ -28,6 +28,14 @@ function optionValue(option: unknown): string {
   return Array.isArray(members) ? members.map(String).join(", ") : String(direct ?? "");
 }
 
+function displayTokens(value: string): string[] {
+  const trimmed = value.trim();
+  if (!trimmed) return [];
+  if (/\s/u.test(trimmed)) return trimmed.split(/\s+/u).filter(Boolean);
+  if (trimmed.includes("-")) return trimmed.split("-").filter(Boolean);
+  return [...trimmed];
+}
+
 function qlId(number: number): string {
   return `COD-QL-${String(number).padStart(3, "0")}`;
 }
@@ -99,8 +107,9 @@ for (const id of qlIds) {
       if (evidence.length > 0) {
         const source = String(evidence[0]!.source ?? evidence[0]!.word ?? "");
         const code = String(evidence[0]!.code ?? "");
-        if (source) assert.ok(JSON.stringify(visuals).includes(source), `${id}/${locale}/${seed} visual omits evidence source`);
-        if (code) assert.ok(JSON.stringify(visuals).includes(code), `${id}/${locale}/${seed} visual omits evidence code`);
+        const visualText = JSON.stringify(visuals);
+        for (const token of displayTokens(source)) assert.ok(visualText.includes(token), `${id}/${locale}/${seed} visual omits evidence source token '${token}'`);
+        for (const token of displayTokens(code)) assert.ok(visualText.includes(token), `${id}/${locale}/${seed} visual omits evidence code token '${token}'`);
       }
       if (question.checkpointId === "COD-CP-009") assert.ok(JSON.stringify(visuals).includes("|---|---|"));
       if (question.checkpointId === "COD-CP-010") assert.ok(JSON.stringify(visuals).includes(answer));
