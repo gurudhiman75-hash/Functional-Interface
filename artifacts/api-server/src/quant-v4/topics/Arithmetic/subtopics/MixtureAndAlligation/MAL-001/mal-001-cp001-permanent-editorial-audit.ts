@@ -30,6 +30,12 @@ const forbiddenExplanationPatterns = [
   ["internal determinacy word", /\bdeterminacy\b/iu],
   ["dry matrix wording", /\bmatrix\b/iu],
   ["unexplained source-variable wording", /\bsource variables?\b/iu],
+  ["hard imaginary wording", /\bimaginary\b/iu],
+  ["hard intermediate wording", /\bintermediate\b/iu],
+  ["hard pre-blend wording", /\bpre-blend\b/iu],
+  ["hard supplied wording", /\bsupplied\b/iu],
+  ["hard belonging wording", /\bbelonging\b/iu],
+  ["internal component wording", /\bcomponents?\b/iu],
 ] as const;
 
 function expectedNamedAnswerLabel(question: any): string | null {
@@ -81,14 +87,55 @@ function isUsefulTeacherStep(step: string, stepIndex: number): boolean {
   return showsArithmetic || identifiesGivens;
 }
 
+function hasWrongSingularLitre(value: string): boolean {
+  const matches = value.matchAll(
+    /\b(\d[\d,]*(?: \d+\/\d+)?|\d+\/\d+) litre\b/gu,
+  );
+  for (const match of matches) {
+    if (match[1]?.replace(/,/gu, "") !== "1") return true;
+  }
+  return false;
+}
+
+function assertOptionFormatting(question: any, qlId: string, seed: string): void {
+  for (const option of question.options as string[]) {
+    switch (question.answerSemantic) {
+      case "COMPONENT_RATIO":
+        if (!/^.+\s:\s.+ ratio$/u.test(option)) {
+          fail(`${qlId}/${seed}: ratio option lacks spaced ratio label: ${option}`);
+        }
+        break;
+      case "FINAL_MEAN_VALUE":
+      case "SOURCE_VALUE":
+        if (!/^₹.+ per (?:kg|litre)$/u.test(option)) {
+          fail(`${qlId}/${seed}: price option lacks rupee and per-unit format: ${option}`);
+        }
+        break;
+      case "COMPONENT_QUANTITY":
+        if (!/\b(?:kg|litres?)$/u.test(option)) {
+          fail(`${qlId}/${seed}: quantity option lacks unit: ${option}`);
+        }
+        break;
+      case "COMPONENT_QUANTITY_PAIR":
+        if (!/\band\b/u.test(option) || !/\b(?:kg|litres?)$/u.test(option)) {
+          fail(`${qlId}/${seed}: pair option lacks labels or units: ${option}`);
+        }
+        break;
+    }
+  }
+}
+
 let generatedQuestionCount = 0;
 let namedAnswerContractCount = 0;
 let sourceValueUnitContractCount = 0;
 let fourTierLayoutCount = 0;
 let numberedStepCount = 0;
+let optionUnitContractCount = 0;
 let simpleVocabularyViolationCount = 0;
 let forbiddenPatternMatchCount = 0;
 let pluralVerbMismatchCount = 0;
+let quantityUnitGrammarMismatchCount = 0;
+let stepSentenceCaseMismatchCount = 0;
 let conclusionSentenceCaseMismatchCount = 0;
 let commonTrapCasingMismatchCount = 0;
 let commonTrapHyphenationMismatchCount = 0;
@@ -109,6 +156,9 @@ for (const qlId of MAL_CP001_PERMANENT_QL_IDS) {
         fail(`${qlId}/${seed}: ${label}: ${question.stem}`);
       }
     }
+
+    assertOptionFormatting(question, qlId, seed);
+    optionUnitContractCount += question.options.length;
 
     const explanation = question.explanation;
     if (
@@ -133,6 +183,10 @@ for (const qlId of MAL_CP001_PERMANENT_QL_IDS) {
       if (!step.startsWith(`Step ${stepIndex + 1}: `)) {
         fail(`${qlId}/${seed}: step numbering is broken: ${step}`);
       }
+      if (!/^Step \d+: [A-Z₹]/u.test(step)) {
+        stepSentenceCaseMismatchCount += 1;
+        fail(`${qlId}/${seed}: step does not begin in sentence case: ${step}`);
+      }
       if (!isUsefulTeacherStep(step, stepIndex)) {
         fail(`${qlId}/${seed}: step does not show useful working: ${step}`);
       }
@@ -147,6 +201,14 @@ for (const qlId of MAL_CP001_PERMANENT_QL_IDS) {
     }
 
     const fullExplanation = explanationText(question);
+    if (hasWrongSingularLitre(fullExplanation)) {
+      quantityUnitGrammarMismatchCount += 1;
+      fail(`${qlId}/${seed}: plural quantity uses singular litre: ${fullExplanation}`);
+    }
+    if (/\b1 parts\b/iu.test(fullExplanation)) {
+      quantityUnitGrammarMismatchCount += 1;
+      fail(`${qlId}/${seed}: singular ratio part uses plural noun: ${fullExplanation}`);
+    }
     for (const [label, pattern] of forbiddenExplanationPatterns) {
       if (pattern.test(fullExplanation)) {
         simpleVocabularyViolationCount += 1;
@@ -158,11 +220,11 @@ for (const qlId of MAL_CP001_PERMANENT_QL_IDS) {
     if (expectedLabel) {
       namedAnswerContractCount += 1;
       if (!question.stem.includes(expectedLabel)) {
-        fail(`${qlId}/${seed}: stem omits requested component ${expectedLabel}: ${question.stem}`);
+        fail(`${qlId}/${seed}: stem omits requested item ${expectedLabel}: ${question.stem}`);
       }
       if (!explanation.conclusion.toLowerCase().includes(expectedLabel.toLowerCase())) {
         fail(
-          `${qlId}/${seed}: conclusion omits requested component ${expectedLabel}: ${explanation.conclusion}`,
+          `${qlId}/${seed}: conclusion omits requested item ${expectedLabel}: ${explanation.conclusion}`,
         );
       }
     }
@@ -201,11 +263,14 @@ console.log(JSON.stringify({
   generatedQuestionCount,
   fourTierLayoutCount,
   numberedStepCount,
+  optionUnitContractCount,
   namedAnswerContractCount,
   sourceValueUnitContractCount,
   simpleVocabularyViolationCount,
   forbiddenPatternMatchCount,
   pluralVerbMismatchCount,
+  quantityUnitGrammarMismatchCount,
+  stepSentenceCaseMismatchCount,
   conclusionSentenceCaseMismatchCount,
   commonTrapCasingMismatchCount,
   commonTrapHyphenationMismatchCount,
