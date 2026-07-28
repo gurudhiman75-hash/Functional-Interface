@@ -614,7 +614,10 @@ export function generatePnlCp005Case(
     case "PNL-QL-135":
     case "PNL-QL-136":
     case "PNL-QL-149": {
-      const declared = declaredPair(random);
+      const declared = {
+      direction: "PROFIT" as const,
+      ratePercent: rational(pickNumber(random, PROFIT_RATES)),
+    };
       const forward = solveDishonestTrade({
         mode: "DECLARED_RATE_FALSE_QUANTITY_TO_ACTUAL_RATE",
         costPricePerTrueQuantity,
