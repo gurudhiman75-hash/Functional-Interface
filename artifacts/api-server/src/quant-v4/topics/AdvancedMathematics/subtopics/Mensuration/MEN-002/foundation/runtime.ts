@@ -92,7 +92,7 @@ function makeState(
 }
 
 function cubeVolumeDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: SeededRandom, difficulty: Men002Difficulty): Draft {
-  const side = BigInt(rng.int(3, 14));
+  const side = rng.pick([4n, 5n, 7n, 8n, 9n, 10n, 11n, 12n, 13n, 14n]);
   const answer = q(side ** 3n);
   const context = rng.pick(CUBE_CONTEXTS);
   return {
@@ -114,7 +114,7 @@ function cubeVolumeDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: Se
 }
 
 function cubeTsaDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: SeededRandom, difficulty: Men002Difficulty): Draft {
-  const side = BigInt(rng.int(3, 15));
+  const side = rng.pick([3n, 5n, 7n, 8n, 9n, 10n, 11n, 12n, 13n, 14n, 15n]);
   const faceArea = side ** 2n;
   const answer = q(6n * faceArea);
   const context = rng.pick(CUBE_CONTEXTS);
@@ -137,7 +137,7 @@ function cubeTsaDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: Seede
 }
 
 function cubeSideFromVolumeDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: SeededRandom, difficulty: Men002Difficulty): Draft {
-  const side = BigInt(rng.int(3, 16));
+  const side = rng.pick([4n, 5n, 6n, 7n, 8n, 9n, 10n, 11n, 12n, 13n, 14n, 15n, 16n]);
   const volume = side ** 3n;
   const answer = q(integerCubeRoot(volume));
   const context = rng.pick(CUBE_CONTEXTS);
@@ -203,10 +203,16 @@ function cubeSideFromDiagonalDraft(prototypeId: MenCp007PrototypeId, seed: strin
   };
 }
 
+const SAFE_CUBOID_DIMENSIONS = [
+  [12n, 8n, 5n],
+  [14n, 9n, 6n],
+  [16n, 10n, 7n],
+  [18n, 12n, 8n],
+  [20n, 11n, 9n],
+] as const;
+
 function cuboidVolumeDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: SeededRandom, difficulty: Men002Difficulty): Draft {
-  const length = BigInt(rng.int(8, 20));
-  const breadth = BigInt(rng.int(4, 12));
-  const height = BigInt(rng.int(3, 10));
+  const [length, breadth, height] = rng.pick(SAFE_CUBOID_DIMENSIONS);
   const answer = q(length * breadth * height);
   const context = rng.pick(CUBOID_CONTEXTS);
   return {
@@ -228,9 +234,7 @@ function cuboidVolumeDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: 
 }
 
 function cuboidTsaDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: SeededRandom, difficulty: Men002Difficulty): Draft {
-  const length = BigInt(rng.int(8, 20));
-  const breadth = BigInt(rng.int(4, 12));
-  const height = BigInt(rng.int(3, 10));
+  const [length, breadth, height] = rng.pick(SAFE_CUBOID_DIMENSIONS);
   const pairSum = length * breadth + breadth * height + height * length;
   const answer = q(2n * pairSum);
   const context = rng.pick(CUBOID_CONTEXTS);
@@ -253,9 +257,7 @@ function cuboidTsaDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: See
 }
 
 function cuboidHeightFromVolumeDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: SeededRandom, difficulty: Men002Difficulty): Draft {
-  const length = BigInt(rng.int(8, 20));
-  const breadth = BigInt(rng.int(4, 12));
-  const height = BigInt(rng.int(3, 10));
+  const [length, breadth, height] = rng.pick(SAFE_CUBOID_DIMENSIONS);
   const volume = length * breadth * height;
   const answer = q(height);
   return {
@@ -337,7 +339,7 @@ function triangularPrismDraft(prototypeId: MenCp007PrototypeId, seed: string, rn
 }
 
 function prismHeightInverseDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: SeededRandom, difficulty: Men002Difficulty): Draft {
-  const baseArea = BigInt(rng.int(18, 80));
+  const baseArea = BigInt(rng.int(24, 80));
   const height = BigInt(rng.int(5, 18));
   const volume = baseArea * height;
   const answer = q(height);
@@ -387,9 +389,7 @@ function cubeCountDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: See
 }
 
 function openTopBoxDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: SeededRandom, difficulty: Men002Difficulty): Draft {
-  const length = BigInt(rng.int(8, 20));
-  const breadth = BigInt(rng.int(5, 12));
-  const height = BigInt(rng.int(3, 10));
+  const [length, breadth, height] = rng.pick(SAFE_CUBOID_DIMENSIONS);
   const baseArea = length * breadth;
   const lateralArea = 2n * height * (length + breadth);
   const answer = q(baseArea + lateralArea);
@@ -412,7 +412,7 @@ function openTopBoxDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: Se
 }
 
 function cubeScalingDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: SeededRandom, difficulty: Men002Difficulty): Draft {
-  const factor = BigInt(rng.int(2, 5));
+  const factor = rng.pick([2n, 4n, 5n, 6n]);
   const answer = q(factor ** 3n);
   return {
     state: makeState(prototypeId, seed, difficulty, "times", "cube-scaling", { factor }, { answer }),
@@ -488,9 +488,7 @@ function cubicCmToLitresDraft(prototypeId: MenCp007PrototypeId, seed: string, rn
 }
 
 function paintingCostDraft(prototypeId: MenCp007PrototypeId, seed: string, rng: SeededRandom, difficulty: Men002Difficulty): Draft {
-  const length = BigInt(rng.int(4, 12));
-  const breadth = BigInt(rng.int(3, 9));
-  const height = BigInt(rng.int(2, 7));
+  const [length, breadth, height] = rng.pick(SAFE_CUBOID_DIMENSIONS);
   const rate = BigInt(rng.int(3, 12));
   const tsa = 2n * (length * breadth + breadth * height + height * length);
   const lsa = 2n * height * (length + breadth);
