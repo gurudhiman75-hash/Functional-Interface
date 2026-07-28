@@ -1,0 +1,1 @@
+Temporary marker for atomic tree capability check. This file will be removed before final validation.
