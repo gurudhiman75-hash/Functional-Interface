@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: validate-pnc-002-editorial-quality-${{ github.ref }}
@@ -28,8 +28,31 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - name: Checkout source
+      - name: Checkout editorial branch
         uses: actions/checkout@v4
+        with:
+          ref: feat/pnc-002-editorial-quality-upgrade
+      - name: Repair fallback display math once
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-reviewed.ts')
+          text = path.read_text()
+          old = 'return `does not satisfy the required calculation $${source.solver.mathJax}$$ and represents an incomplete count or arithmetic distractor`;'
+          new = 'return `does not satisfy the required calculation $$${source.solver.mathJax}$$ and represents an incomplete count or arithmetic distractor`;'
+          if old in text:
+              path.write_text(text.replace(old, new, 1))
+          elif new not in text:
+              raise SystemExit('fallback display-math interpolation not found')
+          PY
+          if ! git diff --quiet -- artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-reviewed.ts; then
+            git config user.name github-actions[bot]
+            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+            git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-reviewed.ts
+            git commit -m "fix(pnc): render fallback trap formula as display MathJax"
+            git push origin HEAD:feat/pnc-002-editorial-quality-upgrade
+          fi
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
