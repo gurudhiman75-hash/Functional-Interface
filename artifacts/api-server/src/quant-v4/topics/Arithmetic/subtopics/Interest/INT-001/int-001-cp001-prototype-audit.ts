@@ -54,6 +54,13 @@ for (const prototypeId of INT_CP001_PROTOTYPE_IDS) {
     }
     if (/\{\{[^}]+\}\}/u.test(combined)) fail(`${prototypeId}/${seed} contains a template placeholder.`);
     if (/\bFind\b[^.?!]*\?/u.test(item.stem)) fail(`${prototypeId}/${seed} uses a 'Find ...?' fragment.`);
+    if (/\bDetermine\b[^.?!]*\?$/u.test(item.stem)) fail(`${prototypeId}/${seed} uses an imperative 'Determine ...?' form.`);
+    if (item.stem[0] && item.stem[0] !== item.stem[0].toUpperCase()) {
+      fail(`${prototypeId}/${seed} begins with a lowercase character.`);
+    }
+    if (/private lending agreement/iu.test(item.stem)) {
+      fail(`${prototypeId}/${seed} exposes an unnatural personal-lending label.`);
+    }
     if (/ {2,}/u.test(combined)) fail(`${prototypeId}/${seed} contains repeated spaces.`);
     const agreementMatch = combined.match(obviousAgreementDefect)?.[0];
     if (agreementMatch) {
@@ -111,6 +118,9 @@ const [mostRepeatedOpening, maximumOpeningRepeat] = [...openingCounts.entries()]
   .sort((left, right) => right[1] - left[1])[0] ?? ["", 0];
 if (maximumOpeningRepeat > 70) {
   fail(`Six-word opening "${mostRepeatedOpening}" repeats ${maximumOpeningRepeat} times.`);
+}
+if (fractionalMoneyOptions !== 0) {
+  fail(`Generated ${fractionalMoneyOptions} fractional-rupee options.`);
 }
 if (!["Easy", "Medium", "Hard"].every((difficulty) => difficultyCounts.has(difficulty))) {
   fail("The generated audit does not reach all three difficulty labels.");
