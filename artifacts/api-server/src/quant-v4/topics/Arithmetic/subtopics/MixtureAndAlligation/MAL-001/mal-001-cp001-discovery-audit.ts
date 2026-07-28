@@ -36,21 +36,22 @@ function displayedRationals(result: any): Rational[] {
 
 const forbiddenOwnershipTerms = /\b(?:speed|distance|partnership|capital labour|gst|tax bracket|false weight|short measure|density matrix|vessel equalisation|successive replacement)\b/iu;
 const genericExplanationShell = /\b(?:apply the formula|substitute the values|solve for the answer|required value is)\b/iu;
-const awkwardStemGrammar = /\b(?:leaves|beans|grades) is valued\b|\b(?:leaves|beans) is worth\b|\bHow much .+ was added\?|^\d+\s+(?:kg|litres)\b.+\bis blended\b|\bFind [^?]+\?/iu;
+const awkwardStemGrammar = /\b(?:leaves|beans|grades) is valued\b|\b(?:leaves|beans) is worth\b|\b(?:tea leaves|beans) costs\b|\bA tea leaves blend\b|\bA \d+ litres mixture\b|\bHow much [^?]*(?:tea leaves|beans) is (?:used|present|added)\?|\bHow much .+ was added\?|^\d+\s+(?:kg|litres)\b.+\bis blended\b|\bFind [^?]+\?/iu;
 
 const allClassifications = [
   ...MAL_CP001_DISCOVERY_CLASSIFICATION,
   ...MAL_CP001_GAP_DISCOVERY_CLASSIFICATION,
 ];
 const classifiedIds = allClassifications.map((entry) => entry.prototypeId);
+const classifiedIdSet = new Set<string>(classifiedIds);
 if (classifiedIds.length !== MAL_CP001_DISCOVERY_PROTOTYPE_IDS.length) {
   fail("Every discovery prototype must have exactly one classification row.");
 }
-if (new Set(classifiedIds).size !== classifiedIds.length) {
+if (classifiedIdSet.size !== classifiedIds.length) {
   fail("Discovery classification contains a duplicate prototype row.");
 }
 for (const prototypeId of MAL_CP001_DISCOVERY_PROTOTYPE_IDS) {
-  if (!classifiedIds.includes(prototypeId as never)) {
+  if (!classifiedIdSet.has(prototypeId)) {
     fail(`Missing discovery classification for ${prototypeId}.`);
   }
 }
@@ -58,7 +59,7 @@ for (const prototypeId of MAL_CP001_DISCOVERY_PROTOTYPE_IDS) {
 const representedContracts = new Set(
   allClassifications.map((entry) => entry.candidateContractId),
 );
-const expectedContracts = new Set([
+const expectedContracts = new Set<string>([
   ...MAL_CP001_CANDIDATE_CONTRACT_IDS,
   ...MAL_CP001_GAP_CANDIDATE_CONTRACT_IDS,
 ]);
@@ -68,7 +69,7 @@ if (representedContracts.size !== expectedContracts.size) {
   );
 }
 for (const contractId of expectedContracts) {
-  if (!representedContracts.has(contractId)) {
+  if (!representedContracts.has(contractId as never)) {
     fail(`Missing candidate contract representation for ${contractId}.`);
   }
 }
@@ -130,8 +131,33 @@ for (const prototypeId of MAL_CP001_DISCOVERY_PROTOTYPE_IDS) {
       fail(`${prototypeId}/${index}: stem begins with a lower-case letter`);
     }
     if (awkwardStemGrammar.test(question.stem)) {
-      fail(`${prototypeId}/${index}: awkward learner-facing grammar`);
+      fail(`${prototypeId}/${index}: awkward learner-facing grammar: ${question.stem}`);
     }
+
+    if (
+      prototypeId === "MAL-CP001-PROT-DIFFERENCE-BASED-QUANTITIES" &&
+      question.parameters.request.mode === "DIFFERENCE_BASED_QUANTITIES"
+    ) {
+      const request = question.parameters.request;
+      if (!question.stem.includes("respectively")) {
+        fail(`${prototypeId}/${index}: ordered pair stem lacks an explicit order`);
+      }
+      for (const option of question.options) {
+        if (
+          !option.includes(request.lowerComponentLabel) ||
+          !option.includes(request.higherComponentLabel)
+        ) {
+          fail(`${prototypeId}/${index}: quantity-pair option is not component-labelled`);
+        }
+      }
+      if (
+        !question.explanation.conclusion.includes(request.lowerComponentLabel) ||
+        !question.explanation.conclusion.includes(request.higherComponentLabel)
+      ) {
+        fail(`${prototypeId}/${index}: quantity-pair conclusion is ambiguous`);
+      }
+    }
+
     const explanation = [
       question.explanation.opening,
       question.explanation.formula,
