@@ -79,7 +79,7 @@ const CONE_VOLUME_STATES = [
 ] as const;
 
 const CONE_SURD_STATES = [
-  { radius: 3n, height: 4n },
+  { radius: 3n, height: 5n },
   { radius: 4n, height: 7n },
   { radius: 5n, height: 8n },
   { radius: 6n, height: 11n },
@@ -205,7 +205,7 @@ function cylinderVolumeDraft(prototypeId: MenCp008PrototypeId, seed: string, rng
     stem: `A solid cylinder has radius ${dimension(radius)} and height ${dimension(height)}. Find its volume. Leave the answer in terms of $\\pi$.`,
     answer,
     wrongAnswers: [
-      { value: applyPiPolicy(q(2n * radius * height), "EXACT_PI"), misconceptionId: "USED_CSA", explanation: "using $2\\pi rh$, which gives curved surface area rather than volume" },
+      { value: applyPiPolicy(q(2n * radius ** 2n), "EXACT_PI"), misconceptionId: "COUNTED_TWO_BASES", explanation: "counting the two circular bases instead of measuring the cylinder volume" },
       { value: applyPiPolicy(q(radius * height), "EXACT_PI"), misconceptionId: "DID_NOT_SQUARE_RADIUS", explanation: "multiplying radius by height without squaring the circular radius" },
       { value: applyPiPolicy(q(radius ** 2n * height, 3n), "EXACT_PI"), misconceptionId: "USED_CONE_FACTOR", explanation: "introducing the cone factor $\\frac13$ into a cylinder" },
     ],
@@ -274,7 +274,7 @@ function cylinderRadiusFromVolumeDraft(prototypeId: MenCp008PrototypeId, seed: s
     wrongAnswers: [
       { value: q(radius ** 2n), misconceptionId: "STOPPED_AT_RADIUS_SQUARED", explanation: "dividing by height but reporting $r^2$ instead of taking its square root" },
       { value: q(volumeCoefficient, height ** 2n), misconceptionId: "SQUARED_HEIGHT", explanation: "dividing by $h^2$ even though the volume contains only one height factor" },
-      { value: q(volumeCoefficient, height), misconceptionId: "DID_NOT_TAKE_SQUARE_ROOT", explanation: "reporting the coefficient after dividing by height rather than recovering the radius" },
+      { value: q(volumeCoefficient, 2n * height), misconceptionId: "USED_CURVED_AREA_DIVISOR", explanation: "dividing by $2h$ as though the evidence came from curved surface area" },
     ],
     keyRule: "From $V=\\pi r^2h$, cancel $\\pi$, divide by $h$, then take the positive square root.",
     steps: [
@@ -318,7 +318,7 @@ function cylinderRadiusFromCsaDraft(prototypeId: MenCp008PrototypeId, seed: stri
     wrongAnswers: [
       { value: q(2n * radius), misconceptionId: "OMITTED_FACTOR_TWO_IN_DIVISOR", explanation: "dividing by height but forgetting the factor $2$ in $2\\pi rh$" },
       { value: q(csaCoefficient, 2n), misconceptionId: "DIVIDED_BY_TWO_ONLY", explanation: "halving the coefficient but not dividing by the height" },
-      { value: q(csaCoefficient, height), misconceptionId: "REPORTED_DIAMETER", explanation: "dividing by height and reporting $2r$ as though it were the radius" },
+      { value: q(csaCoefficient, 4n * height), misconceptionId: "DIVIDED_BY_FOUR_HEIGHTS", explanation: "dividing by $4h$ instead of the required $2h$" },
     ],
     keyRule: "From $CSA=2\\pi rh$, cancel $\\pi$ and divide by $2h$.",
     steps: [
@@ -340,7 +340,7 @@ function cylinderHeightFromCsaDraft(prototypeId: MenCp008PrototypeId, seed: stri
     wrongAnswers: [
       { value: q(2n * height), misconceptionId: "OMITTED_FACTOR_TWO_IN_DIVISOR", explanation: "dividing by the radius but forgetting the factor $2$" },
       { value: q(csaCoefficient, 2n), misconceptionId: "DIVIDED_BY_TWO_ONLY", explanation: "halving the coefficient but not dividing by the radius" },
-      { value: q(csaCoefficient, radius), misconceptionId: "REPORTED_TWICE_HEIGHT", explanation: "dividing by radius and reporting $2h$ rather than $h$" },
+      { value: q(csaCoefficient, 4n * radius), misconceptionId: "DIVIDED_BY_FOUR_RADII", explanation: "dividing by $4r$ instead of the required $2r$" },
     ],
     keyRule: "From $CSA=2\\pi rh$, cancel $\\pi$ and divide by $2r$.",
     steps: [
@@ -429,7 +429,7 @@ function coneVolumeDraft(prototypeId: MenCp008PrototypeId, seed: string, rng: Se
     wrongAnswers: [
       { value: applyPiPolicy(q(radius ** 2n * height), "EXACT_PI"), misconceptionId: "OMITTED_ONE_THIRD", explanation: "using the cylinder volume with the same base and height" },
       { value: applyPiPolicy(q(radius * height, 3n), "EXACT_PI"), misconceptionId: "DID_NOT_SQUARE_RADIUS", explanation: "using the radius only once in the circular base" },
-      { value: applyPiPolicy(q(2n * radius * height), "EXACT_PI"), misconceptionId: "USED_CURVED_AREA", explanation: "using a cylinder-style curved-area expression instead of cone volume" },
+      { value: applyPiPolicy(q(2n * radius ** 2n), "EXACT_PI"), misconceptionId: "COUNTED_TWO_BASES", explanation: "using the area of two circular bases instead of cone volume" },
     ],
     keyRule: "A cone occupies one third of the cylinder with the same circular base and height, so $V=\\frac13\\pi r^2h$.",
     steps: [
@@ -562,7 +562,7 @@ function coneHeightFromVolumeDraft(prototypeId: MenCp008PrototypeId, seed: strin
     wrongAnswers: [
       { value: q(height, 3n), misconceptionId: "DIVIDED_BY_THREE_AGAIN", explanation: "keeping the cone's $\\frac13$ factor in the denominator instead of multiplying the volume coefficient by $3$" },
       { value: q(3n * height), misconceptionId: "MULTIPLIED_BY_THREE_TWICE", explanation: "applying the factor $3$ twice while isolating the height" },
-      { value: q(volumeCoefficient.numerator, radius ** 2n * volumeCoefficient.denominator), misconceptionId: "OMITTED_FACTOR_THREE", explanation: "dividing the volume coefficient by $r^2$ without restoring the cone factor $3$" },
+      { value: q(volumeCoefficient.numerator, 2n * radius ** 2n * volumeCoefficient.denominator), misconceptionId: "ADDED_EXTRA_FACTOR_TWO", explanation: "dividing by an extra factor $2$ after already accounting for the cone coefficient" },
     ],
     keyRule: "From $V=\\frac13\\pi r^2h$, cancel $\\pi$ and use $h=\\frac{3V_{coefficient}}{r^2}$.",
     steps: [
@@ -634,7 +634,7 @@ function cylinderConeRatioDraft(prototypeId: MenCp008PrototypeId, seed: string, 
     wrongAnswers: [
       { value: q(cylinderCoefficient, coneCoefficient), misconceptionId: "OMITTED_CONE_ONE_THIRD", explanation: "comparing $r^2h$ coefficients without accounting for the cone's factor $\\frac13$" },
       { value: q(coneCoefficient, 3n * cylinderCoefficient), misconceptionId: "REVERSED_RATIO", explanation: "reversing cylinder-to-cone order" },
-      { value: q(state.cylinderRadius * state.cylinderHeight, state.coneRadius * state.coneHeight), misconceptionId: "DID_NOT_SQUARE_RADII", explanation: "using radius only once for each circular base" },
+      { value: q(state.cylinderRadius, state.coneRadius), misconceptionId: "COMPARED_RADII_ONLY", explanation: "comparing only the radii and ignoring both heights and the cone factor" },
     ],
     keyRule: "Cylinder volume is $\\pi R^2H$ and cone volume is $\\frac13\\pi r^2h$. The common $\\pi$ cancels, but the cone's factor $\\frac13$ must remain.",
     steps: [
