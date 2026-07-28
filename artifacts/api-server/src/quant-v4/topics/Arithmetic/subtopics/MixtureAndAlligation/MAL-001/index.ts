@@ -28,6 +28,7 @@ export {
   MAL_CP001_PRODUCT_APPROVAL_METADATA,
   MAL_CP001_CANDIDATE_PRODUCT_APPROVALS,
   MAL_CP001_PROTOTYPE_PRODUCT_APPROVALS,
+  MAL_CP001_APPROVED_SCOPE_PROTOTYPE_IDS,
   MAL_CP001_APPROVED_PROTOTYPE_IDS,
   MAL_CP001_DEFERRED_PROTOTYPE_IDS,
   MAL_CP001_HELD_PROTOTYPE_IDS,
@@ -44,6 +45,10 @@ export {
   MAL_CP001_QL_EXPANSION_REVIEW_SEEDS,
   buildMalCp001QlExpansionReviewModel,
 } from "./foundation/cp001-ql-expansion-review-model";
+export {
+  MAL_CP001_QL_GAP_IDS,
+  MAL_CP001_QL_GAP_LEDGER,
+} from "./foundation/cp001-ql-gap-ledger";
 export { generateMalCp001PrototypeParameters } from "./foundation/cp001-parameter-generator";
 export { generateMalCp001GapParameters } from "./foundation/cp001-gap-generator";
 export { generateMalCp001Prototype } from "./foundation/pipeline";
@@ -67,3 +72,9 @@ export type {
   MalCp001ProvisionalSolveMode,
   MalCp001ProvisionalQlTemplate,
 } from "./foundation/cp001-ql-expansion-ledger";
+export type {
+  MalCp001QlGapId,
+  MalCp001QlGapDisposition,
+  MalCp001QlGapSourceStatus,
+  MalCp001QlGapLedgerEntry,
+} from "./foundation/cp001-ql-gap-ledger";
