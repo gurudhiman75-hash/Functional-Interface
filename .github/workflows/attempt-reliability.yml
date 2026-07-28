@@ -11,6 +11,7 @@ on:
       - artifacts/api-server/src/routes/attempt-reliability.ts
       - artifacts/api-server/src/routes/published-test-runner.ts
       - artifacts/api-server/src/routes/canonical-attempt-results.ts
+      - artifacts/api-server/src/routes/canonical-student-read.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/examtree/src/lib/api.ts
       - artifacts/examtree/src/lib/storage.ts
@@ -61,6 +62,7 @@ jobs:
           grep -F 'FOR UPDATE OF attempt' artifacts/api-server/src/routes/published-test-runner.ts
           grep -F 'ATTEMPT_SESSION_REQUIRED' artifacts/api-server/src/routes/published-test-runner.ts
           grep -F 'ATTEMPT_SESSION_CONFLICT' artifacts/api-server/src/lib/attempt-reliability.ts
+          grep -F "a.status IN ('evaluated', 'practice_evaluated')" artifacts/api-server/src/routes/canonical-student-read.ts
           grep -F 'queueCanonicalAttemptDraft' artifacts/examtree/src/lib/storage.ts
           grep -F 'attemptId: handle.attemptId' artifacts/examtree/src/lib/api.ts
           grep -F '@/pages/canonical-result' artifacts/examtree/src/App.tsx

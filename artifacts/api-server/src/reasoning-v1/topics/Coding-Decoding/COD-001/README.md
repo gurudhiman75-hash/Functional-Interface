@@ -1,6 +1,6 @@
 # COD-001 — Coding–Decoding
 
-Status: **end-to-end chapter design complete; runtime implementation not started**.
+Status: **COD-CP-001 through COD-CP-006 implemented at English runtime-proof maturity; COD-CP-007 open discovery has one mathematically and editorially saturated prototype family; COD-CP-009 English discovery is frozen under `COD_CP009_ENGLISH_DISCOVERY_FREEZE_V1`; COD-CP-008 and COD-CP-010 remain unimplemented**.
 
 Student-facing chapter: **Coding–Decoding**  
 Reasoning V1 package: `COD-001`  
@@ -8,28 +8,122 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/CO
 
 ## Authority order
 
-1. `../../../REASONING-V1-ARCHITECTURE.md` — product-wide Reasoning V1 contracts.
-2. `cod-001-chapter-manifest.md` — frozen chapter scope, CP boundaries and QL allocation.
-3. `cod-001-consolidated-design.md` — complete runtime, solver, ambiguity, distractor, renderer and localization design.
-4. `cod-001-implementation-plan.md` — staged implementation and merge plan.
-5. `cod-001-source-audit.md` — source taxonomy and legacy-code assessment.
+1. `../../../REASONING-V1-MASTER-BLUEPRINT.md` — product taxonomy and chapter boundaries.
+2. `../../../REASONING-V1-ARCHITECTURE.md` — product-wide runtime, validation and localisation contracts.
+3. `cod-001-open-ql-discovery-amendment.md` — authoritative allocation policy for unimplemented checkpoints.
+4. `cod-001-chapter-manifest.md` — permanent identity authority for implemented QLs.
+5. checkpoint-specific approved discovery, freeze and design documents.
+6. `cod-001-consolidated-design.md` — chapter runtime, solver, ambiguity, distractor, renderer and localisation design.
+7. `cod-001-implementation-plan.md` — staged implementation roadmap, subject to later amendments.
+8. `cod-001-source-audit.md` — source taxonomy and legacy-code assessment.
 
-When two chapter documents appear to disagree, the chapter manifest controls identity and allocation, while the Reasoning V1 architecture controls global quality contracts.
+For CP-001 through CP-006, merged QL identities remain permanent. For CP-007 through CP-010, the open-discovery amendment supersedes old fixed counts, ranges and chapter totals.
+
+## Current stable English runtime
+
+- `COD-CP-001`: `COD-QL-001..024`;
+- `COD-CP-002`: `COD-QL-025..052`;
+- `COD-CP-003`: `COD-QL-053..080`;
+- `COD-CP-004`: `COD-QL-081..112`;
+- `COD-CP-005`: `COD-QL-113..136`;
+- `COD-CP-006`: `COD-QL-137..168`.
+
+Total stable implemented QLs: **168**.
+
+## Future checkpoint sequence
+
+- `COD-CP-007`: digit, symbol and alphanumeric coding — open English discovery; uniform modular digit translation prototype saturated;
+- `COD-CP-008`: renaming and substitution coding — not started;
+- `COD-CP-009`: sentence and artificial-language coding — English discovery frozen, permanent allocation deferred;
+- `COD-CP-010`: conditional table and mixed-symbol coding — not started.
+
+Their permanent QL counts and ranges are not fixed in advance. CP-009 cannot receive IDs before CP-007 and CP-008 discover and allocate their preceding ranges.
+
+## COD-CP-007 open discovery state
+
+CP-007 has completed its initial source/boundary design and the first executable prototype family:
+
+```text
+UNIFORM_MODULAR_DIGIT_TRANSLATION
+```
+
+Current evidence:
+
+- five non-permanent task contracts: explicit encode, inverse decode, missing digit, infer-and-encode and choose-matching;
+- digit codes represented as ordered token strings so leading zeroes are preserved;
+- exactly one surviving non-zero uniform shift required;
+- whole-number arithmetic and reversal competitors rejected;
+- independent verifier agreement;
+- 500/500 distinct mathematical audit questions and stems;
+- leading-zero source/code coverage of 140/132 cases;
+- 370 wrapped targets and first/middle/final missing-position coverage;
+- 45/45/59/41/45 normalised explanation skeletons across the five tasks;
+- zero cross-contract normalised explanation collisions;
+- zero permanent CP-007 QLs.
+
+Source- and collision-pending candidates remain:
+
+- arbitrary digit substitution;
+- digit-to-symbol maps;
+- position-dependent digit transforms;
+- pure digit permutation, presumptively owned by CP-005 unless material numeric semantics survive audit;
+- alphanumeric dual-channel coding;
+- mixed-token substitution.
+
+Question Studio, localisation and public publication remain disabled. The next work is targeted source expansion followed by checkpoint-wide merge/split and ownership closure.
+
+## COD-CP-009 frozen discovery state
+
+CP-009 now has:
+
+- freeze version `COD_CP009_ENGLISH_DISCOVERY_FREEZE_V1`;
+- 16 source-backed English task contracts;
+- eight forward/inverse pairs;
+- ten topology families;
+- 24 provisional solve contracts after executable merge/split;
+- 30 contract/topology pairings in its final edge matrix;
+- a 720-question combined saturation gate;
+- a frozen source-evidence ledger and ownership matrix;
+- zero permanent CP-009 QLs.
+
+The 24 solve contracts arise because the two exact atomic directions each split across five materially different proof modes: direct intersection, chained propagation, set difference, forked evidence and global bijection. Two-way/three-way uncertainty, statement count, row order and renderer variation remain generated-instance properties.
+
+The uploaded sources directly support exact overlap deduction, genuine indeterminacy, complete either/or candidate domains, new-message composition and may-represent questions. Missing-member and impossible-atomic forms are retained as executable distinct competitive-exam extensions. Impossible phrase/set forms remain excluded without direct recurring evidence.
+
+### Exact freeze evidence
+
+```text
+Head SHA:       14d29e7cbebb298798118c0ae6ced31542f142a8
+Freeze run:     30285908074
+Conclusion:     success
+Artifact ID:    8660774184
+Artifact digest: sha256:cadd83367483713559d7ec69bc0f7ff1bebdf7b7c9acaad5fb97d7e90f25da44
+COD runtime:    30285907974 — success
+```
+
+The freeze workflow reran the full combined saturation gate and then enforced:
+
+- exactly 16 task contracts, 8 inverse pairs, 10 topology families and 24 solve contracts;
+- all 30 final contract/topology edge pairings;
+- exact, possible, impossible, set, missing-member and resolved-composition semantics;
+- the complete ownership and exclusion matrix;
+- prototype-only, non-publishable safety;
+- zero permanent IDs and a sequencing lock behind CP-007 and CP-008.
+
+## Remaining chapter sequence
+
+1. complete targeted source expansion and prototype comparison for CP-007;
+2. freeze and allocate CP-007 only after source, ownership and merge/split closure;
+3. design and implement CP-008 through exhaustive discovery;
+4. assign sequential IDs to the frozen CP-009 solve contracts and implement its English runtime;
+5. design and implement CP-010;
+6. complete chapter-wide English saturation and review;
+7. implement Hindi and Punjabi only after English ownership freezes;
+8. integrate reviewed content into Question Studio and later publication gates.
 
 ## Release boundary
 
-- Design documents do not claim runtime completion.
 - English is implemented and reviewed before Hindi or Punjabi is frozen.
-- No COD-001 QL is publicly publishable or discoverable in Question Studio until its checkpoint passes the required runtime, ambiguity and editorial gates.
+- No COD-001 QL is publicly publishable or discoverable in Question Studio until its checkpoint passes the required runtime, ambiguity, editorial and localisation gates.
 - Mathematical-operation substitution, coded inequalities, input-output, figure coding and cross-topic coded relations remain outside COD-001.
-
-## Frozen chapter headline
-
-- Total planned QLs: `260`
-- Continuous range: `COD-QL-001` through `COD-QL-260`
-- Checkpoints: `10`
-- Named canonical rule families: `54`
-- Primary renderers: `5`
-- Runtime languages after localization: English, Hindi and Punjabi
-
-Implementation must begin from `COD-CP-001` on a checkpoint-specific branch after this design is reviewed.
+- Sentence coding embedded inside Data Sufficiency remains owned by the Data Sufficiency chapter.

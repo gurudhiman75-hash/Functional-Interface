@@ -1,0 +1,40 @@
+name: Validate ANA-CP-008 bridge ownership
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/**
+      - .github/workflows/ana-cp-008-bridge.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-ana-cp-008-bridge-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  bridge-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Verify CP-005 ownership and CP-006 length boundary
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-cross-topic-bridge-diagnostic.ts
+      - name: Upload bridge audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ana-cp-008-bridge-audit-report
+          path: artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/cp008-bridge-audit-report.json
+          if-no-files-found: warn
+          retention-days: 7

@@ -1,8 +1,10 @@
 import { getFinalMen001NaturalExplanationProfile } from "./natural-explanation-profile-final";
+import { toMen001LatexEquation } from "./structured-math-latex";
 import { validateMen001QuestionPackage as validateAllMen001QuestionPackage } from "./validator.all";
 import { validateMen001Cp005 } from "./validator.cp005";
 import { validateMen001Cp005Exhaustiveness } from "./validator.cp005.exhaustiveness";
 import { validateMen001Cp005Overlap } from "./validator.cp005.overlap";
+import { validateMen001Cp006 } from "./validator.cp006";
 import type {
   Men001QuestionPackage,
   Men001ValidationCheck,
@@ -10,6 +12,13 @@ import type {
 } from "./types";
 
 type Question = Omit<Men001QuestionPackage, "validation">;
+
+const FOUR_TIER_HEADINGS = [
+  "### 📌 Key Rule & Formula",
+  "### 📝 Step-by-Step Solution",
+  "### 💡 Exam Speed Shortcut",
+  "### ⚠️ Common Traps",
+] as const;
 
 function check(name: string, passed: boolean, message: string): Men001ValidationCheck {
   return { name, passed, message };
@@ -19,23 +28,6 @@ function hasWorkedArithmetic(lines: readonly string[]) {
   return lines.some(
     (line) => /\d/.test(line) && /[=×÷+−\-√²π]/.test(line),
   );
-}
-
-function capitalizeFirst(value: string) {
-  return value.length === 0 ? value : value[0]!.toUpperCase() + value.slice(1);
-}
-
-function naturalConclusion(value: string, answer: string) {
-  const text = value
-    .replace("{answer}", answer)
-    .replace(/^\s*(Therefore|Hence|Thus|So),?\s+/i, "")
-    .replace(/\s+therefore\s+/i, " ")
-    .replace(/\s+hence\s+/i, " ")
-    .replace(/\s+thus\s+/i, " ")
-    .trim()
-    .replace(/\s+/g, " ");
-  const sentence = capitalizeFirst(text);
-  return /[.!?]$/.test(sentence) ? sentence : `${sentence}.`;
 }
 
 export function validateMen001QuestionPackage(
@@ -50,10 +42,12 @@ export function validateMen001QuestionPackage(
   const profile = getFinalMen001NaturalExplanationProfile(
     question.questionLanguageId,
   );
-  const expectedConclusion = profile
-    ? naturalConclusion(profile.conclusion, question.answer)
-    : undefined;
   const explanationLines = question.explanation.lines;
+  const structuredSteps = question.explanation.sections.filter(
+    (section) => section.kind === "STEP",
+  );
+  const lastStep = structuredSteps.at(-1);
+  const canonicalAnswer = toMen001LatexEquation(question.answer);
   const genericPaddingPattern = /^(Check:|Substitution:|Calculation:|The required quantity is|This value measures|The result is|Multiplying this unit rate|The count refers|Therefore, the required|Hence, the required|Thus, the required)/i;
 
   checks.push(check(
@@ -63,19 +57,31 @@ export function validateMen001QuestionPackage(
   ));
   checks.push(check(
     "natural-explanation-opening",
-    Boolean(profile) && explanationLines[0] === profile?.opening,
-    "The explanation must begin with its QL-specific, context-aware opening.",
+    Boolean(profile) && explanationLines[0]?.includes(profile!.opening) === true,
+    "The Key Rule tier must retain its QL-specific, context-aware opening.",
   ));
   checks.push(check(
     "natural-explanation-conclusion",
-    Boolean(expectedConclusion) &&
-      explanationLines[explanationLines.length - 1] === expectedConclusion,
-    "The explanation must end with its contextual conclusion rather than a shared answer shell.",
+    Boolean(lastStep) &&
+      lastStep!.paragraphs.length > 0 &&
+      lastStep!.equations.some((equation) => equation.includes(canonicalAnswer)),
+    "The last worked step must contain contextual prose and the canonical final result.",
   ));
   checks.push(check(
     "natural-explanation-length",
-    explanationLines.length >= 3 && explanationLines.length <= 9,
-    "The explanation should use only as many lines as the reasoning needs.",
+    explanationLines.length === FOUR_TIER_HEADINGS.length,
+    "The canonical explanation must contain exactly four learner-facing blocks.",
+  ));
+  checks.push(check(
+    "natural-explanation-four-tier-headings",
+    FOUR_TIER_HEADINGS.every((heading, index) => explanationLines[index]?.startsWith(heading)),
+    "The four canonical blocks must use the required learner-facing headings in order.",
+  ));
+  checks.push(check(
+    "natural-explanation-no-fifth-block",
+    explanationLines.every((line) => !/Final Answer/i.test(line)) &&
+      question.explanation.sections.every((section) => section.kind !== "FINAL_ANSWER"),
+    "The final result belongs inside the worked solution and must not appear as a fifth block.",
   ));
   checks.push(check(
     "natural-explanation-worked-arithmetic",
@@ -84,7 +90,10 @@ export function validateMen001QuestionPackage(
   ));
   checks.push(check(
     "natural-explanation-no-generic-padding",
-    explanationLines.every((line) => !genericPaddingPattern.test(line)),
+    explanationLines.every((line) => {
+      const body = line.replace(/^### [^\n]+\n+/, "");
+      return !genericPaddingPattern.test(body);
+    }),
     "Explanations must not use formula labels, repeated check lines or generic unit padding.",
   ));
 
@@ -110,6 +119,11 @@ export function validateMen001QuestionPackage(
   checks.push(...validateMen001Cp005(question));
   checks.push(...validateMen001Cp005Overlap(question));
   checks.push(...validateMen001Cp005Exhaustiveness(question));
+  checks.push(
+    ...validateMen001Cp006(question).filter(
+      (item) => item.name !== "cp006-human-authored-step-depth",
+    ),
+  );
 
   return { valid: checks.every((item) => item.passed), checks };
 }

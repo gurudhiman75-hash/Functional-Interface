@@ -155,6 +155,6 @@ export function applyAvg001LocalizedPresentationQuality(
   const grammarFinalized = finalizeAvg001Cp003ExplanationGrammar(contextFinalized);
   const equationFinalized = finalizeAvg001Cp003EquationLabels(grammarFinalized);
   const openingFinalized = finalizeAvg001ExplanationOpening(equationFinalized);
-  const variantFinalized = finalizeAvg001LocalizedExplanationOpeningVariant(openingFinalized);
-  return { ...variantFinalized, validation: refreshValidation(variantFinalized, language) };
+  const targetAwareOpening = finalizeAvg001LocalizedExplanationOpeningVariant(openingFinalized);
+  return { ...targetAwareOpening, validation: refreshValidation(targetAwareOpening, language) };
 }

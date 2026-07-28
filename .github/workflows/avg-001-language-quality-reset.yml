@@ -52,6 +52,15 @@ jobs:
           if ! run_case avg-001-language-quality-reset src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-language-quality-reset-audit.ts; then
             status=1
           fi
+          if ! run_case avg-001-cp003-exam-strategy src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-exam-strategy-audit.ts; then
+            status=1
+          fi
+          if ! run_case avg-001-cp004-exam-strategy src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp004-exam-strategy-audit.ts; then
+            status=1
+          fi
+          if ! run_case avg-001-cp005-exam-strategy src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp005-exam-strategy-audit.ts; then
+            status=1
+          fi
           if ! run_case avg-001-language-quality-review src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-language-quality-review-export.ts; then
             status=1
           fi

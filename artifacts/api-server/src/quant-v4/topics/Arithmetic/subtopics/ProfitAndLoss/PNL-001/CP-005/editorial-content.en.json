@@ -1,0 +1,1051 @@
+{
+  "schemaVersion": 2,
+  "archetypeId": "PNL-001",
+  "cpId": "PNL-CP-005",
+  "language": "en",
+  "status": "EDITORIAL_REVIEW_CANDIDATE",
+  "entries": {
+    "PNL-QL-121": {
+      "stem": {
+        "contextFamily": "grain weighing",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A grain merchant claims to sell at the cost price of ₹{costPricePerTrueQuantity} for {trueQuantity} kg, but his scale delivers only {deliveredQuantity} kg."
+          }
+        ],
+        "prompt": "What is his actual profit percentage?"
+      },
+      "explanation": {
+        "opening": "The merchant receives payment for the full quantity but bears the cost of only the quantity actually delivered.",
+        "concept": "Actual profit must be compared with the cost of the delivered goods, not with the cost of the billed quantity.",
+        "steps": [
+          {
+            "title": "Find the cost of the delivered grain",
+            "body": "Scale the true cost in the ratio delivered quantity to true quantity.",
+            "equationLatex": "C_d=C\\times\\frac{d}{q}"
+          },
+          {
+            "title": "Compare payment with delivered cost",
+            "body": "At stated cost price, the amount charged is C. Calculate profit on C_d.",
+            "equationLatex": "r=\\frac{C-C_d}{C_d}\\times100"
+          }
+        ],
+        "conclusion": "This rate is the merchant's actual profit from the short weight.",
+        "finalAnswerLatex": "{actualProfitPercent}\\%",
+        "commonTrap": "Do not divide profit by the amount charged; profit percentage is based on the merchant's actual cost."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible quantity adjustment followed by a direct profit-rate calculation."
+    },
+    "PNL-QL-122": {
+      "stem": {
+        "contextFamily": "packaged-rice sale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A shopkeeper's true cost for {trueQuantity} kg of packaged rice is ₹{costPricePerTrueQuantity}. He charges ₹{quotedSellingPricePerNominalQuantity} for the pack but supplies only {deliveredQuantity} kg."
+          }
+        ],
+        "prompt": "Find the actual profit or loss amount and percentage."
+      },
+      "explanation": {
+        "opening": "Let us separate the billed amount from the cost of the quantity actually supplied.",
+        "concept": "The selling amount is quoted for the nominal pack, while actual cost depends on delivered quantity.",
+        "steps": [
+          {
+            "title": "Calculate delivered cost",
+            "body": "Use proportional cost for {deliveredQuantity} out of {trueQuantity} units.",
+            "equationLatex": "C_d=C\\frac{d}{q}"
+          },
+          {
+            "title": "Find the amount result",
+            "body": "Subtract delivered cost from the charged amount.",
+            "equationLatex": "A=S-C_d"
+          },
+          {
+            "title": "Convert to a percentage",
+            "body": "Measure the amount on C_d.",
+            "equationLatex": "r=\\frac{|A|}{C_d}\\times100"
+          }
+        ],
+        "conclusion": "The sign of A gives profit or loss, and the ratio gives the percentage.",
+        "finalAnswerLatex": "\\text{₹}{actualAmount},\\;{actualRatePercent}\\%\\;{actualDirection}",
+        "commonTrap": "Do not use the cost of the full nominal quantity after the seller has supplied less."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Proportional cost, amount result, and percentage interpretation."
+    },
+    "PNL-QL-123": {
+      "stem": {
+        "contextFamily": "fruit weighing",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A fruit seller declares a {declaredRatePercent}% {declaredDirection} on fruit costing ₹{costPricePerTrueQuantity} per {trueQuantity} kg, but supplies only {deliveredQuantity} kg for each billed lot."
+          }
+        ],
+        "prompt": "Calculate the actual percentage gain or loss."
+      },
+      "explanation": {
+        "opening": "The declared rate determines the billed price, while the short delivery changes the seller's actual cost.",
+        "concept": "Combine the price multiplier with the delivered-quantity ratio before measuring the true result.",
+        "steps": [
+          {
+            "title": "Find the quoted selling amount",
+            "body": "Apply the declared profit or loss factor to the true cost of the nominal quantity.",
+            "equationLatex": "S=C\\left(1\\pm\\frac{r_d}{100}\\right)"
+          },
+          {
+            "title": "Find actual delivered cost",
+            "body": "Scale cost by d/q.",
+            "equationLatex": "C_d=C\\frac{d}{q}"
+          },
+          {
+            "title": "Calculate the actual rate",
+            "body": "Compare S with C_d.",
+            "equationLatex": "r_a=\\frac{|S-C_d|}{C_d}\\times100"
+          }
+        ],
+        "conclusion": "This gives the genuine result after both price declaration and short delivery.",
+        "finalAnswerLatex": "{actualRatePercent}\\%\\;{actualDirection}",
+        "commonTrap": "The declared rate is not the actual rate because the quantity base has also changed."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Direct combination of one price factor and one quantity factor."
+    },
+    "PNL-QL-124": {
+      "stem": {
+        "contextFamily": "cooking-oil measure",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Cooking oil costs ₹{costPricePerTrueQuantity} per {trueQuantity} litres. A retailer advertises a {declaredRatePercent}% {declaredDirection} but dispenses only {deliveredQuantity} litres for the billed quantity."
+          }
+        ],
+        "prompt": "Find the retailer's actual profit or loss percentage."
+      },
+      "explanation": {
+        "opening": "A declared loss can still become an actual profit when the delivered quantity is short.",
+        "concept": "Price and quantity changes must be combined on the same actual-cost basis.",
+        "steps": [
+          {
+            "title": "Turn the declared rate into a price",
+            "body": "Apply the stated commercial multiplier to the nominal cost."
+          },
+          {
+            "title": "Find the cost of oil actually delivered",
+            "body": "Use the delivered-to-true quantity ratio.",
+            "equationLatex": "C_d=C\\frac{d}{q}"
+          },
+          {
+            "title": "Compare the two amounts",
+            "body": "Measure the difference between billed price and C_d on C_d."
+          }
+        ],
+        "conclusion": "The comparison reveals the actual direction and rate.",
+        "finalAnswerLatex": "{actualRatePercent}\\%\\;{actualDirection}",
+        "commonTrap": "Do not assume that a declared loss guarantees an actual loss when quantity is manipulated."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Hidden actual-cost base but a direct forward calculation."
+    },
+    "PNL-QL-125": {
+      "stem": {
+        "contextFamily": "fertilizer bagging",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Fertilizer costs ₹{costPricePerTrueQuantity} for {trueQuantity} kg and is billed at ₹{quotedSellingPricePerNominalQuantity} per bag."
+          }
+        ],
+        "prompt": "How much fertilizer should each bag contain to produce an actual {targetRatePercent}% {targetDirection}?"
+      },
+      "explanation": {
+        "opening": "This time the target result is known and the delivered quantity is the unknown.",
+        "concept": "The cost of the delivered quantity must equal the billed amount divided by the target commercial multiplier.",
+        "steps": [
+          {
+            "title": "Find the allowable delivered cost",
+            "body": "Reverse the target profit or loss factor from the quoted selling amount.",
+            "equationLatex": "C_d=\\frac{S}{1\\pm r/100}"
+          },
+          {
+            "title": "Convert cost to quantity",
+            "body": "Use proportional cost per unit of true quantity.",
+            "equationLatex": "d=q\\frac{C_d}{C}"
+          }
+        ],
+        "conclusion": "The resulting quantity is the amount that must be delivered per billed bag.",
+        "finalAnswerLatex": "{requiredDeliveredQuantity}",
+        "commonTrap": "Do not apply the target rate directly to quantity; first recover the allowable cost."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Inverse target-rate problem with quantity as the unknown."
+    },
+    "PNL-QL-126": {
+      "stem": {
+        "contextFamily": "hardware fastener packs",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The cost of {trueQuantity} fasteners is ₹{costPricePerTrueQuantity}. A seller supplies only {deliveredQuantity} fasteners in each nominal pack."
+          }
+        ],
+        "prompt": "What price should be charged to obtain an actual {targetRatePercent}% {targetDirection}?"
+      },
+      "explanation": {
+        "opening": "The selling price must be based on the cost of the reduced pack, not the nominal pack.",
+        "concept": "Find actual delivered cost first, then apply the target commercial multiplier.",
+        "steps": [
+          {
+            "title": "Find cost of the supplied fasteners",
+            "body": "Scale the nominal cost by delivered quantity divided by true quantity.",
+            "equationLatex": "C_d=C\\frac{d}{q}"
+          },
+          {
+            "title": "Apply the target rate",
+            "body": "Multiply C_d by the appropriate profit or loss factor.",
+            "equationLatex": "S=C_d\\left(1\\pm\\frac{r}{100}\\right)"
+          }
+        ],
+        "conclusion": "This is the required quoted price for the short pack.",
+        "finalAnswerLatex": "\\text{₹}{requiredQuotedSellingPrice}",
+        "commonTrap": "Do not apply the target rate to the full-quantity cost."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Direct quantity adjustment followed by one target-rate multiplier."
+    },
+    "PNL-QL-127": {
+      "stem": {
+        "contextFamily": "wholesale sugar trade",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A sugar trader pays ₹{purchasePricePerNominalQuantity} for a nominal {nominalQuantity} kg but receives {receivedQuantity} kg. He later charges ₹{sellingPricePerNominalQuantity} for each nominal lot while delivering only {deliveredQuantity} kg."
+          }
+        ],
+        "prompt": "Find his actual profit percentage."
+      },
+      "explanation": {
+        "opening": "The trader gains on both sides: extra quantity while buying and short quantity while selling.",
+        "concept": "Compute the real cost per received unit and the real revenue per delivered unit on a common quantity basis.",
+        "steps": [
+          {
+            "title": "Find actual unit cost",
+            "body": "Spread the purchase payment over the quantity actually received.",
+            "equationLatex": "c=\\frac{B}{q_r}"
+          },
+          {
+            "title": "Find revenue per delivered unit",
+            "body": "Spread the billed sale amount over the quantity actually supplied.",
+            "equationLatex": "s=\\frac{S}{q_d}"
+          },
+          {
+            "title": "Compare unit values",
+            "body": "Measure profit on actual unit cost.",
+            "equationLatex": "r=\\frac{s-c}{c}\\times100"
+          }
+        ],
+        "conclusion": "This rate captures both the heavy buying measure and the light selling measure.",
+        "finalAnswerLatex": "{actualProfitPercent}\\%",
+        "commonTrap": "Do not compare the two nominal prices without adjusting for received and delivered quantities."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Dual-side quantity deception with two normalized unit values."
+    },
+    "PNL-QL-128": {
+      "stem": {
+        "contextFamily": "edible-oil wholesale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "An oil dealer pays ₹{purchasePricePerNominalQuantity} for a nominal {nominalQuantity}-litre purchase but receives {receivedQuantity} litres. He charges ₹{sellingPricePerNominalQuantity} per nominal sale and supplies {deliveredQuantity} litres."
+          }
+        ],
+        "prompt": "Calculate the actual percentage gain or loss."
+      },
+      "explanation": {
+        "opening": "We should remove the misleading nominal quantities and compare true per-litre values.",
+        "concept": "Actual result depends on money per unit received and money per unit delivered.",
+        "steps": [
+          {
+            "title": "Normalize purchase cost",
+            "body": "Divide purchase payment by actual received quantity."
+          },
+          {
+            "title": "Normalize selling realization",
+            "body": "Divide selling charge by actual delivered quantity."
+          },
+          {
+            "title": "Calculate the percentage result",
+            "body": "Compare normalized realization with normalized cost on the cost base."
+          }
+        ],
+        "conclusion": "The sign and size of the unit-value difference give the actual result.",
+        "finalAnswerLatex": "{actualRatePercent}\\%\\;{actualDirection}",
+        "commonTrap": "Nominal quantities are labels; the true physical quantities determine actual cost and realization."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Dual-measure normalization and direction-sensitive comparison."
+    },
+    "PNL-QL-129": {
+      "stem": {
+        "contextFamily": "spice retailing",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Spices cost ₹{costPricePerTrueQuantity} per {trueQuantity} g. A retailer marks them {markupPercent}% above cost, allows {discountPercent}% discount, and supplies only {deliveredQuantity} g for each billed pack."
+          }
+        ],
+        "prompt": "Find the actual profit or loss percentage."
+      },
+      "explanation": {
+        "opening": "Three effects are interacting here: markup, discount, and short delivery.",
+        "concept": "Combine the price factors to get the billed amount, then compare it with the cost of the quantity actually supplied.",
+        "steps": [
+          {
+            "title": "Find the billed price",
+            "body": "Apply markup and discount successively.",
+            "equationLatex": "S=C\\left(1+\\frac{m}{100}\\right)\\left(1-\\frac{d_c}{100}\\right)"
+          },
+          {
+            "title": "Find delivered cost",
+            "body": "Scale C by delivered quantity divided by true quantity."
+          },
+          {
+            "title": "Calculate actual rate",
+            "body": "Compare S with delivered cost on the delivered-cost base."
+          }
+        ],
+        "conclusion": "The resulting rate is the retailer's true profit or loss.",
+        "finalAnswerLatex": "{actualRatePercent}\\%\\;{actualDirection}",
+        "commonTrap": "Do not calculate the discount on cost price or ignore the short quantity."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Successive price transformations combined with quantity deception."
+    },
+    "PNL-QL-130": {
+      "stem": {
+        "contextFamily": "paint-can short fill",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Paint costs ₹{costPricePerTrueQuantity} for {trueQuantity} litres. A dealer fills only {deliveredQuantity} litres, allows {discountPercent}% discount, and wants an actual {targetRatePercent}% {targetDirection}."
+          }
+        ],
+        "prompt": "By what percentage should the can be marked above cost?"
+      },
+      "explanation": {
+        "opening": "The unknown markup must compensate for both the discount and the reduced delivered cost.",
+        "concept": "Set the discounted marked price equal to the target realization on actual delivered cost.",
+        "steps": [
+          {
+            "title": "Find actual delivered cost",
+            "body": "Scale nominal cost by d/q."
+          },
+          {
+            "title": "Find target selling amount",
+            "body": "Apply the target multiplier to delivered cost."
+          },
+          {
+            "title": "Reverse the discount to find marked price",
+            "body": "Divide target selling amount by the retained discount factor."
+          },
+          {
+            "title": "Convert marked price to markup",
+            "body": "Compare marked price with nominal cost."
+          }
+        ],
+        "conclusion": "The final comparison gives the required markup percentage.",
+        "finalAnswerLatex": "{requiredMarkupPercent}\\%",
+        "commonTrap": "Do not apply markup to delivered cost if the marked price is defined relative to the nominal cost price."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Coupled inverse across quantity, discount, target result, and markup."
+    },
+    "PNL-QL-131": {
+      "stem": {
+        "contextFamily": "cereal packet pricing",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Cereal costs ₹{costPricePerTrueQuantity} per {trueQuantity} g and is marked {markupPercent}% above cost. Each packet contains only {deliveredQuantity} g."
+          }
+        ],
+        "prompt": "What discount should be allowed to obtain an actual {targetRatePercent}% {targetDirection}?"
+      },
+      "explanation": {
+        "opening": "We know the marked price and target result, so the discount can be isolated.",
+        "concept": "Target selling amount is based on delivered cost; discount is measured from marked price.",
+        "steps": [
+          {
+            "title": "Calculate delivered cost",
+            "body": "Use the quantity ratio d/q."
+          },
+          {
+            "title": "Find target selling amount",
+            "body": "Apply the required profit or loss factor to delivered cost."
+          },
+          {
+            "title": "Find the retained fraction of marked price",
+            "body": "Divide target selling amount by marked price."
+          },
+          {
+            "title": "Convert retained fraction to discount",
+            "body": "Discount% = 100% minus retained percentage."
+          }
+        ],
+        "conclusion": "The shortfall from the marked price is the required discount.",
+        "finalAnswerLatex": "{requiredDiscountPercent}\\%",
+        "commonTrap": "Do not calculate target profit on the nominal full-quantity cost."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Inverse discount with markup and short-delivery bases."
+    },
+    "PNL-QL-132": {
+      "stem": {
+        "contextFamily": "cement bag pricing",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A cement dealer changes the quoted price by {priceChangePercent}% in the {priceDirection} direction on bags costing ₹{costPricePerTrueQuantity} for {trueQuantity} kg, and supplies {shortQuantityPercent}% less cement."
+          }
+        ],
+        "prompt": "Find the actual profit percentage."
+      },
+      "explanation": {
+        "opening": "Both the price and the quantity have changed, so their factors should be combined.",
+        "concept": "The billed-price factor affects revenue, while the retained-quantity factor affects actual cost.",
+        "steps": [
+          {
+            "title": "Write the price factor",
+            "body": "Use 1+p/100 for an increase or 1−p/100 for a decrease."
+          },
+          {
+            "title": "Write the delivered-cost factor",
+            "body": "Supplying s% less means the cost factor is 1−s/100."
+          },
+          {
+            "title": "Compare the factors",
+            "body": "Actual realization factor equals price factor divided by delivered-cost factor."
+          }
+        ],
+        "conclusion": "The excess of this factor over 1 gives the actual profit percentage.",
+        "finalAnswerLatex": "{actualProfitPercent}\\%",
+        "commonTrap": "Do not subtract the short-quantity percentage from the price-change percentage."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Direct interaction of one price factor and one quantity factor."
+    },
+    "PNL-QL-133": {
+      "stem": {
+        "contextFamily": "animal-feed sacks",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Animal feed costs ₹{costPricePerTrueQuantity} per {trueQuantity} kg. The seller changes the quoted price by {priceChangePercent}% in the {priceDirection} direction and short-delivers by {shortQuantityPercent}%."
+          }
+        ],
+        "prompt": "Calculate the actual percentage gain or loss."
+      },
+      "explanation": {
+        "opening": "A price reduction can be offset by short delivery, so the final direction must be calculated rather than guessed.",
+        "concept": "Compare the revenue multiplier with the cost multiplier of the delivered quantity.",
+        "steps": [
+          {
+            "title": "Form both multipliers",
+            "body": "Create the quoted-price factor and the delivered-quantity factor."
+          },
+          {
+            "title": "Find the actual commercial factor",
+            "body": "Divide price factor by quantity factor.",
+            "equationLatex": "M=\\frac{m_p}{m_q}"
+          },
+          {
+            "title": "Interpret M",
+            "body": "M above 1 means gain; M below 1 means loss."
+          }
+        ],
+        "conclusion": "The distance of M from 1 gives the actual rate.",
+        "finalAnswerLatex": "{actualRatePercent}\\%\\;{actualDirection}",
+        "commonTrap": "Do not decide the direction from the price change alone."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Direct factor comparison with a direction interpretation."
+    },
+    "PNL-QL-134": {
+      "stem": {
+        "contextFamily": "customer overcharge",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A customer pays for {trueQuantity} units of a product but receives only {deliveredQuantity} units."
+          }
+        ],
+        "prompt": "By what percentage is the effective price per true unit higher?"
+      },
+      "explanation": {
+        "opening": "The same payment is spread over fewer units, so the effective unit price rises.",
+        "concept": "Effective overcharge is measured relative to the fair unit price.",
+        "steps": [
+          {
+            "title": "Form the price ratio",
+            "body": "Effective price per unit is nominal payment divided by delivered quantity, while fair price uses true quantity."
+          },
+          {
+            "title": "Convert ratio to overcharge",
+            "body": "Subtract 1 from q/d and multiply by 100.",
+            "equationLatex": "r=\\left(\\frac{q}{d}-1\\right)\\times100"
+          }
+        ],
+        "conclusion": "This percentage is the customer's effective overcharge.",
+        "finalAnswerLatex": "{customerOverchargePercent}\\%",
+        "commonTrap": "The overcharge percentage is not simply the percentage shortage unless the shortage is measured on the delivered quantity."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "One reciprocal quantity comparison."
+    },
+    "PNL-QL-135": {
+      "stem": {
+        "contextFamily": "dry-fruit short packs",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A dry-fruit seller declares a {declaredRatePercent}% {declaredDirection} while billing for {trueQuantity} g. He wants the actual result to be {actualRatePercent}% {actualDirection}."
+          }
+        ],
+        "prompt": "How much should each pack actually contain?"
+      },
+      "explanation": {
+        "opening": "The billed price comes from the declared rate, but the target actual rate determines the allowable delivered cost.",
+        "concept": "Equate the same selling amount under the declared-price model and the target-actual-result model.",
+        "steps": [
+          {
+            "title": "Find billed selling amount",
+            "body": "Apply the declared multiplier to nominal cost."
+          },
+          {
+            "title": "Recover allowable delivered cost",
+            "body": "Divide the selling amount by the actual target multiplier."
+          },
+          {
+            "title": "Convert cost to quantity",
+            "body": "Use direct proportionality between cost and delivered quantity."
+          }
+        ],
+        "conclusion": "The resulting quantity produces the requested actual rate.",
+        "finalAnswerLatex": "{requiredDeliveredQuantity}",
+        "commonTrap": "Do not equate declared and actual percentages; they use different cost bases."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Coupled inverse using declared and actual rates to solve quantity."
+    },
+    "PNL-QL-136": {
+      "stem": {
+        "contextFamily": "coffee bean packets",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A seller charges for {trueQuantity} g of coffee but supplies {deliveredQuantity} g and earns an actual {actualRatePercent}% {actualDirection}."
+          }
+        ],
+        "prompt": "Find the declared profit or loss percentage on the price list."
+      },
+      "explanation": {
+        "opening": "We know the true result after short delivery and must reconstruct the rate printed on the price list.",
+        "concept": "Actual selling amount equals delivered cost multiplied by the actual-result factor; compare that amount with nominal cost to obtain the declared rate.",
+        "steps": [
+          {
+            "title": "Express delivered cost",
+            "body": "Use C_d=C(d/q)."
+          },
+          {
+            "title": "Find the selling amount",
+            "body": "Apply the actual multiplier to C_d."
+          },
+          {
+            "title": "Compare with nominal cost",
+            "body": "The relative difference between selling amount and C gives the declared rate."
+          }
+        ],
+        "conclusion": "This reconstructed rate is the declared profit or loss percentage.",
+        "finalAnswerLatex": "{declaredRatePercent}\\%\\;{declaredDirection}",
+        "commonTrap": "Do not report the actual rate again; the price-list base is the full nominal cost."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Reverse base conversion from actual result to declared rate."
+    },
+    "PNL-QL-137": {
+      "stem": {
+        "contextFamily": "premium tea packets",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A tea seller charges ₹{quotedSellingPricePerNominalQuantity} for {trueQuantity} g but supplies {deliveredQuantity} g. This gives an actual {actualRatePercent}% {actualDirection}."
+          }
+        ],
+        "prompt": "Find the true cost price per {trueQuantity} g."
+      },
+      "explanation": {
+        "opening": "The quoted amount and actual rate first tell us the cost of the tea actually delivered.",
+        "concept": "Reverse the actual commercial multiplier, then scale delivered cost up to the true nominal quantity.",
+        "steps": [
+          {
+            "title": "Recover delivered cost",
+            "body": "Divide the quoted selling amount by the actual result factor."
+          },
+          {
+            "title": "Scale to nominal cost",
+            "body": "Multiply delivered cost by q/d.",
+            "equationLatex": "C=C_d\\frac{q}{d}"
+          }
+        ],
+        "conclusion": "The scaled value is the true cost for the full nominal quantity.",
+        "finalAnswerLatex": "\\text{₹}{costPricePerTrueQuantity}",
+        "commonTrap": "Do not treat the quoted price as the cost of the full quantity before reversing the actual rate."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Reverse actual-rate calculation followed by quantity rescaling."
+    },
+    "PNL-QL-138": {
+      "stem": {
+        "contextFamily": "nuts retail pack",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A retailer charges ₹{quotedSellingPricePerNominalQuantity} for {trueQuantity} g of nuts, supplies {deliveredQuantity} g, and makes an actual {actualDirection} of ₹{actualAmount}."
+          }
+        ],
+        "prompt": "Find the true cost price per {trueQuantity} g."
+      },
+      "explanation": {
+        "opening": "The actual amount result lets us recover the cost of the quantity supplied directly.",
+        "concept": "Undo the profit or loss amount from the selling amount, then scale delivered cost to nominal quantity.",
+        "steps": [
+          {
+            "title": "Recover delivered cost",
+            "body": "For profit, subtract the amount from selling price; for loss, add it."
+          },
+          {
+            "title": "Scale to full quantity",
+            "body": "Use C=C_d(q/d)."
+          }
+        ],
+        "conclusion": "The scaled cost is the true nominal cost price.",
+        "finalAnswerLatex": "\\text{₹}{costPricePerTrueQuantity}",
+        "commonTrap": "Apply the actual amount before scaling; otherwise the amount is placed on the wrong quantity base."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Direction-sensitive amount reversal and quantity scaling."
+    },
+    "PNL-QL-139": {
+      "stem": {
+        "contextFamily": "wholesale pulses trade",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A pulses trader pays ₹{purchasePricePerNominalQuantity} and receives {receivedQuantity} kg. He charges ₹{sellingPricePerNominalQuantity} for each nominal sale."
+          }
+        ],
+        "prompt": "How much should he deliver per sale to obtain an actual {targetRatePercent}% {targetDirection}?"
+      },
+      "explanation": {
+        "opening": "The purchase side fixes actual unit cost; the target rate then fixes allowable cost per sale.",
+        "concept": "Normalize the buying deal first, then solve the selling quantity from the target selling factor.",
+        "steps": [
+          {
+            "title": "Find actual unit cost",
+            "body": "Divide purchase payment by received quantity."
+          },
+          {
+            "title": "Find allowable cost per sale",
+            "body": "Reverse the target multiplier from the selling charge."
+          },
+          {
+            "title": "Convert allowable cost to delivered quantity",
+            "body": "Divide allowable sale cost by actual unit cost."
+          }
+        ],
+        "conclusion": "The resulting quantity is the required delivery per nominal sale.",
+        "finalAnswerLatex": "{requiredDeliveredQuantity}",
+        "commonTrap": "Do not use the nominal purchase quantity when the trader actually received a different amount."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Dual-side inverse with target rate and delivered quantity unknown."
+    },
+    "PNL-QL-140": {
+      "stem": {
+        "contextFamily": "wholesale flour purchase",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A flour trader pays ₹{purchasePricePerNominalQuantity} for a purchase lot and charges ₹{sellingPricePerNominalQuantity} while delivering {deliveredQuantity} kg per sale."
+          }
+        ],
+        "prompt": "How much flour must he receive in the purchase lot to obtain an actual {targetRatePercent}% {targetDirection}?"
+      },
+      "explanation": {
+        "opening": "Here the selling side is known and the extra quantity received while buying is the unknown advantage.",
+        "concept": "Use target profit to determine allowable cost per delivered sale, then infer the purchase quantity that creates that unit cost.",
+        "steps": [
+          {
+            "title": "Recover target cost of delivered quantity",
+            "body": "Divide sale revenue by the target result factor."
+          },
+          {
+            "title": "Find required unit cost",
+            "body": "Divide that cost by delivered quantity."
+          },
+          {
+            "title": "Solve received quantity",
+            "body": "Received quantity equals total purchase payment divided by required unit cost."
+          }
+        ],
+        "conclusion": "This purchase quantity gives the requested actual result.",
+        "finalAnswerLatex": "{requiredReceivedQuantity}",
+        "commonTrap": "Do not solve using the billed sale quantity as though it were also the received purchase quantity."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Reverse dual-measure problem with received quantity unknown."
+    },
+    "PNL-QL-141": {
+      "stem": {
+        "contextFamily": "customer unit-price impact",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A customer is charged ₹{quotedSellingPricePerNominalQuantity} for {trueQuantity} units but receives only {deliveredQuantity} units."
+          }
+        ],
+        "prompt": "Find the effective price per true {trueQuantity} units."
+      },
+      "explanation": {
+        "opening": "The charge remains unchanged, but fewer units are supplied.",
+        "concept": "First find price per delivered unit, then scale it to the true reference quantity.",
+        "steps": [
+          {
+            "title": "Find effective unit price",
+            "body": "Divide the quoted charge by delivered quantity."
+          },
+          {
+            "title": "Scale to the true quantity",
+            "body": "Multiply effective unit price by {trueQuantity}."
+          }
+        ],
+        "conclusion": "This is what the customer effectively pays for a true {trueQuantity}-unit quantity.",
+        "finalAnswerLatex": "\\text{₹}{effectivePricePerTrueQuantity}",
+        "commonTrap": "Do not report the original quoted amount; it applies to the falsely measured pack."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Unit-price normalization and scaling."
+    },
+    "PNL-QL-142": {
+      "stem": {
+        "contextFamily": "scheme comparison",
+        "blocks": [
+          {
+            "type": "caselet",
+            "title": "Two dealer schemes",
+            "paragraphs": [
+              "Scheme A: {firstScheme}",
+              "Scheme B: {secondScheme}"
+            ]
+          }
+        ],
+        "prompt": "Which scheme gives the higher profit percentage, and by how many percentage points?"
+      },
+      "explanation": {
+        "opening": "To compare the schemes fairly, calculate each actual profit rate on its own true cost base.",
+        "concept": "Different combinations of price and quantity deception must be normalized before comparison.",
+        "steps": [
+          {
+            "title": "Evaluate Scheme A",
+            "body": "Find its actual revenue-to-cost factor and convert it to a percentage."
+          },
+          {
+            "title": "Evaluate Scheme B",
+            "body": "Repeat the same calculation on the second scheme."
+          },
+          {
+            "title": "Compare the rates",
+            "body": "Identify the larger rate and subtract the smaller rate from it."
+          }
+        ],
+        "conclusion": "The higher normalized rate identifies the more profitable scheme.",
+        "finalAnswerLatex": "{moreProfitableScheme},\\;{rateDifference}\\%",
+        "commonTrap": "Do not compare only the shortages or only the quoted price changes."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Two complete dishonest-trade computations followed by comparison."
+    },
+    "PNL-QL-143": {
+      "stem": {
+        "contextFamily": "short article count",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The cost of {trueQuantity} packaged items is ₹{costPricePerTrueQuantity}. A seller charges ₹{quotedSellingPricePerNominalQuantity} for {trueQuantity} items but places only {deliveredQuantity} items in the carton."
+          }
+        ],
+        "prompt": "Find the actual profit percentage."
+      },
+      "explanation": {
+        "opening": "A false count works exactly like a false weight: cost follows the number of items actually supplied.",
+        "concept": "Scale nominal cost to the delivered count and compare it with the amount charged.",
+        "steps": [
+          {
+            "title": "Find cost of supplied items",
+            "body": "Use C_d=C(d/q)."
+          },
+          {
+            "title": "Calculate actual profit rate",
+            "body": "Compare the charged amount with C_d on the C_d base."
+          }
+        ],
+        "conclusion": "The result is the seller's true profit percentage.",
+        "finalAnswerLatex": "{actualProfitPercent}\\%",
+        "commonTrap": "Do not assume that count-based fraud needs a different percentage formula from weight-based fraud."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Direct false-count variant of proportional delivered cost."
+    },
+    "PNL-QL-144": {
+      "stem": {
+        "contextFamily": "short cloth metre",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A cloth merchant charges for {trueQuantity} cm, but the measuring rod marked as one metre is only {deliveredQuantity} cm long."
+          }
+        ],
+        "prompt": "Find the percentage overcharge caused by the short measure."
+      },
+      "explanation": {
+        "opening": "The buyer pays for the full marked length but receives a shorter physical length.",
+        "concept": "Effective price rises in the inverse ratio of true length to delivered length.",
+        "steps": [
+          {
+            "title": "Form the effective-price factor",
+            "body": "Divide true billed length by actual delivered length.",
+            "equationLatex": "M=\\frac{q}{d}"
+          },
+          {
+            "title": "Convert to overcharge percentage",
+            "body": "Subtract 1 and multiply by 100."
+          }
+        ],
+        "conclusion": "This is the customer's effective overcharge percentage.",
+        "finalAnswerLatex": "{customerOverchargePercent}\\%",
+        "commonTrap": "Do not report the percentage length shortage as the overcharge percentage; their bases differ."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "One inverse length ratio and percentage conversion."
+    },
+    "PNL-QL-145": {
+      "stem": {
+        "contextFamily": "dishonest-scheme table",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Two dealer schemes are summarized in the table."
+          },
+          {
+            "type": "table",
+            "caption": "Price and quantity schemes",
+            "columns": [
+              "Scheme",
+              "Price condition",
+              "Quantity condition"
+            ],
+            "rowSource": "schemeTable"
+          }
+        ],
+        "prompt": "Identify the more profitable scheme and calculate the difference in actual profit percentages."
+      },
+      "explanation": {
+        "opening": "Read each table row as a complete scheme rather than comparing isolated cells.",
+        "concept": "Actual profit factor combines the row's price factor and quantity factor.",
+        "steps": [
+          {
+            "title": "Calculate the first row's actual factor",
+            "body": "Normalize its price condition by its delivered-cost condition."
+          },
+          {
+            "title": "Calculate the second row's actual factor",
+            "body": "Use the same method so the comparison is fair."
+          },
+          {
+            "title": "Compare percentage rates",
+            "body": "Subtract the smaller actual rate from the larger one."
+          }
+        ],
+        "conclusion": "The row with the higher normalized rate is the more profitable scheme.",
+        "finalAnswerLatex": "{moreProfitableScheme},\\;{rateDifference}\\%",
+        "commonTrap": "Do not select a row simply because it has the larger price increase or larger shortage."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Real table interpretation plus two multi-factor calculations."
+    },
+    "PNL-QL-146": {
+      "stem": {
+        "contextFamily": "retail fraud caselet",
+        "blocks": [
+          {
+            "type": "caselet",
+            "title": "Retail pricing caselet",
+            "paragraphSource": "caseletData"
+          },
+          {
+            "type": "paragraph",
+            "content": "Goods cost ₹{costPricePerTrueQuantity} per {trueQuantity} units, are marked up {markupPercent}%, discounted {discountPercent}%, and only {deliveredQuantity} units are supplied."
+          }
+        ],
+        "prompt": "Find the actual profit percentage."
+      },
+      "explanation": {
+        "opening": "Let us organise the caselet into price-side and quantity-side effects.",
+        "concept": "Markup and discount create the billed price; short delivery determines actual cost.",
+        "steps": [
+          {
+            "title": "Calculate billed price",
+            "body": "Apply markup first and discount second."
+          },
+          {
+            "title": "Calculate delivered cost",
+            "body": "Scale nominal cost by delivered quantity divided by true quantity."
+          },
+          {
+            "title": "Measure actual profit",
+            "body": "Compare billed price with delivered cost on the delivered-cost base."
+          }
+        ],
+        "conclusion": "The combined caselet effects give the actual profit percentage.",
+        "finalAnswerLatex": "{actualProfitPercent}\\%",
+        "commonTrap": "Do not treat the caselet's percentages as though they all use the same base."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Caselet extraction with successive price changes and quantity fraud."
+    },
+    "PNL-QL-147": {
+      "stem": {
+        "contextFamily": "consumer-impact statements",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A dealer charges for {trueQuantity} units but supplies only {deliveredQuantity} units."
+          },
+          {
+            "type": "statements",
+            "lead": "Consider the following statements:",
+            "statements": [
+              "The percentage shortage is always equal to the percentage overcharge.",
+              "The effective price factor is true quantity divided by delivered quantity.",
+              "Overcharge should be measured on the amount paid rather than the fair unit price."
+            ]
+          }
+        ],
+        "prompt": "Select the correct statement."
+      },
+      "explanation": {
+        "opening": "The statements can be checked by comparing fair and effective unit prices.",
+        "concept": "With the same payment, effective unit price changes in the inverse ratio q/d.",
+        "steps": [
+          {
+            "title": "Write the effective factor",
+            "body": "Effective price divided by fair price equals q/d."
+          },
+          {
+            "title": "Evaluate the statements",
+            "body": "Only the statement consistent with this factor is correct."
+          }
+        ],
+        "conclusion": "Choose the statement that uses the inverse quantity ratio.",
+        "finalAnswerLatex": "{correctStatement}",
+        "commonTrap": "Shortage and overcharge percentages usually have different bases."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Conceptual statement evaluation using one established ratio."
+    },
+    "PNL-QL-148": {
+      "stem": {
+        "contextFamily": "false-quantity data sufficiency",
+        "blocks": [
+          {
+            "type": "data_sufficiency",
+            "question": "The false quantity required for an actual {targetRatePercent}% profit on a nominal {trueQuantity}-unit sale is to be determined.",
+            "statements": [
+              "{statementOne}",
+              "{statementTwo}"
+            ],
+            "answerScheme": "STANDARD_TWO_STATEMENT"
+          }
+        ],
+        "prompt": "Decide whether either statement alone, both together, or neither is sufficient."
+      },
+      "explanation": {
+        "opening": "We are testing whether the selling amount and true unit cost are known well enough to solve one quantity.",
+        "concept": "Delivered quantity is unique only when the target factor and the ratio between selling amount and nominal cost are fixed.",
+        "steps": [
+          {
+            "title": "Test Statement I alone",
+            "body": "Check whether it fixes every value needed in d=qS/[C(1+r)]."
+          },
+          {
+            "title": "Test Statement II alone",
+            "body": "Repeat the completeness test without using Statement I."
+          },
+          {
+            "title": "Combine if necessary",
+            "body": "Use both statements only after each has been judged independently."
+          }
+        ],
+        "conclusion": "Select the data-sufficiency option matching when the quantity becomes unique.",
+        "finalAnswerLatex": "{dataSufficiencyAnswer}",
+        "commonTrap": "Do not calculate a numerical quantity from both statements while deciding whether one statement alone is sufficient."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Data-sufficiency analysis for an inverse quantity equation."
+    },
+    "PNL-QL-149": {
+      "stem": {
+        "contextFamily": "algebraic false quantity",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A dealer charges for {trueQuantityExpression} units, supplies {deliveredQuantityExpression} units, and earns an actual profit of {actualRatePercent}%."
+          },
+          {
+            "type": "equation",
+            "latex": "\\frac{S}{C_d}=1+\\frac{r_a}{100}"
+          }
+        ],
+        "prompt": "Determine the declared profit or loss percentage algebraically."
+      },
+      "explanation": {
+        "opening": "We can express the quantity deception as a cost ratio and then move back to the declared price base.",
+        "concept": "Actual rate uses delivered cost, whereas declared rate compares the same selling amount with nominal cost.",
+        "steps": [
+          {
+            "title": "Express delivered cost symbolically",
+            "body": "Multiply nominal cost by delivered quantity divided by true quantity."
+          },
+          {
+            "title": "Use the actual-rate equation",
+            "body": "Find the selling amount as a multiple of delivered cost."
+          },
+          {
+            "title": "Compare with nominal cost",
+            "body": "Simplify S/C−1 and convert it to a signed percentage."
+          }
+        ],
+        "conclusion": "The simplified expression is the declared profit or loss rate.",
+        "finalAnswerLatex": "{declaredRatePercent}\\%\\;{declaredDirection}",
+        "commonTrap": "Keep the two percentage bases separate throughout the algebra."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Symbolic reverse base conversion with quantity expressions."
+    }
+  },
+  "entryCount": 29
+}

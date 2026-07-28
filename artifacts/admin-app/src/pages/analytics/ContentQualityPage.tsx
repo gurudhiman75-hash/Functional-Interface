@@ -1,171 +1,26 @@
-import { Activity, Download, AlertTriangle, CheckCircle2, FileQuestion, Languages, Clock } from 'lucide-react';
-import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-} from 'recharts';
+import { useEffect, useMemo, useState } from 'react';
+import { Activity, Download, RefreshCw } from 'lucide-react';
+import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { PageHeader } from '@/components/shared/PageHeader';
-import { StatCard } from '@/components/shared/StatCard';
 import { StatusBadge } from '@/components/shared/StatusBadge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { showToast } from '@/components/shared/toast';
-import { cn } from '@/lib/utils';
-import { CONTENT_COVERAGE } from '@/data/analytics';
+import { getFirebaseAuth } from '@/integrations/firebase';
 
-const QUALITY_ISSUES = [
-  { label: 'Pending Reviews', count: 18, detail: 'awaiting reviewer', tone: 'warning' as const, max: 100 },
-  { label: 'Validation Failures', count: 42, detail: '8.2% of submissions', tone: 'destructive' as const, max: 100 },
-  { label: 'Duplicate Warnings', count: 7, detail: 'potential duplicates flagged', tone: 'info' as const, max: 100 },
-  { label: 'Missing Translations', count: 23, detail: 'Punjabi: 15, Hindi: 8', tone: 'warning' as const, max: 100 },
-  { label: 'Weak Explanations', count: 31, detail: 'below min word count', tone: 'info' as const, max: 100 },
-  { label: 'Outdated Questions', count: 89, detail: 'not updated in 12+ months', tone: 'destructive' as const, max: 100 },
-];
-
-const REVIEW_THROUGHPUT = [
-  { day: 'Mon', reviews: 42 }, { day: 'Tue', reviews: 58 },
-  { day: 'Wed', reviews: 35 }, { day: 'Thu', reviews: 67 },
-  { day: 'Fri', reviews: 71 }, { day: 'Sat', reviews: 28 },
-  { day: 'Sun', reviews: 18 },
-];
-
-const tooltipStyle = {
-  background: 'hsl(var(--popover))', border: '1px solid hsl(var(--border))',
-  borderRadius: 8, fontSize: 12, color: 'hsl(var(--popover-foreground))',
-};
-
-export function ContentQualityPage() {
-  return (
-    <div>
-      <PageHeader
-        title="Content Quality"
-        description="Monitor content health and review pipeline."
-        icon={<Activity className="h-5 w-5" />}
-        actions={
-          <Button variant="outline" size="sm" onClick={() => showToast.success('Export started', 'Content quality report is being generated.')}>
-            <Download className="mr-1.5 h-4 w-4" /> Export
-          </Button>
-        }
-      />
-
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatCard label="Pending Reviews" value="18" icon={Clock} delta={{ value: '3 urgent', positive: false }} sublabel="in review queue" tone="warning" />
-        <StatCard label="Validation Failures" value="8.2%" icon={AlertTriangle} delta={{ value: '1.1%', positive: false }} sublabel="42 questions" tone="destructive" />
-        <StatCard label="Missing Translations" value="23" icon={Languages} sublabel="Punjabi: 15, Hindi: 8" tone="info" />
-        <StatCard label="Outdated Questions" value="89" icon={FileQuestion} sublabel="12+ months stale" tone="accent" />
-      </div>
-
-      <div className="mt-6 grid gap-4 lg:grid-cols-3">
-        <Card className="lg:col-span-2">
-          <CardHeader className="flex-row items-center justify-between space-y-0">
-            <div><CardTitle className="text-base">Quality Issues Breakdown</CardTitle><p className="text-xs text-muted-foreground">Issue types with current counts</p></div>
-            <StatusBadge tone="destructive" dot>210 total</StatusBadge>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {QUALITY_ISSUES.map((issue) => (
-              <div key={issue.label}>
-                <div className="mb-1.5 flex items-center justify-between text-sm">
-                  <div className="flex items-center gap-2">
-                    <span className="font-medium">{issue.label}</span>
-                    <StatusBadge tone={issue.tone} className="text-[10px]">{issue.count}</StatusBadge>
-                  </div>
-                  <span className="text-xs text-muted-foreground">{issue.detail}</span>
-                </div>
-                <Progress value={(issue.count / issue.max) * 100} className={cn('h-2', issue.tone === 'destructive' && '[&>div]:bg-destructive', issue.tone === 'warning' && '[&>div]:bg-warning', issue.tone === 'info' && '[&>div]:bg-info')} />
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader><CardTitle className="text-base">Review Throughput</CardTitle><p className="text-xs text-muted-foreground">Reviews completed per day (last 7 days)</p></CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={REVIEW_THROUGHPUT} margin={{ left: -20, right: 8, top: 8 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                <XAxis dataKey="day" tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }} />
-                <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }} />
-                <Tooltip contentStyle={tooltipStyle} cursor={{ fill: 'hsl(var(--muted))' }} />
-                <Bar dataKey="reviews" fill="hsl(var(--chart-3))" radius={[4, 4, 0, 0]} name="Reviews" />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Card className="mt-6">
-        <CardHeader className="flex-row items-center justify-between space-y-0">
-          <div><CardTitle className="text-base">Content Coverage by Exam</CardTitle><p className="text-xs text-muted-foreground">Approved question inventory per exam</p></div>
-          <Button variant="ghost" size="sm" className="h-7 text-xs" onClick={() => showToast.info('Coverage details', 'Detailed coverage breakdown available in Content module.')}>
-            View details
-          </Button>
-        </CardHeader>
-        <CardContent className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
-          {CONTENT_COVERAGE.map((c) => (
-            <div key={c.exam}>
-              <div className="mb-1 flex items-center justify-between text-sm">
-                <span className="font-medium">{c.exam}</span>
-                <span className="text-muted-foreground">{c.questions.toLocaleString()} Q - {c.coverage}%</span>
-              </div>
-              <Progress value={c.coverage} className={cn('h-2.5', c.coverage < 70 && '[&>div]:bg-warning', c.coverage < 60 && '[&>div]:bg-destructive')} />
-            </div>
-          ))}
-        </CardContent>
-      </Card>
-
-      <div className="mt-6 grid gap-4 lg:grid-cols-2">
-        <Card>
-          <CardHeader className="flex-row items-center justify-between space-y-0">
-            <div><CardTitle className="text-base flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-success" /> Validation Summary</CardTitle><p className="text-xs text-muted-foreground">Automated validation results</p></div>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <div className="flex items-center justify-between rounded-lg border p-3">
-              <span className="text-sm font-medium">Passed Validation</span>
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-semibold text-success">38,712</span>
-                <StatusBadge tone="success" dot>91.8%</StatusBadge>
-              </div>
-            </div>
-            <div className="flex items-center justify-between rounded-lg border p-3">
-              <span className="text-sm font-medium">Failed Validation</span>
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-semibold text-destructive">3,446</span>
-                <StatusBadge tone="destructive" dot>8.2%</StatusBadge>
-              </div>
-            </div>
-            <div className="flex items-center justify-between rounded-lg border p-3">
-              <span className="text-sm font-medium">Auto-fixed This Week</span>
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-semibold text-info">128</span>
-                <StatusBadge tone="info">AI assisted</StatusBadge>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex-row items-center justify-between space-y-0">
-            <div><CardTitle className="text-base flex items-center gap-2"><AlertTriangle className="h-4 w-4 text-warning" /> Critical Alerts</CardTitle><p className="text-xs text-muted-foreground">Items needing immediate attention</p></div>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            {[
-              { id: 1, text: 'Punjab PSSSB coverage below 60% threshold', tone: 'destructive' as const },
-              { id: 2, text: '6 questions pending review for 4+ days', tone: 'warning' as const },
-              { id: 3, text: 'AI generation batch failed validation (12 questions)', tone: 'destructive' as const },
-              { id: 4, text: '2 DI sets missing referenced images', tone: 'warning' as const },
-            ].map((alert) => (
-              <div key={alert.id} className="flex items-center justify-between rounded-lg border p-3 transition-colors hover:bg-muted/40">
-                <div className="flex items-center gap-2.5">
-                  <AlertTriangle className={cn('h-4 w-4 shrink-0', alert.tone === 'destructive' ? 'text-destructive' : 'text-warning')} />
-                  <span className="text-sm">{alert.text}</span>
-                </div>
-                <StatusBadge tone={alert.tone} className="ml-2 shrink-0 text-[10px]">{alert.tone === 'destructive' ? 'High' : 'Medium'}</StatusBadge>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-      </div>
-
-      <p className="mt-8 text-center text-xs text-muted-foreground">All content quality values are demonstration data for prototype evaluation only.</p>
-    </div>
-  );
-}
+const apiBase=((import.meta.env.VITE_API_URL as string|undefined)?.trim()||'/api').replace(/\/$/,'');
+const number=(value:number)=>new Intl.NumberFormat('en-US').format(Number(value||0));
+const date=(value:string)=>new Date(value).toLocaleDateString('en-US',{month:'short',day:'numeric'});
+type Chapter={chapterId:string;code:string;name:string;questionCount:number;approvedCount:number;placeholderCount:number;targetCoverage:number;unresolvedDuplicateCount:number;freezeChangedAt:string|null;frozen:boolean;freezeStale:boolean};
+type Data={windowDays:number;summary:{questionCount:number;approvedCount:number;needsFixCount:number;rejectedCount:number;underReviewCount:number;commentCount:number;openCommentCount:number};throughput:Array<{day:string;approved:number;rejected:number;comments:number;resolved:number}>;chapters:Chapter[];reviewers:Array<{reviewerId:string;name:string;email:string;assignments:number;comments:number;resolutions:number;agedAssignments:number;overdueAssignments:number}>;validation:{runCount:number;failedRunCount:number;passedRunCount:number;incompleteRunCount:number};translations:{translationCount:number;readyTranslationCount:number;blockedTranslationCount:number;translatedQuestionCount:number};quality:{questionsWithoutCurrentVersion:number;approvedWithoutImmutableVersion:number;questionsWithoutTaxonomy:number}};
+async function request(path:string):Promise<Data>{const user=getFirebaseAuth()?.currentUser;if(!user)throw new Error('Your administrator session has expired.');const response=await fetch(`${apiBase}${path}`,{headers:{Authorization:`Bearer ${await user.getIdToken()}`}});const body=await response.json().catch(()=>null) as (Data&{error?:string})|null;if(!response.ok)throw new Error(body?.error||`Request failed (${response.status}).`);if(!body)throw new Error('Content Quality returned an empty response.');return body;}
+export function ContentQualityPage(){const[windowDays,setWindowDays]=useState('30');const[data,setData]=useState<Data|null>(null);const[loading,setLoading]=useState(true);const refresh=async()=>{setLoading(true);try{setData(await request(`/admin/analytics/content-quality?window=${windowDays}`));}catch(error){showToast.error('Unable to load Content Quality',error instanceof Error?error.message:'Request failed.');}finally{setLoading(false);}};useEffect(()=>{void refresh();},[windowDays]);const rate=useMemo(()=>data?.summary.questionCount?Math.round(data.summary.approvedCount/data.summary.questionCount*100):0,[data]);const exportCsv=async()=>{const user=getFirebaseAuth()?.currentUser;if(!user)return;const response=await fetch(`${apiBase}/admin/analytics/content-quality.csv?window=${windowDays}`,{headers:{Authorization:`Bearer ${await user.getIdToken()}`}});if(!response.ok){showToast.error('Export failed','Unable to export canonical content-quality data.');return;}const blob=await response.blob();const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=`content-quality-${windowDays}d.csv`;link.click();URL.revokeObjectURL(url);};return <div className="space-y-5"><PageHeader title="Content Quality" description="Canonical review throughput, duplicate risk, chapter freeze health, validation, translation readiness and reviewer queue ageing." icon={<Activity className="h-5 w-5"/>} actions={<><Select value={windowDays} onValueChange={setWindowDays}><SelectTrigger className="w-[150px]"><SelectValue/></SelectTrigger><SelectContent>{['7','30','90','365'].map(v=><SelectItem key={v} value={v}>Last {v} days</SelectItem>)}</SelectContent></Select><Button variant="outline" onClick={()=>void exportCsv()}><Download className="mr-1.5 h-4 w-4"/>Export</Button><Button variant="outline" onClick={()=>void refresh()} disabled={loading}><RefreshCw className={`mr-1.5 h-4 w-4 ${loading?'animate-spin':''}`}/>Refresh</Button></>} />
+<div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4"><Metric label="Questions touched" value={number(data?.summary.questionCount||0)}/><Metric label="Approval rate" value={`${rate}%`}/><Metric label="Open review comments" value={number(data?.summary.openCommentCount||0)}/><Metric label="Needs fix" value={number(data?.summary.needsFixCount||0)}/></div>
+<Card><CardHeader><CardTitle className="text-base">Review throughput</CardTitle></CardHeader><CardContent>{data?.throughput.length?<ResponsiveContainer width="100%" height={260}><AreaChart data={data.throughput}><CartesianGrid strokeDasharray="3 3" vertical={false}/><XAxis dataKey="day" tickFormatter={date}/><YAxis allowDecimals={false}/><Tooltip labelFormatter={(v)=>date(String(v))}/><Area type="monotone" dataKey="approved" name="Approved" fillOpacity={0.2}/><Area type="monotone" dataKey="resolved" name="Resolved comments" fillOpacity={0.1}/></AreaChart></ResponsiveContainer>:<p className="py-12 text-center text-sm text-muted-foreground">No review activity in this window.</p>}</CardContent></Card>
+<div className="grid gap-4 xl:grid-cols-2"><Card><CardHeader><CardTitle className="text-base">Chapter readiness and freeze health</CardTitle></CardHeader><CardContent className="p-0"><Table><TableHeader><TableRow><TableHead>Chapter</TableHead><TableHead className="text-right">Approved</TableHead><TableHead className="text-right">Blockers</TableHead><TableHead>Freeze</TableHead></TableRow></TableHeader><TableBody>{data?.chapters.slice(0,30).map(row=><TableRow key={row.chapterId}><TableCell><p className="font-medium">{row.name}</p><p className="text-xs text-muted-foreground">{row.code} · target {row.targetCoverage||'not set'} · {row.questionCount} questions</p></TableCell><TableCell className="text-right">{row.approvedCount}</TableCell><TableCell className="text-right"><StatusBadge tone={row.placeholderCount||row.unresolvedDuplicateCount?'destructive':'success'}>{row.placeholderCount+row.unresolvedDuplicateCount}</StatusBadge><p className="text-[10px] text-muted-foreground">{row.placeholderCount} placeholders · {row.unresolvedDuplicateCount} duplicate decisions</p></TableCell><TableCell><StatusBadge tone={row.freezeStale?'warning':row.frozen?'success':'neutral'}>{row.freezeStale?'stale':row.frozen?'frozen':'open'}</StatusBadge></TableCell></TableRow>)}</TableBody></Table></CardContent></Card><Card><CardHeader><CardTitle className="text-base">Reviewer workload and ageing</CardTitle></CardHeader><CardContent className="p-0"><Table><TableHeader><TableRow><TableHead>Reviewer</TableHead><TableHead className="text-right">Assigned</TableHead><TableHead className="text-right">48h+</TableHead><TableHead className="text-right">96h+</TableHead></TableRow></TableHeader><TableBody>{data?.reviewers.map(row=><TableRow key={row.reviewerId}><TableCell><p className="font-medium">{row.name}</p><p className="text-xs text-muted-foreground">{row.comments} comments · {row.resolutions} resolved</p></TableCell><TableCell className="text-right">{row.assignments}</TableCell><TableCell className="text-right">{row.agedAssignments}</TableCell><TableCell className="text-right"><StatusBadge tone={row.overdueAssignments?'destructive':'success'}>{row.overdueAssignments}</StatusBadge></TableCell></TableRow>)}</TableBody></Table></CardContent></Card></div>
+<div className="grid gap-4 md:grid-cols-2"><Card><CardHeader><CardTitle className="text-base">Validation health</CardTitle></CardHeader><CardContent className="grid grid-cols-2 gap-3"><Metric label="Runs" value={number(data?.validation.runCount||0)}/><Metric label="Failed" value={number(data?.validation.failedRunCount||0)}/><Metric label="Passed" value={number(data?.validation.passedRunCount||0)}/><Metric label="Incomplete" value={number(data?.validation.incompleteRunCount||0)}/></CardContent></Card><Card><CardHeader><CardTitle className="text-base">Translation readiness</CardTitle></CardHeader><CardContent className="grid grid-cols-2 gap-3"><Metric label="Translations touched" value={number(data?.translations.translationCount||0)}/><Metric label="Ready" value={number(data?.translations.readyTranslationCount||0)}/><Metric label="Blocked" value={number(data?.translations.blockedTranslationCount||0)}/><Metric label="Questions translated" value={number(data?.translations.translatedQuestionCount||0)}/></CardContent></Card></div>
+<Card><CardHeader><CardTitle className="text-base">Data-quality diagnostics</CardTitle></CardHeader><CardContent className="grid gap-3 sm:grid-cols-3"><Metric label="Without current version" value={number(data?.quality.questionsWithoutCurrentVersion||0)}/><Metric label="Approved without immutable version" value={number(data?.quality.approvedWithoutImmutableVersion||0)}/><Metric label="Without taxonomy" value={number(data?.quality.questionsWithoutTaxonomy||0)}/></CardContent></Card></div>}
+function Metric({label,value}:{label:string;value:string}){return <Card><CardContent className="p-4"><p className="text-xs text-muted-foreground">{label}</p><p className="mt-2 text-2xl font-semibold">{value}</p></CardContent></Card>}
+export default ContentQualityPage;

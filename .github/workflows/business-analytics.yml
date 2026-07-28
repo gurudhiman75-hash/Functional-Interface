@@ -1,0 +1,55 @@
+name: Validate Business Analytics
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/routes/admin-business-analytics.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/pages/analytics/BusinessAnalyticsPage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - .github/scripts/validate-business-analytics.mjs
+      - .github/workflows/business-analytics.yml
+      - docs/business-analytics-freeze-readiness.md
+  push:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/routes/admin-business-analytics.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/pages/analytics/BusinessAnalyticsPage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - .github/scripts/validate-business-analytics.mjs
+      - .github/workflows/business-analytics.yml
+      - docs/business-analytics-freeze-readiness.md
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: business-analytics-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Enforce canonical Business Analytics contracts
+        run: node .github/scripts/validate-business-analytics.mjs
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Typecheck admin application
+        run: pnpm run typecheck:admin
+      - name: Test admin application
+        run: pnpm run test:admin
+      - name: Build admin application
+        run: pnpm run build:admin

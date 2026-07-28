@@ -2,6 +2,18 @@ import { buildMen001ExplanationIllustration } from "./explanation-illustration.a
 import { getMen001QuestionEntry } from "./library";
 import { authorFinalMen001ExplanationLines } from "./natural-explanation-authorship-final";
 import { getMen001SolveModeDefinition } from "./solve-mode-registry.all";
+import { buildMen001CommonTraps, type Men001OptionResult } from "./structured-common-traps";
+import { buildMen001StructuredExplanation } from "./structured-explanation";
+import { enhanceMen001StructuredSections } from "./structured-explanation-enhancer";
+import { addMen001ExamShortcut } from "./structured-exam-shortcuts";
+import {
+  buildMen001ExactFourTierLines,
+  finalizeMen001ExactFourTier,
+} from "./structured-exact-four-tier";
+import { polishMen001StructuredSections } from "./structured-final-polisher";
+import { latexizeMen001StructuredSections } from "./structured-math-latex";
+import { normalizeMen001StructuredSections } from "./structured-explanation-normalizer";
+import { restoreMen001SpecificStepAuthorship } from "./structured-specific-title-restorer";
 import type {
   Men001Explanation,
   Men001Parameters,
@@ -13,18 +25,51 @@ export function renderMen001Explanation(
   parameters: Men001Parameters,
   solver: Men001SolverResult,
   _graph: Men001ReasoningGraph,
+  optionResult: Men001OptionResult,
 ): Men001Explanation {
   const entry = getMen001QuestionEntry(parameters.questionLanguageId);
   const definition = getMen001SolveModeDefinition(parameters.solveMode);
   const illustration = buildMen001ExplanationIllustration(parameters, solver);
-  const lines = authorFinalMen001ExplanationLines(
-    definition.explain(parameters, solver),
+  const originalLines = definition.explain(parameters, solver);
+  const authoredLines = authorFinalMen001ExplanationLines(
+    originalLines,
     parameters,
     solver,
   );
+  const legacyWorkedSections = polishMen001StructuredSections(
+    restoreMen001SpecificStepAuthorship(
+      normalizeMen001StructuredSections(
+        enhanceMen001StructuredSections(
+          buildMen001StructuredExplanation(
+            originalLines,
+            authoredLines,
+            parameters,
+            solver,
+          ),
+          originalLines,
+          parameters,
+          solver,
+        ),
+        parameters.solveMode,
+      ),
+      parameters.solveMode,
+    ),
+    parameters.solveMode,
+  );
+  const exactWorkedSections = finalizeMen001ExactFourTier(
+    legacyWorkedSections,
+    parameters,
+    solver,
+  );
+  const sections = latexizeMen001StructuredSections([
+    ...addMen001ExamShortcut(exactWorkedSections, parameters, solver),
+    buildMen001CommonTraps(entry, optionResult),
+  ]);
   return {
     strategyId: entry.explanationStrategyId,
-    lines,
+    displayFormat: "FOUR_TIER_COMPETITIVE_EXPLANATION",
+    sections,
+    lines: buildMen001ExactFourTierLines(sections),
     ...(illustration ? { illustration } : {}),
   };
 }

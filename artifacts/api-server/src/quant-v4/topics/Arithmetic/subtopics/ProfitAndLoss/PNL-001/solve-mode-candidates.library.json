@@ -1,0 +1,134 @@
+{
+  "archetypeId": "PNL-001",
+  "status": "ACTIVE_DISCOVERY",
+  "countPolicy": "OPEN_ENDED",
+  "governingRule": "Candidate and QL counts are discovered from exhaustive coverage and must not be fixed beforehand.",
+  "allowedStatuses": [
+    "SEED",
+    "VERIFIED",
+    "SPLIT_REQUIRED",
+    "MERGE_REQUIRED",
+    "DEFERRED",
+    "REJECTED"
+  ],
+  "candidateGroups": [
+    {
+      "groupId": "fundamental-price-relations",
+      "ownership": "PNL-001",
+      "candidates": [
+        {"id":"PNL-SM-FUND-CP-SP-TO-AMOUNT","status":"SEED","direction":"forward","givenBasis":["costPrice","sellingPrice"],"unknown":"profitOrLossAmount","answerSemantic":"amount","topology":"single"},
+        {"id":"PNL-SM-FUND-CP-SP-TO-RATE","status":"VERIFIED","direction":"forward","givenBasis":["costPrice","sellingPrice"],"unknown":"profitOrLossPercentOnCP","answerSemantic":"percent","topology":"single","v2Evidence":["pl_cp_sp_percent"]},
+        {"id":"PNL-SM-FUND-CP-RATE-TO-SP","status":"VERIFIED","direction":"forward","givenBasis":["costPrice","profitOrLossPercent"],"unknown":"sellingPrice","answerSemantic":"money","topology":"single","v2Evidence":["pl_cp_percent_to_sp"]},
+        {"id":"PNL-SM-FUND-SP-RATE-TO-CP","status":"VERIFIED","direction":"reverse","givenBasis":["sellingPrice","profitOrLossPercent"],"unknown":"costPrice","answerSemantic":"money","topology":"single","v2Evidence":["pl_sp_percent_to_cp"]},
+        {"id":"PNL-SM-FUND-AMOUNT-BASE-TO-RATE","status":"SEED","direction":"forward","givenBasis":["profitOrLossAmount","costPrice"],"unknown":"profitOrLossPercentOnCP","answerSemantic":"percent","topology":"single"},
+        {"id":"PNL-SM-FUND-AMOUNT-RATE-TO-BASE","status":"SEED","direction":"reverse","givenBasis":["profitOrLossAmount","profitOrLossPercent"],"unknown":"costPrice","answerSemantic":"money","topology":"single"},
+        {"id":"PNL-SM-FUND-CP-SP-RATIO-TO-RATE","status":"SEED","direction":"forward","givenBasis":["costPriceToSellingPriceRatio"],"unknown":"profitOrLossPercentOnCP","answerSemantic":"percent","topology":"ratio"},
+        {"id":"PNL-SM-FUND-RATE-TO-CP-SP-RATIO","status":"SEED","direction":"reverse","givenBasis":["profitOrLossPercent"],"unknown":"costPriceToSellingPriceRatio","answerSemantic":"ratio","topology":"ratio"},
+        {"id":"PNL-SM-FUND-PROFIT-AS-FRACTION-OF-SP","status":"SPLIT_REQUIRED","direction":"mixed","givenBasis":["profitAsFractionOfSellingPrice"],"unknown":"profitPercentOnCPOrMarginOnSP","answerSemantic":"percent","topology":"fraction","splitReason":"Markup on CP and margin on SP are distinct semantics and percentage bases."},
+        {"id":"PNL-SM-FUND-FRACTIONAL-VALUE-SHIFT","status":"SEED","direction":"mixed","givenBasis":["fractionalPriceChange"],"unknown":"profitOrLossPercent","answerSemantic":"percent","topology":"fraction","v2Evidence":["pl_fractional_value_shift"]}
+      ]
+    },
+    {
+      "groupId": "marked-price-discount-promotions",
+      "ownership": "PNL-001",
+      "candidates": [
+        {"id":"PNL-SM-DISC-MP-RATE-TO-SP","status":"VERIFIED","direction":"forward","givenBasis":["markedPrice","discountPercent"],"unknown":"sellingPrice","answerSemantic":"money","topology":"single","v2Evidence":["pl_mp_discount_to_sp"]},
+        {"id":"PNL-SM-DISC-MP-SP-TO-RATE","status":"VERIFIED","direction":"reverse","givenBasis":["markedPrice","sellingPrice"],"unknown":"discountPercent","answerSemantic":"percent","topology":"single","v2Evidence":["pl_mp_sp_discount_percent"]},
+        {"id":"PNL-SM-DISC-SP-RATE-TO-MP","status":"SEED","direction":"reverse","givenBasis":["sellingPrice","discountPercent"],"unknown":"markedPrice","answerSemantic":"money","topology":"single"},
+        {"id":"PNL-SM-DISC-SUCCESSIVE-TO-EQUIVALENT","status":"VERIFIED","direction":"compression","givenBasis":["successiveDiscountPercents"],"unknown":"equivalentDiscountPercent","answerSemantic":"percent","topology":"successive","v2Evidence":["pl_successive_discounts","pl_successive_discount_equivalent"]},
+        {"id":"PNL-SM-DISC-EQUIVALENT-AND-ONE-RATE-TO-OTHER","status":"SEED","direction":"reverse","givenBasis":["equivalentDiscountPercent","oneDiscountPercent"],"unknown":"otherDiscountPercent","answerSemantic":"percent","topology":"successive"},
+        {"id":"PNL-SM-DISC-FIXED-REBATE-PLUS-PERCENT","status":"SEED","direction":"mixed","givenBasis":["markedPrice","discountPercent","fixedRebate"],"unknown":"sellingPriceOrEffectiveDiscount","answerSemantic":"moneyOrPercent","topology":"hybrid"},
+        {"id":"PNL-SM-DISC-BUY-X-GET-Y-EFFECTIVE","status":"VERIFIED","direction":"forward","givenBasis":["paidCount","freeCount"],"unknown":"effectiveDiscountPercent","answerSemantic":"percent","topology":"quantity-promotion","v2Evidence":["pl_buy_get_free_discount"]},
+        {"id":"PNL-SM-DISC-PROMOTION-SCALING","status":"SEED","direction":"mixed","givenBasis":["promotionRule","purchaseQuantity"],"unknown":"effectiveUnitPriceOrDiscount","answerSemantic":"moneyOrPercent","topology":"quantity-promotion","v2Evidence":["pl_hybrid_promotion_scaling"]},
+        {"id":"PNL-SM-DISC-CASHBACK-COUPON","status":"SPLIT_REQUIRED","direction":"mixed","givenBasis":["listedPrice","couponOrCashbackRule"],"unknown":"netPaidOrEffectiveReduction","answerSemantic":"moneyOrPercent","topology":"conditional-promotion","v2Evidence":["pl_cashback_coupon_discount"],"splitReason":"Coupon discount, delayed cashback and threshold-based eligibility have different commercial semantics."}
+      ]
+    },
+    {
+      "groupId": "markup-discount-profit-calibration",
+      "ownership": "PNL-001",
+      "candidates": [
+        {"id":"PNL-SM-CAL-CP-MP-DISCOUNT-TO-RESULT","status":"VERIFIED","direction":"forward","givenBasis":["costPrice","markedPrice","discountPercent"],"unknown":"profitOrLossPercent","answerSemantic":"percent","topology":"price-chain","v2Evidence":["pl_cp_mp_discount_to_percent","pl_markup_discount_triangle"]},
+        {"id":"PNL-SM-CAL-CP-MARKUP-DISCOUNT-TO-RESULT","status":"SEED","direction":"forward","givenBasis":["costPrice","markupPercent","discountPercent"],"unknown":"profitOrLossPercentOrSellingPrice","answerSemantic":"percentOrMoney","topology":"price-chain"},
+        {"id":"PNL-SM-CAL-TARGET-PROFIT-DISCOUNT-TO-MP","status":"VERIFIED","direction":"reverse","givenBasis":["costPrice","targetProfitPercent","discountPercent"],"unknown":"markedPriceOrMarkupPercent","answerSemantic":"moneyOrPercent","topology":"price-chain","v2Evidence":["pl_mp_for_target_profit","pl_target_profit_mp_calibration"]},
+        {"id":"PNL-SM-CAL-CP-MP-TARGET-TO-DISCOUNT","status":"VERIFIED","direction":"reverse","givenBasis":["costPrice","markedPrice","targetProfitOrLossPercent"],"unknown":"discountPercent","answerSemantic":"percent","topology":"price-chain","v2Evidence":["pl_target_profit_discount_calibration","pl_inverse_discount_from_cp_mp_profit"]},
+        {"id":"PNL-SM-CAL-MP-DISCOUNT-RESULT-TO-CP","status":"VERIFIED","direction":"reverse","givenBasis":["markedPrice","discountPercent","profitOrLossPercent"],"unknown":"costPrice","answerSemantic":"money","topology":"price-chain","v2Evidence":["pl_inverse_cp_from_mp_discount_profit"]},
+        {"id":"PNL-SM-CAL-CP-DISCOUNT-RESULT-TO-MARKUP","status":"VERIFIED","direction":"reverse","givenBasis":["costPrice","discountPercent","profitOrLossPercent"],"unknown":"markupPercentOrMarkedPrice","answerSemantic":"percentOrMoney","topology":"price-chain","v2Evidence":["pl_inverse_markup_from_cp_discount_profit"]},
+        {"id":"PNL-SM-CAL-MULTI-CONDITION-INVERSE","status":"SPLIT_REQUIRED","direction":"coupled-inverse","givenBasis":["multipleCommercialConstraints"],"unknown":"priceOrRate","answerSemantic":"moneyOrPercent","topology":"coupled-equations","v2Evidence":["pl_multi_condition_inverse_absolute"],"splitReason":"Must be split by actual unknown, equation topology and percentage base."}
+      ]
+    },
+    {
+      "groupId": "multiple-articles-and-aggregate-results",
+      "ownership": "PNL-001",
+      "candidates": [
+        {"id":"PNL-SM-AGG-EQUAL-SP-MIXED-RATES","status":"VERIFIED","direction":"forward","givenBasis":["equalSellingPrice","profitAndLossRates"],"unknown":"overallResult","answerSemantic":"percent","topology":"two-article","v2Evidence":["pl_equal_sp_profit_loss","pl_dual_item_identical_sp"]},
+        {"id":"PNL-SM-AGG-EQUAL-CP-MIXED-RATES","status":"SEED","direction":"forward","givenBasis":["equalCostPrice","multipleRates"],"unknown":"overallResult","answerSemantic":"percent","topology":"multiple-article"},
+        {"id":"PNL-SM-AGG-UNEQUAL-BASELINE-TWO-ARTICLE","status":"VERIFIED","direction":"forward","givenBasis":["unequalCostOrSellingPrices","multipleRates"],"unknown":"overallResult","answerSemantic":"moneyOrPercent","topology":"two-article","v2Evidence":["pl_two_article_overall","pl_dual_item_mixed_baseline"]},
+        {"id":"PNL-SM-AGG-ASYMMETRIC-EQUIVALENCE","status":"SPLIT_REQUIRED","direction":"inverse","givenBasis":["profitOnOneEquivalentToLossOnOther"],"unknown":"ratePriceOrRatio","answerSemantic":"percentMoneyOrRatio","topology":"two-article","v2Evidence":["pl_asymmetric_item_equivalence"],"splitReason":"Contains several non-equivalent equation forms."},
+        {"id":"PNL-SM-AGG-EQUAL-PROFIT-LOSS-AMOUNT","status":"VERIFIED","direction":"inverse","givenBasis":["equalAbsoluteProfitOrLoss"],"unknown":"costPriceSellingPriceOrRate","answerSemantic":"moneyOrPercent","topology":"two-condition","v2Evidence":["pl_equal_profit_loss_amount","pl_same_profit_amount_different_rates"]},
+        {"id":"PNL-SM-AGG-PARTIAL-INVENTORY","status":"SPLIT_REQUIRED","direction":"mixed","givenBasis":["inventorySegments","segmentRates"],"unknown":"overallResultOrMissingSegment","answerSemantic":"moneyPercentCountOrQuantity","topology":"partial-inventory","v2Evidence":["pl_partial_inventory_allocation"],"splitReason":"Forward aggregation and reverse missing-segment forms require different solvers."},
+        {"id":"PNL-SM-AGG-DAMAGED-FREE-UNSOLD-STOCK","status":"SEED","direction":"mixed","givenBasis":["totalStock","damagedFreeOrUnsoldCount","saleConditions"],"unknown":"overallResultOrRequiredPrice","answerSemantic":"moneyPercentCountOrQuantity","topology":"inventory-ledger"},
+        {"id":"PNL-SM-AGG-TARGET-OVERALL-UNKNOWN-SEGMENT","status":"SEED","direction":"coupled-inverse","givenBasis":["knownSegments","targetOverallResult"],"unknown":"missingRatePriceCountOrQuantity","answerSemantic":"moneyPercentCountOrQuantity","topology":"inventory-ledger"}
+      ]
+    },
+    {
+      "groupId": "sequential-trade",
+      "ownership": "PNL-001",
+      "candidates": [
+        {"id":"PNL-SM-SEQ-FORWARD-CHAIN","status":"VERIFIED","direction":"forward","givenBasis":["originalCostPrice","stageRates"],"unknown":"finalSellingPrice","answerSemantic":"money","topology":"transaction-chain","v2Evidence":["pl_sequential_supply_chain"]},
+        {"id":"PNL-SM-SEQ-REVERSE-ORIGINAL-CP","status":"SEED","direction":"reverse","givenBasis":["finalSellingPrice","stageRates"],"unknown":"originalCostPrice","answerSemantic":"money","topology":"transaction-chain"},
+        {"id":"PNL-SM-SEQ-MIXED-PROFIT-LOSS","status":"VERIFIED","direction":"forward-or-reverse","givenBasis":["chainPricesOrRates"],"unknown":"stageOrOverallResult","answerSemantic":"moneyOrPercent","topology":"transaction-chain","v2Evidence":["pl_supply_chain_mixed_profit_loss"]},
+        {"id":"PNL-SM-SEQ-MISSING-STAGE-RATE","status":"SEED","direction":"coupled-inverse","givenBasis":["originalAndFinalPrice","otherStageRates"],"unknown":"missingStageRate","answerSemantic":"percent","topology":"transaction-chain"},
+        {"id":"PNL-SM-SEQ-COMMISSION-INTERMEDIARY","status":"SEED","direction":"mixed","givenBasis":["chainPricesOrRates","commissionRule"],"unknown":"netRealizationOrMissingValue","answerSemantic":"moneyOrPercent","topology":"transaction-chain"}
+      ]
+    },
+    {
+      "groupId": "dishonest-trade",
+      "ownership": "PNL-001",
+      "candidates": [
+        {"id":"PNL-SM-FRAUD-SHORT-WEIGHT-AT-STATED-CP","status":"VERIFIED","direction":"forward","givenBasis":["nominalQuantity","deliveredQuantity"],"unknown":"profitPercent","answerSemantic":"percent","topology":"quantity-ledger","v2Evidence":["pl_dishonest_dealer_weight_fraud"]},
+        {"id":"PNL-SM-FRAUD-PRICE-AND-WEIGHT","status":"VERIFIED","direction":"forward","givenBasis":["priceChange","nominalQuantity","deliveredQuantity"],"unknown":"profitPercent","answerSemantic":"percent","topology":"price-quantity-ledger","v2Evidence":["pl_dishonest_dealer_dual_fraud"]},
+        {"id":"PNL-SM-FRAUD-ABSOLUTE-SHORTAGE-HYBRID","status":"VERIFIED","direction":"forward-or-reverse","givenBasis":["absoluteShortage","priceCondition"],"unknown":"profitRateOrQuantity","answerSemantic":"percentOrQuantity","topology":"price-quantity-ledger","v2Evidence":["pl_dishonest_dealer_absolute_hybrid"]},
+        {"id":"PNL-SM-FRAUD-FALSE-BUYING-AND-SELLING-MEASURE","status":"SEED","direction":"forward","givenBasis":["buyingMeasure","sellingMeasure","statedPriceRule"],"unknown":"netProfitPercent","answerSemantic":"percent","topology":"dual-quantity-ledger"},
+        {"id":"PNL-SM-FRAUD-REVERSE-TARGET-DELIVERED-QUANTITY","status":"SEED","direction":"reverse","givenBasis":["targetProfitPercent","priceRule","nominalQuantity"],"unknown":"deliveredQuantity","answerSemantic":"quantity","topology":"price-quantity-ledger"},
+        {"id":"PNL-SM-FRAUD-FALSE-LENGTH-AREA-VOLUME","status":"SPLIT_REQUIRED","direction":"forward-or-reverse","givenBasis":["nominalMeasure","actualMeasure","dimension"],"unknown":"profitPercentOrActualMeasure","answerSemantic":"percentOrMeasure","topology":"measure-ledger","splitReason":"Length, area and volume scaling create different dimensional transformations."}
+      ]
+    },
+    {
+      "groupId": "effective-cost-overheads-and-recovery",
+      "ownership": "PNL-001",
+      "candidates": [
+        {"id":"PNL-SM-COST-REPAIR-TRANSPORT-OVERHEAD","status":"VERIFIED","direction":"forward","givenBasis":["purchasePrice","overheadComponents","sellingPrice"],"unknown":"profitOrLossAmountOrPercent","answerSemantic":"moneyOrPercent","topology":"effective-cost-ledger","v2Evidence":["pl_repair_overhead_cost"]},
+        {"id":"PNL-SM-COST-TARGET-SP-AFTER-OVERHEAD","status":"VERIFIED","direction":"forward","givenBasis":["purchasePrice","overheadComponents","targetRate"],"unknown":"requiredSellingPrice","answerSemantic":"money","topology":"effective-cost-ledger","v2Evidence":["pl_required_sp_after_overhead"]},
+        {"id":"PNL-SM-COST-MANUFACTURING-BREAKDOWN","status":"SPLIT_REQUIRED","direction":"mixed","givenBasis":["componentCosts","wastageOrOutput"],"unknown":"unitCostSellingPriceOrRate","answerSemantic":"moneyOrPercent","topology":"manufacturing-ledger","v2Evidence":["pl_manufacturing_breakdown"],"splitReason":"Component-total and usable-output/wastage modes require different ledgers."},
+        {"id":"PNL-SM-RECOVERY-REQUIRED-SP-AFTER-LOSS","status":"VERIFIED","direction":"forward","givenBasis":["earlierLoss","remainingAssetOrQuantity","targetOverallResult"],"unknown":"requiredSellingPriceOrRate","answerSemantic":"moneyOrPercent","topology":"recovery-ledger","v2Evidence":["pl_required_sp_after_loss"]},
+        {"id":"PNL-SM-RECOVERY-CP-FROM-SP-DIFFERENCE-TWO-RATES","status":"VERIFIED","direction":"inverse","givenBasis":["sellingPriceDifference","twoProfitOrLossRates"],"unknown":"costPrice","answerSemantic":"money","topology":"difference-equation","v2Evidence":["pl_loss_recovery_cp_from_difference","pl_sp_difference_two_rates"]},
+        {"id":"PNL-SM-RECOVERY-BREAK-EVEN-PRICE","status":"VERIFIED","direction":"forward-or-reverse","givenBasis":["effectiveCostOrEarlierResult"],"unknown":"noProfitNoLossPrice","answerSemantic":"money","topology":"break-even","v2Evidence":["pl_no_profit_no_loss"]},
+        {"id":"PNL-SM-RECOVERY-BREAK-EVEN-QUANTITY","status":"SEED","direction":"coupled-inverse","givenBasis":["fixedLossOrOverhead","unitMargin"],"unknown":"requiredQuantity","answerSemantic":"countOrQuantity","topology":"break-even"},
+        {"id":"PNL-SM-COST-COMMISSION-NET-REALIZATION","status":"SPLIT_REQUIRED","direction":"mixed","givenBasis":["grossSellingPrice","commissionRule","costBasis"],"unknown":"netProfitRateGrossPriceOrCommission","answerSemantic":"moneyOrPercent","topology":"net-realization-ledger","v2Evidence":["pl_profit_after_commission_tax"],"splitReason":"Commission-owned PNL forms must be separated from tax-owned forms."}
+      ]
+    },
+    {
+      "groupId": "deferred-or-rejected-seeds",
+      "ownership": "OTHER",
+      "candidates": [
+        {"id":"PNL-SEED-GST-AFTER-DISCOUNT","status":"DEFERRED","targetOwner":"GST_OR_TAX_PACKAGE","v2Evidence":["pl_gst_after_discount"],"reason":"Pure tax computation is not PNL-owned unless profit/loss remains the dominant unknown."},
+        {"id":"PNL-SEED-TAX-INCLUSIVE-BACK-CALC","status":"DEFERRED","targetOwner":"GST_OR_TAX_PACKAGE","v2Evidence":["pl_tax_inclusive_back_calc"],"reason":"Tax-inclusive reconstruction is tax-owned without a dominant PNL dependency."},
+        {"id":"PNL-SEED-PARTNERSHIP-PROFIT-SHARING","status":"REJECTED","targetOwner":"RATIO_AND_PARTNERSHIP","reason":"Investment-time profit distribution is not Profit & Loss."}
+      ]
+    }
+  ],
+  "mandatoryGapSearch": [
+    "profit margin on selling price versus profit percentage on cost price",
+    "rate expressed as fraction or ratio of CP, SP, profit or loss amount",
+    "reverse count and quantity forms in aggregate inventory",
+    "damaged, free, stolen and unsold stock variants",
+    "false buying measure combined with false selling measure",
+    "dimensional fraud involving length, area and volume",
+    "partial-sale recovery across remaining quantity",
+    "break-even quantity and unit-margin forms",
+    "data sufficiency and statement-based commercial forms",
+    "table and mini-DI commercial ledgers",
+    "all source-backed SSC, Banking and Punjab exam patterns not represented above"
+  ],
+  "freezeCondition": "No candidate total is authoritative until ownership, transformation, inverse-form, answer-semantic, reference-pattern and QL-depth audits are clean."
+}

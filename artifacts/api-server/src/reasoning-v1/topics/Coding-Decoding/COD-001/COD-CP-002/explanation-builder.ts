@@ -5,35 +5,42 @@ import type { CodCp002RuleContext, CodCp002RuleId, NumericCodingPrompt } from ".
 
 function describeRule(ruleId: CodCp002RuleId, context: CodCp002RuleContext): string {
   switch (ruleId) {
-    case "A1Z26_SEQUENCE_CODE": return "Write the ordinary alphabet position of each letter: A = 1, B = 2, ..., Z = 26.";
-    case "Z1A26_SEQUENCE_CODE": return "Write the reverse alphabet position of each letter: Z = 1, Y = 2, ..., A = 26.";
-    case "RANK_PLUS_CONSTANT_SEQUENCE": return `Find each ordinary alphabet position and add ${context.constant}.`;
-    case "RANK_MINUS_CONSTANT_SEQUENCE": return `Find each ordinary alphabet position and subtract ${context.constant}.`;
-    case "SUM_OF_FORWARD_RANKS": return "Add the ordinary alphabet positions of all the letters.";
-    case "SUM_PLUS_WORD_LENGTH": return "Add the alphabet positions, then add the number of letters in the word.";
-    case "SUM_MINUS_WORD_LENGTH": return "Add the alphabet positions, then subtract the number of letters in the word.";
-    case "POSITION_WEIGHTED_SUM": return "Multiply each alphabet position by its place in the word (1, 2, 3, ...), then add the products.";
-    case "ODD_EVEN_POSITION_DIFFERENCE": return "Add the alphabet positions at odd places and at even places separately, then take the positive difference.";
+    case "A1Z26_SEQUENCE_CODE": return "each letter is replaced by its ordinary alphabet position (A = 1, ..., Z = 26)";
+    case "Z1A26_SEQUENCE_CODE": return "each letter is replaced by its reverse alphabet position (Z = 1, ..., A = 26)";
+    case "RANK_PLUS_CONSTANT_SEQUENCE": return `the ordinary alphabet position of every letter is increased by ${context.constant}`;
+    case "RANK_MINUS_CONSTANT_SEQUENCE": return `the ordinary alphabet position of every letter is reduced by ${context.constant}`;
+    case "SUM_OF_FORWARD_RANKS": return "the ordinary alphabet positions of all letters are added";
+    case "SUM_PLUS_WORD_LENGTH": return "the alphabet-position total is increased by the number of letters in the word";
+    case "SUM_MINUS_WORD_LENGTH": return "the number of letters in the word is subtracted from the alphabet-position total";
+    case "POSITION_WEIGHTED_SUM": return "each alphabet position is multiplied by its place in the word (1, 2, 3, ...), and the products are added";
+    case "ODD_EVEN_POSITION_DIFFERENCE": return "the positive difference is taken between the alphabet-position totals at odd and even places";
   }
 }
 
 function wordWorking(ruleId: CodCp002RuleId, context: CodCp002RuleContext, word: string, code: string): string {
-  const ranks = [...word].map(forwardRank);
+  const letters = [...word];
+  const ranks = letters.map(forwardRank);
+  const assignments = letters.map((letter, index) => `${letter}=${ranks[index]}`).join(", ");
   switch (ruleId) {
-    case "A1Z26_SEQUENCE_CODE": return `${word}: ${[...word].map((letter) => `${letter}=${forwardRank(letter)}`).join(", ")} → ${code}.`;
-    case "Z1A26_SEQUENCE_CODE": return `${word}: ${[...word].map((letter) => `${letter}=${reverseRank(letter)}`).join(", ")} → ${code}.`;
-    case "RANK_PLUS_CONSTANT_SEQUENCE": return `${word}: (${ranks.join(", ")}) + ${context.constant} at each place → ${code}.`;
-    case "RANK_MINUS_CONSTANT_SEQUENCE": return `${word}: (${ranks.join(", ")}) − ${context.constant} at each place → ${code}.`;
-    case "SUM_OF_FORWARD_RANKS": return `${word}: ${ranks.join(" + ")} = ${code}.`;
-    case "SUM_PLUS_WORD_LENGTH": return `${word}: (${ranks.join(" + ")}) + ${word.length} = ${code}.`;
-    case "SUM_MINUS_WORD_LENGTH": return `${word}: (${ranks.join(" + ")}) − ${word.length} = ${code}.`;
-    case "POSITION_WEIGHTED_SUM": return `${word}: ${ranks.map((rank, index) => `${rank}×${index + 1}`).join(" + ")} = ${code}.`;
+    case "A1Z26_SEQUENCE_CODE": return `${word} → ${code}: ${assignments}`;
+    case "Z1A26_SEQUENCE_CODE": return `${word} → ${code}: ${letters.map((letter) => `${letter}=${reverseRank(letter)}`).join(", ")}`;
+    case "RANK_PLUS_CONSTANT_SEQUENCE": return `${word} → ${code}: ${assignments}; add ${context.constant} to each value`;
+    case "RANK_MINUS_CONSTANT_SEQUENCE": return `${word} → ${code}: ${assignments}; subtract ${context.constant} from each value`;
+    case "SUM_OF_FORWARD_RANKS": return `${word} → ${code}: ${assignments}; ${ranks.join(" + ")} = ${code}`;
+    case "SUM_PLUS_WORD_LENGTH": return `${word} → ${code}: ${assignments}; (${ranks.join(" + ")}) + ${word.length} = ${code}`;
+    case "SUM_MINUS_WORD_LENGTH": return `${word} → ${code}: ${assignments}; (${ranks.join(" + ")}) − ${word.length} = ${code}`;
+    case "POSITION_WEIGHTED_SUM": return `${word} → ${code}: ${assignments}; ${ranks.map((rank, index) => `${rank}×${index + 1}`).join(" + ")} = ${code}`;
     case "ODD_EVEN_POSITION_DIFFERENCE": {
       const odd = ranks.filter((_, index) => index % 2 === 0);
       const even = ranks.filter((_, index) => index % 2 === 1);
-      return `${word}: |(${odd.join(" + ")}) − (${even.join(" + ") || "0"})| = ${code}.`;
+      return `${word} → ${code}: ${assignments}; |(${odd.join(" + ")}) − (${even.join(" + ") || "0"})| = ${code}`;
     }
   }
+}
+
+function exactRuleStatement(prompt: NumericCodingPrompt, ruleId: CodCp002RuleId, context: CodCp002RuleContext): string {
+  const example = prompt.evidence[0]!;
+  return `${wordWorking(ruleId, context, example.word, example.code)}. Therefore, ${describeRule(ruleId, context)}.`;
 }
 
 function letterFromRank(rank: number): string {
@@ -97,32 +104,31 @@ export function buildCodCp002Explanation(input: {
   styleIndex: number;
   options: readonly GeneratedOption[];
 }): ExplanationTrace {
-  const evidenceLimit = input.prompt.outputShape === "SCALAR" || ["INFER_AND_ENCODE", "CHOOSE_MATCHING_CODE"].includes(input.prompt.taskKind) ? 2 : 1;
   const sourceDemonstration = input.prompt.evidence
-    .slice(0, evidenceLimit)
-    .map((pair) => wordWorking(input.ruleId, input.context, pair.word, pair.code));
+    .slice(1, 2)
+    .map((pair) => `${wordWorking(input.ruleId, input.context, pair.word, pair.code)}.`);
 
   let targetApplication: string[];
   if (input.prompt.taskKind === "DECODE_TARGET") {
     targetApplication = [decodeWorking(input.ruleId, input.context, input.prompt.encodedTarget!, input.answer)];
   } else if (input.prompt.taskKind === "RECOVER_MISSING_VALUE") {
-    targetApplication = [
-      wordWorking(input.ruleId, input.context, input.prompt.targetWord, input.fullTargetCode),
-      `${input.prompt.targetWord} is shown as ${input.prompt.displayedTargetCode}; therefore ‘?’ must be ${input.answer}.`,
-    ];
+    const exactWorking = `${wordWorking(input.ruleId, input.context, input.prompt.targetWord, input.fullTargetCode)}.`;
+    if (input.prompt.outputShape === "SCALAR") {
+      targetApplication = [exactWorking, `Therefore, ? = ${input.answer}.`];
+    } else {
+      const missingIndex = input.prompt.missingIndex!;
+      const sourceLetter = input.prompt.targetWord[missingIndex]!;
+      targetApplication = [
+        exactWorking,
+        `At the position marked ‘?’, ${sourceLetter} has the code value ${input.answer}; therefore, ? = ${input.answer}.`,
+      ];
+    }
   } else {
-    targetApplication = [wordWorking(input.ruleId, input.context, input.prompt.targetWord, input.fullTargetCode)];
+    targetApplication = [`${wordWorking(input.ruleId, input.context, input.prompt.targetWord, input.fullTargetCode)}.`];
   }
 
-  const openings = [
-    "The numerical coding rule is:",
-    "All the examples use this method:",
-    "The code is formed as follows:",
-    "The common rule is:",
-  ] as const;
-
   return {
-    ruleStatement: `${openings[input.styleIndex % openings.length]} ${describeRule(input.ruleId, input.context)}`,
+    ruleStatement: exactRuleStatement(input.prompt, input.ruleId, input.context),
     sourceDemonstration,
     targetApplication,
     conclusion: conclusionFor(input.answer, input.styleIndex),

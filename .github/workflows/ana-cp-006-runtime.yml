@@ -1,0 +1,155 @@
+name: Validate ANA-CP-006 runtime
+
+on:
+  push:
+    branches:
+      - feat/reasoning-ana-001-cp006-approved-explanations-2
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/**
+      - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-001-MANIFEST-AMENDMENT-CP006.md
+      - .github/workflows/ana-cp-006-runtime.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/**
+      - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-001-MANIFEST-AMENDMENT-CP006.md
+      - .github/workflows/ana-cp-006-runtime.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-ana-cp-006-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  typecheck-and-structure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --resolveJsonModule \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006 -name '*.ts' -print) \
+            src/reasoning-v1/topics/Analogy/ANA-001/foundation/alphabet.ts
+      - name: Run registry, fixture and fingerprint audit
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006-structural.test.ts
+
+  english-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3]
+    env:
+      ANA_CP006_SHARD_COUNT: "4"
+      ANA_CP006_SHARD_INDEX: ${{ matrix.shard }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Run English runtime audit shard ${{ matrix.shard }}
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006-sharded-runtime.test.ts
+
+  localized-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        locale: [hi-IN, pa-IN]
+        shard: [0, 1, 2, 3]
+    env:
+      ANA_CP006_LOCALE: ${{ matrix.locale }}
+      ANA_CP006_SHARD_COUNT: "4"
+      ANA_CP006_SHARD_INDEX: ${{ matrix.shard }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Run ${{ matrix.locale }} runtime audit shard ${{ matrix.shard }}
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006-sharded-localized.test.ts
+
+  editorial:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Capture explanation editorial audit
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006-editorial.test.ts 2>&1 | tee /tmp/ana-cp-006-editorial.log
+          echo "${PIPESTATUS[0]}" > /tmp/ana-cp-006-editorial-exit
+          exit 0
+      - name: Publish editorial diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ana-cp-006-editorial-diagnostics
+          path: |
+            /tmp/ana-cp-006-editorial.log
+            /tmp/ana-cp-006-editorial-exit
+          if-no-files-found: error
+          retention-days: 7
+      - name: Enforce explanation editorial audit
+        run: test "$(cat /tmp/ana-cp-006-editorial-exit)" = "0"
+
+  reviews:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Generate review files
+        run: |
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/export-review.ts
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/export-localized-review.ts
+      - name: Publish review files
+        uses: actions/upload-artifact@v4
+        with:
+          name: ana-cp-006-runtime-reviews
+          path: |
+            artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006-runtime-review.md
+            artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006-hindi-runtime-review.md
+            artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006-punjabi-runtime-review.md
+          if-no-files-found: error
+          retention-days: 14

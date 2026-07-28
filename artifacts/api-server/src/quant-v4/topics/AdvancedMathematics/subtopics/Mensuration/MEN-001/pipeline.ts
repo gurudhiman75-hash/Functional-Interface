@@ -20,8 +20,13 @@ export function runMen001Pipeline(
   const stem = renderMen001Template(entry.template, parameters.renderVariables);
   const solver = solveMen001(parameters);
   const reasoningGraph = buildMen001ReasoningGraph(parameters, solver);
-  const explanation = renderMen001Explanation(parameters, solver, reasoningGraph);
   const optionResult = buildMen001Options(entry, parameters, solver);
+  const explanation = renderMen001Explanation(
+    parameters,
+    solver,
+    reasoningGraph,
+    optionResult,
+  );
   const mathematicalFingerprint = [
     parameters.solveMode,
     entry.unitPolicy,
@@ -83,3 +88,6 @@ export const runMen001Cp004Pipeline = (input: Men001ParameterInput = {}) =>
 
 export const runMen001Cp005Pipeline = (input: Men001ParameterInput = {}) =>
   runMen001Pipeline("MEN-CP-005", input);
+
+export const runMen001Cp006Pipeline = (input: Men001ParameterInput = {}) =>
+  runMen001Pipeline("MEN-CP-006", input);

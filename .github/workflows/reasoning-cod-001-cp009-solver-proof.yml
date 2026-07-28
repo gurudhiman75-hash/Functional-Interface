@@ -1,0 +1,45 @@
+name: Reasoning COD-001 CP-009 Solver Proof
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/**"
+      - ".github/workflows/reasoning-cod-001-cp009-solver-proof.yml"
+  workflow_dispatch:
+
+jobs:
+  cp009-solver-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run CP-009 abstract constraint proof
+        id: solver_proof
+        shell: bash
+        run: |
+          set +e
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/constraint-foundation.test.ts > cod-cp009-solver-proof.log 2>&1
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload CP-009 solver diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cod-001-cp009-solver-proof
+          path: cod-cp009-solver-proof.log
+          retention-days: 7
+
+      - name: Enforce CP-009 solver result
+        shell: bash
+        run: |
+          cat cod-cp009-solver-proof.log
+          test "${{ steps.solver_proof.outputs.exit_code }}" = "0"

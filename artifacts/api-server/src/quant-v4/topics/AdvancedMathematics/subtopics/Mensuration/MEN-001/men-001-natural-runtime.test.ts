@@ -18,6 +18,8 @@ function optionCarriesUnit(option: string, unit: string) {
   if (unit === "₹/m²") return option.startsWith("₹") && option.endsWith("/m²");
   if (unit === "₹/m") return option.startsWith("₹") && option.endsWith("/m");
   if (unit === "°") return option.endsWith("°");
+  if (unit === "%") return option.endsWith("%");
+  if (unit === "times") return option.endsWith(" times");
   if (unit === "cm²") return option.includes("cm²") || option.includes("\\text{cm}^{2}");
   if (unit === "m²") return option.includes("m²") || option.includes("\\text{m}^{2}");
   if (unit === "cm") return option.endsWith(" cm") || option.includes("\\text{cm}");
@@ -26,6 +28,14 @@ function optionCarriesUnit(option: string, unit: string) {
   if (unit === "revolutions") return option.endsWith(" revolutions");
   return false;
 }
+
+const CP006_STEM_REALISM_FRAGMENTS: Record<string, string> = {
+  "MEN-001-QL-403": "A tarpaulin section covers",
+  "MEN-001-QL-404": "A floor section covers",
+  "MEN-001-QL-420": "A mapped land region occupies",
+  "MEN-001-QL-431": "A wire boundary forms a rectangle",
+  "MEN-001-QL-432": "A farmer has exactly",
+};
 
 const seenQlIds = new Set<string>();
 const seenSolveModes = new Set<string>();
@@ -74,6 +84,14 @@ for (const entry of getMen001QuestionEntries()) {
     assert.equal(first.maturity, "RUNTIME_PROOF");
     assert.ok(first.options.every((option) => optionCarriesUnit(option, first.solver.unit)));
 
+    const requiredStemFragment = CP006_STEM_REALISM_FRAGMENTS[first.questionLanguageId];
+    if (requiredStemFragment) {
+      assert.ok(
+        first.stem.includes(requiredStemFragment),
+        `${first.questionLanguageId} must retain its audited exam-realistic context.`,
+      );
+    }
+
     const shouldIllustrate = hasMen001ExplanationIllustration(first.solveMode);
     assert.equal(Boolean(first.explanation.illustration), shouldIllustrate);
     assert.equal(first.traceability.diagramRequirement, "NONE");
@@ -88,6 +106,9 @@ for (const entry of getMen001QuestionEntries()) {
       assert.ok(first.stem.includes("π = 22/7"));
       assert.equal(first.solver.workingValues.piPolicy, "22/7");
     }
+    if (first.solver.workingValues.piPolicy === "22/7") {
+      assert.ok(first.stem.includes("π = 22/7"));
+    }
 
     seenQlIds.add(first.questionLanguageId);
     seenSolveModes.add(first.solveMode);
@@ -99,7 +120,7 @@ for (const entry of getMen001QuestionEntries()) {
 assert.deepEqual([...seenQlIds].sort(), getMen001QuestionLanguageIds().sort());
 assert.deepEqual([...seenSolveModes].sort(), getMen001SolveModeIds().sort());
 assert.deepEqual([...seenCpIds].sort(), getMen001ActiveCanonicalProblemIds().sort());
-for (const unit of ["cm", "m", "cm²", "m²", "₹", "₹/m²", "₹/m", "°", "tiles", "revolutions"]) {
+for (const unit of ["cm", "m", "cm²", "m²", "₹", "₹/m²", "₹/m", "°", "tiles", "revolutions", "%", "times"]) {
   assert.equal(seenUnits.has(unit), true, `${unit} not covered`);
 }
 for (const kind of [
@@ -126,5 +147,5 @@ assert.throws(
 );
 
 console.log(
-  `MEN-001 natural runtime proof passed for ${getMen001QuestionLanguageIds().length * 20} generated questions across ${getMen001ActiveCanonicalProblemIds().length} active CPs and ${getMen001SolveModeIds().length} solve modes.`,
+  `MEN-001 natural runtime proof passed for ${getMen001QuestionLanguageIds().length * 20} generated questions across ${getMen001ActiveCanonicalProblemIds().length} active CPs and ${getMen001SolveModeIds().length} solve modes, including the CP-006 stem-realism guard.`,
 );

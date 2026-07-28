@@ -22,7 +22,9 @@ function dimensionUnitValid(question: Question) {
     (question.solver.answerDimension === "COST" && question.solver.unit === "₹") ||
     (question.solver.answerDimension === "RATE" && ["₹/m²", "₹/m"].includes(question.solver.unit)) ||
     (question.solver.answerDimension === "ANGLE" && question.solver.unit === "°") ||
-    (question.solver.answerDimension === "COUNT" && ["tiles", "revolutions"].includes(question.solver.unit))
+    (question.solver.answerDimension === "COUNT" && ["tiles", "revolutions"].includes(question.solver.unit)) ||
+    (question.solver.answerDimension === "PERCENT" && question.solver.unit === "%") ||
+    (question.solver.answerDimension === "SCALAR" && question.solver.unit === "times")
   );
 }
 
@@ -39,7 +41,7 @@ export function validateMen001QuestionPackage(
   checks.push(check(
     "dimension-unit-contract",
     dimensionUnitValid(question),
-    "Length, area, cost, rate, angle and count answers must use compatible units.",
+    "Every answer dimension must use its compatible length, area, money, angle, count, percent or scalar unit.",
   ));
   checks.push(check(
     "explanation-depth",

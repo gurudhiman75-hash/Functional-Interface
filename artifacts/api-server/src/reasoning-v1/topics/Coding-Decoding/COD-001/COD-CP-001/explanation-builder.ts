@@ -3,15 +3,12 @@ import type { DirectMappingPrompt, ExplanationTrace, GeneratedOption } from "../
 import { splitCode } from "../foundation/code-values";
 import { conclusionFor, selectedDistractor } from "../foundation/editorial";
 
-function ruleStatement(prompt: DirectMappingPrompt, styleIndex: number): string {
+function exactRuleStatement(prompt: DirectMappingPrompt): string {
+  const example = prompt.evidence[0]!;
+  const tokens = splitCode(example.code, prompt.separator);
+  const steps = [...example.source].map((letter, index) => `${letter}→${tokens[index]}`).join(", ");
   const codeKind = prompt.outputKind === "DIGIT" ? "number" : prompt.outputKind === "SYMBOL" ? "symbol" : "letter";
-  const variants = [
-    `Each letter has one fixed ${codeKind} code, and that code remains unchanged wherever the letter appears.`,
-    `The examples use direct substitution: the same letter is always replaced by the same ${codeKind}.`,
-    `Read the words letter by letter; every letter keeps one consistent ${codeKind} value.`,
-    `A fixed letter-to-${codeKind} mapping is used in all the given words.`,
-  ] as const;
-  return variants[styleIndex % variants.length]!;
+  return `In ${example.source} → ${example.code}, the substitutions are ${steps}. Therefore, each source letter keeps that exact ${codeKind} value wherever it appears.`;
 }
 
 function evidenceWorking(prompt: DirectMappingPrompt, mapping: DirectMap, source: string, code: string): string {
@@ -21,7 +18,7 @@ function evidenceWorking(prompt: DirectMappingPrompt, mapping: DirectMap, source
   const repetitionNote = repeated.length > 0
     ? ` The repeated ${repeated.join(" and ")} keep${repeated.length === 1 ? "s" : ""} the same code each time.`
     : "";
-  return `${source} → ${code} gives ${steps}.${repetitionNote}`;
+  return `${source} → ${code} confirms ${steps}.${repetitionNote}`;
 }
 
 function trapRejection(options: readonly GeneratedOption[]): string | undefined {
@@ -51,9 +48,9 @@ export function buildCodCp001Explanation(
   styleIndex: number,
   options: readonly GeneratedOption[],
 ): ExplanationTrace {
-  const evidenceLimit = prompt.taskKind === "INFER_FROM_OVERLAP" ? 2 : 1;
+  const evidenceStart = prompt.evidence.length > 1 ? 1 : 0;
   const sourceDemonstration = prompt.evidence
-    .slice(0, evidenceLimit)
+    .slice(evidenceStart, evidenceStart + 1)
     .map((pair) => evidenceWorking(prompt, mapping, pair.source, pair.code));
 
   let targetApplication: string[];
@@ -70,7 +67,7 @@ export function buildCodCp001Explanation(
   }
 
   return {
-    ruleStatement: ruleStatement(prompt, styleIndex),
+    ruleStatement: exactRuleStatement(prompt),
     sourceDemonstration,
     targetApplication,
     conclusion: conclusionFor(answer, styleIndex),

@@ -1,0 +1,63 @@
+name: Validate Commerce Freeze
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/lib/canonical-commerce-*.ts
+      - artifacts/api-server/src/routes/admin-commerce-*.ts
+      - artifacts/api-server/src/routes/admin-business-analytics.ts
+      - artifacts/api-server/src/routes/billing-webhook.ts
+      - artifacts/api-server/src/routes/canonical-commerce-*.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/pages/commerce/**
+      - artifacts/admin-app/src/pages/analytics/BusinessAnalyticsPage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - .github/scripts/validate-commerce-freeze.mjs
+      - .github/workflows/commerce-freeze.yml
+  push:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/lib/canonical-commerce-*.ts
+      - artifacts/api-server/src/routes/admin-commerce-*.ts
+      - artifacts/api-server/src/routes/admin-business-analytics.ts
+      - artifacts/api-server/src/routes/billing-webhook.ts
+      - artifacts/api-server/src/routes/canonical-commerce-*.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/pages/commerce/**
+      - artifacts/admin-app/src/pages/analytics/BusinessAnalyticsPage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - .github/scripts/validate-commerce-freeze.mjs
+      - .github/workflows/commerce-freeze.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: commerce-freeze-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Validate canonical Commerce boundaries
+        run: node .github/scripts/validate-commerce-freeze.mjs
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Typecheck admin application
+        run: pnpm run typecheck:admin
+      - name: Test admin application
+        run: pnpm run test:admin
+      - name: Build admin application
+        run: pnpm run build:admin

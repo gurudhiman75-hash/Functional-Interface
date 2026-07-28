@@ -7,17 +7,17 @@ import type { CodCp004RuleContext, CodCp004RuleId, PositionTransformPrompt } fro
 function describeRule(ruleId: CodCp004RuleId, context: CodCp004RuleContext): string {
   switch (ruleId) {
     case "INCREMENTAL_FORWARD_SHIFT":
-      return `Move the first letter ${context.baseShift} place${context.baseShift === 1 ? "" : "s"} forward, the second one place farther, the third one place farther again, and so on.`;
+      return `the forward shifts are +${context.baseShift}, +${(context.baseShift ?? 0) + 1}, +${(context.baseShift ?? 0) + 2}, ... from left to right`;
     case "INCREMENTAL_BACKWARD_SHIFT":
-      return `Move the first letter ${context.baseShift} place${context.baseShift === 1 ? "" : "s"} backward, then increase the backward movement by 1 at each next position.`;
+      return `the backward shifts are −${context.baseShift}, −${(context.baseShift ?? 0) + 1}, −${(context.baseShift ?? 0) + 2}, ... from left to right`;
     case "ALTERNATING_SIGNED_SHIFT":
-      return `Move letters alternately ${(context.firstDirection ?? 1) > 0 ? "forward and backward" : "backward and forward"} by ${context.magnitude} place${context.magnitude === 1 ? "" : "s"}.`;
+      return `the shifts alternate ${(context.firstDirection ?? 1) > 0 ? `+${context.magnitude}, −${context.magnitude}` : `−${context.magnitude}, +${context.magnitude}`} from the first position onward`;
     case "ODD_EVEN_POSITION_SHIFT":
-      return `At odd positions move letters ${Math.abs(context.oddShift ?? 0)} place${Math.abs(context.oddShift ?? 0) === 1 ? "" : "s"} ${(context.oddShift ?? 0) > 0 ? "forward" : "backward"}; at even positions move them ${Math.abs(context.evenShift ?? 0)} place${Math.abs(context.evenShift ?? 0) === 1 ? "" : "s"} ${(context.evenShift ?? 0) > 0 ? "forward" : "backward"}.`;
+      return `odd positions use ${(context.oddShift ?? 0) > 0 ? "+" : ""}${context.oddShift}, while even positions use ${(context.evenShift ?? 0) > 0 ? "+" : ""}${context.evenShift}`;
     case "VOWEL_CONSONANT_CLASS_SHIFT":
-      return `Move every vowel ${Math.abs(context.vowelShift ?? 0)} place${Math.abs(context.vowelShift ?? 0) === 1 ? "" : "s"} ${(context.vowelShift ?? 0) > 0 ? "forward" : "backward"}, and every consonant ${Math.abs(context.consonantShift ?? 0)} place${Math.abs(context.consonantShift ?? 0) === 1 ? "" : "s"} ${(context.consonantShift ?? 0) > 0 ? "forward" : "backward"}.`;
+      return `vowels use ${(context.vowelShift ?? 0) > 0 ? "+" : ""}${context.vowelShift}, while consonants use ${(context.consonantShift ?? 0) > 0 ? "+" : ""}${context.consonantShift}`;
     case "ENDPOINT_INTERIOR_SHIFT":
-      return `Move the first and last letters ${Math.abs(context.endpointShift ?? 0)} place${Math.abs(context.endpointShift ?? 0) === 1 ? "" : "s"} ${(context.endpointShift ?? 0) > 0 ? "forward" : "backward"}; move all middle letters ${Math.abs(context.interiorShift ?? 0)} place${Math.abs(context.interiorShift ?? 0) === 1 ? "" : "s"} ${(context.interiorShift ?? 0) > 0 ? "forward" : "backward"}.`;
+      return `the first and last letters use ${(context.endpointShift ?? 0) > 0 ? "+" : ""}${context.endpointShift}, while all middle letters use ${(context.interiorShift ?? 0) > 0 ? "+" : ""}${context.interiorShift}`;
   }
 }
 
@@ -30,7 +30,12 @@ function working(ruleId: CodCp004RuleId, context: CodCp004RuleContext, word: str
     else reason = `position ${index + 1}`;
     return `${letter}→${shiftLetter(letter, shift)} (${reason}, ${shift > 0 ? "+" : ""}${shift})`;
   }).join(", ");
-  return `${word} → ${code}: ${steps}${wordUsesPositionWrap(ruleId, context, word) ? "; the alphabet wraps at A/Z" : ""}.`;
+  return `${word} → ${code}: ${steps}${wordUsesPositionWrap(ruleId, context, word) ? "; the alphabet wraps at A/Z" : ""}`;
+}
+
+function exactRuleStatement(prompt: PositionTransformPrompt, ruleId: CodCp004RuleId, context: CodCp004RuleContext): string {
+  const example = prompt.evidence[0]!;
+  return `${working(ruleId, context, example.source, example.code)}. Therefore, ${describeRule(ruleId, context)}.`;
 }
 
 function decodeWorking(encoded: string, answer: string): string {
@@ -74,30 +79,23 @@ export function buildCodCp004Explanation(input: {
   options: readonly GeneratedOption[];
 }): ExplanationTrace {
   const sourceDemonstration = input.prompt.evidence
-    .slice(0, 1)
-    .map((pair) => working(input.ruleId, input.context, pair.source, pair.code));
+    .slice(1, 2)
+    .map((pair) => `${working(input.ruleId, input.context, pair.source, pair.code)}.`);
 
   let targetApplication: string[];
   if (input.prompt.taskKind === "DECODE_TARGET") {
     targetApplication = [decodeWorking(input.prompt.encodedTarget!, input.answer)];
   } else if (input.prompt.taskKind === "RECOVER_MISSING_LETTER") {
     targetApplication = [
-      working(input.ruleId, input.context, input.prompt.targetWord, input.fullTargetCode),
+      `${working(input.ruleId, input.context, input.prompt.targetWord, input.fullTargetCode)}.`,
       `${input.prompt.targetWord} is shown as ${input.prompt.displayedTargetCode}; therefore ‘?’ is ${input.answer}.`,
     ];
   } else {
-    targetApplication = [working(input.ruleId, input.context, input.prompt.targetWord, input.fullTargetCode)];
+    targetApplication = [`${working(input.ruleId, input.context, input.prompt.targetWord, input.fullTargetCode)}.`];
   }
 
-  const openings = [
-    "Comparing corresponding letters gives this rule:",
-    "The same method is used in each example:",
-    "The coding pattern is:",
-    "The letter movements follow this order:",
-  ] as const;
-
   return {
-    ruleStatement: `${openings[input.styleIndex % openings.length]} ${describeRule(input.ruleId, input.context)}`,
+    ruleStatement: exactRuleStatement(input.prompt, input.ruleId, input.context),
     sourceDemonstration,
     targetApplication,
     conclusion: conclusionFor(input.answer, input.styleIndex),

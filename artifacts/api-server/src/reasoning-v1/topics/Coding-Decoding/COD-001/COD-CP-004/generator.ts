@@ -1,7 +1,10 @@
-import type { CodDifficulty, GeneratedOption } from "../foundation/types";
+import type { GeneratedOption } from "../foundation/types";
 import { SeededRandom } from "../foundation/prng";
 import { validateOptions } from "../foundation/option-validator";
 import { joinCodeExamples, maskCodeAt } from "../foundation/editorial";
+import { assessCodDifficulty } from "../foundation/difficulty";
+import { enrichCodingExplanation } from "../foundation/pedagogy";
+import { buildStandardDecodeStem, buildStandardEncodeStem, buildStandardMissingTokenStem } from "../foundation/standard-exam-stem";
 import { COD_CP003_WORD_POOL } from "../COD-CP-003/word-pool.en";
 import { auditPositionTransformRule } from "./ambiguity-checker";
 import { buildCodCp004Distractors } from "./distractors";
@@ -50,44 +53,15 @@ function chooseWords(logic: CodCp004QuestionLogic, context: ReturnType<typeof ch
   return { target, evidence };
 }
 
-function deriveDifficulty(logic: CodCp004QuestionLogic): CodDifficulty {
-  if (["DECODE_TARGET", "INFER_AND_ENCODE", "RECOVER_MISSING_LETTER"].includes(logic.taskKind)) return "HARD";
-  if (["VOWEL_CONSONANT_CLASS_SHIFT", "ENDPOINT_INTERIOR_SHIFT"].includes(logic.ruleId) && logic.taskKind === "CHOOSE_MATCHING_CODE") return "HARD";
-  return "MEDIUM";
-}
-
 function buildStem(prompt: PositionTransformPrompt, style: number): string {
   const examples = joinCodeExamples(prompt.evidence);
   if (prompt.taskKind === "DECODE_TARGET") {
-    return [
-      `In a certain code, ${examples}. Which word is coded as ‘${prompt.encodedTarget}’?`,
-      `If ${examples}, what is the original word for ‘${prompt.encodedTarget}’?`,
-      `Study these examples: ${examples}. Decode ‘${prompt.encodedTarget}’.`,
-      `The same rule applies to these examples: ${examples}. Which word is represented by ‘${prompt.encodedTarget}’?`,
-    ][style]!;
+    return buildStandardDecodeStem(examples, prompt.encodedTarget!, style);
   }
   if (prompt.taskKind === "RECOVER_MISSING_LETTER") {
-    return [
-      `In a certain code, ${examples}. ‘${prompt.targetWord}’ is written as ‘${prompt.displayedTargetCode}’. Which letter replaces ‘?’?`,
-      `If ${examples}, complete ‘${prompt.targetWord}’ → ‘${prompt.displayedTargetCode}’.`,
-      `From these examples—${examples}—find the missing letter in ‘${prompt.targetWord}’ → ‘${prompt.displayedTargetCode}’.`,
-      `The given examples are: ${examples}. What should replace ‘?’ in the code ‘${prompt.displayedTargetCode}’ for ‘${prompt.targetWord}’?`,
-    ][style]!;
+    return buildStandardMissingTokenStem(examples, prompt.targetWord, prompt.displayedTargetCode!, "letter", style);
   }
-  if (prompt.taskKind === "CHOOSE_MATCHING_CODE") {
-    return [
-      `In a certain code, ${examples}. Which option gives the code for ‘${prompt.targetWord}’?`,
-      `If ${examples}, select the correct code for ‘${prompt.targetWord}’.`,
-      `Study these examples: ${examples}. Which code matches ‘${prompt.targetWord}’?`,
-      `Given that ${examples}, choose the code of ‘${prompt.targetWord}’.`,
-    ][style]!;
-  }
-  return [
-    `In a certain code, ${examples}. How will ‘${prompt.targetWord}’ be written?`,
-    `If ${examples}, what is the code for ‘${prompt.targetWord}’?`,
-    `Given that ${examples}, use the same rule to find the code of ‘${prompt.targetWord}’.`,
-    `Study these examples: ${examples}. Determine the code for ‘${prompt.targetWord}’.`,
-  ][style]!;
+  return buildStandardEncodeStem(examples, prompt.targetWord, style);
 }
 
 function createCandidate(logic: CodCp004QuestionLogic, seed: number, attempt: number): GeneratedCodCp004Question | null {
@@ -157,6 +131,19 @@ function createCandidate(logic: CodCp004QuestionLogic, seed: number, attempt: nu
   const wrapUsed = wordUsesPositionWrap(logic.ruleId, context, chosen.target) || evidence.some((pair) => wordUsesPositionWrap(logic.ruleId, context, pair.source));
   if (logic.requireWrap && !wrapUsed) return null;
   const styleIndex = new SeededRandom(`${logic.qlId}:${seed}:editorial-v2`).int(0, 3);
+  const difficulty = assessCodDifficulty({
+    checkpointId: "COD-CP-004",
+    ruleId: logic.ruleId,
+    taskKind: logic.taskKind,
+    targetLength: chosen.target.length,
+    evidenceCount: evidence.length,
+    options,
+    allowedDifficulties: logic.allowedDifficulties,
+  }).difficulty;
+  const explanation = enrichCodingExplanation(
+    buildCodCp004Explanation({ prompt, ruleId: logic.ruleId, context, fullTargetCode, answer, styleIndex, options }),
+    { checkpointId: "COD-CP-004", ruleId: logic.ruleId, taskKind: logic.taskKind },
+  );
   return {
     packageId: "COD-001",
     qlId: logic.qlId,
@@ -165,14 +152,14 @@ function createCandidate(logic: CodCp004QuestionLogic, seed: number, attempt: nu
     ruleContext: context,
     seed,
     locale: "en-IN",
-    difficulty: deriveDifficulty(logic),
+    difficulty,
     renderer: logic.renderer,
     answerType: logic.answerType,
     stem: buildStem(prompt, styleIndex),
     structuredPrompt: prompt,
     options,
     correctIndex,
-    explanation: buildCodCp004Explanation({ prompt, ruleId: logic.ruleId, context, fullTargetCode, answer, styleIndex, options }),
+    explanation,
     metadata: {
       runtimeVersion: "cod-001-cp004-v2",
       publiclyPublishable: false,

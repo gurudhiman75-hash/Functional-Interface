@@ -6,6 +6,7 @@ import questionLanguageCp004Additional from "./question-language.cp004.additiona
 import questionLanguageCp005 from "./question-language.cp005.en.json";
 import questionLanguageCp005Exhaustiveness from "./question-language.cp005.exhaustiveness.en.json";
 import questionLanguageCp005Overlap from "./question-language.cp005.overlap.en.json";
+import questionLanguageCp006 from "./question-language.cp006.en.json";
 import questionLanguageExhaustiveness from "./question-language.exhaustiveness.en.json";
 import { getMen001SolveModeIds } from "./solve-mode-registry.all";
 import taskRegistryBase from "./task-registry.library.json";
@@ -15,6 +16,7 @@ import taskRegistryCp004Additional from "./task-registry.cp004.additional.librar
 import taskRegistryCp005 from "./task-registry.cp005.library.json";
 import taskRegistryCp005Exhaustiveness from "./task-registry.cp005.exhaustiveness.library.json";
 import taskRegistryCp005Overlap from "./task-registry.cp005.overlap.library.json";
+import taskRegistryCp006 from "./task-registry.cp006.library.json";
 import taskRegistryExhaustiveness from "./task-registry.exhaustiveness.library.json";
 import {
   MEN_001_ACTIVE_CP_IDS,
@@ -33,6 +35,7 @@ const questionLanguageSources = [
   questionLanguageCp005,
   questionLanguageCp005Overlap,
   questionLanguageCp005Exhaustiveness,
+  questionLanguageCp006,
 ] as const;
 const taskRegistrySources = [
   taskRegistryBase,
@@ -43,6 +46,7 @@ const taskRegistrySources = [
   taskRegistryCp005,
   taskRegistryCp005Overlap,
   taskRegistryCp005Exhaustiveness,
+  taskRegistryCp006,
 ] as const;
 
 const questionEntries = questionLanguageSources
@@ -65,7 +69,7 @@ function normalizeTemplateIdentity(template: string) {
   return template
     .toLowerCase()
     .replace(/\{[A-Za-z0-9_]+\}/g, "{value}")
-    .replace(/[^a-z0-9{}₹²√°π/=]+/g, " ")
+    .replace(/[^a-z0-9{}₹²√°π/=%]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -84,6 +88,8 @@ function unitMatchesDimension(entry: Men001QuestionLanguageEntry) {
   if (entry.answerDimension === "RATE") {
     return entry.unitPolicy === "RUPEES_PER_SQUARE_METRE" || entry.unitPolicy === "RUPEES_PER_METRE";
   }
+  if (entry.answerDimension === "PERCENT") return entry.unitPolicy === "PERCENT";
+  if (entry.answerDimension === "SCALAR") return entry.unitPolicy === "TIMES";
   return entry.answerDimension === "COST" && entry.unitPolicy === "RUPEES";
 }
 
@@ -105,10 +111,21 @@ const CP005_PI_MODES = new Set([
   "findCircleRadiusFromCircleMinusSquareShadedArea",
 ]);
 
+const CP006_PI_MODES = new Set([
+  "findCircleRadiusFromSquareWire",
+  "findSquareSideFromCircularWire",
+  "findCircleRadiusFromRectangleWire",
+  "findAreaDifferenceCircleSquareSamePerimeter",
+  "findRectangleBreadthFromCircularWireAndLength",
+  "findCircleAreaFromSquareWire",
+  "findSquareAreaFromCircularWire",
+]);
+
 function requiresExplicitPiPolicy(entry: Men001QuestionLanguageEntry) {
   return (
     entry.cpId === "MEN-CP-003" ||
     CP005_PI_MODES.has(entry.solveMode) ||
+    CP006_PI_MODES.has(entry.solveMode) ||
     [
       "findOuterCircularPathArea",
       "findInnerCircularPathArea",

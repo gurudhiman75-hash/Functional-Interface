@@ -4,8 +4,12 @@ import {
 } from "./bounded-age-distractor-realism";
 import { runAvg001Cp002Pipeline } from "./cp002-runtime";
 import { runAvg001Cp003Pipeline } from "./cp003-age-bounded-runtime";
+import { applyAvg001Cp003ExamStrategy } from "./cp003-exam-strategy-finalizer";
+import { applyAvg001Cp003RemovedMemberSupportFix } from "./cp003-removed-member-support-fix";
+import { applyAvg001Cp004ExamStrategy } from "./cp004-exam-strategy-finalizer";
 import { runAvg001Cp004ExactPipeline } from "./cp004-exact-runtime";
 import { applyAvg001Cp004ExplanationVariants } from "./cp004-explanation-polish";
+import { applyAvg001Cp005ExamStrategy } from "./cp005-exam-strategy-finalizer";
 import { applyAvg001Cp005ExplanationPolish } from "./cp005-explanation-polish";
 import { applyAvg001Cp005ExplanationVariants } from "./cp005-explanation-variants";
 import { runAvg001Cp005Pipeline } from "./cp005-runtime";
@@ -47,7 +51,19 @@ function finalizePackage(pkg: Avg001QuestionPackage) {
       ? applyAvg001RatioDistractorRealism(pkg)
       : applyAvg001DistractorRealism(pkg);
   }
-  return applyAvg001EnglishRelease(finalized);
+  const released = applyAvg001EnglishRelease(finalized);
+  if (released.canonicalProblemId === "AVG-CP-003") {
+    return applyAvg001Cp003ExamStrategy(
+      applyAvg001Cp003RemovedMemberSupportFix(released),
+    );
+  }
+  if (released.canonicalProblemId === "AVG-CP-004") {
+    return applyAvg001Cp004ExamStrategy(released);
+  }
+  if (released.canonicalProblemId === "AVG-CP-005") {
+    return applyAvg001Cp005ExamStrategy(released);
+  }
+  return released;
 }
 
 export function runAvg001Pipeline(input: { questionLanguageId?: string; seed?: string; language?: Avg001Language } = {}): Avg001QuestionPackage {

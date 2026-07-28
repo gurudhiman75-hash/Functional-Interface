@@ -18,6 +18,7 @@ export const MEN_001_ACTIVE_CP_IDS = [
   "MEN-CP-003",
   "MEN-CP-004",
   "MEN-CP-005",
+  "MEN-CP-006",
 ] as const;
 
 export type Men001CanonicalProblemId = (typeof MEN_001_CP_IDS)[number];
@@ -29,14 +30,17 @@ export type Men001TaskKind =
   | "quadrilateralMeasurementApplication"
   | "circleMeasurementApplication"
   | "pathBorderFlooringFencingApplication"
-  | "compositeInscribedRegularPlaneFigureApplication";
+  | "compositeInscribedRegularPlaneFigureApplication"
+  | "boundaryScalingUnitTransformationApplication";
 export type Men001AnswerDimension =
   | "LENGTH"
   | "AREA"
   | "COST"
   | "RATE"
   | "ANGLE"
-  | "COUNT";
+  | "COUNT"
+  | "PERCENT"
+  | "SCALAR";
 export type Men001UnitPolicy =
   | "CENTIMETRES"
   | "METRES"
@@ -44,7 +48,9 @@ export type Men001UnitPolicy =
   | "SQUARE_METRES"
   | "RUPEES"
   | "DEGREES"
-  | "TILES";
+  | "TILES"
+  | "PERCENT"
+  | "TIMES";
 export type Men001ExtendedUnitPolicy =
   | "RUPEES_PER_SQUARE_METRE"
   | "RUPEES_PER_METRE"
@@ -241,7 +247,9 @@ export interface Men001SolverResult {
     | "₹/m"
     | "°"
     | "tiles"
-    | "revolutions";
+    | "revolutions"
+    | "%"
+    | "times";
   equation: string;
   workingValues: Record<string, string | number>;
 }

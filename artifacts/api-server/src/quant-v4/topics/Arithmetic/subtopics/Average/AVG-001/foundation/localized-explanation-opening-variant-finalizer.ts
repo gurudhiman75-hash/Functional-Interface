@@ -1,73 +1,80 @@
 import type { Avg001QuestionPackage } from "./types";
 
-const HI_CONTINUATIONS = [
-  "",
-  " दिए मान इसी समानता से जुड़े हैं।",
-  " यही प्रश्न का मुख्य संबंध है।",
-  " आँकड़े इसी संबंध से मेल खाते हैं।",
-  " सभी राशियाँ एक आधार पर हैं।",
-  " आँकड़े परस्पर संगत हैं।",
-  " यही अज्ञात मान तय करता है।",
-  " अज्ञात मान यही समानता संतुष्ट करता है।",
-  " दिए आँकड़े संतुलित हैं।",
-  " दिए मान इसी का पालन करते हैं।",
-  " राशियों का संबंध बना रहता है।",
-  " संख्याएँ इसी नियम से जुड़ी हैं।",
-  " अज्ञात मान सीधे मिलता है।",
-  " आवश्यक राशि इसी से तय है।",
-  " आँकड़े इसी संरचना से मेल खाते हैं।",
-  " यही समानता बनी रहनी चाहिए।",
-  " ज्ञात और अज्ञात मान जुड़े हैं।",
-  " आँकड़े यही संतुलन बनाए रखते हैं।",
-  " यही अज्ञात मान नियंत्रित करता है।",
-  " दी गई जानकारी इसका समर्थन करती है।",
-  " यही पूरी शर्त व्यक्त करता है।",
-  " उत्तर को यही संबंध संतुष्ट करना है।",
-  " यही सटीक संबंध है।",
-] as const;
+type OpeningTemplate = (concept: string) => string;
 
-const PA_CONTINUATIONS = [
-  "",
-  " ਦਿੱਤੇ ਮੁੱਲ ਇਸੇ ਬਰਾਬਰੀ ਨਾਲ ਜੁੜੇ ਹਨ।",
-  " ਇਹੀ ਸਵਾਲ ਦਾ ਮੁੱਖ ਸੰਬੰਧ ਹੈ।",
-  " ਅੰਕੜੇ ਇਸੇ ਸੰਬੰਧ ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਹਨ।",
-  " ਸਾਰੀਆਂ ਰਾਸ਼ੀਆਂ ਇੱਕੋ ਆਧਾਰ ਉੱਤੇ ਹਨ।",
-  " ਅੰਕੜੇ ਆਪਸ ਵਿੱਚ ਸੰਗਤ ਹਨ।",
-  " ਇਹੀ ਅਣਜਾਣ ਮੁੱਲ ਤੈਅ ਕਰਦਾ ਹੈ।",
-  " ਅਣਜਾਣ ਮੁੱਲ ਇਹੀ ਬਰਾਬਰੀ ਪੂਰੀ ਕਰਦਾ ਹੈ।",
-  " ਦਿੱਤੇ ਅੰਕੜੇ ਸੰਤੁਲਿਤ ਹਨ।",
-  " ਦਿੱਤੇ ਮੁੱਲ ਇਸੇ ਦੀ ਪਾਲਣਾ ਕਰਦੇ ਹਨ।",
-  " ਰਾਸ਼ੀਆਂ ਦਾ ਸੰਬੰਧ ਬਣਿਆ ਰਹਿੰਦਾ ਹੈ।",
-  " ਸੰਖਿਆਵਾਂ ਇਸੇ ਨਿਯਮ ਨਾਲ ਜੁੜੀਆਂ ਹਨ।",
-  " ਅਣਜਾਣ ਮੁੱਲ ਸਿੱਧਾ ਮਿਲਦਾ ਹੈ।",
-  " ਲੋੜੀਂਦੀ ਰਾਸ਼ੀ ਇਸੇ ਨਾਲ ਤੈਅ ਹੈ।",
-  " ਅੰਕੜੇ ਇਸੇ ਬਣਤਰ ਨਾਲ ਮੇਲ ਖਾਂਦੇ ਹਨ।",
-  " ਇਹੀ ਬਰਾਬਰੀ ਕਾਇਮ ਰਹਿਣੀ ਚਾਹੀਦੀ ਹੈ।",
-  " ਜਾਣੇ ਅਤੇ ਅਣਜਾਣ ਮੁੱਲ ਜੁੜੇ ਹਨ।",
-  " ਅੰਕੜੇ ਇਹੀ ਸੰਤੁਲਨ ਕਾਇਮ ਰੱਖਦੇ ਹਨ।",
-  " ਇਹੀ ਅਣਜਾਣ ਮੁੱਲ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।",
-  " ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਇਸ ਦਾ ਸਮਰਥਨ ਕਰਦੀ ਹੈ।",
-  " ਇਹੀ ਪੂਰੀ ਸ਼ਰਤ ਪ੍ਰਗਟ ਕਰਦਾ ਹੈ।",
-  " ਜਵਾਬ ਨੂੰ ਇਹੀ ਸੰਬੰਧ ਪੂਰਾ ਕਰਨਾ ਹੈ।",
-  " ਇਹੀ ਸਟੀਕ ਸੰਬੰਧ ਹੈ।",
-] as const;
+const HI_OPENINGS: readonly OpeningTemplate[] = [
+  (concept) => `${concept}।`,
+  (concept) => `यहाँ ${concept}।`,
+  (concept) => `सीधा नियम है: ${concept}।`,
+  (concept) => `गणना का आधार है: ${concept}।`,
+  (concept) => `पहले यह संबंध लें: ${concept}।`,
+  (concept) => `हल शुरू करते समय ${concept}।`,
+  (concept) => `मुख्य गणितीय तथ्य है: ${concept}।`,
+  (concept) => `आरंभ में यह संबंध लें: ${concept}।`,
+  (concept) => `पहली गणना का नियम है: ${concept}।`,
+  (concept) => `इस स्थिति में ${concept}।`,
+  (concept) => `सीधे हल के लिए ${concept}।`,
+  (concept) => `अगली गणना से पहले ${concept}।`,
+  (concept) => `पहला गणितीय संबंध है: ${concept}।`,
+  (concept) => `इस प्रश्न में उपयोगी नियम है: ${concept}।`,
+  (concept) => `मान रखने से पहले ${concept}।`,
+  (concept) => `हल का आधार यह है: ${concept}।`,
+  (concept) => `गणना शुरू करते हुए ${concept}।`,
+  (concept) => `इस चरण का नियम है: ${concept}।`,
+  (concept) => `प्रारंभ में ध्यान दें: ${concept}।`,
+  (concept) => `यहाँ आवश्यक नियम है: ${concept}।`,
+  (concept) => `सीधी गणना का नियम है: ${concept}।`,
+  (concept) => `पहले यह गणितीय संबंध तय करें: ${concept}।`,
+  (concept) => `हल के पहले चरण का आधार है: ${concept}।`,
+];
+
+const PA_OPENINGS: readonly OpeningTemplate[] = [
+  (concept) => `${concept}।`,
+  (concept) => `ਇੱਥੇ ${concept}।`,
+  (concept) => `ਸਿੱਧਾ ਨਿਯਮ ਹੈ: ${concept}।`,
+  (concept) => `ਗਣਨਾ ਦਾ ਆਧਾਰ ਹੈ: ${concept}।`,
+  (concept) => `ਪਹਿਲਾਂ ਇਹ ਸੰਬੰਧ ਲਵੋ: ${concept}।`,
+  (concept) => `ਹੱਲ ਸ਼ੁਰੂ ਕਰਦੇ ਸਮੇਂ ${concept}।`,
+  (concept) => `ਮੁੱਖ ਗਣਿਤਕ ਤੱਥ ਹੈ: ${concept}।`,
+  (concept) => `ਸ਼ੁਰੂ ਵਿੱਚ ਇਹ ਸੰਬੰਧ ਲਵੋ: ${concept}।`,
+  (concept) => `ਪਹਿਲੀ ਗਣਨਾ ਦਾ ਨਿਯਮ ਹੈ: ${concept}।`,
+  (concept) => `ਇਸ ਸਥਿਤੀ ਵਿੱਚ ${concept}।`,
+  (concept) => `ਸਿੱਧੇ ਹੱਲ ਲਈ ${concept}।`,
+  (concept) => `ਅਗਲੀ ਗਣਨਾ ਤੋਂ ਪਹਿਲਾਂ ${concept}।`,
+  (concept) => `ਪਹਿਲਾ ਗਣਿਤਕ ਸੰਬੰਧ ਹੈ: ${concept}।`,
+  (concept) => `ਇਸ ਸਵਾਲ ਵਿੱਚ ਲਾਭਦਾਇਕ ਨਿਯਮ ਹੈ: ${concept}।`,
+  (concept) => `ਮੁੱਲ ਰੱਖਣ ਤੋਂ ਪਹਿਲਾਂ ${concept}।`,
+  (concept) => `ਹੱਲ ਦਾ ਆਧਾਰ ਇਹ ਹੈ: ${concept}।`,
+  (concept) => `ਗਣਨਾ ਸ਼ੁਰੂ ਕਰਦੇ ਹੋਏ ${concept}।`,
+  (concept) => `ਇਸ ਪੜਾਅ ਦਾ ਨਿਯਮ ਹੈ: ${concept}।`,
+  (concept) => `ਸ਼ੁਰੂ ਵਿੱਚ ਧਿਆਨ ਦਿਓ: ${concept}।`,
+  (concept) => `ਇੱਥੇ ਲੋੜੀਂਦਾ ਨਿਯਮ ਹੈ: ${concept}।`,
+  (concept) => `ਸਿੱਧੀ ਗਣਨਾ ਦਾ ਨਿਯਮ ਹੈ: ${concept}।`,
+  (concept) => `ਪਹਿਲਾਂ ਇਹ ਗਣਿਤਕ ਸੰਬੰਧ ਤੈਅ ਕਰੋ: ${concept}।`,
+  (concept) => `ਹੱਲ ਦੇ ਪਹਿਲੇ ਪੜਾਅ ਦਾ ਆਧਾਰ ਹੈ: ${concept}।`,
+];
+
+function stripClosingPunctuation(value: string) {
+  return value.trim().replace(/[.!?।]+$/u, "");
+}
 
 export function finalizeAvg001LocalizedExplanationOpeningVariant(
   pkg: Avg001QuestionPackage,
 ): Avg001QuestionPackage {
+  if (pkg.language !== "hi" && pkg.language !== "pa") return pkg;
+
   const lines = [...pkg.explanation.lines];
-  if (lines.length === 0 || (pkg.language !== "hi" && pkg.language !== "pa")) return pkg;
+  if (lines.length === 0) return pkg;
 
-  const continuations = pkg.language === "hi" ? HI_CONTINUATIONS : PA_CONTINUATIONS;
   const variant = Number(pkg.traceability.explanationOpeningVariant);
-  if (!Number.isInteger(variant) || variant < 0 || variant >= continuations.length) return pkg;
+  const openings = pkg.language === "hi" ? HI_OPENINGS : PA_OPENINGS;
+  if (!Number.isInteger(variant) || variant < 0 || variant >= openings.length) return pkg;
 
-  if (continuations.some((continuation) => continuation && lines[0].endsWith(continuation))) return pkg;
+  const concept = stripClosingPunctuation(lines[0]);
+  const opening = openings[variant];
+  if (!opening) return pkg;
 
-  const continuation = continuations[variant];
-  if (!continuation) return pkg;
-
-  lines[0] = `${lines[0]}${continuation}`;
+  lines[0] = opening(concept);
   return {
     ...pkg,
     explanation: {
