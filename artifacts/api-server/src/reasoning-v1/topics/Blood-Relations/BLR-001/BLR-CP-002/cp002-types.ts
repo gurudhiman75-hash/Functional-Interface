@@ -56,6 +56,12 @@ export interface BlrRoleAssertion {
   reference: BlrEntityExpression;
 }
 
+export interface BlrRoleCardinalityConstraint {
+  reference: BlrEntityExpression;
+  relationId: BlrRoleId;
+  cardinality: "NONE";
+}
+
 export interface BlrCp002Query {
   subject: BlrEntityExpression;
   reference: BlrEntityExpression;
@@ -68,6 +74,7 @@ export interface BlrCp002StructuredPrompt {
   pointedPersonId?: string;
   personNames: Readonly<Record<string, string>>;
   familyGraph: FamilyGraph;
+  constraints: readonly BlrRoleCardinalityConstraint[];
   assertion: BlrRoleAssertion;
   query: BlrCp002Query;
 }
@@ -86,6 +93,8 @@ export interface BlrCp002Solution {
   queryReferenceId: string;
   pathPersonIds: readonly string[];
   pathLength: number;
+  constraintsVerified: true;
+  constraintTrace: readonly string[];
   assertionVerified: true;
   subjectExpression: BlrCp002SolvedExpression;
   referenceExpression: BlrCp002SolvedExpression;
@@ -128,9 +137,11 @@ export interface GeneratedBlrCp002PrototypeQuestion {
     assertionRoleDepth: number;
     queryRoleDepth: number;
     onlyConstraintCount: number;
+    negativeConstraintCount: number;
     pathLength: number;
     selfIdentity: boolean;
     familyGraphValid: true;
+    constraintsVerified: true;
     assertionVerified: true;
     independentSolverAgreed: true;
     ambiguityAccepted: true;
