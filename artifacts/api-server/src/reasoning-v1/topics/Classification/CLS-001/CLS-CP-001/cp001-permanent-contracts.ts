@@ -1,10 +1,11 @@
 import type { ClassificationTask, PrototypeId } from "./types";
 
-export type ClsCp001QlId = "CLS-QL-001" | "CLS-QL-002";
+export type ClsCp001QlId = "CLS-QL-001" | "CLS-QL-002" | "CLS-QL-003";
 
 export type ClsCp001SolveContractId =
-  | "CP001-FIND-SEMANTIC-OUTLIER-FROM-FOUR"
-  | "CP001-SELECT-MEMBER-OF-SHARED-SEMANTIC-CLASS";
+  | "CP001-FIND-SEMANTIC-OUTLIER"
+  | "CP001-SELECT-MEMBER-OF-SHARED-SEMANTIC-CLASS"
+  | "CP001-SELECT-COHERENT-SEMANTIC-GROUP";
 
 export type ClsCp001PermanentContract = {
   readonly qlId: ClsCp001QlId;
@@ -22,7 +23,7 @@ export const CLS_CP001_PERMANENT_CONTRACTS: readonly ClsCp001PermanentContract[]
   {
     qlId: "CLS-QL-001",
     checkpointId: "CLS-CP-001",
-    solveContractId: "CP001-FIND-SEMANTIC-OUTLIER-FROM-FOUR",
+    solveContractId: "CP001-FIND-SEMANTIC-OUTLIER",
     task: "FIND_OUTLIER",
     allowedPrototypeIds: [
       "CLS-CP001-PROT-001",
@@ -45,6 +46,17 @@ export const CLS_CP001_PERMANENT_CONTRACTS: readonly ClsCp001PermanentContract[]
       "CLS-CP001-PROT-004",
       "CLS-CP001-PROT-007",
     ],
+    status: "MULTILINGUAL_RUNTIME_PROOF",
+    reviewOnly: true,
+    publiclyPublishable: false,
+    questionStudioVisible: false,
+  },
+  {
+    qlId: "CLS-QL-003",
+    checkpointId: "CLS-CP-001",
+    solveContractId: "CP001-SELECT-COHERENT-SEMANTIC-GROUP",
+    task: "SELECT_COHERENT_GROUP",
+    allowedPrototypeIds: ["CLS-CP001-PROT-008"],
     status: "MULTILINGUAL_RUNTIME_PROOF",
     reviewOnly: true,
     publiclyPublishable: false,
