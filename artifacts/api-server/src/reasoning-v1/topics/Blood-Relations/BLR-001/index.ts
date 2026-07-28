@@ -15,3 +15,4 @@ export * from "./BLR-CP-001/lineage-prototype-types";
 export * from "./BLR-CP-001/lineage-prototype-contracts";
 export * from "./BLR-CP-001/lineage-prototype-generator";
 export * from "./BLR-CP-001/lineage-prototype-solver";
+export * from "./BLR-CP-001/cp001-review-registry";
