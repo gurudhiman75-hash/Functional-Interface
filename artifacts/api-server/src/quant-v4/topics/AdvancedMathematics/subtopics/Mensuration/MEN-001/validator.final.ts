@@ -20,6 +20,8 @@ const FOUR_TIER_HEADINGS = [
   "### ⚠️ Common Traps",
 ] as const;
 
+const ROBOTIC_EXPLANATION_PATTERN = /\b(?:governing relation|required stage|rearrange the relevant|isolate the|fixes the|supplies the complete boundary|requested result|geometric quantity|evaluate the displayed)\b/i;
+
 function check(name: string, passed: boolean, message: string): Men001ValidationCheck {
   return { name, passed, message };
 }
@@ -43,6 +45,9 @@ export function validateMen001QuestionPackage(
     question.questionLanguageId,
   );
   const explanationLines = question.explanation.lines;
+  const keyRule = question.explanation.sections.find(
+    (section) => section.kind === "KEY_RULE",
+  );
   const structuredSteps = question.explanation.sections.filter(
     (section) => section.kind === "STEP",
   );
@@ -53,12 +58,15 @@ export function validateMen001QuestionPackage(
   checks.push(check(
     "natural-explanation-profile",
     Boolean(profile),
-    "Every QL must have a deliberately authored explanation profile.",
+    "Every QL must retain its authored context profile as the source for humanized explanation generation.",
   ));
   checks.push(check(
     "natural-explanation-opening",
-    Boolean(profile) && explanationLines[0]?.includes(profile!.opening) === true,
-    "The Key Rule tier must retain its QL-specific, context-aware opening.",
+    Boolean(keyRule) &&
+      keyRule!.paragraphs.length === 1 &&
+      keyRule!.paragraphs[0]!.length >= 35 &&
+      !ROBOTIC_EXPLANATION_PATTERN.test(keyRule!.paragraphs[0]!),
+    "The Key Rule tier must begin with one plain, intuitive teacher-style concept explanation.",
   ));
   checks.push(check(
     "natural-explanation-conclusion",
@@ -79,7 +87,7 @@ export function validateMen001QuestionPackage(
   ));
   checks.push(check(
     "natural-explanation-no-fifth-block",
-    explanationLines.every((line) => !/Final Answer/i.test(line)) &&
+    explanationLines.every((line) => !/^###\s+.*Final Answer/im.test(line)) &&
       question.explanation.sections.every((section) => section.kind !== "FINAL_ANSWER"),
     "The final result belongs inside the worked solution and must not appear as a fifth block.",
   ));
@@ -92,9 +100,9 @@ export function validateMen001QuestionPackage(
     "natural-explanation-no-generic-padding",
     explanationLines.every((line) => {
       const body = line.replace(/^### [^\n]+\n+/, "");
-      return !genericPaddingPattern.test(body);
+      return !genericPaddingPattern.test(body) && !ROBOTIC_EXPLANATION_PATTERN.test(body);
     }),
-    "Explanations must not use formula labels, repeated check lines or generic unit padding.",
+    "Explanations must not use robotic formula labels, taxonomy prose or generic padding.",
   ));
 
   if ([

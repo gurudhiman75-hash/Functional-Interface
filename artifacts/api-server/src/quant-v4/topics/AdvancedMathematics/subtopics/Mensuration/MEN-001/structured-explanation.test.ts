@@ -39,8 +39,13 @@ assert.equal(
 );
 assert.equal(
   toMen001LatexEquation("increase % = [(1 + p/100)² − 1] × 100"),
-  "\\text{increase} \\% = [(1 + p/100)^{2} - 1] \\times 100",
-  "Percentage-change variables must not be converted into prose.",
+  "\\text{increase} \\% = [(1 + \\frac{p}{100})^{2} - 1] \\times 100",
+  "Percentage-change variables must remain mathematical and division must use a LaTeX fraction.",
+);
+assert.equal(
+  toMen001LatexEquation("L = 2 × 22/7 × 28 = 176 m"),
+  "L = 2 \\times \\frac{22}{7} \\times 28 = 176\\,\\text{m}",
+  "Numeric divisions in display equations must use \\frac rather than a raw slash.",
 );
 assert.equal(
   toMen001LatexEquation("n = 2640 ÷ 220 = 12"),
@@ -110,6 +115,10 @@ for (const entry of getMen001QuestionEntries()) {
         `${entry.qlId} contains a possessive-text or square-unit LaTeX regression.`,
       );
       assert.ok(
+        section.equations.every((equation) => !equation.includes("/")),
+        `${entry.qlId} contains a raw division slash instead of a LaTeX fraction.`,
+      );
+      assert.ok(
         section.paragraphs.every((paragraph) => !forbiddenParagraphs.has(paragraph)),
         `${entry.qlId} contains a generic filler paragraph.`,
       );
@@ -148,5 +157,5 @@ for (const entry of getMen001QuestionEntries()) {
 }
 
 console.log(
-  `MEN-001 structured explanation audit passed for ${getMen001QuestionEntries().length} QLs, ${getMen001SolveModeIds().length} solve modes and three deterministic states each with an exact four-tier structure, MathJax-ready equations and the final result inside the worked solution.`,
+  `MEN-001 structured explanation audit passed for ${getMen001QuestionEntries().length} QLs, ${getMen001SolveModeIds().length} solve modes and three deterministic states each with an exact four-tier structure, MathJax-ready fractions and the final result inside the worked solution.`,
 );

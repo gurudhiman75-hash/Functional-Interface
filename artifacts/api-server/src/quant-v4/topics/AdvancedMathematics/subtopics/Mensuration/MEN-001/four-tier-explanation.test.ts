@@ -77,7 +77,7 @@ for (const entry of getMen001QuestionEntries()) {
     exactHeadings.forEach((heading, index) => {
       assert.ok(question.explanation.lines[index]?.startsWith(heading), `${entry.qlId} block ${index + 1} must start with ${heading}.`);
     });
-    assert.ok(question.explanation.lines.every((line) => !/Final Answer/i.test(line)), `${entry.qlId} retains a separate Final Answer heading.`);
+    assert.ok(question.explanation.lines.every((line) => !/^###\s+.*Final Answer/im.test(line)), `${entry.qlId} retains a separate Final Answer heading.`);
 
     const shortcutBlock = shortcuts[0]!;
     assert.ok(
@@ -113,10 +113,10 @@ assert.ok(triangleShortcut?.paragraphs.some((paragraph) => /Halve an even base o
 assert.ok(triangle.explanation.sections.find((section) => section.kind === "COMMON_TRAPS")?.paragraphs.some((paragraph) => /1\/2|\\frac\{1\}\{2\}/.test(paragraph)));
 
 const tripletRatio = generate("MEN-CP-001", "MEN-001-QL-020", "men-001-human-review:MEN-001-QL-020:0");
-assert.ok(tripletRatio.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT")?.paragraphs.some((paragraph) => /Pythagorean triplet/.test(paragraph)));
+assert.ok(tripletRatio.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT")?.paragraphs.some((paragraph) => /Pythagorean Triplet/i.test(paragraph)));
 const nonTripletRatio = generate("MEN-CP-001", "MEN-001-QL-020", "men-001-human-review:MEN-001-QL-020:1");
 assert.ok(nonTripletRatio.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT"));
-assert.ok(nonTripletRatio.explanation.sections.every((section) => section.kind !== "EXAM_SHORTCUT" || section.paragraphs.every((paragraph) => !/Pythagorean triplet/.test(paragraph))));
+assert.ok(nonTripletRatio.explanation.sections.every((section) => section.kind !== "EXAM_SHORTCUT" || section.paragraphs.every((paragraph) => !/Pythagorean Triplet/i.test(paragraph))));
 
 const percentage = generate("MEN-CP-006", "MEN-001-QL-414", "men-001-human-review:MEN-001-QL-414:1");
 assert.ok(percentage.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT")?.equations.some((equation) => /2\s*\\times\s*20/.test(equation) && /44\\%/.test(equation)));
@@ -127,7 +127,7 @@ assert.deepEqual(wireSteps.map((step) => step.title), ["Find the Wire Length", "
 assert.ok(wire.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT")?.paragraphs.some((paragraph) => /s = πr\/2/.test(paragraph)));
 const wireTraps = wire.explanation.sections.find((section) => section.kind === "COMMON_TRAPS");
 assert.equal(wireTraps?.paragraphs.length, 3);
-assert.ok(wireTraps?.paragraphs.some((paragraph) => /circle area/i.test(paragraph)));
+assert.ok(wireTraps?.paragraphs.some((paragraph) => /(?:circle area|area of the original circle|original circle's area)/i.test(paragraph)));
 assert.ok(wireTraps?.paragraphs.every((paragraph) => !forbiddenTrapLanguage.test(paragraph)));
 
 console.log(`MEN-001 exact four-tier explanation audit passed for ${audited} generated states.`);

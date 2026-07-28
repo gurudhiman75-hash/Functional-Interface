@@ -3,6 +3,9 @@ import { getMen001QuestionEntry } from "./library";
 import { authorFinalMen001ExplanationLines } from "./natural-explanation-authorship-final";
 import { getMen001SolveModeDefinition } from "./solve-mode-registry.all";
 import { buildMen001CommonTraps, type Men001OptionResult } from "./structured-common-traps";
+import { humanizeMen001Comprehension } from "./structured-comprehension-humanizer";
+import { refineMen001Comprehension } from "./structured-comprehension-refiner";
+import { ensureMen001ComprehensionSpecificity } from "./structured-comprehension-specificity";
 import { buildMen001StructuredExplanation } from "./structured-explanation";
 import { enhanceMen001StructuredSections } from "./structured-explanation-enhancer";
 import { addMen001ExamShortcut } from "./structured-exam-shortcuts";
@@ -61,10 +64,23 @@ export function renderMen001Explanation(
     parameters,
     solver,
   );
-  const sections = latexizeMen001StructuredSections([
-    ...addMen001ExamShortcut(exactWorkedSections, parameters, solver),
-    buildMen001CommonTraps(entry, optionResult),
-  ]);
+  const teacherSections = humanizeMen001Comprehension(
+    [
+      ...addMen001ExamShortcut(exactWorkedSections, parameters, solver),
+      buildMen001CommonTraps(entry, optionResult),
+    ],
+    parameters,
+    solver,
+  );
+  const refinedSections = refineMen001Comprehension(
+    teacherSections,
+    parameters,
+  );
+  const specificSections = ensureMen001ComprehensionSpecificity(
+    refinedSections,
+    parameters,
+  );
+  const sections = latexizeMen001StructuredSections(specificSections);
   return {
     strategyId: entry.explanationStrategyId,
     displayFormat: "FOUR_TIER_COMPETITIVE_EXPLANATION",

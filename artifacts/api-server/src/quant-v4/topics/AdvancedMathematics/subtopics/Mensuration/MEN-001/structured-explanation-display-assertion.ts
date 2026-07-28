@@ -76,7 +76,7 @@ export function assertMen001StructuredExplanation(
       throw new Error(`MEN-001 compatibility block ${index + 1} must begin with ${heading}.`);
     }
   });
-  if (explanation.lines.some((line) => /Final Answer/i.test(line))) {
+  if (explanation.lines.some((line) => /^###\s+.*Final Answer/im.test(line))) {
     throw new Error("MEN-001 compatibility output must not retain a separate Final Answer heading.");
   }
 }
