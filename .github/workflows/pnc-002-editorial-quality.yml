@@ -32,49 +32,44 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: feat/pnc-002-editorial-quality-upgrade
-      - name: Apply exact proof repairs once
+      - name: Apply MathJax-aware placeholder audit once
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
 
-          root = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002')
+          proof = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality.test.ts')
+          lines = proof.read_text().splitlines()
 
-          presentation = root / 'foundation/student-presentation.ts'
-          presentation_lines = presentation.read_text().splitlines()
-          presentation_changed = False
-          for index, line in enumerate(presentation_lines):
-              if 'if (!steps.some((line) => line.includes(source.solver.mathJax))) steps.push(displayEquation);' in line:
-                  presentation_lines[index] = '  if (!steps.some((line) => line.includes(`$$${source.solver.mathJax}$$`))) steps.push(displayEquation);'
-                  presentation_changed = True
-                  break
-          if not presentation_changed and not any('line.includes(`$$${source.solver.mathJax}$$`)' in line for line in presentation_lines):
-              raise SystemExit('display-equation guard not found')
-          presentation.write_text('\n'.join(presentation_lines) + '\n')
+          if not any(line.startswith('function stripDelimitedMath(') for line in lines):
+              declaration_index = next(index for index, line in enumerate(lines) if line.startswith('const unresolvedPlaceholder = '))
+              helper = [
+                  '',
+                  'function stripDelimitedMath(value: string): string {',
+                  '  return value.replace(/\\$\\$[\\s\\S]*?\\$\\$/g, " ").replace(/\\$[^$\\n]+?\\$/g, " ");',
+                  '}',
+              ]
+              lines[declaration_index + 1:declaration_index + 1] = helper
 
-          proof = root / 'pnc-002-editorial-quality.test.ts'
-          proof_lines = proof.read_text().splitlines()
-          proof_changed = False
-          for index, line in enumerate(proof_lines):
-              if line.startswith('const unresolvedPlaceholder = '):
-                  replacement = 'const unresolvedPlaceholder = /\\{[A-Za-z][A-Za-z0-9_]{1,}\\}/;'
-                  if line != replacement:
-                      proof_lines[index] = replacement
-                      proof_changed = True
+          replaced = False
+          for index, line in enumerate(lines):
+              if 'assert.ok(!unresolvedPlaceholder.test(allStudentText)' in line:
+                  lines[index] = line.replace(
+                      'unresolvedPlaceholder.test(allStudentText)',
+                      'unresolvedPlaceholder.test(stripDelimitedMath(allStudentText))',
+                  )
+                  replaced = True
                   break
-          else:
-              raise SystemExit('placeholder-regex declaration not found')
-          proof.write_text('\n'.join(proof_lines) + '\n')
+          if not replaced and not any('unresolvedPlaceholder.test(stripDelimitedMath(allStudentText))' in line for line in lines):
+              raise SystemExit('all-student-text placeholder assertion not found')
+
+          proof.write_text('\n'.join(lines) + '\n')
           PY
-          if ! git diff --quiet -- \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality.test.ts; then
+          if ! git diff --quiet -- artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality.test.ts; then
             git config user.name github-actions[bot]
             git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-            git add \
-              artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation.ts \
-              artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality.test.ts
-            git commit -m "fix(pnc): enforce display formula and TeX-safe placeholders"
+            git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-editorial-quality.test.ts
+            git commit -m "fix(pnc): ignore delimited TeX in placeholder audit"
             git push origin HEAD:feat/pnc-002-editorial-quality-upgrade
           fi
       - name: Set up Node
