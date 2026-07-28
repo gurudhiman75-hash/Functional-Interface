@@ -6,6 +6,8 @@ on:
       - feat/blr-001-cp002-pointer-runtime
     paths:
       - ".github/workflows/sync-blr-cp002-with-new-main.yml"
+  pull_request:
+    types: [opened, reopened, synchronize]
 
 permissions:
   contents: read
