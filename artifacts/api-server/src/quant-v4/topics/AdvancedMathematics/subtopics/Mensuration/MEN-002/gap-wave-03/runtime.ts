@@ -545,7 +545,7 @@ function prismPerimeterInverseDraft(prototypeId: MenCp007Wave03PrototypeId, seed
       { title: "Remove the Two Bases", body: "Subtract twice the base area from the total surface area.", equation: `$$Ph=${tsa}-2\\times${state.baseArea}=${state.basePerimeter * state.height}\\text{ cm}^{2}$$` },
       { title: "Divide by the Prism Height", body: "This recovers the boundary length of the base.", equation: `$$P=\\frac{${state.basePerimeter * state.height}}{${state.height}}=${state.basePerimeter}\\text{ cm}$$` },
     ],
-    shortcut: `Use $P=\frac{TSA-2A_{base}}{h}$.`,
+    shortcut: `Use $P=\\frac{TSA-2A_{base}}{h}$.`,
   };
 }
 
@@ -787,6 +787,7 @@ function validatePackage(question: Omit<MenCp007Wave03Package, "validation">) {
     { name: "state-derived difficulty", passed: question.difficulty === classifyMenCp007Wave03Difficulty(question.state), message: "Difficulty must derive from canonical state." },
     { name: "four-tier teaching", passed: Boolean(question.explanation.keyRule) && question.explanation.steps.length >= 2 && Boolean(question.explanation.shortcut) && question.explanation.traps.length === 3, message: "Rule, steps, shortcut and three traps are required." },
     { name: "MathJax cleanliness", passed: !/[½¼²³]/.test(learnerText) && !/(^|[^\\])sqrt\{/.test(explanationText) && !/\$\$[^$]*\/[^$]*\$\$/.test(explanationText), message: "Use MathJax fractions, powers, roots and division." },
+    { name: "control characters", passed: !/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/.test(learnerText), message: "Learner text must not contain hidden control characters." },
     { name: "currency locale", passed: !/₹/.test(learnerText), message: "Generic money must use en-GB pounds sterling." },
     { name: "lifecycle lock", passed: question.permanentQlId === null && !question.publiclyPublishable && !question.questionStudioDiscoverable, message: "Wave prototypes must remain unallocated and unpublished." },
   ];

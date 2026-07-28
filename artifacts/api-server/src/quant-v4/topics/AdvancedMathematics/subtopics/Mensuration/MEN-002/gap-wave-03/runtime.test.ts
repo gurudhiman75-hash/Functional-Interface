@@ -80,6 +80,7 @@ for (const prototypeId of prototypeIds) {
     assert.equal(/[½¼²³]/.test(learnerText), false, `${prototypeId} contains raw Unicode fractions or powers.`);
     assert.equal(/(^|[^\\])sqrt\{/.test(explanationText), false, `${prototypeId} contains bare square-root markup.`);
     assert.equal(/\$\$[^$]*\/[^$]*\$\$/.test(explanationText), false, `${prototypeId} contains raw slash division in display maths.`);
+    assert.equal(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/.test(learnerText), false, `${prototypeId} contains a hidden control character.`);
     assert.equal(
       /MEN-CP007|W3-PROT|misconceptionId|ADDED_|USED_|OMITTED_|REPORTED_|DIVIDED_|SUBTRACTED_|STOPPED_|COUNTED_|CHOSE_|PAINTED_|MIXED_|CONVERTED_|NEARBY_|FOUND_|TOP_ONLY|EXTRA_/.test(JSON.stringify(first.explanation)),
       false,
