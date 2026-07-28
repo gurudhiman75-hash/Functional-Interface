@@ -35,3 +35,6 @@ export * from "./BLR-CP-002/cp002-canonical-scenario-registry";
 export * from "./BLR-CP-002/cp002-generator";
 export * from "./BLR-CP-002/cp002-editorial-upgrader";
 export * from "./BLR-CP-002/cp002-review-registry";
+export * from "./BLR-CP-002/cp002-permanent-contracts";
+export * from "./BLR-CP-002/cp002-runtime";
+export * from "./BLR-CP-002/cp002-final-discovery-freeze";
