@@ -11,7 +11,7 @@ export type GeneratedCp010Question = Omit<
   prototypeOnly: false;
   reviewOnly: true;
   questionStudioVisible: false;
-  metadata: GeneratedCp010PrototypeQuestion["metadata"] & {
+  metadata: Omit<GeneratedCp010PrototypeQuestion["metadata"], "runtimeVersion"> & {
     runtimeVersion: "cod-cp010-runtime-v1";
     sourcePrototypeId: "COD-CP010-PROT-APPLY-CONDITIONAL-TABLE";
     solveContractId: "APPLY_CONDITIONAL_TABLE_FORWARD";
