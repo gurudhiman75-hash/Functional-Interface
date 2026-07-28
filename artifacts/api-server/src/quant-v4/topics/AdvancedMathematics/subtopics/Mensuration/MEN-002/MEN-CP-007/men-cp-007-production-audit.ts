@@ -164,10 +164,17 @@ for (const track of tracks) {
   }
 }
 
+const allowedPresentationEquivalentOwners = new Set([
+  [
+    "foundation:MEN-CP007-PROT-CUBOID-SPACE-DIAGONAL",
+    "foundation:MEN-CP007-PROT-LONGEST-ROD-CUBOID",
+  ].sort().join("|"),
+]);
 const crossContractShortcutDuplicates = [...shortcutOwners.entries()]
   .filter(([, owners]) => owners.size > 1)
-  .map(([shortcut, owners]) => ({ shortcut, owners: [...owners] }));
-assert.deepEqual(crossContractShortcutDuplicates, [], "The same shortcut text is reused across distinct CP-007 contracts.");
+  .map(([shortcut, owners]) => ({ shortcut, owners: [...owners].sort() }))
+  .filter(({ owners }) => !allowedPresentationEquivalentOwners.has(owners.join("|")));
+assert.deepEqual(crossContractShortcutDuplicates, [], "The same shortcut text is reused across genuinely distinct CP-007 contracts.");
 assert.equal(prototypeCount, 64);
 assert.equal(packageCount, 5_120);
 assert.ok(currencyPackageCount > 0, "The CP-wide audit must exercise rupee cost and rate packages.");
