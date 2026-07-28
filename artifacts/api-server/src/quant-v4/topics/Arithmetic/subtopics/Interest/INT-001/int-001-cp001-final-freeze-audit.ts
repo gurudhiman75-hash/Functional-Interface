@@ -80,7 +80,19 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
     }
     if (/\{\{[^}]+\}\}/u.test(learnerText)) fail(`${entry.qlId}/${seed} contains a template placeholder.`);
     if (/\ba (?:education|equipment) loan\b/iu.test(learnerText)) fail(`${entry.qlId}/${seed} contains an article error.`);
-    if (/\bFind\b[^.?!]*\?/u.test(item.stem) || /\bDetermine\b[^.?!]*\?/u.test(item.stem)) fail(`${entry.qlId}/${seed} uses an imperative question fragment.`);
+    if (!item.stem.endsWith("?")) fail(`${entry.qlId}/${seed} stem is not a complete interrogative question.`);
+    if (/(?:^|[.!?]\s+)(?:Find|Determine)\b/u.test(item.stem)) fail(`${entry.qlId}/${seed} uses an imperative question fragment.`);
+    if (/^For .+ earns /u.test(item.stem)) fail(`${entry.qlId}/${seed} uses a malformed 'For ... earns' opening.`);
+    if (/\bratio\s+\d+:\d+\s+of\b/iu.test(item.stem)) fail(`${entry.qlId}/${seed} uses an unreadable ratio-of construction.`);
+
+    if (entry.qlId === "INT-QL-021") {
+      for (const [optionIndex, option] of item.optionAudit.entries()) {
+        const value = option.result.value as { denominator?: bigint };
+        if (typeof value.denominator !== "bigint" || value.denominator > 2n) {
+          fail(`${entry.qlId}/${seed} option ${optionIndex + 1} is not a whole- or half-year duration.`);
+        }
+      }
+    }
 
     for (const option of item.options) {
       if (/^₹-?\d+ \d+\/\d+$/u.test(option) || /^₹-?\d+\/\d+$/u.test(option)) fractionalMoneyOptions += 1;
