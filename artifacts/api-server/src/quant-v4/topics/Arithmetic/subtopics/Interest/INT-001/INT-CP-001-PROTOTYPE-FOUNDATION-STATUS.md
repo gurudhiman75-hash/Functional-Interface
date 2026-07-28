@@ -1,8 +1,9 @@
 # INT-001 / CP-001 Prototype Foundation Status
 
-Status: **implementation complete; exact-head CI and manual editorial review pending**  
+Status: **exact-head runtime proof passed; first English self-review completed; human approval and QL freeze pending**  
 Branch: `feat/int-001-cp001-prototype-foundation`  
-Base: `design/int-001-end-to-end-discovery`
+Base: `design/int-001-end-to-end-discovery`  
+Exact proven head: `65dc52d0727c262c83a7578c959fcc90fa8f4897`
 
 ## Safety inventory
 
@@ -47,6 +48,7 @@ The list is a first executable discovery wave, not a final QL inventory.
 - exact percentage-to-rate conversion;
 - exact year, month and stated 365-day conversion;
 - valid-state-first principal/rate/time construction;
+- exact scaling when a hidden state would otherwise yield fractional money;
 - exact interest and amount invariants;
 - no floating-point equality;
 - no tolerance-based correctness;
@@ -79,33 +81,110 @@ The independent verifier does not call the solver:
 - value-specific calculations and verification;
 - misconception-labelled distractors;
 - correct-answer position rotation;
-- structured reasoning graphs.
+- structured reasoning graphs;
+- independent context-opening variation;
+- natural interrogative question forms;
+- integral-rupee answers and options for money semantics.
 
-## Automated evidence
+## Exact automated evidence
 
-The focused workflow bundles and runs:
+Workflow: `Validate INT-CP-001 prototype foundation`  
+Run: `30321735504`  
+Conclusion: **success**  
+Evidence artifact: `8674247524`  
+Artifact digest: `sha256:7dd155c221c5a4ef713c14b2c9d4d9088409b9d6511edd351b141cf237b84ae4`
 
-1. deterministic proof across 16 prototypes and 120 seeds each;
-2. structural/editorial audit across 16 prototypes and 80 seeds each;
-3. deterministic JSON and Markdown review export with three samples per prototype.
+### Deterministic proof
 
-The proof checks lifecycle safety, exact solver/verifier agreement, unique inverse solutions, four unique options, answer-position coverage, context and mathematical diversity, explanation depth and reasoning-graph structure.
+```text
+16 prototypes × 120 seeds = 1,920 generated cases
+```
+
+Passed:
+
+- deterministic regeneration;
+- exact canonical solver and independent verifier agreement;
+- exactly one admissible inverse solution;
+- four unique options and exactly one correct answer;
+- all four correct-answer positions for every prototype;
+- Easy, Medium and Hard reachability;
+- six answer semantics;
+- per-prototype stem, explanation, mathematical-fingerprint and answer diversity;
+- complete lifecycle and publication safety.
+
+### Structural and editorial audit
+
+```text
+16 prototypes × 80 seeds = 1,280 generated cases
+```
+
+Observed:
+
+```text
+Easy:                    191
+Medium:                  609
+Hard:                    480
+Context families:          8
+Most repeated opening:     30
+Fractional money options:   0
+```
+
+The audit also passed:
+
+- 23 chapter-wide option labels including `CORRECT`;
+- all eight contexts for every prototype;
+- no unresolved placeholders or non-finite text;
+- no lowercase stem openings;
+- no `Find ...?` or `Determine ...?` fragments;
+- no exposed legacy personal-lending label;
+- no malformed control characters;
+- explanation depth, answer conclusion and verification checks;
+- no public, Question Bank or test eligibility leakage.
+
+### Review export
+
+Generated:
+
+```text
+16 prototypes × 3 samples = 48 English review questions
+```
+
+The first internal editorial inspection found and corrected:
+
+- sentence-final imperative questions;
+- lowercase institution-led openings;
+- an unnatural personal-lending institution label;
+- deterministic opening-template correlation;
+- fractional-rupee distractors;
+- awkward fractional interest-ratio wording;
+- under-diverse inverse-duration answer pools.
+
+The corrected 48-sample pack is available in the exact-head workflow artifact. Human approval remains required before any permanent QL decision.
+
+## First discovery disposition
+
+The initial disposition audit records:
+
+- 13 provisional retain candidates;
+- one provisional presentation merge;
+- two open representation-boundary candidates;
+- no permanent QL allocation.
+
+The disposition is provisional and may change after source-fixture recovery and the remaining gap prototypes.
 
 ## Open discovery work
 
 Before any permanent QL allocation:
 
-- inspect the generated English review pack;
-- classify each prototype as retain, merge, split, defer, reassign or reject;
-- audit principal-from-interest versus principal-from-amount ownership;
-- audit rate/time inverses from interest versus amount evidence;
-- decide whether month/day forms are representations or distinct contracts;
-- audit amount-multiple versus interest-ratio consolidation;
+- obtain human review of the corrected English pack;
 - recover representative fixtures for the relevant legacy families;
-- run the CP-001 source and edge-gap audit;
-- confirm parameter diversity and natural money display;
-- complete English editorial approval.
+- prototype two-time amount-gap and amount-ratio inverses;
+- audit month/day representation across amount and inverse tasks;
+- close amount-multiple versus interest-ratio consolidation;
+- run the final CP-001 source, inverse, edge and representation gap audit;
+- repeat merge/split review after the new prototypes;
+- allocate permanent IDs only from the surviving contracts.
 
 ## Current verdict
 
-`INT-CP-001` has an executable non-QL discovery foundation. It is not QL-frozen, localised, integrated into Question Studio or ready for publication.
+`INT-CP-001` has a CI-proven, review-only, non-QL executable foundation. It is not QL-frozen, localised, integrated into Question Studio or ready for publication.
