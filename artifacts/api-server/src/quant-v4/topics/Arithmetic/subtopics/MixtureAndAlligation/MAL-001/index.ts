@@ -18,7 +18,10 @@ export {
 export { generateMalCp001PrototypeParameters } from "./foundation/cp001-parameter-generator";
 export { generateMalCp001GapParameters } from "./foundation/cp001-gap-generator";
 export { generateMalCp001Prototype } from "./foundation/pipeline";
-export { generateMalCp001GapPrototype } from "./foundation/cp001-gap-pipeline";
+export {
+  generateMalCp001GapRuntimePrototype,
+  generateMalCp001GapRuntimePrototype as generateMalCp001GapPrototype,
+} from "./foundation/cp001-gap-runtime";
 export { generateMalCp001DiscoveryPrototype } from "./foundation/cp001-discovery-pipeline";
 export { solveMalCp001 } from "./foundation/solver";
 export {
