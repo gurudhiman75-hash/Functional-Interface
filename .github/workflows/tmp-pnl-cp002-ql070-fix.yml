@@ -135,3 +135,5 @@ assert.doesNotMatch(
           path: pnl-cp002-ql070-proof.log
           if-no-files-found: warn
           retention-days: 2
+
+# Triggered after review identified the QL-070 disclosure defect.
