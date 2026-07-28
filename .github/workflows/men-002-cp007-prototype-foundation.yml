@@ -64,7 +64,8 @@ jobs:
           --outfile=dist/quant-v4/men-002-cp007-review-export.mjs
 
       - name: Generate MEN-CP-007 review export
-        run: node artifacts/api-server/dist/quant-v4/men-002-cp007-review-export.mjs
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/men-002-cp007-review-export.mjs
 
       - name: Upload MEN-CP-007 proof and review
         if: always()
