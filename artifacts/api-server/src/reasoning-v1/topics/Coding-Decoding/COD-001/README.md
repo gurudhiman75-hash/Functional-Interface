@@ -1,6 +1,6 @@
 # COD-001 — Coding–Decoding
 
-Status: **COD-CP-001 through COD-CP-009 implemented at English runtime-proof maturity; COD-CP-010 has one executable English discovery prototype and zero permanent QLs**.
+Status: **COD-CP-001 through COD-CP-009 implemented at English runtime-proof maturity; COD-CP-010 English discovery frozen under `COD_CP010_ENGLISH_DISCOVERY_FREEZE_V1` with one solve contract and zero permanent QLs in this PR**.
 
 Student-facing chapter: **Coding–Decoding**  
 Reasoning V1 package: `COD-001`  
@@ -55,38 +55,48 @@ Permanent inventory:
 
 The checkpoint contains 16 source-backed task contracts and 24 permanent solve contracts across ten topology families. The permanent runtime wraps the frozen constraint solver rather than recreating its logic.
 
-## COD-CP-010 discovery state
+## COD-CP-010 frozen discovery state
 
-The first source, boundary and merge/split pass retains one non-permanent English prototype contract:
+Freeze version:
+
+```text
+COD_CP010_ENGLISH_DISCOVERY_FREEZE_V1
+```
+
+Exactly one non-permanent solve contract survives:
 
 ```text
 APPLY_CONDITIONAL_TABLE_FORWARD
 ```
 
-It applies a displayed letter/digit lookup table, classifies the first and last source tokens, selects one mutually exclusive condition and applies its override once. Letter versus digit input, vowel/consonant versus odd/even classification, source length and override action are generated-instance properties.
+It applies a displayed letter/digit lookup table, classifies the first and last source tokens, selects one mutually exclusive condition and applies its override once. Letter versus digit input, vowel/consonant versus odd/even classification, source length, table order and override action are generated-instance properties.
 
-The executable prototype covers:
+The executable proof covers:
 
 - letter and digit tables;
-- eight domain/endpoint signatures;
+- all eight domain/endpoint signatures;
 - constant endpoint replacement;
 - endpoint-code interchange;
 - copying the left or right endpoint code to both endpoints;
 - class-wide vowel replacement by a designated table code;
+- all answer positions;
 - Easy, Medium and Hard instances;
-- 800-question deterministic audit coverage.
+- 800 deterministic questions with independent solver agreement.
 
 Inverse decoding, missing-token recovery, hidden-condition inference and overlapping-condition precedence remain excluded for source gaps. CP-010 currently has zero permanent QLs.
 
-The next available chapter identity is `COD-QL-199`.
+After the discovery freeze merges, exactly one identity may be assigned:
+
+```text
+COD-QL-199 — APPLY_CONDITIONAL_TABLE_FORWARD
+```
 
 ## Remaining chapter sequence
 
-1. close CP-010 executable discovery and freeze only if its prototype audit passes;
-2. allocate the frozen CP-010 contract sequentially from `COD-QL-199`;
-3. run chapter-wide English saturation, collision and editorial review;
-4. implement Hindi and Punjabi after English ownership freezes;
-5. connect reviewed content to Question Studio and later publication gates.
+1. allocate and implement the frozen CP-010 contract as `COD-QL-199`;
+2. run chapter-wide English saturation, collision and editorial review;
+3. implement Hindi and Punjabi after English ownership freezes;
+4. connect reviewed content to Question Studio and later publication gates.
 
 ## Release boundary
 
