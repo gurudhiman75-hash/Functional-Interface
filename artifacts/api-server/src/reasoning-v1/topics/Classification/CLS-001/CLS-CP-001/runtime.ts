@@ -23,7 +23,7 @@ import type {
 
 const DATASET_VERSION = "CLS-CP001-SEMANTIC-EN-v2" as const;
 const DIFFICULTY_MODEL = "CLS-CP001-INSTANCE-DIFFICULTY-v1" as const;
-const MAX_GENERATION_ATTEMPTS = 160;
+const MAX_GENERATION_ATTEMPTS = 240;
 
 const LIFECYCLE: Lifecycle = {
   permanentQlId: null,
@@ -102,7 +102,7 @@ function uniqueEntities(values: readonly SemanticEntity[]): SemanticEntity[] {
 
 function requirePrototype(prototypeId: PrototypeId): PrototypeDefinition {
   const prototype = PROTOTYPE_BY_ID.get(prototypeId);
-  if (!prototype) throw new Error(`Unknown CLS prototype: ${prototypeId}`);
+  if (!prototype) throw new Error(`Unknown CLS item prototype: ${prototypeId}`);
   return prototype;
 }
 
@@ -146,8 +146,9 @@ function exclusiveMembers(source: SemanticClass, other: SemanticClass): Semantic
   return entitiesForClass(source).filter((entity) => !classMembership(entity, other.classId));
 }
 
-function viableClassPairs(prototype: PrototypeDefinition): ClassPair[] {
+function viableClassPairs(prototype: PrototypeDefinition, optionCount: 4 | 5): ClassPair[] {
   const intended = classesFromIds(prototype.intendedClassIds);
+  const requiredPositiveCount = prototype.task === "FIND_OUTLIER" ? optionCount - 1 : 4;
   return intended.flatMap((positiveClass) => intended
     .filter((contrastClass) => sameContrastSpace(positiveClass, contrastClass))
     .map((contrastClass) => ({
@@ -156,11 +157,11 @@ function viableClassPairs(prototype: PrototypeDefinition): ClassPair[] {
       positiveExclusive: exclusiveMembers(positiveClass, contrastClass),
       contrastExclusive: exclusiveMembers(contrastClass, positiveClass),
     }))
-    .filter((pair) => pair.positiveExclusive.length >= 4 && pair.contrastExclusive.length >= 1));
+    .filter((pair) => pair.positiveExclusive.length >= requiredPositiveCount && pair.contrastExclusive.length >= 1));
 }
 
-function chooseClassPair(prototype: PrototypeDefinition, rng: Rng): ClassPair {
-  const pairs = viableClassPairs(prototype);
+function chooseClassPair(prototype: PrototypeDefinition, optionCount: 4 | 5, rng: Rng): ClassPair {
+  const pairs = viableClassPairs(prototype, optionCount);
   if (pairs.length === 0) throw new Error(`Prototype ${prototype.prototypeId} has no viable class pair`);
   return pairs[rng.int(pairs.length)]!;
 }
@@ -289,6 +290,10 @@ function solveIndependently(
     };
   }
 
+  if (prototype.task !== "SELECT_CLASS_MEMBER") {
+    throw new Error(`Item solver does not own task '${prototype.task}'`);
+  }
+
   const shared = resolveSharedClass(givens, prototype.eligibleClassIds);
   if (shared.result !== "UNIQUE" || shared.classId === null) {
     throw new Error(`Independent class-member premise failed: ${shared.result}`);
@@ -342,6 +347,7 @@ function calculateDifficultyFeatures(
   const inverseTask = prototype.task === "SELECT_CLASS_MEMBER";
   const crossCutting = prototype.generationProfile === "CROSS_CUTTING";
   const demand = semanticDemand(prototype, intendedClass);
+  const optionCount = displayedEntities.length as 4 | 5;
 
   const score = Math.min(2, intendedClass.hierarchyDepth)
     + (allItemsShareParent ? 1 : 0)
@@ -349,7 +355,8 @@ function calculateDifficultyFeatures(
     + (candidateRuleCount > 1 ? 1 : 0)
     + (inverseTask ? 1 : 0)
     + (crossCutting ? 2 : 0)
-    + demand;
+    + demand
+    + (optionCount === 5 ? 1 : 0);
 
   return {
     hierarchyDepth: intendedClass.hierarchyDepth,
@@ -359,6 +366,7 @@ function calculateDifficultyFeatures(
     inverseTask,
     crossCutting,
     semanticDemand: demand,
+    optionCount,
     score,
   };
 }
@@ -391,13 +399,13 @@ function buildStem(
   }
 
   const templates = [
-    "Three of the following options belong to one class. Which one does not belong to that class?",
-    "Choose the option that is different from the other three.",
+    "Most of the following options belong to one class. Which option does not belong to that class?",
+    "Choose the option that is different from the others.",
     "Which of the following is the odd one out?",
-    "Identify the option that does not share the common classification of the other three.",
-    "Three options can be placed in the same category. Select the remaining option.",
-    "Find the item that cannot be grouped with the other three.",
-    "One option falls outside the class formed by the others. Which is it?",
+    "Identify the option that does not share the common classification of the others.",
+    "All but one option can be placed in the same category. Select the remaining option.",
+    "Find the item that cannot be grouped with the others.",
+    "One option falls outside the class formed by the rest. Which is it?",
     "Select the differently classified option.",
   ];
   return templates[(rng.int(templates.length) + seed) % templates.length]!;
@@ -445,7 +453,7 @@ function buildExplanation(
     .map((entity) => entity.label);
   const positiveLine = `${naturalList(positiveLabels)} are ${semanticClass.label}.`;
   const hierarchyLine = parentText && difficultyFeatures.allItemsShareParent
-    ? `All four items belong to the broader group of ${parentText}, but only those three belong to the more specific group of ${semanticClass.label}.`
+    ? `All displayed items belong to the broader group of ${parentText}, but only those matching items belong to the more specific group of ${semanticClass.label}.`
     : `${answer.label} does not share that classification.`;
   const sameAnswerRules = audit.supports.filter((support) =>
     support.supportCount === options.length - 1 && support.outlierIndex === correctIndex,
@@ -462,8 +470,8 @@ function buildExplanation(
       competitionLine,
     ],
     optionChecks: options.map((entity) => evidenceLine(entity, semanticClass)),
-    examSpeedShortcut: [semanticClass.shortcut, "Confirm the common group on three options before marking the remaining one."],
-    commonTraps: [semanticClass.trap, "Do not stop at a broad similarity that includes all four items."],
+    examSpeedShortcut: [semanticClass.shortcut, "Confirm the common group on the matching options before marking the remaining one."],
+    commonTraps: [semanticClass.trap, "Do not stop at a broad similarity that includes every displayed item."],
   };
 }
 
@@ -474,14 +482,23 @@ function assertNoLearnerLeak(text: string): void {
 }
 
 function validateQuestion(question: GeneratedClassificationQuestion): void {
-  if (question.options.length !== 4 || new Set(question.options.map((option) => option.toLocaleLowerCase("en-IN"))).size !== 4) {
-    throw new Error("Classification question must have four unique options");
+  if (![4, 5].includes(question.options.length)) {
+    throw new Error("Classification item question must have four or five options");
   }
-  if (question.correctIndex < 0 || question.correctIndex > 3 || question.options[question.correctIndex] !== question.answer) {
+  if (new Set(question.options.map((option) => option.toLocaleLowerCase("en-IN"))).size !== question.options.length) {
+    throw new Error("Classification item question must have unique options");
+  }
+  if (question.optionGroups.length !== 0) {
+    throw new Error("Item-level classification must not expose grouped answer options");
+  }
+  if (question.correctIndex < 0 || question.correctIndex >= question.options.length || question.options[question.correctIndex] !== question.answer) {
     throw new Error("Classification answer/index mismatch");
   }
   if (question.ambiguityAudit.result !== "UNIQUE") {
     throw new Error(`Classification ambiguity audit failed: ${question.ambiguityAudit.result}`);
+  }
+  if (question.difficultyFeatures.optionCount !== question.options.length) {
+    throw new Error("Classification difficulty option count does not match rendered options");
   }
   if (question.difficulty !== difficultyFromFeatures(question.difficultyFeatures)) {
     throw new Error("Classification difficulty does not match generated-instance features");
@@ -533,6 +550,7 @@ function questionFromState(
     stem: buildStem(prototype, givens, seed, rng),
     givens: givens.map((entity) => entity.label),
     options: displayedEntities.map((entity) => entity.label),
+    optionGroups: [],
     correctIndex,
     answer: displayedEntities[correctIndex]!.label,
     evidenceByOption: displayedEntities.map((entity) => evidenceLine(entity, intendedClass)),
@@ -561,10 +579,15 @@ function questionFromState(
   return question;
 }
 
-function generateOutlier(prototype: PrototypeDefinition, seed: number, rng: Rng): GeneratedClassificationQuestion {
+function generateOutlier(
+  prototype: PrototypeDefinition,
+  seed: number,
+  rng: Rng,
+  optionCount: 4 | 5,
+): GeneratedClassificationQuestion {
   for (let attempt = 0; attempt < MAX_GENERATION_ATTEMPTS; attempt += 1) {
-    const pair = chooseClassPair(prototype, rng);
-    const positiveEntities = sampleDistinct(pair.positiveExclusive, 3, rng);
+    const pair = chooseClassPair(prototype, optionCount, rng);
+    const positiveEntities = sampleDistinct(pair.positiveExclusive, optionCount - 1, rng);
     const outlier = sampleDistinct(pair.contrastExclusive, 1, rng)[0]!;
     const displayedEntities = shuffled([...positiveEntities, outlier], rng);
     const canonicalCorrectIndex = displayedEntities.findIndex((entity) => entity.entityId === outlier.entityId);
@@ -592,9 +615,14 @@ function generateOutlier(prototype: PrototypeDefinition, seed: number, rng: Rng)
   throw new Error(`Unable to construct an unambiguous ${prototype.prototypeId} state after ${MAX_GENERATION_ATTEMPTS} attempts`);
 }
 
-function generateClassMember(prototype: PrototypeDefinition, seed: number, rng: Rng): GeneratedClassificationQuestion {
+function generateClassMember(
+  prototype: PrototypeDefinition,
+  seed: number,
+  rng: Rng,
+  optionCount: 4 | 5,
+): GeneratedClassificationQuestion {
   for (let attempt = 0; attempt < MAX_GENERATION_ATTEMPTS; attempt += 1) {
-    const pair = chooseClassPair(prototype, rng);
+    const pair = chooseClassPair(prototype, optionCount, rng);
     const positivePool = sampleDistinct(pair.positiveExclusive, 4, rng);
     const givens = positivePool.slice(0, 3);
     const correctEntity = positivePool[3]!;
@@ -602,8 +630,8 @@ function generateClassMember(prototype: PrototypeDefinition, seed: number, rng: 
       .filter((semanticClass) => sameContrastSpace(pair.positiveClass, semanticClass))
       .flatMap(entitiesForClass)
       .filter((entity) => !classMembership(entity, pair.positiveClass.classId)));
-    if (negativePool.length < 3) continue;
-    const negatives = sampleDistinct(negativePool, 3, rng);
+    if (negativePool.length < optionCount - 1) continue;
+    const negatives = sampleDistinct(negativePool, optionCount - 1, rng);
     const displayedEntities = shuffled([correctEntity, ...negatives], rng);
     const canonicalCorrectIndex = displayedEntities.findIndex((entity) => entity.entityId === correctEntity.entityId);
     try {
@@ -633,13 +661,15 @@ function generateClassMember(prototype: PrototypeDefinition, seed: number, rng: 
 export function generateClsCp001Prototype(
   prototypeId: PrototypeId,
   seed: number,
+  optionCount: 4 | 5 = 4,
 ): GeneratedClassificationQuestion {
   if (!Number.isSafeInteger(seed) || seed < 0) throw new Error(`Seed must be a non-negative safe integer: ${seed}`);
+  if (optionCount !== 4 && optionCount !== 5) throw new Error(`CLS-CP-001 option count must be four or five: ${optionCount}`);
   const prototype = requirePrototype(prototypeId);
-  const rng = makeRng(seed, prototypeId);
+  const rng = makeRng(seed, `${prototypeId}:${optionCount}`);
   return prototype.task === "SELECT_CLASS_MEMBER"
-    ? generateClassMember(prototype, seed, rng)
-    : generateOutlier(prototype, seed, rng);
+    ? generateClassMember(prototype, seed, rng, optionCount)
+    : generateOutlier(prototype, seed, rng, optionCount);
 }
 
 export function independentlyVerifyClsCp001Question(
@@ -653,8 +683,8 @@ export function auditClsCp001DisplayedOptions(
   labels: readonly string[],
   eligibleClassIds: readonly string[],
 ): AmbiguityAudit {
-  if (labels.length !== 4 || new Set(labels.map((label) => label.trim().toLocaleLowerCase("en-IN"))).size !== 4) {
-    throw new Error("Adversarial classification audit requires four unique displayed options");
+  if (![4, 5].includes(labels.length) || new Set(labels.map((label) => label.trim().toLocaleLowerCase("en-IN"))).size !== labels.length) {
+    throw new Error("Adversarial classification audit requires four or five unique displayed options");
   }
   eligibleClassIds.forEach(requireClass);
   return auditOutlier(labels, eligibleClassIds);
