@@ -10,7 +10,7 @@ on:
 jobs:
   cp001-prototype:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -20,5 +20,8 @@ jobs:
         with:
           node-version: 22
 
-      - name: Run BLR-CP-001 English prototype audit
+      - name: Run direct and composed relation audit
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/prototype.test.ts
+
+      - name: Run identity, pair, claim, generation and branching audit
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/advanced-prototype.test.ts
