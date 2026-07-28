@@ -8,6 +8,10 @@ import {
   applyAvg001Cp005EditorialV2FinalCandidate,
   AVG_001_CP005_EDITORIAL_V2_FINAL,
 } from "./foundation/cp005-editorial-v2-final";
+import {
+  applyAvg001Cp005EditorialV2ApprovedCandidate,
+  AVG_001_CP005_EDITORIAL_V2_APPROVED,
+} from "./foundation/cp005-editorial-v2-approved";
 import { getAvg001QuestionEntries } from "./foundation/library";
 import { runAvg001Pipeline } from "./foundation/pipeline";
 
@@ -43,7 +47,8 @@ for (const entry of entries) {
     const seed = `avg-cp005-editorial-v2:${entry.qlId}:${seedIndex}`;
     const original = runAvg001Pipeline({ questionLanguageId: entry.qlId, seed, language: "en" });
     const firstPass = applyAvg001Cp005EditorialV2Candidate(original);
-    const candidate = applyAvg001Cp005EditorialV2FinalCandidate(original);
+    const finalPass = applyAvg001Cp005EditorialV2FinalCandidate(original);
+    const candidate = applyAvg001Cp005EditorialV2ApprovedCandidate(original);
     generated += 1;
 
     if (candidate.mathematicalFingerprint !== original.mathematicalFingerprint) {
@@ -61,8 +66,11 @@ for (const entry of entries) {
     if (firstPass.traceability.cp005EditorialV2 !== AVG_001_CP005_EDITORIAL_V2) {
       fail(`${entry.qlId}:${seedIndex}: missing CP-005 v2 base traceability`);
     }
-    if (candidate.traceability.cp005EditorialV2Final !== AVG_001_CP005_EDITORIAL_V2_FINAL) {
+    if (finalPass.traceability.cp005EditorialV2Final !== AVG_001_CP005_EDITORIAL_V2_FINAL) {
       fail(`${entry.qlId}:${seedIndex}: missing CP-005 v2 final traceability`);
+    }
+    if (candidate.traceability.cp005EditorialV2Approved !== AVG_001_CP005_EDITORIAL_V2_APPROVED) {
+      fail(`${entry.qlId}:${seedIndex}: missing CP-005 approved grammar traceability`);
     }
     if (candidate.traceability.releaseCandidate !== "AVG-001-EN-v2") {
       fail(`${entry.qlId}:${seedIndex}: missing release-candidate trace`);
@@ -95,7 +103,7 @@ for (const entry of entries) {
     if (/average marks of|average daily output per machine of|average daily sales per shop of|one recorded value had been recorded/i.test(candidate.stem)) {
       fail(`${entry.qlId}:${seedIndex}: awkward context construction survived: ${candidate.stem}`);
     }
-    if (/\b1 (?:marks|years|runs|units)\b/.test(`${candidate.stem} ${candidate.options.join(" ")} ${candidate.explanation.lines.join(" ")}`)) {
+    if (/\b1(?:\.0+)? (?:marks|years|runs|units)\b/.test(`${candidate.stem} ${candidate.options.join(" ")} ${candidate.explanation.lines.join(" ")}`)) {
       fail(`${entry.qlId}:${seedIndex}: singular unit has plural grammar`);
     }
     if (
