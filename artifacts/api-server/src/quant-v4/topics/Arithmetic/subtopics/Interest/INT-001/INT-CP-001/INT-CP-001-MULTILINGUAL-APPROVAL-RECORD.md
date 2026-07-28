@@ -129,11 +129,11 @@ Approved evidence packs contain 63 Hindi and 63 Punjabi samples, covering all 21
 The approval record itself is included in the final validated head:
 
 ```text
-Head:       22eb70efe951da604c1fd0352fe3964f8b548469
-Workflow:   30355428439
+Head:       a49f42aec52f4b0a32240a6036dc2ee764215f8a
+Workflow:   30355512795
 Conclusion: PASS
-Artifact:   8686595540
-Digest:     sha256:414390d2f973d27173f4900a168c0e215d6d86ad02c7af8436f83a014ce05a7b
+Artifact:   8686627047
+Digest:     sha256:8c3187301ca9e7aff2da9ca7db24059f685678fcc0280631605fc9cbba85fda2
 ```
 
 ## Final boundary
