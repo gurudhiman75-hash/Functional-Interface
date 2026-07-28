@@ -45,7 +45,18 @@ COMPARE_GENERATIONS
 RESOLVE_EXACT_LINEAGE_RELATION
 ```
 
-This provisional inventory does **not** establish seven eventual QLs. It remains subject to English editorial review and a second source/gap pass.
+This provisional inventory does **not** establish seven eventual QLs. It remains subject to human English review and a second source/gap pass.
+
+## Current proof state
+
+- mathematical and structural prototype gates: passed;
+- machine English editorial gate across 440 questions: passed;
+- hosted 88-record HTML/CSV/JSONL review pack: generated;
+- human English approval: pending;
+- second source/gap audit: pending;
+- discovery freeze: not authorised.
+
+Seven solve authorities use six answer shapes because both person-identification authorities return `PERSON_NAME` while retaining different predicates and explanation contracts.
 
 ## Current merge decisions
 
@@ -68,8 +79,8 @@ This provisional inventory does **not** establish seven eventual QLs. It remains
 
 ## Remaining CP-001 freeze blockers
 
-- exact-head combined CI;
-- generated English review across all seven provisional authorities;
+- human review of the 88-record English pack;
+- approved remediation of any wording or distractor issues;
 - second source and gap audit after that review;
 - final freeze evidence showing no new materially distinct authority;
 - guarded permanent sequential allocation in a later change.
