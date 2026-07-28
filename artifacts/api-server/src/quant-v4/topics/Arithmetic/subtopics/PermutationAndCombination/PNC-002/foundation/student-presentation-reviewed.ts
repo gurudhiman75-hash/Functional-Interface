@@ -12,7 +12,7 @@ function normaliseMath(value: string): string {
     .replace(/\\\[/g, "$$")
     .replace(/\\\]/g, "$$")
     .replace(/\\\(/g, "$")
-    .replace(/\\\)/g, "$ ")
+    .replace(/\\\)/g, "$")
     .replace(/\$\s+/g, "$")
     .replace(/\s+\$/g, "$");
 }
