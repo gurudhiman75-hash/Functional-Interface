@@ -22,6 +22,7 @@ for (const entry of entries) {
 
     assert.doesNotMatch(text, /दी गई दी गई|ਦਿੱਤੀ ਦਿੱਤੀ/);
     assert.doesNotMatch(text, /यह मान ब्लॉक के लिए|ਇਹ ਮੁੱਲ ਬਲਾਕ ਲਈ/);
+    assert.doesNotMatch(text, /यह संख्या [^.]+ से आता है|ਇਹ ਗਿਣਤੀ [^.]+ ਨਾਲ ਆਉਂਦਾ ਹੈ/);
     if (/व्यक्तियों|कलाकारों/.test(presentation.stem)) {
       assert.doesNotMatch(presentation.stem, /तरीकों से सजाया जा सकता है/);
     }
