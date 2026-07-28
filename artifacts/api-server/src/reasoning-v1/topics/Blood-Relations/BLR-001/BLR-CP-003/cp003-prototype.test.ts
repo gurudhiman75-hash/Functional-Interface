@@ -2,7 +2,12 @@ import assert from "node:assert/strict";
 
 import { generateBlrCp003PrototypeGroup, generateBlrCp003ScenarioGroup } from "./cp003-generator";
 import { BLR_CP003_SCENARIOS } from "./cp003-scenario-library";
-import { blrCp003SemanticKey, solveBlrCp003ScenarioFromClues } from "./cp003-solver";
+import {
+  blrCp003SemanticKey,
+  proveBlrCp003HiddenGraphAgreesWithClues,
+  solveBlrCp003ScenarioFromClues,
+  solveBlrCp003ScenarioFromHiddenGraph,
+} from "./cp003-solver";
 
 const answerPositions = [0, 0, 0, 0];
 const prototypes = new Set<string>();
@@ -11,6 +16,7 @@ const relationOutputs = new Set<string>();
 const fingerprintsByScenario = new Map<string, Set<string>>();
 let groups = 0;
 let questions = 0;
+let hiddenGraphAgreementChecks = 0;
 
 assert.equal(BLR_CP003_SCENARIOS.length, 3);
 assert.equal(
@@ -47,19 +53,31 @@ for (const scenario of BLR_CP003_SCENARIOS) {
     assert.ok(group.sharedPrompt.startsWith("Read the following information carefully"));
     assert.ok(!group.sharedPrompt.includes("undefined"));
 
-    const independentlySolved = solveBlrCp003ScenarioFromClues(
+    assert.equal(proveBlrCp003HiddenGraphAgreesWithClues(scenario, group.personNames), true);
+    const hiddenSolved = solveBlrCp003ScenarioFromHiddenGraph(
       scenario,
       group.personNames,
     );
-    assert.deepEqual(independentlySolved.graph, group.reconstructedFamily);
-    assert.equal(independentlySolved.answers.length, group.questions.length);
+    const clueSolved = solveBlrCp003ScenarioFromClues(
+      scenario,
+      group.personNames,
+    );
+    assert.deepEqual(clueSolved.graph, group.reconstructedFamily);
+    assert.equal(hiddenSolved.answers.length, group.questions.length);
+    assert.equal(clueSolved.answers.length, group.questions.length);
+    hiddenGraphAgreementChecks += 1;
 
     for (let index = 0; index < group.questions.length; index += 1) {
       const item = group.questions[index]!;
-      const independentlySolvedAnswer = independentlySolved.answers[index]!;
+      const hiddenAnswer = hiddenSolved.answers[index]!;
+      const clueAnswer = clueSolved.answers[index]!;
+      assert.equal(
+        blrCp003SemanticKey(hiddenAnswer),
+        blrCp003SemanticKey(clueAnswer),
+      );
       assert.equal(
         blrCp003SemanticKey(item.answer),
-        blrCp003SemanticKey(independentlySolvedAnswer),
+        blrCp003SemanticKey(clueAnswer),
       );
       assert.equal(item.permanentQlId, null);
       assert.equal(item.prototypeOnly, true);
@@ -76,7 +94,7 @@ for (const scenario of BLR_CP003_SCENARIOS) {
       );
       assert.ok(item.stem.endsWith("?"));
       assert.ok(!item.stem.includes("undefined"));
-      assert.ok(item.explanation.familyPlacements.length === scenario.clues.length);
+      assert.equal(item.explanation.familyPlacements.length, scenario.clues.length);
       assert.ok(item.explanation.queryTrace.length >= 1);
       assert.ok(item.explanation.conclusion.length >= 10);
       assert.ok(item.explanation.closestTrapRejection.length >= 10);
@@ -135,6 +153,7 @@ for (const expected of [
 }
 assert.ok(answerPositions.every((count) => count > 0));
 assert.equal(groups, 240);
+assert.equal(hiddenGraphAgreementChecks, 240);
 assert.equal(questions, 1520);
 
 for (let seed = 0; seed < 30; seed += 1) {
@@ -147,9 +166,10 @@ console.log(
   JSON.stringify(
     {
       checkpointId: "BLR-CP-003",
-      gate: "SHARED_FAMILY_GROUP_PROTOTYPE_V1",
+      gate: "SHARED_FAMILY_GROUP_PROTOTYPE_V2",
       scenarios: BLR_CP003_SCENARIOS.length,
       groups,
+      hiddenGraphAgreementChecks,
       questions,
       answerPositions,
       topologies: [...topologies].sort(),
