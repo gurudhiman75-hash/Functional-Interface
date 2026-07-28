@@ -2,6 +2,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { generateCod001Question, type Cod001Locale } from "../multilingual-runtime";
+import { formatCodExplanationMarkdown } from "./explanation-markdown";
 
 const outputDirectory = process.argv[2] ?? "cod-multilingual-review-output";
 mkdirSync(outputDirectory, { recursive: true });
@@ -49,7 +50,7 @@ for (const locale of locales) {
       "",
       ...options.map((option, optionIndex) => `${String.fromCharCode(65 + optionIndex)}. ${optionText(option)}${option.isCorrect ? " **✓**" : ""}`),
       "",
-      `**Explanation:** ${JSON.stringify(question.explanation, null, 2)}`,
+      ...formatCodExplanationMarkdown(question),
       "",
       "---",
       "",
@@ -68,6 +69,8 @@ console.log(JSON.stringify({
   locales,
   questionsPerLocale: qlIds.length,
   totalReviewQuestions: qlIds.length * locales.length,
+  explanationSchema: "cod-001-pedagogy-v1",
+  rawJsonExplanationDump: false,
   seed: 17,
   outputDirectory,
 }, null, 2));
