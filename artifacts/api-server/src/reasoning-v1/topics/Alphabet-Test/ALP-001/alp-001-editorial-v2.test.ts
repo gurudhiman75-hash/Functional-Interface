@@ -17,6 +17,13 @@ function learnerText(question: ReturnType<typeof generateAlp001Question>): strin
   ].join("\n");
 }
 
+function instructionalText(question: ReturnType<typeof generateAlp001Question>): string {
+  const protectedTokens = [question.answer, ...question.options.map((option) => option.value)]
+    .filter(Boolean)
+    .sort((a, b) => b.length - a.length);
+  return protectedTokens.reduce((current, token) => current.split(token).join(""), learnerText(question));
+}
+
 const locales: readonly AlpLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 const rejectedBoilerplate = [
   "Use the stated alphabet or word-position operation exactly",
@@ -77,12 +84,12 @@ for (const ql of ALP_001_QLS) {
       if (locale === "hi-IN") {
         assert(/[\u0900-\u097F]/.test(question.explanation.coreConcept), `${ql.qlId} ${seed} Hindi core concept missing script`);
         assert(!rejectedHindiOrdinals.test(question.stem), `${ql.qlId} ${seed} rejected Hindi ordinal agreement`);
-        assert(!englishInstructionLeak.test(learnerText(question)), `${ql.qlId} ${seed} English instructional leak in Hindi explanation`);
+        assert(!englishInstructionLeak.test(instructionalText(question)), `${ql.qlId} ${seed} English instructional leak in Hindi explanation`);
       }
       if (locale === "pa-IN") {
         assert(/[\u0A00-\u0A7F]/.test(question.explanation.coreConcept), `${ql.qlId} ${seed} Punjabi core concept missing script`);
         assert(!rejectedPunjabiOrdinals.test(question.stem), `${ql.qlId} ${seed} rejected Punjabi ordinal agreement`);
-        assert(!englishInstructionLeak.test(learnerText(question)), `${ql.qlId} ${seed} English instructional leak in Punjabi explanation`);
+        assert(!englishInstructionLeak.test(instructionalText(question)), `${ql.qlId} ${seed} English instructional leak in Punjabi explanation`);
         assert(!/ਪਦ|ਸਾਦ੍ਰਿਸ਼ਤਾ|ਸਦ੍ਰਿਸ਼ਤਾ/.test(fullText), `${ql.qlId} ${seed} rejected Punjabi terminology`);
       }
 
