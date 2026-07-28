@@ -1,3 +1,4 @@
+import { assignNamesForClues } from "../foundation/name-registry";
 import { relationLabel } from "../foundation/relation-ontology";
 import { SeededRandom } from "../foundation/prng";
 import type {
@@ -14,16 +15,6 @@ export interface BlrCp001ScenarioTemplate {
   expectedRelationId: BlrRelationId;
 }
 
-const MALE_NAMES = [
-  "Aman", "Bharat", "Charan", "Deepak", "Gagan", "Harjit",
-  "Karan", "Manav", "Nitin", "Rohit", "Sahil", "Vikas",
-] as const;
-
-const FEMALE_NAMES = [
-  "Asha", "Bhavna", "Divya", "Gurleen", "Isha", "Kavita",
-  "Meena", "Neha", "Pooja", "Ritu", "Simran", "Tanya",
-] as const;
-
 function clue(
   subjectId: string,
   relationId: DirectRelationClue["relationId"],
@@ -39,14 +30,25 @@ function scenario(
   referenceId: string,
   expectedRelationId: BlrRelationId,
 ): BlrCp001ScenarioTemplate {
-  return { scenarioId, clues, query: { subjectId, referenceId }, expectedRelationId };
+  return {
+    scenarioId,
+    clues,
+    query: { subjectId, referenceId },
+    expectedRelationId,
+  };
 }
 
 function direct(
   name: string,
   relationId: DirectRelationClue["relationId"],
 ): BlrCp001ScenarioTemplate {
-  return scenario(`direct-${name}`, [clue("A", relationId, "B")], "A", "B", relationId);
+  return scenario(
+    `direct-${name}`,
+    [clue("A", relationId, "B")],
+    "A",
+    "B",
+    relationId,
+  );
 }
 
 const DIRECT_FORWARD_SCENARIOS: readonly BlrCp001ScenarioTemplate[] = [
@@ -89,17 +91,65 @@ const DIRECT_REVERSE_SCENARIOS: readonly BlrCp001ScenarioTemplate[] = [
     "A",
     "SISTER",
   ),
-  scenario("reverse-husband-to-wife", [clue("A", "HUSBAND", "B")], "B", "A", "WIFE"),
-  scenario("reverse-wife-to-husband", [clue("A", "WIFE", "B")], "B", "A", "HUSBAND"),
+  scenario(
+    "reverse-husband-to-wife",
+    [clue("A", "HUSBAND", "B")],
+    "B",
+    "A",
+    "WIFE",
+  ),
+  scenario(
+    "reverse-wife-to-husband",
+    [clue("A", "WIFE", "B")],
+    "B",
+    "A",
+    "HUSBAND",
+  ),
 ];
 
 const TWO_EDGE_SCENARIOS: readonly BlrCp001ScenarioTemplate[] = [
-  scenario("grandfather", [clue("A", "FATHER", "B"), clue("B", "FATHER", "C")], "A", "C", "GRANDFATHER"),
-  scenario("grandmother", [clue("A", "MOTHER", "B"), clue("B", "MOTHER", "C")], "A", "C", "GRANDMOTHER"),
-  scenario("uncle", [clue("A", "BROTHER", "B"), clue("B", "FATHER", "C")], "A", "C", "UNCLE"),
-  scenario("aunt", [clue("A", "SISTER", "B"), clue("B", "MOTHER", "C")], "A", "C", "AUNT"),
-  scenario("nephew", [clue("A", "SON", "B"), clue("B", "BROTHER", "C")], "A", "C", "NEPHEW"),
-  scenario("niece", [clue("A", "DAUGHTER", "B"), clue("B", "SISTER", "C")], "A", "C", "NIECE"),
+  scenario(
+    "grandfather",
+    [clue("A", "FATHER", "B"), clue("B", "FATHER", "C")],
+    "A",
+    "C",
+    "GRANDFATHER",
+  ),
+  scenario(
+    "grandmother",
+    [clue("A", "MOTHER", "B"), clue("B", "MOTHER", "C")],
+    "A",
+    "C",
+    "GRANDMOTHER",
+  ),
+  scenario(
+    "uncle",
+    [clue("A", "BROTHER", "B"), clue("B", "FATHER", "C")],
+    "A",
+    "C",
+    "UNCLE",
+  ),
+  scenario(
+    "aunt",
+    [clue("A", "SISTER", "B"), clue("B", "MOTHER", "C")],
+    "A",
+    "C",
+    "AUNT",
+  ),
+  scenario(
+    "nephew",
+    [clue("A", "SON", "B"), clue("B", "BROTHER", "C")],
+    "A",
+    "C",
+    "NEPHEW",
+  ),
+  scenario(
+    "niece",
+    [clue("A", "DAUGHTER", "B"), clue("B", "SISTER", "C")],
+    "A",
+    "C",
+    "NIECE",
+  ),
   scenario(
     "father-in-law",
     [clue("A", "FATHER", "B"), clue("B", "HUSBAND", "C")],
@@ -133,71 +183,70 @@ const TWO_EDGE_SCENARIOS: readonly BlrCp001ScenarioTemplate[] = [
 const THREE_EDGE_SCENARIOS: readonly BlrCp001ScenarioTemplate[] = [
   scenario(
     "male-cousin-through-paternal-branch",
-    [clue("A", "SON", "B"), clue("B", "BROTHER", "C"), clue("C", "FATHER", "D")],
-    "A", "D", "COUSIN",
+    [
+      clue("A", "SON", "B"),
+      clue("B", "BROTHER", "C"),
+      clue("C", "FATHER", "D"),
+    ],
+    "A",
+    "D",
+    "COUSIN",
   ),
   scenario(
     "female-cousin-through-maternal-branch",
-    [clue("A", "DAUGHTER", "B"), clue("B", "SISTER", "C"), clue("C", "MOTHER", "D")],
-    "A", "D", "COUSIN",
+    [
+      clue("A", "DAUGHTER", "B"),
+      clue("B", "SISTER", "C"),
+      clue("C", "MOTHER", "D"),
+    ],
+    "A",
+    "D",
+    "COUSIN",
   ),
   scenario(
     "male-cousin-through-maternal-branch",
-    [clue("A", "SON", "B"), clue("B", "SISTER", "C"), clue("C", "MOTHER", "D")],
-    "A", "D", "COUSIN",
+    [
+      clue("A", "SON", "B"),
+      clue("B", "SISTER", "C"),
+      clue("C", "MOTHER", "D"),
+    ],
+    "A",
+    "D",
+    "COUSIN",
   ),
   scenario(
     "female-cousin-through-paternal-branch",
-    [clue("A", "DAUGHTER", "B"), clue("B", "BROTHER", "C"), clue("C", "FATHER", "D")],
-    "A", "D", "COUSIN",
+    [
+      clue("A", "DAUGHTER", "B"),
+      clue("B", "BROTHER", "C"),
+      clue("C", "FATHER", "D"),
+    ],
+    "A",
+    "D",
+    "COUSIN",
   ),
 ];
 
 export function scenariosFor(
   prototypeId: BlrCp001PrototypeId,
 ): readonly BlrCp001ScenarioTemplate[] {
-  if (prototypeId === "BLR-CP001-PROT-DIRECT-FORWARD") return DIRECT_FORWARD_SCENARIOS;
-  if (prototypeId === "BLR-CP001-PROT-DIRECT-REVERSE") return DIRECT_REVERSE_SCENARIOS;
-  if (prototypeId === "BLR-CP001-PROT-COMPOSED-TWO-EDGE") return TWO_EDGE_SCENARIOS;
-  return THREE_EDGE_SCENARIOS;
-}
-
-function inferredGenderByPerson(
-  clues: readonly DirectRelationClue[],
-): Map<string, "MALE" | "FEMALE"> {
-  const result = new Map<string, "MALE" | "FEMALE">();
-  const subjectGender = (
-    relationId: DirectRelationClue["relationId"],
-  ): "MALE" | "FEMALE" =>
-    ["FATHER", "SON", "BROTHER", "HUSBAND"].includes(relationId) ? "MALE" : "FEMALE";
-
-  for (const entry of clues) {
-    result.set(entry.subjectId, subjectGender(entry.relationId));
-    if (entry.relationId === "HUSBAND") result.set(entry.referenceId, "FEMALE");
-    if (entry.relationId === "WIFE") result.set(entry.referenceId, "MALE");
+  if (prototypeId === "BLR-CP001-PROT-DIRECT-FORWARD") {
+    return DIRECT_FORWARD_SCENARIOS;
   }
-  return result;
+  if (prototypeId === "BLR-CP001-PROT-DIRECT-REVERSE") {
+    return DIRECT_REVERSE_SCENARIOS;
+  }
+  if (prototypeId === "BLR-CP001-PROT-COMPOSED-TWO-EDGE") {
+    return TWO_EDGE_SCENARIOS;
+  }
+  return THREE_EDGE_SCENARIOS;
 }
 
 export function assignNames(
   template: BlrCp001ScenarioTemplate,
   random: SeededRandom,
 ): Readonly<Record<string, string>> {
-  const personIds = [...new Set(template.clues.flatMap((entry) => [entry.subjectId, entry.referenceId]))];
-  const inferredGenders = inferredGenderByPerson(template.clues);
-  const maleNames = random.shuffle(MALE_NAMES);
-  const femaleNames = random.shuffle(FEMALE_NAMES);
-  let maleIndex = 0;
-  let femaleIndex = 0;
-  let unknownAlternator = random.int(2);
-  const names: Record<string, string> = {};
-
-  for (const personId of personIds) {
-    const inferred = inferredGenders.get(personId);
-    const gender = inferred ?? (unknownAlternator++ % 2 === 0 ? "MALE" : "FEMALE");
-    names[personId] = gender === "MALE" ? maleNames[maleIndex++]! : femaleNames[femaleIndex++]!;
-  }
-  return names;
+  return assignNamesForClues(template.clues, random);
 }
 
 export function formatClue(
@@ -207,7 +256,10 @@ export function formatClue(
   return `${names[entry.subjectId]} is the ${relationLabel(entry.relationId).toLocaleLowerCase("en-IN")} of ${names[entry.referenceId]}.`;
 }
 
-export function buildStem(prompt: BlrStructuredPrompt, random: SeededRandom): string {
+export function buildStem(
+  prompt: BlrStructuredPrompt,
+  random: SeededRandom,
+): string {
   const openings = [
     "Read the following family information carefully.",
     "Study the relations given below.",
@@ -215,13 +267,16 @@ export function buildStem(prompt: BlrStructuredPrompt, random: SeededRandom): st
     "Use the information below to answer the question.",
   ] as const;
   const questionForms = [
-    (subject: string, reference: string) => `How is ${subject} related to ${reference}?`,
-    (subject: string, reference: string) => `What is ${subject}'s relation to ${reference}?`,
+    (subject: string, reference: string) =>
+      `How is ${subject} related to ${reference}?`,
+    (subject: string, reference: string) =>
+      `What is ${subject}'s relation to ${reference}?`,
     (subject: string, reference: string) =>
       `${subject} is related to ${reference} in which of the following ways?`,
   ] as const;
   const subjectName = prompt.personNames[prompt.query.subjectId]!;
   const referenceName = prompt.personNames[prompt.query.referenceId]!;
+
   return [
     random.pick(openings),
     ...prompt.clues.map((entry) => formatClue(entry, prompt.personNames)),
