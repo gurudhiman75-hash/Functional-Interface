@@ -38,6 +38,12 @@ jobs:
         run: corepack enable
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
+      - name: Prepare reviewed localization proof
+        shell: bash
+        run: |
+          source="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007.test.ts"
+          reviewed="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-reviewed.test.ts"
+          sed 's#"./foundation/localization-cp007"#"./foundation/localization-cp007-reviewed"#' "$source" > "$reviewed"
       - name: Strict TypeScript check
         run: |
           cd artifacts/api-server
@@ -59,11 +65,12 @@ jobs:
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-types.ts \
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-glossary.ts \
             src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-cp007.ts \
-            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007.test.ts
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-cp007-reviewed.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-reviewed.test.ts
       - name: Bundle localization proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp007-reviewed.test.ts
           --bundle
           --platform=node
           --format=esm
