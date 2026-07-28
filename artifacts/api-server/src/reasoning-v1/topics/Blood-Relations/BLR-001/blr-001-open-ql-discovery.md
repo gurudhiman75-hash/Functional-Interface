@@ -21,22 +21,58 @@ source and boundary audit
 
 ## Current BLR-CP-001 state
 
-CP-001 currently has nine executable prototype contracts and zero permanent QLs.
+CP-001 currently has eleven executable exploratory prototype contracts and zero permanent QLs.
 
-The first four prototypes prove direct, reverse and composed relation-label solving. The second five prototypes explore materially different query and answer contracts:
+The prototype surface covers:
 
-- identify one person;
+- broad named-person relation solving across direct, reverse, composed and branching paths;
+- identify one person by a relation predicate;
+- identify one person by a gender predicate;
 - identify one ordered pair;
-- select a true or false claim;
+- select a true or false relation claim;
 - compare generations;
-- solve a non-linear branching relation.
+- resolve exact paternal or maternal grandfather, grandmother, uncle and aunt relations.
 
-This inventory does **not** establish that CP-001 has exactly nine eventual QLs. In particular:
+The source and merge/split audits provisionally compress the eleven prototypes into seven solve authorities:
 
-- true versus false claim polarity may remain one contract or split only if source and explanation evidence requires it;
-- branching relation may merge into composed relation solving if topology does not justify a distinct permanent contract;
-- path length, family size, names, clue order and difficulty do not create QLs by themselves;
-- gender-only, maternal/paternal specificity and other source-backed inverse forms still require discovery.
+```text
+RESOLVE_NAMED_PERSON_RELATION
+IDENTIFY_PERSON_BY_RELATION
+IDENTIFY_PERSON_BY_GENDER
+IDENTIFY_ORDERED_RELATION_PAIR
+SELECT_RELATION_CLAIM
+COMPARE_GENERATIONS
+RESOLVE_EXACT_LINEAGE_RELATION
+```
+
+This provisional inventory does **not** establish seven eventual QLs. It remains subject to English editorial review and a second source/gap pass.
+
+## Current merge decisions
+
+- direct versus reverse relation is query direction, not a separate authority;
+- one-edge, two-edge, three-edge and branching paths are topology/depth properties;
+- true versus false claim is requested polarity;
+- male versus female is a target value;
+- paternal versus maternal and grandparent versus aunt/uncle are outputs of one exact-lineage solver;
+- family size, names, clue order, renderer and difficulty do not create QLs by themselves.
+
+## Current ownership boundary
+
+- direct declarative named-person clues remain in CP-001;
+- pointer, photograph, conversation and nested self-reference forms belong to CP-002;
+- shared passages belong to CP-003;
+- counts and family composition belong to CP-004;
+- possible, impossible and indeterminate questions belong to CP-005;
+- coded relation decoding and construction belong to CP-006 and CP-007;
+- family-plus-profession/height/colour puzzles and Data Sufficiency remain outside BLR-001 checkpoint ownership.
+
+## Remaining CP-001 freeze blockers
+
+- exact-head combined CI;
+- generated English review across all seven provisional authorities;
+- second source and gap audit after that review;
+- final freeze evidence showing no new materially distinct authority;
+- guarded permanent sequential allocation in a later change.
 
 ## Prohibited actions before freeze
 
@@ -45,4 +81,4 @@ This inventory does **not** establish that CP-001 has exactly nine eventual QLs.
 - making the runtime Question Studio visible;
 - localising unstable English contracts;
 - marking any prototype publicly publishable;
-- treating path length, family topology, names or difficulty alone as separate QLs.
+- treating path length, topology, query direction, names, claim polarity or difficulty alone as separate QLs.
