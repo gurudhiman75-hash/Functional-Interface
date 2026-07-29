@@ -33,10 +33,10 @@ export const BLR_CP003_LINEAGE_SCENARIOS: readonly BlrCp003LineageScenario[] = [
     clues: [
       { subjectId: "P", relationId: "FATHER", referenceId: "R" },
       { subjectId: "Q", relationId: "MOTHER", referenceId: "R" },
-      { subjectId: "P", relationId: "FATHER", referenceId: "S" },
+      { subjectId: "S", relationId: "DAUGHTER", referenceId: "P" },
       { subjectId: "M", relationId: "FATHER", referenceId: "T" },
       { subjectId: "N", relationId: "MOTHER", referenceId: "T" },
-      { subjectId: "M", relationId: "FATHER", referenceId: "U" },
+      { subjectId: "U", relationId: "SON", referenceId: "M" },
       { subjectId: "R", relationId: "FATHER", referenceId: "C" },
       { subjectId: "T", relationId: "MOTHER", referenceId: "C" },
     ],
