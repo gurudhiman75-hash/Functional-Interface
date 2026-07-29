@@ -1,3 +1,4 @@
+export { generateClsCp003DiscoveryQuestion } from "./discovery-runtime";
 export {
   analyzeClsCp003Word,
   auditClsCp003DisplayedJumbles,
