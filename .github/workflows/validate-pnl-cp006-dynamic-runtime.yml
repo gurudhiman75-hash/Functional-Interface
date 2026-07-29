@@ -130,6 +130,27 @@ jobs:
                 1,
               )
 
+          start = runtime.index('case "SP_TARGET_RATE_TO_MAX_EXPENSE":')
+          end = runtime.index('case "TOTAL_RECOVERY_AND_RATE_TO_EFFECTIVE_COST":', start)
+          runtime = runtime[:start] + '''case "SP_TARGET_RATE_TO_MAX_EXPENSE": {
+              if (!("maximumExpense" in result)) return false;
+              const cost = moneyFromPaise(
+                request.purchasePrice.paise + result.maximumExpense.paise,
+              );
+              const check = solvePnlCp006Request({
+                mode: "EFFECTIVE_COST_AND_RATE_TO_SELLING_PRICE",
+                effectiveCost: cost,
+                direction: request.direction,
+                ratePercent: request.targetRatePercent,
+              });
+              return (
+                "sellingPrice" in check &&
+                check.sellingPrice.paise === request.sellingPrice.paise
+              );
+            }
+
+            ''' + runtime[end:]
+
           runtime_path.write_text(runtime)
           PY
 
