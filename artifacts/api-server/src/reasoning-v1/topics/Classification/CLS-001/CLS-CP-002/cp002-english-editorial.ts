@@ -144,7 +144,7 @@ export function polishClsCp002EnglishQuestion<T extends GeneratedClsCp002Questio
 
   return {
     ...question,
-    stem: "Which pair has a different relationship?",
+    stem: "Which pair has a different link?",
     intendedRelationLabel,
     explanation: {
       coreConcept: [`The other pairs have this link: ${simpleRule(question.intendedRelationId)}`],
