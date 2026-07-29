@@ -1,0 +1,295 @@
+import { MAL_CP001_PERMANENT_QL_IDS } from "./foundation/cp001-permanent-allocation";
+import { runMalCp001PermanentPipeline } from "./foundation/cp001-permanent-runtime";
+import { MAL_CP001_TEACHER_LAYOUT_ID } from "./foundation/cp001-teacher-explanation";
+
+function fail(message: string): never {
+  throw new Error(message);
+}
+
+const forbiddenStemPatterns = [
+  ["generic monetary average-value wording", /\b(?:weighted\s+)?average value(?: per unit)?\b/iu],
+  ["generic worth-per-unit wording", /\bworth per unit\b/iu],
+  ["unnamed added component", /\bWhat quantity should be added\?/u],
+  ["generic third-grade reference", /\bquantity of the third grade\b/iu],
+  ["vague quantity reference", /\bwhat is that quantity\?/iu],
+  ["lowercase sentence start", /\.\s+a\s+\d/u],
+  ["lowercase question after full stop", /\.\s+(?:what|how)\b/u],
+  ["capitalised question word after comma", /,\s+(?:What|How)\b/u],
+  ["awkward quantity-worth construction", /\bto obtain \d+(?:\s+\d+\/\d+)? (?:kg|litres) worth\b/iu],
+  ["unnatural unknown-price tail", /\bwhat price must [^?]+ have\?/iu],
+  ["generic unknown-value tail", /\bwhat is the value of [^?]+ per unit\?/iu],
+  ["compact ratio formatting", /\b\d+:\d+\b/u],
+  ["hard respectively wording", /\brespectively\b/iu],
+  ["hard uniform-blend wording", /\buniform blend\b/iu],
+  ["unneeded weighted wording", /\bweighted average price\b/iu],
+] as const;
+
+const forbiddenExplanationPatterns = [
+  ["robotic weighted-contribution phrase", /\bweighted contribution\b/iu],
+  ["robotic reconstruction word", /\breconstruct(?:ed|ion)?\b/iu],
+  ["robotic isolate word", /\bisolat(?:e|ed|ing)\b/iu],
+  ["internal topology word", /\btopology\b/iu],
+  ["internal scalar word", /\bscalar\b/iu],
+  ["internal evidence word", /\bevidence\b/iu],
+  ["internal determinacy word", /\bdeterminacy\b/iu],
+  ["dry matrix wording", /\bmatrix\b/iu],
+  ["unexplained source-variable wording", /\bsource variables?\b/iu],
+  ["hard imaginary wording", /\bimaginary\b/iu],
+  ["hard intermediate wording", /\bintermediate\b/iu],
+  ["hard pre-blend wording", /\bpre-blend\b/iu],
+  ["hard supplied wording", /\bsupplied\b/iu],
+  ["hard belonging wording", /\bbelonging\b/iu],
+  ["internal component wording", /\bcomponents?\b/iu],
+  ["bad simplified article", /\ban (?:normal|first)\b/iu],
+  ["hard value-total wording", /\bvalue-total\b/iu],
+  ["hard actual-quantity wording", /\bactual quantity\b/iu],
+  ["hard algebra wording", /\balgebra variables?\b/iu],
+  ["hard requested-share wording", /\brequested share\b/iu],
+  ["hard source-price wording", /\bsource prices?\b/iu],
+] as const;
+
+function expectedNamedAnswerLabel(question: any): string | null {
+  const request = question.parameters?.request;
+  if (!request) return null;
+  switch (request.mode) {
+    case "UNKNOWN_COMPONENT_VALUE":
+      return request.unknownComponentLabel;
+    case "SOURCE_VALUE_FROM_RATIO":
+      return request.knownSide === "LOWER"
+        ? request.higherComponentLabel
+        : request.lowerComponentLabel;
+    case "ADD_SOURCE_TO_REACH_TARGET":
+      return request.addedComponentLabel;
+    case "UNKNOWN_COMPONENT_QUANTITY":
+      return request.unknownComponentLabel;
+    case "COMPONENT_SHARE_FROM_TARGET":
+      return request.requestedSide === "LOWER"
+        ? request.lowerComponentLabel
+        : request.higherComponentLabel;
+    default:
+      return null;
+  }
+}
+
+function isSourceValueRequest(question: any): boolean {
+  const mode = question.parameters?.request?.mode;
+  return mode === "UNKNOWN_COMPONENT_VALUE" || mode === "SOURCE_VALUE_FROM_RATIO";
+}
+
+function explanationText(question: any): string {
+  const explanation = question.explanation;
+  return [
+    explanation.coreConcept,
+    explanation.formula,
+    ...explanation.steps,
+    explanation.examShortcut,
+    explanation.verification,
+    explanation.conclusion,
+    explanation.commonTrap,
+  ].join("\n");
+}
+
+function isUsefulTeacherStep(step: string, stepIndex: number): boolean {
+  const showsArithmetic = /[=×÷−+]|ratio|quantity|price|value/iu.test(step);
+  const identifiesGivens =
+    stepIndex <= 1 &&
+    /\b(?:known item|new item|write the|target|ratio parts?|given|item)\b/iu.test(step);
+  return showsArithmetic || identifiesGivens;
+}
+
+function hasWrongSingularLitre(value: string): boolean {
+  const matches = value.matchAll(
+    /\b(\d[\d,]*(?: \d+\/\d+)?|\d+\/\d+) litre\b/gu,
+  );
+  for (const match of matches) {
+    if (match[1]?.replace(/,/gu, "") !== "1") return true;
+  }
+  return false;
+}
+
+function assertOptionFormatting(question: any, qlId: string, seed: string): void {
+  for (const option of question.options as string[]) {
+    switch (question.answerSemantic) {
+      case "COMPONENT_RATIO":
+        if (!/^.+\s:\s.+ ratio$/u.test(option)) {
+          fail(`${qlId}/${seed}: ratio option lacks spaced ratio label: ${option}`);
+        }
+        break;
+      case "FINAL_MEAN_VALUE":
+      case "SOURCE_VALUE":
+        if (!/^₹.+ per (?:kg|litre)$/u.test(option)) {
+          fail(`${qlId}/${seed}: price option lacks rupee and per-unit format: ${option}`);
+        }
+        break;
+      case "COMPONENT_QUANTITY":
+        if (!/\b(?:kg|litres?)$/u.test(option)) {
+          fail(`${qlId}/${seed}: quantity option lacks unit: ${option}`);
+        }
+        break;
+      case "COMPONENT_QUANTITY_PAIR": {
+        const unitBearingQuantities = option.match(
+          /\b\d+(?:\s+\d+\/\d+)?\s+(?:kg|litres?)\b/gu,
+        ) ?? [];
+        if (!/\band\b/u.test(option) || unitBearingQuantities.length !== 2) {
+          fail(`${qlId}/${seed}: pair option lacks two labelled quantities with units: ${option}`);
+        }
+        break;
+      }
+    }
+  }
+}
+
+let generatedQuestionCount = 0;
+let namedAnswerContractCount = 0;
+let sourceValueUnitContractCount = 0;
+let fourTierLayoutCount = 0;
+let numberedStepCount = 0;
+let optionUnitContractCount = 0;
+let simpleVocabularyViolationCount = 0;
+let forbiddenPatternMatchCount = 0;
+let pluralVerbMismatchCount = 0;
+let quantityUnitGrammarMismatchCount = 0;
+let stepSentenceCaseMismatchCount = 0;
+let conclusionSentenceCaseMismatchCount = 0;
+let commonTrapCasingMismatchCount = 0;
+let commonTrapHyphenationMismatchCount = 0;
+
+for (const qlId of MAL_CP001_PERMANENT_QL_IDS) {
+  for (let index = 0; index < 100; index += 1) {
+    const seed = `permanent-editorial-${qlId}-${index}`;
+    const question: any = runMalCp001PermanentPipeline({
+      questionLanguageId: qlId,
+      seed,
+      language: "en",
+    });
+    generatedQuestionCount += 1;
+
+    for (const [label, pattern] of forbiddenStemPatterns) {
+      if (pattern.test(question.stem)) {
+        forbiddenPatternMatchCount += 1;
+        fail(`${qlId}/${seed}: ${label}: ${question.stem}`);
+      }
+    }
+
+    assertOptionFormatting(question, qlId, seed);
+    optionUnitContractCount += question.options.length;
+
+    const explanation = question.explanation;
+    if (
+      explanation.layoutId !== MAL_CP001_TEACHER_LAYOUT_ID ||
+      explanation.languageLevel !== "SIMPLE_ENGLISH" ||
+      explanation.sectionTitles.coreConcept !== "📌 Core Concept & Formula" ||
+      explanation.sectionTitles.steps !== "📝 Step-by-Step Solution" ||
+      explanation.sectionTitles.shortcut !== "⚡ 10-Second Exam Shortcut" ||
+      explanation.sectionTitles.trap !== "⚠️ Common Trap & Mistake Warning"
+    ) {
+      fail(`${qlId}/${seed}: four-tier teacher layout metadata is incomplete.`);
+    }
+    fourTierLayoutCount += 1;
+
+    if (!explanation.formula.includes("\\(") || !explanation.formula.includes("\\)")) {
+      fail(`${qlId}/${seed}: formula is not MathJax-ready: ${explanation.formula}`);
+    }
+    if (!Array.isArray(explanation.steps) || explanation.steps.length < 5) {
+      fail(`${qlId}/${seed}: explanation has fewer than five visible steps.`);
+    }
+    explanation.steps.forEach((step: string, stepIndex: number) => {
+      if (!step.startsWith(`Step ${stepIndex + 1}: `)) {
+        fail(`${qlId}/${seed}: step numbering is broken: ${step}`);
+      }
+      if (!/^Step \d+: [A-Z₹]/u.test(step)) {
+        stepSentenceCaseMismatchCount += 1;
+        fail(`${qlId}/${seed}: step does not begin in sentence case: ${step}`);
+      }
+      if (!isUsefulTeacherStep(step, stepIndex)) {
+        fail(`${qlId}/${seed}: step does not show useful working: ${step}`);
+      }
+      numberedStepCount += 1;
+    });
+    if (explanation.examShortcut.length < 45) {
+      fail(`${qlId}/${seed}: exam shortcut is too short to teach the method.`);
+    }
+    if (!/^Common trap:\s+(?:do not|a |an |the |read |keep |leaving |equal )/u.test(explanation.commonTrap)) {
+      commonTrapCasingMismatchCount += 1;
+      fail(`${qlId}/${seed}: common-trap wording is not friendly and sentence-cased: ${explanation.commonTrap}`);
+    }
+
+    const fullExplanation = explanationText(question);
+    if (hasWrongSingularLitre(fullExplanation)) {
+      quantityUnitGrammarMismatchCount += 1;
+      fail(`${qlId}/${seed}: plural quantity uses singular litre: ${fullExplanation}`);
+    }
+    if (/\b1 parts\b/iu.test(fullExplanation)) {
+      quantityUnitGrammarMismatchCount += 1;
+      fail(`${qlId}/${seed}: singular ratio part uses plural noun: ${fullExplanation}`);
+    }
+    for (const [label, pattern] of forbiddenExplanationPatterns) {
+      if (pattern.test(fullExplanation)) {
+        simpleVocabularyViolationCount += 1;
+        fail(`${qlId}/${seed}: ${label}: ${fullExplanation}`);
+      }
+    }
+
+    const expectedLabel = expectedNamedAnswerLabel(question);
+    if (expectedLabel) {
+      namedAnswerContractCount += 1;
+      if (!question.stem.includes(expectedLabel)) {
+        fail(`${qlId}/${seed}: stem omits requested item ${expectedLabel}: ${question.stem}`);
+      }
+      if (!explanation.conclusion.toLowerCase().includes(expectedLabel.toLowerCase())) {
+        fail(
+          `${qlId}/${seed}: conclusion omits requested item ${expectedLabel}: ${explanation.conclusion}`,
+        );
+      }
+    }
+
+    if (isSourceValueRequest(question)) {
+      sourceValueUnitContractCount += 1;
+      const unit = question.parameters.context.quantityUnit === "kg" ? "kg" : "litre";
+      if (!new RegExp(`per ${unit}\\?$`, "u").test(question.stem)) {
+        fail(`${qlId}/${seed}: source-value prompt omits terminal unit: ${question.stem}`);
+      }
+      if (!new RegExp(`per ${unit}`, "u").test(explanation.conclusion)) {
+        fail(`${qlId}/${seed}: source-value conclusion omits unit: ${explanation.conclusion}`);
+      }
+    }
+
+    if (/(?:leaves|beans) costs\b/iu.test(explanation.conclusion)) {
+      pluralVerbMismatchCount += 1;
+      fail(`${qlId}/${seed}: plural material uses singular cost verb: ${explanation.conclusion}`);
+    }
+
+    if (!/^[A-Z]/u.test(explanation.conclusion)) {
+      conclusionSentenceCaseMismatchCount += 1;
+      fail(`${qlId}/${seed}: conclusion does not start with a capital letter: ${explanation.conclusion}`);
+    }
+
+    if (/\btwo stage\b/iu.test(explanation.commonTrap)) {
+      commonTrapHyphenationMismatchCount += 1;
+      fail(`${qlId}/${seed}: two-stage wording is not hyphenated: ${explanation.commonTrap}`);
+    }
+  }
+}
+
+console.log(JSON.stringify({
+  status: "PASS_CP001_PERMANENT_SIMPLE_TEACHER_EXPLANATION_AUDIT",
+  permanentQlCount: MAL_CP001_PERMANENT_QL_IDS.length,
+  generatedQuestionCount,
+  fourTierLayoutCount,
+  numberedStepCount,
+  optionUnitContractCount,
+  namedAnswerContractCount,
+  sourceValueUnitContractCount,
+  simpleVocabularyViolationCount,
+  forbiddenPatternMatchCount,
+  pluralVerbMismatchCount,
+  quantityUnitGrammarMismatchCount,
+  stepSentenceCaseMismatchCount,
+  conclusionSentenceCaseMismatchCount,
+  commonTrapCasingMismatchCount,
+  commonTrapHyphenationMismatchCount,
+  publiclyPublishable: false,
+  questionStudioDiscoverable: false,
+  questionBankWritable: false,
+  testEligible: false,
+}, null, 2));
