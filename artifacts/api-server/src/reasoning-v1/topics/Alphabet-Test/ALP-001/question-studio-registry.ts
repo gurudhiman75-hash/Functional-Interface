@@ -8,10 +8,10 @@ export const ALP_001_QUESTION_STUDIO_REGISTRY = {
   topicCode: "REAS-ALP",
   chapterId: "ALP-001",
   chapterTitle: "Alphabet Test",
-  runtimeVersion: "ALP-001-RUNTIME-V2",
+  runtimeVersion: "ALP-001-RUNTIME-V3",
   editorialSchema: "ALP-001-PEDAGOGY-V2",
   locales: ["en-IN", "hi-IN", "pa-IN"] as const,
-  status: "EDITORIAL_V2_REVIEW_CP001_CP005",
+  status: "CHAPTER_COMPLETE_REVIEW_CP001_CP010",
   qlCount: ALP_001_QLS.length,
   checkpoints: ALP_001_CHECKPOINTS,
   listQuestionLogics(checkpointId?: AlpCheckpointId) {
