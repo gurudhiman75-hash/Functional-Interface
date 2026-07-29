@@ -20,11 +20,23 @@ function positive(value: Rational): boolean {
   return compare(value, rational(0)) > 0;
 }
 
+function balancedInlineMath(value: string): boolean {
+  return (value.match(/\\\(/g) ?? []).length === (value.match(/\\\)/g) ?? []).length;
+}
+
+function outsideInlineMath(value: string): string {
+  return value.replace(/\\\([\s\S]*?\\\)/g, "");
+}
+
 function validate(entry: TmwCp002RegistryEntry, p: TmwCp002Parameters, solution: TmwCp002Solution, stem: string, options: TmwCp002Option[], correctIndex: number): string[] {
   const errors: string[] = [];
+  const visibleText = [stem, solution.answerText, ...options.map((option) => option.text)].join("\n");
   if (!verifyTmwCp002(entry, p, solution)) errors.push("Independent verifier disagrees with canonical solver");
   if (!stem.trim()) errors.push("Stem is empty");
-  if (/undefined|null|\{[^}]+\}/.test(stem)) errors.push("Stem contains an unresolved value");
+  if (/undefined|null|NaN|Infinity|\{\{|\$\{/.test(visibleText)) errors.push("Learner text contains an unresolved value");
+  if (!balancedInlineMath(visibleText)) errors.push("Learner text contains unbalanced inline MathJax");
+  if (/\\frac/.test(outsideInlineMath(visibleText))) errors.push("Learner text contains a raw LaTeX fraction outside MathJax");
+  if (/\b(?:\d+\s+)?\d+\/\d+\s+(?:minutes?|hours?|days?|shifts?)\b/i.test(visibleText)) errors.push("Learner text contains an ASCII fractional time");
   if (!solution.formulaLatex.trim()) errors.push("Formula is empty");
   if (solution.workedLatex.length === 0) errors.push("Worked solution is empty");
   if (!positive(solution.answer)) errors.push("Answer must be positive");
