@@ -160,7 +160,12 @@ function normaliseSimpleWords(value: string): string {
     .replace(/\bbelongs to\b/giu, "is for")
     .replace(/\bthe requested share\b/giu, "the answer")
     .replace(/\bfits the same ratio and total quantity\b/giu, "matches the ratio and total quantity")
-    .replace(/\bactual quantity\b/giu, "real quantity")
+    .replace(/\bactual kilograms or litres\b/giu, "kilograms or litres")
+    .replace(/\ban actual quantity\b/giu, "the required quantity")
+    .replace(/\bactual quantity\b/giu, "required quantity")
+    .replace(/\ban real quantity\b/giu, "the required quantity")
+    .replace(/\breal quantity\b/giu, "required quantity")
+    .replace(/\bnormal two-item\b/giu, "basic two-item")
     .replace(/\balgebra variables\b/giu, "unknown letters")
     .replace(/\bsource prices\b/giu, "item prices")
     .replace(/\bcomponents\b/giu, "items")
@@ -175,7 +180,8 @@ function normalisePermanentStem(value: string): string {
     .replace(/,\s*respectively\?/giu, ", in that order?")
     .replace(/\bthat uniform blend\b/giu, "that first blend")
     .replace(/\bsource grades\b/giu, "two grades")
-    .replace(/\bweighted average price\b/giu, "average price");
+    .replace(/\bweighted average price\b/giu, "average price")
+    .replace(/\bmean price\b/giu, "average price");
 }
 
 function sentenceCase(value: string): string {
