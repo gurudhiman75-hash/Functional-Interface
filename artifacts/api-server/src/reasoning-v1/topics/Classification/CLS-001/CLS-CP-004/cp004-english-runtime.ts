@@ -49,7 +49,7 @@ function simpleShortcut(question: GeneratedClsCp004Question): string {
     case "NEAR_POWER_CLASS":
       return "Find the nearest square or cube. Check whether the number is one more or one less.";
     case "TRIANGULAR_STATUS":
-      return "Build running totals: 1, 3, 6, 10, 15, 21 and so on. A matching number is triangular.";
+      return "Write the running totals 1, 3, 6, 10, 15, 21 and so on. A matching number is triangular.";
     default:
       return "Work out the same number fact for every option, write it down, and choose the different result.";
   }
