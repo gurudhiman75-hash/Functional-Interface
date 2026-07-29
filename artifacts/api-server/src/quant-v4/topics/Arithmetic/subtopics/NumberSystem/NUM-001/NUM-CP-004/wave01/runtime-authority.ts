@@ -173,6 +173,19 @@ function generateVariedTriple(seed: number): NumCp004Wave01Package {
   };
 }
 
+function calibratedFactorDifficulty(
+  prototypeId: NumCp004Wave01PrototypeId,
+  pkg: NumCp004Wave01Package,
+): NumCp004Difficulty {
+  const score = Number(pkg.hiddenState.complexityScore ?? 0);
+  if (prototypeId === "NUM-CP004-PROT-004") {
+    if (score <= 4) return "EASY";
+    if (score <= 8) return "MEDIUM";
+    return "HARD";
+  }
+  return pkg.difficulty;
+}
+
 function generateBoundedFactorState(
   prototypeId: NumCp004Wave01PrototypeId,
   requestedSeed: number,
@@ -186,6 +199,7 @@ function generateBoundedFactorState(
       return {
         ...pkg,
         seed: requestedSeed,
+        difficulty: calibratedFactorDifficulty(prototypeId, pkg),
         hiddenState: {
           ...pkg.hiddenState,
           requestedSeed,
