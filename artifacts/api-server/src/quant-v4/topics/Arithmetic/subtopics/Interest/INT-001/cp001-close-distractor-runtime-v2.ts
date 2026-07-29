@@ -101,7 +101,7 @@ function stepFor(family: Family, correct: Rational): Rational {
   if (family === "TIME_YEARS") {
     if (compareRational(correct, rational(1)) <= 0) return rational(1, 12);
     if (compareRational(correct, rational(2)) <= 0) return rational(1, 6);
-    if (compareRational(correct, rational(3)) <= 0) return rational(1, 4);
+    if (compareRational(correct, rational(4)) <= 0) return rational(1, 4);
     if (compareRational(correct, rational(8)) <= 0) return rational(1, 2);
     return rational(1);
   }
