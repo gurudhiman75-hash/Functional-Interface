@@ -1,0 +1,73 @@
+name: Validate INT-CP-001 inactive release readiness
+
+on:
+  pull_request:
+    branches:
+      - feat/int-001-cp001-hi-pa-localization
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/**
+      - artifacts/api-server/src/quant-v4/generation-engine.ts
+      - artifacts/api-server/src/quant-v4/generation-engine-core.ts
+      - .github/workflows/int-cp001-inactive-release-readiness.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-int-cp001-inactive-release-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-int-cp001-inactive-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle approved multilingual V2 regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-multilingual-v2-approval-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-inactive-release-v2-regression.mjs
+      - name: Run approved multilingual V2 regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/int-001-cp001-inactive-release-v2-regression.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-inactive-release-v2-regression.log
+
+      - name: Bundle inactive release-readiness audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-inactive-release-readiness-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-inactive-release-readiness-audit.mjs
+      - name: Run inactive release-readiness audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/int-001-cp001-inactive-release-readiness-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-inactive-release-readiness-audit.log
+
+      - name: Upload inactive release evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp001-inactive-release-readiness
+          path: |
+            artifacts/api-server/dist/quant-v4/int-001-cp001-inactive-release-v2-regression.log
+            artifacts/api-server/dist/quant-v4/int-001-cp001-inactive-release-readiness-audit.log
+          if-no-files-found: warn
+          retention-days: 7
