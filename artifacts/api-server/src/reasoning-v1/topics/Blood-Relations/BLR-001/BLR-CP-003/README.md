@@ -1,6 +1,6 @@
 # BLR-CP-003 — Family-Set Passages and Shared Graphs
 
-Status: **English open discovery; graph-first grouped runtime active; zero permanent QLs**.
+Status: **English technical pre-human discovery complete; human review pending; zero permanent QLs**.
 
 ## Ownership
 
@@ -8,17 +8,19 @@ This checkpoint owns pure-kinship shared passages. One hidden family graph yield
 
 The current executable slice covers:
 
-- seven graph-first family scenarios across ordinary, affinal, sibling-set, explicit-marital, dual-lineage and four-generation structures;
-- seventeen temporary item handles plus one temporary group-assembly handle;
+- eight graph-first family scenarios across ordinary, affinal, sibling-set, explicit-marital, dual-lineage, four-generation and compact joint-parent structures;
+- eighteen temporary item handles plus one temporary group-assembly handle;
 - relation between named members and identification by relation;
+- identification from a supplied gender and candidate set;
 - married, sibling and parent-child pair selection;
-- gender and generation questions, including three-generation distance;
+- determine-gender and generation questions, including three-generation distance;
 - definitely true and definitely false claims;
 - complete sets of all members satisfying a relation;
 - explicit married and unmarried status without closed-world inference;
 - paternal and maternal grandparent, aunt and uncle resolution through the frozen CP-001 exact-lineage solver;
 - great-grandparent and great-grandchild paths;
-- six or seven questions per shared passage;
+- compact couple and joint-parent rendering with every co-parent edge explicitly modelled;
+- six to eight questions per shared passage;
 - hidden-graph versus clue-only answer agreement;
 - deterministic generation-row explanation data;
 - item-specific four-option construction;
@@ -29,48 +31,78 @@ The current executable slice covers:
 ## Current executable inventory
 
 ```text
-Base graph-first scenarios                 3
-Extended sibling/set scenarios             1
-Explicit marital-status scenarios          1
-Lineage and four-generation scenarios      2
-------------------------------------------------
-Executable discovery scenarios             7
-Temporary item handles                    17
-Temporary group-assembly handles           1
-Deterministic groups                     660
-Independently solved items             4,140
-Hidden-graph agreement checks            660
-Per-group input-contribution checks      660
-Permanent QLs                              0
+Base graph-first scenarios                    3
+Extended sibling/set scenarios                1
+Explicit marital-status scenarios             1
+Lineage and four-generation scenarios         2
+Compact joint-parent source-gap scenarios     1
+---------------------------------------------------
+Executable discovery scenarios                8
+Temporary item handles                       18
+Temporary group-assembly handles              1
+Deterministic groups                        760
+Independently solved items                4,940
+Hidden-graph agreement checks               760
+Per-group input-contribution checks         760
+Permanent QLs                                 0
 ```
 
-These figures describe an open-discovery milestone, not freeze targets.
+These figures describe a technical pre-human milestone, not a frozen inventory.
 
-## Main files
+## English review candidate
+
+```text
+Review pack version       V2
+Shared-family groups      32
+Learner-facing records   208
+Scenario/topology count    8
+Temporary item handles    18
+Answer positions     [57, 53, 49, 49]
+```
+
+V2 remediates unnatural married-pair wording, missing kinship articles, internal-style negative generation rows and awkward generation stems. The pack is ready for human review but is not approved.
+
+## Current compression hypothesis
+
+```text
+Handles merged into frozen QLs        10
+Provisional new handles                 8
+Provisional new solve authorities       6
+Assembly-only handles                   1
+Permanent CP-003 QLs                    0
+```
+
+Frozen QLs reused by grouped items:
+
+```text
+BLR-QL-001
+BLR-QL-002
+BLR-QL-003
+BLR-QL-005
+BLR-QL-006
+BLR-QL-007
+```
+
+Provisional new authorities:
+
+```text
+DETERMINE_MEMBER_GENDER
+SELECT_UNORDERED_FAMILY_PAIR
+IDENTIFY_ALL_MEMBERS_BY_RELATION
+DETERMINE_MEMBER_MARITAL_STATUS
+IDENTIFY_MEMBER_BY_MARITAL_STATUS
+IDENTIFY_PERSON_BY_EXACT_LINEAGE
+```
+
+## Main audit records
 
 - `BLR-CP-003-SOURCE-AND-BOUNDARY-AUDIT.md`
 - `BLR-CP-003-MARITAL-STATUS-AUDIT-V1.md`
 - `BLR-CP-003-LINEAGE-SATURATION-AUDIT-V1.md`
-- `cp003-types.ts`
-- `cp003-scenario-library.ts`
-- `cp003-solver.ts`
-- `cp003-generator.ts`
-- `cp003-prototype.test.ts`
-- `cp003-extended-types.ts`
-- `cp003-extended-scenario.ts`
-- `cp003-extended-solver.ts`
-- `cp003-extended-generator.ts`
-- `cp003-extended.test.ts`
-- `cp003-marital-types.ts`
-- `cp003-marital-scenario.ts`
-- `cp003-marital-solver.ts`
-- `cp003-marital-generator.ts`
-- `cp003-marital.test.ts`
-- `cp003-lineage-types.ts`
-- `cp003-lineage-scenarios.ts`
-- `cp003-lineage-solver.ts`
-- `cp003-lineage-generator.ts`
-- `cp003-lineage.test.ts`
+- `BLR-CP-003-MERGE-SPLIT-AUDIT-V1.md`
+- `BLR-CP-003-INVERSE-AUDIT-V1.md`
+- `BLR-CP-003-SECOND-SOURCE-GAP-PRE-HUMAN.md`
+- `BLR-CP-003-ENGLISH-EDITORIAL-READINESS-V2.md`
 
 ## Current temporary item handles
 
@@ -78,6 +110,7 @@ These figures describe an open-discovery milestone, not freeze targets.
 BLR-CP003-PROT-SHARED-RELATION
 BLR-CP003-PROT-SHARED-IDENTIFY-PERSON
 BLR-CP003-PROT-SHARED-IDENTIFY-BY-RELATION
+BLR-CP003-PROT-SHARED-IDENTIFY-PERSON-BY-GENDER
 BLR-CP003-PROT-SHARED-MARRIED-PAIR
 BLR-CP003-PROT-SHARED-SIBLING-PAIR
 BLR-CP003-PROT-SHARED-PARENT-CHILD-PAIR
@@ -100,34 +133,28 @@ Assembly handle:
 BLR-CP003-PROT-MULTI-ITEM-GROUP
 ```
 
-These IDs are discovery handles, not proposed permanent identities. Several are expected to merge into frozen CP-001 solve authorities after the formal merge/split audit. `BLR-QL-009` remains unclaimed.
+These IDs are discovery handles, not proposed permanent identities. `BLR-QL-009` remains unclaimed.
 
-## Explicit marital-status rule
+## Key semantic boundaries
 
 ```text
 named spouse edge or explicit married fact -> MARRIED
 explicit unmarried fact                    -> UNMARRIED
 missing spouse edge alone                  -> no status conclusion
+marriage alone                              -> no co-parent conclusion
+joint-parent wording                        -> both parent edges required
 ```
 
-The runtime rejects contradictory status facts and an unmarried fact that conflicts with a spouse edge.
+Only-child and family-composition facts remain in CP-004. Possible, impossible and cannot-determine semantics remain in CP-005.
 
-## Lineage and four-generation rule
+## Remaining mandatory work
 
-Exact maternal and paternal items call the frozen CP-001 lineage solver. The group layer reconstructs the shared graph and renders common generation rows; it does not define a second lineage algorithm.
-
-## Remaining discovery work
-
-- wider source saturation for less-common affinal and multi-branch passage structures;
-- clue minimisation beyond answer-contribution checks;
-- shared-prompt English editorial saturation;
-- family-tree explanation rendering and review export;
-- source-backed option-style widening;
-- formal merge/split audit against frozen CP-001 item authorities;
-- inverse-contract audit;
-- human review and remediation;
-- post-human second source-gap confirmation;
-- final freeze and allocation only after all gates close.
+- human review of the 208-record V2 pack;
+- accepted editorial remediation;
+- rerun of every affected deterministic gate;
+- post-human source-gap confirmation;
+- final discovery freeze;
+- sequential QL allocation only after freeze.
 
 ## Release boundary
 
