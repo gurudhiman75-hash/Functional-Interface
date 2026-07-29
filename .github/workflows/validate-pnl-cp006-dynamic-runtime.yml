@@ -129,6 +129,7 @@ jobs:
             '    "maximumExpense",',
             1,
           )
+          runtime = runtime.replace("priorRecoverySum", "priorRecoveryTotal")
           alias_anchor = '  if ("direction" in result && "ratePercent" in result) {'
           if 'context.maximumAllowableExpense' not in runtime:
               runtime = runtime.replace(
