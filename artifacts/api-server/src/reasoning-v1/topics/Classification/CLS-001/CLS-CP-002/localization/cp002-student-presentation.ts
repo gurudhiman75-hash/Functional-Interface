@@ -1,5 +1,6 @@
 import {
   localizedClassLabel,
+  localizedEntityLabel,
 } from "../../CLS-CP-001/localization/cp001-language-pack";
 import {
   CLS_CP002_FACTS,
@@ -136,6 +137,13 @@ function unpolishTerm(
   for (const [canonical, override] of Object.entries(TERM_OVERRIDES)) {
     const student = locale === "hi-IN" ? override.hi : override.pa;
     if (displayed !== student) continue;
+
+    try {
+      return localizedEntityLabel(canonical, locale);
+    } catch {
+      // Imported and supplemental facts are resolved below.
+    }
+
     for (const fact of CLS_CP002_FACTS) {
       if (fact.left !== canonical && fact.right !== canonical) continue;
       try {
