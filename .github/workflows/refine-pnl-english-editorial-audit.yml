@@ -1,0 +1,223 @@
+name: Refine PNL English Editorial Audit
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-english-editorial-audit
+    paths:
+      - ".github/workflows/refine-pnl-english-editorial-audit.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  refine-editorial-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout feature source
+        uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-english-editorial-audit
+
+      - name: Refine sample selection and prose analysis
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          audit_path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts")
+          source = audit_path.read_text()
+
+          source = source.replace(
+              'const samplesPerQl = 3;\n',
+              'const samplesPerQl = 3;\nconst candidateSeedsPerQl = 18;\n',
+              1,
+          )
+          source = source.replace(
+              '.replace(/\\b[a-z]\\b/g, "x")',
+              '.replace(/\\b(?:x|y|n|r|q|d|c|s|m)\\b/g, "x")',
+              1,
+          )
+
+          old_last = '''function lastEditorialSentence(value: string): string {
+            const paragraphs = value
+              .split(/\\n{2,}/)
+              .map((part) => part.trim())
+              .filter(Boolean)
+              .filter((part) => !/^\\*\\*Final answer:/i.test(part));
+            const last = paragraphs.at(-1) ?? "";
+            const sentences = last.match(/[^.!?]+[.!?]?/g)?.map((item) => item.trim()).filter(Boolean) ?? [];
+            return sentences.at(-1) ?? last;
+          }'''
+          new_last = '''function meaningfulProseParagraph(value: string): boolean {
+            if (/^\\*\\*Final answer:/i.test(value.trim())) return false;
+            const words = proseWithoutMath(value)
+              .replace(/\\\\[A-Za-z]+(?:\\{[^}]*\\})?/g, " ")
+              .replace(/[^A-Za-z' -]/g, " ")
+              .split(/\\s+/)
+              .filter(Boolean);
+            return words.length >= 5 && words.some((word) => word.length >= 4);
+          }
+
+          function lastEditorialSentence(value: string): string {
+            const paragraphs = value
+              .split(/\\n{2,}/)
+              .map((part) => part.trim())
+              .filter(Boolean)
+              .filter(meaningfulProseParagraph);
+            const last = paragraphs.at(-1) ?? "";
+            const sentences = last.match(/[^.!?]+[.!?]?/g)?.map((item) => item.trim()).filter(Boolean) ?? [];
+            return sentences.at(-1) ?? last;
+          }'''
+          if old_last in source:
+              source = source.replace(old_last, new_last, 1)
+          elif "function meaningfulProseParagraph" not in source:
+              raise SystemExit("lastEditorialSentence block not found")
+
+          old_generated = '''const generated = runtimes.flatMap((runtime) =>
+            runtime.listQlIds().flatMap((qlId) =>
+              Array.from({ length: samplesPerQl }, (_, index) => {
+                const sampleIndex = index + 1;
+                const seed = `pnl-english-editorial:${runtime.cpId}:${qlId}:${sampleIndex}`;
+                return {
+                  cpId: runtime.cpId,
+                  qlId,
+                  sampleIndex,
+                  seed,
+                  pkg: runtime.run({ questionLanguageId: qlId, language: "en", seed }),
+                };
+              }),
+            ),
+          );'''
+          new_generated = '''const generated = runtimes.flatMap((runtime) =>
+            runtime.listQlIds().flatMap((qlId) => {
+              const candidates = Array.from(
+                { length: candidateSeedsPerQl },
+                (_, index) => {
+                  const candidateIndex = index + 1;
+                  const seed = `pnl-english-editorial:${runtime.cpId}:${qlId}:candidate-${candidateIndex}`;
+                  return {
+                    cpId: runtime.cpId,
+                    qlId,
+                    candidateIndex,
+                    seed,
+                    pkg: runtime.run({
+                      questionLanguageId: qlId,
+                      language: "en",
+                      seed,
+                    }),
+                  };
+                },
+              );
+              const selected: Array<(typeof candidates)[number] & { sampleIndex: number }> = [];
+              const seenStemFingerprints = new Set<string>();
+              for (const candidate of candidates) {
+                const fingerprint = normalizedVisible(candidate.pkg.stem);
+                if (seenStemFingerprints.has(fingerprint)) continue;
+                seenStemFingerprints.add(fingerprint);
+                selected.push({ ...candidate, sampleIndex: selected.length + 1 });
+                if (selected.length === samplesPerQl) break;
+              }
+              if (selected.length < samplesPerQl) {
+                const selectedSeeds = new Set(selected.map((item) => item.seed));
+                for (const candidate of candidates) {
+                  if (selectedSeeds.has(candidate.seed)) continue;
+                  selected.push({ ...candidate, sampleIndex: selected.length + 1 });
+                  if (selected.length === samplesPerQl) break;
+                }
+              }
+              return selected;
+            }),
+          );'''
+          if old_generated in source:
+              source = source.replace(old_generated, new_generated, 1)
+          elif "candidateSeedsPerQl" not in source or "seenStemFingerprints" not in source:
+              raise SystemExit("generated sample block not found")
+
+          source = source.replace(
+              '.filter((paragraph) => !/^\\*\\*Final answer:/i.test(paragraph)),',
+              '.filter(meaningfulProseParagraph),',
+              1,
+          )
+          source = source.replace(
+              '  samplesPerQl,\n  reviewRows:',
+              '  samplesPerQl,\n  candidateSeedsPerQl,\n  reviewRows:',
+              1,
+          )
+          source = source.replace(
+              '`Samples per QL:   ${samplesPerQl}`,',
+              '`Samples per QL:   ${samplesPerQl} selected from ${candidateSeedsPerQl} deterministic candidates`,',
+              1,
+          )
+
+          audit_path.write_text(source)
+
+          plan_path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-PLAN.md")
+          plan = plan_path.read_text()
+          plan = plan.replace(
+              "Every QL receives three fixed review seeds. This gives full QL representation while exposing parameter-driven wording and answer variation.",
+              "For every QL, the exporter evaluates 18 fixed candidate seeds and selects three samples with distinct normalised visible stems whenever the runtime can produce them. This preserves deterministic replay while avoiding false diversity findings caused by an unlucky three-seed draw.",
+              1,
+          )
+          plan_path.write_text(plan)
+          PY
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Format audit sources
+        run: |
+          pnpm exec prettier --write \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-PLAN.md
+
+      - name: Bundle refined exporter
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
+            2>&1 | tee pnl-english-editorial-refinement.log
+
+      - name: Generate refined 558-row corpus
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
+            2>&1 | tee -a pnl-english-editorial-refinement.log
+
+      - name: Commit proven audit refinement
+        run: |
+          if git diff --quiet -- \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-PLAN.md; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-PLAN.md
+          git commit -m "refactor(pnl): improve editorial sample selection"
+          git push origin HEAD:feat/pnl-001-english-editorial-audit
+
+      - name: Upload refined audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-001-english-editorial-audit-refined
+          path: |
+            dist/quant-v4/pnl-001-english-editorial-audit
+            pnl-english-editorial-refinement.log
+          if-no-files-found: error
+          retention-days: 14
