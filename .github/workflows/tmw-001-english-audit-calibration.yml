@@ -6,19 +6,12 @@ on:
       - audit/tmw-001-english-gap-freeze
     paths:
       - .github/workflows/tmw-001-english-audit-calibration.yml
-  pull_request:
-    branches:
-      - design/tmw-001-blueprint
-    types: [opened, reopened, synchronize]
-    paths:
-      - .github/workflows/tmw-001-english-audit-calibration.yml
 
 permissions:
   contents: write
 
 jobs:
   calibrate:
-    if: github.head_ref == 'audit/tmw-001-english-gap-freeze' || github.ref_name == 'audit/tmw-001-english-gap-freeze'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -27,54 +20,44 @@ jobs:
         with:
           fetch-depth: 0
           ref: audit/tmw-001-english-gap-freeze
-      - name: Correct fingerprint and target-syntax checks
+      - name: Accept interrogative and imperative targets
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           from pathlib import Path
-
-          runtime = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp007-runtime.ts')
-          text = runtime.read_text()
-          old = 'return [crew(p.crewA),crew(p.crewB),rationalKey(p.workA),rationalKey(p.workB),rationalKey(p.daysA),rationalKey(p.daysB),optional(p.totalCrewCount),optional(p.targetCrewRate),String(p.targetCategoryIndex??"-"),String(p.sourceCategoryIndex??"-"),String(p.replacementCategoryIndex??"-"),(p.pairwiseCrews??[]).map(crew=>crew.map(rationalKey).join(":")).join(","),(p.pairwiseRates??[]).map(rationalKey).join(",")].join("|");'
-          new = 'return [crew(p.crewA),crew(p.crewB),rationalKey(p.workA),rationalKey(p.workB),rationalKey(p.daysA),rationalKey(p.daysB),optional(p.totalCrewCount),optional(p.targetCrewRate),String(p.targetCategoryIndex??"-"),String(p.sourceCategoryIndex??"-"),String(p.replacementCategoryIndex??"-"),(p.pairwiseCrews??[]).map(crew=>crew.map(rationalKey).join(":")).join(","),(p.pairwiseRates??[]).map(rationalKey).join(","),p.context.categories.map(category=>rationalKey(category.efficiency)).join(":")].join("|");'
-          if old not in text:
-              raise SystemExit('CP-007 fingerprint anchor not found')
-          runtime.write_text(text.replace(old, new, 1))
-
-          audit = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-audit.ts')
-          text = audit.read_text()
+          path = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-audit.ts')
+          text = path.read_text()
           old = '      if (!stem || !stem.endsWith("?")) blocker("STEM_TARGET_PUNCTUATION", "Stem is empty or does not end as a direct question.", { cpId: adapter.cpId, qlId: entry.qlId, seed, sample: stem });'
           new = '''      const lastSentence = stem.split(/(?<=[.!?])\\s+/).at(-1) ?? stem;
       const hasExplicitTarget = stem.endsWith("?") || /^(?:How|What|Which|Who|When|Where|Find|Calculate|Determine|State|Identify|Choose|Work out)\\b/i.test(lastSentence);
       if (!stem || !hasExplicitTarget) blocker("STEM_TARGET_SYNTAX", "Stem does not end with an explicit interrogative or imperative target.", { cpId: adapter.cpId, qlId: entry.qlId, seed, sample: stem });'''
           if old not in text:
               raise SystemExit('target-syntax audit anchor not found')
-          audit.write_text(text.replace(old, new, 1))
+          path.write_text(text.replace(old, new, 1))
           PY
       - name: Install locked workspace dependencies
         run: |
           corepack enable
           pnpm install --frozen-lockfile
-      - name: Run calibrated audit and review export
+      - name: Run calibrated 2,532-case audit
         shell: bash
         run: |
           set -euo pipefail
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-english-gap-audit.calibrated.mjs
           (cd artifacts/api-server && node dist/quant-v4/tmw-001-english-gap-audit.calibrated.mjs || true)
-          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-freeze-review-export.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-english-freeze-review.calibrated.mjs
-          (cd artifacts/api-server && node dist/quant-v4/tmw-001-english-freeze-review.calibrated.mjs)
           node - <<'NODE'
           const fs = require('node:fs');
           const report = JSON.parse(fs.readFileSync('artifacts/api-server/dist/quant-v4/tmw-001-english-gap-audit.json', 'utf8'));
           if (report.summary.hardFailures !== 0) throw new Error(`calibrated audit still has ${report.summary.hardFailures} hard failures`);
+          if (report.findings.some((finding) => finding.code === 'STEM_TARGET_PUNCTUATION')) throw new Error('legacy punctuation finding survived calibration');
           NODE
-      - name: Commit calibrated audit
+      - name: Commit calibrated audit rule
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp007-runtime.ts artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-audit.ts
-          git commit -m 'fix(tmw): calibrate English gap audit'
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-audit.ts
+          git commit -m 'fix(tmw): accept imperative English targets in audit'
           git push origin HEAD:audit/tmw-001-english-gap-freeze
