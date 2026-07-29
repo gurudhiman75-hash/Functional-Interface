@@ -29,7 +29,7 @@ for (let seed = 0; seed < GENERATED_COUNT; seed += 1) {
   assert.equal(question.task, "FIND_NUMBER_PROPERTY_OUTLIER");
   assert.ok(CLS_CP004_ENGLISH_CONTRACT.allowedPrototypeIds.includes(question.metadata.sourcePrototypeId));
   assert.equal(question.metadata.solveContractId, CLS_CP004_ENGLISH_SOLVE_CONTRACT_ID);
-  assert.equal(question.metadata.runtimeVersion, "cls-cp004-english-runtime-v1");
+  assert.equal(question.metadata.runtimeVersion, "cls-cp004-english-runtime-v2");
   assert.equal(question.metadata.sourceSaturationStatus, "ENGLISH_SOURCE_SATURATED");
   assert.equal(question.metadata.locale, "en-IN");
   assert.ok(question.options.length === 4 || question.options.length === 5);
