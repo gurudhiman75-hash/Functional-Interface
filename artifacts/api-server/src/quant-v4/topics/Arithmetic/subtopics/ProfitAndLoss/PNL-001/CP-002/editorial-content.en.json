@@ -950,7 +950,11 @@
           {
             "type": "table",
             "caption": "Offer matrix",
-            "columns": ["Offer", "First reduction", "Second reduction"],
+            "columns": [
+              "Offer",
+              "First reduction",
+              "Second reduction"
+            ],
             "rowSource": "offerTable"
           }
         ],
@@ -1141,7 +1145,10 @@
           {
             "type": "data_sufficiency",
             "question": "Can the required discount be determined uniquely?",
-            "statements": ["{statementOne}", "{statementTwo}"],
+            "statements": [
+              "{statementOne}",
+              "{statementTwo}"
+            ],
             "answerScheme": "STANDARD_TWO_STATEMENT"
           }
         ],

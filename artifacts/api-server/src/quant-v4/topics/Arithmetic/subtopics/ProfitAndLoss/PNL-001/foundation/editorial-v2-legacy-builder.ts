@@ -214,7 +214,7 @@ function representationStem(
           },
           {
             type: "data_sufficiency",
-            question: "Is the required discount uniquely determinable?",
+            question: "Can the required discount be determined uniquely?",
             statements: ["{statementOne}", "{statementTwo}"],
             answerScheme: "STANDARD_TWO_STATEMENT",
           },
@@ -461,7 +461,34 @@ function buildDirectStem(
   return { contextFamily: context.family, blocks, prompt: split.prompt };
 }
 
-function buildExplanation(cpId: string, solveMode: string) {
+function buildExplanation(cpId: string, solveMode: string, qlId: string) {
+  if (qlId === "PNL-QL-070") {
+    return {
+      opening:
+        "Test each statement independently before combining the information.",
+      concept:
+        "Statement I can determine the target selling price from cost price and the target result, but discount also needs marked price. Statement II supplies marked price but cannot determine the target selling price. Together they determine the discount uniquely.",
+      steps: [
+        {
+          title: "Check Statement I alone",
+          body: "Cost price and the target profit or loss fix the target selling price, but marked price is still unknown.",
+        },
+        {
+          title: "Check Statement II alone",
+          body: "Marked price is known, but the selling price required for the target result is still unknown.",
+        },
+        {
+          title: "Combine both statements",
+          body: "Use Statement I to find target selling price, then compare it with the marked price from Statement II to calculate the discount percentage.",
+          equationLatex: "d=\\frac{M-S_{target}}{M}\\times100",
+        },
+      ],
+      conclusion:
+        "Neither statement alone is sufficient; both statements together are required.",
+      commonTrap:
+        "Do not use information from Statement II while testing Statement I, or vice versa.",
+    };
+  }
   if (cpId === "PNL-CP-001") return buildCp001Explanation(solveMode);
   if (cpId === "PNL-CP-002") return buildCp002Explanation(solveMode);
   return buildCp003Explanation(solveMode);
@@ -491,12 +518,16 @@ export function buildLegacyEditorialLibrary(
         registryEntry,
         languageEntry.template,
       ),
-      explanation: buildExplanation(registry.cpId, registryEntry.solveMode),
-      difficulty,
-      difficultyRationale: legacyDifficultyRationale(
-        difficulty,
+      explanation: buildExplanation(
+        registry.cpId,
         registryEntry.solveMode,
+        qlId,
       ),
+      difficulty,
+      difficultyRationale:
+        qlId === "PNL-QL-070"
+          ? "The two statements must be tested independently before their linked price bases can be combined."
+          : legacyDifficultyRationale(difficulty, registryEntry.solveMode),
     };
   }
 
