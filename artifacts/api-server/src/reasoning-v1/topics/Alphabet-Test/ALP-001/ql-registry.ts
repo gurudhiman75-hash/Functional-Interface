@@ -3,6 +3,11 @@ import { ALP_CP002_QLS } from "./ALP-CP-002/question-language.en";
 import { ALP_CP003_QLS } from "./ALP-CP-003/question-language.en";
 import { ALP_CP004_QLS } from "./ALP-CP-004/question-language.en";
 import { ALP_CP005_QLS } from "./ALP-CP-005/question-language.en";
+import { ALP_CP006_QLS } from "./ALP-CP-006/question-language.en";
+import { ALP_CP007_QLS } from "./ALP-CP-007/question-language.en";
+import { ALP_CP008_QLS } from "./ALP-CP-008/question-language.en";
+import { ALP_CP009_QLS } from "./ALP-CP-009/question-language.en";
+import { ALP_CP010_QLS } from "./ALP-CP-010/question-language.en";
 import type { AlpCheckpointId, AlpQuestionLogic } from "./types";
 
 export const ALP_001_QLS: readonly AlpQuestionLogic[] = [
@@ -11,6 +16,11 @@ export const ALP_001_QLS: readonly AlpQuestionLogic[] = [
   ...ALP_CP003_QLS,
   ...ALP_CP004_QLS,
   ...ALP_CP005_QLS,
+  ...ALP_CP006_QLS,
+  ...ALP_CP007_QLS,
+  ...ALP_CP008_QLS,
+  ...ALP_CP009_QLS,
+  ...ALP_CP010_QLS,
 ];
 
 export const ALP_001_CHECKPOINTS = [
@@ -19,6 +29,11 @@ export const ALP_001_CHECKPOINTS = [
   { checkpointId: "ALP-CP-003" as const, qlRange: ["ALP-QL-031", "ALP-QL-046"] as const, qlCount: 16, title: "Gaps, Distance and Middle Positions" },
   { checkpointId: "ALP-CP-004" as const, qlRange: ["ALP-QL-047", "ALP-QL-074"] as const, qlCount: 28, title: "Modified Alphabet Arrangements" },
   { checkpointId: "ALP-CP-005" as const, qlRange: ["ALP-QL-075", "ALP-QL-104"] as const, qlCount: 30, title: "Positions and Rearrangement Within a Word" },
+  { checkpointId: "ALP-CP-006" as const, qlRange: ["ALP-QL-105", "ALP-QL-110"] as const, qlCount: 6, title: "Alphabet-Pair Relations Within Words" },
+  { checkpointId: "ALP-CP-007" as const, qlRange: ["ALP-QL-111", "ALP-QL-118"] as const, qlCount: 8, title: "Explicit Letter-Class Transformations" },
+  { checkpointId: "ALP-CP-008" as const, qlRange: ["ALP-QL-119", "ALP-QL-130"] as const, qlCount: 12, title: "Digit Positions, Pair Relations and Rearrangement" },
+  { checkpointId: "ALP-CP-009" as const, qlRange: ["ALP-QL-131", "ALP-QL-144"] as const, qlCount: 14, title: "Alphanumeric and Symbol Sequence Scanning" },
+  { checkpointId: "ALP-CP-010" as const, qlRange: ["ALP-QL-145", "ALP-QL-156"] as const, qlCount: 12, title: "Mixed-Sequence Rearrangement and Composite Scans" },
 ] as const;
 
 export function alp001QlById(qlId: string): AlpQuestionLogic {
