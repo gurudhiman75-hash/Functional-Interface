@@ -112,8 +112,8 @@ for (let qlNumber = 107; qlNumber <= 269; qlNumber += 1) {
         assert.equal(/\p{Script=Devanagari}/u.test(plainLearnerText), true, `${context}: Hindi script required`);
         assert.equal(/\p{Script=Gurmukhi}/u.test(plainLearnerText), false, `${context}: Gurmukhi-letter leakage into Hindi`);
       } else {
-        assert.equal(/\p{Script=Gurmukhi}/u.test(plainLearText), true, `${context}: Gurmukhi script required`);
-        assert.equal(/\p{Script=Devanagari}/u.test(plainLearText), false, `${context}: Devanagari-letter leakage into Punjabi`);
+        assert.equal(/\p{Script=Gurmukhi}/u.test(plainLearnerText), true, `${context}: Gurmukhi script required`);
+        assert.equal(/\p{Script=Devanagari}/u.test(plainLearnerText), false, `${context}: Devanagari-letter leakage into Punjabi`);
       }
       auditedPackages += 1;
     }
