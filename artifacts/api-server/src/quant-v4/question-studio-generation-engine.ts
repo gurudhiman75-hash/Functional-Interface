@@ -163,6 +163,106 @@ export function listQuantV4Packages() {
   );
 }
 
+function toMalQuestionStudioPreview(
+  pkg: any,
+  context: {
+    questionIndex: number;
+    questionCount: number;
+    seed: string;
+  },
+) {
+  const traceability = pkg.traceability ?? {};
+  const parameters = pkg.parameters ?? {};
+  const explanationLines = Array.isArray(pkg.explanation?.lines)
+    ? pkg.explanation.lines.map((line: unknown) => String(line ?? ""))
+    : [];
+  const taskKind = traceability.taskDirection ?? parameters.taskDirection;
+  const canonicalAnswer = {
+    kind: "symbolic",
+    value: pkg.answer,
+    display: pkg.answer,
+    rendered: pkg.answer,
+    rounding: "exact",
+  };
+
+  return {
+    text: pkg.stem,
+    options: [...pkg.options],
+    correct: pkg.correctIndex,
+    correctIndex: pkg.correctIndex,
+    explanation: explanationLines.join("\n\n"),
+    packageExplanation: pkg.explanation,
+    difficulty: pkg.difficultyBand,
+    difficultyLabel: pkg.difficultyBand,
+    patternId: "MAL-001",
+    section: "Quant",
+    topic: MAL_PACKAGE_DEFINITION.topic,
+    subtopic: MAL_PACKAGE_DEFINITION.subtopic,
+    generationBackend: "quant-v4",
+    debugSource: "quant-v4-package-runtime",
+    reasoningGraph: pkg.reasoningGraph,
+    semanticMetadata: traceability,
+    traceability,
+    validation: pkg.validation,
+    questionId: pkg.questionId,
+    seed: context.seed,
+    answer: pkg.answer,
+    canonicalAnswer,
+    runtimeMode: pkg.runtimeMode,
+    reviewStatus: pkg.reviewStatus,
+    questionBankStatus: pkg.questionBankStatus,
+    testEligibility: pkg.testEligibility,
+    publiclyPublishable: pkg.publiclyPublishable,
+    packageSource: "quant-v4-package-runtime",
+    packageId: "MAL-001",
+    taskKind,
+    scenarioId: undefined,
+    language: pkg.language,
+    metadata: {
+      language: pkg.language,
+      packageId: "MAL-001",
+      canonicalProblemId: pkg.canonicalProblemId,
+      questionLanguageId: pkg.questionLanguageId,
+      explanationId: pkg.explanationId,
+      taskKind,
+      scenarioId: undefined,
+      runtimeMode: pkg.runtimeMode,
+      reviewStatus: pkg.reviewStatus,
+      questionBankStatus: pkg.questionBankStatus,
+      testEligibility: pkg.testEligibility,
+      publiclyPublishable: pkg.publiclyPublishable,
+      releaseId: traceability.releaseId,
+    },
+    questionIndex: context.questionIndex,
+    questionCount: context.questionCount,
+    canonicalProblemId: pkg.canonicalProblemId,
+    questionLanguageId: pkg.questionLanguageId,
+    explanationId: pkg.explanationId,
+    proceduralLogic: parameters,
+    logic: parameters,
+    debugMetadata: {
+      generationDomain: "quant-v4",
+      selectedPattern: "MAL-001",
+      selectedArchetype: "MAL-001",
+      selectedMotif: pkg.canonicalProblemId,
+      canonicalProblemId: pkg.canonicalProblemId,
+      questionLanguageId: pkg.questionLanguageId,
+      explanationId: pkg.explanationId,
+      taskKind,
+      scenarioId: undefined,
+      questionIndex: context.questionIndex,
+      questionCount: context.questionCount,
+      questionId: pkg.questionId,
+      packageSource: "quant-v4-package-runtime",
+      seed: context.seed,
+      reasoningGraph: pkg.reasoningGraph,
+      semanticMetadata: traceability,
+      validatorReports: pkg.validation,
+      releaseId: traceability.releaseId,
+    },
+  };
+}
+
 async function generateAverageQuestion(
   request: QuestionStudioQuantV4GenerationRequest,
 ) {
@@ -280,8 +380,7 @@ async function generateMixtureAndAlligationQuestion(
     });
     questionPackages.push(pkg);
     questions.push(
-      toQuestionStudioPreview(pkg, {
-        packageDefinition: MAL_PACKAGE_DEFINITION,
+      toMalQuestionStudioPreview(pkg, {
         questionIndex: index + 1,
         questionCount: count,
         seed,
