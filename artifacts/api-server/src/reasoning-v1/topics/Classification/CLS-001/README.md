@@ -1,6 +1,6 @@
 # CLS-001 — Classification / Odd One Out
 
-Status: `CP001_FROZEN__CP002_EXECUTABLE_DISCOVERY_IN_PROGRESS`
+Status: `CP001_FROZEN__CP002_ENGLISH_BOUNDARY_CLOSED__MULTILINGUAL_IN_PROGRESS`
 
 ## Product identity
 
@@ -19,14 +19,7 @@ Status: `CP001_FROZEN__CP002_EXECUTABLE_DISCOVERY_IN_PROGRESS`
 
 Classification asks the learner to identify the item, pair or complete option-group that differs from—or uniquely belongs to—the intended class, property or relation.
 
-The chapter is not implemented as a bag of static facts or a generic “three are alike” template. Every admitted question must:
-
-1. define a bounded machine-readable rule universe;
-2. construct a valid state before rendering;
-3. prove one unique answer;
-4. reject equally defensible competing answers;
-5. be independently re-solved from the displayed state;
-6. preserve identical logic across supported locales.
+Every admitted question must define a bounded rule universe, construct a valid state, prove one unique answer, reject competing answers, be independently re-solved and preserve identical logic across supported locales.
 
 Four and five answer options are presentation and difficulty properties. They do not create separate QLs by themselves.
 
@@ -34,7 +27,7 @@ Four and five answer options are presentation and difficulty properties. They do
 
 Permanent QL and solve-mode totals are not fixed for the chapter in advance. Each checkpoint is frozen only after source, task-direction, inverse, answer-object, representation, ambiguity, ownership and no-new-contract audits close.
 
-`CLS-CP-001` has completed that process and owns:
+`CLS-CP-001` owns:
 
 | QL | Student task | Status |
 |---|---|---|
@@ -42,14 +35,14 @@ Permanent QL and solve-mode totals are not fixed for the chapter in advance. Eac
 | `CLS-QL-002` | Select another member of the shared semantic class | Frozen multilingual runtime proof |
 | `CLS-QL-003` | Select the only internally coherent semantic word-group | Frozen multilingual runtime proof |
 
-No later `CLS-QL-*` identity is reserved. `CLS-CP-002` currently uses temporary prototype IDs only.
+`CLS-CP-002` has one provisional contract candidate, but no permanent identity is frozen until multilingual parity and review close.
 
 ## Checkpoint map
 
 | Checkpoint | Working scope | Status |
 |---|---|---|
 | `CLS-CP-001` | Semantic word and entity classification | `FROZEN_MULTILINGUAL_RUNTIME_PROOF` |
-| `CLS-CP-002` | Semantic pair and relationship classification | `EXECUTABLE_DISCOVERY_IN_PROGRESS` |
+| `CLS-CP-002` | Semantic pair and relationship classification | `ENGLISH_BOUNDARY_CLOSED__MULTILINGUAL_IN_PROGRESS` |
 | `CLS-CP-003` | Lexical, spelling and word-structure classification | Pending executable discovery |
 | `CLS-CP-004` | Number-property classification | Pending executable discovery |
 | `CLS-CP-005` | Number-pair, triple and set classification | Pending executable discovery |
@@ -67,37 +60,37 @@ Frozen solve contracts:        3
 Source controls:               8
 Semantic classes:              27
 Unique English entities:       187
-Inherited multi-membership:    91 entities
-Direct multi-membership:       10 entities
 Locales:                       en-IN, hi-IN, pa-IN
 Answer-option counts:          4 and 5
 ```
 
-The checkpoint supports direct semantic category, function, part/whole, hierarchy, cross-cutting membership, inverse class-member selection and coherent option-group selection.
-
-## CLS-CP-002 discovery foundation
+## CLS-CP-002 English boundary
 
 ```text
 Permanent QLs:                 0
 Frozen solve contracts:        0
 Temporary prototypes:          5
-Stable directional relations:  15
+Stable semantic relations:     19
 Lexical relations:             12
 Class-pair relations:          24
-Curated imported facts:        324
-Locale:                        en-IN discovery only
+Total admitted relations:      55
+Curated fact pairs:            372
+Locale:                        en-IN validated; hi-IN/pa-IN in progress
 Answer-option counts:          4 and 5
+Generated audit questions:     2,000
 ```
 
-The first wave tests:
+The wave covers directional semantic relation outliers, synonym/antonym polarity, reversed direction, category-correct false pairings and semantic class-pair contrast. It also closes recurring container/content, material/product, object/sound and explicit one-generation family-role forms.
 
-- directional semantic relation outliers;
-- synonym versus antonym polarity;
-- reversed pair direction;
-- category-correct but false pairings;
-- pairs whose two words belong to another semantic class.
+All 372 fact pairs resolve to exactly one admitted fact relation. Volatile country/capital/state-capital/currency facts and the arguable generic spouse-role relation are excluded.
 
-The generator uses curated Analogy facts and the frozen CP-001 semantic classes, but the task and solver remain Classification-owned. Volatile country/capital/state-capital/currency facts are excluded.
+The five controls provisionally merge into:
+
+```text
+FIND_ODD_SEMANTIC_RELATION_PAIR
+```
+
+with candidate identity `CLS-QL-004`, pending multilingual parity and approval.
 
 ## Strict chapter boundary
 
@@ -125,7 +118,8 @@ Semantic odd word-pair relationships belong to `CLS-CP-002`, because pair direct
 - `CLS-CP-001/CLS-CP-001-FINAL-MULTILINGUAL-FREEZE.md`
 - `CLS-CP-001/CLS-CP-001-SIMPLIFIED-STUDENT-EXPLANATION-STANDARD.md`
 - `CLS-CP-002/CLS-CP-002-EXECUTABLE-DISCOVERY-PLAN.md`
+- `CLS-CP-002/CLS-CP-002-SOURCE-SATURATION-AND-MERGE-SPLIT-AUDIT.md`
 
 ## Release locks
 
-`CLS-CP-001` is approved as a multilingual review-only runtime proof. `CLS-CP-002` is an English executable-discovery wave. Both remain unavailable to Question Studio, Question Bank, tests and public users until later explicit integration approval.
+`CLS-CP-001` is approved as a multilingual review-only runtime proof. `CLS-CP-002` remains review-only and unavailable to Question Studio, Question Bank, tests and public users until its multilingual freeze is approved.
