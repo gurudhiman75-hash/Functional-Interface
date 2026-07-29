@@ -1,0 +1,93 @@
+name: Audit TMW-001 English freeze readiness
+
+on:
+  push:
+    branches:
+      - audit/tmw-001-english-gap-freeze
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
+      - .github/workflows/tmw-001-english-gap-audit.yml
+      - package.json
+      - pnpm-lock.yaml
+  pull_request:
+    branches:
+      - design/tmw-001-blueprint
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
+      - .github/workflows/tmw-001-english-gap-audit.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: audit-tmw-001-english-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit-tmw-001-english:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle chapter-wide English diagnostic
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-english-gap-audit.mjs
+      - name: Run 2,532-case English diagnostic
+        id: diagnostic
+        continue-on-error: true
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          node dist/quant-v4/tmw-001-english-gap-audit.mjs 2>&1 | tee dist/quant-v4/tmw-001-english-gap-audit.log
+      - name: Bundle 211-question review export
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-freeze-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-english-freeze-review-export.mjs
+      - name: Generate 211-question review corpus
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/tmw-001-english-freeze-review-export.mjs
+      - name: Upload English audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tmw-001-english-gap-audit
+          path: |
+            artifacts/api-server/dist/quant-v4/tmw-001-english-gap-audit.log
+            artifacts/api-server/dist/quant-v4/tmw-001-english-gap-audit.json
+            artifacts/api-server/dist/quant-v4/tmw-001-english-freeze-review.json
+          if-no-files-found: error
+          retention-days: 7
+      - name: Enforce English freeze readiness
+        if: always()
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const path = 'dist/quant-v4/tmw-001-english-gap-audit.json';
+          if (!fs.existsSync(path)) throw new Error('English gap audit report was not generated');
+          const report = JSON.parse(fs.readFileSync(path, 'utf8'));
+          const { hardFailures, freezeBlockers } = report.summary;
+          if (hardFailures || freezeBlockers) {
+            throw new Error(`English freeze blocked: ${hardFailures} hard failures and ${freezeBlockers} editorial blockers`);
+          }
+          NODE
