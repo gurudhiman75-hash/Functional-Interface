@@ -57,18 +57,13 @@ export const BLR_CP003_MARITAL_SCENARIO: BlrCp003MaritalScenario = {
     {
       kind: "MARITAL_STATUS",
       prototypeId: "BLR-CP003-PROT-SHARED-MARITAL-STATUS",
-      personId: "C",
-    },
-    {
-      kind: "MARITAL_STATUS",
-      prototypeId: "BLR-CP003-PROT-SHARED-MARITAL-STATUS",
       personId: "B",
     },
     {
       kind: "RELATION",
       prototypeId: "BLR-CP003-PROT-SHARED-RELATION",
-      subjectId: "H",
-      referenceId: "G",
+      subjectId: "F",
+      referenceId: "A",
     },
     {
       kind: "SIBLING_PAIR",
@@ -77,10 +72,10 @@ export const BLR_CP003_MARITAL_SCENARIO: BlrCp003MaritalScenario = {
       personBId: "E",
     },
     {
-      kind: "PARENT_CHILD_PAIR",
-      prototypeId: "BLR-CP003-PROT-SHARED-PARENT-CHILD-PAIR",
-      parentId: "D",
-      childId: "H",
+      kind: "RELATION",
+      prototypeId: "BLR-CP003-PROT-SHARED-RELATION",
+      subjectId: "H",
+      referenceId: "G",
     },
   ],
 };
