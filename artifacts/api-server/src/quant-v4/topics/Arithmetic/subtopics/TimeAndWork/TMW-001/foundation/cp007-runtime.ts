@@ -10,7 +10,7 @@ import type { TmwCp007GeneratedQuestion, TmwCp007Parameters, TmwCp007RegistryEnt
 function fingerprint(p:TmwCp007Parameters):string{
   const crew=(values:TmwCp007Parameters["crewA"]):string=>values.map(rationalKey).join(":");
   const optional=(value:{numerator:number;denominator:number}|undefined):string=>value?rationalKey(value):"-";
-  return [crew(p.crewA),crew(p.crewB),rationalKey(p.workA),rationalKey(p.workB),rationalKey(p.daysA),rationalKey(p.daysB),optional(p.totalCrewCount),optional(p.targetCrewRate),String(p.targetCategoryIndex??"-"),String(p.sourceCategoryIndex??"-"),String(p.replacementCategoryIndex??"-"),(p.pairwiseCrews??[]).map(crew=>crew.map(rationalKey).join(":")).join(","),(p.pairwiseRates??[]).map(rationalKey).join(",")].join("|");
+  return [crew(p.crewA),crew(p.crewB),rationalKey(p.workA),rationalKey(p.workB),rationalKey(p.daysA),rationalKey(p.daysB),optional(p.totalCrewCount),optional(p.targetCrewRate),String(p.targetCategoryIndex??"-"),String(p.sourceCategoryIndex??"-"),String(p.replacementCategoryIndex??"-"),(p.pairwiseCrews??[]).map(crew=>crew.map(rationalKey).join(":")).join(","),(p.pairwiseRates??[]).map(rationalKey).join(","),p.context.categories.map(category=>rationalKey(category.efficiency)).join(":")].join("|");
 }
 function requiresUnitBearingOptions(answerType:string):boolean{return ["COUNT","TIME","RATE","COUNT_PAIR","WORK","RESOURCE_TIME"].includes(answerType);}
 function displayText(raw:string):string{
