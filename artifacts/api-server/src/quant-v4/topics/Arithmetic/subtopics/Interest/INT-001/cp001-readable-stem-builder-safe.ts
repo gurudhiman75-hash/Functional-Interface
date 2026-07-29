@@ -157,6 +157,20 @@ function polishEnglishStem(
   return withStem(result, stem);
 }
 
+function polishPunjabiStem(
+  result: IntCp001ReadableStemResult,
+  solveContract: string,
+): IntCp001ReadableStemResult {
+  if (solveContract !== "FIND_LATER_TIME_FROM_TWO_AMOUNT_RATIO") return result;
+  return withStem(
+    result,
+    result.stem.replace(
+      "ਕਿਸੇ ਅਣਜਾਣ ਸਮੇਂ ਬਾਅਦ ਦੀ",
+      "ਅਣਜਾਣ ਸਮੇਂ ਦੀ",
+    ),
+  );
+}
+
 export function buildIntCp001ReadableStemSafe(
   solveContract: string,
   sourceParameters: unknown,
@@ -172,6 +186,8 @@ export function buildIntCp001ReadableStemSafe(
   }
   if (language === "en") {
     result = polishEnglishStem(result, solveContract);
+  } else if (language === "pa") {
+    result = polishPunjabiStem(result, solveContract);
   }
   return result;
 }
