@@ -27,12 +27,15 @@ export function generateClsCp004EnglishQuestion(
   if (!Number.isSafeInteger(seed) || seed < 0) {
     throw new Error(`Seed must be a non-negative safe integer: ${seed}`);
   }
-  const prototypeIndex = hashText(`${qlId}:prototype:${seed}`) % CLS_CP004_ENGLISH_CONTRACT.allowedPrototypeIds.length;
+  const prototypeCount = CLS_CP004_ENGLISH_CONTRACT.allowedPrototypeIds.length;
+  const prototypeIndex = seed % prototypeCount;
   const sourcePrototypeId = CLS_CP004_ENGLISH_CONTRACT.allowedPrototypeIds[prototypeIndex]!;
+  const sourceSeed = Math.floor(seed / prototypeCount);
   const optionCount = requestedOptionCount ?? optionCountForSeed(seed);
-  const source = generateClsCp004DiscoveryQuestion(sourcePrototypeId, seed, optionCount);
+  const source = generateClsCp004DiscoveryQuestion(sourcePrototypeId, sourceSeed, optionCount);
   return {
     ...source,
+    seed,
     qlId,
     permanentQlId: qlId,
     reviewOnly: true as const,
@@ -41,6 +44,7 @@ export function generateClsCp004EnglishQuestion(
       ...source.metadata,
       runtimeVersion: "cls-cp004-english-runtime-v1" as const,
       sourcePrototypeId,
+      sourcePrototypeSeed: sourceSeed,
       solveContractId: CLS_CP004_ENGLISH_CONTRACT.solveContractId,
       sourceSaturationStatus: "ENGLISH_SOURCE_SATURATED" as const,
     },
