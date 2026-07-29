@@ -34,11 +34,6 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install locked workspace dependencies
-        run: |
-          corepack enable
-          corepack pnpm install --frozen-lockfile
-
       - name: Run CP-003 grouped family runtime proof
         id: cp003_runtime
         continue-on-error: true
@@ -98,6 +93,11 @@ jobs:
         id: cp003_export_v5
         continue-on-error: true
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-review-v5-svg.ts cp003-review-v5-output > cp003-export-v5.log 2>&1
+
+      - name: Install locked workspace dependencies
+        run: |
+          corepack enable
+          corepack pnpm install --frozen-lockfile
 
       - name: Typecheck ExamTree SVG integration
         id: examtree_typecheck
