@@ -20,6 +20,7 @@ import {
   type MenCp007AnyPrototypeId,
   type MenCp007FrozenQlDefinition,
 } from "../final-freeze/registry";
+import { applyMenCp007EnglishEditorialV2 } from "./editorial-v2";
 import type { MenCp007PermanentPackage } from "./types";
 
 const foundationIds = new Set<string>(MEN_CP_007_PROTOTYPES.map((item) => item.prototypeId));
@@ -32,6 +33,13 @@ function getFrozenDefinition(qlId: string): MenCp007FrozenQlDefinition {
   const definition = MEN_CP_007_FROZEN_QLS.find((item) => item.qlId === qlId);
   if (!definition) throw new Error(`Unknown MEN-CP-007 permanent QL: ${qlId}`);
   return definition;
+}
+
+function assertEnglishAndSeed(seed: string, language: "en" | "hi" | "pa") {
+  if (language !== "en") {
+    throw new Error(`MEN-CP-007 permanent runtime currently supports English only; received ${language}.`);
+  }
+  if (!seed.trim()) throw new Error("MEN-CP-007 permanent runtime requires a non-empty deterministic seed.");
 }
 
 function sourceWaveId(prototypeId: MenCp007AnyPrototypeId): MenCp007PermanentPackage["sourceWaveId"] {
@@ -66,6 +74,13 @@ function validatePermanentPackage(
   question: Omit<MenCp007PermanentPackage, "validation">,
   definition: MenCp007FrozenQlDefinition,
 ) {
+  const learnerText = [
+    question.stem,
+    question.explanation.keyRule,
+    ...question.explanation.steps.flatMap((step) => [step.title, step.body, step.equation ?? ""]),
+    question.explanation.shortcut,
+    ...question.explanation.traps,
+  ].join("\n");
   const checks = [
     {
       name: "frozen QL mapping",
@@ -113,6 +128,16 @@ function validatePermanentPackage(
       message: "Core concept, worked steps, shortcut and three option-specific traps are required.",
     },
     {
+      name: "English editorial V2",
+      passed: question.editorialLayoutId === "MEN-CP007-EN-EDITORIAL-V2" && question.editorialStatus === "PENDING_PRODUCT_REVIEW" && !question.explanation.shortcut.startsWith("Quick way:") && /given values|numbers in this question|current values|question's data/.test(question.explanation.shortcut),
+      message: "Every permanent English package requires the V2 state-specific exam-speed layer.",
+    },
+    {
+      name: "editorial typography",
+      passed: !/[½¼²³]/.test(learnerText) && !/\\sqrt[23]\b/.test(learnerText) && !/(Shortest|Longer)\\ side/.test(learnerText),
+      message: "Learner text must use clean MathJax roots, powers and text labels.",
+    },
+    {
       name: "inactive lifecycle",
       passed: question.maturity === "IMPLEMENTATION_PROOF" && question.permanentIdentityFrozen && !question.active && !question.questionStudioDiscoverable && !question.questionBankWritable && !question.testEligible && !question.publiclyPublishable,
       message: "Permanent implementation proof must remain invisible and ineligible.",
@@ -121,20 +146,25 @@ function validatePermanentPackage(
   return { valid: checks.every((check) => check.passed), checks };
 }
 
-export function generateMenCp007PermanentQuestion(
-  qlId: string,
+function generatePermanentFromPrototype(
+  definition: MenCp007FrozenQlDefinition,
   seed: string,
-  language: "en" | "hi" | "pa" = "en",
+  prototypeId: MenCp007AnyPrototypeId,
 ): MenCp007PermanentPackage {
-  if (language !== "en") {
-    throw new Error(`MEN-CP-007 permanent runtime currently supports English only; received ${language}.`);
+  if (!definition.prototypeIds.includes(prototypeId)) {
+    throw new Error(`${prototypeId} is not approved ancestry for ${definition.qlId}.`);
   }
-  if (!seed.trim()) throw new Error("MEN-CP-007 permanent runtime requires a non-empty deterministic seed.");
 
-  const definition = getFrozenDefinition(qlId);
-  const prototypeId = createSeededRandom(`${definition.qlId}:${seed}:prototype`).pick(definition.prototypeIds);
   const sourceSeed = `men-002-cp007-permanent:${definition.qlId}:${seed}:${prototypeId}`;
   const source = generateMenCp007SourcePrototype(prototypeId, sourceSeed);
+  const editorial = applyMenCp007EnglishEditorialV2({
+    qlId: definition.qlId,
+    seed,
+    sourcePrototypeId: prototypeId,
+    stem: source.stem,
+    answer: source.answer,
+    explanation: source.explanation,
+  });
 
   const partial = {
     packageId: "MEN-002" as const,
@@ -150,18 +180,15 @@ export function generateMenCp007PermanentQuestion(
     sourceSeed,
     difficulty: source.difficulty,
     target: definition.target,
-    stem: source.stem,
+    stem: editorial.stem,
     options: source.options.map((option) => ({ ...option })),
     correctIndex: source.correctIndex,
     answer: source.answer,
     exactAnswer: source.exactAnswer,
     unit: source.unit,
-    explanation: {
-      keyRule: source.explanation.keyRule,
-      steps: source.explanation.steps.map((step) => ({ ...step })),
-      shortcut: source.explanation.shortcut,
-      traps: [...source.explanation.traps],
-    },
+    explanation: editorial.explanation,
+    editorialLayoutId: editorial.editorialLayoutId,
+    editorialStatus: editorial.editorialStatus,
     sourceState: {
       prototypeId: source.state.prototypeId,
       solveMode: source.state.solveMode,
@@ -180,7 +207,7 @@ export function generateMenCp007PermanentQuestion(
     allocationStatus: "ALLOCATED_IMPLEMENTATION_PROOF" as const,
     permanentIdentityFrozen: true as const,
     active: false as const,
-    reviewStatus: "UNREVIEWED_PERMANENT_ENGLISH" as const,
+    reviewStatus: "PENDING_ENGLISH_EDITORIAL_REVIEW" as const,
     questionBankStatus: "NOT_STORED" as const,
     questionBankWritable: false as const,
     testEligibility: "INELIGIBLE" as const,
@@ -190,4 +217,26 @@ export function generateMenCp007PermanentQuestion(
   };
 
   return { ...partial, validation: validatePermanentPackage(partial, definition) };
+}
+
+export function generateMenCp007PermanentQuestion(
+  qlId: string,
+  seed: string,
+  language: "en" | "hi" | "pa" = "en",
+): MenCp007PermanentPackage {
+  assertEnglishAndSeed(seed, language);
+  const definition = getFrozenDefinition(qlId);
+  const prototypeId = createSeededRandom(`${definition.qlId}:${seed}:prototype`).pick(definition.prototypeIds);
+  return generatePermanentFromPrototype(definition, seed, prototypeId);
+}
+
+export function generateMenCp007PermanentQuestionFromPrototype(
+  qlId: string,
+  seed: string,
+  prototypeId: MenCp007AnyPrototypeId,
+  language: "en" | "hi" | "pa" = "en",
+): MenCp007PermanentPackage {
+  assertEnglishAndSeed(seed, language);
+  const definition = getFrozenDefinition(qlId);
+  return generatePermanentFromPrototype(definition, seed, prototypeId);
 }
