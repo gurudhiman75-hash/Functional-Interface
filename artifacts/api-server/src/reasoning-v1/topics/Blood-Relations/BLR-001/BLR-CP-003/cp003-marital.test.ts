@@ -13,6 +13,7 @@ import {
 const answerPositions = [0, 0, 0, 0];
 const prototypes = new Set<string>();
 const statuses = new Set<string>();
+const relationOutputs = new Set<string>();
 const fingerprints = new Set<string>();
 let groups = 0;
 let questions = 0;
@@ -78,6 +79,7 @@ for (let seed = 0; seed < 120; seed += 1) {
 
     if (item.metadata.explicitStatusRequired) explicitStatusItems += 1;
     if (item.answer.kind === "MARITAL_STATUS") statuses.add(item.answer.status);
+    if (item.answer.kind === "RELATION") relationOutputs.add(item.answer.relationId);
     answerPositions[item.correctIndex] += 1;
     prototypes.add(item.prototypeId);
     questions += 1;
@@ -92,13 +94,13 @@ assert.equal(groups, 120);
 assert.equal(questions, 720);
 assert.equal(explicitStatusItems, 240);
 assert.deepEqual([...statuses].sort(), ["MARRIED", "UNMARRIED"]);
+assert.deepEqual([...relationOutputs].sort(), ["COUSIN", "DAUGHTER_IN_LAW"]);
 assert.equal(fingerprints.size, 1);
 assert.deepEqual(
   [...prototypes].sort(),
   [
     "BLR-CP003-PROT-SHARED-IDENTIFY-BY-MARITAL-STATUS",
     "BLR-CP003-PROT-SHARED-MARITAL-STATUS",
-    "BLR-CP003-PROT-SHARED-PARENT-CHILD-PAIR",
     "BLR-CP003-PROT-SHARED-RELATION",
     "BLR-CP003-PROT-SHARED-SIBLING-PAIR",
   ],
@@ -161,6 +163,7 @@ console.log(
       questions,
       answerPositions,
       statuses: [...statuses].sort(),
+      relationOutputs: [...relationOutputs].sort(),
       prototypes: [...prototypes].sort(),
       explicitStatusItems,
       unsupportedMissingSpouseInferenceRejected: true,
