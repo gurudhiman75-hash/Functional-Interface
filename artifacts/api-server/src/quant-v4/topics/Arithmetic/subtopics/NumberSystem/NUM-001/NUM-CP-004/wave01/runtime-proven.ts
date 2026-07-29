@@ -2,7 +2,11 @@ import {
   generateNumCp004Wave01Package as generateAuthorityPackage,
   NUM_CP004_WAVE01_PROTOTYPE_IDS,
 } from "./runtime-authority";
+import {
+  generateNumCp004Wave01Package as generateReviewedPackage,
+} from "./runtime-reviewed";
 import type {
+  NumCp004Difficulty,
   NumCp004Wave01Package,
   NumCp004Wave01PrototypeId,
   PrimeFactorPropertyTarget,
@@ -15,35 +19,65 @@ const PROPERTY_TARGETS: readonly PrimeFactorPropertyTarget[] = [
   "TOTAL_PRIME_FACTOR_COUNT",
 ];
 
+function propertyDifficulty(
+  target: PrimeFactorPropertyTarget,
+): NumCp004Difficulty {
+  if (target === "SMALLEST_PRIME_FACTOR" || target === "LARGEST_PRIME_FACTOR") {
+    return "EASY";
+  }
+  if (target === "DISTINCT_PRIME_FACTOR_COUNT") return "MEDIUM";
+  return "HARD";
+}
+
 function generatePropertyTarget(
   requestedSeed: number,
 ): NumCp004Wave01Package {
-  const desiredTarget = PROPERTY_TARGETS[(requestedSeed - 1) % PROPERTY_TARGETS.length]!;
+  const targetIndex = (requestedSeed - 1) % PROPERTY_TARGETS.length;
+  const desiredTarget = PROPERTY_TARGETS[targetIndex]!;
+  let lastError: unknown;
 
-  for (let offset = 0; offset < 40; offset += 1) {
-    const authoritySeed = requestedSeed + offset;
-    const pkg = generateAuthorityPackage("NUM-CP004-PROT-005", authoritySeed);
-    if (pkg.hiddenState.target !== desiredTarget) continue;
+  for (let attempt = 0; attempt < 300; attempt += 1) {
+    const reviewedSeed = requestedSeed * 10_000 + targetIndex + attempt * 4;
+    try {
+      const pkg = generateReviewedPackage("NUM-CP004-PROT-005", reviewedSeed);
+      if (pkg.hiddenState.target !== desiredTarget) {
+        throw new Error(
+          `Target residue mismatch: expected ${desiredTarget}, received ${String(pkg.hiddenState.target)}`,
+        );
+      }
 
-    return {
-      ...pkg,
-      seed: requestedSeed,
-      hiddenState: {
-        ...pkg.hiddenState,
-        requestedSeed,
-        targetAuthoritySeed: authoritySeed,
-        desiredTarget,
-      },
-      prototypeAncestry: [
-        ...pkg.prototypeAncestry,
-        "EXPLICIT-PRIME-PROPERTY-TARGET-SAMPLER",
-      ],
-      mathematicalFingerprint: `NUM-CP004-PROT-005:${desiredTarget}:${JSON.stringify(pkg.hiddenState)}`,
-    };
+      return {
+        ...pkg,
+        seed: requestedSeed,
+        difficulty: propertyDifficulty(desiredTarget),
+        hiddenState: {
+          ...pkg.hiddenState,
+          requestedSeed,
+          targetReviewedSeed: reviewedSeed,
+          desiredTarget,
+        },
+        prototypeAncestry: [
+          ...pkg.prototypeAncestry,
+          "EXPLICIT-PRIME-PROPERTY-TARGET-SAMPLER",
+          "BOUNDED-TARGET-SPECIFIC-REVIEWED-STATE",
+        ],
+        mathematicalFingerprint: `NUM-CP004-PROT-005:${desiredTarget}:${JSON.stringify(pkg.hiddenState)}`,
+      };
+    } catch (error) {
+      lastError = error;
+      if (
+        error instanceof Error
+        && (error.message.includes("verifier domain exceeded")
+          || error.message.includes("Unable to construct three unique misconception options"))
+      ) {
+        continue;
+      }
+      throw error;
+    }
   }
 
   throw new Error(
-    `Unable to generate prime-factor property target ${desiredTarget} for seed ${requestedSeed}`,
+    `Unable to generate bounded prime-factor property target ${desiredTarget} for seed ${requestedSeed}: ${String(lastError)}`,
   );
 }
 
