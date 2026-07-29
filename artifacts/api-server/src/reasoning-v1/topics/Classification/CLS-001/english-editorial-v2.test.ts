@@ -35,7 +35,7 @@ function checkQuestion(question: EditorialQuestion, seed: number): void {
       assert.equal(question.stem, "Which option has three words from the same group?");
       break;
     case "CLS-QL-004":
-      assert.equal(question.stem, "Which pair has a different relationship?");
+      assert.equal(question.stem, "Which pair has a different link?");
       break;
     case "CLS-QL-005":
       assert.match(question.stem, /^Which word (has|behaves)/);
