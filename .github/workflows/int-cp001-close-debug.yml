@@ -1,0 +1,30 @@
+name: Debug INT-CP-001 close duration
+
+on:
+  pull_request:
+    branches:
+      - feat/int-001-cp001-readable-stems-v3
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-close-debug.ts
+      - .github/workflows/int-cp001-close-debug.yml
+
+permissions:
+  contents: read
+
+jobs:
+  debug-close-duration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-close-debug.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-close-debug.mjs
+      - run: node artifacts/api-server/dist/quant-v4/int-001-cp001-close-debug.mjs
