@@ -93,12 +93,13 @@ function labels(locale: ClsCp002Locale): Labels {
 }
 
 const markdown = [
-  "# CLS-CP-002 Provisional Multilingual Review",
+  "# CLS-CP-002 Frozen Multilingual Review",
   "",
   `Questions: ${rows.length}`,
   `Canonical review states: ${reviewSeeds.length}`,
-  `Permanent candidate: ${CLS_CP002_QL_ID}`,
+  `Permanent QL: ${CLS_CP002_QL_ID}`,
   `Locales: ${locales.join(", ")}`,
+  "Runtime status: FROZEN_MULTILINGUAL_RUNTIME_PROOF",
   "Question Studio: disabled",
   "Question Bank: disabled",
   "Test/publication eligibility: disabled",
@@ -155,17 +156,17 @@ const markdown = [
 
 await mkdir(outputDir, { recursive: true });
 await writeFile(
-  path.join(outputDir, "cls-cp002-provisional-multilingual-review.json"),
+  path.join(outputDir, "cls-cp002-frozen-multilingual-review.json"),
   `${JSON.stringify(rows, null, 2)}\n`,
   "utf8",
 );
 await writeFile(
-  path.join(outputDir, "cls-cp002-provisional-multilingual-review.md"),
+  path.join(outputDir, "cls-cp002-frozen-multilingual-review.md"),
   `${markdown}\n`,
   "utf8",
 );
 
-console.log("CLS-CP-002 provisional multilingual review written.", {
+console.log("CLS-CP-002 frozen multilingual review written.", {
   outputDir,
   questions: rows.length,
   canonicalStates: reviewSeeds.length,
