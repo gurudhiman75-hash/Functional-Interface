@@ -25,21 +25,11 @@ function sourceFor(qlNumber: number, seed: string): PncStudentSourcePackage & {
   publiclyPublishable: boolean;
 } {
   const questionLanguageId = `PNC-QL-${String(qlNumber).padStart(3, "0")}`;
-  if (qlNumber <= 208) {
-    return runPnc002Pipeline({ questionLanguageId, seed });
-  }
-  if (qlNumber <= 218) {
-    return runPnc002Cp011GroupingPipeline({ questionLanguageId, seed });
-  }
-  if (qlNumber <= 228) {
-    return runPnc002Cp011DistributionWave1Pipeline({ questionLanguageId, seed });
-  }
-  if (qlNumber <= 238) {
-    return runPnc002Cp011DistributionWave2Pipeline({ questionLanguageId, seed });
-  }
-  if (qlNumber <= 241) {
-    return runPnc002Cp011InversePipeline({ questionLanguageId, seed });
-  }
+  if (qlNumber <= 208) return runPnc002Pipeline({ questionLanguageId, seed });
+  if (qlNumber <= 218) return runPnc002Cp011GroupingPipeline({ questionLanguageId, seed });
+  if (qlNumber <= 228) return runPnc002Cp011DistributionWave1Pipeline({ questionLanguageId, seed });
+  if (qlNumber <= 238) return runPnc002Cp011DistributionWave2Pipeline({ questionLanguageId, seed });
+  if (qlNumber <= 241) return runPnc002Cp011InversePipeline({ questionLanguageId, seed });
   return runPnc002Cp012Pipeline({ questionLanguageId, seed });
 }
 
@@ -61,7 +51,7 @@ assert.equal(PNC_002_COMPLETE_LOCALIZATION_APPROVED.releaseId, "PNC-002-HI-PA-v1
 assert.equal(PNC_002_COMPLETE_LOCALIZATION_APPROVED.qlCount, 163);
 assert.equal(PNC_002_COMPLETE_LOCALIZATION_APPROVED.checkpointCount, 6);
 assert.equal(PNC_002_COMPLETE_LOCALIZATION_APPROVED.editorialStatus, "APPROVED");
-assert.equal(PNC_002_COMPLETE_LOCALIZATION_APPROVED.publiclyPublishable, false);
+assert.equal(PNC_002_COMPLETE_LOCALIZATION_APPROVED.publiclyPublishable, false, "chapter release must remain unpublished");
 assert.equal(PNC_002_COMPLETE_LOCALIZATION_APPROVED.approvedAt, "2026-07-29");
 assert.deepEqual(
   PNC_002_COMPLETE_LOCALIZATION_APPROVED.checkpointReleases.map((release) => release.qlCount),
@@ -79,31 +69,34 @@ for (let qlNumber = 107; qlNumber <= 269; qlNumber += 1) {
   auditedIds.add(questionLanguageId);
   for (const locale of locales) {
     for (const seedName of seeds) {
+      const context = `${questionLanguageId}:${locale}:${seedName}`;
       const source = sourceFor(qlNumber, `${seedName}:${locale}:${questionLanguageId}`);
-      assert.equal(source.validation.valid, true, `${questionLanguageId}: source runtime must be valid`);
-      assert.equal(source.publiclyPublishable, false);
+      assert.equal(source.validation.valid, true, `${context}: source runtime must be valid`);
+      assert.equal(source.publiclyPublishable, false, `${context}: source runtime must remain unpublished`);
       const english = buildPnc002ProductionTeacherStudentPresentation(source);
 
       const localized = buildPnc002ApprovedLocalizedPresentation(source, locale);
-      assert.equal(localized.questionLanguageId, questionLanguageId);
-      assert.equal(localized.locale, locale);
-      assert.equal(localized.sourceLocale, "en-GB");
-      assert.equal(localized.editorialStatus, "APPROVED");
-      assert.equal(localized.publiclyPublishable, false);
-      assert.equal(localized.displayOptions.length, 4);
-      assert.equal(new Set(localized.displayOptions).size, 4);
-      assert.equal(localized.displayOptions[localized.correctIndex], localized.answerLabel);
-      assert.deepEqual(numberTokens(localized.stem), numberTokens(english.stem), `${questionLanguageId}: numeric stem parity`);
-      assert.deepEqual(mathTokens(localized.stem), mathTokens(english.stem), `${questionLanguageId}: MathJax stem parity`);
-      assert.equal(/\{(?:m)?\d+\}/.test(localized.stem), false, `${questionLanguageId}: no unresolved localisation placeholders`);
-      assert.equal(localized.explanationSections.length, 4);
+      assert.equal(localized.questionLanguageId, questionLanguageId, `${context}: QL identity`);
+      assert.equal(localized.locale, locale, `${context}: locale identity`);
+      assert.equal(localized.sourceLocale, "en-GB", `${context}: source locale`);
+      assert.equal(localized.editorialStatus, "APPROVED", `${context}: approved editorial status`);
+      assert.equal(localized.publiclyPublishable, false, `${context}: localized package must remain unpublished`);
+      assert.equal(localized.displayOptions.length, 4, `${context}: four options`);
+      assert.equal(new Set(localized.displayOptions).size, 4, `${context}: unique options`);
+      assert.equal(localized.displayOptions[localized.correctIndex], localized.answerLabel, `${context}: answer/index parity`);
+      assert.deepEqual(numberTokens(localized.stem), numberTokens(english.stem), `${context}: numeric stem parity`);
+      assert.deepEqual(mathTokens(localized.stem), mathTokens(english.stem), `${context}: MathJax stem parity`);
+      assert.equal(/\{(?:m)?\d+\}/.test(localized.stem), false, `${context}: no unresolved localisation placeholders`);
+      assert.equal(localized.explanationSections.length, 4, `${context}: four explanation sections`);
       assert.deepEqual(
         localized.explanationSections.map((section) => section.kind),
         ["coreConcept", "stepByStep", "examSpeedShortcut", "commonTrapWarning"],
+        `${context}: explanation section order`,
       );
       assert.equal(
         localized.explanationSections.find((section) => section.kind === "commonTrapWarning")?.lines.length,
         3,
+        `${context}: three trap warnings`,
       );
 
       const learnerText = [
@@ -113,14 +106,14 @@ for (let qlNumber = 107; qlNumber <= 269; qlNumber += 1) {
         ...localized.explanationSections.flatMap((section) => [section.heading, ...section.lines]),
       ].join("\n");
       const plainLearnerText = stripMath(learnerText);
-      assert.equal(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/.test(learnerText), false);
-      assert.equal(/\b(?:how|many|ways|among|from|must|where|when|people|objects|boxes|groups|committee|selected|arranged|option)\b/i.test(plainLearnerText), false, `${questionLanguageId}: English learner-text leakage`);
+      assert.equal(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/.test(learnerText), false, `${context}: hidden control character`);
+      assert.equal(/\b(?:how|many|ways|among|from|must|where|when|people|objects|boxes|groups|committee|selected|arranged|option)\b/i.test(plainLearnerText), false, `${context}: English learner-text leakage`);
       if (locale === "hi-IN") {
-        assert.equal(/[\u0900-\u097F]/u.test(plainLearnerText), true);
-        assert.equal(/[\u0A00-\u0A7F]/u.test(plainLearnerText), false);
+        assert.equal(/[\u0900-\u097F]/u.test(plainLearnerText), true, `${context}: Hindi script required`);
+        assert.equal(/[\u0A00-\u0A7F]/u.test(plainLearnerText), false, `${context}: Gurmukhi leakage into Hindi`);
       } else {
-        assert.equal(/[\u0A00-\u0A7F]/u.test(plainLearnerText), true);
-        assert.equal(/[\u0900-\u097F]/u.test(plainLearnerText), false);
+        assert.equal(/[\u0A00-\u0A7F]/u.test(plainLearnerText), true, `${context}: Gurmukhi script required`);
+        assert.equal(/[\u0900-\u097F]/u.test(plainLearnerText), false, `${context}: Devanagari leakage into Punjabi`);
       }
       auditedPackages += 1;
     }
