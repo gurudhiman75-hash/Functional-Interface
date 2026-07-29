@@ -1,0 +1,62 @@
+name: Validate CLS-001 CP-002 Semantic Pair Discovery
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-002/**
+      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/README.md
+      - .github/workflows/cls-001-cp002-prototype.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate-semantic-pair-classification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle CLS-CP-002 audit
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-002
+          OUT=dist/reasoning-v1/cls-001/cp002
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/prototype.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/prototype.test.mjs"
+
+      - name: Run CLS-CP-002 audit
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/cls-001/cp002/prototype.test.mjs
+
+      - name: Generate CLS-CP-002 review export
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-002
+          OUT=dist/reasoning-v1/cls-001/cp002
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-review.mjs"
+          (cd artifacts/api-server && node "$OUT/export-review.mjs")
+
+      - name: Upload CLS-CP-002 review
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp002-semantic-pair-discovery-review
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp002-review
+          if-no-files-found: error
