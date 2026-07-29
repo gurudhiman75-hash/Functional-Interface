@@ -80,24 +80,34 @@ function membershipSentence(entity: SemanticEntity, semanticClass: SemanticClass
 
 function quickMethod(family: PrototypeFamily, task: GeneratedClassificationQuestion["task"]): string {
   if (task === "SELECT_COHERENT_GROUP") {
-    return "Check each option on its own: do all three words fit one clear group?";
+    return "Check one option at a time. All three words must belong to the same group.";
   }
   if (task === "SELECT_CLASS_MEMBER") {
-    return "Name the group formed by the given words first, then test which option is a true member.";
+    return "Name the group first. Then choose the option that truly belongs to it.";
   }
   if (family === "PART_WHOLE") {
-    return "Ask: which larger thing does each item belong to?";
+    return "Name the whole that each item belongs to. The item linked to a different whole is the answer.";
   }
   if (family === "FUNCTIONAL_USE") {
-    return "Ask: what is each item mainly used for?";
+    return "Say the main use of each item. The item with a different use is the answer.";
   }
   if (family === "HIERARCHY_CATEGORY") {
-    return "After finding a broad group, check whether most options form a smaller, clearer group.";
+    return "Find the smallest clear group that contains most items. The item outside it is the answer.";
   }
   if (family === "CROSS_CUTTING_CATEGORY") {
-    return "Look for one clear link shared by most options, even when the items come from different animal groups.";
+    return "Find one fact that is true for most items. The item that does not fit is the answer.";
   }
-  return "Name the common category first; the item outside it is the answer.";
+  return "Name the group shared by most items. The item outside it is the answer.";
+}
+
+function simpleStem(question: GeneratedClassificationQuestion): string {
+  if (question.task === "SELECT_COHERENT_GROUP") {
+    return "Which option has three words from the same group?";
+  }
+  if (question.task === "SELECT_CLASS_MEMBER") {
+    return `${naturalList(question.givens)} belong to one group. Which option belongs to the same group?`;
+  }
+  return "Which item is different from the others?";
 }
 
 function directTrap(
@@ -251,6 +261,7 @@ export function simplifyClsCp001EnglishQuestion<T extends GeneratedClassificatio
 
   return {
     ...question,
+    stem: simpleStem(question),
     explanation,
   } as T;
 }
