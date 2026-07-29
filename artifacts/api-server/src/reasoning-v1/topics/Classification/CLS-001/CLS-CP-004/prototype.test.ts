@@ -71,11 +71,12 @@ for (const ruleId of CLS_CP004_DIVISIBILITY_RULE_IDS) {
   assert.equal(clsCp004RuleValue(analyzeClsCp004Number(divisor * 2 + 1), ruleId), "NOT_DIVISIBLE");
 }
 
-const squareFixture = auditClsCp004DisplayedNumbers([9, 16, 25, 27], "PERFECT_SQUARE_STATUS");
+const squareFixture = auditClsCp004DisplayedNumbers([4, 9, 25, 360], "PERFECT_SQUARE_STATUS");
 assert.equal(squareFixture.result, "UNIQUE");
 assert.equal(squareFixture.outlierIndex, 3);
 assert.equal(squareFixture.intendedRuleSupported, true);
-assert.ok(squareFixture.candidateSupports.some((support) => support.ruleId === "PERFECT_CUBE_STATUS"));
+assert.ok(squareFixture.candidateSupports.some((support) => support.ruleId === "DIVISOR_COUNT"));
+assert.ok(squareFixture.candidateSupports.every((support) => support.outlierIndex === 3));
 
 const ambiguousFixture = auditClsCp004DisplayedNumbers([2, 3, 5, 9]);
 assert.equal(ambiguousFixture.result, "AMBIGUOUS");
