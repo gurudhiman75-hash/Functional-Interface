@@ -37,7 +37,7 @@ export function renderTmwCp011Stem(entry:TmwCp011RegistryEntry,p:TmwCp011Paramet
   case "findOutputFromArithmeticDailyRates":return selectStem(entry,seed,{
    SUBJECT_FIRST:`${c.actor} ${c.action} ${a.numerator} ${c.unit} on Day 1 while working at ${c.setting}. The daily output ${signedChange(d,c.unit)}. How many ${c.unit} are completed in all after ${n} days?`,
    TEMPORAL_FIRST:`On Day 1 at ${c.setting}, ${c.actor} ${c.action} ${a.numerator} ${c.unit}. The output ${signedChange(d,c.unit)}. What is the total output after ${n} days?`,
-   OBJECTIVE_FIRST:`Across a ${n}-day work schedule at ${c.setting}, ${c.actor} begins with ${a.numerator} ${c.unit} on Day 1. The output ${signedChange(d,c.unit)}. How many ${c.unit} are completed altogether?`,
+   OBJECTIVE_FIRST:`Across the ${n}-day work schedule at ${c.setting}, ${c.actor} begins with ${a.numerator} ${c.unit} on Day 1. The output ${signedChange(d,c.unit)}. How many ${c.unit} are completed altogether?`,
    CONTEXT_FIRST:`At ${c.setting}, ${c.actor} ${c.action} ${a.numerator} ${c.unit} on Day 1. The output ${signedChange(d,c.unit)}. How many ${c.unit} are completed in all after ${n} days?`
   });
   case "findCompletionTimeFromArithmeticDailyRates":{const target=displayed(p.targetOutput!);return selectStem(entry,seed,{
@@ -55,13 +55,13 @@ export function renderTmwCp011Stem(entry:TmwCp011RegistryEntry,p:TmwCp011Paramet
   case "findDailyChangeFromArithmeticTotal":return selectStem(entry,seed,{
    SUBJECT_FIRST:`${c.actor} completes ${a.numerator} ${c.unit} on Day 1 at ${c.setting}. The output changes by the same amount every day, producing ${p.totalOutput!.numerator} ${c.unit} in ${n} days. What is the daily increase or decrease?`,
    TEMPORAL_FIRST:`Over ${n} days at ${c.setting}, ${c.actor} completes ${p.totalOutput!.numerator} ${c.unit} after starting with ${a.numerator} ${c.unit} on Day 1. If the output changes equally each day, what is that daily change?`,
-   OBJECTIVE_FIRST:`To reach a ${n}-day total of ${p.totalOutput!.numerator} ${c.unit} at ${c.setting}, ${c.actor} starts with ${a.numerator} ${c.unit} on Day 1 and changes the output by a fixed amount each day. Find that daily change.`,
+   OBJECTIVE_FIRST:`To reach a total of ${p.totalOutput!.numerator} ${c.unit} over ${n} days at ${c.setting}, ${c.actor} starts with ${a.numerator} ${c.unit} on Day 1 and changes the output by a fixed amount each day. Find that daily change.`,
    CONTEXT_FIRST:`At ${c.setting}, ${c.actor} completes ${a.numerator} ${c.unit} on Day 1. The output changes by the same amount every day. If the total for ${n} days is ${p.totalOutput!.numerator} ${c.unit}, what is the daily increase or decrease?`
   });
   case "findOutputFromGeometricDailyRates":return selectStem(entry,seed,{
    SUBJECT_FIRST:`${c.actor} completes ${a.numerator} ${c.unit} on Day 1 at ${c.setting}. The output ${multiplierPhrase(p.multiplier!)}. How many ${c.unit} are completed altogether in ${n} days?`,
-   TEMPORAL_FIRST:`On Day 1 at ${c.setting}, ${c.actor} completes ${a.numerator} ${c.unit}. Each later day's output ${multiplierPhrase(p.multiplier!)}. What is the total after ${n} days?`,
-   OBJECTIVE_FIRST:`Across a ${n}-day production run at ${c.setting}, ${c.actor} begins with ${a.numerator} ${c.unit} on Day 1 and the output ${multiplierPhrase(p.multiplier!)}. Find the total output.`,
+   TEMPORAL_FIRST:`On Day 1 at ${c.setting}, ${c.actor} completes ${a.numerator} ${c.unit}. The output then ${multiplierPhrase(p.multiplier!)}. What is the total after ${n} days?`,
+   OBJECTIVE_FIRST:`Across the ${n}-day production run at ${c.setting}, ${c.actor} begins with ${a.numerator} ${c.unit} on Day 1 and the output ${multiplierPhrase(p.multiplier!)}. Find the total output.`,
    CONTEXT_FIRST:`At ${c.setting}, ${c.actor} completes ${a.numerator} ${c.unit} on Day 1. The output ${multiplierPhrase(p.multiplier!)}. How many ${c.unit} are completed in all after ${n} days?`
   });
   case "findCompletionTimeFromGeometricDailyRates":{const target=displayed(p.targetOutput!);return selectStem(entry,seed,{
@@ -73,12 +73,12 @@ export function renderTmwCp011Stem(entry:TmwCp011RegistryEntry,p:TmwCp011Paramet
   case "findInitialRateFromGeometricTotal":{const total=displayed(p.totalOutput!);return selectStem(entry,seed,{
    SUBJECT_FIRST:`${c.actor}'s output at ${c.setting} ${multiplierPhrase(p.multiplier!)}. The ${n}-day total is ${total} ${c.unit}. What was the Day 1 output?`,
    TEMPORAL_FIRST:`Over ${n} days at ${c.setting}, the output ${multiplierPhrase(p.multiplier!)} and totals ${total} ${c.unit}. How many ${c.unit} were completed on Day 1?`,
-   OBJECTIVE_FIRST:`A ${n}-day total of ${total} ${c.unit} is recorded at ${c.setting}. If each day's output ${multiplierPhrase(p.multiplier!)}, find the first day's output.`,
+   OBJECTIVE_FIRST:`The total for ${n} days at ${c.setting} is ${total} ${c.unit}. If each day's output ${multiplierPhrase(p.multiplier!)}, find the first day's output.`,
    CONTEXT_FIRST:`At ${c.setting}, the output ${multiplierPhrase(p.multiplier!)}. The total for ${n} days is ${total} ${c.unit}. What was the Day 1 output?`
   });}
   case "findMultiplierFromGeometricTotal":{const total=displayed(p.totalOutput!);return selectStem(entry,seed,{
    SUBJECT_FIRST:`${c.actor} completes ${a.numerator} ${c.unit} on Day 1 at ${c.setting}. The output is multiplied by the same factor each day, giving ${total} ${c.unit} in ${n} days. What is the multiplier?`,
-   TEMPORAL_FIRST:`During a ${n}-day run at ${c.setting}, ${c.actor} starts with ${a.numerator} ${c.unit} and reaches a total of ${total} ${c.unit} by multiplying the output by the same factor each day. Find that factor.`,
+   TEMPORAL_FIRST:`During the ${n}-day run at ${c.setting}, ${c.actor} starts with ${a.numerator} ${c.unit} and reaches a total of ${total} ${c.unit} by multiplying the output by the same factor each day. Find that factor.`,
    OBJECTIVE_FIRST:`To account for a ${n}-day total of ${total} ${c.unit} at ${c.setting}, ${c.actor} starts with ${a.numerator} ${c.unit} on Day 1 and uses one constant daily multiplier. What is it?`,
    CONTEXT_FIRST:`At ${c.setting}, ${c.actor} completes ${a.numerator} ${c.unit} on Day 1. The output is multiplied by the same factor every day. If the ${n}-day total is ${total} ${c.unit}, what is that multiplier?`
   });}
@@ -114,7 +114,7 @@ export function renderTmwCp011Stem(entry:TmwCp011RegistryEntry,p:TmwCp011Paramet
   });
   case "findSignedNetVariableOutput":return selectStem(entry,seed,{
    SUBJECT_FIRST:`Accepted output at ${c.setting} starts at ${a.numerator} ${c.unit} on Day 1 and ${signedChange(d,c.unit)}. Rejected output starts at ${p.negativeInitialRate!.numerator} ${c.unit} and ${signedChange(p.negativeDailyChange!,c.unit)}. What is the net accepted output after ${n} days?`,
-   TEMPORAL_FIRST:`During a ${n}-day quality-control run at ${c.setting}, accepted output starts at ${a.numerator} ${c.unit} and rejected output at ${p.negativeInitialRate!.numerator} ${c.unit}. Accepted output ${signedChange(d,c.unit)}, while rejected output ${signedChange(p.negativeDailyChange!,c.unit)}. Find the net accepted output.`,
+   TEMPORAL_FIRST:`During the ${n}-day quality-control run at ${c.setting}, accepted output starts at ${a.numerator} ${c.unit} and rejected output at ${p.negativeInitialRate!.numerator} ${c.unit}. Accepted output ${signedChange(d,c.unit)}, while rejected output ${signedChange(p.negativeDailyChange!,c.unit)}. Find the net accepted output.`,
    OBJECTIVE_FIRST:`To calculate net accepted output for ${n} days at ${c.setting}, track accepted work beginning at ${a.numerator} ${c.unit} and rejected work beginning at ${p.negativeInitialRate!.numerator} ${c.unit}. Accepted output ${signedChange(d,c.unit)}, while rejected output ${signedChange(p.negativeDailyChange!,c.unit)}. What is the net total?`,
    CONTEXT_FIRST:`At ${c.setting}, accepted output is ${a.numerator} ${c.unit} on Day 1 and ${signedChange(d,c.unit)}. Rejected output is ${p.negativeInitialRate!.numerator} ${c.unit} on Day 1 and ${signedChange(p.negativeDailyChange!,c.unit)}. What is the net accepted output after ${n} days?`
   });
@@ -126,7 +126,7 @@ export function renderTmwCp011Stem(entry:TmwCp011RegistryEntry,p:TmwCp011Paramet
   });}
   case "findRequiredDailyAdjustmentForDeadline":return selectStem(entry,seed,{
    SUBJECT_FIRST:`${c.actor}'s plan at ${c.setting} starts with ${a.numerator} ${c.unit} on Day 1 and increases by ${d.numerator} ${c.unit} each day. How much extra output must be added equally each day to complete ${p.targetOutput!.numerator} ${c.unit} within ${p.requiredDeadlineDays} days?`,
-   TEMPORAL_FIRST:`Within ${p.requiredDeadlineDays} days at ${c.setting}, ${c.actor} must complete ${p.targetOutput!.numerator} ${c.unit}. The plan starts at ${a.numerator} ${c.unit} on Day 1 and rises by ${d.numerator} each day. Find the equal extra output needed per day.`,
+   TEMPORAL_FIRST:`Within ${p.requiredDeadlineDays} days at ${c.setting}, ${c.actor} must complete ${p.targetOutput!.numerator} ${c.unit}. The plan starts at ${a.numerator} ${c.unit} on Day 1 and rises by ${d.numerator} ${c.unit} each day. Find the equal extra output needed per day.`,
    OBJECTIVE_FIRST:`To complete ${p.targetOutput!.numerator} ${c.unit} within ${p.requiredDeadlineDays} days at ${c.setting}, ${c.actor} follows a plan beginning at ${a.numerator} ${c.unit} and increasing by ${d.numerator} each day. What equal daily addition is required?`,
    CONTEXT_FIRST:`At ${c.setting}, ${c.actor}'s plan starts at ${a.numerator} ${c.unit} on Day 1 and increases by ${d.numerator} ${c.unit} each day. To complete ${p.targetOutput!.numerator} ${c.unit} within ${p.requiredDeadlineDays} days, how much extra output must be added equally on every day?`
   });
