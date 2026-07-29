@@ -1,4 +1,7 @@
+import { solveRelationFromGraph } from "../foundation/graph-closure";
 import { stableHash } from "../foundation/prng";
+import { relationLabel } from "../foundation/relation-ontology";
+import type { BlrRelationId } from "../foundation/types";
 import {
   auditAllBlrCp003CompetitiveRecords,
   type BlrCp003CompetitiveAudit,
@@ -29,6 +32,7 @@ export type BlrCp003CompetitiveReviewV4Record = Omit<
     hasFourTierTeacherVoice: true;
     reverseTrapRequired: boolean;
     reverseTrapExplained: boolean;
+    supplementalDerivedItem?: true;
     semanticFingerprint: string;
   };
 };
@@ -48,7 +52,59 @@ export interface BlrCp003CompetitiveReviewV4Bundle {
   selected: readonly BlrCp003CompetitiveReviewV4Record[];
   rejected: readonly BlrCp003CompetitiveReviewV4RejectedRecord[];
   sourceRecordCount: number;
+  sourceEligibleRecordCount: number;
+  supplementalRecordCount: number;
 }
+
+interface DerivedSupplementSpec {
+  scenarioId:
+    | "BLR-CP003-SCN-SIBLING-SET-BRANCH"
+    | "BLR-CP003-SCN-EXPLICIT-UNMARRIED-BRANCH";
+  itemSuffix: string;
+  relationId: "UNCLE" | "AUNT";
+  answerPersonId: string;
+  referencePersonId: string;
+  bridgePersonId: string;
+  commonParentId: string;
+  candidatePersonIds: readonly [string, string, string, string];
+  variantIndex: number;
+}
+
+const DERIVED_SUPPLEMENTS: readonly DerivedSupplementSpec[] = [
+  {
+    scenarioId: "BLR-CP003-SCN-SIBLING-SET-BRANCH",
+    itemSuffix: "DERIVED-UNCLE",
+    relationId: "UNCLE",
+    answerPersonId: "D",
+    referencePersonId: "G",
+    bridgePersonId: "C",
+    commonParentId: "A",
+    candidatePersonIds: ["D", "C", "A", "E"],
+    variantIndex: 0,
+  },
+  {
+    scenarioId: "BLR-CP003-SCN-SIBLING-SET-BRANCH",
+    itemSuffix: "DERIVED-AUNT",
+    relationId: "AUNT",
+    answerPersonId: "E",
+    referencePersonId: "G",
+    bridgePersonId: "C",
+    commonParentId: "A",
+    candidatePersonIds: ["E", "D", "C", "A"],
+    variantIndex: 1,
+  },
+  {
+    scenarioId: "BLR-CP003-SCN-EXPLICIT-UNMARRIED-BRANCH",
+    itemSuffix: "DERIVED-UNCLE",
+    relationId: "UNCLE",
+    answerPersonId: "E",
+    referencePersonId: "G",
+    bridgePersonId: "C",
+    commonParentId: "A",
+    candidatePersonIds: ["E", "D", "C", "A"],
+    variantIndex: 2,
+  },
+] as const;
 
 function relationDirectionNames(stem: string): readonly [string, string] | null {
   const match = /^How is (.+) related to (.+)\?$/.exec(stem);
@@ -187,6 +243,179 @@ function upgradeSelectedRecord(
   };
 }
 
+function rotate<T>(values: readonly T[], shift: number): T[] {
+  const offset = ((shift % values.length) + values.length) % values.length;
+  return [...values.slice(offset), ...values.slice(0, offset)];
+}
+
+function optionLabel(index: number): "A" | "B" | "C" | "D" {
+  return String.fromCharCode(65 + index) as "A" | "B" | "C" | "D";
+}
+
+function normalisePremise(text: string): string {
+  return text
+    .toLocaleLowerCase("en-IN")
+    .replace(/[’']/g, "")
+    .replace(/[–—-]/g, " ")
+    .replace(/\b(the|a|an)\b/g, " ")
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function assertSupplementIsDerived(
+  context: BlrCp003CompetitiveRawContext,
+  spec: DerivedSupplementSpec,
+): number {
+  const solved = solveRelationFromGraph(
+    context.reconstructedFamily,
+    spec.answerPersonId,
+    spec.referencePersonId,
+  );
+  if (
+    solved.relationId !== spec.relationId ||
+    solved.path.steps.length < 2
+  ) {
+    throw new Error(
+      `Invalid CP-003 V4 supplement ${spec.itemSuffix}: ${solved.relationId}/${solved.path.steps.length}.`,
+    );
+  }
+  const proposition = normalisePremise(
+    `${context.personNames[spec.answerPersonId]} is the ${relationLabel(spec.relationId).toLocaleLowerCase("en-IN")} of ${context.personNames[spec.referencePersonId]}.`,
+  );
+  const promptStatements = new Set(
+    context.sharedPrompt
+      .split(/[.\n]+/)
+      .map(normalisePremise)
+      .filter(Boolean),
+  );
+  if (promptStatements.has(proposition)) {
+    throw new Error(`CP-003 V4 supplement repeats its answer premise: ${spec.itemSuffix}.`);
+  }
+  return solved.path.steps.length;
+}
+
+function actualRelationSentence(
+  context: BlrCp003CompetitiveRawContext,
+  personId: string,
+  referenceId: string,
+): string {
+  try {
+    const relationId = solveRelationFromGraph(
+      context.reconstructedFamily,
+      personId,
+      referenceId,
+    ).relationId;
+    return `${context.personNames[personId]} is the ${relationLabel(relationId).toLocaleLowerCase("en-IN")} of ${context.personNames[referenceId]}`;
+  } catch {
+    return `${context.personNames[personId]} does not have the required relation to ${context.personNames[referenceId]}`;
+  }
+}
+
+function buildDerivedSupplement(
+  base: BlrCp003TeacherReviewRecord,
+  context: BlrCp003CompetitiveRawContext,
+  spec: DerivedSupplementSpec,
+): BlrCp003CompetitiveReviewV4Record {
+  const distance = assertSupplementIsDerived(context, spec);
+  const targetLabel = relationLabel(spec.relationId);
+  const targetLower = targetLabel.toLocaleLowerCase("en-IN");
+  const answerName = context.personNames[spec.answerPersonId]!;
+  const referenceName = context.personNames[spec.referencePersonId]!;
+  const bridgeName = context.personNames[spec.bridgePersonId]!;
+  const commonParentName = context.personNames[spec.commonParentId]!;
+  const orderedIds = rotate(
+    spec.candidatePersonIds,
+    base.seed + spec.variantIndex,
+  );
+  const options = orderedIds.map((personId) => ({
+    text: context.personNames[personId]!,
+    isCorrect: personId === spec.answerPersonId,
+  }));
+  const correctIndex = options.findIndex((option) => option.isCorrect);
+  if (correctIndex < 0 || options.filter((option) => option.isCorrect).length !== 1) {
+    throw new Error(`Invalid CP-003 V4 supplemental options for ${spec.itemSuffix}.`);
+  }
+  const optionAnalysis: BlrCp003TeacherOptionAnalysis[] = orderedIds.map(
+    (personId, index) => {
+      const label = optionLabel(index);
+      const actual = actualRelationSentence(
+        context,
+        personId,
+        spec.referencePersonId,
+      );
+      return {
+        optionLabel: label,
+        optionText: context.personNames[personId]!,
+        isCorrect: personId === spec.answerPersonId,
+        explanation:
+          personId === spec.answerPersonId
+            ? `✅ Option ${label} is correct. ${answerName} is the ${targetLower} of ${referenceName}.`
+            : `⚠️ Don't fall for Option ${label}! ${actual}, not the ${targetLower}.`,
+      };
+    },
+  );
+  const wrongWarnings = optionAnalysis
+    .filter((entry) => !entry.isCorrect)
+    .map(
+      (entry) =>
+        `⚠️ Don't fall for Option ${entry.optionLabel} (${entry.optionText})! ${entry.explanation.replace(/^⚠️ Don't fall for Option [A-D]!\s*/, "")}`,
+    );
+  const stem = `Who is the ${targetLower} of ${referenceName}?`;
+  const conclusion = `${answerName} is the ${targetLower} of ${referenceName}.`;
+  const stepByStepSolution = [
+    "First, let's draw the family members generation by generation using the diagram below.",
+    `${bridgeName} is the parent of ${referenceName}.`,
+    `${answerName} and ${bridgeName} are siblings because both are children of ${commonParentName}.`,
+    `${answerName} is therefore the ${targetLower} of ${referenceName}. This conclusion uses two family links, not a sentence copied from the passage.`,
+    `Therefore, ${conclusion}`,
+  ];
+
+  return {
+    ...base,
+    itemId: `${spec.scenarioId}-V4-${spec.itemSuffix}`,
+    prototypeId: "BLR-CP003-PROT-SHARED-IDENTIFY-PERSON",
+    stem,
+    options,
+    correctIndex,
+    editorial: {
+      coreConcept: [
+        `To find an ${targetLower}, first locate the parent of the person named in the question, then identify that parent's ${spec.relationId === "UNCLE" ? "brother" : "sister"}.`,
+        "A competitive-exam item should require at least two family links; a relation copied directly from one passage sentence is not enough.",
+      ],
+      familyTreeGrid: base.editorial.familyTreeGrid,
+      stepByStepSolution,
+      optionAnalysis,
+      conclusion,
+      examShortcut: `Find ${referenceName}'s parent first, then move sideways to that parent's ${spec.relationId === "UNCLE" ? "brother" : "sister"}. This two-move check reaches ${answerName} quickly.`,
+      commonTraps: wrongWarnings,
+    },
+    metadata: {
+      ...base.metadata,
+      runtimeVersion: "blr-cp003-competitive-review-v4",
+      competitiveExamEligible: true,
+      minimumGraphDistance: distance,
+      directTextMatchCount: 0,
+      claimOptionMinimumGraphDistance: null,
+      claimOptionDirectTextMatchCount: 0,
+      hasAsciiFamilyTree: true,
+      hasFourTierTeacherVoice: true,
+      reverseTrapRequired: false,
+      reverseTrapExplained: true,
+      supplementalDerivedItem: true,
+      semanticFingerprint: stableHash([
+        base.metadata.semanticFingerprint,
+        spec.itemSuffix,
+        spec.relationId,
+        spec.answerPersonId,
+        spec.referencePersonId,
+        ...orderedIds,
+        ...stepByStepSolution,
+      ]),
+    },
+  };
+}
+
 export function generateBlrCp003CompetitiveReviewV4Bundle(
   seeds: readonly number[] = [0, 1, 2, 3],
 ): BlrCp003CompetitiveReviewV4Bundle {
@@ -212,10 +441,31 @@ export function generateBlrCp003CompetitiveReviewV4Bundle(
     }
   }
 
+  const sourceEligibleRecordCount = selected.length;
+  for (const seed of seeds) {
+    for (const spec of DERIVED_SUPPLEMENTS) {
+      const sourceEntry = audited.find(
+        (entry) =>
+          entry.record.scenarioId === spec.scenarioId &&
+          entry.record.seed === seed,
+      );
+      if (!sourceEntry) {
+        throw new Error(
+          `Missing CP-003 V4 supplement source for ${spec.scenarioId}/${seed}.`,
+        );
+      }
+      selected.push(
+        buildDerivedSupplement(sourceEntry.record, sourceEntry.context, spec),
+      );
+    }
+  }
+
   return {
     selected,
     rejected,
     sourceRecordCount: source.length,
+    sourceEligibleRecordCount,
+    supplementalRecordCount: selected.length - sourceEligibleRecordCount,
   };
 }
 
