@@ -4,13 +4,15 @@ import { generateIntCp001ApprovedLocalizedQuestion } from "./cp001-localized-run
 import {
   assertIntCp001DirectionAwareLocaleParity,
   generateIntCp001DirectionAwareLocalizedQuestion,
-  type IntCp001DirectionAwareLocalizedQuestion,
 } from "./cp001-localized-runtime-v2";
 import {
-  getIntCp001CashFlowContext,
   validateIntCp001StemCashFlow,
   type IntCp001CashFlowDirection,
 } from "./cp001-cash-flow-direction";
+import {
+  getIntCp001CashFlowContextV2,
+  validateIntCp001ContextLeadV2,
+} from "./cp001-cash-flow-context-v2";
 import { stableBigIntJson } from "./cp001-localization-foundation";
 import type { IntCp001Locale } from "./cp001-multilingual-release";
 import {
@@ -43,6 +45,19 @@ const directionKeys: readonly IntCp001CashFlowDirection[] = [
   "INVESTOR_EARNS",
   "NEUTRAL_MATH",
 ];
+const expectedScenarios = new Set([
+  "BUSINESS_ADVANCE",
+  "COMMUNITY_LOAN",
+  "CROP_LOAN",
+  "EDUCATION_LOAN",
+  "EQUIPMENT_LOAN",
+  "FIXED_DEPOSIT",
+  "PERSONAL_AGREEMENT",
+  "PERSONAL_LENDING",
+  "POST_OFFICE",
+  "POST_OFFICE_DEPOSIT",
+  "SAVINGS_CERTIFICATE",
+]);
 
 const stats = Object.fromEntries(locales.map((locale) => [locale, {
   generated: 0,
@@ -116,13 +131,19 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
         if (trap.optionText !== item.options[trap.optionNumber - 1]) fail(`${entry.qlId}/${seed}/${locale} has an out-of-sync trap option.`);
       }
 
-      const cashFlow = getIntCp001CashFlowContext(approvedV1.internalProvenance.sourceParameters);
+      const cashFlow = getIntCp001CashFlowContextV2(approvedV1.internalProvenance.sourceParameters);
       if (item.localeEditorialTrace.scenarioId !== cashFlow.scenarioId || item.localeEditorialTrace.cashFlowDirection !== cashFlow.direction) {
         fail(`${entry.qlId}/${seed}/${locale} has incorrect cash-flow traceability.`);
       }
 
-      const legacyErrors = validateIntCp001StemCashFlow(approvedV1.stem, approvedV1.solveContract, locale, cashFlow.direction);
-      const v2Errors = validateIntCp001StemCashFlow(item.stem, item.solveContract, locale, cashFlow.direction);
+      const legacyErrors = [
+        ...validateIntCp001ContextLeadV2(approvedV1.stem, locale, cashFlow),
+        ...validateIntCp001StemCashFlow(approvedV1.stem, approvedV1.solveContract, locale, cashFlow.direction),
+      ];
+      const v2Errors = [
+        ...validateIntCp001ContextLeadV2(item.stem, locale, cashFlow),
+        ...validateIntCp001StemCashFlow(item.stem, item.solveContract, locale, cashFlow.direction),
+      ];
       cashFlowChecks += 1;
       if (legacyErrors.length > 0) localeStats.legacyContradictions += 1;
       if (v2Errors.length > 0) {
@@ -146,6 +167,11 @@ for (const locale of locales) {
   if (localeStats.directions.BORROWER_PAYS === 0 || localeStats.directions.INVESTOR_EARNS === 0) {
     fail(`${locale} did not exercise both loan and investment contexts.`);
   }
+  if (localeStats.directions.NEUTRAL_MATH !== 0) fail(`${locale} encountered an unclassified source scenario.`);
+  for (const scenarioId of expectedScenarios) {
+    if (!localeStats.scenarios.has(scenarioId)) fail(`${locale} did not exercise source scenario ${scenarioId}.`);
+  }
+  if (localeStats.scenarios.size !== expectedScenarios.size) fail(`${locale} exercised an unexpected scenario set.`);
   if (localeStats.legacyContradictions === 0) fail(`${locale} audit failed to reproduce the legacy transaction-direction defect.`);
   if (localeStats.v2Contradictions !== 0) fail(`${locale} retained ${localeStats.v2Contradictions} V2 contradictions.`);
   if (localeStats.changedStems === 0) fail(`${locale} did not change any stems.`);
