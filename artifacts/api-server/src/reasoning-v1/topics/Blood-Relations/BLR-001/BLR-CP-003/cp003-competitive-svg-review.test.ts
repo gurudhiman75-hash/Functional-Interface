@@ -7,6 +7,7 @@ const bundle = generateBlrCp003CompetitiveSvgReviewBundle();
 const records = bundle.selected;
 const fingerprints = new Set<string>();
 let highlightedPathCount = 0;
+let siblingArrowDiagramCount = 0;
 let totalPayloadBytes = 0;
 
 assert.equal(records.length, 128);
@@ -54,6 +55,22 @@ for (const record of records) {
   assert.ok(!markup.includes("undefined"));
   assert.ok(!markup.includes("[object Object]"));
 
+  if (markup.includes('stroke-dasharray="8 6"')) {
+    siblingArrowDiagramCount += 1;
+    assert.ok(markup.includes('id="blr-sibling-arrow"'));
+    assert.ok(markup.includes('orient="auto-start-reverse"'));
+    assert.ok(markup.includes('marker-start="url(#blr-sibling-arrow)"'));
+    assert.ok(markup.includes('marker-end="url(#blr-sibling-arrow)"'));
+    assert.equal(
+      markup.match(/stroke-dasharray="8 6"/g)?.length,
+      markup.match(/marker-start="url\(#blr-sibling-arrow\)"/g)?.length,
+    );
+    assert.equal(
+      markup.match(/stroke-dasharray="8 6"/g)?.length,
+      markup.match(/marker-end="url\(#blr-sibling-arrow\)"/g)?.length,
+    );
+  }
+
   const bytes = Buffer.byteLength(JSON.stringify(diagram), "utf8");
   totalPayloadBytes += bytes;
   assert.ok(bytes < 12_000, `${record.itemId} SVG payload is unexpectedly heavy: ${bytes} bytes.`);
@@ -64,6 +81,7 @@ for (const record of records) {
 
 const averagePayloadBytes = Math.round(totalPayloadBytes / records.length);
 assert.equal(highlightedPathCount, 128);
+assert.ok(siblingArrowDiagramCount > 0);
 assert.ok(averagePayloadBytes < 8_000);
 
 console.log(
@@ -74,6 +92,8 @@ console.log(
       activeRecords: records.length,
       svgDiagrams: records.length,
       highlightedAnswerPaths: highlightedPathCount,
+      siblingArrowDiagrams: siblingArrowDiagramCount,
+      siblingArrowheads: "BIDIRECTIONAL",
       averageStructuredPayloadBytes: averagePayloadBytes,
       maximumPayloadBytes: 12_000,
       externalGraphLibrary: false,
