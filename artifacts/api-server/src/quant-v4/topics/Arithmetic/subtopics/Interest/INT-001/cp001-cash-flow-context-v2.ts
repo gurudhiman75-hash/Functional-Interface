@@ -114,7 +114,7 @@ export function validateIntCp001ContextLeadV2(
       : /(?:ਨਿਵੇਸ਼|ਮਿਆਦੀ ਜਮ੍ਹਾ|ਰਕਮ ਜਮ੍ਹਾ|ਬਚਤ ਸਰਟੀਫਿਕੇਟ)/u;
     const borrowerLead = locale === "hi"
       ? /(?:ऋण|उधार|कर्ज़)/u
-      : /(?:ਕਰਜ਼ਾ|ਉਧਾਰ)/u;
+      : /(?:ਕਰਜ਼|ਉਧਾਰ)/u;
     if (investmentLead.test(firstSentence)) errors.push("Borrowing scenario uses an investment/deposit opening.");
     if (!borrowerLead.test(firstSentence)) errors.push("Borrowing scenario lacks an explicit loan opening.");
   }
@@ -122,7 +122,7 @@ export function validateIntCp001ContextLeadV2(
   if (cashFlow.direction === "INVESTOR_EARNS") {
     const loanLead = locale === "hi"
       ? /(?:ऋण लिया|उधार लिया|कर्ज़ लिया)/u
-      : /(?:ਕਰਜ਼ਾ ਲਿਆ|ਉਧਾਰ ਲਿਆ)/u;
+      : /(?:ਕਰਜ਼[^।]*ਲਿਆ|ਉਧਾਰ ਲਿਆ)/u;
     const investmentLead = locale === "hi"
       ? /(?:निवेश|जमा|बचत प्रमाणपत्र)/u
       : /(?:ਨਿਵੇਸ਼|ਜਮ੍ਹਾ|ਬਚਤ ਸਰਟੀਫਿਕੇਟ)/u;
@@ -133,7 +133,7 @@ export function validateIntCp001ContextLeadV2(
   if (cashFlow.direction === "NEUTRAL_MATH") {
     const directionalLead = locale === "hi"
       ? /(?:ऋण लिया|उधार लिया|कर्ज़ लिया|निवेश|जमा)/u
-      : /(?:ਕਰਜ਼ਾ ਲਿਆ|ਉਧਾਰ ਲਿਆ|ਨਿਵੇਸ਼|ਜਮ੍ਹਾ)/u;
+      : /(?:ਕਰਜ਼|ਉਧਾਰ ਲਿਆ|ਨਿਵੇਸ਼|ਜਮ੍ਹਾ)/u;
     if (directionalLead.test(firstSentence)) errors.push("Neutral scenario uses a directional financial opening.");
   }
 
