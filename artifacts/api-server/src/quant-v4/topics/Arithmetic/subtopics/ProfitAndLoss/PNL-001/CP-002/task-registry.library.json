@@ -4,6 +4,7 @@
   "status": "FREEZE_CANDIDATE",
   "countPolicy": "DISCOVERED_NOT_QUOTA_DRIVEN",
   "title": "Marked Price, Discount and Successive Discounts",
+  "freezeNote": "Count frozen after direct/reverse, promotion-semantics, coupon-order, conditional-eligibility, representation and QL-depth audits. Reopen only for a genuinely distinct book/PYQ mode.",
   "entries": {
     "PNL-QL-037": {"solveMode":"MP_DISCOUNT_TO_SP","answerSemantic":"sellingPrice","requiredVariables":["markedPrice","discountPercent"],"difficulty":"Easy"},
     "PNL-QL-038": {"solveMode":"MP_SP_TO_DISCOUNT","answerSemantic":"discountPercent","requiredVariables":["markedPrice","sellingPrice"],"difficulty":"Easy"},
@@ -38,8 +39,7 @@
     "PNL-QL-067": {"solveMode":"SUCCESSIVE_DISCOUNTS_TO_EQUIVALENT","answerSemantic":"correctStatement","requiredVariables":["firstDiscountPercent","secondDiscountPercent"],"difficulty":"Medium","representation":"STATEMENT"},
     "PNL-QL-068": {"solveMode":"MP_SP_TO_DISCOUNT","answerSemantic":"algebraicDiscountPercent","requiredVariables":["markedPriceExpression","sellingPriceExpression"],"difficulty":"Hard","representation":"ALGEBRAIC"},
     "PNL-QL-069": {"solveMode":"COUPON_ORDER_COMPARE","answerSemantic":"betterOrderAndDifference","requiredVariables":["markedPrice","discountPercent","couponAmount"],"difficulty":"Hard"},
-    "PNL-QL-070": {"solveMode":"MP_CP_TARGET_RATE_TO_DISCOUNT","answerSemantic":"dataSufficiency","requiredVariables":["statementOne","statementTwo","costPrice","markedPrice","targetRatePercent"],"difficulty":"Hard","representation":"DATA_SUFFICIENCY"}
+    "PNL-QL-070": {"solveMode":"MP_CP_TARGET_RATE_TO_DISCOUNT","answerSemantic":"dataSufficiency","requiredVariables":["statementOne","statementTwo"],"difficulty":"Hard","representation":"DATA_SUFFICIENCY"}
   },
-  "entryCount": 34,
-  "freezeNote": "Count frozen after direct/reverse, promotion-semantics, coupon-order, conditional-eligibility, representation and QL-depth audits. Reopen only for a genuinely distinct book/PYQ mode."
+  "entryCount": 34
 }

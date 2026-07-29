@@ -7,7 +7,11 @@ import {
 
 const packages = listQuantV4Packages();
 const pnlPackages = packages.filter((pkg) => pkg.packageId === "PNL-001");
-assert.equal(pnlPackages.length, 1, "Question Studio must expose one PNL-001 package.");
+assert.equal(
+  pnlPackages.length,
+  1,
+  "Question Studio must expose one PNL-001 package.",
+);
 
 const pnl = pnlPackages[0]!;
 assert.equal(pnl.enabled, true);
@@ -58,14 +62,17 @@ const batch = await generateQuestion({
 assert.equal(batch.questionPackages.length, 12);
 assert.equal(batch.questions.length, 12);
 assert.equal(batch.generationContext.runtimeMode, "CANONICAL_REVIEW");
-assert.equal(batch.generationContext.reviewStatus, "APPROVED_EDITORIAL_CANONICAL");
+assert.equal(
+  batch.generationContext.reviewStatus,
+  "APPROVED_EDITORIAL_CANONICAL",
+);
 assert.equal(batch.generationContext.questionBankStatus, "NOT_STORED");
 assert.equal(batch.generationContext.testEligibility, "INELIGIBLE");
 assert.equal(batch.generationContext.publiclyPublishable, false);
 assert.equal(
   new Set(
-    batch.questionPackages.map((questionPackage: any) =>
-      questionPackage.canonicalProblemId,
+    batch.questionPackages.map(
+      (questionPackage: any) => questionPackage.canonicalProblemId,
     ),
   ).size,
   6,
@@ -139,7 +146,10 @@ for (const questionPackage of dynamicBatch.questionPackages as any[]) {
     questionPackage.options[questionPackage.correctIndex],
     questionPackage.answer,
   );
-  assert.equal(questionPackage.traceability.generationMode, "DYNAMIC_CANDIDATE");
+  assert.equal(
+    questionPackage.traceability.generationMode,
+    "DYNAMIC_CANDIDATE",
+  );
   assert.equal(
     questionPackage.traceability.reviewStatus,
     "UNREVIEWED_DYNAMIC_CANDIDATE",
@@ -207,6 +217,34 @@ await assert.rejects(
       seed: "pnl-runtime-mode-safety",
     }),
   /Unsupported PNL-001 runtime mode/,
+);
+
+const ql070Canonical = await generateQuestion({
+  packageId: "PNL-001",
+  canonicalProblemId: "PNL-CP-002",
+  questionLanguageId: "PNL-QL-070",
+  seed: "pnl-ql070-canonical-regression",
+});
+const ql070CanonicalPackage = ql070Canonical.questionPackages[0]!;
+const ql070CanonicalMarker = ql070CanonicalPackage.stem.match(
+  /Statement\s+(?:I|1)\b/i,
+);
+assert.ok(
+  ql070CanonicalMarker?.index,
+  "Canonical QL-070 must separate Statement I from the lead.",
+);
+assert.doesNotMatch(
+  ql070CanonicalPackage.stem.slice(0, ql070CanonicalMarker.index),
+  /₹\s*[\d,]+|\b\d+(?:\.\d+)?%/,
+  "Canonical QL-070 lead must be insufficient by itself.",
+);
+assert.equal(
+  ql070CanonicalPackage.answer,
+  "Both statements together are required",
+);
+assert.equal(
+  ql070CanonicalPackage.options[ql070CanonicalPackage.correctIndex],
+  ql070CanonicalPackage.answer,
 );
 
 const ql092 = await generateQuestion({
