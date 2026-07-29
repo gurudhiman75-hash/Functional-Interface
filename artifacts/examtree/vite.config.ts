@@ -37,13 +37,6 @@ export default defineConfig({
   resolve: {
     alias: [
       {
-        find: "@/components/learning/LogicPlayback",
-        replacement: path.resolve(
-          import.meta.dirname,
-          "src/components/learning/LogicPlaybackRouter.tsx",
-        ),
-      },
-      {
         find: "@",
         replacement: path.resolve(import.meta.dirname, "src"),
       },
