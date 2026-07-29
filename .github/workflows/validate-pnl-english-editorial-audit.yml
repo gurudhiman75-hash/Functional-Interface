@@ -6,26 +6,118 @@ on:
       - feat/pnl-001-english-editorial-audit
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-editorial-seed-regression.test.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-PLAN.md"
       - ".github/workflows/validate-pnl-english-editorial-audit.yml"
   pull_request:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-editorial-seed-regression.test.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-PLAN.md"
       - ".github/workflows/validate-pnl-english-editorial-audit.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   generate-pnl-english-editorial-audit:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
-      - name: Checkout source
+      - name: Checkout feature source
         uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-english-editorial-audit
+
+      - name: Apply CP-003 editorial seed correction
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts")
+          source = path.read_text()
+          start = source.index('case "PNL-QL-078":')
+          end = source.index('case "PNL-QL-079":', start)
+          block = source[start:end]
+          if "const knownDirection = pickDirection(random);" not in block:
+              replacement = '''case "PNL-QL-078":
+            case "PNL-QL-091": {
+              const knownDirection = pickDirection(random);
+              const knownGroups = [
+                {
+                  quantity: pickSeeded(random, QUANTITIES),
+                  unitCostPrice: rupees(pickNumber(random, UNIT_COSTS)),
+                  direction: knownDirection,
+                  ratePercent: rational(
+                    pickNumber(random, [10, 20, 25] as const),
+                  ),
+                },
+              ];
+              const unknownQuantity = pickSeeded(
+                random,
+                [10n, 20n, 40n] as const,
+              );
+              const unknownUnitCostPrice = rupees(
+                pickNumber(random, UNIT_COSTS),
+              );
+              const unknownDirection = knownDirection;
+              const unknownRatePercent = rational(
+                pickNumber(random, [10, 20, 25] as const),
+              );
+              const complete = solveInventoryAdvanced({
+                mode: "GROUP_RATES_TO_OVERALL_RESULT",
+                groups: [
+                  ...knownGroups,
+                  {
+                    quantity: unknownQuantity,
+                    unitCostPrice: unknownUnitCostPrice,
+                    direction: unknownDirection,
+                    ratePercent: unknownRatePercent,
+                  },
+                ],
+              });
+              const target = overallTargetFromGroupResult(complete);
+              const rows = knownGroups.map((group, index) =>
+                groupRow(
+                  `Known group ${index + 1}`,
+                  group.quantity,
+                  group.unitCostPrice,
+                  group.direction,
+                  group.ratePercent,
+                ),
+              );
+              return {
+                qlId,
+                registry,
+                seed: seedValue,
+                request: {
+                  mode: "UNKNOWN_GROUP_RATE_FOR_TARGET",
+                  knownGroups,
+                  unknownQuantity,
+                  unknownUnitCostPrice,
+                  unknownDirection,
+                  targetDirection: target.direction,
+                  targetRatePercent: target.ratePercent,
+                },
+                context: {
+                  knownGroups: rows,
+                  unknownQuantity: unknownQuantity.toString(),
+                  unknownUnitCostPrice: cp003PlainMoney(unknownUnitCostPrice),
+                  unknownDirection: unknownDirection.toLowerCase(),
+                  targetDirection: target.direction.toLowerCase(),
+                  targetRatePercent: cp003FormatRational(target.ratePercent),
+                  groupCostExpressions: `${rows[0]![1]}, ${rows[0]![2]}; unknown group: ${unknownQuantity}x${cp003FormatMoney(unknownUnitCostPrice)} at r% ${unknownDirection.toLowerCase()}`,
+                },
+                expectedDirection: unknownDirection,
+              };
+            }
+
+            '''
+              source = source[:start] + replacement + source[end:]
+              path.write_text(source)
+          PY
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -39,6 +131,11 @@ jobs:
 
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Format corrected CP-003 source
+        run: |
+          pnpm exec prettier --write \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts
 
       - name: Bundle CP-003 editorial seed regression
         run: |
@@ -69,6 +166,18 @@ jobs:
           set -o pipefail
           node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
             2>&1 | tee -a pnl-english-editorial-audit.log
+
+      - name: Commit proven CP-003 correction
+        run: |
+          if git diff --quiet -- \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts
+          git commit -m "fix(pnl): keep CP-003 inverse inventory directional"
+          git push origin HEAD:feat/pnl-001-english-editorial-audit
 
       - name: Upload editorial review corpus
         if: always()
