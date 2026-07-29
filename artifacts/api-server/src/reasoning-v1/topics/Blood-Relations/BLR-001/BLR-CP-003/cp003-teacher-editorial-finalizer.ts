@@ -76,13 +76,17 @@ function polishedOptionAnalysis(
         ? `${lineageNames[0]} is the ${correctText} of ${lineageNames[1]}; the family side and gender both match.`
         : `${lineageNames[0]} is the ${correctText} of ${lineageNames[1]}, so ${entry.optionText.toLocaleLowerCase("en-IN")} is not correct.`;
     } else if (generationNames) {
-      explanation = entry.isCorrect
-        ? correctText === "same generation"
+      if (correctText === "same generation") {
+        explanation = entry.isCorrect
           ? `${generationNames[0]} and ${generationNames[1]} appear on the same generation row.`
-          : `${generationNames[0]} is ${correctText} ${generationNames[1]}.`
-        : `${generationNames[0]} is ${correctText} ${generationNames[1]}, not ${entry.optionText.toLocaleLowerCase("en-IN")}.`;
+          : `${generationNames[0]} and ${generationNames[1]} are in the same generation, so “${entry.optionText}” is incorrect.`;
+      } else {
+        explanation = entry.isCorrect
+          ? `${generationNames[0]} is ${correctText} ${generationNames[1]}.`
+          : `${generationNames[0]} is ${correctText} ${generationNames[1]}, not ${entry.optionText.toLocaleLowerCase("en-IN")}.`;
+      }
     } else if (identifyMatch && entry.optionText === identifyMatch[2]) {
-      explanation = `${entry.optionText} is the reference person in the question, so this option cannot be the ${identifyMatch[1]} of itself.`;
+      explanation = `${entry.optionText} is the reference person, not the person being identified as the ${identifyMatch[1]}.`;
     }
     return { ...entry, explanation };
   });
