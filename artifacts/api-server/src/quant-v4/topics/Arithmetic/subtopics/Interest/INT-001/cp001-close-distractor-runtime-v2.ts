@@ -114,7 +114,15 @@ function generatedBoundary(family: Family, correct: Rational, candidate: Rationa
   if (family === "MONEY") return relative <= 1500;
   if (family === "RATE") return compareRational(distance(correct, candidate), rational(2)) <= 0;
   if (family === "TIME_MONTHS") return compareRational(distance(correct, candidate), rational(2)) <= 0;
-  if (family === "TIME_YEARS") return relative <= 2500 && compareRational(distance(correct, candidate), rational(1)) <= 0;
+  if (family === "TIME_YEARS") {
+    if (compareRational(correct, rational(1, 12)) <= 0) {
+      return compareRational(distance(correct, candidate), rational(1, 24)) <= 0;
+    }
+    if (compareRational(correct, rational(1)) <= 0) {
+      return compareRational(distance(correct, candidate), rational(1, 12)) <= 0;
+    }
+    return relative <= 2500 && compareRational(distance(correct, candidate), rational(1)) <= 0;
+  }
   return relative <= 2500 && compareRational(distance(correct, candidate), rational(1, 4)) <= 0;
 }
 
@@ -160,8 +168,21 @@ function ratioPool(correct: Rational): Rational[] {
   return values;
 }
 
+function shortYearPool(correct: Rational): Rational[] {
+  const offsets = compareRational(correct, rational(1, 12)) <= 0
+    ? [rational(1, 48), rational(1, 24), rational(1, 16)]
+    : [rational(1, 24), rational(1, 12), rational(1, 8)];
+  return offsets.flatMap((offset) => [
+    subtractRational(correct, offset),
+    addRational(correct, offset),
+  ]);
+}
+
 function generatedPool(family: Family, correct: Rational): Rational[] {
   if (family === "RATIO") return ratioPool(correct);
+  if (family === "TIME_YEARS" && compareRational(correct, rational(1)) <= 0) {
+    return shortYearPool(correct);
+  }
   const step = stepFor(family, correct);
   return [
     subtractRational(correct, step),
@@ -256,6 +277,14 @@ function formatTimeMonths(value: Rational, language: IntCp001CloseDistractorLang
   return language === "hi" ? `${displayed} महीने` : `${displayed} ਮਹੀਨੇ`;
 }
 
+function formatTimeYears(value: Rational, language: IntCp001CloseDistractorLanguage): string {
+  const months = multiplyRational(value, rational(12));
+  if (months.denominator === 1n || months.denominator === 2n || months.denominator === 4n) {
+    return formatTimeMonths(months, language);
+  }
+  return language === "en" ? formatEnglishDurationYears(value) : formatLocalizedDurationYears(value, language);
+}
+
 function formatRatio(value: Rational, answerSemantic: string, language: IntCp001CloseDistractorLanguage): string {
   const amountMultiple = answerSemantic === "AMOUNT_MULTIPLE";
   if (language === "en") {
@@ -281,9 +310,7 @@ function formatCandidate(
     return `${formatExact(value)}% ${suffix}`;
   }
   if (family === "TIME_MONTHS") return formatTimeMonths(value, language);
-  if (family === "TIME_YEARS") {
-    return language === "en" ? formatEnglishDurationYears(value) : formatLocalizedDurationYears(value, language);
-  }
+  if (family === "TIME_YEARS") return formatTimeYears(value, language);
   return formatRatio(value, answerSemantic, language);
 }
 
