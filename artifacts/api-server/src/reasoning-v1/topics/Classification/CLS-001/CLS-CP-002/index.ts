@@ -9,7 +9,7 @@ export type {
 } from "./cp002-permanent-contract";
 export { generateClsCp002EnglishQuestion } from "./cp002-permanent-runtime";
 export type {
-  ClsCp002ProvisionalLifecycle,
+  ClsCp002FrozenLifecycle,
   GeneratedClsCp002EnglishQuestion,
 } from "./cp002-permanent-runtime";
 export { generateClsCp002Question } from "./cp002-multilingual-runtime";
