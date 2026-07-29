@@ -7,10 +7,14 @@ import {
 } from "./cp001-localized-runtime-approved";
 import {
   alignIntCp001StemCashFlow,
-  getIntCp001CashFlowContext,
   validateIntCp001StemCashFlow,
   type IntCp001CashFlowDirection,
 } from "./cp001-cash-flow-direction";
+import {
+  alignIntCp001ContextLeadV2,
+  getIntCp001CashFlowContextV2,
+  validateIntCp001ContextLeadV2,
+} from "./cp001-cash-flow-context-v2";
 import type { IntCp001Locale } from "./cp001-multilingual-release";
 import {
   getIntCp001LocaleReleaseV2Id,
@@ -46,10 +50,18 @@ export function generateIntCp001DirectionAwareLocalizedQuestion(
   locale: IntCp001Locale,
 ): IntCp001DirectionAwareLocalizedQuestion {
   const approvedV1 = generateIntCp001ApprovedLocalizedQuestion(qlId, seed, locale);
-  const cashFlow = getIntCp001CashFlowContext(approvedV1.internalProvenance.sourceParameters);
-  const stem = alignIntCp001StemCashFlow(approvedV1.stem, locale, cashFlow.direction);
+  const sourceParameters = approvedV1.internalProvenance.sourceParameters;
+  const cashFlow = getIntCp001CashFlowContextV2(sourceParameters);
+  const contextAlignedStem = alignIntCp001ContextLeadV2(
+    approvedV1.stem,
+    sourceParameters,
+    locale,
+    cashFlow.scenarioId,
+  );
+  const stem = alignIntCp001StemCashFlow(contextAlignedStem, locale, cashFlow.direction);
   const errors = [
     ...approvedV1.validation.errors,
+    ...validateIntCp001ContextLeadV2(stem, locale, cashFlow),
     ...validateIntCp001StemCashFlow(stem, approvedV1.solveContract, locale, cashFlow.direction),
   ];
 
