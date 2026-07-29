@@ -64,7 +64,7 @@ const rawPowerOrFractionPattern = /[½¼²³]/;
 const hiddenControlPattern = /[\u0000-\u0008\u000B\u000C\u000E-\u001F]/;
 const ungroupedRupeePattern = /\\text\{₹\}(\d{4,})(?![,\d])/g;
 const ungroupedVisibleNumberPattern = /(?<![\d,])\d{4,}(?![\d,])/;
-const difficultVocabularyPattern = /\b(?:multiplicatively|conserved|congruent|reconstruct(?:s|ed|ing)?|recover(?:s|ed|ing)?|semiperimeter|axis-aligned|coefficient|successive change|dimension-wise|cross-sectional|surd|approximation|edge-aligned|orientations?|unusable remainder)\b/i;
+const difficultVocabularyPattern = /\b(?:multiplicatively|conserved|congruent|reconstruct(?:s|ed|ing)?|recover(?:s|ed|ing)?|semiperimeter|axis-aligned|coefficient|successive change|dimension-wise|cross-sectional|surd|approximation|edge-aligned|orientations?|unusable remainder|modulo|quotient|non-maximum|direction-wise)\b/i;
 const weakShortcutPattern = /Quick way:\s*(?:A length is positive|Each position in one direction combines|No other arrangement gives|Compare the waste with the original volume)/i;
 const bannedBoilerplate = [
   "Do not rebuild the full total",
