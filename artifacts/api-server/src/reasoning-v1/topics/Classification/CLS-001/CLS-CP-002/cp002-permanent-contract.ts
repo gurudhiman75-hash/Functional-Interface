@@ -19,5 +19,5 @@ export const CLS_CP002_PERMANENT_CONTRACT = {
     "CLS-CP002-PROT-004",
     "CLS-CP002-PROT-005",
   ] as const satisfies readonly ClsCp002PrototypeId[],
-  status: "PROVISIONAL_MULTILINGUAL_PROOF" as const,
+  status: "FROZEN_MULTILINGUAL_RUNTIME_PROOF" as const,
 };
