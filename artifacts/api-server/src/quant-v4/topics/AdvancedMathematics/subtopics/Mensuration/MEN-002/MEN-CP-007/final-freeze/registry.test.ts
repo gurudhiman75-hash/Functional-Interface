@@ -67,11 +67,11 @@ for (const requiredTarget of ["VOLUME", "SURFACE_AREA", "LENGTH", "DIAGONAL", "R
 }
 
 const multiPrototypeFamilies = MEN_CP_007_FROZEN_QLS.filter((item) => item.prototypeIds.length > 1);
-assert.equal(multiPrototypeFamilies.length, 15, "Fifteen QL families must carry proven parameter or representation merges.");
+assert.equal(multiPrototypeFamilies.length, 14, "Fourteen QL families must carry proven parameter or representation merges.");
 assert.equal(
   multiPrototypeFamilies.reduce((total, item) => total + item.prototypeIds.length, 0),
-  35,
-  "Merged families must account for 35 prototype ancestries.",
+  34,
+  "Merged families must account for 34 prototype ancestries.",
 );
 
 console.log(
