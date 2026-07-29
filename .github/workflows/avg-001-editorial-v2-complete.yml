@@ -1,0 +1,75 @@
+name: Validate AVG-001 complete editorial v2
+
+on:
+  push:
+    branches:
+      - feat/avg-001-v2-complete
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/**
+      - .github/workflows/avg-001-editorial-v2-complete.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/**
+      - .github/workflows/avg-001-editorial-v2-complete.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: avg-001-editorial-v2-complete-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-complete-editorial-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle complete editorial v2 audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-editorial-v2-complete-audit.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/avg-001-editorial-v2-complete-audit.mjs
+      - name: Run 425-QL complete editorial v2 audit
+        shell: bash
+        run: |
+          set -o pipefail
+          (cd artifacts/api-server && node dist/quant-v4/avg-001-editorial-v2-complete-audit.mjs) \
+            | tee artifacts/api-server/avg-001-editorial-v2-complete-diagnostics.log
+      - name: Generate 425-row review CSV
+        if: always()
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-editorial-v2-complete-review-export.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/avg-001-editorial-v2-complete-review-export.mjs
+          (cd artifacts/api-server && node dist/quant-v4/avg-001-editorial-v2-complete-review-export.mjs)
+      - name: Upload diagnostics and review corpus
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: avg-001-editorial-v2-complete-review
+          path: |
+            artifacts/api-server/avg-001-editorial-v2-complete-diagnostics.log
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-editorial-v2-complete-review.csv
+          if-no-files-found: error
+          retention-days: 14
