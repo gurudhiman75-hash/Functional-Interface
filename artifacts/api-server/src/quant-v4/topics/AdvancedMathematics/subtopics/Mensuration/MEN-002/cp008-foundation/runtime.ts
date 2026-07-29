@@ -18,6 +18,29 @@ function replaceCurrency(text: string) {
     .replace(/£/g, "₹");
 }
 
+function generateCollisionFreeLegacy(
+  prototypeId: MenCp008PrototypeId,
+  publicSeed: string,
+) {
+  for (let attempt = 0; attempt < 32; attempt += 1) {
+    const sourceSeed = attempt === 0
+      ? publicSeed
+      : `${publicSeed}:option-collision-retry:${attempt}`;
+    try {
+      const generated = generateLegacyMenCp008Prototype(prototypeId, sourceSeed);
+      return {
+        ...generated,
+        seed: publicSeed,
+        state: { ...generated.state, seed: publicSeed },
+      };
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      if (!message.includes("generated duplicate exact option values")) throw error;
+    }
+  }
+  throw new Error(`${prototypeId} could not find a collision-free deterministic state for ${publicSeed}.`);
+}
+
 function rebuildTrapDisplays(
   traps: readonly string[],
   options: readonly MenCp008Option[],
@@ -73,15 +96,11 @@ export function generateMenCp008Prototype(
   prototypeId: MenCp008PrototypeId,
   seed: string,
 ): MenCp008Package {
-  const legacy = generateLegacyMenCp008Prototype(prototypeId, seed);
+  const legacy = generateCollisionFreeLegacy(prototypeId, seed);
   const isLegacyCost = legacy.unit === ("£" as never);
 
   if (!isLegacyCost) {
-    const partial = {
-      ...legacy,
-      validation: undefined,
-    } as Omit<MenCp008Package, "validation"> & { validation?: undefined };
-    const { validation: _ignored, ...question } = partial;
+    const { validation: _legacyValidation, ...question } = legacy;
     return { ...question, validation: validateIndianPackage(question) };
   }
 
