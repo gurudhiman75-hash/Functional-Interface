@@ -30,6 +30,26 @@ function naturalList(values: readonly string[]): string {
   return `${values.slice(0, -1).join(", ")} and ${values.at(-1)}`;
 }
 
+function hashText(text: string): number {
+  let hash = 2166136261;
+  for (let index = 0; index < text.length; index += 1) {
+    hash ^= text.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+function simpleStem(seed: number): string {
+  const templates = [
+    "Which pair has a different link?",
+    "Find the pair that is related differently.",
+    "Choose the pair that does not have the same link as the others.",
+    "Which pair is different from the rest?",
+    "Select the pair that follows a different link.",
+  ] as const;
+  return templates[hashText(`pair-stem:${seed}`) % templates.length]!;
+}
+
 function simpleClassLabel(classId: string): string {
   const semanticClass = CLASS_BY_ID.get(classId);
   if (!semanticClass) throw new Error(`Unknown semantic class: ${classId}`);
@@ -144,7 +164,7 @@ export function polishClsCp002EnglishQuestion<T extends GeneratedClsCp002Questio
 
   return {
     ...question,
-    stem: "Which pair has a different link?",
+    stem: simpleStem(question.seed),
     intendedRelationLabel,
     explanation: {
       coreConcept: [`The other pairs have this link: ${simpleRule(question.intendedRelationId)}`],
