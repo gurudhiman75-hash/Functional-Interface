@@ -119,8 +119,8 @@ function validateEnglish(
   const errors: string[] = [];
   const borrowerInterest = /(?:must be paid as interest|paid as interest|interest (?:is )?payable)/iu;
   const investorInterest = /(?:will be earned as interest|earned as interest|interest (?:is )?earned)/iu;
-  const borrowerAmount = /total amount payable/iu;
-  const investorAmount = /\bamount\b/iu;
+  const borrowerAmount = /total amounts? payable/iu;
+  const investorAmount = /\bamounts?\b/iu;
 
   if (direction === "BORROWER_PAYS") {
     if (investorInterest.test(stem)) {
