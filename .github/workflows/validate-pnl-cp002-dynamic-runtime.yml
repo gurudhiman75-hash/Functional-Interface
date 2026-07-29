@@ -36,18 +36,33 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Correct temporary test anchor
+      - name: Correct temporary patch anchors
         run: |
           python - <<'PY'
           from pathlib import Path
           path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-cp002-explanation-diversity-fix.mjs")
           source = path.read_text()
-          old = '"const difficultyCounts = { Easy: 0, Medium: 0, Hard: 0 };\\\\nlet generatedCount = 0;"'
-          new = '''`const difficultyCounts = { Easy: 0, Medium: 0, Hard: 0 };
+
+          old_test = '"const difficultyCounts = { Easy: 0, Medium: 0, Hard: 0 };\\\\nlet generatedCount = 0;"'
+          new_test = '''`const difficultyCounts = { Easy: 0, Medium: 0, Hard: 0 };
           let generatedCount = 0;`'''
-          if old not in source:
+          if old_test not in source:
               raise SystemExit("Temporary difficulty-count anchor was not found")
-          path.write_text(source.replace(old, new, 1))
+          source = source.replace(old_test, new_test, 1)
+
+          old_runtime = '  "  const generatedWorking = buildCp002GeneratedWorking(\\\\n    qlId,\\\\n    generated.request,\\\\n    answer,\\\\n  );\\\\n  const explanationText = `${baseExplanation}\\\\n\\\\n${generatedWorking}\\\\n\\\\n**Final answer:** ${answer}`;",'
+          new_runtime = '''  [
+            "  const generatedWorking = buildCp002GeneratedWorking(",
+            "    qlId,",
+            "    generated.request,",
+            "    answer,",
+            "  );",
+            "  const explanationText = `${baseExplanation}\\\\n\\\\n${generatedWorking}\\\\n\\\\n**Final answer:** ${answer}`;",
+          ].join("\\n"),'''
+          if old_runtime not in source:
+              raise SystemExit("Temporary runtime replacement anchor was not found")
+          source = source.replace(old_runtime, new_runtime, 1)
+          path.write_text(source)
           PY
 
       - name: Apply solve-mode-specific working
