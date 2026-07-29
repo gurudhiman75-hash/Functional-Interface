@@ -1,4 +1,4 @@
-import { listQuantV4Packages } from "../../../../../../generation-engine";
+import { listQuantV4Packages } from "../../../../../generation-engine";
 import { INT_CP001_FINAL_QL_IDS } from "./cp001-final-registry";
 import {
   generateIntCp001InactiveProviderEnvelope,
