@@ -76,10 +76,10 @@ jobs:
         continue-on-error: true
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-inverse-audit.test.ts > cp003-inverse.log 2>&1
 
-      - name: Export CP-003 visual teacher review pack V3
-        id: cp003_export
+      - name: Export CP-003 competitive review pack V4
+        id: cp003_export_v4
         continue-on-error: true
-        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-review-v3.ts cp003-review-v3-output > cp003-export.log 2>&1
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-review-v4.ts cp003-review-v4-output > cp003-export-v4.log 2>&1
 
       - name: Upload CP-003 runtime diagnostics
         if: always()
@@ -97,16 +97,16 @@ jobs:
             cp003-competitive.log
             cp003-merge-split.log
             cp003-inverse.log
-            cp003-export.log
+            cp003-export-v4.log
           if-no-files-found: error
           retention-days: 3
 
-      - name: Upload CP-003 visual teacher review pack V3
-        if: steps.cp003_export.outcome == 'success'
+      - name: Upload CP-003 competitive review pack V4
+        if: steps.cp003_export_v4.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
-          name: blr-001-cp003-teacher-review-v3
-          path: cp003-review-v3-output
+          name: blr-001-cp003-competitive-review-v4
+          path: cp003-review-v4-output
           if-no-files-found: error
           retention-days: 14
 
@@ -170,8 +170,8 @@ jobs:
           cat cp003-inverse.log
           exit 1
 
-      - name: Enforce CP-003 review export result
-        if: steps.cp003_export.outcome == 'failure'
+      - name: Enforce CP-003 competitive review export result
+        if: steps.cp003_export_v4.outcome == 'failure'
         run: |
-          cat cp003-export.log
+          cat cp003-export-v4.log
           exit 1
