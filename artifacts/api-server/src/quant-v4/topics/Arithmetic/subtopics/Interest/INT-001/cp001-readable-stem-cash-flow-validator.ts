@@ -117,8 +117,8 @@ function validateEnglish(
   direction: IntCp001CashFlowDirection,
 ): string[] {
   const errors: string[] = [];
-  const borrowerInterest = /(?:must be paid as interest|paid as interest|interest (?:is )?payable)/iu;
-  const investorInterest = /(?:will be earned as interest|earned as interest|interest (?:is )?earned)/iu;
+  const borrowerInterest = /(?:must be paid as interest|paid as interest|interest (?:is payable|must be paid|payable))/iu;
+  const investorInterest = /(?:will be earned as interest|earned as interest|interest (?:is earned|will be earned|earned))/iu;
   const borrowerAmount = /total amounts? payable/iu;
   const investorAmount = /\bamounts?\b/iu;
 
