@@ -9,6 +9,7 @@ import {
   PNC_002_COMPLETE_LOCALIZATION_APPROVED,
 } from "./foundation/localization-pnc002-approved";
 import type { PncStudentSourcePackage } from "./foundation/student-presentation";
+import { buildPnc002ProductionTeacherStudentPresentation } from "./foundation/student-presentation-teacher-production";
 import type { PncStudentLocale } from "./foundation/localization-types";
 import { runPnc002Pipeline } from "./foundation/pipeline";
 
@@ -81,6 +82,7 @@ for (let qlNumber = 107; qlNumber <= 269; qlNumber += 1) {
       const source = sourceFor(qlNumber, `${seedName}:${locale}:${questionLanguageId}`);
       assert.equal(source.validation.valid, true, `${questionLanguageId}: source runtime must be valid`);
       assert.equal(source.publiclyPublishable, false);
+      const english = buildPnc002ProductionTeacherStudentPresentation(source);
 
       const localized = buildPnc002ApprovedLocalizedPresentation(source, locale);
       assert.equal(localized.questionLanguageId, questionLanguageId);
@@ -91,8 +93,8 @@ for (let qlNumber = 107; qlNumber <= 269; qlNumber += 1) {
       assert.equal(localized.displayOptions.length, 4);
       assert.equal(new Set(localized.displayOptions).size, 4);
       assert.equal(localized.displayOptions[localized.correctIndex], localized.answerLabel);
-      assert.deepEqual(numberTokens(localized.stem), numberTokens(source.stem), `${questionLanguageId}: numeric stem parity`);
-      assert.deepEqual(mathTokens(localized.stem), mathTokens(source.stem), `${questionLanguageId}: MathJax stem parity`);
+      assert.deepEqual(numberTokens(localized.stem), numberTokens(english.stem), `${questionLanguageId}: numeric stem parity`);
+      assert.deepEqual(mathTokens(localized.stem), mathTokens(english.stem), `${questionLanguageId}: MathJax stem parity`);
       assert.equal(/\{(?:m)?\d+\}/.test(localized.stem), false, `${questionLanguageId}: no unresolved localisation placeholders`);
       assert.equal(localized.explanationSections.length, 4);
       assert.deepEqual(
