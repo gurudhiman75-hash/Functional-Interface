@@ -173,16 +173,39 @@ function generateVariedTriple(seed: number): NumCp004Wave01Package {
   };
 }
 
+function factorSupportCount(pkg: NumCp004Wave01Package): number {
+  const factors = pkg.hiddenState.factors;
+  return Array.isArray(factors) ? factors.length : 0;
+}
+
 function calibratedFactorDifficulty(
   prototypeId: NumCp004Wave01PrototypeId,
   pkg: NumCp004Wave01Package,
 ): NumCp004Difficulty {
   const score = Number(pkg.hiddenState.complexityScore ?? 0);
+
   if (prototypeId === "NUM-CP004-PROT-004") {
     if (score <= 4) return "EASY";
     if (score <= 8) return "MEDIUM";
     return "HARD";
   }
+
+  if (prototypeId === "NUM-CP004-PROT-005") {
+    const target = String(pkg.hiddenState.target);
+    if (target === "SMALLEST_PRIME_FACTOR" || target === "LARGEST_PRIME_FACTOR") {
+      return "EASY";
+    }
+    if (target === "DISTINCT_PRIME_FACTOR_COUNT") return "MEDIUM";
+    return "HARD";
+  }
+
+  if (prototypeId === "NUM-CP004-PROT-006") {
+    const hiddenKind = String(pkg.hiddenState.hiddenKind);
+    const supportCount = factorSupportCount(pkg);
+    if (hiddenKind === "EXPONENT") return "HARD";
+    return supportCount <= 2 ? "EASY" : "MEDIUM";
+  }
+
   return pkg.difficulty;
 }
 
