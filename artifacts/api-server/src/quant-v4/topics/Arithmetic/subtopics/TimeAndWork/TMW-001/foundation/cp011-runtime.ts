@@ -32,6 +32,6 @@ export function validateTmwCp011Question(q:TmwCp011GeneratedQuestion){const erro
 export function runTmwCp011Pipeline(qlId:string,seed:string):TmwCp011GeneratedQuestion{
  const entry=getTmwCp011RegistryEntry(qlId);const parameters=generateTmwCp011Parameters(entry,seed);const solution=solveTmwCp011(entry,parameters);verifyTmwCp011(entry,parameters,solution);
  const built=buildTmwCp011Options(entry,parameters,solution,seed);const trap=selectTmwCp011Trap(built.options,built.correctIndex);
- const q:TmwCp011GeneratedQuestion={archetypeId:"TMW-001",canonicalProblemId:"TMW-CP-011",questionLanguageId:entry.qlId,solveMode:entry.solveMode,language:"en",seed,stem:renderTmwCp011Stem(entry,parameters),parameters,solution,options:built.options.map(x=>x.text),optionAudit:built.options,correctIndex:built.correctIndex,explanation:buildTmwCp011Explanation(entry,parameters,solution,trap),mathematicalFingerprint:fingerprint(parameters),validation:{valid:true,errors:[]},publiclyPublishable:false};
+ const q:TmwCp011GeneratedQuestion={archetypeId:"TMW-001",canonicalProblemId:"TMW-CP-011",questionLanguageId:entry.qlId,solveMode:entry.solveMode,language:"en",seed,stem:renderTmwCp011Stem(entry,parameters,seed),parameters,solution,options:built.options.map(x=>x.text),optionAudit:built.options,correctIndex:built.correctIndex,explanation:buildTmwCp011Explanation(entry,parameters,solution,trap),mathematicalFingerprint:fingerprint(parameters),validation:{valid:true,errors:[]},publiclyPublishable:false};
  q.validation=validateTmwCp011Question(q);return q;
 }
