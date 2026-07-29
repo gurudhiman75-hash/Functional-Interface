@@ -13,7 +13,7 @@ const seenShapes = new Set<string>();
 const seenTargets = new Set<string>();
 const seenDifficulties = new Set<string>();
 let generated = 0;
-let sterlingAnswers = 0;
+let rupeeAnswers = 0;
 let revolutionAnswers = 0;
 let ratioAnswers = 0;
 
@@ -38,6 +38,7 @@ for (const prototypeId of prototypeIds) {
     assert.equal(first.difficulty, classifyMenCp008Difficulty(first.state));
     assert.equal(first.options.length, 4);
     assert.equal(new Set(first.options.map((option) => exactKey(option.value))).size, 4);
+    assert.equal(new Set(first.options.map((option) => option.display)).size, 4);
     assert.equal(first.options.filter((option) => option.isCorrect).length, 1);
     assert.equal(first.options[first.correctIndex]?.isCorrect, true);
     assert.equal(first.answer, first.options[first.correctIndex]?.display);
@@ -75,16 +76,18 @@ for (const prototypeId of prototypeIds) {
       false,
       `${prototypeId} leaks internal taxonomy.`,
     );
-    assert.equal(/₹/.test(learnerText), false, `${prototypeId} leaks an unintended currency symbol.`);
+    assert.equal(/[£€¥]/.test(learnerText), false, `${prototypeId} contains a foreign currency symbol.`);
     assert.ok(first.stem.endsWith("?") || first.stem.endsWith("."));
 
     if (first.unit === "revolutions") {
       revolutionAnswers += 1;
       assert.ok(first.options.every((option) => option.value.kind === "RATIONAL" && option.value.denominator === 1n));
     }
-    if (first.unit === "£") {
-      sterlingAnswers += 1;
-      assert.ok(first.answer.startsWith("$\\text{£}"));
+    if (first.unit === "₹") {
+      rupeeAnswers += 1;
+      assert.ok(first.answer.startsWith("$\\text{₹}"));
+      assert.ok(first.options.every((option) => option.display.startsWith("$\\text{₹}")));
+      assert.ok(first.explanation.traps.every((trap) => trap.includes("₹")));
     }
     if (first.state.displayMode === "RATIO") {
       ratioAnswers += 1;
@@ -132,7 +135,7 @@ for (const target of ["VOLUME", "LATERAL_SURFACE_AREA", "TOTAL_SURFACE_AREA", "L
   assert.equal(seenTargets.has(target), true, `${target} is missing from the CP-008 foundation.`);
 }
 assert.deepEqual([...seenDifficulties].sort(), ["Easy", "Hard", "Medium"]);
-assert.ok(sterlingAnswers > 0);
+assert.ok(rupeeAnswers > 0);
 assert.ok(revolutionAnswers > 0);
 assert.ok(ratioAnswers > 0);
 
@@ -142,6 +145,6 @@ const dispositions = MEN_CP_008_PROTOTYPES.reduce<Record<string, number>>((count
 }, {});
 
 console.log(
-  `MEN-CP-008 prototype foundation passed for ${generated} deterministic English packages across ${prototypeIds.length} temporary prototypes. ` +
+  `MEN-CP-008 clean prototype foundation passed for ${generated} deterministic English packages across ${prototypeIds.length} temporary prototypes. ` +
   `No permanent QLs were allocated. Provisional dispositions: ${JSON.stringify(dispositions)}.`,
 );
