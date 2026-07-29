@@ -50,7 +50,6 @@ export type GeneratedClsCp002EnglishQuestion = Omit<
 
 const SOURCE_SEED_STRIDE = 64;
 const MAX_PRESENTATION_SAFE_ATTEMPTS = SOURCE_SEED_STRIDE;
-const BANNED_CLASS_PAIR_LABELS = new Set(["Crown", "Sapwood"]);
 
 function hashText(text: string): number {
   let hash = 2166136261;
@@ -89,14 +88,6 @@ function isPresentationSafe(question: GeneratedClsCp002Question): boolean {
   if (
     question.generationProfile === "CATEGORY_SAFE_FALSE_PAIR"
     && !CLS_CP002_FALSE_PAIR_SAFE_RELATION_IDS.includes(question.intendedRelationId as never)
-  ) {
-    return false;
-  }
-  if (
-    question.generationProfile === "CLASS_PAIR_CONTRAST"
-    && question.pairs.some((pair) =>
-      BANNED_CLASS_PAIR_LABELS.has(pair.left) || BANNED_CLASS_PAIR_LABELS.has(pair.right),
-    )
   ) {
     return false;
   }
