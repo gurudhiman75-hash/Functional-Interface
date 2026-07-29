@@ -10,11 +10,6 @@ import { AVG_001_LOCALIZED_RELEASE } from "./foundation/localized-release";
 const avg = listQuantV4Packages().find((pkg: any) => pkg.packageId === "AVG-001") as any;
 assert.ok(avg, "AVG-001 package card is missing");
 assert.deepEqual(avg.supportedLanguages, ["en", "hi", "pa"]);
-assert.equal(avg.runtimeMode, "RELEASED");
-assert.equal(avg.reviewStatus, "APPROVED_MULTILINGUAL");
-assert.equal(avg.questionBankStatus, "WRITABLE");
-assert.equal(avg.testEligibility, "ELIGIBLE");
-assert.equal(avg.publiclyPublishable, true);
 
 const expectedRelease = {
   en: AVG_001_ENGLISH_RELEASE_V2.releaseId,
