@@ -112,24 +112,6 @@ const SUPPLEMENTAL_SEEDS: readonly SupplementalSeed[] = [
     ],
     predicate: (left, right) => `${right} is one family generation below ${left}.`,
   },
-  {
-    relationId: "SEM_KIN_SPOUSE_ROLES",
-    label: "spouse-role pair",
-    ruleStatement: "The two terms name corresponding spouse roles in the same generation.",
-    directionSensitive: false,
-    sourceCategory: "SPOUSE_ROLE",
-    answerCategory: "SPOUSE_ROLE",
-    contrastGroup: "KIN_ROLE_RELATION",
-    pairs: [
-      ["Husband", "Wife"],
-      ["Groom", "Bride"],
-      ["Bridegroom", "Bride"],
-      ["Wife", "Husband"],
-      ["Bride", "Groom"],
-      ["Bride", "Bridegroom"],
-    ],
-    predicate: (left, right) => `${left} and ${right} name corresponding spouse roles.`,
-  },
 ];
 
 export const CLS_CP002_SUPPLEMENTAL_RELATIONS: readonly ClsCp002RelationDefinition[] =
