@@ -254,7 +254,7 @@ console.log(JSON.stringify({
     qlCoverage: stats[language].qls.size,
     scenarios: [...stats[language].scenarios].sort(),
     directions: stats[language].directions,
-  }]))),
+  }])),
   maturity: "READABLE_STEM_EDITORIAL_CANDIDATE",
   reviewStatus: "PENDING_MULTILINGUAL_READABILITY_REVIEW",
   localeReviewStatus: "PENDING_HUMAN_REVIEW",
