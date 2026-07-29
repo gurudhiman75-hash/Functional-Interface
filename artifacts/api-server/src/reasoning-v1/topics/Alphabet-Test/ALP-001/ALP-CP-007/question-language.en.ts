@@ -1,0 +1,31 @@
+import type { AlpAnswerType, AlpQuestionLogic, AlpRenderer, AlpSolveMode } from "../types";
+
+type Row = readonly [AlpSolveMode, string, string, AlpAnswerType, AlpRenderer, string, string];
+const rows: readonly Row[] = [
+  ["CLASS_SHIFT_VOWEL_NEXT_CONSONANT_PREVIOUS_LETTER", "EXPLICIT_VOWEL_CONSONANT_SHIFT", "findLetterAfterClassShift", "LETTER", "TOKEN_ROW", "CLASS_SHIFT_POSITION", "CLASS_SHIFT"],
+  ["CLASS_SHIFT_VOWEL_PREVIOUS_CONSONANT_NEXT_LETTER", "EXPLICIT_VOWEL_CONSONANT_SHIFT", "findLetterAfterClassShift", "LETTER", "TOKEN_ROW", "CLASS_SHIFT_POSITION", "CLASS_SHIFT"],
+  ["CLASS_SHIFT_VOWEL_NEXT_CONSONANT_PREVIOUS_POSITION", "EXPLICIT_VOWEL_CONSONANT_SHIFT", "findPositionAfterClassShift", "NUMBER", "TOKEN_ROW", "CLASS_SHIFT_INVERSE", "CLASS_SHIFT"],
+  ["CLASS_SHIFT_VOWEL_PREVIOUS_CONSONANT_NEXT_POSITION", "EXPLICIT_VOWEL_CONSONANT_SHIFT", "findPositionAfterClassShift", "NUMBER", "TOKEN_ROW", "CLASS_SHIFT_INVERSE", "CLASS_SHIFT"],
+  ["CLASS_SHIFT_THEN_ASC_POSITION", "CLASS_SHIFT_THEN_SORT", "findLetterAfterClassShiftAndSort", "LETTER", "TOKEN_ROW", "CLASS_SHIFT_ASC", "CLASS_PIPELINE"],
+  ["CLASS_SHIFT_THEN_DESC_POSITION", "CLASS_SHIFT_THEN_SORT", "findLetterAfterClassShiftAndSort", "LETTER", "TOKEN_ROW", "CLASS_SHIFT_DESC", "CLASS_PIPELINE"],
+  ["CLASS_SHIFT_ASC_COUNT_UNCHANGED", "CLASS_SHIFT_UNCHANGED", "countUnchangedAfterClassShift", "NUMBER", "TOKEN_ROW", "CLASS_SHIFT_UNCHANGED_COUNT", "CLASS_COMPARISON"],
+  ["CLASS_SHIFT_ASC_IDENTIFY_UNCHANGED", "CLASS_SHIFT_UNCHANGED", "identifyUnchangedAfterClassShift", "LETTER_SET", "TOKEN_ROW", "CLASS_SHIFT_UNCHANGED_IDENTIFY", "CLASS_COMPARISON"],
+  ["VOWELS_OPPOSITE_CONSONANTS_SAME_POSITION", "CLASS_OPPOSITE_TRANSFORM", "findLetterAfterClassOppositeTransform", "LETTER", "TOKEN_ROW", "VOWEL_OPPOSITE", "CLASS_SUBSTITUTION"],
+  ["CONSONANTS_OPPOSITE_VOWELS_SAME_POSITION", "CLASS_OPPOSITE_TRANSFORM", "findLetterAfterClassOppositeTransform", "LETTER", "TOKEN_ROW", "CONSONANT_OPPOSITE", "CLASS_SUBSTITUTION"],
+  ["REMOVE_VOWELS_THEN_POSITION", "CLASS_FILTER_TRANSFORM", "findLetterAfterClassRemoval", "LETTER", "TOKEN_ROW", "REMOVE_VOWELS", "CLASS_FILTER"],
+  ["REMOVE_CONSONANTS_THEN_POSITION", "CLASS_FILTER_TRANSFORM", "findLetterAfterClassRemoval", "LETTER", "TOKEN_ROW", "REMOVE_CONSONANTS", "CLASS_FILTER"],
+];
+
+export const ALP_CP007_QLS: readonly AlpQuestionLogic[] = rows.map((row, index) => ({
+  qlId: `ALP-QL-${String(index + 113).padStart(3, "0")}`,
+  checkpointId: "ALP-CP-007",
+  solveMode: row[0],
+  ruleId: row[1],
+  taskKind: row[2],
+  answerType: row[3],
+  renderer: row[4],
+  presentationMode: row[5],
+  localeMode: "TRANSLATABLE",
+  difficultyProfile: row[6],
+  status: "FROZEN",
+}));
