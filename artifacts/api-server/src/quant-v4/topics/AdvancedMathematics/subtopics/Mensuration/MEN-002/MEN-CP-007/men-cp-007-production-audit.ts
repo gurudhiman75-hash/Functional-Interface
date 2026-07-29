@@ -64,7 +64,8 @@ const rawPowerOrFractionPattern = /[½¼²³]/;
 const hiddenControlPattern = /[\u0000-\u0008\u000B\u000C\u000E-\u001F]/;
 const ungroupedRupeePattern = /\\text\{₹\}(\d{4,})(?![,\d])/g;
 const ungroupedVisibleNumberPattern = /(?<![\d,])\d{4,}(?![\d,])/;
-const difficultVocabularyPattern = /\b(?:multiplicatively|conserved|congruent|reconstruct(?:s|ed|ing)?|recover(?:s|ed|ing)?|semiperimeter|axis-aligned|coefficient|successive change|dimension-wise|cross-sectional)\b/i;
+const difficultVocabularyPattern = /\b(?:multiplicatively|conserved|congruent|reconstruct(?:s|ed|ing)?|recover(?:s|ed|ing)?|semiperimeter|axis-aligned|coefficient|successive change|dimension-wise|cross-sectional|surd|approximation|edge-aligned|orientations?|unusable remainder)\b/i;
+const weakShortcutPattern = /Quick way:\s*(?:A length is positive|Each position in one direction combines|No other arrangement gives|Compare the waste with the original volume)/i;
 const bannedBoilerplate = [
   "Do not rebuild the full total",
   "do not rebuild the full total",
@@ -124,10 +125,12 @@ for (const track of tracks) {
       assert.equal(hiddenControlPattern.test(text), false, `${prototypeId} ${seed} contains a hidden control character.`);
       assert.equal(ungroupedVisibleNumberPattern.test(text), false, `${prototypeId} ${seed} contains an ungrouped large learner-visible number.`);
       assert.equal(difficultVocabularyPattern.test(text), false, `${prototypeId} ${seed} contains unnecessarily difficult English.`);
+      assert.equal(weakShortcutPattern.test(question.explanation.shortcut), false, `${prototypeId} ${seed} contains a weak shortcut sentence.`);
       assert.equal(internalTaxonomyPattern.test(JSON.stringify(question.explanation)), false, `${prototypeId} ${seed} leaks internal taxonomy.`);
       assert.ok(!bannedBoilerplate.some((phrase) => text.includes(phrase)), `${prototypeId} ${seed} contains banned boilerplate.`);
       assert.ok(question.explanation.shortcut.trim().length >= 24, `${prototypeId} ${seed} has an underdeveloped shortcut.`);
       assert.ok(question.explanation.shortcut.startsWith("Quick way:"), `${prototypeId} ${seed} shortcut must begin with the easy-English label.`);
+      assert.ok(question.explanation.shortcut.includes("For this question,"), `${prototypeId} ${seed} shortcut must explain the current question.`);
       assert.ok(/\d/.test(question.explanation.shortcut), `${prototypeId} ${seed} shortcut must use numbers from the question.`);
       assert.ok(question.stem.endsWith("?") || question.stem.endsWith("."));
       assert.equal(question.permanentQlId, null);
