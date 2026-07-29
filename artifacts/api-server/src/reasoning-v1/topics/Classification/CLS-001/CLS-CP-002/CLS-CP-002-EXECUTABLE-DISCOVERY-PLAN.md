@@ -1,10 +1,19 @@
 # CLS-CP-002 — Semantic Pair and Relationship Classification
 
-Status: `EXECUTABLE_DISCOVERY_IN_PROGRESS`
+Status: `SUPERSEDED_BY_FROZEN_MULTILINGUAL_RUNTIME_PROOF`
 
-This checkpoint starts after product-owner approval of `CLS-CP-001`. It owns classification questions whose answer object is a complete word pair and whose internal semantic relation must be compared with the relations inside the other option pairs.
+This document records the historical executable-discovery plan used before `CLS-CP-002` was frozen. The final authority is:
 
-No permanent QL or solve-mode identity is allocated by this document.
+- `CLS-CP-002-SOURCE-SATURATION-AND-MERGE-SPLIT-AUDIT.md`
+- `CLS-CP-002-FINAL-MULTILINGUAL-FREEZE.md`
+
+Final permanent identity:
+
+```text
+QL:             CLS-QL-004
+Solve contract: CP002-FIND-ODD-SEMANTIC-RELATION-PAIR
+Status:         FROZEN_MULTILINGUAL_RUNTIME_PROOF
+```
 
 ## 1. Source-backed task
 
@@ -38,7 +47,7 @@ The uploaded Classification references repeatedly contain:
 
 The approved Analogy semantic libraries provide curated facts, but CP-002 reuses only the facts. It does not inherit Analogy completion or source-to-target transfer tasks.
 
-Volatile country/capital/state-capital/currency relations are excluded from the foundational CP-002 wave.
+Volatile country/capital/state-capital/currency relations are excluded.
 
 ## 3. Temporary source controls
 
@@ -50,14 +59,15 @@ Volatile country/capital/state-capital/currency relations are excluded from the 
 | `CLS-CP002-PROT-004` | Three/four registered facts share one relation; one option preserves categories but is a false pairing |
 | `CLS-CP002-PROT-005` | Three/four pairs contain members of one semantic class; one pair belongs to another class |
 
-These controls are temporary. They may merge, split, move or be rejected after executable audits.
+The controls were retained as source provenance but merged into one permanent QL because they share one answer object and one solver proof.
 
 ## 4. Bounded rule universe
 
-The initial registry contains:
+The final registry contains:
 
 - stable directional semantic relations from `ANA-CP-001`;
-- all curated lexical relations from `ANA-CP-002`;
+- curated lexical relations from `ANA-CP-002`;
+- supplemental recurring Classification relations;
 - direct/narrow semantic class-pair relations derived from the frozen CP-001 dataset.
 
 The independent solver enumerates this declared registry only. It does not invent free-form relations after seeing the options.
@@ -99,11 +109,11 @@ It excludes:
 - blood-relation graph inference — Blood Relations;
 - unstable or obscure trivia without a governed fact library.
 
-## 7. Lifecycle locks
+## 7. Final lifecycle locks
 
 ```text
-Permanent QLs:                0
-Frozen solve contracts:       0
+Permanent QLs:                1
+Frozen solve contracts:       1
 Question Studio exposure:     disabled
 Question Bank storage:        disabled
 Test eligibility:             disabled
