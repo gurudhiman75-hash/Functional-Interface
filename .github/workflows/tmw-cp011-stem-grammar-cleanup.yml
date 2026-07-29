@@ -1,0 +1,71 @@
+name: Polish TMW-CP-011 rotated stems
+
+on:
+  pull_request:
+    branches:
+      - design/tmw-001-blueprint
+    types: [opened, reopened, synchronize]
+    paths:
+      - .github/workflows/tmw-cp011-stem-grammar-cleanup.yml
+
+permissions:
+  contents: write
+
+jobs:
+  polish:
+    if: github.head_ref == 'feat/tmw-cp011'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: feat/tmw-cp011
+      - name: Polish rotated stem grammar
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp011-presentation.ts')
+          text = path.read_text()
+          replacements = {
+              'Across a ${n}-day work schedule': 'Across the ${n}-day work schedule',
+              'Across a ${n}-day production run': 'Across the ${n}-day production run',
+              'To reach a ${n}-day total of ${p.totalOutput!.numerator} ${c.unit} at ${c.setting},': 'To reach a total of ${p.totalOutput!.numerator} ${c.unit} over ${n} days at ${c.setting},',
+              "Each later day's output ${multiplierPhrase(p.multiplier!)}.": 'The output then ${multiplierPhrase(p.multiplier!)}.',
+              'During a ${n}-day run': 'During the ${n}-day run',
+              'A ${n}-day total of ${total} ${c.unit} is recorded at ${c.setting}.': 'The total for ${n} days at ${c.setting} is ${total} ${c.unit}.',
+              'During a ${n}-day quality-control run': 'During the ${n}-day quality-control run',
+              'rises by ${d.numerator} each day': 'rises by ${d.numerator} ${c.unit} each day',
+          }
+          for old, new in replacements.items():
+              if old not in text:
+                  raise SystemExit(f'grammar anchor not found: {old}')
+              text = text.replace(old, new)
+          path.write_text(text)
+          PY
+      - name: Install locked workspace dependencies
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile
+      - name: Validate polished corpus
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-cp011.polish-test.mjs
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp011.polish-test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-cp011.polish-audit.mjs
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp011.polish-audit.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011-review-export.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-cp011.polish-review.mjs
+          (cd artifacts/api-server && node dist/quant-v4/tmw-001-cp011.polish-review.mjs)
+      - name: Commit stem grammar polish
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp011-presentation.ts
+          git commit -m 'fix(tmw): polish CP-011 rotated stems'
+          git push origin HEAD:feat/tmw-cp011
