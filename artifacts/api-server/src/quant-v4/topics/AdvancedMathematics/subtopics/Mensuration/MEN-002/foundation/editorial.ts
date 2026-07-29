@@ -7,10 +7,17 @@ interface EditableStep {
 }
 
 const EASY_ENGLISH_REPLACEMENTS: ReadonlyArray<readonly [RegExp, string]> = [
+  [/\bSquare the Three Perpendicular Dimensions\b/gi, "Square Length, Breadth and Height"],
+  [/\ball three perpendicular dimensions\b/gi, "length, breadth and height"],
+  [/\bthree perpendicular dimensions\b/gi, "the three dimensions"],
   [/\bperpendicular directions\b/gi, "directions at right angles"],
   [/\bperpendicular\b/gi, "at right angles"],
   [/\bcongruent\b/gi, "equal"],
   [/\bconserved\b/gi, "unchanged"],
+  [/\bconstant cross-sectional area\b/gi, "base area"],
+  [/\bconstant cross-section\b/gi, "base area"],
+  [/\btrapezoidal cross-section\b/gi, "trapezoidal base area"],
+  [/\bL-shaped cross-section\b/gi, "L-shaped base area"],
   [/\bcross-sectional area\b/gi, "base area"],
   [/\bcross-section\b/gi, "base shape"],
   [/\breconstructing\b/gi, "checking"],
@@ -25,9 +32,11 @@ const EASY_ENGLISH_REPLACEMENTS: ReadonlyArray<readonly [RegExp, string]> = [
   [/\bfull rectangular boundary\b/gi, "whole rectangle"],
   [/\bdimension-wise\b/gi, "along each direction"],
   [/\bmultiplicatively\b/gi, "by multiplying"],
+  [/\bbase semiperimeter\b/gi, "half the base perimeter"],
   [/\bsemiperimeter\b/gi, "half the perimeter"],
   [/\baxis-aligned\b/gi, "parallel to the box edges"],
   [/\bsuccessive change\b/gi, "combined percentage change"],
+  [/\bcoefficient of (\$\\sqrt[23]\$)/gi, "number before $1"],
   [/\bcoefficient\b/gi, "number in front"],
   [/\blinear dimensions\b/gi, "side lengths"],
   [/\blinear dimension\b/gi, "side length"],
@@ -60,20 +69,13 @@ export function simplifyMenCp007English(text: string) {
     .replace(/Cubic units divided by length units leave square units\./gi, "Dividing cubic centimetres by centimetres gives square centimetres.")
     .replace(/Square units divided by height leave a perimeter\./gi, "Dividing the side area by the height gives the base perimeter.")
     .replace(/Area divided by perimeter leaves the vertical height\./gi, "Divide the side area by the base perimeter to get the height.")
-    .replace(/Move ([^.]*) to the other side/gi, "Take $1 away from the other side")
+    .replace(/Move \$l\^2\$ to the other side of the Pythagorean identity\./gi, "Subtract $l^2$ from $d^2$.")
+    .replace(/For parallel to the box edges packing with rotation/gi, "When blocks may be rotated but must stay parallel to the box edges")
+    .replace(/\bthe half the perimeter\b/gi, "half the perimeter")
+    .replace(/\bbase half the perimeter\b/gi, "half the base perimeter")
     .replace(/\s{2,}/g, " ")
     .trim();
   return formatIndianNumbersInLearnerText(simplified);
-}
-
-function removeMath(text: string) {
-  return text
-    .replace(/\$\$[\s\S]*?\$\$/g, " ")
-    .replace(/\$[^$]*\$/g, " ")
-    .replace(/\s+/g, " ")
-    .replace(/\s+([,.;:])/g, "$1")
-    .replace(/[\s:;,.-]+$/g, "")
-    .trim();
 }
 
 function inlineEquation(equation: string) {
@@ -84,16 +86,24 @@ function inlineEquation(equation: string) {
   return trimmed;
 }
 
-function easyShortcut(shortcut: string, steps: readonly EditableStep[]) {
-  const finalEquation = [...steps].reverse().find((step) => Boolean(step.equation))?.equation;
-  const simpleShortcut = simplifyMenCp007English(shortcut).replace(/^Quick way:\s*/i, "");
-  let instruction = removeMath(simpleShortcut);
-  if (instruction.length < 12 || !/[A-Za-z]/.test(instruction)) {
-    instruction = "Put the given numbers directly into the final formula";
+function sentence(text: string) {
+  const cleaned = text.trim().replace(/[\s:;,.-]+$/g, "");
+  return cleaned.endsWith(".") ? cleaned : `${cleaned}.`;
+}
+
+function easyShortcut(steps: readonly EditableStep[]) {
+  const finalStep = [...steps].reverse().find((step) => Boolean(step.equation));
+  if (!finalStep?.equation) {
+    return "Quick way: Follow the last calculation using the numbers given in the question.";
   }
-  const sentence = instruction.endsWith(".") ? instruction : `${instruction}.`;
-  if (!finalEquation) return formatIndianNumbersInLearnerText(`Quick way: ${sentence}`);
-  return formatIndianNumbersInLearnerText(`Quick way: ${sentence} For this question, ${inlineEquation(finalEquation)}.`);
+  const title = simplifyMenCp007English(finalStep.title);
+  const body = simplifyMenCp007English(finalStep.body);
+  const instruction = body.length >= 18
+    ? sentence(body)
+    : `${sentence(title)} ${sentence(body)}`;
+  return formatIndianNumbersInLearnerText(
+    `Quick way: ${instruction} For this question, ${inlineEquation(finalStep.equation)}.`,
+  );
 }
 
 export function polishMenCp007English<
@@ -123,7 +133,7 @@ export function polishMenCp007English<
     explanation: {
       keyRule: simplifyMenCp007English(input.keyRule),
       steps,
-      shortcut: easyShortcut(input.shortcut, steps),
+      shortcut: easyShortcut(steps),
       traps: input.traps.map(simplifyMenCp007English),
     },
   };
