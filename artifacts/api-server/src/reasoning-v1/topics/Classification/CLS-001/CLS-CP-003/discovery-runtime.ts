@@ -5,7 +5,9 @@ import {
 } from "./runtime";
 import { CLS_CP003_WORDS } from "./word-dataset.en";
 import type {
+  ClsCp003BoundaryClass,
   ClsCp003PrototypeId,
+  ClsCp003RepeatedTopology,
   ClsCp003RuleId,
   GeneratedClsCp003Question,
 } from "./types";
@@ -16,7 +18,7 @@ const WORD_BY_NORMALIZED = new Map(
   CLS_CP003_WORDS.map((entry) => [entry.word.toLocaleLowerCase("en-IN"), entry]),
 );
 
-function topologyText(value: ReturnType<typeof analyzeClsCp003Word>["repeatedTopology"]): string {
+function topologyText(value: ClsCp003RepeatedTopology): string {
   switch (value) {
     case "ALL_UNIQUE":
       return "all its letters are different";
@@ -29,7 +31,7 @@ function topologyText(value: ReturnType<typeof analyzeClsCp003Word>["repeatedTop
   }
 }
 
-function boundaryText(value: ReturnType<typeof analyzeClsCp003Word>["boundaryClass"]): string {
+function boundaryText(value: ClsCp003BoundaryClass): string {
   switch (value) {
     case "VOWEL_VOWEL":
       return "starts and ends with a vowel";
@@ -71,13 +73,13 @@ function exactOddReason(question: GeneratedClsCp003Question): string {
     case "VOWEL_COUNT":
       return `${odd} has ${features.vowelCount} vowel${features.vowelCount === 1 ? "" : "s"}, so its vowel count is different.`;
     case "REPEATED_LETTER_TOPOLOGY":
-      return `${odd} has a different repetition pattern: ${topologyText(features)}.`;
+      return `${odd} has a different repetition pattern: ${topologyText(features.repeatedTopology)}.`;
     case "PALINDROME_STATUS":
       return features.palindrome
         ? `${odd} reads the same forwards and backwards, unlike the other words.`
         : `${odd} does not read the same forwards and backwards.`;
     case "BOUNDARY_LETTER_CLASS":
-      return `${odd} ${boundaryText(features)}, so its first-and-last letter class is different.`;
+      return `${odd} ${boundaryText(features.boundaryClass)}, so its first-and-last letter class is different.`;
     case "PRIMARY_AFFIX":
       return `${odd} does not contain ${affixText(question.intendedRuleValue)}.`;
   }
