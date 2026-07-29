@@ -11,6 +11,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: calibrate-tmw-001-english-target
+  cancel-in-progress: true
+
 jobs:
   calibrate:
     if: github.head_ref == 'audit/tmw-001-english-gap-freeze'
