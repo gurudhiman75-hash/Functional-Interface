@@ -134,34 +134,31 @@ for (const record of records) {
   prototypes.set(record.prototypeId, (prototypes.get(record.prototypeId) ?? 0) + 1);
 }
 
+const diagnostic = {
+  checkpointId: "BLR-CP-003",
+  gate: "COMPETITIVE_EXAM_DERIVED_ONLY_V4",
+  sourceRecords: bundle.sourceRecordCount,
+  selectedRecords: records.length,
+  rejectedRecords: rejected.length,
+  passageGroups: groups.size,
+  minimumQuestionsPerPassage: Math.min(...groups.values()),
+  maximumQuestionsPerPassage: Math.max(...groups.values()),
+  groupSizes: Object.fromEntries([...groups].sort()),
+  answerPositions,
+  selectedPrototypes: Object.fromEntries([...prototypes].sort()),
+  rejectionReasons: Object.fromEntries([...rejectionReasons].sort()),
+  minGraphDistance: BLR_CP003_MIN_GRAPH_DISTANCE,
+  maxDirectTextMatch: BLR_CP003_MAX_DIRECT_TEXT_MATCH,
+  mandatoryAsciiTree: true,
+  fourTierTeacherVoice: true,
+  allDistractorsFriendlyWarned: true,
+  reverseDirectionTrapExplained: true,
+  permanentQlCount: 0,
+  publicDeliveryEnabled: false,
+};
+
+console.log(JSON.stringify(diagnostic, null, 2));
+
 assert.equal(groups.size, 32);
 assert.ok(Math.min(...groups.values()) >= 2);
 assert.ok(records.length >= 96);
-
-console.log(
-  JSON.stringify(
-    {
-      checkpointId: "BLR-CP-003",
-      gate: "COMPETITIVE_EXAM_DERIVED_ONLY_V4",
-      sourceRecords: bundle.sourceRecordCount,
-      selectedRecords: records.length,
-      rejectedRecords: rejected.length,
-      passageGroups: groups.size,
-      minimumQuestionsPerPassage: Math.min(...groups.values()),
-      maximumQuestionsPerPassage: Math.max(...groups.values()),
-      answerPositions,
-      selectedPrototypes: Object.fromEntries([...prototypes].sort()),
-      rejectionReasons: Object.fromEntries([...rejectionReasons].sort()),
-      minGraphDistance: BLR_CP003_MIN_GRAPH_DISTANCE,
-      maxDirectTextMatch: BLR_CP003_MAX_DIRECT_TEXT_MATCH,
-      mandatoryAsciiTree: true,
-      fourTierTeacherVoice: true,
-      allDistractorsFriendlyWarned: true,
-      reverseDirectionTrapExplained: true,
-      permanentQlCount: 0,
-      publicDeliveryEnabled: false,
-    },
-    null,
-    2,
-  ),
-);
