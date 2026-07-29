@@ -7,7 +7,7 @@ import { cp011TeacherConclusion, cp011TeacherOpening, cp011TeacherShortcut, cp01
 export type TmwCp011StemOpeningStyle = "SUBJECT_FIRST" | "TEMPORAL_FIRST" | "OBJECTIVE_FIRST" | "CONTEXT_FIRST";
 type StemVariants = Record<TmwCp011StemOpeningStyle,string>;
 
-const STEM_OPENING_ROTATION:readonly TmwCp011StemOpeningStyle[]=["SUBJECT_FIRST","SUBJECT_FIRST","TEMPORAL_FIRST","OBJECTIVE_FIRST","CONTEXT_FIRST"];
+const STEM_OPENING_ROTATION:readonly TmwCp011StemOpeningStyle[]=["SUBJECT_FIRST","TEMPORAL_FIRST","SUBJECT_FIRST","OBJECTIVE_FIRST","CONTEXT_FIRST"];
 
 function inline(value:Rational){return `\\(${toLatex(value)}\\)`;}
 function magnitude(value:Rational){return rational(Math.abs(value.numerator),value.denominator);}
