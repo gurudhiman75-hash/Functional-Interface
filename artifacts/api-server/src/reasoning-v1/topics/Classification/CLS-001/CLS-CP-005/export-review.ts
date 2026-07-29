@@ -18,7 +18,7 @@ const questions = CLS_CP005_PROTOTYPES.flatMap((prototype, prototypeIndex) =>
 
 const prototypeById = new Map(CLS_CP005_PROTOTYPES.map((prototype) => [prototype.prototypeId, prototype]));
 const markdown = [
-  "# CLS-CP-005 English Discovery Review — Presentation Quality V1",
+  "# CLS-CP-005 English Discovery Review — Presentation Quality V2",
   "",
   `Questions: ${questions.length}`,
   `Temporary prototypes: ${CLS_CP005_PROTOTYPES.length}`,
@@ -28,7 +28,7 @@ const markdown = [
   "Question Bank: disabled",
   "Test/publication eligibility: disabled",
   "",
-  "Presentation-quality rules: no reversed/permuted duplicate options, no repeated number within a tuple, no permutation-only match to the reference set, and no extreme numerical-scale giveaway.",
+  "Presentation-quality rules: no reversed/permuted duplicate options, no repeated number within a tuple, no permutation-only match to the reference set, and no answer made obvious by a much smaller or larger numerical scale.",
   "",
   ...questions.flatMap((question, index) => {
     const prototype = prototypeById.get(question.prototypeId)!;
@@ -73,6 +73,7 @@ const markdown = [
       "",
       `- Seed: ${question.seed}`,
       `- Source prototype seed: ${question.metadata.sourcePrototypeSeed}`,
+      `- Quality version: ${question.metadata.qualityVersion}`,
       `- Intended rule: ${question.intendedRuleId}`,
       `- Intended value: ${question.intendedRuleValue}`,
       `- Arity: ${question.arity}`,
@@ -80,8 +81,10 @@ const markdown = [
       `- Competing supports: ${question.ambiguityAudit.candidateSupports.length}`,
       `- Ambiguity result: ${question.ambiguityAudit.result}`,
       `- Presentation result: ${question.presentationQualityAudit.result}`,
-      `- Maximum-value ratio: ${question.presentationQualityAudit.maximumValueRatio.toFixed(2)}`,
-      `- Tuple-total ratio: ${question.presentationQualityAudit.tupleTotalRatio.toFixed(2)}`,
+      `- Overall maximum-value ratio: ${question.presentationQualityAudit.maximumValueRatio.toFixed(2)}`,
+      `- Overall tuple-total ratio: ${question.presentationQualityAudit.tupleTotalRatio.toFixed(2)}`,
+      `- Answer-to-common maximum ratio: ${question.presentationQualityAudit.answerMaximumRatio.toFixed(2)}`,
+      `- Answer-to-common total ratio: ${question.presentationQualityAudit.answerTotalRatio.toFixed(2)}`,
       `- Difficulty features: \`${JSON.stringify(question.difficultyFeatures)}\``,
       "",
       "</details>",
@@ -96,7 +99,7 @@ await mkdir(outputDir, { recursive: true });
 await writeFile(path.join(outputDir, "cls-cp005-english-discovery-review.json"), `${JSON.stringify(questions, null, 2)}\n`, "utf8");
 await writeFile(path.join(outputDir, "cls-cp005-english-discovery-review.md"), `${markdown}\n`, "utf8");
 
-console.log("CLS-CP-005 presentation-safe English discovery review written.", {
+console.log("CLS-CP-005 answer-aware presentation-safe English discovery review written.", {
   outputDir,
   questions: questions.length,
   prototypes: CLS_CP005_PROTOTYPES.length,
@@ -105,4 +108,6 @@ console.log("CLS-CP-005 presentation-safe English discovery review written.", {
   optionCounts: [...new Set(questions.map((question) => question.options.length))].sort(),
   difficulties: [...new Set(questions.map((question) => question.difficulty))].sort(),
   maximumSourceAttempts: Math.max(...questions.map((question) => Math.floor((question.metadata.sourcePrototypeSeed - question.seed) / 10_007))),
+  maximumAnswerMaximumRatio: Math.max(...questions.map((question) => question.presentationQualityAudit.answerMaximumRatio)),
+  maximumAnswerTotalRatio: Math.max(...questions.map((question) => question.presentationQualityAudit.answerTotalRatio)),
 });
