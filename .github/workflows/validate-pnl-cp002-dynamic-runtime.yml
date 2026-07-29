@@ -1,27 +1,26 @@
-name: Validate PNL CP-002 dynamic candidate runtime
+name: Apply PNL CP-002 explanation diversity
 
 on:
   push:
     branches:
-      - feat/pnl-001-cp002-dynamic-runtime
+      - feat/pnl-001-cp002-explanation-diversity
     paths:
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-*.ts"
-      - ".github/workflows/validate-pnl-cp002-dynamic-runtime.yml"
-  pull_request:
-    paths:
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
       - ".github/workflows/validate-pnl-cp002-dynamic-runtime.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  validate-cp002-dynamic-runtime:
+  apply-explanation-diversity:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 45
     steps:
-      - name: Checkout source
+      - name: Checkout feature branch
         uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-cp002-explanation-diversity
+          fetch-depth: 0
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -36,26 +35,52 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle dynamic runtime proof
+      - name: Apply solve-mode-specific working
+        run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-cp002-explanation-diversity-fix.mjs
+
+      - name: Format changed TypeScript
         run: |
-          set -o pipefail
+          pnpm exec prettier --write \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime.test.ts
+
+      - name: Run 816-package CP-002 proof
+        run: |
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime.test.ts \
             --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/.cp002-dynamic-runtime.test.mjs \
-            2>&1 | tee pnl-cp002-dynamic-runtime.log
+            --outfile=/tmp/pnl-cp002-dynamic-runtime.test.mjs
+          node /tmp/pnl-cp002-dynamic-runtime.test.mjs
 
-      - name: Run 34-QL seed-sweep proof
+      - name: Run chapter editorial audit
         run: |
-          set -o pipefail
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/.cp002-dynamic-runtime.test.mjs \
-            2>&1 | tee -a pnl-cp002-dynamic-runtime.log
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=/tmp/pnl-001-english-editorial-audit.mjs
+          node /tmp/pnl-001-english-editorial-audit.mjs
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          findings_path = Path("dist/quant-v4/pnl-001-english-editorial-audit/pnl-001-english-editorial-findings.json")
+          findings = json.loads(findings_path.read_text())
+          old = [
+              item for item in findings["editorialFindings"]
+              if "generated offer is evaluated in the exact order" in item["message"].lower()
+          ]
+          if old:
+              raise SystemExit(f"Old CP-002 generic paragraph remains: {old}")
+          print(json.dumps({"oldCp002GenericFindings": 0}, indent=2))
+          PY
 
-      - name: Upload proof evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: pnl-cp002-dynamic-runtime-proof
-          path: pnl-cp002-dynamic-runtime.log
-          if-no-files-found: error
-          retention-days: 7
+      - name: Commit validated source
+        run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          git fetch origin New-main
+          git checkout origin/New-main -- .github/workflows/validate-pnl-cp002-dynamic-runtime.yml
+          rm -f "$root/pnl-cp002-explanation-diversity-fix.mjs"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "feat(pnl): diversify CP-002 generated explanations"
+          git push origin HEAD:feat/pnl-001-cp002-explanation-diversity
