@@ -1,0 +1,61 @@
+name: Fix TMW-CP-011 opening rotation order
+
+on:
+  pull_request:
+    branches:
+      - design/tmw-001-blueprint
+    types: [opened, reopened, synchronize]
+    paths:
+      - .github/workflows/tmw-cp011-opening-order-fix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.head_ref == 'feat/tmw-cp011'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: feat/tmw-cp011
+      - name: Separate repeated subject-first slots
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp011-presentation.ts')
+          text = path.read_text()
+          old = '["SUBJECT_FIRST","SUBJECT_FIRST","TEMPORAL_FIRST","OBJECTIVE_FIRST","CONTEXT_FIRST"]'
+          new = '["SUBJECT_FIRST","TEMPORAL_FIRST","SUBJECT_FIRST","OBJECTIVE_FIRST","CONTEXT_FIRST"]'
+          if old not in text:
+              raise SystemExit('opening rotation anchor not found')
+          path.write_text(text.replace(old, new, 1))
+          PY
+      - name: Install locked workspace dependencies
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile
+      - name: Validate runtime audit and review export
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-cp011.opening-test.mjs
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp011.opening-test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-cp011.opening-audit.mjs
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp011.opening-audit.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011-review-export.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-cp011.opening-review.mjs
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp011.opening-review.mjs
+      - name: Commit rotation correction
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp011-presentation.ts
+          git commit -m 'fix(tmw): separate CP-011 opening styles'
+          git push origin HEAD:feat/tmw-cp011
