@@ -1,7 +1,20 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 
 import { generateBlrCp003CompetitiveSvgReviewBundle } from "./cp003-competitive-svg-review";
 import { renderBlrCp003SvgFamilyTreeMarkup } from "./cp003-svg-family-tree";
+import {
+  BLR_CP003_MERGE_SPLIT_MATRIX_V1,
+  cp003ProvisionalAuthorities,
+} from "./cp003-merge-split-audit";
+
+const approvalRecord = readFileSync(
+  new URL("./BLR-CP-003-HUMAN-REVIEW-APPROVAL-V5.md", import.meta.url),
+  "utf8",
+);
+assert.ok(approvalRecord.includes("human review approved"));
+assert.ok(approvalRecord.includes("bidirectional arrowheads"));
+assert.ok(approvalRecord.includes("This is an explicit human approval"));
 
 const bundle = generateBlrCp003CompetitiveSvgReviewBundle();
 const records = bundle.selected;
@@ -79,6 +92,48 @@ for (const record of records) {
   fingerprints.add(record.metadata.semanticFingerprint);
 }
 
+const allSourceRecords = [...records, ...bundle.rejected];
+const scenarioIds = [...new Set(allSourceRecords.map((record) => record.scenarioId))].sort();
+assert.deepEqual(scenarioIds, [
+  "BLR-CP003-SCN-AFFINAL-CHILD-BRANCH",
+  "BLR-CP003-SCN-COMPACT-JOINT-PARENT-PASSAGE",
+  "BLR-CP003-SCN-DUAL-MATERNAL-PATERNAL-BRANCH",
+  "BLR-CP003-SCN-EXPLICIT-UNMARRIED-BRANCH",
+  "BLR-CP003-SCN-FOUR-GENERATION-DIRECT-LINE",
+  "BLR-CP003-SCN-SIBLING-SET-BRANCH",
+  "BLR-CP003-SCN-THREE-GENERATION-TWO-BRANCH",
+  "BLR-CP003-SCN-TWO-COUPLE-COUSIN-BRANCH",
+]);
+
+const expectedItemPrototypes = BLR_CP003_MERGE_SPLIT_MATRIX_V1
+  .filter((entry) => entry.decision !== "ASSEMBLY_ONLY")
+  .map((entry) => entry.prototypeId)
+  .sort();
+const representedPrototypes = [
+  ...new Set(allSourceRecords.map((record) => record.prototypeId)),
+].sort();
+assert.deepEqual(representedPrototypes, expectedItemPrototypes);
+assert.equal(
+  BLR_CP003_MERGE_SPLIT_MATRIX_V1.filter((entry) => entry.decision === "MERGE_EXISTING").length,
+  10,
+);
+assert.equal(
+  BLR_CP003_MERGE_SPLIT_MATRIX_V1.filter((entry) => entry.decision === "PROVISIONAL_NEW").length,
+  8,
+);
+assert.equal(
+  BLR_CP003_MERGE_SPLIT_MATRIX_V1.filter((entry) => entry.decision === "ASSEMBLY_ONLY").length,
+  1,
+);
+assert.deepEqual(cp003ProvisionalAuthorities().sort(), [
+  "DETERMINE_MEMBER_GENDER",
+  "DETERMINE_MEMBER_MARITAL_STATUS",
+  "IDENTIFY_ALL_MEMBERS_BY_RELATION",
+  "IDENTIFY_MEMBER_BY_MARITAL_STATUS",
+  "IDENTIFY_PERSON_BY_EXACT_LINEAGE",
+  "SELECT_UNORDERED_FAMILY_PAIR",
+]);
+
 const averagePayloadBytes = Math.round(totalPayloadBytes / records.length);
 assert.equal(highlightedPathCount, 128);
 assert.ok(siblingArrowDiagramCount > 0);
@@ -88,12 +143,19 @@ console.log(
   JSON.stringify(
     {
       checkpointId: "BLR-CP-003",
-      gate: "NATIVE_INLINE_SVG_FAMILY_TREE_V5",
+      gate: "POST_HUMAN_NATIVE_SVG_SOURCE_GAP_V5",
+      humanReviewApproved: true,
+      acceptedPolishValidated: true,
+      postHumanSourceGapConfirmed: true,
+      sourceScenariosRepresented: scenarioIds.length,
+      sourceItemPrototypesRepresented: representedPrototypes.length,
       activeRecords: records.length,
+      rejectedSourceRecords: bundle.rejected.length,
       svgDiagrams: records.length,
       highlightedAnswerPaths: highlightedPathCount,
       siblingArrowDiagrams: siblingArrowDiagramCount,
       siblingArrowheads: "BIDIRECTIONAL",
+      provisionalAuthorities: cp003ProvisionalAuthorities().sort(),
       averageStructuredPayloadBytes: averagePayloadBytes,
       maximumPayloadBytes: 12_000,
       externalGraphLibrary: false,
