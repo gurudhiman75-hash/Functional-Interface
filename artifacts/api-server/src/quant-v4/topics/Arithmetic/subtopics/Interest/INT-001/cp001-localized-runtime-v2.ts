@@ -15,6 +15,10 @@ import {
   getIntCp001CashFlowContextV2,
   validateIntCp001ContextLeadV2,
 } from "./cp001-cash-flow-context-v2";
+import {
+  alignIntCp001LoanAmountWordingV2,
+  validateIntCp001LoanAmountWordingV2,
+} from "./cp001-cash-flow-amount-v2";
 import type { IntCp001Locale } from "./cp001-multilingual-release";
 import {
   getIntCp001LocaleReleaseV2Id,
@@ -58,16 +62,26 @@ export function generateIntCp001DirectionAwareLocalizedQuestion(
     locale,
     cashFlow.scenarioId,
   );
-  const stem = alignIntCp001StemCashFlow(contextAlignedStem, locale, cashFlow.direction);
+  const interestAlignedStem = alignIntCp001StemCashFlow(
+    contextAlignedStem,
+    locale,
+    cashFlow.direction,
+  );
+  const stem = alignIntCp001LoanAmountWordingV2(
+    interestAlignedStem,
+    approvedV1.solveContract,
+    locale,
+    cashFlow.direction,
+  );
   const errors = [
     ...approvedV1.validation.errors,
     ...validateIntCp001ContextLeadV2(stem, locale, cashFlow),
     ...validateIntCp001StemCashFlow(stem, approvedV1.solveContract, locale, cashFlow.direction),
+    ...validateIntCp001LoanAmountWordingV2(stem, approvedV1.solveContract, locale, cashFlow.direction),
   ];
 
   if (
     cashFlow.direction === "BORROWER_PAYS"
-    && /FIND_(?:SIMPLE_INTEREST|PRINCIPAL_FROM_INTEREST|RATE_FROM_INTEREST|TIME_FROM_INTEREST|INTEREST_FOR_TARGET_DURATION|TIME_FROM_INTEREST_RATIO|RATE_FROM_INTEREST_RATIO|ANNUAL_INTEREST_FROM_TWO_AMOUNTS|INTEREST_RATIO_FROM_RATE_TIME|LATER_TIME_FROM_TWO_AMOUNT_RATIO)/u.test(approvedV1.solveContract)
     && stem === approvedV1.stem
   ) {
     errors.push("Borrowing stem was not changed by the cash-flow patch.");
