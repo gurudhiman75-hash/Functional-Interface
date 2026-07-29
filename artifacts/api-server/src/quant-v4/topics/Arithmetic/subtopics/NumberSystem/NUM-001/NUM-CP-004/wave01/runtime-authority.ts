@@ -104,31 +104,44 @@ function variedTriple(seed: number): {
   };
 }
 
-function generateVariedTriple(seed: number): NumCp004Wave01Package {
-  const base = generateReviewedPackage("NUM-CP004-PROT-008", seed);
-  const { values, topology, difficulty } = variedTriple(seed);
-  const canonicalAnswer = classifyCanonical(values);
-  const verifierAnswer = classifyVerifier(values);
+function coprimeOptions(
+  canonicalAnswer: CoprimeClass,
+  seed: number,
+): NumCp004Option[] {
   const labels: readonly CoprimeClass[] = [
     "PAIRWISE_AND_COLLECTIVELY_COPRIME",
     "COLLECTIVELY_BUT_NOT_PAIRWISE",
     "NOT_COLLECTIVELY_COPRIME",
     "PAIRWISE_BUT_NOT_COLLECTIVELY_COPRIME",
   ];
-  const options = shuffle<NumCp004Option>(
-    labels.map((label) => ({
-      value: label,
-      isCorrect: label === canonicalAnswer,
-      ...(label === canonicalAnswer
-        ? {}
-        : {
-            misconceptionId: label === "PAIRWISE_BUT_NOT_COLLECTIVELY_COPRIME"
-              ? "PAIRWISE_BUT_NOT_COLLECTIVE_IMPOSSIBLE_CLASS"
-              : "COLLECTIVE_CONFUSED_WITH_PAIRWISE",
-          }),
-    })),
-    seed,
+  const correctOption: NumCp004Option = {
+    value: canonicalAnswer,
+    isCorrect: true,
+  };
+  const wrongOptions = shuffle<NumCp004Option>(
+    labels
+      .filter((label) => label !== canonicalAnswer)
+      .map((label) => ({
+        value: label,
+        isCorrect: false,
+        misconceptionId: label === "PAIRWISE_BUT_NOT_COLLECTIVELY_COPRIME"
+          ? "PAIRWISE_BUT_NOT_COLLECTIVE_IMPOSSIBLE_CLASS"
+          : "COLLECTIVE_CONFUSED_WITH_PAIRWISE",
+      })),
+    seed ^ 0x0c0ffee,
   );
+  const correctIndex = (seed - 1) % 4;
+  const options = [...wrongOptions];
+  options.splice(correctIndex, 0, correctOption);
+  return options;
+}
+
+function generateVariedTriple(seed: number): NumCp004Wave01Package {
+  const base = generateReviewedPackage("NUM-CP004-PROT-008", seed);
+  const { values, topology, difficulty } = variedTriple(seed);
+  const canonicalAnswer = classifyCanonical(values);
+  const verifierAnswer = classifyVerifier(values);
+  const options = coprimeOptions(canonicalAnswer, seed);
   const pairGcds = [
     gcd(values[0], values[1]),
     gcd(values[0], values[2]),
@@ -156,6 +169,7 @@ function generateVariedTriple(seed: number): NumCp004Wave01Package {
       "NUM-CP004-PROT-008",
       "NUM-CP-004-WAVE-01",
       "FINAL-NON-COLLAPSING-COPRIME-TOPOLOGY",
+      "DETERMINISTIC-ANSWER-POSITION-PARAMETER",
     ],
     mathematicalFingerprint: `NUM-CP004-PROT-008:${topology}:${values.join(":")}`,
     explanation: {
