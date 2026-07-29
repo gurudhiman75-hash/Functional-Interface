@@ -51,10 +51,10 @@ jobs:
         continue-on-error: true
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-editorial-review.test.ts > cp003-editorial.log 2>&1
 
-      - name: Export CP-003 English review pack
+      - name: Export CP-003 English review pack V2
         id: cp003_export
         continue-on-error: true
-        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-review-v1.ts cp003-review-output > cp003-export.log 2>&1
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-review-v2.ts cp003-review-v2-output > cp003-export.log 2>&1
 
       - name: Upload CP-003 runtime diagnostics
         if: always()
@@ -71,12 +71,12 @@ jobs:
           if-no-files-found: error
           retention-days: 3
 
-      - name: Upload CP-003 English review pack
+      - name: Upload CP-003 English review pack V2
         if: steps.cp003_export.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
-          name: blr-001-cp003-open-review-v1
-          path: cp003-review-output
+          name: blr-001-cp003-open-review-v2
+          path: cp003-review-v2-output
           if-no-files-found: error
           retention-days: 14
 
