@@ -28,3 +28,4 @@ export * from "./cp001-localized-runtime-final";
 export * from "./cp001-localized-runtime-release";
 export * from "./cp001-localized-runtime-approved";
 export * from "./cp001-localized-runtime-v2";
+export * from "./cp001-localized-runtime-v2-approved";
