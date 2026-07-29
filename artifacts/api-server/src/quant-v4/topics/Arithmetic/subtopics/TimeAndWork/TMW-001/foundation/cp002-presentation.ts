@@ -1,5 +1,5 @@
-import { formatRational } from "./rational";
-import { required, timeUnitLabel } from "./cp001-helpers";
+import { formatRational, formatTimeText } from "./rational";
+import { required } from "./cp001-helpers";
 import type { Rational } from "./types";
 import type { TmwCp002Parameters, TmwCp002RegistryEntry, TmwCp002Solution } from "./cp002-types";
 
@@ -16,8 +16,12 @@ function agentLabel(noun: string, index: number): string {
   return `${noun[0].toUpperCase()}${noun.slice(1)} ${LETTERS[index]}`;
 }
 
+function timeText(p: TmwCp002Parameters, value: Rational): string {
+  return formatTimeText(value, p.timeUnit, `${p.timeUnit}s`);
+}
+
 function timeFact(p: TmwCp002Parameters, time: Rational, index: number): string {
-  return `${agentLabel(p.context.agentNoun, index)} alone can complete ${p.context.jobPhrase} in ${formatRational(time)} ${timeUnitLabel(p.timeUnit, time)}`;
+  return `${agentLabel(p.context.agentNoun, index)} alone can complete ${p.context.jobPhrase} in ${timeText(p, time)}`;
 }
 
 function joinFacts(facts: string[]): string {
@@ -28,13 +32,13 @@ function joinFacts(facts: string[]): string {
 
 function individualFacts(p: TmwCp002Parameters, times = p.individualTimes): string {
   const first = timeFact(p, times[0], 0);
-  const remaining = times.slice(1).map((time, index) => `${agentLabel(p.context.agentNoun, index + 1)} can do so in ${formatRational(time)} ${timeUnitLabel(p.timeUnit, time)}`);
+  const remaining = times.slice(1).map((time, index) => `${agentLabel(p.context.agentNoun, index + 1)} can do so in ${timeText(p, time)}`);
   return joinFacts([first, ...remaining]);
 }
 
 function pairFacts(p: TmwCp002Parameters): string {
   const pairwise = required(p.pairwiseTimes, "pairwiseTimes");
-  return `${agentLabel(p.context.agentNoun, 0)} and ${agentLabel(p.context.agentNoun, 1)} together take ${formatRational(pairwise.ab)} ${timeUnitLabel(p.timeUnit, pairwise.ab)}, ${agentLabel(p.context.agentNoun, 1)} and ${agentLabel(p.context.agentNoun, 2)} together take ${formatRational(pairwise.bc)} ${timeUnitLabel(p.timeUnit, pairwise.bc)}, and ${agentLabel(p.context.agentNoun, 2)} and ${agentLabel(p.context.agentNoun, 0)} together take ${formatRational(pairwise.ca)} ${timeUnitLabel(p.timeUnit, pairwise.ca)}`;
+  return `${agentLabel(p.context.agentNoun, 0)} and ${agentLabel(p.context.agentNoun, 1)} together take ${timeText(p, pairwise.ab)}, ${agentLabel(p.context.agentNoun, 1)} and ${agentLabel(p.context.agentNoun, 2)} together take ${timeText(p, pairwise.bc)}, and ${agentLabel(p.context.agentNoun, 2)} and ${agentLabel(p.context.agentNoun, 0)} together take ${timeText(p, pairwise.ca)}`;
 }
 
 function signedKnownTerms(p: TmwCp002Parameters): string {
@@ -69,12 +73,12 @@ export function renderTmwCp002Stem(entry: TmwCp002RegistryEntry, p: TmwCp002Para
       return `${individualFacts(p)}. If they work together from the start, how long will they take to finish the assignment?`;
     case "findCombinedWorkInGivenTime": {
       const duration = required(p.duration, "duration");
-      return `${individualFacts(p)}. If they work together for ${formatRational(duration)} ${timeUnitLabel(p.timeUnit, duration)}, what fraction of the assignment will be completed?`;
+      return `${individualFacts(p)}. If they work together for ${timeText(p, duration)}, what fraction of the assignment will be completed?`;
     }
     case "findMissingIndividualTimeFromCombinedAndKnownTimes": {
       const combinedTime = required(p.combinedTime, "combinedTime");
       const knownTimes = p.individualTimes.slice(0, -1);
-      return `${individualFacts(p, knownTimes)}. Together with ${agentLabel(noun, p.individualTimes.length - 1)}, the three finish the assignment in ${formatRational(combinedTime)} ${timeUnitLabel(p.timeUnit, combinedTime)}. In how much time can ${agentLabel(noun, p.individualTimes.length - 1)} complete it alone?`;
+      return `${individualFacts(p, knownTimes)}. Together with ${agentLabel(noun, p.individualTimes.length - 1)}, the three finish the assignment in ${timeText(p, combinedTime)}. In how much time can ${agentLabel(noun, p.individualTimes.length - 1)} complete it alone?`;
     }
     case "findAllTogetherTimeFromPairwiseTimes":
       return `For ${job}, ${pairFacts(p)}. How long will all three take when working together?`;
@@ -85,37 +89,37 @@ export function renderTmwCp002Stem(entry: TmwCp002RegistryEntry, p: TmwCp002Para
     case "findPairTimeFromAllTogetherAndThirdTime": {
       const allTime = required(p.combinedTime, "combinedTime");
       const thirdTime = required(p.thirdTime, "thirdTime");
-      return `${agentLabel(noun, 0)}, ${agentLabel(noun, 1)} and ${agentLabel(noun, 2)} together complete ${job} in ${formatRational(allTime)} ${timeUnitLabel(p.timeUnit, allTime)}. ${agentLabel(noun, 2)} alone takes ${formatRational(thirdTime)} ${timeUnitLabel(p.timeUnit, thirdTime)}. How long will ${agentLabel(noun, 0)} and ${agentLabel(noun, 1)} take together?`;
+      return `${agentLabel(noun, 0)}, ${agentLabel(noun, 1)} and ${agentLabel(noun, 2)} together complete ${job} in ${timeText(p, allTime)}. ${agentLabel(noun, 2)} alone takes ${timeText(p, thirdTime)}. How long will ${agentLabel(noun, 0)} and ${agentLabel(noun, 1)} take together?`;
     }
     case "findNetTimeWithDestructiveAgent": {
       const destructiveTime = required(p.destructiveTime, "destructiveTime");
-      return `${individualFacts(p)}. A continuous rework process reverses completed work at a rate that would undo the whole assignment in ${formatRational(destructiveTime)} ${timeUnitLabel(p.timeUnit, destructiveTime)}. If the ${pluralize(noun, p.individualTimes.length)} work while rework continues, how long will the assignment take to finish?`;
+      return `${individualFacts(p)}. A continuous rework process reverses completed work at a rate that would undo the whole assignment in ${timeText(p, destructiveTime)}. If the ${pluralize(noun, p.individualTimes.length)} work while rework continues, how long will the assignment take to finish?`;
     }
     case "findDestructiveTimeFromPositiveAndNetTimes": {
       const netTime = required(p.netTime, "netTime");
-      return `${individualFacts(p)}. A continuous rework process reverses part of the completed work. With both ${pluralize(noun, p.individualTimes.length)} working while rework continues, the assignment is finished in ${formatRational(netTime)} ${timeUnitLabel(p.timeUnit, netTime)}. At the same rate, how long would the rework process take to undo the whole assignment?`;
+      return `${individualFacts(p)}. A continuous rework process reverses part of the completed work. With both ${pluralize(noun, p.individualTimes.length)} working while rework continues, the assignment is finished in ${timeText(p, netTime)}. At the same rate, how long would the rework process take to undo the whole assignment?`;
     }
     case "findConstructiveTimeFromNetKnownPositiveAndDestructiveTimes": {
       const knownTime = required(p.knownPositiveTimes, "knownPositiveTimes")[0];
       const destructiveTime = required(p.destructiveTime, "destructiveTime");
       const netTime = required(p.netTime, "netTime");
-      return `${agentLabel(noun, 1)} alone can complete ${job} in ${formatRational(knownTime)} ${timeUnitLabel(p.timeUnit, knownTime)}. A continuous rework process would undo the whole assignment in ${formatRational(destructiveTime)} ${timeUnitLabel(p.timeUnit, destructiveTime)}. When ${agentLabel(noun, 0)} and ${agentLabel(noun, 1)} work while rework continues, the assignment is completed in ${formatRational(netTime)} ${timeUnitLabel(p.timeUnit, netTime)}. How long would ${agentLabel(noun, 0)} take alone?`;
+      return `${agentLabel(noun, 1)} alone can complete ${job} in ${timeText(p, knownTime)}. A continuous rework process would undo the whole assignment in ${timeText(p, destructiveTime)}. When ${agentLabel(noun, 0)} and ${agentLabel(noun, 1)} work while rework continues, the assignment is completed in ${timeText(p, netTime)}. How long would ${agentLabel(noun, 0)} take alone?`;
     }
     case "findIdenticalAgentCountFromSingleAndCombinedTime": {
       const singleTime = p.individualTimes[0];
       const combinedTime = required(p.combinedTime, "combinedTime");
-      return `One ${noun} can complete ${job} in ${formatRational(singleTime)} ${timeUnitLabel(p.timeUnit, singleTime)}. A group of identical ${pluralize(noun, 2)} completes it in ${formatRational(combinedTime)} ${timeUnitLabel(p.timeUnit, combinedTime)}. How many ${pluralize(noun, 2)} are in the group?`;
+      return `One ${noun} can complete ${job} in ${timeText(p, singleTime)}. A group of identical ${pluralize(noun, 2)} completes it in ${timeText(p, combinedTime)}. How many ${pluralize(noun, 2)} are in the group?`;
     }
     case "findCombinedTimeFromIdenticalAgentCount": {
       const singleTime = p.individualTimes[0];
       const count = required(p.identicalAgentCount, "identicalAgentCount");
-      return `One ${noun} can complete ${job} in ${formatRational(singleTime)} ${timeUnitLabel(p.timeUnit, singleTime)}. How long will ${count} identical ${pluralize(noun, count)} take when working together?`;
+      return `One ${noun} can complete ${job} in ${timeText(p, singleTime)}. How long will ${count} identical ${pluralize(noun, count)} take when working together?`;
     }
     case "findCombinedOutputFromExplicitRates": {
       const rates = required(p.explicitRates, "explicitRates");
       const duration = required(p.duration, "duration");
       const facts = joinFacts(rates.map((rate, index) => `${agentLabel(noun, index)} ${explicitVerb(noun)} ${formatRational(rate)} ${p.context.outputNoun} per ${p.timeUnit}`));
-      return `${facts}. If all ${simultaneousVerb(noun)} simultaneously for ${formatRational(duration)} ${timeUnitLabel(p.timeUnit, duration)}, what total output will they produce?`;
+      return `${facts}. If all ${simultaneousVerb(noun)} simultaneously for ${timeText(p, duration)}, what total output will they produce?`;
     }
     case "findMissingRateFromSignedNetRate": {
       const netRate = required(p.netRate, "netRate");
@@ -126,8 +130,8 @@ export function renderTmwCp002Stem(entry: TmwCp002RegistryEntry, p: TmwCp002Para
     case "findCompletionTimeDifferenceBetweenTeams": {
       const aTimes = required(p.teamATimes, "teamATimes");
       const bTimes = required(p.teamBTimes, "teamBTimes");
-      const aFacts = aTimes.map((time) => `${formatRational(time)} ${timeUnitLabel(p.timeUnit, time)}`).join(" and ");
-      const bFacts = bTimes.map((time) => `${formatRational(time)} ${timeUnitLabel(p.timeUnit, time)}`).join(" and ");
+      const aFacts = aTimes.map((time) => timeText(p, time)).join(" and ");
+      const bFacts = bTimes.map((time) => timeText(p, time)).join(" and ");
       return `Team A and Team B are assigned identical copies of ${job}. Members A1 and A2 would complete the assignment alone in ${aFacts}, respectively; members B1 and B2 would do so in ${bFacts}, respectively. Each team's two members work together. What is the difference between the team completion times?`;
     }
   }
