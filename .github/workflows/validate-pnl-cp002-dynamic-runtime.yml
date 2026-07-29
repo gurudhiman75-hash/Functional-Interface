@@ -1,27 +1,27 @@
-name: Apply PNL CP-002 explanation diversity
+name: Validate PNL CP-002 dynamic candidate runtime
 
 on:
-  pull_request:
+  push:
     branches:
-      - New-main
+      - feat/pnl-001-cp002-dynamic-runtime
     paths:
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-*.ts"
+      - ".github/workflows/validate-pnl-cp002-dynamic-runtime.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-*.ts"
       - ".github/workflows/validate-pnl-cp002-dynamic-runtime.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  apply-explanation-diversity:
-    if: github.head_ref == 'feat/pnl-001-cp002-explanation-diversity'
+  validate-cp002-dynamic-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 25
     steps:
-      - name: Checkout feature branch
+      - name: Checkout source
         uses: actions/checkout@v4
-        with:
-          ref: feat/pnl-001-cp002-explanation-diversity
-          fetch-depth: 0
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -36,81 +36,26 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Correct temporary patch anchors
+      - name: Bundle dynamic runtime proof
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-cp002-explanation-diversity-fix.mjs")
-          source = path.read_text()
-
-          old_test = '"const difficultyCounts = { Easy: 0, Medium: 0, Hard: 0 };\\\\nlet generatedCount = 0;"'
-          new_test = '''`const difficultyCounts = { Easy: 0, Medium: 0, Hard: 0 };
-          let generatedCount = 0;`'''
-          if old_test not in source:
-              raise SystemExit("Temporary difficulty-count anchor was not found")
-          source = source.replace(old_test, new_test, 1)
-
-          old_runtime = '  "  const generatedWorking = buildCp002GeneratedWorking(\\\\n    qlId,\\\\n    generated.request,\\\\n    answer,\\\\n  );\\\\n  const explanationText = `${baseExplanation}\\\\n\\\\n${generatedWorking}\\\\n\\\\n**Final answer:** ${answer}`;",'
-          new_runtime = '''  [
-            "  const generatedWorking = buildCp002GeneratedWorking(",
-            "    qlId,",
-            "    generated.request,",
-            "    answer,",
-            "  );",
-            "  const explanationText = `${baseExplanation}\\\\n\\\\n${generatedWorking}\\\\n\\\\n**Final answer:** ${answer}`;",
-          ].join("\\n"),'''
-          if old_runtime not in source:
-              raise SystemExit("Temporary runtime replacement anchor was not found")
-          source = source.replace(old_runtime, new_runtime, 1)
-          path.write_text(source)
-          PY
-
-      - name: Apply solve-mode-specific working
-        run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-cp002-explanation-diversity-fix.mjs
-
-      - name: Format changed TypeScript
-        run: |
-          pnpm exec prettier --write \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime.test.ts
-
-      - name: Run 816-package CP-002 proof
-        run: |
+          set -o pipefail
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime.test.ts \
             --bundle --platform=node --format=esm \
-            --outfile=/tmp/pnl-cp002-dynamic-runtime.test.mjs
-          node /tmp/pnl-cp002-dynamic-runtime.test.mjs
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/.cp002-dynamic-runtime.test.mjs \
+            2>&1 | tee pnl-cp002-dynamic-runtime.log
 
-      - name: Run chapter editorial audit
+      - name: Run 34-QL seed-sweep proof
         run: |
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=/tmp/pnl-001-english-editorial-audit.mjs
-          node /tmp/pnl-001-english-editorial-audit.mjs
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          findings_path = Path("dist/quant-v4/pnl-001-english-editorial-audit/pnl-001-english-editorial-findings.json")
-          findings = json.loads(findings_path.read_text())
-          old = [
-              item for item in findings["editorialFindings"]
-              if "generated offer is evaluated in the exact order" in item["message"].lower()
-          ]
-          if old:
-              raise SystemExit(f"Old CP-002 generic paragraph remains: {old}")
-          print(json.dumps({"oldCp002GenericFindings": 0}, indent=2))
-          PY
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/.cp002-dynamic-runtime.test.mjs \
+            2>&1 | tee -a pnl-cp002-dynamic-runtime.log
 
-      - name: Commit validated source
-        run: |
-          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
-          git fetch origin New-main
-          git checkout origin/New-main -- .github/workflows/validate-pnl-cp002-dynamic-runtime.yml
-          rm -f "$root/pnl-cp002-explanation-diversity-fix.mjs"
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -m "feat(pnl): diversify CP-002 generated explanations"
-          git push origin HEAD:feat/pnl-001-cp002-explanation-diversity
+      - name: Upload proof evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-cp002-dynamic-runtime-proof
+          path: pnl-cp002-dynamic-runtime.log
+          if-no-files-found: error
+          retention-days: 7
