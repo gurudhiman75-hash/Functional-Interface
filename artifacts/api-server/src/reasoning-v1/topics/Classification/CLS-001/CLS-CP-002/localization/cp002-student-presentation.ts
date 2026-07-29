@@ -82,6 +82,8 @@ const EXACT_PAIR_OVERRIDES: readonly ExactPairOverride[] = [
 const TERM_OVERRIDES: Readonly<Record<string, { readonly hi: string; readonly pa: string }>> = {
   Wine: { hi: "वाइन", pa: "ਵਾਈਨ" },
   Jar: { hi: "जार", pa: "ਜਾਰ" },
+  Crown: { hi: "पेड़ का ऊपरी भाग", pa: "ਦਰੱਖਤ ਦਾ ਉੱਪਰਲਾ ਹਿੱਸਾ" },
+  Sapwood: { hi: "पेड़ की नई लकड़ी", pa: "ਦਰੱਖਤ ਦੀ ਨਵੀਂ ਲੱਕੜ" },
 };
 
 const CLASS_LABEL_OVERRIDES: Readonly<Record<string, { readonly hi: string; readonly pa: string }>> = {
