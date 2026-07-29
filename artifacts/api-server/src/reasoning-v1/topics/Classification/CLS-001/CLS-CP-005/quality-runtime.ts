@@ -4,7 +4,8 @@ import type {
   ClsCp005Tuple,
 } from "./types";
 
-const MAX_QUALITY_ATTEMPTS = 180;
+const MAX_QUALITY_ATTEMPTS = 240;
+const MAX_ANSWER_SCALE_RATIO = 4;
 
 function unorderedTupleKey(tuple: ClsCp005Tuple): string {
   return [...tuple].sort((left, right) => left - right).join(",");
@@ -22,17 +23,32 @@ function ratio(larger: number, smaller: number): number {
   return smaller === 0 ? Number.POSITIVE_INFINITY : larger / smaller;
 }
 
+function relativeRatio(left: number, right: number): number {
+  return ratio(Math.max(left, right), Math.min(left, right));
+}
+
+function median(values: readonly number[]): number {
+  const sorted = [...values].sort((left, right) => left - right);
+  const middle = Math.floor(sorted.length / 2);
+  return sorted.length % 2 === 1
+    ? sorted[middle]!
+    : (sorted[middle - 1]! + sorted[middle]!) / 2;
+}
+
 export type ClsCp005PresentationQualityAudit = {
   readonly result: "PASS" | "REJECT";
   readonly reasons: readonly string[];
   readonly unorderedTupleKeys: readonly string[];
   readonly maximumValueRatio: number;
   readonly tupleTotalRatio: number;
+  readonly answerMaximumRatio: number;
+  readonly answerTotalRatio: number;
 };
 
 export function auditClsCp005PresentationQuality(question: {
   readonly referenceTuple: ClsCp005Tuple | null;
   readonly tuples: readonly ClsCp005Tuple[];
+  readonly correctIndex: number;
 }): ClsCp005PresentationQualityAudit {
   const reasons: string[] = [];
   const unorderedTupleKeys = question.tuples.map(unorderedTupleKey);
@@ -61,11 +77,22 @@ export function auditClsCp005PresentationQuality(question: {
   const totals = question.tuples.map(tupleTotal);
   const maximumValueRatio = ratio(Math.max(...maxima), Math.min(...maxima));
   const tupleTotalRatio = ratio(Math.max(...totals), Math.min(...totals));
-  if (maximumValueRatio > 12) {
-    reasons.push("One option is on a visibly different numerical scale.");
+  const commonMaxima = maxima.filter((_, index) => index !== question.correctIndex);
+  const commonTotals = totals.filter((_, index) => index !== question.correctIndex);
+  const answerMaximumRatio = relativeRatio(maxima[question.correctIndex]!, median(commonMaxima));
+  const answerTotalRatio = relativeRatio(totals[question.correctIndex]!, median(commonTotals));
+
+  if (maximumValueRatio > 20) {
+    reasons.push("The displayed options span an excessive numerical scale.");
   }
-  if (tupleTotalRatio > 10) {
-    reasons.push("One option has a visibly different total magnitude.");
+  if (tupleTotalRatio > 16) {
+    reasons.push("The displayed options span an excessive total magnitude.");
+  }
+  if (answerMaximumRatio > MAX_ANSWER_SCALE_RATIO) {
+    reasons.push("The answer is visibly much larger or smaller than the common options.");
+  }
+  if (answerTotalRatio > MAX_ANSWER_SCALE_RATIO) {
+    reasons.push("The answer has a visibly different total magnitude from the common options.");
   }
 
   return {
@@ -74,6 +101,8 @@ export function auditClsCp005PresentationQuality(question: {
     unorderedTupleKeys,
     maximumValueRatio,
     tupleTotalRatio,
+    answerMaximumRatio,
+    answerTotalRatio,
   };
 }
 
@@ -96,7 +125,7 @@ export function generateClsCp005QualityQuestion(
       presentationQualityAudit,
       metadata: {
         ...candidate.metadata,
-        qualityVersion: "cls-cp005-presentation-quality-v1" as const,
+        qualityVersion: "cls-cp005-presentation-quality-v2" as const,
         sourcePrototypeSeed: sourceSeed,
       },
     };
