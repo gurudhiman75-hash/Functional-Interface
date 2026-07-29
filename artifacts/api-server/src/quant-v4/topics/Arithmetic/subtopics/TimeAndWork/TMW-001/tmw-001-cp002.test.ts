@@ -36,7 +36,11 @@ for (const entry of TMW_CP002_REGISTRY) {
     assert.equal(first.publiclyPublishable, false);
     assert.ok(first.explanation.formula.startsWith("\\("));
     assert.ok(first.explanation.steps.length >= 1);
-    assert.equal(/undefined|null|\{[^}]+\}/.test(first.stem), false);
+    const visibleText = [first.stem, ...first.options, first.solution.answerText].join("\n");
+    assert.equal(/undefined|null|NaN|Infinity|\{\{|\$\{/.test(visibleText), false);
+    assert.equal((visibleText.match(/\\\(/g) ?? []).length, (visibleText.match(/\\\)/g) ?? []).length);
+    assert.equal(/\\frac/.test(visibleText.replace(/\\\([\s\S]*?\\\)/g, "")), false);
+    assert.equal(/\b(?:\d+\s+)?\d+\/\d+\s+(?:minutes?|hours?|days?|shifts?)\b/i.test(visibleText), false);
     assert.equal(first.explanation.conclusion.includes("is required"), false);
     assert.equal(first.stem.includes("worker or unit"), false);
     if (first.solution.answerType === "FRACTION") {
