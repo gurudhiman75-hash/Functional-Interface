@@ -18,7 +18,15 @@ const fingerprints = new Set<string>();
 
 assert.equal(bundle.sourceRecordCount, 208);
 assert.ok(records.length > 0);
-assert.equal(records.length + rejected.length, bundle.sourceRecordCount);
+assert.equal(
+  bundle.sourceEligibleRecordCount + rejected.length,
+  bundle.sourceRecordCount,
+);
+assert.equal(
+  records.length,
+  bundle.sourceEligibleRecordCount + bundle.supplementalRecordCount,
+);
+assert.equal(bundle.supplementalRecordCount, 12);
 
 for (const rejectedRecord of rejected) {
   assert.equal(rejectedRecord.audit.examEligible, false);
@@ -138,6 +146,8 @@ const diagnostic = {
   checkpointId: "BLR-CP-003",
   gate: "COMPETITIVE_EXAM_DERIVED_ONLY_V4",
   sourceRecords: bundle.sourceRecordCount,
+  sourceEligibleRecords: bundle.sourceEligibleRecordCount,
+  supplementalDerivedRecords: bundle.supplementalRecordCount,
   selectedRecords: records.length,
   rejectedRecords: rejected.length,
   passageGroups: groups.size,
@@ -160,5 +170,7 @@ const diagnostic = {
 console.log(JSON.stringify(diagnostic, null, 2));
 
 assert.equal(groups.size, 32);
-assert.ok(Math.min(...groups.values()) >= 2);
-assert.ok(records.length >= 96);
+assert.ok(Math.min(...groups.values()) >= 3);
+assert.equal(records.length, 128);
+assert.equal(bundle.sourceEligibleRecordCount, 116);
+assert.equal(rejected.length, 92);
