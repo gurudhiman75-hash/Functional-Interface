@@ -34,7 +34,7 @@ function sourceFor(qlNumber: number, seed: string): PncStudentSourcePackage & {
 }
 
 function numberTokens(value: string): string[] {
-  return [...value.matchAll(/-?\d[\d,]*/g)].map((match) => match[0]!).sort();
+  return [...value.matchAll(/-?\d+(?:,\d{3})*/g)].map((match) => match[0]!).sort();
 }
 
 function mathTokens(value: string): string[] {
