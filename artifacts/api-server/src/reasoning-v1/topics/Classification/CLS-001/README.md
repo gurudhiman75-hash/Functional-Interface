@@ -93,9 +93,14 @@ Permanent QLs:                 0
 Frozen solve contracts:        0
 Temporary source controls:     7
 Direct structural rules:       6
-Additional resolution task:    controlled jumbled-word classification
+Provisional learner contracts: 2
+Governed English words:        630
+Controlled jumble words:       35
+Generated discovery questions: 1,680
+Unique visible questions:      1,680
 Locale:                        en-IN discovery only
 Answer-option counts:          4 and 5
+Jumble shortcut policy:        NO_DIRECT_STRUCTURAL_OUTLIER
 Source saturation:             open; File Library retry required
 ```
 
@@ -109,7 +114,16 @@ The first wave tests:
 - governed prefix or suffix family;
 - unique controlled unjumbling followed by semantic classification.
 
-The first six controls compare visible word structure directly. The jumbled-word control adds an anagram-resolution stage and remains a separate merge/split candidate. Hindi and Punjabi must use script-specific governed word datasets; English structural questions will not be translated mechanically.
+The first six controls provisionally merge into one direct visible-word-structure contract. The jumbled-word control remains separate because it requires unique anagram resolution before semantic classification. Every accepted jumble state is rejected if any direct visible structural rule identifies an outlier, even when that shortcut would lead to the same answer.
+
+Measured answer positions are:
+
+```text
+4 options: 215, 202, 215, 208
+5 options: 170, 189, 157, 166, 158
+```
+
+Hindi and Punjabi require script-specific governed word datasets; English structural questions will not be translated mechanically. Permanent allocation remains blocked until uploaded-book saturation, language-specific feasibility and the final no-new-contract audit close.
 
 ## Strict chapter boundary
 
@@ -139,6 +153,7 @@ Semantic odd word-pair relationships belong to `CLS-CP-002`. Visible word struct
 - `CLS-CP-002/CLS-CP-002-SOURCE-SATURATION-AND-MERGE-SPLIT-AUDIT.md`
 - `CLS-CP-002/CLS-CP-002-FINAL-MULTILINGUAL-FREEZE.md`
 - `CLS-CP-003/CLS-CP-003-EXECUTABLE-DISCOVERY-PLAN.md`
+- `CLS-CP-003/CLS-CP-003-PRELIMINARY-MERGE-SPLIT-AUDIT.md`
 
 ## Release locks
 
