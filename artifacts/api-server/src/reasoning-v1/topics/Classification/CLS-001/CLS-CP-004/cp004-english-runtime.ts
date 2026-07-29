@@ -4,6 +4,8 @@ import {
   type ClsCp004EnglishQlId,
 } from "./cp004-english-contract";
 import { generateClsCp004DiscoveryQuestion } from "./discovery-runtime";
+import { clsCp004DivisorForRule } from "./number-domain";
+import type { GeneratedClsCp004Question } from "./types";
 
 function hashText(text: string): number {
   let hash = 2166136261;
@@ -16,6 +18,41 @@ function hashText(text: string): number {
 
 function optionCountForSeed(seed: number): 4 | 5 {
   return hashText(`${CLS_CP004_ENGLISH_QL_ID}:option-count:${seed}`) % 4 === 0 ? 5 : 4;
+}
+
+function simpleShortcut(question: GeneratedClsCp004Question): string {
+  const divisor = clsCp004DivisorForRule(question.intendedRuleId);
+  if (divisor !== null) {
+    return `Use the divisibility rule for ${divisor}. Do not divide every number fully.`;
+  }
+  switch (question.intendedRuleId) {
+    case "DIGIT_COUNT":
+      return "Count the digits in each number and write the count beside it.";
+    case "PARITY":
+      return "Check the last digit only. 0, 2, 4, 6 and 8 mean the number is even.";
+    case "PRIMALITY_CLASS":
+      return "Try dividing by small prime numbers up to the square root. Stop when one divides exactly.";
+    case "PERFECT_SQUARE_STATUS":
+      return "Compare the options with familiar squares such as 4, 9, 16, 25, 36 and 49.";
+    case "PERFECT_CUBE_STATUS":
+      return "Compare the options with familiar cubes such as 8, 27, 64, 125 and 216.";
+    case "DIVISOR_COUNT":
+      return "Write the factor pairs of each number. Count both numbers in every pair.";
+    case "DIGIT_PARITY_COMPOSITION":
+      return "Mark every digit as odd or even, then compare the patterns.";
+    case "DIGIT_SUM":
+      return "Add the digits of each number and write the total beside it.";
+    case "DIGIT_PRODUCT":
+      return "Multiply the digits of each number and write the result beside it.";
+    case "PALINDROME_STATUS":
+      return "Reverse each number. A palindrome stays exactly the same.";
+    case "NEAR_POWER_CLASS":
+      return "Find the nearest square or cube. Check whether the number is one more or one less.";
+    case "TRIANGULAR_STATUS":
+      return "Check the running totals 1, 3, 6, 10, 15, 21 and so on, or use n × (n + 1) ÷ 2.";
+    default:
+      return "Work out the same number fact for every option, write it down, and choose the different result.";
+  }
 }
 
 export function generateClsCp004EnglishQuestion(
@@ -35,6 +72,11 @@ export function generateClsCp004EnglishQuestion(
   const source = generateClsCp004DiscoveryQuestion(sourcePrototypeId, sourceSeed, optionCount);
   return {
     ...source,
+    stem: "Which number is different from the others?",
+    explanation: {
+      ...source.explanation,
+      examSpeedShortcut: [simpleShortcut(source)],
+    },
     seed,
     qlId,
     permanentQlId: qlId,
@@ -42,7 +84,7 @@ export function generateClsCp004EnglishQuestion(
     questionStudioVisible: false as const,
     metadata: {
       ...source.metadata,
-      runtimeVersion: "cls-cp004-english-runtime-v1" as const,
+      runtimeVersion: "cls-cp004-english-runtime-v2" as const,
       sourcePrototypeId,
       sourcePrototypeSeed: sourceSeed,
       solveContractId: CLS_CP004_ENGLISH_CONTRACT.solveContractId,
