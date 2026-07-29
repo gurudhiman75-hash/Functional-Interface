@@ -65,6 +65,34 @@ assert.deepEqual(
 assert.equal(localizedClsCp002StudentClassLabel("CLS_MAMMALS", "hi-IN"), "दूध पिलाने वाले जानवर");
 assert.equal(localizedClsCp002StudentClassLabel("CLS_AQUATIC_ANIMALS", "hi-IN"), "पानी में रहने वाले जानवर");
 
+const hindiTreePair = localizeClsCp002StudentPair(
+  { left: "Crown", right: "Sapwood" },
+  [],
+  "hi-IN",
+);
+assert.deepEqual(hindiTreePair, {
+  left: "पेड़ का ऊपरी भाग",
+  right: "पेड़ की नई लकड़ी",
+});
+assert.deepEqual(
+  canonicalizeClsCp002StudentPair(hindiTreePair, [], "hi-IN"),
+  { left: "Crown", right: "Sapwood" },
+);
+
+const punjabiTreePair = localizeClsCp002StudentPair(
+  { left: "Crown", right: "Sapwood" },
+  [],
+  "pa-IN",
+);
+assert.deepEqual(punjabiTreePair, {
+  left: "ਦਰੱਖਤ ਦਾ ਉੱਪਰਲਾ ਹਿੱਸਾ",
+  right: "ਦਰੱਖਤ ਦੀ ਨਵੀਂ ਲੱਕੜ",
+});
+assert.deepEqual(
+  canonicalizeClsCp002StudentPair(punjabiTreePair, [], "pa-IN"),
+  { left: "Crown", right: "Sapwood" },
+);
+
 const fingerprints = new Map<ClsCp002Locale, Set<string>>(
   LOCALES.map((locale) => [locale, new Set<string>()]),
 );
@@ -112,12 +140,6 @@ for (let seed = 0; seed < 600; seed += 1) {
 
     if (question.generationProfile === "CATEGORY_SAFE_FALSE_PAIR") {
       assert.ok(CLS_CP002_FALSE_PAIR_SAFE_RELATION_IDS.includes(question.intendedRelationId as never));
-    }
-    if (question.generationProfile === "CLASS_PAIR_CONTRAST") {
-      assert.ok(question.pairs.every((pair) =>
-        !["Crown", "Sapwood"].includes(pair.left)
-        && !["Crown", "Sapwood"].includes(pair.right),
-      ));
     }
 
     let canonicalPairs = question.pairs;
