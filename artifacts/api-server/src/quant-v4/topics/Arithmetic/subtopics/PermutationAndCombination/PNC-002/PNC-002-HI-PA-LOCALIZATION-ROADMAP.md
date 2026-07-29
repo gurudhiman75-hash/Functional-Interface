@@ -63,6 +63,29 @@ Each checkpoint must prove:
 - Publicly publishable: `false`
 - Merge checkpoint: PR `#304`
 
+### `PNC-CP-009`
+
+- Approved release: `PNC-002-CP009-HI-PA-v1-APPROVED`
+- QLs: `PNC-QL-148` through `PNC-QL-176`
+- English source QLs: 29
+- Locales: `hi-IN`, `pa-IN`
+- Localised review rows: 58
+- Seeded approval packages: 174
+- Covered solve modes: 21
+- Editorial status: `APPROVED`
+- Approval date: `2026-07-29`
+- Hindi stems begin naturally with `एक`; Punjabi stems begin naturally with `ਇੱਕ`; opening syntax varies by question context.
+- Literal Hindi `मामला/मामले` and Punjabi `ਮਾਮਲਾ/ਮਾਮਲੇ` wording is prohibited in learner-facing explanations; precise selection, count and condition language is used instead.
+- Publicly publishable: `false`
+- Merge checkpoint: PR `#309`
+
 ## Current checkpoint
 
-`PNC-CP-009` is next in the controlled localisation order after the approved CP-008 checkpoint is merged.
+`PNC-CP-010` is the next Hindi/Punjabi localisation checkpoint.
+
+- QLs: `PNC-QL-177` through `PNC-QL-208`
+- English source QLs: 32
+- Locales: `hi-IN`, `pa-IN`
+- Status: `NOT_STARTED`
+- Editorial status: `PENDING`
+- Publicly publishable: `false`
