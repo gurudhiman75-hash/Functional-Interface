@@ -19,6 +19,8 @@ const optionCountCoverage = new Set<number>();
 const answerPositions = [0, 0, 0, 0, 0];
 const stemCounts = new Map<string, Map<string, number>>();
 let maximumSourceAttempts = 0;
+let maximumAnswerMaximumRatio = 0;
+let maximumAnswerTotalRatio = 0;
 
 for (const prototype of CLS_CP005_PROTOTYPES) {
   const counts = new Map<string, number>();
@@ -59,8 +61,12 @@ for (const prototype of CLS_CP005_PROTOTYPES) {
     assert.equal(quality.result, "PASS", `${prototype.prototypeId}/${seed}: ${quality.reasons.join("; ")}`);
     assert.deepEqual(question.presentationQualityAudit, quality);
     assert.equal(new Set(quality.unorderedTupleKeys).size, optionCount);
-    assert.ok(quality.maximumValueRatio <= 12);
-    assert.ok(quality.tupleTotalRatio <= 10);
+    assert.ok(quality.maximumValueRatio <= 20);
+    assert.ok(quality.tupleTotalRatio <= 16);
+    assert.ok(quality.answerMaximumRatio <= 4);
+    assert.ok(quality.answerTotalRatio <= 4);
+    maximumAnswerMaximumRatio = Math.max(maximumAnswerMaximumRatio, quality.answerMaximumRatio);
+    maximumAnswerTotalRatio = Math.max(maximumAnswerTotalRatio, quality.answerTotalRatio);
 
     const independent = independentlyVerifyClsCp005Question(question);
     assert.equal(independent.result, "UNIQUE");
@@ -71,7 +77,7 @@ for (const prototype of CLS_CP005_PROTOTYPES) {
     assert.equal(question.questionStudioVisible, false);
     assert.equal(question.metadata.datasetVersion, "CLS-CP005-TUPLE-DOMAIN-v1");
     assert.equal(question.metadata.runtimeVersion, "cls-cp005-discovery-v1");
-    assert.equal(question.metadata.qualityVersion, "cls-cp005-presentation-quality-v1");
+    assert.equal(question.metadata.qualityVersion, "cls-cp005-presentation-quality-v2");
     assert.ok(Number.isSafeInteger(question.metadata.sourcePrototypeSeed));
     maximumSourceAttempts = Math.max(
       maximumSourceAttempts,
@@ -142,10 +148,11 @@ for (const [prototypeId, counts] of stemCounts) {
     `${prototypeId} has a dominant stem: ${JSON.stringify(Object.fromEntries(counts))}`,
   );
 }
+assert.ok(maximumSourceAttempts < 240);
 assert.throws(() => generateClsCp005QualityQuestion("CLS-CP005-PROT-999" as never, 0));
 assert.throws(() => generateClsCp005QualityQuestion("CLS-CP005-PROT-001", -1));
 
-console.log("CLS-CP-005 number-tuple quality discovery audit passed.", {
+console.log("CLS-CP-005 answer-aware number-tuple quality audit passed.", {
   generated: CLS_CP005_PROTOTYPES.length * QUESTIONS_PER_PROTOTYPE,
   uniqueVisibleQuestions: fingerprints.size,
   prototypes: prototypeCoverage.size,
@@ -156,4 +163,6 @@ console.log("CLS-CP-005 number-tuple quality discovery audit passed.", {
   answerPositions,
   minimumStemForms: Math.min(...[...stemCounts.values()].map((counts) => counts.size)),
   maximumSourceAttempts,
+  maximumAnswerMaximumRatio,
+  maximumAnswerTotalRatio,
 });
