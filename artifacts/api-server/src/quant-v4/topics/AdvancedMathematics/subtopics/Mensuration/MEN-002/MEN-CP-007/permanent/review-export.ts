@@ -1,17 +1,20 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { MEN_CP_007_FROZEN_QLS } from "../final-freeze/registry";
-import { generateMenCp007PermanentQuestion } from "./runtime";
+import { generateMenCp007PermanentQuestionFromPrototype } from "./runtime";
 
 const outputDirectory = resolve(process.cwd(), "dist/quant-v4/men-002-cp007-permanent-english-review");
 mkdirSync(outputDirectory, { recursive: true });
 
 const questions = MEN_CP_007_FROZEN_QLS.flatMap((definition) =>
-  [0, 1, 2].map((sampleIndex) =>
-    generateMenCp007PermanentQuestion(
-      definition.qlId,
-      `men-cp007-permanent-review:${definition.qlId}:${sampleIndex}`,
-      "en",
+  definition.prototypeIds.flatMap((prototypeId) =>
+    [0, 1, 2].map((sampleIndex) =>
+      generateMenCp007PermanentQuestionFromPrototype(
+        definition.qlId,
+        `men-cp007-editorial-v2-review:${definition.qlId}:${prototypeId}:${sampleIndex}`,
+        prototypeId,
+        "en",
+      ),
     ),
   ),
 );
@@ -23,13 +26,15 @@ writeFileSync(
 );
 
 const markdown = [
-  "# MEN-CP-007 Permanent English Review",
+  "# MEN-CP-007 Permanent English Editorial V2 Review",
   "",
-  "> Inactive implementation-proof review. Permanent identities are frozen, but every product and publication surface remains disabled.",
+  "> Inactive implementation-proof review. All 63 frozen prototype ancestries are represented by three deterministic samples. Product and publication surfaces remain disabled.",
   "",
   ...questions.flatMap((question, index) => [
     `## ${index + 1}. ${question.qlId} — ${question.templateId}`,
     "",
+    `- Editorial layout: \`${question.editorialLayoutId}\``,
+    `- Editorial status: \`${question.editorialStatus}\``,
     `- Canonical solve mode: \`${question.canonicalSolveMode}\``,
     `- Source prototype: \`${question.sourcePrototypeId}\``,
     `- Source solve mode: \`${question.sourceSolveMode}\``,
@@ -77,4 +82,9 @@ writeFileSync(
   "utf8",
 );
 
-console.log(`Generated ${questions.length} MEN-CP-007 permanent English review questions in ${outputDirectory}.`);
+const coverage = new Set(questions.map((question) => question.sourcePrototypeId));
+if (questions.length !== 189 || coverage.size !== 63) {
+  throw new Error(`Expected 189 review questions across 63 prototype ancestries; found ${questions.length} questions across ${coverage.size} ancestries.`);
+}
+
+console.log(`Generated ${questions.length} MEN-CP-007 English Editorial V2 review questions across ${coverage.size} prototype ancestries in ${outputDirectory}.`);
