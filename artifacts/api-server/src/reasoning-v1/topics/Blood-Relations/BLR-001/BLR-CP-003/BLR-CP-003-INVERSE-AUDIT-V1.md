@@ -8,17 +8,29 @@ The merge/split result must survive inverse testing. Two tasks remain separate w
 
 ## Gender
 
+The runtime now proves both directions separately.
+
+### Determine a supplied person's gender
+
 ```text
 person -> gender label
 ```
 
-is not the same contract as:
+A passage can determine that one named member is female while containing several female members. The label answer remains definite, but the inverse is not unique unless a candidate domain or another condition is supplied. This confirms the provisional `DETERMINE_MEMBER_GENDER` split.
+
+### Identify a person from a supplied gender
 
 ```text
-gender label -> one person
+gender label + candidate set -> one person name
 ```
 
-A passage can determine that one named member is female while containing several female members. The forward gender-label item remains definite, but inverse person identification is not unique without an additional candidate or uniqueness condition. This confirms the provisional `DETERMINE_MEMBER_GENDER` split from frozen `BLR-QL-003`.
+The compact joint-parent source-gap scenario supplies four candidates, exactly one of whom is male by displayed relation evidence. This input and answer contract matches frozen:
+
+```text
+BLR-QL-003 — IDENTIFY_PERSON_BY_GENDER
+```
+
+Therefore the grouped person-by-gender handle merges into `BLR-QL-003`, while the gender-label handle remains provisional.
 
 ## Unordered family pair
 
@@ -79,14 +91,20 @@ Therefore:
 Provisional new authorities                  6
 Authorities collapsed by inverse audit       0
 Authorities split further by inverse audit   0
+Existing-Ql gender merge confirmed            1
 Permanent CP-003 QLs                          0
 ```
 
 The inverse audit confirms the six-authority technical compression hypothesis without allocating `BLR-QL-009`.
 
+## Completed technical gates
+
+- inverse scenarios: passed;
+- compact person-by-gender scenario: passed;
+- technical second source-gap pass: passed.
+
 ## Remaining gates
 
-- second source and topology gap pass;
 - human review of the remediated English pack;
 - accepted remediation and deterministic reruns;
 - post-human source-gap confirmation;
