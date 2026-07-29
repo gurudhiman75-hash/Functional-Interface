@@ -94,6 +94,8 @@ for (const record of records) {
   assert.ok(!ENGINE_JARGON.test(visibleText), `Engine jargon leaked into ${record.itemId}.`);
   assert.ok(!visibleText.includes("undefined"));
   assert.ok(!visibleText.includes("[object Object]"));
+  assert.ok(!visibleText.includes(" is same generation "));
+  assert.ok(!visibleText.includes(" of itself."));
   assert.ok(!/\b[A-Z]+_[A-Z_]+\b/.test(visibleText), `Visible enum leaked into ${record.itemId}.`);
 
   const relationMatch = /^How is (.+) related to (.+)\?$/.exec(record.stem);
@@ -149,6 +151,7 @@ console.log(
       optionSpecificTeachingOnEveryRecord: true,
       directionConclusionVerified: true,
       rawEngineJargonVisible: false,
+      residualAwkwardPhrasingVisible: false,
       permanentQlCount: 0,
       publicDeliveryEnabled: false,
     },
