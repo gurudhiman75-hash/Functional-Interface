@@ -24,7 +24,7 @@ on:
 jobs:
   cp003-shared-family-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 65
+    timeout-minutes: 70
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -33,6 +33,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+
+      - name: Install locked workspace dependencies
+        run: |
+          corepack enable
+          corepack pnpm install --frozen-lockfile
 
       - name: Run CP-003 grouped family runtime proof
         id: cp003_runtime
