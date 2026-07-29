@@ -10,17 +10,21 @@ import {
 } from "./relation-registry";
 import { auditClsCp002DisplayedPairs } from "./runtime";
 import {
-  auditClsCp002TranslationCoverage,
   canonicalizeClsCp002Pair,
   type ClsCp002Locale,
 } from "./localization/cp002-language-pack";
+import { getClsCp002TranslationCoverage } from "./localization/cp002-translation-coverage";
 
 const LOCALES: readonly ClsCp002Locale[] = ["en-IN", "hi-IN", "pa-IN"];
-const coverage = auditClsCp002TranslationCoverage();
+const coverage = getClsCp002TranslationCoverage();
 assert.deepEqual(coverage, {
-  importedFactCount: 324,
-  supplementalFactCount: 48,
-  relationCount: 31,
+  totalImportedFacts: 324,
+  multilingualSafeImportedFacts: 112,
+  englishOnlyImportedFacts: 212,
+  supplementalFacts: 48,
+  totalMultilingualSafeFactPairs: 160,
+  factRelationCount: 31,
+  factRelationsWithAtLeastFourSafePairs: 31,
 });
 
 const fingerprints = new Map<ClsCp002Locale, Set<string>>(
