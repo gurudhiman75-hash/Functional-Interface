@@ -59,6 +59,18 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/int-001-cp001-readable-v2-regression.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-readable-v2-regression.log
 
+      - name: Bundle readable-stem metrics
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-readable-stem-metrics.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-readable-stem-metrics.mjs
+      - name: Report readable-stem metrics
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/int-001-cp001-readable-stem-metrics.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-readable-stem-metrics.log
+
       - name: Bundle readable-stem audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -89,6 +101,7 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/int-001-cp001-readable-english-regression.log
             artifacts/api-server/dist/quant-v4/int-001-cp001-readable-v2-regression.log
+            artifacts/api-server/dist/quant-v4/int-001-cp001-readable-stem-metrics.log
             artifacts/api-server/dist/quant-v4/int-001-cp001-readable-stem-audit.log
             artifacts/api-server/dist/quant-v4/int-001-cp001-english-v4-readable-stem-review.json
             artifacts/api-server/dist/quant-v4/int-001-cp001-english-v4-readable-stem-review.md
