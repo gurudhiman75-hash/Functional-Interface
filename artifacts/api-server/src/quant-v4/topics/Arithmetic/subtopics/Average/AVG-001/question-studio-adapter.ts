@@ -1,9 +1,9 @@
 import {
   getAvg001QuestionEntries,
-  runAvg001Pipeline,
   type Avg001Language,
   type Avg001QuestionPackage,
 } from "./index";
+import { runAvg001EditorialV2Pipeline } from "./foundation/editorial-v2-release";
 
 export const AVG_001_QUESTION_STUDIO_CP_IDS = [
   "AVG-CP-001",
@@ -64,7 +64,7 @@ export function runAvg001QuestionStudioPipeline(
     questionLanguageId = entries[hash(seed) % entries.length]!.qlId;
   }
 
-  return runAvg001Pipeline({
+  return runAvg001EditorialV2Pipeline({
     questionLanguageId,
     seed: input.seed,
     language,

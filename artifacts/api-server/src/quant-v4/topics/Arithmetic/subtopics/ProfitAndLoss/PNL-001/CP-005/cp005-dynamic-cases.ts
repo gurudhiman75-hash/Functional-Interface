@@ -727,12 +727,11 @@ export function generatePnlCp005Case(
 
     case "PNL-QL-139":
     case "PNL-QL-140": {
-      const purchasePricePerNominalQuantity = rupees(
+      const commonQuotedPrice = rupees(
         pickSeeded(random, [1000, 1200, 1500] as const),
       );
-      const sellingPricePerNominalQuantity = rupees(
-        pickSeeded(random, [1000, 1200, 1500] as const),
-      );
+      const purchasePricePerNominalQuantity = commonQuotedPrice;
+      const sellingPricePerNominalQuantity = commonQuotedPrice;
       const receivedQuantity = pickSeeded(random, RECEIVED_QUANTITIES);
       const lightQuantity = pickDelivered(random);
       const forward = buyHeavyForward(
