@@ -48,6 +48,8 @@ export interface MenCp007PermanentPackage {
     shortcut: string;
     traps: string[];
   };
+  editorialLayoutId: "MEN-CP007-EN-EDITORIAL-V2";
+  editorialStatus: "PENDING_PRODUCT_REVIEW";
   sourceState: {
     prototypeId: MenCp007AnyPrototypeId;
     solveMode: string;
@@ -74,7 +76,7 @@ export interface MenCp007PermanentPackage {
   allocationStatus: "ALLOCATED_IMPLEMENTATION_PROOF";
   permanentIdentityFrozen: true;
   active: false;
-  reviewStatus: "UNREVIEWED_PERMANENT_ENGLISH";
+  reviewStatus: "PENDING_ENGLISH_EDITORIAL_REVIEW";
   questionBankStatus: "NOT_STORED";
   questionBankWritable: false;
   testEligibility: "INELIGIBLE";
