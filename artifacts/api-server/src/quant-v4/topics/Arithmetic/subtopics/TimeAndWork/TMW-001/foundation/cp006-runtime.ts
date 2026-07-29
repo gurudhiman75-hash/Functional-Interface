@@ -67,7 +67,7 @@ export function runTmwCp006Pipeline(input:{questionLanguageId:string;seed:string
   if(explanation.givens.length<1)errors.push("Explanation does not identify the generated givens");
   if(!explanation.shortcut.title.startsWith("10-Second ")||explanation.shortcut.steps.length<1)errors.push("Explanation does not contain the approved exam shortcut");
   if(!optionSet.options.some(option=>option.text===explanation.commonTrap.optionText&&option.misconceptionId===explanation.commonTrap.misconceptionId))errors.push("Common-trap callout is not tied to an actual distractor");
-  if(!explanation.commonTrap.explanation.startsWith(`Do not choose ${explanation.commonTrap.optionLabel}`))errors.push("Common-trap warning is not student-friendly or option-specific");
+  if(!explanation.commonTrap.explanation.startsWith(`Don't fall for ${explanation.commonTrap.optionLabel} (${explanation.commonTrap.optionText})!`))errors.push("Common-trap warning is not student-friendly or option-specific");
   if(/[A-Z]{3,}_[A-Z_]{3,}/.test(explanation.commonTrap.explanation))errors.push("Learner-facing trap warning leaks an internal misconception identifier");
   if(!balancedInlineMath(explanationText))errors.push("Explanation contains unbalanced inline MathJax delimiters");
   if(/(^|[^\\])\$/.test(explanationText))errors.push("Explanation uses unsupported dollar-sign MathJax delimiters");

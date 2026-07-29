@@ -81,7 +81,7 @@ export function runTmwCp007Pipeline(input:{questionLanguageId:string;seed:string
   if(givens.length<2)errors.push("Explanation does not define the supplied data and answer target");
   if(!shortcut.title.startsWith("10-Second ")||shortcut.steps.length<2)errors.push("Exam shortcut is incomplete");
   if(commonTrap.optionText===solution.answerText)errors.push("Common trap points to the correct answer");
-  if(!commonTrap.explanation.startsWith(`Do not choose ${commonTrap.optionLabel}`))errors.push("Common-trap warning is not student-friendly or option-specific");
+  if(!commonTrap.explanation.startsWith(`Don't fall for ${commonTrap.optionLabel} (${commonTrap.optionText})!`))errors.push("Common-trap warning is not student-friendly or option-specific");
   if(/[A-Z]{3,}_[A-Z_]{3,}/.test(commonTrap.explanation))errors.push("Learner-facing trap warning leaks an internal misconception identifier");
   if(/(^|[^\\])\$/.test(explanationText))errors.push("Explanation uses unsupported dollar-sign MathJax delimiters");
   return {archetypeId:"TMW-001",canonicalProblemId:"TMW-CP-007",questionLanguageId:entry.qlId,solveMode:entry.solveMode,language:"en",seed:input.seed,stem,parameters,solution,options:optionSet.options.map(option=>option.text),optionAudit:optionSet.options,correctIndex:optionSet.correctIndex,explanation:{opening,formula,givens,steps,shortcut,commonTrap,conclusion:displayText(tmwCp007Conclusion(entry,parameters,solution.answerText))},mathematicalFingerprint:`${entry.solveMode}|${fingerprint(parameters)}`,validation:{valid:errors.length===0,errors},publiclyPublishable:false};

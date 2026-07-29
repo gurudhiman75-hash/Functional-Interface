@@ -112,7 +112,7 @@ export function tmwCp007FriendlyTrap(trap:TmwCp007CommonTrap):TmwCp007CommonTrap
       default:return trap.explanation;
     }
   })();
-  return {...trap,explanation:`Do not choose ${trap.optionLabel} (${trap.optionText}). ${warning}`};
+  return {...trap,explanation:`Don't fall for ${trap.optionLabel} (${trap.optionText})! ${warning}`};
 }
 
 export function isTmwCp007ExamStyleStem(stem:string):boolean{
