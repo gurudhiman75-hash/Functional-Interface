@@ -16,6 +16,7 @@ const GENERATED_COUNT = 1600;
 
 assert.equal(CLS_CP002_QL_ID, "CLS-QL-004");
 assert.equal(CLS_CP002_SOLVE_CONTRACT_ID, "CP002-FIND-ODD-SEMANTIC-RELATION-PAIR");
+assert.equal(CLS_CP002_PERMANENT_CONTRACT.status, "FROZEN_MULTILINGUAL_RUNTIME_PROOF");
 assert.equal(CLS_CP002_PERMANENT_CONTRACT.allowedPrototypeIds.length, 5);
 assert.deepEqual(
   CLS_CP002_PERMANENT_CONTRACT.allowedPrototypeIds,
@@ -49,7 +50,7 @@ for (let seed = 0; seed < GENERATED_COUNT; seed += 1) {
   assert.equal(question.ambiguityAudit.result, "UNIQUE");
   assert.equal(question.ambiguityAudit.winningRelationId, question.intendedRelationId);
   assert.equal(question.ambiguityAudit.winningOutlierIndex, question.correctIndex);
-  assert.equal(question.lifecycle.reviewStatus, "PROVISIONAL_MULTILINGUAL_PROOF");
+  assert.equal(question.lifecycle.reviewStatus, "FROZEN_MULTILINGUAL_RUNTIME_PROOF");
   assert.equal(question.lifecycle.questionBankStatus, "NOT_STORED");
   assert.equal(question.lifecycle.testEligibility, "INELIGIBLE");
   assert.equal(question.lifecycle.publiclyPublishable, false);
@@ -118,7 +119,7 @@ assert.ok(answerPositions[4]! > 40);
 assert.throws(() => generateClsCp002EnglishQuestion(CLS_CP002_QL_ID, -1));
 assert.throws(() => generateClsCp002EnglishQuestion("CLS-QL-999" as never, 0));
 
-console.log("CLS-CP-002 provisional permanent runtime audit passed.", {
+console.log("CLS-CP-002 frozen permanent runtime audit passed.", {
   qlId: CLS_CP002_QL_ID,
   generated: GENERATED_COUNT,
   uniqueVisibleQuestions: fingerprints.size,
