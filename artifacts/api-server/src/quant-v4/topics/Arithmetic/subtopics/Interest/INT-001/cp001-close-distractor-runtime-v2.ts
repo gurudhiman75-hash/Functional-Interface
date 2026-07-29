@@ -95,7 +95,9 @@ function stepFor(family: Family, correct: Rational): Rational {
     if (compareRational(correct, rational(5)) <= 0) return rational(1, 2);
     return rational(1);
   }
-  if (family === "TIME_MONTHS") return rational(1);
+  if (family === "TIME_MONTHS") {
+    return compareRational(correct, rational(4)) <= 0 ? rational(1, 2) : rational(1);
+  }
   if (family === "TIME_YEARS") {
     if (compareRational(correct, rational(1)) <= 0) return rational(1, 12);
     if (compareRational(correct, rational(2)) <= 0) return rational(1, 6);
@@ -111,7 +113,7 @@ function generatedBoundary(family: Family, correct: Rational, candidate: Rationa
   const relative = relativeDistanceBps(correct, candidate);
   if (family === "MONEY") return relative <= 1500;
   if (family === "RATE") return compareRational(distance(correct, candidate), rational(2)) <= 0;
-  if (family === "TIME_MONTHS") return relative <= 3500 && compareRational(distance(correct, candidate), rational(2)) <= 0;
+  if (family === "TIME_MONTHS") return compareRational(distance(correct, candidate), rational(2)) <= 0;
   if (family === "TIME_YEARS") return relative <= 2500 && compareRational(distance(correct, candidate), rational(1)) <= 0;
   return relative <= 2500 && compareRational(distance(correct, candidate), rational(1, 4)) <= 0;
 }
@@ -247,14 +249,11 @@ function mixedLatex(value: Rational): string {
 }
 
 function formatTimeMonths(value: Rational, language: IntCp001CloseDistractorLanguage): string {
-  if (value.denominator !== 1n) {
-    const years = divideRational(value, rational(12));
-    return language === "en"
-      ? formatEnglishDurationYears(years)
-      : formatLocalizedDurationYears(years, language);
-  }
-  if (language === "en") return `${value.numerator} ${value.numerator === 1n ? "month" : "months"}`;
-  return formatMonths(value.numerator, language);
+  const exact = formatExact(value);
+  const displayed = exact.includes("/") ? `$${toLatex(value)}$` : exact;
+  if (language === "en") return `${displayed} ${compareRational(value, rational(1)) === 0 ? "month" : "months"}`;
+  if (value.denominator === 1n) return formatMonths(value.numerator, language);
+  return language === "hi" ? `${displayed} महीने` : `${displayed} ਮਹੀਨੇ`;
 }
 
 function formatRatio(value: Rational, answerSemantic: string, language: IntCp001CloseDistractorLanguage): string {
