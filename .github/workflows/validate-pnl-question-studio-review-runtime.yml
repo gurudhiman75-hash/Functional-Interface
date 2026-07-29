@@ -6,7 +6,6 @@ on:
       - feat/pnl-001-question-studio-review-runtime
       - feat/pnl-001-cp001-question-studio-dynamic-review
       - feat/pnl-001-cp002-question-studio-dynamic-review
-      - feat/pnl-001-ql070-data-sufficiency
     paths:
       - "artifacts/api-server/src/quant-v4/generation-engine.ts"
       - "artifacts/api-server/src/quant-v4/generation-engine-core.ts"
@@ -26,82 +25,10 @@ on:
       - ".github/workflows/validate-pnl-question-studio-review-runtime.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  cleanup-ql070-diff:
-    if: github.ref == 'refs/heads/feat/pnl-001-ql070-data-sufficiency'
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    steps:
-      - name: Checkout correction branch
-        uses: actions/checkout@v4
-        with:
-          ref: feat/pnl-001-ql070-data-sufficiency
-          fetch-depth: 0
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Enable pnpm
-        run: |
-          corepack enable
-          corepack prepare pnpm@10.33.0 --activate
-
-      - name: Install locked workspace dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Remove generated bundles and compact source libraries
-        run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-ql070-cleanup.mjs
-
-      - name: Validate compact JSON and clean diff
-        run: |
-          node - <<'NODE'
-          const fs = require("node:fs");
-          const root = "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002";
-          for (const file of [
-            "task-registry.library.json",
-            "question-language.en.json",
-            "question-language.hi.json",
-            "question-language.pa.json",
-            "editorial-content.en.json",
-            "editorial-content.hi.json",
-            "editorial-content.pa.json",
-          ]) JSON.parse(fs.readFileSync(`${root}/${file}`, "utf8"));
-          NODE
-          git diff --check
-
-      - name: Re-run targeted dynamic proof
-        run: |
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=/tmp/pnl-cp002-dynamic-runtime.test.mjs
-          node /tmp/pnl-cp002-dynamic-runtime.test.mjs
-
-      - name: Re-run targeted Question Studio proof
-        run: |
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-integration.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=/tmp/pnl-question-studio-integration.test.mjs
-          node /tmp/pnl-question-studio-integration.test.mjs
-
-      - name: Commit clean correction diff
-        run: |
-          git fetch origin New-main
-          git checkout origin/New-main -- .github/workflows/validate-pnl-question-studio-review-runtime.yml
-          rm -f artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-ql070-cleanup.mjs
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -m "chore(pnl): clean QL-070 correction diff"
-          git push origin HEAD:feat/pnl-001-ql070-data-sufficiency
-
   validate-review-runtime:
-    if: github.ref != 'refs/heads/feat/pnl-001-ql070-data-sufficiency'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:

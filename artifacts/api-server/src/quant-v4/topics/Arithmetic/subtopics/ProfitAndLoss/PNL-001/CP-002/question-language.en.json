@@ -4,147 +4,40 @@
   "language": "en",
   "status": "FREEZE_CANDIDATE",
   "entries": {
-    "PNL-QL-037": {
-      "template": "The marked price of an article is ₹{markedPrice}. It is sold at a discount of {discountPercent}%. Find the selling price.",
-      "difficulty": "Easy"
-    },
-    "PNL-QL-038": {
-      "template": "An article marked at ₹{markedPrice} is sold for ₹{sellingPrice}. Find the discount percentage.",
-      "difficulty": "Easy"
-    },
-    "PNL-QL-039": {
-      "template": "After allowing a discount of {discountPercent}%, a retailer sells an article for ₹{sellingPrice}. Find its marked price.",
-      "difficulty": "Medium"
-    },
-    "PNL-QL-040": {
-      "template": "An article marked at ₹{markedPrice} is offered at successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%. Find the final selling price.",
-      "difficulty": "Medium"
-    },
-    "PNL-QL-041": {
-      "template": "A retailer offers successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%. Find the single equivalent discount.",
-      "difficulty": "Medium"
-    },
-    "PNL-QL-042": {
-      "template": "An article is marked at ₹{markedPrice} and sold at a discount of {discountPercent}%. Find the discount allowed in rupees.",
-      "difficulty": "Easy"
-    },
-    "PNL-QL-043": {
-      "template": "A discount of ₹{discountAmount} is allowed on an article marked at ₹{markedPrice}. Find the discount percentage.",
-      "difficulty": "Easy"
-    },
-    "PNL-QL-044": {
-      "template": "The marked price of an article is ₹{markedPrice}. A discount of ₹{discountAmount} is allowed. Find the selling price.",
-      "difficulty": "Easy"
-    },
-    "PNL-QL-045": {
-      "template": "Two successive discounts are offered. The first discount is {knownDiscountPercent}% and the equivalent discount is {equivalentDiscountPercent}%. Find the second discount.",
-      "difficulty": "Hard"
-    },
-    "PNL-QL-046": {
-      "template": "On an article marked at ₹{markedPrice}, one shop offers {singleDiscountPercent}% discount and another offers successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%. Which offer is better, and by how much?",
-      "difficulty": "Hard"
-    },
-    "PNL-QL-047": {
-      "template": "A shopkeeper marks an article {markupPercent}% above cost price and allows {discountPercent}% discount. Calculate the percentage gain or loss.",
-      "difficulty": "Hard"
-    },
-    "PNL-QL-048": {
-      "template": "An article costing ₹{costPrice} is marked {markupPercent}% above cost and sold after {discountPercent}% discount. Find the profit or loss incurred.",
-      "difficulty": "Hard"
-    },
-    "PNL-QL-049": {
-      "template": "An article costs ₹{costPrice} and is marked at ₹{markedPrice}. Find the discount required to earn {targetRatePercent}% {targetDirection}.",
-      "difficulty": "Hard"
-    },
-    "PNL-QL-050": {
-      "template": "A trader wants {targetRatePercent}% {targetDirection} after allowing {discountPercent}% discount. Find the required markup percentage.",
-      "difficulty": "Hard"
-    },
-    "PNL-QL-051": {
-      "template": "A store offers Buy {paidUnits}, get {freeUnits} free on identical articles. Find the equivalent discount percentage.",
-      "difficulty": "Medium"
-    },
-    "PNL-QL-052": {
-      "template": "Each article is marked at ₹{unitMarkedPrice}. Under Buy {paidUnits}, get {freeUnits} free, find the effective price per article.",
-      "difficulty": "Medium"
-    },
-    "PNL-QL-053": {
-      "template": "A customer pays ₹{billedPrice} and later receives ₹{cashbackAmount} cashback. Find the effective cost.",
-      "difficulty": "Easy"
-    },
-    "PNL-QL-054": {
-      "template": "A payment of ₹{billedPrice} earns {cashbackPercent}% cashback. Find the effective cost.",
-      "difficulty": "Medium"
-    },
-    "PNL-QL-055": {
-      "template": "An article marked at ₹{markedPrice} gets {discountPercent}% discount and an additional coupon of ₹{couponAmount}. Find the effective price.",
-      "difficulty": "Medium"
-    },
-    "PNL-QL-056": {
-      "template": "For an article marked at ₹{markedPrice}, one seller offers {discountPercent}% discount and another offers ₹{cashbackAmount} cashback. Which offer gives the lower effective cost, and by how much?",
-      "difficulty": "Hard"
-    },
-    "PNL-QL-057": {
-      "template": "An article marked at ₹{markedPrice} gets successive discounts of {firstDiscountPercent}%, {secondDiscountPercent}% and {thirdDiscountPercent}%. Find the final selling price.",
-      "difficulty": "Hard"
-    },
-    "PNL-QL-058": {
-      "template": "A coupon of ₹{couponAmount} applies when the bill is at least ₹{minimumSpend}. For a bill of ₹{billedPrice}, state whether it applies and find the effective price.",
-      "difficulty": "Medium"
-    },
-    "PNL-QL-059": {
-      "template": "An article marked at ₹{markedPrice} gets {discountPercent}% discount followed by a {couponPercent}% coupon on the discounted price. Find the effective price.",
-      "difficulty": "Hard"
-    },
-    "PNL-QL-060": {
-      "template": "A bill of ₹{billedPrice} earns {cashbackPercent}% cashback subject to a cap of ₹{cashbackCap}. Find the cashback and effective cost.",
-      "difficulty": "Hard"
-    },
-    "PNL-QL-061": {
-      "template": "An article marked at ₹{markedPrice} gets {discountPercent}% discount and then {cashbackPercent}% cashback on the original marked price, capped at ₹{cashbackCap}. Find the billed price, cashback and effective cost.",
-      "difficulty": "Hard"
-    },
-    "PNL-QL-062": {
-      "template": "The discount is {fractionNumerator}/{fractionDenominator} of the marked price. Find the discount percentage.",
-      "difficulty": "Medium"
-    },
-    "PNL-QL-063": {
-      "template": "The ratio of price paid to marked price is {paidPart}:{markedPart}. Find the discount percentage.",
-      "difficulty": "Medium"
-    },
-    "PNL-QL-064": {
-      "template": "For a bill of ₹{billedPrice}, Shop A offers {discountPercent}% discount. Shop B offers a coupon of ₹{couponAmount} valid from ₹{minimumSpend}. Identify the eligible better offer and find the effective-cost difference.",
-      "difficulty": "Hard"
-    },
-    "PNL-QL-065": {
-      "template": "A table lists offers on an article marked at ₹{markedPrice}: {offerTable}. Find the selling price under offer {selectedOffer}.",
-      "difficulty": "Hard",
-      "representation": "TABLE"
-    },
-    "PNL-QL-066": {
-      "template": "A retailer buys an article for ₹{costPrice}, marks it {markupPercent}% above cost and allows {discountPercent}% discount. Calculate the percentage gain or loss.",
-      "difficulty": "Hard",
-      "representation": "CASELET"
-    },
-    "PNL-QL-067": {
-      "template": "Successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}% are offered. Select the correct statement about the equivalent discount.",
-      "difficulty": "Medium",
-      "representation": "STATEMENT"
-    },
-    "PNL-QL-068": {
-      "template": "The marked price is {markedPriceExpression} and the selling price is {sellingPriceExpression}. Find the discount percentage.",
-      "difficulty": "Hard",
-      "representation": "ALGEBRAIC"
-    },
-    "PNL-QL-069": {
-      "template": "On an article marked at ₹{markedPrice}, a {discountPercent}% discount and a flat coupon of ₹{couponAmount} are available. Compare discount-then-coupon with coupon-then-discount and find the better order and price difference.",
-      "difficulty": "Hard"
-    },
-    "PNL-QL-070": {
-      "template": "The discount needed to achieve a stated target result is to be determined. Statement I: {statementOne} Statement II: {statementTwo} Decide whether either statement alone or both together are sufficient.",
-      "difficulty": "Hard",
-      "representation": "DATA_SUFFICIENCY"
-    }
+    "PNL-QL-037": {"template":"The marked price of an article is ₹{markedPrice}. It is sold at a discount of {discountPercent}%. Find the selling price.","difficulty":"Easy"},
+    "PNL-QL-038": {"template":"An article marked at ₹{markedPrice} is sold for ₹{sellingPrice}. Find the discount percentage.","difficulty":"Easy"},
+    "PNL-QL-039": {"template":"After allowing a discount of {discountPercent}%, a retailer sells an article for ₹{sellingPrice}. Find its marked price.","difficulty":"Medium"},
+    "PNL-QL-040": {"template":"An article marked at ₹{markedPrice} is offered at successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%. Find the final selling price.","difficulty":"Medium"},
+    "PNL-QL-041": {"template":"A retailer offers successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%. Find the single equivalent discount.","difficulty":"Medium"},
+    "PNL-QL-042": {"template":"An article is marked at ₹{markedPrice} and sold at a discount of {discountPercent}%. Find the discount allowed in rupees.","difficulty":"Easy"},
+    "PNL-QL-043": {"template":"A discount of ₹{discountAmount} is allowed on an article marked at ₹{markedPrice}. Find the discount percentage.","difficulty":"Easy"},
+    "PNL-QL-044": {"template":"The marked price of an article is ₹{markedPrice}. A discount of ₹{discountAmount} is allowed. Find the selling price.","difficulty":"Easy"},
+    "PNL-QL-045": {"template":"Two successive discounts are offered. The first discount is {knownDiscountPercent}% and the equivalent discount is {equivalentDiscountPercent}%. Find the second discount.","difficulty":"Hard"},
+    "PNL-QL-046": {"template":"On an article marked at ₹{markedPrice}, one shop offers {singleDiscountPercent}% discount and another offers successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%. Which offer is better, and by how much?","difficulty":"Hard"},
+    "PNL-QL-047": {"template":"A shopkeeper marks an article {markupPercent}% above cost price and allows {discountPercent}% discount. Calculate the percentage gain or loss.","difficulty":"Hard"},
+    "PNL-QL-048": {"template":"An article costing ₹{costPrice} is marked {markupPercent}% above cost and sold after {discountPercent}% discount. Find the profit or loss incurred.","difficulty":"Hard"},
+    "PNL-QL-049": {"template":"An article costs ₹{costPrice} and is marked at ₹{markedPrice}. Find the discount required to earn {targetRatePercent}% {targetDirection}.","difficulty":"Hard"},
+    "PNL-QL-050": {"template":"A trader wants {targetRatePercent}% {targetDirection} after allowing {discountPercent}% discount. Find the required markup percentage.","difficulty":"Hard"},
+    "PNL-QL-051": {"template":"A store offers Buy {paidUnits}, get {freeUnits} free on identical articles. Find the equivalent discount percentage.","difficulty":"Medium"},
+    "PNL-QL-052": {"template":"Each article is marked at ₹{unitMarkedPrice}. Under Buy {paidUnits}, get {freeUnits} free, find the effective price per article.","difficulty":"Medium"},
+    "PNL-QL-053": {"template":"A customer pays ₹{billedPrice} and later receives ₹{cashbackAmount} cashback. Find the effective cost.","difficulty":"Easy"},
+    "PNL-QL-054": {"template":"A payment of ₹{billedPrice} earns {cashbackPercent}% cashback. Find the effective cost.","difficulty":"Medium"},
+    "PNL-QL-055": {"template":"An article marked at ₹{markedPrice} gets {discountPercent}% discount and an additional coupon of ₹{couponAmount}. Find the effective price.","difficulty":"Medium"},
+    "PNL-QL-056": {"template":"For an article marked at ₹{markedPrice}, one seller offers {discountPercent}% discount and another offers ₹{cashbackAmount} cashback. Which offer gives the lower effective cost, and by how much?","difficulty":"Hard"},
+    "PNL-QL-057": {"template":"An article marked at ₹{markedPrice} gets successive discounts of {firstDiscountPercent}%, {secondDiscountPercent}% and {thirdDiscountPercent}%. Find the final selling price.","difficulty":"Hard"},
+    "PNL-QL-058": {"template":"A coupon of ₹{couponAmount} applies when the bill is at least ₹{minimumSpend}. For a bill of ₹{billedPrice}, state whether it applies and find the effective price.","difficulty":"Medium"},
+    "PNL-QL-059": {"template":"An article marked at ₹{markedPrice} gets {discountPercent}% discount followed by a {couponPercent}% coupon on the discounted price. Find the effective price.","difficulty":"Hard"},
+    "PNL-QL-060": {"template":"A bill of ₹{billedPrice} earns {cashbackPercent}% cashback subject to a cap of ₹{cashbackCap}. Find the cashback and effective cost.","difficulty":"Hard"},
+    "PNL-QL-061": {"template":"An article marked at ₹{markedPrice} gets {discountPercent}% discount and then {cashbackPercent}% cashback on the original marked price, capped at ₹{cashbackCap}. Find the billed price, cashback and effective cost.","difficulty":"Hard"},
+    "PNL-QL-062": {"template":"The discount is {fractionNumerator}/{fractionDenominator} of the marked price. Find the discount percentage.","difficulty":"Medium"},
+    "PNL-QL-063": {"template":"The ratio of price paid to marked price is {paidPart}:{markedPart}. Find the discount percentage.","difficulty":"Medium"},
+    "PNL-QL-064": {"template":"For a bill of ₹{billedPrice}, Shop A offers {discountPercent}% discount. Shop B offers a coupon of ₹{couponAmount} valid from ₹{minimumSpend}. Identify the eligible better offer and find the effective-cost difference.","difficulty":"Hard"},
+    "PNL-QL-065": {"template":"A table lists offers on an article marked at ₹{markedPrice}: {offerTable}. Find the selling price under offer {selectedOffer}.","difficulty":"Hard","representation":"TABLE"},
+    "PNL-QL-066": {"template":"A retailer buys an article for ₹{costPrice}, marks it {markupPercent}% above cost and allows {discountPercent}% discount. Calculate the percentage gain or loss.","difficulty":"Hard","representation":"CASELET"},
+    "PNL-QL-067": {"template":"Successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}% are offered. Select the correct statement about the equivalent discount.","difficulty":"Medium","representation":"STATEMENT"},
+    "PNL-QL-068": {"template":"The marked price is {markedPriceExpression} and the selling price is {sellingPriceExpression}. Find the discount percentage.","difficulty":"Hard","representation":"ALGEBRAIC"},
+    "PNL-QL-069": {"template":"On an article marked at ₹{markedPrice}, a {discountPercent}% discount and a flat coupon of ₹{couponAmount} are available. Compare discount-then-coupon with coupon-then-discount and find the better order and price difference.","difficulty":"Hard"},
+    "PNL-QL-070": {"template":"The discount needed to achieve a stated target result is to be determined. Statement I: {statementOne} Statement II: {statementTwo} Decide whether either statement alone or both together are sufficient.","difficulty":"Hard","representation":"DATA_SUFFICIENCY"}
   },
   "entryCount": 34
 }

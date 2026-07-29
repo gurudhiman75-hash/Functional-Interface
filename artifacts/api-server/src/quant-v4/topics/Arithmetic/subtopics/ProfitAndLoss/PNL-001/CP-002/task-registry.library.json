@@ -4,259 +4,42 @@
   "status": "FREEZE_CANDIDATE",
   "countPolicy": "DISCOVERED_NOT_QUOTA_DRIVEN",
   "title": "Marked Price, Discount and Successive Discounts",
+  "freezeNote": "Count frozen after direct/reverse, promotion-semantics, coupon-order, conditional-eligibility, representation and QL-depth audits. Reopen only for a genuinely distinct book/PYQ mode.",
   "entries": {
-    "PNL-QL-037": {
-      "solveMode": "MP_DISCOUNT_TO_SP",
-      "answerSemantic": "sellingPrice",
-      "requiredVariables": ["markedPrice", "discountPercent"],
-      "difficulty": "Easy"
-    },
-    "PNL-QL-038": {
-      "solveMode": "MP_SP_TO_DISCOUNT",
-      "answerSemantic": "discountPercent",
-      "requiredVariables": ["markedPrice", "sellingPrice"],
-      "difficulty": "Easy"
-    },
-    "PNL-QL-039": {
-      "solveMode": "SP_DISCOUNT_TO_MP",
-      "answerSemantic": "markedPrice",
-      "requiredVariables": ["sellingPrice", "discountPercent"],
-      "difficulty": "Medium"
-    },
-    "PNL-QL-040": {
-      "solveMode": "SUCCESSIVE_DISCOUNTS_TO_SP",
-      "answerSemantic": "sellingPrice",
-      "requiredVariables": [
-        "markedPrice",
-        "firstDiscountPercent",
-        "secondDiscountPercent"
-      ],
-      "difficulty": "Medium"
-    },
-    "PNL-QL-041": {
-      "solveMode": "SUCCESSIVE_DISCOUNTS_TO_EQUIVALENT",
-      "answerSemantic": "equivalentDiscountPercent",
-      "requiredVariables": ["firstDiscountPercent", "secondDiscountPercent"],
-      "difficulty": "Medium"
-    },
-    "PNL-QL-042": {
-      "solveMode": "MP_DISCOUNT_TO_AMOUNT",
-      "answerSemantic": "discountAmount",
-      "requiredVariables": ["markedPrice", "discountPercent"],
-      "difficulty": "Easy"
-    },
-    "PNL-QL-043": {
-      "solveMode": "MP_AMOUNT_TO_DISCOUNT",
-      "answerSemantic": "discountPercent",
-      "requiredVariables": ["markedPrice", "discountAmount"],
-      "difficulty": "Easy"
-    },
-    "PNL-QL-044": {
-      "solveMode": "MP_AMOUNT_TO_SP",
-      "answerSemantic": "sellingPrice",
-      "requiredVariables": ["markedPrice", "discountAmount"],
-      "difficulty": "Easy"
-    },
-    "PNL-QL-045": {
-      "solveMode": "KNOWN_AND_EQUIVALENT_TO_MISSING_DISCOUNT",
-      "answerSemantic": "missingDiscountPercent",
-      "requiredVariables": [
-        "knownDiscountPercent",
-        "equivalentDiscountPercent"
-      ],
-      "difficulty": "Hard"
-    },
-    "PNL-QL-046": {
-      "solveMode": "SINGLE_VS_SUCCESSIVE_TO_SP_DIFFERENCE",
-      "answerSemantic": "betterOfferAndDifference",
-      "requiredVariables": [
-        "markedPrice",
-        "singleDiscountPercent",
-        "firstDiscountPercent",
-        "secondDiscountPercent"
-      ],
-      "difficulty": "Hard"
-    },
-    "PNL-QL-047": {
-      "solveMode": "CP_MARKUP_DISCOUNT_TO_RESULT",
-      "answerSemantic": "profitOrLossPercent",
-      "requiredVariables": ["costPrice", "markupPercent", "discountPercent"],
-      "difficulty": "Hard"
-    },
-    "PNL-QL-048": {
-      "solveMode": "CP_MARKUP_DISCOUNT_TO_RESULT",
-      "answerSemantic": "profitOrLossAmount",
-      "requiredVariables": ["costPrice", "markupPercent", "discountPercent"],
-      "difficulty": "Hard"
-    },
-    "PNL-QL-049": {
-      "solveMode": "MP_CP_TARGET_RATE_TO_DISCOUNT",
-      "answerSemantic": "requiredDiscountPercent",
-      "requiredVariables": [
-        "markedPrice",
-        "costPrice",
-        "targetDirection",
-        "targetRatePercent"
-      ],
-      "difficulty": "Hard"
-    },
-    "PNL-QL-050": {
-      "solveMode": "CP_DISCOUNT_TARGET_RATE_TO_MARKUP",
-      "answerSemantic": "requiredMarkupPercent",
-      "requiredVariables": [
-        "costPrice",
-        "discountPercent",
-        "targetDirection",
-        "targetRatePercent"
-      ],
-      "difficulty": "Hard"
-    },
-    "PNL-QL-051": {
-      "solveMode": "BUY_X_GET_Y_TO_EQUIVALENT_DISCOUNT",
-      "answerSemantic": "equivalentDiscountPercent",
-      "requiredVariables": ["paidUnits", "freeUnits"],
-      "difficulty": "Medium"
-    },
-    "PNL-QL-052": {
-      "solveMode": "BUY_X_GET_Y_TO_EFFECTIVE_UNIT_PRICE",
-      "answerSemantic": "effectiveUnitPrice",
-      "requiredVariables": ["unitMarkedPrice", "paidUnits", "freeUnits"],
-      "difficulty": "Medium"
-    },
-    "PNL-QL-053": {
-      "solveMode": "CASHBACK_TO_EFFECTIVE_PRICE",
-      "answerSemantic": "effectivePrice",
-      "requiredVariables": ["billedPrice", "cashbackAmount"],
-      "difficulty": "Easy"
-    },
-    "PNL-QL-054": {
-      "solveMode": "CASHBACK_PERCENT_TO_EFFECTIVE_PRICE",
-      "answerSemantic": "effectivePrice",
-      "requiredVariables": ["billedPrice", "cashbackPercent"],
-      "difficulty": "Medium"
-    },
-    "PNL-QL-055": {
-      "solveMode": "DISCOUNT_THEN_FLAT_COUPON_TO_EFFECTIVE_PRICE",
-      "answerSemantic": "effectivePrice",
-      "requiredVariables": ["markedPrice", "discountPercent", "couponAmount"],
-      "difficulty": "Medium"
-    },
-    "PNL-QL-056": {
-      "solveMode": "DISCOUNT_VS_CASHBACK_COMPARE",
-      "answerSemantic": "betterOfferAndDifference",
-      "requiredVariables": ["markedPrice", "discountPercent", "cashbackAmount"],
-      "difficulty": "Hard"
-    },
-    "PNL-QL-057": {
-      "solveMode": "THREE_PLUS_SUCCESSIVE_DISCOUNTS_TO_SP",
-      "answerSemantic": "sellingPrice",
-      "requiredVariables": [
-        "markedPrice",
-        "firstDiscountPercent",
-        "secondDiscountPercent",
-        "thirdDiscountPercent"
-      ],
-      "difficulty": "Hard"
-    },
-    "PNL-QL-058": {
-      "solveMode": "COUPON_MINIMUM_SPEND_TO_EFFECTIVE_PRICE",
-      "answerSemantic": "couponEligibilityAndEffectivePrice",
-      "requiredVariables": ["billedPrice", "minimumSpend", "couponAmount"],
-      "difficulty": "Medium"
-    },
-    "PNL-QL-059": {
-      "solveMode": "DISCOUNT_THEN_PERCENT_COUPON_TO_EFFECTIVE_PRICE",
-      "answerSemantic": "effectivePrice",
-      "requiredVariables": ["markedPrice", "discountPercent", "couponPercent"],
-      "difficulty": "Hard"
-    },
-    "PNL-QL-060": {
-      "solveMode": "PERCENT_CASHBACK_ON_BILLED_AMOUNT",
-      "answerSemantic": "cashbackAndEffectivePrice",
-      "requiredVariables": ["billedPrice", "cashbackPercent", "cashbackCap"],
-      "difficulty": "Hard"
-    },
-    "PNL-QL-061": {
-      "solveMode": "PERCENT_CASHBACK_ON_ORIGINAL_PRICE_AFTER_DISCOUNT",
-      "answerSemantic": "billedCashbackAndEffectivePrice",
-      "requiredVariables": [
-        "markedPrice",
-        "discountPercent",
-        "cashbackPercent",
-        "cashbackCap"
-      ],
-      "difficulty": "Hard"
-    },
-    "PNL-QL-062": {
-      "solveMode": "DISCOUNT_FRACTION_TO_PERCENT",
-      "answerSemantic": "discountPercent",
-      "requiredVariables": ["fractionNumerator", "fractionDenominator"],
-      "difficulty": "Medium"
-    },
-    "PNL-QL-063": {
-      "solveMode": "PAID_TO_MARKED_RATIO_TO_DISCOUNT",
-      "answerSemantic": "discountPercent",
-      "requiredVariables": ["paidPart", "markedPart"],
-      "difficulty": "Medium"
-    },
-    "PNL-QL-064": {
-      "solveMode": "MIXED_OFFER_ELIGIBILITY_COMPARE",
-      "answerSemantic": "eligibleBetterOfferAndDifference",
-      "requiredVariables": [
-        "billedPrice",
-        "discountPercent",
-        "minimumSpend",
-        "couponAmount"
-      ],
-      "difficulty": "Hard"
-    },
-    "PNL-QL-065": {
-      "solveMode": "SUCCESSIVE_DISCOUNTS_TO_SP",
-      "answerSemantic": "tableRowSellingPrice",
-      "requiredVariables": ["offerTable", "selectedOffer", "markedPrice"],
-      "difficulty": "Hard",
-      "representation": "TABLE"
-    },
-    "PNL-QL-066": {
-      "solveMode": "CP_MARKUP_DISCOUNT_TO_RESULT",
-      "answerSemantic": "caseletProfitOrLossPercent",
-      "requiredVariables": [
-        "caseletData",
-        "costPrice",
-        "markupPercent",
-        "discountPercent"
-      ],
-      "difficulty": "Hard",
-      "representation": "CASELET"
-    },
-    "PNL-QL-067": {
-      "solveMode": "SUCCESSIVE_DISCOUNTS_TO_EQUIVALENT",
-      "answerSemantic": "correctStatement",
-      "requiredVariables": ["firstDiscountPercent", "secondDiscountPercent"],
-      "difficulty": "Medium",
-      "representation": "STATEMENT"
-    },
-    "PNL-QL-068": {
-      "solveMode": "MP_SP_TO_DISCOUNT",
-      "answerSemantic": "algebraicDiscountPercent",
-      "requiredVariables": ["markedPriceExpression", "sellingPriceExpression"],
-      "difficulty": "Hard",
-      "representation": "ALGEBRAIC"
-    },
-    "PNL-QL-069": {
-      "solveMode": "COUPON_ORDER_COMPARE",
-      "answerSemantic": "betterOrderAndDifference",
-      "requiredVariables": ["markedPrice", "discountPercent", "couponAmount"],
-      "difficulty": "Hard"
-    },
-    "PNL-QL-070": {
-      "solveMode": "MP_CP_TARGET_RATE_TO_DISCOUNT",
-      "answerSemantic": "dataSufficiency",
-      "requiredVariables": ["statementOne", "statementTwo"],
-      "difficulty": "Hard",
-      "representation": "DATA_SUFFICIENCY"
-    }
+    "PNL-QL-037": {"solveMode":"MP_DISCOUNT_TO_SP","answerSemantic":"sellingPrice","requiredVariables":["markedPrice","discountPercent"],"difficulty":"Easy"},
+    "PNL-QL-038": {"solveMode":"MP_SP_TO_DISCOUNT","answerSemantic":"discountPercent","requiredVariables":["markedPrice","sellingPrice"],"difficulty":"Easy"},
+    "PNL-QL-039": {"solveMode":"SP_DISCOUNT_TO_MP","answerSemantic":"markedPrice","requiredVariables":["sellingPrice","discountPercent"],"difficulty":"Medium"},
+    "PNL-QL-040": {"solveMode":"SUCCESSIVE_DISCOUNTS_TO_SP","answerSemantic":"sellingPrice","requiredVariables":["markedPrice","firstDiscountPercent","secondDiscountPercent"],"difficulty":"Medium"},
+    "PNL-QL-041": {"solveMode":"SUCCESSIVE_DISCOUNTS_TO_EQUIVALENT","answerSemantic":"equivalentDiscountPercent","requiredVariables":["firstDiscountPercent","secondDiscountPercent"],"difficulty":"Medium"},
+    "PNL-QL-042": {"solveMode":"MP_DISCOUNT_TO_AMOUNT","answerSemantic":"discountAmount","requiredVariables":["markedPrice","discountPercent"],"difficulty":"Easy"},
+    "PNL-QL-043": {"solveMode":"MP_AMOUNT_TO_DISCOUNT","answerSemantic":"discountPercent","requiredVariables":["markedPrice","discountAmount"],"difficulty":"Easy"},
+    "PNL-QL-044": {"solveMode":"MP_AMOUNT_TO_SP","answerSemantic":"sellingPrice","requiredVariables":["markedPrice","discountAmount"],"difficulty":"Easy"},
+    "PNL-QL-045": {"solveMode":"KNOWN_AND_EQUIVALENT_TO_MISSING_DISCOUNT","answerSemantic":"missingDiscountPercent","requiredVariables":["knownDiscountPercent","equivalentDiscountPercent"],"difficulty":"Hard"},
+    "PNL-QL-046": {"solveMode":"SINGLE_VS_SUCCESSIVE_TO_SP_DIFFERENCE","answerSemantic":"betterOfferAndDifference","requiredVariables":["markedPrice","singleDiscountPercent","firstDiscountPercent","secondDiscountPercent"],"difficulty":"Hard"},
+    "PNL-QL-047": {"solveMode":"CP_MARKUP_DISCOUNT_TO_RESULT","answerSemantic":"profitOrLossPercent","requiredVariables":["costPrice","markupPercent","discountPercent"],"difficulty":"Hard"},
+    "PNL-QL-048": {"solveMode":"CP_MARKUP_DISCOUNT_TO_RESULT","answerSemantic":"profitOrLossAmount","requiredVariables":["costPrice","markupPercent","discountPercent"],"difficulty":"Hard"},
+    "PNL-QL-049": {"solveMode":"MP_CP_TARGET_RATE_TO_DISCOUNT","answerSemantic":"requiredDiscountPercent","requiredVariables":["markedPrice","costPrice","targetDirection","targetRatePercent"],"difficulty":"Hard"},
+    "PNL-QL-050": {"solveMode":"CP_DISCOUNT_TARGET_RATE_TO_MARKUP","answerSemantic":"requiredMarkupPercent","requiredVariables":["costPrice","discountPercent","targetDirection","targetRatePercent"],"difficulty":"Hard"},
+    "PNL-QL-051": {"solveMode":"BUY_X_GET_Y_TO_EQUIVALENT_DISCOUNT","answerSemantic":"equivalentDiscountPercent","requiredVariables":["paidUnits","freeUnits"],"difficulty":"Medium"},
+    "PNL-QL-052": {"solveMode":"BUY_X_GET_Y_TO_EFFECTIVE_UNIT_PRICE","answerSemantic":"effectiveUnitPrice","requiredVariables":["unitMarkedPrice","paidUnits","freeUnits"],"difficulty":"Medium"},
+    "PNL-QL-053": {"solveMode":"CASHBACK_TO_EFFECTIVE_PRICE","answerSemantic":"effectivePrice","requiredVariables":["billedPrice","cashbackAmount"],"difficulty":"Easy"},
+    "PNL-QL-054": {"solveMode":"CASHBACK_PERCENT_TO_EFFECTIVE_PRICE","answerSemantic":"effectivePrice","requiredVariables":["billedPrice","cashbackPercent"],"difficulty":"Medium"},
+    "PNL-QL-055": {"solveMode":"DISCOUNT_THEN_FLAT_COUPON_TO_EFFECTIVE_PRICE","answerSemantic":"effectivePrice","requiredVariables":["markedPrice","discountPercent","couponAmount"],"difficulty":"Medium"},
+    "PNL-QL-056": {"solveMode":"DISCOUNT_VS_CASHBACK_COMPARE","answerSemantic":"betterOfferAndDifference","requiredVariables":["markedPrice","discountPercent","cashbackAmount"],"difficulty":"Hard"},
+    "PNL-QL-057": {"solveMode":"THREE_PLUS_SUCCESSIVE_DISCOUNTS_TO_SP","answerSemantic":"sellingPrice","requiredVariables":["markedPrice","firstDiscountPercent","secondDiscountPercent","thirdDiscountPercent"],"difficulty":"Hard"},
+    "PNL-QL-058": {"solveMode":"COUPON_MINIMUM_SPEND_TO_EFFECTIVE_PRICE","answerSemantic":"couponEligibilityAndEffectivePrice","requiredVariables":["billedPrice","minimumSpend","couponAmount"],"difficulty":"Medium"},
+    "PNL-QL-059": {"solveMode":"DISCOUNT_THEN_PERCENT_COUPON_TO_EFFECTIVE_PRICE","answerSemantic":"effectivePrice","requiredVariables":["markedPrice","discountPercent","couponPercent"],"difficulty":"Hard"},
+    "PNL-QL-060": {"solveMode":"PERCENT_CASHBACK_ON_BILLED_AMOUNT","answerSemantic":"cashbackAndEffectivePrice","requiredVariables":["billedPrice","cashbackPercent","cashbackCap"],"difficulty":"Hard"},
+    "PNL-QL-061": {"solveMode":"PERCENT_CASHBACK_ON_ORIGINAL_PRICE_AFTER_DISCOUNT","answerSemantic":"billedCashbackAndEffectivePrice","requiredVariables":["markedPrice","discountPercent","cashbackPercent","cashbackCap"],"difficulty":"Hard"},
+    "PNL-QL-062": {"solveMode":"DISCOUNT_FRACTION_TO_PERCENT","answerSemantic":"discountPercent","requiredVariables":["fractionNumerator","fractionDenominator"],"difficulty":"Medium"},
+    "PNL-QL-063": {"solveMode":"PAID_TO_MARKED_RATIO_TO_DISCOUNT","answerSemantic":"discountPercent","requiredVariables":["paidPart","markedPart"],"difficulty":"Medium"},
+    "PNL-QL-064": {"solveMode":"MIXED_OFFER_ELIGIBILITY_COMPARE","answerSemantic":"eligibleBetterOfferAndDifference","requiredVariables":["billedPrice","discountPercent","minimumSpend","couponAmount"],"difficulty":"Hard"},
+    "PNL-QL-065": {"solveMode":"SUCCESSIVE_DISCOUNTS_TO_SP","answerSemantic":"tableRowSellingPrice","requiredVariables":["offerTable","selectedOffer","markedPrice"],"difficulty":"Hard","representation":"TABLE"},
+    "PNL-QL-066": {"solveMode":"CP_MARKUP_DISCOUNT_TO_RESULT","answerSemantic":"caseletProfitOrLossPercent","requiredVariables":["caseletData","costPrice","markupPercent","discountPercent"],"difficulty":"Hard","representation":"CASELET"},
+    "PNL-QL-067": {"solveMode":"SUCCESSIVE_DISCOUNTS_TO_EQUIVALENT","answerSemantic":"correctStatement","requiredVariables":["firstDiscountPercent","secondDiscountPercent"],"difficulty":"Medium","representation":"STATEMENT"},
+    "PNL-QL-068": {"solveMode":"MP_SP_TO_DISCOUNT","answerSemantic":"algebraicDiscountPercent","requiredVariables":["markedPriceExpression","sellingPriceExpression"],"difficulty":"Hard","representation":"ALGEBRAIC"},
+    "PNL-QL-069": {"solveMode":"COUPON_ORDER_COMPARE","answerSemantic":"betterOrderAndDifference","requiredVariables":["markedPrice","discountPercent","couponAmount"],"difficulty":"Hard"},
+    "PNL-QL-070": {"solveMode":"MP_CP_TARGET_RATE_TO_DISCOUNT","answerSemantic":"dataSufficiency","requiredVariables":["statementOne","statementTwo"],"difficulty":"Hard","representation":"DATA_SUFFICIENCY"}
   },
-  "entryCount": 34,
-  "freezeNote": "Count frozen after direct/reverse, promotion-semantics, coupon-order, conditional-eligibility, representation and QL-depth audits. Reopen only for a genuinely distinct book/PYQ mode."
+  "entryCount": 34
 }
