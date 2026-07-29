@@ -6,15 +6,21 @@ on:
       - feat/pnl-001-english-editorial-audit
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-editorial-option-regression.test.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-editorial-seed-regression.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-PLAN.md"
       - ".github/workflows/validate-pnl-english-editorial-audit.yml"
   pull_request:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-editorial-option-regression.test.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-editorial-seed-regression.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-PLAN.md"
       - ".github/workflows/validate-pnl-english-editorial-audit.yml"
 
@@ -31,13 +37,13 @@ jobs:
         with:
           ref: feat/pnl-001-english-editorial-audit
 
-      - name: Apply CP-003 editorial seed correction
+      - name: Apply proven editorial runtime corrections
         run: |
           python - <<'PY'
           from pathlib import Path
 
-          path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts")
-          source = path.read_text()
+          cp003_path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts")
+          source = cp003_path.read_text()
           start = source.index('case "PNL-QL-078":')
           end = source.index('case "PNL-QL-079":', start)
           block = source[start:end]
@@ -116,7 +122,45 @@ jobs:
 
             '''
               source = source[:start] + replacement + source[end:]
-              path.write_text(source)
+              cp003_path.write_text(source)
+
+          old_template = '''  if (answer.kind === "MONEY") {
+              const paise = answer.value.paise;
+              return [
+                moneyFromPaise((paise * 90n) / 100n),
+                moneyFromPaise((paise * 110n) / 100n),
+                moneyFromPaise(paise + 10000n),
+                moneyFromPaise(paise > 10000n ? paise - 10000n : paise + 20000n),
+              ].map(FORMATTER);
+            }'''
+          new_template = '''  if (answer.kind === "MONEY") {
+              const paise = answer.value.paise;
+              return [
+                moneyFromPaise((paise * 80n) / 100n),
+                moneyFromPaise((paise * 90n) / 100n),
+                moneyFromPaise((paise * 110n) / 100n),
+                moneyFromPaise((paise * 120n) / 100n),
+                moneyFromPaise(paise + 5000n),
+                moneyFromPaise(paise + 15000n),
+                moneyFromPaise(paise > 5000n ? paise - 5000n : paise + 25000n),
+                moneyFromPaise(paise > 15000n ? paise - 15000n : paise + 30000n),
+              ]
+                .filter((value) => value.paise > 0n)
+                .map(FORMATTER);
+            }'''
+
+          for relative, formatter in [
+              ("CP-005/cp005-dynamic-runtime.ts", "cp005FormatMoney"),
+              ("CP-006/cp006-dynamic-runtime.ts", "cp006FormatMoney"),
+          ]:
+              path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001") / relative
+              source = path.read_text()
+              if "moneyFromPaise((paise * 80n) / 100n)" not in source:
+                  old = old_template.replace("FORMATTER", formatter)
+                  new = new_template.replace("FORMATTER", formatter)
+                  if old not in source:
+                      raise SystemExit(f"Money distractor block not found in {relative}")
+                  path.write_text(source.replace(old, new, 1))
           PY
 
       - name: Set up Node
@@ -132,10 +176,12 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Format corrected CP-003 source
+      - name: Format corrected runtime sources
         run: |
           pnpm exec prettier --write \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.ts
 
       - name: Bundle CP-003 editorial seed regression
         run: |
@@ -152,6 +198,38 @@ jobs:
           node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/.cp003-editorial-seed-regression.test.mjs \
             2>&1 | tee -a pnl-english-editorial-audit.log
 
+      - name: Bundle editorial option regressions
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-editorial-option-regression.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-editorial-option-regression.test.mjs \
+            2>&1 | tee -a pnl-english-editorial-audit.log
+
+      - name: Run editorial option regressions
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-editorial-option-regression.test.mjs \
+            2>&1 | tee -a pnl-english-editorial-audit.log
+
+      - name: Commit proven runtime corrections
+        run: |
+          if git diff --quiet -- \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.ts; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.ts
+          git commit -m "fix(pnl): harden English editorial runtime seeds"
+          git push origin HEAD:feat/pnl-001-english-editorial-audit
+
       - name: Bundle editorial exporter
         run: |
           set -o pipefail
@@ -166,18 +244,6 @@ jobs:
           set -o pipefail
           node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
             2>&1 | tee -a pnl-english-editorial-audit.log
-
-      - name: Commit proven CP-003 correction
-        run: |
-          if git diff --quiet -- \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts; then
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts
-          git commit -m "fix(pnl): keep CP-003 inverse inventory directional"
-          git push origin HEAD:feat/pnl-001-english-editorial-audit
 
       - name: Upload editorial review corpus
         if: always()
