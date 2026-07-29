@@ -77,6 +77,12 @@ export {
   runMalCp001PermanentPipeline,
 } from "./foundation/cp001-permanent-runtime";
 export {
+  MAL_CP001_ENGLISH_RELEASE,
+  MAL_CP001_ENGLISH_REVIEW_APPROVAL,
+  applyMalCp001EnglishRelease,
+  runMalCp001EnglishReleasePipeline,
+} from "./foundation/cp001-release";
+export {
   MAL_CP001_TEACHER_LAYOUT_ID,
   buildMalCp001TeacherExplanation,
 } from "./foundation/cp001-teacher-explanation";
@@ -84,6 +90,10 @@ export {
   MAL_CP001_PERMANENT_REVIEW_SEEDS,
   buildMalCp001PermanentReviewModel,
 } from "./foundation/cp001-permanent-review-model";
+export {
+  MAL_001_QUESTION_STUDIO_CP_IDS,
+  runMal001QuestionStudioPipeline,
+} from "./question-studio-adapter";
 export { generateMalCp001PrototypeParameters } from "./foundation/cp001-parameter-generator";
 export { generateMalCp001GapParameters } from "./foundation/cp001-gap-generator";
 export { generateMalCp001Prototype } from "./foundation/pipeline";
@@ -136,6 +146,9 @@ export type {
   MalCp001PermanentQuestion,
 } from "./foundation/cp001-permanent-runtime";
 export type {
+  MalCp001ReleasedQuestion,
+} from "./foundation/cp001-release";
+export type {
   MalCp001TeacherExplanation,
 } from "./foundation/cp001-teacher-explanation";
 export type {
@@ -144,3 +157,6 @@ export type {
   MalCp001PermanentReviewGroup,
   MalCp001PermanentReviewModel,
 } from "./foundation/cp001-permanent-review-model";
+export type {
+  Mal001QuestionStudioCpId,
+} from "./question-studio-adapter";
