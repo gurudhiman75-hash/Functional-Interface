@@ -18,25 +18,70 @@ function optionCountForSeed(qlId: ClsCp003EnglishQlId, seed: number): 4 | 5 {
   return hashText(`${qlId}:option-count:${seed}`) % 4 === 0 ? 5 : 4;
 }
 
-function simpleStem(question: GeneratedClsCp003Question): string {
+function chooseStem(templates: readonly string[], seed: number, salt: string): string {
+  return templates[hashText(`${salt}:${seed}`) % templates.length]!;
+}
+
+function simpleStem(question: GeneratedClsCp003Question, seed: number): string {
   if (question.task === "RESOLVE_JUMBLES_AND_FIND_OUTLIER") {
-    return "Unscramble each option. Which word belongs to a different group?";
+    return chooseStem([
+      "Unscramble each option. Which word belongs to a different group?",
+      "Rearrange the letters to form words. Which word is different from the others?",
+      "Form a word from each jumble. Which word comes from a different group?",
+      "Solve the jumbled words and find the one that does not belong with the others.",
+    ], seed, "jumbled-word");
   }
+
   switch (question.intendedRuleId) {
     case "WORD_LENGTH":
-      return "Which word has a different number of letters?";
+      return chooseStem([
+        "Which word has a different number of letters?",
+        "Choose the word whose length is different from the others.",
+        "Find the word that does not have the same letter count.",
+        "Which word is different in length?",
+      ], seed, "word-length");
     case "VOWEL_COUNT":
-      return "Which word has a different number of vowels?";
+      return chooseStem([
+        "Which word has a different number of vowels?",
+        "Choose the word with a different vowel count.",
+        "Find the word that does not have the same number of vowels.",
+        "Which word is different when its vowels are counted?",
+      ], seed, "vowel-count");
     case "REPEATED_LETTER_TOPOLOGY":
-      return "Which word has a different repeated-letter pattern?";
+      return chooseStem([
+        "Which word has a different repeated-letter pattern?",
+        "Choose the word whose letters repeat differently.",
+        "Find the word that does not follow the same repeat pattern.",
+        "In which word is the letter-repeat pattern different?",
+      ], seed, "repeat-pattern");
     case "PALINDROME_STATUS":
-      return "Which word behaves differently when read backwards?";
+      return chooseStem([
+        "Which word behaves differently when read backwards?",
+        "Read the words backwards. Which one is different?",
+        "Choose the word that does not follow the same backward-reading pattern.",
+        "Which word is different when read from right to left?",
+      ], seed, "palindrome");
     case "BOUNDARY_LETTER_CLASS":
-      return "Which word has a different first-and-last letter pattern?";
+      return chooseStem([
+        "Which word has a different first-and-last letter pattern?",
+        "Compare the first and last letters. Which word is different?",
+        "Choose the word whose starting and ending letters follow a different pattern.",
+        "Which word does not match the others at its two ends?",
+      ], seed, "boundary-letters");
     case "PRIMARY_AFFIX":
-      return "Which word has a different beginning or ending?";
+      return chooseStem([
+        "Which word has a different beginning or ending?",
+        "Choose the word that does not share the same beginning or ending.",
+        "Find the word with a different prefix or suffix pattern.",
+        "Which word does not match the common beginning or ending?",
+      ], seed, "affix");
     default:
-      return "Which word is different from the others?";
+      return chooseStem([
+        "Which word is different from the others?",
+        "Choose the word that does not fit with the rest.",
+        "Find the word with a different letter pattern.",
+        "Which word does not belong with the others?",
+      ], seed, "word-default");
   }
 }
 
@@ -80,7 +125,7 @@ export function generateClsCp003EnglishQuestion(
   }
   return {
     ...source,
-    stem: simpleStem(source),
+    stem: simpleStem(source, seed),
     explanation: {
       ...source.explanation,
       examSpeedShortcut: [simpleShortcut(source)],
