@@ -1,0 +1,7 @@
+import { TMW_CP_011_ID, TMW_CP_011_SOLVE_MODES, type TmwCp011RegistryEntry } from "./cp011-types";
+const ids = Array.from({length:TMW_CP_011_SOLVE_MODES.length},(_,i)=>`TMW-QL-${193+i}`);
+const answers = ["OUTPUT","TIME","OUTPUT","RATE_CHANGE","OUTPUT","TIME","OUTPUT","MULTIPLIER","TIME","DAY_INDEX","RATE","OUTPUT","OUTPUT","OUTPUT","TIME","RATE","OUTPUT","TIME","RATE_CHANGE"] as const;
+const rules = ["TMW_ARITHMETIC_RATE_SUM","TMW_VARIABLE_COMPLETION","TMW_ARITHMETIC_RATE_SUM","TMW_ARITHMETIC_RATE_SUM","TMW_GEOMETRIC_RATE_SUM","TMW_VARIABLE_COMPLETION","TMW_GEOMETRIC_RATE_SUM","TMW_GEOMETRIC_RATE_SUM","TMW_THRESHOLD_SWITCH","TMW_THRESHOLD_SWITCH","TMW_THRESHOLD_SWITCH","TMW_CREW_SCHEDULE","TMW_COMBINED_SEQUENCE","TMW_SIGNED_SEQUENCE","TMW_EXPLICIT_RATE_TABLE","TMW_DEADLINE_ADJUSTMENT","TMW_THRESHOLD_SWITCH","TMW_CREW_SCHEDULE","TMW_THRESHOLD_SWITCH"] as const;
+const difficulty = ["Easy","Medium","Medium","Hard","Medium","Hard","Hard","Hard","Medium","Hard","Hard","Medium","Hard","Hard","Medium","Hard","Medium","Hard","Hard"] as const;
+export const TMW_CP_011_REGISTRY:readonly TmwCp011RegistryEntry[] = TMW_CP_011_SOLVE_MODES.map((solveMode,i)=>({qlId:ids[i],cpId:TMW_CP_011_ID,solveMode,answerType:answers[i],ruleId:rules[i],difficulty:difficulty[i],publiclyPublishable:false}));
+export function getTmwCp011RegistryEntry(qlId:string){const found=TMW_CP_011_REGISTRY.find(x=>x.qlId===qlId);if(!found)throw new Error(`Unknown CP-011 QL: ${qlId}`);return found;}
