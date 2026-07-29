@@ -30,8 +30,8 @@ jobs:
           python - <<'PY'
           from pathlib import Path
 
-          path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-cases.ts")
-          source = path.read_text()
+          cases_path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-cases.ts")
+          source = cases_path.read_text()
 
           start = source.index('case "PNL-QL-165":')
           end = source.index('case "PNL-QL-166":', start)
@@ -99,7 +99,38 @@ jobs:
 
             ''' + source[end:]
 
-          path.write_text(source)
+          cases_path.write_text(source)
+
+          runtime_path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.ts")
+          runtime = runtime_path.read_text()
+
+          start = runtime.index('case "PNL-QL-155":')
+          end = runtime.index('case "PNL-QL-156":', start)
+          runtime = runtime[:start] + '''case "PNL-QL-155":
+              if (!("maximumExpense" in result)) {
+                throw new Error(`${qlId}: expected maximum allowable expense.`);
+              }
+              return { kind: "MONEY", value: result.maximumExpense };
+
+            ''' + runtime[end:]
+
+          runtime = runtime.replace(
+            '    "maximumAllowableExpense",',
+            '    "maximumExpense",',
+            1,
+          )
+          alias_anchor = '  if ("direction" in result && "ratePercent" in result) {'
+          if 'context.maximumAllowableExpense' not in runtime:
+              runtime = runtime.replace(
+                alias_anchor,
+                '''  if ("maximumExpense" in result) {
+                context.maximumAllowableExpense = cp006PlainMoney(result.maximumExpense);
+              }
+              ''' + alias_anchor,
+                1,
+              )
+
+          runtime_path.write_text(runtime)
           PY
 
       - name: Set up Node
