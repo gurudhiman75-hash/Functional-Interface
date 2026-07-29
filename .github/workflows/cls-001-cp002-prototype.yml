@@ -1,4 +1,4 @@
-name: Validate CLS-001 CP-002 Semantic Pair Discovery
+name: Validate CLS-001 CP-002 Semantic Pair Freeze
 
 on:
   pull_request:
@@ -83,7 +83,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-review.mjs"
           (cd artifacts/api-server && node "$OUT/export-review.mjs")
 
-      - name: Generate CLS-CP-002 multilingual review
+      - name: Generate CLS-CP-002 frozen multilingual review
         run: |
           ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-002
           OUT=dist/reasoning-v1/cls-001/cp002
@@ -99,9 +99,9 @@ jobs:
           path: artifacts/api-server/dist/reasoning-v1/cls-001/cp002-review
           if-no-files-found: error
 
-      - name: Upload CLS-CP-002 multilingual review
+      - name: Upload CLS-CP-002 frozen multilingual review
         uses: actions/upload-artifact@v4
         with:
-          name: cls-001-cp002-provisional-multilingual-review
+          name: cls-001-cp002-frozen-multilingual-review
           path: artifacts/api-server/dist/reasoning-v1/cls-001/cp002-permanent-review
           if-no-files-found: error
