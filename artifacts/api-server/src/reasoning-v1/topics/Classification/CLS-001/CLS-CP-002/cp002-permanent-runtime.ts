@@ -20,9 +20,9 @@ import type {
 
 type PrototypeMetadata = GeneratedClsCp002Question["metadata"];
 
-export type ClsCp002ProvisionalLifecycle = {
+export type ClsCp002FrozenLifecycle = {
   readonly permanentQlId: ClsCp002QlId;
-  readonly reviewStatus: "PROVISIONAL_MULTILINGUAL_PROOF";
+  readonly reviewStatus: "FROZEN_MULTILINGUAL_RUNTIME_PROOF";
   readonly questionBankStatus: "NOT_STORED";
   readonly testEligibility: "INELIGIBLE";
   readonly publiclyPublishable: false;
@@ -45,7 +45,7 @@ export type GeneratedClsCp002EnglishQuestion = Omit<
     readonly sourcePrototypeSeed: number;
     readonly solveContractId: ClsCp002SolveContractId;
   };
-  readonly lifecycle: ClsCp002ProvisionalLifecycle;
+  readonly lifecycle: ClsCp002FrozenLifecycle;
 };
 
 const SOURCE_SEED_STRIDE = 64;
@@ -173,7 +173,7 @@ export function generateClsCp002EnglishQuestion(
     },
     lifecycle: {
       permanentQlId: qlId,
-      reviewStatus: "PROVISIONAL_MULTILINGUAL_PROOF",
+      reviewStatus: "FROZEN_MULTILINGUAL_RUNTIME_PROOF",
       questionBankStatus: "NOT_STORED",
       testEligibility: "INELIGIBLE",
       publiclyPublishable: false,
