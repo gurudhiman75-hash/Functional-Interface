@@ -3,7 +3,7 @@ import {
   generateNumCp004Wave01Package,
   generateNumCp004Wave01Sweep,
   NUM_CP004_WAVE01_PROTOTYPE_IDS,
-} from "./runtime-authority";
+} from "./runtime-proven";
 import type { NumCp004Difficulty } from "./types";
 
 const SEEDS_PER_PROTOTYPE = 100;
