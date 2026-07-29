@@ -80,6 +80,17 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/mal-001-cp001-english-release-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-english-release-audit.log
+      - name: Bundle final release language audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-release-language-final-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-release-language-final-audit.mjs
+      - name: Run final release language audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/mal-001-cp001-release-language-final-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-release-language-final-audit.log
       - name: Bundle permanent allocation review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -108,6 +119,7 @@ jobs:
             artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-allocation-audit.log
             artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-editorial-audit.log
             artifacts/api-server/dist/quant-v4/mal-001-cp001-english-release-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-release-language-final-audit.log
             artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-allocation-review.json
             artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-allocation-review.md
             artifacts/api-server/dist/quant-v4/mal-001-cp001-english-release-review.json
