@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { generateNumCp003RetainedQuestion, NUM_CP003_RETAINED_TEMPLATE_LABELS } from "./runtime";
+import { generateNumCp003RetainedQuestion, NUM_CP003_RETAINED_TEMPLATE_LABELS } from "./runtime-reviewed";
 
 const outputDirectory = resolve(process.cwd(), "dist/quant-v4");
 mkdirSync(outputDirectory, { recursive: true });
