@@ -3,6 +3,7 @@ name: Validate MAL-CP-001 English release
 on:
   pull_request:
     branches:
+      - New-main
       - feat/mal-001-cp001-prototype-foundation
       - feat/mal-001-cp001-permanent-allocation
     types: [opened, reopened, synchronize]
