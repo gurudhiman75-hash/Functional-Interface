@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 import {
   generateNumCp004Wave01Package,
   NUM_CP004_WAVE01_PROTOTYPE_IDS,
-} from "./runtime-authority";
+} from "./runtime-proven";
 
 const outputDirectory = resolve(process.cwd(), "dist/quant-v4");
 mkdirSync(outputDirectory, { recursive: true });
