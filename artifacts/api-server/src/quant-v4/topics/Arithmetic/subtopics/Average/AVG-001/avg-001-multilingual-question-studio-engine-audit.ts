@@ -45,7 +45,7 @@ for (const language of ["en", "hi", "pa"] as const) {
     assert.equal(pkg.options[pkg.correctIndex], pkg.answer);
     assert.equal(preview.language, language);
     assert.equal(preview.metadata.language, language);
-    assert.equal(preview.metadata.releaseId, expectedRelease[language]);
+    assert.equal(preview.traceability.releaseId, expectedRelease[language]);
     assert.equal(preview.text, pkg.stem);
     assert.deepEqual(preview.options, pkg.options);
     assert.equal(preview.correctIndex, pkg.correctIndex);
