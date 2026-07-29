@@ -5,6 +5,7 @@ import { renderAlpExplanationV2, renderAlpStemV2 } from "./editorial-v2-localize
 import { generateAlpInstance } from "./instance-generator";
 import { solveAlpInstance } from "./independent-solver";
 import { localizeAlpAnswerSurface } from "./localized-values";
+import { generateAlpCompletionQuestion } from "./completion-runtime";
 import { alp001QlById } from "./ql-registry";
 import type { AlpDifficulty, AlpInstanceData, AlpLocale, AlpQuestionLogic, GeneratedAlpQuestion } from "./types";
 
@@ -35,32 +36,22 @@ function structuredPrompt(ql: AlpQuestionLogic, data: AlpInstanceData) {
   };
 }
 
-export function generateAlp001Question(
-  qlId: string,
-  seed = 0,
-  locale: AlpLocale = "en-IN",
-): GeneratedAlpQuestion {
+export function generateAlp001Question(qlId: string, seed = 0, locale: AlpLocale = "en-IN"): GeneratedAlpQuestion {
   const ql = alp001QlById(qlId);
+  if (["ALP-CP-006", "ALP-CP-007", "ALP-CP-008", "ALP-CP-009", "ALP-CP-010"].includes(ql.checkpointId)) {
+    return generateAlpCompletionQuestion(ql, seed, locale);
+  }
+
   const data = generateAlpInstance(ql, seed);
   const solved = solveAlpInstance(ql, data);
   const ambiguity = auditAlpInstance(ql, data, solved);
-  if (!ambiguity.accepted) {
-    throw new Error(`${qlId} seed ${seed} failed ambiguity audit: ${ambiguity.reasons.join(" | ")}`);
-  }
+  if (!ambiguity.accepted) throw new Error(`${qlId} seed ${seed} failed ambiguity audit: ${ambiguity.reasons.join(" | ")}`);
   const canonicalOptions = buildAlpOptions(ql, data, solved, seed);
   const correctIndex = validateAlpOptions(canonicalOptions, solved.answer);
   const stem = renderAlpStemV2(ql, data, locale);
   const canonicalExplanation = renderAlpExplanationV2(ql, data, solved, canonicalOptions, correctIndex, locale);
-  const display = localizeAlpAnswerSurface(
-    ql.answerType,
-    solved.answer,
-    canonicalOptions,
-    canonicalExplanation,
-    locale,
-  );
-  if (display.options[correctIndex]?.value !== display.answer) {
-    throw new Error(`${qlId} localized answer no longer matches the correct option.`);
-  }
+  const display = localizeAlpAnswerSurface(ql.answerType, solved.answer, canonicalOptions, canonicalExplanation, locale);
+  if (display.options[correctIndex]?.value !== display.answer) throw new Error(`${qlId} localized answer no longer matches the correct option.`);
   if (!stem.trim() || /\{\{|\}\}|undefined|null/.test(stem)) throw new Error(`${qlId} rendered an unresolved stem.`);
 
   return {
@@ -81,7 +72,7 @@ export function generateAlp001Question(
     answer: display.answer,
     explanation: display.explanation,
     metadata: {
-      runtimeVersion: "ALP-001-RUNTIME-V2",
+      runtimeVersion: "ALP-001-RUNTIME-V3",
       localeMode: "TRANSLATABLE",
       independentSolverVerified: true,
       ambiguityAudit: "EXPLICIT_OPERATION_UNIQUE",
