@@ -81,5 +81,11 @@ export function applyAvg001EnglishV2Release(
 export function runAvg001EditorialV2Pipeline(
   input: Parameters<typeof runAvg001Pipeline>[0] = {},
 ): Avg001QuestionPackage {
-  return applyAvg001EnglishV2Release(runAvg001Pipeline(input));
+  const language = input.language ?? AVG_001_ENGLISH_RELEASE_V2.language;
+  if (language !== AVG_001_ENGLISH_RELEASE_V2.language) {
+    throw new Error(
+      `${AVG_001_ENGLISH_RELEASE_V2.releaseId} approves English only; received ${language}`,
+    );
+  }
+  return applyAvg001EnglishV2Release(runAvg001Pipeline({ ...input, language }));
 }
