@@ -6,6 +6,9 @@ on:
       - feat/pnl-001-english-editorial-audit
     paths:
       - ".github/workflows/refine-pnl-english-editorial-audit.yml"
+  pull_request:
+    paths:
+      - ".github/workflows/refine-pnl-english-editorial-audit.yml"
 
 permissions:
   contents: write
