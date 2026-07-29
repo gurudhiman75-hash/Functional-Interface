@@ -7,161 +7,31 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-editorial-option-regression.test.ts"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-editorial-seed-regression.test.ts"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.ts"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-editorial-seed-regression.test.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-PLAN.md"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-WAVE-01.md"
       - ".github/workflows/validate-pnl-english-editorial-audit.yml"
   pull_request:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-editorial-option-regression.test.ts"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-editorial-seed-regression.test.ts"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.ts"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-editorial-seed-regression.test.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-PLAN.md"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-WAVE-01.md"
       - ".github/workflows/validate-pnl-english-editorial-audit.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   generate-pnl-english-editorial-audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 45
     steps:
-      - name: Checkout feature source
+      - name: Checkout source
         uses: actions/checkout@v4
-        with:
-          ref: feat/pnl-001-english-editorial-audit
-
-      - name: Apply proven editorial runtime corrections
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          cp003_path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts")
-          source = cp003_path.read_text()
-          start = source.index('case "PNL-QL-078":')
-          end = source.index('case "PNL-QL-079":', start)
-          block = source[start:end]
-          if "const knownDirection = pickDirection(random);" not in block:
-              replacement = '''case "PNL-QL-078":
-            case "PNL-QL-091": {
-              const knownDirection = pickDirection(random);
-              const knownGroups = [
-                {
-                  quantity: pickSeeded(random, QUANTITIES),
-                  unitCostPrice: rupees(pickNumber(random, UNIT_COSTS)),
-                  direction: knownDirection,
-                  ratePercent: rational(
-                    pickNumber(random, [10, 20, 25] as const),
-                  ),
-                },
-              ];
-              const unknownQuantity = pickSeeded(
-                random,
-                [10n, 20n, 40n] as const,
-              );
-              const unknownUnitCostPrice = rupees(
-                pickNumber(random, UNIT_COSTS),
-              );
-              const unknownDirection = knownDirection;
-              const unknownRatePercent = rational(
-                pickNumber(random, [10, 20, 25] as const),
-              );
-              const complete = solveInventoryAdvanced({
-                mode: "GROUP_RATES_TO_OVERALL_RESULT",
-                groups: [
-                  ...knownGroups,
-                  {
-                    quantity: unknownQuantity,
-                    unitCostPrice: unknownUnitCostPrice,
-                    direction: unknownDirection,
-                    ratePercent: unknownRatePercent,
-                  },
-                ],
-              });
-              const target = overallTargetFromGroupResult(complete);
-              const rows = knownGroups.map((group, index) =>
-                groupRow(
-                  `Known group ${index + 1}`,
-                  group.quantity,
-                  group.unitCostPrice,
-                  group.direction,
-                  group.ratePercent,
-                ),
-              );
-              return {
-                qlId,
-                registry,
-                seed: seedValue,
-                request: {
-                  mode: "UNKNOWN_GROUP_RATE_FOR_TARGET",
-                  knownGroups,
-                  unknownQuantity,
-                  unknownUnitCostPrice,
-                  unknownDirection,
-                  targetDirection: target.direction,
-                  targetRatePercent: target.ratePercent,
-                },
-                context: {
-                  knownGroups: rows,
-                  unknownQuantity: unknownQuantity.toString(),
-                  unknownUnitCostPrice: cp003PlainMoney(unknownUnitCostPrice),
-                  unknownDirection: unknownDirection.toLowerCase(),
-                  targetDirection: target.direction.toLowerCase(),
-                  targetRatePercent: cp003FormatRational(target.ratePercent),
-                  groupCostExpressions: `${rows[0]![1]}, ${rows[0]![2]}; unknown group: ${unknownQuantity}x${cp003FormatMoney(unknownUnitCostPrice)} at r% ${unknownDirection.toLowerCase()}`,
-                },
-                expectedDirection: unknownDirection,
-              };
-            }
-
-            '''
-              source = source[:start] + replacement + source[end:]
-              cp003_path.write_text(source)
-
-          old_template = '''  if (answer.kind === "MONEY") {
-              const paise = answer.value.paise;
-              return [
-                moneyFromPaise((paise * 90n) / 100n),
-                moneyFromPaise((paise * 110n) / 100n),
-                moneyFromPaise(paise + 10000n),
-                moneyFromPaise(paise > 10000n ? paise - 10000n : paise + 20000n),
-              ].map(FORMATTER);
-            }'''
-          new_template = '''  if (answer.kind === "MONEY") {
-              const paise = answer.value.paise;
-              return [
-                moneyFromPaise((paise * 80n) / 100n),
-                moneyFromPaise((paise * 90n) / 100n),
-                moneyFromPaise((paise * 110n) / 100n),
-                moneyFromPaise((paise * 120n) / 100n),
-                moneyFromPaise(paise + 5000n),
-                moneyFromPaise(paise + 15000n),
-                moneyFromPaise(paise > 5000n ? paise - 5000n : paise + 25000n),
-                moneyFromPaise(paise > 15000n ? paise - 15000n : paise + 30000n),
-              ]
-                .filter((value) => value.paise > 0n)
-                .map(FORMATTER);
-            }'''
-
-          for relative, formatter in [
-              ("CP-005/cp005-dynamic-runtime.ts", "cp005FormatMoney"),
-              ("CP-006/cp006-dynamic-runtime.ts", "cp006FormatMoney"),
-          ]:
-              path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001") / relative
-              source = path.read_text()
-              if "moneyFromPaise((paise * 80n) / 100n)" not in source:
-                  old = old_template.replace("FORMATTER", formatter)
-                  new = new_template.replace("FORMATTER", formatter)
-                  if old not in source:
-                      raise SystemExit(f"Money distractor block not found in {relative}")
-                  path.write_text(source.replace(old, new, 1))
-          PY
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -176,59 +46,35 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Format corrected runtime sources
+      - name: Bundle CP-003 editorial regression
         run: |
-          pnpm exec prettier --write \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.ts
-
-      - name: Bundle CP-003 editorial seed regression
-        run: |
-          set -o pipefail
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-editorial-seed-regression.test.ts \
             --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/.cp003-editorial-seed-regression.test.mjs \
-            2>&1 | tee pnl-english-editorial-audit.log
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/.cp003-editorial-seed-regression.test.mjs
 
-      - name: Run CP-003 editorial seed regression
-        run: |
-          set -o pipefail
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/.cp003-editorial-seed-regression.test.mjs \
-            2>&1 | tee -a pnl-english-editorial-audit.log
+      - name: Run CP-003 editorial regression
+        run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/.cp003-editorial-seed-regression.test.mjs
 
-      - name: Bundle editorial option regressions
+      - name: Bundle CP-005 editorial regression
         run: |
-          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-editorial-seed-regression.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/.cp005-editorial-seed-regression.test.mjs
+
+      - name: Run CP-005 editorial regression
+        run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/.cp005-editorial-seed-regression.test.mjs
+
+      - name: Bundle option regressions
+        run: |
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-editorial-option-regression.test.ts \
             --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-editorial-option-regression.test.mjs \
-            2>&1 | tee -a pnl-english-editorial-audit.log
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-editorial-option-regression.test.mjs
 
-      - name: Run editorial option regressions
-        run: |
-          set -o pipefail
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-editorial-option-regression.test.mjs \
-            2>&1 | tee -a pnl-english-editorial-audit.log
-
-      - name: Commit proven runtime corrections
-        run: |
-          if git diff --quiet -- \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.ts; then
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-runtime.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.ts
-          git commit -m "fix(pnl): harden English editorial runtime seeds"
-          git push origin HEAD:feat/pnl-001-english-editorial-audit
+      - name: Run option regressions
+        run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-editorial-option-regression.test.mjs
 
       - name: Bundle editorial exporter
         run: |
@@ -237,7 +83,7 @@ jobs:
             src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts \
             --bundle --platform=node --format=esm \
             --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
-            2>&1 | tee -a pnl-english-editorial-audit.log
+            2>&1 | tee pnl-english-editorial-audit.log
 
       - name: Generate 558-row review corpus
         run: |
