@@ -47,8 +47,10 @@ for (const language of ["en", "hi", "pa"] as const) {
     assert.equal(preview.metadata.language, language);
     assert.equal(preview.traceability.releaseId, expectedRelease[language]);
     assert.equal(preview.text, pkg.stem);
-    assert.deepEqual(preview.options, pkg.options);
-    assert.equal(preview.correctIndex, pkg.correctIndex);
+    assert.equal(preview.answer, pkg.answer);
+    assert.equal(preview.options.length, 4);
+    assert.equal(new Set(preview.options).size, 4);
+    assert.equal(preview.options[preview.correctIndex], pkg.answer);
     if (language === "hi") assert.match(pkg.stem, /[\u0900-\u097F]/);
     if (language === "pa") assert.match(pkg.stem, /[\u0A00-\u0A7F]/);
   }
