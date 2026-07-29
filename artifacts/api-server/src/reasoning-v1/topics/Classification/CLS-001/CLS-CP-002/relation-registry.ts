@@ -8,6 +8,10 @@ import {
   CLS_CP001_CLASSES,
   CLS_CP001_ENTITIES,
 } from "../CLS-CP-001/semantic-dataset.en";
+import {
+  CLS_CP002_SUPPLEMENTAL_FACTS,
+  CLS_CP002_SUPPLEMENTAL_RELATIONS,
+} from "./supplemental-relations.en";
 import type {
   ClsCp002Pair,
   ClsCp002PrototypeDefinition,
@@ -62,7 +66,7 @@ function pairKey(left: string, right: string): string {
   return `${normalise(left)}\u0000${normalise(right)}`;
 }
 
-const semanticDefinitions: ClsCp002RelationDefinition[] = ANA_CP001_RELATIONS
+const importedSemanticDefinitions: ClsCp002RelationDefinition[] = ANA_CP001_RELATIONS
   .filter((definition) => !EXCLUDED_VOLATILE_RELATIONS.has(definition.id))
   .map((definition) => ({
     relationId: definition.id,
@@ -75,6 +79,11 @@ const semanticDefinitions: ClsCp002RelationDefinition[] = ANA_CP001_RELATIONS
     qualityRank: 110,
     contrastGroup: SEMANTIC_CONTRAST_GROUP[definition.id] ?? "SEMANTIC_OTHER",
   }));
+
+const semanticDefinitions: ClsCp002RelationDefinition[] = [
+  ...importedSemanticDefinitions,
+  ...CLS_CP002_SUPPLEMENTAL_RELATIONS,
+];
 
 const lexicalDefinitions: ClsCp002RelationDefinition[] = ANA_CP002_RELATIONS.map((definition) => ({
   relationId: definition.id,
@@ -113,7 +122,7 @@ export const CLS_CP002_RELATION_BY_ID = new Map(
   CLS_CP002_RELATIONS.map((definition) => [definition.relationId, definition]),
 );
 
-const semanticFacts: ClsCp002RelationFact[] = ANA_CP001_FACTS
+const importedSemanticFacts: ClsCp002RelationFact[] = ANA_CP001_FACTS
   .filter((fact) => !EXCLUDED_VOLATILE_RELATIONS.has(fact.relation))
   .filter((fact) => fact.status === "CURATED" && fact.factRisk !== "HIGH")
   .map((fact) => ({
@@ -128,6 +137,11 @@ const semanticFacts: ClsCp002RelationFact[] = ANA_CP001_FACTS
     factRisk: fact.factRisk === "MEDIUM" ? "MEDIUM" as const : "LOW" as const,
     sourceLibrary: "ANA-CP-001" as const,
   }));
+
+const semanticFacts: ClsCp002RelationFact[] = [
+  ...importedSemanticFacts,
+  ...CLS_CP002_SUPPLEMENTAL_FACTS,
+];
 
 const lexicalFacts: ClsCp002RelationFact[] = ANA_CP002_FACTS.map((fact) => ({
   factId: `CLS-CP002-${fact.id}`,
