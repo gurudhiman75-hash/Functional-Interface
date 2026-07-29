@@ -47,25 +47,25 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/int-001-cp001-close-readable-regression.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-close-readable-regression.log
 
-      - name: Bundle close-distractor audit
+      - name: Bundle tightened close-distractor audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-close-distractor-audit.ts
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-close-distractor-audit-v2.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/int-001-cp001-close-distractor-audit.mjs
-      - name: Run close-distractor audit
+      - name: Run tightened close-distractor audit
         shell: bash
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/int-001-cp001-close-distractor-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-close-distractor-audit.log
 
-      - name: Bundle close-distractor review exporter
+      - name: Bundle tightened review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-close-distractor-review-export.ts
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-close-distractor-review-export-v2.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/int-001-cp001-close-distractor-review-export.mjs
-      - name: Generate close-distractor review packs
+      - name: Generate tightened close-distractor review packs
         working-directory: artifacts/api-server
         run: node dist/quant-v4/int-001-cp001-close-distractor-review-export.mjs
 
