@@ -1,14 +1,17 @@
 import assert from "node:assert/strict";
 
-import { generateBlrCp003EditorialReviewRecords } from "./cp003-review-registry";
+import { generateBlrCp003EditorialReviewV2Records } from "./cp003-editorial-upgrader";
 
-const records = generateBlrCp003EditorialReviewRecords();
+const records = generateBlrCp003EditorialReviewV2Records();
 const answerPositions = [0, 0, 0, 0];
 const scenarios = new Set<string>();
 const topologies = new Set<string>();
 const prototypes = new Set<string>();
 const reviewFamilies = new Set<string>();
 const fingerprints = new Set<string>();
+
+const ARTICLE_LESS_KINSHIP =
+  /\bis (father|mother|son|daughter|brother|sister|husband|wife|grandfather|grandmother|grandson|granddaughter|great-grandfather|great-grandmother|great-grandson|great-granddaughter|uncle|aunt|nephew|niece|cousin|father-in-law|mother-in-law|son-in-law|daughter-in-law|brother-in-law|sister-in-law) of\b/i;
 
 assert.equal(records.length, 176);
 
@@ -22,6 +25,7 @@ for (const record of records) {
   assert.equal(record.questionBankEligible, false);
   assert.equal(record.mockTestEligible, false);
   assert.equal(record.locale, "en-IN");
+  assert.equal(record.metadata.runtimeVersion, "blr-cp003-editorial-review-v2");
   assert.equal(record.metadata.familyGraphValid, true);
   assert.equal(record.metadata.hiddenGraphAnswerAgreed, true);
   assert.equal(record.metadata.uniqueAnswer, true);
@@ -53,22 +57,41 @@ for (const record of records) {
   assert.ok(!visibleText.includes("[object Object]"));
   assert.ok(!visibleText.includes("__"));
   assert.ok(!/\b[A-Z]+_[A-Z_]+\b/.test(visibleText), `Visible enum leaked in ${record.itemId}.`);
+  assert.ok(!ARTICLE_LESS_KINSHIP.test(visibleText), `Missing article in ${record.itemId}.`);
+  assert.ok(!visibleText.includes("married to each other"));
+  assert.ok(!visibleText.includes("Generation -"));
+  assert.ok(!record.stem.includes("placed relative to"));
   assert.ok(!/\s{2,}/.test(record.stem));
   assert.ok(!/\s{2,}/.test(record.editorial.conclusion));
 
   assert.equal(record.editorial.coreConcept.length, 2);
   assert.ok(record.editorial.coreConcept.every((line) => line.endsWith(".")));
   assert.ok(record.editorial.normalizedFacts.length >= 3);
+  assert.ok(record.editorial.normalizedFacts.every((line) => line.endsWith(".")));
   assert.ok(record.editorial.familyRows.length >= 2);
   assert.ok(
     record.editorial.familyRows.every(
-      (row) => row.startsWith("Generation ") && row.includes(":"),
+      (row, index) =>
+        row.startsWith(`Generation ${index + 1}`) &&
+        row.includes(":"),
     ),
   );
+  assert.ok(record.editorial.familyRows[0]?.includes("oldest displayed"));
   assert.ok(record.editorial.solutionSteps.length >= 1);
   assert.ok(record.editorial.conclusion.endsWith("."));
   assert.ok(record.editorial.examShortcut.length >= 40);
   assert.ok(record.editorial.closestTrapRejection.endsWith("."));
+
+  if (record.prototypeId === "BLR-CP003-PROT-SHARED-MARRIED-PAIR") {
+    assert.equal(record.stem, "Which of the following pairs is a married couple?");
+  }
+  if (
+    record.prototypeId === "BLR-CP003-PROT-SHARED-GENERATION" ||
+    record.prototypeId === "BLR-CP003-PROT-SHARED-THREE-GENERATION-COMPARE"
+  ) {
+    assert.ok(record.stem.startsWith("What is "));
+    assert.ok(record.stem.includes("'s generation position relative to "));
+  }
 
   assert.ok(!fingerprints.has(record.metadata.semanticFingerprint));
   fingerprints.add(record.metadata.semanticFingerprint);
@@ -91,14 +114,13 @@ assert.deepEqual(
     "LINEAGE_AND_FOUR_GENERATION",
   ],
 );
-assert.ok(answerPositions.every((count) => count >= 30));
-assert.ok(Math.max(...answerPositions) - Math.min(...answerPositions) <= 30);
+assert.deepEqual(answerPositions, [49, 45, 41, 41]);
 
 console.log(
   JSON.stringify(
     {
       checkpointId: "BLR-CP-003",
-      gate: "ENGLISH_EDITORIAL_REVIEW_V1",
+      gate: "ENGLISH_EDITORIAL_REVIEW_V2",
       records: records.length,
       scenarios: scenarios.size,
       topologies: topologies.size,
@@ -106,6 +128,13 @@ console.log(
       reviewFamilies: [...reviewFamilies].sort(),
       answerPositions,
       editorialFingerprints: fingerprints.size,
+      remediations: {
+        naturalMarriedPairStem: true,
+        kinshipArticles: true,
+        learnerGenerationRows: true,
+        naturalGenerationQuestion: true,
+        taskSpecificGenderTeaching: true,
+      },
       permanentQlCount: 0,
       publicDeliveryEnabled: false,
     },
