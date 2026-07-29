@@ -22,12 +22,14 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BL
 - graph reconstruction from displayed relation clues;
 - hidden-graph versus clue-only answer agreement;
 - shared family-passage groups with multiple independently solved items;
+- explicit marital facts without closed-world unmarried inference;
 - inferred sibling closure for children sharing a modelled parent;
 - deterministic seeded Indian names;
 - broad kinship and in-law closure;
-- generation propagation and comparison;
-- exact paternal/maternal lineage resolution;
+- generation propagation and comparison through three levels;
+- exact paternal/maternal lineage resolution reused inside shared passages;
 - great-generation relation closure;
+- deterministic generation-row explanation data;
 - blood and affinal uncle/aunt with inverse nephew/niece closure;
 - broad role vocabulary for parent, child, sibling and spouse;
 - union-cardinality semantics for exact `ONLY_CHILD`;
@@ -80,12 +82,12 @@ BLR-CP-002 technical pre-freeze proof          3,492 questions
 BLR-CP-002 permanent runtime audit                900 questions
 -----------------------------------------------------------
 Frozen deterministic proof                     7,948 questions
-BLR-CP-003 open shared-family proof             2,220 questions
+BLR-CP-003 open shared-family proof             4,140 questions
 -----------------------------------------------------------
-Combined current deterministic proof           10,168 questions
+Combined current deterministic proof           12,088 questions
 ```
 
-The CP-003 number is an open-discovery milestone, not a frozen inventory. It currently covers four graph-first topologies, 340 generated groups, ten item prototypes plus the group assembly handle, 340 hidden-graph agreement checks and complete release locks.
+The CP-003 number is an open-discovery milestone, not a frozen inventory. It covers seven executable scenarios, 660 generated groups, seventeen temporary item handles plus one assembly handle, 660 hidden-graph agreement checks, 660 input-contribution checks and complete release locks. Six hundred lineage items reuse the frozen CP-001 exact-lineage solver.
 
 ## Checkpoint state
 
@@ -93,7 +95,7 @@ The CP-003 number is an open-discovery milestone, not a frozen inventory. It cur
 |---|---|---|
 | `BLR-CP-001` | direct declarative named-person relations | frozen; `BLR-QL-001..007` |
 | `BLR-CP-002` | pointer/photo/portrait/conversation/nested self-reference | frozen; `BLR-QL-008` |
-| `BLR-CP-003` | shared family passages | active English discovery; 4 scenarios; 0 permanent QLs |
+| `BLR-CP-003` | shared family passages | active English discovery; 7 scenarios; 0 permanent QLs |
 | `BLR-CP-004` | counts and family composition | open |
 | `BLR-CP-005` | possible/impossible/one-of-two/indeterminate semantics | open |
 | `BLR-CP-006` | coded relation decoding | open |
@@ -123,9 +125,13 @@ The next available chapter identity is `BLR-QL-009`. It remains unclaimed. The f
 ### CP-003 open discovery
 
 - `BLR-CP-003/BLR-CP-003-SOURCE-AND-BOUNDARY-AUDIT.md`;
+- `BLR-CP-003/BLR-CP-003-MARITAL-STATUS-AUDIT-V1.md`;
+- `BLR-CP-003/BLR-CP-003-LINEAGE-SATURATION-AUDIT-V1.md`;
 - `BLR-CP-003/README.md`;
 - `BLR-CP-003/cp003-prototype.test.ts`;
-- `BLR-CP-003/cp003-extended.test.ts`.
+- `BLR-CP-003/cp003-extended.test.ts`;
+- `BLR-CP-003/cp003-marital.test.ts`;
+- `BLR-CP-003/cp003-lineage.test.ts`.
 
 ## Release boundary
 
