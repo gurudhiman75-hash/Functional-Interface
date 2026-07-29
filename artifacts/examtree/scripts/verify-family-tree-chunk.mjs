@@ -3,47 +3,73 @@ import path from "node:path";
 
 const assetsDirectory = path.resolve("artifacts/examtree/dist/public/assets");
 const entries = (await readdir(assetsDirectory)).filter((name) => name.endsWith(".js"));
-const matches = [];
+const rendererMatches = [];
+const siblingArrowMatches = [];
 
 for (const name of entries) {
   const filePath = path.join(assetsDirectory, name);
   const content = await readFile(filePath, "utf8");
+  const descriptor = {
+    name,
+    bytes: (await stat(filePath)).size,
+    inMainBundle: /^index-/.test(name),
+  };
+
   if (
     content.includes("Visual family tree") &&
     content.includes("Answer path") &&
     content.includes("Full family")
   ) {
-    matches.push({
-      name,
-      bytes: (await stat(filePath)).size,
-      inMainBundle: /^index-/.test(name),
-    });
+    rendererMatches.push(descriptor);
+  }
+
+  if (
+    content.includes("blr-sibling-arrow") &&
+    content.includes("marker-start") &&
+    content.includes("marker-end") &&
+    content.includes("auto-start-reverse")
+  ) {
+    siblingArrowMatches.push(descriptor);
   }
 }
 
-if (matches.length !== 1) {
+if (rendererMatches.length !== 1) {
   throw new Error(
-    `Expected exactly one compiled family-tree renderer chunk, found ${matches.length}: ${JSON.stringify(matches)}.`,
+    `Expected exactly one compiled family-tree renderer chunk, found ${rendererMatches.length}: ${JSON.stringify(rendererMatches)}.`,
   );
 }
 
-const [chunk] = matches;
-if (chunk.inMainBundle) {
-  throw new Error(`Family-tree renderer leaked into the main bundle: ${chunk.name}.`);
+const [rendererChunk] = rendererMatches;
+if (rendererChunk.inMainBundle) {
+  throw new Error(`Family-tree renderer leaked into the main bundle: ${rendererChunk.name}.`);
 }
-if (chunk.bytes > 35_000) {
+if (rendererChunk.bytes > 35_000) {
   throw new Error(
-    `Family-tree renderer chunk exceeds the 35 KB raw limit: ${chunk.name} is ${chunk.bytes} bytes.`,
+    `Family-tree renderer chunk exceeds the 35 KB raw limit: ${rendererChunk.name} is ${rendererChunk.bytes} bytes.`,
   );
+}
+
+if (siblingArrowMatches.length !== 1) {
+  throw new Error(
+    `Expected exactly one compiled sibling-arrow integration chunk, found ${siblingArrowMatches.length}: ${JSON.stringify(siblingArrowMatches)}.`,
+  );
+}
+
+const [siblingArrowChunk] = siblingArrowMatches;
+if (siblingArrowChunk.inMainBundle) {
+  throw new Error(`Sibling-arrow integration leaked into the main bundle: ${siblingArrowChunk.name}.`);
 }
 
 console.log(
   JSON.stringify(
     {
       gate: "EXAMTREE_LAZY_SVG_FAMILY_TREE_CHUNK",
-      chunk: chunk.name,
-      rawBytes: chunk.bytes,
+      chunk: rendererChunk.name,
+      rawBytes: rendererChunk.bytes,
       rawLimitBytes: 35_000,
+      siblingArrowChunk: siblingArrowChunk.name,
+      siblingArrowRawBytes: siblingArrowChunk.bytes,
+      siblingArrowheads: "BIDIRECTIONAL",
       mainBundleLeak: false,
       externalGraphLibrary: false,
     },
