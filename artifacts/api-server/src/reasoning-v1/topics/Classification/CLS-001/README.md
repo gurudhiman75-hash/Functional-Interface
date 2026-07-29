@@ -1,6 +1,6 @@
 # CLS-001 — Classification / Odd One Out
 
-Status: `CP001_FROZEN__CP002_ENGLISH_BOUNDARY_CLOSED__MULTILINGUAL_IN_PROGRESS`
+Status: `CP001_FROZEN__CP002_FROZEN__CHAPTER_DISCOVERY_CONTINUES`
 
 ## Product identity
 
@@ -27,22 +27,21 @@ Four and five answer options are presentation and difficulty properties. They do
 
 Permanent QL and solve-mode totals are not fixed for the chapter in advance. Each checkpoint is frozen only after source, task-direction, inverse, answer-object, representation, ambiguity, ownership and no-new-contract audits close.
 
-`CLS-CP-001` owns:
+| QL | Checkpoint | Student task | Status |
+|---|---|---|---|
+| `CLS-QL-001` | `CLS-CP-001` | Find the semantic outlier among four or five items | Frozen multilingual runtime proof |
+| `CLS-QL-002` | `CLS-CP-001` | Select another member of the shared semantic class | Frozen multilingual runtime proof |
+| `CLS-QL-003` | `CLS-CP-001` | Select the only internally coherent semantic word-group | Frozen multilingual runtime proof |
+| `CLS-QL-004` | `CLS-CP-002` | Find the word-pair whose internal semantic relationship differs from the others | Frozen multilingual runtime proof |
 
-| QL | Student task | Status |
-|---|---|---|
-| `CLS-QL-001` | Find the semantic outlier among four or five items | Frozen multilingual runtime proof |
-| `CLS-QL-002` | Select another member of the shared semantic class | Frozen multilingual runtime proof |
-| `CLS-QL-003` | Select the only internally coherent semantic word-group | Frozen multilingual runtime proof |
-
-`CLS-CP-002` has one provisional contract candidate, but no permanent identity is frozen until multilingual parity and review close.
+No later `CLS-QL-*` identity is reserved.
 
 ## Checkpoint map
 
 | Checkpoint | Working scope | Status |
 |---|---|---|
 | `CLS-CP-001` | Semantic word and entity classification | `FROZEN_MULTILINGUAL_RUNTIME_PROOF` |
-| `CLS-CP-002` | Semantic pair and relationship classification | `ENGLISH_BOUNDARY_CLOSED__MULTILINGUAL_IN_PROGRESS` |
+| `CLS-CP-002` | Semantic pair and relationship classification | `FROZEN_MULTILINGUAL_RUNTIME_PROOF` |
 | `CLS-CP-003` | Lexical, spelling and word-structure classification | Pending executable discovery |
 | `CLS-CP-004` | Number-property classification | Pending executable discovery |
 | `CLS-CP-005` | Number-pair, triple and set classification | Pending executable discovery |
@@ -64,33 +63,49 @@ Locales:                       en-IN, hi-IN, pa-IN
 Answer-option counts:          4 and 5
 ```
 
-## CLS-CP-002 English boundary
+## CLS-CP-002 frozen foundation
 
 ```text
-Permanent QLs:                 0
-Frozen solve contracts:        0
-Temporary prototypes:          5
+Permanent QLs:                 1
+Frozen solve contracts:        1
+Permanent identity:            CLS-QL-004
+Solve contract:                CP002-FIND-ODD-SEMANTIC-RELATION-PAIR
+Temporary source controls:     5
 Stable semantic relations:     19
 Lexical relations:             12
 Class-pair relations:          24
 Total admitted relations:      55
-Curated fact pairs:            372
-Locale:                        en-IN validated; hi-IN/pa-IN in progress
+Curated English fact pairs:    372
+Multilingual-safe fact pairs:  160
+English-only discovery facts:  212
+Locales:                       en-IN, hi-IN, pa-IN
 Answer-option counts:          4 and 5
-Generated audit questions:     2,000
 ```
 
-The wave covers directional semantic relation outliers, synonym/antonym polarity, reversed direction, category-correct false pairings and semantic class-pair contrast. It also closes recurring container/content, material/product, object/sound and explicit one-generation family-role forms.
+The frozen contract covers:
 
-All 372 fact pairs resolve to exactly one admitted fact relation. Volatile country/capital/state-capital/currency facts and the arguable generic spouse-role relation are excluded.
+- a contrasting valid semantic relation;
+- synonym versus antonym polarity;
+- reversed directional relations;
+- category-correct but false pairings under conservative relation locks;
+- pairs whose two members belong to a different semantic class;
+- recurring container/content, material/product, object/sound and one-generation family-role relations.
 
-The five controls provisionally merge into:
+All five controls merge into one learner task because the answer object is always the complete displayed pair and the proof is always the same: every other pair shares one precise internal relation.
+
+The English discovery registry remains broader than the learner-facing multilingual pool. Permanent generation uses only the 160 fact pairs that localise reversibly in both Hindi and Punjabi, plus the frozen CP-001 semantic class entities. The 212 English-only facts remain available for discovery and ambiguity audits but are not learner-facing.
+
+Final executable evidence includes:
 
 ```text
-FIND_ODD_SEMANTIC_RELATION_PAIR
+English discovery questions:   2,000
+Frozen English questions:      1,600
+Multilingual parity questions: 1,800
+Review questions:                 90
+Complete trilingual fact rows:   160
 ```
 
-with candidate identity `CLS-QL-004`, pending multilingual parity and approval.
+All 55 relations, all five controls, both option counts, all answer positions and Easy/Medium/Hard instances are exercised. Hindi and Punjabi questions reconstruct to the exact canonical English pairs before independent solving.
 
 ## Strict chapter boundary
 
@@ -117,9 +132,9 @@ Semantic odd word-pair relationships belong to `CLS-CP-002`, because pair direct
 - `CLS-001-SOURCE-AND-OWNERSHIP-AUDIT.md`
 - `CLS-CP-001/CLS-CP-001-FINAL-MULTILINGUAL-FREEZE.md`
 - `CLS-CP-001/CLS-CP-001-SIMPLIFIED-STUDENT-EXPLANATION-STANDARD.md`
-- `CLS-CP-002/CLS-CP-002-EXECUTABLE-DISCOVERY-PLAN.md`
 - `CLS-CP-002/CLS-CP-002-SOURCE-SATURATION-AND-MERGE-SPLIT-AUDIT.md`
+- `CLS-CP-002/CLS-CP-002-FINAL-MULTILINGUAL-FREEZE.md`
 
 ## Release locks
 
-`CLS-CP-001` is approved as a multilingual review-only runtime proof. `CLS-CP-002` remains review-only and unavailable to Question Studio, Question Bank, tests and public users until its multilingual freeze is approved.
+`CLS-CP-001` and `CLS-CP-002` are frozen as multilingual review-only runtime proofs. They remain unavailable to Question Studio, Question Bank, tests and public users until explicit integration approval is given.
