@@ -25,6 +25,9 @@
       "vite/client"
     ],
     "paths": {
+      "@/components/learning/LogicPlayback": [
+        "./src/components/learning/LogicPlaybackRouter.tsx"
+      ],
       "@/*": [
         "./src/*"
       ],
