@@ -4,10 +4,25 @@ export type AlpCheckpointId =
   | "ALP-CP-002"
   | "ALP-CP-003"
   | "ALP-CP-004"
-  | "ALP-CP-005";
+  | "ALP-CP-005"
+  | "ALP-CP-006"
+  | "ALP-CP-007"
+  | "ALP-CP-008"
+  | "ALP-CP-009"
+  | "ALP-CP-010";
 export type AlpDifficulty = "EASY" | "MEDIUM" | "HARD";
 export type AlpRenderer = "TEXT" | "STRUCTURED_TEXT" | "TOKEN_ROW" | "POSITION_TRACK";
-export type AlpAnswerType = "LETTER" | "NUMBER" | "NUMBER_PAIR" | "LETTER_PAIR" | "PAIR_SELECTION" | "DIRECTION_OFFSET" | "LETTER_SET";
+export type AlpAnswerType =
+  | "LETTER"
+  | "NUMBER"
+  | "NUMBER_PAIR"
+  | "LETTER_PAIR"
+  | "PAIR_SELECTION"
+  | "DIRECTION_OFFSET"
+  | "LETTER_SET"
+  | "TOKEN"
+  | "TOKEN_PAIR"
+  | "TOKEN_SEQUENCE";
 export type AlpStatus = "IMPLEMENTED" | "REVIEWED" | "FROZEN";
 
 export type AlpSolveMode =
@@ -89,7 +104,59 @@ export type AlpSolveMode =
   | "WORD_POSITION_AFTER_SWAP_ADJACENT"
   | "WORD_REVERSE_RANGE_POSITION"
   | "WORD_POSITION_AFTER_REVERSE_RANGE"
-  | "WORD_COUNT_UNCHANGED_SELECTED_TRANSFORM";
+  | "WORD_COUNT_UNCHANGED_SELECTED_TRANSFORM"
+  | "COUNT_WORD_ALPHA_PAIRS_BOTH"
+  | "COUNT_WORD_ALPHA_PAIRS_FORWARD"
+  | "COUNT_WORD_ALPHA_PAIRS_BACKWARD"
+  | "IDENTIFY_WORD_ALPHA_PAIR"
+  | "IDENTIFY_WORD_BY_ALPHA_PAIR_COUNT"
+  | "COUNT_WORD_ALPHA_PAIRS_AFTER_REVERSE"
+  | "CLASS_SHIFT_LETTER_AT_POSITION"
+  | "CLASS_SHIFT_TRANSFORMED_WORD"
+  | "CLASS_SHIFT_COUNT_UNCHANGED"
+  | "CLASS_SHIFT_COUNT_VOWELS"
+  | "CLASS_SHIFT_SORTED_LETTER_AT_POSITION"
+  | "CLASS_SHIFT_SORTED_POSITION_OF_LETTER"
+  | "CLASS_OPPOSITE_LETTER_AT_POSITION"
+  | "CLASS_TWO_STAGE_LETTER_AT_POSITION"
+  | "DIGIT_AT_LEFT_POSITION"
+  | "DIGIT_AT_RIGHT_POSITION"
+  | "DIGIT_LEFT_POSITION"
+  | "DIGIT_RIGHT_POSITION"
+  | "COUNT_DIGIT_GAP_PAIRS"
+  | "IDENTIFY_DIGIT_GAP_PAIR"
+  | "DIGIT_AFTER_ASC_POSITION"
+  | "DIGIT_AFTER_DESC_POSITION"
+  | "DIGIT_AFTER_REVERSE_POSITION"
+  | "DIGIT_AFTER_ADJACENT_SWAP_POSITION"
+  | "DIGIT_COUNT_UNCHANGED_ASC"
+  | "DIGIT_COUNT_UNCHANGED_SELECTED_TRANSFORM"
+  | "MIXED_ELEMENT_FROM_LEFT"
+  | "MIXED_ELEMENT_FROM_RIGHT"
+  | "MIXED_RELATIVE_RIGHT_FROM_LEFT"
+  | "MIXED_RELATIVE_LEFT_FROM_LEFT"
+  | "MIXED_RELATIVE_RIGHT_FROM_RIGHT"
+  | "MIXED_RELATIVE_LEFT_FROM_RIGHT"
+  | "COUNT_LETTER_FOLLOWED_BY_SYMBOL"
+  | "COUNT_SYMBOL_PRECEDED_BY_LETTER"
+  | "COUNT_DIGIT_FOLLOWED_BY_LETTER"
+  | "COUNT_LETTER_PRECEDED_BY_DIGIT"
+  | "COUNT_VOWEL_FOLLOWED_BY_DIGIT"
+  | "COUNT_EVEN_DIGIT_PRECEDED_BY_SYMBOL"
+  | "NTH_LETTER_FROM_LEFT"
+  | "NTH_SYMBOL_FROM_RIGHT"
+  | "MIXED_GROUP_LETTERS_DIGITS_SYMBOLS_POSITION"
+  | "MIXED_GROUP_SYMBOLS_DIGITS_LETTERS_POSITION"
+  | "MIXED_SORT_LETTERS_IN_PLACE_POSITION"
+  | "MIXED_SORT_DIGITS_IN_PLACE_POSITION"
+  | "MIXED_REVERSE_LETTERS_IN_PLACE_POSITION"
+  | "MIXED_REVERSE_DIGITS_IN_PLACE_POSITION"
+  | "MIXED_SWAP_ADJACENT_POSITION"
+  | "MIXED_REVERSE_ALL_POSITION"
+  | "MIXED_REMOVE_CATEGORY_POSITION"
+  | "MIXED_POSITION_OF_TOKEN_AFTER_GROUP"
+  | "MIXED_COUNT_UNCHANGED_AFTER_TRANSFORM"
+  | "MIXED_COUNT_ADJACENCY_AFTER_TRANSFORM";
 
 export type AlpTransformId =
   | "REVERSE_ALL"
@@ -133,10 +200,7 @@ export interface AlpQuestionLogic {
   readonly transformId?: AlpTransformId;
 }
 
-export interface AlpOccurrenceRef {
-  readonly letter: string;
-  readonly occurrence: number;
-}
+export interface AlpOccurrenceRef { readonly letter: string; readonly occurrence: number; }
 
 export interface AlpInstanceData {
   readonly sequence?: readonly string[];
@@ -172,10 +236,7 @@ export interface AlpSolverResult {
   readonly workingSequence?: readonly string[];
 }
 
-export interface AlpOption {
-  readonly value: string;
-  readonly errorLabel: string | null;
-}
+export interface AlpOption { readonly value: string; readonly errorLabel: string | null; }
 
 export interface AlpDistractorAnalysis {
   readonly optionIndex: number;
@@ -220,7 +281,7 @@ export interface GeneratedAlpQuestion {
   readonly answer: string;
   readonly explanation: AlpExplanation;
   readonly metadata: {
-    readonly runtimeVersion: "ALP-001-RUNTIME-V2";
+    readonly runtimeVersion: "ALP-001-RUNTIME-V3";
     readonly localeMode: "TRANSLATABLE";
     readonly independentSolverVerified: true;
     readonly ambiguityAudit: "EXPLICIT_OPERATION_UNIQUE";
