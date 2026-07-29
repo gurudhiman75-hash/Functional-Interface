@@ -12,6 +12,7 @@ import {
   buildIntCp001ReadableStemSafe,
 } from "./cp001-readable-stem-builder-safe";
 import type { IntCp001ReadableStemPresentation } from "./cp001-readable-stem-builder";
+import { validateIntCp001ReadableStemCashFlow } from "./cp001-readable-stem-cash-flow-validator";
 import {
   getIntCp001ReadableReleaseId,
   INT_CP001_READABLE_STEM_PATCH_ID,
@@ -85,9 +86,19 @@ function validateReadableStem(
   previousStem: string,
   stem: string,
   presentation: IntCp001ReadableStemPresentation,
+  solveContract: string,
   language: IntCp001ReadableLanguage,
+  cashFlowDirection: "BORROWER_PAYS" | "INVESTOR_EARNS" | "NEUTRAL_MATH",
 ): string[] {
-  const errors = [...baseErrors];
+  const errors = [
+    ...baseErrors,
+    ...validateIntCp001ReadableStemCashFlow(
+      stem,
+      solveContract,
+      language,
+      cashFlowDirection,
+    ),
+  ];
   if (!stem.trim()) errors.push("Readable-stem candidate is empty.");
   if (stem === previousStem) errors.push("Readable-stem candidate did not supersede the approved stem.");
   if (stem.includes("**")) errors.push("Readable-stem candidate contains raw Markdown emphasis markers.");
@@ -122,7 +133,9 @@ export function generateIntCp001ReadableEnglishQuestion(
     approved.stem,
     built.stem,
     built.presentation,
+    approved.solveContract,
     "en",
+    built.cashFlowDirection,
   );
 
   return {
@@ -167,7 +180,9 @@ export function generateIntCp001ReadableLocalizedQuestion(
     approved.stem,
     built.stem,
     built.presentation,
+    approved.solveContract,
     locale,
+    built.cashFlowDirection,
   );
 
   return {
