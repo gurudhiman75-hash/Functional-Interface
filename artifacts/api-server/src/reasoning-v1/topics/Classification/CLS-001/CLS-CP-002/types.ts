@@ -48,7 +48,7 @@ export type ClsCp002RelationFact = {
   readonly predicate: string;
   readonly difficulty: ClsCp002Difficulty;
   readonly factRisk: "LOW" | "MEDIUM";
-  readonly sourceLibrary: "ANA-CP-001" | "ANA-CP-002" | "CLS-CP-001";
+  readonly sourceLibrary: "ANA-CP-001" | "ANA-CP-002" | "CLS-CP-001" | "CLS-CP-002";
 };
 
 export type ClsCp002PrototypeDefinition = {
