@@ -1,6 +1,6 @@
 # CLS-001 — Classification / Odd One Out
 
-Status: `CP001_CP002_MULTILINGUAL_FROZEN__CP003_CP004_ENGLISH_FROZEN`
+Status: `CP001_CP002_MULTILINGUAL_FROZEN__CP003_CP004_ENGLISH_FROZEN__CP005_ENGLISH_DISCOVERY_REVIEW`
 
 ## Product identity
 
@@ -43,7 +43,7 @@ No later `CLS-QL-*` identity is reserved.
 | `CLS-CP-002` | Semantic pair and relationship classification | `FROZEN_MULTILINGUAL_RUNTIME_PROOF` |
 | `CLS-CP-003` | Lexical, spelling and word-structure classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
 | `CLS-CP-004` | Number-property classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
-| `CLS-CP-005` | Number-pair, triple and set classification | Pending executable discovery |
+| `CLS-CP-005` | Number-pair, triple and set classification | `EXECUTABLE_ENGLISH_DISCOVERY__HUMAN_REVIEW_REQUIRED` |
 | `CLS-CP-006` | Alphabet, letter-pair and letter-class classification | Pending executable discovery |
 | `CLS-CP-007` | Letter-cluster and explicit word-pattern classification | Pending executable discovery |
 | `CLS-CP-008` | Mixed-token and bounded synthesis classification | Pending ownership audit |
@@ -106,6 +106,27 @@ Locale frozen:                   en-IN
 
 All source controls merge into `CLS-QL-007` because the answer object and proof contract remain one displayed number evaluated under one bounded conventional property. Arbitrary formula fitting is prohibited.
 
+### CLS-CP-005
+
+```text
+Temporary prototypes:                 20
+Bounded pair rules:                   10
+Bounded triple rules:                  8
+Task directions:                       3
+Provisional learner-contract shapes:   2
+Permanent QLs:                         0
+Audit questions:                    1200
+Unique visible questions:           1200
+Review questions:                     60
+Option counts:                    4 and 5
+Difficulties:          EASY, MEDIUM, HARD
+Locale:                              en-IN
+```
+
+The executable wave covers odd ordered pairs, odd ordered triples and reference-set matching. Every displayed state is independently re-solved against the complete eighteen-rule registry. A presentation-quality layer rejects reversed or permuted duplicate options, repeated-number giveaways, permutation-only reference matches and answers made obvious by numerical scale.
+
+The preliminary merge/split audit provisionally merges pair and triple arity inside one odd-number-tuple contract. Reference-set matching remains a separate candidate contract because it changes the displayed state, match semantics and proof. These are discovery findings only; no permanent QL is allocated before human review and source-gap closure.
+
 ## Strict chapter boundary
 
 CLS-001 owns questions whose final task is classification by a visible or inferable common property or option-local relation.
@@ -131,7 +152,9 @@ It excludes:
 - `CLS-CP-002/CLS-CP-002-FINAL-MULTILINGUAL-FREEZE.md`
 - `CLS-CP-003/CLS-CP-003-FINAL-ENGLISH-FREEZE.md`
 - `CLS-CP-004/CLS-CP-004-FINAL-ENGLISH-FREEZE.md`
+- `CLS-CP-005/CLS-CP-005-EXECUTABLE-DISCOVERY-PLAN.md`
+- `CLS-CP-005/CLS-CP-005-PRELIMINARY-MERGE-SPLIT-AUDIT.md`
 
 ## Release locks
 
-CP-001 and CP-002 are frozen multilingual review-only proofs. CP-003 and CP-004 are frozen English review-only proofs. None are wired to Question Studio, Question Bank, tests or public publication.
+CP-001 and CP-002 are frozen multilingual review-only proofs. CP-003 and CP-004 are frozen English review-only proofs. CP-005 is English executable discovery awaiting human review and permanent-boundary closure. None are wired to Question Studio, Question Bank, tests or public publication.
