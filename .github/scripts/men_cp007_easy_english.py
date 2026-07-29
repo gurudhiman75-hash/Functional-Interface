@@ -29,8 +29,7 @@ def patch_runtime(path: Path, editorial_import: str) -> None:
         if path.parent.name == "foundation":
             anchor = "  const { options, traps } = buildOptions(draft, optionRng);"
         else:
-            prototype = path.parent.name.replace("gap-wave-", "Wave0")
-            anchor = f"  const {{ options, traps }} = buildOptions(draft, createSeededRandom(`${{prototypeId}}:${{seed}}:options`));"
+            anchor = "  const { options, traps } = buildOptions(draft, createSeededRandom(`${prototypeId}:${seed}:options`));"
         polished_block = anchor + "\n" + """  const polished = polishMenCp007English({
     stem: draft.stem,
     options,
@@ -41,9 +40,20 @@ def patch_runtime(path: Path, editorial_import: str) -> None:
   });"""
         text = replace_once(text, anchor, polished_block, f"{path} polished block")
 
-    text = replace_once(text, "    stem: draft.stem,", "    stem: polished.stem,", f"{path} polished stem")
-    text = replace_once(text, "    options,\n    correctIndex,", "    options: polished.options,\n    correctIndex,", f"{path} polished options")
-    text = replace_once(text, "    answer: options[correctIndex]!.display,", "    answer: polished.options[correctIndex]!.display,", f"{path} polished answer")
+    original_package_fields = """    target: draft.state.target,
+    stem: draft.stem,
+    options,
+    correctIndex,
+    answer: options[correctIndex]!.display,"""
+    polished_package_fields = """    target: draft.state.target,
+    stem: polished.stem,
+    options: polished.options,
+    correctIndex,
+    answer: polished.options[correctIndex]!.display,"""
+    if original_package_fields in text:
+        text = replace_once(text, original_package_fields, polished_package_fields, f"{path} learner-facing package fields")
+    elif polished_package_fields not in text:
+        raise SystemExit(f"{path}: final learner-facing package block not found")
 
     multiline_explanation = """    explanation: {
       keyRule: draft.keyRule,
