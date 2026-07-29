@@ -16,7 +16,7 @@ on:
 jobs:
   cp003-shared-family-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 55
+    timeout-minutes: 60
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -61,6 +61,11 @@ jobs:
         continue-on-error: true
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-teacher-editorial.test.ts > cp003-teacher-editorial.log 2>&1
 
+      - name: Run CP-003 competitive-exam derived-only gate
+        id: cp003_competitive
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-competitive-review-v4.test.ts > cp003-competitive.log 2>&1
+
       - name: Run CP-003 merge and split audit
         id: cp003_merge_split
         continue-on-error: true
@@ -89,6 +94,7 @@ jobs:
             cp003-source-gap.log
             cp003-editorial.log
             cp003-teacher-editorial.log
+            cp003-competitive.log
             cp003-merge-split.log
             cp003-inverse.log
             cp003-export.log
@@ -144,6 +150,12 @@ jobs:
         if: steps.cp003_teacher_editorial.outcome == 'failure'
         run: |
           cat cp003-teacher-editorial.log
+          exit 1
+
+      - name: Enforce CP-003 competitive-exam result
+        if: steps.cp003_competitive.outcome == 'failure'
+        run: |
+          cat cp003-competitive.log
           exit 1
 
       - name: Enforce CP-003 merge and split result
