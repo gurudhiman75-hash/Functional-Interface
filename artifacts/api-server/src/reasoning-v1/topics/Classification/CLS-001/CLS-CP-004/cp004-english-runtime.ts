@@ -23,7 +23,7 @@ function optionCountForSeed(seed: number): 4 | 5 {
 function simpleShortcut(question: GeneratedClsCp004Question): string {
   const divisor = clsCp004DivisorForRule(question.intendedRuleId);
   if (divisor !== null) {
-    return `Use the divisibility rule for ${divisor}. Do not divide every number fully.`;
+    return `Use the quick divisibility rule for ${divisor} instead of long division.`;
   }
   switch (question.intendedRuleId) {
     case "DIGIT_COUNT":
@@ -31,7 +31,7 @@ function simpleShortcut(question: GeneratedClsCp004Question): string {
     case "PARITY":
       return "Check the last digit only. 0, 2, 4, 6 and 8 mean the number is even.";
     case "PRIMALITY_CLASS":
-      return "Try dividing by small prime numbers up to the square root. Stop when one divides exactly.";
+      return "Try small prime divisors up to the square root. If none divides exactly, the number is prime.";
     case "PERFECT_SQUARE_STATUS":
       return "Compare the options with familiar squares such as 4, 9, 16, 25, 36 and 49.";
     case "PERFECT_CUBE_STATUS":
@@ -49,7 +49,7 @@ function simpleShortcut(question: GeneratedClsCp004Question): string {
     case "NEAR_POWER_CLASS":
       return "Find the nearest square or cube. Check whether the number is one more or one less.";
     case "TRIANGULAR_STATUS":
-      return "Check the running totals 1, 3, 6, 10, 15, 21 and so on, or use n × (n + 1) ÷ 2.";
+      return "Build running totals: 1, 3, 6, 10, 15, 21 and so on. A matching number is triangular.";
     default:
       return "Work out the same number fact for every option, write it down, and choose the different result.";
   }
