@@ -1,4 +1,4 @@
-name: Remediate TMW CP-006 CP-007 trap language
+name: Calibrate TMW English target syntax
 
 on:
   pull_request:
@@ -12,73 +12,34 @@ permissions:
   contents: write
 
 jobs:
-  remediate:
+  calibrate-target:
     if: github.head_ref == 'audit/tmw-001-english-gap-freeze'
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 5
     steps:
       - name: Checkout audit branch
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: audit/tmw-001-english-gap-freeze
-      - name: Humanise option-specific trap commands
+      - name: Patch and commit target syntax rule
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           from pathlib import Path
-          replacements = {
-            'foundation/cp006-exam-language.ts': [
-              ('return {...trap,explanation:`Do not choose ${trap.optionLabel} (${trap.optionText}). ${warning}`};', 'return {...trap,explanation:`Don\'t fall for ${trap.optionLabel} (${trap.optionText})! ${warning}`};'),
-            ],
-            'foundation/cp006-runtime.ts': [
-              ('if(!explanation.commonTrap.explanation.startsWith(`Do not choose ${explanation.commonTrap.optionLabel}`))errors.push("Common-trap warning is not student-friendly or option-specific");', 'if(!explanation.commonTrap.explanation.startsWith(`Don\'t fall for ${explanation.commonTrap.optionLabel} (${explanation.commonTrap.optionText})!`))errors.push("Common-trap warning is not student-friendly or option-specific");'),
-            ],
-            'foundation/cp007-exam-language.ts': [
-              ('return {...trap,explanation:`Do not choose ${trap.optionLabel} (${trap.optionText}). ${warning}`};', 'return {...trap,explanation:`Don\'t fall for ${trap.optionLabel} (${trap.optionText})! ${warning}`};'),
-            ],
-            'foundation/cp007-runtime.ts': [
-              ('if(!commonTrap.explanation.startsWith(`Do not choose ${commonTrap.optionLabel}`))errors.push("Common-trap warning is not student-friendly or option-specific");', 'if(!commonTrap.explanation.startsWith(`Don\'t fall for ${commonTrap.optionLabel} (${commonTrap.optionText})!`))errors.push("Common-trap warning is not student-friendly or option-specific");'),
-            ],
-          }
-          root = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001')
-          for relative, pairs in replacements.items():
-              path = root / relative
-              text = path.read_text()
-              for old, new in pairs:
-                  if old not in text:
-                      raise SystemExit(f'anchor not found in {relative}: {old}')
-                  text = text.replace(old, new, 1)
-              path.write_text(text)
+          path = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-audit.ts')
+          text = path.read_text()
+          old = '      if (!stem || !stem.endsWith("?")) blocker("STEM_TARGET_PUNCTUATION", "Stem is empty or does not end as a direct question.", { cpId: adapter.cpId, qlId: entry.qlId, seed, sample: stem });'
+          new = '''      const lastSentence = stem.split(/(?<=[.!?])\\s+/).at(-1) ?? stem;
+      const hasExplicitTarget = stem.endsWith("?") || /^(?:How|What|Which|Who|When|Where|Find|Calculate|Determine|State|Identify|Choose|Work out)\\b/i.test(lastSentence);
+      if (!stem || !hasExplicitTarget) blocker("STEM_TARGET_SYNTAX", "Stem does not end with an explicit interrogative or imperative target.", { cpId: adapter.cpId, qlId: entry.qlId, seed, sample: stem });'''
+          if old not in text:
+              raise SystemExit('target-rule anchor not found')
+          path.write_text(text.replace(old, new, 1))
           PY
-      - name: Install locked workspace dependencies
-        run: |
-          corepack enable
-          pnpm install --frozen-lockfile
-      - name: Validate CP-006 CP-007 and chapter audit
-        shell: bash
-        run: |
-          set -euo pipefail
-          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp006.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-cp006.trap.mjs
-          node artifacts/api-server/dist/quant-v4/tmw-001-cp006.trap.mjs
-          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp007.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-cp007.trap.mjs
-          node artifacts/api-server/dist/quant-v4/tmw-001-cp007.trap.mjs
-          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-english-gap-audit.trap.mjs
-          (cd artifacts/api-server && node dist/quant-v4/tmw-001-english-gap-audit.trap.mjs || true)
-          node - <<'NODE'
-          const fs = require('node:fs');
-          const report = JSON.parse(fs.readFileSync('artifacts/api-server/dist/quant-v4/tmw-001-english-gap-audit.json', 'utf8'));
-          if (report.summary.hardFailures !== 0) throw new Error(`chapter audit has ${report.summary.hardFailures} hard failures`);
-          const negative = report.findings.filter((finding) => finding.code === 'CP_NEGATIVE_TRAP_COMMANDS');
-          if (negative.length !== 0) throw new Error(`negative trap blockers remain: ${JSON.stringify(negative)}`);
-          NODE
-      - name: Commit friendly trap remediation
-        shell: bash
-        run: |
-          set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp006-exam-language.ts artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp006-runtime.ts artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp007-exam-language.ts artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp007-runtime.ts
-          git commit -m 'fix(tmw): humanise CP-006 CP-007 trap advice'
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-audit.ts
+          git commit -m 'fix(tmw): accept imperative English targets in audit'
           git push origin HEAD:audit/tmw-001-english-gap-freeze
