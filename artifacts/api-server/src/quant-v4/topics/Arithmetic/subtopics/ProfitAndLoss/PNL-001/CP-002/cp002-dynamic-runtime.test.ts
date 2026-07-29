@@ -22,6 +22,16 @@ const seeds = Array.from(
 const difficultyCounts = { Easy: 0, Medium: 0, Hard: 0 };
 let generatedCount = 0;
 
+function normalizedWorkingParagraph(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/₹\s*[\d,.]+(?:\.\d+)?/g, "₹#")
+    .replace(/\b\d+(?:\.\d+)?%/g, "#%")
+    .replace(/\b\d+(?:\.\d+)?\b/g, "#")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 for (const qlId of qlIds) {
   const stems = new Set<string>();
   const answers = new Set<string>();
@@ -65,6 +75,17 @@ for (const qlId of qlIds) {
       pkg.explanation.lines.length >= 4,
       `${qlId}: explanation is unexpectedly short.`,
     );
+    const explanation = pkg.explanation.lines.join("\n\n");
+    assert.doesNotMatch(
+      explanation,
+      /The generated offer is evaluated in the exact order/,
+      `${qlId}: generic CP-wide explanation tail returned.`,
+    );
+    assert.match(
+      explanation,
+      /\*\*Generated-value check:\*\*/,
+      `${qlId}: generated-value working paragraph is missing.`,
+    );
 
     const prose = `${pkg.stem}\n${pkg.explanation.lines.join("\n")}`
       .replace(/\\\[[\s\S]*?\\\]/g, "")
@@ -107,6 +128,30 @@ for (const qlId of qlIds) {
       `${qlId}: seed sweep did not vary the generated answer.`,
     );
   }
+}
+
+const workingFingerprintOwners = new Map<string, string[]>();
+for (const qlId of qlIds) {
+  const pkg = runPnlCp002DynamicPipeline({
+    questionLanguageId: qlId,
+    language: "en",
+    seed: "cp002-working-fingerprint",
+  });
+  const working = pkg.explanation.lines.find((line) =>
+    line.includes("Generated-value check:"),
+  );
+  assert.ok(working, `${qlId}: working paragraph is missing.`);
+  const fingerprint = normalizedWorkingParagraph(working);
+  workingFingerprintOwners.set(fingerprint, [
+    ...(workingFingerprintOwners.get(fingerprint) ?? []),
+    qlId,
+  ]);
+}
+for (const owners of workingFingerprintOwners.values()) {
+  assert.ok(
+    owners.length <= 2,
+    `Generated working is shared by too many QLs: ${owners.join(", ")}`,
+  );
 }
 
 const ql070 = runPnlCp002DynamicPipeline({
