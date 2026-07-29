@@ -109,11 +109,11 @@ for (let qlNumber = 107; qlNumber <= 269; qlNumber += 1) {
       assert.equal(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/.test(learnerText), false, `${context}: hidden control character`);
       assert.equal(/\b(?:how|many|ways|among|from|must|where|when|people|objects|boxes|groups|committee|selected|arranged|option)\b/i.test(plainLearnerText), false, `${context}: English learner-text leakage`);
       if (locale === "hi-IN") {
-        assert.equal(/[\u0900-\u097F]/u.test(plainLearnerText), true, `${context}: Hindi script required`);
-        assert.equal(/[\u0A00-\u0A7F]/u.test(plainLearnerText), false, `${context}: Gurmukhi leakage into Hindi`);
+        assert.equal(/\p{Script=Devanagari}/u.test(plainLearnerText), true, `${context}: Hindi script required`);
+        assert.equal(/\p{Script=Gurmukhi}/u.test(plainLearnerText), false, `${context}: Gurmukhi-letter leakage into Hindi`);
       } else {
-        assert.equal(/[\u0A00-\u0A7F]/u.test(plainLearnerText), true, `${context}: Gurmukhi script required`);
-        assert.equal(/[\u0900-\u097F]/u.test(plainLearnerText), false, `${context}: Devanagari leakage into Punjabi`);
+        assert.equal(/\p{Script=Gurmukhi}/u.test(plainLearText), true, `${context}: Gurmukhi script required`);
+        assert.equal(/\p{Script=Devanagari}/u.test(plainLearText), false, `${context}: Devanagari-letter leakage into Punjabi`);
       }
       auditedPackages += 1;
     }
