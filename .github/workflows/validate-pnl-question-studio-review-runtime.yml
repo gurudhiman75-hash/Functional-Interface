@@ -1,36 +1,18 @@
-name: Validate PNL-001 Question Studio runtimes
+name: Apply PNL QL-070 generator authority fix
 
 on:
   push:
     branches:
-      - feat/pnl-001-question-studio-review-runtime
-      - feat/pnl-001-cp001-question-studio-dynamic-review
-      - feat/pnl-001-cp002-question-studio-dynamic-review
       - feat/pnl-001-ql070-data-sufficiency
     paths:
-      - "artifacts/api-server/src/quant-v4/generation-engine.ts"
-      - "artifacts/api-server/src/quant-v4/generation-engine-core.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
-      - "artifacts/api-server/src/routes/generator.ts"
-      - "artifacts/api-server/src/routes/admin-question-studio.ts"
-      - "artifacts/api-server/src/lib/admin-question-conversion.ts"
-      - ".github/workflows/validate-pnl-question-studio-review-runtime.yml"
-  pull_request:
-    paths:
-      - "artifacts/api-server/src/quant-v4/generation-engine.ts"
-      - "artifacts/api-server/src/quant-v4/generation-engine-core.ts"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
-      - "artifacts/api-server/src/routes/generator.ts"
-      - "artifacts/api-server/src/routes/admin-question-studio.ts"
-      - "artifacts/api-server/src/lib/admin-question-conversion.ts"
       - ".github/workflows/validate-pnl-question-studio-review-runtime.yml"
 
 permissions:
   contents: write
 
 jobs:
-  apply-ql070-generator-fix:
-    if: github.ref == 'refs/heads/feat/pnl-001-ql070-data-sufficiency'
+  apply-generator-fix:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -62,55 +44,55 @@ jobs:
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-legacy-builder.ts \
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-multilingual-normalizer.ts
 
-      - name: Prepare legacy editorial bundle paths
+      - name: Prepare legacy bundle paths
         run: |
           root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
           ln -s ../CP-001 "$root/foundation/CP-001"
           ln -s ../CP-002 "$root/foundation/CP-002"
           ln -s ../CP-003 "$root/foundation/CP-003"
 
-      - name: Regenerate English source authority
+      - name: Regenerate committed English source
         run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-cp001-cp003-export.ts \
             --bundle --platform=node --format=esm \
-            --outfile=/tmp/pnl-editorial-v2-cp001-cp003-export.mjs
-          node /tmp/pnl-editorial-v2-cp001-cp003-export.mjs
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-export.mjs
+          node "$root/foundation/.editorial-v2-cp001-cp003-export.mjs"
           cp \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-generated/CP-002.editorial-content.en.json \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/editorial-content.en.json
+            "$root/foundation/.editorial-v2-generated/CP-002.editorial-content.en.json" \
+            "$root/CP-002/editorial-content.en.json"
 
-      - name: Regenerate Hindi and Punjabi source authority
+      - name: Regenerate committed Hindi and Punjabi sources
         run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-multilingual-export.ts \
             --bundle --platform=node --format=esm \
-            --outfile=/tmp/pnl-editorial-v2-multilingual-export.mjs
-          node /tmp/pnl-editorial-v2-multilingual-export.mjs
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-export.mjs
+          node "$root/.editorial-v2-multilingual-export.mjs"
           cp \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-generated/CP-002.editorial-content.hi.json \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/editorial-content.hi.json
+            "$root/.editorial-v2-multilingual-generated/CP-002.editorial-content.hi.json" \
+            "$root/CP-002/editorial-content.hi.json"
           cp \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-generated/CP-002.editorial-content.pa.json \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/editorial-content.pa.json
+            "$root/.editorial-v2-multilingual-generated/CP-002.editorial-content.pa.json" \
+            "$root/CP-002/editorial-content.pa.json"
 
-      - name: Prove English generator parity
+      - name: Prove English and multilingual source parity
         run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-cp001-cp003-audit.ts \
             --bundle --platform=node --format=esm \
-            --outfile=/tmp/pnl-editorial-v2-cp001-cp003-audit.mjs
-          node /tmp/pnl-editorial-v2-cp001-cp003-audit.mjs
-
-      - name: Prove multilingual generator parity
-        run: |
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-audit.mjs
+          node "$root/foundation/.editorial-v2-cp001-cp003-audit.mjs"
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-multilingual-source-parity.ts \
             --bundle --platform=node --format=esm \
-            --outfile=/tmp/pnl-editorial-v2-multilingual-source-parity.mjs
-          node /tmp/pnl-editorial-v2-multilingual-source-parity.mjs
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-source-parity.mjs
+          node "$root/.editorial-v2-multilingual-source-parity.mjs"
 
-      - name: Re-run QL-070 dynamic and integration proofs
+      - name: Re-run QL-070 runtime proofs
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime.test.ts \
@@ -123,82 +105,21 @@ jobs:
             --outfile=/tmp/pnl-question-studio-integration.test.mjs
           node /tmp/pnl-question-studio-integration.test.mjs
 
-      - name: Commit authoritative generator correction
+      - name: Commit validated authority alignment
         run: |
           root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
           rm -f "$root/foundation/CP-001" "$root/foundation/CP-002" "$root/foundation/CP-003"
-          rm -rf "$root/.editorial-v2-generated" "$root/.editorial-v2-multilingual-generated"
+          rm -rf "$root/foundation/.editorial-v2-generated" "$root/.editorial-v2-multilingual-generated"
+          rm -f \
+            "$root/foundation/.editorial-v2-cp001-cp003-export.mjs" \
+            "$root/foundation/.editorial-v2-cp001-cp003-audit.mjs" \
+            "$root/.editorial-v2-multilingual-export.mjs" \
+            "$root/.editorial-v2-multilingual-source-parity.mjs" \
+            "$root/pnl-ql070-generator-fix.mjs"
           git fetch origin New-main
           git checkout origin/New-main -- .github/workflows/validate-pnl-question-studio-review-runtime.yml
-          rm -f "$root/pnl-ql070-generator-fix.mjs"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           git commit -m "fix(pnl): align QL-070 editorial generators"
           git push origin HEAD:feat/pnl-001-ql070-data-sufficiency
-
-  validate-review-runtime:
-    if: github.ref != 'refs/heads/feat/pnl-001-ql070-data-sufficiency'
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Enable pnpm
-        run: |
-          corepack enable
-          corepack prepare pnpm@10.33.0 --activate
-
-      - name: Install locked workspace dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Bundle and run canonical review proof
-        run: |
-          set -o pipefail
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-review-runtime.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-review-runtime.test.mjs \
-            2>&1 | tee pnl-question-studio-review-runtime.log
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-review-runtime.test.mjs \
-            2>&1 | tee -a pnl-question-studio-review-runtime.log
-
-      - name: Bundle and run shared routing and safety proof
-        run: |
-          set -o pipefail
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-integration.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-integration.test.mjs \
-            2>&1 | tee pnl-question-studio-integration.log
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-integration.test.mjs \
-            2>&1 | tee -a pnl-question-studio-integration.log
-
-      - name: Bundle and run CP-002 dynamic routing proof
-        run: |
-          set -o pipefail
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-cp002-dynamic-integration.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-cp002-dynamic-integration.test.mjs \
-            2>&1 | tee pnl-question-studio-cp002-dynamic-integration.log
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-cp002-dynamic-integration.test.mjs \
-            2>&1 | tee -a pnl-question-studio-cp002-dynamic-integration.log
-
-      - name: Upload runtime proof
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: pnl-question-studio-runtime-proof
-          path: |
-            pnl-question-studio-review-runtime.log
-            pnl-question-studio-integration.log
-            pnl-question-studio-cp002-dynamic-integration.log
-          if-no-files-found: error
-          retention-days: 7
