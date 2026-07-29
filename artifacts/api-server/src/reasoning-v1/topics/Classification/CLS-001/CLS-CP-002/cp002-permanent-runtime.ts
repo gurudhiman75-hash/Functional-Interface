@@ -44,7 +44,7 @@ export type GeneratedClsCp002EnglishQuestion = Omit<
   readonly lifecycle: ClsCp002ProvisionalLifecycle;
 };
 
-const SOURCE_SEED_STRIDE = 48;
+const SOURCE_SEED_STRIDE = 512;
 const MAX_LOCALIZATION_SAFE_ATTEMPTS = SOURCE_SEED_STRIDE;
 
 function hashText(text: string): number {
