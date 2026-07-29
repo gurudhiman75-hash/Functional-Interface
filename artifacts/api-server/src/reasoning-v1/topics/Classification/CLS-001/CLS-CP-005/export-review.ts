@@ -1,14 +1,14 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { generateClsCp005QualityQuestion } from "./quality-runtime";
 import { CLS_CP005_PROTOTYPES } from "./relation-registry";
-import { generateClsCp005DiscoveryQuestion } from "./runtime";
 import { displayClsCp005Tuple } from "./tuple-domain";
 
 const outputDir = path.resolve(process.cwd(), "dist/reasoning-v1/cls-001/cp005-review");
 const questions = CLS_CP005_PROTOTYPES.flatMap((prototype, prototypeIndex) =>
   Array.from({ length: 3 }, (_, sampleIndex) => {
     const seed = 20_000 + prototypeIndex * 101 + sampleIndex * 29;
-    return generateClsCp005DiscoveryQuestion(
+    return generateClsCp005QualityQuestion(
       prototype.prototypeId,
       seed,
       sampleIndex === 2 ? 5 : 4,
@@ -18,7 +18,7 @@ const questions = CLS_CP005_PROTOTYPES.flatMap((prototype, prototypeIndex) =>
 
 const prototypeById = new Map(CLS_CP005_PROTOTYPES.map((prototype) => [prototype.prototypeId, prototype]));
 const markdown = [
-  "# CLS-CP-005 English Discovery Review",
+  "# CLS-CP-005 English Discovery Review — Presentation Quality V1",
   "",
   `Questions: ${questions.length}`,
   `Temporary prototypes: ${CLS_CP005_PROTOTYPES.length}`,
@@ -27,6 +27,8 @@ const markdown = [
   "Question Studio: disabled",
   "Question Bank: disabled",
   "Test/publication eligibility: disabled",
+  "",
+  "Presentation-quality rules: no reversed/permuted duplicate options, no repeated number within a tuple, no permutation-only match to the reference set, and no extreme numerical-scale giveaway.",
   "",
   ...questions.flatMap((question, index) => {
     const prototype = prototypeById.get(question.prototypeId)!;
@@ -70,12 +72,16 @@ const markdown = [
       "<summary>Reviewer metadata</summary>",
       "",
       `- Seed: ${question.seed}`,
+      `- Source prototype seed: ${question.metadata.sourcePrototypeSeed}`,
       `- Intended rule: ${question.intendedRuleId}`,
       `- Intended value: ${question.intendedRuleValue}`,
       `- Arity: ${question.arity}`,
       `- Option count: ${question.options.length}`,
       `- Competing supports: ${question.ambiguityAudit.candidateSupports.length}`,
-      `- Audit result: ${question.ambiguityAudit.result}`,
+      `- Ambiguity result: ${question.ambiguityAudit.result}`,
+      `- Presentation result: ${question.presentationQualityAudit.result}`,
+      `- Maximum-value ratio: ${question.presentationQualityAudit.maximumValueRatio.toFixed(2)}`,
+      `- Tuple-total ratio: ${question.presentationQualityAudit.tupleTotalRatio.toFixed(2)}`,
       `- Difficulty features: \`${JSON.stringify(question.difficultyFeatures)}\``,
       "",
       "</details>",
@@ -90,7 +96,7 @@ await mkdir(outputDir, { recursive: true });
 await writeFile(path.join(outputDir, "cls-cp005-english-discovery-review.json"), `${JSON.stringify(questions, null, 2)}\n`, "utf8");
 await writeFile(path.join(outputDir, "cls-cp005-english-discovery-review.md"), `${markdown}\n`, "utf8");
 
-console.log("CLS-CP-005 English discovery review written.", {
+console.log("CLS-CP-005 presentation-safe English discovery review written.", {
   outputDir,
   questions: questions.length,
   prototypes: CLS_CP005_PROTOTYPES.length,
@@ -98,4 +104,5 @@ console.log("CLS-CP-005 English discovery review written.", {
   rules: [...new Set(questions.map((question) => question.intendedRuleId))].sort(),
   optionCounts: [...new Set(questions.map((question) => question.options.length))].sort(),
   difficulties: [...new Set(questions.map((question) => question.difficulty))].sort(),
+  maximumSourceAttempts: Math.max(...questions.map((question) => Math.floor((question.metadata.sourcePrototypeSeed - question.seed) / 10_007))),
 });
