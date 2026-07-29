@@ -1,10 +1,13 @@
 import assert from "node:assert/strict";
 import { independentlyVerifyClsCp005Question } from "./audit";
 import {
+  auditClsCp005PresentationQuality,
+  generateClsCp005QualityQuestion,
+} from "./quality-runtime";
+import {
   CLS_CP005_PROTOTYPES,
   CLS_CP005_RULE_IDS,
 } from "./relation-registry";
-import { generateClsCp005DiscoveryQuestion } from "./runtime";
 
 const QUESTIONS_PER_PROTOTYPE = 60;
 const fingerprints = new Set<string>();
@@ -14,15 +17,16 @@ const taskCoverage = new Set<string>();
 const difficultyCoverage = new Set<string>();
 const optionCountCoverage = new Set<number>();
 const answerPositions = [0, 0, 0, 0, 0];
-const stemCoverage = new Map<string, Set<string>>();
+const stemCounts = new Map<string, Map<string, number>>();
+let maximumSourceAttempts = 0;
 
 for (const prototype of CLS_CP005_PROTOTYPES) {
-  const stems = new Set<string>();
-  stemCoverage.set(prototype.prototypeId, stems);
+  const counts = new Map<string, number>();
+  stemCounts.set(prototype.prototypeId, counts);
   for (let seed = 0; seed < QUESTIONS_PER_PROTOTYPE; seed += 1) {
     const optionCount = seed % 3 === 0 ? 5 : 4;
-    const question = generateClsCp005DiscoveryQuestion(prototype.prototypeId, seed, optionCount);
-    const replay = generateClsCp005DiscoveryQuestion(prototype.prototypeId, seed, optionCount);
+    const question = generateClsCp005QualityQuestion(prototype.prototypeId, seed, optionCount);
+    const replay = generateClsCp005QualityQuestion(prototype.prototypeId, seed, optionCount);
     assert.deepEqual(question, replay, `${prototype.prototypeId}/${seed} is not deterministic`);
 
     assert.equal(question.checkpointId, "CLS-CP-005");
@@ -46,7 +50,17 @@ for (const prototype of CLS_CP005_PROTOTYPES) {
     } else {
       assert.equal(question.referenceTuple, null);
     }
-    for (const tuple of question.tuples) assert.equal(tuple.length, question.arity);
+    for (const tuple of question.tuples) {
+      assert.equal(tuple.length, question.arity);
+      assert.equal(new Set(tuple).size, tuple.length, `${prototype.prototypeId}/${seed} repeats a number inside ${tuple.join(",")}`);
+    }
+
+    const quality = auditClsCp005PresentationQuality(question);
+    assert.equal(quality.result, "PASS", `${prototype.prototypeId}/${seed}: ${quality.reasons.join("; ")}`);
+    assert.deepEqual(question.presentationQualityAudit, quality);
+    assert.equal(new Set(quality.unorderedTupleKeys).size, optionCount);
+    assert.ok(quality.maximumValueRatio <= 12);
+    assert.ok(quality.tupleTotalRatio <= 10);
 
     const independent = independentlyVerifyClsCp005Question(question);
     assert.equal(independent.result, "UNIQUE");
@@ -57,6 +71,12 @@ for (const prototype of CLS_CP005_PROTOTYPES) {
     assert.equal(question.questionStudioVisible, false);
     assert.equal(question.metadata.datasetVersion, "CLS-CP005-TUPLE-DOMAIN-v1");
     assert.equal(question.metadata.runtimeVersion, "cls-cp005-discovery-v1");
+    assert.equal(question.metadata.qualityVersion, "cls-cp005-presentation-quality-v1");
+    assert.ok(Number.isSafeInteger(question.metadata.sourcePrototypeSeed));
+    maximumSourceAttempts = Math.max(
+      maximumSourceAttempts,
+      Math.floor((question.metadata.sourcePrototypeSeed - seed) / 10_007),
+    );
     assert.equal(question.metadata.locale, "en-IN");
     assert.equal(question.metadata.sourceSaturationStatus, "INITIAL_SOURCE_PASS_COMPLETE__GAP_AUDIT_OPEN");
     assert.equal(question.lifecycle.permanentQlId, null);
@@ -93,7 +113,7 @@ for (const prototype of CLS_CP005_PROTOTYPES) {
       tuples: question.tuples,
       answer: question.answer,
     }));
-    stems.add(question.stem);
+    counts.set(question.stem, (counts.get(question.stem) ?? 0) + 1);
     prototypeCoverage.set(prototype.prototypeId, (prototypeCoverage.get(prototype.prototypeId) ?? 0) + 1);
     ruleCoverage.add(question.intendedRuleId);
     taskCoverage.add(question.task);
@@ -115,21 +135,17 @@ assert.deepEqual(optionCountCoverage, new Set([4, 5]));
 assert.deepEqual(difficultyCoverage, new Set(["EASY", "MEDIUM", "HARD"]));
 assert.ok(answerPositions.every((count) => count > 0));
 assert.ok(fingerprints.size >= 1050, `CLS-CP-005 diversity is too low: ${fingerprints.size}/1200`);
-for (const [prototypeId, stems] of stemCoverage) {
-  assert.ok(stems.size >= 4, `${prototypeId} has only ${stems.size} stem forms`);
-  const countByStem = [...stems].map((stem) => {
-    let count = 0;
-    for (let seed = 0; seed < QUESTIONS_PER_PROTOTYPE; seed += 1) {
-      if (generateClsCp005DiscoveryQuestion(prototypeId as never, seed, seed % 3 === 0 ? 5 : 4).stem === stem) count += 1;
-    }
-    return count;
-  });
-  assert.ok(Math.max(...countByStem) <= Math.ceil(QUESTIONS_PER_PROTOTYPE * 0.45));
+for (const [prototypeId, counts] of stemCounts) {
+  assert.ok(counts.size >= 4, `${prototypeId} has only ${counts.size} stem forms`);
+  assert.ok(
+    Math.max(...counts.values()) <= Math.ceil(QUESTIONS_PER_PROTOTYPE * 0.45),
+    `${prototypeId} has a dominant stem: ${JSON.stringify(Object.fromEntries(counts))}`,
+  );
 }
-assert.throws(() => generateClsCp005DiscoveryQuestion("CLS-CP005-PROT-999" as never, 0));
-assert.throws(() => generateClsCp005DiscoveryQuestion("CLS-CP005-PROT-001", -1));
+assert.throws(() => generateClsCp005QualityQuestion("CLS-CP005-PROT-999" as never, 0));
+assert.throws(() => generateClsCp005QualityQuestion("CLS-CP005-PROT-001", -1));
 
-console.log("CLS-CP-005 number-tuple discovery audit passed.", {
+console.log("CLS-CP-005 number-tuple quality discovery audit passed.", {
   generated: CLS_CP005_PROTOTYPES.length * QUESTIONS_PER_PROTOTYPE,
   uniqueVisibleQuestions: fingerprints.size,
   prototypes: prototypeCoverage.size,
@@ -138,5 +154,6 @@ console.log("CLS-CP-005 number-tuple discovery audit passed.", {
   difficulties: [...difficultyCoverage].sort(),
   optionCounts: [...optionCountCoverage].sort(),
   answerPositions,
-  minimumStemForms: Math.min(...[...stemCoverage.values()].map((stems) => stems.size)),
+  minimumStemForms: Math.min(...[...stemCounts.values()].map((counts) => counts.size)),
+  maximumSourceAttempts,
 });
