@@ -22,12 +22,13 @@ jobs:
         with:
           fetch-depth: 0
           ref: audit/tmw-001-english-gap-freeze
-      - name: Route CP-002 solution and options through shared formatter
+      - name: Route every CP-002 time label through shared formatter
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           from pathlib import Path
+          import re
           root = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation')
 
           solver = root / 'cp002-solver.ts'
@@ -54,6 +55,35 @@ jobs:
                   raise SystemExit(f'CP-002 options anchor not found: {old}')
               text = text.replace(old, new, 1)
           options.write_text(text)
+
+          presentation = root / 'cp002-presentation.ts'
+          text = presentation.read_text()
+          text = text.replace('import { formatRational } from "./rational";', 'import { formatRational, formatTimeText } from "./rational";', 1)
+          text = text.replace('import { required, timeUnitLabel } from "./cp001-helpers";', 'import { required } from "./cp001-helpers";', 1)
+          anchor = '''function agentLabel(noun: string, index: number): string {
+  return `${noun[0].toUpperCase()}${noun.slice(1)} ${LETTERS[index]}`;
+}
+'''
+          helper = anchor + '''
+function timeText(p: TmwCp002Parameters, value: Rational): string {
+  return formatTimeText(value, p.timeUnit, `${p.timeUnit}s`);
+}
+'''
+          if anchor not in text:
+              raise SystemExit('CP-002 presentation helper anchor not found')
+          text = text.replace(anchor, helper, 1)
+          pattern = re.compile(r'\$\{formatRational\(([^)]+)\)\} \$\{timeUnitLabel\(p\.timeUnit, ([^)]+)\)\}')
+          def replace_time(match):
+              left, right = match.group(1), match.group(2)
+              if left != right:
+                  raise SystemExit(f'CP-002 time expression mismatch: {left} != {right}')
+              return '${timeText(p, ' + left + ')}'
+          text, count = pattern.subn(replace_time, text)
+          if count < 15:
+              raise SystemExit(f'Expected at least 15 CP-002 stem time replacements, found {count}')
+          if 'timeUnitLabel(' in text:
+              raise SystemExit('CP-002 presentation still references timeUnitLabel')
+          presentation.write_text(text)
           PY
       - name: Install locked workspace dependencies
         run: |
@@ -80,6 +110,6 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp002-solver.ts artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp002-options.ts
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp002-solver.ts artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp002-options.ts artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp002-presentation.ts
           git commit -m 'fix(tmw): render CP-002 fractional times in MathJax'
           git push origin HEAD:audit/tmw-001-english-gap-freeze
