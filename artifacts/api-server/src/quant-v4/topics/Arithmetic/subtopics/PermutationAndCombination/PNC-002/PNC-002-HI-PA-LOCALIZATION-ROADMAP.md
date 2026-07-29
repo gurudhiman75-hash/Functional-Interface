@@ -1,91 +1,98 @@
-# PNC-002 Hindi and Punjabi Localisation Roadmap
+# PNC-002 Hindi and Punjabi Localisation Authority
 
 ## Objective
 
-Create natural, exam-appropriate Hindi and Punjabi learner presentations for all 163 English QLs in PNC-002 without changing the mathematical package.
+Provide natural, exam-appropriate Hindi and Punjabi learner presentations for all 163 English QLs in PNC-002 without changing the mathematical package.
 
 ## Non-negotiable invariants
 
 - Numeric options, correct index, answer and solver evidence remain authoritative and unchanged.
-- MathJax expressions remain language-neutral and byte-equivalent wherever the presentation stage reuses them.
+- MathJax expressions remain language-neutral and are preserved by the localisation layer.
 - Every localisation is parameter-safe across generated seeds.
-- Hindi and Punjabi text must be authored naturally; word-for-word translation is not accepted.
+- Hindi and Punjabi text is authored naturally rather than translated word for word.
 - Punjabi uses everyday competitive-exam wording and avoids unnecessarily technical Sanskritised vocabulary.
-- Every checkpoint remains `editorialStatus: PENDING` until manual review is explicitly approved.
 - Editorial approval does not make a checkpoint publicly publishable; registration and publication remain separate gates.
 
-## Localisation order
+## Completed checkpoint inventory
 
-1. `PNC-CP-007` — block restrictions and together/apart conditions (18 QLs)
-2. `PNC-CP-008` — positions, relative order, alternation and gaps (23 QLs)
-3. `PNC-CP-009` — category-based selections and committees (29 QLs)
-4. `PNC-CP-010` — circular arrangements and symmetry (32 QLs)
-5. `PNC-CP-011` — grouping and distribution (33 QLs)
-6. `PNC-CP-012` — mixed advanced counting systems (28 QLs)
+| Checkpoint | QL range | QLs | Approved release |
+|---|---:|---:|---|
+| `PNC-CP-007` | `PNC-QL-107..124` | 18 | `PNC-002-CP007-HI-PA-v1-APPROVED` |
+| `PNC-CP-008` | `PNC-QL-125..147` | 23 | `PNC-002-CP008-HI-PA-v1-APPROVED` |
+| `PNC-CP-009` | `PNC-QL-148..176` | 29 | `PNC-002-CP009-HI-PA-v1-APPROVED` |
+| `PNC-CP-010` | `PNC-QL-177..208` | 32 | `PNC-002-CP010-HI-PA-v1-APPROVED` |
+| `PNC-CP-011` | `PNC-QL-209..241` | 33 | `PNC-002-CP011-HI-PA-v1-APPROVED` |
+| `PNC-CP-012` | `PNC-QL-242..269` | 28 | `PNC-002-CP012-HI-PA-v1-APPROVED` |
+| **PNC-002 total** | `PNC-QL-107..269` | **163** | `PNC-002-HI-PA-v1-APPROVED-COMPLETE` |
 
-## Checkpoint acceptance gate
+## Chapter-wide approved authority
 
-Each checkpoint must prove:
+- Languages: `hi-IN`, `pa-IN`;
+- canonical problems: `PNC-CP-007` through `PNC-CP-012`;
+- QLs: `PNC-QL-107` through `PNC-QL-269`;
+- approved Hindi presentations: 163;
+- approved Punjabi presentations: 163;
+- total approved locale surfaces: 326;
+- editorial status: `APPROVED`;
+- public publication: `false`;
+- Question Studio registration: not added;
+- Question Bank storage: not added;
+- mock-test eligibility: not added;
+- approval date: `2026-07-29`.
 
-- complete QL inventory for both `hi-IN` and `pa-IN`;
-- preservation of all generated numeric tokens and formulas;
-- exact option and answer parity with English;
-- correct singular/plural learner-facing units;
+## Acceptance proof
+
+The permanent chapter-wide proof audits every QL in both locales across two deterministic seeds:
+
+```text
+163 QLs × 2 locales × 2 seeds = 652 approved packages
+```
+
+The proof requires:
+
+- complete and contiguous QL ownership;
+- valid English source runtime for every generated state;
+- exact four-option and answer-index parity;
+- preservation of every learner-visible numeric token;
+- preservation of learner-visible MathJax expressions;
 - four localised explanation sections;
 - numbered teacher-style steps;
-- three localised option-specific trap warnings;
-- no unresolved placeholders or English boilerplate leakage;
-- no duplicate normalised stems;
-- multiple-seed runtime validation;
-- manual-review export in JSON and CSV.
+- three option-specific localised trap warnings;
+- no unresolved localisation placeholders;
+- no English learner-text boilerplate;
+- Hindi/Punjabi script separation;
+- no hidden control characters;
+- `editorialStatus: APPROVED`;
+- `publiclyPublishable: false`.
 
-## Approved checkpoints
+## Editorial coverage
 
-### `PNC-CP-007`
+### CP-007 — block restrictions
 
-- Release: `PNC-002-CP007-HI-PA-v1-CANDIDATE`
-- QLs: `PNC-QL-107` through `PNC-QL-124`
-- Locales: `hi-IN`, `pa-IN`
-- Seeded audit packages: 108
-- Merge commit: `0f113c093ee699de2acadfe8684c004f9b03065e`
-- Publicly publishable: `false`
+Natural together/apart, block, outsider, file, book and inverse wording is approved. The previously reviewed and polished learner text remains the content authority; approval changes lifecycle state only.
 
-### `PNC-CP-008`
+### CP-008 — positions and gaps
 
-- Approved release: `PNC-002-CP008-HI-PA-v1-APPROVED`
-- QLs: `PNC-QL-125` through `PNC-QL-147`
-- Locales: `hi-IN`, `pa-IN`
-- Localised review rows: 46
-- Seeded review packages: 138
-- Editorial status: `APPROVED`
-- Approval date: `2026-07-28`
-- Punjabi numbered-position terminology: `ਟਾਂਕ` (odd), `ਜਿਸਤ` (even)
-- Publicly publishable: `false`
-- Merge checkpoint: PR `#304`
+Fixed positions, ends, relative order, alternation and numbered-position language remain approved. Punjabi odd/even position terminology remains `ਟਾਂਕ` and `ਜਿਸਤ` in the approved CP-008 authority.
 
-### `PNC-CP-009`
+### CP-009 — category selections
 
-- Approved release: `PNC-002-CP009-HI-PA-v1-APPROVED`
-- QLs: `PNC-QL-148` through `PNC-QL-176`
-- English source QLs: 29
-- Locales: `hi-IN`, `pa-IN`
-- Localised review rows: 58
-- Seeded approval packages: 174
-- Covered solve modes: 21
-- Editorial status: `APPROVED`
-- Approval date: `2026-07-29`
-- Hindi stems begin naturally with `एक`; Punjabi stems begin naturally with `ਇੱਕ`; opening syntax varies by question context.
-- Literal Hindi `मामला/मामले` and Punjabi `ਮਾਮਲਾ/ਮਾਮਲੇ` wording is prohibited in learner-facing explanations; precise selection, count and condition language is used instead.
-- Publicly publishable: `false`
-- Merge checkpoint: PR `#309`
+Natural category, quota, minimum/maximum, named-person and inverse selection language remains approved. Literal case/matter wording is prohibited in learner-facing explanations.
 
-## Current checkpoint
+### CP-010 — circular arrangements and symmetry
 
-`PNC-CP-010` is the next Hindi/Punjabi localisation checkpoint.
+Approved coverage includes ordinary round-table arrangements, blocks and exclusions, clockwise order, exact/minimum/maximum gaps, alternation, inverse circular counts, rotation-only displays, reversible rings, necklaces and neighbour-set equivalence.
 
-- QLs: `PNC-QL-177` through `PNC-QL-208`
-- English source QLs: 32
-- Locales: `hi-IN`, `pa-IN`
-- Status: `NOT_STARTED`
-- Editorial status: `PENDING`
-- Publicly publishable: `false`
+### CP-011 — grouping and distribution
+
+Approved coverage includes named and unnamed groups, repeated group sizes, specified-pair restrictions, distinct-object assignment, identical-object distribution, non-empty conditions, minimums, capacities, identical receivers and bounded inverse recovery.
+
+### CP-012 — mixed advanced systems
+
+Approved coverage includes selection followed by office assignment, selection followed by linear/circular/dihedral arrangement, fixed points and derangements, grid paths, non-uniform capacities, mixed-colour distributions and team formation followed by captain selection.
+
+## Completion verdict
+
+`PNC_002_HINDI_PUNJABI_LOCALISATION_COMPLETE_APPROVED_INACTIVE`
+
+No further PNC-002 content localisation checkpoint remains. Product registration and publication are separate controlled decisions.
