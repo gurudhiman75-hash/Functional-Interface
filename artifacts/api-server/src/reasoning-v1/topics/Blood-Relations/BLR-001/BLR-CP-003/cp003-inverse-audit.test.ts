@@ -17,6 +17,7 @@ import {
   solveBlrCp003MaritalQuestion,
 } from "./cp003-marital-solver";
 import { cp003ProvisionalAuthorities } from "./cp003-merge-split-audit";
+import { generateBlrCp003SourceGapGroup } from "./cp003-source-gap-generator";
 
 // Gender-label determination remains distinct from person-by-gender identification.
 const baseGroup = generateBlrCp003ScenarioGroup(
@@ -27,12 +28,33 @@ const genderItem = baseGroup.questions.find(
   (item) => item.prototypeId === "BLR-CP003-PROT-SHARED-GENDER",
 )!;
 assert.equal(genderItem.answer.kind, "GENDER");
-if (genderItem.answer.kind !== "GENDER") throw new Error("Expected gender answer.");
+if (genderItem.answer.kind !== "GENDER") {
+  throw new Error("Expected gender answer.");
+}
 const sameGenderMembers = baseGroup.reconstructedFamily.persons.filter(
   (person) => person.gender === genderItem.answer.gender,
 );
 assert.ok(sameGenderMembers.length >= 2);
 assert.equal(genderItem.answer.gender, "FEMALE");
+
+// The actual inverse item supplies a gender plus a candidate domain and returns one person.
+const sourceGapGroup = generateBlrCp003SourceGapGroup(0);
+const personByGenderItem = sourceGapGroup.questions.find(
+  (item) =>
+    item.prototypeId ===
+    "BLR-CP003-PROT-SHARED-IDENTIFY-PERSON-BY-GENDER",
+)!;
+assert.equal(personByGenderItem.answer.kind, "PERSON");
+if (personByGenderItem.answer.kind !== "PERSON") {
+  throw new Error("Expected person-by-gender answer.");
+}
+assert.equal(personByGenderItem.answer.personId, "C");
+assert.equal(personByGenderItem.options.length, 4);
+assert.equal(
+  personByGenderItem.options[personByGenderItem.correctIndex]?.semanticKey,
+  "PERSON:C",
+);
+assert.ok(personByGenderItem.stem.includes("male member of the family"));
 
 // Unordered pair answers are permutation-invariant, unlike BLR-QL-004 ordered pairs.
 const extendedGroup = generateBlrCp003ExtendedGroup(0);
@@ -62,7 +84,9 @@ const setItem = extendedGroup.questions.find(
   (entry) => entry.prototypeId === "BLR-CP003-PROT-SHARED-MEMBER-SET",
 )!;
 assert.equal(setItem.answer.kind, "PERSON_SET");
-if (setItem.answer.kind !== "PERSON_SET") throw new Error("Expected member-set answer.");
+if (setItem.answer.kind !== "PERSON_SET") {
+  throw new Error("Expected member-set answer.");
+}
 assert.ok(setItem.answer.personIds.length >= 2);
 const reversedSet = {
   kind: "PERSON_SET" as const,
@@ -195,7 +219,9 @@ console.log(
     {
       checkpointId: "BLR-CP-003",
       gate: "INVERSE_CONTRACT_AUDIT_V1",
-      genderForwardDefiniteInverseCandidates: sameGenderMembers.length,
+      genderLabelForwardDefiniteInverseCandidates: sameGenderMembers.length,
+      groupedPersonByGenderMatchesFrozenContract: true,
+      groupedPersonByGenderAnswer: personByGenderItem.answer.personId,
       unorderedPairPermutationInvariant: true,
       orderedPairDirectionSensitive: true,
       memberSetRequiresCompleteness: true,
