@@ -1,5 +1,5 @@
 import { strict as assert } from "node:assert";
-import { runPnc002Cp011DistributionWave1Pipeline } from "./foundation/cp011-distribution-wave1-runtime";
+import { runPnc002Cp011DistributionWave1Pipeline } from "./foundation/cp011-distribution-wave1-reviewed-runtime";
 import { runPnc002Cp011DistributionWave2Pipeline } from "./foundation/cp011-distribution-wave2-runtime";
 import { runPnc002Cp011GroupingPipeline } from "./foundation/cp011-grouping-runtime";
 import { runPnc002Cp011InversePipeline } from "./foundation/cp011-inverse-wave-runtime";
