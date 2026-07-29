@@ -4,11 +4,11 @@ import {
   CLS_CP003_PROTOTYPES,
   CLS_CP003_WORDS,
 } from "./word-dataset.en";
+import { generateClsCp003DiscoveryQuestion } from "./discovery-runtime";
 import {
   analyzeClsCp003Word,
   auditClsCp003DisplayedJumbles,
   auditClsCp003DisplayedWords,
-  generateClsCp003Prototype,
   getClsCp003DatasetSummary,
   getClsCp003PrototypeDefinitions,
   independentlyVerifyClsCp003Question,
@@ -71,6 +71,7 @@ assert.equal(noValidFixture.result, "NO_VALID_RULE");
 const jumbleFixture = auditClsCp003DisplayedJumbles(["RAPEG", "ACHPE", "GOMAN", "GERTI"]);
 assert.equal(jumbleFixture.result, "UNIQUE");
 assert.equal(jumbleFixture.outlierIndex, 3);
+assert.equal(auditClsCp003DisplayedWords(["RAPEG", "ACHPE", "GOMAN", "GERTI"]).result, "NO_VALID_RULE");
 
 const fingerprints = new Set<string>();
 const prototypeCoverage = new Map<string, number>();
@@ -87,12 +88,13 @@ let generatedCount = 0;
 for (const prototype of CLS_CP003_PROTOTYPES) {
   for (const optionCount of [4, 5] as const) {
     for (let seed = 0; seed < 120; seed += 1) {
-      const question = generateClsCp003Prototype(prototype.prototypeId, seed, optionCount);
-      const replay = generateClsCp003Prototype(prototype.prototypeId, seed, optionCount);
+      const question = generateClsCp003DiscoveryQuestion(prototype.prototypeId, seed, optionCount);
+      const replay = generateClsCp003DiscoveryQuestion(prototype.prototypeId, seed, optionCount);
       assert.deepEqual(question, replay, `${prototype.prototypeId}/${optionCount}/${seed} is not deterministic`);
 
       assert.equal(question.checkpointId, "CLS-CP-003");
       assert.equal(question.prototypeId, prototype.prototypeId);
+      assert.equal(question.seed, seed);
       assert.equal(question.options.length, optionCount);
       assert.equal(question.canonicalWords.length, optionCount);
       assert.equal(question.options[question.correctIndex], question.answer);
@@ -116,10 +118,14 @@ for (const prototype of CLS_CP003_PROTOTYPES) {
       assert.equal(question.explanation.examSpeedShortcut.length, 1);
       assert.equal(question.explanation.commonTrapWarning.length, 1);
       assert.ok(question.explanation.stepByStep.join(" ").includes(question.answer));
+      assert.ok(!/different structural value/i.test(question.explanation.stepByStep.join(" ")));
 
       if (question.task === "RESOLVE_JUMBLES_AND_FIND_OUTLIER") {
         assert.ok(question.options.every((option, index) => option !== question.canonicalWords[index]!.toUpperCase()));
         assert.equal(question.intendedRuleId, "RESOLVED_SEMANTIC_CLASS");
+        assert.equal(auditClsCp003DisplayedWords(question.options).result, "NO_VALID_RULE");
+        assert.equal(question.ambiguityAudit.candidateSupports.length, 0);
+        assert.match(question.ambiguityAudit.reason, /no visible structural shortcut/i);
       } else {
         assert.ok(question.options.every((option, index) => option === question.canonicalWords[index]!.toUpperCase()));
       }
@@ -180,9 +186,9 @@ for (const [optionCount, positions] of answerPositionsByOptionCount) {
   assert.ok(Math.max(...relevant) / Math.min(...relevant) < 1.7, `${optionCount}-option answer positions are imbalanced: ${positions}`);
 }
 
-assert.throws(() => generateClsCp003Prototype("CLS-CP003-PROT-001", -1));
-assert.throws(() => generateClsCp003Prototype("CLS-CP003-PROT-001", 0, 3 as never));
-assert.throws(() => generateClsCp003Prototype("CLS-CP003-PROT-999" as never, 0));
+assert.throws(() => generateClsCp003DiscoveryQuestion("CLS-CP003-PROT-001", -1));
+assert.throws(() => generateClsCp003DiscoveryQuestion("CLS-CP003-PROT-001", 0, 3 as never));
+assert.throws(() => generateClsCp003DiscoveryQuestion("CLS-CP003-PROT-999" as never, 0));
 assert.throws(() => auditClsCp003DisplayedWords(["ONE", "TWO", "THREE"]));
 assert.throws(() => auditClsCp003DisplayedJumbles(["ONE", "TWO", "THREE"]));
 
@@ -197,5 +203,6 @@ console.log("CLS-CP-003 lexical and word-structure discovery audit passed.", {
   difficulties: [...difficultyCoverage].sort(),
   answerPositionsByOptionCount: Object.fromEntries(answerPositionsByOptionCount),
   permanentQlCount: 0,
+  jumbledSurfaceShortcutPolicy: "NO_DIRECT_STRUCTURAL_OUTLIER",
   sourceSaturationStatus: "OPEN_FILE_LIBRARY_RETRY_REQUIRED",
 });
