@@ -100,12 +100,11 @@ const editorialLibrary = editorialContentJson as EditorialFile;
 const qlIds = Object.keys(taskRegistry.entries);
 
 const MARKED_PRICES = [
-  1200, 1500, 1800, 2000, 2400, 2500, 3000, 3600, 4000, 4500, 5000,
-  6000, 7200, 8000, 9000, 10000, 12000,
+  1200, 1500, 1800, 2000, 2400, 2500, 3000, 3600, 4000, 4500, 5000, 6000, 7200,
+  8000, 9000, 10000, 12000,
 ] as const;
 const COST_PRICES = [
-  1000, 1200, 1600, 2000, 2400, 3000, 3200, 4000, 4800, 5000, 6000,
-  8000,
+  1000, 1200, 1600, 2000, 2400, 3000, 3200, 4000, 4800, 5000, 6000, 8000,
 ] as const;
 const DISCOUNT_RATES = [5, 10, 15, 20, 25, 30, 40] as const;
 const SECOND_DISCOUNT_RATES = [5, 10, 15, 20, 25] as const;
@@ -246,9 +245,11 @@ function generateCase(qlId: string, seed: string): GeneratedCase {
       };
 
     case "PNL-QL-038": {
-      const sellingPrice = (
-        solveDiscount({ mode: "MP_DISCOUNT_TO_SP", markedPrice, discountPercent })
-      ).sellingPrice;
+      const sellingPrice = solveDiscount({
+        mode: "MP_DISCOUNT_TO_SP",
+        markedPrice,
+        discountPercent,
+      }).sellingPrice;
       return {
         qlId,
         registry,
@@ -263,13 +264,11 @@ function generateCase(qlId: string, seed: string): GeneratedCase {
 
     case "PNL-QL-039": {
       const originalMarkedPrice = markedPrice;
-      const sellingPrice = (
-        solveDiscount({
-          mode: "MP_DISCOUNT_TO_SP",
-          markedPrice: originalMarkedPrice,
-          discountPercent,
-        })
-      ).sellingPrice;
+      const sellingPrice = solveDiscount({
+        mode: "MP_DISCOUNT_TO_SP",
+        markedPrice: originalMarkedPrice,
+        discountPercent,
+      }).sellingPrice;
       return {
         qlId,
         registry,
@@ -335,13 +334,11 @@ function generateCase(qlId: string, seed: string): GeneratedCase {
       };
 
     case "PNL-QL-043": {
-      const discountAmount = (
-        solveDiscount({
-          mode: "MP_DISCOUNT_TO_AMOUNT",
-          markedPrice,
-          discountPercent,
-        })
-      ).discountAmount;
+      const discountAmount = solveDiscount({
+        mode: "MP_DISCOUNT_TO_AMOUNT",
+        markedPrice,
+        discountPercent,
+      }).discountAmount;
       return {
         qlId,
         registry,
@@ -359,13 +356,11 @@ function generateCase(qlId: string, seed: string): GeneratedCase {
     }
 
     case "PNL-QL-044": {
-      const discountAmount = (
-        solveDiscount({
-          mode: "MP_DISCOUNT_TO_AMOUNT",
-          markedPrice,
-          discountPercent,
-        })
-      ).discountAmount;
+      const discountAmount = solveDiscount({
+        mode: "MP_DISCOUNT_TO_AMOUNT",
+        markedPrice,
+        discountPercent,
+      }).discountAmount;
       return {
         qlId,
         registry,
@@ -379,12 +374,10 @@ function generateCase(qlId: string, seed: string): GeneratedCase {
     }
 
     case "PNL-QL-045": {
-      const equivalentDiscountPercent = (
-        solveDiscount({
-          mode: "SUCCESSIVE_DISCOUNTS_TO_EQUIVALENT",
-          discountPercents: [firstDiscountPercent, secondDiscountPercent],
-        })
-      ).equivalentDiscountPercent;
+      const equivalentDiscountPercent = solveDiscount({
+        mode: "SUCCESSIVE_DISCOUNTS_TO_EQUIVALENT",
+        discountPercents: [firstDiscountPercent, secondDiscountPercent],
+      }).equivalentDiscountPercent;
       return {
         qlId,
         registry,
@@ -499,8 +492,8 @@ function generateCase(qlId: string, seed: string): GeneratedCase {
           targetDirection: scenario.direction.toLowerCase(),
           ...(qlId === "PNL-QL-070"
             ? {
-                statementOne: `The target selling price is ${formatMoney(targetSellingPrice)}.`,
-                statementTwo: `The required reduction from marked price is ${formatMoney(discountAmount)}.`,
+                statementOne: `The cost price is ${formatMoney(costPrice)}, and the target result is ${formatRational(targetRatePercent)}% ${scenario.direction.toLowerCase()}.`,
+                statementTwo: `The marked price is ${formatMoney(scenarioMarkedPrice)}.`,
                 requiredDiscountPercent: formatRational(
                   targetResult.discountPercent,
                 ),
@@ -967,11 +960,13 @@ function answerFor(qlId: string, result: SolverResult): DynamicAnswer {
     }
 
     case "PNL-QL-039":
-      if (!("markedPrice" in result)) throw new Error(`${qlId}: expected marked price.`);
+      if (!("markedPrice" in result))
+        throw new Error(`${qlId}: expected marked price.`);
       return { kind: "MONEY", value: result.markedPrice };
 
     case "PNL-QL-042":
-      if (!("discountAmount" in result)) throw new Error(`${qlId}: expected discount amount.`);
+      if (!("discountAmount" in result))
+        throw new Error(`${qlId}: expected discount amount.`);
       return { kind: "MONEY", value: result.discountAmount };
 
     case "PNL-QL-038":
@@ -979,24 +974,29 @@ function answerFor(qlId: string, result: SolverResult): DynamicAnswer {
     case "PNL-QL-062":
     case "PNL-QL-063":
     case "PNL-QL-068":
-      if (!("discountPercent" in result)) throw new Error(`${qlId}: expected discount percentage.`);
+      if (!("discountPercent" in result))
+        throw new Error(`${qlId}: expected discount percentage.`);
       return { kind: "PERCENT", value: result.discountPercent };
 
     case "PNL-QL-041":
     case "PNL-QL-051":
-      if (!("equivalentDiscountPercent" in result)) throw new Error(`${qlId}: expected equivalent discount.`);
+      if (!("equivalentDiscountPercent" in result))
+        throw new Error(`${qlId}: expected equivalent discount.`);
       return { kind: "PERCENT", value: result.equivalentDiscountPercent };
 
     case "PNL-QL-045":
-      if (!("missingDiscountPercent" in result)) throw new Error(`${qlId}: expected missing discount.`);
+      if (!("missingDiscountPercent" in result))
+        throw new Error(`${qlId}: expected missing discount.`);
       return { kind: "PERCENT", value: result.missingDiscountPercent };
 
     case "PNL-QL-049":
-      if (!("discountPercent" in result)) throw new Error(`${qlId}: expected required discount.`);
+      if (!("discountPercent" in result))
+        throw new Error(`${qlId}: expected required discount.`);
       return { kind: "PERCENT", value: result.discountPercent };
 
     case "PNL-QL-050":
-      if (!("markupPercent" in result)) throw new Error(`${qlId}: expected markup percentage.`);
+      if (!("markupPercent" in result))
+        throw new Error(`${qlId}: expected markup percentage.`);
       return { kind: "PERCENT", value: result.markupPercent };
 
     case "PNL-QL-046":
@@ -1067,7 +1067,11 @@ function answerFor(qlId: string, result: SolverResult): DynamicAnswer {
       };
 
     case "PNL-QL-061":
-      if (!("billedPrice" in result) || !("cashbackAmount" in result) || !("effectivePrice" in result)) {
+      if (
+        !("billedPrice" in result) ||
+        !("cashbackAmount" in result) ||
+        !("effectivePrice" in result)
+      ) {
         throw new Error(`${qlId}: expected billed/cashback result.`);
       }
       return {
@@ -1076,7 +1080,11 @@ function answerFor(qlId: string, result: SolverResult): DynamicAnswer {
       };
 
     case "PNL-QL-064":
-      if (!("couponEligible" in result) || !("betterOffer" in result) || !("differenceAmount" in result)) {
+      if (
+        !("couponEligible" in result) ||
+        !("betterOffer" in result) ||
+        !("differenceAmount" in result)
+      ) {
         throw new Error(`${qlId}: expected eligible offer comparison.`);
       }
       return {
@@ -1100,7 +1108,7 @@ function answerFor(qlId: string, result: SolverResult): DynamicAnswer {
       };
 
     case "PNL-QL-070":
-      return { kind: "TEXT", value: "Either statement alone is sufficient" };
+      return { kind: "TEXT", value: "Both statements together are required" };
 
     default:
       throw new Error(`${qlId}: dynamic answer mapping is missing.`);
@@ -1150,8 +1158,18 @@ function textDistractors(qlId: string, correct: string): readonly string[] {
       "Both offers give the same selling price",
       "The better offer cannot be determined",
     ],
-    "PNL-QL-047": ["10% profit", "10% loss", "No profit, no loss", "20% profit"],
-    "PNL-QL-048": ["Profit of ₹100", "Loss of ₹100", "No profit, no loss", "Profit of ₹200"],
+    "PNL-QL-047": [
+      "10% profit",
+      "10% loss",
+      "No profit, no loss",
+      "20% profit",
+    ],
+    "PNL-QL-048": [
+      "Profit of ₹100",
+      "Loss of ₹100",
+      "No profit, no loss",
+      "Profit of ₹200",
+    ],
     "PNL-QL-056": [
       "Discount offer is better by ₹100",
       "Cashback offer is better by ₹100",
@@ -1285,11 +1303,11 @@ export function listPnlCp002DynamicQlIds(): readonly string[] {
   return [...qlIds];
 }
 
-export function runPnlCp002DynamicPipeline(
-  input: PnlCp002DynamicInput = {},
-) {
+export function runPnlCp002DynamicPipeline(input: PnlCp002DynamicInput = {}) {
   if (input.language && input.language !== "en") {
-    throw new Error("PNL-CP-002 dynamic runtime currently supports English only.");
+    throw new Error(
+      "PNL-CP-002 dynamic runtime currently supports English only.",
+    );
   }
   const qlId = selectQl(input);
   const seed = input.seed ?? `${qlId}:dynamic-default`;
@@ -1300,7 +1318,8 @@ export function runPnlCp002DynamicPipeline(
   const answer = formatAnswer(answerValue);
   const optionSet = buildOptions(qlId, seed, answerValue);
   const editorial = editorialLibrary.entries[qlId];
-  if (!editorial) throw new Error(`${qlId}: English editorial entry is missing.`);
+  if (!editorial)
+    throw new Error(`${qlId}: English editorial entry is missing.`);
   const stem = renderStructuredStemMarkdown(editorial.stem, generated.context);
   const baseExplanation = renderFriendlyExplanationMarkdown(
     editorial.explanation,
@@ -1312,7 +1331,8 @@ export function runPnlCp002DynamicPipeline(
     {
       name: "registry-and-editorial-parity",
       passed: Boolean(generated.registry && editorial),
-      message: "The QL exists in both the frozen registry and English editorial library.",
+      message:
+        "The QL exists in both the frozen registry and English editorial library.",
     },
     {
       name: "exact-recomputation",
@@ -1327,19 +1347,22 @@ export function runPnlCp002DynamicPipeline(
         optionSet.options[optionSet.correctIndex] === answer &&
         optionSet.misconceptionLabels.filter((label) => label !== "CORRECT")
           .length === 3,
-      message: "Four unique options contain one answer and three labelled misconceptions.",
+      message:
+        "Four unique options contain one answer and three labelled misconceptions.",
     },
     {
       name: "dynamic-editorial-binding",
       passed:
         !containsUnresolvedProsePlaceholder(stem) &&
         !containsUnresolvedProsePlaceholder(explanationText),
-      message: "Dynamic stem and explanation contain no unresolved prose placeholders.",
+      message:
+        "Dynamic stem and explanation contain no unresolved prose placeholders.",
     },
     {
       name: "question-bank-safety",
       passed: true,
-      message: "Dynamic candidates remain outside Question Bank, tests and publication.",
+      message:
+        "Dynamic candidates remain outside Question Bank, tests and publication.",
     },
   ];
   const validation = {
@@ -1414,8 +1437,16 @@ export function runPnlCp002DynamicPipeline(
     reasoningGraph: {
       graphId: `${qlId}-dynamic-graph`,
       nodes: [
-        { id: "given", label: "Generated offer values", value: generated.context },
-        { id: "mode", label: "Solve mode", value: generated.registry.solveMode },
+        {
+          id: "given",
+          label: "Generated offer values",
+          value: generated.context,
+        },
+        {
+          id: "mode",
+          label: "Solve mode",
+          value: generated.registry.solveMode,
+        },
         { id: "answer", label: "Exact answer", value: answer },
       ],
     },
