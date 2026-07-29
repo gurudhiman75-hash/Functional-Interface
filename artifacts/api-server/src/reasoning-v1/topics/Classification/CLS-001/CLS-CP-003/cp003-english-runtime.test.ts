@@ -30,7 +30,7 @@ for (const qlId of CLS_CP003_ENGLISH_QL_IDS) {
     assert.equal(question.task, contract.task);
     assert.ok(contract.allowedPrototypeIds.includes(question.metadata.sourcePrototypeId));
     assert.equal(question.metadata.solveContractId, contract.solveContractId);
-    assert.equal(question.metadata.runtimeVersion, "cls-cp003-english-runtime-v1");
+    assert.equal(question.metadata.runtimeVersion, "cls-cp003-english-runtime-v2");
     assert.equal(question.metadata.sourceSaturationStatus, "ENGLISH_SOURCE_SATURATED");
     assert.equal(question.metadata.locale, "en-IN");
     assert.ok(question.options.length === 4 || question.options.length === 5);
