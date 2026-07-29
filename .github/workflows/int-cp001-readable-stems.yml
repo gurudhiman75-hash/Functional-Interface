@@ -84,12 +84,14 @@ jobs:
           node artifacts/api-server/dist/quant-v4/int-001-cp001-readable-stem-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-readable-stem-audit.log
 
       - name: Bundle readable-stem review exporter
+        if: always()
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-readable-stem-review-export.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/int-001-cp001-readable-stem-review-export.mjs
       - name: Generate readable-stem review packs
+        if: always()
         working-directory: artifacts/api-server
         run: node dist/quant-v4/int-001-cp001-readable-stem-review-export.mjs
 
