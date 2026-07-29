@@ -8,6 +8,7 @@ import {
 } from "./generation-engine";
 import {
   AVG_001_QUESTION_STUDIO_CP_IDS,
+  AVG_001_QUESTION_STUDIO_LANGUAGES,
   runAvg001QuestionStudioPipeline,
   type Avg001QuestionStudioCpId,
 } from "./topics/Arithmetic/subtopics/Average/AVG-001/question-studio-adapter";
@@ -36,7 +37,7 @@ const AVG_PACKAGE_DEFINITION = {
   subtopic: "Average",
   label: "Average",
   cpIds: AVG_001_QUESTION_STUDIO_CP_IDS,
-  supportedLanguages: ["en"] as const,
+  supportedLanguages: AVG_001_QUESTION_STUDIO_LANGUAGES,
 };
 
 const MAL_PACKAGE_DEFINITION = {
@@ -117,6 +118,7 @@ function seededHash(value: string) {
 function packageCard(
   definition: typeof AVG_PACKAGE_DEFINITION | typeof MAL_PACKAGE_DEFINITION,
 ) {
+  const average = definition.packageId === "AVG-001";
   return {
     id: definition.packageId,
     packageId: definition.packageId,
@@ -134,18 +136,13 @@ function packageCard(
       label: cpId,
     })),
     supportedDifficulties: ["easy", "medium", "hard"],
-    supportedLanguages: ["en"],
+    supportedLanguages: [...definition.supportedLanguages],
     enabled: true,
-    runtimeMode: definition.packageId === "MAL-001" ? "RELEASED" : undefined,
-    reviewStatus:
-      definition.packageId === "MAL-001"
-        ? "APPROVED_EDITORIAL_ENGLISH"
-        : undefined,
-    questionBankStatus:
-      definition.packageId === "MAL-001" ? "WRITABLE" : undefined,
-    testEligibility:
-      definition.packageId === "MAL-001" ? "ELIGIBLE" : undefined,
-    publiclyPublishable: definition.packageId === "MAL-001" ? true : undefined,
+    runtimeMode: "RELEASED",
+    reviewStatus: average ? "APPROVED_MULTILINGUAL" : "APPROVED_EDITORIAL_ENGLISH",
+    questionBankStatus: "WRITABLE",
+    testEligibility: "ELIGIBLE",
+    publiclyPublishable: true,
   };
 }
 
@@ -267,8 +264,8 @@ async function generateAverageQuestion(
   request: QuestionStudioQuantV4GenerationRequest,
 ) {
   const language = (request.language ?? "en") as QuantV4Language;
-  if (language !== "en") {
-    throw new Error("AVG-001 supports English generation only in Question Studio.");
+  if (!AVG_001_QUESTION_STUDIO_LANGUAGES.includes(language as "en" | "hi" | "pa")) {
+    throw new Error(`AVG-001 does not support Question Studio language ${language}.`);
   }
 
   const count = Math.min(
@@ -288,7 +285,7 @@ async function generateAverageQuestion(
 
   const batchSeed =
     request.seed ??
-    `quant-v4:AVG-001:${explicitCp ?? "mixed"}:${Date.now()}:${Math.random()
+    `quant-v4:AVG-001:${language}:${explicitCp ?? "mixed"}:${Date.now()}:${Math.random()
       .toString(36)
       .slice(2)}`;
   const cpOffset =
@@ -308,7 +305,7 @@ async function generateAverageQuestion(
     const seed = `${batchSeed}:${cpId}:${index}`;
     const pkg = runAvg001QuestionStudioPipeline(cpId, {
       difficulty,
-      language: "en",
+      language,
       questionLanguageId: request.questionLanguageId,
       seed,
     });
@@ -323,11 +320,19 @@ async function generateAverageQuestion(
     );
   }
 
+  const first = questionPackages[0] as any;
   return {
     generationContext: {
       generationDomain: "quant-v4",
       seed: batchSeed,
       timestamp: Date.now(),
+      runtimeMode: "RELEASED",
+      reviewStatus: language === "en" ? "APPROVED_EDITORIAL_ENGLISH_V2" : "APPROVED_LOCALIZED",
+      questionBankStatus: "WRITABLE",
+      testEligibility: "ELIGIBLE",
+      publiclyPublishable: true,
+      releaseId: first?.traceability?.releaseId,
+      language,
     },
     questionPackages,
     questions,

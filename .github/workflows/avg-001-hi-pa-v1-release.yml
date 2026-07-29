@@ -1,0 +1,92 @@
+name: Validate AVG-001 Hindi Punjabi V1 release
+
+on:
+  push:
+    branches:
+      - release/avg-001-hi-pa-v1
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/**
+      - artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts
+      - .github/workflows/avg-001-hi-pa-v1-release.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/**
+      - artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts
+      - .github/workflows/avg-001-hi-pa-v1-release.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: avg-001-hi-pa-v1-release-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-localized-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle localized release audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-localized-release-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/avg-001-localized-release-audit.mjs
+      - name: Run 1,700-case localized release audit
+        shell: bash
+        run: |
+          set -o pipefail
+          (cd artifacts/api-server && node dist/quant-v4/avg-001-localized-release-audit.mjs) \
+            | tee artifacts/api-server/avg-001-hi-pa-v1-release-diagnostics.log
+      - name: Bundle multilingual adapter integration audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-question-studio-integration-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/avg-001-question-studio-integration-audit.mjs
+      - name: Run multilingual adapter integration audit
+        shell: bash
+        run: |
+          set -o pipefail
+          (cd artifacts/api-server && node dist/quant-v4/avg-001-question-studio-integration-audit.mjs) \
+            | tee artifacts/api-server/avg-001-hi-pa-v1-adapter-diagnostics.log
+      - name: Bundle multilingual generation-engine audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-multilingual-question-studio-engine-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/avg-001-multilingual-question-studio-engine-audit.mjs
+      - name: Run multilingual generation-engine audit
+        shell: bash
+        run: |
+          set -o pipefail
+          (cd artifacts/api-server && node dist/quant-v4/avg-001-multilingual-question-studio-engine-audit.mjs) \
+            | tee artifacts/api-server/avg-001-hi-pa-v1-engine-diagnostics.log
+      - name: Upload multilingual release evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: avg-001-hi-pa-v1-release-evidence
+          path: |
+            artifacts/api-server/avg-001-hi-pa-v1-release-diagnostics.log
+            artifacts/api-server/avg-001-hi-pa-v1-adapter-diagnostics.log
+            artifacts/api-server/avg-001-hi-pa-v1-engine-diagnostics.log
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/AVG-001-HI-PA-V1-FREEZE-RECORD.md
+          if-no-files-found: error
+          retention-days: 30
