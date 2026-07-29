@@ -3,16 +3,19 @@ import { CLS_CP002_QL_ID } from "./cp002-permanent-contract";
 import { generateClsCp002Question } from "./cp002-multilingual-runtime";
 import {
   CLS_CP002_CLASS_RELATION_IDS,
+  CLS_CP002_FALSE_PAIR_SAFE_RELATION_IDS,
   CLS_CP002_LEXICAL_RELATION_IDS,
   CLS_CP002_PROTOTYPES,
   CLS_CP002_RELATIONS,
   CLS_CP002_SEMANTIC_RELATION_IDS,
 } from "./relation-registry";
 import { auditClsCp002DisplayedPairs } from "./runtime";
+import type { ClsCp002Locale } from "./localization/cp002-language-pack";
 import {
-  canonicalizeClsCp002Pair,
-  type ClsCp002Locale,
-} from "./localization/cp002-language-pack";
+  canonicalizeClsCp002StudentPair,
+  localizeClsCp002StudentPair,
+  localizedClsCp002StudentClassLabel,
+} from "./localization/cp002-student-presentation";
 import { getClsCp002TranslationCoverage } from "./localization/cp002-translation-coverage";
 
 const LOCALES: readonly ClsCp002Locale[] = ["en-IN", "hi-IN", "pa-IN"];
@@ -26,6 +29,41 @@ assert.deepEqual(coverage, {
   factRelationCount: 31,
   factRelationsWithAtLeastFourSafePairs: 31,
 });
+
+assert.deepEqual(
+  localizeClsCp002StudentPair(
+    { left: "Cold", right: "Cool" },
+    ["CLS-CP002-ANA-LF-025", "CLS-CP002-ANA-LF-026", "CLS-CP002-ANA-LF-027", "CLS-CP002-ANA-LF-028"],
+    "hi-IN",
+  ),
+  { left: "बहुत ठंडा", right: "ठंडा" },
+);
+assert.deepEqual(
+  localizeClsCp002StudentPair(
+    { left: "Cold", right: "Cool" },
+    ["CLS-CP002-ANA-LF-025", "CLS-CP002-ANA-LF-026", "CLS-CP002-ANA-LF-027", "CLS-CP002-ANA-LF-028"],
+    "pa-IN",
+  ),
+  { left: "ਬਹੁਤ ਠੰਢਾ", right: "ਠੰਢਾ" },
+);
+assert.deepEqual(
+  localizeClsCp002StudentPair(
+    { left: "Court", right: "Adjudication" },
+    ["CLS-CP002-ANA-SF-145"],
+    "hi-IN",
+  ),
+  { left: "न्यायालय", right: "न्याय करना" },
+);
+assert.deepEqual(
+  localizeClsCp002StudentPair(
+    { left: "Telephone", right: "Ring" },
+    ["CLS-CP002-SUP-03-11"],
+    "pa-IN",
+  ),
+  { left: "ਟੈਲੀਫੋਨ", right: "ਟ੍ਰਿਨ-ਟ੍ਰਿਨ" },
+);
+assert.equal(localizedClsCp002StudentClassLabel("CLS_MAMMALS", "hi-IN"), "दूध पिलाने वाले जानवर");
+assert.equal(localizedClsCp002StudentClassLabel("CLS_AQUATIC_ANIMALS", "hi-IN"), "पानी में रहने वाले जानवर");
 
 const fingerprints = new Map<ClsCp002Locale, Set<string>>(
   LOCALES.map((locale) => [locale, new Set<string>()]),
@@ -72,11 +110,21 @@ for (let seed = 0; seed < 600; seed += 1) {
     assert.equal(question.explanation.commonTrapWarning.length, 1);
     assert.ok(question.explanation.stepByStep.join(" ").includes(question.answer));
 
+    if (question.generationProfile === "CATEGORY_SAFE_FALSE_PAIR") {
+      assert.ok(CLS_CP002_FALSE_PAIR_SAFE_RELATION_IDS.includes(question.intendedRelationId as never));
+    }
+    if (question.generationProfile === "CLASS_PAIR_CONTRAST") {
+      assert.ok(question.pairs.every((pair) =>
+        !["Crown", "Sapwood"].includes(pair.left)
+        && !["Crown", "Sapwood"].includes(pair.right),
+      ));
+    }
+
     let canonicalPairs = question.pairs;
     if (locale !== "en-IN") {
       assert.equal(question.metadata.localizationVersion, "cls-cp002-localization-v1");
       canonicalPairs = question.pairs.map((pair) =>
-        canonicalizeClsCp002Pair(pair, question.metadata.sourceRelationFactIds, locale),
+        canonicalizeClsCp002StudentPair(pair, question.metadata.sourceRelationFactIds, locale),
       );
       assert.deepEqual(canonicalPairs, english.pairs, `${locale}/${seed} canonical reconstruction changed`);
       assert.notDeepEqual(question.options, english.options);
@@ -100,6 +148,9 @@ for (let seed = 0; seed < 600; seed += 1) {
     ].join("\n");
     assert.ok(!/CLS-|SEM_|LEX_|PAIR_CLASS_|prototype|quality rank|candidate relation|ontology/i.test(learnerText));
     assert.ok(!/undefined|null|NaN|Infinity/.test(learnerText));
+    assert.ok(!/pair of|की जोड़ी का संबंध|ਦੀ ਜੋੜੀ ਵਾਲਾ ਰਿਸ਼ਤਾ/i.test(learnerText));
+    assert.ok(!/उष्णकटिबंधीय|स्तनधारी|जलीय जानवर|अंगूरी मदिरा|न्याय-निर्णय/u.test(learnerText));
+    assert.ok(!/ਅੰਗੂਰੀ ਮਦਿਰਾ|ਨਿਆਂ-ਨਿਰਣੇ|ਬਰਤਨ/u.test(learnerText));
 
     if (locale === "hi-IN") {
       assert.match(learnerText, /[\u0904-\u0939\u0958-\u0961]/u);
