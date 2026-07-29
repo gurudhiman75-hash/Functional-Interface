@@ -9,6 +9,7 @@ import {
   rational,
   surd,
 } from "./exact";
+import { polishMenCp007English } from "./editorial";
 import { getMenCp007Prototype } from "./prototype-registry";
 import { createSeededRandom, type SeededRandom } from "./seed";
 import {
@@ -738,6 +739,14 @@ export function generateMenCp007Prototype(prototypeId: MenCp007PrototypeId, seed
   const verification = verifyDraft(draft);
   const optionRng = createSeededRandom(`${prototypeId}:${seed}:options`);
   const { options, traps } = buildOptions(draft, optionRng);
+  const polished = polishMenCp007English({
+    stem: draft.stem,
+    options,
+    keyRule: draft.keyRule,
+    steps: draft.steps,
+    shortcut: draft.shortcut,
+    traps,
+  });
   const correctIndex = options.findIndex((option) => option.isCorrect);
   const partial = {
     packageId: MEN_002_PACKAGE_ID,
@@ -749,17 +758,17 @@ export function generateMenCp007Prototype(prototypeId: MenCp007PrototypeId, seed
     seed,
     difficulty: draft.state.difficulty,
     target: draft.state.target,
-    stem: draft.stem,
-    options,
+    stem: polished.stem,
+    options: polished.options,
     correctIndex,
-    answer: options[correctIndex]!.display,
+    answer: polished.options[correctIndex]!.display,
     exactAnswer: draft.answer,
     unit: draft.state.unit,
     explanation: {
-      keyRule: draft.keyRule,
-      steps: draft.steps,
-      shortcut: draft.shortcut,
-      traps,
+      keyRule: polished.explanation.keyRule,
+      steps: polished.explanation.steps,
+      shortcut: polished.explanation.shortcut,
+      traps: polished.explanation.traps,
     },
     state: draft.state,
     verification,

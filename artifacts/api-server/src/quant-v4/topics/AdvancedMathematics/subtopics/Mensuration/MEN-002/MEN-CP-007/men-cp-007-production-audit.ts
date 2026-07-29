@@ -63,6 +63,8 @@ const rawDisplaySlashPattern = /\$\$[^$]*\/[^$]*\$\$/;
 const rawPowerOrFractionPattern = /[½¼²³]/;
 const hiddenControlPattern = /[\u0000-\u0008\u000B\u000C\u000E-\u001F]/;
 const ungroupedRupeePattern = /\\text\{₹\}(\d{4,})(?![,\d])/g;
+const ungroupedVisibleNumberPattern = /(?<![\d,])\d{4,}(?![\d,])/;
+const difficultVocabularyPattern = /\b(?:multiplicatively|conserved|congruent|reconstruct(?:s|ed|ing)?|recover(?:s|ed|ing)?|semiperimeter|axis-aligned|coefficient|successive change|dimension-wise|cross-sectional)\b/i;
 const bannedBoilerplate = [
   "Do not rebuild the full total",
   "do not rebuild the full total",
@@ -120,9 +122,13 @@ for (const track of tracks) {
       assert.equal(rawPowerOrFractionPattern.test(text), false, `${prototypeId} ${seed} contains raw Unicode maths.`);
       assert.equal(rawDisplaySlashPattern.test(text), false, `${prototypeId} ${seed} contains raw slash division in display maths.`);
       assert.equal(hiddenControlPattern.test(text), false, `${prototypeId} ${seed} contains a hidden control character.`);
+      assert.equal(ungroupedVisibleNumberPattern.test(text), false, `${prototypeId} ${seed} contains an ungrouped large learner-visible number.`);
+      assert.equal(difficultVocabularyPattern.test(text), false, `${prototypeId} ${seed} contains unnecessarily difficult English.`);
       assert.equal(internalTaxonomyPattern.test(JSON.stringify(question.explanation)), false, `${prototypeId} ${seed} leaks internal taxonomy.`);
       assert.ok(!bannedBoilerplate.some((phrase) => text.includes(phrase)), `${prototypeId} ${seed} contains banned boilerplate.`);
       assert.ok(question.explanation.shortcut.trim().length >= 24, `${prototypeId} ${seed} has an underdeveloped shortcut.`);
+      assert.ok(question.explanation.shortcut.startsWith("Quick way:"), `${prototypeId} ${seed} shortcut must begin with the easy-English label.`);
+      assert.ok(/\d/.test(question.explanation.shortcut), `${prototypeId} ${seed} shortcut must use numbers from the question.`);
       assert.ok(question.stem.endsWith("?") || question.stem.endsWith("."));
       assert.equal(question.permanentQlId, null);
       assert.equal(question.reviewStatus, "UNREVIEWED");
