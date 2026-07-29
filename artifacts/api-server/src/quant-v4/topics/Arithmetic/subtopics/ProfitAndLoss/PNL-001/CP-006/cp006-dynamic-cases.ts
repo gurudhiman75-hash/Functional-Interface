@@ -5,8 +5,16 @@ import {
   pickSeeded,
   type SeededRandom,
 } from "../foundation/parameter-generator";
-import { rational, rationalToNumber, type Rational } from "../foundation/rational";
-import { moneyFromPaise, moneyFromRupees, type Money } from "../foundation/money";
+import {
+  rational,
+  rationalToNumber,
+  type Rational,
+} from "../foundation/rational";
+import {
+  moneyFromPaise,
+  moneyFromRupees,
+  type Money,
+} from "../foundation/money";
 import {
   solveEffectiveCostRecovery,
   type EffectiveCostRecoveryRequest,
@@ -66,15 +74,36 @@ const QUANTITIES = [40n, 50n, 80n, 100n, 120n] as const;
 const COMMISSIONS = [10, 20, 25] as const;
 
 const MANUFACTURING_PRESETS = [
-  { raw: 12000, labour: 8000, overhead: 10, packaging: 2000, scrap: 2000, output: 100n },
-  { raw: 15000, labour: 10000, overhead: 20, packaging: 3000, scrap: 3000, output: 100n },
-  { raw: 18000, labour: 12000, overhead: 10, packaging: 4000, scrap: 1000, output: 120n },
+  {
+    raw: 12000,
+    labour: 8000,
+    overhead: 10,
+    packaging: 2000,
+    scrap: 2000,
+    output: 100n,
+  },
+  {
+    raw: 15000,
+    labour: 10000,
+    overhead: 20,
+    packaging: 3000,
+    scrap: 3000,
+    output: 100n,
+  },
+  {
+    raw: 18000,
+    labour: 12000,
+    overhead: 10,
+    packaging: 4000,
+    scrap: 1000,
+    output: 120n,
+  },
 ] as const;
 
 const WASTAGE_SCRAP_PRESETS = [
   { input: 100n, wasted: 20n, totalCost: 10000, scrap: 2000 },
-  { input: 120n, wasted: 20n, totalCost: 15000, scrap: 5000 },
-  { input: 100n, wasted: 10n, totalCost: 12000, scrap: 3000 },
+  { input: 120n, wasted: 20n, totalCost: 17000, scrap: 5000 },
+  { input: 100n, wasted: 10n, totalCost: 16500, scrap: 3000 },
 ] as const;
 
 const PRODUCT_MIX_PRESETS = [
@@ -155,7 +184,10 @@ function direction(random: SeededRandom): "PROFIT" | "LOSS" {
   return pickSeeded(random, ["PROFIT", "LOSS"] as const);
 }
 
-function effectiveCost(purchasePrice: Money, expenses: readonly Money[]): Money {
+function effectiveCost(
+  purchasePrice: Money,
+  expenses: readonly Money[],
+): Money {
   return solveEffectiveCostRecovery({
     mode: "FLAT_COMPONENTS_TO_EFFECTIVE_COST",
     purchasePrice,
@@ -195,7 +227,9 @@ function productMixText(products: readonly ProductMixItem[]): string {
     .join("; ");
 }
 
-function productMixRows(products: readonly ProductMixItem[]): readonly (readonly string[])[] {
+function productMixRows(
+  products: readonly ProductMixItem[],
+): readonly (readonly string[])[] {
   return products.map((product, index) => [
     `Product ${String.fromCharCode(65 + index)}`,
     product.unitsPerBundle.toString(),
@@ -219,10 +253,10 @@ function mixedOverheadCase(random: SeededRandom) {
     rupees(pickNumber(random, FLAT_EXPENSES)),
   ];
   const overheadPercent = rational(pickNumber(random, OVERHEAD_RATES));
-  const overheadBase = pickSeeded(
-    random,
-    ["PURCHASE_PRICE", "PURCHASE_PLUS_FLAT"] as const,
-  );
+  const overheadBase = pickSeeded(random, [
+    "PURCHASE_PRICE",
+    "PURCHASE_PLUS_FLAT",
+  ] as const);
   const result = solveEffectiveCostAdvanced({
     mode: "MIXED_FLAT_PERCENT_OVERHEAD_TO_EFFECTIVE_COST",
     purchasePrice,
@@ -269,7 +303,11 @@ function manufacturingCase(random: SeededRandom) {
       outputQuantity: preset.output.toString(),
       scrapRecovery: preset.scrap,
       manufacturingTable: [
-        ["Raw material", cp006FormatMoney(request.rawMaterialCost), "Direct amount"],
+        [
+          "Raw material",
+          cp006FormatMoney(request.rawMaterialCost),
+          "Direct amount",
+        ],
         ["Labour", cp006FormatMoney(request.labourCost), "Direct amount"],
         ["Factory overhead", `${preset.overhead}%`, "Prime cost"],
         ["Packaging", cp006FormatMoney(request.packagingCost), "Direct amount"],
@@ -298,7 +336,11 @@ export function generatePnlCp006Case(
         qlId,
         registry,
         seed: seedValue,
-        request: { mode: "FLAT_COMPONENTS_TO_EFFECTIVE_COST", purchasePrice, expenses },
+        request: {
+          mode: "FLAT_COMPONENTS_TO_EFFECTIVE_COST",
+          purchasePrice,
+          expenses,
+        },
         context: {
           purchasePrice: cp006PlainMoney(purchasePrice),
           repairExpense: cp006PlainMoney(expenses[0]!),
@@ -348,9 +390,13 @@ export function generatePnlCp006Case(
           purchasePrice: cp006PlainMoney(purchasePrice),
           expenses: cp006PlainMoney(expenses[0]!),
           profitPercent:
-            resultDirection === "PROFIT" ? cp006FormatRational(ratePercent) : undefined,
+            resultDirection === "PROFIT"
+              ? cp006FormatRational(ratePercent)
+              : undefined,
           lossPercent:
-            resultDirection === "LOSS" ? cp006FormatRational(ratePercent) : undefined,
+            resultDirection === "LOSS"
+              ? cp006FormatRational(ratePercent)
+              : undefined,
         },
       };
     }
@@ -361,7 +407,11 @@ export function generatePnlCp006Case(
       const cost = effectiveCost(purchasePrice, expenses);
       const resultDirection = direction(random);
       const ratePercent = rational(pickNumber(random, RATES));
-      const finalSellingPrice = sellingPrice(cost, resultDirection, ratePercent);
+      const finalSellingPrice = sellingPrice(
+        cost,
+        resultDirection,
+        ratePercent,
+      );
       return {
         qlId,
         registry,
@@ -497,7 +547,9 @@ export function generatePnlCp006Case(
       );
       const requiredContribution = contribution.paise * requiredQuantity;
       const fixedCost = moneyFromPaise(requiredContribution / 2n);
-      const targetProfit = moneyFromPaise(requiredContribution - fixedCost.paise);
+      const targetProfit = moneyFromPaise(
+        requiredContribution - fixedCost.paise,
+      );
       return {
         qlId,
         registry,
@@ -545,7 +597,11 @@ export function generatePnlCp006Case(
     case "PNL-QL-162": {
       const firstCostPrice = rupees(pickNumber(random, PURCHASE_PRICES));
       const firstLossRate = rational(pickSeeded(random, [10, 20] as const));
-      const firstSellingPrice = sellingPrice(firstCostPrice, "LOSS", firstLossRate);
+      const firstSellingPrice = sellingPrice(
+        firstCostPrice,
+        "LOSS",
+        firstLossRate,
+      );
       const secondCostPrice = rupees(pickNumber(random, PURCHASE_PRICES));
       const targetDirection = "PROFIT" as const;
       const targetRatePercent =
@@ -616,7 +672,11 @@ export function generatePnlCp006Case(
 
     case "PNL-QL-165": {
       const purchasePrice = rupees(pickNumber(random, PURCHASE_PRICES));
-      const totalExpense = rupees(pickNumber(random, FLAT_EXPENSES));
+      const expensePercent = rational(pickNumber(random, OVERHEAD_RATES));
+      const totalExpense = moneyFromPaise(
+        (purchasePrice.paise * expensePercent.numerator) /
+          (100n * expensePercent.denominator),
+      );
       const finalEffectiveCost = moneyFromPaise(
         purchasePrice.paise + totalExpense.paise,
       );
@@ -822,11 +882,13 @@ export function generatePnlCp006Case(
     case "PNL-QL-175":
     case "PNL-QL-183": {
       const preset = pickSeeded(random, PRODUCT_MIX_PRESETS);
-      const products: readonly ProductMixItem[] = preset.products.map((product) => ({
-        unitsPerBundle: product.units,
-        sellingPricePerUnit: rupees(product.sp),
-        variableCostPerUnit: rupees(product.vc),
-      }));
+      const products: readonly ProductMixItem[] = preset.products.map(
+        (product) => ({
+          unitsPerBundle: product.units,
+          sellingPricePerUnit: rupees(product.sp),
+          variableCostPerUnit: rupees(product.vc),
+        }),
+      );
       const fixedCost = rupees(preset.fixedCost);
       return {
         qlId,
@@ -908,7 +970,9 @@ export function generatePnlCp006Case(
 
     case "PNL-QL-179":
     case "PNL-QL-184": {
-      const lossPercent = rational(pickSeeded(random, [10, 20, 25, 40] as const));
+      const lossPercent = rational(
+        pickSeeded(random, [10, 20, 25, 40] as const),
+      );
       return {
         qlId,
         registry,
@@ -920,6 +984,15 @@ export function generatePnlCp006Case(
         context: {
           lossPercent: cp006FormatRational(lossPercent),
           correctStatement: "Statement 2 only",
+          ...(qlId === "PNL-QL-184"
+            ? {
+                statements: [
+                  "The same percentage profit after a loss is always sufficient to restore the original capital.",
+                  "After a loss, the required recovery percentage is measured on the smaller remaining capital.",
+                  `A ${cp006FormatRational(lossPercent)}% loss is exactly recovered by a ${cp006FormatRational(lossPercent)}% profit on the remaining capital.`,
+                ],
+              }
+            : {}),
         },
         ...(qlId === "PNL-QL-184"
           ? { answerOverride: "Statement 2 only" }
@@ -992,10 +1065,12 @@ export function generatePnlCp006Case(
       const fixedOnly = `Fixed cost is ${cp006FormatMoney(fixedCost)}.`;
       const unitOnly = `Variable cost is ${cp006FormatMoney(variableCostPerUnit)} and selling price is ${cp006FormatMoney(sellingPricePerUnit)} per unit.`;
       const irrelevant = "The business operates from a rented premises.";
-      const pattern = pickSeeded(
-        random,
-        ["BOTH", "ONE", "TWO", "EITHER"] as const,
-      );
+      const pattern = pickSeeded(random, [
+        "BOTH",
+        "ONE",
+        "TWO",
+        "EITHER",
+      ] as const);
       const statementOne =
         pattern === "ONE" || pattern === "EITHER"
           ? full
@@ -1026,7 +1101,11 @@ export function generatePnlCp006Case(
           variableCostPerUnit,
           sellingPricePerUnit,
         },
-        context: { statementOne, statementTwo, dataSufficiencyAnswer: answerOverride },
+        context: {
+          statementOne,
+          statementTwo,
+          dataSufficiencyAnswer: answerOverride,
+        },
         answerOverride,
       };
     }

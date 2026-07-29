@@ -5,7 +5,10 @@ import {
   renderStructuredStemMarkdown,
   type StructuredEditorialEntry,
 } from "../foundation/editorial-content";
-import { createSeededRandom, pickSeeded } from "../foundation/parameter-generator";
+import {
+  createSeededRandom,
+  pickSeeded,
+} from "../foundation/parameter-generator";
 import { moneyFromPaise, type Money } from "../foundation/money";
 import { rationalToNumber, type Rational } from "../foundation/rational";
 import {
@@ -84,25 +87,30 @@ function answerFor(
     case "PNL-QL-151":
     case "PNL-QL-163":
     case "PNL-QL-164":
-      if (!("effectiveCost" in result)) throw new Error(`${qlId}: expected effective cost.`);
+      if (!("effectiveCost" in result))
+        throw new Error(`${qlId}: expected effective cost.`);
       return { kind: "MONEY", value: result.effectiveCost };
 
     case "PNL-QL-152":
     case "PNL-QL-153":
-      if (!("sellingPrice" in result)) throw new Error(`${qlId}: expected selling price.`);
+      if (!("sellingPrice" in result))
+        throw new Error(`${qlId}: expected selling price.`);
       return { kind: "MONEY", value: result.sellingPrice };
 
     case "PNL-QL-154":
       if (!("direction" in result) || !("ratePercent" in result)) {
         throw new Error(`${qlId}: expected directed result.`);
       }
-      return { kind: "TEXT", value: directedRate(result.direction, result.ratePercent) };
+      return {
+        kind: "TEXT",
+        value: directedRate(result.direction, result.ratePercent),
+      };
 
     case "PNL-QL-155":
-      if (!("maximumAllowableExpense" in result)) {
+      if (!("maximumExpense" in result)) {
         throw new Error(`${qlId}: expected maximum allowable expense.`);
       }
-      return { kind: "MONEY", value: result.maximumAllowableExpense };
+      return { kind: "MONEY", value: result.maximumExpense };
 
     case "PNL-QL-156":
     case "PNL-QL-168":
@@ -123,13 +131,21 @@ function answerFor(
       if (!("breakEvenQuantity" in result)) {
         throw new Error(`${qlId}: expected break-even quantity.`);
       }
-      return { kind: "QUANTITY", value: result.breakEvenQuantity, unit: "units" };
+      return {
+        kind: "QUANTITY",
+        value: result.breakEvenQuantity,
+        unit: "units",
+      };
 
     case "PNL-QL-159":
       if (!("requiredQuantity" in result)) {
         throw new Error(`${qlId}: expected required quantity.`);
       }
-      return { kind: "QUANTITY", value: result.requiredQuantity, unit: "units" };
+      return {
+        kind: "QUANTITY",
+        value: result.requiredQuantity,
+        unit: "units",
+      };
 
     case "PNL-QL-160":
       if (!("breakEvenSellingPricePerUnit" in result)) {
@@ -145,7 +161,8 @@ function answerFor(
       return { kind: "MONEY", value: result.requiredSecondSellingPrice };
 
     case "PNL-QL-165":
-      if (!("totalExpense" in result)) throw new Error(`${qlId}: expected total expense.`);
+      if (!("totalExpense" in result))
+        throw new Error(`${qlId}: expected total expense.`);
       return { kind: "MONEY", value: result.totalExpense };
 
     case "PNL-QL-166":
@@ -162,7 +179,8 @@ function answerFor(
       return { kind: "MONEY", value: result.netProductionCost };
 
     case "PNL-QL-170":
-      if (!("fixedCost" in result)) throw new Error(`${qlId}: expected fixed cost.`);
+      if (!("fixedCost" in result))
+        throw new Error(`${qlId}: expected fixed cost.`);
       return { kind: "MONEY", value: result.fixedCost };
 
     case "PNL-QL-171":
@@ -194,7 +212,11 @@ function answerFor(
       if (!("breakEvenBundles" in result)) {
         throw new Error(`${qlId}: expected break-even bundles.`);
       }
-      return { kind: "QUANTITY", value: result.breakEvenBundles, unit: "bundles" };
+      return {
+        kind: "QUANTITY",
+        value: result.breakEvenBundles,
+        unit: "bundles",
+      };
 
     case "PNL-QL-176":
       if (!("marginOfSafetyAmount" in result)) {
@@ -221,12 +243,22 @@ function answerFor(
       return { kind: "PERCENT", value: result.requiredProfitPercent };
 
     case "PNL-QL-180":
-      if (!("direction" in result) || !("amount" in result) || !("ratePercent" in result)) {
-        throw new Error(`${qlId}: expected commission-adjusted amount and rate.`);
+      if (
+        !("direction" in result) ||
+        !("amount" in result) ||
+        !("ratePercent" in result)
+      ) {
+        throw new Error(
+          `${qlId}: expected commission-adjusted amount and rate.`,
+        );
       }
       return {
         kind: "TEXT",
-        value: amountAndRate(result.direction, result.amount, result.ratePercent),
+        value: amountAndRate(
+          result.direction,
+          result.amount,
+          result.ratePercent,
+        ),
       };
 
     case "PNL-QL-181":
@@ -258,7 +290,7 @@ function resultContext(
   const moneyFields = [
     "effectiveCost",
     "sellingPrice",
-    "maximumAllowableExpense",
+    "maximumExpense",
     "effectiveUnitCost",
     "requiredUnitSellingPrice",
     "breakEvenSellingPricePerUnit",
@@ -282,10 +314,14 @@ function resultContext(
       }
     }
   }
+  if ("maximumExpense" in result) {
+    context.maximumAllowableExpense = cp006PlainMoney(result.maximumExpense);
+  }
   if ("direction" in result && "ratePercent" in result) {
     context.resultDirection = result.direction.toLowerCase();
     context.resultRatePercent = cp006FormatRational(result.ratePercent);
-    context.resultAmount = "amount" in result ? cp006PlainMoney(result.amount) : undefined;
+    context.resultAmount =
+      "amount" in result ? cp006PlainMoney(result.amount) : undefined;
   }
   if ("breakEvenQuantity" in result) {
     context.breakEvenQuantity = result.breakEvenQuantity.toString();
@@ -296,9 +332,12 @@ function resultContext(
   if ("overheadPercent" in result) {
     context.overheadPercent = cp006FormatRational(result.overheadPercent);
   }
-  if ("primeCost" in result) context.primeCost = cp006PlainMoney(result.primeCost);
+  if ("primeCost" in result)
+    context.primeCost = cp006PlainMoney(result.primeCost);
   if ("factoryOverheadAmount" in result) {
-    context.factoryOverheadAmount = cp006PlainMoney(result.factoryOverheadAmount);
+    context.factoryOverheadAmount = cp006PlainMoney(
+      result.factoryOverheadAmount,
+    );
   }
   if ("grossProductionCost" in result) {
     context.grossProductionCost = cp006PlainMoney(result.grossProductionCost);
@@ -312,7 +351,9 @@ function resultContext(
     context.breakEvenBundles = result.breakEvenBundles.toString();
   }
   if ("contributionPerBundle" in result) {
-    context.contributionPerBundle = cp006PlainMoney(result.contributionPerBundle);
+    context.contributionPerBundle = cp006PlainMoney(
+      result.contributionPerBundle,
+    );
   }
   if ("marginOfSafetyPercent" in result) {
     context.marginOfSafetyPercent = cp006FormatRational(
@@ -322,8 +363,8 @@ function resultContext(
   if ("targetTotalRecovery" in result) {
     context.targetTotalRecovery = cp006PlainMoney(result.targetTotalRecovery);
   }
-  if ("priorRecoverySum" in result) {
-    context.priorRecoverySum = cp006PlainMoney(result.priorRecoverySum);
+  if ("priorRecoveryTotal" in result) {
+    context.priorRecoveryTotal = cp006PlainMoney(result.priorRecoveryTotal);
   }
   if ("remainingCapitalPercent" in result) {
     context.remainingCapitalPercent = cp006FormatRational(
@@ -412,7 +453,10 @@ function buildOptions(
   misconceptionLabels: readonly string[];
 }> {
   const correct = formatAnswer(answer);
-  const source = answer.kind === "TEXT" ? textDistractors(qlId, correct) : numericDistractors(answer);
+  const source =
+    answer.kind === "TEXT"
+      ? textDistractors(qlId, correct)
+      : numericDistractors(answer);
   const unique = [...new Set(source.filter((item) => item !== correct))];
   while (unique.length < 3) unique.push(`Alternative ${unique.length + 1}`);
   const entries = [
@@ -445,9 +489,9 @@ function forwardConsistency(
 ): boolean {
   switch (request.mode) {
     case "SP_TARGET_RATE_TO_MAX_EXPENSE": {
-      if (!("maximumAllowableExpense" in result)) return false;
+      if (!("maximumExpense" in result)) return false;
       const cost = moneyFromPaise(
-        request.purchasePrice.paise + result.maximumAllowableExpense.paise,
+        request.purchasePrice.paise + result.maximumExpense.paise,
       );
       const check = solvePnlCp006Request({
         mode: "EFFECTIVE_COST_AND_RATE_TO_SELLING_PRICE",
@@ -455,7 +499,10 @@ function forwardConsistency(
         direction: request.direction,
         ratePercent: request.targetRatePercent,
       });
-      return "sellingPrice" in check && check.sellingPrice.paise === request.sellingPrice.paise;
+      return (
+        "sellingPrice" in check &&
+        check.sellingPrice.paise === request.sellingPrice.paise
+      );
     }
 
     case "TOTAL_RECOVERY_AND_RATE_TO_EFFECTIVE_COST": {
@@ -466,7 +513,10 @@ function forwardConsistency(
         direction: request.direction,
         ratePercent: request.ratePercent,
       });
-      return "sellingPrice" in check && check.sellingPrice.paise === request.totalRecovery.paise;
+      return (
+        "sellingPrice" in check &&
+        check.sellingPrice.paise === request.totalRecovery.paise
+      );
     }
 
     case "PURCHASE_FLAT_AND_EFFECTIVE_COST_TO_OVERHEAD_RATE": {
@@ -478,7 +528,10 @@ function forwardConsistency(
         overheadPercent: result.overheadPercent,
         overheadBase: request.overheadBase,
       });
-      return "effectiveCost" in check && check.effectiveCost.paise === request.effectiveCost.paise;
+      return (
+        "effectiveCost" in check &&
+        check.effectiveCost.paise === request.effectiveCost.paise
+      );
     }
 
     case "BREAK_EVEN_QUANTITY_TO_FIXED_COST": {
@@ -486,7 +539,8 @@ function forwardConsistency(
         "fixedCost" in result &&
         result.fixedCost.paise ===
           request.breakEvenQuantity *
-            (request.sellingPricePerUnit.paise - request.variableCostPerUnit.paise)
+            (request.sellingPricePerUnit.paise -
+              request.variableCostPerUnit.paise)
       );
     }
 
@@ -494,15 +548,19 @@ function forwardConsistency(
       return (
         "variableCostPerUnit" in result &&
         request.breakEvenQuantity *
-          (request.sellingPricePerUnit.paise - result.variableCostPerUnit.paise) ===
+          (request.sellingPricePerUnit.paise -
+            result.variableCostPerUnit.paise) ===
           request.fixedCost.paise
       );
     }
 
     case "FIXED_VARIABLE_QUANTITY_TARGET_PROFIT_TO_SP": {
       if (!("requiredSellingPricePerUnit" in result)) return false;
-      const revenue = result.requiredSellingPricePerUnit.paise * request.quantity;
-      const cost = request.fixedCost.paise + request.variableCostPerUnit.paise * request.quantity;
+      const revenue =
+        result.requiredSellingPricePerUnit.paise * request.quantity;
+      const cost =
+        request.fixedCost.paise +
+        request.variableCostPerUnit.paise * request.quantity;
       return revenue - cost === request.targetProfit.paise;
     }
 
@@ -513,13 +571,21 @@ function forwardConsistency(
         fixedCost: request.fixedCost,
         contributionMarginPercent: result.contributionMarginPercent,
       });
-      return "breakEvenRevenue" in check && check.breakEvenRevenue.paise === request.breakEvenRevenue.paise;
+      return (
+        "breakEvenRevenue" in check &&
+        check.breakEvenRevenue.paise === request.breakEvenRevenue.paise
+      );
     }
 
     case "TOTAL_COST_PRIOR_RECOVERIES_TARGET_TO_FINAL_RECOVERY": {
-      if (!("requiredFinalRecovery" in result) || !("targetTotalRecovery" in result) || !("priorRecoverySum" in result)) return false;
+      if (
+        !("requiredFinalRecovery" in result) ||
+        !("targetTotalRecovery" in result) ||
+        !("priorRecoveryTotal" in result)
+      )
+        return false;
       return (
-        result.priorRecoverySum.paise + result.requiredFinalRecovery.paise ===
+        result.priorRecoveryTotal.paise + result.requiredFinalRecovery.paise ===
         result.targetTotalRecovery.paise
       );
     }
@@ -559,9 +625,12 @@ function selectQl(input: PnlCp006DynamicInput): string {
       qlId,
       `${input.seed ?? "cp006"}:probe`,
     ).registry;
-    return !input.difficultyBand || registry.difficulty === input.difficultyBand;
+    return (
+      !input.difficultyBand || registry.difficulty === input.difficultyBand
+    );
   });
-  if (!eligible.length) throw new Error("No CP-006 QLs match the requested difficulty.");
+  if (!eligible.length)
+    throw new Error("No CP-006 QLs match the requested difficulty.");
   return pickSeeded(
     createSeededRandom(`${input.seed ?? "cp006-dynamic"}:ql-selection`),
     eligible,
@@ -579,11 +648,11 @@ export function listPnlCp006DynamicQlIds(): readonly string[] {
   return [...PNL_CP006_QL_IDS];
 }
 
-export function runPnlCp006DynamicPipeline(
-  input: PnlCp006DynamicInput = {},
-) {
+export function runPnlCp006DynamicPipeline(input: PnlCp006DynamicInput = {}) {
   if (input.language && input.language !== "en") {
-    throw new Error("PNL-CP-006 dynamic runtime currently supports English only.");
+    throw new Error(
+      "PNL-CP-006 dynamic runtime currently supports English only.",
+    );
   }
 
   const qlId = selectQl(input);
@@ -595,7 +664,8 @@ export function runPnlCp006DynamicPipeline(
   const answer = formatAnswer(answerValue);
   const optionSet = buildOptions(qlId, seed, answerValue);
   const editorial = editorialLibrary.entries[qlId];
-  if (!editorial) throw new Error(`${qlId}: English editorial entry is missing.`);
+  if (!editorial)
+    throw new Error(`${qlId}: English editorial entry is missing.`);
 
   const context = {
     ...generated.context,
@@ -612,7 +682,8 @@ export function runPnlCp006DynamicPipeline(
     {
       name: "registry-and-editorial-parity",
       passed: Boolean(generated.registry && editorial),
-      message: "The QL exists in both the frozen registry and English editorial library.",
+      message:
+        "The QL exists in both the frozen registry and English editorial library.",
     },
     {
       name: "exact-recomputation",
@@ -622,7 +693,8 @@ export function runPnlCp006DynamicPipeline(
     {
       name: "inverse-forward-consistency",
       passed: forwardConsistency(generated.request, result),
-      message: "Every inverse answer reproduces its generated forward cost, contribution or recovery model.",
+      message:
+        "Every inverse answer reproduces its generated forward cost, contribution or recovery model.",
     },
     {
       name: "four-misconception-options",
@@ -630,20 +702,24 @@ export function runPnlCp006DynamicPipeline(
         optionSet.options.length === 4 &&
         new Set(optionSet.options).size === 4 &&
         optionSet.options[optionSet.correctIndex] === answer &&
-        optionSet.misconceptionLabels.filter((label) => label !== "CORRECT").length === 3,
-      message: "Four unique options contain one answer and three labelled misconceptions.",
+        optionSet.misconceptionLabels.filter((label) => label !== "CORRECT")
+          .length === 3,
+      message:
+        "Four unique options contain one answer and three labelled misconceptions.",
     },
     {
       name: "dynamic-editorial-binding",
       passed:
         !containsUnresolvedProsePlaceholder(stem) &&
         !containsUnresolvedProsePlaceholder(explanationText),
-      message: "Dynamic stem and explanation contain no unresolved prose placeholders.",
+      message:
+        "Dynamic stem and explanation contain no unresolved prose placeholders.",
     },
     {
       name: "question-bank-safety",
       passed: true,
-      message: "Dynamic candidates remain outside Question Bank, tests and publication.",
+      message:
+        "Dynamic candidates remain outside Question Bank, tests and publication.",
     },
   ];
   const validation = { valid: checks.every((check) => check.passed), checks };
@@ -718,8 +794,16 @@ export function runPnlCp006DynamicPipeline(
     reasoningGraph: {
       graphId: `${qlId}-dynamic-graph`,
       nodes: [
-        { id: "given", label: "Generated cost and recovery values", value: context },
-        { id: "mode", label: "Solve mode", value: generated.registry.solveMode },
+        {
+          id: "given",
+          label: "Generated cost and recovery values",
+          value: context,
+        },
+        {
+          id: "mode",
+          label: "Solve mode",
+          value: generated.registry.solveMode,
+        },
         { id: "answer", label: "Exact answer", value: answer },
       ],
     },

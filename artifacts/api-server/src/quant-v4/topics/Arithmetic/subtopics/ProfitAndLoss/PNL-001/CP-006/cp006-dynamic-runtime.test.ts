@@ -113,8 +113,16 @@ for (const qlId of qlIds) {
       language: "en",
       seed,
     });
-    assert.equal(replay.stem, pkg.stem, `${qlId}: same seed must reproduce stem.`);
-    assert.equal(replay.answer, pkg.answer, `${qlId}: same seed must reproduce answer.`);
+    assert.equal(
+      replay.stem,
+      pkg.stem,
+      `${qlId}: same seed must reproduce stem.`,
+    );
+    assert.equal(
+      replay.answer,
+      pkg.answer,
+      `${qlId}: same seed must reproduce answer.`,
+    );
     assert.deepEqual(
       replay.options,
       pkg.options,
@@ -124,7 +132,10 @@ for (const qlId of qlIds) {
 
   assert.ok(stems.size >= 2, `${qlId}: seed sweep did not vary the stem.`);
   if (qlId !== "PNL-QL-184") {
-    assert.ok(answers.size >= 2, `${qlId}: seed sweep did not vary the answer.`);
+    assert.ok(
+      answers.size >= 2,
+      `${qlId}: seed sweep did not vary the answer.`,
+    );
   }
 }
 
