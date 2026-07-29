@@ -55,7 +55,7 @@ const features121 = analyzeClsCp004Number(121);
 assert.equal(features121.palindrome, true);
 assert.equal(features121.digitSum, 4);
 assert.equal(features121.digitProduct, 2);
-assert.equal(features121.digitParityComposition, "ALL_ODD");
+assert.equal(features121.digitParityComposition, "MIXED");
 
 assert.equal(analyzeClsCp004Number(24).nearPowerClass, "ONE_BELOW_SQUARE");
 assert.equal(analyzeClsCp004Number(26).nearPowerClass, "MULTIPLE_NEAR_POWER_RELATIONS");
