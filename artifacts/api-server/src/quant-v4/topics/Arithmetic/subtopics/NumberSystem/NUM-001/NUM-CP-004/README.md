@@ -11,10 +11,15 @@
 1. `NUM-CP-004-WAVE-00-SOURCE-AND-OWNERSHIP-REGISTER.md`
 2. `NUM-CP-004-WAVE-01-FOUNDATION-PLAN.md`
 3. `wave01/types.ts`
-4. `wave01/runtime.ts`
-5. `wave01/runtime.test.ts`
-6. `wave01/runtime-audit.ts`
-7. `wave01/review-export.ts`
+4. `wave01/runtime.ts` — mathematical foundation
+5. `wave01/runtime-reviewed.ts` — reviewed topology and difficulty corrections
+6. `wave01/runtime-authority.ts` — bounded exact states and co-prime authority
+7. `wave01/runtime-proven.ts` — final Wave 1 generation entry point
+8. `wave01/runtime-authority.test.ts` — 800-package exact proof
+9. `wave01/runtime-audit.ts` — structural and lifecycle audit
+10. `wave01/review-export.ts` — 24-question English review pack
+
+Only `runtime-proven.ts` is the Wave 1 generation entry point. Earlier layers remain implementation ancestry and are not separate learner or QL authorities.
 
 ## Current Wave 1 temporary contracts
 
