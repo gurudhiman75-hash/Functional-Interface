@@ -16,7 +16,7 @@ on:
 jobs:
   cp003-shared-family-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 50
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -45,6 +45,11 @@ jobs:
         id: cp003_lineage
         continue-on-error: true
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-lineage.test.ts > cp003-lineage.log 2>&1
+
+      - name: Run CP-003 second source-gap proof
+        id: cp003_source_gap
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-source-gap.test.ts > cp003-source-gap.log 2>&1
 
       - name: Run CP-003 English editorial review gate
         id: cp003_editorial
@@ -76,6 +81,7 @@ jobs:
             cp003-extended.log
             cp003-marital.log
             cp003-lineage.log
+            cp003-source-gap.log
             cp003-editorial.log
             cp003-merge-split.log
             cp003-inverse.log
@@ -114,6 +120,12 @@ jobs:
         if: steps.cp003_lineage.outcome == 'failure'
         run: |
           cat cp003-lineage.log
+          exit 1
+
+      - name: Enforce CP-003 source-gap result
+        if: steps.cp003_source_gap.outcome == 'failure'
+        run: |
+          cat cp003-source-gap.log
           exit 1
 
       - name: Enforce CP-003 editorial result
