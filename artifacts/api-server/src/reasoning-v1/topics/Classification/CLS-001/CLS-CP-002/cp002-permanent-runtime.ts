@@ -4,11 +4,11 @@ import {
   type ClsCp002QlId,
   type ClsCp002SolveContractId,
 } from "./cp002-permanent-contract";
+import { generateClsCp002MultilingualSafePrototype } from "./cp002-safe-source-runtime";
 import {
   canonicalizeClsCp002Pair,
   localizeClsCp002Pair,
 } from "./localization/cp002-language-pack";
-import { generateClsCp002Prototype } from "./runtime";
 import type {
   ClsCp002PrototypeId,
   GeneratedClsCp002Question,
@@ -44,8 +44,8 @@ export type GeneratedClsCp002EnglishQuestion = Omit<
   readonly lifecycle: ClsCp002ProvisionalLifecycle;
 };
 
-const SOURCE_SEED_STRIDE = 512;
-const MAX_LOCALIZATION_SAFE_ATTEMPTS = SOURCE_SEED_STRIDE;
+const SOURCE_SEED_STRIDE = 64;
+const MAX_PRESENTATION_SAFE_ATTEMPTS = SOURCE_SEED_STRIDE;
 
 function hashText(text: string): number {
   let hash = 2166136261;
@@ -80,7 +80,7 @@ function pairDisplay(left: string, right: string): string {
   return `${left} : ${right}`;
 }
 
-function isLocalizationSafe(question: GeneratedClsCp002Question): boolean {
+function isPresentationSafe(question: GeneratedClsCp002Question): boolean {
   for (const locale of ["hi-IN", "pa-IN"] as const) {
     try {
       const localizedPairs = question.pairs.map((pair) =>
@@ -88,8 +88,6 @@ function isLocalizationSafe(question: GeneratedClsCp002Question): boolean {
       );
       const displays = localizedPairs.map((pair) => pairDisplay(pair.left, pair.right));
       if (new Set(displays).size !== displays.length) return false;
-      if (displays.some((display) => display.trim().length === 0)) return false;
-
       const reconstructed = localizedPairs.map((pair) =>
         canonicalizeClsCp002Pair(pair, question.metadata.sourceRelationFactIds, locale),
       );
@@ -121,21 +119,21 @@ export function generateClsCp002EnglishQuestion(
 
   let generated: GeneratedClsCp002Question | null = null;
   let sourcePrototypeSeed = base;
-  for (let attempt = 0; attempt < MAX_LOCALIZATION_SAFE_ATTEMPTS; attempt += 1) {
+  for (let attempt = 0; attempt < MAX_PRESENTATION_SAFE_ATTEMPTS; attempt += 1) {
     const candidateSeed = base + attempt;
-    const candidate = generateClsCp002Prototype(
+    const candidate = generateClsCp002MultilingualSafePrototype(
       sourcePrototypeId,
       candidateSeed,
       sourceOptionCount,
     );
-    if (!isLocalizationSafe(candidate)) continue;
+    if (!isPresentationSafe(candidate)) continue;
     generated = candidate;
     sourcePrototypeSeed = candidateSeed;
     break;
   }
   if (!generated) {
     throw new Error(
-      `${qlId}/${seed} did not produce a multilingual-safe state after ${MAX_LOCALIZATION_SAFE_ATTEMPTS} attempts`,
+      `${qlId}/${seed} did not produce a presentation-safe state after ${MAX_PRESENTATION_SAFE_ATTEMPTS} attempts`,
     );
   }
 
