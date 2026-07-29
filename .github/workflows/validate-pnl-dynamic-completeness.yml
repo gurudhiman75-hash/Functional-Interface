@@ -1,0 +1,63 @@
+name: Validate PNL Dynamic Completeness
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-dynamic-completeness-audit
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-dynamic-completeness-audit.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-DYNAMIC-COMPLETENESS-REPORT.md"
+      - ".github/workflows/validate-pnl-dynamic-completeness.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-dynamic-completeness-audit.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-DYNAMIC-COMPLETENESS-REPORT.md"
+      - ".github/workflows/validate-pnl-dynamic-completeness.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-pnl-dynamic-completeness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle chapter completeness audit
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-dynamic-completeness-audit.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-dynamic-completeness-audit.test.mjs \
+            2>&1 | tee pnl-dynamic-completeness.log
+
+      - name: Run 186-QL 4,464-package audit
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-dynamic-completeness-audit.test.mjs \
+            2>&1 | tee -a pnl-dynamic-completeness.log
+
+      - name: Upload completeness evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-dynamic-completeness-proof
+          path: pnl-dynamic-completeness.log
+          if-no-files-found: error
+          retention-days: 14

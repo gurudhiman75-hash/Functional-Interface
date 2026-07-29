@@ -1,9 +1,10 @@
 import { ALPHABET, positionTrack } from "./foundation/alphabet";
 import { auditAlpInstance } from "./ambiguity-checker";
-import { buildAlpOptions, validateAlpOptions } from "./distractors";
+import { buildAlpOptions, validateAlpOptions } from "./distractors-safe";
+import { renderAlpExplanationV2, renderAlpStemV2 } from "./editorial-v2-localized";
 import { generateAlpInstance } from "./instance-generator";
 import { solveAlpInstance } from "./independent-solver";
-import { renderAlpExplanation, renderAlpStem } from "./localization-safe";
+import { localizeAlpAnswerSurface } from "./localized-values";
 import { alp001QlById } from "./ql-registry";
 import type { AlpDifficulty, AlpInstanceData, AlpLocale, AlpQuestionLogic, GeneratedAlpQuestion } from "./types";
 
@@ -46,10 +47,20 @@ export function generateAlp001Question(
   if (!ambiguity.accepted) {
     throw new Error(`${qlId} seed ${seed} failed ambiguity audit: ${ambiguity.reasons.join(" | ")}`);
   }
-  const options = buildAlpOptions(ql, data, solved, seed);
-  const correctIndex = validateAlpOptions(options, solved.answer);
-  const stem = renderAlpStem(ql, data, locale);
-  const explanation = renderAlpExplanation(ql, data, solved, locale);
+  const canonicalOptions = buildAlpOptions(ql, data, solved, seed);
+  const correctIndex = validateAlpOptions(canonicalOptions, solved.answer);
+  const stem = renderAlpStemV2(ql, data, locale);
+  const canonicalExplanation = renderAlpExplanationV2(ql, data, solved, canonicalOptions, correctIndex, locale);
+  const display = localizeAlpAnswerSurface(
+    ql.answerType,
+    solved.answer,
+    canonicalOptions,
+    canonicalExplanation,
+    locale,
+  );
+  if (display.options[correctIndex]?.value !== display.answer) {
+    throw new Error(`${qlId} localized answer no longer matches the correct option.`);
+  }
   if (!stem.trim() || /\{\{|\}\}|undefined|null/.test(stem)) throw new Error(`${qlId} rendered an unresolved stem.`);
 
   return {
@@ -65,12 +76,12 @@ export function generateAlp001Question(
     presentationMode: ql.presentationMode,
     stem,
     structuredPrompt: structuredPrompt(ql, data),
-    options,
+    options: display.options,
     correctIndex,
-    answer: solved.answer,
-    explanation,
+    answer: display.answer,
+    explanation: display.explanation,
     metadata: {
-      runtimeVersion: "ALP-001-RUNTIME-V1",
+      runtimeVersion: "ALP-001-RUNTIME-V2",
       localeMode: "TRANSLATABLE",
       independentSolverVerified: true,
       ambiguityAudit: "EXPLICIT_OPERATION_UNIQUE",

@@ -1,0 +1,129 @@
+name: Validate MAL-CP-001 English release
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feat/mal-001-cp001-prototype-foundation
+      - feat/mal-001-cp001-permanent-allocation
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/**
+      - artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts
+      - .github/workflows/mal-cp001-permanent-allocation.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-mal-cp001-english-release-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-mal-cp001-english-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle frozen foundation regression audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-foundation-freeze-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-foundation-freeze-audit.mjs
+      - name: Run frozen foundation regression audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/mal-001-cp001-foundation-freeze-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-foundation-freeze-audit.log
+      - name: Bundle permanent allocation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-permanent-allocation-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-permanent-allocation-audit.mjs
+      - name: Run permanent allocation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-allocation-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-allocation-audit.log
+      - name: Bundle permanent English teacher audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-permanent-editorial-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-permanent-editorial-audit.mjs
+      - name: Run permanent English teacher audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-editorial-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-editorial-audit.log
+      - name: Bundle English release and Question Studio audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-english-release-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-english-release-audit.mjs
+      - name: Run English release and Question Studio audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/mal-001-cp001-english-release-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-english-release-audit.log
+      - name: Bundle final release language audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-release-language-final-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-release-language-final-audit.mjs
+      - name: Run final release language audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/mal-001-cp001-release-language-final-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-release-language-final-audit.log
+      - name: Bundle permanent allocation review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-permanent-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-permanent-review-export.mjs
+      - name: Generate permanent allocation review pack
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/mal-001-cp001-permanent-review-export.mjs
+      - name: Bundle approved English release review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-english-release-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-english-release-review-export.mjs
+      - name: Generate approved English release review pack
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/mal-001-cp001-english-release-review-export.mjs
+      - name: Upload MAL-CP-001 release evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mal-cp001-english-release
+          path: |
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-foundation-freeze-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-allocation-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-editorial-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-english-release-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-release-language-final-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-allocation-review.json
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-permanent-allocation-review.md
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-english-release-review.json
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-english-release-review.md
+          if-no-files-found: error
+          retention-days: 7

@@ -36,6 +36,7 @@ export type BlrRelationId =
   | "SISTER_IN_LAW";
 
 export type PrimitivePathStep = "PARENT" | "CHILD" | "SIBLING" | "SPOUSE";
+export type BlrRoleId = BlrRelationId | PrimitivePathStep;
 
 export interface FamilyPerson {
   personId: string;

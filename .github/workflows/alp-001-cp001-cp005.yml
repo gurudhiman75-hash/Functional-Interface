@@ -31,31 +31,93 @@ jobs:
         run: corepack enable
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
+      - name: Prepare evidence directory
+        run: mkdir -p artifacts/api-server/dist/reasoning-v1/alp-001/editorial-v2-review
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Run ALP-001 chapter and localization audits
+        id: chapter-audits
+        continue-on-error: true
         run: |
-          set -euo pipefail
+          set -o pipefail
           ROOT=src/reasoning-v1/topics/Alphabet-Test/ALP-001
           OUT=dist/reasoning-v1/alp-001
+          LOG=dist/reasoning-v1/alp-001/editorial-v2-review/chapter-audits.log
+          STATUS=0
           mkdir -p artifacts/api-server/$OUT
-          for TEST in alp-001.test alp-001-localized.test; do
-            pnpm --dir artifacts/api-server exec esbuild \
-              "$ROOT/$TEST.ts" \
-              --bundle --platform=node --format=esm \
-              --outfile="$OUT/$TEST.mjs"
-            (cd artifacts/api-server && node "$OUT/$TEST.mjs")
+          : > artifacts/api-server/$LOG
+          for TEST in alp-001.test alp-001-localized.test alp-001-editorial-v2.test; do
+            {
+              echo "===== $TEST ====="
+              pnpm --dir artifacts/api-server exec esbuild \
+                "$ROOT/$TEST.ts" \
+                --bundle --platform=node --format=esm \
+                --outfile="$OUT/$TEST.mjs"
+              (cd artifacts/api-server && node "$OUT/$TEST.mjs")
+            } 2>&1 | tee -a artifacts/api-server/$LOG || STATUS=$?
+            if [ "$STATUS" -ne 0 ]; then break; fi
           done
+          echo "$STATUS" > artifacts/api-server/dist/reasoning-v1/alp-001/editorial-v2-review/chapter-audits.status
+          exit "$STATUS"
       - name: Run checkpoint audits
+        id: checkpoint-audits
+        if: steps.chapter-audits.outcome == 'success'
+        continue-on-error: true
         run: |
-          set -euo pipefail
+          set -o pipefail
           ROOT=src/reasoning-v1/topics/Alphabet-Test/ALP-001
           OUT=dist/reasoning-v1/alp-001
+          LOG=dist/reasoning-v1/alp-001/editorial-v2-review/checkpoint-audits.log
+          STATUS=0
+          : > artifacts/api-server/$LOG
           for CP in 001 002 003 004 005; do
             TEST="ALP-CP-$CP/alp-cp-$CP.test"
-            pnpm --dir artifacts/api-server exec esbuild \
-              "$ROOT/$TEST.ts" \
-              --bundle --platform=node --format=esm \
-              --outfile="$OUT/alp-cp-$CP.test.mjs"
-            (cd artifacts/api-server && node "$OUT/alp-cp-$CP.test.mjs")
+            {
+              echo "===== $TEST ====="
+              pnpm --dir artifacts/api-server exec esbuild \
+                "$ROOT/$TEST.ts" \
+                --bundle --platform=node --format=esm \
+                --outfile="$OUT/alp-cp-$CP.test.mjs"
+              (cd artifacts/api-server && node "$OUT/alp-cp-$CP.test.mjs")
+            } 2>&1 | tee -a artifacts/api-server/$LOG || STATUS=$?
+            if [ "$STATUS" -ne 0 ]; then break; fi
           done
+          echo "$STATUS" > artifacts/api-server/dist/reasoning-v1/alp-001/editorial-v2-review/checkpoint-audits.status
+          exit "$STATUS"
+      - name: Generate editorial-v2 review packs
+        if: steps.chapter-audits.outcome == 'success' && steps.checkpoint-audits.outcome == 'success'
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Alphabet-Test/ALP-001
+          OUT=dist/reasoning-v1/alp-001
+          REVIEW=artifacts/api-server/dist/reasoning-v1/alp-001/editorial-v2-review
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/export-review.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/export-review.mjs"
+          (cd artifacts/api-server && node "$OUT/export-review.mjs" en-IN 3 "dist/reasoning-v1/alp-001/editorial-v2-review/alp-001-cp001-cp005-en-IN-editorial-v2-review.md")
+          (cd artifacts/api-server && node "$OUT/export-review.mjs" hi-IN 2 "dist/reasoning-v1/alp-001/editorial-v2-review/alp-001-cp001-cp005-hi-IN-editorial-v2-review.md")
+          (cd artifacts/api-server && node "$OUT/export-review.mjs" pa-IN 2 "dist/reasoning-v1/alp-001/editorial-v2-review/alp-001-cp001-cp005-pa-IN-editorial-v2-review.md")
+          cat > "$REVIEW/README.txt" <<'EOF'
+          ALP-001 CP-001 through CP-005 — Editorial V2 Review
+
+          English: 104 QLs × 3 seeds = 312 questions
+          Hindi:   104 QLs × 2 seeds = 208 questions
+          Punjabi: 104 QLs × 2 seeds = 208 questions
+          Total: 728 questions
+
+          Review state: draft, unmerged and not publicly publishable.
+          EOF
+      - name: Upload editorial-v2 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: alp-001-cp001-cp005-editorial-v2-review
+          path: artifacts/api-server/dist/reasoning-v1/alp-001/editorial-v2-review
+          if-no-files-found: error
+          retention-days: 14
+      - name: Enforce audit result
+        if: always()
+        run: |
+          test "${{ steps.chapter-audits.outcome }}" = "success"
+          test "${{ steps.checkpoint-audits.outcome }}" = "success"

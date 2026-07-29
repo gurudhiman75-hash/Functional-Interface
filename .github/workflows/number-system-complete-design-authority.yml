@@ -1,0 +1,55 @@
+name: Validate Number System complete design authority
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**
+      - .github/workflows/number-system-complete-design-authority.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-number-system-complete-design-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-number-system-complete-design:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle Number System design authority audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/design/number-system-design-registry.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/number-system-complete-design-authority.test.mjs
+      - name: Run Number System design authority audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/number-system-complete-design-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/number-system-complete-design-authority.log
+      - name: Upload Number System design evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: number-system-complete-design-authority
+          path: artifacts/api-server/dist/quant-v4/number-system-complete-design-authority.log
+          if-no-files-found: error
+          retention-days: 14
