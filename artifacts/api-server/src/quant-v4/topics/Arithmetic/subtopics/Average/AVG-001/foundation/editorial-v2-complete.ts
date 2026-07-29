@@ -30,7 +30,11 @@ function tagify(value: string | undefined, fallback: string) {
 function bareValue(value: string) {
   const ratio = value.match(/^-?\d+\s*:\s*\d+$/)?.[0];
   if (ratio) return ratio.replace(/\s/g, "");
-  return value.replace(/,/g, "").match(/-?\d+(?:\.\d+)?(?:\/\d+)?/)?.[0] ?? value.trim();
+  const normalized = value
+    .replace(/,/g, "")
+    .replace(/^-₹\s*/, "-")
+    .replace(/^₹\s*/, "");
+  return normalized.match(/-?\d+(?:\.\d+)?(?:\/\d+)?/)?.[0] ?? value.trim();
 }
 
 function groupNumber(value: string) {
@@ -118,6 +122,58 @@ function buildOptionTags(pkg: Avg001QuestionPackage) {
     }
   }
   return tags;
+}
+
+function fallbackStep(pkg: Avg001QuestionPackage) {
+  if (pkg.parameters.answerType === "COUNT") return 1;
+  if (inferredUnit(pkg) === "currency") return 1000;
+  if (pkg.parameters.displayPolicy === "EXACT_DECIMAL_1") return 0.1;
+  if (pkg.parameters.displayPolicy === "EXACT_DECIMAL_2") return 0.01;
+  return 1;
+}
+
+function fallbackRaw(pkg: Avg001QuestionPackage, value: number) {
+  if (pkg.parameters.answerType === "COUNT") return String(Math.max(1, Math.round(value)));
+  if (pkg.parameters.displayPolicy === "EXACT_DECIMAL_1") return value.toFixed(1);
+  if (pkg.parameters.displayPolicy === "EXACT_DECIMAL_2") return value.toFixed(2);
+  if (pkg.parameters.displayPolicy === "EXACT_INTEGER") return String(Math.round(value));
+  return String(Number(value.toFixed(3)));
+}
+
+function buildQualifiedOptions(pkg: Avg001QuestionPackage) {
+  const qualified = pkg.options.map((option) => qualify(pkg, option));
+  const answer = qualified[pkg.correctIndex]!;
+  const tags = buildOptionTags(pkg);
+  const options = Array<string>(4);
+  const used = new Set<string>([answer]);
+  const answerValue = Number(bareValue(pkg.solver.answer));
+  const step = fallbackStep(pkg);
+
+  options[pkg.correctIndex] = answer;
+  for (let index = 0; index < qualified.length; index += 1) {
+    if (index === pkg.correctIndex) continue;
+    let candidate = qualified[index]!;
+    if (candidate === answer || used.has(candidate)) {
+      let attempt = 0;
+      do {
+        attempt += 1;
+        const direction = attempt % 2 === 1 ? 1 : -1;
+        const offset = direction * Math.ceil(attempt / 2) * step;
+        const fallbackValue = Number.isFinite(answerValue) ? answerValue + offset : attempt;
+        candidate = qualify(pkg, fallbackRaw(pkg, fallbackValue));
+        if (attempt > 40) {
+          throw new Error(`Unable to repair collapsed distractor for ${pkg.questionLanguageId}`);
+        }
+      } while (candidate === answer || used.has(candidate));
+      tags[index] = pkg.solveMode.includes("CombinedAverage") || pkg.solveMode.includes("SuperGroupAverage")
+        ? "WEIGHTED_ARITHMETIC_SLIP"
+        : "ARITHMETIC_SLIP";
+    }
+    options[index] = candidate;
+    used.add(candidate);
+  }
+
+  return { options, answer, tags };
 }
 
 function cleanExplanationLine(value: string | undefined, fallback: string) {
@@ -212,24 +268,22 @@ function validateRemainingCandidate(pkg: Avg001QuestionPackage) {
 function applyRemainingCpCandidate(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
   if (!REMAINING_CP_IDS.has(pkg.canonicalProblemId) || pkg.language !== "en") return pkg;
 
-  const options = pkg.options.map((option) => qualify(pkg, option));
-  const answer = options[pkg.correctIndex]!;
-  const tags = buildOptionTags(pkg);
+  const built = buildQualifiedOptions(pkg);
   const revised: Avg001QuestionPackage = {
     ...pkg,
-    options,
-    answer,
-    solver: { ...pkg.solver, answer },
-    independentVerification: { ...pkg.independentVerification, displayAnswer: answer },
+    options: built.options,
+    answer: built.answer,
+    solver: { ...pkg.solver, answer: built.answer },
+    independentVerification: { ...pkg.independentVerification, displayAnswer: built.answer },
     traceability: {
       ...pkg.traceability,
       releaseCandidate: "AVG-001-EN-v2",
-      editorialV2OptionTags: tags,
+      editorialV2OptionTags: built.tags,
       preservedMathematicalFingerprint: pkg.mathematicalFingerprint,
       editorialV2Complete: AVG_001_EDITORIAL_V2_COMPLETE,
     },
   };
-  const explained = { ...revised, explanation: buildExplanation(revised, tags) };
+  const explained = { ...revised, explanation: buildExplanation(revised, built.tags) };
   return { ...explained, validation: validateRemainingCandidate(explained) };
 }
 
