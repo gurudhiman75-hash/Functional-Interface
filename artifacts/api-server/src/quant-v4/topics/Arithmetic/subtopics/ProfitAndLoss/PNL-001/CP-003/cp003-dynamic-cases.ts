@@ -514,10 +514,18 @@ export function generatePnlCp003Case(
 
     case "PNL-QL-078":
     case "PNL-QL-091": {
-      const knownGroups = [makeGroups(random)[0]!];
+      const knownDirection = pickDirection(random);
+      const knownGroups = [
+        {
+          quantity: pickSeeded(random, QUANTITIES),
+          unitCostPrice: rupees(pickNumber(random, UNIT_COSTS)),
+          direction: knownDirection,
+          ratePercent: rational(pickNumber(random, [10, 20, 25] as const)),
+        },
+      ];
       const unknownQuantity = pickSeeded(random, [10n, 20n, 40n] as const);
       const unknownUnitCostPrice = rupees(pickNumber(random, UNIT_COSTS));
-      const unknownDirection = pickDirection(random);
+      const unknownDirection = knownDirection;
       const unknownRatePercent = rational(
         pickNumber(random, [10, 20, 25] as const),
       );

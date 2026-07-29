@@ -1,6 +1,6 @@
 import { strict as assert } from "node:assert";
+import { AVG_001_ENGLISH_RELEASE_V2 } from "./foundation/editorial-v2-release";
 import { getAvg001QuestionEntries } from "./foundation/library";
-import { AVG_001_ENGLISH_RELEASE } from "./foundation/release";
 import type { Avg001Difficulty } from "./foundation/types";
 import {
   AVG_001_QUESTION_STUDIO_CP_IDS,
@@ -29,12 +29,14 @@ for (const cpId of AVG_001_QUESTION_STUDIO_CP_IDS) {
     assert.equal(first.language, "en");
     assert.equal(first.maturity, "FROZEN");
     assert.equal(first.publiclyPublishable, true);
-    assert.equal(first.traceability.releaseId, AVG_001_ENGLISH_RELEASE.releaseId);
+    assert.equal(first.traceability.releaseId, AVG_001_ENGLISH_RELEASE_V2.releaseId);
+    assert.equal(first.traceability.supersedesReleaseId, AVG_001_ENGLISH_RELEASE_V2.supersedes);
     assert.equal(first.traceability.editorialStatus, "APPROVED");
     assert.equal(first.traceability.approvedLanguage, "en");
+    assert.equal(first.traceability.questionStudioRelease, true);
     assert.equal(
       first.validation.checks.some(
-        (check) => check.name === "release-approval" && check.passed,
+        (check) => check.name === "release-approval-v2" && check.passed,
       ),
       true,
     );
@@ -44,6 +46,7 @@ for (const cpId of AVG_001_QUESTION_STUDIO_CP_IDS) {
     assert.equal(first.answer, second.answer);
     assert.equal(first.options[first.correctIndex], first.answer);
     assert.equal(first.validation.valid, true);
+    assert.equal(first.traceability.avg001EditorialV2Complete !== undefined, true);
   }
 
   for (const unavailable of difficultyOrder.filter((difficulty) => !availableDifficulties.includes(difficulty))) {
@@ -61,7 +64,7 @@ const explicit = runAvg001QuestionStudioPipeline("AVG-CP-006", {
 assert.equal(explicit.questionLanguageId, "AVG-QL-373");
 assert.equal(explicit.maturity, "FROZEN");
 assert.equal(explicit.publiclyPublishable, true);
-assert.equal(explicit.traceability.releaseId, AVG_001_ENGLISH_RELEASE.releaseId);
+assert.equal(explicit.traceability.releaseId, AVG_001_ENGLISH_RELEASE_V2.releaseId);
 assert.throws(
   () => runAvg001QuestionStudioPipeline("AVG-CP-001", { language: "hi" }),
   /English generation only/,
@@ -75,7 +78,8 @@ assert.throws(
 );
 
 console.log(JSON.stringify({
-  releaseId: AVG_001_ENGLISH_RELEASE.releaseId,
+  releaseId: AVG_001_ENGLISH_RELEASE_V2.releaseId,
+  supersedes: AVG_001_ENGLISH_RELEASE_V2.supersedes,
   cpCount: AVG_001_QUESTION_STUDIO_CP_IDS.length,
   availableDifficultyCases: cases,
   unavailableDifficultyChecks: 2,
