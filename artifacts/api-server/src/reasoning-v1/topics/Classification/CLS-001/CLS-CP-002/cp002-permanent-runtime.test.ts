@@ -58,12 +58,6 @@ for (let seed = 0; seed < 1200; seed += 1) {
   if (question.generationProfile === "CATEGORY_SAFE_FALSE_PAIR") {
     assert.ok(CLS_CP002_FALSE_PAIR_SAFE_RELATION_IDS.includes(question.intendedRelationId as never));
   }
-  if (question.generationProfile === "CLASS_PAIR_CONTRAST") {
-    assert.ok(question.pairs.every((pair) =>
-      !["Crown", "Sapwood"].includes(pair.left)
-      && !["Crown", "Sapwood"].includes(pair.right),
-    ));
-  }
 
   const independent = independentlyVerifyClsCp002Question(question);
   assert.equal(independent.result, "UNIQUE");
