@@ -1,4 +1,24 @@
 export {
+  CLS_CP002_PERMANENT_CONTRACT,
+  CLS_CP002_QL_ID,
+  CLS_CP002_SOLVE_CONTRACT_ID,
+} from "./cp002-permanent-contract";
+export type {
+  ClsCp002QlId,
+  ClsCp002SolveContractId,
+} from "./cp002-permanent-contract";
+export { generateClsCp002EnglishQuestion } from "./cp002-permanent-runtime";
+export type {
+  ClsCp002ProvisionalLifecycle,
+  GeneratedClsCp002EnglishQuestion,
+} from "./cp002-permanent-runtime";
+export { generateClsCp002Question } from "./cp002-multilingual-runtime";
+export type { GeneratedClsCp002PermanentQuestion } from "./cp002-multilingual-runtime";
+export type {
+  ClsCp002Locale,
+  ClsCp002TranslatedLocale,
+} from "./localization/cp002-language-pack";
+export {
   auditClsCp002DisplayedPairs,
   generateClsCp002Prototype,
   getClsCp002PrototypeDefinitions,
