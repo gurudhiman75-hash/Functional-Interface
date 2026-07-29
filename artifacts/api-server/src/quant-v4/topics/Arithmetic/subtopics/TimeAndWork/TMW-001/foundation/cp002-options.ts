@@ -1,4 +1,4 @@
-import { add, compare, divide, equals, multiply, rational, reciprocal, subtract } from "./rational";
+import { add, compare, divide, equals, formatTimeText, multiply, rational, reciprocal, subtract } from "./rational";
 import { required, seedNumber } from "./cp001-helpers";
 import { signedKnownTotal, sumTmwRates } from "./cp002-solver";
 import type { Rational } from "./types";
@@ -22,7 +22,7 @@ function optionText(entry: TmwCp002RegistryEntry, p: TmwCp002Parameters, value: 
     : Math.abs(value.numerator) > value.denominator
       ? `${Math.trunc(value.numerator / value.denominator)} ${Math.abs(value.numerator) % value.denominator}/${value.denominator}`
       : `${value.numerator}/${value.denominator}`;
-  if (entry.answerType === "TIME") return `${rendered} ${value.numerator === value.denominator ? p.timeUnit : `${p.timeUnit}s`}`;
+  if (entry.answerType === "TIME") return formatTimeText(value, p.timeUnit, `${p.timeUnit}s`);
   if (entry.answerType === "FRACTION") return `${rendered} of the assignment`;
   if (entry.answerType === "COUNT") return `${rendered} ${pluralize(p.context.agentNoun, value)}`;
   if (entry.answerType === "OUTPUT") return `${rendered} ${p.context.outputNoun}`;
