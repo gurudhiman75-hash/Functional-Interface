@@ -36,9 +36,15 @@ function numericTokens(value: string): string[] {
 
 function localizationNumericTokens(value: string, qlId: string): string[] {
   const tokens = numericTokens(value);
-  if (qlId === "PNC-QL-224" || qlId === "PNC-QL-225") {
+  if (qlId === "PNC-QL-224") {
+    if (tokens.length < 4 || tokens[3] !== "1") {
+      throw new Error(`${qlId}: expected fixed shelf identifier after occupancy`);
+    }
+    return [tokens[0]!, tokens[1]!, tokens[2]!, ...tokens.slice(4)];
+  }
+  if (qlId === "PNC-QL-225") {
     if (tokens.length < 4 || tokens[2] !== "1") {
-      throw new Error(`${qlId}: expected fixed shelf/desk identifier before occupancy`);
+      throw new Error(`${qlId}: expected fixed desk identifier before occupancy`);
     }
     return [tokens[0]!, tokens[1]!, tokens[3]!, ...tokens.slice(4)];
   }
