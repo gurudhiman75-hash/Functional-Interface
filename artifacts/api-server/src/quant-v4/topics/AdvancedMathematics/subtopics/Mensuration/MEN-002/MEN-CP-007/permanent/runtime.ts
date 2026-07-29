@@ -2,7 +2,7 @@ import { exactKey } from "../../foundation/exact";
 import { MEN_CP_007_PROTOTYPES } from "../../foundation/prototype-registry";
 import { generateMenCp007Prototype } from "../../foundation/runtime";
 import { createSeededRandom } from "../../foundation/seed";
-import type { MenCp007PrototypeId } from "../../foundation/types";
+import type { ExactValue, MenCp007PrototypeId } from "../../foundation/types";
 import { MEN_CP_007_WAVE_01_PROTOTYPES } from "../../gap-wave-01/registry";
 import { generateMenCp007Wave01Prototype } from "../../gap-wave-01/runtime";
 import type { MenCp007Wave01PrototypeId } from "../../gap-wave-01/types";
@@ -70,17 +70,99 @@ export function generateMenCp007SourcePrototype(prototypeId: MenCp007AnyPrototyp
   throw new Error(`Prototype is not part of the frozen CP-007 runtime: ${prototypeId}`);
 }
 
+type SourcePackage = ReturnType<typeof generateMenCp007SourcePrototype>;
+
+function stripInlineMath(text: string) {
+  const trimmed = text.trim();
+  return trimmed.startsWith("$") && trimmed.endsWith("$")
+    ? trimmed.slice(1, -1)
+    : trimmed;
+}
+
+function formatRoundedPercent(value: ExactValue) {
+  if (value.kind !== "RATIONAL" || value.denominator <= 0n || value.numerator < 0n) {
+    throw new Error("The CP-007 rounded-percentage presentation requires a non-negative rational value.");
+  }
+  const hundredths = (value.numerator * 100n + value.denominator / 2n) / value.denominator;
+  const whole = hundredths / 100n;
+  const decimals = String(hundredths % 100n).padStart(2, "0");
+  return `$${whole}.${decimals}\\%$`;
+}
+
+function replaceTrapDisplay(
+  trap: string,
+  options: readonly { label: "A" | "B" | "C" | "D"; display: string }[],
+) {
+  const match = trap.match(/^Option ([A-D]) \(.+\): (Common mistake:.*)$/);
+  if (!match) return trap;
+  const label = match[1] as "A" | "B" | "C" | "D";
+  const option = options.find((candidate) => candidate.label === label);
+  return option ? `Option ${label} (${option.display}): ${match[2]}` : trap;
+}
+
+function buildPermanentPresentation(
+  definition: MenCp007FrozenQlDefinition,
+  source: SourcePackage,
+) {
+  const options = source.options.map((option) => ({ ...option }));
+  const explanation = {
+    keyRule: source.explanation.keyRule,
+    steps: source.explanation.steps.map((step) => ({ ...step })),
+    shortcut: source.explanation.shortcut,
+    traps: [...source.explanation.traps],
+  };
+
+  if (definition.qlId !== "MEN-002-QL-040") {
+    return {
+      stem: source.stem,
+      options,
+      answer: source.answer,
+      explanation,
+    };
+  }
+
+  const roundedOptions = options.map((option) => ({
+    ...option,
+    display: formatRoundedPercent(option.value),
+  }));
+  const answer = roundedOptions[source.correctIndex]!.display;
+  const exactAnswerMath = stripInlineMath(source.answer);
+  const roundedAnswerMath = stripInlineMath(answer);
+
+  return {
+    stem: `${source.stem} Give the answer correct to two decimal places.`,
+    options: roundedOptions,
+    answer,
+    explanation: {
+      keyRule: `${explanation.keyRule} Keep the fraction exact during the calculation and round only the final percentage to two decimal places.`,
+      steps: [
+        ...explanation.steps,
+        {
+          title: "Round Only the Final Percentage",
+          body: "Use the declared two-decimal-place policy only after the exact waste percentage has been found.",
+          equation: `$$${exactAnswerMath}\\approx${roundedAnswerMath}$$`,
+        },
+      ],
+      shortcut: explanation.shortcut,
+      traps: explanation.traps.map((trap) => replaceTrapDisplay(trap, roundedOptions)),
+    },
+  };
+}
+
 function validatePermanentPackage(
   question: Omit<MenCp007PermanentPackage, "validation">,
   definition: MenCp007FrozenQlDefinition,
 ) {
   const learnerText = [
     question.stem,
+    ...question.options.map((option) => option.display),
+    question.answer,
     question.explanation.keyRule,
     ...question.explanation.steps.flatMap((step) => [step.title, step.body, step.equation ?? ""]),
     question.explanation.shortcut,
     ...question.explanation.traps,
   ].join("\n");
+  const isRoundedPercentage = definition.qlId === "MEN-002-QL-040";
   const checks = [
     {
       name: "frozen QL mapping",
@@ -100,12 +182,17 @@ function validatePermanentPackage(
     {
       name: "independent verifier",
       passed: question.verification.valid,
-      message: "The source independent verifier must agree with the answer.",
+      message: "The source independent verifier must agree with the exact answer.",
     },
     {
       name: "four exact options",
       passed: question.options.length === 4 && new Set(question.options.map((option) => exactKey(option.value))).size === 4,
-      message: "Exactly four unique exact options are required.",
+      message: "Exactly four unique exact option values are required.",
+    },
+    {
+      name: "four displayed options",
+      passed: new Set(question.options.map((option) => option.display)).size === 4,
+      message: "All four learner-facing option displays must remain distinct.",
     },
     {
       name: "one correct option",
@@ -113,9 +200,9 @@ function validatePermanentPackage(
       message: "Exactly one option must be correct at the declared index.",
     },
     {
-      name: "answer preservation",
+      name: "answer display agreement",
       passed: question.answer === question.options[question.correctIndex]?.display,
-      message: "The displayed answer must equal the source correct option.",
+      message: "The displayed answer must equal the correct displayed option.",
     },
     {
       name: "source state preservation",
@@ -126,6 +213,15 @@ function validatePermanentPackage(
       name: "four-tier explanation",
       passed: Boolean(question.explanation.keyRule) && question.explanation.steps.length >= 2 && Boolean(question.explanation.shortcut) && question.explanation.traps.length === 3,
       message: "Core concept, worked steps, shortcut and three option-specific traps are required.",
+    },
+    {
+      name: "declared percentage approximation",
+      passed: !isRoundedPercentage || (
+        question.stem.endsWith("Give the answer correct to two decimal places.") &&
+        question.options.every((option) => /^\$\d+\.\d{2}\\%\$$/.test(option.display)) &&
+        question.explanation.steps.some((step) => step.equation?.includes("\\approx"))
+      ),
+      message: "Waste-percentage output must declare and prove its two-decimal-place policy.",
     },
     {
       name: "English editorial V2",
@@ -157,13 +253,14 @@ function generatePermanentFromPrototype(
 
   const sourceSeed = `men-002-cp007-permanent:${definition.qlId}:${seed}:${prototypeId}`;
   const source = generateMenCp007SourcePrototype(prototypeId, sourceSeed);
+  const presentation = buildPermanentPresentation(definition, source);
   const editorial = applyMenCp007EnglishEditorialV2({
     qlId: definition.qlId,
     seed,
     sourcePrototypeId: prototypeId,
-    stem: source.stem,
-    answer: source.answer,
-    explanation: source.explanation,
+    stem: presentation.stem,
+    answer: presentation.answer,
+    explanation: presentation.explanation,
   });
 
   const partial = {
@@ -181,9 +278,9 @@ function generatePermanentFromPrototype(
     difficulty: source.difficulty,
     target: definition.target,
     stem: editorial.stem,
-    options: source.options.map((option) => ({ ...option })),
+    options: presentation.options,
     correctIndex: source.correctIndex,
-    answer: source.answer,
+    answer: presentation.answer,
     exactAnswer: source.exactAnswer,
     unit: source.unit,
     explanation: editorial.explanation,
