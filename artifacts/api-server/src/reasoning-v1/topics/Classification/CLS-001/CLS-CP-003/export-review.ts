@@ -1,13 +1,13 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { generateClsCp003Prototype } from "./runtime";
+import { generateClsCp003DiscoveryQuestion } from "./discovery-runtime";
 import { CLS_CP003_PROTOTYPES } from "./word-dataset.en";
 
 const outputDir = path.resolve(process.cwd(), "dist/reasoning-v1/cls-001/cp003-review");
 const rows = CLS_CP003_PROTOTYPES.flatMap((prototype) =>
   ([4, 5] as const).flatMap((optionCount) =>
     Array.from({ length: 8 }, (_, seed) =>
-      generateClsCp003Prototype(prototype.prototypeId, seed, optionCount),
+      generateClsCp003DiscoveryQuestion(prototype.prototypeId, seed, optionCount),
     ),
   ),
 );
@@ -19,6 +19,7 @@ const markdown = [
   `Temporary prototypes: ${CLS_CP003_PROTOTYPES.length}`,
   "Permanent QLs: 0",
   "Locale: en-IN discovery only",
+  "Jumbled-word surface shortcuts: rejected",
   "Source saturation: open; uploaded-book search must be retried",
   "Question Studio: disabled",
   "Question Bank: disabled",
@@ -93,4 +94,5 @@ console.log("CLS-CP-003 discovery review written.", {
   optionCounts: [...new Set(rows.map((question) => question.options.length))].sort(),
   difficulties: [...new Set(rows.map((question) => question.difficulty))].sort(),
   permanentQlCount: 0,
+  jumbledSurfaceShortcutPolicy: "NO_DIRECT_STRUCTURAL_OUTLIER",
 });
