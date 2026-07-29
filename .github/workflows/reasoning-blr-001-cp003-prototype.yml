@@ -16,7 +16,7 @@ on:
 jobs:
   cp003-shared-family-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -36,6 +36,11 @@ jobs:
         continue-on-error: true
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-extended.test.ts > cp003-extended.log 2>&1
 
+      - name: Run CP-003 explicit marital-status proof
+        id: cp003_marital
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-marital.test.ts > cp003-marital.log 2>&1
+
       - name: Upload CP-003 runtime diagnostics
         if: always()
         uses: actions/upload-artifact@v4
@@ -44,6 +49,7 @@ jobs:
           path: |
             cp003-runtime.log
             cp003-extended.log
+            cp003-marital.log
           if-no-files-found: error
           retention-days: 3
 
@@ -57,4 +63,10 @@ jobs:
         if: steps.cp003_extended.outcome == 'failure'
         run: |
           cat cp003-extended.log
+          exit 1
+
+      - name: Enforce CP-003 marital runtime result
+        if: steps.cp003_marital.outcome == 'failure'
+        run: |
+          cat cp003-marital.log
           exit 1
