@@ -103,7 +103,7 @@ function alternativeReason(pair: ClsCp002Pair, relationId: string): string {
     case "SEM_KIN_ONE_GENERATION_DOWN":
       return `${pair.right} is one family generation below ${pair.left}, so ${pairText} is different.`;
     default:
-      return `${pairText} follows a different relationship (${relationDefinition(relationId).label}).`;
+      return `${pairText} has a different link (${relationDefinition(relationId).label}).`;
   }
 }
 
@@ -128,14 +128,14 @@ export function polishClsCp002EnglishQuestion<T extends GeneratedClsCp002Questio
   const odd = display(oddPair);
 
   const secondStep = question.generationProfile === "REVERSED_DIRECTION"
-    ? `${odd} reverses the required direction.`
+    ? `${odd} puts the link in the opposite order.`
     : question.generationProfile === "CATEGORY_SAFE_FALSE_PAIR"
-      ? `${odd} uses the expected kinds of words, but they do not form the required relationship.`
+      ? `${odd} has the right kinds of words, but their link is wrong.`
       : (() => {
         const alternative = bestAlternativeRelation(oddPair, question.intendedRelationId);
         return alternative
           ? alternativeReason(oddPair, alternative)
-          : `${odd} does not follow the common relationship.`;
+          : `${odd} does not have the same link as the other pairs.`;
       })();
 
   const intendedRelationLabel = question.intendedRelationId.startsWith("PAIR_CLASS_")
@@ -144,15 +144,18 @@ export function polishClsCp002EnglishQuestion<T extends GeneratedClsCp002Questio
 
   return {
     ...question,
+    stem: "Which pair has a different relationship?",
     intendedRelationLabel,
     explanation: {
-      coreConcept: [`The other pairs follow this relation: ${simpleRule(question.intendedRelationId)}`],
+      coreConcept: [`The other pairs have this link: ${simpleRule(question.intendedRelationId)}`],
       stepByStep: [
-        `${naturalList(commonPairs)} follow the same relationship.`,
+        `${naturalList(commonPairs)} have the same link.`,
         secondStep,
-        `Therefore, ${odd} is the odd pair.`,
+        `Therefore, ${odd} is the different pair.`,
       ],
-      examSpeedShortcut: question.explanation.examSpeedShortcut,
+      examSpeedShortcut: [
+        "Read each pair from left to right. Say the link in a few words, then choose the different pair.",
+      ],
       commonTrapWarning: question.explanation.commonTrapWarning,
     },
   };
