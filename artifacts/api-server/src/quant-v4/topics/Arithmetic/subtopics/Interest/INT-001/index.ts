@@ -21,6 +21,7 @@ export * from "./cp001-multilingual-release";
 export * from "./cp001-multilingual-release-v2";
 export * from "./cp001-localization-foundation";
 export * from "./cp001-cash-flow-direction";
+export * from "./cp001-cash-flow-context-v2";
 export * from "./cp001-localized-runtime";
 export * from "./cp001-localized-runtime-final";
 export * from "./cp001-localized-runtime-release";
