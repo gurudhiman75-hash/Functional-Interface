@@ -60,9 +60,14 @@ export const BLR_CP003_MARITAL_SCENARIO: BlrCp003MaritalScenario = {
       personId: "C",
     },
     {
+      kind: "MARITAL_STATUS",
+      prototypeId: "BLR-CP003-PROT-SHARED-MARITAL-STATUS",
+      personId: "B",
+    },
+    {
       kind: "RELATION",
       prototypeId: "BLR-CP003-PROT-SHARED-RELATION",
-      subjectId: "B",
+      subjectId: "H",
       referenceId: "G",
     },
     {
