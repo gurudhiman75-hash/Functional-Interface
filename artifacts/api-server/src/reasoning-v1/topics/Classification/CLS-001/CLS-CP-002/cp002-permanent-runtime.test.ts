@@ -6,6 +6,7 @@ import {
 } from "./cp002-permanent-contract";
 import { generateClsCp002EnglishQuestion } from "./cp002-permanent-runtime";
 import {
+  CLS_CP002_FALSE_PAIR_SAFE_RELATION_IDS,
   CLS_CP002_RELATIONS,
   CLS_CP002_PROTOTYPES,
 } from "./relation-registry";
@@ -54,6 +55,16 @@ for (let seed = 0; seed < 1200; seed += 1) {
   assert.equal(question.questionStudioVisible, false);
   assert.equal(question.reviewOnly, true);
 
+  if (question.generationProfile === "CATEGORY_SAFE_FALSE_PAIR") {
+    assert.ok(CLS_CP002_FALSE_PAIR_SAFE_RELATION_IDS.includes(question.intendedRelationId as never));
+  }
+  if (question.generationProfile === "CLASS_PAIR_CONTRAST") {
+    assert.ok(question.pairs.every((pair) =>
+      !["Crown", "Sapwood"].includes(pair.left)
+      && !["Crown", "Sapwood"].includes(pair.right),
+    ));
+  }
+
   const independent = independentlyVerifyClsCp002Question(question);
   assert.equal(independent.result, "UNIQUE");
   assert.equal(independent.winningRelationId, question.intendedRelationId);
@@ -62,12 +73,14 @@ for (let seed = 0; seed < 1200; seed += 1) {
   const learnerText = [
     question.stem,
     ...question.options,
+    question.intendedRelationLabel,
     ...question.explanation.coreConcept,
     ...question.explanation.stepByStep,
     ...question.explanation.examSpeedShortcut,
     ...question.explanation.commonTrapWarning,
   ].join("\n");
   assert.ok(!/CLS-|SEM_|LEX_|PAIR_CLASS_|prototype|quality rank|candidate relation|ontology/i.test(learnerText));
+  assert.ok(!/follows pair of|pair of computer components|animals capable of flight|aquatic animals/i.test(learnerText));
   assert.ok(question.explanation.stepByStep.join(" ").includes(question.answer));
 
   const fingerprint = JSON.stringify({
