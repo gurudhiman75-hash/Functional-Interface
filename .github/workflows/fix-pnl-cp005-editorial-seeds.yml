@@ -22,6 +22,7 @@ jobs:
       - name: Keep heavy-buy/light-sell cases directional
         run: |
           python - <<'PY'
+          import re
           from pathlib import Path
 
           path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-dynamic-cases.ts")
@@ -29,23 +30,18 @@ jobs:
           start = source.index('case "PNL-QL-139":')
           end = source.index('case "PNL-QL-141":', start)
           block = source[start:end]
-          old = '''const purchasePricePerNominalQuantity = rupees(
-                pickSeeded(random, [1000, 1200, 1500] as const),
-              );
-              const sellingPricePerNominalQuantity = rupees(
-                pickSeeded(random, [1000, 1200, 1500] as const),
-              );'''
-          new = '''const commonQuotedPrice = rupees(
+          if "const commonQuotedPrice" not in block:
+              pattern = r'''const purchasePricePerNominalQuantity\s*=\s*rupees\(\s*pickSeeded\(random,\s*\[1000,\s*1200,\s*1500\]\s*as\s*const\),\s*\);\s*const sellingPricePerNominalQuantity\s*=\s*rupees\(\s*pickSeeded\(random,\s*\[1000,\s*1200,\s*1500\]\s*as\s*const\),\s*\);'''
+              replacement = '''const commonQuotedPrice = rupees(
                 pickSeeded(random, [1000, 1200, 1500] as const),
               );
               const purchasePricePerNominalQuantity = commonQuotedPrice;
               const sellingPricePerNominalQuantity = commonQuotedPrice;'''
-          if old in block:
-              block = block.replace(old, new, 1)
+              block, count = re.subn(pattern, replacement, block, count=1, flags=re.S)
+              if count != 1:
+                  raise SystemExit("QL-139/140 heavy-light price block not found")
               source = source[:start] + block + source[end:]
               path.write_text(source)
-          elif "const commonQuotedPrice" not in block:
-              raise SystemExit("QL-139/140 heavy-light price block not found")
           PY
 
       - name: Set up Node
