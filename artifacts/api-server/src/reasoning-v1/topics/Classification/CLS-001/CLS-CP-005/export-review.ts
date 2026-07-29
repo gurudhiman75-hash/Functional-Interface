@@ -1,0 +1,101 @@
+import { mkdir, writeFile } from "node:fs/promises";
+import path from "node:path";
+import { CLS_CP005_PROTOTYPES } from "./relation-registry";
+import { generateClsCp005DiscoveryQuestion } from "./runtime";
+import { displayClsCp005Tuple } from "./tuple-domain";
+
+const outputDir = path.resolve(process.cwd(), "dist/reasoning-v1/cls-001/cp005-review");
+const questions = CLS_CP005_PROTOTYPES.flatMap((prototype, prototypeIndex) =>
+  Array.from({ length: 3 }, (_, sampleIndex) => {
+    const seed = 20_000 + prototypeIndex * 101 + sampleIndex * 29;
+    return generateClsCp005DiscoveryQuestion(
+      prototype.prototypeId,
+      seed,
+      sampleIndex === 2 ? 5 : 4,
+    );
+  }),
+);
+
+const prototypeById = new Map(CLS_CP005_PROTOTYPES.map((prototype) => [prototype.prototypeId, prototype]));
+const markdown = [
+  "# CLS-CP-005 English Discovery Review",
+  "",
+  `Questions: ${questions.length}`,
+  `Temporary prototypes: ${CLS_CP005_PROTOTYPES.length}`,
+  "Permanent QLs: 0",
+  "Locale: en-IN",
+  "Question Studio: disabled",
+  "Question Bank: disabled",
+  "Test/publication eligibility: disabled",
+  "",
+  ...questions.flatMap((question, index) => {
+    const prototype = prototypeById.get(question.prototypeId)!;
+    return [
+      `## ${index + 1}. ${question.prototypeId} · ${question.difficulty}`,
+      "",
+      `**Prototype:** ${prototype.title}`,
+      "",
+      `**Task:** ${question.task}`,
+      "",
+      `**Question:** ${question.stem}`,
+      "",
+      ...(question.referenceTuple
+        ? [`**Reference set:** ${displayClsCp005Tuple(question.referenceTuple)}`, ""]
+        : []),
+      "**Options:**",
+      "",
+      ...question.options.map((option, optionIndex) => `${String.fromCharCode(65 + optionIndex)}. ${option}`),
+      "",
+      `**Answer:** ${String.fromCharCode(65 + question.correctIndex)}. ${question.answer}`,
+      "",
+      "### Core Rule",
+      "",
+      question.explanation.coreConcept.join(" "),
+      "",
+      "### Check the Options",
+      "",
+      ...question.evidenceByOption.map((evidence, evidenceIndex) => `${String.fromCharCode(65 + evidenceIndex)}. ${evidence}`),
+      "",
+      ...question.explanation.stepByStep.map((step, stepIndex) => `${stepIndex + 1}. ${step}`),
+      "",
+      "### Exam Speed Shortcut",
+      "",
+      question.explanation.examSpeedShortcut.join(" "),
+      "",
+      "### Common Trap",
+      "",
+      question.explanation.commonTrapWarning.join(" "),
+      "",
+      "<details>",
+      "<summary>Reviewer metadata</summary>",
+      "",
+      `- Seed: ${question.seed}`,
+      `- Intended rule: ${question.intendedRuleId}`,
+      `- Intended value: ${question.intendedRuleValue}`,
+      `- Arity: ${question.arity}`,
+      `- Option count: ${question.options.length}`,
+      `- Competing supports: ${question.ambiguityAudit.candidateSupports.length}`,
+      `- Audit result: ${question.ambiguityAudit.result}`,
+      `- Difficulty features: \`${JSON.stringify(question.difficultyFeatures)}\``,
+      "",
+      "</details>",
+      "",
+      "---",
+      "",
+    ];
+  }),
+].join("\n");
+
+await mkdir(outputDir, { recursive: true });
+await writeFile(path.join(outputDir, "cls-cp005-english-discovery-review.json"), `${JSON.stringify(questions, null, 2)}\n`, "utf8");
+await writeFile(path.join(outputDir, "cls-cp005-english-discovery-review.md"), `${markdown}\n`, "utf8");
+
+console.log("CLS-CP-005 English discovery review written.", {
+  outputDir,
+  questions: questions.length,
+  prototypes: CLS_CP005_PROTOTYPES.length,
+  tasks: [...new Set(questions.map((question) => question.task))].sort(),
+  rules: [...new Set(questions.map((question) => question.intendedRuleId))].sort(),
+  optionCounts: [...new Set(questions.map((question) => question.options.length))].sort(),
+  difficulties: [...new Set(questions.map((question) => question.difficulty))].sort(),
+});
