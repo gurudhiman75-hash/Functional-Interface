@@ -5,6 +5,7 @@ import {
 } from "./cp001-localization-foundation";
 import {
   buildIntCp001ReadableStem,
+  type IntCp001ReadableStemPresentation,
   type IntCp001ReadableStemResult,
 } from "./cp001-readable-stem-builder";
 import type { IntCp001ReadableLanguage } from "./cp001-readable-stem-release";
@@ -37,6 +38,65 @@ function normaliseReadableSourceParameters(sourceParameters: unknown): unknown {
   };
 }
 
+function htmlEscape(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function rebuildPresentation(
+  stem: string,
+  previous: IntCp001ReadableStemPresentation,
+): IntCp001ReadableStemPresentation {
+  const spans: IntCp001ReadableStemPresentation["emphasisSpans"] = [];
+  let searchFrom = 0;
+
+  for (const oldSpan of previous.emphasisSpans) {
+    const start = stem.indexOf(oldSpan.text, searchFrom);
+    if (start < 0) {
+      throw new Error(`Unable to recover readable-stem anchor '${oldSpan.text}'.`);
+    }
+    const span = {
+      semantic: oldSpan.semantic,
+      text: oldSpan.text,
+      start,
+      end: start + oldSpan.text.length,
+    };
+    spans.push(span);
+    searchFrom = span.end;
+  }
+
+  let richTextHtml = "<p>";
+  let cursor = 0;
+  for (const span of spans) {
+    richTextHtml += htmlEscape(stem.slice(cursor, span.start));
+    richTextHtml += `<strong data-int-semantic="${span.semantic}">${htmlEscape(span.text)}</strong>`;
+    cursor = span.end;
+  }
+  richTextHtml += `${htmlEscape(stem.slice(cursor))}</p>`;
+
+  return {
+    plainText: stem,
+    richTextHtml,
+    emphasisSpans: spans,
+  };
+}
+
+function withStem(
+  result: IntCp001ReadableStemResult,
+  stem: string,
+): IntCp001ReadableStemResult {
+  if (stem === result.stem) return result;
+  return {
+    ...result,
+    stem,
+    presentation: rebuildPresentation(stem, result.presentation),
+  };
+}
+
 function alignAnnualInterestQuestion(
   result: IntCp001ReadableStemResult,
   language: IntCp001ReadableLanguage,
@@ -63,16 +123,38 @@ function alignAnnualInterestQuestion(
   if (stem === result.stem) {
     throw new Error(`Unable to align annual-interest wording for ${language}.`);
   }
+  return withStem(result, stem);
+}
 
-  return {
-    ...result,
-    stem,
-    presentation: {
-      ...result.presentation,
-      plainText: stem,
-      richTextHtml: result.presentation.richTextHtml.replace(oldQuestion, newQuestion),
-    },
-  };
+function polishEnglishStem(
+  result: IntCp001ReadableStemResult,
+  solveContract: string,
+): IntCp001ReadableStemResult {
+  let stem = result.stem;
+
+  if (solveContract === "FIND_TIME_FROM_INTEREST") {
+    stem = stem.replace(
+      "How long was the money kept?",
+      "Over what period was this interest calculated?",
+    );
+  }
+
+  if (
+    solveContract === "FIND_RATE_FROM_TWO_TIME_AMOUNT_RATIO"
+    || solveContract === "FIND_LATER_TIME_FROM_TWO_AMOUNT_RATIO"
+  ) {
+    stem = stem
+      .replace(
+        /The total amount payable after (.+?) and after (.+?) are in the ratio/u,
+        "The total amounts payable after $1 and $2 are in the ratio",
+      )
+      .replace(
+        /The amount after (.+?) and after (.+?) are in the ratio/u,
+        "The amounts after $1 and $2 are in the ratio",
+      );
+  }
+
+  return withStem(result, stem);
 }
 
 export function buildIntCp001ReadableStemSafe(
@@ -80,12 +162,16 @@ export function buildIntCp001ReadableStemSafe(
   sourceParameters: unknown,
   language: IntCp001ReadableLanguage,
 ): IntCp001ReadableStemResult {
-  const result = buildIntCp001ReadableStem(
+  let result = buildIntCp001ReadableStem(
     solveContract,
     normaliseReadableSourceParameters(sourceParameters),
     language,
   );
-  return solveContract === "FIND_ANNUAL_INTEREST_FROM_TWO_AMOUNTS"
-    ? alignAnnualInterestQuestion(result, language)
-    : result;
+  if (solveContract === "FIND_ANNUAL_INTEREST_FROM_TWO_AMOUNTS") {
+    result = alignAnnualInterestQuestion(result, language);
+  }
+  if (language === "en") {
+    result = polishEnglishStem(result, solveContract);
+  }
+  return result;
 }
