@@ -16,7 +16,7 @@ on:
 jobs:
   cp003-shared-family-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 55
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -56,6 +56,11 @@ jobs:
         continue-on-error: true
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-editorial-review.test.ts > cp003-editorial.log 2>&1
 
+      - name: Run CP-003 visual teacher-style remediation gate
+        id: cp003_teacher_editorial
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-teacher-editorial.test.ts > cp003-teacher-editorial.log 2>&1
+
       - name: Run CP-003 merge and split audit
         id: cp003_merge_split
         continue-on-error: true
@@ -66,10 +71,10 @@ jobs:
         continue-on-error: true
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-inverse-audit.test.ts > cp003-inverse.log 2>&1
 
-      - name: Export CP-003 English review pack V2
+      - name: Export CP-003 visual teacher review pack V3
         id: cp003_export
         continue-on-error: true
-        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-review-v2.ts cp003-review-v2-output > cp003-export.log 2>&1
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-review-v3.ts cp003-review-v3-output > cp003-export.log 2>&1
 
       - name: Upload CP-003 runtime diagnostics
         if: always()
@@ -83,18 +88,19 @@ jobs:
             cp003-lineage.log
             cp003-source-gap.log
             cp003-editorial.log
+            cp003-teacher-editorial.log
             cp003-merge-split.log
             cp003-inverse.log
             cp003-export.log
           if-no-files-found: error
           retention-days: 3
 
-      - name: Upload CP-003 English review pack V2
+      - name: Upload CP-003 visual teacher review pack V3
         if: steps.cp003_export.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
-          name: blr-001-cp003-open-review-v2
-          path: cp003-review-v2-output
+          name: blr-001-cp003-teacher-review-v3
+          path: cp003-review-v3-output
           if-no-files-found: error
           retention-days: 14
 
@@ -132,6 +138,12 @@ jobs:
         if: steps.cp003_editorial.outcome == 'failure'
         run: |
           cat cp003-editorial.log
+          exit 1
+
+      - name: Enforce CP-003 visual teacher-style result
+        if: steps.cp003_teacher_editorial.outcome == 'failure'
+        run: |
+          cat cp003-teacher-editorial.log
           exit 1
 
       - name: Enforce CP-003 merge and split result
