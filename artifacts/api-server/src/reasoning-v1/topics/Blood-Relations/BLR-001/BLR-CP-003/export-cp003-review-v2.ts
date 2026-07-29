@@ -3,7 +3,9 @@ import path from "node:path";
 
 import { generateBlrCp003EditorialReviewV2Records } from "./cp003-editorial-upgrader";
 
-const outputDirectory = path.resolve(process.argv[2] ?? "blr-cp003-review-v2-output");
+const outputDirectory = path.resolve(
+  process.argv[2] ?? "blr-cp003-review-v2-output",
+);
 const records = generateBlrCp003EditorialReviewV2Records();
 
 const escapeCsv = (value: unknown): string => {
@@ -78,6 +80,12 @@ for (const record of records) {
   grouped.set(key, entries);
 }
 
+if (grouped.size !== 32 || records.length !== 208) {
+  throw new Error(
+    `CP-003 V2 export expected 32 groups and 208 records, received ${grouped.size}/${records.length}.`,
+  );
+}
+
 const groupCards = [...grouped.values()]
   .map((group, groupIndex) => {
     const first = group[0]!;
@@ -112,20 +120,25 @@ const groupCards = [...grouped.values()]
   .join("\n");
 
 const answerPositions = [0, 1, 2, 3].map(
-  (position) => records.filter((record) => record.correctIndex === position).length,
+  (position) =>
+    records.filter((record) => record.correctIndex === position).length,
 );
 
 const summary = {
   packageId: "BLR-001",
   checkpointId: "BLR-CP-003",
-  status: "OPEN_DISCOVERY_ENGLISH_EDITORIAL_V2",
+  status: "TECHNICAL_PRE_HUMAN_ENGLISH_EDITORIAL_V2",
   permanentQlCount: 0,
   groupCount: grouped.size,
   recordCount: records.length,
   scenarioIds: [...new Set(records.map((record) => record.scenarioId))].sort(),
   topologies: [...new Set(records.map((record) => record.topologyId))].sort(),
-  reviewFamilies: [...new Set(records.map((record) => record.reviewFamily))].sort(),
-  temporaryItemHandles: [...new Set(records.map((record) => record.prototypeId))].sort(),
+  reviewFamilies: [
+    ...new Set(records.map((record) => record.reviewFamily)),
+  ].sort(),
+  temporaryItemHandles: [
+    ...new Set(records.map((record) => record.prototypeId)),
+  ].sort(),
   answerPositions,
   editorialChecks: {
     unifiedFourTierExplanation: true,
@@ -134,6 +147,8 @@ const summary = {
     learnerGenerationRows: true,
     naturalGenerationQuestion: true,
     taskSpecificGenderTeaching: true,
+    compactJointParentPassage: true,
+    explicitCoParentEdges: true,
     explicitMaritalStatusBoundary: true,
     frozenExactLineageSolverReuse: true,
     hiddenGraphAgreement: true,
@@ -151,7 +166,7 @@ const summary = {
 
 const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BLR-CP-003 English review V2</title><style>
 body{font-family:system-ui,sans-serif;margin:0;background:#f4f4f5;color:#18181b}main{max-width:1180px;margin:auto;padding:24px}.group{background:white;border:1px solid #d4d4d8;border-radius:14px;padding:24px;margin:22px 0}.group-header,.question header{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.passage{line-height:1.65;background:#fafafa;border-left:4px solid #71717a;padding:14px 16px}.question{border-top:1px solid #e4e4e7;padding:22px 0}.question h3{font-size:1.05rem;line-height:1.55}h2{font-size:1rem;margin-top:22px}h4{font-size:.92rem;margin-bottom:6px}li{margin:7px 0}.correct{font-weight:750}code{background:#f4f4f5;padding:3px 7px;border-radius:5px;font-size:.76rem}pre{white-space:pre-wrap;background:#fafafa;border:1px solid #e4e4e7;padding:12px;border-radius:8px;line-height:1.5}details{margin:14px 0}summary{cursor:pointer;font-weight:650}
-</style></head><body><main><h1>BLR-CP-003 English open-discovery review V2</h1><p>28 deterministic shared-family groups and 176 remediated learner-facing items. This pack is for editorial review only and creates no permanent QL or publication permission.</p>${groupCards}</main></body></html>`;
+</style></head><body><main><h1>BLR-CP-003 English technical pre-human review V2</h1><p>${grouped.size} deterministic shared-family groups and ${records.length} remediated learner-facing items. This pack is for human editorial review only and creates no permanent QL or publication permission.</p>${groupCards}</main></body></html>`;
 
 await mkdir(outputDirectory, { recursive: true });
 await writeFile(
