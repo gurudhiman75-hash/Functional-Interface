@@ -59,15 +59,37 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/int-001-cp001-multilingual-v2-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-multilingual-v2-audit.log
 
-      - name: Bundle V2 review exporter
+      - name: Bundle V2 approval audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-multilingual-v2-approval-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-multilingual-v2-approval-audit.mjs
+      - name: Run V2 approval audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/int-001-cp001-multilingual-v2-approval-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-multilingual-v2-approval-audit.log
+
+      - name: Bundle V2 candidate review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-multilingual-v2-review-export.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/int-001-cp001-multilingual-v2-review-export.mjs
-      - name: Generate V2 review packs
+      - name: Generate V2 candidate comparison packs
         working-directory: artifacts/api-server
         run: node dist/quant-v4/int-001-cp001-multilingual-v2-review-export.mjs
+
+      - name: Bundle V2 approved exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-multilingual-v2-approved-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-multilingual-v2-approved-export.mjs
+      - name: Generate V2 approved packs
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/int-001-cp001-multilingual-v2-approved-export.mjs
 
       - name: Upload V2 evidence
         if: always()
@@ -77,10 +99,16 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/int-001-cp001-v2-english-regression.log
             artifacts/api-server/dist/quant-v4/int-001-cp001-multilingual-v2-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp001-multilingual-v2-approval-audit.log
             artifacts/api-server/dist/quant-v4/int-001-cp001-hindi-v2-review.json
             artifacts/api-server/dist/quant-v4/int-001-cp001-hindi-v2-review.md
             artifacts/api-server/dist/quant-v4/int-001-cp001-punjabi-v2-review.json
             artifacts/api-server/dist/quant-v4/int-001-cp001-punjabi-v2-review.md
             artifacts/api-server/dist/quant-v4/int-001-cp001-multilingual-v2-review-summary.json
+            artifacts/api-server/dist/quant-v4/int-001-cp001-hindi-v2-approved.json
+            artifacts/api-server/dist/quant-v4/int-001-cp001-hindi-v2-approved.md
+            artifacts/api-server/dist/quant-v4/int-001-cp001-punjabi-v2-approved.json
+            artifacts/api-server/dist/quant-v4/int-001-cp001-punjabi-v2-approved.md
+            artifacts/api-server/dist/quant-v4/int-001-cp001-multilingual-v2-approved-summary.json
           if-no-files-found: warn
           retention-days: 7
