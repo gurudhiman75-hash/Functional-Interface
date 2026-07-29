@@ -1,6 +1,6 @@
 # BLR-CP-003 — Family-Set Passages and Shared Graphs
 
-Status: **English technical pre-human discovery complete; human review pending; zero permanent QLs**.
+Status: **English visual teacher remediation complete; V3 human review pending; zero permanent QLs**.
 
 ## Ownership
 
@@ -22,7 +22,10 @@ The current executable slice covers:
 - compact couple and joint-parent rendering with every co-parent edge explicitly modelled;
 - six to eight questions per shared passage;
 - hidden-graph versus clue-only answer agreement;
-- deterministic generation-row explanation data;
+- standard visual family-tree diagrams;
+- conversational four-tier teacher explanations;
+- option-by-option learner guidance;
+- subject-to-reference direction verification;
 - item-specific four-option construction;
 - per-clue and per-status-fact contribution rejection;
 - deterministic names, prompts, answers and option order;
@@ -47,20 +50,43 @@ Per-group input-contribution checks         760
 Permanent QLs                                 0
 ```
 
-These figures describe a technical pre-human milestone, not a frozen inventory.
+These figures describe a technical pre-freeze milestone, not a frozen inventory.
 
-## English review candidate
+## Active English review candidate
 
 ```text
-Review pack version       V2
-Shared-family groups      32
-Learner-facing records   208
-Scenario/topology count    8
-Temporary item handles    18
-Answer positions     [57, 53, 49, 49]
+Review pack version                 V3
+Shared-family groups                32
+Learner-facing records             208
+Scenario/topology count              8
+Temporary item handles              18
+Visual family-tree diagrams        208
+Option-by-option analyses          208
+Answer positions       [57, 53, 49, 49]
 ```
 
-V2 remediates unnatural married-pair wording, missing kinship articles, internal-style negative generation rows and awkward generation stems. The pack is ready for human review but is not approved.
+V3 supersedes V2 as the active human-review candidate. Every question now contains:
+
+```text
+📌 Core Concept
+📝 Step-by-Step Solution & Family Tree
+💡 10-Second Exam Speed Shortcut
+⚠️ Common Traps & Mistakes
+```
+
+The visual renderer uses:
+
+```text
+(+)       male, when stated
+(-)       female, when stated
+========  married couple
+│         parent-child lineage
+──        siblings
+```
+
+An unstated gender is left unmarked rather than guessed. Learner-visible V3 records contain no raw semantic keys, internal error labels or graph-engine wording.
+
+V3 is ready for human review but is not approved or frozen.
 
 ## Current compression hypothesis
 
@@ -103,6 +129,15 @@ IDENTIFY_PERSON_BY_EXACT_LINEAGE
 - `BLR-CP-003-INVERSE-AUDIT-V1.md`
 - `BLR-CP-003-SECOND-SOURCE-GAP-PRE-HUMAN.md`
 - `BLR-CP-003-ENGLISH-EDITORIAL-READINESS-V2.md`
+- `BLR-CP-003-HUMAN-EDITORIAL-REMEDIATION-V3.md`
+
+## Main V3 files
+
+- `cp003-visual-tree-renderer.ts`
+- `cp003-teacher-editorial.ts`
+- `cp003-teacher-editorial-finalizer.ts`
+- `cp003-teacher-editorial.test.ts`
+- `export-cp003-review-v3.ts`
 
 ## Current temporary item handles
 
@@ -143,14 +178,15 @@ explicit unmarried fact                    -> UNMARRIED
 missing spouse edge alone                  -> no status conclusion
 marriage alone                              -> no co-parent conclusion
 joint-parent wording                        -> both parent edges required
+unstated gender                             -> no learner marker
 ```
 
 Only-child and family-composition facts remain in CP-004. Possible, impossible and cannot-determine semantics remain in CP-005.
 
 ## Remaining mandatory work
 
-- human review of the 208-record V2 pack;
-- accepted editorial remediation;
+- human review of the 208-record V3 pack;
+- accepted follow-up remediation, if any;
 - rerun of every affected deterministic gate;
 - post-human source-gap confirmation;
 - final discovery freeze;
