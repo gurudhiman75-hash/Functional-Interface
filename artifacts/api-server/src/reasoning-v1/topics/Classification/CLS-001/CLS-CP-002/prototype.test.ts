@@ -6,6 +6,8 @@ import {
   CLS_CP002_PROTOTYPES,
   CLS_CP002_RELATIONS,
   CLS_CP002_SEMANTIC_RELATION_IDS,
+  matchingRelationIds,
+  relationDefinition,
 } from "./relation-registry";
 import {
   auditClsCp002DisplayedPairs,
@@ -16,11 +18,11 @@ import {
 } from "./runtime";
 import type { ClsCp002Pair } from "./types";
 
-assert.equal(CLS_CP002_SEMANTIC_RELATION_IDS.length, 15);
+assert.equal(CLS_CP002_SEMANTIC_RELATION_IDS.length, 20);
 assert.equal(CLS_CP002_LEXICAL_RELATION_IDS.length, 12);
 assert.equal(CLS_CP002_CLASS_RELATION_IDS.length, 24);
-assert.equal(CLS_CP002_FACTS.length, 324);
-assert.equal(CLS_CP002_RELATIONS.length, 51);
+assert.equal(CLS_CP002_FACTS.length, 378);
+assert.equal(CLS_CP002_RELATIONS.length, 56);
 assert.equal(CLS_CP002_PROTOTYPES.length, 5);
 assert.equal(getClsCp002PrototypeDefinitions().length, 5);
 assert.equal(getClsCp002RelationRegistry().datasetVersion, "CLS-CP002-RELATION-DISCOVERY-v1");
@@ -29,6 +31,22 @@ assert.ok(CLS_CP002_FACTS.every((fact) => ![
   "SEM_STATE_CAPITAL",
   "SEM_COUNTRY_CURRENCY",
 ].includes(fact.relationId)));
+
+const factRelationIds = [...CLS_CP002_SEMANTIC_RELATION_IDS, ...CLS_CP002_LEXICAL_RELATION_IDS];
+for (const fact of CLS_CP002_FACTS) {
+  const pair = { left: fact.left, right: fact.right };
+  const matches = matchingRelationIds(pair, factRelationIds);
+  assert.ok(matches.includes(fact.relationId), `${fact.factId} does not resolve to ${fact.relationId}`);
+  assert.equal(new Set(matches).size, matches.length, `${fact.factId} returned duplicate relation matches`);
+
+  const definition = relationDefinition(fact.relationId);
+  if (definition.directionSensitive) {
+    assert.ok(
+      !matchingRelationIds({ left: fact.right, right: fact.left }, [fact.relationId]).includes(fact.relationId),
+      `${fact.factId} incorrectly survives direction reversal`,
+    );
+  }
+}
 
 function auditFixture(
   pairs: readonly ClsCp002Pair[],
@@ -61,7 +79,7 @@ auditFixture(
     { left: "Energy", right: "Joule" },
     { left: "Pressure", right: "Barometer" },
   ],
-  [...CLS_CP002_SEMANTIC_RELATION_IDS, ...CLS_CP002_LEXICAL_RELATION_IDS],
+  factRelationIds,
   "SEM_QUANTITY_UNIT",
   3,
 );
@@ -73,8 +91,56 @@ auditFixture(
     { left: "Speedometer", right: "Speed" },
     { left: "Humidity", right: "Hygrometer" },
   ],
-  [...CLS_CP002_SEMANTIC_RELATION_IDS, ...CLS_CP002_LEXICAL_RELATION_IDS],
+  factRelationIds,
   "SEM_INSTRUMENT_MEASUREMENT",
+  3,
+);
+
+auditFixture(
+  [
+    { left: "Bottle", right: "Water" },
+    { left: "Cup", right: "Tea" },
+    { left: "Envelope", right: "Letter" },
+    { left: "Ball", right: "Bat" },
+  ],
+  factRelationIds,
+  "SEM_CONTAINER_CONTENT",
+  3,
+);
+
+auditFixture(
+  [
+    { left: "Wood", right: "Table" },
+    { left: "Pulp", right: "Paper" },
+    { left: "Grapes", right: "Wine" },
+    { left: "Rice", right: "Crop" },
+  ],
+  factRelationIds,
+  "SEM_MATERIAL_PRODUCT",
+  3,
+);
+
+auditFixture(
+  [
+    { left: "Bell", right: "Ring" },
+    { left: "Clock", right: "Tick" },
+    { left: "Horn", right: "Honk" },
+    { left: "Camera", right: "Photographer" },
+  ],
+  factRelationIds,
+  "SEM_OBJECT_SOUND",
+  3,
+);
+
+auditFixture(
+  [
+    { left: "Father", right: "Son" },
+    { left: "Mother", right: "Daughter" },
+    { left: "Uncle", right: "Nephew" },
+    { left: "Husband", right: "Wife" },
+  ],
+  factRelationIds,
+  "SEM_KIN_ONE_GENERATION_DOWN",
   3,
 );
 
@@ -90,6 +156,21 @@ auditFixture(
   3,
 );
 
+const ambiguous = auditClsCp002DisplayedPairs(
+  [
+    { left: "Whale", right: "Dolphin" },
+    { left: "Bat", right: "Lion" },
+    { left: "Shark", right: "Octopus" },
+    { left: "Seal", right: "Whale" },
+  ],
+  CLS_CP002_CLASS_RELATION_IDS,
+);
+assert.equal(ambiguous.result, "AMBIGUOUS");
+assert.equal(ambiguous.winningRelationId, null);
+assert.equal(ambiguous.winningOutlierIndex, null);
+assert.ok(ambiguous.candidateSupports.some((support) => support.relationId === "PAIR_CLASS_CLS_MAMMALS"));
+assert.ok(ambiguous.candidateSupports.some((support) => support.relationId === "PAIR_CLASS_CLS_AQUATIC_ANIMALS"));
+
 const noValid = auditClsCp002DisplayedPairs(
   [
     { left: "Rapid", right: "Swift" },
@@ -97,7 +178,7 @@ const noValid = auditClsCp002DisplayedPairs(
     { left: "Apple", right: "Grape" },
     { left: "Thermometer", right: "Temperature" },
   ],
-  [...CLS_CP002_SEMANTIC_RELATION_IDS, ...CLS_CP002_LEXICAL_RELATION_IDS, ...CLS_CP002_CLASS_RELATION_IDS],
+  [...factRelationIds, ...CLS_CP002_CLASS_RELATION_IDS],
 );
 assert.equal(noValid.result, "NO_VALID_RULE");
 
@@ -171,7 +252,7 @@ for (const prototype of CLS_CP002_PROTOTYPES) {
 assert.equal(generatedCount, 2000);
 assert.equal(fingerprints.size, 2000);
 assert.deepEqual([...prototypeCoverage.values()], [400, 400, 400, 400, 400]);
-assert.ok(relationCoverage.size >= 30, `Relation coverage is too narrow: ${relationCoverage.size}`);
+assert.equal(relationCoverage.size, CLS_CP002_RELATIONS.length);
 assert.deepEqual(difficultyCoverage, new Set(["EASY", "MEDIUM", "HARD"]));
 for (const [optionCount, positions] of answerPositionsByOptionCount) {
   const relevant = positions.slice(0, optionCount);
