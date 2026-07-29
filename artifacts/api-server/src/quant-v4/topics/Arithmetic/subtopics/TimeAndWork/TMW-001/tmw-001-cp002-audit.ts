@@ -4,6 +4,7 @@ import { runTmwCp002Pipeline } from "./foundation/cp002-runtime";
 
 function normalize(text: string): string {
   return text.toLowerCase()
+    .replace(/\\\([\s\S]*?\\\)/g, "<math>")
     .replace(/\d+\s+\d+\/\d+/g, "<number>")
     .replace(/\d+\/\d+/g, "<number>")
     .replace(/\d+(?:\.\d+)?/g, "<number>")
@@ -22,6 +23,8 @@ let generated = 0;
 let invalidPackages = 0;
 let unresolvedPlaceholders = 0;
 let malformedMathDelimiters = 0;
+let rawFractionOutsideMathJax = 0;
+let asciiFractionalTimes = 0;
 let genericExplanationHits = 0;
 let optionContractFailures = 0;
 
@@ -30,9 +33,12 @@ for (const entry of TMW_CP002_REGISTRY) {
     const question = runTmwCp002Pipeline({ questionLanguageId: entry.qlId, seed: `tmw-cp002-audit:${entry.qlId}:${index}` });
     generated += 1;
     if (!question.validation.valid) invalidPackages += 1;
-    if (/undefined|null|\{[^}]+\}/.test(question.stem)) unresolvedPlaceholders += 1;
+    const learnerText = [question.stem, ...question.options, question.solution.answerText, question.explanation.opening, question.explanation.formula, ...question.explanation.steps, question.explanation.conclusion].join("\n");
+    if (/undefined|null|NaN|Infinity|\{\{|\$\{/.test(learnerText)) unresolvedPlaceholders += 1;
+    if ((learnerText.match(/\\\(/g) ?? []).length !== (learnerText.match(/\\\)/g) ?? []).length) malformedMathDelimiters += 1;
+    if (/\\frac/.test(learnerText.replace(/\\\([\s\S]*?\\\)/g, ""))) rawFractionOutsideMathJax += 1;
+    if (/\b(?:\d+\s+)?\d+\/\d+\s+(?:minutes?|hours?|days?|shifts?)\b/i.test(learnerText)) asciiFractionalTimes += 1;
     const explanation = [question.explanation.opening, question.explanation.formula, ...question.explanation.steps, question.explanation.conclusion].join("\n");
-    if ((explanation.match(/\\\(/g) ?? []).length !== (explanation.match(/\\\)/g) ?? []).length) malformedMathDelimiters += 1;
     if (bannedPhrases.some((phrase) => explanation.toLowerCase().includes(phrase))) genericExplanationHits += 1;
     if (question.optionAudit.length !== 4 || question.optionAudit.filter((option) => option.misconceptionId === "CORRECT").length !== 1) optionContractFailures += 1;
 
@@ -56,6 +62,8 @@ const exactExplanationDuplicateGroups = [...exactExplanations.values()].filter((
 assert.equal(invalidPackages, 0);
 assert.equal(unresolvedPlaceholders, 0);
 assert.equal(malformedMathDelimiters, 0);
+assert.equal(rawFractionOutsideMathJax, 0);
+assert.equal(asciiFractionalTimes, 0);
 assert.equal(genericExplanationHits, 0);
 assert.equal(optionContractFailures, 0);
 assert.equal(exactStemDuplicateGroups.length, 0);
@@ -71,6 +79,8 @@ console.log(JSON.stringify({
   invalidPackages,
   unresolvedPlaceholders,
   malformedMathDelimiters,
+  rawFractionOutsideMathJax,
+  asciiFractionalTimes,
   genericExplanationHits,
   optionContractFailures,
   exactStemDuplicateGroups: exactStemDuplicateGroups.length,
