@@ -9,11 +9,12 @@ const topologies = new Set<string>();
 const prototypes = new Set<string>();
 const reviewFamilies = new Set<string>();
 const fingerprints = new Set<string>();
+let compactGenderItems = 0;
 
 const ARTICLE_LESS_KINSHIP =
   /\bis (father|mother|son|daughter|brother|sister|husband|wife|grandfather|grandmother|grandson|granddaughter|great-grandfather|great-grandmother|great-grandson|great-granddaughter|uncle|aunt|nephew|niece|cousin|father-in-law|mother-in-law|son-in-law|daughter-in-law|brother-in-law|sister-in-law) of\b/i;
 
-assert.equal(records.length, 176);
+assert.equal(records.length, 208);
 
 for (const record of records) {
   assert.equal(record.packageId, "BLR-001");
@@ -56,8 +57,14 @@ for (const record of records) {
   assert.ok(!visibleText.includes("undefined"));
   assert.ok(!visibleText.includes("[object Object]"));
   assert.ok(!visibleText.includes("__"));
-  assert.ok(!/\b[A-Z]+_[A-Z_]+\b/.test(visibleText), `Visible enum leaked in ${record.itemId}.`);
-  assert.ok(!ARTICLE_LESS_KINSHIP.test(visibleText), `Missing article in ${record.itemId}.`);
+  assert.ok(
+    !/\b[A-Z]+_[A-Z_]+\b/.test(visibleText),
+    `Visible enum leaked in ${record.itemId}.`,
+  );
+  assert.ok(
+    !ARTICLE_LESS_KINSHIP.test(visibleText),
+    `Missing article in ${record.itemId}.`,
+  );
   assert.ok(!visibleText.includes("married to each other"));
   assert.ok(!visibleText.includes("Generation -"));
   assert.ok(!record.stem.includes("placed relative to"));
@@ -72,8 +79,7 @@ for (const record of records) {
   assert.ok(
     record.editorial.familyRows.every(
       (row, index) =>
-        row.startsWith(`Generation ${index + 1}`) &&
-        row.includes(":"),
+        row.startsWith(`Generation ${index + 1}`) && row.includes(":"),
     ),
   );
   assert.ok(record.editorial.familyRows[0]?.includes("oldest displayed"));
@@ -83,14 +89,34 @@ for (const record of records) {
   assert.ok(record.editorial.closestTrapRejection.endsWith("."));
 
   if (record.prototypeId === "BLR-CP003-PROT-SHARED-MARRIED-PAIR") {
-    assert.equal(record.stem, "Which of the following pairs is a married couple?");
+    assert.equal(
+      record.stem,
+      "Which of the following pairs is a married couple?",
+    );
   }
   if (
     record.prototypeId === "BLR-CP003-PROT-SHARED-GENERATION" ||
-    record.prototypeId === "BLR-CP003-PROT-SHARED-THREE-GENERATION-COMPARE"
+    record.prototypeId ===
+      "BLR-CP003-PROT-SHARED-THREE-GENERATION-COMPARE"
   ) {
     assert.ok(record.stem.startsWith("What is "));
     assert.ok(record.stem.includes("'s generation position relative to "));
+  }
+  if (
+    record.prototypeId ===
+    "BLR-CP003-PROT-SHARED-IDENTIFY-PERSON-BY-GENDER"
+  ) {
+    compactGenderItems += 1;
+    assert.equal(
+      record.reviewFamily,
+      "COMPACT_JOINT_PARENT_PASSAGE",
+    );
+    assert.ok(record.stem.includes("male member of the family"));
+    assert.ok(
+      record.editorial.coreConcept.some((line) =>
+        line.includes("gender-specific relation"),
+      ),
+    );
   }
 
   assert.ok(!fingerprints.has(record.metadata.semanticFingerprint));
@@ -102,19 +128,21 @@ for (const record of records) {
   reviewFamilies.add(record.reviewFamily);
 }
 
-assert.equal(scenarios.size, 7);
-assert.equal(topologies.size, 7);
-assert.equal(prototypes.size, 17);
+assert.equal(scenarios.size, 8);
+assert.equal(topologies.size, 8);
+assert.equal(prototypes.size, 18);
+assert.equal(compactGenderItems, 4);
 assert.deepEqual(
   [...reviewFamilies].sort(),
   [
     "BASE_SHARED_GRAPH",
+    "COMPACT_JOINT_PARENT_PASSAGE",
     "EXPLICIT_MARITAL_STATUS",
     "EXTENDED_SHARED_GRAPH",
     "LINEAGE_AND_FOUR_GENERATION",
   ],
 );
-assert.deepEqual(answerPositions, [49, 45, 41, 41]);
+assert.deepEqual(answerPositions, [57, 53, 49, 49]);
 
 console.log(
   JSON.stringify(
@@ -127,6 +155,7 @@ console.log(
       temporaryItemHandles: prototypes.size,
       reviewFamilies: [...reviewFamilies].sort(),
       answerPositions,
+      compactGenderItems,
       editorialFingerprints: fingerprints.size,
       remediations: {
         naturalMarriedPairStem: true,
@@ -134,6 +163,7 @@ console.log(
         learnerGenerationRows: true,
         naturalGenerationQuestion: true,
         taskSpecificGenderTeaching: true,
+        compactJointParentPassage: true,
       },
       permanentQlCount: 0,
       publicDeliveryEnabled: false,
