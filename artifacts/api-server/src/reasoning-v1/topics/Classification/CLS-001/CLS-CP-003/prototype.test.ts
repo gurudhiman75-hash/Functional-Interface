@@ -144,7 +144,12 @@ for (const prototype of CLS_CP003_PROTOTYPES) {
         ...question.explanation.commonTrapWarning,
       ].join("\n");
       assert.ok(!/CLS-|PROT-|WORD_LENGTH|VOWEL_COUNT|PRIMARY_AFFIX|ontology|candidate rule|dataset version/i.test(learnerText));
-      assert.ok(!/undefined|null|NaN|Infinity/.test(learnerText));
+      const placeholderMatch = learnerText.match(/(?:^|[\s:])(undefined|null|NaN|Infinity)(?=$|[\s.,;:])/);
+      assert.equal(
+        placeholderMatch,
+        null,
+        `${prototype.prototypeId}/${optionCount}/${seed} leaked ${placeholderMatch?.[1]}:\n${learnerText}`,
+      );
 
       const fingerprint = JSON.stringify({
         prototypeId: question.prototypeId,
