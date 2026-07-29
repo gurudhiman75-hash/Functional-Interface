@@ -950,11 +950,7 @@
           {
             "type": "table",
             "caption": "Offer matrix",
-            "columns": [
-              "Offer",
-              "First reduction",
-              "Second reduction"
-            ],
+            "columns": ["Offer", "First reduction", "Second reduction"],
             "rowSource": "offerTable"
           }
         ],
@@ -1140,42 +1136,40 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "A product costs ₹{costPrice}, is marked at ₹{markedPrice}, and must earn a target profit of {targetRatePercent}%."
+            "content": "The discount needed to achieve a stated target result is to be determined."
           },
           {
             "type": "data_sufficiency",
-            "question": "Is the required discount uniquely determinable?",
-            "statements": [
-              "{statementOne}",
-              "{statementTwo}"
-            ],
+            "question": "Can the required discount be determined uniquely?",
+            "statements": ["{statementOne}", "{statementTwo}"],
             "answerScheme": "STANDARD_TWO_STATEMENT"
           }
         ],
         "prompt": "Decide whether either statement alone or both together are sufficient."
       },
       "explanation": {
-        "opening": "The target profit or loss first determines the required selling price, after which the discount can be found from marked price.",
-        "concept": "A target rate is measured on cost price, but discount is measured from marked price, so the calculation must move through selling price.",
+        "opening": "Test each statement independently before combining the information.",
+        "concept": "Statement I can determine the target selling price from cost price and the target result, but discount also needs marked price. Statement II supplies marked price but cannot determine the target selling price. Together they determine the discount uniquely.",
         "steps": [
           {
-            "title": "Find target selling price",
-            "body": "Apply the target commercial multiplier to cost price."
+            "title": "Check Statement I alone",
+            "body": "Cost price and the target profit or loss fix the target selling price, but marked price is still unknown."
           },
           {
-            "title": "Find the reduction from marked price",
-            "body": "Subtract target selling price from marked price."
+            "title": "Check Statement II alone",
+            "body": "Marked price is known, but the selling price required for the target result is still unknown."
           },
           {
-            "title": "Convert reduction to discount percentage",
-            "body": "Divide the reduction by marked price and multiply by 100."
+            "title": "Combine both statements",
+            "body": "Use Statement I to find target selling price, then compare it with the marked price from Statement II to calculate the discount percentage.",
+            "equationLatex": "d=\\frac{M-S_{target}}{M}\\times100"
           }
         ],
-        "conclusion": "This is the maximum or required discount that still achieves the target result.",
-        "commonTrap": "Do not calculate the discount percentage on cost price."
+        "conclusion": "Neither statement alone is sufficient; both statements together are required.",
+        "commonTrap": "Do not use information from Statement II while testing Statement I, or vice versa."
       },
       "difficulty": "Hard",
-      "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
+      "difficultyRationale": "The two statements must be tested independently before their linked price bases can be combined."
     }
   },
   "entryCount": 34

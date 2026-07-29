@@ -1,39 +1,150 @@
 {
-  "archetypeId":"PNL-001","cpId":"PNL-CP-002","language":"pa","status":"FREEZE_CANDIDATE",
-  "entries":{
-    "PNL-QL-037":{"template":"ਇੱਕ ਵਸਤੂ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ। ਇਸਨੂੰ {discountPercent}% ਛੂਟ 'ਤੇ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।","difficulty":"Easy"},
-    "PNL-QL-038":{"template":"₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ ₹{sellingPrice} ਵਿੱਚ ਵੇਚੀ ਗਈ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Easy"},
-    "PNL-QL-039":{"template":"{discountPercent}% ਛੂਟ ਦੇਣ ਤੋਂ ਬਾਅਦ ਵਸਤੂ ₹{sellingPrice} ਵਿੱਚ ਵੇਚੀ ਗਈ। ਅੰਕਿਤ ਮੁੱਲ ਪਤਾ ਕਰੋ।","difficulty":"Medium"},
-    "PNL-QL-040":{"template":"₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ 'ਤੇ ਲਗਾਤਾਰ {firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਅੰਤਿਮ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।","difficulty":"Medium"},
-    "PNL-QL-041":{"template":"ਲਗਾਤਾਰ {firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਛੂਟ ਦੇ ਬਰਾਬਰ ਇਕੱਲੀ ਛੂਟ ਪਤਾ ਕਰੋ।","difficulty":"Medium"},
-    "PNL-QL-042":{"template":"₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ 'ਤੇ {discountPercent}% ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਰੁਪਏ ਵਿੱਚ ਛੂਟ ਪਤਾ ਕਰੋ।","difficulty":"Easy"},
-    "PNL-QL-043":{"template":"₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ 'ਤੇ ₹{discountAmount} ਦੀ ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Easy"},
-    "PNL-QL-044":{"template":"ਇੱਕ ਵਸਤੂ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ ਅਤੇ ₹{discountAmount} ਦੀ ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।","difficulty":"Easy"},
-    "PNL-QL-045":{"template":"ਦੋ ਲਗਾਤਾਰ ਛੂਟਾਂ ਵਿੱਚ ਪਹਿਲੀ ਛੂਟ {knownDiscountPercent}% ਹੈ ਅਤੇ ਸਮਤੁੱਲ ਛੂਟ {equivalentDiscountPercent}% ਹੈ। ਦੂਜੀ ਛੂਟ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
-    "PNL-QL-046":{"template":"₹{markedPrice} ਦੀ ਵਸਤੂ 'ਤੇ ਇੱਕ ਦੁਕਾਨ {singleDiscountPercent}% ਇਕੱਲੀ ਛੂਟ ਅਤੇ ਦੂਜੀ {firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਲਗਾਤਾਰ ਛੂਟ ਦਿੰਦੀ ਹੈ। ਵਧੀਆ ਪੇਸ਼ਕਸ਼ ਅਤੇ ਅੰਤਰ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
-    "PNL-QL-047":{"template":"ਇੱਕ ਦੁਕਾਨਦਾਰ ਵਸਤੂ ਨੂੰ ਖਰੀਦ ਮੁੱਲ ਤੋਂ {markupPercent}% ਵੱਧ ਅੰਕਿਤ ਕਰਦਾ ਹੈ ਅਤੇ {discountPercent}% ਛੂਟ ਦਿੰਦਾ ਹੈ। ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
-    "PNL-QL-048":{"template":"₹{costPrice} ਖਰੀਦ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ ਨੂੰ {markupPercent}% ਵੱਧ ਅੰਕਿਤ ਕਰਕੇ {discountPercent}% ਛੂਟ 'ਤੇ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਲਾਭ ਜਾਂ ਹਾਨੀ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
-    "PNL-QL-049":{"template":"ਵਸਤੂ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{costPrice} ਅਤੇ ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ। {targetRatePercent}% {targetDirection} ਲਈ ਲੋੜੀਂਦੀ ਛੂਟ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
-    "PNL-QL-050":{"template":"{discountPercent}% ਛੂਟ ਦੇਣ ਤੋਂ ਬਾਅਦ {targetRatePercent}% {targetDirection} ਲਈ ਲੋੜੀਂਦਾ ਅੰਕਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
-    "PNL-QL-051":{"template":"ਇੱਕ ਸਟੋਰ ਇੱਕੋ ਜਿਹੀਆਂ ਵਸਤੂਆਂ 'ਤੇ {paidUnits} ਖਰੀਦੋ, {freeUnits} ਮੁਫ਼ਤ ਲਵੋ ਪੇਸ਼ਕਸ਼ ਦਿੰਦਾ ਹੈ। ਸਮਤੁੱਲ ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Medium"},
-    "PNL-QL-052":{"template":"ਹਰ ਵਸਤੂ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹{unitMarkedPrice} ਹੈ। {paidUnits} ਖਰੀਦੋ, {freeUnits} ਮੁਫ਼ਤ ਲਵੋ ਹੇਠ ਪ੍ਰਤੀ ਵਸਤੂ ਪ੍ਰਭਾਵੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।","difficulty":"Medium"},
-    "PNL-QL-053":{"template":"ਗਾਹਕ ₹{billedPrice} ਅਦਾ ਕਰਦਾ ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ₹{cashbackAmount} ਕੈਸ਼ਬੈਕ ਲੈਂਦਾ ਹੈ। ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।","difficulty":"Easy"},
-    "PNL-QL-054":{"template":"₹{billedPrice} ਦੇ ਭੁਗਤਾਨ 'ਤੇ {cashbackPercent}% ਕੈਸ਼ਬੈਕ ਮਿਲਦਾ ਹੈ। ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।","difficulty":"Medium"},
-    "PNL-QL-055":{"template":"₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ 'ਤੇ {discountPercent}% ਛੂਟ ਅਤੇ ₹{couponAmount} ਦਾ ਕੂਪਨ ਲਾਗੂ ਹੁੰਦਾ ਹੈ। ਪ੍ਰਭਾਵੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।","difficulty":"Medium"},
-    "PNL-QL-056":{"template":"₹{markedPrice} ਦੀ ਵਸਤੂ 'ਤੇ ਇੱਕ ਵੇਚਣ ਵਾਲਾ {discountPercent}% ਛੂਟ ਅਤੇ ਦੂਜਾ ₹{cashbackAmount} ਕੈਸ਼ਬੈਕ ਦਿੰਦਾ ਹੈ। ਵਧੀਆ ਪੇਸ਼ਕਸ਼ ਅਤੇ ਅੰਤਰ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
-    "PNL-QL-057":{"template":"₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ 'ਤੇ {firstDiscountPercent}%, {secondDiscountPercent}% ਅਤੇ {thirdDiscountPercent}% ਲਗਾਤਾਰ ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਅੰਤਿਮ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
-    "PNL-QL-058":{"template":"₹{couponAmount} ਦਾ ਕੂਪਨ ਘੱਟੋ-ਘੱਟ ₹{minimumSpend} ਦੇ ਬਿੱਲ 'ਤੇ ਲਾਗੂ ਹੈ। ₹{billedPrice} ਦੇ ਬਿੱਲ ਲਈ ਯੋਗਤਾ ਅਤੇ ਪ੍ਰਭਾਵੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।","difficulty":"Medium"},
-    "PNL-QL-059":{"template":"₹{markedPrice} ਦੀ ਵਸਤੂ 'ਤੇ ਪਹਿਲਾਂ {discountPercent}% ਛੂਟ ਅਤੇ ਫਿਰ ਘਟੇ ਮੁੱਲ 'ਤੇ {couponPercent}% ਕੂਪਨ ਲੱਗਦਾ ਹੈ। ਪ੍ਰਭਾਵੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
-    "PNL-QL-060":{"template":"₹{billedPrice} ਦੇ ਬਿੱਲ 'ਤੇ {cashbackPercent}% ਕੈਸ਼ਬੈਕ ਮਿਲਦਾ ਹੈ, ਵੱਧ ਤੋਂ ਵੱਧ ₹{cashbackCap} ਤੱਕ। ਕੈਸ਼ਬੈਕ ਅਤੇ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
-    "PNL-QL-061":{"template":"₹{markedPrice} ਦੀ ਵਸਤੂ 'ਤੇ {discountPercent}% ਛੂਟ ਅਤੇ ਮੂਲ ਅੰਕਿਤ ਮੁੱਲ 'ਤੇ {cashbackPercent}% ਕੈਸ਼ਬੈਕ, ਵੱਧ ਤੋਂ ਵੱਧ ₹{cashbackCap}, ਮਿਲਦਾ ਹੈ। ਬਿੱਲ ਮੁੱਲ, ਕੈਸ਼ਬੈਕ ਅਤੇ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
-    "PNL-QL-062":{"template":"ਛੂਟ ਅੰਕਿਤ ਮੁੱਲ ਦਾ {fractionNumerator}/{fractionDenominator} ਹੈ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Medium"},
-    "PNL-QL-063":{"template":"ਅਦਾ ਕੀਤੇ ਮੁੱਲ ਅਤੇ ਅੰਕਿਤ ਮੁੱਲ ਦਾ ਅਨੁਪਾਤ {paidPart}:{markedPart} ਹੈ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Medium"},
-    "PNL-QL-064":{"template":"₹{billedPrice} ਦੇ ਬਿੱਲ 'ਤੇ ਦੁਕਾਨ A {discountPercent}% ਛੂਟ ਦਿੰਦੀ ਹੈ। ਦੁਕਾਨ B ₹{couponAmount} ਦਾ ਕੂਪਨ ਦਿੰਦੀ ਹੈ ਜੋ ₹{minimumSpend} ਤੋਂ ਲਾਗੂ ਹੈ। ਯੋਗ ਵਧੀਆ ਪੇਸ਼ਕਸ਼ ਅਤੇ ਅੰਤਰ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
-    "PNL-QL-065":{"template":"ਸਾਰਣੀ ਵਿੱਚ ₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ ਦੀਆਂ ਪੇਸ਼ਕਸ਼ਾਂ ਹਨ: {offerTable}। ਪੇਸ਼ਕਸ਼ {selectedOffer} ਹੇਠ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।","difficulty":"Hard","representation":"TABLE"},
-    "PNL-QL-066":{"template":"ਇੱਕ ਵੇਚਣ ਵਾਲਾ ਵਸਤੂ ₹{costPrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ, {markupPercent}% ਵੱਧ ਅੰਕਿਤ ਕਰਦਾ ਹੈ ਅਤੇ {discountPercent}% ਛੂਟ ਦਿੰਦਾ ਹੈ। ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Hard","representation":"CASELET"},
-    "PNL-QL-067":{"template":"{firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਲਗਾਤਾਰ ਛੂਟ ਦਿੱਤੀ ਗਈ। ਸਮਤੁੱਲ ਛੂਟ ਬਾਰੇ ਸਹੀ ਕਥਨ ਚੁਣੋ।","difficulty":"Medium","representation":"STATEMENT"},
-    "PNL-QL-068":{"template":"ਅੰਕਿਤ ਮੁੱਲ {markedPriceExpression} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ {sellingPriceExpression} ਹੈ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Hard","representation":"ALGEBRAIC"},
-    "PNL-QL-069":{"template":"₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ 'ਤੇ {discountPercent}% ਛੂਟ ਅਤੇ ₹{couponAmount} ਦਾ ਕੂਪਨ ਉਪਲਬਧ ਹੈ। ਛੂਟ-ਫਿਰ-ਕੂਪਨ ਅਤੇ ਕੂਪਨ-ਫਿਰ-ਛੂਟ ਦੀ ਤੁਲਨਾ ਕਰਕੇ ਵਧੀਆ ਕ੍ਰਮ ਅਤੇ ਮੁੱਲ ਅੰਤਰ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
-    "PNL-QL-070":{"template":"ਲਕਸ਼ਿਤ ਲਾਭ ਲਈ ਲੋੜੀਂਦੀ ਛੂਟ ਪਤਾ ਕਰਨ ਵਾਸਤੇ ਕਥਨ I: {statementOne} ਅਤੇ ਕਥਨ II: {statementTwo} 'ਤੇ ਵਿਚਾਰ ਕਰੋ। ਨਿਰਧਾਰਤ ਕਰੋ ਕਿ ਕਿਹੜਾ ਕਥਨ ਕਾਫ਼ੀ ਹੈ।","difficulty":"Hard","representation":"DATA_SUFFICIENCY"}
-  },"entryCount":34
+  "archetypeId": "PNL-001",
+  "cpId": "PNL-CP-002",
+  "language": "pa",
+  "status": "FREEZE_CANDIDATE",
+  "entries": {
+    "PNL-QL-037": {
+      "template": "ਇੱਕ ਵਸਤੂ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ। ਇਸਨੂੰ {discountPercent}% ਛੂਟ 'ਤੇ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Easy"
+    },
+    "PNL-QL-038": {
+      "template": "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ ₹{sellingPrice} ਵਿੱਚ ਵੇਚੀ ਗਈ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Easy"
+    },
+    "PNL-QL-039": {
+      "template": "{discountPercent}% ਛੂਟ ਦੇਣ ਤੋਂ ਬਾਅਦ ਵਸਤੂ ₹{sellingPrice} ਵਿੱਚ ਵੇਚੀ ਗਈ। ਅੰਕਿਤ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Medium"
+    },
+    "PNL-QL-040": {
+      "template": "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ 'ਤੇ ਲਗਾਤਾਰ {firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਅੰਤਿਮ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Medium"
+    },
+    "PNL-QL-041": {
+      "template": "ਲਗਾਤਾਰ {firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਛੂਟ ਦੇ ਬਰਾਬਰ ਇਕੱਲੀ ਛੂਟ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Medium"
+    },
+    "PNL-QL-042": {
+      "template": "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ 'ਤੇ {discountPercent}% ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਰੁਪਏ ਵਿੱਚ ਛੂਟ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Easy"
+    },
+    "PNL-QL-043": {
+      "template": "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ 'ਤੇ ₹{discountAmount} ਦੀ ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Easy"
+    },
+    "PNL-QL-044": {
+      "template": "ਇੱਕ ਵਸਤੂ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ ਅਤੇ ₹{discountAmount} ਦੀ ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Easy"
+    },
+    "PNL-QL-045": {
+      "template": "ਦੋ ਲਗਾਤਾਰ ਛੂਟਾਂ ਵਿੱਚ ਪਹਿਲੀ ਛੂਟ {knownDiscountPercent}% ਹੈ ਅਤੇ ਸਮਤੁੱਲ ਛੂਟ {equivalentDiscountPercent}% ਹੈ। ਦੂਜੀ ਛੂਟ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Hard"
+    },
+    "PNL-QL-046": {
+      "template": "₹{markedPrice} ਦੀ ਵਸਤੂ 'ਤੇ ਇੱਕ ਦੁਕਾਨ {singleDiscountPercent}% ਇਕੱਲੀ ਛੂਟ ਅਤੇ ਦੂਜੀ {firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਲਗਾਤਾਰ ਛੂਟ ਦਿੰਦੀ ਹੈ। ਵਧੀਆ ਪੇਸ਼ਕਸ਼ ਅਤੇ ਅੰਤਰ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Hard"
+    },
+    "PNL-QL-047": {
+      "template": "ਇੱਕ ਦੁਕਾਨਦਾਰ ਵਸਤੂ ਨੂੰ ਖਰੀਦ ਮੁੱਲ ਤੋਂ {markupPercent}% ਵੱਧ ਅੰਕਿਤ ਕਰਦਾ ਹੈ ਅਤੇ {discountPercent}% ਛੂਟ ਦਿੰਦਾ ਹੈ। ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Hard"
+    },
+    "PNL-QL-048": {
+      "template": "₹{costPrice} ਖਰੀਦ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ ਨੂੰ {markupPercent}% ਵੱਧ ਅੰਕਿਤ ਕਰਕੇ {discountPercent}% ਛੂਟ 'ਤੇ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਲਾਭ ਜਾਂ ਹਾਨੀ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Hard"
+    },
+    "PNL-QL-049": {
+      "template": "ਵਸਤੂ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{costPrice} ਅਤੇ ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ। {targetRatePercent}% {targetDirection} ਲਈ ਲੋੜੀਂਦੀ ਛੂਟ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Hard"
+    },
+    "PNL-QL-050": {
+      "template": "{discountPercent}% ਛੂਟ ਦੇਣ ਤੋਂ ਬਾਅਦ {targetRatePercent}% {targetDirection} ਲਈ ਲੋੜੀਂਦਾ ਅੰਕਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Hard"
+    },
+    "PNL-QL-051": {
+      "template": "ਇੱਕ ਸਟੋਰ ਇੱਕੋ ਜਿਹੀਆਂ ਵਸਤੂਆਂ 'ਤੇ {paidUnits} ਖਰੀਦੋ, {freeUnits} ਮੁਫ਼ਤ ਲਵੋ ਪੇਸ਼ਕਸ਼ ਦਿੰਦਾ ਹੈ। ਸਮਤੁੱਲ ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Medium"
+    },
+    "PNL-QL-052": {
+      "template": "ਹਰ ਵਸਤੂ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹{unitMarkedPrice} ਹੈ। {paidUnits} ਖਰੀਦੋ, {freeUnits} ਮੁਫ਼ਤ ਲਵੋ ਹੇਠ ਪ੍ਰਤੀ ਵਸਤੂ ਪ੍ਰਭਾਵੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Medium"
+    },
+    "PNL-QL-053": {
+      "template": "ਗਾਹਕ ₹{billedPrice} ਅਦਾ ਕਰਦਾ ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ₹{cashbackAmount} ਕੈਸ਼ਬੈਕ ਲੈਂਦਾ ਹੈ। ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Easy"
+    },
+    "PNL-QL-054": {
+      "template": "₹{billedPrice} ਦੇ ਭੁਗਤਾਨ 'ਤੇ {cashbackPercent}% ਕੈਸ਼ਬੈਕ ਮਿਲਦਾ ਹੈ। ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Medium"
+    },
+    "PNL-QL-055": {
+      "template": "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ 'ਤੇ {discountPercent}% ਛੂਟ ਅਤੇ ₹{couponAmount} ਦਾ ਕੂਪਨ ਲਾਗੂ ਹੁੰਦਾ ਹੈ। ਪ੍ਰਭਾਵੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Medium"
+    },
+    "PNL-QL-056": {
+      "template": "₹{markedPrice} ਦੀ ਵਸਤੂ 'ਤੇ ਇੱਕ ਵੇਚਣ ਵਾਲਾ {discountPercent}% ਛੂਟ ਅਤੇ ਦੂਜਾ ₹{cashbackAmount} ਕੈਸ਼ਬੈਕ ਦਿੰਦਾ ਹੈ। ਵਧੀਆ ਪੇਸ਼ਕਸ਼ ਅਤੇ ਅੰਤਰ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Hard"
+    },
+    "PNL-QL-057": {
+      "template": "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ 'ਤੇ {firstDiscountPercent}%, {secondDiscountPercent}% ਅਤੇ {thirdDiscountPercent}% ਲਗਾਤਾਰ ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ। ਅੰਤਿਮ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Hard"
+    },
+    "PNL-QL-058": {
+      "template": "₹{couponAmount} ਦਾ ਕੂਪਨ ਘੱਟੋ-ਘੱਟ ₹{minimumSpend} ਦੇ ਬਿੱਲ 'ਤੇ ਲਾਗੂ ਹੈ। ₹{billedPrice} ਦੇ ਬਿੱਲ ਲਈ ਯੋਗਤਾ ਅਤੇ ਪ੍ਰਭਾਵੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Medium"
+    },
+    "PNL-QL-059": {
+      "template": "₹{markedPrice} ਦੀ ਵਸਤੂ 'ਤੇ ਪਹਿਲਾਂ {discountPercent}% ਛੂਟ ਅਤੇ ਫਿਰ ਘਟੇ ਮੁੱਲ 'ਤੇ {couponPercent}% ਕੂਪਨ ਲੱਗਦਾ ਹੈ। ਪ੍ਰਭਾਵੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Hard"
+    },
+    "PNL-QL-060": {
+      "template": "₹{billedPrice} ਦੇ ਬਿੱਲ 'ਤੇ {cashbackPercent}% ਕੈਸ਼ਬੈਕ ਮਿਲਦਾ ਹੈ, ਵੱਧ ਤੋਂ ਵੱਧ ₹{cashbackCap} ਤੱਕ। ਕੈਸ਼ਬੈਕ ਅਤੇ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Hard"
+    },
+    "PNL-QL-061": {
+      "template": "₹{markedPrice} ਦੀ ਵਸਤੂ 'ਤੇ {discountPercent}% ਛੂਟ ਅਤੇ ਮੂਲ ਅੰਕਿਤ ਮੁੱਲ 'ਤੇ {cashbackPercent}% ਕੈਸ਼ਬੈਕ, ਵੱਧ ਤੋਂ ਵੱਧ ₹{cashbackCap}, ਮਿਲਦਾ ਹੈ। ਬਿੱਲ ਮੁੱਲ, ਕੈਸ਼ਬੈਕ ਅਤੇ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Hard"
+    },
+    "PNL-QL-062": {
+      "template": "ਛੂਟ ਅੰਕਿਤ ਮੁੱਲ ਦਾ {fractionNumerator}/{fractionDenominator} ਹੈ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Medium"
+    },
+    "PNL-QL-063": {
+      "template": "ਅਦਾ ਕੀਤੇ ਮੁੱਲ ਅਤੇ ਅੰਕਿਤ ਮੁੱਲ ਦਾ ਅਨੁਪਾਤ {paidPart}:{markedPart} ਹੈ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Medium"
+    },
+    "PNL-QL-064": {
+      "template": "₹{billedPrice} ਦੇ ਬਿੱਲ 'ਤੇ ਦੁਕਾਨ A {discountPercent}% ਛੂਟ ਦਿੰਦੀ ਹੈ। ਦੁਕਾਨ B ₹{couponAmount} ਦਾ ਕੂਪਨ ਦਿੰਦੀ ਹੈ ਜੋ ₹{minimumSpend} ਤੋਂ ਲਾਗੂ ਹੈ। ਯੋਗ ਵਧੀਆ ਪੇਸ਼ਕਸ਼ ਅਤੇ ਅੰਤਰ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Hard"
+    },
+    "PNL-QL-065": {
+      "template": "ਸਾਰਣੀ ਵਿੱਚ ₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ ਦੀਆਂ ਪੇਸ਼ਕਸ਼ਾਂ ਹਨ: {offerTable}। ਪੇਸ਼ਕਸ਼ {selectedOffer} ਹੇਠ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Hard",
+      "representation": "TABLE"
+    },
+    "PNL-QL-066": {
+      "template": "ਇੱਕ ਵੇਚਣ ਵਾਲਾ ਵਸਤੂ ₹{costPrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ, {markupPercent}% ਵੱਧ ਅੰਕਿਤ ਕਰਦਾ ਹੈ ਅਤੇ {discountPercent}% ਛੂਟ ਦਿੰਦਾ ਹੈ। ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Hard",
+      "representation": "CASELET"
+    },
+    "PNL-QL-067": {
+      "template": "{firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਲਗਾਤਾਰ ਛੂਟ ਦਿੱਤੀ ਗਈ। ਸਮਤੁੱਲ ਛੂਟ ਬਾਰੇ ਸਹੀ ਕਥਨ ਚੁਣੋ।",
+      "difficulty": "Medium",
+      "representation": "STATEMENT"
+    },
+    "PNL-QL-068": {
+      "template": "ਅੰਕਿਤ ਮੁੱਲ {markedPriceExpression} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ {sellingPriceExpression} ਹੈ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Hard",
+      "representation": "ALGEBRAIC"
+    },
+    "PNL-QL-069": {
+      "template": "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ 'ਤੇ {discountPercent}% ਛੂਟ ਅਤੇ ₹{couponAmount} ਦਾ ਕੂਪਨ ਉਪਲਬਧ ਹੈ। ਛੂਟ-ਫਿਰ-ਕੂਪਨ ਅਤੇ ਕੂਪਨ-ਫਿਰ-ਛੂਟ ਦੀ ਤੁਲਨਾ ਕਰਕੇ ਵਧੀਆ ਕ੍ਰਮ ਅਤੇ ਮੁੱਲ ਅੰਤਰ ਪਤਾ ਕਰੋ।",
+      "difficulty": "Hard"
+    },
+    "PNL-QL-070": {
+      "template": "ਟੀਚੇ ਵਾਲੇ ਨਤੀਜੇ ਲਈ ਲੋੜੀਂਦੀ ਛੂਟ ਪਤਾ ਕਰਨੀ ਹੈ। ਕਥਨ I: {statementOne} ਕਥਨ II: {statementTwo} ਫੈਸਲਾ ਕਰੋ ਕਿ ਕੋਈ ਇੱਕ ਕਥਨ ਕਾਫ਼ੀ ਹੈ ਜਾਂ ਦੋਵੇਂ ਇਕੱਠੇ ਲੋੜੀਂਦੇ ਹਨ।",
+      "difficulty": "Hard",
+      "representation": "DATA_SUFFICIENCY"
+    }
+  },
+  "entryCount": 34
 }

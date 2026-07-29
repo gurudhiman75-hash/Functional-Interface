@@ -1,4 +1,7 @@
-import type { QuestionStemBlock, StructuredEditorialEntry } from "./editorial-content";
+import type {
+  QuestionStemBlock,
+  StructuredEditorialEntry,
+} from "./editorial-content";
 import type { EditorialLibraryFile } from "./editorial-library";
 import { compactEditorialEntry } from "./editorial-v2-exam-stems";
 import { localizeEditorialLatex } from "./editorial-v2-native-latex";
@@ -15,10 +18,6 @@ const NATIVE_FACTS: Readonly<Record<string, NativeFact>> = {
   "PNL-QL-050": {
     hi: "वस्तु का क्रय मूल्य ₹{costPrice} है।",
     pa: "ਵਸਤੂ ਦਾ ਲਾਗਤ ਮੁੱਲ ₹{costPrice} ਹੈ।",
-  },
-  "PNL-QL-070": {
-    hi: "वस्तु का क्रय मूल्य ₹{costPrice}, अंकित मूल्य ₹{markedPrice} और लक्षित लाभ दर {targetRatePercent}% है।",
-    pa: "ਵਸਤੂ ਦਾ ਲਾਗਤ ਮੁੱਲ ₹{costPrice}, ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਅਤੇ ਟੀਚਾ ਲਾਭ ਦਰ {targetRatePercent}% ਹੈ।",
   },
   "PNL-QL-072": {
     hi: "दोनों वस्तुएँ ₹{commonSellingPrice} के समान विक्रय मूल्य पर बेची जाती हैं।",
@@ -76,7 +75,8 @@ function contextualConceptNote(
   qlId: string,
   contextFamily: string,
 ): string {
-  const sector = contextFamily.split(":").at(-1) ?? (language === "hi" ? "व्यापार" : "ਵਪਾਰ");
+  const sector =
+    contextFamily.split(":").at(-1) ?? (language === "hi" ? "व्यापार" : "ਵਪਾਰ");
   const index = qlNumber(qlId) % 5;
   if (language === "hi") {
     const notes = [
@@ -104,7 +104,10 @@ function localizeEquations(
 ): readonly QuestionStemBlock[] {
   return blocks.map((block): QuestionStemBlock => {
     if (block.type !== "equation") return block;
-    return { ...block, latex: localizeEditorialLatex(language, block.latex) ?? block.latex };
+    return {
+      ...block,
+      latex: localizeEditorialLatex(language, block.latex) ?? block.latex,
+    };
   });
 }
 
@@ -114,21 +117,48 @@ function normalizeBlocks(
   entry: StructuredEditorialEntry,
 ): readonly QuestionStemBlock[] {
   if (qlId === "PNL-QL-035") {
-    return [{
-      type: "paragraph",
-      content: language === "hi"
-        ? "एक सामुदायिक आपूर्तिकर्ता ने स्कूल-डेस्क सेट ₹{costPrice} में खरीदा और ₹{sellingPrice} में बेच दिया।"
-        : "ਇੱਕ ਕਮਿਊਨਿਟੀ ਸਪਲਾਇਰ ਨੇ ਸਕੂਲ-ਡੈਸਕ ਸੈੱਟ ₹{costPrice} ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ ₹{sellingPrice} ਵਿੱਚ ਵੇਚ ਦਿੱਤਾ।",
-    }];
+    return [
+      {
+        type: "paragraph",
+        content:
+          language === "hi"
+            ? "एक सामुदायिक आपूर्तिकर्ता ने स्कूल-डेस्क सेट ₹{costPrice} में खरीदा और ₹{sellingPrice} में बेच दिया।"
+            : "ਇੱਕ ਕਮਿਊਨਿਟੀ ਸਪਲਾਇਰ ਨੇ ਸਕੂਲ-ਡੈਸਕ ਸੈੱਟ ₹{costPrice} ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ ₹{sellingPrice} ਵਿੱਚ ਵੇਚ ਦਿੱਤਾ।",
+      },
+    ];
+  }
+
+  if (qlId === "PNL-QL-070") {
+    return [
+      {
+        type: "paragraph",
+        content:
+          language === "hi"
+            ? "लक्षित परिणाम के लिए आवश्यक छूट ज्ञात करनी है।"
+            : "ਟੀਚੇ ਵਾਲੇ ਨਤੀਜੇ ਲਈ ਲੋੜੀਂਦੀ ਛੂਟ ਪਤਾ ਕਰਨੀ ਹੈ।",
+      },
+      {
+        type: "data_sufficiency",
+        question:
+          language === "hi"
+            ? "क्या आवश्यक छूट को निश्चित रूप से ज्ञात किया जा सकता है?"
+            : "ਕੀ ਲੋੜੀਂਦੀ ਛੂਟ ਨੂੰ ਪੱਕੇ ਤੌਰ 'ਤੇ ਕੱਢਿਆ ਜਾ ਸਕਦਾ ਹੈ?",
+        statements: ["{statementOne}", "{statementTwo}"],
+        answerScheme: "STANDARD_TWO_STATEMENT",
+      },
+    ];
   }
 
   if (qlId === "PNL-QL-087") {
-    return [{
-      type: "paragraph",
-      content: language === "hi"
-        ? "स्टॉक की कुल लागत ₹{totalCostPrice} है और व्यापारी उससे {recoveredFraction} भाग वसूल करता है।"
-        : "ਸਟਾਕ ਦੀ ਕੁੱਲ ਲਾਗਤ ₹{totalCostPrice} ਹੈ ਅਤੇ ਵਪਾਰੀ ਇਸ ਦਾ {recoveredFraction} ਹਿੱਸਾ ਵਸੂਲ ਕਰਦਾ ਹੈ।",
-    }];
+    return [
+      {
+        type: "paragraph",
+        content:
+          language === "hi"
+            ? "स्टॉक की कुल लागत ₹{totalCostPrice} है और व्यापारी उससे {recoveredFraction} भाग वसूल करता है।"
+            : "ਸਟਾਕ ਦੀ ਕੁੱਲ ਲਾਗਤ ₹{totalCostPrice} ਹੈ ਅਤੇ ਵਪਾਰੀ ਇਸ ਦਾ {recoveredFraction} ਹਿੱਸਾ ਵਸੂਲ ਕਰਦਾ ਹੈ।",
+      },
+    ];
   }
 
   const blocks = [...localizeEquations(language, entry.stem.blocks)];
@@ -152,7 +182,10 @@ function normalizeEntry(
         ...step,
         equationLatex: localizeEditorialLatex(language, step.equationLatex),
       })),
-      finalAnswerLatex: localizeEditorialLatex(language, entry.explanation.finalAnswerLatex),
+      finalAnswerLatex: localizeEditorialLatex(
+        language,
+        entry.explanation.finalAnswerLatex,
+      ),
     },
   });
 }
@@ -162,7 +195,10 @@ function normalizeLibrary(library: EditorialLibraryFile): EditorialLibraryFile {
   return {
     ...library,
     entries: Object.fromEntries(
-      Object.entries(library.entries).map(([qlId, entry]) => [qlId, normalizeEntry(language, qlId, entry)]),
+      Object.entries(library.entries).map(([qlId, entry]) => [
+        qlId,
+        normalizeEntry(language, qlId, entry),
+      ]),
     ),
   };
 }

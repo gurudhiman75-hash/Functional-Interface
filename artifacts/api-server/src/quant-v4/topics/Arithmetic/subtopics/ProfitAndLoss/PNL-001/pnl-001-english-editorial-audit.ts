@@ -313,21 +313,33 @@ const rows: readonly ReviewRow[] = generated.map(
 );
 
 const fatalFindings: Finding[] = [];
-const editorialFindings: Finding[] = [
-  {
-    code: "KNOWN-DS-LEAD-LEAKAGE",
-    severity: "BLOCKER",
-    scope: "PNL-QL-070",
-    message:
-      "Known issue #262: the data-sufficiency lead currently supplies enough commercial values before the statements. The lead alone must become insufficient.",
-  },
-];
+const editorialFindings: Finding[] = [];
 
 for (const { cpId, qlId, sampleIndex, pkg } of generated) {
   const scope = `${cpId}/${qlId}/sample-${sampleIndex}`;
   const explanation = visibleExplanation(pkg);
   const visible = `${pkg.stem}\n${pkg.options.join("\n")}\n${explanation}`;
   const prose = proseWithoutMath(visible);
+
+  if (qlId === "PNL-QL-070") {
+    const statementMarker = pkg.stem.match(/Statement\s+(?:I|1)\b/i);
+    const lead =
+      statementMarker?.index === undefined
+        ? pkg.stem
+        : pkg.stem.slice(0, statementMarker.index);
+    if (
+      statementMarker?.index === undefined ||
+      /₹\s*[\d,]+|\b\d+(?:\.\d+)?%/.test(lead)
+    ) {
+      editorialFindings.push({
+        code: "DS-LEAD-LEAKAGE",
+        severity: "BLOCKER",
+        scope,
+        message:
+          "The data-sufficiency lead must remain insufficient until the statements are evaluated.",
+      });
+    }
+  }
 
   if (!pkg.validation.valid) {
     fatalFindings.push({
