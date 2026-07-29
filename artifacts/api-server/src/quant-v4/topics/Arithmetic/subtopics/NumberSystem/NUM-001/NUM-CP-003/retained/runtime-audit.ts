@@ -1,4 +1,4 @@
-import { generateNumCp003RetainedQuestion, NUM_CP003_RETAINED_TEMPLATE_LABELS } from "./runtime";
+import { generateNumCp003RetainedQuestion, NUM_CP003_RETAINED_TEMPLATE_LABELS } from "./runtime-reviewed";
 
 const ok = (value: unknown, message: string): void => { if (!value) throw new Error(message); };
 const forbidden = [
