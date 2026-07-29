@@ -36,6 +36,20 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Correct temporary test anchor
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-cp002-explanation-diversity-fix.mjs")
+          source = path.read_text()
+          old = '"const difficultyCounts = { Easy: 0, Medium: 0, Hard: 0 };\\\\nlet generatedCount = 0;"'
+          new = '''`const difficultyCounts = { Easy: 0, Medium: 0, Hard: 0 };
+          let generatedCount = 0;`'''
+          if old not in source:
+              raise SystemExit("Temporary difficulty-count anchor was not found")
+          path.write_text(source.replace(old, new, 1))
+          PY
+
       - name: Apply solve-mode-specific working
         run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-cp002-explanation-diversity-fix.mjs
 
