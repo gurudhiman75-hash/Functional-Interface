@@ -37,7 +37,7 @@ export const BLR_CP003_LINEAGE_SCENARIOS: readonly BlrCp003LineageScenario[] = [
       { subjectId: "M", relationId: "FATHER", referenceId: "T" },
       { subjectId: "N", relationId: "MOTHER", referenceId: "T" },
       { subjectId: "U", relationId: "SON", referenceId: "M" },
-      { subjectId: "C", relationId: "SON", referenceId: "R" },
+      { subjectId: "R", relationId: "FATHER", referenceId: "C" },
       { subjectId: "T", relationId: "MOTHER", referenceId: "C" },
     ],
     questions: [
