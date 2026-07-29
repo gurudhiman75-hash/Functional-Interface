@@ -11,10 +11,16 @@ import {
   runAvg001QuestionStudioPipeline,
   type Avg001QuestionStudioCpId,
 } from "./topics/Arithmetic/subtopics/Average/AVG-001/question-studio-adapter";
+import {
+  MAL_001_QUESTION_STUDIO_CP_IDS,
+  runMal001QuestionStudioPipeline,
+  type Mal001QuestionStudioCpId,
+} from "./topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-adapter";
 
 export type QuestionStudioQuantV4PackageId =
   | NonNullable<QuantV4GenerationRequest["packageId"]>
-  | "AVG-001";
+  | "AVG-001"
+  | "MAL-001";
 
 export type QuestionStudioQuantV4GenerationRequest = Omit<
   QuantV4GenerationRequest,
@@ -30,6 +36,15 @@ const AVG_PACKAGE_DEFINITION = {
   subtopic: "Average",
   label: "Average",
   cpIds: AVG_001_QUESTION_STUDIO_CP_IDS,
+  supportedLanguages: ["en"] as const,
+};
+
+const MAL_PACKAGE_DEFINITION = {
+  packageId: "MAL-001",
+  topic: "Arithmetic",
+  subtopic: "Mixture & Alligation",
+  label: "Mixture & Alligation — Standard Blends",
+  cpIds: MAL_001_QUESTION_STUDIO_CP_IDS,
   supportedLanguages: ["en"] as const,
 };
 
@@ -51,6 +66,29 @@ function isAverageRequest(request: QuestionStudioQuantV4GenerationRequest) {
     patternId.includes("avg 001") ||
     (topic === "average" && !subtopic) ||
     (topic === "arithmetic" && subtopic === "average")
+  );
+}
+
+function isMixtureAndAlligationRequest(
+  request: QuestionStudioQuantV4GenerationRequest,
+) {
+  const packageId = normalizeSelector(request.packageId ?? request.archetypeId);
+  const patternId = normalizeSelector(request.patternId);
+  const topic = normalizeSelector(request.topic);
+  const subtopic = normalizeSelector(request.subtopic);
+  const mixtureSelector = new Set([
+    "mixture alligation",
+    "mixtures alligations",
+    "mixture and alligation",
+    "mixtures and alligations",
+    "mixture",
+    "alligation",
+  ]);
+  return (
+    packageId === "mal 001" ||
+    patternId.includes("mal 001") ||
+    (mixtureSelector.has(topic) && !subtopic) ||
+    (topic === "arithmetic" && mixtureSelector.has(subtopic))
   );
 }
 
@@ -76,41 +114,58 @@ function seededHash(value: string) {
   return hash >>> 0;
 }
 
-export function listQuantV4Packages() {
-  const existing = listBasePackages();
-  if (existing.some((pkg: any) => pkg.packageId === "AVG-001")) return existing;
-  return [
-    ...existing,
-    {
-      id: "AVG-001",
-      packageId: "AVG-001",
-      type: "quant-v4",
-      section: "Quant",
-      domain: "quant",
-      topic: "Arithmetic",
-      subtopic: "Average",
-      name: "AVG-001 Average",
-      label: "Average",
-      generationDomain: "quant-v4",
-      cpIds: [...AVG_001_QUESTION_STUDIO_CP_IDS],
-      canonicalProblems: AVG_001_QUESTION_STUDIO_CP_IDS.map((cpId) => ({
-        id: cpId,
-        label: cpId,
-      })),
-      supportedDifficulties: ["easy", "medium", "hard"],
-      supportedLanguages: ["en"],
-      enabled: true,
-    },
-  ];
+function packageCard(
+  definition: typeof AVG_PACKAGE_DEFINITION | typeof MAL_PACKAGE_DEFINITION,
+) {
+  return {
+    id: definition.packageId,
+    packageId: definition.packageId,
+    type: "quant-v4",
+    section: "Quant",
+    domain: "quant",
+    topic: definition.topic,
+    subtopic: definition.subtopic,
+    name: `${definition.packageId} ${definition.label}`,
+    label: definition.label,
+    generationDomain: "quant-v4",
+    cpIds: [...definition.cpIds],
+    canonicalProblems: definition.cpIds.map((cpId) => ({
+      id: cpId,
+      label: cpId,
+    })),
+    supportedDifficulties: ["easy", "medium", "hard"],
+    supportedLanguages: ["en"],
+    enabled: true,
+    runtimeMode: definition.packageId === "MAL-001" ? "RELEASED" : undefined,
+    reviewStatus:
+      definition.packageId === "MAL-001"
+        ? "APPROVED_EDITORIAL_ENGLISH"
+        : undefined,
+    questionBankStatus:
+      definition.packageId === "MAL-001" ? "WRITABLE" : undefined,
+    testEligibility:
+      definition.packageId === "MAL-001" ? "ELIGIBLE" : undefined,
+    publiclyPublishable: definition.packageId === "MAL-001" ? true : undefined,
+  };
 }
 
-export async function generateQuestion(
-  request: QuestionStudioQuantV4GenerationRequest = {},
-) {
-  if (!isAverageRequest(request)) {
-    return generateBaseQuestion(request as QuantV4GenerationRequest);
+export function listQuantV4Packages() {
+  const existing = listBasePackages();
+  const additions = [];
+  if (!existing.some((pkg: any) => pkg.packageId === "AVG-001")) {
+    additions.push(packageCard(AVG_PACKAGE_DEFINITION));
   }
+  if (!existing.some((pkg: any) => pkg.packageId === "MAL-001")) {
+    additions.push(packageCard(MAL_PACKAGE_DEFINITION));
+  }
+  return [...existing, ...additions].sort((left: any, right: any) =>
+    String(left.packageId).localeCompare(String(right.packageId)),
+  );
+}
 
+async function generateAverageQuestion(
+  request: QuestionStudioQuantV4GenerationRequest,
+) {
   const language = (request.language ?? "en") as QuantV4Language;
   if (language !== "en") {
     throw new Error("AVG-001 supports English generation only in Question Studio.");
@@ -124,7 +179,9 @@ export async function generateQuestion(
   const explicitCp = request.canonicalProblemId ?? request.cpId;
   if (
     explicitCp &&
-    !AVG_001_QUESTION_STUDIO_CP_IDS.includes(explicitCp as Avg001QuestionStudioCpId)
+    !AVG_001_QUESTION_STUDIO_CP_IDS.includes(
+      explicitCp as Avg001QuestionStudioCpId,
+    )
   ) {
     throw new Error(`Unknown canonical problem '${explicitCp}' for package AVG-001`);
   }
@@ -134,7 +191,9 @@ export async function generateQuestion(
     `quant-v4:AVG-001:${explicitCp ?? "mixed"}:${Date.now()}:${Math.random()
       .toString(36)
       .slice(2)}`;
-  const cpOffset = seededHash(`${batchSeed}:cp-offset`) % AVG_001_QUESTION_STUDIO_CP_IDS.length;
+  const cpOffset =
+    seededHash(`${batchSeed}:cp-offset`) %
+    AVG_001_QUESTION_STUDIO_CP_IDS.length;
   const questionPackages = [];
   const questions = [];
 
@@ -173,6 +232,90 @@ export async function generateQuestion(
     questionPackages,
     questions,
   };
+}
+
+async function generateMixtureAndAlligationQuestion(
+  request: QuestionStudioQuantV4GenerationRequest,
+) {
+  const language = (request.language ?? "en") as QuantV4Language;
+  if (language !== "en") {
+    throw new Error("MAL-001 supports English generation only in Question Studio.");
+  }
+
+  const count = Math.min(
+    1000,
+    Math.max(1, Math.floor(Number(request.count ?? 1) || 1)),
+  );
+  const difficulty = normalizeDifficulty(request.difficulty);
+  const explicitCp = request.canonicalProblemId ?? request.cpId;
+  if (
+    explicitCp &&
+    !MAL_001_QUESTION_STUDIO_CP_IDS.includes(
+      explicitCp as Mal001QuestionStudioCpId,
+    )
+  ) {
+    throw new Error(`Unknown canonical problem '${explicitCp}' for package MAL-001`);
+  }
+
+  const cpId = (explicitCp ??
+    MAL_001_QUESTION_STUDIO_CP_IDS[0]) as Mal001QuestionStudioCpId;
+  const batchSeed =
+    request.seed ??
+    `quant-v4:MAL-001:${cpId}:${Date.now()}:${Math.random()
+      .toString(36)
+      .slice(2)}`;
+  const questionPackages = [];
+  const questions = [];
+
+  for (let index = 0; index < count; index += 1) {
+    if (index > 0 && index % 100 === 0) {
+      await new Promise((resolve) => setImmediate(resolve));
+    }
+    const seed = `${batchSeed}:${cpId}:${index}`;
+    const pkg = runMal001QuestionStudioPipeline(cpId, {
+      difficulty,
+      language: "en",
+      questionLanguageId: request.questionLanguageId,
+      seed,
+    });
+    questionPackages.push(pkg);
+    questions.push(
+      toQuestionStudioPreview(pkg, {
+        packageDefinition: MAL_PACKAGE_DEFINITION,
+        questionIndex: index + 1,
+        questionCount: count,
+        seed,
+      }),
+    );
+  }
+
+  return {
+    generationContext: {
+      generationDomain: "quant-v4",
+      seed: batchSeed,
+      timestamp: Date.now(),
+      runtimeMode: "RELEASED",
+      reviewStatus: "APPROVED_EDITORIAL_ENGLISH",
+      questionBankStatus: "WRITABLE",
+      testEligibility: "ELIGIBLE",
+      publiclyPublishable: true,
+      releaseId: "MAL-CP001-EN-v1",
+    },
+    questionPackages,
+    questions,
+  };
+}
+
+export async function generateQuestion(
+  request: QuestionStudioQuantV4GenerationRequest = {},
+) {
+  if (isMixtureAndAlligationRequest(request)) {
+    return generateMixtureAndAlligationQuestion(request);
+  }
+  if (isAverageRequest(request)) {
+    return generateAverageQuestion(request);
+  }
+  return generateBaseQuestion(request as QuantV4GenerationRequest);
 }
 
 export type {
