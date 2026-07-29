@@ -18,11 +18,11 @@ import {
 } from "./runtime";
 import type { ClsCp002Pair } from "./types";
 
-assert.equal(CLS_CP002_SEMANTIC_RELATION_IDS.length, 20);
+assert.equal(CLS_CP002_SEMANTIC_RELATION_IDS.length, 19);
 assert.equal(CLS_CP002_LEXICAL_RELATION_IDS.length, 12);
 assert.equal(CLS_CP002_CLASS_RELATION_IDS.length, 24);
-assert.equal(CLS_CP002_FACTS.length, 378);
-assert.equal(CLS_CP002_RELATIONS.length, 56);
+assert.equal(CLS_CP002_FACTS.length, 372);
+assert.equal(CLS_CP002_RELATIONS.length, 55);
 assert.equal(CLS_CP002_PROTOTYPES.length, 5);
 assert.equal(getClsCp002PrototypeDefinitions().length, 5);
 assert.equal(getClsCp002RelationRegistry().datasetVersion, "CLS-CP002-RELATION-DISCOVERY-v1");
@@ -30,14 +30,14 @@ assert.ok(CLS_CP002_FACTS.every((fact) => ![
   "SEM_COUNTRY_CAPITAL",
   "SEM_STATE_CAPITAL",
   "SEM_COUNTRY_CURRENCY",
+  "SEM_KIN_SPOUSE_ROLES",
 ].includes(fact.relationId)));
 
 const factRelationIds = [...CLS_CP002_SEMANTIC_RELATION_IDS, ...CLS_CP002_LEXICAL_RELATION_IDS];
 for (const fact of CLS_CP002_FACTS) {
   const pair = { left: fact.left, right: fact.right };
   const matches = matchingRelationIds(pair, factRelationIds);
-  assert.ok(matches.includes(fact.relationId), `${fact.factId} does not resolve to ${fact.relationId}`);
-  assert.equal(new Set(matches).size, matches.length, `${fact.factId} returned duplicate relation matches`);
+  assert.deepEqual(matches, [fact.relationId], `${fact.factId} is not globally relation-unique: ${matches}`);
 
   const definition = relationDefinition(fact.relationId);
   if (definition.directionSensitive) {
