@@ -77,6 +77,21 @@ export function toLatex(value: Rational): string {
   return `\\frac{${value.numerator}}{${value.denominator}}`;
 }
 
+export function toMixedLatex(value: Rational): string {
+  const sign = value.numerator < 0 ? "-" : "";
+  const absolute = Math.abs(value.numerator);
+  const whole = Math.trunc(absolute / value.denominator);
+  const remainder = absolute % value.denominator;
+  if (remainder === 0) return `${sign}${whole}`;
+  if (whole === 0) return `${sign}\\frac{${remainder}}{${value.denominator}}`;
+  return `${sign}${whole}\\frac{${remainder}}{${value.denominator}}`;
+}
+
+export function formatTimeText(value: Rational, singularUnit: string, pluralUnit = `${singularUnit}s`): string {
+  if (value.denominator === 1) return `${value.numerator} ${value.numerator === 1 ? singularUnit : pluralUnit}`;
+  return `\\(${toMixedLatex(value)}\\;\\text{${pluralUnit}}\\)`;
+}
+
 export function rationalKey(value: Rational): string {
   return `${value.numerator}/${value.denominator}`;
 }
