@@ -1,5 +1,5 @@
-import { add, divide, equals, formatRational, multiply, rational, reciprocal, subtract, toLatex } from "./rational";
-import { required, timeUnitLabel } from "./cp001-helpers";
+import { add, divide, equals, formatRational, formatTimeText, multiply, rational, reciprocal, subtract, toLatex } from "./rational";
+import { required } from "./cp001-helpers";
 import type { Rational } from "./types";
 import type { TmwCp002Parameters, TmwCp002RegistryEntry, TmwCp002Solution } from "./cp002-types";
 
@@ -23,7 +23,7 @@ function pluralize(noun: string, value: Rational): string {
 
 function answerText(entry: TmwCp002RegistryEntry, p: TmwCp002Parameters, answer: Rational): string {
   const value = formatRational(answer);
-  if (entry.answerType === "TIME") return `${value} ${timeUnitLabel(p.timeUnit, answer)}`;
+  if (entry.answerType === "TIME") return formatTimeText(answer, p.timeUnit, `${p.timeUnit}s`);
   if (entry.answerType === "FRACTION") return `${value} of the assignment`;
   if (entry.answerType === "COUNT") return `${value} ${pluralize(p.context.agentNoun, answer)}`;
   if (entry.answerType === "OUTPUT") return `${value} ${p.context.outputNoun}`;
