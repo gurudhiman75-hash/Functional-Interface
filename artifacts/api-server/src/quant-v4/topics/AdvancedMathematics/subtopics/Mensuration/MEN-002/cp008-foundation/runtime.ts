@@ -18,6 +18,35 @@ function replaceCurrency(text: string) {
     .replace(/£/g, "₹");
 }
 
+function hashText(text: string) {
+  let hash = 2166136261 >>> 0;
+  for (let index = 0; index < text.length; index += 1) {
+    hash ^= text.charCodeAt(index);
+    hash = Math.imul(hash, 16777619) >>> 0;
+  }
+  return hash;
+}
+
+function dimension(value: bigint) {
+  return `$${value}\\text{ cm}$`;
+}
+
+function rotateRatioStem(question: MenCp008Package, publicSeed: string): MenCp008Package {
+  if (question.prototypeId !== "MEN-CP008-PROT-CYLINDER-CONE-VOLUME-RATIO") return question;
+  const d = question.state.dimensions;
+  const cylinderRadius = dimension(d.cylinderRadius!);
+  const cylinderHeight = dimension(d.cylinderHeight!);
+  const coneRadius = dimension(d.coneRadius!);
+  const coneHeight = dimension(d.coneHeight!);
+  const stems = [
+    `A cylinder has radius ${cylinderRadius} and height ${cylinderHeight}. A cone has radius ${coneRadius} and height ${coneHeight}. Find the ratio of the cylinder's volume to the cone's volume.`,
+    `A solid cylinder of radius ${cylinderRadius} and height ${cylinderHeight} is compared with a cone of radius ${coneRadius} and height ${coneHeight}. What is the ratio of their volumes in cylinder-to-cone order?`,
+    `The dimensions of a cylinder are radius ${cylinderRadius} and height ${cylinderHeight}, while a cone has radius ${coneRadius} and height ${coneHeight}. Determine $V_{cylinder}:V_{cone}$.`,
+    `Find the cylinder-to-cone volume ratio when the cylinder measures ${cylinderRadius} in radius and ${cylinderHeight} in height, and the cone measures ${coneRadius} in radius and ${coneHeight} in height.`,
+  ];
+  return { ...question, stem: stems[hashText(publicSeed) % stems.length]! };
+}
+
 function generateCollisionFreeLegacy(
   prototypeId: MenCp008PrototypeId,
   publicSeed: string,
@@ -28,11 +57,11 @@ function generateCollisionFreeLegacy(
       : `${publicSeed}:option-collision-retry:${attempt}`;
     try {
       const generated = generateLegacyMenCp008Prototype(prototypeId, sourceSeed);
-      return {
+      return rotateRatioStem({
         ...generated,
         seed: publicSeed,
         state: { ...generated.state, seed: publicSeed },
-      };
+      }, publicSeed);
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       if (!message.includes("generated duplicate exact option values")) throw error;
