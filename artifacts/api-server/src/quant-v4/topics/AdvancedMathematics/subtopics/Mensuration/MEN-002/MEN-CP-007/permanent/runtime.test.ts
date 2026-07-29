@@ -1,21 +1,26 @@
 import assert from "node:assert/strict";
 import { exactKey } from "../../foundation/exact";
 import { MEN_CP_007_FROZEN_QLS } from "../final-freeze/registry";
+import { getMenCp007ShortcutAuthorityCount } from "./editorial-v2";
 import {
   generateMenCp007PermanentQuestion,
+  generateMenCp007PermanentQuestionFromPrototype,
   generateMenCp007SourcePrototype,
 } from "./runtime";
 
 assert.equal(MEN_CP_007_FROZEN_QLS.length, 43);
+assert.equal(getMenCp007ShortcutAuthorityCount(), 43);
 
 const reachedPrototypes = new Set<string>();
 const reachedDifficulties = new Set<string>();
+const shortcutOpeners = new Set<string>();
 let generated = 0;
 
 for (const definition of MEN_CP_007_FROZEN_QLS) {
   const answerPositions = new Set<number>();
   const stems = new Set<string>();
   const answers = new Set<string>();
+  const shortcuts = new Set<string>();
 
   for (let index = 0; index < 80; index += 1) {
     const seed = `men-cp007-permanent-proof:${definition.qlId}:${index}`;
@@ -40,15 +45,16 @@ for (const definition of MEN_CP_007_FROZEN_QLS) {
     assert.equal(first.sourceState.seed, first.sourceSeed);
 
     const source = generateMenCp007SourcePrototype(first.sourcePrototypeId, first.sourceSeed);
-    assert.equal(first.stem, source.stem);
-    assert.deepEqual(first.options, source.options);
-    assert.equal(first.correctIndex, source.correctIndex);
-    assert.equal(first.answer, source.answer);
-    assert.deepEqual(first.exactAnswer, source.exactAnswer);
-    assert.equal(first.unit, source.unit);
-    assert.deepEqual(first.explanation, source.explanation);
-    assert.deepEqual(first.verification, source.verification);
-    assert.deepEqual(first.sourceValidation, source.validation);
+    assert.deepEqual(first.options, source.options, "Editorial V2 must not change options.");
+    assert.equal(first.correctIndex, source.correctIndex, "Editorial V2 must not change the correct index.");
+    assert.equal(first.answer, source.answer, "Editorial V2 must not change the answer.");
+    assert.deepEqual(first.exactAnswer, source.exactAnswer, "Editorial V2 must not change the exact answer.");
+    assert.equal(first.unit, source.unit, "Editorial V2 must not change the answer unit.");
+    assert.equal(first.difficulty, source.difficulty, "Editorial V2 must not change difficulty.");
+    assert.deepEqual(first.verification, source.verification, "Editorial V2 must preserve independent verification.");
+    assert.deepEqual(first.sourceValidation, source.validation, "Editorial V2 must preserve source validation.");
+    assert.deepEqual(first.sourceState.dimensions, source.state.dimensions, "Editorial V2 must preserve canonical dimensions.");
+    assert.deepEqual(first.sourceState.derived, source.state.derived, "Editorial V2 must preserve derived exact state.");
 
     assert.equal(first.options.length, 4);
     assert.equal(new Set(first.options.map((option) => exactKey(option.value))).size, 4);
@@ -57,6 +63,17 @@ for (const definition of MEN_CP_007_FROZEN_QLS) {
     assert.equal(first.answer, first.options[first.correctIndex]?.display);
     assert.equal(first.explanation.steps.length >= 2, true);
     assert.equal(first.explanation.traps.length, 3);
+    assert.ok(first.explanation.traps.every((trap) => /^Option [A-D] \(\$/.test(trap) && trap.includes("Common mistake:")));
+
+    assert.equal(first.editorialLayoutId, "MEN-CP007-EN-EDITORIAL-V2");
+    assert.equal(first.editorialStatus, "PENDING_PRODUCT_REVIEW");
+    assert.match(first.explanation.shortcut, /^(Exam-speed method|Fast exam route|Time-saving check|Quick calculation route):/);
+    assert.doesNotMatch(first.explanation.shortcut, /^Quick way:/);
+    assert.match(first.explanation.shortcut, /given values|numbers in this question|current values|question's data/);
+    assert.ok(first.explanation.shortcut.length >= 100, `${definition.qlId} shortcut is too thin.`);
+    assert.ok(first.explanation.shortcut.includes("$"), `${definition.qlId} shortcut requires a numerical MathJax calculation.`);
+    assert.doesNotMatch(first.explanation.shortcut, /This isolates|This finds|Use the arrangement that gives|The question asks for/);
+    assert.doesNotMatch(JSON.stringify(first.explanation), /\\sqrt[23]\b|Shortest\\ side|Longer\\ side/);
 
     assert.equal(first.packageId, "MEN-002");
     assert.equal(first.canonicalProblemId, "MEN-CP-007");
@@ -65,7 +82,7 @@ for (const definition of MEN_CP_007_FROZEN_QLS) {
     assert.equal(first.allocationStatus, "ALLOCATED_IMPLEMENTATION_PROOF");
     assert.equal(first.permanentIdentityFrozen, true);
     assert.equal(first.active, false);
-    assert.equal(first.reviewStatus, "UNREVIEWED_PERMANENT_ENGLISH");
+    assert.equal(first.reviewStatus, "PENDING_ENGLISH_EDITORIAL_REVIEW");
     assert.equal(first.questionBankStatus, "NOT_STORED");
     assert.equal(first.questionBankWritable, false);
     assert.equal(first.testEligibility, "INELIGIBLE");
@@ -75,22 +92,39 @@ for (const definition of MEN_CP_007_FROZEN_QLS) {
 
     reachedPrototypes.add(first.sourcePrototypeId);
     reachedDifficulties.add(first.difficulty);
+    shortcutOpeners.add(first.explanation.shortcut.split(":", 1)[0]!);
     answerPositions.add(first.correctIndex);
     stems.add(first.stem);
     answers.add(exactKey(first.exactAnswer));
+    shortcuts.add(first.explanation.shortcut);
     generated += 1;
   }
 
   assert.deepEqual([...answerPositions].sort(), [0, 1, 2, 3], `${definition.qlId} must reach every answer position.`);
   assert.ok(stems.size >= 4, `${definition.qlId} requires at least four distinct rendered stems; found ${stems.size}.`);
   assert.ok(answers.size >= 4, `${definition.qlId} requires at least four distinct exact answers; found ${answers.size}.`);
+  assert.ok(shortcuts.size >= 4, `${definition.qlId} requires state-specific shortcut variation; found ${shortcuts.size}.`);
 }
 
 const expectedOwnedPrototypes = new Set(MEN_CP_007_FROZEN_QLS.flatMap((item) => item.prototypeIds));
 assert.equal(expectedOwnedPrototypes.size, 63);
 assert.deepEqual([...reachedPrototypes].sort(), [...expectedOwnedPrototypes].sort(), "Every frozen prototype ancestry must be reachable through its permanent QL.");
 assert.deepEqual([...reachedDifficulties].sort(), ["Easy", "Hard", "Medium"]);
+assert.deepEqual([...shortcutOpeners].sort(), ["Exam-speed method", "Fast exam route", "Quick calculation route", "Time-saving check"]);
 assert.equal(generated, 43 * 80);
+
+for (const definition of MEN_CP_007_FROZEN_QLS) {
+  for (const prototypeId of definition.prototypeIds) {
+    const forced = generateMenCp007PermanentQuestionFromPrototype(
+      definition.qlId,
+      `forced-ancestry:${definition.qlId}:${prototypeId}`,
+      prototypeId,
+      "en",
+    );
+    assert.equal(forced.sourcePrototypeId, prototypeId);
+    assert.equal(forced.validation.valid, true);
+  }
+}
 
 assert.throws(
   () => generateMenCp007PermanentQuestion("MEN-002-QL-999", "unknown-ql", "en"),
@@ -108,8 +142,17 @@ assert.throws(
   () => generateMenCp007PermanentQuestion("MEN-002-QL-001", "unsupported-pa", "pa"),
   /supports English only/,
 );
+assert.throws(
+  () => generateMenCp007PermanentQuestionFromPrototype(
+    "MEN-002-QL-001",
+    "wrong-ancestry",
+    "MEN-CP007-PROT-CUBE-TSA",
+    "en",
+  ),
+  /is not approved ancestry/,
+);
 
 console.log(
-  `MEN-CP-007 permanent English runtime passed for ${generated} deterministic questions across 43 frozen QLs and 63 prototype ancestries. ` +
-  "Every permanent identity remains inactive, undiscoverable, unstored, test-ineligible and unpublished.",
+  `MEN-CP-007 English editorial V2 passed for ${generated} deterministic permanent questions across 43 QLs and 63 prototype ancestries. ` +
+  "Mathematics, options, answers, states and verifier evidence remain frozen; shortcuts are QL-specific, numerical and review-pending.",
 );
