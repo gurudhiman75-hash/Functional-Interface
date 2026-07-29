@@ -40,7 +40,7 @@ const SHORTCUT_LEADS: Readonly<Record<string, string>> = {
   "MEN-002-QL-037": "Remove both base areas from TSA, then divide the lateral area by height to get the base perimeter.",
   "MEN-002-QL-038": "Convert to common units, count complete fits along length, breadth and height, and multiply the three direction counts.",
   "MEN-002-QL-039": "Count only complete cubes, find their used volume, and subtract it from the original cuboid volume.",
-  "MEN-002-QL-040": "Find wasted volume exactly as in the unused-volume question, then divide by the original volume and multiply by $100$.",
+  "MEN-002-QL-040": "Find wasted volume exactly, divide by the original volume, multiply by $100$, and round only the final percentage to two decimal places.",
   "MEN-002-QL-041": "Divide the total number of cubes by the number in one horizontal layer, then multiply the number of layers by one cube edge.",
   "MEN-002-QL-042": "Test all six block orientations using whole-number fits along the three box dimensions; the volume quotient is only an upper bound.",
   "MEN-002-QL-043": "If there are $n$ equal parts along one direction, only $n-1$ internal grid planes are needed; add the three direction counts.",
@@ -83,7 +83,9 @@ function cleanMathTypography(text: string) {
     .replace(/(^|[=$])Cost=/g, "$1\\text{Cost}=")
     .replace(/(^|[=$])Rate=/g, "$1\\text{Rate}=")
     .replace(/(^|[=$])Maximum=/g, "$1\\text{Maximum}=")
-    .replace(/(^|[=$])Cuts=/g, "$1\\text{Cuts}=");
+    .replace(/(^|[=$])Cuts=/g, "$1\\text{Cuts}=")
+    .replace(/\bcubical\b/gi, "cube-shaped")
+    .replace(/\bconstant base area\b/gi, "base area");
 }
 
 function inlineEquation(equation: string | undefined) {
@@ -95,7 +97,17 @@ function inlineEquation(equation: string | undefined) {
   return cleaned;
 }
 
-function finalWorkedEquation(steps: MenCp007PermanentPackage["explanation"]["steps"]) {
+function workedEquation(
+  qlId: string,
+  steps: MenCp007PermanentPackage["explanation"]["steps"],
+) {
+  if (qlId === "MEN-002-QL-042") {
+    const orientationEquation = steps
+      .map((step) => inlineEquation(step.equation))
+      .find((equation) => equation?.includes("\\lfloor"));
+    if (orientationEquation) return orientationEquation;
+  }
+
   for (let index = steps.length - 1; index >= 0; index -= 1) {
     const equation = inlineEquation(steps[index]?.equation);
     if (equation) return equation;
@@ -121,15 +133,13 @@ export function applyMenCp007EnglishEditorialV2(
     body: cleanMathTypography(step.body),
     ...(step.equation ? { equation: cleanMathTypography(step.equation) } : {}),
   }));
-  const numericalEquation = finalWorkedEquation(steps);
+  const numericalEquation = workedEquation(question.qlId, steps);
   const numericClose = numericalEquation
-    ? `${bridge} ${numericalEquation}, giving ${cleanMathTypography(question.answer)}.`
+    ? `${bridge} ${numericalEquation}.`
     : `${bridge} the correct result is ${cleanMathTypography(question.answer)}.`;
 
   return {
-    stem: cleanMathTypography(question.stem)
-      .replace(/\bA cubical packing box\b/g, "A cube-shaped packing box")
-      .replace(/\bA cubical storage block\b/g, "A cube-shaped storage block"),
+    stem: cleanMathTypography(question.stem),
     explanation: {
       keyRule: cleanMathTypography(question.explanation.keyRule),
       steps,
