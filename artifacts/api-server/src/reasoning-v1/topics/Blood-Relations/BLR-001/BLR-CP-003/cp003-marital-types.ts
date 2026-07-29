@@ -121,7 +121,7 @@ export interface GeneratedBlrCp003MaritalGroup {
     everyClueAndStatusFactContributes: true;
     clueCount: 7;
     maritalFactCount: 1;
-    itemCount: 6;
+    itemCount: 7;
     semanticFingerprint: string;
   };
 }
