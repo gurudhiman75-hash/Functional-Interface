@@ -1,6 +1,6 @@
 import { generateIntCp001CloseDistractorEnglishQuestion } from "./cp001-close-distractor-runtime";
 
-for (const seed of ["close-distractor-5", "close-distractor-13"]) {
+for (const seed of ["close-distractor-5", "close-distractor-13", "close-distractor-22"]) {
   const question = generateIntCp001CloseDistractorEnglishQuestion("INT-QL-007", seed);
   console.log(JSON.stringify({
     seed,
