@@ -4,11 +4,15 @@ import {
   type ClsCp002QlId,
   type ClsCp002SolveContractId,
 } from "./cp002-permanent-contract";
+import { polishClsCp002EnglishQuestion } from "./cp002-english-editorial";
 import { generateClsCp002MultilingualSafePrototype } from "./cp002-safe-source-runtime";
 import {
-  canonicalizeClsCp002Pair,
-  localizeClsCp002Pair,
-} from "./localization/cp002-language-pack";
+  CLS_CP002_FALSE_PAIR_SAFE_RELATION_IDS,
+} from "./relation-registry";
+import {
+  canonicalizeClsCp002StudentPair,
+  localizeClsCp002StudentPair,
+} from "./localization/cp002-student-presentation";
 import type {
   ClsCp002PrototypeId,
   GeneratedClsCp002Question,
@@ -46,6 +50,7 @@ export type GeneratedClsCp002EnglishQuestion = Omit<
 
 const SOURCE_SEED_STRIDE = 64;
 const MAX_PRESENTATION_SAFE_ATTEMPTS = SOURCE_SEED_STRIDE;
+const BANNED_CLASS_PAIR_LABELS = new Set(["Crown", "Sapwood"]);
 
 function hashText(text: string): number {
   let hash = 2166136261;
@@ -81,15 +86,30 @@ function pairDisplay(left: string, right: string): string {
 }
 
 function isPresentationSafe(question: GeneratedClsCp002Question): boolean {
+  if (
+    question.generationProfile === "CATEGORY_SAFE_FALSE_PAIR"
+    && !CLS_CP002_FALSE_PAIR_SAFE_RELATION_IDS.includes(question.intendedRelationId as never)
+  ) {
+    return false;
+  }
+  if (
+    question.generationProfile === "CLASS_PAIR_CONTRAST"
+    && question.pairs.some((pair) =>
+      BANNED_CLASS_PAIR_LABELS.has(pair.left) || BANNED_CLASS_PAIR_LABELS.has(pair.right),
+    )
+  ) {
+    return false;
+  }
+
   for (const locale of ["hi-IN", "pa-IN"] as const) {
     try {
       const localizedPairs = question.pairs.map((pair) =>
-        localizeClsCp002Pair(pair, question.metadata.sourceRelationFactIds, locale),
+        localizeClsCp002StudentPair(pair, question.metadata.sourceRelationFactIds, locale),
       );
       const displays = localizedPairs.map((pair) => pairDisplay(pair.left, pair.right));
       if (new Set(displays).size !== displays.length) return false;
       const reconstructed = localizedPairs.map((pair) =>
-        canonicalizeClsCp002Pair(pair, question.metadata.sourceRelationFactIds, locale),
+        canonicalizeClsCp002StudentPair(pair, question.metadata.sourceRelationFactIds, locale),
       );
       if (JSON.stringify(reconstructed) !== JSON.stringify(question.pairs)) return false;
     } catch {
@@ -127,7 +147,7 @@ export function generateClsCp002EnglishQuestion(
       sourceOptionCount,
     );
     if (!isPresentationSafe(candidate)) continue;
-    generated = candidate;
+    generated = polishClsCp002EnglishQuestion(candidate);
     sourcePrototypeSeed = candidateSeed;
     break;
   }
