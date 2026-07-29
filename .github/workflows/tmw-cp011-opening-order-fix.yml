@@ -49,7 +49,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-cp011.opening-audit.mjs
           node artifacts/api-server/dist/quant-v4/tmw-001-cp011.opening-audit.mjs
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp011-review-export.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-cp011.opening-review.mjs
-          node artifacts/api-server/dist/quant-v4/tmw-001-cp011.opening-review.mjs
+          (cd artifacts/api-server && node dist/quant-v4/tmw-001-cp011.opening-review.mjs)
       - name: Commit rotation correction
         shell: bash
         run: |
