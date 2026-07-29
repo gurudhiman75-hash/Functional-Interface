@@ -1,0 +1,339 @@
+import { exactKey } from "../../foundation/exact";
+import { MEN_CP_007_PROTOTYPES } from "../../foundation/prototype-registry";
+import { generateMenCp007Prototype } from "../../foundation/runtime";
+import { createSeededRandom } from "../../foundation/seed";
+import type { ExactValue, MenCp007PrototypeId } from "../../foundation/types";
+import { MEN_CP_007_WAVE_01_PROTOTYPES } from "../../gap-wave-01/registry";
+import { generateMenCp007Wave01Prototype } from "../../gap-wave-01/runtime";
+import type { MenCp007Wave01PrototypeId } from "../../gap-wave-01/types";
+import { MEN_CP_007_WAVE_02_PROTOTYPES } from "../../gap-wave-02/registry";
+import { generateMenCp007Wave02Prototype } from "../../gap-wave-02/runtime";
+import type { MenCp007Wave02PrototypeId } from "../../gap-wave-02/types";
+import { MEN_CP_007_WAVE_03_PROTOTYPES } from "../../gap-wave-03/registry";
+import { generateMenCp007Wave03Prototype } from "../../gap-wave-03/runtime";
+import type { MenCp007Wave03PrototypeId } from "../../gap-wave-03/types";
+import { MEN_CP_007_WAVE_04_PROTOTYPES } from "../../source-gap-wave-04/registry";
+import { generateMenCp007Wave04Prototype } from "../../source-gap-wave-04/runtime";
+import type { MenCp007Wave04PrototypeId } from "../../source-gap-wave-04/types";
+import {
+  MEN_CP_007_FROZEN_QLS,
+  type MenCp007AnyPrototypeId,
+  type MenCp007FrozenQlDefinition,
+} from "../final-freeze/registry";
+import { applyMenCp007EnglishEditorialV2 } from "./editorial-v2";
+import type { MenCp007PermanentPackage } from "./types";
+
+const foundationIds = new Set<string>(MEN_CP_007_PROTOTYPES.map((item) => item.prototypeId));
+const wave01Ids = new Set<string>(MEN_CP_007_WAVE_01_PROTOTYPES.map((item) => item.prototypeId));
+const wave02Ids = new Set<string>(MEN_CP_007_WAVE_02_PROTOTYPES.map((item) => item.prototypeId));
+const wave03Ids = new Set<string>(MEN_CP_007_WAVE_03_PROTOTYPES.map((item) => item.prototypeId));
+const wave04Ids = new Set<string>(MEN_CP_007_WAVE_04_PROTOTYPES.map((item) => item.prototypeId));
+
+function getFrozenDefinition(qlId: string): MenCp007FrozenQlDefinition {
+  const definition = MEN_CP_007_FROZEN_QLS.find((item) => item.qlId === qlId);
+  if (!definition) throw new Error(`Unknown MEN-CP-007 permanent QL: ${qlId}`);
+  return definition;
+}
+
+function assertEnglishAndSeed(seed: string, language: "en" | "hi" | "pa") {
+  if (language !== "en") {
+    throw new Error(`MEN-CP-007 permanent runtime currently supports English only; received ${language}.`);
+  }
+  if (!seed.trim()) throw new Error("MEN-CP-007 permanent runtime requires a non-empty deterministic seed.");
+}
+
+function sourceWaveId(prototypeId: MenCp007AnyPrototypeId): MenCp007PermanentPackage["sourceWaveId"] {
+  if (foundationIds.has(prototypeId)) return "MEN-CP-007-PROTOTYPE-FOUNDATION";
+  if (wave01Ids.has(prototypeId)) return "MEN-CP-007-GAP-WAVE-01";
+  if (wave02Ids.has(prototypeId)) return "MEN-CP-007-GAP-WAVE-02";
+  if (wave03Ids.has(prototypeId)) return "MEN-CP-007-GAP-WAVE-03";
+  if (wave04Ids.has(prototypeId)) return "MEN-CP-007-SOURCE-GAP-WAVE-04";
+  throw new Error(`Prototype is not part of the frozen CP-007 runtime: ${prototypeId}`);
+}
+
+export function generateMenCp007SourcePrototype(prototypeId: MenCp007AnyPrototypeId, seed: string) {
+  if (foundationIds.has(prototypeId)) {
+    return generateMenCp007Prototype(prototypeId as MenCp007PrototypeId, seed);
+  }
+  if (wave01Ids.has(prototypeId)) {
+    return generateMenCp007Wave01Prototype(prototypeId as MenCp007Wave01PrototypeId, seed);
+  }
+  if (wave02Ids.has(prototypeId)) {
+    return generateMenCp007Wave02Prototype(prototypeId as MenCp007Wave02PrototypeId, seed);
+  }
+  if (wave03Ids.has(prototypeId)) {
+    return generateMenCp007Wave03Prototype(prototypeId as MenCp007Wave03PrototypeId, seed);
+  }
+  if (wave04Ids.has(prototypeId)) {
+    return generateMenCp007Wave04Prototype(prototypeId as MenCp007Wave04PrototypeId, seed);
+  }
+  throw new Error(`Prototype is not part of the frozen CP-007 runtime: ${prototypeId}`);
+}
+
+type SourcePackage = ReturnType<typeof generateMenCp007SourcePrototype>;
+
+function stripInlineMath(text: string) {
+  const trimmed = text.trim();
+  return trimmed.startsWith("$") && trimmed.endsWith("$")
+    ? trimmed.slice(1, -1)
+    : trimmed;
+}
+
+function formatRoundedPercent(value: ExactValue) {
+  if (value.kind !== "RATIONAL" || value.denominator <= 0n || value.numerator < 0n) {
+    throw new Error("The CP-007 rounded-percentage presentation requires a non-negative rational value.");
+  }
+  const hundredths = (value.numerator * 100n + value.denominator / 2n) / value.denominator;
+  const whole = hundredths / 100n;
+  const decimals = String(hundredths % 100n).padStart(2, "0");
+  return `$${whole}.${decimals}\\%$`;
+}
+
+function replaceTrapDisplay(
+  trap: string,
+  options: readonly { label: "A" | "B" | "C" | "D"; display: string }[],
+) {
+  const match = trap.match(/^Option ([A-D]) \(.+\): (Common mistake:.*)$/);
+  if (!match) return trap;
+  const label = match[1] as "A" | "B" | "C" | "D";
+  const option = options.find((candidate) => candidate.label === label);
+  return option ? `Option ${label} (${option.display}): ${match[2]}` : trap;
+}
+
+function buildPermanentPresentation(
+  definition: MenCp007FrozenQlDefinition,
+  source: SourcePackage,
+) {
+  const options = source.options.map((option) => ({ ...option }));
+  const explanation = {
+    keyRule: source.explanation.keyRule,
+    steps: source.explanation.steps.map((step) => ({ ...step })),
+    shortcut: source.explanation.shortcut,
+    traps: [...source.explanation.traps],
+  };
+
+  if (definition.qlId !== "MEN-002-QL-040") {
+    return {
+      stem: source.stem,
+      options,
+      answer: source.answer,
+      explanation,
+    };
+  }
+
+  const roundedOptions = options.map((option) => ({
+    ...option,
+    display: formatRoundedPercent(option.value),
+  }));
+  const answer = roundedOptions[source.correctIndex]!.display;
+  const exactAnswerMath = stripInlineMath(source.answer);
+  const roundedAnswerMath = stripInlineMath(answer);
+
+  return {
+    stem: `${source.stem} Give the answer correct to two decimal places.`,
+    options: roundedOptions,
+    answer,
+    explanation: {
+      keyRule: `${explanation.keyRule} Keep the fraction exact during the calculation and round only the final percentage to two decimal places.`,
+      steps: [
+        ...explanation.steps,
+        {
+          title: "Round Only the Final Percentage",
+          body: "Use the declared two-decimal-place policy only after the exact waste percentage has been found.",
+          equation: `$$${exactAnswerMath}\\approx${roundedAnswerMath}$$`,
+        },
+      ],
+      shortcut: explanation.shortcut,
+      traps: explanation.traps.map((trap) => replaceTrapDisplay(trap, roundedOptions)),
+    },
+  };
+}
+
+function validatePermanentPackage(
+  question: Omit<MenCp007PermanentPackage, "validation">,
+  definition: MenCp007FrozenQlDefinition,
+) {
+  const learnerText = [
+    question.stem,
+    ...question.options.map((option) => option.display),
+    question.answer,
+    question.explanation.keyRule,
+    ...question.explanation.steps.flatMap((step) => [step.title, step.body, step.equation ?? ""]),
+    question.explanation.shortcut,
+    ...question.explanation.traps,
+  ].join("\n");
+  const isRoundedPercentage = definition.qlId === "MEN-002-QL-040";
+  const checks = [
+    {
+      name: "frozen QL mapping",
+      passed: definition.qlId === question.qlId && definition.templateId === question.templateId && definition.canonicalSolveMode === question.canonicalSolveMode,
+      message: "Permanent identity, template and canonical solve mode must match the frozen registry.",
+    },
+    {
+      name: "approved prototype ancestry",
+      passed: definition.prototypeIds.includes(question.sourcePrototypeId),
+      message: "The selected source prototype must belong to the frozen QL family.",
+    },
+    {
+      name: "source validation",
+      passed: question.sourceValidation.valid,
+      message: "The original executable prototype package must remain valid.",
+    },
+    {
+      name: "independent verifier",
+      passed: question.verification.valid,
+      message: "The source independent verifier must agree with the exact answer.",
+    },
+    {
+      name: "four exact options",
+      passed: question.options.length === 4 && new Set(question.options.map((option) => exactKey(option.value))).size === 4,
+      message: "Exactly four unique exact option values are required.",
+    },
+    {
+      name: "four displayed options",
+      passed: new Set(question.options.map((option) => option.display)).size === 4,
+      message: "All four learner-facing option displays must remain distinct.",
+    },
+    {
+      name: "one correct option",
+      passed: question.options.filter((option) => option.isCorrect).length === 1 && question.options[question.correctIndex]?.isCorrect === true,
+      message: "Exactly one option must be correct at the declared index.",
+    },
+    {
+      name: "answer display agreement",
+      passed: question.answer === question.options[question.correctIndex]?.display,
+      message: "The displayed answer must equal the correct displayed option.",
+    },
+    {
+      name: "source state preservation",
+      passed: question.sourceState.prototypeId === question.sourcePrototypeId && question.sourceState.solveMode === question.sourceSolveMode && question.sourceState.seed === question.sourceSeed,
+      message: "Prototype, solve-mode and seed provenance must remain exact.",
+    },
+    {
+      name: "four-tier explanation",
+      passed: Boolean(question.explanation.keyRule) && question.explanation.steps.length >= 2 && Boolean(question.explanation.shortcut) && question.explanation.traps.length === 3,
+      message: "Core concept, worked steps, shortcut and three option-specific traps are required.",
+    },
+    {
+      name: "declared percentage approximation",
+      passed: !isRoundedPercentage || (
+        question.stem.endsWith("Give the answer correct to two decimal places.") &&
+        question.options.every((option) => /^\$\d+\.\d{2}\\%\$$/.test(option.display)) &&
+        question.explanation.steps.some((step) => step.equation?.includes("\\approx"))
+      ),
+      message: "Waste-percentage output must declare and prove its two-decimal-place policy.",
+    },
+    {
+      name: "English editorial V2",
+      passed: question.editorialLayoutId === "MEN-CP007-EN-EDITORIAL-V2" && question.editorialStatus === "PENDING_PRODUCT_REVIEW" && !question.explanation.shortcut.startsWith("Quick way:") && /given values|numbers in this question|current values|question's data/.test(question.explanation.shortcut),
+      message: "Every permanent English package requires the V2 state-specific exam-speed layer.",
+    },
+    {
+      name: "editorial typography",
+      passed: !/[½¼²³]/.test(learnerText) && !/\\sqrt[23]\b/.test(learnerText) && !/(Shortest|Longer)\\ side/.test(learnerText),
+      message: "Learner text must use clean MathJax roots, powers and text labels.",
+    },
+    {
+      name: "inactive lifecycle",
+      passed: question.maturity === "IMPLEMENTATION_PROOF" && question.permanentIdentityFrozen && !question.active && !question.questionStudioDiscoverable && !question.questionBankWritable && !question.testEligible && !question.publiclyPublishable,
+      message: "Permanent implementation proof must remain invisible and ineligible.",
+    },
+  ];
+  return { valid: checks.every((check) => check.passed), checks };
+}
+
+function generatePermanentFromPrototype(
+  definition: MenCp007FrozenQlDefinition,
+  seed: string,
+  prototypeId: MenCp007AnyPrototypeId,
+): MenCp007PermanentPackage {
+  if (!definition.prototypeIds.includes(prototypeId)) {
+    throw new Error(`${prototypeId} is not approved ancestry for ${definition.qlId}.`);
+  }
+
+  const sourceSeed = `men-002-cp007-permanent:${definition.qlId}:${seed}:${prototypeId}`;
+  const source = generateMenCp007SourcePrototype(prototypeId, sourceSeed);
+  const presentation = buildPermanentPresentation(definition, source);
+  const editorial = applyMenCp007EnglishEditorialV2({
+    qlId: definition.qlId,
+    seed,
+    sourcePrototypeId: prototypeId,
+    stem: presentation.stem,
+    answer: presentation.answer,
+    explanation: presentation.explanation,
+  });
+
+  const partial = {
+    packageId: "MEN-002" as const,
+    canonicalProblemId: "MEN-CP-007" as const,
+    qlId: definition.qlId,
+    templateId: definition.templateId,
+    canonicalSolveMode: definition.canonicalSolveMode,
+    sourcePrototypeId: prototypeId,
+    sourceSolveMode: source.solveMode,
+    sourceWaveId: sourceWaveId(prototypeId),
+    language: "en" as const,
+    seed,
+    sourceSeed,
+    difficulty: source.difficulty,
+    target: definition.target,
+    stem: editorial.stem,
+    options: presentation.options,
+    correctIndex: source.correctIndex,
+    answer: presentation.answer,
+    exactAnswer: source.exactAnswer,
+    unit: source.unit,
+    explanation: editorial.explanation,
+    editorialLayoutId: editorial.editorialLayoutId,
+    editorialStatus: editorial.editorialStatus,
+    sourceState: {
+      prototypeId: source.state.prototypeId,
+      solveMode: source.state.solveMode,
+      seed: source.state.seed,
+      difficulty: source.state.difficulty,
+      dimensions: { ...source.state.dimensions },
+      derived: { ...source.state.derived },
+      unit: source.state.unit,
+    },
+    verification: { ...source.verification },
+    sourceValidation: {
+      valid: source.validation.valid,
+      checks: source.validation.checks.map((check) => ({ ...check })),
+    },
+    maturity: "IMPLEMENTATION_PROOF" as const,
+    allocationStatus: "ALLOCATED_IMPLEMENTATION_PROOF" as const,
+    permanentIdentityFrozen: true as const,
+    active: false as const,
+    reviewStatus: "PENDING_ENGLISH_EDITORIAL_REVIEW" as const,
+    questionBankStatus: "NOT_STORED" as const,
+    questionBankWritable: false as const,
+    testEligibility: "INELIGIBLE" as const,
+    testEligible: false as const,
+    publiclyPublishable: false as const,
+    questionStudioDiscoverable: false as const,
+  };
+
+  return { ...partial, validation: validatePermanentPackage(partial, definition) };
+}
+
+export function generateMenCp007PermanentQuestion(
+  qlId: string,
+  seed: string,
+  language: "en" | "hi" | "pa" = "en",
+): MenCp007PermanentPackage {
+  assertEnglishAndSeed(seed, language);
+  const definition = getFrozenDefinition(qlId);
+  const prototypeId = createSeededRandom(`${definition.qlId}:${seed}:prototype`).pick(definition.prototypeIds);
+  return generatePermanentFromPrototype(definition, seed, prototypeId);
+}
+
+export function generateMenCp007PermanentQuestionFromPrototype(
+  qlId: string,
+  seed: string,
+  prototypeId: MenCp007AnyPrototypeId,
+  language: "en" | "hi" | "pa" = "en",
+): MenCp007PermanentPackage {
+  assertEnglishAndSeed(seed, language);
+  const definition = getFrozenDefinition(qlId);
+  return generatePermanentFromPrototype(definition, seed, prototypeId);
+}

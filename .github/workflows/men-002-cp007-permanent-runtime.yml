@@ -1,0 +1,116 @@
+name: Validate MEN-CP-007 permanent English runtime
+
+on:
+  pull_request:
+    branches:
+      - feat/men-002-cp007-final-freeze
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/foundation/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/gap-wave-01/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/gap-wave-02/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/gap-wave-03/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/source-gap-wave-04/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-007/**
+      - .github/workflows/men-002-cp007-permanent-runtime.yml
+      - build-api.sh
+      - package.json
+      - pnpm-lock.yaml
+      - pnpm-workspace.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-men-002-cp007-permanent-runtime-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-permanent-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle complete CP-007 proof and permanent runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          base=src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002
+          out=dist/quant-v4
+          pnpm --dir artifacts/api-server exec esbuild "$base/foundation/runtime.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp007-foundation.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/gap-wave-01/runtime.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp007-wave01.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/gap-wave-02/runtime.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp007-wave02.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/gap-wave-03/runtime.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp007-wave03.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/source-gap-wave-04/runtime.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp007-wave04.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/MEN-CP-007/final-freeze/registry.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp007-final-freeze.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/MEN-CP-007/permanent/runtime.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp007-permanent-runtime.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/MEN-CP-007/permanent/review-export.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp007-permanent-review-export.mjs"
+
+      - name: Run discovery, freeze and permanent-runtime gates
+        shell: bash
+        run: |
+          set -o pipefail
+          out=artifacts/api-server/dist/quant-v4
+          node "$out/men-cp007-foundation.test.mjs" 2>&1 | tee "$out/men-cp007-foundation.log"
+          node "$out/men-cp007-wave01.test.mjs" 2>&1 | tee "$out/men-cp007-wave01.log"
+          node "$out/men-cp007-wave02.test.mjs" 2>&1 | tee "$out/men-cp007-wave02.log"
+          node "$out/men-cp007-wave03.test.mjs" 2>&1 | tee "$out/men-cp007-wave03.log"
+          node "$out/men-cp007-wave04.test.mjs" 2>&1 | tee "$out/men-cp007-wave04.log"
+          node "$out/men-cp007-final-freeze.test.mjs" 2>&1 | tee "$out/men-cp007-final-freeze.log"
+          node "$out/men-cp007-permanent-runtime.test.mjs" 2>&1 | tee "$out/men-cp007-permanent-runtime.log"
+
+      - name: Generate permanent English review pack
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/men-cp007-permanent-review-export.mjs
+
+      - name: Run exact Render production build
+        id: render_build
+        shell: bash
+        run: |
+          set +e
+          bash build-api.sh > artifacts/api-server/dist/quant-v4/men-cp007-permanent-render-build.log 2>&1
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Enforce Render production build
+        shell: bash
+        run: |
+          cat artifacts/api-server/dist/quant-v4/men-cp007-permanent-render-build.log
+          test "${{ steps.render_build.outputs.exit_code }}" = "0"
+          test -f artifacts/api-server/dist/index.mjs
+          test -f artifacts/examtree/dist/public/index.html
+          test -f artifacts/examtree/dist/public/admin/index.html
+
+      - name: Upload permanent runtime and review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: men-002-cp007-permanent-english-runtime
+          path: |
+            artifacts/api-server/dist/quant-v4/men-cp007-foundation.log
+            artifacts/api-server/dist/quant-v4/men-cp007-wave01.log
+            artifacts/api-server/dist/quant-v4/men-cp007-wave02.log
+            artifacts/api-server/dist/quant-v4/men-cp007-wave03.log
+            artifacts/api-server/dist/quant-v4/men-cp007-wave04.log
+            artifacts/api-server/dist/quant-v4/men-cp007-final-freeze.log
+            artifacts/api-server/dist/quant-v4/men-cp007-permanent-runtime.log
+            artifacts/api-server/dist/quant-v4/men-cp007-permanent-render-build.log
+            artifacts/api-server/dist/quant-v4/men-002-cp007-permanent-english-review/**
+          if-no-files-found: error
+          retention-days: 14
