@@ -237,6 +237,16 @@ export const CLS_CP002_SEMANTIC_RELATION_IDS = semanticDefinitions.map((definiti
 export const CLS_CP002_LEXICAL_RELATION_IDS = lexicalDefinitions.map((definition) => definition.relationId);
 export const CLS_CP002_CLASS_RELATION_IDS = classDefinitions.map((definition) => definition.relationId);
 
+export const CLS_CP002_FALSE_PAIR_SAFE_RELATION_IDS = [
+  "SEM_ANIMAL_YOUNG",
+  "SEM_MALE_FEMALE",
+  "SEM_INSTRUMENT_MEASUREMENT",
+  "SEM_QUANTITY_UNIT",
+  "LEX_SYNONYM",
+  "LEX_ANTONYM",
+  "LEX_STUDY_SUBJECT",
+] as const;
+
 const semanticContrastEligibleIds = semanticDefinitions
   .filter((definition) => semanticDefinitions.some(
     (other) => other.relationId !== definition.relationId && other.contrastGroup === definition.contrastGroup,
@@ -274,7 +284,7 @@ export const CLS_CP002_PROTOTYPES: readonly ClsCp002PrototypeDefinition[] = [
     title: "Category-correct false semantic pair",
     generationProfile: "CATEGORY_SAFE_FALSE_PAIR",
     family: "DIRECTIONAL_SEMANTIC",
-    eligibleRelationIds: [...semanticDefinitions, ...lexicalDefinitions].map((definition) => definition.relationId),
+    eligibleRelationIds: CLS_CP002_FALSE_PAIR_SAFE_RELATION_IDS,
   },
   {
     prototypeId: "CLS-CP002-PROT-005",
