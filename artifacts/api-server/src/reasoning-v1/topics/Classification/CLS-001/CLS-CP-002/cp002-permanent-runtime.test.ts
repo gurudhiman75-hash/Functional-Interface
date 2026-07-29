@@ -12,6 +12,8 @@ import {
 } from "./relation-registry";
 import { independentlyVerifyClsCp002Question } from "./runtime";
 
+const GENERATED_COUNT = 1600;
+
 assert.equal(CLS_CP002_QL_ID, "CLS-QL-004");
 assert.equal(CLS_CP002_SOLVE_CONTRACT_ID, "CP002-FIND-ODD-SEMANTIC-RELATION-PAIR");
 assert.equal(CLS_CP002_PERMANENT_CONTRACT.allowedPrototypeIds.length, 5);
@@ -28,7 +30,7 @@ const optionCountCoverage = new Set<number>();
 const answerPositions = [0, 0, 0, 0, 0];
 let duplicateVisibleQuestionCount = 0;
 
-for (let seed = 0; seed < 1200; seed += 1) {
+for (let seed = 0; seed < GENERATED_COUNT; seed += 1) {
   const question = generateClsCp002EnglishQuestion(CLS_CP002_QL_ID, seed);
   const replay = generateClsCp002EnglishQuestion(CLS_CP002_QL_ID, seed);
   assert.deepEqual(question, replay, `${seed} is not deterministic`);
@@ -94,24 +96,31 @@ for (let seed = 0; seed < 1200; seed += 1) {
 }
 
 assert.ok(
-  fingerprints.size >= 1180,
-  `Visible-question diversity is too low: ${fingerprints.size}/1200 unique (${duplicateVisibleQuestionCount} duplicates)`,
+  fingerprints.size >= 1570,
+  `Visible-question diversity is too low: ${fingerprints.size}/${GENERATED_COUNT} unique (${duplicateVisibleQuestionCount} duplicates)`,
 );
-assert.ok(duplicateVisibleQuestionCount <= 20);
-assert.equal(relationCoverage.size, CLS_CP002_RELATIONS.length);
+assert.ok(duplicateVisibleQuestionCount <= 30);
+const missingRelationIds = CLS_CP002_RELATIONS
+  .map((relation) => relation.relationId)
+  .filter((relationId) => !relationCoverage.has(relationId));
+assert.equal(
+  relationCoverage.size,
+  CLS_CP002_RELATIONS.length,
+  `Permanent runtime missed relations: ${missingRelationIds.join(", ")}`,
+);
 assert.equal(prototypeCoverage.size, CLS_CP002_PROTOTYPES.length);
 assert.deepEqual(difficultyCoverage, new Set(["EASY", "MEDIUM", "HARD"]));
 assert.deepEqual(optionCountCoverage, new Set([4, 5]));
 assert.deepEqual(answerPositions.map((count) => count > 0), [true, true, true, true, true]);
 assert.ok(Math.max(...answerPositions.slice(0, 4)) / Math.min(...answerPositions.slice(0, 4)) < 1.45);
-assert.ok(answerPositions[4]! > 30);
+assert.ok(answerPositions[4]! > 40);
 
 assert.throws(() => generateClsCp002EnglishQuestion(CLS_CP002_QL_ID, -1));
 assert.throws(() => generateClsCp002EnglishQuestion("CLS-QL-999" as never, 0));
 
 console.log("CLS-CP-002 provisional permanent runtime audit passed.", {
   qlId: CLS_CP002_QL_ID,
-  generated: 1200,
+  generated: GENERATED_COUNT,
   uniqueVisibleQuestions: fingerprints.size,
   duplicateVisibleQuestionCount,
   relations: relationCoverage.size,
