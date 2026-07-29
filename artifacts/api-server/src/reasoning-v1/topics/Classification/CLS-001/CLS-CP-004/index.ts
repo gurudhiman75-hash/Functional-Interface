@@ -1,4 +1,16 @@
 export {
+  CLS_CP004_ENGLISH_CONTRACT,
+  CLS_CP004_ENGLISH_QL_ID,
+  CLS_CP004_ENGLISH_SOLVE_CONTRACT_ID,
+} from "./cp004-english-contract";
+export type {
+  ClsCp004EnglishQlId,
+  ClsCp004EnglishSolveContractId,
+} from "./cp004-english-contract";
+export { generateClsCp004EnglishQuestion } from "./cp004-english-runtime";
+export type { GeneratedClsCp004EnglishQuestion } from "./cp004-english-runtime";
+export { generateClsCp004DiscoveryQuestion } from "./discovery-runtime";
+export {
   analyzeClsCp004Number,
   auditClsCp004DisplayedNumbers,
   generateClsCp004Prototype,
