@@ -18,7 +18,7 @@ Question Studio wiring: unchanged
 Question Bank writes:   disabled
 ```
 
-Every QL receives three fixed review seeds. This gives full QL representation while exposing parameter-driven wording and answer variation.
+For every QL, the exporter evaluates 18 fixed candidate seeds and selects three samples with distinct normalised visible stems whenever the runtime can produce them. This preserves deterministic replay while avoiding false diversity findings caused by an unlucky three-seed draw.
 
 ## Review outputs
 

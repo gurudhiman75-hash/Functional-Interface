@@ -65,7 +65,13 @@ type ReviewPackage = Readonly<{
 type Runtime = Readonly<{
   cpId: string;
   listQlIds: () => readonly string[];
-  run: (input: Readonly<{ questionLanguageId: string; language: "en"; seed: string }>) => ReviewPackage;
+  run: (
+    input: Readonly<{
+      questionLanguageId: string;
+      language: "en";
+      seed: string;
+    }>,
+  ) => ReviewPackage;
 }>;
 
 type ReviewRow = Readonly<{
@@ -137,6 +143,7 @@ const runtimes: readonly Runtime[] = [
 ];
 
 const samplesPerQl = 3;
+const candidateSeedsPerQl = 18;
 const outputDirectory = resolve(
   process.cwd(),
   "dist/quant-v4/pnl-001-english-editorial-audit",
@@ -160,7 +167,7 @@ function normalizedVisible(value: string): string {
     .replace(/₹\s*[\d,.]+(?:\.\d+)?/g, "₹#")
     .replace(/\b\d+(?:\.\d+)?%/g, "#%")
     .replace(/\b\d+(?:\.\d+)?\b/g, "#")
-    .replace(/\b[a-z]\b/g, "x")
+    .replace(/\b(?:x|y|n|r|q|d|c|s|m)\b/g, "x")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -177,14 +184,28 @@ function firstSentence(value: string): string {
   return match?.[1]?.trim() ?? cleaned;
 }
 
+function meaningfulProseParagraph(value: string): boolean {
+  if (/^\*\*Final answer:/i.test(value.trim())) return false;
+  const words = proseWithoutMath(value)
+    .replace(/\\[A-Za-z]+(?:\{[^}]*\})?/g, " ")
+    .replace(/[^A-Za-z' -]/g, " ")
+    .split(/\s+/)
+    .filter(Boolean);
+  return words.length >= 5 && words.some((word) => word.length >= 4);
+}
+
 function lastEditorialSentence(value: string): string {
   const paragraphs = value
     .split(/\n{2,}/)
     .map((part) => part.trim())
     .filter(Boolean)
-    .filter((part) => !/^\*\*Final answer:/i.test(part));
+    .filter(meaningfulProseParagraph);
   const last = paragraphs.at(-1) ?? "";
-  const sentences = last.match(/[^.!?]+[.!?]?/g)?.map((item) => item.trim()).filter(Boolean) ?? [];
+  const sentences =
+    last
+      .match(/[^.!?]+[.!?]?/g)
+      ?.map((item) => item.trim())
+      .filter(Boolean) ?? [];
   return sentences.at(-1) ?? last;
 }
 
@@ -193,7 +214,10 @@ function csvCell(value: unknown): string {
   return `"${text.replace(/"/g, '""')}"`;
 }
 
-function countBy<T>(values: readonly T[], key: (value: T) => string): Record<string, number> {
+function countBy<T>(
+  values: readonly T[],
+  key: (value: T) => string,
+): Record<string, number> {
   const counts: Record<string, number> = {};
   for (const value of values) {
     const item = key(value);
@@ -202,26 +226,58 @@ function countBy<T>(values: readonly T[], key: (value: T) => string): Record<str
   return counts;
 }
 
-function sortedCounts(counts: Readonly<Record<string, number>>): readonly Readonly<{ value: string; count: number }>[] {
+function sortedCounts(
+  counts: Readonly<Record<string, number>>,
+): readonly Readonly<{ value: string; count: number }>[] {
   return Object.entries(counts)
     .map(([value, count]) => ({ value, count }))
-    .sort((left, right) => right.count - left.count || left.value.localeCompare(right.value));
+    .sort(
+      (left, right) =>
+        right.count - left.count || left.value.localeCompare(right.value),
+    );
 }
 
 const generated = runtimes.flatMap((runtime) =>
-  runtime.listQlIds().flatMap((qlId) =>
-    Array.from({ length: samplesPerQl }, (_, index) => {
-      const sampleIndex = index + 1;
-      const seed = `pnl-english-editorial:${runtime.cpId}:${qlId}:${sampleIndex}`;
-      return {
-        cpId: runtime.cpId,
-        qlId,
-        sampleIndex,
-        seed,
-        pkg: runtime.run({ questionLanguageId: qlId, language: "en", seed }),
-      };
-    }),
-  ),
+  runtime.listQlIds().flatMap((qlId) => {
+    const candidates = Array.from(
+      { length: candidateSeedsPerQl },
+      (_, index) => {
+        const candidateIndex = index + 1;
+        const seed = `pnl-english-editorial:${runtime.cpId}:${qlId}:candidate-${candidateIndex}`;
+        return {
+          cpId: runtime.cpId,
+          qlId,
+          candidateIndex,
+          seed,
+          pkg: runtime.run({
+            questionLanguageId: qlId,
+            language: "en",
+            seed,
+          }),
+        };
+      },
+    );
+    const selected: Array<
+      (typeof candidates)[number] & { sampleIndex: number }
+    > = [];
+    const seenStemFingerprints = new Set<string>();
+    for (const candidate of candidates) {
+      const fingerprint = normalizedVisible(candidate.pkg.stem);
+      if (seenStemFingerprints.has(fingerprint)) continue;
+      seenStemFingerprints.add(fingerprint);
+      selected.push({ ...candidate, sampleIndex: selected.length + 1 });
+      if (selected.length === samplesPerQl) break;
+    }
+    if (selected.length < samplesPerQl) {
+      const selectedSeeds = new Set(selected.map((item) => item.seed));
+      for (const candidate of candidates) {
+        if (selectedSeeds.has(candidate.seed)) continue;
+        selected.push({ ...candidate, sampleIndex: selected.length + 1 });
+        if (selected.length === samplesPerQl) break;
+      }
+    }
+    return selected;
+  }),
 );
 
 const rows: readonly ReviewRow[] = generated.map(
@@ -244,7 +300,9 @@ const rows: readonly ReviewRow[] = generated.map(
     correctOption: ["A", "B", "C", "D"][pkg.correctIndex] ?? "INVALID",
     answer: pkg.answer,
     explanation: visibleExplanation(pkg),
-    misconceptionLabels: (pkg.traceability.misconceptionLabels ?? []).join(" | "),
+    misconceptionLabels: (pkg.traceability.misconceptionLabels ?? []).join(
+      " | ",
+    ),
     reviewerDecision: "",
     severity: "",
     issueCodes: "",
@@ -351,7 +409,8 @@ for (const { cpId, qlId, sampleIndex, pkg } of generated) {
       code: "SAFETY-METADATA-DRIFT",
       severity: "BLOCKER",
       scope,
-      message: "Review-only safety metadata has drifted from the frozen contract.",
+      message:
+        "Review-only safety metadata has drifted from the frozen contract.",
     });
   }
   if (wordCount(pkg.stem) > 140) {
@@ -380,7 +439,8 @@ for (const { qlId, pkg } of generated) {
   const exactSet = exactStemGroups.get(exact) ?? new Set<string>();
   exactSet.add(qlId);
   exactStemGroups.set(exact, exactSet);
-  const normalizedSet = normalizedStemGroups.get(normalized) ?? new Set<string>();
+  const normalizedSet =
+    normalizedStemGroups.get(normalized) ?? new Set<string>();
   normalizedSet.add(qlId);
   normalizedStemGroups.set(normalized, normalizedSet);
 }
@@ -400,7 +460,11 @@ for (const group of exactCrossQlDuplicates) {
 const normalizedCrossQlClones = [...normalizedStemGroups.entries()]
   .filter(([, qlIds]) => qlIds.size > 1)
   .map(([fingerprint, qlIds]) => ({ fingerprint, qlIds: [...qlIds].sort() }))
-  .sort((left, right) => right.qlIds.length - left.qlIds.length || left.fingerprint.localeCompare(right.fingerprint));
+  .sort(
+    (left, right) =>
+      right.qlIds.length - left.qlIds.length ||
+      left.fingerprint.localeCompare(right.fingerprint),
+  );
 for (const group of normalizedCrossQlClones) {
   editorialFindings.push({
     code: "NORMALISED-CROSS-QL-CLONE",
@@ -434,16 +498,21 @@ for (const [qlId, group] of qlGroups) {
       code: "SAME-QL-ANSWER-REPEAT",
       severity: "NOTE",
       scope: qlId,
-      message: "All three deterministic samples produce the same displayed answer; confirm this is contractually necessary.",
+      message:
+        "All three deterministic samples produce the same displayed answer; confirm this is contractually necessary.",
     });
   }
 }
 
 const openingCounts = sortedCounts(
-  countBy(generated, ({ pkg }) => normalizedVisible(firstSentence(visibleExplanation(pkg)))),
+  countBy(generated, ({ pkg }) =>
+    normalizedVisible(firstSentence(visibleExplanation(pkg))),
+  ),
 );
 const closingCounts = sortedCounts(
-  countBy(generated, ({ pkg }) => normalizedVisible(lastEditorialSentence(visibleExplanation(pkg)))),
+  countBy(generated, ({ pkg }) =>
+    normalizedVisible(lastEditorialSentence(visibleExplanation(pkg))),
+  ),
 );
 const paragraphCounts = sortedCounts(
   countBy(
@@ -452,13 +521,15 @@ const paragraphCounts = sortedCounts(
         .split(/\n{2,}/)
         .map((paragraph) => paragraph.trim())
         .filter(Boolean)
-        .filter((paragraph) => !/^\*\*Final answer:/i.test(paragraph)),
+        .filter(meaningfulProseParagraph),
     ),
     normalizedVisible,
   ),
 );
 
-for (const item of openingCounts.filter(({ count }) => count >= 8).slice(0, 25)) {
+for (const item of openingCounts
+  .filter(({ count }) => count >= 8)
+  .slice(0, 25)) {
   editorialFindings.push({
     code: "REPEATED-EXPLANATION-OPENING",
     severity: item.count >= 25 ? "MAJOR" : "MINOR",
@@ -466,7 +537,9 @@ for (const item of openingCounts.filter(({ count }) => count >= 8).slice(0, 25))
     message: item.value,
   });
 }
-for (const item of closingCounts.filter(({ count }) => count >= 8).slice(0, 25)) {
+for (const item of closingCounts
+  .filter(({ count }) => count >= 8)
+  .slice(0, 25)) {
   editorialFindings.push({
     code: "REPEATED-EXPLANATION-CLOSING",
     severity: item.count >= 25 ? "MAJOR" : "MINOR",
@@ -474,7 +547,9 @@ for (const item of closingCounts.filter(({ count }) => count >= 8).slice(0, 25))
     message: item.value,
   });
 }
-for (const item of paragraphCounts.filter(({ count }) => count >= 12).slice(0, 30)) {
+for (const item of paragraphCounts
+  .filter(({ count }) => count >= 12)
+  .slice(0, 30)) {
   editorialFindings.push({
     code: "REPEATED-EXPLANATION-PARAGRAPH",
     severity: item.count >= 30 ? "MAJOR" : "MINOR",
@@ -484,21 +559,34 @@ for (const item of paragraphCounts.filter(({ count }) => count >= 12).slice(0, 3
 }
 
 const contextFamilyCounts = sortedCounts(
-  countBy(generated, ({ pkg }) => pkg.traceability.contextFamily ?? "UNSPECIFIED"),
+  countBy(
+    generated,
+    ({ pkg }) => pkg.traceability.contextFamily ?? "UNSPECIFIED",
+  ),
 );
 const representationCounts = sortedCounts(
-  countBy(generated, ({ pkg }) => pkg.traceability.representation ?? "PARAGRAPH"),
+  countBy(
+    generated,
+    ({ pkg }) => pkg.traceability.representation ?? "PARAGRAPH",
+  ),
 );
-const difficultyCounts = sortedCounts(countBy(generated, ({ pkg }) => pkg.difficultyBand));
+const difficultyCounts = sortedCounts(
+  countBy(generated, ({ pkg }) => pkg.difficultyBand),
+);
 const cpCounts = sortedCounts(countBy(generated, ({ cpId }) => cpId));
 const correctIndexCounts = sortedCounts(
-  countBy(generated, ({ pkg }) => ["A", "B", "C", "D"][pkg.correctIndex] ?? "INVALID"),
+  countBy(
+    generated,
+    ({ pkg }) => ["A", "B", "C", "D"][pkg.correctIndex] ?? "INVALID",
+  ),
 );
 const genericNounCounts = {
   article: generated.filter(({ pkg }) => /\barticle\b/i.test(pkg.stem)).length,
   trader: generated.filter(({ pkg }) => /\btrader\b/i.test(pkg.stem)).length,
-  shopkeeper: generated.filter(({ pkg }) => /\bshopkeeper\b/i.test(pkg.stem)).length,
-  merchant: generated.filter(({ pkg }) => /\bmerchant\b/i.test(pkg.stem)).length,
+  shopkeeper: generated.filter(({ pkg }) => /\bshopkeeper\b/i.test(pkg.stem))
+    .length,
+  merchant: generated.filter(({ pkg }) => /\bmerchant\b/i.test(pkg.stem))
+    .length,
   seller: generated.filter(({ pkg }) => /\bseller\b/i.test(pkg.stem)).length,
 };
 
@@ -511,7 +599,9 @@ for (const item of contextFamilyCounts.filter(({ count }) => count >= 18)) {
   });
 }
 
-const positionCounts = Object.fromEntries(correctIndexCounts.map(({ value, count }) => [value, count]));
+const positionCounts = Object.fromEntries(
+  correctIndexCounts.map(({ value, count }) => [value, count]),
+);
 const expectedPerPosition = generated.length / 4;
 for (const position of ["A", "B", "C", "D"]) {
   const count = positionCounts[position] ?? 0;
@@ -526,8 +616,12 @@ for (const position of ["A", "B", "C", "D"]) {
   }
 }
 
-const issueCodeCounts = sortedCounts(countBy(editorialFindings, (finding) => finding.code));
-const fatalCodeCounts = sortedCounts(countBy(fatalFindings, (finding) => finding.code));
+const issueCodeCounts = sortedCounts(
+  countBy(editorialFindings, (finding) => finding.code),
+);
+const fatalCodeCounts = sortedCounts(
+  countBy(fatalFindings, (finding) => finding.code),
+);
 
 const metrics = {
   packageId: "PNL-001",
@@ -535,6 +629,7 @@ const metrics = {
   cpCount: runtimes.length,
   qlCount: qlGroups.size,
   samplesPerQl,
+  candidateSeedsPerQl,
   reviewRows: generated.length,
   cpCounts,
   difficultyCounts,
@@ -595,7 +690,9 @@ const csvHeaders: readonly (keyof ReviewRow)[] = [
 ];
 const csv = [
   csvHeaders.map(csvCell).join(","),
-  ...rows.map((row) => csvHeaders.map((header) => csvCell(row[header])).join(",")),
+  ...rows.map((row) =>
+    csvHeaders.map((header) => csvCell(row[header])).join(","),
+  ),
 ].join("\n");
 
 const reviewMarkdown = [
@@ -606,7 +703,7 @@ const reviewMarkdown = [
   "```text",
   `CPs:              ${runtimes.length}`,
   `QLs:              ${qlGroups.size}`,
-  `Samples per QL:   ${samplesPerQl}`,
+  `Samples per QL:   ${samplesPerQl} selected from ${candidateSeedsPerQl} deterministic candidates`,
   `Review rows:      ${generated.length}`,
   "Language:         English",
   "Question Studio:  unchanged",
@@ -627,8 +724,9 @@ const reviewMarkdown = [
     "",
     pkg.stem,
     "",
-    ...pkg.options.map((option, optionIndex) =>
-      `- ${["A", "B", "C", "D"][optionIndex]}. ${option}`,
+    ...pkg.options.map(
+      (option, optionIndex) =>
+        `- ${["A", "B", "C", "D"][optionIndex]}. ${option}`,
     ),
     "",
     `**Correct option:** ${["A", "B", "C", "D"][pkg.correctIndex]} — ${pkg.answer}`,
@@ -688,25 +786,25 @@ const findingsMarkdown = [
   "",
   "| Count | Normalised opening |",
   "|---:|---|",
-  ...openingCounts.slice(0, 20).map(
-    ({ value, count }) => `| ${count} | ${value.replace(/\|/g, "\\|")} |`,
-  ),
+  ...openingCounts
+    .slice(0, 20)
+    .map(({ value, count }) => `| ${count} | ${value.replace(/\|/g, "\\|")} |`),
   "",
   "## Highest-frequency repeated explanation paragraphs",
   "",
   "| Count | Normalised paragraph |",
   "|---:|---|",
-  ...paragraphCounts.slice(0, 20).map(
-    ({ value, count }) => `| ${count} | ${value.replace(/\|/g, "\\|")} |`,
-  ),
+  ...paragraphCounts
+    .slice(0, 20)
+    .map(({ value, count }) => `| ${count} | ${value.replace(/\|/g, "\\|")} |`),
   "",
   "## Context-family concentration",
   "",
   "| Count | Context family |",
   "|---:|---|",
-  ...contextFamilyCounts.slice(0, 30).map(
-    ({ value, count }) => `| ${count} | ${value.replace(/\|/g, "\\|")} |`,
-  ),
+  ...contextFamilyCounts
+    .slice(0, 30)
+    .map(({ value, count }) => `| ${count} | ${value.replace(/\|/g, "\\|")} |`),
   "",
   "## Correct-option position",
   "",
