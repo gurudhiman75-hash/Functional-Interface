@@ -1,6 +1,6 @@
 # CLS-001 — Classification / Odd One Out
 
-Status: `CP001_FROZEN__CP002_FROZEN__CP003_EXECUTABLE_DISCOVERY`
+Status: `CP001_CP002_MULTILINGUAL_FROZEN__CP003_CP004_ENGLISH_FROZEN`
 
 ## Product identity
 
@@ -19,22 +19,21 @@ Status: `CP001_FROZEN__CP002_FROZEN__CP003_EXECUTABLE_DISCOVERY`
 
 Classification asks the learner to identify the item, pair or complete option-group that differs from—or uniquely belongs to—the intended class, property or relation.
 
-Every admitted question must define a bounded rule universe, construct a valid state, prove one unique answer, reject competing answers, be independently re-solved and preserve identical logic across supported locales.
+Every admitted question must define a bounded rule universe, construct a valid state, prove one unique answer, reject competing answers and be independently re-solved. Four and five answer options are presentation and difficulty properties rather than separate QLs.
 
-Four and five answer options are presentation and difficulty properties. They do not create separate QLs by themselves.
+## Permanent inventory through CP-004
 
-## Inventory policy
-
-Permanent QL and solve-mode totals are not fixed for the chapter in advance. Each checkpoint is frozen only after source, task-direction, inverse, answer-object, representation, ambiguity, ownership and no-new-contract audits close.
-
-| QL | Checkpoint | Student task | Status |
+| QL | Checkpoint | Student task | Locale status |
 |---|---|---|---|
 | `CLS-QL-001` | `CLS-CP-001` | Find the semantic outlier among four or five items | Frozen multilingual runtime proof |
 | `CLS-QL-002` | `CLS-CP-001` | Select another member of the shared semantic class | Frozen multilingual runtime proof |
 | `CLS-QL-003` | `CLS-CP-001` | Select the only internally coherent semantic word-group | Frozen multilingual runtime proof |
 | `CLS-QL-004` | `CLS-CP-002` | Find the word-pair whose internal semantic relationship differs from the others | Frozen multilingual runtime proof |
+| `CLS-QL-005` | `CLS-CP-003` | Find the word whose visible spelling or structural property differs | Frozen English runtime proof |
+| `CLS-QL-006` | `CLS-CP-003` | Resolve controlled jumbles, then find the semantic outlier | Frozen English runtime proof |
+| `CLS-QL-007` | `CLS-CP-004` | Find the number whose conventional arithmetic or digit property differs | Frozen English runtime proof |
 
-No later `CLS-QL-*` identity is reserved. `CLS-CP-003` uses temporary prototype IDs only.
+No later `CLS-QL-*` identity is reserved.
 
 ## Checkpoint map
 
@@ -42,88 +41,70 @@ No later `CLS-QL-*` identity is reserved. `CLS-CP-003` uses temporary prototype 
 |---|---|---|
 | `CLS-CP-001` | Semantic word and entity classification | `FROZEN_MULTILINGUAL_RUNTIME_PROOF` |
 | `CLS-CP-002` | Semantic pair and relationship classification | `FROZEN_MULTILINGUAL_RUNTIME_PROOF` |
-| `CLS-CP-003` | Lexical, spelling and word-structure classification | `EXECUTABLE_DISCOVERY_IN_PROGRESS` |
-| `CLS-CP-004` | Number-property classification | Pending executable discovery |
+| `CLS-CP-003` | Lexical, spelling and word-structure classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
+| `CLS-CP-004` | Number-property classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
 | `CLS-CP-005` | Number-pair, triple and set classification | Pending executable discovery |
 | `CLS-CP-006` | Alphabet, letter-pair and letter-class classification | Pending executable discovery |
 | `CLS-CP-007` | Letter-cluster and explicit word-pattern classification | Pending executable discovery |
 | `CLS-CP-008` | Mixed-token and bounded synthesis classification | Pending ownership audit |
 
-The pending checkpoint names remain organisational hypotheses and may still be merged, split, reassigned or rejected.
+## Frozen foundation summary
 
-## CLS-CP-001 frozen foundation
+```text
+Permanent QLs through CP-004:      7
+Frozen solve contracts:            7
+Answer-option counts:              4 and 5
+Question Studio exposure:          disabled
+Question Bank storage:             disabled
+Test/publication eligibility:      disabled
+```
+
+### CLS-CP-001
 
 ```text
 Permanent QLs:                 3
-Frozen solve contracts:        3
 Source controls:               8
 Semantic classes:              27
 Unique English entities:       187
 Locales:                       en-IN, hi-IN, pa-IN
-Answer-option counts:          4 and 5
 ```
 
-## CLS-CP-002 frozen foundation
+### CLS-CP-002
 
 ```text
 Permanent QLs:                 1
-Frozen solve contracts:        1
-Permanent identity:            CLS-QL-004
-Solve contract:                CP002-FIND-ODD-SEMANTIC-RELATION-PAIR
-Temporary source controls:     5
-Stable semantic relations:     19
-Lexical relations:             12
-Class-pair relations:          24
+Source controls:               5
 Total admitted relations:      55
 Curated English fact pairs:    372
 Multilingual-safe fact pairs:  160
-English-only discovery facts:  212
 Locales:                       en-IN, hi-IN, pa-IN
-Answer-option counts:          4 and 5
 ```
 
-The frozen contract covers contrasting valid relations, synonym/antonym polarity, reversed direction, conservative false pairings, semantic class-pair contrast and recurring container/content, material/product, object/sound and one-generation family-role relations.
-
-Final executable evidence includes 2,000 English discovery questions, 1,600 frozen English questions and 1,800 multilingual parity questions. All 55 relations, all five controls, both option counts, all answer positions and Easy/Medium/Hard instances are exercised.
-
-## CLS-CP-003 discovery foundation
+### CLS-CP-003
 
 ```text
-Permanent QLs:                 0
-Frozen solve contracts:        0
-Temporary source controls:     7
-Direct structural rules:       6
-Provisional learner contracts: 2
+Permanent English QLs:          2
+Direct structural rules:        6
 Governed English words:        630
-Controlled jumble words:       35
-Generated discovery questions: 1,680
-Unique visible questions:      1,680
-Locale:                        en-IN discovery only
-Answer-option counts:          4 and 5
-Jumble shortcut policy:        NO_DIRECT_STRUCTURAL_OUTLIER
-Source saturation:             open; File Library retry required
+Controlled jumble words:        35
+Source controls:                 7
+Locale frozen:                   en-IN
 ```
 
-The first wave tests:
+The six direct visible-word controls merge into `CLS-QL-005`. The jumbled-word task remains `CLS-QL-006` because it requires unique reconstruction before semantic classification. Every admitted jumble is rejected when a visible structural shortcut can identify an outlier.
 
-- exact word length;
-- vowel count;
-- repeated-letter topology;
-- palindrome status;
-- first/last vowel-consonant class;
-- governed prefix or suffix family;
-- unique controlled unjumbling followed by semantic classification.
-
-The first six controls provisionally merge into one direct visible-word-structure contract. The jumbled-word control remains separate because it requires unique anagram resolution before semantic classification. Every accepted jumble state is rejected if any direct visible structural rule identifies an outlier, even when that shortcut would lead to the same answer.
-
-Measured answer positions are:
+### CLS-CP-004
 
 ```text
-4 options: 215, 202, 215, 208
-5 options: 170, 189, 157, 166, 158
+Permanent English QLs:          1
+Domain:                         2 to 999
+Domain size:                    998
+Source controls:                13
+Admitted rules:                 22
+Locale frozen:                   en-IN
 ```
 
-Hindi and Punjabi require script-specific governed word datasets; English structural questions will not be translated mechanically. Permanent allocation remains blocked until uploaded-book saturation, language-specific feasibility and the final no-new-contract audit close.
+All source controls merge into `CLS-QL-007` because the answer object and proof contract remain one displayed number evaluated under one bounded conventional property. Arbitrary formula fitting is prohibited.
 
 ## Strict chapter boundary
 
@@ -138,23 +119,19 @@ It excludes:
 - operator replacement and equation evaluation — Mathematical Operations;
 - dictionary ordering — Word and Dictionary Order;
 - figure odd-one-out — Figure Classification;
-- general-knowledge questions with no stable classification contract;
-- open-ended free-text semantic generation;
+- general-knowledge questions with no stable governed dataset;
+- open-ended free-text generation;
 - questions with several equally defensible grouping rules.
-
-Semantic odd word-pair relationships belong to `CLS-CP-002`. Visible word structure and controlled classification-final jumbles belong to `CLS-CP-003`, subject to its source and multilingual audits.
 
 ## Authority documents
 
 - `CLS-001-END-TO-END-DESIGN.md`
 - `CLS-001-SOURCE-AND-OWNERSHIP-AUDIT.md`
 - `CLS-CP-001/CLS-CP-001-FINAL-MULTILINGUAL-FREEZE.md`
-- `CLS-CP-001/CLS-CP-001-SIMPLIFIED-STUDENT-EXPLANATION-STANDARD.md`
-- `CLS-CP-002/CLS-CP-002-SOURCE-SATURATION-AND-MERGE-SPLIT-AUDIT.md`
 - `CLS-CP-002/CLS-CP-002-FINAL-MULTILINGUAL-FREEZE.md`
-- `CLS-CP-003/CLS-CP-003-EXECUTABLE-DISCOVERY-PLAN.md`
-- `CLS-CP-003/CLS-CP-003-PRELIMINARY-MERGE-SPLIT-AUDIT.md`
+- `CLS-CP-003/CLS-CP-003-FINAL-ENGLISH-FREEZE.md`
+- `CLS-CP-004/CLS-CP-004-FINAL-ENGLISH-FREEZE.md`
 
 ## Release locks
 
-`CLS-CP-001` and `CLS-CP-002` are frozen as multilingual review-only runtime proofs. `CLS-CP-003` is English discovery-only. All three remain unavailable to Question Studio, Question Bank, tests and public users until explicit integration approval is given.
+CP-001 and CP-002 are frozen multilingual review-only proofs. CP-003 and CP-004 are frozen English review-only proofs. None are wired to Question Studio, Question Bank, tests or public publication.
