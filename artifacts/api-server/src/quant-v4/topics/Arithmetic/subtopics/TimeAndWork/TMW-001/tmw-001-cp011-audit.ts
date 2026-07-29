@@ -1,4 +1,5 @@
 import { TMW_CP_011_REGISTRY } from "./foundation/cp011-registry";
+import { selectTmwCp011StemOpeningStyle, type TmwCp011StemOpeningStyle } from "./foundation/cp011-presentation";
 import { runTmwCp011Pipeline } from "./foundation/cp011-runtime";
 
 const outputQlIds = new Set(["TMW-QL-193", "TMW-QL-195", "TMW-QL-197", "TMW-QL-199", "TMW-QL-204", "TMW-QL-205", "TMW-QL-206", "TMW-QL-209"]);
@@ -12,6 +13,8 @@ const inverseUnknownGuards: Record<string, RegExp[]> = {
   "TMW-QL-211": [/New daily rate:/],
 };
 const normalizedStemOwners = new Map<string, string>();
+const normalizedOpeningPatterns = new Set<string>();
+const openingStyleCounts = new Map<TmwCp011StemOpeningStyle, number>();
 const failures: string[] = [];
 let total = 0;
 let mathJaxFractionalTimes = 0;
@@ -22,10 +25,15 @@ let expandedWorkingPasses = 0;
 function normalizeStem(stem: string): string {
   return stem.toLowerCase().replace(/\\\([^)]*\\\)/g, "<math>").replace(/\d+/g, "#").replace(/[^a-z#<>]+/g, " ").trim();
 }
+function normalizeOpening(stem: string): string {
+  return stem.split(/[.!?]/, 1)[0].toLowerCase().replace(/\\\([^)]*\\\)/g, "<math>").replace(/\d+/g, "#").replace(/[^a-z#<>]+/g, " ").trim();
+}
 
 for (const entry of TMW_CP_011_REGISTRY) {
+  const perQlOpeningStyles = new Set<TmwCp011StemOpeningStyle>();
   for (let index = 0; index < 12; index += 1) {
-    const question = runTmwCp011Pipeline(entry.qlId, `audit-${entry.qlId}-${index}`);
+    const seed = `audit-${entry.qlId}-${index}`;
+    const question = runTmwCp011Pipeline(entry.qlId, seed);
     total += 1;
     if (!question.validation.valid) failures.push(`${entry.qlId}:${index}:${question.validation.errors.join(",")}`);
     const learnerText = [
@@ -63,6 +71,13 @@ for (const entry of TMW_CP_011_REGISTRY) {
     if (entry.qlId === "TMW-QL-209" && question.explanation.commonTrap.misconceptionId === "AP_SUM_HALF_OMITTED") failures.push(`${entry.qlId}:${index}:AP misconception leaked into phase total`);
     if (entry.qlId === "TMW-QL-210" && !/last partly used day/i.test(question.explanation.opening)) failures.push(`${entry.qlId}:${index}:crew completion key rule incomplete`);
 
+    const openingStyle = selectTmwCp011StemOpeningStyle(entry, seed);
+    if (openingStyle === "CONTEXT_FIRST" && !question.stem.startsWith("At ")) failures.push(`${entry.qlId}:${index}:context-first stem mismatch`);
+    if (openingStyle !== "CONTEXT_FIRST" && question.stem.startsWith("At ")) failures.push(`${entry.qlId}:${index}:fixed At-prefix leaked into ${openingStyle}`);
+    perQlOpeningStyles.add(openingStyle);
+    openingStyleCounts.set(openingStyle, (openingStyleCounts.get(openingStyle) ?? 0) + 1);
+    normalizedOpeningPatterns.add(normalizeOpening(question.stem));
+
     let expanded = true;
     if (["TMW-QL-193", "TMW-QL-197"].includes(entry.qlId)) {
       const daySteps = question.explanation.steps.filter((step) => /^Day \d+ output/.test(step));
@@ -84,8 +99,13 @@ for (const entry of TMW_CP_011_REGISTRY) {
     if (owner && owner !== entry.qlId) failures.push(`${entry.qlId}:${index}:cross-QL normalized stem collision with ${owner}`);
     normalizedStemOwners.set(normalized, entry.qlId);
   }
+  if (perQlOpeningStyles.size !== 4) failures.push(`${entry.qlId}:stem-opening rotation incomplete`);
 }
 
+if (openingStyleCounts.size !== 4) failures.push("global stem-opening style coverage incomplete");
+const contextFirstCount = openingStyleCounts.get("CONTEXT_FIRST") ?? 0;
+if (contextFirstCount * 5 > total) failures.push(`context-first stems exceed 20%: ${contextFirstCount}/${total}`);
+if (normalizedOpeningPatterns.size < 60) failures.push(`insufficient normalized opening diversity: ${normalizedOpeningPatterns.size}`);
 if (failures.length) throw new Error(failures.join("\n"));
 console.log(JSON.stringify({
   qls: TMW_CP_011_REGISTRY.length,
@@ -94,6 +114,9 @@ console.log(JSON.stringify({
   teacherVoicePasses,
   directTrapPasses,
   expandedWorkingPasses,
+  openingStyleCounts: Object.fromEntries(openingStyleCounts),
+  contextFirstShare: contextFirstCount / total,
+  normalizedOpeningPatterns: normalizedOpeningPatterns.size,
   mathJaxFractionalTimes,
   normalizedStemPatterns: normalizedStemOwners.size,
 }, null, 2));
