@@ -16,9 +16,9 @@ const matrixPrototypeIds = new Set(
   BLR_CP003_MERGE_SPLIT_MATRIX_V1.map((entry) => entry.prototypeId),
 );
 
-assert.equal(reviewPrototypeIds.size, 17);
-assert.equal(BLR_CP003_MERGE_SPLIT_MATRIX_V1.length, 18);
-assert.equal(matrixPrototypeIds.size, 18);
+assert.equal(reviewPrototypeIds.size, 18);
+assert.equal(BLR_CP003_MERGE_SPLIT_MATRIX_V1.length, 19);
+assert.equal(matrixPrototypeIds.size, 19);
 for (const prototypeId of reviewPrototypeIds) {
   assert.ok(
     matrixPrototypeIds.has(prototypeId as never),
@@ -40,7 +40,7 @@ const assembly = BLR_CP003_MERGE_SPLIT_MATRIX_V1.filter(
   (entry) => entry.decision === "ASSEMBLY_ONLY",
 );
 
-assert.equal(merges.length, 9);
+assert.equal(merges.length, 10);
 assert.equal(provisional.length, 8);
 assert.equal(assembly.length, 1);
 
@@ -58,9 +58,23 @@ for (const entry of provisional) {
 
 assert.deepEqual(
   [...new Set(merges.map((entry) => entry.existingQlId))].sort(),
-  ["BLR-QL-001", "BLR-QL-002", "BLR-QL-005", "BLR-QL-006", "BLR-QL-007"],
+  [
+    "BLR-QL-001",
+    "BLR-QL-002",
+    "BLR-QL-003",
+    "BLR-QL-005",
+    "BLR-QL-006",
+    "BLR-QL-007",
+  ],
 );
-assert.ok(!merges.some((entry) => entry.existingQlId === "BLR-QL-003"));
+assert.ok(
+  merges.some(
+    (entry) =>
+      entry.prototypeId ===
+        "BLR-CP003-PROT-SHARED-IDENTIFY-PERSON-BY-GENDER" &&
+      entry.existingQlId === "BLR-QL-003",
+  ),
+);
 assert.ok(!merges.some((entry) => entry.existingQlId === "BLR-QL-004"));
 
 assert.deepEqual(
@@ -86,7 +100,10 @@ assert.deepEqual(
     "BLR-CP003-PROT-SHARED-SIBLING-PAIR",
   ],
 );
-assert.equal(assembly[0]?.prototypeId, "BLR-CP003-PROT-MULTI-ITEM-GROUP");
+assert.equal(
+  assembly[0]?.prototypeId,
+  "BLR-CP003-PROT-MULTI-ITEM-GROUP",
+);
 assert.equal(assembly[0]?.answerType, "NONE");
 
 const serialized = JSON.stringify(BLR_CP003_MERGE_SPLIT_MATRIX_V1);
@@ -101,7 +118,9 @@ console.log(
       temporaryItemHandles: reviewPrototypeIds.size,
       assemblyHandles: assembly.length,
       mergedHandles: merges.length,
-      existingQlTargets: [...new Set(merges.map((entry) => entry.existingQlId))].sort(),
+      existingQlTargets: [
+        ...new Set(merges.map((entry) => entry.existingQlId)),
+      ].sort(),
       provisionalNewHandles: provisional.length,
       provisionalNewAuthorities: cp003ProvisionalAuthorities().sort(),
       provisionalNewAuthorityCount: cp003ProvisionalAuthorities().length,
