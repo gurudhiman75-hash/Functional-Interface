@@ -12,9 +12,6 @@ const EASY_ENGLISH_REPLACEMENTS: ReadonlyArray<readonly [RegExp, string]> = [
   [/\bdecimal approximation\b/gi, "rounded decimal"],
   [/\bapproximation\b/gi, "rounded value"],
   [/\bcomplete edge-aligned cubes\b/gi, "complete cubes kept parallel to the block edges"],
-  [/\bTest the Allowed arrangements\b/gi, "Test the Allowed Arrangements"],
-  [/\bCalculate the Best arrangement\b/gi, "Calculate the Best Arrangement"],
-  [/\bChoose the Best arrangement\b/gi, "Choose the Best Arrangement"],
   [/\bCombine the Three Perpendicular Directions\b/gi, "Use Length, Breadth and Height"],
   [/\bSquare the Three Perpendicular Dimensions\b/gi, "Square Length, Breadth and Height"],
   [/\ball three perpendicular dimensions\b/gi, "length, breadth and height"],
@@ -78,6 +75,9 @@ const EASY_ENGLISH_REPLACEMENTS: ReadonlyArray<readonly [RegExp, string]> = [
   [/\bderive\b/gi, "find"],
   [/\bisolate\b/gi, "find"],
   [/\bdetermine\b/gi, "find"],
+  [/\bpreserving\b/gi, "keeping"],
+  [/\bpreserves\b/gi, "keeps"],
+  [/\bpreserved\b/gi, "kept"],
   [/\bpreserve\b/gi, "keep"],
   [/\bshared volume\b/gi, "same volume"],
   [/\bextracting\b/gi, "finding"],
@@ -98,6 +98,10 @@ export function simplifyMenCp007English(text: string) {
     simplified = simplified.replace(pattern, replacement);
   }
   simplified = simplified
+    .replace(/Test the Allowed arrangements/gi, "Test the Allowed Arrangements")
+    .replace(/Calculate the Best arrangement/gi, "Calculate the Best Arrangement")
+    .replace(/Choose the Best arrangement/gi, "Choose the Best Arrangement")
+    .replace(/complete cubes kept parallel to the block edges of side (\$[^$]+\$)/gi, "complete cubes of side $1, kept parallel to the block edges")
     .replace(/No rounded decimal is requested\./gi, "Keep the answer in square-root form; do not round it.")
     .replace(/Keep the surd exact because no rounded value is requested\./gi, "Keep the answer in square-root form; do not round it.")
     .replace(/Keep the square-root form exact because no rounded value is requested\./gi, "Keep the answer in square-root form; do not round it.")
@@ -111,6 +115,18 @@ export function simplifyMenCp007English(text: string) {
     .replace(/A length is positive\./gi, "Take the positive square root to get the required length.")
     .replace(/No other arrangement gives a larger number of complete blocks\./gi, "Use the arrangement that gives the largest number of complete blocks.")
     .replace(/Compare the waste with the original volume\./gi, "Divide the wasted volume by the original volume and multiply by $100$.")
+    .replace(/test every distinct arrangement/gi, "test every possible arrangement")
+    .replace(/the displayed block dimensions/gi, "the chosen block arrangement")
+    .replace(/using the whole-volume quotient as though it guaranteed a along each direction fit/gi, "dividing total volume by one block's volume without checking that blocks fit along length, breadth and height")
+    .replace(/testing rotations but selecting a non-maximum arrangement/gi, "trying different arrangements but choosing one with a smaller block count")
+    .replace(/not testing allowed rotations/gi, "not trying the allowed arrangements")
+    .replace(/using total volume modulo one cube's volume and ignoring the three direction-wise packing limits/gi, "using only the remainder after dividing total volume by one cube's volume; this ignores how cubes fit along length, breadth and height")
+    .replace(/using large volume modulo one cube's volume, which ignores the fit limits along the three edges in three directions/gi, "using only the remainder after dividing the original volume by one cube's volume; this ignores how cubes fit along length, breadth and height")
+    .replace(/reporting the percentage occupied by complete cubes/gi, "reporting the percentage of volume used by complete cubes")
+    .replace(/reporting the volume occupied by the complete cubes/gi, "reporting the volume used by the complete cubes")
+    .replace(/instead of the remaining solid/gi, "instead of the solid left after cutting")
+    .replace(/complete boundary of the base/gi, "full perimeter of the base")
+    .replace(/The remainder belongs to the two equal bases\./gi, "The area left belongs to the two equal bases.")
     .replace(/capacity-like volume/gi, "volume")
     .replace(/large-block volume/gi, "original block volume")
     .replace(/generated dimensions/gi, "given dimensions")
