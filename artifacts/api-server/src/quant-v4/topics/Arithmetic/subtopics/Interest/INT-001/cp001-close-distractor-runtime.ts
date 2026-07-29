@@ -36,14 +36,8 @@ import {
 type BaseQuestion = IntCp001ReadableEnglishQuestion | IntCp001ReadableLocalizedQuestion;
 type BaseResult = IntCp001ReadableEnglishQuestion["optionAudit"][number]["result"];
 type BaseExplanation = IntCp001ReadableEnglishQuestion["explanation"];
-
 type DistractorFamily = "MONEY" | "RATE" | "TIME_MONTHS" | "TIME_YEARS" | "RATIO";
-
-type CloseMisconceptionId =
-  | string
-  | "NEAR_CALCULATION_LOW"
-  | "NEAR_CALCULATION_HIGH"
-  | "SECOND_STEP_INPUT_SLIP";
+type CloseMisconceptionId = string;
 
 export interface IntCp001CloseOptionAudit {
   text: string;
@@ -79,14 +73,8 @@ interface CloseDistractorTrace {
 
 export type IntCp001CloseDistractorEnglishQuestion = Omit<
   IntCp001ReadableEnglishQuestion,
-  | "releaseId"
-  | "maturity"
-  | "reviewStatus"
-  | "localeReviewStatus"
-  | "options"
-  | "optionAudit"
-  | "explanation"
-  | "validation"
+  "releaseId" | "maturity" | "reviewStatus" | "localeReviewStatus" |
+  "options" | "optionAudit" | "explanation" | "validation"
 > & {
   releaseId: "INT-CP-001-EN-v5";
   maturity: "CLOSE_DISTRACTOR_EDITORIAL_CANDIDATE";
@@ -101,14 +89,8 @@ export type IntCp001CloseDistractorEnglishQuestion = Omit<
 
 export type IntCp001CloseDistractorLocalizedQuestion = Omit<
   IntCp001ReadableLocalizedQuestion,
-  | "releaseId"
-  | "maturity"
-  | "reviewStatus"
-  | "localeReviewStatus"
-  | "options"
-  | "optionAudit"
-  | "explanation"
-  | "validation"
+  "releaseId" | "maturity" | "reviewStatus" | "localeReviewStatus" |
+  "options" | "optionAudit" | "explanation" | "validation"
 > & {
   releaseId: "INT-CP-001-HI-v4" | "INT-CP-001-PA-v4";
   maturity: "CLOSE_DISTRACTOR_EDITORIAL_CANDIDATE";
@@ -148,22 +130,19 @@ function familyFor(question: BaseQuestion): DistractorFamily {
   return "RATIO";
 }
 
-function relativeDistanceBps(correct: Rational, candidate: Rational): number {
-  const difference = absoluteRational(subtractRational(candidate, correct));
-  const scaled = divideRational(multiplyRational(difference, rational(10_000)), correct);
-  return Number(scaled.numerator / scaled.denominator);
-}
-
 function distance(correct: Rational, candidate: Rational): Rational {
   return absoluteRational(subtractRational(candidate, correct));
+}
+
+function relativeDistanceBps(correct: Rational, candidate: Rational): number {
+  const scaled = divideRational(multiplyRational(distance(correct, candidate), rational(10_000)), correct);
+  return Number(scaled.numerator / scaled.denominator);
 }
 
 function closeEnough(family: DistractorFamily, correct: Rational, candidate: Rational): boolean {
   const gap = distance(correct, candidate);
   if (compareRational(gap, rational(0)) <= 0 || compareRational(candidate, rational(0)) <= 0) return false;
-  if (family === "MONEY") {
-    return compareRational(divideRational(gap, correct), rational(1, 4)) <= 0;
-  }
+  if (family === "MONEY") return compareRational(divideRational(gap, correct), rational(1, 4)) <= 0;
   if (family === "RATE") return compareRational(gap, rational(3)) <= 0;
   if (family === "TIME_MONTHS") return compareRational(gap, rational(6)) <= 0;
   if (family === "TIME_YEARS") return compareRational(gap, rational(2)) <= 0;
@@ -171,9 +150,7 @@ function closeEnough(family: DistractorFamily, correct: Rational, candidate: Rat
 }
 
 function moneyStep(correct: Rational): Rational {
-  const whole = correct.numerator < 0n
-    ? (-correct.numerator) / correct.denominator
-    : correct.numerator / correct.denominator;
+  const whole = (correct.numerator < 0n ? -correct.numerator : correct.numerator) / correct.denominator;
   if (whole >= 100_000n) return rational(5_000);
   if (whole >= 50_000n) return rational(2_500);
   if (whole >= 20_000n) return rational(1_000);
@@ -209,11 +186,10 @@ function stepFor(family: DistractorFamily, correct: Rational): Rational {
 function groupIndianDecimal(raw: string): string {
   const negative = raw.startsWith("-");
   const unsigned = negative ? raw.slice(1) : raw;
-  const [whole, fraction] = unsigned.split(".");
-  const digits = whole ?? "0";
-  const grouped = digits.length <= 3
-    ? digits
-    : `${digits.slice(0, -3).replace(/\B(?=(\d{2})+(?!\d))/gu, ",")},${digits.slice(-3)}`;
+  const [whole = "0", fraction] = unsigned.split(".");
+  const grouped = whole.length <= 3
+    ? whole
+    : `${whole.slice(0, -3).replace(/\B(?=(\d{2})+(?!\d))/gu, ",")},${whole.slice(-3)}`;
   return `${negative ? "-" : ""}${grouped}${fraction ? `.${fraction}` : ""}`;
 }
 
@@ -231,8 +207,9 @@ function mixedLatex(value: Rational): string {
   if (numerator > value.denominator) {
     const whole = numerator / value.denominator;
     const remainder = numerator % value.denominator;
-    if (remainder === 0n) return `${sign}${whole}`;
-    return `${sign}${whole}\\frac{${remainder}}{${value.denominator}}`;
+    return remainder === 0n
+      ? `${sign}${whole}`
+      : `${sign}${whole}\\frac{${remainder}}{${value.denominator}}`;
   }
   return `${sign}\\frac{${numerator}}{${value.denominator}}`;
 }
@@ -249,15 +226,13 @@ function formatTimeMonths(value: Rational, language: IntCp001CloseDistractorLang
 }
 
 function formatRatio(value: Rational, answerSemantic: string, language: IntCp001CloseDistractorLanguage): string {
-  const isAmountMultiple = answerSemantic === "AMOUNT_MULTIPLE";
+  const amountMultiple = answerSemantic === "AMOUNT_MULTIPLE";
   if (language === "en") {
-    if (isAmountMultiple || compareRational(value, rational(1)) > 0) {
-      return `$${mixedLatex(value)}$ times the principal`;
-    }
+    if (amountMultiple || compareRational(value, rational(1)) > 0) return `$${mixedLatex(value)}$ times the principal`;
     return `$${toLatex(value)}$ of the principal`;
   }
   const inline = `$${toLatex(value)}$`;
-  if (isAmountMultiple || compareRational(value, rational(1)) > 0) {
+  if (amountMultiple || compareRational(value, rational(1)) > 0) {
     return language === "hi" ? `${inline} गुना मूलधन` : `${inline} ਗੁਣਾ ਮੂਲਧਨ`;
   }
   return language === "hi" ? `मूलधन का ${inline}` : `ਮੂਲਧਨ ਦਾ ${inline}`;
@@ -276,9 +251,7 @@ function formatCandidate(
   }
   if (family === "TIME_MONTHS") return formatTimeMonths(value, language);
   if (family === "TIME_YEARS") {
-    return language === "en"
-      ? formatEnglishDurationYears(value)
-      : formatLocalizedDurationYears(value, language);
+    return language === "en" ? formatEnglishDurationYears(value) : formatLocalizedDurationYears(value, language);
   }
   return formatRatio(value, answerSemantic, language);
 }
@@ -288,20 +261,30 @@ function generatedExplanation(
   optionText: string,
   misconceptionId: CloseMisconceptionId,
 ): string {
-  const isLow = misconceptionId === "NEAR_CALCULATION_LOW";
-  const isHigh = misconceptionId === "NEAR_CALCULATION_HIGH";
   if (language === "en") {
-    if (isLow) return `${optionText} is a plausible near miss caused by a small under-calculation in the final arithmetic.`;
-    if (isHigh) return `${optionText} is a plausible near miss caused by a small over-calculation in the final arithmetic.`;
+    if (misconceptionId === "NEAR_CALCULATION_LOW") {
+      return `${optionText} is a plausible near miss caused by a small under-calculation in the final arithmetic.`;
+    }
+    if (misconceptionId === "NEAR_CALCULATION_HIGH") {
+      return `${optionText} is a plausible near miss caused by a small over-calculation in the final arithmetic.`;
+    }
     return `${optionText} results from moving one numerical input by a second small step before completing the calculation.`;
   }
   if (language === "hi") {
-    if (isLow) return `${optionText} अंतिम गणना में थोड़ी कम गणना करने से मिलने वाला पास का, लेकिन गलत मान है।`;
-    if (isHigh) return `${optionText} अंतिम गणना में थोड़ी अधिक गणना करने से मिलने वाला पास का, लेकिन गलत मान है।`;
+    if (misconceptionId === "NEAR_CALCULATION_LOW") {
+      return `${optionText} अंतिम गणना में थोड़ी कम गणना करने से मिलने वाला पास का, लेकिन गलत मान है।`;
+    }
+    if (misconceptionId === "NEAR_CALCULATION_HIGH") {
+      return `${optionText} अंतिम गणना में थोड़ी अधिक गणना करने से मिलने वाला पास का, लेकिन गलत मान है।`;
+    }
     return `${optionText} किसी एक संख्यात्मक मान को एक अतिरिक्त छोटे चरण से बदलकर गणना करने पर मिलता है।`;
   }
-  if (isLow) return `${optionText} ਆਖਰੀ ਗਣਨਾ ਵਿੱਚ ਥੋੜ੍ਹੀ ਘੱਟ ਗਿਣਤੀ ਕਰਨ ਨਾਲ ਮਿਲਣ ਵਾਲਾ ਨੇੜਲਾ, ਪਰ ਗਲਤ ਮੁੱਲ ਹੈ।`;
-  if (isHigh) return `${optionText} ਆਖਰੀ ਗਣਨਾ ਵਿੱਚ ਥੋੜ੍ਹੀ ਵੱਧ ਗਿਣਤੀ ਕਰਨ ਨਾਲ ਮਿਲਣ ਵਾਲਾ ਨੇੜਲਾ, ਪਰ ਗਲਤ ਮੁੱਲ ਹੈ।`;
+  if (misconceptionId === "NEAR_CALCULATION_LOW") {
+    return `${optionText} ਆਖਰੀ ਗਣਨਾ ਵਿੱਚ ਥੋੜ੍ਹੀ ਘੱਟ ਗਿਣਤੀ ਕਰਨ ਨਾਲ ਮਿਲਣ ਵਾਲਾ ਨੇੜਲਾ, ਪਰ ਗਲਤ ਮੁੱਲ ਹੈ।`;
+  }
+  if (misconceptionId === "NEAR_CALCULATION_HIGH") {
+    return `${optionText} ਆਖਰੀ ਗਣਨਾ ਵਿੱਚ ਥੋੜ੍ਹੀ ਵੱਧ ਗਿਣਤੀ ਕਰਨ ਨਾਲ ਮਿਲਣ ਵਾਲਾ ਨੇੜਲਾ, ਪਰ ਗਲਤ ਮੁੱਲ ਹੈ।`;
+  }
   return `${optionText} ਕਿਸੇ ਇੱਕ ਅੰਕੀ ਮੁੱਲ ਨੂੰ ਇੱਕ ਹੋਰ ਛੋਟੇ ਕਦਮ ਨਾਲ ਬਦਲ ਕੇ ਗਣਨਾ ਕਰਨ ਤੇ ਮਿਲਦਾ ਹੈ।`;
 }
 
@@ -309,38 +292,30 @@ function sourceTrapExplanation(question: BaseQuestion, sourceIndex: number): str
   return question.explanation.trapAnalysis.items.find((item) => item.optionNumber === sourceIndex + 1)?.explanation;
 }
 
-function buildWorkingCandidates(
+function buildWrongCandidates(
   question: BaseQuestion,
-  language: IntCp001CloseDistractorLanguage,
   family: DistractorFamily,
   correct: Rational,
 ): WorkingCandidate[] {
   const step = stepFor(family, correct);
-  const generated: WorkingCandidate[] = [];
-  const generatedKeys = new Set<string>([rationalKey(correct)]);
-
-  const addGenerated = (value: Rational, misconceptionId: CloseMisconceptionId): void => {
+  const candidates: WorkingCandidate[] = [];
+  const seen = new Set<string>([rationalKey(correct)]);
+  const add = (value: Rational, misconceptionId: string): void => {
     if (compareRational(value, rational(0)) <= 0) return;
     const key = rationalKey(value);
-    if (generatedKeys.has(key)) return;
-    generatedKeys.add(key);
-    generated.push({ value, misconceptionId, origin: "GENERATED_NEAR_MISS" });
+    if (seen.has(key)) return;
+    seen.add(key);
+    candidates.push({ value, misconceptionId, origin: "GENERATED_NEAR_MISS" });
   };
 
-  for (let multiplier = 1; multiplier <= 6 && !generated.some((item) => compareRational(item.value, correct) < 0); multiplier += 1) {
-    addGenerated(
-      subtractRational(correct, multiplyRational(step, rational(multiplier))),
-      "NEAR_CALCULATION_LOW",
-    );
+  for (let factor = 1; factor <= 8 && !candidates.some((item) => compareRational(item.value, correct) < 0); factor += 1) {
+    add(subtractRational(correct, multiplyRational(step, rational(factor))), "NEAR_CALCULATION_LOW");
   }
-  for (let multiplier = 1; multiplier <= 6 && !generated.some((item) => compareRational(item.value, correct) > 0); multiplier += 1) {
-    addGenerated(
-      addRational(correct, multiplyRational(step, rational(multiplier))),
-      "NEAR_CALCULATION_HIGH",
-    );
+  for (let factor = 1; factor <= 8 && !candidates.some((item) => compareRational(item.value, correct) > 0); factor += 1) {
+    add(addRational(correct, multiplyRational(step, rational(factor))), "NEAR_CALCULATION_HIGH");
   }
 
-  const existing = question.optionAudit
+  const retained = question.optionAudit
     .map((audit, index) => ({ audit, index }))
     .filter(({ index }) => index !== question.correctIndex)
     .filter(({ audit }) => isRational(audit.result.value))
@@ -350,27 +325,27 @@ function buildWorkingCandidates(
       origin: "RETAINED_CONCEPT_TRAP" as const,
       sourceExplanation: sourceTrapExplanation(question, index),
     }))
-    .filter((candidate) => closeEnough(family, correct, candidate.value))
-    .filter((candidate) => !generatedKeys.has(rationalKey(candidate.value)))
-    .sort((left, right) => compareRational(distance(correct, left.value), distance(correct, right.value)));
+    .filter((item) => closeEnough(family, correct, item.value))
+    .filter((item) => !seen.has(rationalKey(item.value)))
+    .sort((left, right) => compareRational(distance(correct, left.value), distance(correct, right.value)))[0];
 
-  const retained = existing[0];
-  if (retained) generated.push(retained);
-
-  const thirdDirection = deterministicIndex(`${question.qlId}:${question.seed}:${language}:third-close-distractor`, 2) === 0 ? -1 : 1;
-  for (let multiplier = 2; generated.length < 3 && multiplier <= 8; multiplier += 1) {
-    const signed = multiplyRational(step, rational(multiplier * thirdDirection));
-    const value = addRational(correct, signed);
-    addGenerated(value, "SECOND_STEP_INPUT_SLIP");
-  }
-  for (let multiplier = 2; generated.length < 3 && multiplier <= 8; multiplier += 1) {
-    const signed = multiplyRational(step, rational(multiplier * -thirdDirection));
-    const value = addRational(correct, signed);
-    addGenerated(value, "SECOND_STEP_INPUT_SLIP");
+  if (retained) {
+    seen.add(rationalKey(retained.value));
+    candidates.push(retained);
   }
 
-  if (generated.length < 3) fail(`${question.qlId}/${question.seed}/${language}: unable to build three close distractors.`);
-  return generated.slice(0, 3);
+  const firstDirection = deterministicIndex(`${question.qlId}:${question.seed}:third-close-distractor`, 2) === 0 ? -1 : 1;
+  for (const direction of [firstDirection, -firstDirection]) {
+    for (let factor = 2; candidates.length < 3 && factor <= 8; factor += 1) {
+      add(
+        addRational(correct, multiplyRational(step, rational(factor * direction))),
+        "SECOND_STEP_INPUT_SLIP",
+      );
+    }
+  }
+
+  if (candidates.length < 3) fail(`${question.qlId}/${question.seed}: unable to build three close distractors.`);
+  return candidates.slice(0, 3);
 }
 
 function buildCloseQuestion(
@@ -384,24 +359,25 @@ function buildCloseQuestion(
   errors: string[];
 } {
   const family = familyFor(question);
-  const correctBaseAudit = question.optionAudit[question.correctIndex];
-  if (!correctBaseAudit) fail(`${question.qlId}/${question.seed}: missing correct option audit.`);
-  const correct = requireRational(correctBaseAudit.result.value, "correct option value");
-  const wrong = buildWorkingCandidates(question, language, family, correct);
+  const correctSource = question.optionAudit[question.correctIndex];
+  if (!correctSource) fail(`${question.qlId}/${question.seed}: missing correct option audit.`);
+  const correct = requireRational(correctSource.result.value, "correct option value");
   const orderedWrong = rotate(
-    wrong,
-    deterministicIndex(`${question.qlId}:${question.seed}:${language}:close-distractor-order`, 3),
+    buildWrongCandidates(question, family, correct),
+    deterministicIndex(`${question.qlId}:${question.seed}:close-distractor-order`, 3),
   );
 
   const options: string[] = [];
   const optionAudit: IntCp001CloseOptionAudit[] = [];
-  let wrongCursor = 0;
+  const workingByOption = new Map<number, WorkingCandidate>();
+  let cursor = 0;
   for (let index = 0; index < 4; index += 1) {
     if (index === question.correctIndex) {
-      options.push(question.options[index]!);
+      const text = question.options[index]!;
+      options.push(text);
       optionAudit.push({
-        text: question.options[index]!,
-        result: correctBaseAudit.result,
+        text,
+        result: correctSource.result,
         misconceptionId: "CORRECT",
         proximityOrigin: "CORRECT",
         absoluteDistance: rational(0),
@@ -409,19 +385,17 @@ function buildCloseQuestion(
       });
       continue;
     }
-    const candidate = orderedWrong[wrongCursor++]!;
-    const text = formatCandidate(candidate.value, family, question.answerSemantic, language);
+    const working = orderedWrong[cursor++]!;
+    const text = formatCandidate(working.value, family, question.answerSemantic, language);
+    workingByOption.set(index, working);
     options.push(text);
     optionAudit.push({
       text,
-      result: {
-        semantic: correctBaseAudit.result.semantic,
-        value: candidate.value,
-      } as BaseResult,
-      misconceptionId: candidate.misconceptionId,
-      proximityOrigin: candidate.origin,
-      absoluteDistance: distance(correct, candidate.value),
-      relativeDistanceBps: relativeDistanceBps(correct, candidate.value),
+      result: { semantic: correctSource.result.semantic, value: working.value } as BaseResult,
+      misconceptionId: working.misconceptionId,
+      proximityOrigin: working.origin,
+      absoluteDistance: distance(correct, working.value),
+      relativeDistanceBps: relativeDistanceBps(correct, working.value),
     });
   }
 
@@ -429,29 +403,24 @@ function buildCloseQuestion(
     .map((audit, index) => ({ audit, index }))
     .filter(({ index }) => index !== question.correctIndex)
     .map(({ audit, index }) => {
-      const working = orderedWrong[Array.from({ length: 4 }, (_, optionIndex) => optionIndex)
-        .filter((optionIndex) => optionIndex !== question.correctIndex)
-        .indexOf(index)]!;
+      const working = workingByOption.get(index)!;
       return {
         optionNumber: index + 1,
         optionText: audit.text,
         misconceptionId: audit.misconceptionId,
-        explanation: working.sourceExplanation
-          ?? generatedExplanation(language, audit.text, audit.misconceptionId),
+        explanation: working.sourceExplanation ?? generatedExplanation(language, audit.text, audit.misconceptionId),
       };
     });
 
   const explanation: IntCp001CloseExplanation = {
     ...question.explanation,
-    trapAnalysis: {
-      ...question.explanation.trapAnalysis,
-      items: trapItems,
-    },
+    trapAnalysis: { ...question.explanation.trapAnalysis, items: trapItems },
   };
 
   const errors = [...question.validation.errors];
-  const optionTexts = new Set(options);
-  if (options.length !== 4 || optionTexts.size !== 4) errors.push("Close-distractor candidate must contain four unique option texts.");
+  if (options.length !== 4 || new Set(options).size !== 4) {
+    errors.push("Close-distractor candidate must contain four unique option texts.");
+  }
   if (options[question.correctIndex] !== question.options[question.correctIndex]) {
     errors.push("Close-distractor candidate changed the correct option text.");
   }
@@ -461,14 +430,14 @@ function buildCloseQuestion(
   if (trapItems.length !== 3) errors.push("Close-distractor candidate must explain exactly three wrong options.");
 
   const wrongAudits = optionAudit.filter((_audit, index) => index !== question.correctIndex);
-  const hasLower = wrongAudits.some((audit) => compareRational(audit.result.value as Rational, correct) < 0);
-  const hasUpper = wrongAudits.some((audit) => compareRational(audit.result.value as Rational, correct) > 0);
-  if (!hasLower || !hasUpper) errors.push("Close-distractor candidate must bracket the correct answer with lower and upper near misses.");
+  const hasLower = wrongAudits.some((audit) => compareRational(requireRational(audit.result.value, "distractor value"), correct) < 0);
+  const hasUpper = wrongAudits.some((audit) => compareRational(requireRational(audit.result.value, "distractor value"), correct) > 0);
+  if (!hasLower || !hasUpper) {
+    errors.push("Close-distractor candidate must bracket the correct answer with lower and upper near misses.");
+  }
   for (const audit of wrongAudits) {
     const value = requireRational(audit.result.value, "distractor value");
-    if (!closeEnough(family, correct, value)) {
-      errors.push(`Distractor ${audit.text} exceeds the ${family} proximity boundary.`);
-    }
+    if (!closeEnough(family, correct, value)) errors.push(`Distractor ${audit.text} exceeds the ${family} proximity boundary.`);
     if (compareRational(value, correct) === 0) errors.push(`Distractor ${audit.text} duplicates the exact answer value.`);
   }
   for (const trap of trapItems) {
@@ -478,9 +447,6 @@ function buildCloseQuestion(
   }
 
   const retainedConceptDistractors = wrongAudits.filter((audit) => audit.proximityOrigin === "RETAINED_CONCEPT_TRAP").length;
-  const generatedNearMisses = wrongAudits.length - retainedConceptDistractors;
-  const maximumRelativeDistanceBps = Math.max(...wrongAudits.map((audit) => audit.relativeDistanceBps));
-
   return {
     options,
     optionAudit,
@@ -489,10 +455,10 @@ function buildCloseQuestion(
       patchId: INT_CP001_CLOSE_DISTRACTOR_PATCH_ID,
       supersedesReleaseId: question.releaseId,
       retainedConceptDistractors,
-      generatedNearMisses,
+      generatedNearMisses: 3 - retainedConceptDistractors,
       hasLowerDistractor: hasLower,
       hasUpperDistractor: hasUpper,
-      maximumRelativeDistanceBps,
+      maximumRelativeDistanceBps: Math.max(...wrongAudits.map((audit) => audit.relativeDistanceBps)),
     },
     errors,
   };
@@ -514,11 +480,7 @@ export function generateIntCp001CloseDistractorEnglishQuestion(
     optionAudit: built.optionAudit,
     explanation: built.explanation,
     distractorEditorialTrace: built.trace,
-    validation: {
-      ...readable.validation,
-      ok: built.errors.length === 0,
-      errors: built.errors,
-    },
+    validation: { ...readable.validation, ok: built.errors.length === 0, errors: built.errors },
     questionBankStatus: "NOT_STORED",
     testEligibility: "INELIGIBLE",
     publiclyPublishable: false,
@@ -543,11 +505,7 @@ export function generateIntCp001CloseDistractorLocalizedQuestion(
     optionAudit: built.optionAudit,
     explanation: built.explanation,
     distractorEditorialTrace: built.trace,
-    validation: {
-      ...readable.validation,
-      ok: built.errors.length === 0,
-      errors: built.errors,
-    },
+    validation: { ...readable.validation, ok: built.errors.length === 0, errors: built.errors },
     questionBankStatus: "NOT_STORED",
     testEligibility: "INELIGIBLE",
     publiclyPublishable: false,
