@@ -31,7 +31,7 @@ export interface PncCheckpointLocalizationConfig {
 }
 
 function numericTokens(value: string): string[] {
-  return [...value.matchAll(/-?\d[\d,]*/g)].map((match) => match[0]!);
+  return [...value.matchAll(/-?\d+(?:,\d{3})*/g)].map((match) => match[0]!);
 }
 
 function mathTokens(value: string): string[] {
