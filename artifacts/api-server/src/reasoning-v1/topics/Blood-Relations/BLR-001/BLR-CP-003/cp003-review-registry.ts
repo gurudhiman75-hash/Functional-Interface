@@ -11,12 +11,15 @@ import { generateBlrCp003MaritalGroup } from "./cp003-marital-generator";
 import { blrCp003MaritalSemanticKey } from "./cp003-marital-solver";
 import { BLR_CP003_SCENARIOS } from "./cp003-scenario-library";
 import { blrCp003SemanticKey } from "./cp003-solver";
+import { generateBlrCp003SourceGapGroup } from "./cp003-source-gap-generator";
+import { blrCp003SourceGapSemanticKey } from "./cp003-source-gap-solver";
 
 export type BlrCp003ReviewFamily =
   | "BASE_SHARED_GRAPH"
   | "EXTENDED_SHARED_GRAPH"
   | "EXPLICIT_MARITAL_STATUS"
-  | "LINEAGE_AND_FOUR_GENERATION";
+  | "LINEAGE_AND_FOUR_GENERATION"
+  | "COMPACT_JOINT_PARENT_PASSAGE";
 
 export interface BlrCp003ReviewOption {
   text: string;
@@ -80,7 +83,9 @@ function generationRows(
   names: Readonly<Record<string, string>>,
 ): string[] {
   const rootId = topGenerationRoot(graph);
-  if (!rootId) throw new Error("CP-003 editorial renderer received an empty family graph.");
+  if (!rootId) {
+    throw new Error("CP-003 editorial renderer received an empty family graph.");
+  }
   const rows = new Map<number, string[]>();
   for (const person of graph.persons) {
     const delta = generationDelta(graph, person.personId, rootId);
@@ -91,12 +96,21 @@ function generationRows(
   return [...rows.entries()]
     .sort(([left], [right]) => right - left)
     .map(([delta, members]) => {
-      const label = delta === 0 ? "Generation 0" : `Generation ${delta > 0 ? "+" : ""}${delta}`;
+      const label =
+        delta === 0
+          ? "Generation 0"
+          : `Generation ${delta > 0 ? "+" : ""}${delta}`;
       return `${label}: ${members.sort().join(", ")}`;
     });
 }
 
 function conceptFor(prototypeId: string): readonly string[] {
+  if (prototypeId.includes("IDENTIFY-PERSON-BY-GENDER")) {
+    return [
+      "Use the gender-specific relation attached to each candidate, not the spelling of the name.",
+      "The candidate set must contain exactly one member whose entailed gender matches the question.",
+    ];
+  }
   if (prototypeId.includes("EXACT-LINEAGE")) {
     return [
       "First determine the broad relation, then inspect whether the path passes through the father or the mother.",
@@ -121,7 +135,10 @@ function conceptFor(prototypeId: string): readonly string[] {
       "A pair that is in the same generation is not automatically a sibling or married pair.",
     ];
   }
-  if (prototypeId.includes("GENERATION") || prototypeId.includes("THREE-GENERATION")) {
+  if (
+    prototypeId.includes("GENERATION") ||
+    prototypeId.includes("THREE-GENERATION")
+  ) {
     return [
       "Place the named people on generation rows before comparing them.",
       "Parent-child movement changes one level; spouse and sibling movement changes no level.",
@@ -152,6 +169,9 @@ function conceptFor(prototypeId: string): readonly string[] {
 }
 
 function shortcutFor(prototypeId: string): string {
+  if (prototypeId.includes("IDENTIFY-PERSON-BY-GENDER")) {
+    return "Underline gendered words such as son, daughter, husband and wife, then compare only the listed candidates.";
+  }
   if (prototypeId.includes("EXACT-LINEAGE")) {
     return "Mark the father-side and mother-side branches first; then apply the broad relation label.";
   }
@@ -320,7 +340,8 @@ export function generateBlrCp003EditorialReviewRecords(
           sharedPrompt: group.sharedPrompt,
           personNames: group.personNames,
           graph: group.reconstructedFamily,
-          everyInputContributes: group.metadata.everyClueAndStatusFactContributes,
+          everyInputContributes:
+            group.metadata.everyClueAndStatusFactContributes,
           itemId: item.itemId,
           prototypeId: item.prototypeId,
           stem: item.stem,
@@ -363,6 +384,34 @@ export function generateBlrCp003EditorialReviewRecords(
           }),
         );
       }
+    }
+  }
+
+  for (const seed of seeds) {
+    const group = generateBlrCp003SourceGapGroup(seed);
+    for (const item of group.questions) {
+      records.push(
+        reviewRecord({
+          family: "COMPACT_JOINT_PARENT_PASSAGE",
+          scenarioId: group.scenarioId,
+          topologyId: group.topologyId,
+          seed,
+          sharedPrompt: group.sharedPrompt,
+          personNames: group.personNames,
+          graph: group.reconstructedFamily,
+          everyInputContributes: group.metadata.everyClueContributes,
+          itemId: item.itemId,
+          prototypeId: item.prototypeId,
+          stem: item.stem,
+          options: item.options,
+          correctIndex: item.correctIndex,
+          answerKey: blrCp003SourceGapSemanticKey(item.answer),
+          normalizedFacts: item.explanation.normalizedClues,
+          solutionSteps: item.explanation.decisiveTrace,
+          conclusion: item.explanation.conclusion,
+          closestTrapRejection: item.explanation.closestTrapRejection,
+        }),
+      );
     }
   }
 
