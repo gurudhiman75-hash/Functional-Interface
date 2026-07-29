@@ -71,13 +71,13 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/int-001-cp001-readable-stem-metrics.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-readable-stem-metrics.log
 
-      - name: Bundle readable-stem audit
+      - name: Bundle readable-stem release audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-readable-stem-final-audit.ts
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-readable-stem-release-audit.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/int-001-cp001-readable-stem-audit.mjs
-      - name: Run readable-stem audit
+      - name: Run readable-stem release audit
         shell: bash
         run: |
           set -o pipefail
