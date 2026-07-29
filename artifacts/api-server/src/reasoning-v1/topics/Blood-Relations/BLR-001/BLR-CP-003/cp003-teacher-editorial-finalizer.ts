@@ -16,10 +16,20 @@ function removeEngineVoice(text: string): string {
     .replace(/semantic option/gi, "answer option");
 }
 
+function evidenceSafeFamilyTree(tree: string): string {
+  return tree
+    .replaceAll(" (?)", "")
+    .replace(
+      "     │ = Parent–child lineage  |  ── = Siblings",
+      "     │ = Parent–child lineage  |  ── = Siblings\n     Unmarked name = Gender not stated in the passage",
+    );
+}
+
 export function finalizeBlrCp003TeacherRecord(
   record: BlrCp003TeacherReviewRecord,
 ): BlrCp003TeacherReviewRecord {
   const coreConcept = record.editorial.coreConcept.map(removeEngineVoice);
+  const familyTreeGrid = evidenceSafeFamilyTree(record.editorial.familyTreeGrid);
   const stepByStepSolution = record.editorial.stepByStepSolution.map(removeEngineVoice);
   const optionAnalysis = record.editorial.optionAnalysis.map((entry) => ({
     ...entry,
@@ -34,6 +44,7 @@ export function finalizeBlrCp003TeacherRecord(
     editorial: {
       ...record.editorial,
       coreConcept,
+      familyTreeGrid,
       stepByStepSolution,
       optionAnalysis,
       conclusion,
@@ -44,6 +55,7 @@ export function finalizeBlrCp003TeacherRecord(
       ...record.metadata,
       semanticFingerprint: stableHash([
         record.metadata.semanticFingerprint,
+        familyTreeGrid,
         ...coreConcept,
         ...stepByStepSolution,
         ...optionAnalysis.flatMap((entry) => [entry.optionLabel, entry.optionText, entry.explanation]),
