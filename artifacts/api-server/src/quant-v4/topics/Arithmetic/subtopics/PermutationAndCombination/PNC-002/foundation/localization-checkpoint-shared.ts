@@ -34,6 +34,17 @@ function numericTokens(value: string): string[] {
   return [...value.matchAll(/-?\d+(?:,\d{3})*/g)].map((match) => match[0]!);
 }
 
+function localizationNumericTokens(value: string, qlId: string): string[] {
+  const tokens = numericTokens(value);
+  if (qlId === "PNC-QL-224" || qlId === "PNC-QL-225") {
+    if (tokens.length < 4 || tokens[2] !== "1") {
+      throw new Error(`${qlId}: expected fixed shelf/desk identifier before occupancy`);
+    }
+    return [tokens[0]!, tokens[1]!, tokens[3]!, ...tokens.slice(4)];
+  }
+  return tokens;
+}
+
 function mathTokens(value: string): string[] {
   return [
     ...value.matchAll(/\$\$[\s\S]*?\$\$|\$[^$\n]+\$|\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]/g),
@@ -137,7 +148,7 @@ export function buildPncCheckpointLocalizedPresentation(
     sourceLocale: "en-GB",
     stem: fillTemplate(
       template,
-      numericTokens(english.stem),
+      localizationNumericTokens(english.stem, source.questionLanguageId),
       mathTokens(english.stem),
       source.questionLanguageId,
     ),
