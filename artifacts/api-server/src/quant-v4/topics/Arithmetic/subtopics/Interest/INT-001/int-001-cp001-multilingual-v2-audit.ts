@@ -13,6 +13,7 @@ import {
   getIntCp001CashFlowContextV2,
   validateIntCp001ContextLeadV2,
 } from "./cp001-cash-flow-context-v2";
+import { validateIntCp001LoanAmountWordingV2 } from "./cp001-cash-flow-amount-v2";
 import { stableBigIntJson } from "./cp001-localization-foundation";
 import type { IntCp001Locale } from "./cp001-multilingual-release";
 import {
@@ -64,6 +65,7 @@ const stats = Object.fromEntries(locales.map((locale) => [locale, {
   changedStems: 0,
   legacyContradictions: 0,
   v2Contradictions: 0,
+  amountWordingChecks: 0,
   directions: Object.fromEntries(directionKeys.map((key) => [key, 0])) as Record<IntCp001CashFlowDirection, number>,
   scenarios: new Set<string>(),
   stems: new Set<string>(),
@@ -73,6 +75,7 @@ const stats = Object.fromEntries(locales.map((locale) => [locale, {
   changedStems: number;
   legacyContradictions: number;
   v2Contradictions: number;
+  amountWordingChecks: number;
   directions: Record<IntCp001CashFlowDirection, number>;
   scenarios: Set<string>;
   stems: Set<string>;
@@ -139,12 +142,23 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
       const legacyErrors = [
         ...validateIntCp001ContextLeadV2(approvedV1.stem, locale, cashFlow),
         ...validateIntCp001StemCashFlow(approvedV1.stem, approvedV1.solveContract, locale, cashFlow.direction),
+        ...validateIntCp001LoanAmountWordingV2(approvedV1.stem, approvedV1.solveContract, locale, cashFlow.direction),
       ];
+      const v2AmountErrors = validateIntCp001LoanAmountWordingV2(
+        item.stem,
+        item.solveContract,
+        locale,
+        cashFlow.direction,
+      );
       const v2Errors = [
         ...validateIntCp001ContextLeadV2(item.stem, locale, cashFlow),
         ...validateIntCp001StemCashFlow(item.stem, item.solveContract, locale, cashFlow.direction),
+        ...v2AmountErrors,
       ];
       cashFlowChecks += 1;
+      if (cashFlow.direction === "BORROWER_PAYS" && v2AmountErrors.length === 0) {
+        localeStats.amountWordingChecks += 1;
+      }
       if (legacyErrors.length > 0) localeStats.legacyContradictions += 1;
       if (v2Errors.length > 0) {
         localeStats.v2Contradictions += 1;
@@ -175,6 +189,7 @@ for (const locale of locales) {
   if (localeStats.legacyContradictions === 0) fail(`${locale} audit failed to reproduce the legacy transaction-direction defect.`);
   if (localeStats.v2Contradictions !== 0) fail(`${locale} retained ${localeStats.v2Contradictions} V2 contradictions.`);
   if (localeStats.changedStems === 0) fail(`${locale} did not change any stems.`);
+  if (localeStats.amountWordingChecks === 0) fail(`${locale} did not exercise borrower amount wording.`);
   if (localeStats.positions.some((count) => count === 0)) fail(`${locale} did not exercise every answer position.`);
 }
 
@@ -196,6 +211,7 @@ console.log(JSON.stringify({
       changedStems: stats.hi.changedStems,
       legacyContradictionsDetected: stats.hi.legacyContradictions,
       v2Contradictions: stats.hi.v2Contradictions,
+      borrowerAmountWordingChecks: stats.hi.amountWordingChecks,
       directions: stats.hi.directions,
       scenarios: [...stats.hi.scenarios].sort(),
       distinctStems: stats.hi.stems.size,
@@ -206,6 +222,7 @@ console.log(JSON.stringify({
       changedStems: stats.pa.changedStems,
       legacyContradictionsDetected: stats.pa.legacyContradictions,
       v2Contradictions: stats.pa.v2Contradictions,
+      borrowerAmountWordingChecks: stats.pa.amountWordingChecks,
       directions: stats.pa.directions,
       scenarios: [...stats.pa.scenarios].sort(),
       distinctStems: stats.pa.stems.size,
