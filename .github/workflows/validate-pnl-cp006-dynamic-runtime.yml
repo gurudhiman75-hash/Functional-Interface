@@ -6,164 +6,24 @@ on:
       - feat/pnl-001-cp006-dynamic-runtime
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/PNL-CP-006-DYNAMIC-RUNTIME-REPORT.md"
       - ".github/workflows/validate-pnl-cp006-dynamic-runtime.yml"
   pull_request:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/PNL-CP-006-DYNAMIC-RUNTIME-REPORT.md"
       - ".github/workflows/validate-pnl-cp006-dynamic-runtime.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   validate-cp006-dynamic-runtime:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
-      - name: Checkout feature source
+      - name: Checkout source
         uses: actions/checkout@v4
-        with:
-          ref: feat/pnl-001-cp006-dynamic-runtime
-
-      - name: Apply deterministic CP-006 corrections
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          cases_path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-cases.ts")
-          source = cases_path.read_text()
-          source = source.replace(
-            '{ input: 120n, wasted: 20n, totalCost: 15000, scrap: 5000 },',
-            '{ input: 120n, wasted: 20n, totalCost: 17000, scrap: 5000 },',
-            1,
-          )
-          source = source.replace(
-            '{ input: 100n, wasted: 10n, totalCost: 12000, scrap: 3000 },',
-            '{ input: 100n, wasted: 10n, totalCost: 16500, scrap: 3000 },',
-            1,
-          )
-
-          start = source.index('case "PNL-QL-165":')
-          end = source.index('case "PNL-QL-166":', start)
-          source = source[:start] + '''case "PNL-QL-165": {
-              const purchasePrice = rupees(pickNumber(random, PURCHASE_PRICES));
-              const expensePercent = rational(pickNumber(random, OVERHEAD_RATES));
-              const totalExpense = moneyFromPaise(
-                (purchasePrice.paise * expensePercent.numerator) /
-                  (100n * expensePercent.denominator),
-              );
-              const finalEffectiveCost = moneyFromPaise(
-                purchasePrice.paise + totalExpense.paise,
-              );
-              return {
-                qlId,
-                registry,
-                seed: seedValue,
-                request: {
-                  mode: "EFFECTIVE_COST_AND_PURCHASE_TO_TOTAL_EXPENSE",
-                  purchasePrice,
-                  effectiveCost: finalEffectiveCost,
-                },
-                context: {
-                  purchasePrice: cp006PlainMoney(purchasePrice),
-                  effectiveCost: cp006PlainMoney(finalEffectiveCost),
-                },
-              };
-            }
-
-            ''' + source[end:]
-
-          start = source.index('case "PNL-QL-179":')
-          end = source.index('case "PNL-QL-180":', start)
-          source = source[:start] + '''case "PNL-QL-179":
-            case "PNL-QL-184": {
-              const lossPercent = rational(
-                pickSeeded(random, [10, 20, 25, 40] as const),
-              );
-              return {
-                qlId,
-                registry,
-                seed: seedValue,
-                request: {
-                  mode: "LOSS_RATE_TO_REQUIRED_RECOVERY_RATE_ON_REMAINING_CAPITAL",
-                  lossPercent,
-                },
-                context: {
-                  lossPercent: cp006FormatRational(lossPercent),
-                  correctStatement: "Statement 2 only",
-                  ...(qlId === "PNL-QL-184"
-                    ? {
-                        statements: [
-                          "The same percentage profit after a loss is always sufficient to restore the original capital.",
-                          "After a loss, the required recovery percentage is measured on the smaller remaining capital.",
-                          `A ${cp006FormatRational(lossPercent)}% loss is exactly recovered by a ${cp006FormatRational(lossPercent)}% profit on the remaining capital.`,
-                        ],
-                      }
-                    : {}),
-                },
-                ...(qlId === "PNL-QL-184"
-                  ? { answerOverride: "Statement 2 only" }
-                  : {}),
-              };
-            }
-
-            ''' + source[end:]
-
-          cases_path.write_text(source)
-
-          runtime_path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.ts")
-          runtime = runtime_path.read_text()
-
-          start = runtime.index('case "PNL-QL-155":')
-          end = runtime.index('case "PNL-QL-156":', start)
-          runtime = runtime[:start] + '''case "PNL-QL-155":
-              if (!("maximumExpense" in result)) {
-                throw new Error(`${qlId}: expected maximum allowable expense.`);
-              }
-              return { kind: "MONEY", value: result.maximumExpense };
-
-            ''' + runtime[end:]
-
-          runtime = runtime.replace(
-            '    "maximumAllowableExpense",',
-            '    "maximumExpense",',
-            1,
-          )
-          runtime = runtime.replace("priorRecoverySum", "priorRecoveryTotal")
-          alias_anchor = '  if ("direction" in result && "ratePercent" in result) {'
-          if 'context.maximumAllowableExpense' not in runtime:
-              runtime = runtime.replace(
-                alias_anchor,
-                '''  if ("maximumExpense" in result) {
-                context.maximumAllowableExpense = cp006PlainMoney(result.maximumExpense);
-              }
-              ''' + alias_anchor,
-                1,
-              )
-
-          start = runtime.index('case "SP_TARGET_RATE_TO_MAX_EXPENSE":')
-          end = runtime.index('case "TOTAL_RECOVERY_AND_RATE_TO_EFFECTIVE_COST":', start)
-          runtime = runtime[:start] + '''case "SP_TARGET_RATE_TO_MAX_EXPENSE": {
-              if (!("maximumExpense" in result)) return false;
-              const cost = moneyFromPaise(
-                request.purchasePrice.paise + result.maximumExpense.paise,
-              );
-              const check = solvePnlCp006Request({
-                mode: "EFFECTIVE_COST_AND_RATE_TO_SELLING_PRICE",
-                effectiveCost: cost,
-                direction: request.direction,
-                ratePercent: request.targetRatePercent,
-              });
-              return (
-                "sellingPrice" in check &&
-                check.sellingPrice.paise === request.sellingPrice.paise
-              );
-            }
-
-            ''' + runtime[end:]
-
-          runtime_path.write_text(runtime)
-          PY
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -177,13 +37,6 @@ jobs:
 
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: Normalize CP-006 runtime sources
-        run: |
-          pnpm exec prettier --write \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-cases.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.test.ts
 
       - name: Bundle dynamic runtime proof
         run: |
@@ -199,23 +52,6 @@ jobs:
           set -o pipefail
           node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/.cp006-dynamic-runtime.test.mjs \
             2>&1 | tee -a pnl-cp006-dynamic-runtime.log
-
-      - name: Commit proven corrections
-        run: |
-          if git diff --quiet -- \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-cases.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.test.ts; then
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-cases.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-runtime.test.ts
-          git commit -m "fix(pnl): complete CP-006 semantic bindings"
-          git push origin HEAD:feat/pnl-001-cp006-dynamic-runtime
 
       - name: Upload proof evidence
         if: always()
