@@ -29,3 +29,4 @@ export * from "./cp001-localized-runtime-release";
 export * from "./cp001-localized-runtime-approved";
 export * from "./cp001-localized-runtime-v2";
 export * from "./cp001-localized-runtime-v2-approved";
+export * from "./cp001-inactive-release-provider";
