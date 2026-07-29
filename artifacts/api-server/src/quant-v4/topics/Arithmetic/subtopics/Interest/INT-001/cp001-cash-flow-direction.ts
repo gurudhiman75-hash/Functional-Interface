@@ -181,7 +181,7 @@ export function validateIntCp001StemCashFlow(
       : direction === "INVESTOR_EARNS"
         ? (locale === "hi"
             ? /अर्जित होगा|अर्जित हुआ|अर्जित होता है|अर्जित (?:साधारण )?ब्याज|प्राप्त होगी/u
-            : /ਵਿਆਜ ਮਿਲੇਗਾ|ਵਿਆਜ ਮਿਲਿਆ|ਵਿਆਜ ਮਿਲਦਾ ਹੈ|ਮਿਲਣ ਵਾਲਾ|ਰਕਮ .*ਮਿਲੇਗੀ/u)
+            : /ਵਿਆਜ ਮਿਲੇਗਾ|ਵਿਆਜ ਮਿਲਿਆ|ਵਿਆਜ ਮਿਲਦਾ ਹੈ|ਮਿਲਿਆ ਵਿਆਜ|ਮਿਲਣ ਵਾਲਾ|ਰਕਮ .*ਮਿਲੇਗੀ/u)
         : (locale === "hi" ? /साधारण ब्याज|राशि .*होगी/u : /ਸਧਾਰਣ ਵਿਆਜ|ਰਕਮ .*ਹੋਵੇਗੀ/u);
     if (!alignedMarker.test(stem)) errors.push("Cash-flow-sensitive stem lacks a direction-aligned learner phrase.");
   }
