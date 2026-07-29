@@ -6,17 +6,25 @@ on:
       - feat/blr-001-cp003-shared-family-runtime
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
+      - "artifacts/examtree/src/components/blood-relations/**"
+      - "artifacts/examtree/src/components/learning/LogicPlaybackRouter.tsx"
+      - "artifacts/examtree/tsconfig.json"
+      - "artifacts/examtree/vite.config.ts"
       - ".github/workflows/reasoning-blr-001-cp003-prototype.yml"
   pull_request:
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
+      - "artifacts/examtree/src/components/blood-relations/**"
+      - "artifacts/examtree/src/components/learning/LogicPlaybackRouter.tsx"
+      - "artifacts/examtree/tsconfig.json"
+      - "artifacts/examtree/vite.config.ts"
       - ".github/workflows/reasoning-blr-001-cp003-prototype.yml"
   workflow_dispatch:
 
 jobs:
   cp003-shared-family-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 65
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -66,6 +74,11 @@ jobs:
         continue-on-error: true
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-competitive-review-v4.test.ts > cp003-competitive.log 2>&1
 
+      - name: Run CP-003 native SVG family tree gate
+        id: cp003_svg
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-competitive-svg-review.test.ts > cp003-svg.log 2>&1
+
       - name: Run CP-003 merge and split audit
         id: cp003_merge_split
         continue-on-error: true
@@ -76,10 +89,20 @@ jobs:
         continue-on-error: true
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-inverse-audit.test.ts > cp003-inverse.log 2>&1
 
-      - name: Export CP-003 competitive review pack V4
-        id: cp003_export_v4
+      - name: Export CP-003 native SVG competitive review pack V5
+        id: cp003_export_v5
         continue-on-error: true
-        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-review-v4.ts cp003-review-v4-output > cp003-export-v4.log 2>&1
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-review-v5-svg.ts cp003-review-v5-output > cp003-export-v5.log 2>&1
+
+      - name: Typecheck ExamTree SVG integration
+        id: examtree_typecheck
+        continue-on-error: true
+        run: corepack pnpm --filter @workspace/examtree typecheck > examtree-svg-typecheck.log 2>&1
+
+      - name: Build ExamTree SVG integration
+        id: examtree_build
+        continue-on-error: true
+        run: corepack pnpm --filter @workspace/examtree build > examtree-svg-build.log 2>&1
 
       - name: Upload CP-003 runtime diagnostics
         if: always()
@@ -95,18 +118,21 @@ jobs:
             cp003-editorial.log
             cp003-teacher-editorial.log
             cp003-competitive.log
+            cp003-svg.log
             cp003-merge-split.log
             cp003-inverse.log
-            cp003-export-v4.log
+            cp003-export-v5.log
+            examtree-svg-typecheck.log
+            examtree-svg-build.log
           if-no-files-found: error
           retention-days: 3
 
-      - name: Upload CP-003 competitive review pack V4
-        if: steps.cp003_export_v4.outcome == 'success'
+      - name: Upload CP-003 native SVG competitive review pack V5
+        if: steps.cp003_export_v5.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
-          name: blr-001-cp003-competitive-review-v4
-          path: cp003-review-v4-output
+          name: blr-001-cp003-competitive-svg-review-v5
+          path: cp003-review-v5-output
           if-no-files-found: error
           retention-days: 14
 
@@ -158,6 +184,12 @@ jobs:
           cat cp003-competitive.log
           exit 1
 
+      - name: Enforce CP-003 native SVG result
+        if: steps.cp003_svg.outcome == 'failure'
+        run: |
+          cat cp003-svg.log
+          exit 1
+
       - name: Enforce CP-003 merge and split result
         if: steps.cp003_merge_split.outcome == 'failure'
         run: |
@@ -170,8 +202,20 @@ jobs:
           cat cp003-inverse.log
           exit 1
 
-      - name: Enforce CP-003 competitive review export result
-        if: steps.cp003_export_v4.outcome == 'failure'
+      - name: Enforce CP-003 native SVG export result
+        if: steps.cp003_export_v5.outcome == 'failure'
         run: |
-          cat cp003-export-v4.log
+          cat cp003-export-v5.log
+          exit 1
+
+      - name: Enforce ExamTree SVG typecheck result
+        if: steps.examtree_typecheck.outcome == 'failure'
+        run: |
+          cat examtree-svg-typecheck.log
+          exit 1
+
+      - name: Enforce ExamTree SVG build result
+        if: steps.examtree_build.outcome == 'failure'
+        run: |
+          cat examtree-svg-build.log
           exit 1
