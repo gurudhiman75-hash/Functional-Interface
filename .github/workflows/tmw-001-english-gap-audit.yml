@@ -65,6 +65,18 @@ jobs:
       - name: Generate 211-question review corpus
         working-directory: artifacts/api-server
         run: node dist/quant-v4/tmw-001-english-freeze-review-export.mjs
+      - name: Bundle imperative-target calibration
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-calibrate.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-english-gap-calibrate.mjs
+      - name: Calibrate English target findings
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          node dist/quant-v4/tmw-001-english-gap-calibrate.mjs 2>&1 | tee dist/quant-v4/tmw-001-english-gap-calibrate.log
       - name: Upload English audit evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -72,6 +84,7 @@ jobs:
           name: tmw-001-english-gap-audit
           path: |
             artifacts/api-server/dist/quant-v4/tmw-001-english-gap-audit.log
+            artifacts/api-server/dist/quant-v4/tmw-001-english-gap-calibrate.log
             artifacts/api-server/dist/quant-v4/tmw-001-english-gap-audit.json
             artifacts/api-server/dist/quant-v4/tmw-001-english-freeze-review.json
           if-no-files-found: error
