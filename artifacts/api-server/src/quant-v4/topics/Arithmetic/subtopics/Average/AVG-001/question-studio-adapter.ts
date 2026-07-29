@@ -4,6 +4,7 @@ import {
   type Avg001QuestionPackage,
 } from "./index";
 import { runAvg001EditorialV2Pipeline } from "./foundation/editorial-v2-release";
+import { runAvg001LocalizedRelease } from "./foundation/localized-release";
 
 export const AVG_001_QUESTION_STUDIO_CP_IDS = [
   "AVG-CP-001",
@@ -13,6 +14,8 @@ export const AVG_001_QUESTION_STUDIO_CP_IDS = [
   "AVG-CP-005",
   "AVG-CP-006",
 ] as const;
+
+export const AVG_001_QUESTION_STUDIO_LANGUAGES = ["en", "hi", "pa"] as const;
 
 export type Avg001QuestionStudioCpId =
   (typeof AVG_001_QUESTION_STUDIO_CP_IDS)[number];
@@ -38,8 +41,8 @@ export function runAvg001QuestionStudioPipeline(
   } = {},
 ): Avg001QuestionPackage {
   const language = input.language ?? "en";
-  if (language !== "en") {
-    throw new Error(`AVG-001 supports English generation only in Question Studio; received ${language}`);
+  if (!AVG_001_QUESTION_STUDIO_LANGUAGES.includes(language as "en" | "hi" | "pa")) {
+    throw new Error(`AVG-001 does not support Question Studio language ${language}`);
   }
 
   const entries = getAvg001QuestionEntries().filter(
@@ -60,11 +63,19 @@ export function runAvg001QuestionStudioPipeline(
       );
     }
   } else {
-    const seed = input.seed ?? `avg-001-question-studio:${cpId}`;
+    const seed = input.seed ?? `avg-001-question-studio:${language}:${cpId}`;
     questionLanguageId = entries[hash(seed) % entries.length]!.qlId;
   }
 
-  return runAvg001EditorialV2Pipeline({
+  if (language === "en") {
+    return runAvg001EditorialV2Pipeline({
+      questionLanguageId,
+      seed: input.seed,
+      language,
+    });
+  }
+
+  return runAvg001LocalizedRelease({
     questionLanguageId,
     seed: input.seed,
     language,
