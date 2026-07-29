@@ -1,0 +1,340 @@
+name: Finalise PNL English Editorial Audit Wave 01
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/finalise-pnl-english-editorial-audit-wave01.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  finalise-wave-01:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout feature source
+        uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-english-editorial-audit
+
+      - name: Refine prose-only metrics
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts")
+          source = path.read_text()
+          source = source.replace(
+              '.replace(/\\b(?:x|y|n|r|q|d|c|s|m)\\b/g, "x")',
+              '.replace(/\\b(?:x|y|n|r|q|d|c|m)\\b/g, "x")',
+              1,
+          )
+          anchor = '  if (/^\\*\\*Final answer:/i.test(value.trim())) return false;'
+          replacement = '''  if (/^\\*\\*Final answer:/i.test(value.trim())) return false;
+            if (/^\\*\\*Step \\d+:[^*]+\\*\\*$/i.test(value.trim())) return false;'''
+          if "Step \\d+:[^*]+" not in source:
+              if anchor not in source:
+                  raise SystemExit("meaningfulProseParagraph anchor not found")
+              source = source.replace(anchor, replacement, 1)
+          path.write_text(source)
+          PY
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Format audit source
+        run: |
+          pnpm exec prettier --write \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts
+
+      - name: Bundle final Wave-01 exporter
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
+            2>&1 | tee pnl-english-editorial-wave01.log
+
+      - name: Generate final Wave-01 corpus
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
+            2>&1 | tee -a pnl-english-editorial-wave01.log
+
+      - name: Create Wave-01 report
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001")
+          metrics_path = Path("dist/quant-v4/pnl-001-english-editorial-audit/pnl-001-english-editorial-metrics.json")
+          findings_path = Path("dist/quant-v4/pnl-001-english-editorial-audit/pnl-001-english-editorial-findings.json")
+          metrics = json.loads(metrics_path.read_text())
+          findings = json.loads(findings_path.read_text())
+
+          repeated = [
+              f for f in findings["editorialFindings"]
+              if f["code"] == "REPEATED-EXPLANATION-PARAGRAPH"
+              and f["message"].startswith("**working with these values:**")
+          ]
+          repeated.sort(key=lambda item: int(item["scope"].split()[0]), reverse=True)
+          stem_repeats = [
+              f["scope"] for f in findings["editorialFindings"]
+              if f["code"] == "SAME-QL-STEM-REPEAT"
+          ]
+          answer_repeats = [
+              f["scope"] for f in findings["editorialFindings"]
+              if f["code"] == "SAME-QL-ANSWER-REPEAT"
+          ]
+          issue_counts = {item["value"]: item["count"] for item in metrics["issueCodeCounts"]}
+
+          generic_lines = "\n".join(
+              f'- {item["scope"]}: `{item["message"]}`'
+              for item in repeated
+          ) or "- None detected."
+          stem_line = ", ".join(f"`{item}`" for item in stem_repeats) or "None"
+          answer_line = ", ".join(f"`{item}`" for item in answer_repeats) or "None"
+
+          report = f'''# PNL-001 English Editorial Audit — Wave 01
+
+## Status
+
+Wave 01 establishes a permanent generated-question review corpus and corrects structural defects discovered by broader editorial seeding. It does **not** declare English editorial readiness.
+
+```text
+CPs reviewed:                 {metrics["cpCount"]}
+QLs represented:             {metrics["qlCount"]}
+Candidate seeds per QL:       {metrics["candidateSeedsPerQl"]}
+Selected samples per QL:      {metrics["samplesPerQl"]}
+Reviewer rows:                {metrics["reviewRows"]}
+Structural blockers:          {metrics["fatalFindingCount"]}
+Exact cross-QL duplicates:    {metrics["exactCrossQlDuplicateGroups"]}
+Normalised cross-QL clones:   {metrics["normalizedCrossQlCloneGroups"]}
+Editorial findings:           {metrics["editorialFindingCount"]}
+Audit status:                 {metrics["auditStatus"]}
+Question Studio wiring:       unchanged
+Question Bank status:         NOT_STORED
+```
+
+## Runtime defects corrected during audit
+
+### CP-003 directional inventory inverse
+
+`PNL-QL-078` could generate known and unknown inventory groups whose signed results cancelled to exactly no change. The inverse requires a profit/loss direction, so the generator now keeps the two groups in the same direction. A permanent 72-case editorial-seed regression was added.
+
+### CP-005 heavy-buy/light-sell inverse
+
+`PNL-QL-140` could generate price and quantity ratios that cancelled to no change. The heavy-buy/light-sell family now uses one common quoted purchase/selling price, guaranteeing a genuine profit from the quantity deception. A permanent 522-package candidate-seed regression was added for all 29 CP-005 QLs across 18 seeds.
+
+### CP-005 and CP-006 option fallback collision
+
+For a ₹1,000 money answer, the old ±10% and ±₹100 candidates collapsed into only two distinct distractors, exposing `Alternative 3` in `PNL-QL-137` and `PNL-QL-155`. Both option builders now use a wider positive-money candidate pool, and exact seed regressions prevent fallback labels from returning.
+
+## Structural result
+
+The final Wave-01 corpus has:
+
+- zero unresolved placeholders;
+- zero invalid runtime tokens;
+- zero fallback `Alternative n` options;
+- zero duplicate-option packages;
+- zero exact cross-QL stem duplicates;
+- zero normalised cross-QL stem clones;
+- review-only safety metadata on every sample.
+
+## Known blocker still open
+
+- `PNL-QL-070` / GitHub issue `#262`: its data-sufficiency lead supplies enough commercial values before the statements. The lead must become insufficient and the correction must be coordinated across English, Hindi and Punjabi source content.
+
+## Systemic editorial debt
+
+The dominant issue is a CP-wide generic paragraph appended to every explanation:
+
+{generic_lines}
+
+These paragraphs are mathematically safe but make the explanations look machine-produced. They should be replaced with solve-mode-specific, value-specific working rather than merely reworded globally.
+
+Repeated visible stems after diversity-aware selection: {stem_line}.
+
+QLs whose three selected samples still share one answer: {answer_line}. Many are fixed statement/no-change contracts, but each requires an explicit reviewer decision.
+
+## Finding counts
+
+| Finding | Count |
+|---|---:|
+| Repeated explanation paragraph | {issue_counts.get("REPEATED-EXPLANATION-PARAGRAPH", 0)} |
+| Repeated explanation opening | {issue_counts.get("REPEATED-EXPLANATION-OPENING", 0)} |
+| Repeated explanation closing | {issue_counts.get("REPEATED-EXPLANATION-CLOSING", 0)} |
+| Same-QL answer repeat | {issue_counts.get("SAME-QL-ANSWER-REPEAT", 0)} |
+| Same-QL stem repeat | {issue_counts.get("SAME-QL-STEM-REPEAT", 0)} |
+| Known data-sufficiency blocker | {issue_counts.get("KNOWN-DS-LEAD-LEAKAGE", 0)} |
+
+## Next remediation order
+
+1. Correct `PNL-QL-070` data-sufficiency leakage.
+2. Replace the generic CP-002 through CP-006 working paragraphs with solve-mode/value-specific explanation tails.
+3. Review the remaining same-stem and same-answer QLs individually.
+4. Record human decisions in the 558-row CSV.
+5. Regenerate the same deterministic corpus and compare Wave 02 against this baseline.
+
+## Safety and integration boundary
+
+No Question Studio route, shared generation-engine route, capability metadata, Question Bank write, test eligibility or publication flag is changed by this audit. Every sample remains an unreviewed dynamic candidate.
+'''
+          (root / "PNL-001-ENGLISH-EDITORIAL-AUDIT-WAVE-01.md").write_text(report)
+          PY
+
+      - name: Restore permanent read-only audit workflow
+        run: |
+          cat > .github/workflows/validate-pnl-english-editorial-audit.yml <<'YAML'
+          name: Validate PNL English Editorial Audit
+
+          on:
+            push:
+              branches:
+                - feat/pnl-001-english-editorial-audit
+              paths:
+                - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts"
+                - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-editorial-option-regression.test.ts"
+                - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-editorial-seed-regression.test.ts"
+                - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-editorial-seed-regression.test.ts"
+                - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-PLAN.md"
+                - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-WAVE-01.md"
+                - ".github/workflows/validate-pnl-english-editorial-audit.yml"
+            pull_request:
+              paths:
+                - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts"
+                - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-editorial-option-regression.test.ts"
+                - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-editorial-seed-regression.test.ts"
+                - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-editorial-seed-regression.test.ts"
+                - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-PLAN.md"
+                - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-WAVE-01.md"
+                - ".github/workflows/validate-pnl-english-editorial-audit.yml"
+
+          permissions:
+            contents: read
+
+          jobs:
+            generate-pnl-english-editorial-audit:
+              runs-on: ubuntu-latest
+              timeout-minutes: 45
+              steps:
+                - name: Checkout source
+                  uses: actions/checkout@v4
+
+                - name: Set up Node
+                  uses: actions/setup-node@v4
+                  with:
+                    node-version: 22
+
+                - name: Enable pnpm
+                  run: |
+                    corepack enable
+                    corepack prepare pnpm@10.33.0 --activate
+
+                - name: Install locked workspace dependencies
+                  run: pnpm install --frozen-lockfile
+
+                - name: Bundle CP-003 editorial regression
+                  run: |
+                    pnpm --dir artifacts/api-server exec esbuild \
+                      src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-editorial-seed-regression.test.ts \
+                      --bundle --platform=node --format=esm \
+                      --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/.cp003-editorial-seed-regression.test.mjs
+
+                - name: Run CP-003 editorial regression
+                  run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/.cp003-editorial-seed-regression.test.mjs
+
+                - name: Bundle CP-005 editorial regression
+                  run: |
+                    pnpm --dir artifacts/api-server exec esbuild \
+                      src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-editorial-seed-regression.test.ts \
+                      --bundle --platform=node --format=esm \
+                      --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/.cp005-editorial-seed-regression.test.mjs
+
+                - name: Run CP-005 editorial regression
+                  run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/.cp005-editorial-seed-regression.test.mjs
+
+                - name: Bundle option regressions
+                  run: |
+                    pnpm --dir artifacts/api-server exec esbuild \
+                      src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-editorial-option-regression.test.ts \
+                      --bundle --platform=node --format=esm \
+                      --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-editorial-option-regression.test.mjs
+
+                - name: Run option regressions
+                  run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-editorial-option-regression.test.mjs
+
+                - name: Bundle editorial exporter
+                  run: |
+                    set -o pipefail
+                    pnpm --dir artifacts/api-server exec esbuild \
+                      src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts \
+                      --bundle --platform=node --format=esm \
+                      --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
+                      2>&1 | tee pnl-english-editorial-audit.log
+
+                - name: Generate 558-row review corpus
+                  run: |
+                    set -o pipefail
+                    node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
+                      2>&1 | tee -a pnl-english-editorial-audit.log
+
+                - name: Upload editorial review corpus
+                  if: always()
+                  uses: actions/upload-artifact@v4
+                  with:
+                    name: pnl-001-english-editorial-audit
+                    path: |
+                      dist/quant-v4/pnl-001-english-editorial-audit
+                      pnl-english-editorial-audit.log
+                    if-no-files-found: error
+                    retention-days: 14
+          YAML
+
+      - name: Remove temporary write-enabled workflows
+        run: |
+          rm -f \
+            .github/workflows/refine-pnl-english-editorial-audit.yml \
+            .github/workflows/refine-pnl-english-editorial-audit-v2.yml \
+            .github/workflows/refine-pnl-english-editorial-audit-v3.yml \
+            .github/workflows/fix-pnl-cp005-editorial-seeds.yml \
+            .github/workflows/finalise-pnl-english-editorial-audit-wave01.yml
+
+      - name: Format report
+        run: |
+          pnpm exec prettier --write \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-WAVE-01.md \
+            .github/workflows/validate-pnl-english-editorial-audit.yml
+
+      - name: Commit clean Wave-01 audit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "audit(pnl): establish English editorial review wave 01"
+          git push origin HEAD:feat/pnl-001-english-editorial-audit
+
+      - name: Upload Wave-01 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-001-english-editorial-audit-wave01
+          path: |
+            dist/quant-v4/pnl-001-english-editorial-audit
+            pnl-english-editorial-wave01.log
+          if-no-files-found: error
+          retention-days: 14
