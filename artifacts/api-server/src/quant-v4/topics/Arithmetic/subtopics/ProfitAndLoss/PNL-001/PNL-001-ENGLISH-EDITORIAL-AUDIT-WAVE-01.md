@@ -120,3 +120,5 @@ The CSV contains blank reviewer columns for decision, severity, issue codes, not
 ## Safety and integration boundary
 
 No Question Studio route, shared generation-engine route, capability metadata, Question Bank write, test eligibility or publication flag is changed by this audit. Every sample remains an unreviewed dynamic candidate.
+
+The permanent editorial-audit workflow is read-only and cannot modify repository content.
