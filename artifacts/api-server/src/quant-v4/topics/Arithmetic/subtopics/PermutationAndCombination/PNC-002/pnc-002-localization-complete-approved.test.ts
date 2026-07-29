@@ -22,7 +22,7 @@ const expectedIds = Array.from(
 
 function sourceFor(qlNumber: number, seed: string): PncStudentSourcePackage & {
   validation: { valid: boolean };
-  publiclyPublishable: false;
+  publiclyPublishable: boolean;
 } {
   const questionLanguageId = `PNC-QL-${String(qlNumber).padStart(3, "0")}`;
   if (qlNumber <= 208) {
