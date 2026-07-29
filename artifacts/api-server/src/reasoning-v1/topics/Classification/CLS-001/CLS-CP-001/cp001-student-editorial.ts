@@ -44,6 +44,19 @@ function naturalList(labels: readonly string[]): string {
   return `${labels.slice(0, -1).join(", ")} and ${labels.at(-1)}`;
 }
 
+function hashText(text: string): number {
+  let hash = 2166136261;
+  for (let index = 0; index < text.length; index += 1) {
+    hash ^= text.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+function chooseStem(templates: readonly string[], seed: number, salt: string): string {
+  return templates[hashText(`${salt}:${seed}`) % templates.length]!;
+}
+
 function entityForLabel(label: string): SemanticEntity {
   const entity = ENTITY_BY_LABEL.get(label.trim().toLocaleLowerCase("en-IN"));
   if (!entity) throw new Error(`Unknown displayed semantic entity: ${label}`);
@@ -102,12 +115,33 @@ function quickMethod(family: PrototypeFamily, task: GeneratedClassificationQuest
 
 function simpleStem(question: GeneratedClassificationQuestion): string {
   if (question.task === "SELECT_COHERENT_GROUP") {
-    return "Which option has three words from the same group?";
+    return chooseStem([
+      "Which option has three words from the same group?",
+      "Choose the option in which all three words belong together.",
+      "In which option do all three words belong to one group?",
+      "Find the option whose three words form one clear group.",
+      "Which set of three words belongs together?",
+    ], question.seed, "coherent-group");
   }
+
   if (question.task === "SELECT_CLASS_MEMBER") {
-    return `${naturalList(question.givens)} belong to one group. Which option belongs to the same group?`;
+    const group = naturalList(question.givens);
+    return chooseStem([
+      `${group} belong to one group. Which option belongs to the same group?`,
+      `Which option can be placed with ${group}?`,
+      `Choose another item from the same group as ${group}.`,
+      `Which option belongs with ${group}?`,
+      `Find the option from the same group as ${group}.`,
+    ], question.seed, "class-member");
   }
-  return "Which item is different from the others?";
+
+  return chooseStem([
+    "Which item is different from the others?",
+    "Choose the item that does not belong with the others.",
+    "Find the odd one out.",
+    "Which option does not fit the group?",
+    "Select the item that is different from the rest.",
+  ], question.seed, "semantic-outlier");
 }
 
 function directTrap(
