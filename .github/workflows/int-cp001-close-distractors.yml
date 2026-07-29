@@ -1,0 +1,88 @@
+name: Validate INT-CP-001 close distractors
+
+on:
+  pull_request:
+    branches:
+      - feat/int-001-cp001-readable-stems-v3
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/**
+      - .github/workflows/int-cp001-close-distractors.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-int-cp001-close-distractors-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-int-cp001-close-distractors:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle readable-stem regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-readable-stem-release-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-close-readable-regression.mjs
+      - name: Run readable-stem regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/int-001-cp001-close-readable-regression.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-close-readable-regression.log
+
+      - name: Bundle close-distractor audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-close-distractor-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-close-distractor-audit.mjs
+      - name: Run close-distractor audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/int-001-cp001-close-distractor-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-close-distractor-audit.log
+
+      - name: Bundle close-distractor review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-close-distractor-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-close-distractor-review-export.mjs
+      - name: Generate close-distractor review packs
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/int-001-cp001-close-distractor-review-export.mjs
+
+      - name: Upload close-distractor evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp001-close-distractor-review
+          path: |
+            artifacts/api-server/dist/quant-v4/int-001-cp001-close-readable-regression.log
+            artifacts/api-server/dist/quant-v4/int-001-cp001-close-distractor-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp001-english-v5-close-distractor-review.json
+            artifacts/api-server/dist/quant-v4/int-001-cp001-english-v5-close-distractor-review.md
+            artifacts/api-server/dist/quant-v4/int-001-cp001-hindi-v4-close-distractor-review.json
+            artifacts/api-server/dist/quant-v4/int-001-cp001-hindi-v4-close-distractor-review.md
+            artifacts/api-server/dist/quant-v4/int-001-cp001-punjabi-v4-close-distractor-review.json
+            artifacts/api-server/dist/quant-v4/int-001-cp001-punjabi-v4-close-distractor-review.md
+            artifacts/api-server/dist/quant-v4/int-001-cp001-close-distractor-review-summary.json
+          if-no-files-found: warn
+          retention-days: 7
