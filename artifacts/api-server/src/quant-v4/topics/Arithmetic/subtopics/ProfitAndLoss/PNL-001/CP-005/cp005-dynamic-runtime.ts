@@ -316,11 +316,17 @@ function numericDistractors(answer: DynamicAnswer): readonly string[] {
   if (answer.kind === "MONEY") {
     const paise = answer.value.paise;
     return [
+      moneyFromPaise((paise * 80n) / 100n),
       moneyFromPaise((paise * 90n) / 100n),
       moneyFromPaise((paise * 110n) / 100n),
-      moneyFromPaise(paise + 10000n),
-      moneyFromPaise(paise > 10000n ? paise - 10000n : paise + 20000n),
-    ].map(cp005FormatMoney);
+      moneyFromPaise((paise * 120n) / 100n),
+      moneyFromPaise(paise + 5000n),
+      moneyFromPaise(paise + 15000n),
+      moneyFromPaise(paise > 5000n ? paise - 5000n : paise + 25000n),
+      moneyFromPaise(paise > 15000n ? paise - 15000n : paise + 30000n),
+    ]
+      .filter((value) => value.paise > 0n)
+      .map(cp005FormatMoney);
   }
   const numeric = rationalToNumber(answer.value);
   if (answer.kind === "PERCENT") {
