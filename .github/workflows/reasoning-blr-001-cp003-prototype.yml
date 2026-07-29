@@ -16,7 +16,7 @@ on:
 jobs:
   cp003-shared-family-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 40
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -46,6 +46,16 @@ jobs:
         continue-on-error: true
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-lineage.test.ts > cp003-lineage.log 2>&1
 
+      - name: Run CP-003 English editorial review gate
+        id: cp003_editorial
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-editorial-review.test.ts > cp003-editorial.log 2>&1
+
+      - name: Export CP-003 English review pack
+        id: cp003_export
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-review-v1.ts cp003-review-output > cp003-export.log 2>&1
+
       - name: Upload CP-003 runtime diagnostics
         if: always()
         uses: actions/upload-artifact@v4
@@ -56,8 +66,19 @@ jobs:
             cp003-extended.log
             cp003-marital.log
             cp003-lineage.log
+            cp003-editorial.log
+            cp003-export.log
           if-no-files-found: error
           retention-days: 3
+
+      - name: Upload CP-003 English review pack
+        if: steps.cp003_export.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp003-open-review-v1
+          path: cp003-review-output
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Enforce CP-003 grouped runtime result
         if: steps.cp003_runtime.outcome == 'failure'
@@ -81,4 +102,16 @@ jobs:
         if: steps.cp003_lineage.outcome == 'failure'
         run: |
           cat cp003-lineage.log
+          exit 1
+
+      - name: Enforce CP-003 editorial result
+        if: steps.cp003_editorial.outcome == 'failure'
+        run: |
+          cat cp003-editorial.log
+          exit 1
+
+      - name: Enforce CP-003 review export result
+        if: steps.cp003_export.outcome == 'failure'
+        run: |
+          cat cp003-export.log
           exit 1
