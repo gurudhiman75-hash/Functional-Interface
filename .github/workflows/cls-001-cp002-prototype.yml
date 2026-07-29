@@ -88,7 +88,9 @@ jobs:
           ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-002
           OUT=dist/reasoning-v1/cls-001/cp002
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-cp002-permanent-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-cp002-permanent-review.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-cp002-fact-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-cp002-fact-review.mjs"
           (cd artifacts/api-server && node "$OUT/export-cp002-permanent-review.mjs")
+          (cd artifacts/api-server && node "$OUT/export-cp002-fact-review.mjs")
 
       - name: Upload CLS-CP-002 discovery review
         uses: actions/upload-artifact@v4
