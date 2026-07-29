@@ -34,8 +34,8 @@ function alignHindiLoanAmount(stem: string, solveContract: string): string {
 
     case "FIND_TIME_FROM_AMOUNT":
       return stem.replace(
-        /। (₹[\d,]+(?:\.\d+)?) की राशि (.+?) की साधारण ब्याज दर से बढ़कर (₹[\d,]+(?:\.\d+)?) हो गई।/u,
-        "। लिया गया मूलधन $1 है। $2 की साधारण ब्याज दर से कुल देय राशि बढ़कर $3 हो गई।",
+        /। (₹[\d,]+(?:\.\d+)?) की राशि (.+?) से बढ़कर (₹[\d,]+(?:\.\d+)?) हो गई।/u,
+        "। लिया गया मूलधन $1 है। $2 से कुल देय राशि बढ़कर $3 हो गई।",
       );
 
     case "FIND_ANNUAL_INTEREST_FROM_TWO_AMOUNTS":
@@ -82,8 +82,8 @@ function alignPunjabiLoanAmount(stem: string, solveContract: string): string {
 
     case "FIND_TIME_FROM_AMOUNT":
       return stem.replace(
-        /। (₹[\d,]+(?:\.\d+)?) ਦੀ ਰਕਮ (.+?) ਦੀ ਸਧਾਰਣ ਵਿਆਜ ਦਰ ਨਾਲ ਵੱਧ ਕੇ (₹[\d,]+(?:\.\d+)?) ਹੋ ਗਈ।/u,
-        "। ਲਿਆ ਗਿਆ ਮੂਲਧਨ $1 ਹੈ। $2 ਦੀ ਸਧਾਰਣ ਵਿਆਜ ਦਰ ਨਾਲ ਕੁੱਲ ਦੇਣ ਵਾਲੀ ਰਕਮ ਵੱਧ ਕੇ $3 ਹੋ ਗਈ।",
+        /। (₹[\d,]+(?:\.\d+)?) ਦੀ ਰਕਮ (.+?) ਨਾਲ ਵੱਧ ਕੇ (₹[\d,]+(?:\.\d+)?) ਹੋ ਗਈ।/u,
+        "। ਲਿਆ ਗਿਆ ਮੂਲਧਨ $1 ਹੈ। $2 ਨਾਲ ਕੁੱਲ ਦੇਣ ਵਾਲੀ ਰਕਮ ਵੱਧ ਕੇ $3 ਹੋ ਗਈ।",
       );
 
     case "FIND_ANNUAL_INTEREST_FROM_TWO_AMOUNTS":
