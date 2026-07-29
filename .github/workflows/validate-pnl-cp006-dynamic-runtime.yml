@@ -25,10 +25,9 @@ jobs:
         with:
           ref: feat/pnl-001-cp006-dynamic-runtime
 
-      - name: Apply QL-165 and QL-184 corrections
+      - name: Apply deterministic CP-006 corrections
         run: |
           python - <<'PY'
-          import re
           from pathlib import Path
 
           path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-cases.ts")
@@ -36,10 +35,8 @@ jobs:
 
           start = source.index('case "PNL-QL-165":')
           end = source.index('case "PNL-QL-166":', start)
-          block = source[start:end]
-          if "const expensePercent" not in block:
-              pattern = r'''const purchasePrice = rupees\(pickNumber\(random, PURCHASE_PRICES\)\);\s*const totalExpense = rupees\(pickNumber\(random, FLAT_EXPENSES\)\);\s*const finalEffectiveCost = moneyFromPaise\(\s*purchasePrice\.paise \+ totalExpense\.paise,\s*\);'''
-              replacement = '''const purchasePrice = rupees(pickNumber(random, PURCHASE_PRICES));
+          source = source[:start] + '''case "PNL-QL-165": {
+              const purchasePrice = rupees(pickNumber(random, PURCHASE_PRICES));
               const expensePercent = rational(pickNumber(random, OVERHEAD_RATES));
               const totalExpense = moneyFromPaise(
                 (purchasePrice.paise * expensePercent.numerator) /
@@ -47,21 +44,41 @@ jobs:
               );
               const finalEffectiveCost = moneyFromPaise(
                 purchasePrice.paise + totalExpense.paise,
-              );'''
-              block, count = re.subn(pattern, replacement, block, count=1, flags=re.S)
-              if count != 1:
-                  raise SystemExit("QL-165 expense block was not found")
-              source = source[:start] + block + source[end:]
+              );
+              return {
+                qlId,
+                registry,
+                seed: seedValue,
+                request: {
+                  mode: "EFFECTIVE_COST_AND_PURCHASE_TO_TOTAL_EXPENSE",
+                  purchasePrice,
+                  effectiveCost: finalEffectiveCost,
+                },
+                context: {
+                  purchasePrice: cp006PlainMoney(purchasePrice),
+                  effectiveCost: cp006PlainMoney(finalEffectiveCost),
+                },
+              };
+            }
+
+            ''' + source[end:]
 
           start = source.index('case "PNL-QL-179":')
           end = source.index('case "PNL-QL-180":', start)
-          block = source[start:end]
-          if "The same percentage profit after a loss" not in block:
-              old = '''context: {
-                  lossPercent: cp006FormatRational(lossPercent),
-                  correctStatement: "Statement 2 only",
-                },'''
-              new = '''context: {
+          source = source[:start] + '''case "PNL-QL-179":
+            case "PNL-QL-184": {
+              const lossPercent = rational(
+                pickSeeded(random, [10, 20, 25, 40] as const),
+              );
+              return {
+                qlId,
+                registry,
+                seed: seedValue,
+                request: {
+                  mode: "LOSS_RATE_TO_REQUIRED_RECOVERY_RATE_ON_REMAINING_CAPITAL",
+                  lossPercent,
+                },
+                context: {
                   lossPercent: cp006FormatRational(lossPercent),
                   correctStatement: "Statement 2 only",
                   ...(qlId === "PNL-QL-184"
@@ -73,11 +90,14 @@ jobs:
                         ],
                       }
                     : {}),
-                },'''
-              if old not in block:
-                  raise SystemExit("QL-184 statement context anchor was not found")
-              block = block.replace(old, new, 1)
-              source = source[:start] + block + source[end:]
+                },
+                ...(qlId === "PNL-QL-184"
+                  ? { answerOverride: "Statement 2 only" }
+                  : {}),
+              };
+            }
+
+            ''' + source[end:]
 
           path.write_text(source)
           PY
