@@ -1,9 +1,9 @@
 name: Apply PNL CP-002 explanation diversity
 
 on:
-  push:
+  pull_request:
     branches:
-      - feat/pnl-001-cp002-explanation-diversity
+      - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
       - ".github/workflows/validate-pnl-cp002-dynamic-runtime.yml"
@@ -13,6 +13,7 @@ permissions:
 
 jobs:
   apply-explanation-diversity:
+    if: github.head_ref == 'feat/pnl-001-cp002-explanation-diversity'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
