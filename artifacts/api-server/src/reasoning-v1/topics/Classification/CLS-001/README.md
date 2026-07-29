@@ -1,6 +1,6 @@
 # CLS-001 — Classification / Odd One Out
 
-Status: `CP001_FROZEN__CP002_FROZEN__CHAPTER_DISCOVERY_CONTINUES`
+Status: `CP001_FROZEN__CP002_FROZEN__CP003_EXECUTABLE_DISCOVERY`
 
 ## Product identity
 
@@ -34,7 +34,7 @@ Permanent QL and solve-mode totals are not fixed for the chapter in advance. Eac
 | `CLS-QL-003` | `CLS-CP-001` | Select the only internally coherent semantic word-group | Frozen multilingual runtime proof |
 | `CLS-QL-004` | `CLS-CP-002` | Find the word-pair whose internal semantic relationship differs from the others | Frozen multilingual runtime proof |
 
-No later `CLS-QL-*` identity is reserved.
+No later `CLS-QL-*` identity is reserved. `CLS-CP-003` uses temporary prototype IDs only.
 
 ## Checkpoint map
 
@@ -42,7 +42,7 @@ No later `CLS-QL-*` identity is reserved.
 |---|---|---|
 | `CLS-CP-001` | Semantic word and entity classification | `FROZEN_MULTILINGUAL_RUNTIME_PROOF` |
 | `CLS-CP-002` | Semantic pair and relationship classification | `FROZEN_MULTILINGUAL_RUNTIME_PROOF` |
-| `CLS-CP-003` | Lexical, spelling and word-structure classification | Pending executable discovery |
+| `CLS-CP-003` | Lexical, spelling and word-structure classification | `EXECUTABLE_DISCOVERY_IN_PROGRESS` |
 | `CLS-CP-004` | Number-property classification | Pending executable discovery |
 | `CLS-CP-005` | Number-pair, triple and set classification | Pending executable discovery |
 | `CLS-CP-006` | Alphabet, letter-pair and letter-class classification | Pending executable discovery |
@@ -82,30 +82,34 @@ Locales:                       en-IN, hi-IN, pa-IN
 Answer-option counts:          4 and 5
 ```
 
-The frozen contract covers:
+The frozen contract covers contrasting valid relations, synonym/antonym polarity, reversed direction, conservative false pairings, semantic class-pair contrast and recurring container/content, material/product, object/sound and one-generation family-role relations.
 
-- a contrasting valid semantic relation;
-- synonym versus antonym polarity;
-- reversed directional relations;
-- category-correct but false pairings under conservative relation locks;
-- pairs whose two members belong to a different semantic class;
-- recurring container/content, material/product, object/sound and one-generation family-role relations.
+Final executable evidence includes 2,000 English discovery questions, 1,600 frozen English questions and 1,800 multilingual parity questions. All 55 relations, all five controls, both option counts, all answer positions and Easy/Medium/Hard instances are exercised.
 
-All five controls merge into one learner task because the answer object is always the complete displayed pair and the proof is always the same: every other pair shares one precise internal relation.
-
-The English discovery registry remains broader than the learner-facing multilingual pool. Permanent generation uses only the 160 fact pairs that localise reversibly in both Hindi and Punjabi, plus the frozen CP-001 semantic class entities. The 212 English-only facts remain available for discovery and ambiguity audits but are not learner-facing.
-
-Final executable evidence includes:
+## CLS-CP-003 discovery foundation
 
 ```text
-English discovery questions:   2,000
-Frozen English questions:      1,600
-Multilingual parity questions: 1,800
-Review questions:                 90
-Complete trilingual fact rows:   160
+Permanent QLs:                 0
+Frozen solve contracts:        0
+Temporary source controls:     7
+Direct structural rules:       6
+Additional resolution task:    controlled jumbled-word classification
+Locale:                        en-IN discovery only
+Answer-option counts:          4 and 5
+Source saturation:             open; File Library retry required
 ```
 
-All 55 relations, all five controls, both option counts, all answer positions and Easy/Medium/Hard instances are exercised. Hindi and Punjabi questions reconstruct to the exact canonical English pairs before independent solving.
+The first wave tests:
+
+- exact word length;
+- vowel count;
+- repeated-letter topology;
+- palindrome status;
+- first/last vowel-consonant class;
+- governed prefix or suffix family;
+- unique controlled unjumbling followed by semantic classification.
+
+The first six controls compare visible word structure directly. The jumbled-word control adds an anagram-resolution stage and remains a separate merge/split candidate. Hindi and Punjabi must use script-specific governed word datasets; English structural questions will not be translated mechanically.
 
 ## Strict chapter boundary
 
@@ -124,7 +128,7 @@ It excludes:
 - open-ended free-text semantic generation;
 - questions with several equally defensible grouping rules.
 
-Semantic odd word-pair relationships belong to `CLS-CP-002`, because pair direction and relation signatures require a different solver contract.
+Semantic odd word-pair relationships belong to `CLS-CP-002`. Visible word structure and controlled classification-final jumbles belong to `CLS-CP-003`, subject to its source and multilingual audits.
 
 ## Authority documents
 
@@ -134,7 +138,8 @@ Semantic odd word-pair relationships belong to `CLS-CP-002`, because pair direct
 - `CLS-CP-001/CLS-CP-001-SIMPLIFIED-STUDENT-EXPLANATION-STANDARD.md`
 - `CLS-CP-002/CLS-CP-002-SOURCE-SATURATION-AND-MERGE-SPLIT-AUDIT.md`
 - `CLS-CP-002/CLS-CP-002-FINAL-MULTILINGUAL-FREEZE.md`
+- `CLS-CP-003/CLS-CP-003-EXECUTABLE-DISCOVERY-PLAN.md`
 
 ## Release locks
 
-`CLS-CP-001` and `CLS-CP-002` are frozen as multilingual review-only runtime proofs. They remain unavailable to Question Studio, Question Bank, tests and public users until explicit integration approval is given.
+`CLS-CP-001` and `CLS-CP-002` are frozen as multilingual review-only runtime proofs. `CLS-CP-003` is English discovery-only. All three remain unavailable to Question Studio, Question Bank, tests and public users until explicit integration approval is given.
