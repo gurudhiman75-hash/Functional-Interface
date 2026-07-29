@@ -20,6 +20,17 @@ function optionCountForSeed(seed: number): 4 | 5 {
   return hashText(`${CLS_CP004_ENGLISH_QL_ID}:option-count:${seed}`) % 4 === 0 ? 5 : 4;
 }
 
+function simpleStem(seed: number): string {
+  const templates = [
+    "Which number is different from the others?",
+    "Choose the number that does not fit with the others.",
+    "Find the number that is different from the rest.",
+    "Which number does not follow the same rule as the others?",
+    "Select the number that does not belong with the rest.",
+  ] as const;
+  return templates[hashText(`number-stem:${seed}`) % templates.length]!;
+}
+
 function simpleShortcut(question: GeneratedClsCp004Question): string {
   const divisor = clsCp004DivisorForRule(question.intendedRuleId);
   if (divisor !== null) {
@@ -72,7 +83,7 @@ export function generateClsCp004EnglishQuestion(
   const source = generateClsCp004DiscoveryQuestion(sourcePrototypeId, sourceSeed, optionCount);
   return {
     ...source,
-    stem: "Which number is different from the others?",
+    stem: simpleStem(seed),
     explanation: {
       ...source.explanation,
       examSpeedShortcut: [simpleShortcut(source)],
