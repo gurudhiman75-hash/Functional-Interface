@@ -7,6 +7,16 @@ import { generateClsCp004EnglishQuestion } from "./CLS-CP-004/cp004-english-runt
 const FORBIDDEN_FORMAL_WORDING = /common classification|differently classified|remaining option|falls outside the class|internal relationship|conventional number property|standard arithmetic or digit property|structural property|lone mismatch|true member|candidate rule/i;
 const ACTION_OPENING = /^(Name|Check|Say|Find|Read|Count|Mark|Look|Underline|Solve|Use|Try|Compare|Write|Add|Multiply|Reverse)\b/;
 
+const STEM_PATTERNS: Readonly<Record<string, RegExp>> = {
+  "CLS-QL-001": /different|odd one out|does not belong|does not fit/i,
+  "CLS-QL-002": /same group|placed with|belongs with/i,
+  "CLS-QL-003": /three words|set of three words/i,
+  "CLS-QL-004": /pair/i,
+  "CLS-QL-005": /word/i,
+  "CLS-QL-006": /unscramble|rearrange|jumble|jumbled/i,
+  "CLS-QL-007": /number/i,
+};
+
 type EditorialQuestion = {
   readonly qlId: string;
   readonly stem: string;
@@ -15,8 +25,19 @@ type EditorialQuestion = {
   };
 };
 
+const stemCountsByQl = new Map<string, Map<string, number>>();
+
+function recordStem(qlId: string, stem: string): void {
+  const counts = stemCountsByQl.get(qlId) ?? new Map<string, number>();
+  counts.set(stem, (counts.get(stem) ?? 0) + 1);
+  stemCountsByQl.set(qlId, counts);
+}
+
 function checkQuestion(question: EditorialQuestion, seed: number): void {
-  assert.ok(question.stem.length <= 150, `${question.qlId}/${seed} stem is too long: ${question.stem}`);
+  assert.ok(question.stem.length <= 170, `${question.qlId}/${seed} stem is too long: ${question.stem}`);
+  assert.match(question.stem, /[?.]$/, `${question.qlId}/${seed} stem needs natural ending punctuation`);
+  assert.ok(!/\?\?|\.\.|!!/.test(question.stem), `${question.qlId}/${seed} stem has broken punctuation`);
+
   assert.equal(question.explanation.examSpeedShortcut.length, 1);
   const shortcut = question.explanation.examSpeedShortcut[0]!;
   assert.ok(shortcut.length <= 190, `${question.qlId}/${seed} shortcut is too long: ${shortcut}`);
@@ -24,31 +45,10 @@ function checkQuestion(question: EditorialQuestion, seed: number): void {
   assert.ok(!FORBIDDEN_FORMAL_WORDING.test(`${question.stem}\n${shortcut}`), `${question.qlId}/${seed} uses formal or vague wording:\n${question.stem}\n${shortcut}`);
   assert.ok(!/classification|classified|conventional|internal relationship/i.test(question.stem), `${question.qlId}/${seed} stem is too formal: ${question.stem}`);
 
-  switch (question.qlId) {
-    case "CLS-QL-001":
-      assert.equal(question.stem, "Which item is different from the others?");
-      break;
-    case "CLS-QL-002":
-      assert.match(question.stem, /belong to one group\. Which option belongs to the same group\?$/);
-      break;
-    case "CLS-QL-003":
-      assert.equal(question.stem, "Which option has three words from the same group?");
-      break;
-    case "CLS-QL-004":
-      assert.equal(question.stem, "Which pair has a different link?");
-      break;
-    case "CLS-QL-005":
-      assert.match(question.stem, /^Which word (has|behaves)/);
-      break;
-    case "CLS-QL-006":
-      assert.equal(question.stem, "Unscramble each option. Which word belongs to a different group?");
-      break;
-    case "CLS-QL-007":
-      assert.equal(question.stem, "Which number is different from the others?");
-      break;
-    default:
-      assert.fail(`Unexpected QL: ${question.qlId}`);
-  }
+  const expectedPattern = STEM_PATTERNS[question.qlId];
+  assert.ok(expectedPattern, `Unexpected QL: ${question.qlId}`);
+  assert.match(question.stem, expectedPattern, `${question.qlId}/${seed} stem is not natural for its task: ${question.stem}`);
+  recordStem(question.qlId, question.stem);
 }
 
 let checked = 0;
@@ -74,4 +74,28 @@ for (let seed = 0; seed < 160; seed += 1) {
 }
 
 assert.equal(checked, 720);
-console.log("CLS-001 English editorial v2 audit passed.", { checked, permanentQls: 7 });
+assert.deepEqual([...stemCountsByQl.keys()].sort(), [
+  "CLS-QL-001",
+  "CLS-QL-002",
+  "CLS-QL-003",
+  "CLS-QL-004",
+  "CLS-QL-005",
+  "CLS-QL-006",
+  "CLS-QL-007",
+]);
+
+const stemVariety = Object.fromEntries(
+  [...stemCountsByQl.entries()].map(([qlId, counts]) => {
+    const total = [...counts.values()].reduce((sum, count) => sum + count, 0);
+    const largestCount = Math.max(...counts.values());
+    assert.ok(counts.size >= 4, `${qlId} has too little stem variety: ${counts.size}`);
+    assert.ok(largestCount / total <= 0.45, `${qlId} repeats one stem too often: ${largestCount}/${total}`);
+    return [qlId, { uniqueStems: counts.size, largestCount, total }];
+  }),
+);
+
+console.log("CLS-001 English editorial V3 variety audit passed.", {
+  checked,
+  permanentQls: 7,
+  stemVariety,
+});
