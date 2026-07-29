@@ -1,8 +1,9 @@
-import { exactKey, formatWithUnit } from "../foundation/exact";
+import { exactKey, formatWithUnit, rational } from "../foundation/exact";
 import {
   classifyMenCp008Difficulty,
   generateMenCp008Prototype as generateLegacyMenCp008Prototype,
 } from "./legacy-runtime";
+import type { ExactRational } from "../foundation/types";
 import type {
   MenCp008Option,
   MenCp008Package,
@@ -10,6 +11,15 @@ import type {
 } from "./types";
 
 export { classifyMenCp008Difficulty };
+
+const RATIO_STATES = [
+  { cylinderRadius: 3n, cylinderHeight: 8n, coneRadius: 4n, coneHeight: 9n },
+  { cylinderRadius: 4n, cylinderHeight: 10n, coneRadius: 5n, coneHeight: 12n },
+  { cylinderRadius: 5n, cylinderHeight: 6n, coneRadius: 4n, coneHeight: 10n },
+  { cylinderRadius: 6n, cylinderHeight: 7n, coneRadius: 4n, coneHeight: 9n },
+  { cylinderRadius: 7n, cylinderHeight: 5n, coneRadius: 5n, coneHeight: 8n },
+  { cylinderRadius: 8n, cylinderHeight: 6n, coneRadius: 5n, coneHeight: 12n },
+] as const;
 
 function replaceCurrency(text: string) {
   return text
@@ -31,37 +41,132 @@ function dimension(value: bigint) {
   return `$${value}\\text{ cm}$`;
 }
 
-function rotateRatioStem(question: MenCp008Package, publicSeed: string): MenCp008Package {
-  if (question.prototypeId !== "MEN-CP008-PROT-CYLINDER-CONE-VOLUME-RATIO") return question;
-  const d = question.state.dimensions;
-  const cylinderRadius = dimension(d.cylinderRadius!);
-  const cylinderHeight = dimension(d.cylinderHeight!);
-  const coneRadius = dimension(d.coneRadius!);
-  const coneHeight = dimension(d.coneHeight!);
-  const stems = [
+function formatRatio(value: ExactRational) {
+  return `$${value.numerator}:${value.denominator}$`;
+}
+
+function createRatioPrototype(publicSeed: string): MenCp008Package {
+  const stateIndex = hashText(`state:${publicSeed}`) % RATIO_STATES.length;
+  const values = RATIO_STATES[stateIndex]!;
+  const cylinderCoefficient = values.cylinderRadius ** 2n * values.cylinderHeight;
+  const coneCoefficient = values.coneRadius ** 2n * values.coneHeight;
+  const answer = rational(3n * cylinderCoefficient, coneCoefficient);
+  const candidates = [
+    { value: answer, misconceptionId: null, explanation: "" },
+    { value: rational(cylinderCoefficient, coneCoefficient), misconceptionId: "OMITTED_CONE_ONE_THIRD", explanation: "comparing the $r^2h$ coefficients without accounting for the cone's factor $\\frac13$" },
+    { value: rational(coneCoefficient, 3n * cylinderCoefficient), misconceptionId: "REVERSED_RATIO", explanation: "reversing the required cylinder-to-cone order" },
+    { value: rational(values.cylinderRadius, values.coneRadius), misconceptionId: "COMPARED_RADII_ONLY", explanation: "comparing only the radii and ignoring both heights and the cone factor" },
+  ];
+  if (new Set(candidates.map((candidate) => exactKey(candidate.value))).size !== 4) {
+    throw new Error("The expanded cylinder-cone ratio state produced duplicate exact options.");
+  }
+
+  const correctIndex = hashText(`options:${publicSeed}`) % 4;
+  const ordered = [...candidates.slice(1)];
+  ordered.splice(correctIndex, 0, candidates[0]!);
+  const labels = ["A", "B", "C", "D"] as const;
+  const options: MenCp008Option[] = ordered.map((candidate, index) => ({
+    label: labels[index]!,
+    value: candidate.value,
+    display: formatRatio(candidate.value),
+    isCorrect: candidate.misconceptionId === null,
+    misconceptionId: candidate.misconceptionId,
+  }));
+  const explanationByKey = new Map(candidates.slice(1).map((candidate) => [exactKey(candidate.value), candidate.explanation]));
+  const traps = options
+    .filter((option) => !option.isCorrect)
+    .map((option) => `Option ${option.label} (${option.display}): Common mistake: ${explanationByKey.get(exactKey(option.value))}.`);
+
+  const cylinderRadius = dimension(values.cylinderRadius);
+  const cylinderHeight = dimension(values.cylinderHeight);
+  const coneRadius = dimension(values.coneRadius);
+  const coneHeight = dimension(values.coneHeight);
+  const stemVariants = [
     `A cylinder has radius ${cylinderRadius} and height ${cylinderHeight}. A cone has radius ${coneRadius} and height ${coneHeight}. Find the ratio of the cylinder's volume to the cone's volume.`,
     `A solid cylinder of radius ${cylinderRadius} and height ${cylinderHeight} is compared with a cone of radius ${coneRadius} and height ${coneHeight}. What is the ratio of their volumes in cylinder-to-cone order?`,
     `The dimensions of a cylinder are radius ${cylinderRadius} and height ${cylinderHeight}, while a cone has radius ${coneRadius} and height ${coneHeight}. Determine $V_{cylinder}:V_{cone}$.`,
     `Find the cylinder-to-cone volume ratio when the cylinder measures ${cylinderRadius} in radius and ${cylinderHeight} in height, and the cone measures ${coneRadius} in radius and ${coneHeight} in height.`,
   ];
-  return { ...question, stem: stems[hashText(publicSeed) % stems.length]! };
+  const stem = stemVariants[hashText(`stem:${publicSeed}`) % stemVariants.length]!;
+  const state = {
+    packageId: "MEN-002" as const,
+    canonicalProblemId: "MEN-CP-008" as const,
+    permanentQlId: null,
+    waveId: "MEN-CP-008-PROTOTYPE-FOUNDATION" as const,
+    prototypeId: "MEN-CP008-PROT-CYLINDER-CONE-VOLUME-RATIO" as const,
+    solveMode: "findCylinderConeVolumeRatio" as const,
+    target: "RATIO" as const,
+    shape: "CYLINDER" as const,
+    seed: publicSeed,
+    difficulty: "Medium" as const,
+    dimensions: { ...values, cylinderCoefficient, coneCoefficient },
+    derived: { answer },
+    unit: "times" as const,
+    piPolicy: "EXACT_PI" as const,
+    displayMode: "RATIO" as const,
+  };
+  state.difficulty = classifyMenCp008Difficulty(state);
+  const verification = {
+    valid: exactKey(rational(3n * cylinderCoefficient, coneCoefficient)) === exactKey(answer),
+    method: "independently cancelled the common pi factor and retained the cone's one-third factor",
+    reconstructed: exactKey(rational(3n * cylinderCoefficient, coneCoefficient)),
+  };
+  const partial = {
+    packageId: "MEN-002" as const,
+    canonicalProblemId: "MEN-CP-008" as const,
+    permanentQlId: null,
+    waveId: "MEN-CP-008-PROTOTYPE-FOUNDATION" as const,
+    prototypeId: "MEN-CP008-PROT-CYLINDER-CONE-VOLUME-RATIO" as const,
+    solveMode: "findCylinderConeVolumeRatio" as const,
+    language: "en" as const,
+    seed: publicSeed,
+    difficulty: state.difficulty,
+    target: "RATIO" as const,
+    piPolicy: "EXACT_PI" as const,
+    stem,
+    options,
+    correctIndex,
+    answer: options[correctIndex]!.display,
+    exactAnswer: answer,
+    unit: "times" as const,
+    explanation: {
+      keyRule: "Cylinder volume is $\\pi R^2H$ and cone volume is $\\frac13\\pi r^2h$. The common $\\pi$ cancels, but the cone's factor $\\frac13$ must remain.",
+      steps: [
+        { title: "Write the Two Volume Coefficients", body: "Keep the cone's one-third factor visible.", equation: `$$V_{cylinder}:V_{cone}=${cylinderCoefficient}:\\frac{${coneCoefficient}}{3}$$` },
+        { title: "Clear the Fraction and Reduce", body: "Multiply both ratio terms by $3$ and simplify.", equation: `$$V_{cylinder}:V_{cone}=${answer.numerator}:${answer.denominator}$$` },
+      ],
+      shortcut: "Cancel $\\pi$, multiply the cylinder coefficient by $3$, and then reduce the ratio.",
+      traps,
+    },
+    state,
+    verification,
+    reviewStatus: "UNREVIEWED" as const,
+    questionBankStatus: "NOT_STORED" as const,
+    testEligibility: "INELIGIBLE" as const,
+    publiclyPublishable: false as const,
+    questionStudioDiscoverable: false as const,
+  };
+  return { ...partial, validation: validateIndianPackage(partial) };
 }
 
 function generateCollisionFreeLegacy(
   prototypeId: MenCp008PrototypeId,
   publicSeed: string,
 ) {
+  if (prototypeId === "MEN-CP008-PROT-CYLINDER-CONE-VOLUME-RATIO") {
+    return createRatioPrototype(publicSeed);
+  }
   for (let attempt = 0; attempt < 32; attempt += 1) {
     const sourceSeed = attempt === 0
       ? publicSeed
       : `${publicSeed}:option-collision-retry:${attempt}`;
     try {
       const generated = generateLegacyMenCp008Prototype(prototypeId, sourceSeed);
-      return rotateRatioStem({
+      return {
         ...generated,
         seed: publicSeed,
         state: { ...generated.state, seed: publicSeed },
-      }, publicSeed);
+      };
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       if (!message.includes("generated duplicate exact option values")) throw error;
@@ -126,6 +231,7 @@ export function generateMenCp008Prototype(
   seed: string,
 ): MenCp008Package {
   const legacy = generateCollisionFreeLegacy(prototypeId, seed);
+  if (prototypeId === "MEN-CP008-PROT-CYLINDER-CONE-VOLUME-RATIO") return legacy;
   const isLegacyCost = legacy.unit === ("£" as never);
 
   if (!isLegacyCost) {
