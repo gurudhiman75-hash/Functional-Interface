@@ -7,6 +7,14 @@ interface EditableStep {
 }
 
 const EASY_ENGLISH_REPLACEMENTS: ReadonlyArray<readonly [RegExp, string]> = [
+  [/\bCancel the Common Surd\b/gi, "Cancel the Common Square-Root Factor"],
+  [/\bKeep the Exact Surd\b/gi, "Keep the Exact Square-Root Form"],
+  [/\bdecimal approximation\b/gi, "rounded decimal"],
+  [/\bapproximation\b/gi, "rounded value"],
+  [/\bcomplete edge-aligned cubes\b/gi, "complete cubes kept parallel to the block edges"],
+  [/\bTest the Allowed arrangements\b/gi, "Test the Allowed Arrangements"],
+  [/\bCalculate the Best arrangement\b/gi, "Calculate the Best Arrangement"],
+  [/\bChoose the Best arrangement\b/gi, "Choose the Best Arrangement"],
   [/\bCombine the Three Perpendicular Directions\b/gi, "Use Length, Breadth and Height"],
   [/\bSquare the Three Perpendicular Dimensions\b/gi, "Square Length, Breadth and Height"],
   [/\ball three perpendicular dimensions\b/gi, "length, breadth and height"],
@@ -59,7 +67,6 @@ const EASY_ENGLISH_REPLACEMENTS: ReadonlyArray<readonly [RegExp, string]> = [
   [/\borientation\b/gi, "arrangement"],
   [/\bexact divisibility\b/gi, "exact fitting"],
   [/\bsuccessive change\b/gi, "combined percentage change"],
-  [/\bcoefficient of (\$\\sqrt[23]\$)/gi, "number before $1"],
   [/\bcoefficient\b/gi, "number in front"],
   [/\blinear dimensions\b/gi, "side lengths"],
   [/\blinear dimension\b/gi, "side length"],
@@ -91,12 +98,19 @@ export function simplifyMenCp007English(text: string) {
     simplified = simplified.replace(pattern, replacement);
   }
   simplified = simplified
-    .replace(/Keep the surd exact because no approximation is requested\./gi, "Keep the answer in square-root form; do not change it to a decimal.")
+    .replace(/No rounded decimal is requested\./gi, "Keep the answer in square-root form; do not round it.")
+    .replace(/Keep the surd exact because no rounded value is requested\./gi, "Keep the answer in square-root form; do not round it.")
+    .replace(/Keep the square-root form exact because no rounded value is requested\./gi, "Keep the answer in square-root form; do not round it.")
     .replace(/The generated dimensions form an exact three-dimensional Pythagorean state\./gi, "The squares of the given lengths add to a perfect square.")
     .replace(/For independent dimension changes/gi, "When length, breadth and height change separately")
     .replace(/The difference is the unused volume\./gi, "The difference is the volume left over.")
     .replace(/The result is automatically in cubic metres\./gi, "All measurements are now in metres, so the answer is in cubic metres.")
     .replace(/Keep the rate dimension aligned with the measured quantity\./gi, "Use a rate whose unit matches the quantity in the question.")
+    .replace(/With no mortar and exact fitting, count bricks along each dimension and multiply the three direction counts\./gi, "With no mortar, count how many bricks fit exactly along the length, breadth and height, then multiply the three counts.")
+    .replace(/Each position in one direction combines with all positions in the other two\./gi, "Multiply the counts along length, breadth and height.")
+    .replace(/A length is positive\./gi, "Take the positive square root to get the required length.")
+    .replace(/No other arrangement gives a larger number of complete blocks\./gi, "Use the arrangement that gives the largest number of complete blocks.")
+    .replace(/Compare the waste with the original volume\./gi, "Divide the wasted volume by the original volume and multiply by $100$.")
     .replace(/capacity-like volume/gi, "volume")
     .replace(/large-block volume/gi, "original block volume")
     .replace(/generated dimensions/gi, "given dimensions")
