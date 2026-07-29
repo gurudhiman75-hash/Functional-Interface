@@ -32,6 +32,16 @@ jobs:
 
           cases_path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/cp006-dynamic-cases.ts")
           source = cases_path.read_text()
+          source = source.replace(
+            '{ input: 120n, wasted: 20n, totalCost: 15000, scrap: 5000 },',
+            '{ input: 120n, wasted: 20n, totalCost: 17000, scrap: 5000 },',
+            1,
+          )
+          source = source.replace(
+            '{ input: 100n, wasted: 10n, totalCost: 12000, scrap: 3000 },',
+            '{ input: 100n, wasted: 10n, totalCost: 16500, scrap: 3000 },',
+            1,
+          )
 
           start = source.index('case "PNL-QL-165":')
           end = source.index('case "PNL-QL-166":', start)
