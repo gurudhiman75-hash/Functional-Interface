@@ -23,6 +23,10 @@ function stringField(value: unknown): string {
   return typeof value === "string" ? value : "—";
 }
 
+function stringArray(value: unknown): readonly string[] {
+  return Array.isArray(value) && value.every((item) => typeof item === "string") ? value : [];
+}
+
 function metadataValue(question: (typeof rows)[number], key: string): string {
   const metadata = question.metadata as unknown as Record<string, unknown>;
   return stringField(metadata[key]);
@@ -31,6 +35,24 @@ function metadataValue(question: (typeof rows)[number], key: string): string {
 function propertyValue(question: (typeof rows)[number], key: string): string {
   const record = question as unknown as Record<string, unknown>;
   return stringField(record[key]);
+}
+
+function explanationBlocks(question: (typeof rows)[number]) {
+  const explanation = question.explanation as unknown as Record<string, unknown>;
+  const core = stringArray(explanation.coreConcept).length > 0
+    ? stringArray(explanation.coreConcept)
+    : stringArray(explanation.coreRule);
+  const steps = stringArray(explanation.stepByStep).length > 0
+    ? stringArray(explanation.stepByStep)
+    : stringArray(explanation.optionChecks);
+  const shortcut = stringArray(explanation.examSpeedShortcut);
+  const trap = stringArray(explanation.commonTrapWarning).length > 0
+    ? stringArray(explanation.commonTrapWarning)
+    : stringArray(explanation.commonTraps);
+  if (core.length === 0 || steps.length === 0 || shortcut.length === 0 || trap.length === 0) {
+    throw new Error(`${question.qlId}/${question.seed} has an incomplete learner explanation`);
+  }
+  return { core, steps, shortcut, trap };
 }
 
 const qlCounts = Object.fromEntries(
@@ -66,50 +88,53 @@ const markdown = [
   "|---|---:|",
   ...Object.entries(checkpointCounts).map(([checkpointId, count]) => `| ${checkpointId} | ${count} |`),
   "",
-  ...rows.flatMap((question, index) => [
-    `## ${index + 1}. ${question.qlId} · ${question.checkpointId} · ${question.difficulty}`,
-    "",
-    `**Question:** ${question.stem}`,
-    "",
-    "**Options:**",
-    "",
-    ...question.options.map((option, optionIndex) => `${String.fromCharCode(65 + optionIndex)}. ${option}`),
-    "",
-    `**Answer:** ${String.fromCharCode(65 + question.correctIndex)}. ${question.answer}`,
-    "",
-    "### 📌 Core Concept",
-    "",
-    question.explanation.coreConcept.join(" "),
-    "",
-    "### 📝 Step-by-Step Solution",
-    "",
-    ...question.explanation.stepByStep.map((step, stepIndex) => `${stepIndex + 1}. ${step}`),
-    "",
-    "### ⚡ Exam Speed Shortcut",
-    "",
-    question.explanation.examSpeedShortcut.join(" "),
-    "",
-    "### ⚠️ Common Trap",
-    "",
-    question.explanation.commonTrapWarning.join(" "),
-    "",
-    "<details>",
-    "<summary>Reviewer metadata</summary>",
-    "",
-    `- Seed: ${question.seed}`,
-    `- Source prototype: ${metadataValue(question, "sourcePrototypeId")}`,
-    `- Solve contract: ${metadataValue(question, "solveContractId")}`,
-    `- Runtime: ${metadataValue(question, "runtimeVersion")}`,
-    `- Option count: ${question.options.length}`,
-    `- Intended class/relation/rule: ${propertyValue(question, "intendedClassId") !== "—" ? propertyValue(question, "intendedClassId") : propertyValue(question, "intendedRelationId") !== "—" ? propertyValue(question, "intendedRelationId") : propertyValue(question, "intendedRuleId")}`,
-    `- Ambiguity result: ${question.ambiguityAudit.result}`,
-    `- Difficulty features: \`${JSON.stringify(question.difficultyFeatures)}\``,
-    "",
-    "</details>",
-    "",
-    "---",
-    "",
-  ]),
+  ...rows.flatMap((question, index) => {
+    const explanation = explanationBlocks(question);
+    return [
+      `## ${index + 1}. ${question.qlId} · ${question.checkpointId} · ${question.difficulty}`,
+      "",
+      `**Question:** ${question.stem}`,
+      "",
+      "**Options:**",
+      "",
+      ...question.options.map((option, optionIndex) => `${String.fromCharCode(65 + optionIndex)}. ${option}`),
+      "",
+      `**Answer:** ${String.fromCharCode(65 + question.correctIndex)}. ${question.answer}`,
+      "",
+      "### 📌 Core Concept",
+      "",
+      explanation.core.join(" "),
+      "",
+      "### 📝 Step-by-Step Solution",
+      "",
+      ...explanation.steps.map((step, stepIndex) => `${stepIndex + 1}. ${step}`),
+      "",
+      "### ⚡ Exam Speed Shortcut",
+      "",
+      explanation.shortcut.join(" "),
+      "",
+      "### ⚠️ Common Trap",
+      "",
+      explanation.trap.join(" "),
+      "",
+      "<details>",
+      "<summary>Reviewer metadata</summary>",
+      "",
+      `- Seed: ${question.seed}`,
+      `- Source prototype: ${metadataValue(question, "sourcePrototypeId")}`,
+      `- Solve contract: ${metadataValue(question, "solveContractId")}`,
+      `- Runtime: ${metadataValue(question, "runtimeVersion")}`,
+      `- Option count: ${question.options.length}`,
+      `- Intended class/relation/rule: ${propertyValue(question, "intendedClassId") !== "—" ? propertyValue(question, "intendedClassId") : propertyValue(question, "intendedRelationId") !== "—" ? propertyValue(question, "intendedRelationId") : propertyValue(question, "intendedRuleId")}`,
+      `- Ambiguity result: ${question.ambiguityAudit.result}`,
+      `- Difficulty features: \`${JSON.stringify(question.difficultyFeatures)}\``,
+      "",
+      "</details>",
+      "",
+      "---",
+      "",
+    ];
+  }),
 ].join("\n");
 
 await mkdir(outputDir, { recursive: true });
