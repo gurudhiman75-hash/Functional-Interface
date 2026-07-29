@@ -179,8 +179,10 @@ function stepFor(family: DistractorFamily, correct: Rational): Rational {
     if (compareRational(correct, rational(3)) <= 0) return rational(1, 2);
     return rational(1);
   }
-  if (correct.denominator <= 100n) return rational(1, correct.denominator);
-  return rational(1, 100);
+  if (correct.denominator <= 10n) return rational(1n, 20n);
+  if (correct.denominator <= 40n) return rational(1n, correct.denominator * 2n);
+  if (correct.denominator <= 100n) return rational(1n, correct.denominator);
+  return rational(1n, 100n);
 }
 
 function groupIndianDecimal(raw: string): string {
@@ -301,7 +303,7 @@ function buildWrongCandidates(
   const candidates: WorkingCandidate[] = [];
   const seen = new Set<string>([rationalKey(correct)]);
   const add = (value: Rational, misconceptionId: string): void => {
-    if (compareRational(value, rational(0)) <= 0) return;
+    if (!closeEnough(family, correct, value)) return;
     const key = rationalKey(value);
     if (seen.has(key)) return;
     seen.add(key);
