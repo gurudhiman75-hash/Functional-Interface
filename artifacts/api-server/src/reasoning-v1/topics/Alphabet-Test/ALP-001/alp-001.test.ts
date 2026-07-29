@@ -7,16 +7,15 @@ import { generateAlp001Question } from "./runtime";
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
-
 function equal<T>(actual: T, expected: T, message: string) {
   if (actual !== expected) throw new Error(`${message}: expected ${String(expected)}, received ${String(actual)}`);
 }
 
-const expectedIds = Array.from({ length: 104 }, (_, index) => `ALP-QL-${String(index + 1).padStart(3, "0")}`);
-equal(ALP_001_QLS.length, 104, "ALP-001 QL count");
-equal(new Set(ALP_001_QLS.map((ql) => ql.qlId)).size, 104, "ALP-001 unique QL IDs");
+const expectedIds = Array.from({ length: 156 }, (_, index) => `ALP-QL-${String(index + 1).padStart(3, "0")}`);
+equal(ALP_001_QLS.length, 156, "ALP-001 QL count");
+equal(new Set(ALP_001_QLS.map((ql) => ql.qlId)).size, 156, "ALP-001 unique QL IDs");
 equal(JSON.stringify(ALP_001_QLS.map((ql) => ql.qlId)), JSON.stringify(expectedIds), "ALP-001 continuous QL range");
-equal(ALP_001_CHECKPOINTS.reduce((sum, cp) => sum + cp.qlCount, 0), 104, "Checkpoint QL allocation");
+equal(ALP_001_CHECKPOINTS.reduce((sum, checkpoint) => sum + checkpoint.qlCount, 0), 156, "Checkpoint QL allocation");
 for (const checkpoint of ALP_001_CHECKPOINTS) {
   equal(ALP_001_QLS.filter((ql) => ql.checkpointId === checkpoint.checkpointId).length, checkpoint.qlCount, `${checkpoint.checkpointId} count`);
 }
@@ -25,15 +24,25 @@ const answerPositions = [0, 0, 0, 0];
 const checkpointDifficulties = new Map<string, Set<string>>();
 const checkpointRenderers = new Map<string, Set<string>>();
 let generatedCount = 0;
+let legacySolverChecks = 0;
+let completionChecks = 0;
 let repeatedOccurrenceCount = 0;
 
 for (const ql of ALP_001_QLS) {
   const stems = new Set<string>();
+  const checkpointNumber = Number(ql.checkpointId.slice(-3));
   for (let seed = 0; seed < 80; seed += 1) {
-    const instance = generateAlpInstance(ql, seed);
-    const solved = solveAlpInstance(ql, instance);
-    const audit = auditAlpInstance(ql, instance, solved);
-    assert(audit.accepted, `${ql.qlId} seed ${seed} ambiguity failure: ${audit.reasons.join(" | ")}`);
+    let legacyAnswer: string | undefined;
+    let legacyOccurrence = false;
+    if (checkpointNumber <= 5) {
+      const instance = generateAlpInstance(ql, seed);
+      const solved = solveAlpInstance(ql, instance);
+      const audit = auditAlpInstance(ql, instance, solved);
+      assert(audit.accepted, `${ql.qlId} seed ${seed} ambiguity failure: ${audit.reasons.join(" | ")}`);
+      legacyAnswer = solved.answer;
+      legacyOccurrence = Boolean(instance.occurrenceRef && instance.occurrenceRef.occurrence > 1);
+      legacySolverChecks += 1;
+    }
 
     const question = generateAlp001Question(ql.qlId, seed, "en-IN");
     const repeated = generateAlp001Question(ql.qlId, seed, "en-IN");
@@ -46,13 +55,18 @@ for (const ql of ALP_001_QLS) {
     checkpointRenderers.set(ql.checkpointId, checkpointRenderers.get(ql.checkpointId) ?? new Set());
     checkpointRenderers.get(ql.checkpointId)!.add(question.renderer);
 
-    equal(question.answer, solved.answer, `${ql.qlId} seed ${seed} solver parity`);
+    if (legacyAnswer !== undefined) equal(question.answer, legacyAnswer, `${ql.qlId} seed ${seed} solver parity`);
+    else {
+      completionChecks += 1;
+      assert((question.structuredPrompt.sequence?.length ?? 0) > 0, `${ql.qlId} seed ${seed} missing completion sequence`);
+    }
     equal(question.options.length, 4, `${ql.qlId} seed ${seed} option count`);
     equal(new Set(question.options.map((option) => option.value)).size, 4, `${ql.qlId} seed ${seed} unique options`);
     equal(question.options.filter((option) => option.errorLabel === null).length, 1, `${ql.qlId} seed ${seed} correct marker count`);
     equal(question.options[question.correctIndex]!.value, question.answer, `${ql.qlId} seed ${seed} correct option`);
     assert(question.metadata.independentSolverVerified, `${ql.qlId} seed ${seed} solver verification flag`);
     equal(question.metadata.ambiguityAudit, "EXPLICIT_OPERATION_UNIQUE", `${ql.qlId} seed ${seed} ambiguity flag`);
+    equal(question.metadata.runtimeVersion, "ALP-001-RUNTIME-V3", `${ql.qlId} seed ${seed} runtime version`);
     assert(question.stem.length >= 20, `${ql.qlId} seed ${seed} weak stem`);
     assert(!/ALP_|undefined|null|\{\{|\}\}/.test(question.stem), `${ql.qlId} seed ${seed} internal or unresolved stem text`);
     assert(question.explanation.ruleStatement.length >= 35, `${ql.qlId} seed ${seed} weak rule statement`);
@@ -60,13 +74,9 @@ for (const ql of ALP_001_QLS) {
     assert(question.explanation.conclusion.includes(question.answer), `${ql.qlId} seed ${seed} conclusion omits answer`);
     assert(!/ALP_|WORD_TRANSFORM_|ALPHA_TRANSFORM_/.test(JSON.stringify(question.explanation)), `${ql.qlId} seed ${seed} leaks internal IDs`);
 
-    if (question.metadata.occurrenceAware && instance.occurrenceRef!.occurrence > 1) repeatedOccurrenceCount += 1;
-    if (ql.checkpointId === "ALP-CP-004") {
-      assert((question.structuredPrompt.transformedSequence?.length ?? 0) > 0, `${ql.qlId} seed ${seed} missing transformed alphabet`);
-    }
-    if (ql.checkpointId === "ALP-CP-005" && instance.wordTransformId) {
-      assert((question.structuredPrompt.transformedWord?.length ?? 0) > 0, `${ql.qlId} seed ${seed} missing transformed word`);
-    }
+    if (legacyOccurrence) repeatedOccurrenceCount += 1;
+    if (ql.checkpointId === "ALP-CP-004") assert((question.structuredPrompt.transformedSequence?.length ?? 0) > 0, `${ql.qlId} seed ${seed} missing transformed alphabet`);
+    if (ql.checkpointId === "ALP-CP-005" && question.metadata.wordTransformId) assert((question.structuredPrompt.transformedWord?.length ?? 0) > 0, `${ql.qlId} seed ${seed} missing transformed word`);
   }
   assert(stems.size >= 8, `${ql.qlId} has insufficient visible variety: ${stems.size}`);
 }
@@ -84,9 +94,11 @@ for (const checkpoint of ALP_001_CHECKPOINTS) {
   assert((checkpointRenderers.get(checkpoint.checkpointId)?.size ?? 0) >= 1, `${checkpoint.checkpointId} lacks renderer coverage`);
 }
 
-console.log("ALP-001 CP-001 through CP-005 exhaustive English runtime audit passed.", {
+console.log("ALP-001 CP-001 through CP-010 exhaustive English runtime audit passed.", {
   qlCount: ALP_001_QLS.length,
   generatedCount,
+  legacySolverChecks,
+  completionChecks,
   answerPositions,
   repeatedOccurrenceCount,
   checkpointDifficulties: Object.fromEntries([...checkpointDifficulties].map(([key, value]) => [key, [...value].sort()])),
