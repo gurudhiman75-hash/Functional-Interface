@@ -1,5 +1,10 @@
 export type NumPermanentQlId = `NUM-QL-${string}`;
 
+interface PrimeFactorTerm {
+  readonly prime: number;
+  readonly exponent: number;
+}
+
 function formatIndianIntegerLiteral(value: string): string {
   if (value.length <= 3) return value;
   const lastThree = value.slice(-3);
@@ -23,6 +28,37 @@ function asNumberArray(value: unknown): number[] {
     .map((item) => Number(item))
     .filter((item) => Number.isFinite(item))
     .sort((a, b) => a - b);
+}
+
+function asPrimeFactors(value: unknown): PrimeFactorTerm[] {
+  if (!Array.isArray(value)) return [];
+  return value.flatMap((item) => {
+    if (!item || typeof item !== "object") return [];
+    const record = item as Record<string, unknown>;
+    const prime = Number(record.prime);
+    const exponent = Number(record.exponent);
+    if (!Number.isInteger(prime) || prime < 2 || !Number.isInteger(exponent) || exponent < 1) {
+      return [];
+    }
+    return [{ prime, exponent }];
+  });
+}
+
+function primeFactorProduct(
+  factors: readonly PrimeFactorTerm[],
+  replacement?: { readonly index: number; readonly prime?: string; readonly exponent?: string },
+): string {
+  return factors.map((factor, index) => {
+    const prime = replacement?.index === index && replacement.prime
+      ? replacement.prime
+      : String(factor.prime);
+    const exponent = replacement?.index === index && replacement.exponent
+      ? replacement.exponent
+      : factor.exponent === 1
+        ? ""
+        : String(factor.exponent);
+    return exponent ? `${prime}^{${exponent}}` : prime;
+  }).join(" \\times ");
 }
 
 function sameNumbers(left: readonly number[], right: readonly number[]): boolean {
@@ -187,6 +223,45 @@ export function polishNumberSystemEnglishStem(
         "How many prime factors does $1 have when repeated factors are counted separately?",
       );
       break;
+    case "NUM-QL-028": {
+      const factors = asPrimeFactors(hiddenState.factors);
+      if (factors.length > 0) {
+        stem = `Which integer has the prime factorisation $${primeFactorProduct(factors)}$?`;
+      }
+      break;
+    }
+    case "NUM-QL-029": {
+      const factorsA = asPrimeFactors(hiddenState.factorsA);
+      const factorsB = asPrimeFactors(hiddenState.factorsB);
+      const target = String(hiddenState.target);
+      if (factorsA.length > 0 && factorsB.length > 0) {
+        const comparison = target === "DISTINCT"
+          ? "more distinct prime factors"
+          : target === "MULTIPLICITY"
+            ? "more prime factors when repeated factors are counted separately"
+            : "the greater integer value";
+        stem = `Given $A = ${primeFactorProduct(factorsA)}$ and $B = ${primeFactorProduct(factorsB)}$, which has ${comparison}?`;
+      }
+      break;
+    }
+    case "NUM-QL-030": {
+      const factors = asPrimeFactors(hiddenState.factors);
+      const hiddenIndex = Number(hiddenState.hiddenIndex);
+      const value = Number(hiddenState.value);
+      if (factors.length > 0 && Number.isInteger(hiddenIndex) && factors[hiddenIndex] && Number.isFinite(value)) {
+        stem = `Given $${formatIndianIntegerLiteral(String(value))} = ${primeFactorProduct(factors, { index: hiddenIndex, prime: "p" })}$, what is the prime $p$?`;
+      }
+      break;
+    }
+    case "NUM-QL-031": {
+      const factors = asPrimeFactors(hiddenState.factors);
+      const hiddenIndex = Number(hiddenState.hiddenIndex);
+      const value = Number(hiddenState.value);
+      if (factors.length > 0 && Number.isInteger(hiddenIndex) && factors[hiddenIndex] && Number.isFinite(value)) {
+        stem = `Given $${formatIndianIntegerLiteral(String(value))} = ${primeFactorProduct(factors, { index: hiddenIndex, exponent: "x" })}$, what is the exponent $x$?`;
+      }
+      break;
+    }
     case "NUM-QL-032":
       stem = stem.replace(/^Among these four pairs built around (.+), which pair is co-prime\?$/, "Which of the following pairs containing $1 is co-prime?");
       break;
@@ -208,6 +283,15 @@ export function polishNumberSystemEnglishStem(
     case "NUM-QL-042":
       stem = stem.replace(/^Using (.+) as the reference prime, which prime-structure statement is possible\?$/, "Which of the following statements involving the prime $1 is possible?");
       break;
+    case "NUM-QL-043": {
+      const root = Number(hiddenState.root);
+      const right = Number(hiddenState.right);
+      const children = asNumberArray(hiddenState.children);
+      if (Number.isFinite(root) && Number.isFinite(right) && children.length === 2) {
+        stem = `A factor tree shows $${root} \\to m \\times ${right}$, and the missing node splits as $${children[0]} \\times ${children[1]}$. What is $m$?`;
+      }
+      break;
+    }
     case "NUM-QL-044":
       stem = rewritePrimeDataSufficiency(stem, hiddenState);
       break;
