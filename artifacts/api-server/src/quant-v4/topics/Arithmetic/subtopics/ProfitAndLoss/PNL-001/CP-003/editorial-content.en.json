@@ -148,8 +148,8 @@
         "concept": "Total cost covers the entire stock, while total recovery includes receipts from sold groups plus any value recovered from remaining stock.",
         "steps": [
           {
-            "title": "Find total inventory cost",
-            "body": "Multiply total quantity by unit cost price."
+            "title": "Price the complete purchased stock",
+            "body": "Multiply the full purchased quantity by unit cost before combining sold and unsold recovery."
           },
           {
             "title": "Add all recoveries",
@@ -470,8 +470,8 @@
         "concept": "Calculate target total recovery for the whole purchase, subtract revenue from good units, and spread the balance over spoiled units.",
         "steps": [
           {
-            "title": "Find total purchase cost",
-            "body": "Multiply total quantity by unit cost price."
+            "title": "Establish the cost of all purchased units",
+            "body": "Value every purchased unit at cost before crediting good-stock sales and spoiled-stock recovery."
           },
           {
             "title": "Find the target total recovery",
@@ -712,8 +712,8 @@
         "concept": "Total cost covers the entire stock, while total recovery includes receipts from sold groups plus any value recovered from remaining stock.",
         "steps": [
           {
-            "title": "Find total inventory cost",
-            "body": "Multiply total quantity by unit cost price."
+            "title": "Rebuild the caselet purchase outlay",
+            "body": "Reconstruct the caselet's complete purchase outlay from total quantity and unit cost."
           },
           {
             "title": "Add all recoveries",
@@ -911,8 +911,8 @@
         "concept": "Calculate target total recovery for the whole purchase, subtract revenue from good units, and spread the balance over spoiled units.",
         "steps": [
           {
-            "title": "Find total purchase cost",
-            "body": "Multiply total quantity by unit cost price."
+            "title": "Set the full break-even cost",
+            "body": "Calculate the cost of all purchased units before solving for break-even recovery from spoiled stock."
           },
           {
             "title": "Find the target total recovery",

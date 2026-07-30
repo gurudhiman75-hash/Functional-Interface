@@ -79,7 +79,7 @@
         "prompt": "Find the profit or loss percentage."
       },
       "explanation": {
-        "opening": "We first find the rupee change and then express it relative to the original cost.",
+        "opening": "Selling price is above cost, so measure that gain against the original cost.",
         "concept": "In ordinary profit-and-loss questions, cost price is the percentage base unless another base is stated explicitly.",
         "steps": [
           {
@@ -111,7 +111,7 @@
         "prompt": "Calculate the percentage gain or loss."
       },
       "explanation": {
-        "opening": "We first find the rupee change and then express it relative to the original cost.",
+        "opening": "Selling price is below cost, so measure the shortfall against the original cost.",
         "concept": "In ordinary profit-and-loss questions, cost price is the percentage base unless another base is stated explicitly.",
         "steps": [
           {
@@ -148,7 +148,7 @@
         "steps": [
           {
             "title": "Write the commercial multiplier",
-            "body": "Use 1+r/100 for profit or 1−r/100 for loss."
+            "body": "For a profit sale, every 100 cost-price parts become 100+r selling-price parts."
           },
           {
             "title": "Apply it to cost price",
@@ -179,7 +179,7 @@
         "steps": [
           {
             "title": "Write the commercial multiplier",
-            "body": "Use 1+r/100 for profit or 1−r/100 for loss."
+            "body": "For a loss sale, every 100 cost-price parts leave 100−r selling-price parts."
           },
           {
             "title": "Apply it to cost price",
@@ -210,7 +210,7 @@
         "steps": [
           {
             "title": "Form the multiplier",
-            "body": "Use 1+r/100 for profit or 1−r/100 for loss."
+            "body": "A profit selling price equals (100+r)% of cost, so recover cost by dividing by that factor."
           },
           {
             "title": "Reverse the sale",
@@ -241,7 +241,7 @@
         "steps": [
           {
             "title": "Form the multiplier",
-            "body": "Use 1+r/100 for profit or 1−r/100 for loss."
+            "body": "A loss selling price equals (100−r)% of cost, so recover cost from the retained factor."
           },
           {
             "title": "Reverse the sale",
@@ -1071,7 +1071,7 @@
         "prompt": "Find the profit or loss percentage."
       },
       "explanation": {
-        "opening": "We first find the rupee change and then express it relative to the original cost.",
+        "opening": "Equal cost and selling prices leave no commercial change to express as a percentage.",
         "concept": "In ordinary profit-and-loss questions, cost price is the percentage base unless another base is stated explicitly.",
         "steps": [
           {

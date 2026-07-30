@@ -387,7 +387,13 @@ function buildCp004GeneratedWorking(
           : qlId === "PNL-QL-096"
             ? "For the three-transfer chain"
             : "Reading the transaction table in order";
-      return `${prefix} ${purpose}, start from ${cp004FormatMoney(request.initialCostPrice)} and apply ${cp004StageSequence(request.stages)} to the changing price base. The final selling price is ${answer}.`;
+      const conclusion =
+        qlId === "PNL-QL-095"
+          ? `The two-transfer ending price is ${answer}.`
+          : qlId === "PNL-QL-096"
+            ? `After the third transfer, the chain closes at ${answer}.`
+            : `The transaction table produces final buyer price ${answer}.`;
+      return `${prefix} ${purpose}, start from ${cp004FormatMoney(request.initialCostPrice)} and apply ${cp004StageSequence(request.stages)} to the changing price base. ${conclusion}`;
     }
 
     case "FINAL_SP_AND_STAGES_TO_INITIAL_CP": {

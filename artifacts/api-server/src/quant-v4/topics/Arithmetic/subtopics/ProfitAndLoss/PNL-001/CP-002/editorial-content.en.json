@@ -57,7 +57,7 @@
             "equationLatex": "D=M-S"
           },
           {
-            "title": "Convert to a percentage",
+            "title": "Express the marked-price reduction as a rate",
             "body": "Divide the discount amount by marked price and multiply by 100.",
             "equationLatex": "d=\\frac{D}{M}\\times100"
           }
@@ -111,7 +111,7 @@
         "prompt": "Find the final selling price."
       },
       "explanation": {
-        "opening": "Successive discounts should be processed one after another, just as the store applies them.",
+        "opening": "Apply the two store discounts in sequence because the second rate uses the already reduced price.",
         "concept": "Each later discount acts on the already reduced price, so retained-price multipliers must be multiplied rather than the discounts added.",
         "steps": [
           {
@@ -177,7 +177,7 @@
         "prompt": "Find the discount allowed in rupees."
       },
       "explanation": {
-        "opening": "Here the discount is handled as a direct link between marked price, discount amount, and selling price.",
+        "opening": "The requested discount amount is the stated percentage of the marked price.",
         "concept": "These three quantities satisfy marked price minus discount amount equals selling price, while the discount rate uses marked price as its base.",
         "steps": [
           {
@@ -208,7 +208,7 @@
         "prompt": "Find the discount percentage."
       },
       "explanation": {
-        "opening": "Here the discount is handled as a direct link between marked price, discount amount, and selling price.",
+        "opening": "A rupee reduction becomes a discount rate only after comparison with the marked price.",
         "concept": "These three quantities satisfy marked price minus discount amount equals selling price, while the discount rate uses marked price as its base.",
         "steps": [
           {
@@ -239,7 +239,7 @@
         "prompt": "Find the selling price."
       },
       "explanation": {
-        "opening": "Here the discount is handled as a direct link between marked price, discount amount, and selling price.",
+        "opening": "Subtract the stated rupee discount from marked price to obtain the amount paid.",
         "concept": "These three quantities satisfy marked price minus discount amount equals selling price, while the discount rate uses marked price as its base.",
         "steps": [
           {
@@ -304,7 +304,7 @@
         "prompt": "Which offer is better, and by how much?"
       },
       "explanation": {
-        "opening": "The safest comparison is to convert every offer into the actual amount the customer finally pays.",
+        "opening": "Put the single-discount and successive-discount offers on the same marked-price base.",
         "concept": "Offers with different wording can be compared only after discount, cashback, coupon value, and eligibility have been evaluated on their correct bases.",
         "steps": [
           {
@@ -338,7 +338,7 @@
         "prompt": "Calculate the resulting profit or loss percentage."
       },
       "explanation": {
-        "opening": "Markup and discount act on different stages, so we should first find the marked price and then the actual selling price.",
+        "opening": "Build the tagged price from cost, apply the discount, then measure the final percentage on cost.",
         "concept": "Markup is measured on cost price, while discount is measured on marked price; the final profit or loss is measured back on cost price.",
         "steps": [
           {
@@ -374,7 +374,7 @@
         "prompt": "Find the profit or loss incurred."
       },
       "explanation": {
-        "opening": "Markup and discount act on different stages, so we should first find the marked price and then the actual selling price.",
+        "opening": "Follow markup and discount to the final sale, then compare the rupee difference with cost.",
         "concept": "Markup is measured on cost price, while discount is measured on marked price; the final profit or loss is measured back on cost price.",
         "steps": [
           {
@@ -644,7 +644,7 @@
         "prompt": "Which offer gives the lower effective cost, and by how much?"
       },
       "explanation": {
-        "opening": "The safest comparison is to convert every offer into the actual amount the customer finally pays.",
+        "opening": "Compare checkout discount and post-purchase cashback through their final effective prices.",
         "concept": "Offers with different wording can be compared only after discount, cashback, coupon value, and eligibility have been evaluated on their correct bases.",
         "steps": [
           {
@@ -678,7 +678,7 @@
         "prompt": "Find the final selling price."
       },
       "explanation": {
-        "opening": "Successive discounts should be processed one after another, just as the store applies them.",
+        "opening": "Three successive discounts create three changing price bases, so keep the reductions in order.",
         "concept": "Each later discount acts on the already reduced price, so retained-price multipliers must be multiplied rather than the discounts added.",
         "steps": [
           {
@@ -917,7 +917,7 @@
         "prompt": "Identify the eligible better offer and find the effective-cost difference."
       },
       "explanation": {
-        "opening": "The safest comparison is to convert every offer into the actual amount the customer finally pays.",
+        "opening": "Check coupon eligibility before comparing its effective price with the direct discount.",
         "concept": "Offers with different wording can be compared only after discount, cashback, coupon value, and eligibility have been evaluated on their correct bases.",
         "steps": [
           {
@@ -961,7 +961,7 @@
         "prompt": "Find the selling price under offer {selectedOffer}."
       },
       "explanation": {
-        "opening": "Successive discounts should be processed one after another, just as the store applies them.",
+        "opening": "Read each table row as an ordered discount chain and carry the reduced price from one column to the next.",
         "concept": "Each later discount acts on the already reduced price, so retained-price multipliers must be multiplied rather than the discounts added.",
         "steps": [
           {
@@ -1001,7 +1001,7 @@
         "prompt": "Calculate the resulting profit or loss percentage."
       },
       "explanation": {
-        "opening": "Markup and discount act on different stages, so we should first find the marked price and then the actual selling price.",
+        "opening": "Treat the caselet as a three-stage price ledger: cost, marked price and discounted sale.",
         "concept": "Markup is measured on cost price, while discount is measured on marked price; the final profit or loss is measured back on cost price.",
         "steps": [
           {
@@ -1089,7 +1089,7 @@
             "equationLatex": "D=M-S"
           },
           {
-            "title": "Convert to a percentage",
+            "title": "Isolate the algebraic discount percentage",
             "body": "Divide the discount amount by marked price and multiply by 100.",
             "equationLatex": "d=\\frac{D}{M}\\times100"
           }
