@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
 import { exactKey } from "../../foundation/exact";
 import { MEN_CP_007_FROZEN_QLS } from "../final-freeze/registry";
-import { getMenCp007ShortcutAuthorityCount } from "./editorial-v2";
+import {
+  getMenCp007NaturalLanguageAuthorityCount,
+  getMenCp007ShortcutAuthorityCount,
+} from "./editorial-v2";
 import {
   generateMenCp007PermanentQuestion,
   generateMenCp007PermanentQuestionFromPrototype,
@@ -10,11 +13,14 @@ import {
 
 assert.equal(MEN_CP_007_FROZEN_QLS.length, 43);
 assert.equal(getMenCp007ShortcutAuthorityCount(), 43);
+assert.equal(getMenCp007NaturalLanguageAuthorityCount(), 43);
 
 const reachedPrototypes = new Set<string>();
 const reachedDifficulties = new Set<string>();
 const shortcutOpeners = new Set<string>();
 let generated = 0;
+
+const ROBOTIC_LANGUAGE = /\bexceeds\b|represents exactly two|turn the given|receives? (?:a )?multiplier|whole rectangle|Common mistake:/i;
 
 function optionAuthority(option: {
   label: "A" | "B" | "C" | "D";
@@ -93,7 +99,33 @@ for (const definition of MEN_CP_007_FROZEN_QLS) {
     assert.equal(first.answer, first.options[first.correctIndex]?.display);
     assert.equal(first.explanation.steps.length >= 2, true);
     assert.equal(first.explanation.traps.length, 3);
-    assert.ok(first.explanation.traps.every((trap) => /^Option [A-D] \(\$/.test(trap) && trap.includes("Common mistake:")));
+    assert.ok(
+      first.explanation.traps.every(
+        (trap) =>
+          /^Option [A-D] \(\$/.test(trap) &&
+          /This option|You may reach this option|This answer appears/.test(trap) &&
+          trap.length >= 55,
+      ),
+      `${definition.qlId} requires natural, option-specific distractor explanations.`,
+    );
+
+    const learnerText = [
+      first.stem,
+      first.explanation.keyRule,
+      ...first.explanation.steps.flatMap((step) => [step.title, step.body]),
+      first.explanation.shortcut,
+      ...first.explanation.traps,
+    ].join("\n");
+    assert.doesNotMatch(learnerText, ROBOTIC_LANGUAGE);
+    assert.ok(first.explanation.keyRule.length >= 90, `${definition.qlId} key rule is too compressed.`);
+    assert.ok(
+      first.explanation.steps.every((step) => step.body.length >= 48),
+      `${definition.qlId} contains an under-explained worked step.`,
+    );
+    assert.ok(
+      first.explanation.steps[first.explanation.steps.length - 1]?.body.includes(first.answer),
+      `${definition.qlId} final worked step must state the required answer.`,
+    );
 
     assert.equal(first.editorialLayoutId, "MEN-CP007-EN-EDITORIAL-V2");
     assert.equal(first.editorialStatus, "PENDING_PRODUCT_REVIEW");
@@ -189,5 +221,5 @@ assert.throws(
 
 console.log(
   `MEN-CP-007 English editorial V2 passed for ${generated} deterministic permanent questions across 43 QLs and 63 prototype ancestries. ` +
-  "Exact mathematics, option authority, states and verifier evidence remain frozen; waste percentage uses a declared two-decimal policy and every shortcut is state-specific.",
+  "Exact mathematics, options, states and verifier evidence remain frozen; learner explanations now use natural, calculation-led language and accessible distractor analysis.",
 );
