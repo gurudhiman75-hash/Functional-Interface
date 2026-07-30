@@ -18,12 +18,30 @@ function build(ql: AlpQuestionLogic, seed: number): C {
   }
 }
 
+function selectedDigitTransformStem(completion: C, locale: AlpLocale): string {
+  const number = completion.source.join("");
+  const kind = completion.query.en.match(/apply\s+(ASC|DESC|REV|SWAP)/)?.[1] ?? "ASC";
+  const action = kind === "ASC"
+    ? { en: "arranged from smallest to largest", hi: "छोटे से बड़े क्रम में सजाया जाए", pa: "ਛੋਟੇ ਤੋਂ ਵੱਡੇ ਕ੍ਰਮ ਵਿੱਚ ਲਾਇਆ ਜਾਵੇ" }
+    : kind === "DESC"
+      ? { en: "arranged from largest to smallest", hi: "बड़े से छोटे क्रम में सजाया जाए", pa: "ਵੱਡੇ ਤੋਂ ਛੋਟੇ ਕ੍ਰਮ ਵਿੱਚ ਲਾਇਆ ਜਾਵੇ" }
+      : kind === "REV"
+        ? { en: "written in reverse order", hi: "उलटे क्रम में लिखा जाए", pa: "ਉਲਟ ਕ੍ਰਮ ਵਿੱਚ ਲਿਖਿਆ ਜਾਵੇ" }
+        : { en: "interchanged in adjacent pairs", hi: "साथ वाले युग्मों में आपस में बदला जाए", pa: "ਨਾਲ ਵਾਲੇ ਜੋੜਿਆਂ ਵਿੱਚ ਆਪਸ ਵਿੱਚ ਬਦਲਿਆ ਜਾਵੇ" };
+  if (locale === "hi-IN") return `यदि संख्या ${number} के अंकों को ${action.hi}, तो कितने अंक अपने मूल स्थान पर रहेंगे?`;
+  if (locale === "pa-IN") return `ਜੇ ਸੰਖਿਆ ${number} ਦੇ ਅੰਕਾਂ ਨੂੰ ${action.pa}, ਤਾਂ ਕਿੰਨੇ ਅੰਕ ਆਪਣੀ ਮੂਲ ਥਾਂ ਉੱਤੇ ਰਹਿਣਗੇ?`;
+  return `If the digits of ${number} are ${action.en}, how many digits will remain in their original positions?`;
+}
+
 export function generateAlpCompletionQuestion(ql: AlpQuestionLogic, seed: number, locale: AlpLocale): GeneratedAlpQuestion {
   if (!Number.isInteger(seed)) throw new Error("ALP-001 completion seed must be an integer.");
   const completion = build(ql, seed);
   const builtOptions = options(completion.answer, completion.pool, ql, seed);
   const editorial = renderCompletionEditorial(ql, completion, builtOptions.out, builtOptions.correctIndex, locale);
   const optionOnlyQuestion = ql.solveMode === "IDENTIFY_WORD_BY_ALPHA_PAIR_COUNT";
+  const renderedStem = ql.solveMode === "DIGIT_COUNT_UNCHANGED_SELECTED_TRANSFORM"
+    ? selectedDigitTransformStem(completion, locale)
+    : editorial.stem;
 
   return {
     chapterId: "ALP-001",
@@ -36,7 +54,7 @@ export function generateAlpCompletionQuestion(ql: AlpQuestionLogic, seed: number
     difficulty: difficulty(ql, seed),
     renderer: ql.renderer,
     presentationMode: ql.presentationMode,
-    stem: editorial.stem,
+    stem: renderedStem,
     structuredPrompt: {
       ...(!optionOnlyQuestion ? { sequence: completion.source } : {}),
       ...(!optionOnlyQuestion && completion.changed ? { transformedSequence: completion.changed } : {}),
