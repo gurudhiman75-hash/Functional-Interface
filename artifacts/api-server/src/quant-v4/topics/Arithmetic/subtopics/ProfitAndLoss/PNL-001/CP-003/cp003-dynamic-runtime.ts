@@ -445,6 +445,9 @@ function buildCp003GeneratedWorking(
         request.totalQuantity,
         request.unitCostPrice,
       );
+      if (qlId === "PNL-QL-092") {
+        return `${prefix} Test Statement I and Statement II separately. A statement is sufficient only when it supplies the purchase details and sold-stock details needed to balance the overall ${cp003DirectedRate(request.targetDirection, request.targetRatePercent)} target. The resulting sufficiency class is ${answer}.`;
+      }
       return `${prefix} The ${request.totalQuantity} units cost ${cp003FormatMoney(totalCost)} in all. After accounting for the ${soldQuantity} already-sold units, the remaining ${remainingQuantity} units must raise the balance needed for ${cp003DirectedRate(request.targetDirection, request.targetRatePercent)}. The required price per remaining unit is ${answer}.`;
     }
 

@@ -15,7 +15,9 @@ function normalize(value: string): string {
     .trim();
 }
 
-function proseParagraphs(explanationLines: readonly string[]): readonly string[] {
+function proseParagraphs(
+  explanationLines: readonly string[],
+): readonly string[] {
   const full = explanationLines.join("\n\n");
   const editorial = full.split(
     /\n\n\*\*(?:Generated-value check|Working with these values):\*\*/,
@@ -51,7 +53,10 @@ function assertClusterUnique(
   for (const qlId of qlIds) {
     const pkg = runner(qlId);
     const opening = firstSentence(pkg.explanation.lines);
-    openingOwners.set(opening, new Set([...(openingOwners.get(opening) ?? []), qlId]));
+    openingOwners.set(
+      opening,
+      new Set([...(openingOwners.get(opening) ?? []), qlId]),
+    );
     for (const paragraph of proseParagraphs(pkg.explanation.lines)) {
       paragraphOwners.set(
         paragraph,
@@ -134,7 +139,10 @@ for (let index = 0; index < 96; index += 1) {
   const targetDirection = String(generated.context.targetDirection);
   assert.match(
     pkg.stem,
-    new RegExp(`overall ${targetRate.replace(".", "\\.")}% ${targetDirection}`, "i"),
+    new RegExp(
+      `overall ${targetRate.replace(".", "\\.")}% ${targetDirection}`,
+      "i",
+    ),
     `QL-092 stem target must match generated context for ${seed}.`,
   );
   assert.match(
@@ -153,26 +161,44 @@ for (let index = 0; index < 96; index += 1) {
     statementTwo,
     `QL-092 statements must not be duplicated for ${seed}.`,
   );
-  const oneComplete = hasPurchaseData(statementOne) && hasSalesData(statementOne);
-  const twoComplete = hasPurchaseData(statementTwo) && hasSalesData(statementTwo);
-  const onePurchaseOnly = hasPurchaseData(statementOne) && !hasSalesData(statementOne);
-  const twoSalesOnly = !hasPurchaseData(statementTwo) && hasSalesData(statementTwo);
-  const oneIrrelevant = !hasPurchaseData(statementOne) && !hasSalesData(statementOne);
-  const twoIrrelevant = !hasPurchaseData(statementTwo) && !hasSalesData(statementTwo);
+  const oneComplete =
+    hasPurchaseData(statementOne) && hasSalesData(statementOne);
+  const twoComplete =
+    hasPurchaseData(statementTwo) && hasSalesData(statementTwo);
+  const onePurchaseOnly =
+    hasPurchaseData(statementOne) && !hasSalesData(statementOne);
+  const twoSalesOnly =
+    !hasPurchaseData(statementTwo) && hasSalesData(statementTwo);
+  const oneIrrelevant =
+    !hasPurchaseData(statementOne) && !hasSalesData(statementOne);
+  const twoIrrelevant =
+    !hasPurchaseData(statementTwo) && !hasSalesData(statementTwo);
 
   observedSufficiencyAnswers.add(pkg.answer);
   switch (pkg.answer) {
     case "Both statements together are required":
-      assert.ok(onePurchaseOnly && twoSalesOnly, `Invalid BOTH pattern for ${seed}.`);
+      assert.ok(
+        onePurchaseOnly && twoSalesOnly,
+        `Invalid BOTH pattern for ${seed}.`,
+      );
       break;
     case "Statement 1 alone is sufficient":
-      assert.ok(oneComplete && twoIrrelevant, `Invalid ONE pattern for ${seed}.`);
+      assert.ok(
+        oneComplete && twoIrrelevant,
+        `Invalid ONE pattern for ${seed}.`,
+      );
       break;
     case "Statement 2 alone is sufficient":
-      assert.ok(oneIrrelevant && twoComplete, `Invalid TWO pattern for ${seed}.`);
+      assert.ok(
+        oneIrrelevant && twoComplete,
+        `Invalid TWO pattern for ${seed}.`,
+      );
       break;
     case "Either statement alone is sufficient":
-      assert.ok(oneComplete && twoComplete, `Invalid EITHER pattern for ${seed}.`);
+      assert.ok(
+        oneComplete && twoComplete,
+        `Invalid EITHER pattern for ${seed}.`,
+      );
       break;
     default:
       assert.fail(`Unexpected QL-092 answer: ${pkg.answer}`);
