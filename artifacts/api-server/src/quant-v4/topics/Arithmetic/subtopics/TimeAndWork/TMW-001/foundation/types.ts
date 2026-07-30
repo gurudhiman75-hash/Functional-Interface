@@ -145,6 +145,16 @@ export interface TmwGeneratedQuestion {
     opening: string;
     formula: string;
     steps: string[];
+    shortcut: {
+      title: string;
+      steps: string[];
+    };
+    commonTrap: {
+      optionLabel: string;
+      optionText: string;
+      misconceptionId: Exclude<TmwMisconceptionId, "CORRECT">;
+      explanation: string;
+    };
     conclusion: string;
   };
   mathematicalFingerprint: string;
