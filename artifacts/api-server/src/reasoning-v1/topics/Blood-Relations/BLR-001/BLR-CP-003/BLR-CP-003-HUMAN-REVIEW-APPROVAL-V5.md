@@ -1,6 +1,6 @@
 # BLR-CP-003 — Human Review Approval V5
 
-Status: **human review approved with one accepted visual-polish condition**.
+Status: **human review approved with a visual-polish condition; sibling-arrow remediation reopened for confirmation**.
 
 ## Approval record
 
@@ -12,71 +12,81 @@ Reviewer decision:
 
 This is an explicit human approval. It is not an assistant self-approval.
 
-## Accepted remediation
+After the first marker-only implementation, the reviewer reported:
 
-The dotted sibling connector now uses bidirectional arrowheads:
+> arrows not pointing to siblings properly
+
+The content approval remains recorded, but the accepted visual condition is not considered closed until the corrected replacement HTML is reviewed.
+
+## Corrected remediation
+
+The marker-only horizontal line has been replaced with a routed dotted bracket:
 
 ```text
-arrowhead <············> arrowhead
+          ↑ sibling A                  sibling B ↑
+          └·········· SIBLINGS ··········┘
 ```
 
-Arrowheads are placed at both ends because siblinghood is symmetric. The diagram therefore does not imply that one sibling relation points only from the left person to the right person.
+The corrected geometry:
 
-The polish is applied consistently to:
-
-- the canonical ExamTree student result page;
-- the exported HTML human-review artifact;
-- every dotted sibling segment used in a highlighted answer path.
+- targets the inner bottom edge of each sibling card rather than the space beside the cards;
+- offsets each target away from the central parent-child lineage connector;
+- keeps both arrowheads fixed upward with `orient="-90"`;
+- leaves an 8-pixel visual clearance beneath each card so the card fill cannot hide the arrowheads;
+- keeps the horizontal dotted segment below the spouse and lineage connectors;
+- preserves the symmetric, bidirectional meaning of siblinghood.
 
 ## Implementation evidence
 
 Student application:
 
-- `src/components/learning/LogicPlaybackRouter.tsx` defines a native SVG marker with `orient="auto-start-reverse"`;
-- the scoped family-tree style applies both `marker-start` and `marker-end` to dotted sibling lines;
+- `src/components/blood-relations/RoutedFamilyTreeDiagram.tsx` converts the legacy horizontal sibling line into the inner-card-bottom bracket;
+- `src/components/learning/LogicPlaybackRouter.tsx` lazy-loads the routed renderer;
+- the renderer uses native React and SVG only;
 - no external SVG or graph library is introduced.
 
 Review/export layer:
 
-- `cp003-svg-family-tree-markup-v3.ts` injects the same bidirectional marker into exported SVG markup;
+- `cp003-svg-family-tree-markup-v3.ts` produces the same routed bracket in exported HTML;
 - `cp003-svg-family-tree.ts` promotes the V3 markup renderer;
-- `cp003-competitive-svg-review.test.ts` checks that every exported dotted sibling line has both arrowheads.
+- `cp003-competitive-svg-review.test.ts` checks route geometry, upward orientation, inner-card targets and visible clearance.
 
 Compiled application gate:
 
-- `scripts/verify-family-tree-chunk.mjs` verifies that the production bundle contains the sibling marker, start marker, end marker and `auto-start-reverse` orientation;
+- `scripts/verify-family-tree-chunk.mjs` verifies that the production bundle includes the inner-card route, both markers, fixed upward orientation and the visibility-clearance contract;
 - the integration must remain outside the main student bundle.
 
-## Artifact inspection
-
-The remediated artifact contains:
+## Exact corrected artifact inventory
 
 ```text
-SVG diagrams                         128
-Dotted sibling-path segments          56
-Sibling marker-start attributes       56
-Sibling marker-end attributes         56
-Missing arrowheads                     0
+SVG diagrams                              128
+Dotted sibling-path routes                 56
+Inner-card target declarations             56
+Visible-clearance declarations             56
+Sibling marker-start attributes            56
+Sibling marker-end attributes              56
+Legacy horizontal dotted sibling lines      0
 ```
 
-## Approval boundary
+## Review boundary
 
-This approval satisfies the required human-review gate after the accepted sibling-arrow remediation passes the deterministic and production gates.
+The reviewer must inspect the corrected replacement HTML before the visual-polish condition is closed.
 
-It does not itself:
+Until then, this record does not authorize:
 
-- allocate `BLR-QL-009`;
-- freeze permanent CP-003 solve authorities;
-- enable Question Studio;
-- enable Question Bank or mock-test delivery;
-- start Hindi or Punjabi localization;
-- merge draft PR #308.
+- final discovery freeze;
+- allocation of `BLR-QL-009` or any permanent CP-003 solve identity;
+- Question Studio visibility;
+- Question Bank or mock-test delivery;
+- Hindi or Punjabi localization;
+- merging draft PR #308.
 
 ## Next mandatory gate
 
 ```text
-accepted remediation validation
-  -> post-human source-gap confirmation
+review corrected sibling-arrow HTML
+  -> close visual-polish condition
+  -> rerun post-human confirmation if accepted
   -> final discovery freeze
   -> sequential permanent QL allocation, only if supported
 ```
