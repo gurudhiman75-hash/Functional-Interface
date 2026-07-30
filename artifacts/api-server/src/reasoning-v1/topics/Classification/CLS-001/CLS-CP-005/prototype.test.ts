@@ -21,6 +21,7 @@ const stemCounts = new Map<string, Map<string, number>>();
 let maximumSourceAttempts = 0;
 let maximumAnswerMaximumRatio = 0;
 let maximumAnswerTotalRatio = 0;
+let expandedRuleSupportQuestions = 0;
 
 for (const prototype of CLS_CP005_PROTOTYPES) {
   const counts = new Map<string, number>();
@@ -45,6 +46,12 @@ for (const prototype of CLS_CP005_PROTOTYPES) {
     assert.equal(question.ambiguityAudit.result, "UNIQUE");
     assert.equal(question.ambiguityAudit.answerIndex, question.correctIndex);
     assert.equal(question.ambiguityAudit.intendedRuleSupported, true);
+
+    assert.equal(question.expandedSourceGapAudit.result, "EXPANDED_UNIQUE");
+    assert.equal(question.expandedSourceGapAudit.answerIndex, question.correctIndex);
+    assert.equal(question.expandedSourceGapAudit.intendedRuleSupported, true);
+    assert.deepEqual(question.expandedSourceGapAudit.expandedAnswerIndexes, [question.correctIndex]);
+    if (question.expandedSourceGapAudit.newRuleSupports.length > 0) expandedRuleSupportQuestions += 1;
 
     if (question.task === "SELECT_EQUIVALENT_NUMBER_SET") {
       assert.ok(question.referenceTuple !== null);
@@ -77,7 +84,8 @@ for (const prototype of CLS_CP005_PROTOTYPES) {
     assert.equal(question.questionStudioVisible, false);
     assert.equal(question.metadata.datasetVersion, "CLS-CP005-TUPLE-DOMAIN-v1");
     assert.equal(question.metadata.runtimeVersion, "cls-cp005-discovery-v1");
-    assert.equal(question.metadata.qualityVersion, "cls-cp005-presentation-quality-v2");
+    assert.equal(question.metadata.qualityVersion, "cls-cp005-presentation-quality-v3-expanded-source-gap");
+    assert.equal(question.metadata.sourceGapAuditVersion, "cls-cp005-expanded-source-gap-v1");
     assert.ok(Number.isSafeInteger(question.metadata.sourcePrototypeSeed));
     maximumSourceAttempts = Math.max(
       maximumSourceAttempts,
@@ -152,7 +160,7 @@ assert.ok(maximumSourceAttempts < 240);
 assert.throws(() => generateClsCp005QualityQuestion("CLS-CP005-PROT-999" as never, 0));
 assert.throws(() => generateClsCp005QualityQuestion("CLS-CP005-PROT-001", -1));
 
-console.log("CLS-CP-005 answer-aware number-tuple quality audit passed.", {
+console.log("CLS-CP-005 expanded-rule-safe number-tuple quality audit passed.", {
   generated: CLS_CP005_PROTOTYPES.length * QUESTIONS_PER_PROTOTYPE,
   uniqueVisibleQuestions: fingerprints.size,
   prototypes: prototypeCoverage.size,
@@ -165,4 +173,5 @@ console.log("CLS-CP-005 answer-aware number-tuple quality audit passed.", {
   maximumSourceAttempts,
   maximumAnswerMaximumRatio,
   maximumAnswerTotalRatio,
+  expandedRuleSupportQuestions,
 });
