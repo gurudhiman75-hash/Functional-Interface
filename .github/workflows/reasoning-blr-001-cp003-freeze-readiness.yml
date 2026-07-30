@@ -33,3 +33,7 @@ jobs:
       - name: Run CP-003 learner-evidence gap-wave scope audit
         run: |
           npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-learner-evidence-gap-wave-01.test.ts
+
+      - name: Run CP-003 V6 learner-evidence candidate proof
+        run: |
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-learner-evidence-v6-candidate.test.ts
