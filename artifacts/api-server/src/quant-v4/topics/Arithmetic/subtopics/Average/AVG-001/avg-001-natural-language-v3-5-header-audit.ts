@@ -22,7 +22,7 @@ const expectedHeaders = {
     "📌 Key rule:",
     "📝 Step-by-step solution:",
     "⚡ Exam speed shortcut:",
-    "⚠️ Why other options are wrong:",
+    "⚠️ Why the other options are wrong:",
   ],
   hi: [
     "📌 मुख्य बात:",
