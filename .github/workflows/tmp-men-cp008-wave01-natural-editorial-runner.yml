@@ -1,0 +1,76 @@
+name: Temporary MEN-CP-008 Wave01 editorial runner
+
+on:
+  push:
+    branches:
+      - feat/men-002-cp008-gap-wave-01
+    paths:
+      - .github/workflows/tmp-men-cp008-wave01-natural-editorial-runner.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch-runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/men-002-cp008-gap-wave-01
+          fetch-depth: 0
+
+      - name: Apply natural-language runtime patch
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          runtime_path = Path('artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp008-gap-wave-01/runtime.ts')
+          source_path = Path('.github/workflows/tmp-men-cp008-wave01-natural-editorial.yml')
+
+          runtime = runtime_path.read_text(encoding='utf-8')
+          source = source_path.read_text(encoding='utf-8')
+
+          start_marker = "editorial = r'''\n"
+          end_marker = "\n'''\n\n          text = text.replace(marker, editorial + marker, 1)"
+          start = source.index(start_marker) + len(start_marker)
+          end = source.index(end_marker, start)
+          editorial = source[start:end]
+
+          marker = 'function verifyDraft(draft: Draft) {'
+          if runtime.count(marker) != 1:
+              raise SystemExit(f'Expected one verifyDraft marker, found {runtime.count(marker)}')
+          if 'function applyNaturalEditorialStandard(draft: Draft)' in runtime:
+              raise SystemExit('Natural editorial function already exists')
+          runtime = runtime.replace(marker, editorial + '\n\n' + marker, 1)
+
+          old_call = 'const draft = generateDraft(prototypeId, seed);'
+          new_call = 'const draft = applyNaturalEditorialStandard(generateDraft(prototypeId, seed));'
+          if runtime.count(old_call) != 1:
+              raise SystemExit(f'Expected one draft call, found {runtime.count(old_call)}')
+          runtime = runtime.replace(old_call, new_call, 1)
+
+          old_trap = '.map((option) => `Option ${option.label} (${option.display}): Common mistake: ${explanationByKey.get(exactKey(option.value))}.`);'
+          new_trap = '.map((option) => `Option ${option.label} (${option.display}): This result comes from ${explanationByKey.get(exactKey(option.value))}.`);'
+          if runtime.count(old_trap) != 1:
+              raise SystemExit(f'Expected one trap formatter, found {runtime.count(old_trap)}')
+          runtime = runtime.replace(old_trap, new_trap, 1)
+
+          old_stem = '`When the radius of a ${shape} is changed by a factor of ${radiusText} and the height by a factor of ${heightText}, determine the percentage ${direction} in volume.`'
+          new_stem = '`Suppose a ${shape} is resized. Its radius is now ${radiusText} the old radius, and its height is ${heightText} the old height. Find the percentage ${direction} in volume.`'
+          if runtime.count(old_stem) != 1:
+              raise SystemExit(f'Expected one percentage stem, found {runtime.count(old_stem)}')
+          runtime = runtime.replace(old_stem, new_stem, 1)
+
+          runtime_path.write_text(runtime, encoding='utf-8')
+          PY
+
+      - name: Commit natural-language runtime
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp008-gap-wave-01/runtime.ts
+          git commit -m "feat(mensuration): naturalize CP-008 Wave01 explanations"
+          git push origin HEAD:feat/men-002-cp008-gap-wave-01
