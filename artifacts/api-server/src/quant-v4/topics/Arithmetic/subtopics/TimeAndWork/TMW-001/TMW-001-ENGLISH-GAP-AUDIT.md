@@ -4,22 +4,29 @@
 
 **Automated English freeze readiness: PASSED.**
 
-The calibrated chapter proof now reports:
+**Manual English corpus freeze: PASSED.**
+
+The exact proof on source head `0afc3ea85f1e2c4ba16726ea394af63c413a3e62` is GitHub Actions run `30555930280` (`Audit TMW-001 English freeze readiness`, run number 136). The read-only workflow completed its automated diagnostic, 211-question export, permanent manual audit, calibration, evidence upload and combined enforcement successfully.
+
+The final evidence reports:
 
 - 211 QLs, `TMW-QL-001` through `TMW-QL-211`;
 - 12 deterministic states per QL;
 - 2,532 generated candidates and 2,532 valid candidates;
 - 0 hard failures;
 - 0 English-freeze blockers;
+- 211 manual-review rows across all 11 checkpoints;
+- 0 manual English findings;
+- 211 valid four-tier review rows;
+- 0 publishable rows;
 - 2,527 distinct exact stems;
 - 2,483 distinct normalised stems;
 - 1,302 distinct normalised explanations;
-- chapter context-first share of approximately 10.27%;
-- all 211 QLs with the approved four-tier learner explanation and option-linked trap contract.
+- chapter context-first share of approximately 10.27%.
 
 Three non-blocking observations remain: the 12-state audit sample reaches three of four answer positions for `TMW-QL-058`, `TMW-QL-066` and `TMW-QL-075`. Their permanent CP-004 proof reaches all four answer positions across 50 seeds per QL, so these observations do not block freeze.
 
-Automated readiness does not itself publish the chapter. The next gate is manual review of the generated 211-question corpus.
+This result freezes the English learner-delivery corpus for review and localisation handoff. It does not publish the chapter or enable any product route.
 
 ## Purpose
 
@@ -29,7 +36,7 @@ The implemented source range is `TMW-QL-001` through `TMW-QL-211`. No QL count w
 
 ## Evidence corpus
 
-The automated diagnostic generates:
+The permanent read-only proof generates:
 
 - 12 deterministic states for every QL;
 - 211 QLs × 12 states = 2,532 runtime candidates;
@@ -38,7 +45,10 @@ The automated diagnostic generates:
 - checkpoint-level and chapter-level opening-style distributions;
 - exact and normalised stem/explanation collision maps;
 - a calibrated target-syntax report;
-- one 211-question manual-review corpus.
+- one 211-question manual-review corpus;
+- one permanent manual English findings report.
+
+The evidence artifact for run `30555930280` is `tmw-001-english-gap-audit` (artifact ID `8764777837`). It contains the automated report and log, calibration log, 211-question corpus, and manual audit report and log.
 
 ## Hard failures
 
@@ -76,9 +86,26 @@ A freeze blocker may be mathematically valid but not yet production-ready:
 
 The final calibrated report contains no English-freeze blockers.
 
+## Manual English gate
+
+The permanent manual audit regenerates one valid candidate for every QL and checks:
+
+- four unique options and exact answer alignment;
+- a distractor-linked, option-specific diagnostic trap;
+- absence of command-style trap advice;
+- absence of learner-facing generation, invariant, internal-ID and camelCase solve-mode language;
+- contextual rather than generic conclusions;
+- the corrected CP-001 remaining-share trap;
+- the CP-005 periodic machine context and cycle-based distractors;
+- CP-008 inverse-pool and residual-payment guidance;
+- CP-009 boundary-decision options, trap and conclusion;
+- CP-011 diagnostic traps and contextual conclusions.
+
+The final manual report contains 211 rows, 211 QLs, 11 checkpoints and 0 findings.
+
 ## Opening-language result
 
-The chapter uses deterministic opening rotation across original, temporal-first and objective-first deliveries while preserving the generated mathematical state and question target.
+The chapter uses deterministic opening rotation across original, temporal-first and objective-first deliveries while preserving the mathematical state and question target.
 
 Final chapter distribution across 2,532 candidates:
 
@@ -95,28 +122,23 @@ Every checkpoint remains below its 70% dominant-style ceiling, 35% context-first
 
 The audit branch completed the following chapter-wide upgrades:
 
-1. migrated fractional time typography to shared MathJax-safe rendering;
+1. migrated fractional-time typography to shared MathJax-safe rendering;
 2. calibrated explicit target syntax for both interrogative and imperative clauses;
 3. removed learner-facing academic jargon and negative-command traps;
 4. upgraded CP-001 through CP-005 with mode-specific four-tier learner layers;
 5. completed three-stage working for CP-006 and CP-007;
 6. removed normalised explanation collisions, including the remaining CP-010 pairs;
 7. added deterministic chapter-wide stem-opening diversity;
-8. removed obsolete write-enabled remediation workflows;
-9. converted the permanent chapter audit to a read-only proof workflow.
+8. corrected manual-only option, context, trap and conclusion defects across CP-001, CP-005, CP-008, CP-009 and CP-011;
+9. added permanent English delivery polish and a permanent 211-row manual audit;
+10. removed obsolete write-enabled remediation workflows;
+11. retained a read-only combined automated/manual proof workflow.
 
-## Manual review gate
+## Freeze handoff
 
-The manual reviewer should inspect the hosted 211-question corpus for:
+English is frozen for this chapter on the audited branch. After PR #331 is merged and the freeze is recorded on the chapter base, Hindi and Punjabi localisation may begin from the frozen English authority.
 
-- natural exam wording and realistic context;
-- exact agreement between target, answer and conclusion;
-- human-authored feel across stems, working, shortcuts and traps;
-- distractor plausibility without ambiguity;
-- terminology consistency across all eleven checkpoints;
-- absence of repetitive phrasing that is meaningful to a human reviewer but below automated collision thresholds.
-
-English may be manually frozen after this corpus is approved. Hindi and Punjabi localisation must begin only after the English manual freeze is recorded.
+Any later English wording or option change must rerun both the 2,532-case automated diagnostic and the 211-row manual audit. The freeze must not be inferred from checkpoint tests alone.
 
 ## Safety boundary
 
