@@ -54,22 +54,18 @@ jobs:
 
           audit_path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts")
           audit = audit_path.read_text()
-          old_issue = '''  knownOpenIssue: {
-                issueNumber: 262,
-                qlId: "PNL-QL-070",
-                code: "KNOWN-DS-LEAD-LEAKAGE",
-              },'''
-          new_issue = '''  resolvedIssueRegression: {
+          if "resolvedIssueRegression" not in audit:
+              start = audit.index("  knownOpenIssue: {")
+              end = audit.index("  runtimeMode:", start)
+              replacement = '''  resolvedIssueRegression: {
                 issueNumber: 262,
                 qlId: "PNL-QL-070",
                 code: "DS-LEAD-LEAKAGE",
                 status: "RESOLVED_AND_MONITORED",
-              },'''
-          if old_issue in audit:
-              audit = audit.replace(old_issue, new_issue, 1)
-          elif "resolvedIssueRegression" not in audit:
-              raise SystemExit("Resolved issue metadata anchor not found")
-          audit_path.write_text(audit)
+              },
+          '''
+              audit = audit[:start] + replacement + audit[end:]
+              audit_path.write_text(audit)
           PY
 
       - name: Set up Node
