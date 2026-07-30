@@ -1,5 +1,5 @@
-import { add, compare, divide, equals, formatRational, multiply, rational, reciprocal, subtract, toLatex } from "./rational";
-import { required, timeUnitLabel } from "./cp001-helpers";
+import { add, compare, divide, equals, formatRational, formatTimeText, multiply, rational, reciprocal, subtract, toLatex } from "./rational";
+import { required } from "./cp001-helpers";
 import type { Rational } from "./types";
 import type { TmwCp004Parameters, TmwCp004RegistryEntry, TmwCp004Solution } from "./cp004-types";
 
@@ -9,7 +9,7 @@ function remaining(done:Rational):Rational{return subtract(rational(1),done);}
 function abs(v:Rational):Rational{return v.numerator<0?rational(-v.numerator,v.denominator):v;}
 function answerText(entry:TmwCp004RegistryEntry,p:TmwCp004Parameters,a:Rational):string{
  const value=formatRational(a);
- if(entry.answerType==="TIME")return `${value} ${timeUnitLabel(p.timeUnit,a)}`;
+ if(entry.answerType==="TIME")return formatTimeText(a,p.timeUnit,`${p.timeUnit}s`);
  if(entry.answerType==="FRACTION")return `${value} of the work`;
  if(entry.answerType==="RATE")return `${value} of the work per ${p.timeUnit}`;
  return `${value} workers`;

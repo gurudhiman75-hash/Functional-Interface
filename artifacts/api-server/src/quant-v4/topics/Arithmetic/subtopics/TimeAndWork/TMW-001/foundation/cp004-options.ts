@@ -1,12 +1,12 @@
-import { add, compare, divide, equals, formatRational, multiply, rational, subtract } from "./rational";
-import { seedNumber, timeUnitLabel } from "./cp001-helpers";
+import { add, compare, divide, equals, formatRational, formatTimeText, multiply, rational, subtract } from "./rational";
+import { seedNumber } from "./cp001-helpers";
 import type { Rational } from "./types";
 import type { TmwCp004MisconceptionId, TmwCp004Option, TmwCp004Parameters, TmwCp004RegistryEntry, TmwCp004Solution } from "./cp004-types";
 
 function abs(v:Rational):Rational{return v.numerator<0?rational(-v.numerator,v.denominator):v;}
 function optionText(entry:TmwCp004RegistryEntry,p:TmwCp004Parameters,v:Rational):string{
  const value=formatRational(v);
- if(entry.answerType==="TIME")return `${value} ${timeUnitLabel(p.timeUnit,v)}`;
+ if(entry.answerType==="TIME")return formatTimeText(v,p.timeUnit,`${p.timeUnit}s`);
  if(entry.answerType==="FRACTION")return `${value} of the work`;
  if(entry.answerType==="RATE")return `${value} of the work per ${p.timeUnit}`;
  return `${value} ${equals(v,rational(1))?"worker":"workers"}`;
