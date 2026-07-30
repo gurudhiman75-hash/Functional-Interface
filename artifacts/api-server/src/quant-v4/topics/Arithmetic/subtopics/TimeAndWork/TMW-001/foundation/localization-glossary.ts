@@ -46,25 +46,6 @@ const contextCopy: Record<string, LocalePair> = {
   "A cable-laying crew": { hi: "एक केबल बिछाने वाला दल", pa: "ਇੱਕ ਕੇਬਲ ਵਿਛਾਉਣ ਵਾਲੀ ਟੀਮ" },
   "A second cable-laying crew": { hi: "दूसरा केबल बिछाने वाला दल", pa: "ਦੂਜੀ ਕੇਬਲ ਵਿਛਾਉਣ ਵਾਲੀ ਟੀਮ" },
 
-  packs: { hi: "पैक करती है", pa: "ਪੈਕ ਕਰਦੀ ਹੈ" },
-  prints: { hi: "छापती है", pa: "ਛਾਪਦੀ ਹੈ" },
-  fills: { hi: "भरती है", pa: "ਭਰਦੀ ਹੈ" },
-  sorts: { hi: "छाँटती है", pa: "ਛਾਂਟਦੀ ਹੈ" },
-  processes: { hi: "प्रोसेस करता है", pa: "ਪ੍ਰਕਿਰਿਆ ਕਰਦਾ ਹੈ" },
-  types: { hi: "टाइप करता है", pa: "ਟਾਈਪ ਕਰਦਾ ਹੈ" },
-  digitises: { hi: "डिजिटाइज़ करता है", pa: "ਡਿਜ਼ਿਟਲ ਕਰਦਾ ਹੈ" },
-  checks: { hi: "जाँचता है", pa: "ਜਾਂਚਦਾ ਹੈ" },
-  verifies: { hi: "सत्यापित करता है", pa: "ਤਸਦੀਕ ਕਰਦਾ ਹੈ" },
-  inspects: { hi: "जाँचती है", pa: "ਜਾਂਚਦੀ ਹੈ" },
-  reviews: { hi: "समीक्षा करता है", pa: "ਸਮੀਖਿਆ ਕਰਦਾ ਹੈ" },
-  paints: { hi: "पेंट करता है", pa: "ਰੰਗ ਕਰਦਾ ਹੈ" },
-  completes: { hi: "पूरा करता है", pa: "ਪੂਰਾ ਕਰਦਾ ਹੈ" },
-  finishes: { hi: "पूरा करता है", pa: "ਪੂਰਾ ਕਰਦਾ ਹੈ" },
-  repairs: { hi: "मरम्मत करता है", pa: "ਮੁਰੰਮਤ ਕਰਦਾ ਹੈ" },
-  installs: { hi: "लगाता है", pa: "ਲਗਾਉਂਦਾ ਹੈ" },
-  builds: { hi: "बनाता है", pa: "ਬਣਾਉਂਦਾ ਹੈ" },
-  lays: { hi: "बिछाता है", pa: "ਵਿਛਾਉਂਦਾ ਹੈ" },
-
   cartons: { hi: "कार्टन", pa: "ਕਾਰਟਨ" },
   booklets: { hi: "पुस्तिकाएँ", pa: "ਪੁਸਤਿਕਾਵਾਂ" },
   bottles: { hi: "बोतलें", pa: "ਬੋਤਲਾਂ" },
@@ -103,6 +84,11 @@ const contextCopy: Record<string, LocalePair> = {
   "a fencing assignment": { hi: "बाड़ लगाने का कार्य", pa: "ਵਾੜ ਲਗਾਉਣ ਦਾ ਕੰਮ" },
   "a planned wall section": { hi: "दीवार का नियोजित भाग", pa: "ਕੰਧ ਦਾ ਯੋਜਿਤ ਹਿੱਸਾ" },
   "a cable-laying assignment": { hi: "केबल बिछाने का कार्य", pa: "ਕੇਬਲ ਵਿਛਾਉਣ ਦਾ ਕੰਮ" },
+
+  minute: { hi: "मिनट", pa: "ਮਿੰਟ" },
+  hour: { hi: "घंटा", pa: "ਘੰਟਾ" },
+  day: { hi: "दिन", pa: "ਦਿਨ" },
+  shift: { hi: "पाली", pa: "ਪਾਲੀ" },
 };
 
 const unitCopy: Record<TmwTimeUnit, { hi: [string, string]; pa: [string, string] }> = {
@@ -151,38 +137,43 @@ function replaceMathText(value: string, language: TmwLocalizedLanguage): string 
   return replacements.reduce((text, [pattern, hi, pa]) => text.replace(pattern, language === "hi" ? hi : pa), value);
 }
 
-export function localizeAnswerText(value: string, language: TmwLocalizedLanguage): string {
-  let text = replaceMathText(value, language);
-  const workPart = language === "hi" ? "काम का $1 भाग" : "ਕੰਮ ਦਾ $1 ਹਿੱਸਾ";
-  const workPerUnit = language === "hi" ? "प्रति $2 काम का $1 भाग" : "ਪ੍ਰਤੀ $2 ਕੰਮ ਦਾ $1 ਹਿੱਸਾ";
-  text = text.replace(/(\d+(?: \d+\/\d+|\/\d+)?) of the work per (day|hour|minute|shift)/g, workPerUnit);
-  text = text.replace(/(\d+(?: \d+\/\d+|\/\d+)?) of the work/g, workPart);
-
+function localizePlainUnit(value: string, language: TmwLocalizedLanguage): string {
   const units: Array<[RegExp, string, string]> = [
-    [/parcels/g, "पार्सल", "ਪਾਰਸਲ"],
-    [/cartons/g, "कार्टन", "ਕਾਰਟਨ"],
-    [/booklets/g, "पुस्तिकाएँ", "ਪੁਸਤਿਕਾਵਾਂ"],
-    [/bottles/g, "बोतलें", "ਬੋਤਲਾਂ"],
-    [/forms/g, "फॉर्म", "ਫਾਰਮ"],
-    [/pages/g, "पृष्ठ", "ਸਫ਼ੇ"],
-    [/files/g, "फाइलें", "ਫਾਈਲਾਂ"],
-    [/applications/g, "आवेदन", "ਅਰਜ਼ੀਆਂ"],
-    [/components/g, "पुर्ज़े", "ਪੁਰਜ਼ੇ"],
-    [/records/g, "रिकॉर्ड", "ਰਿਕਾਰਡ"],
     [/metres of road/g, "मीटर सड़क", "ਮੀਟਰ ਸੜਕ"],
     [/metres of fencing/g, "मीटर बाड़", "ਮੀਟਰ ਵਾੜ"],
     [/metres of wall/g, "मीटर दीवार", "ਮੀਟਰ ਕੰਧ"],
     [/metres of surface/g, "मीटर सतह", "ਮੀਟਰ ਸਤਹ"],
     [/metres of cable/g, "मीटर केबल", "ਮੀਟਰ ਕੇਬਲ"],
     [/repair tasks/g, "मरम्मत कार्य", "ਮੁਰੰਮਤ ਦੇ ਕੰਮ"],
+    [/applications/g, "आवेदन", "ਅਰਜ਼ੀਆਂ"],
+    [/components/g, "पुर्ज़े", "ਪੁਰਜ਼ੇ"],
+    [/booklets/g, "पुस्तिकाएँ", "ਪੁਸਤਿਕਾਵਾਂ"],
+    [/parcels/g, "पार्सल", "ਪਾਰਸਲ"],
+    [/cartons/g, "कार्टन", "ਕਾਰਟਨ"],
+    [/bottles/g, "बोतलें", "ਬੋਤਲਾਂ"],
+    [/records/g, "रिकॉर्ड", "ਰਿਕਾਰਡ"],
+    [/forms/g, "फॉर्म", "ਫਾਰਮ"],
+    [/pages/g, "पृष्ठ", "ਸਫ਼ੇ"],
+    [/files/g, "फाइलें", "ਫਾਈਲਾਂ"],
     [/rooms/g, "कमरे", "ਕਮਰੇ"],
-    [/ per day/g, language === "hi" ? " प्रति दिन" : " ਪ੍ਰਤੀ ਦਿਨ", language === "hi" ? " प्रति दिन" : " ਪ੍ਰਤੀ ਦਿਨ"],
-    [/ per hour/g, language === "hi" ? " प्रति घंटा" : " ਪ੍ਰਤੀ ਘੰਟਾ", language === "hi" ? " प्रति घंटा" : " ਪ੍ਰਤੀ ਘੰਟਾ"],
-    [/ per minute/g, language === "hi" ? " प्रति मिनट" : " ਪ੍ਰਤੀ ਮਿੰਟ", language === "hi" ? " प्रति मिनट" : " ਪ੍ਰਤੀ ਮਿੰਟ"],
-    [/ per shift/g, language === "hi" ? " प्रति पाली" : " ਪ੍ਰਤੀ ਪਾਲੀ", language === "hi" ? " प्रति पाली" : " ਪ੍ਰਤੀ ਪਾਲੀ"],
   ];
-  for (const [pattern, hi, pa] of units) text = text.replace(pattern, language === "hi" ? hi : pa);
-  return text;
+  return units.reduce((text, [pattern, hi, pa]) => text.replace(pattern, language === "hi" ? hi : pa), value);
+}
+
+export function localizeAnswerText(value: string, language: TmwLocalizedLanguage): string {
+  let text = value.replace(
+    /(\d+(?: \d+\/\d+|\/\d+)?) of the work per (day|hour|minute|shift)/g,
+    (_match, amount: string, unit: TmwTimeUnit) => language === "hi"
+      ? `${localizedPerUnit(unit, language)} काम का ${amount} भाग`
+      : `${localizedPerUnit(unit, language)} ਕੰਮ ਦਾ ${amount} ਹਿੱਸਾ`,
+  );
+  text = text.replace(
+    /(\d+(?: \d+\/\d+|\/\d+)?) of the work/g,
+    (_match, amount: string) => language === "hi" ? `काम का ${amount} भाग` : `ਕੰਮ ਦਾ ${amount} ਹਿੱਸਾ`,
+  );
+  text = localizePlainUnit(text, language);
+  text = text.replace(/ per (day|hour|minute|shift)/g, (_match, unit: TmwTimeUnit) => ` ${localizedPerUnit(unit, language)}`);
+  return replaceMathText(text, language);
 }
 
 export function localizeMathStep(value: string, language: TmwLocalizedLanguage): string {
