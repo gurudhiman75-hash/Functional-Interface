@@ -1,17 +1,17 @@
 const TEMPORAL_OPENINGS = [
-  "During a timed review, consider:",
-  "Across the stated interval, consider:",
-  "Over this work period, consider:",
-  "When the schedule begins, consider:",
-  "While the task proceeds, consider:",
+  "During review:",
+  "Across stages:",
+  "Over time:",
+  "When scheduled:",
+  "While operating:",
 ] as const;
 
 const OBJECTIVE_OPENINGS = [
-  "To evaluate the result, consider:",
-  "To determine the outcome, consider:",
-  "To compare the work plans, consider:",
-  "To analyse the schedule, consider:",
-  "To find the requested value, consider:",
+  "To solve:",
+  "To determine:",
+  "To compare:",
+  "To analyse:",
+  "To calculate:",
 ] as const;
 
 function stableHash(value:string):number{
