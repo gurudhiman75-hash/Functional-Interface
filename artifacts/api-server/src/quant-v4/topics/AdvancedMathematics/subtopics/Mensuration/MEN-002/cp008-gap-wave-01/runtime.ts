@@ -628,7 +628,7 @@ export function classifyMenCp008Wave01Difficulty(state: MenCp008Wave01State): Me
   switch (state.solveMode) {
     case "findCylinderCurvedToTotalSurfaceRatio":
     case "findConeCurvedToTotalSurfaceRatio":
-      return (d.ratioNumerator! + d.ratioDenominator!) >= 9n ? "Hard" : "Medium";
+      return d.ratioDenominator! >= 15n ? "Hard" : "Medium";
     case "findCylinderVolumePercentageChange":
     case "findConeVolumePercentageChange":
       return d.percent! >= 100n ? "Hard" : "Medium";
