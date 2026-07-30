@@ -1,6 +1,7 @@
 import { getTmwCp003Entry } from "./cp003-registry";
 import { buildTmwCp003Options } from "./cp003-options";
 import { buildTmwCp003Parameters } from "./cp003-parameters";
+import { buildTmwCp003CommonTrap, buildTmwCp003Shortcut, buildTmwCp003WorkingLatex } from "./cp003-learning";
 import { renderTmwCp003Stem, tmwCp003Conclusion, tmwCp003ExplanationOpening } from "./cp003-presentation";
 import { solveTmwCp003, verifyTmwCp003 } from "./cp003-solver";
 import { divide, rationalKey, toLatex } from "./rational";
@@ -35,6 +36,14 @@ function inlineMath(latex: string): string {
   return `\\(${latex}\\)`;
 }
 
+function balancedInlineMath(value: string): boolean {
+  return (value.match(/\\\(/g) ?? []).length === (value.match(/\\\)/g) ?? []).length;
+}
+
+function outsideInlineMath(value: string): string {
+  return value.replace(/\\\([\s\S]*?\\\)/g, "");
+}
+
 function visibleWorkedLatex(
   entry: TmwCp003RegistryEntry,
   parameters: TmwCp003Parameters,
@@ -63,18 +72,51 @@ export function runTmwCp003Pipeline(input: { questionLanguageId: string; seed: s
   const renderedStem = renderTmwCp003Stem(entry, parameters);
   const workedLatex = visibleWorkedLatex(entry, parameters, solution);
   const explanationFormula = inlineMath(solution.formulaLatex);
-  const explanationSteps = workedLatex.map(inlineMath);
+  const explanationSteps = buildTmwCp003WorkingLatex(entry, parameters, solution, workedLatex).map(inlineMath);
+  const shortcut = buildTmwCp003Shortcut(entry, parameters, solution);
+  const commonTrap = buildTmwCp003CommonTrap(entry, optionSet.options);
+  const explanation = {
+    opening: tmwCp003ExplanationOpening(entry),
+    formula: explanationFormula,
+    steps: explanationSteps,
+    shortcut,
+    commonTrap,
+    conclusion: tmwCp003Conclusion(entry, parameters, solution.answerText),
+  };
   const errors: string[] = [];
+  const learnerText = [
+    renderedStem,
+    ...optionSet.options.map((item) => item.text),
+    solution.answerText,
+    explanation.opening,
+    explanation.formula,
+    ...explanation.steps,
+    explanation.shortcut.title,
+    ...explanation.shortcut.steps,
+    explanation.commonTrap.optionLabel,
+    explanation.commonTrap.optionText,
+    explanation.commonTrap.explanation,
+    explanation.conclusion,
+  ].join(" ");
 
   if (!verifyTmwCp003(entry, parameters, solution)) errors.push("Independent verifier disagrees with canonical solver");
   if (!renderedStem.trim()) errors.push("Stem is empty");
-  if (/\{\{[^}]+\}\}|\$\{[^}]+\}/.test(renderedStem)) errors.push("Stem contains an unresolved placeholder");
+  if (/\{\{[^}]+\}\}|\$\{[^}]+\}/.test(learnerText)) errors.push("Learner text contains an unresolved placeholder");
   if (optionSet.options.length !== 4) errors.push("Question does not contain exactly four options");
   if (new Set(optionSet.options.map((item) => item.text)).size !== 4) errors.push("Options are not textually unique");
   if (optionSet.correctIndex < 0 || optionSet.correctIndex > 3) errors.push("Correct answer is missing from options");
   if (optionSet.options.filter((item) => item.misconceptionId === "CORRECT").length !== 1) errors.push("Option contract does not contain exactly one correct answer");
   if (!/^\\\(.+\\\)$/.test(explanationFormula)) errors.push("Explanation formula lacks inline MathJax delimiters");
+  if (explanationSteps.length < 3) errors.push("Explanation does not provide setup, calculation and verification stages");
   if (explanationSteps.some((step) => !/^\\\(.+\\\)$/.test(step))) errors.push("Explanation step lacks inline MathJax delimiters");
+  if (!explanation.shortcut.title.startsWith("10-Second ") || explanation.shortcut.steps.length < 1) errors.push("Explanation does not contain a solve-mode-specific exam shortcut");
+  if (!optionSet.options.some((item) => item.text === explanation.commonTrap.optionText && item.misconceptionId === explanation.commonTrap.misconceptionId)) errors.push("Common-trap callout is not tied to an actual distractor");
+  if (/Do not choose|Don't choose/i.test(explanation.commonTrap.explanation)) errors.push("Common-trap explanation uses a negative command");
+  if (/[A-Z]{3,}_[A-Z_]{3,}/.test(explanation.commonTrap.explanation)) errors.push("Common-trap explanation leaks an internal misconception identifier");
+  if (!balancedInlineMath(learnerText)) errors.push("Learner text contains unbalanced inline MathJax");
+  if (/\\frac/.test(outsideInlineMath(learnerText))) errors.push("Learner text contains a raw LaTeX fraction outside MathJax");
+  if (/(^|[^\\])\$/.test(learnerText)) errors.push("Learner text uses an unsupported dollar-sign MathJax delimiter");
+  if (/\b(?:\d+\s+)?\d+\/\d+\s+(?:minutes?|hours?|days?|shifts?)\b/i.test(learnerText)) errors.push("Learner text contains an ASCII fractional time");
 
   return {
     archetypeId: "TMW-001",
@@ -89,12 +131,7 @@ export function runTmwCp003Pipeline(input: { questionLanguageId: string; seed: s
     options: optionSet.options.map((item) => item.text),
     optionAudit: optionSet.options,
     correctIndex: optionSet.correctIndex,
-    explanation: {
-      opening: tmwCp003ExplanationOpening(entry),
-      formula: explanationFormula,
-      steps: explanationSteps,
-      conclusion: tmwCp003Conclusion(entry, parameters, solution.answerText),
-    },
+    explanation,
     mathematicalFingerprint: fingerprint(parameters, entry.solveMode),
     validation: { valid: errors.length === 0, errors },
     publiclyPublishable: false,

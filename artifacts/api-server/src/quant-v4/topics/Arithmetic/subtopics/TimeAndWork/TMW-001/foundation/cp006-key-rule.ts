@@ -9,7 +9,7 @@ export function tmwCp006KeyRule(entry:TmwCp006RegistryEntry):string{
     case "TMW_PRODUCTION_SCALING":return "When per-resource output is unchanged, total production is proportional to resource count multiplied by the number of shifts.";
     case "TMW_DIMENSIONAL_WORK":return "For walls, roads, masonry and excavation, work quantity is proportional to the product of the dimensions that determine area or volume.";
     case "TMW_RESOURCE_STOCK":return "Food and similar stock questions use person-days conservation: remaining stock equals population multiplied by the number of days it can support.";
-    case "TMW_BATCH_SERIES":return "When the workforce increases by a fixed number each day, total work is the sum of an arithmetic progression: \\(S_n=\\frac{n}{2}[2a+(n-1)d]\\).";
+    case "TMW_BATCH_SERIES":return "When the workforce increases by the same number each day, add the workforce used on each day. For \\(n\\) days, the total is \\(S_n=\\frac{n}{2}[2a+(n-1)d]\\).";
     case "TMW_RESOURCE_TIME":return "Equivalent resource-time is the direct product of resource count and duration, with matching units such as worker-days or machine-hours.";
   }
 }

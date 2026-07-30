@@ -1,5 +1,5 @@
-import { add, compare, divide, equals, multiply, rational, rationalKey, reciprocal, subtract } from "./rational";
-import { required, seedNumber, timeUnitLabel } from "./cp001-helpers";
+import { add, compare, divide, equals, formatTimeText, multiply, rational, rationalKey, reciprocal, subtract } from "./rational";
+import { required, seedNumber } from "./cp001-helpers";
 import type { Rational } from "./types";
 import type { TmwCp003MisconceptionId, TmwCp003Option, TmwCp003Parameters, TmwCp003RegistryEntry, TmwCp003Solution } from "./cp003-types";
 import { ratioText } from "./cp003-solver";
@@ -12,7 +12,7 @@ function percent(value: Rational): Rational {
 function formatOption(entry: TmwCp003RegistryEntry, p: TmwCp003Parameters, value: Rational): string {
   if (entry.answerType === "RATIO") return ratioText(value);
   if (entry.answerType === "PERCENT") return `${formatRational(value)}%`;
-  if (entry.answerType === "TIME") return `${formatRational(value)} ${timeUnitLabel(p.timeUnit, value)}`;
+  if (entry.answerType === "TIME") return formatTimeText(value, p.timeUnit, `${p.timeUnit}s`);
   return `${formatRational(value)} ${p.context.outputNoun}`;
 }
 

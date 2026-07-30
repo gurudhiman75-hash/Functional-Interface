@@ -1,5 +1,5 @@
-import { add, divide, equals, formatRational, multiply, rational, reciprocal, subtract, toLatex } from "./rational";
-import { required, timeUnitLabel } from "./cp001-helpers";
+import { add, divide, equals, formatRational, formatTimeText, multiply, rational, reciprocal, subtract, toLatex } from "./rational";
+import { required } from "./cp001-helpers";
 import type { Rational } from "./types";
 import type { TmwCp003Parameters, TmwCp003RegistryEntry, TmwCp003Solution } from "./cp003-types";
 
@@ -18,7 +18,7 @@ export function ratioText(value: Rational): string {
 function answerText(entry: TmwCp003RegistryEntry, p: TmwCp003Parameters, answer: Rational): string {
   if (entry.answerType === "RATIO") return ratioText(answer);
   if (entry.answerType === "PERCENT") return `${formatRational(answer)}%`;
-  if (entry.answerType === "TIME") return `${formatRational(answer)} ${timeUnitLabel(p.timeUnit, answer)}`;
+  if (entry.answerType === "TIME") return formatTimeText(answer, p.timeUnit, `${p.timeUnit}s`);
   return `${formatRational(answer)} ${p.context.outputNoun}`;
 }
 

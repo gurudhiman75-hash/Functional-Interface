@@ -1,11 +1,11 @@
-import { add, compare, divide, equals, formatRational, multiply, rational, reciprocal, subtract } from "./rational";
-import { seedNumber, timeUnitLabel } from "./cp001-helpers";
+import { add, compare, divide, equals, formatRational, formatTimeText, multiply, rational, reciprocal, subtract } from "./rational";
+import { seedNumber } from "./cp001-helpers";
 import type { Rational } from "./types";
 import type { TmwCp005Option, TmwCp005Parameters, TmwCp005RegistryEntry, TmwCp005Solution, TmwCp005MisconceptionId } from "./cp005-types";
 function text(entry:TmwCp005RegistryEntry,p:TmwCp005Parameters,value:Rational|string):string{
  if(typeof value==="string")return value;
  const formatted=formatRational(value);
- if(entry.answerType==="TIME")return `${formatted} ${timeUnitLabel(p.timeUnit,value)}`;
+ if(entry.answerType==="TIME")return formatTimeText(value,p.timeUnit,`${p.timeUnit}s`);
  if(entry.answerType==="FRACTION")return `${formatted} of the work`;
  if(entry.answerType==="COUNT")return `${formatted} ${equals(value,rational(1))?"cycle":"cycles"}`;
  if(entry.answerType==="RATE")return `${formatted} of the work per ${p.timeUnit}`;

@@ -7,7 +7,8 @@ import { renderTmwCp006ExamStem, tmwCp006ExamShortcut, tmwCp006FriendlyTrap, tmw
 import { tmwCp006Conclusion } from "./cp006-presentation";
 import { polishTmwCp006Solution } from "./cp006-solution-polish";
 import { isPositiveCp006Answer, solveTmwCp006, verifyTmwCp006 } from "./cp006-solver";
-import { rationalKey } from "./rational";
+import { multiply, rationalKey, toLatex } from "./rational";
+import type { Rational } from "./types";
 import type { TmwCp006GeneratedQuestion, TmwCp006Parameters, TmwCp006RegistryEntry } from "./cp006-types";
 
 function stateKey(p:TmwCp006Parameters):string{
@@ -19,6 +20,7 @@ function inlineMath(latex:string):string{return `\\(${latex}\\)`;}
 function balancedInlineMath(value:string):boolean{return (value.match(/\\\(/g)??[]).length===(value.match(/\\\)/g)??[]).length;}
 function requiresUnitBearingOptions(answerType:string):boolean{return ["COUNT","TIME","HOURS","WORK","SHIFT","RESOURCE_TIME"].includes(answerType);}
 function hasApprovedScenarioOpening(stem:string):boolean{return /^(?:At |A contractor |A project manager |A supervisor |A relief camp |A department |A team |The |For capacity planning )/.test(stem);}
+function capacity(state:TmwCp006Parameters["stateA"]):Rational{return multiply(multiply(multiply(state.resources,state.days),state.hoursPerDay),state.efficiency);}
 function polishStem(entry:TmwCp006RegistryEntry,raw:string):string{
   let stem=raw.replace(/^The the /,"The ");
   if(entry.solveMode==="findAdditionalWorkersForDeadline"||entry.solveMode==="findWorkersRemovedForDelay")stem=stem.replace(/^A contractor at /,"A project manager at ");
@@ -36,7 +38,10 @@ export function runTmwCp006Pipeline(input:{questionLanguageId:string;seed:string
   const solution=polishTmwCp006Solution(entry,parameters,rawSolution);
   const optionSet=buildTmwCp006Options(entry,parameters,solution,input.seed);
   const stem=polishStem(entry,renderTmwCp006ExamStem(entry,parameters));
-  const formula=inlineMath(solution.formulaLatex),steps=solution.workedLatex.map(inlineMath),errors:string[]=[];
+  const formula=inlineMath(solution.formulaLatex);
+  const setup=inlineMath(`C_1=N_1D_1H_1E_1=${toLatex(capacity(parameters.stateA))},\\quad C_2=N_2D_2H_2E_2=${toLatex(capacity(parameters.stateB))}`);
+  const check=inlineMath(`\\text{Independent invariant verified for ${entry.solveMode}: }x=${toLatex(solution.answer)}`);
+  const steps=[setup,...solution.workedLatex.map(inlineMath),check],errors:string[]=[];
   const rawShortcut=buildTmwCp006Shortcut(entry,parameters,solution);
   const rawTrap=buildTmwCp006CommonTrap(entry,optionSet.options);
   const explanation={
@@ -63,11 +68,12 @@ export function runTmwCp006Pipeline(input:{questionLanguageId:string;seed:string
   if(optionSet.options.filter(option=>option.misconceptionId==="CORRECT").length!==1)errors.push("Option contract does not contain exactly one correct answer");
   if(requiresUnitBearingOptions(entry.answerType)&&optionSet.options.some(option=>/^[-+]?\d+(?:\s+\d+\/\d+|\/\d+)?$/.test(option.text.trim())))errors.push("A unit-bearing answer option is missing its contextual unit");
   if(!/^\\\(.+\\\)$/.test(formula))errors.push("Explanation formula lacks inline MathJax delimiters");
+  if(steps.length<3)errors.push("Explanation does not provide setup, calculation and verification stages");
   if(steps.some(step=>!/^\\\(.+\\\)$/.test(step)))errors.push("Explanation step lacks inline MathJax delimiters");
   if(explanation.givens.length<1)errors.push("Explanation does not identify the generated givens");
   if(!explanation.shortcut.title.startsWith("10-Second ")||explanation.shortcut.steps.length<1)errors.push("Explanation does not contain the approved exam shortcut");
   if(!optionSet.options.some(option=>option.text===explanation.commonTrap.optionText&&option.misconceptionId===explanation.commonTrap.misconceptionId))errors.push("Common-trap callout is not tied to an actual distractor");
-  if(!explanation.commonTrap.explanation.startsWith(`Do not choose ${explanation.commonTrap.optionLabel}`))errors.push("Common-trap warning is not student-friendly or option-specific");
+  if(!explanation.commonTrap.explanation.startsWith(`Don't fall for ${explanation.commonTrap.optionLabel} (${explanation.commonTrap.optionText})!`))errors.push("Common-trap warning is not student-friendly or option-specific");
   if(/[A-Z]{3,}_[A-Z_]{3,}/.test(explanation.commonTrap.explanation))errors.push("Learner-facing trap warning leaks an internal misconception identifier");
   if(!balancedInlineMath(explanationText))errors.push("Explanation contains unbalanced inline MathJax delimiters");
   if(/(^|[^\\])\$/.test(explanationText))errors.push("Explanation uses unsupported dollar-sign MathJax delimiters");

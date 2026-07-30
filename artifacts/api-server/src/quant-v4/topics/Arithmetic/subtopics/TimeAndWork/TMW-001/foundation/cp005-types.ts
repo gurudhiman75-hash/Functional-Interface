@@ -54,6 +54,11 @@ export interface TmwCp005GeneratedQuestion{
  archetypeId:"TMW-001";canonicalProblemId:typeof TMW_CP_005_ID;questionLanguageId:string;solveMode:TmwCp005SolveMode;
  language:"en";seed:string;stem:string;parameters:TmwCp005Parameters;solution:TmwCp005Solution;
  options:string[];optionAudit:TmwCp005Option[];correctIndex:number;
- explanation:{opening:string;formula:string;steps:string[];conclusion:string};
+ explanation:{
+  opening:string;formula:string;steps:string[];
+  shortcut:{title:string;steps:string[]};
+  commonTrap:{optionLabel:string;optionText:string;misconceptionId:Exclude<TmwCp005MisconceptionId,"CORRECT">;explanation:string};
+  conclusion:string;
+ };
  mathematicalFingerprint:string;validation:{valid:boolean;errors:string[]};publiclyPublishable:false;
 }

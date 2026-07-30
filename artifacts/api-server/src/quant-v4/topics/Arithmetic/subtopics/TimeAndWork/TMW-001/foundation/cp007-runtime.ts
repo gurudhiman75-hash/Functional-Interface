@@ -4,13 +4,13 @@ import { buildTmwCp007Parameters } from "./cp007-parameters";
 import { explainTmwCp007Target, isTmwCp007ExamStyleStem, renderTmwCp007ExamStem, tmwCp007ExamShortcut, tmwCp007FriendlyTrap, tmwCp007PlainEnglishOpening } from "./cp007-exam-language";
 import { tmwCp007CommonTrap, tmwCp007Conclusion, tmwCp007Givens, tmwCp007Shortcut, wrapTmwCp007Math } from "./cp007-presentation";
 import { isValidTmwCp007Answer, solveTmwCp007, verifyTmwCp007 } from "./cp007-solver";
-import { rationalKey } from "./rational";
+import { rationalKey, toLatex } from "./rational";
 import type { TmwCp007GeneratedQuestion, TmwCp007Parameters, TmwCp007RegistryEntry, TmwCp007Solution } from "./cp007-types";
 
 function fingerprint(p:TmwCp007Parameters):string{
   const crew=(values:TmwCp007Parameters["crewA"]):string=>values.map(rationalKey).join(":");
   const optional=(value:{numerator:number;denominator:number}|undefined):string=>value?rationalKey(value):"-";
-  return [crew(p.crewA),crew(p.crewB),rationalKey(p.workA),rationalKey(p.workB),rationalKey(p.daysA),rationalKey(p.daysB),optional(p.totalCrewCount),optional(p.targetCrewRate),String(p.targetCategoryIndex??"-"),String(p.sourceCategoryIndex??"-"),String(p.replacementCategoryIndex??"-"),(p.pairwiseCrews??[]).map(crew=>crew.map(rationalKey).join(":")).join(","),(p.pairwiseRates??[]).map(rationalKey).join(",")].join("|");
+  return [crew(p.crewA),crew(p.crewB),rationalKey(p.workA),rationalKey(p.workB),rationalKey(p.daysA),rationalKey(p.daysB),optional(p.totalCrewCount),optional(p.targetCrewRate),String(p.targetCategoryIndex??"-"),String(p.sourceCategoryIndex??"-"),String(p.replacementCategoryIndex??"-"),(p.pairwiseCrews??[]).map(crew=>crew.map(rationalKey).join(":")).join(","),(p.pairwiseRates??[]).map(rationalKey).join(","),p.context.categories.map(category=>rationalKey(category.efficiency)).join(":")].join("|");
 }
 function requiresUnitBearingOptions(answerType:string):boolean{return ["COUNT","TIME","RATE","COUNT_PAIR","WORK","RESOURCE_TIME"].includes(answerType);}
 function displayText(raw:string):string{
@@ -54,7 +54,7 @@ function polishSolution(solution:TmwCp007Solution):TmwCp007Solution{return {...s
 
 export function runTmwCp007Pipeline(input:{questionLanguageId:string;seed:string;language?:"en"|"hi"|"pa"}):TmwCp007GeneratedQuestion{
   if(input.language&&input.language!=="en")throw new Error("TMW-CP-007 is English only at the current runtime-proof stage");
-  const entry=getTmwCp007Entry(input.questionLanguageId),parameters=buildTmwCp007Parameters(entry,input.seed),rawSolution=solveTmwCp007(entry,parameters),solution=polishSolution(rawSolution),rawOptionSet=buildTmwCp007Options(entry,parameters,rawSolution,input.seed),optionSet={...rawOptionSet,options:rawOptionSet.options.map(option=>({...option,text:displayText(option.text)}))},stem=polishStem(entry,parameters,renderTmwCp007ExamStem(entry,parameters)),formula=wrapTmwCp007Math(solution.formulaLatex),steps=solution.workedLatex.map(wrapTmwCp007Math),rawShortcut=tmwCp007Shortcut(entry,parameters,solution),shortcut=tmwCp007ExamShortcut({...rawShortcut,title:displayText(rawShortcut.title),steps:rawShortcut.steps.map(displayText)}),commonTrap=tmwCp007FriendlyTrap(tmwCp007CommonTrap(optionSet.options,optionSet.correctIndex)),errors:string[]=[];
+  const entry=getTmwCp007Entry(input.questionLanguageId),parameters=buildTmwCp007Parameters(entry,input.seed),rawSolution=solveTmwCp007(entry,parameters),solution=polishSolution(rawSolution),rawOptionSet=buildTmwCp007Options(entry,parameters,rawSolution,input.seed),optionSet={...rawOptionSet,options:rawOptionSet.options.map(option=>({...option,text:displayText(option.text)}))},stem=polishStem(entry,parameters,renderTmwCp007ExamStem(entry,parameters)),formula=wrapTmwCp007Math(solution.formulaLatex),setup=wrapTmwCp007Math(parameters.context.categories.map((category,index)=>`e_${String.fromCharCode(65+index)}=${toLatex(category.efficiency)}`).join(",\\quad ")),check=wrapTmwCp007Math(`\\text{Independent heterogeneous-crew invariant verified for ${entry.solveMode}: }(${solution.answerValues.map(toLatex).join(",")})`),steps=[setup,...solution.workedLatex.map(wrapTmwCp007Math),check],rawShortcut=tmwCp007Shortcut(entry,parameters,solution),shortcut=tmwCp007ExamShortcut({...rawShortcut,title:displayText(rawShortcut.title),steps:rawShortcut.steps.map(displayText)}),commonTrap=tmwCp007FriendlyTrap(tmwCp007CommonTrap(optionSet.options,optionSet.correctIndex)),errors:string[]=[];
   const givens=[...tmwCp007Givens(entry,parameters).map(displayText),explainTmwCp007Target(entry,parameters,solution)];
   const opening=buildOpening(entry,parameters);
   const explanationText=[opening,formula,...givens,...steps,shortcut.title,...shortcut.steps,commonTrap.optionLabel,commonTrap.optionText,commonTrap.explanation].join(" ");
@@ -74,6 +74,7 @@ export function runTmwCp007Pipeline(input:{questionLanguageId:string;seed:string
   if(optionSet.options.filter(option=>option.misconceptionId==="CORRECT").length!==1)errors.push("Option contract does not contain exactly one correct answer");
   if(requiresUnitBearingOptions(entry.answerType)&&optionSet.options.some(option=>/^[-+]?\d+(?:\s+\d+\/\d+|\/\d+)?$/.test(option.text.trim())))errors.push("A unit-bearing answer option is missing its contextual unit");
   if(!/^\\\(.+\\\)$/.test(formula))errors.push("Explanation formula lacks inline MathJax delimiters");
+  if(steps.length<3)errors.push("Explanation does not provide setup, calculation and verification stages");
   if(steps.some(step=>!/^\\\(.+\\\)$/.test(step)))errors.push("Explanation step lacks inline MathJax delimiters");
   if(entry.ruleId==="TMW_CATEGORY_EQUIVALENCE"&&!opening.includes("\\(n_Ae_A=n_Be_B\\)"))errors.push("Category-equivalence rule lacks literal inline MathJax");
   if(entry.solveMode==="findIntegerCrewCompositionUnderConstraints"&&(!opening.includes("\\(x+y=N\\)")||!opening.includes("weighted-rate equation")))errors.push("Constrained-composition explanation does not define count unknowns");
@@ -81,7 +82,7 @@ export function runTmwCp007Pipeline(input:{questionLanguageId:string;seed:string
   if(givens.length<2)errors.push("Explanation does not define the supplied data and answer target");
   if(!shortcut.title.startsWith("10-Second ")||shortcut.steps.length<2)errors.push("Exam shortcut is incomplete");
   if(commonTrap.optionText===solution.answerText)errors.push("Common trap points to the correct answer");
-  if(!commonTrap.explanation.startsWith(`Do not choose ${commonTrap.optionLabel}`))errors.push("Common-trap warning is not student-friendly or option-specific");
+  if(!commonTrap.explanation.startsWith(`Don't fall for ${commonTrap.optionLabel} (${commonTrap.optionText})!`))errors.push("Common-trap warning is not student-friendly or option-specific");
   if(/[A-Z]{3,}_[A-Z_]{3,}/.test(commonTrap.explanation))errors.push("Learner-facing trap warning leaks an internal misconception identifier");
   if(/(^|[^\\])\$/.test(explanationText))errors.push("Explanation uses unsupported dollar-sign MathJax delimiters");
   return {archetypeId:"TMW-001",canonicalProblemId:"TMW-CP-007",questionLanguageId:entry.qlId,solveMode:entry.solveMode,language:"en",seed:input.seed,stem,parameters,solution,options:optionSet.options.map(option=>option.text),optionAudit:optionSet.options,correctIndex:optionSet.correctIndex,explanation:{opening,formula,givens,steps,shortcut,commonTrap,conclusion:displayText(tmwCp007Conclusion(entry,parameters,solution.answerText))},mathematicalFingerprint:`${entry.solveMode}|${fingerprint(parameters)}`,validation:{valid:errors.length===0,errors},publiclyPublishable:false};

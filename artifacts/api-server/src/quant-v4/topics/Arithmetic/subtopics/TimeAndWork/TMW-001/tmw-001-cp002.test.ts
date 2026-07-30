@@ -35,8 +35,31 @@ for (const entry of TMW_CP002_REGISTRY) {
     assert.equal(first.optionAudit.filter((option) => option.misconceptionId === "CORRECT").length, 1);
     assert.equal(first.publiclyPublishable, false);
     assert.ok(first.explanation.formula.startsWith("\\("));
-    assert.ok(first.explanation.steps.length >= 1);
-    assert.equal(/undefined|null|\{[^}]+\}/.test(first.stem), false);
+    assert.ok(first.explanation.steps.length >= 3);
+    assert.ok(first.explanation.shortcut.title.startsWith("10-Second "));
+    assert.ok(first.explanation.shortcut.steps.length >= 1);
+    assert.notEqual(first.explanation.commonTrap.misconceptionId, "CORRECT");
+    assert.ok(first.optionAudit.some((option) => option.text === first.explanation.commonTrap.optionText && option.misconceptionId === first.explanation.commonTrap.misconceptionId));
+    assert.equal(/Do not choose|Don't choose/i.test(first.explanation.commonTrap.explanation), false);
+    assert.equal(/[A-Z]{3,}_[A-Z_]{3,}/.test(first.explanation.commonTrap.explanation), false);
+    const visibleText = [
+      first.stem,
+      ...first.options,
+      first.solution.answerText,
+      first.explanation.opening,
+      first.explanation.formula,
+      ...first.explanation.steps,
+      first.explanation.shortcut.title,
+      ...first.explanation.shortcut.steps,
+      first.explanation.commonTrap.optionLabel,
+      first.explanation.commonTrap.optionText,
+      first.explanation.commonTrap.explanation,
+      first.explanation.conclusion,
+    ].join("\n");
+    assert.equal(/undefined|null|NaN|Infinity|\{\{|\$\{/.test(visibleText), false);
+    assert.equal((visibleText.match(/\\\(/g) ?? []).length, (visibleText.match(/\\\)/g) ?? []).length);
+    assert.equal(/\\frac/.test(visibleText.replace(/\\\([\s\S]*?\\\)/g, "")), false);
+    assert.equal(/\b(?:\d+\s+)?\d+\/\d+\s+(?:minutes?|hours?|days?|shifts?)\b/i.test(visibleText), false);
     assert.equal(first.explanation.conclusion.includes("is required"), false);
     assert.equal(first.stem.includes("worker or unit"), false);
     if (first.solution.answerType === "FRACTION") {

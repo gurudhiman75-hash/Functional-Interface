@@ -1,5 +1,6 @@
 import { buildTmwCp002Options } from "./cp002-options";
 import { buildTmwCp002Parameters } from "./cp002-parameters";
+import { buildTmwCp002CommonTrap, buildTmwCp002Shortcut, buildTmwCp002WorkingLatex } from "./cp002-learning";
 import { renderTmwCp002Stem, tmwCp002Conclusion, tmwCp002ExplanationOpening } from "./cp002-presentation";
 import { getTmwCp002Entry } from "./cp002-registry";
 import { solveTmwCp002, sumTmwRates, verifyTmwCp002 } from "./cp002-solver";
@@ -20,11 +21,23 @@ function positive(value: Rational): boolean {
   return compare(value, rational(0)) > 0;
 }
 
+function balancedInlineMath(value: string): boolean {
+  return (value.match(/\\\(/g) ?? []).length === (value.match(/\\\)/g) ?? []).length;
+}
+
+function outsideInlineMath(value: string): string {
+  return value.replace(/\\\([\s\S]*?\\\)/g, "");
+}
+
 function validate(entry: TmwCp002RegistryEntry, p: TmwCp002Parameters, solution: TmwCp002Solution, stem: string, options: TmwCp002Option[], correctIndex: number): string[] {
   const errors: string[] = [];
+  const visibleText = [stem, solution.answerText, ...options.map((option) => option.text)].join("\n");
   if (!verifyTmwCp002(entry, p, solution)) errors.push("Independent verifier disagrees with canonical solver");
   if (!stem.trim()) errors.push("Stem is empty");
-  if (/undefined|null|\{[^}]+\}/.test(stem)) errors.push("Stem contains an unresolved value");
+  if (/undefined|null|NaN|Infinity|\{\{|\$\{/.test(visibleText)) errors.push("Learner text contains an unresolved value");
+  if (!balancedInlineMath(visibleText)) errors.push("Learner text contains unbalanced inline MathJax");
+  if (/\\frac/.test(outsideInlineMath(visibleText))) errors.push("Learner text contains a raw LaTeX fraction outside MathJax");
+  if (/\b(?:\d+\s+)?\d+\/\d+\s+(?:minutes?|hours?|days?|shifts?)\b/i.test(visibleText)) errors.push("Learner text contains an ASCII fractional time");
   if (!solution.formulaLatex.trim()) errors.push("Formula is empty");
   if (solution.workedLatex.length === 0) errors.push("Worked solution is empty");
   if (!positive(solution.answer)) errors.push("Answer must be positive");
@@ -55,7 +68,37 @@ export function runTmwCp002Pipeline(input: { questionLanguageId: string; seed: s
   const solution = solveTmwCp002(entry, parameters);
   const stem = renderTmwCp002Stem(entry, parameters);
   const optionSet = buildTmwCp002Options(entry, parameters, solution.answer, input.seed);
+  const steps = buildTmwCp002WorkingLatex(entry, parameters, solution).map((line) => `\\(${line}\\)`);
+  const shortcut = buildTmwCp002Shortcut(entry, parameters, solution);
+  const commonTrap = buildTmwCp002CommonTrap(entry, optionSet.optionAudit);
+  const explanation = {
+    opening: tmwCp002ExplanationOpening(entry),
+    formula: `\\(${solution.formulaLatex}\\)`,
+    steps,
+    shortcut,
+    commonTrap,
+    conclusion: tmwCp002Conclusion(entry, parameters, solution),
+  };
   const errors = validate(entry, parameters, solution, stem, optionSet.optionAudit, optionSet.correctIndex);
+  const explanationText = [
+    explanation.opening,
+    explanation.formula,
+    ...explanation.steps,
+    explanation.shortcut.title,
+    ...explanation.shortcut.steps,
+    explanation.commonTrap.optionLabel,
+    explanation.commonTrap.optionText,
+    explanation.commonTrap.explanation,
+    explanation.conclusion,
+  ].join(" ");
+  if (explanation.steps.length < 3) errors.push("Explanation does not provide setup, calculation and verification stages");
+  if (!explanation.shortcut.title.startsWith("10-Second ") || explanation.shortcut.steps.length < 1) errors.push("Explanation does not contain a solve-mode-specific exam shortcut");
+  if (!optionSet.optionAudit.some((option) => option.text === explanation.commonTrap.optionText && option.misconceptionId === explanation.commonTrap.misconceptionId)) errors.push("Common-trap callout is not tied to an actual distractor");
+  if (/Do not choose|Don't choose/i.test(explanation.commonTrap.explanation)) errors.push("Common-trap explanation uses a negative command");
+  if (/[A-Z]{3,}_[A-Z_]{3,}/.test(explanation.commonTrap.explanation)) errors.push("Common-trap explanation leaks an internal misconception identifier");
+  if (!balancedInlineMath(explanationText)) errors.push("Explanation contains unbalanced inline MathJax");
+  if (/\\frac/.test(outsideInlineMath(explanationText))) errors.push("Explanation contains a raw LaTeX fraction outside MathJax");
+  if (/(^|[^\\])\$/.test(explanationText)) errors.push("Explanation uses an unsupported dollar-sign MathJax delimiter");
 
   return {
     archetypeId: "TMW-001",
@@ -70,12 +113,7 @@ export function runTmwCp002Pipeline(input: { questionLanguageId: string; seed: s
     options: optionSet.optionAudit.map((option) => option.text),
     optionAudit: optionSet.optionAudit,
     correctIndex: optionSet.correctIndex,
-    explanation: {
-      opening: tmwCp002ExplanationOpening(entry),
-      formula: `\\(${solution.formulaLatex}\\)`,
-      steps: solution.workedLatex.map((line) => `\\(${line}\\)`),
-      conclusion: tmwCp002Conclusion(entry, parameters, solution),
-    },
+    explanation,
     mathematicalFingerprint: fingerprint(entry, parameters),
     validation: { valid: errors.length === 0, errors },
     publiclyPublishable: false,

@@ -1,5 +1,5 @@
-import { divide, formatRational } from "./rational";
-import { required, timeUnitLabel } from "./cp001-helpers";
+import { divide, formatRational, formatTimeText } from "./rational";
+import { required } from "./cp001-helpers";
 import type { Rational } from "./types";
 import type { TmwCp003Parameters, TmwCp003RegistryEntry } from "./cp003-types";
 import { ratioText } from "./cp003-solver";
@@ -27,7 +27,7 @@ function name(p: TmwCp003Parameters, letter: "A" | "B" | "C"): string {
 }
 
 function days(p: TmwCp003Parameters, value: Rational): string {
-  return `${formatRational(value)} ${timeUnitLabel(p.timeUnit, value)}`;
+  return formatTimeText(value, p.timeUnit, `${p.timeUnit}s`);
 }
 
 function pct(value: Rational): string {

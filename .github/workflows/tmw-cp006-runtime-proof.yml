@@ -22,7 +22,7 @@ concurrency:
 jobs:
   validate-tmw-cp006:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -56,6 +56,38 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/tmw-001-cp006-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp006-audit.log
+      - name: Bundle TMW chapter English audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-english-gap-audit.cp006.mjs
+      - name: Run chapter English audit
+        shell: bash
+        run: |
+          set -o pipefail
+          (cd artifacts/api-server && node dist/quant-v4/tmw-001-english-gap-audit.cp006.mjs || true)
+      - name: Bundle target calibration
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-calibrate.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-english-gap-calibrate.cp006.mjs
+      - name: Calibrate chapter English audit
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/tmw-001-english-gap-calibrate.cp006.mjs
+      - name: Prove CP-006 English freeze tiers
+        shell: bash
+        run: |
+          set -euo pipefail
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const report = JSON.parse(fs.readFileSync('artifacts/api-server/dist/quant-v4/tmw-001-english-gap-audit.json','utf8'));
+          if (report.summary.hardFailures !== 0) throw new Error(`chapter audit has ${report.summary.hardFailures} hard failures`);
+          const forbidden = new Set(['CP_FOUR_TIER_GAP','CP_MISSING_DIAGNOSTIC_TRAPS','CP_NEGATIVE_TRAP_COMMANDS','CP_ACADEMIC_JARGON','ASCII_FRACTIONAL_TIME','RAW_LATEX_FRACTION','DOLLAR_MATH_DELIMITER','INTERNAL_ID_LEAK']);
+          const hits = report.findings.filter((finding) => finding.cpId === 'TMW-CP-006' && forbidden.has(finding.code));
+          if (hits.length !== 0) throw new Error(`CP-006 English findings remain: ${hits.map((finding) => finding.code).join(', ')}`);
+          NODE
       - name: Bundle TMW-CP-006 review export
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -74,5 +106,6 @@ jobs:
             artifacts/api-server/dist/quant-v4/tmw-001-cp006-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-cp006-audit.log
             artifacts/api-server/dist/quant-v4/tmw-001-cp006-review.json
+            artifacts/api-server/dist/quant-v4/tmw-001-english-gap-audit.json
           if-no-files-found: error
           retention-days: 7

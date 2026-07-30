@@ -1,8 +1,8 @@
-import { formatRational, reciprocal } from "./rational";
+import { formatRational, formatTimeText, reciprocal } from "./rational";
 import { required } from "./cp001-helpers";
 import type { TmwCp004Parameters, TmwCp004RegistryEntry } from "./cp004-types";
 
-function days(value:{numerator:number;denominator:number}|undefined):string{const v=required(value,"time");return `${formatRational(v)} ${v.numerator===v.denominator?"day":"days"}`;}
+function days(value:{numerator:number;denominator:number}|undefined):string{const v=required(value,"time");return formatTimeText(v,"day","days");}
 function solo(value:{numerator:number;denominator:number}|undefined):string{return days(value);}
 function rate(value:{numerator:number;denominator:number}|undefined):string{return `${formatRational(required(value,"rate"))} of the work per day`;}
 function ratioText(value:{numerator:number;denominator:number}):string{return value.denominator===1?String(value.numerator):`${value.numerator}/${value.denominator}`;}
