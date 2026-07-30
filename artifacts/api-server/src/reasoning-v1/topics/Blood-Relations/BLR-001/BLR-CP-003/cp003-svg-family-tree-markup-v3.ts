@@ -3,8 +3,8 @@ import { renderBlrCp003SvgFamilyTreeMarkup as renderV2 } from "./cp003-svg-famil
 
 const CARD_HALF_WIDTH = 75;
 const LEGACY_SIBLING_LINE_OFFSET = 12;
-const SIBLING_ROUTE_DEPTH = 24;
-const SIBLING_LABEL_OFFSET = 18;
+const SIBLING_ROUTE_DEPTH = 18;
+const SIBLING_LABEL_OFFSET = 14;
 
 const SIBLING_ARROW_DEFS = `<defs><marker id="blr-sibling-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#4f46e5"/></marker></defs>`;
 
