@@ -35,7 +35,13 @@ for (const entry of TMW_CP001_REGISTRY) {
     assert.equal(first.optionAudit.filter((option) => option.misconceptionId === "CORRECT").length, 1);
     assert.equal(first.publiclyPublishable, false);
     assert.ok(first.explanation.formula.includes("\\("));
-    assert.ok(first.explanation.steps.length >= 1);
+    assert.ok(first.explanation.steps.length >= 3);
+    assert.ok(first.explanation.steps.every((step) => /^\\\(.+\\\)$/.test(step)));
+    assert.ok(first.explanation.shortcut.title.startsWith("10-Second "));
+    assert.ok(first.explanation.shortcut.steps.length >= 1);
+    assert.notEqual(first.explanation.commonTrap.misconceptionId, "CORRECT");
+    assert.ok(first.optionAudit.some((option) => option.text === first.explanation.commonTrap.optionText && option.misconceptionId === first.explanation.commonTrap.misconceptionId));
+    assert.equal(/Do not choose|Don't choose/i.test(first.explanation.commonTrap.explanation), false);
     assert.equal(first.stem.includes("undefined"), false);
     assert.equal(first.stem.includes("{"), false);
     assert.equal(first.stem.includes("can complete pages in"), false);
