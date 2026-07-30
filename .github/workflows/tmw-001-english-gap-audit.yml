@@ -28,108 +28,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  migrate-cp002-time:
-    if: github.head_ref == 'audit/tmw-001-english-gap-freeze' || github.ref_name == 'audit/tmw-001-english-gap-freeze'
-    permissions:
-      contents: write
-    runs-on: ubuntu-latest
-    timeout-minutes: 25
-    steps:
-      - name: Checkout audit branch
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          ref: audit/tmw-001-english-gap-freeze
-      - name: Apply idempotent CP-002 time migration
-        shell: bash
-        run: |
-          set -euo pipefail
-          python - <<'PY'
-          from pathlib import Path
-          import re
-          root = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation')
-
-          def replace_once(text, old, new, label):
-              if old in text:
-                  return text.replace(old, new, 1)
-              if new in text:
-                  return text
-              raise SystemExit(f'{label} anchor not found')
-
-          solver = root / 'cp002-solver.ts'
-          text = solver.read_text()
-          text = replace_once(text, 'import { add, divide, equals, formatRational, multiply, rational, reciprocal, subtract, toLatex } from "./rational";', 'import { add, divide, equals, formatRational, formatTimeText, multiply, rational, reciprocal, subtract, toLatex } from "./rational";', 'solver rational import')
-          text = replace_once(text, 'import { required, timeUnitLabel } from "./cp001-helpers";', 'import { required } from "./cp001-helpers";', 'solver helper import')
-          text = replace_once(text, 'if (entry.answerType === "TIME") return `${value} ${timeUnitLabel(p.timeUnit, answer)}`;', 'if (entry.answerType === "TIME") return formatTimeText(answer, p.timeUnit, `${p.timeUnit}s`);', 'solution time renderer')
-          solver.write_text(text)
-
-          options = root / 'cp002-options.ts'
-          text = options.read_text()
-          text = replace_once(text, 'import { add, compare, divide, equals, multiply, rational, reciprocal, subtract } from "./rational";', 'import { add, compare, divide, equals, formatTimeText, multiply, rational, reciprocal, subtract } from "./rational";', 'options rational import')
-          text = replace_once(text, 'if (entry.answerType === "TIME") return `${rendered} ${value.numerator === value.denominator ? p.timeUnit : `${p.timeUnit}s`}`;', 'if (entry.answerType === "TIME") return formatTimeText(value, p.timeUnit, `${p.timeUnit}s`);', 'option time renderer')
-          options.write_text(text)
-
-          presentation = root / 'cp002-presentation.ts'
-          text = presentation.read_text()
-          text = replace_once(text, 'import { formatRational } from "./rational";', 'import { formatRational, formatTimeText } from "./rational";', 'presentation rational import')
-          text = replace_once(text, 'import { required, timeUnitLabel } from "./cp001-helpers";', 'import { required } from "./cp001-helpers";', 'presentation helper import')
-          anchor = '''function agentLabel(noun: string, index: number): string {
-  return `${noun[0].toUpperCase()}${noun.slice(1)} ${LETTERS[index]}`;
-}
-'''
-          helper = '''
-function timeText(p: TmwCp002Parameters, value: Rational): string {
-  return formatTimeText(value, p.timeUnit, `${p.timeUnit}s`);
-}
-'''
-          if 'function timeText(p: TmwCp002Parameters' not in text:
-              if anchor not in text:
-                  raise SystemExit('presentation helper anchor not found')
-              text = text.replace(anchor, anchor + helper, 1)
-          pattern = re.compile(r'\$\{formatRational\(([^)]+)\)\} \$\{timeUnitLabel\(p\.timeUnit, ([^)]+)\)\}')
-          def replace_time(match):
-              left, right = match.group(1), match.group(2)
-              if left != right:
-                  raise SystemExit(f'time expression mismatch: {left} != {right}')
-              return '${timeText(p, ' + left + ')}'
-          text = pattern.sub(replace_time, text)
-          if 'timeUnitLabel(' in text:
-              raise SystemExit('presentation still references timeUnitLabel')
-          presentation.write_text(text)
-          PY
-      - name: Install locked workspace dependencies
-        run: |
-          corepack enable
-          pnpm install --frozen-lockfile
-      - name: Validate CP-002 migration
-        shell: bash
-        run: |
-          set -euo pipefail
-          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp002.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-cp002.time.mjs
-          node artifacts/api-server/dist/quant-v4/tmw-001-cp002.time.mjs
-          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-english-gap-audit.cp002-time.mjs
-          (cd artifacts/api-server && node dist/quant-v4/tmw-001-english-gap-audit.cp002-time.mjs || true)
-          node - <<'NODE'
-          const fs = require('node:fs');
-          const report = JSON.parse(fs.readFileSync('artifacts/api-server/dist/quant-v4/tmw-001-english-gap-audit.json', 'utf8'));
-          if (report.summary.hardFailures !== 0) throw new Error(`chapter audit has ${report.summary.hardFailures} hard failures`);
-          const hits = report.findings.filter((finding) => finding.code === 'ASCII_FRACTIONAL_TIME' && finding.cpId === 'TMW-CP-002');
-          if (hits.length !== 0) throw new Error(`CP-002 ASCII fractional-time findings remain: ${hits.length}`);
-          NODE
-      - name: Commit CP-002 migration
-        shell: bash
-        run: |
-          set -euo pipefail
-          if git diff --quiet -- artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp002-solver.ts artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp002-options.ts artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp002-presentation.ts; then
-            echo 'CP-002 time typography is already migrated.'
-            exit 0
-          fi
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp002-solver.ts artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp002-options.ts artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp002-presentation.ts
-          git commit -m 'fix(tmw): render CP-002 fractional times in MathJax'
-          git push origin HEAD:audit/tmw-001-english-gap-freeze
-
   audit-tmw-001-english:
     runs-on: ubuntu-latest
     timeout-minutes: 25
@@ -167,7 +65,7 @@ function timeText(p: TmwCp002Parameters, value: Rational): string {
       - name: Generate 211-question review corpus
         working-directory: artifacts/api-server
         run: node dist/quant-v4/tmw-001-english-freeze-review-export.mjs
-      - name: Bundle imperative-target calibration
+      - name: Bundle target calibration
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-calibrate.ts
