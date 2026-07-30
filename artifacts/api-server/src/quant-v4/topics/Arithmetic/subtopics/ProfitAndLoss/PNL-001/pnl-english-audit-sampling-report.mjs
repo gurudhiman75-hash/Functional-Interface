@@ -86,22 +86,22 @@ const codeCounts = {};
 for (const finding of findings.editorialFindings) {
   codeCounts[finding.code] = (codeCounts[finding.code] ?? 0) + 1;
 }
-if (codeCounts["SAME-QL-STEM-REPEAT"]) {
-  throw new Error(
-    `Sampling still reports same-QL stem repeats: ${JSON.stringify(
-      findings.editorialFindings.filter(
-        (item) => item.code === "SAME-QL-STEM-REPEAT",
-      ),
-    )}`,
-  );
+for (const code of ["SAME-QL-STEM-REPEAT", "SAME-QL-ANSWER-REPEAT"]) {
+  if (codeCounts[code]) {
+    throw new Error(
+      `Sampling still reports ${code}: ${JSON.stringify(
+        findings.editorialFindings.filter((item) => item.code === code),
+      )}`,
+    );
+  }
 }
 
 const diversity = new Map(
   metrics.candidateDiversityByQl.map((item) => [item.qlId, item]),
 );
 for (const qlId of ["PNL-QL-082", "PNL-QL-144", "PNL-QL-183"]) {
-  if ((diversity.get(qlId)?.candidateStemCount ?? 0) < 2) {
-    throw new Error(`${qlId} candidate pool did not expose runtime stem diversity.`);
+  if ((diversity.get(qlId)?.exactCandidateStemCount ?? 0) < 2) {
+    throw new Error(`${qlId} candidate pool did not expose exact stem diversity.`);
   }
 }
 
@@ -112,13 +112,21 @@ for (const row of rows) {
   rowsByQl.set(row.qlId, group);
 }
 for (const [qlId, info] of diversity) {
-  const selected = new Set(
-    (rowsByQl.get(qlId) ?? []).map((row) => normalise(row.stem)),
+  const selectedRows = rowsByQl.get(qlId) ?? [];
+  const exactSelected = new Set(selectedRows.map((row) => row.stem));
+  const normalizedSelected = new Set(
+    selectedRows.map((row) => normalise(row.stem)),
   );
-  const expected = Math.min(3, info.candidateStemCount);
-  if (selected.size < expected) {
+  const expectedExact = Math.min(3, info.exactCandidateStemCount);
+  const expectedNormalized = Math.min(3, info.normalizedCandidateStemCount);
+  if (exactSelected.size < expectedExact) {
     throw new Error(
-      `${qlId}: selected ${selected.size} stem fingerprints, expected ${expected}.`,
+      `${qlId}: selected ${exactSelected.size} exact stems, expected ${expectedExact}.`,
+    );
+  }
+  if (normalizedSelected.size < expectedNormalized) {
+    throw new Error(
+      `${qlId}: selected ${normalizedSelected.size} normalized stems, expected ${expectedNormalized}.`,
     );
   }
 }
@@ -130,7 +138,7 @@ const report = `# PNL-001 English Editorial Audit Sampling Hardening
 
 ## Result
 
-The chapter audit now samples from 48 mixed deterministic candidates per QL and selects review rows by maximising visible-stem diversity first and displayed-answer diversity second.
+The chapter audit now samples from 48 mixed deterministic candidates per QL. It first maximises semantic stem shape and displayed-answer diversity, then exact visible-value variation.
 
 \`\`\`text
 QLs:                              ${metrics.qlCount}
@@ -138,19 +146,26 @@ Review rows:                      ${metrics.reviewRows}
 Candidate seeds per QL:           ${metrics.candidateSeedsPerQl}
 Fatal findings:                   ${metrics.fatalFindingCount}
 Editorial findings:               ${metrics.editorialFindingCount}
-Same-QL stem repeats:             ${metrics.sameQlStemRepeatCount}
-Same-QL displayed-answer repeats: ${metrics.sameQlAnswerRepeatCount}
+Unresolved same-QL stem repeats:  ${metrics.sameQlStemRepeatCount}
+Unresolved same-QL answer repeats:${metrics.sameQlAnswerRepeatCount}
+Contractually fixed stems:        ${metrics.contractuallyFixedStemCount}
 Contractually fixed answers:      ${metrics.contractuallyFixedAnswerCount}
 Audit status:                     ${metrics.auditStatus}
 \`\`\`
 
 ## Corrected false sampling signals
 
-The earlier correlated candidate seed family repeatedly selected one preset for \`PNL-QL-082\`, \`PNL-QL-144\` and \`PNL-QL-183\`, even though their checkpoint runtime proofs demonstrated varied stems. The mixed-salt candidate pool now exposes and selects their available runtime variation.
+The earlier correlated candidate seed family repeatedly selected one exact preset for \`PNL-QL-082\`, \`PNL-QL-144\` and \`PNL-QL-183\`, even though their checkpoint runtimes expose multiple exact stems. The mixed-salt candidate pool now selects all available exact variation up to the three review rows while still preferring distinct normalized stem shapes.
 
-## Fixed-answer classification
+## Fixed-task classification
 
-A repeated answer is classified as \`CONTRACTUALLY-FIXED-ANSWER\` only when all 48 deterministic candidates produce the same displayed answer. This separates statement, data-sufficiency and other fixed-classification tasks from accidental review-sample repetition.
+A repeated stem or answer is classified as contractually fixed only when all 48 deterministic candidates agree.
+
+Fixed-stem QLs:
+
+\`\`\`text
+${metrics.contractuallyFixedStemQls.join(", ") || "None"}
+\`\`\`
 
 Fixed-answer QLs:
 
@@ -164,7 +179,7 @@ ${metrics.contractuallyFixedAnswerQls.join(", ") || "None"}
 ${JSON.stringify(sortedCodeCounts, null, 2)}
 \`\`\`
 
-The remaining repeated openings, closings and paragraphs come from shared frozen Editorial V2 prose and require targeted editorial decisions. They are no longer mixed with false same-stem findings caused by correlated audit seeds.
+The remaining repeated openings, closings and paragraphs come from shared frozen Editorial V2 prose and require targeted editorial decisions. They are no longer mixed with false same-stem or same-answer findings caused by review-sample selection.
 
 ## Safety boundary
 
@@ -181,6 +196,8 @@ console.log(
       status: "PASS_PNL_ENGLISH_AUDIT_SAMPLING_HARDENING",
       editorialFindingCount: metrics.editorialFindingCount,
       sameQlStemRepeatCount: metrics.sameQlStemRepeatCount,
+      sameQlAnswerRepeatCount: metrics.sameQlAnswerRepeatCount,
+      contractuallyFixedStemCount: metrics.contractuallyFixedStemCount,
       contractuallyFixedAnswerCount: metrics.contractuallyFixedAnswerCount,
       issueCodeCounts: sortedCodeCounts,
     },
