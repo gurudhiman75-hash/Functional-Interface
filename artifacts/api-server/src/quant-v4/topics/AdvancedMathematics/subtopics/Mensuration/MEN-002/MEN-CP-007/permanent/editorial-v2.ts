@@ -1,49 +1,53 @@
 import type { MenCp007PermanentPackage } from "./types";
+import {
+  applyMenCp007NaturalLanguage,
+  getMenCp007NaturalLanguageProfileCount,
+} from "./natural-language";
 
 const SHORTCUT_LEADS: Readonly<Record<string, string>> = {
-  "MEN-002-QL-001": "Cube the edge directly; do not multiply by the number of faces.",
-  "MEN-002-QL-002": "Square the edge once, then multiply by the number of included faces: $6$ for total area or $4$ for lateral area.",
-  "MEN-002-QL-003": "Look for the exact cube root of the volume; an equal-volume cuboid only changes how the volume is supplied.",
-  "MEN-002-QL-004": "Identify the diagonal before calculating: use $a\\sqrt{2}$ across one face and $a\\sqrt{3}$ through the cube.",
-  "MEN-002-QL-005": "Divide the given diagonal by $\\sqrt{2}$ for a face diagonal or $\\sqrt{3}$ for a space diagonal; matching square-root factors cancel immediately.",
-  "MEN-002-QL-006": "First turn the given surface information into one-face area: divide TSA by $6$, LSA by $4$, or TSA–LSA by $2$; then take the square root.",
-  "MEN-002-QL-007": "Remember the power ladder for cubes: side uses power $1$, surface area power $2$, and volume power $3$; move between them by the matching root or power.",
-  "MEN-002-QL-008": "Put every dimension in one unit before multiplying; convert cubic centimetres to litres only after the volume is known.",
-  "MEN-002-QL-009": "Divide the volume by the product of the two known dimensions; the remaining factor is the missing side.",
-  "MEN-002-QL-010": "Calculate the three different face areas once; double all three for TSA, or use only the four vertical faces for LSA.",
-  "MEN-002-QL-011": "For LSA divide by $2(l+b)$; for TSA first remove the top and bottom term $2lb$, then divide by $2(l+b)$.",
-  "MEN-002-QL-012": "Check for a familiar Pythagorean pair before taking a square root; many exam values form an exact triplet.",
-  "MEN-002-QL-013": "Subtract the square of the known side from the square of the face diagonal, then take one positive square root.",
-  "MEN-002-QL-014": "The longest rod is exactly the space diagonal, so add the squares of length, breadth and height before taking one root.",
-  "MEN-002-QL-015": "Square the space diagonal, subtract the squares of the two known dimensions, and take the positive root of what remains.",
-  "MEN-002-QL-016": "Multiply the three adjacent face areas and take one square root because their product is $V^2$.",
-  "MEN-002-QL-017": "For direct face areas use $l^2=\\frac{(lb)(lh)}{bh}$; for a face-area ratio first recover the common area factor, then divide volume by the face opposite the required side.",
-  "MEN-002-QL-018": "Half the perimeter gives the sum of the two base sides; choose the factor pair of the area with that sum.",
-  "MEN-002-QL-019": "Write the two related dimensions as ratio terms times $k$; after dividing volume by height, solve the resulting $k^2$ equation.",
-  "MEN-002-QL-020": "Use multipliers, not added percentages: multiply each factor $\\frac{100+p}{100}$ and compare the final multiplier with $1$.",
-  "MEN-002-QL-021": "Equal volume means old length × breadth × height equals new length × breadth × height; divide the old volume by the two new known dimensions.",
-  "MEN-002-QL-022": "Compute the cube and cuboid volumes separately in the same unit, then subtract in the direction stated by ‘exceeds’ or ‘less than’.",
-  "MEN-002-QL-023": "A cuboid has four edges of each dimension, so add $l+b+h$ first and multiply the sum by $4$.",
-  "MEN-002-QL-024": "All twelve cube edges are equal, so divide the total edge length by $12$ immediately.",
-  "MEN-002-QL-025": "Find the required painted area first and then multiply by the per-square-metre rate; do not apply the rate to volume.",
-  "MEN-002-QL-026": "Find the painted area first, then divide total cost by that area to obtain the rate per square metre.",
-  "MEN-002-QL-027": "Find the solid volume first and multiply by the per-cubic-metre material rate.",
-  "MEN-002-QL-028": "Use total edge length $4(l+b+h)$, then multiply by the wire rate per metre.",
-  "MEN-002-QL-029": "A cube frame uses $12a$ metres of wire; divide the total cost by that length to get the rate.",
-  "MEN-002-QL-030": "Find the base area using the stated polygon formula, then multiply by the prism length or height.",
-  "MEN-002-QL-031": "For a right prism, divide volume by base area; cubic units divided by square units leave a length.",
-  "MEN-002-QL-032": "Divide volume by prism height; cubic units divided by length units leave square units.",
-  "MEN-002-QL-033": "Use $LSA=Ph$; add two base areas only when total surface area is requested.",
-  "MEN-002-QL-034": "From $LSA=Ph$, divide the lateral area by the base perimeter to get height.",
-  "MEN-002-QL-035": "From $LSA=Ph$, divide the lateral area by height to get the base perimeter.",
-  "MEN-002-QL-036": "Remove the lateral part $Ph$ from TSA, then halve the remaining area because a closed prism has two equal bases.",
-  "MEN-002-QL-037": "Remove both base areas from TSA, then divide the lateral area by height to get the base perimeter.",
-  "MEN-002-QL-038": "Convert to common units, count complete fits along length, breadth and height, and multiply the three direction counts.",
-  "MEN-002-QL-039": "Count only complete cubes, find their used volume, and subtract it from the original cuboid volume.",
-  "MEN-002-QL-040": "Find wasted volume exactly, divide by the original volume, multiply by $100$, and round only the final percentage to two decimal places.",
-  "MEN-002-QL-041": "Divide the total number of cubes by the number in one horizontal layer, then multiply the number of layers by one cube edge.",
-  "MEN-002-QL-042": "Test all six block orientations using whole-number fits along the three box dimensions; the volume quotient is only an upper bound.",
-  "MEN-002-QL-043": "If there are $n$ equal parts along one direction, only $n-1$ internal grid planes are needed; add the three direction counts.",
+  "MEN-002-QL-001": "Multiply the side three times. Do not multiply by the number of faces, because volume measures space rather than surface area.",
+  "MEN-002-QL-002": "First find one square face, $a^2$. Multiply by $6$ for total surface area or by $4$ for lateral surface area.",
+  "MEN-002-QL-003": "Find the common volume first, then take its cube root to obtain the cube's side.",
+  "MEN-002-QL-004": "Choose the correct diagonal: $a\\sqrt{2}$ across one face and $a\\sqrt{3}$ through the cube.",
+  "MEN-002-QL-005": "Divide a face diagonal by $\\sqrt{2}$ or a space diagonal by $\\sqrt{3}$. Matching square-root factors often cancel immediately.",
+  "MEN-002-QL-006": "Find the area of one square face first: divide TSA by $6$, divide LSA by $4$, or divide TSA–LSA by $2$. Then take the square root.",
+  "MEN-002-QL-007": "Use the cube scaling pattern: side ratio $r$, surface-area ratio $r^2$, and volume ratio $r^3$.",
+  "MEN-002-QL-008": "Convert every dimension to the same unit before multiplying. Convert cubic centimetres to litres only after the volume is known.",
+  "MEN-002-QL-009": "Divide the volume by the product of the two known dimensions. The quotient is the missing side.",
+  "MEN-002-QL-010": "Calculate $lb$, $lh$ and $bh$ once. Double their sum for TSA, or use $2h(l+b)$ for LSA.",
+  "MEN-002-QL-011": "For LSA, divide by $2(l+b)$. For TSA, first subtract the top and bottom area $2lb$, then divide by $2(l+b)$.",
+  "MEN-002-QL-012": "Check whether the two face dimensions form a familiar Pythagorean pair before calculating the square root.",
+  "MEN-002-QL-013": "Use $b=\\sqrt{d^2-l^2}$, taking the positive root because breadth is a length.",
+  "MEN-002-QL-014": "The longest rod is the space diagonal, so use $d=\\sqrt{l^2+b^2+h^2}$.",
+  "MEN-002-QL-015": "Square the space diagonal, subtract the squares of the two known dimensions, and take the positive square root.",
+  "MEN-002-QL-016": "Multiply the three adjacent face areas and take one square root, because $(lb)(bh)(hl)=V^2$.",
+  "MEN-002-QL-017": "To find a dimension, multiply the two face areas containing it and divide by the face area that does not contain it. Then take the positive square root.",
+  "MEN-002-QL-018": "Half the perimeter gives the sum of the base sides. Choose the factor pair of the area that has this sum.",
+  "MEN-002-QL-019": "Write the related dimensions as ratio parts times $k$. After using the volume, solve for $k$ and then the required dimension.",
+  "MEN-002-QL-020": "Convert each percentage change into a factor: for example, a $20\\%$ increase gives $1.20$ and a $10\\%$ decrease gives $0.90$. Multiply the three factors and compare the result with $1$.",
+  "MEN-002-QL-021": "Set the old and new volumes equal. Divide the old volume by the two known new dimensions.",
+  "MEN-002-QL-022": "Find both volumes in the same unit. Subtract the smaller volume from the larger volume according to the question.",
+  "MEN-002-QL-023": "A cuboid has four edges of each dimension, so total edge length is $4(l+b+h)$.",
+  "MEN-002-QL-024": "A cube has twelve equal edges, so divide the total edge length by $12$.",
+  "MEN-002-QL-025": "Find the area that is actually painted, then multiply by the rate per square metre.",
+  "MEN-002-QL-026": "Find the painted area first, then divide the total cost by that area.",
+  "MEN-002-QL-027": "Find the solid's volume first and multiply by the material cost per cubic metre.",
+  "MEN-002-QL-028": "Use total wire length $4(l+b+h)$ and then multiply by the rate per metre.",
+  "MEN-002-QL-029": "A cube frame uses $12a$ metres of wire. Divide the total cost by this length.",
+  "MEN-002-QL-030": "Find the base area using the stated polygon formula, then multiply by the prism height or length.",
+  "MEN-002-QL-031": "Divide volume by base area. The units reduce from cubic units to a length.",
+  "MEN-002-QL-032": "Divide volume by prism height. The units reduce from cubic units to square units.",
+  "MEN-002-QL-033": "Use $LSA=Ph$. Add two base areas only when total surface area is required.",
+  "MEN-002-QL-034": "The lateral surface area is the base perimeter repeated through the prism height. Divide LSA by the base perimeter: $h=LSA/P$.",
+  "MEN-002-QL-035": "The lateral surface area equals base perimeter × height. Divide LSA by the prism height: $P=LSA/h$.",
+  "MEN-002-QL-036": "Subtract the lateral area from TSA and divide the remaining area by $2$ to find one base area.",
+  "MEN-002-QL-037": "Subtract both base areas from TSA, then divide the remaining lateral area by the prism height.",
+  "MEN-002-QL-038": "Convert to common units, count the complete fits in all three directions, and multiply those counts.",
+  "MEN-002-QL-039": "Count only complete cubes. Subtract their total used volume from the original cuboid volume.",
+  "MEN-002-QL-040": "Find the unused volume, divide by the original volume, multiply by $100$, and round only the final percentage.",
+  "MEN-002-QL-041": "Divide the total cube count by the number in one horizontal layer. Multiply the number of layers by one cube edge.",
+  "MEN-002-QL-042": "Check every distinct orientation of the block. In each direction, count only complete whole-number fits.",
+  "MEN-002-QL-043": "For $n$ equal parts along a direction, the number of internal cuts is $n-1$. Add the cuts for all three directions.",
 };
 
 const OPENERS = [
@@ -138,14 +142,22 @@ export function applyMenCp007EnglishEditorialV2(
     ? `${bridge} ${numericalEquation}.`
     : `${bridge} the correct result is ${cleanMathTypography(question.answer)}.`;
 
-  return {
+  const naturalized = applyMenCp007NaturalLanguage({
+    qlId: question.qlId,
+    seed: question.seed,
     stem: cleanMathTypography(question.stem),
+    answer: cleanMathTypography(question.answer),
     explanation: {
       keyRule: cleanMathTypography(question.explanation.keyRule),
       steps,
       shortcut: `${opener} ${lead} ${numericClose}`,
       traps: question.explanation.traps.map(cleanMathTypography),
     },
+  });
+
+  return {
+    stem: naturalized.stem,
+    explanation: naturalized.explanation,
     editorialLayoutId: "MEN-CP007-EN-EDITORIAL-V2" as const,
     editorialStatus: "PENDING_PRODUCT_REVIEW" as const,
   };
@@ -153,4 +165,8 @@ export function applyMenCp007EnglishEditorialV2(
 
 export function getMenCp007ShortcutAuthorityCount() {
   return Object.keys(SHORTCUT_LEADS).length;
+}
+
+export function getMenCp007NaturalLanguageAuthorityCount() {
+  return getMenCp007NaturalLanguageProfileCount();
 }
