@@ -6,6 +6,8 @@ import { renderTmwCp001Stem, tmwCp001Conclusion, tmwCp001ExplanationOpening } fr
 import { solveTmwCp001, verifyTmwCp001 } from "./cp001-solver";
 import { compare, rational, rationalKey } from "./rational";
 import { required } from "./cp001-helpers";
+import { localizeTmwCp001Question } from "./localization-cp001";
+import type { TmwLocalizedLanguage, TmwLocalizedQuestion } from "./localization-types";
 import type { Rational, TmwCp001Parameters, TmwCp001RegistryEntry, TmwCp001Solution, TmwGeneratedQuestion, TmwOption } from "./types";
 
 function fingerprint(entry: TmwCp001RegistryEntry, p: TmwCp001Parameters): string {
@@ -32,8 +34,7 @@ function validate(entry: TmwCp001RegistryEntry, p: TmwCp001Parameters, solution:
   return errors;
 }
 
-export function runTmwCp001Pipeline(input: { questionLanguageId: string; seed: string; language?: "en" | "hi" | "pa" }): TmwGeneratedQuestion {
-  if (input.language && input.language !== "en") throw new Error("TMW-CP-001 is English only at the current runtime-proof stage");
+function buildEnglishQuestion(input: { questionLanguageId: string; seed: string }): TmwGeneratedQuestion {
   const entry = getTmwCp001Entry(input.questionLanguageId);
   const parameters = buildTmwCp001Parameters(entry, input.seed);
   const solution = solveTmwCp001(entry, parameters);
@@ -73,4 +74,13 @@ export function runTmwCp001Pipeline(input: { questionLanguageId: string; seed: s
     validation: { valid: errors.length === 0, errors },
     publiclyPublishable: false,
   };
+}
+
+export function runTmwCp001Pipeline(input: { questionLanguageId: string; seed: string; language: TmwLocalizedLanguage }): TmwLocalizedQuestion;
+export function runTmwCp001Pipeline(input: { questionLanguageId: string; seed: string; language?: "en" }): TmwGeneratedQuestion;
+export function runTmwCp001Pipeline(input: { questionLanguageId: string; seed: string; language?: "en" | TmwLocalizedLanguage }): TmwGeneratedQuestion | TmwLocalizedQuestion {
+  const english = buildEnglishQuestion(input);
+  return input.language && input.language !== "en"
+    ? localizeTmwCp001Question(english, input.language)
+    : english;
 }
