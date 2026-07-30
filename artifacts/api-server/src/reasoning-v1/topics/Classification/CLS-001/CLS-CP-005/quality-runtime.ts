@@ -1,3 +1,4 @@
+import { auditClsCp005QuestionAgainstExpandedRegistry } from "./source-gap-expanded-audit";
 import { generateClsCp005SimpleExplanationQuestion } from "./simple-option-explanation-runtime";
 import type {
   ClsCp005PrototypeId,
@@ -119,18 +120,25 @@ export function generateClsCp005QualityQuestion(
     const candidate = generateClsCp005SimpleExplanationQuestion(prototypeId, sourceSeed, requestedOptionCount);
     const presentationQualityAudit = auditClsCp005PresentationQuality(candidate);
     if (presentationQualityAudit.result !== "PASS") continue;
+
+    const expandedSourceGapAudit = auditClsCp005QuestionAgainstExpandedRegistry(candidate);
+    if (expandedSourceGapAudit.result !== "EXPANDED_UNIQUE") continue;
+    if (expandedSourceGapAudit.answerIndex !== candidate.correctIndex) continue;
+
     return {
       ...candidate,
       seed,
       presentationQualityAudit,
+      expandedSourceGapAudit,
       metadata: {
         ...candidate.metadata,
-        qualityVersion: "cls-cp005-presentation-quality-v2" as const,
+        qualityVersion: "cls-cp005-presentation-quality-v3-expanded-source-gap" as const,
+        sourceGapAuditVersion: "cls-cp005-expanded-source-gap-v1" as const,
         sourcePrototypeSeed: sourceSeed,
       },
     };
   }
-  throw new Error(`${prototypeId}/${seed} did not produce a presentation-safe state after ${MAX_QUALITY_ATTEMPTS} attempts`);
+  throw new Error(`${prototypeId}/${seed} did not produce a presentation-safe and expanded-rule-unique state after ${MAX_QUALITY_ATTEMPTS} attempts`);
 }
 
 export type GeneratedClsCp005QualityQuestion = ReturnType<typeof generateClsCp005QualityQuestion>;
