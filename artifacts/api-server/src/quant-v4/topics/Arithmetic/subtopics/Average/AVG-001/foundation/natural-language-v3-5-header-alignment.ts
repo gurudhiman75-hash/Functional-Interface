@@ -65,6 +65,11 @@ function refreshValidation(pkg: Avg001QuestionPackage) {
   return { valid: checks.every((check) => check.passed), checks };
 }
 
+/**
+ * Presentation-only alignment over the validated V3.5 learner package.
+ * It may move or add the four section headers, but must not change the
+ * question stem, options, answer, calculations, reasoning body or math.
+ */
 export function applyAvg001NaturalLanguageV35HeaderAlignment(
   source: Avg001QuestionPackage,
 ): Avg001QuestionPackage {
