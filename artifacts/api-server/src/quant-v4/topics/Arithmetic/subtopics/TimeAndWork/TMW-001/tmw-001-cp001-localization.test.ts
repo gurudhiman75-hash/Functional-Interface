@@ -8,7 +8,7 @@ const generatedByLanguage: Record<TmwLocalizedLanguage, number> = { hi: 0, pa: 0
 const stemsByLanguage: Record<TmwLocalizedLanguage, Set<string>> = { hi: new Set(), pa: new Set() };
 const correctPositions: Record<TmwLocalizedLanguage, Set<number>> = { hi: new Set(), pa: new Set() };
 
-function learnerText(question: ReturnType<typeof runTmwCp001Pipeline>): string {
+function learnerText(question: any): string {
   return [
     question.stem,
     ...question.options,
