@@ -93,7 +93,7 @@ export function tmwCp006FriendlyTrap(trap:TmwCp006CommonTrap):TmwCp006CommonTrap
     switch(trap.misconceptionId){
       case "TOTAL_REPORTED_AS_CHANGE":return "Do not stop at the total required workforce. The question asks for the extra amount, so subtract the workforce already present.";
       case "CHANGE_REPORTED_AS_TOTAL":return "Check whether the question asks for the number removed or the number that remains; these are different quantities.";
-      case "DIRECT_INVERSE_PROPORTION_CONFUSED":return "For the same work, fewer days or fewer workers must be balanced by more capacity elsewhere. Do not use a direct proportion where the relation is inverse.";
+      case "DIRECT_INVERSE_PROPORTION_CONFUSED":return "For the same work, fewer days or fewer workers must be balanced by more capacity elsewhere. A direct proportion would reverse the required comparison.";
       case "BASELINE_STATE_REUSED":return "Do not copy an original value after the workforce, hours, deadline, population or workload has changed.";
       case "WORK_RATIO_OMITTED":return "Include every stated scaling factor. Ignoring changed output, workload, shifts or resource-time produces this option.";
       case "ELAPSED_PERIOD_IGNORED":return "Account for the work already completed before calculating the remaining phase.";
