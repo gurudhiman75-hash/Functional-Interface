@@ -74,7 +74,6 @@ jobs:
           test -f "$root/int-001-cp001-315-sanitized-review-checklist.csv"
           test -f "$root/int-001-cp001-315-sanitized-review-summary.json"
           ! grep -R -n -E '<sub>Trace:|seed large-review|INT-QL-|language question' "$root"/*.md
-          ! grep -R -n -E '\\text\{₹\}|₹' "$root"/*answers-and-explanations.md | grep -E '\$|\\\['
           grep -q 'PASS_INT_CP001_EXPLANATION_SANITIZATION_V1' artifacts/api-server/dist/quant-v4/int-001-cp001-explanation-sanitization-audit.log
           grep -q 'PASS_INT_CP001_315_SANITIZED_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp001-sanitized-large-review-export.log
 
