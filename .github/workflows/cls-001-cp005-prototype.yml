@@ -45,6 +45,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/simple-option-explanation.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/simple-option-explanation.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/source-gap.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/source-gap.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/wave2.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/wave2.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/wave2-digit-product.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/wave2-digit-product.test.mjs"
 
       - name: Run CLS-CP-005 audits
         id: cp005_audit
@@ -63,7 +64,9 @@ jobs:
           SOURCE_GAP_STATUS=$?
           (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp005/wave2.test.mjs") >"$DIAG/wave2-audit.log" 2>&1
           WAVE2_STATUS=$?
-          if [ "$PROTOTYPE_STATUS" -ne 0 ] || [ "$EDITORIAL_STATUS" -ne 0 ] || [ "$SIMPLE_EXPLANATION_STATUS" -ne 0 ] || [ "$SOURCE_GAP_STATUS" -ne 0 ] || [ "$WAVE2_STATUS" -ne 0 ]; then
+          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp005/wave2-digit-product.test.mjs") >"$DIAG/wave2-digit-product-audit.log" 2>&1
+          DIGIT_PRODUCT_STATUS=$?
+          if [ "$PROTOTYPE_STATUS" -ne 0 ] || [ "$EDITORIAL_STATUS" -ne 0 ] || [ "$SIMPLE_EXPLANATION_STATUS" -ne 0 ] || [ "$SOURCE_GAP_STATUS" -ne 0 ] || [ "$WAVE2_STATUS" -ne 0 ] || [ "$DIGIT_PRODUCT_STATUS" -ne 0 ]; then
             STATUS=1
           else
             STATUS=0
@@ -87,6 +90,7 @@ jobs:
           cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/simple-option-explanation-audit.log
           cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/source-gap-audit.log
           cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/wave2-audit.log
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/wave2-digit-product-audit.log
           exit 1
 
       - name: Generate CLS-CP-005 reviews
@@ -95,8 +99,10 @@ jobs:
           OUT=dist/reasoning-v1/cls-001/cp005
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-review.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-wave2-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-wave2-review.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-wave2-digit-product-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-wave2-digit-product-review.mjs"
           (cd artifacts/api-server && node "$OUT/export-review.mjs")
           (cd artifacts/api-server && node "$OUT/export-wave2-review.mjs")
+          (cd artifacts/api-server && node "$OUT/export-wave2-digit-product-review.mjs")
 
       - name: Upload CLS-CP-005 Wave 1 review
         uses: actions/upload-artifact@v4
@@ -110,4 +116,11 @@ jobs:
         with:
           name: cls-001-cp005-source-gap-wave2-review
           path: artifacts/api-server/dist/reasoning-v1/cls-001/cp005-wave2-review
+          if-no-files-found: error
+
+      - name: Upload CLS-CP-005 digit-product supplement
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp005-wave2-digit-product-review
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp005-wave2-digit-product-review
           if-no-files-found: error
