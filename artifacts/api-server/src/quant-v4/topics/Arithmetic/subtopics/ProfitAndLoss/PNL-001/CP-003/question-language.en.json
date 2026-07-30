@@ -25,7 +25,7 @@
     "PNL-QL-089": {"template":"Read the inventory caselet and calculate the dealer's overall percentage gain or loss after accounting for sold and remaining stock.","difficulty":"Hard"},
     "PNL-QL-090": {"template":"Two articles are sold at the same price, one at {ratePercent}% profit and the other at {ratePercent}% loss. Select the correct statement about the overall result.","difficulty":"Medium"},
     "PNL-QL-091": {"template":"The costs of two inventory groups are expressed algebraically and their selling rates are given. Determine the unknown group rate required for the stated overall result.","difficulty":"Hard"},
-    "PNL-QL-092": {"template":"A part of a stock has already been sold. Determine whether the two statements are sufficient to find the price at which each remaining article must be sold.","difficulty":"Hard"},
+    "PNL-QL-092": {"template":"A part of a stock has already been sold. The required overall result is {targetRatePercent}% {targetDirection}. Determine whether the two statements are sufficient to find the price at which each remaining article must be sold.","difficulty":"Hard"},
     "PNL-QL-093": {"template":"A trader purchases and sells several lots at the stated prices. Find the overall profit or loss incurred.","difficulty":"Medium"},
     "PNL-QL-094": {"template":"Out of {totalQuantity} articles bought at ₹{unitCostPrice} each, {spoiledQuantity} are spoiled and the good articles are sold at ₹{goodUnitSellingPrice} each. Find the minimum recovery per spoiled article required to avoid a loss.","difficulty":"Hard"}
   },

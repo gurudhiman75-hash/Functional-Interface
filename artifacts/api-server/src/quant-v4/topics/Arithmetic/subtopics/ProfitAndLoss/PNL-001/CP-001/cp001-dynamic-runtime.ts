@@ -100,8 +100,8 @@ const editorialLibrary = editorialContentJson as EditorialFile;
 const qlIds = Object.keys(taskRegistry.entries);
 
 const COST_RUPEES = [
-  2400, 3000, 3600, 4000, 4800, 6000, 7200, 8000, 9000, 9600, 12000,
-  14400, 15000, 18000, 20000, 24000,
+  2400, 3000, 3600, 4000, 4800, 6000, 7200, 8000, 9000, 9600, 12000, 14400,
+  15000, 18000, 20000, 24000,
 ] as const;
 const RATE_VALUES: readonly Rational[] = [
   rational(5),
@@ -196,7 +196,9 @@ function gcd(a: bigint, b: bigint): bigint {
 
 function moneyFromExactRational(value: Rational): Money {
   if (value.numerator % value.denominator !== 0n) {
-    throw new Error(`Non-integral paise in CP-001 generator: ${value.numerator}/${value.denominator}.`);
+    throw new Error(
+      `Non-integral paise in CP-001 generator: ${value.numerator}/${value.denominator}.`,
+    );
   }
   return moneyFromPaise(value.numerator / value.denominator);
 }
@@ -214,17 +216,18 @@ function moneyFromRoundedRational(value: Rational): Money {
 }
 
 function multiplyMoneyByRational(value: Money, factor: Rational): Money {
-  return moneyFromExactRational(multiplyRational(rational(value.paise), factor));
+  return moneyFromExactRational(
+    multiplyRational(rational(value.paise), factor),
+  );
 }
 
 function multiplyMoneyByRationalRounded(value: Money, factor: Rational): Money {
-  return moneyFromRoundedRational(multiplyRational(rational(value.paise), factor));
+  return moneyFromRoundedRational(
+    multiplyRational(rational(value.paise), factor),
+  );
 }
 
-function commercialFactor(
-  direction: "PROFIT" | "LOSS",
-  ratePercent: Rational,
-) {
+function commercialFactor(direction: "PROFIT" | "LOSS", ratePercent: Rational) {
   const rate = divideRational(ratePercent, rational(100));
   return direction === "PROFIT"
     ? addRational(rational(1), rate)
@@ -258,7 +261,9 @@ function pickRate(random: SeededRandom) {
 }
 
 function differentRate(random: SeededRandom, first: Rational) {
-  const eligible = RATE_VALUES.filter((value) => compareRational(value, first) !== 0);
+  const eligible = RATE_VALUES.filter(
+    (value) => compareRational(value, first) !== 0,
+  );
   return pickSeeded(random, eligible);
 }
 
@@ -308,7 +313,10 @@ function formatAnswer(value: DynamicAnswerValue): string {
         ? `${formatPercent(value.value)} ${value.direction.toLowerCase()}`
         : formatPercent(value.value);
     case "RATIO": {
-      const [cost, selling] = ratioIntegerParts(value.costPart, value.sellingPart);
+      const [cost, selling] = ratioIntegerParts(
+        value.costPart,
+        value.sellingPart,
+      );
       return `${cost} : ${selling}`;
     }
     case "FRACTION":
@@ -322,7 +330,9 @@ function normalizeDoublePlaceholders(value: string) {
   return value.replace(/\{\{([A-Za-z][A-Za-z0-9_]*)\}\}/g, "{$1}");
 }
 
-function normalizedEditorialEntry(entry: StructuredEditorialEntry): StructuredEditorialEntry {
+function normalizedEditorialEntry(
+  entry: StructuredEditorialEntry,
+): StructuredEditorialEntry {
   return JSON.parse(
     normalizeDoublePlaceholders(JSON.stringify(entry)),
   ) as StructuredEditorialEntry;
@@ -347,15 +357,24 @@ function contextFromRequest(
       break;
     case "CP_RATE_TO_AMOUNT":
       money("costPrice", request.costPrice);
-      rate(request.direction === "PROFIT" ? "profitPercent" : "lossPercent", request.ratePercent);
+      rate(
+        request.direction === "PROFIT" ? "profitPercent" : "lossPercent",
+        request.ratePercent,
+      );
       break;
     case "CP_AMOUNT_TO_SP":
       money("costPrice", request.costPrice);
-      money(request.direction === "PROFIT" ? "profitAmount" : "lossAmount", request.amount);
+      money(
+        request.direction === "PROFIT" ? "profitAmount" : "lossAmount",
+        request.amount,
+      );
       break;
     case "SP_AMOUNT_TO_CP":
       money("sellingPrice", request.sellingPrice);
-      money(request.direction === "PROFIT" ? "profitAmount" : "lossAmount", request.amount);
+      money(
+        request.direction === "PROFIT" ? "profitAmount" : "lossAmount",
+        request.amount,
+      );
       break;
     case "CP_SP_TO_RATE":
       money("costPrice", request.costPrice);
@@ -363,18 +382,33 @@ function contextFromRequest(
       break;
     case "CP_RATE_TO_SP":
       money("costPrice", request.costPrice);
-      rate(request.direction === "PROFIT" ? "profitPercent" : "lossPercent", request.ratePercent);
+      rate(
+        request.direction === "PROFIT" ? "profitPercent" : "lossPercent",
+        request.ratePercent,
+      );
       break;
     case "SP_RATE_TO_CP":
       money("sellingPrice", request.sellingPrice);
-      rate(request.direction === "PROFIT" ? "profitPercent" : "lossPercent", request.ratePercent);
+      rate(
+        request.direction === "PROFIT" ? "profitPercent" : "lossPercent",
+        request.ratePercent,
+      );
       break;
     case "AMOUNT_RATE_TO_CP":
-      money(request.direction === "PROFIT" ? "profitAmount" : "lossAmount", request.amount);
-      rate(request.direction === "PROFIT" ? "profitPercent" : "lossPercent", request.ratePercent);
+      money(
+        request.direction === "PROFIT" ? "profitAmount" : "lossAmount",
+        request.amount,
+      );
+      rate(
+        request.direction === "PROFIT" ? "profitPercent" : "lossPercent",
+        request.ratePercent,
+      );
       break;
     case "AMOUNT_CP_TO_RATE":
-      money(request.direction === "PROFIT" ? "profitAmount" : "lossAmount", request.amount);
+      money(
+        request.direction === "PROFIT" ? "profitAmount" : "lossAmount",
+        request.amount,
+      );
       money("costPrice", request.costPrice);
       break;
     case "CP_SP_RATIO_TO_RATE":
@@ -382,7 +416,10 @@ function contextFromRequest(
       rate("sellingPart", request.sellingPart);
       break;
     case "RATE_TO_CP_SP_RATIO":
-      rate(request.direction === "PROFIT" ? "profitPercent" : "lossPercent", request.ratePercent);
+      rate(
+        request.direction === "PROFIT" ? "profitPercent" : "lossPercent",
+        request.ratePercent,
+      );
       break;
     case "MARGIN_SP_TO_PROFIT_CP":
       rate("marginPercent", request.marginPercent);
@@ -392,10 +429,14 @@ function contextFromRequest(
       break;
     case "FRACTION_TO_RATE":
       context.fractionNumerator = request.amountFraction.numerator.toString();
-      context.fractionDenominator = request.amountFraction.denominator.toString();
+      context.fractionDenominator =
+        request.amountFraction.denominator.toString();
       break;
     case "RATE_TO_FRACTION":
-      rate(request.direction === "PROFIT" ? "profitPercent" : "lossPercent", request.ratePercent);
+      rate(
+        request.direction === "PROFIT" ? "profitPercent" : "lossPercent",
+        request.ratePercent,
+      );
       break;
     case "CP_TWO_RATES_TO_SP_DIFFERENCE":
       money("costPrice", request.costPrice);
@@ -435,7 +476,8 @@ function generateCase(qlId: string, seed: string): GeneratedFundamentalCase {
     case "PNL-QL-002":
     case "PNL-QL-003":
     case "PNL-QL-004": {
-      const direction = qlId === "PNL-QL-001" || qlId === "PNL-QL-003" ? "PROFIT" : "LOSS";
+      const direction =
+        qlId === "PNL-QL-001" || qlId === "PNL-QL-003" ? "PROFIT" : "LOSS";
       request = {
         mode: registry.solveMode as "CP_SP_TO_AMOUNT" | "CP_SP_TO_RATE",
         costPrice,
@@ -580,12 +622,18 @@ function generateCase(qlId: string, seed: string): GeneratedFundamentalCase {
         ratePercent:
           qlId === "PNL-QL-028"
             ? pickSeeded(random, PROFIT_FOR_MARGIN_VALUES)
-            : pickSeeded(random, RATE_VALUES.filter((value) => rationalToNumber(value) < 60)),
+            : pickSeeded(
+                random,
+                RATE_VALUES.filter((value) => rationalToNumber(value) < 60),
+              ),
         fractionBase: "SELLING_PRICE",
       };
       break;
     case "PNL-QL-030": {
-      const [firstRatePercent, secondRatePercent] = pickSeeded(random, TWO_PROFIT_RATE_PAIRS);
+      const [firstRatePercent, secondRatePercent] = pickSeeded(
+        random,
+        TWO_PROFIT_RATE_PAIRS,
+      );
       request = {
         mode: "CP_TWO_RATES_TO_SP_DIFFERENCE",
         costPrice,
@@ -597,7 +645,10 @@ function generateCase(qlId: string, seed: string): GeneratedFundamentalCase {
       break;
     }
     case "PNL-QL-031": {
-      const [profitPercent, lossPercent] = pickSeeded(random, PROFIT_LOSS_RATE_PAIRS);
+      const [profitPercent, lossPercent] = pickSeeded(
+        random,
+        PROFIT_LOSS_RATE_PAIRS,
+      );
       request = {
         mode: "CP_TWO_RATES_TO_SP_DIFFERENCE",
         costPrice,
@@ -609,7 +660,10 @@ function generateCase(qlId: string, seed: string): GeneratedFundamentalCase {
       break;
     }
     case "PNL-QL-032": {
-      const [firstRatePercent, secondRatePercent] = pickSeeded(random, TWO_PROFIT_RATE_PAIRS);
+      const [firstRatePercent, secondRatePercent] = pickSeeded(
+        random,
+        TWO_PROFIT_RATE_PAIRS,
+      );
       const difference = multiplyMoneyByRational(
         costPrice,
         divideRational(
@@ -636,11 +690,22 @@ function generateCase(qlId: string, seed: string): GeneratedFundamentalCase {
     case "PNL-QL-033":
     case "PNL-QL-034": {
       const firstDirection = qlId === "PNL-QL-033" ? "PROFIT" : "LOSS";
-      const secondDirection = pickSeeded(random, ["PROFIT", "LOSS", "NO_CHANGE"] as const);
-      const secondRate = secondDirection === "NO_CHANGE" ? rational(0) : differentRate(random, ratePercent);
+      const secondDirection = pickSeeded(random, [
+        "PROFIT",
+        "LOSS",
+        "NO_CHANGE",
+      ] as const);
+      const secondRate =
+        secondDirection === "NO_CHANGE"
+          ? rational(0)
+          : differentRate(random, ratePercent);
       request = {
         mode: "TWO_SELLING_CONDITIONS_TO_SECOND_RATE",
-        firstSellingPrice: sellingPriceFromCost(costPrice, firstDirection, ratePercent),
+        firstSellingPrice: sellingPriceFromCost(
+          costPrice,
+          firstDirection,
+          ratePercent,
+        ),
         firstDirection,
         firstRatePercent: ratePercent,
         secondSellingPrice:
@@ -658,7 +723,10 @@ function generateCase(qlId: string, seed: string): GeneratedFundamentalCase {
       };
       break;
     case "PNL-QL-036": {
-      const [profitPercent, lossPercent] = pickSeeded(random, PROFIT_LOSS_RATE_PAIRS);
+      const [profitPercent, lossPercent] = pickSeeded(
+        random,
+        PROFIT_LOSS_RATE_PAIRS,
+      );
       const difference = multiplyMoneyByRational(
         costPrice,
         divideRational(addRational(profitPercent, lossPercent), rational(100)),
@@ -680,7 +748,9 @@ function generateCase(qlId: string, seed: string): GeneratedFundamentalCase {
   const context = contextFromRequest(qlId, request);
   for (const required of registry.requiredVariables) {
     if (!(required in context)) {
-      throw new Error(`${qlId}: dynamic context is missing required variable ${required}.`);
+      throw new Error(
+        `${qlId}: dynamic context is missing required variable ${required}.`,
+      );
     }
   }
   return { qlId, registry, request, context, seed };
@@ -693,77 +763,112 @@ function answerValueFor(
   switch (qlId) {
     case "PNL-QL-001":
     case "PNL-QL-002":
-      if (result.mode !== "CP_SP_TO_AMOUNT") throw new Error(`${qlId}: unexpected result mode.`);
-      return { kind: "MONEY", value: result.amount, direction: result.direction };
+      if (result.mode !== "CP_SP_TO_AMOUNT")
+        throw new Error(`${qlId}: unexpected result mode.`);
+      return {
+        kind: "MONEY",
+        value: result.amount,
+        direction: result.direction,
+      };
     case "PNL-QL-003":
     case "PNL-QL-004":
     case "PNL-QL-013":
-      if (result.mode !== "CP_SP_TO_RATE" && result.mode !== "CP_SP_RATIO_TO_RATE") {
+      if (
+        result.mode !== "CP_SP_TO_RATE" &&
+        result.mode !== "CP_SP_RATIO_TO_RATE"
+      ) {
         throw new Error(`${qlId}: unexpected result mode.`);
       }
-      return { kind: "PERCENT", value: result.ratePercent, direction: result.direction };
+      return {
+        kind: "PERCENT",
+        value: result.ratePercent,
+        direction: result.direction,
+      };
     case "PNL-QL-005":
     case "PNL-QL-006":
-      if (result.mode !== "CP_RATE_TO_SP") throw new Error(`${qlId}: unexpected result mode.`);
+      if (result.mode !== "CP_RATE_TO_SP")
+        throw new Error(`${qlId}: unexpected result mode.`);
       return { kind: "MONEY", value: result.sellingPrice };
     case "PNL-QL-007":
     case "PNL-QL-008":
-      if (result.mode !== "SP_RATE_TO_CP") throw new Error(`${qlId}: unexpected result mode.`);
+      if (result.mode !== "SP_RATE_TO_CP")
+        throw new Error(`${qlId}: unexpected result mode.`);
       return { kind: "MONEY", value: result.costPrice };
     case "PNL-QL-009":
     case "PNL-QL-010":
-      if (result.mode !== "AMOUNT_RATE_TO_CP") throw new Error(`${qlId}: unexpected result mode.`);
+      if (result.mode !== "AMOUNT_RATE_TO_CP")
+        throw new Error(`${qlId}: unexpected result mode.`);
       return { kind: "MONEY", value: result.costPrice };
     case "PNL-QL-011":
     case "PNL-QL-012":
-      if (result.mode !== "AMOUNT_CP_TO_RATE") throw new Error(`${qlId}: unexpected result mode.`);
+      if (result.mode !== "AMOUNT_CP_TO_RATE")
+        throw new Error(`${qlId}: unexpected result mode.`);
       return { kind: "PERCENT", value: result.ratePercent };
     case "PNL-QL-014":
     case "PNL-QL-015":
-      if (result.mode !== "RATE_TO_CP_SP_RATIO") throw new Error(`${qlId}: unexpected result mode.`);
-      return { kind: "RATIO", costPart: result.costPart, sellingPart: result.sellingPart };
+      if (result.mode !== "RATE_TO_CP_SP_RATIO")
+        throw new Error(`${qlId}: unexpected result mode.`);
+      return {
+        kind: "RATIO",
+        costPart: result.costPart,
+        sellingPart: result.sellingPart,
+      };
     case "PNL-QL-016":
-      if (result.mode !== "MARGIN_SP_TO_PROFIT_CP") throw new Error(`${qlId}: unexpected result mode.`);
+      if (result.mode !== "MARGIN_SP_TO_PROFIT_CP")
+        throw new Error(`${qlId}: unexpected result mode.`);
       return { kind: "PERCENT", value: result.profitPercent };
     case "PNL-QL-017":
-      if (result.mode !== "PROFIT_CP_TO_MARGIN_SP") throw new Error(`${qlId}: unexpected result mode.`);
+      if (result.mode !== "PROFIT_CP_TO_MARGIN_SP")
+        throw new Error(`${qlId}: unexpected result mode.`);
       return { kind: "PERCENT", value: result.marginPercent };
     case "PNL-QL-018":
     case "PNL-QL-019":
-      if (result.mode !== "CP_RATE_TO_AMOUNT") throw new Error(`${qlId}: unexpected result mode.`);
+      if (result.mode !== "CP_RATE_TO_AMOUNT")
+        throw new Error(`${qlId}: unexpected result mode.`);
       return { kind: "MONEY", value: result.amount };
     case "PNL-QL-020":
     case "PNL-QL-021":
-      if (result.mode !== "CP_AMOUNT_TO_SP") throw new Error(`${qlId}: unexpected result mode.`);
+      if (result.mode !== "CP_AMOUNT_TO_SP")
+        throw new Error(`${qlId}: unexpected result mode.`);
       return { kind: "MONEY", value: result.sellingPrice };
     case "PNL-QL-022":
     case "PNL-QL-023":
-      if (result.mode !== "SP_AMOUNT_TO_CP") throw new Error(`${qlId}: unexpected result mode.`);
+      if (result.mode !== "SP_AMOUNT_TO_CP")
+        throw new Error(`${qlId}: unexpected result mode.`);
       return { kind: "MONEY", value: result.costPrice };
     case "PNL-QL-024":
     case "PNL-QL-025":
     case "PNL-QL-026":
     case "PNL-QL-027":
-      if (result.mode !== "FRACTION_TO_RATE") throw new Error(`${qlId}: unexpected result mode.`);
+      if (result.mode !== "FRACTION_TO_RATE")
+        throw new Error(`${qlId}: unexpected result mode.`);
       return { kind: "PERCENT", value: result.ratePercent };
     case "PNL-QL-028":
     case "PNL-QL-029":
-      if (result.mode !== "RATE_TO_FRACTION") throw new Error(`${qlId}: unexpected result mode.`);
+      if (result.mode !== "RATE_TO_FRACTION")
+        throw new Error(`${qlId}: unexpected result mode.`);
       return { kind: "FRACTION", value: result.amountFraction };
     case "PNL-QL-030":
     case "PNL-QL-031":
-      if (result.mode !== "CP_TWO_RATES_TO_SP_DIFFERENCE") throw new Error(`${qlId}: unexpected result mode.`);
+      if (result.mode !== "CP_TWO_RATES_TO_SP_DIFFERENCE")
+        throw new Error(`${qlId}: unexpected result mode.`);
       return { kind: "MONEY", value: result.difference };
     case "PNL-QL-032":
     case "PNL-QL-036":
-      if (result.mode !== "SP_DIFFERENCE_TWO_RATES_TO_CP") throw new Error(`${qlId}: unexpected result mode.`);
+      if (result.mode !== "SP_DIFFERENCE_TWO_RATES_TO_CP")
+        throw new Error(`${qlId}: unexpected result mode.`);
       return { kind: "MONEY", value: result.costPrice };
     case "PNL-QL-033":
     case "PNL-QL-034":
-      if (result.mode !== "TWO_SELLING_CONDITIONS_TO_SECOND_RATE") throw new Error(`${qlId}: unexpected result mode.`);
+      if (result.mode !== "TWO_SELLING_CONDITIONS_TO_SECOND_RATE")
+        throw new Error(`${qlId}: unexpected result mode.`);
       return result.direction === "NO_CHANGE"
         ? { kind: "NO_CHANGE" }
-        : { kind: "PERCENT", value: result.ratePercent, direction: result.direction };
+        : {
+            kind: "PERCENT",
+            value: result.ratePercent,
+            direction: result.direction,
+          };
     case "PNL-QL-035":
       return { kind: "NO_CHANGE" };
     default:
@@ -771,55 +876,129 @@ function answerValueFor(
   }
 }
 
-function moneyCandidate(value: Money, misconception: string, direction?: Direction): OptionCandidate {
+function moneyCandidate(
+  value: Money,
+  misconception: string,
+  direction?: Direction,
+): OptionCandidate {
   return { value: { kind: "MONEY", value, direction }, misconception };
 }
 
-function percentCandidate(value: Rational, misconception: string, direction?: Direction): OptionCandidate {
+function percentCandidate(
+  value: Rational,
+  misconception: string,
+  direction?: Direction,
+): OptionCandidate {
   return { value: { kind: "PERCENT", value, direction }, misconception };
 }
 
-function fractionCandidate(value: Rational, misconception: string): OptionCandidate {
+function fractionCandidate(
+  value: Rational,
+  misconception: string,
+): OptionCandidate {
   return { value: { kind: "FRACTION", value }, misconception };
 }
 
-function ratioCandidate(costPart: Rational, sellingPart: Rational, misconception: string): OptionCandidate {
+function ratioCandidate(
+  costPart: Rational,
+  sellingPart: Rational,
+  misconception: string,
+): OptionCandidate {
   return { value: { kind: "RATIO", costPart, sellingPart }, misconception };
 }
 
-function fallbackWrongCandidates(correct: DynamicAnswerValue): readonly OptionCandidate[] {
+function fallbackWrongCandidates(
+  correct: DynamicAnswerValue,
+): readonly OptionCandidate[] {
   switch (correct.kind) {
     case "MONEY": {
       const base = correct.value.paise;
       return [
-        moneyCandidate(moneyFromPaise(base + 10000n), "Adds a fixed rupee amount instead of applying the exact relation.", correct.direction),
-        moneyCandidate(moneyFromPaise(base > 10000n ? base - 10000n : base + 20000n), "Subtracts a fixed rupee amount instead of applying the exact relation.", correct.direction),
-        moneyCandidate(moneyFromPaise(base * 2n), "Doubles the result by applying the operation twice.", correct.direction),
+        moneyCandidate(
+          moneyFromPaise(base + 10000n),
+          "Adds a fixed rupee amount instead of applying the exact relation.",
+          correct.direction,
+        ),
+        moneyCandidate(
+          moneyFromPaise(base > 10000n ? base - 10000n : base + 20000n),
+          "Subtracts a fixed rupee amount instead of applying the exact relation.",
+          correct.direction,
+        ),
+        moneyCandidate(
+          moneyFromPaise(base * 2n),
+          "Doubles the result by applying the operation twice.",
+          correct.direction,
+        ),
       ];
     }
     case "PERCENT":
       return [
-        percentCandidate(addRational(correct.value, rational(5)), "Adds five percentage points instead of using the required base.", correct.direction),
-        percentCandidate(multiplyRational(correct.value, rational(2)), "Applies the percentage conversion twice.", correct.direction),
-        percentCandidate(divideRational(correct.value, rational(100)), "Reports the decimal rate as a percentage.", correct.direction),
+        percentCandidate(
+          addRational(correct.value, rational(5)),
+          "Adds five percentage points instead of using the required base.",
+          correct.direction,
+        ),
+        percentCandidate(
+          multiplyRational(correct.value, rational(2)),
+          "Applies the percentage conversion twice.",
+          correct.direction,
+        ),
+        percentCandidate(
+          divideRational(correct.value, rational(100)),
+          "Reports the decimal rate as a percentage.",
+          correct.direction,
+        ),
       ];
     case "RATIO":
       return [
-        ratioCandidate(correct.sellingPart, correct.costPart, "Reverses cost price and selling price."),
-        ratioCandidate(correct.costPart, addRational(correct.sellingPart, rational(1)), "Adds one part without converting the percentage correctly."),
-        ratioCandidate(rational(100), correct.sellingPart, "Uses 100 and the rate output without simplifying the commercial ratio."),
+        ratioCandidate(
+          correct.sellingPart,
+          correct.costPart,
+          "Reverses cost price and selling price.",
+        ),
+        ratioCandidate(
+          correct.costPart,
+          addRational(correct.sellingPart, rational(1)),
+          "Adds one part without converting the percentage correctly.",
+        ),
+        ratioCandidate(
+          rational(100),
+          correct.sellingPart,
+          "Uses 100 and the rate output without simplifying the commercial ratio.",
+        ),
       ];
     case "FRACTION":
       return [
-        fractionCandidate(rational(correct.value.denominator, correct.value.numerator), "Takes the reciprocal of the required fraction."),
-        fractionCandidate(rational(correct.value.numerator, 100), "Places the numerator over 100 without converting the base."),
-        fractionCandidate(addRational(correct.value, rational(1, 10)), "Adds an arbitrary tenth instead of using the commercial relation."),
+        fractionCandidate(
+          rational(correct.value.denominator, correct.value.numerator),
+          "Takes the reciprocal of the required fraction.",
+        ),
+        fractionCandidate(
+          rational(correct.value.numerator, 100),
+          "Places the numerator over 100 without converting the base.",
+        ),
+        fractionCandidate(
+          addRational(correct.value, rational(1, 10)),
+          "Adds an arbitrary tenth instead of using the commercial relation.",
+        ),
       ];
     case "NO_CHANGE":
       return [
-        percentCandidate(rational(5), "Treats equal prices as a small profit.", "PROFIT"),
-        percentCandidate(rational(5), "Treats equal prices as a small loss.", "LOSS"),
-        percentCandidate(rational(100), "Reports the selling price as 100% profit.", "PROFIT"),
+        percentCandidate(
+          rational(5),
+          "Treats equal prices as a small profit.",
+          "PROFIT",
+        ),
+        percentCandidate(
+          rational(5),
+          "Treats equal prices as a small loss.",
+          "LOSS",
+        ),
+        percentCandidate(
+          rational(100),
+          "Reports the selling price as 100% profit.",
+          "PROFIT",
+        ),
       ];
   }
 }
@@ -834,7 +1013,10 @@ function wrongCandidates(
 
   switch (request.mode) {
     case "CP_SP_TO_AMOUNT": {
-      const opposite = result.mode === request.mode && result.direction === "PROFIT" ? "LOSS" : "PROFIT";
+      const opposite =
+        result.mode === request.mode && result.direction === "PROFIT"
+          ? "LOSS"
+          : "PROFIT";
       candidates.push(
         moneyCandidate(
           result.mode === request.mode ? result.amount : moneyFromRupees(1),
@@ -856,16 +1038,34 @@ function wrongCandidates(
     }
     case "CP_SP_TO_RATE": {
       if (result.mode !== request.mode) break;
-      if (result.direction === "NO_CHANGE") return fallbackWrongCandidates({ kind: "NO_CHANGE" });
-      const amount = moneyFromPaise(absoluteBigInt(request.sellingPrice.paise - request.costPrice.paise));
+      if (result.direction === "NO_CHANGE")
+        return fallbackWrongCandidates({ kind: "NO_CHANGE" });
+      const amount = moneyFromPaise(
+        absoluteBigInt(request.sellingPrice.paise - request.costPrice.paise),
+      );
       const wrongBase = multiplyRational(
-        divideRational(rational(amount.paise), rational(request.sellingPrice.paise)),
+        divideRational(
+          rational(amount.paise),
+          rational(request.sellingPrice.paise),
+        ),
         rational(100),
       );
       candidates.push(
-        percentCandidate(wrongBase, "Uses selling price as the percentage base.", result.direction),
-        percentCandidate(divideRational(result.ratePercent, rational(100)), "Reports the decimal rate as though it were already a percentage.", result.direction),
-        percentCandidate(result.ratePercent, "Finds the correct rate but reverses profit and loss.", result.direction === "PROFIT" ? "LOSS" : "PROFIT"),
+        percentCandidate(
+          wrongBase,
+          "Uses selling price as the percentage base.",
+          result.direction,
+        ),
+        percentCandidate(
+          divideRational(result.ratePercent, rational(100)),
+          "Reports the decimal rate as though it were already a percentage.",
+          result.direction,
+        ),
+        percentCandidate(
+          result.ratePercent,
+          "Finds the correct rate but reverses profit and loss.",
+          result.direction === "PROFIT" ? "LOSS" : "PROFIT",
+        ),
       );
       break;
     }
@@ -878,8 +1078,14 @@ function wrongCandidates(
           : request.costPrice.paise + amount.paise,
       );
       candidates.push(
-        moneyCandidate(amount, "Returns only the profit or loss amount instead of the selling price."),
-        moneyCandidate(wrongDirection, "Applies the percentage in the opposite direction."),
+        moneyCandidate(
+          amount,
+          "Returns only the profit or loss amount instead of the selling price.",
+        ),
+        moneyCandidate(
+          wrongDirection,
+          "Applies the percentage in the opposite direction.",
+        ),
         moneyCandidate(request.costPrice, "Leaves the cost price unchanged."),
       );
       break;
@@ -888,19 +1094,28 @@ function wrongCandidates(
       if (result.mode !== request.mode) break;
       candidates.push(
         moneyCandidate(
-          multiplyMoneyByRationalRounded(request.sellingPrice, commercialFactor(request.direction, request.ratePercent)),
+          multiplyMoneyByRationalRounded(
+            request.sellingPrice,
+            commercialFactor(request.direction, request.ratePercent),
+          ),
           "Multiplies the selling price by the forward factor instead of reversing it.",
         ),
         moneyCandidate(
           moneyFromRoundedRational(
             divideRational(
               rational(request.sellingPrice.paise),
-              commercialFactor(request.direction === "PROFIT" ? "LOSS" : "PROFIT", request.ratePercent),
+              commercialFactor(
+                request.direction === "PROFIT" ? "LOSS" : "PROFIT",
+                request.ratePercent,
+              ),
             ),
           ),
           "Uses the opposite profit/loss factor while working backward.",
         ),
-        moneyCandidate(request.sellingPrice, "Treats selling price as though it were already the cost price."),
+        moneyCandidate(
+          request.sellingPrice,
+          "Treats selling price as though it were already the cost price.",
+        ),
       );
       break;
     }
@@ -908,8 +1123,12 @@ function wrongCandidates(
       if (result.mode !== request.mode) break;
       candidates.push(
         moneyCandidate(
-          multiplyMoneyByRationalRounded(request.amount, divideRational(request.ratePercent, rational(100))),
-          "Multiplies the amount by the percentage instead of scaling it to 100%."),
+          multiplyMoneyByRationalRounded(
+            request.amount,
+            divideRational(request.ratePercent, rational(100)),
+          ),
+          "Multiplies the amount by the percentage instead of scaling it to 100%.",
+        ),
         moneyCandidate(
           moneyFromRoundedRational(
             divideRational(
@@ -917,8 +1136,12 @@ function wrongCandidates(
               addRational(rational(100), request.ratePercent),
             ),
           ),
-          "Uses 100 plus the rate as the denominator."),
-        moneyCandidate(request.amount, "Reports the profit or loss amount as the cost price."),
+          "Uses 100 plus the rate as the denominator.",
+        ),
+        moneyCandidate(
+          request.amount,
+          "Reports the profit or loss amount as the cost price.",
+        ),
       );
       break;
     }
@@ -932,12 +1155,22 @@ function wrongCandidates(
       candidates.push(
         percentCandidate(
           multiplyRational(
-            divideRational(rational(request.amount.paise), rational(sellingPrice.paise)),
+            divideRational(
+              rational(request.amount.paise),
+              rational(sellingPrice.paise),
+            ),
             rational(100),
           ),
-          "Uses selling price instead of cost price as the percentage base."),
-        percentCandidate(divideRational(result.ratePercent, rational(100)), "Reports the decimal rate as a percentage."),
-        percentCandidate(subtractRational(rational(100), result.ratePercent), "Subtracts the rate from 100 instead of measuring the amount on cost."),
+          "Uses selling price instead of cost price as the percentage base.",
+        ),
+        percentCandidate(
+          divideRational(result.ratePercent, rational(100)),
+          "Reports the decimal rate as a percentage.",
+        ),
+        percentCandidate(
+          subtractRational(rational(100), result.ratePercent),
+          "Subtracts the rate from 100 instead of measuring the amount on cost.",
+        ),
       );
       break;
     }
@@ -952,46 +1185,83 @@ function wrongCandidates(
       );
       candidates.push(
         percentCandidate(
-          multiplyRational(divideRational(difference, request.sellingPart), rational(100)),
+          multiplyRational(
+            divideRational(difference, request.sellingPart),
+            rational(100),
+          ),
           "Uses the selling-price part as the percentage base.",
-          result.direction),
+          result.direction,
+        ),
         percentCandidate(
-          multiplyRational(divideRational(request.sellingPart, request.costPart), rational(100)),
+          multiplyRational(
+            divideRational(request.sellingPart, request.costPart),
+            rational(100),
+          ),
           "Reports selling price as a percentage of cost instead of the profit/loss rate.",
-          result.direction),
-        percentCandidate(result.ratePercent, "Reverses the profit/loss direction while keeping the rate.", result.direction === "PROFIT" ? "LOSS" : "PROFIT"),
+          result.direction,
+        ),
+        percentCandidate(
+          result.ratePercent,
+          "Reverses the profit/loss direction while keeping the rate.",
+          result.direction === "PROFIT" ? "LOSS" : "PROFIT",
+        ),
       );
       break;
     }
     case "RATE_TO_CP_SP_RATIO": {
       if (result.mode !== request.mode) break;
       candidates.push(
-        ratioCandidate(result.sellingPart, result.costPart, "Reverses cost price and selling price."),
+        ratioCandidate(
+          result.sellingPart,
+          result.costPart,
+          "Reverses cost price and selling price.",
+        ),
         ratioCandidate(
           rational(1),
-          commercialFactor(request.direction === "PROFIT" ? "LOSS" : "PROFIT", request.ratePercent),
-          "Uses the opposite profit/loss factor."),
-        ratioCandidate(rational(100), request.ratePercent, "Uses cost 100 and the rate itself as the selling-price part."),
+          commercialFactor(
+            request.direction === "PROFIT" ? "LOSS" : "PROFIT",
+            request.ratePercent,
+          ),
+          "Uses the opposite profit/loss factor.",
+        ),
+        ratioCandidate(
+          rational(100),
+          request.ratePercent,
+          "Uses cost 100 and the rate itself as the selling-price part.",
+        ),
       );
       break;
     }
     case "MARGIN_SP_TO_PROFIT_CP": {
       if (result.mode !== request.mode) break;
       candidates.push(
-        percentCandidate(request.marginPercent, "Treats selling-price margin as the same percentage on cost price."),
+        percentCandidate(
+          request.marginPercent,
+          "Treats selling-price margin as the same percentage on cost price.",
+        ),
         percentCandidate(
           multiplyRational(
-            divideRational(request.marginPercent, addRational(rational(100), request.marginPercent)),
+            divideRational(
+              request.marginPercent,
+              addRational(rational(100), request.marginPercent),
+            ),
             rational(100),
           ),
-          "Adds the margin to 100 instead of removing it from the selling-price base."),
-        percentCandidate(subtractRational(rational(100), request.marginPercent), "Reports the remaining selling-price share as the profit rate."),
+          "Adds the margin to 100 instead of removing it from the selling-price base.",
+        ),
+        percentCandidate(
+          subtractRational(rational(100), request.marginPercent),
+          "Reports the remaining selling-price share as the profit rate.",
+        ),
       );
       break;
     }
     case "PROFIT_CP_TO_MARGIN_SP": {
       if (result.mode !== request.mode) break;
-      const subtractiveBase = subtractRational(rational(100), request.profitPercent);
+      const subtractiveBase = subtractRational(
+        rational(100),
+        request.profitPercent,
+      );
       const subtractiveBaseCandidate =
         compareRational(subtractiveBase, rational(0)) === 0
           ? divideRational(request.profitPercent, rational(100))
@@ -1000,33 +1270,60 @@ function wrongCandidates(
               rational(100),
             );
       candidates.push(
-        percentCandidate(request.profitPercent, "Treats cost-price profit rate as the same margin on selling price."),
+        percentCandidate(
+          request.profitPercent,
+          "Treats cost-price profit rate as the same margin on selling price.",
+        ),
         percentCandidate(
           subtractiveBaseCandidate,
           compareRational(subtractiveBase, rational(0)) === 0
             ? "Reports the decimal profit multiplier as though it were already a percentage."
-            : "Subtracts the profit rate from 100 while changing the percentage base."),
-        percentCandidate(subtractRational(rational(100), request.profitPercent), "Reports the complement of the profit rate."),
+            : "Subtracts the profit rate from 100 while changing the percentage base.",
+        ),
+        percentCandidate(
+          subtractRational(rational(100), request.profitPercent),
+          "Reports the complement of the profit rate.",
+        ),
       );
       break;
     }
     case "FRACTION_TO_RATE": {
       if (result.mode !== request.mode) break;
-      const directPercent = multiplyRational(request.amountFraction, rational(100));
+      const directPercent = multiplyRational(
+        request.amountFraction,
+        rational(100),
+      );
       const reciprocalPercent = multiplyRational(
-        rational(request.amountFraction.denominator, request.amountFraction.numerator),
+        rational(
+          request.amountFraction.denominator,
+          request.amountFraction.numerator,
+        ),
         rational(100),
       );
       candidates.push(
-        percentCandidate(directPercent, request.fractionBase === "SELLING_PRICE" ? "Uses the selling-price fraction directly as a cost-price percentage." : "Uses the stated fraction without checking the required direction/base."),
-        percentCandidate(reciprocalPercent, "Takes the reciprocal of the stated fraction."),
-        percentCandidate(divideRational(result.ratePercent, rational(100)), "Reports the decimal rate as a percentage."),
+        percentCandidate(
+          directPercent,
+          request.fractionBase === "SELLING_PRICE"
+            ? "Uses the selling-price fraction directly as a cost-price percentage."
+            : "Uses the stated fraction without checking the required direction/base.",
+        ),
+        percentCandidate(
+          reciprocalPercent,
+          "Takes the reciprocal of the stated fraction.",
+        ),
+        percentCandidate(
+          divideRational(result.ratePercent, rational(100)),
+          "Reports the decimal rate as a percentage.",
+        ),
       );
       break;
     }
     case "RATE_TO_FRACTION": {
       if (result.mode !== request.mode) break;
-      const costBaseFraction = divideRational(request.ratePercent, rational(100));
+      const costBaseFraction = divideRational(
+        request.ratePercent,
+        rational(100),
+      );
       const oppositeBaseDenominator =
         request.direction === "PROFIT"
           ? subtractRational(rational(1), costBaseFraction)
@@ -1036,34 +1333,57 @@ function wrongCandidates(
           ? divideRational(costBaseFraction, rational(100))
           : divideRational(costBaseFraction, oppositeBaseDenominator);
       candidates.push(
-        fractionCandidate(costBaseFraction, "Uses the fraction of cost price instead of selling price."),
-        fractionCandidate(rational(result.amountFraction.denominator, result.amountFraction.numerator), "Takes the reciprocal of the required fraction."),
+        fractionCandidate(
+          costBaseFraction,
+          "Uses the fraction of cost price instead of selling price.",
+        ),
+        fractionCandidate(
+          rational(
+            result.amountFraction.denominator,
+            result.amountFraction.numerator,
+          ),
+          "Takes the reciprocal of the required fraction.",
+        ),
         fractionCandidate(
           oppositeBaseCandidate,
           compareRational(oppositeBaseDenominator, rational(0)) === 0
             ? "Divides the decimal rate by 100 a second time."
-            : "Uses the opposite selling-price base conversion."),
+            : "Uses the opposite selling-price base conversion.",
+        ),
       );
       break;
     }
     case "CP_TWO_RATES_TO_SP_DIFFERENCE": {
       if (result.mode !== request.mode) break;
-      const firstAmount = amountFromCost(request.costPrice, request.firstRatePercent);
-      const secondAmount = amountFromCost(request.costPrice, request.secondRatePercent);
-      const wrongGap = request.firstDirection === request.secondDirection
-        ? addRational(request.firstRatePercent, request.secondRatePercent)
-        : rational(
-            absoluteBigInt(
-              request.firstRatePercent.numerator * request.secondRatePercent.denominator -
-                request.secondRatePercent.numerator * request.firstRatePercent.denominator,
-            ),
-            request.firstRatePercent.denominator * request.secondRatePercent.denominator,
-          );
+      const firstAmount = amountFromCost(
+        request.costPrice,
+        request.firstRatePercent,
+      );
+      const secondAmount = amountFromCost(
+        request.costPrice,
+        request.secondRatePercent,
+      );
+      const wrongGap =
+        request.firstDirection === request.secondDirection
+          ? addRational(request.firstRatePercent, request.secondRatePercent)
+          : rational(
+              absoluteBigInt(
+                request.firstRatePercent.numerator *
+                  request.secondRatePercent.denominator -
+                  request.secondRatePercent.numerator *
+                    request.firstRatePercent.denominator,
+              ),
+              request.firstRatePercent.denominator *
+                request.secondRatePercent.denominator,
+            );
       candidates.push(
         moneyCandidate(firstAmount, "Uses only the first rate change."),
         moneyCandidate(secondAmount, "Uses only the second rate change."),
         moneyCandidate(
-          multiplyMoneyByRationalRounded(request.costPrice, divideRational(wrongGap, rational(100))),
+          multiplyMoneyByRationalRounded(
+            request.costPrice,
+            divideRational(wrongGap, rational(100)),
+          ),
           request.firstDirection === request.secondDirection
             ? "Adds the two same-direction rates instead of taking their difference."
             : "Subtracts profit and loss rates instead of measuring the full signed gap.",
@@ -1085,20 +1405,33 @@ function wrongCandidates(
           request.secondRatePercent,
         ),
       );
-      const gap = request.firstDirection === request.secondDirection
-        ? rational(
-            absoluteBigInt(
-              request.firstRatePercent.numerator * request.secondRatePercent.denominator -
-                request.secondRatePercent.numerator * request.firstRatePercent.denominator,
-            ),
-            request.firstRatePercent.denominator * request.secondRatePercent.denominator,
-          )
-        : addRational(request.firstRatePercent, request.secondRatePercent);
+      const gap =
+        request.firstDirection === request.secondDirection
+          ? rational(
+              absoluteBigInt(
+                request.firstRatePercent.numerator *
+                  request.secondRatePercent.denominator -
+                  request.secondRatePercent.numerator *
+                    request.firstRatePercent.denominator,
+              ),
+              request.firstRatePercent.denominator *
+                request.secondRatePercent.denominator,
+            )
+          : addRational(request.firstRatePercent, request.secondRatePercent);
       candidates.push(
-        moneyCandidate(fromFirst, "Divides by the first rate instead of the effective rate gap."),
-        moneyCandidate(fromSecond, "Divides by the second rate instead of the effective rate gap."),
         moneyCandidate(
-          multiplyMoneyByRationalRounded(request.difference, divideRational(gap, rational(100))),
+          fromFirst,
+          "Divides by the first rate instead of the effective rate gap.",
+        ),
+        moneyCandidate(
+          fromSecond,
+          "Divides by the second rate instead of the effective rate gap.",
+        ),
+        moneyCandidate(
+          multiplyMoneyByRationalRounded(
+            request.difference,
+            divideRational(gap, rational(100)),
+          ),
           "Multiplies by the rate gap instead of scaling the difference up to 100%.",
         ),
       );
@@ -1107,21 +1440,44 @@ function wrongCandidates(
     case "TWO_SELLING_CONDITIONS_TO_SECOND_RATE": {
       if (result.mode !== request.mode) break;
       const priceDifference = moneyFromPaise(
-        absoluteBigInt(request.secondSellingPrice.paise - request.firstSellingPrice.paise),
+        absoluteBigInt(
+          request.secondSellingPrice.paise - request.firstSellingPrice.paise,
+        ),
       );
       const firstBaseRate = multiplyRational(
-        divideRational(rational(priceDifference.paise), rational(request.firstSellingPrice.paise)),
+        divideRational(
+          rational(priceDifference.paise),
+          rational(request.firstSellingPrice.paise),
+        ),
         rational(100),
       );
       const secondBaseRate = multiplyRational(
-        divideRational(rational(priceDifference.paise), rational(request.secondSellingPrice.paise)),
+        divideRational(
+          rational(priceDifference.paise),
+          rational(request.secondSellingPrice.paise),
+        ),
         rational(100),
       );
-      const guessedDirection = request.secondSellingPrice.paise >= request.firstSellingPrice.paise ? "PROFIT" : "LOSS";
+      const guessedDirection =
+        request.secondSellingPrice.paise >= request.firstSellingPrice.paise
+          ? "PROFIT"
+          : "LOSS";
       candidates.push(
-        percentCandidate(request.firstRatePercent, "Repeats the first sale's rate for the second sale.", request.firstDirection),
-        percentCandidate(firstBaseRate, "Compares the two selling prices using the first selling price as the base.", guessedDirection),
-        percentCandidate(secondBaseRate, "Compares the two selling prices using the second selling price as the base.", guessedDirection),
+        percentCandidate(
+          request.firstRatePercent,
+          "Repeats the first sale's rate for the second sale.",
+          request.firstDirection,
+        ),
+        percentCandidate(
+          firstBaseRate,
+          "Compares the two selling prices using the first selling price as the base.",
+          guessedDirection,
+        ),
+        percentCandidate(
+          secondBaseRate,
+          "Compares the two selling prices using the second selling price as the base.",
+          guessedDirection,
+        ),
       );
       break;
     }
@@ -1147,7 +1503,9 @@ function shuffledOptions(
     if (selected.length === 3) break;
   }
   if (selected.length !== 3) {
-    throw new Error(`${qlId}: could not build three unique misconception options.`);
+    throw new Error(
+      `${qlId}: could not build three unique misconception options.`,
+    );
   }
 
   const random = createSeededRandom(`${qlId}:${seed}:option-order`);
@@ -1164,12 +1522,18 @@ function shuffledOptions(
   }
   return {
     options: all.map((entry) => entry.text) as [string, string, string, string],
-    misconceptionLabels: all.map((entry) => entry.misconception) as [string, string, string, string],
+    misconceptionLabels: all.map((entry) => entry.misconception) as [
+      string,
+      string,
+      string,
+      string,
+    ],
     correctIndex: all.findIndex((entry) => entry.misconception === "CORRECT"),
   };
 }
 
 function valueSpecificWorking(
+  qlId: string,
   generated: GeneratedFundamentalCase,
   result: FundamentalSolveResult,
   answer: string,
@@ -1190,7 +1554,12 @@ function valueSpecificWorking(
       line = `Reversing the stated ${request.direction.toLowerCase()} from ${formatMoney(request.sellingPrice)} gives ${formatMoney(result.mode === request.mode ? result.costPrice : moneyFromRupees(0))}.`;
       break;
     case "CP_SP_TO_RATE":
-      line = `The price difference is measured on the original cost of ${formatMoney(request.costPrice)}.`;
+      line =
+        qlId === "PNL-QL-003"
+          ? `Profit is the excess of selling price over ${formatMoney(request.costPrice)}, and that original cost is the percentage base.`
+          : qlId === "PNL-QL-004"
+            ? `Loss is the shortfall below ${formatMoney(request.costPrice)}, measured on that original cost.`
+            : `Cost price and selling price are both ${formatMoney(request.costPrice)}, so the rate is zero.`;
       break;
     case "CP_RATE_TO_SP":
       line = `${formatMoney(request.costPrice)} is multiplied by the ${request.direction.toLowerCase()} factor for ${formatPercent(request.ratePercent)}.`;
@@ -1295,7 +1664,12 @@ function validateRequest(request: FundamentalSolveRequest) {
     case "PROFIT_CP_TO_MARGIN_SP":
       return validateFundamentalInput({ profitPercent: request.profitPercent });
     case "FRACTION_TO_RATE":
-      return { ok: request.amountFraction.numerator > 0n && request.amountFraction.denominator > 0n, errors: [] as string[] };
+      return {
+        ok:
+          request.amountFraction.numerator > 0n &&
+          request.amountFraction.denominator > 0n,
+        errors: [] as string[],
+      };
     case "RATE_TO_FRACTION":
       return validateFundamentalInput({
         ratePercent: request.ratePercent,
@@ -1317,13 +1691,19 @@ function validateRequest(request: FundamentalSolveRequest) {
 function selectQl(input: PnlCp001DynamicInput) {
   if (input.questionLanguageId) {
     const registry = taskRegistry.entries[input.questionLanguageId];
-    if (!registry) throw new Error(`Unknown CP-001 question-language ID: ${input.questionLanguageId}`);
+    if (!registry)
+      throw new Error(
+        `Unknown CP-001 question-language ID: ${input.questionLanguageId}`,
+      );
     return input.questionLanguageId;
   }
   const eligible = qlIds.filter(
-    (qlId) => !input.difficultyBand || taskRegistry.entries[qlId]!.difficulty === input.difficultyBand,
+    (qlId) =>
+      !input.difficultyBand ||
+      taskRegistry.entries[qlId]!.difficulty === input.difficultyBand,
   );
-  if (!eligible.length) throw new Error("No CP-001 QLs match the requested difficulty.");
+  if (!eligible.length)
+    throw new Error("No CP-001 QLs match the requested difficulty.");
   return pickSeeded(
     createSeededRandom(`${input.seed ?? "cp001-dynamic"}:ql-selection`),
     eligible,
@@ -1334,11 +1714,11 @@ export function listPnlCp001DynamicQlIds() {
   return [...qlIds];
 }
 
-export function runPnlCp001DynamicPipeline(
-  input: PnlCp001DynamicInput = {},
-) {
+export function runPnlCp001DynamicPipeline(input: PnlCp001DynamicInput = {}) {
   if (input.language && input.language !== "en") {
-    throw new Error("PNL-CP-001 dynamic runtime currently supports English only.");
+    throw new Error(
+      "PNL-CP-001 dynamic runtime currently supports English only.",
+    );
   }
   const qlId = selectQl(input);
   const seed = input.seed ?? `${qlId}:dynamic-default`;
@@ -1363,6 +1743,7 @@ export function runPnlCp001DynamicPipeline(
     generated.context,
   );
   const explanationText = `${baseExplanation}\n\n${valueSpecificWorking(
+    qlId,
     generated,
     solverResult,
     correctAnswer,
@@ -1370,11 +1751,11 @@ export function runPnlCp001DynamicPipeline(
   const inputValidation = validateRequest(generated.request);
   const optionValidation = validateOptions(optionSet.options, correctAnswer);
   const containsUnresolvedProsePlaceholder = (value: string) => {
-  const proseOnly = value
-    .replace(/\\\[[\s\S]*?\\\]/g, "")
-    .replace(/\\\([\s\S]*?\\\)/g, "");
-  return /\{[a-z][A-Za-z0-9_]*\}/.test(proseOnly);
-};
+    const proseOnly = value
+      .replace(/\\\[[\s\S]*?\\\]/g, "")
+      .replace(/\\\([\s\S]*?\\\)/g, "");
+    return /\{[a-z][A-Za-z0-9_]*\}/.test(proseOnly);
+  };
   const validationChecks = [
     {
       name: "input-domain",
@@ -1392,7 +1773,10 @@ export function runPnlCp001DynamicPipeline(
     },
     {
       name: "four-misconception-options",
-      passed: optionValidation.ok && optionSet.misconceptionLabels.filter((label) => label !== "CORRECT").length === 3,
+      passed:
+        optionValidation.ok &&
+        optionSet.misconceptionLabels.filter((label) => label !== "CORRECT")
+          .length === 3,
       message: optionValidation.ok
         ? "Four unique options contain one correct answer and three labelled misconceptions."
         : optionValidation.errors.join("; "),
@@ -1402,12 +1786,14 @@ export function runPnlCp001DynamicPipeline(
       passed:
         !containsUnresolvedProsePlaceholder(stem) &&
         !containsUnresolvedProsePlaceholder(explanationText),
-      message: "Dynamic stem and explanation contain no unresolved prose placeholders.",
+      message:
+        "Dynamic stem and explanation contain no unresolved prose placeholders.",
     },
     {
       name: "question-bank-safety",
       passed: true,
-      message: "Dynamic candidates remain outside Question Bank, tests and publication.",
+      message:
+        "Dynamic candidates remain outside Question Bank, tests and publication.",
     },
   ];
   const validation = {
@@ -1483,7 +1869,11 @@ export function runPnlCp001DynamicPipeline(
       graphId: `${qlId}-dynamic-graph`,
       nodes: [
         { id: "given", label: "Generated values", value: generated.context },
-        { id: "mode", label: "Solve mode", value: generated.registry.solveMode },
+        {
+          id: "mode",
+          label: "Solve mode",
+          value: generated.registry.solveMode,
+        },
         { id: "answer", label: "Exact answer", value: correctAnswer },
       ],
     },

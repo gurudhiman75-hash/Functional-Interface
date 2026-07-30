@@ -489,9 +489,9 @@ function buildExplanation(cpId: string, solveMode: string, qlId: string) {
         "Do not use information from Statement II while testing Statement I, or vice versa.",
     };
   }
-  if (cpId === "PNL-CP-001") return buildCp001Explanation(solveMode);
-  if (cpId === "PNL-CP-002") return buildCp002Explanation(solveMode);
-  return buildCp003Explanation(solveMode);
+  if (cpId === "PNL-CP-001") return buildCp001Explanation(solveMode, qlId);
+  if (cpId === "PNL-CP-002") return buildCp002Explanation(solveMode, qlId);
+  return buildCp003Explanation(solveMode, qlId);
 }
 
 export function buildLegacyEditorialLibrary(

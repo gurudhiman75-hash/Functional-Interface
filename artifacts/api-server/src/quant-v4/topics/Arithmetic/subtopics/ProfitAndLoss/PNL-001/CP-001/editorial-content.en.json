@@ -79,7 +79,7 @@
         "prompt": "Find the profit or loss percentage."
       },
       "explanation": {
-        "opening": "We first find the rupee change and then express it relative to the original cost.",
+        "opening": "Selling price is above cost, so measure that gain against the original cost.",
         "concept": "In ordinary profit-and-loss questions, cost price is the percentage base unless another base is stated explicitly.",
         "steps": [
           {
@@ -111,7 +111,7 @@
         "prompt": "Calculate the percentage gain or loss."
       },
       "explanation": {
-        "opening": "We first find the rupee change and then express it relative to the original cost.",
+        "opening": "Selling price is below cost, so measure the shortfall against the original cost.",
         "concept": "In ordinary profit-and-loss questions, cost price is the percentage base unless another base is stated explicitly.",
         "steps": [
           {
@@ -148,7 +148,7 @@
         "steps": [
           {
             "title": "Write the commercial multiplier",
-            "body": "Use 1+r/100 for profit or 1−r/100 for loss."
+            "body": "For a profit sale, every 100 cost-price parts become 100+r selling-price parts."
           },
           {
             "title": "Apply it to cost price",
@@ -179,7 +179,7 @@
         "steps": [
           {
             "title": "Write the commercial multiplier",
-            "body": "Use 1+r/100 for profit or 1−r/100 for loss."
+            "body": "For a loss sale, every 100 cost-price parts leave 100−r selling-price parts."
           },
           {
             "title": "Apply it to cost price",
@@ -210,7 +210,7 @@
         "steps": [
           {
             "title": "Form the multiplier",
-            "body": "Use 1+r/100 for profit or 1−r/100 for loss."
+            "body": "A profit selling price equals (100+r)% of cost, so recover cost by dividing by that factor."
           },
           {
             "title": "Reverse the sale",
@@ -241,7 +241,7 @@
         "steps": [
           {
             "title": "Form the multiplier",
-            "body": "Use 1+r/100 for profit or 1−r/100 for loss."
+            "body": "A loss selling price equals (100−r)% of cost, so recover cost from the retained factor."
           },
           {
             "title": "Reverse the sale",
@@ -734,20 +734,21 @@
         "prompt": "Find the profit percentage."
       },
       "explanation": {
-        "opening": "A fractional profit or loss must be converted with close attention to the stated base.",
-        "concept": "A fraction of cost converts directly to percent, while a fraction of selling price first changes the hidden cost share.",
+        "opening": "The profit fraction is already measured against cost price, so no base conversion is needed.",
+        "concept": "When profit equals a/b of cost, the profit rate is the same fraction of 100 percent.",
         "steps": [
           {
-            "title": "Identify the denominator base",
-            "body": "Decide whether the fraction is measured on cost price or selling price."
+            "title": "Read the cost-based fraction",
+            "body": "Treat the numerator as profit parts and the denominator as cost-price parts."
           },
           {
-            "title": "Convert to the cost-price rate",
-            "body": "Use the direct fraction for a cost base; for a selling-price base, reconstruct cost before comparing."
+            "title": "Scale the fraction to percent",
+            "body": "Multiply the profit-to-cost fraction by 100.",
+            "equationLatex": "r=\\frac{a}{b}\\times100"
           }
         ],
-        "conclusion": "The resulting percentage is the ordinary profit or loss rate on cost price.",
-        "commonTrap": "Do not multiply every fraction by 100 without checking whether its denominator is cost or selling price."
+        "conclusion": "This scaled value is the profit percentage on cost price.",
+        "commonTrap": "Do not rebuild selling price when the fraction is already stated on cost."
       },
       "difficulty": "Medium",
       "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
@@ -764,20 +765,21 @@
         "prompt": "Find the loss percentage."
       },
       "explanation": {
-        "opening": "A fractional profit or loss must be converted with close attention to the stated base.",
-        "concept": "A fraction of cost converts directly to percent, while a fraction of selling price first changes the hidden cost share.",
+        "opening": "Here the loss is stated directly as a fraction of the original cost.",
+        "concept": "A cost-based loss fraction converts straight to the ordinary loss percentage because the denominator is already the required base.",
         "steps": [
           {
-            "title": "Identify the denominator base",
-            "body": "Decide whether the fraction is measured on cost price or selling price."
+            "title": "Keep cost as the denominator",
+            "body": "Use the given denominator as the full cost-price share."
           },
           {
-            "title": "Convert to the cost-price rate",
-            "body": "Use the direct fraction for a cost base; for a selling-price base, reconstruct cost before comparing."
+            "title": "Express the loss per hundred",
+            "body": "Multiply the loss-to-cost fraction by 100.",
+            "equationLatex": "r=\\frac{a}{b}\\times100"
           }
         ],
-        "conclusion": "The resulting percentage is the ordinary profit or loss rate on cost price.",
-        "commonTrap": "Do not multiply every fraction by 100 without checking whether its denominator is cost or selling price."
+        "conclusion": "The percentage obtained is the loss rate on cost price.",
+        "commonTrap": "Do not subtract the fraction from one; that would find the retained selling-price share instead of the loss rate."
       },
       "difficulty": "Medium",
       "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
@@ -794,20 +796,21 @@
         "prompt": "Find the profit percentage on cost price."
       },
       "explanation": {
-        "opening": "A fractional profit or loss must be converted with close attention to the stated base.",
-        "concept": "A fraction of cost converts directly to percent, while a fraction of selling price first changes the hidden cost share.",
+        "opening": "Profit is given as a fraction of selling price, but the requested percentage must be measured on cost price.",
+        "concept": "If profit is a/b of selling price, cost occupies the remaining (b−a)/b share of selling price.",
         "steps": [
           {
-            "title": "Identify the denominator base",
-            "body": "Decide whether the fraction is measured on cost price or selling price."
+            "title": "Recover the cost share",
+            "body": "Subtract the profit parts from the selling-price parts to obtain the hidden cost parts."
           },
           {
-            "title": "Convert to the cost-price rate",
-            "body": "Use the direct fraction for a cost base; for a selling-price base, reconstruct cost before comparing."
+            "title": "Compare profit with recovered cost",
+            "body": "Divide a profit parts by b−a cost parts, then convert to percent.",
+            "equationLatex": "r=\\frac{a}{b-a}\\times100"
           }
         ],
-        "conclusion": "The resulting percentage is the ordinary profit or loss rate on cost price.",
-        "commonTrap": "Do not multiply every fraction by 100 without checking whether its denominator is cost or selling price."
+        "conclusion": "The converted fraction gives profit as a percentage of cost price.",
+        "commonTrap": "Do not multiply a/b by 100 directly; that would report profit as a percentage of selling price."
       },
       "difficulty": "Medium",
       "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
@@ -824,20 +827,21 @@
         "prompt": "Find the loss percentage on cost price."
       },
       "explanation": {
-        "opening": "A fractional profit or loss must be converted with close attention to the stated base.",
-        "concept": "A fraction of cost converts directly to percent, while a fraction of selling price first changes the hidden cost share.",
+        "opening": "A loss fraction based on selling price hides a larger cost-price denominator.",
+        "concept": "If loss is a/b of selling price, cost equals selling price plus loss and therefore represents (b+a)/b of selling price.",
         "steps": [
           {
-            "title": "Identify the denominator base",
-            "body": "Decide whether the fraction is measured on cost price or selling price."
+            "title": "Build the cost share",
+            "body": "Add the loss parts to the selling-price parts because cost exceeds selling price in a loss transaction."
           },
           {
-            "title": "Convert to the cost-price rate",
-            "body": "Use the direct fraction for a cost base; for a selling-price base, reconstruct cost before comparing."
+            "title": "Measure loss on cost",
+            "body": "Divide a loss parts by b+a cost parts and multiply by 100.",
+            "equationLatex": "r=\\frac{a}{b+a}\\times100"
           }
         ],
-        "conclusion": "The resulting percentage is the ordinary profit or loss rate on cost price.",
-        "commonTrap": "Do not multiply every fraction by 100 without checking whether its denominator is cost or selling price."
+        "conclusion": "This base conversion yields the loss percentage on cost price.",
+        "commonTrap": "Do not use b−a in the denominator; subtraction belongs to a profit fraction of selling price, not a loss fraction."
       },
       "difficulty": "Medium",
       "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
@@ -1067,7 +1071,7 @@
         "prompt": "Find the profit or loss percentage."
       },
       "explanation": {
-        "opening": "We first find the rupee change and then express it relative to the original cost.",
+        "opening": "Equal cost and selling prices leave no commercial change to express as a percentage.",
         "concept": "In ordinary profit-and-loss questions, cost price is the percentage base unless another base is stated explicitly.",
         "steps": [
           {

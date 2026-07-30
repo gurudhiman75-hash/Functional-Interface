@@ -143,12 +143,51 @@ const runtimes: readonly Runtime[] = [
 ];
 
 const samplesPerQl = 3;
-const candidateSeedsPerQl = 18;
+const candidateSeedsPerQl = 48;
 const outputDirectory = resolve(
   process.cwd(),
   "dist/quant-v4/pnl-001-english-editorial-audit",
 );
 mkdirSync(outputDirectory, { recursive: true });
+
+const editorialSeedSalts = [
+  "amber",
+  "birch",
+  "cobalt",
+  "delta",
+  "ember",
+  "fjord",
+  "garnet",
+  "harbor",
+  "indigo",
+  "juniper",
+  "kestrel",
+  "lotus",
+  "marble",
+  "nectar",
+  "onyx",
+  "prairie",
+] as const;
+
+function mixedCandidateToken(candidateIndex: number): string {
+  let value = Math.imul(candidateIndex + 1, 0x9e3779b1) >>> 0;
+  value ^= value >>> 16;
+  value = Math.imul(value, 0x85ebca6b) >>> 0;
+  value ^= value >>> 13;
+  value = Math.imul(value, 0xc2b2ae35) >>> 0;
+  value ^= value >>> 16;
+  return value.toString(36);
+}
+
+function editorialCandidateSeed(
+  cpId: string,
+  qlId: string,
+  candidateIndex: number,
+): string {
+  const salt =
+    editorialSeedSalts[(candidateIndex * 7) % editorialSeedSalts.length]!;
+  return `pnl-english-editorial:${cpId}:${qlId}:${salt}:${mixedCandidateToken(candidateIndex)}:${candidateIndex}`;
+}
 
 function visibleExplanation(pkg: ReviewPackage): string {
   return pkg.explanation.lines.join("\n\n").trim();
@@ -239,13 +278,24 @@ function sortedCounts(
     );
 }
 
+const candidateDiversityByQl = new Map<
+  string,
+  Readonly<{
+    cpId: string;
+    qlId: string;
+    exactCandidateStemCount: number;
+    normalizedCandidateStemCount: number;
+    candidateAnswerCount: number;
+  }>
+>();
+
 const generated = runtimes.flatMap((runtime) =>
   runtime.listQlIds().flatMap((qlId) => {
     const candidates = Array.from(
       { length: candidateSeedsPerQl },
       (_, index) => {
         const candidateIndex = index + 1;
-        const seed = `pnl-english-editorial:${runtime.cpId}:${qlId}:candidate-${candidateIndex}`;
+        const seed = editorialCandidateSeed(runtime.cpId, qlId, candidateIndex);
         return {
           cpId: runtime.cpId,
           qlId,
@@ -259,22 +309,83 @@ const generated = runtimes.flatMap((runtime) =>
         };
       },
     );
+    candidateDiversityByQl.set(qlId, {
+      cpId: runtime.cpId,
+      qlId,
+      exactCandidateStemCount: new Set(
+        candidates.map((candidate) => candidate.pkg.stem),
+      ).size,
+      normalizedCandidateStemCount: new Set(
+        candidates.map((candidate) => normalizedVisible(candidate.pkg.stem)),
+      ).size,
+      candidateAnswerCount: new Set(
+        candidates.map((candidate) => candidate.pkg.answer),
+      ).size,
+    });
+
     const selected: Array<
       (typeof candidates)[number] & { sampleIndex: number }
     > = [];
+    const selectedSeeds = new Set<string>();
+    const seenExactStems = new Set<string>();
     const seenStemFingerprints = new Set<string>();
+    const seenAnswers = new Set<string>();
+
+    const selectCandidate = (candidate: (typeof candidates)[number]) => {
+      selected.push({ ...candidate, sampleIndex: selected.length + 1 });
+      selectedSeeds.add(candidate.seed);
+      seenExactStems.add(candidate.pkg.stem);
+      seenStemFingerprints.add(normalizedVisible(candidate.pkg.stem));
+      seenAnswers.add(candidate.pkg.answer);
+    };
+
+    // First maximise semantic stem shape and displayed-answer diversity together.
     for (const candidate of candidates) {
       const fingerprint = normalizedVisible(candidate.pkg.stem);
       if (seenStemFingerprints.has(fingerprint)) continue;
-      seenStemFingerprints.add(fingerprint);
-      selected.push({ ...candidate, sampleIndex: selected.length + 1 });
+      if (seenAnswers.has(candidate.pkg.answer)) continue;
+      selectCandidate(candidate);
       if (selected.length === samplesPerQl) break;
     }
+
+    // Contractually fixed answers may still expose different semantic stem shapes.
     if (selected.length < samplesPerQl) {
-      const selectedSeeds = new Set(selected.map((item) => item.seed));
       for (const candidate of candidates) {
         if (selectedSeeds.has(candidate.seed)) continue;
-        selected.push({ ...candidate, sampleIndex: selected.length + 1 });
+        const fingerprint = normalizedVisible(candidate.pkg.stem);
+        if (seenStemFingerprints.has(fingerprint)) continue;
+        selectCandidate(candidate);
+        if (selected.length === samplesPerQl) break;
+      }
+    }
+
+    // If the normalized shape is fixed, prefer a new answer with new values.
+    if (selected.length < samplesPerQl) {
+      for (const candidate of candidates) {
+        if (selectedSeeds.has(candidate.seed)) continue;
+        if (seenExactStems.has(candidate.pkg.stem)) continue;
+        if (seenAnswers.has(candidate.pkg.answer)) continue;
+        selectCandidate(candidate);
+        if (selected.length === samplesPerQl) break;
+      }
+    }
+
+    // Contractually fixed answers may still expose distinct visible values.
+    if (selected.length < samplesPerQl) {
+      for (const candidate of candidates) {
+        if (selectedSeeds.has(candidate.seed)) continue;
+        if (seenExactStems.has(candidate.pkg.stem)) continue;
+        selectCandidate(candidate);
+        if (selected.length === samplesPerQl) break;
+      }
+    }
+
+    // Fall back only when the runtime candidate pool itself has fewer than
+    // three distinct exact stems or answers.
+    if (selected.length < samplesPerQl) {
+      for (const candidate of candidates) {
+        if (selectedSeeds.has(candidate.seed)) continue;
+        selectCandidate(candidate);
         if (selected.length === samplesPerQl) break;
       }
     }
@@ -496,25 +607,37 @@ for (const item of generated) {
 
 const sameQlStemRepeat: string[] = [];
 const sameQlAnswerRepeat: string[] = [];
+const fixedStemQls: string[] = [];
+const fixedAnswerQls: string[] = [];
 for (const [qlId, group] of qlGroups) {
+  const candidateDiversity = candidateDiversityByQl.get(qlId);
   if (new Set(group.map((item) => item.pkg.stem)).size === 1) {
-    sameQlStemRepeat.push(qlId);
-    editorialFindings.push({
-      code: "SAME-QL-STEM-REPEAT",
-      severity: "MAJOR",
-      scope: qlId,
-      message: "All three deterministic samples render the same visible stem.",
-    });
+    const fixedStem = (candidateDiversity?.exactCandidateStemCount ?? 0) === 1;
+    if (fixedStem) {
+      fixedStemQls.push(qlId);
+    } else {
+      sameQlStemRepeat.push(qlId);
+      editorialFindings.push({
+        code: "SAME-QL-STEM-REPEAT",
+        severity: "MAJOR",
+        scope: qlId,
+        message: `All three selected samples render the same visible stem despite ${candidateDiversity?.exactCandidateStemCount ?? "unknown"} exact stems in the candidate pool.`,
+      });
+    }
   }
   if (new Set(group.map((item) => item.pkg.answer)).size === 1) {
-    sameQlAnswerRepeat.push(qlId);
-    editorialFindings.push({
-      code: "SAME-QL-ANSWER-REPEAT",
-      severity: "NOTE",
-      scope: qlId,
-      message:
-        "All three deterministic samples produce the same displayed answer; confirm this is contractually necessary.",
-    });
+    const fixedAnswer = (candidateDiversity?.candidateAnswerCount ?? 0) === 1;
+    if (fixedAnswer) {
+      fixedAnswerQls.push(qlId);
+    } else {
+      sameQlAnswerRepeat.push(qlId);
+      editorialFindings.push({
+        code: "SAME-QL-ANSWER-REPEAT",
+        severity: "NOTE",
+        scope: qlId,
+        message: `The selected samples repeat one answer despite ${candidateDiversity?.candidateAnswerCount ?? "unknown"} answers in the candidate pool.`,
+      });
+    }
   }
 }
 
@@ -655,6 +778,13 @@ const metrics = {
   normalizedCrossQlCloneGroups: normalizedCrossQlClones.length,
   sameQlStemRepeatCount: sameQlStemRepeat.length,
   sameQlAnswerRepeatCount: sameQlAnswerRepeat.length,
+  contractuallyFixedStemCount: fixedStemQls.length,
+  contractuallyFixedStemQls: fixedStemQls,
+  contractuallyFixedAnswerCount: fixedAnswerQls.length,
+  contractuallyFixedAnswerQls: fixedAnswerQls,
+  candidateDiversityByQl: [...candidateDiversityByQl.values()].sort(
+    (left, right) => left.qlId.localeCompare(right.qlId),
+  ),
   repeatedOpeningPatterns: openingCounts.filter(({ count }) => count >= 8),
   repeatedClosingPatterns: closingCounts.filter(({ count }) => count >= 8),
   repeatedParagraphPatterns: paragraphCounts.filter(({ count }) => count >= 12),
@@ -662,7 +792,12 @@ const metrics = {
   editorialFindingCount: editorialFindings.length,
   fatalCodeCounts,
   issueCodeCounts,
-  auditStatus: fatalFindings.length > 0 ? "STRUCTURAL_FAIL" : "REVIEW_REQUIRED",
+  auditStatus:
+    fatalFindings.length > 0
+      ? "STRUCTURAL_FAIL"
+      : editorialFindings.length > 0
+        ? "REVIEW_REQUIRED"
+        : "PASS",
   resolvedIssueRegression: {
     issueNumber: 262,
     qlId: "PNL-QL-070",

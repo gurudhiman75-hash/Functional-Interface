@@ -27,25 +27,25 @@
         "prompt": "Calculate the overall percentage gain or loss."
       },
       "explanation": {
-        "opening": "When several lots or groups are involved, the overall result must come from total money rather than an average of percentages.",
-        "concept": "Each group contributes its own cost and selling amount; add those amounts first and then measure the combined difference on total cost.",
+        "opening": "Each purchase lot has its own quantity, unit cost and unit selling price, so the lots must be totalled in rupees.",
+        "concept": "Overall percentage comes from the combined profit or loss amount divided by the combined cost of every lot.",
         "steps": [
           {
-            "title": "Build group totals",
-            "body": "For every group, multiply quantity by unit cost and unit selling price or apply its stated rate."
+            "title": "Total each lot separately",
+            "body": "Multiply quantity by unit cost and unit selling price for every listed lot."
           },
           {
-            "title": "Add cost and selling amounts",
-            "body": "Combine all group costs into total cost and all receipts into total selling price."
+            "title": "Combine the lot ledgers",
+            "body": "Add all lot costs and all lot receipts into two chapter-wide totals."
           },
           {
-            "title": "Find the overall result",
-            "body": "Compare the two totals and divide the absolute difference by total cost.",
+            "title": "Measure the combined rate",
+            "body": "Compare total receipt with total cost and divide the absolute difference by total cost.",
             "equationLatex": "r=\\frac{|S_T-C_T|}{C_T}\\times100"
           }
         ],
-        "conclusion": "The sign of total selling price minus total cost gives the overall direction and the formula gives the rate.",
-        "commonTrap": "Do not average the group percentages unless all group cost bases are equal."
+        "conclusion": "The sign of total receipt minus total cost gives the direction, and the ratio gives the overall percentage.",
+        "commonTrap": "Do not average the individual lot percentages; quantities and unit costs create unequal money weights."
       },
       "difficulty": "Medium",
       "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
@@ -148,8 +148,8 @@
         "concept": "Total cost covers the entire stock, while total recovery includes receipts from sold groups plus any value recovered from remaining stock.",
         "steps": [
           {
-            "title": "Find total inventory cost",
-            "body": "Multiply total quantity by unit cost price."
+            "title": "Price the complete purchased stock",
+            "body": "Multiply the full purchased quantity by unit cost before combining sold and unsold recovery."
           },
           {
             "title": "Add all recoveries",
@@ -178,24 +178,24 @@
         "prompt": "Find the required selling price per undamaged set."
       },
       "explanation": {
-        "opening": "The required price or rate on the remaining stock must first cover the gap left after earlier sales or damage recovery.",
-        "concept": "Start from the target total recovery, subtract what has already been recovered, and spread the remaining requirement across the unsold good units.",
+        "opening": "Damaged units have a fixed recovery, so the undamaged units must supply the rest of the target receipt.",
+        "concept": "The target applies to the cost of the entire purchase, including the damaged units, before their recovery is deducted.",
         "steps": [
           {
-            "title": "Find total cost and target recovery",
-            "body": "Calculate complete inventory cost and apply the target profit or loss factor."
+            "title": "Set the full-stock target",
+            "body": "Multiply total inventory cost by the required profit or loss factor."
           },
           {
-            "title": "Subtract known recoveries",
-            "body": "Remove receipts from sold groups and damaged or recovered units."
+            "title": "Credit damaged-stock recovery",
+            "body": "Subtract the amount recovered from damaged units from the target receipt."
           },
           {
-            "title": "Allocate the remaining amount",
-            "body": "Divide by the number of units still to be sold; convert to a rate if the question asks for one."
+            "title": "Price the undamaged units",
+            "body": "Divide the remaining receipt by the number of good units available for sale."
           }
         ],
-        "conclusion": "The resulting unit price or rate is what the remaining stock must achieve.",
-        "commonTrap": "Do not apply the target percentage only to the unsold units; the target concerns the entire inventory."
+        "conclusion": "The quotient is the selling price required for each undamaged unit.",
+        "commonTrap": "Do not calculate the target only on good units; damaged units were part of the original cost."
       },
       "difficulty": "Hard",
       "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
@@ -256,25 +256,24 @@
         "prompt": "Calculate the overall percentage gain or loss."
       },
       "explanation": {
-        "opening": "When several lots or groups are involved, the overall result must come from total money rather than an average of percentages.",
-        "concept": "Each group contributes its own cost and selling amount; add those amounts first and then measure the combined difference on total cost.",
+        "opening": "The groups are quoted by profit or loss rate, so each rate must first be applied to that group's own cost base.",
+        "concept": "A group with a larger quantity-by-cost value contributes more to the final result than a smaller group with the same percentage.",
         "steps": [
           {
-            "title": "Build group totals",
-            "body": "For every group, multiply quantity by unit cost and unit selling price or apply its stated rate."
+            "title": "Find every group cost",
+            "body": "Multiply each group quantity by its unit cost price."
           },
           {
-            "title": "Add cost and selling amounts",
-            "body": "Combine all group costs into total cost and all receipts into total selling price."
+            "title": "Convert each rate into receipt",
+            "body": "Apply the stated profit or loss multiplier to that group's cost total."
           },
           {
-            "title": "Find the overall result",
-            "body": "Compare the two totals and divide the absolute difference by total cost.",
-            "equationLatex": "r=\\frac{|S_T-C_T|}{C_T}\\times100"
+            "title": "Form the weighted overall rate",
+            "body": "Add group receipts, compare with combined group cost, and measure the difference on combined cost."
           }
         ],
-        "conclusion": "The sign of total selling price minus total cost gives the overall direction and the formula gives the rate.",
-        "commonTrap": "Do not average the group percentages unless all group cost bases are equal."
+        "conclusion": "The weighted money comparison gives the overall profit or loss percentage.",
+        "commonTrap": "Do not average the displayed rates unless the group cost totals are exactly equal."
       },
       "difficulty": "Medium",
       "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
@@ -389,24 +388,24 @@
         "prompt": "At what unit price should the remaining stock be sold for an overall {targetRatePercent}% {targetDirection}?"
       },
       "explanation": {
-        "opening": "The required price or rate on the remaining stock must first cover the gap left after earlier sales or damage recovery.",
-        "concept": "Start from the target total recovery, subtract what has already been recovered, and spread the remaining requirement across the unsold good units.",
+        "opening": "Part of the stock is already sold, so the remaining units must recover the exact balance needed for the overall target.",
+        "concept": "Compute the target receipt for all units, deduct receipts already earned, and allocate the balance over the unsold quantity.",
         "steps": [
           {
-            "title": "Find total cost and target recovery",
-            "body": "Calculate complete inventory cost and apply the target profit or loss factor."
+            "title": "Compute target total receipt",
+            "body": "Apply the stated overall rate to the cost of the complete inventory."
           },
           {
-            "title": "Subtract known recoveries",
-            "body": "Remove receipts from sold groups and damaged or recovered units."
+            "title": "Deduct completed sales",
+            "body": "Add the receipts from sold groups and subtract them from the target."
           },
           {
-            "title": "Allocate the remaining amount",
-            "body": "Divide by the number of units still to be sold; convert to a rate if the question asks for one."
+            "title": "Find the remaining unit price",
+            "body": "Divide the outstanding receipt by the number of units still unsold."
           }
         ],
-        "conclusion": "The resulting unit price or rate is what the remaining stock must achieve.",
-        "commonTrap": "Do not apply the target percentage only to the unsold units; the target concerns the entire inventory."
+        "conclusion": "This division gives the required selling price per remaining unit.",
+        "commonTrap": "Do not apply the target percentage only to the unsold portion; it is an overall inventory target."
       },
       "difficulty": "Hard",
       "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
@@ -433,24 +432,24 @@
         "prompt": "At what profit or loss rate should the remaining stock be sold for an overall {targetRatePercent}% {targetDirection}?"
       },
       "explanation": {
-        "opening": "The required price or rate on the remaining stock must first cover the gap left after earlier sales or damage recovery.",
-        "concept": "Start from the target total recovery, subtract what has already been recovered, and spread the remaining requirement across the unsold good units.",
+        "opening": "The remaining stock needs a rate, so first determine its required unit selling price and then compare that price with unit cost.",
+        "concept": "This is a two-stage inverse: balance the whole inventory target, then translate the remaining-unit price into profit or loss percentage.",
         "steps": [
           {
-            "title": "Find total cost and target recovery",
-            "body": "Calculate complete inventory cost and apply the target profit or loss factor."
+            "title": "Balance the inventory receipt",
+            "body": "Subtract receipts from units already sold from the target receipt for the full stock."
           },
           {
-            "title": "Subtract known recoveries",
-            "body": "Remove receipts from sold groups and damaged or recovered units."
+            "title": "Recover the required unit price",
+            "body": "Spread the outstanding amount equally across the units still available."
           },
           {
-            "title": "Allocate the remaining amount",
-            "body": "Divide by the number of units still to be sold; convert to a rate if the question asks for one."
+            "title": "Convert price to a rate",
+            "body": "Compare the recovered unit price with unit cost and measure the difference on unit cost."
           }
         ],
-        "conclusion": "The resulting unit price or rate is what the remaining stock must achieve.",
-        "commonTrap": "Do not apply the target percentage only to the unsold units; the target concerns the entire inventory."
+        "conclusion": "The final comparison gives the required profit or loss rate on the remaining units.",
+        "commonTrap": "Do not report the outstanding receipt as a percentage before dividing it across the remaining quantity."
       },
       "difficulty": "Hard",
       "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
@@ -471,8 +470,8 @@
         "concept": "Calculate target total recovery for the whole purchase, subtract revenue from good units, and spread the balance over spoiled units.",
         "steps": [
           {
-            "title": "Find total purchase cost",
-            "body": "Multiply total quantity by unit cost price."
+            "title": "Establish the cost of all purchased units",
+            "body": "Value every purchased unit at cost before crediting good-stock sales and spoiled-stock recovery."
           },
           {
             "title": "Find the target total recovery",
@@ -674,25 +673,24 @@
         "prompt": "Calculate the overall percentage gain or loss."
       },
       "explanation": {
-        "opening": "When several lots or groups are involved, the overall result must come from total money rather than an average of percentages.",
-        "concept": "Each group contributes its own cost and selling amount; add those amounts first and then measure the combined difference on total cost.",
+        "opening": "Read the inventory table row by row and convert each row into a cost total and a selling total.",
+        "concept": "The table is a compact ledger: quantity and unit cost establish each row's weight, while the selling condition establishes its recovery.",
         "steps": [
           {
-            "title": "Build group totals",
-            "body": "For every group, multiply quantity by unit cost and unit selling price or apply its stated rate."
+            "title": "Expand the table rows",
+            "body": "For each row, calculate quantity times unit cost and then apply its stated selling condition."
           },
           {
-            "title": "Add cost and selling amounts",
-            "body": "Combine all group costs into total cost and all receipts into total selling price."
+            "title": "Add the cost column equivalents",
+            "body": "Combine the row-level cost totals into the full inventory cost."
           },
           {
-            "title": "Find the overall result",
-            "body": "Compare the two totals and divide the absolute difference by total cost.",
-            "equationLatex": "r=\\frac{|S_T-C_T|}{C_T}\\times100"
+            "title": "Compare total recovery",
+            "body": "Add row recoveries and compare them with total inventory cost to obtain the signed percentage."
           }
         ],
-        "conclusion": "The sign of total selling price minus total cost gives the overall direction and the formula gives the rate.",
-        "commonTrap": "Do not average the group percentages unless all group cost bases are equal."
+        "conclusion": "The table totals, not the visual average of its rates, determine the overall result.",
+        "commonTrap": "Do not give every table row equal weight when their quantities or unit costs differ."
       },
       "difficulty": "Hard",
       "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
@@ -714,8 +712,8 @@
         "concept": "Total cost covers the entire stock, while total recovery includes receipts from sold groups plus any value recovered from remaining stock.",
         "steps": [
           {
-            "title": "Find total inventory cost",
-            "body": "Multiply total quantity by unit cost price."
+            "title": "Rebuild the caselet purchase outlay",
+            "body": "Reconstruct the caselet's complete purchase outlay from total quantity and unit cost."
           },
           {
             "title": "Add all recoveries",
@@ -819,7 +817,7 @@
         "blocks": [
           {
             "type": "data_sufficiency",
-            "question": "Can the required unit selling price of the remaining stock for an overall 10% profit be determined?",
+            "question": "Can the required unit selling price of the remaining stock for an overall {targetRatePercent}% {targetDirection} be determined?",
             "statements": [
               "{statementOne}",
               "{statementTwo}"
@@ -830,24 +828,24 @@
         "prompt": "Decide whether either statement alone or both together are sufficient."
       },
       "explanation": {
-        "opening": "The required price or rate on the remaining stock must first cover the gap left after earlier sales or damage recovery.",
-        "concept": "Start from the target total recovery, subtract what has already been recovered, and spread the remaining requirement across the unsold good units.",
+        "opening": "Test each statement independently against the information needed to price the remaining stock.",
+        "concept": "A sufficient statement must identify total purchase cost, receipt from units already sold, remaining quantity, and the overall target stated in the question.",
         "steps": [
           {
-            "title": "Find total cost and target recovery",
-            "body": "Calculate complete inventory cost and apply the target profit or loss factor."
+            "title": "Check Statement I alone",
+            "body": "Decide whether it supplies both the purchase details and completed-sale details needed for the inventory balance."
           },
           {
-            "title": "Subtract known recoveries",
-            "body": "Remove receipts from sold groups and damaged or recovered units."
+            "title": "Check Statement II alone",
+            "body": "Apply the same sufficiency test without borrowing any fact from Statement I."
           },
           {
-            "title": "Allocate the remaining amount",
-            "body": "Divide by the number of units still to be sold; convert to a rate if the question asks for one."
+            "title": "Combine only if necessary",
+            "body": "Use both statements together only when each supplies a different missing part of the required ledger."
           }
         ],
-        "conclusion": "The resulting unit price or rate is what the remaining stock must achieve.",
-        "commonTrap": "Do not apply the target percentage only to the unsold units; the target concerns the entire inventory."
+        "conclusion": "The standard data-sufficiency option follows from those two independent checks.",
+        "commonTrap": "Do not calculate with facts from both statements while testing whether one statement is sufficient by itself."
       },
       "difficulty": "Hard",
       "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
@@ -874,25 +872,25 @@
         "prompt": "Find the overall profit or loss amount."
       },
       "explanation": {
-        "opening": "When several lots or groups are involved, the overall result must come from total money rather than an average of percentages.",
-        "concept": "Each group contributes its own cost and selling amount; add those amounts first and then measure the combined difference on total cost.",
+        "opening": "This question asks for the overall rupee result, so only the two combined money totals are needed.",
+        "concept": "After total cost and total receipt are found, their absolute difference is the required amount; no percentage conversion is necessary.",
         "steps": [
           {
-            "title": "Build group totals",
-            "body": "For every group, multiply quantity by unit cost and unit selling price or apply its stated rate."
+            "title": "Calculate total purchase outlay",
+            "body": "Add quantity times unit cost across all purchase lots."
           },
           {
-            "title": "Add cost and selling amounts",
-            "body": "Combine all group costs into total cost and all receipts into total selling price."
+            "title": "Calculate total sales receipt",
+            "body": "Add quantity times unit selling price across the same lots."
           },
           {
-            "title": "Find the overall result",
-            "body": "Compare the two totals and divide the absolute difference by total cost.",
-            "equationLatex": "r=\\frac{|S_T-C_T|}{C_T}\\times100"
+            "title": "Take the signed money difference",
+            "body": "Receipt above cost is profit; receipt below cost is loss.",
+            "equationLatex": "A=|S_T-C_T|"
           }
         ],
-        "conclusion": "The sign of total selling price minus total cost gives the overall direction and the formula gives the rate.",
-        "commonTrap": "Do not average the group percentages unless all group cost bases are equal."
+        "conclusion": "The direction and rupee difference together form the requested overall amount.",
+        "commonTrap": "Do not divide by total cost when the question asks for an amount rather than a percentage."
       },
       "difficulty": "Medium",
       "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
@@ -913,8 +911,8 @@
         "concept": "Calculate target total recovery for the whole purchase, subtract revenue from good units, and spread the balance over spoiled units.",
         "steps": [
           {
-            "title": "Find total purchase cost",
-            "body": "Multiply total quantity by unit cost price."
+            "title": "Set the full break-even cost",
+            "body": "Calculate the cost of all purchased units before solving for break-even recovery from spoiled stock."
           },
           {
             "title": "Find the target total recovery",

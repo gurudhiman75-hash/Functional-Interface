@@ -26,7 +26,7 @@
     "PNL-QL-089": {"solveMode":"PARTIAL_INVENTORY_TO_OVERALL_RESULT","answerSemantic":"caseletOverallResult","requiredVariables":["caseletData"],"difficulty":"Hard","representation":"CASELET"},
     "PNL-QL-090": {"solveMode":"EQUAL_SP_EQUAL_RATES_SPECIAL","answerSemantic":"correctStatement","requiredVariables":["ratePercent"],"difficulty":"Medium","representation":"STATEMENT"},
     "PNL-QL-091": {"solveMode":"UNKNOWN_GROUP_RATE_FOR_TARGET","answerSemantic":"algebraicUnknownRate","requiredVariables":["groupCostExpressions","targetRatePercent"],"difficulty":"Hard","representation":"ALGEBRAIC"},
-    "PNL-QL-092": {"solveMode":"UNSOLD_STOCK_REQUIRED_UNIT_PRICE","answerSemantic":"dataSufficiency","requiredVariables":["statementOne","statementTwo"],"difficulty":"Hard","representation":"DATA_SUFFICIENCY"},
+    "PNL-QL-092": {"solveMode":"UNSOLD_STOCK_REQUIRED_UNIT_PRICE","answerSemantic":"dataSufficiency","requiredVariables":["statementOne","statementTwo","targetDirection","targetRatePercent"],"difficulty":"Hard","representation":"DATA_SUFFICIENCY"},
     "PNL-QL-093": {"solveMode":"MULTIPLE_LOTS_TO_OVERALL_RESULT","answerSemantic":"overallProfitOrLossAmount","requiredVariables":["lots"],"difficulty":"Medium"},
     "PNL-QL-094": {"solveMode":"SPOILED_STOCK_REQUIRED_RECOVERY","answerSemantic":"breakEvenRecoveryPerSpoiledUnit","requiredVariables":["totalQuantity","unitCostPrice","goodQuantity","goodUnitSellingPrice","spoiledQuantity"],"difficulty":"Hard"}
   },

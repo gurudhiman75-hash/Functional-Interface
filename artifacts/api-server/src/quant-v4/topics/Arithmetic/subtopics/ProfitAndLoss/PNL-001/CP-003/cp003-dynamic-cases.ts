@@ -715,7 +715,14 @@ export function generatePnlCp003Case(
         };
       }
 
-      const complete = `The dealer bought ${totalQuantity} units at ${cp003FormatMoney(unitCostPrice)} each and sold ${preset.sold} units at ${cp003FormatMoney(rupees(preset.soldPrice))} each.`;
+      const totalPurchaseCost = moneyFromPaise(
+        totalQuantity * unitCostPrice.paise,
+      );
+      const soldRecovery = moneyFromPaise(
+        preset.sold * rupees(preset.soldPrice).paise,
+      );
+      const completeOne = `The dealer bought ${totalQuantity} units at ${cp003FormatMoney(unitCostPrice)} each and sold ${preset.sold} units at ${cp003FormatMoney(rupees(preset.soldPrice))} each.`;
+      const completeTwo = `The stock has ${totalQuantity} units with total purchase cost ${cp003FormatMoney(totalPurchaseCost)}; selling ${preset.sold} units brought in ${cp003FormatMoney(soldRecovery)}.`;
       const purchaseOnly = `The dealer bought ${totalQuantity} units at ${cp003FormatMoney(unitCostPrice)} each.`;
       const salesOnly = `${preset.sold} units were sold at ${cp003FormatMoney(rupees(preset.soldPrice))} each.`;
       const irrelevant = "The stock is stored in two warehouse sections.";
@@ -727,13 +734,13 @@ export function generatePnlCp003Case(
       ] as const);
       const statementOne =
         pattern === "ONE" || pattern === "EITHER"
-          ? complete
+          ? completeOne
           : pattern === "BOTH"
             ? purchaseOnly
             : irrelevant;
       const statementTwo =
         pattern === "TWO" || pattern === "EITHER"
-          ? complete
+          ? completeTwo
           : pattern === "BOTH"
             ? salesOnly
             : irrelevant;

@@ -1342,7 +1342,7 @@ function buildCp002GeneratedWorking(
       return `${prefix} Price both offers from the same ${formatMoney(request.markedPrice)} base: one uses a ${formatPercent(request.discountPercent)} discount and the other returns ${formatMoney(request.cashbackAmount)}. Their comparison is ${answer}.`;
 
     case "THREE_PLUS_SUCCESSIVE_DISCOUNTS_TO_SP":
-      return `${prefix} Starting from ${formatMoney(request.markedPrice)}, apply ${formatDiscountSequence(request.discountPercents)} sequentially to the changing balance. The final selling price is ${answer}.`;
+      return `${prefix} Starting from ${formatMoney(request.markedPrice)}, apply ${formatDiscountSequence(request.discountPercents)} sequentially to the changing balance. The three-stage payable amount is ${answer}.`;
 
     case "COUPON_MINIMUM_SPEND_TO_EFFECTIVE_PRICE":
       return `${prefix} Compare billed price ${formatMoney(request.billedPrice)} with the eligibility threshold ${formatMoney(request.minimumSpend)}. Only an eligible bill receives the ${formatMoney(request.couponAmount)} coupon, leading to ${answer}.`;

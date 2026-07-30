@@ -160,7 +160,7 @@
             "body": "Take the absolute difference between selling price and E."
           },
           {
-            "title": "Convert to a percentage",
+            "title": "Measure the result on effective cost",
             "body": "Divide the amount by E and multiply by 100."
           }
         ],
@@ -838,7 +838,7 @@
             "body": "Divide fixed cost by break-even revenue."
           },
           {
-            "title": "Convert to a percentage",
+            "title": "Convert the contribution ratio to percent",
             "body": "Multiply the fraction by 100.",
             "equationLatex": "CMR=\\frac{F}{R_{BE}}\\times100"
           }
@@ -933,7 +933,7 @@
             "body": "Subtract break-even revenue from actual revenue."
           },
           {
-            "title": "Convert to a percentage",
+            "title": "Express margin of safety as a percentage",
             "body": "Divide the margin by actual revenue and multiply by 100.",
             "equationLatex": "MOS\\%=\\frac{R_A-R_{BE}}{R_A}\\times100"
           }
@@ -1094,11 +1094,7 @@
           {
             "type": "table",
             "caption": "Manufacturing cost sheet",
-            "columns": [
-              "Cost component",
-              "Amount or rate",
-              "Calculation base"
-            ],
+            "columns": ["Cost component", "Amount or rate", "Calculation base"],
             "rowSource": "manufacturingTable"
           },
           {
@@ -1258,10 +1254,7 @@
           {
             "type": "data_sufficiency",
             "question": "The break-even quantity of a business is to be determined.",
-            "statements": [
-              "{statementOne}",
-              "{statementTwo}"
-            ],
+            "statements": ["{statementOne}", "{statementTwo}"],
             "answerScheme": "STANDARD_TWO_STATEMENT"
           }
         ],
