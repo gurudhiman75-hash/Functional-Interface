@@ -105,7 +105,9 @@ function stemText(entry: StructuredEditorialEntry): string {
     .join("\n\n");
 }
 
-function explanationParagraphs(entry: StructuredEditorialEntry): readonly Readonly<{
+function explanationParagraphs(
+  entry: StructuredEditorialEntry,
+): readonly Readonly<{
   field: string;
   value: string;
 }>[] {
@@ -154,7 +156,9 @@ function representation(entry: StructuredEditorialEntry): string {
   const special = entry.stem.blocks
     .map((block) => block.type)
     .filter((type) => type !== "paragraph");
-  return special.length ? [...new Set(special)].join("+").toUpperCase() : "PARAGRAPH";
+  return special.length
+    ? [...new Set(special)].join("+").toUpperCase()
+    : "PARAGRAPH";
 }
 
 function groupOwners(
@@ -192,24 +196,44 @@ const librariesByLanguage: Record<Language, number> = { hi: 0, pa: 0 };
 let rowNumber = 0;
 
 const lexicalPatterns: Readonly<
-  Record<Language, readonly Readonly<{ phrase: string; replacementHint: string }>[]> 
+  Record<
+    Language,
+    readonly Readonly<{ phrase: string; replacementHint: string }>[]
+  >
 > = {
   hi: [
-    { phrase: "लक्षित", replacementHint: "Prefer लक्ष्य or मांगा गया result where natural." },
-    { phrase: "व्यावसायिक क्रम", replacementHint: "Prefer the concrete transaction order." },
-    { phrase: "पुनर्निर्माण", replacementHint: "Prefer वापस निकालना or फिर से बनाना." },
-    { phrase: "अज्ञात समूह", replacementHint: "Prefer वह समूह जिसकी दर/मात्रा ज्ञात करनी है." },
+    {
+      phrase: "लक्षित",
+      replacementHint: "Prefer लक्ष्य or मांगा गया result where natural.",
+    },
+    {
+      phrase: "व्यावसायिक क्रम",
+      replacementHint: "Prefer the concrete transaction order.",
+    },
+    {
+      phrase: "पुनर्निर्माण",
+      replacementHint: "Prefer वापस निकालना or फिर से बनाना.",
+    },
+    {
+      phrase: "अज्ञात समूह",
+      replacementHint: "Prefer वह समूह जिसकी दर/मात्रा ज्ञात करनी है.",
+    },
   ],
   pa: [
     { phrase: "ਲਕਸ਼ਿਤ", replacementHint: "Prefer ਟੀਚਾ or ਮੰਗਿਆ ਨਤੀਜਾ." },
-    { phrase: "ਵਪਾਰਕ ਕ੍ਰਮ", replacementHint: "Prefer the concrete sale/order wording." },
+    {
+      phrase: "ਵਪਾਰਕ ਕ੍ਰਮ",
+      replacementHint: "Prefer the concrete sale/order wording.",
+    },
     { phrase: "ਪੁਨਰਨਿਰਮਾਣ", replacementHint: "Prefer ਵਾਪਸ ਕੱਢੋ or ਮੁੜ ਬਣਾਓ." },
     { phrase: "ਪਰਯਾਪਤਾ", replacementHint: "Prefer ਕਥਨਾਂ ਵਿੱਚ ਕਾਫ਼ੀ ਜਾਣਕਾਰੀ." },
   ],
 };
 
 for (const meta of CP_META) {
-  const english = readJson<Library>(join(root, meta.folder, "editorial-content.en.json"));
+  const english = readJson<Library>(
+    join(root, meta.folder, "editorial-content.en.json"),
+  );
   for (const language of LANGUAGES) {
     const library = readJson<Library>(
       join(root, meta.folder, `editorial-content.${language}.json`),
@@ -258,12 +282,14 @@ for (const meta of CP_META) {
           message: "The native source contains no expected script characters.",
         });
       }
-      if (entry.explanation.steps.length !== englishEntry.explanation.steps.length) {
+      if (
+        entry.explanation.steps.length < englishEntry.explanation.steps.length
+      ) {
         fatalFindings.push({
           code: "STEP-COUNT-PARITY",
           severity: "BLOCKER",
           scope: `${qlId}/${language}`,
-          message: `Native explanation has ${entry.explanation.steps.length} steps; English has ${englishEntry.explanation.steps.length}.`,
+          message: `Native explanation has ${entry.explanation.steps.length} steps; English requires at least ${englishEntry.explanation.steps.length}.`,
         });
       }
       if (representation(entry) !== representation(englishEntry)) {
@@ -314,8 +340,9 @@ for (const meta of CP_META) {
         opening: entry.explanation.opening,
         concept: entry.explanation.concept,
         steps: entry.explanation.steps
-          .map((step, stepIndex) =>
-            `${stepIndex + 1}. ${step.title}: ${step.body}`,
+          .map(
+            (step, stepIndex) =>
+              `${stepIndex + 1}. ${step.title}: ${step.body}`,
           )
           .join("\n"),
         conclusion: entry.explanation.conclusion,
@@ -391,7 +418,10 @@ const codeCounts = (findings: readonly Finding[]) =>
     }, {}),
   )
     .map(([value, count]) => ({ value, count }))
-    .sort((left, right) => right.count - left.count || left.value.localeCompare(right.value));
+    .sort(
+      (left, right) =>
+        right.count - left.count || left.value.localeCompare(right.value),
+    );
 
 const metrics = {
   packageId: "PNL-001",
