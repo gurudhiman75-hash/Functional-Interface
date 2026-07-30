@@ -27,6 +27,8 @@ The marker-only horizontal line has been replaced with a routed dotted bracket:
           └·········· SIBLINGS ··········┘
 ```
 
+The corrected implementation retains **bidirectional arrowheads**, with both tips deliberately aimed upward at the two sibling cards.
+
 The corrected geometry:
 
 - targets the inner bottom edge of each sibling card rather than the space beside the cards;
