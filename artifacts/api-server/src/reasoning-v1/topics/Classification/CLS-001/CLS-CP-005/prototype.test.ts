@@ -97,7 +97,7 @@ for (const prototype of CLS_CP005_PROTOTYPES) {
     assert.ok(question.explanation.stepByStep.length >= 3);
     assert.equal(question.explanation.examSpeedShortcut.length, 1);
     assert.equal(question.explanation.commonTrapWarning.length, 1);
-    assert.match(question.explanation.examSpeedShortcut[0]!, /^(Add|Check|Compare|Find|Keep|Multiply|Reduce|Reverse|Square|Subtract|Try|Write)/);
+    assert.match(question.explanation.examSpeedShortcut[0]!, /^(Add|Check|Compare|Cube|Find|Keep|Multiply|Reduce|Reverse|Square|Subtract|Try|Write)/);
 
     const learnerText = [
       question.stem,
