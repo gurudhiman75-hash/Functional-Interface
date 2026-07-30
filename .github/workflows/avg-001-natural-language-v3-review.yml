@@ -34,6 +34,16 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
+      - name: Bundle V3.5 targeted audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-natural-language-v3-5-targeted-audit.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/avg-001-natural-language-v3-5-targeted-audit.mjs
+      - name: Run V3.5 targeted remediation audit
+        run: cd artifacts/api-server && node dist/quant-v4/avg-001-natural-language-v3-5-targeted-audit.mjs
       - name: Bundle V3.5 presentation-integrity audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
