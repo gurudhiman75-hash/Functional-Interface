@@ -1,6 +1,6 @@
 # BLR-CP-003 — Family-Set Passages and Shared Graphs
 
-Status: **native SVG competitive review V5 implemented; corrected sibling-arrow visual confirmation pending; zero permanent QLs**.
+Status: **native SVG competitive review V5 approved and validated; final discovery freeze blocked by five learner-evidence gaps; zero permanent QLs**.
 
 ## Ownership
 
@@ -19,7 +19,7 @@ Permanent QLs                                 0
 
 These figures remain technical discovery evidence. They are not frozen.
 
-## Active English review candidate — V5
+## Approved English review candidate — V5
 
 ```text
 V3 source records                         208
@@ -38,16 +38,16 @@ ASCII fallbacks                            128
 
 Every active question requires a two-edge-or-more derivation, zero answer-premise repetition, a native SVG family tree, ASCII fallback, four-tier teacher voice, friendly distractor warnings and reverse-direction explanation where applicable.
 
-## Corrected sibling-arrow route
+## Accepted sibling-arrow route
 
-The original marker-only horizontal line did not point clearly to the sibling cards. It has been replaced with a dotted bracket:
+The original marker-only horizontal line did not point clearly to the sibling cards. It was replaced with a dotted bracket:
 
 ```text
           ↑ sibling A                  sibling B ↑
           └·········· SIBLINGS ··········┘
 ```
 
-The corrected route:
+The accepted route:
 
 - targets the inner bottom edge of each sibling card;
 - stays away from central parent-child lineage lines;
@@ -56,7 +56,7 @@ The corrected route:
 - contains 56 routed sibling segments;
 - contains zero legacy horizontal dotted sibling lines.
 
-The replacement HTML must be reviewed before this visual-polish condition is closed.
+The corrected HTML and exact-head geometry gate are accepted. The visual-polish condition is closed.
 
 ## Performance contract
 
@@ -93,6 +93,24 @@ IDENTIFY_MEMBER_BY_MARITAL_STATUS
 IDENTIFY_PERSON_BY_EXACT_LINEAGE
 ```
 
+## Final-freeze readiness result
+
+The V5 active learner pack does not support all six provisional authorities:
+
+```text
+learner-supported provisional authorities      1
+blocked provisional authorities                5
+final discovery freeze ready                false
+```
+
+`IDENTIFY_PERSON_BY_EXACT_LINEAGE` has eight active V5 records. The other five provisional authorities occur only in rejected source records and therefore cannot receive permanent QLs yet.
+
+The machine-enforced decision is recorded in:
+
+- `BLR-CP-003-FINAL-FREEZE-READINESS-AUDIT.md`;
+- `cp003-final-freeze-readiness.ts`;
+- `cp003-final-freeze-readiness.test.ts`.
+
 ## Semantic boundaries
 
 ```text
@@ -108,20 +126,24 @@ Family counts and composition remain owned by BLR-CP-004. Possibility and cannot
 
 ## Remaining mandatory work
 
-- reviewer confirmation of the corrected sibling-arrow HTML;
-- accepted follow-up remediation, if any;
-- rerun of affected deterministic gates;
-- post-human source-gap confirmation after acceptance;
-- final discovery freeze;
-- sequential QL allocation only after freeze.
+- run a targeted learner-evidence gap wave for the five blocked authorities;
+- retain each authority with competitive reviewed evidence, or remove/delegate it explicitly;
+- rerun all affected deterministic, editorial, SVG and source-gap gates;
+- obtain human review for every added learner-facing record;
+- rerun the final-freeze readiness audit;
+- allocate sequential QLs only after the audit reports ready.
 
 ## Release boundary
 
 - English review-only: true;
-- visual-polish confirmation: pending;
+- human review: approved for V5;
+- visual-polish condition: closed;
+- final discovery freeze: blocked;
+- permanent CP-003 QLs: 0;
 - `BLR-QL-009`: unclaimed;
 - Question Studio visibility: disabled;
 - Question Bank eligibility: disabled;
 - mock-test eligibility: disabled;
 - Hindi and Punjabi: not started;
-- public publication: disabled.
+- public publication: disabled;
+- PR merge: not authorised.
