@@ -20,6 +20,7 @@ import { TMW_CP010_REGISTRY } from "./cp010-registry";
 import { runTmwCp010Pipeline } from "./cp010-runtime";
 import { TMW_CP_011_REGISTRY } from "./cp011-registry";
 import { runTmwCp011Pipeline } from "./cp011-runtime";
+import { diversifyTmwEnglishStem } from "./english-stem-diversity";
 
 export type TmwEnglishOpeningStyle =
   | "SUBJECT_FIRST"
@@ -45,8 +46,17 @@ export interface TmwEnglishAdapter {
   run: (qlId: string, seed: string) => any;
 }
 
+function withOpeningDiversity(question:any,qlId:string,seed:string):any{
+  const stem=typeof question?.stem==="string"?question.stem:"";
+  return {...question,stem:diversifyTmwEnglishStem(stem,qlId,seed)};
+}
+
 function objectRunner(run: (input: { questionLanguageId: string; seed: string; language?: "en" | "hi" | "pa" }) => any) {
-  return (qlId: string, seed: string) => run({ questionLanguageId: qlId, seed, language: "en" });
+  return (qlId: string, seed: string) => withOpeningDiversity(run({ questionLanguageId: qlId, seed, language: "en" }),qlId,seed);
+}
+
+function directRunner(run:(qlId:string,seed:string)=>any){
+  return (qlId:string,seed:string)=>withOpeningDiversity(run(qlId,seed),qlId,seed);
 }
 
 export const TMW_ENGLISH_ADAPTERS: readonly TmwEnglishAdapter[] = [
@@ -60,7 +70,7 @@ export const TMW_ENGLISH_ADAPTERS: readonly TmwEnglishAdapter[] = [
   { cpId: "TMW-CP-008", registry: TMW_CP008_REGISTRY as readonly TmwEnglishRegistryEntry[], run: objectRunner(runTmwCp008Pipeline) },
   { cpId: "TMW-CP-009", registry: TMW_CP009_REGISTRY as readonly TmwEnglishRegistryEntry[], run: objectRunner(runTmwCp009Pipeline) },
   { cpId: "TMW-CP-010", registry: TMW_CP010_REGISTRY as readonly TmwEnglishRegistryEntry[], run: objectRunner(runTmwCp010Pipeline) },
-  { cpId: "TMW-CP-011", registry: TMW_CP_011_REGISTRY as readonly TmwEnglishRegistryEntry[], run: runTmwCp011Pipeline },
+  { cpId: "TMW-CP-011", registry: TMW_CP_011_REGISTRY as readonly TmwEnglishRegistryEntry[], run: directRunner(runTmwCp011Pipeline) },
 ] as const;
 
 export function allTmwEnglishRegistryEntries(): TmwEnglishRegistryEntry[] {
