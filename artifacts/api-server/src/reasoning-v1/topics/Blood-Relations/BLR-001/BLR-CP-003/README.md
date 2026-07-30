@@ -1,6 +1,6 @@
 # BLR-CP-003 — Family-Set Passages and Shared Graphs
 
-Status: **native SVG competitive review V5 implemented; human review pending; zero permanent QLs**.
+Status: **native SVG competitive review V5 implemented; corrected sibling-arrow visual confirmation pending; zero permanent QLs**.
 
 ## Ownership
 
@@ -85,7 +85,7 @@ The primary visual includes:
 - person cards with reliable `M` and `F` badges;
 - marriage connectors;
 - parent-child branches;
-- highlighted sibling steps;
+- highlighted sibling routes;
 - `Start` and `Target` labels;
 - highlighted multi-step answer path;
 - `Answer path` and `Full family` views;
@@ -95,6 +95,27 @@ The primary visual includes:
 
 The layout is parent-anchored rather than alphabetically arranged. Children remain beneath their family branch, and external spouses are positioned away from the core sibling branch to prevent crossing connectors.
 
+## Corrected sibling-arrow route
+
+The original arrow polish placed marker tips on a horizontal line below the sibling cards. The reviewer correctly reported that the arrows did not point to the siblings.
+
+The corrected route is a dotted bracket:
+
+```text
+          ↑ sibling A                  sibling B ↑
+          └·········· SIBLINGS ··········┘
+```
+
+It now:
+
+- targets the inner bottom edge of each sibling card;
+- stays away from central parent-child lineage lines;
+- fixes both arrowheads upward with `orient="-90"`;
+- keeps an 8-pixel visible clearance beneath the cards;
+- contains 56 routed sibling segments and zero legacy horizontal dotted sibling lines.
+
+The replacement HTML must be reviewed before this visual-polish condition is closed.
+
 ## Performance contract
 
 ```text
@@ -102,8 +123,6 @@ external graph library          no
 D3 or Mermaid runtime           no
 database migration              no
 stored image                    no
-renderer chunk                  11.83 KB raw
-renderer chunk                   4.25 KB gzip
 main-bundle leakage             false
 average diagram payload         2,276 bytes
 hard payload limit             12,000 bytes
@@ -118,7 +137,8 @@ CI rejects the build when:
 - the renderer leaks into the main bundle;
 - the raw renderer chunk exceeds 35 KB;
 - any active payload exceeds 12 KB;
-- any active question lacks a highlighted two-edge-or-more answer path.
+- any active question lacks a highlighted two-edge-or-more answer path;
+- sibling routes lose their inner-card targets, upward orientation or visible-clearance contract.
 
 ## Learner explanation standard
 
@@ -218,6 +238,7 @@ IDENTIFY_PERSON_BY_EXACT_LINEAGE
 - `BLR-CP-003-HUMAN-EDITORIAL-REMEDIATION-V3.md`
 - `BLR-CP-003-COMPETITIVE-EXAM-QUALITY-GATE-V4.md`
 - `BLR-CP-003-NATIVE-SVG-FAMILY-TREE-V5.md`
+- `BLR-CP-003-HUMAN-REVIEW-APPROVAL-V5.md`
 
 ## Main V5 files
 
@@ -225,6 +246,7 @@ Server and review:
 
 - `cp003-svg-family-tree.ts`
 - `cp003-svg-family-tree-markup-v2.ts`
+- `cp003-svg-family-tree-markup-v3.ts`
 - `cp003-competitive-svg-review.ts`
 - `cp003-competitive-svg-review.test.ts`
 - `export-cp003-review-v5-svg.ts`
@@ -233,6 +255,7 @@ Student application:
 
 - `src/components/blood-relations/family-tree-types.ts`
 - `src/components/blood-relations/FamilyTreeDiagram.tsx`
+- `src/components/blood-relations/RoutedFamilyTreeDiagram.tsx`
 - `src/components/learning/LogicPlaybackRouter.tsx`
 - `src/pages/canonical-result.tsx`
 - `scripts/verify-family-tree-chunk.mjs`
@@ -291,16 +314,17 @@ Female-count questions remain in CP-004. Possible, impossible and cannot-determi
 
 ## Remaining mandatory work
 
-- human review of the 128-record V5 pack;
+- reviewer confirmation of the corrected sibling-arrow HTML;
 - accepted follow-up remediation, if any;
 - rerun of affected deterministic gates;
-- post-human source-gap confirmation;
+- post-human source-gap confirmation after acceptance;
 - final discovery freeze;
 - sequential QL allocation only after freeze.
 
 ## Release boundary
 
 - English review-only: true;
+- visual-polish confirmation: pending;
 - Question Studio visibility: disabled;
 - Question Bank eligibility: disabled;
 - mock-test eligibility: disabled;
