@@ -1,0 +1,111 @@
+name: Validate PNC-002 CP-010 Hindi Punjabi localization
+
+on:
+  push:
+    branches:
+      - feat/pnc-002-cp010-hi-pa-localization
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/**
+      - .github/workflows/pnc-002-localization-cp010.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/**
+      - .github/workflows/pnc-002-localization-cp010.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-pnc-002-localization-cp010-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-pnc-002-localization-cp010:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          mkdir -p dist/quant-v4/pnc-002-localization-cp010-diagnostics
+          set +e
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --resolveJsonModule \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/student-presentation-teacher-production.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-types.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-glossary.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-checkpoint-shared.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-cp010.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-cp010-reviewed.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp010.test.ts \
+            2>&1 | tee dist/quant-v4/pnc-002-localization-cp010-diagnostics/tsc.log
+          status=${PIPESTATUS[0]}
+          exit "$status"
+
+      - name: Bundle localization review proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp010.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-002-localization-cp010-proof.mjs
+
+      - name: Run localization review proof
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set +e
+          node dist/quant-v4/pnc-002-localization-cp010-proof.mjs > dist/quant-v4/pnc-002-localization-cp010-diagnostics/cp010.log 2>&1
+          status=$?
+          tail -n 300 dist/quant-v4/pnc-002-localization-cp010-diagnostics/cp010.log
+          exit "$status"
+
+      - name: Publish Hindi Punjabi review artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-002-cp010-hi-pa-localization-review
+          path: artifacts/api-server/dist/quant-v4/pnc-002-localization-cp010/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Publish localization diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-002-cp010-hi-pa-localization-diagnostics
+          path: artifacts/api-server/dist/quant-v4/pnc-002-localization-cp010-diagnostics/
+          if-no-files-found: error
+          retention-days: 3
