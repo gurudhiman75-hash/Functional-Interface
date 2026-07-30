@@ -49,8 +49,8 @@ jobs:
             pnpm --dir artifacts/api-server exec esbuild \
               "src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/$source" \
               --bundle --platform=node --format=esm \
-              --outfile="/tmp/$name.mjs"
-            node "/tmp/$name.mjs"
+              --outfile="src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.$name.mjs"
+            node "$root/.$name.mjs"
           done
 
       - name: Bundle multilingual editorial corpus audit
@@ -58,12 +58,12 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-audit.ts \
             --bundle --platform=node --format=esm \
-            --outfile=/tmp/pnl-001-multilingual-editorial-audit.mjs
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-editorial-audit.mjs
 
       - name: Generate 372-row native review corpus
         run: |
           set -o pipefail
-          node /tmp/pnl-001-multilingual-editorial-audit.mjs \
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-editorial-audit.mjs \
             2>&1 | tee pnl-multilingual-editorial-audit.log
 
       - name: Reject structural blockers
