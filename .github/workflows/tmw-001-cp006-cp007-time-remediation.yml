@@ -1,0 +1,122 @@
+name: Remediate TMW CP-006 CP-007 fractional time typography
+
+on:
+  pull_request:
+    branches:
+      - design/tmw-001-blueprint
+    types: [opened, reopened, synchronize]
+    paths:
+      - .github/workflows/tmw-001-cp006-cp007-time-remediation.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: remediate-tmw-cp006-cp007-time
+  cancel-in-progress: true
+
+jobs:
+  remediate-cp006-cp007-time:
+    if: github.head_ref == 'audit/tmw-001-english-gap-freeze'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout audit branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: audit/tmw-001-english-gap-freeze
+      - name: Route CP-006 and CP-007 time answers through shared MathJax formatter
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          root = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation')
+
+          def replace_once(text, old, new, label):
+              if old in text:
+                  return text.replace(old, new, 1)
+              if new in text:
+                  return text
+              raise SystemExit(f'{label} anchor not found')
+
+          cp006_solver = root / 'cp006-solver.ts'
+          text = cp006_solver.read_text()
+          text = replace_once(text,
+            'import { add, compare, divide, equals, formatRational, multiply, rational, subtract, toLatex } from "./rational";',
+            'import { add, compare, divide, equals, formatRational, formatTimeText, multiply, rational, subtract, toLatex } from "./rational";',
+            'CP-006 solver rational import')
+          text = replace_once(text,
+            '    case "TIME":return `${value} ${plural(answer,"day","days")}`;',
+            '    case "TIME":return formatTimeText(answer,"day","days");',
+            'CP-006 TIME answer renderer')
+          text = replace_once(text,
+            '    case "HOURS":return entry.solveMode==="findOvertimeHoursForDeadline"?`${value} overtime ${plural(answer,"hour","hours")} per day`:`${value} ${plural(answer,"hour","hours")} per day`;',
+            '    case "HOURS":return entry.solveMode==="findOvertimeHoursForDeadline"?`${formatTimeText(answer,"hour","hours")} overtime per day`:`${formatTimeText(answer,"hour","hours")} per day`;',
+            'CP-006 HOURS answer renderer')
+          cp006_solver.write_text(text)
+
+          cp006_options = root / 'cp006-options.ts'
+          text = cp006_options.read_text()
+          text = replace_once(text,
+            'import { add, compare, divide, equals, formatRational, multiply, rational, subtract } from "./rational";',
+            'import { add, compare, divide, equals, formatRational, formatTimeText, multiply, rational, subtract } from "./rational";',
+            'CP-006 options rational import')
+          text = replace_once(text,
+            '    case "TIME":return `${formatted} ${plural(value,"day","days")}`;',
+            '    case "TIME":return formatTimeText(value,"day","days");',
+            'CP-006 TIME option renderer')
+          text = replace_once(text,
+            '    case "HOURS":return entry.solveMode==="findOvertimeHoursForDeadline"?`${formatted} overtime ${plural(value,"hour","hours")} per day`:`${formatted} ${plural(value,"hour","hours")} per day`;',
+            '    case "HOURS":return entry.solveMode==="findOvertimeHoursForDeadline"?`${formatTimeText(value,"hour","hours")} overtime per day`:`${formatTimeText(value,"hour","hours")} per day`;',
+            'CP-006 HOURS option renderer')
+          cp006_options.write_text(text)
+
+          cp007_solver = root / 'cp007-solver.ts'
+          text = cp007_solver.read_text()
+          text = replace_once(text,
+            'import { add, compare, divide, equals, formatRational, multiply, rational, reciprocal, subtract, toLatex } from "./rational";',
+            'import { add, compare, divide, equals, formatRational, formatTimeText, multiply, rational, reciprocal, subtract, toLatex } from "./rational";',
+            'CP-007 solver rational import')
+          text = replace_once(text,
+            '    case "TIME":return `${formatRational(first)} ${plural(first,unit,`${unit}s`)}`;',
+            '    case "TIME":return formatTimeText(first,unit,`${unit}s`);',
+            'CP-007 TIME answer renderer')
+          cp007_solver.write_text(text)
+          PY
+      - name: Install locked workspace dependencies
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile
+      - name: Validate CP-006 CP-007 and chapter audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp006.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-cp006.time.mjs
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp006.time.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp007.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-cp007.time.mjs
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp007.time.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-english-gap-audit.cp006-cp007-time.mjs
+          (cd artifacts/api-server && node dist/quant-v4/tmw-001-english-gap-audit.cp006-cp007-time.mjs || true)
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const report = JSON.parse(fs.readFileSync('artifacts/api-server/dist/quant-v4/tmw-001-english-gap-audit.json', 'utf8'));
+          if (report.summary.hardFailures !== 0) throw new Error(`chapter audit has ${report.summary.hardFailures} hard failures`);
+          const hits = report.findings.filter((finding) => finding.code === 'ASCII_FRACTIONAL_TIME' && (finding.cpId === 'TMW-CP-006' || finding.cpId === 'TMW-CP-007'));
+          if (hits.length !== 0) throw new Error(`CP-006/CP-007 ASCII fractional-time findings remain: ${hits.length}`);
+          NODE
+      - name: Commit CP-006 CP-007 time typography
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp006-solver.ts artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp006-options.ts artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp007-solver.ts; then
+            echo 'CP-006 and CP-007 time typography is already migrated.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp006-solver.ts artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp006-options.ts artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp007-solver.ts
+          git commit -m 'fix(tmw): render CP-006 CP-007 fractional times in MathJax'
+          git push origin HEAD:audit/tmw-001-english-gap-freeze
