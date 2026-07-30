@@ -8,7 +8,11 @@ const entryCount = libraries.reduce(
   0,
 );
 
-assert.equal(libraries.length, 12, "Expected six CP libraries in each language.");
+assert.equal(
+  libraries.length,
+  12,
+  "Expected six CP libraries in each language.",
+);
 assert.equal(entryCount, 372, "Expected all Hindi and Punjabi entries.");
 
 const visible = JSON.stringify(libraries);
@@ -32,14 +36,8 @@ assert.match(
   nativeEntry("pa", "PNL-QL-078"),
   /ਜਿਸ ਸਮੂਹ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰਨਾ ਹੈ/u,
 );
-assert.match(
-  nativeEntry("hi", "PNL-QL-091"),
-  /जिस समूह की दर नहीं दी गई है/u,
-);
-assert.match(
-  nativeEntry("pa", "PNL-QL-091"),
-  /ਜਿਸ ਸਮੂਹ ਦੀ ਦਰ ਨਹੀਂ ਦਿੱਤੀ ਗਈ/u,
-);
+assert.match(nativeEntry("hi", "PNL-QL-091"), /जिस समूह की दर नहीं दी गई है/u);
+assert.match(nativeEntry("pa", "PNL-QL-091"), /ਜਿਸ ਸਮੂਹ ਦੀ ਦਰ ਨਹੀਂ ਦਿੱਤੀ ਗਈ/u);
 
 console.log(
   JSON.stringify(
