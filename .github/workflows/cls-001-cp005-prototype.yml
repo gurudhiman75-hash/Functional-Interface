@@ -35,14 +35,15 @@ jobs:
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
-      - name: Bundle CLS-CP-005 audit
+      - name: Bundle CLS-CP-005 audits
         run: |
           ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-005
           OUT=dist/reasoning-v1/cls-001/cp005
           mkdir -p artifacts/api-server/$OUT
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/prototype.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/prototype.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/editorial.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/editorial.test.mjs"
 
-      - name: Run CLS-CP-005 audit
+      - name: Run CLS-CP-005 audits
         id: cp005_audit
         run: |
           set +e
@@ -50,7 +51,14 @@ jobs:
           DIAG=$OUT/diagnostics
           mkdir -p "$DIAG"
           (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp005/prototype.test.mjs") >"$DIAG/prototype-audit.log" 2>&1
-          STATUS=$?
+          PROTOTYPE_STATUS=$?
+          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp005/editorial.test.mjs") >"$DIAG/editorial-audit.log" 2>&1
+          EDITORIAL_STATUS=$?
+          if [ "$PROTOTYPE_STATUS" -ne 0 ] || [ "$EDITORIAL_STATUS" -ne 0 ]; then
+            STATUS=1
+          else
+            STATUS=0
+          fi
           echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
           exit 0
 
@@ -62,10 +70,11 @@ jobs:
           path: artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics
           if-no-files-found: error
 
-      - name: Enforce CLS-CP-005 audit
+      - name: Enforce CLS-CP-005 audits
         if: steps.cp005_audit.outputs.exit_code != '0'
         run: |
           cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/prototype-audit.log
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/editorial-audit.log
           exit 1
 
       - name: Generate CLS-CP-005 discovery review
