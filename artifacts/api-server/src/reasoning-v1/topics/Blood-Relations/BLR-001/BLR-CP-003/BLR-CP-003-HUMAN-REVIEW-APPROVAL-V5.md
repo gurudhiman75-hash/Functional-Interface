@@ -1,6 +1,6 @@
 # BLR-CP-003 — Human Review Approval V5
 
-Status: **human review approved with a visual-polish condition; corrected sibling-arrow HTML awaiting reviewer confirmation**.
+Status: **human review approved; corrected sibling-arrow polish accepted and exact-head validated**.
 
 ## Approval record
 
@@ -16,9 +16,9 @@ After the first marker-only implementation, the reviewer reported:
 
 > arrows not pointing to siblings properly
 
-The content approval remains recorded, but the visual condition is not closed until the corrected replacement HTML is reviewed.
+The route was corrected and the replacement HTML was subsequently accepted through continuation of the approved work. The visual-polish condition is now closed.
 
-## Corrected remediation
+## Accepted remediation
 
 The marker-only horizontal line has been replaced with a routed dotted bracket:
 
@@ -29,7 +29,7 @@ The marker-only horizontal line has been replaced with a routed dotted bracket:
 
 The corrected implementation retains **bidirectional arrowheads**, with both tips deliberately aimed upward at the two sibling cards.
 
-The corrected geometry:
+The accepted geometry:
 
 - targets the inner bottom edge of each sibling card;
 - offsets each target away from the central parent-child lineage connector;
@@ -52,6 +52,8 @@ Legacy horizontal dotted sibling lines      0
 
 ## Exact validation evidence
 
+Initial corrected-artifact proof:
+
 ```text
 head:      a56f67debcee25a3de92106c3db7b784f4559128
 workflow:  30509281161
@@ -59,13 +61,13 @@ artifact:  8746481421
 digest:    sha256:6e583173deb4b2dd6ae117ebd44d6a98a0480fc3817cd4c72f77d683218490a3
 ```
 
-The exact-head workflow passed the SVG geometry gate, exporter, ExamTree typecheck, production build and lazy-chunk verification.
+The synchronized PR head later reran the full CP-003 workflow successfully, including SVG geometry, exporter, ExamTree typecheck, production build and lazy-chunk verification.
 
-## Review boundary
+## Approval boundary
 
-The reviewer must inspect the corrected replacement HTML before the visual-polish condition is closed.
+Human review and visual polish are complete. This approval does not by itself authorize permanent QL allocation.
 
-Until then, this record does not authorize:
+The separate final-freeze readiness audit found that only one of six provisional authorities has active learner-review evidence. Therefore this record still does not authorize:
 
 - final discovery freeze;
 - allocation of `BLR-QL-009` or any permanent CP-003 solve identity;
@@ -77,9 +79,9 @@ Until then, this record does not authorize:
 ## Next mandatory gate
 
 ```text
-review corrected sibling-arrow HTML
-  -> close visual-polish condition
-  -> rerun post-human confirmation if accepted
-  -> final discovery freeze
+five-authority learner-evidence gap wave
+  -> human review of added records
+  -> rerun final-freeze readiness audit
+  -> final discovery freeze only if all retained authorities are supported
   -> sequential permanent QL allocation, only if supported
 ```
