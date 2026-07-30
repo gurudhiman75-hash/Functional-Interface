@@ -21,7 +21,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
 
-      - name: Validate, decode and apply payload
+      - name: Validate, decode and stage payload
         shell: bash
         run: |
           set -euo pipefail
@@ -32,8 +32,8 @@ jobs:
           cat .cp004-upload/chunk-* > /tmp/cp004-payload.b64
           base64 -d /tmp/cp004-payload.b64 > /tmp/cp004-payload.tar.gz
           tar -xzf /tmp/cp004-payload.tar.gz -C .
+          mv .github/workflows/num-001-cp004-completion-freeze.yml /tmp/num-001-cp004-completion-freeze.yml
           rm -rf .cp004-upload
-          rm -f .github/workflows/cp004-payload-apply.yml
 
       - name: Commit completion authority
         shell: bash
