@@ -1,0 +1,100 @@
+import { applyAvg001NaturalLanguageV3Final } from "./natural-language-v3-final";
+import type { Avg001QuestionPackage, Avg001ValidationCheck } from "./types";
+
+export const AVG_001_NATURAL_LANGUAGE_V3_CANDIDATE =
+  "AVG-001 natural teacher-language manual-review candidate v3.1";
+
+const HINDI_LABELS: Readonly<Record<string, string>> = {
+  "Endpoint mean": "सिरों का औसत",
+  "middle term": "मध्य पद",
+  "Old total": "पुराना कुल",
+  "new average": "नया औसत",
+  "New average": "नया औसत",
+  "Added value": "जोड़ा गया मान",
+  "Removed value": "हटाया गया मान",
+  "Total change": "कुल बदलाव",
+  "old value": "पुराना मान",
+  "new value": "नया मान",
+  "Required runs": "आवश्यक रन",
+  "Original count": "मूल संख्या",
+  "Combined average": "संयुक्त औसत",
+  "Missing average": "लापता औसत",
+  "Missing count": "लापता संख्या",
+  "Subgroup total": "उपसमूह का कुल",
+  "Overall total": "कुल योग",
+  "Steps on one side": "एक ओर के अंतराल",
+  "Required term": "आवश्यक पद",
+};
+
+const PUNJABI_LABELS: Readonly<Record<string, string>> = {
+  "Endpoint mean": "ਸਿਰਿਆਂ ਦੀ ਔਸਤ",
+  "middle term": "ਮੱਧਲਾ ਪਦ",
+  "Old total": "ਪੁਰਾਣਾ ਕੁੱਲ",
+  "new average": "ਨਵੀਂ ਔਸਤ",
+  "New average": "ਨਵੀਂ ਔਸਤ",
+  "Added value": "ਜੋੜਿਆ ਮੁੱਲ",
+  "Removed value": "ਹਟਾਇਆ ਮੁੱਲ",
+  "Total change": "ਕੁੱਲ ਬਦਲਾਅ",
+  "old value": "ਪੁਰਾਣਾ ਮੁੱਲ",
+  "new value": "ਨਵਾਂ ਮੁੱਲ",
+  "Required runs": "ਲੋੜੀਂਦੀਆਂ ਦੌੜਾਂ",
+  "Original count": "ਮੂਲ ਗਿਣਤੀ",
+  "Combined average": "ਸੰਯੁਕਤ ਔਸਤ",
+  "Missing average": "ਗੁੰਮ ਔਸਤ",
+  "Missing count": "ਗੁੰਮ ਗਿਣਤੀ",
+  "Subgroup total": "ਉਪ-ਸਮੂਹ ਦਾ ਕੁੱਲ",
+  "Overall total": "ਕੁੱਲ ਜੋੜ",
+  "Steps on one side": "ਇੱਕ ਪਾਸੇ ਦੇ ਅੰਤਰਾਲ",
+  "Required term": "ਲੋੜੀਂਦਾ ਪਦ",
+};
+
+function localizeMathText(text: string, labels: Readonly<Record<string, string>>) {
+  return text.replace(/\\text\{([^{}]+)\}/g, (full, label: string) => {
+    const localized = labels[label];
+    return localized ? `\\text{${localized}}` : full;
+  });
+}
+
+function refreshValidation(pkg: Avg001QuestionPackage) {
+  const checks: Avg001ValidationCheck[] = pkg.validation.checks.filter(
+    (check) => check.name !== "avg001-natural-language-v3-localized-math-labels",
+  );
+  const learnerText = [pkg.stem, ...pkg.options, ...pkg.explanation.lines].join("\n");
+  checks.push({
+    name: "avg001-natural-language-v3-localized-math-labels",
+    passed:
+      pkg.language === "en" ||
+      !/\\text\{(?:Endpoint mean|middle term|Old total|new average|New average|Added value|Removed value|Total change|old value|new value|Required runs|Original count|Combined average|Missing average|Missing count|Subgroup total|Overall total|Steps on one side|Required term)\}/.test(learnerText),
+    message: "Hindi and Punjabi displayed calculations use localized learner-facing labels",
+  });
+  return { valid: checks.every((check) => check.passed), checks };
+}
+
+export function applyAvg001NaturalLanguageV3Candidate(
+  source: Avg001QuestionPackage,
+): Avg001QuestionPackage {
+  const base = applyAvg001NaturalLanguageV3Final(source);
+  if (base.language === "en") {
+    return {
+      ...base,
+      traceability: {
+        ...base.traceability,
+        naturalLanguageReviewCandidateFinal: AVG_001_NATURAL_LANGUAGE_V3_CANDIDATE,
+      },
+      validation: refreshValidation(base),
+    };
+  }
+
+  const labels = base.language === "hi" ? HINDI_LABELS : PUNJABI_LABELS;
+  const revised: Avg001QuestionPackage = {
+    ...base,
+    explanation: {
+      lines: base.explanation.lines.map((line) => localizeMathText(line, labels)),
+    },
+    traceability: {
+      ...base.traceability,
+      naturalLanguageReviewCandidateFinal: AVG_001_NATURAL_LANGUAGE_V3_CANDIDATE,
+    },
+  };
+  return { ...revised, validation: refreshValidation(revised) };
+}
