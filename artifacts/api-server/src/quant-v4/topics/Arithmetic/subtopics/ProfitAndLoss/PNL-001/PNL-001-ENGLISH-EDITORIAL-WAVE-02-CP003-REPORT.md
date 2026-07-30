@@ -43,7 +43,7 @@ The permanent CP-003 regression rejects:
 
 A maximum two-QL overlap is permitted only where two registered QLs deliberately share the same solve mode but differ in representation or answer semantic.
 
-## Hosted proof
+## Hosted implementation proof
 
 ```text
 Workflow:   Implement PNL CP-003 Explanation Diversity
@@ -59,6 +59,33 @@ The hosted run passed:
 2. all 576 CP-003 generated packages;
 3. generated-working presence and repetition gates;
 4. the chapter-wide PNL English editorial audit.
+
+## Permanent chapter-audit result
+
+The permanent read-only English audit was expanded so every checkpoint file under `PNL-001/CP-*` automatically regenerates the full chapter review corpus.
+
+```text
+Workflow:                     Validate PNL English Editorial Audit
+Run:                          30506362481
+Conclusion:                   PASS
+Artifact:                     8745465647
+Digest:                       sha256:873941f2212695dbac3743abdf4c7ed356822df499e359013f1188b013efe4a4
+Review rows:                  558
+Fatal findings:               0
+Editorial findings:           60
+Exact cross-QL duplicates:    0
+Normalised cross-QL clones:   0
+Audit status:                 REVIEW_REQUIRED
+```
+
+The former 72-sample CP-003 generic paragraph is absent from the repeated-paragraph ledger. After the already-merged CP-002 and current CP-003 waves, the remaining generic explanation tails are:
+
+```text
+CP-004:  78 samples
+CP-005:  87 samples
+CP-006: 111 samples
+Total:   276 samples
+```
 
 ## Safety boundary
 
