@@ -1,0 +1,91 @@
+name: Validate PNL Multilingual Editorial Audit
+
+on:
+  push:
+    branches:
+      - audit/pnl-001-multilingual-editorial-freeze
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/editorial-content.*.json"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-audit.ts"
+      - ".github/workflows/validate-pnl-multilingual-editorial-audit.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/editorial-content.*.json"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-audit.ts"
+      - ".github/workflows/validate-pnl-multilingual-editorial-audit.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  generate-multilingual-editorial-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prove existing multilingual source contract
+        run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          for source in \
+            editorial-v2-multilingual-audit.ts \
+            editorial-v2-multilingual-render.test.ts \
+            editorial-v2-multilingual-source-parity.ts; do
+            name="${source%.ts}"
+            pnpm --dir artifacts/api-server exec esbuild \
+              "src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/$source" \
+              --bundle --platform=node --format=esm \
+              --outfile="src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.$name.mjs"
+            node "$root/.$name.mjs"
+          done
+
+      - name: Bundle multilingual editorial corpus audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-audit.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-editorial-audit.mjs
+
+      - name: Generate 372-row native review corpus
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-editorial-audit.mjs \
+            2>&1 | tee pnl-multilingual-editorial-audit.log
+
+      - name: Reject structural blockers
+        run: |
+          node - <<'NODE'
+          const fs = require("node:fs");
+          const path = "dist/quant-v4/pnl-001-multilingual-editorial-audit/pnl-001-multilingual-editorial-findings.json";
+          const findings = JSON.parse(fs.readFileSync(path, "utf8"));
+          if (findings.fatalFindings.length) {
+            console.error(JSON.stringify(findings.fatalFindings, null, 2));
+            process.exit(1);
+          }
+          console.log(JSON.stringify({ fatalFindingCount: 0 }, null, 2));
+          NODE
+
+      - name: Upload multilingual review corpus
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-001-multilingual-editorial-audit
+          path: |
+            dist/quant-v4/pnl-001-multilingual-editorial-audit
+            pnl-multilingual-editorial-audit.log
+          if-no-files-found: error
+          retention-days: 14
