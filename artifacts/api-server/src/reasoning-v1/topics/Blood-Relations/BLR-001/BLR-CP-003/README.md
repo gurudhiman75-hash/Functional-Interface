@@ -6,8 +6,6 @@ Status: **native SVG competitive review V5 implemented; corrected sibling-arrow 
 
 This checkpoint owns pure-kinship shared passages. One hidden family graph yields one clue block, and clue-only reconstruction supports independently solved relation, lineage, generation and claim questions.
 
-The technical discovery layer covers eight graph-first family scenarios and eighteen temporary item handles plus one group-assembly handle. It retains deterministic graph agreement, clue contribution, relation, identity, pair, gender, generation, status, claim, member-set and exact-lineage evidence.
-
 ## Technical discovery inventory
 
 ```text
