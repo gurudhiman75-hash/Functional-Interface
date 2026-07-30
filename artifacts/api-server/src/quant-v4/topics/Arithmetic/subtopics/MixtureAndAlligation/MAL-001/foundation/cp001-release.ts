@@ -7,9 +7,17 @@ import {
   type MalCp001PermanentQuestion,
   type MalCp001PermanentRuntimeInput,
 } from "./cp001-permanent-runtime";
+import {
+  buildMalCp001ReleaseEditorialV2,
+  MAL_CP001_ALLIGATION_VISUAL_ID,
+  MAL_CP001_RELEASE_LAYOUT_ID,
+  serializeMalCp001AlligationVisual,
+  type MalCp001ReleaseExplanationV2,
+} from "./cp001-release-editorial-v2";
 
 export const MAL_CP001_ENGLISH_RELEASE = Object.freeze({
   releaseId: "MAL-CP001-EN-v1",
+  presentationRevisionId: "MAL-CP001-EN-SVG-v2",
   packageId: "MAL-001",
   canonicalProblemId: "MAL-CP-001",
   language: "en" as const,
@@ -19,11 +27,14 @@ export const MAL_CP001_ENGLISH_RELEASE = Object.freeze({
   qlCount: MAL_CP001_PERMANENT_QL_IDS.length,
   reviewQuestionCount: 44,
   explanationAuthority: "MAL-CP001-EN-SIMPLE-TEACHER-V1",
+  releaseLayoutId: MAL_CP001_RELEASE_LAYOUT_ID,
+  alligationVisualId: MAL_CP001_ALLIGATION_VISUAL_ID,
   approvedBy: "ExamTree product-owner directive",
   approvedAt: "2026-07-29",
+  presentationRevisionDirectedAt: "2026-07-30",
   reviewMethod: "GROUPED_MANUAL_AND_EXECUTABLE_AUDIT_UNDER_PRODUCT_OWNER_DIRECTIVE",
   approvalScope:
-    "English stems, options, simple-teacher explanations, permanent runtime generation and controlled delivery routing",
+    "English stems, options, formula-first explanations, structured SVG alligation shortcuts, permanent runtime generation and controlled delivery routing",
   publiclyPublishable: true,
   questionStudioDiscoverable: true,
   questionBankWritable: true,
@@ -37,8 +48,11 @@ export const MAL_CP001_ENGLISH_REVIEW_APPROVAL = Object.freeze({
   reviewMethod: MAL_CP001_ENGLISH_RELEASE.reviewMethod,
   reviewerAuthority: MAL_CP001_ENGLISH_RELEASE.approvedBy,
   reviewedAt: MAL_CP001_ENGLISH_RELEASE.approvedAt,
+  presentationRevisionId: MAL_CP001_ENGLISH_RELEASE.presentationRevisionId,
+  presentationRevisionDirectedAt:
+    MAL_CP001_ENGLISH_RELEASE.presentationRevisionDirectedAt,
   note:
-    "Approval records the grouped manual and executable review completed under the product-owner instruction to finish MAL-CP-001. It does not claim a separate product-owner row-by-row review of all 44 rows.",
+    "Approval records the grouped manual and executable English review plus the product-owner-directed formula-first and lightweight-SVG presentation correction. It does not claim a separate product-owner row-by-row review of all 44 rows.",
 });
 
 type ReleaseValidationCheck = {
@@ -47,12 +61,16 @@ type ReleaseValidationCheck = {
   message: string;
 };
 
-type ReleasedExplanation = MalCp001PermanentQuestion["explanation"] & {
+type ReleasedExplanation = MalCp001ReleaseExplanationV2 & {
   lines: string[];
 };
 
 type ReleasedTraceability = MalCp001PermanentQuestion["traceability"] & {
   releaseId: typeof MAL_CP001_ENGLISH_RELEASE.releaseId;
+  presentationRevisionId:
+    typeof MAL_CP001_ENGLISH_RELEASE.presentationRevisionId;
+  releaseLayoutId: typeof MAL_CP001_RELEASE_LAYOUT_ID;
+  alligationVisualId: typeof MAL_CP001_ALLIGATION_VISUAL_ID;
   releaseStatus: typeof MAL_CP001_ENGLISH_RELEASE.status;
   editorialStatus: typeof MAL_CP001_ENGLISH_RELEASE.editorialStatus;
   approvedLanguage: typeof MAL_CP001_ENGLISH_RELEASE.language;
@@ -118,9 +136,7 @@ export type MalCp001ReleasedQuestion = Omit<
   traceability: ReleasedTraceability;
 };
 
-function explanationLines(
-  explanation: MalCp001PermanentQuestion["explanation"],
-): string[] {
+function explanationLines(explanation: MalCp001ReleaseExplanationV2): string[] {
   return [
     explanation.sectionTitles.coreConcept,
     explanation.coreConcept,
@@ -130,6 +146,7 @@ function explanationLines(
     `Quick check: ${explanation.verification}`,
     `Final answer: ${explanation.conclusion}`,
     explanation.sectionTitles.shortcut,
+    serializeMalCp001AlligationVisual(explanation.alligationVisual),
     explanation.examShortcut,
     explanation.sectionTitles.trap,
     explanation.commonTrap.replace(/^Common trap:\s*/u, ""),
@@ -138,12 +155,14 @@ function explanationLines(
 
 function releaseChecks(
   question: MalCp001PermanentQuestion,
+  editorial: ReturnType<typeof buildMalCp001ReleaseEditorialV2>,
 ): ReleaseValidationCheck[] {
   const answer = question.options[question.correctIndex];
   return [
     {
       name: "foundation-validation",
-      passed: question.validation.ok && question.validation.errors.length === 0,
+      passed:
+        question.validation.ok && question.validation.errors.length === 0,
       message: "The frozen exact-arithmetic foundation validation passes.",
     },
     {
@@ -159,7 +178,17 @@ function releaseChecks(
         question.language === MAL_CP001_ENGLISH_RELEASE.language &&
         question.explanation.layoutId ===
           MAL_CP001_ENGLISH_RELEASE.explanationAuthority,
-      message: "The approved simple-English teacher explanation authority is present.",
+      message: "The approved simple-English teacher foundation is present.",
+    },
+    {
+      name: "formula-svg-presentation",
+      passed:
+        editorial.explanation.releaseLayoutId ===
+          MAL_CP001_ENGLISH_RELEASE.releaseLayoutId &&
+        editorial.explanation.alligationVisualId ===
+          MAL_CP001_ENGLISH_RELEASE.alligationVisualId,
+      message:
+        "The formula-first release layout and structured alligation visual are present.",
     },
     {
       name: "answer-option-contract",
@@ -190,7 +219,8 @@ export function applyMalCp001EnglishRelease(
     );
   }
 
-  const checks = releaseChecks(question);
+  const editorial = buildMalCp001ReleaseEditorialV2(question);
+  const checks = releaseChecks(question, editorial);
   const failures = checks.filter((check) => !check.passed);
   if (failures.length > 0) {
     throw new Error(
@@ -203,15 +233,16 @@ export function applyMalCp001EnglishRelease(
   const answer = question.options[question.correctIndex]!;
   return {
     ...question,
+    stem: editorial.stem,
     packageId: "MAL-001",
     archetypeId: "MAL-001",
     canonicalProblemId: "MAL-CP-001",
     answer,
     difficultyBand: question.difficulty,
-    explanationId: `${question.questionLanguageId}-EN-SIMPLE-TEACHER-V1`,
+    explanationId: `${question.questionLanguageId}-EN-FORMULA-ALLIGATION-SVG-V2`,
     explanation: {
-      ...question.explanation,
-      lines: explanationLines(question.explanation),
+      ...editorial.explanation,
+      lines: explanationLines(editorial.explanation),
     },
     maturity: "FROZEN",
     allocationStatus: "RELEASED_ENGLISH_V1",
@@ -242,6 +273,10 @@ export function applyMalCp001EnglishRelease(
     traceability: {
       ...question.traceability,
       releaseId: MAL_CP001_ENGLISH_RELEASE.releaseId,
+      presentationRevisionId:
+        MAL_CP001_ENGLISH_RELEASE.presentationRevisionId,
+      releaseLayoutId: MAL_CP001_RELEASE_LAYOUT_ID,
+      alligationVisualId: MAL_CP001_ALLIGATION_VISUAL_ID,
       releaseStatus: MAL_CP001_ENGLISH_RELEASE.status,
       editorialStatus: MAL_CP001_ENGLISH_RELEASE.editorialStatus,
       approvedLanguage: MAL_CP001_ENGLISH_RELEASE.language,
