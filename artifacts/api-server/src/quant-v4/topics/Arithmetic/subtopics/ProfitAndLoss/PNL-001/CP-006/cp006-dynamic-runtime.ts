@@ -677,7 +677,13 @@ function buildCp006GeneratedWorking(
           : qlId === "PNL-QL-168"
             ? "For manufacturing unit cost"
             : "Reading the manufacturing table";
-      return `${prefix} ${purpose}, raw material ${cp006FormatMoney(request.rawMaterialCost)} plus labour ${cp006FormatMoney(request.labourCost)} gives prime cost ${prime}; factory overhead is ${overhead}. Add packaging ${cp006FormatMoney(request.packagingCost)}, deduct scrap ${cp006FormatMoney(request.scrapRecovery)}, and net cost is ${net} for ${request.outputQuantity} units. The requested result is ${answer}.`;
+      const conclusion =
+        qlId === "PNL-QL-167"
+          ? `Net production cost is ${answer}.`
+          : qlId === "PNL-QL-168"
+            ? `Manufacturing cost per finished unit is ${answer}.`
+            : `The manufacturing table therefore gives unit cost ${answer}.`;
+      return `${prefix} ${purpose}, raw material ${cp006FormatMoney(request.rawMaterialCost)} plus labour ${cp006FormatMoney(request.labourCost)} gives prime cost ${prime}; factory overhead is ${overhead}. Add packaging ${cp006FormatMoney(request.packagingCost)}, deduct scrap ${cp006FormatMoney(request.scrapRecovery)}, and net cost is ${net} for ${request.outputQuantity} units. ${conclusion}`;
     }
 
     case "WASTAGE_SCRAP_TO_EFFECTIVE_UNIT_COST": {
@@ -747,7 +753,11 @@ function buildCp006GeneratedWorking(
         qlId === "PNL-QL-176"
           ? "The money margin of safety"
           : "The percentage margin of safety";
-      return `${prefix} ${purpose} starts with actual revenue ${cp006FormatMoney(request.actualRevenue)} minus break-even revenue ${cp006FormatMoney(request.breakEvenRevenue)} = ${amount}. The requested result is ${answer}.`;
+      const conclusion =
+        qlId === "PNL-QL-176"
+          ? `The money surplus above break-even is ${answer}.`
+          : `Relative to actual revenue, the margin of safety is ${answer}.`;
+      return `${prefix} ${purpose} starts with actual revenue ${cp006FormatMoney(request.actualRevenue)} minus break-even revenue ${cp006FormatMoney(request.breakEvenRevenue)} = ${amount}. ${conclusion}`;
     }
 
     case "TOTAL_COST_PRIOR_RECOVERIES_TARGET_TO_FINAL_RECOVERY": {
