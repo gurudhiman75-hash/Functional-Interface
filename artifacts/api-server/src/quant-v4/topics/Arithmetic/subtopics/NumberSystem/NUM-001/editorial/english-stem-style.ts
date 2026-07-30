@@ -122,12 +122,21 @@ export function polishNumberSystemEnglishStem(
         .replace(/^The number (.+) must be divisible by (.+)\. Find the smallest possible value of X\?$/, "What is the smallest possible digit X if $1 is divisible by $2?");
       break;
     case "NUM-QL-005":
-      stem = stem.replace(/^Find the sum of (.+)\?$/, "What is the sum of $1?");
+      stem = stem
+        .replace(/^Find the sum of (.+)\?$/, "What is the sum of $1?")
+        .replace(/^What is the sum of the complete valid-digit set for X in (.+), given divisibility by (.+)\?$/, "What is the sum of all digits that can replace X in $1 so that the number is divisible by $2?");
+      break;
+    case "NUM-QL-006":
+      stem = stem
+        .replace(/^Which is the complete valid-digit set for X if (.+) must be divisible by (.+)\?$/, "Which set contains all digits that can replace X in $1 so that the number is divisible by $2?")
+        .replace(/^For (.+) to be a multiple of (.+), what is the complete set of possible digits X\?$/, "Which set contains all possible digits X that make $1 divisible by $2?");
       break;
     case "NUM-QL-007":
       stem = stem
         .replace(/^Form the greatest number divisible by (.+) by choosing a suitable digit for X in (.+)\?$/, "What is the greatest number obtained by replacing X in $2 so that it is divisible by $1?")
-        .replace(/^Form the smallest number divisible by (.+) by choosing a suitable digit for X in (.+)\?$/, "What is the smallest number obtained by replacing X in $2 so that it is divisible by $1?");
+        .replace(/^Form the smallest number divisible by (.+) by choosing a suitable digit for X in (.+)\?$/, "What is the smallest number obtained by replacing X in $2 so that it is divisible by $1?")
+        .replace(/^Among all divisible completions of (.+), which number is the greatest\?$/, "What is the greatest number obtained by replacing X in $1 so that the completed number is divisible?")
+        .replace(/^Among all divisible completions of (.+), which number is the smallest\?$/, "What is the smallest number obtained by replacing X in $1 so that the completed number is divisible?");
       break;
     case "NUM-QL-011":
       stem = stem.replace(
@@ -145,6 +154,11 @@ export function polishNumberSystemEnglishStem(
         /^A numeral is formed by repeating (.+) exactly (\d+) times\. Which option leaves remainder 0\?$/,
         "The block $1 is repeated $2 times to form a number. Which of the following numbers divides the result exactly?",
       );
+      break;
+    case "NUM-QL-015":
+      stem = stem
+        .replace(/What is the smallest admissible digit A\?$/, "What is the smallest possible value of A?")
+        .replace(/find the largest value of A\?$/i, "what is the largest possible value of A?");
       break;
     case "NUM-QL-016":
       stem = rewriteMissingDigitDataSufficiency(stem);
