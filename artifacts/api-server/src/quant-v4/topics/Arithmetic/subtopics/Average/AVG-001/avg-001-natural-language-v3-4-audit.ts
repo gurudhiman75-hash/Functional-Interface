@@ -47,7 +47,9 @@ function numericalKey(value: string) {
 }
 
 function stemNumerics(stem: string) {
-  return [...stem.replaceAll(",", "").matchAll(/-?\d+(?:\.\d+)?/g)].map((match) => Number(match[0]));
+  return [...stem.replaceAll(",", "").matchAll(/-?\d+(?:\.\d+)?/g)]
+    .map((match) => Number(match[0]))
+    .sort((left, right) => left - right);
 }
 
 function isAgeContext(question: Avg001QuestionPackage) {
