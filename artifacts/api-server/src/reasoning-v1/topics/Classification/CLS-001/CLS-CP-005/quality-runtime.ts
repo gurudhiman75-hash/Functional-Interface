@@ -1,4 +1,4 @@
-import { generateClsCp005EditorialQuestion } from "./editorial-runtime";
+import { generateClsCp005SimpleExplanationQuestion } from "./simple-option-explanation-runtime";
 import type {
   ClsCp005PrototypeId,
   ClsCp005Tuple,
@@ -116,7 +116,7 @@ export function generateClsCp005QualityQuestion(
   }
   for (let attempt = 0; attempt < MAX_QUALITY_ATTEMPTS; attempt += 1) {
     const sourceSeed = seed + attempt * 10_007;
-    const candidate = generateClsCp005EditorialQuestion(prototypeId, sourceSeed, requestedOptionCount);
+    const candidate = generateClsCp005SimpleExplanationQuestion(prototypeId, sourceSeed, requestedOptionCount);
     const presentationQualityAudit = auditClsCp005PresentationQuality(candidate);
     if (presentationQualityAudit.result !== "PASS") continue;
     return {
