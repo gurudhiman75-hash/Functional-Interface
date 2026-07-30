@@ -111,6 +111,45 @@ Source saturation:         open
 Editorial approval:        not started
 ```
 
+## Verified remote execution
+
+GitHub Actions run `30552353796` completed successfully on commit
+`cdbd11fb3630d9d2e30325158f65eb4dcfd48600` after the generator domain was widened to make the retained diversity gate mathematically reachable.
+
+```text
+Status:                         PASS_SER_CP002_OPEN_EXECUTABLE_DISCOVERY
+Permanent QLs:                  0
+Temporary templates:            8
+Candidate solve authorities:    2
+Seeds per template:             120
+Generated questions:            960
+Deterministic replay checks:     960
+Independent solver checks:      960
+Complete-pool ambiguity checks: 960
+Uniform multiplication cases:   480
+Affine multiply-add cases:      480
+Cases per task direction:       240
+Aggregate answer positions:     [240, 240, 240, 240]
+Per-template difficulty reach:   [40 Easy, 40 Medium, 40 Hard]
+Distinct fingerprints:          [93, 105, 95, 114, 118, 119, 115, 120]
+Product exposure counts:        all 0
+```
+
+The same job rebuilt the API server, revalidated CP-001, generated both exact English review packs and uploaded the combined evidence artifact.
+
+```text
+Artifact: ser-001-cp001-cp002-open-discovery
+ID:       8763306695
+Digest:   sha256:c197d14abe7acd251540df6a83bbcd0ad77c56ee3031a701801f597b246fce16
+Expiry:   2026-08-29
+```
+
 ## Execution honesty
 
-At the time this plan is added, runtime and audit source are implemented but the new CP-002 workflow execution is pending. No unexecuted check is described as passing.
+- CP-001 and CP-002 runtime audits have executed successfully on GitHub;
+- the complete candidate pool rejected uniform-versus-affine collisions;
+- the first CP-002 run failed because its fingerprint threshold exceeded the generator's possible domain;
+- the generator domain was widened while the threshold remained unchanged;
+- the corrected remote run passed the original threshold;
+- no local checkout or local validation was used;
+- source saturation, editorial approval, localization and permanent allocation remain open.
