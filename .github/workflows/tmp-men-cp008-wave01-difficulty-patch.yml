@@ -1,0 +1,46 @@
+name: Temporary MEN-CP-008 Wave01 difficulty patch
+
+on:
+  push:
+    branches:
+      - feat/men-002-cp008-gap-wave-01
+    paths:
+      - .github/workflows/tmp-men-cp008-wave01-difficulty-patch.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch-runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/men-002-cp008-gap-wave-01
+          fetch-depth: 0
+
+      - name: Correct ratio difficulty classification
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp008-gap-wave-01/runtime.ts')
+          text = path.read_text(encoding='utf-8')
+          old = 'return (d.ratioNumerator! + d.ratioDenominator!) >= 9n ? "Hard" : "Medium";'
+          new = 'return d.ratioDenominator! >= 15n ? "Hard" : "Medium";'
+          count = text.count(old)
+          if count != 1:
+              raise SystemExit(f'Expected exactly one classifier occurrence, found {count}.')
+          path.write_text(text.replace(old, new), encoding='utf-8')
+          PY
+
+      - name: Commit runtime correction
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp008-gap-wave-01/runtime.ts
+          git commit -m "fix(mensuration): balance CP-008 ratio difficulty bands"
+          git push origin HEAD:feat/men-002-cp008-gap-wave-01
