@@ -6,6 +6,7 @@ import type { FamilyTreeDiagramData } from "./family-tree-types";
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 const CARD_HALF_WIDTH = 75;
 const LEGACY_SIBLING_LINE_OFFSET = 12;
+const SIBLING_CARD_EDGE_INSET = 18;
 const SIBLING_ROUTE_DEPTH = 18;
 const SIBLING_LABEL_OFFSET = 14;
 
@@ -30,7 +31,7 @@ function ensureArrowMarker(svg: SVGSVGElement, markerId: string): void {
   marker.setAttribute("markerWidth", "9");
   marker.setAttribute("markerHeight", "9");
   marker.setAttribute("markerUnits", "userSpaceOnUse");
-  marker.setAttribute("orient", "auto-start-reverse");
+  marker.setAttribute("orient", "-90");
 
   const arrow = document.createElementNS(SVG_NAMESPACE, "path");
   arrow.setAttribute("d", "M 0 0 L 10 5 L 0 10 z");
@@ -54,13 +55,15 @@ function routeSiblingConnectors(root: HTMLElement, markerId: string): void {
 
     const leftCardCentre = Math.min(x1, x2) - CARD_HALF_WIDTH;
     const rightCardCentre = Math.max(x1, x2) + CARD_HALF_WIDTH;
+    const leftAnchorX = leftCardCentre + CARD_HALF_WIDTH - SIBLING_CARD_EDGE_INSET;
+    const rightAnchorX = rightCardCentre - CARD_HALF_WIDTH + SIBLING_CARD_EDGE_INSET;
     const cardBottom = Math.min(y1, y2) - LEGACY_SIBLING_LINE_OFFSET;
     const routeY = cardBottom + SIBLING_ROUTE_DEPTH;
 
     const path = document.createElementNS(SVG_NAMESPACE, "path");
     path.setAttribute(
       "d",
-      `M ${leftCardCentre} ${cardBottom} V ${routeY} H ${rightCardCentre} V ${cardBottom}`,
+      `M ${leftAnchorX} ${cardBottom} V ${routeY} H ${rightAnchorX} V ${cardBottom}`,
     );
     path.setAttribute("fill", "none");
     path.setAttribute("stroke", line.getAttribute("stroke") ?? "#4f46e5");
@@ -71,13 +74,14 @@ function routeSiblingConnectors(root: HTMLElement, markerId: string): void {
     path.setAttribute("marker-start", `url(#${markerId})`);
     path.setAttribute("marker-end", `url(#${markerId})`);
     path.setAttribute("data-sibling-route", "card-bottom-bracket");
+    path.setAttribute("data-sibling-target", "inner-card-bottom");
 
     const group = line.parentElement;
     line.replaceWith(path);
 
     const label = group?.querySelector<SVGTextElement>("text");
     if (label?.textContent?.trim().toLowerCase() === "siblings") {
-      label.setAttribute("x", String((leftCardCentre + rightCardCentre) / 2));
+      label.setAttribute("x", String((leftAnchorX + rightAnchorX) / 2));
       label.setAttribute("y", String(routeY + SIBLING_LABEL_OFFSET));
     }
   }
@@ -106,7 +110,7 @@ export default function RoutedFamilyTreeDiagram({
   }, [data, markerId]);
 
   return (
-    <div ref={rootRef} data-family-tree-routing="card-bottom-sibling-bracket">
+    <div ref={rootRef} data-family-tree-routing="inner-card-bottom-sibling-bracket">
       <FamilyTreeDiagram data={data} className={className} />
     </div>
   );
