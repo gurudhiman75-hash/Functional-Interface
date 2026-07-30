@@ -27,8 +27,9 @@ for (const name of entries) {
     content.includes("blr-sibling-arrow") &&
     content.includes("marker-start") &&
     content.includes("marker-end") &&
-    content.includes("auto-start-reverse") &&
-    content.includes("card-bottom-sibling-bracket") &&
+    content.includes("-90") &&
+    content.includes("inner-card-bottom-sibling-bracket") &&
+    content.includes("inner-card-bottom") &&
     content.includes("card-bottom-bracket") &&
     content.includes("stroke-dasharray")
   ) {
@@ -77,8 +78,8 @@ console.log(
       rawLimitBytes: 35_000,
       siblingArrowChunk: siblingArrowChunk.name,
       siblingArrowRawBytes: siblingArrowChunk.bytes,
-      siblingArrowheads: "BIDIRECTIONAL_CARD_TARGETED",
-      siblingRoute: "CARD_BOTTOM_BRACKET",
+      siblingArrowheads: "BIDIRECTIONAL_INNER_CARD_TARGETED",
+      siblingRoute: "INNER_CARD_BOTTOM_BRACKET",
       mainBundleLeak: false,
       externalGraphLibrary: false,
     },
