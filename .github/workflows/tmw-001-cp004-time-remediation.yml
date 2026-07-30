@@ -1,0 +1,120 @@
+name: Remediate TMW CP-004 fractional time typography
+
+on:
+  pull_request:
+    branches:
+      - design/tmw-001-blueprint
+    types: [opened, reopened, synchronize]
+    paths:
+      - .github/workflows/tmw-001-cp004-time-remediation.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: remediate-tmw-cp004-time
+  cancel-in-progress: true
+
+jobs:
+  remediate-cp004-time:
+    if: github.head_ref == 'audit/tmw-001-english-gap-freeze'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout audit branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: audit/tmw-001-english-gap-freeze
+      - name: Route CP-004 time text through shared MathJax formatter
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          root = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation')
+
+          def replace_once(text, old, new, label):
+              if old in text:
+                  return text.replace(old, new, 1)
+              if new in text:
+                  return text
+              raise SystemExit(f'{label} anchor not found')
+
+          presentation = root / 'cp004-presentation.ts'
+          text = presentation.read_text()
+          text = replace_once(text,
+            'import { formatRational, reciprocal } from "./rational";',
+            'import { formatRational, formatTimeText, reciprocal } from "./rational";',
+            'CP-004 presentation rational import')
+          text = replace_once(text,
+            'function days(value:{numerator:number;denominator:number}|undefined):string{const v=required(value,"time");return `${formatRational(v)} ${v.numerator===v.denominator?"day":"days"}`;}',
+            'function days(value:{numerator:number;denominator:number}|undefined):string{const v=required(value,"time");return formatTimeText(v,"day","days");}',
+            'CP-004 stem time renderer')
+          presentation.write_text(text)
+
+          solver = root / 'cp004-solver.ts'
+          text = solver.read_text()
+          text = replace_once(text,
+            'import { add, compare, divide, equals, formatRational, multiply, rational, reciprocal, subtract, toLatex } from "./rational";',
+            'import { add, compare, divide, equals, formatRational, formatTimeText, multiply, rational, reciprocal, subtract, toLatex } from "./rational";',
+            'CP-004 solver rational import')
+          text = replace_once(text,
+            'import { required, timeUnitLabel } from "./cp001-helpers";',
+            'import { required } from "./cp001-helpers";',
+            'CP-004 solver helper import')
+          text = replace_once(text,
+            ' if(entry.answerType==="TIME")return `${value} ${timeUnitLabel(p.timeUnit,a)}`;',
+            ' if(entry.answerType==="TIME")return formatTimeText(a,p.timeUnit,`${p.timeUnit}s`);',
+            'CP-004 solution time renderer')
+          solver.write_text(text)
+
+          options = root / 'cp004-options.ts'
+          text = options.read_text()
+          text = replace_once(text,
+            'import { add, compare, divide, equals, formatRational, multiply, rational, subtract } from "./rational";',
+            'import { add, compare, divide, equals, formatRational, formatTimeText, multiply, rational, subtract } from "./rational";',
+            'CP-004 options rational import')
+          text = replace_once(text,
+            'import { seedNumber, timeUnitLabel } from "./cp001-helpers";',
+            'import { seedNumber } from "./cp001-helpers";',
+            'CP-004 options helper import')
+          text = replace_once(text,
+            ' if(entry.answerType==="TIME")return `${value} ${timeUnitLabel(p.timeUnit,v)}`;',
+            ' if(entry.answerType==="TIME")return formatTimeText(v,p.timeUnit,`${p.timeUnit}s`);',
+            'CP-004 option time renderer')
+          options.write_text(text)
+          PY
+      - name: Install locked workspace dependencies
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile
+      - name: Validate CP-004 and chapter audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp004.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-cp004.time.mjs
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp004.time.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-english-gap-audit.cp004-time.mjs
+          (cd artifacts/api-server && node dist/quant-v4/tmw-001-english-gap-audit.cp004-time.mjs || true)
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const report = JSON.parse(fs.readFileSync('artifacts/api-server/dist/quant-v4/tmw-001-english-gap-audit.json', 'utf8'));
+          if (report.summary.hardFailures !== 0) throw new Error(`chapter audit has ${report.summary.hardFailures} hard failures`);
+          const hits = report.findings.filter((finding) => finding.code === 'ASCII_FRACTIONAL_TIME' && finding.cpId === 'TMW-CP-004');
+          if (hits.length !== 0) throw new Error(`CP-004 ASCII fractional-time findings remain: ${hits.length}`);
+          NODE
+      - name: Commit CP-004 time typography
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp004-presentation.ts artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp004-solver.ts artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp004-options.ts; then
+            echo 'CP-004 time typography is already migrated.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp004-presentation.ts artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp004-solver.ts artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp004-options.ts
+          git commit -m 'fix(tmw): render CP-004 fractional times in MathJax'
+          git push origin HEAD:audit/tmw-001-english-gap-freeze
