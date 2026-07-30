@@ -59,6 +59,18 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/int-001-cp001-close-distractor-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-close-distractor-audit.log
 
+      - name: Bundle approved close-distractor audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-close-distractor-approval-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-close-distractor-approval-audit.mjs
+      - name: Run approved close-distractor audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/int-001-cp001-close-distractor-approval-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-close-distractor-approval-audit.log
+
       - name: Bundle tightened review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -77,6 +89,7 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/int-001-cp001-close-readable-regression.log
             artifacts/api-server/dist/quant-v4/int-001-cp001-close-distractor-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp001-close-distractor-approval-audit.log
             artifacts/api-server/dist/quant-v4/int-001-cp001-english-v5-close-distractor-review.json
             artifacts/api-server/dist/quant-v4/int-001-cp001-english-v5-close-distractor-review.md
             artifacts/api-server/dist/quant-v4/int-001-cp001-hindi-v4-close-distractor-review.json
