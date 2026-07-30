@@ -1,0 +1,73 @@
+name: Generate INT-CP-001 large multilingual review pack
+
+on:
+  pull_request:
+    branches:
+      - feat/int-001-cp001-approved-inactive-release-v2
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/**
+      - .github/workflows/int-cp001-large-review-pack.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: generate-int-cp001-large-review-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generate-int-cp001-large-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle large review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-large-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-large-review-export.mjs
+
+      - name: Generate and validate 315-question review pack
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/int-001-cp001-large-review-export.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-large-review-export.log
+
+      - name: Verify expected review files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f artifacts/api-server/dist/quant-v4/int-cp001-large-review-pack/int-001-cp001-english-105-questions.md
+          test -f artifacts/api-server/dist/quant-v4/int-cp001-large-review-pack/int-001-cp001-english-105-answers-and-explanations.md
+          test -f artifacts/api-server/dist/quant-v4/int-cp001-large-review-pack/int-001-cp001-hindi-105-questions.md
+          test -f artifacts/api-server/dist/quant-v4/int-cp001-large-review-pack/int-001-cp001-hindi-105-answers-and-explanations.md
+          test -f artifacts/api-server/dist/quant-v4/int-cp001-large-review-pack/int-001-cp001-punjabi-105-questions.md
+          test -f artifacts/api-server/dist/quant-v4/int-cp001-large-review-pack/int-001-cp001-punjabi-105-answers-and-explanations.md
+          test -f artifacts/api-server/dist/quant-v4/int-cp001-large-review-pack/int-001-cp001-315-question-review-checklist.csv
+          grep -q 'PASS_INT_CP001_315_QUESTION_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp001-large-review-export.log
+
+      - name: Upload multilingual review pack
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp001-315-question-multilingual-review-pack
+          path: |
+            artifacts/api-server/dist/quant-v4/int-cp001-large-review-pack/**
+            artifacts/api-server/dist/quant-v4/int-001-cp001-large-review-export.log
+          if-no-files-found: error
+          retention-days: 14
