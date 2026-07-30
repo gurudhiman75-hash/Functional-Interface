@@ -1,17 +1,29 @@
 import { independentlyInferClsCp005Signatures } from "./audit";
+import { CLS_CP005_RULE_IDS } from "./relation-registry";
 import {
   CLS_CP005_SOURCE_GAP_RULE_IDS,
   independentlyInferClsCp005SourceGapSignatures,
   type ClsCp005SourceGapRuleId,
   type ClsCp005SourceGapTuple,
 } from "./source-gap-registry";
+import {
+  CLS_CP005_WAVE2_DIGIT_PRODUCT_RULE_ID,
+  independentlyEvaluateClsCp005Wave2DigitProductRule,
+  type ClsCp005Wave2DigitProductRuleId,
+} from "./wave2-digit-product-rule";
 import type {
   ClsCp005RuleId,
   ClsCp005Tuple,
 } from "./types";
 
-export type ClsCp005ExpandedRuleId = ClsCp005RuleId | ClsCp005SourceGapRuleId;
+export type ClsCp005ExpandedRuleId =
+  | ClsCp005RuleId
+  | ClsCp005SourceGapRuleId
+  | ClsCp005Wave2DigitProductRuleId;
 export type ClsCp005ExpandedTuple = ClsCp005SourceGapTuple;
+
+export const CLS_CP005_EXPANDED_RULE_COUNT =
+  CLS_CP005_RULE_IDS.length + CLS_CP005_SOURCE_GAP_RULE_IDS.length + 1;
 
 export type ClsCp005ExpandedRuleSupport = {
   readonly ruleId: ClsCp005ExpandedRuleId;
@@ -28,6 +40,7 @@ export type ClsCp005ExpandedAudit = {
   readonly expandedAnswerIndexes: readonly number[];
   readonly supports: readonly ClsCp005ExpandedRuleSupport[];
   readonly newRuleSupports: readonly ClsCp005ExpandedRuleSupport[];
+  readonly completeRuleCount: number;
   readonly reason: string;
 };
 
@@ -54,11 +67,20 @@ export function independentlyInferClsCp005ExpandedSignatures(
     ...signature,
     source: "SOURCE_GAP_WAVE_2" as const,
   }));
-  return [...wave1, ...wave2];
+  const digitProduct = independentlyEvaluateClsCp005Wave2DigitProductRule(tuple);
+  const digitProductSignatures: Signature[] = digitProduct === null
+    ? []
+    : [{
+        ruleId: CLS_CP005_WAVE2_DIGIT_PRODUCT_RULE_ID,
+        value: digitProduct,
+        source: "SOURCE_GAP_WAVE_2" as const,
+      }];
+  return [...wave1, ...wave2, ...digitProductSignatures];
 }
 
 function sourceForRule(ruleId: ClsCp005ExpandedRuleId): "WAVE_1" | "SOURCE_GAP_WAVE_2" {
   return (CLS_CP005_SOURCE_GAP_RULE_IDS as readonly string[]).includes(ruleId)
+    || ruleId === CLS_CP005_WAVE2_DIGIT_PRODUCT_RULE_ID
     ? "SOURCE_GAP_WAVE_2"
     : "WAVE_1";
 }
@@ -98,6 +120,7 @@ function finalise(
       expandedAnswerIndexes,
       supports,
       newRuleSupports,
+      completeRuleCount: CLS_CP005_EXPANDED_RULE_COUNT,
       reason: "The expanded independent verifier did not recover the intended rule.",
     };
   }
@@ -110,6 +133,7 @@ function finalise(
       expandedAnswerIndexes,
       supports,
       newRuleSupports,
+      completeRuleCount: CLS_CP005_EXPANDED_RULE_COUNT,
       reason: `The broader source-backed registry supports different answers: ${expandedAnswerIndexes.join(", ")}.`,
     };
   }
@@ -121,6 +145,7 @@ function finalise(
     expandedAnswerIndexes,
     supports,
     newRuleSupports,
+    completeRuleCount: CLS_CP005_EXPANDED_RULE_COUNT,
     reason: "Every Wave 1 and source-gap supporting rule points to the same answer.",
   };
 }
