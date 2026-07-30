@@ -60,7 +60,15 @@ for (const prototypeId of prototypeIds) {
     assert.equal(first.questionStudioDiscoverable, false);
     assert.equal(first.explanation.steps.length >= 2, true);
     assert.equal(first.explanation.traps.length, 3);
-    assert.ok(first.explanation.traps.every((trap) => /^Option [A-D] \(\$/.test(trap) && trap.includes("Common mistake:")));
+    assert.ok(
+      first.explanation.traps.every(
+        (trap) =>
+          /^Option [A-D] \(\$/.test(trap) &&
+          trap.includes("This result comes from") &&
+          !trap.includes("Common mistake:"),
+      ),
+      `${prototypeId} must use the approved natural distractor wording.`,
+    );
 
     const explanationText = [
       first.explanation.keyRule,
