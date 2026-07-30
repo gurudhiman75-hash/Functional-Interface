@@ -1,6 +1,6 @@
 # BLR-001 — Blood Relations
 
-Status: **BLR-CP-001 and BLR-CP-002 English discovery frozen; BLR-CP-003 technical pre-human discovery complete; stable range `BLR-QL-001..008`**.
+Status: **BLR-CP-001 and BLR-CP-002 English discovery frozen; BLR-CP-003 V5 human review approved but final freeze blocked by five learner-evidence gaps; stable range `BLR-QL-001..008`**.
 
 Student-facing chapter: **Blood Relations**  
 Reasoning V1 package: `BLR-001`  
@@ -38,6 +38,8 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BL
 - independent clue-only solvers;
 - misconception-labelled four-option construction;
 - four-tier learner-facing editorial layer;
+- native SVG family trees with highlighted answer paths and ASCII fallback;
+- lazy client rendering with no external graph library or main-bundle leakage;
 - structured speaker/listener/pointed-person anchors;
 - one-, two- and three-anchor dialogue contexts;
 - nested role-chain reduction with formal `ONLY` checks;
@@ -79,16 +81,16 @@ Presentation context, question renderer, anchor count, direct/reverse direction,
 
 ```text
 BLR-CP-001 frozen workflow                    3,556 questions
-BLR-CP-002 technical pre-freeze proof          3,492 questions
-BLR-CP-002 permanent runtime audit                900 questions
+BLR-CP-002 technical proof                    3,492 questions
+BLR-CP-002 permanent runtime audit              900 questions
 -----------------------------------------------------------
-Frozen deterministic proof                     7,948 questions
-BLR-CP-003 technical pre-human proof            4,940 questions
------------------------------------------------------------
-Combined current deterministic proof           12,888 questions
+Frozen deterministic proof                   7,948 questions
+BLR-CP-003 technical discovery proof          4,940 questions
+BLR-CP-003 active V5 human-review records       128 questions
+BLR-CP-003 rejected source records               92 records
 ```
 
-The CP-003 number is not a frozen inventory. It covers eight executable scenarios, 760 generated groups, eighteen temporary item handles plus one assembly handle, 760 hidden-graph agreement checks, 760 input-contribution checks and complete release locks. Six hundred lineage items reuse the frozen CP-001 exact-lineage solver.
+The CP-003 technical number is not a frozen inventory. It covers eight executable scenarios, 760 generated groups, eighteen temporary item handles plus one assembly handle, hidden-graph agreement, input-contribution checks and complete release locks. The approved V5 layer contains only competitive derived questions with native SVG explanations.
 
 ## CP-003 technical compression
 
@@ -103,13 +105,34 @@ Permanent CP-003 QLs                      0
 
 The grouped person-by-gender item merges into frozen `BLR-QL-003`. The passage assembly itself has no student answer and remains an assembly-only contract.
 
+## CP-003 freeze-readiness result
+
+```text
+provisional authorities                         6
+learner-supported provisional authorities       1
+blocked provisional authorities                 5
+final discovery freeze ready                 false
+permanent CP-003 QLs                             0
+next available chapter identity        BLR-QL-009
+```
+
+`IDENTIFY_PERSON_BY_EXACT_LINEAGE` has eight active V5 records. The following five proposed authorities currently occur only in rejected records and are under learner-evidence gap wave 01:
+
+```text
+DETERMINE_MEMBER_GENDER
+SELECT_UNORDERED_FAMILY_PAIR
+IDENTIFY_ALL_MEMBERS_BY_RELATION
+DETERMINE_MEMBER_MARITAL_STATUS
+IDENTIFY_MEMBER_BY_MARITAL_STATUS
+```
+
 ## Checkpoint state
 
 | Checkpoint | Ownership | State |
 |---|---|---|
 | `BLR-CP-001` | direct declarative named-person relations | frozen; `BLR-QL-001..007` |
 | `BLR-CP-002` | pointer/photo/portrait/conversation/nested self-reference | frozen; `BLR-QL-008` |
-| `BLR-CP-003` | shared family passages | technical pre-human pass; 8 scenarios; 0 permanent QLs |
+| `BLR-CP-003` | shared family passages | V5 human-approved; visual polish closed; five-authority V6 evidence wave scoped; 0 permanent QLs |
 | `BLR-CP-004` | counts and family composition | open |
 | `BLR-CP-005` | possible/impossible/one-of-two/indeterminate semantics | open |
 | `BLR-CP-006` | coded relation decoding | open |
@@ -117,7 +140,7 @@ The grouped person-by-gender item merges into frozen `BLR-QL-003`. The passage a
 
 The next available chapter identity is `BLR-QL-009`. It remains unclaimed. The final chapter total remains open.
 
-## Authoritative freeze records
+## Authoritative freeze and readiness records
 
 ### CP-001
 
@@ -136,34 +159,29 @@ The next available chapter identity is `BLR-QL-009`. It remains unclaimed. The f
 - `BLR-CP-002/cp002-final-discovery-freeze.ts`;
 - `BLR-CP-002/cp002-runtime.ts`.
 
-### CP-003 technical pre-human records
+### CP-003
 
-- `BLR-CP-003/BLR-CP-003-SOURCE-AND-BOUNDARY-AUDIT.md`;
-- `BLR-CP-003/BLR-CP-003-MARITAL-STATUS-AUDIT-V1.md`;
-- `BLR-CP-003/BLR-CP-003-LINEAGE-SATURATION-AUDIT-V1.md`;
+- `BLR-CP-003/BLR-CP-003-HUMAN-REVIEW-APPROVAL-V5.md`;
+- `BLR-CP-003/BLR-CP-003-NATIVE-SVG-FAMILY-TREE-V5.md`;
 - `BLR-CP-003/BLR-CP-003-MERGE-SPLIT-AUDIT-V1.md`;
-- `BLR-CP-003/BLR-CP-003-INVERSE-AUDIT-V1.md`;
-- `BLR-CP-003/BLR-CP-003-SECOND-SOURCE-GAP-PRE-HUMAN.md`;
-- `BLR-CP-003/BLR-CP-003-ENGLISH-EDITORIAL-READINESS-V2.md`;
-- `BLR-CP-003/README.md`;
-- `BLR-CP-003/cp003-prototype.test.ts`;
-- `BLR-CP-003/cp003-extended.test.ts`;
-- `BLR-CP-003/cp003-marital.test.ts`;
-- `BLR-CP-003/cp003-lineage.test.ts`;
-- `BLR-CP-003/cp003-source-gap.test.ts`;
-- `BLR-CP-003/cp003-editorial-review.test.ts`;
-- `BLR-CP-003/cp003-merge-split-audit.test.ts`;
-- `BLR-CP-003/cp003-inverse-audit.test.ts`.
+- `BLR-CP-003/BLR-CP-003-FINAL-FREEZE-READINESS-AUDIT.md`;
+- `BLR-CP-003/BLR-CP-003-LEARNER-EVIDENCE-GAP-WAVE-01.md`;
+- `BLR-CP-003/cp003-final-freeze-readiness.ts`;
+- `BLR-CP-003/cp003-final-freeze-readiness.test.ts`;
+- `BLR-CP-003/cp003-learner-evidence-gap-wave-01.ts`;
+- `BLR-CP-003/cp003-learner-evidence-gap-wave-01.test.ts`.
 
 ## Remaining CP-003 sequence
 
 ```text
-human review of English V2 pack
+V6 candidate generation for five blocked authorities
+  -> deterministic and independent-answer proof
+  -> competitive, premise-leak, editorial and SVG gates
+  -> V6 human review
   -> accepted remediation
-  -> affected deterministic reruns
-  -> post-human source-gap confirmation
-  -> final discovery freeze
-  -> sequential allocation
+  -> final-freeze readiness rerun
+  -> final discovery freeze only if supported
+  -> sequential permanent allocation only after freeze
 ```
 
 ## Release boundary
@@ -171,8 +189,12 @@ human review of English V2 pack
 Permanent identity does not enable delivery:
 
 - English review-only: true;
+- final discovery freeze: blocked;
+- permanent CP-003 QLs: 0;
+- `BLR-QL-009`: unclaimed;
 - Question Studio: disabled;
 - Question Bank: disabled;
 - mock-test eligibility: disabled;
 - Hindi and Punjabi: not started;
-- public publication: disabled.
+- public publication: disabled;
+- PR merge: not authorised.
