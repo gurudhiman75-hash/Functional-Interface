@@ -118,6 +118,26 @@ The prototype proves:
 - concise English worked reasoning;
 - lifecycle locks that prevent accidental product exposure.
 
+## SER-CP-002 executable discovery
+
+`SER-CP-002` adds two temporary candidate solve authorities:
+
+```text
+UNIFORM_MULTIPLICATIVE_RATIO
+AFFINE_MULTIPLY_THEN_ADD
+```
+
+Each authority is exercised through next, interior-missing, previous and wrong-term tasks:
+
+```text
+SER-CP-002-TMP-001..004  UNIFORM_MULTIPLICATIVE_RATIO
+SER-CP-002-TMP-005..008  AFFINE_MULTIPLY_THEN_ADD
+```
+
+These eight temporary templates do not reserve permanent identities. They are audited through one complete independent candidate pool so a non-zero affine adjustment cannot be misclassified as uniform multiplication and a zero-adjustment case cannot inflate the affine authority.
+
+The prototype covers bounded integer multipliers and adjustments, independent recurrence reconstruction, one-rule ambiguity acceptance, misconception-specific options, exact answer-position and difficulty reach, and the same inactive lifecycle boundary as CP-001.
+
 ## Required next evidence
 
 Before any permanent allocation:
@@ -132,4 +152,4 @@ Before any permanent allocation:
 
 ## Status
 
-`SER_001_OPEN_DISCOVERY_SER_CP001_ADDITIVE_PROTOTYPE`
+`SER_001_OPEN_DISCOVERY_CP001_CP002_NUMERIC_FOUNDATION`
