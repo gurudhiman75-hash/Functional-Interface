@@ -87,7 +87,6 @@ jobs:
             "$root/.editorial-v2-multilingual-source-parity.mjs" \
             "$root/.pnl-001-multilingual-editorial-audit.mjs" \
             "$root/pnl-multilingual-audit-parity-fix.mjs"
-          git checkout 05119d96f5bebfb6d5cebaef0771cdfde37d16b4 -- .github/workflows/validate-pnl-multilingual-editorial-audit.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
