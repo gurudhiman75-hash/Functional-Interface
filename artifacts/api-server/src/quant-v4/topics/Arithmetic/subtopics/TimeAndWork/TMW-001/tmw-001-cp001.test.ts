@@ -64,10 +64,17 @@ for (const entry of TMW_CP001_REGISTRY) {
 
 assert.deepEqual([...correctPositions].sort(), [0, 1, 2, 3]);
 assert.ok(stemSamples.size > 500, "Chapter proof lacks rendered stem diversity");
-assert.throws(() => runTmwCp001Pipeline({ questionLanguageId: "TMW-QL-001", seed: "unsupported", language: "hi" }), /English only/);
+const hindiSmoke = runTmwCp001Pipeline({ questionLanguageId: "TMW-QL-001", seed: "localized-smoke", language: "hi" });
+const punjabiSmoke = runTmwCp001Pipeline({ questionLanguageId: "TMW-QL-001", seed: "localized-smoke", language: "pa" });
+assert.equal(hindiSmoke.language, "hi");
+assert.equal(hindiSmoke.locale, "hi-IN");
+assert.equal(hindiSmoke.validation.valid, true, hindiSmoke.validation.errors.join(" | "));
+assert.equal(punjabiSmoke.language, "pa");
+assert.equal(punjabiSmoke.locale, "pa-IN");
+assert.equal(punjabiSmoke.validation.valid, true, punjabiSmoke.validation.errors.join(" | "));
 assert.throws(() => runTmwCp001Pipeline({ questionLanguageId: "TMW-QL-999", seed: "unknown" }), /Unknown TMW-001 question language/);
 assert.equal(equals(multiply(rational(2, 3), rational(9, 4)), rational(3, 2)), true);
 assert.throws(() => rational(1, 0), /denominator cannot be zero/);
 assert.throws(() => rational(Number.MAX_SAFE_INTEGER + 1), /safe integer/);
 
-console.log(JSON.stringify({ chapter: "TMW-001", checkpoint: "TMW-CP-001", qlCount: TMW_CP001_REGISTRY.length, solveModeCount: TMW_CP_001_SOLVE_MODES.length, seedsPerQl: 50, generated, correctPositions: [...correctPositions].sort(), distinctRenderedStems: stemSamples.size, status: "PASS" }, null, 2));
+console.log(JSON.stringify({ chapter: "TMW-001", checkpoint: "TMW-CP-001", qlCount: TMW_CP001_REGISTRY.length, solveModeCount: TMW_CP_001_SOLVE_MODES.length, seedsPerQl: 50, generated, correctPositions: [...correctPositions].sort(), distinctRenderedStems: stemSamples.size, localizedSmoke: [hindiSmoke.locale, punjabiSmoke.locale], status: "PASS" }, null, 2));
