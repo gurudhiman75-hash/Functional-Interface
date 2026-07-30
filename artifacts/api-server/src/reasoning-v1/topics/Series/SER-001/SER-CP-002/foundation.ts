@@ -352,11 +352,16 @@ function generationDomain(
         : integer(next, 2, 4);
   const length =
     difficulty === "EASY" ? 5 : difficulty === "MEDIUM" ? 6 : 7;
+  const startMaximum =
+    difficulty === "EASY"
+      ? 60
+      : difficulty === "MEDIUM"
+        ? 50
+        : multiplier === 4
+          ? 18
+          : 40;
   return {
-    start:
-      difficulty === "HARD"
-        ? integer(next, 1, 6)
-        : integer(next, 1, 10),
+    start: integer(next, 1, startMaximum),
     multiplier,
     addition:
       candidateRuleId === "UNIFORM_MULTIPLICATIVE_RATIO"
