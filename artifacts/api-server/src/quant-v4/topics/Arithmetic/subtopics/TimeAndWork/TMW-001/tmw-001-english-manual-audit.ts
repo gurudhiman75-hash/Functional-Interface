@@ -35,8 +35,9 @@ for(const adapter of TMW_ENGLISH_ADAPTERS){
     const banned:[RegExp,string][]=[
       [/Don't fall for/i,"command-style trap"],
       [/Do not choose/i,"command-style option advice"],
-      [/\bDo not\b/i,"negative command"],
-      [/\bDon't\b/i,"negative command"],
+      [/(?:^|\n|[.!?]\s+)Do not\b/,"negative command"],
+      [/(?:^|\n|[.!?]\s+)Don't\b/,"negative command"],
+      [/;\s*do not\b/i,"negative command"],
       [/\bgenerated\b/i,"generation language"],
       [/Independent (?:heterogeneous-crew )?invariant/i,"internal invariant language"],
       [/\bfind[A-Z][A-Za-z]+\b/,"camelCase solve-mode identifier"],
@@ -60,7 +61,7 @@ const q146=byId.get("TMW-QL-146");
 if(!q146||!/known individual payment as though it were the complete payment pool/i.test(textOf(q146?.explanation?.commonTrap?.explanation)))add("TMW-CP-008","TMW-QL-146","INVERSE_POOL_DIAGNOSIS","Known-share inverse-pool trap remains misleading.");
 
 const q147=byId.get("TMW-QL-147");
-if(!q147||/Do not|Don't/i.test(tmwEnglishLearnerText(q147))||!/second contribution ratio is unnecessary/i.test(textOf(q147?.explanation?.opening)))add("TMW-CP-008","TMW-QL-147","RESIDUAL_GUIDANCE","Residual-payment guidance is not diagnostic and direct.");
+if(!q147||/Do not choose|Don't fall for/i.test(tmwEnglishLearnerText(q147))||!/second contribution ratio is unnecessary/i.test(textOf(q147?.explanation?.opening)))add("TMW-CP-008","TMW-QL-147","RESIDUAL_GUIDANCE","Residual-payment guidance is not diagnostic and direct.");
 
 const q174=byId.get("TMW-QL-174");
 if(!q174)add("TMW-CP-009","TMW-QL-174","TARGETED_ROW_MISSING","Boundary-decision row is missing.");
