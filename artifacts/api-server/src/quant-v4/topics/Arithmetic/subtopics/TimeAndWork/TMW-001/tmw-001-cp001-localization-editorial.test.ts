@@ -14,12 +14,14 @@ for(const entry of TMW_CP001_REGISTRY){
     assert.equal(question.validation.valid,true,`${entry.qlId}:${language}:${question.validation.errors.join(" | ")}`);
     assert.equal(/द्वारा .* पूरे किए जाते हैं|द्वारा .* पूरा किया जाता है/.test(question.stem),false,`${entry.qlId}: mechanical Hindi passive`);
     assert.equal(/ਵੱਲੋਂ .* ਪੂਰੇ ਕੀਤੇ ਜਾਂਦੇ ਹਨ|ਵੱਲੋਂ .* ਪੂਰਾ ਕੀਤਾ ਜਾਂਦਾ ਹੈ/.test(question.stem),false,`${entry.qlId}: mechanical Punjabi passive`);
-    assert.equal(/और दूसरा .* की दर/.test(question.stem),false,`${entry.qlId}: Hindi comparison agreement`);
-    assert.equal(/ਅਤੇ ਦੂਜਾ .* ਦੀ ਦਰ/.test(question.stem),false,`${entry.qlId}: Punjabi comparison agreement`);
+    assert.equal(/और दूसरा .* की दर|जबकि दूसरा .* की दर/.test(question.stem),false,`${entry.qlId}: Hindi comparison agreement`);
+    assert.equal(/ਅਤੇ ਦੂਜਾ .* ਦੀ ਦਰ|ਜਦਕਿ ਦੂਜਾ .* ਦੀ ਦਰ/.test(question.stem),false,`${entry.qlId}: Punjabi comparison agreement`);
     assert.equal(/एक इकाई समय में प्रति/.test(question.explanation.conclusion),false,`${entry.qlId}: duplicated Hindi unit phrase`);
     assert.equal(/ਇੱਕ ਇਕਾਈ ਸਮੇਂ ਵਿੱਚ ਪ੍ਰਤੀ/.test(question.explanation.conclusion),false,`${entry.qlId}: duplicated Punjabi unit phrase`);
-    assert.equal(/पुस्तिकाएँ पूरे|ਪੁਸਤਿਕਾਵਾਂ ਪੂਰੇ/.test(text),false,`${entry.qlId}: output agreement error`);
+    assert.equal(/पुस्तिकाएँ पूरे|ਪੁਸਤਿਕਾਵਾਂ ਪੂਰੇ|पुस्तिकाएँ का उत्पादन/.test(text),false,`${entry.qlId}: output agreement error`);
     assert.equal(/सामान्यतः .* में पूरा किया जाता है|ਆਮ ਤੌਰ ਤੇ .* ਵਿੱਚ ਪੂਰਾ ਕੀਤਾ ਜਾਂਦਾ ਹੈ/.test(question.stem),false,`${entry.qlId}: translated completion phrasing`);
+    assert.equal(/का कार्य का|का काम का|ਦਾ ਕੰਮ ਦਾ/.test(question.stem),false,`${entry.qlId}: duplicated possessive`);
+    assert.equal(/खेप पूरा|ਖੇਪ ਪੂਰਾ/.test(question.stem),false,`${entry.qlId}: batch agreement error`);
 
     if(entry.solveMode==="findFractionCompletedInGivenTime"&&question.explanation.commonTrap.misconceptionId==="FIRST_QUANTITY_REPORTED"){
       assert.match(question.explanation.commonTrap.explanation,language==="hi"?/एक इकाई समय/:/ਇੱਕ ਇਕਾਈ ਸਮੇਂ/);
