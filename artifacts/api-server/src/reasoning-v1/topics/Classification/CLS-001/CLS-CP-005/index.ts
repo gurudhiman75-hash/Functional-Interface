@@ -4,4 +4,5 @@ export * from "./tuple-domain";
 export * from "./audit";
 export * from "./runtime";
 export * from "./editorial-runtime";
+export * from "./simple-option-explanation-runtime";
 export * from "./quality-runtime";
