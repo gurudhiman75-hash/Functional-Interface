@@ -111,7 +111,7 @@ export function collectIntCp001MathSegments(value: unknown): string[] {
   const segments: string[] = [];
   const visit = (item: unknown): void => {
     if (typeof item === "string") {
-      segments.push(...item.matchAll(MATH_SEGMENT).map((match) => match[0]));
+      for (const match of item.matchAll(MATH_SEGMENT)) segments.push(match[0]);
       return;
     }
     if (Array.isArray(item)) {
