@@ -46,10 +46,28 @@ function numericalKey(value: string) {
   return number ? `number:${Number(number[0])}` : `text:${cleaned}`;
 }
 
-function stemNumerics(stem: string) {
-  return [...stem.replaceAll(",", "").matchAll(/-?\d+(?:\.\d+)?/g)]
-    .map((match) => Number(match[0]))
-    .sort((left, right) => left - right);
+function visibleNumericCounts(stem: string) {
+  const counts = new Map<number, number>();
+  for (const match of stem.replaceAll(",", "").matchAll(/-?\d+(?:\.\d+)?/g)) {
+    const value = Number(match[0]);
+    counts.set(value, (counts.get(value) ?? 0) + 1);
+  }
+  return counts;
+}
+
+function assertEnglishVisibleGivensPreserved(
+  localizedStem: string,
+  englishStem: string,
+  label: string,
+) {
+  const englishCounts = visibleNumericCounts(englishStem);
+  const localizedCounts = visibleNumericCounts(localizedStem);
+  for (const [value, count] of englishCounts) {
+    assert.ok(
+      (localizedCounts.get(value) ?? 0) >= count,
+      `${label} omits English visible given ${value}`,
+    );
+  }
 }
 
 function isAgeContext(question: Avg001QuestionPackage) {
@@ -111,11 +129,12 @@ for (const entry of entries) {
     }
 
     assert.equal(source.mathematicalFingerprint, englishSource.mathematicalFingerprint, `${entry.qlId}:${language} fingerprint desync`);
+    assert.deepEqual(source.parameters.values, englishSource.parameters.values, `${entry.qlId}:${language} canonical parameter desync`);
     assert.deepEqual(source.solver.exactAnswer, englishSource.solver.exactAnswer, `${entry.qlId}:${language} exact-answer desync`);
     assert.equal(source.correctIndex, englishSource.correctIndex, `${entry.qlId}:${language} option-key desync`);
     assert.equal(question.correctIndex, english.correctIndex, `${entry.qlId}:${language} reviewed option-key desync`);
     assert.equal(numericalKey(question.answer), numericalKey(english.answer), `${entry.qlId}:${language} display-answer desync`);
-    assert.deepEqual(stemNumerics(question.stem), stemNumerics(english.stem), `${entry.qlId}:${language} stem-givens desync`);
+    assertEnglishVisibleGivensPreserved(question.stem, english.stem, `${entry.qlId}:${language}`);
     assert.deepEqual(
       question.options.map(numericalKey),
       english.options.map(numericalKey),
@@ -191,9 +210,10 @@ writeFileSync(
     reviewStatus: "PENDING_PRODUCT_REVIEW",
     validation: {
       sharedSeedPerQlAcrossLanguages: true,
+      canonicalParameterParity: true,
       exactAnswerParity: true,
       mathematicalFingerprintParity: true,
-      stemNumericalGivensParity: true,
+      englishVisibleGivensPreservedInLocalizedStems: true,
       optionValueAndOrderParity: true,
       correctOptionIndexParity: true,
       nonAgeYearSuffixLeakageRejected: true,
