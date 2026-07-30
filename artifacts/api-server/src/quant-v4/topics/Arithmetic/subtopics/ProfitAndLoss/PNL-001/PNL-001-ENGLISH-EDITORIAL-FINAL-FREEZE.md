@@ -8,7 +8,7 @@ The hardened chapter-wide English audit is fully green after removing the final 
 CPs:                               6
 QLs:                               186
 Candidate seeds per QL:            48
-Generated candidate packages:   8928
+Generated candidate packages:   8,928
 Selected review rows:               558
 Fatal findings:                      0
 Editorial findings:                  0
@@ -41,6 +41,18 @@ PNL-QL-035, PNL-QL-067, PNL-QL-070, PNL-QL-090, PNL-QL-117, PNL-QL-147, PNL-QL-1
 - CP-003 partial, spoiled, caselet and break-even inventory modes use task-specific full-cost steps.
 - CP-004 two-stage, three-stage and table chains have distinct final-price closings.
 - CP-005 and CP-006 percentage-conversion steps describe their actual business quantities.
+
+## Hosted proof
+
+```text
+Workflow: Apply PNL English Editorial Final Freeze
+Run:      30541736829
+Result:   PASS
+Artifact: 8758978368
+Digest:   sha256:e0c1ca54046cd8f62e3a3e9af3cf7985ed33f274a0a52b7e49399d885310dada
+```
+
+The hosted proof regenerated CP-001 through CP-003 English sources, regenerated all Hindi/Punjabi sources, passed exact English and multilingual authority/render checks, passed all six dynamic runtime suites, passed the permanent final-prose regression, generated the 8,928-candidate audit with status PASS, and passed freeze readiness.
 
 ## Freeze boundary
 
