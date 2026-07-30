@@ -51,7 +51,7 @@ jobs:
       - name: Bundle sanitized review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-sanitized-large-review-export.ts
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-clean-review-export.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/int-001-cp001-sanitized-large-review-export.mjs
       - name: Generate clean 315-question review corpus
