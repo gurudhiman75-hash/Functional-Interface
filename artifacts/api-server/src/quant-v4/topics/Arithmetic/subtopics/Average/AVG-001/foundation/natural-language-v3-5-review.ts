@@ -129,6 +129,14 @@ function rebuildProblemStems(source: Avg001QuestionPackage, pkg: Avg001QuestionP
     stem = hi
       ? `समान अंतर वाले पद ${first}, ${next}, …, ${last} हैं और हर दो क्रमागत पदों का अंतर ${difference} है। इन पदों का औसत ज्ञात कीजिए।`
       : `ਬਰਾਬਰ ਅੰਤਰ ਵਾਲੇ ਪਦ ${first}, ${next}, …, ${last} ਹਨ ਅਤੇ ਹਰ ਦੋ ਲਗਾਤਾਰ ਪਦਾਂ ਦਾ ਅੰਤਰ ${difference} ਹੈ। ਇਨ੍ਹਾਂ ਪਦਾਂ ਦੀ ਔਸਤ ਪਤਾ ਕਰੋ।`;
+  } else if (pkg.questionLanguageId === "AVG-QL-302" && numbers.length >= 4) {
+    const [count, oldAverage, newAverage, correctedValue] = numbers;
+    const oldDisplay = groupIndianDigits(oldAverage!);
+    const newDisplay = groupIndianDigits(newAverage!);
+    const correctedDisplay = groupIndianDigits(correctedValue!);
+    stem = hi
+      ? `एक दुकान का सही दैनिक बिक्री मान ₹${correctedDisplay} है। उसे सुधारने पर ${count} दुकानों की औसत दैनिक बिक्री ₹${oldDisplay} से ₹${newDisplay} हो गई। पहले दर्ज गलत मान ज्ञात कीजिए।`
+      : `ਇੱਕ ਦੁਕਾਨ ਦੀ ਸਹੀ ਰੋਜ਼ਾਨਾ ਵਿਕਰੀ ₹${correctedDisplay} ਹੈ। ਇਸ ਨੂੰ ਠੀਕ ਕਰਨ ਉੱਤੇ ${count} ਦੁਕਾਨਾਂ ਦੀ ਔਸਤ ਰੋਜ਼ਾਨਾ ਵਿਕਰੀ ₹${oldDisplay} ਤੋਂ ₹${newDisplay} ਹੋ ਗਈ। ਪਹਿਲਾਂ ਦਰਜ ਗਲਤ ਮੁੱਲ ਪਤਾ ਕਰੋ।`;
   } else if (pkg.questionLanguageId === "AVG-QL-308" && numbers.length >= 3) {
     const [count, oldAverage, newAverage] = numbers;
     stem = hi
