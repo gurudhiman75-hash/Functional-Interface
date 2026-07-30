@@ -36,79 +36,7 @@ jobs:
 
       - name: Apply native lexical authority
         run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          root = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001")
-          normalizer_path = root / "foundation/editorial-v2-multilingual-normalizer.ts"
-          source = normalizer_path.read_text()
-          pairs = [
-              (
-                  "`${sector} के इस प्रश्न में दिए गए व्यावसायिक क्रम को उसी क्रम में पढ़ना सबसे सुरक्षित है।`",
-                  "`${sector} के इस सवाल में दी गई खरीद, खर्च और बिक्री की जानकारी को उसी क्रम में पढ़ें।`",
-              ),
-              (
-                  "`${sector} ਦੇ ਇਸ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤਾ ਵਪਾਰਕ ਕ੍ਰਮ ਉਸੇ ਕ੍ਰਮ ਵਿੱਚ ਪੜ੍ਹਣਾ ਸਭ ਤੋਂ ਸੁਰੱਖਿਅਤ ਹੈ।`",
-                  "`${sector} ਦੇ ਇਸ ਸਵਾਲ ਵਿੱਚ ਦਿੱਤੀ ਖਰੀਦ, ਖਰਚ ਅਤੇ ਵਿਕਰੀ ਦੀ ਜਾਣਕਾਰੀ ਨੂੰ ਉਸੇ ਕ੍ਰਮ ਵਿੱਚ ਪੜ੍ਹੋ।`",
-              ),
-              (
-                  'hi: "अज्ञात समूह की प्रति इकाई लागत ₹{unknownUnitCostPrice} है और उसकी दिशा {unknownDirection} है।",',
-                  'hi: "जिस समूह का प्रतिशत ज्ञात करना है, उसकी प्रति इकाई लागत ₹{unknownUnitCostPrice} है और उसे {unknownDirection} पर बेचना है।",',
-              ),
-              (
-                  'pa: "ਅਣਜਾਣ ਸਮੂਹ ਦੀ ਪ੍ਰਤੀ ਇਕਾਈ ਲਾਗਤ ₹{unknownUnitCostPrice} ਹੈ ਅਤੇ ਉਸ ਦੀ ਦਿਸ਼ਾ {unknownDirection} ਹੈ।",',
-                  'pa: "ਜਿਸ ਸਮੂਹ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰਨਾ ਹੈ, ਉਸ ਦੀ ਪ੍ਰਤੀ ਇਕਾਈ ਲਾਗਤ ₹{unknownUnitCostPrice} ਹੈ ਅਤੇ ਉਸ ਨੂੰ {unknownDirection} \'ਤੇ ਵੇਚਣਾ ਹੈ।",',
-              ),
-          ]
-          for old, new in pairs:
-              if old in source:
-                  source = source.replace(old, new, 1)
-              elif new not in source:
-                  raise SystemExit(f"Missing normalizer anchor: {old}")
-          normalizer_path.write_text(source)
-
-          replacements = {
-              root / "CP-003/question-language.hi.json": (
-                  "दो माल समूहों की लागत बीजीय रूप में और उनके विक्रय प्रतिशत दिए गए हैं। अपेक्षित कुल परिणाम के लिए अज्ञात समूह प्रतिशत ज्ञात कीजिए।",
-                  "दो माल समूहों की लागत बीजीय रूप में और उनके विक्रय प्रतिशत दिए गए हैं। अपेक्षित कुल परिणाम के लिए जिस समूह की दर नहीं दी गई है, उसका लाभ या हानि प्रतिशत ज्ञात कीजिए।",
-              ),
-              root / "CP-003/question-language.pa.json": (
-                  "ਦੋ ਮਾਲ ਸਮੂਹਾਂ ਦੀ ਲਾਗਤ ਬੀਜਗਣਿਤੀ ਰੂਪ ਵਿੱਚ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਵਿਕਰੀ ਪ੍ਰਤੀਸ਼ਤ ਦਿੱਤੇ ਹਨ। ਲੋੜੀਂਦੇ ਕੁੱਲ ਨਤੀਜੇ ਲਈ ਅਣਜਾਣ ਸਮੂਹ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
-                  "ਦੋ ਮਾਲ ਸਮੂਹਾਂ ਦੀ ਲਾਗਤ ਬੀਜਗਣਿਤੀ ਰੂਪ ਵਿੱਚ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਵਿਕਰੀ ਪ੍ਰਤੀਸ਼ਤ ਦਿੱਤੇ ਹਨ। ਲੋੜੀਂਦੇ ਕੁੱਲ ਨਤੀਜੇ ਲਈ ਜਿਸ ਸਮੂਹ ਦੀ ਦਰ ਨਹੀਂ ਦਿੱਤੀ ਗਈ, ਉਸ ਦਾ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
-              ),
-          }
-          for path, (old, new) in replacements.items():
-              text = path.read_text()
-              if old in text:
-                  text = text.replace(old, new, 1)
-              elif new not in text:
-                  raise SystemExit(f"Missing QL-091 anchor: {path}")
-              path.write_text(text)
-
-          (root / "pnl-001-multilingual-lexical-naturalness.test.ts").write_text('''import assert from "node:assert/strict";
-import { buildAllNormalizedMultilingualEditorialLibraries } from "./foundation";
-
-const libraries = buildAllNormalizedMultilingualEditorialLibraries();
-const entryCount = libraries.reduce((sum, library) => sum + library.entryCount, 0);
-assert.equal(libraries.length, 12);
-assert.equal(entryCount, 372);
-const visible = JSON.stringify(libraries);
-assert.doesNotMatch(visible, /व्यावसायिक क्रम/u);
-assert.doesNotMatch(visible, /ਵਪਾਰਕ ਕ੍ਰਮ/u);
-assert.doesNotMatch(visible, /अज्ञात समूह/u);
-
-function nativeEntry(language: "hi" | "pa", qlId: string) {
-  const library = libraries.find((item) => item.language === language && item.entries[qlId]);
-  assert.ok(library, `${qlId}/${language}: missing native entry.`);
-  return JSON.stringify(library.entries[qlId]);
-}
-assert.match(nativeEntry("hi", "PNL-QL-078"), /जिस समूह का प्रतिशत ज्ञात करना है/u);
-assert.match(nativeEntry("pa", "PNL-QL-078"), /ਜਿਸ ਸਮੂਹ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰਨਾ ਹੈ/u);
-assert.match(nativeEntry("hi", "PNL-QL-091"), /जिस समूह की दर नहीं दी गई है/u);
-assert.match(nativeEntry("pa", "PNL-QL-091"), /ਜਿਸ ਸਮੂਹ ਦੀ ਦਰ ਨਹੀਂ ਦਿੱਤੀ ਗਈ/u);
-console.log(JSON.stringify({ status: "PASS", libraries: libraries.length, entries: entryCount }, null, 2));
-''')
-          PY
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-multilingual-lexical-wave01-apply.mjs apply
 
       - name: Regenerate all native Editorial V2 libraries
         run: |
@@ -170,45 +98,16 @@ console.log(JSON.stringify({ status: "PASS", libraries: libraries.length, entrie
           }, null, 2));
           NODE
 
-      - name: Restore permanent read-only workflow and commit
+      - name: Restore permanent workflow and commit
         run: |
           root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
           git checkout 6375788c89adcfe7d5acf06616ca89ac0f57c0ad -- .github/workflows/validate-pnl-multilingual-editorial-audit.yml
-          python - <<'PY'
-          from pathlib import Path
-          path = Path(".github/workflows/validate-pnl-multilingual-editorial-audit.yml")
-          source = path.read_text().replace(
-              "      - audit/pnl-001-multilingual-editorial-freeze",
-              "      - New-main",
-              1,
-          )
-          audit_path = '      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-audit.ts"'
-          extras = audit_path + '''
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-multilingual-normalizer.ts"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/question-language.hi.json"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/question-language.pa.json"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-lexical-naturalness.test.ts"'''
-          if source.count(audit_path) != 2:
-              raise SystemExit("Expected two permanent workflow path anchors")
-          source = source.replace(audit_path, extras)
-          anchor = "      - name: Bundle multilingual editorial corpus audit\n"
-          proof = '''      - name: Prove multilingual lexical naturalness
-        run: |
-          pnpm --dir artifacts/api-server exec esbuild \\
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-lexical-naturalness.test.ts \\
-            --bundle --platform=node --format=esm \\
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-lexical-naturalness.test.mjs
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-lexical-naturalness.test.mjs
-
-'''
-          if anchor not in source:
-              raise SystemExit("Permanent workflow proof anchor missing")
-          path.write_text(source.replace(anchor, proof + anchor, 1))
-          PY
+          node "$root/pnl-multilingual-lexical-wave01-apply.mjs" finalize
           pnpm exec prettier --write .github/workflows/validate-pnl-multilingual-editorial-audit.yml
           rm -f \
             .github/workflows/implement-pnl-multilingual-lexical-wave01.yml \
             .github/workflows/run-pnl-multilingual-lexical-wave01.yml \
+            "$root/pnl-multilingual-lexical-wave01-apply.mjs" \
             "$root"/.editorial-v2-multilingual-export.mjs \
             "$root"/.editorial-v2-multilingual-audit.mjs \
             "$root"/.editorial-v2-multilingual-render.test.mjs \
