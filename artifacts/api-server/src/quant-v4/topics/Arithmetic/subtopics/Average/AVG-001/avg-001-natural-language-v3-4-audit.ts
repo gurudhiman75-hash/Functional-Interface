@@ -2,9 +2,9 @@ import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import {
-  applyAvg001NaturalLanguageV34Review,
+  applyAvg001NaturalLanguageV34Final,
   AVG_001_NATURAL_LANGUAGE_V3_4_REVIEW,
-} from "./foundation/natural-language-v3-4-review";
+} from "./foundation/natural-language-v3-4-final";
 import { runAvg001EditorialV2Pipeline } from "./foundation/editorial-v2-release";
 import { getAvg001QuestionEntries } from "./foundation/library";
 import { runAvg001LocalizedRelease } from "./foundation/localized-release";
@@ -75,7 +75,7 @@ function isAgeContext(question: Avg001QuestionPackage) {
 }
 
 function isCurrencyContext(question: Avg001QuestionPackage) {
-  return question.stem.includes("₹");
+  return question.stem.includes("₹") || question.options.some((option) => option.includes("₹"));
 }
 
 const records: Record<string, unknown>[] = [];
@@ -86,7 +86,7 @@ for (const entry of entries) {
     languages.map((language) => [language, sourceFor(entry.qlId, language, seed)]),
   ) as Record<Avg001Language, Avg001QuestionPackage>;
   const questions = Object.fromEntries(
-    languages.map((language) => [language, applyAvg001NaturalLanguageV34Review(sources[language])]),
+    languages.map((language) => [language, applyAvg001NaturalLanguageV34Final(sources[language])]),
   ) as Record<Avg001Language, Avg001QuestionPackage>;
 
   const englishSource = sources.en;
@@ -107,7 +107,14 @@ for (const entry of entries) {
     assert.equal(question.explanation.lines.length, 4);
     assert.equal(question.maturity, "MANUAL_REVIEW");
     assert.equal(question.publiclyPublishable, false);
-    assert.equal(question.validation.valid, true, `${entry.qlId}:${language} failed V3.4 validation`);
+    assert.equal(
+      question.validation.valid,
+      true,
+      `${entry.qlId}:${language} failed V3.4 validation: ${question.validation.checks
+        .filter((check) => !check.passed)
+        .map((check) => `${check.name}=${check.message}`)
+        .join("; ")}`,
+    );
     assert.ok(worked.includes("$$"), `${entry.qlId}:${language} lacks displayed working`);
     assert.ok((worked.match(/\d+(?:\.\d+)?/g)?.length ?? 0) >= 3, `${entry.qlId}:${language} under-demonstrates working`);
     assert.ok(question.explanation.lines[3]?.includes(question.answer));
@@ -117,8 +124,8 @@ for (const entry of entries) {
     if (language !== "en") {
       assert.doesNotMatch(text, /\b(?:units?|marks?|years?|runs?|operating days?)\b/i);
       if (isCurrencyContext(question)) {
-        assert.ok(question.options.every((option) => option.startsWith("₹")), `${entry.qlId}:${language} currency options lack ₹`);
-        assert.ok(question.answer.startsWith("₹"), `${entry.qlId}:${language} currency answer lacks ₹`);
+        assert.ok(question.options.every((option) => /^-?₹/.test(option)), `${entry.qlId}:${language} currency options lack ₹`);
+        assert.ok(/^-?₹/.test(question.answer), `${entry.qlId}:${language} currency answer lacks ₹`);
       }
     } else if (!isAgeContext(question)) {
       assert.doesNotMatch(
@@ -174,6 +181,20 @@ for (const language of languages) {
   assert.equal(records.filter((record) => record.language === language).length, 425);
 }
 
+const genericPhrases = [
+  "contains a small arithmetic error",
+  "गणना में छोटी गलती करता है",
+  "ਗਣਨਾ ਵਿੱਚ ਛੋਟੀ ਗਲਤੀ ਕਰਦਾ ਹੈ",
+];
+const genericReasonOccurrences = records.reduce(
+  (total, record) => total + genericPhrases.reduce(
+    (subtotal, phrase) => subtotal + String(record.distractorReasons).split(phrase).length - 1,
+    0,
+  ),
+  0,
+);
+assert.equal(genericReasonOccurrences, 0, `Generic distractor reasons remain: ${genericReasonOccurrences}`);
+
 const ql008 = records.find((record) => record.qlId === "AVG-QL-008" && record.language === "en")!;
 assert.doesNotMatch(`${ql008.options} ${ql008.correctAnswer} ${ql008.calculation}`, /\byears?\b/i);
 assert.match(`${ql008.options} ${ql008.correctAnswer}`, /\b(?:components?|units?)\b/i);
@@ -208,18 +229,21 @@ writeFileSync(
     totalReviewRows: records.length,
     solveModeCount: 45,
     reviewStatus: "PENDING_PRODUCT_REVIEW",
+    genericReasonOccurrences,
     validation: {
       sharedSeedPerQlAcrossLanguages: true,
       canonicalParameterParity: true,
       exactAnswerParity: true,
       mathematicalFingerprintParity: true,
       englishVisibleGivensPreservedInLocalizedStems: true,
-      optionValueAndOrderParity: true,
+      englishOptionValueAndOrderAuthority: true,
       correctOptionIndexParity: true,
       nonAgeYearSuffixLeakageRejected: true,
       ql008FactoryUnitResolved: true,
       ql011DistanceUnitResolved: true,
       localizedCurrencySymbolsAndIndianGroupingRequired: true,
+      signedCurrencyDisplaysAccepted: true,
+      optionSpecificDistractorReasonsRequired: true,
       publiclyPublishable: false,
     },
   }, null, 2),
