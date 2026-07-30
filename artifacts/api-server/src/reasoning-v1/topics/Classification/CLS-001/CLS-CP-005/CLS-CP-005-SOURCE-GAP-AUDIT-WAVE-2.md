@@ -1,16 +1,14 @@
-# CLS-CP-005 — Source-Gap Audit and Wave 2
+# CLS-CP-005 — Digit-Product Source Supplement
 
-Status: `MEANINGFUL_SOURCE_GAP_FOUND__PERMANENT_FREEZE_BLOCKED`
+Status: `ODD_PAIR_EXECUTABLE__35_RULE_VERIFIED__EQUIVALENT_SET_OPEN`
 
 Permanent QLs: `0`
 
-## Audit trigger
-
-The product owner approved `Simple Option Explanations V3` as the English editorial baseline. The next required gate was source-gap closure before permanent learner-contract allocation.
-
 ## Source finding
 
-A recurring Number Classification form presents complete ordered pairs in which the second member is derived from the decimal digits of the first member. A direct source example uses:
+A recurring Number Classification form presents complete ordered pairs in which the second member is derived from the decimal digits of the first member.
+
+Source example:
 
 ```text
 34 : 12
@@ -25,25 +23,26 @@ The common relation is:
 product of the digits of the first number = second number
 ```
 
-The pair `67 : 54` is the outlier because `6 × 7 = 42`, not `54`.
+`67 : 54` is the outlier because `6 × 7 = 42`, not `54`.
 
 Source control:
 
 - uploaded reference: `reasoning_aggarwal.pdf`;
 - chapter: Classification / Number Classification;
-- example family: pair classification based on the product of digits of the first member.
+- family: pair classification by product of the first member's digits.
 
-## Why this is a real CP-005 gap
+## Ownership
 
-This form is not owned by CP-004 merely because it uses digits. The displayed answer object is a complete ordered pair and the learner evaluates an internal relation between the two members. Therefore it has the same answer object and mismatch proof as the existing odd-number-tuple contract.
+This form is owned by CP-005 because every option is a complete ordered pair and the learner evaluates the internal relation between its two members.
 
-It is also not Numeric Analogy because there is no incomplete target and no source-to-target transfer. Every option is a complete pair and one pair must be classified as different.
+It is not:
 
-## Missing bounded relation
+- CP-004 single-number classification;
+- Numeric Analogy source-to-incomplete-target transfer;
+- Series continuation;
+- Missing Number completion.
 
-Wave 1 contains pair-level whole-number rules such as difference, ratio, sum, product, GCD, LCM, square, cube and reversal. It does not contain a rule in which the decimal digits of one member generate the other member.
-
-The first mandatory Wave 2 rule is:
+## Bounded rule
 
 ```text
 PAIR_FIRST_DIGIT_PRODUCT_TO_SECOND
@@ -51,62 +50,97 @@ PAIR_FIRST_DIGIT_PRODUCT_TO_SECOND
 
 Formal contract:
 
-1. the first member must contain exactly two decimal digits;
-2. neither digit is hidden or inferred;
-3. multiply the tens digit by the units digit;
-4. the result must equal the second member;
+1. the first member contains exactly two decimal digits;
+2. the first member does not end in zero;
+3. multiply its tens digit by its units digit;
+4. the product must equal the second member;
 5. pair order is fixed;
-6. the reverse relation is not accepted unless separately declared;
-7. pairs with leading-zero interpretation are prohibited;
-8. the ambiguity verifier must enumerate this rule together with the complete existing registry.
+6. leading-zero interpretations are prohibited;
+7. every state is checked against the complete combined rule universe.
 
-## Additional candidates requiring source confirmation
+## Executable implementation
 
-The following are plausible adjacent forms but are not admitted merely by analogy or formula availability:
+The odd-pair runtime now supports:
 
-- sum of digits of first member equals second;
-- absolute difference of digits of first member equals second;
-- exact digit quotient of first member equals second;
-- sum or product of digits of second member equals first;
-- three-digit digit transforms.
+```text
+Generated audit questions:            240
+Unique visible questions:             240
+Options:                           4 and 5
+Stem forms:                            5
+Answer positions:          28, 86, 58, 52, 16
+Option explanations audited:          1040
+Permanent QLs:                           0
+```
 
-Each candidate requires direct Classification evidence, a bounded domain and a collision audit. Analogy-only evidence is insufficient.
+Every option uses the approved Simple Option Explanations V3 structure:
+
+```text
+plain-language reason -> active digit calculation -> match/failure status
+```
+
+For example:
+
+```text
+(34, 12): Multiplying the two digits of 34 gives the second number 12.
+\( 3 \times 4 = 12 \) — ✅ Matches rule.
+```
+
+## Combined ambiguity proof
+
+The original isolated nineteen-rule proof has been retired. The digit-product runtime now uses the same independent verifier as all other CP-005 questions:
+
+```text
+Wave 1 rules:                     18
+Generic source-gap Wave 2 rules: 16
+Digit-product rule:               1
+Complete competing-rule count:   35
+```
+
+Audit result:
+
+```text
+Expanded unique questions:       240 / 240
+Alternate answer conflicts:        0
+Intended rule recovered:         240 / 240
+Maximum source-search attempt:      0
+```
+
+## Presentation proof
+
+The answer-aware quality gate rejects scale giveaways.
+
+```text
+Maximum answer/common maximum ratio: 3.93
+Maximum answer/common total ratio:   4.00
+```
+
+It also rejects duplicate pairs, unbalanced MathJax, math-only explanation blocks and incorrect match/failure labels.
 
 ## Boundary effect
 
-The new relation does **not** currently justify a third learner contract. It remains an instance rule inside:
+The digit-product family remains a rule instance inside the provisional contract:
 
 ```text
 find the odd number tuple
 ```
 
-It may also be admitted to reference-set matching only after the equivalent-set audit proves natural, unambiguous candidate construction.
+It does not justify a separate learner contract or QL.
 
-## Wave 2 acceptance gates
-
-Before CP-005 can freeze:
-
-- implement the source-backed digit-product pair rule;
-- construct odd-pair states with four and five options;
-- test equivalent-set matching separately rather than assuming admission;
-- include the new rule in complete competing-rule enumeration;
-- reject surface giveaways caused by digit length or second-member scale;
-- provide simple V3 option explanations;
-- audit deterministic replay, every answer position and difficulty coverage;
-- regenerate the English review artifact;
-- repeat the no-meaningful-source-gap audit.
+Equivalent-set admission remains open. The presence of a valid odd-pair generator does not automatically prove that a reference-pair version is natural, sufficiently diverse or editorially useful.
 
 ## Current decision
 
 ```text
-Human editorial review:                 APPROVED_V3_BASELINE
-Source-gap closure:                     FAILED__ONE_MEANINGFUL_GAP_FOUND
-Provisional learner-contract shapes:    2
-Permanent QLs:                          0
-English freeze:                         BLOCKED
-Question Studio exposure:               disabled
-Question Bank storage:                  disabled
-Test/publication eligibility:           disabled
+Source-backed odd-pair rule:              EXECUTABLE
+Combined ambiguity proof:                 PASS__35_RULES
+Simple V3 explanations:                   PASS
+Answer-aware presentation proof:          PASS
+Equivalent-set admission:                 PENDING_NATURALNESS_AUDIT
+Permanent QLs:                            0
+English freeze:                           BLOCKED_PENDING_WAVE_2_REVIEW
+Question Studio exposure:                 disabled
+Question Bank storage:                    disabled
+Test/publication eligibility:             disabled
 ```
 
-No permanent identity may be allocated until Wave 2 and the repeated source-gap audit are complete.
+No permanent identity may be allocated until the generic Wave 2 review, this supplement review, equivalent-set decision and repeated no-meaningful-gap audit are complete.
