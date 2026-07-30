@@ -31,6 +31,8 @@ This wave removes shared Editorial V2 prose from twelve English QLs and corrects
 - Statement I and Statement II are never identical.
 - The EITHER class uses two differently worded but independently complete fact sets.
 - Generated working evaluates statement sufficiency rather than describing an answer label as a unit price.
+- The registered and multilingual variable contract now contains statementOne, statementTwo, targetDirection and targetRatePercent.
+- Hindi and Punjabi stem authorities render the same dynamic target and standard two-statement structure.
 - A 96-seed regression requires all four standard sufficiency classes and verifies the facts behind each class.
 
 ## Audit result
@@ -58,7 +60,7 @@ Remaining finding counts:
 }
 ```
 
-## Hosted proof
+## Hosted English proof
 
 ```text
 Workflow: Apply PNL English Prose Cluster Wave 01
@@ -68,11 +70,21 @@ Artifact: 8758092430
 Digest:   sha256:71705b18de35c735d66a1f8d8ff4ef677a58f40859fe25d7d95d256640aa47fe
 ```
 
-The proof regenerated the committed CP-001 and CP-003 English Editorial V2 libraries from authority, passed exact source parity and renderer checks, passed both full dynamic seed sweeps, passed the permanent cluster regression, exercised 96 QL-092 seeds across all four sufficiency classes, and regenerated the hardened 8,928-candidate chapter audit.
+The English proof regenerated the committed CP-001 and CP-003 libraries from authority, passed exact source parity and renderer checks, passed both full dynamic seed sweeps, passed the permanent cluster regression, exercised 96 QL-092 seeds across all four sufficiency classes, and regenerated the hardened 8,928-candidate chapter audit.
+
+## Hosted multilingual and freeze proof
+
+```text
+Workflow: Align PNL Prose Wave Multilingual Sources
+Run:      30540372903
+Result:   PASS
+```
+
+This proof regenerated CP-001 and CP-003 Hindi/Punjabi Editorial V2 libraries, passed the multilingual audit, native renderer and exact 12-library parity checks, and passed the chapter freeze-readiness audit after aligning QL-092's frozen variable contract.
 
 ## Regression boundary
 
-The permanent cluster regression rejects a meaningful normalized editorial paragraph or opening shared across different QLs in any corrected cluster. Existing CP-001 and CP-003 dynamic seed sweeps, Editorial V2 source parity, render proofs and the chapter audit must also remain green.
+The permanent cluster regression rejects a meaningful normalized editorial paragraph or opening shared across different QLs in any corrected cluster. Existing CP-001 and CP-003 dynamic seed sweeps, Editorial V2 source parity, multilingual parity, renderer proofs and the chapter audit must also remain green.
 
 ## Safety boundary
 
