@@ -7,6 +7,7 @@ import { solveTmwCp001, verifyTmwCp001 } from "./cp001-solver";
 import { compare, rational, rationalKey } from "./rational";
 import { required } from "./cp001-helpers";
 import { localizeTmwCp001Question } from "./localization-cp001";
+import { polishTmwCp001LocalizedQuestion } from "./localization-cp001-editorial";
 import type { TmwLocalizedLanguage, TmwLocalizedQuestion } from "./localization-types";
 import type { Rational, TmwCp001Parameters, TmwCp001RegistryEntry, TmwCp001Solution, TmwGeneratedQuestion, TmwOption } from "./types";
 
@@ -42,7 +43,7 @@ function buildEnglishQuestion(input: { questionLanguageId: string; seed: string 
   const optionSet = buildTmwCp001Options(entry, parameters, solution.answer, input.seed);
   const shortcut = buildTmwCp001Shortcut(entry, parameters, solution);
   const commonTrap = buildTmwCp001CommonTrap(entry, optionSet.optionAudit);
-  const steps = buildTmwCp001WorkingLatex(entry, parameters, solution).map((line) => `\\(${line}\\)`);
+  const steps = buildTmwCp001WorkingLatex(entry, parameters, solution).map((line) => `\(${line}\)`);
   const errors = validate(entry, parameters, solution, renderedStem, optionSet.optionAudit, optionSet.correctIndex);
   if (steps.length < 3) errors.push("Explanation does not contain setup, working and verification steps");
   if (!shortcut.title.startsWith("10-Second ") || shortcut.steps.length < 1) errors.push("Explanation shortcut is incomplete");
@@ -64,7 +65,7 @@ function buildEnglishQuestion(input: { questionLanguageId: string; seed: string 
     correctIndex: optionSet.correctIndex,
     explanation: {
       opening: tmwCp001ExplanationOpening(entry),
-      formula: `\\(${solution.formulaLatex}\\)`,
+      formula: `\(${solution.formulaLatex}\)`,
       steps,
       shortcut,
       commonTrap,
@@ -80,7 +81,6 @@ export function runTmwCp001Pipeline(input: { questionLanguageId: string; seed: s
 export function runTmwCp001Pipeline(input: { questionLanguageId: string; seed: string; language?: "en" }): TmwGeneratedQuestion;
 export function runTmwCp001Pipeline(input: { questionLanguageId: string; seed: string; language?: "en" | TmwLocalizedLanguage }): TmwGeneratedQuestion | TmwLocalizedQuestion {
   const english = buildEnglishQuestion(input);
-  return input.language && input.language !== "en"
-    ? localizeTmwCp001Question(english, input.language)
-    : english;
+  if (!input.language || input.language === "en") return english;
+  return polishTmwCp001LocalizedQuestion(localizeTmwCp001Question(english, input.language), input.language);
 }
