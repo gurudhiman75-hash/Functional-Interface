@@ -5,9 +5,9 @@ import { getAvg001QuestionEntries } from "./foundation/library";
 import { runAvg001EditorialV2Pipeline } from "./foundation/editorial-v2-release";
 import { runAvg001LocalizedRelease } from "./foundation/localized-release";
 import {
-  applyAvg001NaturalLanguageV3Review,
-  AVG_001_NATURAL_LANGUAGE_V3_REVIEW,
-} from "./foundation/natural-language-v3";
+  applyAvg001NaturalLanguageV3Polish,
+  AVG_001_NATURAL_LANGUAGE_V3_POLISH,
+} from "./foundation/natural-language-v3-polish";
 import type { Avg001Language, Avg001QuestionPackage } from "./foundation/types";
 
 const outputDirectory = resolve(process.cwd(), "dist/quant-v4/avg-001-natural-language-v3-review");
@@ -32,7 +32,7 @@ const languages: Avg001Language[] = ["en", "hi", "pa"];
 const records = entries.flatMap((entry) => languages.map((language) => {
   const seed = `avg-001-natural-language-v3:${language}:${entry.qlId}`;
   const source = generateSource(entry.qlId, language, seed);
-  const revised = applyAvg001NaturalLanguageV3Review(source);
+  const revised = applyAvg001NaturalLanguageV3Polish(source);
 
   assert.equal(revised.questionLanguageId, entry.qlId);
   assert.equal(revised.language, language);
@@ -53,8 +53,14 @@ const records = entries.flatMap((entry) => languages.map((language) => {
   assert.doesNotMatch(learnerText, /\[[A-Z][A-Z0-9_]+\]/);
   assert.doesNotMatch(learnerText, /\b(?:Begin with this fact|Start from this relationship|The decisive relation is|For the total, the total|To get the average, the average|A inspection)\b/i);
   assert.doesNotMatch(learnerText, /(?:मुख्य गणितीय तथ्य है|पहला गणितीय संबंध है|प्रारंभ में ध्यान दें|गणना शुरू करते हुए|ਮੁੱਖ ਗਣਿਤਕ ਤੱਥ ਹੈ|ਪਹਿਲਾ ਗਣਿਤਕ ਸੰਬੰਧ ਹੈ|ਸ਼ੁਰੂ ਵਿੱਚ ਧਿਆਨ ਦਿਓ|ਗਣਨਾ ਸ਼ੁਰੂ ਕਰਦੇ ਹੋਏ)/);
-  if (language === "hi") assert.doesNotMatch(learnerText, /भार दिया जाता है|भार दें/);
-  if (language === "pa") assert.doesNotMatch(learnerText, /ਭਾਰ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ|ਭਾਰ ਦਿਓ/);
+  if (language === "hi") {
+    assert.doesNotMatch(learnerText, /भार दिया जाता है|भार दें/);
+    assert.doesNotMatch(learnerText, /\b(?:units?|marks?|years?|runs?|operating days?)\b/i);
+  }
+  if (language === "pa") {
+    assert.doesNotMatch(learnerText, /ਭਾਰ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ|ਭਾਰ ਦਿਓ/);
+    assert.doesNotMatch(learnerText, /\b(?:units?|marks?|years?|runs?|operating days?)\b/i);
+  }
   if (language === "en" && entry.solveMode === "findInningsValueOrNewCricketAverage") {
     assert.doesNotMatch(`${revised.options.join(" ")} ${revised.answer}`, /\bmarks?\b/i);
   }
@@ -74,7 +80,7 @@ const records = entries.flatMap((entry) => languages.map((language) => {
     correctAnswer: revised.answer,
     explanation: revised.explanation.lines.join("\n"),
     mathematicalFingerprint: revised.mathematicalFingerprint,
-    reviewCandidate: AVG_001_NATURAL_LANGUAGE_V3_REVIEW,
+    reviewCandidate: AVG_001_NATURAL_LANGUAGE_V3_POLISH,
     sourceReleaseId: String(source.traceability.releaseId ?? ""),
     validation: revised.validation.valid ? "PASS" : "FAIL",
   };
@@ -136,7 +142,7 @@ writeFileSync(
   resolve(outputDirectory, "avg-001-natural-language-v3-summary.json"),
   JSON.stringify({
     packageId: "AVG-001",
-    reviewCandidate: AVG_001_NATURAL_LANGUAGE_V3_REVIEW,
+    reviewCandidate: AVG_001_NATURAL_LANGUAGE_V3_POLISH,
     status: "PASS",
     sourceReleases: ["AVG-001-EN-v2", "AVG-001-HI-v1", "AVG-001-PA-v1"],
     sourceReleasesUnchanged: true,
@@ -150,6 +156,9 @@ writeFileSync(
       optionCountAndCorrectIndexPreserved: true,
       rawTechnicalDistractorTagsRemoved: true,
       demonstratedCalculationsRequired: true,
+      localizedEnglishUnitLeakageRemoved: true,
+      localizedDistractorReasonsRecovered: true,
+      equationOnlyLocalizedShortcutsRemoved: true,
       naturalLanguageRegressionGate: true,
       publiclyPublishable: false,
     },
@@ -157,4 +166,4 @@ writeFileSync(
   "utf8",
 );
 
-console.log(`PASS AVG-001 natural-language V3 review: ${records.length} rows across 425 QLs, 45 solve modes and 3 languages. Existing frozen releases remain unchanged.`);
+console.log(`PASS AVG-001 natural-language V3 polished review: ${records.length} rows across 425 QLs, 45 solve modes and 3 languages. Existing frozen releases remain unchanged.`);
