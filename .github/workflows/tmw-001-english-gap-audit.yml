@@ -30,7 +30,7 @@ concurrency:
 jobs:
   audit-tmw-001-english:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -65,6 +65,18 @@ jobs:
       - name: Generate 211-question review corpus
         working-directory: artifacts/api-server
         run: node dist/quant-v4/tmw-001-english-freeze-review-export.mjs
+      - name: Bundle permanent manual corpus audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-manual-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-english-manual-audit.mjs
+      - name: Run 211-row manual English audit
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          node dist/quant-v4/tmw-001-english-manual-audit.mjs 2>&1 | tee dist/quant-v4/tmw-001-english-manual-audit.log
       - name: Bundle target calibration
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -87,6 +99,8 @@ jobs:
             artifacts/api-server/dist/quant-v4/tmw-001-english-gap-calibrate.log
             artifacts/api-server/dist/quant-v4/tmw-001-english-gap-audit.json
             artifacts/api-server/dist/quant-v4/tmw-001-english-freeze-review.json
+            artifacts/api-server/dist/quant-v4/tmw-001-english-manual-audit.log
+            artifacts/api-server/dist/quant-v4/tmw-001-english-manual-audit.json
           if-no-files-found: error
           retention-days: 7
       - name: Enforce English freeze readiness
@@ -96,11 +110,17 @@ jobs:
         run: |
           node - <<'NODE'
           const fs = require('node:fs');
-          const path = 'dist/quant-v4/tmw-001-english-gap-audit.json';
-          if (!fs.existsSync(path)) throw new Error('English gap audit report was not generated');
-          const report = JSON.parse(fs.readFileSync(path, 'utf8'));
-          const { hardFailures, freezeBlockers } = report.summary;
+          const automatedPath = 'dist/quant-v4/tmw-001-english-gap-audit.json';
+          const manualPath = 'dist/quant-v4/tmw-001-english-manual-audit.json';
+          if (!fs.existsSync(automatedPath)) throw new Error('English gap audit report was not generated');
+          if (!fs.existsSync(manualPath)) throw new Error('Manual English audit report was not generated');
+          const automated = JSON.parse(fs.readFileSync(automatedPath, 'utf8'));
+          const manual = JSON.parse(fs.readFileSync(manualPath, 'utf8'));
+          const { hardFailures, freezeBlockers } = automated.summary;
           if (hardFailures || freezeBlockers) {
             throw new Error(`English freeze blocked: ${hardFailures} hard failures and ${freezeBlockers} editorial blockers`);
+          }
+          if (manual.summary.rows !== 211 || manual.summary.findings !== 0) {
+            throw new Error(`Manual English audit blocked: ${manual.summary.rows} rows and ${manual.summary.findings} findings`);
           }
           NODE
