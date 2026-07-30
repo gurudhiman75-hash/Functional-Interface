@@ -25,6 +25,11 @@ function polishString(value:string):string{
     .replace(/Do not stop at the total required workforce\./g,"Stopping at the total required workforce reports the wrong target.")
     .replace(/Do not use a direct proportion where the relation is inverse\./g,"A direct proportion would reverse this inverse relation.")
     .replace(/Do not copy an original value after the workforce, hours, deadline, population or workload has changed\./g,"Copying an original value ignores the changed workforce, hours, deadline, population or workload.")
+    .replace(/Do not copy the group-count ratio as the efficiency ratio\./g,"Copying the group-count ratio directly reverses the required individual-efficiency ratio.")
+    .replace(/Do not add raw headcounts\./g,"Adding raw headcounts ignores the different category efficiencies.")
+    .replace(/Use pairwise subtraction or elimination; do not divide a group rate by its total category count\./gi,"Use pairwise subtraction or elimination; dividing a group rate by its total category count would mix unequal categories.")
+    .replace(/Multiply its magnitude by the stated duration; do not take a reciprocal because the target is work changed, not completion time\./gi,"Multiply its magnitude by the stated duration; a reciprocal is unnecessary because the target is work changed, not completion time.")
+    .replace(/Add every signed change to the initial level; do not take a reciprocal\./gi,"Add every signed change to the initial level; a reciprocal is unnecessary.")
     .replace(/(^|[.!?]\s+)Do not\s+/g,"$1It is incorrect to ")
     .replace(/(^|[.!?]\s+)Don't\s+/g,"$1It is incorrect to ")
     .replace(/\bof the tank filled per (minute|hour|day)\b/gi,"of the tank per $1")
@@ -134,14 +139,11 @@ function polishCp005MachineOutput(question:any):any{
   optionAudit.splice(correctIndex,0,correctAudit);
   polished.optionAudit=optionAudit;
   polished.options=optionAudit.map((item:any)=>item.text);
-  const trapIndex=correctIndex===0?1:0;
   const trapCandidate=wrongAudits[0];
   const actualTrapIndex=polished.optionAudit.findIndex((item:any)=>item.misconceptionId===trapCandidate.misconceptionId);
   polished.explanation.commonTrap={
-    optionLabel:optionLabel(actualTrapIndex>=0?actualTrapIndex:trapIndex),
-    optionText:trapCandidate.text,
-    misconceptionId:trapCandidate.misconceptionId,
-    explanation:`${optionLabel(actualTrapIndex>=0?actualTrapIndex:trapIndex)} (${trapCandidate.text}) reflects this trap: ${trapCandidate.reason}.`,
+    optionLabel:optionLabel(actualTrapIndex),optionText:trapCandidate.text,misconceptionId:trapCandidate.misconceptionId,
+    explanation:`${optionLabel(actualTrapIndex)} (${trapCandidate.text}) reflects this trap: ${trapCandidate.reason}.`,
   };
   return polished;
 }
@@ -171,6 +173,12 @@ function polishCp009Decision(question:any):void{
   const wrongAudits=wrongTexts.map((text,index)=>({text,key:`manual:${index}:${text}`,misconceptionId:labels[index]}));
   const optionAudit=[...wrongAudits];optionAudit.splice(correctIndex,0,correctAudit);
   question.optionAudit=optionAudit;question.options=optionAudit.map(item=>item.text);
+  const trapIndex=optionAudit.findIndex(item=>item.misconceptionId==="BOUNDARY_TIME_NOT_CHECKED");
+  const trap=optionAudit[trapIndex];
+  question.explanation.commonTrap={
+    optionLabel:optionLabel(trapIndex),optionText:trap.text,misconceptionId:trap.misconceptionId,
+    explanation:`${optionLabel(trapIndex)} (${trap.text}) reflects this trap: it states an outcome without comparing the exact boundary time with the available time window.`,
+  };
   question.explanation.conclusion=contextualConclusion(question,answerText);
 }
 
