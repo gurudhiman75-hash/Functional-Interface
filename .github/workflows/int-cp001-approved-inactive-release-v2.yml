@@ -1,0 +1,71 @@
+name: Validate INT-CP-001 approved inactive release V2
+
+on:
+  pull_request:
+    branches:
+      - feat/int-001-cp001-close-distractors
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/**
+      - .github/workflows/int-cp001-approved-inactive-release-v2.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-int-cp001-approved-inactive-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-int-cp001-approved-inactive-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle approved close-distractor regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-close-distractor-approval-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-approved-inactive-v2-close-regression.mjs
+      - name: Run approved close-distractor regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/int-001-cp001-approved-inactive-v2-close-regression.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-approved-inactive-v2-close-regression.log
+
+      - name: Bundle approved inactive provider V2 audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-approved-inactive-release-v2-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-approved-inactive-release-v2-audit.mjs
+      - name: Run approved inactive provider V2 audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/int-001-cp001-approved-inactive-release-v2-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-approved-inactive-release-v2-audit.log
+
+      - name: Upload approved inactive release V2 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp001-approved-inactive-release-v2
+          path: |
+            artifacts/api-server/dist/quant-v4/int-001-cp001-approved-inactive-v2-close-regression.log
+            artifacts/api-server/dist/quant-v4/int-001-cp001-approved-inactive-release-v2-audit.log
+          if-no-files-found: warn
+          retention-days: 7
