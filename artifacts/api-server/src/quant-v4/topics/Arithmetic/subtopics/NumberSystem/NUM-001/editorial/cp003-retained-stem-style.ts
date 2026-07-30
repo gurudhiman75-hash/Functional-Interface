@@ -65,7 +65,7 @@ export function polishNumCp003RetainedStem(
       `Statement I: ${String(hiddenState.statementI)}`,
       `Statement II: ${String(hiddenState.statementII)}`,
       "",
-      "Select the correct data-sufficiency option.",
+      "Which data-sufficiency conclusion is correct?",
     ].join("\n");
   }
 
