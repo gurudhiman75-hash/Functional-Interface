@@ -8,7 +8,7 @@ import {
 export const BLR_CP003_FINAL_FREEZE_READINESS_VERSION =
   "BLR_CP003_FINAL_FREEZE_READINESS_V1" as const;
 
-export const BLR_CP003_MIN_ACTIVE_RECORDS_PER_SOURCE_PROTOTYPE = 1 as const;
+export const BLR_CP003_MIN_ACTIVE_RECORDS_PER_AUTHORITY = 4 as const;
 
 export interface BlrCp003AuthorityReadiness {
   authority: BlrCp003ProvisionalNewAuthority;
@@ -18,14 +18,11 @@ export interface BlrCp003AuthorityReadiness {
   activeRecordsByPrototype: Readonly<Record<string, number>>;
   rejectedRecordsByPrototype: Readonly<Record<string, number>>;
   rejectionReasons: readonly string[];
-  unsupportedSourcePrototypeIds: readonly string[];
+  sourcePrototypeIdsWithoutActiveRecords: readonly string[];
   learnerEvidenceReady: boolean;
 }
 
-function increment(
-  counts: Map<string, number>,
-  key: string,
-): void {
+function increment(counts: Map<string, number>, key: string): void {
   counts.set(key, (counts.get(key) ?? 0) + 1);
 }
 
@@ -55,9 +52,7 @@ export function buildBlrCp003FinalFreezeReadiness() {
   const rejectedCounts = new Map<string, number>();
   const rejectionReasons = new Map<string, Set<string>>();
 
-  for (const record of bundle.selected) {
-    increment(activeCounts, record.prototypeId);
-  }
+  for (const record of bundle.selected) increment(activeCounts, record.prototypeId);
   for (const record of bundle.rejected) {
     increment(rejectedCounts, record.prototypeId);
     const reasons = rejectionReasons.get(record.prototypeId) ?? new Set<string>();
@@ -70,10 +65,18 @@ export function buildBlrCp003FinalFreezeReadiness() {
       const sourcePrototypeIds = sourcePrototypeIdsFor(authority);
       const activeRecordsByPrototype = countsFor(sourcePrototypeIds, activeCounts);
       const rejectedRecordsByPrototype = countsFor(sourcePrototypeIds, rejectedCounts);
-      const unsupportedSourcePrototypeIds = sourcePrototypeIds.filter(
-        (prototypeId) =>
-          activeRecordsByPrototype[prototypeId] <
-          BLR_CP003_MIN_ACTIVE_RECORDS_PER_SOURCE_PROTOTYPE,
+      const activeRecordCount = sourcePrototypeIds.reduce(
+        (total, prototypeId) =>
+          total + (activeRecordsByPrototype[prototypeId] ?? 0),
+        0,
+      );
+      const rejectedRecordCount = sourcePrototypeIds.reduce(
+        (total, prototypeId) =>
+          total + (rejectedRecordsByPrototype[prototypeId] ?? 0),
+        0,
+      );
+      const sourcePrototypeIdsWithoutActiveRecords = sourcePrototypeIds.filter(
+        (prototypeId) => activeRecordsByPrototype[prototypeId] === 0,
       );
       const authorityRejectionReasons = [
         ...new Set(
@@ -86,21 +89,14 @@ export function buildBlrCp003FinalFreezeReadiness() {
       return {
         authority,
         sourcePrototypeIds,
-        activeRecordCount: sourcePrototypeIds.reduce(
-          (total, prototypeId) =>
-            total + (activeRecordsByPrototype[prototypeId] ?? 0),
-          0,
-        ),
-        rejectedRecordCount: sourcePrototypeIds.reduce(
-          (total, prototypeId) =>
-            total + (rejectedRecordsByPrototype[prototypeId] ?? 0),
-          0,
-        ),
+        activeRecordCount,
+        rejectedRecordCount,
         activeRecordsByPrototype,
         rejectedRecordsByPrototype,
         rejectionReasons: authorityRejectionReasons,
-        unsupportedSourcePrototypeIds,
-        learnerEvidenceReady: unsupportedSourcePrototypeIds.length === 0,
+        sourcePrototypeIdsWithoutActiveRecords,
+        learnerEvidenceReady:
+          activeRecordCount >= BLR_CP003_MIN_ACTIVE_RECORDS_PER_AUTHORITY,
       };
     });
 
