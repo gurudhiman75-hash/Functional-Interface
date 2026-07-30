@@ -4,6 +4,7 @@ import { renderBlrCp003SvgFamilyTreeMarkup as renderV2 } from "./cp003-svg-famil
 const CARD_HALF_WIDTH = 75;
 const LEGACY_SIBLING_LINE_OFFSET = 12;
 const SIBLING_CARD_EDGE_INSET = 18;
+const SIBLING_ARROW_CLEARANCE = 8;
 const SIBLING_ROUTE_DEPTH = 18;
 const SIBLING_LABEL_OFFSET = 14;
 
@@ -32,11 +33,12 @@ function routeSiblingGroup(
   const leftAnchorX = leftCardCentre + CARD_HALF_WIDTH - SIBLING_CARD_EDGE_INSET;
   const rightAnchorX = rightCardCentre - CARD_HALF_WIDTH + SIBLING_CARD_EDGE_INSET;
   const cardBottom = Math.min(y1, y2) - LEGACY_SIBLING_LINE_OFFSET;
-  const routeY = cardBottom + SIBLING_ROUTE_DEPTH;
+  const arrowTipY = cardBottom + SIBLING_ARROW_CLEARANCE;
+  const routeY = arrowTipY + SIBLING_ROUTE_DEPTH;
   const labelX = (leftAnchorX + rightAnchorX) / 2;
   const labelY = routeY + SIBLING_LABEL_OFFSET;
 
-  return `<g data-sibling-route="card-bottom-bracket" data-sibling-target="inner-card-bottom"><path d="M ${numberText(leftAnchorX)} ${numberText(cardBottom)} V ${numberText(routeY)} H ${numberText(rightAnchorX)} V ${numberText(cardBottom)}" fill="none" stroke="#4f46e5" stroke-width="4" stroke-dasharray="8 6" stroke-linecap="round" stroke-linejoin="round" marker-start="url(#blr-sibling-arrow)" marker-end="url(#blr-sibling-arrow)"/><text x="${numberText(labelX)}" y="${numberText(labelY)}" text-anchor="middle" font-size="10" font-weight="700" fill="#4f46e5">SIBLINGS</text></g>`;
+  return `<g data-sibling-route="card-bottom-bracket" data-sibling-target="inner-card-bottom" data-sibling-arrow-clearance="${SIBLING_ARROW_CLEARANCE}"><path d="M ${numberText(leftAnchorX)} ${numberText(arrowTipY)} V ${numberText(routeY)} H ${numberText(rightAnchorX)} V ${numberText(arrowTipY)}" fill="none" stroke="#4f46e5" stroke-width="4" stroke-dasharray="8 6" stroke-linecap="round" stroke-linejoin="round" marker-start="url(#blr-sibling-arrow)" marker-end="url(#blr-sibling-arrow)"/><text x="${numberText(labelX)}" y="${numberText(labelY)}" text-anchor="middle" font-size="10" font-weight="700" fill="#4f46e5">SIBLINGS</text></g>`;
 }
 
 export function renderBlrCp003SvgFamilyTreeMarkup(
