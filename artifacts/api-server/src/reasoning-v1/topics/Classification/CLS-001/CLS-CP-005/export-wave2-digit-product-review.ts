@@ -12,7 +12,7 @@ const markdown = [
   `Questions: ${questions.length}`,
   "Temporary prototypes: 1",
   "New source-backed rules: 1",
-  "Complete ambiguity registry: Wave 1 rules plus digit-product rule",
+  `Complete ambiguity registry: ${questions[0]?.metadata.completeRuleCount} rules`,
   "Permanent QLs: 0",
   "Equivalent-set admission: pending separate naturalness audit",
   "Question Studio: disabled",
@@ -20,6 +20,8 @@ const markdown = [
   "Test/publication eligibility: disabled",
   "",
   "Rule: multiply the two digits of the first number to obtain the second number.",
+  "",
+  "Every question is independently re-solved against all Wave 1 rules, all generic Wave 2 source-gap rules and the digit-product rule itself. States with another defensible answer or an obvious answer-scale giveaway are rejected.",
   "",
   ...questions.flatMap((question, index) => [
     `## ${index + 1}. ${question.prototypeId}`,
@@ -50,9 +52,13 @@ const markdown = [
     `- Seed: ${question.seed}`,
     `- Intended rule: ${question.intendedRuleId}`,
     `- Complete rule count: ${question.ambiguityAudit.completeRuleCount}`,
-    `- Competing supports: ${question.ambiguityAudit.candidateSupports.length}`,
-    `- Ambiguity result: ${question.ambiguityAudit.result}`,
+    `- Supporting rules: ${question.ambiguityAudit.candidateSupports.length}`,
+    `- Expanded ambiguity result: ${question.expandedAmbiguityAudit.result}`,
+    `- Answer-to-common maximum ratio: ${question.presentationQualityAudit.answerMaximumRatio.toFixed(2)}`,
+    `- Answer-to-common total ratio: ${question.presentationQualityAudit.answerTotalRatio.toFixed(2)}`,
+    `- Internal source attempt: ${question.metadata.sourceAttempt}`,
     `- Runtime: ${question.metadata.runtimeVersion}`,
+    `- Expanded verifier: ${question.metadata.sourceGapAuditVersion}`,
     `- Equivalent-set admission: ${question.metadata.equivalentSetAdmission}`,
     "",
     "</details>",
@@ -66,10 +72,13 @@ await mkdir(outputDir, { recursive: true });
 await writeFile(path.join(outputDir, "cls-cp005-wave2-digit-product-review.json"), `${JSON.stringify(questions, null, 2)}\n`, "utf8");
 await writeFile(path.join(outputDir, "cls-cp005-wave2-digit-product-review.md"), `${markdown}\n`, "utf8");
 
-console.log("CLS-CP-005 Wave 2 digit-product review written.", {
+console.log("CLS-CP-005 expanded-registry digit-product review written.", {
   outputDir,
   questions: questions.length,
   rulesInAmbiguityRegistry: questions[0]?.ambiguityAudit.completeRuleCount,
   optionCounts: [...new Set(questions.map((question) => question.options.length))].sort(),
+  maximumSourceAttempt: Math.max(...questions.map((question) => question.metadata.sourceAttempt)),
+  maximumAnswerMaximumRatio: Math.max(...questions.map((question) => question.presentationQualityAudit.answerMaximumRatio)),
+  maximumAnswerTotalRatio: Math.max(...questions.map((question) => question.presentationQualityAudit.answerTotalRatio)),
   permanentQls: 0,
 });
