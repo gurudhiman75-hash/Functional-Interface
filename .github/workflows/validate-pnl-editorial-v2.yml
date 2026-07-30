@@ -36,6 +36,12 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Align QL-092 native target authority
+        run: |
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-ql092-native-target-fix.mjs
+          pnpm exec prettier --write \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-multilingual-normalizer.ts
+
       - name: Prepare legacy editorial bundle paths
         run: |
           root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
@@ -93,7 +99,8 @@ jobs:
             "$root/.editorial-v2-multilingual-audit.mjs" \
             "$root/.editorial-v2-multilingual-render.test.mjs" \
             "$root/.editorial-v2-multilingual-source-parity.mjs" \
-            "$root/.pnl-001-freeze-readiness-audit.mjs"
+            "$root/.pnl-001-freeze-readiness-audit.mjs" \
+            "$root/pnl-ql092-native-target-fix.mjs"
           git fetch origin New-main
           git checkout origin/New-main -- .github/workflows/validate-pnl-editorial-v2.yml
           git config user.name "github-actions[bot]"
