@@ -34,16 +34,6 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
-      - name: Bundle targeted V3.4 diagnostics
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-v3-4-debug.ts
-          --bundle
-          --platform=node
-          --format=esm
-          --outfile=dist/quant-v4/avg-001-v3-4-debug.mjs
-      - name: Print targeted V3.4 diagnostics
-        run: cd artifacts/api-server && node dist/quant-v4/avg-001-v3-4-debug.mjs
       - name: Bundle V3.4 multilingual parity audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
