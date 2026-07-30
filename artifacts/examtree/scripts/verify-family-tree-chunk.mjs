@@ -27,7 +27,10 @@ for (const name of entries) {
     content.includes("blr-sibling-arrow") &&
     content.includes("marker-start") &&
     content.includes("marker-end") &&
-    content.includes("auto-start-reverse")
+    content.includes("auto-start-reverse") &&
+    content.includes("card-bottom-sibling-bracket") &&
+    content.includes("card-bottom-bracket") &&
+    content.includes("stroke-dasharray")
   ) {
     siblingArrowMatches.push(descriptor);
   }
@@ -51,13 +54,18 @@ if (rendererChunk.bytes > 35_000) {
 
 if (siblingArrowMatches.length !== 1) {
   throw new Error(
-    `Expected exactly one compiled sibling-arrow integration chunk, found ${siblingArrowMatches.length}: ${JSON.stringify(siblingArrowMatches)}.`,
+    `Expected exactly one compiled sibling-card routing chunk, found ${siblingArrowMatches.length}: ${JSON.stringify(siblingArrowMatches)}.`,
   );
 }
 
 const [siblingArrowChunk] = siblingArrowMatches;
 if (siblingArrowChunk.inMainBundle) {
-  throw new Error(`Sibling-arrow integration leaked into the main bundle: ${siblingArrowChunk.name}.`);
+  throw new Error(`Sibling-card routing leaked into the main bundle: ${siblingArrowChunk.name}.`);
+}
+if (siblingArrowChunk.bytes > 35_000) {
+  throw new Error(
+    `Sibling-card routing chunk exceeds the 35 KB raw limit: ${siblingArrowChunk.name} is ${siblingArrowChunk.bytes} bytes.`,
+  );
 }
 
 console.log(
@@ -69,7 +77,8 @@ console.log(
       rawLimitBytes: 35_000,
       siblingArrowChunk: siblingArrowChunk.name,
       siblingArrowRawBytes: siblingArrowChunk.bytes,
-      siblingArrowheads: "BIDIRECTIONAL",
+      siblingArrowheads: "BIDIRECTIONAL_CARD_TARGETED",
+      siblingRoute: "CARD_BOTTOM_BRACKET",
       mainBundleLeak: false,
       externalGraphLibrary: false,
     },
