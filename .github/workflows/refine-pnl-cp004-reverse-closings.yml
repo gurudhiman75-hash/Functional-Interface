@@ -1,0 +1,101 @@
+name: Refine PNL CP-004 Reverse Closings
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/refine-pnl-cp004-reverse-closings.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  refine-cp004-reverse-closings:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout feature source
+        uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-cp004-explanation-diversity
+
+      - name: Differentiate reverse-chain conclusions
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-runtime.ts")
+          source = path.read_text()
+          old = '''        return `${prefix} ${purpose} from final price ${cp004FormatMoney(request.finalSellingPrice)} using ${cp004StageSequence(request.stages)}. Dividing by the stage multipliers recovers the original cost ${answer}.`;'''
+          new = '''        const conclusion =
+                  qlId === "PNL-QL-097"
+                    ? `The recovered two-stage original cost is ${answer}.`
+                    : qlId === "PNL-QL-098"
+                      ? `The three-stage reversal gives original cost ${answer}.`
+                      : `The mixed-direction reversal gives original cost ${answer}.`;
+                return `${prefix} ${purpose} from final price ${cp004FormatMoney(request.finalSellingPrice)} using ${cp004StageSequence(request.stages)}. ${conclusion}`;'''
+          if old in source:
+              source = source.replace(old, new, 1)
+              path.write_text(source)
+          elif "The recovered two-stage original cost" not in source:
+              raise SystemExit("CP-004 reverse-closing anchor not found")
+          PY
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Format corrected runtime
+        run: pnpm exec prettier --write artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-runtime.ts
+
+      - name: Bundle and run CP-004 proof
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-runtime.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/.cp004-dynamic-runtime.test.mjs \
+            2>&1 | tee pnl-cp004-reverse-closing.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/.cp004-dynamic-runtime.test.mjs \
+            2>&1 | tee -a pnl-cp004-reverse-closing.log
+
+      - name: Bundle and run chapter audit
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
+            2>&1 | tee -a pnl-cp004-reverse-closing.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
+            2>&1 | tee -a pnl-cp004-reverse-closing.log
+
+      - name: Commit proven correction
+        run: |
+          if git diff --quiet -- artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-runtime.ts; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-runtime.ts
+          git commit -m "fix(pnl): vary CP-004 reverse-chain conclusions"
+          git push origin HEAD:feat/pnl-001-cp004-explanation-diversity
+
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-cp004-reverse-closing-refinement
+          path: |
+            pnl-cp004-reverse-closing.log
+            dist/quant-v4/pnl-001-english-editorial-audit
+          if-no-files-found: error
+          retention-days: 14
