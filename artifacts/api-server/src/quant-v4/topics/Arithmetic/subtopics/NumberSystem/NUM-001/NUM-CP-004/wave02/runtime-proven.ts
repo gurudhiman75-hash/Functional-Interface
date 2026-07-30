@@ -11,9 +11,18 @@ function generateExpandedPrimeTriple(seed: number): NumCp004Wave02Package {
   const tierResidue = ((seed - 1) % 3) + 1;
   const authoritySeed = seed * 300 + tierResidue;
   const pkg = generateFoundationPackage("NUM-CP004-PROT-014", authoritySeed);
+  const correctOption = pkg.options.find((option) => option.isCorrect)!;
+  const wrongOptions = pkg.options.filter((option) => !option.isCorrect);
+  const correctIndex = (seed - 1) % 4;
+  const options = Array.from({ length: 4 }, (_, index) =>
+    index === correctIndex ? correctOption : wrongOptions[index < correctIndex ? index : index - 1]!,
+  );
+
   return {
     ...pkg,
     seed,
+    options,
+    correctIndex,
     hiddenState: {
       ...pkg.hiddenState,
       requestedSeed: seed,
@@ -22,6 +31,7 @@ function generateExpandedPrimeTriple(seed: number): NumCp004Wave02Package {
     prototypeAncestry: [
       ...pkg.prototypeAncestry,
       "WAVE02-EXPANDED-PRIME-TRIPLE-SAMPLER",
+      "REQUESTED-SEED-ANSWER-POSITION-NORMALIZER",
     ],
     mathematicalFingerprint: `NUM-CP004-PROT-014:${JSON.stringify(pkg.hiddenState)}`,
   };
