@@ -22,6 +22,20 @@ function repairAllCurrencyAmounts(pkg: Avg001QuestionPackage) {
   };
 }
 
+function clarifySymmetricRatio(pkg: Avg001QuestionPackage) {
+  if (pkg.solveMode !== "findGroupCountRatioFromCombinedAverage") return pkg;
+  const ratio = pkg.answer.match(/(\d+)\s*:\s*(\d+)/);
+  if (!ratio || ratio[1] !== ratio[2]) return pkg;
+  const note = pkg.language === "en"
+    ? "A 1:1 ratio is unchanged in reverse order, so every unequal option is incorrect. "
+    : pkg.language === "hi"
+      ? "1:1 अनुपात उलटे क्रम में भी वही रहता है, इसलिए हर असमान विकल्प गलत है। "
+      : "1:1 ਅਨੁਪਾਤ ਉਲਟੇ ਕ੍ਰਮ ਵਿੱਚ ਵੀ ਉਹੀ ਰਹਿੰਦਾ ਹੈ, ਇਸ ਲਈ ਹਰ ਅਸਮਾਨ ਵਿਕਲਪ ਗਲਤ ਹੈ। ";
+  const lines = [...pkg.explanation.lines];
+  lines[3] = `${note}${lines[3]}`;
+  return { ...pkg, explanation: { lines } };
+}
+
 function hasUnlabelledLargeAmount(text: string) {
   return [...text.matchAll(/(?<!₹)\b\d[\d,]*\b/g)]
     .some((match) => match[0].replaceAll(",", "").length >= 4);
@@ -48,7 +62,9 @@ function refreshedValidation(pkg: Avg001QuestionPackage) {
 export function applyAvg001NaturalLanguageV3ApprovedReview(
   source: Avg001QuestionPackage,
 ): Avg001QuestionPackage {
-  const reviewed = repairAllCurrencyAmounts(applyAvg001NaturalLanguageV3FinalReview(source));
+  const reviewed = clarifySymmetricRatio(
+    repairAllCurrencyAmounts(applyAvg001NaturalLanguageV3FinalReview(source)),
+  );
   const revised: Avg001QuestionPackage = {
     ...reviewed,
     maturity: "MANUAL_REVIEW",
