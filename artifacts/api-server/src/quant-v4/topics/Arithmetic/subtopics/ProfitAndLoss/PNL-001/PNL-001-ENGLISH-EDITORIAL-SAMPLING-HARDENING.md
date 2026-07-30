@@ -5,16 +5,17 @@
 The chapter audit now samples from 48 mixed deterministic candidates per QL. It first maximises semantic stem shape and displayed-answer diversity, then exact visible-value variation.
 
 ```text
-QLs:                              186
-Review rows:                      558
-Candidate seeds per QL:           48
-Fatal findings:                   0
-Editorial findings:               46
-Unresolved same-QL stem repeats:  0
-Unresolved same-QL answer repeats:0
-Contractually fixed stems:        0
-Contractually fixed answers:      7
-Audit status:                     REVIEW_REQUIRED
+QLs:                               186
+Review rows:                       558
+Candidate seeds per QL:            48
+Generated candidate packages:   8,928
+Fatal findings:                     0
+Editorial findings:                46
+Unresolved same-QL stem repeats:    0
+Unresolved same-QL answer repeats:  0
+Contractually fixed stems:          0
+Contractually fixed answers:        7
+Audit status:                 REVIEW_REQUIRED
 ```
 
 ## Corrected false sampling signals
@@ -49,6 +50,18 @@ PNL-QL-035, PNL-QL-067, PNL-QL-070, PNL-QL-090, PNL-QL-117, PNL-QL-147, PNL-QL-1
 ```
 
 The remaining repeated openings, closings and paragraphs come from shared frozen Editorial V2 prose and require targeted editorial decisions. They are no longer mixed with false same-stem or same-answer findings caused by review-sample selection.
+
+## Hosted proof
+
+```text
+Workflow: Harden PNL English Editorial Audit Sampling
+Run:      30538244105
+Result:   PASS
+Artifact: 8757576162
+Digest:   sha256:bd110966313b3e95fcaf22f12fa1d5e87c1604d0fb18d83a5e21ef604823749a
+```
+
+The proof regenerated the complete audit corpus, passed the existing CP-003 and CP-005 editorial seed regressions, passed option regressions, verified zero fatal findings, and required each selected three-row set to use all exact and normalized stem diversity available in its 48-candidate pool.
 
 ## Safety boundary
 
