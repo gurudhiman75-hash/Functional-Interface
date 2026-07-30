@@ -30,7 +30,7 @@ assert.equal(bundle.sourceRecordCount, 208);
 assert.equal(bundle.sourceEligibleRecordCount, 116);
 assert.equal(bundle.supplementalRecordCount, 12);
 
-const siblingRoutePattern = /<g data-sibling-route="card-bottom-bracket"><path d="M (-?\d+(?:\.\d+)?) (-?\d+(?:\.\d+)?) V (-?\d+(?:\.\d+)?) H (-?\d+(?:\.\d+)?) V (-?\d+(?:\.\d+)?)"[^>]*stroke-dasharray="8 6"[^>]*marker-start="url\(#blr-sibling-arrow\)"[^>]*marker-end="url\(#blr-sibling-arrow\)"\/>/g;
+const siblingRoutePattern = /<g data-sibling-route="card-bottom-bracket" data-sibling-target="inner-card-bottom"><path d="M (-?\d+(?:\.\d+)?) (-?\d+(?:\.\d+)?) V (-?\d+(?:\.\d+)?) H (-?\d+(?:\.\d+)?) V (-?\d+(?:\.\d+)?)"[^>]*stroke-dasharray="8 6"[^>]*marker-start="url\(#blr-sibling-arrow\)"[^>]*marker-end="url\(#blr-sibling-arrow\)"\/>/g;
 
 for (const record of records) {
   const diagram = record.proceduralLogic;
@@ -74,8 +74,10 @@ for (const record of records) {
   if (markup.includes('stroke-dasharray="8 6"')) {
     siblingArrowDiagramCount += 1;
     assert.ok(markup.includes('id="blr-sibling-arrow"'));
-    assert.ok(markup.includes('orient="auto-start-reverse"'));
+    assert.ok(markup.includes('orient="-90"'));
+    assert.ok(!markup.includes('orient="auto-start-reverse"'));
     assert.ok(markup.includes('data-sibling-route="card-bottom-bracket"'));
+    assert.ok(markup.includes('data-sibling-target="inner-card-bottom"'));
     assert.ok(markup.includes('marker-start="url(#blr-sibling-arrow)"'));
     assert.ok(markup.includes('marker-end="url(#blr-sibling-arrow)"'));
     assert.ok(!/<line[^>]*stroke-dasharray="8 6"/.test(markup));
@@ -176,7 +178,7 @@ console.log(
       highlightedAnswerPaths: highlightedPathCount,
       siblingArrowDiagrams: siblingArrowDiagramCount,
       siblingCardBottomRoutes: siblingCardRouteCount,
-      siblingArrowheads: "BIDIRECTIONAL_CARD_TARGETED",
+      siblingArrowheads: "BIDIRECTIONAL_INNER_CARD_TARGETED",
       provisionalAuthorities: cp003ProvisionalAuthorities().sort(),
       averageStructuredPayloadBytes: averagePayloadBytes,
       maximumPayloadBytes: 12_000,
