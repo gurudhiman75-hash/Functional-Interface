@@ -1,0 +1,91 @@
+name: Validate INT-CP-001 explanation sanitization
+
+on:
+  pull_request:
+    branches:
+      - review/int-001-cp001-315-question-pack
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/**
+      - .github/workflows/int-cp001-explanation-sanitization.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-int-cp001-explanation-sanitization-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-int-cp001-explanation-sanitization:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle explanation sanitization audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-explanation-sanitization-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-explanation-sanitization-audit.mjs
+      - name: Run explanation sanitization audit
+        shell: bash
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp001-explanation-sanitization-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp001-explanation-sanitization-audit.log
+
+      - name: Bundle sanitized review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-sanitized-large-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-sanitized-large-review-export.mjs
+      - name: Generate clean 315-question review corpus
+        shell: bash
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp001-sanitized-large-review-export.mjs 2>&1 | tee dist/quant-v4/int-001-cp001-sanitized-large-review-export.log
+
+      - name: Verify clean learner artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          root=artifacts/api-server/dist/quant-v4/int-cp001-sanitized-review-pack
+          for language in english hindi punjabi; do
+            test -f "$root/int-001-cp001-${language}-105-clean-questions.md"
+            test -f "$root/int-001-cp001-${language}-105-clean-answers-and-explanations.md"
+            test -f "$root/int-001-cp001-${language}-105-sanitized-review-data.json"
+          done
+          test -f "$root/int-001-cp001-315-sanitized-review-checklist.csv"
+          test -f "$root/int-001-cp001-315-sanitized-review-summary.json"
+          ! grep -R -n -E '<sub>Trace:|seed large-review|INT-QL-|language question' "$root"/*.md
+          ! grep -R -n -E '\\text\{₹\}|₹' "$root"/*answers-and-explanations.md | grep -E '\$|\\\['
+          grep -q 'PASS_INT_CP001_EXPLANATION_SANITIZATION_V1' artifacts/api-server/dist/quant-v4/int-001-cp001-explanation-sanitization-audit.log
+          grep -q 'PASS_INT_CP001_315_SANITIZED_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp001-sanitized-large-review-export.log
+
+      - name: Upload explanation sanitization evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp001-explanation-sanitization-review-candidate
+          path: |
+            artifacts/api-server/dist/quant-v4/int-cp001-sanitized-review-pack/**
+            artifacts/api-server/dist/quant-v4/int-001-cp001-explanation-sanitization-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp001-sanitized-large-review-export.log
+          if-no-files-found: error
+          retention-days: 14
