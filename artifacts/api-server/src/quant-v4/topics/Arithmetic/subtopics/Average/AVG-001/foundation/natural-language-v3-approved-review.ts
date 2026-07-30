@@ -15,8 +15,16 @@ function repairAllCurrencyAmounts(pkg: Avg001QuestionPackage) {
   if (pkg.language !== "en" || !pkg.answer.startsWith("₹")) return pkg;
   return {
     ...pkg,
-    stem: pkg.stem.replace(/(?<!₹)(?<![\d,])(\d{4,})(?![\d,])/g, (_full, value: string) => `₹${groupIndianDigits(value)}`),
+    stem: pkg.stem.replace(/(?<!₹)\b\d[\d,]*\b/g, (token) => {
+      const digits = token.replaceAll(",", "");
+      return digits.length >= 4 ? `₹${groupIndianDigits(digits)}` : token;
+    }),
   };
+}
+
+function hasUnlabelledLargeAmount(text: string) {
+  return [...text.matchAll(/(?<!₹)\b\d[\d,]*\b/g)]
+    .some((match) => match[0].replaceAll(",", "").length >= 4);
 }
 
 function refreshedValidation(pkg: Avg001QuestionPackage) {
@@ -31,7 +39,7 @@ function refreshedValidation(pkg: Avg001QuestionPackage) {
       pkg.explanation.lines.length === 4 &&
       pkg.explanation.lines[3]?.includes(pkg.answer) === true &&
       !/(?<!\\)(?:div|times)(?=[0-9\s({])/.test(text) &&
-      (pkg.language !== "en" || !pkg.answer.startsWith("₹") || !/(?<!₹)(?<![\d,])\d{4,}(?![\d,])/.test(pkg.stem)),
+      (pkg.language !== "en" || !pkg.answer.startsWith("₹") || !hasUnlabelledLargeAmount(pkg.stem)),
     message: "V3.3 candidate preserves the correct display, four-part explanation, valid MathJax operators and explicit currency amounts",
   });
   return { valid: checks.every((check) => check.passed), checks };
