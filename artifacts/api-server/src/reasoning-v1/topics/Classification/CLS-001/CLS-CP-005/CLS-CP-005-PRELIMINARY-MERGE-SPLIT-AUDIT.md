@@ -1,117 +1,159 @@
 # CLS-CP-005 — Preliminary Merge/Split Audit
 
-Status: `PROVISIONAL_BOUNDARY_STABLE__SOURCE_GAP_WAVE_2_OPEN`
+Status: `PROVISIONAL_TWO_CONTRACT_BOUNDARY__WAVE_2_HUMAN_REVIEW_REQUIRED`
 
 Permanent QLs: `0`
 
 ## Evidence reviewed
 
-The first executable wave covers:
+The executable evidence now contains three layers:
 
-- ten ordered-pair relation families;
-- eight ordered-triple relation families;
-- odd-pair classification;
-- odd-triple classification;
+### Wave 1 foundation
+
+- twenty temporary prototypes;
+- ten ordered-pair rule families;
+- eight ordered-triple rule families;
+- odd-pair and odd-triple classification;
 - pair and triple equivalent-set selection;
-- four- and five-option rendering;
-- direction-sensitive and direction-neutral rules;
-- exact-value and fixed-predicate signatures;
-- complete bounded competing-rule enumeration.
+- 1,200 deterministic questions;
+- approved Simple Option Explanations V3.
 
-The prototype count is evidence coverage, not a proposed QL count.
+### Generic source-gap Wave 2
 
-The product owner approved the English `Simple Option Explanations V3` baseline. Human editorial review is therefore closed for Wave 1.
+- nineteen temporary prototypes;
+- sixteen source-backed rule families;
+- odd-tuple and equivalent-set directions;
+- pair, triple and four-number arities;
+- 324 deterministic expanded-rule-unique questions;
+- 76 review questions.
+
+### Digit-product supplement
+
+- one temporary odd-pair prototype;
+- one source-backed digit-product rule;
+- 240 deterministic expanded-rule-unique questions;
+- 24 review questions;
+- equivalent-set admission still pending.
+
+Prototype and rule counts measure evidence coverage. They are not proposed QL counts.
+
+## Shared rule universe
+
+All three layers are now audited against one complete competing-rule universe:
+
+```text
+Wave 1 rules:                     18
+Generic source-gap Wave 2 rules: 16
+Digit-product supplement:         1
+Complete rule count:             35
+```
+
+A question is retained only when every supporting rule points to the same answer.
 
 ## Candidate boundary 1 — Find the odd number tuple
 
-The ordered-pair and ordered-triple prototypes currently share one learner contract:
+All odd-pair, odd-triple and odd-four-number-group prototypes currently share one learner contract:
 
 ```text
 evaluate the internal rule of every complete tuple
-  -> identify the rule shared by all but one option
-  -> select the tuple with the different rule
+  -> identify the relation shared by all but one option
+  -> select the tuple with the different relation
 ```
 
-Pair versus triple arity changes the available rule registry and arithmetic demand, but it does not currently change:
+Arity changes the available rule family, arithmetic demand and option layout, but it does not change:
 
 - the answer object — one complete displayed tuple;
 - the mismatch semantics;
-- the ambiguity model;
-- the lifecycle contract;
-- the four-tier explanation topology.
+- the unique-answer proof;
+- the independent ambiguity model;
+- the explanation topology;
+- the lifecycle contract.
+
+This remains true for:
+
+- exact-value relations such as common sum or product;
+- fixed positional transforms;
+- predicates such as primality and divisibility;
+- digit-composition rules;
+- proportional four-number vectors.
 
 ### Preliminary disposition
 
 ```text
-Odd ordered pair prototypes:    MERGE_AS_ARITY_INSTANCE_VARIANT
-Odd ordered triple prototypes:  MERGE_AS_ARITY_INSTANCE_VARIANT
+Odd pair prototypes:               MERGE_AS_ARITY_INSTANCE_VARIANT
+Odd triple prototypes:             MERGE_AS_ARITY_INSTANCE_VARIANT
+Odd four-number-group prototypes:  MERGE_AS_ARITY_INSTANCE_VARIANT
+Digit-product odd pair:            MERGE_AS_RULE_INSTANCE_VARIANT
 ```
 
-This points provisionally to one learner contract for finding an odd number tuple. It does not reserve or allocate a QL.
+This points provisionally to one learner contract for finding an odd number tuple. No QL is reserved or allocated.
 
 ## Candidate boundary 2 — Select the tuple with the same rule
 
-Equivalent-set selection introduces a supplied reference tuple. The learner must first recover its internal signature and then find the unique candidate with the same signature.
+Equivalent-set selection supplies a reference tuple. The learner must:
+
+```text
+recover the internal signature of the reference tuple
+  -> evaluate each complete candidate under the same positional roles
+  -> select the unique matching tuple
+```
 
 This changes:
 
 - the displayed state topology;
 - match versus mismatch semantics;
-- the canonical proof;
-- the independent ambiguity audit;
+- the answer proof;
+- the independent verifier path;
 - the explanation sequence.
 
-Pair and triple versions still share that reference-and-match contract; arity remains an instance property.
+Pair, triple and four-number equivalent-set forms share that reference-and-match contract. Arity remains an instance property.
 
 ### Preliminary disposition
 
 ```text
-Equivalent pair prototypes:    MERGE_AS_ARITY_INSTANCE_VARIANT
-Equivalent triple prototypes:  MERGE_AS_ARITY_INSTANCE_VARIANT
-Odd-tuple prototypes:          SPLIT_BY_SOLVER_CONTRACT
+Equivalent pair prototypes:               MERGE_AS_ARITY_INSTANCE_VARIANT
+Equivalent triple prototypes:             MERGE_AS_ARITY_INSTANCE_VARIANT
+Equivalent four-number prototypes:        MERGE_AS_ARITY_INSTANCE_VARIANT
+Odd-tuple prototypes:                     SPLIT_BY_SOLVER_CONTRACT
+Digit-product equivalent-set admission:   OPEN
 ```
 
-This points provisionally to a separate learner contract for selecting a tuple with the same rule as a reference tuple. It does not reserve or allocate a QL.
+The digit-product rule is not automatically admitted to this contract. Its reference-pair form still requires a naturalness, diversity and ambiguity audit.
 
 ## Relation-family treatment
 
-The following remain rule-instance variants inside the relevant task contract unless later evidence proves otherwise:
+The following remain rule-instance variants unless later evidence changes the answer semantics or proof topology:
 
-- difference, ratio, sum and product;
-- GCD and LCM;
+- difference, ratio, sum, product, GCD and LCM;
 - consecutive, square, cube and digit-reversal direction;
-- two-to-one sum or product within a triple;
-- arithmetic and geometric progression;
-- Pythagorean position relation;
-- tuple sum and tuple product;
+- triple sum/product-to-position, AP, GP and Pythagorean relations;
+- tuple total and tuple product;
+- source-attested affine transforms;
+- prime and divisibility predicates;
+- digit permutation and same-digit tuple rules;
+- proportional four-number vectors;
+- first-number digit product;
 - forward versus reverse direction;
 - four versus five options;
 - numerical magnitude and difficulty.
 
-Exact-value signatures and fixed-predicate signatures use different calculations but the same final classification proof. No QL split is currently justified by calculation type alone.
+Calculation type alone does not justify a QL split when the learner action, answer object and proof remain the same.
 
-## Meaningful source gap found after approval
-
-The repeated source audit found a standard Number Classification pair form in which the decimal digits of the first number generate the second number:
+## Expanded evidence result
 
 ```text
-34 : 12
-67 : 54
-57 : 35
-48 : 32
+Wave 1 audit questions:                   1200
+Generic Wave 2 audit questions:            324
+Digit-product audit questions:             240
+Total executable audit questions:         1764
+Expanded-answer conflicts:                   0
+Generic Wave 2 review questions:            76
+Digit-product review questions:             24
+Wave 1 approved review questions:            60
+Total English review questions:             160
 ```
 
-The common relation is `product of digits of first = second`. The current registry cannot represent this relation.
-
-This is owned by CP-005 because every option is a complete ordered pair and the task is to classify one pair as different. It is not CP-004 single-number classification and it is not Numeric Analogy source-to-target completion.
-
-Wave 2 must therefore add and audit:
-
-```text
-PAIR_FIRST_DIGIT_PRODUCT_TO_SECOND
-```
-
-This source gap does not alter the provisional two-contract compression. It is a missing rule instance inside the odd-number-tuple contract. Admission to reference-set matching requires a separate naturalness and ambiguity proof.
+The four-number evidence supports the arity-variant hypothesis rather than a new contract. The digit-product evidence supports the rule-instance hypothesis rather than a new contract.
 
 ## Rejections and exclusions
 
@@ -119,30 +161,30 @@ This source gap does not alter the provisional two-contract compression. It is a
 - ordered progression continuation remains Series;
 - incomplete diagrams or missing-cell tasks remain Missing Number;
 - unrestricted equations and polynomial fitting are rejected;
-- permutation-only candidate matches and reversal-duplicate options are editorially rejected;
-- states with competing admitted rules pointing to different answers are rejected;
-- analogy-only evidence does not automatically admit a new Classification rule.
+- permutation-only candidate matches and reversal-duplicate options are rejected;
+- states with competing rules pointing to different answers are rejected;
+- analogy-only evidence does not automatically admit a Classification rule;
+- an odd-tuple rule is not automatically admitted to equivalent-set matching.
 
 ## Open before permanent allocation
 
-- implement the source-backed digit-product pair relation;
-- audit odd-pair generation with four and five options;
-- separately determine whether the relation is natural for equivalent-set matching;
-- include the new relation in complete competing-rule enumeration;
-- reject digit-length and result-scale giveaways;
-- generate V3 simple explanations for the new relation;
-- repeat direct/inverse and answer-semantic gap audits;
-- repeat the no-meaningful-gap decision.
+- human review the 76-question generic Wave 2 artifact;
+- human review the 24-question digit-product supplement;
+- decide digit-product equivalent-set admission through a separate naturalness audit;
+- repeat source saturation after review corrections;
+- run final direct/inverse and answer-semantic gap audits;
+- freeze the permanent learner-contract boundary only when no meaningful gap remains.
 
 ## Current provisional compression
 
 ```text
-Wave 1 temporary prototypes:          20
-Wave 1 admitted bounded rules:        18
-Meaningful Wave 2 gaps found:          1
-Task directions:                       3
-Provisional learner-contract shapes:   2
-Permanent QLs:                         0
+Wave 1 temporary prototypes:            20
+Generic Wave 2 temporary prototypes:    19
+Digit-product temporary prototypes:      1
+Complete competing-rule count:          35
+Represented arities:                 2, 3, 4
+Provisional learner-contract shapes:     2
+Permanent QLs:                            0
 ```
 
-The learner-contract boundary remains provisionally stable, but English freeze is blocked until Wave 2 and the repeated source-gap audit are complete.
+The current evidence strongly supports two eventual learner contracts, but permanent IDs remain blocked until Wave 2 human review and final gap closure.
