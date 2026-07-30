@@ -67,6 +67,25 @@ function humaniseMisconceptionId(id: string): string {
     .replace(/^./, (character) => character.toUpperCase());
 }
 
+interface ParsedTrap {
+  readonly option: string;
+  readonly misconceptionId: string;
+  readonly explanation: string;
+}
+
+function parseTrap(rawTrap: unknown): ParsedTrap | null {
+  const text = normaliseNumberSystemReviewMath(rawTrap).trim();
+  const match = text.match(/^(.*?):\s*([A-Z][A-Z0-9_]+)\.?$/);
+  if (!match) return null;
+  const misconceptionId = match[2]!;
+  return {
+    option: match[1]!.trim(),
+    misconceptionId,
+    explanation: SPECIFIC_WARNINGS[misconceptionId]
+      ?? `This choice reflects the misconception “${humaniseMisconceptionId(misconceptionId).toLowerCase()}”. Recheck the governing condition before selecting it.`,
+  };
+}
+
 export function normaliseNumberSystemReviewMath(text: unknown): string {
   return String(text ?? "")
     .replace(/\\\((.+?)\\\)/g, "$$$1$")
@@ -76,18 +95,20 @@ export function normaliseNumberSystemReviewMath(text: unknown): string {
 }
 
 /**
- * Converts an internal misconception-labelled option into a student-facing
- * warning while retaining the stable diagnostic ID for editorial traceability.
+ * Converts an internal misconception-labelled option into plain learner-facing
+ * text while retaining the stable diagnostic ID for traceability.
+ */
+export function formatNumCp004StudentWarningText(rawTrap: unknown): string {
+  const parsed = parseTrap(rawTrap);
+  if (!parsed) return normaliseNumberSystemReviewMath(rawTrap).trim();
+  return `${parsed.option}: ${parsed.explanation} [${parsed.misconceptionId}]`;
+}
+
+/**
+ * Markdown version of the same learner-facing warning.
  */
 export function renderNumCp004StudentWarning(rawTrap: unknown): string {
-  const text = normaliseNumberSystemReviewMath(rawTrap).trim();
-  const match = text.match(/^(.*?):\s*([A-Z][A-Z0-9_]+)\.?$/);
-  if (!match) return `- ${text}`;
-
-  const option = match[1]!.trim();
-  const misconceptionId = match[2]!;
-  const explanation = SPECIFIC_WARNINGS[misconceptionId]
-    ?? `This choice reflects the misconception “${humaniseMisconceptionId(misconceptionId).toLowerCase()}”. Recheck the governing condition before selecting it.`;
-
-  return `- **${option}:** ${explanation} (\`${misconceptionId}\`)`;
+  const parsed = parseTrap(rawTrap);
+  if (!parsed) return `- ${normaliseNumberSystemReviewMath(rawTrap).trim()}`;
+  return `- **${parsed.option}:** ${parsed.explanation} (\`${parsed.misconceptionId}\`)`;
 }
