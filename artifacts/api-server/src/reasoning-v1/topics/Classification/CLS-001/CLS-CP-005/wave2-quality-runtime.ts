@@ -1,3 +1,4 @@
+import { auditClsCp005QuestionAgainstExpandedRegistry } from "./source-gap-expanded-audit";
 import type { ClsCp005SourceGapRuleId, ClsCp005SourceGapTuple } from "./source-gap-registry";
 import {
   generateClsCp005Wave2Question,
@@ -29,6 +30,26 @@ function median(values: readonly number[]): number {
   return sorted.length % 2 === 1
     ? sorted[middle]!
     : (sorted[middle - 1]! + sorted[middle]!) / 2;
+}
+
+function digitKey(value: number): string {
+  return String(Math.abs(value)).split("").sort().join("");
+}
+
+function displayTuple(tuple: ClsCp005SourceGapTuple): string {
+  return `(${tuple.join(", ")})`;
+}
+
+function unorderedTupleKey(tuple: ClsCp005SourceGapTuple): string {
+  return [...tuple].sort((left, right) => left - right).join(",");
+}
+
+function sameDigitFailureEvidence(tuple: readonly [number, number, number]): string {
+  const keys = tuple.map(digitKey);
+  const math = keys
+    .map((key, index) => `D_${index + 1} = \\{${key.split("").join(",")}\\}`)
+    .join(",\\quad ");
+  return `${displayTuple(tuple)}: The sorted digit groups are not all identical. \\( ${math} \\) — ❌ Fails rule.`;
 }
 
 export type ClsCp005Wave2PresentationAudit = {
@@ -115,6 +136,74 @@ export function renderClsCp005Wave2CoreRule(ruleId: ClsCp005SourceGapRuleId, val
   }
 }
 
+function repairSameDigitOddScale<T extends ReturnType<typeof generateClsCp005Wave2Question>>(
+  question: T,
+  sourcePrototypeSeed: number,
+): T {
+  if (
+    question.prototypeId !== "CLS-CP005-W2-PROT-015"
+    || question.task !== "FIND_ODD_NUMBER_TUPLE"
+    || question.intendedRuleId !== "TRIPLE_SAME_DIGIT_MULTISET"
+  ) {
+    return question;
+  }
+
+  const correctIndex = question.correctIndex;
+  const commonTuples = question.tuples.filter((_, index) => index !== correctIndex);
+  const commonValues = commonTuples.flatMap((tuple) => [...tuple]);
+  const anchor = Math.round(median(commonValues));
+  const forbidden = new Set(commonTuples.map(unorderedTupleKey));
+
+  for (let offset = 0; offset < 800; offset += 1) {
+    const first = 100 + ((anchor + sourcePrototypeSeed + offset * 37) % 800);
+    const second = 100 + ((anchor * 3 + sourcePrototypeSeed + 17 + offset * 53) % 800);
+    const third = 100 + ((anchor * 5 + sourcePrototypeSeed + 29 + offset * 71) % 800);
+    const replacement = [first, second, third] as const;
+    if (new Set(replacement).size !== 3) continue;
+    if (new Set(replacement.map(digitKey)).size === 1) continue;
+    if (forbidden.has(unorderedTupleKey(replacement))) continue;
+
+    const tuples = question.tuples.map((tuple, index) => index === correctIndex ? replacement : tuple);
+    const audit = auditClsCp005QuestionAgainstExpandedRegistry({
+      task: question.task,
+      referenceTuple: null,
+      tuples,
+      intendedRuleId: question.intendedRuleId,
+      intendedRuleValue: question.intendedRuleValue,
+    });
+    if (audit.result !== "EXPANDED_UNIQUE" || audit.answerIndex !== correctIndex) continue;
+
+    const options = tuples.map(displayTuple);
+    const evidenceByOption = question.evidenceByOption.map((evidence, index) =>
+      index === correctIndex ? sameDigitFailureEvidence(replacement) : evidence);
+    const answer = options[correctIndex]!;
+    const commonOptions = options.filter((_, index) => index !== correctIndex);
+
+    return {
+      ...question,
+      tuples,
+      options,
+      answer,
+      evidenceByOption,
+      expandedAmbiguityAudit: audit,
+      explanation: {
+        ...question.explanation,
+        stepByStep: [
+          "Apply the same complete rule to every option.",
+          `${commonOptions.join(", ")} follow the common relation, while ${answer} fails it.`,
+          `Therefore, ${answer} is the odd option.`,
+        ],
+      },
+      metadata: {
+        ...question.metadata,
+        scaleRepairVersion: "same-digit-triple-v1" as const,
+      },
+    } as T;
+  }
+
+  return question;
+}
+
 export function generateClsCp005Wave2QualityQuestion(
   prototypeId: ClsCp005Wave2PrototypeId,
   seed = 0,
@@ -126,7 +215,8 @@ export function generateClsCp005Wave2QualityQuestion(
 
   for (let attempt = 0; attempt < MAX_QUALITY_ATTEMPTS; attempt += 1) {
     const sourcePrototypeSeed = seed + attempt * 10_007;
-    const candidate = generateClsCp005Wave2Question(prototypeId, sourcePrototypeSeed, requestedOptionCount);
+    const generated = generateClsCp005Wave2Question(prototypeId, sourcePrototypeSeed, requestedOptionCount);
+    const candidate = repairSameDigitOddScale(generated, sourcePrototypeSeed);
     const presentationQualityAudit = auditClsCp005Wave2PresentationQuality(candidate);
     if (presentationQualityAudit.result !== "PASS") continue;
 
