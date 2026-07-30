@@ -11,11 +11,15 @@ function textOf(value:unknown):string{return typeof value==="string"?value:"";}
 for(const adapter of TMW_ENGLISH_ADAPTERS){
   for(const entry of adapter.registry){
     let question:any|undefined;
+    let lastError="";
     for(let attempt=0;attempt<100;attempt+=1){
-      const candidate=adapter.run(entry.qlId,`english-manual-audit-${entry.qlId}-${attempt}`);
-      if(candidate.validation?.valid){question=candidate;break;}
+      try{
+        const candidate=adapter.run(entry.qlId,`english-manual-audit-${entry.qlId}-${attempt}`);
+        if(candidate.validation?.valid){question=candidate;break;}
+        lastError=Array.isArray(candidate.validation?.errors)?candidate.validation.errors.join("; "):"candidate validation failed";
+      }catch(error){lastError=error instanceof Error?error.message:String(error);}
     }
-    if(!question){add(adapter.cpId,entry.qlId,"NO_VALID_CANDIDATE","No valid English candidate was generated in 100 attempts.");continue;}
+    if(!question){add(adapter.cpId,entry.qlId,"NO_VALID_CANDIDATE",`No valid English candidate was generated in 100 attempts. Last error: ${lastError}`);continue;}
     questions.push(question);
     const learner=tmwEnglishLearnerText(question);
     const options=Array.isArray(question.options)?question.options:[];
