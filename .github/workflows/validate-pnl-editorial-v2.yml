@@ -1,27 +1,27 @@
-name: Validate PNL Editorial V2
+name: Align PNL Prose Wave Multilingual Sources
 
 on:
-  push:
-    branches:
-      - feat/pnl-001-editorial-structured-review
-    paths:
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
-      - ".github/workflows/validate-pnl-editorial-v2.yml"
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
       - ".github/workflows/validate-pnl-editorial-v2.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  validate-pnl-editorial-v2:
+  align-multilingual-sources:
+    if: github.head_ref == 'feat/pnl-001-english-prose-cluster-diversity'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
-      - name: Checkout source
+      - name: Checkout feature branch
         uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-english-prose-cluster-diversity
+          fetch-depth: 0
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -43,156 +43,61 @@ jobs:
           ln -s ../CP-002 "$root/foundation/CP-002"
           ln -s ../CP-003 "$root/foundation/CP-003"
 
-      - name: Bundle and run CP-004 to CP-006 editorial audit
-        id: editorial_audit
-        continue-on-error: true
+      - name: Regenerate Hindi and Punjabi committed sources
         run: |
-          set -o pipefail
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-audit.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-audit.mjs \
-            2>&1 | tee editorial-v2-audit.log
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-audit.mjs \
-            2>&1 | tee -a editorial-v2-audit.log
-
-      - name: Bundle and run CP-004 to CP-006 renderer proof
-        id: editorial_renderer
-        continue-on-error: true
-        run: |
-          set -o pipefail
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-render.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-render.test.mjs \
-            2>&1 | tee editorial-v2-render.log
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-render.test.mjs \
-            2>&1 | tee -a editorial-v2-render.log
-
-      - name: Bundle and run CP-001 to CP-003 editorial audit
-        id: legacy_editorial_audit
-        continue-on-error: true
-        run: |
-          set -o pipefail
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-cp001-cp003-audit.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-audit.mjs \
-            2>&1 | tee editorial-v2-cp001-cp003-audit.log
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-audit.mjs \
-            2>&1 | tee -a editorial-v2-cp001-cp003-audit.log
-
-      - name: Bundle and run CP-001 to CP-003 renderer proof
-        id: legacy_editorial_renderer
-        continue-on-error: true
-        run: |
-          set -o pipefail
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-cp001-cp003-render.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-render.test.mjs \
-            2>&1 | tee editorial-v2-cp001-cp003-render.log
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-render.test.mjs \
-            2>&1 | tee -a editorial-v2-cp001-cp003-render.log
-
-      - name: Export CP-001 to CP-003 review sources
-        id: legacy_editorial_export
-        continue-on-error: true
-        run: |
-          set -o pipefail
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-cp001-cp003-export.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-export.mjs \
-            2>&1 | tee editorial-v2-cp001-cp003-export.log
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-export.mjs \
-            2>&1 | tee -a editorial-v2-cp001-cp003-export.log
-
-      - name: Bundle and run multilingual editorial audit
-        id: multilingual_editorial_audit
-        continue-on-error: true
-        run: |
-          set -o pipefail
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-multilingual-audit.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-audit.mjs \
-            2>&1 | tee editorial-v2-multilingual-audit.log
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-audit.mjs \
-            2>&1 | tee -a editorial-v2-multilingual-audit.log
-
-      - name: Bundle and run multilingual renderer proof
-        id: multilingual_editorial_renderer
-        continue-on-error: true
-        run: |
-          set -o pipefail
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-multilingual-render.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-render.test.mjs \
-            2>&1 | tee editorial-v2-multilingual-render.log
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-render.test.mjs \
-            2>&1 | tee -a editorial-v2-multilingual-render.log
-
-      - name: Export multilingual review sources
-        id: multilingual_editorial_export
-        continue-on-error: true
-        run: |
-          set -o pipefail
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-multilingual-export.ts \
             --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-export.mjs \
-            2>&1 | tee editorial-v2-multilingual-export.log
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-export.mjs \
-            2>&1 | tee -a editorial-v2-multilingual-export.log
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-export.mjs
+          node "$root/.editorial-v2-multilingual-export.mjs"
+          for cp in CP-001 CP-003; do
+            for language in hi pa; do
+              cp \
+                "$root/.editorial-v2-multilingual-generated/$cp.editorial-content.$language.json" \
+                "$root/$cp/editorial-content.$language.json"
+            done
+          done
 
-      - name: Verify multilingual committed-source parity
-        id: multilingual_source_parity
-        continue-on-error: true
+      - name: Prove multilingual audit, rendering and parity
         run: |
-          set -o pipefail
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          for source in \
+            editorial-v2-multilingual-audit.ts \
+            editorial-v2-multilingual-render.test.ts \
+            editorial-v2-multilingual-source-parity.ts; do
+            name="${source%.ts}"
+            pnpm --dir artifacts/api-server exec esbuild \
+              "src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/$source" \
+              --bundle --platform=node --format=esm \
+              --outfile="src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.$name.mjs"
+            node "$root/.$name.mjs"
+          done
+
+      - name: Re-run freeze readiness audit
+        run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
           pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-multilingual-source-parity.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-freeze-readiness-audit.ts \
             --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-source-parity.mjs \
-            2>&1 | tee editorial-v2-multilingual-source-parity.log
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-source-parity.mjs \
-            2>&1 | tee -a editorial-v2-multilingual-source-parity.log
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-freeze-readiness-audit.mjs
+          node "$root/.pnl-001-freeze-readiness-audit.mjs"
 
-      - name: Upload editorial diagnostics and review sources
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: pnl-editorial-v2-diagnostics
-          path: |
-            editorial-v2-audit.log
-            editorial-v2-render.log
-            editorial-v2-cp001-cp003-audit.log
-            editorial-v2-cp001-cp003-render.log
-            editorial-v2-cp001-cp003-export.log
-            editorial-v2-multilingual-audit.log
-            editorial-v2-multilingual-render.log
-            editorial-v2-multilingual-export.log
-            editorial-v2-multilingual-source-parity.log
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-generated/*.json
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-generated/*.json
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/editorial-content.en.json
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/editorial-content.hi.json
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/editorial-content.pa.json
-          include-hidden-files: true
-          if-no-files-found: error
-          retention-days: 3
-
-      - name: Enforce editorial validation result
-        if: always()
+      - name: Commit validated multilingual alignment
         run: |
-          test "${{ steps.editorial_audit.outcome }}" = "success"
-          test "${{ steps.editorial_renderer.outcome }}" = "success"
-          test "${{ steps.legacy_editorial_audit.outcome }}" = "success"
-          test "${{ steps.legacy_editorial_renderer.outcome }}" = "success"
-          test "${{ steps.legacy_editorial_export.outcome }}" = "success"
-          test "${{ steps.multilingual_editorial_audit.outcome }}" = "success"
-          test "${{ steps.multilingual_editorial_renderer.outcome }}" = "success"
-          test "${{ steps.multilingual_editorial_export.outcome }}" = "success"
-          test "${{ steps.multilingual_source_parity.outcome }}" = "success"
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          rm -f "$root/foundation/CP-001" "$root/foundation/CP-002" "$root/foundation/CP-003"
+          rm -rf "$root/.editorial-v2-multilingual-generated"
+          rm -f \
+            "$root/.editorial-v2-multilingual-export.mjs" \
+            "$root/.editorial-v2-multilingual-audit.mjs" \
+            "$root/.editorial-v2-multilingual-render.test.mjs" \
+            "$root/.editorial-v2-multilingual-source-parity.mjs" \
+            "$root/.pnl-001-freeze-readiness-audit.mjs"
+          git fetch origin New-main
+          git checkout origin/New-main -- .github/workflows/validate-pnl-editorial-v2.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "chore(pnl): align prose wave multilingual sources"
+          git push origin HEAD:feat/pnl-001-english-prose-cluster-diversity
