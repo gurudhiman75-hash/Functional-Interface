@@ -21,10 +21,14 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
 
-      - name: Decode and apply payload
+      - name: Validate, decode and apply payload
         shell: bash
         run: |
           set -euo pipefail
+          for chunk in .cp004-upload/chunk-*; do
+            echo "validating ${chunk}: $(wc -c < "${chunk}") bytes"
+            base64 -d "${chunk}" > /dev/null
+          done
           cat .cp004-upload/chunk-* > /tmp/cp004-payload.b64
           base64 -d /tmp/cp004-payload.b64 > /tmp/cp004-payload.tar.gz
           tar -xzf /tmp/cp004-payload.tar.gz -C .
