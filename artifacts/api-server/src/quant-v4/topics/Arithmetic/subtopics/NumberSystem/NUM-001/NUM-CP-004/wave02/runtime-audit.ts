@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import {
   generateNumCp004Wave02Sweep,
   NUM_CP004_WAVE02_PROTOTYPE_IDS,
-} from "./runtime";
+} from "./runtime-proven";
 
 const packages = generateNumCp004Wave02Sweep(60);
 const surfaceCounts: Record<string, number> = {};
