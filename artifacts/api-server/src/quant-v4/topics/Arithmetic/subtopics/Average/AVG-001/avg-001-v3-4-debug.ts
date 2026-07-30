@@ -1,11 +1,11 @@
-import { applyAvg001NaturalLanguageV34Review } from "./foundation/natural-language-v3-4-review";
+import { applyAvg001NaturalLanguageV34Final } from "./foundation/natural-language-v3-4-final";
 import { runAvg001LocalizedRelease } from "./foundation/localized-release";
 
 const qlId = "AVG-QL-021";
 const language = "hi" as const;
 const seed = `avg-001-natural-language-v3-4:${qlId}`;
 const source = runAvg001LocalizedRelease({ questionLanguageId: qlId, seed, language });
-const question = applyAvg001NaturalLanguageV34Review(source);
+const question = applyAvg001NaturalLanguageV34Final(source);
 console.log(JSON.stringify({
   qlId,
   language,
