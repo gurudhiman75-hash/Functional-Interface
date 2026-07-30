@@ -6,8 +6,8 @@ import type { FamilyTreeDiagramData } from "./family-tree-types";
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 const CARD_HALF_WIDTH = 75;
 const LEGACY_SIBLING_LINE_OFFSET = 12;
-const SIBLING_ROUTE_DEPTH = 24;
-const SIBLING_LABEL_OFFSET = 18;
+const SIBLING_ROUTE_DEPTH = 18;
+const SIBLING_LABEL_OFFSET = 14;
 
 function numericAttribute(element: Element, name: string): number | null {
   const value = Number(element.getAttribute(name));
@@ -20,7 +20,7 @@ function ensureArrowMarker(svg: SVGSVGElement, markerId: string): void {
     defs = document.createElementNS(SVG_NAMESPACE, "defs");
     svg.prepend(defs);
   }
-  if (defs.querySelector(`#${CSS.escape(markerId)}`)) return;
+  if (defs.querySelector(`[id="${markerId}"]`)) return;
 
   const marker = document.createElementNS(SVG_NAMESPACE, "marker");
   marker.setAttribute("id", markerId);
