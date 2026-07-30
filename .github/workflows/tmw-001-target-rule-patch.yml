@@ -1,4 +1,4 @@
-name: Patch TMW-001 imperative target audit
+name: Finalize TMW-001 English target syntax audit
 
 on:
   pull_request:
@@ -11,18 +11,22 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: finalize-tmw-target-syntax
+  cancel-in-progress: true
+
 jobs:
-  patch-target-rule:
+  finalize-target-rule:
     if: github.head_ref == 'audit/tmw-001-english-gap-freeze'
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 25
     steps:
       - name: Checkout audit branch
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: audit/tmw-001-english-gap-freeze
-      - name: Patch and commit target syntax rule
+      - name: Recognize explicit targets inside conditional final clauses
         shell: bash
         run: |
           set -euo pipefail
@@ -31,15 +35,44 @@ jobs:
           path = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-audit.ts')
           text = path.read_text()
           old = '      if (!stem || !stem.endsWith("?")) blocker("STEM_TARGET_PUNCTUATION", "Stem is empty or does not end as a direct question.", { cpId: adapter.cpId, qlId: entry.qlId, seed, sample: stem });'
-          new = '''      const lastSentence = stem.split(/(?<=[.!?])\\s+/).at(-1) ?? stem;
-      const hasExplicitTarget = stem.endsWith("?") || /^(?:How|What|Which|Who|When|Where|Find|Calculate|Determine|State|Identify|Choose|Work out)\\b/i.test(lastSentence);
-      if (!stem || !hasExplicitTarget) blocker("STEM_TARGET_SYNTAX", "Stem does not end with an explicit interrogative or imperative target.", { cpId: adapter.cpId, qlId: entry.qlId, seed, sample: stem });'''
-          if old not in text:
-              raise SystemExit('target-rule anchor not found')
-          path.write_text(text.replace(old, new, 1))
+          new = '''      const finalSentence = stem.split(/(?<=[.!?])\\s+/).at(-1) ?? stem;
+      const hasExplicitTarget = stem.endsWith("?") || /(?:^|[,;:]\\s+)(?:How|What|Which|Who|When|Where|Find|Calculate|Determine|State|Identify|Choose|Work out|Express|Give)\\b/i.test(finalSentence);
+      if (!stem || !hasExplicitTarget) blocker("STEM_TARGET_SYNTAX", "Stem does not contain an explicit interrogative or imperative target in its final sentence.", { cpId: adapter.cpId, qlId: entry.qlId, seed, sample: stem });'''
+          if old in text:
+              text = text.replace(old, new, 1)
+          elif new not in text:
+              raise SystemExit('target syntax audit anchor not found')
+          path.write_text(text)
           PY
+      - name: Install locked workspace dependencies
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile
+      - name: Validate target and typography gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/tmw-001-english-gap-audit.target-final.mjs
+          (cd artifacts/api-server && node dist/quant-v4/tmw-001-english-gap-audit.target-final.mjs || true)
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const report = JSON.parse(fs.readFileSync('artifacts/api-server/dist/quant-v4/tmw-001-english-gap-audit.json', 'utf8'));
+          if (report.summary.hardFailures !== 0) throw new Error(`chapter audit has ${report.summary.hardFailures} hard failures`);
+          const targetHits = report.findings.filter((finding) => finding.code === 'STEM_TARGET_PUNCTUATION' || finding.code === 'STEM_TARGET_SYNTAX');
+          if (targetHits.length !== 0) throw new Error(`target-syntax findings remain: ${targetHits.length}`);
+          const fractionalTimeHits = report.findings.filter((finding) => finding.code === 'ASCII_FRACTIONAL_TIME');
+          if (fractionalTimeHits.length !== 0) throw new Error(`ASCII fractional-time findings remain: ${fractionalTimeHits.length}`);
+          NODE
+      - name: Commit target syntax rule
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-audit.ts; then
+            echo 'Target syntax audit is already finalized.'
+            exit 0
+          fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-audit.ts
-          git commit -m 'fix(tmw): accept imperative English targets in audit'
+          git commit -m 'fix(tmw): recognize conditional English targets in audit'
           git push origin HEAD:audit/tmw-001-english-gap-freeze
