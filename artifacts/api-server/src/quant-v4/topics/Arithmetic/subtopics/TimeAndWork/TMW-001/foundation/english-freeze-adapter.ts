@@ -21,6 +21,7 @@ import { runTmwCp010Pipeline } from "./cp010-runtime";
 import { TMW_CP_011_REGISTRY } from "./cp011-registry";
 import { runTmwCp011Pipeline } from "./cp011-runtime";
 import { diversifyTmwEnglishStem } from "./english-stem-diversity";
+import { polishTmwEnglishQuestionForManualReview } from "./english-manual-polish";
 
 export type TmwEnglishOpeningStyle =
   | "SUBJECT_FIRST"
@@ -47,8 +48,9 @@ export interface TmwEnglishAdapter {
 }
 
 function withOpeningDiversity(question:any,qlId:string,seed:string):any{
-  const stem=typeof question?.stem==="string"?question.stem:"";
-  return {...question,stem:diversifyTmwEnglishStem(stem,qlId,seed)};
+  const polished=polishTmwEnglishQuestionForManualReview(question);
+  const stem=typeof polished?.stem==="string"?polished.stem:"";
+  return {...polished,stem:diversifyTmwEnglishStem(stem,qlId,seed)};
 }
 
 function objectRunner(run: (input: { questionLanguageId: string; seed: string; language?: "en" | "hi" | "pa" }) => any) {
