@@ -121,9 +121,12 @@ Review questions:                     60
 Option counts:                    4 and 5
 Difficulties:          EASY, MEDIUM, HARD
 Locale:                              en-IN
+Editorial layer:   rule-aware inline MathJax
 ```
 
 The executable wave covers odd ordered pairs, odd ordered triples and reference-set matching. Every displayed state is independently re-solved against the complete eighteen-rule registry. A presentation-quality layer rejects reversed or permuted duplicate options, repeated-number giveaways, permutation-only reference matches and answers made obvious by numerical scale.
+
+The learner-facing editorial layer is separate from canonical solver evidence. It renders only the active position-specific equation, uses ExamTree inline MathJax, labels every option `✅ Matches rule` or `❌ Fails rule`, and states the failed target explicitly. Raw pairwise sum/product arrays, standalone square dumps and generic `gives a different result` conclusions are prohibited by an automated 60-question editorial audit.
 
 The preliminary merge/split audit provisionally merges pair and triple arity inside one odd-number-tuple contract. Reference-set matching remains a separate candidate contract because it changes the displayed state, match semantics and proof. These are discovery findings only; no permanent QL is allocated before human review and source-gap closure.
 
@@ -154,6 +157,7 @@ It excludes:
 - `CLS-CP-004/CLS-CP-004-FINAL-ENGLISH-FREEZE.md`
 - `CLS-CP-005/CLS-CP-005-EXECUTABLE-DISCOVERY-PLAN.md`
 - `CLS-CP-005/CLS-CP-005-PRELIMINARY-MERGE-SPLIT-AUDIT.md`
+- `CLS-CP-005/CLS-CP-005-EDITORIAL-V2-AUDIT.md`
 
 ## Release locks
 
