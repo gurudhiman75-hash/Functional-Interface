@@ -1,18 +1,23 @@
-import { canonicalClsCp005RuleValue, displayClsCp005Tuple } from "./tuple-domain";
-import { CLS_CP005_RULE_IDS } from "./relation-registry";
-import type { ClsCp005Pair, ClsCp005RuleId } from "./types";
+import {
+  auditClsCp005QuestionAgainstExpandedRegistry,
+  CLS_CP005_EXPANDED_RULE_COUNT,
+} from "./source-gap-expanded-audit";
+import { displayClsCp005Tuple } from "./tuple-domain";
+import type { ClsCp005Pair } from "./types";
+import {
+  auditClsCp005Wave2PresentationQuality,
+} from "./wave2-quality-runtime";
+import {
+  CLS_CP005_WAVE2_DIGIT_PRODUCT_PROTOTYPE_ID,
+  CLS_CP005_WAVE2_DIGIT_PRODUCT_RULE_ID,
+  CLS_CP005_WAVE2_DIGIT_PRODUCT_VERSION,
+  clsCp005DigitProduct,
+  independentlyEvaluateClsCp005Wave2DigitProductRule,
+} from "./wave2-digit-product-rule";
 
-export const CLS_CP005_WAVE2_RULE_ID = "PAIR_FIRST_DIGIT_PRODUCT_TO_SECOND" as const;
-export const CLS_CP005_WAVE2_PROTOTYPE_ID = "CLS-CP005-PROT-W2-001" as const;
-export const CLS_CP005_WAVE2_VERSION = "cls-cp005-wave2-digit-product-v1" as const;
-
-type Wave2RuleId = ClsCp005RuleId | typeof CLS_CP005_WAVE2_RULE_ID;
-
-type Support = {
-  readonly ruleId: Wave2RuleId;
-  readonly commonValue: string;
-  readonly answerIndex: number;
-};
+export const CLS_CP005_WAVE2_RULE_ID = CLS_CP005_WAVE2_DIGIT_PRODUCT_RULE_ID;
+export const CLS_CP005_WAVE2_PROTOTYPE_ID = CLS_CP005_WAVE2_DIGIT_PRODUCT_PROTOTYPE_ID;
+export const CLS_CP005_WAVE2_VERSION = CLS_CP005_WAVE2_DIGIT_PRODUCT_VERSION;
 
 function hashText(text: string): number {
   let hash = 2166136261;
@@ -23,60 +28,23 @@ function hashText(text: string): number {
   return hash >>> 0;
 }
 
-function digitProduct(value: number): number | null {
-  if (value < 10 || value > 99 || value % 10 === 0) return null;
-  return Math.floor(value / 10) * (value % 10);
-}
-
 export function canonicalClsCp005Wave2RuleValue(pair: ClsCp005Pair): string | null {
-  const product = digitProduct(pair[0]);
-  return product !== null && product === pair[1] ? "DIGIT_PRODUCT" : null;
+  return independentlyEvaluateClsCp005Wave2DigitProductRule(pair);
 }
-
-function ruleValue(pair: ClsCp005Pair, ruleId: Wave2RuleId): string | null {
-  return ruleId === CLS_CP005_WAVE2_RULE_ID
-    ? canonicalClsCp005Wave2RuleValue(pair)
-    : canonicalClsCp005RuleValue(pair, ruleId);
-}
-
-const ALL_RULE_IDS: readonly Wave2RuleId[] = [
-  ...CLS_CP005_RULE_IDS,
-  CLS_CP005_WAVE2_RULE_ID,
-];
 
 const MATCHING_PAIRS: readonly ClsCp005Pair[] = Array.from({ length: 87 }, (_, index) => index + 12)
   .filter((value) => value % 10 !== 0)
-  .map((value) => [value, digitProduct(value)!] as const)
+  .map((value) => [value, clsCp005DigitProduct(value)!] as const)
   .filter(([, product]) => product >= 2);
 
 const DISTRACTOR_POOL: readonly ClsCp005Pair[] = Array.from({ length: 87 }, (_, index) => index + 12)
   .filter((value) => value % 10 !== 0)
   .flatMap((value) => {
-    const product = digitProduct(value)!;
+    const product = clsCp005DigitProduct(value)!;
     const candidates = [product - 3, product - 2, product - 1, product + 1, product + 2, product + 3]
       .filter((candidate) => candidate >= 2 && candidate <= 81 && candidate !== product);
     return candidates.map((candidate) => [value, candidate] as const);
   });
-
-function supportsFor(pairs: readonly ClsCp005Pair[]): readonly Support[] {
-  const supports: Support[] = [];
-  for (const ruleId of ALL_RULE_IDS) {
-    const values = pairs.map((pair) => ruleValue(pair, ruleId));
-    const counts = new Map<string, number[]>();
-    values.forEach((value, index) => {
-      if (value === null) return;
-      const indexes = counts.get(value) ?? [];
-      indexes.push(index);
-      counts.set(value, indexes);
-    });
-    for (const [value, indexes] of counts) {
-      if (indexes.length !== pairs.length - 1) continue;
-      const answerIndex = pairs.findIndex((_, index) => !indexes.includes(index));
-      if (answerIndex >= 0) supports.push({ ruleId, commonValue: value, answerIndex });
-    }
-  }
-  return supports;
-}
 
 function permute<T>(values: readonly T[], seed: number): T[] {
   const result = [...values];
@@ -89,7 +57,7 @@ function permute<T>(values: readonly T[], seed: number): T[] {
 
 function constructState(seed: number, optionCount: 4 | 5) {
   const base = hashText(`${CLS_CP005_WAVE2_PROTOTYPE_ID}:${seed}:${optionCount}`);
-  for (let attempt = 0; attempt < 2000; attempt += 1) {
+  for (let attempt = 0; attempt < 2400; attempt += 1) {
     const common: ClsCp005Pair[] = [];
     const used = new Set<string>();
     for (let offset = 0; offset < MATCHING_PAIRS.length && common.length < optionCount - 1; offset += 1) {
@@ -104,12 +72,27 @@ function constructState(seed: number, optionCount: 4 | 5) {
     for (let offset = 0; offset < DISTRACTOR_POOL.length; offset += 1) {
       const odd = DISTRACTOR_POOL[(base + attempt * 31 + offset * 37) % DISTRACTOR_POOL.length]!;
       if (used.has(odd.join(","))) continue;
-      const candidate = permute([...common, odd], base + attempt * 41 + offset);
-      const supports = supportsFor(candidate);
-      const intended = supports.filter((support) => support.ruleId === CLS_CP005_WAVE2_RULE_ID);
-      if (intended.length !== 1) continue;
-      if (supports.some((support) => support.answerIndex !== intended[0]!.answerIndex)) continue;
-      return { pairs: candidate, correctIndex: intended[0]!.answerIndex, supports };
+      const pairs = permute([...common, odd], base + attempt * 41 + offset);
+      const audit = auditClsCp005QuestionAgainstExpandedRegistry({
+        task: "FIND_ODD_NUMBER_PAIR",
+        referenceTuple: null,
+        tuples: pairs,
+        intendedRuleId: CLS_CP005_WAVE2_DIGIT_PRODUCT_RULE_ID,
+        intendedRuleValue: "DIGIT_PRODUCT",
+      });
+      if (audit.result !== "EXPANDED_UNIQUE" || audit.answerIndex === null) continue;
+      const presentationQualityAudit = auditClsCp005Wave2PresentationQuality({
+        tuples: pairs,
+        correctIndex: audit.answerIndex,
+      });
+      if (presentationQualityAudit.result !== "PASS") continue;
+      return {
+        pairs,
+        correctIndex: audit.answerIndex,
+        expandedAmbiguityAudit: audit,
+        presentationQualityAudit,
+        sourceAttempt: attempt,
+      };
     }
   }
   throw new Error(`Wave 2 digit-product state could not be constructed for seed ${seed}`);
@@ -147,23 +130,31 @@ export function generateClsCp005Wave2DigitProductQuestion(seed = 0, optionCount:
   const options = state.pairs.map(displayClsCp005Tuple);
   return {
     checkpointId: "CLS-CP-005" as const,
+    wave: "SOURCE_GAP_WAVE_2" as const,
     prototypeId: CLS_CP005_WAVE2_PROTOTYPE_ID,
     permanentQlId: null,
     seed,
     task: "FIND_ODD_NUMBER_PAIR" as const,
+    arity: 2 as const,
     stem: stem(seed),
+    referenceTuple: null,
     pairs: state.pairs,
+    tuples: state.pairs,
     options,
     correctIndex: state.correctIndex,
     answer: options[state.correctIndex]!,
-    intendedRuleId: CLS_CP005_WAVE2_RULE_ID,
+    intendedRuleId: CLS_CP005_WAVE2_DIGIT_PRODUCT_RULE_ID,
+    intendedRuleValue: "DIGIT_PRODUCT" as const,
     evidenceByOption: state.pairs.map((pair, index) => explanation(pair, index !== state.correctIndex)),
+    expandedAmbiguityAudit: state.expandedAmbiguityAudit,
     ambiguityAudit: {
-      result: "UNIQUE" as const,
-      answerIndex: state.correctIndex,
-      candidateSupports: state.supports,
-      completeRuleCount: ALL_RULE_IDS.length,
+      result: state.expandedAmbiguityAudit.result,
+      answerIndex: state.expandedAmbiguityAudit.answerIndex,
+      intendedRuleSupported: state.expandedAmbiguityAudit.intendedRuleSupported,
+      candidateSupports: state.expandedAmbiguityAudit.supports,
+      completeRuleCount: state.expandedAmbiguityAudit.completeRuleCount,
     },
+    presentationQualityAudit: state.presentationQualityAudit,
     explanation: {
       coreConcept: ["Rule: multiply the two digits of the first number to obtain the second number."],
       stepByStep: [
@@ -178,9 +169,20 @@ export function generateClsCp005Wave2DigitProductQuestion(seed = 0, optionCount:
     questionStudioVisible: false as const,
     metadata: {
       locale: "en-IN" as const,
-      runtimeVersion: CLS_CP005_WAVE2_VERSION,
+      runtimeVersion: CLS_CP005_WAVE2_DIGIT_PRODUCT_VERSION,
+      sourceGapAuditVersion: "cls-cp005-expanded-source-gap-v2-digit-product" as const,
+      completeRuleCount: CLS_CP005_EXPANDED_RULE_COUNT,
+      sourceAttempt: state.sourceAttempt,
       sourceStatus: "SOURCE_BACKED_WAVE2_DISCOVERY" as const,
       equivalentSetAdmission: "NOT_ADMITTED_PENDING_NATURALNESS_AUDIT" as const,
+    },
+    lifecycle: {
+      permanentQlId: null,
+      reviewStatus: "UNREVIEWED_DISCOVERY" as const,
+      questionBankStatus: "NOT_STORED" as const,
+      testEligibility: "INELIGIBLE" as const,
+      publiclyPublishable: false as const,
+      questionStudioDiscoverable: false as const,
     },
   };
 }
