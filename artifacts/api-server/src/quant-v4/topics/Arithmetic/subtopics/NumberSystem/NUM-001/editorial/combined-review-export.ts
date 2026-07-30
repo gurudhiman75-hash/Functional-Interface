@@ -41,26 +41,68 @@ const CP003_SIX_SAMPLE_QLS = new Set([
   "NUM-QL-016",
 ]);
 
-const cp003Rows = NUM_CP003_PERMANENT_QL_IDS.flatMap((qlId) => {
-  const sampleCount = CP003_SIX_SAMPLE_QLS.has(qlId) ? 6 : 3;
-  return Array.from({ length: sampleCount }, (_unused, index) => ({
-    checkpoint: "NUM-CP-003",
-    allocation: getNumCp003PermanentAllocation(qlId),
-    title: CP003_TITLES[qlId],
-    question: runNumCp003PermanentPipeline({
+function stableStateKey(question): string {
+  if (question.mathematicalFingerprint) return String(question.mathematicalFingerprint);
+  if (question.fingerprint) return String(question.fingerprint);
+  return JSON.stringify(
+    question.hiddenState,
+    (_key, value) => typeof value === "bigint" ? value.toString() : value,
+  );
+}
+
+function selectUniqueCp003Rows(qlId, sampleCount) {
+  const allocation = getNumCp003PermanentAllocation(qlId);
+  const rows = [];
+  const seen = new Set();
+  for (let attempt = 1; attempt <= 240 && rows.length < sampleCount; attempt += 1) {
+    const question = runNumCp003PermanentPipeline({
       questionLanguageId: qlId,
-      seed: `editorial-review-${index + 1}`,
-    }),
-  }));
-});
+      seed: `editorial-review-${attempt}`,
+    });
+    const key = stableStateKey(question);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    rows.push({
+      checkpoint: "NUM-CP-003",
+      allocation,
+      title: CP003_TITLES[qlId],
+      question,
+    });
+  }
+  if (rows.length !== sampleCount) {
+    throw new Error(`${qlId}: unable to produce ${sampleCount} unique CP-003 review states`);
+  }
+  return rows;
+}
+
+function selectUniqueCp004Rows(qlId, sampleCount) {
+  const allocation = getNumCp004PermanentAllocation(qlId);
+  const rows = [];
+  const seen = new Set();
+  for (let seed = 1; seed <= 240 && rows.length < sampleCount; seed += 1) {
+    const question = runNumCp004PermanentPipeline({ questionLanguageId: qlId, seed });
+    const key = stableStateKey(question);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    rows.push({
+      checkpoint: "NUM-CP-004",
+      allocation,
+      title: allocation.title,
+      question,
+    });
+  }
+  if (rows.length !== sampleCount) {
+    throw new Error(`${qlId}: unable to produce ${sampleCount} unique CP-004 review states`);
+  }
+  return rows;
+}
+
+const cp003Rows = NUM_CP003_PERMANENT_QL_IDS.flatMap((qlId) =>
+  selectUniqueCp003Rows(qlId, CP003_SIX_SAMPLE_QLS.has(qlId) ? 6 : 3),
+);
 
 const cp004Rows = NUM_CP004_PERMANENT_QL_IDS.flatMap((qlId) =>
-  [1, 2, 3].map((seed) => ({
-    checkpoint: "NUM-CP-004",
-    allocation: getNumCp004PermanentAllocation(qlId),
-    title: getNumCp004PermanentAllocation(qlId).title,
-    question: runNumCp004PermanentPipeline({ questionLanguageId: qlId, seed }),
-  })),
+  selectUniqueCp004Rows(qlId, 3),
 );
 
 export const NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS = [...cp003Rows, ...cp004Rows];
