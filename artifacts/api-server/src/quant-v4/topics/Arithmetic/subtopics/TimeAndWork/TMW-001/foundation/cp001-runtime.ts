@@ -43,7 +43,7 @@ function buildEnglishQuestion(input: { questionLanguageId: string; seed: string 
   const optionSet = buildTmwCp001Options(entry, parameters, solution.answer, input.seed);
   const shortcut = buildTmwCp001Shortcut(entry, parameters, solution);
   const commonTrap = buildTmwCp001CommonTrap(entry, optionSet.optionAudit);
-  const steps = buildTmwCp001WorkingLatex(entry, parameters, solution).map((line) => `\(${line}\)`);
+  const steps = buildTmwCp001WorkingLatex(entry, parameters, solution).map((line) => `\\(${line}\\)`);
   const errors = validate(entry, parameters, solution, renderedStem, optionSet.optionAudit, optionSet.correctIndex);
   if (steps.length < 3) errors.push("Explanation does not contain setup, working and verification steps");
   if (!shortcut.title.startsWith("10-Second ") || shortcut.steps.length < 1) errors.push("Explanation shortcut is incomplete");
@@ -65,7 +65,7 @@ function buildEnglishQuestion(input: { questionLanguageId: string; seed: string 
     correctIndex: optionSet.correctIndex,
     explanation: {
       opening: tmwCp001ExplanationOpening(entry),
-      formula: `\(${solution.formulaLatex}\)`,
+      formula: `\\(${solution.formulaLatex}\\)`,
       steps,
       shortcut,
       commonTrap,
