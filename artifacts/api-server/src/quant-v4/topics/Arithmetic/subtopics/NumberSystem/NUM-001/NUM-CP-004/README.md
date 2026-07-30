@@ -20,12 +20,13 @@
 10. `wave01/review-export.ts` — 24-question English review pack
 11. `NUM-CP-004-WAVE-02-DIRECT-INVERSE-PLAN.md`
 12. `wave02/types.ts`
-13. `wave02/runtime.ts` — Wave 2 generation entry point
-14. `wave02/runtime-authority.test.ts` — 800-package exact proof
-15. `wave02/runtime-audit.ts` — structural, uniqueness and lifecycle audit
-16. `wave02/review-export.ts` — 24-question English review pack
+13. `wave02/runtime.ts` — Wave 2 mathematical foundation
+14. `wave02/runtime-proven.ts` — final Wave 2 generation entry point
+15. `wave02/runtime-authority.test.ts` — 800-package exact proof
+16. `wave02/runtime-audit.ts` — structural, uniqueness and lifecycle audit
+17. `wave02/review-export.ts` — 24-question English review pack
 
-Only `wave01/runtime-proven.ts` and `wave02/runtime.ts` are current generation entry points for their respective discovery waves. Implementation ancestry is not a separate learner or QL authority.
+Only `wave01/runtime-proven.ts` and `wave02/runtime-proven.ts` are current generation entry points for their respective discovery waves. Implementation ancestry is not a separate learner or QL authority.
 
 ## Wave 1 temporary contracts
 
