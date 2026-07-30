@@ -98,16 +98,10 @@ jobs:
           }, null, 2));
           NODE
 
-      - name: Restore permanent workflow and commit
+      - name: Commit validated learner content
         run: |
           root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
-          git checkout 6375788c89adcfe7d5acf06616ca89ac0f57c0ad -- .github/workflows/validate-pnl-multilingual-editorial-audit.yml
-          node "$root/pnl-multilingual-lexical-wave01-apply.mjs" finalize
-          pnpm exec prettier --write .github/workflows/validate-pnl-multilingual-editorial-audit.yml
           rm -f \
-            .github/workflows/implement-pnl-multilingual-lexical-wave01.yml \
-            .github/workflows/run-pnl-multilingual-lexical-wave01.yml \
-            "$root/pnl-multilingual-lexical-wave01-apply.mjs" \
             "$root"/.editorial-v2-multilingual-export.mjs \
             "$root"/.editorial-v2-multilingual-audit.mjs \
             "$root"/.editorial-v2-multilingual-render.test.mjs \
@@ -117,7 +111,13 @@ jobs:
           rm -rf "$root/.editorial-v2-multilingual-generated"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add \
+            "$root/foundation/editorial-v2-multilingual-normalizer.ts" \
+            "$root/CP-003/question-language.hi.json" \
+            "$root/CP-003/question-language.pa.json" \
+            "$root"/CP-*/editorial-content.hi.json \
+            "$root"/CP-*/editorial-content.pa.json \
+            "$root/pnl-001-multilingual-lexical-naturalness.test.ts"
           git commit -m "fix(pnl): naturalize multilingual lexical authority"
           git push origin HEAD:feat/pnl-001-multilingual-lexical-naturalness-wave01
 
