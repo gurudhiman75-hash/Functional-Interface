@@ -8,6 +8,8 @@ assert.equal(new Set(TMW_CP005_REGISTRY.map(entry=>entry.solveMode)).size,24);
 const positions=new Set<number>(),stems=new Set<string>();
 let cases=0;
 for(const entry of TMW_CP005_REGISTRY){
+ const fingerprints=new Set<string>();
+ const contexts=new Set<string>();
  for(let index=0;index<50;index++){
   const seed=`tmw-cp005-proof:${entry.qlId}:${index}`;
   const first=runTmwCp005Pipeline({questionLanguageId:entry.qlId,seed});
@@ -17,12 +19,29 @@ for(const entry of TMW_CP005_REGISTRY){
   assert.equal(first.options.length,4);
   assert.equal(new Set(first.options).size,4);
   assert.equal(first.options[first.correctIndex],first.solution.answerText);
+  assert.equal(first.optionAudit[first.correctIndex].misconceptionId,"CORRECT");
   assert.equal(first.optionAudit.filter(option=>option.misconceptionId==="CORRECT").length,1);
   assert.equal(first.publiclyPublishable,false);
-  positions.add(first.correctIndex);stems.add(first.stem);cases+=1;
+  assert.ok(first.explanation.formula.startsWith("\\("));
+  assert.ok(first.explanation.steps.length>=3);
+  assert.ok(first.explanation.shortcut.title.startsWith("10-Second "));
+  assert.ok(first.explanation.shortcut.steps.length>=1);
+  assert.notEqual(first.explanation.commonTrap.misconceptionId,"CORRECT");
+  assert.ok(first.optionAudit.some(option=>option.text===first.explanation.commonTrap.optionText&&option.misconceptionId===first.explanation.commonTrap.misconceptionId));
+  assert.equal(/Do not choose|Don't choose/i.test(first.explanation.commonTrap.explanation),false);
+  assert.equal(/[A-Z]{3,}_[A-Z_]{3,}/.test(first.explanation.commonTrap.explanation),false);
+  const visibleText=[first.stem,...first.options,first.solution.answerText,first.explanation.opening,first.explanation.formula,...first.explanation.steps,first.explanation.shortcut.title,...first.explanation.shortcut.steps,first.explanation.commonTrap.optionLabel,first.explanation.commonTrap.optionText,first.explanation.commonTrap.explanation,first.explanation.conclusion].join("\n");
+  assert.equal(/undefined|null|NaN|Infinity|\{\{|\$\{/.test(visibleText),false);
+  assert.equal((visibleText.match(/\\\(/g)??[]).length,(visibleText.match(/\\\)/g)??[]).length);
+  assert.equal(/\\frac/.test(visibleText.replace(/\\\([\s\S]*?\\\)/g,"")),false);
+  assert.equal(/\b(?:\d+\s+)?\d+\/\d+\s+(?:minutes?|hours?|days?|shifts?)\b/i.test(visibleText),false);
+  positions.add(first.correctIndex);stems.add(first.stem);fingerprints.add(first.mathematicalFingerprint);contexts.add(first.parameters.context.jobPhrase);cases+=1;
  }
+ assert.ok(fingerprints.size>=4,`${entry.qlId} lacks mathematical diversity`);
+ assert.ok(contexts.size>=2,`${entry.qlId} lacks context diversity`);
 }
 assert.deepEqual([...positions].sort(),[0,1,2,3]);
-assert.throws(()=>runTmwCp005Pipeline({questionLanguageId:"TMW-QL-082",seed:"locale-hi",language:"hi"}));
-assert.throws(()=>runTmwCp005Pipeline({questionLanguageId:"TMW-QL-082",seed:"locale-pa",language:"pa"}));
+assert.throws(()=>runTmwCp005Pipeline({questionLanguageId:"TMW-QL-082",seed:"locale-hi",language:"hi"}),/English only/);
+assert.throws(()=>runTmwCp005Pipeline({questionLanguageId:"TMW-QL-082",seed:"locale-pa",language:"pa"}),/English only/);
+assert.throws(()=>runTmwCp005Pipeline({questionLanguageId:"TMW-QL-999",seed:"unknown"}),/Unknown TMW-CP-005/);
 console.log(JSON.stringify({chapter:"TMW-001",checkpoint:"TMW-CP-005",qlCount:TMW_CP005_REGISTRY.length,seedsPerQl:50,cases,distinctStems:stems.size,correctPositions:[...positions].sort(),status:"PASS"},null,2));
