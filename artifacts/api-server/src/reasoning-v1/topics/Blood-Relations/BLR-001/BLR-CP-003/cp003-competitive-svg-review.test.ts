@@ -21,6 +21,7 @@ const records = bundle.selected;
 const fingerprints = new Set<string>();
 let highlightedPathCount = 0;
 let siblingArrowDiagramCount = 0;
+let siblingCardRouteCount = 0;
 let totalPayloadBytes = 0;
 
 assert.equal(records.length, 128);
@@ -28,6 +29,8 @@ assert.equal(bundle.rejected.length, 92);
 assert.equal(bundle.sourceRecordCount, 208);
 assert.equal(bundle.sourceEligibleRecordCount, 116);
 assert.equal(bundle.supplementalRecordCount, 12);
+
+const siblingRoutePattern = /<g data-sibling-route="card-bottom-bracket"><path d="M (-?\d+(?:\.\d+)?) (-?\d+(?:\.\d+)?) V (-?\d+(?:\.\d+)?) H (-?\d+(?:\.\d+)?) V (-?\d+(?:\.\d+)?)"[^>]*stroke-dasharray="8 6"[^>]*marker-start="url\(#blr-sibling-arrow\)"[^>]*marker-end="url\(#blr-sibling-arrow\)"\/>/g;
 
 for (const record of records) {
   const diagram = record.proceduralLogic;
@@ -72,8 +75,25 @@ for (const record of records) {
     siblingArrowDiagramCount += 1;
     assert.ok(markup.includes('id="blr-sibling-arrow"'));
     assert.ok(markup.includes('orient="auto-start-reverse"'));
+    assert.ok(markup.includes('data-sibling-route="card-bottom-bracket"'));
     assert.ok(markup.includes('marker-start="url(#blr-sibling-arrow)"'));
     assert.ok(markup.includes('marker-end="url(#blr-sibling-arrow)"'));
+    assert.ok(!/<line[^>]*stroke-dasharray="8 6"/.test(markup));
+
+    const routedGroups = [...markup.matchAll(siblingRoutePattern)];
+    assert.ok(routedGroups.length > 0, `${record.itemId} has no routed sibling-card connector.`);
+    for (const route of routedGroups) {
+      const startX = Number(route[1]);
+      const startY = Number(route[2]);
+      const routeY = Number(route[3]);
+      const endX = Number(route[4]);
+      const endY = Number(route[5]);
+      assert.equal(startY, endY, `${record.itemId} sibling arrows do not meet equal card bottoms.`);
+      assert.ok(routeY > startY, `${record.itemId} sibling route is not below the sibling cards.`);
+      assert.ok(endX > startX, `${record.itemId} sibling route does not span two distinct cards.`);
+      siblingCardRouteCount += 1;
+    }
+
     assert.equal(
       markup.match(/stroke-dasharray="8 6"/g)?.length,
       markup.match(/marker-start="url\(#blr-sibling-arrow\)"/g)?.length,
@@ -137,6 +157,7 @@ assert.deepEqual(cp003ProvisionalAuthorities().sort(), [
 const averagePayloadBytes = Math.round(totalPayloadBytes / records.length);
 assert.equal(highlightedPathCount, 128);
 assert.ok(siblingArrowDiagramCount > 0);
+assert.ok(siblingCardRouteCount > 0);
 assert.ok(averagePayloadBytes < 8_000);
 
 console.log(
@@ -154,7 +175,8 @@ console.log(
       svgDiagrams: records.length,
       highlightedAnswerPaths: highlightedPathCount,
       siblingArrowDiagrams: siblingArrowDiagramCount,
-      siblingArrowheads: "BIDIRECTIONAL",
+      siblingCardBottomRoutes: siblingCardRouteCount,
+      siblingArrowheads: "BIDIRECTIONAL_CARD_TARGETED",
       provisionalAuthorities: cp003ProvisionalAuthorities().sort(),
       averageStructuredPayloadBytes: averagePayloadBytes,
       maximumPayloadBytes: 12_000,
