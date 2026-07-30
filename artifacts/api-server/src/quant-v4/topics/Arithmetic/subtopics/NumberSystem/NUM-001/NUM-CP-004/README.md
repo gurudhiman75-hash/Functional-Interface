@@ -18,10 +18,17 @@
 8. `wave01/runtime-authority.test.ts` — 800-package exact proof
 9. `wave01/runtime-audit.ts` — structural and lifecycle audit
 10. `wave01/review-export.ts` — 24-question English review pack
+11. `NUM-CP-004-WAVE-02-DIRECT-INVERSE-PLAN.md`
+12. `wave02/types.ts`
+13. `wave02/runtime.ts` — Wave 2 mathematical foundation
+14. `wave02/runtime-proven.ts` — final Wave 2 generation entry point
+15. `wave02/runtime-authority.test.ts` — 800-package exact proof
+16. `wave02/runtime-audit.ts` — structural, uniqueness and lifecycle audit
+17. `wave02/review-export.ts` — 24-question English review pack
 
-Only `runtime-proven.ts` is the Wave 1 generation entry point. Earlier layers remain implementation ancestry and are not separate learner or QL authorities.
+Only `wave01/runtime-proven.ts` and `wave02/runtime-proven.ts` are current generation entry points for their respective discovery waves. Implementation ancestry is not a separate learner or QL authority.
 
-## Current Wave 1 temporary contracts
+## Wave 1 temporary contracts
 
 ```text
 NUM-CP004-PROT-001 — classify prime/composite/unit/neither
@@ -34,7 +41,20 @@ NUM-CP004-PROT-007 — select the unique co-prime pair
 NUM-CP004-PROT-008 — classify pairwise versus collective co-primality
 ```
 
-These are exploratory prototype identities, not proposed QLs. Wave 1 is deliberately incomplete. Prime-pair reconstruction, bounded prime triples, least-prime-divisor tasks, inverse co-prime candidate sets, claim/statement/data-sufficiency representations and source-gap families remain open for later discovery waves.
+## Wave 2 temporary contracts
+
+```text
+NUM-CP004-PROT-009 — next prime after a given integer
+NUM-CP004-PROT-010 — previous prime before a given integer
+NUM-CP004-PROT-011 — least prime divisor of a composite integer
+NUM-CP004-PROT-012 — unique prime pair from a stated sum
+NUM-CP004-PROT-013 — unique bounded prime pair from a stated difference
+NUM-CP004-PROT-014 — constrained increasing prime triple reconstruction
+NUM-CP004-PROT-015 — complete co-prime candidate set
+NUM-CP004-PROT-016 — minimum signed adjustment to a prime, including ties
+```
+
+All sixteen identities are exploratory prototypes, not proposed QLs. Statement/claim evaluation, data sufficiency, visual representations, source saturation and merge/split review remain open.
 
 ## Non-negotiable boundaries
 
@@ -43,4 +63,5 @@ These are exploratory prototype identities, not proposed QLs. Wave 1 is delibera
 - perfect-power completion belongs to `NUM-CP-012`;
 - arrangements or selections of primes belong to P&C;
 - Euler totient and formula-led co-prime counts remain `ADVANCED_ENRICHMENT_HOLD`;
+- bounded explicit candidate-set classification remains CP-004;
 - no temporary output may expose a permanent QL ID or any production lifecycle flag.
