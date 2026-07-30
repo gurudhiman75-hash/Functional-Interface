@@ -430,7 +430,7 @@ function rollerSweptAreaDraft(prototypeId: MenCp008Wave02PrototypeId, seed: stri
       `A cylindrical roller has radius ${dimension(radius)} and length ${dimension(length)}. Find the area covered in ${revolutions} revolutions using $\\pi=22/7$.`,
       `A road roller of radius ${dimension(radius)} and length ${dimension(length)} makes ${revolutions} complete turns. How much area does it cover? Take $\\pi=22/7$.`,
       `Using $\\pi=22/7$, calculate the area swept by a roller ${dimension(length)} long with radius ${dimension(radius)} after ${revolutions} revolutions.`,
-      `Find the total swept area of a cylindrical roller with radius ${dimension(radius)}, length ${dimension(length)} and ${revolutions} revolutions. Use $\pi=22/7$.`,
+      `Find the total swept area of a cylindrical roller with radius ${dimension(radius)}, length ${dimension(length)} and ${revolutions} revolutions. Use $\\pi=22/7$.`,
     ]),
     answer,
     wrongAnswers: [
