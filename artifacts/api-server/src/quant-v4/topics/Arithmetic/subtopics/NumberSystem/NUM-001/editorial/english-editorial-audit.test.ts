@@ -94,10 +94,14 @@ for (const [index, row] of NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS.entries()) {
   if (qlId === "NUM-QL-016" || qlId === "NUM-QL-044") {
     assert(stem.includes("\n\nStatement I:"), `Q${reviewNumber}/${qlId}: Statement I is not vertically separated`);
     assert(stem.includes("\nStatement II:"), `Q${reviewNumber}/${qlId}: Statement II is not vertically separated`);
-    assert(stem.endsWith("Select the correct data-sufficiency option."),
-      `Q${reviewNumber}/${qlId}: non-standard data-sufficiency close`);
+  }
+  if (qlId === "NUM-QL-016") {
+    assert(stem.endsWith("Which data-sufficiency conclusion is correct?"),
+      `Q${reviewNumber}/${qlId}: non-standard interrogative data-sufficiency close`);
   }
   if (qlId === "NUM-QL-044") {
+    assert(stem.endsWith("Select the correct data-sufficiency option."),
+      `Q${reviewNumber}/${qlId}: non-standard prime data-sufficiency close`);
     assert(!/Statement [IVX]+ narrows/i.test(stem),
       `Q${reviewNumber}/${qlId}: derived candidate-set wording remains student-facing`);
     assert(/[<>]/.test(stem), `Q${reviewNumber}/${qlId}: prime data sufficiency lacks real mathematical evidence`);
