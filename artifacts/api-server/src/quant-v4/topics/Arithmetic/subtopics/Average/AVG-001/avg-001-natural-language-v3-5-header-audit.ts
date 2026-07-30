@@ -38,6 +38,26 @@ const expectedHeaders = {
   ],
 } as const;
 
+const bareLabels = {
+  en: ["Key rule:", "Step-by-step solution:", "Exam speed shortcut:", "Why the other options are wrong:"],
+  hi: ["मुख्य बात:", "हल:", "तेज़ तरीका:", "दूसरे विकल्प क्यों गलत हैं:"],
+  pa: ["ਮੁੱਖ ਗੱਲ:", "ਹੱਲ:", "ਤੇਜ਼ ਤਰੀਕਾ:", "ਬਾਕੀ ਵਿਕਲਪ ਕਿਉਂ ਗਲਤ ਹਨ:"],
+} as const;
+
+function escapeRegex(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function contentWithoutHeader(line: string, index: number, language: Avg001Language) {
+  const prefix = expectedHeaders[language][index]!;
+  const label = bareLabels[language][index]!;
+  return line
+    .replace(prefix, "")
+    .replace(/^[📌📝⚡⚠️]\uFE0F?\s*/u, "")
+    .replace(new RegExp(`^${escapeRegex(label)}\\s*`), "")
+    .trim();
+}
+
 function sourceFor(qlId: string, language: Avg001Language, seed: string): Avg001QuestionPackage {
   return language === "en"
     ? runAvg001EditorialV2Pipeline({ questionLanguageId: qlId, seed, language })
@@ -50,6 +70,7 @@ function csvCell(value: unknown) {
 
 const records: Record<string, unknown>[] = [];
 let localizedHeaderRows = 0;
+let englishHeaderRowsRealigned = 0;
 
 for (const entry of entries) {
   const seed = `avg-001-natural-language-v3-4:${entry.qlId}`;
@@ -76,14 +97,17 @@ for (const entry of entries) {
         question.explanation.lines[index]?.startsWith(expected[index]!),
         `${entry.qlId}:${language} line ${index + 1} does not start with ${expected[index]}`,
       );
+      assert.equal(
+        contentWithoutHeader(question.explanation.lines[index]!, index, language),
+        contentWithoutHeader(base.explanation.lines[index]!, index, language),
+        `${entry.qlId}:${language} line ${index + 1} changed beyond header placement`,
+      );
     }
 
     if (language === "en") {
-      assert.deepEqual(
-        question.explanation.lines,
-        base.explanation.lines,
-        `${entry.qlId}:en changed despite already matching the visual-header standard`,
-      );
+      if (question.explanation.lines.some((line, index) => line !== base.explanation.lines[index])) {
+        englishHeaderRowsRealigned += 1;
+      }
     } else {
       localizedHeaderRows += 1;
       assert.ok(
@@ -120,6 +144,7 @@ for (const entry of entries) {
 
 assert.equal(records.length, 1275);
 assert.equal(localizedHeaderRows, 850);
+assert.ok(englishHeaderRowsRealigned >= 1, "Expected at least one English row with a displaced header to be normalized");
 assert.equal(new Set(records.map((record) => record.qlId)).size, 425);
 assert.equal(new Set(records.map((record) => record.solveMode)).size, 45);
 
@@ -151,10 +176,11 @@ writeFileSync(
     totalReviewRows: records.length,
     solveModeCount: 45,
     localizedHeaderRows,
+    englishHeaderRowsRealigned,
     reviewStatus: "PENDING_PRODUCT_REVIEW",
     validation: {
       v35PresentationIntegrityRetained: true,
-      englishExplanationHeadersUnchanged: true,
+      allExplanationHeadersStartTheirSections: true,
       hindiFourTierEmojiHeadersAligned: true,
       punjabiFourTierEmojiHeadersAligned: true,
       localizedHeaderCoverage: "850/850",
@@ -166,5 +192,5 @@ writeFileSync(
 );
 
 console.log(
-  `PASS AVG-001 V3.5 header alignment: ${localizedHeaderRows} Hindi/Punjabi packages use the four shared visual badges. Manual product review remains pending.`,
+  `PASS AVG-001 V3.5 header alignment: ${localizedHeaderRows} Hindi/Punjabi packages use the four shared visual badges; ${englishHeaderRowsRealigned} English rows had displaced headers moved to the start. Manual product review remains pending.`,
 );
