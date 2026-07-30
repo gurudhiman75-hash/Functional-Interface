@@ -418,6 +418,189 @@ function buildOptions(
   };
 }
 
+function cp005DirectedRate(
+  direction: "PROFIT" | "LOSS",
+  ratePercent: Rational,
+): string {
+  return `${cp005FormatPercent(ratePercent)} ${direction.toLowerCase()}`;
+}
+
+function cp005DeliveredCost(
+  costPricePerTrueQuantity: Money,
+  trueQuantity: bigint,
+  deliveredQuantity: bigint,
+): Money {
+  return moneyFromPaise(
+    (costPricePerTrueQuantity.paise * deliveredQuantity) / trueQuantity,
+  );
+}
+
+function cp005SchemeSummary(
+  scheme: Readonly<{
+    costPricePerTrueQuantity: Money;
+    quotedSellingPricePerNominalQuantity: Money;
+    trueQuantity: bigint;
+    deliveredQuantity: bigint;
+  }>,
+): string {
+  return `quote ${cp005FormatMoney(scheme.quotedSellingPricePerNominalQuantity)} against ${cp005FormatMoney(scheme.costPricePerTrueQuantity)} per ${scheme.trueQuantity} true units, deliver ${scheme.deliveredQuantity}`;
+}
+
+function buildCp005GeneratedWorking(
+  qlId: string,
+  request: PnlCp005SolverRequest,
+  result: PnlCp005SolverResult,
+  answer: string,
+): string {
+  const prefix = "**Generated-value check:**";
+
+  switch (request.mode) {
+    case "FALSE_QUANTITY_AT_QUOTED_PRICE_TO_RESULT": {
+      const actualCost =
+        "actualCostOfDeliveredQuantity" in result
+          ? result.actualCostOfDeliveredQuantity
+          : cp005DeliveredCost(
+              request.costPricePerTrueQuantity,
+              request.trueQuantity,
+              request.deliveredQuantity,
+            );
+      const purpose =
+        qlId === "PNL-QL-121"
+          ? "For the basic false-quantity sale"
+          : qlId === "PNL-QL-122"
+            ? "For the amount-and-rate result"
+            : "For the false-count carton";
+      return `${prefix} ${purpose}, ${request.deliveredQuantity} delivered units cost ${cp005FormatMoney(actualCost)} on the true ${request.trueQuantity}-unit base, while the customer is billed ${cp005FormatMoney(request.quotedSellingPricePerNominalQuantity)}. Comparing billed revenue with delivered cost gives ${answer}.`;
+    }
+
+    case "DECLARED_RATE_FALSE_QUANTITY_TO_ACTUAL_RATE": {
+      const quoted =
+        "quotedSellingPrice" in result
+          ? cp005FormatMoney(result.quotedSellingPrice)
+          : "the declared-rate quotation";
+      const actualCost = cp005DeliveredCost(
+        request.costPricePerTrueQuantity,
+        request.trueQuantity,
+        request.deliveredQuantity,
+      );
+      const purpose =
+        qlId === "PNL-QL-123"
+          ? "Convert the declared commercial rate first"
+          : "For the harder declared-rate and shortage combination";
+      return `${prefix} ${purpose}: ${cp005DirectedRate(request.declaredDirection, request.declaredRatePercent)} makes the quoted bill ${quoted}. The delivered quantity costs only ${cp005FormatMoney(actualCost)}, so the actual result is ${answer}.`;
+    }
+
+    case "TARGET_RATE_TO_DELIVERED_QUANTITY": {
+      if (qlId === "PNL-QL-148") {
+        return `${prefix} Required delivery can be fixed only when the quotation and the target result are sufficient to compare billed revenue with the true cost of delivered quantity. Testing the two statements against those requirements gives ${answer}.`;
+      }
+      return `${prefix} At quoted bill ${cp005FormatMoney(request.quotedSellingPricePerNominalQuantity)}, impose ${cp005DirectedRate(request.targetDirection, request.targetRatePercent)} on cost ${cp005FormatMoney(request.costPricePerTrueQuantity)} per ${request.trueQuantity} true units. Solving the delivered-cost equation gives ${answer} units.`;
+    }
+
+    case "TARGET_RATE_AND_FALSE_QUANTITY_TO_QUOTED_SP":
+      return `${prefix} The ${request.deliveredQuantity} delivered units have actual cost ${cp005FormatMoney(cp005DeliveredCost(request.costPricePerTrueQuantity, request.trueQuantity, request.deliveredQuantity))}. Apply the target ${cp005DirectedRate(request.targetDirection, request.targetRatePercent)} to that delivered cost; the required quoted bill is ${answer}.`;
+
+    case "BUY_HEAVY_SELL_LIGHT_TO_ACTUAL_RATE": {
+      const purpose =
+        qlId === "PNL-QL-127"
+          ? "Buying heavy and selling light creates a profit-only case"
+          : "For the mixed-price buy-heavy/sell-light case";
+      return `${prefix} ${purpose}. Paying ${cp005FormatMoney(request.purchasePricePerNominalQuantity)} for ${request.receivedQuantity} units and charging ${cp005FormatMoney(request.sellingPricePerNominalQuantity)} while delivering ${request.deliveredQuantity} units scales revenue by received-to-delivered quantity; the actual result is ${answer}.`;
+    }
+
+    case "MARKUP_DISCOUNT_FALSE_QUANTITY_TO_ACTUAL_RATE": {
+      const marked =
+        "markedPrice" in result
+          ? cp005FormatMoney(result.markedPrice)
+          : "the computed marked price";
+      const quoted =
+        "quotedSellingPrice" in result
+          ? cp005FormatMoney(result.quotedSellingPrice)
+          : "the discounted quotation";
+      const purpose =
+        qlId === "PNL-QL-146"
+          ? "For the retail-pricing caselet"
+          : "For the combined markup, discount and short-delivery sale";
+      return `${prefix} ${purpose}, ${cp005FormatPercent(request.markupPercent)} markup gives ${marked}, then ${cp005FormatPercent(request.discountPercent)} discount gives bill ${quoted}. Compare that bill with the cost of only ${request.deliveredQuantity} delivered out of ${request.trueQuantity} units; the actual result is ${answer}.`;
+    }
+
+    case "TARGET_RATE_FALSE_QUANTITY_DISCOUNT_TO_MARKUP":
+      return `${prefix} First find the bill required for ${cp005DirectedRate(request.targetDirection, request.targetRatePercent)} on the actual cost of ${request.deliveredQuantity} delivered units. Because ${cp005FormatPercent(request.discountPercent)} will then be deducted, gross the bill up to marked price; the required markup is ${answer}.`;
+
+    case "TARGET_RATE_FALSE_QUANTITY_MARKUP_TO_DISCOUNT":
+      return `${prefix} ${cp005FormatPercent(request.markupPercent)} first sets the marked price on ${cp005FormatMoney(request.costPricePerTrueQuantity)}. The target ${cp005DirectedRate(request.targetDirection, request.targetRatePercent)} is measured on the cost of ${request.deliveredQuantity} delivered units, so the discount that reduces marked price to that target bill is ${answer}.`;
+
+    case "PRICE_CHANGE_AND_SHORT_QUANTITY_TO_ACTUAL_RATE": {
+      const quoted =
+        "quotedSellingPrice" in result
+          ? cp005FormatMoney(result.quotedSellingPrice)
+          : "the changed quotation";
+      const delivered =
+        "deliveredQuantity" in result
+          ? cp005FormatQuantity(result.deliveredQuantity)
+          : "the shortened quantity";
+      const purpose =
+        qlId === "PNL-QL-132"
+          ? "For the direct price-change and shortage combination"
+          : "For the mixed-direction price-and-quantity case";
+      return `${prefix} ${purpose}, a ${cp005FormatPercent(request.priceChangePercent)} ${request.priceDirection.toLowerCase()} makes the bill ${quoted}, while ${cp005FormatPercent(request.shortQuantityPercent)} shortage leaves ${delivered} delivered units from ${request.trueQuantity}. Comparing bill with delivered cost gives ${answer}.`;
+    }
+
+    case "SHORT_QUANTITY_TO_CUSTOMER_OVERCHARGE_RATE": {
+      const shortage = request.trueQuantity - request.deliveredQuantity;
+      const purpose =
+        qlId === "PNL-QL-134"
+          ? "Customer overcharge uses delivered quantity as the effective base"
+          : qlId === "PNL-QL-144"
+            ? "For the false-metre measurement"
+            : "Checking the three shortage statements";
+      return `${prefix} ${purpose}: ${shortage} of ${request.trueQuantity} nominal units are withheld, so the customer pays for ${request.trueQuantity} but receives ${request.deliveredQuantity}. The effective overcharge result is ${answer}.`;
+    }
+
+    case "ACTUAL_AND_DECLARED_RATE_TO_FALSE_QUANTITY":
+      return `${prefix} The declared quotation follows ${cp005DirectedRate(request.declaredDirection, request.declaredRatePercent)} on a true ${request.trueQuantity}-unit cost, but the required actual result is ${cp005DirectedRate(request.actualDirection, request.actualRatePercent)}. Equating the quotation to the target return on delivered cost gives ${answer} delivered units.`;
+
+    case "ACTUAL_RATE_AND_FALSE_QUANTITY_TO_DECLARED_RATE": {
+      const purpose =
+        qlId === "PNL-QL-149"
+          ? "In the algebraic false-quantity model"
+          : "For the declared-rate inverse";
+      return `${prefix} ${purpose}, ${request.deliveredQuantity} units are supplied against a nominal ${request.trueQuantity}. Remove the quantity-deception effect from actual ${cp005DirectedRate(request.actualDirection, request.actualRatePercent)}; the displayed declared result is ${answer}.`;
+    }
+
+    case "ACTUAL_RATE_FALSE_QUANTITY_AND_QUOTED_SP_TO_COST_PRICE":
+      return `${prefix} The quoted bill ${cp005FormatMoney(request.quotedSellingPricePerNominalQuantity)} represents ${cp005DirectedRate(request.actualDirection, request.actualRatePercent)} on the cost of ${request.deliveredQuantity} delivered units. Reverse the rate, then scale from delivered quantity to ${request.trueQuantity} true units; recovered cost is ${answer}.`;
+
+    case "ACTUAL_AMOUNT_FALSE_QUANTITY_AND_QUOTED_SP_TO_COST_PRICE":
+      return `${prefix} Adjust quoted bill ${cp005FormatMoney(request.quotedSellingPricePerNominalQuantity)} by the stated ${request.actualDirection.toLowerCase()} amount ${cp005FormatMoney(request.actualAmount)} to recover delivered cost. Scaling that cost from ${request.deliveredQuantity} delivered units to ${request.trueQuantity} true units gives ${answer}.`;
+
+    case "BUY_HEAVY_SELL_LIGHT_TARGET_TO_DELIVERED_QUANTITY":
+      return `${prefix} The seller receives ${request.receivedQuantity} units for ${cp005FormatMoney(request.purchasePricePerNominalQuantity)} and charges ${cp005FormatMoney(request.sellingPricePerNominalQuantity)} per nominal quantity. Imposing ${cp005DirectedRate(request.targetDirection, request.targetRatePercent)} fixes the sell-light delivery at ${answer} units.`;
+
+    case "BUY_HEAVY_SELL_LIGHT_TARGET_TO_RECEIVED_QUANTITY":
+      return `${prefix} Delivering ${request.deliveredQuantity} units against a sale quotation of ${cp005FormatMoney(request.sellingPricePerNominalQuantity)} must yield ${cp005DirectedRate(request.targetDirection, request.targetRatePercent)} relative to purchase price ${cp005FormatMoney(request.purchasePricePerNominalQuantity)}. The required heavy-buy receipt is ${answer} units.`;
+
+    case "FALSE_QUANTITY_TO_EFFECTIVE_PRICE_PER_TRUE_QUANTITY":
+      return `${prefix} A bill of ${cp005FormatMoney(request.quotedSellingPricePerNominalQuantity)} buys only ${request.deliveredQuantity} units instead of ${request.trueQuantity}. Scaling the bill to a full true quantity gives the customer's effective price ${answer}.`;
+
+    case "COMPARE_TWO_DISHONEST_SCHEMES": {
+      const firstRate =
+        result.mode === "COMPARE_TWO_DISHONEST_SCHEMES"
+          ? cp005FormatPercent(result.firstProfitPercent)
+          : "the first computed rate";
+      const secondRate =
+        result.mode === "COMPARE_TWO_DISHONEST_SCHEMES"
+          ? cp005FormatPercent(result.secondProfitPercent)
+          : "the second computed rate";
+      const purpose =
+        qlId === "PNL-QL-145"
+          ? "Reading the comparison table"
+          : "Comparing the two dishonest schemes";
+      return `${prefix} ${purpose}, Scheme A (${cp005SchemeSummary(request.firstScheme)}) yields ${firstRate}, while Scheme B (${cp005SchemeSummary(request.secondScheme)}) yields ${secondRate}. The comparison is ${answer}.`;
+    }
+  }
+}
+
 function stable(value: unknown): string {
   return JSON.stringify(value, (_, item) =>
     typeof item === "bigint" ? item.toString() : item,
@@ -735,7 +918,13 @@ export function runPnlCp005DynamicPipeline(input: PnlCp005DynamicInput = {}) {
     editorial.explanation,
     context,
   );
-  const explanationText = `${baseExplanation}\n\n**Working with these values:** Separate the billed amount from the cost of the quantity actually delivered. Price changes and quantity changes must be combined on the same true-cost base.\n\n**Final answer:** ${answer}`;
+  const generatedWorking = buildCp005GeneratedWorking(
+    qlId,
+    generated.request,
+    result,
+    answer,
+  );
+  const explanationText = `${baseExplanation}\n\n${generatedWorking}\n\n**Final answer:** ${answer}`;
 
   const checks = [
     {
