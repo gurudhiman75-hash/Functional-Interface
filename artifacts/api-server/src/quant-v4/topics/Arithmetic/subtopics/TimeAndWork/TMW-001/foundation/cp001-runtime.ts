@@ -1,6 +1,7 @@
 import { getTmwCp001Entry } from "./cp001-registry";
 import { buildTmwCp001Options } from "./cp001-options";
 import { buildTmwCp001Parameters } from "./cp001-parameters";
+import { buildTmwCp001CommonTrap, buildTmwCp001Shortcut, buildTmwCp001WorkingLatex } from "./cp001-learning";
 import { renderTmwCp001Stem, tmwCp001Conclusion, tmwCp001ExplanationOpening } from "./cp001-presentation";
 import { solveTmwCp001, verifyTmwCp001 } from "./cp001-solver";
 import { compare, rational, rationalKey } from "./rational";
@@ -38,7 +39,14 @@ export function runTmwCp001Pipeline(input: { questionLanguageId: string; seed: s
   const solution = solveTmwCp001(entry, parameters);
   const renderedStem = renderTmwCp001Stem(entry, parameters);
   const optionSet = buildTmwCp001Options(entry, parameters, solution.answer, input.seed);
+  const shortcut = buildTmwCp001Shortcut(entry, parameters, solution);
+  const commonTrap = buildTmwCp001CommonTrap(entry, optionSet.optionAudit);
+  const steps = buildTmwCp001WorkingLatex(entry, parameters, solution).map((line) => `\\(${line}\\)`);
   const errors = validate(entry, parameters, solution, renderedStem, optionSet.optionAudit, optionSet.correctIndex);
+  if (steps.length < 3) errors.push("Explanation does not contain setup, working and verification steps");
+  if (!shortcut.title.startsWith("10-Second ") || shortcut.steps.length < 1) errors.push("Explanation shortcut is incomplete");
+  if (!optionSet.optionAudit.some((option) => option.text === commonTrap.optionText && option.misconceptionId === commonTrap.misconceptionId)) errors.push("Common trap is not linked to an actual distractor");
+  if (/Do not choose|Don't choose/i.test(commonTrap.explanation)) errors.push("Common trap uses a negative command");
 
   return {
     archetypeId: "TMW-001",
@@ -56,7 +64,9 @@ export function runTmwCp001Pipeline(input: { questionLanguageId: string; seed: s
     explanation: {
       opening: tmwCp001ExplanationOpening(entry),
       formula: `\\(${solution.formulaLatex}\\)`,
-      steps: solution.workedLatex.map((line) => `\\(${line}\\)`),
+      steps,
+      shortcut,
+      commonTrap,
       conclusion: tmwCp001Conclusion(entry, parameters, solution),
     },
     mathematicalFingerprint: fingerprint(entry, parameters),
