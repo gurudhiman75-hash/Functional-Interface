@@ -106,11 +106,43 @@ Source saturation:         open
 Editorial approval:        not started
 ```
 
+## Verified remote execution
+
+GitHub Actions run `30537420063` completed successfully on commit
+`a6e410feb90ab9c34e94b84cefcd285925fe78ab`.
+
+```text
+Status:                         PASS_SER_CP001_OPEN_EXECUTABLE_DISCOVERY
+Permanent QLs:                  0
+Temporary templates:            4
+Candidate solve authorities:    1
+Seeds per template:             120
+Generated questions:            480
+Deterministic replay checks:     480
+Independent solver checks:      480
+Ambiguity checks:               480
+Aggregate answer positions:     [120, 120, 120, 120]
+Per-template difficulty reach:   [40 Easy, 40 Medium, 40 Hard]
+Distinct fingerprints:          [118, 118, 118, 119]
+Product exposure counts:        all 0
+```
+
+The API server build, executable audit, exact English review export and artifact
+upload all passed in the same job.
+
+Evidence artifact:
+
+```text
+Name:    ser-001-cp001-open-discovery
+ID:      8757236283
+Digest:  sha256:c704bb3fa3d720d65086b4ef453e1124508778567102bc0ac8a27d5af9af12bd
+Expiry:  2026-08-29
+```
+
 ## Execution honesty
 
-At the time this plan is added:
-
-- runtime and audit source are implemented;
-- GitHub Actions execution is pending;
-- no test is described as passing until the remote workflow reports success;
-- source saturation and permanent allocation remain future work.
+- the runtime and audit source have executed on GitHub;
+- the checkpoint-specific workflow passed;
+- the exact review pack was generated and uploaded;
+- no local checkout or local validation was used;
+- source saturation, editorial approval, localization and permanent allocation remain open.
