@@ -1,35 +1,27 @@
-name: Validate PNL English Editorial Audit
+name: Harden PNL English Editorial Audit Sampling
 
 on:
-  push:
-    branches:
-      - feat/pnl-001-english-editorial-audit
-    paths:
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/**"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-editorial-option-regression.test.ts"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-PLAN.md"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-WAVE-01.md"
-      - ".github/workflows/validate-pnl-english-editorial-audit.yml"
   pull_request:
+    branches:
+      - New-main
     paths:
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/**"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-editorial-option-regression.test.ts"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-PLAN.md"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-WAVE-01.md"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
       - ".github/workflows/validate-pnl-english-editorial-audit.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  generate-pnl-english-editorial-audit:
+  harden-audit-sampling:
+    if: github.head_ref == 'audit/pnl-001-english-sampling-hardening'
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 50
     steps:
-      - name: Checkout source
+      - name: Checkout audit branch
         uses: actions/checkout@v4
+        with:
+          ref: audit/pnl-001-english-sampling-hardening
+          fetch-depth: 0
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -44,58 +36,48 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle CP-003 editorial regression
+      - name: Apply deterministic sampling hardening
+        run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-english-audit-sampling-hardening.mjs
+
+      - name: Format audit authority
+        run: pnpm exec prettier --write artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts
+
+      - name: Run existing editorial regressions
         run: |
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-editorial-seed-regression.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/.cp003-editorial-seed-regression.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-editorial-seed-regression.test.ts --bundle --platform=node --format=esm --outfile=/tmp/pnl-cp003-editorial-seed-regression.test.mjs
+          node /tmp/pnl-cp003-editorial-seed-regression.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-editorial-seed-regression.test.ts --bundle --platform=node --format=esm --outfile=/tmp/pnl-cp005-editorial-seed-regression.test.mjs
+          node /tmp/pnl-cp005-editorial-seed-regression.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-editorial-option-regression.test.ts --bundle --platform=node --format=esm --outfile=/tmp/pnl-editorial-option-regression.test.mjs
+          node /tmp/pnl-editorial-option-regression.test.mjs
 
-      - name: Run CP-003 editorial regression
-        run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/.cp003-editorial-seed-regression.test.mjs
-
-      - name: Bundle CP-005 editorial regression
+      - name: Generate hardened audit corpus
         run: |
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-editorial-seed-regression.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/.cp005-editorial-seed-regression.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts --bundle --platform=node --format=esm --outfile=/tmp/pnl-001-english-editorial-audit.mjs
+          node /tmp/pnl-001-english-editorial-audit.mjs | tee pnl-english-sampling-hardening.log
 
-      - name: Run CP-005 editorial regression
-        run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/.cp005-editorial-seed-regression.test.mjs
+      - name: Verify and document sampling result
+        run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-english-audit-sampling-report.mjs
 
-      - name: Bundle option regressions
+      - name: Commit validated audit authority
         run: |
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-editorial-option-regression.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-editorial-option-regression.test.mjs
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          git fetch origin New-main
+          git checkout origin/New-main -- .github/workflows/validate-pnl-english-editorial-audit.yml
+          rm -f "$root/pnl-english-audit-sampling-hardening.mjs" "$root/pnl-english-audit-sampling-report.mjs"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "audit(pnl): harden English editorial sampling"
+          git push origin HEAD:audit/pnl-001-english-sampling-hardening
 
-      - name: Run option regressions
-        run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-editorial-option-regression.test.mjs
-
-      - name: Bundle editorial exporter
-        run: |
-          set -o pipefail
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
-            2>&1 | tee pnl-english-editorial-audit.log
-
-      - name: Generate 558-row review corpus
-        run: |
-          set -o pipefail
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
-            2>&1 | tee -a pnl-english-editorial-audit.log
-
-      - name: Upload editorial review corpus
+      - name: Upload audit evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pnl-001-english-editorial-audit
+          name: pnl-001-english-sampling-hardening
           path: |
             dist/quant-v4/pnl-001-english-editorial-audit
-            pnl-english-editorial-audit.log
+            pnl-english-sampling-hardening.log
           if-no-files-found: error
           retention-days: 14
