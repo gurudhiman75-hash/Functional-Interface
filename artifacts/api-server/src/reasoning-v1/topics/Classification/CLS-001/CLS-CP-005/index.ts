@@ -10,3 +10,5 @@ export * from "./source-gap-registry";
 export * from "./source-gap-expanded-audit";
 export * from "./wave2-runtime";
 export * from "./wave2-quality-runtime";
+export * from "./wave2-digit-product-rule";
+export * from "./wave2-digit-product-runtime";
