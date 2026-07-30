@@ -149,6 +149,27 @@ function normalizeBlocks(
     ];
   }
 
+  if (qlId === "PNL-QL-092") {
+    return [
+      {
+        type: "paragraph",
+        content:
+          language === "hi"
+            ? "माल का एक भाग पहले ही बेचा जा चुका है और पूरे माल के लिए लक्ष्य {targetRatePercent}% {targetDirection} है।"
+            : "ਮਾਲ ਦਾ ਇੱਕ ਹਿੱਸਾ ਪਹਿਲਾਂ ਹੀ ਵੇਚਿਆ ਜਾ ਚੁੱਕਾ ਹੈ ਅਤੇ ਪੂਰੇ ਮਾਲ ਲਈ ਟੀਚਾ {targetRatePercent}% {targetDirection} ਹੈ।",
+      },
+      {
+        type: "data_sufficiency",
+        question:
+          language === "hi"
+            ? "क्या दिए गए कथनों से शेष प्रत्येक वस्तु का आवश्यक विक्रय मूल्य निश्चित रूप से ज्ञात किया जा सकता है?"
+            : "ਕੀ ਦਿੱਤੇ ਕਥਨਾਂ ਤੋਂ ਬਾਕੀ ਹਰ ਵਸਤੂ ਦਾ ਲੋੜੀਂਦਾ ਵਿਕਰੀ ਮੁੱਲ ਪੱਕੇ ਤੌਰ 'ਤੇ ਕੱਢਿਆ ਜਾ ਸਕਦਾ ਹੈ?",
+        statements: ["{statementOne}", "{statementTwo}"],
+        answerScheme: "STANDARD_TWO_STATEMENT",
+      },
+    ];
+  }
+
   if (qlId === "PNL-QL-087") {
     return [
       {
