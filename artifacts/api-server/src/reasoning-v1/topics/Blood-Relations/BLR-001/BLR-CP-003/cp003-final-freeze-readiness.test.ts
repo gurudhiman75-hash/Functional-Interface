@@ -3,14 +3,14 @@ import assert from "node:assert/strict";
 import {
   BLR_CP003_FINAL_FREEZE_READINESS,
   BLR_CP003_FINAL_FREEZE_READINESS_VERSION,
-  BLR_CP003_MIN_ACTIVE_RECORDS_PER_SOURCE_PROTOTYPE,
+  BLR_CP003_MIN_ACTIVE_RECORDS_PER_AUTHORITY,
 } from "./cp003-final-freeze-readiness";
 
 assert.equal(
   BLR_CP003_FINAL_FREEZE_READINESS.version,
   BLR_CP003_FINAL_FREEZE_READINESS_VERSION,
 );
-assert.equal(BLR_CP003_MIN_ACTIVE_RECORDS_PER_SOURCE_PROTOTYPE, 1);
+assert.equal(BLR_CP003_MIN_ACTIVE_RECORDS_PER_AUTHORITY, 4);
 assert.equal(BLR_CP003_FINAL_FREEZE_READINESS.humanReviewApproved, true);
 assert.equal(BLR_CP003_FINAL_FREEZE_READINESS.acceptedPolishValidated, true);
 assert.equal(
@@ -38,7 +38,7 @@ const exactLineage = readinessByAuthority.get(
 assert.ok(exactLineage);
 assert.equal(exactLineage.learnerEvidenceReady, true);
 assert.equal(exactLineage.activeRecordCount, 8);
-assert.deepEqual(exactLineage.unsupportedSourcePrototypeIds, []);
+assert.deepEqual(exactLineage.sourcePrototypeIdsWithoutActiveRecords, []);
 
 for (const authority of [
   "DETERMINE_MEMBER_GENDER",
@@ -52,7 +52,7 @@ for (const authority of [
   assert.equal(readiness.learnerEvidenceReady, false);
   assert.equal(readiness.activeRecordCount, 0);
   assert.ok(readiness.rejectedRecordCount > 0);
-  assert.ok(readiness.unsupportedSourcePrototypeIds.length > 0);
+  assert.ok(readiness.sourcePrototypeIdsWithoutActiveRecords.length > 0);
 }
 
 assert.deepEqual(
