@@ -1,91 +1,234 @@
-name: Validate PNL Multilingual Editorial Audit
+name: Apply PNL Multilingual Lexical Naturalness Wave 01
 
 on:
-  push:
-    branches:
-      - audit/pnl-001-multilingual-editorial-freeze
-    paths:
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/editorial-content.*.json"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-audit.ts"
-      - ".github/workflows/validate-pnl-multilingual-editorial-audit.yml"
   pull_request:
+    branches:
+      - New-main
     paths:
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/editorial-content.*.json"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
       - ".github/workflows/validate-pnl-multilingual-editorial-audit.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  generate-multilingual-editorial-audit:
+  apply-and-prove:
+    if: github.head_ref == 'feat/pnl-001-multilingual-lexical-naturalness-wave01'
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 50
     steps:
-      - name: Checkout source
+      - name: Checkout feature branch
         uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-multilingual-lexical-naturalness-wave01
+          fetch-depth: 0
 
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Enable pnpm
+      - name: Install locked workspace dependencies
         run: |
           corepack enable
           corepack prepare pnpm@10.33.0 --activate
+          pnpm install --frozen-lockfile
 
-      - name: Install locked workspace dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Prove existing multilingual source contract
+      - name: Apply native lexical authority
         run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          root = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001")
+          normalizer_path = root / "foundation/editorial-v2-multilingual-normalizer.ts"
+          source = normalizer_path.read_text()
+          pairs = [
+              (
+                  "`${sector} के इस प्रश्न में दिए गए व्यावसायिक क्रम को उसी क्रम में पढ़ना सबसे सुरक्षित है।`",
+                  "`${sector} के इस सवाल में दी गई खरीद, खर्च और बिक्री की जानकारी को उसी क्रम में पढ़ें।`",
+              ),
+              (
+                  "`${sector} ਦੇ ਇਸ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤਾ ਵਪਾਰਕ ਕ੍ਰਮ ਉਸੇ ਕ੍ਰਮ ਵਿੱਚ ਪੜ੍ਹਣਾ ਸਭ ਤੋਂ ਸੁਰੱਖਿਅਤ ਹੈ।`",
+                  "`${sector} ਦੇ ਇਸ ਸਵਾਲ ਵਿੱਚ ਦਿੱਤੀ ਖਰੀਦ, ਖਰਚ ਅਤੇ ਵਿਕਰੀ ਦੀ ਜਾਣਕਾਰੀ ਨੂੰ ਉਸੇ ਕ੍ਰਮ ਵਿੱਚ ਪੜ੍ਹੋ।`",
+              ),
+              (
+                  'hi: "अज्ञात समूह की प्रति इकाई लागत ₹{unknownUnitCostPrice} है और उसकी दिशा {unknownDirection} है।",',
+                  'hi: "जिस समूह का प्रतिशत ज्ञात करना है, उसकी प्रति इकाई लागत ₹{unknownUnitCostPrice} है और उसे {unknownDirection} पर बेचना है।",',
+              ),
+              (
+                  'pa: "ਅਣਜਾਣ ਸਮੂਹ ਦੀ ਪ੍ਰਤੀ ਇਕਾਈ ਲਾਗਤ ₹{unknownUnitCostPrice} ਹੈ ਅਤੇ ਉਸ ਦੀ ਦਿਸ਼ਾ {unknownDirection} ਹੈ।",',
+                  'pa: "ਜਿਸ ਸਮੂਹ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰਨਾ ਹੈ, ਉਸ ਦੀ ਪ੍ਰਤੀ ਇਕਾਈ ਲਾਗਤ ₹{unknownUnitCostPrice} ਹੈ ਅਤੇ ਉਸ ਨੂੰ {unknownDirection} \'ਤੇ ਵੇਚਣਾ ਹੈ।",',
+              ),
+          ]
+          for old, new in pairs:
+              if old in source:
+                  source = source.replace(old, new, 1)
+              elif new not in source:
+                  raise SystemExit(f"Missing normalizer anchor: {old}")
+          normalizer_path.write_text(source)
+
+          replacements = {
+              root / "CP-003/question-language.hi.json": (
+                  "दो माल समूहों की लागत बीजीय रूप में और उनके विक्रय प्रतिशत दिए गए हैं। अपेक्षित कुल परिणाम के लिए अज्ञात समूह प्रतिशत ज्ञात कीजिए।",
+                  "दो माल समूहों की लागत बीजीय रूप में और उनके विक्रय प्रतिशत दिए गए हैं। अपेक्षित कुल परिणाम के लिए जिस समूह की दर नहीं दी गई है, उसका लाभ या हानि प्रतिशत ज्ञात कीजिए।",
+              ),
+              root / "CP-003/question-language.pa.json": (
+                  "ਦੋ ਮਾਲ ਸਮੂਹਾਂ ਦੀ ਲਾਗਤ ਬੀਜਗਣਿਤੀ ਰੂਪ ਵਿੱਚ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਵਿਕਰੀ ਪ੍ਰਤੀਸ਼ਤ ਦਿੱਤੇ ਹਨ। ਲੋੜੀਂਦੇ ਕੁੱਲ ਨਤੀਜੇ ਲਈ ਅਣਜਾਣ ਸਮੂਹ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+                  "ਦੋ ਮਾਲ ਸਮੂਹਾਂ ਦੀ ਲਾਗਤ ਬੀਜਗਣਿਤੀ ਰੂਪ ਵਿੱਚ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਵਿਕਰੀ ਪ੍ਰਤੀਸ਼ਤ ਦਿੱਤੇ ਹਨ। ਲੋੜੀਂਦੇ ਕੁੱਲ ਨਤੀਜੇ ਲਈ ਜਿਸ ਸਮੂਹ ਦੀ ਦਰ ਨਹੀਂ ਦਿੱਤੀ ਗਈ, ਉਸ ਦਾ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+              ),
+          }
+          for path, (old, new) in replacements.items():
+              text = path.read_text()
+              if old in text:
+                  text = text.replace(old, new, 1)
+              elif new not in text:
+                  raise SystemExit(f"Missing QL-091 anchor: {path}")
+              path.write_text(text)
+
+          (root / "pnl-001-multilingual-lexical-naturalness.test.ts").write_text('''import assert from "node:assert/strict";
+import { buildAllNormalizedMultilingualEditorialLibraries } from "./foundation";
+
+const libraries = buildAllNormalizedMultilingualEditorialLibraries();
+const entryCount = libraries.reduce((sum, library) => sum + library.entryCount, 0);
+assert.equal(libraries.length, 12);
+assert.equal(entryCount, 372);
+const visible = JSON.stringify(libraries);
+assert.doesNotMatch(visible, /व्यावसायिक क्रम/u);
+assert.doesNotMatch(visible, /ਵਪਾਰਕ ਕ੍ਰਮ/u);
+assert.doesNotMatch(visible, /अज्ञात समूह/u);
+
+function nativeEntry(language: "hi" | "pa", qlId: string) {
+  const library = libraries.find((item) => item.language === language && item.entries[qlId]);
+  assert.ok(library, `${qlId}/${language}: missing native entry.`);
+  return JSON.stringify(library.entries[qlId]);
+}
+assert.match(nativeEntry("hi", "PNL-QL-078"), /जिस समूह का प्रतिशत ज्ञात करना है/u);
+assert.match(nativeEntry("pa", "PNL-QL-078"), /ਜਿਸ ਸਮੂਹ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰਨਾ ਹੈ/u);
+assert.match(nativeEntry("hi", "PNL-QL-091"), /जिस समूह की दर नहीं दी गई है/u);
+assert.match(nativeEntry("pa", "PNL-QL-091"), /ਜਿਸ ਸਮੂਹ ਦੀ ਦਰ ਨਹੀਂ ਦਿੱਤੀ ਗਈ/u);
+console.log(JSON.stringify({ status: "PASS", libraries: libraries.length, entries: entryCount }, null, 2));
+''')
+          PY
+
+      - name: Regenerate all native Editorial V2 libraries
+        run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-multilingual-export.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-export.mjs
+          node "$root/.editorial-v2-multilingual-export.mjs"
+          for cp in 001 002 003 004 005 006; do
+            for language in hi pa; do
+              cp "$root/.editorial-v2-multilingual-generated/CP-$cp.editorial-content.$language.json" \
+                "$root/CP-$cp/editorial-content.$language.json"
+            done
+          done
+          pnpm exec prettier --write \
+            "$root/foundation/editorial-v2-multilingual-normalizer.ts" \
+            "$root/CP-003/question-language.hi.json" \
+            "$root/CP-003/question-language.pa.json" \
+            "$root"/CP-*/editorial-content.hi.json \
+            "$root"/CP-*/editorial-content.pa.json \
+            "$root/pnl-001-multilingual-lexical-naturalness.test.ts"
+
+      - name: Prove parity rendering naturalness and audit
+        run: |
+          set -o pipefail
           root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
           for source in \
             editorial-v2-multilingual-audit.ts \
             editorial-v2-multilingual-render.test.ts \
-            editorial-v2-multilingual-source-parity.ts; do
+            editorial-v2-multilingual-source-parity.ts \
+            pnl-001-multilingual-lexical-naturalness.test.ts \
+            pnl-001-multilingual-editorial-audit.ts; do
             name="${source%.ts}"
             pnpm --dir artifacts/api-server exec esbuild \
               "src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/$source" \
               --bundle --platform=node --format=esm \
-              --outfile="src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.$name.mjs"
-            node "$root/.$name.mjs"
+              --outfile="src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.$name.mjs" \
+              2>&1 | tee -a pnl-multilingual-lexical-wave01.log
+            node "$root/.$name.mjs" 2>&1 | tee -a pnl-multilingual-lexical-wave01.log
           done
-
-      - name: Bundle multilingual editorial corpus audit
-        run: |
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-audit.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-editorial-audit.mjs
-
-      - name: Generate 372-row native review corpus
-        run: |
-          set -o pipefail
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-editorial-audit.mjs \
-            2>&1 | tee pnl-multilingual-editorial-audit.log
-
-      - name: Reject structural blockers
-        run: |
           node - <<'NODE'
           const fs = require("node:fs");
-          const path = "dist/quant-v4/pnl-001-multilingual-editorial-audit/pnl-001-multilingual-editorial-findings.json";
-          const findings = JSON.parse(fs.readFileSync(path, "utf8"));
-          if (findings.fatalFindings.length) {
-            console.error(JSON.stringify(findings.fatalFindings, null, 2));
+          const findings = JSON.parse(fs.readFileSync(
+            "dist/quant-v4/pnl-001-multilingual-editorial-audit/pnl-001-multilingual-editorial-findings.json",
+            "utf8",
+          ));
+          if (findings.fatalFindings.length || findings.lexicalReviewFindings.length) {
+            console.error(JSON.stringify({
+              fatalFindings: findings.fatalFindings,
+              lexicalReviewFindings: findings.lexicalReviewFindings,
+            }, null, 2));
             process.exit(1);
           }
-          console.log(JSON.stringify({ fatalFindingCount: 0 }, null, 2));
+          console.log(JSON.stringify({
+            fatalFindingCount: 0,
+            lexicalReviewFindingCount: 0,
+            editorialFindingCount: findings.editorialFindings.length,
+          }, null, 2));
           NODE
 
-      - name: Upload multilingual review corpus
+      - name: Restore permanent read-only workflow and commit
+        run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          git checkout 6375788c89adcfe7d5acf06616ca89ac0f57c0ad -- .github/workflows/validate-pnl-multilingual-editorial-audit.yml
+          python - <<'PY'
+          from pathlib import Path
+          path = Path(".github/workflows/validate-pnl-multilingual-editorial-audit.yml")
+          source = path.read_text().replace(
+              "      - audit/pnl-001-multilingual-editorial-freeze",
+              "      - New-main",
+              1,
+          )
+          audit_path = '      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-audit.ts"'
+          extras = audit_path + '''
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-multilingual-normalizer.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/question-language.hi.json"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/question-language.pa.json"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-lexical-naturalness.test.ts"'''
+          if source.count(audit_path) != 2:
+              raise SystemExit("Expected two permanent workflow path anchors")
+          source = source.replace(audit_path, extras)
+          anchor = "      - name: Bundle multilingual editorial corpus audit\n"
+          proof = '''      - name: Prove multilingual lexical naturalness
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \\
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-lexical-naturalness.test.ts \\
+            --bundle --platform=node --format=esm \\
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-lexical-naturalness.test.mjs
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-lexical-naturalness.test.mjs
+
+'''
+          if anchor not in source:
+              raise SystemExit("Permanent workflow proof anchor missing")
+          path.write_text(source.replace(anchor, proof + anchor, 1))
+          PY
+          pnpm exec prettier --write .github/workflows/validate-pnl-multilingual-editorial-audit.yml
+          rm -f \
+            .github/workflows/implement-pnl-multilingual-lexical-wave01.yml \
+            .github/workflows/run-pnl-multilingual-lexical-wave01.yml \
+            "$root"/.editorial-v2-multilingual-export.mjs \
+            "$root"/.editorial-v2-multilingual-audit.mjs \
+            "$root"/.editorial-v2-multilingual-render.test.mjs \
+            "$root"/.editorial-v2-multilingual-source-parity.mjs \
+            "$root"/.pnl-001-multilingual-lexical-naturalness.test.mjs \
+            "$root"/.pnl-001-multilingual-editorial-audit.mjs
+          rm -rf "$root/.editorial-v2-multilingual-generated"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "fix(pnl): naturalize multilingual lexical authority"
+          git push origin HEAD:feat/pnl-001-multilingual-lexical-naturalness-wave01
+
+      - name: Upload evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pnl-001-multilingual-editorial-audit
+          name: pnl-multilingual-lexical-wave01
           path: |
+            pnl-multilingual-lexical-wave01.log
             dist/quant-v4/pnl-001-multilingual-editorial-audit
-            pnl-multilingual-editorial-audit.log
           if-no-files-found: error
           retention-days: 14
