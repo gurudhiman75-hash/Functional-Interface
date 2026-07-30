@@ -1,0 +1,153 @@
+name: Validate NUM-CP-004 completion and English freeze
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**"
+      - ".github/workflows/num-001-cp004-completion-freeze.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-num-cp004-completion:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Wave 1 regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-004/wave01/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp004-wave01-regression.mjs
+
+      - name: Run Wave 1 regression
+        run: node artifacts/api-server/dist/quant-v4/num-001-cp004-wave01-regression.mjs
+
+      - name: Bundle Wave 2 regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-004/wave02/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp004-wave02-regression.mjs
+
+      - name: Run Wave 2 regression
+        run: node artifacts/api-server/dist/quant-v4/num-001-cp004-wave02-regression.mjs
+
+      - name: Bundle retained completion authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-004/completion/runtime-proof.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp004-completion-retained.test.mjs
+
+      - name: Run retained completion authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp004-completion-retained.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp004-completion-retained.log
+
+      - name: Bundle source and ownership audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-004/completion/audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp004-completion-audit.mjs
+
+      - name: Run source and ownership audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp004-completion-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp004-completion-audit.log
+
+      - name: Bundle permanent allocation proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-004/permanent/allocation.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp004-permanent-allocation.test.mjs
+
+      - name: Run permanent allocation proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp004-permanent-allocation.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp004-permanent-allocation.log
+
+      - name: Bundle permanent English runtime proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-004/permanent/runtime-proof.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp004-permanent-runtime.test.mjs
+
+      - name: Run permanent English runtime proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp004-permanent-runtime.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp004-permanent-runtime.log
+
+      - name: Bundle English freeze audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-004/permanent/english-freeze-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp004-english-freeze-audit.mjs
+
+      - name: Run English freeze audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp004-english-freeze-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp004-english-freeze-audit.log
+
+      - name: Bundle current chapter allocation authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/design/number-system-current-allocation-registry.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/number-system-current-allocation-registry.test.mjs
+
+      - name: Run current chapter allocation authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/number-system-current-allocation-registry.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/number-system-current-allocation-registry.log
+
+      - name: Bundle permanent English review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-004/permanent/review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp004-permanent-review-export.mjs
+
+      - name: Generate permanent English review corpus
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/num-001-cp004-permanent-review-export.mjs
+
+      - name: Upload NUM-CP-004 completion evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-001-cp004-completion-english-freeze
+          path: |
+            artifacts/api-server/dist/quant-v4/num-001-cp004-completion-retained.log
+            artifacts/api-server/dist/quant-v4/num-001-cp004-completion-audit.log
+            artifacts/api-server/dist/quant-v4/num-001-cp004-permanent-allocation.log
+            artifacts/api-server/dist/quant-v4/num-001-cp004-permanent-runtime.log
+            artifacts/api-server/dist/quant-v4/num-001-cp004-english-freeze-audit.log
+            artifacts/api-server/dist/quant-v4/number-system-current-allocation-registry.log
+            artifacts/api-server/dist/quant-v4/num-001-cp004-permanent-english-review.json
+            artifacts/api-server/dist/quant-v4/num-001-cp004-permanent-english-review.csv
+            artifacts/api-server/dist/quant-v4/num-001-cp004-permanent-english-review.md
+          if-no-files-found: error
+          retention-days: 30
