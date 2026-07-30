@@ -1,4 +1,4 @@
-import { add, compare, divide, equals, formatRational, multiply, rational, subtract } from "./rational";
+import { add, compare, divide, equals, formatRational, formatTimeText, multiply, rational, subtract } from "./rational";
 import { seedNumber } from "./cp001-helpers";
 import type { Rational } from "./types";
 import type { TmwCp006MisconceptionId, TmwCp006Option, TmwCp006Parameters, TmwCp006RegistryEntry, TmwCp006Solution } from "./cp006-types";
@@ -8,8 +8,8 @@ function text(entry:TmwCp006RegistryEntry,p:TmwCp006Parameters,value:Rational):s
   const formatted=formatRational(value);
   switch(entry.answerType){
     case "COUNT":return `${formatted} ${plural(value,p.context.resourceSingular,p.context.resourcePlural)}`;
-    case "TIME":return `${formatted} ${plural(value,"day","days")}`;
-    case "HOURS":return entry.solveMode==="findOvertimeHoursForDeadline"?`${formatted} overtime ${plural(value,"hour","hours")} per day`:`${formatted} ${plural(value,"hour","hours")} per day`;
+    case "TIME":return formatTimeText(value,"day","days");
+    case "HOURS":return entry.solveMode==="findOvertimeHoursForDeadline"?`${formatTimeText(value,"hour","hours")} overtime per day`:`${formatTimeText(value,"hour","hours")} per day`;
     case "EFFICIENCY":return `${formatted} times the baseline efficiency`;
     case "WORK":return `${formatted} ${p.context.outputUnit}`;
     case "RATIO":return `${Math.abs(value.numerator)}:${value.denominator}`;

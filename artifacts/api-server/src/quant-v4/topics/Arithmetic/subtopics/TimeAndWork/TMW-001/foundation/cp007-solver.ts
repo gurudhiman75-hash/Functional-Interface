@@ -1,4 +1,4 @@
-import { add, compare, divide, equals, formatRational, multiply, rational, reciprocal, subtract, toLatex } from "./rational";
+import { add, compare, divide, equals, formatRational, formatTimeText, multiply, rational, reciprocal, subtract, toLatex } from "./rational";
 import { required } from "./cp001-helpers";
 import type { Rational } from "./types";
 import type { TmwCp007Parameters, TmwCp007RegistryEntry, TmwCp007Solution } from "./cp007-types";
@@ -47,7 +47,7 @@ export function formatTmwCp007Answer(entry:TmwCp007RegistryEntry,p:TmwCp007Param
   const first=values[0],unit=timeUnit(p),target=p.targetCategoryIndex??p.replacementCategoryIndex??0,category=p.context.categories[target];
   switch(entry.answerType){
     case "COUNT":return `${formatRational(first)} ${plural(first,category.singular,category.plural)}`;
-    case "TIME":return `${formatRational(first)} ${plural(first,unit,`${unit}s`)}`;
+    case "TIME":return formatTimeText(first,unit,`${unit}s`);
     case "RATE":return `${formatRational(first)} ${p.context.outputUnit} per ${unit}`;
     case "RATIO":return ratioText(integerRatio(values));
     case "TRIPLE_RATIO":return ratioText(integerRatio(values));

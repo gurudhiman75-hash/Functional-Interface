@@ -1,4 +1,4 @@
-import { add, compare, divide, equals, formatRational, multiply, rational, subtract, toLatex } from "./rational";
+import { add, compare, divide, equals, formatRational, formatTimeText, multiply, rational, subtract, toLatex } from "./rational";
 import { required } from "./cp001-helpers";
 import type { Rational } from "./types";
 import type { TmwCp006Parameters, TmwCp006ProjectState, TmwCp006RegistryEntry, TmwCp006Solution } from "./cp006-types";
@@ -17,8 +17,8 @@ function answerText(entry:TmwCp006RegistryEntry,p:TmwCp006Parameters,answer:Rati
   const value=formatRational(answer);
   switch(entry.answerType){
     case "COUNT":return `${value} ${plural(answer,p.context.resourceSingular,p.context.resourcePlural)}`;
-    case "TIME":return `${value} ${plural(answer,"day","days")}`;
-    case "HOURS":return entry.solveMode==="findOvertimeHoursForDeadline"?`${value} overtime ${plural(answer,"hour","hours")} per day`:`${value} ${plural(answer,"hour","hours")} per day`;
+    case "TIME":return formatTimeText(answer,"day","days");
+    case "HOURS":return entry.solveMode==="findOvertimeHoursForDeadline"?`${formatTimeText(answer,"hour","hours")} overtime per day`:`${formatTimeText(answer,"hour","hours")} per day`;
     case "EFFICIENCY":return `${value} times the baseline efficiency`;
     case "WORK":return `${value} ${p.context.outputUnit}`;
     case "RATIO":return ratioText(answer);
