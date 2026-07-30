@@ -8,6 +8,11 @@ import {
 } from "./foundation/cp001-permanent-allocation";
 import { runMalCp001PermanentPipeline } from "./foundation/cp001-permanent-runtime";
 import {
+  MAL_CP001_ALLIGATION_DIRECTIVE_PREFIX,
+  MAL_CP001_ALLIGATION_VISUAL_ID,
+  MAL_CP001_RELEASE_LAYOUT_ID,
+} from "./foundation/cp001-release-editorial-v2";
+import {
   MAL_CP001_ENGLISH_RELEASE,
   MAL_CP001_ENGLISH_REVIEW_APPROVAL,
   runMalCp001EnglishReleasePipeline,
@@ -27,16 +32,39 @@ function stable(value: unknown): string {
   return JSON.stringify(value);
 }
 
+const crossQlIds = new Set([
+  "MAL-QL-001",
+  "MAL-QL-002",
+  "MAL-QL-003",
+  "MAL-QL-005",
+  "MAL-QL-006",
+  "MAL-QL-007",
+  "MAL-QL-009",
+  "MAL-QL-010",
+]);
+const deviationQlIds = new Set(["MAL-QL-004", "MAL-QL-008"]);
+const formulaPatchedQlIds = new Set([
+  "MAL-QL-001",
+  "MAL-QL-007",
+  "MAL-QL-008",
+  "MAL-QL-009",
+  "MAL-QL-010",
+]);
+const methodOneAlligationWords =
+  /\b(alligation|cross difference|opposite difference|deviation balance)\b/iu;
+
 let releasedQuestionCount = 0;
 let deterministicRegenerationCount = 0;
 let solverPreservationCount = 0;
 let activeQuestionCount = 0;
 let releaseValidationCheckCount = 0;
 let explanationLineCount = 0;
+let svgDirectiveCount = 0;
 const releasedQlIds = new Set<string>();
 const releasedStemSet = new Set<string>();
 
 assert(MAL_CP001_ENGLISH_RELEASE.releaseId === "MAL-CP001-EN-v1", "Unexpected release ID.");
+assert(MAL_CP001_ENGLISH_RELEASE.presentationRevisionId === "MAL-CP001-EN-SVG-v2", "Unexpected presentation revision ID.");
 assert(MAL_CP001_ENGLISH_RELEASE.qlCount === 11, "Release must contain 11 permanent QLs.");
 assert(MAL_CP001_ENGLISH_RELEASE.reviewQuestionCount === 44, "Release review count must be 44.");
 assert(MAL_CP001_ENGLISH_REVIEW_APPROVAL.status === "APPROVED_FOR_ENGLISH_RELEASE", "English review approval is missing.");
@@ -91,15 +119,52 @@ for (const qlId of MAL_CP001_PERMANENT_QL_IDS) {
     assert(released.validation.checks.every((check) => check.passed), `${qlId}/${seed}: a release validation check failed.`);
     releaseValidationCheckCount += released.validation.checks.length;
 
-    assert(released.explanation.layoutId === "MAL-CP001-EN-SIMPLE-TEACHER-V1", `${qlId}/${seed}: wrong explanation authority.`);
-    assert(released.explanation.lines.length >= 13, `${qlId}/${seed}: Question Studio explanation lines are incomplete.`);
+    assert(released.explanation.layoutId === "MAL-CP001-EN-SIMPLE-TEACHER-V1", `${qlId}/${seed}: wrong foundation explanation authority.`);
+    assert(released.explanation.releaseLayoutId === MAL_CP001_RELEASE_LAYOUT_ID, `${qlId}/${seed}: formula/SVG release layout is missing.`);
+    assert(released.explanation.alligationVisualId === MAL_CP001_ALLIGATION_VISUAL_ID, `${qlId}/${seed}: alligation visual authority is missing.`);
+    assert(released.explanation.lines.length >= 14, `${qlId}/${seed}: Question Studio explanation lines are incomplete.`);
     assert(released.explanation.lines.includes("📌 Core Concept & Formula"), `${qlId}/${seed}: core-concept section is missing.`);
-    assert(released.explanation.lines.includes("📝 Step-by-Step Solution"), `${qlId}/${seed}: step section is missing.`);
-    assert(released.explanation.lines.includes("⚡ 10-Second Exam Shortcut"), `${qlId}/${seed}: shortcut section is missing.`);
+    assert(released.explanation.lines.includes("📝 Method 1 — Normal Formula Method"), `${qlId}/${seed}: formula-method section is missing.`);
+    assert(released.explanation.lines.includes("⚡ Method 2 — Alligation Method (Exam Shortcut)"), `${qlId}/${seed}: alligation-method section is missing.`);
     assert(released.explanation.lines.includes("⚠️ Common Trap & Mistake Warning"), `${qlId}/${seed}: trap section is missing.`);
+    const svgDirective = released.explanation.lines.find((line) =>
+      line.startsWith(MAL_CP001_ALLIGATION_DIRECTIVE_PREFIX),
+    );
+    assert(svgDirective?.endsWith("]]"), `${qlId}/${seed}: SVG directive is missing or malformed.`);
+    svgDirectiveCount += 1;
     explanationLineCount += released.explanation.lines.length;
 
+    const visual = released.explanation.alligationVisual;
+    if (crossQlIds.has(qlId)) {
+      assert(visual.kind === "cross", `${qlId}/${seed}: expected a cross visual.`);
+    } else if (deviationQlIds.has(qlId)) {
+      assert(visual.kind === "deviation", `${qlId}/${seed}: expected a deviation visual.`);
+    } else {
+      assert(qlId === "MAL-QL-011", `${qlId}/${seed}: unknown visual contract.`);
+      assert(visual.kind === "sequence" && visual.stages.length === 2, `${qlId}/${seed}: expected two stage crosses.`);
+    }
+
+    if (qlId === "MAL-QL-002" || qlId === "MAL-QL-003") {
+      assert(visual.kind === "cross" && Boolean(visual.rangePartition), `${qlId}/${seed}: range-partition data is missing.`);
+      assert(!released.explanation.examShortcut.includes("Cross-multiply"), `${qlId}/${seed}: Method 2 repeats formula algebra.`);
+    }
+    if (qlId === "MAL-QL-011") {
+      assert(
+        visual.kind === "sequence" && visual.stages.every((stage) => Boolean(stage.diagram.rangePartition)),
+        `${qlId}/${seed}: a stage is missing range-partition data.`,
+      );
+    }
+    if (formulaPatchedQlIds.has(qlId)) {
+      const methodOne = [
+        released.explanation.coreConcept,
+        released.explanation.formula,
+        ...released.explanation.steps,
+      ].join("\n");
+      assert(!methodOneAlligationWords.test(methodOne), `${qlId}/${seed}: Method 1 contains alligation language.`);
+    }
+
     assert(released.traceability.releaseId === MAL_CP001_ENGLISH_RELEASE.releaseId, `${qlId}/${seed}: traceability release ID mismatch.`);
+    assert(released.traceability.presentationRevisionId === MAL_CP001_ENGLISH_RELEASE.presentationRevisionId, `${qlId}/${seed}: traceability presentation revision mismatch.`);
     assert(released.traceability.reviewStatus === "APPROVED_EDITORIAL_ENGLISH", `${qlId}/${seed}: traceability review status mismatch.`);
     assert(released.parameters.questionBankStatus === "WRITABLE", `${qlId}/${seed}: parameter Question Bank status mismatch.`);
     assert(released.parameters.testEligibility === "ELIGIBLE", `${qlId}/${seed}: parameter test status mismatch.`);
@@ -109,6 +174,7 @@ for (const qlId of MAL_CP001_PERMANENT_QL_IDS) {
 assert(releasedQlIds.size === 11, `Released QL coverage is ${releasedQlIds.size}, expected 11.`);
 assert(releasedQuestionCount === 1100, `Released question count is ${releasedQuestionCount}, expected 1100.`);
 assert(activeQuestionCount === releasedQuestionCount, "Not every released question is active.");
+assert(svgDirectiveCount === releasedQuestionCount, "Not every released question has an SVG directive.");
 
 const review = buildMalCp001ReleaseReviewModel();
 assert(review.status === "MAL_CP001_ENGLISH_RELEASE_REVIEW_APPROVED", "Release review model is not approved.");
@@ -131,6 +197,7 @@ for (const allocation of MAL_CP001_PERMANENT_ALLOCATION) {
   assert(adapterQuestion.questionLanguageId === allocation.qlId, `${allocation.qlId}: adapter selected another QL.`);
   assert(adapterQuestion.difficultyBand === allocation.difficulty, `${allocation.qlId}: adapter difficulty mismatch.`);
   assert(adapterQuestion.publiclyPublishable, `${allocation.qlId}: adapter did not use the released pipeline.`);
+  assert(adapterQuestion.explanation.alligationVisualId === MAL_CP001_ALLIGATION_VISUAL_ID, `${allocation.qlId}: adapter omitted the SVG visual.`);
 }
 
 const packages = listQuantV4Packages();
@@ -166,6 +233,8 @@ for (const allocation of MAL_CP001_PERMANENT_ALLOCATION) {
     assert(preview.questionBankStatus === "WRITABLE", `${allocation.qlId}: preview is not Question Bank writable.`);
     assert(preview.testEligibility === "ELIGIBLE", `${allocation.qlId}: preview is not test eligible.`);
     assert(typeof preview.explanation === "string" && preview.explanation.includes("Core Concept & Formula"), `${allocation.qlId}: preview explanation is incomplete.`);
+    assert(preview.explanation.includes(MAL_CP001_ALLIGATION_DIRECTIVE_PREFIX), `${allocation.qlId}: preview omitted the SVG directive.`);
+    assert(preview.packageExplanation?.alligationVisualId === MAL_CP001_ALLIGATION_VISUAL_ID, `${allocation.qlId}: preview package omitted structured visual data.`);
     assert(preview.options.length === 4, `${allocation.qlId}: preview does not have four options.`);
     questionStudioPreviewCount += 1;
   }
@@ -216,8 +285,9 @@ assert(unknownQlRejected, "Question Studio did not reject an unknown MAL QL.");
 console.log(
   JSON.stringify(
     {
-      status: "PASS_MAL_CP001_ENGLISH_RELEASE_AND_QUESTION_STUDIO",
+      status: "PASS_MAL_CP001_ENGLISH_FORMULA_SVG_RELEASE_AND_QUESTION_STUDIO",
       releaseId: MAL_CP001_ENGLISH_RELEASE.releaseId,
+      presentationRevisionId: MAL_CP001_ENGLISH_RELEASE.presentationRevisionId,
       releasedQlCount: releasedQlIds.size,
       releasedQuestionCount,
       deterministicRegenerationCount,
@@ -226,6 +296,7 @@ console.log(
       distinctReleasedStemCount: releasedStemSet.size,
       releaseValidationCheckCount,
       explanationLineCount,
+      svgDirectiveCount,
       approvedReviewQuestionCount: review.reviewQuestionCount,
       approvedReviewDistinctStemCount: reviewStemCount,
       questionStudioPackageDiscovered: true,
