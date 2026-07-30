@@ -1,6 +1,6 @@
 # BLR-CP-003 — Human Review Approval V5
 
-Status: **human review approved with a visual-polish condition; sibling-arrow remediation reopened for confirmation**.
+Status: **human review approved with a visual-polish condition; corrected sibling-arrow HTML awaiting reviewer confirmation**.
 
 ## Approval record
 
@@ -16,7 +16,7 @@ After the first marker-only implementation, the reviewer reported:
 
 > arrows not pointing to siblings properly
 
-The content approval remains recorded, but the accepted visual condition is not considered closed until the corrected replacement HTML is reviewed.
+The content approval remains recorded, but the visual condition is not closed until the corrected replacement HTML is reviewed.
 
 ## Corrected remediation
 
@@ -31,32 +31,12 @@ The corrected implementation retains **bidirectional arrowheads**, with both tip
 
 The corrected geometry:
 
-- targets the inner bottom edge of each sibling card rather than the space beside the cards;
+- targets the inner bottom edge of each sibling card;
 - offsets each target away from the central parent-child lineage connector;
 - keeps both arrowheads fixed upward with `orient="-90"`;
-- leaves an 8-pixel visual clearance beneath each card so the card fill cannot hide the arrowheads;
-- keeps the horizontal dotted segment below the spouse and lineage connectors;
-- preserves the symmetric, bidirectional meaning of siblinghood.
-
-## Implementation evidence
-
-Student application:
-
-- `src/components/blood-relations/RoutedFamilyTreeDiagram.tsx` converts the legacy horizontal sibling line into the inner-card-bottom bracket;
-- `src/components/learning/LogicPlaybackRouter.tsx` lazy-loads the routed renderer;
-- the renderer uses native React and SVG only;
-- no external SVG or graph library is introduced.
-
-Review/export layer:
-
-- `cp003-svg-family-tree-markup-v3.ts` produces the same routed bracket in exported HTML;
-- `cp003-svg-family-tree.ts` promotes the V3 markup renderer;
-- `cp003-competitive-svg-review.test.ts` checks route geometry, upward orientation, inner-card targets and visible clearance.
-
-Compiled application gate:
-
-- `scripts/verify-family-tree-chunk.mjs` verifies that the production bundle includes the inner-card route, both markers, fixed upward orientation and the visibility-clearance contract;
-- the integration must remain outside the main student bundle.
+- leaves an 8-pixel visible clearance beneath each card so the card fill cannot hide the arrowheads;
+- keeps the horizontal dotted segment below spouse and lineage connectors;
+- preserves the symmetric meaning of siblinghood.
 
 ## Exact corrected artifact inventory
 
@@ -69,6 +49,17 @@ Sibling marker-start attributes            56
 Sibling marker-end attributes              56
 Legacy horizontal dotted sibling lines      0
 ```
+
+## Exact validation evidence
+
+```text
+head:      a56f67debcee25a3de92106c3db7b784f4559128
+workflow:  30509281161
+artifact:  8746481421
+digest:    sha256:6e583173deb4b2dd6ae117ebd44d6a98a0480fc3817cd4c72f77d683218490a3
+```
+
+The exact-head workflow passed the SVG geometry gate, exporter, ExamTree typecheck, production build and lazy-chunk verification.
 
 ## Review boundary
 
