@@ -59,8 +59,10 @@ jobs:
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-types.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-glossary.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp001.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp001-editorial.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp001-runtime.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp001-localization.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp001-localization-editorial.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp001-localization-review-export.ts
       - name: Bundle bilingual parity proof
         run: >-
@@ -73,6 +75,17 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/tmw-001-cp001-localization.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp001-localization-proof.log
+      - name: Bundle bilingual editorial proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp001-localization-editorial.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp001-localization-editorial.test.mjs
+      - name: Run bilingual editorial proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp001-localization-editorial.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp001-localization-editorial-proof.log
       - name: Bundle bilingual review export
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -89,6 +102,7 @@ jobs:
           name: tmw-cp001-hi-pa-localization
           path: |
             artifacts/api-server/dist/quant-v4/tmw-001-cp001-localization-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-cp001-localization-editorial-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-cp001-localization-review.json
           if-no-files-found: error
           retention-days: 7
