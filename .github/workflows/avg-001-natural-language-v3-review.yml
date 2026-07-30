@@ -1,0 +1,60 @@
+name: Validate AVG-001 natural-language V3 review
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/**
+      - .github/workflows/avg-001-natural-language-v3-review.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: avg-001-natural-language-v3-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-avg-001-natural-language-v3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle natural-language review audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-natural-language-v3-audit.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/avg-001-natural-language-v3-audit.mjs
+      - name: Run 1,275-package natural-language audit
+        shell: bash
+        run: |
+          set -o pipefail
+          (cd artifacts/api-server && node dist/quant-v4/avg-001-natural-language-v3-audit.mjs) \
+            | tee artifacts/api-server/avg-001-natural-language-v3-diagnostics.log
+      - name: Upload review corpus
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: avg-001-natural-language-v3-review
+          path: |
+            artifacts/api-server/avg-001-natural-language-v3-diagnostics.log
+            artifacts/api-server/dist/quant-v4/avg-001-natural-language-v3-review/**
+          if-no-files-found: error
+          retention-days: 30
