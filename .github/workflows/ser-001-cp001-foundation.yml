@@ -1,4 +1,4 @@
-name: Validate SER-001 CP-001 foundation
+name: Validate SER-001 discovery foundations
 
 on:
   pull_request:
@@ -14,13 +14,13 @@ permissions:
   contents: read
 
 concurrency:
-  group: ser-001-cp001-foundation-${{ github.ref }}
+  group: ser-001-discovery-foundations-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate-series-foundation:
+  validate-series-foundations:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -36,8 +36,10 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Prepare evidence directory
-        run: mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp001-open-discovery
+      - name: Prepare evidence directories
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp001-open-discovery
+          mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp002-open-discovery
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
@@ -55,36 +57,67 @@ jobs:
           (cd artifacts/api-server && node "$OUT/ser-cp-001.test.mjs") \
             | tee "$EVIDENCE/audit.json"
 
-      - name: Generate exact English review pack
+      - name: Run SER-CP-002 executable discovery audit
         run: |
           set -euo pipefail
-          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-001
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-002
           OUT=dist/reasoning-v1/ser-001
-          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp001-open-discovery
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp002-open-discovery
           pnpm --dir artifacts/api-server exec esbuild \
-            "$ROOT/export-review.ts" \
+            "$ROOT/ser-cp-002.test.ts" \
             --bundle --platform=node --format=esm \
-            --outfile="$OUT/export-review.mjs"
-          (cd artifacts/api-server && node "$OUT/export-review.mjs") \
-            > "$EVIDENCE/ser-cp-001-en-IN-review.md"
-          cat > "$EVIDENCE/README.txt" <<'EOF'
-          SER-001 / SER-CP-001 open executable discovery
+            --outfile="$OUT/ser-cp-002.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-002.test.mjs") \
+            | tee "$EVIDENCE/audit.json"
+
+      - name: Generate exact English review packs
+        run: |
+          set -euo pipefail
+          OUT=dist/reasoning-v1/ser-001
+          ROOT1=src/reasoning-v1/topics/Series/SER-001/SER-CP-001
+          ROOT2=src/reasoning-v1/topics/Series/SER-001/SER-CP-002
+          EVIDENCE1=artifacts/api-server/dist/reasoning-v1/ser-001/cp001-open-discovery
+          EVIDENCE2=artifacts/api-server/dist/reasoning-v1/ser-001/cp002-open-discovery
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT1/export-review.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/export-cp001-review.mjs"
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT2/export-review.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/export-cp002-review.mjs"
+          (cd artifacts/api-server && node "$OUT/export-cp001-review.mjs") \
+            > "$EVIDENCE1/ser-cp-001-en-IN-review.md"
+          (cd artifacts/api-server && node "$OUT/export-cp002-review.mjs") \
+            > "$EVIDENCE2/ser-cp-002-en-IN-review.md"
+          cat > artifacts/api-server/dist/reasoning-v1/ser-001/README.txt <<'EOF'
+          SER-001 open executable discovery
 
           Permanent QLs: 0
+
+          SER-CP-001
           Temporary templates: 4
           Candidate solve authorities: 1
           Audit volume: 480 deterministic English questions
           Review pack: 32 exact English questions
 
+          SER-CP-002
+          Temporary templates: 8
+          Candidate solve authorities: 2
+          Audit volume: 960 deterministic English questions
+          Review pack: 32 exact English questions
+
+          Total audit volume: 1,440 questions
+
           This evidence does not activate Question Studio, Question Bank,
           test eligibility or public publication.
           EOF
 
-      - name: Upload SER-CP-001 evidence
+      - name: Upload SER-001 discovery evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ser-001-cp001-open-discovery
-          path: artifacts/api-server/dist/reasoning-v1/ser-001/cp001-open-discovery
+          name: ser-001-cp001-cp002-open-discovery
+          path: artifacts/api-server/dist/reasoning-v1/ser-001
           if-no-files-found: error
           retention-days: 30
