@@ -46,11 +46,19 @@ export type IntCp001ExplanationSanitizationQuestion =
 const NUMERIC_RATE_TOKEN = /(?:\d+(?:\.\d+)?|\\frac\{[-+]?\d+\}\{\d+\})\\%/gu;
 const MULTIPLICATION_LEFT = /(?:\\times|\\cdot)\s*$/u;
 const MULTIPLICATION_RIGHT = /^\s*(?:\\times|\\cdot)/u;
+const EXPLICIT_PERCENT_CONVERSION = /\\frac\{100|\}\{100\}/u;
 const MATH_SEGMENT = /\$\$[\s\S]*?\$\$|\$(?:\\.|[^$])*\$/gu;
 
 export interface IntCp001ExplanationSanitizationCounts {
   learnerMathCurrencyTokensRemoved: number;
   redundantRatePercentTokensRemoved: number;
+}
+
+function isRedundantRateToken(body: string, token: string, offset: number): boolean {
+  if (!EXPLICIT_PERCENT_CONVERSION.test(body)) return false;
+  const left = body.slice(0, offset);
+  const right = body.slice(offset + token.length);
+  return MULTIPLICATION_LEFT.test(left) || MULTIPLICATION_RIGHT.test(right);
 }
 
 function sanitizeMathBody(
@@ -63,9 +71,7 @@ function sanitizeMathBody(
   });
 
   sanitized = sanitized.replace(NUMERIC_RATE_TOKEN, (token, offset: number, source: string) => {
-    const left = source.slice(0, offset);
-    const right = source.slice(offset + token.length);
-    if (!MULTIPLICATION_LEFT.test(left) && !MULTIPLICATION_RIGHT.test(right)) return token;
+    if (!isRedundantRateToken(source, token, offset)) return token;
     counts.redundantRatePercentTokensRemoved += 1;
     return token.slice(0, -2);
   });
@@ -136,10 +142,8 @@ export function validateIntCp001SanitizedExplanation(explanation: unknown): stri
     for (const match of body.matchAll(NUMERIC_RATE_TOKEN)) {
       const token = match[0];
       const offset = match.index ?? 0;
-      const left = body.slice(0, offset);
-      const right = body.slice(offset + token.length);
-      if (MULTIPLICATION_LEFT.test(left) || MULTIPLICATION_RIGHT.test(right)) {
-        errors.push(`Redundant percent token remains in scaled substitution: ${segment}`);
+      if (isRedundantRateToken(body, token, offset)) {
+        errors.push(`Redundant percent token remains in explicitly scaled substitution: ${segment}`);
       }
     }
   }
