@@ -69,6 +69,38 @@ function localizeMathText(
   });
 }
 
+function contextualFallback(source: Avg001QuestionPackage) {
+  if (source.solveMode === "findMissingValueFromAverage") {
+    if (source.language === "hi") return "आवश्यक कुल में से ज्ञात कुल सही तरह नहीं घटाता";
+    if (source.language === "pa") return "ਲੋੜੀਂਦੇ ਕੁੱਲ ਵਿੱਚੋਂ ਜਾਣਿਆ ਕੁੱਲ ਠੀਕ ਤਰ੍ਹਾਂ ਨਹੀਂ ਘਟਾਉਂਦਾ";
+    return "does not subtract the known total from the required total correctly";
+  }
+  if (source.canonicalProblemId === "AVG-CP-004" || source.canonicalProblemId === "AVG-CP-006") {
+    if (source.language === "hi") return "समूहों के कुल और उनकी संख्याएँ सही तरह नहीं जोड़ता";
+    if (source.language === "pa") return "ਸਮੂਹਾਂ ਦੇ ਕੁੱਲ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਠੀਕ ਤਰ੍ਹਾਂ ਨਹੀਂ ਜੋੜਦਾ";
+    return "does not combine the group totals and counts correctly";
+  }
+  if (source.canonicalProblemId === "AVG-CP-005") {
+    if (source.language === "hi") return "कुल में हुए सुधार को सही दिशा में नहीं लगाता";
+    if (source.language === "pa") return "ਕੁੱਲ ਵਿੱਚ ਹੋਏ ਸੁਧਾਰ ਨੂੰ ਸਹੀ ਦਿਸ਼ਾ ਵਿੱਚ ਨਹੀਂ ਲਗਾਉਂਦਾ";
+    return "does not apply the correction to the total correctly";
+  }
+  if (source.language === "hi") return "दिखाई गई पूरी गणना का पालन नहीं करता";
+  if (source.language === "pa") return "ਦਿਖਾਈ ਗਈ ਪੂਰੀ ਗਣਨਾ ਦੀ ਪਾਲਣਾ ਨਹੀਂ ਕਰਦਾ";
+  return "does not follow the complete calculation shown above";
+}
+
+function refineGenericDistractorReason(
+  line: string,
+  source: Avg001QuestionPackage,
+) {
+  const replacement = contextualFallback(source);
+  return line
+    .replaceAll("contains a small arithmetic error", replacement)
+    .replaceAll("गणना में छोटी गलती करता है", replacement)
+    .replaceAll("ਗਣਨਾ ਵਿੱਚ ਛੋਟੀ ਗਲਤੀ ਕਰਦਾ ਹੈ", replacement);
+}
+
 function refreshValidation(pkg: Avg001QuestionPackage) {
   const checks: Avg001ValidationCheck[] = pkg.validation.checks.filter(
     (check) => check.name !== "avg001-natural-language-v3-localized-math-labels",
@@ -105,6 +137,10 @@ export function applyAvg001NaturalLanguageV3Candidate(
       naturalLanguageReviewCandidateFinal: AVG_001_NATURAL_LANGUAGE_V3_CANDIDATE,
     },
   };
+  const distractorLine = refineGenericDistractorReason(
+    buildAvg001AuthorityDistractorLine(source, localized),
+    source,
+  );
   const revised: Avg001QuestionPackage = {
     ...localized,
     explanation: {
@@ -112,7 +148,7 @@ export function applyAvg001NaturalLanguageV3Candidate(
         localized.explanation.lines[0]!,
         localized.explanation.lines[1]!,
         localized.explanation.lines[2]!,
-        buildAvg001AuthorityDistractorLine(source, localized),
+        distractorLine,
       ],
     },
   };
