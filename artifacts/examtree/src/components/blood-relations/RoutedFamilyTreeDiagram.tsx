@@ -7,6 +7,7 @@ const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 const CARD_HALF_WIDTH = 75;
 const LEGACY_SIBLING_LINE_OFFSET = 12;
 const SIBLING_CARD_EDGE_INSET = 18;
+const SIBLING_ARROW_CLEARANCE = 8;
 const SIBLING_ROUTE_DEPTH = 18;
 const SIBLING_LABEL_OFFSET = 14;
 
@@ -58,12 +59,13 @@ function routeSiblingConnectors(root: HTMLElement, markerId: string): void {
     const leftAnchorX = leftCardCentre + CARD_HALF_WIDTH - SIBLING_CARD_EDGE_INSET;
     const rightAnchorX = rightCardCentre - CARD_HALF_WIDTH + SIBLING_CARD_EDGE_INSET;
     const cardBottom = Math.min(y1, y2) - LEGACY_SIBLING_LINE_OFFSET;
-    const routeY = cardBottom + SIBLING_ROUTE_DEPTH;
+    const arrowTipY = cardBottom + SIBLING_ARROW_CLEARANCE;
+    const routeY = arrowTipY + SIBLING_ROUTE_DEPTH;
 
     const path = document.createElementNS(SVG_NAMESPACE, "path");
     path.setAttribute(
       "d",
-      `M ${leftAnchorX} ${cardBottom} V ${routeY} H ${rightAnchorX} V ${cardBottom}`,
+      `M ${leftAnchorX} ${arrowTipY} V ${routeY} H ${rightAnchorX} V ${arrowTipY}`,
     );
     path.setAttribute("fill", "none");
     path.setAttribute("stroke", line.getAttribute("stroke") ?? "#4f46e5");
@@ -75,6 +77,7 @@ function routeSiblingConnectors(root: HTMLElement, markerId: string): void {
     path.setAttribute("marker-end", `url(#${markerId})`);
     path.setAttribute("data-sibling-route", "card-bottom-bracket");
     path.setAttribute("data-sibling-target", "inner-card-bottom");
+    path.setAttribute("data-sibling-arrow-clearance", String(SIBLING_ARROW_CLEARANCE));
 
     const group = line.parentElement;
     line.replaceWith(path);
