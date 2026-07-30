@@ -1,5 +1,5 @@
-import { add, divide, equals, formatRational, multiply, rational, reciprocal, subtract, toLatex } from "./rational";
-import { required, timeUnitLabel } from "./cp001-helpers";
+import { add, divide, equals, formatRational, formatTimeText, multiply, rational, reciprocal, subtract, toLatex } from "./rational";
+import { required } from "./cp001-helpers";
 import { completionTrace, cycleDuration, cycleWork, replaceSegmentRate, segmentDurationsUntil, workAfterTime } from "./cp005-engine";
 import type { Rational } from "./types";
 import type { TmwCp005Parameters, TmwCp005RegistryEntry, TmwCp005Solution } from "./cp005-types";
@@ -8,7 +8,7 @@ function isRational(value:Rational|string):value is Rational{return typeof value
 function answerText(entry:TmwCp005RegistryEntry,p:TmwCp005Parameters,answer:Rational|string):string{
  if(typeof answer==="string")return answer;
  const value=formatRational(answer);
- if(entry.answerType==="TIME")return `${value} ${timeUnitLabel(p.timeUnit,answer)}`;
+ if(entry.answerType==="TIME")return formatTimeText(answer,p.timeUnit,`${p.timeUnit}s`);
  if(entry.answerType==="FRACTION")return `${value} of the work`;
  if(entry.answerType==="COUNT")return `${value} ${equals(answer,rational(1))?"cycle":"cycles"}`;
  if(entry.answerType==="RATE")return `${value} of the work per ${p.timeUnit}`;
