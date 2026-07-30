@@ -36,3 +36,4 @@ export * from "./cp001-readable-stem-builder-safe";
 export * from "./cp001-readable-stem-runtime";
 export * from "./cp001-close-distractor-release";
 export * from "./cp001-close-distractor-runtime-approved";
+export * from "./cp001-approved-inactive-release-provider-v2";
