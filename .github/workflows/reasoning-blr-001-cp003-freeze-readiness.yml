@@ -37,3 +37,15 @@ jobs:
       - name: Run CP-003 V6 learner-evidence candidate proof
         run: |
           npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-learner-evidence-v6-candidate.test.ts
+
+      - name: Export CP-003 V6 learner-evidence candidate review pack
+        run: |
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-learner-evidence-v6-candidate.ts cp003-v6-candidate-output
+
+      - name: Upload CP-003 V6 learner-evidence candidate review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp003-learner-evidence-v6-candidate
+          path: cp003-v6-candidate-output
+          if-no-files-found: error
+          retention-days: 14
