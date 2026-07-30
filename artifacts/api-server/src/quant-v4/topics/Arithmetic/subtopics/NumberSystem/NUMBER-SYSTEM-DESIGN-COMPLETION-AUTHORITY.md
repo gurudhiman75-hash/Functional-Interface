@@ -4,8 +4,8 @@
 **Runtime packages:** `NUM-001`, `NUM-002`  
 **Canonical CP range:** `NUM-CP-001..NUM-CP-014`  
 **Design status:** `COMPLETE_FOR_CHECKPOINT_EXECUTABLE_DISCOVERY`  
-**Current permanent allocation:** `NUM-QL-001..NUM-QL-017` owned by `NUM-CP-003`  
-**Next available chapter identity:** `NUM-QL-018`  
+**Current permanent allocation:** `NUM-QL-001..NUM-QL-045` owned by `NUM-CP-003` and `NUM-CP-004`  
+**Next available chapter identity:** `NUM-QL-046`  
 **Question Studio / Question Bank / tests / public routing:** disabled unless separately released
 
 ---
@@ -16,7 +16,7 @@ The Number System design is complete when the chapter has a stable architecture,
 
 It does **not** mean that all future QL or solve-mode counts are known.
 
-For every checkpoint other than the already approved `NUM-CP-003`, the following remain open outcomes of executable discovery:
+For every checkpoint other than the already approved `NUM-CP-003` and `NUM-CP-004`, the following remain open outcomes of executable discovery:
 
 - retained solve-authority count;
 - retained learner-template count;
@@ -126,6 +126,18 @@ Its retained authority covers:
 
 This allocation is inactive implementation proof. It does not imply Question Studio, Question Bank, test, localisation or publication release.
 
+`NUM-CP-004` is the second completed checkpoint and owns:
+
+```text
+NUM-QL-018..NUM-QL-045
+28 frozen learner-template families
+28 frozen solve modes
+```
+
+Its retained authority spans prime classification and intervals, direct and inverse factorisation, co-prime sets and topology, prime pair/triple reconstruction, least-prime-divisor and expression-divisor tasks, feasibility, factor-tree evidence, data sufficiency and nearest-prime optimisation. The detailed allocation and merge/split proof is recorded in `NUM-001/NUM-CP-004/NUM-CP-004-COMPLETION-AND-ENGLISH-FREEZE-RECORD.md`.
+
+This allocation is also inactive. It does not activate Question Studio, Question Bank, tests, localisation or publication.
+
 ---
 
 ## 6. Cross-CP decisions closed by this authority
@@ -200,7 +212,8 @@ The design has been checked against:
 - existing Quant V2 family inventory;
 - Quant V3 divisibility and implementation traces;
 - mature Quant V4 chapter design conventions;
-- the approved executable CP-003 discovery and permanent-allocation record.
+- the approved executable CP-003 discovery and permanent-allocation record;
+- the completed CP-004 source-saturation, merge/split, permanent-allocation and English-freeze records.
 
 Source headings are evidence only. Every item is assigned according to the invariant actually tested.
 
@@ -490,11 +503,11 @@ Current truth:
 ```text
 Design architecture: complete
 CP ownership hypotheses: complete
-Executable checkpoints approved: 1 of 14
-Permanent QLs: 17
-Next available QL: NUM-QL-018
+Executable checkpoints approved: 2 of 14
+Permanent QLs: 45
+Next available QL: NUM-QL-046
 Remaining CP counts: deliberately open
 Question Studio/public exposure: 0
 ```
 
-The next valid implementation action is `NUM-CP-004` open executable discovery. No QL or solve-mode count is to be chosen before its gap and ownership audits close.
+The next valid implementation action is `NUM-CP-005` open executable discovery. No QL or solve-mode count is to be chosen before its gap and ownership audits close.

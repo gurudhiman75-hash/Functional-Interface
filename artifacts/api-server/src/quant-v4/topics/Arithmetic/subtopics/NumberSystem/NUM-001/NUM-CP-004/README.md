@@ -1,60 +1,64 @@
 # NUM-CP-004 — Prime Structure and Factorisation
 
-**Status:** open executable discovery  
-**Permanent QLs:** none  
-**Frozen solve modes:** none  
-**Next chapter-wide identity:** `NUM-QL-018`, reserved only after a future approved allocation gate  
+**Status:** English implementation complete and permanently identified  
+**Permanent QLs:** `NUM-QL-018..NUM-QL-045`  
+**Permanent QL count:** 28  
+**Frozen solve modes:** 28  
+**Next chapter-wide identity:** `NUM-QL-046`  
 **Question Studio / Question Bank / tests / public routing:** disabled
 
-## Review order
+## Current authority order
 
-1. `NUM-CP-004-WAVE-00-SOURCE-AND-OWNERSHIP-REGISTER.md`
-2. `NUM-CP-004-WAVE-01-FOUNDATION-PLAN.md`
-3. `wave01/types.ts`
-4. `wave01/runtime.ts` — mathematical foundation
-5. `wave01/runtime-reviewed.ts` — reviewed topology and difficulty corrections
-6. `wave01/runtime-authority.ts` — bounded exact states and co-prime authority
-7. `wave01/runtime-proven.ts` — final Wave 1 generation entry point
-8. `wave01/runtime-authority.test.ts` — 800-package exact proof
-9. `wave01/runtime-audit.ts` — structural and lifecycle audit
-10. `wave01/review-export.ts` — 24-question English review pack
-11. `NUM-CP-004-WAVE-02-DIRECT-INVERSE-PLAN.md`
-12. `wave02/types.ts`
-13. `wave02/runtime.ts` — Wave 2 mathematical foundation
-14. `wave02/runtime-proven.ts` — final Wave 2 generation entry point
-15. `wave02/runtime-authority.test.ts` — 800-package exact proof
-16. `wave02/runtime-audit.ts` — structural, uniqueness and lifecycle audit
-17. `wave02/review-export.ts` — 24-question English review pack
+1. `NUM-CP-004-COMPLETION-AND-ENGLISH-FREEZE-RECORD.md`
+2. `permanent/allocation.ts`
+3. `permanent/runtime.ts`
+4. `permanent/allocation.test.ts`
+5. `permanent/runtime-proof.test.ts`
+6. `permanent/english-freeze-audit.ts`
+7. `permanent/review-export.ts`
+8. `completion/source-dispositions.ts`
+9. `completion/template-registry.ts`
+10. `completion/runtime.ts`
+11. `completion/runtime-proof.test.ts`
+12. `completion/audit.ts`
+13. Wave 2 records and runtime proof
+14. Wave 1 records and runtime proof
+15. Wave 0 source and ownership register
 
-Only `wave01/runtime-proven.ts` and `wave02/runtime-proven.ts` are current generation entry points for their respective discovery waves. Implementation ancestry is not a separate learner or QL authority.
+Only `permanent/runtime.ts` is the permanently identified English generation entry point. The retained completion runtime and Wave 1/2 runtimes remain evidence and implementation ancestry.
 
-## Wave 1 temporary contracts
+## Final permanent inventory
 
 ```text
-NUM-CP004-PROT-001 — classify prime/composite/unit/neither
-NUM-CP004-PROT-002 — list primes in a bounded interval
-NUM-CP004-PROT-003 — count primes in a bounded interval
-NUM-CP004-PROT-004 — prime factorisation of a constructed integer
-NUM-CP004-PROT-005 — read a property from prime-exponent structure
-NUM-CP004-PROT-006 — complete a missing prime or exponent
-NUM-CP004-PROT-007 — select the unique co-prime pair
-NUM-CP004-PROT-008 — classify pairwise versus collective co-primality
+NUM-QL-018 — prime/composite/unit/neither
+NUM-QL-019 — complete prime set in interval
+NUM-QL-020 — prime count in interval
+NUM-QL-021 — adjacent or extreme prime
+NUM-QL-022 — prime under digit/range evidence
+NUM-QL-023 — prime claim verification
+NUM-QL-024 — complete prime factorisation
+NUM-QL-025 — prime-factor extremum
+NUM-QL-026 — distinct prime-factor count
+NUM-QL-027 — multiplicity prime-factor count
+NUM-QL-028 — integer from prime powers
+NUM-QL-029 — prime-exponent structure comparison
+NUM-QL-030 — missing prime
+NUM-QL-031 — missing exponent
+NUM-QL-032 — co-prime pair selection
+NUM-QL-033 — complete co-prime set
+NUM-QL-034 — co-prime candidate count
+NUM-QL-035 — co-prime unknown recovery
+NUM-QL-036 — pairwise/collective co-primality
+NUM-QL-037 — co-prime claim verification
+NUM-QL-038 — prime-pair reconstruction
+NUM-QL-039 — prime-triple reconstruction
+NUM-QL-040 — least prime divisor
+NUM-QL-041 — constructed-expression prime divisor
+NUM-QL-042 — prime-structure feasibility
+NUM-QL-043 — factor-tree completion
+NUM-QL-044 — prime data sufficiency
+NUM-QL-045 — nearest-prime minimum adjustment
 ```
-
-## Wave 2 temporary contracts
-
-```text
-NUM-CP004-PROT-009 — next prime after a given integer
-NUM-CP004-PROT-010 — previous prime before a given integer
-NUM-CP004-PROT-011 — least prime divisor of a composite integer
-NUM-CP004-PROT-012 — unique prime pair from a stated sum
-NUM-CP004-PROT-013 — unique bounded prime pair from a stated difference
-NUM-CP004-PROT-014 — constrained increasing prime triple reconstruction
-NUM-CP004-PROT-015 — complete co-prime candidate set
-NUM-CP004-PROT-016 — minimum signed adjustment to a prime, including ties
-```
-
-All sixteen identities are exploratory prototypes, not proposed QLs. Statement/claim evaluation, data sufficiency, visual representations, source saturation and merge/split review remain open.
 
 ## Non-negotiable boundaries
 
@@ -62,6 +66,5 @@ All sixteen identities are exploratory prototypes, not proposed QLs. Statement/c
 - HCF/LCM targets belong to `NUM-CP-006`;
 - perfect-power completion belongs to `NUM-CP-012`;
 - arrangements or selections of primes belong to P&C;
-- Euler totient and formula-led co-prime counts remain `ADVANCED_ENRICHMENT_HOLD`;
-- bounded explicit candidate-set classification remains CP-004;
-- no temporary output may expose a permanent QL ID or any production lifecycle flag.
+- Euler totient, formula-led co-prime counts and special prime theorems remain `ADVANCED_ENRICHMENT_HOLD`;
+- permanent identity does not imply production exposure.
