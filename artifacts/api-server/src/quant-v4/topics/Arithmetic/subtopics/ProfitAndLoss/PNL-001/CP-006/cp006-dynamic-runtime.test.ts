@@ -23,6 +23,7 @@ const difficultyCounts = { Easy: 0, Medium: 0, Hard: 0 };
 let generatedCount = 0;
 let profitAnswerCount = 0;
 let lossAnswerCount = 0;
+const generatedWorkingQlMap = new Map<string, Set<string>>();
 
 for (const qlId of qlIds) {
   const stems = new Set<string>();
@@ -69,6 +70,36 @@ for (const qlId of qlIds) {
       pkg.explanation.lines.length >= 4,
       `${qlId}: explanation is unexpectedly short.`,
     );
+
+    const explanation = pkg.explanation.lines.join("\n\n");
+    assert.match(
+      explanation,
+      /\*\*Generated-value check:\*\*/,
+      `${qlId}: generated-value working is missing.`,
+    );
+    assert.doesNotMatch(
+      explanation,
+      /\*\*Working with these values:\*\*/,
+      `${qlId}: legacy generic working tail is still present.`,
+    );
+    const generatedWorking = explanation.match(
+      /\*\*Generated-value check:\*\*\s*([\s\S]*?)(?:\n\n\*\*Final answer:|$)/,
+    );
+    assert.ok(
+      generatedWorking?.[1],
+      `${qlId}: generated working could not be isolated.`,
+    );
+    const fingerprint = generatedWorking[1]
+      .toLowerCase()
+      .replace(/₹\s*[\d,.]+(?:\.\d+)?/g, "₹#")
+      .replace(/\b\d+(?:\.\d+)?%/g, "#%")
+      .replace(/\b\d+(?:\.\d+)?\b/g, "#")
+      .replace(/\s+/g, " ")
+      .trim();
+    const fingerprintQls =
+      generatedWorkingQlMap.get(fingerprint) ?? new Set<string>();
+    fingerprintQls.add(qlId);
+    generatedWorkingQlMap.set(fingerprint, fingerprintQls);
 
     const prose = `${pkg.stem}\n${pkg.explanation.lines.join("\n")}`
       .replace(/\\\[[\s\S]*?\\\]/g, "")
@@ -137,6 +168,13 @@ for (const qlId of qlIds) {
       `${qlId}: seed sweep did not vary the answer.`,
     );
   }
+}
+
+for (const [fingerprint, fingerprintQls] of generatedWorkingQlMap) {
+  assert.ok(
+    fingerprintQls.size <= 2,
+    `Generated working is shared by ${fingerprintQls.size} QLs: ${[...fingerprintQls].join(", ")} — ${fingerprint}`,
+  );
 }
 
 assert.ok(profitAnswerCount > 0, "The seed sweep must include profit answers.");

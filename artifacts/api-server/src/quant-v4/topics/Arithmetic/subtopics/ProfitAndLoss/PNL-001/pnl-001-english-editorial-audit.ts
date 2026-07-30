@@ -663,10 +663,11 @@ const metrics = {
   fatalCodeCounts,
   issueCodeCounts,
   auditStatus: fatalFindings.length > 0 ? "STRUCTURAL_FAIL" : "REVIEW_REQUIRED",
-  knownOpenIssue: {
+  resolvedIssueRegression: {
     issueNumber: 262,
     qlId: "PNL-QL-070",
-    code: "KNOWN-DS-LEAD-LEAKAGE",
+    code: "DS-LEAD-LEAKAGE",
+    status: "RESOLVED_AND_MONITORED",
   },
   runtimeMode: "DYNAMIC_CANDIDATE",
   questionBankStatus: "NOT_STORED",

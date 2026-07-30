@@ -483,6 +483,324 @@ function buildOptions(
   };
 }
 
+function cp006DirectedRate(
+  direction: "PROFIT" | "LOSS",
+  ratePercent: Rational,
+): string {
+  return `${cp006FormatPercent(ratePercent)} ${direction.toLowerCase()}`;
+}
+
+function cp006SumMoney(values: readonly Money[]): Money {
+  return moneyFromPaise(values.reduce((sum, value) => sum + value.paise, 0n));
+}
+
+function cp006OverheadBaseLabel(
+  base: "PURCHASE_PRICE" | "PURCHASE_PLUS_FLAT",
+): string {
+  return base === "PURCHASE_PRICE"
+    ? "purchase price"
+    : "purchase price plus flat expenses";
+}
+
+function cp006ProductMixText(
+  products: readonly Readonly<{
+    unitsPerBundle: bigint;
+    sellingPricePerUnit: Money;
+    variableCostPerUnit: Money;
+  }>[],
+): string {
+  return products
+    .map(
+      (product, index) =>
+        `product ${String.fromCharCode(65 + index)}: ${product.unitsPerBundle} units, ${cp006FormatMoney(product.sellingPricePerUnit)} selling price and ${cp006FormatMoney(product.variableCostPerUnit)} variable cost`,
+    )
+    .join("; ");
+}
+
+function buildCp006GeneratedWorking(
+  qlId: string,
+  request: PnlCp006SolverRequest,
+  result: PnlCp006SolverResult,
+  answer: string,
+): string {
+  const prefix = "**Generated-value check:**";
+
+  switch (request.mode) {
+    case "FLAT_COMPONENTS_TO_EFFECTIVE_COST": {
+      const expenseTotal =
+        "totalExpense" in result
+          ? result.totalExpense
+          : cp006SumMoney(request.expenses);
+      return `${prefix} Add the ${request.expenses.length} ownership expenses, ${cp006FormatMoney(expenseTotal)}, to purchase price ${cp006FormatMoney(request.purchasePrice)}. The effective cost is ${answer}.`;
+    }
+
+    case "PURCHASE_AND_OVERHEAD_RATE_TO_EFFECTIVE_COST": {
+      const overhead =
+        "overheadAmount" in result
+          ? cp006FormatMoney(result.overheadAmount)
+          : "the computed overhead";
+      return `${prefix} ${cp006FormatPercent(request.overheadPercent)} overhead on purchase price ${cp006FormatMoney(request.purchasePrice)} is ${overhead}. Adding it gives effective cost ${answer}.`;
+    }
+
+    case "EFFECTIVE_COST_AND_RATE_TO_SELLING_PRICE": {
+      const purpose =
+        qlId === "PNL-QL-152"
+          ? "For the target-profit sale"
+          : "For the target-loss sale";
+      return `${prefix} ${purpose}, apply ${cp006DirectedRate(request.direction, request.ratePercent)} to effective cost ${cp006FormatMoney(request.effectiveCost)}. The required selling price is ${answer}.`;
+    }
+
+    case "PURCHASE_EXPENSES_AND_SP_TO_RESULT": {
+      const effectiveCost =
+        "effectiveCost" in result
+          ? result.effectiveCost
+          : moneyFromPaise(
+              request.purchasePrice.paise +
+                cp006SumMoney(request.expenses).paise,
+            );
+      return `${prefix} Purchase ${cp006FormatMoney(request.purchasePrice)} plus ${request.expenses.length} expenses gives effective cost ${cp006FormatMoney(effectiveCost)}. Compare selling price ${cp006FormatMoney(request.sellingPrice)} with that base; the result is ${answer}.`;
+    }
+
+    case "SP_TARGET_RATE_TO_MAX_EXPENSE": {
+      const targetCost =
+        "targetEffectiveCost" in result
+          ? cp006FormatMoney(result.targetEffectiveCost)
+          : "the inverse target cost";
+      return `${prefix} Reverse ${cp006DirectedRate(request.direction, request.targetRatePercent)} from selling price ${cp006FormatMoney(request.sellingPrice)} to obtain target effective cost ${targetCost}. After purchase price ${cp006FormatMoney(request.purchasePrice)}, the maximum remaining expense is ${answer}.`;
+    }
+
+    case "WASTAGE_TO_EFFECTIVE_UNIT_COST": {
+      const usable =
+        "usableQuantity" in result
+          ? result.usableQuantity
+          : request.inputQuantity - request.wastedQuantity;
+      return `${prefix} Wastage removes ${request.wastedQuantity} from ${request.inputQuantity} input units, leaving ${usable} usable units. Spreading total input cost ${cp006FormatMoney(request.totalInputCost)} over those units gives ${answer} per usable unit.`;
+    }
+
+    case "WASTAGE_AND_TARGET_RATE_TO_UNIT_SP": {
+      const usable =
+        "usableQuantity" in result
+          ? result.usableQuantity
+          : request.inputQuantity - request.wastedQuantity;
+      const unitCost =
+        "effectiveUnitCost" in result
+          ? cp006FormatMoney(result.effectiveUnitCost)
+          : "the wastage-adjusted unit cost";
+      return `${prefix} ${request.inputQuantity} inputs less ${request.wastedQuantity} wasted units leave ${usable} saleable units, so ${cp006FormatMoney(request.totalInputCost)} becomes ${unitCost} per unit. Applying ${cp006DirectedRate(request.direction, request.ratePercent)} gives required unit selling price ${answer}.`;
+    }
+
+    case "FIXED_VARIABLE_COST_TO_BREAK_EVEN_QUANTITY": {
+      if (qlId === "PNL-QL-186") {
+        return `${prefix} Break-even quantity needs both fixed cost and positive unit contribution, where contribution is selling price less variable cost. Testing the two statements against those requirements gives ${answer}.`;
+      }
+      const contribution = moneyFromPaise(
+        request.sellingPricePerUnit.paise - request.variableCostPerUnit.paise,
+      );
+      return `${prefix} Unit contribution is ${cp006FormatMoney(request.sellingPricePerUnit)} minus ${cp006FormatMoney(request.variableCostPerUnit)} = ${cp006FormatMoney(contribution)}. Dividing fixed cost ${cp006FormatMoney(request.fixedCost)} by contribution gives break-even quantity ${answer}.`;
+    }
+
+    case "FIXED_VARIABLE_COST_AND_TARGET_PROFIT_TO_QUANTITY": {
+      const contribution = moneyFromPaise(
+        request.sellingPricePerUnit.paise - request.variableCostPerUnit.paise,
+      );
+      const requiredContribution = moneyFromPaise(
+        request.fixedCost.paise + request.targetProfit.paise,
+      );
+      return `${prefix} Each unit contributes ${cp006FormatMoney(contribution)}. Fixed cost ${cp006FormatMoney(request.fixedCost)} plus target profit ${cp006FormatMoney(request.targetProfit)} requires ${cp006FormatMoney(requiredContribution)} total contribution, so required sales are ${answer}.`;
+    }
+
+    case "FIXED_COST_QUANTITY_TO_BREAK_EVEN_SP": {
+      const fixedPerUnit = moneyFromPaise(
+        request.fixedCost.paise / request.quantity,
+      );
+      return `${prefix} Allocate fixed cost ${cp006FormatMoney(request.fixedCost)} across ${request.quantity} units, giving ${cp006FormatMoney(fixedPerUnit)} per unit. Add variable cost ${cp006FormatMoney(request.variableCostPerUnit)}; break-even selling price is ${answer}.`;
+    }
+
+    case "EARLIER_LOSS_TO_REQUIRED_NEXT_SP": {
+      const totalCost = moneyFromPaise(
+        request.firstCostPrice.paise + request.secondCostPrice.paise,
+      );
+      const purpose =
+        qlId === "PNL-QL-161"
+          ? "To restore exact break-even"
+          : `To finish at ${cp006DirectedRate(request.targetDirection, request.targetRatePercent)}`;
+      return `${prefix} Combined cost is ${cp006FormatMoney(totalCost)}, while the first sale already recovered ${cp006FormatMoney(request.firstSellingPrice)}. ${purpose}, the second article must sell for ${answer}.`;
+    }
+
+    case "TOTAL_RECOVERY_AND_RATE_TO_EFFECTIVE_COST":
+      return `${prefix} Total recovery ${cp006FormatMoney(request.totalRecovery)} already contains ${cp006DirectedRate(request.direction, request.ratePercent)}. Reverse that rate multiplier to recover effective cost ${answer}.`;
+
+    case "MIXED_FLAT_PERCENT_OVERHEAD_TO_EFFECTIVE_COST": {
+      const flatTotal =
+        "flatExpenseTotal" in result
+          ? result.flatExpenseTotal
+          : cp006SumMoney(request.flatExpenses);
+      const overhead =
+        "overheadAmount" in result
+          ? cp006FormatMoney(result.overheadAmount)
+          : "the computed overhead";
+      return `${prefix} Flat expenses total ${cp006FormatMoney(flatTotal)}. Apply ${cp006FormatPercent(request.overheadPercent)} overhead to the ${cp006OverheadBaseLabel(request.overheadBase)}, producing ${overhead}; with purchase ${cp006FormatMoney(request.purchasePrice)}, effective cost is ${answer}.`;
+    }
+
+    case "EFFECTIVE_COST_AND_PURCHASE_TO_TOTAL_EXPENSE":
+      return `${prefix} Effective cost ${cp006FormatMoney(request.effectiveCost)} exceeds purchase price ${cp006FormatMoney(request.purchasePrice)} by the complete expense load. Their difference is ${answer}.`;
+
+    case "PURCHASE_FLAT_AND_EFFECTIVE_COST_TO_OVERHEAD_RATE": {
+      const flatTotal = cp006SumMoney(request.flatExpenses);
+      const overhead =
+        "overheadAmount" in result
+          ? cp006FormatMoney(result.overheadAmount)
+          : "the residual overhead";
+      const purpose =
+        qlId === "PNL-QL-185"
+          ? "In the algebraic cost identity"
+          : "For the overhead-rate inverse";
+      return `${prefix} ${purpose}, subtract purchase ${cp006FormatMoney(request.purchasePrice)} and flat expenses ${cp006FormatMoney(flatTotal)} from effective cost ${cp006FormatMoney(request.effectiveCost)} to get overhead ${overhead}. Divide by the ${cp006OverheadBaseLabel(request.overheadBase)}; the rate is ${answer}.`;
+    }
+
+    case "MANUFACTURING_COMPONENTS_TO_UNIT_COST": {
+      const prime =
+        "primeCost" in result
+          ? cp006FormatMoney(result.primeCost)
+          : "the prime cost";
+      const overhead =
+        "factoryOverheadAmount" in result
+          ? cp006FormatMoney(result.factoryOverheadAmount)
+          : "the factory overhead";
+      const net =
+        "netProductionCost" in result
+          ? cp006FormatMoney(result.netProductionCost)
+          : "the net production cost";
+      const purpose =
+        qlId === "PNL-QL-167"
+          ? "For total net production cost"
+          : qlId === "PNL-QL-168"
+            ? "For manufacturing unit cost"
+            : "Reading the manufacturing table";
+      const conclusion =
+        qlId === "PNL-QL-167"
+          ? `Net production cost is ${answer}.`
+          : qlId === "PNL-QL-168"
+            ? `Manufacturing cost per finished unit is ${answer}.`
+            : `The manufacturing table therefore gives unit cost ${answer}.`;
+      return `${prefix} ${purpose}, raw material ${cp006FormatMoney(request.rawMaterialCost)} plus labour ${cp006FormatMoney(request.labourCost)} gives prime cost ${prime}; factory overhead is ${overhead}. Add packaging ${cp006FormatMoney(request.packagingCost)}, deduct scrap ${cp006FormatMoney(request.scrapRecovery)}, and net cost is ${net} for ${request.outputQuantity} units. ${conclusion}`;
+    }
+
+    case "WASTAGE_SCRAP_TO_EFFECTIVE_UNIT_COST": {
+      const usable =
+        "usableQuantity" in result
+          ? result.usableQuantity
+          : request.inputQuantity - request.wastedQuantity;
+      const net =
+        "netRecoverableCost" in result
+          ? cp006FormatMoney(result.netRecoverableCost)
+          : "the net input cost";
+      return `${prefix} Deduct scrap recovery ${cp006FormatMoney(request.scrapRecovery)} from input cost ${cp006FormatMoney(request.totalInputCost)}, leaving ${net}. Wastage leaves ${usable} usable units from ${request.inputQuantity}; effective unit cost is ${answer}.`;
+    }
+
+    case "BREAK_EVEN_QUANTITY_TO_FIXED_COST": {
+      const contribution =
+        "unitContribution" in result
+          ? cp006FormatMoney(result.unitContribution)
+          : cp006FormatMoney(
+              moneyFromPaise(
+                request.sellingPricePerUnit.paise -
+                  request.variableCostPerUnit.paise,
+              ),
+            );
+      return `${prefix} At break-even quantity ${request.breakEvenQuantity}, each unit contributes ${contribution} from selling price ${cp006FormatMoney(request.sellingPricePerUnit)} less variable cost ${cp006FormatMoney(request.variableCostPerUnit)}. Total contribution equals fixed cost ${answer}.`;
+    }
+
+    case "BREAK_EVEN_QUANTITY_TO_VARIABLE_COST": {
+      const contribution =
+        "unitContribution" in result
+          ? cp006FormatMoney(result.unitContribution)
+          : "the required unit contribution";
+      return `${prefix} Fixed cost ${cp006FormatMoney(request.fixedCost)} spread over ${request.breakEvenQuantity} break-even units requires contribution ${contribution} per unit. Subtracting that from selling price ${cp006FormatMoney(request.sellingPricePerUnit)} gives variable cost ${answer}.`;
+    }
+
+    case "FIXED_VARIABLE_QUANTITY_TARGET_PROFIT_TO_SP": {
+      const fixedAndProfit = moneyFromPaise(
+        request.fixedCost.paise + request.targetProfit.paise,
+      );
+      return `${prefix} Variable cost is ${cp006FormatMoney(request.variableCostPerUnit)} per unit. Spread fixed cost plus target profit, ${cp006FormatMoney(fixedAndProfit)}, across ${request.quantity} units and add it to variable cost; required unit selling price is ${answer}.`;
+    }
+
+    case "FIXED_COST_AND_CM_RATIO_TO_BREAK_EVEN_REVENUE":
+      return `${prefix} A ${cp006FormatPercent(request.contributionMarginPercent)} contribution-margin ratio means that share of revenue covers fixed cost. Dividing fixed cost ${cp006FormatMoney(request.fixedCost)} by the ratio gives break-even revenue ${answer}.`;
+
+    case "FIXED_COST_AND_BREAK_EVEN_REVENUE_TO_CM_RATIO":
+      return `${prefix} At break-even, contribution equals fixed cost ${cp006FormatMoney(request.fixedCost)} on revenue ${cp006FormatMoney(request.breakEvenRevenue)}. Their ratio is the contribution-margin percentage ${answer}.`;
+
+    case "MULTI_PRODUCT_MIX_TO_BREAK_EVEN_BUNDLES": {
+      const contribution =
+        "contributionPerBundle" in result
+          ? cp006FormatMoney(result.contributionPerBundle)
+          : "the bundle contribution";
+      const purpose =
+        qlId === "PNL-QL-183"
+          ? "For the product-mix caselet"
+          : "For the fixed sales mix";
+      return `${prefix} ${purpose}, ${cp006ProductMixText(request.products)}. Their weighted contributions total ${contribution} per bundle; dividing fixed cost ${cp006FormatMoney(request.fixedCost)} gives ${answer}.`;
+    }
+
+    case "ACTUAL_AND_BREAK_EVEN_REVENUE_TO_MARGIN_OF_SAFETY": {
+      const amount =
+        "marginOfSafetyAmount" in result
+          ? cp006FormatMoney(result.marginOfSafetyAmount)
+          : "the revenue surplus";
+      const purpose =
+        qlId === "PNL-QL-176"
+          ? "The money margin of safety"
+          : "The percentage margin of safety";
+      const conclusion =
+        qlId === "PNL-QL-176"
+          ? `The money surplus above break-even is ${answer}.`
+          : `Relative to actual revenue, the margin of safety is ${answer}.`;
+      return `${prefix} ${purpose} starts with actual revenue ${cp006FormatMoney(request.actualRevenue)} minus break-even revenue ${cp006FormatMoney(request.breakEvenRevenue)} = ${amount}. ${conclusion}`;
+    }
+
+    case "TOTAL_COST_PRIOR_RECOVERIES_TARGET_TO_FINAL_RECOVERY": {
+      const prior =
+        "priorRecoveryTotal" in result
+          ? result.priorRecoveryTotal
+          : cp006SumMoney(request.priorRecoveries);
+      const target =
+        "targetTotalRecovery" in result
+          ? cp006FormatMoney(result.targetTotalRecovery)
+          : "the target total recovery";
+      return `${prefix} Apply ${cp006DirectedRate(request.targetDirection, request.targetRatePercent)} to total cost ${cp006FormatMoney(request.totalCost)}, giving target recovery ${target}. Prior recoveries total ${cp006FormatMoney(prior)}, so the final required recovery is ${answer}.`;
+    }
+
+    case "LOSS_RATE_TO_REQUIRED_RECOVERY_RATE_ON_REMAINING_CAPITAL": {
+      if (qlId === "PNL-QL-184") {
+        return `${prefix} After a ${cp006FormatPercent(request.lossPercent)} loss, recovery is measured on the smaller remaining capital, so the same percentage cannot restore the original amount. Evaluating the three statements gives ${answer}.`;
+      }
+      return `${prefix} A ${cp006FormatPercent(request.lossPercent)} loss leaves only the retained share of capital. Measure the lost amount against that smaller remainder; the required recovery profit rate is ${answer}.`;
+    }
+
+    case "EFFECTIVE_COST_GROSS_SP_COMMISSION_TO_RESULT": {
+      const commission =
+        "commissionAmount" in result
+          ? cp006FormatMoney(result.commissionAmount)
+          : "the commission amount";
+      const net =
+        "netRecovery" in result
+          ? cp006FormatMoney(result.netRecovery)
+          : "the net recovery";
+      return `${prefix} Commission at ${cp006FormatPercent(request.commissionPercent)} on gross selling price ${cp006FormatMoney(request.grossSellingPrice)} is ${commission}, leaving net recovery ${net}. Compare that with effective cost ${cp006FormatMoney(request.effectiveCost)}; the result is ${answer}.`;
+    }
+
+    case "EFFECTIVE_COST_TARGET_RATE_COMMISSION_TO_GROSS_SP": {
+      const net =
+        "targetNetRecovery" in result
+          ? cp006FormatMoney(result.targetNetRecovery)
+          : "the target net recovery";
+      return `${prefix} Apply ${cp006DirectedRate(request.targetDirection, request.targetRatePercent)} to effective cost ${cp006FormatMoney(request.effectiveCost)} to obtain target net recovery ${net}. Gross it up so that ${cp006FormatPercent(request.commissionPercent)} commission can be deducted; required gross selling price is ${answer}.`;
+    }
+  }
+}
+
 function stable(value: unknown): string {
   return JSON.stringify(value, (_, item) =>
     typeof item === "bigint" ? item.toString() : item,
@@ -682,7 +1000,13 @@ export function runPnlCp006DynamicPipeline(input: PnlCp006DynamicInput = {}) {
     editorial.explanation,
     context,
   );
-  const explanationText = `${baseExplanation}\n\n**Working with these values:** Build effective cost and contribution on their stated bases. Deduct recoveries or commission before comparing the final net amount with cost.\n\n**Final answer:** ${answer}`;
+  const generatedWorking = buildCp006GeneratedWorking(
+    qlId,
+    generated.request,
+    result,
+    answer,
+  );
+  const explanationText = `${baseExplanation}\n\n${generatedWorking}\n\n**Final answer:** ${answer}`;
 
   const checks = [
     {
