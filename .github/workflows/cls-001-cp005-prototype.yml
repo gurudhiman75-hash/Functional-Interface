@@ -43,6 +43,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/prototype.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/prototype.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/editorial.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/editorial.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/simple-option-explanation.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/simple-option-explanation.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/source-gap.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/source-gap.test.mjs"
 
       - name: Run CLS-CP-005 audits
         id: cp005_audit
@@ -57,7 +58,9 @@ jobs:
           EDITORIAL_STATUS=$?
           (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp005/simple-option-explanation.test.mjs") >"$DIAG/simple-option-explanation-audit.log" 2>&1
           SIMPLE_EXPLANATION_STATUS=$?
-          if [ "$PROTOTYPE_STATUS" -ne 0 ] || [ "$EDITORIAL_STATUS" -ne 0 ] || [ "$SIMPLE_EXPLANATION_STATUS" -ne 0 ]; then
+          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp005/source-gap.test.mjs") >"$DIAG/source-gap-audit.log" 2>&1
+          SOURCE_GAP_STATUS=$?
+          if [ "$PROTOTYPE_STATUS" -ne 0 ] || [ "$EDITORIAL_STATUS" -ne 0 ] || [ "$SIMPLE_EXPLANATION_STATUS" -ne 0 ] || [ "$SOURCE_GAP_STATUS" -ne 0 ]; then
             STATUS=1
           else
             STATUS=0
@@ -79,6 +82,7 @@ jobs:
           cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/prototype-audit.log
           cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/editorial-audit.log
           cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/simple-option-explanation-audit.log
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/source-gap-audit.log
           exit 1
 
       - name: Generate CLS-CP-005 discovery review
