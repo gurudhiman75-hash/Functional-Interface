@@ -63,6 +63,13 @@ export interface TmwCp004GeneratedQuestion {
   archetypeId:"TMW-001"; canonicalProblemId:typeof TMW_CP_004_ID; questionLanguageId:string;
   solveMode:TmwCp004SolveMode; language:"en"; seed:string; stem:string; parameters:TmwCp004Parameters;
   solution:TmwCp004Solution; options:string[]; optionAudit:TmwCp004Option[]; correctIndex:number;
-  explanation:{opening:string;formula:string;steps:string[];conclusion:string};
+  explanation:{
+    opening:string;
+    formula:string;
+    steps:string[];
+    shortcut:{title:string;steps:string[]};
+    commonTrap:{optionLabel:string;optionText:string;misconceptionId:Exclude<TmwCp004MisconceptionId,"CORRECT">;explanation:string};
+    conclusion:string;
+  };
   mathematicalFingerprint:string; validation:{valid:boolean;errors:string[]}; publiclyPublishable:false;
 }
