@@ -1,0 +1,329 @@
+name: Implement PNL CP-004 Explanation Diversity
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/implement-pnl-cp004-explanation-diversity.yml"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-WAVE-02-CP004.md"
+
+permissions:
+  contents: write
+
+jobs:
+  implement-cp004-explanation-diversity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout feature source
+        uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-cp004-explanation-diversity
+
+      - name: Apply CP-004 generated-working implementation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          runtime_path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-runtime.ts")
+          source = runtime_path.read_text()
+
+          helper = r'''
+          function cp004StageSequence(
+            stages: readonly Readonly<{
+              direction: "PROFIT" | "LOSS";
+              ratePercent: { numerator: bigint; denominator: bigint };
+            }>[],
+          ): string {
+            return stages
+              .map(
+                (stage, index) =>
+                  `stage ${index + 1}: ${cp004FormatPercent(stage.ratePercent)} ${stage.direction.toLowerCase()}`,
+              )
+              .join("; ");
+          }
+
+          function cp004MoneySum(first: Money, second: Money): Money {
+            return moneyFromPaise(first.paise + second.paise);
+          }
+
+          function buildCp004GeneratedWorking(
+            qlId: string,
+            request: PnlCp004SolverRequest,
+            result: PnlCp004SolverResult,
+            answer: string,
+          ): string {
+            const prefix = "**Generated-value check:**";
+
+            switch (request.mode) {
+              case "INITIAL_CP_AND_STAGES_TO_FINAL_SP": {
+                const purpose =
+                  qlId === "PNL-QL-095"
+                    ? "For the two-transfer chain"
+                    : qlId === "PNL-QL-096"
+                      ? "For the three-transfer chain"
+                      : "Reading the transaction table in order";
+                return `${prefix} ${purpose}, start from ${cp004FormatMoney(request.initialCostPrice)} and apply ${cp004StageSequence(request.stages)} to the changing price base. The final selling price is ${answer}.`;
+              }
+
+              case "FINAL_SP_AND_STAGES_TO_INITIAL_CP": {
+                if (qlId === "PNL-QL-119") {
+                  return `${prefix} Initial cost can be recovered only when the final selling price and the complete ordered stage sequence are available. Testing the two statements against those requirements gives ${answer}.`;
+                }
+                const purpose =
+                  qlId === "PNL-QL-097"
+                    ? "Reverse the two-stage chain"
+                    : qlId === "PNL-QL-098"
+                      ? "Reverse all three successive stages"
+                      : "Reverse the mixed profit-and-loss chain";
+                return `${prefix} ${purpose} from final price ${cp004FormatMoney(request.finalSellingPrice)} using ${cp004StageSequence(request.stages)}. Dividing by the stage multipliers recovers the original cost ${answer}.`;
+              }
+
+              case "INITIAL_CP_AND_STAGES_TO_INTERMEDIATE_PRICE":
+                return `${prefix} Starting from ${cp004FormatMoney(request.initialCostPrice)}, apply only the first ${request.afterStage} stage${request.afterStage === 1 ? "" : "s"} of ${cp004StageSequence(request.stages)}. The price immediately after that point is ${answer}.`;
+
+              case "STAGES_TO_OVERALL_RATE": {
+                const purpose =
+                  qlId === "PNL-QL-100"
+                    ? "For the two-stage percentage chain"
+                    : qlId === "PNL-QL-101"
+                      ? "For the three-stage percentage chain"
+                      : qlId === "PNL-QL-112"
+                        ? "From the original owner to the final buyer"
+                        : "Evaluating the statement about the complete chain";
+                return `${prefix} ${purpose}, multiply the successive factors for ${cp004StageSequence(request.stages)} rather than adding signed rates. The net result is ${answer}.`;
+              }
+
+              case "INITIAL_FINAL_KNOWN_STAGES_TO_MISSING_RATE": {
+                const known = request.knownStages.length
+                  ? cp004StageSequence(request.knownStages)
+                  : "no known stage";
+                const purpose =
+                  qlId === "PNL-QL-102"
+                    ? "The missing stage is a profit"
+                    : qlId === "PNL-QL-103"
+                      ? "The missing stage is a loss"
+                      : "In the algebraic chain, the unknown multiplier";
+                return `${prefix} ${purpose}. Compare initial price ${cp004FormatMoney(request.initialCostPrice)} with final price ${cp004FormatMoney(request.finalSellingPrice)}, remove the known contribution (${known}), and the required ${request.missingDirection.toLowerCase()} rate is ${answer}.`;
+              }
+
+              case "EQUAL_RATE_N_STAGE_TO_FINAL_SP":
+                return `${prefix} Apply the same ${cp004FormatPercent(request.ratePercent)} ${request.direction.toLowerCase()} factor ${request.stageCount} times to ${cp004FormatMoney(request.initialCostPrice)}. Compounding on each new price gives ${answer}.`;
+
+              case "CHAIN_TO_STAGE_LEDGER": {
+                const ledger = "ledger" in result ? result.ledger : [];
+                const finalPrice =
+                  "finalSellingPrice" in result
+                    ? cp004FormatMoney(result.finalSellingPrice)
+                    : "the computed final price";
+                const purpose =
+                  qlId === "PNL-QL-105"
+                    ? "Read the selected transaction from the stage ledger"
+                    : qlId === "PNL-QL-106"
+                      ? "Compare the absolute money change at every stage"
+                      : qlId === "PNL-QL-111"
+                        ? "Write the profit or loss amount for every transaction"
+                        : qlId === "PNL-QL-114"
+                          ? "Compare the two requested stage selling prices"
+                          : "For the caselet, isolate the selected trader's transaction";
+                return `${prefix} ${purpose}. Starting from ${cp004FormatMoney(request.initialCostPrice)}, ${ledger.length} ordered ledger entries lead to ${finalPrice}; the requested ledger result is ${answer}.`;
+              }
+
+              case "BUYER_EXPENSE_THEN_RATE_TO_SP": {
+                const effectiveCost = cp004MoneySum(
+                  request.purchasePrice,
+                  request.buyerExpense,
+                );
+                return `${prefix} Add buyer-side expense ${cp004FormatMoney(request.buyerExpense)} to purchase price ${cp004FormatMoney(request.purchasePrice)}, making effective cost ${cp004FormatMoney(effectiveCost)}. Applying ${cp004FormatPercent(request.ratePercent)} ${request.direction.toLowerCase()} gives selling price ${answer}.`;
+              }
+
+              case "GROSS_SP_AND_COMMISSION_TO_NET_RECEIPT": {
+                const commission =
+                  "commissionAmount" in result
+                    ? cp004FormatMoney(result.commissionAmount)
+                    : "the calculated commission";
+                return `${prefix} Commission at ${cp004FormatPercent(request.commissionPercent)} on gross selling price ${cp004FormatMoney(request.grossSellingPrice)} is ${commission}. Deducting it leaves net receipt ${answer}.`;
+              }
+
+              case "NET_TARGET_AND_COMMISSION_TO_GROSS_SP":
+                return `${prefix} A ${cp004FormatPercent(request.commissionPercent)} commission means only the retained share of gross reaches the seller. Gross up required net receipt ${cp004FormatMoney(request.requiredNetReceipt)} by that retained share to obtain ${answer}.`;
+
+              case "MIDDLE_TRADER_NET_RESULT": {
+                const effectiveCost = cp004MoneySum(
+                  request.purchasePrice,
+                  request.buyerExpense,
+                );
+                const netReceipt =
+                  "netReceipt" in result
+                    ? cp004FormatMoney(result.netReceipt)
+                    : "the computed net receipt";
+                const purpose =
+                  qlId === "PNL-QL-120"
+                    ? "For the agent-assisted resale caselet"
+                    : "For the middle trader's direct net result";
+                return `${prefix} ${purpose}, purchase ${cp004FormatMoney(request.purchasePrice)} plus expense ${cp004FormatMoney(request.buyerExpense)} gives effective cost ${cp004FormatMoney(effectiveCost)}. After ${cp004FormatPercent(request.commissionPercent)} commission on gross sale ${cp004FormatMoney(request.grossSellingPrice)}, net receipt is ${netReceipt}; comparison gives ${answer}.`;
+              }
+            }
+          }
+          '''.strip("\n")
+
+          if "function buildCp004GeneratedWorking(" not in source:
+              anchor = "function stable(value: unknown): string {"
+              if anchor not in source:
+                  raise SystemExit("CP-004 runtime insertion anchor not found")
+              source = source.replace(anchor, helper + "\n\n" + anchor, 1)
+
+          old_explanation = '''  const explanationText = `${baseExplanation}\\n\\n**Working with these values:** Follow each transaction in order. Add buyer-side expenses before measuring profit or loss, and deduct commission from the gross selling price.\\n\\n**Final answer:** ${answer}`;'''
+          new_explanation = '''  const generatedWorking = buildCp004GeneratedWorking(
+            qlId,
+            generated.request,
+            result,
+            answer,
+          );
+          const explanationText = `${baseExplanation}\\n\\n${generatedWorking}\\n\\n**Final answer:** ${answer}`;'''
+          if old_explanation in source:
+              source = source.replace(old_explanation, new_explanation, 1)
+          elif "const generatedWorking = buildCp004GeneratedWorking(" not in source:
+              raise SystemExit("CP-004 explanation replacement anchor not found")
+
+          runtime_path.write_text(source)
+
+          test_path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-runtime.test.ts")
+          test = test_path.read_text()
+
+          if "generatedWorkingQlMap" not in test:
+              test = test.replace(
+                  "let lossStemCount = 0;\n",
+                  "let lossStemCount = 0;\nconst generatedWorkingQlMap = new Map<string, Set<string>>();\n",
+                  1,
+              )
+
+              test_anchor = '''    assert.ok(
+                pkg.explanation.lines.length >= 4,
+                `${qlId}: explanation is unexpectedly short.`,
+              );
+          '''
+              test_block = '''    assert.ok(
+                pkg.explanation.lines.length >= 4,
+                `${qlId}: explanation is unexpectedly short.`,
+              );
+
+              const explanation = pkg.explanation.lines.join("\\n\\n");
+              assert.match(
+                explanation,
+                /\\*\\*Generated-value check:\\*\\*/,
+                `${qlId}: generated-value working is missing.`,
+              );
+              assert.doesNotMatch(
+                explanation,
+                /\\*\\*Working with these values:\\*\\*/,
+                `${qlId}: legacy generic working tail is still present.`,
+              );
+              const generatedWorking = explanation.match(
+                /\\*\\*Generated-value check:\\*\\*\\s*([\\s\\S]*?)(?:\\n\\n\\*\\*Final answer:|$)/,
+              );
+              assert.ok(generatedWorking?.[1], `${qlId}: generated working could not be isolated.`);
+              const fingerprint = generatedWorking[1]
+                .toLowerCase()
+                .replace(/₹\\s*[\\d,.]+(?:\\.\\d+)?/g, "₹#")
+                .replace(/\\b\\d+(?:\\.\\d+)?%/g, "#%")
+                .replace(/\\b\\d+(?:\\.\\d+)?\\b/g, "#")
+                .replace(/\\s+/g, " ")
+                .trim();
+              const fingerprintQls = generatedWorkingQlMap.get(fingerprint) ?? new Set<string>();
+              fingerprintQls.add(qlId);
+              generatedWorkingQlMap.set(fingerprint, fingerprintQls);
+          '''
+              if test_anchor not in test:
+                  raise SystemExit("CP-004 test explanation anchor not found")
+              test = test.replace(test_anchor, test_block, 1)
+
+              final_anchor = '''assert.ok(profitStemCount > 0, "The seed sweep must include profit stages.");'''
+              final_block = '''for (const [fingerprint, fingerprintQls] of generatedWorkingQlMap) {
+                assert.ok(
+                  fingerprintQls.size <= 2,
+                  `Generated working is shared by ${fingerprintQls.size} QLs: ${[...fingerprintQls].join(", ")} — ${fingerprint}`,
+                );
+              }
+
+              assert.ok(profitStemCount > 0, "The seed sweep must include profit stages.");'''
+              if final_anchor not in test:
+                  raise SystemExit("CP-004 test final anchor not found")
+              test = test.replace(final_anchor, final_block, 1)
+
+          test_path.write_text(test)
+          PY
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Format CP-004 editorial sources
+        run: |
+          pnpm exec prettier --write \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-runtime.test.ts
+
+      - name: Bundle CP-004 runtime proof
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-runtime.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/.cp004-dynamic-runtime.test.mjs \
+            2>&1 | tee pnl-cp004-explanation-diversity.log
+
+      - name: Run 624-package CP-004 proof
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/.cp004-dynamic-runtime.test.mjs \
+            2>&1 | tee -a pnl-cp004-explanation-diversity.log
+
+      - name: Bundle chapter editorial audit
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
+            2>&1 | tee -a pnl-cp004-explanation-diversity.log
+
+      - name: Run chapter editorial audit
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
+            2>&1 | tee -a pnl-cp004-explanation-diversity.log
+
+      - name: Commit proven CP-004 implementation
+        run: |
+          if git diff --quiet -- \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-runtime.test.ts; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-runtime.test.ts
+          git commit -m "fix(pnl): diversify CP-004 generated explanations"
+          git push origin HEAD:feat/pnl-001-cp004-explanation-diversity
+
+      - name: Upload proof evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-cp004-explanation-diversity
+          path: |
+            pnl-cp004-explanation-diversity.log
+            dist/quant-v4/pnl-001-english-editorial-audit
+          if-no-files-found: error
+          retention-days: 14
