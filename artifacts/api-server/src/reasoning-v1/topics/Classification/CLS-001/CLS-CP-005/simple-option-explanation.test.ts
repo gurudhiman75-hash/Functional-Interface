@@ -75,7 +75,8 @@ for (const [questionIndex, question] of questions.entries()) {
 
   if (question.task === "SELECT_EQUIVALENT_NUMBER_SET") {
     const referenceStep = question.explanation.stepByStep[0]!;
-    assert.match(referenceStep, /^Reference \([^)]+\): [A-Z].*[.!?] \\(/);
+    assert.match(referenceStep, /^Reference \([^)]+\): [A-Z].*[.!?]/);
+    assert.ok(referenceStep.includes("\\("));
     assert.ok(referenceStep.includes("establishes the reference rule"));
     referenceExplanations += 1;
   }
