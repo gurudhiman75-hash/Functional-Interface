@@ -22,7 +22,7 @@ concurrency:
 jobs:
   validate-tmw-cp005:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -56,6 +56,52 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/tmw-001-cp005-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp005-audit.log
+      - name: Bundle TMW chapter English audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-english-gap-audit.cp005.mjs
+      - name: Run chapter English audit
+        shell: bash
+        run: |
+          set -o pipefail
+          (cd artifacts/api-server && node dist/quant-v4/tmw-001-english-gap-audit.cp005.mjs || true)
+      - name: Bundle target calibration
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-english-gap-calibrate.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-english-gap-calibrate.cp005.mjs
+      - name: Calibrate chapter English audit
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          node dist/quant-v4/tmw-001-english-gap-calibrate.cp005.mjs 2>&1 | tee dist/quant-v4/tmw-001-english-gap-calibrate.cp005.log
+      - name: Prove CP-005 English freeze tiers and uniqueness
+        shell: bash
+        run: |
+          set -euo pipefail
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const path = 'artifacts/api-server/dist/quant-v4/tmw-001-english-gap-audit.json';
+          const report = JSON.parse(fs.readFileSync(path, 'utf8'));
+          if (report.summary.hardFailures !== 0) throw new Error(`chapter audit has ${report.summary.hardFailures} hard failures`);
+          const forbidden = new Set([
+            'CP_FOUR_TIER_GAP',
+            'CP_MISSING_DIAGNOSTIC_TRAPS',
+            'CP_NEGATIVE_TRAP_COMMANDS',
+            'CP_ACADEMIC_JARGON',
+            'ASCII_FRACTIONAL_TIME',
+            'RAW_LATEX_FRACTION',
+            'DOLLAR_MATH_DELIMITER',
+            'INTERNAL_ID_LEAK',
+            'NORMALIZED_EXPLANATION_COLLISION',
+          ]);
+          const hits = report.findings.filter((finding) => finding.cpId === 'TMW-CP-005' && forbidden.has(finding.code));
+          if (hits.length !== 0) throw new Error(`CP-005 English findings remain: ${hits.map((finding) => `${finding.code}:${finding.qlId ?? '-'}`).join(', ')}`);
+          NODE
       - name: Bundle TMW-CP-005 review export
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -74,5 +120,7 @@ jobs:
             artifacts/api-server/dist/quant-v4/tmw-001-cp005-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-cp005-audit.log
             artifacts/api-server/dist/quant-v4/tmw-001-cp005-review.json
+            artifacts/api-server/dist/quant-v4/tmw-001-english-gap-audit.json
+            artifacts/api-server/dist/quant-v4/tmw-001-english-gap-calibrate.cp005.log
           if-no-files-found: error
           retention-days: 7
