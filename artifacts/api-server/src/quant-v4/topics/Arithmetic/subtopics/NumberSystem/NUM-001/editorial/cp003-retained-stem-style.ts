@@ -22,16 +22,22 @@ function orderedPairCondition(hiddenState: Readonly<Record<string, unknown>>): s
   return condition;
 }
 
+function naturalList(values: readonly string[]): string {
+  if (values.length === 0) return "the listed numbers";
+  if (values.length === 1) return values[0]!;
+  if (values.length === 2) return `${values[0]} and ${values[1]}`;
+  return `${values.slice(0, -1).join(", ")} and ${values[values.length - 1]}`;
+}
+
 function claimLead(hiddenState: Readonly<Record<string, unknown>>): string {
   const polarity = String(hiddenState.requestedPolarity).toLowerCase();
   const claims = Array.isArray(hiddenState.claims) ? hiddenState.claims : [];
-  const firstNumber = claims.length > 0 && typeof claims[0] === "object"
-    ? Number((claims[0] as Record<string, unknown>).number)
-    : 0;
-  if (Number.isFinite(firstNumber) && firstNumber % 2 === 0) {
-    return `Which statement about divisibility is ${polarity}?`;
-  }
-  return `Which of the following divisibility statements is ${polarity}?`;
+  const numbers = [...new Set(
+    claims
+      .filter((claim) => claim && typeof claim === "object")
+      .map((claim) => String((claim as Record<string, unknown>).number)),
+  )];
+  return `Which divisibility statement involving ${naturalList(numbers)} is ${polarity}?`;
 }
 
 export function polishNumCp003RetainedStem(
