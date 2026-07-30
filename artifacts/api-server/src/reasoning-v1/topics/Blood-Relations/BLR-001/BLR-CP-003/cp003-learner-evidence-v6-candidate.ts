@@ -13,7 +13,7 @@ import {
   type BlrCp003SvgFamilyTreeDiagram,
 } from "./cp003-svg-family-tree";
 import {
-  generateBlrCp003TeacherReviewV3Records,
+  generateBlrCp003TeacherReviewRecords,
   type BlrCp003TeacherOptionAnalysis,
   type BlrCp003TeacherReviewRecord,
 } from "./cp003-teacher-editorial";
@@ -94,10 +94,29 @@ export interface BlrCp003V6CandidateRecord {
   };
 }
 
-const MARITAL_SCENARIO =
-  "BLR-CP003-SCN-EXPLICIT-UNMARRIED-BRANCH" as const;
-const COUSIN_SCENARIO =
-  "BLR-CP003-SCN-TWO-COUPLE-COUSIN-BRANCH" as const;
+type CandidateInput = {
+  context: BlrCp003CompetitiveRawContext;
+  baseReview: BlrCp003TeacherReviewRecord;
+  authority: BlrCp003V6CandidateAuthority;
+  prototypeId: string;
+  itemSuffix: string;
+  stem: string;
+  answerType: BlrCp003V6AnswerType;
+  answerSemanticKey: string;
+  options: readonly BlrCp003V6CandidateOption[];
+  correctIndex: number;
+  evidencePaths: readonly BlrCp003V6EvidencePath[];
+  compositeProposition: string;
+  coreConcept: readonly string[];
+  steps: readonly string[];
+  optionAnalysis: readonly BlrCp003TeacherOptionAnalysis[];
+  conclusion: string;
+  shortcut: string;
+  traps: readonly string[];
+};
+
+const MARITAL_SCENARIO = "BLR-CP003-SCN-EXPLICIT-UNMARRIED-BRANCH";
+const COUSIN_SCENARIO = "BLR-CP003-SCN-TWO-COUPLE-COUSIN-BRANCH";
 
 function optionLabel(index: number): "A" | "B" | "C" | "D" {
   return String.fromCharCode(65 + index) as "A" | "B" | "C" | "D";
@@ -108,30 +127,49 @@ function rotate<T>(values: readonly T[], shift: number): T[] {
   return [...values.slice(offset), ...values.slice(0, offset)];
 }
 
-function normalise(text: string): string {
-  return text
-    .toLocaleLowerCase("en-IN")
-    .replace(/[’']/g, "")
-    .replace(/[–—-]/g, " ")
-    .replace(/\b(the|a|an)\b/g, " ")
-    .replace(/[^a-z0-9\s]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+function makeOptions(
+  entries: readonly {
+    text: string;
+    semanticKey: string;
+    correct: boolean;
+  }[],
+  shift: number,
+): { options: BlrCp003V6CandidateOption[]; correctIndex: number } {
+  const options = rotate(entries, shift).map((entry) => ({
+    text: entry.text,
+    semanticKey: entry.semanticKey,
+    isCorrect: entry.correct,
+  }));
+  const correctIndex = options.findIndex((entry) => entry.isCorrect);
+  if (
+    options.length !== 4 ||
+    correctIndex < 0 ||
+    options.filter((entry) => entry.isCorrect).length !== 1 ||
+    new Set(options.map((entry) => entry.text)).size !== 4 ||
+    new Set(options.map((entry) => entry.semanticKey)).size !== 4
+  ) {
+    throw new Error("Invalid CP-003 V6 option set.");
+  }
+  return { options, correctIndex };
 }
 
-function assertCompositePropositionNotRepeated(
-  prompt: string,
-  proposition: string,
-): void {
-  const statements = new Set(
-    prompt
-      .split(/[.\n]+/)
-      .map(normalise)
-      .filter(Boolean),
-  );
-  if (statements.has(normalise(proposition))) {
-    throw new Error(`CP-003 V6 candidate repeats its composite answer: ${proposition}`);
-  }
+function analyseOptions(
+  options: readonly BlrCp003V6CandidateOption[],
+  reasons: Readonly<Record<string, string>>,
+): BlrCp003TeacherOptionAnalysis[] {
+  return options.map((option, index) => {
+    const label = optionLabel(index);
+    const reason = reasons[option.semanticKey];
+    if (!reason) throw new Error(`Missing V6 option reason for ${option.semanticKey}.`);
+    return {
+      optionLabel: label,
+      optionText: option.text,
+      isCorrect: option.isCorrect,
+      explanation: option.isCorrect
+        ? `✅ Option ${label} is correct. ${reason}`
+        : `⚠️ Don't fall for Option ${label}! ${reason}`,
+    };
+  });
 }
 
 function contextFor(
@@ -142,13 +180,11 @@ function contextFor(
   const context = [...contexts.values()].find(
     (entry) => entry.scenarioId === scenarioId && entry.seed === seed,
   );
-  if (!context) {
-    throw new Error(`Missing CP-003 V6 context for ${scenarioId}/${seed}.`);
-  }
+  if (!context) throw new Error(`Missing V6 context for ${scenarioId}/${seed}.`);
   return context;
 }
 
-function baseReviewFor(
+function reviewFor(
   records: readonly BlrCp003TeacherReviewRecord[],
   scenarioId: string,
   seed: number,
@@ -156,9 +192,7 @@ function baseReviewFor(
   const record = records.find(
     (entry) => entry.scenarioId === scenarioId && entry.seed === seed,
   );
-  if (!record) {
-    throw new Error(`Missing CP-003 V6 visual base for ${scenarioId}/${seed}.`);
-  }
+  if (!record) throw new Error(`Missing V6 visual base for ${scenarioId}/${seed}.`);
   return record;
 }
 
@@ -175,7 +209,7 @@ function evidencePath(
   );
   if (solved.relationId !== expectedRelationId || solved.path.steps.length < 2) {
     throw new Error(
-      `Invalid CP-003 V6 evidence ${subjectId}->${referenceId}: ${solved.relationId}/${solved.path.steps.length}.`,
+      `Invalid V6 evidence ${subjectId}->${referenceId}: ${solved.relationId}/${solved.path.steps.length}.`,
     );
   }
   return {
@@ -187,71 +221,33 @@ function evidencePath(
   };
 }
 
-function candidateOptions(
-  entries: readonly { text: string; semanticKey: string; correct: boolean }[],
-  shift: number,
-): { options: BlrCp003V6CandidateOption[]; correctIndex: number } {
-  const options = rotate(entries, shift).map((entry) => ({
-    text: entry.text,
-    semanticKey: entry.semanticKey,
-    isCorrect: entry.correct,
-  }));
-  const correctIndex = options.findIndex((entry) => entry.isCorrect);
-  if (
-    options.length !== 4 ||
-    correctIndex < 0 ||
-    options.filter((entry) => entry.isCorrect).length !== 1 ||
-    new Set(options.map((entry) => entry.semanticKey)).size !== 4 ||
-    new Set(options.map((entry) => entry.text)).size !== 4
-  ) {
-    throw new Error("Invalid CP-003 V6 option set.");
-  }
-  return { options, correctIndex };
+function normalise(text: string): string {
+  return text
+    .toLocaleLowerCase("en-IN")
+    .replace(/[’']/g, "")
+    .replace(/[–—-]/g, " ")
+    .replace(/\b(the|a|an)\b/g, " ")
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
-function optionAnalysis(
-  options: readonly BlrCp003V6CandidateOption[],
-  explanations: Readonly<Record<string, string>>,
-): BlrCp003TeacherOptionAnalysis[] {
-  return options.map((option, index) => {
-    const label = optionLabel(index);
-    return {
-      optionLabel: label,
-      optionText: option.text,
-      isCorrect: option.isCorrect,
-      explanation: option.isCorrect
-        ? `✅ Option ${label} is correct. ${explanations[option.semanticKey]}`
-        : `⚠️ Don't fall for Option ${label}! ${explanations[option.semanticKey]}`,
-    };
-  });
-}
-
-function buildCandidate(input: {
-  context: BlrCp003CompetitiveRawContext;
-  baseReview: BlrCp003TeacherReviewRecord;
-  authority: BlrCp003V6CandidateAuthority;
-  prototypeId: string;
-  itemSuffix: string;
-  stem: string;
-  answerType: BlrCp003V6AnswerType;
-  answerSemanticKey: string;
-  options: readonly BlrCp003V6CandidateOption[];
-  correctIndex: number;
-  evidencePaths: readonly BlrCp003V6EvidencePath[];
-  compositeProposition: string;
-  coreConcept: readonly string[];
-  stepByStepSolution: readonly string[];
-  optionAnalysis: readonly BlrCp003TeacherOptionAnalysis[];
-  conclusion: string;
-  examShortcut: string;
-  commonTraps: readonly string[];
-}): BlrCp003V6CandidateRecord {
-  assertCompositePropositionNotRepeated(
-    input.context.sharedPrompt,
-    input.compositeProposition,
+function assertCompositeNotRepeated(prompt: string, proposition: string): void {
+  const statements = new Set(
+    prompt
+      .split(/[.\n]+/)
+      .map(normalise)
+      .filter(Boolean),
   );
+  if (statements.has(normalise(proposition))) {
+    throw new Error(`V6 composite answer repeats a premise: ${proposition}`);
+  }
+}
+
+function buildCandidate(input: CandidateInput): BlrCp003V6CandidateRecord {
+  assertCompositeNotRepeated(input.context.sharedPrompt, input.compositeProposition);
   const primaryPath = input.evidencePaths[0];
-  if (!primaryPath) throw new Error("CP-003 V6 candidate requires evidence.");
+  if (!primaryPath) throw new Error("V6 candidate requires evidence.");
   const proceduralLogic = buildBlrCp003SvgFamilyTree(
     input.context,
     input.baseReview,
@@ -264,6 +260,7 @@ function buildCandidate(input: {
   const minimumEvidenceDistance = Math.min(
     ...input.evidencePaths.map((entry) => entry.distance),
   );
+  const itemId = `${input.context.scenarioId}-S${input.context.seed}-V6-${input.itemSuffix}`;
 
   return {
     packageId: "BLR-001",
@@ -281,7 +278,7 @@ function buildCandidate(input: {
     scenarioId: input.context.scenarioId,
     topologyId: input.baseReview.topologyId,
     seed: input.context.seed,
-    itemId: `${input.context.scenarioId}-V6-${input.itemSuffix}`,
+    itemId,
     sharedPrompt: input.context.sharedPrompt,
     stem: input.stem,
     answerType: input.answerType,
@@ -292,11 +289,11 @@ function buildCandidate(input: {
     proceduralLogic,
     editorial: {
       coreConcept: input.coreConcept,
-      stepByStepSolution: input.stepByStepSolution,
+      stepByStepSolution: input.steps,
       optionAnalysis: input.optionAnalysis,
       conclusion: input.conclusion,
-      examShortcut: input.examShortcut,
-      commonTraps: input.commonTraps,
+      examShortcut: input.shortcut,
+      commonTraps: input.traps,
     },
     metadata: {
       runtimeVersion: "blr-cp003-learner-evidence-v6-candidate-v1",
@@ -311,19 +308,17 @@ function buildCandidate(input: {
       semanticFingerprint: stableHash([
         BLR_CP003_LEARNER_EVIDENCE_V6_CANDIDATE_VERSION,
         input.authority,
-        input.context.scenarioId,
-        input.context.seed,
-        input.itemSuffix,
+        itemId,
         input.stem,
         input.answerSemanticKey,
-        ...input.options.flatMap((entry) => [
-          entry.semanticKey,
-          entry.text,
-          entry.isCorrect,
+        ...input.options.flatMap((option) => [
+          option.semanticKey,
+          option.text,
+          option.isCorrect,
         ]),
-        ...input.evidencePaths.flatMap((entry) => [
-          entry.relationId,
-          ...entry.personIds,
+        ...input.evidencePaths.flatMap((path) => [
+          path.relationId,
+          ...path.personIds,
         ]),
       ]),
     },
@@ -334,37 +329,26 @@ function genderCandidate(
   context: BlrCp003CompetitiveRawContext,
   baseReview: BlrCp003TeacherReviewRecord,
 ): BlrCp003V6CandidateRecord {
-  const targetName = context.personNames.E!;
-  const referenceName = context.personNames.G!;
-  const path = evidencePath(context, "E", "G", "UNCLE");
-  const target = context.reconstructedFamily.persons.find(
+  const target = context.personNames.E!;
+  const reference = context.personNames.G!;
+  const targetPerson = context.reconstructedFamily.persons.find(
     (person) => person.personId === "E",
   );
-  if (target?.gender !== "MALE") {
-    throw new Error("CP-003 V6 gender target is not independently male.");
-  }
-  const { options, correctIndex } = candidateOptions(
+  if (targetPerson?.gender !== "MALE") throw new Error("V6 gender target drifted.");
+  const { options, correctIndex } = makeOptions(
     [
       { text: "Male", semanticKey: "GENDER:MALE", correct: true },
       { text: "Female", semanticKey: "GENDER:FEMALE", correct: false },
-      {
-        text: "Cannot be determined",
-        semanticKey: "GENDER:UNKNOWN",
-        correct: false,
-      },
-      {
-        text: "The passage is contradictory",
-        semanticKey: "GENDER:CONTRADICTORY",
-        correct: false,
-      },
+      { text: "Cannot be determined", semanticKey: "GENDER:UNKNOWN", correct: false },
+      { text: "The passage is contradictory", semanticKey: "GENDER:CONTRADICTORY", correct: false },
     ],
     context.seed,
   );
-  const explanations = {
-    "GENDER:MALE": `${targetName} is ${referenceName}'s paternal uncle and is established as male by the family clues.`,
-    "GENDER:FEMALE": `${targetName} is not female; the passage establishes him as a son in the parent generation.`,
-    "GENDER:UNKNOWN": `The target must first be identified as ${targetName}; the clues then establish his gender, so it is determinable.`,
-    "GENDER:CONTRADICTORY": "The family graph contains no conflicting gender facts for the target member.",
+  const reasons = {
+    "GENDER:MALE": `${target} is ${reference}'s paternal uncle and the family clues establish him as male.`,
+    "GENDER:FEMALE": `${target} is established as a son, not a female member.`,
+    "GENDER:UNKNOWN": `The relation path identifies ${target}, and the clues fix his gender.`,
+    "GENDER:CONTRADICTORY": "No conflicting gender fact exists for the target member.",
   } as const;
   return buildCandidate({
     context,
@@ -372,29 +356,29 @@ function genderCandidate(
     authority: "DETERMINE_MEMBER_GENDER",
     prototypeId: "BLR-CP003-PROT-SHARED-GENDER",
     itemSuffix: "RELATION-QUALIFIED-GENDER",
-    stem: `What is the gender of ${referenceName}'s paternal uncle?`,
+    stem: `What is the gender of ${reference}'s paternal uncle?`,
     answerType: "GENDER_LABEL",
     answerSemanticKey: "GENDER:MALE",
     options,
     correctIndex,
-    evidencePaths: [path],
-    compositeProposition: `${targetName}, the paternal uncle of ${referenceName}, is male.`,
+    evidencePaths: [evidencePath(context, "E", "G", "UNCLE")],
+    compositeProposition: `${target}, the paternal uncle of ${reference}, is male.`,
     coreConcept: [
-      "First identify the relation-qualified target from the shared family, then read only gender evidence attached to that target.",
-      "A name never proves gender; the relation clues must establish it.",
+      "Identify the relation-qualified target before reading that person's gender evidence.",
+      "A name alone never establishes gender.",
     ],
-    stepByStepSolution: [
-      `${context.personNames.C} is the father of ${referenceName}.`,
-      `${targetName} and ${context.personNames.C} are brothers because both are sons of ${context.personNames.A}.`,
-      `${targetName} is therefore the paternal uncle of ${referenceName}.`,
-      `${targetName} is established as male, so the required gender is Male.`,
+    steps: [
+      `${context.personNames.C} is the father of ${reference}.`,
+      `${target} and ${context.personNames.C} are brothers because both are sons of ${context.personNames.A}.`,
+      `${target} is therefore the paternal uncle of ${reference}.`,
+      `${target} is male, so the required answer is Male.`,
     ],
-    optionAnalysis: optionAnalysis(options, explanations),
-    conclusion: `The gender of ${referenceName}'s paternal uncle is Male.`,
-    examShortcut: `Find ${referenceName}'s father, move sideways to his brother, and then read that member's proved gender.`,
-    commonTraps: [
-      "⚠️ Do not answer from the spelling of a name.",
-      "⚠️ Do not stop after finding the uncle; the question asks for the uncle's gender label.",
+    optionAnalysis: analyseOptions(options, reasons),
+    conclusion: `The gender of ${reference}'s paternal uncle is Male.`,
+    shortcut: `Find ${reference}'s father, move to his brother, and then read that member's proved gender.`,
+    traps: [
+      "⚠️ Do not infer gender from a name.",
+      "⚠️ Do not stop after identifying the uncle; return the uncle's gender label.",
     ],
   });
 }
@@ -403,39 +387,26 @@ function pairCandidate(
   context: BlrCp003CompetitiveRawContext,
   baseReview: BlrCp003TeacherReviewRecord,
 ): BlrCp003V6CandidateRecord {
-  const correctPair = [context.personNames.F!, context.personNames.H!] as const;
-  const pairText = (left: string, right: string) => `${left} and ${right}`;
-  const { options, correctIndex } = candidateOptions(
+  const f = context.personNames.F!;
+  const h = context.personNames.H!;
+  const c = context.personNames.C!;
+  const d = context.personNames.D!;
+  const a = context.personNames.A!;
+  const b = context.personNames.B!;
+  const { options, correctIndex } = makeOptions(
     [
-      {
-        text: pairText(...correctPair),
-        semanticKey: "PAIR:F:H",
-        correct: true,
-      },
-      {
-        text: pairText(context.personNames.C!, context.personNames.D!),
-        semanticKey: "PAIR:C:D",
-        correct: false,
-      },
-      {
-        text: pairText(context.personNames.C!, context.personNames.F!),
-        semanticKey: "PAIR:C:F",
-        correct: false,
-      },
-      {
-        text: pairText(context.personNames.A!, context.personNames.B!),
-        semanticKey: "PAIR:A:B",
-        correct: false,
-      },
+      { text: `${f} and ${h}`, semanticKey: "PAIR:F:H", correct: true },
+      { text: `${c} and ${d}`, semanticKey: "PAIR:C:D", correct: false },
+      { text: `${c} and ${f}`, semanticKey: "PAIR:C:F", correct: false },
+      { text: `${a} and ${b}`, semanticKey: "PAIR:A:B", correct: false },
     ],
     context.seed + 1,
   );
-  const path = evidencePath(context, "F", "H", "COUSIN");
-  const explanations = {
-    "PAIR:F:H": `${correctPair[0]} and ${correctPair[1]} are cousins because their parents are siblings.`,
-    "PAIR:C:D": `${context.personNames.C} and ${context.personNames.D} are siblings, not cousins.`,
-    "PAIR:C:F": `${context.personNames.C} is a parent of ${context.personNames.F}; this is a parent-child pair.`,
-    "PAIR:A:B": `${context.personNames.A} and ${context.personNames.B} are a married couple, not cousins.`,
+  const reasons = {
+    "PAIR:F:H": `${f} and ${h} are cousins because their parents are siblings.`,
+    "PAIR:C:D": `${c} and ${d} are siblings, not cousins.`,
+    "PAIR:C:F": `${c} is a parent of ${f}.`,
+    "PAIR:A:B": `${a} and ${b} are spouses.`,
   } as const;
   return buildCandidate({
     context,
@@ -448,24 +419,24 @@ function pairCandidate(
     answerSemanticKey: "PAIR:F:H",
     options,
     correctIndex,
-    evidencePaths: [path],
-    compositeProposition: `${correctPair[0]} and ${correctPair[1]} are cousins.`,
+    evidencePaths: [evidencePath(context, "F", "H", "COUSIN")],
+    compositeProposition: `${f} and ${h} are cousins.`,
     coreConcept: [
-      "For an unordered pair, the two names form one answer regardless of display order.",
-      "Cousins are children of siblings, so the proof must cross the parent generation before returning to the child generation.",
+      "An unordered pair remains the same whichever name is written first.",
+      "Cousins are children of siblings.",
     ],
-    stepByStepSolution: [
-      `${context.personNames.C} and ${context.personNames.D} are siblings because both are children of ${context.personNames.A}.`,
-      `${correctPair[0]} is the child of ${context.personNames.C}.`,
-      `${correctPair[1]} is the child of ${context.personNames.D}.`,
-      `Therefore, ${correctPair[0]} and ${correctPair[1]} are cousins.`,
+    steps: [
+      `${c} and ${d} are siblings because both are children of ${a}.`,
+      `${f} is the child of ${c}.`,
+      `${h} is the child of ${d}.`,
+      `Therefore, ${f} and ${h} are cousins.`,
     ],
-    optionAnalysis: optionAnalysis(options, explanations),
-    conclusion: `${pairText(...correctPair)} is the cousin pair.`,
-    examShortcut: "For each option, move up one generation from both names. If those two parents are siblings, the pair consists of cousins.",
-    commonTraps: [
+    optionAnalysis: analyseOptions(options, reasons),
+    conclusion: `${f} and ${h} form the required cousin pair.`,
+    shortcut: "Move one generation upward from both names; if those parents are siblings, the pair consists of cousins.",
+    traps: [
       "⚠️ Same-generation members are not automatically cousins.",
-      "⚠️ Pair order is irrelevant; test the connection between the two members.",
+      "⚠️ Pair order is irrelevant; test the family connection.",
     ],
   });
 }
@@ -474,34 +445,24 @@ function memberSetCandidate(
   context: BlrCp003CompetitiveRawContext,
   baseReview: BlrCp003TeacherReviewRecord,
 ): BlrCp003V6CandidateRecord {
-  const referenceName = context.personNames.G!;
-  const auntName = context.personNames.D!;
-  const uncleName = context.personNames.E!;
-  const correctText = `${auntName} and ${uncleName}`;
-  const { options, correctIndex } = candidateOptions(
+  const reference = context.personNames.G!;
+  const aunt = context.personNames.D!;
+  const uncle = context.personNames.E!;
+  const father = context.personNames.C!;
+  const { options, correctIndex } = makeOptions(
     [
-      {
-        text: correctText,
-        semanticKey: "PERSON_SET:D:E",
-        correct: true,
-      },
-      { text: `${auntName} only`, semanticKey: "PERSON_SET:D", correct: false },
-      { text: `${uncleName} only`, semanticKey: "PERSON_SET:E", correct: false },
-      {
-        text: `${context.personNames.C}, ${auntName} and ${uncleName}`,
-        semanticKey: "PERSON_SET:C:D:E",
-        correct: false,
-      },
+      { text: `${aunt} and ${uncle}`, semanticKey: "PERSON_SET:D:E", correct: true },
+      { text: `${aunt} only`, semanticKey: "PERSON_SET:D", correct: false },
+      { text: `${uncle} only`, semanticKey: "PERSON_SET:E", correct: false },
+      { text: `${father}, ${aunt} and ${uncle}`, semanticKey: "PERSON_SET:C:D:E", correct: false },
     ],
     context.seed + 2,
   );
-  const auntPath = evidencePath(context, "D", "G", "AUNT");
-  const unclePath = evidencePath(context, "E", "G", "UNCLE");
-  const explanations = {
-    "PERSON_SET:D:E": `${auntName} and ${uncleName} are both siblings of ${referenceName}'s father, so the set is complete.`,
-    "PERSON_SET:D": `${auntName} qualifies, but the option omits ${uncleName}.`,
-    "PERSON_SET:E": `${uncleName} qualifies, but the option omits ${auntName}.`,
-    "PERSON_SET:C:D:E": `${context.personNames.C} is ${referenceName}'s father, not a paternal uncle or aunt, so this option adds an extra member.`,
+  const reasons = {
+    "PERSON_SET:D:E": `${aunt} and ${uncle} are both siblings of ${reference}'s father.`,
+    "PERSON_SET:D": `This option omits ${uncle}.`,
+    "PERSON_SET:E": `This option omits ${aunt}.`,
+    "PERSON_SET:C:D:E": `${father} is the father, not a paternal uncle or aunt.`,
   } as const;
   return buildCandidate({
     context,
@@ -509,69 +470,66 @@ function memberSetCandidate(
     authority: "IDENTIFY_ALL_MEMBERS_BY_RELATION",
     prototypeId: "BLR-CP003-PROT-SHARED-MEMBER-SET",
     itemSuffix: "DERIVED-PATERNAL-UNCLE-AUNT-SET",
-    stem: `Which option lists all the paternal uncles and aunts of ${referenceName}?`,
+    stem: `Which option lists all the paternal uncles and aunts of ${reference}?`,
     answerType: "PERSON_NAME_SET",
     answerSemanticKey: "PERSON_SET:D:E",
     options,
     correctIndex,
-    evidencePaths: [auntPath, unclePath],
-    compositeProposition: `${auntName} and ${uncleName} are all the paternal uncles and aunts of ${referenceName}.`,
+    evidencePaths: [
+      evidencePath(context, "D", "G", "AUNT"),
+      evidencePath(context, "E", "G", "UNCLE"),
+    ],
+    compositeProposition: `${aunt} and ${uncle} are all the paternal uncles and aunts of ${reference}.`,
     coreConcept: [
-      "A set answer is correct only when every qualifying member is included and no non-qualifying member is added.",
-      "Paternal uncles and aunts are the brothers and sisters of the father.",
+      "A set answer must include every qualifying member and no extra member.",
+      "Paternal uncles and aunts are the father's siblings.",
     ],
-    stepByStepSolution: [
-      `${context.personNames.C} is the father of ${referenceName}.`,
-      `${auntName} and ${uncleName} are siblings of ${context.personNames.C}.`,
-      `${auntName} is therefore the paternal aunt and ${uncleName} the paternal uncle of ${referenceName}.`,
-      `The complete set is ${correctText}.`,
+    steps: [
+      `${father} is the father of ${reference}.`,
+      `${aunt} and ${uncle} are siblings of ${father}.`,
+      `${aunt} is the paternal aunt and ${uncle} the paternal uncle.`,
+      `The complete set is ${aunt} and ${uncle}.`,
     ],
-    optionAnalysis: optionAnalysis(options, explanations),
-    conclusion: `${correctText} is the complete required set.`,
-    examShortcut: `Find ${referenceName}'s father, list every sibling of that father, and reject options with either an omission or an extra name.`,
-    commonTraps: [
+    optionAnalysis: analyseOptions(options, reasons),
+    conclusion: `${aunt} and ${uncle} form the complete required set.`,
+    shortcut: `Find ${reference}'s father, list all of that father's siblings, and reject omissions or extra names.`,
+    traps: [
       "⚠️ A partly correct set is still wrong.",
-      "⚠️ Do not include the father himself among his own siblings for this answer.",
+      "⚠️ Do not include the father himself in the sibling set.",
     ],
   });
+}
+
+function assertExplicitUnmarried(seed: number): void {
+  const fact = generateBlrCp003MaritalGroup(seed).maritalFacts.find(
+    (entry) => entry.personId === "E",
+  );
+  if (fact?.status !== "UNMARRIED") {
+    throw new Error("V6 marital evidence for E is not explicitly unmarried.");
+  }
 }
 
 function maritalStatusCandidate(
   context: BlrCp003CompetitiveRawContext,
   baseReview: BlrCp003TeacherReviewRecord,
 ): BlrCp003V6CandidateRecord {
-  const targetName = context.personNames.E!;
-  const referenceName = context.personNames.G!;
-  const path = evidencePath(context, "E", "G", "UNCLE");
-  const maritalGroup = generateBlrCp003MaritalGroup(context.seed);
-  const statusFact = maritalGroup.maritalFacts.find(
-    (entry) => entry.personId === "E",
-  );
-  if (statusFact?.status !== "UNMARRIED") {
-    throw new Error("CP-003 V6 marital target lacks explicit unmarried evidence.");
-  }
-  const { options, correctIndex } = candidateOptions(
+  assertExplicitUnmarried(context.seed);
+  const target = context.personNames.E!;
+  const reference = context.personNames.G!;
+  const { options, correctIndex } = makeOptions(
     [
       { text: "Unmarried", semanticKey: "STATUS:UNMARRIED", correct: true },
       { text: "Married", semanticKey: "STATUS:MARRIED", correct: false },
-      {
-        text: "Cannot be determined",
-        semanticKey: "STATUS:UNKNOWN",
-        correct: false,
-      },
-      {
-        text: "The passage is contradictory",
-        semanticKey: "STATUS:CONTRADICTORY",
-        correct: false,
-      },
+      { text: "Cannot be determined", semanticKey: "STATUS:UNKNOWN", correct: false },
+      { text: "The passage is contradictory", semanticKey: "STATUS:CONTRADICTORY", correct: false },
     ],
     context.seed + 3,
   );
-  const explanations = {
-    "STATUS:UNMARRIED": `${targetName} is ${referenceName}'s paternal uncle, and the passage explicitly states that ${targetName} is unmarried.`,
-    "STATUS:MARRIED": `No spouse edge or married fact is attached to ${targetName}; the explicit status says unmarried.`,
-    "STATUS:UNKNOWN": `The target and the status are both established: ${targetName} is the uncle and has an explicit unmarried fact.`,
-    "STATUS:CONTRADICTORY": "The status evidence is consistent and contains no married/unmarried conflict.",
+  const reasons = {
+    "STATUS:UNMARRIED": `${target} is ${reference}'s paternal uncle and is explicitly unmarried.`,
+    "STATUS:MARRIED": `No married fact applies to ${target}; the explicit fact says unmarried.`,
+    "STATUS:UNKNOWN": `Both the target identity and status are established.`,
+    "STATUS:CONTRADICTORY": "The marital evidence is consistent.",
   } as const;
   return buildCandidate({
     context,
@@ -579,61 +537,54 @@ function maritalStatusCandidate(
     authority: "DETERMINE_MEMBER_MARITAL_STATUS",
     prototypeId: "BLR-CP003-PROT-SHARED-MARITAL-STATUS",
     itemSuffix: "RELATION-QUALIFIED-MARITAL-STATUS",
-    stem: `What is the marital status of ${referenceName}'s paternal uncle?`,
+    stem: `What is the marital status of ${reference}'s paternal uncle?`,
     answerType: "MARITAL_STATUS_LABEL",
     answerSemanticKey: "STATUS:UNMARRIED",
     options,
     correctIndex,
-    evidencePaths: [path],
-    compositeProposition: `${targetName}, the paternal uncle of ${referenceName}, is unmarried.`,
+    evidencePaths: [evidencePath(context, "E", "G", "UNCLE")],
+    compositeProposition: `${target}, the paternal uncle of ${reference}, is unmarried.`,
     coreConcept: [
-      "First identify the relation-qualified member; then evaluate only valid marital-status evidence for that member.",
-      "Unmarried status requires an explicit fact. Missing spouse information alone is never enough.",
+      "Identify the relation-qualified target before checking marital evidence.",
+      "Unmarried status requires an explicit fact.",
     ],
-    stepByStepSolution: [
-      `${context.personNames.C} is the father of ${referenceName}.`,
-      `${targetName} is the brother of ${context.personNames.C}, so ${targetName} is ${referenceName}'s paternal uncle.`,
-      `The passage explicitly states that ${targetName} is unmarried.`,
-      "Therefore, the required marital status is Unmarried.",
+    steps: [
+      `${context.personNames.C} is the father of ${reference}.`,
+      `${target} is the brother of ${context.personNames.C}.`,
+      `${target} is therefore ${reference}'s paternal uncle.`,
+      `The passage explicitly states that ${target} is unmarried.`,
     ],
-    optionAnalysis: optionAnalysis(options, explanations),
-    conclusion: `${referenceName}'s paternal uncle is unmarried.`,
-    examShortcut: "Resolve the relation-qualified target first; then look for a spouse edge or an explicit status fact attached to that exact person.",
-    commonTraps: [
-      "⚠️ Do not use the status of another family member.",
-      "⚠️ Absence of a shown spouse is not proof of unmarried status.",
+    optionAnalysis: analyseOptions(options, reasons),
+    conclusion: `${reference}'s paternal uncle is explicitly unmarried.`,
+    shortcut: "Resolve the target first, then look for a spouse edge or an explicit status fact attached to that person.",
+    traps: [
+      "⚠️ Do not use another member's marital status.",
+      "⚠️ Missing spouse information does not prove unmarried status.",
     ],
   });
 }
 
-function identifyByMaritalStatusCandidate(
+function identifyByStatusCandidate(
   context: BlrCp003CompetitiveRawContext,
   baseReview: BlrCp003TeacherReviewRecord,
 ): BlrCp003V6CandidateRecord {
-  const targetName = context.personNames.E!;
-  const referenceName = context.personNames.G!;
-  const path = evidencePath(context, "E", "G", "UNCLE");
-  const maritalGroup = generateBlrCp003MaritalGroup(context.seed);
-  const statusFact = maritalGroup.maritalFacts.find(
-    (entry) => entry.personId === "E",
-  );
-  if (statusFact?.status !== "UNMARRIED") {
-    throw new Error("CP-003 V6 identify-by-status target lacks explicit evidence.");
-  }
-  const { options, correctIndex } = candidateOptions(
+  assertExplicitUnmarried(context.seed);
+  const target = context.personNames.E!;
+  const reference = context.personNames.G!;
+  const { options, correctIndex } = makeOptions(
     [
-      { text: targetName, semanticKey: "PERSON:E", correct: true },
+      { text: target, semanticKey: "PERSON:E", correct: true },
       { text: context.personNames.C!, semanticKey: "PERSON:C", correct: false },
       { text: context.personNames.D!, semanticKey: "PERSON:D", correct: false },
       { text: context.personNames.A!, semanticKey: "PERSON:A", correct: false },
     ],
     context.seed,
   );
-  const explanations = {
-    "PERSON:E": `${targetName} is the male sibling of ${referenceName}'s father and is explicitly unmarried.`,
-    "PERSON:C": `${context.personNames.C} is ${referenceName}'s father and is married, so neither condition matches.`,
-    "PERSON:D": `${context.personNames.D} is a paternal aunt, not a paternal uncle, and no unmarried fact qualifies her.`,
-    "PERSON:A": `${context.personNames.A} is ${referenceName}'s grandfather and is married, not the requested unmarried uncle.`,
+  const reasons = {
+    "PERSON:E": `${target} is the male sibling of ${reference}'s father and is explicitly unmarried.`,
+    "PERSON:C": `${context.personNames.C} is the married father of ${reference}.`,
+    "PERSON:D": `${context.personNames.D} is a paternal aunt, not the paternal uncle.`,
+    "PERSON:A": `${context.personNames.A} is a married grandfather, not the requested uncle.`,
   } as const;
   return buildCandidate({
     context,
@@ -641,29 +592,29 @@ function identifyByMaritalStatusCandidate(
     authority: "IDENTIFY_MEMBER_BY_MARITAL_STATUS",
     prototypeId: "BLR-CP003-PROT-SHARED-IDENTIFY-BY-MARITAL-STATUS",
     itemSuffix: "IDENTIFY-UNMARRIED-PATERNAL-UNCLE",
-    stem: `Who is the unmarried paternal uncle of ${referenceName}?`,
+    stem: `Who is the unmarried paternal uncle of ${reference}?`,
     answerType: "PERSON_NAME",
     answerSemanticKey: "PERSON:E",
     options,
     correctIndex,
-    evidencePaths: [path],
-    compositeProposition: `${targetName} is the unmarried paternal uncle of ${referenceName}.`,
+    evidencePaths: [evidencePath(context, "E", "G", "UNCLE")],
+    compositeProposition: `${target} is the unmarried paternal uncle of ${reference}.`,
     coreConcept: [
-      "The answer must satisfy both the kinship relation and the marital-status predicate.",
-      "A candidate failing either condition must be rejected.",
+      "The answer must satisfy both the kinship relation and the status condition.",
+      "A candidate failing either condition is wrong.",
     ],
-    stepByStepSolution: [
-      `${context.personNames.C} is the father of ${referenceName}.`,
-      `${targetName} is the brother of ${context.personNames.C}, making ${targetName} the paternal uncle.`,
-      `The passage explicitly marks ${targetName} as unmarried.`,
-      `Therefore, ${targetName} alone satisfies both conditions.`,
+    steps: [
+      `${context.personNames.C} is the father of ${reference}.`,
+      `${target} is the brother of ${context.personNames.C}.`,
+      `${target} is therefore the paternal uncle of ${reference}.`,
+      `${target} is explicitly unmarried, so he alone satisfies both conditions.`,
     ],
-    optionAnalysis: optionAnalysis(options, explanations),
-    conclusion: `${targetName} is the unmarried paternal uncle of ${referenceName}.`,
-    examShortcut: "Filter twice: first keep only paternal uncles, then apply the explicit marital-status condition.",
-    commonTraps: [
-      "⚠️ A person matching only the relation is not enough.",
-      "⚠️ A person matching only the status is not enough.",
+    optionAnalysis: analyseOptions(options, reasons),
+    conclusion: `${target} is the unmarried paternal uncle of ${reference}.`,
+    shortcut: "Filter twice: keep only paternal uncles, then apply the explicit marital-status condition.",
+    traps: [
+      "⚠️ Matching only the relation is insufficient.",
+      "⚠️ Matching only the marital status is insufficient.",
     ],
   });
 }
@@ -672,24 +623,22 @@ export function generateBlrCp003LearnerEvidenceV6Candidates(
   seeds: readonly number[] = [0, 1, 2, 3],
 ): readonly BlrCp003V6CandidateRecord[] {
   const contexts = buildBlrCp003CompetitiveRawContexts(seeds);
-  const baseReviews = generateBlrCp003TeacherReviewV3Records(seeds);
+  const reviews = generateBlrCp003TeacherReviewRecords(seeds);
   const records: BlrCp003V6CandidateRecord[] = [];
 
   for (const seed of seeds) {
     const maritalContext = contextFor(contexts, MARITAL_SCENARIO, seed);
-    const maritalBase = baseReviewFor(baseReviews, MARITAL_SCENARIO, seed);
+    const maritalReview = reviewFor(reviews, MARITAL_SCENARIO, seed);
     const cousinContext = contextFor(contexts, COUSIN_SCENARIO, seed);
-    const cousinBase = baseReviewFor(baseReviews, COUSIN_SCENARIO, seed);
-
+    const cousinReview = reviewFor(reviews, COUSIN_SCENARIO, seed);
     records.push(
-      genderCandidate(maritalContext, maritalBase),
-      pairCandidate(cousinContext, cousinBase),
-      memberSetCandidate(maritalContext, maritalBase),
-      maritalStatusCandidate(maritalContext, maritalBase),
-      identifyByMaritalStatusCandidate(maritalContext, maritalBase),
+      genderCandidate(maritalContext, maritalReview),
+      pairCandidate(cousinContext, cousinReview),
+      memberSetCandidate(maritalContext, maritalReview),
+      maritalStatusCandidate(maritalContext, maritalReview),
+      identifyByStatusCandidate(maritalContext, maritalReview),
     );
   }
-
   return records;
 }
 
