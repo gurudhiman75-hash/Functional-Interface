@@ -46,7 +46,8 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          node artifacts/api-server/dist/quant-v4/int-001-cp001-large-review-export.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/int-001-cp001-large-review-export.log
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp001-large-review-export.mjs 2>&1 | tee dist/quant-v4/int-001-cp001-large-review-export.log
 
       - name: Verify expected review files
         shell: bash
