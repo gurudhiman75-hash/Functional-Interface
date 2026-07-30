@@ -7,6 +7,7 @@ import type {
   NumCp003RetainedQuestion,
   NumCp003RetainedTemplateLabel,
 } from "./runtime-types";
+import { polishNumCp003RetainedStem } from "../../editorial/cp003-retained-stem-style";
 
 function expand(text: string, minimum: number, prefix: string): string {
   const trimmed = text.trim();
@@ -22,6 +23,7 @@ export function generateNumCp003RetainedQuestion(
   const base = generateBase(label, seed);
   return {
     ...base,
+    stem: polishNumCp003RetainedStem(label, base.stem, base.hiddenState),
     explanation: {
       ...base.explanation,
       steps: base.explanation.steps.map((step) => expand(step, 16, "Complete the exact step: ")),
