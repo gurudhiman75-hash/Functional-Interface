@@ -7,6 +7,7 @@ import type {
   NumCp004RetainedQuestion,
 } from "../completion/types";
 import { polishNumberSystemEnglishStem } from "../../editorial/english-stem-style";
+import { formatNumCp004StudentWarningText } from "../../editorial/explanation-rendering";
 import {
   NUM_CP004_PERMANENT_QL_IDS,
   getNumCp004PermanentAllocation,
@@ -108,6 +109,10 @@ export function runNumCp004PermanentPipeline(
       retained.stem,
       retained.hiddenState,
     ),
+    explanation: {
+      ...retained.explanation,
+      commonTraps: retained.explanation.commonTraps.map(formatNumCp004StudentWarningText),
+    },
     permanentQlId: allocation.qlId,
     questionLanguageId: allocation.qlId,
     questionId: `NUM-001:${allocation.qlId}:${seed}`,
