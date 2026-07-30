@@ -6,3 +6,7 @@ export * from "./runtime";
 export * from "./editorial-runtime";
 export * from "./simple-option-explanation-runtime";
 export * from "./quality-runtime";
+export * from "./source-gap-registry";
+export * from "./source-gap-expanded-audit";
+export * from "./wave2-runtime";
+export * from "./wave2-quality-runtime";
