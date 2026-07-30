@@ -30,7 +30,7 @@ assert.equal(bundle.sourceRecordCount, 208);
 assert.equal(bundle.sourceEligibleRecordCount, 116);
 assert.equal(bundle.supplementalRecordCount, 12);
 
-const siblingRoutePattern = /<g data-sibling-route="card-bottom-bracket" data-sibling-target="inner-card-bottom"><path d="M (-?\d+(?:\.\d+)?) (-?\d+(?:\.\d+)?) V (-?\d+(?:\.\d+)?) H (-?\d+(?:\.\d+)?) V (-?\d+(?:\.\d+)?)"[^>]*stroke-dasharray="8 6"[^>]*marker-start="url\(#blr-sibling-arrow\)"[^>]*marker-end="url\(#blr-sibling-arrow\)"\/>/g;
+const siblingRoutePattern = /<g data-sibling-route="card-bottom-bracket" data-sibling-target="inner-card-bottom" data-sibling-arrow-clearance="8"><path d="M (-?\d+(?:\.\d+)?) (-?\d+(?:\.\d+)?) V (-?\d+(?:\.\d+)?) H (-?\d+(?:\.\d+)?) V (-?\d+(?:\.\d+)?)"[^>]*stroke-dasharray="8 6"[^>]*marker-start="url\(#blr-sibling-arrow\)"[^>]*marker-end="url\(#blr-sibling-arrow\)"\/>/g;
 
 for (const record of records) {
   const diagram = record.proceduralLogic;
@@ -78,6 +78,7 @@ for (const record of records) {
     assert.ok(!markup.includes('orient="auto-start-reverse"'));
     assert.ok(markup.includes('data-sibling-route="card-bottom-bracket"'));
     assert.ok(markup.includes('data-sibling-target="inner-card-bottom"'));
+    assert.ok(markup.includes('data-sibling-arrow-clearance="8"'));
     assert.ok(markup.includes('marker-start="url(#blr-sibling-arrow)"'));
     assert.ok(markup.includes('marker-end="url(#blr-sibling-arrow)"'));
     assert.ok(!/<line[^>]*stroke-dasharray="8 6"/.test(markup));
@@ -86,12 +87,12 @@ for (const record of records) {
     assert.ok(routedGroups.length > 0, `${record.itemId} has no routed sibling-card connector.`);
     for (const route of routedGroups) {
       const startX = Number(route[1]);
-      const startY = Number(route[2]);
+      const arrowTipY = Number(route[2]);
       const routeY = Number(route[3]);
       const endX = Number(route[4]);
       const endY = Number(route[5]);
-      assert.equal(startY, endY, `${record.itemId} sibling arrows do not meet equal card bottoms.`);
-      assert.ok(routeY > startY, `${record.itemId} sibling route is not below the sibling cards.`);
+      assert.equal(arrowTipY, endY, `${record.itemId} sibling arrow tips are not level.`);
+      assert.equal(routeY - arrowTipY, 18, `${record.itemId} sibling bracket depth drifted.`);
       assert.ok(endX > startX, `${record.itemId} sibling route does not span two distinct cards.`);
       siblingCardRouteCount += 1;
     }
@@ -178,7 +179,8 @@ console.log(
       highlightedAnswerPaths: highlightedPathCount,
       siblingArrowDiagrams: siblingArrowDiagramCount,
       siblingCardBottomRoutes: siblingCardRouteCount,
-      siblingArrowheads: "BIDIRECTIONAL_INNER_CARD_TARGETED",
+      siblingArrowClearancePixels: 8,
+      siblingArrowheads: "BIDIRECTIONAL_INNER_CARD_TARGETED_VISIBLE",
       provisionalAuthorities: cp003ProvisionalAuthorities().sort(),
       averageStructuredPayloadBytes: averagePayloadBytes,
       maximumPayloadBytes: 12_000,
