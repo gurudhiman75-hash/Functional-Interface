@@ -34,27 +34,27 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
-      - name: Bundle V3.3 natural-language review audit
+      - name: Bundle V3.4 multilingual parity audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-natural-language-v3-3-audit.ts
+          src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-natural-language-v3-4-audit.ts
           --bundle
           --platform=node
           --format=esm
-          --outfile=dist/quant-v4/avg-001-natural-language-v3-3-audit.mjs
-      - name: Run 1,275-package V3.3 natural-language audit
+          --outfile=dist/quant-v4/avg-001-natural-language-v3-4-audit.mjs
+      - name: Run 1,275-package V3.4 parity and unit audit
         shell: bash
         run: |
           set -o pipefail
-          (cd artifacts/api-server && node dist/quant-v4/avg-001-natural-language-v3-3-audit.mjs) \
-            | tee artifacts/api-server/avg-001-natural-language-v3-diagnostics.log
-      - name: Upload V3.3 review corpus
+          (cd artifacts/api-server && node dist/quant-v4/avg-001-natural-language-v3-4-audit.mjs) \
+            | tee artifacts/api-server/avg-001-natural-language-v3-4-diagnostics.log
+      - name: Upload V3.4 review corpus
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: avg-001-natural-language-v3-review
+          name: avg-001-natural-language-v3-4-review
           path: |
-            artifacts/api-server/avg-001-natural-language-v3-diagnostics.log
-            artifacts/api-server/dist/quant-v4/avg-001-natural-language-v3-review/**
+            artifacts/api-server/avg-001-natural-language-v3-4-diagnostics.log
+            artifacts/api-server/dist/quant-v4/avg-001-natural-language-v3-4-review/**
           if-no-files-found: error
           retention-days: 30
