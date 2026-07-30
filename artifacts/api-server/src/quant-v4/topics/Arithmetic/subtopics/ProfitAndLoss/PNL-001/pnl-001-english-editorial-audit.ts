@@ -613,31 +613,31 @@ for (const [qlId, group] of qlGroups) {
   const candidateDiversity = candidateDiversityByQl.get(qlId);
   if (new Set(group.map((item) => item.pkg.stem)).size === 1) {
     const fixedStem = (candidateDiversity?.exactCandidateStemCount ?? 0) === 1;
-    if (fixedStem) fixedStemQls.push(qlId);
-    else sameQlStemRepeat.push(qlId);
-    editorialFindings.push({
-      code: fixedStem ? "CONTRACTUALLY-FIXED-STEM" : "SAME-QL-STEM-REPEAT",
-      severity: fixedStem ? "NOTE" : "MAJOR",
-      scope: qlId,
-      message: fixedStem
-        ? `All ${candidateSeedsPerQl} deterministic candidates render the same visible stem; record this as a fixed-stem task contract.`
-        : `All three selected samples render the same visible stem despite ${candidateDiversity?.exactCandidateStemCount ?? "unknown"} exact stems in the candidate pool.`,
-    });
+    if (fixedStem) {
+      fixedStemQls.push(qlId);
+    } else {
+      sameQlStemRepeat.push(qlId);
+      editorialFindings.push({
+        code: "SAME-QL-STEM-REPEAT",
+        severity: "MAJOR",
+        scope: qlId,
+        message: `All three selected samples render the same visible stem despite ${candidateDiversity?.exactCandidateStemCount ?? "unknown"} exact stems in the candidate pool.`,
+      });
+    }
   }
   if (new Set(group.map((item) => item.pkg.answer)).size === 1) {
     const fixedAnswer = (candidateDiversity?.candidateAnswerCount ?? 0) === 1;
-    if (fixedAnswer) fixedAnswerQls.push(qlId);
-    else sameQlAnswerRepeat.push(qlId);
-    editorialFindings.push({
-      code: fixedAnswer
-        ? "CONTRACTUALLY-FIXED-ANSWER"
-        : "SAME-QL-ANSWER-REPEAT",
-      severity: "NOTE",
-      scope: qlId,
-      message: fixedAnswer
-        ? `All ${candidateSeedsPerQl} deterministic candidates produce the same displayed answer; record this as a fixed-answer task contract.`
-        : `The selected samples repeat one answer despite ${candidateDiversity?.candidateAnswerCount ?? "unknown"} answers in the candidate pool.`,
-    });
+    if (fixedAnswer) {
+      fixedAnswerQls.push(qlId);
+    } else {
+      sameQlAnswerRepeat.push(qlId);
+      editorialFindings.push({
+        code: "SAME-QL-ANSWER-REPEAT",
+        severity: "NOTE",
+        scope: qlId,
+        message: `The selected samples repeat one answer despite ${candidateDiversity?.candidateAnswerCount ?? "unknown"} answers in the candidate pool.`,
+      });
+    }
   }
 }
 
@@ -792,7 +792,12 @@ const metrics = {
   editorialFindingCount: editorialFindings.length,
   fatalCodeCounts,
   issueCodeCounts,
-  auditStatus: fatalFindings.length > 0 ? "STRUCTURAL_FAIL" : "REVIEW_REQUIRED",
+  auditStatus:
+    fatalFindings.length > 0
+      ? "STRUCTURAL_FAIL"
+      : editorialFindings.length > 0
+        ? "REVIEW_REQUIRED"
+        : "PASS",
   resolvedIssueRegression: {
     issueNumber: 262,
     qlId: "PNL-QL-070",

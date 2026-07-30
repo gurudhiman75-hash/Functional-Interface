@@ -1,27 +1,35 @@
-name: Apply PNL English Editorial Final Freeze
+name: Validate PNL English Editorial Audit
 
 on:
-  pull_request:
+  push:
     branches:
-      - New-main
+      - feat/pnl-001-english-editorial-audit
     paths:
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/**"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-editorial-option-regression.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-PLAN.md"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-WAVE-01.md"
+      - ".github/workflows/validate-pnl-english-editorial-audit.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/**"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-editorial-option-regression.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-PLAN.md"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-WAVE-01.md"
       - ".github/workflows/validate-pnl-english-editorial-audit.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  apply-final-freeze:
-    if: github.head_ref == 'feat/pnl-001-english-final-prose-freeze'
+  generate-pnl-english-editorial-audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 45
     steps:
-      - name: Checkout final-freeze branch
+      - name: Checkout source
         uses: actions/checkout@v4
-        with:
-          ref: feat/pnl-001-english-final-prose-freeze
-          fetch-depth: 0
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -36,149 +44,58 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Apply final English prose and audit corrections
-        run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-english-final-freeze-fix.mjs
-
-      - name: Format changed source
-        run: |
-          pnpm exec prettier --write \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-cp001-explanations.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-cp002-explanations.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-cp003-explanations.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-legacy-builder.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-001/cp001-dynamic-runtime.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-runtime.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/editorial-content.en.json \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/editorial-content.en.json \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-english-final-prose-regression.test.ts
-
-      - name: Prepare Editorial V2 bundle paths
-        run: |
-          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
-          ln -s ../CP-001 "$root/foundation/CP-001"
-          ln -s ../CP-002 "$root/foundation/CP-002"
-          ln -s ../CP-003 "$root/foundation/CP-003"
-
-      - name: Regenerate CP-001 through CP-003 English sources
-        run: |
-          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-cp001-cp003-export.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-export.mjs
-          node "$root/foundation/.editorial-v2-cp001-cp003-export.mjs"
-          for cp in CP-001 CP-002 CP-003; do
-            cp "$root/foundation/.editorial-v2-generated/$cp.editorial-content.en.json" "$root/$cp/editorial-content.en.json"
-          done
-
-      - name: Regenerate all Hindi and Punjabi sources
-        run: |
-          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-multilingual-export.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-export.mjs
-          node "$root/.editorial-v2-multilingual-export.mjs"
-          for cp in CP-001 CP-002 CP-003 CP-004 CP-005 CP-006; do
-            for language in hi pa; do
-              cp "$root/.editorial-v2-multilingual-generated/$cp.editorial-content.$language.json" "$root/$cp/editorial-content.$language.json"
-            done
-          done
-
-      - name: Prove English and multilingual source authority
-        run: |
-          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-cp001-cp003-audit.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-audit.mjs
-          node "$root/foundation/.editorial-v2-cp001-cp003-audit.mjs"
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-cp001-cp003-render.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-render.test.mjs
-          node "$root/foundation/.editorial-v2-cp001-cp003-render.test.mjs"
-          for source in \
-            editorial-v2-multilingual-audit.ts \
-            editorial-v2-multilingual-render.test.ts \
-            editorial-v2-multilingual-source-parity.ts; do
-            name="${source%.ts}"
-            pnpm --dir artifacts/api-server exec esbuild \
-              "src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/$source" \
-              --bundle --platform=node --format=esm \
-              --outfile="src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.$name.mjs"
-            node "$root/.$name.mjs"
-          done
-
-      - name: Run all six dynamic runtime proofs
-        run: |
-          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
-          for cp in 001 002 003 004 005 006; do
-            pnpm --dir artifacts/api-server exec esbuild \
-              "src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-$cp/cp${cp}-dynamic-runtime.test.ts" \
-              --bundle --platform=node --format=esm \
-              --outfile="/tmp/pnl-cp${cp}-dynamic-runtime.test.mjs"
-            node "/tmp/pnl-cp${cp}-dynamic-runtime.test.mjs"
-          done
-
-      - name: Run permanent final-prose regression
+      - name: Bundle CP-003 editorial regression
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-english-final-prose-regression.test.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-editorial-seed-regression.test.ts \
             --bundle --platform=node --format=esm \
-            --outfile=/tmp/pnl-english-final-prose-regression.test.mjs
-          node /tmp/pnl-english-final-prose-regression.test.mjs
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/.cp003-editorial-seed-regression.test.mjs
 
-      - name: Generate and enforce final English audit
+      - name: Run CP-003 editorial regression
+        run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/.cp003-editorial-seed-regression.test.mjs
+
+      - name: Bundle CP-005 editorial regression
         run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-editorial-seed-regression.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/.cp005-editorial-seed-regression.test.mjs
+
+      - name: Run CP-005 editorial regression
+        run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/.cp005-editorial-seed-regression.test.mjs
+
+      - name: Bundle option regressions
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-editorial-option-regression.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-editorial-option-regression.test.mjs
+
+      - name: Run option regressions
+        run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-editorial-option-regression.test.mjs
+
+      - name: Bundle editorial exporter
+        run: |
+          set -o pipefail
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts \
             --bundle --platform=node --format=esm \
-            --outfile=/tmp/pnl-001-english-editorial-audit.mjs
-          node /tmp/pnl-001-english-editorial-audit.mjs | tee pnl-english-final-freeze.log
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-english-final-freeze-report.mjs
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
+            2>&1 | tee pnl-english-editorial-audit.log
 
-      - name: Re-run freeze readiness
+      - name: Generate 558-row review corpus
         run: |
-          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-freeze-readiness-audit.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-freeze-readiness-audit.mjs
-          node "$root/.pnl-001-freeze-readiness-audit.mjs"
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
+            2>&1 | tee -a pnl-english-editorial-audit.log
 
-      - name: Commit validated final freeze
-        run: |
-          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
-          rm -f "$root/foundation/CP-001" "$root/foundation/CP-002" "$root/foundation/CP-003"
-          rm -rf "$root/foundation/.editorial-v2-generated" "$root/.editorial-v2-multilingual-generated"
-          rm -f \
-            "$root/foundation/.editorial-v2-cp001-cp003-export.mjs" \
-            "$root/foundation/.editorial-v2-cp001-cp003-audit.mjs" \
-            "$root/foundation/.editorial-v2-cp001-cp003-render.test.mjs" \
-            "$root/.editorial-v2-multilingual-export.mjs" \
-            "$root/.editorial-v2-multilingual-audit.mjs" \
-            "$root/.editorial-v2-multilingual-render.test.mjs" \
-            "$root/.editorial-v2-multilingual-source-parity.mjs" \
-            "$root/.pnl-001-freeze-readiness-audit.mjs"
-          git fetch origin New-main
-          git checkout origin/New-main -- .github/workflows/validate-pnl-english-editorial-audit.yml
-          rm -f "$root/pnl-english-final-freeze-fix.mjs" "$root/pnl-english-final-freeze-report.mjs"
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -m "feat(pnl): freeze English editorial manual"
-          git push origin HEAD:feat/pnl-001-english-final-prose-freeze
-
-      - name: Upload final-freeze evidence
+      - name: Upload editorial review corpus
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pnl-001-english-editorial-final-freeze
+          name: pnl-001-english-editorial-audit
           path: |
             dist/quant-v4/pnl-001-english-editorial-audit
-            pnl-english-final-freeze.log
+            pnl-english-editorial-audit.log
           if-no-files-found: error
           retention-days: 14

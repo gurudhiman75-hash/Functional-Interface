@@ -18,7 +18,9 @@ function normalize(value: string): string {
     .trim();
 }
 
-function explanationText(pkg: { explanation: { lines: readonly string[] } }): string {
+function explanationText(pkg: {
+  explanation: { lines: readonly string[] };
+}): string {
   return pkg.explanation.lines.join("\n\n");
 }
 
@@ -31,7 +33,9 @@ function lastEditorialSentence(pkg: {
   explanation: { lines: readonly string[] };
 }): string {
   const editorial = explanationText(pkg)
-    .split(/\n\n\*\*(?:Generated-value check|Working with these values):\*\*/)[0]!
+    .split(
+      /\n\n\*\*(?:Generated-value check|Working with these values):\*\*/,
+    )[0]!
     .replace(/\s+/g, " ")
     .trim();
   const sentences = editorial.match(/[^.!?]+[.!?]+/g) ?? [];
@@ -60,17 +64,41 @@ function meaningfulParagraphs(pkg: {
 
 const runners = {
   cp001: (qlId: string, seed: string) =>
-    runPnlCp001DynamicPipeline({ questionLanguageId: qlId, language: "en", seed }),
+    runPnlCp001DynamicPipeline({
+      questionLanguageId: qlId,
+      language: "en",
+      seed,
+    }),
   cp002: (qlId: string, seed: string) =>
-    runPnlCp002DynamicPipeline({ questionLanguageId: qlId, language: "en", seed }),
+    runPnlCp002DynamicPipeline({
+      questionLanguageId: qlId,
+      language: "en",
+      seed,
+    }),
   cp003: (qlId: string, seed: string) =>
-    runPnlCp003DynamicPipeline({ questionLanguageId: qlId, language: "en", seed }),
+    runPnlCp003DynamicPipeline({
+      questionLanguageId: qlId,
+      language: "en",
+      seed,
+    }),
   cp004: (qlId: string, seed: string) =>
-    runPnlCp004DynamicPipeline({ questionLanguageId: qlId, language: "en", seed }),
+    runPnlCp004DynamicPipeline({
+      questionLanguageId: qlId,
+      language: "en",
+      seed,
+    }),
   cp005: (qlId: string, seed: string) =>
-    runPnlCp005DynamicPipeline({ questionLanguageId: qlId, language: "en", seed }),
+    runPnlCp005DynamicPipeline({
+      questionLanguageId: qlId,
+      language: "en",
+      seed,
+    }),
   cp006: (qlId: string, seed: string) =>
-    runPnlCp006DynamicPipeline({ questionLanguageId: qlId, language: "en", seed }),
+    runPnlCp006DynamicPipeline({
+      questionLanguageId: qlId,
+      language: "en",
+      seed,
+    }),
 };
 
 const openingGroups = [
@@ -94,10 +122,15 @@ for (const [groupIndex, group] of openingGroups.entries()) {
 
 const cp001Closings = ["PNL-QL-003", "PNL-QL-004", "PNL-QL-035"].map((qlId) => {
   const pkg = runners.cp001(qlId, `pnl-final-cp001-working-${qlId}`);
-  const working = explanationText(pkg).split("**Working with these values:**")[1] ?? "";
+  const working =
+    explanationText(pkg).split("**Working with these values:**")[1] ?? "";
   return normalize(working.split("**Final answer:**")[0] ?? working);
 });
-assert.equal(new Set(cp001Closings).size, 3, "CP-001 value-bound working remains cloned.");
+assert.equal(
+  new Set(cp001Closings).size,
+  3,
+  "CP-001 value-bound working remains cloned.",
+);
 
 const sellingPriceClosings = [
   runners.cp002("PNL-QL-057", "pnl-final-closing-057"),
@@ -128,7 +161,12 @@ for (const [runner, qlId] of percentageStepQls) {
   );
 }
 
-const inventoryStepQls = ["PNL-QL-074", "PNL-QL-082", "PNL-QL-089", "PNL-QL-094"];
+const inventoryStepQls = [
+  "PNL-QL-074",
+  "PNL-QL-082",
+  "PNL-QL-089",
+  "PNL-QL-094",
+];
 const inventoryParagraphs = inventoryStepQls.map((qlId) =>
   meaningfulParagraphs(runners.cp003(qlId, `pnl-final-inventory-${qlId}`)),
 );
@@ -159,8 +197,10 @@ const expectedFixedAnswers = new Map<string, typeof runners.cp001>([
 ]);
 for (const [qlId, runner] of expectedFixedAnswers) {
   const answers = new Set(
-    Array.from({ length: 48 }, (_, index) =>
-      runner(qlId, `pnl-final-fixed-answer-${qlId}-${index + 1}`).answer,
+    Array.from(
+      { length: 48 },
+      (_, index) =>
+        runner(qlId, `pnl-final-fixed-answer-${qlId}-${index + 1}`).answer,
     ),
   );
   assert.equal(answers.size, 1, `${qlId} is not a fixed-answer contract.`);

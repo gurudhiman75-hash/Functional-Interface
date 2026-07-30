@@ -64,7 +64,7 @@
             "equationLatex": "A=S-C_d"
           },
           {
-            "title": "Convert to a percentage",
+            "title": "Express the actual result as a rate",
             "body": "Measure the amount on C_d.",
             "equationLatex": "r=\\frac{|A|}{C_d}\\times100"
           }
@@ -853,11 +853,7 @@
           {
             "type": "table",
             "caption": "Price and quantity schemes",
-            "columns": [
-              "Scheme",
-              "Price condition",
-              "Quantity condition"
-            ],
+            "columns": ["Scheme", "Price condition", "Quantity condition"],
             "rowSource": "schemeTable"
           }
         ],
@@ -974,10 +970,7 @@
           {
             "type": "data_sufficiency",
             "question": "The false quantity required for an actual {targetRatePercent}% profit on a nominal {trueQuantity}-unit sale is to be determined.",
-            "statements": [
-              "{statementOne}",
-              "{statementTwo}"
-            ],
+            "statements": ["{statementOne}", "{statementTwo}"],
             "answerScheme": "STANDARD_TWO_STATEMENT"
           }
         ],

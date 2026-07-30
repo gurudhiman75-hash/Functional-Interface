@@ -17,6 +17,40 @@ export function buildCp003Explanation(
   solveMode: string,
   qlId?: string,
 ): FriendlyExplanation {
+  if (
+    qlId &&
+    ["PNL-QL-074", "PNL-QL-082", "PNL-QL-089", "PNL-QL-094"].includes(qlId)
+  ) {
+    const base = buildCp003Explanation(solveMode);
+    const firstStepByQl: Readonly<
+      Record<string, Readonly<{ title: string; body: string }>>
+    > = {
+      "PNL-QL-074": {
+        title: "Price the complete purchased stock",
+        body: "Multiply the full purchased quantity by unit cost before combining sold and unsold recovery.",
+      },
+      "PNL-QL-082": {
+        title: "Establish the cost of all purchased units",
+        body: "Value every purchased unit at cost before crediting good-stock sales and spoiled-stock recovery.",
+      },
+      "PNL-QL-089": {
+        title: "Rebuild the caselet purchase outlay",
+        body: "Reconstruct the caselet's complete purchase outlay from total quantity and unit cost.",
+      },
+      "PNL-QL-094": {
+        title: "Set the full break-even cost",
+        body: "Calculate the cost of all purchased units before solving for break-even recovery from spoiled stock.",
+      },
+    };
+    const replacement = firstStepByQl[qlId]!;
+    return {
+      ...base,
+      steps: base.steps.map((step, index) =>
+        index === 0 ? { ...step, ...replacement } : step,
+      ),
+    };
+  }
+
   if (qlId === "PNL-QL-071") {
     return make(
       "Each purchase lot has its own quantity, unit cost and unit selling price, so the lots must be totalled in rupees.",

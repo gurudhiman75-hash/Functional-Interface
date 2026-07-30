@@ -17,6 +17,41 @@ export function buildCp001Explanation(
   solveMode: string,
   qlId?: string,
 ): FriendlyExplanation {
+  if (qlId) {
+    const base = buildCp001Explanation(solveMode);
+    const openingByQl: Readonly<Record<string, string>> = {
+      "PNL-QL-003":
+        "Selling price is above cost, so measure that gain against the original cost.",
+      "PNL-QL-004":
+        "Selling price is below cost, so measure the shortfall against the original cost.",
+      "PNL-QL-035":
+        "Equal cost and selling prices leave no commercial change to express as a percentage.",
+    };
+    const firstStepBodyByQl: Readonly<Record<string, string>> = {
+      "PNL-QL-005":
+        "For a profit sale, every 100 cost-price parts become 100+r selling-price parts.",
+      "PNL-QL-006":
+        "For a loss sale, every 100 cost-price parts leave 100−r selling-price parts.",
+      "PNL-QL-007":
+        "A profit selling price equals (100+r)% of cost, so recover cost by dividing by that factor.",
+      "PNL-QL-008":
+        "A loss selling price equals (100−r)% of cost, so recover cost from the retained factor.",
+    };
+    const opening = openingByQl[qlId];
+    const firstStepBody = firstStepBodyByQl[qlId];
+    if (opening || firstStepBody) {
+      return {
+        ...base,
+        opening: opening ?? base.opening,
+        steps: firstStepBody
+          ? base.steps.map((step, index) =>
+              index === 0 ? { ...step, body: firstStepBody } : step,
+            )
+          : base.steps,
+      };
+    }
+  }
+
   switch (solveMode) {
     case "CP_SP_TO_AMOUNT":
       return make(
