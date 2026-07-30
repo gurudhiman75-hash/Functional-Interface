@@ -48,8 +48,21 @@ const PUNJABI_LABELS: Readonly<Record<string, string>> = {
   "Required term": "ਲੋੜੀਂਦਾ ਪਦ",
 };
 
-function localizeMathText(text: string, labels: Readonly<Record<string, string>>) {
-  return text.replace(/\\text\{([^{}]+)\}/g, (full, label: string) => {
+function normalizeMathEscapes(text: string) {
+  return text
+    .replace(/\text\{/g, "\\text{")
+    .replace(/\times/g, "\\times")
+    .replace(/(?<!\\)\bdiv\b/g, "\\div")
+    .replace(/(?<!\\)\bquad\b/g, "\\quad");
+}
+
+function localizeMathText(
+  text: string,
+  labels: Readonly<Record<string, string>> | null,
+) {
+  const normalized = normalizeMathEscapes(text);
+  if (!labels) return normalized;
+  return normalized.replace(/\\text\{([^{}]+)\}/g, (full, label: string) => {
     const localized = labels[label];
     return localized ? `\\text{${localized}}` : full;
   });
@@ -63,9 +76,12 @@ function refreshValidation(pkg: Avg001QuestionPackage) {
   checks.push({
     name: "avg001-natural-language-v3-localized-math-labels",
     passed:
-      pkg.language === "en" ||
-      !/\\text\{(?:Endpoint mean|middle term|Old total|new average|New average|Added value|Removed value|Total change|old value|new value|Required runs|Original count|Combined average|Missing average|Missing count|Subgroup total|Overall total|Steps on one side|Required term)\}/.test(learnerText),
-    message: "Hindi and Punjabi displayed calculations use localized learner-facing labels",
+      !/\text\{|\times/.test(learnerText) &&
+      (
+        pkg.language === "en" ||
+        !/\\text\{(?:Endpoint mean|middle term|Old total|new average|New average|Added value|Removed value|Total change|old value|new value|Required runs|Original count|Combined average|Missing average|Missing count|Subgroup total|Overall total|Steps on one side|Required term)\}/.test(learnerText)
+      ),
+    message: "Displayed calculations preserve MathJax escapes and use localized labels in Hindi and Punjabi",
   });
   return { valid: checks.every((check) => check.passed), checks };
 }
@@ -74,18 +90,11 @@ export function applyAvg001NaturalLanguageV3Candidate(
   source: Avg001QuestionPackage,
 ): Avg001QuestionPackage {
   const base = applyAvg001NaturalLanguageV3Final(source);
-  if (base.language === "en") {
-    return {
-      ...base,
-      traceability: {
-        ...base.traceability,
-        naturalLanguageReviewCandidateFinal: AVG_001_NATURAL_LANGUAGE_V3_CANDIDATE,
-      },
-      validation: refreshValidation(base),
-    };
-  }
-
-  const labels = base.language === "hi" ? HINDI_LABELS : PUNJABI_LABELS;
+  const labels = base.language === "hi"
+    ? HINDI_LABELS
+    : base.language === "pa"
+      ? PUNJABI_LABELS
+      : null;
   const revised: Avg001QuestionPackage = {
     ...base,
     explanation: {
