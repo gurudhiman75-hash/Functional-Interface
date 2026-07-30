@@ -400,7 +400,13 @@ function buildCp004GeneratedWorking(
           : qlId === "PNL-QL-098"
             ? "Reverse all three successive stages"
             : "Reverse the mixed profit-and-loss chain";
-      return `${prefix} ${purpose} from final price ${cp004FormatMoney(request.finalSellingPrice)} using ${cp004StageSequence(request.stages)}. Dividing by the stage multipliers recovers the original cost ${answer}.`;
+      const conclusion =
+        qlId === "PNL-QL-097"
+          ? `The recovered two-stage original cost is ${answer}.`
+          : qlId === "PNL-QL-098"
+            ? `The three-stage reversal gives original cost ${answer}.`
+            : `The mixed-direction reversal gives original cost ${answer}.`;
+      return `${prefix} ${purpose} from final price ${cp004FormatMoney(request.finalSellingPrice)} using ${cp004StageSequence(request.stages)}. ${conclusion}`;
     }
 
     case "INITIAL_CP_AND_STAGES_TO_INTERMEDIATE_PRICE":
