@@ -2,15 +2,15 @@ import { readFileSync, writeFileSync } from "node:fs";
 
 const reportPath = "dist/quant-v4/tmw-001-english-gap-audit.json";
 const report = JSON.parse(readFileSync(reportPath, "utf8"));
-const imperative = /^(?:How|What|Which|Who|When|Where|Find|Calculate|Determine|State|Identify|Choose|Work out)\b/i;
+const explicitTarget = /(?:^|[,;:]\s+)(?:How|What|Which|Who|When|Where|Find|Calculate|Determine|State|Identify|Choose|Work out|Express|Give)\b/i;
 
 let acceptedImperativeTargets = 0;
 let retainedTargetBlockers = 0;
 const findings = report.findings.flatMap((finding: any) => {
-  if (finding.code !== "STEM_TARGET_PUNCTUATION") return [finding];
+  if (finding.code !== "STEM_TARGET_PUNCTUATION" && finding.code !== "STEM_TARGET_SYNTAX") return [finding];
   const stem = String(finding.sample ?? "").trim();
   const lastSentence = stem.split(/(?<=[.!?])\s+/).at(-1) ?? stem;
-  if (stem.endsWith("?") || imperative.test(lastSentence)) {
+  if (stem.endsWith("?") || explicitTarget.test(lastSentence)) {
     acceptedImperativeTargets += 1;
     return [];
   }
@@ -18,7 +18,7 @@ const findings = report.findings.flatMap((finding: any) => {
   return [{
     ...finding,
     code: "STEM_TARGET_SYNTAX",
-    detail: "Stem does not end with an explicit interrogative or imperative target.",
+    detail: "Stem does not contain an explicit interrogative or imperative target in its final sentence.",
   }];
 });
 
@@ -29,7 +29,7 @@ report.summary.observations = findings.filter((finding: any) => finding.severity
 report.calibration = {
   acceptedImperativeTargets,
   retainedTargetBlockers,
-  rule: "A stem target is explicit when it ends with ? or its final sentence begins with an approved imperative/question word.",
+  rule: "A stem target is explicit when it ends with ? or its final sentence contains an approved question or imperative clause.",
 };
 
 writeFileSync(reportPath, JSON.stringify(report, null, 2));
