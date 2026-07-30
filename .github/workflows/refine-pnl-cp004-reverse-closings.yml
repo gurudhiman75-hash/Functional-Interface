@@ -25,8 +25,8 @@ jobs:
 
           path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/cp004-dynamic-runtime.ts")
           source = path.read_text()
-          old = '''        return `${prefix} ${purpose} from final price ${cp004FormatMoney(request.finalSellingPrice)} using ${cp004StageSequence(request.stages)}. Dividing by the stage multipliers recovers the original cost ${answer}.`;'''
-          new = '''        const conclusion =
+          old = '''return `${prefix} ${purpose} from final price ${cp004FormatMoney(request.finalSellingPrice)} using ${cp004StageSequence(request.stages)}. Dividing by the stage multipliers recovers the original cost ${answer}.`;'''
+          new = '''const conclusion =
                   qlId === "PNL-QL-097"
                     ? `The recovered two-stage original cost is ${answer}.`
                     : qlId === "PNL-QL-098"
