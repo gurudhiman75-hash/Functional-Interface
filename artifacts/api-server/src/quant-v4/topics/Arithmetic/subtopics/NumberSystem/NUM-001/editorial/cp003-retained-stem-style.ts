@@ -53,5 +53,21 @@ export function polishNumCp003RetainedStem(
     }
   }
 
+  if (
+    qlNumber === 16
+    && template
+    && hiddenState.statementI !== undefined
+    && hiddenState.statementII !== undefined
+  ) {
+    stem = [
+      `Can the missing digit X in ${template} be determined uniquely?`,
+      "",
+      `Statement I: ${String(hiddenState.statementI)}`,
+      `Statement II: ${String(hiddenState.statementII)}`,
+      "",
+      "Select the correct data-sufficiency option.",
+    ].join("\n");
+  }
+
   return polishNumberSystemEnglishStem(qlId, stem, hiddenState);
 }
