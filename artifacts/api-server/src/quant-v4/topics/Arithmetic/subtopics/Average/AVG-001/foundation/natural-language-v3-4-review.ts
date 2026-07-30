@@ -1,4 +1,5 @@
 import { applyAvg001NaturalLanguageV3ApprovedReview } from "./natural-language-v3-approved-review";
+import { buildAvg001AuthorityDistractorLine } from "./natural-language-v3-distractor-authority";
 import { runAvg001EditorialV2Pipeline } from "./editorial-v2-release";
 import type { Avg001Language, Avg001QuestionPackage, Avg001ValidationCheck } from "./types";
 
@@ -126,6 +127,75 @@ function repairEnglishWrongYearSuffix(pkg: Avg001QuestionPackage) {
   };
 }
 
+function englishReviewedAuthority(source: Avg001QuestionPackage) {
+  const englishSource = source.language === "en"
+    ? source
+    : runAvg001EditorialV2Pipeline({
+        questionLanguageId: source.questionLanguageId,
+        seed: source.seed,
+        language: "en",
+      });
+  return repairCurrencyDisplay(
+    repairEnglishWrongYearSuffix(applyAvg001NaturalLanguageV3ApprovedReview(englishSource)),
+  );
+}
+
+function localizedOptionFromEnglish(option: string, currency: boolean) {
+  if (currency) return formatCurrencyValue(option);
+  const ratio = option.match(/-?\d+\s*:\s*-?\d+/);
+  if (ratio) return ratio[0].replace(/\s+/g, "");
+  const fraction = option.replaceAll(",", "").match(/-?\d+\s*\/\s*\d+/);
+  if (fraction) return fraction[0].replace(/\s+/g, "");
+  const percent = option.replaceAll(",", "").match(/-?\d+(?:\.\d+)?\s*%/);
+  if (percent) return percent[0].replace(/\s+/g, "");
+  const number = option.replaceAll(",", "").match(/-?\d+(?:\.\d+)?/);
+  return number?.[0] ?? option;
+}
+
+function alignLocalizedOptionsToEnglishAuthority(
+  source: Avg001QuestionPackage,
+  pkg: Avg001QuestionPackage,
+) {
+  if (pkg.language === "en") return pkg;
+  const authority = englishReviewedAuthority(source);
+  const currency = isCurrencyContext(pkg) || isCurrencyContext(authority);
+  const options = authority.options.map((option) => localizedOptionFromEnglish(option, currency));
+  const correctIndex = authority.correctIndex;
+  const answer = options[correctIndex]!;
+  const oldAnswer = pkg.answer;
+  const firstThreeLines = pkg.explanation.lines.slice(0, 3).map((line) =>
+    replaceDisplayToken(formatCurrencyText(line), oldAnswer, answer),
+  );
+  const aligned: Avg001QuestionPackage = {
+    ...pkg,
+    options,
+    correctIndex,
+    answer,
+    solver: { ...pkg.solver, answer },
+    independentVerification: { ...pkg.independentVerification, displayAnswer: answer },
+    explanation: {
+      lines: [
+        firstThreeLines[0]!,
+        firstThreeLines[1]!,
+        firstThreeLines[2]!,
+        pkg.explanation.lines[3]!,
+      ],
+    },
+  };
+  const distractorLine = buildAvg001AuthorityDistractorLine(source, aligned);
+  return {
+    ...aligned,
+    explanation: {
+      lines: [
+        aligned.explanation.lines[0]!,
+        aligned.explanation.lines[1]!,
+        aligned.explanation.lines[2]!,
+        distractorLine,
+      ],
+    },
+  };
+}
+
 function numericCounts(text: string) {
   const counts = new Map<string, number>();
   for (const match of text.replaceAll(",", "").matchAll(/-?\d+(?:\.\d+)?/g)) {
@@ -205,18 +275,11 @@ function insertBeforeFinalInstruction(stem: string, clauses: string[], language:
 
 function repairLocalizedVisibleGivens(source: Avg001QuestionPackage, pkg: Avg001QuestionPackage) {
   if (pkg.language === "en") return pkg;
-  const englishSource = runAvg001EditorialV2Pipeline({
-    questionLanguageId: source.questionLanguageId,
-    seed: source.seed,
-    language: "en",
-  });
-  const englishQuestion = repairCurrencyDisplay(
-    repairEnglishWrongYearSuffix(applyAvg001NaturalLanguageV3ApprovedReview(englishSource)),
-  );
+  const englishQuestion = englishReviewedAuthority(source);
   const missing = missingVisibleTokens(englishQuestion.stem, pkg.stem);
   if (!missing.length) return pkg;
   const clauses = missing.map((token) =>
-    localizedGivenClause(renderVariableKeyForToken(englishSource, token), token, pkg.language as "hi" | "pa"),
+    localizedGivenClause(renderVariableKeyForToken(englishQuestion, token), token, pkg.language as "hi" | "pa"),
   );
   return {
     ...pkg,
@@ -226,14 +289,7 @@ function repairLocalizedVisibleGivens(source: Avg001QuestionPackage, pkg: Avg001
 
 function englishVisibleGivensPreserved(pkg: Avg001QuestionPackage) {
   if (pkg.language === "en") return true;
-  const englishSource = runAvg001EditorialV2Pipeline({
-    questionLanguageId: pkg.questionLanguageId,
-    seed: pkg.seed,
-    language: "en",
-  });
-  const englishQuestion = repairCurrencyDisplay(
-    repairEnglishWrongYearSuffix(applyAvg001NaturalLanguageV3ApprovedReview(englishSource)),
-  );
+  const englishQuestion = englishReviewedAuthority(pkg);
   return missingVisibleTokens(englishQuestion.stem, pkg.stem).length === 0;
 }
 
@@ -261,7 +317,7 @@ function refreshValidation(pkg: Avg001QuestionPackage) {
       nonAgeEnglishYearValid &&
       englishVisibleGivensPreserved(pkg),
     message:
-      "V3.4 preserves shared visible givens and answer keys, removes non-age year suffixes and formats currency options in every language",
+      "V3.4 preserves shared visible givens, English option authority and answer keys, removes non-age year suffixes and formats currency in every language",
   });
   return { valid: checks.every((check) => check.passed), checks };
 }
@@ -271,7 +327,8 @@ export function applyAvg001NaturalLanguageV34Review(
 ): Avg001QuestionPackage {
   const v33 = applyAvg001NaturalLanguageV3ApprovedReview(source);
   const displayRepaired = repairCurrencyDisplay(repairEnglishWrongYearSuffix(v33));
-  const repaired = repairLocalizedVisibleGivens(source, displayRepaired);
+  const optionAligned = alignLocalizedOptionsToEnglishAuthority(source, displayRepaired);
+  const repaired = repairLocalizedVisibleGivens(source, optionAligned);
   const revised: Avg001QuestionPackage = {
     ...repaired,
     maturity: "MANUAL_REVIEW",
@@ -279,7 +336,7 @@ export function applyAvg001NaturalLanguageV34Review(
     traceability: {
       ...repaired.traceability,
       naturalLanguageV34ReviewCandidate: AVG_001_NATURAL_LANGUAGE_V3_4_REVIEW,
-      multilingualNumericalAuthority: "shared-seed English mathematical object",
+      multilingualNumericalAuthority: "shared-seed English mathematical object and option array",
       editorialStatus: "PENDING_PRODUCT_REVIEW",
       publiclyPublishable: false,
     },
