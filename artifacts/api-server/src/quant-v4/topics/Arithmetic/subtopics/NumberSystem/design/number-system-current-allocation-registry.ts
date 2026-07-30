@@ -1,0 +1,46 @@
+export const NUMBER_SYSTEM_COMPLETED_CHECKPOINT_ALLOCATIONS = [
+  {
+    cpId: "NUM-CP-003",
+    packageId: "NUM-001",
+    title: "Divisibility Rules and Missing-Digit Constraints",
+    firstQlNumber: 1,
+    lastQlNumber: 17,
+    permanentQlCount: 17,
+    frozenLearnerTemplateCount: 17,
+    frozenSolveModeCount: 7,
+    authorityRoute: "NUM-001/NUM-CP-003/permanent/allocation.ts",
+    maturity: "PERMANENT_ALLOCATION_MERGED",
+    language: "en",
+    active: false,
+    questionStudioDiscoverable: false,
+    questionBankWritable: false,
+    testEligible: false,
+    publiclyPublishable: false,
+  },
+  {
+    cpId: "NUM-CP-004",
+    packageId: "NUM-001",
+    title: "Prime Structure and Factorisation",
+    firstQlNumber: 18,
+    lastQlNumber: 45,
+    permanentQlCount: 28,
+    frozenLearnerTemplateCount: 28,
+    frozenSolveModeCount: 28,
+    authorityRoute: "NUM-001/NUM-CP-004/permanent/allocation.ts",
+    maturity: "ENGLISH_IMPLEMENTATION_FROZEN",
+    language: "en",
+    active: false,
+    questionStudioDiscoverable: false,
+    questionBankWritable: false,
+    testEligible: false,
+    publiclyPublishable: false,
+  },
+] as const;
+
+export const NUMBER_SYSTEM_CURRENT_PERMANENT_QL_RANGE = {
+  first: 1,
+  last: 45,
+  count: 45,
+} as const;
+
+export const NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT = 46 as const;
