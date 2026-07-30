@@ -201,10 +201,12 @@ function lastEditorialSentence(value: string): string {
     .filter(Boolean)
     .filter(meaningfulProseParagraph);
   const last = paragraphs.at(-1) ?? "";
+  const decimalToken = "<DECIMAL_POINT>";
+  const protectedLast = last.replace(/(\d)\.(\d)/g, `$1${decimalToken}$2`);
   const sentences =
-    last
+    protectedLast
       .match(/[^.!?]+[.!?]?/g)
-      ?.map((item) => item.trim())
+      ?.map((item) => item.replaceAll(decimalToken, ".").trim())
       .filter(Boolean) ?? [];
   return sentences.at(-1) ?? last;
 }
