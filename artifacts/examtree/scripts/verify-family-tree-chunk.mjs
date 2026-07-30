@@ -31,6 +31,7 @@ for (const name of entries) {
     content.includes("inner-card-bottom-sibling-bracket") &&
     content.includes("inner-card-bottom") &&
     content.includes("card-bottom-bracket") &&
+    content.includes("data-sibling-arrow-clearance") &&
     content.includes("stroke-dasharray")
   ) {
     siblingArrowMatches.push(descriptor);
@@ -78,7 +79,8 @@ console.log(
       rawLimitBytes: 35_000,
       siblingArrowChunk: siblingArrowChunk.name,
       siblingArrowRawBytes: siblingArrowChunk.bytes,
-      siblingArrowheads: "BIDIRECTIONAL_INNER_CARD_TARGETED",
+      siblingArrowheads: "BIDIRECTIONAL_INNER_CARD_TARGETED_VISIBLE",
+      siblingArrowClearancePixels: 8,
       siblingRoute: "INNER_CARD_BOTTOM_BRACKET",
       mainBundleLeak: false,
       externalGraphLibrary: false,
