@@ -7,11 +7,11 @@ import {
 } from "./source-gap-registry";
 import type {
   ClsCp005RuleId,
-  ClsCp005Task,
   ClsCp005Tuple,
 } from "./types";
 
 export type ClsCp005ExpandedRuleId = ClsCp005RuleId | ClsCp005SourceGapRuleId;
+export type ClsCp005ExpandedTuple = ClsCp005SourceGapTuple;
 
 export type ClsCp005ExpandedRuleSupport = {
   readonly ruleId: ClsCp005ExpandedRuleId;
@@ -41,12 +41,16 @@ function signatureKey(signature: Pick<Signature, "ruleId" | "value">): string {
   return `${signature.ruleId}::${signature.value}`;
 }
 
-function expandedSignatures(tuple: ClsCp005Tuple): readonly Signature[] {
-  const wave1: Signature[] = independentlyInferClsCp005Signatures(tuple).map((signature) => ({
-    ...signature,
-    source: "WAVE_1" as const,
-  }));
-  const wave2: Signature[] = independentlyInferClsCp005SourceGapSignatures(tuple as ClsCp005SourceGapTuple).map((signature) => ({
+export function independentlyInferClsCp005ExpandedSignatures(
+  tuple: ClsCp005ExpandedTuple,
+): readonly Signature[] {
+  const wave1: Signature[] = tuple.length === 2 || tuple.length === 3
+    ? independentlyInferClsCp005Signatures(tuple as ClsCp005Tuple).map((signature) => ({
+        ...signature,
+        source: "WAVE_1" as const,
+      }))
+    : [];
+  const wave2: Signature[] = independentlyInferClsCp005SourceGapSignatures(tuple).map((signature) => ({
     ...signature,
     source: "SOURCE_GAP_WAVE_2" as const,
   }));
@@ -77,7 +81,7 @@ function supportFromKey(
 
 function finalise(
   supports: readonly ClsCp005ExpandedRuleSupport[],
-  intendedRuleId: ClsCp005RuleId,
+  intendedRuleId: ClsCp005ExpandedRuleId,
   intendedRuleValue: string,
 ): ClsCp005ExpandedAudit {
   const intendedRuleSupported = supports.some(
@@ -94,7 +98,7 @@ function finalise(
       expandedAnswerIndexes,
       supports,
       newRuleSupports,
-      reason: "The expanded independent verifier did not recover the intended Wave 1 rule.",
+      reason: "The expanded independent verifier did not recover the intended rule.",
     };
   }
 
@@ -121,14 +125,14 @@ function finalise(
   };
 }
 
-function auditOdd(
-  tuples: readonly ClsCp005Tuple[],
-  intendedRuleId: ClsCp005RuleId,
+export function auditClsCp005OddTuplesAgainstExpandedRegistry(
+  tuples: readonly ClsCp005ExpandedTuple[],
+  intendedRuleId: ClsCp005ExpandedRuleId,
   intendedRuleValue: string,
 ): ClsCp005ExpandedAudit {
   const signatures = new Map<string, number[]>();
   for (const [optionIndex, tuple] of tuples.entries()) {
-    for (const signature of expandedSignatures(tuple)) {
+    for (const signature of independentlyInferClsCp005ExpandedSignatures(tuple)) {
       const key = signatureKey(signature);
       const indexes = signatures.get(key) ?? [];
       indexes.push(optionIndex);
@@ -145,14 +149,14 @@ function auditOdd(
   return finalise(supports, intendedRuleId, intendedRuleValue);
 }
 
-function auditEquivalent(
-  referenceTuple: ClsCp005Tuple,
-  tuples: readonly ClsCp005Tuple[],
-  intendedRuleId: ClsCp005RuleId,
+export function auditClsCp005EquivalentSetAgainstExpandedRegistry(
+  referenceTuple: ClsCp005ExpandedTuple,
+  tuples: readonly ClsCp005ExpandedTuple[],
+  intendedRuleId: ClsCp005ExpandedRuleId,
   intendedRuleValue: string,
 ): ClsCp005ExpandedAudit {
-  const referenceSignatures = expandedSignatures(referenceTuple);
-  const optionSignatureSets = tuples.map((tuple) => new Set(expandedSignatures(tuple).map(signatureKey)));
+  const referenceSignatures = independentlyInferClsCp005ExpandedSignatures(referenceTuple);
+  const optionSignatureSets = tuples.map((tuple) => new Set(independentlyInferClsCp005ExpandedSignatures(tuple).map(signatureKey)));
   const supports: ClsCp005ExpandedRuleSupport[] = [];
 
   for (const signature of referenceSignatures) {
@@ -168,18 +172,22 @@ function auditEquivalent(
 }
 
 export function auditClsCp005QuestionAgainstExpandedRegistry(question: {
-  readonly task: ClsCp005Task;
-  readonly referenceTuple: ClsCp005Tuple | null;
-  readonly tuples: readonly ClsCp005Tuple[];
-  readonly intendedRuleId: ClsCp005RuleId;
+  readonly task: string;
+  readonly referenceTuple: ClsCp005ExpandedTuple | null;
+  readonly tuples: readonly ClsCp005ExpandedTuple[];
+  readonly intendedRuleId: ClsCp005ExpandedRuleId;
   readonly intendedRuleValue: string;
 }): ClsCp005ExpandedAudit {
   return question.task === "SELECT_EQUIVALENT_NUMBER_SET"
-    ? auditEquivalent(
+    ? auditClsCp005EquivalentSetAgainstExpandedRegistry(
         question.referenceTuple ?? (() => { throw new Error("Equivalent-set question has no reference tuple"); })(),
         question.tuples,
         question.intendedRuleId,
         question.intendedRuleValue,
       )
-    : auditOdd(question.tuples, question.intendedRuleId, question.intendedRuleValue);
+    : auditClsCp005OddTuplesAgainstExpandedRegistry(
+        question.tuples,
+        question.intendedRuleId,
+        question.intendedRuleValue,
+      );
 }
