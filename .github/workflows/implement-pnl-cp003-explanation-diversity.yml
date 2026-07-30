@@ -1,0 +1,359 @@
+name: Implement PNL CP-003 Explanation Diversity
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/implement-pnl-cp003-explanation-diversity.yml"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-WAVE-02-CP003.md"
+
+permissions:
+  contents: write
+
+jobs:
+  implement-cp003-explanation-diversity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout feature source
+        uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-english-editorial-wave-02
+
+      - name: Apply CP-003 generated-working implementation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          runtime_path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.ts")
+          source = runtime_path.read_text()
+
+          helper = r'''
+          function cp003DirectedRate(
+            direction: "PROFIT" | "LOSS",
+            ratePercent: Rational,
+          ): string {
+            return `${cp003FormatPercent(ratePercent)} ${direction.toLowerCase()}`;
+          }
+
+          function cp003QuantityTotal(
+            groups: readonly Readonly<{ quantity: bigint }>[],
+          ): bigint {
+            return groups.reduce((sum, group) => sum + group.quantity, 0n);
+          }
+
+          function cp003InventoryCost(
+            quantity: bigint,
+            unitCostPrice: Money,
+          ): Money {
+            return moneyFromPaise(quantity * unitCostPrice.paise);
+          }
+
+          function buildCp003GeneratedWorking(
+            qlId: string,
+            request: PnlCp003SolverRequest,
+            answer: string,
+          ): string {
+            const prefix = "**Generated-value check:**";
+
+            switch (request.mode) {
+              case "MULTIPLE_LOTS_TO_OVERALL_RESULT": {
+                const totalQuantity = cp003QuantityTotal(request.lots);
+                const totalCost = moneyFromPaise(
+                  request.lots.reduce(
+                    (sum, lot) => sum + lot.quantity * lot.unitCostPrice.paise,
+                    0n,
+                  ),
+                );
+                const totalRecovery = moneyFromPaise(
+                  request.lots.reduce(
+                    (sum, lot) => sum + lot.quantity * lot.unitSellingPrice.paise,
+                    0n,
+                  ),
+                );
+                const purpose =
+                  qlId === "PNL-QL-093"
+                    ? "Their money difference gives"
+                    : "Comparing recovery with cost gives";
+                return `${prefix} The ${request.lots.length} lots contain ${totalQuantity} units. Their total cost is ${cp003FormatMoney(totalCost)} and total recovery is ${cp003FormatMoney(totalRecovery)}. ${purpose} ${answer}.`;
+              }
+
+              case "EQUAL_SP_TWO_ARTICLES_TO_OVERALL_RATE":
+                return `${prefix} Both articles sell for ${cp003FormatMoney(request.commonSellingPrice)}. Reverse ${cp003DirectedRate(request.firstDirection, request.firstRatePercent)} and ${cp003DirectedRate(request.secondDirection, request.secondRatePercent)} from that common selling price, add the two cost prices, and compare with twice the selling price; the overall result is ${answer}.`;
+
+              case "EQUAL_CP_TWO_ARTICLES_TO_OVERALL_RATE":
+                return `${prefix} Each article costs ${cp003FormatMoney(request.commonCostPrice)}. Applying ${cp003DirectedRate(request.firstDirection, request.firstRatePercent)} and ${cp003DirectedRate(request.secondDirection, request.secondRatePercent)} gives the two selling prices; their combined result on the common-cost base is ${answer}.`;
+
+              case "PARTIAL_INVENTORY_TO_OVERALL_RESULT": {
+                const soldQuantity = cp003QuantityTotal(request.soldGroups);
+                const unsoldQuantity =
+                  request.unsoldQuantity ?? request.totalQuantity - soldQuantity;
+                const totalCost = cp003InventoryCost(
+                  request.totalQuantity,
+                  request.unitCostPrice,
+                );
+                const soldRecovery = moneyFromPaise(
+                  request.soldGroups.reduce(
+                    (sum, group) =>
+                      sum + group.quantity * group.unitSellingPrice.paise,
+                    0n,
+                  ),
+                );
+                const unsoldRecovery = moneyFromPaise(
+                  unsoldQuantity * (request.unsoldRecoveryPerUnit?.paise ?? 0n),
+                );
+                return `${prefix} All ${request.totalQuantity} units cost ${cp003FormatMoney(totalCost)}. The ${soldQuantity} sold units recover ${cp003FormatMoney(soldRecovery)}, while the remaining ${unsoldQuantity} units recover ${cp003FormatMoney(unsoldRecovery)}. The combined recovery therefore gives ${answer}.`;
+              }
+
+              case "DAMAGED_STOCK_REQUIRED_RATE_ON_REMAINDER": {
+                const goodQuantity =
+                  request.totalQuantity - request.damagedQuantity;
+                const totalCost = cp003InventoryCost(
+                  request.totalQuantity,
+                  request.unitCostPrice,
+                );
+                return `${prefix} The full stock costs ${cp003FormatMoney(totalCost)}. ${request.damagedQuantity} damaged units recover ${cp003FormatMoney(request.damagedRecoveryPerUnit)} each, so the remaining ${goodQuantity} good units must supply the balance needed for ${cp003DirectedRate(request.targetDirection, request.targetRatePercent)}. Their required unit selling price is ${answer}.`;
+              }
+
+              case "FREE_UNITS_AND_SOLD_UNITS_TO_RESULT": {
+                const totalQuantity = request.paidQuantity + request.freeQuantity;
+                return `${prefix} Cost is paid for ${request.paidQuantity} units at ${cp003FormatMoney(request.unitCostPrice)} each, but ${totalQuantity} units are sold at ${cp003FormatMoney(request.unitSellingPrice)} each after including ${request.freeQuantity} free units. Comparing those totals gives ${answer}.`;
+              }
+
+              case "GROUP_RATES_TO_OVERALL_RESULT": {
+                const totalQuantity = cp003QuantityTotal(request.groups);
+                const totalCost = moneyFromPaise(
+                  request.groups.reduce(
+                    (sum, group) =>
+                      sum + group.quantity * group.unitCostPrice.paise,
+                    0n,
+                  ),
+                );
+                return `${prefix} The ${request.groups.length} groups contain ${totalQuantity} units with total cost ${cp003FormatMoney(totalCost)}. Apply each group's own profit or loss rate to its quantity-by-cost base, then combine the signed recoveries; the weighted result is ${answer}.`;
+              }
+
+              case "UNKNOWN_GROUP_RATE_FOR_TARGET": {
+                const knownQuantity = cp003QuantityTotal(request.knownGroups);
+                const unknownCost = cp003InventoryCost(
+                  request.unknownQuantity,
+                  request.unknownUnitCostPrice,
+                );
+                return `${prefix} First total the ${knownQuantity} units in the known groups. The unknown group adds ${request.unknownQuantity} units costing ${cp003FormatMoney(unknownCost)} and must move in the ${request.unknownDirection.toLowerCase()} direction. Matching the whole inventory to ${cp003DirectedRate(request.targetDirection, request.targetRatePercent)} fixes its rate at ${answer}.`;
+              }
+
+              case "UNKNOWN_GROUP_QUANTITY_FOR_TARGET": {
+                const fixedQuantity = cp003QuantityTotal(request.fixedGroups);
+                return `${prefix} The fixed groups account for ${fixedQuantity} units. Each unknown unit costs ${cp003FormatMoney(request.unknownUnitCostPrice)} and is sold at ${cp003DirectedRate(request.unknownDirection, request.unknownRatePercent)}. Balancing that contribution against the target ${cp003DirectedRate(request.targetDirection, request.targetRatePercent)} gives ${answer} units.`;
+              }
+
+              case "UNSOLD_STOCK_REQUIRED_UNIT_PRICE": {
+                const soldQuantity = cp003QuantityTotal(request.soldGroups);
+                const remainingQuantity = request.totalQuantity - soldQuantity;
+                const totalCost = cp003InventoryCost(
+                  request.totalQuantity,
+                  request.unitCostPrice,
+                );
+                return `${prefix} The ${request.totalQuantity} units cost ${cp003FormatMoney(totalCost)} in all. After accounting for the ${soldQuantity} already-sold units, the remaining ${remainingQuantity} units must raise the balance needed for ${cp003DirectedRate(request.targetDirection, request.targetRatePercent)}. The required price per remaining unit is ${answer}.`;
+              }
+
+              case "UNSOLD_STOCK_REQUIRED_RATE": {
+                const soldQuantity = cp003QuantityTotal(request.soldGroups);
+                const remainingQuantity = request.totalQuantity - soldQuantity;
+                return `${prefix} Recovery from the ${soldQuantity} sold units is fixed. Spread the balance required for ${cp003DirectedRate(request.targetDirection, request.targetRatePercent)} across the remaining ${remainingQuantity} units, compare that unit price with cost ${cp003FormatMoney(request.unitCostPrice)}, and the required rate is ${answer}.`;
+              }
+
+              case "SPOILED_STOCK_REQUIRED_RECOVERY": {
+                const totalCost = cp003InventoryCost(
+                  request.totalQuantity,
+                  request.unitCostPrice,
+                );
+                const goodRecovery = moneyFromPaise(
+                  request.goodQuantity * request.goodUnitSellingPrice.paise,
+                );
+                return `${prefix} Total stock cost is ${cp003FormatMoney(totalCost)}. The ${request.goodQuantity} good units recover ${cp003FormatMoney(goodRecovery)}; the remaining target balance for ${cp003DirectedRate(request.targetDirection, request.targetRatePercent)} must be shared by ${request.spoiledQuantity} spoiled units. Required recovery per spoiled unit is ${answer}.`;
+              }
+
+              case "EQUAL_SP_EQUAL_RATES_SPECIAL":
+                return `${prefix} With equal selling prices, a ${cp003FormatPercent(request.ratePercent)} profit on one article and the same percentage loss on the other do not cancel because their cost bases differ. The standard loss ${cp003FormatRational(request.ratePercent)}²/100 evaluates to ${answer}.`;
+
+              case "EQUAL_SP_ONE_RATE_FROM_OVERALL":
+                return `${prefix} One equal-selling-price article has ${cp003DirectedRate(request.knownDirection, request.knownRatePercent)} and the other must have a ${request.unknownDirection.toLowerCase()} rate. Reverse the known rate to its cost, impose the overall target ${cp003DirectedRate(request.targetDirection, request.targetRatePercent)}, and the missing rate is ${answer}.`;
+
+              case "TOTAL_CP_AND_OVERALL_RATE_TO_TOTAL_SP":
+                return `${prefix} Apply ${cp003DirectedRate(request.direction, request.ratePercent)} to total cost ${cp003FormatMoney(request.totalCostPrice)}. The resulting total selling price is ${answer}.`;
+
+              case "TOTAL_SP_AND_OVERALL_RATE_TO_TOTAL_CP":
+                return `${prefix} The total selling price ${cp003FormatMoney(request.totalSellingPrice)} already includes ${cp003DirectedRate(request.direction, request.ratePercent)}. Divide by the corresponding rate multiplier to recover total cost ${answer}.`;
+
+              case "RECOVERY_FRACTION_TO_OVERALL_RESULT": {
+                const recovered = moneyFromPaise(
+                  (request.totalCostPrice.paise *
+                    request.recoveredFraction.numerator) /
+                    request.recoveredFraction.denominator,
+                );
+                return `${prefix} Recovering ${cp003FormatRational(request.recoveredFraction)} times the total cost ${cp003FormatMoney(request.totalCostPrice)} produces ${cp003FormatMoney(recovered)}. Comparing that recovery with cost gives ${answer}.`;
+              }
+            }
+          }
+
+          '''.strip("\n")
+
+          if "function buildCp003GeneratedWorking(" not in source:
+              anchor = "function stable(value: unknown): string {"
+              if anchor not in source:
+                  raise SystemExit("CP-003 runtime insertion anchor not found")
+              source = source.replace(anchor, helper + "\n\n" + anchor, 1)
+
+          old_explanation = '''  const explanationText = `${baseExplanation}\\n\\n**Working with these values:** Convert every inventory group into total cost and total recovery. Combine money first; only then calculate the overall percentage or isolate the remaining group.\\n\\n**Final answer:** ${answer}`;'''
+          new_explanation = '''  const generatedWorking = buildCp003GeneratedWorking(
+            qlId,
+            generated.request,
+            answer,
+          );
+          const explanationText = `${baseExplanation}\\n\\n${generatedWorking}\\n\\n**Final answer:** ${answer}`;'''
+          if old_explanation in source:
+              source = source.replace(old_explanation, new_explanation, 1)
+          elif "const generatedWorking = buildCp003GeneratedWorking(" not in source:
+              raise SystemExit("CP-003 explanation replacement anchor not found")
+
+          runtime_path.write_text(source)
+
+          test_path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.test.ts")
+          test = test_path.read_text()
+
+          if "generatedWorkingQlMap" not in test:
+              test = test.replace(
+                  "let lossAnswerCount = 0;\n",
+                  "let lossAnswerCount = 0;\nconst generatedWorkingQlMap = new Map<string, Set<string>>();\n",
+                  1,
+              )
+
+              test_anchor = '''    assert.ok(
+                pkg.explanation.lines.length >= 4,
+                `${qlId}: explanation is unexpectedly short.`,
+              );
+          '''
+              test_block = '''    assert.ok(
+                pkg.explanation.lines.length >= 4,
+                `${qlId}: explanation is unexpectedly short.`,
+              );
+
+              const explanation = pkg.explanation.lines.join("\\n\\n");
+              assert.match(
+                explanation,
+                /\\*\\*Generated-value check:\\*\\*/,
+                `${qlId}: generated-value working is missing.`,
+              );
+              assert.doesNotMatch(
+                explanation,
+                /\\*\\*Working with these values:\\*\\*/,
+                `${qlId}: legacy generic working tail is still present.`,
+              );
+              const generatedWorking = explanation.match(
+                /\\*\\*Generated-value check:\\*\\*\\s*([\\s\\S]*?)(?:\\n\\n\\*\\*Final answer:|$)/,
+              );
+              assert.ok(generatedWorking?.[1], `${qlId}: generated working could not be isolated.`);
+              const fingerprint = generatedWorking[1]
+                .toLowerCase()
+                .replace(/₹\\s*[\\d,.]+(?:\\.\\d+)?/g, "₹#")
+                .replace(/\\b\\d+(?:\\.\\d+)?%/g, "#%")
+                .replace(/\\b\\d+(?:\\.\\d+)?\\b/g, "#")
+                .replace(/\\s+/g, " ")
+                .trim();
+              const fingerprintQls = generatedWorkingQlMap.get(fingerprint) ?? new Set<string>();
+              fingerprintQls.add(qlId);
+              generatedWorkingQlMap.set(fingerprint, fingerprintQls);
+          '''
+              if test_anchor not in test:
+                  raise SystemExit("CP-003 test explanation anchor not found")
+              test = test.replace(test_anchor, test_block, 1)
+
+              final_anchor = '''assert.ok(profitAnswerCount > 0, "The seed sweep must include profit answers.");'''
+              final_block = '''for (const [fingerprint, fingerprintQls] of generatedWorkingQlMap) {
+                assert.ok(
+                  fingerprintQls.size <= 2,
+                  `Generated working is shared by ${fingerprintQls.size} QLs: ${[...fingerprintQls].join(", ")} — ${fingerprint}`,
+                );
+              }
+
+              assert.ok(profitAnswerCount > 0, "The seed sweep must include profit answers.");'''
+              if final_anchor not in test:
+                  raise SystemExit("CP-003 test final anchor not found")
+              test = test.replace(final_anchor, final_block, 1)
+
+          test_path.write_text(test)
+          PY
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Format CP-003 editorial sources
+        run: |
+          pnpm exec prettier --write \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.test.ts
+
+      - name: Bundle CP-003 runtime proof
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/.cp003-dynamic-runtime.test.mjs \
+            2>&1 | tee pnl-cp003-explanation-diversity.log
+
+      - name: Run 576-package CP-003 proof
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/.cp003-dynamic-runtime.test.mjs \
+            2>&1 | tee -a pnl-cp003-explanation-diversity.log
+
+      - name: Bundle chapter editorial audit
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
+            2>&1 | tee -a pnl-cp003-explanation-diversity.log
+
+      - name: Run chapter editorial audit
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
+            2>&1 | tee -a pnl-cp003-explanation-diversity.log
+
+      - name: Commit proven CP-003 implementation
+        run: |
+          if git diff --quiet -- \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.test.ts; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.test.ts
+          git commit -m "fix(pnl): diversify CP-003 generated explanations"
+          git push origin HEAD:feat/pnl-001-english-editorial-wave-02
+
+      - name: Upload proof evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-cp003-explanation-diversity
+          path: |
+            pnl-cp003-explanation-diversity.log
+            dist/quant-v4/pnl-001-english-editorial-audit
+          if-no-files-found: error
+          retention-days: 14
