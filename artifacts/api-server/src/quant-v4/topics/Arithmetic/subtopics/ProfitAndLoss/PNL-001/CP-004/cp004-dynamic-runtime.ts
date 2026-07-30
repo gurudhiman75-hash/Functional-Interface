@@ -5,7 +5,10 @@ import {
   renderStructuredStemMarkdown,
   type StructuredEditorialEntry,
 } from "../foundation/editorial-content";
-import { createSeededRandom, pickSeeded } from "../foundation/parameter-generator";
+import {
+  createSeededRandom,
+  pickSeeded,
+} from "../foundation/parameter-generator";
 import { rationalToNumber } from "../foundation/rational";
 import { moneyFromPaise, type Money } from "../foundation/money";
 import {
@@ -52,7 +55,10 @@ type EditorialFile = Readonly<{
 
 type DynamicAnswer =
   | Readonly<{ kind: "MONEY"; value: Money }>
-  | Readonly<{ kind: "PERCENT"; value: { numerator: bigint; denominator: bigint } }>
+  | Readonly<{
+      kind: "PERCENT";
+      value: { numerator: bigint; denominator: bigint };
+    }>
   | Readonly<{ kind: "TEXT"; value: string }>;
 
 const editorialLibrary = editorialContentJson as EditorialFile;
@@ -167,7 +173,8 @@ function answerFor(
     }
 
     case "PNL-QL-108":
-      if (!("netReceipt" in result)) throw new Error(`${qlId}: expected net receipt.`);
+      if (!("netReceipt" in result))
+        throw new Error(`${qlId}: expected net receipt.`);
       return { kind: "MONEY", value: result.netReceipt };
 
     case "PNL-QL-109":
@@ -221,7 +228,9 @@ function resultContext(
     context.initialCostPrice = cp004PlainMoney(result.initialCostPrice);
   }
   if ("intermediatePrice" in result) {
-    context.intermediateSellingPrice = cp004PlainMoney(result.intermediatePrice);
+    context.intermediateSellingPrice = cp004PlainMoney(
+      result.intermediatePrice,
+    );
   }
   if ("missingRatePercent" in result) {
     context.missingRatePercent = cp004FormatRational(result.missingRatePercent);
@@ -298,8 +307,15 @@ function textDistractors(qlId: string, correct: string): readonly string[] {
       "The stage order does not matter",
     ],
   };
-  const pool = pools[qlId] ??
-    (["10% profit", "10% loss", "No profit, no loss", "20% profit", "Cannot be determined"] as const);
+  const pool =
+    pools[qlId] ??
+    ([
+      "10% profit",
+      "10% loss",
+      "No profit, no loss",
+      "20% profit",
+      "Cannot be determined",
+    ] as const);
   return pool.filter((item) => item !== correct);
 }
 
@@ -313,7 +329,10 @@ function buildOptions(
   misconceptionLabels: readonly string[];
 }> {
   const correct = formatAnswer(answer);
-  const source = answer.kind === "TEXT" ? textDistractors(qlId, correct) : numericDistractors(answer);
+  const source =
+    answer.kind === "TEXT"
+      ? textDistractors(qlId, correct)
+      : numericDistractors(answer);
   const unique = [...new Set(source.filter((item) => item !== correct))];
   while (unique.length < 3) unique.push(`Alternative ${unique.length + 1}`);
   const entries = [
@@ -332,6 +351,149 @@ function buildOptions(
     correctIndex: entries.findIndex((entry) => entry.label === "CORRECT"),
     misconceptionLabels: entries.map((entry) => entry.label),
   };
+}
+
+function cp004StageSequence(
+  stages: readonly Readonly<{
+    direction: "PROFIT" | "LOSS";
+    ratePercent: { numerator: bigint; denominator: bigint };
+  }>[],
+): string {
+  return stages
+    .map(
+      (stage, index) =>
+        `stage ${index + 1}: ${cp004FormatPercent(stage.ratePercent)} ${stage.direction.toLowerCase()}`,
+    )
+    .join("; ");
+}
+
+function cp004MoneySum(first: Money, second: Money): Money {
+  return moneyFromPaise(first.paise + second.paise);
+}
+
+function buildCp004GeneratedWorking(
+  qlId: string,
+  request: PnlCp004SolverRequest,
+  result: PnlCp004SolverResult,
+  answer: string,
+): string {
+  const prefix = "**Generated-value check:**";
+
+  switch (request.mode) {
+    case "INITIAL_CP_AND_STAGES_TO_FINAL_SP": {
+      const purpose =
+        qlId === "PNL-QL-095"
+          ? "For the two-transfer chain"
+          : qlId === "PNL-QL-096"
+            ? "For the three-transfer chain"
+            : "Reading the transaction table in order";
+      return `${prefix} ${purpose}, start from ${cp004FormatMoney(request.initialCostPrice)} and apply ${cp004StageSequence(request.stages)} to the changing price base. The final selling price is ${answer}.`;
+    }
+
+    case "FINAL_SP_AND_STAGES_TO_INITIAL_CP": {
+      if (qlId === "PNL-QL-119") {
+        return `${prefix} Initial cost can be recovered only when the final selling price and the complete ordered stage sequence are available. Testing the two statements against those requirements gives ${answer}.`;
+      }
+      const purpose =
+        qlId === "PNL-QL-097"
+          ? "Reverse the two-stage chain"
+          : qlId === "PNL-QL-098"
+            ? "Reverse all three successive stages"
+            : "Reverse the mixed profit-and-loss chain";
+      const conclusion =
+        qlId === "PNL-QL-097"
+          ? `The recovered two-stage original cost is ${answer}.`
+          : qlId === "PNL-QL-098"
+            ? `The three-stage reversal gives original cost ${answer}.`
+            : `The mixed-direction reversal gives original cost ${answer}.`;
+      return `${prefix} ${purpose} from final price ${cp004FormatMoney(request.finalSellingPrice)} using ${cp004StageSequence(request.stages)}. ${conclusion}`;
+    }
+
+    case "INITIAL_CP_AND_STAGES_TO_INTERMEDIATE_PRICE":
+      return `${prefix} Starting from ${cp004FormatMoney(request.initialCostPrice)}, apply only the first ${request.afterStage} stage${request.afterStage === 1 ? "" : "s"} of ${cp004StageSequence(request.stages)}. The price immediately after that point is ${answer}.`;
+
+    case "STAGES_TO_OVERALL_RATE": {
+      const purpose =
+        qlId === "PNL-QL-100"
+          ? "For the two-stage percentage chain"
+          : qlId === "PNL-QL-101"
+            ? "For the three-stage percentage chain"
+            : qlId === "PNL-QL-112"
+              ? "From the original owner to the final buyer"
+              : "Evaluating the statement about the complete chain";
+      return `${prefix} ${purpose}, multiply the successive factors for ${cp004StageSequence(request.stages)} rather than adding signed rates. The net result is ${answer}.`;
+    }
+
+    case "INITIAL_FINAL_KNOWN_STAGES_TO_MISSING_RATE": {
+      const known = request.knownStages.length
+        ? cp004StageSequence(request.knownStages)
+        : "no known stage";
+      const purpose =
+        qlId === "PNL-QL-102"
+          ? "The missing stage is a profit"
+          : qlId === "PNL-QL-103"
+            ? "The missing stage is a loss"
+            : "In the algebraic chain, the unknown multiplier";
+      return `${prefix} ${purpose}. Compare initial price ${cp004FormatMoney(request.initialCostPrice)} with final price ${cp004FormatMoney(request.finalSellingPrice)}, remove the known contribution (${known}), and the required ${request.missingDirection.toLowerCase()} rate is ${answer}.`;
+    }
+
+    case "EQUAL_RATE_N_STAGE_TO_FINAL_SP":
+      return `${prefix} Apply the same ${cp004FormatPercent(request.ratePercent)} ${request.direction.toLowerCase()} factor ${request.stageCount} times to ${cp004FormatMoney(request.initialCostPrice)}. Compounding on each new price gives ${answer}.`;
+
+    case "CHAIN_TO_STAGE_LEDGER": {
+      const ledger = "ledger" in result ? result.ledger : [];
+      const finalPrice =
+        "finalSellingPrice" in result
+          ? cp004FormatMoney(result.finalSellingPrice)
+          : "the computed final price";
+      const purpose =
+        qlId === "PNL-QL-105"
+          ? "Read the selected transaction from the stage ledger"
+          : qlId === "PNL-QL-106"
+            ? "Compare the absolute money change at every stage"
+            : qlId === "PNL-QL-111"
+              ? "Write the profit or loss amount for every transaction"
+              : qlId === "PNL-QL-114"
+                ? "Compare the two requested stage selling prices"
+                : "For the caselet, isolate the selected trader's transaction";
+      return `${prefix} ${purpose}. Starting from ${cp004FormatMoney(request.initialCostPrice)}, ${ledger.length} ordered ledger entries lead to ${finalPrice}; the requested ledger result is ${answer}.`;
+    }
+
+    case "BUYER_EXPENSE_THEN_RATE_TO_SP": {
+      const effectiveCost = cp004MoneySum(
+        request.purchasePrice,
+        request.buyerExpense,
+      );
+      return `${prefix} Add buyer-side expense ${cp004FormatMoney(request.buyerExpense)} to purchase price ${cp004FormatMoney(request.purchasePrice)}, making effective cost ${cp004FormatMoney(effectiveCost)}. Applying ${cp004FormatPercent(request.ratePercent)} ${request.direction.toLowerCase()} gives selling price ${answer}.`;
+    }
+
+    case "GROSS_SP_AND_COMMISSION_TO_NET_RECEIPT": {
+      const commission =
+        "commissionAmount" in result
+          ? cp004FormatMoney(result.commissionAmount)
+          : "the calculated commission";
+      return `${prefix} Commission at ${cp004FormatPercent(request.commissionPercent)} on gross selling price ${cp004FormatMoney(request.grossSellingPrice)} is ${commission}. Deducting it leaves net receipt ${answer}.`;
+    }
+
+    case "NET_TARGET_AND_COMMISSION_TO_GROSS_SP":
+      return `${prefix} A ${cp004FormatPercent(request.commissionPercent)} commission means only the retained share of gross reaches the seller. Gross up required net receipt ${cp004FormatMoney(request.requiredNetReceipt)} by that retained share to obtain ${answer}.`;
+
+    case "MIDDLE_TRADER_NET_RESULT": {
+      const effectiveCost = cp004MoneySum(
+        request.purchasePrice,
+        request.buyerExpense,
+      );
+      const netReceipt =
+        "netReceipt" in result
+          ? cp004FormatMoney(result.netReceipt)
+          : "the computed net receipt";
+      const purpose =
+        qlId === "PNL-QL-120"
+          ? "For the agent-assisted resale caselet"
+          : "For the middle trader's direct net result";
+      return `${prefix} ${purpose}, purchase ${cp004FormatMoney(request.purchasePrice)} plus expense ${cp004FormatMoney(request.buyerExpense)} gives effective cost ${cp004FormatMoney(effectiveCost)}. After ${cp004FormatPercent(request.commissionPercent)} commission on gross sale ${cp004FormatMoney(request.grossSellingPrice)}, net receipt is ${netReceipt}; comparison gives ${answer}.`;
+    }
+  }
 }
 
 function stable(value: unknown): string {
@@ -441,10 +603,16 @@ function selectQl(input: PnlCp004DynamicInput): string {
     return input.questionLanguageId;
   }
   const eligible = PNL_CP004_QL_IDS.filter((qlId) => {
-    const registry = generatePnlCp004Case(qlId, `${input.seed ?? "cp004"}:probe`).registry;
-    return !input.difficultyBand || registry.difficulty === input.difficultyBand;
+    const registry = generatePnlCp004Case(
+      qlId,
+      `${input.seed ?? "cp004"}:probe`,
+    ).registry;
+    return (
+      !input.difficultyBand || registry.difficulty === input.difficultyBand
+    );
   });
-  if (!eligible.length) throw new Error("No CP-004 QLs match the requested difficulty.");
+  if (!eligible.length)
+    throw new Error("No CP-004 QLs match the requested difficulty.");
   return pickSeeded(
     createSeededRandom(`${input.seed ?? "cp004-dynamic"}:ql-selection`),
     eligible,
@@ -462,11 +630,11 @@ export function listPnlCp004DynamicQlIds(): readonly string[] {
   return [...PNL_CP004_QL_IDS];
 }
 
-export function runPnlCp004DynamicPipeline(
-  input: PnlCp004DynamicInput = {},
-) {
+export function runPnlCp004DynamicPipeline(input: PnlCp004DynamicInput = {}) {
   if (input.language && input.language !== "en") {
-    throw new Error("PNL-CP-004 dynamic runtime currently supports English only.");
+    throw new Error(
+      "PNL-CP-004 dynamic runtime currently supports English only.",
+    );
   }
 
   const qlId = selectQl(input);
@@ -478,7 +646,8 @@ export function runPnlCp004DynamicPipeline(
   const answer = formatAnswer(answerValue);
   const optionSet = buildOptions(qlId, seed, answerValue);
   const editorial = editorialLibrary.entries[qlId];
-  if (!editorial) throw new Error(`${qlId}: English editorial entry is missing.`);
+  if (!editorial)
+    throw new Error(`${qlId}: English editorial entry is missing.`);
 
   const context = {
     ...generated.context,
@@ -489,13 +658,20 @@ export function runPnlCp004DynamicPipeline(
     editorial.explanation,
     context,
   );
-  const explanationText = `${baseExplanation}\n\n**Working with these values:** Follow each transaction in order. Add buyer-side expenses before measuring profit or loss, and deduct commission from the gross selling price.\n\n**Final answer:** ${answer}`;
+  const generatedWorking = buildCp004GeneratedWorking(
+    qlId,
+    generated.request,
+    result,
+    answer,
+  );
+  const explanationText = `${baseExplanation}\n\n${generatedWorking}\n\n**Final answer:** ${answer}`;
 
   const checks = [
     {
       name: "registry-and-editorial-parity",
       passed: Boolean(generated.registry && editorial),
-      message: "The QL exists in both the frozen registry and English editorial library.",
+      message:
+        "The QL exists in both the frozen registry and English editorial library.",
     },
     {
       name: "exact-recomputation",
@@ -505,7 +681,8 @@ export function runPnlCp004DynamicPipeline(
     {
       name: "independent-verification",
       passed: independentVerification(generated.request, result),
-      message: "Independent chain or fee arithmetic agrees with the solver result.",
+      message:
+        "Independent chain or fee arithmetic agrees with the solver result.",
     },
     {
       name: "four-misconception-options",
@@ -513,20 +690,24 @@ export function runPnlCp004DynamicPipeline(
         optionSet.options.length === 4 &&
         new Set(optionSet.options).size === 4 &&
         optionSet.options[optionSet.correctIndex] === answer &&
-        optionSet.misconceptionLabels.filter((label) => label !== "CORRECT").length === 3,
-      message: "Four unique options contain one answer and three labelled misconceptions.",
+        optionSet.misconceptionLabels.filter((label) => label !== "CORRECT")
+          .length === 3,
+      message:
+        "Four unique options contain one answer and three labelled misconceptions.",
     },
     {
       name: "dynamic-editorial-binding",
       passed:
         !containsUnresolvedProsePlaceholder(stem) &&
         !containsUnresolvedProsePlaceholder(explanationText),
-      message: "Dynamic stem and explanation contain no unresolved prose placeholders.",
+      message:
+        "Dynamic stem and explanation contain no unresolved prose placeholders.",
     },
     {
       name: "question-bank-safety",
       passed: true,
-      message: "Dynamic candidates remain outside Question Bank, tests and publication.",
+      message:
+        "Dynamic candidates remain outside Question Bank, tests and publication.",
     },
   ];
   const validation = { valid: checks.every((check) => check.passed), checks };
@@ -601,7 +782,11 @@ export function runPnlCp004DynamicPipeline(
       graphId: `${qlId}-dynamic-graph`,
       nodes: [
         { id: "given", label: "Generated transaction values", value: context },
-        { id: "mode", label: "Solve mode", value: generated.registry.solveMode },
+        {
+          id: "mode",
+          label: "Solve mode",
+          value: generated.registry.solveMode,
+        },
         { id: "answer", label: "Exact answer", value: answer },
       ],
     },

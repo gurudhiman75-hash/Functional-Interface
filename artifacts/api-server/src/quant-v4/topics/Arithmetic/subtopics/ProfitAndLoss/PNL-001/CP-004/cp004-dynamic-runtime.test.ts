@@ -23,6 +23,7 @@ const difficultyCounts = { Easy: 0, Medium: 0, Hard: 0 };
 let generatedCount = 0;
 let profitStemCount = 0;
 let lossStemCount = 0;
+const generatedWorkingQlMap = new Map<string, Set<string>>();
 
 for (const qlId of qlIds) {
   const stems = new Set<string>();
@@ -70,6 +71,36 @@ for (const qlId of qlIds) {
       `${qlId}: explanation is unexpectedly short.`,
     );
 
+    const explanation = pkg.explanation.lines.join("\n\n");
+    assert.match(
+      explanation,
+      /\*\*Generated-value check:\*\*/,
+      `${qlId}: generated-value working is missing.`,
+    );
+    assert.doesNotMatch(
+      explanation,
+      /\*\*Working with these values:\*\*/,
+      `${qlId}: legacy generic working tail is still present.`,
+    );
+    const generatedWorking = explanation.match(
+      /\*\*Generated-value check:\*\*\s*([\s\S]*?)(?:\n\n\*\*Final answer:|$)/,
+    );
+    assert.ok(
+      generatedWorking?.[1],
+      `${qlId}: generated working could not be isolated.`,
+    );
+    const fingerprint = generatedWorking[1]
+      .toLowerCase()
+      .replace(/₹\s*[\d,.]+(?:\.\d+)?/g, "₹#")
+      .replace(/\b\d+(?:\.\d+)?%/g, "#%")
+      .replace(/\b\d+(?:\.\d+)?\b/g, "#")
+      .replace(/\s+/g, " ")
+      .trim();
+    const fingerprintQls =
+      generatedWorkingQlMap.get(fingerprint) ?? new Set<string>();
+    fingerprintQls.add(qlId);
+    generatedWorkingQlMap.set(fingerprint, fingerprintQls);
+
     const prose = `${pkg.stem}\n${pkg.explanation.lines.join("\n")}`
       .replace(/\\\[[\s\S]*?\\\]/g, "")
       .replace(/\\\([\s\S]*?\\\)/g, "");
@@ -84,7 +115,11 @@ for (const qlId of qlIds) {
       language: "en",
       seed,
     });
-    assert.equal(replay.stem, pkg.stem, `${qlId}: same seed must reproduce stem.`);
+    assert.equal(
+      replay.stem,
+      pkg.stem,
+      `${qlId}: same seed must reproduce stem.`,
+    );
     assert.equal(
       replay.answer,
       pkg.answer,
@@ -99,8 +134,18 @@ for (const qlId of qlIds) {
 
   assert.ok(stems.size >= 2, `${qlId}: seed sweep did not vary the stem.`);
   if (qlId !== "PNL-QL-117") {
-    assert.ok(answers.size >= 2, `${qlId}: seed sweep did not vary the answer.`);
+    assert.ok(
+      answers.size >= 2,
+      `${qlId}: seed sweep did not vary the answer.`,
+    );
   }
+}
+
+for (const [fingerprint, fingerprintQls] of generatedWorkingQlMap) {
+  assert.ok(
+    fingerprintQls.size <= 2,
+    `Generated working is shared by ${fingerprintQls.size} QLs: ${[...fingerprintQls].join(", ")} — ${fingerprint}`,
+  );
 }
 
 assert.ok(profitStemCount > 0, "The seed sweep must include profit stages.");
