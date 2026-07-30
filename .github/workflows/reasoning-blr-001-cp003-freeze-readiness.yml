@@ -1,0 +1,31 @@
+name: Reasoning BLR-001 CP-003 Freeze Readiness
+
+on:
+  push:
+    branches:
+      - feat/blr-001-cp003-shared-family-runtime
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/**"
+      - ".github/workflows/reasoning-blr-001-cp003-freeze-readiness.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/**"
+      - ".github/workflows/reasoning-blr-001-cp003-freeze-readiness.yml"
+  workflow_dispatch:
+
+jobs:
+  cp003-final-freeze-readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run CP-003 final-freeze readiness audit
+        run: |
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-final-freeze-readiness.test.ts
