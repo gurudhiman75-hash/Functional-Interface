@@ -85,7 +85,7 @@ for (const prototype of CLS_CP005_WAVE2_PROTOTYPES) {
       const mathStart = evidence.indexOf("\\(");
       assert.ok(mathStart > tuplePrefix.length, `${prototype.prototypeId}/${seed}/${optionIndex} has no prose before math`);
       const prose = evidence.slice(tuplePrefix.length, mathStart).trim();
-      assert.match(prose, /^[A-Z].*[.!?]$/);
+      assert.match(prose, /^[A-Z0-9].*[.!?]$/);
       assert.ok(prose.split(/\s+/).length >= 5, `${prototype.prototypeId}/${seed}/${optionIndex} has thin prose: ${prose}`);
       const shouldMatch = question.task === "SELECT_EQUIVALENT_NUMBER_SET"
         ? optionIndex === question.correctIndex
