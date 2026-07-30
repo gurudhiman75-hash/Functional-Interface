@@ -1,5 +1,6 @@
 import { applyAvg001NaturalLanguageV3ApprovedReview } from "./natural-language-v3-approved-review";
-import type { Avg001QuestionPackage, Avg001ValidationCheck } from "./types";
+import { runAvg001EditorialV2Pipeline } from "./editorial-v2-release";
+import type { Avg001Language, Avg001QuestionPackage, Avg001ValidationCheck } from "./types";
 
 export const AVG_001_NATURAL_LANGUAGE_V3_4_REVIEW =
   "AVG-001 natural teacher-language manual-review candidate v3.4";
@@ -125,6 +126,117 @@ function repairEnglishWrongYearSuffix(pkg: Avg001QuestionPackage) {
   };
 }
 
+function numericCounts(text: string) {
+  const counts = new Map<string, number>();
+  for (const match of text.replaceAll(",", "").matchAll(/-?\d+(?:\.\d+)?/g)) {
+    const token = String(Number(match[0]));
+    counts.set(token, (counts.get(token) ?? 0) + 1);
+  }
+  return counts;
+}
+
+function missingVisibleTokens(englishStem: string, localizedStem: string) {
+  const english = numericCounts(englishStem);
+  const localized = numericCounts(localizedStem);
+  const missing: string[] = [];
+  for (const [token, count] of english) {
+    for (let index = localized.get(token) ?? 0; index < count; index += 1) missing.push(token);
+  }
+  return missing;
+}
+
+function renderVariableKeyForToken(source: Avg001QuestionPackage, token: string) {
+  const preferred = [
+    "commonDifference", "count", "knownCount", "firstTerm", "lastTerm", "average",
+    "oldAverage", "currentAverage", "newAverage", "yearsElapsed", "knownTotal", "total",
+    "count1", "count2", "count3", "count4", "average1", "average2", "average3", "average4",
+    "subgroupCount1", "subgroupCount2", "subgroupCount3", "subgroupAverage1",
+    "subgroupAverage2", "subgroupAverage3", "combinedAverage", "memberValue",
+  ];
+  const variables = source.parameters.renderVariables;
+  for (const key of preferred) {
+    const value = variables[key];
+    if (value !== undefined && String(Number(String(value).replaceAll(",", ""))) === token) return key;
+  }
+  for (const [key, value] of Object.entries(variables)) {
+    if (String(Number(String(value).replaceAll(",", ""))) === token) return key;
+  }
+  return "value";
+}
+
+function localizedGivenClause(key: string, value: string, language: Exclude<Avg001Language, "en">) {
+  const hi: Record<string, string> = {
+    commonDifference: `समान अंतर ${value} है।`, count: `कुल संख्या ${value} है।`,
+    knownCount: `ज्ञात प्रविष्टियों की संख्या ${value} है।`, firstTerm: `पहला पद ${value} है।`,
+    lastTerm: `अंतिम पद ${value} है।`, average: `दिया गया औसत ${value} है।`,
+    oldAverage: `पुराना औसत ${value} है।`, currentAverage: `वर्तमान औसत ${value} है।`,
+    newAverage: `नया औसत ${value} है।`, yearsElapsed: `बीता समय ${value} वर्ष है।`,
+    knownTotal: `ज्ञात कुल ${value} है।`, total: `कुल ${value} है।`,
+    count1: `पहले समूह की संख्या ${value} है।`, count2: `दूसरे समूह की संख्या ${value} है।`,
+    count3: `तीसरे समूह की संख्या ${value} है।`, count4: `चौथे समूह की संख्या ${value} है।`,
+    average1: `पहले समूह का औसत ${value} है।`, average2: `दूसरे समूह का औसत ${value} है।`,
+    average3: `तीसरे समूह का औसत ${value} है।`, average4: `चौथे समूह का औसत ${value} है।`,
+    value: `एक दिया गया मान ${value} है।`,
+  };
+  const pa: Record<string, string> = {
+    commonDifference: `ਸਾਂਝਾ ਅੰਤਰ ${value} ਹੈ।`, count: `ਕੁੱਲ ਗਿਣਤੀ ${value} ਹੈ।`,
+    knownCount: `ਜਾਣੀਆਂ ਐਂਟਰੀਆਂ ਦੀ ਗਿਣਤੀ ${value} ਹੈ।`, firstTerm: `ਪਹਿਲਾ ਪਦ ${value} ਹੈ।`,
+    lastTerm: `ਆਖਰੀ ਪਦ ${value} ਹੈ।`, average: `ਦਿੱਤੀ ਔਸਤ ${value} ਹੈ।`,
+    oldAverage: `ਪੁਰਾਣੀ ਔਸਤ ${value} ਹੈ।`, currentAverage: `ਮੌਜੂਦਾ ਔਸਤ ${value} ਹੈ।`,
+    newAverage: `ਨਵੀਂ ਔਸਤ ${value} ਹੈ।`, yearsElapsed: `ਬੀਤਿਆ ਸਮਾਂ ${value} ਸਾਲ ਹੈ।`,
+    knownTotal: `ਜਾਣਿਆ ਕੁੱਲ ${value} ਹੈ।`, total: `ਕੁੱਲ ${value} ਹੈ।`,
+    count1: `ਪਹਿਲੇ ਸਮੂਹ ਦੀ ਗਿਣਤੀ ${value} ਹੈ।`, count2: `ਦੂਜੇ ਸਮੂਹ ਦੀ ਗਿਣਤੀ ${value} ਹੈ।`,
+    count3: `ਤੀਜੇ ਸਮੂਹ ਦੀ ਗਿਣਤੀ ${value} ਹੈ।`, count4: `ਚੌਥੇ ਸਮੂਹ ਦੀ ਗਿਣਤੀ ${value} ਹੈ।`,
+    average1: `ਪਹਿਲੇ ਸਮੂਹ ਦੀ ਔਸਤ ${value} ਹੈ।`, average2: `ਦੂਜੇ ਸਮੂਹ ਦੀ ਔਸਤ ${value} ਹੈ।`,
+    average3: `ਤੀਜੇ ਸਮੂਹ ਦੀ ਔਸਤ ${value} ਹੈ।`, average4: `ਚੌਥੇ ਸਮੂਹ ਦੀ ਔਸਤ ${value} ਹੈ।`,
+    value: `ਇੱਕ ਦਿੱਤਾ ਮੁੱਲ ${value} ਹੈ।`,
+  };
+  return (language === "hi" ? hi : pa)[key] ?? (language === "hi" ? hi.value : pa.value);
+}
+
+function insertBeforeFinalInstruction(stem: string, clauses: string[], language: Exclude<Avg001Language, "en">) {
+  if (!clauses.length) return stem;
+  const separator = language === "hi" || language === "pa" ? "। " : ". ";
+  const parts = stem.split(separator);
+  if (parts.length < 2) return `${stem} ${clauses.join(" ")}`;
+  const finalInstruction = parts.pop()!;
+  return [...parts, clauses.join(" "), finalInstruction].join(separator);
+}
+
+function repairLocalizedVisibleGivens(source: Avg001QuestionPackage, pkg: Avg001QuestionPackage) {
+  if (pkg.language === "en") return pkg;
+  const englishSource = runAvg001EditorialV2Pipeline({
+    questionLanguageId: source.questionLanguageId,
+    seed: source.seed,
+    language: "en",
+  });
+  const englishQuestion = repairCurrencyDisplay(
+    repairEnglishWrongYearSuffix(applyAvg001NaturalLanguageV3ApprovedReview(englishSource)),
+  );
+  const missing = missingVisibleTokens(englishQuestion.stem, pkg.stem);
+  if (!missing.length) return pkg;
+  const clauses = missing.map((token) =>
+    localizedGivenClause(renderVariableKeyForToken(englishSource, token), token, pkg.language as "hi" | "pa"),
+  );
+  return {
+    ...pkg,
+    stem: insertBeforeFinalInstruction(pkg.stem, clauses, pkg.language as "hi" | "pa"),
+  };
+}
+
+function englishVisibleGivensPreserved(pkg: Avg001QuestionPackage) {
+  if (pkg.language === "en") return true;
+  const englishSource = runAvg001EditorialV2Pipeline({
+    questionLanguageId: pkg.questionLanguageId,
+    seed: pkg.seed,
+    language: "en",
+  });
+  const englishQuestion = repairCurrencyDisplay(
+    repairEnglishWrongYearSuffix(applyAvg001NaturalLanguageV3ApprovedReview(englishSource)),
+  );
+  return missingVisibleTokens(englishQuestion.stem, pkg.stem).length === 0;
+}
+
 function refreshValidation(pkg: Avg001QuestionPackage) {
   const checks: Avg001ValidationCheck[] = pkg.validation.checks.filter(
     (check) => check.name !== "avg001-natural-language-v3-4-review",
@@ -146,9 +258,10 @@ function refreshValidation(pkg: Avg001QuestionPackage) {
       pkg.explanation.lines.length === 4 &&
       pkg.explanation.lines[3]?.includes(pkg.answer) === true &&
       localizedCurrencyValid &&
-      nonAgeEnglishYearValid,
+      nonAgeEnglishYearValid &&
+      englishVisibleGivensPreserved(pkg),
     message:
-      "V3.4 preserves the answer key, removes non-age year suffixes and formats currency options in every language",
+      "V3.4 preserves shared visible givens and answer keys, removes non-age year suffixes and formats currency options in every language",
   });
   return { valid: checks.every((check) => check.passed), checks };
 }
@@ -157,7 +270,8 @@ export function applyAvg001NaturalLanguageV34Review(
   source: Avg001QuestionPackage,
 ): Avg001QuestionPackage {
   const v33 = applyAvg001NaturalLanguageV3ApprovedReview(source);
-  const repaired = repairCurrencyDisplay(repairEnglishWrongYearSuffix(v33));
+  const displayRepaired = repairCurrencyDisplay(repairEnglishWrongYearSuffix(v33));
+  const repaired = repairLocalizedVisibleGivens(source, displayRepaired);
   const revised: Avg001QuestionPackage = {
     ...repaired,
     maturity: "MANUAL_REVIEW",
