@@ -3,9 +3,12 @@ import {
   CLS_CP005_SOURCE_GAP_RULE_IDS,
 } from "./source-gap-registry";
 import {
+  auditClsCp005Wave2PresentationQuality,
+  generateClsCp005Wave2QualityQuestion,
+} from "./wave2-quality-runtime";
+import {
   CLS_CP005_WAVE2_PROTOTYPES,
   CLS_CP005_WAVE2_VALID_COUNTS,
-  generateClsCp005Wave2Question,
 } from "./wave2-runtime";
 
 const fingerprints = new Set<string>();
@@ -19,6 +22,9 @@ const prototypeCounts = new Map<string, number>();
 const stemCounts = new Map<string, Map<string, number>>();
 let total = 0;
 let maximumSourceAttempt = 0;
+let maximumQualityAttempt = 0;
+let maximumAnswerMaximumRatio = 0;
+let maximumAnswerTotalRatio = 0;
 let optionExplanations = 0;
 let referenceExplanations = 0;
 
@@ -39,8 +45,8 @@ for (const prototype of CLS_CP005_WAVE2_PROTOTYPES) {
 
   for (let seed = 0; seed < sampleCount; seed += 1) {
     const optionCount = seed % 3 === 0 ? 5 : 4;
-    const question = generateClsCp005Wave2Question(prototype.prototypeId, seed, optionCount);
-    const replay = generateClsCp005Wave2Question(prototype.prototypeId, seed, optionCount);
+    const question = generateClsCp005Wave2QualityQuestion(prototype.prototypeId, seed, optionCount);
+    const replay = generateClsCp005Wave2QualityQuestion(prototype.prototypeId, seed, optionCount);
     assert.deepEqual(question, replay, `${prototype.prototypeId}/${seed} is not deterministic`);
 
     assert.equal(question.checkpointId, "CLS-CP-005");
@@ -79,6 +85,16 @@ for (const prototype of CLS_CP005_WAVE2_PROTOTYPES) {
       assert.equal(new Set(tuple).size, tuple.length);
     }
 
+    const presentation = auditClsCp005Wave2PresentationQuality(question);
+    assert.equal(presentation.result, "PASS", `${prototype.prototypeId}/${seed}: ${presentation.reasons.join("; ")}`);
+    assert.deepEqual(question.presentationQualityAudit, presentation);
+    assert.ok(presentation.maximumValueRatio <= 20);
+    assert.ok(presentation.tupleTotalRatio <= 16);
+    assert.ok(presentation.answerMaximumRatio <= 4);
+    assert.ok(presentation.answerTotalRatio <= 4);
+    maximumAnswerMaximumRatio = Math.max(maximumAnswerMaximumRatio, presentation.answerMaximumRatio);
+    maximumAnswerTotalRatio = Math.max(maximumAnswerTotalRatio, presentation.answerTotalRatio);
+
     for (const [optionIndex, evidence] of question.evidenceByOption.entries()) {
       const tuplePrefix = `${question.options[optionIndex]}: `;
       assert.ok(evidence.startsWith(tuplePrefix));
@@ -101,15 +117,19 @@ for (const prototype of CLS_CP005_WAVE2_PROTOTYPES) {
     assert.equal(question.explanation.examSpeedShortcut.length, 1);
     assert.equal(question.explanation.commonTrapWarning.length, 1);
     assert.match(question.explanation.examSpeedShortcut[0]!, /^(Apply|Check|Cube|Divide|Multiply|Recover|Sort|Subtract|Take|Test)/);
+    assert.ok(!/[²³×≠−]/u.test(question.explanation.coreConcept[0]!));
 
     assert.equal(question.metadata.runtimeVersion, "cls-cp005-source-gap-wave2-v1");
     assert.equal(question.metadata.editorialVersion, "cls-cp005-option-explanations-v3-simple-teacher");
     assert.equal(question.metadata.sourceGapRegistryVersion, "cls-cp005-source-gap-registry-v1");
+    assert.equal(question.metadata.qualityVersion, "cls-cp005-wave2-answer-aware-v2");
     assert.equal(question.metadata.sourceSaturationStatus, "WAVE_2_EXECUTABLE__FINAL_GAP_AUDIT_OPEN");
     assert.equal(question.metadata.locale, "en-IN");
     assert.equal(question.metadata.optionCount, optionCount);
     assert.ok(Number.isSafeInteger(question.metadata.sourceAttempt));
+    assert.ok(Number.isSafeInteger(question.metadata.sourcePrototypeSeed));
     maximumSourceAttempt = Math.max(maximumSourceAttempt, question.metadata.sourceAttempt);
+    maximumQualityAttempt = Math.max(maximumQualityAttempt, Math.floor((question.metadata.sourcePrototypeSeed - seed) / 10_007));
 
     assert.equal(question.reviewOnly, true);
     assert.equal(question.questionStudioVisible, false);
@@ -165,10 +185,11 @@ for (const [prototypeId, counts] of stemCounts) {
   assert.ok(Math.max(...counts.values()) <= Math.ceil(totalForPrototype * 0.45), `${prototypeId} has a dominant stem`);
 }
 assert.ok(maximumSourceAttempt < 1800);
-assert.throws(() => generateClsCp005Wave2Question("CLS-CP005-W2-PROT-999" as never, 0));
-assert.throws(() => generateClsCp005Wave2Question("CLS-CP005-W2-PROT-001", -1));
+assert.ok(maximumQualityAttempt < 240);
+assert.throws(() => generateClsCp005Wave2QualityQuestion("CLS-CP005-W2-PROT-999" as never, 0));
+assert.throws(() => generateClsCp005Wave2QualityQuestion("CLS-CP005-W2-PROT-001", -1));
 
-console.log("CLS-CP-005 source-gap Wave 2 executable audit passed.", {
+console.log("CLS-CP-005 answer-aware source-gap Wave 2 audit passed.", {
   generated: total,
   uniqueVisibleQuestions: fingerprints.size,
   prototypes: prototypeCounts.size,
@@ -181,5 +202,8 @@ console.log("CLS-CP-005 source-gap Wave 2 executable audit passed.", {
   optionExplanations,
   referenceExplanations,
   maximumSourceAttempt,
+  maximumQualityAttempt,
+  maximumAnswerMaximumRatio,
+  maximumAnswerTotalRatio,
   governedValidCounts: CLS_CP005_WAVE2_VALID_COUNTS,
 });
