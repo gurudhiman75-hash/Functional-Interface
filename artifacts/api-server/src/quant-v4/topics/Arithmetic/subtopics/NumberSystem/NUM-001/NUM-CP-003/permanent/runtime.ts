@@ -3,7 +3,6 @@ import {
   verifyRetainedAnswer,
 } from "../retained/runtime-reviewed";
 import type { NumCp003RetainedQuestion } from "../retained/runtime-types";
-import { polishNumberSystemEnglishStem } from "../../editorial/english-stem-style";
 import {
   NUM_CP003_PERMANENT_QL_IDS,
   getNumCp003PermanentAllocation,
@@ -101,11 +100,6 @@ export function runNumCp003PermanentPipeline(
 
   return {
     ...retained,
-    stem: polishNumberSystemEnglishStem(
-      allocation.qlId,
-      retained.stem,
-      retained.hiddenState,
-    ),
     permanentQlId: allocation.qlId,
     questionLanguageId: allocation.qlId,
     questionId: `NUM-001:${allocation.qlId}:${seed}`,
