@@ -18,7 +18,7 @@ const questions = CLS_CP005_PROTOTYPES.flatMap((prototype, prototypeIndex) =>
 
 const prototypeById = new Map(CLS_CP005_PROTOTYPES.map((prototype) => [prototype.prototypeId, prototype]));
 const markdown = [
-  "# CLS-CP-005 English Discovery Review — Rule-Aware Editorial V2",
+  "# CLS-CP-005 English Discovery Review — Simple Option Explanations V3",
   "",
   `Questions: ${questions.length}`,
   `Temporary prototypes: ${CLS_CP005_PROTOTYPES.length}`,
@@ -28,7 +28,7 @@ const markdown = [
   "Question Bank: disabled",
   "Test/publication eligibility: disabled",
   "",
-  "Editorial rules: show only the active equation, preserve tuple-position roles, use inline MathJax, mark each option as ✅ Matches rule or ❌ Fails rule, and explain the failed target explicitly.",
+  "Option explanation format: each option gives a short plain-language reason first, then the supporting MathJax calculation, followed by a clear match/fail result.",
   "",
   "Presentation-quality rules: no reversed/permuted duplicate options, no repeated number within a tuple, no permutation-only match to the reference set, and no answer made obvious by a much smaller or larger numerical scale.",
   "",
@@ -76,6 +76,7 @@ const markdown = [
       `- Seed: ${question.seed}`,
       `- Source prototype seed: ${question.metadata.sourcePrototypeSeed}`,
       `- Editorial version: ${question.metadata.editorialVersion}`,
+      `- Option explanation version: ${question.metadata.optionExplanationVersion}`,
       `- Math format: ${question.metadata.mathFormat}`,
       `- Quality version: ${question.metadata.qualityVersion}`,
       `- Intended rule: ${question.intendedRuleId}`,
@@ -103,7 +104,7 @@ await mkdir(outputDir, { recursive: true });
 await writeFile(path.join(outputDir, "cls-cp005-english-discovery-review.json"), `${JSON.stringify(questions, null, 2)}\n`, "utf8");
 await writeFile(path.join(outputDir, "cls-cp005-english-discovery-review.md"), `${markdown}\n`, "utf8");
 
-console.log("CLS-CP-005 rule-aware editorial English discovery review written.", {
+console.log("CLS-CP-005 simple-explanation English discovery review written.", {
   outputDir,
   questions: questions.length,
   prototypes: CLS_CP005_PROTOTYPES.length,
@@ -112,6 +113,7 @@ console.log("CLS-CP-005 rule-aware editorial English discovery review written.",
   optionCounts: [...new Set(questions.map((question) => question.options.length))].sort(),
   difficulties: [...new Set(questions.map((question) => question.difficulty))].sort(),
   editorialVersion: questions[0]?.metadata.editorialVersion,
+  optionExplanationVersion: questions[0]?.metadata.optionExplanationVersion,
   mathFormat: questions[0]?.metadata.mathFormat,
   maximumSourceAttempts: Math.max(...questions.map((question) => Math.floor((question.metadata.sourcePrototypeSeed - question.seed) / 10_007))),
   maximumAnswerMaximumRatio: Math.max(...questions.map((question) => question.presentationQualityAudit.answerMaximumRatio)),
