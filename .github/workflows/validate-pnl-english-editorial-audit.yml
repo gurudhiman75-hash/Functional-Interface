@@ -1,35 +1,27 @@
-name: Validate PNL English Editorial Audit
+name: Apply PNL English Prose Cluster Wave 01
 
 on:
-  push:
-    branches:
-      - feat/pnl-001-english-editorial-audit
-    paths:
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/**"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-editorial-option-regression.test.ts"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-PLAN.md"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-WAVE-01.md"
-      - ".github/workflows/validate-pnl-english-editorial-audit.yml"
   pull_request:
+    branches:
+      - New-main
     paths:
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/**"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-editorial-option-regression.test.ts"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-PLAN.md"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/PNL-001-ENGLISH-EDITORIAL-AUDIT-WAVE-01.md"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
       - ".github/workflows/validate-pnl-english-editorial-audit.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  generate-pnl-english-editorial-audit:
+  apply-prose-cluster-wave:
+    if: github.head_ref == 'feat/pnl-001-english-prose-cluster-diversity'
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
-      - name: Checkout source
+      - name: Checkout feature branch
         uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-english-prose-cluster-diversity
+          fetch-depth: 0
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -44,58 +36,112 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle CP-003 editorial regression
+      - name: Apply authoritative prose and QL-092 corrections
+        run: |
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-english-prose-cluster-fix.mjs
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-ql092-data-sufficiency-fix.mjs
+
+      - name: Format changed TypeScript
+        run: |
+          pnpm exec prettier --write \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-cp001-explanations.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-cp003-explanations.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-legacy-builder.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-legacy-normalized.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-cases.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-english-prose-cluster-regression.test.ts
+
+      - name: Prepare legacy editorial bundle paths
+        run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          ln -s ../CP-001 "$root/foundation/CP-001"
+          ln -s ../CP-002 "$root/foundation/CP-002"
+          ln -s ../CP-003 "$root/foundation/CP-003"
+
+      - name: Regenerate committed English Editorial V2 sources
+        run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-cp001-cp003-export.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-export.mjs
+          node "$root/foundation/.editorial-v2-cp001-cp003-export.mjs"
+          cp "$root/foundation/.editorial-v2-generated/CP-001.editorial-content.en.json" "$root/CP-001/editorial-content.en.json"
+          cp "$root/foundation/.editorial-v2-generated/CP-003.editorial-content.en.json" "$root/CP-003/editorial-content.en.json"
+
+      - name: Prove Editorial V2 authority and rendering
+        run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-cp001-cp003-audit.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-audit.mjs
+          node "$root/foundation/.editorial-v2-cp001-cp003-audit.mjs"
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-cp001-cp003-render.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-render.test.mjs
+          node "$root/foundation/.editorial-v2-cp001-cp003-render.test.mjs"
+
+      - name: Run CP-001 and CP-003 dynamic proofs
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-editorial-seed-regression.test.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-001/cp001-dynamic-runtime.test.ts \
             --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/.cp003-editorial-seed-regression.test.mjs
+            --outfile=/tmp/pnl-cp001-dynamic-runtime.test.mjs
+          node /tmp/pnl-cp001-dynamic-runtime.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/cp003-dynamic-runtime.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=/tmp/pnl-cp003-dynamic-runtime.test.mjs
+          node /tmp/pnl-cp003-dynamic-runtime.test.mjs
 
-      - name: Run CP-003 editorial regression
-        run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/.cp003-editorial-seed-regression.test.mjs
-
-      - name: Bundle CP-005 editorial regression
+      - name: Run permanent prose and sufficiency regression
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/cp005-editorial-seed-regression.test.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-english-prose-cluster-regression.test.ts \
             --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/.cp005-editorial-seed-regression.test.mjs
+            --outfile=/tmp/pnl-english-prose-cluster-regression.test.mjs
+          node /tmp/pnl-english-prose-cluster-regression.test.mjs
 
-      - name: Run CP-005 editorial regression
-        run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/.cp005-editorial-seed-regression.test.mjs
-
-      - name: Bundle option regressions
+      - name: Regenerate hardened chapter audit
         run: |
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-editorial-option-regression.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-editorial-option-regression.test.mjs
-
-      - name: Run option regressions
-        run: node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-editorial-option-regression.test.mjs
-
-      - name: Bundle editorial exporter
-        run: |
-          set -o pipefail
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-english-editorial-audit.ts \
             --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
-            2>&1 | tee pnl-english-editorial-audit.log
+            --outfile=/tmp/pnl-001-english-editorial-audit.mjs
+          node /tmp/pnl-001-english-editorial-audit.mjs | tee pnl-english-prose-cluster-wave-01.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-english-prose-cluster-report.mjs
 
-      - name: Generate 558-row review corpus
+      - name: Commit validated source
         run: |
-          set -o pipefail
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-english-editorial-audit.mjs \
-            2>&1 | tee -a pnl-english-editorial-audit.log
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          rm -f "$root/foundation/CP-001" "$root/foundation/CP-002" "$root/foundation/CP-003"
+          rm -rf "$root/foundation/.editorial-v2-generated"
+          rm -f \
+            "$root/foundation/.editorial-v2-cp001-cp003-export.mjs" \
+            "$root/foundation/.editorial-v2-cp001-cp003-audit.mjs" \
+            "$root/foundation/.editorial-v2-cp001-cp003-render.test.mjs"
+          git fetch origin New-main
+          git checkout origin/New-main -- .github/workflows/validate-pnl-english-editorial-audit.yml
+          rm -f \
+            "$root/pnl-english-prose-cluster-fix.mjs" \
+            "$root/pnl-ql092-data-sufficiency-fix.mjs" \
+            "$root/pnl-english-prose-cluster-report.mjs"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "feat(pnl): diversify major English prose clusters"
+          git push origin HEAD:feat/pnl-001-english-prose-cluster-diversity
 
-      - name: Upload editorial review corpus
+      - name: Upload wave evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pnl-001-english-editorial-audit
+          name: pnl-001-english-prose-cluster-wave-01
           path: |
             dist/quant-v4/pnl-001-english-editorial-audit
-            pnl-english-editorial-audit.log
+            pnl-english-prose-cluster-wave-01.log
           if-no-files-found: error
           retention-days: 14
