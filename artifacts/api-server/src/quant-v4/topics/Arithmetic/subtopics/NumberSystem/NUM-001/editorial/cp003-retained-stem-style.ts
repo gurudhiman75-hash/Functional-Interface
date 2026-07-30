@@ -29,7 +29,7 @@ function claimLead(hiddenState: Readonly<Record<string, unknown>>): string {
     ? Number((claims[0] as Record<string, unknown>).number)
     : 0;
   if (Number.isFinite(firstNumber) && firstNumber % 2 === 0) {
-    return `Identify the ${polarity} statement about divisibility.`;
+    return `Which statement about divisibility is ${polarity}?`;
   }
   return `Which of the following divisibility statements is ${polarity}?`;
 }
