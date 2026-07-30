@@ -36,15 +36,15 @@ This wave removes shared Editorial V2 prose from twelve English QLs and corrects
 ## Audit result
 
 ```text
-QLs:                              186
-Review rows:                      558
-Candidate packages:              8928
-Fatal findings:                   0
-Editorial findings before wave:  46
-Editorial findings after wave:   17
-Unresolved same-QL stem repeats: 0
-Unresolved same-QL answer repeats:0
-Audit status:                     REVIEW_REQUIRED
+QLs:                               186
+Review rows:                       558
+Candidate packages:             8,928
+Fatal findings:                      0
+Editorial findings before wave:    46
+Editorial findings after wave:     17
+Unresolved same-QL stem repeats:    0
+Unresolved same-QL answer repeats:  0
+Audit status:          REVIEW_REQUIRED
 ```
 
 Remaining finding counts:
@@ -58,9 +58,21 @@ Remaining finding counts:
 }
 ```
 
+## Hosted proof
+
+```text
+Workflow: Apply PNL English Prose Cluster Wave 01
+Run:      30539490604
+Result:   PASS
+Artifact: 8758092430
+Digest:   sha256:71705b18de35c735d66a1f8d8ff4ef677a58f40859fe25d7d95d256640aa47fe
+```
+
+The proof regenerated the committed CP-001 and CP-003 English Editorial V2 libraries from authority, passed exact source parity and renderer checks, passed both full dynamic seed sweeps, passed the permanent cluster regression, exercised 96 QL-092 seeds across all four sufficiency classes, and regenerated the hardened 8,928-candidate chapter audit.
+
 ## Regression boundary
 
-The permanent cluster regression rejects a meaningful normalized editorial paragraph or opening shared across different QLs in any of the three corrected clusters. Existing CP-001 and CP-003 dynamic seed sweeps, Editorial V2 source parity, render proofs and the chapter audit must also remain green.
+The permanent cluster regression rejects a meaningful normalized editorial paragraph or opening shared across different QLs in any corrected cluster. Existing CP-001 and CP-003 dynamic seed sweeps, Editorial V2 source parity, render proofs and the chapter audit must also remain green.
 
 ## Safety boundary
 
