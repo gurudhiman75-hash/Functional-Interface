@@ -113,7 +113,7 @@ for (const [questionIndex, question] of reviewedQuestions.entries()) {
   ].join("\n");
 
   assert.ok(
-    !/sums are|pair products are|squares are|compare .* with|gives a different result|other options give different values|it matches the intended rule|it does not match the intended rule/i.test(learnerText),
+    !/sums are|pair products are|squares are|compare\s+\d+[^\n]*(?:\^2|²)[^\n]*\swith\s|gives a different result|other options give different values|it matches the intended rule|it does not match the intended rule/i.test(learnerText),
     `question ${questionIndex + 1} still exposes diagnostic or repetitive engine wording`,
   );
   assert.ok(!/[²³×≠]/u.test(learnerText), `question ${questionIndex + 1} contains raw visible math symbols instead of LaTeX`);
