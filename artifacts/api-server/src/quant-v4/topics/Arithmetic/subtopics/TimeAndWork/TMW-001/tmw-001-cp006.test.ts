@@ -20,11 +20,16 @@ for(const entry of TMW_CP006_REGISTRY){
     assert.equal(first.options[first.correctIndex],first.solution.answerText);
     assert.equal(first.optionAudit.filter(option=>option.misconceptionId==="CORRECT").length,1);
     assert.equal(first.publiclyPublishable,false);
+    assert.ok(first.explanation.steps.length>=3);
+    assert.ok(first.explanation.steps.every(step=>step.startsWith("\\(")&&step.endsWith("\\)")));
+    assert.ok(first.explanation.shortcut.title.startsWith("10-Second "));
+    assert.ok(first.optionAudit.some(option=>option.text===first.explanation.commonTrap.optionText&&option.misconceptionId===first.explanation.commonTrap.misconceptionId));
     if(["COUNT","SHIFT","RESOURCE_TIME"].includes(entry.answerType))assert.equal(first.solution.answer.denominator,1,`${entry.qlId} produced a non-integral discrete answer`);
     positions.add(first.correctIndex);stems.add(first.stem);cases+=1;
   }
 }
 assert.deepEqual([...positions].sort(),[0,1,2,3]);
-assert.throws(()=>runTmwCp006Pipeline({questionLanguageId:"TMW-QL-106",seed:"locale-hi",language:"hi"}));
-assert.throws(()=>runTmwCp006Pipeline({questionLanguageId:"TMW-QL-106",seed:"locale-pa",language:"pa"}));
+assert.throws(()=>runTmwCp006Pipeline({questionLanguageId:"TMW-QL-106",seed:"locale-hi",language:"hi"}),/English only/);
+assert.throws(()=>runTmwCp006Pipeline({questionLanguageId:"TMW-QL-106",seed:"locale-pa",language:"pa"}),/English only/);
+assert.throws(()=>runTmwCp006Pipeline({questionLanguageId:"TMW-QL-999",seed:"unknown"}),/Unknown TMW-CP-006/);
 console.log(JSON.stringify({chapter:"TMW-001",checkpoint:"TMW-CP-006",qlCount:TMW_CP006_REGISTRY.length,seedsPerQl:50,cases,distinctStems:stems.size,correctPositions:[...positions].sort(),status:"PASS"},null,2));
