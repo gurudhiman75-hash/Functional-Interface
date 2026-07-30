@@ -10,5 +10,11 @@ export function polishNumCp003RetainedStem(
   const qlNumber = Number(match[1]);
   if (!Number.isInteger(qlNumber) || qlNumber < 1 || qlNumber > 17) return rawStem;
   const qlId = `NUM-QL-${String(qlNumber).padStart(3, "0")}` as const;
-  return polishNumberSystemEnglishStem(qlId, rawStem, hiddenState);
+
+  let stem = rawStem;
+  if (qlNumber === 4 && hiddenState.template !== undefined && hiddenState.divisor !== undefined) {
+    stem = `How many digits can replace X in ${String(hiddenState.template)} so that the number is divisible by ${String(hiddenState.divisor)}?`;
+  }
+
+  return polishNumberSystemEnglishStem(qlId, stem, hiddenState);
 }
