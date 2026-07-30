@@ -58,6 +58,13 @@ const CALCULATION_BRIDGES = [
   "The numerical working is shown below.",
 ] as const;
 
+const REASONING_BRIDGES = [
+  "This identifies the value needed for the next calculation.",
+  "This keeps the units and the required quantity clear before we calculate.",
+  "With this relation established, we can move to the numerical step.",
+  "This prevents us from mixing a length, an area and a volume.",
+] as const;
+
 const TRAP_OPENERS = [
   "This option is obtained by",
   "You may reach this option by",
@@ -157,6 +164,9 @@ function naturalizeStepBody(
   let cleaned = simplifyLearnerLanguage(body);
   if (equation && !/calculation below|substitut|numerical working|calculation becomes/i.test(cleaned)) {
     const bridge = CALCULATION_BRIDGES[(selector + stepIndex) % CALCULATION_BRIDGES.length]!;
+    cleaned = `${cleaned} ${bridge}`;
+  } else if (!equation && cleaned.length < 48) {
+    const bridge = REASONING_BRIDGES[(selector + stepIndex) % REASONING_BRIDGES.length]!;
     cleaned = `${cleaned} ${bridge}`;
   }
   if (stepIndex === stepCount - 1 && !cleaned.includes(answer)) {
