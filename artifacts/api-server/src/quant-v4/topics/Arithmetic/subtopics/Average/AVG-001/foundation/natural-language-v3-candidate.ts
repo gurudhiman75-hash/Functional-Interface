@@ -1,4 +1,5 @@
 import { applyAvg001NaturalLanguageV3Final } from "./natural-language-v3-final";
+import { buildAvg001AuthorityDistractorLine } from "./natural-language-v3-distractor-authority";
 import type { Avg001QuestionPackage, Avg001ValidationCheck } from "./types";
 
 export const AVG_001_NATURAL_LANGUAGE_V3_CANDIDATE =
@@ -95,14 +96,24 @@ export function applyAvg001NaturalLanguageV3Candidate(
     : base.language === "pa"
       ? PUNJABI_LABELS
       : null;
-  const revised: Avg001QuestionPackage = {
+  const localizedLines = base.explanation.lines.map((line) => localizeMathText(line, labels));
+  const localized: Avg001QuestionPackage = {
     ...base,
-    explanation: {
-      lines: base.explanation.lines.map((line) => localizeMathText(line, labels)),
-    },
+    explanation: { lines: localizedLines },
     traceability: {
       ...base.traceability,
       naturalLanguageReviewCandidateFinal: AVG_001_NATURAL_LANGUAGE_V3_CANDIDATE,
+    },
+  };
+  const revised: Avg001QuestionPackage = {
+    ...localized,
+    explanation: {
+      lines: [
+        localized.explanation.lines[0]!,
+        localized.explanation.lines[1]!,
+        localized.explanation.lines[2]!,
+        buildAvg001AuthorityDistractorLine(source, localized),
+      ],
     },
   };
   return { ...revised, validation: refreshValidation(revised) };
