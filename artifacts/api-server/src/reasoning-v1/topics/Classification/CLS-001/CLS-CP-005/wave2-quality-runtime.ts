@@ -136,6 +136,10 @@ export function renderClsCp005Wave2CoreRule(ruleId: ClsCp005SourceGapRuleId, val
   }
 }
 
+function clampThreeDigit(value: number): number {
+  return Math.max(100, Math.min(999, value));
+}
+
 function repairSameDigitOddScale<T extends ReturnType<typeof generateClsCp005Wave2Question>>(
   question: T,
   sourcePrototypeSeed: number,
@@ -153,12 +157,17 @@ function repairSameDigitOddScale<T extends ReturnType<typeof generateClsCp005Wav
   const commonValues = commonTuples.flatMap((tuple) => [...tuple]);
   const anchor = Math.round(median(commonValues));
   const forbidden = new Set(commonTuples.map(unorderedTupleKey));
+  const spread = Math.max(36, Math.min(160, Math.round(anchor * 0.28)));
 
-  for (let offset = 0; offset < 800; offset += 1) {
-    const first = 100 + ((anchor + sourcePrototypeSeed + offset * 37) % 800);
-    const second = 100 + ((anchor * 3 + sourcePrototypeSeed + 17 + offset * 53) % 800);
-    const third = 100 + ((anchor * 5 + sourcePrototypeSeed + 29 + offset * 71) % 800);
-    const replacement = [first, second, third] as const;
+  for (let offset = 0; offset < 1600; offset += 1) {
+    const firstDelta = ((sourcePrototypeSeed + offset * 37) % (spread * 2 + 1)) - spread;
+    const secondDelta = ((sourcePrototypeSeed * 3 + 17 + offset * 53) % (spread * 2 + 1)) - spread;
+    const thirdDelta = ((sourcePrototypeSeed * 5 + 29 + offset * 71) % (spread * 2 + 1)) - spread;
+    const replacement = [
+      clampThreeDigit(anchor + firstDelta),
+      clampThreeDigit(anchor + secondDelta),
+      clampThreeDigit(anchor + thirdDelta),
+    ] as const;
     if (new Set(replacement).size !== 3) continue;
     if (new Set(replacement.map(digitKey)).size === 1) continue;
     if (forbidden.has(unorderedTupleKey(replacement))) continue;
@@ -172,6 +181,9 @@ function repairSameDigitOddScale<T extends ReturnType<typeof generateClsCp005Wav
       intendedRuleValue: question.intendedRuleValue,
     });
     if (audit.result !== "EXPANDED_UNIQUE" || audit.answerIndex !== correctIndex) continue;
+
+    const quality = auditClsCp005Wave2PresentationQuality({ tuples, correctIndex });
+    if (quality.result !== "PASS") continue;
 
     const options = tuples.map(displayTuple);
     const evidenceByOption = question.evidenceByOption.map((evidence, index) =>
@@ -196,7 +208,7 @@ function repairSameDigitOddScale<T extends ReturnType<typeof generateClsCp005Wav
       },
       metadata: {
         ...question.metadata,
-        scaleRepairVersion: "same-digit-triple-v1" as const,
+        scaleRepairVersion: "same-digit-triple-v2-near-median" as const,
       },
     } as T;
   }
