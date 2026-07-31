@@ -14,6 +14,7 @@ export interface TmwLocalizedOption<TValue extends TmwLocalizedValue = Rational>
 export interface TmwLocalizedExplanation {
   opening: string;
   formula: string;
+  givens?: string[];
   steps: string[];
   shortcut: {
     title: string;
