@@ -1,0 +1,90 @@
+name: Validate INT-CP-001 calculation-rich explanations
+
+on:
+  pull_request:
+    branches:
+      - fix/int-001-cp001-explanation-sanitization-v1
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/**
+      - .github/workflows/int-cp001-calculation-rich-explanations.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-int-cp001-calculation-rich-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-int-cp001-calculation-rich:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle calculation-rich audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-calculation-rich-explanation-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-calculation-rich-explanation-audit.mjs
+      - name: Run exhaustive calculation-rich audit
+        shell: bash
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp001-calculation-rich-explanation-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp001-calculation-rich-explanation-audit.log
+
+      - name: Bundle calculation-rich review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-calculation-rich-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-calculation-rich-review-export.mjs
+      - name: Generate 315-question calculation-rich review corpus
+        shell: bash
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp001-calculation-rich-review-export.mjs 2>&1 | tee dist/quant-v4/int-001-cp001-calculation-rich-review-export.log
+
+      - name: Verify calculation-rich evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          root=artifacts/api-server/dist/quant-v4/int-cp001-calculation-rich-review-pack
+          for language in english hindi punjabi; do
+            test -f "$root/int-001-cp001-${language}-105-calculation-rich-questions.md"
+            test -f "$root/int-001-cp001-${language}-105-calculation-rich-answers.md"
+            test -f "$root/int-001-cp001-${language}-105-calculation-rich-review-data.json"
+          done
+          test -f "$root/int-001-cp001-315-calculation-rich-review-checklist.csv"
+          test -f "$root/int-001-cp001-315-calculation-rich-review-summary.json"
+          ! grep -R -n -E '<sub>Trace:|INT-QL-|calculation-rich-v1:|FIND_' "$root"/*.md
+          grep -q 'PASS_INT_CP001_CALCULATION_RICH_EXPLANATIONS_V1' artifacts/api-server/dist/quant-v4/int-001-cp001-calculation-rich-explanation-audit.log
+          grep -q 'PASS_INT_CP001_315_CALCULATION_RICH_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp001-calculation-rich-review-export.log
+
+      - name: Upload calculation-rich evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp001-calculation-rich-explanation-review-candidate
+          path: |
+            artifacts/api-server/dist/quant-v4/int-cp001-calculation-rich-review-pack/**
+            artifacts/api-server/dist/quant-v4/int-001-cp001-calculation-rich-explanation-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp001-calculation-rich-review-export.log
+          if-no-files-found: error
+          retention-days: 14
