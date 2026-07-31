@@ -10,6 +10,7 @@ on:
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-01-foundation.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-01.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-01.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-01-independent-verifier.test.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-v9-topology-gap-wave-01.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/BLR-CP-003-V8-EDITORIAL-BASELINE-APPROVAL-RECORD.md"
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/BLR-CP-003-V9-TOPOLOGY-GAP-WAVE-01.md"
@@ -23,6 +24,7 @@ on:
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-01-foundation.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-01.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-01.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-01-independent-verifier.test.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-v9-topology-gap-wave-01.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/BLR-CP-003-V8-EDITORIAL-BASELINE-APPROVAL-RECORD.md"
       - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/BLR-CP-003-V9-TOPOLOGY-GAP-WAVE-01.md"
@@ -63,6 +65,11 @@ jobs:
         id: v9_wave
         continue-on-error: true
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-01.test.ts > cp003-v9-topology-gap-wave-01.log 2>&1
+
+      - name: Run independent V9 graph-closure verifier
+        id: v9_independent
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-01-independent-verifier.test.ts > cp003-v9-independent-verifier.log 2>&1
 
       - name: Export V9 topology gap-wave review pack
         id: v9_export
@@ -109,6 +116,7 @@ jobs:
             cp003-v8-reviewed-source.log
             cp003-v8-editorial-approval.log
             cp003-v9-topology-gap-wave-01.log
+            cp003-v9-independent-verifier.log
             cp003-v9-export.log
             cp003-v9-freeze-boundary.log
           if-no-files-found: error
@@ -139,6 +147,12 @@ jobs:
         if: steps.v9_wave.outcome == 'failure'
         run: |
           cat cp003-v9-topology-gap-wave-01.log
+          exit 1
+
+      - name: Enforce independent V9 graph verification
+        if: steps.v9_independent.outcome == 'failure'
+        run: |
+          cat cp003-v9-independent-verifier.log
           exit 1
 
       - name: Enforce V9 export result
