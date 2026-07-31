@@ -98,7 +98,7 @@ Every temporary contract must reach all four answer positions, at least four ste
 
 ## Source status
 
-Uploaded-book retrieval still fails with `RetrievalClientResponseError`. This wave may extend mathematical discovery, but source-backed saturation and permanent QL compression remain blocked.
+At the time Wave 02 was implemented, uploaded-book retrieval was unavailable and source-backed saturation remained blocked. Retrieval was restored before Source Gap Wave 03; that later wave now owns the source-backed follow-up without changing the historical Wave-02 proof.
 
 ## Lifecycle safety
 
