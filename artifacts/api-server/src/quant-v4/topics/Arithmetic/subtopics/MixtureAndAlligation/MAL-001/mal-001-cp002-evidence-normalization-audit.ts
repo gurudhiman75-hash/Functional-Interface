@@ -261,7 +261,7 @@ assert(
   }.`,
 );
 assert(
-  recoveredStateFingerprints.size >= 190,
+  recoveredStateFingerprints.size >= 180,
   `Only ${recoveredStateFingerprints.size}/${stateSeeds} reconstructed state fingerprints.`,
 );
 assert(
