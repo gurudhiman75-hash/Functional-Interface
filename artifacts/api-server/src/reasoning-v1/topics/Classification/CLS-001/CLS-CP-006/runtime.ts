@@ -208,11 +208,16 @@ function coreConceptFor(ruleId: ClsCp006RuleId, commonValue: string): string {
       return `Most letters occupy ${commonValue === "EVEN_POSITION" ? "even" : "odd"}-numbered alphabet positions.`;
     case "LETTER_ALPHABET_HALF":
       return `Most letters lie in the ${commonValue === "FIRST_HALF" ? "first" : "second"} half of the alphabet.`;
-    case "PAIR_ABSOLUTE_POSITION_GAP":
-      return `In most pairs, the two letters are ${commonValue} positions apart.`;
+    case "PAIR_ABSOLUTE_POSITION_GAP": {
+      const gap = Number(commonValue);
+      const positionWord = Math.abs(gap) === 1 ? "position" : "positions";
+      return `In most pairs, the two letters are ${commonValue} ${positionWord} apart.`;
+    }
     case "PAIR_SIGNED_POSITION_GAP": {
       const gap = Number(commonValue);
-      return `In most pairs, the second letter is ${Math.abs(gap)} places ${gap >= 0 ? "after" : "before"} the first.`;
+      const magnitude = Math.abs(gap);
+      const placeWord = magnitude === 1 ? "place" : "places";
+      return `In most pairs, the second letter is ${magnitude} ${placeWord} ${gap >= 0 ? "after" : "before"} the first.`;
     }
     case "PAIR_POSITION_SUM":
       return `In most pairs, the two alphabet positions add to ${commonValue}.`;
