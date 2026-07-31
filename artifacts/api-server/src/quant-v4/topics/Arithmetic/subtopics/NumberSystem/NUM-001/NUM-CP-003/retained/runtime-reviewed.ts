@@ -18,6 +18,38 @@ interface DigitAssignment {
   readonly y?: number;
 }
 
+function repairDirectDivisibilityExplanation(
+  explanation: NumCp003RetainedExplanation,
+  hiddenState: NumCp003RetainedHiddenState,
+): NumCp003RetainedExplanation {
+  if (hiddenState.kind !== "DIRECT_DIVISIBILITY") return explanation;
+
+  const steps = hiddenState.divisorOptions.map((divisor) => {
+    const quotient = hiddenState.number / divisor;
+    const remainder = hiddenState.number % divisor;
+    return remainder === 0n
+      ? `$${hiddenState.number} \\div ${divisor} = ${quotient}$, so the remainder is 0 and the division is exact.`
+      : `$${hiddenState.number} = ${divisor} \\times ${quotient} + ${remainder}$, so the remainder is ${remainder}.`;
+  });
+  const answer = hiddenState.divisorOptions.find((divisor) => {
+    const dividesExactly = hiddenState.number % divisor === 0n;
+    return hiddenState.requestedPolarity === "DIVISIBLE"
+      ? dividesExactly
+      : !dividesExactly;
+  })!;
+  const quotient = hiddenState.number / answer;
+  const remainder = hiddenState.number % answer;
+  const verification = remainder === 0n
+    ? `$${hiddenState.number} \\div ${answer} = ${quotient}$ with remainder 0, so ${answer} divides the number exactly.`
+    : `$${hiddenState.number} = ${answer} \\times ${quotient} + ${remainder}$, so ${answer} does not divide the number exactly.`;
+
+  return {
+    ...explanation,
+    steps,
+    verification,
+  };
+}
+
 function digitAssignments(
   hiddenState: NumCp003RetainedHiddenState,
 ): DigitAssignment[] {
@@ -204,7 +236,11 @@ export function generateNumCp003RetainedQuestion(
     base.explanation,
     base.hiddenState,
   );
-  const repaired = repairDigitSumSteps(polished, base.hiddenState);
+  const directRepaired = repairDirectDivisibilityExplanation(
+    polished,
+    base.hiddenState,
+  );
+  const repaired = repairDigitSumSteps(directRepaired, base.hiddenState);
   const structured = ensureStepStructure(repaired, base.hiddenState);
   const explanation = ensureReadableDepth(structured);
   return {
