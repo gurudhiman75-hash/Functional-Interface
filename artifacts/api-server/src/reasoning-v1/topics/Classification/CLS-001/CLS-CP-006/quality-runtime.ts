@@ -59,7 +59,7 @@ function richerEvidence(
       const magnitude = Math.abs(gap);
       const direction = gap >= 0 ? "after" : "before";
       const positionWord = magnitude === 1 ? "position" : "positions";
-      return `${pair} places the second letter ${magnitude} ${positionWord} ${direction} the first: ${secondPosition} - ${firstPosition} = ${gap}. ${matchSentence(matches, "pair")}`;
+      return `${pair} shows the second letter ${magnitude} ${positionWord} ${direction} the first: ${secondPosition} - ${firstPosition} = ${gap}. ${matchSentence(matches, "pair")}`;
     }
     case "PAIR_POSITION_SUM": {
       const total = firstPosition + secondPosition;
@@ -121,6 +121,12 @@ export function auditClsCp006PresentationQuality(
   }
   if (/what is the position|find the position|how many letters|move .* places|rearrange/i.test(question.stem)) {
     reasons.push("The stem leaks into Alphabet Test direct-operation ownership.");
+  }
+  if (question.options.length === 5 && /\bThree\b/.test(question.stem)) {
+    reasons.push("A five-option stem incorrectly claims that only three options share the rule.");
+  }
+  if (question.options.length === 4 && /\bFour\b/.test(question.stem)) {
+    reasons.push("A four-option stem incorrectly claims that all four options share the rule.");
   }
 
   const learnerText = [
