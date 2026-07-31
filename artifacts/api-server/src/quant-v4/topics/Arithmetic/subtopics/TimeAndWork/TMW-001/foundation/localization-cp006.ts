@@ -6,12 +6,12 @@ import { localizedOptionLabel, localizeMathStep } from "./localization-glossary"
 import { cp006LocalizedAnswerText } from "./localization-cp006-language";
 import { renderTmwCp006LocalizedStem } from "./localization-cp006-stems";
 import {
-  polishTmwCp006ManualConclusion,
-  polishTmwCp006ManualGivens,
-  polishTmwCp006ManualOpening,
-  polishTmwCp006ManualText,
-  polishTmwCp006ManualTrap,
-} from "./localization-cp006-manual-polish";
+  finalizeTmwCp006Conclusion,
+  finalizeTmwCp006Givens,
+  finalizeTmwCp006Opening,
+  finalizeTmwCp006Text,
+  finalizeTmwCp006Trap,
+} from "./localization-cp006-final-polish";
 import {
   tmwCp006LocalizedConclusion,
   tmwCp006LocalizedGivens,
@@ -29,7 +29,7 @@ export function localizeTmwCp006Question(
   language: TmwLocalizedLanguage,
 ): TmwLocalizedQuestion {
   const entry = getTmwCp006Entry(source.questionLanguageId);
-  const polish = (text: string): string => polishTmwCp006ManualText(text, language);
+  const polish = (text: string): string => finalizeTmwCp006Text(text, language);
   const optionAudit = source.optionAudit.map((option) => ({
     ...option,
     text: polish(cp006LocalizedAnswerText(source, option.value, language)),
@@ -43,12 +43,12 @@ export function localizeTmwCp006Question(
   if (trapIndex < 0) trapIndex = source.optionAudit.findIndex((option) => option.misconceptionId === trapId);
 
   const stem = polish(renderTmwCp006LocalizedStem(source, language));
-  const opening = polishTmwCp006ManualOpening(
+  const opening = finalizeTmwCp006Opening(
     source,
     tmwCp006LocalizedOpening(entry.ruleId, language),
     language,
   );
-  const givens = polishTmwCp006ManualGivens(
+  const givens = finalizeTmwCp006Givens(
     source,
     tmwCp006LocalizedGivens(source, language),
     language,
@@ -58,12 +58,12 @@ export function localizeTmwCp006Question(
     title: polish(rawShortcut.title),
     steps: rawShortcut.steps.map(polish),
   };
-  const trapExplanation = polishTmwCp006ManualTrap(
+  const trapExplanation = finalizeTmwCp006Trap(
     source,
     tmwCp006LocalizedTrapReason(trapId, language),
     language,
   );
-  const conclusion = polishTmwCp006ManualConclusion(
+  const conclusion = finalizeTmwCp006Conclusion(
     source,
     answerText,
     tmwCp006LocalizedConclusion(source, answerText, language),
