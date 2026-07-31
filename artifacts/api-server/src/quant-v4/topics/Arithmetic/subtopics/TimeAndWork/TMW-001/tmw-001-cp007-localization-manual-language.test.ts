@@ -38,18 +38,26 @@ for (const entry of TMW_CP007_REGISTRY) {
       assert.equal(/लक्ष्य श्रेणी का संख्या/.test(prose), false, `${entry.qlId}:${language}: Hindi category possessive`);
       assert.equal(/का सड़क-मरम्मत का काम|ਦਾ ਸੜਕ ਮੁਰੰਮਤ ਦਾ ਕੰਮ/.test(question.stem), false, `${entry.qlId}:${language}: duplicated task construction`);
       assert.equal(/समतुल्य [^।\n]+ के बराबर|ਬਰਾਬਰ [^।\n]+ ਦੇ ਬਰਾਬਰ/.test(question.explanation.conclusion), false, `${entry.qlId}:${language}: redundant equivalent conclusion`);
+      assert.equal(/के मिश्रित समूह|ਦੇ ਮਿਲੇ-ਜੁਲੇ ਸਮੂਹ|का मूल समूह|ਦਾ ਮੂਲ ਸਮੂਹ/.test(question.stem), false, `${entry.qlId}:${language}: possessive group construction`);
+      assert.equal(/केवल [^।?]+ (?:प्रिंटर|मशीन|लाइन|स्टेशन) से बदलना|ਸਿਰਫ਼ [^।?]+ (?:ਪ੍ਰਿੰਟਰ|ਮਸ਼ੀਨ|ਲਾਈਨ|ਸਟੇਸ਼ਨ) ਨਾਲ ਬਦਲਣਾ/.test(question.stem), false, `${entry.qlId}:${language}: singular replacement wording`);
 
       if (entry.answerType === "COUNT") {
         const answer = escapeRegExp(question.solution.answerText);
         assert.equal(new RegExp(`${answer} (?:है(?!ं)|ਹੈ)`).test(prose), false, `${entry.qlId}:${language}: count-answer copula`);
       }
       if (entry.solveMode === "findMixedCrewCompletionTime") {
-        assert.match(question.stem, language === "hi" ? /कुल लक्ष्य:.*समूह को पूरा काम/ : /ਕੁੱਲ ਟੀਚਾ:.*ਸਮੂਹ ਨੂੰ ਪੂਰਾ ਕੰਮ/);
+        assert.match(question.stem, language === "hi" ? /^मिश्रित समूह में.*कुल लक्ष्य:.*समूह को पूरा काम/ : /^ਮਿਲੇ-ਜੁਲੇ ਸਮੂਹ ਵਿੱਚ.*ਕੁੱਲ ਟੀਚਾ:.*ਸਮੂਹ ਨੂੰ ਪੂਰਾ ਕੰਮ/);
+      }
+      if (entry.solveMode === "findEquivalentCategoryCount") {
+        assert.match(question.stem, language === "hi" ? /के बराबर क्षमता केवल.*से प्राप्त करनी है/ : /ਦੇ ਬਰਾਬਰ ਸਮਰੱਥਾ ਸਿਰਫ਼.*ਨਾਲ ਪ੍ਰਾਪਤ ਕਰਨੀ ਹੈ/);
       }
       if (entry.solveMode === "findCrewCompositionFromTwoOutputFacts") {
         const givens = question.explanation.givens.join(" ");
         assert.match(givens, language === "hi" ? /पहला तथ्य: पहली टीम.*को.*(?:दिनों|घंटों) में पूरा करती है/ : /ਪਹਿਲਾ ਤੱਥ: ਪਹਿਲੀ ਟੀਮ.*ਨੂੰ.*(?:ਦਿਨਾਂ|ਘੰਟਿਆਂ) ਵਿੱਚ ਪੂਰਾ ਕਰਦੀ ਹੈ/);
         assert.match(givens, language === "hi" ? /दूसरा तथ्य: पहली श्रेणी की संख्या दोगुनी.*को.*(?:दिनों|घंटों) में पूरा करती है/ : /ਦੂਜਾ ਤੱਥ: ਪਹਿਲੀ ਸ਼੍ਰੇਣੀ ਦੀ ਗਿਣਤੀ ਦੁੱਗਣੀ.*ਨੂੰ.*(?:ਦਿਨਾਂ|ਘੰਟਿਆਂ) ਵਿੱਚ ਪੂਰਾ ਕਰਦੀ ਹੈ/);
+      }
+      if (entry.solveMode === "findCompletionAfterCategoryReplacement") {
+        assert.match(question.stem, language === "hi" ? /^मूल समूह में.*अब समूह बदलकर/ : /^ਮੂਲ ਸਮੂਹ ਵਿੱਚ.*ਹੁਣ ਸਮੂਹ ਬਦਲ ਕੇ/);
       }
       if (entry.solveMode === "findEquivalentStandardResourceTime") {
         assert.match(question.explanation.conclusion, language === "hi" ? /^अतः संयुक्त योगदान:/ : /^ਇਸ ਲਈ ਸਾਂਝਾ ਯੋਗਦਾਨ:/);
