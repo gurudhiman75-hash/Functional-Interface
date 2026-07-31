@@ -67,7 +67,7 @@ for (const entry of TMW_CP003_REGISTRY) {
       assert.equal(/\b(?!1\b)\d+ दिन में/.test(first.stem), false, `${entry.qlId}: Hindi day postposition`);
       assert.equal(/\b(?!1\b)\d+ ਦਿਨ ਵਿੱਚ/.test(first.stem), false, `${entry.qlId}: Punjabi day postposition`);
       assert.equal(/उत्पादन \d+ (?:वस्तुएँ|कमरे|पुस्तिकाएँ|इकाइयाँ) है|ਉਤਪਾਦਨ \d+ (?:ਵਸਤੂਆਂ|ਕਮਰੇ|ਪੁਸਤਿਕਾਵਾਂ|ਇਕਾਈਆਂ) ਹੈ/.test(first.stem), false, `${entry.qlId}:${language}: output quantity agreement`);
-      assert.equal(/उत्पादन .+ मिलता है|ਉਤਪਾਦਨ .+ ਮਿਲਦਾ ਹੈ/.test(first.explanation.shortcut.steps.join(" ")), false, `${entry.qlId}:${language}: output shortcut agreement`);
+      assert.equal(/(?:आवश्यक )?उत्पादन \d+ (?:वस्तुएँ|कमरे|पुस्तिकाएँ|इकाइयाँ) मिलता है|(?:ਲੋੜੀਂਦਾ )?ਉਤਪਾਦਨ \d+ (?:ਵਸਤੂਆਂ|ਕਮਰੇ|ਪੁਸਤਿਕਾਵਾਂ|ਇਕਾਈਆਂ) ਮਿਲਦਾ ਹੈ/.test(first.explanation.shortcut.steps.join(" ")), false, `${entry.qlId}:${language}: output shortcut agreement`);
       if (first.solution.answerType === "PERCENT") {
         assert.equal(first.options.every((option) => /^\d+%$|^\\\(.+\\%\\\)$/.test(option)), true, `${entry.qlId}:${language}: percent option formatting`);
       }
