@@ -54,6 +54,18 @@ for (const entry of TMW_CP003_REGISTRY) {
       ].join("\n");
       assert.equal(/undefined|null|NaN|Infinity|find[A-Z]|TMW_|Do not|Don't/i.test(learnerText), false);
       assert.equal(/\b(?:operator|technician|clerk|machine|crew|packer|inspector|typist|painter|worker|surveyor|assembler|efficiency ratio|completion time|reference output)\b/i.test(learnerText), false, `${entry.qlId}:${language}: English leakage`);
+      assert.equal(/आउटपुट/.test(learnerText), false, `${entry.qlId}: transliterated output wording`);
+      assert.equal(/\b\d+\s+\d+\/\d+%/.test(learnerText), false, `${entry.qlId}: raw mixed percentage`);
+      assert.equal(/(?:वस्तुएँ|पुस्तिकाएँ|इकाइयाँ) पूरा करता|(?:ਵਸਤੂਆਂ|ਪੁਸਤਿਕਾਵਾਂ|ਇਕਾਈਆਂ|ਅਰਜ਼ੀਆਂ) ਪੂਰੇ ਕਰਦਾ/.test(first.stem), false, `${entry.qlId}:${language}: output agreement`);
+      assert.equal(/A .+ और .+ B .+ काम करता है|A .+ ਅਤੇ .+ B .+ ਕੰਮ ਕਰਦਾ ਹੈ/.test(first.stem), false, `${entry.qlId}:${language}: plural-subject agreement`);
+      assert.equal(/मशीन A.+समय लेता है|ਮਸ਼ੀਨ A.+ਸਮਾਂ ਲੈਂਦਾ ਹੈ/.test(first.explanation.conclusion), false, `${entry.qlId}:${language}: machine time agreement`);
+      if (first.solution.answerType === "PERCENT") {
+        assert.equal(first.options.every((option) => /^\d+%$|^\\\(.+\\%\\\)$/.test(option)), true, `${entry.qlId}:${language}: percent option formatting`);
+      }
+      if (entry.solveMode === "findSuccessiveEfficiencyRatioAcrossThreeAgents") {
+        assert.equal(/अनुपात जोड़ें|ਅਨੁਪਾਤ ਜੋੜੋ/.test(first.explanation.shortcut.title), false);
+        assert.match(first.explanation.opening, language === "hi" ? /बीच वाले सदस्य|श्रृंखला/ : /ਵਿਚਕਾਰਲੇ ਮੈਂਬਰ|ਲੜੀ/);
+      }
       assert.equal(language === "hi" ? /[\u0900-\u097F]/.test(learnerText) : /[\u0A00-\u0A7F]/.test(learnerText), true);
       counts[language] += 1;
       stems[language].add(first.stem);
