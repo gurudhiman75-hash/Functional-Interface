@@ -43,6 +43,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/prototype.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/prototype.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/quality.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/quality.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cluster-pair.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cluster-pair.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/presentation.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/presentation.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp007-english-runtime.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp007-english-runtime.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-review.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-cluster-pair-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-cluster-pair-review.mjs"
@@ -61,9 +62,11 @@ jobs:
           QUALITY_STATUS=$?
           (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp007/cluster-pair.test.mjs") >"$DIAG/cluster-pair-audit.log" 2>&1
           CLUSTER_PAIR_STATUS=$?
+          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp007/presentation.test.mjs") >"$DIAG/presentation-audit.log" 2>&1
+          PRESENTATION_STATUS=$?
           (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp007/cp007-english-runtime.test.mjs") >"$DIAG/permanent-english-runtime-audit.log" 2>&1
           PERMANENT_STATUS=$?
-          if [ "$PROTOTYPE_STATUS" -ne 0 ] || [ "$QUALITY_STATUS" -ne 0 ] || [ "$CLUSTER_PAIR_STATUS" -ne 0 ] || [ "$PERMANENT_STATUS" -ne 0 ]; then
+          if [ "$PROTOTYPE_STATUS" -ne 0 ] || [ "$QUALITY_STATUS" -ne 0 ] || [ "$CLUSTER_PAIR_STATUS" -ne 0 ] || [ "$PRESENTATION_STATUS" -ne 0 ] || [ "$PERMANENT_STATUS" -ne 0 ]; then
             STATUS=1
           else
             STATUS=0
@@ -85,6 +88,7 @@ jobs:
           cat artifacts/api-server/dist/reasoning-v1/cls-001/cp007/diagnostics/prototype-audit.log
           cat artifacts/api-server/dist/reasoning-v1/cls-001/cp007/diagnostics/quality-audit.log
           cat artifacts/api-server/dist/reasoning-v1/cls-001/cp007/diagnostics/cluster-pair-audit.log
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp007/diagnostics/presentation-audit.log
           cat artifacts/api-server/dist/reasoning-v1/cls-001/cp007/diagnostics/permanent-english-runtime-audit.log
           exit 1
 
