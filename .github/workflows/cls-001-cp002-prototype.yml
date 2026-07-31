@@ -1,0 +1,107 @@
+name: Validate CLS-001 CP-002 Semantic Pair Freeze
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-002/**
+      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/README.md
+      - .github/workflows/cls-001-cp002-prototype.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate-semantic-pair-classification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle CLS-CP-002 audits
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-002
+          OUT=dist/reasoning-v1/cls-001/cp002
+          mkdir -p artifacts/api-server/$OUT
+          for TEST in prototype cp002-permanent-runtime cp002-multilingual-runtime; do
+            pnpm --dir artifacts/api-server exec esbuild "$ROOT/$TEST.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/$TEST.test.mjs"
+          done
+
+      - name: Run CLS-CP-002 audits
+        id: cp002_audit
+        run: |
+          set +e
+          OUT=artifacts/api-server/dist/reasoning-v1/cls-001/cp002
+          DIAG=$OUT/diagnostics
+          mkdir -p "$DIAG"
+          STATUS=0
+          for TEST in prototype cp002-permanent-runtime cp002-multilingual-runtime; do
+            (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp002/$TEST.test.mjs") >"$DIAG/$TEST-audit.log" 2>&1
+            if [ $? -ne 0 ]; then STATUS=1; fi
+          done
+          echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload CLS-CP-002 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp002-audit-diagnostics
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp002/diagnostics
+          if-no-files-found: error
+
+      - name: Enforce CLS-CP-002 audits
+        if: steps.cp002_audit.outputs.exit_code != '0'
+        run: |
+          for LOG in artifacts/api-server/dist/reasoning-v1/cls-001/cp002/diagnostics/*.log; do
+            echo "===== $LOG ====="
+            cat "$LOG"
+          done
+          exit 1
+
+      - name: Generate CLS-CP-002 discovery review
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-002
+          OUT=dist/reasoning-v1/cls-001/cp002
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-review.mjs"
+          (cd artifacts/api-server && node "$OUT/export-review.mjs")
+
+      - name: Generate CLS-CP-002 frozen multilingual review
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-002
+          OUT=dist/reasoning-v1/cls-001/cp002
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-cp002-permanent-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-cp002-permanent-review.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-cp002-fact-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-cp002-fact-review.mjs"
+          (cd artifacts/api-server && node "$OUT/export-cp002-permanent-review.mjs")
+          (cd artifacts/api-server && node "$OUT/export-cp002-fact-review.mjs")
+
+      - name: Upload CLS-CP-002 discovery review
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp002-semantic-pair-discovery-review
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp002-review
+          if-no-files-found: error
+
+      - name: Upload CLS-CP-002 frozen multilingual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp002-frozen-multilingual-review
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp002-permanent-review
+          if-no-files-found: error
