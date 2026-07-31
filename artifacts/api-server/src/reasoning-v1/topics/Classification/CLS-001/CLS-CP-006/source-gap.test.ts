@@ -99,6 +99,34 @@ for (const item of CLS_CP006_PAIR_DOMAIN) {
   );
 }
 
+const ambiguousPrintedParityState = {
+  options: ["W", "N", "P", "B"],
+  ruleId: "LETTER_POSITION_PARITY" as const,
+  answerIndex: 0,
+};
+const ambiguousPrintedParityAudit = auditClsCp006Items(
+  ambiguousPrintedParityState.options.map(clsCp006ParseOption),
+  ambiguousPrintedParityState.ruleId,
+  ambiguousPrintedParityState.answerIndex,
+);
+assert.equal(ambiguousPrintedParityAudit.result, "AMBIGUOUS");
+assert.equal(ambiguousPrintedParityAudit.answerIndex, null);
+assert.equal(ambiguousPrintedParityAudit.intendedRuleSupported, true);
+assert.deepEqual(
+  [...new Set(ambiguousPrintedParityAudit.candidateSupports.map((support) => support.answerIndex))].sort(),
+  [0, 3],
+);
+assert.ok(
+  ambiguousPrintedParityAudit.candidateSupports.some(
+    (support) => support.ruleId === "LETTER_POSITION_PARITY" && support.answerIndex === 0,
+  ),
+);
+assert.ok(
+  ambiguousPrintedParityAudit.candidateSupports.some(
+    (support) => support.ruleId === "LETTER_ALPHABET_HALF" && support.answerIndex === 3,
+  ),
+);
+
 const sourceExemplars = [
   {
     options: ["A", "E", "O", "V"],
@@ -106,7 +134,7 @@ const sourceExemplars = [
     answerIndex: 3,
   },
   {
-    options: ["W", "N", "P", "B"],
+    options: ["W", "N", "P", "R"],
     ruleId: "LETTER_POSITION_PARITY" as const,
     answerIndex: 0,
   },
@@ -200,7 +228,9 @@ for (const letter of CLS_CP006_ALPHABET) {
 }
 
 console.log("CLS-CP-006 initial source-gap and compression audit passed.", {
-  sourceExemplars: sourceExemplars.length,
+  acceptedSourceExemplars: sourceExemplars.length,
+  ambiguousPrintedSourceStatesRejected: 1,
+  controlledSourceRemediations: 1,
   admittedRules: CLS_CP006_RULE_IDS.length,
   equivalentRuleVariantsCompressed: 6,
   deferredCandidateFamilies: deferredRuleIds.length,
