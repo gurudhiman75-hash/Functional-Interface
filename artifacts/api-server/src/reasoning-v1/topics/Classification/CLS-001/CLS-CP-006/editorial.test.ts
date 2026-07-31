@@ -50,6 +50,8 @@ for (const prototype of CLS_CP006_PROTOTYPES) {
       question.explanation.stepByStep.at(-1),
       `Therefore, ${question.answer} is the odd one out.`,
     );
+    if (optionCount === 5) assert.doesNotMatch(question.stem, /\bThree\b/);
+    if (optionCount === 4) assert.doesNotMatch(question.stem, /\bFour\b/);
 
     const matchingEvidence = question.evidenceByOption.filter((line) =>
       line.includes("matches the common rule"),
