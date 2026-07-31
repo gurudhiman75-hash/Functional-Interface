@@ -6,7 +6,10 @@ import {
   buildMalCp002Stem,
   formatMalCp002Answer,
 } from "./cp002-authoring";
-import type { MalCp002GeneratedPrototype } from "./cp002-authoring-types";
+import type {
+  MalCp002Explanation,
+  MalCp002GeneratedPrototype,
+} from "./cp002-authoring-types";
 import {
   MAL_CP002_CONTEXT_LIBRARY,
   type MalCp002Context,
@@ -47,6 +50,17 @@ function normalizeQuestionStem(value: string): string {
   return `${trimmed.replace(/[.!]+$/u, "")}?`;
 }
 
+function normalizeConclusion(
+  explanation: MalCp002Explanation,
+  answer: string,
+): MalCp002Explanation {
+  if (explanation.conclusion.includes(answer)) return explanation;
+  return {
+    ...explanation,
+    conclusion: `${explanation.conclusion} Answer: ${answer}.`,
+  };
+}
+
 function validateAuthoring(
   prototype: Omit<MalCp002GeneratedPrototype, "validation">,
 ): string[] {
@@ -85,6 +99,9 @@ function validateAuthoring(
   }
   if (!prototype.explanation.commonTrap.trim()) {
     errors.push("Common-trap warning is empty.");
+  }
+  if (!prototype.explanation.conclusion.includes(prototype.answer)) {
+    errors.push("Conclusion does not state the canonical answer.");
   }
   if (prototype.reasoningGraph.nodes.length < 5) {
     errors.push("Reasoning graph is incomplete.");
@@ -130,10 +147,9 @@ export function generateMalCp002DiscoveryPrototype(
     context,
     `${prototypeId}:${seed}:options`,
   );
-  const explanation = buildMalCp002Explanation(
-    parameters.request,
-    solution,
-    context,
+  const explanation = normalizeConclusion(
+    buildMalCp002Explanation(parameters.request, solution, context),
+    answer,
   );
   const reasoningGraph = buildMalCp002ReasoningGraph(
     parameters.request,
