@@ -68,7 +68,7 @@ for (const prototype of CLS_CP006_PROTOTYPES) {
       assert.ok(line.startsWith(question.options[index]!));
       assert.ok(line.length >= 45);
       assert.ok(line.length <= 220);
-      assert.doesNotMatch(line, /\b1 positions\b/);
+      assert.doesNotMatch(line, /\b1 (?:positions|places)\b/);
     });
     assert.equal(new Set(question.evidenceByOption).size, optionCount);
 
@@ -118,7 +118,7 @@ for (const prototype of CLS_CP006_PROTOTYPES) {
     ].join("\n");
     assert.ok(!/CLS-|PROT-|LETTER_[A-Z_]+|PAIR_[A-Z_]+/i.test(learnerText));
     assert.ok(!/what is the position|find the position|how many letters|move .* places|rearrange/i.test(question.stem));
-    assert.doesNotMatch(learnerText, /\b1 positions\b/);
+    assert.doesNotMatch(learnerText, /\b1 (?:positions|places)\b/);
 
     const explanationFingerprint = JSON.stringify({
       core: question.explanation.coreConcept,
