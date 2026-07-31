@@ -1,0 +1,135 @@
+import type {
+  TmwCp007GeneratedQuestion,
+  TmwCp007Option,
+  TmwCp007Solution,
+} from "./cp007-types";
+import type {
+  TmwDisplayLocale,
+  TmwLocalizationEditorialStatus,
+  TmwLocalizedLanguage,
+} from "./localization-types";
+import { displayLocale } from "./localization-types";
+import { localizedOptionLabel, localizeMathStep } from "./localization-glossary";
+import { cp007LocalizedAnswerText, parseTmwCp007AnswerKey } from "./localization-cp007-language";
+import { renderTmwCp007LocalizedStem } from "./localization-cp007-stems";
+import {
+  tmwCp007LocalizedConclusion,
+  tmwCp007LocalizedGivens,
+  tmwCp007LocalizedOpening,
+  tmwCp007LocalizedShortcut,
+  tmwCp007LocalizedTrapReason,
+} from "./localization-cp007-learning";
+import { getTmwCp007Entry } from "./cp007-registry";
+
+export interface TmwCp007LocalizedOption extends TmwCp007Option {}
+
+export interface TmwCp007LocalizedQuestion {
+  archetypeId: "TMW-001";
+  canonicalProblemId: "TMW-CP-007";
+  questionLanguageId: string;
+  solveMode: TmwCp007GeneratedQuestion["solveMode"];
+  language: TmwLocalizedLanguage;
+  locale: TmwDisplayLocale;
+  sourceLanguage: "en";
+  seed: string;
+  stem: string;
+  parameters: TmwCp007GeneratedQuestion["parameters"];
+  solution: TmwCp007Solution;
+  options: string[];
+  optionAudit: TmwCp007LocalizedOption[];
+  correctIndex: number;
+  explanation: TmwCp007GeneratedQuestion["explanation"];
+  mathematicalFingerprint: string;
+  validation: { valid: boolean; errors: string[] };
+  editorialStatus: TmwLocalizationEditorialStatus;
+  publiclyPublishable: false;
+}
+
+function inlineMath(latex: string): string {
+  return `\\(${latex}\\)`;
+}
+
+export function localizeTmwCp007Question(
+  source: TmwCp007GeneratedQuestion,
+  language: TmwLocalizedLanguage,
+): TmwCp007LocalizedQuestion {
+  const entry = getTmwCp007Entry(source.questionLanguageId);
+  const optionAudit = source.optionAudit.map((option) => ({
+    ...option,
+    text: cp007LocalizedAnswerText(source, parseTmwCp007AnswerKey(option.key), language),
+  }));
+  const options = optionAudit.map((option) => option.text);
+  const answerText = cp007LocalizedAnswerText(source, source.solution.answerValues, language);
+  const trapId = source.explanation.commonTrap.misconceptionId;
+  let trapIndex = source.optionAudit.findIndex(
+    (option) => option.misconceptionId === trapId && option.text === source.explanation.commonTrap.optionText,
+  );
+  if (trapIndex < 0) trapIndex = source.optionAudit.findIndex((option) => option.misconceptionId === trapId);
+
+  const stem = renderTmwCp007LocalizedStem(source, language);
+  const opening = tmwCp007LocalizedOpening(entry.ruleId, language);
+  const givens = tmwCp007LocalizedGivens(source, language);
+  const shortcut = tmwCp007LocalizedShortcut(source, answerText, language);
+  const trapExplanation = tmwCp007LocalizedTrapReason(trapId, language);
+  const conclusion = tmwCp007LocalizedConclusion(source, answerText, language);
+  const errors = [...source.validation.errors];
+
+  if (trapIndex < 0) errors.push("Localized common trap is not linked to an option");
+  if (options.length !== 4) errors.push("Localized question does not contain exactly four options");
+  if (new Set(options).size !== 4) errors.push("Localized options are not unique");
+  if (optionAudit[source.correctIndex]?.key !== source.solution.answerKey) errors.push("Localized correct option key differs from canonical answer key");
+  if (!stem.trim()) errors.push("Localized stem is empty");
+  if (givens.length < 2) errors.push("Localized givens are incomplete");
+  if (shortcut.steps.length < 2) errors.push("Localized shortcut is incomplete");
+
+  const learnerText = [
+    stem,
+    ...options,
+    opening,
+    ...givens,
+    shortcut.title,
+    ...shortcut.steps,
+    trapExplanation,
+    conclusion,
+  ].join(" ");
+  if (language === "hi" && !/[\u0900-\u097F]/.test(learnerText)) errors.push("Hindi delivery has no Devanagari text");
+  if (language === "pa" && !/[\u0A00-\u0A7F]/.test(learnerText)) errors.push("Punjabi delivery has no Gurmukhi text");
+  if (/find[A-Z]|TMW_|Independent heterogeneous-crew invariant|Don't fall for|Do not/i.test(learnerText)) {
+    errors.push("Localized learner text contains internal or English diagnostic wording");
+  }
+
+  return {
+    archetypeId: source.archetypeId,
+    canonicalProblemId: source.canonicalProblemId,
+    questionLanguageId: source.questionLanguageId,
+    solveMode: source.solveMode,
+    language,
+    locale: displayLocale(language),
+    sourceLanguage: "en",
+    seed: source.seed,
+    stem,
+    parameters: source.parameters,
+    solution: { ...source.solution, answerText },
+    options,
+    optionAudit,
+    correctIndex: source.correctIndex,
+    explanation: {
+      opening,
+      formula: source.explanation.formula,
+      givens,
+      steps: source.solution.workedLatex.map((step) => localizeMathStep(inlineMath(step), language)),
+      shortcut,
+      commonTrap: {
+        optionLabel: localizedOptionLabel(trapIndex, language),
+        optionText: options[trapIndex] ?? options[0] ?? "",
+        misconceptionId: trapId,
+        explanation: trapExplanation,
+      },
+      conclusion,
+    },
+    mathematicalFingerprint: source.mathematicalFingerprint,
+    validation: { valid: errors.length === 0, errors },
+    editorialStatus: "PENDING",
+    publiclyPublishable: false,
+  };
+}
