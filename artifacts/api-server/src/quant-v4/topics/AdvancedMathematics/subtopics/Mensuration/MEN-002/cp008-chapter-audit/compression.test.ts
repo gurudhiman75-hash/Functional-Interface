@@ -20,28 +20,27 @@ assert.deepEqual(audit.duplicateClassifications, []);
 assert.deepEqual(audit.unclassified, []);
 assert.deepEqual(audit.foreignClassifications, []);
 
-assert.equal(MEN_CP_008_SETTLED_MERGE_CANDIDATES.length, 10);
-assert.equal(MEN_CP_008_MERGE_REVIEW_GROUPS.length, 2);
+assert.equal(MEN_CP_008_SETTLED_MERGE_CANDIDATES.length, 12);
+assert.equal(MEN_CP_008_MERGE_REVIEW_GROUPS.length, 0);
 assert.equal(MEN_CP_008_STANDALONE_CANDIDATES.length, 36);
 assert.equal(audit.provisionalMinimumQlFamilies, 48);
-assert.equal(audit.provisionalMaximumQlFamilies, 50);
+assert.equal(audit.provisionalMaximumQlFamilies, 48);
 
 for (const group of MEN_CP_008_SETTLED_MERGE_CANDIDATES) {
   assert.equal(group.decision, "MERGE_CANDIDATE");
   assert.ok(group.members.length >= 2);
   assert.ok(group.canonicalReasoning.length >= 40);
 }
-for (const group of MEN_CP_008_MERGE_REVIEW_GROUPS) {
-  assert.equal(group.decision, "MERGE_REVIEW_REQUIRED");
-  assert.equal(group.members.length, 2);
-  assert.ok(group.canonicalReasoning.length >= 40);
-}
 
 assert.ok(MEN_CP_008_SOURCE_OWNERSHIP_EXCLUSIONS.length >= 6);
-assert.ok(MEN_CP_008_FREEZE_BLOCKERS.length >= 4);
-assert.equal(audit.readyToFreeze, false, "The audit must not freeze QLs while merge review and source recheck remain open.");
+assert.equal(MEN_CP_008_FREEZE_BLOCKERS.length, 3);
+assert.equal(
+  audit.readyToFreeze,
+  false,
+  "The audit must not freeze QLs while source recheck, no-gap review and final registry remain open.",
+);
 
 console.log(
   `MEN-CP-008 chapter compression audit classified ${audit.prototypeCount} temporary contracts exactly once. ` +
-  `Current evidence-derived boundary is ${audit.provisionalMinimumQlFamilies}-${audit.provisionalMaximumQlFamilies} candidate QL families; freeze readiness remains false.`,
+  `Directional merge evidence settles the current boundary at ${audit.provisionalMinimumQlFamilies} candidate QL families; freeze readiness remains false.`,
 );
