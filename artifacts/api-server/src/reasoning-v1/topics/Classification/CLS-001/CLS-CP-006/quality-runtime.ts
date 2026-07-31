@@ -56,8 +56,10 @@ function richerEvidence(
     }
     case "PAIR_SIGNED_POSITION_GAP": {
       const gap = secondPosition - firstPosition;
+      const magnitude = Math.abs(gap);
       const direction = gap >= 0 ? "after" : "before";
-      return `${pair} places the second letter ${Math.abs(gap)} positions ${direction} the first: ${secondPosition} - ${firstPosition} = ${gap}. ${matchSentence(matches, "pair")}`;
+      const positionWord = magnitude === 1 ? "position" : "positions";
+      return `${pair} places the second letter ${magnitude} ${positionWord} ${direction} the first: ${secondPosition} - ${firstPosition} = ${gap}. ${matchSentence(matches, "pair")}`;
     }
     case "PAIR_POSITION_SUM": {
       const total = firstPosition + secondPosition;
@@ -92,6 +94,9 @@ export function auditClsCp006PresentationQuality(
     }
     if (!/matches the common rule|does not match the common rule/.test(evidence)) {
       reasons.push(`Evidence ${index + 1} does not state its match result.`);
+    }
+    if (/\b1 positions\b/.test(evidence)) {
+      reasons.push(`Evidence ${index + 1} uses incorrect singular/plural wording.`);
     }
     if (question.optionKind === "LETTER_PAIR" && question.intendedRuleId !== "PAIR_VOWEL_CONSONANT_COMPOSITION") {
       if (!/\d/.test(evidence) || !evidence.includes("=")) {
