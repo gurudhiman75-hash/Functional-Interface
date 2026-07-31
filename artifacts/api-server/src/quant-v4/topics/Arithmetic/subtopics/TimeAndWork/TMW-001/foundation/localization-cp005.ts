@@ -43,6 +43,17 @@ function polishTimeConclusion(
     : `ਇਸ ਲਈ ਕੰਮ ਪੂਰਾ ਹੋਣ ਦਾ ਕੁੱਲ ਸਮਾਂ ${answerText} ਹੈ।`;
 }
 
+function polishModeSpecificTrap(
+  source: TmwCp005GeneratedQuestion,
+  explanation: string,
+  language: TmwLocalizedLanguage,
+): string {
+  if (source.solveMode !== "findTimeFromArbitraryCyclePhase") return explanation;
+  return language === "hi"
+    ? "यह विकल्प प्रश्न में दी गई शुरुआती बारी को छोड़कर सामान्य पहली बारी से चक्र चलाता है, इसलिए अंतिम चक्र की गणना गलत हो जाती है।"
+    : "ਇਹ ਚੋਣ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤੀ ਸ਼ੁਰੂਆਤੀ ਵਾਰੀ ਨੂੰ ਛੱਡ ਕੇ ਆਮ ਪਹਿਲੀ ਵਾਰੀ ਤੋਂ ਚੱਕਰ ਚਲਾਉਂਦੀ ਹੈ, ਇਸ ਲਈ ਆਖ਼ਰੀ ਚੱਕਰ ਦੀ ਗਿਣਤੀ ਗਲਤ ਹੋ ਜਾਂਦੀ ਹੈ।";
+}
+
 export function localizeTmwCp005Question(
   source: TmwCp005GeneratedQuestion,
   language: TmwLocalizedLanguage,
@@ -62,7 +73,10 @@ export function localizeTmwCp005Question(
 
   const stem = inflectTimePostpositions(renderTmwCp005LocalizedStem(source, language), language);
   const opening = inflectTimePostpositions(tmwCp005LocalizedOpening(entry.ruleId, language), language);
-  const trapExplanation = inflectTimePostpositions(tmwCp005LocalizedTrapReason(trapId, language), language);
+  const trapExplanation = inflectTimePostpositions(
+    polishModeSpecificTrap(source, tmwCp005LocalizedTrapReason(trapId, language), language),
+    language,
+  );
   const rawShortcut = tmwCp005LocalizedShortcut(source.solveMode, answerText, language);
   const shortcut = {
     title: inflectTimePostpositions(rawShortcut.title, language),
