@@ -4,6 +4,11 @@ import { runTmwCp003Pipeline } from "./foundation/cp003-runtime";
 import type { TmwLocalizedLanguage } from "./foundation/localization-types";
 
 const languages: readonly TmwLocalizedLanguage[] = ["hi", "pa"];
+const outputModes = new Set([
+  "findOutputFromEfficiencyRatioAndReferenceOutput",
+  "findReferenceOutputFromEfficiencyRatioAndOtherOutput",
+  "findComparativeOutputFromDifferentEfficienciesAndDurations",
+]);
 let checked = 0;
 
 for (const entry of TMW_CP003_REGISTRY) {
@@ -26,6 +31,8 @@ for (const entry of TMW_CP003_REGISTRY) {
     assert.equal(/(?:का काम|का ऑर्डर|की पेंटिंग) (?:को|के लिए|में)|(?:ਦਾ ਕੰਮ|ਦਾ ਆਰਡਰ) (?:ਨੂੰ|ਲਈ|ਵਿੱਚ)/.test(question.stem), false, `${entry.qlId}:${language}: duplicated case marker`);
     assert.equal(/आउटपुट/.test(prose), false, `${entry.qlId}: transliterated output wording`);
     assert.equal(/\b\d+\s+\d+\/\d+%/.test([prose, ...question.options].join("\n")), false, `${entry.qlId}: raw mixed percentage`);
+    assert.equal(/\b(?!1\b)\d+ दिन में|\b(?!1\b)\d+ ਦਿਨ ਵਿੱਚ/.test(question.stem), false, `${entry.qlId}:${language}: day postposition`);
+    assert.equal(/उत्पादन \d+ (?:वस्तुएँ|कमरे|पुस्तिकाएँ|इकाइयाँ) है|ਉਤਪਾਦਨ \d+ (?:ਵਸਤੂਆਂ|ਕਮਰੇ|ਪੁਸਤਿਕਾਵਾਂ|ਇਕਾਈਆਂ) ਹੈ/.test(question.stem), false, `${entry.qlId}:${language}: output quantity agreement`);
     assert.equal(question.options.includes(question.explanation.commonTrap.optionText), true);
     assert.equal(question.explanation.commonTrap.optionLabel.startsWith(language === "hi" ? "विकल्प" : "ਚੋਣ"), true);
     assert.equal(question.publiclyPublishable, false);
@@ -57,15 +64,17 @@ for (const entry of TMW_CP003_REGISTRY) {
       assert.match(question.explanation.opening, language === "hi" ? /प्रतिशत|गुणक/ : /ਪ੍ਰਤੀਸ਼ਤ|ਗੁਣਕ/);
     }
     if (entry.solveMode === "findSuccessiveEfficiencyRatioAcrossThreeAgents") {
-      assert.match(question.explanation.opening, language === "hi" ? /बीच वाले सदस्य|श्रृंखला/ : /ਵਿਚਕਾਰਲੇ ਮੈਂਬਰ|ਲੜੀ/);
-      assert.equal(/अनुपात जोड़ें|ਅਨੁਪਾਤ ਜੋੜੋ/.test(question.explanation.shortcut.title), false);
+      assert.match(question.explanation.opening, language === "hi" ? /दोनों अनुपात मिलाएँ/ : /ਦੋਵੇਂ ਅਨੁਪਾਤ ਮਿਲਾਓ/);
+      assert.match(question.explanation.shortcut.steps.join(" "), language === "hi" ? /दोनों अनुपात मिलाने/ : /ਦੋਵੇਂ ਅਨੁਪਾਤ ਮਿਲਾਉਣ/);
+      assert.equal(/अनुपात जोड़ें|श्रृंखला जोड़|ਅਨੁਪਾਤ ਜੋੜੋ|ਲੜੀ ਜੋੜ/.test(prose), false);
     }
     if (entry.solveMode === "findSuccessiveEfficiencyPercentComparison") {
       assert.match(question.explanation.opening, language === "hi" ? /गुणा|सीधे जोड़ना सही नहीं/ : /ਗੁਣਾ|ਸਿੱਧਾ ਜੋੜਨਾ ਸਹੀ ਨਹੀਂ/);
     }
-    if (["findOutputFromEfficiencyRatioAndReferenceOutput", "findReferenceOutputFromEfficiencyRatioAndOtherOutput", "findComparativeOutputFromDifferentEfficienciesAndDurations"].includes(entry.solveMode)) {
-      assert.match(question.explanation.conclusion, language === "hi" ? /उत्पादन की मात्रा/ : /ਉਤਪਾਦਨ ਦੀ ਮਾਤਰਾ/);
-      assert.match(question.explanation.shortcut.steps.join(" "), language === "hi" ? /उत्पादन/ : /ਉਤਪਾਦਨ/);
+    if (outputModes.has(entry.solveMode)) {
+      assert.match(question.stem, language === "hi" ? /के बराबर/ : /ਦੇ ਬਰਾਬਰ/);
+      assert.match(question.explanation.conclusion, language === "hi" ? /के बराबर/ : /ਦੇ ਬਰਾਬਰ/);
+      assert.match(question.explanation.shortcut.steps.join(" "), language === "hi" ? /के बराबर/ : /ਦੇ ਬਰਾਬਰ/);
     }
     if (["findTimePercentLessFromEfficiencyPercentMore", "findTimePercentMoreFromEfficiencyPercentLess"].includes(entry.solveMode)) {
       assert.match(question.explanation.conclusion, language === "hi" ? /समय लगेगा/ : /ਸਮਾਂ ਲੱਗੇਗਾ/);
