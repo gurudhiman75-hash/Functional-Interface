@@ -12,7 +12,11 @@ import { displayLocale } from "./localization-types";
 import { localizedOptionLabel, localizeMathStep } from "./localization-glossary";
 import { cp007LocalizedAnswerText, parseTmwCp007AnswerKey } from "./localization-cp007-language";
 import { renderTmwCp007LocalizedStem } from "./localization-cp007-stems";
-import { polishTmwCp007LocalizedText } from "./localization-cp007-polish";
+import {
+  polishTmwCp007ManualConclusion,
+  polishTmwCp007ManualGivens,
+  polishTmwCp007ManualText,
+} from "./localization-cp007-manual-polish";
 import {
   tmwCp007LocalizedConclusion,
   tmwCp007LocalizedGivens,
@@ -55,7 +59,7 @@ export function localizeTmwCp007Question(
   language: TmwLocalizedLanguage,
 ): TmwCp007LocalizedQuestion {
   const entry = getTmwCp007Entry(source.questionLanguageId);
-  const polish = (text: string): string => polishTmwCp007LocalizedText(text, language);
+  const polish = (text: string): string => polishTmwCp007ManualText(text, language);
   const optionAudit = source.optionAudit.map((option) => ({
     ...option,
     text: polish(cp007LocalizedAnswerText(source, parseTmwCp007AnswerKey(option.key), language)),
@@ -70,14 +74,23 @@ export function localizeTmwCp007Question(
 
   const stem = polish(renderTmwCp007LocalizedStem(source, language));
   const opening = polish(tmwCp007LocalizedOpening(entry.ruleId, language));
-  const givens = tmwCp007LocalizedGivens(source, language).map(polish);
+  const givens = polishTmwCp007ManualGivens(
+    source,
+    tmwCp007LocalizedGivens(source, language),
+    language,
+  );
   const rawShortcut = tmwCp007LocalizedShortcut(source, answerText, language);
   const shortcut = {
     title: polish(rawShortcut.title),
     steps: rawShortcut.steps.map(polish),
   };
   const trapExplanation = polish(tmwCp007LocalizedTrapReason(trapId, language));
-  const conclusion = polish(tmwCp007LocalizedConclusion(source, answerText, language));
+  const conclusion = polishTmwCp007ManualConclusion(
+    source,
+    answerText,
+    tmwCp007LocalizedConclusion(source, answerText, language),
+    language,
+  );
   const errors = [...source.validation.errors];
 
   if (trapIndex < 0) errors.push("Localized common trap is not linked to an option");
