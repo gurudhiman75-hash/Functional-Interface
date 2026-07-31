@@ -6,6 +6,11 @@ import type { TmwLocalizedLanguage } from "./foundation/localization-types";
 const languages: readonly TmwLocalizedLanguage[] = ["hi", "pa"];
 const counts: Record<TmwLocalizedLanguage, number> = { hi: 0, pa: 0 };
 const stems: Record<TmwLocalizedLanguage, Set<string>> = { hi: new Set(), pa: new Set() };
+const outputModes = new Set([
+  "findOutputFromEfficiencyRatioAndReferenceOutput",
+  "findReferenceOutputFromEfficiencyRatioAndOtherOutput",
+  "findComparativeOutputFromDifferentEfficienciesAndDurations",
+]);
 
 for (const entry of TMW_CP003_REGISTRY) {
   for (let index = 0; index < 20; index += 1) {
@@ -59,12 +64,22 @@ for (const entry of TMW_CP003_REGISTRY) {
       assert.equal(/(?:वस्तुएँ|पुस्तिकाएँ|इकाइयाँ) पूरा करता|(?:ਵਸਤੂਆਂ|ਪੁਸਤਿਕਾਵਾਂ|ਇਕਾਈਆਂ|ਅਰਜ਼ੀਆਂ) ਪੂਰੇ ਕਰਦਾ/.test(first.stem), false, `${entry.qlId}:${language}: output agreement`);
       assert.equal(/A .+ और .+ B .+ काम करता है|A .+ ਅਤੇ .+ B .+ ਕੰਮ ਕਰਦਾ ਹੈ/.test(first.stem), false, `${entry.qlId}:${language}: plural-subject agreement`);
       assert.equal(/मशीन A.+समय लेता है|ਮਸ਼ੀਨ A.+ਸਮਾਂ ਲੈਂਦਾ ਹੈ/.test(first.explanation.conclusion), false, `${entry.qlId}:${language}: machine time agreement`);
+      assert.equal(/\b(?!1\b)\d+ दिन में/.test(first.stem), false, `${entry.qlId}: Hindi day postposition`);
+      assert.equal(/\b(?!1\b)\d+ ਦਿਨ ਵਿੱਚ/.test(first.stem), false, `${entry.qlId}: Punjabi day postposition`);
+      assert.equal(/उत्पादन \d+ (?:वस्तुएँ|कमरे|पुस्तिकाएँ|इकाइयाँ) है|ਉਤਪਾਦਨ \d+ (?:ਵਸਤੂਆਂ|ਕਮਰੇ|ਪੁਸਤਿਕਾਵਾਂ|ਇਕਾਈਆਂ) ਹੈ/.test(first.stem), false, `${entry.qlId}:${language}: output quantity agreement`);
+      assert.equal(/उत्पादन .+ मिलता है|ਉਤਪਾਦਨ .+ ਮਿਲਦਾ ਹੈ/.test(first.explanation.shortcut.steps.join(" ")), false, `${entry.qlId}:${language}: output shortcut agreement`);
       if (first.solution.answerType === "PERCENT") {
         assert.equal(first.options.every((option) => /^\d+%$|^\\\(.+\\%\\\)$/.test(option)), true, `${entry.qlId}:${language}: percent option formatting`);
       }
+      if (outputModes.has(entry.solveMode)) {
+        assert.match(first.stem, language === "hi" ? /के बराबर/ : /ਦੇ ਬਰਾਬਰ/);
+        assert.match(first.explanation.shortcut.steps.join(" "), language === "hi" ? /के बराबर/ : /ਦੇ ਬਰਾਬਰ/);
+        assert.match(first.explanation.conclusion, language === "hi" ? /के बराबर/ : /ਦੇ ਬਰਾਬਰ/);
+      }
       if (entry.solveMode === "findSuccessiveEfficiencyRatioAcrossThreeAgents") {
-        assert.equal(/अनुपात जोड़ें|ਅਨੁਪਾਤ ਜੋੜੋ/.test(first.explanation.shortcut.title), false);
-        assert.match(first.explanation.opening, language === "hi" ? /बीच वाले सदस्य|श्रृंखला/ : /ਵਿਚਕਾਰਲੇ ਮੈਂਬਰ|ਲੜੀ/);
+        assert.equal(/अनुपात जोड़ें|श्रृंखला जोड़|ਅਨੁਪਾਤ ਜੋੜੋ|ਲੜੀ ਜੋੜ/.test([first.explanation.opening, ...first.explanation.shortcut.steps].join(" ")), false);
+        assert.match(first.explanation.opening, language === "hi" ? /दोनों अनुपात मिलाएँ/ : /ਦੋਵੇਂ ਅਨੁਪਾਤ ਮਿਲਾਓ/);
+        assert.match(first.explanation.shortcut.steps.join(" "), language === "hi" ? /दोनों अनुपात मिलाने/ : /ਦੋਵੇਂ ਅਨੁਪਾਤ ਮਿਲਾਉਣ/);
       }
       assert.equal(language === "hi" ? /[\u0900-\u097F]/.test(learnerText) : /[\u0A00-\u0A7F]/.test(learnerText), true);
       counts[language] += 1;
