@@ -12,6 +12,7 @@ import {
 } from "./localization-cp004-learning";
 import { polishTmwCp004LocalizedQuestion } from "./localization-cp004-polish";
 import { finalizeTmwCp004LocalizedQuestion } from "./localization-cp004-final-cleanup";
+import { inflectTmwCp004LocalizedQuestion } from "./localization-cp004-inflection";
 
 export function localizeTmwCp004Question(
   source: TmwCp004GeneratedQuestion,
@@ -80,5 +81,6 @@ export function localizeTmwCp004Question(
   };
 
   const polished = polishTmwCp004LocalizedQuestion(localized, source, language);
-  return finalizeTmwCp004LocalizedQuestion(polished, source, language);
+  const finalized = finalizeTmwCp004LocalizedQuestion(polished, source, language);
+  return inflectTmwCp004LocalizedQuestion(finalized, source, language);
 }
