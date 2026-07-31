@@ -2,6 +2,7 @@ import type { TmwCp007GeneratedQuestion } from "./cp007-types";
 import type { TmwLocalizedLanguage } from "./localization-types";
 import {
   cp007Copy,
+  cp007Count,
   cp007Group,
   cp007IsHourly,
   cp007Number,
@@ -34,19 +35,39 @@ export function finalizeTmwCp007Stem(
   stem: string,
   language: TmwLocalizedLanguage,
 ): string {
-  if (source.solveMode !== "findMixedCrewCompletionTime") {
-    return finalizeTmwCp007Text(stem, language);
-  }
-
   const p = source.parameters;
   const job = cp007Copy(p.context.jobPhrase, language);
-  const output = cp007Copy(p.context.outputUnit, language);
-  const rates = p.context.categories.map((category) => cp007Number(category.efficiency)).join(", ");
-  const unit = rateUnit(language, cp007IsHourly(p));
-  if (language === "hi") {
-    return `${cp007Group(p, p.crewA, language)} के मिश्रित समूह को ${job} पूरा करना है। कुल लक्ष्य: ${cp007Number(p.workA)} ${output}। तीनों श्रेणियों की व्यक्तिगत दरें क्रमशः ${rates} ${output} ${unit} हैं। समूह को पूरा काम करने में कितना समय लगेगा?`;
+
+  if (source.solveMode === "findMixedCrewCompletionTime") {
+    const output = cp007Copy(p.context.outputUnit, language);
+    const rates = p.context.categories.map((category) => cp007Number(category.efficiency)).join(", ");
+    const unit = rateUnit(language, cp007IsHourly(p));
+    if (language === "hi") {
+      return `मिश्रित समूह में ${cp007Group(p, p.crewA, language)} हैं। उसे ${job} पूरा करना है। कुल लक्ष्य: ${cp007Number(p.workA)} ${output}। तीनों श्रेणियों की व्यक्तिगत दरें क्रमशः ${rates} ${output} ${unit} हैं। समूह को पूरा काम करने में कितना समय लगेगा?`;
+    }
+    return `ਮਿਲੇ-ਜੁਲੇ ਸਮੂਹ ਵਿੱਚ ${cp007Group(p, p.crewA, language)} ਹਨ। ਇਸ ਨੇ ${job} ਪੂਰਾ ਕਰਨਾ ਹੈ। ਕੁੱਲ ਟੀਚਾ: ${cp007Number(p.workA)} ${output}। ਤਿੰਨਾਂ ਸ਼੍ਰੇਣੀਆਂ ਦੀ ਵਿਅਕਤੀਗਤ ਦਰ ਕ੍ਰਮਵਾਰ ${rates} ${output} ${unit} ਹੈ। ਸਮੂਹ ਨੂੰ ਪੂਰਾ ਕੰਮ ਕਰਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
   }
-  return `${cp007Group(p, p.crewA, language)} ਦੇ ਮਿਲੇ-ਜੁਲੇ ਸਮੂਹ ਨੂੰ ${job} ਪੂਰਾ ਕਰਨਾ ਹੈ। ਕੁੱਲ ਟੀਚਾ: ${cp007Number(p.workA)} ${output}। ਤਿੰਨਾਂ ਸ਼੍ਰੇਣੀਆਂ ਦੀ ਵਿਅਕਤੀਗਤ ਦਰ ਕ੍ਰਮਵਾਰ ${rates} ${output} ${unit} ਹੈ। ਸਮੂਹ ਨੂੰ ਪੂਰਾ ਕੰਮ ਕਰਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
+
+  if (source.solveMode === "findEquivalentCategoryCount") {
+    const sourceIndex = p.sourceCategoryIndex ?? 0;
+    const targetIndex = p.targetCategoryIndex ?? 0;
+    const sourceCount = cp007Count(p, sourceIndex, p.crewA[sourceIndex], language);
+    const targetPlural = cp007Copy(p.context.categories[targetIndex].plural, language);
+    if (language === "hi") {
+      return `${sourceCount} की कुल क्षमता के बराबर क्षमता केवल ${targetPlural} से प्राप्त करनी है। इसके लिए कितने ${targetPlural} चाहिए?`;
+    }
+    return `${sourceCount} ਦੀ ਕੁੱਲ ਸਮਰੱਥਾ ਦੇ ਬਰਾਬਰ ਸਮਰੱਥਾ ਸਿਰਫ਼ ${targetPlural} ਨਾਲ ਪ੍ਰਾਪਤ ਕਰਨੀ ਹੈ। ਇਸ ਲਈ ਕਿੰਨੇ ${targetPlural} ਚਾਹੀਦੇ ਹਨ?`;
+  }
+
+  if (source.solveMode === "findCompletionAfterCategoryReplacement") {
+    const efficiencyRatio = p.context.categories.map((category) => cp007Number(category.efficiency)).join(":");
+    if (language === "hi") {
+      return `मूल समूह में ${cp007Group(p, p.crewA, language)} हैं। यह समूह ${job} को ${cp007Time(p, p.daysA, language)} में पूरा करता है। अब समूह बदलकर ${cp007Group(p, p.crewB, language)} कर दिया गया है; व्यक्तिगत दक्षताओं का अनुपात ${efficiencyRatio} है। वही काम अब कितने समय में पूरा होगा?`;
+    }
+    return `ਮੂਲ ਸਮੂਹ ਵਿੱਚ ${cp007Group(p, p.crewA, language)} ਹਨ। ਇਹ ਸਮੂਹ ${job} ਨੂੰ ${cp007Time(p, p.daysA, language)} ਵਿੱਚ ਪੂਰਾ ਕਰਦਾ ਹੈ। ਹੁਣ ਸਮੂਹ ਬਦਲ ਕੇ ${cp007Group(p, p.crewB, language)} ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ; ਵਿਅਕਤੀਗਤ ਦੱਖਤਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ${efficiencyRatio} ਹੈ। ਉਹੀ ਕੰਮ ਹੁਣ ਕਿੰਨੇ ਸਮੇਂ ਵਿੱਚ ਪੂਰਾ ਹੋਵੇਗਾ?`;
+  }
+
+  return finalizeTmwCp007Text(stem, language);
 }
 
 export function finalizeTmwCp007Givens(
