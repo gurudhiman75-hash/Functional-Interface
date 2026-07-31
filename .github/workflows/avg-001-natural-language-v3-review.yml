@@ -1,0 +1,109 @@
+name: Validate AVG-001 natural-language V3 review
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/**
+      - .github/workflows/avg-001-natural-language-v3-review.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: avg-001-natural-language-v3-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-avg-001-natural-language-v3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle V3.5 targeted audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-natural-language-v3-5-targeted-audit.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/avg-001-natural-language-v3-5-targeted-audit.mjs
+      - name: Run V3.5 targeted remediation audit
+        run: cd artifacts/api-server && node dist/quant-v4/avg-001-natural-language-v3-5-targeted-audit.mjs
+      - name: Bundle V3.5 presentation-integrity audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-natural-language-v3-5-audit.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/avg-001-natural-language-v3-5-audit.mjs
+      - name: Run 1,275-package V3.5 audit
+        shell: bash
+        run: |
+          set -o pipefail
+          (cd artifacts/api-server && node dist/quant-v4/avg-001-natural-language-v3-5-audit.mjs) \
+            | tee artifacts/api-server/avg-001-natural-language-v3-5-diagnostics.log
+      - name: Bundle V3.5 multilingual header audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-natural-language-v3-5-header-audit.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/avg-001-natural-language-v3-5-header-audit.mjs
+      - name: Run 850-package localized header audit
+        shell: bash
+        run: |
+          set -o pipefail
+          (cd artifacts/api-server && node dist/quant-v4/avg-001-natural-language-v3-5-header-audit.mjs) \
+            | tee artifacts/api-server/avg-001-natural-language-v3-5-header-diagnostics.log
+      - name: Bundle V3.5 approval audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-natural-language-v3-5-approval-audit.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/avg-001-natural-language-v3-5-approval-audit.mjs
+      - name: Run 1,275-package approval and publication audit
+        shell: bash
+        run: |
+          set -o pipefail
+          (cd artifacts/api-server && node dist/quant-v4/avg-001-natural-language-v3-5-approval-audit.mjs) \
+            | tee artifacts/api-server/avg-001-natural-language-v3-5-approval-diagnostics.log
+      - name: Upload V3.5 review corpus
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: avg-001-natural-language-v3-5-review
+          path: |
+            artifacts/api-server/avg-001-natural-language-v3-5-diagnostics.log
+            artifacts/api-server/avg-001-natural-language-v3-5-header-diagnostics.log
+            artifacts/api-server/dist/quant-v4/avg-001-natural-language-v3-5-review/**
+          if-no-files-found: error
+          retention-days: 30
+      - name: Upload approved V3.5 release corpus
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: avg-001-natural-language-v3-5-approved
+          path: |
+            artifacts/api-server/avg-001-natural-language-v3-5-approval-diagnostics.log
+            artifacts/api-server/dist/quant-v4/avg-001-natural-language-v3-5-approved/**
+          if-no-files-found: error
+          retention-days: 30
