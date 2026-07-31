@@ -20,7 +20,7 @@ concurrency:
 jobs:
   validate-series-foundations:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 45
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -41,6 +41,7 @@ jobs:
           mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp001-open-discovery
           mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp002-open-discovery
           mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp003-open-discovery
+          mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp004-open-discovery
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
@@ -84,6 +85,19 @@ jobs:
           (cd artifacts/api-server && node "$OUT/ser-cp-003.test.mjs") \
             | tee "$EVIDENCE/audit.json"
 
+      - name: Run SER-CP-004 executable discovery and collision audit
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-004
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp004-open-discovery
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/ser-cp-004.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/ser-cp-004.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-004.test.mjs") \
+            | tee "$EVIDENCE/audit.json"
+
       - name: Generate exact English review packs
         run: |
           set -euo pipefail
@@ -91,9 +105,11 @@ jobs:
           ROOT1=src/reasoning-v1/topics/Series/SER-001/SER-CP-001
           ROOT2=src/reasoning-v1/topics/Series/SER-001/SER-CP-002
           ROOT3=src/reasoning-v1/topics/Series/SER-001/SER-CP-003
+          ROOT4=src/reasoning-v1/topics/Series/SER-001/SER-CP-004
           EVIDENCE1=artifacts/api-server/dist/reasoning-v1/ser-001/cp001-open-discovery
           EVIDENCE2=artifacts/api-server/dist/reasoning-v1/ser-001/cp002-open-discovery
           EVIDENCE3=artifacts/api-server/dist/reasoning-v1/ser-001/cp003-open-discovery
+          EVIDENCE4=artifacts/api-server/dist/reasoning-v1/ser-001/cp004-open-discovery
           pnpm --dir artifacts/api-server exec esbuild \
             "$ROOT1/export-review.ts" \
             --bundle --platform=node --format=esm \
@@ -106,13 +122,19 @@ jobs:
             "$ROOT3/export-review.ts" \
             --bundle --platform=node --format=esm \
             --outfile="$OUT/export-cp003-review.mjs"
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT4/export-review.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/export-cp004-review.mjs"
           (cd artifacts/api-server && node "$OUT/export-cp001-review.mjs") \
             > "$EVIDENCE1/ser-cp-001-en-IN-review.md"
           (cd artifacts/api-server && node "$OUT/export-cp002-review.mjs") \
             > "$EVIDENCE2/ser-cp-002-en-IN-review.md"
           (cd artifacts/api-server && node "$OUT/export-cp003-review.mjs") \
             > "$EVIDENCE3/ser-cp-003-en-IN-review.md"
-          cat > artifacts/api-server/dist/reasoning-v1/ser-001/README.txt <<'EOF'
+          (cd artifacts/api-server && node "$OUT/export-cp004-review.mjs") \
+            > "$EVIDENCE4/ser-cp-004-en-IN-review.md"
+          cat > artifacts/api-server/dist/reasoning-v1/ser-001/README.txt <<'README'
           SER-001 open executable discovery
 
           Permanent QLs: 0
@@ -135,17 +157,25 @@ jobs:
           Audit volume: 960 deterministic English questions
           Review pack: 32 exact English questions
 
-          Total audit volume: 2,400 questions
+          SER-CP-004
+          Temporary templates: 28
+          Candidate rule families: 7
+          Provisional CP-004 retained families: 3
+          Provisional cross-checkpoint collision families: 4
+          Audit volume: 3,360 deterministic English questions
+          Review pack: 56 exact English questions
+
+          Total audit volume: 5,760 questions
 
           This evidence does not activate Question Studio, Question Bank,
           test eligibility or public publication.
-          EOF
+          README
 
       - name: Upload SER-001 discovery evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ser-001-cp001-cp003-open-discovery
+          name: ser-001-cp001-cp004-open-discovery
           path: artifacts/api-server/dist/reasoning-v1/ser-001
           if-no-files-found: error
           retention-days: 30
