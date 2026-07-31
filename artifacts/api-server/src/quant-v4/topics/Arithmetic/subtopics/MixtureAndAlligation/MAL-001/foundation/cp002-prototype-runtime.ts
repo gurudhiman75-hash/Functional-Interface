@@ -41,6 +41,12 @@ function selectContext(
   ]!;
 }
 
+function normalizeQuestionStem(value: string): string {
+  const trimmed = value.trim();
+  if (trimmed.endsWith("?")) return trimmed;
+  return `${trimmed.replace(/[.!]+$/u, "")}?`;
+}
+
 function validateAuthoring(
   prototype: Omit<MalCp002GeneratedPrototype, "validation">,
 ): string[] {
@@ -114,7 +120,9 @@ export function generateMalCp002DiscoveryPrototype(
   const parameters = generateMalCp002Parameters(prototypeId, seed);
   const solution = solveMalCp002Request(parameters.request);
   const verification = verifyMalCp002Result(parameters.request, solution);
-  const stem = buildMalCp002Stem(parameters.request, context);
+  const stem = normalizeQuestionStem(
+    buildMalCp002Stem(parameters.request, context),
+  );
   const answer = formatMalCp002Answer(solution, context);
   const optionPackage = buildMalCp002Options(
     parameters.request,
