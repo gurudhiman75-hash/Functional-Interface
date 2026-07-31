@@ -105,7 +105,11 @@ for (const qlId of INT_CP001_FINAL_QL_IDS) {
     const english = byLanguage.get("en")!;
     for (const language of ["hi", "pa"] as const) {
       const localized = byLanguage.get(language)!;
-      assert(stable(localized.options) === stable(english.options), `${qlId}/${seed}/${language}: option-value parity failed.`);
+      assert(
+        stable(localized.optionAudit.map((item) => item.result))
+          === stable(english.optionAudit.map((item) => item.result)),
+        `${qlId}/${seed}/${language}: option-value parity failed.`,
+      );
       assert(localized.correctIndex === english.correctIndex, `${qlId}/${seed}/${language}: correct-index parity failed.`);
       assert(localized.mathematicalFingerprint === english.mathematicalFingerprint, `${qlId}/${seed}/${language}: fingerprint parity failed.`);
       counters.crossLanguageParityChecks += 1;
