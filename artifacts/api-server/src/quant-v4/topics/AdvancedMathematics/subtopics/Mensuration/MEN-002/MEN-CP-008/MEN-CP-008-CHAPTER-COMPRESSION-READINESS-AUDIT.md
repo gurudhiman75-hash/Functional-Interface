@@ -66,6 +66,39 @@ The proof confirmed:
 
 Thirty-six contracts remain standalone because they change the target quantity, evidence topology, inverse direction, dimensional answer, comparison system or application reasoning.
 
+## Candidate registry and no-known-gap proof
+
+The internal audit now contains a contiguous, deliberately non-permanent registry:
+
+```text
+Candidate IDs:          MEN-CP008-CAND-001..MEN-CP008-CAND-048
+Candidate families:     48
+Prototype ancestries:   62 / 62
+Duplicate ancestries:    0
+Missing ancestries:      0
+Foreign ancestries:      0
+Permanent QL IDs:        0
+```
+
+The chapter-wide no-known-gap matrix passes across 32 rows and all 12 required dimensions:
+
+```text
+Direct measurement
+Single-evidence inverse
+Multi-evidence inverse
+Ratio and comparison
+Scaling and change
+Roller applications
+Cost and material applications
+Capacity
+Tent applications
+Exact-number kinds
+Pi policies
+Ownership boundaries
+```
+
+Its current verdict is `PASS_NO_KNOWN_CP008_GAP_SOURCE_RECHECK_PENDING`.
+
 ## Ownership closure
 
 The source audit keeps the following outside CP-008:
@@ -89,18 +122,20 @@ Foreign classifications:      0
 Settled merge groups:         12
 Merge-review groups:           0
 Standalone candidates:        36
-Evidence-derived QL families: 48
-Ready to freeze:             false
+Evidence-derived families:    48
+Internal freeze gates:        passed
+Final source recheck:         pending
+Ready to freeze:              false
 ```
 
-The count of 48 is now a compression result rather than a range. It is still not a permanent allocation until the remaining freeze gates close.
+The count of 48 is an evidence-derived compression result, not a permanent allocation.
 
-## Remaining freeze gates
+## Remaining controlled sequence
 
-1. repeat source retrieval and the final no-meaningful-gap review;
-2. close direct/inverse/ratio/application/exact-kind/ownership saturation;
-3. create one final registry mapping every ancestry exactly once to a retained family or exclusion;
-4. allocate permanent identities only after that registry passes.
+1. complete the final uploaded-source retrieval recheck;
+2. if that recheck reveals a materially distinct CP-008 contract, implement and re-audit it before freeze;
+3. otherwise open a separate formal final-freeze checkpoint that converts the 48 candidate families into permanent identities beginning at `MEN-002-QL-044`;
+4. keep English runtime, localisation and product activation as later separate gates.
 
 ## Lifecycle safety
 
