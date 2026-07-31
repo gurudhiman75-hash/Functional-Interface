@@ -12,19 +12,19 @@ import {
 const audit = auditMenCp008CompressionReadiness();
 const allIds = getMenCp008AllPrototypeIds();
 
-assert.equal(allIds.length, 62, "The current CP-008 executable frontier contains 62 temporary contracts.");
-assert.equal(new Set(allIds).size, 62, "Every temporary prototype identity must be unique.");
-assert.equal(audit.classifiedCount, 62, "Every prototype must be classified exactly once.");
-assert.equal(audit.uniqueClassifiedCount, 62, "Compression classifications must not overlap.");
+assert.equal(allIds.length, 66, "The source-closed CP-008 executable frontier contains 66 temporary contracts.");
+assert.equal(new Set(allIds).size, 66, "Every temporary prototype identity must be unique.");
+assert.equal(audit.classifiedCount, 66, "Every prototype must be classified exactly once.");
+assert.equal(audit.uniqueClassifiedCount, 66, "Compression classifications must not overlap.");
 assert.deepEqual(audit.duplicateClassifications, []);
 assert.deepEqual(audit.unclassified, []);
 assert.deepEqual(audit.foreignClassifications, []);
 
 assert.equal(MEN_CP_008_SETTLED_MERGE_CANDIDATES.length, 12);
 assert.equal(MEN_CP_008_MERGE_REVIEW_GROUPS.length, 0);
-assert.equal(MEN_CP_008_STANDALONE_CANDIDATES.length, 36);
-assert.equal(audit.provisionalMinimumQlFamilies, 48);
-assert.equal(audit.provisionalMaximumQlFamilies, 48);
+assert.equal(MEN_CP_008_STANDALONE_CANDIDATES.length, 40);
+assert.equal(audit.provisionalMinimumQlFamilies, 52);
+assert.equal(audit.provisionalMaximumQlFamilies, 52);
 
 for (const group of MEN_CP_008_SETTLED_MERGE_CANDIDATES) {
   assert.equal(group.decision, "MERGE_CANDIDATE");
@@ -33,14 +33,9 @@ for (const group of MEN_CP_008_SETTLED_MERGE_CANDIDATES) {
 }
 
 assert.ok(MEN_CP_008_SOURCE_OWNERSHIP_EXCLUSIONS.length >= 6);
-assert.equal(MEN_CP_008_FREEZE_BLOCKERS.length, 3);
-assert.equal(
-  audit.readyToFreeze,
-  false,
-  "The audit must not freeze QLs while source recheck, no-gap review and final registry remain open.",
-);
+assert.equal(MEN_CP_008_FREEZE_BLOCKERS.length, 0);
+assert.equal(audit.readyToFreeze, true, "The final source recheck and ancestry classification must make CP-008 ready to freeze.");
 
 console.log(
-  `MEN-CP-008 chapter compression audit classified ${audit.prototypeCount} temporary contracts exactly once. ` +
-  `Directional merge evidence settles the current boundary at ${audit.provisionalMinimumQlFamilies} candidate QL families; freeze readiness remains false.`,
+  `MEN-CP-008 source-closed compression audit classified ${audit.prototypeCount} temporary contracts exactly once into ${audit.provisionalMinimumQlFamilies} evidence-derived QL families. Freeze readiness is true.`,
 );
