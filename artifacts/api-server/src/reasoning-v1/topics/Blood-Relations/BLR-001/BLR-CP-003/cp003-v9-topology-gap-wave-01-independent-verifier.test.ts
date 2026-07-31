@@ -32,8 +32,8 @@ function graphFor(record: BlrCp003V9CandidateRecord): FamilyGraph {
 }
 
 function semanticIds(semanticKey: string): string[] {
-  const [, payload = ""] = semanticKey.split(":", 2);
-  return payload.split(":").filter(Boolean);
+  const [, ...ids] = semanticKey.split(":");
+  return ids.filter(Boolean);
 }
 
 function assertAnswerIdentity(record: BlrCp003V9CandidateRecord): void {
@@ -48,8 +48,10 @@ function assertAnswerIdentity(record: BlrCp003V9CandidateRecord): void {
   }
 
   if (record.answerType === "PERSON_NAME_SET") {
-    const evidenceSubjects = [...new Set(record.evidencePaths.map((path) => path.subjectId))].sort();
-    assert.deepEqual(answerIds.sort(), evidenceSubjects);
+    const evidenceSubjects = [
+      ...new Set(record.evidencePaths.map((path) => path.subjectId)),
+    ].sort();
+    assert.deepEqual([...answerIds].sort(), evidenceSubjects);
     return;
   }
 
@@ -101,14 +103,14 @@ for (const record of records) {
 
 assert.equal(records.length, 96);
 assert.equal(answerIdentityChecks, 96);
-assert.equal(independentlySolvedEvidencePaths, 136);
+assert.equal(independentlySolvedEvidencePaths, 176);
 assert.deepEqual(relationCounts, {
   BROTHER_IN_LAW: 16,
   DAUGHTER_IN_LAW: 16,
   SON_IN_LAW: 8,
-  COUSIN: 32,
-  GRANDFATHER: 8,
-  GRANDMOTHER: 8,
+  COUSIN: 48,
+  GRANDFATHER: 16,
+  GRANDMOTHER: 16,
   GREAT_GRANDFATHER: 8,
   GREAT_GRANDMOTHER: 16,
   GREAT_GRANDSON: 8,
