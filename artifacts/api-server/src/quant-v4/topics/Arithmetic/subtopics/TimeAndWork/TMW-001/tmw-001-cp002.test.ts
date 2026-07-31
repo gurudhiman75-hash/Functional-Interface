@@ -85,7 +85,9 @@ for (const entry of TMW_CP002_REGISTRY) {
 
 assert.deepEqual([...correctPositions].sort(), [0, 1, 2, 3]);
 assert.ok(renderedStems.size > 280, "CP-002 lacks rendered stem diversity");
-assert.throws(() => runTmwCp002Pipeline({ questionLanguageId: "TMW-QL-021", seed: "unsupported", language: "hi" }), /English only/);
+const hindi = runTmwCp002Pipeline({ questionLanguageId: "TMW-QL-021", seed: "locale-support", language: "hi" });
+assert.equal(hindi.language, "hi");
+assert.equal(hindi.publiclyPublishable, false);
 assert.throws(() => runTmwCp002Pipeline({ questionLanguageId: "TMW-QL-999", seed: "unknown" }), /Unknown TMW-CP-002/);
 
 console.log(JSON.stringify({
