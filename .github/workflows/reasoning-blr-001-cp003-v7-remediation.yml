@@ -1,0 +1,112 @@
+name: Reasoning BLR-001 CP-003 V7 Remediation
+
+on:
+  push:
+    branches:
+      - feat/blr-001-cp003-shared-family-runtime
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-learner-evidence-v6-candidate.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-learner-evidence-v7-candidate.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-learner-evidence-v7-candidate.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-learner-evidence-v7-candidate.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/BLR-CP-003-V6-EDITORIAL-REVIEW-FINDINGS.md"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/BLR-CP-003-V7-EDITORIAL-REMEDIATION-RECORD.md"
+      - ".github/workflows/reasoning-blr-001-cp003-v7-remediation.yml"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-learner-evidence-v6-candidate.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-learner-evidence-v7-candidate.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-learner-evidence-v7-candidate.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-learner-evidence-v7-candidate.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/BLR-CP-003-V6-EDITORIAL-REVIEW-FINDINGS.md"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/BLR-CP-003-V7-EDITORIAL-REMEDIATION-RECORD.md"
+      - ".github/workflows/reasoning-blr-001-cp003-v7-remediation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blr-001-cp003-v7-remediation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-v7-remediation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run preserved V6 candidate proof
+        id: v6_source
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-learner-evidence-v6-candidate.test.ts > cp003-v6-source.log 2>&1
+
+      - name: Run V7 editorial and visual remediation proof
+        id: v7_remediation
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-learner-evidence-v7-candidate.test.ts > cp003-v7-remediation.log 2>&1
+
+      - name: Re-run final-freeze readiness boundary
+        id: freeze_readiness
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-final-freeze-readiness.test.ts > cp003-v7-freeze-readiness.log 2>&1
+
+      - name: Export V7 remediated human-review pack
+        id: v7_export
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-learner-evidence-v7-candidate.ts cp003-v7-candidate-output > cp003-v7-export.log 2>&1
+
+      - name: Upload V7 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp003-v7-remediation-logs
+          path: |
+            cp003-v6-source.log
+            cp003-v7-remediation.log
+            cp003-v7-freeze-readiness.log
+            cp003-v7-export.log
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload V7 remediated review pack
+        if: steps.v7_export.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp003-learner-evidence-v7-remediated
+          path: cp003-v7-candidate-output
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Enforce preserved V6 source result
+        if: steps.v6_source.outcome == 'failure'
+        run: |
+          cat cp003-v6-source.log
+          exit 1
+
+      - name: Enforce V7 remediation result
+        if: steps.v7_remediation.outcome == 'failure'
+        run: |
+          cat cp003-v7-remediation.log
+          exit 1
+
+      - name: Enforce final-freeze readiness boundary result
+        if: steps.freeze_readiness.outcome == 'failure'
+        run: |
+          cat cp003-v7-freeze-readiness.log
+          exit 1
+
+      - name: Enforce V7 export result
+        if: steps.v7_export.outcome == 'failure'
+        run: |
+          cat cp003-v7-export.log
+          exit 1
