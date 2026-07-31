@@ -1,0 +1,73 @@
+name: Validate INT-CP-001 approved active staging V3
+
+on:
+  pull_request:
+    branches:
+      - approve/int-001-cp001-calculation-rich-v6
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/**"
+      - ".github/workflows/int-cp001-approved-active-staging-v3.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-int-cp001-approved-active-staging-v3:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle V6 approval regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-calculation-rich-approval-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-calculation-rich-approval-audit.mjs
+
+      - name: Run V6 approval regression
+        shell: bash
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp001-calculation-rich-approval-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp001-calculation-rich-approval-audit.log
+
+      - name: Bundle active staging provider audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-active-staging-v3-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-active-staging-v3-audit.mjs
+
+      - name: Run active staging provider audit
+        shell: bash
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp001-active-staging-v3-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp001-active-staging-v3-audit.log
+
+      - name: Verify active staging evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q 'PASS_INT_CP001_CALCULATION_RICH_V6_APPROVAL' artifacts/api-server/dist/quant-v4/int-001-cp001-calculation-rich-approval-audit.log
+          grep -q 'PASS_INT_CP001_APPROVED_ACTIVE_STAGING_PROVIDER_V3' artifacts/api-server/dist/quant-v4/int-001-cp001-active-staging-v3-audit.log
+
+      - name: Upload active staging evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp001-approved-active-staging-v3
+          path: |
+            artifacts/api-server/dist/quant-v4/int-001-cp001-calculation-rich-approval-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp001-active-staging-v3-audit.log
+          if-no-files-found: error
+          retention-days: 14
