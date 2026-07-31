@@ -1,0 +1,91 @@
+name: Validate CLS-001 English Freeze CP-001 to CP-005
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/**
+      - .github/workflows/cls-001-cp001-cp004-english-freeze.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate-english-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle English freeze audits
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001
+          OUT=dist/reasoning-v1/cls-001/english-freeze
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/CLS-CP-003/cp003-english-runtime.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp003-english-runtime.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/CLS-CP-004/cp004-english-runtime.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp004-english-runtime.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/CLS-CP-005/cp005-english-runtime.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp005-english-runtime.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/english-editorial-v2.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/english-editorial-v2.test.mjs"
+
+      - name: Run English freeze audits
+        id: english_audit
+        run: |
+          set +e
+          OUT=artifacts/api-server/dist/reasoning-v1/cls-001/english-freeze
+          DIAG=$OUT/diagnostics
+          mkdir -p "$DIAG"
+          STATUS=0
+          for TEST in cp003-english-runtime cp004-english-runtime cp005-english-runtime english-editorial-v2; do
+            (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/english-freeze/$TEST.test.mjs") >"$DIAG/$TEST-audit.log" 2>&1
+            if [ $? -ne 0 ]; then STATUS=1; fi
+          done
+          echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload English freeze diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp001-cp005-english-freeze-diagnostics
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/english-freeze/diagnostics
+          if-no-files-found: error
+
+      - name: Enforce English freeze audits
+        if: steps.english_audit.outputs.exit_code != '0'
+        run: |
+          for LOG in artifacts/api-server/dist/reasoning-v1/cls-001/english-freeze/diagnostics/*.log; do
+            echo "===== $LOG ====="
+            cat "$LOG"
+          done
+          exit 1
+
+      - name: Generate consolidated English review
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001
+          OUT=dist/reasoning-v1/cls-001/english-freeze
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-cp001-cp005-english-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-cp001-cp005-english-review.mjs"
+          (cd artifacts/api-server && node "$OUT/export-cp001-cp005-english-review.mjs")
+
+      - name: Upload consolidated English review
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp001-cp005-english-question-review
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp001-cp005-english-review
+          if-no-files-found: error
