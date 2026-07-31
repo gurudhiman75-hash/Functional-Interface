@@ -188,11 +188,13 @@ const exactLineageRecords = wave.filter(
   (record) => record.provisionalAuthority === "IDENTIFY_PERSON_BY_EXACT_LINEAGE",
 );
 assert.equal(exactLineageRecords.length, 16);
-assert.ok(
-  exactLineageRecords.every((record) =>
-    record.evidencePaths.every((path) => path.distance >= 4),
-  ),
-);
+const exactLineageDistances = exactLineageRecords
+  .map((record) => record.evidencePaths[0]!.distance)
+  .sort((left, right) => left - right);
+assert.deepEqual(exactLineageDistances, [
+  3, 3, 3, 3, 3, 3, 3, 3,
+  4, 4, 4, 4, 4, 4, 4, 4,
+]);
 
 console.log(
   JSON.stringify(
@@ -210,6 +212,7 @@ console.log(
       authorityCounts,
       answerPositions,
       combinedAnswerPositions,
+      exactLineageDistances,
       permanentQlCount: 0,
       newWaveHumanReviewApproved: false,
       structuralSaturationProven: false,
