@@ -43,8 +43,14 @@ for (const entry of TMW_CP002_REGISTRY) {
       assert.ok(first.explanation.commonTrap.optionLabel.startsWith(language === "hi" ? "विकल्प" : "ਚੋਣ"));
       assert.ok(first.options.includes(first.explanation.commonTrap.optionText));
       assert.notEqual(first.explanation.commonTrap.misconceptionId, "CORRECT");
-      const learnerText = [first.stem, ...first.options, first.explanation.opening, ...first.explanation.shortcut.steps, first.explanation.commonTrap.explanation, first.explanation.conclusion].join("\n");
+      const learnerText = [first.stem, ...first.options, first.explanation.opening, first.explanation.shortcut.title, ...first.explanation.shortcut.steps, first.explanation.commonTrap.explanation, first.explanation.conclusion].join("\n");
       assert.equal(/undefined|null|NaN|Infinity|find[A-Z]|TMW_|Do not|Don't/i.test(learnerText), false);
+      assert.equal(/रिवर्क|रीवर्क|ਰੀਵਰਕ|निष्फल|ਬੇਅਸਰ|परिमाण-अंतर/.test(learnerText), false, `${entry.qlId}:${language}: technical language`);
+      assert.equal(/का काम में|का ऑर्डर में|ਦਾ ਕੰਮ ਵਿੱਚ|ਦਾ ਆਰਡਰ ਵਿੱਚ/.test(first.stem), false, `${entry.qlId}:${language}: case-marker agreement`);
+      assert.equal(/एक मशीन अकेले|समान क्षमता वाले (?:कई|\d+) मशीनें|कई मशीनें.+पूरा करते हैं/.test(first.stem), false, `${entry.qlId}: Hindi machine agreement`);
+      assert.equal(/ਇੱਕ (?:ਟੀਮ|ਮਸ਼ੀਨ) ਇਕੱਲਾ|ਇਕੋ ਸਮਰੱਥਾ ਵਾਲੇ (?:ਕਈ|\d+) (?:ਟੀਮਾਂ|ਮਸ਼ੀਨਾਂ)|ਕਈ (?:ਟੀਮਾਂ|ਮਸ਼ੀਨਾਂ).+ਪੂਰਾ ਕਰਦੇ ਹਨ/.test(first.stem), false, `${entry.qlId}: Punjabi feminine agreement`);
+      assert.equal(/^.+ ਅਤੇ .+ ਇਕੱਲੇ ਇਹ ਕੰਮ ਕ੍ਰਮਵਾਰ/.test(first.stem), false, `${entry.qlId}: Punjabi pair agreement`);
+      assert.equal(/^.+ और .+ अकेले यह काम क्रमशः/.test(first.stem), false, `${entry.qlId}: Hindi pair agreement`);
       assert.equal(language === "hi" ? /[\u0900-\u097F]/.test(learnerText) : /[\u0A00-\u0A7F]/.test(learnerText), true);
       counts[language] += 1;
       stems[language].add(first.stem);
