@@ -140,14 +140,14 @@ export function auditClsCp006Items(
 function stemFor(kind: ClsCp006OptionKind, seed: number): string {
   const letterStems = [
     "Which of the following letters is the odd one out?",
-    "Three of these letters share the same alphabet property. Select the different letter.",
+    "All but one of these letters share the same alphabet property. Select the different letter.",
     "Identify the letter that does not follow the common classification.",
     "Most of these letters belong to one alphabet class. Which one does not?",
     "Choose the letter whose alphabet property differs from the others.",
   ];
   const pairStems = [
     "Which of the following letter-pairs is the odd one out?",
-    "Three letter-pairs follow the same internal relation. Select the different pair.",
+    "All but one of these letter-pairs follow the same internal relation. Select the different pair.",
     "Identify the ordered letter-pair that does not share the common relation.",
     "Most of these letter-pairs follow one alphabet rule. Which pair differs?",
     "Choose the complete letter-pair whose internal alphabet relation is different.",
@@ -216,8 +216,8 @@ function coreConceptFor(ruleId: ClsCp006RuleId, commonValue: string): string {
     case "PAIR_SIGNED_POSITION_GAP": {
       const gap = Number(commonValue);
       const magnitude = Math.abs(gap);
-      const placeWord = magnitude === 1 ? "place" : "places";
-      return `In most pairs, the second letter is ${magnitude} ${placeWord} ${gap >= 0 ? "after" : "before"} the first.`;
+      const positionWord = magnitude === 1 ? "position" : "positions";
+      return `In most pairs, the second letter is ${magnitude} ${positionWord} ${gap >= 0 ? "after" : "before"} the first.`;
     }
     case "PAIR_POSITION_SUM":
       return `In most pairs, the two alphabet positions add to ${commonValue}.`;
