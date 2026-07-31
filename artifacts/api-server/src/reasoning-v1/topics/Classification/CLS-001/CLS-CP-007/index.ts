@@ -18,3 +18,4 @@ export {
 export type { ClsCp007PairNearMiss } from "./cluster-pair-domain";
 export * from "./cluster-pair-runtime";
 export * from "./cluster-pair-audit";
+export * from "./cp007-english-contracts";
