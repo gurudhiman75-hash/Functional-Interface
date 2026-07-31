@@ -5,9 +5,9 @@ export type TmwDisplayLocale = "hi-IN" | "pa-IN";
 export type TmwLocalizationEditorialStatus = "PENDING" | "APPROVED";
 export type TmwLocalizedValue = Rational | string;
 
-export interface TmwLocalizedOption {
+export interface TmwLocalizedOption<TValue extends TmwLocalizedValue = Rational> {
   text: string;
-  value: TmwLocalizedValue;
+  value: TValue;
   misconceptionId: string;
 }
 
@@ -28,7 +28,7 @@ export interface TmwLocalizedExplanation {
   conclusion: string;
 }
 
-export interface TmwLocalizedQuestion {
+export interface TmwLocalizedQuestion<TValue extends TmwLocalizedValue = Rational> {
   archetypeId: "TMW-001";
   canonicalProblemId: string;
   questionLanguageId: string;
@@ -40,14 +40,14 @@ export interface TmwLocalizedQuestion {
   stem: string;
   parameters: unknown;
   solution: {
-    answer: TmwLocalizedValue;
+    answer: TValue;
     answerType: string;
     formulaLatex: string;
     workedLatex: string[];
     answerText: string;
   };
   options: string[];
-  optionAudit: TmwLocalizedOption[];
+  optionAudit: TmwLocalizedOption<TValue>[];
   correctIndex: number;
   explanation: TmwLocalizedExplanation;
   mathematicalFingerprint: string;
