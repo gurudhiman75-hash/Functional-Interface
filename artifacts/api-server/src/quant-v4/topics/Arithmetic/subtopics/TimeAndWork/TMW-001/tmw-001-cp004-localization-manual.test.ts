@@ -33,7 +33,8 @@ for (const entry of TMW_CP004_REGISTRY) {
         assert.equal(/कितने समय बाद गया|ਕਿੰਨੇ ਸਮੇਂ ਬਾਅਦ ਗਿਆ/.test(question.stem), false);
       }
       if (entry.solveMode === "findUnknownInitialPhaseDuration") {
-        assert.match(question.stem, language === "hi" ? /के काम में पहले/ : /ਦੇ ਕੰਮ ਵਿੱਚ ਪਹਿਲਾਂ/);
+        assert.match(question.stem, language === "hi" ? /में पहले पूरे काम का/ : /ਵਿੱਚ ਪਹਿਲਾਂ ਪੂਰੇ ਕੰਮ ਦਾ/);
+        assert.equal(/का (?:एक )?(?:बैच|सेट|ऑर्डर|काम) में|ਦਾ (?:ਇੱਕ )?(?:ਬੈਚ|ਸੈੱਟ|ਆਰਡਰ|ਕੰਮ) ਵਿੱਚ/.test(question.stem), false);
       }
       if (entry.solveMode === "findRequiredRemainingRateForDeadline") {
         assert.equal(/की (?:मशीन|टीम|दल) [ABC] की अवधि/.test(question.stem), false);
