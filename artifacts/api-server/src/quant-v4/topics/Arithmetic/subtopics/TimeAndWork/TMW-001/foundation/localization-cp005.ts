@@ -16,6 +16,20 @@ import {
   tmwCp005LocalizedTrapReason,
 } from "./localization-cp005-learning";
 
+function polishDefaultTimeConclusion(
+  conclusion: string,
+  answerText: string,
+  language: TmwLocalizedLanguage,
+): string {
+  const defaultEnding = language === "hi"
+    ? `${answerText} में पूरा होगा।`
+    : `${answerText} ਵਿੱਚ ਪੂਰਾ ਹੋਵੇਗਾ।`;
+  if (!conclusion.endsWith(defaultEnding)) return conclusion;
+  return language === "hi"
+    ? `अतः काम पूरा होने का कुल समय ${answerText} है।`
+    : `ਇਸ ਲਈ ਕੰਮ ਪੂਰਾ ਹੋਣ ਦਾ ਕੁੱਲ ਸਮਾਂ ${answerText} ਹੈ।`;
+}
+
 export function localizeTmwCp005Question(
   source: TmwCp005GeneratedQuestion,
   language: TmwLocalizedLanguage,
@@ -36,7 +50,11 @@ export function localizeTmwCp005Question(
   const stem = renderTmwCp005LocalizedStem(source, language);
   const opening = tmwCp005LocalizedOpening(entry.ruleId, language);
   const trapExplanation = tmwCp005LocalizedTrapReason(trapId, language);
-  const conclusion = tmwCp005LocalizedConclusion(source, answerText, language);
+  const conclusion = polishDefaultTimeConclusion(
+    tmwCp005LocalizedConclusion(source, answerText, language),
+    answerText,
+    language,
+  );
   const errors = [...source.validation.errors];
 
   if (trapIndex < 0) errors.push("Localized common trap is not linked to an option");
