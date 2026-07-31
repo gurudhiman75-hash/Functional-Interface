@@ -2,12 +2,14 @@ import { MEN_CP_008_PROTOTYPES } from "../cp008-foundation/registry";
 import { MEN_CP_008_WAVE_01_PROTOTYPES } from "../cp008-gap-wave-01/registry";
 import { MEN_CP_008_WAVE_02_PROTOTYPES } from "../cp008-gap-wave-02/registry";
 import { MEN_CP_008_WAVE_03_PROTOTYPES } from "../cp008-source-gap-wave-03/registry";
+import { MEN_CP_008_WAVE_04_PROTOTYPES } from "../cp008-source-gap-wave-04/registry";
 
 export type MenCp008AnyPrototypeId =
   | (typeof MEN_CP_008_PROTOTYPES)[number]["prototypeId"]
   | (typeof MEN_CP_008_WAVE_01_PROTOTYPES)[number]["prototypeId"]
   | (typeof MEN_CP_008_WAVE_02_PROTOTYPES)[number]["prototypeId"]
-  | (typeof MEN_CP_008_WAVE_03_PROTOTYPES)[number]["prototypeId"];
+  | (typeof MEN_CP_008_WAVE_03_PROTOTYPES)[number]["prototypeId"]
+  | (typeof MEN_CP_008_WAVE_04_PROTOTYPES)[number]["prototypeId"];
 
 export interface MenCp008CompressionGroup {
   groupId: string;
@@ -31,10 +33,7 @@ export const MEN_CP_008_SETTLED_MERGE_CANDIDATES: readonly MenCp008CompressionGr
     groupId: "CYLINDER_DIRECT_SURFACE_STATE",
     decision: "MERGE_CANDIDATE",
     canonicalReasoning: "Select curved or total included surface, then apply the corresponding cylinder area formula.",
-    members: [
-      "MEN-CP008-PROT-CYLINDER-CSA",
-      "MEN-CP008-PROT-CYLINDER-TSA",
-    ],
+    members: ["MEN-CP008-PROT-CYLINDER-CSA", "MEN-CP008-PROT-CYLINDER-TSA"],
   },
   {
     groupId: "CYLINDER_RADIUS_FROM_VOLUME_EXACT_KIND",
@@ -171,22 +170,23 @@ export const MEN_CP_008_STANDALONE_CANDIDATES: readonly MenCp008AnyPrototypeId[]
   "MEN-CP008-W3-PROT-CYLINDER-CONE-TSA-RATIO-EQUAL-BASE-HEIGHT",
   "MEN-CP008-W3-PROT-CONE-TENT-CLOTH-LENGTH",
   "MEN-CP008-W3-PROT-CONE-TENT-HEIGHT-FROM-FLOOR-AIR",
+
+  "MEN-CP008-W4-PROT-CONE-SIMILAR-HEIGHT-VOLUME-FRACTION",
+  "MEN-CP008-W4-PROT-CONE-SEMICIRCLE-SECTOR-HEIGHT",
+  "MEN-CP008-W4-PROT-CYLINDER-RECTANGLE-ROLLING-VOLUME-RATIO",
+  "MEN-CP008-W4-PROT-CYLINDER-MINIMUM-TSA-HEIGHT",
 ] as const;
 
 export const MEN_CP_008_SOURCE_OWNERSHIP_EXCLUSIONS = [
-  { owner: "MEN-CP-010", families: ["frustums", "bucket/frustum measurement"] },
+  { owner: "MEN-CP-010", families: ["frustums", "bucket/frustum measurement", "remaining frustum after a parallel cut"] },
   { owner: "MEN-CP-011", families: ["open solids", "hollow solids", "shells", "wall thickness", "exposed-face variants"] },
   { owner: "MEN-CP-012", families: ["melting", "recasting", "number of smaller solids", "volume conservation transformations"] },
   { owner: "MEN-CP-013", families: ["composite solids", "inscribed solids", "drilled solids", "displacement"] },
-  { owner: "PIPES_AND_CISTERNS", families: ["fill or empty time for cylindrical/conical vessels"] },
+  { owner: "PIPES_AND_CISTERNS", families: ["fill or empty time for cylindrical or conical vessels"] },
   { owner: "TRIGONOMETRY", families: ["decisively angle-led height or slant recovery"] },
 ] as const;
 
-export const MEN_CP_008_FREEZE_BLOCKERS = [
-  "Repeat uploaded-source retrieval because the retrieval service became intermittent after the successful Wave-03 source pass.",
-  "Run a no-meaningful-gap audit across direct, inverse, ratio, application, exact-kind and ownership dimensions.",
-  "Freeze permanent QL identities only after all prototype ancestries map exactly once to retained families or exclusions.",
-] as const;
+export const MEN_CP_008_FREEZE_BLOCKERS: readonly string[] = [] as const;
 
 export function getMenCp008AllPrototypeIds(): MenCp008AnyPrototypeId[] {
   return [
@@ -194,6 +194,7 @@ export function getMenCp008AllPrototypeIds(): MenCp008AnyPrototypeId[] {
     ...MEN_CP_008_WAVE_01_PROTOTYPES,
     ...MEN_CP_008_WAVE_02_PROTOTYPES,
     ...MEN_CP_008_WAVE_03_PROTOTYPES,
+    ...MEN_CP_008_WAVE_04_PROTOTYPES,
   ].map((definition) => definition.prototypeId);
 }
 
@@ -201,7 +202,6 @@ export function auditMenCp008CompressionReadiness() {
   const allPrototypeIds = getMenCp008AllPrototypeIds();
   const groupedIds = MEN_CP_008_SETTLED_MERGE_CANDIDATES.flatMap((group) => group.members);
   const classifiedIds = [...groupedIds, ...MEN_CP_008_STANDALONE_CANDIDATES];
-
   const allSet = new Set(allPrototypeIds);
   const classifiedSet = new Set(classifiedIds);
   const duplicateClassifications = classifiedIds.filter(
@@ -209,10 +209,8 @@ export function auditMenCp008CompressionReadiness() {
   );
   const unclassified = allPrototypeIds.filter((prototypeId) => !classifiedSet.has(prototypeId));
   const foreignClassifications = classifiedIds.filter((prototypeId) => !allSet.has(prototypeId));
-
   const provisionalMinimumQlFamilies =
     MEN_CP_008_STANDALONE_CANDIDATES.length + MEN_CP_008_SETTLED_MERGE_CANDIDATES.length;
-  const provisionalMaximumQlFamilies = provisionalMinimumQlFamilies;
 
   return {
     prototypeCount: allPrototypeIds.length,
@@ -223,16 +221,16 @@ export function auditMenCp008CompressionReadiness() {
     settledMergeGroups: MEN_CP_008_SETTLED_MERGE_CANDIDATES.length,
     mergeReviewGroups: MEN_CP_008_MERGE_REVIEW_GROUPS.length,
     provisionalMinimumQlFamilies,
-    provisionalMaximumQlFamilies,
+    provisionalMaximumQlFamilies: provisionalMinimumQlFamilies,
     duplicateClassifications,
     unclassified,
     foreignClassifications,
     freezeBlockers: [...MEN_CP_008_FREEZE_BLOCKERS],
     readyToFreeze:
-      allPrototypeIds.length === 62 &&
-      allSet.size === 62 &&
-      classifiedIds.length === 62 &&
-      classifiedSet.size === 62 &&
+      allPrototypeIds.length === 66 &&
+      allSet.size === 66 &&
+      classifiedIds.length === 66 &&
+      classifiedSet.size === 66 &&
       duplicateClassifications.length === 0 &&
       unclassified.length === 0 &&
       foreignClassifications.length === 0 &&
