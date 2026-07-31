@@ -61,10 +61,14 @@ jobs:
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp004-language.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp004-stems.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp004-learning.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp004-polish.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp004-final-cleanup.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp004-inflection.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp004.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp004-runtime.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp004-localization.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp004-localization-editorial.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp004-localization-manual.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp004-localization-review-export.ts
       - name: Bundle bilingual parity proof
         run: >-
@@ -88,6 +92,17 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/tmw-001-cp004-localization-editorial.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp004-localization-editorial-proof.log
+      - name: Bundle manual language proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp004-localization-manual.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp004-localization-manual.test.mjs
+      - name: Run manual language proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp004-localization-manual.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp004-localization-manual-proof.log
       - name: Bundle bilingual review export
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -105,6 +120,7 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/tmw-001-cp004-localization-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-cp004-localization-editorial-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-cp004-localization-manual-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-cp004-localization-review.json
           if-no-files-found: error
           retention-days: 7
