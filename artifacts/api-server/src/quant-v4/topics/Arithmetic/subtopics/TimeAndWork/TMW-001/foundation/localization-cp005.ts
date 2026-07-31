@@ -1,6 +1,11 @@
 import { getTmwCp005Entry } from "./cp005-registry";
 import type { TmwCp005GeneratedQuestion } from "./cp005-types";
-import { displayLocale, type TmwLocalizedLanguage, type TmwLocalizedQuestion } from "./localization-types";
+import {
+  displayLocale,
+  type TmwLocalizedLanguage,
+  type TmwLocalizedQuestion,
+  type TmwLocalizedValue,
+} from "./localization-types";
 import { localizedOptionLabel, localizeMathStep } from "./localization-glossary";
 import { cp005LocalizedAnswerText } from "./localization-cp005-language";
 import { renderTmwCp005LocalizedStem } from "./localization-cp005-stems";
@@ -14,7 +19,7 @@ import {
 export function localizeTmwCp005Question(
   source: TmwCp005GeneratedQuestion,
   language: TmwLocalizedLanguage,
-): TmwLocalizedQuestion {
+): TmwLocalizedQuestion<TmwLocalizedValue> {
   const entry = getTmwCp005Entry(source.questionLanguageId);
   const optionAudit = source.optionAudit.map((option) => ({
     ...option,
