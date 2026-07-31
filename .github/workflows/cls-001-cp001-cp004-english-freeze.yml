@@ -1,4 +1,4 @@
-name: Validate CLS-001 English Freeze CP-001 to CP-004
+name: Validate CLS-001 English Freeze CP-001 to CP-005
 
 on:
   pull_request:
@@ -41,6 +41,7 @@ jobs:
           mkdir -p artifacts/api-server/$OUT
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/CLS-CP-003/cp003-english-runtime.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp003-english-runtime.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/CLS-CP-004/cp004-english-runtime.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp004-english-runtime.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/CLS-CP-005/cp005-english-runtime.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp005-english-runtime.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/english-editorial-v2.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/english-editorial-v2.test.mjs"
 
       - name: Run English freeze audits
@@ -51,7 +52,7 @@ jobs:
           DIAG=$OUT/diagnostics
           mkdir -p "$DIAG"
           STATUS=0
-          for TEST in cp003-english-runtime cp004-english-runtime english-editorial-v2; do
+          for TEST in cp003-english-runtime cp004-english-runtime cp005-english-runtime english-editorial-v2; do
             (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/english-freeze/$TEST.test.mjs") >"$DIAG/$TEST-audit.log" 2>&1
             if [ $? -ne 0 ]; then STATUS=1; fi
           done
@@ -62,7 +63,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cls-001-cp001-cp004-english-freeze-diagnostics
+          name: cls-001-cp001-cp005-english-freeze-diagnostics
           path: artifacts/api-server/dist/reasoning-v1/cls-001/english-freeze/diagnostics
           if-no-files-found: error
 
@@ -79,12 +80,12 @@ jobs:
         run: |
           ROOT=src/reasoning-v1/topics/Classification/CLS-001
           OUT=dist/reasoning-v1/cls-001/english-freeze
-          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-cp001-cp004-english-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-cp001-cp004-english-review.mjs"
-          (cd artifacts/api-server && node "$OUT/export-cp001-cp004-english-review.mjs")
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-cp001-cp005-english-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-cp001-cp005-english-review.mjs"
+          (cd artifacts/api-server && node "$OUT/export-cp001-cp005-english-review.mjs")
 
       - name: Upload consolidated English review
         uses: actions/upload-artifact@v4
         with:
-          name: cls-001-cp001-cp004-english-question-review
-          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp001-cp004-english-review
+          name: cls-001-cp001-cp005-english-question-review
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp001-cp005-english-review
           if-no-files-found: error
