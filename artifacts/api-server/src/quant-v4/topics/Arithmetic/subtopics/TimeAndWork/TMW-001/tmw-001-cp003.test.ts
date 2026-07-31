@@ -63,7 +63,10 @@ for (const entry of TMW_CP003_REGISTRY) {
 
 assert.deepEqual([...correctPositions].sort(), [0, 1, 2, 3]);
 assert.ok(stems.size >= 350, `Expected broad rendered-stem diversity, received ${stems.size}`);
-assert.throws(() => runTmwCp003Pipeline({ questionLanguageId: "TMW-QL-035", seed: "unsupported", language: "hi" }), /English only/);
+const hindi = runTmwCp003Pipeline({ questionLanguageId: "TMW-QL-035", seed: "locale-support", language: "hi" });
+assert.equal(hindi.language, "hi");
+assert.equal(hindi.locale, "hi-IN");
+assert.equal(hindi.publiclyPublishable, false);
 assert.throws(() => runTmwCp003Pipeline({ questionLanguageId: "TMW-QL-999", seed: "unknown" }), /Unknown TMW-CP-003/);
 
 console.log(JSON.stringify({ chapter: "TMW-001", checkpoint: "TMW-CP-003", qlCount: 23, seedsPerQl: 50, generated, distinctStems: stems.size, correctPositions: [...correctPositions].sort(), status: "PASS" }, null, 2));
