@@ -3,10 +3,11 @@ import type { Rational } from "./types";
 export type TmwLocalizedLanguage = "hi" | "pa";
 export type TmwDisplayLocale = "hi-IN" | "pa-IN";
 export type TmwLocalizationEditorialStatus = "PENDING" | "APPROVED";
+export type TmwLocalizedValue = Rational | string;
 
 export interface TmwLocalizedOption {
   text: string;
-  value: Rational;
+  value: TmwLocalizedValue;
   misconceptionId: string;
 }
 
@@ -39,7 +40,7 @@ export interface TmwLocalizedQuestion {
   stem: string;
   parameters: unknown;
   solution: {
-    answer: Rational;
+    answer: TmwLocalizedValue;
     answerType: string;
     formulaLatex: string;
     workedLatex: string[];
