@@ -32,7 +32,7 @@ for (const entry of TMW_CP006_REGISTRY) {
     assert.equal(/मीटर/.test(language === "pa" ? prose : ""), false, `${entry.qlId}:${language}: Hindi metre leakage`);
     assert.equal(/कितने (?:बोतलें|प्रतियाँ|इकाइयाँ)|ਕਿੰਨੇ (?:ਬੋਤਲਾਂ|ਕਾਪੀਆਂ|ਇਕਾਈਆਂ|ਅਰਜ਼ੀਆਂ)/.test(question.stem), false, `${entry.qlId}:${language}: feminine interrogative agreement`);
     assert.equal(/ਉਤਨਾ ਹੀ ਕੰਮ/.test(prose), false, `${entry.qlId}:${language}: unnatural Punjabi same-work phrase`);
-    const agreementPattern = /(?:पालियाँ|बोतलें|प्रतियाँ|इकाइयाँ) है|(?:ਸ਼ਿਫ਼ਟਾਂ|ਬੋਤਲਾਂ|ਕਾਪੀਆਂ|ਇਕਾਈਆਂ) ਹੈ/;
+    const agreementPattern = /(?:पालियाँ|बोतलें|प्रतियाँ|इकाइयाँ) है(?!ं)|(?:ਸ਼ਿਫ਼ਟਾਂ|ਬੋਤਲਾਂ|ਕਾਪੀਆਂ|ਇਕਾਈਆਂ) ਹੈ/;
     const agreementDefect = fields.find(([, text]) => agreementPattern.test(text));
     assert.equal(
       agreementDefect,
