@@ -11,7 +11,7 @@ export type MenCp008AnyPrototypeId =
 
 export interface MenCp008CompressionGroup {
   groupId: string;
-  decision: "MERGE_CANDIDATE" | "MERGE_REVIEW_REQUIRED";
+  decision: "MERGE_CANDIDATE";
   canonicalReasoning: string;
   members: readonly MenCp008AnyPrototypeId[];
 }
@@ -109,13 +109,10 @@ export const MEN_CP_008_SETTLED_MERGE_CANDIDATES: readonly MenCp008CompressionGr
       "MEN-CP008-W3-PROT-CYLINDER-SURFACE-COST",
     ],
   },
-] as const;
-
-export const MEN_CP_008_MERGE_REVIEW_GROUPS: readonly MenCp008CompressionGroup[] = [
   {
     groupId: "EQUAL_VOLUME_CYLINDER_CONE_MISSING_HEIGHT_DIRECTION",
-    decision: "MERGE_REVIEW_REQUIRED",
-    canonicalReasoning: "Both directions use the same equal-volume equation, but the target-solid direction changes the factor-of-three interpretation.",
+    decision: "MERGE_CANDIDATE",
+    canonicalReasoning: "Conserve one cylinder-cone volume equality and solve for the missing height; target solid is a parameter with the same length answer semantic.",
     members: [
       "MEN-CP008-W1-PROT-EQUAL-VOLUME-CONE-HEIGHT",
       "MEN-CP008-W2-PROT-EQUAL-VOLUME-CYLINDER-HEIGHT",
@@ -123,14 +120,16 @@ export const MEN_CP_008_MERGE_REVIEW_GROUPS: readonly MenCp008CompressionGroup[]
   },
   {
     groupId: "ROLLER_INVERSE_DIMENSION_DIRECTION",
-    decision: "MERGE_REVIEW_REQUIRED",
-    canonicalReasoning: "Both solve the same swept-area equation for one missing linear dimension, but radius and roller length have different physical roles.",
+    decision: "MERGE_CANDIDATE",
+    canonicalReasoning: "Solve the same roller swept-area equation for one missing linear dimension; radius versus roller length is a target-role parameter.",
     members: [
       "MEN-CP008-W1-PROT-ROLLER-LENGTH-FROM-SWEPT-AREA",
       "MEN-CP008-W1-PROT-ROLLER-RADIUS-FROM-SWEPT-AREA",
     ],
   },
 ] as const;
+
+export const MEN_CP_008_MERGE_REVIEW_GROUPS: readonly MenCp008CompressionGroup[] = [] as const;
 
 export const MEN_CP_008_STANDALONE_CANDIDATES: readonly MenCp008AnyPrototypeId[] = [
   "MEN-CP008-PROT-CYLINDER-HEIGHT-FROM-VOLUME",
@@ -184,7 +183,6 @@ export const MEN_CP_008_SOURCE_OWNERSHIP_EXCLUSIONS = [
 ] as const;
 
 export const MEN_CP_008_FREEZE_BLOCKERS = [
-  "Resolve the two merge-review groups through generated side-by-side learner evidence.",
   "Repeat uploaded-source retrieval because the retrieval service became intermittent after the successful Wave-03 source pass.",
   "Run a no-meaningful-gap audit across direct, inverse, ratio, application, exact-kind and ownership dimensions.",
   "Freeze permanent QL identities only after all prototype ancestries map exactly once to retained families or exclusions.",
@@ -201,10 +199,7 @@ export function getMenCp008AllPrototypeIds(): MenCp008AnyPrototypeId[] {
 
 export function auditMenCp008CompressionReadiness() {
   const allPrototypeIds = getMenCp008AllPrototypeIds();
-  const groupedIds = [
-    ...MEN_CP_008_SETTLED_MERGE_CANDIDATES,
-    ...MEN_CP_008_MERGE_REVIEW_GROUPS,
-  ].flatMap((group) => group.members);
+  const groupedIds = MEN_CP_008_SETTLED_MERGE_CANDIDATES.flatMap((group) => group.members);
   const classifiedIds = [...groupedIds, ...MEN_CP_008_STANDALONE_CANDIDATES];
 
   const allSet = new Set(allPrototypeIds);
@@ -216,13 +211,8 @@ export function auditMenCp008CompressionReadiness() {
   const foreignClassifications = classifiedIds.filter((prototypeId) => !allSet.has(prototypeId));
 
   const provisionalMinimumQlFamilies =
-    MEN_CP_008_STANDALONE_CANDIDATES.length +
-    MEN_CP_008_SETTLED_MERGE_CANDIDATES.length +
-    MEN_CP_008_MERGE_REVIEW_GROUPS.length;
-  const provisionalMaximumQlFamilies =
-    MEN_CP_008_STANDALONE_CANDIDATES.length +
-    MEN_CP_008_SETTLED_MERGE_CANDIDATES.length +
-    MEN_CP_008_MERGE_REVIEW_GROUPS.reduce((total, group) => total + group.members.length, 0);
+    MEN_CP_008_STANDALONE_CANDIDATES.length + MEN_CP_008_SETTLED_MERGE_CANDIDATES.length;
+  const provisionalMaximumQlFamilies = provisionalMinimumQlFamilies;
 
   return {
     prototypeCount: allPrototypeIds.length,
