@@ -1,3 +1,5 @@
+import { formatStandaloneIntegersForEnglishIndia } from "./english-stem-style";
+
 const SPECIFIC_WARNINGS: Readonly<Record<string, string>> = {
   SIGN_DIRECTION_IGNORED:
     "This checks only one direction. Compare equally distant lower and upper candidates before deciding.",
@@ -87,11 +89,12 @@ function parseTrap(rawTrap: unknown): ParsedTrap | null {
 }
 
 export function normaliseNumberSystemReviewMath(text: unknown): string {
-  return String(text ?? "")
+  const normalised = String(text ?? "")
     .replace(/\\\((.+?)\\\)/g, "$$$1$")
     .replace(/n−1/g, "$n - 1$")
     .replace(/n\+1/g, "$n + 1$")
     .replace(/\u2212/g, "-");
+  return formatStandaloneIntegersForEnglishIndia(normalised);
 }
 
 /**
