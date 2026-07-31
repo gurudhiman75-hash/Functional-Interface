@@ -35,15 +35,16 @@ jobs:
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
-      - name: Bundle CLS-CP-007 audit and exporter
+      - name: Bundle CLS-CP-007 audits and exporter
         run: |
           ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-007
           OUT=dist/reasoning-v1/cls-001/cp007
           mkdir -p artifacts/api-server/$OUT
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/prototype.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/prototype.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/quality.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/quality.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-review.mjs"
 
-      - name: Run CLS-CP-007 discovery audit
+      - name: Run CLS-CP-007 discovery audits
         id: cp007_audit
         run: |
           set +e
@@ -51,7 +52,14 @@ jobs:
           DIAG=$OUT/diagnostics
           mkdir -p "$DIAG"
           (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp007/prototype.test.mjs") >"$DIAG/prototype-audit.log" 2>&1
-          STATUS=$?
+          PROTOTYPE_STATUS=$?
+          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp007/quality.test.mjs") >"$DIAG/quality-audit.log" 2>&1
+          QUALITY_STATUS=$?
+          if [ "$PROTOTYPE_STATUS" -ne 0 ] || [ "$QUALITY_STATUS" -ne 0 ]; then
+            STATUS=1
+          else
+            STATUS=0
+          fi
           echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
           exit 0
 
@@ -63,13 +71,14 @@ jobs:
           path: artifacts/api-server/dist/reasoning-v1/cls-001/cp007/diagnostics
           if-no-files-found: error
 
-      - name: Enforce CLS-CP-007 discovery audit
+      - name: Enforce CLS-CP-007 discovery audits
         if: steps.cp007_audit.outputs.exit_code != '0'
         run: |
           cat artifacts/api-server/dist/reasoning-v1/cls-001/cp007/diagnostics/prototype-audit.log
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp007/diagnostics/quality-audit.log
           exit 1
 
-      - name: Generate CLS-CP-007 discovery review
+      - name: Generate CLS-CP-007 source-shaped discovery review
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/cls-001/cp007/export-review.mjs
