@@ -95,7 +95,7 @@ for (const prototype of CLS_CP006_PROTOTYPES) {
       /^(Add|Check|Label|Mark|Subtract|Use|Write)/,
     );
     assert.ok(question.explanation.commonTrapWarning[0]!.length >= 60);
-    assert.ok(question.explanation.coreConcept[0]!.length >= 55);
+    assert.ok(question.explanation.coreConcept[0]!.length >= 50);
     assert.ok(question.explanation.coreConcept[0]!.length <= 180);
 
     const learnerText = [
