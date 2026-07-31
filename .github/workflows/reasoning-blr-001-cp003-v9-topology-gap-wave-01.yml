@@ -1,0 +1,158 @@
+name: Reasoning BLR-001 CP-003 V9 Topology Gap Wave 01
+
+on:
+  push:
+    branches:
+      - feat/blr-001-cp003-shared-family-runtime
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v8-editorial-baseline-approved.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v8-editorial-baseline-approved.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-01-foundation.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-01.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-01.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-v9-topology-gap-wave-01.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/BLR-CP-003-V8-EDITORIAL-BASELINE-APPROVAL-RECORD.md"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/BLR-CP-003-V9-TOPOLOGY-GAP-WAVE-01.md"
+      - ".github/workflows/reasoning-blr-001-cp003-v9-topology-gap-wave-01.yml"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v8-editorial-baseline-approved.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v8-editorial-baseline-approved.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-01-foundation.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-01.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-01.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-v9-topology-gap-wave-01.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/BLR-CP-003-V8-EDITORIAL-BASELINE-APPROVAL-RECORD.md"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/BLR-CP-003-V9-TOPOLOGY-GAP-WAVE-01.md"
+      - ".github/workflows/reasoning-blr-001-cp003-v9-topology-gap-wave-01.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blr-001-cp003-v9-topology-gap-wave-01-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-v9-topology-gap-wave-01:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run preserved V8 reviewed proof
+        id: v8_reviewed
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-learner-evidence-v8-reviewed.test.ts > cp003-v8-reviewed-source.log 2>&1
+
+      - name: Run scoped V8 editorial approval proof
+        id: v8_approval
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v8-editorial-baseline-approved.test.ts > cp003-v8-editorial-approval.log 2>&1
+
+      - name: Run V9 topology gap-wave proof
+        id: v9_wave
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-01.test.ts > cp003-v9-topology-gap-wave-01.log 2>&1
+
+      - name: Export V9 topology gap-wave review pack
+        id: v9_export
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-v9-topology-gap-wave-01.ts cp003-v9-topology-gap-wave-01-output > cp003-v9-export.log 2>&1
+
+      - name: Verify V9 artifact contracts
+        id: artifact_contract
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=cp003-v9-topology-gap-wave-01-output
+          test -f "$OUT/blr-cp003-v9-wave01-summary.json"
+          test -f "$OUT/blr-cp003-v9-wave01-candidates.jsonl"
+          test -f "$OUT/blr-cp003-v9-wave01-candidates.csv"
+          test -f "$OUT/blr-cp003-v9-wave01-candidates.md"
+          test -f "$OUT/blr-cp003-v9-wave01-candidates.html"
+          test -f "$OUT/blr-cp003-v9-structural-coverage-matrix.md"
+          grep -q '"candidateRecords": 96' "$OUT/blr-cp003-v9-wave01-summary.json"
+          grep -q '"records": 226' "$OUT/blr-cp003-v9-wave01-summary.json"
+          grep -q '"topologyCount": 6' "$OUT/blr-cp003-v9-wave01-summary.json"
+          grep -q '"prototypeCount": 17' "$OUT/blr-cp003-v9-wave01-summary.json"
+          grep -q '"humanReviewApproved": false' "$OUT/blr-cp003-v9-wave01-summary.json"
+          grep -q '"finalDiscoveryFreezeAllowed": false' "$OUT/blr-cp003-v9-wave01-summary.json"
+          grep -q 'min-width:0' "$OUT/blr-cp003-v9-wave01-candidates.html"
+          grep -q '@media(max-width:640px)' "$OUT/blr-cp003-v9-wave01-candidates.html"
+          if grep -q 'min-width:720px' "$OUT/blr-cp003-v9-wave01-candidates.html"; then
+            echo "Legacy fixed SVG width remains in V9 HTML."
+            exit 1
+          fi
+
+      - name: Re-run historical final-freeze boundary
+        id: freeze_boundary
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-final-freeze-readiness.test.ts > cp003-v9-freeze-boundary.log 2>&1
+
+      - name: Upload V9 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp003-v9-topology-gap-wave-01-logs
+          path: |
+            cp003-v8-reviewed-source.log
+            cp003-v8-editorial-approval.log
+            cp003-v9-topology-gap-wave-01.log
+            cp003-v9-export.log
+            cp003-v9-freeze-boundary.log
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload V9 topology gap-wave review pack
+        if: steps.v9_export.outcome == 'success' && steps.artifact_contract.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp003-v9-topology-gap-wave-01
+          path: cp003-v9-topology-gap-wave-01-output
+          if-no-files-found: error
+          retention-days: 21
+
+      - name: Enforce preserved V8 reviewed result
+        if: steps.v8_reviewed.outcome == 'failure'
+        run: |
+          cat cp003-v8-reviewed-source.log
+          exit 1
+
+      - name: Enforce scoped V8 approval result
+        if: steps.v8_approval.outcome == 'failure'
+        run: |
+          cat cp003-v8-editorial-approval.log
+          exit 1
+
+      - name: Enforce V9 topology gap-wave result
+        if: steps.v9_wave.outcome == 'failure'
+        run: |
+          cat cp003-v9-topology-gap-wave-01.log
+          exit 1
+
+      - name: Enforce V9 export result
+        if: steps.v9_export.outcome == 'failure'
+        run: |
+          cat cp003-v9-export.log
+          exit 1
+
+      - name: Enforce V9 artifact contract
+        if: steps.artifact_contract.outcome == 'failure'
+        run: exit 1
+
+      - name: Enforce freeze-boundary regression
+        if: steps.freeze_boundary.outcome == 'failure'
+        run: |
+          cat cp003-v9-freeze-boundary.log
+          exit 1
