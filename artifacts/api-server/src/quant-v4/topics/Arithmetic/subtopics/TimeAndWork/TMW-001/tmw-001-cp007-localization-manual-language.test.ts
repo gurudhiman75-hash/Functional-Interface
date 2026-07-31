@@ -44,7 +44,7 @@ for (const entry of TMW_CP007_REGISTRY) {
         assert.equal(new RegExp(`${answer} (?:है(?!ं)|ਹੈ)`).test(prose), false, `${entry.qlId}:${language}: count-answer copula`);
       }
       if (entry.solveMode === "findMixedCrewCompletionTime") {
-        assert.match(question.stem, language === "hi" ? /के अंतर्गत कुल.*का लक्ष्य/ : /ਅਧੀਨ ਕੁੱਲ.*ਦਾ ਟੀਚਾ/);
+        assert.match(question.stem, language === "hi" ? /कुल लक्ष्य:.*समूह को पूरा काम/ : /ਕੁੱਲ ਟੀਚਾ:.*ਸਮੂਹ ਨੂੰ ਪੂਰਾ ਕੰਮ/);
       }
       if (entry.solveMode === "findCrewCompositionFromTwoOutputFacts") {
         const givens = question.explanation.givens.join(" ");
