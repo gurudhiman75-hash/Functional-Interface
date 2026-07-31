@@ -79,35 +79,56 @@ for (const entry of TMW_CP004_REGISTRY) {
       assert.equal(/\b(?:operator|technician|clerk|machine|crew|team|inspector|typist|painter|recorder|surveyor|assembler)\b/i.test(learnerText), false, `${entry.qlId}:${language}: actor leakage`);
       assert.equal(/\b(?:customer-record|equipment overhaul|loan-application|printing order|road-marking|packaging order|quality-inspection|manuscript-typing|school-building|warehouse inventory|field survey|electronics-assembly)\b/i.test(learnerText), false, `${entry.qlId}:${language}: context leakage`);
       assert.equal(/\b(?:\d+\s+)?\d+\/\d+\s+(?:दिन|ਦਿਨ|घंट|ਘੰਟ)/.test(learnerText), false, `${entry.qlId}:${language}: raw fractional time`);
+      assert.equal(/(?:काम|बैच|सेट|ऑर्डर|मरम्मत|सर्वेक्षण) को (?:अकेले|\d+)|(?:ਕੰਮ|ਬੈਚ|ਸੈੱਟ|ਆਰਡਰ|ਮੁਰੰਮਤ|ਸਰਵੇਖਣ) ਨੂੰ (?:ਇਕੱਲੇ|\d+)/.test(first.stem), false, `${entry.qlId}:${language}: duplicated task case`);
+      assert.equal(/(?:मशीन|टीम|दल) [ABC].*(?:अकेले शुरू करता|चला जाता|काम करता है|रुक गया)|(?:ਮਸ਼ੀਨ|ਟੀਮ) [ABC].*(?:ਇਕੱਲਾ ਸ਼ੁਰੂ ਕਰਦਾ|ਚਲਾ ਜਾਂਦਾ|ਕੰਮ ਕਰਦਾ ਹੈ|ਰੁਕ ਗਿਆ)/.test(first.stem), false, `${entry.qlId}:${language}: context-unsafe gender`);
+      assert.equal(/दिए गए बदलाव को केवल संबंधित चरण|ਦਿੱਤੇ ਬਦਲਾਅ ਨੂੰ ਸਿਰਫ਼ ਸੰਬੰਧਿਤ ਪੜਾਅ/.test(first.explanation.shortcut.steps.join(" ")), false, `${entry.qlId}:${language}: generic shortcut`);
       assert.equal(language === "hi" ? /[\u0900-\u097F]/.test(learnerText) : /[\u0A00-\u0A7F]/.test(learnerText), true);
 
       if (first.solution.answerType === "FRACTION") {
         assert.equal(first.options.every((option) => option.includes(language === "hi" ? "काम का" : "ਕੰਮ ਦਾ")), true);
       }
       if (first.solution.answerType === "RATE") {
+        assert.equal(first.options.every((option) => option.includes(language === "hi" ? "पूरे काम का" : "ਪੂਰੇ ਕੰਮ ਦਾ")), true);
+        assert.equal(first.options.every((option) => option.includes(language === "hi" ? "भाग" : "ਹਿੱਸਾ")), true);
         assert.equal(first.options.every((option) => option.includes(language === "hi" ? "प्रति" : "ਪ੍ਰਤੀ")), true);
       }
       if (first.solution.answerType === "COUNT") {
         assert.equal(first.options.every((option) => option.endsWith(language === "hi" ? "कर्मचारी" : "ਕਰਮਚਾਰੀ")), true);
       }
       if (joinModes.has(entry.solveMode)) {
-        assert.match(first.stem, language === "hi" ? /जुड़/ : /ਜੁੜ/);
+        assert.match(first.stem, language === "hi" ? /जुड़|भागीदारी शुरू/ : /ਜੁੜ|ਭਾਗੀਦਾਰੀ ਸ਼ੁਰੂ/);
       }
       if (leaveModes.has(entry.solveMode)) {
-        assert.match(first.stem, language === "hi" ? /चला|गए|जाता/ : /ਚਲਾ|ਗਏ|ਜਾਂਦਾ/);
+        assert.match(first.stem, language === "hi" ? /भागीदारी समाप्त|चले जाते|गए/ : /ਭਾਗੀਦਾਰੀ ਖਤਮ|ਚਲੇ ਜਾਂਦੇ|ਗਏ/);
       }
       if (entry.solveMode === "findCompletionWithIdleInterval") {
         assert.match(first.stem, language === "hi" ? /रुका/ : /ਰੁਕਿਆ/);
-        assert.match(first.explanation.shortcut.title, language === "hi" ? /रुका समय/ : /ਰੁਕਿਆ ਸਮਾਂ/);
+        assert.match(first.explanation.shortcut.steps.join(" "), language === "hi" ? /रुका हुआ समय अलग जोड़ें/ : /ਰੁਕਿਆ ਹੋਇਆ ਸਮਾਂ ਵੱਖ ਜੋੜੋ/);
       }
       if (entry.solveMode === "findCompletionWithNegativeWorkerActivatedLater") {
         assert.match(first.explanation.opening, language === "hi" ? /घटाकर शुद्ध दर/ : /ਘਟਾ ਕੇ ਸ਼ੁੱਧ ਦਰ/);
+        assert.match(first.explanation.shortcut.steps.join(" "), language === "hi" ? /सकारात्मक संयुक्त दर − हानि दर/ : /ਸਕਾਰਾਤਮਕ ਸਾਂਝੀ ਦਰ − ਨੁਕਸਾਨ ਦਰ/);
       }
       if (entry.solveMode === "findCompletionWithChangedDailyHours") {
-        assert.match(first.stem, language === "hi" ? /प्रति घंटे की उत्पादकता/ : /ਪ੍ਰਤੀ ਘੰਟਾ ਉਤਪਾਦਕਤਾ/);
+        assert.match(first.stem, language === "hi" ? /यदि .* प्रतिदिन|प्रति घंटे की उत्पादकता/ : /ਜੇ .* ਹਰ ਰੋਜ਼|ਪ੍ਰਤੀ ਘੰਟਾ ਉਤਪਾਦਕਤਾ/);
       }
-      if (entry.solveMode === "findWorkerCountAddedAfterPartialProgress" || entry.solveMode === "findWorkerCountRemovedAfterPartialProgress") {
-        assert.match(first.stem, language === "hi" ? /कर्मचारी/ : /ਕਰਮਚਾਰੀ/);
+      if (entry.solveMode === "findRemainingWorkAfterInitialPhase") {
+        assert.match(first.explanation.commonTrap.explanation, language === "hi" ? /पूरा हुआ भाग.*बचा हुआ/ : /ਪੂਰਾ ਹੋਇਆ ਹਿੱਸਾ.*ਬਾਕੀ ਹਿੱਸਾ/);
+      }
+      if (entry.solveMode === "findUnknownFinalPhaseDuration") {
+        assert.match(first.explanation.commonTrap.explanation, language === "hi" ? /शुरुआती चरण की अवधि.*अंतिम चरण/ : /ਸ਼ੁਰੂਆਤੀ ਪੜਾਅ ਦੀ ਮਿਆਦ.*ਆਖ਼ਰੀ ਪੜਾਅ/);
+      }
+      if (entry.solveMode === "findEventTimeAtSpecifiedCompletionFraction") {
+        assert.match(first.explanation.commonTrap.explanation, language === "hi" ? /पूरे काम.*लक्षित भाग/ : /ਸਾਰੇ ਕੰਮ.*ਟੀਚੇ ਵਾਲੇ ਹਿੱਸੇ/);
+      }
+      if (entry.solveMode === "findWorkerCountRemovedAfterPartialProgress") {
+        assert.match(first.explanation.commonTrap.explanation, language === "hi" ? /शुरुआती कुल.*अंतिम संख्या का अंतर/ : /ਸ਼ੁਰੂਆਤੀ ਕੁੱਲ.*ਆਖ਼ਰੀ ਗਿਣਤੀ ਦਾ ਅੰਤਰ/);
+      }
+      if (entry.solveMode === "findDelayAfterWorkerLeaves") {
+        assert.match(first.explanation.commonTrap.explanation, language === "hi" ? /जाने का समय.*कुल समय का अंतर/ : /ਜਾਣ ਦਾ ਸਮਾਂ.*ਕੁੱਲ ਸਮੇਂ ਦਾ ਅੰਤਰ/);
+      }
+      if (entry.solveMode === "findEarlyCompletionAfterWorkerJoins") {
+        assert.match(first.explanation.commonTrap.explanation, language === "hi" ? /जुड़ने का समय.*कुल समय की बचत/ : /ਜੁੜਨ ਦਾ ਸਮਾਂ.*ਕੁੱਲ ਸਮੇਂ ਦੀ ਬਚਤ/);
       }
 
       counts[language] += 1;
