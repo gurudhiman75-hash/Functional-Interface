@@ -1,6 +1,6 @@
 # CLS-001 — Classification / Odd One Out
 
-Status: `CP001_CP002_MULTILINGUAL_FROZEN__CP003_TO_CP006_ENGLISH_FROZEN`
+Status: `CP001_CP002_MULTILINGUAL_FROZEN__CP003_TO_CP007_ENGLISH_FROZEN`
 
 ## Product identity
 
@@ -21,7 +21,7 @@ Classification asks the learner to identify the item, pair or complete option-gr
 
 Every admitted question must define a bounded rule universe, construct a valid state, prove one unique answer, reject competing answers and be independently re-solved. Four and five answer options are presentation and difficulty properties rather than separate QLs.
 
-## Permanent inventory through CP-006
+## Permanent inventory through CP-007
 
 | QL | Checkpoint | Student task | Locale status |
 |---|---|---|---|
@@ -36,6 +36,8 @@ Every admitted question must define a bounded rule universe, construct a valid s
 | `CLS-QL-009` | `CLS-CP-005` | Select the number tuple following the same internal rule as a reference tuple | Frozen English runtime proof |
 | `CLS-QL-010` | `CLS-CP-006` | Find the single letter whose bounded alphabet property differs | Frozen English runtime proof |
 | `CLS-QL-011` | `CLS-CP-006` | Find the complete ordered letter-pair whose internal alphabet relation differs | Frozen English runtime proof |
+| `CLS-QL-012` | `CLS-CP-007` | Find the complete three-, four- or five-letter cluster whose internal alphabet structure differs | Frozen English runtime proof |
+| `CLS-QL-013` | `CLS-CP-007` | Find the complete letter-cluster pair whose position-wise transformation differs | Frozen English runtime proof |
 
 No later `CLS-QL-*` identity is reserved.
 
@@ -49,14 +51,14 @@ No later `CLS-QL-*` identity is reserved.
 | `CLS-CP-004` | Number-property classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
 | `CLS-CP-005` | Number-pair, triple and set classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
 | `CLS-CP-006` | Alphabet, letter-pair and letter-class classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
-| `CLS-CP-007` | Letter-cluster and explicit word-pattern classification | Pending executable discovery |
+| `CLS-CP-007` | Letter-cluster and complete cluster-pair classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
 | `CLS-CP-008` | Mixed-token and bounded synthesis classification | Pending ownership audit |
 
 ## Frozen foundation summary
 
 ```text
-Permanent QLs through CP-006:     11
-Frozen solve contracts:           11
+Permanent QLs through CP-007:     13
+Frozen solve contracts:           13
 Answer-option counts:              4 and 5
 Question Studio exposure:          disabled
 Question Bank storage:             disabled
@@ -173,6 +175,39 @@ Reverse-position wording and intervening-letter wording compress into the existi
 
 The permanent editorial gate rejects fixed-cardinality stem mismatches, singular/plural defects, direct-operation leakage, internal identifiers, calculation-only evidence and any option whose match/failure result is not explicit.
 
+### CLS-CP-007
+
+```text
+Permanent English QLs:                         2
+Single-cluster deterministic domain:       57,664
+Single-cluster source prototypes/rules:      13 / 13
+Single-cluster logical audit questions:          390
+Single-cluster quality audit questions:          156
+Cluster-pair common domain:                  15,600
+Cluster-pair balanced near-miss domain:       18,300
+Cluster-pair competing-rule universe:              8
+Cluster-pair audit questions:                    240
+Permanent runtime audit questions:             1,520
+CLS-QL-012 unique:                         1040 / 1040
+CLS-QL-013 unique:                           480 / 480
+Permanent review questions:                       76
+Option counts:                               4 and 5
+Difficulties:                     EASY, MEDIUM, HARD
+Locale frozen:                                  en-IN
+```
+
+`CLS-QL-012` merges thirteen complete-cluster rule families because the learner always evaluates one complete three-, four- or five-letter cluster under one bounded internal structure and selects the unique mismatch. Length, direction, exact vector, normalized ratio, equality topology, vowel count, repeat topology, indexed equation, option count and difficulty remain instance variables.
+
+`CLS-QL-013` remains separate because every option contains a complete left cluster and right cluster and the learner proves a position-wise transformation across that explicit pair boundary. The frozen source authority is corresponding opposite letters. Exact corresponding sums, signed and absolute shifts, direct reversal, reversed opposite transformation, vowel signatures and repeat signatures form the complete ambiguity-safeguard registry.
+
+Complete cluster-pair options remain Classification only when each option is self-contained. A source relation transferred to an incomplete target remains Analogy.
+
+The source-shaped quality layer matches nuisance vowel and repeat features, removes repeated-letter shortcuts outside the intended family, proves multiple raw scales for ratio questions, proves multiple raw vectors for topology questions, bounds extreme movements and constructs close controlled outliers.
+
+Opposite-pair near misses preserve the whole position total: common corresponding totals are `27,27,27`, while the outlier uses `26,27,28` in some order. The learner must inspect the intended indexed relation rather than exploit a total-sum shortcut.
+
+Every option explanation ends with an explicit match or failure result. A dedicated presentation regression rejects duplicated equation results, compact index labels and compressed pair-gap prose.
+
 ## Strict chapter boundary
 
 CLS-001 owns questions whose final task is classification by a visible or inferable common property or option-local relation.
@@ -186,6 +221,7 @@ It excludes:
 - operator replacement and equation evaluation — Mathematical Operations;
 - dictionary ordering — Word and Dictionary Order;
 - figure odd-one-out — Figure Classification;
+- mixed letter-number or symbol synthesis not yet governed by CP-008;
 - general-knowledge questions with no stable governed dataset;
 - open-ended free-text generation;
 - questions with several equally defensible grouping rules.
@@ -206,7 +242,11 @@ It excludes:
 - `CLS-CP-006/CLS-CP-006-FINAL-ENGLISH-FREEZE.md`
 - `CLS-CP-006/CLS-CP-006-SOURCE-AND-OWNERSHIP-AUDIT.md`
 - `CLS-CP-006/CLS-CP-006-SOURCE-GAP-AND-MERGE-SPLIT-AUDIT.md`
+- `CLS-CP-007/CLS-CP-007-FINAL-ENGLISH-FREEZE.md`
+- `CLS-CP-007/CLS-CP-007-SOURCE-AND-OWNERSHIP-AUDIT.md`
+- `CLS-CP-007/CLS-CP-007-SOURCE-GAP-AUDIT-WAVE-1.md`
+- `CLS-CP-007/CLS-CP-007-FINAL-SOURCE-GAP-AND-MERGE-SPLIT-AUDIT.md`
 
 ## Release locks
 
-CP-001 and CP-002 are frozen multilingual review-only proofs. CP-003, CP-004, CP-005 and CP-006 are frozen English review-only proofs. None are wired to Question Studio, Question Bank, tests or public publication. Hindi and Punjabi localisation for CP-003 through CP-006 require separate explicit phases.
+CP-001 and CP-002 are frozen multilingual review-only proofs. CP-003 through CP-007 are frozen English review-only proofs. None are wired to Question Studio, Question Bank, tests or public publication. Hindi and Punjabi localisation for CP-003 through CP-007 require separate explicit phases.
