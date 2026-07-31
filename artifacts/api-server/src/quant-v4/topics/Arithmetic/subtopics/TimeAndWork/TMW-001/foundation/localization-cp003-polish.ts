@@ -1,4 +1,6 @@
 import { required } from "./cp001-helpers";
+import { divide, formatRational } from "./rational";
+import { ratioText } from "./cp003-solver";
 import type { TmwCp003Parameters, TmwCp003SolveMode } from "./cp003-types";
 import type { TmwLocalizedLanguage, TmwLocalizedQuestion } from "./localization-types";
 import { formatLocalizedTime } from "./localization-glossary";
@@ -49,10 +51,15 @@ function time(p: TmwCp003Parameters, value: NonNullable<TmwCp003Parameters["time
   return formatLocalizedTime(value, p.timeUnit, language);
 }
 
-function polishedStem(
-  question: TmwLocalizedQuestion,
-  language: TmwLocalizedLanguage,
-): string {
+function percentage(p: TmwCp003Parameters): string {
+  return `${formatRational(required(p.percentAOverB, "percentAOverB"))}%`;
+}
+
+function efficiencyRatio(p: TmwCp003Parameters): string {
+  return ratioText(divide(p.efficiencyA, p.efficiencyB));
+}
+
+function polishedStem(question: TmwLocalizedQuestion, language: TmwLocalizedLanguage): string {
   const p = question.parameters as TmwCp003Parameters;
   const mode = question.solveMode as TmwCp003SolveMode;
   const A = agent(p, language, "A");
@@ -75,21 +82,21 @@ function polishedStem(
     case "findFasterTimeFromSlowerTimeAndPercentMoreEfficient":
       return copy(
         language,
-        `${A}, ${B} से ${question.parameters && typeof question.parameters === "object" ? `${(p.percentAOverB?.numerator ?? 0) / (p.percentAOverB?.denominator ?? 1)}%` : ""} अधिक कार्यक्षम है। ${B} को ${assignment} पूरा करने में ${time(p, required(p.timeB, "timeB"), language)} लगते हैं। ${A} को कितना समय लगेगा?`,
-        `${A}, ${B} ਨਾਲੋਂ ${question.parameters && typeof question.parameters === "object" ? `${(p.percentAOverB?.numerator ?? 0) / (p.percentAOverB?.denominator ?? 1)}%` : ""} ਵੱਧ ਕਾਰਗਰ ਹੈ। ${B} ਨੂੰ ${assignment} ਪੂਰਾ ਕਰਨ ਵਿੱਚ ${time(p, required(p.timeB, "timeB"), language)} ਲੱਗਦੇ ਹਨ। ${A} ਨੂੰ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`,
+        `${A}, ${B} से ${percentage(p)} अधिक कार्यक्षम है। ${B} को ${assignment} पूरा करने में ${time(p, required(p.timeB, "timeB"), language)} लगते हैं। ${A} को कितना समय लगेगा?`,
+        `${A}, ${B} ਨਾਲੋਂ ${percentage(p)} ਵੱਧ ਕਾਰਗਰ ਹੈ। ${B} ਨੂੰ ${assignment} ਪੂਰਾ ਕਰਨ ਵਿੱਚ ${time(p, required(p.timeB, "timeB"), language)} ਲੱਗਦੇ ਹਨ। ${A} ਨੂੰ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`,
       );
     case "findSlowerTimeFromFasterTimeAndPercentMoreEfficient":
       return copy(
         language,
-        `${A}, ${B} से ${question.parameters && typeof question.parameters === "object" ? `${(p.percentAOverB?.numerator ?? 0) / (p.percentAOverB?.denominator ?? 1)}%` : ""} अधिक कार्यक्षम है। ${A} को ${assignment} पूरा करने में ${time(p, required(p.timeA, "timeA"), language)} लगते हैं। ${B} को कितना समय लगेगा?`,
-        `${A}, ${B} ਨਾਲੋਂ ${question.parameters && typeof question.parameters === "object" ? `${(p.percentAOverB?.numerator ?? 0) / (p.percentAOverB?.denominator ?? 1)}%` : ""} ਵੱਧ ਕਾਰਗਰ ਹੈ। ${A} ਨੂੰ ${assignment} ਪੂਰਾ ਕਰਨ ਵਿੱਚ ${time(p, required(p.timeA, "timeA"), language)} ਲੱਗਦੇ ਹਨ। ${B} ਨੂੰ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`,
+        `${A}, ${B} से ${percentage(p)} अधिक कार्यक्षम है। ${A} को ${assignment} पूरा करने में ${time(p, required(p.timeA, "timeA"), language)} लगते हैं। ${B} को कितना समय लगेगा?`,
+        `${A}, ${B} ਨਾਲੋਂ ${percentage(p)} ਵੱਧ ਕਾਰਗਰ ਹੈ। ${A} ਨੂੰ ${assignment} ਪੂਰਾ ਕਰਨ ਵਿੱਚ ${time(p, required(p.timeA, "timeA"), language)} ਲੱਗਦੇ ਹਨ। ${B} ਨੂੰ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`,
       );
     case "findIndividualTimeFromEfficiencyRatioAndCombinedTime": {
       const target = required(p.targetAgentIndex, "targetAgentIndex") === 0 ? A : B;
       return copy(
         language,
-        `${A} और ${B} मिलकर ${assignment} ${time(p, required(p.combinedTime, "combinedTime"), language)} में पूरा करते हैं। उनकी कार्यक्षमता का अनुपात प्रश्न में दिया गया है। ${target} को अकेले कितना समय लगेगा?`,
-        `${A} ਅਤੇ ${B} ਮਿਲ ਕੇ ${assignment} ${time(p, required(p.combinedTime, "combinedTime"), language)} ਵਿੱਚ ਪੂਰਾ ਕਰਦੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੀ ਕਾਰਗੁਜ਼ਾਰੀ ਦਾ ਅਨੁਪਾਤ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤਾ ਹੈ। ${target} ਨੂੰ ਇਕੱਲੇ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`,
+        `${A}:${B} की कार्यक्षमता का अनुपात ${efficiencyRatio(p)} है। दोनों मिलकर ${assignment} ${time(p, required(p.combinedTime, "combinedTime"), language)} में पूरा करते हैं। ${target} को अकेले कितना समय लगेगा?`,
+        `${A}:${B} ਦੀ ਕਾਰਗੁਜ਼ਾਰੀ ਦਾ ਅਨੁਪਾਤ ${efficiencyRatio(p)} ਹੈ। ਦੋਵੇਂ ਮਿਲ ਕੇ ${assignment} ${time(p, required(p.combinedTime, "combinedTime"), language)} ਵਿੱਚ ਪੂਰਾ ਕਰਦੇ ਹਨ। ${target} ਨੂੰ ਇਕੱਲੇ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`,
       );
     }
     default:
