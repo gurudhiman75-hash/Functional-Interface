@@ -43,6 +43,7 @@ jobs:
           mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp003-open-discovery
           mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp004-open-discovery
           mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp005-open-discovery
+          mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/numeric-gap-audit
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
@@ -111,6 +112,21 @@ jobs:
             --outfile="$OUT/ser-cp-005.test.mjs"
           (cd artifacts/api-server && node "$OUT/ser-cp-005.test.mjs") \
             | tee "$EVIDENCE/audit.json"
+
+      - name: Run SER-001 chapter-wide numeric gap and collision audit
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-NUMERIC-AUDIT
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/numeric-gap-audit
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/ser-numeric-gap-audit.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/ser-numeric-gap-audit.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-numeric-gap-audit.test.mjs") \
+            | tee "$EVIDENCE/audit.json"
+          cp "artifacts/api-server/$ROOT/ser-numeric-gap-audit.md" \
+            "$EVIDENCE/ser-numeric-gap-audit.md"
 
       - name: Generate exact English review packs
         run: |
@@ -195,7 +211,17 @@ jobs:
           Audit volume: 4,800 deterministic English questions
           Review pack: 80 exact English questions
 
-          Total audit volume: 10,560 questions
+          SER-NUMERIC-AUDIT
+          Source-shaped families: 22
+          Provisional canonical authorities: 14
+          Net inventory compression: 8
+          Covered dimensions: 11
+          Partial dimensions: 2
+          Open dimensions: 13
+          Permanent-freeze blockers: 15
+          Freeze decision: BLOCK_PERMANENT_QL_ALLOCATION
+
+          Total executable audit volume: 10,560 questions
 
           This evidence does not activate Question Studio, Question Bank,
           test eligibility or public publication.
@@ -205,7 +231,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ser-001-cp001-cp005-open-discovery
+          name: ser-001-cp001-cp005-numeric-gap-audit
           path: artifacts/api-server/dist/reasoning-v1/ser-001
           if-no-files-found: error
           retention-days: 30
