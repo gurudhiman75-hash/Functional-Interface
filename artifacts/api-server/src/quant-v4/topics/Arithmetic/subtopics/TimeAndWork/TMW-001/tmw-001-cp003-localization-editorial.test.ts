@@ -24,6 +24,8 @@ for (const entry of TMW_CP003_REGISTRY) {
     assert.equal(/find[A-Z]|TMW_|_[A-Z_]{3,}|Do not|Don't/i.test(prose), false, `${entry.qlId}:${language}: internal or command language`);
     assert.equal(/द्वारा .* किया जाता है|ਵੱਲੋਂ .* ਕੀਤਾ ਜਾਂਦਾ ਹੈ/.test(prose), false, `${entry.qlId}:${language}: translated passive phrasing`);
     assert.equal(/(?:का काम|का ऑर्डर|की पेंटिंग) (?:को|के लिए|में)|(?:ਦਾ ਕੰਮ|ਦਾ ਆਰਡਰ) (?:ਨੂੰ|ਲਈ|ਵਿੱਚ)/.test(question.stem), false, `${entry.qlId}:${language}: duplicated case marker`);
+    assert.equal(/आउटपुट/.test(prose), false, `${entry.qlId}: transliterated output wording`);
+    assert.equal(/\b\d+\s+\d+\/\d+%/.test([prose, ...question.options].join("\n")), false, `${entry.qlId}: raw mixed percentage`);
     assert.equal(question.options.includes(question.explanation.commonTrap.optionText), true);
     assert.equal(question.explanation.commonTrap.optionLabel.startsWith(language === "hi" ? "विकल्प" : "ਚੋਣ"), true);
     assert.equal(question.publiclyPublishable, false);
@@ -33,7 +35,7 @@ for (const entry of TMW_CP003_REGISTRY) {
       assert.equal(question.options.every((option) => /^\d+:\d+$/.test(option)), true);
     }
     if (question.solution.answerType === "PERCENT") {
-      assert.equal(question.options.every((option) => option.endsWith("%")), true);
+      assert.equal(question.options.every((option) => /^\d+%$|^\\\(.+\\%\\\)$/.test(option)), true);
     }
     if ([
       "findEfficiencyRatioFromEqualWorkTimes",
@@ -54,12 +56,19 @@ for (const entry of TMW_CP003_REGISTRY) {
     ].includes(entry.solveMode)) {
       assert.match(question.explanation.opening, language === "hi" ? /प्रतिशत|गुणक/ : /ਪ੍ਰਤੀਸ਼ਤ|ਗੁਣਕ/);
     }
-    if (["findSuccessiveEfficiencyRatioAcrossThreeAgents", "findSuccessiveEfficiencyPercentComparison"].includes(entry.solveMode)) {
-      assert.match(question.explanation.opening, language === "hi" ? /गुणा|सीधे नहीं जुड़ते/ : /ਗੁਣਾ|ਸਿੱਧੇ ਨਹੀਂ ਜੋੜੇ/);
+    if (entry.solveMode === "findSuccessiveEfficiencyRatioAcrossThreeAgents") {
+      assert.match(question.explanation.opening, language === "hi" ? /बीच वाले सदस्य|श्रृंखला/ : /ਵਿਚਕਾਰਲੇ ਮੈਂਬਰ|ਲੜੀ/);
+      assert.equal(/अनुपात जोड़ें|ਅਨੁਪਾਤ ਜੋੜੋ/.test(question.explanation.shortcut.title), false);
+    }
+    if (entry.solveMode === "findSuccessiveEfficiencyPercentComparison") {
+      assert.match(question.explanation.opening, language === "hi" ? /गुणा|सीधे जोड़ना सही नहीं/ : /ਗੁਣਾ|ਸਿੱਧਾ ਜੋੜਨਾ ਸਹੀ ਨਹੀਂ/);
     }
     if (["findOutputFromEfficiencyRatioAndReferenceOutput", "findReferenceOutputFromEfficiencyRatioAndOtherOutput", "findComparativeOutputFromDifferentEfficienciesAndDurations"].includes(entry.solveMode)) {
-      assert.equal(question.solution.answerText.includes(question.parameters && typeof question.parameters === "object" ? "undefined" : "__never__"), false);
-      assert.match(question.explanation.conclusion, language === "hi" ? /उत्पादन/ : /ਉਤਪਾਦਨ/);
+      assert.match(question.explanation.conclusion, language === "hi" ? /उत्पादन की मात्रा/ : /ਉਤਪਾਦਨ ਦੀ ਮਾਤਰਾ/);
+      assert.match(question.explanation.shortcut.steps.join(" "), language === "hi" ? /उत्पादन/ : /ਉਤਪਾਦਨ/);
+    }
+    if (["findTimePercentLessFromEfficiencyPercentMore", "findTimePercentMoreFromEfficiencyPercentLess"].includes(entry.solveMode)) {
+      assert.match(question.explanation.conclusion, language === "hi" ? /समय लगेगा/ : /ਸਮਾਂ ਲੱਗੇਗਾ/);
     }
     checked += 1;
   }
