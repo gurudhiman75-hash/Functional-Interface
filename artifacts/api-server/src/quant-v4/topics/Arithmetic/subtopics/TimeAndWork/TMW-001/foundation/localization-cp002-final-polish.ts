@@ -11,6 +11,11 @@ const destructiveModes: readonly TmwCp002SolveMode[] = [
   "findConstructiveTimeFromNetKnownPositiveAndDestructiveTimes",
 ];
 
+const identicalModes: readonly TmwCp002SolveMode[] = [
+  "findIdenticalAgentCountFromSingleAndCombinedTime",
+  "findCombinedTimeFromIdenticalAgentCount",
+];
+
 function naturalize(value: string, language: TmwLocalizedLanguage): string {
   if (language === "hi") {
     return value
@@ -42,6 +47,15 @@ function naturalizeStem(
       .replaceAll(" का ऑर्डर में ", " के ऑर्डर में ")
       .replaceAll("एक मशीन अकेले", "एक मशीन अकेली")
       .replace(/कई मशीनें (.+?) पूरा करते हैं/g, "कई मशीनें $1 पूरा करती हैं");
+    if (identicalModes.includes(mode) && parameters.context.agentNoun === "machine") {
+      stem = stem.replaceAll("समान क्षमता वाले", "समान क्षमता वाली");
+    }
+    if (destructiveModes.includes(mode)) {
+      stem = stem.replace(
+        /^(.+?) और (.+?) अकेले यह काम क्रमशः (.+?) और (.+?) में करते हैं।/,
+        "$1 को अकेले यह काम पूरा करने में $3 और $2 को $4 लगते हैं।",
+      );
+    }
   } else {
     stem = stem
       .replaceAll(" ਦਾ ਕੰਮ ਵਿੱਚ ", " ਦੇ ਕੰਮ ਵਿੱਚ ")
@@ -50,6 +64,15 @@ function naturalizeStem(
       .replaceAll("ਇੱਕ ਮਸ਼ੀਨ ਇਕੱਲਾ", "ਇੱਕ ਮਸ਼ੀਨ ਇਕੱਲੀ")
       .replace(/ਕਈ ਟੀਮਾਂ (.+?) ਪੂਰਾ ਕਰਦੇ ਹਨ/g, "ਕਈ ਟੀਮਾਂ $1 ਪੂਰਾ ਕਰਦੀਆਂ ਹਨ")
       .replace(/ਕਈ ਮਸ਼ੀਨਾਂ (.+?) ਪੂਰਾ ਕਰਦੇ ਹਨ/g, "ਕਈ ਮਸ਼ੀਨਾਂ $1 ਪੂਰਾ ਕਰਦੀਆਂ ਹਨ");
+    if (identicalModes.includes(mode) && ["machine", "crew"].includes(parameters.context.agentNoun)) {
+      stem = stem.replaceAll("ਇਕੋ ਸਮਰੱਥਾ ਵਾਲੇ", "ਇਕੋ ਸਮਰੱਥਾ ਵਾਲੀਆਂ");
+    }
+    if (destructiveModes.includes(mode)) {
+      stem = stem.replace(
+        /^(.+?) ਅਤੇ (.+?) ਇਕੱਲੇ ਇਹ ਕੰਮ ਕ੍ਰਮਵਾਰ (.+?) ਅਤੇ (.+?) ਵਿੱਚ ਕਰਦੇ ਹਨ।/,
+        "$1 ਨੂੰ ਇਕੱਲੇ ਇਹ ਕੰਮ ਪੂਰਾ ਕਰਨ ਵਿੱਚ $3 ਅਤੇ $2 ਨੂੰ $4 ਲੱਗਦੇ ਹਨ।",
+      );
+    }
   }
 
   if (mode === "findMissingRateFromSignedNetRate" && parameters.context.outputNoun === "applications") {
@@ -100,15 +123,15 @@ export function finalizeTmwCp002LocalizedQuestion(
   if (mode === "findNetTimeWithDestructiveAgent") {
     conclusion = copy(
       language,
-      `अतः काम वापस भेजने वाली प्रक्रिया के साथ भी काम ${answerText} में पूरा होगा।`,
-      `ਇਸ ਲਈ ਕੰਮ ਵਾਪਸ ਭੇਜਣ ਵਾਲੀ ਪ੍ਰਕਿਰਿਆ ਦੇ ਨਾਲ ਵੀ ਕੰਮ ${answerText} ਵਿੱਚ ਪੂਰਾ ਹੋਵੇਗਾ।`,
+      `अतः इस प्रक्रिया के बावजूद काम ${answerText} में पूरा होगा।`,
+      `ਇਸ ਲਈ ਇਸ ਪ੍ਰਕਿਰਿਆ ਦੇ ਬਾਵਜੂਦ ਕੰਮ ${answerText} ਵਿੱਚ ਪੂਰਾ ਹੋਵੇਗਾ।`,
     );
   }
   if (mode === "findDestructiveTimeFromPositiveAndNetTimes") {
     conclusion = copy(
       language,
-      `अतः वापस भेजने वाली प्रक्रिया अकेले पूरे काम के बराबर काम को ${answerText} में वापस भेजेगी।`,
-      `ਇਸ ਲਈ ਵਾਪਸ ਭੇਜਣ ਵਾਲੀ ਪ੍ਰਕਿਰਿਆ ਇਕੱਲੀ ਪੂਰੇ ਕੰਮ ਦੇ ਬਰਾਬਰ ਕੰਮ ਨੂੰ ${answerText} ਵਿੱਚ ਵਾਪਸ ਭੇਜੇਗੀ।`,
+      `अतः वापस भेजने वाली प्रक्रिया अकेले पूरे काम जितना काम ${answerText} में वापस भेजेगी।`,
+      `ਇਸ ਲਈ ਵਾਪਸ ਭੇਜਣ ਵਾਲੀ ਪ੍ਰਕਿਰਿਆ ਇਕੱਲੀ ਪੂਰੇ ਕੰਮ ਜਿੰਨਾ ਕੰਮ ${answerText} ਵਿੱਚ ਵਾਪਸ ਭੇਜੇਗੀ।`,
     );
   }
   if (mode === "findConstructiveTimeFromNetKnownPositiveAndDestructiveTimes") {
