@@ -12,6 +12,7 @@ const stemCountsByKind = new Map<string, Map<string, number>>();
 let pairQuestions = 0;
 let calculationCompletePairQuestions = 0;
 let sameAnswerMultiRuleQuestions = 0;
+let singularSignedGapQuestions = 0;
 
 for (const prototype of CLS_CP006_PROTOTYPES) {
   const prototypeFingerprints = new Set<string>();
@@ -67,6 +68,7 @@ for (const prototype of CLS_CP006_PROTOTYPES) {
       assert.ok(line.startsWith(question.options[index]!));
       assert.ok(line.length >= 45);
       assert.ok(line.length <= 220);
+      assert.doesNotMatch(line, /\b1 positions\b/);
     });
     assert.equal(new Set(question.evidenceByOption).size, optionCount);
 
@@ -87,6 +89,12 @@ for (const prototype of CLS_CP006_PROTOTYPES) {
           ),
         );
         calculationCompletePairQuestions += 1;
+      }
+      if (
+        question.intendedRuleId === "PAIR_SIGNED_POSITION_GAP" &&
+        question.evidenceByOption.some((line) => /\b1 position (?:after|before)\b/.test(line))
+      ) {
+        singularSignedGapQuestions += 1;
       }
     }
 
@@ -110,6 +118,7 @@ for (const prototype of CLS_CP006_PROTOTYPES) {
     ].join("\n");
     assert.ok(!/CLS-|PROT-|LETTER_[A-Z_]+|PAIR_[A-Z_]+/i.test(learnerText));
     assert.ok(!/what is the position|find the position|how many letters|move .* places|rearrange/i.test(question.stem));
+    assert.doesNotMatch(learnerText, /\b1 positions\b/);
 
     const explanationFingerprint = JSON.stringify({
       core: question.explanation.coreConcept,
@@ -145,6 +154,7 @@ for (const [kind, counts] of stemCountsByKind) {
 }
 assert.ok(pairQuestions > 0);
 assert.ok(calculationCompletePairQuestions > 0);
+assert.ok(singularSignedGapQuestions > 0, "The editorial corpus did not exercise a one-position signed gap.");
 
 console.log("CLS-CP-006 teacher-style editorial audit passed.", {
   generated: CLS_CP006_PROTOTYPES.length * QUESTIONS_PER_PROTOTYPE,
@@ -157,6 +167,7 @@ console.log("CLS-CP-006 teacher-style editorial audit passed.", {
   ),
   pairQuestions,
   calculationCompletePairQuestions,
+  singularSignedGapQuestions,
   sameAnswerMultiRuleQuestions,
   permanentQlCount: 0,
 });
