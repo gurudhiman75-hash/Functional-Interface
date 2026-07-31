@@ -139,6 +139,9 @@ export function auditClsCp006PresentationQuality(
   if (/(?:^|[\s:])(undefined|null|NaN|Infinity)(?=$|[\s.,;:])/.test(learnerText)) {
     reasons.push("Learner text contains an invalid runtime token.");
   }
+  if (/\b1 (?:positions|places)\b/.test(learnerText)) {
+    reasons.push("Learner text contains incorrect singular/plural gap wording.");
+  }
 
   return {
     result: reasons.length === 0 ? "PASS" : "FAIL",
