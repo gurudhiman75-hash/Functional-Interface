@@ -12,3 +12,6 @@ export * from "./wave2-runtime";
 export * from "./wave2-quality-runtime";
 export * from "./wave2-digit-product-rule";
 export * from "./wave2-digit-product-runtime";
+export * from "./wave2-digit-product-equivalent-runtime";
+export * from "./cp005-english-contracts";
+export * from "./cp005-english-runtime";
