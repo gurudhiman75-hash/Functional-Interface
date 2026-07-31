@@ -42,6 +42,7 @@ jobs:
           mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp002-open-discovery
           mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp003-open-discovery
           mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp004-open-discovery
+          mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp005-open-discovery
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
@@ -98,6 +99,19 @@ jobs:
           (cd artifacts/api-server && node "$OUT/ser-cp-004.test.mjs") \
             | tee "$EVIDENCE/audit.json"
 
+      - name: Run SER-CP-005 alternating, interleaved and composite audit
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-005
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp005-open-discovery
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/ser-cp-005.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/ser-cp-005.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-005.test.mjs") \
+            | tee "$EVIDENCE/audit.json"
+
       - name: Generate exact English review packs
         run: |
           set -euo pipefail
@@ -106,10 +120,12 @@ jobs:
           ROOT2=src/reasoning-v1/topics/Series/SER-001/SER-CP-002
           ROOT3=src/reasoning-v1/topics/Series/SER-001/SER-CP-003
           ROOT4=src/reasoning-v1/topics/Series/SER-001/SER-CP-004
+          ROOT5=src/reasoning-v1/topics/Series/SER-001/SER-CP-005
           EVIDENCE1=artifacts/api-server/dist/reasoning-v1/ser-001/cp001-open-discovery
           EVIDENCE2=artifacts/api-server/dist/reasoning-v1/ser-001/cp002-open-discovery
           EVIDENCE3=artifacts/api-server/dist/reasoning-v1/ser-001/cp003-open-discovery
           EVIDENCE4=artifacts/api-server/dist/reasoning-v1/ser-001/cp004-open-discovery
+          EVIDENCE5=artifacts/api-server/dist/reasoning-v1/ser-001/cp005-open-discovery
           pnpm --dir artifacts/api-server exec esbuild \
             "$ROOT1/export-review.ts" \
             --bundle --platform=node --format=esm \
@@ -126,6 +142,10 @@ jobs:
             "$ROOT4/export-review.ts" \
             --bundle --platform=node --format=esm \
             --outfile="$OUT/export-cp004-review.mjs"
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT5/export-review.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/export-cp005-review.mjs"
           (cd artifacts/api-server && node "$OUT/export-cp001-review.mjs") \
             > "$EVIDENCE1/ser-cp-001-en-IN-review.md"
           (cd artifacts/api-server && node "$OUT/export-cp002-review.mjs") \
@@ -134,6 +154,8 @@ jobs:
             > "$EVIDENCE3/ser-cp-003-en-IN-review.md"
           (cd artifacts/api-server && node "$OUT/export-cp004-review.mjs") \
             > "$EVIDENCE4/ser-cp-004-en-IN-review.md"
+          (cd artifacts/api-server && node "$OUT/export-cp005-review.mjs") \
+            > "$EVIDENCE5/ser-cp-005-en-IN-review.md"
           cat > artifacts/api-server/dist/reasoning-v1/ser-001/README.txt <<'README'
           SER-001 open executable discovery
 
@@ -165,7 +187,15 @@ jobs:
           Audit volume: 3,360 deterministic English questions
           Review pack: 56 exact English questions
 
-          Total audit volume: 5,760 questions
+          SER-CP-005
+          Temporary templates: 40
+          Source-shaped rule families: 10
+          Provisional canonical authorities: 6
+          Alternating/interleaved representation collisions: 960
+          Audit volume: 4,800 deterministic English questions
+          Review pack: 80 exact English questions
+
+          Total audit volume: 10,560 questions
 
           This evidence does not activate Question Studio, Question Bank,
           test eligibility or public publication.
@@ -175,7 +205,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ser-001-cp001-cp004-open-discovery
+          name: ser-001-cp001-cp005-open-discovery
           path: artifacts/api-server/dist/reasoning-v1/ser-001
           if-no-files-found: error
           retention-days: 30
