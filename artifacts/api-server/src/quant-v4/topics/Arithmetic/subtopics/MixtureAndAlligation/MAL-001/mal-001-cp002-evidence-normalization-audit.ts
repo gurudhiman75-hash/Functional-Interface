@@ -168,22 +168,33 @@ for (const prototypeId of [
     ];
 
     for (const initialEvidence of evidenceVariants) {
-      const normalized = normalizeMalCp002TargetAdjustmentEvidence({
-        mode: "UNKNOWN_PURE_ADJUSTMENT_FROM_STATE_EVIDENCE",
+      const evidenceRequest = {
+        mode: "UNKNOWN_PURE_ADJUSTMENT_FROM_STATE_EVIDENCE" as const,
         initialEvidence,
         changedComponent: generated.request.changedComponent,
         adjustmentKind: generated.request.adjustmentKind,
         targetRatio: generated.request.targetRatio,
-      });
+      };
+      const firstNormalized = normalizeMalCp002TargetAdjustmentEvidence(
+        evidenceRequest,
+      );
+      const secondNormalized = normalizeMalCp002TargetAdjustmentEvidence(
+        evidenceRequest,
+      );
+      assert(
+        stable(firstNormalized) === stable(secondNormalized),
+        `${prototypeId}/${seed}/${initialEvidence.kind}: target-adjustment normalization is not deterministic.`,
+      );
+      deterministicNormalizationCount += 1;
       assert(
         sameState(
-          normalized.normalizedEvidence.state,
+          firstNormalized.normalizedEvidence.state,
           generated.request.initialState,
         ),
         `${prototypeId}/${seed}/${initialEvidence.kind}: evidence did not recover the canonical initial state.`,
       );
       const normalizedSolution = solveMalCp002Request(
-        normalized.canonicalRequest,
+        firstNormalized.canonicalRequest,
       );
       assert(
         malCp002ResultFingerprint(normalizedSolution) ===
@@ -191,7 +202,7 @@ for (const prototypeId of [
         `${prototypeId}/${seed}/${initialEvidence.kind}: evidence normalization changed the exact solution.`,
       );
       const verification = verifyMalCp002Result(
-        normalized.canonicalRequest,
+        firstNormalized.canonicalRequest,
         normalizedSolution,
       );
       assert(
@@ -230,14 +241,22 @@ for (const requiredDirection of [
   );
 }
 assert(
-  evidenceKindCounts.get("TOTAL_AND_RATIO") === 1000,
-  `Expected 1000 TOTAL_AND_RATIO normalizations, received ${
+  normalizationCount === 1400,
+  `Expected 1400 total normalizations, received ${normalizationCount}.`,
+);
+assert(
+  deterministicNormalizationCount === normalizationCount,
+  `Only ${deterministicNormalizationCount}/${normalizationCount} normalizations were checked deterministically.`,
+);
+assert(
+  evidenceKindCounts.get("TOTAL_AND_RATIO") === 600,
+  `Expected 600 TOTAL_AND_RATIO normalizations, received ${
     evidenceKindCounts.get("TOTAL_AND_RATIO") ?? 0
   }.`,
 );
 assert(
-  evidenceKindCounts.get("ONE_COMPONENT_AND_RATIO") === 1200,
-  `Expected 1200 ONE_COMPONENT_AND_RATIO normalizations, received ${
+  evidenceKindCounts.get("ONE_COMPONENT_AND_RATIO") === 800,
+  `Expected 800 ONE_COMPONENT_AND_RATIO normalizations, received ${
     evidenceKindCounts.get("ONE_COMPONENT_AND_RATIO") ?? 0
   }.`,
 );
