@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { CLS_CP007_PROTOTYPES } from "./cluster-domain";
-import { generateClsCp007QualityQuestion } from "./quality-runtime";
+import { generateClsCp007QualityQuestion } from "./quality-runtime-safe";
 
 const outputDir = path.resolve(
   process.cwd(),
