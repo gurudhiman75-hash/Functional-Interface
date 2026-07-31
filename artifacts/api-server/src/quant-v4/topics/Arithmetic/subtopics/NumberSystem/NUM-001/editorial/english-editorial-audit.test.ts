@@ -1,5 +1,9 @@
 // @ts-nocheck
-import { NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS } from "./combined-review-export";
+import {
+  NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS,
+  NUM_CP003_CP004_STAGING_LIFECYCLE,
+  stripAnswerMarkers,
+} from "./combined-review-export";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -21,6 +25,16 @@ const bannedStemPatterns = [
   /Counting multiplicity,/i,
 ];
 
+const bannedExplanationPatterns = [
+  /Compute or infer/i,
+  /Exact testing leaves/i,
+  /admissible domain/i,
+  /remainder status/i,
+  /opposite remainder status/i,
+  /\bcardinality\b/i,
+  /\benumerate\b/i,
+];
+
 const qlIds = new Set<string>();
 const checkpointCounts = new Map<string, number>();
 const difficultyByCheckpoint = new Map<string, Set<string>>();
@@ -28,6 +42,7 @@ const stateKeysByQl = new Map<string, Set<string>>();
 const firstWordRuns: Array<{ word: string; length: number }> = [];
 let currentFirstWord = "";
 let currentRunLength = 0;
+let transparentCalculationQuestionCount = 0;
 
 function stateKey(question): string {
   if (question.mathematicalFingerprint) return String(question.mathematicalFingerprint);
@@ -38,9 +53,44 @@ function stateKey(question): string {
   );
 }
 
+function cp003ExplanationText(question): string {
+  const explanation = question.explanation;
+  return [
+    explanation.coreConcept,
+    explanation.strategy,
+    ...explanation.steps,
+    explanation.shortcut,
+    explanation.verification,
+    explanation.conclusion,
+    ...explanation.traps,
+  ].map(String).join("\n");
+}
+
+assert(NUM_CP003_CP004_STAGING_LIFECYCLE.environment === "STAGING",
+  "Review corpus is not marked for the staging environment");
+assert(NUM_CP003_CP004_STAGING_LIFECYCLE.status === "ACTIVE_STAGING",
+  "Review corpus is not Active Staging");
+assert(NUM_CP003_CP004_STAGING_LIFECYCLE.active === true,
+  "Active Staging flag is not enabled");
+assert(NUM_CP003_CP004_STAGING_LIFECYCLE.stagingReviewEligible === true,
+  "Staging review eligibility is not enabled");
+assert(NUM_CP003_CP004_STAGING_LIFECYCLE.questionStudioStagingDiscoverable === true,
+  "Question Studio staging discovery is not enabled");
+assert(NUM_CP003_CP004_STAGING_LIFECYCLE.production.questionStudioDiscoverable === false,
+  "Production Question Studio route was enabled");
+assert(NUM_CP003_CP004_STAGING_LIFECYCLE.production.questionBankWritable === false,
+  "Production Question Bank writes were enabled");
+assert(NUM_CP003_CP004_STAGING_LIFECYCLE.production.testEligible === false,
+  "Production test eligibility was enabled");
+assert(NUM_CP003_CP004_STAGING_LIFECYCLE.production.publiclyPublishable === false,
+  "Public production delivery was enabled");
+assert(stripAnswerMarkers("11 **✓**") === "11", "Markdown answer marker stripping failed");
+assert(stripAnswerMarkers("11 ✔") === "11", "Unicode answer marker stripping failed");
+
 for (const [index, row] of NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS.entries()) {
   const reviewNumber = index + 1;
   const qlId = row.allocation.qlId;
+  const qlNumber = Number(qlId.slice(-3));
   const stem = String(row.question.stem);
   qlIds.add(qlId);
   checkpointCounts.set(row.checkpoint, (checkpointCounts.get(row.checkpoint) ?? 0) + 1);
@@ -65,30 +115,52 @@ for (const [index, row] of NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS.entries()) {
   assert(options.length === 4 || options.length === 5,
     `Q${reviewNumber}/${qlId}: expected four or five options, received ${options.length}`);
   assert(new Set(options).size === options.length, `Q${reviewNumber}/${qlId}: duplicate options`);
+  assert(options.every((option) => !/[✓✔]/u.test(option) && !/\*\*[✓✔]\*\*/u.test(option)),
+    `Q${reviewNumber}/${qlId}: answer marker leaked into an option`);
   assert(Number.isInteger(row.question.correctIndex), `Q${reviewNumber}/${qlId}: invalid correct index`);
   assert(row.question.correctIndex >= 0 && row.question.correctIndex < options.length,
     `Q${reviewNumber}/${qlId}: correct index is out of range`);
 
   if (row.checkpoint === "NUM-CP-003") {
-    assert(row.question.active === false, `Q${reviewNumber}/${qlId}: CP-003 active flag changed`);
+    assert(row.question.active === false, `Q${reviewNumber}/${qlId}: CP-003 production active flag changed`);
     assert(row.question.questionStudioDiscoverable === false,
-      `Q${reviewNumber}/${qlId}: CP-003 Question Studio route changed`);
+      `Q${reviewNumber}/${qlId}: CP-003 production Question Studio route changed`);
     assert(row.question.questionBankWritable === false,
-      `Q${reviewNumber}/${qlId}: CP-003 Question Bank route changed`);
+      `Q${reviewNumber}/${qlId}: CP-003 production Question Bank route changed`);
     assert(row.question.testEligible === false,
-      `Q${reviewNumber}/${qlId}: CP-003 test route changed`);
+      `Q${reviewNumber}/${qlId}: CP-003 production test route changed`);
     assert(row.question.publiclyPublishable === false,
-      `Q${reviewNumber}/${qlId}: CP-003 publication route changed`);
+      `Q${reviewNumber}/${qlId}: CP-003 production publication route changed`);
+
+    const explanationText = cp003ExplanationText(row.question);
+    for (const pattern of bannedExplanationPatterns) {
+      assert(!pattern.test(explanationText),
+        `Q${reviewNumber}/${qlId}: robotic explanation phrase ${pattern} remains`);
+    }
+    assert(!/(?<![\dA-Za-z^,])\d{5,}(?![\dA-Za-z,])/.test(explanationText),
+      `Q${reviewNumber}/${qlId}: ungrouped standalone large integer in explanation: ${explanationText}`);
+
+    if (qlNumber >= 2 && qlNumber <= 10) {
+      transparentCalculationQuestionCount += 1;
+      assert(row.question.explanation.steps.length >= 3,
+        `Q${reviewNumber}/${qlId}: transparent explanation has fewer than three steps`);
+      assert(/\\div|\\times|digit sum|last two digits|last three digits|alternating digit sums|X \+ Y/i.test(explanationText),
+        `Q${reviewNumber}/${qlId}: explicit divisibility calculation is missing`);
+      assert(/\$[^$]*(?:=|\\div|\\times|\+)[^$]*\$/u.test(explanationText),
+        `Q${reviewNumber}/${qlId}: MathJax calculation is missing from the solution`);
+      assert(/forms \$|formed is \$|completed numbers are \$/i.test(explanationText),
+        `Q${reviewNumber}/${qlId}: completed-number evidence is missing`);
+    }
   } else {
-    assert(row.question.lifecycle.active === false, `Q${reviewNumber}/${qlId}: CP-004 active flag changed`);
+    assert(row.question.lifecycle.active === false, `Q${reviewNumber}/${qlId}: CP-004 production active flag changed`);
     assert(row.question.lifecycle.questionStudioDiscoverable === false,
-      `Q${reviewNumber}/${qlId}: CP-004 Question Studio route changed`);
+      `Q${reviewNumber}/${qlId}: CP-004 production Question Studio route changed`);
     assert(row.question.lifecycle.questionBankWritable === false,
-      `Q${reviewNumber}/${qlId}: CP-004 Question Bank route changed`);
+      `Q${reviewNumber}/${qlId}: CP-004 production Question Bank route changed`);
     assert(row.question.lifecycle.testEligible === false,
-      `Q${reviewNumber}/${qlId}: CP-004 test route changed`);
+      `Q${reviewNumber}/${qlId}: CP-004 production test route changed`);
     assert(row.question.lifecycle.publiclyPublishable === false,
-      `Q${reviewNumber}/${qlId}: CP-004 publication route changed`);
+      `Q${reviewNumber}/${qlId}: CP-004 production publication route changed`);
   }
 
   if (qlId === "NUM-QL-016" || qlId === "NUM-QL-044") {
@@ -130,6 +202,8 @@ assert(checkpointCounts.get("NUM-CP-003") === 69,
   `Expected 69 CP-003 questions, received ${checkpointCounts.get("NUM-CP-003")}`);
 assert(checkpointCounts.get("NUM-CP-004") === 84,
   `Expected 84 CP-004 questions, received ${checkpointCounts.get("NUM-CP-004")}`);
+assert(transparentCalculationQuestionCount === 39,
+  `Expected 39 transparent CP-003 calculation questions, received ${transparentCalculationQuestionCount}`);
 assert(qlIds.size === 45, `Expected 45 permanent QLs, received ${qlIds.size}`);
 for (let qlNumber = 1; qlNumber <= 45; qlNumber += 1) {
   const qlId = `NUM-QL-${String(qlNumber).padStart(3, "0")}`;
@@ -149,13 +223,16 @@ assert(longestFirstWordRun.length <= 9,
   `Lead-in clustering exceeds editorial limit: ${longestFirstWordRun.word} × ${longestFirstWordRun.length}`);
 
 console.log(JSON.stringify({
-  status: "PASS_NUM_CP003_CP004_ENGLISH_EDITORIAL_AUDIT",
+  status: "PASS_NUM_CP003_CP004_ACTIVE_STAGING_EDITORIAL_AUDIT",
   questionCount: NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS.length,
   permanentQlCount: qlIds.size,
   checkpointCounts: Object.fromEntries(checkpointCounts),
   difficultyByCheckpoint: Object.fromEntries(
     [...difficultyByCheckpoint].map(([checkpoint, values]) => [checkpoint, [...values].sort()]),
   ),
+  transparentCalculationQuestionCount,
   longestFirstWordRun,
-  lifecycleActivated: false,
+  stagingActive: true,
+  productionActivated: false,
+  studentSafeOptions: true,
 }, null, 2));

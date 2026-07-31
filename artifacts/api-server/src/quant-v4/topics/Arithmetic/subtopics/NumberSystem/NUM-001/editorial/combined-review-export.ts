@@ -11,6 +11,7 @@ import {
   getNumCp004PermanentAllocation,
 } from "../NUM-CP-004/permanent/allocation";
 import { runNumCp004PermanentPipeline } from "../NUM-CP-004/permanent/runtime";
+import { normaliseNumberSystemReviewMath } from "./explanation-rendering";
 
 const CP003_TITLES = {
   "NUM-QL-001": "Divisor polarity selection",
@@ -40,6 +41,30 @@ const CP003_SIX_SAMPLE_QLS = new Set([
   "NUM-QL-012",
   "NUM-QL-016",
 ]);
+
+export const NUM_CP003_CP004_STAGING_LIFECYCLE = Object.freeze({
+  environment: "STAGING",
+  status: "ACTIVE_STAGING",
+  active: true,
+  stagingReviewEligible: true,
+  questionStudioStagingDiscoverable: true,
+  answerVisibleInEditorialReview: true,
+  production: Object.freeze({
+    questionStudioDiscoverable: false,
+    questionBankWritable: false,
+    testEligible: false,
+    publiclyPublishable: false,
+  }),
+  language: "en",
+});
+
+export function stripAnswerMarkers(value: unknown): string {
+  return String(value ?? "")
+    .replace(/\s*\*\*[✓✔]\*\*\s*/gu, " ")
+    .replace(/\s*[✓✔]\s*/gu, " ")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
 
 function stableStateKey(question): string {
   if (question.mathematicalFingerprint) return String(question.mathematicalFingerprint);
@@ -108,16 +133,30 @@ const cp004Rows = NUM_CP004_PERMANENT_QL_IDS.flatMap((qlId) =>
 export const NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS = [...cp003Rows, ...cp004Rows];
 
 function normaliseMath(text: unknown): string {
-  return String(text ?? "")
-    .replace(/\\\((.+?)\\\)/g, "$$$1$")
-    .replace(/n−1/g, "$n - 1$")
-    .replace(/n\+1/g, "$n + 1$")
-    .replace(/\u2212/g, "-");
+  return normaliseNumberSystemReviewMath(text);
 }
 
 function optionValues(row): string[] {
-  if (row.checkpoint === "NUM-CP-003") return row.question.options.map(String);
-  return row.question.options.map((option) => String(option.value));
+  if (row.checkpoint === "NUM-CP-003") {
+    return row.question.options.map((value) => stripAnswerMarkers(value));
+  }
+  return row.question.options.map((option) => stripAnswerMarkers(option.value));
+}
+
+function studentSafeQuestion(row) {
+  if (row.checkpoint === "NUM-CP-003") {
+    return {
+      ...row.question,
+      options: row.question.options.map((value) => stripAnswerMarkers(value)),
+    };
+  }
+  return {
+    ...row.question,
+    options: row.question.options.map((option) => ({
+      ...option,
+      value: stripAnswerMarkers(option.value),
+    })),
+  };
 }
 
 function correctIndex(row): number {
@@ -134,7 +173,7 @@ function renderCp003Explanation(question): string[] {
   const explanation = question.explanation;
   const diagnostics = question.optionAudit
     .filter((row) => row.misconceptionId !== "CORRECT")
-    .map((row) => `- **${normaliseMath(row.text)}:** ${row.diagnostic} (\`${row.misconceptionId}\`)`);
+    .map((row) => `- **${normaliseMath(row.text)}:** ${normaliseMath(row.diagnostic)} (\`${row.misconceptionId}\`)`);
   return [
     "### 📌 Core Concept",
     "",
@@ -205,13 +244,14 @@ const serialisableRows = NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS.map((row, index) 
   qlTemplateId: row.allocation.qlTemplateId,
   title: row.title,
   solveModeId: row.allocation.solveModeId,
-  question: row.question,
+  stagingStatus: "ACTIVE_STAGING",
+  question: studentSafeQuestion(row),
 }));
 
 writeFileSync(
   jsonPath,
   `${JSON.stringify({
-    status: "NUM_CP003_CP004_EDITORIAL_REVIEW_CORPUS",
+    status: "NUM_CP003_CP004_ACTIVE_STAGING_CORPUS",
     questionCount: serialisableRows.length,
     permanentQlRange: "NUM-QL-001..NUM-QL-045",
     permanentQlCount: 45,
@@ -219,14 +259,8 @@ writeFileSync(
       "NUM-CP-003": cp003Rows.length,
       "NUM-CP-004": cp004Rows.length,
     },
-    lifecycle: {
-      active: false,
-      questionStudioDiscoverable: false,
-      questionBankWritable: false,
-      testEligible: false,
-      publiclyPublishable: false,
-      language: "en",
-    },
+    lifecycle: NUM_CP003_CP004_STAGING_LIFECYCLE,
+    studentSafeOptions: true,
     rows: serialisableRows,
   }, (_key, value) => typeof value === "bigint" ? value.toString() : value, 2)}\n`,
   "utf8",
@@ -241,6 +275,7 @@ const csv = [
     "qlTemplateId",
     "title",
     "difficulty",
+    "stagingStatus",
     "stem",
     "options",
     "correctOption",
@@ -256,6 +291,7 @@ const csv = [
       row.allocation.qlTemplateId,
       row.title,
       row.question.difficulty,
+      "ACTIVE_STAGING",
       row.question.stem,
       options.map((value, optionIndex) => `${String.fromCharCode(65 + optionIndex)}:${value}`).join(" | "),
       String.fromCharCode(65 + correctIndex(row)),
@@ -267,7 +303,7 @@ const csv = [
 writeFileSync(csvPath, `${csv}\n`, "utf8");
 
 const markdown = [
-  "# ExamTree Number System — CP-003 and CP-004 Editorial Review Corpus",
+  "# ExamTree Number System — CP-003 and CP-004 Active Staging Corpus",
   "",
   `**Questions:** ${NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS.length}`,
   "",
@@ -275,26 +311,28 @@ const markdown = [
   "",
   `**Checkpoint distribution:** NUM-CP-003 = ${cp003Rows.length}; NUM-CP-004 = ${cp004Rows.length}`,
   "",
-  "**Lifecycle:** inactive English review corpus. It is not exposed to Question Studio, Question Bank, tests or public delivery.",
+  "**Lifecycle:** Active Staging. The corpus is available for editorial and Question Studio staging review. Production Question Bank, live tests and public delivery remain off.",
+  "",
+  "**Option safety:** Answer checkmarks are never written into question options. The correct answer is shown only in the separate review answer line.",
   "",
   "---",
   "",
   ...NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS.flatMap((row, index) => {
     const options = optionValues(row);
-    const answerIndex = correctIndex(row);
     return [
       `## Q${index + 1}. ${row.allocation.qlId} — ${row.title}`,
       "",
       `**Checkpoint:** \`${row.checkpoint}\`  `,
       `**Difficulty:** ${row.question.difficulty}  `,
-      `**Solve mode:** \`${row.allocation.solveModeId}\``,
+      `**Solve mode:** \`${row.allocation.solveModeId}\`  `,
+      "**Staging:** Active",
       "",
       "### Question",
       "",
       normaliseMath(row.question.stem).replace(/\n/g, "  \n"),
       "",
       ...options.map((value, optionIndex) =>
-        `${String.fromCharCode(65 + optionIndex)}. ${normaliseMath(value)}${optionIndex === answerIndex ? " **✓**" : ""}`),
+        `${String.fromCharCode(65 + optionIndex)}. ${normaliseMath(value)}`),
       "",
       `**Correct answer:** ${normaliseMath(canonicalAnswer(row))}`,
       "",
@@ -308,11 +346,14 @@ const markdown = [
 writeFileSync(markdownPath, `${markdown}\n`, "utf8");
 
 console.log(JSON.stringify({
-  status: "PASS_NUM_CP003_CP004_EDITORIAL_REVIEW_EXPORT",
+  status: "PASS_NUM_CP003_CP004_ACTIVE_STAGING_EXPORT",
   questionCount: NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS.length,
   cp003QuestionCount: cp003Rows.length,
   cp004QuestionCount: cp004Rows.length,
   permanentQlCount: 45,
+  stagingActive: true,
+  productionActivated: false,
+  studentSafeOptions: true,
   jsonPath,
   csvPath,
   markdownPath,
