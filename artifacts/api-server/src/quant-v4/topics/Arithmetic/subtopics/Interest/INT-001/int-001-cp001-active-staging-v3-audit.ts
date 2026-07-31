@@ -5,7 +5,7 @@ import {
   generateIntCp001ActiveStagingBatch,
   generateIntCp001ActiveStagingEnvelope,
   toIntCp001ActiveStagingPreview,
-} from "./cp001-approved-active-staging-provider-v3";
+} from "./cp001-approved-active-staging-provider-v3-runtime";
 import {
   INT_CP001_CALCULATION_RICH_APPROVED_MATURITY,
   INT_CP001_CALCULATION_RICH_APPROVED_REVIEW_STATUS,
@@ -43,6 +43,8 @@ const counters = {
   productionShapeChecks: 0,
   calculationRichChecks: 0,
   crossLanguageParityChecks: 0,
+  recoveredSeeds: 0,
+  maximumGenerationAttempts: 1,
   batchRuns: 0,
   batchPackages: 0,
   batchDeterminismChecks: 0,
@@ -68,6 +70,12 @@ for (const qlId of INT_CP001_FINAL_QL_IDS) {
       counters.deterministicEnvelopeChecks += 1;
       assert(stable(preview) === stable(replayPreview), `${qlId}/${seed}/${language}: preview is not deterministic.`);
       counters.deterministicPreviewChecks += 1;
+      assert(envelope.trace.requestedSeed === seed, `${qlId}: requested seed trace mismatch.`);
+      assert(envelope.trace.effectiveSeed === envelope.question.seed, `${qlId}: effective seed trace mismatch.`);
+      assert(envelope.trace.generationAttempts >= 1 && envelope.trace.generationAttempts <= 32, `${qlId}: invalid generation attempt count.`);
+      assert(envelope.trace.deterministicSeedRecovery === (envelope.trace.generationAttempts > 1), `${qlId}: recovery flag mismatch.`);
+      if (envelope.trace.deterministicSeedRecovery) counters.recoveredSeeds += 1;
+      counters.maximumGenerationAttempts = Math.max(counters.maximumGenerationAttempts, envelope.trace.generationAttempts);
 
       assert(envelope.question.releaseId === INT_CP001_APPROVED_ACTIVE_STAGING_PROVIDER_V3.releaseIds[language], `${qlId}: wrong release.`);
       counters.approvedReleaseChecks += 1;
@@ -83,6 +91,8 @@ for (const qlId of INT_CP001_FINAL_QL_IDS) {
 
       assert(preview.stagingStatus === "ACTIVE_STAGING", `${qlId}: preview staging status mismatch.`);
       assert(preview.registrationStatus === "NOT_REGISTERED", `${qlId}: preview registration mismatch.`);
+      assert(preview.requestedSeed === seed, `${qlId}: preview requested-seed mismatch.`);
+      assert(preview.effectiveSeed === envelope.question.seed, `${qlId}: preview effective-seed mismatch.`);
       assert(preview.text === envelope.question.stem && preview.stem === envelope.question.stem, `${qlId}: stem shape mismatch.`);
       assert(preview.stemHtml === envelope.question.stemPresentation.richTextHtml, `${qlId}: rich stem mismatch.`);
       assert(preview.correctIndex === envelope.question.correctIndex, `${qlId}: answer index mismatch.`);
