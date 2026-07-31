@@ -12,6 +12,7 @@ import { displayLocale } from "./localization-types";
 import { localizedOptionLabel, localizeMathStep } from "./localization-glossary";
 import { cp007LocalizedAnswerText, parseTmwCp007AnswerKey } from "./localization-cp007-language";
 import { renderTmwCp007LocalizedStem } from "./localization-cp007-stems";
+import { polishTmwCp007LocalizedText } from "./localization-cp007-polish";
 import {
   tmwCp007LocalizedConclusion,
   tmwCp007LocalizedGivens,
@@ -54,24 +55,29 @@ export function localizeTmwCp007Question(
   language: TmwLocalizedLanguage,
 ): TmwCp007LocalizedQuestion {
   const entry = getTmwCp007Entry(source.questionLanguageId);
+  const polish = (text: string): string => polishTmwCp007LocalizedText(text, language);
   const optionAudit = source.optionAudit.map((option) => ({
     ...option,
-    text: cp007LocalizedAnswerText(source, parseTmwCp007AnswerKey(option.key), language),
+    text: polish(cp007LocalizedAnswerText(source, parseTmwCp007AnswerKey(option.key), language)),
   }));
   const options = optionAudit.map((option) => option.text);
-  const answerText = cp007LocalizedAnswerText(source, source.solution.answerValues, language);
+  const answerText = polish(cp007LocalizedAnswerText(source, source.solution.answerValues, language));
   const trapId = source.explanation.commonTrap.misconceptionId;
   let trapIndex = source.optionAudit.findIndex(
     (option) => option.misconceptionId === trapId && option.text === source.explanation.commonTrap.optionText,
   );
   if (trapIndex < 0) trapIndex = source.optionAudit.findIndex((option) => option.misconceptionId === trapId);
 
-  const stem = renderTmwCp007LocalizedStem(source, language);
-  const opening = tmwCp007LocalizedOpening(entry.ruleId, language);
-  const givens = tmwCp007LocalizedGivens(source, language);
-  const shortcut = tmwCp007LocalizedShortcut(source, answerText, language);
-  const trapExplanation = tmwCp007LocalizedTrapReason(trapId, language);
-  const conclusion = tmwCp007LocalizedConclusion(source, answerText, language);
+  const stem = polish(renderTmwCp007LocalizedStem(source, language));
+  const opening = polish(tmwCp007LocalizedOpening(entry.ruleId, language));
+  const givens = tmwCp007LocalizedGivens(source, language).map(polish);
+  const rawShortcut = tmwCp007LocalizedShortcut(source, answerText, language);
+  const shortcut = {
+    title: polish(rawShortcut.title),
+    steps: rawShortcut.steps.map(polish),
+  };
+  const trapExplanation = polish(tmwCp007LocalizedTrapReason(trapId, language));
+  const conclusion = polish(tmwCp007LocalizedConclusion(source, answerText, language));
   const errors = [...source.validation.errors];
 
   if (trapIndex < 0) errors.push("Localized common trap is not linked to an option");
