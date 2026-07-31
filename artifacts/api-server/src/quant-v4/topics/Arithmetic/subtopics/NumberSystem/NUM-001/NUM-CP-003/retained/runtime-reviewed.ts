@@ -32,6 +32,31 @@ function ensureStepStructure(
   return { ...explanation, steps };
 }
 
+function addNaturalLead(text: string, minimum: number, lead: string): string {
+  const trimmed = text.trim();
+  return trimmed.length >= minimum ? trimmed : `${lead}${trimmed}`;
+}
+
+function ensureReadableDepth(
+  explanation: NumCp003RetainedExplanation,
+): NumCp003RetainedExplanation {
+  return {
+    coreConcept: explanation.coreConcept,
+    strategy: explanation.strategy,
+    steps: explanation.steps.map((step) =>
+      addNaturalLead(step, 16, "Now calculate: ")),
+    shortcut: addNaturalLead(explanation.shortcut, 24, "Quick method: "),
+    verification: addNaturalLead(
+      explanation.verification,
+      20,
+      "This confirms the answer: ",
+    ),
+    conclusion: addNaturalLead(explanation.conclusion, 16, "Therefore, "),
+    traps: explanation.traps.map((trap) =>
+      addNaturalLead(trap, 16, "Remember: ")),
+  };
+}
+
 function formatExplanationNumbers(
   explanation: NumCp003RetainedExplanation,
 ): NumCp003RetainedExplanation {
@@ -60,7 +85,8 @@ export function generateNumCp003RetainedQuestion(
     base.explanation,
     base.hiddenState,
   );
-  const explanation = ensureStepStructure(polished, base.hiddenState);
+  const structured = ensureStepStructure(polished, base.hiddenState);
+  const explanation = ensureReadableDepth(structured);
   return {
     ...base,
     stem: polishNumCp003RetainedStem(label, base.stem, base.hiddenState),
