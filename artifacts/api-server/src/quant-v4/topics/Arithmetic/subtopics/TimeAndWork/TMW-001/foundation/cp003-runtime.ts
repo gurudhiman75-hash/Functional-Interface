@@ -6,6 +6,7 @@ import { renderTmwCp003Stem, tmwCp003Conclusion, tmwCp003ExplanationOpening } fr
 import { solveTmwCp003, verifyTmwCp003 } from "./cp003-solver";
 import { divide, rationalKey, toLatex } from "./rational";
 import { localizeTmwCp003Question } from "./localization-cp003";
+import { polishTmwCp003LocalizedQuestion } from "./localization-cp003-polish";
 import type { Rational } from "./types";
 import type { TmwLocalizedLanguage, TmwLocalizedQuestion } from "./localization-types";
 import type {
@@ -144,5 +145,5 @@ export function runTmwCp003Pipeline(input: { questionLanguageId: string; seed: s
 export function runTmwCp003Pipeline(input: { questionLanguageId: string; seed: string; language?: "en" | TmwLocalizedLanguage }): TmwCp003GeneratedQuestion | TmwLocalizedQuestion {
   const english = buildEnglishQuestion(input);
   if (!input.language || input.language === "en") return english;
-  return localizeTmwCp003Question(english, input.language);
+  return polishTmwCp003LocalizedQuestion(localizeTmwCp003Question(english, input.language), input.language);
 }
