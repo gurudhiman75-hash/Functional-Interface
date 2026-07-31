@@ -24,7 +24,7 @@ All 62 temporary prototype identities are classified exactly once by `cp008-chap
 
 ### Settled merge candidates
 
-Ten groups have the same decisive reasoning and answer semantic, with only shape, surface state, exact-number kind, output unit or declared pi policy changing:
+Twelve groups have the same decisive reasoning and answer semantic, with only shape, surface state, exact-number kind, output unit, declared pi policy or target-role parameter changing:
 
 1. cylinder direct volume and capacity;
 2. cylinder direct curved/total surface area;
@@ -35,18 +35,32 @@ Ten groups have the same decisive reasoning and answer semantic, with only shape
 7. cylinder/cone volume percentage change through the shared `r²h` scale factor;
 8. like-cylinder/like-cone volume ratios through the shared `r²h` ratio law;
 9. curved-to-total surface ratio for cylinder or cone;
-10. cylinder/cone surface material cost.
+10. cylinder/cone surface material cost;
+11. equal-volume cylinder/cone missing height, with target solid as a parameter;
+12. roller swept-area missing linear dimension, with radius or roller length as a parameter.
 
-These groups compress 22 prototype ancestries into 10 candidate learner families.
+These groups compress 26 prototype ancestries into 12 candidate learner families.
 
-### Merge-review groups
+### Directional merge proof
 
-Two boundaries still require side-by-side generated learner evidence:
+The two formerly unresolved direction pairs were tested across 320 existing runtime packages:
 
-- equal-volume cylinder/cone missing-height direction;
-- roller missing length versus missing radius from swept-area evidence.
+```text
+Equal-volume cone-height direction:      80
+Equal-volume cylinder-height direction:  80
+Roller missing-length direction:         80
+Roller missing-radius direction:         80
+Total:                                  320
+```
 
-If each pair remains separate, the current evidence yields 50 candidate QL families. If both pairs merge after review, it yields 48. This is a provisional evidence-derived range, not a frozen count.
+The proof confirmed:
+
+- all packages valid and independently verified;
+- one governing equation per pair;
+- `LENGTH` target and `cm` output for every package;
+- rational exact answers in both directions;
+- no invariant or lifecycle failure;
+- both solve directions retained as ancestries inside one parameterised family.
 
 ### Standalone candidates
 
@@ -72,20 +86,21 @@ Prototype ancestry coverage: 62 / 62
 Duplicate classifications:    0
 Unclassified prototypes:      0
 Foreign classifications:      0
-Settled merge groups:         10
-Merge-review groups:           2
+Settled merge groups:         12
+Merge-review groups:           0
 Standalone candidates:        36
-Provisional QL range:       48-50
+Evidence-derived QL families: 48
 Ready to freeze:             false
 ```
 
+The count of 48 is now a compression result rather than a range. It is still not a permanent allocation until the remaining freeze gates close.
+
 ## Remaining freeze gates
 
-1. generate side-by-side evidence for the two merge-review groups;
-2. repeat source retrieval and no-meaningful-gap review;
-3. close direct/inverse/ratio/application/exact-kind/ownership saturation;
-4. create one final registry mapping every ancestry exactly once to a retained family or exclusion;
-5. allocate permanent identities only after that registry passes.
+1. repeat source retrieval and the final no-meaningful-gap review;
+2. close direct/inverse/ratio/application/exact-kind/ownership saturation;
+3. create one final registry mapping every ancestry exactly once to a retained family or exclusion;
+4. allocate permanent identities only after that registry passes.
 
 ## Lifecycle safety
 
