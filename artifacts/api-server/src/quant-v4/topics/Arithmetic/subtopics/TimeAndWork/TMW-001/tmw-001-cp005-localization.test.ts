@@ -67,7 +67,7 @@ for (const entry of TMW_CP005_REGISTRY) {
 
       switch (first.solution.answerType) {
         case "TIME":
-          assert.equal(first.options.every((option) => language === "hi" ? /(?:दिन|घंटा|मिनट|पाली)$/.test(option) : /(?:ਦਿਨ|ਘੰਟਾ|ਮਿੰਟ|ਸ਼ਿਫ਼ਟ)$/.test(option)), true);
+          assert.equal(first.options.every((option) => language === "hi" ? /(?:दिन|घंटा|घंटे|मिनट|पाली)$/.test(option) : /(?:ਦਿਨ|ਘੰਟਾ|ਘੰਟੇ|ਮਿੰਟ|ਸ਼ਿਫ਼ਟ)$/.test(option)), true);
           break;
         case "FRACTION":
           assert.equal(first.options.every((option) => option.includes(language === "hi" ? "भाग" : "ਹਿੱਸਾ")), true);
