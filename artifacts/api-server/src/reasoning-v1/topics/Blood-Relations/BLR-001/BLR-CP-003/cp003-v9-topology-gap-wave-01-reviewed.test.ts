@@ -87,9 +87,11 @@ const greatGrandmotherRecords = records.filter(
 assert.equal(greatGrandmotherRecords.length, 8);
 for (const record of greatGrandmotherRecords) {
   const answerName = record.options[record.correctIndex]!.text;
-  const topMale = record.evidencePaths[0]!.personIds[1]!;
+  const maximumGeneration = Math.max(
+    ...record.proceduralLogic.nodes.map((node) => node.generation),
+  );
   const topMaleName = record.proceduralLogic.nodes.find(
-    (node) => node.id === topMale,
+    (node) => node.generation === maximumGeneration && node.gender === "male",
   )!.label;
   assert.ok(
     record.sharedPrompt.includes(`${topMaleName} and ${answerName} are married`) ||
