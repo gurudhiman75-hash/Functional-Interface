@@ -69,6 +69,17 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/mal-001-cp002-prototype-runtime-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp002-prototype-runtime-audit.log
+      - name: Bundle MAL-CP-002 coverage gap audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp002-gap-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp002-gap-audit.mjs
+      - name: Run MAL-CP-002 coverage gap audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/mal-001-cp002-gap-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp002-gap-audit.log
       - name: Upload MAL-CP-002 discovery evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -78,5 +89,6 @@ jobs:
             artifacts/api-server/dist/quant-v4/mal-001-cp002-discovery-audit.log
             artifacts/api-server/dist/quant-v4/mal-001-cp002-generation-audit.log
             artifacts/api-server/dist/quant-v4/mal-001-cp002-prototype-runtime-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp002-gap-audit.log
           if-no-files-found: error
           retention-days: 7
