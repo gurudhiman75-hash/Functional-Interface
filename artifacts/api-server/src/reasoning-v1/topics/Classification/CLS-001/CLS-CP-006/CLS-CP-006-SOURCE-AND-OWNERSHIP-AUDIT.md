@@ -1,44 +1,47 @@
 # CLS-CP-006 — Alphabet, Letter-Pair and Letter-Class Source and Ownership Audit
 
-Status: `SOURCE_BOUNDARY_ESTABLISHED__EXECUTABLE_DISCOVERY_OPEN`
+Status: `SOURCE_AND_OWNERSHIP_BOUNDARY_FROZEN`
+
+Final authority: `CLS-CP-006-FINAL-ENGLISH-FREEZE.md`
 
 ## Purpose
 
-This audit defines the admissible boundary for alphabet-based Classification questions before any permanent QL or solve-mode identity is allocated.
+This audit defines the admissible boundary for alphabet-based Classification questions.
 
-The decisive student task must remain classification: find the displayed letter or complete ordered letter-pair that does not share the common property or relation of the others. Directly calculating a requested alphabet position, offset, pair count, transformed token or rearranged output remains owned by `ALP-001 — Alphabet Test`.
+The decisive learner task must remain classification: select the displayed single letter or complete ordered letter-pair that does not share the common bounded property or relation. Directly calculating a requested alphabet position, offset, pair count, transformed token or rearranged output remains owned by `ALP-001 — Alphabet Test`.
 
 ## Source evidence recovered
 
-The uploaded Classification material contains a dedicated letter-classification section with source forms including:
+The Classification source material contains genuine letter-classification forms including:
 
 - one consonant among vowels or one vowel among consonants;
 - one letter whose alphabet position has different parity;
 - ordered pairs with a different forward or backward gap;
 - opposite-letter pairs;
 - pairs whose alphabet-position totals differ;
-- longer clusters governed by repeated gap, alternating gap, position-sum or opposite-letter structures.
+- longer clusters governed by repeated gaps, alternating gaps, position sums or opposite-letter structures.
 
-The source evidence confirms that letter classification is a genuine exam family. It does not justify treating every source form as CP-006.
+The first five families are represented in CP-006. Longer clusters belong to CP-007.
 
-## Ownership decisions
+## Frozen ownership decisions
 
 ### Retained in CLS-CP-006
 
-- direct odd-one-out among single English letters;
-- vowel/consonant classification;
-- bounded alphabet-position classes such as odd/even position and first/second alphabet half;
-- direct odd-one-out among complete ordered letter-pairs;
+- odd-one-out among single uppercase English letters;
+- vowel/consonant class;
+- odd/even alphabet-position class;
+- first-half/second-half alphabet-position class;
+- odd-one-out among complete ordered distinct-letter pairs;
 - fixed absolute position gap;
 - fixed signed position gap where direction is material;
 - fixed pair-position total;
 - opposite-letter-pair status;
-- vowel/consonant composition of a displayed pair;
+- ordered vowel/consonant composition;
 - four- and five-option presentation when the solve contract is unchanged.
 
 ### Deferred to CLS-CP-007
 
-- three- or more-letter clusters;
+- three-or-more-letter clusters;
 - alternating or multi-step gap sequences inside a cluster;
 - cluster position-sum equations;
 - mirrored or opposite transformations across complete clusters;
@@ -51,17 +54,17 @@ The source evidence confirms that letter classification is a genuine exam family
 - reconstruct a missing endpoint or midpoint;
 - count equal-gap pairs inside a word;
 - identify a requested pair inside a word;
-- transform letters under an explicit class rule;
+- transform letters under an explicit rule;
 - sort, reverse or rearrange letters and report the result;
-- any answer whose semantic object is a position, count or transformed output rather than the displayed classification option.
+- any answer whose semantic object is a position, count or transformed output.
 
 ### Reassigned elsewhere
 
-- source-to-target rule transfer: Analogy;
-- next, missing or wrong term in a progression: Series;
-- hidden transformation inference: Coding-Decoding;
-- dictionary ordering: Word and Dictionary Order;
-- visual letter shape when font or renderer changes the answer: reject unless separately proved renderer-safe.
+- source-to-target rule transfer — Analogy;
+- next, missing or wrong term in a progression — Series;
+- hidden transformation inference — Coding-Decoding;
+- dictionary ordering — Word and Dictionary Order;
+- visual letter shape when font or renderer changes the answer — rejected unless separately renderer-proved.
 
 ## Canonical boundary test
 
@@ -69,14 +72,14 @@ A candidate belongs to CP-006 only when all conditions hold:
 
 ```text
 1. Every answer option is one complete letter or one complete ordered letter-pair.
-2. The final learner action is to select the outlier or matching option.
-3. The intended rule is drawn from a bounded alphabet-property registry.
-4. The complete eligible registry is independently enumerated.
-5. No comparable competing rule produces a different answer.
+2. The final learner action is classification by mismatch.
+3. The intended rule belongs to the frozen bounded registry.
+4. The complete compatible registry is independently enumerated.
+5. No comparable rule produces a different answer.
 6. No hidden operation, progression completion or direct position calculation is requested.
 ```
 
-## Initial eligible rule universe
+## Frozen rule universe
 
 ### Single-letter rules
 
@@ -92,29 +95,28 @@ A candidate belongs to CP-006 only when all conditions hold:
 - `PAIR_OPPOSITE_STATUS`
 - `PAIR_VOWEL_CONSONANT_COMPOSITION`
 
-This is the first executable registry, not a frozen final inventory. Source-gap audit may add conventional bounded rules. Arbitrary modular classes, ad hoc constants and post-hoc equations are prohibited.
+Arbitrary modular classes, ad hoc constants, post-hoc equations and source-thin mathematical descriptions are prohibited.
 
-## Merge/split hypotheses
+## Frozen learner contracts
 
-- all single-letter outlier rules may merge when the answer object and proof topology remain one displayed letter;
-- all ordered letter-pair outlier rules may merge when direction and exact relation are instance properties;
-- single-letter and letter-pair forms may require separate QLs because the answer object and relation proof differ;
-- equivalent-set or reference-pair selection, if source-backed later, must be audited separately rather than assumed to merge;
-- option count, exact letters, intended answer position and difficulty remain instance variables.
+- `CLS-QL-010` — find the odd single letter;
+- `CLS-QL-011` — find the odd complete ordered letter-pair.
+
+Option count, exact letters, admitted rule, answer position and difficulty remain instance variables.
 
 ## Locale policy
 
-The Latin letters and alphabet positions are logic-neutral tokens. English, Hindi and Punjabi may share the same canonical state, but instructions, explanations and traps require independent localisation. CP-006 begins as an English review-only discovery runtime.
+Latin letters and alphabet positions are logic-neutral tokens. English, Hindi and Punjabi may share canonical states, but instructions, explanations and traps require independent localisation proof.
 
 ## Lifecycle lock
 
 ```text
-permanentQlId:              null
-reviewStatus:               UNREVIEWED_DISCOVERY
+permanentQlIds:             CLS-QL-010, CLS-QL-011
+reviewStatus:               FROZEN_ENGLISH_RUNTIME_PROOF
 questionBankStatus:         NOT_STORED
 testEligibility:            INELIGIBLE
 publiclyPublishable:        false
 questionStudioDiscoverable: false
 ```
 
-No permanent QL, Question Studio exposure, Question Bank storage, test eligibility or publication is authorised by this audit.
+Hindi and Punjabi localisation and all product integration remain separate explicit phases.
