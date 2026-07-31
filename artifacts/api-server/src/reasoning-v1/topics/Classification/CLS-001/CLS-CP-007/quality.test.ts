@@ -6,7 +6,7 @@ import {
   clsCp007RepeatPattern,
   clsCp007SignedGaps,
 } from "./cluster-domain";
-import { generateClsCp007QualityQuestion } from "./quality-runtime-safe";
+import { generateClsCp007QualityQuestion } from "./quality-runtime-final";
 
 const QUESTIONS_PER_PROTOTYPE = 12;
 const fingerprints = new Set<string>();
@@ -113,6 +113,12 @@ for (const prototype of CLS_CP007_PROTOTYPES) {
       assert.ok(
         new Set(commonItems.map((item) => clsCp007SignedGaps(item).join(","))).size >= 2,
         "Equality-topology question collapsed to one exact vector.",
+      );
+      assert.ok(
+        question.items.every((item) =>
+          clsCp007SignedGaps(item).every((gap) => Math.abs(gap) <= 12),
+        ),
+        "Equality-topology question contains an extreme raw movement.",
       );
       topologyQuestions += 1;
     }
