@@ -4,10 +4,9 @@ import {
   CLS_CP007_PROTOTYPES,
   clsCp007LetterPosition,
   clsCp007RepeatPattern,
-  clsCp007RuleValue,
   clsCp007SignedGaps,
 } from "./cluster-domain";
-import { generateClsCp007QualityQuestion } from "./quality-runtime";
+import { generateClsCp007QualityQuestion } from "./quality-runtime-safe";
 
 const QUESTIONS_PER_PROTOTYPE = 12;
 const fingerprints = new Set<string>();
