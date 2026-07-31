@@ -23,19 +23,26 @@ for (const entry of TMW_CP002_REGISTRY) {
     assert.equal(/\b(?:operator|technician|machine|crew|clerk|assignment|rework process|combined rate|target agent)\b/i.test(prose), false, `${entry.qlId}:${language}: English leakage`);
     assert.equal(/find[A-Z]|TMW_|_[A-Z_]{3,}|Do not|Don't/i.test(prose), false, `${entry.qlId}:${language}: internal or command language`);
     assert.equal(/द्वारा .* किया जाता है|ਵੱਲੋਂ .* ਕੀਤਾ ਜਾਂਦਾ ਹੈ/.test(prose), false, `${entry.qlId}:${language}: translated passive phrasing`);
+    assert.equal(/(?:का काम|का ऑर्डर) (?:को|के लिए|की)|(?:ਦਾ ਕੰਮ|ਦਾ ਆਰਡਰ) (?:ਨੂੰ|ਲਈ|ਦੀ)/.test(question.stem), false, `${entry.qlId}:${language}: duplicated case marker`);
+    assert.equal(/रिवर्क|रीवर्क|ਰੀਵਰਕ|परिमाण-अंतर/.test(prose), false, `${entry.qlId}:${language}: technical learner wording`);
     assert.equal(question.options.includes(question.explanation.commonTrap.optionText), true);
     assert.equal(question.explanation.commonTrap.optionLabel.startsWith(language === "hi" ? "विकल्प" : "ਚੋਣ"), true);
     assert.equal(question.publiclyPublishable, false);
     assert.equal(question.editorialStatus, "PENDING");
 
+    if (entry.solveMode === "findCombinedWorkInGivenTime") {
+      assert.equal(question.options.every((option) => language === "hi" ? /^काम का .+ भाग$/.test(option) : /^ਕੰਮ ਦਾ .+ ਹਿੱਸਾ$/.test(option)), true);
+    }
     if (["findAllTogetherTimeFromPairwiseTimes", "findIndividualTimeFromPairwiseTimes"].includes(entry.solveMode)) {
       assert.match(question.explanation.opening, language === "hi" ? /जोड़ी-दर|दो बार/ : /ਜੋੜੀ-ਦਰ|ਦੋ ਵਾਰ/);
     }
     if (["findNetTimeWithDestructiveAgent", "findDestructiveTimeFromPositiveAndNetTimes", "findConstructiveTimeFromNetKnownPositiveAndDestructiveTimes", "findMissingRateFromSignedNetRate"].includes(entry.solveMode)) {
-      assert.match(prose, language === "hi" ? /रिवर्क|घट/ : /ਰੀਵਰਕ|ਘਟ/);
+      assert.match(prose, language === "hi" ? /दोबारा काम|वापस भेज/ : /ਮੁੜ ਕੰਮ|ਵਾਪਸ ਭੇਜ/);
+      assert.match(question.explanation.opening, language === "hi" ? /घट|−/ : /ਘਟ|−/);
     }
     if (["findIdenticalAgentCountFromSingleAndCombinedTime", "findCombinedTimeFromIdenticalAgentCount"].includes(entry.solveMode)) {
       assert.match(question.explanation.opening, language === "hi" ? /समान क्षमता/ : /ਇਕੋ ਸਮਰੱਥਾ/);
+      assert.match(question.stem, language === "hi" ? /यदि एक .* अकेले काम करे/ : /ਜੇ ਇੱਕ .* ਇਕੱਲਾ ਕੰਮ ਕਰੇ/);
     }
     if (entry.solveMode === "findCompletionTimeDifferenceBetweenTeams") {
       assert.match(question.explanation.conclusion, language === "hi" ? /अंतर/ : /ਅੰਤਰ/);
