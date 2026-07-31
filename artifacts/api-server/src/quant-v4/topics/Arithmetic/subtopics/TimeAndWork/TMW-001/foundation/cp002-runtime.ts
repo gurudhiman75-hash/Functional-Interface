@@ -6,7 +6,9 @@ import { getTmwCp002Entry } from "./cp002-registry";
 import { solveTmwCp002, sumTmwRates, verifyTmwCp002 } from "./cp002-solver";
 import { compare, rational, rationalKey, reciprocal, subtract } from "./rational";
 import { required } from "./cp001-helpers";
+import { localizeTmwCp002Question } from "./localization-cp002";
 import type { Rational } from "./types";
+import type { TmwLocalizedLanguage, TmwLocalizedQuestion } from "./localization-types";
 import type { TmwCp002GeneratedQuestion, TmwCp002Option, TmwCp002Parameters, TmwCp002RegistryEntry, TmwCp002Solution } from "./cp002-types";
 
 function fingerprint(entry: TmwCp002RegistryEntry, p: TmwCp002Parameters): string {
@@ -61,8 +63,7 @@ function validate(entry: TmwCp002RegistryEntry, p: TmwCp002Parameters, solution:
   return errors;
 }
 
-export function runTmwCp002Pipeline(input: { questionLanguageId: string; seed: string; language?: "en" | "hi" | "pa" }): TmwCp002GeneratedQuestion {
-  if (input.language && input.language !== "en") throw new Error("TMW-CP-002 is English only at the current runtime-proof stage");
+function buildEnglishQuestion(input: { questionLanguageId: string; seed: string }): TmwCp002GeneratedQuestion {
   const entry = getTmwCp002Entry(input.questionLanguageId);
   const parameters = buildTmwCp002Parameters(entry, input.seed);
   const solution = solveTmwCp002(entry, parameters);
@@ -118,4 +119,12 @@ export function runTmwCp002Pipeline(input: { questionLanguageId: string; seed: s
     validation: { valid: errors.length === 0, errors },
     publiclyPublishable: false,
   };
+}
+
+export function runTmwCp002Pipeline(input: { questionLanguageId: string; seed: string; language: TmwLocalizedLanguage }): TmwLocalizedQuestion;
+export function runTmwCp002Pipeline(input: { questionLanguageId: string; seed: string; language?: "en" }): TmwCp002GeneratedQuestion;
+export function runTmwCp002Pipeline(input: { questionLanguageId: string; seed: string; language?: "en" | TmwLocalizedLanguage }): TmwCp002GeneratedQuestion | TmwLocalizedQuestion {
+  const english = buildEnglishQuestion(input);
+  if (!input.language || input.language === "en") return english;
+  return localizeTmwCp002Question(english, input.language);
 }
