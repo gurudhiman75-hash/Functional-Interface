@@ -47,6 +47,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/wave2.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/wave2.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/wave2-digit-product.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/wave2-digit-product.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/wave2-digit-product-equivalent.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/wave2-digit-product-equivalent.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005-english-runtime.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp005-english-runtime.test.mjs"
 
       - name: Run CLS-CP-005 audits
         id: cp005_audit
@@ -69,7 +70,9 @@ jobs:
           DIGIT_PRODUCT_STATUS=$?
           (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp005/wave2-digit-product-equivalent.test.mjs") >"$DIAG/wave2-digit-product-equivalent-audit.log" 2>&1
           DIGIT_PRODUCT_EQUIVALENT_STATUS=$?
-          if [ "$PROTOTYPE_STATUS" -ne 0 ] || [ "$EDITORIAL_STATUS" -ne 0 ] || [ "$SIMPLE_EXPLANATION_STATUS" -ne 0 ] || [ "$SOURCE_GAP_STATUS" -ne 0 ] || [ "$WAVE2_STATUS" -ne 0 ] || [ "$DIGIT_PRODUCT_STATUS" -ne 0 ] || [ "$DIGIT_PRODUCT_EQUIVALENT_STATUS" -ne 0 ]; then
+          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp005/cp005-english-runtime.test.mjs") >"$DIAG/cp005-english-runtime-audit.log" 2>&1
+          PERMANENT_ENGLISH_STATUS=$?
+          if [ "$PROTOTYPE_STATUS" -ne 0 ] || [ "$EDITORIAL_STATUS" -ne 0 ] || [ "$SIMPLE_EXPLANATION_STATUS" -ne 0 ] || [ "$SOURCE_GAP_STATUS" -ne 0 ] || [ "$WAVE2_STATUS" -ne 0 ] || [ "$DIGIT_PRODUCT_STATUS" -ne 0 ] || [ "$DIGIT_PRODUCT_EQUIVALENT_STATUS" -ne 0 ] || [ "$PERMANENT_ENGLISH_STATUS" -ne 0 ]; then
             STATUS=1
           else
             STATUS=0
@@ -95,6 +98,7 @@ jobs:
           cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/wave2-audit.log
           cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/wave2-digit-product-audit.log
           cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/wave2-digit-product-equivalent-audit.log
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/cp005-english-runtime-audit.log
           exit 1
 
       - name: Generate CLS-CP-005 reviews
