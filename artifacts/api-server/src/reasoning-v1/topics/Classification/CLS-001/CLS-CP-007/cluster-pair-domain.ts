@@ -10,6 +10,8 @@ import type {
   ClsCp007PairRuleId,
 } from "./cluster-pair-types";
 
+export { clsCp007LetterPosition };
+
 export const CLS_CP007_PAIR_RULE_IDS: readonly ClsCp007PairRuleId[] = [
   "CLUSTER_PAIR_POSITION_SUM_VECTOR",
   "CLUSTER_PAIR_OPPOSITE_TRANSFORM_STATUS",
