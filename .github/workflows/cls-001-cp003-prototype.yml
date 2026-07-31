@@ -1,0 +1,83 @@
+name: Validate CLS-001 CP-003 Word-Structure Discovery
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-003/**
+      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/README.md
+      - .github/workflows/cls-001-cp003-prototype.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate-word-structure-classification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle CLS-CP-003 audit
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-003
+          OUT=dist/reasoning-v1/cls-001/cp003
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/prototype.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/prototype.test.mjs"
+
+      - name: Run CLS-CP-003 audit
+        id: cp003_audit
+        run: |
+          set +e
+          OUT=artifacts/api-server/dist/reasoning-v1/cls-001/cp003
+          DIAG=$OUT/diagnostics
+          mkdir -p "$DIAG"
+          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp003/prototype.test.mjs") >"$DIAG/prototype-audit.log" 2>&1
+          STATUS=$?
+          echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload CLS-CP-003 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp003-audit-diagnostics
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp003/diagnostics
+          if-no-files-found: error
+
+      - name: Enforce CLS-CP-003 audit
+        if: steps.cp003_audit.outputs.exit_code != '0'
+        run: |
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp003/diagnostics/prototype-audit.log
+          exit 1
+
+      - name: Generate CLS-CP-003 discovery review
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-003
+          OUT=dist/reasoning-v1/cls-001/cp003
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-review.mjs"
+          (cd artifacts/api-server && node "$OUT/export-review.mjs")
+
+      - name: Upload CLS-CP-003 discovery review
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp003-word-structure-discovery-review
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp003-review
+          if-no-files-found: error
