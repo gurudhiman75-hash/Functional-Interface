@@ -7,25 +7,24 @@ import {
 
 const audit = auditMenCp008FreezeReadiness();
 
-assert.equal(audit.status, "INTERNAL_FREEZE_GATES_PASSED_SOURCE_RECHECK_PENDING");
+assert.equal(audit.status, "READY_FOR_PERMANENT_FREEZE");
 assert.equal(audit.internalGatesPassed, true);
-assert.equal(audit.readyToFreeze, false);
-assert.equal(audit.candidateFamilies, 48);
-assert.equal(audit.prototypeAncestries, 62);
+assert.equal(audit.readyToFreeze, true);
+assert.equal(audit.candidateFamilies, 52);
+assert.equal(audit.prototypeAncestries, 66);
 assert.equal(audit.settledMergeGroups, 12);
-assert.equal(audit.standaloneFamilies, 36);
+assert.equal(audit.standaloneFamilies, 40);
 assert.equal(audit.directionalEvidencePackages, 320);
-assert.ok(audit.noGapRows >= 31);
+assert.equal(audit.finalSourceRecheckContracts, 4);
+assert.ok(audit.noGapRows >= 35);
 assert.equal(audit.noGapDimensions, 12);
 assert.equal(audit.permanentQlCount, 0);
 assert.equal(audit.nextAvailableMen002Identity, "MEN-002-QL-044");
 assert.equal(audit.questionStudioDiscoverable, false);
 assert.equal(audit.publiclyPublishable, false);
-assert.ok(MEN_CP_008_RESOLVED_FREEZE_GATES.length >= 6);
-assert.deepEqual(MEN_CP_008_PENDING_FREEZE_GATES, [
-  "FINAL_UPLOADED_SOURCE_RETRIEVAL_RECHECK",
-]);
+assert.ok(MEN_CP_008_RESOLVED_FREEZE_GATES.length >= 7);
+assert.deepEqual(MEN_CP_008_PENDING_FREEZE_GATES, []);
 
 console.log(
-  `MEN-CP-008 internal freeze readiness passed at ${audit.candidateFamilies} candidate families from ${audit.prototypeAncestries} ancestries. Final uploaded-source retrieval recheck remains the only external freeze blocker.`,
+  `MEN-CP-008 freeze readiness passed at ${audit.candidateFamilies} source-closed families from ${audit.prototypeAncestries} ancestries. Permanent allocation may begin at ${audit.nextAvailableMen002Identity}.`,
 );
