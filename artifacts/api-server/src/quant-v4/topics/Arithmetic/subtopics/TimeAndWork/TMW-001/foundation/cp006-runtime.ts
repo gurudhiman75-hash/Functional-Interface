@@ -8,6 +8,8 @@ import { tmwCp006Conclusion } from "./cp006-presentation";
 import { polishTmwCp006Solution } from "./cp006-solution-polish";
 import { isPositiveCp006Answer, solveTmwCp006, verifyTmwCp006 } from "./cp006-solver";
 import { multiply, rationalKey, toLatex } from "./rational";
+import { localizeTmwCp006Question } from "./localization-cp006";
+import type { TmwLocalizedLanguage, TmwLocalizedQuestion } from "./localization-types";
 import type { Rational } from "./types";
 import type { TmwCp006GeneratedQuestion, TmwCp006Parameters, TmwCp006RegistryEntry } from "./cp006-types";
 
@@ -30,8 +32,7 @@ function polishStem(entry:TmwCp006RegistryEntry,raw:string):string{
   return stem;
 }
 
-export function runTmwCp006Pipeline(input:{questionLanguageId:string;seed:string;language?:"en"|"hi"|"pa"}):TmwCp006GeneratedQuestion{
-  if(input.language&&input.language!=="en")throw new Error("TMW-CP-006 is English only at the current runtime-proof stage");
+function buildEnglishQuestion(input:{questionLanguageId:string;seed:string}):TmwCp006GeneratedQuestion{
   const entry=getTmwCp006Entry(input.questionLanguageId);
   const parameters=buildTmwCp006Parameters(entry,input.seed);
   const rawSolution=solveTmwCp006(entry,parameters);
@@ -87,4 +88,12 @@ export function runTmwCp006Pipeline(input:{questionLanguageId:string;seed:string
     explanation,
     mathematicalFingerprint:`${entry.solveMode}|${stateKey(parameters)}`,validation:{valid:errors.length===0,errors},publiclyPublishable:false,
   };
+}
+
+export function runTmwCp006Pipeline(input:{questionLanguageId:string;seed:string;language:TmwLocalizedLanguage}):TmwLocalizedQuestion;
+export function runTmwCp006Pipeline(input:{questionLanguageId:string;seed:string;language?:"en"}):TmwCp006GeneratedQuestion;
+export function runTmwCp006Pipeline(input:{questionLanguageId:string;seed:string;language?:"en"|TmwLocalizedLanguage}):TmwCp006GeneratedQuestion|TmwLocalizedQuestion{
+  const english=buildEnglishQuestion(input);
+  if(!input.language||input.language==="en")return english;
+  return localizeTmwCp006Question(english,input.language);
 }
