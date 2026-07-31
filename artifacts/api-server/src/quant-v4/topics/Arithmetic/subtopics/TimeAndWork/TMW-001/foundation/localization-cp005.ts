@@ -16,6 +16,17 @@ import {
   tmwCp005LocalizedTrapReason,
 } from "./localization-cp005-learning";
 
+function inflectTimePostpositions(value: string, language: TmwLocalizedLanguage): string {
+  if (language === "hi") {
+    return value
+      .replace(/(\d+) दिन में/g, (_, raw: string) => raw === "1" ? "एक दिन में" : `${raw} दिनों में`)
+      .replace(/(\d+) घंटा में/g, (_, raw: string) => raw === "1" ? "एक घंटे में" : `${raw} घंटों में`);
+  }
+  return value
+    .replace(/(\d+) ਦਿਨ ਵਿੱਚ/g, (_, raw: string) => raw === "1" ? "ਇੱਕ ਦਿਨ ਵਿੱਚ" : `${raw} ਦਿਨਾਂ ਵਿੱਚ`)
+    .replace(/(\d+) ਘੰਟਾ ਵਿੱਚ/g, (_, raw: string) => raw === "1" ? "ਇੱਕ ਘੰਟੇ ਵਿੱਚ" : `${raw} ਘੰਟਿਆਂ ਵਿੱਚ`);
+}
+
 function polishTimeConclusion(
   source: TmwCp005GeneratedQuestion,
   conclusion: string,
@@ -49,13 +60,21 @@ export function localizeTmwCp005Question(
   );
   if (trapIndex < 0) trapIndex = source.optionAudit.findIndex((option) => option.misconceptionId === trapId);
 
-  const stem = renderTmwCp005LocalizedStem(source, language);
-  const opening = tmwCp005LocalizedOpening(entry.ruleId, language);
-  const trapExplanation = tmwCp005LocalizedTrapReason(trapId, language);
-  const conclusion = polishTimeConclusion(
-    source,
-    tmwCp005LocalizedConclusion(source, answerText, language),
-    answerText,
+  const stem = inflectTimePostpositions(renderTmwCp005LocalizedStem(source, language), language);
+  const opening = inflectTimePostpositions(tmwCp005LocalizedOpening(entry.ruleId, language), language);
+  const trapExplanation = inflectTimePostpositions(tmwCp005LocalizedTrapReason(trapId, language), language);
+  const rawShortcut = tmwCp005LocalizedShortcut(source.solveMode, answerText, language);
+  const shortcut = {
+    title: inflectTimePostpositions(rawShortcut.title, language),
+    steps: rawShortcut.steps.map((step) => inflectTimePostpositions(step, language)),
+  };
+  const conclusion = inflectTimePostpositions(
+    polishTimeConclusion(
+      source,
+      tmwCp005LocalizedConclusion(source, answerText, language),
+      answerText,
+      language,
+    ),
     language,
   );
   const errors = [...source.validation.errors];
@@ -63,7 +82,7 @@ export function localizeTmwCp005Question(
   if (trapIndex < 0) errors.push("Localized common trap is not linked to an option");
   if (new Set(options).size !== 4) errors.push("Localized options are not unique");
   if (!stem.trim()) errors.push("Localized stem is empty");
-  const learnerText = [stem, opening, trapExplanation, conclusion].join(" ");
+  const learnerText = [stem, opening, ...shortcut.steps, trapExplanation, conclusion].join(" ");
   if (language === "hi" && !/[\u0900-\u097F]/.test(learnerText)) errors.push("Hindi delivery has no Devanagari text");
   if (language === "pa" && !/[\u0A00-\u0A7F]/.test(learnerText)) errors.push("Punjabi delivery has no Gurmukhi text");
 
@@ -86,7 +105,7 @@ export function localizeTmwCp005Question(
       opening,
       formula: source.explanation.formula,
       steps: source.explanation.steps.map((step) => localizeMathStep(step, language)),
-      shortcut: tmwCp005LocalizedShortcut(source.solveMode, answerText, language),
+      shortcut,
       commonTrap: {
         optionLabel: localizedOptionLabel(trapIndex, language),
         optionText: options[trapIndex] ?? options[0] ?? "",
