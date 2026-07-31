@@ -46,16 +46,11 @@ assert.deepEqual([...blrCp003V8RetainedAuthorities()].sort(), [
   "SELECT_UNORDERED_FAMILY_PAIR",
 ]);
 assert.equal(BLR_CP003_V8_AUTHORITY_DISPOSITIONS.length, 6);
-assert.deepEqual(
-  blrCp003V8DispositionFor("DETERMINE_MEMBER_GENDER"),
-  assert.match(
-    blrCp003V8DispositionFor("DETERMINE_MEMBER_GENDER").rationale,
-    /four-option gender-label question/i,
-  ) as never,
-);
+
 const genderDisposition = blrCp003V8DispositionFor("DETERMINE_MEMBER_GENDER");
 assert.equal(genderDisposition.decision, "MERGE_EXISTING");
 assert.equal(genderDisposition.targetQlId, "BLR-QL-003");
+assert.match(genderDisposition.rationale, /four-option gender-label question/i);
 const maritalDisposition = blrCp003V8DispositionFor(
   "DETERMINE_MEMBER_MARITAL_STATUS",
 );
