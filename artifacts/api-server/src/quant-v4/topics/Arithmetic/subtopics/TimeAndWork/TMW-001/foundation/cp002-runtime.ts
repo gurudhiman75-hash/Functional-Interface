@@ -8,6 +8,7 @@ import { compare, rational, rationalKey, reciprocal, subtract } from "./rational
 import { required } from "./cp001-helpers";
 import { localizeTmwCp002Question } from "./localization-cp002";
 import { polishTmwCp002LocalizedQuestion } from "./localization-cp002-polish";
+import { finalizeTmwCp002LocalizedQuestion } from "./localization-cp002-final-polish";
 import type { Rational } from "./types";
 import type { TmwLocalizedLanguage, TmwLocalizedQuestion } from "./localization-types";
 import type { TmwCp002GeneratedQuestion, TmwCp002Option, TmwCp002Parameters, TmwCp002RegistryEntry, TmwCp002Solution } from "./cp002-types";
@@ -127,5 +128,7 @@ export function runTmwCp002Pipeline(input: { questionLanguageId: string; seed: s
 export function runTmwCp002Pipeline(input: { questionLanguageId: string; seed: string; language?: "en" | TmwLocalizedLanguage }): TmwCp002GeneratedQuestion | TmwLocalizedQuestion {
   const english = buildEnglishQuestion(input);
   if (!input.language || input.language === "en") return english;
-  return polishTmwCp002LocalizedQuestion(localizeTmwCp002Question(english, input.language), input.language);
+  const localized = localizeTmwCp002Question(english, input.language);
+  const polished = polishTmwCp002LocalizedQuestion(localized, input.language);
+  return finalizeTmwCp002LocalizedQuestion(polished, input.language);
 }
