@@ -1,12 +1,12 @@
-# CLS-CP-006 — Source-Gap and Preliminary Merge/Split Audit
+# CLS-CP-006 — Source-Gap and Final Merge/Split Audit
 
-Status: `INITIAL_SOURCE_GAP_CLOSED__PERMANENT_QL_FREEZE_NOT_AUTHORISED`
+Status: `SOURCE_GAP_CLOSED__TWO_PERMANENT_CONTRACTS_FROZEN`
 
 ## Scope
 
-This audit checks the first executable CP-006 registry against the recovered letter-classification source forms and against plausible neighbouring alphabet descriptions. It asks whether any materially distinct learner contract or bounded rule family remains uncovered.
+This audit checks the executable CP-006 registry against the recovered letter-classification source forms and plausible neighbouring alphabet descriptions. It determines whether any materially distinct learner contract or bounded rule family remains uncovered and whether the admitted source prototypes merge or split at the permanent QL boundary.
 
-It does not allocate permanent QLs. The executable wave remains discovery-only.
+Final authority is recorded in `CLS-CP-006-FINAL-ENGLISH-FREEZE.md`.
 
 ## Source forms exercised
 
@@ -18,11 +18,9 @@ The recovered source material contains CP-006-compatible forms including:
 - one pair that is not an opposite-letter pair;
 - equivalent pair-gap wording expressed through positions or letters lying between endpoints.
 
-Three- and four-letter structures involving repeated gaps, alternating movements, position equations, cluster sums or opposite-cluster transformations are excluded from this audit because their answer object belongs to `CLS-CP-007`.
+Three- and four-letter structures involving repeated gaps, alternating movements, position equations, cluster sums or opposite-cluster transformations are excluded because their answer object belongs to `CLS-CP-007`.
 
 ## Executable source exemplars
-
-The audit records representative source-shaped states without copying source prose:
 
 ```text
 A, E, O, V
@@ -40,7 +38,7 @@ W, N, P, R
   -> W is the unique odd-position letter; every option lies in the second alphabet half
 
 U–X, O–R, W–Z, F–G
-  -> common signed/absolute gap of 3
+  -> common signed and absolute gap of 3
   -> F–G is the unique outlier
 
 J–R, L–O, C–X, E–V
@@ -52,11 +50,11 @@ E–S, B–O, C–P, D–Q
   -> E–S is the unique outlier
 ```
 
-Every accepted exemplar is independently solved against the complete compatible CP-006 registry. Multiple supporting rules are accepted only when they identify the same answer. A printed answer key is never sufficient to override a competing-answer proof.
+Every accepted exemplar is independently solved against the complete compatible CP-006 registry. Multiple supporting rules are accepted only when they identify the same answer. A printed answer key never overrides a competing-answer proof.
 
 ## Source ambiguity finding
 
-The source option set `W, N, P, B` is not safe for a complete-registry generator:
+The source option set `W, N, P, B` is unsafe:
 
 ```text
 position parity:
@@ -72,43 +70,40 @@ alphabet half:
   -> B is the outlier
 ```
 
-Decision: preserve the intended parity pattern only through controlled state reconstruction. Do not ingest the printed option set unchanged.
+Decision: reject the printed option set and preserve the intended parity pattern only through controlled state reconstruction.
 
 ## Compression results
 
 ### Reverse-position parity
 
-Reverse position is `27 - forward position`. Because 27 is odd, reverse-position parity swaps the labels `ODD` and `EVEN` but preserves exactly the same partition of A–Z.
+Reverse position is `27 - forward position`. The labels swap, but the A–Z partition is identical.
 
 Decision: `MERGE_AS_RULE_LABEL_VARIANT` into `LETTER_POSITION_PARITY`.
 
 ### Reverse alphabet half
 
-Forward first-half letters A–M become reverse second-half positions, and N–Z become reverse first-half positions. The labels swap, but the partition is unchanged.
+Forward A–M and N–Z become reverse second and first halves respectively. The labels swap, but the partition is identical.
 
 Decision: `MERGE_AS_RULE_LABEL_VARIANT` into `LETTER_ALPHABET_HALF`.
 
 ### Reverse signed gap
 
-For pair `X–Y`:
-
 ```text
-reversePosition(Y) - reversePosition(X)
-= (27 - position(Y)) - (27 - position(X))
-= position(X) - position(Y)
+reversePosition(second) - reversePosition(first)
+= position(first) - position(second)
 ```
 
-This is the negative of the existing signed gap. Equal-gap groups remain identical.
+This negates the existing signed gap without changing equality groups.
 
 Decision: `MERGE_AS_RULE_LABEL_VARIANT` into `PAIR_SIGNED_POSITION_GAP`.
 
 ### Reverse absolute gap
 
-Taking the absolute value removes the sign, so forward-position and reverse-position absolute gaps are identical.
+The absolute forward and reverse gaps are identical.
 
 Decision: `MERGE_AS_RULE_LABEL_VARIANT` into `PAIR_ABSOLUTE_POSITION_GAP`.
 
-### Inclusive/exclusive gap wording
+### Intervening-letter wording
 
 For distinct letters:
 
@@ -116,83 +111,94 @@ For distinct letters:
 letters lying between endpoints = absolute position gap - 1
 ```
 
-Subtracting one from every gap value preserves the same equality classes and therefore the same outlier answer.
+Subtracting one preserves the equality partition and outlier answer.
 
-Decision: `MERGE_AS_PRESENTATION_VARIANT` into `PAIR_ABSOLUTE_POSITION_GAP`. Learner explanations must state whether they use position difference or intervening-letter count to prevent off-by-one confusion.
+Decision: `MERGE_AS_PRESENTATION_VARIANT` into `PAIR_ABSOLUTE_POSITION_GAP`.
 
 ### Opposite-letter wording
 
-Opposite letters satisfy forward-position sum `27`. This is a source-salient named relation but not a different mathematical partition from the `PAIR_POSITION_SUM` value 27.
+Opposite letters have position sum `27`. This is a source-salient label but not a separate learner contract from pair-position relations.
 
-Decision: retain `PAIR_OPPOSITE_STATUS` as a governed source rule label for natural explanations and source tracing, but merge it into the same eventual ordered-pair learner contract. It does not justify another QL.
+Decision: retain `PAIR_OPPOSITE_STATUS` as a governed rule label and merge it into the permanent ordered-pair QL.
 
 ## Candidate families not admitted
 
 ### Prime/composite alphabet position
 
-This is mathematically bounded, but the recovered CP-006 source pass does not establish repeated exam ownership. Position 1 is neither prime nor composite, creating a third class that requires explicit source governance.
+Position 1 forms a third class and repeated CP-006 source authority was not established.
 
 Decision: `DEFER_FOR_SOURCE_EVIDENCE`.
 
 ### Pair position-parity composition
 
-Patterns such as odd–even, even–odd, odd–odd and even–even are executable, but no repeated CP-006 source authority has yet been established.
+The four ordered parity compositions are executable but source-thin.
 
 Decision: `DEFER_FOR_SOURCE_EVIDENCE`.
 
 ### Pair alphabet-half composition
 
-First-half/second-half ordered compositions are executable but currently source-thin.
+The four ordered half compositions are executable but source-thin.
 
 Decision: `DEFER_FOR_SOURCE_EVIDENCE`.
 
-### Exact position products, ratios and arbitrary modular classes
+### Products, ratios and arbitrary modular classes
 
-A finite option set can often be described post hoc through products, ratios or moduli. Without repeated conventional source support these expand ambiguity rather than meaningful coverage.
+These permit post-hoc descriptions without repeated conventional source support.
 
 Decision: `REJECT_FOR_SOURCE_GAP_AND_EDITORIAL_RISK`.
 
 ### Visual letter-shape classes
 
-Curves, straight lines, symmetry and enclosure depend on font, case and renderer.
+These depend on font, case and renderer.
 
 Decision: `REJECT_UNLESS_SEPARATE_RENDERER_SAFE_PROOF`.
 
-## Preliminary solve-contract compression
+## Final merge/split decision
 
-The current evidence supports two learner-contract hypotheses:
+The evidence supports exactly two permanent learner contracts:
+
+### CLS-QL-010
 
 ```text
-A. find the odd single letter
-B. find the odd complete ordered letter-pair
+find the odd single letter
 ```
 
-All rules inside A share one answer object and one option-local class proof. All rules inside B share one complete ordered-pair answer object and one internal-relation proof. Exact rule, direction, option count, answer position and difficulty remain instance variables.
+All three single-letter rules merge because they share one displayed-letter answer object, option-local class evaluation and mismatch proof.
 
-Single letters and ordered pairs should not yet be merged because the answer object and evidence topology differ. This is a preliminary conclusion, not a permanent QL allocation.
+### CLS-QL-011
+
+```text
+find the odd complete ordered letter-pair
+```
+
+All five ordered-pair rules merge because they share one complete-pair answer object, internal-relation evaluation and mismatch proof. Exact rule and direction remain instance variables.
+
+The two contracts remain split because a single letter and a complete ordered pair have different answer semantics and evidence topology.
+
+No source-backed reference-pair matching direction was established. It is therefore not reserved.
 
 ## Gap decision
 
 ```text
 Meaningful uncovered CP-006 source contracts: 0
-New rules admitted by this audit:             0
-Rule-label/presentation compressions:         6
+New rules admitted by the gap audit:          0
+Rule-label or presentation compressions:      6
 Ambiguous printed source states rejected:     1
 Controlled source remediations proved:        1
 Candidate families deferred:                  3
 Candidate families rejected:                  2
-Permanent QLs allocated:                      0
+Permanent QLs allocated:                      2
 ```
-
-The next gate is a broader generated-state editorial and ambiguity audit followed by a human review of the 64-question artifact. Permanent QL identities remain open until that proof confirms that the two contract hypotheses are exhaustive and stable.
 
 ## Lifecycle lock
 
 ```text
-permanentQlId:              null
-reviewStatus:               UNREVIEWED_DISCOVERY
+permanentQlIds:             CLS-QL-010, CLS-QL-011
+reviewStatus:               FROZEN_ENGLISH_RUNTIME_PROOF
 questionBankStatus:         NOT_STORED
 testEligibility:            INELIGIBLE
 publiclyPublishable:        false
 questionStudioDiscoverable: false
 ```
+
+Hindi and Punjabi localisation, product storage, test eligibility and publication remain separate future phases.
