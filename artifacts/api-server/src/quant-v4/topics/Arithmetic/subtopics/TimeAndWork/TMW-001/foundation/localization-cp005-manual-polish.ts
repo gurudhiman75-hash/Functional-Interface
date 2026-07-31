@@ -23,12 +23,12 @@ function neutralizeSoloAssignment(value: string, language: TmwLocalizedLanguage)
   if (language === "hi") {
     return value.replace(
       /^(.+?) अकेले पूरा करने में /,
-      "दिया गया काम $1 है। इसे अकेले पूरा करने में ",
+      "दिया गया कार्य: $1। इसे अकेले पूरा करने में ",
     );
   }
   return value.replace(
     /^(.+?) ਇਕੱਲੇ ਪੂਰਾ ਕਰਨ ਲਈ /,
-    "ਦਿੱਤਾ ਗਿਆ ਕੰਮ $1 ਹੈ। ਇਸ ਨੂੰ ਇਕੱਲੇ ਪੂਰਾ ਕਰਨ ਲਈ ",
+    "ਦਿੱਤਾ ਗਿਆ ਕੰਮ: $1। ਇਸ ਨੂੰ ਇਕੱਲੇ ਪੂਰਾ ਕਰਨ ਲਈ ",
   );
 }
 
@@ -47,6 +47,17 @@ function neutralizeCycleResponsibility(value: string, language: TmwLocalizedLang
     .replace(/ਇੱਕ ਦਿਨ ਕੰਮ ਸਿਰਫ਼ ([^;।]+?) ਨਾਲ ਹੁੰਦਾ ਹੈ/g, "ਇੱਕ ਦਿਨ ਕੰਮ ਦੀ ਜ਼ਿੰਮੇਵਾਰੀ ਸਿਰਫ਼ $1 ਦੀ ਰਹਿੰਦੀ ਹੈ");
 }
 
+function normalizeRepeatedCycleVerbs(value: string, language: TmwLocalizedLanguage): string {
+  if (language === "hi") {
+    return value
+      .replace(/चक्र([^।]*) दोहरता है/g, "चक्र$1 दोहराया जाता है")
+      .replace(/क्रम([^।]*) दोहरता है/g, "क्रम$1 दोहराया जाता है");
+  }
+  return value
+    .replace(/ਚੱਕਰ([^।]*) ਦੁਹਰਦਾ ਹੈ/g, "ਚੱਕਰ$1 ਦੁਹਰਾਇਆ ਜਾਂਦਾ ਹੈ")
+    .replace(/ਕ੍ਰਮ([^।]*) ਦੁਹਰਦਾ ਹੈ/g, "ਕ੍ਰਮ$1 ਦੁਹਰਾਇਆ ਜਾਂਦਾ ਹੈ");
+}
+
 export function polishTmwCp005LocalizedText(
   value: string,
   language: TmwLocalizedLanguage,
@@ -54,20 +65,21 @@ export function polishTmwCp005LocalizedText(
   let result = neutralizeSoloAssignment(value, language);
   result = neutralizeCycleResponsibility(result, language);
   result = pluralizeNumberedUnits(result, language);
+  result = normalizeRepeatedCycleVerbs(result, language);
   if (language === "hi") {
     return result
       .replaceAll("फिर अंतिम अधूरी बारी को उसकी सक्रिय दर से अलग पूरा करें।", "फिर बचे काम को अंतिम सक्रिय बारी की दर से पूरा करें।")
       .replaceAll("हर खंड का दर", "हर खंड की दर")
       .replaceAll("पाली-अवधि", "पाली की अवधि")
-      .replaceAll("चक्र दोहरता है", "चक्र दोहराया जाता है")
-      .replaceAll("क्रम दोहरता है", "क्रम दोहराया जाता है");
+      .replaceAll("k-दिन के चक्र में केवल kवें दिन सहायक की दर जोड़ें", "निर्धारित चक्र में केवल सहायक वाले दिन उसकी दर जोड़ें")
+      .replaceAll("दोनों मशीनों का दर × समय जोड़ें", "दोनों मशीनों के लिए दर × समय जोड़ें");
   }
   return result
     .replaceAll("ਫਿਰ ਆਖ਼ਰੀ ਅਧੂਰੀ ਵਾਰੀ ਨੂੰ ਉਸ ਦੀ ਸਰਗਰਮ ਦਰ ਨਾਲ ਵੱਖ ਪੂਰਾ ਕਰੋ।", "ਫਿਰ ਬਾਕੀ ਕੰਮ ਨੂੰ ਆਖ਼ਰੀ ਸਰਗਰਮ ਵਾਰੀ ਦੀ ਦਰ ਨਾਲ ਪੂਰਾ ਕਰੋ।")
     .replaceAll("ਹਰ ਖੰਡ ਦਾ ਦਰ", "ਹਰ ਖੰਡ ਦੀ ਦਰ")
     .replaceAll("ਸ਼ਿਫ਼ਟ ਮਿਆਦ", "ਸ਼ਿਫ਼ਟ ਦੀ ਮਿਆਦ")
-    .replaceAll("ਚੱਕਰ ਦੁਹਰਦਾ ਹੈ", "ਚੱਕਰ ਦੁਹਰਾਇਆ ਜਾਂਦਾ ਹੈ")
-    .replaceAll("ਕ੍ਰਮ ਦੁਹਰਦਾ ਹੈ", "ਕ੍ਰਮ ਦੁਹਰਾਇਆ ਜਾਂਦਾ ਹੈ");
+    .replaceAll("k-ਦਿਨਾਂ ਦੇ ਚੱਕਰ ਵਿੱਚ ਸਿਰਫ਼ kਵੇਂ ਦਿਨ ਮਦਦਗਾਰ ਦੀ ਦਰ ਜੋੜੋ", "ਨਿਰਧਾਰਤ ਚੱਕਰ ਵਿੱਚ ਸਿਰਫ਼ ਮਦਦਗਾਰ ਵਾਲੇ ਦਿਨ ਉਸ ਦੀ ਦਰ ਜੋੜੋ")
+    .replaceAll("ਦੋਵਾਂ ਮਸ਼ੀਨਾਂ ਦਾ ਦਰ × ਸਮਾਂ ਜੋੜੋ", "ਦੋਵਾਂ ਮਸ਼ੀਨਾਂ ਲਈ ਦਰ × ਸਮਾਂ ਜੋੜੋ");
 }
 
 export function polishTmwCp005LocalizedTrap(
@@ -107,6 +119,12 @@ export function polishTmwCp005LocalizedConclusion(
     return language === "hi"
       ? `अतः पूरा काम अकेले करने का आवश्यक समय ${answerText} है।`
       : `ਇਸ ਲਈ ਸਾਰਾ ਕੰਮ ਇਕੱਲੇ ਕਰਨ ਲਈ ਲੋੜੀਂਦਾ ਸਮਾਂ ${answerText} ਹੈ।`;
+  }
+  if (source.solveMode === "findOutputUnderPeriodicMachineSchedule") {
+    const cycles = source.parameters.givenCycles ?? 1;
+    return language === "hi"
+      ? `अतः ${cycles} दोहरावों में कुल उत्पादन ${answerText} है।`
+      : `ਇਸ ਲਈ ${cycles} ਦੁਹਰਾਵਾਂ ਵਿੱਚ ਕੁੱਲ ਉਤਪਾਦਨ ${answerText} ਹੈ।`;
   }
   if (source.solution.answerType !== "TIME") return conclusion;
   const uninflectedPostposition = language === "hi"
