@@ -1,0 +1,87 @@
+name: Apply PNL Multilingual Editorial Naturalness Wave 02
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-multilingual-editorial-naturalness-wave02
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-multilingual-naturalness-wave02.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/index.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-naturalness-wave02.test.ts"
+      - ".github/workflows/apply-pnl-multilingual-editorial-naturalness-wave02.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate-native-libraries:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout Wave 02 branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-multilingual-editorial-naturalness-wave02
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate normalized Hindi and Punjabi libraries
+        run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-multilingual-export.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-export.mjs
+          node "$root/.editorial-v2-multilingual-export.mjs"
+
+          generated="$root/.editorial-v2-multilingual-generated"
+          for file in "$generated"/*.json; do
+            name="$(basename "$file")"
+            folder="${name%%.*}"
+            remainder="${name#*.editorial-content.}"
+            language="${remainder%.json}"
+            cp "$file" "$root/$folder/editorial-content.$language.json"
+          done
+
+      - name: Prove Wave 02 source authority
+        run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-naturalness-wave02.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-editorial-naturalness-wave02.test.mjs
+          node "$root/.pnl-001-multilingual-editorial-naturalness-wave02.test.mjs"
+
+      - name: Prove committed-source parity
+        run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-multilingual-source-parity.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-source-parity.mjs
+          node "$root/.editorial-v2-multilingual-source-parity.mjs"
+
+      - name: Commit regenerated native libraries
+        run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$root"/CP-*/editorial-content.hi.json "$root"/CP-*/editorial-content.pa.json
+          if git diff --cached --quiet; then
+            echo "Native libraries already match Wave 02 source authority."
+            exit 0
+          fi
+          git commit -m "chore(pnl): regenerate Wave 02 native editorial libraries"
+          git push origin HEAD:feat/pnl-001-multilingual-editorial-naturalness-wave02
