@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { CLS_CP007_PROTOTYPES } from "./cluster-domain";
-import { generateClsCp007Question } from "./runtime";
+import { generateClsCp007QualityQuestion } from "./quality-runtime";
 
 const outputDir = path.resolve(
   process.cwd(),
@@ -10,7 +10,7 @@ const outputDir = path.resolve(
 const rows = CLS_CP007_PROTOTYPES.flatMap((prototype, prototypeIndex) =>
   ([4, 5] as const).flatMap((optionCount) =>
     Array.from({ length: 2 }, (_, offset) =>
-      generateClsCp007Question(
+      generateClsCp007QualityQuestion(
         prototype.prototypeId,
         prototypeIndex * 1_000 + optionCount * 100 + offset * 37,
         optionCount,
@@ -26,6 +26,7 @@ const markdown = [
   `Temporary prototypes: ${CLS_CP007_PROTOTYPES.length}`,
   "Permanent QLs: 0",
   "Locale: en-IN discovery only",
+  "Presentation: source-shaped close distractors with explicit match/fail conclusions",
   "Question Studio: disabled",
   "Question Bank: disabled",
   "Test/publication eligibility: disabled",
@@ -72,6 +73,7 @@ const markdown = [
     `- Audit: ${question.ambiguityAudit.result}`,
     `- Candidate supports: \`${JSON.stringify(question.ambiguityAudit.candidateSupports)}\``,
     `- Difficulty features: \`${JSON.stringify(question.difficultyFeatures)}\``,
+    `- Quality diagnostics: \`${JSON.stringify(question.qualityDiagnostics)}\``,
     `- Permanent QL: ${question.lifecycle.permanentQlId}`,
     `- Source saturation: ${question.metadata.sourceSaturationStatus}`,
     "",
@@ -94,7 +96,7 @@ await writeFile(
   "utf8",
 );
 
-console.log("CLS-CP-007 discovery review written.", {
+console.log("CLS-CP-007 source-shaped discovery review written.", {
   outputDir,
   questions: rows.length,
   prototypes: new Set(rows.map((question) => question.prototypeId)).size,
@@ -102,5 +104,11 @@ console.log("CLS-CP-007 discovery review written.", {
   lengths: [...new Set(rows.map((question) => question.clusterLength))].sort(),
   optionCounts: [...new Set(rows.map((question) => question.options.length))].sort(),
   difficulties: [...new Set(rows.map((question) => question.difficulty))].sort(),
+  maximumCommonGroupAttempt: Math.max(
+    ...rows.map((question) => question.qualityDiagnostics.commonGroupAttempt),
+  ),
+  maximumOutlierAttempt: Math.max(
+    ...rows.map((question) => question.qualityDiagnostics.outlierAttempt),
+  ),
   permanentQlCount: 0,
 });
