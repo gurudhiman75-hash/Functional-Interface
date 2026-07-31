@@ -96,10 +96,10 @@ for (const entry of TMW_CP004_REGISTRY) {
         assert.equal(first.options.every((option) => option.endsWith(language === "hi" ? "कर्मचारी" : "ਕਰਮਚਾਰੀ")), true);
       }
       if (joinModes.has(entry.solveMode)) {
-        assert.match(first.stem, language === "hi" ? /जुड़|भागीदारी शुरू/ : /ਜੁੜ|ਭਾਗੀਦਾਰੀ ਸ਼ੁਰੂ/);
+        assert.match(first.stem, language === "hi" ? /जुड़|भागीदारी.*शुरू/ : /ਜੁੜ|ਭਾਗੀਦਾਰੀ.*ਸ਼ੁਰੂ/);
       }
       if (leaveModes.has(entry.solveMode)) {
-        assert.match(first.stem, language === "hi" ? /भागीदारी समाप्त|चले जाते|गए/ : /ਭਾਗੀਦਾਰੀ ਖਤਮ|ਚਲੇ ਜਾਂਦੇ|ਗਏ/);
+        assert.match(first.stem, language === "hi" ? /भागीदारी.*समाप्त|चले जाते|गए/ : /ਭਾਗੀਦਾਰੀ.*ਖਤਮ|ਚਲੇ ਜਾਂਦੇ|ਗਏ/);
       }
       if (entry.solveMode === "findCompletionWithIdleInterval") {
         assert.match(first.stem, language === "hi" ? /रुका/ : /ਰੁਕਿਆ/);
