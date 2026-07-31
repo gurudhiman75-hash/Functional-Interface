@@ -139,24 +139,24 @@ const TRAP_VARIANTS: Readonly<Record<NativeEditorialLanguage, readonly string[]>
 
 const STEP_TITLE_VARIANTS: Readonly<Record<NativeEditorialLanguage, readonly string[]>> = {
   hi: [
-    "दिए आँकड़ों से: {title}",
-    "सही आधार पर: {title}",
+    "दिए आँकड़ों से — {title}",
+    "सही आधार पर — {title}",
     "इस चरण में {title}",
     "अब {title}",
-    "प्रश्न की शर्त के अनुसार: {title}",
-    "संबंधित राशि पर: {title}",
-    "जाँच के साथ: {title}",
-    "क्रमवार: {title}",
+    "प्रश्न की शर्त के अनुसार — {title}",
+    "संबंधित राशि पर — {title}",
+    "जाँच के साथ — {title}",
+    "क्रमवार — {title}",
   ],
   pa: [
-    "ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਤੋਂ: {title}",
-    "ਸਹੀ ਆਧਾਰ ਉੱਤੇ: {title}",
+    "ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਤੋਂ — {title}",
+    "ਸਹੀ ਆਧਾਰ ਉੱਤੇ — {title}",
     "ਇਸ ਪੜਾਅ ਵਿੱਚ {title}",
     "ਹੁਣ {title}",
-    "ਸਵਾਲ ਦੀ ਸ਼ਰਤ ਅਨੁਸਾਰ: {title}",
-    "ਸਬੰਧਤ ਰਕਮ ਉੱਤੇ: {title}",
-    "ਜਾਂਚ ਸਮੇਤ: {title}",
-    "ਕ੍ਰਮਵਾਰ: {title}",
+    "ਸਵਾਲ ਦੀ ਸ਼ਰਤ ਅਨੁਸਾਰ — {title}",
+    "ਸਬੰਧਤ ਰਕਮ ਉੱਤੇ — {title}",
+    "ਜਾਂਚ ਸਮੇਤ — {title}",
+    "ਕ੍ਰਮਵਾਰ — {title}",
   ],
 };
 
