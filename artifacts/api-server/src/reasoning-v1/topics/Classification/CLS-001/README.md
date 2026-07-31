@@ -1,6 +1,6 @@
 # CLS-001 — Classification / Odd One Out
 
-Status: `CP001_CP002_MULTILINGUAL_FROZEN__CP003_CP004_ENGLISH_FROZEN__CP005_ENGLISH_DISCOVERY_REVIEW`
+Status: `CP001_CP002_MULTILINGUAL_FROZEN__CP003_CP004_CP005_ENGLISH_FROZEN`
 
 ## Product identity
 
@@ -21,7 +21,7 @@ Classification asks the learner to identify the item, pair or complete option-gr
 
 Every admitted question must define a bounded rule universe, construct a valid state, prove one unique answer, reject competing answers and be independently re-solved. Four and five answer options are presentation and difficulty properties rather than separate QLs.
 
-## Permanent inventory through CP-004
+## Permanent inventory through CP-005
 
 | QL | Checkpoint | Student task | Locale status |
 |---|---|---|---|
@@ -32,6 +32,8 @@ Every admitted question must define a bounded rule universe, construct a valid s
 | `CLS-QL-005` | `CLS-CP-003` | Find the word whose visible spelling or structural property differs | Frozen English runtime proof |
 | `CLS-QL-006` | `CLS-CP-003` | Resolve controlled jumbles, then find the semantic outlier | Frozen English runtime proof |
 | `CLS-QL-007` | `CLS-CP-004` | Find the number whose conventional arithmetic or digit property differs | Frozen English runtime proof |
+| `CLS-QL-008` | `CLS-CP-005` | Find the pair, triple or four-number tuple whose internal rule differs | Frozen English runtime proof |
+| `CLS-QL-009` | `CLS-CP-005` | Select the number tuple following the same internal rule as a reference tuple | Frozen English runtime proof |
 
 No later `CLS-QL-*` identity is reserved.
 
@@ -43,7 +45,7 @@ No later `CLS-QL-*` identity is reserved.
 | `CLS-CP-002` | Semantic pair and relationship classification | `FROZEN_MULTILINGUAL_RUNTIME_PROOF` |
 | `CLS-CP-003` | Lexical, spelling and word-structure classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
 | `CLS-CP-004` | Number-property classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
-| `CLS-CP-005` | Number-pair, triple and set classification | `EXECUTABLE_ENGLISH_DISCOVERY__HUMAN_REVIEW_REQUIRED` |
+| `CLS-CP-005` | Number-pair, triple and set classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
 | `CLS-CP-006` | Alphabet, letter-pair and letter-class classification | Pending executable discovery |
 | `CLS-CP-007` | Letter-cluster and explicit word-pattern classification | Pending executable discovery |
 | `CLS-CP-008` | Mixed-token and bounded synthesis classification | Pending ownership audit |
@@ -51,8 +53,8 @@ No later `CLS-QL-*` identity is reserved.
 ## Frozen foundation summary
 
 ```text
-Permanent QLs through CP-004:      7
-Frozen solve contracts:            7
+Permanent QLs through CP-005:      9
+Frozen solve contracts:            9
 Answer-option counts:              4 and 5
 Question Studio exposure:          disabled
 Question Bank storage:             disabled
@@ -109,26 +111,33 @@ All source controls merge into `CLS-QL-007` because the answer object and proof 
 ### CLS-CP-005
 
 ```text
-Temporary prototypes:                 20
-Bounded pair rules:                   10
-Bounded triple rules:                  8
-Task directions:                       3
-Provisional learner-contract shapes:   2
-Permanent QLs:                         0
-Audit questions:                    1200
-Unique visible questions:           1200
-Review questions:                     60
-Option counts:                    4 and 5
-Difficulties:          EASY, MEDIUM, HARD
-Locale:                              en-IN
-Editorial layer:   rule-aware inline MathJax
+Permanent English QLs:                  2
+Complete competing-rule universe:      35
+Odd-tuple permanent sources:            35
+Equivalent-set permanent sources:       6
+Represented arities:                 2, 3, 4
+Pre-freeze executable evidence:       2004
+Permanent runtime audit questions:    1380
+Odd runtime unique:                 420 / 420
+Equivalent runtime unique:          957 / 960
+Option counts:                      4 and 5
+Difficulties:            EASY, MEDIUM, HARD
+Locale frozen:                         en-IN
 ```
 
-The executable wave covers odd ordered pairs, odd ordered triples and reference-set matching. Every displayed state is independently re-solved against the complete eighteen-rule registry. A presentation-quality layer rejects reversed or permuted duplicate options, repeated-number giveaways, permutation-only reference matches and answers made obvious by numerical scale.
+`CLS-QL-008` merges odd ordered pairs, triples and complete four-number groups because they share one mismatch contract, answer object and independent proof topology. Numerical relation families, direction, option count and difficulty remain instance variables.
 
-The learner-facing editorial layer is separate from canonical solver evidence. It renders only the active position-specific equation, uses ExamTree inline MathJax, labels every option `✅ Matches rule` or `❌ Fails rule`, and states the failed target explicitly. Raw pairwise sum/product arrays, standalone square dumps and generic `gives a different result` conclusions are prohibited by an automated 60-question editorial audit.
+`CLS-QL-009` remains separate because the learner must first recover the signature of a supplied reference tuple and then select the unique matching candidate. Pair, triple and four-number forms merge as arity variants inside this reference-and-match contract.
 
-The preliminary merge/split audit provisionally merges pair and triple arity inside one odd-number-tuple contract. Reference-set matching remains a separate candidate contract because it changes the displayed state, match semantics and proof. These are discovery findings only; no permanent QL is allocated before human review and source-gap closure.
+Wave 1, generic source-gap Wave 2 and the digit-product supplement are independently re-solved against one 35-rule universe. The digit-product reference-set form passed a separate naturalness audit and is admitted to `CLS-QL-009`; it does not create another QL.
+
+Every option explanation follows the approved teacher sequence:
+
+```text
+plain-language reason -> active inline-MathJax calculation -> match/failure result
+```
+
+Math-only option blocks, unused diagnostic arrays, permutation shortcuts, answer-scale giveaways and competing-rule answer conflicts are rejected automatically.
 
 ## Strict chapter boundary
 
@@ -155,10 +164,12 @@ It excludes:
 - `CLS-CP-002/CLS-CP-002-FINAL-MULTILINGUAL-FREEZE.md`
 - `CLS-CP-003/CLS-CP-003-FINAL-ENGLISH-FREEZE.md`
 - `CLS-CP-004/CLS-CP-004-FINAL-ENGLISH-FREEZE.md`
-- `CLS-CP-005/CLS-CP-005-EXECUTABLE-DISCOVERY-PLAN.md`
+- `CLS-CP-005/CLS-CP-005-FINAL-ENGLISH-FREEZE.md`
 - `CLS-CP-005/CLS-CP-005-PRELIMINARY-MERGE-SPLIT-AUDIT.md`
+- `CLS-CP-005/CLS-CP-005-SOURCE-GAP-AUDIT.md`
+- `CLS-CP-005/CLS-CP-005-SOURCE-GAP-AUDIT-WAVE-2.md`
 - `CLS-CP-005/CLS-CP-005-EDITORIAL-V2-AUDIT.md`
 
 ## Release locks
 
-CP-001 and CP-002 are frozen multilingual review-only proofs. CP-003 and CP-004 are frozen English review-only proofs. CP-005 is English executable discovery awaiting human review and permanent-boundary closure. None are wired to Question Studio, Question Bank, tests or public publication.
+CP-001 and CP-002 are frozen multilingual review-only proofs. CP-003, CP-004 and CP-005 are frozen English review-only proofs. None are wired to Question Studio, Question Bank, tests or public publication. Hindi and Punjabi localisation for CP-003 through CP-005 require separate explicit phases.
