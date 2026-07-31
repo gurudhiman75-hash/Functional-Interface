@@ -37,3 +37,5 @@ export * from "./cp001-readable-stem-runtime";
 export * from "./cp001-close-distractor-release";
 export * from "./cp001-close-distractor-runtime-approved";
 export * from "./cp001-approved-inactive-release-provider-v2";
+export * from "./cp001-calculation-rich-explanation-runtime-approved";
+export * from "./cp001-approved-active-staging-provider-v3";
