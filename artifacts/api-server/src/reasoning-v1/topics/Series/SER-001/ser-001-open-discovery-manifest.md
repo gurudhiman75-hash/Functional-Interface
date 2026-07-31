@@ -63,7 +63,7 @@ These rows guide source collection. They do not allocate QLs or freeze counts.
 | `SER-CP-001` | single uniform additive numeric sequences | open |
 | `SER-CP-002` | multiplicative and affine numeric sequences | open |
 | `SER-CP-003` | constant non-zero second- and third-difference sequences; higher orders open | open |
-| `SER-CP-004` | powers, primes, recurrences and special-number sequences | open |
+| `SER-CP-004` | primes, factorials, recurrences and special-number candidates after collision removal | open |
 | `SER-CP-005` | alternating, interleaved and composite numeric sequences | open |
 | `SER-CP-006` | single-letter alphabetic sequences | open |
 | `SER-CP-007` | letter clusters, word-like blocks and token grammars | open |
@@ -151,6 +151,61 @@ The committed audit passes 960 deterministic questions: 480 per authority and 24
 
 The workflow also exports 32 exact English review questions for CP-003. Question Studio discovery, Question Bank writes, test eligibility and public publication remain locked at zero. Across CP-001 through CP-003, the retained executable audit volume is 2,400 questions.
 
+## SER-CP-004 executable discovery and collision audit
+
+`SER-CP-004` begins with seven source-shaped candidate families, each exercised through next, interior-missing, previous and wrong-term tasks:
+
+```text
+CONSECUTIVE_SQUARES
+CONSECUTIVE_CUBES
+FIXED_BASE_CONSECUTIVE_POWERS
+CONSECUTIVE_PRIMES
+TRIANGULAR_NUMBERS
+FACTORIAL_SEQUENCE
+ADD_PREVIOUS_TWO_RECURRENCE
+```
+
+The 28 temporary templates are evaluated through one complete independent candidate pool. The executable ownership audit does not treat every familiar surface pattern as a new CP-004 authority.
+
+Provisional collision dispositions are:
+
+```text
+CONSECUTIVE_SQUARES                -> SER-CP-003
+CONSECUTIVE_CUBES                  -> SER-CP-003
+TRIANGULAR_NUMBERS                 -> SER-CP-003
+FIXED_BASE_CONSECUTIVE_POWERS      -> SER-CP-002
+```
+
+Squares and triangular numbers are constant non-zero second-difference sequences. Cubes are constant non-zero third-difference sequences. Fixed-base consecutive powers are uniform multiplicative sequences. Keeping separate permanent identities for those surfaces would duplicate already-discovered reasoning authorities.
+
+The provisional CP-004-retained families are:
+
+```text
+CONSECUTIVE_PRIMES
+FACTORIAL_SEQUENCE
+ADD_PREVIOUS_TWO_RECURRENCE
+```
+
+These remain candidates, not frozen solve modes or permanent QLs. Prime successor, position-dependent factorial multiplication and two-term stateful recurrence require materially different inference from the current CP-002 and CP-003 authorities.
+
+The CP-004 audit passes 3,360 deterministic English questions:
+
+```text
+Temporary templates:                     28
+Candidate families:                       7
+Questions per candidate family:         480
+Questions per task direction:           840
+Provisional CP-004-retained questions: 1,440
+CP-003 collision-probe questions:      1,440
+CP-002 collision-probe questions:        480
+Answer positions:         [840, 840, 840, 840]
+Permanent QLs:                             0
+```
+
+All questions pass deterministic replay, independent complete-pool inference, one-authority ambiguity rejection, Easy/Medium/Hard reach, four unique options, option-specific diagnostics and lifecycle locks. The workflow exports 56 exact English review questions for this wave.
+
+Across CP-001 through CP-004, the executable audit volume is 5,760 questions. No collision disposition is final until source saturation and the chapter-wide merge/split audit.
+
 ## Required next evidence
 
 Before any permanent allocation:
@@ -159,12 +214,13 @@ Before any permanent allocation:
 - audit zero-step, descending, signed, fractional and decimal ownership;
 - determine whether wrong-term detection shares the same authority as completion;
 - test sparse displays, multiple blanks and alternate answer semantics;
-- prove collisions with alternating-series, powers and recurrence candidates;
+- prove collisions with alternating-series and composite-rule candidates;
 - decide whether fourth- and higher-order differences remain in CP-003;
+- expand CP-004 source audit to prime-gap, composite-number, changing-power and richer recurrence patterns;
 - define Hindi and Punjabi localization modes;
 - review exact exported English samples;
 - perform the candidate merge/split and permanent-identity decision only after those gates close.
 
 ## Status
 
-`SER_001_OPEN_DISCOVERY_CP001_CP003_NUMERIC_FOUNDATION_AUDIT_PASS`
+`SER_001_OPEN_DISCOVERY_CP001_CP004_NUMERIC_FOUNDATION_AND_COLLISION_AUDIT_PASS`
