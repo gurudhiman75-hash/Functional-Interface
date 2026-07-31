@@ -5,7 +5,9 @@ import { buildTmwCp003CommonTrap, buildTmwCp003Shortcut, buildTmwCp003WorkingLat
 import { renderTmwCp003Stem, tmwCp003Conclusion, tmwCp003ExplanationOpening } from "./cp003-presentation";
 import { solveTmwCp003, verifyTmwCp003 } from "./cp003-solver";
 import { divide, rationalKey, toLatex } from "./rational";
+import { localizeTmwCp003Question } from "./localization-cp003";
 import type { Rational } from "./types";
+import type { TmwLocalizedLanguage, TmwLocalizedQuestion } from "./localization-types";
 import type {
   TmwCp003GeneratedQuestion,
   TmwCp003Parameters,
@@ -63,8 +65,7 @@ function visibleWorkedLatex(
   return solution.workedLatex;
 }
 
-export function runTmwCp003Pipeline(input: { questionLanguageId: string; seed: string; language?: "en" | "hi" | "pa" }): TmwCp003GeneratedQuestion {
-  if (input.language && input.language !== "en") throw new Error("TMW-CP-003 is English only at the current runtime-proof stage");
+function buildEnglishQuestion(input: { questionLanguageId: string; seed: string }): TmwCp003GeneratedQuestion {
   const entry = getTmwCp003Entry(input.questionLanguageId);
   const parameters = buildTmwCp003Parameters(entry, input.seed);
   const solution = solveTmwCp003(entry, parameters);
@@ -136,4 +137,12 @@ export function runTmwCp003Pipeline(input: { questionLanguageId: string; seed: s
     validation: { valid: errors.length === 0, errors },
     publiclyPublishable: false,
   };
+}
+
+export function runTmwCp003Pipeline(input: { questionLanguageId: string; seed: string; language: TmwLocalizedLanguage }): TmwLocalizedQuestion;
+export function runTmwCp003Pipeline(input: { questionLanguageId: string; seed: string; language?: "en" }): TmwCp003GeneratedQuestion;
+export function runTmwCp003Pipeline(input: { questionLanguageId: string; seed: string; language?: "en" | TmwLocalizedLanguage }): TmwCp003GeneratedQuestion | TmwLocalizedQuestion {
+  const english = buildEnglishQuestion(input);
+  if (!input.language || input.language === "en") return english;
+  return localizeTmwCp003Question(english, input.language);
 }
