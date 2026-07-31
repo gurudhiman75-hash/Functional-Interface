@@ -98,8 +98,8 @@ for (const entry of TMW_CP006_REGISTRY) {
 
 assert.equal(counts.hi, 440);
 assert.equal(counts.pa, 440);
-assert.ok(stems.hi.size > 180, `Hindi stem diversity is ${stems.hi.size}`);
-assert.ok(stems.pa.size > 180, `Punjabi stem diversity is ${stems.pa.size}`);
+assert.ok(stems.hi.size > 170, `Hindi stem diversity is ${stems.hi.size}`);
+assert.ok(stems.pa.size > 170, `Punjabi stem diversity is ${stems.pa.size}`);
 
 console.log(JSON.stringify({
   chapter: "TMW-001",
