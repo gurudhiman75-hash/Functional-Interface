@@ -44,9 +44,9 @@ export function finalizeTmwCp007Stem(
   const rates = p.context.categories.map((category) => cp007Number(category.efficiency)).join(", ");
   const unit = rateUnit(language, cp007IsHourly(p));
   if (language === "hi") {
-    return `${cp007Group(p, p.crewA, language)} के मिश्रित समूह को ${job} के अंतर्गत कुल ${cp007Number(p.workA)} ${output} का लक्ष्य पूरा करना है। तीनों श्रेणियों की व्यक्तिगत दरें क्रमशः ${rates} ${output} ${unit} हैं। समूह को पूरा काम करने में कितना समय लगेगा?`;
+    return `${cp007Group(p, p.crewA, language)} के मिश्रित समूह को ${job} पूरा करना है। कुल लक्ष्य: ${cp007Number(p.workA)} ${output}। तीनों श्रेणियों की व्यक्तिगत दरें क्रमशः ${rates} ${output} ${unit} हैं। समूह को पूरा काम करने में कितना समय लगेगा?`;
   }
-  return `${cp007Group(p, p.crewA, language)} ਦੇ ਮਿਲੇ-ਜੁਲੇ ਸਮੂਹ ਨੂੰ ${job} ਅਧੀਨ ਕੁੱਲ ${cp007Number(p.workA)} ${output} ਦਾ ਟੀਚਾ ਪੂਰਾ ਕਰਨਾ ਹੈ। ਤਿੰਨਾਂ ਸ਼੍ਰੇਣੀਆਂ ਦੀ ਵਿਅਕਤੀਗਤ ਦਰ ਕ੍ਰਮਵਾਰ ${rates} ${output} ${unit} ਹੈ। ਸਮੂਹ ਨੂੰ ਪੂਰਾ ਕੰਮ ਕਰਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
+  return `${cp007Group(p, p.crewA, language)} ਦੇ ਮਿਲੇ-ਜੁਲੇ ਸਮੂਹ ਨੂੰ ${job} ਪੂਰਾ ਕਰਨਾ ਹੈ। ਕੁੱਲ ਟੀਚਾ: ${cp007Number(p.workA)} ${output}। ਤਿੰਨਾਂ ਸ਼੍ਰੇਣੀਆਂ ਦੀ ਵਿਅਕਤੀਗਤ ਦਰ ਕ੍ਰਮਵਾਰ ${rates} ${output} ${unit} ਹੈ। ਸਮੂਹ ਨੂੰ ਪੂਰਾ ਕੰਮ ਕਰਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
 }
 
 export function finalizeTmwCp007Givens(
