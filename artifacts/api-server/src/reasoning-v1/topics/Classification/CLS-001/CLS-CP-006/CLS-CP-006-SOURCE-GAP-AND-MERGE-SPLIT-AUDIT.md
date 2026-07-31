@@ -22,16 +22,22 @@ Three- and four-letter structures involving repeated gaps, alternating movements
 
 ## Executable source exemplars
 
-The audit permanently records representative source-shaped states without copying source prose:
+The audit records representative source-shaped states without copying source prose:
 
 ```text
 A, E, O, V
   -> vowel/consonant class
   -> V is the unique outlier
+  -> position parity also identifies V, so the answer remains stable
 
 W, N, P, B
-  -> alphabet-position parity
-  -> W is the unique outlier
+  -> printed source intends alphabet-position parity and answer W
+  -> complete-registry audit also identifies B as the alphabet-half outlier
+  -> REJECTED_AS_AMBIGUOUS_SOURCE_STATE
+
+W, N, P, R
+  -> controlled parity-safe remediation
+  -> W is the unique odd-position letter; every option lies in the second alphabet half
 
 U–X, O–R, W–Z, F–G
   -> common signed/absolute gap of 3
@@ -46,7 +52,27 @@ E–S, B–O, C–P, D–Q
   -> E–S is the unique outlier
 ```
 
-Every exemplar is independently solved against the complete compatible CP-006 registry. Multiple supporting rules are accepted only when they identify the same answer.
+Every accepted exemplar is independently solved against the complete compatible CP-006 registry. Multiple supporting rules are accepted only when they identify the same answer. A printed answer key is never sufficient to override a competing-answer proof.
+
+## Source ambiguity finding
+
+The source option set `W, N, P, B` is not safe for a complete-registry generator:
+
+```text
+position parity:
+  W = 23, odd
+  N = 14, even
+  P = 16, even
+  B = 2, even
+  -> W is the outlier
+
+alphabet half:
+  W, N and P lie in N–Z
+  B lies in A–M
+  -> B is the outlier
+```
+
+Decision: preserve the intended parity pattern only through controlled state reconstruction. Do not ingest the printed option set unchanged.
 
 ## Compression results
 
@@ -151,6 +177,8 @@ Single letters and ordered pairs should not yet be merged because the answer obj
 Meaningful uncovered CP-006 source contracts: 0
 New rules admitted by this audit:             0
 Rule-label/presentation compressions:         6
+Ambiguous printed source states rejected:     1
+Controlled source remediations proved:        1
 Candidate families deferred:                  3
 Candidate families rejected:                  2
 Permanent QLs allocated:                      0
