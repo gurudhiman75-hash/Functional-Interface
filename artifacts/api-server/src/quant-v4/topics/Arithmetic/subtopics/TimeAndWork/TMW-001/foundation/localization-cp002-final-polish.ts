@@ -1,4 +1,4 @@
-import type { TmwCp002SolveMode } from "./cp002-types";
+import type { TmwCp002Parameters, TmwCp002SolveMode } from "./cp002-types";
 import type { TmwLocalizedLanguage, TmwLocalizedQuestion } from "./localization-types";
 
 function copy(language: TmwLocalizedLanguage, hi: string, pa: string): string {
@@ -19,12 +19,53 @@ function naturalize(value: string, language: TmwLocalizedLanguage): string {
       .replaceAll("दोबारा काम काम घटाता है", "दोबारा करने के लिए वापस गया काम कुल प्रगति घटाता है")
       .replaceAll("दोबारा काम दर", "दोबारा काम की दर")
       .replaceAll("परिमाण-अंतर", "अंतर")
-      .replaceAll("परिमाण", "मान");
+      .replaceAll("परिमाण", "मान")
+      .replaceAll("निष्फल", "वापस");
   }
   return value
     .replaceAll("ਰੀਵਰਕ", "ਮੁੜ ਕੰਮ")
     .replaceAll("ਮੁੜ ਕੰਮ ਕੰਮ ਘਟਾਉਂਦਾ ਹੈ", "ਮੁੜ ਕਰਨ ਲਈ ਵਾਪਸ ਗਿਆ ਕੰਮ ਕੁੱਲ ਤਰੱਕੀ ਘਟਾਉਂਦਾ ਹੈ")
-    .replaceAll("ਮੁੜ ਕੰਮ ਦਰ", "ਮੁੜ ਕੰਮ ਦੀ ਦਰ");
+    .replaceAll("ਮੁੜ ਕੰਮ ਦਰ", "ਮੁੜ ਕੰਮ ਦੀ ਦਰ")
+    .replaceAll("ਬੇਅਸਰ", "ਵਾਪਸ");
+}
+
+function naturalizeStem(
+  value: string,
+  language: TmwLocalizedLanguage,
+  mode: TmwCp002SolveMode,
+  parameters: TmwCp002Parameters,
+): string {
+  let stem = naturalize(value, language);
+  if (language === "hi") {
+    stem = stem
+      .replaceAll(" का काम में ", " के काम में ")
+      .replaceAll(" का ऑर्डर में ", " के ऑर्डर में ")
+      .replaceAll("एक मशीन अकेले", "एक मशीन अकेली")
+      .replace(/कई मशीनें (.+?) पूरा करते हैं/g, "कई मशीनें $1 पूरा करती हैं");
+  } else {
+    stem = stem
+      .replaceAll(" ਦਾ ਕੰਮ ਵਿੱਚ ", " ਦੇ ਕੰਮ ਵਿੱਚ ")
+      .replaceAll(" ਦਾ ਆਰਡਰ ਵਿੱਚ ", " ਦੇ ਆਰਡਰ ਵਿੱਚ ")
+      .replaceAll("ਇੱਕ ਟੀਮ ਇਕੱਲਾ", "ਇੱਕ ਟੀਮ ਇਕੱਲੀ")
+      .replaceAll("ਇੱਕ ਮਸ਼ੀਨ ਇਕੱਲਾ", "ਇੱਕ ਮਸ਼ੀਨ ਇਕੱਲੀ")
+      .replace(/ਕਈ ਟੀਮਾਂ (.+?) ਪੂਰਾ ਕਰਦੇ ਹਨ/g, "ਕਈ ਟੀਮਾਂ $1 ਪੂਰਾ ਕਰਦੀਆਂ ਹਨ")
+      .replace(/ਕਈ ਮਸ਼ੀਨਾਂ (.+?) ਪੂਰਾ ਕਰਦੇ ਹਨ/g, "ਕਈ ਮਸ਼ੀਨਾਂ $1 ਪੂਰਾ ਕਰਦੀਆਂ ਹਨ");
+  }
+
+  if (mode === "findMissingRateFromSignedNetRate" && parameters.context.outputNoun === "applications") {
+    if (language === "hi") {
+      stem = stem.replace(
+        /इकाई ([AB]) (.+?) आवेदन प्रति (दिन|घंटा|मिनट|पाली) पूरा करती है/g,
+        "इकाई $1 प्रति $3 $2 आवेदन पूरे करती है",
+      );
+    } else {
+      stem = stem.replace(
+        /ਇਕਾਈ ([AB]) (.+?) ਅਰਜ਼ੀਆਂ ਪ੍ਰਤੀ (ਦਿਨ|ਘੰਟਾ|ਮਿੰਟ|ਪਾਲੀ) ਪੂਰੇ ਕਰਦੀ ਹੈ/g,
+        "ਇਕਾਈ $1 ਪ੍ਰਤੀ $3 $2 ਅਰਜ਼ੀਆਂ ਪੂਰੀਆਂ ਕਰਦੀ ਹੈ",
+      );
+    }
+  }
+  return stem;
 }
 
 export function finalizeTmwCp002LocalizedQuestion(
@@ -32,10 +73,20 @@ export function finalizeTmwCp002LocalizedQuestion(
   language: TmwLocalizedLanguage,
 ): TmwLocalizedQuestion {
   const mode = question.solveMode as TmwCp002SolveMode;
+  const parameters = question.parameters as TmwCp002Parameters;
+  const answerText = question.solution.answerText;
   let title = naturalize(question.explanation.shortcut.title, language);
   let shortcutSteps = question.explanation.shortcut.steps.map((line) => naturalize(line, language));
-  let trapExplanation = naturalize(question.explanation.commonTrap.explanation, language);
+  const trapExplanation = naturalize(question.explanation.commonTrap.explanation, language);
   let conclusion = naturalize(question.explanation.conclusion, language);
+
+  if (question.solution.answerType === "FRACTION") {
+    shortcutSteps = [copy(
+      language,
+      `दरें जोड़कर समय से गुणा करने पर ${answerText} पूरा होता है।`,
+      `ਦਰਾਂ ਜੋੜ ਕੇ ਸਮੇਂ ਨਾਲ ਗੁਣਾ ਕਰਨ ਉੱਤੇ ${answerText} ਪੂਰਾ ਹੁੰਦਾ ਹੈ।`,
+    )];
+  }
 
   if (destructiveModes.includes(mode)) {
     title = copy(language, "10-सेकंड वापस जाने वाली दर", "10-ਸਕਿੰਟ ਵਾਪਸ ਜਾਣ ਵਾਲੀ ਦਰ");
@@ -46,9 +97,30 @@ export function finalizeTmwCp002LocalizedQuestion(
     )];
   }
 
+  if (mode === "findNetTimeWithDestructiveAgent") {
+    conclusion = copy(
+      language,
+      `अतः काम वापस भेजने वाली प्रक्रिया के साथ भी काम ${answerText} में पूरा होगा।`,
+      `ਇਸ ਲਈ ਕੰਮ ਵਾਪਸ ਭੇਜਣ ਵਾਲੀ ਪ੍ਰਕਿਰਿਆ ਦੇ ਨਾਲ ਵੀ ਕੰਮ ${answerText} ਵਿੱਚ ਪੂਰਾ ਹੋਵੇਗਾ।`,
+    );
+  }
+  if (mode === "findDestructiveTimeFromPositiveAndNetTimes") {
+    conclusion = copy(
+      language,
+      `अतः वापस भेजने वाली प्रक्रिया अकेले पूरे काम के बराबर काम को ${answerText} में वापस भेजेगी।`,
+      `ਇਸ ਲਈ ਵਾਪਸ ਭੇਜਣ ਵਾਲੀ ਪ੍ਰਕਿਰਿਆ ਇਕੱਲੀ ਪੂਰੇ ਕੰਮ ਦੇ ਬਰਾਬਰ ਕੰਮ ਨੂੰ ${answerText} ਵਿੱਚ ਵਾਪਸ ਭੇਜੇਗੀ।`,
+    );
+  }
+  if (mode === "findConstructiveTimeFromNetKnownPositiveAndDestructiveTimes") {
+    conclusion = copy(
+      language,
+      `अतः पहले सदस्य को अकेले काम पूरा करने में ${answerText} लगेंगे।`,
+      `ਇਸ ਲਈ ਪਹਿਲੇ ਮੈਂਬਰ ਨੂੰ ਇਕੱਲੇ ਕੰਮ ਪੂਰਾ ਕਰਨ ਵਿੱਚ ${answerText} ਲੱਗਣਗੇ।`,
+    );
+  }
+
   if (mode === "findMissingRateFromSignedNetRate") {
-    title = "10-सेकंड +/− दर";
-    if (language === "pa") title = "10-ਸਕਿੰਟ +/− ਦਰ";
+    title = language === "hi" ? "10-सेकंड +/− दर" : "10-ਸਕਿੰਟ +/− ਦਰ";
     shortcutSteps = [copy(
       language,
       "+ और − चिह्न सही रखकर अज्ञात दर को शुद्ध दर के संबंध से अलग करें।",
@@ -58,6 +130,7 @@ export function finalizeTmwCp002LocalizedQuestion(
 
   return {
     ...question,
+    stem: naturalizeStem(question.stem, language, mode, parameters),
     explanation: {
       ...question.explanation,
       shortcut: {
