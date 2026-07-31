@@ -58,6 +58,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$base/cp008-gap-wave-01/runtime.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-gap-wave-01-regression.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$base/cp008-gap-wave-02/runtime.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-gap-wave-02-regression.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$base/cp008-source-gap-wave-03/runtime.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-source-gap-wave-03.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/cp008-chapter-audit/merge-review.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-directional-merge-review.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$base/cp008-chapter-audit/compression.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-chapter-compression.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$base/cp008-source-gap-wave-03/review-export.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-source-gap-wave-03-review-export.mjs"
 
@@ -71,6 +72,7 @@ jobs:
           node "$out/men-cp008-gap-wave-01-regression.test.mjs" 2>&1 | tee "$out/men-cp008-gap-wave-01-regression.log"
           node "$out/men-cp008-gap-wave-02-regression.test.mjs" 2>&1 | tee "$out/men-cp008-gap-wave-02-regression.log"
           node "$out/men-cp008-source-gap-wave-03.test.mjs" 2>&1 | tee "$out/men-cp008-source-gap-wave-03.log"
+          node "$out/men-cp008-directional-merge-review.test.mjs" 2>&1 | tee "$out/men-cp008-directional-merge-review.log"
           node "$out/men-cp008-chapter-compression.test.mjs" 2>&1 | tee "$out/men-cp008-chapter-compression.log"
 
       - name: Generate source Wave-03 review evidence
@@ -107,6 +109,7 @@ jobs:
             artifacts/api-server/dist/quant-v4/men-cp008-gap-wave-01-regression.log
             artifacts/api-server/dist/quant-v4/men-cp008-gap-wave-02-regression.log
             artifacts/api-server/dist/quant-v4/men-cp008-source-gap-wave-03.log
+            artifacts/api-server/dist/quant-v4/men-cp008-directional-merge-review.log
             artifacts/api-server/dist/quant-v4/men-cp008-chapter-compression.log
             artifacts/api-server/dist/quant-v4/men-cp008-source-gap-wave-03-render-build.log
             artifacts/api-server/dist/quant-v4/men-002-cp008-source-gap-wave-03-review/**
