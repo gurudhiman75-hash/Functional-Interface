@@ -1,0 +1,57 @@
+name: Validate MAL-CP-002 executable discovery
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp002-**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/MAL-CP-002/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp002-**
+      - .github/workflows/mal-cp002-discovery.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-mal-cp002-discovery-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-mal-cp002-discovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle MAL-CP-002 discovery audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp002-discovery-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp002-discovery-audit.mjs
+      - name: Run MAL-CP-002 discovery audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/mal-001-cp002-discovery-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp002-discovery-audit.log
+      - name: Upload MAL-CP-002 discovery evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mal-cp002-executable-discovery
+          path: artifacts/api-server/dist/quant-v4/mal-001-cp002-discovery-audit.log
+          if-no-files-found: error
+          retention-days: 7
