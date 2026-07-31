@@ -23,14 +23,30 @@ for (const entry of TMW_CP004_REGISTRY) {
       assert.equal(/\d+ दिन के भीतर|\d+ ਦਿਨ ਦੇ ਅੰਦਰ/.test(prose), false, `${entry.qlId}:${language}: uninflected deadline phrase`);
       assert.equal(/का काम में|ਦਾ ਕੰਮ ਵਿੱਚ/.test(prose), false, `${entry.qlId}:${language}: task phrase not inflected`);
       assert.equal(/शेष काम का \\|ਬਾਕੀ ਕੰਮ ਦਾ \\/.test(question.explanation.shortcut.steps.join(" ")), false, `${entry.qlId}:${language}: malformed remaining-work shortcut`);
+      assert.equal(/काम का \\[^।\n]+ काम पूरा|ਕੰਮ ਦਾ \\[^।\n]+ ਕੰਮ ਪੂਰਾ/.test(prose), false, `${entry.qlId}:${language}: duplicated work noun`);
 
+      if (entry.solveMode === "findRemainingWorkAfterInitialPhase") {
+        assert.match(question.explanation.conclusion, language === "hi" ? /भाग बाकी है/ : /ਹਿੱਸਾ ਬਾਕੀ ਹੈ/);
+      }
+      if (entry.solveMode === "findWorkCompletedBeforeEvent") {
+        assert.match(question.explanation.shortcut.steps.join(" "), language === "hi" ? /भाग पूरा हुआ/ : /ਹਿੱਸਾ ਪੂਰਾ ਹੋਇਆ/);
+        assert.match(question.explanation.conclusion, language === "hi" ? /भाग पूरा हो चुका है/ : /ਹਿੱਸਾ ਪੂਰਾ ਹੋ ਚੁੱਕਾ ਹੈ/);
+      }
+      if (entry.solveMode === "findTotalTimeWhenFirstAgentStartsThenSecondFinishes") {
+        assert.match(question.stem, language === "hi" ? /शेष काम .* को सौंप दिया जाता है/ : /ਬਾਕੀ ਕੰਮ .* ਨੂੰ ਸੌਂਪ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ/);
+        assert.equal(/सौंप देता है|ਸੌਂਪ ਦਿੰਦਾ ਹੈ/.test(question.stem), false);
+      }
       if (entry.solveMode === "findJoinTimeFromFinalCompletion") {
         assert.match(question.stem, language === "hi" ? /भागीदारी कितने समय बाद शुरू हुई/ : /ਭਾਗੀਦਾਰੀ ਕਿੰਨੇ ਸਮੇਂ ਬਾਅਦ ਸ਼ੁਰੂ ਹੋਈ/);
         assert.equal(/कितने समय बाद जुड़ा|ਕਿੰਨੇ ਸਮੇਂ ਬਾਅਦ ਜੁੜਿਆ/.test(question.stem), false);
+        assert.match(question.explanation.commonTrap.explanation, language === "hi" ? /भागीदारी शुरू होने का समय/ : /ਭਾਗੀਦਾਰੀ ਸ਼ੁਰੂ ਹੋਣ ਦਾ ਸਮਾਂ/);
+        assert.equal(/जुड़ने या जाने|ਜੁੜਨ ਜਾਂ ਜਾਣ/.test(question.explanation.commonTrap.explanation), false);
       }
       if (entry.solveMode === "findLeaveTimeFromFinalCompletion") {
         assert.match(question.stem, language === "hi" ? /भागीदारी कितने समय बाद समाप्त हुई/ : /ਭਾਗੀਦਾਰੀ ਕਿੰਨੇ ਸਮੇਂ ਬਾਅਦ ਖਤਮ ਹੋਈ/);
         assert.equal(/कितने समय बाद गया|ਕਿੰਨੇ ਸਮੇਂ ਬਾਅਦ ਗਿਆ/.test(question.stem), false);
+        assert.match(question.explanation.commonTrap.explanation, language === "hi" ? /भागीदारी समाप्त होने का समय/ : /ਭਾਗੀਦਾਰੀ ਖਤਮ ਹੋਣ ਦਾ ਸਮਾਂ/);
+        assert.equal(/जुड़ने या जाने|ਜੁੜਨ ਜਾਂ ਜਾਣ/.test(question.explanation.commonTrap.explanation), false);
       }
       if (entry.solveMode === "findUnknownInitialPhaseDuration") {
         assert.match(question.stem, language === "hi" ? /में पहले पूरे काम का/ : /ਵਿੱਚ ਪਹਿਲਾਂ ਪੂਰੇ ਕੰਮ ਦਾ/);
