@@ -16,6 +16,7 @@ import {
 } from "./cp002-context-library";
 import { getMalCp002DiscoveryRegistryEntry } from "./cp002-discovery-registry";
 import { verifyMalCp002Result } from "./cp002-independent-verifier";
+import { normalizeMalCp002OptionPackage } from "./cp002-option-normalizer";
 import {
   generateMalCp002Parameters,
   malCp002RequestFingerprint,
@@ -141,11 +142,16 @@ export function generateMalCp002DiscoveryPrototype(
     buildMalCp002Stem(parameters.request, context),
   );
   const answer = formatMalCp002Answer(solution, context);
-  const optionPackage = buildMalCp002Options(
+  const rawOptionPackage = buildMalCp002Options(
     parameters.request,
     solution,
     context,
     `${prototypeId}:${seed}:options`,
+  );
+  const optionPackage = normalizeMalCp002OptionPackage(
+    rawOptionPackage,
+    solution,
+    context,
   );
   const explanation = normalizeConclusion(
     buildMalCp002Explanation(parameters.request, solution, context),
