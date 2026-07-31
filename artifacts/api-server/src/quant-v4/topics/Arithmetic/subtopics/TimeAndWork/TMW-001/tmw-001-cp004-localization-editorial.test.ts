@@ -66,7 +66,7 @@ for (const entry of TMW_CP004_REGISTRY) {
 
     if (entry.solveMode === "findCompletionWithIdleInterval") {
       assert.match(question.stem, language === "hi" ? /पूरी तरह रुका/ : /ਪੂਰੀ ਤਰ੍ਹਾਂ ਰੁਕਿਆ/);
-      assert.match(question.explanation.commonTrap.explanation, language === "hi" ? /रुके हुए समय|रुका रहने/ : /ਰੁਕੇ ਹੋਏ ਸਮੇਂ|ਰੁਕਿਆ ਰਹਿਣ/);
+      assert.match(question.explanation.shortcut.title, language === "hi" ? /रुका समय/ : /ਰੁਕਿਆ ਸਮਾਂ/);
     }
     if (entry.solveMode === "findCompletionWithNegativeWorkerActivatedLater") {
       assert.match(question.stem, language === "hi" ? /काम को.*बिगाड़/ : /ਕੰਮ ਨੂੰ.*ਖਰਾਬ/);
