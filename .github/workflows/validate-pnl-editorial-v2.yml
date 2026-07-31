@@ -13,15 +13,18 @@ on:
       - ".github/workflows/validate-pnl-editorial-v2.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate-pnl-editorial-v2:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Checkout source
+      - name: Checkout source branch
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -147,6 +150,34 @@ jobs:
           node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-export.mjs \
             2>&1 | tee -a editorial-v2-multilingual-export.log
 
+      - name: Synchronize Wave 02 native source libraries
+        id: multilingual_source_sync
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          generated="$root/.editorial-v2-multilingual-generated"
+          for file in "$generated"/*.json; do
+            name="$(basename "$file")"
+            folder="${name%%.*}"
+            remainder="${name#*.editorial-content.}"
+            language="${remainder%.json}"
+            cp "$file" "$root/$folder/editorial-content.$language.json"
+          done
+
+      - name: Prove Wave 02 naturalness and structural identity
+        id: multilingual_naturalness_wave02
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-naturalness-wave02.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-editorial-naturalness-wave02.test.mjs \
+            2>&1 | tee pnl-001-multilingual-editorial-naturalness-wave02.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-editorial-naturalness-wave02.test.mjs \
+            2>&1 | tee -a pnl-001-multilingual-editorial-naturalness-wave02.log
+
       - name: Verify multilingual committed-source parity
         id: multilingual_source_parity
         continue-on-error: true
@@ -159,6 +190,33 @@ jobs:
             2>&1 | tee editorial-v2-multilingual-source-parity.log
           node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-source-parity.mjs \
             2>&1 | tee -a editorial-v2-multilingual-source-parity.log
+
+      - name: Commit synchronized Wave 02 libraries
+        id: commit_wave02_libraries
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        run: |
+          test "${{ steps.editorial_audit.outcome }}" = "success"
+          test "${{ steps.editorial_renderer.outcome }}" = "success"
+          test "${{ steps.legacy_editorial_audit.outcome }}" = "success"
+          test "${{ steps.legacy_editorial_renderer.outcome }}" = "success"
+          test "${{ steps.legacy_editorial_export.outcome }}" = "success"
+          test "${{ steps.multilingual_editorial_audit.outcome }}" = "success"
+          test "${{ steps.multilingual_editorial_renderer.outcome }}" = "success"
+          test "${{ steps.multilingual_editorial_export.outcome }}" = "success"
+          test "${{ steps.multilingual_source_sync.outcome }}" = "success"
+          test "${{ steps.multilingual_naturalness_wave02.outcome }}" = "success"
+          test "${{ steps.multilingual_source_parity.outcome }}" = "success"
+
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$root"/CP-*/editorial-content.hi.json "$root"/CP-*/editorial-content.pa.json
+          if git diff --cached --quiet; then
+            echo "Wave 02 native libraries are already synchronized."
+            exit 0
+          fi
+          git commit -m "chore(pnl): regenerate Wave 02 native editorial libraries"
+          git push origin HEAD:${{ github.head_ref }}
 
       - name: Upload editorial diagnostics and review sources
         if: always()
@@ -175,6 +233,7 @@ jobs:
             editorial-v2-multilingual-render.log
             editorial-v2-multilingual-export.log
             editorial-v2-multilingual-source-parity.log
+            pnl-001-multilingual-editorial-naturalness-wave02.log
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-generated/*.json
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-generated/*.json
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/editorial-content.en.json
@@ -195,4 +254,6 @@ jobs:
           test "${{ steps.multilingual_editorial_audit.outcome }}" = "success"
           test "${{ steps.multilingual_editorial_renderer.outcome }}" = "success"
           test "${{ steps.multilingual_editorial_export.outcome }}" = "success"
+          test "${{ steps.multilingual_source_sync.outcome }}" = "success"
+          test "${{ steps.multilingual_naturalness_wave02.outcome }}" = "success"
           test "${{ steps.multilingual_source_parity.outcome }}" = "success"
