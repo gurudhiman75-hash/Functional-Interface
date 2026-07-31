@@ -1,4 +1,8 @@
-import type { MalDifficulty, MalReasoningGraph } from "./types";
+import type {
+  MalDifficulty,
+  MalReasoningGraph,
+  MalTaskDirection,
+} from "./types";
 import type { MalCp002Context } from "./cp002-context-library";
 import type {
   MalCp002AnswerSemantic,
@@ -84,6 +88,7 @@ export interface MalCp002GeneratedPrototype {
   seed: string;
   context: MalCp002Context;
   difficulty: MalDifficulty;
+  taskDirection: MalTaskDirection;
   answerSemantic: MalCp002AnswerSemantic;
   stem: string;
   parameters: MalCp002GeneratedParameters;
