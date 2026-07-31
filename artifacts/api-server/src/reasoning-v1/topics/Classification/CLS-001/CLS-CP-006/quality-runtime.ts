@@ -111,7 +111,7 @@ export function auditClsCp006PresentationQuality(
   if (question.explanation.stepByStep.length !== question.options.length + 1) {
     reasons.push("Step-by-step explanation must contain one option check plus one conclusion.");
   }
-  if (!/odd|different|does not share|does not follow/i.test(question.stem)) {
+  if (!/odd|different|differs|does not/i.test(question.stem)) {
     reasons.push("The stem does not clearly request classification.");
   }
   if (/what is the position|find the position|how many letters|move .* places|rearrange/i.test(question.stem)) {
