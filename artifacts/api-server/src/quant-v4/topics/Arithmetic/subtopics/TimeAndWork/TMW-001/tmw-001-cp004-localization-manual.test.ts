@@ -19,8 +19,8 @@ for (const entry of TMW_CP004_REGISTRY) {
         question.explanation.conclusion,
       ].join("\n");
 
-      assert.equal(/\b\d+ दिन में\b|\b\d+ ਦਿਨ ਵਿੱਚ\b/.test(prose), false, `${entry.qlId}:${language}: uninflected day before postposition`);
-      assert.equal(/\b\d+ दिन के भीतर\b|\b\d+ ਦਿਨ ਦੇ ਅੰਦਰ\b/.test(prose), false, `${entry.qlId}:${language}: uninflected deadline phrase`);
+      assert.equal(/\d+ दिन में|\d+ ਦਿਨ ਵਿੱਚ/.test(prose), false, `${entry.qlId}:${language}: uninflected day before postposition`);
+      assert.equal(/\d+ दिन के भीतर|\d+ ਦਿਨ ਦੇ ਅੰਦਰ/.test(prose), false, `${entry.qlId}:${language}: uninflected deadline phrase`);
       assert.equal(/का काम में|ਦਾ ਕੰਮ ਵਿੱਚ/.test(prose), false, `${entry.qlId}:${language}: task phrase not inflected`);
       assert.equal(/शेष काम का \\|ਬਾਕੀ ਕੰਮ ਦਾ \\/.test(question.explanation.shortcut.steps.join(" ")), false, `${entry.qlId}:${language}: malformed remaining-work shortcut`);
 
