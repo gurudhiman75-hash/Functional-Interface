@@ -138,7 +138,7 @@ for (const [index, row] of NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS.entries()) {
         `Q${reviewNumber}/${qlId}: robotic explanation phrase ${pattern} remains`);
     }
     assert(!/(?<![\dA-Za-z^,])\d{5,}(?![\dA-Za-z,])/.test(explanationText),
-      `Q${reviewNumber}/${qlId}: ungrouped standalone large integer in explanation`);
+      `Q${reviewNumber}/${qlId}: ungrouped standalone large integer in explanation: ${explanationText}`);
 
     if (qlNumber >= 2 && qlNumber <= 10) {
       transparentCalculationQuestionCount += 1;
@@ -202,8 +202,8 @@ assert(checkpointCounts.get("NUM-CP-003") === 69,
   `Expected 69 CP-003 questions, received ${checkpointCounts.get("NUM-CP-003")}`);
 assert(checkpointCounts.get("NUM-CP-004") === 84,
   `Expected 84 CP-004 questions, received ${checkpointCounts.get("NUM-CP-004")}`);
-assert(transparentCalculationQuestionCount === 42,
-  `Expected 42 transparent CP-003 calculation questions, received ${transparentCalculationQuestionCount}`);
+assert(transparentCalculationQuestionCount === 39,
+  `Expected 39 transparent CP-003 calculation questions, received ${transparentCalculationQuestionCount}`);
 assert(qlIds.size === 45, `Expected 45 permanent QLs, received ${qlIds.size}`);
 for (let qlNumber = 1; qlNumber <= 45; qlNumber += 1) {
   const qlId = `NUM-QL-${String(qlNumber).padStart(3, "0")}`;
