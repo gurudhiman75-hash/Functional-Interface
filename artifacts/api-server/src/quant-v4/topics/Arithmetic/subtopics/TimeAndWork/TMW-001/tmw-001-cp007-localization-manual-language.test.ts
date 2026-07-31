@@ -48,8 +48,8 @@ for (const entry of TMW_CP007_REGISTRY) {
       }
       if (entry.solveMode === "findCrewCompositionFromTwoOutputFacts") {
         const givens = question.explanation.givens.join(" ");
-        assert.match(givens, language === "hi" ? /पहली टीम.*कार्य-इकाइ|दूसरा तथ्य.*कार्य-इकाइ/ : /ਪਹਿਲੀ ਟੀਮ.*ਕੰਮ-ਇਕਾਈ|ਦੂਜਾ ਤੱਥ.*ਕੰਮ-ਇਕਾਈ/);
-        assert.match(givens, language === "hi" ? /दिनों में/ : /ਦਿਨਾਂ ਵਿੱਚ/);
+        assert.match(givens, language === "hi" ? /पहला तथ्य: पहली टीम.*को.*(?:दिनों|घंटों) में पूरा करती है/ : /ਪਹਿਲਾ ਤੱਥ: ਪਹਿਲੀ ਟੀਮ.*ਨੂੰ.*(?:ਦਿਨਾਂ|ਘੰਟਿਆਂ) ਵਿੱਚ ਪੂਰਾ ਕਰਦੀ ਹੈ/);
+        assert.match(givens, language === "hi" ? /दूसरा तथ्य: पहली श्रेणी की संख्या दोगुनी.*को.*(?:दिनों|घंटों) में पूरा करती है/ : /ਦੂਜਾ ਤੱਥ: ਪਹਿਲੀ ਸ਼੍ਰੇਣੀ ਦੀ ਗਿਣਤੀ ਦੁੱਗਣੀ.*ਨੂੰ.*(?:ਦਿਨਾਂ|ਘੰਟਿਆਂ) ਵਿੱਚ ਪੂਰਾ ਕਰਦੀ ਹੈ/);
       }
       if (entry.solveMode === "findEquivalentStandardResourceTime") {
         assert.match(question.explanation.conclusion, language === "hi" ? /^अतः संयुक्त योगदान:/ : /^ਇਸ ਲਈ ਸਾਂਝਾ ਯੋਗਦਾਨ:/);
