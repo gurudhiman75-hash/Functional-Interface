@@ -47,11 +47,24 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/mal-001-cp002-discovery-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp002-discovery-audit.log
+      - name: Bundle MAL-CP-002 valid-state generation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp002-generation-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp002-generation-audit.mjs
+      - name: Run MAL-CP-002 valid-state generation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/mal-001-cp002-generation-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp002-generation-audit.log
       - name: Upload MAL-CP-002 discovery evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: mal-cp002-executable-discovery
-          path: artifacts/api-server/dist/quant-v4/mal-001-cp002-discovery-audit.log
+          path: |
+            artifacts/api-server/dist/quant-v4/mal-001-cp002-discovery-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp002-generation-audit.log
           if-no-files-found: error
           retention-days: 7
