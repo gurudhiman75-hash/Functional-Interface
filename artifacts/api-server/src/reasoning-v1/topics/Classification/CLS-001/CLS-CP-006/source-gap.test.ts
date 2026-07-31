@@ -63,7 +63,7 @@ assertPartitionEquivalent(
   (item) => {
     assert.equal(item.kind, "LETTER_PAIR");
     const [first, second] = item.letters.map(clsCp006LetterPosition);
-    return String((27 - first!) - (27 - second!));
+    return String((27 - second!) - (27 - first!));
   },
   "reverse signed gap",
 );
