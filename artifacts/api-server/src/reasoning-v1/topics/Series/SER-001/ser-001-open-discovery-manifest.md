@@ -64,7 +64,7 @@ These rows guide source collection. They do not allocate QLs or freeze counts.
 | `SER-CP-002` | multiplicative and affine numeric sequences | open |
 | `SER-CP-003` | constant non-zero second- and third-difference sequences; higher orders open | open |
 | `SER-CP-004` | primes, factorials, recurrences and special-number candidates after collision removal | open |
-| `SER-CP-005` | alternating, interleaved and composite numeric sequences | open |
+| `SER-CP-005` | alternating, interleaved and composite numeric sequences after representation compression | open |
 | `SER-CP-006` | single-letter alphabetic sequences | open |
 | `SER-CP-007` | letter clusters, word-like blocks and token grammars | open |
 | `SER-CP-008` | mixed alphanumeric and symbol sequences | open |
@@ -206,6 +206,77 @@ All questions pass deterministic replay, independent complete-pool inference, on
 
 Across CP-001 through CP-004, the executable audit volume is 5,760 questions. No collision disposition is final until source saturation and the chapter-wide merge/split audit.
 
+## SER-CP-005 executable discovery and representation compression
+
+`SER-CP-005` tests ten source-shaped alternating, interleaved and composite families:
+
+```text
+ALTERNATING_ADDITIVE_STEPS
+ALTERNATING_MULTIPLICATIVE_RATIOS
+TWO_INTERLEAVED_ARITHMETIC
+TWO_INTERLEAVED_GEOMETRIC
+INTERLEAVED_ARITHMETIC_GEOMETRIC
+ALTERNATING_ADD_THEN_MULTIPLY
+ALTERNATING_MULTIPLY_THEN_ADD
+PROGRESSIVE_MULTIPLY_PLUS_ADD
+PROGRESSIVE_ADD_THEN_MULTIPLY_CYCLES
+PROGRESSIVE_MULTIPLY_THEN_ADD_CYCLES
+```
+
+Each family is exercised through next, interior-missing, previous and wrong-term tasks. The 40 temporary templates are evaluated through one complete candidate pool that groups equivalent projected sequences by canonical authority.
+
+The source-shaped inventory currently compresses to six provisional authorities:
+
+```text
+TWO_INTERLEAVED_ARITHMETIC
+TWO_INTERLEAVED_GEOMETRIC
+INTERLEAVED_ARITHMETIC_GEOMETRIC
+ALTERNATING_FIXED_AFFINE_PHASE
+PROGRESSIVE_MULTIPLY_PLUS_ADD
+PROGRESSIVE_ALTERNATING_AFFINE_CYCLES
+```
+
+Executable collision decisions are:
+
+```text
+ALTERNATING_ADDITIVE_STEPS
+  -> TWO_INTERLEAVED_ARITHMETIC
+
+ALTERNATING_MULTIPLICATIVE_RATIOS
+  -> TWO_INTERLEAVED_GEOMETRIC
+
+ALTERNATING_ADD_THEN_MULTIPLY
+ALTERNATING_MULTIPLY_THEN_ADD
+  -> ALTERNATING_FIXED_AFFINE_PHASE
+
+PROGRESSIVE_ADD_THEN_MULTIPLY_CYCLES
+PROGRESSIVE_MULTIPLY_THEN_ADD_CYCLES
+  -> PROGRESSIVE_ALTERNATING_AFFINE_CYCLES
+```
+
+Alternating fixed additions are two arithmetic position lanes, and alternating fixed multipliers are two geometric position lanes. The independent solver preserves both source representations as collision evidence while counting only one canonical projection. Operation order is currently treated as a phase parameter rather than a separate authority.
+
+The CP-005 audit passes 4,800 deterministic English questions:
+
+```text
+Temporary templates:                         40
+Source-shaped families:                      10
+Provisional canonical authorities:            6
+Questions per source family:                 480
+Questions per task direction:              1,200
+Alternating/interleaved collision proofs:    960
+Provisional retained-family questions:     1,920
+Interleaved-collapse questions:              960
+Phase-variant merge questions:             1,920
+Answer positions:             [1200, 1200, 1200, 1200]
+Minimum distinct fingerprints/template:      70
+Permanent QLs:                                 0
+```
+
+All questions pass deterministic replay, complete-pool independent solving, canonical ambiguity rejection, source-representation recovery, Easy/Medium/Hard reach, four unique options, option-specific diagnostics and lifecycle locks. The workflow exports 80 exact English review questions.
+
+Across CP-001 through CP-005, the executable audit volume is 10,560 questions. The ten-to-six compression is provisional and remains open to source saturation, chapter-wide collision proof and editorial review.
+
 ## Required next evidence
 
 Before any permanent allocation:
@@ -214,13 +285,15 @@ Before any permanent allocation:
 - audit zero-step, descending, signed, fractional and decimal ownership;
 - determine whether wrong-term detection shares the same authority as completion;
 - test sparse displays, multiple blanks and alternate answer semantics;
-- prove collisions with alternating-series and composite-rule candidates;
+- extend CP-005 to three-way and block interleaving, secondary-sequence differences and richer progressive grammars;
+- prove cross-collisions among CP-003 finite differences, CP-004 recurrences and CP-005 composite authorities;
 - decide whether fourth- and higher-order differences remain in CP-003;
 - expand CP-004 source audit to prime-gap, composite-number, changing-power and richer recurrence patterns;
+- begin CP-006 single-letter alphabetic discovery only after numeric boundaries remain stable under the next gap audit;
 - define Hindi and Punjabi localization modes;
 - review exact exported English samples;
 - perform the candidate merge/split and permanent-identity decision only after those gates close.
 
 ## Status
 
-`SER_001_OPEN_DISCOVERY_CP001_CP004_NUMERIC_FOUNDATION_AND_COLLISION_AUDIT_PASS`
+`SER_001_OPEN_DISCOVERY_CP001_CP005_NUMERIC_FOUNDATION_AND_COMPRESSION_AUDIT_PASS`
