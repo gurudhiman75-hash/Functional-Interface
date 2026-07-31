@@ -1,0 +1,42 @@
+name: Validate INT-CP-001 calculation-rich V6 approval
+
+on:
+  pull_request:
+    branches:
+      - fix/int-001-cp001-calculation-rich-explanations-v1
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/**"
+      - ".github/workflows/int-cp001-calculation-rich-v6-approval.yml"
+
+jobs:
+  validate-int-cp001-calculation-rich-v6-approval:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle candidate regression
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-calculation-rich-explanation-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/int-001-cp001-calculation-rich-explanation-audit.mjs
+      - name: Run candidate regression
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp001-calculation-rich-explanation-audit.mjs
+      - name: Bundle approval audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-calculation-rich-v6-approval-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/int-001-cp001-calculation-rich-v6-approval-audit.mjs
+      - name: Run approval audit
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp001-calculation-rich-v6-approval-audit.mjs | tee dist/quant-v4/int-001-cp001-calculation-rich-v6-approval-audit.log
+      - name: Upload approval evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp001-calculation-rich-v6-approval
+          path: artifacts/api-server/dist/quant-v4/int-001-cp001-calculation-rich-v6-approval-audit.log
+          retention-days: 14
