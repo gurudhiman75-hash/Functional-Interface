@@ -1,9 +1,9 @@
-name: Validate MEN-CP-008 final freeze
+name: Validate MEN-CP-008 post-merge proof
 
 on:
   pull_request:
     branches:
-      - feat/men-002-cp008-source-gap-wave-04
+      - New-main
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/foundation/**
@@ -25,11 +25,11 @@ permissions:
   contents: read
 
 concurrency:
-  group: validate-men-002-cp008-final-freeze-${{ github.ref }}
+  group: validate-men-002-cp008-post-merge-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate-cp008-final-freeze:
+  validate-cp008-post-merge:
     runs-on: ubuntu-latest
     timeout-minutes: 70
 
@@ -65,7 +65,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$base/cp008-chapter-audit/freeze-readiness.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-freeze-readiness.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$base/MEN-CP-008/permanent/english.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-permanent-english.test.mjs"
 
-      - name: Run complete final-freeze proof
+      - name: Run complete post-merge proof
         shell: bash
         run: |
           set -o pipefail
@@ -90,7 +90,7 @@ jobs:
         shell: bash
         run: |
           set +e
-          bash build-api.sh > artifacts/api-server/dist/quant-v4/men-cp008-final-freeze-render-build.log 2>&1
+          bash build-api.sh > artifacts/api-server/dist/quant-v4/men-cp008-post-merge-render-build.log 2>&1
           status=$?
           echo "exit_code=$status" >> "$GITHUB_OUTPUT"
           exit 0
@@ -98,17 +98,17 @@ jobs:
       - name: Enforce Render production build
         shell: bash
         run: |
-          cat artifacts/api-server/dist/quant-v4/men-cp008-final-freeze-render-build.log
+          cat artifacts/api-server/dist/quant-v4/men-cp008-post-merge-render-build.log
           test "${{ steps.render_build.outputs.exit_code }}" = "0"
           test -f artifacts/api-server/dist/index.mjs
           test -f artifacts/examtree/dist/public/index.html
           test -f artifacts/examtree/dist/public/admin/index.html
 
-      - name: Upload final-freeze proof
+      - name: Upload post-merge proof
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: men-002-cp008-final-freeze
+          name: men-002-cp008-post-merge-proof
           path: |
             artifacts/api-server/dist/quant-v4/men-cp007-approved-regression.log
             artifacts/api-server/dist/quant-v4/men-cp008-foundation-regression.log
@@ -120,6 +120,6 @@ jobs:
             artifacts/api-server/dist/quant-v4/men-cp008-candidate-registry.log
             artifacts/api-server/dist/quant-v4/men-cp008-freeze-readiness.log
             artifacts/api-server/dist/quant-v4/men-cp008-permanent-english.log
-            artifacts/api-server/dist/quant-v4/men-cp008-final-freeze-render-build.log
+            artifacts/api-server/dist/quant-v4/men-cp008-post-merge-render-build.log
           if-no-files-found: error
           retention-days: 14
