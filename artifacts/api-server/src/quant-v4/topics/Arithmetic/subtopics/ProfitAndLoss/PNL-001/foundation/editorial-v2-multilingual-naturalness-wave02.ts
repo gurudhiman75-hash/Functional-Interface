@@ -16,6 +16,10 @@ const REPLACEMENTS: Readonly<
     ["अज्ञात समूह प्रतिशत", "दूसरे समूह का आवश्यक प्रतिशत"],
     ["अज्ञात समूह", "जिस समूह की दर या मात्रा ज्ञात करनी है"],
     ["व्यावसायिक क्रम", "खरीद, खर्च और बिक्री की जानकारी"],
+    [
+      "हर गणना को उसके वास्तविक व्यावसायिक अर्थ से जोड़कर देखें।",
+      "हर गणना को वास्तविक लेन-देन के अर्थ से जोड़कर देखें।",
+    ],
     ["वास्तविक व्यावसायिक अर्थ", "वास्तविक लेन-देन का अर्थ"],
     ["लक्षित परिणाम", "लक्ष्य के अनुसार परिणाम"],
     ["लक्षित", "लक्ष्य के अनुसार"],
@@ -29,6 +33,11 @@ const REPLACEMENTS: Readonly<
     ["ਅਣਜਾਣ ਸਮੂਹ ਪ੍ਰਤੀਸ਼ਤ", "ਦੂਜੇ ਸਮੂਹ ਦਾ ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ"],
     ["ਅਣਜਾਣ ਸਮੂਹ", "ਉਹ ਸਮੂਹ ਜਿਸ ਦੀ ਦਰ ਜਾਂ ਮਾਤਰਾ ਪਤਾ ਕਰਨੀ ਹੈ"],
     ["ਵਪਾਰਕ ਕ੍ਰਮ", "ਖਰੀਦ, ਖਰਚ ਅਤੇ ਵਿਕਰੀ ਦੀ ਜਾਣਕਾਰੀ"],
+    [
+      "ਹਰ ਗਣਨਾ ਨੂੰ ਉਸ ਦੇ ਅਸਲ ਵਪਾਰਕ ਅਰਥ ਨਾਲ ਜੋੜ ਕੇ ਵੇਖੋ।",
+      "ਹਰ ਗਿਣਤੀ ਨੂੰ ਅਸਲ ਲੈਣ-ਦੇਣ ਦੇ ਅਰਥ ਨਾਲ ਜੋੜ ਕੇ ਵੇਖੋ।",
+    ],
+    ["ਵਪਾਰਕ ਅਰਥ", "ਲੈਣ-ਦੇਣ ਦਾ ਅਰਥ"],
     ["ਲਕਸ਼ਿਤ ਨਤੀਜਾ", "ਟੀਚੇ ਅਨੁਸਾਰ ਨਤੀਜਾ"],
     ["ਲਕਸ਼ਿਤ", "ਟੀਚੇ ਅਨੁਸਾਰ"],
     ["ਪੁਨਰਨਿਰਮਾਣ", "ਵਾਪਸ ਕੱਢਣਾ"],
@@ -169,18 +178,21 @@ function applyReplacements(
 function mapText<T>(
   language: NativeEditorialLanguage,
   value: T,
+  propertyName = "",
 ): T {
   if (typeof value === "string") {
-    return applyReplacements(language, value) as T;
+    return (/latex/i.test(propertyName)
+      ? value
+      : applyReplacements(language, value)) as T;
   }
   if (Array.isArray(value)) {
-    return value.map((item) => mapText(language, item)) as T;
+    return value.map((item) => mapText(language, item, propertyName)) as T;
   }
   if (value && typeof value === "object") {
     return Object.fromEntries(
       Object.entries(value).map(([key, item]) => [
         key,
-        mapText(language, item),
+        mapText(language, item, key),
       ]),
     ) as T;
   }
