@@ -1,4 +1,11 @@
-import type { ExactRational, ExactSurd, ExactValue, Men002Unit } from "./types";
+import type {
+  ExactPi,
+  ExactPiSurd,
+  ExactRational,
+  ExactSurd,
+  ExactValue,
+  Men002Unit,
+} from "./types";
 
 function abs(value: bigint) {
   return value < 0n ? -value : value;
@@ -90,11 +97,40 @@ export function surd(
   } satisfies ExactSurd;
 }
 
+export function pi(
+  coefficientNumerator: bigint | number = 1,
+  coefficientDenominator: bigint | number = 1,
+): ExactPi {
+  return {
+    kind: "PI",
+    coefficient: rational(coefficientNumerator, coefficientDenominator),
+  };
+}
+
+export function piSurd(
+  coefficientNumerator: bigint | number,
+  radicand: bigint | number,
+  coefficientDenominator: bigint | number = 1,
+): ExactValue {
+  const reducedCoefficient = rational(coefficientNumerator, coefficientDenominator);
+  const reducedRadicand = BigInt(radicand);
+  const { outside, inside } = extractSquareFactor(reducedRadicand);
+  const coefficient = multiply(reducedCoefficient, rational(outside));
+  if (inside === 1n) return pi(coefficient.numerator, coefficient.denominator);
+  return {
+    kind: "PI_SURD",
+    coefficient,
+    radicand: inside,
+  } satisfies ExactPiSurd;
+}
+
 export function exactKey(value: ExactValue) {
-  if (value.kind === "RATIONAL") {
-    return `R:${value.numerator}/${value.denominator}`;
+  switch (value.kind) {
+    case "RATIONAL": return `R:${value.numerator}/${value.denominator}`;
+    case "SURD": return `S:${value.coefficient.numerator}/${value.coefficient.denominator}:sqrt(${value.radicand})`;
+    case "PI": return `P:${value.coefficient.numerator}/${value.coefficient.denominator}`;
+    case "PI_SURD": return `PS:${value.coefficient.numerator}/${value.coefficient.denominator}:sqrt(${value.radicand})`;
   }
-  return `S:${value.coefficient.numerator}/${value.coefficient.denominator}:sqrt(${value.radicand})`;
 }
 
 export function exactEquals(a: ExactValue, b: ExactValue) {
@@ -121,6 +157,18 @@ function formatRationalPlain(value: ExactRational) {
   return `${value.numerator}/${value.denominator}`;
 }
 
+function formatMonomialCoefficientMath(coefficient: ExactRational) {
+  if (coefficient.numerator === coefficient.denominator) return "";
+  if (coefficient.numerator === -coefficient.denominator) return "-";
+  return formatRationalMath(coefficient);
+}
+
+function formatMonomialCoefficientPlain(coefficient: ExactRational) {
+  if (coefficient.numerator === coefficient.denominator) return "";
+  if (coefficient.numerator === -coefficient.denominator) return "-";
+  return formatRationalPlain(coefficient);
+}
+
 export function formatIndianInteger(value: bigint | number) {
   const integer = BigInt(value);
   const negative = integer < 0n;
@@ -136,19 +184,21 @@ export function formatIndianInteger(value: bigint | number) {
 }
 
 export function formatExactMath(value: ExactValue) {
-  if (value.kind === "RATIONAL") return formatRationalMath(value);
-  const coefficient = value.coefficient;
-  const radical = `\\sqrt{${value.radicand}}`;
-  if (coefficient.numerator === coefficient.denominator) return radical;
-  if (coefficient.numerator === -coefficient.denominator) return `-${radical}`;
-  return `${formatRationalMath(coefficient)}${radical}`;
+  switch (value.kind) {
+    case "RATIONAL": return formatRationalMath(value);
+    case "SURD": return `${formatMonomialCoefficientMath(value.coefficient)}\\sqrt{${value.radicand}}`;
+    case "PI": return `${formatMonomialCoefficientMath(value.coefficient)}\\pi`;
+    case "PI_SURD": return `${formatMonomialCoefficientMath(value.coefficient)}\\pi\\sqrt{${value.radicand}}`;
+  }
 }
 
 export function formatExactPlain(value: ExactValue) {
-  if (value.kind === "RATIONAL") return formatRationalPlain(value);
-  const coefficient = value.coefficient;
-  if (coefficient.numerator === coefficient.denominator) return `√${value.radicand}`;
-  return `${formatRationalPlain(coefficient)}√${value.radicand}`;
+  switch (value.kind) {
+    case "RATIONAL": return formatRationalPlain(value);
+    case "SURD": return `${formatMonomialCoefficientPlain(value.coefficient)}√${value.radicand}`;
+    case "PI": return `${formatMonomialCoefficientPlain(value.coefficient)}π`;
+    case "PI_SURD": return `${formatMonomialCoefficientPlain(value.coefficient)}π√${value.radicand}`;
+  }
 }
 
 function formatCurrencyAmountMath(value: ExactValue) {

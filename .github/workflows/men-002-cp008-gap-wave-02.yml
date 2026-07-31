@@ -1,0 +1,106 @@
+name: Validate MEN-CP-008 gap wave 02
+
+on:
+  pull_request:
+    branches:
+      - feat/men-002-cp008-gap-wave-01
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/foundation/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp008-foundation/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp008-gap-wave-01/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp008-gap-wave-02/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-008/**
+      - .github/workflows/men-002-cp008-gap-wave-02.yml
+      - build-api.sh
+      - package.json
+      - pnpm-lock.yaml
+      - pnpm-workspace.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-men-002-cp008-wave02-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp008-wave02:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle complete CP-008 proof stack and Wave 02
+        shell: bash
+        run: |
+          set -euo pipefail
+          base=src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002
+          out=dist/quant-v4
+          pnpm --dir artifacts/api-server exec esbuild "$base/MEN-CP-007/approved/english.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp007-approved-regression.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/cp008-foundation/runtime.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-foundation-regression.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/cp008-gap-wave-01/runtime.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-gap-wave-01-regression.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/cp008-gap-wave-02/runtime.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-gap-wave-02.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/cp008-gap-wave-02/review-export.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-gap-wave-02-review-export.mjs"
+
+      - name: Run complete executable proof stack
+        shell: bash
+        run: |
+          set -o pipefail
+          out=artifacts/api-server/dist/quant-v4
+          node "$out/men-cp007-approved-regression.test.mjs" 2>&1 | tee "$out/men-cp007-approved-regression.log"
+          node "$out/men-cp008-foundation-regression.test.mjs" 2>&1 | tee "$out/men-cp008-foundation-regression.log"
+          node "$out/men-cp008-gap-wave-01-regression.test.mjs" 2>&1 | tee "$out/men-cp008-gap-wave-01-regression.log"
+          node "$out/men-cp008-gap-wave-02.test.mjs" 2>&1 | tee "$out/men-cp008-gap-wave-02.log"
+
+      - name: Generate Wave-02 review evidence
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/men-cp008-gap-wave-02-review-export.mjs
+
+      - name: Run exact Render production build
+        id: render_build
+        shell: bash
+        run: |
+          set +e
+          bash build-api.sh > artifacts/api-server/dist/quant-v4/men-cp008-gap-wave-02-render-build.log 2>&1
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Enforce Render production build
+        shell: bash
+        run: |
+          cat artifacts/api-server/dist/quant-v4/men-cp008-gap-wave-02-render-build.log
+          test "${{ steps.render_build.outputs.exit_code }}" = "0"
+          test -f artifacts/api-server/dist/index.mjs
+          test -f artifacts/examtree/dist/public/index.html
+          test -f artifacts/examtree/dist/public/admin/index.html
+
+      - name: Upload Wave-02 proof and review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: men-002-cp008-gap-wave-02
+          path: |
+            artifacts/api-server/dist/quant-v4/men-cp007-approved-regression.log
+            artifacts/api-server/dist/quant-v4/men-cp008-foundation-regression.log
+            artifacts/api-server/dist/quant-v4/men-cp008-gap-wave-01-regression.log
+            artifacts/api-server/dist/quant-v4/men-cp008-gap-wave-02.log
+            artifacts/api-server/dist/quant-v4/men-cp008-gap-wave-02-render-build.log
+            artifacts/api-server/dist/quant-v4/men-002-cp008-gap-wave-02-review/**
+          if-no-files-found: error
+          retention-days: 14

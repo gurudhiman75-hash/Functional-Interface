@@ -2,7 +2,7 @@ export const MEN_002_PACKAGE_ID = "MEN-002" as const;
 export const MEN_CP_007_ID = "MEN-CP-007" as const;
 
 export type Men002Difficulty = "Easy" | "Medium" | "Hard";
-export type Men002Shape = "CUBE" | "CUBOID" | "RIGHT_PRISM";
+export type Men002Shape = "CUBE" | "CUBOID" | "RIGHT_PRISM" | "CYLINDER" | "CONE";
 export type Men002Target =
   | "VOLUME"
   | "CAPACITY"
@@ -29,6 +29,7 @@ export type Men002Unit =
   | "blocks"
   | "bricks"
   | "cuts"
+  | "revolutions"
   | "%"
   | "₹"
   | "₹/m"
@@ -48,7 +49,18 @@ export type ExactSurd = {
   radicand: bigint;
 };
 
-export type ExactValue = ExactRational | ExactSurd;
+export type ExactPi = {
+  kind: "PI";
+  coefficient: ExactRational;
+};
+
+export type ExactPiSurd = {
+  kind: "PI_SURD";
+  coefficient: ExactRational;
+  radicand: bigint;
+};
+
+export type ExactValue = ExactRational | ExactSurd | ExactPi | ExactPiSurd;
 
 export type MenCp007PrototypeId =
   | "MEN-CP007-PROT-CUBE-VOLUME"
