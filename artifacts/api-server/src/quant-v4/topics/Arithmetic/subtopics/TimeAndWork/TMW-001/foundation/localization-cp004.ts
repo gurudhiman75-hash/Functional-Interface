@@ -11,6 +11,7 @@ import {
   tmwCp004LocalizedTrapReason,
 } from "./localization-cp004-learning";
 import { polishTmwCp004LocalizedQuestion } from "./localization-cp004-polish";
+import { finalizeTmwCp004LocalizedQuestion } from "./localization-cp004-final-cleanup";
 
 export function localizeTmwCp004Question(
   source: TmwCp004GeneratedQuestion,
@@ -78,5 +79,6 @@ export function localizeTmwCp004Question(
     publiclyPublishable: false,
   };
 
-  return polishTmwCp004LocalizedQuestion(localized, source, language);
+  const polished = polishTmwCp004LocalizedQuestion(localized, source, language);
+  return finalizeTmwCp004LocalizedQuestion(polished, source, language);
 }
