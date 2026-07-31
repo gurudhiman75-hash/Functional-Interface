@@ -29,7 +29,12 @@ for(const entry of TMW_CP006_REGISTRY){
   }
 }
 assert.deepEqual([...positions].sort(),[0,1,2,3]);
-assert.throws(()=>runTmwCp006Pipeline({questionLanguageId:"TMW-QL-106",seed:"locale-hi",language:"hi"}),/English only/);
-assert.throws(()=>runTmwCp006Pipeline({questionLanguageId:"TMW-QL-106",seed:"locale-pa",language:"pa"}),/English only/);
+for(const language of ["hi","pa"] as const){
+  const localized=runTmwCp006Pipeline({questionLanguageId:"TMW-QL-106",seed:`locale-${language}`,language});
+  assert.equal(localized.validation.valid,true,localized.validation.errors.join("; "));
+  assert.equal(localized.language,language);
+  assert.equal(localized.publiclyPublishable,false);
+  assert.equal(localized.options[localized.correctIndex],localized.solution.answerText);
+}
 assert.throws(()=>runTmwCp006Pipeline({questionLanguageId:"TMW-QL-999",seed:"unknown"}),/Unknown TMW-CP-006/);
 console.log(JSON.stringify({chapter:"TMW-001",checkpoint:"TMW-CP-006",qlCount:TMW_CP006_REGISTRY.length,seedsPerQl:50,cases,distinctStems:stems.size,correctPositions:[...positions].sort(),status:"PASS"},null,2));
