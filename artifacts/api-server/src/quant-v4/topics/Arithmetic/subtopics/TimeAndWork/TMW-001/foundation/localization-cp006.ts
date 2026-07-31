@@ -26,10 +26,10 @@ export function localizeTmwCp006Question(
   const polish = (text: string): string => polishTmwCp006LocalizedProse(text, language);
   const optionAudit = source.optionAudit.map((option) => ({
     ...option,
-    text: cp006LocalizedAnswerText(source, option.value, language),
+    text: polish(cp006LocalizedAnswerText(source, option.value, language)),
   }));
   const options = optionAudit.map((option) => option.text);
-  const answerText = cp006LocalizedAnswerText(source, source.solution.answer, language);
+  const answerText = polish(cp006LocalizedAnswerText(source, source.solution.answer, language));
   const trapId = source.explanation.commonTrap.misconceptionId;
   let trapIndex = source.optionAudit.findIndex(
     (option) => option.misconceptionId === trapId && option.text === source.explanation.commonTrap.optionText,
