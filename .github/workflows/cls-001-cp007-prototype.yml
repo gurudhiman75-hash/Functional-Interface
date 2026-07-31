@@ -1,4 +1,4 @@
-name: Validate CLS-001 CP-007 Letter-Cluster Classification Discovery
+name: Validate CLS-001 CP-007 Letter-Cluster Classification English Runtime
 
 on:
   pull_request:
@@ -43,10 +43,12 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/prototype.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/prototype.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/quality.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/quality.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cluster-pair.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cluster-pair.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp007-english-runtime.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp007-english-runtime.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-review.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-cluster-pair-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-cluster-pair-review.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-cp007-permanent-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-cp007-permanent-review.mjs"
 
-      - name: Run CLS-CP-007 discovery audits
+      - name: Run CLS-CP-007 English runtime audits
         id: cp007_audit
         run: |
           set +e
@@ -59,7 +61,9 @@ jobs:
           QUALITY_STATUS=$?
           (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp007/cluster-pair.test.mjs") >"$DIAG/cluster-pair-audit.log" 2>&1
           CLUSTER_PAIR_STATUS=$?
-          if [ "$PROTOTYPE_STATUS" -ne 0 ] || [ "$QUALITY_STATUS" -ne 0 ] || [ "$CLUSTER_PAIR_STATUS" -ne 0 ]; then
+          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp007/cp007-english-runtime.test.mjs") >"$DIAG/permanent-english-runtime-audit.log" 2>&1
+          PERMANENT_STATUS=$?
+          if [ "$PROTOTYPE_STATUS" -ne 0 ] || [ "$QUALITY_STATUS" -ne 0 ] || [ "$CLUSTER_PAIR_STATUS" -ne 0 ] || [ "$PERMANENT_STATUS" -ne 0 ]; then
             STATUS=1
           else
             STATUS=0
@@ -75,12 +79,13 @@ jobs:
           path: artifacts/api-server/dist/reasoning-v1/cls-001/cp007/diagnostics
           if-no-files-found: error
 
-      - name: Enforce CLS-CP-007 discovery audits
+      - name: Enforce CLS-CP-007 English runtime audits
         if: steps.cp007_audit.outputs.exit_code != '0'
         run: |
           cat artifacts/api-server/dist/reasoning-v1/cls-001/cp007/diagnostics/prototype-audit.log
           cat artifacts/api-server/dist/reasoning-v1/cls-001/cp007/diagnostics/quality-audit.log
           cat artifacts/api-server/dist/reasoning-v1/cls-001/cp007/diagnostics/cluster-pair-audit.log
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp007/diagnostics/permanent-english-runtime-audit.log
           exit 1
 
       - name: Generate CLS-CP-007 source-shaped single-cluster review
@@ -92,6 +97,11 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/cls-001/cp007/export-cluster-pair-review.mjs
+
+      - name: Generate CLS-CP-007 permanent English review
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/cls-001/cp007/export-cp007-permanent-review.mjs
 
       - name: Upload CLS-CP-007 single-cluster review
         uses: actions/upload-artifact@v4
@@ -105,4 +115,11 @@ jobs:
         with:
           name: cls-001-cp007-cluster-pair-discovery-review
           path: artifacts/api-server/dist/reasoning-v1/cls-001/cp007-cluster-pair-review
+          if-no-files-found: error
+
+      - name: Upload CLS-CP-007 permanent English review
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp007-permanent-english-review
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp007-permanent-review
           if-no-files-found: error
