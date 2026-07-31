@@ -60,6 +60,9 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$base/cp008-source-gap-wave-03/runtime.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-source-gap-wave-03.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$base/cp008-chapter-audit/merge-review.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-directional-merge-review.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$base/cp008-chapter-audit/compression.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-chapter-compression.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/cp008-chapter-audit/candidate-registry.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-candidate-registry.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/cp008-chapter-audit/no-gap-matrix.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-no-gap-matrix.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/cp008-chapter-audit/freeze-readiness.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-freeze-readiness.test.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$base/cp008-source-gap-wave-03/review-export.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-source-gap-wave-03-review-export.mjs"
 
       - name: Run complete executable proof stack and chapter audit
@@ -74,6 +77,9 @@ jobs:
           node "$out/men-cp008-source-gap-wave-03.test.mjs" 2>&1 | tee "$out/men-cp008-source-gap-wave-03.log"
           node "$out/men-cp008-directional-merge-review.test.mjs" 2>&1 | tee "$out/men-cp008-directional-merge-review.log"
           node "$out/men-cp008-chapter-compression.test.mjs" 2>&1 | tee "$out/men-cp008-chapter-compression.log"
+          node "$out/men-cp008-candidate-registry.test.mjs" 2>&1 | tee "$out/men-cp008-candidate-registry.log"
+          node "$out/men-cp008-no-gap-matrix.test.mjs" 2>&1 | tee "$out/men-cp008-no-gap-matrix.log"
+          node "$out/men-cp008-freeze-readiness.test.mjs" 2>&1 | tee "$out/men-cp008-freeze-readiness.log"
 
       - name: Generate source Wave-03 review evidence
         working-directory: artifacts/api-server
@@ -111,6 +117,9 @@ jobs:
             artifacts/api-server/dist/quant-v4/men-cp008-source-gap-wave-03.log
             artifacts/api-server/dist/quant-v4/men-cp008-directional-merge-review.log
             artifacts/api-server/dist/quant-v4/men-cp008-chapter-compression.log
+            artifacts/api-server/dist/quant-v4/men-cp008-candidate-registry.log
+            artifacts/api-server/dist/quant-v4/men-cp008-no-gap-matrix.log
+            artifacts/api-server/dist/quant-v4/men-cp008-freeze-readiness.log
             artifacts/api-server/dist/quant-v4/men-cp008-source-gap-wave-03-render-build.log
             artifacts/api-server/dist/quant-v4/men-002-cp008-source-gap-wave-03-review/**
           if-no-files-found: error
