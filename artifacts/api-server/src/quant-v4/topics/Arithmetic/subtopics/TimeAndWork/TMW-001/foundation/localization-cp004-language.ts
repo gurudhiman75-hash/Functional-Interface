@@ -70,8 +70,8 @@ export function cp004MathValue(value: Rational): string {
 export function cp004WorkRate(value: Rational, parameters: TmwCp004Parameters, language: TmwLocalizedLanguage): string {
   return cp004Copy(
     language,
-    `काम का ${cp004MathValue(value)} ${localizedPerUnit(parameters.timeUnit, language)}`,
-    `ਕੰਮ ਦਾ ${cp004MathValue(value)} ${localizedPerUnit(parameters.timeUnit, language)}`,
+    `पूरे काम का ${cp004MathValue(value)} भाग ${localizedPerUnit(parameters.timeUnit, language)}`,
+    `ਪੂਰੇ ਕੰਮ ਦਾ ${cp004MathValue(value)} ਹਿੱਸਾ ${localizedPerUnit(parameters.timeUnit, language)}`,
   );
 }
 
