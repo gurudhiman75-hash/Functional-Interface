@@ -57,7 +57,8 @@ for (const entry of TMW_CP005_REGISTRY) {
       assert.match(question.stem, language === "hi" ? /शनिवार-रविवार.*कोई काम नहीं/ : /ਸ਼ਨੀਵਾਰ-ਐਤਵਾਰ.*ਕੋਈ ਕੰਮ ਨਹੀਂ/);
     }
     if (entry.solveMode === "findCompletionWithUnequalShiftDurations") {
-      assert.match(question.explanation.shortcut.steps.join(" "), language === "hi" ? /अपनी पाली-अवधि/ : /ਆਪਣੀ ਸ਼ਿਫ਼ਟ ਮਿਆਦ/);
+      assert.match(question.explanation.shortcut.steps.join(" "), language === "hi" ? /अपनी पाली की अवधि/ : /ਆਪਣੀ ਸ਼ਿਫ਼ਟ ਦੀ ਮਿਆਦ/);
+      assert.equal(/पाली-अवधि|ਸ਼ਿਫ਼ਟ ਮਿਆਦ/.test(question.explanation.shortcut.steps.join(" ")), false);
     }
     if (entry.solveMode === "findOutputUnderPeriodicMachineSchedule") {
       assert.match(question.stem, language === "hi" ? /मशीन A.*मशीन B/ : /ਮਸ਼ੀਨ A.*ਮਸ਼ੀਨ B/);
