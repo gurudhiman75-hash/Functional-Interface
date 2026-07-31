@@ -1,0 +1,110 @@
+name: Validate TMW-CP-005 Hindi Punjabi localisation
+
+on:
+  push:
+    branches:
+      - feat/tmw-001-hi-pa-localisation
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
+      - .github/workflows/tmw-cp005-localization-proof.yml
+      - package.json
+      - pnpm-lock.yaml
+  pull_request:
+    branches:
+      - design/tmw-001-blueprint
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
+      - .github/workflows/tmw-cp005-localization-proof.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-tmw-cp005-localization-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-tmw-cp005-localization:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec tsc
+          --noEmit
+          --target es2022
+          --module esnext
+          --moduleResolution bundler
+          --strictNullChecks
+          --noImplicitAny
+          --noImplicitReturns
+          --noFallthroughCasesInSwitch
+          --skipLibCheck
+          --types node
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-types.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-glossary.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp005-language.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp005-stems.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp005-learning.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp005.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp005-runtime.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp005-localization.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp005-localization-editorial.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp005-localization-review-export.ts
+      - name: Bundle bilingual parity proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp005-localization.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp005-localization.test.mjs
+      - name: Run bilingual parity proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp005-localization.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp005-localization-proof.log
+      - name: Bundle bilingual editorial proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp005-localization-editorial.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp005-localization-editorial.test.mjs
+      - name: Run bilingual editorial proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp005-localization-editorial.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp005-localization-editorial-proof.log
+      - name: Bundle bilingual review export
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp005-localization-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp005-localization-review-export.mjs
+      - name: Generate bilingual review corpus
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/tmw-001-cp005-localization-review-export.mjs
+      - name: Upload bilingual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tmw-cp005-hi-pa-localization
+          path: |
+            artifacts/api-server/dist/quant-v4/tmw-001-cp005-localization-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-cp005-localization-editorial-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-cp005-localization-review.json
+          if-no-files-found: error
+          retention-days: 7
