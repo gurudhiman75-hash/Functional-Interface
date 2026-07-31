@@ -6,6 +6,7 @@ import {
   cp004Copy,
   cp004Job,
   cp004Time,
+  cp004WorkRate,
 } from "./localization-cp004-language";
 
 function inflect(value: string, language: TmwLocalizedLanguage): string {
@@ -19,6 +20,28 @@ function inflect(value: string, language: TmwLocalizedLanguage): string {
     .replace(/\b(\d+) ਦਿਨ ਵਿੱਚ\b/g, "$1 ਦਿਨਾਂ ਵਿੱਚ")
     .replace(/\b(\d+) ਦਿਨ ਦੇ ਅੰਦਰ\b/g, "$1 ਦਿਨਾਂ ਦੇ ਅੰਦਰ")
     .replaceAll("ਦਾ ਕੰਮ ਵਿੱਚ", "ਦੇ ਕੰਮ ਵਿੱਚ");
+}
+
+function locativeAssignment(assignment: string, language: TmwLocalizedLanguage): string {
+  if (language === "hi") {
+    if (/ की पूरी मरम्मत$/.test(assignment)) return `${assignment} में`;
+    const genitiveNoun = assignment.match(/^(.*) का ((?:एक )?(?:बैच|सेट|ऑर्डर))$/);
+    if (genitiveNoun) return `${genitiveNoun[1]} के ${genitiveNoun[2]} में`;
+    const orderWithoutArticle = assignment.match(/^(.*) का (ऑर्डर)$/);
+    if (orderWithoutArticle) return `${orderWithoutArticle[1]} के ${orderWithoutArticle[2]} में`;
+    const workPhrase = assignment.match(/^(.*) का काम$/);
+    if (workPhrase) return `${workPhrase[1]} के काम में`;
+    return `${assignment} में`;
+  }
+
+  if (/ ਦੀ ਪੂਰੀ ਮੁਰੰਮਤ$/.test(assignment)) return `${assignment} ਵਿੱਚ`;
+  const genitiveNoun = assignment.match(/^(.*) ਦਾ ((?:ਇੱਕ )?(?:ਬੈਚ|ਸੈੱਟ|ਆਰਡਰ))$/);
+  if (genitiveNoun) return `${genitiveNoun[1]} ਦੇ ${genitiveNoun[2]} ਵਿੱਚ`;
+  const orderWithoutArticle = assignment.match(/^(.*) ਦਾ (ਆਰਡਰ)$/);
+  if (orderWithoutArticle) return `${orderWithoutArticle[1]} ਦੇ ${orderWithoutArticle[2]} ਵਿੱਚ`;
+  const workPhrase = assignment.match(/^(.*) ਦਾ ਕੰਮ$/);
+  if (workPhrase) return `${workPhrase[1]} ਦੇ ਕੰਮ ਵਿੱਚ`;
+  return `${assignment} ਵਿੱਚ`;
 }
 
 export function inflectTmwCp004LocalizedQuestion(
@@ -52,6 +75,18 @@ export function inflectTmwCp004LocalizedQuestion(
     stem = stem.replace(
       cp004Copy(language, `तो ${A} कितने समय बाद गया?`, `ਤਾਂ ${A} ਕਿੰਨੇ ਸਮੇਂ ਬਾਅਦ ਗਿਆ?`),
       cp004Copy(language, `तो ${A} की भागीदारी कितने समय बाद समाप्त हुई?`, `ਤਾਂ ${A} ਦੀ ਭਾਗੀਦਾਰੀ ਕਿੰਨੇ ਸਮੇਂ ਬਾਅਦ ਖਤਮ ਹੋਈ?`),
+    );
+  }
+
+  if (source.solveMode === "findUnknownInitialPhaseDuration") {
+    const firstRate = cp004WorkRate(required(p.rateA, "rateA"), p, language);
+    const secondRate = cp004WorkRate(required(p.rateB, "rateB"), p, language);
+    const secondDuration = cp004Time(p, required(p.durationB, "durationB"), language);
+    const locative = locativeAssignment(assignment, language);
+    stem = cp004Copy(
+      language,
+      `${locative} पहले ${firstRate} की दर से काम हुआ। बाद में ${secondRate} की दर से ${secondDuration} काम करके पूरा कार्य समाप्त हुआ। पहला चरण कितने समय चला?`,
+      `${locative} ਪਹਿਲਾਂ ${firstRate} ਦੀ ਦਰ ਨਾਲ ਕੰਮ ਹੋਇਆ। ਬਾਅਦ ਵਿੱਚ ${secondRate} ਦੀ ਦਰ ਨਾਲ ${secondDuration} ਕੰਮ ਕਰਕੇ ਸਾਰਾ ਕੰਮ ਮੁਕੰਮਲ ਹੋਇਆ। ਪਹਿਲਾ ਪੜਾਅ ਕਿੰਨਾ ਸਮਾਂ ਚੱਲਿਆ?`,
     );
   }
 
