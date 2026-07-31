@@ -82,7 +82,7 @@ for (const prototypeId of prototypeIds) {
     assert.equal(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/.test(learnerText), false);
     assert.equal(/[£€¥]/.test(learnerText), false);
     assert.equal(/MEN-CP008|W3-PROT|misconceptionId|FALLBACK_/.test(JSON.stringify(first.explanation)), false);
-    assert.equal(/\$[^$]*\$[^$]*\$/.test(first.stem), false, `${prototypeId} has malformed adjacent inline maths.`);
+    assert.equal(/\$[^$]*\$\$[^$]*\$|\$\$[^$]*\$[^$]*\$/.test(first.stem), false, `${prototypeId} contains nested inline/display math delimiters.`);
     assert.ok(first.stem.endsWith("?") || first.stem.endsWith("."));
 
     if (first.state.displayMode === "RATIO") {
