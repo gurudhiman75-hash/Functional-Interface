@@ -15,44 +15,11 @@ import {
   tmwCp005LocalizedShortcut,
   tmwCp005LocalizedTrapReason,
 } from "./localization-cp005-learning";
-
-function inflectTimePostpositions(value: string, language: TmwLocalizedLanguage): string {
-  if (language === "hi") {
-    return value
-      .replace(/(\d+) दिन में/g, (_, raw: string) => raw === "1" ? "एक दिन में" : `${raw} दिनों में`)
-      .replace(/(\d+) घंटा में/g, (_, raw: string) => raw === "1" ? "एक घंटे में" : `${raw} घंटों में`);
-  }
-  return value
-    .replace(/(\d+) ਦਿਨ ਵਿੱਚ/g, (_, raw: string) => raw === "1" ? "ਇੱਕ ਦਿਨ ਵਿੱਚ" : `${raw} ਦਿਨਾਂ ਵਿੱਚ`)
-    .replace(/(\d+) ਘੰਟਾ ਵਿੱਚ/g, (_, raw: string) => raw === "1" ? "ਇੱਕ ਘੰਟੇ ਵਿੱਚ" : `${raw} ਘੰਟਿਆਂ ਵਿੱਚ`);
-}
-
-function polishTimeConclusion(
-  source: TmwCp005GeneratedQuestion,
-  conclusion: string,
-  answerText: string,
-  language: TmwLocalizedLanguage,
-): string {
-  if (source.solution.answerType !== "TIME") return conclusion;
-  const uninflectedPostposition = language === "hi"
-    ? `${answerText} में`
-    : `${answerText} ਵਿੱਚ`;
-  if (!conclusion.includes(uninflectedPostposition)) return conclusion;
-  return language === "hi"
-    ? `अतः काम पूरा होने का कुल समय ${answerText} है।`
-    : `ਇਸ ਲਈ ਕੰਮ ਪੂਰਾ ਹੋਣ ਦਾ ਕੁੱਲ ਸਮਾਂ ${answerText} ਹੈ।`;
-}
-
-function polishModeSpecificTrap(
-  source: TmwCp005GeneratedQuestion,
-  explanation: string,
-  language: TmwLocalizedLanguage,
-): string {
-  if (source.solveMode !== "findTimeFromArbitraryCyclePhase") return explanation;
-  return language === "hi"
-    ? "यह विकल्प प्रश्न में दी गई शुरुआती बारी को छोड़कर सामान्य पहली बारी से चक्र चलाता है, इसलिए अंतिम चक्र की गणना गलत हो जाती है।"
-    : "ਇਹ ਚੋਣ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤੀ ਸ਼ੁਰੂਆਤੀ ਵਾਰੀ ਨੂੰ ਛੱਡ ਕੇ ਆਮ ਪਹਿਲੀ ਵਾਰੀ ਤੋਂ ਚੱਕਰ ਚਲਾਉਂਦੀ ਹੈ, ਇਸ ਲਈ ਆਖ਼ਰੀ ਚੱਕਰ ਦੀ ਗਿਣਤੀ ਗਲਤ ਹੋ ਜਾਂਦੀ ਹੈ।";
-}
+import {
+  polishTmwCp005LocalizedConclusion,
+  polishTmwCp005LocalizedText,
+  polishTmwCp005LocalizedTrap,
+} from "./localization-cp005-manual-polish";
 
 export function localizeTmwCp005Question(
   source: TmwCp005GeneratedQuestion,
@@ -61,29 +28,40 @@ export function localizeTmwCp005Question(
   const entry = getTmwCp005Entry(source.questionLanguageId);
   const optionAudit = source.optionAudit.map((option) => ({
     ...option,
-    text: cp005LocalizedAnswerText(source, option.value, language),
+    text: polishTmwCp005LocalizedText(
+      cp005LocalizedAnswerText(source, option.value, language),
+      language,
+    ),
   }));
   const options = optionAudit.map((option) => option.text);
-  const answerText = cp005LocalizedAnswerText(source, source.solution.answer, language);
+  const answerText = polishTmwCp005LocalizedText(
+    cp005LocalizedAnswerText(source, source.solution.answer, language),
+    language,
+  );
   const trapId = source.explanation.commonTrap.misconceptionId;
   let trapIndex = source.optionAudit.findIndex(
     (option) => option.misconceptionId === trapId && option.text === source.explanation.commonTrap.optionText,
   );
   if (trapIndex < 0) trapIndex = source.optionAudit.findIndex((option) => option.misconceptionId === trapId);
 
-  const stem = inflectTimePostpositions(renderTmwCp005LocalizedStem(source, language), language);
-  const opening = inflectTimePostpositions(tmwCp005LocalizedOpening(entry.ruleId, language), language);
-  const trapExplanation = inflectTimePostpositions(
-    polishModeSpecificTrap(source, tmwCp005LocalizedTrapReason(trapId, language), language),
+  const stem = polishTmwCp005LocalizedText(renderTmwCp005LocalizedStem(source, language), language);
+  const opening = polishTmwCp005LocalizedText(tmwCp005LocalizedOpening(entry.ruleId, language), language);
+  const trapExplanation = polishTmwCp005LocalizedText(
+    polishTmwCp005LocalizedTrap(
+      source,
+      trapId,
+      tmwCp005LocalizedTrapReason(trapId, language),
+      language,
+    ),
     language,
   );
   const rawShortcut = tmwCp005LocalizedShortcut(source.solveMode, answerText, language);
   const shortcut = {
-    title: inflectTimePostpositions(rawShortcut.title, language),
-    steps: rawShortcut.steps.map((step) => inflectTimePostpositions(step, language)),
+    title: polishTmwCp005LocalizedText(rawShortcut.title, language),
+    steps: rawShortcut.steps.map((step) => polishTmwCp005LocalizedText(step, language)),
   };
-  const conclusion = inflectTimePostpositions(
-    polishTimeConclusion(
+  const conclusion = polishTmwCp005LocalizedText(
+    polishTmwCp005LocalizedConclusion(
       source,
       tmwCp005LocalizedConclusion(source, answerText, language),
       answerText,
