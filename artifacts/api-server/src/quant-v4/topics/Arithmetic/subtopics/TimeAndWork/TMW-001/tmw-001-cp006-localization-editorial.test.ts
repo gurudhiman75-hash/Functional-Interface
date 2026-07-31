@@ -10,16 +10,17 @@ for (const entry of TMW_CP006_REGISTRY) {
   const seed = `tmw-cp006-localization-editorial:${entry.qlId}`;
   for (const language of languages) {
     const question = runTmwCp006Pipeline({ questionLanguageId: entry.qlId, seed, language });
-    const prose = [
-      question.stem,
-      question.explanation.opening,
-      ...(question.explanation.givens ?? []),
-      question.explanation.shortcut.title,
-      ...question.explanation.shortcut.steps,
-      question.explanation.commonTrap.optionLabel,
-      question.explanation.commonTrap.explanation,
-      question.explanation.conclusion,
-    ].join("\n");
+    const fields: readonly [string, string][] = [
+      ["stem", question.stem],
+      ["opening", question.explanation.opening],
+      ...(question.explanation.givens ?? []).map((text, index) => [`given-${index + 1}`, text] as [string, string]),
+      ["shortcut-title", question.explanation.shortcut.title],
+      ...question.explanation.shortcut.steps.map((text, index) => [`shortcut-step-${index + 1}`, text] as [string, string]),
+      ["trap-label", question.explanation.commonTrap.optionLabel],
+      ["trap-explanation", question.explanation.commonTrap.explanation],
+      ["conclusion", question.explanation.conclusion],
+    ];
+    const prose = fields.map(([, text]) => text).join("\n");
 
     assert.equal(question.validation.valid, true, `${entry.qlId}:${language}:${question.validation.errors.join(" | ")}`);
     assert.equal(/find[A-Z]|TMW_|_[A-Z_]{3,}|Independent invariant|Do not|Don't/i.test(prose), false, `${entry.qlId}:${language}: internal wording`);
@@ -31,7 +32,13 @@ for (const entry of TMW_CP006_REGISTRY) {
     assert.equal(/मीटर/.test(language === "pa" ? prose : ""), false, `${entry.qlId}:${language}: Hindi metre leakage`);
     assert.equal(/कितने (?:बोतलें|प्रतियाँ|इकाइयाँ)|ਕਿੰਨੇ (?:ਬੋਤਲਾਂ|ਕਾਪੀਆਂ|ਇਕਾਈਆਂ|ਅਰਜ਼ੀਆਂ)/.test(question.stem), false, `${entry.qlId}:${language}: feminine interrogative agreement`);
     assert.equal(/ਉਤਨਾ ਹੀ ਕੰਮ/.test(prose), false, `${entry.qlId}:${language}: unnatural Punjabi same-work phrase`);
-    assert.equal(/(?:पालियाँ|बोतलें|प्रतियाँ|इकाइयाँ) है|(?:ਸ਼ਿਫ਼ਟਾਂ|ਬੋਤਲਾਂ|ਕਾਪੀਆਂ|ਇਕਾਈਆਂ) ਹੈ/.test(prose), false, `${entry.qlId}:${language}: plural conclusion agreement`);
+    const agreementPattern = /(?:पालियाँ|बोतलें|प्रतियाँ|इकाइयाँ) है|(?:ਸ਼ਿਫ਼ਟਾਂ|ਬੋਤਲਾਂ|ਕਾਪੀਆਂ|ਇਕਾਈਆਂ) ਹੈ/;
+    const agreementDefect = fields.find(([, text]) => agreementPattern.test(text));
+    assert.equal(
+      agreementDefect,
+      undefined,
+      `${entry.qlId}:${language}: plural agreement in ${agreementDefect?.[0] ?? "unknown"}: ${agreementDefect?.[1] ?? ""}`,
+    );
     assert.equal(question.options.includes(question.explanation.commonTrap.optionText), true);
     assert.equal(question.explanation.commonTrap.optionLabel.startsWith(language === "hi" ? "विकल्प" : "ਚੋਣ"), true);
     assert.ok((question.explanation.givens ?? []).length >= 2);
