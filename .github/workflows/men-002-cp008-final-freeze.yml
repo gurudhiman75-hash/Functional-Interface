@@ -50,15 +50,15 @@ jobs:
         run: |
           set -euo pipefail
           node artifacts/api-server/dist/quant-v4/men-cp008-review-export.mjs
-          test -s artifacts/api-server/dist/review/MEN-CP-008-English-Review.html
-          grep -q "MEN-CP-008 English Review Pack" artifacts/api-server/dist/review/MEN-CP-008-English-Review.html
-          grep -q "MEN-002-QL-044" artifacts/api-server/dist/review/MEN-CP-008-English-Review.html
-          grep -q "MEN-002-QL-095" artifacts/api-server/dist/review/MEN-CP-008-English-Review.html
+          test -s dist/review/MEN-CP-008-English-Review.html
+          grep -q "MEN-CP-008 English Review Pack" dist/review/MEN-CP-008-English-Review.html
+          grep -q "MEN-002-QL-044" dist/review/MEN-CP-008-English-Review.html
+          grep -q "MEN-002-QL-095" dist/review/MEN-CP-008-English-Review.html
 
       - name: Upload HTML review pack
         uses: actions/upload-artifact@v4
         with:
           name: MEN-CP-008-English-Review
-          path: artifacts/api-server/dist/review/MEN-CP-008-English-Review.html
+          path: dist/review/MEN-CP-008-English-Review.html
           if-no-files-found: error
           retention-days: 14
