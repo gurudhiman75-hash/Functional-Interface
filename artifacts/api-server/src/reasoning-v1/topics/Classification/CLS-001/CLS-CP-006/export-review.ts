@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { CLS_CP006_PROTOTYPES } from "./alphabet-domain";
-import { generateClsCp006Question } from "./runtime";
+import { generateClsCp006QualityQuestion } from "./quality-runtime";
 
 const outputDir = path.resolve(
   process.cwd(),
@@ -10,7 +10,7 @@ const outputDir = path.resolve(
 const rows = CLS_CP006_PROTOTYPES.flatMap((prototype, prototypeIndex) =>
   ([4, 5] as const).flatMap((optionCount) =>
     Array.from({ length: 4 }, (_, offset) =>
-      generateClsCp006Question(
+      generateClsCp006QualityQuestion(
         prototype.prototypeId,
         prototypeIndex * 1_000 + optionCount * 100 + offset * 17,
         optionCount,
@@ -26,6 +26,7 @@ const markdown = [
   `Temporary prototypes: ${CLS_CP006_PROTOTYPES.length}`,
   "Permanent QLs: 0",
   "Locale: en-IN discovery only",
+  "Presentation: teacher-style option-by-option reasoning with explicit match/fail conclusions",
   "Question Studio: disabled",
   "Question Bank: disabled",
   "Test/publication eligibility: disabled",
@@ -94,7 +95,7 @@ await writeFile(
   "utf8",
 );
 
-console.log("CLS-CP-006 discovery review written.", {
+console.log("CLS-CP-006 teacher-style discovery review written.", {
   outputDir,
   questions: rows.length,
   prototypes: new Set(rows.map((question) => question.prototypeId)).size,
