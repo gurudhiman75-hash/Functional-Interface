@@ -12,13 +12,13 @@ import {
 function inflect(value: string, language: TmwLocalizedLanguage): string {
   if (language === "hi") {
     return value
-      .replace(/\b(\d+) दिन में\b/g, "$1 दिनों में")
-      .replace(/\b(\d+) दिन के भीतर\b/g, "$1 दिनों के भीतर")
+      .replace(/(\d+) दिन में/g, "$1 दिनों में")
+      .replace(/(\d+) दिन के भीतर/g, "$1 दिनों के भीतर")
       .replaceAll("का काम में", "के काम में");
   }
   return value
-    .replace(/\b(\d+) ਦਿਨ ਵਿੱਚ\b/g, "$1 ਦਿਨਾਂ ਵਿੱਚ")
-    .replace(/\b(\d+) ਦਿਨ ਦੇ ਅੰਦਰ\b/g, "$1 ਦਿਨਾਂ ਦੇ ਅੰਦਰ")
+    .replace(/(\d+) ਦਿਨ ਵਿੱਚ/g, "$1 ਦਿਨਾਂ ਵਿੱਚ")
+    .replace(/(\d+) ਦਿਨ ਦੇ ਅੰਦਰ/g, "$1 ਦਿਨਾਂ ਦੇ ਅੰਦਰ")
     .replaceAll("ਦਾ ਕੰਮ ਵਿੱਚ", "ਦੇ ਕੰਮ ਵਿੱਚ");
 }
 
