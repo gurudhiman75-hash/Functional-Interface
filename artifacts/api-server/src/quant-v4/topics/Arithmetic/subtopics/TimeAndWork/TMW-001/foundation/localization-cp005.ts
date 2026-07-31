@@ -16,15 +16,17 @@ import {
   tmwCp005LocalizedTrapReason,
 } from "./localization-cp005-learning";
 
-function polishDefaultTimeConclusion(
+function polishTimeConclusion(
+  source: TmwCp005GeneratedQuestion,
   conclusion: string,
   answerText: string,
   language: TmwLocalizedLanguage,
 ): string {
-  const defaultEnding = language === "hi"
-    ? `${answerText} में पूरा होगा।`
-    : `${answerText} ਵਿੱਚ ਪੂਰਾ ਹੋਵੇਗਾ।`;
-  if (!conclusion.endsWith(defaultEnding)) return conclusion;
+  if (source.solution.answerType !== "TIME") return conclusion;
+  const uninflectedPostposition = language === "hi"
+    ? `${answerText} में`
+    : `${answerText} ਵਿੱਚ`;
+  if (!conclusion.includes(uninflectedPostposition)) return conclusion;
   return language === "hi"
     ? `अतः काम पूरा होने का कुल समय ${answerText} है।`
     : `ਇਸ ਲਈ ਕੰਮ ਪੂਰਾ ਹੋਣ ਦਾ ਕੁੱਲ ਸਮਾਂ ${answerText} ਹੈ।`;
@@ -50,7 +52,8 @@ export function localizeTmwCp005Question(
   const stem = renderTmwCp005LocalizedStem(source, language);
   const opening = tmwCp005LocalizedOpening(entry.ruleId, language);
   const trapExplanation = tmwCp005LocalizedTrapReason(trapId, language);
-  const conclusion = polishDefaultTimeConclusion(
+  const conclusion = polishTimeConclusion(
+    source,
     tmwCp005LocalizedConclusion(source, answerText, language),
     answerText,
     language,
