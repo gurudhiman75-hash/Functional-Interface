@@ -16,7 +16,11 @@ import { rationalKey } from "./rational";
 import { polishTmwEnglishQuestionForManualReview } from "./english-manual-polish";
 import { localizeTmwCp005Question } from "./localization-cp005";
 import type { Rational } from "./types";
-import type { TmwLocalizedLanguage, TmwLocalizedQuestion } from "./localization-types";
+import type {
+  TmwLocalizedLanguage,
+  TmwLocalizedQuestion,
+  TmwLocalizedValue,
+} from "./localization-types";
 import type { TmwCp005GeneratedQuestion, TmwCp005Parameters } from "./cp005-types";
 
 function key(value: Rational | undefined): string {
@@ -127,11 +131,11 @@ function buildEnglishQuestion(input: { questionLanguageId: string; seed: string 
   return polishTmwEnglishQuestionForManualReview(raw) as TmwCp005GeneratedQuestion;
 }
 
-export function runTmwCp005Pipeline(input: { questionLanguageId: string; seed: string; language: TmwLocalizedLanguage }): TmwLocalizedQuestion;
+export function runTmwCp005Pipeline(input: { questionLanguageId: string; seed: string; language: TmwLocalizedLanguage }): TmwLocalizedQuestion<TmwLocalizedValue>;
 export function runTmwCp005Pipeline(input: { questionLanguageId: string; seed: string; language?: "en" }): TmwCp005GeneratedQuestion;
 export function runTmwCp005Pipeline(
   input: { questionLanguageId: string; seed: string; language?: "en" | TmwLocalizedLanguage },
-): TmwCp005GeneratedQuestion | TmwLocalizedQuestion {
+): TmwCp005GeneratedQuestion | TmwLocalizedQuestion<TmwLocalizedValue> {
   const english = buildEnglishQuestion(input);
   if (!input.language || input.language === "en") return english;
   return localizeTmwCp005Question(english, input.language);
