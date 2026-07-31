@@ -5,6 +5,7 @@ import {
   cp004Actor,
   cp004Copy,
   cp004Job,
+  cp004MathValue,
   cp004Time,
   cp004WorkRate,
 } from "./localization-cp004-language";
@@ -53,15 +54,51 @@ export function inflectTmwCp004LocalizedQuestion(
   const A = cp004Actor(p, language, "actorA");
   const B = cp004Actor(p, language, "actorB");
   const assignment = cp004Job(p, language);
+  const answerValue = cp004MathValue(source.solution.answer);
   let stem = inflect(question.stem, language);
   let shortcutSteps = question.explanation.shortcut.steps.map((step) => inflect(step, language));
+  let trapExplanation = inflect(question.explanation.commonTrap.explanation, language);
+  let conclusion = inflect(question.explanation.conclusion, language);
 
   if (source.solveMode === "findRemainingWorkAfterInitialPhase") {
     shortcutSteps = [cp004Copy(
       language,
-      `पहले चरण का काम दर × समय से निकालकर 1 में से घटाएँ; ${question.solution.answerText} भाग शेष है।`,
-      `ਪਹਿਲੇ ਪੜਾਅ ਦਾ ਕੰਮ ਦਰ × ਸਮੇਂ ਨਾਲ ਕੱਢ ਕੇ 1 ਵਿੱਚੋਂ ਘਟਾਓ; ${question.solution.answerText} ਹਿੱਸਾ ਬਾਕੀ ਹੈ।`,
+      `पहले चरण का काम दर × समय से निकालकर 1 में से घटाएँ; काम का ${answerValue} भाग शेष है।`,
+      `ਪਹਿਲੇ ਪੜਾਅ ਦਾ ਕੰਮ ਦਰ × ਸਮੇਂ ਨਾਲ ਕੱਢ ਕੇ 1 ਵਿੱਚੋਂ ਘਟਾਓ; ਕੰਮ ਦਾ ${answerValue} ਹਿੱਸਾ ਬਾਕੀ ਹੈ।`,
     )];
+    conclusion = cp004Copy(
+      language,
+      `अतः शुरुआती चरण के बाद काम का ${answerValue} भाग बाकी है।`,
+      `ਇਸ ਲਈ ਸ਼ੁਰੂਆਤੀ ਪੜਾਅ ਤੋਂ ਬਾਅਦ ਕੰਮ ਦਾ ${answerValue} ਹਿੱਸਾ ਬਾਕੀ ਹੈ।`,
+    );
+  }
+
+  if (source.solveMode === "findWorkCompletedBeforeEvent") {
+    shortcutSteps = [cp004Copy(
+      language,
+      `दोनों की संयुक्त दर को दिए समय से गुणा करने पर काम का ${answerValue} भाग पूरा हुआ।`,
+      `ਦੋਵਾਂ ਦੀ ਸਾਂਝੀ ਦਰ ਨੂੰ ਦਿੱਤੇ ਸਮੇਂ ਨਾਲ ਗੁਣਾ ਕਰਨ ਉੱਤੇ ਕੰਮ ਦਾ ${answerValue} ਹਿੱਸਾ ਪੂਰਾ ਹੋਇਆ।`,
+    )];
+    conclusion = cp004Copy(
+      language,
+      `अतः घटना तक काम का ${answerValue} भाग पूरा हो चुका है।`,
+      `ਇਸ ਲਈ ਘਟਨਾ ਤੱਕ ਕੰਮ ਦਾ ${answerValue} ਹਿੱਸਾ ਪੂਰਾ ਹੋ ਚੁੱਕਾ ਹੈ।`,
+    );
+  }
+
+  if (source.solveMode === "findTotalTimeWhenFirstAgentStartsThenSecondFinishes") {
+    stem = stem.replace(
+      cp004Copy(
+        language,
+        ` और शेष काम ${B} को सौंप देता है।`,
+        ` ਅਤੇ ਬਾਕੀ ਕੰਮ ${B} ਨੂੰ ਸੌਂਪ ਦਿੰਦਾ ਹੈ।`,
+      ),
+      cp004Copy(
+        language,
+        `। इसके बाद शेष काम ${B} को सौंप दिया जाता है।`,
+        `। ਇਸ ਤੋਂ ਬਾਅਦ ਬਾਕੀ ਕੰਮ ${B} ਨੂੰ ਸੌਂਪ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ।`,
+      ),
+    );
   }
 
   if (source.solveMode === "findJoinTimeFromFinalCompletion") {
@@ -69,12 +106,22 @@ export function inflectTmwCp004LocalizedQuestion(
       cp004Copy(language, `तो ${B} कितने समय बाद जुड़ा?`, `ਤਾਂ ${B} ਕਿੰਨੇ ਸਮੇਂ ਬਾਅਦ ਜੁੜਿਆ?`),
       cp004Copy(language, `तो ${B} की भागीदारी कितने समय बाद शुरू हुई?`, `ਤਾਂ ${B} ਦੀ ਭਾਗੀਦਾਰੀ ਕਿੰਨੇ ਸਮੇਂ ਬਾਅਦ ਸ਼ੁਰੂ ਹੋਈ?`),
     );
+    trapExplanation = cp004Copy(
+      language,
+      `यह कुल पूरा होने का समय है, जबकि प्रश्न ${B} की भागीदारी शुरू होने का समय पूछता है।`,
+      `ਇਹ ਕੁੱਲ ਪੂਰਾ ਹੋਣ ਦਾ ਸਮਾਂ ਹੈ, ਜਦਕਿ ਪ੍ਰਸ਼ਨ ${B} ਦੀ ਭਾਗੀਦਾਰੀ ਸ਼ੁਰੂ ਹੋਣ ਦਾ ਸਮਾਂ ਪੁੱਛਦਾ ਹੈ।`,
+    );
   }
 
   if (source.solveMode === "findLeaveTimeFromFinalCompletion") {
     stem = stem.replace(
       cp004Copy(language, `तो ${A} कितने समय बाद गया?`, `ਤਾਂ ${A} ਕਿੰਨੇ ਸਮੇਂ ਬਾਅਦ ਗਿਆ?`),
       cp004Copy(language, `तो ${A} की भागीदारी कितने समय बाद समाप्त हुई?`, `ਤਾਂ ${A} ਦੀ ਭਾਗੀਦਾਰੀ ਕਿੰਨੇ ਸਮੇਂ ਬਾਅਦ ਖਤਮ ਹੋਈ?`),
+    );
+    trapExplanation = cp004Copy(
+      language,
+      `यह कुल पूरा होने का समय है, जबकि प्रश्न ${A} की भागीदारी समाप्त होने का समय पूछता है।`,
+      `ਇਹ ਕੁੱਲ ਪੂਰਾ ਹੋਣ ਦਾ ਸਮਾਂ ਹੈ, ਜਦਕਿ ਪ੍ਰਸ਼ਨ ${A} ਦੀ ਭਾਗੀਦਾਰੀ ਖਤਮ ਹੋਣ ਦਾ ਸਮਾਂ ਪੁੱਛਦਾ ਹੈ।`,
     );
   }
 
@@ -128,9 +175,9 @@ export function inflectTmwCp004LocalizedQuestion(
       },
       commonTrap: {
         ...question.explanation.commonTrap,
-        explanation: inflect(question.explanation.commonTrap.explanation, language),
+        explanation: trapExplanation,
       },
-      conclusion: inflect(question.explanation.conclusion, language),
+      conclusion,
     },
   };
 }
