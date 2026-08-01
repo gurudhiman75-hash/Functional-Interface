@@ -24,7 +24,7 @@ export type SerCp006CanonicalAuthorityId =
 export type SerCp006TemporaryTemplateId = `SER-CP-006-TMP-${string}`;
 export type SerCp006TaskKind = "NEXT_TERM" | "MISSING_TERM" | "PREVIOUS_TERM" | "WRONG_TERM";
 export type SerCp006Difficulty = "EASY" | "MEDIUM" | "HARD";
-export type SerCp006AnswerSemantic = "LETTER_VALUE" | "WRONG_DISPLAYED_LETTER";
+export type SerCp006AnswerSemantic = "LETTER_VALUE" | "CORRECT_REPLACEMENT_LETTER";
 export type SerCp006OwnershipDisposition =
   | "PROVISIONAL_RETAIN_CP006"
   | "PROVISIONAL_MERGE_DIRECTION_VARIANTS"
@@ -91,7 +91,7 @@ export const SER_CP006_TEMPORARY_TEMPLATES: readonly SerCp006Template[] =
       temporaryTemplateId,
       sourceRuleId,
       taskKind,
-      answerSemantic: taskKind === "WRONG_TERM" ? "WRONG_DISPLAYED_LETTER" : "LETTER_VALUE",
+      answerSemantic: taskKind === "WRONG_TERM" ? "CORRECT_REPLACEMENT_LETTER" : "LETTER_VALUE",
       ...ownershipFor(sourceRuleId),
     };
   });
@@ -247,7 +247,7 @@ function stemFor(taskKind: SerCp006TaskKind, sequence: readonly (string | null)[
     case "NEXT_TERM": return `Which letter should come next in the series?\n${rendered}, ?`;
     case "MISSING_TERM": return `Which letter should replace the question mark in the series?\n${rendered}`;
     case "PREVIOUS_TERM": return `Which letter should come immediately before the given series?\n?, ${rendered}`;
-    case "WRONG_TERM": return `Which displayed letter is incorrectly placed in the series?\n${rendered}`;
+    case "WRONG_TERM": return `Which letter should replace the incorrectly placed term in the series?\n${rendered}`;
   }
 }
 
@@ -357,11 +357,11 @@ export function generateSerCp006Question(
   }
 
   const correctReplacement = canonicalSequence[targetIndex]!;
-  const correctAnswer = template.taskKind === "WRONG_TERM" ? corruptedValue! : correctReplacement;
+  const correctAnswer = correctReplacement;
   const correctIndex = (seed + templateIndex) % 4;
   const options = buildOptions(template.sourceRuleId, correctAnswer, correctReplacement, seed, correctIndex);
   const conclusion = template.taskKind === "WRONG_TERM"
-    ? `${correctAnswer} is the incorrectly displayed letter; it should be ${correctReplacement}.`
+    ? `${corruptedValue} is incorrectly displayed at the target position. It should be replaced by ${correctReplacement}.`
     : `Therefore, the required letter is ${correctAnswer}.`;
 
   return {
