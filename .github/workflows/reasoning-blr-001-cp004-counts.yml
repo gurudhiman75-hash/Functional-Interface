@@ -1,0 +1,118 @@
+name: Reasoning BLR-001 CP-004 Counts and Composition
+
+on:
+  push:
+    branches:
+      - feat/blr-001-cp004-counts-runtime
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-004/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/**"
+      - "artifacts/examtree/src/components/blood-relations/**"
+      - "artifacts/examtree/src/components/learning/LogicPlaybackRouter.tsx"
+      - "artifacts/examtree/src/pages/canonical-result.tsx"
+      - "artifacts/examtree/scripts/verify-family-tree-chunk.mjs"
+      - ".github/workflows/reasoning-blr-001-cp004-counts.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-004/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/**"
+      - "artifacts/examtree/src/components/blood-relations/**"
+      - "artifacts/examtree/src/components/learning/LogicPlaybackRouter.tsx"
+      - "artifacts/examtree/src/pages/canonical-result.tsx"
+      - "artifacts/examtree/scripts/verify-family-tree-chunk.mjs"
+      - ".github/workflows/reasoning-blr-001-cp004-counts.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blr-001-cp004-counts-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp004-counts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prove CP-003 frozen source bank
+        run: |
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-final-discovery-freeze.test.ts | tee cp003-source-freeze.log
+
+      - name: Prove CP-004 permanent runtime and independent verifier
+        run: |
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-004/cp004-runtime.test.ts | tee cp004-runtime.log
+
+      - name: Prove CP-004 final source and authority freeze
+        run: |
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-004/cp004-final-freeze.test.ts | tee cp004-final-freeze.log
+
+      - name: Export CP-004 final freeze review pack
+        run: |
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-004/export-cp004-final-freeze.ts cp004-final-freeze-output | tee cp004-export.log
+
+      - name: Verify CP-004 artifact contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=cp004-final-freeze-output
+          test -f "$OUT/blr-cp004-final-freeze-summary.json"
+          test -f "$OUT/blr-cp004-permanent-contracts.json"
+          test -f "$OUT/blr-cp004-final-freeze-records.jsonl"
+          test -f "$OUT/blr-cp004-final-freeze-records.csv"
+          test -f "$OUT/blr-cp004-final-freeze-review.html"
+          test -f "$OUT/BLR-CP-004-FINAL-DISCOVERY-FREEZE.md"
+          grep -q '"recordCount": 612' "$OUT/blr-cp004-final-freeze-summary.json"
+          grep -q '"groupCount": 102' "$OUT/blr-cp004-final-freeze-summary.json"
+          grep -q '"prototypeCount": 13' "$OUT/blr-cp004-final-freeze-summary.json"
+          grep -q '"permanentQlCount": 5' "$OUT/blr-cp004-final-freeze-summary.json"
+          grep -q '"permanentQlRange": "BLR-QL-013..BLR-QL-017"' "$OUT/blr-cp004-final-freeze-summary.json"
+          grep -q '"nextAvailableChapterQlId": "BLR-QL-018"' "$OUT/blr-cp004-final-freeze-summary.json"
+          test "$(wc -l < "$OUT/blr-cp004-final-freeze-records.jsonl")" -eq 612
+          grep -q '@media(max-width:640px)' "$OUT/blr-cp004-final-freeze-review.html"
+
+      - name: Install locked workspace dependencies
+        run: |
+          corepack enable
+          corepack pnpm install --frozen-lockfile
+
+      - name: Typecheck ExamTree integration
+        run: corepack pnpm --filter @workspace/examtree typecheck | tee examtree-typecheck.log
+
+      - name: Build ExamTree integration
+        run: corepack pnpm --filter @workspace/examtree build | tee examtree-build.log
+
+      - name: Verify lazy family-tree chunk
+        run: node artifacts/examtree/scripts/verify-family-tree-chunk.mjs | tee examtree-family-tree-chunk.log
+
+      - name: Upload CP-004 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp004-counts-final-freeze-logs
+          path: |
+            cp003-source-freeze.log
+            cp004-runtime.log
+            cp004-final-freeze.log
+            cp004-export.log
+            examtree-typecheck.log
+            examtree-build.log
+            examtree-family-tree-chunk.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload CP-004 final freeze pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp004-counts-final-freeze
+          path: cp004-final-freeze-output
+          if-no-files-found: error
+          retention-days: 30
