@@ -33,6 +33,7 @@ function cleanSurface(value: string): string {
       /,\s+find the ([^?]+)\?/giu,
       (_match, requested: string) => `, what is the ${requested}?`,
     )
+    .replace(/,\s+find\b/giu, "; then find")
     .replace(/\s+,/gu, ",")
     .replace(/\s+([?.!])/gu, "$1");
 }
