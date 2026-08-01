@@ -22,8 +22,9 @@ BLR-QL-017  SELECT_FAMILY_COMPOSITION_PROFILE
 - `cp004-final-freeze.ts` — source, merge/split, inverse and overlap audit;
 - `cp004-final-freeze.test.ts` — permanent freeze regression;
 - `export-cp004-final-freeze.ts` — review artifact exporter;
-- `BLR-CP-004-FINAL-DISCOVERY-FREEZE.md` — final checkpoint record.
+- `BLR-CP-004-FINAL-DISCOVERY-FREEZE.md` — final checkpoint record;
+- `../BLR-001-MANIFEST-AMENDMENT-CP004.md` — permanent sequential identity allocation.
 
-The next available Blood Relations identity is `BLR-QL-018`.
+The chapter index and open-discovery policy are synchronised through CP-004. The next available Blood Relations identity is `BLR-QL-018`, owned by no checkpoint until CP-005 completes exhaustive discovery.
 
 Question Studio, Question Bank, mock tests, localisation, public publication, production staging and merge remain disabled.
