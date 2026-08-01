@@ -44,7 +44,7 @@ const MAL_PACKAGE_DEFINITION = {
   packageId: "MAL-001",
   topic: "Arithmetic",
   subtopic: "Mixture & Alligation",
-  label: "Mixture & Alligation — Standard Blends",
+  label: "Mixture & Alligation",
   cpIds: MAL_001_QUESTION_STUDIO_CP_IDS,
   supportedLanguages: ["en"] as const,
 };
@@ -139,7 +139,9 @@ function packageCard(
     supportedLanguages: [...definition.supportedLanguages],
     enabled: true,
     runtimeMode: "RELEASED",
-    reviewStatus: average ? "APPROVED_MULTILINGUAL" : "APPROVED_EDITORIAL_ENGLISH",
+    reviewStatus: average
+      ? "APPROVED_MULTILINGUAL"
+      : "APPROVED_EDITORIAL_ENGLISH",
     questionBankStatus: "WRITABLE",
     testEligibility: "ELIGIBLE",
     publiclyPublishable: true,
@@ -264,8 +266,14 @@ async function generateAverageQuestion(
   request: QuestionStudioQuantV4GenerationRequest,
 ) {
   const language = (request.language ?? "en") as QuantV4Language;
-  if (!AVG_001_QUESTION_STUDIO_LANGUAGES.includes(language as "en" | "hi" | "pa")) {
-    throw new Error(`AVG-001 does not support Question Studio language ${language}.`);
+  if (
+    !AVG_001_QUESTION_STUDIO_LANGUAGES.includes(
+      language as "en" | "hi" | "pa",
+    )
+  ) {
+    throw new Error(
+      `AVG-001 does not support Question Studio language ${language}.`,
+    );
   }
 
   const count = Math.min(
@@ -280,7 +288,9 @@ async function generateAverageQuestion(
       explicitCp as Avg001QuestionStudioCpId,
     )
   ) {
-    throw new Error(`Unknown canonical problem '${explicitCp}' for package AVG-001`);
+    throw new Error(
+      `Unknown canonical problem '${explicitCp}' for package AVG-001`,
+    );
   }
 
   const batchSeed =
@@ -327,7 +337,10 @@ async function generateAverageQuestion(
       seed: batchSeed,
       timestamp: Date.now(),
       runtimeMode: "RELEASED",
-      reviewStatus: language === "en" ? "APPROVED_EDITORIAL_ENGLISH_V2" : "APPROVED_LOCALIZED",
+      reviewStatus:
+        language === "en"
+          ? "APPROVED_EDITORIAL_ENGLISH_V2"
+          : "APPROVED_LOCALIZED",
       questionBankStatus: "WRITABLE",
       testEligibility: "ELIGIBLE",
       publiclyPublishable: true,
@@ -339,12 +352,23 @@ async function generateAverageQuestion(
   };
 }
 
+function inferMalCpFromQl(value: unknown): Mal001QuestionStudioCpId | undefined {
+  const match = /^MAL-QL-(\d{3})$/u.exec(String(value ?? ""));
+  if (!match) return undefined;
+  const number = Number(match[1]);
+  if (number >= 1 && number <= 11) return "MAL-CP-001";
+  if (number >= 12 && number <= 28) return "MAL-CP-002";
+  return undefined;
+}
+
 async function generateMixtureAndAlligationQuestion(
   request: QuestionStudioQuantV4GenerationRequest,
 ) {
   const language = (request.language ?? "en") as QuantV4Language;
   if (language !== "en") {
-    throw new Error("MAL-001 supports English generation only in Question Studio.");
+    throw new Error(
+      "MAL-001 supports English generation only in Question Studio.",
+    );
   }
 
   const count = Math.min(
@@ -359,16 +383,23 @@ async function generateMixtureAndAlligationQuestion(
       explicitCp as Mal001QuestionStudioCpId,
     )
   ) {
-    throw new Error(`Unknown canonical problem '${explicitCp}' for package MAL-001`);
+    throw new Error(
+      `Unknown canonical problem '${explicitCp}' for package MAL-001`,
+    );
   }
 
-  const cpId = (explicitCp ??
-    MAL_001_QUESTION_STUDIO_CP_IDS[0]) as Mal001QuestionStudioCpId;
+  const inferredCp = inferMalCpFromQl(request.questionLanguageId);
+  const fixedCp = (explicitCp ?? inferredCp) as
+    | Mal001QuestionStudioCpId
+    | undefined;
   const batchSeed =
     request.seed ??
-    `quant-v4:MAL-001:${cpId}:${Date.now()}:${Math.random()
+    `quant-v4:MAL-001:${fixedCp ?? "mixed"}:${Date.now()}:${Math.random()
       .toString(36)
       .slice(2)}`;
+  const cpOffset =
+    seededHash(`${batchSeed}:cp-offset`) %
+    MAL_001_QUESTION_STUDIO_CP_IDS.length;
   const questionPackages = [];
   const questions = [];
 
@@ -376,6 +407,10 @@ async function generateMixtureAndAlligationQuestion(
     if (index > 0 && index % 100 === 0) {
       await new Promise((resolve) => setImmediate(resolve));
     }
+    const cpId = (fixedCp ??
+      MAL_001_QUESTION_STUDIO_CP_IDS[
+        (cpOffset + index) % MAL_001_QUESTION_STUDIO_CP_IDS.length
+      ]) as Mal001QuestionStudioCpId;
     const seed = `${batchSeed}:${cpId}:${index}`;
     const pkg = runMal001QuestionStudioPipeline(cpId, {
       difficulty,
@@ -393,17 +428,20 @@ async function generateMixtureAndAlligationQuestion(
     );
   }
 
+  const first = questionPackages[0] as any;
   return {
     generationContext: {
       generationDomain: "quant-v4",
       seed: batchSeed,
       timestamp: Date.now(),
       runtimeMode: "RELEASED",
-      reviewStatus: "APPROVED_EDITORIAL_ENGLISH",
+      reviewStatus: first?.reviewStatus ?? "APPROVED_EDITORIAL_ENGLISH",
       questionBankStatus: "WRITABLE",
       testEligibility: "ELIGIBLE",
       publiclyPublishable: true,
-      releaseId: "MAL-CP001-EN-v1",
+      releaseId: first?.traceability?.releaseId,
+      language: "en",
+      canonicalProblemId: fixedCp ?? "MIXED",
     },
     questionPackages,
     questions,
