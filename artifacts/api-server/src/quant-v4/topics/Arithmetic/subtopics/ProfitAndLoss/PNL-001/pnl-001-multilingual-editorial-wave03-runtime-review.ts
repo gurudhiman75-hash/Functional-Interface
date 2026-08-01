@@ -131,7 +131,7 @@ function csvCell(value: unknown): string {
 function unresolvedPlaceholders(value: string): readonly string[] {
   return [
     ...new Set(
-      [...value.matchAll(/\{([A-Za-z][A-Za-z0-9_]*)\}/g)].map(
+      [...value.matchAll(/\{([a-z][A-Za-z0-9_]*)\}/g)].map(
         (match) => match[1]!,
       ),
     ),
@@ -169,9 +169,6 @@ for (const runtime of runtimes) {
     generatedQlIds.add(qlId);
 
     if (!runtimePackage.validation.valid) runtimeValidationFailures += 1;
-    if (!/[0-9]/.test(runtimePackage.explanation.lines.join("\n"))) {
-      rowsWithNumericRuntimeEvidence -= 2;
-    }
 
     for (const language of LANGUAGES) {
       const library = libraryByKey.get(`${runtime.cpId}:${language}`);
@@ -195,13 +192,14 @@ for (const runtime of runtimes) {
         `${renderedStem}\n${renderedExplanation}`,
       );
       const mathJaxBlocks = mathJaxBlockCount(renderedExplanation);
+      const hasNumericRuntimeEvidence = /[0-9]/.test(
+        runtimePackage.explanation.lines.join("\n"),
+      );
 
       rowNumber += 1;
       if (unresolved.length > 0) unresolvedNativePlaceholderRows += 1;
       if (mathJaxBlocks > 0) rowsWithNativeMathJax += 1;
-      if (/[0-9]/.test(runtimePackage.explanation.lines.join("\n"))) {
-        rowsWithNumericRuntimeEvidence += 1;
-      }
+      if (hasNumericRuntimeEvidence) rowsWithNumericRuntimeEvidence += 1;
 
       rows.push({
         rowNumber,
