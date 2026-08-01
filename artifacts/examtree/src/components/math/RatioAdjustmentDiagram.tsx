@@ -55,6 +55,27 @@ function shorten(value: string, max = 24) {
   return value.length <= max ? value : `${value.slice(0, max - 1)}…`;
 }
 
+function wrapWords(value: string, max = 25, maxLines = 3): string[] {
+  const words = value.trim().split(/\s+/u);
+  const lines: string[] = [];
+  let current = "";
+  for (const word of words) {
+    const next = current ? `${current} ${word}` : word;
+    if (next.length <= max || current.length === 0) {
+      current = next;
+      continue;
+    }
+    lines.push(current);
+    current = word;
+    if (lines.length === maxLines - 1) break;
+  }
+  if (current && lines.length < maxLines) lines.push(current);
+  if (lines.length === maxLines && words.join(" ").length > lines.join(" ").length) {
+    lines[maxLines - 1] = shorten(lines[maxLines - 1]!, max);
+  }
+  return lines;
+}
+
 function CompositionPanel({
   x,
   title,
@@ -140,6 +161,7 @@ export function RatioAdjustmentDiagram({
   const titleId = `${id}-title`;
   const descriptionId = `${id}-description`;
   const description = `${diagram.title}. Before ratio ${diagram.beforeRatio}. ${diagram.operation}. After ratio ${diagram.afterRatio}. ${diagram.note}`;
+  const operationLines = wrapWords(diagram.operation);
 
   return (
     <figure
@@ -208,17 +230,28 @@ export function RatioAdjustmentDiagram({
         />
         <text
           x="380"
-          y="130"
+          y="128"
           textAnchor="middle"
           className="fill-muted-foreground text-[11px] font-semibold"
         >
           OPERATION
         </text>
-        <foreignObject x="294" y="138" width="172" height="58">
-          <div className="flex h-full items-center justify-center text-center text-xs font-semibold leading-snug text-foreground">
-            {diagram.operation}
-          </div>
-        </foreignObject>
+        <text
+          x="380"
+          y="151"
+          textAnchor="middle"
+          className="fill-foreground text-[11px] font-semibold"
+        >
+          {operationLines.map((line, index) => (
+            <tspan
+              key={`${line}-${index}`}
+              x="380"
+              dy={index === 0 ? 0 : 17}
+            >
+              {line}
+            </tspan>
+          ))}
+        </text>
 
         {diagram.targetRatio ? (
           <g>
