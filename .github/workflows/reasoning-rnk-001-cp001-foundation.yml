@@ -10,7 +10,7 @@ on:
 jobs:
   cp001-foundation:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 40
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -55,6 +55,12 @@ jobs:
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-provisional-authority-runtime.test.ts
           rnk-cp001-authority-review-output
 
+      - name: Enforce final source and gap audit
+        run: >-
+          npx --yes tsx
+          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-final-source-gap.test.ts
+          rnk-cp001-final-source-gap-output
+
       - name: Upload RNK-CP-001 discovery evidence
         uses: actions/upload-artifact@v4
         with:
@@ -65,4 +71,5 @@ jobs:
             rnk-cp001-final-inverse-output
             rnk-cp001-consolidation-output
             rnk-cp001-authority-review-output
+            rnk-cp001-final-source-gap-output
           retention-days: 14
