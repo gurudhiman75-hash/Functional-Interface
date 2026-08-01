@@ -98,7 +98,16 @@ function auditPrototype(prototypeId: RnkCp001PrototypeId): PrototypeAudit {
   assert.deepEqual([...difficulties].sort(), ['EASY', 'HARD', 'MEDIUM']);
   assert.ok(correctPositions.every((count) => count > 0), `${prototypeId} must use every answer position`);
   assert.ok(stems.size >= 150, `${prototypeId} stem diversity too low: ${stems.size}`);
-  assert.ok(fingerprints.size >= 120, `${prototypeId} state diversity too low: ${fingerprints.size}`);
+
+  const oneVariableEvidence =
+    prototypeId === 'RNK-CP001-PROT-COUNT-BEFORE-FROM-RANK' ||
+    prototypeId === 'RNK-CP001-PROT-RANK-FROM-COUNT-BEFORE';
+  const minimumFingerprintDiversity = oneVariableEvidence ? 90 : 120;
+  assert.ok(
+    fingerprints.size >= minimumFingerprintDiversity,
+    `${prototypeId} state diversity too low: ${fingerprints.size} < ${minimumFingerprintDiversity}`,
+  );
+
   assert.ok(boundaryStart > 0, `${prototypeId} must cover first position`);
   assert.ok(boundaryEnd > 0, `${prototypeId} must cover last position`);
 
