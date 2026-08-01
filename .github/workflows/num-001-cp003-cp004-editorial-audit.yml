@@ -33,11 +33,11 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/editorial/english-editorial-audit.test.ts \
             --bundle --platform=node --format=esm \
-            --outfile=artifacts/api-server/dist/quant-v4/number-system-generator-v3-audit.mjs
+            --outfile=dist/quant-v4/number-system-generator-v3-audit.mjs
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/editorial/number-system-question-studio-integration.test.ts \
             --bundle --platform=node --format=esm \
-            --outfile=artifacts/api-server/dist/quant-v4/number-system-question-studio-integration.mjs
+            --outfile=dist/quant-v4/number-system-question-studio-integration.mjs
 
       - name: Run generator contract audit
         working-directory: artifacts/api-server
