@@ -1,0 +1,76 @@
+name: Validate INT-CP-001 Question Studio pre-registration contract
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/**"
+      - ".github/workflows/int-cp001-question-studio-pre-registration.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-int-cp001-pre-registration:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle active staging regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-active-staging-v3-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-active-staging-v3-audit.mjs
+
+      - name: Run active staging regression
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp001-active-staging-v3-audit.mjs 2>&1 \
+            | tee dist/quant-v4/int-001-cp001-active-staging-v3-audit.log
+
+      - name: Bundle pre-registration contract audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp001-question-studio-pre-registration-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp001-question-studio-pre-registration-audit.mjs
+
+      - name: Run pre-registration contract audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp001-question-studio-pre-registration-audit.mjs 2>&1 \
+            | tee dist/quant-v4/int-001-cp001-question-studio-pre-registration-audit.log
+
+      - name: Verify evidence markers
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          grep -q 'PASS_INT_CP001_APPROVED_ACTIVE_STAGING_V3' \
+            artifacts/api-server/dist/quant-v4/int-001-cp001-active-staging-v3-audit.log
+          grep -q 'PASS_INT_CP001_QUESTION_STUDIO_PRE_REGISTRATION_CONTRACT' \
+            artifacts/api-server/dist/quant-v4/int-001-cp001-question-studio-pre-registration-audit.log
+
+      - name: Upload pre-registration evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp001-question-studio-pre-registration-contract
+          path: |
+            artifacts/api-server/dist/quant-v4/int-001-cp001-active-staging-v3-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp001-question-studio-pre-registration-audit.log
+          if-no-files-found: error
+          retention-days: 30
