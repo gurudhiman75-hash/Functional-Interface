@@ -11,7 +11,7 @@ import {
   applySerV3NaturalExplanation,
   auditSerV3NaturalExplanation,
   renderSerV3NaturalReview,
-} from "./ser-v3-natural-pedagogical";
+} from "./ser-v3-natural-authority";
 
 type Generator<T extends string> = (id: T, seed: number) => SerV3CompatibleQuestion;
 
@@ -22,6 +22,7 @@ let previous = 0;
 let wrong = 0;
 let lane = 0;
 let subset = 0;
+let wrapped = 0;
 
 function identity(question: SerV3CompatibleQuestion): string {
   return `${question.sourceRuleId ?? ""}|${question.canonicalAuthorityId ?? ""}`;
@@ -91,6 +92,13 @@ function runSuite<T extends string>(ids: readonly T[], generate: Generator<T>): 
         assert.match(derivation, /\\text\{vowel |\\text\{consonant /);
         assert.doesNotMatch(derivation, /forward shift is \$\+[0-9]+\$, so finding the earlier term/i);
       }
+      if (derivation.includes("Cyclic wrap arithmetic:")) {
+        wrapped += 1;
+        assert.match(
+          derivation,
+          /Cyclic wrap arithmetic: \$[A-Z]\(\d{1,2}\) \\xrightarrow\{[+-]\d+\} [A-Z]\(\d{1,2}\)\$ because \$-?\d+[+-]\d+=-?\d+\$ and \$-?\d+[+-]\d+=\d+\$\./,
+        );
+      }
 
       checkpointIds.add(question.checkpointId);
       taskKinds.add(question.taskKind);
@@ -108,7 +116,7 @@ runSuite(SER_CP006_TEMPORARY_TEMPLATE_IDS, generateSerCp006Question);
 
 assert.deepEqual([...checkpointIds].sort(), ["SER-CP-001", "SER-CP-002", "SER-CP-003", "SER-CP-004", "SER-CP-005", "SER-CP-006"]);
 assert.deepEqual([...taskKinds].sort(), ["MISSING_TERM", "NEXT_TERM", "PREVIOUS_TERM", "WRONG_TERM"]);
-assert.ok(previous > 0 && wrong > 0 && lane > 0 && subset > 0);
+assert.ok(previous > 0 && wrong > 0 && lane > 0 && subset > 0 && wrapped > 0);
 
 console.log(JSON.stringify({
   status: "PASS_SER_V3_NATURAL_ALL_CHECKPOINTS",
@@ -120,6 +128,7 @@ console.log(JSON.stringify({
   wrongQuestions: wrong,
   laneQuestions: lane,
   subsetQuestions: subset,
+  wrappedQuestions: wrapped,
   sourceQuestionMutations: 0,
   nextCheckpointStatus: "BLOCKED_UNTIL_CP006_USER_APPROVAL",
 }, null, 2));
