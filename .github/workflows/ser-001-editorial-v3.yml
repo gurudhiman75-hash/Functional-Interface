@@ -43,6 +43,10 @@ jobs:
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
+      - name: Validate conservative legacy patcher
+        run: |
+          python3 artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-EDITORIAL-V3/tools/test_patch_series_explanations.py
+
       - name: Bundle chapter-wide V3 audit
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
@@ -76,6 +80,10 @@ jobs:
           done
           cp artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-EDITORIAL-V3/SER-V3-NATURAL-EXPLANATION-BLUEPRINT.md \
             "$EVIDENCE/SER-V3-NATURAL-EXPLANATION-BLUEPRINT.md"
+          cp artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-EDITORIAL-V3/SER-V3-NATURAL-SYSTEM-PROMPT.md \
+            "$EVIDENCE/SER-V3-NATURAL-SYSTEM-PROMPT.md"
+          cp artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-EDITORIAL-V3/tools/patch_series_explanations.py \
+            "$EVIDENCE/patch_series_explanations.py"
 
       - name: Upload chapter-wide V3 evidence
         uses: actions/upload-artifact@v4
