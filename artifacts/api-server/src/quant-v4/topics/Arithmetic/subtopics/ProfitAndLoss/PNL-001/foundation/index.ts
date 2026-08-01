@@ -35,8 +35,13 @@ export * from "./editorial-v2-exam-stems";
 export * from "./editorial-v2-legacy-builder";
 export * from "./editorial-v2-legacy-normalized";
 export * from "./editorial-v2-multilingual-builder";
-export * from "./editorial-v2-multilingual-naturalness-wave02";
-export * from "./editorial-v2-multilingual-reconstruction-wave03";
+export {
+  buildAllNormalizedMultilingualEditorialLibraries as buildAllWave02MultilingualEditorialLibraries,
+} from "./editorial-v2-multilingual-naturalness-wave02";
+export {
+  buildAllWave03MultilingualEditorialLibraries,
+  buildAllWave03MultilingualEditorialLibraries as buildAllNormalizedMultilingualEditorialLibraries,
+} from "./editorial-v2-multilingual-reconstruction-wave03";
 export * from "./editorial-v2-localized-renderer";
 export * from "./editorial-v2-native-explanations";
 export * from "./editorial-v2-native-latex";
