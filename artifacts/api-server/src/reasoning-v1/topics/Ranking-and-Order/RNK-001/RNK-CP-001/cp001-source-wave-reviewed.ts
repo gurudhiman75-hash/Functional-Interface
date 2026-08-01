@@ -56,6 +56,10 @@ function lowerInitial(text: string): string {
   return `${text[0].toLowerCase()}${text.slice(1)}`;
 }
 
+function stripInternalMisconceptionTag(line: string): string {
+  return line.replace(/\s+\[[A-Z0-9_]+\]\s*$/, '');
+}
+
 function reviewedStem(question: RnkCp001SourceWaveQuestion): string {
   const evidence = question.displayedEvidence;
   if (evidence.kind !== 'TOTAL_FROM_BEFORE_AFTER_COUNTS') return question.stem;
@@ -68,13 +72,17 @@ function reviewedStem(question: RnkCp001SourceWaveQuestion): string {
 }
 
 function reviewedExplanation(question: RnkCp001SourceWaveQuestion): RnkCp001SourceWaveQuestion['explanation'] {
-  if (question.displayedEvidence.kind !== 'TOTAL_FROM_MIDDLE_RANK') return question.explanation;
+  const stepByStepSolution =
+    question.displayedEvidence.kind === 'TOTAL_FROM_MIDDLE_RANK'
+      ? question.explanation.stepByStepSolution.map((step) =>
+          step.replace(' x ', ' × ').replace(' - 1', ' − 1'),
+        )
+      : question.explanation.stepByStepSolution;
 
   return {
     ...question.explanation,
-    stepByStepSolution: question.explanation.stepByStepSolution.map((step) =>
-      step.replace(' x ', ' × ').replace(' - 1', ' − 1'),
-    ),
+    stepByStepSolution,
+    optionAnalysis: question.explanation.optionAnalysis.map(stripInternalMisconceptionTag),
   };
 }
 
