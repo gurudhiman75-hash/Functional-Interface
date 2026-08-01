@@ -1,0 +1,171 @@
+name: Reasoning BLR-001 CP-003 V9 Topology Gap Wave 02
+
+on:
+  push:
+    branches:
+      - feat/blr-001-cp003-shared-family-runtime
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-02-foundation.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-02.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-02.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-02-independent-verifier.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-02-boundary-verifier.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-wave02-authority-audit.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-v9-topology-gap-wave-02.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/BLR-CP-003-V9-TOPOLOGY-GAP-WAVE-02.md"
+      - ".github/workflows/reasoning-blr-001-cp003-v9-topology-gap-wave-02.yml"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-02-foundation.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-02.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-02.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-02-independent-verifier.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-02-boundary-verifier.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-wave02-authority-audit.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-v9-topology-gap-wave-02.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/BLR-CP-003-V9-TOPOLOGY-GAP-WAVE-02.md"
+      - ".github/workflows/reasoning-blr-001-cp003-v9-topology-gap-wave-02.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blr-001-cp003-v9-topology-gap-wave-02-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-v9-topology-gap-wave-02:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run approved V9 Wave 01 boundary proof
+        id: wave01_approval
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-wave01-structural-staging-approved.test.ts > cp003-v9-wave01-approved.log 2>&1
+
+      - name: Run V9 Wave 02 topology proof
+        id: wave02
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-02.test.ts > cp003-v9-wave02.log 2>&1
+
+      - name: Run independent V9 Wave 02 graph verifier
+        id: independent
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-02-independent-verifier.test.ts > cp003-v9-wave02-independent.log 2>&1
+
+      - name: Run V9 Wave 02 spouse-boundary verifier
+        id: boundary
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-02-boundary-verifier.test.ts > cp003-v9-wave02-boundary.log 2>&1
+
+      - name: Export V9 Wave 02 review pack
+        id: export
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-v9-topology-gap-wave-02.ts cp003-v9-topology-gap-wave-02-output > cp003-v9-wave02-export.log 2>&1
+
+      - name: Verify V9 Wave 02 artifact contracts
+        id: artifact_contract
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=cp003-v9-topology-gap-wave-02-output
+          test -f "$OUT/blr-cp003-v9-wave02-summary.json"
+          test -f "$OUT/blr-cp003-v9-wave02-candidates.jsonl"
+          test -f "$OUT/blr-cp003-v9-wave02-candidates.csv"
+          test -f "$OUT/blr-cp003-v9-wave02-candidates.md"
+          test -f "$OUT/blr-cp003-v9-wave02-candidates.html"
+          test -f "$OUT/blr-cp003-v9-wave02-coverage-matrix.md"
+          grep -q '"candidateRecords": 72' "$OUT/blr-cp003-v9-wave02-summary.json"
+          grep -q '"records": 298' "$OUT/blr-cp003-v9-wave02-summary.json"
+          grep -q '"passageGroups": 102' "$OUT/blr-cp003-v9-wave02-summary.json"
+          grep -q '"topologyCount": 9' "$OUT/blr-cp003-v9-wave02-summary.json"
+          grep -q '"prototypeCount": 29' "$OUT/blr-cp003-v9-wave02-summary.json"
+          grep -q '"humanReviewApproved": false' "$OUT/blr-cp003-v9-wave02-summary.json"
+          grep -q '"finalDiscoveryFreezeAllowed": false' "$OUT/blr-cp003-v9-wave02-summary.json"
+          grep -q 'min-width:0' "$OUT/blr-cp003-v9-wave02-candidates.html"
+          grep -q '@media(max-width:640px)' "$OUT/blr-cp003-v9-wave02-candidates.html"
+          if grep -q 'min-width:720px' "$OUT/blr-cp003-v9-wave02-candidates.html"; then
+            echo "Legacy fixed SVG width remains in V9 Wave 02 HTML."
+            exit 1
+          fi
+
+      - name: Re-run historical final-freeze boundary
+        id: freeze_boundary
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-final-freeze-readiness.test.ts > cp003-v9-wave02-freeze-boundary.log 2>&1
+
+      - name: Upload V9 Wave 02 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp003-v9-topology-gap-wave-02-logs
+          path: |
+            cp003-v9-wave01-approved.log
+            cp003-v9-wave02.log
+            cp003-v9-wave02-independent.log
+            cp003-v9-wave02-boundary.log
+            cp003-v9-wave02-export.log
+            cp003-v9-wave02-freeze-boundary.log
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload V9 Wave 02 review pack
+        if: steps.export.outcome == 'success' && steps.artifact_contract.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp003-v9-topology-gap-wave-02
+          path: cp003-v9-topology-gap-wave-02-output
+          if-no-files-found: error
+          retention-days: 21
+
+      - name: Enforce approved V9 Wave 01 result
+        if: steps.wave01_approval.outcome == 'failure'
+        run: |
+          cat cp003-v9-wave01-approved.log
+          exit 1
+
+      - name: Enforce V9 Wave 02 topology result
+        if: steps.wave02.outcome == 'failure'
+        run: |
+          cat cp003-v9-wave02.log
+          exit 1
+
+      - name: Enforce independent V9 Wave 02 result
+        if: steps.independent.outcome == 'failure'
+        run: |
+          cat cp003-v9-wave02-independent.log
+          exit 1
+
+      - name: Enforce V9 Wave 02 boundary result
+        if: steps.boundary.outcome == 'failure'
+        run: |
+          cat cp003-v9-wave02-boundary.log
+          exit 1
+
+      - name: Enforce V9 Wave 02 export
+        if: steps.export.outcome == 'failure'
+        run: |
+          cat cp003-v9-wave02-export.log
+          exit 1
+
+      - name: Enforce V9 Wave 02 artifact contract
+        if: steps.artifact_contract.outcome == 'failure'
+        run: exit 1
+
+      - name: Enforce freeze-boundary regression
+        if: steps.freeze_boundary.outcome == 'failure'
+        run: |
+          cat cp003-v9-wave02-freeze-boundary.log
+          exit 1
