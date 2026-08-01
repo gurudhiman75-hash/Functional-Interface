@@ -1,0 +1,48 @@
+name: Validate CLS-001 English Editorial Approval
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/**"
+      - ".github/workflows/cls-001-english-editorial-approval.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-english-editorial-approval:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle approval guard
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001
+          OUT=dist/reasoning-v1/cls-001/english-editorial-approval
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/english-editorial-approval.test.ts" \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile="$OUT/english-editorial-approval.test.mjs"
+
+      - name: Run approval and lifecycle guard
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/cls-001/english-editorial-approval/english-editorial-approval.test.mjs
