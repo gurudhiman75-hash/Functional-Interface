@@ -29,7 +29,7 @@ import {
   applySerV3NaturalExplanation,
   auditSerV3NaturalExplanation,
   renderSerV3NaturalReview,
-} from "./ser-v3-natural";
+} from "./ser-v3-natural-pedagogical";
 
 const checkpoints = new Set<string>();
 const tasks = new Set<string>();
@@ -37,8 +37,19 @@ let generated = 0;
 let previousQuestions = 0;
 let wrongQuestions = 0;
 let alphabeticQuestions = 0;
+let laneQuestions = 0;
+let subsetQuestions = 0;
 
 type Generator<TId extends string> = (id: TId, seed: number) => SerV3CompatibleQuestion;
+
+function isLaneQuestion(question: SerV3CompatibleQuestion): boolean {
+  const identity = `${question.sourceRuleId ?? ""}|${question.canonicalAuthorityId ?? ""}`;
+  return /INTERLEAVED|ALTERNATING_ADDITIVE_STEPS|ALTERNATING_MULTIPLICATIVE_RATIOS|ALTERNATING_SHIFT_PAIR/.test(identity);
+}
+
+function isSubsetQuestion(question: SerV3CompatibleQuestion): boolean {
+  return /VOWEL|CONSONANT/.test(question.sourceRuleId ?? "");
+}
 
 function auditSuite<TId extends string>(
   checkpointId: string,
@@ -87,16 +98,30 @@ function auditSuite<TId extends string>(
       if (question.taskKind === "PREVIOUS_TERM") {
         previousQuestions += 1;
         assert.ok(enhanced.explanationV3.answerRevealStep >= 3);
-        assert.match(enhanced.explanationV3.derivation[1]!, /inverse/i);
+        assert.match(enhanced.explanationV3.derivation[1]!, /inverse|reverse/i);
+        assert.equal(enhanced.explanationV3.examSpeedShortcut.includes("Q=17"), false);
       }
       if (question.taskKind === "WRONG_TERM") {
         wrongQuestions += 1;
-        assert.match(enhanced.explanationV3.derivation[0]!, /^First build the progression/);
+        assert.match(enhanced.explanationV3.derivation[0]!, /^First (build|separate|construct)/);
         assert.ok(enhanced.explanationV3.derivation.join(" ").includes(String(question.hiddenState.correctReplacement)));
       }
       if (question.checkpointId === "SER-CP-006") {
         alphabeticQuestions += 1;
         assert.match(enhanced.explanationV3.corePattern + enhanced.explanationV3.derivation.join(" "), /A=1|[A-Z]\(\d{1,2}\)/);
+      }
+      if (isLaneQuestion(question)) {
+        laneQuestions += 1;
+        const derivation = enhanced.explanationV3.derivation.join(" ");
+        assert.ok(derivation.includes("Lane 1"));
+        assert.ok(derivation.includes("Lane 2"));
+        assert.match(derivation, /same lane|same-lane|target lane/i);
+      }
+      if (isSubsetQuestion(question)) {
+        subsetQuestions += 1;
+        const derivation = enhanced.explanationV3.derivation.join(" ");
+        assert.match(derivation, /vowel steps|consonant steps/);
+        assert.match(derivation, /\\text\{vowel |\\text\{consonant /);
       }
 
       checkpoints.add(question.checkpointId);
@@ -125,6 +150,8 @@ assert.deepEqual([...tasks].sort(), ["MISSING_TERM", "NEXT_TERM", "PREVIOUS_TERM
 assert.ok(previousQuestions > 0);
 assert.ok(wrongQuestions > 0);
 assert.ok(alphabeticQuestions > 0);
+assert.ok(laneQuestions > 0);
+assert.ok(subsetQuestions > 0);
 
 console.log(JSON.stringify({
   status: "PASS_SER_V3_NATURAL_ALL_CHECKPOINTS",
@@ -135,6 +162,8 @@ console.log(JSON.stringify({
   previousQuestions,
   wrongQuestions,
   alphabeticQuestions,
+  laneQuestions,
+  subsetQuestions,
   sourceQuestionMutations: 0,
   nextCheckpointStatus: "BLOCKED_UNTIL_CP006_USER_APPROVAL",
 }, null, 2));
