@@ -10,8 +10,10 @@ import {
   MAL_CP002_PERMANENT_ALLOCATION,
   type MalCp002PermanentQlId,
 } from "./foundation/cp002-permanent-runtime";
-import type { MalCp002EditorialRemediationV2Question } from "./foundation/cp002-editorial-remediation-v2";
-import { runMalCp002EnglishEditorialRemediationV2Pipeline } from "./foundation/cp002-editorial-remediation-v2-pipeline";
+import {
+  runMalCp002EnglishFinalEditorialV2Pipeline,
+  type MalCp002FinalEditorialV2Question,
+} from "./foundation/cp002-editorial-final-polish-v2";
 
 export const MAL_001_QUESTION_STUDIO_CP_IDS = [
   "MAL-CP-001",
@@ -27,7 +29,7 @@ export type Mal001QuestionStudioQlId =
 
 export type Mal001QuestionStudioQuestion =
   | MalCp001ReleasedQuestion
-  | MalCp002EditorialRemediationV2Question;
+  | MalCp002FinalEditorialV2Question;
 
 type Difficulty = "Easy" | "Medium" | "Hard";
 
@@ -124,7 +126,7 @@ export function runMal001QuestionStudioPipeline(
     questionLanguageId = entries[hash(seed) % entries.length]!.qlId;
   }
 
-  return runMalCp002EnglishEditorialRemediationV2Pipeline({
+  return runMalCp002EnglishFinalEditorialV2Pipeline({
     questionLanguageId,
     seed: input.seed,
     language: "en",
