@@ -1,19 +1,19 @@
 import {
   SER_CP001_TEMPORARY_TEMPLATE_IDS,
   generateSerCp001Question,
-  renderSerCp001Review,
 } from "./foundation";
+import { renderSerV3NaturalReview } from "../SER-EDITORIAL-V3/ser-v3-natural";
 
 const samplesPerTemplate = 8;
 const sections: string[] = [
-  "# SER-001 / SER-CP-001 — Open English Discovery Review",
+  "# SER-001 / SER-CP-001 — Natural English Review V3",
   "",
-  "This pack contains exact deterministic runtime output for the temporary additive-sequence templates.",
+  "This pack contains exact deterministic runtime questions rendered through the chapter-wide SER-V3-NATURAL explanation standard.",
   "",
   "- Permanent QLs: 0",
   "- Temporary templates: 4",
   "- Candidate solve authorities: 1",
-  "- Maturity: OPEN_EXECUTABLE_DISCOVERY",
+  "- Explanation standard: SER-V3-NATURAL",
   "- Product exposure: disabled",
   "",
 ];
@@ -21,7 +21,7 @@ const sections: string[] = [
 for (const temporaryTemplateId of SER_CP001_TEMPORARY_TEMPLATE_IDS) {
   for (let seed = 1; seed <= samplesPerTemplate; seed += 1) {
     sections.push(
-      renderSerCp001Review(
+      renderSerV3NaturalReview(
         generateSerCp001Question(temporaryTemplateId, seed),
       ),
       "",
