@@ -195,4 +195,4 @@ export function buildBlrCp003SvgFamilyTree(
   };
 }
 
-export { renderBlrCp003SvgFamilyTreeMarkup } from "./cp003-svg-family-tree-markup-v3";
+export { renderBlrCp003SvgFamilyTreeMarkup } from "./cp003-svg-family-tree-markup-v4";
