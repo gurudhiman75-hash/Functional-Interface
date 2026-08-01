@@ -47,9 +47,13 @@ export function finalizeTmwCp008FinalStem(
   let output = finalizeTmwCp008FinalText(stem, language);
   if (source.solveMode === "findResidualPayment") {
     if (language === "hi") {
-      return output.replace(/के लिए कुल (₹[^।\s]+) निर्धारित हैं।/, "के लिए कुल राशि $1 निर्धारित है।");
+      return output
+        .replace(/^.*?के लिए कुल राशि (₹[^।\s]+) निर्धारित है।\s*/, "कुल राशि $1 निर्धारित है। ")
+        .replace(/^.*?के लिए कुल (₹[^।\s]+) निर्धारित हैं।\s*/, "कुल राशि $1 निर्धारित है। ");
     }
-    return output.replace(/ਲਈ ਕੁੱਲ (₹[^।\s]+) ਨਿਰਧਾਰਤ ਹਨ।/, "ਲਈ ਕੁੱਲ ਰਕਮ $1 ਨਿਰਧਾਰਤ ਹੈ।");
+    return output
+      .replace(/^.*?ਲਈ ਕੁੱਲ ਰਕਮ (₹[^।\s]+) ਨਿਰਧਾਰਤ ਹੈ।\s*/, "ਕੁੱਲ ਰਕਮ $1 ਨਿਰਧਾਰਤ ਹੈ। ")
+      .replace(/^.*?ਲਈ ਕੁੱਲ (₹[^।\s]+) ਨਿਰਧਾਰਤ ਹਨ।\s*/, "ਕੁੱਲ ਰਕਮ $1 ਨਿਰਧਾਰਤ ਹੈ। ");
   }
   if (language === "pa" && source.solveMode === "findMissingTimeFromPayment") {
     output = output
