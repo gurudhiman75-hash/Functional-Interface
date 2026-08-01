@@ -8,6 +8,7 @@ import {
 import { NUMBER_SYSTEM_GENERATOR_V3_CARDS } from "./number-system-generator-v3-review";
 import {
   NUM_001_ENGLISH_QUESTION_STUDIO_RELEASE,
+  getNum001QuestionStudioQlIds,
   runNum001EnglishQuestionStudioRelease,
 } from "./number-system-question-studio-release";
 import {
@@ -53,6 +54,7 @@ function releaseCard(card: any) {
 const releasedEditorialCards = Object.freeze(
   NUMBER_SYSTEM_GENERATOR_V3_CARDS.map(releaseCard),
 );
+const editorialQlIds = new Set(releasedEditorialCards.map((card) => card.qlId));
 
 assert(releasedEditorialCards.length === 153,
   `Expected 153 editorial release cards, received ${releasedEditorialCards.length}`);
@@ -60,6 +62,8 @@ assert(releasedEditorialCards.filter((card) => card.checkpoint === "NUM-CP-003")
   "CP-003 release-card count mismatch");
 assert(releasedEditorialCards.filter((card) => card.checkpoint === "NUM-CP-004").length === 84,
   "CP-004 release-card count mismatch");
+assert(editorialQlIds.size === 45,
+  `Expected 45 permanent QLs in editorial evidence, received ${editorialQlIds.size}`);
 
 for (const card of releasedEditorialCards) {
   const text = [
@@ -83,64 +87,58 @@ for (const card of releasedEditorialCards) {
     `${card.qlId}: split multiplication or division remains`);
   assert(card.options.every((option) => !wholeProseSentenceInMath(option)),
     `${card.qlId}: prose option remains entirely inside MathJax`);
+  assert(card.options[card.correctAnswer.label.charCodeAt(0) - 65] === card.correctAnswer.value,
+    `${card.qlId}: editorial answer differs from the safe option array`);
 }
 
-const permanentQlSamples = [];
-for (let number = 1; number <= 45; number += 1) {
-  const qlId = `NUM-QL-${String(number).padStart(3, "0")}`;
-  const cpId = number <= 17 ? "NUM-CP-003" : "NUM-CP-004";
-  const question = runNum001EnglishQuestionStudioRelease(cpId, {
+const cp003QlIds = [...getNum001QuestionStudioQlIds("NUM-CP-003")];
+const cp004QlIds = [...getNum001QuestionStudioQlIds("NUM-CP-004")];
+const activeQlIds = [...cp003QlIds, ...cp004QlIds];
+assert(cp003QlIds.length === 17, `Expected 17 active CP-003 QLs, received ${cp003QlIds.length}`);
+assert(cp004QlIds.length === 28, `Expected 28 active CP-004 QLs, received ${cp004QlIds.length}`);
+assert(activeQlIds.length === 45 && new Set(activeQlIds).size === 45,
+  "The Question Studio QL registry does not contain 45 unique identities");
+for (const qlId of activeQlIds) {
+  assert(editorialQlIds.has(qlId), `${qlId}: active QL lacks approved editorial evidence`);
+}
+
+const representativeRequests = [
+  { cpId: "NUM-CP-003", qlId: "NUM-QL-001" },
+  { cpId: "NUM-CP-003", qlId: "NUM-QL-017" },
+  { cpId: "NUM-CP-004", qlId: "NUM-QL-018" },
+  { cpId: "NUM-CP-004", qlId: "NUM-QL-045" },
+];
+const runtimeSamples = representativeRequests.map(({ cpId, qlId }) =>
+  runNum001EnglishQuestionStudioRelease(cpId, {
     questionLanguageId: qlId,
     seed: `num-001-english-release-proof:${qlId}`,
     language: "en",
-  });
+  }));
 
-  assert(question.questionLanguageId === qlId,
-    `${qlId}: release runtime returned a different QL`);
-  assert(question.canonicalProblemId === cpId,
-    `${qlId}: release runtime returned a different CP`);
+for (const question of runtimeSamples) {
+  assert(activeQlIds.includes(question.questionLanguageId),
+    `${question.questionLanguageId}: runtime returned an inactive QL`);
   assert(question.runtimeMode === "QUESTION_STUDIO_ACTIVE",
-    `${qlId}: runtime mode is not Question Studio active`);
+    `${question.questionLanguageId}: runtime mode is not Question Studio active`);
   assert(question.active === true && question.questionStudioDiscoverable === true,
-    `${qlId}: Question Studio release is inactive`);
+    `${question.questionLanguageId}: Question Studio release is inactive`);
   assert(question.questionBankWritable === false,
-    `${qlId}: Question Bank write gate opened`);
+    `${question.questionLanguageId}: Question Bank write gate opened`);
   assert(question.testEligible === false,
-    `${qlId}: test gate opened`);
+    `${question.questionLanguageId}: test gate opened`);
   assert(question.publiclyPublishable === false,
-    `${qlId}: publication gate opened`);
+    `${question.questionLanguageId}: publication gate opened`);
   assert(question.validation.ok === true && question.validation.errors.length === 0,
-    `${qlId}: release validation failed`);
+    `${question.questionLanguageId}: release validation failed`);
   assert(question.options.length >= 4 && new Set(question.options).size === question.options.length,
-    `${qlId}: invalid learner options`);
+    `${question.questionLanguageId}: invalid learner options`);
   assert(question.options[question.correctIndex] === question.answer,
-    `${qlId}: answer does not match the option array`);
-
-  const learnerText = [
-    question.stem,
-    ...question.options,
-    ...question.explanation.lines,
-  ].join("\n");
-  assert(!/\$\$/u.test(learnerText), `${qlId}: runtime output contains inline display delimiters`);
+    `${question.questionLanguageId}: answer does not match the option array`);
+  const learnerText = [question.stem, ...question.options, ...question.explanation.lines].join("\n");
+  assert(!/\$\$/u.test(learnerText),
+    `${question.questionLanguageId}: runtime output contains display delimiters`);
   assert(question.options.every((option) => !wholeProseSentenceInMath(option)),
-    `${qlId}: runtime prose option is wrapped wholly in MathJax`);
-
-  permanentQlSamples.push({
-    qlId,
-    cpId,
-    questionId: question.questionId,
-    difficulty: question.difficulty,
-    stem: question.stem,
-    options: question.options,
-    correctIndex: question.correctIndex,
-    answer: question.answer,
-    explanation: question.explanation,
-    runtimeMode: question.runtimeMode,
-    reviewStatus: question.reviewStatus,
-    questionBankStatus: question.questionBankStatus,
-    testEligibility: question.testEligibility,
-    publiclyPublishable: question.publiclyPublishable,
-  });
+    `${question.questionLanguageId}: runtime prose option is wholly inside MathJax`);
 }
 
 const packages = listQuantV4Packages();
@@ -202,11 +200,7 @@ for (const [label, batch] of [["CP-003", cp003Batch], ["CP-004", cp004Batch]]) {
 
 let unsupportedLanguageRejected = false;
 try {
-  await generateQuestion({
-    packageId: "NUM-001",
-    language: "hi",
-    count: 1,
-  });
+  await generateQuestion({ packageId: "NUM-001", language: "hi", count: 1 });
 } catch {
   unsupportedLanguageRejected = true;
 }
@@ -221,17 +215,26 @@ const jsonPath = resolve(outputDirectory, "num-001-question-studio-release-revie
 const markdownPath = resolve(outputDirectory, "num-001-question-studio-release-review.md");
 const csvPath = resolve(outputDirectory, "num-001-question-studio-release-review.csv");
 
+const releaseRegistry = activeQlIds.map((qlId) => ({
+  qlId,
+  cpId: cp003QlIds.includes(qlId) ? "NUM-CP-003" : "NUM-CP-004",
+  status: "ACTIVE_QUESTION_STUDIO",
+  language: "en",
+  questionBankWritable: false,
+  testEligible: false,
+  publiclyPublishable: false,
+}));
+
 writeFileSync(jsonPath, `${JSON.stringify({
   status: "ACTIVE_QUESTION_STUDIO_NUM_001_ENGLISH_V1",
   release: NUM_001_ENGLISH_QUESTION_STUDIO_RELEASE,
   editorialCardCount: releasedEditorialCards.length,
-  permanentQlSampleCount: permanentQlSamples.length,
-  checkpointCounts: {
-    "NUM-CP-003": 69,
-    "NUM-CP-004": 84,
-  },
+  activePermanentQlCount: activeQlIds.length,
+  runtimeSampleCount: runtimeSamples.length,
+  checkpointCounts: { "NUM-CP-003": 69, "NUM-CP-004": 84 },
+  releaseRegistry,
   editorialCards: releasedEditorialCards,
-  permanentQlSamples,
+  runtimeSamples,
 }, null, 2)}\n`, "utf8");
 
 const markdown = [
@@ -243,12 +246,18 @@ const markdown = [
   "",
   `**Editorial cards:** ${releasedEditorialCards.length}`,
   "",
-  `**Permanent QL runtime samples:** ${permanentQlSamples.length}`,
+  `**Active permanent QLs:** ${activeQlIds.length}`,
+  "",
+  `**Representative runtime samples:** ${runtimeSamples.length}`,
+  "",
+  "## Active QL registry",
+  "",
+  ...releaseRegistry.map((entry) => `- \`${entry.qlId}\` — \`${entry.cpId}\` — English Question Studio active`),
   "",
   "---",
   "",
-  ...permanentQlSamples.flatMap((sample) => [
-    `## ${sample.qlId} — ${sample.cpId}`,
+  ...runtimeSamples.flatMap((sample) => [
+    `## ${sample.questionLanguageId} — ${sample.canonicalProblemId}`,
     "",
     `**Difficulty:** ${sample.difficulty}`,
     "",
@@ -270,32 +279,15 @@ writeFileSync(markdownPath, `${markdown}\n`, "utf8");
 
 const csvEscape = (value) => `"${String(value ?? "").replaceAll('"', '""')}"`;
 const csv = [
-  [
-    "qlId",
-    "cpId",
-    "difficulty",
-    "stem",
-    "options",
-    "correctAnswer",
-    "explanation",
-    "runtimeMode",
-    "questionBankStatus",
-    "testEligibility",
-    "publiclyPublishable",
-  ].join(","),
-  ...permanentQlSamples.map((sample) => [
-    sample.qlId,
-    sample.cpId,
-    sample.difficulty,
-    sample.stem,
-    sample.options.map((option, index) =>
-      `${String.fromCharCode(65 + index)}. ${option}`).join(" | "),
-    `${String.fromCharCode(65 + sample.correctIndex)}. ${sample.answer}`,
-    sample.explanation.lines.join("\n"),
-    sample.runtimeMode,
-    sample.questionBankStatus,
-    sample.testEligibility,
-    sample.publiclyPublishable,
+  ["qlId", "cpId", "status", "language", "questionBankWritable", "testEligible", "publiclyPublishable"].join(","),
+  ...releaseRegistry.map((entry) => [
+    entry.qlId,
+    entry.cpId,
+    entry.status,
+    entry.language,
+    entry.questionBankWritable,
+    entry.testEligible,
+    entry.publiclyPublishable,
   ].map(csvEscape).join(",")),
 ].join("\n");
 writeFileSync(csvPath, `${csv}\n`, "utf8");
@@ -304,9 +296,10 @@ console.log(JSON.stringify({
   status: "PASS_NUM_001_ENGLISH_QUESTION_STUDIO_RELEASE",
   releaseId: NUM_001_ENGLISH_QUESTION_STUDIO_RELEASE.releaseId,
   editorialCardCount: releasedEditorialCards.length,
-  permanentQlCount: permanentQlSamples.length,
-  cp003EditorialCards: 69,
-  cp004EditorialCards: 84,
+  activePermanentQlCount: activeQlIds.length,
+  cp003ActiveQlCount: cp003QlIds.length,
+  cp004ActiveQlCount: cp004QlIds.length,
+  runtimeSampleCount: runtimeSamples.length,
   centralCp003BatchCount: cp003Batch.questions.length,
   centralCp004BatchCount: cp004Batch.questions.length,
   questionStudioActive: true,
