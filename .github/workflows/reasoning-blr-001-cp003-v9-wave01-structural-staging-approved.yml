@@ -1,0 +1,97 @@
+name: Reasoning BLR-001 CP-003 V9 Wave 01 Structural Staging Approval
+
+on:
+  push:
+    branches:
+      - feat/blr-001-cp003-shared-family-runtime
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-wave01-structural-staging-approved.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-wave01-structural-staging-approved.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/BLR-CP-003-V9-WAVE01-STRUCTURAL-STAGING-APPROVAL.md"
+      - ".github/workflows/reasoning-blr-001-cp003-v9-wave01-structural-staging-approved.yml"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-wave01-structural-staging-approved.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-wave01-structural-staging-approved.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/BLR-CP-003-V9-WAVE01-STRUCTURAL-STAGING-APPROVAL.md"
+      - ".github/workflows/reasoning-blr-001-cp003-v9-wave01-structural-staging-approved.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blr-001-cp003-v9-wave01-structural-staging-approved-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-v9-wave01-structural-staging-approval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run reviewed V9 passage-evidence proof
+        id: reviewed_v9
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-01-reviewed.test.ts > cp003-v9-reviewed-source.log 2>&1
+
+      - name: Run independent V9 graph-closure verifier
+        id: independent_v9
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-topology-gap-wave-01-independent-verifier.test.ts > cp003-v9-independent-verifier.log 2>&1
+
+      - name: Run V9 structural-staging approval proof
+        id: approval
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-v9-wave01-structural-staging-approved.test.ts > cp003-v9-wave01-approval.log 2>&1
+
+      - name: Re-run historical final-freeze boundary
+        id: freeze_boundary
+        continue-on-error: true
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-final-freeze-readiness.test.ts > cp003-v9-wave01-approval-freeze-boundary.log 2>&1
+
+      - name: Upload approval diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp003-v9-wave01-structural-staging-approval-logs
+          path: |
+            cp003-v9-reviewed-source.log
+            cp003-v9-independent-verifier.log
+            cp003-v9-wave01-approval.log
+            cp003-v9-wave01-approval-freeze-boundary.log
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Enforce reviewed V9 result
+        if: steps.reviewed_v9.outcome == 'failure'
+        run: |
+          cat cp003-v9-reviewed-source.log
+          exit 1
+
+      - name: Enforce independent V9 result
+        if: steps.independent_v9.outcome == 'failure'
+        run: |
+          cat cp003-v9-independent-verifier.log
+          exit 1
+
+      - name: Enforce structural-staging approval result
+        if: steps.approval.outcome == 'failure'
+        run: |
+          cat cp003-v9-wave01-approval.log
+          exit 1
+
+      - name: Enforce freeze-boundary regression
+        if: steps.freeze_boundary.outcome == 'failure'
+        run: |
+          cat cp003-v9-wave01-approval-freeze-boundary.log
+          exit 1
