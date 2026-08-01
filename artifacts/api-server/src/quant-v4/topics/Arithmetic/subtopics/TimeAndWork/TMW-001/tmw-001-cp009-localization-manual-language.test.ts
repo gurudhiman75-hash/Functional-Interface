@@ -42,9 +42,9 @@ for (const entry of TMW_CP009_REGISTRY) {
       assert.equal(devanagariField, undefined, `${entry.qlId}:${language}: Devanagari leakage in ${devanagariField?.[0]}: ${devanagariField?.[1]}`);
       assert.equal(gurmukhiField, undefined, `${entry.qlId}:${language}: Gurmukhi leakage in ${gurmukhiField?.[0]}: ${gurmukhiField?.[1]}`);
       assert.equal(/भरने वाली पाइपें.*अकेले|ਭਰਨ ਵਾਲੀਆਂ ਪਾਈਪਾਂ.*ਇਕੱਲੀ/.test(prose), false, `${entry.qlId}:${language}: pipe agreement`);
-      assert.equal(/कितना समय लेंगी|पूरी खाली का समय|पूरी तरह खाली देती हैं|पूरी तरह खाली जाती है|पूरी तरह भर होने|पाइप अभिलेख|हस्ताक्षरित|परिमाण|पानी के स्तर के साथ क्या होगा/.test(prose), false, `${entry.qlId}:${language}: rejected Hindi phrasing`);
-      assert.equal(/ਪੂਰੀ ਖਾਲੀ ਦਾ ਸਮਾਂ|ਪੂਰੀ ਤਰ੍ਹਾਂ ਖਾਲੀ ਦਿੰਦੀਆਂ ਹਨ|ਪੂਰੀ ਤਰ੍ਹਾਂ ਖਾਲੀ ਜਾਂਦੀ ਹੈ|ਪੂਰੀ ਤਰ੍ਹਾਂ ਭਰ ਹੋਣ|ਪਾਈਪ ਰਿਕਾਰਡ|ਚਿੰਨ੍ਹਿਤ ਪੱਧਰ ਅਪਡੇਟ|ਪਰਿਮਾਣ|ਪਾਣੀ ਦੇ ਪੱਧਰ ਨਾਲ ਕੀ ਹੋਵੇਗਾ/.test(prose), false, `${entry.qlId}:${language}: rejected Punjabi phrasing`);
-      assert.equal(/रिसाव [A-Z] भी लगातार काम करती है|ਰਿਸਾਅ [A-Z] ਵੀ ਲਗਾਤਾਰ ਕੰਮ ਕਰਦੀ ਹੈ/.test(prose), false, `${entry.qlId}:${language}: leak agreement`);
+      assert.equal(/कितना समय लेंगी|पूरी खाली का समय|पूरी तरह खाली देती हैं|पूरी तरह खाली जाती है|पूरी तरह खाली जाएगी|पूरी तरह भर होने|टंकी पूरी भरने में|टंकी पूरी खाली होने में|पाइप अभिलेख|हस्ताक्षरित|परिमाण|पानी के स्तर के साथ क्या होगा|रिसाव [A-Z] अकेले|अज्ञात: रिसाव [A-Z] का अकेले काम/.test(prose), false, `${entry.qlId}:${language}: rejected Hindi phrasing`);
+      assert.equal(/ਪੂਰੀ ਖਾਲੀ ਦਾ ਸਮਾਂ|ਪੂਰੀ ਤਰ੍ਹਾਂ ਖਾਲੀ ਦਿੰਦੀਆਂ ਹਨ|ਪੂਰੀ ਤਰ੍ਹਾਂ ਖਾਲੀ ਜਾਂਦੀ ਹੈ|ਪੂਰੀ ਤਰ੍ਹਾਂ ਖਾਲੀ ਜਾਵੇਗੀ|ਪੂਰੀ ਤਰ੍ਹਾਂ ਭਰ ਹੋਣ|ਟੈਂਕੀ ਪੂਰੀ ਭਰਨ ਵਿੱਚ|ਟੈਂਕੀ ਪੂਰੀ ਖਾਲੀ ਹੋਣ ਵਿੱਚ|ਪਾਈਪ ਰਿਕਾਰਡ|ਚਿੰਨ੍ਹਿਤ ਪੱਧਰ ਅਪਡੇਟ|ਪਰਿਮਾਣ|ਪਾਣੀ ਦੇ ਪੱਧਰ ਨਾਲ ਕੀ ਹੋਵੇਗਾ|ਰਿਸਾਅ [A-Z] ਇਕੱਲੀ|ਅਣਜਾਣ: ਰਿਸਾਅ [A-Z] ਦਾ ਇਕੱਲੀ ਕੰਮ/.test(prose), false, `${entry.qlId}:${language}: rejected Punjabi phrasing`);
+      assert.equal(/रिसाव [A-Z] भी लगातार काम करती है|रिसाव [A-Z].*कितना समय लेगी|ਰਿਸਾਅ [A-Z] ਵੀ ਲਗਾਤਾਰ ਕੰਮ ਕਰਦੀ ਹੈ|ਰਿਸਾਅ [A-Z].*ਕਿੰਨਾ ਸਮਾਂ ਲਵੇਗੀ/.test(prose), false, `${entry.qlId}:${language}: leak agreement`);
       assert.equal(question.options.length, 4);
       assert.equal(new Set(question.options).size, 4);
       assert.equal(question.options[question.correctIndex], question.solution.answerText);
@@ -53,7 +53,7 @@ for (const entry of TMW_CP009_REGISTRY) {
       assert.equal(question.editorialStatus, "PENDING");
 
       if (entry.solveMode === "findFillTimeFromPositiveInlets") {
-        assert.match(question.stem, language === "hi" ? /कितना समय लगेगा\?$/ : /ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ\?$/);
+        assert.match(question.stem, language === "hi" ? /टंकी के पूरी तरह भरने में कितना समय लगेगा\?$/ : /ਟੈਂਕੀ ਦੇ ਪੂਰੀ ਤਰ੍ਹਾਂ ਭਰਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ\?$/);
       }
       if (entry.solveMode === "findEmptyTimeFromMixedPipes") {
         assert.match(question.explanation.givens[1], language === "hi" ? /पूरी तरह खाली होने/ : /ਪੂਰੀ ਤਰ੍ਹਾਂ ਖਾਲੀ ਹੋਣ/);
@@ -65,6 +65,10 @@ for (const entry of TMW_CP009_REGISTRY) {
             ? /पूरी तरह (?:भर जाती है|खाली हो जाती है)/
             : /ਪੂਰੀ ਤਰ੍ਹਾਂ (?:ਭਰ ਜਾਂਦੀ ਹੈ|ਖਾਲੀ ਹੋ ਜਾਂਦੀ ਹੈ)/,
         );
+        if (/रिसाव|ਰਿਸਾਅ/.test(question.stem)) {
+          assert.match(question.stem, language === "hi" ? /रिसाव [A-Z] अकेला.*कितना समय लेगा\?$/ : /ਰਿਸਾਅ [A-Z] ਇਕੱਲਾ.*ਕਿੰਨਾ ਸਮਾਂ ਲਵੇਗਾ\?$/);
+          assert.match(question.explanation.givens[1], language === "hi" ? /रिसाव [A-Z] द्वारा अकेले टंकी खाली/ : /ਰਿਸਾਅ [A-Z] ਨੂੰ ਇਕੱਲੇ ਟੈਂਕੀ ਖਾਲੀ/);
+        }
       }
       if (entry.solveMode === "findTimeFromInitialLevelToBoundary") {
         assert.match(
