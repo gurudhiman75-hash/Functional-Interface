@@ -67,7 +67,12 @@ for (const entry of TMW_CP009_REGISTRY) {
         );
       }
       if (entry.solveMode === "findTimeFromInitialLevelToBoundary") {
-        assert.match(question.stem, language === "hi" ? /पूरी तरह भरने में/ : /ਪੂਰੀ ਤਰ੍ਹਾਂ ਭਰਨ ਵਿੱਚ/);
+        assert.match(
+          question.stem,
+          language === "hi"
+            ? /पूरी तरह (?:भरने|खाली होने) में/
+            : /ਪੂਰੀ ਤਰ੍ਹਾਂ (?:ਭਰਨ|ਖਾਲੀ ਹੋਣ) ਵਿੱਚ/,
+        );
       }
       if (entry.solveMode === "findFinalLevelAfterGivenTime") {
         assert.match(question.explanation.shortcut.title, language === "hi" ? /चिह्न सहित स्तर परिवर्तन/ : /ਚਿੰਨ੍ਹ ਸਮੇਤ ਪੱਧਰ ਬਦਲਾਅ/);
