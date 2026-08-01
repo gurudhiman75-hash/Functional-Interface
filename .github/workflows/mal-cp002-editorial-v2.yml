@@ -6,8 +6,8 @@ on:
       - New-main
     types: [opened, reopened, synchronize]
     paths:
-      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp002-editorial-remediation-v2.ts
-      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp002-editorial-v2-audit.ts
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp002-editorial-**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp002-editorial-**
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-adapter.ts
       - .github/workflows/mal-cp002-editorial-v2.yml
   workflow_dispatch:
@@ -34,13 +34,13 @@ jobs:
         run: corepack enable
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
-      - name: Bundle editorial V2 audit
+      - name: Bundle final editorial surface audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp002-editorial-v2-audit.ts
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp002-editorial-surface-v2-audit.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/mal-001-cp002-editorial-v2-audit.mjs
-      - name: Run editorial V2 audit
+      - name: Run final editorial surface audit
         shell: bash
         run: |
           set -o pipefail
