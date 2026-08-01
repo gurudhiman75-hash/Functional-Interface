@@ -1,0 +1,101 @@
+name: Export MEN-CP-008 five-element review source
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-008/review/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-008/permanent/**
+      - .github/workflows/men-002-cp008-five-element-review-export.yml
+      - build-api.sh
+      - package.json
+      - pnpm-lock.yaml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: export-men-002-cp008-five-element-review-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  export-review-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle five-element review exporter
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-008/review/export-review-json.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/men-cp008-five-element-review-export.mjs
+
+      - name: Generate and validate source-backed review JSON
+        shell: bash
+        run: |
+          set -euo pipefail
+          node artifacts/api-server/dist/quant-v4/men-cp008-five-element-review-export.mjs
+          test -s dist/review/MEN-CP-008-English-Five-Element-Review-Source.json
+          node --input-type=module <<'NODE'
+          import { readFileSync } from 'node:fs';
+          const path = 'dist/review/MEN-CP-008-English-Five-Element-Review-Source.json';
+          const payload = JSON.parse(readFileSync(path, 'utf8'));
+          if (payload.meta.sourceAuthority !== 'New-main@7da74b436d47a3f34281130191c6be59cfcd3142') throw new Error('Wrong source authority.');
+          if (payload.meta.explanationBlueprint !== 'FIVE_ELEMENT_MENSURATION_V1') throw new Error('Wrong explanation blueprint.');
+          if (payload.meta.qlCount !== 52 || payload.meta.recordCount !== 156) throw new Error('Wrong review inventory.');
+          if (payload.meta.firstQlId !== 'MEN-002-QL-044' || payload.meta.lastQlId !== 'MEN-002-QL-095') throw new Error('Wrong QL range.');
+          if (!payload.records.every((record) => record.question.validation.valid && record.question.verification.valid)) throw new Error('Proof failure in exported record.');
+          if (!payload.records.every((record) => /^(Think|Picture)\b/.test(record.question.explanation.keyRule))) throw new Error('Visual-first hook missing.');
+          if (!payload.records.every((record) => record.question.explanation.keyRule.includes('Here,'))) throw new Error('Variable definitions missing.');
+          if (!payload.records.every((record) => record.question.explanation.steps.every((step) => step.body.includes('Unit check:')))) throw new Error('Unit-preserving step missing.');
+          if (!payload.records.every((record) => record.question.explanation.shortcut.startsWith('⚡ Exam speed:'))) throw new Error('Exam-speed prefix missing.');
+          if (!payload.records.every((record) => record.question.explanation.traps.every((trap) => /^Option [A-D] \(\$.*\): .+ \[[A-Z0-9_]+\]$/.test(trap)))) throw new Error('Coded distractor analysis missing.');
+          console.log(`Validated ${payload.meta.recordCount} five-element review records.`);
+          NODE
+
+      - name: Re-prove all permanent CP-008 packages
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-008/permanent/english.test.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/men-cp008-five-element-review-proof.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp008-five-element-review-proof.test.mjs
+
+      - name: Build production API bundle
+        shell: bash
+        run: bash build-api.sh
+
+      - name: Upload five-element review source
+        uses: actions/upload-artifact@v4
+        with:
+          name: MEN-CP-008-English-Five-Element-Review-Source
+          path: dist/review/MEN-CP-008-English-Five-Element-Review-Source.json
+          if-no-files-found: error
+          retention-days: 14
