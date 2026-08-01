@@ -10,7 +10,23 @@ for (const entry of TMW_CP009_REGISTRY) {
   const seed = `tmw-cp009-localization-review:${entry.qlId}`;
   for (const language of languages) {
     const question = runTmwCp009LocalizedPipeline({ questionLanguageId: entry.qlId, seed, language });
-    const prose = [question.stem, ...question.options, question.explanation.opening, ...question.explanation.givens, question.explanation.shortcut.title, ...question.explanation.shortcut.steps, question.explanation.commonTrap.explanation, question.explanation.conclusion].join("\n");
+    const fields: Array<[string, string]> = [
+      ["stem", question.stem],
+      ...question.options.map((value, index): [string, string] => [`option-${index + 1}`, value]),
+      ["opening", question.explanation.opening],
+      ...question.explanation.givens.map((value, index): [string, string] => [`given-${index + 1}`, value]),
+      ["shortcut-title", question.explanation.shortcut.title],
+      ...question.explanation.shortcut.steps.map((value, index): [string, string] => [`shortcut-step-${index + 1}`, value]),
+      ["trap", question.explanation.commonTrap.explanation],
+      ["conclusion", question.explanation.conclusion],
+    ];
+    const prose = fields.map(([, value]) => value).join("\n");
+    const devanagariField = language === "pa"
+      ? fields.find(([, value]) => /[\u0900-\u097F]/.test(value))
+      : undefined;
+    const gurmukhiField = language === "hi"
+      ? fields.find(([, value]) => /[\u0A00-\u0A7F]/.test(value))
+      : undefined;
 
     assert.equal(question.validation.valid, true, `${entry.qlId}:${language}:${question.validation.errors.join(" | ")}`);
     assert.equal(question.publiclyPublishable, false);
@@ -19,8 +35,8 @@ for (const entry of TMW_CP009_REGISTRY) {
     assert.equal(/\b(?:tank|reservoir|inlet|outlet|leak|litres per|hours?|water level|flow rate|full|empty)\b/i.test(prose), false, `${entry.qlId}:${language}: English leakage`);
     assert.equal(/\b\d+\s+\d+\/\d+\b/.test(prose), false, `${entry.qlId}:${language}: raw mixed fraction`);
     assert.equal(/\d+ घंटे में|\d+ ਘੰਟੇ ਵਿੱਚ/.test(prose), false, `${entry.qlId}:${language}: uninflected time postposition`);
-    assert.equal(language === "pa" && /[\u0900-\u097F]/.test(prose), false, `${entry.qlId}:${language}: Devanagari leakage`);
-    assert.equal(language === "hi" && /[\u0A00-\u0A7F]/.test(prose), false, `${entry.qlId}:${language}: Gurmukhi leakage`);
+    assert.equal(devanagariField, undefined, `${entry.qlId}:${language}: Devanagari leakage in ${devanagariField?.[0]}: ${devanagariField?.[1]}`);
+    assert.equal(gurmukhiField, undefined, `${entry.qlId}:${language}: Gurmukhi leakage in ${gurmukhiField?.[0]}: ${gurmukhiField?.[1]}`);
     assert.equal(/भरने वाली पाइपें.*अकेले|ਭਰਨ ਵਾਲੀਆਂ ਪਾਈਪਾਂ.*ਇਕੱਲੀ/.test(prose), false, `${entry.qlId}:${language}: pipe agreement`);
     assert.equal(question.options.length, 4);
     assert.equal(new Set(question.options).size, 4);
