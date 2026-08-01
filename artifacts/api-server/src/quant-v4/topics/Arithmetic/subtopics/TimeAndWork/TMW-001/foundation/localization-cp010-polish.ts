@@ -7,7 +7,6 @@ const scheduleLabels = [
   "Before the level sensor switches",
   "After the level sensor switches",
   "Simultaneous inlet and outlet",
-  "Complete cycles before the terminal cycle",
   "Initial scheduled interval",
   "Initial pumping interval",
   "Required final interval",
@@ -91,6 +90,7 @@ function normalizeMixedFractions(text: string): string {
 
 function polishHindi(text: string): string {
   return text
+    .replace(/Complete cycles before the terminal cycle/g, "अंतिम चक्र से पहले पूरे चक्र")
     .replace(/_\{cycle\}/g, "_{चक्र}")
     .replace(/_\{target\}/g, "_{लक्ष्य}")
     .replace(/_\{threshold\}/g, "_{सीमा}")
@@ -120,6 +120,7 @@ function polishHindi(text: string): string {
 
 function polishPunjabi(text: string): string {
   return text
+    .replace(/Complete cycles before the terminal cycle/g, "ਅੰਤਿਮ ਚੱਕਰ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰੇ ਚੱਕਰ")
     .replace(/_\{cycle\}/g, "_{ਚੱਕਰ}")
     .replace(/_\{target\}/g, "_{ਟੀਚਾ}")
     .replace(/_\{threshold\}/g, "_{ਸੀਮਾ}")
