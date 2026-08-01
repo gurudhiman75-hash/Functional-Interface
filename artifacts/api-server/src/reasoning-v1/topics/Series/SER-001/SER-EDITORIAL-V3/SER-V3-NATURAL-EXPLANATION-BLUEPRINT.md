@@ -1,84 +1,70 @@
-# SER-001 Natural Explanation Blueprint — V3
+# SER-001 Simple Explanation Blueprint — V3
 
-This authority applies to every existing and future checkpoint in `SER-001 — Series`.
-It is a learner-presentation layer over the validated mathematical generators. It must not change sequence state, options, answers, fingerprints, ownership or lifecycle locks.
+This rule applies to every existing and future checkpoint in `SER-001 — Series`.
+It changes only how a solution is shown to the learner. It must not change the series, options, answer, correct option, mathematical identity, ownership or lifecycle locks.
 
-The executable interpretation of this blueprint is `ser-v3-natural-authority.ts`. The reusable engine/LLM instruction is recorded separately in `SER-V3-NATURAL-SYSTEM-PROMPT.md`.
+The executable implementation is `ser-v3-natural-authority.ts`.
 
-## Required four-tier learner contract
+## Required learner format
 
-Every explanation must contain exactly these visible tiers:
+Every review question must show exactly these four sections:
 
-1. `📌 Core Pattern`
-2. `📝 Step-by-Step Derivation`
-3. `⚡ Exam Speed Shortcut`
-4. `⚠️ Common Student Trap`
+1. `📌 Rule`
+2. `📝 Solution`
+3. `⚡ Quick Method`
+4. `⚠️ Common Mistake`
 
-## Non-spoiling task routing
+These names are intentionally simple. Do not use headings such as `Core Pattern`, `Step-by-Step Derivation` or `Common Student Trap`.
 
-### Previous-term tasks
+## Option labels
 
-- Never begin with the unknown target or a transition starting from it.
-- Establish the rule only from known displayed terms.
-- State that moving backward requires the inverse of the forward operation.
-- Derive the target only after the rule and inverse operation are clear.
-- Verify the recovered term by moving forward into the known series.
+- Always show the four choices as `1`, `2`, `3`, `4`.
+- Show the answer with the same numeric label, for example `Answer: 3. K`.
+- Never use `A`, `B`, `C`, `D` as option labels in Series reviews. In alphabet questions they can be confused with the answer letters themselves.
 
-### Wrong-term tasks
+## Plain-language rule
 
-- Build the expected progression first.
-- Identify the displayed anomaly only after the expected value is established.
-- State both the incorrect displayed term and its exact replacement.
+Write as a teacher speaking to a student preparing for an exam.
+Prefer ordinary words:
 
-## Voice
+- `rule` instead of `governing pattern`;
+- `move backward` instead of `use the inverse`;
+- `wrong term` instead of `anomaly`;
+- `odd-position row` and `even-position row` instead of `lanes`;
+- `shorter vowel/consonant list` instead of `subset`;
+- `wrap after Z` or `wrap before A` instead of `cyclic normalisation`.
 
-Use a warm competitive-exam teacher voice with natural transitions such as:
+Unnecessary learner-facing words such as `authority`, `canonical`, `cyclic`, `derivation`, `governing`, `inverse`, `lane`, `normalisation`, `phase`, `recurrence` and `subset` are blocked by the chapter-wide audit.
 
-- `Notice how...`
-- `Let us check...`
-- `The useful clue is...`
-- `To recover the earlier term...`
+Standard mathematical names such as prime number, factorial, square, cube and second difference may be used when they are the actual concept being taught, but the surrounding sentence must remain simple.
 
-Avoid mechanical logging language, taxonomy prose and repeated canned openings.
+## Task rules
 
-## Mathematical presentation
+### Previous-term questions
 
-- Mathematical operations, shifts, equations and transitions use inline MathJax delimiters.
-- Single-letter series show standard positions `A=1, B=2, ..., Z=26` beside relevant transitions.
-- Every displayed transition that crosses `A/Z` includes the exact normalisation arithmetic, for example `$X(24) \\xrightarrow{+3} A(1)$` because `$24+3=27$` and `$27-26=1$`.
-- Ordered vowel or consonant cycles calculate in subset indexes while retaining standard alphabet positions.
-- Alternating and interleaved series separate lanes and verify only within the target lane.
+- Find the forward rule only from the known terms.
+- Explain that an earlier term needs the rule to be reversed.
+- Work out the answer only after this is clear.
+- Check the found term by moving forward once.
 
-## Trap ownership
+### Wrong-term questions
 
-Every item carries one task- and authority-specific learner warning with a stable public trap code, for example:
+- First write the correct series.
+- Then compare it with the displayed series.
+- Clearly state which displayed term is wrong and what should replace it.
 
-- `[DIRECTION_REVERSAL_ERROR]`
-- `[EXPECTED_SEQUENCE_NOT_BUILT]`
-- `[DIFFERENCE_ORDER_ERROR]`
-- `[LANE_MIXING_ERROR]`
-- `[VOWEL_CONSONANT_DOMAIN_CONFUSION]`
+## Letter-series rules
 
-Wrong-option notes remain inside the Common Student Trap tier; they do not create a fifth explanation tier.
+- Show useful alphabet positions such as `A(1)`, `Q(17)` and `Z(26)`.
+- When a jump crosses Z, say `Wrap after Z` and show the subtraction from 26.
+- When a backward jump crosses A, say `Wrap before A` and show the addition of 26.
+- For vowels or consonants, write the shorter allowed list and count only inside that list.
+- For alternating questions, put odd-position terms in one row and even-position terms in another. Compare terms only inside the same row.
 
 ## Applicability
 
-The contract is mandatory for:
-
-- `SER-CP-001` uniform additive series;
-- `SER-CP-002` multiplicative and affine series;
-- `SER-CP-003` finite-difference series;
-- `SER-CP-004` special-number and recurrence series;
-- `SER-CP-005` alternating, interleaved and composite series;
-- `SER-CP-006` single-letter alphabetic series;
-- every later `SER-CP-*` checkpoint.
-
-## Legacy migration safety
-
-`tools/patch_series_explanations.py` is only for already-exported legacy Markdown. It may convert a complete source-shift-target expression such as `Q(17) (+2) S(19)`, but it must never replace an isolated `(+n)` or `(-n)` token because that token may be part of valid arithmetic such as `$5+(2)=7$`.
-
-New outputs must be correct at source through the shared V3 authority layer; the patcher is not a substitute for runtime rendering.
+This contract is mandatory for `SER-CP-001` through `SER-CP-006` and every later `SER-CP-*` checkpoint.
 
 ## Review gate
 
-A checkpoint review pack must use the shared V3 authority renderer. Approval remains checkpoint-by-checkpoint: completing this chapter-wide presentation standard does not authorise starting or approving the next checkpoint.
+A checkpoint review pack must use the shared V3 authority renderer. CP-007 remains blocked until the refreshed CP-006 review pack is explicitly approved.
