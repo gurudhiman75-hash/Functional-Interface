@@ -69,7 +69,9 @@ export function localizeTmwCp009Question(
 
   const stem = polish(renderTmwCp009LocalizedStem(source, language));
   const opening = polish(tmwCp009LocalizedOpening(entry.ruleId, language));
+  const formula = polish(source.explanation.formula);
   const givens = tmwCp009LocalizedGivens(source, language).map(polish);
+  const steps = source.explanation.steps.map((step) => polish(localizeMathStep(step, language)));
   const rawShortcut = tmwCp009LocalizedShortcut(source, answerText, language);
   const shortcut = { title: polish(rawShortcut.title), steps: rawShortcut.steps.map(polish) };
   const trapExplanation = polish(tmwCp009LocalizedTrapReason(trapId, language));
@@ -84,9 +86,21 @@ export function localizeTmwCp009Question(
   }
   if (!stem.trim()) errors.push("Localized stem is empty");
   if (givens.length < 2) errors.push("Localized givens are incomplete");
+  if (steps.length < 2) errors.push("Localized worked steps are incomplete");
   if (shortcut.steps.length < 2) errors.push("Localized shortcut is incomplete");
 
-  const learnerText = [stem, ...options, opening, ...givens, shortcut.title, ...shortcut.steps, trapExplanation, conclusion].join(" ");
+  const learnerText = [
+    stem,
+    ...options,
+    opening,
+    formula,
+    ...givens,
+    ...steps,
+    shortcut.title,
+    ...shortcut.steps,
+    trapExplanation,
+    conclusion,
+  ].join(" ");
   if (language === "hi" && !/[\u0900-\u097F]/.test(learnerText)) errors.push("Hindi delivery has no Devanagari text");
   if (language === "pa" && !/[\u0A00-\u0A7F]/.test(learnerText)) errors.push("Punjabi delivery has no Gurmukhi text");
   if (/find[A-Z]|TMW_|Independent signed-flow invariant|Don't fall for|Do not choose/i.test(learnerText)) {
@@ -110,9 +124,9 @@ export function localizeTmwCp009Question(
     correctIndex: source.correctIndex,
     explanation: {
       opening,
-      formula: source.explanation.formula,
+      formula,
       givens,
-      steps: source.explanation.steps.map((step) => polish(localizeMathStep(step, language))),
+      steps,
       shortcut,
       commonTrap: {
         optionLabel: localizedOptionLabel(trapIndex, language),
