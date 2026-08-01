@@ -1,0 +1,34 @@
+name: Validate RNK-001 CP-001 Foundation
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**"
+      - ".github/workflows/reasoning-rnk-001-cp001-foundation.yml"
+  workflow_dispatch:
+
+jobs:
+  cp001-foundation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run deterministic foundation and independent-solver audit
+        run: >-
+          npx --yes tsx
+          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-foundation.test.ts
+          rnk-cp001-foundation-output
+
+      - name: Upload RNK-CP-001 discovery evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-cp001-foundation
+          path: rnk-cp001-foundation-output
+          retention-days: 14
