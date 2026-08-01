@@ -1,5 +1,13 @@
 import type { TmwLocalizedLanguage } from "./localization-types";
 
+function normalizeMixedFractions(text: string): string {
+  return text.replace(
+    /(^|[^\d])(-?\d+)\s+(\d+)\/(\d+)(?!\d)/g,
+    (_match, prefix: string, whole: string, numerator: string, denominator: string) =>
+      `${prefix}\\(${whole}\\frac{${numerator}}{${denominator}}\\)`,
+  );
+}
+
 function polishHindi(text: string): string {
   return text
     .replace(/_\{hour\}/g, "_{घंटा}")
@@ -93,5 +101,6 @@ export function polishTmwCp009Text(
   text: string,
   language: TmwLocalizedLanguage,
 ): string {
-  return language === "hi" ? polishHindi(text) : polishPunjabi(text);
+  const normalized = normalizeMixedFractions(text);
+  return language === "hi" ? polishHindi(normalized) : polishPunjabi(normalized);
 }
