@@ -39,11 +39,21 @@ function unwrapProseFromMath(value: string): string {
   return trimmed;
 }
 
+export function normaliseInlineMath(value: unknown): string {
+  return String(value ?? "")
+    .replace(/\$\$([^$]+)\$\$/gu,
+      (_match, expression) => `$${expression.trim()}$`)
+    .replace(/\$(\d[\d,]*)\$\s*×\s*\$(\d[\d,]*)\$\s*=\s*\$(\d[\d,]*)\$/gu,
+      (_match, left, right, result) => `$${left} \\times ${right} = ${result}$`)
+    .replace(/\$(\d[\d,]*)\$\s*÷\s*\$(\d[\d,]*)\$/gu,
+      (_match, left, right) => `$${left} \\div ${right}$`);
+}
+
 export function formatStudentValue(value: unknown): string {
-  const clean = stripStudentOptionLeaks(value);
+  const clean = normaliseInlineMath(stripStudentOptionLeaks(value));
   const proseSafe = unwrapProseFromMath(clean);
   if (/[A-Za-z]{2,}/u.test(proseSafe)) return wrapMathInProse(proseSafe);
-  return studentOptionDisplay(proseSafe);
+  return normaliseInlineMath(studentOptionDisplay(proseSafe));
 }
 
 export function safeOptions(row): string[] {
@@ -66,16 +76,6 @@ export function fixStemGrammar(value: string): string {
       "Which of the following prime numbers divides")
     .replace(/Choose the option that prime number divides/giu,
       "Which of the following prime numbers divides");
-}
-
-export function normaliseInlineMath(value: unknown): string {
-  return String(value ?? "")
-    .replace(/\$\$([^$]+)\$\$/gu,
-      (_match, expression) => `$${expression.trim()}$`)
-    .replace(/\$(\d[\d,]*)\$\s*×\s*\$(\d[\d,]*)\$\s*=\s*\$(\d[\d,]*)\$/gu,
-      (_match, left, right, result) => `$${left} \\times ${right} = ${result}$`)
-    .replace(/\$(\d[\d,]*)\$\s*÷\s*\$(\d[\d,]*)\$/gu,
-      (_match, left, right) => `$${left} \\div ${right}$`);
 }
 
 export function normaliseTeacherExplanation(teacher) {
