@@ -18,6 +18,12 @@ function polishLine(value: string): string {
   );
 
   result = result.replace(
+    /^The series advances by (.+?) (vowel|consonant) steps, so an earlier term requires (.+?) (?:vowel|consonant) steps within this letter list\.$/,
+    (_match, forward: string, kind: string, backward: string) =>
+      `The series moves forward by ${forward} ${kind} steps. To go back, move ${backward} ${kind} steps in the same list.`,
+  );
+
+  result = result.replace(
     "A previous-term question reverses the direction of work. Continuing the forward operation from the first known term produces the next term, not the missing earlier term.",
     "Here we need the term before the series, so move backward. Moving forward would give the next term instead.",
   );
@@ -39,7 +45,7 @@ function polishLine(value: string): string {
   );
 
   result = result.replace(
-    /^Write the ordered (vowel|consonant) list with place numbers: (.+?)\. The known moves (.+) establish the forward jump\.$/,
+    /^Write the ordered (vowel|consonant) list with place numbers: (.+?)\. The known moves (.+) (?:establish|show|give) the forward jump\.$/,
     (_match, kind: string, list: string, moves: string) =>
       `Write the ${kind} list: ${list}. Count only in this list. The shown moves ${moves} give the rule.`,
   );
