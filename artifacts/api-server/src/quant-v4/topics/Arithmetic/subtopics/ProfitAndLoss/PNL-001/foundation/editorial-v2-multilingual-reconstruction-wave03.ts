@@ -125,14 +125,100 @@ function mapProse<T>(
   return value;
 }
 
+function applyTaskSpecificCorrection(
+  language: NativeEditorialLanguage,
+  qlId: string,
+  entry: StructuredEditorialEntry,
+): StructuredEditorialEntry {
+  if (qlId === "PNL-QL-165") {
+    return {
+      ...entry,
+      explanation: {
+        ...entry.explanation,
+        opening:
+          language === "hi"
+            ? "अतिरिक्त खर्च प्रभावी लागत और खरीद मूल्य के बीच का अंतर है।"
+            : "ਵਾਧੂ ਖਰਚ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਅਤੇ ਖਰੀਦ ਮੁੱਲ ਵਿਚਕਾਰਲਾ ਫਰਕ ਹੈ।",
+        concept:
+          language === "hi"
+            ? "प्रभावी लागत में खरीद मूल्य और सभी अतिरिक्त खर्च शामिल होते हैं। इसलिए कुल अतिरिक्त खर्च पाने के लिए प्रभावी लागत में से खरीद मूल्य घटाते हैं।"
+            : "ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਵਿੱਚ ਖਰੀਦ ਮੁੱਲ ਅਤੇ ਸਾਰੇ ਵਾਧੂ ਖਰਚ ਸ਼ਾਮਲ ਹੁੰਦੇ ਹਨ। ਇਸ ਲਈ ਕੁੱਲ ਵਾਧੂ ਖਰਚ ਲਈ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਵਿਚੋਂ ਖਰੀਦ ਮੁੱਲ ਘਟਾਇਆ ਜਾਂਦਾ ਹੈ।",
+        steps: [
+          {
+            title:
+              language === "hi"
+                ? "अतिरिक्त खर्च अलग करें"
+                : "ਵਾਧੂ ਖਰਚ ਅਲੱਗ ਕਰੋ",
+            body:
+              language === "hi"
+                ? "प्रभावी लागत में से खरीद मूल्य घटाएँ।"
+                : "ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਵਿਚੋਂ ਖਰੀਦ ਮੁੱਲ ਘਟਾਓ।",
+            equationLatex:
+              "e=E-C=\\text{₹}{effectiveCost}-\\text{₹}{purchasePrice}",
+          },
+        ],
+        conclusion:
+          language === "hi"
+            ? "मिला हुआ अंतर ही कुल अतिरिक्त खर्च है।"
+            : "ਮਿਲਿਆ ਫਰਕ ਹੀ ਕੁੱਲ ਵਾਧੂ ਖਰਚ ਹੈ।",
+        commonTrap:
+          language === "hi"
+            ? "इसे लाभ न मानें; यहाँ कोई बिक्री नहीं हुई है।"
+            : "ਇਸ ਨੂੰ ਲਾਭ ਨਾ ਮੰਨੋ; ਇੱਥੇ ਕੋਈ ਵਿਕਰੀ ਨਹੀਂ ਹੋਈ।",
+      },
+    };
+  }
+
+  if (qlId === "PNL-QL-176") {
+    return {
+      ...entry,
+      explanation: {
+        ...entry.explanation,
+        opening:
+          language === "hi"
+            ? "सुरक्षा-अंतर वास्तविक बिक्री और ब्रेक-ईवन बिक्री के बीच की अतिरिक्त राशि है।"
+            : "ਸੁਰੱਖਿਆ ਅੰਤਰ ਅਸਲ ਵਿਕਰੀ ਅਤੇ ਬ੍ਰੇਕ-ਈਵਨ ਵਿਕਰੀ ਵਿਚਕਾਰਲੀ ਵਾਧੂ ਰਕਮ ਹੈ।",
+        concept:
+          language === "hi"
+            ? "रुपयों में सुरक्षा-अंतर निकालने के लिए वास्तविक राजस्व में से ब्रेक-ईवन राजस्व घटाते हैं।"
+            : "ਰੁਪਿਆਂ ਵਿੱਚ ਸੁਰੱਖਿਆ ਅੰਤਰ ਲਈ ਅਸਲ ਆਮਦਨ ਵਿਚੋਂ ਬ੍ਰੇਕ-ਈਵਨ ਆਮਦਨ ਘਟਾਈ ਜਾਂਦੀ ਹੈ।",
+        steps: [
+          {
+            title:
+              language === "hi"
+                ? "ब्रेक-ईवन राजस्व घटाएँ"
+                : "ਬ੍ਰੇਕ-ਈਵਨ ਆਮਦਨ ਘਟਾਓ",
+            body:
+              language === "hi"
+                ? "वास्तविक राजस्व में से ब्रेक-ईवन राजस्व घटाएँ।"
+                : "ਅਸਲ ਆਮਦਨ ਵਿਚੋਂ ਬ੍ਰੇਕ-ਈਵਨ ਆਮਦਨ ਘਟਾਓ।",
+            equationLatex:
+              "MOS=R_A-R_{BE}=\\text{₹}{actualRevenue}-\\text{₹}{breakEvenRevenue}",
+          },
+        ],
+        conclusion:
+          language === "hi"
+            ? "प्राप्त अंतर रुपयों में सुरक्षा-अंतर है।"
+            : "ਮਿਲਿਆ ਫਰਕ ਰੁਪਿਆਂ ਵਿੱਚ ਸੁਰੱਖਿਆ ਅੰਤਰ ਹੈ।",
+        commonTrap:
+          language === "hi"
+            ? "जब रुपये में राशि पूछी हो, तब प्रतिशत न निकालें।"
+            : "ਜਦੋਂ ਰਕਮ ਰੁਪਿਆਂ ਵਿੱਚ ਪੁੱਛੀ ਹੋਵੇ, ਤਦ ਪ੍ਰਤੀਸ਼ਤ ਨਾ ਕੱਢੋ।",
+      },
+    };
+  }
+
+  return entry;
+}
+
 function reconstructEntry(
   language: NativeEditorialLanguage,
+  qlId: string,
   sourceEntry: StructuredEditorialEntry,
 ): StructuredEditorialEntry {
   const entry = mapProse(language, sourceEntry);
   const target = targetText(language, entry);
-
-  return {
+  const reconstructed: StructuredEditorialEntry = {
     ...entry,
     explanation: {
       ...entry.explanation,
@@ -148,6 +234,8 @@ function reconstructEntry(
         : entry.explanation.commonTrap,
     },
   };
+
+  return applyTaskSpecificCorrection(language, qlId, reconstructed);
 }
 
 function reconstructLibrary(library: EditorialLibraryFile): EditorialLibraryFile {
@@ -157,7 +245,7 @@ function reconstructLibrary(library: EditorialLibraryFile): EditorialLibraryFile
     entries: Object.fromEntries(
       Object.entries(library.entries).map(([qlId, entry]) => [
         qlId,
-        reconstructEntry(language, entry),
+        reconstructEntry(language, qlId, entry),
       ]),
     ),
   };
