@@ -1,0 +1,132 @@
+name: Reasoning BLR-001 CP-003 Final Discovery Freeze
+
+on:
+  push:
+    branches:
+      - feat/blr-001-cp003-shared-family-runtime
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/**"
+      - "artifacts/examtree/src/components/blood-relations/**"
+      - "artifacts/examtree/src/components/learning/LogicPlaybackRouter.tsx"
+      - "artifacts/examtree/src/pages/canonical-result.tsx"
+      - "artifacts/examtree/scripts/verify-family-tree-chunk.mjs"
+      - "artifacts/examtree/tsconfig.json"
+      - "artifacts/examtree/vite.config.ts"
+      - ".github/workflows/reasoning-blr-001-cp003-final-discovery-freeze.yml"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/**"
+      - "artifacts/examtree/src/components/blood-relations/**"
+      - "artifacts/examtree/src/components/learning/LogicPlaybackRouter.tsx"
+      - "artifacts/examtree/src/pages/canonical-result.tsx"
+      - "artifacts/examtree/scripts/verify-family-tree-chunk.mjs"
+      - "artifacts/examtree/tsconfig.json"
+      - "artifacts/examtree/vite.config.ts"
+      - ".github/workflows/reasoning-blr-001-cp003-final-discovery-freeze.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blr-001-cp003-final-discovery-freeze-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-final-discovery-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run CP-003 final gate suite
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT=artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003
+          npx --yes tsx "$ROOT/cp003-v9-wave01-structural-staging-approved.test.ts" | tee cp003-wave01-approved.log
+          npx --yes tsx "$ROOT/cp003-v9-topology-gap-wave-02.test.ts" | tee cp003-wave02-base.log
+          npx --yes tsx "$ROOT/cp003-v9-topology-gap-wave-02-independent-verifier.test.ts" | tee cp003-wave02-independent.log
+          npx --yes tsx "$ROOT/cp003-v9-topology-gap-wave-02-boundary-verifier.test.ts" | tee cp003-wave02-boundary.log
+          npx --yes tsx "$ROOT/cp003-v9-topology-gap-wave-02-reviewed.test.ts" | tee cp003-wave02-reviewed.log
+          npx --yes tsx "$ROOT/cp003-v9-wave02-structural-staging-approved.test.ts" | tee cp003-wave02-approved.log
+          npx --yes tsx "$ROOT/cp003-final-approved-bank.test.ts" | tee cp003-final-bank.log
+          npx --yes tsx "$ROOT/cp003-final-discovery-freeze.test.ts" | tee cp003-final-freeze.log
+          npx --yes tsx "$ROOT/cp003-permanent-runtime.test.ts" | tee cp003-permanent-runtime.log
+          npx --yes tsx "$ROOT/cp003-final-freeze-readiness.test.ts" | tee cp003-historical-freeze-boundary.log
+
+      - name: Export CP-003 final freeze pack
+        run: |
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/export-cp003-final-discovery-freeze.ts cp003-final-freeze-output | tee cp003-final-export.log
+
+      - name: Verify CP-003 final artifact contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=cp003-final-freeze-output
+          test -f "$OUT/blr-cp003-final-freeze-summary.json"
+          test -f "$OUT/blr-cp003-final-freeze-records.jsonl"
+          test -f "$OUT/blr-cp003-permanent-contracts.json"
+          test -f "$OUT/BLR-CP-003-FINAL-DISCOVERY-FREEZE.md"
+          grep -q '"permanentQlRange": "BLR-QL-009..BLR-QL-012"' "$OUT/blr-cp003-final-freeze-summary.json"
+          grep -q '"permanentQlCount": 4' "$OUT/blr-cp003-final-freeze-summary.json"
+          grep -q '"nextAvailableChapterQlId": "BLR-QL-013"' "$OUT/blr-cp003-final-freeze-summary.json"
+          grep -q '"recordCount": 298' "$OUT/blr-cp003-final-freeze-summary.json"
+          grep -q '"groupCount": 102' "$OUT/blr-cp003-final-freeze-summary.json"
+          grep -q '"topologyCount": 9' "$OUT/blr-cp003-final-freeze-summary.json"
+          grep -q '"prototypeCount": 29' "$OUT/blr-cp003-final-freeze-summary.json"
+          grep -q '"answerPositions"' "$OUT/blr-cp003-final-freeze-summary.json"
+          test "$(wc -l < "$OUT/blr-cp003-final-freeze-records.jsonl")" -eq 298
+
+      - name: Install locked workspace dependencies
+        run: |
+          corepack enable
+          corepack pnpm install --frozen-lockfile
+
+      - name: Typecheck ExamTree integration
+        run: corepack pnpm --filter @workspace/examtree typecheck | tee examtree-typecheck.log
+
+      - name: Build ExamTree integration
+        run: corepack pnpm --filter @workspace/examtree build | tee examtree-build.log
+
+      - name: Verify lazy family-tree chunk
+        run: node artifacts/examtree/scripts/verify-family-tree-chunk.mjs | tee examtree-family-tree-chunk.log
+
+      - name: Upload CP-003 final freeze diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp003-final-discovery-freeze-logs
+          path: |
+            cp003-wave01-approved.log
+            cp003-wave02-base.log
+            cp003-wave02-independent.log
+            cp003-wave02-boundary.log
+            cp003-wave02-reviewed.log
+            cp003-wave02-approved.log
+            cp003-final-bank.log
+            cp003-final-freeze.log
+            cp003-permanent-runtime.log
+            cp003-historical-freeze-boundary.log
+            cp003-final-export.log
+            examtree-typecheck.log
+            examtree-build.log
+            examtree-family-tree-chunk.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload CP-003 final freeze pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp003-final-discovery-freeze
+          path: cp003-final-freeze-output
+          if-no-files-found: error
+          retention-days: 30
