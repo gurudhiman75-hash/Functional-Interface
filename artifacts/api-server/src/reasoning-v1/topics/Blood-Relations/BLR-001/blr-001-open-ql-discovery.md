@@ -1,38 +1,37 @@
 # BLR-001 — Open QL Discovery Policy
 
-Status: **authoritative for unfinished BLR-001 checkpoints; CP-001 and CP-002 are frozen and allocated**.
+Status: **authoritative for unfinished BLR-001 checkpoints; CP-001 through CP-004 are frozen and allocated**.
 
-No total chapter QL count is fixed by the end-to-end design. Each checkpoint discovers, audits and freezes its own solve identities before receiving the next continuous chapter range.
+No total chapter QL count is fixed. Each checkpoint discovers, audits and freezes its own solve identities before receiving the next contiguous range.
 
 ## Required sequence
 
 ```text
 source and boundary audit
-  -> non-permanent prototype contracts
+  -> non-permanent prototypes
   -> deterministic runtime proof
   -> independent-solver proof
   -> editorial saturation
   -> merge/split audit
-  -> inverse-contract audit
+  -> inverse and cross-checkpoint overlap audit
   -> human review and remediation
-  -> second source and gap confirmation
+  -> post-review source-gap confirmation
   -> discovery freeze
   -> permanent sequential QL allocation
 ```
 
-A technical source-gap pass may be run before human review to expose missing runtime modes. It does not replace the required post-human confirmation. If human remediation changes stems, renderers, constraints, options, explanations or solve contracts, the affected deterministic gates and source-gap decision must be rerun before freeze.
+A technical source-gap pass does not replace post-review confirmation. Permanent identity does not enable delivery.
 
-## Frozen BLR-CP-001 state
-
-Freeze version: `BLR_CP001_ENGLISH_DISCOVERY_FREEZE_V1`
+## Frozen checkpoint summary
 
 ```text
-Exploratory prototypes:       11
-Frozen solve authorities:      7
-Permanent QL range:            BLR-QL-001..007
+BLR-CP-001  11 exploratory prototypes -> 7 authorities -> BLR-QL-001..007
+BLR-CP-002   6 exploratory prototypes -> 1 authority  -> BLR-QL-008
+BLR-CP-003  29 source prototypes       -> 4 authorities -> BLR-QL-009..012
+BLR-CP-004  13 source prototypes       -> 5 authorities -> BLR-QL-013..017
 ```
 
-The seven permanent authorities are:
+### CP-001
 
 ```text
 RESOLVE_NAMED_PERSON_RELATION
@@ -44,43 +43,39 @@ COMPARE_GENERATIONS
 RESOLVE_EXACT_LINEAGE_RELATION
 ```
 
-Great-grandfather, great-grandmother, great-grandson and great-granddaughter remain outputs inside `BLR-QL-001`.
-
-## Frozen BLR-CP-002 state
-
-Freeze version: `BLR_CP002_ENGLISH_DISCOVERY_FREEZE_V1`
-
-```text
-Positive canonical scenarios: 45
-Exploratory prototypes:         6
-Frozen solve authorities:       1
-Permanent QL range:             BLR-QL-008
-```
-
-The permanent authority is:
+### CP-002
 
 ```text
 RESOLVE_ANCHORED_ROLE_CHAIN_RELATION
 ```
 
-The following are frozen instance properties, not separate identities:
+### CP-003
 
-- presentation and question renderer;
-- one-, two- or three-anchor structure;
-- direct, reverse, one-derived or both-derived endpoints;
-- one- through four-step role depth;
-- broad or gendered roles;
-- `ONLY` and zero-cardinality constraints;
-- blood or affinal output;
-- relation value or `SELF`;
-- names, clue wording and difficulty.
+```text
+SELECT_UNORDERED_FAMILY_PAIR
+IDENTIFY_ALL_MEMBERS_BY_RELATION
+IDENTIFY_MEMBER_BY_MARITAL_STATUS
+IDENTIFY_PERSON_BY_EXACT_LINEAGE
+```
+
+### CP-004
+
+```text
+COUNT_MEMBERS_BY_FILTER
+COUNT_RELATIVES_OF_REFERENCE
+COUNT_RELATION_PAIRS
+COUNT_GENERATIONS
+SELECT_FAMILY_COMPOSITION_PROFILE
+```
+
+CP-004 member filters, relation vocabulary, marital-status state, reference arity, relation-pair predicate and composition values are instance properties. Possible, minimum, maximum and indeterminate counts are not CP-004 instances; they require CP-005 model enumeration.
 
 ## Current ownership boundary
 
 - CP-001: direct declarative named-person relations — frozen;
 - CP-002: pointer, photograph, portrait, conversation and nested self-reference — frozen;
-- CP-003: shared passages — open;
-- CP-004: counts and family composition — open;
+- CP-003: shared family passages — frozen;
+- CP-004: definite counts and family composition — frozen;
 - CP-005: possible, impossible, one-of-two and indeterminate semantics — open;
 - CP-006: coded relation decoding — open;
 - CP-007: coded expression construction and validation — open;
@@ -88,10 +83,14 @@ The following are frozen instance properties, not separate identities:
 
 ## Identity sequencing rule
 
-Later BLR-001 checkpoints must not use `BLR-QL-001..008`. The next checkpoint to complete exhaustive discovery starts from `BLR-QL-009` and reserves only the exact number of solve identities justified by its own final freeze.
+Later checkpoints must not reuse `BLR-QL-001..017`. The next checkpoint to complete exhaustive discovery begins at:
 
-The final BLR-001 chapter total remains open until every checkpoint completes this process.
+```text
+BLR-QL-018
+```
+
+Only the exact number of authorities justified by the CP-005 final freeze may be allocated. The final BLR-001 chapter total remains open until CP-007 is complete.
 
 ## Release rule
 
-Permanent identity is not production approval. All currently frozen BLR QLs remain English review-only with Question Studio, Question Bank, mock tests, localisation and public publication disabled until separate explicit release gates pass.
+All frozen BLR QLs remain English review-only with Question Studio, Question Bank, mock tests, localisation, production staging and public publication disabled until separate explicit release gates pass.
