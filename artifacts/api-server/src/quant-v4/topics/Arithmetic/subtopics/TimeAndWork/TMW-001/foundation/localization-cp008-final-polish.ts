@@ -1,12 +1,48 @@
+import { required } from "./cp001-helpers";
 import { tmwCp008ContributionVector } from "./cp008-engine";
 import type { TmwCp008GeneratedQuestion } from "./cp008-types";
 import type { TmwLocalizedLanguage } from "./localization-types";
 import {
+  cp008Copy,
+  cp008Money,
+  cp008Name,
   cp008Number,
 } from "./localization-cp008-language";
 
 function pair(language: TmwLocalizedLanguage, hi: string, pa: string): string {
   return language === "hi" ? hi : pa;
+}
+
+function residualSetting(
+  source: TmwCp008GeneratedQuestion,
+  language: TmwLocalizedLanguage,
+): string {
+  const setting = source.parameters.context.setting;
+  if (language === "pa") return `${cp008Copy(setting, language)} ਵਿੱਚ`;
+  switch (setting) {
+    case "an auto-component factory":
+      return "ऑटो-पुर्जा कारखाने में";
+    case "a commercial-complex painting site":
+      return "वाणिज्यिक परिसर की रंगाई साइट पर";
+    default:
+      return `${cp008Copy(setting, language)} में`;
+  }
+}
+
+function residualTask(
+  source: TmwCp008GeneratedQuestion,
+  language: TmwLocalizedLanguage,
+): string {
+  const task = source.parameters.context.task;
+  if (language === "pa") return cp008Copy(task, language);
+  switch (task) {
+    case "a large dispatch order":
+      return "बड़े प्रेषण ऑर्डर";
+    case "a painting contract":
+      return "रंगाई के ठेके";
+    default:
+      return cp008Copy(task, language);
+  }
 }
 
 export function finalizeTmwCp008FinalText(
@@ -44,17 +80,21 @@ export function finalizeTmwCp008FinalStem(
   stem: string,
   language: TmwLocalizedLanguage,
 ): string {
-  let output = finalizeTmwCp008FinalText(stem, language);
   if (source.solveMode === "findResidualPayment") {
+    const p = source.parameters;
+    const target = p.targetIndex ?? 0;
+    const known = required(p.knownPaymentIndices, "knownPaymentIndices");
+    const reported = required(p.reportedPayments, "reportedPayments");
+    const payments = known
+      .map((index) => `${cp008Name(p.context.roles[index].name, language)}—${cp008Money(reported[index])}`)
+      .join(", ");
     if (language === "hi") {
-      return output
-        .replace(/^.*?के लिए कुल राशि (₹[^।\s]+) निर्धारित है।\s*/, "कुल राशि $1 निर्धारित है। ")
-        .replace(/^.*?के लिए कुल (₹[^।\s]+) निर्धारित हैं।\s*/, "कुल राशि $1 निर्धारित है। ");
+      return `${residualSetting(source, language)} ${residualTask(source, language)} के लिए कुल राशि ${cp008Money(p.totalPayment)} निर्धारित है। पहले से दिए भुगतान: ${payments}। शेष राशि ${cp008Name(p.context.roles[target].name, language)} को मिलेगी। वह राशि कितनी है?`;
     }
-    return output
-      .replace(/^.*?ਲਈ ਕੁੱਲ ਰਕਮ (₹[^।\s]+) ਨਿਰਧਾਰਤ ਹੈ।\s*/, "ਕੁੱਲ ਰਕਮ $1 ਨਿਰਧਾਰਤ ਹੈ। ")
-      .replace(/^.*?ਲਈ ਕੁੱਲ (₹[^।\s]+) ਨਿਰਧਾਰਤ ਹਨ।\s*/, "ਕੁੱਲ ਰਕਮ $1 ਨਿਰਧਾਰਤ ਹੈ। ");
+    return `${residualSetting(source, language)} ${residualTask(source, language)} ਲਈ ਕੁੱਲ ਰਕਮ ${cp008Money(p.totalPayment)} ਨਿਰਧਾਰਤ ਹੈ। ਪਹਿਲਾਂ ਦਿੱਤੇ ਭੁਗਤਾਨ: ${payments}। ਬਾਕੀ ਰਕਮ ${cp008Name(p.context.roles[target].name, language)} ਨੂੰ ਮਿਲੇਗੀ। ਉਹ ਰਕਮ ਕਿੰਨੀ ਹੈ?`;
   }
+
+  let output = finalizeTmwCp008FinalText(stem, language);
   if (language === "pa" && source.solveMode === "findMissingTimeFromPayment") {
     output = output
       .replace(/ਉਨ੍ਹਾਂ ਦੀ ਦਰ /g, "ਉਨ੍ਹਾਂ ਦੀਆਂ ਦਰਾਂ ")
