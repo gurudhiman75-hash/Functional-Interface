@@ -39,19 +39,20 @@ function unwrapProseFromMath(value: string): string {
   return trimmed;
 }
 
-export function normaliseInlineMath(value: unknown): string {
-  let text = String(value ?? "")
-    .replace(/\$\$([\s\S]*?)\$\$/gu,
-      (_match, expression) => `$${String(expression).trim()}$`)
-    .replace(/\$(\d[\d,]*)\$\s*×\s*\$(\d[\d,]*)\$\s*=\s*\$(\d[\d,]*)\$/gu,
-      (_match, left, right, result) => `$${left} \\times ${right} = ${result}$`)
-    .replace(/\$(\d[\d,]*)\$\s*÷\s*\$(\d[\d,]*)\$/gu,
-      (_match, left, right) => `$${left} \\div ${right}$`);
-
+function flattenMathDelimiters(value: string): string {
+  let text = value;
   let previous = "";
   while (text !== previous) {
     previous = text;
     text = text
+      .replace(/\$\$([\s\S]*?)\$\$/gu, (_match, expression) => {
+        const inner = String(expression)
+          .trim()
+          .replace(/^\$+/u, "")
+          .replace(/\$+$/u, "")
+          .trim();
+        return inner ? `$${inner}$` : "";
+      })
       .replace(/\$([^$\n]+)\$\s*(×|÷|\\times|\\div)\s*\$([^$\n]+)\$/gu,
         (_match, left, operator, right) => {
           const latexOperator = operator === "×" || operator === "\\times"
@@ -64,7 +65,18 @@ export function normaliseInlineMath(value: unknown): string {
           `$${String(left).trim()} ${String(right).trim()}$`);
   }
 
-  return text;
+  // Display math is not allowed on the Question Studio learner surface. Any
+  // residual repeated delimiter is therefore a malformed nested boundary.
+  return text.replace(/\${2,}/gu, "$");
+}
+
+export function normaliseInlineMath(value: unknown): string {
+  const text = String(value ?? "")
+    .replace(/\$(\d[\d,]*)\$\s*×\s*\$(\d[\d,]*)\$\s*=\s*\$(\d[\d,]*)\$/gu,
+      (_match, left, right, result) => `$${left} \\times ${right} = ${result}$`)
+    .replace(/\$(\d[\d,]*)\$\s*÷\s*\$(\d[\d,]*)\$/gu,
+      (_match, left, right) => `$${left} \\div ${right}$`);
+  return flattenMathDelimiters(text);
 }
 
 export function formatStudentValue(value: unknown): string {
