@@ -22,6 +22,7 @@ import {
   tmwCp009LocalizedShortcut,
   tmwCp009LocalizedTrapReason,
 } from "./localization-cp009-learning";
+import { polishTmwCp009Text } from "./localization-cp009-polish";
 import { getTmwCp009Entry } from "./cp009-registry";
 
 export interface TmwCp009LocalizedOption extends TmwCp009Option {}
@@ -53,24 +54,26 @@ export function localizeTmwCp009Question(
   language: TmwLocalizedLanguage,
 ): TmwCp009LocalizedQuestion {
   const entry = getTmwCp009Entry(source.questionLanguageId);
+  const polish = (text: string): string => polishTmwCp009Text(text, language);
   const optionAudit = source.optionAudit.map((option) => ({
     ...option,
-    text: cp009LocalizedOptionText(source, option, language),
+    text: polish(cp009LocalizedOptionText(source, option, language)),
   }));
   const options = optionAudit.map((option) => option.text);
-  const answerText = cp009LocalizedAnswerText(source, source.solution.answerValues, language);
+  const answerText = polish(cp009LocalizedAnswerText(source, source.solution.answerValues, language));
   const trapId = source.explanation.commonTrap.misconceptionId;
   let trapIndex = source.optionAudit.findIndex(
     (option) => option.misconceptionId === trapId && option.text === source.explanation.commonTrap.optionText,
   );
   if (trapIndex < 0) trapIndex = source.optionAudit.findIndex((option) => option.misconceptionId === trapId);
 
-  const stem = renderTmwCp009LocalizedStem(source, language);
-  const opening = tmwCp009LocalizedOpening(entry.ruleId, language);
-  const givens = tmwCp009LocalizedGivens(source, language);
-  const shortcut = tmwCp009LocalizedShortcut(source, answerText, language);
-  const trapExplanation = tmwCp009LocalizedTrapReason(trapId, language);
-  const conclusion = tmwCp009LocalizedConclusion(source, answerText, language);
+  const stem = polish(renderTmwCp009LocalizedStem(source, language));
+  const opening = polish(tmwCp009LocalizedOpening(entry.ruleId, language));
+  const givens = tmwCp009LocalizedGivens(source, language).map(polish);
+  const rawShortcut = tmwCp009LocalizedShortcut(source, answerText, language);
+  const shortcut = { title: polish(rawShortcut.title), steps: rawShortcut.steps.map(polish) };
+  const trapExplanation = polish(tmwCp009LocalizedTrapReason(trapId, language));
+  const conclusion = polish(tmwCp009LocalizedConclusion(source, answerText, language));
   const errors = [...source.validation.errors];
 
   if (trapIndex < 0) errors.push("Localized common trap is not linked to an option");
@@ -83,16 +86,7 @@ export function localizeTmwCp009Question(
   if (givens.length < 2) errors.push("Localized givens are incomplete");
   if (shortcut.steps.length < 2) errors.push("Localized shortcut is incomplete");
 
-  const learnerText = [
-    stem,
-    ...options,
-    opening,
-    ...givens,
-    shortcut.title,
-    ...shortcut.steps,
-    trapExplanation,
-    conclusion,
-  ].join(" ");
+  const learnerText = [stem, ...options, opening, ...givens, shortcut.title, ...shortcut.steps, trapExplanation, conclusion].join(" ");
   if (language === "hi" && !/[\u0900-\u097F]/.test(learnerText)) errors.push("Hindi delivery has no Devanagari text");
   if (language === "pa" && !/[\u0A00-\u0A7F]/.test(learnerText)) errors.push("Punjabi delivery has no Gurmukhi text");
   if (/find[A-Z]|TMW_|Independent signed-flow invariant|Don't fall for|Do not choose/i.test(learnerText)) {
@@ -118,7 +112,7 @@ export function localizeTmwCp009Question(
       opening,
       formula: source.explanation.formula,
       givens,
-      steps: source.explanation.steps.map((step) => localizeMathStep(step, language)),
+      steps: source.explanation.steps.map((step) => polish(localizeMathStep(step, language))),
       shortcut,
       commonTrap: {
         optionLabel: localizedOptionLabel(trapIndex, language),
