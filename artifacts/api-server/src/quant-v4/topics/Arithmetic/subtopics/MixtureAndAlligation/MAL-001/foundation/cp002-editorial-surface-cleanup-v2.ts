@@ -24,7 +24,7 @@ export type MalCp002EditorialSurfaceV2Question =
 
 function cleanSurface(value: string): string {
   return value
-    .replace(/\$1([xy])\$/gu, "$$1$")
+    .replace(/\$1([xy])\$/gu, (_match, variable: string) => `$${variable}$`)
     .replace(
       /A well-mixed quantity is removed/gu,
       "A certain quantity of the well-mixed contents is removed",
