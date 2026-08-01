@@ -1,6 +1,6 @@
 # CLS-001 — Classification / Odd One Out
 
-Status: `CP001_CP002_MULTILINGUAL_FROZEN__CP003_TO_CP007_ENGLISH_FROZEN`
+Status: `CP001_CP002_MULTILINGUAL_FROZEN__CP003_TO_CP007_ENGLISH_FROZEN__CP008_ZERO_QL_CLOSED`
 
 ## Product identity
 
@@ -21,7 +21,7 @@ Classification asks the learner to identify the item, pair or complete option-gr
 
 Every admitted question must define a bounded rule universe, construct a valid state, prove one unique answer, reject competing answers and be independently re-solved. Four and five answer options are presentation and difficulty properties rather than separate QLs.
 
-## Permanent inventory through CP-007
+## Permanent inventory through CP-008
 
 | QL | Checkpoint | Student task | Locale status |
 |---|---|---|---|
@@ -39,7 +39,7 @@ Every admitted question must define a bounded rule universe, construct a valid s
 | `CLS-QL-012` | `CLS-CP-007` | Find the complete three-, four- or five-letter cluster whose internal alphabet structure differs | Frozen English runtime proof |
 | `CLS-QL-013` | `CLS-CP-007` | Find the complete letter-cluster pair whose position-wise transformation differs | Frozen English runtime proof |
 
-No later `CLS-QL-*` identity is reserved.
+`CLS-CP-008` allocated zero new QLs. No later `CLS-QL-*` identity is reserved.
 
 ## Checkpoint map
 
@@ -52,13 +52,14 @@ No later `CLS-QL-*` identity is reserved.
 | `CLS-CP-005` | Number-pair, triple and set classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
 | `CLS-CP-006` | Alphabet, letter-pair and letter-class classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
 | `CLS-CP-007` | Letter-cluster and complete cluster-pair classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
-| `CLS-CP-008` | Mixed-token and bounded synthesis classification | Pending ownership audit |
+| `CLS-CP-008` | Mixed-token and bounded-synthesis ownership audit | `CLOSED_ZERO_NEW_QL` |
 
 ## Frozen foundation summary
 
 ```text
-Permanent QLs through CP-007:     13
+Permanent QLs through CP-008:     13
 Frozen solve contracts:           13
+CP-008 new QLs:                     0
 Answer-option counts:              4 and 5
 Question Studio exposure:          disabled
 Question Bank storage:             disabled
@@ -208,6 +209,24 @@ Opposite-pair near misses preserve the whole position total: common correspondin
 
 Every option explanation ends with an explicit match or failure result. A dedicated presentation regression rejects duplicated equation results, compact index labels and compressed pair-gap prose.
 
+### CLS-CP-008
+
+```text
+Candidate families audited:             11
+Concrete source controls audited:         6
+Merge into existing Classification QL:    1
+Reassign to dedicated chapters:           7
+Reject for source gap:                     3
+New permanent QLs:                         0
+New runtime generators:                    0
+```
+
+The only renderer-safe textual source control—punctuation marks versus an arithmetic operator—merges into `CLS-QL-001` because the learner still identifies one semantic item outside the common class.
+
+Visual letter-number layouts and symbol-count grids remain Figure Classification. Hidden mixed-token mappings remain Coding-Decoding. Mixed-sign equations remain Mathematical Operations. Ordered mixed-token progressions remain Series. Row-column synthesis remains Matrix.
+
+Free-form letter-number odd groups, arbitrary semantic-plus-structural combinations and Classification caselets remain rejected for source gap. Mixed token type alone is never a learner contract.
+
 ## Strict chapter boundary
 
 CLS-001 owns questions whose final task is classification by a visible or inferable common property or option-local relation.
@@ -219,9 +238,10 @@ It excludes:
 - explicit alphabet-position operations asked directly — Alphabet Test;
 - hidden encoding or decoding — Coding-Decoding;
 - operator replacement and equation evaluation — Mathematical Operations;
+- row-column synthesis — Matrix;
 - dictionary ordering — Word and Dictionary Order;
-- figure odd-one-out — Figure Classification;
-- mixed letter-number or symbol synthesis not yet governed by CP-008;
+- visual letter-number or symbol layouts — Figure Classification;
+- free-form mixed-token synthesis without recurring source authority;
 - general-knowledge questions with no stable governed dataset;
 - open-ended free-text generation;
 - questions with several equally defensible grouping rules.
@@ -246,7 +266,9 @@ It excludes:
 - `CLS-CP-007/CLS-CP-007-SOURCE-AND-OWNERSHIP-AUDIT.md`
 - `CLS-CP-007/CLS-CP-007-SOURCE-GAP-AUDIT-WAVE-1.md`
 - `CLS-CP-007/CLS-CP-007-FINAL-SOURCE-GAP-AND-MERGE-SPLIT-AUDIT.md`
+- `CLS-CP-008/CLS-CP-008-SOURCE-AND-OWNERSHIP-AUDIT.md`
+- `CLS-CP-008/CLS-CP-008-FINAL-CLOSURE.md`
 
 ## Release locks
 
-CP-001 and CP-002 are frozen multilingual review-only proofs. CP-003 through CP-007 are frozen English review-only proofs. None are wired to Question Studio, Question Bank, tests or public publication. Hindi and Punjabi localisation for CP-003 through CP-007 require separate explicit phases.
+CP-001 and CP-002 are frozen multilingual review-only proofs. CP-003 through CP-007 are frozen English review-only proofs. CP-008 is a closed zero-allocation ownership checkpoint. None are wired to Question Studio, Question Bank, tests or public publication. Hindi and Punjabi localisation for CP-003 through CP-007 require separate explicit phases.
