@@ -67,6 +67,8 @@ jobs:
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp010-localized-runtime.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp010-runtime.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp010-localization.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp010-localization-editorial.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp010-localization-review-export.ts
       - name: Bundle bilingual parity proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -78,11 +80,33 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/tmw-001-cp010-localization.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp010-localization-proof.log
+      - name: Bundle bilingual editorial proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp010-localization-editorial.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp010-localization-editorial.test.mjs
+      - name: Run bilingual editorial proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp010-localization-editorial.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp010-localization-editorial-proof.log
+      - name: Bundle bilingual review export
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp010-localization-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp010-localization-review-export.mjs
+      - name: Generate bilingual review corpus
+        run: node artifacts/api-server/dist/quant-v4/tmw-001-cp010-localization-review-export.mjs
       - name: Upload bilingual evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: tmw-cp010-hi-pa-localization
-          path: artifacts/api-server/dist/quant-v4/tmw-001-cp010-localization-proof.log
+          path: |
+            artifacts/api-server/dist/quant-v4/tmw-001-cp010-localization-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-cp010-localization-editorial-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-cp010-localization-review.json
           if-no-files-found: error
           retention-days: 7
