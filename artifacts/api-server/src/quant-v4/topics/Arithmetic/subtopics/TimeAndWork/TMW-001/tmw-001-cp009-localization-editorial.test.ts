@@ -4,7 +4,8 @@ import { runTmwCp009LocalizedPipeline } from "./foundation/cp009-localized-runti
 import type { TmwLocalizedLanguage } from "./foundation/localization-types";
 
 const languages: readonly TmwLocalizedLanguage[] = ["hi", "pa"];
-const internalPattern = /find[A-Z]|TMW_|_[A-Z_]{3,}|Independent signed-flow|Don't fall for|Do not choose/i;
+const internalIdentifierPattern = /find[A-Z]|TMW_|_[A-Z_]{3,}/;
+const internalEnglishPattern = /Independent signed-flow|Don't fall for|Do not choose/i;
 const englishPattern = /\b(?:tank|reservoir|inlet|outlet|leak|litres|hours?|water level|flow rate|full|empty|level change needed|required level change|lost efficiency|blockage|tank fills|boundary is not reached within the window)\b/i;
 let rows = 0;
 
@@ -25,7 +26,7 @@ for (const entry of TMW_CP009_REGISTRY) {
       ["conclusion", question.explanation.conclusion],
     ];
     const prose = fields.map(([, value]) => value).join("\n");
-    const internalField = fields.find(([, value]) => internalPattern.test(value));
+    const internalField = fields.find(([, value]) => internalIdentifierPattern.test(value) || internalEnglishPattern.test(value));
     const englishField = fields.find(([, value]) => englishPattern.test(value));
     const devanagariField = language === "pa"
       ? fields.find(([, value]) => /[\u0900-\u0963\u0966-\u097F]/.test(value))
