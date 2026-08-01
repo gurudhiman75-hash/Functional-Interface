@@ -62,9 +62,9 @@ export function finalizeTmwCp007Stem(
   if (source.solveMode === "findCompletionAfterCategoryReplacement") {
     const efficiencyRatio = p.context.categories.map((category) => cp007Number(category.efficiency)).join(":");
     if (language === "hi") {
-      return `मूल समूह में ${cp007Group(p, p.crewA, language)} हैं। यह समूह ${job} को ${cp007Time(p, p.daysA, language)} में पूरा करता है। अब समूह बदलकर ${cp007Group(p, p.crewB, language)} कर दिया गया है; व्यक्तिगत दक्षताओं का अनुपात ${efficiencyRatio} है। वही काम अब कितने समय में पूरा होगा?`;
+      return `मूल समूह में ${cp007Group(p, p.crewA, language)} हैं। यह समूह ${job} पूरा करता है। उसकी पूर्णता अवधि ${cp007Time(p, p.daysA, language)} है। अब समूह बदलकर ${cp007Group(p, p.crewB, language)} कर दिया गया है; व्यक्तिगत दक्षताओं का अनुपात ${efficiencyRatio} है। वही काम अब कितने समय में पूरा होगा?`;
     }
-    return `ਮੂਲ ਸਮੂਹ ਵਿੱਚ ${cp007Group(p, p.crewA, language)} ਹਨ। ਇਹ ਸਮੂਹ ${job} ਨੂੰ ${cp007Time(p, p.daysA, language)} ਵਿੱਚ ਪੂਰਾ ਕਰਦਾ ਹੈ। ਹੁਣ ਸਮੂਹ ਬਦਲ ਕੇ ${cp007Group(p, p.crewB, language)} ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ; ਵਿਅਕਤੀਗਤ ਦੱਖਤਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ${efficiencyRatio} ਹੈ। ਉਹੀ ਕੰਮ ਹੁਣ ਕਿੰਨੇ ਸਮੇਂ ਵਿੱਚ ਪੂਰਾ ਹੋਵੇਗਾ?`;
+    return `ਮੂਲ ਸਮੂਹ ਵਿੱਚ ${cp007Group(p, p.crewA, language)} ਹਨ। ਇਹ ਸਮੂਹ ${job} ਪੂਰਾ ਕਰਦਾ ਹੈ। ਕੰਮ ਪੂਰਾ ਕਰਨ ਲਈ ਲੱਗਣ ਵਾਲਾ ਸਮਾਂ ${cp007Time(p, p.daysA, language)} ਹੈ। ਹੁਣ ਸਮੂਹ ਬਦਲ ਕੇ ${cp007Group(p, p.crewB, language)} ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ; ਵਿਅਕਤੀਗਤ ਦੱਖਤਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ${efficiencyRatio} ਹੈ। ਉਹੀ ਕੰਮ ਹੁਣ ਕਿੰਨੇ ਸਮੇਂ ਵਿੱਚ ਪੂਰਾ ਹੋਵੇਗਾ?`;
   }
 
   return finalizeTmwCp007Text(stem, language);
