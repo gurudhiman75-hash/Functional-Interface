@@ -4,7 +4,7 @@ import {
   CLS_CP003_LOCALIZED_LOCALES,
   CLS_CP003_LOCALIZED_QL_IDS,
 } from "./cp003-localized-contracts";
-import { generateClsCp003LocalizedQuestion } from "./cp003-localized-runtime";
+import { generateClsCp003LocalizedQuestionV2 } from "./cp003-localized-runtime-v2";
 
 const OUTPUT_DIR = join(
   process.cwd(),
@@ -17,7 +17,7 @@ for (const locale of CLS_CP003_LOCALIZED_LOCALES) {
   const selectedByPrototype = new Map<string, number>();
   for (const qlId of CLS_CP003_LOCALIZED_QL_IDS) {
     for (let seed = 0; seed < 5000; seed += 1) {
-      const question = generateClsCp003LocalizedQuestion(qlId, locale, seed);
+      const question = generateClsCp003LocalizedQuestionV2(qlId, locale, seed);
       const count = selectedByPrototype.get(question.prototypeId) ?? 0;
       if (count >= SAMPLES_PER_PROTOTYPE_PER_LOCALE) continue;
       questions.push(question);
@@ -55,9 +55,11 @@ const lines: string[] = [
   "",
   "Status: `LOCALIZED_REVIEW_REQUIRED`",
   "",
+  "Runtime: `cls-cp003-localized-runtime-v2`",
+  "",
   `Questions: ${questions.length}`,
   "",
-  "The review corpus contains six deterministic samples for each of the seven prototype ancestries in each native locale. QL identities and solve contracts are preserved, while English-specific spelling features are replaced by governed native-script equivalents.",
+  "The review corpus contains six deterministic samples for each of the seven prototype ancestries in each native locale. QL identities and solve contracts are preserved, while English-specific spelling features are replaced by governed native-script equivalents. V2 additionally matches nuisance length and vowel-mark features, excludes one-grapheme palindrome shortcuts, and uses singular/plural-safe native prose.",
   "",
 ];
 
@@ -91,6 +93,7 @@ const manifest = {
   chapterId: "CLS-001",
   checkpointId: "CLS-CP-003",
   status: "LOCALIZED_REVIEW_REQUIRED",
+  runtimeVersion: "cls-cp003-localized-runtime-v2",
   locales: CLS_CP003_LOCALIZED_LOCALES,
   qlIds: CLS_CP003_LOCALIZED_QL_IDS,
   questionCount: questions.length,
@@ -117,7 +120,7 @@ await writeFile(
   "utf8",
 );
 
-console.log("CLS-CP-003 localized review exported.", {
+console.log("CLS-CP-003 localized V2 review exported.", {
   outputDir: OUTPUT_DIR,
   questions: questions.length,
   locales: CLS_CP003_LOCALIZED_LOCALES,
