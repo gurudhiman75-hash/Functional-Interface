@@ -46,6 +46,11 @@ export const INT_CP001_QUESTION_STUDIO_PRE_REGISTRATION_CAPABILITY = Object.free
   ] as const,
   qlIds: [...INT_CP001_FINAL_QL_IDS] as readonly IntCp001FinalQlId[],
   supportedDifficulties: ["easy", "medium", "hard"] as const,
+  difficultySelection: {
+    scope: "PACKAGE_LEVEL_STATE_DERIVED",
+    explicitPatternPolicy: "BEST_EFFORT_FAIL_CLOSED",
+    maximumSelectorAttemptsPerQl: 96,
+  } as const,
   supportedLanguages: ["en", "hi", "pa"] as const,
   enabled: true,
   stagingStatus: "ACTIVE_STAGING",
@@ -181,6 +186,7 @@ function generateSelectedEnvelope(request: {
       return {
         envelope,
         selectorTrace: {
+          selectedQlId: request.qlId,
           requestSeed: request.seed,
           selectorSeed: candidateSeed,
           selectorAttempts: attempt,
@@ -219,6 +225,35 @@ function shuffled<T>(items: readonly T[], seed: string): T[] {
   return result;
 }
 
+function generatePackageDifficultyEnvelope(request: {
+  language: IntCp001ActiveStagingLanguage;
+  seed: string;
+  difficulty: IntCp001QuestionStudioDifficulty;
+}) {
+  const candidateQlIds = shuffled(
+    INT_CP001_FINAL_QL_IDS,
+    `${request.seed}:${request.difficulty}:compatible-ql-order`,
+  );
+  const failures: string[] = [];
+
+  for (const qlId of candidateQlIds) {
+    try {
+      return generateSelectedEnvelope({
+        qlId,
+        language: request.language,
+        difficulty: request.difficulty,
+        seed: `${request.seed}:${qlId}`,
+      });
+    } catch (error) {
+      failures.push(error instanceof Error ? error.message : String(error));
+    }
+  }
+
+  throw new Error(
+    `INT-001/${request.language}/${request.seed}: no compatible QL produced ${request.difficulty}; ${failures.at(-1) ?? "unknown failure"}`,
+  );
+}
+
 export function toIntCp001QuestionStudioJsonSafe<T>(value: T): T {
   return JSON.parse(
     JSON.stringify(value, (_key, item) => typeof item === "bigint" ? item.toString() : item),
@@ -235,19 +270,35 @@ export function runIntCp001QuestionStudioPreRegistration(
   const seed = normalizeSeed(request.seed);
   const count = normalizeCount(request.count);
 
-  const qlOrder = qlId
-    ? [qlId]
+  const qlOrder = qlId || difficulty
+    ? []
     : shuffled(
       INT_CP001_FINAL_QL_IDS,
       `${seed}:INT-001:pre-registration:ql-order`,
     );
 
   const selected = Array.from({ length: count }, (_unused, index) => {
+    if (qlId) {
+      return generateSelectedEnvelope({
+        qlId,
+        language,
+        difficulty,
+        seed: `${seed}:${qlId}:${index}`,
+      });
+    }
+
+    if (difficulty) {
+      return generatePackageDifficultyEnvelope({
+        language,
+        difficulty,
+        seed: `${seed}:package-difficulty:${index}`,
+      });
+    }
+
     const selectedQlId = qlOrder[index % qlOrder.length]!;
     return generateSelectedEnvelope({
       qlId: selectedQlId,
       language,
-      difficulty,
       seed: `${seed}:${selectedQlId}:${index}`,
     });
   });
@@ -260,6 +311,11 @@ export function runIntCp001QuestionStudioPreRegistration(
       canonicalProblemId: "INT-CP-001",
       requestedPatternId: qlId ?? null,
       requestedDifficulty: difficulty ?? null,
+      difficultySelectionScope: qlId
+        ? "EXPLICIT_PATTERN_BEST_EFFORT_FAIL_CLOSED"
+        : difficulty
+          ? "PACKAGE_LEVEL_STATE_DERIVED"
+          : "STATE_DERIVED_UNFILTERED",
       seed,
       count,
       language,
