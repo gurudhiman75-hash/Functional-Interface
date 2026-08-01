@@ -52,8 +52,8 @@ for (const template of SER_CP006_TEMPORARY_TEMPLATES) {
     optionChecks += 1;
 
     if (question.taskKind === "WRONG_TERM") {
-      assert(question.hiddenState.corruptedValue === question.correctAnswer, `${question.questionId}: wrong displayed answer mismatch`);
-      assert(question.hiddenState.correctReplacement !== question.correctAnswer, `${question.questionId}: corruption did not change term`);
+      assert(question.hiddenState.corruptedValue !== question.hiddenState.correctReplacement, `${question.questionId}: corruption did not change term`);
+      assert(question.hiddenState.correctReplacement === question.correctAnswer, `${question.questionId}: replacement answer mismatch`);
       wrongTermChecks += 1;
     } else {
       assert(question.hiddenState.correctReplacement === question.correctAnswer, `${question.questionId}: required-letter mismatch`);
