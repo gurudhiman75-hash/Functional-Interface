@@ -48,6 +48,12 @@ function ensureVerifiedAnswerInTraps(
     : { ...analysis, explanation: `${analysis.explanation} ${verification}` });
 }
 
+function naturalizeCompletionText(text: string): string {
+  return text
+    .replaceAll("माँगी श्रेणी", "प्रश्न में बताई गई किस्म")
+    .replaceAll("ਮੰਗੀ ਸ਼੍ਰੇਣੀ", "ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦੱਸੀ ਕਿਸਮ");
+}
+
 export function generateAlpCompletionQuestion(ql: AlpQuestionLogic, seed: number, locale: AlpLocale): GeneratedAlpQuestion {
   if (!Number.isInteger(seed)) throw new Error("ALP-001 completion seed must be an integer.");
   const completion = build(ql, seed);
@@ -83,14 +89,17 @@ export function generateAlpCompletionQuestion(ql: AlpQuestionLogic, seed: number
     answer: completion.answer,
     explanation: {
       schemaVersion: "ALP-001-PEDAGOGY-V2",
-      coreConcept: editorial.coreConcept,
-      ruleStatement: editorial.ruleStatement,
-      steps: editorial.steps,
-      visualWorking: editorial.visualWorking,
-      examShortcut: editorial.examShortcut,
-      conclusion: editorial.conclusion,
-      distractorAnalyses,
-      closestTrapRejection: editorial.closestTrapRejection,
+      coreConcept: naturalizeCompletionText(editorial.coreConcept),
+      ruleStatement: naturalizeCompletionText(editorial.ruleStatement),
+      steps: editorial.steps.map(naturalizeCompletionText),
+      visualWorking: editorial.visualWorking.map(naturalizeCompletionText),
+      examShortcut: naturalizeCompletionText(editorial.examShortcut),
+      conclusion: naturalizeCompletionText(editorial.conclusion),
+      distractorAnalyses: distractorAnalyses.map((analysis) => ({
+        ...analysis,
+        explanation: naturalizeCompletionText(analysis.explanation),
+      })),
+      closestTrapRejection: naturalizeCompletionText(editorial.closestTrapRejection),
     },
     metadata: {
       runtimeVersion: "ALP-001-RUNTIME-V3",
