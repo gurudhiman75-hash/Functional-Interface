@@ -1,21 +1,19 @@
 import {
   SER_CP004_TEMPORARY_TEMPLATE_IDS,
   generateSerCp004Question,
-  renderSerCp004Review,
 } from "./foundation";
+import { renderSerV3NaturalReview } from "../SER-EDITORIAL-V3/ser-v3-natural";
 
 const samplesPerTemplate = 2;
 const sections: string[] = [
-  "# SER-001 / SER-CP-004 — Open English Discovery Review",
+  "# SER-001 / SER-CP-004 — Natural English Review V3",
   "",
-  "This pack contains exact deterministic runtime output for special-number, recurrence and cross-checkpoint collision probes.",
+  "This pack contains exact deterministic runtime questions rendered through the chapter-wide SER-V3-NATURAL explanation standard.",
   "",
   "- Permanent QLs: 0",
   "- Temporary templates: 28",
   "- Candidate rule families: 7",
-  "- Provisional CP-004 retained families: 3",
-  "- Provisional cross-checkpoint collision families: 4",
-  "- Maturity: OPEN_EXECUTABLE_DISCOVERY",
+  "- Explanation standard: SER-V3-NATURAL",
   "- Product exposure: disabled",
   "",
 ];
@@ -23,7 +21,7 @@ const sections: string[] = [
 for (const temporaryTemplateId of SER_CP004_TEMPORARY_TEMPLATE_IDS) {
   for (let seed = 1; seed <= samplesPerTemplate; seed += 1) {
     sections.push(
-      renderSerCp004Review(
+      renderSerV3NaturalReview(
         generateSerCp004Question(temporaryTemplateId, seed),
       ),
       "",
