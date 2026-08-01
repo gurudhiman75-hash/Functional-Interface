@@ -1,4 +1,5 @@
 import { buildMen001ExplanationIllustration } from "./explanation-illustration.all";
+import { applyMen001FiveElementBlueprint } from "./five-element-editorial";
 import { getMen001QuestionEntry } from "./library";
 import { authorFinalMen001ExplanationLines } from "./natural-explanation-authorship-final";
 import { getMen001SolveModeDefinition } from "./solve-mode-registry.all";
@@ -80,7 +81,13 @@ export function renderMen001Explanation(
     refinedSections,
     parameters,
   );
-  const sections = latexizeMen001StructuredSections(specificSections);
+  const latexSections = latexizeMen001StructuredSections(specificSections);
+  const sections = applyMen001FiveElementBlueprint(
+    latexSections,
+    parameters,
+    solver,
+    entry.distractorStrategyIds,
+  );
   return {
     strategyId: entry.explanationStrategyId,
     displayFormat: "FOUR_TIER_COMPETITIVE_EXPLANATION",
