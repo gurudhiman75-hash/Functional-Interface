@@ -33,11 +33,27 @@ function selectedDigitTransformStem(completion: C, locale: AlpLocale): string {
   return `If the digits of ${number} are ${action.en}, how many digits will remain in their original positions?`;
 }
 
+function ensureVerifiedAnswerInTraps(
+  analyses: GeneratedAlpQuestion["explanation"]["distractorAnalyses"],
+  answer: string,
+  locale: AlpLocale,
+): GeneratedAlpQuestion["explanation"]["distractorAnalyses"] {
+  const verification = locale === "hi-IN"
+    ? `सत्यापित उत्तर ${answer} है।`
+    : locale === "pa-IN"
+      ? `ਜਾਂਚਿਆ ਉੱਤਰ ${answer} ਹੈ।`
+      : `The verified answer is ${answer}.`;
+  return analyses.map((analysis) => analysis.explanation.includes(answer)
+    ? analysis
+    : { ...analysis, explanation: `${analysis.explanation} ${verification}` });
+}
+
 export function generateAlpCompletionQuestion(ql: AlpQuestionLogic, seed: number, locale: AlpLocale): GeneratedAlpQuestion {
   if (!Number.isInteger(seed)) throw new Error("ALP-001 completion seed must be an integer.");
   const completion = build(ql, seed);
   const builtOptions = options(completion.answer, completion.pool, ql, seed);
   const editorial = renderCompletionEditorial(ql, completion, builtOptions.out, builtOptions.correctIndex, locale);
+  const distractorAnalyses = ensureVerifiedAnswerInTraps(editorial.distractorAnalyses, completion.answer, locale);
   const optionOnlyQuestion = ql.solveMode === "IDENTIFY_WORD_BY_ALPHA_PAIR_COUNT";
   const renderedStem = ql.solveMode === "DIGIT_COUNT_UNCHANGED_SELECTED_TRANSFORM"
     ? selectedDigitTransformStem(completion, locale)
@@ -73,7 +89,7 @@ export function generateAlpCompletionQuestion(ql: AlpQuestionLogic, seed: number
       visualWorking: editorial.visualWorking,
       examShortcut: editorial.examShortcut,
       conclusion: editorial.conclusion,
-      distractorAnalyses: editorial.distractorAnalyses,
+      distractorAnalyses,
       closestTrapRejection: editorial.closestTrapRejection,
     },
     metadata: {
