@@ -129,9 +129,12 @@ function csvCell(value: unknown): string {
 }
 
 function unresolvedPlaceholders(value: string): readonly string[] {
+  const proseOnly = value
+    .replace(/\\\[[\s\S]*?\\\]/g, "")
+    .replace(/\\\([\s\S]*?\\\)/g, "");
   return [
     ...new Set(
-      [...value.matchAll(/\{([a-z][A-Za-z0-9_]*)\}/g)].map(
+      [...proseOnly.matchAll(/\{([a-z][A-Za-z0-9_]*)\}/g)].map(
         (match) => match[1]!,
       ),
     ),
