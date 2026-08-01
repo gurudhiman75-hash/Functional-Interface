@@ -70,11 +70,19 @@ function localizeScheduleLabels(text: string, language: TmwLocalizedLanguage): s
   }
   if (language === "hi") {
     return output
+      .replace(/Recovery inlet interval/g, "पुनर्भराव अंतराल")
+      .replace(/Drainage interval/g, "निकासी अंतराल")
+      .replace(/Pump-on interval/g, "पंप-चालू अंतराल")
+      .replace(/Drain interval/g, "निकासी अंतराल")
       .replace(/Inlet ([A-Z])/g, "भरने वाली पाइप $1")
       .replace(/Outlet ([A-Z])/g, "निकासी पाइप $1")
       .replace(/Leak ([A-Z])/g, "रिसाव $1");
   }
   return output
+    .replace(/Recovery inlet interval/g, "ਮੁੜ-ਭਰਾਅ ਅੰਤਰਾਲ")
+    .replace(/Drainage interval/g, "ਨਿਕਾਸੀ ਅੰਤਰਾਲ")
+    .replace(/Pump-on interval/g, "ਪੰਪ-ਚਾਲੂ ਅੰਤਰਾਲ")
+    .replace(/Drain interval/g, "ਨਿਕਾਸੀ ਅੰਤਰਾਲ")
     .replace(/Inlet ([A-Z])/g, "ਭਰਨ ਵਾਲੀ ਪਾਈਪ $1")
     .replace(/Outlet ([A-Z])/g, "ਨਿਕਾਸੀ ਪਾਈਪ $1")
     .replace(/Leak ([A-Z])/g, "ਰਿਸਾਅ $1");
