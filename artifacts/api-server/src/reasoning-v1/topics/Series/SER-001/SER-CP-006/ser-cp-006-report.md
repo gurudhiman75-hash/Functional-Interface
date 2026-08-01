@@ -17,7 +17,7 @@ VOWEL_SUCCESSOR_CYCLE
 CONSONANT_SUCCESSOR_CYCLE
 ```
 
-Each family supports next-term, interior-missing, previous-term and wrong-letter tasks.
+Each family supports next-term, interior-missing, previous-term and wrong-term replacement tasks.
 
 ## Representation compression
 
@@ -52,7 +52,7 @@ Deterministic replay checks:       3,840
 Independent projection checks:     3,840
 Option and answer checks:           3,840
 Lifecycle checks:                  3,840
-Wrong-letter checks:                 960
+Wrong-term replacement checks:       960
 Questions per family:                480
 Questions per task:                  960
 Questions per authority:             960
