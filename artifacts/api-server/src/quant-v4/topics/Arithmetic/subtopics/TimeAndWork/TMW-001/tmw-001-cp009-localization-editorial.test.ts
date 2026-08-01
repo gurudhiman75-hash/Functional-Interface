@@ -4,6 +4,8 @@ import { runTmwCp009LocalizedPipeline } from "./foundation/cp009-localized-runti
 import type { TmwLocalizedLanguage } from "./foundation/localization-types";
 
 const languages: readonly TmwLocalizedLanguage[] = ["hi", "pa"];
+const internalPattern = /find[A-Z]|TMW_|_[A-Z_]{3,}|Independent signed-flow|Don't fall for|Do not choose/i;
+const englishPattern = /\b(?:tank|reservoir|inlet|outlet|leak|litres|hours?|water level|flow rate|full|empty|level change needed|required level change|lost efficiency|blockage|tank fills|boundary is not reached within the window)\b/i;
 let rows = 0;
 
 for (const entry of TMW_CP009_REGISTRY) {
@@ -23,6 +25,8 @@ for (const entry of TMW_CP009_REGISTRY) {
       ["conclusion", question.explanation.conclusion],
     ];
     const prose = fields.map(([, value]) => value).join("\n");
+    const internalField = fields.find(([, value]) => internalPattern.test(value));
+    const englishField = fields.find(([, value]) => englishPattern.test(value));
     const devanagariField = language === "pa"
       ? fields.find(([, value]) => /[\u0900-\u0963\u0966-\u097F]/.test(value))
       : undefined;
@@ -33,8 +37,8 @@ for (const entry of TMW_CP009_REGISTRY) {
     assert.equal(question.validation.valid, true, `${entry.qlId}:${language}:${question.validation.errors.join(" | ")}`);
     assert.equal(question.publiclyPublishable, false);
     assert.equal(question.editorialStatus, "PENDING");
-    assert.equal(/find[A-Z]|TMW_|_[A-Z_]{3,}|Independent signed-flow|Don't fall for|Do not choose/i.test(prose), false, `${entry.qlId}:${language}: internal wording`);
-    assert.equal(/\b(?:tank|reservoir|inlet|outlet|leak|litres|hours?|water level|flow rate|full|empty|level change needed|required level change|lost efficiency|blockage|tank fills|boundary is not reached within the window)\b/i.test(prose), false, `${entry.qlId}:${language}: English learner wording`);
+    assert.equal(internalField, undefined, `${entry.qlId}:${language}: internal wording in ${internalField?.[0]}: ${internalField?.[1]}`);
+    assert.equal(englishField, undefined, `${entry.qlId}:${language}: English learner wording in ${englishField?.[0]}: ${englishField?.[1]}`);
     assert.equal(/\b\d+\s+\d+\/\d+\b/.test(prose), false, `${entry.qlId}:${language}: raw mixed fraction`);
     assert.equal(/\d+ घंटे में|\d+ ਘੰਟੇ ਵਿੱਚ/.test(prose), false, `${entry.qlId}:${language}: uninflected time postposition`);
     assert.equal(devanagariField, undefined, `${entry.qlId}:${language}: Devanagari leakage in ${devanagariField?.[0]}: ${devanagariField?.[1]}`);
