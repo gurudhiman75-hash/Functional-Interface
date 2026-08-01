@@ -1,10 +1,7 @@
-import { required } from "./cp001-helpers";
 import { tmwCp008ContributionVector } from "./cp008-engine";
 import type { TmwCp008GeneratedQuestion } from "./cp008-types";
 import type { TmwLocalizedLanguage } from "./localization-types";
 import {
-  cp008Money,
-  cp008Name,
   cp008Number,
 } from "./localization-cp008-language";
 
@@ -23,6 +20,7 @@ export function finalizeTmwCp008FinalText(
       .replace(/श्रेणी योगदान अनुपात/g, "श्रेणियों का योगदान अनुपात")
       .replace(/तीनों श्रेणी योगदान/g, "तीनों श्रेणियों के योगदान")
       .replace(/बोनस पूल:/g, "बोनस राशि:")
+      .replace(/भुगतान पूल:/g, "भुगतान राशि:")
       .replace(/यह विकल्प पहले से दिए भुगतान कुल राशि से नहीं घटाता।/g, "यह विकल्प पहले से दिए भुगतानों को कुल राशि से नहीं घटाता।")
       .replace(/स्वीकृत कार्य-मात्रा:/g, "स्वीकृत काम की मात्रा:")
       .replace(/अस्वीकृत\/पुनःकार्य/g, "अस्वीकृत या पुनःकार्य")
@@ -34,6 +32,7 @@ export function finalizeTmwCp008FinalText(
     .replace(/ਸ਼੍ਰੇਣੀ ਯੋਗਦਾਨ ਅਨੁਪਾਤ/g, "ਸ਼੍ਰੇਣੀਆਂ ਦਾ ਯੋਗਦਾਨ ਅਨੁਪਾਤ")
     .replace(/ਤਿੰਨਾਂ ਸ਼੍ਰੇਣੀ ਯੋਗਦਾਨ/g, "ਤਿੰਨਾਂ ਸ਼੍ਰੇਣੀਆਂ ਦੇ ਯੋਗਦਾਨ")
     .replace(/ਬੋਨਸ ਪੂਲ:/g, "ਬੋਨਸ ਰਕਮ:")
+    .replace(/ਭੁਗਤਾਨ ਪੂਲ:/g, "ਭੁਗਤਾਨ ਰਕਮ:")
     .replace(/ਇਹ ਚੋਣ ਪਹਿਲਾਂ ਦਿੱਤੇ ਭੁਗਤਾਨ ਕੁੱਲ ਰਕਮ ਵਿੱਚੋਂ ਨਹੀਂ ਘਟਾਉਂਦੀ।/g, "ਇਹ ਚੋਣ ਪਹਿਲਾਂ ਦਿੱਤੇ ਭੁਗਤਾਨਾਂ ਨੂੰ ਕੁੱਲ ਰਕਮ ਵਿੱਚੋਂ ਨਹੀਂ ਘਟਾਉਂਦੀ।")
     .replace(/ਮਨਜ਼ੂਰ ਕੰਮ-ਮਾਤਰਾ:/g, "ਮਨਜ਼ੂਰ ਕੰਮ ਦੀ ਮਾਤਰਾ:")
     .replace(/ਰੱਦ\/ਮੁੜ-ਕੰਮ/g, "ਰੱਦ ਜਾਂ ਮੁੜ-ਕੰਮ")
@@ -45,21 +44,13 @@ export function finalizeTmwCp008FinalStem(
   stem: string,
   language: TmwLocalizedLanguage,
 ): string {
-  if (source.solveMode === "findResidualPayment") {
-    const p = source.parameters;
-    const target = p.targetIndex ?? 0;
-    const known = required(p.knownPaymentIndices, "knownPaymentIndices");
-    const reported = required(p.reportedPayments, "reportedPayments");
-    const payments = known
-      .map((index) => `${cp008Name(p.context.roles[index].name, language)}—${cp008Money(reported[index])}`)
-      .join(", ");
-    if (language === "hi") {
-      return `कुल राशि ${cp008Money(p.totalPayment)} निर्धारित है। पहले से दिए भुगतान: ${payments}। शेष राशि ${cp008Name(p.context.roles[target].name, language)} को मिलेगी। वह राशि कितनी है?`;
-    }
-    return `ਕੁੱਲ ਰਕਮ ${cp008Money(p.totalPayment)} ਨਿਰਧਾਰਤ ਹੈ। ਪਹਿਲਾਂ ਦਿੱਤੇ ਭੁਗਤਾਨ: ${payments}। ਬਾਕੀ ਰਕਮ ${cp008Name(p.context.roles[target].name, language)} ਨੂੰ ਮਿਲੇਗੀ। ਉਹ ਰਕਮ ਕਿੰਨੀ ਹੈ?`;
-  }
-
   let output = finalizeTmwCp008FinalText(stem, language);
+  if (source.solveMode === "findResidualPayment") {
+    if (language === "hi") {
+      return output.replace(/के लिए कुल (₹[^।\s]+) निर्धारित हैं।/, "के लिए कुल राशि $1 निर्धारित है।");
+    }
+    return output.replace(/ਲਈ ਕੁੱਲ (₹[^।\s]+) ਨਿਰਧਾਰਤ ਹਨ।/, "ਲਈ ਕੁੱਲ ਰਕਮ $1 ਨਿਰਧਾਰਤ ਹੈ।");
+  }
   if (language === "pa" && source.solveMode === "findMissingTimeFromPayment") {
     output = output
       .replace(/ਉਨ੍ਹਾਂ ਦੀ ਦਰ /g, "ਉਨ੍ਹਾਂ ਦੀਆਂ ਦਰਾਂ ")
