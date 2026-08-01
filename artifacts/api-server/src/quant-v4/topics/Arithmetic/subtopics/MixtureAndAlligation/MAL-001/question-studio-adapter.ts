@@ -10,10 +10,8 @@ import {
   MAL_CP002_PERMANENT_ALLOCATION,
   type MalCp002PermanentQlId,
 } from "./foundation/cp002-permanent-runtime";
-import {
-  runMalCp002EnglishEditorialRemediationV2Pipeline,
-  type MalCp002EditorialRemediationV2Question,
-} from "./foundation/cp002-editorial-remediation-v2";
+import type { MalCp002EditorialRemediationV2Question } from "./foundation/cp002-editorial-remediation-v2";
+import { runMalCp002EnglishEditorialRemediationV2Pipeline } from "./foundation/cp002-editorial-remediation-v2-pipeline";
 
 export const MAL_001_QUESTION_STUDIO_CP_IDS = [
   "MAL-CP-001",
