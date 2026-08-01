@@ -112,7 +112,12 @@ for (const ql of ALP_001_QLS) {
       if (Number(ql.checkpointId.slice(-3)) >= 6) {
         completionVisualChecks += 1;
         assert(question.explanation.visualWorking.length >= 3, `${ql.qlId} ${seed} ${locale} completion visual too thin`);
-        assert((question.structuredPrompt.sequence?.length ?? 0) > 0, `${ql.qlId} ${seed} ${locale} completion sequence missing`);
+        if (ql.solveMode === "IDENTIFY_WORD_BY_ALPHA_PAIR_COUNT") {
+          assert(!question.structuredPrompt.sequence?.length, `${ql.qlId} ${seed} ${locale} option-only sequence leak`);
+          assert(!question.structuredPrompt.word, `${ql.qlId} ${seed} ${locale} option-only word leak`);
+        } else {
+          assert((question.structuredPrompt.sequence?.length ?? 0) > 0, `${ql.qlId} ${seed} ${locale} completion sequence missing`);
+        }
       }
     }
   }
