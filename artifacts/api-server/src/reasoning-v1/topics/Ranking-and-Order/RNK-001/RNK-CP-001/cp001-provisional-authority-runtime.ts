@@ -9,10 +9,10 @@ import {
   type RnkCp001SourceWaveQuestion,
 } from './cp001-source-wave-reviewed';
 import {
-  generateRnkCp001FinalInverseQuestion,
+  generateRnkCp001FinalInverseReviewedQuestion,
   RNK_CP001_FINAL_INVERSE_PROTOTYPE_ID,
   type RnkCp001FinalInverseQuestion,
-} from './cp001-final-inverse-gap';
+} from './cp001-final-inverse-reviewed';
 import {
   authorityForRnkCp001Prototype,
   RNK_CP001_PROVISIONAL_AUTHORITIES,
@@ -91,7 +91,7 @@ function generateUnderlyingQuestion(
     );
   }
   if (prototypeId === RNK_CP001_FINAL_INVERSE_PROTOTYPE_ID) {
-    return generateRnkCp001FinalInverseQuestion(seed);
+    return generateRnkCp001FinalInverseReviewedQuestion(seed);
   }
   throw new Error(`Unsupported RNK CP-001 source prototype ${prototypeId}`);
 }
