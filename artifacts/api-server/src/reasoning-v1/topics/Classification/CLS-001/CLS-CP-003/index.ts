@@ -25,8 +25,6 @@ export type {
 export {
   analyzeClsCp003LocalizedWord,
   auditClsCp003LocalizedWords,
-  generateClsCp003LocalizedQuestion,
-  independentlyVerifyClsCp003LocalizedQuestion,
 } from "./cp003-localized-runtime";
 export type {
   ClsCp003LocalizedAudit,
@@ -35,8 +33,14 @@ export type {
   ClsCp003LocalizedRuleId,
   ClsCp003LocalizedRuleSupport,
   ClsCp003LocalizedWordFeatures,
-  GeneratedClsCp003LocalizedQuestion,
 } from "./cp003-localized-runtime";
+export {
+  generateClsCp003LocalizedQuestionV2 as generateClsCp003LocalizedQuestion,
+  independentlyVerifyClsCp003LocalizedQuestionV2 as independentlyVerifyClsCp003LocalizedQuestion,
+} from "./cp003-localized-runtime-v2";
+export type {
+  GeneratedClsCp003LocalizedQuestionV2 as GeneratedClsCp003LocalizedQuestion,
+} from "./cp003-localized-runtime-v2";
 export {
   CLS_CP003_LOCALIZED_JUMBLE_WORDS,
   CLS_CP003_LOCALIZED_WORDS,
