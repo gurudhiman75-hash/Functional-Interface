@@ -2,6 +2,8 @@ import type { TmwLocalizedLanguage } from "./localization-types";
 
 function polishHindi(text: string): string {
   return text
+    .replace(/_\{hour\}/g, "_{घंटा}")
+    .replace(/_\{minute\}/g, "_{मिनट}")
     .replace(/((?:[2-9]|\d{2,})) घंटे में/g, "$1 घंटों में")
     .replace(/((?:[2-9]|\d{2,})) घंटे के भीतर/g, "$1 घंटों के भीतर")
     .replace(/पाइपें एक साथ खोलने/g, "पाइपों को एक साथ खोलने")
@@ -43,6 +45,8 @@ function polishHindi(text: string): string {
 
 function polishPunjabi(text: string): string {
   return text
+    .replace(/_\{hour\}/g, "_{ਘੰਟਾ}")
+    .replace(/_\{minute\}/g, "_{ਮਿੰਟ}")
     .replace(/अकेले/g, "ਇਕੱਲੀ")
     .replace(/में टंकी भरती है/g, "ਵਿੱਚ ਟੈਂਕੀ ਭਰਦੀ ਹੈ")
     .replace(/में टंकी खाली करती है/g, "ਵਿੱਚ ਟੈਂਕੀ ਖਾਲੀ ਕਰਦੀ ਹੈ")
