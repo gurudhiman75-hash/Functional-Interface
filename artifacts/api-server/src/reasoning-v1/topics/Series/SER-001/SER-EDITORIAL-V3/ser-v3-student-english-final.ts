@@ -1,7 +1,7 @@
 import type { SerV3NaturalExplanation } from "./ser-v3-natural-pedagogical";
 
 const AWKWARD_STUDENT_PHRASES =
-  /visible schedule|forward operation|direction of work|place numbers|supporting check|one-step error|is a may look|ordered (?:vowel|consonant) list|same-row|forward rule|needed place/i;
+  /visible schedule|forward operation|direction of work|place numbers|supporting check|one-step error|is a may look|ordered (?:vowel|consonant) list|same-row|forward rule/i;
 
 function polishLine(value: string): string {
   let result = value;
