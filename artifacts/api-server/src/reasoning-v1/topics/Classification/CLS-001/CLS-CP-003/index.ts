@@ -35,12 +35,12 @@ export type {
   ClsCp003LocalizedWordFeatures,
 } from "./cp003-localized-runtime";
 export {
-  generateClsCp003LocalizedQuestionV3 as generateClsCp003LocalizedQuestion,
-  independentlyVerifyClsCp003LocalizedQuestionV3 as independentlyVerifyClsCp003LocalizedQuestion,
-} from "./cp003-localized-runtime-v3";
+  generateClsCp003LocalizedQuestionV4 as generateClsCp003LocalizedQuestion,
+  independentlyVerifyClsCp003LocalizedQuestionV4 as independentlyVerifyClsCp003LocalizedQuestion,
+} from "./cp003-localized-runtime-v4";
 export type {
-  GeneratedClsCp003LocalizedQuestionV3 as GeneratedClsCp003LocalizedQuestion,
-} from "./cp003-localized-runtime-v3";
+  GeneratedClsCp003LocalizedQuestionV4 as GeneratedClsCp003LocalizedQuestion,
+} from "./cp003-localized-runtime-v4";
 export {
   CLS_CP003_LOCALIZED_JUMBLE_WORDS,
   CLS_CP003_LOCALIZED_WORDS,
