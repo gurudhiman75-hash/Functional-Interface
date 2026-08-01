@@ -60,7 +60,7 @@ jobs:
       - name: Verify evidence markers
         shell: bash --noprofile --norc -e -o pipefail {0}
         run: |
-          grep -q 'PASS_INT_CP001_APPROVED_ACTIVE_STAGING_V3' \
+          grep -q 'PASS_INT_CP001_APPROVED_ACTIVE_STAGING_PROVIDER_V3' \
             artifacts/api-server/dist/quant-v4/int-001-cp001-active-staging-v3-audit.log
           grep -q 'PASS_INT_CP001_QUESTION_STUDIO_PRE_REGISTRATION_CONTRACT' \
             artifacts/api-server/dist/quant-v4/int-001-cp001-question-studio-pre-registration-audit.log
