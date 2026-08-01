@@ -10,6 +10,13 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+function isWholeProseSentenceInMath(value: unknown): boolean {
+  const text = String(value ?? "").trim();
+  if (!/^\$[^$]+\$$/u.test(text)) return false;
+  const bodyWithoutCommands = text.slice(1, -1).replace(/\\[A-Za-z]+/gu, "");
+  return /[A-Za-z]{2,}/u.test(bodyWithoutCommands) && /\s/u.test(bodyWithoutCommands);
+}
+
 const checkpointCounts = new Map<string, number>();
 const stemFamilyCounts = new Map<string, number>();
 const qlIds = new Set<string>();
@@ -69,9 +76,9 @@ for (const card of NUMBER_SYSTEM_GENERATOR_V3_CARDS) {
     `${label}: duplicate option`);
   assert(card.options.every((option) => !/[✓✔]/u.test(option) && !/\[x\]/iu.test(option)),
     `${label}: correct-answer marker leaked into options`);
-  assert(card.options.every((option) => !/^\$[^$]*[A-Za-z]{2,}[^$]*\$$/u.test(option)),
+  assert(card.options.every((option) => !isWholeProseSentenceInMath(option)),
     `${label}: prose sentence is wrapped entirely in math mode`);
-  assert(!/^\$[^$]*[A-Za-z]{2,}[^$]*\$$/u.test(card.correctAnswer.value),
+  assert(!isWholeProseSentenceInMath(card.correctAnswer.value),
     `${label}: correct-answer prose is wrapped entirely in math mode`);
   assert(/^[A-E]$/.test(card.correctAnswer.label), `${label}: invalid answer label`);
   assert(card.correctAnswer.value.length > 0, `${label}: missing separate correct answer`);
