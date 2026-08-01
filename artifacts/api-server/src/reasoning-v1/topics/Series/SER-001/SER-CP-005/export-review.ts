@@ -3,22 +3,20 @@ import {
   SER_CP005_SOURCE_RULE_IDS,
   SER_CP005_TEMPORARY_TEMPLATE_IDS,
   generateSerCp005Question,
-  renderSerCp005Review,
 } from "./foundation";
+import { renderSerV3NaturalReview } from "../SER-EDITORIAL-V3/ser-v3-natural";
 
 const samplesPerTemplate = 2;
 const sections: string[] = [
-  "# SER-001 / SER-CP-005 — Open English Discovery Review",
+  "# SER-001 / SER-CP-005 — Natural English Review V3",
   "",
-  "This pack contains exact deterministic runtime output for alternating, interleaved and composite numeric-series candidates.",
+  "This pack contains exact deterministic runtime questions rendered through the chapter-wide SER-V3-NATURAL explanation standard.",
   "",
   "- Permanent QLs: 0",
   `- Temporary templates: ${SER_CP005_TEMPORARY_TEMPLATE_IDS.length}`,
   `- Source-shaped rule families: ${SER_CP005_SOURCE_RULE_IDS.length}`,
   `- Provisional canonical authorities: ${SER_CP005_CANONICAL_AUTHORITY_IDS.length}`,
-  "- Alternating/interleaved collision families: 2",
-  "- Phase-variant merge families: 4",
-  "- Maturity: OPEN_EXECUTABLE_DISCOVERY",
+  "- Explanation standard: SER-V3-NATURAL",
   "- Product exposure: disabled",
   "",
 ];
@@ -26,7 +24,7 @@ const sections: string[] = [
 for (const temporaryTemplateId of SER_CP005_TEMPORARY_TEMPLATE_IDS) {
   for (let seed = 1; seed <= samplesPerTemplate; seed += 1) {
     sections.push(
-      renderSerCp005Review(
+      renderSerV3NaturalReview(
         generateSerCp005Question(temporaryTemplateId, seed),
       ),
       "",
