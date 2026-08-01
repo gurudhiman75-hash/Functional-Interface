@@ -42,10 +42,10 @@ export function finalizeTmwCp007Stem(
     const output = cp007Copy(p.context.outputUnit, language);
     const rates = p.context.categories.map((category) => cp007Number(category.efficiency)).join(", ");
     const unit = rateUnit(language, cp007IsHourly(p));
-    if (language === "hi") {
-      return `मिश्रित समूह में ${cp007Group(p, p.crewA, language)} हैं। उसे ${job} पूरा करना है। कुल लक्ष्य: ${cp007Number(p.workA)} ${output}। तीनों श्रेणियों की व्यक्तिगत दरें क्रमशः ${rates} ${output} ${unit} हैं। समूह को पूरा काम करने में कितना समय लगेगा?`;
-    }
-    return `ਮਿਲੇ-ਜੁਲੇ ਸਮੂਹ ਵਿੱਚ ${cp007Group(p, p.crewA, language)} ਹਨ। ਇਸ ਨੇ ${job} ਪੂਰਾ ਕਰਨਾ ਹੈ। ਕੁੱਲ ਟੀਚਾ: ${cp007Number(p.workA)} ${output}। ਤਿੰਨਾਂ ਸ਼੍ਰੇਣੀਆਂ ਦੀ ਵਿਅਕਤੀਗਤ ਦਰ ਕ੍ਰਮਵਾਰ ${rates} ${output} ${unit} ਹੈ। ਸਮੂਹ ਨੂੰ ਪੂਰਾ ਕੰਮ ਕਰਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
+    const rebuilt = language === "hi"
+      ? `मिश्रित समूह में ${cp007Group(p, p.crewA, language)} हैं। उसे ${job} पूरा करना है। कुल लक्ष्य: ${cp007Number(p.workA)} ${output}। तीनों श्रेणियों की व्यक्तिगत दरें क्रमशः ${rates} ${output} ${unit} हैं। समूह को पूरा काम करने में कितना समय लगेगा?`
+      : `ਮਿਲੇ-ਜੁਲੇ ਸਮੂਹ ਵਿੱਚ ${cp007Group(p, p.crewA, language)} ਹਨ। ਇਸ ਨੇ ${job} ਪੂਰਾ ਕਰਨਾ ਹੈ। ਕੁੱਲ ਟੀਚਾ: ${cp007Number(p.workA)} ${output}। ਤਿੰਨਾਂ ਸ਼੍ਰੇਣੀਆਂ ਦੀ ਵਿਅਕਤੀਗਤ ਦਰ ਕ੍ਰਮਵਾਰ ${rates} ${output} ${unit} ਹੈ। ਸਮੂਹ ਨੂੰ ਪੂਰਾ ਕੰਮ ਕਰਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ?`;
+    return finalizeTmwCp007Text(rebuilt, language);
   }
 
   if (source.solveMode === "findEquivalentCategoryCount") {
@@ -53,18 +53,18 @@ export function finalizeTmwCp007Stem(
     const targetIndex = p.targetCategoryIndex ?? 0;
     const sourceCount = cp007Count(p, sourceIndex, p.crewA[sourceIndex], language);
     const targetPlural = cp007Copy(p.context.categories[targetIndex].plural, language);
-    if (language === "hi") {
-      return `${sourceCount} की कुल क्षमता के बराबर क्षमता केवल ${targetPlural} से प्राप्त करनी है। इसके लिए कितने ${targetPlural} चाहिए?`;
-    }
-    return `${sourceCount} ਦੀ ਕੁੱਲ ਸਮਰੱਥਾ ਦੇ ਬਰਾਬਰ ਸਮਰੱਥਾ ਸਿਰਫ਼ ${targetPlural} ਨਾਲ ਪ੍ਰਾਪਤ ਕਰਨੀ ਹੈ। ਇਸ ਲਈ ਕਿੰਨੇ ${targetPlural} ਚਾਹੀਦੇ ਹਨ?`;
+    const rebuilt = language === "hi"
+      ? `${sourceCount} की कुल क्षमता के बराबर क्षमता केवल ${targetPlural} से प्राप्त करनी है। इसके लिए कितने ${targetPlural} चाहिए?`
+      : `${sourceCount} ਦੀ ਕੁੱਲ ਸਮਰੱਥਾ ਦੇ ਬਰਾਬਰ ਸਮਰੱਥਾ ਸਿਰਫ਼ ${targetPlural} ਨਾਲ ਪ੍ਰਾਪਤ ਕਰਨੀ ਹੈ। ਇਸ ਲਈ ਕਿੰਨੇ ${targetPlural} ਚਾਹੀਦੇ ਹਨ?`;
+    return finalizeTmwCp007Text(rebuilt, language);
   }
 
   if (source.solveMode === "findCompletionAfterCategoryReplacement") {
     const efficiencyRatio = p.context.categories.map((category) => cp007Number(category.efficiency)).join(":");
-    if (language === "hi") {
-      return `मूल समूह में ${cp007Group(p, p.crewA, language)} हैं। यह समूह ${job} पूरा करता है। उसकी पूर्णता अवधि ${cp007Time(p, p.daysA, language)} है। अब समूह बदलकर ${cp007Group(p, p.crewB, language)} कर दिया गया है; व्यक्तिगत दक्षताओं का अनुपात ${efficiencyRatio} है। वही काम अब कितने समय में पूरा होगा?`;
-    }
-    return `ਮੂਲ ਸਮੂਹ ਵਿੱਚ ${cp007Group(p, p.crewA, language)} ਹਨ। ਇਹ ਸਮੂਹ ${job} ਪੂਰਾ ਕਰਦਾ ਹੈ। ਕੰਮ ਪੂਰਾ ਕਰਨ ਲਈ ਲੱਗਣ ਵਾਲਾ ਸਮਾਂ ${cp007Time(p, p.daysA, language)} ਹੈ। ਹੁਣ ਸਮੂਹ ਬਦਲ ਕੇ ${cp007Group(p, p.crewB, language)} ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ; ਵਿਅਕਤੀਗਤ ਦੱਖਤਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ${efficiencyRatio} ਹੈ। ਉਹੀ ਕੰਮ ਹੁਣ ਕਿੰਨੇ ਸਮੇਂ ਵਿੱਚ ਪੂਰਾ ਹੋਵੇਗਾ?`;
+    const rebuilt = language === "hi"
+      ? `मूल समूह में ${cp007Group(p, p.crewA, language)} हैं। यह समूह ${job} पूरा करता है। उसकी पूर्णता अवधि ${cp007Time(p, p.daysA, language)} है। अब समूह बदलकर ${cp007Group(p, p.crewB, language)} कर दिया गया है; व्यक्तिगत दक्षताओं का अनुपात ${efficiencyRatio} है। वही काम अब कितने समय में पूरा होगा?`
+      : `ਮੂਲ ਸਮੂਹ ਵਿੱਚ ${cp007Group(p, p.crewA, language)} ਹਨ। ਇਹ ਸਮੂਹ ${job} ਪੂਰਾ ਕਰਦਾ ਹੈ। ਕੰਮ ਪੂਰਾ ਕਰਨ ਲਈ ਲੱਗਣ ਵਾਲਾ ਸਮਾਂ ${cp007Time(p, p.daysA, language)} ਹੈ। ਹੁਣ ਸਮੂਹ ਬਦਲ ਕੇ ${cp007Group(p, p.crewB, language)} ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ; ਵਿਅਕਤੀਗਤ ਦੱਖਤਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ${efficiencyRatio} ਹੈ। ਉਹੀ ਕੰਮ ਹੁਣ ਕਿੰਨੇ ਸਮੇਂ ਵਿੱਚ ਪੂਰਾ ਹੋਵੇਗਾ?`;
+    return finalizeTmwCp007Text(rebuilt, language);
   }
 
   return finalizeTmwCp007Text(stem, language);
