@@ -32,7 +32,8 @@ for (const entry of TMW_CP009_REGISTRY) {
         : undefined;
 
       assert.equal(question.validation.valid, true, `${entry.qlId}:${language}:${question.validation.errors.join(" | ")}`);
-      assert.equal(/find[A-Z]|TMW_|_[A-Z_]{3,}|Independent signed-flow|Don't fall for|Do not choose/i.test(prose), false, `${entry.qlId}:${language}: internal wording`);
+      assert.equal(/find[A-Z]|TMW_|_[A-Z_]{3,}/.test(prose), false, `${entry.qlId}:${language}: internal identifier`);
+      assert.equal(/Independent signed-flow|Don't fall for|Do not choose/i.test(prose), false, `${entry.qlId}:${language}: internal English wording`);
       assert.equal(/\b(?:tank|reservoir|inlet|outlet|leak|litres|hours?|water level|flow rate|full|empty|level change needed|required level change|lost efficiency|blockage|tank fills|boundary is not reached within the window)\b/i.test(prose), false, `${entry.qlId}:${language}: English learner wording`);
       assert.equal(/\b\d+\s+\d+\/\d+\b/.test(prose), false, `${entry.qlId}:${language}: raw mixed fraction`);
       assert.equal(/\d+ घंटे में|\d+ ਘੰਟੇ ਵਿੱਚ/.test(prose), false, `${entry.qlId}:${language}: uninflected time`);
