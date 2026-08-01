@@ -7,8 +7,14 @@ import {
   auditSerV3NaturalExplanation as auditPedagogical,
   buildSerV3NaturalExplanation as buildPedagogical,
 } from "./ser-v3-natural-pedagogical";
+import {
+  SER_V3_OPTION_LABELS,
+  SER_V3_SIMPLE_HEADINGS,
+  hasUnnecessarySerV3Jargon,
+  simplifySerV3Explanation,
+} from "./ser-v3-simple-language";
 
-export { SER_V3_NATURAL_STANDARD_ID };
+export { SER_V3_NATURAL_STANDARD_ID, SER_V3_OPTION_LABELS, SER_V3_SIMPLE_HEADINGS };
 export type { SerV3CompatibleQuestion, SerV3NaturalExplanation, SerV3NaturalQuestion };
 
 interface AlphabetWrapTransition {
@@ -64,12 +70,12 @@ function wrapArithmeticLine(transition: AlphabetWrapTransition): string {
   if (transition.shift > 0) {
     const cycles = Math.floor((rawPosition - 1) / 26);
     const deduction = cycles * 26;
-    return `Cyclic wrap arithmetic: ${arrow} because ${inlineMath(`${transition.fromPosition}+${transition.shift}=${rawPosition}`)} and ${inlineMath(`${rawPosition}-${deduction}=${transition.toPosition}`)}.`;
+    return `Wrap after Z: ${arrow}. ${inlineMath(`${transition.fromPosition}+${transition.shift}=${rawPosition}`)}; subtract ${inlineMath(String(deduction))} to get ${inlineMath(String(transition.toPosition))}.`;
   }
 
   const cycles = Math.ceil((1 - rawPosition) / 26);
   const addition = cycles * 26;
-  return `Cyclic wrap arithmetic: ${arrow} because ${inlineMath(`${transition.fromPosition}${transition.shift}=${rawPosition}`)} and ${inlineMath(`${rawPosition}+${addition}=${transition.toPosition}`)}.`;
+  return `Wrap before A: ${arrow}. ${inlineMath(`${transition.fromPosition}${transition.shift}=${rawPosition}`)}; add ${inlineMath(String(addition))} to get ${inlineMath(String(transition.toPosition))}.`;
 }
 
 function withExplicitWrapArithmetic(explanation: SerV3NaturalExplanation): SerV3NaturalExplanation {
@@ -93,7 +99,9 @@ function previousFirstStepIsNonSpoiling(
 }
 
 export function buildSerV3NaturalExplanation(question: SerV3CompatibleQuestion): SerV3NaturalExplanation {
-  return withExplicitWrapArithmetic(buildPedagogical(question));
+  return simplifySerV3Explanation(
+    withExplicitWrapArithmetic(buildPedagogical(question)),
+  );
 }
 
 export function applySerV3NaturalExplanation<T extends SerV3CompatibleQuestion>(
@@ -106,29 +114,44 @@ export function applySerV3NaturalExplanation<T extends SerV3CompatibleQuestion>(
 export function auditSerV3NaturalExplanation(question: SerV3CompatibleQuestion) {
   const explanation = buildSerV3NaturalExplanation(question);
   const expectedWraps = wrapTransitions(buildPedagogical(question));
-  const wrapLines = explanation.derivation.filter((line) => line.startsWith("Cyclic wrap arithmetic:"));
+  const wrapLines = explanation.derivation.filter(
+    (line) => line.startsWith("Wrap after Z:") || line.startsWith("Wrap before A:"),
+  );
 
   return [
-    ...auditPedagogical(question),
+    ...auditPedagogical(question).filter(
+      (check) => check.name !== "series-v3-explicit-wrap-arithmetic",
+    ),
     {
       name: "series-v3-strict-previous-non-spoiling",
       passed: previousFirstStepIsNonSpoiling(question, explanation),
-      message: "Previous-term Step 1 must use known terms only; target derivation begins after the inverse rule is stated.",
+      message: "Previous-term Step 1 must use known terms only; work out the answer after the reverse rule is clear.",
     },
     {
       name: "series-v3-explicit-wrap-arithmetic",
       passed:
         expectedWraps.length === wrapLines.length
-        && wrapLines.every((line) => /because \$-?\d+[+-]\d+=-?\d+\$ and \$-?\d+[+-]\d+=\d+\$\.$/.test(line)),
-      message: "Every displayed A/Z wrap must include the exact position arithmetic that normalizes the result into 1–26.",
+        && wrapLines.every((line) =>
+          /^(?:Wrap after Z|Wrap before A): \$[A-Z]\(\d{1,2}\) \\xrightarrow\{[+-]\d+\} [A-Z]\(\d{1,2}\)\$\. \$-?\d+[+-]\d+=-?\d+\$; (?:subtract|add) \$\d+\$ to get \$\d+\$\.$/.test(line)
+        ),
+      message: "Every A/Z wrap must show the simple number calculation.",
+    },
+    {
+      name: "series-v3-plain-student-language",
+      passed: !hasUnnecessarySerV3Jargon(explanation),
+      message: "Learner text must use plain exam language and avoid unnecessary technical words.",
     },
   ];
 }
 
 export function renderSerV3NaturalReview(question: SerV3CompatibleQuestion): string {
   const enhanced = applySerV3NaturalExplanation(question);
+  if (enhanced.options.length !== SER_V3_OPTION_LABELS.length) {
+    throw new Error(`SER-V3 expects exactly four options; received ${enhanced.options.length}.`);
+  }
   const optionLines = enhanced.options.map(
-    (option, index) => `${index === enhanced.correctIndex ? "✓" : " "} ${String.fromCharCode(65 + index)}. ${option}`,
+    (option, index) =>
+      `${index === enhanced.correctIndex ? "✓" : " "} ${SER_V3_OPTION_LABELS[index]}. ${option}`,
   );
   return [
     `## ${enhanced.temporaryTemplateId} · seed ${enhanced.seed}${enhanced.difficulty ? ` · ${enhanced.difficulty}` : ""}`,
@@ -137,18 +160,18 @@ export function renderSerV3NaturalReview(question: SerV3CompatibleQuestion): str
     "",
     ...optionLines,
     "",
-    `**Answer:** ${String.fromCharCode(65 + enhanced.correctIndex)}. ${enhanced.correctAnswer}`,
+    `**Answer:** ${SER_V3_OPTION_LABELS[enhanced.correctIndex]}. ${enhanced.correctAnswer}`,
     "",
-    "📌 **Core Pattern**",
+    SER_V3_SIMPLE_HEADINGS.rule,
     enhanced.explanationV3.corePattern,
     "",
-    "📝 **Step-by-Step Derivation**",
+    SER_V3_SIMPLE_HEADINGS.solution,
     ...enhanced.explanationV3.derivation.map((line, index) => `${index + 1}. ${line}`),
     "",
-    "⚡ **Exam Speed Shortcut**",
+    SER_V3_SIMPLE_HEADINGS.shortcut,
     enhanced.explanationV3.examSpeedShortcut,
     "",
-    "⚠️ **Common Student Trap**",
+    SER_V3_SIMPLE_HEADINGS.trap,
     `${enhanced.explanationV3.commonTrap.warning} [${enhanced.explanationV3.commonTrap.code}]`,
     ...enhanced.explanationV3.commonTrap.optionWarnings.map((line) => `- ${line}`),
   ].join("\n");
