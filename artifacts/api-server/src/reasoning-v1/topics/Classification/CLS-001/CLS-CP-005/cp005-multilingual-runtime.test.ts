@@ -128,6 +128,46 @@ for (const locale of LOCALES) {
       assert.ok(!/CLS-|prototype|source-gap|registry|solveContract|runtimeVersion/i.test(learnerText));
       assert.ok(!/(?:^|[\s:])(undefined|null|NaN|Infinity)(?=$|[\s.,;:])/.test(learnerText));
       assert.ok(!/किस संख्या-जोड़ा|किस तीन संख्याओं का समूह|ਕਿਸ ਸੰਖਿਆਵਾਂ ਦਾ ਜੋੜਾ|ਕਿਸ ਤਿੰਨ ਸੰਖਿਆਵਾਂ ਦਾ ਸਮੂਹ/.test(localized.stem));
+      assert.ok(!/दोनों क्रमिक अंतर समान हों और उनका मान \+1 या -1 हो।|ਦੋਵੇਂ ਲਗਾਤਾਰ ਫਰਕ ਬਰਾਬਰ ਹੋਣ ਅਤੇ ਉਨ੍ਹਾਂ ਦਾ ਮੁੱਲ \+1 ਜਾਂ -1 ਹੋਵੇ।/.test(learnerText));
+      assert.ok(!/एक ही दो स्थानों की संख्याएँ|ਇੱਕੋ ਦੋ ਥਾਵਾਂ ਵਾਲੀਆਂ ਸੰਖਿਆਵਾਂ/.test(learnerText));
+      assert.ok(!/धनात्मक अंतर|ਧਨਾਤਮਕ ਫਰਕ/.test(learnerText));
+      assert.ok(!/ਸਿਰਫ਼ ਟਾਂਕ ਦਿਖਣ ਨਾਲ|ਦਿੱਤੇ ਖਿਲਰੇ ਕ੍ਰਮ|ਲਗਾਤਾਰ ਦੋ ਮੂਲ ਸੰਖਿਆਵਾਂ|ਲਗਾਤਾਰ ਮੂਲਾਂ ਦੇ ਘਣ|ਉਨ੍ਹਾਂ ਦੇ ਮੂਲਾਂ ਦੀ ਤੁਲਨਾ/.test(learnerText));
+
+      if (localized.intendedRuleId === "PAIR_BOTH_PRIME" && locale === "pa-IN") {
+        assert.ok(learnerText.includes("ਸਿਰਫ਼ ਟਾਂਕ ਹੋਣ ਨਾਲ ਕੋਈ ਸੰਖਿਆ ਅਭਾਜ ਨਹੀਂ ਹੋ ਜਾਂਦੀ।"));
+      }
+      if (localized.intendedRuleId === "TRIPLE_CONSECUTIVE_DIRECTION") {
+        const expectedShortcut = locale === "hi-IN"
+          ? "दोनों क्रमिक अंतर निकालिए; वे बराबर और +1 या -1 होने चाहिए।"
+          : "ਦੋਵੇਂ ਲਗਾਤਾਰ ਫਰਕ ਕੱਢੋ; ਉਹ ਬਰਾਬਰ ਅਤੇ +1 ਜਾਂ -1 ਹੋਣੇ ਚਾਹੀਦੇ ਹਨ।";
+        assert.ok(localized.explanation.examSpeedShortcut.includes(expectedShortcut));
+      }
+      if (localized.intendedRuleId === "TRIPLE_PRODUCT_OF_TWO_EQUALS_THIRD") {
+        const expectedConcept = locale === "hi-IN"
+          ? "हर समूह में तय दो स्थानों की संख्याओं को गुणा करने पर तीसरे स्थान की संख्या मिलती है।"
+          : "ਹਰ ਸਮੂਹ ਵਿੱਚ ਤੈਅ ਦੋ ਸਥਾਨਾਂ ਦੀਆਂ ਸੰਖਿਆਵਾਂ ਨੂੰ ਗੁਣਾ ਕਰਨ ਨਾਲ ਤੀਜੇ ਸਥਾਨ ਦੀ ਸੰਖਿਆ ਮਿਲਦੀ ਹੈ।";
+        assert.ok(localized.explanation.coreConcept.includes(expectedConcept));
+      }
+      if (localized.intendedRuleId === "TRIPLE_SUM_OF_TWO_EQUALS_THIRD") {
+        const expectedConcept = locale === "hi-IN"
+          ? "हर समूह में तय दो स्थानों की संख्याओं को जोड़ने पर तीसरे स्थान की संख्या मिलती है।"
+          : "ਹਰ ਸਮੂਹ ਵਿੱਚ ਤੈਅ ਦੋ ਸਥਾਨਾਂ ਦੀਆਂ ਸੰਖਿਆਵਾਂ ਨੂੰ ਜੋੜਨ ਨਾਲ ਤੀਜੇ ਸਥਾਨ ਦੀ ਸੰਖਿਆ ਮਿਲਦੀ ਹੈ।";
+        assert.ok(localized.explanation.coreConcept.includes(expectedConcept));
+      }
+      if (localized.intendedRuleId === "PAIR_PRIME_ABSOLUTE_DIFFERENCE") {
+        const expectedConcept = locale === "hi-IN"
+          ? "हर जोड़े में बड़ी और छोटी संख्या का अंतर अभाज्य है।"
+          : "ਹਰ ਜੋੜੇ ਵਿੱਚ ਵੱਡੀ ਅਤੇ ਛੋਟੀ ਸੰਖਿਆ ਦਾ ਫਰਕ ਅਭਾਜ ਹੈ।";
+        assert.ok(localized.explanation.coreConcept.includes(expectedConcept));
+      }
+      if (localized.intendedRuleId === "PAIR_CONSECUTIVE_CUBES_DIRECTION" && locale === "pa-IN") {
+        assert.ok(localized.explanation.coreConcept.includes("ਦੋਵੇਂ ਸੰਖਿਆਵਾਂ ਲਗਾਤਾਰ ਦੋ ਆਧਾਰ ਸੰਖਿਆਵਾਂ ਦੇ ਘਣ ਹਨ।"));
+      }
+      if (localized.intendedRuleId === "TRIPLE_UNORDERED_ARITHMETIC_SET" && locale === "pa-IN") {
+        assert.ok(localized.explanation.commonTrapWarning.includes(
+          "ਦਿੱਤੇ ਬੇਤਰਤੀਬ ਕ੍ਰਮ ਦੀ ਥਾਂ ਸੰਖਿਆਵਾਂ ਨੂੰ ਛੋਟੇ ਤੋਂ ਵੱਡੇ ਕ੍ਰਮ ਵਿੱਚ ਰੱਖ ਕੇ ਜਾਂਚੋ।",
+        ));
+      }
 
       if (seed % 47 === 0) {
         assert.deepEqual(localized, localizeClsCp005Question(english, locale));
