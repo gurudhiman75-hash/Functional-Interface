@@ -10,7 +10,7 @@ on:
 jobs:
   cp001-foundation:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 45
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -37,11 +37,10 @@ jobs:
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-source-wave-reviewed.test.ts
           rnk-cp001-source-wave-reviewed-output
 
-      - name: Run final mirrored inverse audit
+      - name: Run raw final mirrored inverse mathematical audit
         run: >-
           npx --yes tsx
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-final-inverse-gap.test.ts
-          rnk-cp001-final-inverse-output
 
       - name: Prove provisional nine-authority consolidation
         run: >-
@@ -54,6 +53,12 @@ jobs:
           npx --yes tsx
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-provisional-authority-runtime.test.ts
           rnk-cp001-authority-review-output
+
+      - name: Enforce learner-facing review corpus hygiene
+        run: >-
+          npx --yes tsx
+          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-review-corpus-hygiene.test.ts
+          rnk-cp001-review-hygiene-output
 
       - name: Enforce final source and gap audit
         run: >-
@@ -68,8 +73,8 @@ jobs:
           path: |
             rnk-cp001-foundation-output
             rnk-cp001-source-wave-reviewed-output
-            rnk-cp001-final-inverse-output
             rnk-cp001-consolidation-output
             rnk-cp001-authority-review-output
+            rnk-cp001-review-hygiene-output
             rnk-cp001-final-source-gap-output
           retention-days: 14
