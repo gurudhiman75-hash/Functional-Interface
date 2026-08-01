@@ -8,7 +8,7 @@ import {
   type RnkContextId,
   type RnkCp001PrototypeId,
   type RnkDifficulty,
-} from './cp001-foundation';
+} from './cp001-runtime';
 
 const SEEDS_PER_PROTOTYPE = 240;
 
@@ -73,6 +73,7 @@ function auditPrototype(prototypeId: RnkCp001PrototypeId): PrototypeAudit {
 
     assert.ok(question.stem.startsWith(question.targetName) || question.stem.includes(question.targetName));
     assert.ok(question.stem.endsWith('?'));
+    assert.ok(!/\b(?:0|1) people are\b/.test(question.stem), `Broken count agreement: ${question.stem}`);
     assert.ok(question.explanation.keyRule.length >= 45);
     assert.equal(question.explanation.stepByStepSolution.length, 3);
     assert.ok(question.explanation.stepByStepSolution.every((step) => /\d/.test(step)));
@@ -174,6 +175,7 @@ const report = {
   deterministicReplayChecks: totalQuestions,
   independentSolverChecks: totalQuestions,
   lifecycleChecks: totalQuestions,
+  grammarAgreementChecks: totalQuestions,
   audits,
   conclusion: 'PASS_EXECUTABLE_DISCOVERY_FOUNDATION',
 };
