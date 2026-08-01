@@ -13,6 +13,10 @@ import {
   hasUnnecessarySerV3Jargon,
   simplifySerV3Explanation,
 } from "./ser-v3-simple-language";
+import {
+  hasAwkwardSerV3StudentPhrase,
+  polishSerV3StudentEnglish,
+} from "./ser-v3-student-english-final";
 
 export { SER_V3_NATURAL_STANDARD_ID, SER_V3_OPTION_LABELS, SER_V3_SIMPLE_HEADINGS };
 export type { SerV3CompatibleQuestion, SerV3NaturalExplanation, SerV3NaturalQuestion };
@@ -99,8 +103,10 @@ function previousFirstStepIsNonSpoiling(
 }
 
 export function buildSerV3NaturalExplanation(question: SerV3CompatibleQuestion): SerV3NaturalExplanation {
-  return simplifySerV3Explanation(
-    withExplicitWrapArithmetic(buildPedagogical(question)),
+  return polishSerV3StudentEnglish(
+    simplifySerV3Explanation(
+      withExplicitWrapArithmetic(buildPedagogical(question)),
+    ),
   );
 }
 
@@ -140,6 +146,11 @@ export function auditSerV3NaturalExplanation(question: SerV3CompatibleQuestion) 
       name: "series-v3-plain-student-language",
       passed: !hasUnnecessarySerV3Jargon(explanation),
       message: "Learner text must use plain exam language and avoid unnecessary technical words.",
+    },
+    {
+      name: "series-v3-classroom-english",
+      passed: !hasAwkwardSerV3StudentPhrase(explanation),
+      message: "Learner text must use direct classroom English rather than internal analysis wording.",
     },
   ];
 }
