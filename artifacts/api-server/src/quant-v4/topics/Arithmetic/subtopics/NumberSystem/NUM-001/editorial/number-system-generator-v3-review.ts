@@ -24,13 +24,76 @@ function rawOptions(row): string[] {
     : row.question.options.map((option) => String(option.value));
 }
 
+function splitMathSegments(value: string): string[] {
+  return value.split(/(\$[^$]*\$)/gu);
+}
+
+function wrapMathInProse(value: string): string {
+  return splitMathSegments(value).map((segment) => {
+    if (/^\$[^$]*\$$/u.test(segment)) return segment;
+    return segment
+      .replace(/\b(\d[\d,]*)\s*([+\-×÷])\s*(\d[\d,]*)\b/gu, (_match, left, operator, right) =>
+        `$${left} ${operator === "×" ? "\\times" : operator === "÷" ? "\\div" : operator} ${right}$`)
+      .replace(/\b(\d[\d,]*\^\d+)\b/gu, (_match, expression) => `$${expression}$`)
+      .replace(/\b(\d[\d,]*)\b/gu, (_match, number) => `$${number}$`);
+  }).join("");
+}
+
+function unwrapProseFromMath(value: string): string {
+  const trimmed = value.trim();
+  if (/^\$[^$]*[A-Za-z][^$]*\$$/u.test(trimmed) && /\s/u.test(trimmed)) {
+    return trimmed.slice(1, -1);
+  }
+  return trimmed;
+}
+
+function formatStudentValue(value: unknown): string {
+  const clean = stripStudentOptionLeaks(value);
+  const proseSafe = unwrapProseFromMath(clean);
+  if (/[A-Za-z]{2,}/u.test(proseSafe)) return wrapMathInProse(proseSafe);
+  return studentOptionDisplay(proseSafe);
+}
+
 function safeOptions(row): string[] {
-  return rawOptions(row).map((value) => studentOptionDisplay(stripStudentOptionLeaks(value)));
+  return rawOptions(row).map(formatStudentValue);
+}
+
+function fixStemGrammar(value: string): string {
+  return wrapMathInProse(value)
+    .replace(/Choose the option that co-prime statements about/giu,
+      "Which of the following co-prime statements about")
+    .replace(/Choose the option that prime numbers divides/giu,
+      "Which of the following prime numbers divides")
+    .replace(/Choose the option that prime number divides/giu,
+      "Which of the following prime numbers divides");
+}
+
+function normaliseInlineMath(value: unknown): string {
+  return String(value ?? "")
+    .replace(/\$\$([^$]+)\$\$/gu, (_match, expression) => `$${expression.trim()}$`)
+    .replace(/\$(\d[\d,]*)\$\s*×\s*\$(\d[\d,]*)\$\s*=\s*\$(\d[\d,]*)\$/gu,
+      (_match, left, right, result) => `$${left} \\times ${right} = ${result}$`)
+    .replace(/\$(\d[\d,]*)\$\s*÷\s*\$(\d[\d,]*)\$/gu,
+      (_match, left, right) => `$${left} \\div ${right}$`);
+}
+
+function normaliseTeacherExplanation(teacher) {
+  return Object.freeze({
+    ...teacher,
+    mainRule: teacher.mainRule.map(normaliseInlineMath),
+    stepByStepSolution: teacher.stepByStepSolution.map(normaliseInlineMath),
+    examSpeedTrick: teacher.examSpeedTrick.map(normaliseInlineMath),
+    commonTraps: teacher.commonTraps.map((trap) => Object.freeze({
+      ...trap,
+      optionValue: formatStudentValue(trap.optionValue),
+      message: normaliseInlineMath(trap.message),
+    })),
+  });
 }
 
 export const NUMBER_SYSTEM_GENERATOR_V3_CARDS = Object.freeze(
   NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS.map((row, index) => {
-    const teacher = buildNumberSystemTeacherExplanation(row);
+    const teacher = normaliseTeacherExplanation(buildNumberSystemTeacherExplanation(row));
     const stem = buildExamReadyStem(row, index);
     const answer = correctAnswerDisplay(row);
     return Object.freeze({
@@ -40,11 +103,11 @@ export const NUMBER_SYSTEM_GENERATOR_V3_CARDS = Object.freeze(
       title: row.title,
       difficulty: titleCaseDifficulty(row.question.difficulty),
       stemFamily: stem.family,
-      stem: stem.stem,
+      stem: fixStemGrammar(stem.stem),
       options: safeOptions(row),
       correctAnswer: Object.freeze({
         label: answer.label,
-        value: studentOptionDisplay(stripStudentOptionLeaks(answer.value)),
+        value: formatStudentValue(answer.value),
       }),
       explanation: teacher,
       lifecycle: Object.freeze({
