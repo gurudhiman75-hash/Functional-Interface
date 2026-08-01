@@ -4,7 +4,7 @@ import {
   SER_CP005_TEMPORARY_TEMPLATE_IDS,
   generateSerCp005Question,
 } from "./foundation";
-import { renderSerV3NaturalReview } from "../SER-EDITORIAL-V3/ser-v3-natural";
+import { renderSerV3NaturalReview } from "../SER-EDITORIAL-V3/ser-v3-natural-pedagogical";
 
 const samplesPerTemplate = 2;
 const sections: string[] = [
