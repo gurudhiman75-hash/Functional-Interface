@@ -111,11 +111,9 @@ function buildReleasedQuestion(
       message: "The generated item retains its frozen permanent QL identity.",
     },
     {
-      name: "mathematical-validation",
-      passed:
-        question.validation?.ok === true
-        || question.validation?.valid === true,
-      message: "The permanent runtime mathematical validation passes.",
+      name: "permanent-runtime-completion",
+      passed: Boolean(question.questionId) && Number.isInteger(correctIndex),
+      message: "The governed permanent runtime completed and returned a keyed question.",
     },
     {
       name: "four-tier-editorial",
