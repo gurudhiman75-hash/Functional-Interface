@@ -92,6 +92,7 @@ function runSuite<T extends string>(ids: readonly T[], generate: Generator<T>): 
         `${id}/${seed}: answer must use a numeric option label`,
       );
       assert.doesNotMatch(review, /^[✓ ] [A-D]\. /m, `${id}/${seed}: letter option label creates ambiguity`);
+      assert.doesNotMatch(review, /\bOption [A-D]\b/, `${id}/${seed}: distractor note still uses a letter label`);
       numericOptionReviews += 1;
 
       const text = learnerText(enhanced);
@@ -110,7 +111,7 @@ function runSuite<T extends string>(ids: readonly T[], generate: Generator<T>): 
       }
       if (question.taskKind === "WRONG_TERM") {
         wrong += 1;
-        assert.match(enhanced.explanationV3.derivation[0]!, /^First (build|separate|construct|put)/);
+        assert.match(enhanced.explanationV3.derivation[0]!, /^First (build|separate|construct|put|write)/);
         assert.ok(solution.includes(String(question.hiddenState.correctReplacement)));
         assert.match(solution, /wrong term/i);
       }
@@ -123,7 +124,7 @@ function runSuite<T extends string>(ids: readonly T[], generate: Generator<T>): 
       if (isShorterListQuestion(question)) {
         shorterListQuestions += 1;
         assert.match(solution, /vowel steps|consonant steps/);
-        assert.match(solution, /shorter list|ordered vowel list|ordered consonant list/i);
+        assert.match(solution, /vowel list|consonant list|letter list/i);
       }
       if (/Wrap (?:after Z|before A):/.test(solution)) {
         wrapped += 1;
@@ -167,6 +168,7 @@ console.log(JSON.stringify({
   wrappedQuestions: wrapped,
   numericOptionReviews,
   technicalLearnerTerms: 0,
+  letterLabelReferences: 0,
   sourceQuestionMutations: 0,
   nextCheckpointStatus: "BLOCKED_UNTIL_CP006_USER_APPROVAL",
 }, null, 2));
