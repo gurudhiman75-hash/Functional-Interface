@@ -33,6 +33,11 @@ const PUNJABI_LITERAL_LEAKS = [
   "ਸੌਖੇ ਭਾਗ ਮੰਨੋ",
 ] as const;
 
+const TASK_SPECIFIC_CORRECTIONS = new Set([
+  "PNL-QL-165",
+  "PNL-QL-176",
+]);
+
 function target(entry: StructuredEditorialEntry): string {
   return entry.stem.prompt.replace(/[?？।.]+$/u, "").trim();
 }
@@ -54,47 +59,136 @@ function stemTopology(entry: StructuredEditorialEntry): readonly string[] {
 
 function stemEquations(entry: StructuredEditorialEntry): readonly string[] {
   return entry.stem.blocks
-    .filter((block): block is Extract<(typeof entry.stem.blocks)[number], { type: "equation" }> => block.type === "equation")
+    .filter(
+      (
+        block,
+      ): block is Extract<
+        (typeof entry.stem.blocks)[number],
+        { type: "equation" }
+      > => block.type === "equation",
+    )
     .map((block) => block.latex);
 }
 
 const sourceLibraries = buildWave02Libraries();
 const candidateLibraries = buildAllWave03MultilingualEditorialLibraries();
-assert.equal(candidateLibraries.length, 12, "Wave 03 must contain all 12 Hindi/Punjabi libraries.");
+assert.equal(
+  candidateLibraries.length,
+  12,
+  "Wave 03 must contain all 12 Hindi/Punjabi libraries.",
+);
 assert.equal(candidateLibraries.length, sourceLibraries.length);
 
 let entriesChecked = 0;
 let equationsChecked = 0;
+let taskSpecificCorrections = 0;
 
-for (let libraryIndex = 0; libraryIndex < sourceLibraries.length; libraryIndex += 1) {
+for (
+  let libraryIndex = 0;
+  libraryIndex < sourceLibraries.length;
+  libraryIndex += 1
+) {
   const sourceLibrary = sourceLibraries[libraryIndex]!;
   const candidateLibrary = candidateLibraries[libraryIndex]!;
 
   assert.equal(candidateLibrary.cpId, sourceLibrary.cpId);
   assert.equal(candidateLibrary.language, sourceLibrary.language);
   assert.equal(candidateLibrary.entryCount, sourceLibrary.entryCount);
-  assert.deepEqual(Object.keys(candidateLibrary.entries), Object.keys(sourceLibrary.entries));
+  assert.deepEqual(
+    Object.keys(candidateLibrary.entries),
+    Object.keys(sourceLibrary.entries),
+  );
 
   for (const [qlId, sourceEntry] of Object.entries(sourceLibrary.entries)) {
     const candidateEntry = candidateLibrary.entries[qlId];
     assert.ok(candidateEntry, `${qlId}: Wave 03 entry is missing.`);
     entriesChecked += 1;
 
-    assert.deepEqual(stemTopology(candidateEntry), stemTopology(sourceEntry), `${qlId}: stem topology changed.`);
-    assert.deepEqual(stemEquations(candidateEntry), stemEquations(sourceEntry), `${qlId}: stem MathJax changed.`);
-    assert.equal(candidateEntry.stem.prompt, sourceEntry.stem.prompt, `${qlId}: final prompt changed.`);
-    assert.equal(candidateEntry.difficulty, sourceEntry.difficulty, `${qlId}: difficulty changed.`);
-    assert.equal(candidateEntry.difficultyRationale, sourceEntry.difficultyRationale, `${qlId}: difficulty rationale changed.`);
-    assert.equal(candidateEntry.explanation.steps.length, sourceEntry.explanation.steps.length, `${qlId}: step count changed.`);
-    assert.equal(candidateEntry.explanation.finalAnswerLatex, sourceEntry.explanation.finalAnswerLatex, `${qlId}: final-answer MathJax changed.`);
+    assert.deepEqual(
+      stemTopology(candidateEntry),
+      stemTopology(sourceEntry),
+      `${qlId}: stem topology changed.`,
+    );
+    assert.deepEqual(
+      stemEquations(candidateEntry),
+      stemEquations(sourceEntry),
+      `${qlId}: stem MathJax changed.`,
+    );
+    assert.equal(
+      candidateEntry.stem.prompt,
+      sourceEntry.stem.prompt,
+      `${qlId}: final prompt changed.`,
+    );
+    assert.equal(
+      candidateEntry.difficulty,
+      sourceEntry.difficulty,
+      `${qlId}: difficulty changed.`,
+    );
+    assert.equal(
+      candidateEntry.difficultyRationale,
+      sourceEntry.difficultyRationale,
+      `${qlId}: difficulty rationale changed.`,
+    );
+    assert.equal(
+      candidateEntry.explanation.finalAnswerLatex,
+      sourceEntry.explanation.finalAnswerLatex,
+      `${qlId}: final-answer MathJax changed.`,
+    );
 
-    for (let stepIndex = 0; stepIndex < sourceEntry.explanation.steps.length; stepIndex += 1) {
-      const sourceStep = sourceEntry.explanation.steps[stepIndex]!;
-      const candidateStep = candidateEntry.explanation.steps[stepIndex]!;
-      assert.equal(candidateStep.equationLatex, sourceStep.equationLatex, `${qlId}/step-${stepIndex + 1}: equation MathJax changed.`);
-      if (sourceStep.equationLatex) equationsChecked += 1;
+    if (TASK_SPECIFIC_CORRECTIONS.has(qlId)) {
+      taskSpecificCorrections += 1;
+      assert.equal(
+        candidateEntry.explanation.steps.length,
+        1,
+        `${qlId}: corrected native explanation must match the one-step English task.`,
+      );
+      const sourceEquation = sourceEntry.explanation.steps.find(
+        (step) => step.equationLatex,
+      )?.equationLatex;
+      const candidateEquation =
+        candidateEntry.explanation.steps[0]?.equationLatex;
+      assert.ok(sourceEquation, `${qlId}: source equation is missing.`);
       assert.ok(
-        STEP_PREFIXES.every((prefix) => !candidateStep.title.startsWith(prefix)),
+        candidateEquation?.startsWith(sourceEquation),
+        `${qlId}: corrected equation must preserve the canonical identity before substitution.`,
+      );
+      assert.ok(
+        candidateEquation.includes("{"),
+        `${qlId}: corrected equation must expose runtime value substitution.`,
+      );
+      equationsChecked += 1;
+    } else {
+      assert.equal(
+        candidateEntry.explanation.steps.length,
+        sourceEntry.explanation.steps.length,
+        `${qlId}: step count changed.`,
+      );
+      for (
+        let stepIndex = 0;
+        stepIndex < sourceEntry.explanation.steps.length;
+        stepIndex += 1
+      ) {
+        const sourceStep = sourceEntry.explanation.steps[stepIndex]!;
+        const candidateStep = candidateEntry.explanation.steps[stepIndex]!;
+        assert.equal(
+          candidateStep.equationLatex,
+          sourceStep.equationLatex,
+          `${qlId}/step-${stepIndex + 1}: equation MathJax changed.`,
+        );
+        if (sourceStep.equationLatex) equationsChecked += 1;
+      }
+    }
+
+    for (
+      let stepIndex = 0;
+      stepIndex < candidateEntry.explanation.steps.length;
+      stepIndex += 1
+    ) {
+      const candidateStep = candidateEntry.explanation.steps[stepIndex]!;
+      assert.ok(
+        STEP_PREFIXES.every(
+          (prefix) => !candidateStep.title.startsWith(prefix),
+        ),
         `${qlId}/step-${stepIndex + 1}: synthetic title prefix remains: ${candidateStep.title}`,
       );
     }
@@ -106,30 +200,62 @@ for (let libraryIndex = 0; libraryIndex < sourceLibraries.length; libraryIndex +
       ["conclusion", candidateEntry.explanation.conclusion],
       ["commonTrap", candidateEntry.explanation.commonTrap ?? ""],
     ] as const) {
-      assert.ok(!value.includes(quotedTarget), `${qlId}/${field}: prompt echo remains.`);
-      assert.ok(value.trim().length > 0, `${qlId}/${field}: prose became empty.`);
+      assert.ok(
+        !value.includes(quotedTarget),
+        `${qlId}/${field}: prompt echo remains.`,
+      );
+      assert.ok(
+        value.trim().length > 0,
+        `${qlId}/${field}: prose became empty.`,
+      );
     }
 
     if (candidateLibrary.language === "pa") {
       const entryProse = prose(candidateEntry);
       for (const phrase of PUNJABI_LITERAL_LEAKS) {
-        assert.ok(!entryProse.includes(phrase), `${qlId}: Punjabi literal-translation leak remains: ${phrase}`);
+        assert.ok(
+          !entryProse.includes(phrase),
+          `${qlId}: Punjabi literal-translation leak remains: ${phrase}`,
+        );
       }
     }
 
-    assert.deepEqual(validateStructuredEditorialEntry(candidateEntry), [], `${qlId}: reconstructed entry is invalid.`);
+    assert.deepEqual(
+      validateStructuredEditorialEntry(candidateEntry),
+      [],
+      `${qlId}: reconstructed entry is invalid.`,
+    );
   }
 }
 
-assert.equal(entriesChecked, 372, "Wave 03 must validate all 372 multilingual entries.");
-assert.ok(equationsChecked > 0, "Wave 03 must preserve solver-owned equation MathJax.");
-
-console.log(JSON.stringify({
-  ok: true,
-  librariesChecked: candidateLibraries.length,
+assert.equal(
   entriesChecked,
-  equationsChecked,
-  promptEchoes: 0,
-  syntheticStepPrefixes: 0,
-  mathematicalChanges: 0,
-}, null, 2));
+  372,
+  "Wave 03 must validate all 372 multilingual entries.",
+);
+assert.equal(
+  taskSpecificCorrections,
+  4,
+  "Both corrected QLs must be rebuilt in Hindi and Punjabi.",
+);
+assert.ok(
+  equationsChecked > 0,
+  "Wave 03 must preserve solver-owned equation MathJax.",
+);
+
+console.log(
+  JSON.stringify(
+    {
+      ok: true,
+      librariesChecked: candidateLibraries.length,
+      entriesChecked,
+      equationsChecked,
+      taskSpecificCorrections,
+      promptEchoes: 0,
+      syntheticStepPrefixes: 0,
+      mathematicalAuthorityChanges: 0,
+    },
+    null,
+    2,
+  ),
+);
