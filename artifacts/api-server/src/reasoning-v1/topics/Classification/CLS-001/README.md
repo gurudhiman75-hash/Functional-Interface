@@ -1,6 +1,6 @@
 # CLS-001 — Classification / Odd One Out
 
-Status: `CP001_CP002_MULTILINGUAL_FROZEN__CP003_CP004_CP005_ENGLISH_FROZEN`
+Status: `CP001_CP002_MULTILINGUAL_FROZEN__CP003_CP004_ENGLISH_FROZEN__CP005_HI_PA_LOCALISATION_REVIEW`
 
 ## Product identity
 
@@ -32,8 +32,8 @@ Every admitted question must define a bounded rule universe, construct a valid s
 | `CLS-QL-005` | `CLS-CP-003` | Find the word whose visible spelling or structural property differs | Frozen English runtime proof |
 | `CLS-QL-006` | `CLS-CP-003` | Resolve controlled jumbles, then find the semantic outlier | Frozen English runtime proof |
 | `CLS-QL-007` | `CLS-CP-004` | Find the number whose conventional arithmetic or digit property differs | Frozen English runtime proof |
-| `CLS-QL-008` | `CLS-CP-005` | Find the pair, triple or four-number tuple whose internal rule differs | Frozen English runtime proof |
-| `CLS-QL-009` | `CLS-CP-005` | Select the number tuple following the same internal rule as a reference tuple | Frozen English runtime proof |
+| `CLS-QL-008` | `CLS-CP-005` | Find the pair, triple or four-number tuple whose internal rule differs | English frozen; Hindi/Punjabi review required |
+| `CLS-QL-009` | `CLS-CP-005` | Select the number tuple following the same internal rule as a reference tuple | English frozen; Hindi/Punjabi review required |
 
 No later `CLS-QL-*` identity is reserved.
 
@@ -45,7 +45,7 @@ No later `CLS-QL-*` identity is reserved.
 | `CLS-CP-002` | Semantic pair and relationship classification | `FROZEN_MULTILINGUAL_RUNTIME_PROOF` |
 | `CLS-CP-003` | Lexical, spelling and word-structure classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
 | `CLS-CP-004` | Number-property classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
-| `CLS-CP-005` | Number-pair, triple and set classification | `FROZEN_ENGLISH_RUNTIME_PROOF` |
+| `CLS-CP-005` | Number-pair, triple and set classification | `FROZEN_ENGLISH__HI_PA_EXECUTABLE_REVIEW_REQUIRED` |
 | `CLS-CP-006` | Alphabet, letter-pair and letter-class classification | Pending executable discovery |
 | `CLS-CP-007` | Letter-cluster and explicit word-pattern classification | Pending executable discovery |
 | `CLS-CP-008` | Mixed-token and bounded synthesis classification | Pending ownership audit |
@@ -122,7 +122,11 @@ Odd runtime unique:                 420 / 420
 Equivalent runtime unique:          957 / 960
 Option counts:                      4 and 5
 Difficulties:            EASY, MEDIUM, HARD
-Locale frozen:                         en-IN
+English locale frozen:                  en-IN
+Localisation locales:          hi-IN, pa-IN
+Localisation parity questions:         2760
+Localisation review questions:          140
+Localisation status: EXECUTABLE_REVIEW_REQUIRED
 ```
 
 `CLS-QL-008` merges odd ordered pairs, triples and complete four-number groups because they share one mismatch contract, answer object and independent proof topology. Numerical relation families, direction, option count and difficulty remain instance variables.
@@ -138,6 +142,8 @@ plain-language reason -> active inline-MathJax calculation -> match/failure resu
 ```
 
 Math-only option blocks, unused diagnostic arrays, permutation shortcuts, answer-scale giveaways and competing-rule answer conflicts are rejected automatically.
+
+The Hindi and Punjabi runtime is derived from the frozen English question. It preserves tuples, options, answer position, rule identity, rule value, difficulty and every inline-MathJax calculation. Only learner-facing wording is localised. Natural-language overrides correct direction-sensitive explanations and reject literal or grammatically invalid templates before review export.
 
 ## Strict chapter boundary
 
@@ -165,6 +171,7 @@ It excludes:
 - `CLS-CP-003/CLS-CP-003-FINAL-ENGLISH-FREEZE.md`
 - `CLS-CP-004/CLS-CP-004-FINAL-ENGLISH-FREEZE.md`
 - `CLS-CP-005/CLS-CP-005-FINAL-ENGLISH-FREEZE.md`
+- `CLS-CP-005/CLS-CP-005-HINDI-PUNJABI-LOCALISATION-PLAN.md`
 - `CLS-CP-005/CLS-CP-005-PRELIMINARY-MERGE-SPLIT-AUDIT.md`
 - `CLS-CP-005/CLS-CP-005-SOURCE-GAP-AUDIT.md`
 - `CLS-CP-005/CLS-CP-005-SOURCE-GAP-AUDIT-WAVE-2.md`
@@ -172,4 +179,4 @@ It excludes:
 
 ## Release locks
 
-CP-001 and CP-002 are frozen multilingual review-only proofs. CP-003, CP-004 and CP-005 are frozen English review-only proofs. None are wired to Question Studio, Question Bank, tests or public publication. Hindi and Punjabi localisation for CP-003 through CP-005 require separate explicit phases.
+CP-001 and CP-002 are frozen multilingual review-only proofs. CP-003 and CP-004 are frozen English review-only proofs. CP-005 English is frozen; Hindi and Punjabi are executable review-only localisations awaiting human review. None are wired to Question Studio, Question Bank, tests or public publication.
