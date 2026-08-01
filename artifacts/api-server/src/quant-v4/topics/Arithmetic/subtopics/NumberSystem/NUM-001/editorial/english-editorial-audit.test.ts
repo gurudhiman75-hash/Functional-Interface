@@ -18,6 +18,7 @@ let explicitElevenProofCount = 0;
 let parityEliminationCount = 0;
 let transparentDigitQuestionCount = 0;
 let primeAdjustmentQuestionCount = 0;
+let inlineMathCleanCount = 0;
 
 for (const card of NUMBER_SYSTEM_GENERATOR_V3_CARDS) {
   const label = `Q${card.reviewNumber}/${card.qlId}`;
@@ -38,6 +39,11 @@ for (const card of NUMBER_SYSTEM_GENERATOR_V3_CARDS) {
   assert(card.explanation.commonTraps.length === card.options.length - 1,
     `${label}: every wrong option must have one trap explanation`);
 
+  assert(!/Choose the option that co-prime statements about/iu.test(card.stem),
+    `${label}: malformed co-prime stem grammar remains`);
+  assert(!/Choose the option that prime numbers? divides/iu.test(card.stem),
+    `${label}: malformed prime-divisor stem grammar remains`);
+
   const explanationText = [
     ...card.explanation.mainRule,
     ...card.explanation.stepByStepSolution,
@@ -51,6 +57,11 @@ for (const card of NUMBER_SYSTEM_GENERATOR_V3_CARDS) {
   assert(!/testing leaves|we get the answer|values are obtained|calculation yields/i.test(explanationText),
     `${label}: black-box wording remains`);
   assert(/\$[^$]+\$/u.test(explanationText), `${label}: explanation has no MathJax content`);
+  assert(!/\$\$[^$]+\$\$/u.test(explanationText),
+    `${label}: display-math delimiters remain inside list text`);
+  assert(!/\$\d[\d,]*\$\s*[×÷]\s*\$\d[\d,]*\$/u.test(explanationText),
+    `${label}: split ASCII multiplication or division remains`);
+  inlineMathCleanCount += 1;
 
   assert(card.options.length === 4 || card.options.length === 5,
     `${label}: invalid option count`);
@@ -58,6 +69,10 @@ for (const card of NUMBER_SYSTEM_GENERATOR_V3_CARDS) {
     `${label}: duplicate option`);
   assert(card.options.every((option) => !/[✓✔]/u.test(option) && !/\[x\]/iu.test(option)),
     `${label}: correct-answer marker leaked into options`);
+  assert(card.options.every((option) => !/^\$[^$]*[A-Za-z]{2,}[^$]*\$$/u.test(option)),
+    `${label}: prose sentence is wrapped entirely in math mode`);
+  assert(!/^\$[^$]*[A-Za-z]{2,}[^$]*\$$/u.test(card.correctAnswer.value),
+    `${label}: correct-answer prose is wrapped entirely in math mode`);
   assert(/^[A-E]$/.test(card.correctAnswer.label), `${label}: invalid answer label`);
   assert(card.correctAnswer.value.length > 0, `${label}: missing separate correct answer`);
 
@@ -151,9 +166,11 @@ assert(parityEliminationCount >= 1,
   "No odd-dividend/even-divisor shortcut was generated");
 assert(wrongOptionRationaleCount === 465,
   `Expected 465 wrong-option rationales, received ${wrongOptionRationaleCount}`);
+assert(inlineMathCleanCount === 153,
+  `Expected 153 inline-math-clean cards, received ${inlineMathCleanCount}`);
 
 console.log(JSON.stringify({
-  status: "PASS_NUMBER_SYSTEM_GENERATOR_SYSTEM_PROMPT_V3",
+  status: "PASS_NUMBER_SYSTEM_GENERATOR_SYSTEM_PROMPT_V3_EDITORIAL_PATCH",
   explanationModel: NUMBER_SYSTEM_GENERATOR_MODEL,
   questionCount: NUMBER_SYSTEM_GENERATOR_V3_CARDS.length,
   fourTierQuestionCount: NUMBER_SYSTEM_GENERATOR_V3_CARDS.length,
@@ -165,6 +182,7 @@ console.log(JSON.stringify({
   explicitElevenProofCount,
   parityEliminationCount,
   wrongOptionRationaleCount,
+  inlineMathCleanCount,
   stagingActive: true,
   productionActivated: false,
   studentSafeOptions: true,
