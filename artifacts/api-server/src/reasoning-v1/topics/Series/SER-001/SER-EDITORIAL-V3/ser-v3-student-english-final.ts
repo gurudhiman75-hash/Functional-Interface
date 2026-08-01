@@ -89,7 +89,8 @@ function polishLine(value: string): string {
     .replace(/This gives the expected-versus-displayed mismatch directly\./g,
       "This shows exactly where the shown series becomes wrong.");
 
-  return result.replace(/\s+/g, " ").trim();
+  const cleaned = result.replace(/\s+/g, " ").trim();
+  return cleaned.replace(/^[a-z]/, (letter) => letter.toUpperCase());
 }
 
 export function polishSerV3StudentEnglish(
