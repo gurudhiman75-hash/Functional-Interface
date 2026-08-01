@@ -66,7 +66,8 @@ for (const entry of TMW_CP008_REGISTRY) {
           assert.match(question.explanation.commonTrap.explanation, language === "hi" ? /कुल भुगतान पूछा गया है.*ज्ञात व्यक्ति का हिस्सा/ : /ਕੁੱਲ ਭੁਗਤਾਨ ਪੁੱਛਿਆ ਗਿਆ ਹੈ.*ਪਤਾ ਵਿਅਕਤੀ ਦਾ ਹਿੱਸਾ/);
           break;
         case "findResidualPayment":
-          assert.match(question.stem, language === "hi" ? /में .* के लिए कुल राशि ₹.+ निर्धारित है।/ : /ਵਿੱਚ .* ਲਈ ਕੁੱਲ ਰਕਮ ₹.+ ਨਿਰਧਾਰਤ ਹੈ।/);
+          assert.match(question.stem, language === "hi" ? /^कुल राशि ₹.+ निर्धारित है।/ : /^ਕੁੱਲ ਰਕਮ ₹.+ ਨਿਰਧਾਰਤ ਹੈ।/);
+          assert.equal(/रंगाई का ठेका के लिए|ਪੇਂਟਿੰਗ ਦਾ ਠੇਕਾ ਲਈ/.test(question.stem), false, `${entry.qlId}:${language}: residual task case`);
           assert.match(question.explanation.conclusion, language === "hi" ? /^अतः शेष भुगतान:/ : /^ਇਸ ਲਈ ਬਾਕੀ ਭੁਗਤਾਨ:/);
           assert.match(question.explanation.commonTrap.explanation, language === "hi" ? /भुगतानों को कुल राशि से/ : /ਭੁਗਤਾਨਾਂ ਨੂੰ ਕੁੱਲ ਰਕਮ ਵਿੱਚੋਂ/);
           break;
