@@ -4,6 +4,8 @@ function polishHindi(text: string): string {
   return text
     .replace(/_\{hour\}/g, "_{घंटा}")
     .replace(/_\{minute\}/g, "_{मिनट}")
+    .replace(/_\{full\}/g, "_{पूर्ण}")
+    .replace(/_\{empty\}/g, "_{खाली}")
     .replace(/((?:[2-9]|\d{2,})) घंटे में/g, "$1 घंटों में")
     .replace(/((?:[2-9]|\d{2,})) घंटे के भीतर/g, "$1 घंटों के भीतर")
     .replace(/पाइपें एक साथ खोलने/g, "पाइपों को एक साथ खोलने")
@@ -47,6 +49,8 @@ function polishPunjabi(text: string): string {
   return text
     .replace(/_\{hour\}/g, "_{ਘੰਟਾ}")
     .replace(/_\{minute\}/g, "_{ਮਿੰਟ}")
+    .replace(/_\{full\}/g, "_{ਪੂਰਾ}")
+    .replace(/_\{empty\}/g, "_{ਖਾਲੀ}")
     .replace(/अकेले/g, "ਇਕੱਲੀ")
     .replace(/में टंकी भरती है/g, "ਵਿੱਚ ਟੈਂਕੀ ਭਰਦੀ ਹੈ")
     .replace(/में टंकी खाली करती है/g, "ਵਿੱਚ ਟੈਂਕੀ ਖਾਲੀ ਕਰਦੀ ਹੈ")
