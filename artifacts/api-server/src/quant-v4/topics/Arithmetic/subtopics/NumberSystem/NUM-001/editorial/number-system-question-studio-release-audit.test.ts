@@ -10,6 +10,11 @@ import {
   NUM_001_ENGLISH_QUESTION_STUDIO_RELEASE,
   runNum001EnglishQuestionStudioRelease,
 } from "./number-system-question-studio-release";
+import {
+  fixStemGrammar,
+  formatStudentValue,
+  normaliseTeacherExplanation,
+} from "./number-system-v3-presentation";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -23,8 +28,17 @@ function wholeProseSentenceInMath(value: unknown): boolean {
 }
 
 function releaseCard(card: any) {
+  const options = card.options.map(formatStudentValue);
+  const explanation = normaliseTeacherExplanation(card.explanation);
   return Object.freeze({
     ...card,
+    stem: fixStemGrammar(card.stem),
+    options: Object.freeze(options),
+    correctAnswer: Object.freeze({
+      ...card.correctAnswer,
+      value: options[card.correctAnswer.label.charCodeAt(0) - 65],
+    }),
+    explanation,
     lifecycle: Object.freeze({
       environment: "QUESTION_STUDIO",
       status: "ACTIVE_QUESTION_STUDIO",
