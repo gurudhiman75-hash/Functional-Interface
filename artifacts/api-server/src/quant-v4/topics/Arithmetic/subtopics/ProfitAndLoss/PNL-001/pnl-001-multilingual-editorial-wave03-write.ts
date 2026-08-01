@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 
 import { buildAllWave03MultilingualEditorialLibraries } from "./foundation/editorial-v2-multilingual-reconstruction-wave03";
 
+// One-time deterministic source synchronization; removed after this run.
 const root = dirname(fileURLToPath(import.meta.url));
 const libraries = buildAllWave03MultilingualEditorialLibraries();
 
