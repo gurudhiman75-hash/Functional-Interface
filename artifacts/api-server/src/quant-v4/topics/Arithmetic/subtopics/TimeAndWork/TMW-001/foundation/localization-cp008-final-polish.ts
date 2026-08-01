@@ -23,7 +23,7 @@ function residualSetting(
     case "an auto-component factory":
       return "ऑटो-पुर्जा कारखाने में";
     case "a commercial-complex painting site":
-      return "वाणिज्यिक परिसर की रंगाई साइट पर";
+      return "वाणिज्यिक परिसर में";
     default:
       return `${cp008Copy(setting, language)} में`;
   }
