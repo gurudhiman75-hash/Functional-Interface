@@ -44,7 +44,7 @@ jobs:
         run: |
           set -euo pipefail
           pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/men-001.test.ts \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/men-001-natural-runtime.test.ts \
             --bundle \
             --packages=external \
             --platform=node \
