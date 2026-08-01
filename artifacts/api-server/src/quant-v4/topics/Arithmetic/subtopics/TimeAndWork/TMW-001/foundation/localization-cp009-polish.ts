@@ -50,6 +50,8 @@ function polishHindi(text: string): string {
     .replace(/lost efficiency/g, "दक्षता की कमी")
     .replace(/blockage/g, "अवरोध")
     .replace(/tank fills/g, "टंकी भरती है")
+    .replace(/tank empties/g, "टंकी खाली होती है")
+    .replace(/level is unchanged/g, "पानी का स्तर अपरिवर्तित रहता है")
     .replace(/boundary is not reached within the window/g, "उपलब्ध समय में सीमा तक नहीं पहुँचती");
 }
 
@@ -94,6 +96,8 @@ function polishPunjabi(text: string): string {
     .replace(/lost efficiency/g, "ਦੱਖਤਾ ਦੀ ਘਾਟ")
     .replace(/blockage/g, "ਰੁਕਾਵਟ")
     .replace(/tank fills/g, "ਟੈਂਕੀ ਭਰਦੀ ਹੈ")
+    .replace(/tank empties/g, "ਟੈਂਕੀ ਖਾਲੀ ਹੁੰਦੀ ਹੈ")
+    .replace(/level is unchanged/g, "ਪਾਣੀ ਦਾ ਪੱਧਰ ਅਪਰਿਵਰਤਿਤ ਰਹਿੰਦਾ ਹੈ")
     .replace(/boundary is not reached within the window/g, "ਉਪਲਬਧ ਸਮੇਂ ਵਿੱਚ ਸੀਮਾ ਤੱਕ ਨਹੀਂ ਪਹੁੰਚਦੀ");
 }
 
