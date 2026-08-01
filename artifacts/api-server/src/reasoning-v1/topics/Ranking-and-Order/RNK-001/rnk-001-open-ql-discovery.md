@@ -1,198 +1,185 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **open executable discovery; no permanent QL allocation**.
+Status: **CP-001 source discovery closed and awaiting English review; chapter-wide permanent QL allocation remains open**.
 
-This register prevents premature chapter sizing. Candidate families are discovered from source evidence, task semantics, inverse directions, representation changes, edge states and solver boundaries. A candidate becomes a permanent QL only after executable proof and merge/split review.
+This register prevents premature chapter sizing. Candidate families are discovered from source evidence, task semantics, inverse directions, representation changes, edge states and solver boundaries. A candidate becomes a permanent QL only after executable proof, merge/split review, final gap closure and explicit human approval.
 
 ## 1. Discovery dimensions
 
-Every checkpoint must audit the following axes:
+Every checkpoint must audit:
 
-### Evidence shape
+- evidence shape;
+- requested answer semantic;
+- direct and inverse directions;
+- context and representation;
+- boundary and degenerate states;
+- hidden-order structure;
+- ambiguity and uniqueness;
+- distractor ownership;
+- explanation and localisation behaviour;
+- checkpoint and cross-chapter ownership.
 
-- total count explicit or hidden;
-- rank from one end, both ends, or relative to another entity;
-- count before/after explicit;
-- complete order versus comparison clues;
-- one statement versus shared passage;
-- original versus transformed order;
-- exact values versus ranges;
-- single answer versus possible/definite semantics.
+Counts are discovered rather than set as quotas.
 
-### Target semantic
+## 2. RNK-CP-001 — One-person rank arithmetic
 
-- rank;
-- total count;
-- number before/after;
-- number between;
-- rank difference;
-- entity identity;
-- ordered pair or ordered list;
-- original state;
-- changed state;
-- claim validity;
-- possibility or determinacy.
+### Executable discovery inventory
 
-### Direction and representation
+```text
+first foundation wave                 6 prototypes / 1,440 questions
+source and inverse-gap wave           6 prototypes / 1,440 questions
+final mirrored inverse addendum       1 prototype  /   240 questions
+------------------------------------------------------------------
+combined discovery                   13 prototypes / 3,120 questions
+```
 
-- top/bottom;
-- left/right;
-- front/back;
-- first/last;
-- before/after;
-- ahead/behind;
-- highest/lowest;
-- best/worst;
-- oldest/youngest;
-- tallest/shortest;
-- finishing order.
+### Provisional consolidation
 
-### Transformation
+The 13 prototypes consolidate into nine authorities:
 
-- no change;
-- interchange;
-- movement by positions;
-- insertion;
-- removal;
-- promotion/demotion;
-- one entity overtakes another;
-- multiple simultaneous moves;
-- reverse recovery from final state.
+```text
+RNK-CP001-AUTH-01  CONVERT_RANK_BETWEEN_ENDS
+RNK-CP001-AUTH-02  TOTAL_FROM_BOTH_END_RANKS
+RNK-CP001-AUTH-03  SIDE_COUNT_FROM_SAME_SIDE_RANK
+RNK-CP001-AUTH-04  OPPOSITE_SIDE_COUNT_FROM_TOTAL_AND_RANK
+RNK-CP001-AUTH-05  SAME_SIDE_RANK_FROM_SIDE_COUNT
+RNK-CP001-AUTH-06  OPPOSITE_END_RANK_FROM_TOTAL_AND_SIDE_COUNT
+RNK-CP001-AUTH-07  EXACT_MIDDLE_RANK_FROM_ODD_TOTAL
+RNK-CP001-AUTH-08  ODD_TOTAL_FROM_EXACT_MIDDLE_RANK
+RNK-CP001-AUTH-09  TOTAL_FROM_BEFORE_AND_AFTER_COUNTS
+```
 
-### Order structure
+Clean symmetric merges:
 
-- complete total order;
-- partial order with unique completion;
-- partial order with multiple completions but one definite answer;
-- partial order with possible-only answer;
-- inconsistent clue set;
-- tied ranks, deferred until source and product policy justify them.
+```text
+count before from start-rank
+count after from end-rank
+  -> AUTH-03 with counted-side parameter
 
-### Answer and option structure
+count after from total and start-rank
+count before from total and end-rank
+  -> AUTH-04 with known-end parameter
 
-- positive integer rank;
-- zero-permitted count;
-- entity name;
-- ordered entity list;
-- pair of ranks;
-- standard possibility labels;
-- four or five options;
-- answer position coverage;
-- nearby misconception versus structurally different misconception.
+start-rank from people before
+end-rank from people after
+  -> AUTH-05 with requested-end parameter
 
-## 2. Provisional checkpoint candidate frontier
+start-rank from total and people after
+end-rank from total and people before
+  -> AUTH-06 with requested-end parameter
+```
 
-### RNK-CP-001 — One-person rank arithmetic
+Retained separately:
 
-Current executable first wave:
+- rank conversion between ends;
+- total from inclusive ranks at both ends;
+- exact middle rank from odd total;
+- odd total from exact middle rank;
+- total from exclusive before/after counts.
 
-- opposite-end rank from total and one rank;
-- total from ranks at both ends;
-- count before from rank;
-- count after from total and rank;
-- rank from count before;
-- rank from total and count after.
+Those contracts differ in evidence semantics, requested quantity, validity conditions, central-person adjustment, distractors or explanation logic.
 
-Open audit questions:
+### Closed CP-001 dimensions
 
-- whether before/after directions merge as parameters;
-- whether rank recovery and count recovery share one inverse contract;
-- whether one-end presentation contexts are QL parameters only;
-- whether zero-before/zero-after edge cases belong to the same contracts;
-- whether total-hidden variants introduce materially new evidence topology.
+- rank from either end;
+- total from both inclusive end-ranks;
+- exclusive count before/after from same-side rank;
+- opposite side-count from total and one end-rank;
+- same-side rank from exclusive side-count;
+- opposite-end rank from total and side-count;
+- exact middle rank under an odd total;
+- odd total from exact middle rank;
+- total from before and after counts;
+- top/bottom, left/right and front/back representation parity;
+- first/last, zero/one side-count and interior edges;
+- Rank, Count and Total answer semantics.
 
-### RNK-CP-002 — Two-person positions
+### Current CP-001 evidence
 
-Candidate families:
+```text
+prototype discovery questions                  3,120
+consolidation equation checks                   3,120
+authority-runtime dispatches                    2,880
+English review questions                           54
+open one-person source dimensions                   0
+provisional authorities                             9
+permanent QLs                                       0
+```
+
+### CP-001 verdict
+
+`ELIGIBLE_FOR_ENGLISH_MANUAL_REVIEW`
+
+Permanent allocation is still blocked by:
+
+1. explicit human review of the nine-authority corpus;
+2. remediation of any accepted editorial findings;
+3. post-review no-new-gap confirmation;
+4. final English discovery-freeze decision.
+
+## 3. RNK-CP-002 — Two-person positions
+
+Candidate families remain open:
 
 - people between two known ranks;
 - rank difference;
 - second rank from first rank plus relative offset;
-- total from opposite-end ranks of different people plus between count;
+- total from mixed ranks of different people plus between count;
+- minimum/maximum possible total under uncertain relative order;
 - identify nearer/farther person from an end;
-- determine one person's rank from the other's and a between count;
 - mixed-direction normalization before comparison.
 
-### RNK-CP-003 — Interchange and movement
+## 4. RNK-CP-003 — Interchange and movement
 
-Candidate families:
+Candidate families remain open:
 
 - new ranks after interchange;
 - original ranks from new ranks after interchange;
-- total count from one person's rank change after interchange;
+- total count from rank change after interchange;
 - new rank after moving forward/backward;
-- count passed or overtaken;
+- number passed or overtaken;
 - original rank from final rank and movement;
-- insertion/removal impact on another person's rank;
-- multiple moves with sequential replay.
+- insertion/removal effects;
+- sequential multiple moves.
+
+## 5. Later checkpoints
 
 ### RNK-CP-004 — Multi-entity ordering
 
-Candidate families:
+- complete order from pairwise comparisons;
+- highest/lowest or first/last;
+- exact rank and middle entity;
+- relative order of a pair;
+- valid/invalid order;
+- missing comparison.
 
-- construct complete order from pairwise comparisons;
-- identify highest/lowest or first/last;
-- identify exact rank of one entity;
-- identify middle entity;
-- determine relative order of a pair;
-- count entities before/between/after;
-- select a valid or invalid order;
-- reconstruct missing comparison.
+### RNK-CP-005 — Shared passages
 
-### RNK-CP-005 — Presentation-led forms
+- one order set feeding several questions;
+- combined direct, between and movement queries;
+- shared partial order with exact and possibility questions.
 
-Ownership audit required for:
+### RNK-CP-006 — Attribute-led ranking ownership
 
-- standing in a row;
-- queue position;
-- merit list;
-- race finishing order;
-- office performance ranking;
-- classroom marks ranking;
-- selection-list position.
-
-These should remain parameters unless the presentation changes the solver, ambiguity or answer contract.
-
-### RNK-CP-006 — Attribute-led comparison
-
-Candidate families:
-
-- height order;
-- age order;
-- marks or score order;
-- weight or price order;
-- chronological order where no date arithmetic is required;
-- mixed comparative language such as older than but shorter than.
-
-Reassign to puzzles when several independent attributes must be matched simultaneously.
+- height, age, marks, weight and price order where ranking is the dominant burden;
+- reassign arithmetic-dominant tasks to the relevant Quant chapter;
+- reassign multi-attribute matching to Logic Puzzles.
 
 ### RNK-CP-007 — Partial order and uncertainty
 
-Candidate families:
-
-- definite rank across all valid orders;
-- possible rank;
-- impossible claim;
-- cannot determine exact rank;
+- definite, possible and impossible rank claims;
+- cannot-determine exact rank;
 - minimum/maximum possible rank;
 - number of possible positions;
-- clue redundancy;
-- one missing comparison needed for uniqueness.
+- clue redundancy and uniqueness.
 
-### RNK-CP-008 — Shared passages and synthesis
+### RNK-CP-008 — Advanced synthesis
 
-Candidate families:
+- multi-stage ranking narratives;
+- bounded grid/table presentations;
+- mixed contexts where ranking remains dominant.
 
-- one order set feeding several questions;
-- combined direct, between and interchange queries;
-- shared partial order with exact and possibility questions;
-- multi-stage ranking narrative;
-- bounded data-table or grid presentation;
-- mixed context only when ranking remains the dominant burden.
-
-## 3. Protected ownership exclusions
-
-The following must not be absorbed merely to increase chapter size:
+## 6. Protected ownership exclusions
 
 ```text
 lexicographic/dictionary position              -> Word and Dictionary Order
@@ -204,29 +191,15 @@ alphabet position without a ranked group       -> Alphabet Test
 age/speed/marks arithmetic as main burden       -> relevant Quant chapter
 ```
 
-## 4. Required freeze evidence
-
-Before any permanent allocation, the chapter needs:
-
-- source catalogue with every recurring exam pattern mapped;
-- executable valid-state generator for every retained candidate;
-- independent solver or exhaustive enumerator;
-- contradiction and ambiguity rejection;
-- inverse-direction coverage;
-- edge coverage at first/last rank and zero before/after;
-- distractor collision audit;
-- explanation naturalness and uniqueness audit;
-- checkpoint and cross-chapter ownership audit;
-- merge/split decisions based on solver and answer semantics;
-- no-known-gap matrix;
-- explicit manual English approval.
-
-## 5. Current lifecycle verdict
+## 7. Current lifecycle verdict
 
 ```text
 permanentQlCount:             0
 frozenSolveModeCount:         0
-cp001DiscoveryReady:          true
+cp001SourceGapCount:          0
+cp001ProvisionalAuthorities:  9
+cp001EnglishReviewRequired:   true
+cp001EnglishFreezeGranted:    false
 chapterFreezeReady:           false
 questionStudioDiscoverable:   false
 questionBankWritable:         false
