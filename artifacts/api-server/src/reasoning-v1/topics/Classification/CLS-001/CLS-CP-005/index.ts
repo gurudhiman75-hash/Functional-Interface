@@ -17,4 +17,5 @@ export * from "./cp005-english-contracts";
 export * from "./cp005-english-runtime";
 export * from "./cp005-multilingual-runtime";
 export * from "./localization/cp005-language-pack";
+export * from "./localization/cp005-natural-overrides";
 export * from "./localization/cp005-localizer";
