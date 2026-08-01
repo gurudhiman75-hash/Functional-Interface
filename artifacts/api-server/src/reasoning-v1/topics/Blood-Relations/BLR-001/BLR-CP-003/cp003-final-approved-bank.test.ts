@@ -27,7 +27,9 @@ assert.deepEqual(telemetry.sourceBankCounts, {
   V9_WAVE01_STRUCTURAL_STAGING: 96,
   V9_WAVE02_STRUCTURAL_STAGING: 72,
 });
-assert.ok(telemetry.stemUniquenessRatio >= 0.8);
+assert.equal(telemetry.uniqueQuestionSignatureCount, 298);
+assert.equal(telemetry.questionSignatureUniquenessRatio, 1);
+assert.ok(telemetry.uniqueStemCount > 0);
 assert.ok(telemetry.unresolvedStatusRecordCount > 0);
 assert.ok(Object.keys(telemetry.difficultyCounts).length >= 2);
 assert.equal(new Set(records.map((record) => record.itemId)).size, 298);
@@ -86,7 +88,7 @@ console.log(
       ...telemetry,
       permanentQlRange: "BLR-QL-009..BLR-QL-012",
       verdict:
-        "BLR-CP-003 COMBINED ENGLISH BANK IS STRUCTURALLY SATURATED, REPETITION-CHECKED AND READY FOR FINAL DISCOVERY FREEZE",
+        "BLR-CP-003 COMBINED ENGLISH BANK IS STRUCTURALLY SATURATED, FULL-ITEM REPETITION-CHECKED AND READY FOR FINAL DISCOVERY FREEZE",
     },
     null,
     2,
