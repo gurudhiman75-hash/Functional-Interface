@@ -236,6 +236,10 @@ export function blrCp003FinalGroupKey(
   return `${record.sourceBank}::${record.scenarioId}::${record.seed}`;
 }
 
+function normalizeLearnerText(value: string): string {
+  return value.toLocaleLowerCase("en-IN").replace(/\s+/g, " ").trim();
+}
+
 export function buildBlrCp003FinalBankTelemetry(
   records: readonly BlrCp003FinalApprovedRecord[] =
     generateBlrCp003FinalApprovedBank(),
@@ -246,9 +250,15 @@ export function buildBlrCp003FinalBankTelemetry(
     return counts;
   };
   const normalizedStems = records.map((record) =>
-    record.stem.toLocaleLowerCase("en-IN").replace(/\s+/g, " ").trim(),
+    normalizeLearnerText(record.stem),
+  );
+  const normalizedQuestionSignatures = records.map((record) =>
+    normalizeLearnerText(`${record.sharedPrompt}\n${record.stem}`),
   );
   const uniqueStemCount = new Set(normalizedStems).size;
+  const uniqueQuestionSignatureCount = new Set(
+    normalizedQuestionSignatures,
+  ).size;
   const groups = new Set(records.map(blrCp003FinalGroupKey));
   const difficultyCounts = countBy(
     records.map((record) => record.metadata.difficultyTier),
@@ -268,6 +278,9 @@ export function buildBlrCp003FinalBankTelemetry(
     difficultyCounts,
     uniqueStemCount,
     stemUniquenessRatio: uniqueStemCount / records.length,
+    uniqueQuestionSignatureCount,
+    questionSignatureUniquenessRatio:
+      uniqueQuestionSignatureCount / records.length,
     unresolvedStatusRecordCount: records.filter(
       (record) =>
         record.originalAuthority ===
