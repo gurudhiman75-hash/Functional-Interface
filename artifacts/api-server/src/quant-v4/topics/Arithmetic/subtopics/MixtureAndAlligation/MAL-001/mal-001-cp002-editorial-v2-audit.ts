@@ -5,7 +5,10 @@ import {
   MAL_CP002_PERMANENT_QL_IDS,
 } from "./foundation/cp002-permanent-runtime";
 import { MAL_CP002_EDITORIAL_REMEDIATION_V2 } from "./foundation/cp002-editorial-remediation-v2";
-import { runMalCp002EnglishEditorialRemediationV2Pipeline } from "./foundation/cp002-editorial-remediation-v2-pipeline";
+import {
+  MAL_CP002_FINAL_EDITORIAL_POLISH_V2,
+  runMalCp002EnglishFinalEditorialV2Pipeline,
+} from "./foundation/cp002-editorial-final-polish-v2";
 import { runMalCp001EnglishReleasePipeline } from "./foundation/cp001-release";
 
 function stable(value: unknown): string {
@@ -18,12 +21,22 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+function outsideMath(value: string): string {
+  return value
+    .replace(/\$[^$]*\$/gu, "")
+    .replace(/Step\s+\d+:/giu, "Step:");
+}
+
 function rawDigitsOutsideMath(value: string): boolean {
-  return /\d/u.test(
-    value
-      .replace(/\$[^$]*\$/gu, "")
-      .replace(/Step\s+\d+:/giu, "Step:"),
-  );
+  return /\d/u.test(outsideMath(value));
+}
+
+function unitOutsideMath(value: string): boolean {
+  return /\b(?:kg|litres)\b/iu.test(outsideMath(value));
+}
+
+function algebraOutsideMath(value: string): boolean {
+  return /\b(?:x|y|V)\b/u.test(outsideMath(value));
 }
 
 const roleOpening =
@@ -44,12 +57,12 @@ const answerPositions = [0, 0, 0, 0];
 for (const allocation of MAL_CP002_PERMANENT_ALLOCATION) {
   for (let index = 0; index < 100; index += 1) {
     const seed = `mal-cp002-editorial-v2:${allocation.qlId}:${index}`;
-    const question = runMalCp002EnglishEditorialRemediationV2Pipeline({
+    const question = runMalCp002EnglishFinalEditorialV2Pipeline({
       questionLanguageId: allocation.qlId,
       language: "en",
       seed,
     });
-    const replay = runMalCp002EnglishEditorialRemediationV2Pipeline({
+    const replay = runMalCp002EnglishFinalEditorialV2Pipeline({
       questionLanguageId: allocation.qlId,
       language: "en",
       seed,
@@ -74,6 +87,11 @@ for (const allocation of MAL_CP002_PERMANENT_ALLOCATION) {
       question.editorialAuthority ===
         MAL_CP002_EDITORIAL_REMEDIATION_V2.editorialAuthority,
       `${allocation.qlId}/${seed}: editorial authority is missing.`,
+    );
+    assert(
+      question.editorialPolishId ===
+        MAL_CP002_FINAL_EDITORIAL_POLISH_V2.polishId,
+      `${allocation.qlId}/${seed}: final family polish is missing.`,
     );
     assert(
       !roleOpening.test(question.stem),
@@ -109,6 +127,20 @@ for (const allocation of MAL_CP002_PERMANENT_ALLOCATION) {
       !/−|\|\s*\d/u.test(learnerText),
       `${allocation.qlId}/${seed}: raw minus or absolute-value arithmetic survived.`,
     );
+    assert(
+      !/[.!?]\s+find\b/u.test(learnerText),
+      `${allocation.qlId}/${seed}: lowercase question instruction survived.`,
+    );
+    assert(
+      !/contains\s+[^.]+\sand\s+[^.]+\sare in the ratio/iu.test(
+        question.stem,
+      ),
+      `${allocation.qlId}/${seed}: malformed ratio stem survived.`,
+    );
+    assert(
+      !/\bthird grade\b/iu.test(learnerText),
+      `${allocation.qlId}/${seed}: synthetic third-grade label survived.`,
+    );
 
     for (const field of [
       question.stem,
@@ -120,6 +152,14 @@ for (const allocation of MAL_CP002_PERMANENT_ALLOCATION) {
       assert(
         !rawDigitsOutsideMath(field),
         `${allocation.qlId}/${seed}: number outside MathJax: ${field}`,
+      );
+      assert(
+        !unitOutsideMath(field),
+        `${allocation.qlId}/${seed}: unit outside MathJax: ${field}`,
+      );
+      assert(
+        !algebraOutsideMath(field),
+        `${allocation.qlId}/${seed}: algebraic symbol outside MathJax: ${field}`,
       );
       mathJaxFieldCount += 1;
     }
@@ -171,6 +211,7 @@ for (const allocation of MAL_CP002_PERMANENT_ALLOCATION) {
         mathematicalFingerprint: question.mathematicalFingerprint,
         presentationRevisionId: question.presentationRevisionId,
         editorialAuthority: question.editorialAuthority,
+        editorialPolishId: question.editorialPolishId,
       });
     }
   }
@@ -224,6 +265,7 @@ writeFileSync(
         MAL_CP002_EDITORIAL_REMEDIATION_V2.presentationRevisionId,
       editorialAuthority:
         MAL_CP002_EDITORIAL_REMEDIATION_V2.editorialAuthority,
+      editorialPolishId: MAL_CP002_FINAL_EDITORIAL_POLISH_V2.polishId,
       questionCount: reviewRows.length,
       rows: reviewRows,
     },
@@ -300,6 +342,7 @@ console.log(
         MAL_CP002_EDITORIAL_REMEDIATION_V2.presentationRevisionId,
       editorialAuthority:
         MAL_CP002_EDITORIAL_REMEDIATION_V2.editorialAuthority,
+      editorialPolishId: MAL_CP002_FINAL_EDITORIAL_POLISH_V2.polishId,
       permanentQlCount: MAL_CP002_PERMANENT_QL_IDS.length,
       permanentQlRange: "MAL-QL-012..MAL-QL-028",
       generatedQuestionCount,
