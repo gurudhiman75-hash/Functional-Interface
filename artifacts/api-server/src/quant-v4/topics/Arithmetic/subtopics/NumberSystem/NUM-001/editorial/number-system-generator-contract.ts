@@ -14,6 +14,8 @@ import {
 export const NUMBER_SYSTEM_GENERATOR_MODEL =
   "FOUR_TIER_EXAM_READY_TEACHER_VOICE_V3" as const;
 
+export const NUMBER_SYSTEM_GENERATOR_EDITORIAL_PATCH = "V3.1" as const;
+
 export type NumberSystemStemFamily = "SCENARIO" | "DIRECT" | "IMPERATIVE";
 
 const BANNED_STUDENT_PATTERNS = [
@@ -52,6 +54,81 @@ export function assertNoStudentJargon(value: unknown, label = "student text"): v
       throw new Error(`${label}: banned developer wording ${pattern} found in: ${text}`);
     }
   }
+}
+
+function formatMathToken(token: string): string {
+  return token
+    .trim()
+    .replace(/×/g, "\\times")
+    .replace(/÷/g, "\\div")
+    .replace(/(\d[\d,]*)\^(\d+)/g, (_match, base, exponent) =>
+      `${formatNumber(String(base).replaceAll(",", ""))}^{${exponent}}`)
+    .replace(/\d[\d,]*/g, (value) =>
+      formatNumber(value.replaceAll(",", "")));
+}
+
+function formatPlainProseMath(segment: string): string {
+  const mathToken = /(?<![A-Za-z])(?:\d[\d,]*(?:\^\d+)?(?:\s*(?:\+|-|×|÷)\s*\d[\d,]*(?:\^\d+)?)+|\d[\d,]*\^\d+|\d[\d,]*)(?![A-Za-z])/gu;
+  return segment.replace(mathToken, (token) => `$${formatMathToken(token)}$`);
+}
+
+/**
+ * Keeps prose outside MathJax while wrapping only the mathematical fragments.
+ * Existing MathJax spans are preserved.
+ */
+export function formatStudentProseMath(value: unknown): string {
+  const text = String(value ?? "");
+  return text
+    .split(/(\$[^$]*\$)/gu)
+    .map((segment, index) => index % 2 === 1 ? segment : formatPlainProseMath(segment))
+    .join("");
+}
+
+/**
+ * Formats a learner option without ever wrapping a complete prose sentence in
+ * one MathJax span.
+ */
+export function formatStudentOptionValue(value: unknown): string {
+  const text = stripStudentOptionLeaks(value);
+  if (/^\$[^$]+\$$/u.test(text)) return normaliseStudentLine(text);
+  if (/^[+-]?\d[\d,]*$/u.test(text)) {
+    return mathNumber(text.replaceAll(",", ""));
+  }
+  if (/^[\s{}()[\],+\-×÷=^\d.]+$/u.test(text) && /\d/u.test(text)) {
+    return mathValue(
+      text
+        .replace(/×/g, "\\times")
+        .replace(/÷/g, "\\div")
+        .replace(/(\d[\d,]*)\^(\d+)/g, "$1^{$2}"),
+    );
+  }
+  return formatStudentProseMath(text);
+}
+
+/**
+ * Converts display delimiters that were embedded inside a sentence to inline
+ * MathJax and merges split multiplication fragments into one clean equation.
+ */
+export function normaliseStudentLine(value: unknown): string {
+  let text = cleanText(value)
+    .replace(/minimum signed integer adjustment/gi, "smallest change")
+    .replace(/exact testing leaves/gi, "the calculation gives")
+    .replace(/admissible domain/gi, "digits from 0 to 9")
+    .replace(/\$\$([\s\S]*?)\$\$/gu, (_match, expression) =>
+      `$${String(expression).trim()}$`)
+    .replace(/\$([^$\n]+)\$\s*×\s*\$([^$\n]+)\$\s*=\s*\$([^$\n]+)\$/gu,
+      (_match, left, right, result) =>
+        `$${String(left).trim()} \\times ${String(right).trim()} = ${String(result).trim()}$`)
+    .replace(/\$([^$\n]+)\$\s*×\s*\$([^$\n]+)\$/gu,
+      (_match, left, right) =>
+        `$${String(left).trim()} \\times ${String(right).trim()}$`)
+    .replace(/\$([^$]*?)×([^$]*?)\$/gu,
+      (_match, left, right) =>
+        `$${String(left).trim()} \\times ${String(right).trim()}$`);
+
+  text = formatStudentProseMath(text);
+  assertNoStudentJargon(text);
+  return text;
 }
 
 function digitsFromRight(value: bigint | number | string): number[] {
@@ -223,15 +300,6 @@ function buildPrimeAdjustmentExplanation(row: any, base: any): any {
   };
 }
 
-function simpleLine(value: unknown): string {
-  const text = cleanText(value)
-    .replace(/minimum signed integer adjustment/gi, "smallest change")
-    .replace(/exact testing leaves/gi, "the calculation gives")
-    .replace(/admissible domain/gi, "digits from 0 to 9");
-  assertNoStudentJargon(text);
-  return text;
-}
-
 export function applyNumberSystemGeneratorContract(row: any, explanation: any): any {
   let transformed = explanation;
   if (row.checkpoint === "NUM-CP-003" && row.question.hiddenState?.kind === "DIRECT_DIVISIBILITY") {
@@ -241,9 +309,9 @@ export function applyNumberSystemGeneratorContract(row: any, explanation: any): 
     transformed = buildPrimeAdjustmentExplanation(row, transformed);
   }
 
-  const mainRule = transformed.mainRule.filter(Boolean).slice(0, 2).map(simpleLine);
-  const steps = transformed.steps.filter(Boolean).map(simpleLine);
-  const speedTrick = transformed.speedTrick.filter(Boolean).slice(0, 2).map(simpleLine);
+  const mainRule = transformed.mainRule.filter(Boolean).slice(0, 2).map(normaliseStudentLine);
+  const steps = transformed.steps.filter(Boolean).map(normaliseStudentLine);
+  const speedTrick = transformed.speedTrick.filter(Boolean).slice(0, 2).map(normaliseStudentLine);
 
   if (mainRule.length === 0 || steps.length === 0 || speedTrick.length === 0) {
     throw new Error(`${row.allocation?.qlId}: incomplete four-tier explanation`);
@@ -256,10 +324,28 @@ function lowerFirst(value: string): string {
   return value ? `${value[0]!.toLowerCase()}${value.slice(1)}` : value;
 }
 
+function statementForm(value: string): string {
+  return value.replace(/\?$/u, ".");
+}
+
 function imperativeStem(stem: string): string {
+  let match = /^Which of the following co-prime statements about (.+) is correct\?$/iu.exec(stem);
+  if (match) return `Identify the correct co-prime statement about ${match[1]}.`;
+
+  match = /^Which of the following prime numbers divides (.+) exactly\?$/iu.exec(stem);
+  if (match) return `Identify the prime number that divides ${match[1]} exactly.`;
+
+  match = /^Which of the following statements about (.+) is correct\?$/iu.exec(stem);
+  if (match) return `Identify the correct statement about ${match[1]}.`;
+
+  match = /^Which of the following numbers (.+)\?$/iu.exec(stem);
+  if (match) return `Identify the number that ${statementForm(lowerFirst(match[1]))}`;
+
+  if (/^Which of the following /iu.test(stem)) {
+    return `Select the correct answer: ${stem}`;
+  }
+
   return stem
-    .replace(/^Which of the following numbers /i, "Identify the number that ")
-    .replace(/^Which of the following /i, "Choose the option that ")
     .replace(/^Which set /i, "Choose the set that ")
     .replace(/^What is /i, "Find ")
     .replace(/^How many /i, "Count how many ")
@@ -271,8 +357,10 @@ export function buildExamReadyStem(
   row: any,
   reviewIndex: number,
 ): { family: NumberSystemStemFamily; stem: string } {
-  const stem = cleanText(row.question.stem);
+  const baseStem = cleanText(row.question.stem);
   const slot = reviewIndex % 10;
+  let family: NumberSystemStemFamily;
+  let stem: string;
 
   if (slot <= 3) {
     const openings = [
@@ -281,17 +369,24 @@ export function buildExamReadyStem(
       "In a competitive-exam practice set",
       "While comparing the given numbers",
     ];
-    return {
-      family: "SCENARIO",
-      stem: `${openings[reviewIndex % openings.length]}, ${lowerFirst(stem)}`,
-    };
+    family = "SCENARIO";
+    stem = `${openings[reviewIndex % openings.length]}, ${lowerFirst(baseStem)}`;
+  } else if (slot <= 6) {
+    family = "DIRECT";
+    stem = baseStem;
+  } else {
+    family = "IMPERATIVE";
+    const imperative = imperativeStem(baseStem);
+    stem = imperative === baseStem
+      ? `Solve the following: ${lowerFirst(baseStem)}`
+      : imperative;
   }
 
-  if (slot <= 6) return { family: "DIRECT", stem };
+  const polished = formatStudentProseMath(stem)
+    .replace(/Choose the option that co-prime statements about/giu,
+      "Which of the following co-prime statements about")
+    .replace(/Choose the option that prime numbers divides/giu,
+      "Which of the following prime numbers divides");
 
-  const imperative = imperativeStem(stem);
-  return {
-    family: "IMPERATIVE",
-    stem: imperative === stem ? `Solve the following: ${lowerFirst(stem)}` : imperative,
-  };
+  return { family, stem: polished };
 }
