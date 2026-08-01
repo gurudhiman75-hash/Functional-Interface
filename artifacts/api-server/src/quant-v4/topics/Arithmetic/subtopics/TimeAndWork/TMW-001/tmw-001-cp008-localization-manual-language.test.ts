@@ -39,7 +39,8 @@ for (const entry of TMW_CP008_REGISTRY) {
       assert.equal(/यह विकल्प पहले से दिए भुगतान कुल राशि से नहीं घटाता|ਇਹ ਚੋਣ ਪਹਿਲਾਂ ਦਿੱਤੇ ਭੁਗਤਾਨ ਕੁੱਲ ਰਕਮ ਵਿੱਚੋਂ ਨਹੀਂ ਘਟਾਉਂਦੀ/.test(prose), false, `${entry.qlId}:${language}: missing residual case marker`);
       assert.equal(/श्रेणी योगदान अनुपात|तीनों श्रेणी योगदान|ਸ਼੍ਰੇਣੀ ਯੋਗਦਾਨ ਅਨੁਪਾਤ|ਤਿੰਨਾਂ ਸ਼੍ਰੇਣੀ ਯੋਗਦਾਨ/.test(prose), false, `${entry.qlId}:${language}: category genitive wording`);
       assert.equal(/ਉਨ੍ਹਾਂ ਦੀ ਦਰ [^।]+ ਅਤੇ [^।]+ ਹੈ ਅਤੇ ਰੋਜ਼ਾਨਾ|ਉਨ੍ਹਾਂ ਦੀ ਵਿਅਕਤੀਗਤ ਦਰ ਕ੍ਰਮਵਾਰ[^।]+ ਹੈ; ਸਭ ਨੇ/.test(question.stem), false, `${entry.qlId}:${language}: Punjabi plural-rate agreement`);
-      assert.equal(/ਅਸਵੀਕृत\/पुनःकार्य|ਅਸਵੀਕृत|अस्वीकृत\/पुनःकार्य|ਰੱਦ\/ਮੁੜ-ਕੰਮ/.test(prose), false, `${entry.qlId}:${language}: slash-based signed wording`);
+      assert.equal(/अस्वीकृत\/पुनःकार्य|ਰੱਦ\/ਮੁੜ-ਕੰਮ/.test(prose), false, `${entry.qlId}:${language}: slash-based signed wording`);
+      assert.equal(/भुगतान पूल:|ਭੁਗਤਾਨ ਪੂਲ:/.test(prose), false, `${entry.qlId}:${language}: borrowed payment-pool label`);
       assert.equal(/[£$€]/.test(prose), false, `${entry.qlId}:${language}: inconsistent currency`);
       assert.equal(question.options.length, 4);
       assert.equal(new Set(question.options).size, 4);
@@ -65,7 +66,7 @@ for (const entry of TMW_CP008_REGISTRY) {
           assert.match(question.explanation.commonTrap.explanation, language === "hi" ? /कुल भुगतान पूछा गया है.*ज्ञात व्यक्ति का हिस्सा/ : /ਕੁੱਲ ਭੁਗਤਾਨ ਪੁੱਛਿਆ ਗਿਆ ਹੈ.*ਪਤਾ ਵਿਅਕਤੀ ਦਾ ਹਿੱਸਾ/);
           break;
         case "findResidualPayment":
-          assert.match(question.stem, language === "hi" ? /^कुल राशि ₹.+ निर्धारित है।/ : /^ਕੁੱਲ ਰਕਮ ₹.+ ਨਿਰਧਾਰਤ ਹੈ।/);
+          assert.match(question.stem, language === "hi" ? /में .* के लिए कुल राशि ₹.+ निर्धारित है।/ : /ਵਿੱਚ .* ਲਈ ਕੁੱਲ ਰਕਮ ₹.+ ਨਿਰਧਾਰਤ ਹੈ।/);
           assert.match(question.explanation.conclusion, language === "hi" ? /^अतः शेष भुगतान:/ : /^ਇਸ ਲਈ ਬਾਕੀ ਭੁਗਤਾਨ:/);
           assert.match(question.explanation.commonTrap.explanation, language === "hi" ? /भुगतानों को कुल राशि से/ : /ਭੁਗਤਾਨਾਂ ਨੂੰ ਕੁੱਲ ਰਕਮ ਵਿੱਚੋਂ/);
           break;
@@ -89,6 +90,7 @@ for (const entry of TMW_CP008_REGISTRY) {
         case "findPaymentAfterSignedContribution":
           assert.match(question.stem, language === "hi" ? /दर्ज .*अस्वीकृत या पुनःकार्य/ : /ਦਰਜ .*ਰੱਦ ਜਾਂ ਮੁੜ-ਕੰਮ/);
           assert.equal(/—\d+-\d+/.test(question.stem), false, `${entry.qlId}:${language}: mechanical signed record`);
+          assert.match(question.explanation.givens[1] ?? "", language === "hi" ? /^भुगतान राशि:/ : /^ਭੁਗਤਾਨ ਰਕਮ:/);
           assert.match(question.explanation.conclusion, language === "hi" ? /^अतः शुद्ध योगदान के आधार पर भुगतान:/ : /^ਇਸ ਲਈ ਸ਼ੁੱਧ ਯੋਗਦਾਨ ਦੇ ਆਧਾਰ ਉੱਤੇ ਭੁਗਤਾਨ:/);
           break;
         case "findMissingTimeFromPayment":
