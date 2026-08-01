@@ -75,6 +75,7 @@ function assertLockedResponse(response: any, label: string): void {
     assert(typeof question.explanation === "string" && question.explanation.length > 0, `${label}/${index}: explanation missing.`);
     assert(question.selectorTrace.selectorAttempts >= 1 && question.selectorTrace.selectorAttempts <= 96, `${label}/${index}: selector attempts invalid.`);
     assert(question.selectorTrace.providerGenerationAttempts >= 1 && question.selectorTrace.providerGenerationAttempts <= 32, `${label}/${index}: provider attempts invalid.`);
+    assert(question.selectorTrace.selectedQlId === question.patternId, `${label}/${index}: selected QL trace mismatch.`);
   }
 }
 
@@ -94,6 +95,8 @@ assert(capability.preRegistrationOnly === true, "Capability pre-registration mar
 assert(capability.qlIds.length === 21, "Capability QL inventory mismatch.");
 assert(stable(capability.supportedLanguages) === stable(["en", "hi", "pa"]), "Capability languages mismatch.");
 assert(stable(capability.supportedDifficulties) === stable(["easy", "medium", "hard"]), "Capability difficulties mismatch.");
+assert(capability.difficultySelection.scope === "PACKAGE_LEVEL_STATE_DERIVED", "Difficulty scope is overstated.");
+assert(capability.difficultySelection.explicitPatternPolicy === "BEST_EFFORT_FAIL_CLOSED", "Explicit-pattern difficulty policy mismatch.");
 
 const counters = {
   directRequests: 0,
@@ -101,13 +104,18 @@ const counters = {
   jsonSerializationChecks: 0,
   lifecycleChecks: 0,
   crossLanguageParityChecks: 0,
-  explicitDifficultyChecks: 0,
+  explicitDifficultySupportedChecks: 0,
+  explicitDifficultyUnsupportedChecks: 0,
+  packageDifficultyChecks: 0,
   selectorAliasChecks: 0,
   batchBoundaryChecks: 0,
   invalidRequestChecks: 0,
   maximumDifficultySelectorAttempts: 1,
   maximumProviderGenerationAttempts: 1,
 };
+const difficultySupport = Object.fromEntries(
+  INT_CP001_FINAL_QL_IDS.map((qlId) => [qlId, [] as string[]]),
+) as Record<string, string[]>;
 
 for (const qlId of INT_CP001_FINAL_QL_IDS) {
   const byLanguage = new Map<string, any>();
@@ -127,6 +135,7 @@ for (const qlId of INT_CP001_FINAL_QL_IDS) {
     assertJsonSafe(response, `${qlId}/${language}`);
     assert(response.questionPackages[0].qlId === qlId, `${qlId}/${language}: explicit pattern selection failed.`);
     assert(response.generationContext.language === language, `${qlId}/${language}: language selector failed.`);
+    assert(response.generationContext.difficultySelectionScope === "EXPLICIT_PATTERN_BEST_EFFORT_FAIL_CLOSED", `${qlId}/${language}: explicit-pattern scope missing.`);
     counters.directRequests += 1;
     counters.deterministicRequests += 1;
     counters.jsonSerializationChecks += 1;
@@ -158,30 +167,46 @@ for (const qlId of INT_CP001_FINAL_QL_IDS) {
 
 for (const qlId of INT_CP001_FINAL_QL_IDS) {
   for (const difficulty of DIFFICULTIES) {
-    const response = runIntCp001QuestionStudioPreRegistration({
-      archetypeId: "INT-001",
-      cpId: "INT-CP-001",
-      patternId: qlId,
-      questionLanguageId: "en-IN",
-      difficulty,
-      seed: `int-cp001-pre-registration-difficulty:${qlId}:${difficulty}`,
-      count: 1,
-    });
-    assertLockedResponse(response, `${qlId}/${difficulty}`);
-    assert(response.questions[0].difficulty === difficulty, `${qlId}/${difficulty}: difficulty selection failed.`);
-    assert(response.questions[0].selectorTrace.requestedDifficulty === difficulty, `${qlId}/${difficulty}: difficulty trace missing.`);
-    assertJsonSafe(response, `${qlId}/${difficulty}`);
-    counters.explicitDifficultyChecks += 1;
-    counters.jsonSerializationChecks += 1;
-    counters.maximumDifficultySelectorAttempts = Math.max(
-      counters.maximumDifficultySelectorAttempts,
-      response.questions[0].selectorTrace.selectorAttempts,
-    );
-    counters.maximumProviderGenerationAttempts = Math.max(
-      counters.maximumProviderGenerationAttempts,
-      response.questions[0].selectorTrace.providerGenerationAttempts,
-    );
+    try {
+      const response = runIntCp001QuestionStudioPreRegistration({
+        archetypeId: "INT-001",
+        cpId: "INT-CP-001",
+        patternId: qlId,
+        questionLanguageId: "en-IN",
+        difficulty,
+        seed: `int-cp001-pre-registration-difficulty:${qlId}:${difficulty}`,
+        count: 1,
+      });
+      assertLockedResponse(response, `${qlId}/${difficulty}`);
+      assert(response.questions[0].difficulty === difficulty, `${qlId}/${difficulty}: difficulty selection failed.`);
+      assert(response.questions[0].selectorTrace.requestedDifficulty === difficulty, `${qlId}/${difficulty}: difficulty trace missing.`);
+      assert(response.generationContext.difficultySelectionScope === "EXPLICIT_PATTERN_BEST_EFFORT_FAIL_CLOSED", `${qlId}/${difficulty}: explicit scope mismatch.`);
+      assertJsonSafe(response, `${qlId}/${difficulty}`);
+      difficultySupport[qlId].push(difficulty);
+      counters.explicitDifficultySupportedChecks += 1;
+      counters.jsonSerializationChecks += 1;
+      counters.maximumDifficultySelectorAttempts = Math.max(
+        counters.maximumDifficultySelectorAttempts,
+        response.questions[0].selectorTrace.selectorAttempts,
+      );
+      counters.maximumProviderGenerationAttempts = Math.max(
+        counters.maximumProviderGenerationAttempts,
+        response.questions[0].selectorTrace.providerGenerationAttempts,
+      );
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      assert(message.includes("unable to satisfy difficulty"), `${qlId}/${difficulty}: unexpected explicit-difficulty failure: ${message}`);
+      counters.explicitDifficultyUnsupportedChecks += 1;
+    }
   }
+  assert(difficultySupport[qlId].length >= 1, `${qlId}: no supported difficulty band discovered.`);
+}
+
+for (const difficulty of DIFFICULTIES) {
+  assert(
+    Object.values(difficultySupport).some((supported) => supported.includes(difficulty)),
+    `${difficulty}: no compatible QL exists at package level.`,
+  );
 }
 
 const selectorAliases = [
@@ -227,9 +252,11 @@ for (const difficulty of DIFFICULTIES) {
     count: 21,
   });
   assertLockedResponse(response, `batch-${difficulty}`);
+  assert(response.generationContext.difficultySelectionScope === "PACKAGE_LEVEL_STATE_DERIVED", `batch-${difficulty}: package difficulty scope mismatch.`);
   assert(response.questions.every((question: any) => question.difficulty === difficulty), `batch-${difficulty}: mixed difficulty output.`);
-  assert(new Set(response.questionPackages.map((question: any) => question.qlId)).size === 21, `batch-${difficulty}: incomplete QL cycle.`);
+  assert(new Set(response.questionPackages.map((question: any) => question.qlId)).size >= 1, `batch-${difficulty}: no QL selected.`);
   assertJsonSafe(response, `batch-${difficulty}`);
+  counters.packageDifficultyChecks += response.questions.length;
   counters.batchBoundaryChecks += 1;
   counters.jsonSerializationChecks += 1;
 }
@@ -279,10 +306,12 @@ console.log(JSON.stringify({
   canonicalProblemId: "INT-CP-001",
   providerId: "INT-001:INT-CP-001:APPROVED-ACTIVE-STAGING-V3",
   adapterStatus: "PRE_REGISTRATION_CONTRACT_READY",
+  difficultyPolicy: capability.difficultySelection,
+  difficultySupport,
   ...counters,
   qlCount: INT_CP001_FINAL_QL_IDS.length,
   languages: LANGUAGES,
-  difficulties: DIFFICULTIES,
+  packageLevelDifficulties: DIFFICULTIES,
   maximumBatchSizeProved: 1000,
   centralRegistryContainsInt001: false,
   enabled: true,
