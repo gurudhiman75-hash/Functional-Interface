@@ -10,6 +10,42 @@ export type {
 } from "./cp003-english-contracts";
 export { generateClsCp003EnglishQuestion } from "./cp003-english-runtime";
 export type { GeneratedClsCp003EnglishQuestion } from "./cp003-english-runtime";
+export {
+  CLS_CP003_LOCALIZED_CONTRACTS,
+  CLS_CP003_LOCALIZED_LOCALES,
+  CLS_CP003_LOCALIZED_QL_IDS,
+  getClsCp003LocalizedContract,
+} from "./cp003-localized-contracts";
+export type {
+  ClsCp003LocalizedContract,
+  ClsCp003LocalizedLocale,
+  ClsCp003LocalizedQlId,
+  ClsCp003LocalizedSolveContractId,
+} from "./cp003-localized-contracts";
+export {
+  analyzeClsCp003LocalizedWord,
+  auditClsCp003LocalizedWords,
+  generateClsCp003LocalizedQuestion,
+  independentlyVerifyClsCp003LocalizedQuestion,
+} from "./cp003-localized-runtime";
+export type {
+  ClsCp003LocalizedAudit,
+  ClsCp003LocalizedBoundaryPattern,
+  ClsCp003LocalizedRepeatPattern,
+  ClsCp003LocalizedRuleId,
+  ClsCp003LocalizedRuleSupport,
+  ClsCp003LocalizedWordFeatures,
+  GeneratedClsCp003LocalizedQuestion,
+} from "./cp003-localized-runtime";
+export {
+  CLS_CP003_LOCALIZED_JUMBLE_WORDS,
+  CLS_CP003_LOCALIZED_WORDS,
+  getClsCp003LocalizedDatasetSummary,
+} from "./word-dataset.localized";
+export type {
+  ClsCp003LocalizedJumbleEntry,
+  ClsCp003LocalizedWordEntry,
+} from "./word-dataset.localized";
 export { generateClsCp003DiscoveryQuestion } from "./discovery-runtime";
 export {
   analyzeClsCp003Word,
