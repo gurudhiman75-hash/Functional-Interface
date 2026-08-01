@@ -48,7 +48,8 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          node artifacts/api-server/dist/quant-v4/mal-001-cp002-complete-english-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp002-complete-english-audit.log
+          cd artifacts/api-server
+          node dist/quant-v4/mal-001-cp002-complete-english-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-cp002-complete-english-audit.log
       - name: Upload complete CP-002 evidence
         if: always()
         uses: actions/upload-artifact@v4
