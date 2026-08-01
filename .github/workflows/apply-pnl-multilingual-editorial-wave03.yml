@@ -1,16 +1,58 @@
-name: Retired PNL Multilingual Editorial Wave 03 Writer
+name: Apply PNL Multilingual Editorial Wave 03
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - feat/pnl-001-multilingual-editorial-reconstruction-wave03
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-multilingual-reconstruction-wave03.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-wave03-write.ts"
+      - ".github/workflows/apply-pnl-multilingual-editorial-wave03.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  retired:
+  apply-wave03:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - name: Confirm writer retirement
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-multilingual-editorial-reconstruction-wave03
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
         run: |
-          echo "The one-time Wave 03 source writer has been retired."
-          echo "Committed multilingual libraries are now protected by read-only source-parity validation."
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate all 12 Wave 03 libraries
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-wave03-write.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-wave03-write.mjs
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-wave03-write.mjs
+
+      - name: Commit generated libraries
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/editorial-content.hi.json
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/editorial-content.pa.json
+          if git diff --cached --quiet; then
+            echo "Wave 03 libraries are already synchronized."
+            exit 0
+          fi
+          git commit -m "fix(pnl): regenerate Wave 03 task-specific native working"
+          git push origin HEAD:feat/pnl-001-multilingual-editorial-reconstruction-wave03
