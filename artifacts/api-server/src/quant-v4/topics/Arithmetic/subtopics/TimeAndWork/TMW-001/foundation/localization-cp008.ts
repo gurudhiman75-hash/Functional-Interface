@@ -30,6 +30,14 @@ import {
   finalizeTmwCp008Trap,
   polishTmwCp008Text,
 } from "./localization-cp008-polish";
+import {
+  finalizeTmwCp008FinalConclusion,
+  finalizeTmwCp008FinalGivens,
+  finalizeTmwCp008FinalShortcut,
+  finalizeTmwCp008FinalStem,
+  finalizeTmwCp008FinalText,
+  finalizeTmwCp008FinalTrap,
+} from "./localization-cp008-final-polish";
 import { getTmwCp008Entry } from "./cp008-registry";
 
 export interface TmwCp008LocalizedOption extends TmwCp008Option {}
@@ -63,14 +71,20 @@ export function localizeTmwCp008Question(
   const entry = getTmwCp008Entry(source.questionLanguageId);
   const optionAudit = source.optionAudit.map((option) => ({
     ...option,
-    text: polishTmwCp008Text(
-      cp008LocalizedAnswerText(source, parseTmwCp008AnswerKey(option.key), language),
+    text: finalizeTmwCp008FinalText(
+      polishTmwCp008Text(
+        cp008LocalizedAnswerText(source, parseTmwCp008AnswerKey(option.key), language),
+        language,
+      ),
       language,
     ),
   }));
   const options = optionAudit.map((option) => option.text);
-  const answerText = polishTmwCp008Text(
-    cp008LocalizedAnswerText(source, source.solution.answerValues, language),
+  const answerText = finalizeTmwCp008FinalText(
+    polishTmwCp008Text(
+      cp008LocalizedAnswerText(source, source.solution.answerValues, language),
+      language,
+    ),
     language,
   );
   const trapId = source.explanation.commonTrap.misconceptionId;
@@ -81,32 +95,53 @@ export function localizeTmwCp008Question(
     trapIndex = source.optionAudit.findIndex((option) => option.misconceptionId === trapId);
   }
 
-  const stem = finalizeTmwCp008Stem(
+  const stem = finalizeTmwCp008FinalStem(
     source,
-    renderTmwCp008LocalizedStem(source, language),
+    finalizeTmwCp008Stem(
+      source,
+      renderTmwCp008LocalizedStem(source, language),
+      language,
+    ),
     language,
   );
-  const opening = polishTmwCp008Text(tmwCp008LocalizedOpening(entry.ruleId, language), language);
-  const givens = finalizeTmwCp008Givens(
-    source,
-    tmwCp008LocalizedGivens(source, language),
+  const opening = finalizeTmwCp008FinalText(
+    polishTmwCp008Text(tmwCp008LocalizedOpening(entry.ruleId, language), language),
     language,
   );
-  const shortcut = finalizeTmwCp008Shortcut(
+  const givens = finalizeTmwCp008FinalGivens(
+    finalizeTmwCp008Givens(
+      source,
+      tmwCp008LocalizedGivens(source, language),
+      language,
+    ),
+    language,
+  );
+  const shortcut = finalizeTmwCp008FinalShortcut(
     source,
-    tmwCp008LocalizedShortcut(source, answerText, language),
+    finalizeTmwCp008Shortcut(
+      source,
+      tmwCp008LocalizedShortcut(source, answerText, language),
+      answerText,
+      language,
+    ),
     answerText,
     language,
   );
-  const trapExplanation = finalizeTmwCp008Trap(
-    source,
-    tmwCp008LocalizedTrapReason(trapId, language),
+  const trapExplanation = finalizeTmwCp008FinalTrap(
+    finalizeTmwCp008Trap(
+      source,
+      tmwCp008LocalizedTrapReason(trapId, language),
+      language,
+    ),
     language,
   );
-  const conclusion = finalizeTmwCp008Conclusion(
-    source,
-    answerText,
-    tmwCp008LocalizedConclusion(source, answerText, language),
+  const conclusion = finalizeTmwCp008FinalConclusion(
+    finalizeTmwCp008Conclusion(
+      source,
+      answerText,
+      tmwCp008LocalizedConclusion(source, answerText, language),
+      language,
+    ),
     language,
   );
   const errors = [...source.validation.errors];
@@ -163,7 +198,10 @@ export function localizeTmwCp008Question(
       opening,
       formula: source.explanation.formula,
       givens,
-      steps: source.explanation.steps.map((step) => polishTmwCp008Text(localizeMathStep(step, language), language)),
+      steps: source.explanation.steps.map((step) => finalizeTmwCp008FinalText(
+        polishTmwCp008Text(localizeMathStep(step, language), language),
+        language,
+      )),
       shortcut,
       commonTrap: {
         optionLabel: localizedOptionLabel(trapIndex, language),
