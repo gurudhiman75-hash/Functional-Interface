@@ -42,6 +42,14 @@ function simplifyLine(value: string): string {
       "First separate the expected lanes.",
       "First write the odd-position and even-position rows.",
     ],
+    [
+      "To recover an earlier term, use the inverse of that forward operation rather than continuing in the same direction.",
+      "To find an earlier term, move backward by the same amount instead of moving forward.",
+    ],
+    [
+      "Generate the expected value at each position and stop at the first mismatch; compare the expected and displayed terms before checking options.",
+      "Work out each correct term. Stop at the first place that differs, then check the choices.",
+    ],
   ];
 
   let result = value;
@@ -113,12 +121,19 @@ function simplifyLine(value: string): string {
     [/\bat the target\b/gi, "at this place"],
     [/\btarget\b/gi, "needed place"],
     [/\badjacent terms\b/gi, "neighbouring terms"],
+    [/\bneighbouring moves\b/gi, "moves on both sides"],
     [/\brequired term\b/gi, "answer"],
+    [/\bexpected term\b/gi, "correct term"],
+    [/\bexpected value\b/gi, "correct value"],
+    [/\bexpected-versus-displayed mismatch\b/gi, "place where the shown term differs from the correct term"],
+    [/\bis a plausible partial-pattern result, but it fails the complete rule\b/gi, "may look close, but it does not follow the full rule"],
     [/\bplausible partial-pattern result, but it fails the complete rule\b/gi, "may look close, but it does not follow the full rule"],
+    [/\bis a may look close\b/gi, "may look close"],
     [/\bpartial-pattern result\b/gi, "close-looking answer"],
     [/\bcomplete rule\b/gi, "full rule"],
     [/\bthe reverse operation must be used\b/gi, "move backward instead"],
     [/\breverse operation must be used\b/gi, "move backward instead"],
+    [/\bthe move backward must be used\b/gi, "move backward instead"],
     [/\bordered vowel set\b/gi, "vowel list"],
     [/\bordered consonant set\b/gi, "consonant list"],
     [/\bstandard alphabet positions are shown as quick checks\b/gi, "the letter numbers are only used to check the count"],
@@ -129,6 +144,8 @@ function simplifyLine(value: string): string {
     [/\b(vowel|consonant) shorter list\b/gi, "$1 list"],
     [/\braw alphabet gap\b/gi, "full-alphabet gap"],
     [/\bverify forward\b/gi, "check by moving forward"],
+    [/\bcalculate the shift numerically and convert back\b/gi, "count the letter jump, then change the number back to a letter"],
+    [/\bapply the same repeating shift each time\b/gi, "move by the same number of letters each time"],
   ];
 
   for (const [pattern, replacement] of replacements) {
