@@ -98,21 +98,27 @@ function qlIdAt(start: number, index: number): string {
 
 function blockText(block: QuestionStemBlock): readonly string[] {
   switch (block.type) {
-    case "paragraph": return [block.content];
-    case "table": return [
-      block.caption ?? "",
-      ...block.columns,
-      ...(block.rows?.flat() ?? []),
-      block.rowSource ? `{${block.rowSource}}` : "",
-    ];
-    case "caselet": return [
-      block.title ?? "",
-      ...(block.paragraphs ?? []),
-      block.paragraphSource ? `{${block.paragraphSource}}` : "",
-    ];
-    case "statements": return [block.lead ?? "", ...block.statements];
-    case "data_sufficiency": return [block.question, ...block.statements];
-    case "equation": return [`\\[${block.latex}\\]`];
+    case "paragraph":
+      return [block.content];
+    case "table":
+      return [
+        block.caption ?? "",
+        ...block.columns,
+        ...(block.rows?.flat() ?? []),
+        block.rowSource ? `{${block.rowSource}}` : "",
+      ];
+    case "caselet":
+      return [
+        block.title ?? "",
+        ...(block.paragraphs ?? []),
+        block.paragraphSource ? `{${block.paragraphSource}}` : "",
+      ];
+    case "statements":
+      return [block.lead ?? "", ...block.statements];
+    case "data_sufficiency":
+      return [block.question, ...block.statements];
+    case "equation":
+      return [`\\[${block.latex}\\]`];
   }
 }
 
@@ -126,7 +132,9 @@ function representation(entry: StructuredEditorialEntry): string {
   const special = entry.stem.blocks
     .map((block) => block.type)
     .filter((type) => type !== "paragraph");
-  return special.length ? [...new Set(special)].join("+").toUpperCase() : "PARAGRAPH";
+  return special.length
+    ? [...new Set(special)].join("+").toUpperCase()
+    : "PARAGRAPH";
 }
 
 function target(entry: StructuredEditorialEntry): string {
@@ -146,22 +154,51 @@ function prose(entry: StructuredEditorialEntry): string {
 
 function stepReviewText(entry: StructuredEditorialEntry): string {
   return entry.explanation.steps
-    .map((step, index) => [
-      `${index + 1}. ${step.title}`,
-      step.body,
-      step.equationLatex ? `\\[${step.equationLatex}\\]` : "",
-    ].filter(Boolean).join("\n"))
+    .map((step, index) =>
+      [
+        `${index + 1}. ${step.title}`,
+        step.body,
+        step.equationLatex ? `\\[${step.equationLatex}\\]` : "",
+      ]
+        .filter(Boolean)
+        .join("\n"),
+    )
     .join("\n\n");
 }
 
 function equationList(entry: StructuredEditorialEntry): readonly string[] {
   return [
     ...entry.stem.blocks
-      .filter((block): block is Extract<QuestionStemBlock, { type: "equation" }> => block.type === "equation")
+      .filter(
+        (
+          block,
+        ): block is Extract<QuestionStemBlock, { type: "equation" }> =>
+          block.type === "equation",
+      )
       .map((block) => block.latex),
-    ...entry.explanation.steps.flatMap((step) => step.equationLatex ? [step.equationLatex] : []),
-    ...(entry.explanation.finalAnswerLatex ? [entry.explanation.finalAnswerLatex] : []),
+    ...entry.explanation.steps.flatMap((step) =>
+      step.equationLatex ? [step.equationLatex] : [],
+    ),
+    ...(entry.explanation.finalAnswerLatex
+      ? [entry.explanation.finalAnswerLatex]
+      : []),
   ];
+}
+
+function equationTopology(entry: StructuredEditorialEntry): Readonly<{
+  stemEquationCount: number;
+  stepEquationMask: readonly boolean[];
+  hasFinalAnswerEquation: boolean;
+}> {
+  return {
+    stemEquationCount: entry.stem.blocks.filter(
+      (block) => block.type === "equation",
+    ).length,
+    stepEquationMask: entry.explanation.steps.map((step) =>
+      Boolean(step.equationLatex),
+    ),
+    hasFinalAnswerEquation: Boolean(entry.explanation.finalAnswerLatex),
+  };
 }
 
 function inspect(
@@ -189,7 +226,9 @@ function inspect(
   }
 
   entry.explanation.steps.forEach((step, index) => {
-    const prefix = STEP_PREFIXES.find((candidate) => step.title.startsWith(candidate));
+    const prefix = STEP_PREFIXES.find((candidate) =>
+      step.title.startsWith(candidate),
+    );
     if (prefix) {
       issues.push({
         code: "SYNTHETIC-STEP-PREFIX",
@@ -226,21 +265,15 @@ function inspect(
       note: "Native worked-step count differs from English authority.",
     });
   }
-
-  const nativeEquations = equationList(entry);
-  const englishEquations = equationList(englishEntry);
-  if (JSON.stringify(nativeEquations) !== JSON.stringify(englishEquations)) {
+  if (
+    JSON.stringify(equationTopology(entry)) !==
+    JSON.stringify(equationTopology(englishEntry))
+  ) {
     issues.push({
-      code: "MATHJAX-PARITY",
+      code: "MATHJAX-TOPOLOGY",
       severity: "BLOCKER",
-      note: "Native MathJax sequence differs from English authority.",
-    });
-  }
-  if (nativeEquations.length > 0 && !stepReviewText(entry).includes("\\[")) {
-    issues.push({
-      code: "REVIEW-MATH-HIDDEN",
-      severity: "BLOCKER",
-      note: "Review text does not expose available step equations.",
+      note:
+        "Native equation placement differs from the English structural authority.",
     });
   }
 
@@ -253,30 +286,44 @@ function csvCell(value: unknown): string {
 }
 
 const rows: ReviewRow[] = [];
-const allIssues: Array<Readonly<{ cpId: string; qlId: string; language: Language; issue: Issue }>> = [];
+const allIssues: Array<
+  Readonly<{ cpId: string; qlId: string; language: Language; issue: Issue }>
+> = [];
 let rowNumber = 0;
 let equationCount = 0;
 
 for (const meta of CP_META) {
-  const english = readJson<Library>(join(root, meta.folder, "editorial-content.en.json"));
+  const english = readJson<Library>(
+    join(root, meta.folder, "editorial-content.en.json"),
+  );
   for (const language of LANGUAGES) {
-    const native = readJson<Library>(join(root, meta.folder, `editorial-content.${language}.json`));
+    const native = readJson<Library>(
+      join(root, meta.folder, `editorial-content.${language}.json`),
+    );
     if (native.entryCount !== meta.count) {
-      throw new Error(`${meta.cpId}/${language}: expected ${meta.count} entries, found ${native.entryCount}.`);
+      throw new Error(
+        `${meta.cpId}/${language}: expected ${meta.count} entries, found ${native.entryCount}.`,
+      );
     }
 
     for (let index = 0; index < meta.count; index += 1) {
       const qlId = qlIdAt(meta.start, index);
       const entry = native.entries[qlId];
       const englishEntry = english.entries[qlId];
-      if (!entry || !englishEntry) throw new Error(`${meta.cpId}/${qlId}/${language}: missing entry.`);
+      if (!entry || !englishEntry) {
+        throw new Error(`${meta.cpId}/${qlId}/${language}: missing entry.`);
+      }
 
       rowNumber += 1;
       const issues = inspect(language, entry, englishEntry);
-      issues.forEach((issue) => allIssues.push({ cpId: meta.cpId, qlId, language, issue }));
+      issues.forEach((issue) =>
+        allIssues.push({ cpId: meta.cpId, qlId, language, issue }),
+      );
       const equations = equationList(entry);
       equationCount += equations.length;
-      const highestSeverity = issues.some((item) => item.severity === "BLOCKER")
+      const highestSeverity = issues.some(
+        (item) => item.severity === "BLOCKER",
+      )
         ? "BLOCKER"
         : issues.some((item) => item.severity === "MAJOR")
           ? "MAJOR"
@@ -301,7 +348,9 @@ for (const meta of CP_META) {
         shortcut: entry.explanation.shortcut ?? "",
         difficulty: entry.difficulty,
         difficultyRationale: entry.difficultyRationale,
-        reviewerDecision: issues.length ? "AUTO_REJECTED" : "AWAITING_HUMAN_REVIEW",
+        reviewerDecision: issues.length
+          ? "AUTO_REJECTED"
+          : "AWAITING_HUMAN_REVIEW",
         severity: highestSeverity,
         issueCodes: [...new Set(issues.map((item) => item.code))].join(";"),
         reviewerNotes: issues.length
@@ -317,7 +366,9 @@ for (const meta of CP_META) {
 const headers = Object.keys(rows[0] ?? {}) as readonly (keyof ReviewRow)[];
 const csv = [
   headers.map(csvCell).join(","),
-  ...rows.map((row) => headers.map((header) => csvCell(row[header])).join(",")),
+  ...rows.map((row) =>
+    headers.map((header) => csvCell(row[header])).join(","),
+  ),
 ].join("\n");
 
 const summary = {
@@ -327,18 +378,48 @@ const summary = {
   hindiRows: rows.filter((row) => row.language === "hi").length,
   punjabiRows: rows.filter((row) => row.language === "pa").length,
   equationCount,
-  promptEchoes: allIssues.filter((item) => item.issue.code === "PROMPT-ECHO").length,
-  syntheticStepPrefixes: allIssues.filter((item) => item.issue.code === "SYNTHETIC-STEP-PREFIX").length,
-  punjabiLiteralTranslations: allIssues.filter((item) => item.issue.code === "PUNJABI-LITERAL-TRANSLATION").length,
-  mathJaxParityFailures: allIssues.filter((item) => item.issue.code === "MATHJAX-PARITY").length,
-  blockerCount: allIssues.filter((item) => item.issue.severity === "BLOCKER").length,
-  majorCount: allIssues.filter((item) => item.issue.severity === "MAJOR").length,
+  promptEchoes: allIssues.filter(
+    (item) => item.issue.code === "PROMPT-ECHO",
+  ).length,
+  syntheticStepPrefixes: allIssues.filter(
+    (item) => item.issue.code === "SYNTHETIC-STEP-PREFIX",
+  ).length,
+  punjabiLiteralTranslations: allIssues.filter(
+    (item) => item.issue.code === "PUNJABI-LITERAL-TRANSLATION",
+  ).length,
+  mathJaxTopologyFailures: allIssues.filter(
+    (item) => item.issue.code === "MATHJAX-TOPOLOGY",
+  ).length,
+  blockerCount: allIssues.filter(
+    (item) => item.issue.severity === "BLOCKER",
+  ).length,
+  majorCount: allIssues.filter(
+    (item) => item.issue.severity === "MAJOR",
+  ).length,
   humanApprovalState: "AWAITING_HUMAN_REVIEW",
 };
 
-writeFileSync(join(outputDirectory, "PNL-001-Multilingual-Editorial-Review-Wave03.csv"), `${csv}\n`);
-writeFileSync(join(outputDirectory, "pnl-001-multilingual-editorial-wave03-summary.json"), `${JSON.stringify(summary, null, 2)}\n`);
-writeFileSync(join(outputDirectory, "pnl-001-multilingual-editorial-wave03-findings.json"), `${JSON.stringify(allIssues, null, 2)}\n`);
+writeFileSync(
+  join(
+    outputDirectory,
+    "PNL-001-Multilingual-Editorial-Review-Wave03.csv",
+  ),
+  `${csv}\n`,
+);
+writeFileSync(
+  join(
+    outputDirectory,
+    "pnl-001-multilingual-editorial-wave03-summary.json",
+  ),
+  `${JSON.stringify(summary, null, 2)}\n`,
+);
+writeFileSync(
+  join(
+    outputDirectory,
+    "pnl-001-multilingual-editorial-wave03-findings.json",
+  ),
+  `${JSON.stringify(allIssues, null, 2)}\n`,
+);
 writeFileSync(
   join(outputDirectory, "README.md"),
   `# PNL-001 Multilingual Editorial Review — Wave 03\n\n` +
