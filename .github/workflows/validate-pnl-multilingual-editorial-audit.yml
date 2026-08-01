@@ -3,14 +3,22 @@ name: Validate PNL Multilingual Editorial Audit
 on:
   push:
     branches:
-      - audit/pnl-001-multilingual-editorial-freeze
+      - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/editorial-content.*.json"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-multilingual-normalizer.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/question-language.hi.json"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/question-language.pa.json"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-lexical-naturalness.test.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-audit.ts"
       - ".github/workflows/validate-pnl-multilingual-editorial-audit.yml"
   pull_request:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/editorial-content.*.json"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-multilingual-normalizer.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/question-language.hi.json"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/question-language.pa.json"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-lexical-naturalness.test.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-audit.ts"
       - ".github/workflows/validate-pnl-multilingual-editorial-audit.yml"
 
@@ -53,6 +61,14 @@ jobs:
             node "$root/.$name.mjs"
           done
 
+      - name: Prove multilingual lexical naturalness
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-lexical-naturalness.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-lexical-naturalness.test.mjs
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-lexical-naturalness.test.mjs
+
       - name: Bundle multilingual editorial corpus audit
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
@@ -66,17 +82,23 @@ jobs:
           node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-editorial-audit.mjs \
             2>&1 | tee pnl-multilingual-editorial-audit.log
 
-      - name: Reject structural blockers
+      - name: Reject structural or lexical blockers
         run: |
           node - <<'NODE'
           const fs = require("node:fs");
           const path = "dist/quant-v4/pnl-001-multilingual-editorial-audit/pnl-001-multilingual-editorial-findings.json";
           const findings = JSON.parse(fs.readFileSync(path, "utf8"));
-          if (findings.fatalFindings.length) {
-            console.error(JSON.stringify(findings.fatalFindings, null, 2));
+          if (findings.fatalFindings.length || findings.lexicalReviewFindings.length) {
+            console.error(JSON.stringify({
+              fatalFindings: findings.fatalFindings,
+              lexicalReviewFindings: findings.lexicalReviewFindings,
+            }, null, 2));
             process.exit(1);
           }
-          console.log(JSON.stringify({ fatalFindingCount: 0 }, null, 2));
+          console.log(JSON.stringify({
+            fatalFindingCount: 0,
+            lexicalReviewFindingCount: 0,
+          }, null, 2));
           NODE
 
       - name: Upload multilingual review corpus
