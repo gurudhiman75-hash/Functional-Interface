@@ -1,4 +1,4 @@
-import { writeFileSync } from "node:fs";
+import { mkdirSync, writeFileSync } from "node:fs";
 import { TMW_CP008_REGISTRY } from "./foundation/cp008-registry";
 import { runTmwCp008LocalizedPipeline } from "./foundation/cp008-localized-runtime";
 import type { TmwLocalizedLanguage } from "./foundation/localization-types";
@@ -49,5 +49,7 @@ const output = {
   rows,
 };
 
-writeFileSync("dist/quant-v4/tmw-001-cp008-localization-review.json", JSON.stringify(output, null, 2));
+const outputDirectory = "artifacts/api-server/dist/quant-v4";
+mkdirSync(outputDirectory, { recursive: true });
+writeFileSync(`${outputDirectory}/tmw-001-cp008-localization-review.json`, JSON.stringify(output, null, 2));
 console.log(JSON.stringify(output.summary, null, 2));
