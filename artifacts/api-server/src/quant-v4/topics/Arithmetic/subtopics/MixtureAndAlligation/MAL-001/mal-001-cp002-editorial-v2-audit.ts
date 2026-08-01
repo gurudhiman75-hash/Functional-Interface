@@ -4,10 +4,8 @@ import {
   MAL_CP002_PERMANENT_ALLOCATION,
   MAL_CP002_PERMANENT_QL_IDS,
 } from "./foundation/cp002-permanent-runtime";
-import {
-  MAL_CP002_EDITORIAL_REMEDIATION_V2,
-  runMalCp002EnglishEditorialRemediationV2Pipeline,
-} from "./foundation/cp002-editorial-remediation-v2";
+import { MAL_CP002_EDITORIAL_REMEDIATION_V2 } from "./foundation/cp002-editorial-remediation-v2";
+import { runMalCp002EnglishEditorialRemediationV2Pipeline } from "./foundation/cp002-editorial-remediation-v2-pipeline";
 import { runMalCp001EnglishReleasePipeline } from "./foundation/cp001-release";
 
 function stable(value: unknown): string {
