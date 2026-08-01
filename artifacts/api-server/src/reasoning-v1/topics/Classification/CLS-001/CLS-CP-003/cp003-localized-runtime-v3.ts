@@ -194,7 +194,8 @@ function normalizeHindiMatraText(text: string): string {
     .replaceAll("लिखित पैटर्न", "पूछी गई बनावट")
     .replaceAll("दोहराव-पैटर्न", "दोहराने का ढंग")
     .replaceAll("मात्रा-पैटर्न", "मात्राओं का ढंग")
-    .replaceAll("उलटा-पठन पैटर्न", "उलटकर पढ़ने का ढंग");
+    .replaceAll("उलटा-पठन पैटर्न", "उलटकर पढ़ने का ढंग")
+    .replaceAll("पैटर्न", "ढंग");
 }
 
 function classForWord(word: string, locale: ClsCp003LocalizedLocale): string {
