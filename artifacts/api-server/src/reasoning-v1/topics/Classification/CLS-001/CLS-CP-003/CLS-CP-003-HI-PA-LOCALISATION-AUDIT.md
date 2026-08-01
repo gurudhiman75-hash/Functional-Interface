@@ -1,6 +1,6 @@
 # CLS-CP-003 — Hindi and Punjabi Localisation Audit
 
-Status: `LOCALIZED_REVIEW_RUNTIME_PROOF`
+Status: `LOCALIZED_REVIEW_READY_RUNTIME_PROOF`
 
 ## Scope
 
@@ -40,12 +40,23 @@ The localised runtime:
 - normalises all source words to NFC;
 - counts only visible native vowel marks for the adapted vowel-mark family;
 - generates valid states first and rejects competing-answer ambiguity;
+- matches nuisance letter-count and vowel-mark features where the intended rule requires it;
+- excludes one-grapheme palindrome shortcuts;
 - reparses every displayed option independently;
 - resolves each jumble by a canonical grapheme signature;
 - rejects a jumble set when its visible scrambled forms create a direct structural shortcut;
 - preserves deterministic prototype, option-count and answer-index keys across Hindi and Punjabi;
 - produces native stems, option evidence, full worked explanations, shortcuts and trap warnings;
-- contains no Latin learner-facing text.
+- contains no Latin learner-facing text;
+- rejects technical Hindi residue, gender-sensitive jumble grammar, awkward Punjabi genitives and count-agreement defects.
+
+The authoritative localised generator is:
+
+```text
+cls-cp003-localized-runtime-v4
+```
+
+V4 changes presentation only. Its independent proof compares all generated mathematical states against V3 and requires zero option, answer, prototype, intended-rule or ambiguity-audit change.
 
 ## Governed source boundary
 
@@ -80,11 +91,96 @@ The following are intentionally language-specific:
 
 This avoids false state parity while retaining reproducible product parity.
 
+## Exact executable proof
+
+Pre-sync validated runtime head:
+
+```text
+1c856f69e5047355620ebab8d09aca7228c406fb
+```
+
+Workflow:
+
+```text
+Validate CLS-001 CP-003 Hindi Punjabi Localisation
+Run: 30681766417
+Result: PASS
+```
+
+English regression:
+
+```text
+Generated:                 800
+Unique visible questions:  800
+Permanent QLs:               2
+Prototype ancestries:        7
+Option counts:            4, 5
+Difficulties: EASY, MEDIUM, HARD
+Answer positions: 191, 193, 182, 191, 43
+```
+
+Hindi runtime proof:
+
+```text
+Generated:                  800
+Unique visible questions:   799
+Unique explanations:        799
+Permanent QLs:                2
+Prototype ancestries:         7
+Adapted rules:                 7
+```
+
+Punjabi runtime proof:
+
+```text
+Generated:                  800
+Unique visible questions:   796
+Unique explanations:        796
+Permanent QLs:                2
+Prototype ancestries:         7
+Adapted rules:                 7
+```
+
+Final V4 grammar and state-preservation proof:
+
+```text
+Generated comparisons:       1,600
+Hindi plural lines corrected:   268
+Mathematical state changes:        0
+```
+
+## Review corpus
+
+```text
+Total review questions:               84
+Questions per locale:                 42
+Prototype ancestries per locale:       7
+Samples per ancestry per locale:       6
+QLs represented: CLS-QL-005, CLS-QL-006
+Formats: JSON and Markdown
+```
+
+Review artifact:
+
+```text
+Artifact ID: 8812523978
+Digest: sha256:f9fd1fff8f4bf4e07dcd286e5911d09601d40f68eed746de27ef70e9f6c86424
+```
+
+Diagnostics artifact:
+
+```text
+Artifact ID: 8812523605
+Digest: sha256:79f3aa37e66bcb99a00abf8595c6979bac7063db405d0bd50e9a130359a940b0
+```
+
+The exported 84-question corpus was checked for answer integrity, option uniqueness, complete prototype coverage, correct locale cardinality, palindrome nuisance matching, native-only learner text, singular/plural grammar, gender-safe jumble prose and lifecycle isolation. No defect remained.
+
 ## Current lifecycle
 
 ```text
 English editorial status:       APPROVED
-Hindi/Punjabi status:            LOCALIZED_REVIEW_REQUIRED
+Hindi/Punjabi status:            LOCALIZED_REVIEW_READY
 Question Studio discovery:       disabled
 Question Bank writing:           disabled
 Test eligibility:                disabled
@@ -92,4 +188,4 @@ Public publication:              disabled
 Hindi/Punjabi approval:          false
 ```
 
-The localised runtime must pass executable parity, uniqueness, native-script, ambiguity, diversity and lifecycle audits before a review artifact is accepted. Editorial approval and multilingual freeze remain separate explicit steps.
+Editorial approval and multilingual freeze remain separate explicit steps. This runtime may be merged as review-ready evidence, but it must not be treated as approved content until the product owner reviews the native corpus.
