@@ -22,7 +22,7 @@ for (const entry of TMW_CP009_REGISTRY) {
     ];
     const prose = fields.map(([, value]) => value).join("\n");
     const devanagariField = language === "pa"
-      ? fields.find(([, value]) => /[\u0900-\u097F]/.test(value))
+      ? fields.find(([, value]) => /[\u0900-\u0963\u0966-\u097F]/.test(value))
       : undefined;
     const gurmukhiField = language === "hi"
       ? fields.find(([, value]) => /[\u0A00-\u0A7F]/.test(value))
