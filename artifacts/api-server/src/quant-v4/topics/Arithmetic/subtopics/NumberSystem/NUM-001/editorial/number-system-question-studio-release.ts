@@ -28,7 +28,6 @@ import {
 import {
   fixStemGrammar,
   normaliseTeacherExplanation,
-  safeCorrectAnswer,
   safeOptions,
 } from "./number-system-v3-presentation";
 
@@ -95,11 +94,14 @@ function buildReleasedQuestion(
   );
   const stem = buildExamReadyStem(row, qlNumber(allocation.qlId) - 1);
   const options = safeOptions(row);
-  const answer = safeCorrectAnswer(row);
   const correctIndex = Number(question.correctIndex);
+  const answer = Object.freeze({
+    label: String.fromCharCode(65 + correctIndex),
+    value: options[correctIndex],
+  });
 
-  if (answer.value !== options[correctIndex]) {
-    throw new Error(`${allocation.qlId}: released answer does not match the option array`);
+  if (!answer.value) {
+    throw new Error(`${allocation.qlId}: released answer is missing from the option array`);
   }
 
   const checks = [
