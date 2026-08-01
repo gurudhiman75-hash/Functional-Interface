@@ -58,38 +58,26 @@ function formatList(values: readonly string[], locale: ClsCp005TranslatedLocale)
   return `${values.slice(0, -1).join(", ")}${conjunction}${values.at(-1)}`;
 }
 
-function tupleNoun(arity: 2 | 3 | 4, locale: ClsCp005TranslatedLocale): string {
-  if (locale === "hi-IN") {
-    if (arity === 2) return "संख्या-जोड़ा";
-    if (arity === 3) return "तीन संख्याओं का समूह";
-    return "चार संख्याओं का समूह";
-  }
-  if (arity === 2) return "ਸੰਖਿਆਵਾਂ ਦਾ ਜੋੜਾ";
-  if (arity === 3) return "ਤਿੰਨ ਸੰਖਿਆਵਾਂ ਦਾ ਸਮੂਹ";
-  return "ਚਾਰ ਸੰਖਿਆਵਾਂ ਦਾ ਸਮੂਹ";
-}
-
 function localizedStem(
   question: GeneratedClsCp005EnglishQuestion,
   locale: ClsCp005TranslatedLocale,
 ): string {
-  const noun = tupleNoun(question.arity, locale);
   const variant = question.seed % 5;
 
   if (question.qlId === CLS_CP005_ODD_TUPLE_QL_ID) {
     const hindi = [
-      `कौन-सा ${noun} बाकी विकल्पों से अलग नियम पर चलता है?`,
-      `वह ${noun} चुनिए जिसका आपसी संबंध बाकी से अलग है।`,
-      `निम्नलिखित में से विषम ${noun} चुनिए।`,
-      `किस ${noun} में संख्याओं का नियम अलग है?`,
-      `बाकी विकल्प एक ही नियम का पालन करते हैं। अलग ${noun} पहचानिए।`,
+      "कौन-सा विकल्प बाकी विकल्पों से अलग नियम पर चलता है?",
+      "वह विकल्प चुनिए जिसमें संख्याओं का आपसी संबंध बाकी से अलग है।",
+      "निम्नलिखित में से विषम (अलग) विकल्प चुनिए।",
+      "किस विकल्प में संख्याओं का नियम अलग है?",
+      "बाकी विकल्प एक ही नियम का पालन करते हैं। अलग विकल्प पहचानिए।",
     ];
     const punjabi = [
-      `ਕਿਹੜਾ ${noun} ਬਾਕੀ ਵਿਕਲਪਾਂ ਨਾਲੋਂ ਵੱਖਰੇ ਨਿਯਮ ਉੱਤੇ ਚੱਲਦਾ ਹੈ?`,
-      `ਉਹ ${noun} ਚੁਣੋ ਜਿਸ ਦਾ ਆਪਸੀ ਸੰਬੰਧ ਬਾਕੀਆਂ ਨਾਲੋਂ ਵੱਖਰਾ ਹੈ।`,
-      `ਹੇਠਾਂ ਦਿੱਤਿਆਂ ਵਿੱਚੋਂ ਵੱਖਰਾ ${noun} ਚੁਣੋ।`,
-      `ਕਿਸ ${noun} ਵਿੱਚ ਸੰਖਿਆਵਾਂ ਦਾ ਨਿਯਮ ਵੱਖਰਾ ਹੈ?`,
-      `ਬਾਕੀ ਵਿਕਲਪ ਇੱਕੋ ਨਿਯਮ ਉੱਤੇ ਚੱਲਦੇ ਹਨ। ਵੱਖਰਾ ${noun} ਪਛਾਣੋ।`,
+      "ਕਿਹੜਾ ਵਿਕਲਪ ਬਾਕੀ ਵਿਕਲਪਾਂ ਨਾਲੋਂ ਵੱਖਰੇ ਨਿਯਮ ਉੱਤੇ ਚੱਲਦਾ ਹੈ?",
+      "ਉਹ ਵਿਕਲਪ ਚੁਣੋ ਜਿਸ ਵਿੱਚ ਸੰਖਿਆਵਾਂ ਦਾ ਆਪਸੀ ਸੰਬੰਧ ਬਾਕੀਆਂ ਨਾਲੋਂ ਵੱਖਰਾ ਹੈ।",
+      "ਹੇਠਾਂ ਦਿੱਤਿਆਂ ਵਿੱਚੋਂ ਵੱਖਰਾ ਵਿਕਲਪ ਚੁਣੋ।",
+      "ਕਿਸ ਵਿਕਲਪ ਵਿੱਚ ਸੰਖਿਆਵਾਂ ਦਾ ਨਿਯਮ ਵੱਖਰਾ ਹੈ?",
+      "ਬਾਕੀ ਵਿਕਲਪ ਇੱਕੋ ਨਿਯਮ ਉੱਤੇ ਚੱਲਦੇ ਹਨ। ਵੱਖਰਾ ਵਿਕਲਪ ਪਛਾਣੋ।",
     ];
     return (locale === "hi-IN" ? hindi : punjabi)[variant]!;
   }
@@ -98,17 +86,17 @@ function localizedStem(
     ? tupleDisplay(question.referenceTuple)
     : (() => { throw new Error("CLS-QL-009 localisation requires a reference tuple"); })();
   const hindi = [
-    `दिए गए ${noun} ${reference} का नियम पहचानिए। कौन-सा विकल्प उसी नियम पर चलता है?`,
+    `दिए गए समूह ${reference} का नियम पहचानिए। कौन-सा विकल्प उसी नियम पर चलता है?`,
     `${reference} में संख्याओं का आपसी संबंध देखिए और वैसा ही विकल्प चुनिए।`,
     `कौन-सा विकल्प ${reference} वाले नियम से मेल खाता है?`,
-    `${reference} को ध्यान से देखिए। उसी संबंध वाला ${noun} चुनिए।`,
+    `${reference} को ध्यान से देखिए। उसी संबंध वाला विकल्प चुनिए।`,
     `दिए गए समूह ${reference} जैसा संख्या-संबंध किस विकल्प में है?`,
   ];
   const punjabi = [
-    `ਦਿੱਤੇ ${noun} ${reference} ਦਾ ਨਿਯਮ ਪਛਾਣੋ। ਕਿਹੜਾ ਵਿਕਲਪ ਉਸੇ ਨਿਯਮ ਉੱਤੇ ਚੱਲਦਾ ਹੈ?`,
+    `ਦਿੱਤੇ ਸਮੂਹ ${reference} ਦਾ ਨਿਯਮ ਪਛਾਣੋ। ਕਿਹੜਾ ਵਿਕਲਪ ਉਸੇ ਨਿਯਮ ਉੱਤੇ ਚੱਲਦਾ ਹੈ?`,
     `${reference} ਵਿੱਚ ਸੰਖਿਆਵਾਂ ਦਾ ਆਪਸੀ ਸੰਬੰਧ ਵੇਖੋ ਅਤੇ ਉਹੋ ਜਿਹਾ ਵਿਕਲਪ ਚੁਣੋ।`,
     `ਕਿਹੜਾ ਵਿਕਲਪ ${reference} ਵਾਲੇ ਨਿਯਮ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ?`,
-    `${reference} ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ। ਉਸੇ ਸੰਬੰਧ ਵਾਲਾ ${noun} ਚੁਣੋ।`,
+    `${reference} ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ। ਉਸੇ ਸੰਬੰਧ ਵਾਲਾ ਵਿਕਲਪ ਚੁਣੋ।`,
     `ਦਿੱਤੇ ਸਮੂਹ ${reference} ਵਰਗਾ ਸੰਖਿਆ-ਸੰਬੰਧ ਕਿਸ ਵਿਕਲਪ ਵਿੱਚ ਹੈ?`,
   ];
   return (locale === "hi-IN" ? hindi : punjabi)[variant]!;
@@ -125,14 +113,14 @@ function localizedStatus(
         ? "✅ दिए गए नियम से मेल खाता है।"
         : "❌ दिए गए नियम से मेल नहीं खाता।";
     }
-    return matches ? "✅ समान नियम।" : "❌ अलग नियम।";
+    return matches ? "✅ यही नियम लागू होता है।" : "❌ नियम अलग है।";
   }
   if (referenceTask) {
     return matches
       ? "✅ ਦਿੱਤੇ ਨਿਯਮ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ।"
       : "❌ ਦਿੱਤੇ ਨਿਯਮ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ।";
   }
-  return matches ? "✅ ਇੱਕੋ ਨਿਯਮ।" : "❌ ਵੱਖਰਾ ਨਿਯਮ।";
+  return matches ? "✅ ਇਹੀ ਨਿਯਮ ਲਾਗੂ ਹੁੰਦਾ ਹੈ।" : "❌ ਨਿਯਮ ਵੱਖਰਾ ਹੈ।";
 }
 
 function localizedEvidence(
