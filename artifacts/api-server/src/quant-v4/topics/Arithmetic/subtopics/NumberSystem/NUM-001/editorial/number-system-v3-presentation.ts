@@ -40,19 +40,39 @@ function unwrapProseFromMath(value: string): string {
 }
 
 export function normaliseInlineMath(value: unknown): string {
-  return String(value ?? "")
-    .replace(/\$\$([^$]+)\$\$/gu,
-      (_match, expression) => `$${expression.trim()}$`)
+  let text = String(value ?? "")
+    .replace(/\$\$([\s\S]*?)\$\$/gu,
+      (_match, expression) => `$${String(expression).trim()}$`)
     .replace(/\$(\d[\d,]*)\$\s*×\s*\$(\d[\d,]*)\$\s*=\s*\$(\d[\d,]*)\$/gu,
       (_match, left, right, result) => `$${left} \\times ${right} = ${result}$`)
     .replace(/\$(\d[\d,]*)\$\s*÷\s*\$(\d[\d,]*)\$/gu,
       (_match, left, right) => `$${left} \\div ${right}$`);
+
+  let previous = "";
+  while (text !== previous) {
+    previous = text;
+    text = text
+      .replace(/\$([^$\n]+)\$\s*(×|÷|\\times|\\div)\s*\$([^$\n]+)\$/gu,
+        (_match, left, operator, right) => {
+          const latexOperator = operator === "×" || operator === "\\times"
+            ? "\\times"
+            : "\\div";
+          return `$${String(left).trim()} ${latexOperator} ${String(right).trim()}$`;
+        })
+      .replace(/\$([^$\n]+)\$\s*\$([^$\n]+)\$/gu,
+        (_match, left, right) =>
+          `$${String(left).trim()} ${String(right).trim()}$`);
+  }
+
+  return text;
 }
 
 export function formatStudentValue(value: unknown): string {
   const clean = normaliseInlineMath(stripStudentOptionLeaks(value));
   const proseSafe = unwrapProseFromMath(clean);
-  if (/[A-Za-z]{2,}/u.test(proseSafe)) return wrapMathInProse(proseSafe);
+  if (/[A-Za-z]{2,}/u.test(proseSafe)) {
+    return normaliseInlineMath(wrapMathInProse(proseSafe));
+  }
   return normaliseInlineMath(studentOptionDisplay(proseSafe));
 }
 
@@ -69,7 +89,7 @@ export function safeCorrectAnswer(row) {
 }
 
 export function fixStemGrammar(value: string): string {
-  return wrapMathInProse(value)
+  return normaliseInlineMath(wrapMathInProse(value))
     .replace(/Choose the option that co-prime statements about/giu,
       "Which of the following co-prime statements about")
     .replace(/Choose the option that prime numbers divides/giu,
