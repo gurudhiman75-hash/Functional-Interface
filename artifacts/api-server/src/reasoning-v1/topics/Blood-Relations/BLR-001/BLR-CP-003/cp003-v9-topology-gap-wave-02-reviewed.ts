@@ -61,6 +61,23 @@ function hasPairGrammar(record: BlrCp003V9Wave02CandidateRecord): boolean {
   );
 }
 
+function isStatusRecord(record: BlrCp003V9Wave02CandidateRecord): boolean {
+  return (
+    record.provisionalAuthority === "IDENTIFY_MEMBER_BY_MARITAL_STATUS" ||
+    record.provisionalAuthority ===
+      "IDENTIFY_MEMBER_WITH_UNRESOLVED_MARITAL_STATUS"
+  );
+}
+
+function isUnresolvedStatusRecord(
+  record: BlrCp003V9Wave02CandidateRecord,
+): boolean {
+  return (
+    record.provisionalAuthority ===
+    "IDENTIFY_MEMBER_WITH_UNRESOLVED_MARITAL_STATUS"
+  );
+}
+
 function reviewedPassage(
   record: BlrCp003V9Wave02CandidateRecord,
   names: Readonly<Record<string, string>>,
@@ -90,35 +107,63 @@ function evidenceTrail(record: BlrCp003V9Wave02CandidateRecord): string {
     .join(" and ");
 }
 
+function statusBranchLabel(record: BlrCp003V9Wave02CandidateRecord): string {
+  return record.topologyId === "UNSTATED_SPOUSE_SINGLE_PARENT_BRANCH"
+    ? "single-parent branch"
+    : "four-sibling grid";
+}
+
 function reviewedShortcut(record: BlrCp003V9Wave02CandidateRecord): string {
   const answer = record.options[record.correctIndex]!.text;
-  const trail = evidenceTrail(record);
+  const names = personNames(record);
   const unknownNames = record.metadata.unknownSpouseBoundaryIds
-    .map((id) => personNames(record)[id] ?? id)
+    .map((id) => names[id] ?? id)
     .join(" and ");
-  const suffixes = [
+
+  if (isStatusRecord(record)) {
+    const statusSuffixes = [
+      `In this set, classify ${answer} only after separating named marriages, direct unmarried statements and unresolved branches.`,
+      `Here, the decisive evidence is the status wording attached to ${answer}, not an unrelated kinship path.`,
+      isUnresolvedStatusRecord(record)
+        ? `Keep ${unknownNames} unresolved because parenthood alone does not establish marriage.`
+        : `Use the passage's direct unmarried statement for ${answer}; do not borrow the unresolved branch's status.`,
+      `Resolve the married and explicitly unmarried members first, then test ${answer} against the remaining status evidence.`,
+      `For this ${statusBranchLabel(record)}, confirm whether ${answer} has a named spouse, a direct unmarried statement or neither.`,
+      `The final status check belongs to ${answer}; missing spouse information must remain unknown rather than becoming unmarried.`,
+    ] as const;
+    return `${record.editorial.examShortcut} ${statusSuffixes[record.seed % statusSuffixes.length]!}`;
+  }
+
+  const trail = evidenceTrail(record);
+  const relationSuffixes = [
     `In this set, verify ${answer} against every exclusion before locking the answer.`,
     `Here, the decisive family trail is ${trail}.`,
-    `Keep ${unknownNames || "every unnamed spouse"} unresolved while testing ${answer}.`,
+    unknownNames
+      ? `Keep ${unknownNames} unresolved while testing ${answer}.`
+      : `Use only the spouse links actually named in the passage while testing ${answer}.`,
     `Use the positive links first, then let the negative clues eliminate the alternatives to ${answer}.`,
     `For this family, the last check is whether ${answer} satisfies both the relation and boundary evidence.`,
     `After mapping the generations, compare ${answer} with the complete trail ${trail}.`,
   ] as const;
-  return `${record.editorial.examShortcut} ${suffixes[record.seed % suffixes.length]!}`;
+  return `${record.editorial.examShortcut} ${relationSuffixes[record.seed % relationSuffixes.length]!}`;
 }
 
 function reviewedConclusion(record: BlrCp003V9Wave02CandidateRecord): string {
-  return `${polishPairGrammar(record.editorial.conclusion)} The decisive trail is ${evidenceTrail(record)}.`;
+  const base = polishPairGrammar(record.editorial.conclusion);
+  const answer = record.options[record.correctIndex]!.text;
+  if (isUnresolvedStatusRecord(record)) {
+    return `${base} In the ${statusBranchLabel(record)}, parenthood is known for ${answer}, but no spouse or marital-status statement closes that boundary.`;
+  }
+  if (record.provisionalAuthority === "IDENTIFY_MEMBER_BY_MARITAL_STATUS") {
+    return `${base} In the ${statusBranchLabel(record)}, the passage directly establishes ${answer}'s unmarried status.`;
+  }
+  return `${base} The decisive trail is ${evidenceTrail(record)}.`;
 }
 
 function statusVisual(
   record: BlrCp003V9Wave02CandidateRecord,
 ): BlrCp003V9Wave02CandidateRecord["proceduralLogic"] {
-  const statusRecord =
-    record.provisionalAuthority === "IDENTIFY_MEMBER_BY_MARITAL_STATUS" ||
-    record.provisionalAuthority ===
-      "IDENTIFY_MEMBER_WITH_UNRESOLVED_MARITAL_STATUS";
-  if (!statusRecord) return record.proceduralLogic;
+  if (!isStatusRecord(record)) return record.proceduralLogic;
 
   const answerId = record.answerSemanticKey.split(":")[1]!;
   const answerNode = record.proceduralLogic.nodes.find(
@@ -217,6 +262,15 @@ function reviewRecord(
   }
   if (/not married to (?:Anita|Gurleen)/i.test(reviewed.sharedPrompt)) {
     throw new Error(`Weak same-gender spouse exclusion remains in ${reviewed.itemId}.`);
+  }
+  if (
+    isStatusRecord(record) &&
+    /decisive (?:family )?trail|complete trail|kinship path/.test(
+      `${reviewed.editorial.conclusion} ${reviewed.editorial.examShortcut}`,
+    ) &&
+    !/not an unrelated kinship path/.test(reviewed.editorial.examShortcut)
+  ) {
+    throw new Error(`Status explanation still relies on an unrelated kinship trail in ${reviewed.itemId}.`);
   }
   return reviewed;
 }
