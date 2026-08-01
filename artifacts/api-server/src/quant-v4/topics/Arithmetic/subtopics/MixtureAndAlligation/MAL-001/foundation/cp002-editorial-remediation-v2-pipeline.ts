@@ -14,6 +14,15 @@ const ALGEBRAIC_SCALE_QL_IDS = new Set<MalCp002PermanentQlId>([
   "MAL-QL-028",
 ]);
 
+function normalizeLegacyEditorialText(value: string): string {
+  return value
+    .replace(/\bpure[-\s]+component\b/giu, "single item")
+    .replace(/\bpure[-\s]+([a-z][a-z ]*)/giu, "$1")
+    .replace(/\bfixed counterpart\b/giu, "quantity of the other item")
+    .replace(/\bunchanged counterpart\b/giu, "item not involved in the operation")
+    .replace(/\bcounterpart component\b/giu, "other item");
+}
+
 function protectAlgebraicScaleTerms(value: string): string {
   const protectedTokens: string[] = [];
   const protect = (math: string): string => {
@@ -22,7 +31,7 @@ function protectAlgebraicScaleTerms(value: string): string {
     return key;
   };
 
-  let output = value.replace(
+  let output = normalizeLegacyEditorialText(value).replace(
     /\b([xy])\s*=\s*(-?\d+(?:\s+\d+\/\d+|\/\d+)?)\b/gu,
     (_match, variable: string, number: string) =>
       protect(`${variable} = ${number}`),
@@ -40,41 +49,37 @@ function protectAlgebraicScaleTerms(value: string): string {
   return output;
 }
 
-function prepareAlgebraicScaleQuestion(
+function prepareEditorialQuestion(
   question: MalCp002ReleasedQuestion,
 ): MalCp002ReleasedQuestion {
-  if (!ALGEBRAIC_SCALE_QL_IDS.has(question.questionLanguageId)) {
-    return question;
-  }
+  const transform = ALGEBRAIC_SCALE_QL_IDS.has(question.questionLanguageId)
+    ? protectAlgebraicScaleTerms
+    : normalizeLegacyEditorialText;
 
   return {
     ...question,
-    stem: protectAlgebraicScaleTerms(question.stem),
+    stem: transform(question.stem),
+    answer: transform(question.answer),
+    options: question.options.map(transform),
+    optionAudit: question.optionAudit.map((item) => ({
+      ...item,
+      text: transform(item.text),
+    })),
     explanation: {
       ...question.explanation,
-      coreConcept: protectAlgebraicScaleTerms(
-        question.explanation.coreConcept,
-      ),
-      formula: protectAlgebraicScaleTerms(question.explanation.formula),
-      steps: question.explanation.steps.map(protectAlgebraicScaleTerms),
-      verification: protectAlgebraicScaleTerms(
-        question.explanation.verification,
-      ),
-      conclusion: protectAlgebraicScaleTerms(
-        question.explanation.conclusion,
-      ),
-      examShortcut: protectAlgebraicScaleTerms(
-        question.explanation.examShortcut,
-      ),
-      commonTrap: protectAlgebraicScaleTerms(
-        question.explanation.commonTrap,
-      ),
-      lines: question.explanation.lines.map(protectAlgebraicScaleTerms),
+      coreConcept: transform(question.explanation.coreConcept),
+      formula: transform(question.explanation.formula),
+      steps: question.explanation.steps.map(transform),
+      verification: transform(question.explanation.verification),
+      conclusion: transform(question.explanation.conclusion),
+      examShortcut: transform(question.explanation.examShortcut),
+      commonTrap: transform(question.explanation.commonTrap),
+      lines: question.explanation.lines.map(transform),
     },
     reasoningGraph: {
       nodes: question.reasoningGraph.nodes.map((node) => ({
         ...node,
-        text: protectAlgebraicScaleTerms(node.text),
+        text: transform(node.text),
       })),
     },
   };
@@ -95,6 +100,6 @@ export function runMalCp002EnglishEditorialRemediationV2Pipeline(
     language: input.language,
   });
   return applyMalCp002EditorialRemediationV2(
-    prepareAlgebraicScaleQuestion(released),
+    prepareEditorialQuestion(released),
   );
 }
