@@ -1,7 +1,7 @@
 import type { SerV3NaturalExplanation } from "./ser-v3-natural-pedagogical";
 
 const AWKWARD_STUDENT_PHRASES =
-  /visible schedule|forward operation|direction of work|place numbers|supporting check|one-step error|is a may look|ordered (?:vowel|consonant) list|same-row|forward rule/i;
+  /visible schedule|forward operation|direction of work|place numbers|supporting check|one-step error|is a may look|ordered (?:vowel|consonant) list|same-row|forward rule|needed place/i;
 
 function polishLine(value: string): string {
   let result = value;
@@ -70,13 +70,11 @@ function polishLine(value: string): string {
     .replace(/with a fixed change of/g, "and changes by")
     .replace(/The displayed term is/g, "The shown term is")
     .replace(/The corrected term links properly on both sides:/g, "After replacing it, check both sides:")
-    .replace(/The needed place is in (Odd|Even)-position row \([^)]*\), so use only that row's rule\./g,
+    .replace(/^the needed place is in (Odd|Even)-position row \([^)]*\), so use only that row's rule\.$/i,
       (_match, row: string) => `The blank is in the ${row.toLowerCase()}-position row, so follow only that row.`)
-    .replace(/The needed place is in (Odd|Even)-position row \((?:positions )?[^)]*\)\. Following that row's rule, position (.+?) should contain (.+?)\./g,
+    .replace(/^the needed place is in (Odd|Even)-position row \((?:positions )?[^)]*\)\. Following that row's rule, position (.+?) should contain (.+?)\.$/i,
       (_match, row: string, position: string, answer: string) =>
         `The blank is in the ${row.toLowerCase()}-position row. In that row, position ${position} should be ${answer}.`)
-    .replace(/The needed place is in (Odd|Even)-position row \((?:odd|even) positions\), so use only that row's rule\./g,
-      (_match, row: string) => `The blank is in the ${row.toLowerCase()}-position row, so follow only that row.`)
     .replace(/The needed place belongs to/g, "The blank is in")
     .replace(/At position (.+?), the cycle requires/g, "At position $1, the correct letter is")
     .replace(/At position (.+?), the correct term is/g, "At position $1, the answer should be")
@@ -86,6 +84,8 @@ function polishLine(value: string): string {
     .replace(/so the found term fits the series\./g, "so the answer fits the series.")
     .replace(/the found term therefore fits/g, "the answer fits")
     .replace(/the recovered term therefore fits/g, "the answer fits")
+    .replace(/(vowel|consonant) letter list/gi, "$1 list")
+    .replace(/^At this place, continue inside the (vowel|consonant) list:/i, "Continue in the $1 list:")
     .replace(/This gives the expected-versus-displayed mismatch directly\./g,
       "This shows exactly where the shown series becomes wrong.");
 
