@@ -1,0 +1,73 @@
+name: Validate MEN-001 five-element explanations
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/**
+      - .github/workflows/men-001-five-element-explanations.yml
+      - build-api.sh
+      - package.json
+      - pnpm-lock.yaml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-men-001-five-element-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-five-element-explanations:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle MEN-001 exhaustive runtime proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/men-001-natural-runtime.test.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/men-001-runtime-proof.test.mjs
+
+      - name: Run MEN-001 exhaustive runtime proof
+        run: node artifacts/api-server/dist/quant-v4/men-001-runtime-proof.test.mjs
+
+      - name: Bundle five-element editorial proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/men-001-five-element.test.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/men-001-five-element.test.mjs
+
+      - name: Run five-element editorial proof
+        run: node artifacts/api-server/dist/quant-v4/men-001-five-element.test.mjs
+
+      - name: Build production API bundle
+        run: bash build-api.sh

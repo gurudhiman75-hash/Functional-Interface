@@ -22,6 +22,9 @@ export function generateMenCp008PermanentQuestion(
     solveMode: base.solveMode,
     stem: base.stem,
     piPolicy: base.piPolicy,
+    target: base.target,
+    unit: base.unit,
+    options: base.options,
     explanation: base.explanation,
   };
   const explanation = enhanceMenCp008Explanation(editorialInput);

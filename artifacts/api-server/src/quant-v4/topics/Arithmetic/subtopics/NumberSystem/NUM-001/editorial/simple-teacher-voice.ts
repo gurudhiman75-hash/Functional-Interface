@@ -8,25 +8,23 @@ import {
 import { buildTraps } from "./simple-teacher-voice-traps";
 import { cp003Teacher } from "./simple-teacher-voice-cp003";
 import { cp004Teacher } from "./simple-teacher-voice-cp004";
+import {
+  NUMBER_SYSTEM_GENERATOR_MODEL,
+  applyNumberSystemGeneratorContract,
+} from "./number-system-generator-contract";
 
 export {
   SIMPLE_NUMBER_SYSTEM_QL_TITLES,
   correctAnswerDisplay,
   studentOptionDisplay,
+  NUMBER_SYSTEM_GENERATOR_MODEL,
 };
-
-function ensureSimpleDepth(explanation) {
-  const mainRule = explanation.mainRule.filter(Boolean).slice(0, 2);
-  const steps = explanation.steps.filter(Boolean);
-  const speedTrick = explanation.speedTrick.filter(Boolean).slice(0, 2);
-  return { mainRule, steps, speedTrick };
-}
 
 export function buildNumberSystemTeacherExplanation(row) {
   const base = row.checkpoint === "NUM-CP-003" ? cp003Teacher(row) : cp004Teacher(row);
-  const structured = ensureSimpleDepth(base);
+  const structured = applyNumberSystemGeneratorContract(row, base);
   return Object.freeze({
-    model: "FOUR_TIER_SIMPLE_TEACHER_VOICE_V2",
+    model: NUMBER_SYSTEM_GENERATOR_MODEL,
     mainRule: structured.mainRule.map(cleanText),
     stepByStepSolution: structured.steps.map(cleanText),
     examSpeedTrick: structured.speedTrick.map(cleanText),

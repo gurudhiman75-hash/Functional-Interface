@@ -5,6 +5,7 @@ import {
   getMenCp008FrozenQlIds,
   MEN_CP_008_FROZEN_QLS,
 } from "../final-freeze/registry";
+import { getMenCp008PublicTrapCode } from "./editorial";
 import { generateMenCp008PermanentQuestion } from "./runtime";
 
 const registryAudit = auditMenCp008FrozenRegistry();
@@ -79,10 +80,47 @@ for (const definition of MEN_CP_008_FROZEN_QLS) {
     assert.equal(first.options[first.correctIndex]?.isCorrect, true);
     assert.equal(first.answer, first.options[first.correctIndex]?.display);
     assert.ok(first.options.every((option) => isPositive(option.value)));
-    assert.ok(first.explanation.keyRule.length > 20);
+
+    assert.match(first.explanation.keyRule, /^(Think|Picture)\b/);
+    assert.ok(first.explanation.keyRule.includes("Here,"));
+    assert.ok(first.explanation.keyRule.length > 40);
     assert.ok(first.explanation.steps.length >= 2);
+    assert.ok(first.explanation.steps.every((step) => step.body.includes("Unit check:")));
+    assert.ok(first.explanation.shortcut.startsWith("⚡ Exam speed:"));
     assert.equal(first.explanation.traps.length, 3);
-    assert.ok(first.explanation.traps.every((trap) => /^Option [A-D] \(\$/.test(trap)));
+
+    const wrongOptions = first.options.filter((option) => !option.isCorrect);
+    const seenTrapLabels = new Set<string>();
+    for (const trap of first.explanation.traps) {
+      const match = trap.match(/^Option ([A-D]) \(\$.*\): .+ \[([A-Z0-9_]+)\]$/);
+      assert.ok(match, `${definition.qlId} must expose an option-linked trap code: ${trap}`);
+      const label = match[1]!;
+      const code = match[2]!;
+      const option = wrongOptions.find((candidate) => candidate.label === label);
+      assert.ok(option, `${definition.qlId} trap ${label} must correspond to a wrong option.`);
+      assert.equal(code, getMenCp008PublicTrapCode(option.misconceptionId));
+      seenTrapLabels.add(label);
+    }
+    assert.equal(seenTrapLabels.size, 3);
+    assert.deepEqual(
+      [...seenTrapLabels].sort(),
+      wrongOptions.map((option) => option.label).sort(),
+      `${definition.qlId} must diagnose every wrong option exactly once.`,
+    );
+
+    const validationNames = new Set(first.validation.checks.map((check) => check.name));
+    for (const requiredCheck of [
+      "visual shape first",
+      "formula variable definitions",
+      "unit-preserving calculations",
+      "exam-smart shortcut",
+      "option trap labels",
+      "option trap codes",
+      "five-element teaching blueprint",
+      "CP-011 ownership boundary",
+    ]) {
+      assert.ok(validationNames.has(requiredCheck), `${definition.qlId} is missing validation check: ${requiredCheck}`);
+    }
 
     const learnerText = [
       first.stem,
@@ -93,7 +131,8 @@ for (const definition of MEN_CP_008_FROZEN_QLS) {
       first.explanation.shortcut,
       ...first.explanation.traps,
     ].join("\n");
-    assert.equal(/misconceptionId|FALLBACK_|MEN-CP008-(?:W\d-)?PROT/.test(learnerText), false);
+    assert.equal(/misconceptionId|MEN-CP008-(?:W\d-)?PROT/.test(learnerText), false);
+    assert.equal(/FALLBACK_|UNCLASSIFIED_DISTRACTOR|GENERAL_CALCULATION_ERROR/.test(learnerText), false);
     assert.equal(/[£€¥]/.test(learnerText), false);
     assert.equal(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/.test(learnerText), false);
 
@@ -118,5 +157,5 @@ assert.ok(seenTargets.has("COST"));
 assert.equal(generated, 52 * 80 + 66);
 
 console.log(
-  `MEN-CP-008 permanent English implementation passed for ${generated} deterministic packages across ${registryAudit.qlCount} frozen QLs and ${registryAudit.ancestryCount} prototype ancestries. Product and publication surfaces remain disabled.`,
+  `MEN-CP-008 five-element English blueprint passed for ${generated} deterministic packages across ${registryAudit.qlCount} frozen QLs and ${registryAudit.ancestryCount} prototype ancestries. Product and publication surfaces remain disabled.`,
 );
