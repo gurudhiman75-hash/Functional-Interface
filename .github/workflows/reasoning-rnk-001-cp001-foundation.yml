@@ -10,7 +10,7 @@ on:
 jobs:
   cp001-foundation:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -26,9 +26,17 @@ jobs:
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-foundation.test.ts
           rnk-cp001-foundation-output
 
+      - name: Run source and inverse-gap discovery audit
+        run: >-
+          npx --yes tsx
+          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-source-wave.test.ts
+          rnk-cp001-source-wave-output
+
       - name: Upload RNK-CP-001 discovery evidence
         uses: actions/upload-artifact@v4
         with:
           name: rnk-001-cp001-foundation
-          path: rnk-cp001-foundation-output
+          path: |
+            rnk-cp001-foundation-output
+            rnk-cp001-source-wave-output
           retention-days: 14
