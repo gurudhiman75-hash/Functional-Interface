@@ -5,10 +5,13 @@ import {
   CLS_CP003_LOCALIZED_QL_IDS,
 } from "./cp003-localized-contracts";
 import {
+  analyzeClsCp003LocalizedWord,
   auditClsCp003LocalizedWords,
-  generateClsCp003LocalizedQuestion,
-  independentlyVerifyClsCp003LocalizedQuestion,
 } from "./cp003-localized-runtime";
+import {
+  generateClsCp003LocalizedQuestionV2,
+  independentlyVerifyClsCp003LocalizedQuestionV2,
+} from "./cp003-localized-runtime-v2";
 import { getClsCp003LocalizedDatasetSummary } from "./word-dataset.localized";
 
 assert.deepEqual(CLS_CP003_LOCALIZED_LOCALES, ["hi-IN", "pa-IN"]);
@@ -51,8 +54,8 @@ for (const locale of CLS_CP003_LOCALIZED_LOCALES) {
 
 for (const qlId of CLS_CP003_LOCALIZED_QL_IDS) {
   for (let seed = 0; seed < 400; seed += 1) {
-    const hindi = generateClsCp003LocalizedQuestion(qlId, "hi-IN", seed);
-    const punjabi = generateClsCp003LocalizedQuestion(qlId, "pa-IN", seed);
+    const hindi = generateClsCp003LocalizedQuestionV2(qlId, "hi-IN", seed);
+    const punjabi = generateClsCp003LocalizedQuestionV2(qlId, "pa-IN", seed);
 
     assert.equal(hindi.prototypeId, punjabi.prototypeId, `${qlId}/${seed} prototype parity failed`);
     assert.equal(hindi.options.length, punjabi.options.length, `${qlId}/${seed} option-count parity failed`);
@@ -61,7 +64,7 @@ for (const qlId of CLS_CP003_LOCALIZED_QL_IDS) {
 
     for (const question of [hindi, punjabi]) {
       const locale = question.metadata.locale;
-      const replay = generateClsCp003LocalizedQuestion(qlId, locale, seed);
+      const replay = generateClsCp003LocalizedQuestionV2(qlId, locale, seed);
       assert.deepEqual(question, replay, `${locale}/${qlId}/${seed} is not deterministic`);
       assert.equal(question.qlId, qlId);
       assert.equal(question.permanentQlId, qlId);
@@ -70,8 +73,8 @@ for (const qlId of CLS_CP003_LOCALIZED_QL_IDS) {
       assert.ok(question.options.length === 4 || question.options.length === 5);
       assert.equal(question.ambiguityAudit.result, "UNIQUE");
       assert.equal(question.ambiguityAudit.outlierIndex, question.correctIndex);
-      assert.equal(question.metadata.runtimeVersion, "cls-cp003-localized-runtime-v1");
-      assert.equal(question.metadata.localizationVersion, "cls-cp003-hi-pa-localization-v1");
+      assert.equal(question.metadata.runtimeVersion, "cls-cp003-localized-runtime-v2");
+      assert.equal(question.metadata.localizationVersion, "cls-cp003-hi-pa-localization-v2");
       assert.equal(question.metadata.sourceSaturationStatus, "NATIVE_DATASET_GOVERNED_REVIEW_REQUIRED");
       assert.equal(question.metadata.parity.qlIdentityPreserved, true);
       assert.equal(question.metadata.parity.solveContractPreserved, true);
@@ -88,9 +91,25 @@ for (const qlId of CLS_CP003_LOCALIZED_QL_IDS) {
         assert.equal(auditClsCp003LocalizedWords(question.options, locale).result, "NO_VALID_RULE");
       } else {
         assert.equal(question.task, "FIND_WORD_STRUCTURE_OUTLIER");
+        const features = question.options.map((option) => analyzeClsCp003LocalizedWord(option, locale));
+        if (question.intendedRuleId === "VOWEL_MARK_COUNT") {
+          assert.equal(new Set(features.map((feature) => feature.unitCount)).size, 1);
+        }
+        if (question.intendedRuleId === "REPEATED_UNIT_TOPOLOGY") {
+          assert.equal(new Set(features.map((feature) => feature.unitCount)).size, 1);
+          assert.equal(new Set(features.map((feature) => feature.vowelMarkCount)).size, 1);
+        }
+        if (question.intendedRuleId === "PALINDROME_STATUS") {
+          assert.equal(new Set(features.map((feature) => feature.unitCount)).size, 1);
+          assert.ok(features.every((feature) => feature.unitCount >= 3));
+        }
+        if (question.intendedRuleId === "BOUNDARY_MARK_PATTERN") {
+          assert.equal(new Set(features.map((feature) => feature.unitCount)).size, 1);
+          assert.equal(new Set(features.map((feature) => feature.vowelMarkCount)).size, 1);
+        }
       }
 
-      const independent = independentlyVerifyClsCp003LocalizedQuestion(question);
+      const independent = independentlyVerifyClsCp003LocalizedQuestionV2(question);
       assert.equal(independent.result, "UNIQUE");
       assert.equal(independent.outlierIndex, question.correctIndex);
 
@@ -107,6 +126,9 @@ for (const qlId of CLS_CP003_LOCALIZED_QL_IDS) {
       assert.ok(!/[A-Za-z]/.test(learnerText), `${locale}/${qlId}/${seed} leaks Latin learner text`);
       assert.ok(!/CLS-|PROT-|LETTER_UNIT_COUNT|VOWEL_MARK_COUNT|NATIVE_AFFIX/i.test(learnerText));
       assert.ok(!/(?:^|[\s:])(undefined|null|NaN|Infinity)(?=$|[\s.,;:])/.test(learnerText));
+      assert.ok(!/1 (?:अक्षर|मात्रा-चिह्न) हैं/.test(learnerText));
+      assert.ok(!/1 (?:ਅੱਖਰ|ਲਗਾਂ) ਹਨ/.test(learnerText));
+      assert.ok(!/ਪੈਸਾ ਦਾ|ਤੋਤਾ ਦਾ|ਸਮਾਂ ਦਾ/.test(learnerText));
       if (locale === "hi-IN") {
         assert.ok(/\p{Script=Devanagari}/u.test(learnerText), `${qlId}/${seed} lacks Devanagari`);
       } else {
@@ -142,11 +164,11 @@ for (const [locale, metrics] of perLocale) {
   );
 }
 
-assert.throws(() => generateClsCp003LocalizedQuestion("CLS-QL-999" as never, "hi-IN", 0));
-assert.throws(() => generateClsCp003LocalizedQuestion("CLS-QL-005", "hi-IN", -1));
-assert.throws(() => generateClsCp003LocalizedQuestion("CLS-QL-005", "en-IN" as never, 0));
+assert.throws(() => generateClsCp003LocalizedQuestionV2("CLS-QL-999" as never, "hi-IN", 0));
+assert.throws(() => generateClsCp003LocalizedQuestionV2("CLS-QL-005", "hi-IN", -1));
+assert.throws(() => generateClsCp003LocalizedQuestionV2("CLS-QL-005", "en-IN" as never, 0));
 
-console.log("CLS-CP-003 Hindi/Punjabi localization audit passed.", {
+console.log("CLS-CP-003 Hindi/Punjabi localization V2 audit passed.", {
   locales: Object.fromEntries([...perLocale].map(([locale, metrics]) => [locale, {
     generated: metrics.generated,
     uniqueVisibleQuestions: metrics.unique.size,
