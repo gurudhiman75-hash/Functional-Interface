@@ -4,6 +4,7 @@ import { runTmwCp009LocalizedPipeline } from "./foundation/cp009-localized-runti
 import type { TmwLocalizedLanguage } from "./foundation/localization-types";
 
 const languages: readonly TmwLocalizedLanguage[] = ["hi", "pa"];
+const rawMixedFractionPattern = /\b\d+\s+\d+\/\d+\b/;
 let checked = 0;
 
 for (const entry of TMW_CP009_REGISTRY) {
@@ -24,6 +25,7 @@ for (const entry of TMW_CP009_REGISTRY) {
         ["conclusion", question.explanation.conclusion],
       ];
       const prose = fields.map(([, value]) => value).join("\n");
+      const mixedFractionField = fields.find(([, value]) => rawMixedFractionPattern.test(value));
       const devanagariField = language === "pa"
         ? fields.find(([, value]) => /[\u0900-\u0963\u0966-\u097F]/.test(value))
         : undefined;
@@ -35,7 +37,7 @@ for (const entry of TMW_CP009_REGISTRY) {
       assert.equal(/find[A-Z]|TMW_|_[A-Z_]{3,}/.test(prose), false, `${entry.qlId}:${language}: internal identifier`);
       assert.equal(/Independent signed-flow|Don't fall for|Do not choose/i.test(prose), false, `${entry.qlId}:${language}: internal English wording`);
       assert.equal(/\b(?:tank|reservoir|inlet|outlet|leak|litres|hours?|water level|flow rate|full|empty|level change needed|required level change|lost efficiency|blockage|tank fills|boundary is not reached within the window)\b/i.test(prose), false, `${entry.qlId}:${language}: English learner wording`);
-      assert.equal(/\b\d+\s+\d+\/\d+\b/.test(prose), false, `${entry.qlId}:${language}: raw mixed fraction`);
+      assert.equal(mixedFractionField, undefined, `${entry.qlId}:${language}: raw mixed fraction in ${mixedFractionField?.[0]}: ${mixedFractionField?.[1]}`);
       assert.equal(/\d+ घंटे में|\d+ ਘੰਟੇ ਵਿੱਚ/.test(prose), false, `${entry.qlId}:${language}: uninflected time`);
       assert.equal(devanagariField, undefined, `${entry.qlId}:${language}: Devanagari leakage in ${devanagariField?.[0]}: ${devanagariField?.[1]}`);
       assert.equal(gurmukhiField, undefined, `${entry.qlId}:${language}: Gurmukhi leakage in ${gurmukhiField?.[0]}: ${gurmukhiField?.[1]}`);
