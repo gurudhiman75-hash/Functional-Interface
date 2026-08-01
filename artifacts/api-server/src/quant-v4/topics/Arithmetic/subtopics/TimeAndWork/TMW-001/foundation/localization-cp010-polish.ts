@@ -1,4 +1,85 @@
 import type { TmwLocalizedLanguage } from "./localization-types";
+import { cp010Label } from "./localization-cp010-language";
+
+const scheduleLabels = [
+  "Before the temporary outlet is shut",
+  "After the temporary outlet is shut",
+  "Before the level sensor switches",
+  "After the level sensor switches",
+  "Simultaneous inlet and outlet",
+  "Complete cycles before the terminal cycle",
+  "Initial scheduled interval",
+  "Initial pumping interval",
+  "Required final interval",
+  "Both inlets operate",
+  "Only Inlet A operates",
+  "Before the leak is repaired",
+  "After the leak is repaired",
+  "Before the leak begins",
+  "After the leak begins",
+  "Before Outlet B opens",
+  "After Outlet B opens",
+  "Before Outlet B closes",
+  "After Outlet B closes",
+  "Before Inlet A closes",
+  "After Inlet A closes",
+  "Before Inlet B opens",
+  "After Inlet B opens",
+  "Initial pumping",
+  "Final pumping",
+  "Initial scheduled interval",
+  "Final filling interval",
+  "Power-cut interval",
+  "Pumping resumes",
+  "Known first interval",
+  "Morning inlet",
+  "Primary pump",
+  "Reduced net flow",
+  "First interval",
+  "Second interval",
+  "Final interval",
+  "First shift",
+  "Second shift",
+  "Inlet A hour",
+  "Outlet B hour",
+  "Inlet B hour",
+  "Outlet operates",
+  "Inlet-only interval",
+  "Mixed-flow interval",
+  "Fast inlet shift",
+  "Slow inlet shift",
+  "Drainage check",
+  "Dual-pump interval",
+  "Single-pump interval",
+  "Inlet A shift",
+  "Outlet B shift",
+  "Inlet C shift",
+  "Inlet interval",
+  "Outlet interval",
+  "Inlet A interval",
+  "Outlet B interval",
+  "Inlet C interval",
+  "Before the event",
+  "After the event",
+  "Final Pipe",
+] as const;
+
+function localizeScheduleLabels(text: string, language: TmwLocalizedLanguage): string {
+  let output = text;
+  for (const label of [...scheduleLabels].sort((a, b) => b.length - a.length)) {
+    output = output.replaceAll(label, cp010Label(label, language));
+  }
+  if (language === "hi") {
+    return output
+      .replace(/Inlet ([A-Z])/g, "भरने वाली पाइप $1")
+      .replace(/Outlet ([A-Z])/g, "निकासी पाइप $1")
+      .replace(/Leak ([A-Z])/g, "रिसाव $1");
+  }
+  return output
+    .replace(/Inlet ([A-Z])/g, "ਭਰਨ ਵਾਲੀ ਪਾਈਪ $1")
+    .replace(/Outlet ([A-Z])/g, "ਨਿਕਾਸੀ ਪਾਈਪ $1")
+    .replace(/Leak ([A-Z])/g, "ਰਿਸਾਅ $1");
+}
 
 function normalizeMixedFractions(text: string): string {
   return text.replace(
@@ -24,7 +105,6 @@ function polishHindi(text: string): string {
     .replace(/\\text\{hours\}/g, "\\text{घंटे}")
     .replace(/\\text\{litres\}/g, "\\text{लीटर}")
     .replace(/\\text\{Stage (\d+): \}/g, "\\text{चरण $1: }")
-    .replace(/Complete cycles before the terminal cycle/g, "अंतिम चक्र से पहले पूरे चक्र")
     .replace(/drainage still required at its start/g, "खंड के आरंभ पर शेष निकासी")
     .replace(/level still required at its start/g, "खंड के आरंभ पर शेष स्तर")
     .replace(/completion occurs exactly at the end of /g, "समापन ठीक इसके अंत में होता है: ")
@@ -54,7 +134,6 @@ function polishPunjabi(text: string): string {
     .replace(/\\text\{hours\}/g, "\\text{ਘੰਟੇ}")
     .replace(/\\text\{litres\}/g, "\\text{ਲੀਟਰ}")
     .replace(/\\text\{Stage (\d+): \}/g, "\\text{ਪੜਾਅ $1: }")
-    .replace(/Complete cycles before the terminal cycle/g, "ਅੰਤਿਮ ਚੱਕਰ ਤੋਂ ਪਹਿਲਾਂ ਪੂਰੇ ਚੱਕਰ")
     .replace(/drainage still required at its start/g, "ਖੰਡ ਦੇ ਸ਼ੁਰੂ ਉੱਤੇ ਬਾਕੀ ਨਿਕਾਸੀ")
     .replace(/level still required at its start/g, "ਖੰਡ ਦੇ ਸ਼ੁਰੂ ਉੱਤੇ ਬਾਕੀ ਪੱਧਰ")
     .replace(/completion occurs exactly at the end of /g, "ਪੂਰਨਤਾ ਠੀਕ ਇਸ ਦੇ ਅੰਤ ਉੱਤੇ ਹੁੰਦੀ ਹੈ: ")
@@ -71,6 +150,7 @@ export function polishTmwCp010Text(
   text: string,
   language: TmwLocalizedLanguage,
 ): string {
-  const normalized = normalizeMixedFractions(text);
+  const labeled = localizeScheduleLabels(text, language);
+  const normalized = normalizeMixedFractions(labeled);
   return language === "hi" ? polishHindi(normalized) : polishPunjabi(normalized);
 }
