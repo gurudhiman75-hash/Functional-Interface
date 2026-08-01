@@ -26,7 +26,6 @@ const scheduleLabels = [
   "After Inlet B opens",
   "Initial pumping",
   "Final pumping",
-  "Initial scheduled interval",
   "Final filling interval",
   "Power-cut interval",
   "Pumping resumes",
@@ -70,19 +69,19 @@ function localizeScheduleLabels(text: string, language: TmwLocalizedLanguage): s
   }
   if (language === "hi") {
     return output
-      .replace(/Recovery inlet interval/g, "पुनर्भराव अंतराल")
-      .replace(/Drainage interval/g, "निकासी अंतराल")
-      .replace(/Pump-on interval/g, "पंप-चालू अंतराल")
-      .replace(/Drain interval/g, "निकासी अंतराल")
+      .replace(/Recovery inlet (?:interval|अंतराल)/g, "पुनर्भराव अंतराल")
+      .replace(/Drainage (?:interval|अंतराल)/g, "निकासी अंतराल")
+      .replace(/Pump-on (?:interval|अंतराल)/g, "पंप-चालू अंतराल")
+      .replace(/Drain (?:interval|अंतराल)/g, "निकासी अंतराल")
       .replace(/Inlet ([A-Z])/g, "भरने वाली पाइप $1")
       .replace(/Outlet ([A-Z])/g, "निकासी पाइप $1")
       .replace(/Leak ([A-Z])/g, "रिसाव $1");
   }
   return output
-    .replace(/Recovery inlet interval/g, "ਮੁੜ-ਭਰਾਅ ਅੰਤਰਾਲ")
-    .replace(/Drainage interval/g, "ਨਿਕਾਸੀ ਅੰਤਰਾਲ")
-    .replace(/Pump-on interval/g, "ਪੰਪ-ਚਾਲੂ ਅੰਤਰਾਲ")
-    .replace(/Drain interval/g, "ਨਿਕਾਸੀ ਅੰਤਰਾਲ")
+    .replace(/Recovery inlet (?:interval|ਅੰਤਰਾਲ)/g, "ਮੁੜ-ਭਰਾਅ ਅੰਤਰਾਲ")
+    .replace(/Drainage (?:interval|ਅੰਤਰਾਲ)/g, "ਨਿਕਾਸੀ ਅੰਤਰਾਲ")
+    .replace(/Pump-on (?:interval|ਅੰਤਰਾਲ)/g, "ਪੰਪ-ਚਾਲੂ ਅੰਤਰਾਲ")
+    .replace(/Drain (?:interval|ਅੰਤਰਾਲ)/g, "ਨਿਕਾਸੀ ਅੰਤਰਾਲ")
     .replace(/Inlet ([A-Z])/g, "ਭਰਨ ਵਾਲੀ ਪਾਈਪ $1")
     .replace(/Outlet ([A-Z])/g, "ਨਿਕਾਸੀ ਪਾਈਪ $1")
     .replace(/Leak ([A-Z])/g, "ਰਿਸਾਅ $1");
@@ -121,7 +120,6 @@ function polishHindi(text: string): string {
     .replace(/((?:[2-9]|\d{2,})) घंटे में/g, "$1 घंटों में")
     .replace(/((?:[2-9]|\d{2,})) घंटे तक/g, "$1 घंटों तक")
     .replace(/पूरी तरह भरी होने तक/g, "पूरी तरह भरने तक")
-    .replace(/पूरी तरह खाली होने तक/g, "पूरी तरह खाली होने तक")
     .replace(/पाइपें एक साथ चलते हैं/g, "पाइपें एक साथ चलती हैं")
     .replace(/पाइपें चलती है/g, "पाइपें चलती हैं");
 }
