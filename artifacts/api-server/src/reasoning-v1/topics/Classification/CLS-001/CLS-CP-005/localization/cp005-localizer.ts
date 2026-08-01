@@ -7,6 +7,7 @@ import {
   localizedClsCp005RuleText,
   type ClsCp005TranslatedLocale,
 } from "./cp005-language-pack";
+import { applyClsCp005NaturalOverrides } from "./cp005-natural-overrides";
 
 export type GeneratedClsCp005LocalizedQuestion = Omit<
   GeneratedClsCp005EnglishQuestion,
@@ -56,6 +57,14 @@ function formatList(values: readonly string[], locale: ClsCp005TranslatedLocale)
   if (values.length === 1) return values[0]!;
   const conjunction = locale === "hi-IN" ? " और " : " ਅਤੇ ";
   return `${values.slice(0, -1).join(", ")}${conjunction}${values.at(-1)}`;
+}
+
+function ruleText(ruleId: string, locale: ClsCp005TranslatedLocale) {
+  return applyClsCp005NaturalOverrides(
+    ruleId,
+    locale,
+    localizedClsCp005RuleText(ruleId, locale),
+  );
 }
 
 function localizedStem(
@@ -127,7 +136,7 @@ function localizedEvidence(
   question: GeneratedClsCp005EnglishQuestion,
   locale: ClsCp005TranslatedLocale,
 ): readonly string[] {
-  const ruleText = localizedClsCp005RuleText(question.intendedRuleId, locale);
+  const localizedRuleText = ruleText(question.intendedRuleId, locale);
   const referenceTask = question.qlId === CLS_CP005_EQUIVALENT_TUPLE_QL_ID;
 
   return question.evidenceByOption.map((englishEvidence, index) => {
@@ -138,7 +147,7 @@ function localizedEvidence(
     if (math.length === 0) {
       throw new Error(`${question.qlId}/${question.seed}/${index} has no canonical MathJax evidence`);
     }
-    const reason = matches ? ruleText.match : ruleText.fail;
+    const reason = matches ? localizedRuleText.match : localizedRuleText.fail;
     return `${question.options[index]}: ${reason} ${math.join(" ")} — ${localizedStatus(locale, referenceTask, matches)}`;
   });
 }
@@ -194,7 +203,7 @@ export function localizeClsCp005Question(
     throw new Error(`Unsupported CLS-CP-005 QL for localisation: ${question.qlId}`);
   }
 
-  const ruleText = localizedClsCp005RuleText(question.intendedRuleId, locale);
+  const localizedRuleText = ruleText(question.intendedRuleId, locale);
   const canonicalRuntimeVersion = question.metadata.runtimeVersion;
 
   return {
@@ -202,10 +211,10 @@ export function localizeClsCp005Question(
     stem: localizedStem(question, locale),
     evidenceByOption: localizedEvidence(question, locale),
     explanation: {
-      coreConcept: [ruleText.statement],
+      coreConcept: [localizedRuleText.statement],
       stepByStep: localizedSteps(question, locale),
-      examSpeedShortcut: [ruleText.shortcut],
-      commonTrapWarning: [ruleText.trap],
+      examSpeedShortcut: [localizedRuleText.shortcut],
+      commonTrapWarning: [localizedRuleText.trap],
     },
     metadata: {
       ...question.metadata,
