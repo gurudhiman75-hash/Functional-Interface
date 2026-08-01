@@ -56,8 +56,11 @@ for (const entry of TMW_CP009_REGISTRY) {
       if (entry.solveMode === "findEmptyTimeFromMixedPipes") {
         assert.match(question.explanation.givens[1], language === "hi" ? /पूरी तरह खाली होने/ : /ਪੂਰੀ ਤਰ੍ਹਾਂ ਖਾਲੀ ਹੋਣ/);
       }
-      if (entry.solveMode === "findMissingInletTime" || entry.solveMode === "findMissingOutletOrLeakTime") {
-        assert.match(question.explanation.givens[0], language === "hi" ? /खाली हो जाती है/ : /ਖਾਲੀ ਹੋ ਜਾਂਦੀ ਹੈ/);
+      if (entry.solveMode === "findMissingInletTime") {
+        assert.match(question.explanation.givens[0], language === "hi" ? /पूरी तरह भर जाती है/ : /ਪੂਰੀ ਤਰ੍ਹਾਂ ਭਰ ਜਾਂਦੀ ਹੈ/);
+      }
+      if (entry.solveMode === "findMissingOutletOrLeakTime") {
+        assert.match(question.explanation.givens[0], language === "hi" ? /पूरी तरह खाली हो जाती है/ : /ਪੂਰੀ ਤਰ੍ਹਾਂ ਖਾਲੀ ਹੋ ਜਾਂਦੀ ਹੈ/);
       }
       if (entry.solveMode === "findTimeFromInitialLevelToBoundary") {
         assert.match(question.stem, language === "hi" ? /पूरी तरह भरने में/ : /ਪੂਰੀ ਤਰ੍ਹਾਂ ਭਰਨ ਵਿੱਚ/);
