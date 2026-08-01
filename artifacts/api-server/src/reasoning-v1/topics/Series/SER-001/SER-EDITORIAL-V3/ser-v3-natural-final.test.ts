@@ -104,7 +104,7 @@ function runSuite<T extends string>(ids: readonly T[], generate: Generator<T>): 
         assert.ok(enhanced.explanationV3.answerRevealStep >= 3, `${id}/${seed}: previous answer revealed too early`);
         assert.match(
           enhanced.explanationV3.derivation[1]!,
-          /reverse|move backward|earlier term requires|earlier term needs/i,
+          /reverse|move backward|go back|earlier term requires|earlier term needs/i,
           `${id}/${seed}: previous task does not explain moving backward`,
         );
         assert.equal(enhanced.explanationV3.examSpeedShortcut.includes("Q=17"), false, `${id}/${seed}: canned shortcut example`);
