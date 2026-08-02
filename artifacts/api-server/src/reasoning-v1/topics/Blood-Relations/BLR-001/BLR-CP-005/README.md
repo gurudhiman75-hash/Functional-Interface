@@ -51,11 +51,12 @@ The editorial remediation does not change graph logic, answer semantics, permane
 - `cp005-solver.ts` — production all-model solver;
 - `cp005-options.ts` — deterministic option construction;
 - `cp005-editorial.ts` — exam-grade prompt, stem and four-tier explanation renderer;
+- `cp005-editorial-polish.ts` — relation-only prose polish that preserves canonical claim text;
 - `cp005-bank.ts` — reviewed permanent question bank and telemetry;
 - `cp005-independent-verifier.ts` — diagram-reconstructed independent proof;
 - `cp005-runtime.ts` — deterministic QL and shared model-space runtime;
 - `cp005-runtime.test.ts` — complete 184-question/432-model regression;
-- `cp005-editorial-remediation.test.ts` — learner-text and explanation-quality gate;
+- `cp005-editorial-remediation.test.ts` — learner-text, claim-preservation and explanation-quality gate;
 - `cp005-final-freeze.ts` — source, boundary, merge/split, inverse and overlap freeze;
 - `cp005-final-freeze.test.ts` — final freeze proof;
 - `export-cp005-final-freeze.ts` — JSONL, CSV, HTML and summary exporter;
