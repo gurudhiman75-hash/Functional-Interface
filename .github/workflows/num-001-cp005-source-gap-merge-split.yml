@@ -1,0 +1,101 @@
+name: Validate NUM-CP-005 source-gap and merge-split audit
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**
+      - .github/workflows/num-001-cp005-source-gap-merge-split.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-num-cp005-source-gap-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-num-cp005-source-gap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Wave 1 regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-005/wave01/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp005-audit-wave01.test.mjs
+
+      - name: Run Wave 1 regression
+        run: node artifacts/api-server/dist/quant-v4/num-001-cp005-audit-wave01.test.mjs
+
+      - name: Bundle Wave 2 regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-005/wave02/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp005-audit-wave02.test.mjs
+
+      - name: Run Wave 2 regression
+        run: node artifacts/api-server/dist/quant-v4/num-001-cp005-audit-wave02.test.mjs
+
+      - name: Bundle Wave 3 regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-005/wave03/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp005-audit-wave03.test.mjs
+
+      - name: Run Wave 3 regression
+        run: node artifacts/api-server/dist/quant-v4/num-001-cp005-audit-wave03.test.mjs
+
+      - name: Bundle Wave 4 regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-005/wave04/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp005-audit-wave04.test.mjs
+
+      - name: Run Wave 4 regression
+        run: node artifacts/api-server/dist/quant-v4/num-001-cp005-audit-wave04.test.mjs
+
+      - name: Bundle source-gap and merge-split audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-005/audit/merge-split-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp005-source-gap-audit.test.mjs
+
+      - name: Run source-gap and merge-split audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp005-source-gap-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp005-source-gap-audit.log
+
+      - name: Upload source-gap audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-001-cp005-source-gap-merge-split
+          path: artifacts/api-server/dist/quant-v4/num-001-cp005-source-gap-audit.log
+          if-no-files-found: warn
+          retention-days: 14
