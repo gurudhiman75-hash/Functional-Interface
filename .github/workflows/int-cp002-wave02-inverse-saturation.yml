@@ -32,57 +32,74 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle CP-002 Wave 2 audit
+      - name: Bundle CP-002 Wave 2 mathematical audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-wave02-inverse-audit.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/int-001-cp002-wave02-inverse-audit.mjs
 
-      - name: Run CP-002 Wave 2 audit
+      - name: Run CP-002 Wave 2 mathematical audit
         shell: bash --noprofile --norc -e -o pipefail {0}
         run: |
           set -o pipefail
           cd artifacts/api-server
           node dist/quant-v4/int-001-cp002-wave02-inverse-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp002-wave02-inverse-audit.log
 
-      - name: Bundle CP-002 Wave 2 review exporter
+      - name: Bundle CP-002 Wave 2 V2 audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-wave02-review-export.ts
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-wave02-v2-audit.ts
           --bundle --platform=node --format=esm
-          --outfile=dist/quant-v4/int-001-cp002-wave02-review-export.mjs
+          --outfile=dist/quant-v4/int-001-cp002-wave02-v2-audit.mjs
 
-      - name: Generate CP-002 Wave 2 review pack
+      - name: Run CP-002 Wave 2 V2 audit
         shell: bash --noprofile --norc -e -o pipefail {0}
         run: |
           set -o pipefail
           cd artifacts/api-server
-          node dist/quant-v4/int-001-cp002-wave02-review-export.mjs 2>&1 | tee dist/quant-v4/int-001-cp002-wave02-review-export.log
+          node dist/quant-v4/int-001-cp002-wave02-v2-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp002-wave02-v2-audit.log
+
+      - name: Bundle CP-002 Wave 2 V2 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-wave02-review-export-v2.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp002-wave02-review-export-v2.mjs
+
+      - name: Generate CP-002 Wave 2 V2 review pack
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp002-wave02-review-export-v2.mjs 2>&1 | tee dist/quant-v4/int-001-cp002-wave02-review-export-v2.log
 
       - name: Verify CP-002 Wave 2 evidence
         shell: bash --noprofile --norc -e -o pipefail {0}
         run: |
           grep -q 'PASS_INT_CP002_WAVE02_INVERSE_SATURATION' artifacts/api-server/dist/quant-v4/int-001-cp002-wave02-inverse-audit.log
-          grep -q 'PASS_INT_CP002_WAVE02_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp002-wave02-review-export.log
-          root=artifacts/api-server/dist/quant-v4/int-cp002-wave02-review-pack
-          test -f "$root/int-001-cp002-wave02-78-review-questions.md"
-          test -f "$root/int-001-cp002-wave02-78-review-answers.md"
-          test -f "$root/int-001-cp002-wave02-78-review-data.json"
-          test -f "$root/int-001-cp002-wave02-78-review-checklist.csv"
-          test -f "$root/int-001-cp002-wave02-review-summary.json"
+          grep -q 'PASS_INT_CP002_WAVE02_INVERSE_SATURATION_V2' artifacts/api-server/dist/quant-v4/int-001-cp002-wave02-v2-audit.log
+          grep -q 'PASS_INT_CP002_WAVE02_REVIEW_EXPORT_V2' artifacts/api-server/dist/quant-v4/int-001-cp002-wave02-review-export-v2.log
+          root=artifacts/api-server/dist/quant-v4/int-cp002-wave02-review-pack-v2
+          test -f "$root/int-001-cp002-wave02-v2-78-review-questions.md"
+          test -f "$root/int-001-cp002-wave02-v2-78-review-answers.md"
+          test -f "$root/int-001-cp002-wave02-v2-78-review-data.json"
+          test -f "$root/int-001-cp002-wave02-v2-78-review-checklist.csv"
+          test -f "$root/int-001-cp002-wave02-v2-review-summary.json"
           ! grep -R -n -P '[\x00-\x08\x09\x0B\x0C\x0E-\x1F]' "$root"/*.md
-          ! grep -R -n -E '<sub>Trace:|INT-QL-|INT-CP002-W02-|int-cp002-wave02-review:|requestedSeed|effectiveSeed|generationAttempts|FIND_' "$root"/*.md
-          grep -q '\\frac' "$root/int-001-cp002-wave02-78-review-answers.md"
-          grep -q '\\times' "$root/int-001-cp002-wave02-78-review-answers.md"
+          ! grep -R -n -E '<sub>Trace:|INT-QL-|INT-CP002-W02-|int-cp002-wave02-review-v2:|requestedSeed|effectiveSeed|generationAttempts|FIND_' "$root"/*.md
+          grep -q '\\frac' "$root/int-001-cp002-wave02-v2-78-review-answers.md"
+          grep -q '\\times' "$root/int-001-cp002-wave02-v2-78-review-answers.md"
+          grep -q 'Collect terms and divide:' "$root/int-001-cp002-wave02-v2-78-review-answers.md"
 
       - name: Upload CP-002 Wave 2 evidence
         uses: actions/upload-artifact@v4
         with:
-          name: int-cp002-wave02-inverse-saturation
+          name: int-cp002-wave02-inverse-saturation-v2
           path: |
             artifacts/api-server/dist/quant-v4/int-001-cp002-wave02-inverse-audit.log
-            artifacts/api-server/dist/quant-v4/int-001-cp002-wave02-review-export.log
-            artifacts/api-server/dist/quant-v4/int-cp002-wave02-review-pack/**
+            artifacts/api-server/dist/quant-v4/int-001-cp002-wave02-v2-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp002-wave02-review-export-v2.log
+            artifacts/api-server/dist/quant-v4/int-cp002-wave02-review-pack-v2/**
           if-no-files-found: error
           retention-days: 14
