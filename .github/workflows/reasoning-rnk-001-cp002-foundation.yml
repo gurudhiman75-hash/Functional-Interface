@@ -34,6 +34,12 @@ jobs:
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-002/cp002-source-wave.test.ts
           rnk-cp002-source-wave-output
 
+      - name: Prove eight-authority consolidation
+        run: >-
+          npx --yes tsx
+          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-002/cp002-consolidation.test.ts
+          rnk-cp002-consolidation-output
+
       - name: Upload RNK-CP-002 discovery evidence
         uses: actions/upload-artifact@v4
         with:
@@ -41,4 +47,5 @@ jobs:
           path: |
             rnk-cp002-foundation-output
             rnk-cp002-source-wave-output
+            rnk-cp002-consolidation-output
           retention-days: 14
