@@ -5,7 +5,7 @@ import type { TmwLocalizedLanguage } from "./foundation/localization-types";
 
 const languages: readonly TmwLocalizedLanguage[] = ["hi", "pa"];
 const rows = TMW_CP_011_REGISTRY.flatMap((entry) => languages.map((language) => {
-  const seed = `tmw-cp011-localization-review:${entry.qlId}`;
+  const seed = `review-${entry.qlId}-0`;
   const question = runTmwCp011LocalizedPipeline({
     questionLanguageId: entry.qlId,
     seed,
