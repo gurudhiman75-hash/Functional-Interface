@@ -1,9 +1,9 @@
 import type { TsdCp001DiscoverySolveMode } from "./discovery-registry";
+import type { TsdCp001GeneratedQuestion } from "./runtime-types";
 import {
   TSD_CP001_LEARNER_AUTHORITIES,
   TSD_CP001_NON_LEARNER_MODES,
   generateCp001ReviewRows,
-  type TsdCp001GeneratedQuestion,
 } from "./runtime";
 
 export type TsdPermanentQlId = `TSD-QL-${string}`;
