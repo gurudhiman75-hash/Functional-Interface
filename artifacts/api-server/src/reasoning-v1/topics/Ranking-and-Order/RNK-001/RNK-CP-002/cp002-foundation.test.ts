@@ -1,17 +1,15 @@
-declare const require: (id: string) => any;
-declare const process: { argv: string[] };
-const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const path = require('node:path');
-const {
+import assert from 'node:assert/strict';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import {
   RNK_CP002_PROTOTYPE_IDS,
   generateRnkCp002Question,
   solveCp002Independently,
-} = require('./cp002-foundation');
+} from './cp002-foundation';
 
 const seedsPerPrototype = 240;
-const audits: any[] = [];
-const reviewQuestions: any[] = [];
+const audits: unknown[] = [];
+const reviewQuestions: unknown[] = [];
 let deterministicReplayChecks = 0;
 let independentSolverChecks = 0;
 let lifecycleChecks = 0;
@@ -50,12 +48,19 @@ for (const prototypeId of RNK_CP002_PROTOTYPE_IDS) {
     invariantChecks += 1;
 
     assert.equal(question.options.length, 4);
-    assert.equal(new Set(question.options.map((option: any) => option.value)).size, 4);
-    assert.equal(question.options.filter((option: any) => option.value === question.answer).length, 1);
+    assert.equal(new Set(question.options.map((option) => option.value)).size, 4);
+    assert.equal(question.options.filter((option) => option.value === question.answer).length, 1);
     assert.equal(question.options[question.correctIndex].value, question.answer);
-    assert.equal(question.options.filter((option: any) => option.misconceptionId === 'CORRECT').length, 1);
+    assert.equal(question.options.filter((option) => option.misconceptionId === 'CORRECT').length, 1);
     assert.ok(question.explanation.keyRule.length > 30);
-    const learnerText = [question.stem, question.explanation.keyRule, ...question.explanation.stepByStepSolution, question.explanation.examSpeedShortcut, ...question.explanation.optionAnalysis, question.explanation.conclusion].join(' ');
+    const learnerText = [
+      question.stem,
+      question.explanation.keyRule,
+      ...question.explanation.stepByStepSolution,
+      question.explanation.examSpeedShortcut,
+      ...question.explanation.optionAnalysis,
+      question.explanation.conclusion,
+    ].join(' ');
     assert.ok(!/\bThere are one\b/i.test(learnerText));
     assert.ok(!/\b1 (?:candidates|people|positions)\b/i.test(learnerText));
     assert.equal(question.explanation.stepByStepSolution.length, 3);
@@ -147,9 +152,9 @@ const summary = {
 
 const outputDirectory = process.argv[2];
 if (outputDirectory) {
-  fs.mkdirSync(outputDirectory, { recursive: true });
-  fs.writeFileSync(path.join(outputDirectory, 'cp002-foundation-audit.json'), `${JSON.stringify(summary, null, 2)}\n`);
-  fs.writeFileSync(path.join(outputDirectory, 'cp002-review-questions.json'), `${JSON.stringify(reviewQuestions, null, 2)}\n`);
+  mkdirSync(outputDirectory, { recursive: true });
+  writeFileSync(join(outputDirectory, 'cp002-foundation-audit.json'), `${JSON.stringify(summary, null, 2)}\n`);
+  writeFileSync(join(outputDirectory, 'cp002-review-questions.json'), `${JSON.stringify(reviewQuestions, null, 2)}\n`);
 }
 
 console.log(JSON.stringify(summary, null, 2));
