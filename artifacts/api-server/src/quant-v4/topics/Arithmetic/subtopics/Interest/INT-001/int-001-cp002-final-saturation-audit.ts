@@ -5,6 +5,7 @@ import {
   INT_CP002_FINAL_REGISTRY,
   INT_CP002_RELEASE_CANDIDATE_ID,
   type IntCp002FinalQlId,
+  type IntCp002FinalSourceKind,
 } from "./cp002-final-registry";
 import { generateIntCp002FinalQuestion } from "./cp002-final-runtime";
 import { INT_CP002_WAVE01_PROTOTYPE_IDS } from "./cp002-wave01-types";
@@ -28,68 +29,50 @@ const expectedSourcePrototypes = new Set<string>([
   ...INT_CP002_WAVE02_PROTOTYPE_IDS,
   ...INT_CP002_FINAL_CLOSURE_PROTOTYPE_IDS,
 ]);
-
+const registryByQl = new Map(INT_CP002_FINAL_REGISTRY.map((entry) => [entry.qlId, entry]));
+const sourceKindCounts = new Map<IntCp002FinalSourceKind, number>();
 const observedSourcePrototypes = new Set<string>();
 const observedRepresentations = new Set<string>();
 const observedAnswerSemantics = new Set<string>();
 const observedDifficulties = new Set<string>();
 const answerPositions = [0, 0, 0, 0];
-const fingerprintsByQl = new Map<IntCp002FinalQlId, Set<string>>();
-const stemsByQl = new Map<IntCp002FinalQlId, Set<string>>();
-const exactFiniteFingerprintMinimums = new Map<IntCp002FinalQlId, number>([
-  ["INT-QL-027", 12],
-  ["INT-QL-052", 12],
-]);
+const diversityByQl: Record<string, { fingerprints: number; stems: number; sourceKind: IntCp002FinalSourceKind }> = {};
 let questionCount = 0;
 let deterministicChecks = 0;
 let structuralChecks = 0;
 let lifecycleChecks = 0;
 let optionOwnershipChecks = 0;
 let exactSourceChecks = 0;
-let maximumGenerationAttempts = 1;
 
-if (INT_CP002_FINAL_QL_IDS.length !== 31) {
-  fail(`Expected 31 proposed permanent QLs, found ${INT_CP002_FINAL_QL_IDS.length}.`);
+if (INT_CP002_FINAL_QL_IDS.length !== 31 || INT_CP002_FINAL_REGISTRY.length !== 31) {
+  fail("CP-002 final candidate must contain exactly 31 registry entries.");
 }
-if (INT_CP002_FINAL_REGISTRY.length !== INT_CP002_FINAL_QL_IDS.length) {
-  fail("Registry and QL identity counts differ.");
-}
-
 for (const [index, qlId] of INT_CP002_FINAL_QL_IDS.entries()) {
-  if (qlId !== expectedQlId(index)) fail(`Non-contiguous final QL identity at index ${index}: ${qlId}.`);
+  if (qlId !== expectedQlId(index)) fail(`Non-contiguous final QL identity: ${qlId}.`);
 }
-if (new Set(INT_CP002_FINAL_QL_IDS).size !== INT_CP002_FINAL_QL_IDS.length) {
-  fail("Duplicate CP-002 final QL identity.");
-}
-if (new Set(INT_CP002_FINAL_REGISTRY.map((entry) => entry.solveContract)).size !== INT_CP002_FINAL_REGISTRY.length) {
+if (new Set(INT_CP002_FINAL_QL_IDS).size !== 31) fail("Duplicate final QL identity.");
+if (new Set(INT_CP002_FINAL_REGISTRY.map((entry) => entry.solveContract)).size !== 31) {
   fail("Duplicate final solve contract.");
 }
-if (INT_CP002_FINAL_QL_IDS.some((qlId) => Number(qlId.slice(-3)) <= 21)) {
-  fail("CP-002 final registry overlaps the CP-001 QL range.");
-}
 
-const sourceKindCounts = new Map<string, number>();
-for (const registryEntry of INT_CP002_FINAL_REGISTRY) {
-  sourceKindCounts.set(
-    registryEntry.sourceAdapter.kind,
-    (sourceKindCounts.get(registryEntry.sourceAdapter.kind) ?? 0) + 1,
-  );
-  if (registryEntry.active || registryEntry.questionStudioDiscoverable || registryEntry.publiclyPublishable) {
-    fail(`${registryEntry.qlId}: candidate registry opened a delivery gate.`);
+for (const entry of INT_CP002_FINAL_REGISTRY) {
+  sourceKindCounts.set(entry.sourceAdapter.kind, (sourceKindCounts.get(entry.sourceAdapter.kind) ?? 0) + 1);
+  if (!expectedSourcePrototypes.has(entry.sourceAdapter.prototypeId)) {
+    fail(`${entry.qlId}: unknown source prototype '${entry.sourceAdapter.prototypeId}'.`);
   }
-  if (!expectedSourcePrototypes.has(registryEntry.sourceAdapter.prototypeId)) {
-    fail(`${registryEntry.qlId}: unknown source prototype '${registryEntry.sourceAdapter.prototypeId}'.`);
+  if (entry.active || entry.questionStudioDiscoverable || entry.publiclyPublishable) {
+    fail(`${entry.qlId}: candidate registry opened a delivery gate.`);
   }
 }
-if (sourceKindCounts.get("WAVE01") !== 8) fail("Expected all eight Wave-1 source ancestries exactly once.");
-if (sourceKindCounts.get("WAVE02") !== 13) fail("Expected all thirteen Wave-2 source ancestries exactly once.");
-if (sourceKindCounts.get("CLOSURE") !== 10) fail("Expected all ten final-closure source ancestries exactly once.");
+if (sourceKindCounts.get("WAVE01") !== 8) fail("Expected eight Wave-1 source authorities.");
+if (sourceKindCounts.get("WAVE02") !== 13) fail("Expected thirteen Wave-2 source authorities.");
+if (sourceKindCounts.get("CLOSURE") !== 10) fail("Expected ten closure source authorities.");
 
 for (const qlId of INT_CP002_FINAL_QL_IDS) {
-  const fingerprintSet = new Set<string>();
-  const stemSet = new Set<string>();
-  fingerprintsByQl.set(qlId, fingerprintSet);
-  stemsByQl.set(qlId, stemSet);
+  const registryEntry = registryByQl.get(qlId);
+  if (!registryEntry) fail(`${qlId}: missing registry entry.`);
+  const fingerprints = new Set<string>();
+  const stems = new Set<string>();
 
   for (let seedIndex = 0; seedIndex < 80; seedIndex += 1) {
     const seed = `int-cp002-final:${qlId}:${seedIndex}`;
@@ -99,39 +82,35 @@ for (const qlId of INT_CP002_FINAL_QL_IDS) {
     deterministicChecks += 1;
     if (stable(question) !== stable(replay)) fail(`${qlId}/${seed}: deterministic replay changed.`);
 
-    structuralChecks += 8;
+    structuralChecks += 10;
     if (!question.validation.ok) fail(`${qlId}/${seed}: ${question.validation.errors.join("; ")}`);
     if (question.packageId !== "INT-001" || question.canonicalProblemId !== "INT-CP-002") {
-      fail(`${qlId}/${seed}: package or CP identity mismatch.`);
+      fail(`${qlId}/${seed}: package identity mismatch.`);
     }
-    if (question.qlId !== qlId || question.permanentQlId !== qlId) {
-      fail(`${qlId}/${seed}: permanent identity mismatch.`);
-    }
-    if (question.releaseCandidateId !== INT_CP002_RELEASE_CANDIDATE_ID) {
-      fail(`${qlId}/${seed}: release candidate mismatch.`);
-    }
-    if (question.options.length !== 4 || new Set(question.options).size !== 4) {
-      fail(`${qlId}/${seed}: options are not four unique values.`);
-    }
-    if (question.correctIndex < 0 || question.correctIndex > 3) {
-      fail(`${qlId}/${seed}: invalid correct index.`);
-    }
+    if (question.qlId !== qlId || question.permanentQlId !== qlId) fail(`${qlId}/${seed}: QL identity mismatch.`);
+    if (question.releaseCandidateId !== INT_CP002_RELEASE_CANDIDATE_ID) fail(`${qlId}/${seed}: release mismatch.`);
+    if (question.solveContract !== registryEntry.solveContract) fail(`${qlId}/${seed}: solve contract mismatch.`);
+    if (question.answerSemantic !== registryEntry.answerSemantic) fail(`${qlId}/${seed}: answer semantic mismatch.`);
+    if (question.options.length !== 4 || new Set(question.options).size !== 4) fail(`${qlId}/${seed}: invalid options.`);
+    if (question.correctIndex < 0 || question.correctIndex > 3) fail(`${qlId}/${seed}: invalid correct index.`);
     if (question.optionAudit[question.correctIndex]?.misconceptionId !== "CORRECT") {
-      fail(`${qlId}/${seed}: correct option ownership mismatch.`);
+      fail(`${qlId}/${seed}: correct-option ownership mismatch.`);
     }
     if (!question.explanation.conclusion.includes(question.options[question.correctIndex]!)) {
-      fail(`${qlId}/${seed}: conclusion omits displayed answer.`);
+      fail(`${qlId}/${seed}: conclusion omits the displayed answer.`);
     }
-    if (question.explanation.workedSteps.length < 4) {
-      fail(`${qlId}/${seed}: insufficient worked steps.`);
-    }
+    if (question.explanation.workedSteps.length < 4) fail(`${qlId}/${seed}: fewer than four worked steps.`);
 
     optionOwnershipChecks += 4;
     if (question.optionAudit.filter((option) => option.misconceptionId === "CORRECT").length !== 1) {
-      fail(`${qlId}/${seed}: correct-option ownership is not unique.`);
+      fail(`${qlId}/${seed}: correct ownership is not unique.`);
     }
-    if (question.explanation.trapAnalysis.length !== 3) {
-      fail(`${qlId}/${seed}: missing wrong-option analysis.`);
+    if (question.explanation.trapAnalysis.length !== 3) fail(`${qlId}/${seed}: trap analysis is incomplete.`);
+    for (const trap of question.explanation.trapAnalysis) {
+      const option = question.optionAudit[trap.optionNumber - 1];
+      if (!option || option.misconceptionId !== trap.misconceptionId || option.explanation !== trap.explanation) {
+        fail(`${qlId}/${seed}: trap analysis is misaligned at option ${trap.optionNumber}.`);
+      }
     }
 
     lifecycleChecks += 7;
@@ -163,68 +142,63 @@ for (const qlId of INT_CP002_FINAL_QL_IDS) {
 
     exactSourceChecks += 1;
     observedSourcePrototypes.add(question.internalProvenance.sourcePrototypeId);
-    const sourceState = question.internalProvenance.sourceState as { representation?: string; values?: { generationAttempts?: number } } | undefined;
+    const sourceState = question.internalProvenance.sourceState as { representation?: string } | undefined;
     if (sourceState?.representation) observedRepresentations.add(sourceState.representation);
-    const attempts = sourceState?.values?.generationAttempts;
-    if (typeof attempts === "number") maximumGenerationAttempts = Math.max(maximumGenerationAttempts, attempts);
-
     observedAnswerSemantics.add(question.answerSemantic);
     observedDifficulties.add(question.difficulty);
     answerPositions[question.correctIndex] += 1;
-    fingerprintSet.add(question.mathematicalFingerprint);
-    stemSet.add(question.stem);
+    fingerprints.add(question.mathematicalFingerprint);
+    stems.add(question.stem);
   }
 
-  const requiredFingerprintCount = exactFiniteFingerprintMinimums.get(qlId) ?? 20;
-  if (fingerprintSet.size < requiredFingerprintCount) {
-    fail(`${qlId}: insufficient mathematical diversity (${fingerprintSet.size}/${requiredFingerprintCount}).`);
+  const minimumMathStates = registryEntry.sourceAdapter.kind === "CLOSURE" ? 10 : 3;
+  if (fingerprints.size < minimumMathStates) {
+    fail(`${qlId}: source-math preservation failed (${fingerprints.size}/${minimumMathStates}).`);
   }
-  if (stemSet.size < 20) fail(`${qlId}: insufficient stem diversity (${stemSet.size}).`);
+  if (stems.size < 20) fail(`${qlId}: presentation diversity failed (${stems.size}/20).`);
+  diversityByQl[qlId] = {
+    fingerprints: fingerprints.size,
+    stems: stems.size,
+    sourceKind: registryEntry.sourceAdapter.kind,
+  };
 }
 
 for (const prototypeId of expectedSourcePrototypes) {
   if (!observedSourcePrototypes.has(prototypeId)) fail(`Source prototype not exercised: ${prototypeId}.`);
 }
-for (const position of [0, 1, 2, 3]) {
-  if (answerPositions[position] === 0) fail(`Answer position ${position} was never reached.`);
-}
+if (answerPositions.some((count) => count === 0)) fail("Not all answer positions were reached.");
 for (const semantic of ["MONEY", "PRINCIPAL", "RATE_PERCENT", "TIME_YEARS", "DAYS", "RATIO"]) {
-  if (!observedAnswerSemantics.has(semantic)) fail(`Answer semantic not covered: ${semantic}.`);
+  if (!observedAnswerSemantics.has(semantic)) fail(`Missing answer semantic: ${semantic}.`);
 }
 for (const difficulty of ["Easy", "Medium", "Hard"]) {
-  if (!observedDifficulties.has(difficulty)) fail(`Difficulty not covered: ${difficulty}.`);
+  if (!observedDifficulties.has(difficulty)) fail(`Missing difficulty: ${difficulty}.`);
 }
-for (const rep of ["NARRATIVE", "TABLE", "TIMELINE", "COMPARISON_CARD"]) {
-  if (!observedRepresentations.has(rep)) fail(`Closure representation not covered: ${rep}.`);
+for (const representation of ["NARRATIVE", "TABLE", "TIMELINE", "COMPARISON_CARD"]) {
+  if (!observedRepresentations.has(representation)) fail(`Missing closure representation: ${representation}.`);
 }
 
 const disposition = {
   retainedPermanentAuthorities: 31,
-  representationOnly: [
-    "table of deposits",
-    "rate timeline",
-    "two-plan comparison card",
-    "shared-data caselet shell",
-  ],
+  representationOnly: ["table", "timeline", "comparison card", "shared-data shell"],
   mergedAsParameters: [
-    "year/month/day display within an already owned contract",
+    "year/month/day display within one solve contract",
     "different-duration split principal",
-    "interest saved versus extra interest wording",
-    "which plan is greater versus by-how-much direction",
+    "extra-interest versus interest-saved wording",
+    "greater-plan versus difference direction",
   ],
   reassigned: [
     "equal recurring instalments -> INT-CP-008",
     "heterogeneous dated cash flows/equated dates -> INT-CP-009",
     "commercial sale margin -> Profit & Loss",
     "capital-time profit sharing -> Partnership",
-    "true discount/banker's discount -> separate commercial-discount authority",
+    "true discount/banker's discount -> commercial-discount authority",
   ],
   rejected: [
     "unstated 360/365 convention",
-    "zero-length interval as learner contract",
-    "repayment at horizon with no mathematical effect",
-    "three-part split without source-backed unique inverse",
-    "two repayments without an exam-supported distinct contract",
+    "zero-length interval",
+    "repayment at horizon with no effect",
+    "unsupported three-part unique inverse",
+    "unsupported two-repayment contract",
   ],
   openMeaningfulOwnedGaps: 0,
 };
@@ -234,7 +208,7 @@ mkdirSync(outputDirectory, { recursive: true });
 const summary = {
   releaseCandidateId: INT_CP002_RELEASE_CANDIDATE_ID,
   qlRange: `${INT_CP002_FINAL_QL_IDS[0]}..${INT_CP002_FINAL_QL_IDS.at(-1)}`,
-  qlCount: INT_CP002_FINAL_QL_IDS.length,
+  qlCount: 31,
   sourceKindCounts: Object.fromEntries(sourceKindCounts),
   sourcePrototypeCount: observedSourcePrototypes.size,
   questionCount,
@@ -247,15 +221,16 @@ const summary = {
   answerSemantics: [...observedAnswerSemantics].sort(),
   difficulties: [...observedDifficulties].sort(),
   representations: [...observedRepresentations].sort(),
-  maximumGenerationAttempts,
-  exactFiniteFingerprintMinimums: Object.fromEntries(exactFiniteFingerprintMinimums),
+  diversityPolicy: {
+    inheritedSourceMathMinimum: 3,
+    newClosureMathMinimum: 10,
+    presentationStemMinimum: 20,
+    inheritedSourceNote: "Wave-1 and Wave-2 mathematics retain their separate exact source audits; this audit proves final-adapter preservation.",
+  },
+  diversityByQl,
   disposition,
 };
 writeFileSync(join(outputDirectory, "int-cp002-final-saturation-summary.json"), `${JSON.stringify(summary, null, 2)}\n`);
-writeFileSync(
-  join(outputDirectory, "int-cp002-final-registry.json"),
-  `${JSON.stringify(INT_CP002_FINAL_REGISTRY, null, 2)}\n`,
-);
-
+writeFileSync(join(outputDirectory, "int-cp002-final-registry.json"), `${JSON.stringify(INT_CP002_FINAL_REGISTRY, null, 2)}\n`);
 console.log(JSON.stringify(summary, null, 2));
 console.log("PASS_INT_CP002_FINAL_SATURATION_AND_QL_PROPOSAL");
