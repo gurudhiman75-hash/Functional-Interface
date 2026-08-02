@@ -59,7 +59,7 @@ export function totalRatioAdjustmentEditorial(
 
   const stem = choose(`${question.seed}:stem`, [
     `A mixture has a total quantity of ${quantityMath(parameters.initialTotal, unit)}. ${labels[0]} and ${labels[1]} are in the ratio ${ratioMath(parameters.initialRatio)}. How many ${unit} of ${changedLabel} should be ${action} so that their ratio becomes ${ratioMath(parameters.targetRatio)}?`,
-    `In a ${quantityMath(parameters.initialTotal, unit)} mixture, the ratio of ${labels[0]} to ${labels[1]} is ${ratioMath(parameters.initialRatio)}. Find the quantity of ${changedLabel} to be ${action} to obtain the ratio ${ratioMath(parameters.targetRatio)}.`,
+    `In a ${quantityMath(parameters.initialTotal, unit)} mixture, the ratio of ${labels[0]} to ${labels[1]} is ${ratioMath(parameters.initialRatio)}. What quantity of ${changedLabel} should be ${action} to obtain the ratio ${ratioMath(parameters.targetRatio)}?`,
     `The total amount of a mixture is ${quantityMath(parameters.initialTotal, unit)}, with ${labels[0]} and ${labels[1]} in the ratio ${ratioMath(parameters.initialRatio)}. How much ${changedLabel} must be ${action} to make the ratio ${ratioMath(parameters.targetRatio)}?`,
   ]);
 
@@ -105,9 +105,9 @@ export function otherComponentEditorial(
   const onePart = divideRational(parameters.knownQuantity, knownPart);
 
   const stem = choose(`${question.seed}:stem`, [
-    `${labels[0]} and ${labels[1]} are present in the ratio ${ratioMath(parameters.ratio)}. If the quantity of ${knownLabel} is ${quantityMath(parameters.knownQuantity, unit)}, find the quantity of ${otherLabel}.`,
+    `${labels[0]} and ${labels[1]} are present in the ratio ${ratioMath(parameters.ratio)}. If the quantity of ${knownLabel} is ${quantityMath(parameters.knownQuantity, unit)}, what is the quantity of ${otherLabel}?`,
     `In a mixture, the ratio of ${labels[0]} to ${labels[1]} is ${ratioMath(parameters.ratio)}. The mixture contains ${quantityMath(parameters.knownQuantity, unit)} of ${knownLabel}. How much ${otherLabel} does it contain?`,
-    `A mixture contains ${labels[0]} and ${labels[1]} in the ratio ${ratioMath(parameters.ratio)}. Given that ${knownLabel} measures ${quantityMath(parameters.knownQuantity, unit)}, determine the amount of ${otherLabel}.`,
+    `A mixture contains ${labels[0]} and ${labels[1]} in the ratio ${ratioMath(parameters.ratio)}. Given that ${knownLabel} measures ${quantityMath(parameters.knownQuantity, unit)}, how much ${otherLabel} is present?`,
   ]);
 
   return {
@@ -158,9 +158,9 @@ export function originalTotalEditorial(
     : subtractRational(initialChangedPart, finalChangedCoefficient);
 
   const stem = choose(`${question.seed}:stem`, [
-    `${labels[0]} and ${labels[1]} were initially in the ratio ${ratioMath(parameters.initialRatio)}. After ${quantityMath(parameters.adjustmentQuantity, unit)} of ${changedLabel} was ${action}, the ratio became ${ratioMath(parameters.finalRatio)}. Find the original total quantity.`,
+    `${labels[0]} and ${labels[1]} were initially in the ratio ${ratioMath(parameters.initialRatio)}. After ${quantityMath(parameters.adjustmentQuantity, unit)} of ${changedLabel} was ${action}, the ratio became ${ratioMath(parameters.finalRatio)}. What was the original total quantity?`,
     `The initial ratio of ${labels[0]} to ${labels[1]} was ${ratioMath(parameters.initialRatio)}. ${quantityMath(parameters.adjustmentQuantity, unit)} of ${changedLabel} was then ${action}, changing the ratio to ${ratioMath(parameters.finalRatio)}. What was the original total?`,
-    `A mixture had ${labels[0]} and ${labels[1]} in the ratio ${ratioMath(parameters.initialRatio)}. When ${quantityMath(parameters.adjustmentQuantity, unit)} of ${changedLabel} was ${action}, the ratio became ${ratioMath(parameters.finalRatio)}. Determine the mixture's original quantity.`,
+    `A mixture had ${labels[0]} and ${labels[1]} in the ratio ${ratioMath(parameters.initialRatio)}. When ${quantityMath(parameters.adjustmentQuantity, unit)} of ${changedLabel} was ${action}, the ratio became ${ratioMath(parameters.finalRatio)}. What was the mixture's original quantity?`,
   ]);
 
   return {
