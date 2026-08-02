@@ -1,0 +1,97 @@
+name: Reasoning BLR-001 CP-006 Coded Relation Decoding
+
+on:
+  push:
+    branches:
+      - feat/blr-001-cp006-coded-decoding-runtime
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-005/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/foundation/**"
+      - ".github/workflows/reasoning-blr-001-cp006-coded-decoding.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-005/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/foundation/**"
+      - ".github/workflows/reasoning-blr-001-cp006-coded-decoding.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blr-001-cp006-coded-decoding-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp006-coded-decoding:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prove CP-005 source runtime
+        run: |
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-005/cp005-runtime.test.ts | tee cp005-source.log
+
+      - name: Prove CP-006 permanent runtime and independent verifier
+        run: |
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-runtime.test.ts | tee cp006-runtime.log
+
+      - name: Prove CP-006 final discovery freeze
+        run: |
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-final-freeze.test.ts | tee cp006-final-freeze.log
+
+      - name: Export CP-006 final freeze review pack
+        run: |
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/export-cp006-final-freeze.ts cp006-final-freeze-output | tee cp006-export.log
+
+      - name: Verify CP-006 artifact contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=cp006-final-freeze-output
+          test -f "$OUT/blr-cp006-final-freeze-summary.json"
+          test -f "$OUT/blr-cp006-permanent-contracts.json"
+          test -f "$OUT/blr-cp006-final-freeze-records.jsonl"
+          test -f "$OUT/blr-cp006-final-freeze-records.csv"
+          test -f "$OUT/blr-cp006-final-freeze-review.html"
+          test -f "$OUT/BLR-CP-006-FINAL-DISCOVERY-FREEZE.md"
+          grep -q '"recordCount": 152' "$OUT/blr-cp006-final-freeze-summary.json"
+          grep -q '"prototypeCount": 19' "$OUT/blr-cp006-final-freeze-summary.json"
+          grep -q '"authorityCount": 5' "$OUT/blr-cp006-final-freeze-summary.json"
+          grep -q '"permanentQlCount": 5' "$OUT/blr-cp006-final-freeze-summary.json"
+          grep -q '"statementCount": 440' "$OUT/blr-cp006-final-freeze-summary.json"
+          grep -q '"permanentQlRange": "BLR-QL-026..BLR-QL-030"' "$OUT/blr-cp006-final-freeze-summary.json"
+          grep -q '"nextAvailableChapterQlId": "BLR-QL-031"' "$OUT/blr-cp006-final-freeze-summary.json"
+          test "$(wc -l < "$OUT/blr-cp006-final-freeze-records.jsonl")" -eq 152
+          grep -q '152 total' "$OUT/blr-cp006-final-freeze-review.html"
+          grep -q '@media(max-width:700px)' "$OUT/blr-cp006-final-freeze-review.html"
+
+      - name: Upload CP-006 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp006-coded-decoding-logs
+          path: |
+            cp005-source.log
+            cp006-runtime.log
+            cp006-final-freeze.log
+            cp006-export.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload CP-006 final freeze pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp006-coded-decoding-final-freeze
+          path: cp006-final-freeze-output
+          if-no-files-found: error
+          retention-days: 30
