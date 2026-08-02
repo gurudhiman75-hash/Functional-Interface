@@ -40,6 +40,7 @@ type RegistryFile = Readonly<{
 type CaptureMode = "prose" | "latex" | "table-source" | "paragraph-source";
 type Capture = Readonly<{ key: string; mode: CaptureMode }>;
 type Fragment = Readonly<{ pattern: string; captures: readonly Capture[] }>;
+type DataSufficiencyPatternMode = "CURRENT" | "LEGACY";
 
 export type Pnl001CanonicalContext = Readonly<Record<string, unknown>>;
 export type Pnl001CanonicalStemMode = "CURRENT_STRUCTURED" | "LEGACY_DATA_SUFFICIENCY";
@@ -180,7 +181,11 @@ function combine(parts: readonly Fragment[]): Fragment {
   };
 }
 
-function compileStem(stem: StructuredQuestionStem, variables: ReadonlySet<string>): Fragment {
+function compileStem(
+  stem: StructuredQuestionStem,
+  variables: ReadonlySet<string>,
+  dataSufficiencyMode: DataSufficiencyPatternMode,
+): Fragment {
   const parts: Fragment[] = [];
   for (const block of stem.blocks) {
     switch (block.type) {
@@ -218,11 +223,20 @@ function compileStem(stem: StructuredQuestionStem, variables: ReadonlySet<string
         });
         break;
       case "data_sufficiency":
-        block.statements.forEach((value, index) => {
-          const fragment = templateFragment(value, "prose", variables);
-          const numeral = index === 0 ? "I" : "II";
-          parts.push({ pattern: `\\*\\*Statement ${numeral}:\\*\\* ${fragment.pattern}`, captures: fragment.captures });
-        });
+        if (dataSufficiencyMode === "CURRENT") {
+          parts.push(templateFragment(block.question, "prose", variables));
+          block.statements.forEach((value, index) => {
+            const fragment = templateFragment(value, "prose", variables);
+            parts.push({ pattern: `\\*\\*Statement ${index + 1}:\\*\\* ${fragment.pattern}`, captures: fragment.captures });
+          });
+          parts.push(literal("Use the standard two-statement data-sufficiency answer scheme."));
+        } else {
+          block.statements.forEach((value, index) => {
+            const fragment = templateFragment(value, "prose", variables);
+            const numeral = index === 0 ? "I" : "II";
+            parts.push({ pattern: `\\*\\*Statement ${numeral}:\\*\\* ${fragment.pattern}`, captures: fragment.captures });
+          });
+        }
         break;
       case "equation": {
         const fragment = templateFragment(block.latex, "latex", variables);
@@ -278,15 +292,11 @@ function mergeCapture(
   const current = context[capture.key];
   const currentMode = modes.get(capture.key)!;
   if (typeof current !== "string" || typeof parsed !== "string") {
-    if (JSON.stringify(current) !== JSON.stringify(parsed)) {
-      throw new Error(`${qlId}: conflicting recovered source ${capture.key}.`);
-    }
+    if (JSON.stringify(current) !== JSON.stringify(parsed)) throw new Error(`${qlId}: conflicting recovered source ${capture.key}.`);
     return;
   }
   if (current === parsed) return;
-  if (comparable(current) !== comparable(parsed)) {
-    throw new Error(`${qlId}: conflicting recovered scalar ${capture.key}.`);
-  }
+  if (comparable(current) !== comparable(parsed)) throw new Error(`${qlId}: conflicting recovered scalar ${capture.key}.`);
   if (capture.mode === "latex" && currentMode === "prose") {
     context[capture.key] = parsed;
     modes.set(capture.key, capture.mode);
@@ -300,51 +310,55 @@ export function unresolvedPnl001ProsePlaceholders(value: string): readonly strin
   return [...new Set([...prose.matchAll(/\{([a-z][A-Za-z0-9_]*)\}/g)].map((match) => match[1]!))].sort();
 }
 
+function matchStem(
+  stem: StructuredQuestionStem,
+  variables: ReadonlySet<string>,
+  canonicalStem: string,
+): Readonly<{ fragment: Fragment; match: RegExpExecArray; mode: Pnl001CanonicalStemMode }> | null {
+  const hasDataSufficiency = stem.blocks.some((block) => block.type === "data_sufficiency");
+  const current = compileStem(stem, variables, "CURRENT");
+  const currentMatch = new RegExp(`^${current.pattern}$`, "u").exec(canonicalStem);
+  if (currentMatch) return { fragment: current, match: currentMatch, mode: "CURRENT_STRUCTURED" };
+  if (!hasDataSufficiency) return null;
+  const legacy = compileStem(stem, variables, "LEGACY");
+  const legacyMatch = new RegExp(`^${legacy.pattern}$`, "u").exec(canonicalStem);
+  if (legacyMatch) return { fragment: legacy, match: legacyMatch, mode: "LEGACY_DATA_SUFFICIENCY" };
+  return null;
+}
+
 export function recoverPnl001CanonicalContext(qlId: string): Pnl001CanonicalContextRecovery {
   const canonicalEntry = canonical.entries[qlId];
   const englishEntry = englishByQl.get(qlId);
   const registryEntry = registryByQl.get(qlId);
   const cpId = cpByQl.get(qlId);
-  if (!canonicalEntry || !englishEntry || !registryEntry || !cpId) {
-    throw new Error(`${qlId}: canonical context authorities are incomplete.`);
-  }
+  if (!canonicalEntry || !englishEntry || !registryEntry || !cpId) throw new Error(`${qlId}: canonical context authorities are incomplete.`);
   if (canonicalEntry.cpId !== cpId) throw new Error(`${qlId}: canonical CP ownership mismatch.`);
   if (
     canonicalEntry.options.length !== 4 ||
     new Set(canonicalEntry.options).size !== 4 ||
     canonicalEntry.options[canonicalEntry.correctIndex] !== canonicalEntry.answer
-  ) {
-    throw new Error(`${qlId}: canonical keyed-answer contract is invalid.`);
-  }
+  ) throw new Error(`${qlId}: canonical keyed-answer contract is invalid.`);
 
-  const canonicalStemMode: Pnl001CanonicalStemMode = englishEntry.stem.blocks.some(
-    (block) => block.type === "data_sufficiency",
-  )
-    ? "LEGACY_DATA_SUFFICIENCY"
-    : "CURRENT_STRUCTURED";
   const variables = new Set<string>([
     ...registryEntry.requiredVariables,
     ...stemVariables(englishEntry.stem),
   ]);
-  const compiled = compileStem(englishEntry.stem, variables);
-  const match = new RegExp(`^${compiled.pattern}$`, "u").exec(canonicalEntry.stem);
-  if (!match) throw new Error(`${qlId}: canonical stem does not match its approved structured shape.`);
+  const matched = matchStem(englishEntry.stem, variables, canonicalEntry.stem);
+  if (!matched) throw new Error(`${qlId}: canonical stem does not match its approved structured shape.`);
 
   const context: Record<string, unknown> = {};
   const modes = new Map<string, CaptureMode>();
-  compiled.captures.forEach((capture, index) => {
-    mergeCapture(context, modes, capture, match[index + 1] ?? "", qlId);
+  matched.fragment.captures.forEach((capture, index) => {
+    mergeCapture(context, modes, capture, matched.match[index + 1] ?? "", qlId);
   });
 
   const currentEnglishStem = renderStructuredStemMarkdown(englishEntry.stem, context);
-  if (canonicalStemMode === "CURRENT_STRUCTURED" && currentEnglishStem !== canonicalEntry.stem) {
+  if (matched.mode === "CURRENT_STRUCTURED" && currentEnglishStem !== canonicalEntry.stem) {
     throw new Error(`${qlId}: canonical stem does not round-trip exactly.`);
   }
   const unresolvedCanonicalStem = unresolvedPnl001ProsePlaceholders(canonicalEntry.stem);
   const unresolvedCurrentStem = unresolvedPnl001ProsePlaceholders(currentEnglishStem);
-  if (unresolvedCanonicalStem.length > 0 || unresolvedCurrentStem.length > 0) {
-    throw new Error(`${qlId}: unresolved canonical stem placeholders remain.`);
-  }
+  if (unresolvedCanonicalStem.length > 0 || unresolvedCurrentStem.length > 0) throw new Error(`${qlId}: unresolved canonical stem placeholders remain.`);
 
   const currentEnglishExplanation = renderFriendlyExplanationMarkdown(englishEntry.explanation, context);
   const rowSources = englishEntry.stem.blocks
@@ -364,7 +378,7 @@ export function recoverPnl001CanonicalContext(qlId: string): Pnl001CanonicalCont
     englishEntry,
     currentEnglishStem,
     currentEnglishExplanation,
-    canonicalStemMode,
+    canonicalStemMode: matched.mode,
     rowSources,
     paragraphSources,
   };
