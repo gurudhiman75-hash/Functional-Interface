@@ -14,15 +14,18 @@ export function generateNumCp005LocalizedQuestion(
     language: "en",
   });
 
-  if (
-    english.questionLanguageId === "NUM-QL-068"
-    && english.hiddenState.metricKind === "DIVISOR_SUM"
-  ) {
+  const sumStateKey = english.questionLanguageId === "NUM-QL-061"
+    ? "propertyKind"
+    : english.questionLanguageId === "NUM-QL-068" ? "metricKind" : null;
+  const requiresSumLabel = sumStateKey !== null
+    && english.hiddenState[sumStateKey] === "DIVISOR_SUM";
+
+  if (requiresSumLabel && sumStateKey) {
     const adaptedEnglish = Object.freeze({
       ...english,
       hiddenState: Object.freeze({
         ...english.hiddenState,
-        metricKind: "TOTAL_DIVISORS",
+        [sumStateKey]: "TOTAL_DIVISORS",
       }),
     });
     const localized = localizeNumCp005Question(adaptedEnglish, input.locale);
