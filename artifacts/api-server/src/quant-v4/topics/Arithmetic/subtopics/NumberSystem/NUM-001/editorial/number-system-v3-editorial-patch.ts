@@ -2,7 +2,6 @@
 import {
   cleanText,
   mathNumber,
-  mathValue,
   studentOptionDisplay,
 } from "./simple-teacher-voice-core";
 import { stripStudentOptionLeaks } from "./number-system-generator-contract";
@@ -10,7 +9,10 @@ import { stripStudentOptionLeaks } from "./number-system-generator-contract";
 function inlineDisplayMath(value: unknown): string {
   return String(value ?? "")
     .replace(/\$\$\s*([\s\S]*?)\s*\$\$/gu, (_match, expression) => `$${String(expression).trim()}$`)
-    .replace(/\$(\d[\d,]*)\$\s*[×x]\s*\$(\d[\d,]*)\$\s*=\s*\$(\d[\d,]*)\$/gu, "$1 \\times $2 = $3")
+    .replace(
+      /\$(\d[\d,]*)\$\s*[×x]\s*\$(\d[\d,]*)\$\s*=\s*\$(\d[\d,]*)\$/gu,
+      (_match, left, right, result) => `$${left} \\times ${right} = ${result}$`,
+    )
     .replace(/\s{2,}/g, " ")
     .trim();
 }
@@ -29,18 +31,27 @@ export function patchNumberSystemV3Text(value: unknown): string {
       /Choose the option that prime number divides ([^?]+) exactly\?/giu,
       "Which of the following prime numbers divides $1 exactly?",
     )
-    .replace(/\b(\d[\d,]*)\s*([+\-])\s*(\d[\d,]*)\b/gu, (_match, left, operator, right) =>
+    .replace(/(?<!\$)\b(\d[\d,]*)\s*([+\-])\s*(\d[\d,]*)\b(?!\$)/gu, (_match, left, operator, right) =>
       `$${left} ${operator} ${right}$`)
-    .replace(/\$\$+/g, "$ ")
     .replace(/\s{2,}/g, " ")
     .trim();
 }
 
 function proseMath(value: string): string {
   return value
-    .replace(/\b(\d[\d,]*)\^(\d+)\b/gu, (_match, base, exponent) => `$${base}^{${exponent}}$`)
-    .replace(/\b(\d[\d,]*)\b/gu, (match) => mathNumber(match.replaceAll(",", "")))
-    .replace(/\$\$+/g, "$")
+    .split(/(\$[^$]+\$)/gu)
+    .map((part) => {
+      if (/^\$[^$]+\$$/u.test(part)) return part;
+      return part
+        .replace(/\b(\d[\d,]*)\^(\d+)\b/gu, (_match, base, exponent) => `$${base}^{${exponent}}$`)
+        .split(/(\$[^$]+\$)/gu)
+        .map((piece) => {
+          if (/^\$[^$]+\$$/u.test(piece)) return piece;
+          return piece.replace(/\b(\d[\d,]*)\b/gu, (match) => mathNumber(match.replaceAll(",", "")));
+        })
+        .join("");
+    })
+    .join("")
     .replace(/\s{2,}/g, " ")
     .trim();
 }
