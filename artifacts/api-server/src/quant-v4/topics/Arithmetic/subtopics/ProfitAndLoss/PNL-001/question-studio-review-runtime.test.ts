@@ -50,10 +50,21 @@ let nativePackageCount = 0;
 let nativeMathJaxPackageCount = 0;
 for (const entry of entries) {
   assert.equal(entry.options.length, 4, `${entry.qlId}: option count`);
-  assert.equal(new Set(entry.options).size, 4, `${entry.qlId}: duplicate option`);
-  assert.equal(entry.options[entry.correctIndex], entry.answer, `${entry.qlId}: answer key`);
+  assert.equal(
+    new Set(entry.options).size,
+    4,
+    `${entry.qlId}: duplicate option`,
+  );
+  assert.equal(
+    entry.options[entry.correctIndex],
+    entry.answer,
+    `${entry.qlId}: answer key`,
+  );
   assert.ok(entry.stem.trim().length >= 20, `${entry.qlId}: empty/short stem`);
-  assert.ok(entry.explanation.trim().length >= 80, `${entry.qlId}: shallow explanation`);
+  assert.ok(
+    entry.explanation.trim().length >= 80,
+    `${entry.qlId}: shallow explanation`,
+  );
   assert.equal(
     unresolvedProsePlaceholders(entry.stem).length,
     0,
@@ -108,7 +119,10 @@ for (const entry of entries) {
       nativePackageCount += 1;
       const script =
         language === "hi" ? /[\u0900-\u097F]/u : /[\u0A00-\u0A7F]/u;
-      assert.ok(script.test(pkg.stem), `${entry.qlId}:${language}: native stem`);
+      assert.ok(
+        script.test(pkg.stem),
+        `${entry.qlId}:${language}: native stem`,
+      );
       assert.ok(
         script.test(pkg.explanation.lines.join("\n")),
         `${entry.qlId}:${language}: native explanation`,

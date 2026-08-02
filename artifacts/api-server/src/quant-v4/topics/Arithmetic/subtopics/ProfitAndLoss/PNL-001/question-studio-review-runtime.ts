@@ -1,7 +1,5 @@
 import { PNL_001_CANONICAL_REVIEW_LIBRARY } from "./question-studio-review.library";
-import {
-  buildPnl001LocalizedReviewSurface,
-} from "./question-studio-multilingual-review-surface";
+import { buildPnl001LocalizedReviewSurface } from "./question-studio-multilingual-review-surface";
 
 export const PNL_001_ARCHETYPE_ID = "PNL-001" as const;
 export const PNL_001_CP_IDS = [
@@ -93,7 +91,9 @@ function selectReviewEntry(
   if (input.questionLanguageId) {
     const forced = reviewLibrary.entries[input.questionLanguageId];
     if (!forced) {
-      throw new Error(`Unknown PNL-001 question-language ID: ${input.questionLanguageId}`);
+      throw new Error(
+        `Unknown PNL-001 question-language ID: ${input.questionLanguageId}`,
+      );
     }
     if (forced.cpId !== cpId) {
       throw new Error(
@@ -111,7 +111,9 @@ function selectReviewEntry(
   if (!eligible.length) {
     throw new Error(
       `No PNL-001 canonical review entries match ${cpId}` +
-        (input.difficultyBand ? ` at ${input.difficultyBand} difficulty.` : "."),
+        (input.difficultyBand
+          ? ` at ${input.difficultyBand} difficulty.`
+          : "."),
     );
   }
 
@@ -154,7 +156,8 @@ export function runPnl001ReviewPipeline(
     {
       name: "canonical-review-source",
       passed: entry.safety.runtimeMode === "CANONICAL_REVIEW",
-      message: "Question is sourced from the approved canonical review authority.",
+      message:
+        "Question is sourced from the approved canonical review authority.",
     },
     ...surface.validation.checks,
     {
@@ -163,24 +166,26 @@ export function runPnl001ReviewPipeline(
         surface.options.length === 4 &&
         new Set(surface.options).size === 4 &&
         surface.options[surface.correctIndex] === surface.answer,
-      message: "Question has four unique options and one reviewed keyed answer.",
+      message:
+        "Question has four unique options and one reviewed keyed answer.",
     },
     {
-    name: "canonical-source-freeze",
-    passed:
-      entry.safety.questionBankStatus === "NOT_STORED" &&
-      entry.safety.testEligibility === "INELIGIBLE" &&
-      entry.safety.publiclyPublishable === false,
-    message: "The frozen source library remains immutable review provenance.",
-  },
-  {
-    name: "canonical-production-release-policy",
-    passed:
-      PNL_001_CANONICAL_RELEASE_POLICY.questionBankStatus === "WRITABLE" &&
-      PNL_001_CANONICAL_RELEASE_POLICY.testEligibility === "ELIGIBLE" &&
-      PNL_001_CANONICAL_RELEASE_POLICY.publiclyPublishable === true,
-    message: "Approved canonical output is eligible for Question Bank, tests and publication.",
-  },
+      name: "canonical-source-freeze",
+      passed:
+        entry.safety.questionBankStatus === "NOT_STORED" &&
+        entry.safety.testEligibility === "INELIGIBLE" &&
+        entry.safety.publiclyPublishable === false,
+      message: "The frozen source library remains immutable review provenance.",
+    },
+    {
+      name: "canonical-production-release-policy",
+      passed:
+        PNL_001_CANONICAL_RELEASE_POLICY.questionBankStatus === "WRITABLE" &&
+        PNL_001_CANONICAL_RELEASE_POLICY.testEligibility === "ELIGIBLE" &&
+        PNL_001_CANONICAL_RELEASE_POLICY.publiclyPublishable === true,
+      message:
+        "Approved canonical output is eligible for Question Bank, tests and publication.",
+    },
   ];
   const validation = {
     valid: validationChecks.every((check) => check.passed),
@@ -246,7 +251,11 @@ export function runPnl001ReviewPipeline(
       nodes: [
         { id: "solve-mode", label: "Solve mode", value: entry.solveMode },
         { id: "answer", label: "Reviewed answer", value: surface.answer },
-        { id: "safety", label: "Runtime status", value: PNL_001_CANONICAL_RELEASE_POLICY.runtimeMode },
+        {
+          id: "safety",
+          label: "Runtime status",
+          value: PNL_001_CANONICAL_RELEASE_POLICY.runtimeMode,
+        },
       ],
     },
     explanation: {
