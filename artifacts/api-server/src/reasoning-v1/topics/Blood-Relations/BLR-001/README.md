@@ -1,6 +1,6 @@
 # BLR-001 — Blood Relations
 
-Status: **BLR-CP-001 through BLR-CP-005 English discovery frozen; stable stacked permanent range `BLR-QL-001..025`; next available identity `BLR-QL-026`**.
+Status: **all seven planned English content checkpoints are discovery-frozen; permanent range `BLR-QL-001..035`; chapter-wide English gap audit passed; manual English freeze pending**.
 
 Student-facing chapter: **Blood Relations**  
 Reasoning V1 package: `BLR-001`  
@@ -13,9 +13,10 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BL
 3. `BLR-001-END-TO-END-DESIGN.md`;
 4. `blr-001-open-ql-discovery.md`;
 5. checkpoint-specific source, merge/split, freeze, implementation and review records;
-6. manifest amendments for permanent sequential identity.
+6. `BLR-001-ENGLISH-GAP-AUDIT.md` and its executable proof;
+7. manifest amendments for permanent sequential identity.
 
-## Frozen permanent range
+## Permanent English inventory
 
 ```text
 BLR-QL-001  RESOLVE_NAMED_PERSON_RELATION
@@ -43,158 +44,114 @@ BLR-QL-022  RESOLVE_PERSON_IDENTITY_UNCERTAINTY
 BLR-QL-023  DETERMINE_COUNT_BOUND
 BLR-QL-024  SELECT_COUNT_BY_MODEL_STATUS
 BLR-QL-025  RESOLVE_COUNT_DETERMINACY
+BLR-QL-026  RESOLVE_CODED_RELATION
+BLR-QL-027  IDENTIFY_PERSON_FROM_CODED_GRAPH
+BLR-QL-028  DETERMINE_GENDER_FROM_CODED_GRAPH
+BLR-QL-029  SELECT_CODED_RELATION_PAIR
+BLR-QL-030  RESOLVE_CODED_FAMILY_SET_RELATION
+BLR-QL-031  SELECT_CODED_EXPRESSION
+BLR-QL-032  COMPLETE_MISSING_CODE_TOKEN
+BLR-QL-033  COMPLETE_ORDERED_CODE_TOKEN_PAIR
+BLR-QL-034  COMPLETE_MISSING_PERSON
+BLR-QL-035  SELECT_CODED_STATEMENT_BY_VALIDITY
 ```
 
-Freeze versions:
-
-```text
-BLR_CP001_ENGLISH_DISCOVERY_FREEZE_V1
-BLR_CP002_ENGLISH_DISCOVERY_FREEZE_V1
-BLR_CP003_ENGLISH_DISCOVERY_FREEZE_V1
-BLR_CP004_ENGLISH_DISCOVERY_FREEZE_V1
-BLR_CP005_ENGLISH_DISCOVERY_FREEZE_V1
-```
+Next available identity: `BLR-QL-036`. It is unallocated and does not imply a planned `BLR-CP-008`.
 
 ## Checkpoint state
 
-| Checkpoint | Ownership | State |
+| Checkpoint | Ownership | Frozen range |
 |---|---|---|
-| `BLR-CP-001` | direct declarative named-person relations | frozen; `BLR-QL-001..007` |
-| `BLR-CP-002` | pointer/photo/portrait/conversation/nested self-reference | frozen; `BLR-QL-008` |
-| `BLR-CP-003` | shared family passages and set/pair/status identities | frozen; `BLR-QL-009..012` |
-| `BLR-CP-004` | definite counts and family composition | frozen; `BLR-QL-013..017` |
-| `BLR-CP-005` | definite/possible/impossible, one-of-two, indeterminate and count-bound semantics | frozen; `BLR-QL-018..025` |
-| `BLR-CP-006` | coded relation decoding | open |
-| `BLR-CP-007` | coded construction and validation | open |
+| `BLR-CP-001` | direct, reverse, multi-edge, identity, pair, claim, generation and exact-lineage named-person relations | `BLR-QL-001..007` |
+| `BLR-CP-002` | pointer, photograph, portrait, conversation and nested self-reference role chains | `BLR-QL-008` |
+| `BLR-CP-003` | shared family passages, pair/set, marital-status and exact-lineage identities | `BLR-QL-009..012` |
+| `BLR-CP-004` | definite counts and family composition | `BLR-QL-013..017` |
+| `BLR-CP-005` | invariant, possible, impossible, one-of-two, indeterminate and count-bound semantics | `BLR-QL-018..025` |
+| `BLR-CP-006` | coded relation decoding | `BLR-QL-026..030` |
+| `BLR-CP-007` | coded expression construction, completion and validation | `BLR-QL-031..035` |
 
-## CP-003 frozen result
-
-```text
-approved English review records          298
-shared-passage groups                    102
-graph topologies                           9
-source prototypes                         29
-frozen solve authorities                   4
-permanent QLs                              4
-permanent range               BLR-QL-009..012
-```
-
-Shared-passage variants already owned by `BLR-QL-001..008` remain merged into their existing contracts. The unresolved-marital-status candidate is a target-status parameter inside `BLR-QL-011`, not a separate QL.
-
-## CP-004 frozen result
+## Frozen bank sizes
 
 ```text
-approved English review questions        612
-shared-passage groups                    102
-source graph topologies                    9
-source prototypes                         13
-frozen solve authorities                   5
-permanent QLs                              5
-permanent range               BLR-QL-013..017
+CP-001 chapter-audit runtime sweep          448
+CP-002 chapter-audit runtime sweep           96
+CP-003 frozen records                       298
+CP-004 frozen records                       612
+CP-005 frozen records                       184
+CP-006 frozen records                       152
+CP-007 frozen records                       168
+-----------------------------------------------
+chapter-wide audited questions            1,958
 ```
 
-CP-004 covers total/member-filter counts, direct and extended relative counts, shared children, canonical relation-pair counts, occupied generations and four-component family-composition profiles.
+The CP-001 and CP-002 figures above are deterministic audit sweeps; later checkpoints use their complete frozen banks.
 
-## CP-005 frozen result
+## Chapter-wide English gap proof
+
+The executable audit proves:
 
 ```text
-approved English review questions        184
-shared model-space groups                 80
-source scenarios                          10
-model-space topologies                    10
-source prototypes                         23
-frozen solve authorities                   8
-permanent QLs                              8
-enumerated model instances               432
-permanent range               BLR-QL-018..025
+planned content checkpoints                       7
+permanent QLs                                     35
+solve authorities                                 35
+exact cross-QL learner-surface collisions          0
+normalized cross-QL template collisions            0
+learner-text failures                              0
+gender-evidence failures                           0
+option-contract failures                           0
+lifecycle-lock failures                            0
+ownership failures                                 0
+open included source families                      0
 ```
 
-CP-005 covers:
+Verdict: `CHAPTER_ENGLISH_GAP_FREEZE_CANDIDATE`.
 
-- exact, broad and gender-neutral relations invariant across all valid models;
-- one-of-two and materially indeterminate relation answers;
-- definite, possible and impossible relation claims;
-- definite, possible and impossible candidate people;
-- one-of-two and indeterminate person identities;
-- minimum and maximum possible counts;
-- possible and impossible count options;
-- exact versus indeterminate counts under incomplete family information.
+A new QL or checkpoint may be created only if a later source audit proves a materially uncovered generator, solver, answer, ambiguity, explanation, localisation or renderer contract.
 
-Every retained variable domain is exhaustively enumerated. The independent verifier reconstructs and solves all 432 models from exported diagram data rather than calling the production CP-005 solver.
+## Shared guarantees
 
-## Shared implemented foundation
-
-- typed parent, spouse and sibling graph;
-- family validity and ancestry-cycle rejection;
-- independent clue-only and graph-closure solvers;
-- deterministic seeded Indian names;
-- broad, in-law, great-generation and exact-lineage closure;
-- explicit marital status without closed-world unmarried inference;
-- shared family passages with independently solved items;
-- deterministic misconception-owned options;
-- personalised learner explanations;
-- native SVG family trees with ASCII fallback;
-- lazy ExamTree family-tree rendering;
+- graph-first generation and independent clue-only solving;
+- parent, spouse and sibling validity with ancestry-cycle rejection;
+- exact, broad, in-law, great-generation and exact-lineage closure;
+- no closed-world unmarried inference;
 - explicit count universes and canonical unordered-pair counting;
-- independent count recomputation from graph nodes and edges;
-- complete bounded model enumeration with definite/possible/impossible classification;
-- model-by-model family diagrams and independent reconstructed-graph verification.
+- complete bounded model enumeration for uncertainty;
+- coded expressions interpreted as directed family assertions, never arithmetic;
+- names and letter labels provide no gender evidence;
+- every gendered answer has learner-visible gender-bearing evidence;
+- four unique options with one independently valid answer;
+- personalized explanations, SVG family trees and ASCII fallbacks;
+- English review-only lifecycle locks across all permanent QLs.
 
-## Authoritative freeze records
+## Authoritative records
 
-### CP-001
+Each checkpoint contains its own final discovery-freeze document, runtime, independent proof and exporter. Chapter-level authority is recorded in:
 
-- `BLR-CP-001/BLR-CP-001-FINAL-DISCOVERY-FREEZE.md`;
-- `BLR-001-MANIFEST-AMENDMENT-CP001.md`.
-
-### CP-002
-
-- `BLR-CP-002/BLR-CP-002-FINAL-DISCOVERY-FREEZE.md`;
-- `BLR-001-MANIFEST-AMENDMENT-CP002.md`.
-
-### CP-003
-
-- `BLR-CP-003/BLR-CP-003-FINAL-DISCOVERY-FREEZE.md`;
-- `BLR-CP-003/cp003-final-discovery-freeze.ts`;
-- `BLR-CP-003/cp003-permanent-contracts.ts`;
-- `BLR-CP-003/cp003-permanent-runtime.ts`.
-
-### CP-004
-
-- `BLR-CP-004/BLR-CP-004-FINAL-DISCOVERY-FREEZE.md`;
-- `BLR-001-MANIFEST-AMENDMENT-CP004.md`;
-- `BLR-CP-004/cp004-final-freeze.ts`;
-- `BLR-CP-004/cp004-model.ts`;
-- `BLR-CP-004/cp004-runtime.ts`.
-
-### CP-005
-
-- `BLR-CP-005/BLR-CP-005-FINAL-DISCOVERY-FREEZE.md`;
-- `BLR-001-MANIFEST-AMENDMENT-CP005.md`;
-- `BLR-CP-005/cp005-final-freeze.ts`;
-- `BLR-CP-005/cp005-model.ts`;
-- `BLR-CP-005/cp005-independent-verifier.ts`;
-- `BLR-CP-005/cp005-runtime.ts`.
+- `BLR-001-END-TO-END-DESIGN.md`;
+- `blr-001-open-ql-discovery.md`;
+- `BLR-001-ENGLISH-GAP-AUDIT.md`;
+- `blr-001-english-gap-audit.ts`;
+- `blr-001-english-gap-audit.test.ts`;
+- `export-blr-001-english-gap-audit.ts`.
 
 ## Next phase
 
 ```text
-BLR-CP-006 source and boundary audit
-  -> coded-relation key and chain prototypes
-  -> independent decode and graph-closure proof
-  -> editorial and human review
-  -> merge/split and ownership audit
-  -> final discovery freeze
-  -> sequential allocation from BLR-QL-026
+manual English chapter review and freeze
+  -> Hindi and Punjabi localisation
+  -> multilingual parity proof
+  -> multilingual manual freeze
+  -> Question Studio integration
 ```
 
-The final chapter QL total remains open until CP-006 and CP-007 complete exhaustive discovery.
+No CP-008 implementation is planned at this stage.
 
 ## Release boundary
 
-Permanent identity does not enable delivery:
+Permanent identity and a green gap audit do not enable delivery:
 
 - English review-only: true;
+- manual English freeze: pending;
 - Question Studio: disabled;
 - Question Bank: disabled;
 - mock-test eligibility: disabled;
