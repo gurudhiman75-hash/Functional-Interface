@@ -90,6 +90,8 @@ for (const prototypeId of RNK_CP002_PROTOTYPE_IDS) {
     const evidence = question.displayedEvidence;
     if (
       (evidence.kind === 'SAME_END_TWO_RANKS' && evidence.requested === 'POSITION_GAP') ||
+      evidence.kind === 'SECOND_RANK_FROM_RELATIVE_OFFSET' ||
+      evidence.kind === 'BETWEEN_FROM_MIXED_END_RANKS' ||
       evidence.kind === 'TOTAL_FROM_MIXED_END_RANKS_KNOWN_ORDER'
     ) {
       assert.ok(
@@ -146,6 +148,8 @@ for (const prototypeId of RNK_CP002_PROTOTYPE_IDS) {
     extremes: [...extremes].sort(),
   });
 }
+
+assert.equal(optionRealismChecks, 960);
 
 const summary = {
   packageId: 'RNK-001',
