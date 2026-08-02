@@ -65,6 +65,32 @@ function toEditorialContext(value: unknown): EditorialRenderContext {
   return value as EditorialRenderContext;
 }
 
+function deriveNativeContextAliases(
+  qlId: string,
+  language: Pnl001NativeReviewLanguage,
+  context: EditorialRenderContext,
+): EditorialRenderContext {
+  if (qlId !== "PNL-QL-145") return context;
+  const table = context.schemeTable;
+  if (
+    !Array.isArray(table) ||
+    table.length !== 2 ||
+    !table.every((row) => Array.isArray(row) && row.length >= 3)
+  ) {
+    throw new Error(
+      `${qlId} ${language}: canonical scheme table cannot derive native explanation aliases.`,
+    );
+  }
+  const conjunction = language === "hi" ? " और " : " ਅਤੇ ";
+  const firstRow = table[0] as readonly unknown[];
+  const secondRow = table[1] as readonly unknown[];
+  return {
+    ...context,
+    firstScheme: `${String(firstRow[1])}${conjunction}${String(firstRow[2])}`,
+    secondScheme: `${String(secondRow[1])}${conjunction}${String(secondRow[2])}`,
+  };
+}
+
 export function buildPnl001LocalizedReviewSurface(
   qlId: string,
   language: Pnl001ReviewLanguage,
@@ -103,8 +129,12 @@ export function buildPnl001LocalizedReviewSurface(
     throw new Error(`${qlId} ${language}: Wave 03 native editorial entry is missing.`);
   }
 
-  const localizedContext = toEditorialContext(
-    localizePnl001CanonicalContext(recovery.context, language),
+  const localizedContext = deriveNativeContextAliases(
+    qlId,
+    language,
+    toEditorialContext(
+      localizePnl001CanonicalContext(recovery.context, language),
+    ),
   );
   const stem = renderLocalizedStructuredStemMarkdown(
     nativeEntry.stem,
