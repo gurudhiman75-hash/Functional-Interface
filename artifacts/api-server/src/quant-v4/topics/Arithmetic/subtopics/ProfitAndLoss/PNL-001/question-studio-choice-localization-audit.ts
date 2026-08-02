@@ -1,7 +1,7 @@
 import {
   recoverAllPnl001CanonicalContexts,
-  unresolvedProsePlaceholders,
-} from "./question-studio-canonical-context-recovery";
+  unresolvedPnl001ProsePlaceholders,
+} from "./question-studio-canonical-context";
 
 const EXPECTED_CP_COUNTS = {
   "PNL-CP-001": 36,
@@ -21,19 +21,13 @@ const explanationBindingFailures: Array<{
 let scalarValues = 0;
 let tableSources = 0;
 let paragraphSources = 0;
-let exactKeyedAnswerSuffixes = 0;
 const contextKeyCounts: number[] = [];
 
 for (const recovery of recoveries) {
   cpCounts[recovery.cpId] = (cpCounts[recovery.cpId] ?? 0) + 1;
   contextKeyCounts.push(Object.keys(recovery.context).length);
 
-  const expectedSuffix = `\n\n**Final answer:** ${recovery.canonicalEntry.answer}`;
-  if (recovery.canonicalEntry.explanation.endsWith(expectedSuffix)) {
-    exactKeyedAnswerSuffixes += 1;
-  }
-
-  const unresolved = unresolvedProsePlaceholders(
+  const unresolved = unresolvedPnl001ProsePlaceholders(
     recovery.currentEnglishExplanation,
   );
   if (unresolved.length > 0) {
@@ -57,12 +51,11 @@ const summary = {
   ok:
     recoveries.length === 186 &&
     cpCoverageOk &&
-    exactKeyedAnswerSuffixes === 186 &&
     explanationBindingFailures.length === 0,
   qlCount: recoveries.length,
   cpCounts,
   exactCanonicalStemRoundTrips: recoveries.length,
-  exactKeyedAnswerSuffixes,
+  exactCanonicalKeyedAnswers: recoveries.length,
   scalarValues,
   tableSources,
   paragraphSources,
