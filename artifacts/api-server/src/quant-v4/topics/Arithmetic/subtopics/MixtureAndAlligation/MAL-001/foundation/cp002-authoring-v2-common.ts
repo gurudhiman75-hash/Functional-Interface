@@ -144,7 +144,7 @@ export function buildMalCp002Stem(
       )} of ${context.componentBLabel}. If ${quantityMath(
         request.adjustmentQuantity,
         context,
-      )} of ${changed} is ${action} it, find the new ratio of ${context.componentALabel} to ${context.componentBLabel}.`;
+      )} of ${changed} is ${action} it, what is the new ratio of ${context.componentALabel} to ${context.componentBLabel}?`;
     }
 
     case "ORIGINAL_RATIO_FROM_FINAL_PURE_ADJUSTMENT": {
@@ -169,7 +169,7 @@ export function buildMalCp002Stem(
         context,
       )}. It contains ${context.componentALabel} and ${context.componentBLabel} in the ratio ${ratioMath(
         request.ratio,
-      )}. Find their quantities in the same order.`;
+      )}. What are their quantities in the same order?`;
 
     case "UNKNOWN_SINGLE_REPLACEMENT_TO_TARGET": {
       const replacement = componentLabel(
