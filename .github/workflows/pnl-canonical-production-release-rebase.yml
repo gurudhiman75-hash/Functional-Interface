@@ -1,0 +1,32 @@
+name: Sync PNL Canonical Production Release
+
+on:
+  pull_request:
+    types: [synchronize]
+    paths:
+      - ".github/workflows/pnl-canonical-production-release-rebase.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout release branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-canonical-production-release
+          fetch-depth: 0
+
+      - name: Merge latest New-main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin New-main
+          git merge --no-edit origin/New-main
+          git push origin HEAD:feat/pnl-001-canonical-production-release
