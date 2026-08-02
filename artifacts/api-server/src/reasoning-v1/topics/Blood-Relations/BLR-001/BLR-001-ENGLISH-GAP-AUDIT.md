@@ -1,30 +1,40 @@
 # BLR-001 — Chapter-Wide English Gap Audit
 
-Status: **executable audit implemented; exact-head validation and remediation pending**.
+Status: **executable chapter audit passed; English gap-freeze candidate approved technically; manual English freeze pending**.
 
 ## Purpose
 
 The end-to-end design contains seven content checkpoints. `BLR-CP-007` is the final planned content checkpoint; no `BLR-CP-008` is currently justified.
 
-This phase audits the complete English chapter as one system before any manual English freeze:
+The audit treats the complete English chapter as one system:
 
 ```text
 BLR-CP-001 through BLR-CP-007
 BLR-QL-001 through BLR-QL-035
 ```
 
-`BLR-QL-036` remains unallocated. A new QL or checkpoint may be created only if this audit or a later source audit proves a materially uncovered generator, solver, answer, ambiguity, explanation, localisation or renderer contract.
+`BLR-QL-036` remains unallocated. A new QL or checkpoint may be created only if a later source audit proves a materially uncovered generator, solver, answer, ambiguity, explanation, localisation or renderer contract.
 
-## Executable audit surface
+## Executable audit corpus
+
+```text
+CP-001 deterministic runtime sweep          448
+CP-002 deterministic runtime sweep           96
+CP-003 complete frozen bank                  298
+CP-004 complete frozen bank                  612
+CP-005 complete frozen bank                  184
+CP-006 complete frozen bank                  152
+CP-007 complete frozen bank                  168
+-----------------------------------------------
+chapter-wide audited questions             1,958
+```
 
 The audit includes:
 
-- all frozen CP-003, CP-004, CP-005, CP-006 and CP-007 records;
-- deterministic permanent-runtime sweeps across every CP-001 and CP-002 QL;
-- all 35 permanent solve-authority mappings;
+- every permanent QL and solve-authority mapping;
 - contiguous QL sequencing;
 - exact cross-QL learner-surface collision checks;
-- normalized cross-QL template-overlap reporting;
+- normalized cross-QL template-overlap checks;
 - option uniqueness, correct-index and answer parity;
 - learner-facing internal-jargon and broken-render checks;
 - explicit gender-evidence checks for gendered answers;
@@ -33,7 +43,29 @@ The audit includes:
 - review-only lifecycle locks;
 - included-source coverage and explicit out-of-scope boundaries.
 
-The human-review exporter provides two deterministic questions per permanent QL, the full ownership matrix, scope coverage, failure list and machine-readable summaries.
+## Final executable result
+
+```text
+planned content checkpoints                         7
+permanent QLs                                      35
+solve authorities                                  35
+exact cross-QL learner-surface collisions           0
+normalized cross-QL template collisions             0
+learner-text failures                               0
+gender-evidence failures                            0
+option-contract failures                            0
+lifecycle-lock failures                             0
+ownership failures                                  0
+open included source families                       0
+```
+
+Verdict:
+
+```text
+CHAPTER_ENGLISH_GAP_FREEZE_CANDIDATE
+```
+
+The audit created a 70-question human-review corpus containing two deterministic samples per permanent QL, plus the complete ownership matrix, source-coverage matrix, failure list and machine-readable summaries.
 
 ## Included chapter scope
 
@@ -57,13 +89,19 @@ Explicitly outside BLR-001 V1:
 - step, half, adoptive and foster relations without later source justification;
 - free-form runtime parsing.
 
+## Interpretation
+
+The clean result means the planned V1 scope has no executable authority gap and does not justify `BLR-QL-036` or `BLR-CP-008`.
+
+It does not prevent later evidence-based extension. Any future extension must repeat the full discovery sequence and prove a genuinely new contract rather than a new name, path length, symbol set, difficulty or presentation.
+
 ## Freeze boundary
 
-A green executable audit creates an **English gap-freeze candidate**, not an automatic product release.
+The green executable audit creates an **English gap-freeze candidate**, not an automatic manual freeze or product release.
 
 The following remain separate explicit gates:
 
-- manual English chapter freeze;
+- manual English chapter review and freeze;
 - Hindi and Punjabi localisation;
 - multilingual parity proof and freeze;
 - Question Studio integration;
