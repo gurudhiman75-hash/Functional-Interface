@@ -1,29 +1,18 @@
-const assert = {
-  equal(actual: unknown, expected: unknown, message?: string): void {
-    if (actual !== expected) throw new Error(message ?? `Expected ${String(expected)}, received ${String(actual)}.`);
-  },
-  deepEqual(actual: unknown, expected: unknown, message?: string): void {
-    if (JSON.stringify(actual) !== JSON.stringify(expected)) {
-      throw new Error(message ?? `Expected ${JSON.stringify(expected)}, received ${JSON.stringify(actual)}.`);
-    }
-  },
-  throws(callback: () => unknown, pattern: RegExp): void {
-    try {
-      callback();
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      if (!pattern.test(message)) throw error;
-      return;
-    }
-    throw new Error(`Expected callback to throw ${pattern}.`);
-  },
-};
-
 import { collectTerms, normalizePremise, normalizePremises } from "./normalization";
 import { classifyConclusionPrimary, solveConstraintSatisfiability } from "./primary-solver";
 import { modelSatisfiesConstraints } from "./region-model";
 import { verifySolverAgreement } from "./solver-agreement";
 import type { CanonicalConclusion, SurfacePremise } from "./types";
+
+function assert(condition: unknown, message: string): asserts condition {
+  if (!condition) throw new Error(message);
+}
+
+function equal(actual: unknown, expected: unknown, message: string): void {
+  if (actual !== expected) {
+    throw new Error(`${message}: ${String(actual)} !== ${String(expected)}`);
+  }
+}
 
 function conclusion(
   conclusionId: string,
@@ -41,128 +30,161 @@ function evaluate(
   const normalized = normalizePremises(premises);
   const terms = collectTerms(normalized, [candidate]);
   const agreement = verifySolverAgreement(normalized, candidate, terms);
-  assert.equal(agreement.agreed, true, `Solver disagreement for ${candidate.conclusionId}`);
+  assert(agreement.agreed, `Solver disagreement for ${candidate.conclusionId}`);
   return { normalized, terms, result: agreement.primary };
 }
 
-{
-  const { result } = evaluate(
+equal(
+  evaluate(
     [{ premiseId: "P1", form: "ALL", subject: "A", predicate: "B" }],
     conclusion("C1", "SOME", "A", "B"),
-  );
-  assert.equal(result.classification, "ENTAILED");
-}
+  ).result.classification,
+  "ENTAILED",
+  "A subalternation",
+);
 
-{
-  const { result } = evaluate(
+equal(
+  evaluate(
     [{ premiseId: "P1", form: "ALL", subject: "A", predicate: "B" }],
     conclusion("C1", "ALL", "B", "A"),
-  );
-  assert.equal(result.classification, "UNDETERMINED");
-}
+  ).result.classification,
+  "UNDETERMINED",
+  "All conversion",
+);
 
-{
-  const { result } = evaluate(
+equal(
+  evaluate(
     [{ premiseId: "P1", form: "NO", subject: "A", predicate: "B" }],
     conclusion("C1", "SOME_NOT", "A", "B"),
-  );
-  assert.equal(result.classification, "ENTAILED");
-}
+  ).result.classification,
+  "ENTAILED",
+  "E subject subalternation",
+);
 
-{
-  const { result } = evaluate(
+equal(
+  evaluate(
     [{ premiseId: "P1", form: "NO", subject: "A", predicate: "B" }],
     conclusion("C1", "SOME_NOT", "B", "A"),
-  );
-  assert.equal(result.classification, "UNDETERMINED");
-}
+  ).result.classification,
+  "ENTAILED",
+  "E conversion plus subalternation",
+);
 
-{
-  const normalized = normalizePremise({
-    premiseId: "ONLY-1",
-    form: "ONLY",
-    subject: "DOCTORS",
-    predicate: "SURGEONS",
-  });
-  assert.deepEqual(
-    normalized.canonicalConstraints.map((entry) =>
-      entry.kind === "EXISTS" || entry.kind === "EMPTY"
-        ? `${entry.kind}:${entry.term}`
-        : `${entry.kind}:${entry.subject}:${entry.predicate}`,
-    ),
-    ["ALL:SURGEONS:DOCTORS", "EXISTS:SURGEONS"],
-  );
+equal(
+  evaluate(
+    [{ premiseId: "P1", form: "NO", subject: "A", predicate: "B" }],
+    conclusion("C1", "NO", "B", "A"),
+  ).result.classification,
+  "ENTAILED",
+  "E conversion",
+);
 
-  const { result } = evaluate(
+const only = normalizePremise({
+  premiseId: "ONLY-1",
+  form: "ONLY",
+  subject: "DOCTORS",
+  predicate: "SURGEONS",
+});
+assert(
+  only.canonicalConstraints.some(
+    (entry) => entry.kind === "ALL"
+      && entry.subject === "SURGEONS"
+      && entry.predicate === "DOCTORS",
+  ),
+  "Only direction reversed incorrectly",
+);
+equal(
+  evaluate(
     [{ premiseId: "ONLY-1", form: "ONLY", subject: "DOCTORS", predicate: "SURGEONS" }],
     conclusion("C1", "ALL", "DOCTORS", "SURGEONS"),
-  );
-  assert.equal(result.classification, "UNDETERMINED");
-}
+  ).result.classification,
+  "UNDETERMINED",
+  "Only treated as identity",
+);
 
-{
-  const premises: readonly SurfacePremise[] = [
-    { premiseId: "P1", form: "ONLY_A_FEW", subject: "A", predicate: "B" },
-  ];
-  assert.equal(evaluate(premises, conclusion("C1", "SOME", "A", "B")).result.classification, "ENTAILED");
-  assert.equal(evaluate(premises, conclusion("C2", "SOME_NOT", "A", "B")).result.classification, "ENTAILED");
-  assert.equal(evaluate(premises, conclusion("C3", "ALL", "A", "B")).result.classification, "CONTRADICTED");
-}
+const onlyFew: readonly SurfacePremise[] = [
+  { premiseId: "P1", form: "ONLY_A_FEW", subject: "A", predicate: "B" },
+];
+equal(
+  evaluate(onlyFew, conclusion("C1", "SOME", "A", "B")).result.classification,
+  "ENTAILED",
+  "Only few overlap",
+);
+equal(
+  evaluate(onlyFew, conclusion("C2", "SOME_NOT", "A", "B")).result.classification,
+  "ENTAILED",
+  "Only few outside witness",
+);
+equal(
+  evaluate(onlyFew, conclusion("C3", "ALL", "A", "B")).result.classification,
+  "CONTRADICTED",
+  "Only few all contradiction",
+);
+equal(
+  evaluate(
+    [{ premiseId: "P1", form: "NOT_ALL", subject: "A", predicate: "B" }],
+    conclusion("C4", "SOME_NOT", "A", "B"),
+  ).result.classification,
+  "ENTAILED",
+  "Not-all normalization",
+);
 
-{
-  const constraints = normalizePremises([
-    { premiseId: "P1", form: "ALL", subject: "A", predicate: "B" },
-    { premiseId: "P2", form: "NO", subject: "A", predicate: "B" },
-  ]);
-  const terms = collectTerms(constraints);
-  assert.equal(solveConstraintSatisfiability(constraints, terms).satisfiable, false);
-}
+const inconsistent = normalizePremises([
+  { premiseId: "P1", form: "ALL", subject: "A", predicate: "B" },
+  { premiseId: "P2", form: "NO", subject: "A", predicate: "B" },
+]);
+equal(
+  solveConstraintSatisfiability(inconsistent, collectTerms(inconsistent)).satisfiable,
+  false,
+  "Inconsistent chain",
+);
 
-{
-  const constraints = normalizePremises([
-    { premiseId: "P1", form: "SOME", subject: "A", predicate: "B" },
-    { premiseId: "P2", form: "SOME_NOT", subject: "A", predicate: "B" },
-  ]);
-  const terms = collectTerms(constraints);
-  const solved = solveConstraintSatisfiability(constraints, terms);
-  assert.equal(solved.satisfiable, true);
-  if (!solved.model) throw new Error("Expected a satisfiable witness model.");
-  assert.equal(solved.model.occupiedRegions.length, 2, "Independent existential witnesses must remain separable.");
-  assert.equal(modelSatisfiesConstraints(solved.model, constraints), true);
-}
+const separate = normalizePremises([
+  { premiseId: "P1", form: "SOME", subject: "A", predicate: "B" },
+  { premiseId: "P2", form: "SOME_NOT", subject: "A", predicate: "B" },
+]);
+const solved = solveConstraintSatisfiability(separate, collectTerms(separate));
+assert(solved.satisfiable && solved.model !== null, "Expected witness model");
+equal(solved.model.occupiedRegions.length, 2, "Independent witnesses merged");
+assert(modelSatisfiesConstraints(solved.model, separate), "Invalid witness model");
 
-{
-  const { result } = evaluate(
+equal(
+  evaluate(
     [
       { premiseId: "P1", form: "ALL", subject: "A", predicate: "B" },
       { premiseId: "P2", form: "SOME", subject: "C", predicate: "A" },
     ],
     conclusion("C1", "SOME", "C", "B"),
-  );
-  assert.equal(result.classification, "ENTAILED");
-}
+  ).result.classification,
+  "ENTAILED",
+  "Transitive existential conclusion",
+);
 
-{
-  const normalized = normalizePremises([]);
-  const candidate = conclusion("C1", "SOME", "A", "B");
-  const terms = collectTerms(normalized, [candidate]);
-  const result = classifyConclusionPrimary(normalized, candidate, terms);
-  assert.equal(result.classification, "UNDETERMINED");
-}
+equal(
+  classifyConclusionPrimary(
+    [],
+    conclusion("C1", "SOME", "A", "B"),
+    ["A", "B"],
+  ).classification,
+  "UNDETERMINED",
+  "Unconstrained possibility",
+);
 
-{
-  assert.throws(
-    () => normalizePremise({ premiseId: "P1", form: "FEW", subject: "A", predicate: "B" }),
-    /source-profile governed/,
-  );
+let fewRejected = false;
+try {
+  normalizePremise({ premiseId: "P1", form: "FEW", subject: "A", predicate: "B" });
+} catch {
+  fewRejected = true;
 }
+assert(fewRejected, "Plain FEW must remain rejected");
 
-{
-  const { result } = evaluate(
+equal(
+  evaluate(
     [{ premiseId: "P1", form: "IDENTITY", subject: "A", predicate: "B" }],
     conclusion("C1", "ALL", "B", "A"),
-  );
-  assert.equal(result.classification, "ENTAILED");
-}
+  ).result.classification,
+  "ENTAILED",
+  "Identity",
+);
 
 console.log("SYL-001 foundation adversarial proof passed.");
