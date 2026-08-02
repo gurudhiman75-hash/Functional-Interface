@@ -105,6 +105,8 @@ assert(directTimeRows.every((row) => / seconds?$/.test(row.answerText)), "Canoni
 const deadlineRows = rows.filter((row) => row.solveMode === "requiredUniformSpeedForDeadline");
 assert(deadlineRows.every((row) => row.input.solveMode === "requiredUniformSpeedForDeadline" && row.input.outputUnit === "KMPH"), "Deadline questions must retain the natural km/h clock context");
 
+const learnerText = JSON.stringify(rows);
+assert(!/km\/h kilometres|m\/s metres|seconds\/km seconds|minutes\/km minutes/i.test(learnerText), "Duplicated unit noun leaked into learner explanation");
 assert(rows.every((row) => row.options.length === 4 && new Set(row.options).size === 4), "Answer-unit audit introduced duplicate options");
 assert(rows.every((row) => row.answerText === row.options[row.correctIndex]), "Answer-unit audit introduced an answer-key mismatch");
 
@@ -122,6 +124,7 @@ console.log(JSON.stringify({
   },
   deadlineUnit: "km/h",
   unitAwarePaceDiagnoses: true,
+  duplicatedUnitNounLeaks: 0,
   addedNaturalEdges: [
     "mixed speed in km/h, m/s and m/min",
     "speed from seconds/km into m/s",
