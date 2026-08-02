@@ -114,6 +114,17 @@ export function generateIntCp002FinalQuestion(
   const options = rotate(source.options, rotationOffset);
   const optionAudit = rotate(source.optionAudit, rotationOffset);
   const correctIndex = desiredCorrectIndex;
+  const explanation: CommonSourceQuestion["explanation"] = {
+    ...source.explanation,
+    trapAnalysis: optionAudit
+      .map((option, index) => ({ option, index }))
+      .filter(({ option }) => option.misconceptionId !== "CORRECT")
+      .map(({ option, index }) => ({
+        optionNumber: index + 1,
+        misconceptionId: option.misconceptionId,
+        explanation: option.explanation,
+      })),
+  };
   const errors = [...source.validation.errors];
 
   if (!source.validation.ok) errors.push("Source runtime validation failed.");
@@ -124,8 +135,17 @@ export function generateIntCp002FinalQuestion(
   if (optionAudit[correctIndex]?.misconceptionId !== "CORRECT") {
     errors.push("QL-owned answer rotation did not preserve correct-option ownership.");
   }
-  if (!source.explanation.conclusion.includes(options[correctIndex]!)) {
+  if (!explanation.conclusion.includes(options[correctIndex]!)) {
     errors.push("Final explanation conclusion does not state the displayed correct answer.");
+  }
+  if (explanation.trapAnalysis.length !== 3) {
+    errors.push("Final wrong-option analysis is incomplete after answer rotation.");
+  }
+  for (const trap of explanation.trapAnalysis) {
+    const audited = optionAudit[trap.optionNumber - 1];
+    if (!audited || audited.misconceptionId !== trap.misconceptionId || audited.explanation !== trap.explanation) {
+      errors.push(`Rotated trap analysis is not aligned with option ${trap.optionNumber}.`);
+    }
   }
   if (source.answerSemantic !== registryEntry.answerSemantic) {
     errors.push(`Source answer semantic '${source.answerSemantic}' does not match registry semantic '${registryEntry.answerSemantic}'.`);
@@ -134,12 +154,12 @@ export function generateIntCp002FinalQuestion(
   const learnerText = [
     source.stem,
     ...options,
-    source.explanation.mainRule,
-    ...source.explanation.workedSteps,
-    source.explanation.examShortcut,
-    source.explanation.verification,
-    source.explanation.conclusion,
-    ...source.explanation.trapAnalysis.map((item) => item.explanation),
+    explanation.mainRule,
+    ...explanation.workedSteps,
+    explanation.examShortcut,
+    explanation.verification,
+    explanation.conclusion,
+    ...explanation.trapAnalysis.map((item) => item.explanation),
   ].join(" ");
   if (/INT-CP|INT-QL|PROT-|WAVE0|CLOSE-|prototypeId|effectiveSeed|generationAttempts/iu.test(learnerText)) {
     errors.push("Learner-facing text leaks an internal identity.");
@@ -164,7 +184,7 @@ export function generateIntCp002FinalQuestion(
     options,
     optionAudit,
     correctIndex,
-    explanation: source.explanation,
+    explanation,
     solution: source.solution,
     mathematicalFingerprint: `${qlId}::${source.mathematicalFingerprint}`,
     validation: { ok: errors.length === 0, errors },
