@@ -142,8 +142,10 @@ function localizedCoreConcept(
         return `अधिकतर अक्षर ${commonValue === "VOWEL" ? "स्वर" : "व्यंजन"} हैं; केवल एक अक्षर दूसरे वर्ग का है।`;
       case "LETTER_POSITION_PARITY":
         return `अधिकतर अक्षरों के वर्णमाला क्रमांक ${commonValue === "EVEN_POSITION" ? "सम" : "विषम"} हैं; केवल एक अक्षर का क्रमांक अलग प्रकार का है।`;
-      case "LETTER_ALPHABET_HALF":
-        return `अधिकतर अक्षर वर्णमाला के ${commonValue === "FIRST_HALF" ? "पहले" : "दूसरे"} आधे भाग में हैं; केवल एक अक्षर दूसरे भाग में है।`;
+      case "LETTER_ALPHABET_HALF": {
+        const commonFirstHalf = commonValue === "FIRST_HALF";
+        return `अधिकतर अक्षर वर्णमाला के ${commonFirstHalf ? "पहले" : "दूसरे"} आधे भाग में हैं; केवल एक अक्षर ${commonFirstHalf ? "दूसरे" : "पहले"} आधे भाग में है।`;
+      }
       case "PAIR_ABSOLUTE_POSITION_GAP":
         return `अधिकतर जोड़ियों में दोनों अक्षरों के क्रमांकों का अंतर ${commonValue} है; केवल एक जोड़ी का अंतर अलग है।`;
       case "PAIR_SIGNED_POSITION_GAP": {
@@ -169,8 +171,10 @@ function localizedCoreConcept(
       return `ਜ਼ਿਆਦਾਤਰ ਅੱਖਰ ${commonValue === "VOWEL" ? "ਸਵਰ" : "ਵਿਅੰਜਨ"} ਹਨ; ਸਿਰਫ਼ ਇੱਕ ਅੱਖਰ ਦੂਜੇ ਵਰਗ ਦਾ ਹੈ।`;
     case "LETTER_POSITION_PARITY":
       return `ਜ਼ਿਆਦਾਤਰ ਅੱਖਰਾਂ ਦੇ ਵਰਣਮਾਲਾ ਨੰਬਰ ${commonValue === "EVEN_POSITION" ? "ਜੋੜੇ" : "ਟਾਂਕ"} ਹਨ; ਸਿਰਫ਼ ਇੱਕ ਅੱਖਰ ਦਾ ਨੰਬਰ ਵੱਖਰੀ ਕਿਸਮ ਦਾ ਹੈ।`;
-    case "LETTER_ALPHABET_HALF":
-      return `ਜ਼ਿਆਦਾਤਰ ਅੱਖਰ ਵਰਣਮਾਲਾ ਦੇ ${commonValue === "FIRST_HALF" ? "ਪਹਿਲੇ" : "ਦੂਜੇ"} ਅੱਧ ਵਿੱਚ ਹਨ; ਸਿਰਫ਼ ਇੱਕ ਅੱਖਰ ਦੂਜੇ ਅੱਧ ਵਿੱਚ ਹੈ।`;
+    case "LETTER_ALPHABET_HALF": {
+      const commonFirstHalf = commonValue === "FIRST_HALF";
+      return `ਜ਼ਿਆਦਾਤਰ ਅੱਖਰ ਵਰਣਮਾਲਾ ਦੇ ${commonFirstHalf ? "ਪਹਿਲੇ" : "ਦੂਜੇ"} ਅੱਧ ਵਿੱਚ ਹਨ; ਸਿਰਫ਼ ਇੱਕ ਅੱਖਰ ${commonFirstHalf ? "ਦੂਜੇ" : "ਪਹਿਲੇ"} ਅੱਧ ਵਿੱਚ ਹੈ।`;
+    }
     case "PAIR_ABSOLUTE_POSITION_GAP":
       return `ਜ਼ਿਆਦਾਤਰ ਜੋੜਿਆਂ ਵਿੱਚ ਦੋਵਾਂ ਅੱਖਰਾਂ ਦੇ ਨੰਬਰਾਂ ਦਾ ਫਰਕ ${commonValue} ਹੈ; ਸਿਰਫ਼ ਇੱਕ ਜੋੜੇ ਦਾ ਫਰਕ ਵੱਖਰਾ ਹੈ।`;
     case "PAIR_SIGNED_POSITION_GAP": {
