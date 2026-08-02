@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 
+import { reverseRelation } from "../foundation/relations";
 import { INE_CP001_CONCLUSION_CONTRACTS } from "./conclusion-contracts";
 import { generateIneCp001ConclusionQuestion } from "./conclusion-generator";
 import { validateIneCp001ConclusionQuestion } from "./conclusion-validator";
@@ -39,6 +40,10 @@ for (const contract of INE_CP001_CONCLUSION_CONTRACTS) {
     assert.equal(question.prototypeOnly, true);
     assert.equal(question.publiclyPublishable, false);
     assert.equal(question.questionStudioVisible, false);
+    assert.equal(
+      question.metadata.runtimeVersion,
+      "ine-cp001-conclusion-prototype-v2",
+    );
     assert.equal(question.metadata.independentSolverAgreed, true);
     assert.equal(question.metadata.graphConsistent, true);
 
@@ -54,11 +59,8 @@ for (const contract of INE_CP001_CONCLUSION_CONTRACTS) {
     assert.equal(question.options[question.correctIndex]?.isCorrect, true);
     assert.equal(question.metadata.distractorErrorLabels.length, 3);
     assert.equal(question.explanation.distractorAnalysis.length, 3);
-    assert.equal(
-      question.explanation.normalizedStatements.length,
-      question.structuredStatements.length,
-    );
-    assert.ok(question.explanation.ruleStatement.length > 100);
+    assert.equal(question.explanation.normalizedStatements.length, 0);
+    assert.ok(question.explanation.ruleStatement.length > 35);
     assert.ok(question.explanation.proofSteps.length >= 1);
     assert.ok(question.explanation.conclusion.length > 40);
 
@@ -70,7 +72,7 @@ for (const contract of INE_CP001_CONCLUSION_CONTRACTS) {
       assert.equal(question.metadata.conclusionTruths.length, 1);
       observedTruths.add(question.metadata.conclusionTruths[0]!);
       if (question.metadata.conclusionTruths[0] === "POSSIBLY_TRUE") {
-        assert.equal(question.explanation.modelWitnesses.length, 2);
+        assert.equal(question.explanation.modelWitnesses.length, 1);
         possibleWitnessQuestions += 1;
       }
     } else {
@@ -87,6 +89,12 @@ for (const contract of INE_CP001_CONCLUSION_CONTRACTS) {
       explanation: question.explanation,
     });
     assert.ok(!learnerText.includes("E1"));
+    assert.ok(
+      !learnerText.includes("independently verified conclusion status"),
+    );
+    assert.ok(!learnerText.includes("is classified as"));
+    assert.ok(!learnerText.includes("A valid model has"));
+    assert.ok(!/\bS\d+:/.test(learnerText));
     assert.ok(!/\b(?:undefined|null|NaN)\b/.test(learnerText));
 
     answerPositions[question.correctIndex] += 1;
@@ -104,6 +112,37 @@ assert.deepEqual([...observedTruths].sort(), [
 ]);
 assert.equal(observedAuthorities.size, 3);
 assert.ok(possibleWitnessQuestions >= 33);
+
+const duplicateFixture = generateIneCp001ConclusionQuestion(
+  "INE-CP001-PROT-SELECT-INVALID-CONCLUSION",
+  0,
+);
+const sourceOption = duplicateFixture.options[1]!;
+const duplicateOptions = duplicateFixture.options.map((option, index) =>
+  index === 2
+    ? {
+        ...option,
+        value: `Reversed duplicate of ${sourceOption.value}`,
+        conclusion: {
+          ...sourceOption.conclusion!,
+          leftId: sourceOption.conclusion!.rightId,
+          relation: reverseRelation(sourceOption.conclusion!.relation),
+          rightId: sourceOption.conclusion!.leftId,
+        },
+        truth: sourceOption.truth,
+      }
+    : option,
+);
+const duplicateValidation = validateIneCp001ConclusionQuestion({
+  ...duplicateFixture,
+  options: duplicateOptions,
+});
+assert.equal(duplicateValidation.valid, false);
+assert.ok(
+  duplicateValidation.errors.some((error) =>
+    error.includes("equivalent relation in reversed form"),
+  ),
+);
 
 console.log("INE-CP-001 conclusion prototype audit passed.", {
   generatedCount,

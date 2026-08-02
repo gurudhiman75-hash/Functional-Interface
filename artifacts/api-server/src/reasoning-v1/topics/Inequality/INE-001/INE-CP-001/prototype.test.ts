@@ -48,7 +48,7 @@ for (const contract of INE_CP001_PROTOTYPE_CONTRACTS) {
     assert.equal(question.publiclyPublishable, false);
     assert.equal(question.questionStudioVisible, false);
     assert.equal(question.locale, "en-IN");
-    assert.equal(question.metadata.runtimeVersion, "ine-cp001-prototype-v1");
+    assert.equal(question.metadata.runtimeVersion, "ine-cp001-prototype-v2");
     assert.equal(question.metadata.independentSolverAgreed, true);
     assert.equal(question.metadata.graphConsistent, true);
     assert.ok(question.metadata.hiddenFingerprint.length >= 8);
@@ -83,7 +83,7 @@ for (const contract of INE_CP001_PROTOTYPE_CONTRACTS) {
     assert.equal(validation.agreementEvidence?.agreed, true);
     assert.ok(validation.agreementEvidence!.modelEvidence.validModelCount > 0);
 
-    assert.ok(question.stem.endsWith("."));
+    assert.match(question.stem, /[.?]$/);
     assert.equal(
       question.displayedStatements.length,
       question.structuredPrompt.statements.length,
@@ -93,11 +93,8 @@ for (const contract of INE_CP001_PROTOTYPE_CONTRACTS) {
         /[><=≥≤]/.test(statement),
       ),
     );
-    assert.ok(question.explanation.ruleStatement.length > 80);
-    assert.equal(
-      question.explanation.normalizedStatements.length,
-      question.structuredPrompt.statements.length,
-    );
+    assert.ok(question.explanation.ruleStatement.length > 12);
+    assert.equal(question.explanation.normalizedStatements.length, 0);
     assert.ok(question.explanation.proofSteps.length >= 1);
     assert.ok(question.explanation.conclusion.length > 40);
     assert.equal(question.explanation.distractorAnalysis.length, 3);
@@ -117,7 +114,7 @@ for (const contract of INE_CP001_PROTOTYPE_CONTRACTS) {
         "EQ",
         "GT",
       ]);
-      assert.equal(question.explanation.modelWitnesses.length, 3);
+      assert.equal(question.explanation.modelWitnesses.length, 1);
       indeterminateCount += 1;
     } else {
       assert.ok(question.metadata.strongestDefiniteRelation);
@@ -132,6 +129,9 @@ for (const contract of INE_CP001_PROTOTYPE_CONTRACTS) {
     });
     assert.ok(!learnerText.includes("E1"));
     assert.ok(!learnerText.includes("hiddenFingerprint"));
+    assert.ok(!learnerText.includes("A valid model has"));
+    assert.ok(!learnerText.includes("There is no directed comparison path"));
+    assert.ok(!learnerText.includes("This option is not supported"));
     assert.ok(!/\b(?:undefined|null|NaN)\b/.test(learnerText));
 
     answerPositions[question.correctIndex] += 1;

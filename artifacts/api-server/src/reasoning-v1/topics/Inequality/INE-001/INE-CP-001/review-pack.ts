@@ -30,9 +30,11 @@ function explanationText(
     ...explanation.modelWitnesses,
     explanation.conclusion,
     ...explanation.distractorAnalysis.map(
-      (entry) => `${entry.optionValue}: ${entry.studentWarning}`,
+      (entry) => `Why not “${entry.optionValue}”? ${entry.studentWarning}`,
     ),
-  ].join("\n");
+  ]
+    .filter((paragraph) => paragraph.trim().length > 0)
+    .join("\n\n");
 }
 
 export function buildIneCp001ReviewPack(

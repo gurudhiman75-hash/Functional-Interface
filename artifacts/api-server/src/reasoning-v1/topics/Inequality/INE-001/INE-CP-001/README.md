@@ -21,7 +21,8 @@ This checkpoint owns the direct-chain mathematical foundation for INE-001. The c
 - deterministic hidden-state-first scenario generation;
 - direct, transitive-strict, strongest-inclusive, equality-propagation, and indeterminate-branch prototypes;
 - four unique misconception-owned answer options;
-- evidence-driven English explanations with counter-witnesses for indeterminate cases;
+- natural, evidence-driven English explanations that do not expose internal model assignments;
+- canonical option-equivalence checks that reject reversed duplicates such as `A > B` and `B < A`;
 - a 500-question deterministic prototype audit;
 - single-conclusion definite/possible/impossible evaluation;
 - select-valid and select-invalid conclusion authorities;

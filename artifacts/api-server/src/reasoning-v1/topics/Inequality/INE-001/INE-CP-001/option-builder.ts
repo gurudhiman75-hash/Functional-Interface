@@ -1,6 +1,10 @@
 import { SeededRandom, stableHash } from "../foundation/prng";
-import { answerLabel } from "./presentation";
-import type { IneCp001AnswerSemantic, IneCp001Option } from "./types";
+import { answerOptionLabel } from "./presentation";
+import type {
+  IneCp001AnswerSemantic,
+  IneCp001Option,
+  IneCp001StructuredPrompt,
+} from "./types";
 
 interface DistractorCandidate {
   semanticValue: IneCp001AnswerSemantic;
@@ -76,6 +80,7 @@ export function buildIneCp001Options(
   correctAnswer: IneCp001AnswerSemantic,
   prototypeId: string,
   seed: number,
+  prompt: IneCp001StructuredPrompt,
 ): { options: readonly IneCp001Option[]; correctIndex: number } {
   const random = new SeededRandom(
     seed ^ Number.parseInt(stableHash([prototypeId, "options"]), 16),
@@ -87,14 +92,14 @@ export function buildIneCp001Options(
   for (let optionIndex = 0; optionIndex < 4; optionIndex += 1) {
     if (optionIndex === correctIndex) {
       options.push({
-        value: answerLabel(correctAnswer),
+        value: answerOptionLabel(correctAnswer, prompt),
         semanticValue: correctAnswer,
         isCorrect: true,
       });
     } else {
       const distractor = distractors[distractorIndex++]!;
       options.push({
-        value: answerLabel(distractor.semanticValue),
+        value: answerOptionLabel(distractor.semanticValue, prompt),
         semanticValue: distractor.semanticValue,
         isCorrect: false,
         errorLabel: distractor.errorLabel,

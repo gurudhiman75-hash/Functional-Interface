@@ -1,6 +1,17 @@
 import { evaluateConclusion } from "../foundation/conclusion-evaluator";
+import { normalizeConstraintDirection } from "../foundation/relations";
+import type { ComparisonConstraint } from "../foundation/types";
 import { verifySolverAgreement } from "../foundation/solver-agreement";
 import type { GeneratedIneCp001ConclusionQuestion } from "./types";
+
+function canonicalConclusionKey(conclusion: ComparisonConstraint): string {
+  if (conclusion.relation === "EQUAL_TO") {
+    const [leftId, rightId] = [conclusion.leftId, conclusion.rightId].sort();
+    return `${leftId}|EQUAL_TO|${rightId}`;
+  }
+  const normalized = normalizeConstraintDirection(conclusion);
+  return `${normalized.leftId}|${normalized.relation}|${normalized.rightId}`;
+}
 
 export function validateIneCp001ConclusionQuestion(
   question: GeneratedIneCp001ConclusionQuestion,
@@ -17,6 +28,21 @@ export function validateIneCp001ConclusionQuestion(
   if (new Set(question.options.map((option) => option.value)).size !== 4) {
     errors.push("Conclusion options must be unique.");
   }
+  const conclusionOptions = question.options.filter(
+    (option) => option.conclusion,
+  );
+  if (
+    conclusionOptions.length > 0 &&
+    new Set(
+      conclusionOptions.map((option) =>
+        canonicalConclusionKey(option.conclusion!),
+      ),
+    ).size !== conclusionOptions.length
+  ) {
+    errors.push(
+      "Conclusion options must not repeat an equivalent relation in reversed form.",
+    );
+  }
   for (const option of question.options) {
     if (!option.conclusion) continue;
     const evaluation = evaluateConclusion(
@@ -32,6 +58,21 @@ export function validateIneCp001ConclusionQuestion(
     );
     if (!agreement.agreed)
       errors.push(`Solver disagreement for ${option.value}.`);
+  }
+
+  const expectedCorrect = question.options.filter((option) => {
+    if (question.authorityId === "SELECT_VALID_CONCLUSION") {
+      return option.truth === "DEFINITELY_TRUE";
+    }
+    if (question.authorityId === "SELECT_INVALID_CONCLUSION") {
+      return option.truth !== "DEFINITELY_TRUE";
+    }
+    return option.truth === question.metadata.conclusionTruths[0];
+  });
+  if (expectedCorrect.length !== 1 || !expectedCorrect[0]!.isCorrect) {
+    errors.push(
+      "The marked option does not match the question's answer contract.",
+    );
   }
   return { valid: errors.length === 0, errors };
 }

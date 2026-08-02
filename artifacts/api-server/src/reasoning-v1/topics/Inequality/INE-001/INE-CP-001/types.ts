@@ -80,7 +80,7 @@ export interface GeneratedIneCp001PrototypeQuestion {
   correctIndex: number;
   explanation: IneCp001Explanation;
   metadata: {
-    runtimeVersion: "ine-cp001-prototype-v1";
+    runtimeVersion: "ine-cp001-prototype-v2";
     hiddenFingerprint: string;
     topologyId: string;
     statementCount: number;
@@ -139,7 +139,7 @@ export interface GeneratedIneCp001ConclusionQuestion {
   correctIndex: number;
   explanation: IneCp001Explanation;
   metadata: {
-    runtimeVersion: "ine-cp001-conclusion-prototype-v1";
+    runtimeVersion: "ine-cp001-conclusion-prototype-v2";
     hiddenFingerprint: string;
     conclusionTruths: readonly import("../foundation/types").ConclusionTruth[];
     independentSolverAgreed: true;

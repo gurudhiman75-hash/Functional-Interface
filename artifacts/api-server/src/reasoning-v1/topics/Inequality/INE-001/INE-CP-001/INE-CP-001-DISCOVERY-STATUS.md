@@ -33,7 +33,9 @@ All authorities remain provisional. Their names express solve ownership, not per
 - answer positions are exactly balanced across all four positions;
 - every generated instance is checked by the graph solver and bounded model enumerator;
 - every distractor has an explicit misconception owner;
+- canonically equivalent options are rejected even when one is written in reverse, such as `A > B` and `B < A`;
 - indeterminate questions retain concrete `LT`, `EQ`, and `GT` witnesses;
+- learner explanations use the displayed chain and symbolic possibilities rather than internal numeric assignments;
 - the committed English review pack contains 40 deterministic questions, with five seeds for each of the eight authorities.
 
 ## Open source and representation work

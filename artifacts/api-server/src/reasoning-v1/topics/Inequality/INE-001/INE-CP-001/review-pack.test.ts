@@ -13,8 +13,21 @@ assert.ok(rows.every((row) => row.permanentQlId === null));
 assert.ok(rows.every((row) => row.questionStudioVisible === false));
 assert.ok(rows.every((row) => row.statements.length >= 1));
 assert.ok(rows.every((row) => row.options.length === 4));
+assert.ok(
+  rows.every((row) => new Set(row.options).size === row.options.length),
+);
 assert.ok(rows.every((row) => row.options.includes(row.correctOption)));
-assert.ok(rows.every((row) => row.explanation.length > 250));
+assert.ok(rows.every((row) => row.explanation.length > 180));
+assert.ok(
+  rows.every(
+    (row) =>
+      !row.explanation.includes(
+        "This option does not match the independently verified conclusion status",
+      ),
+  ),
+);
+assert.ok(rows.every((row) => !row.explanation.includes("A valid model has")));
+assert.ok(rows.every((row) => !/\bS\d+:/.test(row.explanation)));
 
 const repeat = buildIneCp001ReviewPack(4);
 assert.deepEqual(repeat, rows);

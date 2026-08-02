@@ -1,4 +1,4 @@
-import type { SolverAgreementEvidence } from "../foundation/types";
+import type { AtomicOrder, SolverAgreementEvidence } from "../foundation/types";
 import { answerLabel, formatStatement } from "./presentation";
 import type {
   IneCp001AnswerSemantic,
@@ -7,34 +7,6 @@ import type {
   IneCp001StructuredPrompt,
 } from "./types";
 
-const WARNING_BY_ERROR: Readonly<Record<string, string>> = {
-  MISREAD_QUERY_DIRECTION: "This reverses the order asked in the question.",
-  DEMOTE_STRICT_TO_INCLUSIVE:
-    "A strict step makes the complete consistent path strict.",
-  IGNORE_STRICTNESS:
-    "Equality cannot survive a path that contains a strict step.",
-  DROP_VALID_PROOF_PATH:
-    "The displayed statements contain a valid connecting proof path.",
-  IGNORE_EQUALITY_PROPAGATION:
-    "Equal entities inherit the same relation to the third entity.",
-  TREAT_EQUALITY_AS_UNKNOWN:
-    "Displayed equality is exact evidence, not missing information.",
-  WEAKEN_EXACT_EQUALITY:
-    "The evidence proves exact equality, so a weaker inclusive label is not the strongest answer.",
-  PROMOTE_INCLUSIVE_TO_STRICT:
-    "Inclusive steps allow equality, so strictness is not guaranteed.",
-  KEEP_ONLY_EQUALITY_CASE:
-    "An inclusive relation also permits the strict case.",
-  TREAT_UNKNOWN_AS_EQUAL:
-    "No fixed relation does not mean the two entities are equal.",
-  ASSUME_LEFT_BRANCH_HIGHER:
-    "Sharing a lower bound does not order the two upper entities.",
-  ASSUME_RIGHT_BRANCH_HIGHER:
-    "Sharing a lower bound does not order the two upper entities.",
-  ASSUME_SHARED_BOUND_IMPLIES_ORDER:
-    "A common bound does not create a comparison edge between the queried entities.",
-};
-
 function queryNames(prompt: IneCp001StructuredPrompt): [string, string] {
   return [
     prompt.entityNames[prompt.query.leftId] ?? prompt.query.leftId,
@@ -42,41 +14,174 @@ function queryNames(prompt: IneCp001StructuredPrompt): [string, string] {
   ];
 }
 
+function naturalList(values: readonly string[]): string {
+  if (values.length === 1) return values[0]!;
+  if (values.length === 2) return `${values[0]} or ${values[1]}`;
+  return `${values.slice(0, -1).join(", ")}, or ${values.at(-1)}`;
+}
+
+function atomicRelationText(
+  order: AtomicOrder,
+  leftName: string,
+  rightName: string,
+): string {
+  const symbol = order === "GT" ? ">" : order === "LT" ? "<" : "=";
+  return `${leftName} ${symbol} ${rightName}`;
+}
+
 function proofSteps(
   prompt: IneCp001StructuredPrompt,
+  correctAnswer: IneCp001AnswerSemantic,
   agreement: SolverAgreementEvidence,
 ): string[] {
   const [leftName, rightName] = queryNames(prompt);
   const evidence = agreement.graphEvidence!;
-  if (!evidence.proofPath) {
+
+  if (correctAnswer === "INDETERMINATE") {
     return [
-      `There is no directed comparison path connecting ${leftName} to ${rightName}.`,
+      `The statements compare ${leftName} and ${rightName} with other terms, but they never force one fixed order between the two.`,
     ];
   }
-  const sourceIds = [
-    ...new Set(
-      evidence.proofPath.steps.flatMap((step) => step.sourceStatementIds),
-    ),
-  ];
+
+  if (correctAnswer === "EQUAL_TO") {
+    return [
+      `The equality information places ${leftName} and ${rightName} at exactly the same value.`,
+    ];
+  }
+
+  const equality = prompt.statements.find(
+    (statement) =>
+      statement.relation === "EQUAL_TO" &&
+      [statement.leftId, statement.rightId].some(
+        (entityId) =>
+          entityId === prompt.query.leftId || entityId === prompt.query.rightId,
+      ),
+  );
+  if (equality) {
+    const equalIds = new Set([equality.leftId, equality.rightId]);
+    const comparison = prompt.statements.find(
+      (statement) =>
+        statement.relation !== "EQUAL_TO" &&
+        (equalIds.has(statement.leftId) || equalIds.has(statement.rightId)),
+    );
+    if (comparison) {
+      return [
+        `Because ${formatStatement(equality, prompt.entityNames)}, the comparison ${formatStatement(comparison, prompt.entityNames)} also fixes the relation between ${leftName} and ${rightName}. In the order asked, this gives ${leftName} ${answerLabel(correctAnswer)} ${rightName}.`,
+      ];
+    }
+  }
+
+  if (evidence.proofPath?.strict) {
+    return [
+      evidence.proofPath.steps.length === 1
+        ? `The relevant comparison fixes a strict order between ${leftName} and ${rightName}; equality is not possible.`
+        : `Following the chain from ${leftName} to ${rightName}, at least one link is strict. That strict link rules out equality at the two ends.`,
+    ];
+  }
+
+  const direction =
+    correctAnswer === "GREATER_THAN_OR_EQUAL"
+      ? "greater than or equal to"
+      : "less than or equal to";
   return [
-    `Use ${sourceIds.join(" and ")} to connect ${leftName} with ${rightName}.`,
-    evidence.proofPath.strict
-      ? "The consistent path contains a strict step, so the endpoint relation is strict."
-      : "Every step on the consistent path is inclusive, so equality remains possible.",
+    `The chain keeps ${leftName} ${direction} ${rightName}. None of its links is strict, so equality is still possible.`,
   ];
 }
 
-function modelWitnesses(
+function possibleRelations(
   prompt: IneCp001StructuredPrompt,
   agreement: SolverAgreementEvidence,
 ): string[] {
   if (agreement.graphEvidence?.strongestDefiniteRelation) return [];
   const [leftName, rightName] = queryNames(prompt);
-  return agreement.modelEvidence.possibleAtomicRelations.map((order) => {
-    const assignment = agreement.modelEvidence.witnessByRelation[order]!;
-    const symbol = order === "GT" ? ">" : order === "LT" ? "<" : "=";
-    return `A valid model has ${leftName}=${assignment[prompt.query.leftId]} and ${rightName}=${assignment[prompt.query.rightId]}, so ${leftName} ${symbol} ${rightName}.`;
+  const possibilities = agreement.modelEvidence.possibleAtomicRelations.map(
+    (order) => atomicRelationText(order, leftName, rightName),
+  );
+  return [
+    `All three arrangements remain possible: ${naturalList(possibilities)}.`,
+  ];
+}
+
+function openingSentence(
+  prompt: IneCp001StructuredPrompt,
+  correctAnswer: IneCp001AnswerSemantic,
+  agreement: SolverAgreementEvidence,
+): string {
+  const allStatements = prompt.statements.map((statement) =>
+    formatStatement(statement, prompt.entityNames),
+  );
+  if (correctAnswer === "INDETERMINATE") {
+    return `The statements tell us ${allStatements.join(" and ")}.`;
+  }
+
+  const sourceIds = new Set(
+    agreement.graphEvidence?.proofPath?.steps.flatMap(
+      (step) => step.sourceStatementIds,
+    ) ?? [],
+  );
+  const relevantComponentIds = new Set(
+    agreement.graphEvidence?.proofPath?.componentIds ?? [],
+  );
+  for (const component of agreement.graphAnalysis.equalityComponents) {
+    if (
+      component.includes(prompt.query.leftId) ||
+      component.includes(prompt.query.rightId)
+    ) {
+      relevantComponentIds.add(component[0]!);
+    }
+  }
+  const relevantStatements = prompt.statements.filter((statement) => {
+    if (sourceIds.has(statement.sourceStatementId)) return true;
+    if (statement.relation !== "EQUAL_TO") return false;
+    return agreement.graphAnalysis.equalityComponents.some(
+      (component) =>
+        relevantComponentIds.has(component[0]!) &&
+        component.includes(statement.leftId) &&
+        component.includes(statement.rightId),
+    );
   });
+  const rendered = (
+    relevantStatements.length > 0 ? relevantStatements : prompt.statements
+  ).map((statement) => formatStatement(statement, prompt.entityNames));
+  return rendered.length === 1
+    ? `Start with ${rendered[0]}.`
+    : `Use ${rendered.join(" and ")} together.`;
+}
+
+function warningFor(
+  errorLabel: string,
+  leftName: string,
+  rightName: string,
+  correctAnswer: IneCp001AnswerSemantic,
+): string {
+  switch (errorLabel) {
+    case "MISREAD_QUERY_DIRECTION":
+      return `That reads the comparison backwards. The question asks for ${leftName} relative to ${rightName}.`;
+    case "DEMOTE_STRICT_TO_INCLUSIVE":
+      return `That answer is weaker than the result proved by the strict link in the chain. The strongest answer is ${leftName} ${answerLabel(correctAnswer)} ${rightName}.`;
+    case "IGNORE_STRICTNESS":
+      return "Equality is ruled out because the chain contains a strict comparison.";
+    case "DROP_VALID_PROOF_PATH":
+      return `The displayed statements do connect ${leftName} to ${rightName}, so their relation is not unknown.`;
+    case "IGNORE_EQUALITY_PROPAGATION":
+      return "Equal terms must keep the same comparison with every other term.";
+    case "TREAT_EQUALITY_AS_UNKNOWN":
+      return "An equality sign gives an exact relation; it is not missing information.";
+    case "WEAKEN_EXACT_EQUALITY":
+      return "The statements prove equality exactly, so a weaker inclusive relation is not the strongest answer.";
+    case "PROMOTE_INCLUSIVE_TO_STRICT":
+      return "The inclusive chain still allows the two end terms to be equal, so a strict answer is not guaranteed.";
+    case "KEEP_ONLY_EQUALITY_CASE":
+      return "Equality is allowed, but it is not forced; the end terms may also be strictly ordered.";
+    case "TREAT_UNKNOWN_AS_EQUAL":
+      return "A missing comparison does not imply equality.";
+    case "ASSUME_LEFT_BRANCH_HIGHER":
+    case "ASSUME_RIGHT_BRANCH_HIGHER":
+    case "ASSUME_SHARED_BOUND_IMPLIES_ORDER":
+      return `A shared upper or lower bound does not tell us whether ${leftName} is above, equal to, or below ${rightName}.`;
+    default:
+      return "That relation is not guaranteed by the displayed statements.";
+  }
 }
 
 export function buildIneCp001Explanation(
@@ -86,27 +191,27 @@ export function buildIneCp001Explanation(
   agreement: SolverAgreementEvidence,
 ): IneCp001Explanation {
   const [leftName, rightName] = queryNames(prompt);
+
   return {
-    ruleStatement:
-      "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.",
-    normalizedStatements: prompt.statements.map(
-      (statement) =>
-        `${statement.sourceStatementId}: ${formatStatement(statement, prompt.entityNames)}.`,
-    ),
-    proofSteps: proofSteps(prompt, agreement),
-    modelWitnesses: modelWitnesses(prompt, agreement),
+    ruleStatement: openingSentence(prompt, correctAnswer, agreement),
+    normalizedStatements: [],
+    proofSteps: proofSteps(prompt, correctAnswer, agreement),
+    modelWitnesses: possibleRelations(prompt, agreement),
     conclusion:
       correctAnswer === "INDETERMINATE"
-        ? `The valid models give different relations between ${leftName} and ${rightName}; therefore, the relation cannot be determined.`
-        : `Therefore, the strongest relation that definitely follows is ${leftName} ${answerLabel(correctAnswer)} ${rightName}.`,
+        ? `So the relation between ${leftName} and ${rightName} cannot be determined.`
+        : `Therefore, the strongest relation we can guarantee is ${leftName} ${answerLabel(correctAnswer)} ${rightName}.`,
     distractorAnalysis: options
       .filter((option) => !option.isCorrect)
       .map((option) => ({
         optionValue: option.value,
         errorLabel: option.errorLabel!,
-        studentWarning:
-          WARNING_BY_ERROR[option.errorLabel!] ??
-          "This option is not supported by every valid model.",
+        studentWarning: warningFor(
+          option.errorLabel!,
+          leftName,
+          rightName,
+          correctAnswer,
+        ),
       })),
   };
 }

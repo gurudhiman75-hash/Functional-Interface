@@ -4,6 +4,7 @@ import type {
   IneCp001AnswerSemantic,
   IneCp001ValidationResult,
 } from "./types";
+import { answerOptionLabel } from "./presentation";
 
 function answerFromQuestion(
   question: GeneratedIneCp001PrototypeQuestion,
@@ -33,6 +34,17 @@ export function validateIneCp001Question(
     new Set(question.options.map((option) => option.semanticValue)).size !== 4
   )
     errors.push("Options must have four unique semantic values.");
+  for (const option of question.options) {
+    const expectedLabel = answerOptionLabel(
+      option.semanticValue,
+      question.structuredPrompt,
+    );
+    if (option.value !== expectedLabel) {
+      errors.push(
+        `Option text “${option.value}” does not match its semantic relation.`,
+      );
+    }
+  }
   if (question.options.filter((option) => option.isCorrect).length !== 1)
     errors.push("Exactly one option must be marked correct.");
   if (question.options[question.correctIndex]?.isCorrect !== true)

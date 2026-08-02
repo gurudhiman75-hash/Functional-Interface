@@ -14,14 +14,8 @@ import type {
 
 const TRUTH_LABEL: Readonly<Record<ConclusionTruth, string>> = {
   DEFINITELY_TRUE: "Definitely follows",
-  POSSIBLY_TRUE: "Possibly true, but not definite",
-  IMPOSSIBLE: "Impossible",
-};
-
-const TRUTH_SENTENCE: Readonly<Record<ConclusionTruth, string>> = {
-  DEFINITELY_TRUE: "definitely follows",
-  POSSIBLY_TRUE: "is possibly true, but does not definitely follow",
-  IMPOSSIBLE: "is impossible",
+  POSSIBLY_TRUE: "May be true, but is not certain",
+  IMPOSSIBLE: "Cannot be true",
 };
 
 function singleConclusionOptions(
@@ -49,7 +43,7 @@ function singleConclusionOptions(
       errorLabel: "REVERSE_CONCLUSION_TRUTH",
     },
     {
-      value: "Statements are contradictory",
+      value: "The statements contradict one another",
       errorLabel: "INVENT_CONTRADICTION",
     },
   ];
@@ -115,6 +109,64 @@ function selectionOptions(
   };
 }
 
+function allowedRelationText(
+  evaluation: ReturnType<typeof evaluateConclusion>,
+  entityNames: Readonly<Record<string, string>>,
+): string {
+  const leftName =
+    entityNames[evaluation.conclusion.leftId] ?? evaluation.conclusion.leftId;
+  const rightName =
+    entityNames[evaluation.conclusion.rightId] ?? evaluation.conclusion.rightId;
+  const relations = evaluation.pairEvidence.possibleAtomicRelations.map(
+    (order) => {
+      const symbol = order === "GT" ? ">" : order === "LT" ? "<" : "=";
+      return `${leftName} ${symbol} ${rightName}`;
+    },
+  );
+  if (relations.length === 1) return relations[0]!;
+  if (relations.length === 2) return `${relations[0]} or ${relations[1]}`;
+  return `${relations.slice(0, -1).join(", ")}, or ${relations.at(-1)}`;
+}
+
+function reasonForEvaluation(
+  evaluation: ReturnType<typeof evaluateConclusion>,
+  entityNames: Readonly<Record<string, string>>,
+): string {
+  const conclusion = formatStatement(evaluation.conclusion, entityNames);
+  const allowed = allowedRelationText(evaluation, entityNames);
+  if (evaluation.truth === "DEFINITELY_TRUE") {
+    return `The statements force ${allowed}, so ${conclusion} definitely follows.`;
+  }
+  if (evaluation.truth === "POSSIBLY_TRUE") {
+    return `The statements allow ${allowed}. The conclusion ${conclusion} works in one allowed case, but not in every case.`;
+  }
+  return `The statements force ${allowed}, which rules out ${conclusion}.`;
+}
+
+function singleDistractorWarning(
+  option: IneCp001ConclusionOption,
+  evaluation: ReturnType<typeof evaluateConclusion>,
+  entityNames: Readonly<Record<string, string>>,
+): string {
+  if (option.errorLabel === "INVENT_CONTRADICTION") {
+    return "The statements form a consistent chain; they do not contradict one another.";
+  }
+  const conclusion = formatStatement(evaluation.conclusion, entityNames);
+  if (evaluation.truth === "DEFINITELY_TRUE") {
+    return option.truth === "POSSIBLY_TRUE"
+      ? `The chain leaves no alternative: ${conclusion} is true in every allowed arrangement.`
+      : `The chain proves ${conclusion}, so the conclusion certainly can be true.`;
+  }
+  if (evaluation.truth === "POSSIBLY_TRUE") {
+    return option.truth === "DEFINITELY_TRUE"
+      ? "Equality is still allowed, so the conclusion is not certain."
+      : "At least one allowed arrangement makes the conclusion true, so it is not impossible.";
+  }
+  return option.truth === "DEFINITELY_TRUE"
+    ? `The statements prove the opposite of ${conclusion}, so it does not follow.`
+    : `The statements rule out ${conclusion} completely, so it is not even possible.`;
+}
+
 function explanationFor(
   questionKind: IneCp001ConclusionPrototypeId,
   statements: readonly import("../foundation/types").ComparisonConstraint[],
@@ -123,50 +175,45 @@ function explanationFor(
   entityNames: Readonly<Record<string, string>>,
 ): IneCp001Explanation {
   const single = questionKind === "INE-CP001-PROT-EVALUATE-SINGLE-CONCLUSION";
-  const witnesses: string[] = [];
-  if (single && evaluations[0]!.truth === "POSSIBLY_TRUE") {
-    const conclusion = evaluations[0]!.conclusion;
-    const agreement = assertSolverAgreement(
-      statements,
-      conclusion.leftId,
-      conclusion.rightId,
-    );
-    for (const order of agreement.modelEvidence.possibleAtomicRelations) {
-      const assignment = agreement.modelEvidence.witnessByRelation[order]!;
-      const leftName = entityNames[conclusion.leftId] ?? conclusion.leftId;
-      const rightName = entityNames[conclusion.rightId] ?? conclusion.rightId;
-      const symbol = order === "GT" ? ">" : order === "LT" ? "<" : "=";
-      witnesses.push(
-        `A valid model has ${leftName}=${assignment[conclusion.leftId]} and ${rightName}=${assignment[conclusion.rightId]}, so ${leftName} ${symbol} ${rightName}.`,
-      );
-    }
-  }
+  const correctIndex = options.findIndex((option) => option.isCorrect);
+  const correctOption = options[correctIndex]!;
+  const primaryEvaluation = single
+    ? evaluations[0]!
+    : evaluations.find(
+        (evaluation) => evaluation.conclusion === correctOption.conclusion,
+      )!;
+  const displayedStatements = statements.map((statement) =>
+    formatStatement(statement, entityNames),
+  );
+  const possibleEvidence =
+    single && primaryEvaluation.truth === "POSSIBLY_TRUE"
+      ? [
+          `That is why the conclusion succeeds in one permitted case and fails in another.`,
+        ]
+      : [];
   return {
-    ruleStatement:
-      "A conclusion definitely follows only when it is true in every valid model of the displayed statements. A possible conclusion is not a definite conclusion.",
-    normalizedStatements: statements.map(
-      (statement) =>
-        `${statement.sourceStatementId}: ${formatStatement(statement, entityNames)}.`,
-    ),
-    proofSteps: evaluations.map(
-      (evaluation) =>
-        `${formatStatement(evaluation.conclusion, entityNames)} ${TRUTH_SENTENCE[evaluation.truth]}.`,
-    ),
-    modelWitnesses: witnesses,
+    ruleStatement: `Read the statements as one comparison chain: ${displayedStatements.join("; ")}.`,
+    normalizedStatements: [],
+    proofSteps: [reasonForEvaluation(primaryEvaluation, entityNames)],
+    modelWitnesses: possibleEvidence,
     conclusion: single
-      ? `Therefore, the conclusion is classified as: ${TRUTH_LABEL[evaluations[0]!.truth]}.`
-      : `Therefore, option ${options.findIndex((option) => option.isCorrect) + 1} is the only conclusion that matches the question's validity condition.`,
+      ? `Therefore, the correct answer is “${TRUTH_LABEL[primaryEvaluation.truth]}.”`
+      : questionKind === "INE-CP001-PROT-SELECT-VALID-CONCLUSION"
+        ? `Therefore, option ${correctIndex + 1} — ${correctOption.value} — is the only conclusion that definitely follows.`
+        : `Therefore, option ${correctIndex + 1} — ${correctOption.value} — is the conclusion that does not follow.`,
     distractorAnalysis: options
       .filter((option) => !option.isCorrect)
       .map((option) => ({
         optionValue: option.value,
         errorLabel: option.errorLabel!,
-        studentWarning:
-          option.errorLabel === "TREAT_POSSIBLE_AS_DEFINITE"
-            ? "This conclusion can be true, but it is not forced by every valid model."
-            : option.errorLabel === "INVENT_CONTRADICTION"
-              ? "The displayed statements are consistent and admit valid models."
-              : "This option does not match the independently verified conclusion status.",
+        studentWarning: single
+          ? singleDistractorWarning(option, primaryEvaluation, entityNames)
+          : reasonForEvaluation(
+              evaluations.find(
+                (evaluation) => evaluation.conclusion === option.conclusion,
+              )!,
+              entityNames,
+            ),
       })),
   };
 }
@@ -208,7 +255,7 @@ export function generateIneCp001ConclusionQuestion(
       : undefined;
   const stem =
     prototypeId === "INE-CP001-PROT-EVALUATE-SINGLE-CONCLUSION"
-      ? "Classify the given conclusion using only the displayed statements."
+      ? "Based only on the statements, how should the conclusion be judged?"
       : prototypeId === "INE-CP001-PROT-SELECT-VALID-CONCLUSION"
         ? "Which conclusion definitely follows from the displayed statements?"
         : "Which conclusion does not follow from the displayed statements?";
@@ -244,7 +291,7 @@ export function generateIneCp001ConclusionQuestion(
       scenario.entityNames,
     ),
     metadata: {
-      runtimeVersion: "ine-cp001-conclusion-prototype-v1",
+      runtimeVersion: "ine-cp001-conclusion-prototype-v2",
       hiddenFingerprint: stableHash([
         scenario.scenarioId,
         ...scenario.statements.flatMap((entry) => [

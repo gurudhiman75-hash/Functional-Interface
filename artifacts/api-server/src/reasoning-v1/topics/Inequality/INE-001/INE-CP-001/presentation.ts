@@ -22,6 +22,18 @@ export function answerLabel(answer: IneCp001AnswerSemantic): string {
     : relationSymbol(answer);
 }
 
+export function answerOptionLabel(
+  answer: IneCp001AnswerSemantic,
+  prompt: IneCp001StructuredPrompt,
+): string {
+  if (answer === "INDETERMINATE") return "The relation cannot be determined";
+  const leftName =
+    prompt.entityNames[prompt.query.leftId] ?? prompt.query.leftId;
+  const rightName =
+    prompt.entityNames[prompt.query.rightId] ?? prompt.query.rightId;
+  return `${leftName} ${relationSymbol(answer)} ${rightName}`;
+}
+
 export function formatStatement(
   statement: ComparisonConstraint,
   entityNames: Readonly<Record<string, string>>,
@@ -34,5 +46,5 @@ export function buildStem(prompt: IneCp001StructuredPrompt): string {
     prompt.entityNames[prompt.query.leftId] ?? prompt.query.leftId;
   const rightName =
     prompt.entityNames[prompt.query.rightId] ?? prompt.query.rightId;
-  return `Study the statements and determine the strongest relation that definitely follows between ${leftName} and ${rightName}, in that order.`;
+  return `What is the strongest relation that must be true for ${leftName} compared with ${rightName}?`;
 }

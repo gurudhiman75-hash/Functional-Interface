@@ -90,7 +90,7 @@ export function buildIneCp001ConclusionScenario(
     ];
     conclusions = [
       c("E1", "GREATER_THAN", "E3", "C1"),
-      c("E3", "LESS_THAN", "E1", "C2"),
+      c("E3", "LESS_THAN", "E2", "C2"),
       c("E4", "GREATER_THAN", "E2", "C3"),
       c("E2", "GREATER_THAN_OR_EQUAL", "E1", "C4"),
     ];

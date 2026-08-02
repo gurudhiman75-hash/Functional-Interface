@@ -59,6 +59,7 @@ export function generateIneCp001PrototypeQuestion(
     correctAnswer,
     prototypeId,
     seed,
+    scenario.prompt,
   );
   const proofPathLength = pairEvidence.proofPath?.steps.length ?? 0;
   const strongestDefiniteRelation: ComparisonRelation | undefined =
@@ -96,7 +97,7 @@ export function generateIneCp001PrototypeQuestion(
       agreement,
     ),
     metadata: {
-      runtimeVersion: "ine-cp001-prototype-v1",
+      runtimeVersion: "ine-cp001-prototype-v2",
       hiddenFingerprint: stableHash([
         scenario.topologyId,
         ...Object.entries(scenario.hiddenValues)
