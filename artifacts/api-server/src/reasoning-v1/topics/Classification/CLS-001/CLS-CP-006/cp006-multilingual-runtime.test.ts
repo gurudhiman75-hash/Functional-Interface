@@ -127,6 +127,14 @@ for (const locale of locales) {
       assert.ok(intendedSupport);
       const coreConcept = localized.explanation.coreConcept.join(" ");
       switch (localized.intendedRuleId) {
+        case "LETTER_ALPHABET_HALF": {
+          const commonFirstHalf = intendedSupport.commonValue === "FIRST_HALF";
+          const expected = locale === "hi-IN"
+            ? `अधिकतर अक्षर वर्णमाला के ${commonFirstHalf ? "पहले" : "दूसरे"} आधे भाग में हैं; केवल एक अक्षर ${commonFirstHalf ? "दूसरे" : "पहले"} आधे भाग में है।`
+            : `ਜ਼ਿਆਦਾਤਰ ਅੱਖਰ ਵਰਣਮਾਲਾ ਦੇ ${commonFirstHalf ? "ਪਹਿਲੇ" : "ਦੂਜੇ"} ਅੱਧ ਵਿੱਚ ਹਨ; ਸਿਰਫ਼ ਇੱਕ ਅੱਖਰ ${commonFirstHalf ? "ਦੂਜੇ" : "ਪਹਿਲੇ"} ਅੱਧ ਵਿੱਚ ਹੈ।`;
+          assert.equal(coreConcept, expected);
+          break;
+        }
         case "PAIR_ABSOLUTE_POSITION_GAP":
         case "PAIR_POSITION_SUM":
           assert.ok(coreConcept.includes(intendedSupport.commonValue));
