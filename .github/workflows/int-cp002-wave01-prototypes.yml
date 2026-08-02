@@ -6,7 +6,7 @@ on:
       - feat/int-001-cp002-wave00-ledger-foundation
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp002-wave01-*.ts"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-wave01-prototype-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-wave01-*.ts"
       - ".github/workflows/int-cp002-wave01-prototypes.yml"
   workflow_dispatch:
 
@@ -46,13 +46,40 @@ jobs:
           cd artifacts/api-server
           node dist/quant-v4/int-001-cp002-wave01-prototype-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp002-wave01-prototype-audit.log
 
+      - name: Bundle CP-002 Wave 1 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-wave01-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp002-wave01-review-export.mjs
+
+      - name: Generate CP-002 Wave 1 review pack
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp002-wave01-review-export.mjs 2>&1 | tee dist/quant-v4/int-001-cp002-wave01-review-export.log
+
       - name: Verify CP-002 Wave 1 evidence
-        run: grep -q 'PASS_INT_CP002_WAVE01_ARCHITECTURE_PROTOTYPES' artifacts/api-server/dist/quant-v4/int-001-cp002-wave01-prototype-audit.log
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          grep -q 'PASS_INT_CP002_WAVE01_ARCHITECTURE_PROTOTYPES' artifacts/api-server/dist/quant-v4/int-001-cp002-wave01-prototype-audit.log
+          grep -q 'PASS_INT_CP002_WAVE01_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp002-wave01-review-export.log
+          root=artifacts/api-server/dist/quant-v4/int-cp002-wave01-review-pack
+          test -f "$root/int-001-cp002-wave01-64-review-questions.md"
+          test -f "$root/int-001-cp002-wave01-64-review-answers.md"
+          test -f "$root/int-001-cp002-wave01-64-review-data.json"
+          test -f "$root/int-001-cp002-wave01-64-review-checklist.csv"
+          test -f "$root/int-001-cp002-wave01-review-summary.json"
+          ! grep -R -n -E '<sub>Trace:|INT-QL-|INT-CP002-PROT-|int-cp002-wave01-review:|requestedSeed|effectiveSeed|generationAttempts|FIND_' "$root"/*.md
 
       - name: Upload CP-002 Wave 1 evidence
         uses: actions/upload-artifact@v4
         with:
           name: int-cp002-wave01-architecture-prototypes
-          path: artifacts/api-server/dist/quant-v4/int-001-cp002-wave01-prototype-audit.log
+          path: |
+            artifacts/api-server/dist/quant-v4/int-001-cp002-wave01-prototype-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp002-wave01-review-export.log
+            artifacts/api-server/dist/quant-v4/int-cp002-wave01-review-pack/**
           if-no-files-found: error
           retention-days: 14
