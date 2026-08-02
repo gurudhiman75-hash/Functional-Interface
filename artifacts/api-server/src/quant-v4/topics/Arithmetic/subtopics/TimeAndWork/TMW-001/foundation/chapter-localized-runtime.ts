@@ -15,6 +15,7 @@ import { runTmwCp010LocalizedPipeline } from "./cp010-localized-runtime";
 import { runTmwCp011Pipeline } from "./cp011-runtime";
 import { runTmwCp011LocalizedPipeline } from "./cp011-localized-runtime";
 import { applyTmw001MultilingualStemRemediation } from "./chapter-editorial-remediation";
+import { applyTmw001MultilingualStemRemediationWave02 } from "./chapter-editorial-remediation-wave02";
 import type { TmwLocalizedLanguage } from "./localization-types";
 
 export type Tmw001ChapterLanguage = "en" | TmwLocalizedLanguage;
@@ -40,8 +41,13 @@ function finishLocalized(
   questionLanguageId: string,
   language: TmwLocalizedLanguage,
 ): any {
-  return applyTmw001MultilingualStemRemediation(
+  const wave01 = applyTmw001MultilingualStemRemediation(
     question,
+    questionLanguageId,
+    language,
+  );
+  return applyTmw001MultilingualStemRemediationWave02(
+    wave01,
     questionLanguageId,
     language,
   );
