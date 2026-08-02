@@ -75,16 +75,13 @@ function polishLearnerText(text: string, question: UnderlyingQuestion): string {
       new RegExp(`= 0 remain (${context.beforeRelation}|${context.afterRelation}) ${name}`, 'g'),
       `= no ${context.plural} remain $1 ${name}`,
     )
-    .replace(/\bOne candidate are\b/g, 'One candidate is')
-    .replace(/\bOne person are\b/g, 'One person is')
-    .replace(/\bone candidate are\b/g, 'one candidate is')
-    .replace(/\bone person are\b/g, 'one person is')
     .replace(/\b1 candidates\b/g, 'one candidate')
     .replace(/\b1 people\b/g, 'one person')
     .replace(/\b1 positions\b/g, 'one position')
     .replace(/\b0 candidates\b/g, 'no candidates')
     .replace(/\b0 people\b/g, 'no people')
     .replace(/\b0 positions\b/g, 'no positions')
+    .replace(/\b(One|one) (candidate|person) are\b/g, '$1 $2 is')
     .replace(/(\d|\))\s*\/\s*(\d)/g, '$1 ÷ $2');
 }
 
