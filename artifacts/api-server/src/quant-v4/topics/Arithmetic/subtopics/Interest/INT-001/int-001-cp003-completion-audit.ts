@@ -6,7 +6,7 @@ import {
   INT_CP003_QL_IDS,
   generateIntCp003Question,
   verifyIntCp003Option,
-} from "./cp003-annual-compound-runtime";
+} from "./int-001-cp003-final-runtime";
 
 function stable(value: unknown): string {
   return JSON.stringify(value, (_key, item) => typeof item === "bigint" ? item.toString() : item);
@@ -40,6 +40,7 @@ for (const qlId of INT_CP003_QL_IDS) {
     if (!first.validation.ok) throw new Error(`${qlId}/${index}: ${first.validation.errors.join(" | ")}`);
     if (first.options.length !== 4 || new Set(first.options).size !== 4) throw new Error(`${qlId}/${index}: invalid options.`);
     if (first.optionAudit.length !== 4 || first.explanation.trapAnalysis.length !== 3) throw new Error(`${qlId}/${index}: incomplete option audit.`);
+    if (first.optionAudit.some((option) => option.misconceptionId === "OFFSET")) throw new Error(`${qlId}/${index}: generic fallback distractor reached the final runtime.`);
     if (first.explanation.workedSteps.length < 4) throw new Error(`${qlId}/${index}: incomplete worked explanation.`);
     structuralChecks += 10;
     explanationChecks += 6;
