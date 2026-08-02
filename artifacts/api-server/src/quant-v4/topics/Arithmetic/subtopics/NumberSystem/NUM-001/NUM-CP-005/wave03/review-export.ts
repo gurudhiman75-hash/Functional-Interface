@@ -1,12 +1,12 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { generateNumCp005Wave03Package } from "./runtime";
+import { generateNumCp005Wave03ProvenPackage } from "./runtime-proven";
 import { NUM_CP005_WAVE03_PROTOTYPE_IDS } from "./types";
 
 const samplesPerPrototype = 3;
 const records = NUM_CP005_WAVE03_PROTOTYPE_IDS.flatMap((prototypeId, prototypeIndex) =>
   Array.from({ length: samplesPerPrototype }, (_unused, sampleIndex) =>
-    generateNumCp005Wave03Package(prototypeId, 1 + sampleIndex + prototypeIndex * 7)),
+    generateNumCp005Wave03ProvenPackage(prototypeId, 1 + sampleIndex + prototypeIndex * 7)),
 );
 
 const outputDirectory = resolve(process.cwd(), "dist/quant-v4");
