@@ -33,7 +33,7 @@ for (const entry of TMW_CP_011_REGISTRY) {
     const internalField = fields.find(([, value]) => internalPattern.test(value));
     const englishField = fields.find(([, value]) => englishPattern.test(value.replace(/\\\([\s\S]*?\\\)/g, "")));
     const devanagariField = language === "pa"
-      ? fields.find(([, value]) => /[\u0900-\u097F]/.test(value.replace(/\\\([\s\S]*?\\\)/g, "")))
+      ? fields.find(([, value]) => /[\u0900-\u0963\u0966-\u097F]/.test(value.replace(/\\\([\s\S]*?\\\)/g, "")))
       : undefined;
     const gurmukhiField = language === "hi"
       ? fields.find(([, value]) => /[\u0A00-\u0A7F]/.test(value.replace(/\\\([\s\S]*?\\\)/g, "")))
