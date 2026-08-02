@@ -1,0 +1,86 @@
+name: Validate SYL-001 multilingual runtime
+
+on:
+  pull_request:
+    branches:
+      - feat/syl-001-foundation
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/**
+      - .github/workflows/reasoning-syl-001-full-runtime.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-syl-001-runtime-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-syl-001-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle foundation proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/foundation/foundation.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-foundation.test.mjs
+
+      - name: Run foundation proof
+        run: node artifacts/api-server/dist/reasoning-v1/syl-001-foundation.test.mjs
+
+      - name: Bundle multilingual chapter audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/chapter-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-chapter-audit.test.mjs
+
+      - name: Run multilingual chapter audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-chapter-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-chapter-audit.log
+
+      - name: Bundle multilingual review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-review.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-export-review.mjs
+
+      - name: Generate multilingual review pack
+        env:
+          SYL_REVIEW_DIR: artifacts/api-server/dist/reasoning-v1/syl-001-review
+        run: node artifacts/api-server/dist/reasoning-v1/syl-001-export-review.mjs
+
+      - name: Upload multilingual review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: syl-001-multilingual-review
+          path: |
+            artifacts/api-server/dist/reasoning-v1/syl-001-chapter-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-review/**
+          if-no-files-found: error
+          retention-days: 30
