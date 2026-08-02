@@ -1,5 +1,5 @@
 import {
-  recoverAllPnl001CanonicalContexts,
+  recoverPnl001CanonicalContext,
   unresolvedPnl001ProsePlaceholders,
 } from "./question-studio-canonical-context";
 
@@ -12,7 +12,20 @@ const EXPECTED_CP_COUNTS = {
   "PNL-CP-006": 37,
 } as const;
 
-const recoveries = recoverAllPnl001CanonicalContexts();
+const recoveries = [];
+const recoveryFailures: Array<{ qlId: string; message: string }> = [];
+for (let index = 1; index <= 186; index += 1) {
+  const qlId = `PNL-QL-${String(index).padStart(3, "0")}`;
+  try {
+    recoveries.push(recoverPnl001CanonicalContext(qlId));
+  } catch (error) {
+    recoveryFailures.push({
+      qlId,
+      message: error instanceof Error ? error.message : String(error),
+    });
+  }
+}
+
 const cpCounts: Record<string, number> = {};
 const explanationBindingFailures: Array<{
   qlId: string;
@@ -51,16 +64,19 @@ for (const recovery of recoveries) {
   }
 }
 
-const cpCoverageOk = Object.entries(EXPECTED_CP_COUNTS).every(
+const cpCoverageOk = recoveryFailures.length === 0 && Object.entries(EXPECTED_CP_COUNTS).every(
   ([cpId, expected]) => cpCounts[cpId] === expected,
 );
 const summary = {
   ok:
     recoveries.length === 186 &&
+    recoveryFailures.length === 0 &&
     cpCoverageOk &&
     exactCurrentStemRoundTrips + legacyDataSufficiencyStems === 186 &&
     explanationBindingFailures.length === 0,
   qlCount: recoveries.length,
+  recoveryFailureCount: recoveryFailures.length,
+  recoveryFailures,
   cpCounts,
   exactCanonicalKeyedAnswers: recoveries.length,
   exactCurrentStemRoundTrips,
@@ -68,8 +84,8 @@ const summary = {
   scalarValues,
   tableSources,
   paragraphSources,
-  minimumContextKeys: Math.min(...contextKeyCounts),
-  maximumContextKeys: Math.max(...contextKeyCounts),
+  minimumContextKeys: contextKeyCounts.length ? Math.min(...contextKeyCounts) : 0,
+  maximumContextKeys: contextKeyCounts.length ? Math.max(...contextKeyCounts) : 0,
   currentExplanationBindingFailures: explanationBindingFailures.length,
   explanationBindingFailures,
 };
@@ -78,7 +94,7 @@ console.log(JSON.stringify(summary, null, 2));
 
 if (!summary.ok) {
   throw new Error(
-    `PNL canonical context recovery is incomplete: ` +
-      `${explanationBindingFailures.length} current explanation binding failures.`,
+    `PNL canonical context recovery has ${recoveryFailures.length} stem failures and ` +
+      `${explanationBindingFailures.length} explanation binding failures.`,
   );
 }
