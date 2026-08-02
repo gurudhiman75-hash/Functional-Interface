@@ -2,9 +2,9 @@ export interface SyllogismSemanticsProfile {
   profileId: "INDIAN_COMPETITIVE_EXAM_SYLLOGISM_V1";
   universalSubjectExistence: true;
   negativeUniversalSubjectExistence: true;
-  negativeUniversalPredicateExistence: "NOT_ASSUMED";
+  negativeUniversalPredicateExistence: "ASSUMED_BY_SOURCE_PROFILE";
   allConversion: "NOT_VALID";
-  noConversion: "SET_RELATION_ONLY";
+  noConversion: "VALID";
   someConversion: "VALID";
   someNotConversion: "NOT_VALID";
   allSubalternation: "VALID_WHEN_SUBJECT_EXISTS";
@@ -23,9 +23,9 @@ export const SYL_001_SEMANTICS_PROFILE: SyllogismSemanticsProfile = Object.freez
   profileId: "INDIAN_COMPETITIVE_EXAM_SYLLOGISM_V1",
   universalSubjectExistence: true,
   negativeUniversalSubjectExistence: true,
-  negativeUniversalPredicateExistence: "NOT_ASSUMED",
+  negativeUniversalPredicateExistence: "ASSUMED_BY_SOURCE_PROFILE",
   allConversion: "NOT_VALID",
-  noConversion: "SET_RELATION_ONLY",
+  noConversion: "VALID",
   someConversion: "VALID",
   someNotConversion: "NOT_VALID",
   allSubalternation: "VALID_WHEN_SUBJECT_EXISTS",
