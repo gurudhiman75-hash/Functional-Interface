@@ -13,6 +13,7 @@ import {
   type RnkCp002Question,
   type RnkCp002PrototypeId,
 } from './cp002-model';
+import { refineCp002OptionRealism } from './cp002-option-realism';
 import {
   buildCp002Options,
   calculationForCp002,
@@ -38,7 +39,8 @@ export function generateRnkCp002Question(prototypeId: RnkCp002PrototypeId, seed:
   if (answer !== independentAnswer) throw new Error(`${prototypeId}:${seed} canonical ${answer} disagrees with independent ${independentAnswer}`);
   const answerSemantic = answerSemanticForCp002(prototypeId);
   const correctIndex = hashText(`${prototypeId}:correct:${seed}`) % 4;
-  const options = buildCp002Options(evidence, answer, answerSemantic, correctIndex);
+  const baseOptions = buildCp002Options(evidence, answer, answerSemantic, correctIndex);
+  const options = refineCp002OptionRealism(evidence, answer, correctIndex, baseOptions);
   const calculation = calculationForCp002(evidence, context, firstName, secondName);
 
   return {
