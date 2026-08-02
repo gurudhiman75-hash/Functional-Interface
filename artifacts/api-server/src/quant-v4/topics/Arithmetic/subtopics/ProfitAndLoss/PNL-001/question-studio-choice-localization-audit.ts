@@ -1,29 +1,84 @@
-import { readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import {
+  recoverAllPnl001CanonicalContexts,
+  unresolvedPnl001ProsePlaceholders,
+} from "./question-studio-canonical-context";
 
-import type { StructuredEditorialEntry } from "./foundation/editorial-content";
-import { PNL_001_CANONICAL_REVIEW_LIBRARY } from "./question-studio-review.library";
+const EXPECTED_CP_COUNTS = {
+  "PNL-CP-001": 36,
+  "PNL-CP-002": 34,
+  "PNL-CP-003": 24,
+  "PNL-CP-004": 26,
+  "PNL-CP-005": 29,
+  "PNL-CP-006": 37,
+} as const;
 
-type EditorialLibrary = Readonly<{
-  entries: Readonly<Record<string, StructuredEditorialEntry>>;
-}>;
-type CanonicalLibrary = Readonly<{
-  entries: Readonly<Record<string, unknown>>;
-}>;
+const recoveries = recoverAllPnl001CanonicalContexts();
+const cpCounts: Record<string, number> = {};
+const explanationBindingFailures: Array<{
+  qlId: string;
+  unresolved: readonly string[];
+}> = [];
+let scalarValues = 0;
+let tableSources = 0;
+let paragraphSources = 0;
+let exactCurrentStemRoundTrips = 0;
+let legacyDataSufficiencyStems = 0;
+const contextKeyCounts: number[] = [];
 
-const root = dirname(fileURLToPath(import.meta.url));
-const editorial = JSON.parse(
-  readFileSync(join(root, "CP-003", "editorial-content.en.json"), "utf8"),
-) as EditorialLibrary;
-const canonical = PNL_001_CANONICAL_REVIEW_LIBRARY as CanonicalLibrary;
-const qlId = "PNL-QL-092";
+for (const recovery of recoveries) {
+  cpCounts[recovery.cpId] = (cpCounts[recovery.cpId] ?? 0) + 1;
+  contextKeyCounts.push(Object.keys(recovery.context).length);
+  if (recovery.canonicalStemMode === "CURRENT_STRUCTURED") {
+    exactCurrentStemRoundTrips += 1;
+  } else {
+    legacyDataSufficiencyStems += 1;
+  }
 
-console.log(JSON.stringify({
-  qlId,
-  canonical: canonical.entries[qlId],
-  currentStructuredStem: editorial.entries[qlId]?.stem,
-  currentStructuredExplanation: editorial.entries[qlId]?.explanation,
-}, null, 2));
+  const unresolved = unresolvedPnl001ProsePlaceholders(
+    recovery.currentEnglishExplanation,
+  );
+  if (unresolved.length > 0) {
+    explanationBindingFailures.push({ qlId: recovery.qlId, unresolved });
+  }
 
-throw new Error(`${qlId}: canonical stem diagnostic complete.`);
+  for (const value of Object.values(recovery.context)) {
+    if (Array.isArray(value)) {
+      if (value.length > 0 && Array.isArray(value[0])) tableSources += 1;
+      else paragraphSources += 1;
+    } else {
+      scalarValues += 1;
+    }
+  }
+}
+
+const cpCoverageOk = Object.entries(EXPECTED_CP_COUNTS).every(
+  ([cpId, expected]) => cpCounts[cpId] === expected,
+);
+const summary = {
+  ok:
+    recoveries.length === 186 &&
+    cpCoverageOk &&
+    exactCurrentStemRoundTrips + legacyDataSufficiencyStems === 186 &&
+    explanationBindingFailures.length === 0,
+  qlCount: recoveries.length,
+  cpCounts,
+  exactCanonicalKeyedAnswers: recoveries.length,
+  exactCurrentStemRoundTrips,
+  legacyDataSufficiencyStems,
+  scalarValues,
+  tableSources,
+  paragraphSources,
+  minimumContextKeys: Math.min(...contextKeyCounts),
+  maximumContextKeys: Math.max(...contextKeyCounts),
+  currentExplanationBindingFailures: explanationBindingFailures.length,
+  explanationBindingFailures,
+};
+
+console.log(JSON.stringify(summary, null, 2));
+
+if (!summary.ok) {
+  throw new Error(
+    `PNL canonical context recovery is incomplete: ` +
+      `${explanationBindingFailures.length} current explanation binding failures.`,
+  );
+}
