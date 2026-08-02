@@ -1,5 +1,4 @@
 import type { MalCp002ReleasedQuestion } from "./cp002-permanent-runtime";
-import type { MalCp002ComponentId, MalCp002Ratio, MalCp002State } from "./cp002-types";
 import type { Rational } from "./types";
 import {
   choose,
@@ -44,7 +43,7 @@ export function threeComponentEditorial(
   }
 
   const stem = choose(`${question.seed}:stem`, [
-    `${labelA}, ${labelB} and ${labelC} are initially in the ratio ${arrayRatioMath(parameters.initialRatio)}. After adding ${quantityMath(parameters.additionA, unit)} of ${labelA} and ${quantityMath(parameters.additionB, unit)} of ${labelB}, their ratio becomes ${arrayRatioMath(parameters.finalRatio)}. Find the final quantity of ${labelC}.`,
+    `${labelA}, ${labelB} and ${labelC} are initially in the ratio ${arrayRatioMath(parameters.initialRatio)}. After adding ${quantityMath(parameters.additionA, unit)} of ${labelA} and ${quantityMath(parameters.additionB, unit)} of ${labelB}, their ratio becomes ${arrayRatioMath(parameters.finalRatio)}. What is the final quantity of ${labelC}?`,
     `A three-item mixture has ${labelA}, ${labelB} and ${labelC} in the ratio ${arrayRatioMath(parameters.initialRatio)}. ${quantityMath(parameters.additionA, unit)} of ${labelA} and ${quantityMath(parameters.additionB, unit)} of ${labelB} are added, producing the ratio ${arrayRatioMath(parameters.finalRatio)}. How much ${labelC} is present at the end?`,
   ]);
 
