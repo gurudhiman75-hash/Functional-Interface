@@ -1,6 +1,6 @@
 # BLR-CP-005 — Final English Discovery Freeze
 
-Status: **structurally saturated and frozen for English review runtime only**.
+Status: **structurally saturated and frozen for English review runtime only; exam-grade editorial remediation applied without changing authority identity**.
 
 ## Scope
 
@@ -43,6 +43,22 @@ Every question contains two or three valid completed family models. The runtime 
 
 An independent verifier reconstructs all 432 family graphs from the exported model diagrams and recomputes relation paths, broad relation reduction, lineage side, person eligibility, truth status and count outcomes without calling the production CP-005 solver.
 
+## Exam-grade editorial remediation
+
+The owner-supplied editorial suite was audited against the frozen contracts and V1 graph ontology. Its style standard was applied to all 184 questions, while examples assigned to the wrong QL or relying on excluded/contradictory family assumptions were not copied as authority definitions.
+
+The runtime now guarantees:
+
+- no learner-facing phrases such as “the gender of X is not stated”;
+- natural question stems that let the omission itself create uncertainty;
+- authority-specific core concepts;
+- an explicit derivation for every valid family model;
+- a model-set conclusion and exam-speed shortcut;
+- four option explanations with bracketed diagnostic codes;
+- unchanged answers, model spaces, QL identities and release boundaries.
+
+The canonical audit is recorded in `BLR-CP-005-EDITORIAL-REMEDIATION.md` and enforced by `cp005-editorial-remediation.test.ts`.
+
 ## Merge and split decisions
 
 - exact, broad and gender-neutral invariant relations merge under `RESOLVE_INVARIANT_RELATION`;
@@ -58,7 +74,8 @@ An independent verifier reconstructs all 432 family graphs from the exported mod
 - fully determined relations remain in CP-001 through CP-003;
 - definite closed-world counts remain in CP-004;
 - coded relation decoding and coded construction remain CP-006 and CP-007;
-- Data Sufficiency and multi-attribute family puzzles remain excluded.
+- Data Sufficiency and multi-attribute family puzzles remain excluded;
+- half, step, adoptive and foster relations remain outside V1.
 
 ## Release boundary
 
