@@ -1,0 +1,119 @@
+name: Reasoning BLR-001 English Gap Audit
+
+on:
+  push:
+    branches:
+      - audit/blr-001-english-gap-freeze
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
+      - ".github/workflows/reasoning-blr-001-english-gap-audit.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
+      - ".github/workflows/reasoning-blr-001-english-gap-audit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blr-001-english-gap-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-blr-001-english-gap-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prove CP-001 frozen runtime
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-001/cp001-runtime.test.ts | tee cp001-runtime.log
+
+      - name: Prove CP-002 frozen runtime
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-002/cp002-runtime.test.ts | tee cp002-runtime.log
+
+      - name: Prove CP-003 frozen runtime
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-003/cp003-permanent-runtime.test.ts | tee cp003-runtime.log
+
+      - name: Prove CP-004 frozen runtime
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-004/cp004-runtime.test.ts | tee cp004-runtime.log
+
+      - name: Prove CP-005 frozen runtime
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-005/cp005-runtime.test.ts | tee cp005-runtime.log
+
+      - name: Prove CP-006 frozen runtime
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-runtime.test.ts | tee cp006-runtime.log
+
+      - name: Prove CP-007 frozen runtime
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-runtime.test.ts | tee cp007-runtime.log
+
+      - name: Run chapter-wide English gap audit
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/blr-001-english-gap-audit.test.ts | tee blr-001-english-gap-audit.log
+
+      - name: Export chapter-wide audit review pack
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/export-blr-001-english-gap-audit.ts blr-001-english-gap-audit-output | tee blr-001-english-gap-export.log
+
+      - name: Verify audit artifact contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=blr-001-english-gap-audit-output
+          test -f "$OUT/blr-001-english-gap-audit-summary.json"
+          test -f "$OUT/blr-001-english-gap-audit-failures.txt"
+          test -f "$OUT/blr-001-english-gap-audit-ql-contracts.json"
+          test -f "$OUT/blr-001-english-gap-audit-ql-contracts.csv"
+          test -f "$OUT/blr-001-english-gap-audit-scope.json"
+          test -f "$OUT/blr-001-english-gap-audit-review.html"
+          test -f "$OUT/BLR-001-ENGLISH-GAP-AUDIT.md"
+          grep -q '"permanentQlCount": 35' "$OUT/blr-001-english-gap-audit-summary.json"
+          grep -q '"solveAuthorityCount": 35' "$OUT/blr-001-english-gap-audit-summary.json"
+          grep -q '"exactCrossQlSurfaceCollisions": 0' "$OUT/blr-001-english-gap-audit-summary.json"
+          grep -q '"learnerTextFailures": 0' "$OUT/blr-001-english-gap-audit-summary.json"
+          grep -q '"genderEvidenceFailures": 0' "$OUT/blr-001-english-gap-audit-summary.json"
+          grep -q '"optionContractFailures": 0' "$OUT/blr-001-english-gap-audit-summary.json"
+          grep -q '"ownershipFailures": 0' "$OUT/blr-001-english-gap-audit-summary.json"
+          grep -q '"verdict": "CHAPTER_ENGLISH_GAP_FREEZE_CANDIDATE"' "$OUT/blr-001-english-gap-audit-summary.json"
+          grep -q 'No executable audit failures.' "$OUT/blr-001-english-gap-audit-failures.txt"
+          grep -q '@media(max-width:800px)' "$OUT/blr-001-english-gap-audit-review.html"
+
+      - name: Upload audit diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-english-gap-audit-logs
+          path: |
+            cp001-runtime.log
+            cp002-runtime.log
+            cp003-runtime.log
+            cp004-runtime.log
+            cp005-runtime.log
+            cp006-runtime.log
+            cp007-runtime.log
+            blr-001-english-gap-audit.log
+            blr-001-english-gap-export.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload English gap audit pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-english-gap-audit-review
+          path: blr-001-english-gap-audit-output
+          if-no-files-found: error
+          retention-days: 30
