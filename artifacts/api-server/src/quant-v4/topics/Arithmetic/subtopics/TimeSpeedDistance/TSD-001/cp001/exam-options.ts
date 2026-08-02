@@ -56,6 +56,12 @@ export function examOptionPackage(
 ): OptionSet {
   const correct = scalarValue(solution);
   if (!correct) return fallback;
+  if (
+    input.solveMode === "speedFromPace"
+    || input.solveMode === "paceFromSpeed"
+    || input.solveMode === "distanceFromPaceAndTime"
+  ) return fallback;
+
   let candidates: readonly WrongCandidate[] | null = null;
   switch (input.solveMode) {
     case "distanceFromSpeedAndTime":
@@ -128,17 +134,6 @@ export function examOptionPackage(
         [subtract(correct, r(10)), "MISREAD_TIME"],
         [add(correct, r(20)), "DIVISION_ERROR"],
       ];
-      break;
-    case "speedFromPace":
-      candidates = input.outputUnit === "KMPH"
-        ? [[subtract(correct, r(1)), "MISREAD_TIME"], [add(correct, r(1)), "MISREAD_TIME"], [input.pace, "FAIL_TO_INVERT_PACE"]]
-        : [[multiply(correct, r(4, 5)), "MISREAD_TIME"], [multiply(correct, r(6, 5)), "MISREAD_TIME"], [multiply(correct, r(3, 2)), "USE_WRONG_CONVERSION_FACTOR"]];
-      break;
-    case "paceFromSpeed":
-      candidates = [[subtract(correct, r(1)), "MISREAD_SPEED"], [add(correct, r(1)), "MISREAD_SPEED"], [multiply(correct, r(3, 2)), "FAIL_TO_INVERT_PACE"]];
-      break;
-    case "distanceFromPaceAndTime":
-      candidates = [[divide(correct, r(2)), "MISREAD_TIME"], [multiply(correct, r(3, 2)), "MISREAD_TIME"], [multiply(correct, r(2)), "MULTIPLY_PACE_AND_TIME"]];
       break;
     case "requiredUniformSpeedForDeadline": {
       const absoluteDeadline = add(
