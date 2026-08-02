@@ -98,10 +98,15 @@ export function stateMath(
   labels: readonly [string, string],
   unit: string,
 ): string {
-  return `${labels[0]} = ${quantityMath(
-    state.componentA,
-    unit,
-  )} and ${labels[1]} = ${quantityMath(state.componentB, unit)}`;
+  return `${inlineMath(
+    `\\text{${latexText(labels[0])}}=${latexNumber(
+      state.componentA,
+    )}\\,\\text{${latexText(unit)}}`,
+  )} and ${inlineMath(
+    `\\text{${latexText(labels[1])}}=${latexNumber(
+      state.componentB,
+    )}\\,\\text{${latexText(unit)}}`,
+  )}`;
 }
 
 export function componentValue(
