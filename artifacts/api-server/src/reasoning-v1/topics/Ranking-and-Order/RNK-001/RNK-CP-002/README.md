@@ -1,87 +1,106 @@
 # RNK-CP-002 — Two-Person Positions
 
-Status: **executable discovery opened; permanent QL count intentionally unset**.
+Status: **English discovery frozen; eight permanent review-only QLs allocated; release surfaces locked**.
 
-Base checkpoint dependency: `RNK-CP-001` English discovery freeze at `5090b7d00ab7d288103221a862a9f19dbb62cfcd`.
+Freeze version: `RNK_CP002_ENGLISH_DISCOVERY_FREEZE_V1`
 
-## Purpose
+Permanent range: `RNK-QL-010..017`  
+Next available RNK-001 identity: `RNK-QL-018`
 
-Discover the complete solver and answer-contract surface for questions involving two distinct positions in one ordered group.
+## Frozen QLs
 
-The checkpoint begins from a normalized two-person state:
+| QL | Authority |
+|---|---|
+| `RNK-QL-010` | people strictly between two normalized positions |
+| `RNK-QL-011` | positional gap between two normalized positions |
+| `RNK-QL-012` | target rank from a reference rank and directional separation |
+| `RNK-QL-013` | compare normalized positions toward a requested end |
+| `RNK-QL-014` | total from mixed-end ranks, between-count and known order |
+| `RNK-QL-015` | minimum or maximum valid total under unknown order |
+| `RNK-QL-016` | exact total or indeterminate outcome under unknown order |
+| `RNK-QL-017` | order status compatible with a proposed total |
+
+Same-end versus mixed-end evidence, person-role reversal, requested physical end, direct offset versus people-between representation and minimum versus maximum remain generated-instance parameters.
+
+## Construction model
 
 ```text
-N                  total members
-rA                 first person's rank from the start
-rB                 second person's rank from the start
-N - rA + 1         first person's rank from the end
-N - rB + 1         second person's rank from the end
-|rA - rB|          position gap
-|rA - rB| - 1      members strictly between
+construct two distinct valid positions
+  -> derive both start/end ranks, gap and between-count
+  -> expose only the intended evidence
+  -> solve displayed evidence independently
+  -> evaluate high/low order branches when total is unknown
+  -> reject impossible reversed-order states
+  -> construct misconception-owned options
+  -> render reviewed context-specific teaching
 ```
 
-Every question is constructed from a valid hidden state before learner evidence is rendered. An independent solver sees only the displayed evidence.
-
-## First executable discovery wave
-
-The foundation intentionally uses provisional prototype identities rather than permanent QLs:
+## Completed discovery sequence
 
 ```text
-RNK-CP002-PROT-PEOPLE-BETWEEN-SAME-END-RANKS
-RNK-CP002-PROT-POSITION-GAP-SAME-END-RANKS
-RNK-CP002-PROT-SECOND-RANK-FROM-RELATIVE-OFFSET
-RNK-CP002-PROT-PEOPLE-BETWEEN-MIXED-END-RANKS
-RNK-CP002-PROT-TOTAL-FROM-MIXED-END-RANKS-KNOWN-ORDER
-RNK-CP002-PROT-EXTREME-TOTAL-FROM-MIXED-END-RANKS-UNKNOWN-ORDER
+foundation wave                      6 prototypes / 1,440 questions
+source and inverse wave              7 prototypes / 1,680 questions
+combined discovery                  13 prototypes / 3,120 questions
+13→8 consolidation replay                         3,120 checks
+authority English review runtime     8 × 320      = 2,560 questions
+approved English review pack         8 × 6        =    48 questions
+permanent runtime                    8 × 192      = 1,536 questions
+open CP-002 source dimensions                              0
 ```
 
-These six probes do not imply six final QLs. Source, inverse, representation, edge, merge/split and ownership audits remain open.
+## Mixed-end validity model
 
-## First-wave coverage
-
-- two ranks measured from the same end;
-- people strictly between versus raw position difference;
-- second rank from a relative positional offset;
-- mixed-end normalization with a known total;
-- total from mixed-end ranks when relative order is stated;
-- minimum/maximum possible total when relative order is not stated;
-- top/bottom, left/right and front/back representations;
-- adjacent, endpoint, reversed-order and wide-gap states;
-- Rank, Count and Total answer semantics.
-
-## Explicit exclusions
-
-The following are not owned by this checkpoint:
-
-- interchange or swapping positions → `RNK-CP-003`;
-- movement, overtaking, insertion or removal → `RNK-CP-003`;
-- reconstruction of three or more named entities → `RNK-CP-004`;
-- shared passages → later RNK checkpoint;
-- statement-wise sufficiency labels → Data Sufficiency;
-- adjacency/facing/geometry → Seating Arrangement;
-- multi-attribute matching → Logic Puzzles.
-
-## Required discovery gates
-
-Before permanent identity can be considered, CP-002 must complete:
-
-1. source-pattern saturation;
-2. direct and inverse query audit;
-3. known-order and unknown-order validity audit;
-4. min/max and impossible-state audit;
-5. same-end versus mixed-end merge/split audit;
-6. distractor ownership review;
-7. full English editorial review;
-8. post-review no-new-gap confirmation.
-
-## Current lifecycle
+For start rank `a`, end rank `b`, and `k` people between:
 
 ```text
-permanentQlId:              null
-reviewStatus:               UNREVIEWED
-questionStudioDiscoverable: false
-questionBankStatus:         NOT_STORED
-testEligibility:            INELIGIBLE
-publiclyPublishable:        false
-Hindi/Punjabi:              not started
+high-order total = a + b + k
+low-order total  = a + b - k - 2
+```
+
+The low-order branch is valid only when both supplied ranks are at least `k + 2`.
+
+- one valid branch → unique total;
+- two valid branch totals → exact total cannot be determined;
+- proposed total matching the high branch → start-ranked person is nearer the start end;
+- proposed total matching a valid low branch → end-ranked person is nearer the start end;
+- no branch match → proposed total is impossible.
+
+## English review
+
+Approved learner-facing projection:
+
+```text
+sha256:e1853b8864453ebcdbe88aa6f3ca5fedf9f7b7140c28a3b5ad5da8a0c4855430
+```
+
+The reviewed layer uses candidate terminology for merit lists, natural top/bottom, left/right and front/back phrasing, named-person categorical answers and question-specific conclusions. Canonical mathematical statuses remain in review metadata.
+
+## Authoritative records
+
+1. `RNK-CP-002-SOURCE-SATURATION-AUDIT.md`;
+2. `RNK-CP-002-ENGLISH-MANUAL-REVIEW.md`;
+3. `RNK-CP-002-FINAL-DISCOVERY-FREEZE.md`;
+4. `../RNK-001-MANIFEST-AMENDMENT-CP002.md`;
+5. `cp002-final-discovery-freeze.test.ts`;
+6. `cp002-permanent-runtime.ts`;
+7. `cp002-permanent-runtime.test.ts`.
+
+## Ownership boundary
+
+- CP-001: one-person rank arithmetic;
+- CP-002: relationships between two fixed positions;
+- CP-003: movement, overtaking, insertion/removal and interchange;
+- CP-004: three-or-more-person ordering;
+- CP-005: shared ranking passages;
+- CP-007: multi-person partial-order possibility and uncertainty.
+
+## Release lock
+
+```text
+English review-only:             true
+Hindi/Punjabi:                   not started
+Question Studio:                 disabled
+Question Bank:                   NOT_STORED
+mock-test eligibility:           INELIGIBLE
+public publication:              false
 ```
