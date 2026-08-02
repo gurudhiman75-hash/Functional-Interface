@@ -1,130 +1,143 @@
-import { PNL_001_CANONICAL_REVIEW_LIBRARY } from "./question-studio-review.library";
-import { runPnlCp001DynamicPipeline } from "./CP-001/cp001-dynamic-runtime";
-import { runPnlCp002DynamicPipeline } from "./CP-002/cp002-dynamic-runtime";
-import { runPnlCp003DynamicPipeline } from "./CP-003/cp003-dynamic-runtime";
-import { runPnlCp004DynamicPipeline } from "./CP-004/cp004-dynamic-runtime";
-import { runPnlCp005DynamicPipeline } from "./CP-005/cp005-dynamic-runtime";
-import { runPnlCp006DynamicPipeline } from "./CP-006/cp006-dynamic-runtime";
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
-type ReviewEntry = Readonly<{
-  qlId: string;
-  cpId: string;
-  stem: string;
-  options: readonly string[];
-  answer: string;
-}>;
+import type {
+  QuestionStemBlock,
+  StructuredEditorialEntry,
+} from "./foundation/editorial-content";
+import { PNL_001_CANONICAL_REVIEW_LIBRARY } from "./question-studio-review.library";
 
 type ReviewLibrary = Readonly<{
-  entries: Readonly<Record<string, ReviewEntry>>;
+  entries: Readonly<Record<string, Readonly<{ stem: string }>>>;
 }>;
 
-type DynamicPackage = Readonly<{
-  questionLanguageId: string;
-  stem: string;
-  answer: string;
-  parameters: Readonly<{
-    variables: Readonly<Record<string, unknown>>;
-  }>;
+type EditorialLibrary = Readonly<{
+  entries: Readonly<Record<string, StructuredEditorialEntry>>;
 }>;
 
-type DynamicRun = (input: Readonly<{
-  questionLanguageId?: string;
-  language?: "en";
-  seed?: string;
-}>) => DynamicPackage;
+const root = dirname(fileURLToPath(import.meta.url));
+const cpFolders = ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006"] as const;
+const canonical = PNL_001_CANONICAL_REVIEW_LIBRARY as ReviewLibrary;
 
-const library = PNL_001_CANONICAL_REVIEW_LIBRARY as ReviewLibrary;
-const entries = Object.values(library.entries);
-const runtimeByCp = new Map<string, DynamicRun>([
-  ["PNL-CP-001", runPnlCp001DynamicPipeline as DynamicRun],
-  ["PNL-CP-002", runPnlCp002DynamicPipeline as DynamicRun],
-  ["PNL-CP-003", runPnlCp003DynamicPipeline as DynamicRun],
-  ["PNL-CP-004", runPnlCp004DynamicPipeline as DynamicRun],
-  ["PNL-CP-005", runPnlCp005DynamicPipeline as DynamicRun],
-  ["PNL-CP-006", runPnlCp006DynamicPipeline as DynamicRun],
-]);
-
-const seedAuthorities = [
-  { name: "runtime-default", seed: (qlId: string) => `${qlId}:dynamic-default` },
-  { name: "canonical-review", seed: (qlId: string) => `${qlId}:canonical-review` },
-  { name: "wave03-runtime-review", seed: (qlId: string) => `${qlId}:wave03-runtime-review` },
-  { name: "review-fixture", seed: (qlId: string) => `${qlId}:review-fixture` },
-  { name: "canonical-prefix", seed: (qlId: string) => `canonical-review:${qlId}` },
-  { name: "question-studio", seed: (qlId: string) => `pnl-question-studio:${qlId}` },
-] as const;
-
-function numericTokens(value: string): readonly string[] {
-  return [...value.matchAll(/(?:₹\s*)?\d[\d,]*(?:\.\d+)?%?/g)]
-    .map((match) => match[0]!.replace(/[₹,\s]/g, ""))
-    .sort();
+function readJson<T>(path: string): T {
+  return JSON.parse(readFileSync(path, "utf8")) as T;
 }
 
-function normalizedAnswer(value: string): string {
-  return value
-    .replace(/\s+/g, " ")
-    .replace(/,/g, "")
-    .trim()
-    .toLowerCase();
+function placeholders(value: string | undefined): readonly string[] {
+  if (!value) return [];
+  return [...value.matchAll(/\{([A-Za-z][A-Za-z0-9_]*)\}/g)].map((match) => match[1]!);
 }
 
-const results = seedAuthorities.map((authority) => {
-  let numericStemMatches = 0;
-  let exactAnswerMatches = 0;
-  let bothMatch = 0;
-  const mismatchSamples: unknown[] = [];
+function blockPlaceholders(block: QuestionStemBlock): readonly string[] {
+  switch (block.type) {
+    case "paragraph":
+      return placeholders(block.content);
+    case "table":
+      return [
+        ...placeholders(block.caption),
+        ...block.columns.flatMap(placeholders),
+        ...(block.rows?.flatMap((row) => row.flatMap(placeholders)) ?? []),
+      ];
+    case "caselet":
+      return [
+        ...placeholders(block.title),
+        ...(block.paragraphs?.flatMap(placeholders) ?? []),
+      ];
+    case "statements":
+      return [
+        ...placeholders(block.lead),
+        ...block.statements.flatMap(placeholders),
+      ];
+    case "data_sufficiency":
+      return [
+        ...placeholders(block.question),
+        ...block.statements.flatMap(placeholders),
+      ];
+    case "equation":
+      return placeholders(block.latex);
+  }
+}
 
-  for (const entry of entries) {
-    const run = runtimeByCp.get(entry.cpId);
-    if (!run) throw new Error(`${entry.cpId}: dynamic runtime missing.`);
-    const generated = run({
-      questionLanguageId: entry.qlId,
-      language: "en",
-      seed: authority.seed(entry.qlId),
-    });
-    const stemMatch =
-      JSON.stringify(numericTokens(generated.stem)) ===
-      JSON.stringify(numericTokens(entry.stem));
-    const answerMatch =
-      normalizedAnswer(generated.answer) === normalizedAnswer(entry.answer);
-    if (stemMatch) numericStemMatches += 1;
-    if (answerMatch) exactAnswerMatches += 1;
-    if (stemMatch && answerMatch) bothMatch += 1;
-    if ((!stemMatch || !answerMatch) && mismatchSamples.length < 4) {
-      mismatchSamples.push({
-        qlId: entry.qlId,
-        canonicalNumbers: numericTokens(entry.stem),
-        generatedNumbers: numericTokens(generated.stem),
-        canonicalAnswer: entry.answer,
-        generatedAnswer: generated.answer,
-        variableKeys: Object.keys(generated.parameters.variables).sort(),
-      });
+const blockTypeCounts: Record<string, number> = {};
+const representationQlIds: Record<string, string[]> = {};
+const rowSourceOwners: Record<string, string[]> = {};
+const paragraphSourceOwners: Record<string, string[]> = {};
+const scalarPlaceholderFrequency: Record<string, number> = {};
+const sourceShapes: unknown[] = [];
+let qlCount = 0;
+let multiBlockQlCount = 0;
+let maxBlocks = 0;
+let qlsWithoutCanonicalStem = 0;
+
+for (const cp of cpFolders) {
+  const library = readJson<EditorialLibrary>(join(root, cp, "editorial-content.en.json"));
+  for (const [qlId, entry] of Object.entries(library.entries)) {
+    qlCount += 1;
+    if (!canonical.entries[qlId]?.stem) qlsWithoutCanonicalStem += 1;
+    if (entry.stem.blocks.length > 1) multiBlockQlCount += 1;
+    maxBlocks = Math.max(maxBlocks, entry.stem.blocks.length);
+
+    for (const block of entry.stem.blocks) {
+      blockTypeCounts[block.type] = (blockTypeCounts[block.type] ?? 0) + 1;
+      (representationQlIds[block.type] ??= []).push(qlId);
+      for (const key of blockPlaceholders(block)) {
+        scalarPlaceholderFrequency[key] = (scalarPlaceholderFrequency[key] ?? 0) + 1;
+      }
+
+      if (block.type === "table" && block.rowSource) {
+        (rowSourceOwners[block.rowSource] ??= []).push(qlId);
+        sourceShapes.push({
+          qlId,
+          type: "table-row-source",
+          source: block.rowSource,
+          columns: block.columns,
+          caption: block.caption ?? null,
+          canonicalStem: canonical.entries[qlId]?.stem,
+        });
+      }
+      if (block.type === "caselet" && block.paragraphSource) {
+        (paragraphSourceOwners[block.paragraphSource] ??= []).push(qlId);
+        sourceShapes.push({
+          qlId,
+          type: "caselet-paragraph-source",
+          source: block.paragraphSource,
+          title: block.title ?? null,
+          canonicalStem: canonical.entries[qlId]?.stem,
+        });
+      }
+    }
+
+    for (const key of placeholders(entry.stem.prompt)) {
+      scalarPlaceholderFrequency[key] = (scalarPlaceholderFrequency[key] ?? 0) + 1;
     }
   }
-
-  return {
-    authority: authority.name,
-    numericStemMatches,
-    exactAnswerMatches,
-    bothMatch,
-    mismatchSamples,
-  };
-});
-
-console.log(
-  JSON.stringify(
-    {
-      entryCount: entries.length,
-      canonicalContextObjects: 0,
-      candidateSeedResults: results,
-    },
-    null,
-    2,
-  ),
-);
-
-const exactAuthority = results.find((result) => result.bothMatch === entries.length);
-if (!exactAuthority) {
-  throw new Error(
-    "No known dynamic seed authority reproduces all reviewed canonical fixture values.",
-  );
 }
+
+const summary = {
+  qlCount,
+  qlsWithoutCanonicalStem,
+  blockTypeCounts,
+  representationQlCounts: Object.fromEntries(
+    Object.entries(representationQlIds).map(([type, ids]) => [type, new Set(ids).size]),
+  ),
+  multiBlockQlCount,
+  maxBlocks,
+  rowSourceCount: Object.values(rowSourceOwners).flat().length,
+  rowSources: rowSourceOwners,
+  paragraphSourceCount: Object.values(paragraphSourceOwners).flat().length,
+  paragraphSources: paragraphSourceOwners,
+  scalarPlaceholderNames: Object.keys(scalarPlaceholderFrequency).sort(),
+  scalarPlaceholderNameCount: Object.keys(scalarPlaceholderFrequency).length,
+  sourceShapes,
+};
+
+console.log(JSON.stringify(summary, null, 2));
+
+if (qlCount !== 186 || qlsWithoutCanonicalStem !== 0) {
+  throw new Error("Canonical and structured English authorities are not aligned.");
+}
+
+throw new Error(
+  `Context recovery shape audit complete: ${summary.rowSourceCount} row-source QLs and ${summary.paragraphSourceCount} paragraph-source QLs require dedicated parsers.`,
+);
