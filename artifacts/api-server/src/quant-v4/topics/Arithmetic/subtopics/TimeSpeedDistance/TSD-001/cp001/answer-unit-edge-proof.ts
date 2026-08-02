@@ -105,7 +105,16 @@ assert(directTimeRows.every((row) => / seconds?$/.test(row.answerText)), "Canoni
 const deadlineRows = rows.filter((row) => row.solveMode === "requiredUniformSpeedForDeadline");
 assert(deadlineRows.every((row) => row.input.solveMode === "requiredUniformSpeedForDeadline" && row.input.outputUnit === "KMPH"), "Deadline questions must retain the natural km/h clock context");
 
-const learnerText = JSON.stringify(rows);
+const learnerText = rows.map((row) => [
+  row.stem,
+  row.answerText,
+  ...row.options,
+  row.explanation.keyRule,
+  ...row.explanation.stepByStepSolution,
+  row.explanation.examSpeedShortcut,
+  ...row.explanation.optionAnalysis.map((option) => option.reason),
+  row.explanation.conclusion,
+].join(" ")).join(" ");
 assert(!/km\/h kilometres|m\/s metres|seconds\/km seconds|minutes\/km minutes/i.test(learnerText), "Duplicated unit noun leaked into learner explanation");
 assert(rows.every((row) => row.options.length === 4 && new Set(row.options).size === 4), "Answer-unit audit introduced duplicate options");
 assert(rows.every((row) => row.answerText === row.options[row.correctIndex]), "Answer-unit audit introduced an answer-key mismatch");
