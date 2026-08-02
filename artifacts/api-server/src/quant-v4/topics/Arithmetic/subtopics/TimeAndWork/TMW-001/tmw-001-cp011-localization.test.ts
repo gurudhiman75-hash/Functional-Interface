@@ -12,6 +12,24 @@ const stems: Record<TmwLocalizedLanguage, Set<string>> = {
 let hindiCandidates = 0;
 let punjabiCandidates = 0;
 
+function crossScriptDetail(question: ReturnType<typeof runTmwCp011LocalizedPipeline>): string {
+  const fields: Array<[string, string]> = [
+    ["stem", question.stem],
+    ...question.options.map((value, index): [string, string] => [`option-${index + 1}`, value]),
+    ["opening", question.explanation.opening],
+    ["formula", question.explanation.formula],
+    ...question.explanation.givens.map((value, index): [string, string] => [`given-${index + 1}`, value]),
+    ...question.explanation.steps.map((value, index): [string, string] => [`step-${index + 1}`, value]),
+    ["shortcut-title", question.explanation.shortcut.title],
+    ...question.explanation.shortcut.steps.map((value, index): [string, string] => [`shortcut-${index + 1}`, value]),
+    ["trap", question.explanation.commonTrap.explanation],
+    ["conclusion", question.explanation.conclusion],
+  ];
+  const foreign = question.language === "pa" ? /[\u0900-\u097F]/ : /[\u0A00-\u0A7F]/;
+  const hit = fields.find(([, value]) => foreign.test(value.replace(/\\\([\s\S]*?\\\)/g, "")));
+  return hit ? `${hit[0]}=${JSON.stringify(hit[1])}` : "no-field-found";
+}
+
 for (const entry of TMW_CP_011_REGISTRY) {
   for (let index = 0; index < 20; index += 1) {
     const seed = `tmw-cp011-localization:${entry.qlId}:${index}`;
@@ -25,7 +43,11 @@ for (const entry of TMW_CP_011_REGISTRY) {
         language,
       });
 
-      assert.equal(localized.validation.valid, true, `${entry.qlId}:${language}:${localized.validation.errors.join(" | ")}`);
+      assert.equal(
+        localized.validation.valid,
+        true,
+        `${entry.qlId}:${language}:${localized.validation.errors.join(" | ")}; ${crossScriptDetail(localized)}`,
+      );
       assert.equal(localized.questionLanguageId, english.questionLanguageId);
       assert.equal(localized.solveMode, english.solveMode);
       assert.equal(localized.seed, english.seed);
