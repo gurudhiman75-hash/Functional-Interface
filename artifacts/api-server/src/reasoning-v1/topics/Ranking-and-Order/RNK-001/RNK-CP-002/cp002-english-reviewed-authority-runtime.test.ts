@@ -17,7 +17,7 @@ let learnerHygieneChecks = 0;
 let contextualAnswerChecks = 0;
 
 for (const authorityId of RNK_CP002_AUTHORITY_IDS) {
-  const requestedEndLabels = new Set<string>();
+  const requestedEndPhrases = new Set<string>();
   const contextualAnswers = new Set<string>();
 
   for (let seed = 0; seed < SEEDS_PER_AUTHORITY; seed += 1) {
@@ -69,6 +69,7 @@ for (const authorityId of RNK_CP002_AUTHORITY_IDS) {
 
     assert.ok(!/\bstart end\b/i.test(learnerText), `${authorityId}:${seed}`);
     assert.ok(!/\bend end\b/i.test(learnerText), `${authorityId}:${seed}`);
+    assert.ok(!/\b(?:top|bottom|front|back) end\b/i.test(learnerText), `${authorityId}:${seed}`);
     assert.ok(!/\b(?:the )?first person\b/i.test(learnerText), `${authorityId}:${seed}`);
     assert.ok(!/\b(?:the )?second person\b/i.test(learnerText), `${authorityId}:${seed}`);
     assert.ok(!/\bThere are one\b/i.test(learnerText), `${authorityId}:${seed}`);
@@ -76,30 +77,33 @@ for (const authorityId of RNK_CP002_AUTHORITY_IDS) {
     assert.ok(!/\b0 (?:people|candidates)\b/i.test(learnerText), `${authorityId}:${seed}`);
     assert.ok(!/\b(?:RNK-CP|RNK-QL|PROT-|AUTH-)\b/.test(learnerText));
     assert.ok(!/undefined|null|NaN/.test(learnerText));
+    assert.ok(!/^Therefore, the required (?:answer|count)/.test(reviewed.explanation.conclusion));
     learnerHygieneChecks += 1;
 
     if (authorityId === 'RNK-CP002-AUTH-04-COMPARE-NORMALIZED-POSITIONS') {
-      const match = reviewed.stem.match(/Who is nearer the (top|bottom|left|right|front|back) end\?$/);
-      assert.ok(match, `${authorityId}:${seed} lacks a contextual requested end`);
-      requestedEndLabels.add(match![1]);
+      const match = reviewed.stem.match(
+        /Who is nearer (the top|the bottom|the left end|the right end|the front|the back)\?$/,
+      );
+      assert.ok(match, `${authorityId}:${seed} lacks a contextual requested side`);
+      requestedEndPhrases.add(match![1]);
       assert.equal(
         reviewed.explanation.conclusion,
-        `${reviewed.answer} is nearer the ${match![1]} end.`,
+        `${reviewed.answer} is nearer ${match![1]}.`,
       );
       contextualAnswerChecks += 1;
     }
 
     if (authorityId === 'RNK-CP002-AUTH-08-PROPOSED-TOTAL-ORDER-STATUS') {
-      const ends = reviewed.contextId === 'MERIT_LIST'
-        ? ['top', 'bottom']
+      const startPhrase = reviewed.contextId === 'MERIT_LIST'
+        ? 'the top'
         : reviewed.contextId === 'HORIZONTAL_ROW'
-          ? ['left', 'right']
-          : ['front', 'back'];
+          ? 'the left end'
+          : 'the front';
       const answerText = String(reviewed.answer);
       assert.ok(
         answerText === 'The proposed total is impossible' ||
-        answerText === `${reviewed.firstName} is nearer the ${ends[0]} end` ||
-        answerText === `${reviewed.secondName} is nearer the ${ends[0]} end`,
+        answerText === `${reviewed.firstName} is nearer ${startPhrase}` ||
+        answerText === `${reviewed.secondName} is nearer ${startPhrase}`,
         `${authorityId}:${seed} has a non-contextual answer`,
       );
       contextualAnswers.add(answerText === 'The proposed total is impossible'
@@ -136,7 +140,7 @@ for (const authorityId of RNK_CP002_AUTHORITY_IDS) {
   }
 
   if (authorityId === 'RNK-CP002-AUTH-04-COMPARE-NORMALIZED-POSITIONS') {
-    assert.ok(requestedEndLabels.size >= 5);
+    assert.ok(requestedEndPhrases.size >= 5);
   }
   if (authorityId === 'RNK-CP002-AUTH-08-PROPOSED-TOTAL-ORDER-STATUS') {
     assert.deepEqual([...contextualAnswers].sort(), [
