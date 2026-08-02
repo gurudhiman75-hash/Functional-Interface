@@ -55,6 +55,20 @@ function isAverageRequest(body: any) {
   );
 }
 
+function isNumberSystemRequest(body: any) {
+  const packageId = normalizeSelector(body?.packageId ?? body?.archetypeId);
+  const patternId = normalizeSelector(body?.patternId);
+  const topic = normalizeSelector(body?.topic);
+  const subtopic = normalizeSelector(body?.subtopic);
+  const selectors = new Set(["number system", "numbers", "number theory"]);
+  return (
+    packageId === "num 001" ||
+    patternId.includes("num 001") ||
+    (selectors.has(topic) && !subtopic) ||
+    (topic === "arithmetic" && selectors.has(subtopic))
+  );
+}
+
 function publicRunCode() {
   const date = new Date().toISOString().slice(0, 10).replaceAll("-", "");
   const suffix = randomUUID().replaceAll("-", "").slice(0, 8).toUpperCase();
@@ -82,6 +96,16 @@ router.get(
         supportedLanguages: Array.isArray(pkg.supportedLanguages)
           ? pkg.supportedLanguages.map(String)
           : ["en"],
+        runtimeMode: asString(pkg.runtimeMode) || undefined,
+        supportedRuntimeModes: Array.isArray(pkg.supportedRuntimeModes)
+          ? pkg.supportedRuntimeModes.map(String)
+          : [],
+        questionBankStatus: asString(pkg.questionBankStatus) || undefined,
+        testEligibility: asString(pkg.testEligibility) || undefined,
+        publiclyPublishable:
+          typeof pkg.publiclyPublishable === "boolean"
+            ? pkg.publiclyPublishable
+            : undefined,
       }));
 
       res.json({
@@ -102,16 +126,20 @@ router.post(
   "/runs",
   requireAdminPermission("content.generation.run"),
   async (req, res, next) => {
-    if (!isAverageRequest(req.body)) {
+    const numberSystemRequest = isNumberSystemRequest(req.body);
+    const averageRequest = isAverageRequest(req.body);
+    if (!averageRequest && !numberSystemRequest) {
       next();
       return;
     }
 
     const count = asPositiveInteger(req.body?.count, 5, 50);
-    const packageId = asString(req.body?.packageId) || "AVG-001";
+    const defaultPackageId = numberSystemRequest ? "NUM-001" : "AVG-001";
+    const defaultSubtopic = numberSystemRequest ? "Number System" : "Average";
+    const packageId = asString(req.body?.packageId) || defaultPackageId;
     const patternId = asString(req.body?.patternId) || undefined;
     const topic = asString(req.body?.topic) || "Arithmetic";
-    const subtopic = asString(req.body?.subtopic) || "Average";
+    const subtopic = asString(req.body?.subtopic) || defaultSubtopic;
     const exam = asString(req.body?.exam) || "SSC CGL";
     const subject = asString(req.body?.subject) || "Quantitative Aptitude";
     const language = normalizeLanguage(req.body?.language);
@@ -119,6 +147,13 @@ router.post(
     const seed = asString(req.body?.seed) || undefined;
     const canonicalProblemId = asString(req.body?.canonicalProblemId) || undefined;
     const questionLanguageId = asString(req.body?.questionLanguageId) || undefined;
+
+    if (numberSystemRequest && language !== "en") {
+      res.status(400).json({
+        error: "NUM-001 supports English Question Studio generation only.",
+      });
+      return;
+    }
 
     const runId = randomUUID();
     const code = publicRunCode();
@@ -141,7 +176,7 @@ router.post(
 
     try {
       const result = await generateQuantV4Questions({
-        packageId: "AVG-001",
+        packageId: defaultPackageId as "AVG-001" | "NUM-001",
         patternId,
         topic,
         subtopic,
@@ -217,7 +252,7 @@ router.post(
             ${req.adminSession?.user.id ?? null}::uuid,
             'question_studio.generation_run.created', 'generation_run',
             ${runId}::uuid, 'Admin generated a Question Studio batch',
-            ${`Generated ${generatedQuestions.length} AVG-001 questions in ${code}`},
+            ${`Generated ${generatedQuestions.length} ${defaultPackageId} questions in ${code}`},
             ${JSON.stringify({ firebaseUid: req.user?.id, requestSnapshot })}
           )
         `;
@@ -241,7 +276,7 @@ router.post(
         generationSystem: "quant-v4",
       });
     } catch (error) {
-      console.error("AVG-001 Question Studio generation failed", error);
+      console.error(`${defaultPackageId} Question Studio generation failed`, error);
       res.status(500).json({
         error: error instanceof Error ? error.message : "Question generation failed",
       });
