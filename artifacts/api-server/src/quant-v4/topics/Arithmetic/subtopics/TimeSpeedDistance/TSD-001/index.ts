@@ -7,3 +7,8 @@ export * from "./cp001/canonical-solver";
 export * from "./cp001/independent-verifier";
 export * from "./cp001/runtime";
 export * from "./cp001/freeze-registry";
+export * from "./cp002/discovery-registry";
+export * from "./cp002/solver";
+export * from "./cp002/verifier";
+export * from "./cp002/runtime";
+export * from "./cp002/freeze-registry";
