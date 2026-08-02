@@ -1,5 +1,5 @@
 import { PNL_001_CANONICAL_REVIEW_LIBRARY } from "./question-studio-review.library";
-import { localizePnl001CanonicalChoiceV2 } from "./question-studio-native-choice-localizer-v2";
+import { localizePnl001CanonicalChoiceV3 } from "./question-studio-native-choice-localizer-v3";
 
 type Entry = Readonly<{
   qlId: string;
@@ -33,7 +33,7 @@ for (const [value, owners] of [...textualValues.entries()].sort(
 )) {
   for (const language of ["hi", "pa"] as const) {
     try {
-      const localized = localizePnl001CanonicalChoiceV2(value, language);
+      const localized = localizePnl001CanonicalChoiceV3(value, language);
       const script =
         language === "hi" ? /[\u0900-\u097F]/u : /[\u0A00-\u0A7F]/u;
       if (!script.test(localized)) {
