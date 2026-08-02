@@ -13,6 +13,11 @@ import {
   isEquivalentSpeedFingerprint,
   prepareEquivalentSpeedInput,
 } from "./equivalent-speed-representation";
+import {
+  answerUnitReviewBucket,
+  answerUnitReviewTargets,
+  formatAnswerUnitTarget,
+} from "./answer-unit-review";
 import { examWorkingLines } from "./exam-working";
 import { editorialStem, inlineMathText } from "./pedagogy";
 import { buildHumanExplanation } from "./human-explanation";
@@ -132,6 +137,8 @@ export function generateCp001ReviewRows(seedsPerAuthority = 3): TsdCp001Generate
     const scalarTarget = seedsPerAuthority - equivalentTarget;
     let equivalentCount = 0;
     let scalarCount = 0;
+    const unitTargets = answerUnitReviewTargets(authority.solveMode, seedsPerAuthority);
+    const unitCounts = new Map(unitTargets.map((target) => [target.bucket, 0]));
 
     for (let index = 0; authorityRows.length < seedsPerAuthority && index < 500; index += 1) {
       const candidate = generateCp001Candidate(authority.provisionalId, `review:${authority.provisionalId}:${index}`);
@@ -140,6 +147,11 @@ export function generateCp001ReviewRows(seedsPerAuthority = 3): TsdCp001Generate
       if (authority.solveMode === "convertSpeedUnit") {
         if (equivalent && equivalentCount >= equivalentTarget) continue;
         if (!equivalent && scalarCount >= scalarTarget) continue;
+      }
+      const unitBucket = answerUnitReviewBucket(candidate);
+      if (unitTargets.length > 0) {
+        const target = unitTargets.find((entry) => entry.bucket === unitBucket);
+        if (!target || (unitCounts.get(target.bucket) ?? 0) >= target.count) continue;
       }
       if (
         fingerprints.has(candidate.mathematicalFingerprint)
@@ -152,6 +164,9 @@ export function generateCp001ReviewRows(seedsPerAuthority = 3): TsdCp001Generate
       teachingOpenings.add(teachingOpening);
       if (equivalent) equivalentCount += 1;
       else scalarCount += 1;
+      if (unitBucket && unitCounts.has(unitBucket)) {
+        unitCounts.set(unitBucket, (unitCounts.get(unitBucket) ?? 0) + 1);
+      }
     }
     if (authorityRows.length !== seedsPerAuthority) {
       throw new Error(`${authority.solveMode}: could not export ${seedsPerAuthority} distinct mathematical, stem and teaching states`);
@@ -159,6 +174,14 @@ export function generateCp001ReviewRows(seedsPerAuthority = 3): TsdCp001Generate
     if (authority.solveMode === "convertSpeedUnit") {
       if (equivalentCount !== equivalentTarget || scalarCount !== scalarTarget) {
         throw new Error(`convertSpeedUnit: expected ${equivalentTarget} equivalent-set and ${scalarTarget} scalar review rows`);
+      }
+    }
+    for (const target of unitTargets) {
+      const actual = unitCounts.get(target.bucket) ?? 0;
+      if (actual !== target.count) {
+        throw new Error(
+          `${authority.solveMode}: expected answer-unit bucket ${formatAnswerUnitTarget(target)}, received ${actual}`,
+        );
       }
     }
     rows.push(...authorityRows);
