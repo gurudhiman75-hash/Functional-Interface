@@ -46,14 +46,17 @@ jobs:
           set -o pipefail
           node dist/quant-v4/number-system-generator-v3-audit.mjs 2>&1 | tee dist/quant-v4/number-system-generator-v3-audit.log
 
-      - name: Run English Question Studio release audit
+      - name: Run bounded English Question Studio release audit
         working-directory: artifacts/api-server
         shell: bash
         run: |
           set -o pipefail
-          node dist/quant-v4/number-system-question-studio-release-audit.mjs 2>&1 | tee dist/quant-v4/number-system-question-studio-release-audit.log
+          timeout --signal=TERM --kill-after=30s 12m \
+            node dist/quant-v4/number-system-question-studio-release-audit.mjs \
+            2>&1 | tee dist/quant-v4/number-system-question-studio-release-audit.log
 
-      - name: Upload release evidence
+      - name: Upload release evidence and diagnostics
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: num-001-english-question-studio-release-review
@@ -66,5 +69,5 @@ jobs:
             artifacts/api-server/dist/quant-v4/number-system-question-studio-release/num-001-question-studio-release-review.json
             artifacts/api-server/dist/quant-v4/number-system-question-studio-release/num-001-question-studio-release-review.csv
             artifacts/api-server/dist/quant-v4/number-system-question-studio-release/num-001-question-studio-release-review.md
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 30
