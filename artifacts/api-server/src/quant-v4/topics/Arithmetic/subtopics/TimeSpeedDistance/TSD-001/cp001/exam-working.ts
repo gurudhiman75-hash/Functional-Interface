@@ -2,6 +2,7 @@ import { add, divide, multiply, rational, subtract, toMixedString, type Rational
 import { convertDistance, convertTime } from "../foundation/units";
 import type { TsdCp001Solution, TsdCp001SolveInput } from "./canonical-solver";
 import { clockWorkingLines } from "./clock-working";
+import { paceWorkingLines } from "./pace-working";
 import type { DisplayContract } from "./runtime-types";
 import { DISTANCE_LABEL, TIME_LABEL, formatAnswer, formatExamNumber, ratioText, unitForValue, workingLines } from "./runtime-support";
 
@@ -150,6 +151,11 @@ export function examWorkingLines(
     case "departureClockTime":
     case "elapsedClockTime":
       return clockWorkingLines(input, answer);
+
+    case "speedFromPace":
+    case "paceFromSpeed":
+    case "distanceFromPaceAndTime":
+      return paceWorkingLines(input, solution, display);
 
     case "requiredUniformSpeedForDeadline": {
       const absoluteDeadline = add(
