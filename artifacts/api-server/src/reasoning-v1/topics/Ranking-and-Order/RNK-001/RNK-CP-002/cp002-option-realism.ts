@@ -62,6 +62,46 @@ function assembleOptions(
   return options;
 }
 
+function nearRankOptions(answer: number, correctIndex: number): readonly RnkCp002Option[] {
+  return assembleOptions(answer, correctIndex, [
+    {
+      value: answer - 1,
+      misconceptionId: 'STOPPED_ONE_PLACE_EARLY',
+      explanation: 'This stops one position before completing the stated offset.',
+    },
+    {
+      value: answer + 1,
+      misconceptionId: 'MOVED_ONE_PLACE_TOO_FAR',
+      explanation: 'This moves one position beyond the stated offset.',
+    },
+    {
+      value: answer + 2,
+      misconceptionId: 'COUNTED_AN_EXTRA_PLACE',
+      explanation: 'This counts an additional place while applying the positional offset.',
+    },
+  ]);
+}
+
+function nearBetweenOptions(answer: number, correctIndex: number): readonly RnkCp002Option[] {
+  return assembleOptions(answer, correctIndex, [
+    {
+      value: answer + 1,
+      misconceptionId: 'USED_POSITION_GAP',
+      explanation: 'This gives the common-end position gap and counts one named endpoint among those between.',
+    },
+    {
+      value: answer + 2,
+      misconceptionId: 'COUNTED_BOTH_ENDPOINTS',
+      explanation: 'This includes both named people in the between-count.',
+    },
+    {
+      value: answer - 1,
+      misconceptionId: 'SUBTRACTED_ONE_EXTRA',
+      explanation: 'This subtracts one more position after already removing the endpoint adjustment.',
+    },
+  ]);
+}
+
 export function refineCp002OptionRealism(
   evidence: RnkCp002DisplayedEvidence,
   answer: number,
@@ -86,6 +126,14 @@ export function refineCp002OptionRealism(
         explanation: 'This adds both named endpoints to the position difference.',
       },
     ]);
+  }
+
+  if (evidence.kind === 'SECOND_RANK_FROM_RELATIVE_OFFSET') {
+    return nearRankOptions(answer, correctIndex);
+  }
+
+  if (evidence.kind === 'BETWEEN_FROM_MIXED_END_RANKS') {
+    return nearBetweenOptions(answer, correctIndex);
   }
 
   if (evidence.kind === 'TOTAL_FROM_MIXED_END_RANKS_KNOWN_ORDER') {
