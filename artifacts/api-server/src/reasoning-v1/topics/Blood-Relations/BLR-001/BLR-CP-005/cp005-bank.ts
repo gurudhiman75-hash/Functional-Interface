@@ -21,6 +21,7 @@ import {
   examGradeSharedPrompt,
   examGradeStem,
 } from "./cp005-editorial";
+import { polishCp005ModelAudit } from "./cp005-editorial-polish";
 
 export function generateBlrCp005Question(
   prototypeId: BlrCp005PrototypeId,
@@ -74,6 +75,7 @@ export function generateBlrCp005Question(
     },
     explanation: {
       ...editorial,
+      modelAudit: polishCp005ModelAudit(editorial.modelAudit),
       familyTrees: built.modelSpace.models.map((model, index) => familyTreeForModel(model, index, built.modelSpace.models.length, answerLabel, relationQuery)),
     },
     metadata: {
