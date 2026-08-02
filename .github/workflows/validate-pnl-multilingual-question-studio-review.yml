@@ -1,0 +1,59 @@
+name: Validate PNL Multilingual Question Studio Review
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-multilingual-question-studio-review
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/**"
+      - ".github/workflows/validate-pnl-multilingual-question-studio-review.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/**"
+      - ".github/workflows/validate-pnl-multilingual-question-studio-review.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-multilingual-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Inventory canonical native context text
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-native-context-inventory.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-native-context-inventory.mjs \
+            2>&1 | tee pnl-question-studio-native-context-inventory.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-native-context-inventory.mjs \
+            2>&1 | tee -a pnl-question-studio-native-context-inventory.log
+
+      - name: Upload multilingual authority diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-multilingual-question-studio-review
+          path: pnl-question-studio-native-context-inventory.log
+          if-no-files-found: error
+          retention-days: 7
