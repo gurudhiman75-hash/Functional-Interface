@@ -50,24 +50,7 @@ sha256:e1853b8864453ebcdbe88aa6f3ca5fedf9f7b7140c28a3b5ad5da8a0c4855430
 - zero-open-dimension source audit;
 - permanent runtime and release-lock proof.
 
-## Exact-head proof
-
-```text
-head:       a04805ce44ac52ef0e6413e0123a0bd24c3def5f
-workflow:   Validate RNK-001 CP-002 Foundation
-run:        30752018784
-conclusion: PASS
-artifact:   8834744002
-digest:     sha256:74736de29cee052a79c815157b7697ca33e9598d5e81be453c0f9880250c9627
-```
-
-Frozen-base regression:
-
-```text
-workflow:   Validate RNK-001 CP-001 Foundation
-run:        30752018783
-conclusion: PASS
-```
+Exact-head workflow and artifact identifiers are recorded in draft PR #453, because embedding a commit hash inside this tracked report would make the proof circular.
 
 ## Authoritative records
 
