@@ -17,8 +17,16 @@ function inlineDisplayMath(value: unknown): string {
     .trim();
 }
 
+function wrapArithmeticOutsideMath(value: string): string {
+  return value.split(/(\$[^$]+\$)/gu).map((part) => {
+    if (/^\$[^$]+\$$/u.test(part)) return part;
+    return part.replace(/\b(\d[\d,]*)\s*([+\-])\s*(\d[\d,]*)\b/gu,
+      (_match, left, operator, right) => `$${left} ${operator} ${right}$`);
+  }).join("");
+}
+
 export function patchNumberSystemV3Text(value: unknown): string {
-  return inlineDisplayMath(cleanText(value))
+  const grammarFixed = inlineDisplayMath(cleanText(value))
     .replace(
       /Choose the option that co-prime statements about ([^?]+) is correct\?/giu,
       "Which of the following co-prime statements about $1 is correct?",
@@ -30,11 +38,8 @@ export function patchNumberSystemV3Text(value: unknown): string {
     .replace(
       /Choose the option that prime number divides ([^?]+) exactly\?/giu,
       "Which of the following prime numbers divides $1 exactly?",
-    )
-    .replace(/(?<!\$)\b(\d[\d,]*)\s*([+\-])\s*(\d[\d,]*)\b(?!\$)/gu, (_match, left, operator, right) =>
-      `$${left} ${operator} ${right}$`)
-    .replace(/\s{2,}/g, " ")
-    .trim();
+    );
+  return wrapArithmeticOutsideMath(grammarFixed).replace(/\s{2,}/g, " ").trim();
 }
 
 function unwrapWholeProseMath(value: string): string {
