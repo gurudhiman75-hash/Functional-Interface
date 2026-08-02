@@ -12,24 +12,29 @@ import {
   NUMBER_SYSTEM_GENERATOR_MODEL,
   applyNumberSystemGeneratorContract,
 } from "./number-system-generator-contract";
+import {
+  patchNumberSystemV3Teacher,
+  renderNumberSystemV3Option,
+} from "./number-system-v3-editorial-patch";
 
 export {
   SIMPLE_NUMBER_SYSTEM_QL_TITLES,
   correctAnswerDisplay,
   studentOptionDisplay,
+  renderNumberSystemV3Option,
   NUMBER_SYSTEM_GENERATOR_MODEL,
 };
 
 export function buildNumberSystemTeacherExplanation(row) {
   const base = row.checkpoint === "NUM-CP-003" ? cp003Teacher(row) : cp004Teacher(row);
   const structured = applyNumberSystemGeneratorContract(row, base);
-  return Object.freeze({
+  return patchNumberSystemV3Teacher(Object.freeze({
     model: NUMBER_SYSTEM_GENERATOR_MODEL,
     mainRule: structured.mainRule.map(cleanText),
     stepByStepSolution: structured.steps.map(cleanText),
     examSpeedTrick: structured.speedTrick.map(cleanText),
     commonTraps: buildTraps(row),
-  });
+  }));
 }
 
 export function renderTeacherExplanationMarkdown(teacher) {
