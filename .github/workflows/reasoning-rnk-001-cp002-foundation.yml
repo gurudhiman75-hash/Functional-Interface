@@ -52,6 +52,11 @@ jobs:
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-002/cp002-english-reviewed-authority-runtime.test.ts
           rnk-cp002-english-reviewed-output
 
+      - name: Lock final manual-review edge wording
+        run: >-
+          npx --yes tsx
+          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-002/cp002-english-manual-review-edge.test.ts
+
       - name: Enforce final source and gap audit
         run: >-
           npx --yes tsx
