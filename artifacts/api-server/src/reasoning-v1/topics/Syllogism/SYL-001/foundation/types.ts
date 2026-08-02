@@ -11,6 +11,7 @@ export type SurfacePremiseForm =
   | "A_FEW"
   | "FEW"
   | "ONLY_A_FEW"
+  | "NOT_ALL"
   | "IDENTITY";
 
 export interface SurfacePremise {
