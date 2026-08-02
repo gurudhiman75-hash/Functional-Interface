@@ -7,6 +7,7 @@ import { optionPackage } from "./options";
 import { examOptionPackage } from "./exam-options";
 import { clockOptionPackage } from "./clock-options";
 import { elapsedClockOptionPackage } from "./elapsed-clock-options";
+import { paceOptionPackage } from "./pace-options";
 import {
   SCALAR_SPEED_FINGERPRINT,
   buildEquivalentSpeedRepresentation,
@@ -73,11 +74,14 @@ export function generateCp001Candidate(
   const representation = buildEquivalentSpeedRepresentation(authority, seed, input, solution);
   const display = representation?.display ?? generatedState.display;
   const formattedAnswerText = formatAnswer(solution, display);
-  const baseOptionSet = input.solveMode === "arrivalClockTime" || input.solveMode === "departureClockTime"
-    ? clockOptionPackage(authority, seed, input, solution)
-    : input.solveMode === "elapsedClockTime"
-      ? elapsedClockOptionPackage(authority, seed, input, solution, display)
-      : optionPackage(authority, seed, input, solution, display);
+  const paceOptionSet = paceOptionPackage(authority, seed, input, solution, display);
+  const baseOptionSet = paceOptionSet ?? (
+    input.solveMode === "arrivalClockTime" || input.solveMode === "departureClockTime"
+      ? clockOptionPackage(authority, seed, input, solution)
+      : input.solveMode === "elapsedClockTime"
+        ? elapsedClockOptionPackage(authority, seed, input, solution, display)
+        : optionPackage(authority, seed, input, solution, display)
+  );
   const optionSet = representation?.optionSet ?? (TSD_CP001_NON_LEARNER_MODES.has(authority.solveMode)
     ? baseOptionSet
     : examOptionPackage(input, solution, display, baseOptionSet));
