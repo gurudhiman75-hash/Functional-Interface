@@ -6,12 +6,12 @@ import {
   MAL_CP003_DISCOVERY_REGISTRY,
   MAL_CP003_EXECUTABLE_PROTOTYPE_IDS,
 } from "./foundation/cp003-discovery-registry";
-import { verifyMalCp003Result } from "./foundation/cp003-independent-verifier";
-import { malCp003RequestFingerprint } from "./foundation/cp003-parameter-generator";
 import {
   cp003Stable,
-  generateMalCp003DiscoveryPrototype,
-} from "./foundation/cp003-prototype-runtime";
+  runMalCp003DiscoveryPipeline,
+} from "./foundation/cp003-discovery-pipeline";
+import { verifyMalCp003Result } from "./foundation/cp003-independent-verifier";
+import { malCp003RequestFingerprint } from "./foundation/cp003-parameter-generator";
 import type {
   MalCp003ExecutablePrototypeId,
   MalCp003GeneratedPrototype,
@@ -61,8 +61,8 @@ for (const prototypeId of MAL_CP003_EXECUTABLE_PROTOTYPE_IDS) {
 
   for (let index = 0; index < seedsPerPrototype; index += 1) {
     const seed = `cp003-discovery-${prototypeId}-${index}`;
-    const first = generateMalCp003DiscoveryPrototype(prototypeId, seed);
-    const second = generateMalCp003DiscoveryPrototype(prototypeId, seed);
+    const first = runMalCp003DiscoveryPipeline(prototypeId, seed);
+    const second = runMalCp003DiscoveryPipeline(prototypeId, seed);
 
     assert(
       cp003Stable(first) === cp003Stable(second),
