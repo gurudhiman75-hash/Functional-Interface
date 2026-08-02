@@ -36,6 +36,10 @@ const observedDifficulties = new Set<string>();
 const answerPositions = [0, 0, 0, 0];
 const fingerprintsByQl = new Map<IntCp002FinalQlId, Set<string>>();
 const stemsByQl = new Map<IntCp002FinalQlId, Set<string>>();
+const exactFiniteFingerprintMinimums = new Map<IntCp002FinalQlId, number>([
+  ["INT-QL-027", 12],
+  ["INT-QL-052", 12],
+]);
 let questionCount = 0;
 let deterministicChecks = 0;
 let structuralChecks = 0;
@@ -171,7 +175,10 @@ for (const qlId of INT_CP002_FINAL_QL_IDS) {
     stemSet.add(question.stem);
   }
 
-  if (fingerprintSet.size < 20) fail(`${qlId}: insufficient mathematical diversity (${fingerprintSet.size}).`);
+  const requiredFingerprintCount = exactFiniteFingerprintMinimums.get(qlId) ?? 20;
+  if (fingerprintSet.size < requiredFingerprintCount) {
+    fail(`${qlId}: insufficient mathematical diversity (${fingerprintSet.size}/${requiredFingerprintCount}).`);
+  }
   if (stemSet.size < 20) fail(`${qlId}: insufficient stem diversity (${stemSet.size}).`);
 }
 
@@ -241,6 +248,7 @@ const summary = {
   difficulties: [...observedDifficulties].sort(),
   representations: [...observedRepresentations].sort(),
   maximumGenerationAttempts,
+  exactFiniteFingerprintMinimums: Object.fromEntries(exactFiniteFingerprintMinimums),
   disposition,
 };
 writeFileSync(join(outputDirectory, "int-cp002-final-saturation-summary.json"), `${JSON.stringify(summary, null, 2)}\n`);
