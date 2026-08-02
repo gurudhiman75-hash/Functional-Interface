@@ -6,5 +6,6 @@ export * from "./quality-runtime";
 export * from "./cp006-english-contracts";
 export * from "./cp006-english-runtime";
 export * from "./cp006-multilingual-runtime";
+export * from "./cp006-multilingual-freeze";
 export * from "./localization/cp006-language-pack";
 export * from "./localization/cp006-localizer";
