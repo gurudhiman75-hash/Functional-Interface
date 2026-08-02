@@ -23,32 +23,11 @@ function contextLanguage(
 ): ContextLanguage {
   switch (contextId) {
     case 'MERIT_LIST':
-      return {
-        start: 'the top',
-        end: 'the bottom',
-        group: 'merit list',
-        singular: 'candidate',
-        plural: 'candidates',
-        memberHeading: 'Candidates',
-      };
+      return { start: 'the top', end: 'the bottom', group: 'merit list', singular: 'candidate', plural: 'candidates', memberHeading: 'Candidates' };
     case 'HORIZONTAL_ROW':
-      return {
-        start: 'the left end',
-        end: 'the right end',
-        group: 'row',
-        singular: 'person',
-        plural: 'people',
-        memberHeading: 'People',
-      };
+      return { start: 'the left end', end: 'the right end', group: 'row', singular: 'person', plural: 'people', memberHeading: 'People' };
     case 'QUEUE':
-      return {
-        start: 'the front',
-        end: 'the back',
-        group: 'queue',
-        singular: 'person',
-        plural: 'people',
-        memberHeading: 'People',
-      };
+      return { start: 'the front', end: 'the back', group: 'queue', singular: 'person', plural: 'people', memberHeading: 'People' };
   }
 }
 
@@ -56,23 +35,14 @@ function requestedEndPhrase(question: RnkCp002AuthorityReviewQuestion): string |
   const evidence = question.displayedEvidence;
   const language = contextLanguage(question.contextId);
   if (evidence.kind === 'COMPARE_SAME_END') {
-    if (evidence.requested === 'NEARER_SUPPLIED_END') {
-      return evidence.side === 'START' ? language.start : language.end;
-    }
+    if (evidence.requested === 'NEARER_SUPPLIED_END') return evidence.side === 'START' ? language.start : language.end;
     return evidence.requested === 'TOWARD_START' ? language.start : language.end;
   }
-  if (evidence.kind === 'COMPARE_MIXED_END') {
-    return evidence.requested === 'TOWARD_START' ? language.start : language.end;
-  }
+  if (evidence.kind === 'COMPARE_MIXED_END') return evidence.requested === 'TOWARD_START' ? language.start : language.end;
   return null;
 }
 
-function contextualOrderStatus(
-  canonical: string,
-  firstName: string,
-  secondName: string,
-  startPhrase: string,
-): string {
+function contextualOrderStatus(canonical: string, firstName: string, secondName: string, startPhrase: string): string {
   if (canonical === CANONICAL_FIRST) return `${firstName} is nearer ${startPhrase}`;
   if (canonical === CANONICAL_SECOND) return `${secondName} is nearer ${startPhrase}`;
   if (canonical === CANONICAL_BOTH) return `${firstName} and ${secondName} can appear in either order`;
@@ -97,6 +67,16 @@ function replaceCanonicalOrderLanguage(
     .replaceAll('the end end', language.end);
 }
 
+function normalizeFinalLearnerText(text: string): string {
+  return text
+    .replaceAll('the the ', 'the ')
+    .replace(/\bwith no (?:people|candidates) between them\b/gi, 'with no one between them')
+    .replace(/\bThere are no (?:people|candidates) between them\b/g, 'No one is between them')
+    .replace(/\bthere are no (?:people|candidates) between them\b/g, 'no one is between them')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function contextualBetweenConclusion(
   answer: string | number,
   firstName: string,
@@ -109,10 +89,7 @@ function contextualBetweenConclusion(
   return `Therefore, ${count} ${language.plural} are between ${firstName} and ${secondName}.`;
 }
 
-function contextualTotalConclusion(
-  answer: string | number,
-  language: ContextLanguage,
-): string {
+function contextualTotalConclusion(answer: string | number, language: ContextLanguage): string {
   return `Therefore, the ${language.group} has ${answer} ${language.plural}.`;
 }
 
@@ -151,34 +128,21 @@ export function generateEnglishReviewedRnkCp002AuthorityQuestion(
     steps = steps.map((text) => text.replace(/^Members between\b/, `${language.memberHeading} between`));
     conclusion = contextualBetweenConclusion(answer, firstName, secondName, language);
   }
-
-  if (authorityId === 'RNK-CP002-AUTH-02-POSITION-GAP-NORMALIZED-POSITIONS') {
-    conclusion = `Therefore, their positions differ by ${answer}.`;
-  }
-
-  if (authorityId === 'RNK-CP002-AUTH-03-TARGET-RANK-FROM-REFERENCE-AND-SEPARATION') {
-    conclusion = `Therefore, ${secondName}'s rank is ${answer}.`;
-  }
+  if (authorityId === 'RNK-CP002-AUTH-02-POSITION-GAP-NORMALIZED-POSITIONS') conclusion = `Therefore, their positions differ by ${answer}.`;
+  if (authorityId === 'RNK-CP002-AUTH-03-TARGET-RANK-FROM-REFERENCE-AND-SEPARATION') conclusion = `Therefore, ${secondName}'s rank is ${answer}.`;
 
   if (authorityId === 'RNK-CP002-AUTH-04-COMPARE-NORMALIZED-POSITIONS') {
     if (!requestedPhrase) throw new Error(`Missing requested-end phrase for ${authorityId}:${seed}`);
-    stem = stem.replace(
-      /Who is nearer the (?:start|end) end\?$/,
-      `Who is nearer ${requestedPhrase}?`,
-    );
+    stem = stem.replace(/Who is nearer the (?:start|end) end\?$/, `Who is nearer ${requestedPhrase}?`);
     keyRule = keyRule.replace('requested physical end', `requested side (${requestedPhrase})`);
-    steps = steps.map((text) => text.replaceAll('requested end', requestedPhrase));
+    steps = steps.map((text) => text.replaceAll('the requested end', requestedPhrase));
     shortcut = shortcut.replace('that end', requestedPhrase);
     conclusion = `${answer} is nearer ${requestedPhrase}.`;
   }
 
-  if (
-    authorityId === 'RNK-CP002-AUTH-05-TOTAL-FROM-MIXED-ENDS-KNOWN-ORDER' ||
-    authorityId === 'RNK-CP002-AUTH-06-EXTREME-TOTAL-UNKNOWN-ORDER'
-  ) {
+  if (authorityId === 'RNK-CP002-AUTH-05-TOTAL-FROM-MIXED-ENDS-KNOWN-ORDER' || authorityId === 'RNK-CP002-AUTH-06-EXTREME-TOTAL-UNKNOWN-ORDER') {
     conclusion = contextualTotalConclusion(answer, language);
   }
-
   if (authorityId === 'RNK-CP002-AUTH-07-EXACT-TOTAL-OR-INDETERMINATE') {
     conclusion = String(answer) === 'Cannot be determined'
       ? 'Therefore, the exact total cannot be determined.'
@@ -188,53 +152,34 @@ export function generateEnglishReviewedRnkCp002AuthorityQuestion(
   if (authorityId === 'RNK-CP002-AUTH-08-PROPOSED-TOTAL-ORDER-STATUS') {
     answer = contextualOrderStatus(String(raw.answer), firstName, secondName, language.start);
     options = raw.options.map((item) => {
-      const contextualValue = contextualOrderStatus(
-        String(item.value),
-        firstName,
-        secondName,
-        language.start,
-      );
+      const contextualValue = contextualOrderStatus(String(item.value), firstName, secondName, language.start);
       return {
         ...item,
         value: contextualValue,
         label: contextualValue,
-        explanation: replaceCanonicalOrderLanguage(
-          item.explanation,
-          firstName,
-          secondName,
-          language,
-        ),
+        explanation: replaceCanonicalOrderLanguage(item.explanation, firstName, secondName, language),
       };
     });
     keyRule = replaceCanonicalOrderLanguage(keyRule, firstName, secondName, language);
-    steps = steps.map((text) => replaceCanonicalOrderLanguage(
-      text,
-      firstName,
-      secondName,
-      language,
-    ));
+    steps = steps.map((text) => replaceCanonicalOrderLanguage(text, firstName, secondName, language));
     shortcut = replaceCanonicalOrderLanguage(shortcut, firstName, secondName, language);
-    conclusion = answer === CANONICAL_IMPOSSIBLE
-      ? 'Therefore, the proposed total is impossible.'
-      : `Therefore, ${answer}.`;
+    conclusion = answer === CANONICAL_IMPOSSIBLE ? 'Therefore, the proposed total is impossible.' : `Therefore, ${answer}.`;
   }
 
-  const optionAnalysis = options.map(
-    (item, index) => `Option ${index + 1} (${item.label}): ${item.explanation}`,
-  );
+  stem = normalizeFinalLearnerText(stem);
+  options = options.map((item) => ({ ...item, explanation: normalizeFinalLearnerText(item.explanation) }));
+  keyRule = normalizeFinalLearnerText(keyRule);
+  steps = steps.map(normalizeFinalLearnerText);
+  shortcut = normalizeFinalLearnerText(shortcut);
+  conclusion = normalizeFinalLearnerText(conclusion);
+  const optionAnalysis = options.map((item, index) => `Option ${index + 1} (${item.label}): ${item.explanation}`);
 
   return {
     ...raw,
     stem,
     answer: answer as never,
     options: options as never,
-    explanation: {
-      keyRule,
-      stepByStepSolution: steps,
-      examSpeedShortcut: shortcut,
-      optionAnalysis,
-      conclusion,
-    },
+    explanation: { keyRule, stepByStepSolution: steps, examSpeedShortcut: shortcut, optionAnalysis, conclusion },
     reviewMetadata: {
       canonicalAnswer,
       canonicalOptionValues,
