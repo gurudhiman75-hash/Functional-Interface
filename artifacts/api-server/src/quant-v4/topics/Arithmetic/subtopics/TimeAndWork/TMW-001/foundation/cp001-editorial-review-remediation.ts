@@ -1,6 +1,12 @@
 import type { TmwLocalizedLanguage } from "./localization-types";
+import type {
+  TmwCp001Parameters,
+  TmwCp001SolveMode,
+} from "./types";
 
 interface ReviewedQuestion {
+  solveMode: TmwCp001SolveMode;
+  parameters: TmwCp001Parameters;
   stem: string;
   solution: {
     answerText: string;
@@ -13,6 +19,9 @@ interface ReviewedQuestion {
       steps: string[];
     };
     commonTrap: {
+      optionLabel: string;
+      optionText: string;
+      misconceptionId: string;
       explanation: string;
       [key: string]: unknown;
     };
@@ -21,12 +30,17 @@ interface ReviewedQuestion {
   [key: string]: unknown;
 }
 
+function wholeNumber(value: { numerator: number; denominator: number }): number {
+  return value.numerator / value.denominator;
+}
+
 function updateShortcut(
   question: ReviewedQuestion,
   opening: string,
+  language: TmwLocalizedLanguage,
 ): ReviewedQuestion {
   const answer = question.solution.answerText;
-  const suffix = question.explanation.shortcut.steps[0]?.includes("ਇਸ ਨਾਲ")
+  const suffix = language === "pa"
     ? ` ਇਸ ਨਾਲ ਉੱਤਰ ${answer} ਮਿਲਦਾ ਹੈ।`
     : ` इससे उत्तर ${answer} मिलता है।`;
   return {
@@ -37,6 +51,86 @@ function updateShortcut(
       shortcut: {
         ...question.explanation.shortcut,
         steps: [`${opening}${suffix}`],
+      },
+    },
+  };
+}
+
+function secondQuantityTrapReason(
+  question: ReviewedQuestion,
+  language: TmwLocalizedLanguage,
+): string | undefined {
+  if (question.explanation.commonTrap.misconceptionId !== "SECOND_QUANTITY_REPORTED") {
+    return undefined;
+  }
+
+  const days = wholeNumber(question.parameters.time);
+  if (language === "hi") {
+    switch (question.solveMode) {
+      case "findWorkFromRateAndTime":
+      case "findOutputFromUnitRateAndTime":
+        return `यह ${days - 1} दिनों का उत्पादन है, जबकि प्रश्न ${days} दिनों का कुल उत्पादन पूछता है।`;
+      case "findRateFromWorkAndTime":
+      case "findRequiredRateForTargetCompletion":
+        return "यह उपलब्ध दिनों की संख्या को ही दैनिक दर मानता है; सही दर कुल काम को उपलब्ध समय से भाग देकर मिलती है।";
+      case "findTimeFromWorkAndRate":
+        return "यह कार्य-दर की संख्या को ही दिन मानता है; सही समय कुल काम को कार्य-दर से भाग देकर मिलता है।";
+      case "findOneUnitWorkFromCompletionTime":
+        return "इसमें दिए गए कुल दिनों के स्थान पर दो दिन अधिक संख्या को हर में रखा गया है।";
+      case "findFractionCompletedInGivenTime":
+        return `यह प्रश्न में दिए ${days} दिनों के बजाय बदली हुई अवधि का काम दिखाता है; सही भाग एक दिन के काम को ${days} से गुणा करके मिलेगा।`;
+      case "findRemainingFractionAfterTime":
+        return `यह केवल एक दिन के बाद बचा काम दिखाता है, जबकि प्रश्न ${days} दिनों के बाद बाकी काम पूछता है।`;
+      case "compareWorkCompletedAtEqualTime":
+        return "यह केवल दूसरे व्यक्ति का कुल उत्पादन है, जबकि प्रश्न दोनों के उत्पादन का अंतर पूछता है।";
+      case "compareTimeForDifferentWorkAtSameRate":
+        return "यह कम काम को पूरा करने का समय है, जबकि प्रश्न दोनों समयों का अंतर पूछता है।";
+      default:
+        return "यह प्रश्न में दी दूसरी मात्रा को उत्तर मानता है, जबकि माँगी गई मात्रा अलग गणना से निकलती है।";
+    }
+  }
+
+  switch (question.solveMode) {
+    case "findWorkFromRateAndTime":
+    case "findOutputFromUnitRateAndTime":
+      return `ਇਹ ${days - 1} ਦਿਨਾਂ ਦਾ ਉਤਪਾਦਨ ਹੈ, ਜਦਕਿ ਸਵਾਲ ${days} ਦਿਨਾਂ ਦਾ ਕੁੱਲ ਉਤਪਾਦਨ ਪੁੱਛਦਾ ਹੈ।`;
+    case "findRateFromWorkAndTime":
+    case "findRequiredRateForTargetCompletion":
+      return "ਇਹ ਉਪਲਬਧ ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ਨੂੰ ਹੀ ਰੋਜ਼ਾਨਾ ਦਰ ਮੰਨਦਾ ਹੈ; ਸਹੀ ਦਰ ਕੁੱਲ ਕੰਮ ਨੂੰ ਉਪਲਬਧ ਸਮੇਂ ਨਾਲ ਭਾਗ ਦੇ ਕੇ ਮਿਲਦੀ ਹੈ।";
+    case "findTimeFromWorkAndRate":
+      return "ਇਹ ਕੰਮ ਦੀ ਦਰ ਦੀ ਗਿਣਤੀ ਨੂੰ ਹੀ ਦਿਨ ਮੰਨਦਾ ਹੈ; ਸਹੀ ਸਮਾਂ ਕੁੱਲ ਕੰਮ ਨੂੰ ਕੰਮ ਦੀ ਦਰ ਨਾਲ ਭਾਗ ਦੇ ਕੇ ਮਿਲਦਾ ਹੈ।";
+    case "findOneUnitWorkFromCompletionTime":
+      return "ਇਸ ਵਿੱਚ ਦਿੱਤੇ ਕੁੱਲ ਦਿਨਾਂ ਦੀ ਥਾਂ ਦੋ ਦਿਨ ਵੱਧ ਗਿਣਤੀ ਨੂੰ ਹਰ ਵਿੱਚ ਰੱਖਿਆ ਗਿਆ ਹੈ।";
+    case "findFractionCompletedInGivenTime":
+      return `ਇਹ ਸਵਾਲ ਵਿੱਚ ਦਿੱਤੇ ${days} ਦਿਨਾਂ ਦੀ ਥਾਂ ਬਦਲੀ ਹੋਈ ਮਿਆਦ ਦਾ ਕੰਮ ਦਿਖਾਉਂਦਾ ਹੈ; ਸਹੀ ਹਿੱਸਾ ਇੱਕ ਦਿਨ ਦੇ ਕੰਮ ਨੂੰ ${days} ਨਾਲ ਗੁਣਾ ਕਰਕੇ ਮਿਲੇਗਾ।`;
+    case "findRemainingFractionAfterTime":
+      return `ਇਹ ਸਿਰਫ਼ ਇੱਕ ਦਿਨ ਤੋਂ ਬਾਅਦ ਬਚਿਆ ਕੰਮ ਦਿਖਾਉਂਦਾ ਹੈ, ਜਦਕਿ ਸਵਾਲ ${days} ਦਿਨਾਂ ਤੋਂ ਬਾਅਦ ਬਾਕੀ ਕੰਮ ਪੁੱਛਦਾ ਹੈ।`;
+    case "compareWorkCompletedAtEqualTime":
+      return "ਇਹ ਸਿਰਫ਼ ਦੂਜੇ ਵਿਅਕਤੀ ਦਾ ਕੁੱਲ ਉਤਪਾਦਨ ਹੈ, ਜਦਕਿ ਸਵਾਲ ਦੋਵਾਂ ਦੇ ਉਤਪਾਦਨ ਦਾ ਫਰਕ ਪੁੱਛਦਾ ਹੈ।";
+    case "compareTimeForDifferentWorkAtSameRate":
+      return "ਇਹ ਘੱਟ ਕੰਮ ਪੂਰਾ ਕਰਨ ਦਾ ਸਮਾਂ ਹੈ, ਜਦਕਿ ਸਵਾਲ ਦੋਵਾਂ ਸਮਿਆਂ ਦਾ ਫਰਕ ਪੁੱਛਦਾ ਹੈ।";
+    default:
+      return "ਇਹ ਸਵਾਲ ਵਿੱਚ ਦਿੱਤੀ ਦੂਜੀ ਮਾਤਰਾ ਨੂੰ ਜਵਾਬ ਮੰਨਦਾ ਹੈ, ਜਦਕਿ ਮੰਗੀ ਮਾਤਰਾ ਵੱਖਰੀ ਗਿਣਤੀ ਨਾਲ ਨਿਕਲਦੀ ਹੈ।";
+  }
+}
+
+function applyTrapReview(
+  question: ReviewedQuestion,
+  language: TmwLocalizedLanguage,
+): ReviewedQuestion {
+  const reason = secondQuantityTrapReason(question, language);
+  if (!reason) return question;
+  const trap = question.explanation.commonTrap;
+  const explanation = language === "hi"
+    ? `${trap.optionLabel} (${trap.optionText}) इस कारण गलत है: ${reason}`
+    : `${trap.optionLabel} (${trap.optionText}) ਇਸ ਕਾਰਨ ਗਲਤ ਹੈ: ${reason}`;
+  return {
+    ...question,
+    explanation: {
+      ...question.explanation,
+      commonTrap: {
+        ...trap,
+        explanation,
       },
     },
   };
@@ -55,32 +149,26 @@ function remediateHindi(
           "कार्य-दर 4 आवेदन प्रतिदिन है",
         ),
       };
-    case "TMW-QL-006":
-      return {
-        ...question,
-        explanation: {
-          ...question.explanation,
-          commonTrap: {
-            ...question.explanation.commonTrap,
-            explanation:
-              "विकल्प A (काम का \\(\\frac{1}{5}\\) भाग) 3 दिनों में होने वाला काम दिखाता है, जबकि प्रश्न 2 दिनों में होने वाला काम पूछता है।",
-          },
-        },
-      };
     case "TMW-QL-012":
       return updateShortcut(
         question,
         "कुल उत्पादन के लिए प्रतिदिन उत्पादन को दिनों की संख्या से गुणा करें।",
+        "hi",
       );
     case "TMW-QL-015": {
+      const sourceHours = wholeNumber(question.parameters.sourceDuration ?? question.parameters.time);
+      const targetHours = wholeNumber(question.parameters.targetDuration ?? question.parameters.time);
       const updated = {
         ...question,
-        stem:
-          "6 घंटे में 72 बोतलें भरी जाती हैं। उसी दर से 3 घंटे में कितनी बोतलें भरी जाएँगी?",
+        stem: question.stem
+          .replace("कुल उत्पादन", "")
+          .replace(/\s+/g, " ")
+          .trim(),
       };
       return updateShortcut(
         updated,
-        "पहले एक घंटे में भरी जाने वाली बोतलों की संख्या निकालें, फिर उसे 3 से गुणा करें।",
+        `पहले एक घंटे में होने वाला उत्पादन निकालें, फिर उसे ${targetHours} से गुणा करें; स्रोत अवधि ${sourceHours} घंटे है।`,
+        "hi",
       );
     }
     default:
@@ -101,18 +189,6 @@ function remediatePunjabi(
           "ਕੰਮ ਦੀ ਦਰ 4 ਅਰਜ਼ੀਆਂ ਪ੍ਰਤੀ ਦਿਨ ਹੈ",
         ),
       };
-    case "TMW-QL-006":
-      return {
-        ...question,
-        explanation: {
-          ...question.explanation,
-          commonTrap: {
-            ...question.explanation.commonTrap,
-            explanation:
-              "ਚੋਣ A (ਕੰਮ ਦਾ \\(\\frac{1}{5}\\) ਹਿੱਸਾ) 3 ਦਿਨਾਂ ਵਿੱਚ ਹੋਣ ਵਾਲਾ ਕੰਮ ਦਿਖਾਉਂਦੀ ਹੈ, ਜਦਕਿ ਸਵਾਲ 2 ਦਿਨਾਂ ਵਿੱਚ ਹੋਣ ਵਾਲਾ ਕੰਮ ਪੁੱਛਦਾ ਹੈ।",
-          },
-        },
-      };
     case "TMW-QL-007":
     case "TMW-QL-011":
       return {
@@ -126,6 +202,7 @@ function remediatePunjabi(
       return updateShortcut(
         question,
         "ਕੁੱਲ ਉਤਪਾਦਨ ਲਈ ਰੋਜ਼ਾਨਾ ਉਤਪਾਦਨ ਨੂੰ ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ਨਾਲ ਗੁਣਾ ਕਰੋ।",
+        "pa",
       );
     case "TMW-QL-013":
       return updateShortcut(
@@ -134,27 +211,35 @@ function remediatePunjabi(
           "ਪਤਾ ਹਿੱਸੇ ਨੂੰ",
           "ਦਿੱਤੇ ਹਿੱਸੇ ਨੂੰ",
         ),
+        "pa",
       );
     case "TMW-QL-014":
       return updateShortcut(
         question,
         "ਕੰਮ ਦੇ ਦਿੱਤੇ ਹਿੱਸੇ ਲਈ ਲੱਗੇ ਸਮੇਂ ਨੂੰ ਉਸ ਹਿੱਸੇ ਦੇ ਭਿੰਨ ਨਾਲ ਭਾਗ ਦੇ ਕੇ ਪੂਰਾ ਸਮਾਂ ਕੱਢੋ।",
+        "pa",
       );
     case "TMW-QL-015": {
+      const sourceHours = wholeNumber(question.parameters.sourceDuration ?? question.parameters.time);
+      const targetHours = wholeNumber(question.parameters.targetDuration ?? question.parameters.time);
       const updated = {
         ...question,
-        stem:
-          "6 ਘੰਟਿਆਂ ਵਿੱਚ 72 ਬੋਤਲਾਂ ਭਰੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਉਸੇ ਦਰ ਨਾਲ 3 ਘੰਟਿਆਂ ਵਿੱਚ ਕਿੰਨੀਆਂ ਬੋਤਲਾਂ ਭਰੀਆਂ ਜਾਣਗੀਆਂ?",
+        stem: question.stem
+          .replace("ਕੁੱਲ ਉਤਪਾਦਨ", "")
+          .replace(/\s+/g, " ")
+          .trim(),
       };
       return updateShortcut(
         updated,
-        "ਪਹਿਲਾਂ ਇੱਕ ਘੰਟੇ ਵਿੱਚ ਭਰੀਆਂ ਜਾਣ ਵਾਲੀਆਂ ਬੋਤਲਾਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ, ਫਿਰ ਉਸ ਨੂੰ 3 ਨਾਲ ਗੁਣਾ ਕਰੋ।",
+        `ਪਹਿਲਾਂ ਇੱਕ ਘੰਟੇ ਵਿੱਚ ਹੋਣ ਵਾਲਾ ਉਤਪਾਦਨ ਕੱਢੋ, ਫਿਰ ਉਸ ਨੂੰ ${targetHours} ਨਾਲ ਗੁਣਾ ਕਰੋ; ਸਰੋਤ ਮਿਆਦ ${sourceHours} ਘੰਟੇ ਹੈ।`,
+        "pa",
       );
     }
     case "TMW-QL-017":
       return updateShortcut(
         question,
         question.explanation.opening.replace("ਇੱਕੋ ਦਰ ਤੇ", "ਇੱਕੋ ਦਰ 'ਤੇ"),
+        "pa",
       );
     case "TMW-QL-019":
     case "TMW-QL-020":
@@ -174,8 +259,8 @@ export function applyTmwCp001EditorialReviewRemediation<
   qlId: string,
   language: TmwLocalizedLanguage,
 ): T {
-  const updated = language === "hi"
+  const worded = language === "hi"
     ? remediateHindi(question, qlId)
     : remediatePunjabi(question, qlId);
-  return updated as T;
+  return applyTrapReview(worded, language) as T;
 }
