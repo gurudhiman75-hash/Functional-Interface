@@ -1,6 +1,6 @@
 # RNK-001 — Ranking and Order
 
-Status: **CP-001 English discovery frozen at `RNK-QL-001..009`; CP-002 executable discovery opened**.
+Status: **CP-001 and CP-002 English discovery frozen; cumulative permanent range `RNK-QL-001..017`**.
 
 Student-facing chapter: **Ranking and Order**  
 Reasoning V1 package: `RNK-001`  
@@ -11,93 +11,93 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/
 1. `../../../REASONING-V1-MASTER-BLUEPRINT.md`;
 2. `../../../REASONING-V1-ARCHITECTURE.md`;
 3. `RNK-001-END-TO-END-DESIGN.md`;
-4. `rnk-001-open-ql-discovery.md` for unfrozen checkpoints;
+4. `rnk-001-open-ql-discovery.md` for CP-003 onward;
 5. `RNK-001-MANIFEST-AMENDMENT-CP001.md`;
-6. checkpoint-specific discovery, review, freeze and runtime records.
-
-## Core construction model
-
-```text
-construct a valid hidden total order
-  -> derive only the intended learner evidence
-  -> solve displayed evidence independently
-  -> reject inconsistent or ambiguous states
-  -> construct misconception-owned options
-  -> render question-specific teaching
-  -> keep all product surfaces locked until localisation and release gates
-```
+6. `RNK-001-MANIFEST-AMENDMENT-CP002.md`;
+7. checkpoint-specific review, freeze and permanent-runtime records.
 
 ## Checkpoint map
 
 | Checkpoint | Ownership | State |
 |---|---|---|
-| `RNK-CP-001` | one-person rank arithmetic, side counts, totals and exact-middle inverses | English discovery frozen: `RNK-QL-001..009` |
-| `RNK-CP-002` | two-person positions, people-between, relative offsets and mixed-end total constraints | first executable discovery wave active |
-| `RNK-CP-003` | interchange, movement and changed-rank questions | planned |
+| `RNK-CP-001` | one-person rank arithmetic, side counts, totals and exact-middle inverses | frozen: `RNK-QL-001..009` |
+| `RNK-CP-002` | two-person positions, separation, comparison and mixed-end total constraints | frozen: `RNK-QL-010..017` |
+| `RNK-CP-003` | interchange, movement and changed-rank questions | open |
 | `RNK-CP-004` | comparative ordering of several named entities | planned |
 | `RNK-CP-005` | shared ranking passages | planned |
 | `RNK-CP-006` | attribute-led ranking ownership extensions | planned ownership audit |
 | `RNK-CP-007` | partial-order, definite/possible and uniqueness semantics | planned |
 | `RNK-CP-008` | advanced synthesis | planned |
 
-Counts for CP-002 onward remain open until their own source, inverse, merge/split and English-review audits are complete.
+## Frozen inventory
 
-## Frozen CP-001 inventory
+### CP-001 — `RNK-QL-001..009`
 
-```text
-RNK-QL-001  convert rank between ends
-RNK-QL-002  total from both end-ranks
-RNK-QL-003  side-count from same-side rank
-RNK-QL-004  opposite side-count from total and rank
-RNK-QL-005  same-side rank from side-count
-RNK-QL-006  opposite-end rank from total and side-count
-RNK-QL-007  exact middle rank from odd total
-RNK-QL-008  odd total from exact middle rank
-RNK-QL-009  total from before and after counts
-```
+One-person opposite-end ranks, side counts, totals, exact-middle rank and odd-total inverses.
 
-Next available RNK identity remains `RNK-QL-010`; it is not allocated by the CP-002 discovery wave.
-
-## CP-002 first-wave inventory
+### CP-002 — `RNK-QL-010..017`
 
 ```text
-provisional prototypes:               6
-questions per prototype:            240
-first-wave questions:             1,440
-permanent QLs:                        0
+RNK-QL-010  people between normalized positions
+RNK-QL-011  position gap between normalized positions
+RNK-QL-012  target rank from reference and separation
+RNK-QL-013  compare normalized positions
+RNK-QL-014  total from mixed ends with known order
+RNK-QL-015  minimum/maximum total with unknown order
+RNK-QL-016  exact total or indeterminate
+RNK-QL-017  proposed-total order status
 ```
 
-The wave probes:
+Next available RNK identity: `RNK-QL-018`.
 
-- people between from two same-end ranks;
-- raw position difference from two same-end ranks;
-- second rank from a relative offset;
-- people between after mixed-end normalization;
-- total from mixed-end ranks with known order;
-- minimum/maximum total when relative order is unknown.
+## CP-002 proof summary
 
-`RNK-CP-002/RNK-CP-002-DISCOVERY-PLAN.md` retains the still-open inverse, validation, comparison and ownership dimensions.
+```text
+source prototypes:                 13
+combined discovery questions:   3,120
+frozen authorities:                 8
+authority review runtime:        2,560
+approved English review pack:       48
+permanent runtime proof:          1,536
+open CP-002 source dimensions:        0
+```
+
+Approved CP-002 English projection:
+
+```text
+sha256:e1853b8864453ebcdbe88aa6f3ca5fedf9f7b7140c28a3b5ad5da8a0c4855430
+```
+
+## Construction model
+
+```text
+construct a valid hidden total order
+  -> derive only the intended evidence
+  -> solve displayed evidence independently
+  -> evaluate validity and ambiguity explicitly
+  -> construct misconception-owned options
+  -> render reviewed question-specific teaching
+  -> expose permanent review identity while delivery stays locked
+```
 
 ## Ownership boundaries
 
-- one-person rank arithmetic → `RNK-CP-001`;
-- two distinct positions → `RNK-CP-002`;
-- interchange, movement, overtaking, insertion or removal → `RNK-CP-003`;
-- three-or-more-person order reconstruction → `RNK-CP-004`;
-- shared passages → later RNK checkpoint;
-- dictionary ordering → Word and Dictionary Order;
-- facing/adjacency geometry → Seating Arrangement;
-- multi-attribute assignment → Logic Puzzles;
-- statement-wise sufficiency → Data Sufficiency.
+- one-person rank arithmetic → CP-001;
+- relationships between two fixed positions → CP-002;
+- interchange, movement, overtaking, insertion or removal → CP-003;
+- three-or-more-person order reconstruction → CP-004;
+- shared passages → CP-005;
+- multi-person partial-order uncertainty → CP-007;
+- statement-wise sufficiency → Data Sufficiency;
+- facing/adjacency geometry → Seating Arrangement.
 
 ## Current lifecycle
 
 ```text
-CP-001 English discovery frozen: true
-CP-001 permanent QLs:            RNK-QL-001..009
-next available ID:               RNK-QL-010
-CP-002 permanent QLs:            0
-CP-002 discovery frozen:         false
+cumulative permanent range:      RNK-QL-001..017
+next available ID:               RNK-QL-018
+CP-001 discovery frozen:         true
+CP-002 discovery frozen:         true
 English review-only:             true
 Hindi/Punjabi:                   not started
 Question Studio:                 disabled
