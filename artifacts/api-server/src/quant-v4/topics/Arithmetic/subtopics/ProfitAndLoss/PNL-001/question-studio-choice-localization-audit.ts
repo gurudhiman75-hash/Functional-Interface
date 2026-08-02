@@ -1,7 +1,7 @@
 import {
-  recoverPnl001CanonicalContext,
+  recoverPnl001CanonicalContextV2,
   unresolvedPnl001ProsePlaceholders,
-} from "./question-studio-canonical-context";
+} from "./question-studio-canonical-context-v2";
 
 const EXPECTED_CP_COUNTS = {
   "PNL-CP-001": 36,
@@ -17,7 +17,7 @@ const recoveryFailures: Array<{ qlId: string; message: string }> = [];
 for (let index = 1; index <= 186; index += 1) {
   const qlId = `PNL-QL-${String(index).padStart(3, "0")}`;
   try {
-    recoveries.push(recoverPnl001CanonicalContext(qlId));
+    recoveries.push(recoverPnl001CanonicalContextV2(qlId));
   } catch (error) {
     recoveryFailures.push({
       qlId,
@@ -36,15 +36,24 @@ let tableSources = 0;
 let paragraphSources = 0;
 let exactCurrentStemRoundTrips = 0;
 let legacyDataSufficiencyStems = 0;
+let canonicalProseOverrides = 0;
+const canonicalProseOverrideQlIds: string[] = [];
 const contextKeyCounts: number[] = [];
 
 for (const recovery of recoveries) {
   cpCounts[recovery.cpId] = (cpCounts[recovery.cpId] ?? 0) + 1;
   contextKeyCounts.push(Object.keys(recovery.context).length);
-  if (recovery.canonicalStemMode === "CURRENT_STRUCTURED") {
-    exactCurrentStemRoundTrips += 1;
-  } else {
-    legacyDataSufficiencyStems += 1;
+  switch (recovery.canonicalStemMode) {
+    case "CURRENT_STRUCTURED":
+      exactCurrentStemRoundTrips += 1;
+      break;
+    case "LEGACY_DATA_SUFFICIENCY":
+      legacyDataSufficiencyStems += 1;
+      break;
+    case "CANONICAL_PROSE_OVERRIDE":
+      canonicalProseOverrides += 1;
+      canonicalProseOverrideQlIds.push(recovery.qlId);
+      break;
   }
 
   const unresolved = unresolvedPnl001ProsePlaceholders(
@@ -64,15 +73,27 @@ for (const recovery of recoveries) {
   }
 }
 
-const cpCoverageOk = recoveryFailures.length === 0 && Object.entries(EXPECTED_CP_COUNTS).every(
-  ([cpId, expected]) => cpCounts[cpId] === expected,
-);
+const cpCoverageOk =
+  recoveryFailures.length === 0 &&
+  Object.entries(EXPECTED_CP_COUNTS).every(
+    ([cpId, expected]) => cpCounts[cpId] === expected,
+  );
+const recoveryModeCoverage =
+  exactCurrentStemRoundTrips +
+    legacyDataSufficiencyStems +
+    canonicalProseOverrides ===
+  186;
+const closedOverrideAuthority =
+  canonicalProseOverrides === 1 &&
+  JSON.stringify(canonicalProseOverrideQlIds) ===
+    JSON.stringify(["PNL-QL-092"]);
 const summary = {
   ok:
     recoveries.length === 186 &&
     recoveryFailures.length === 0 &&
     cpCoverageOk &&
-    exactCurrentStemRoundTrips + legacyDataSufficiencyStems === 186 &&
+    recoveryModeCoverage &&
+    closedOverrideAuthority &&
     explanationBindingFailures.length === 0,
   qlCount: recoveries.length,
   recoveryFailureCount: recoveryFailures.length,
@@ -81,11 +102,17 @@ const summary = {
   exactCanonicalKeyedAnswers: recoveries.length,
   exactCurrentStemRoundTrips,
   legacyDataSufficiencyStems,
+  canonicalProseOverrides,
+  canonicalProseOverrideQlIds,
   scalarValues,
   tableSources,
   paragraphSources,
-  minimumContextKeys: contextKeyCounts.length ? Math.min(...contextKeyCounts) : 0,
-  maximumContextKeys: contextKeyCounts.length ? Math.max(...contextKeyCounts) : 0,
+  minimumContextKeys: contextKeyCounts.length
+    ? Math.min(...contextKeyCounts)
+    : 0,
+  maximumContextKeys: contextKeyCounts.length
+    ? Math.max(...contextKeyCounts)
+    : 0,
   currentExplanationBindingFailures: explanationBindingFailures.length,
   explanationBindingFailures,
 };
@@ -94,7 +121,8 @@ console.log(JSON.stringify(summary, null, 2));
 
 if (!summary.ok) {
   throw new Error(
-    `PNL canonical context recovery has ${recoveryFailures.length} stem failures and ` +
+    `PNL canonical context recovery has ${recoveryFailures.length} stem failures, ` +
+      `${canonicalProseOverrides} canonical prose overrides, and ` +
       `${explanationBindingFailures.length} explanation binding failures.`,
   );
 }
