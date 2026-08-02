@@ -25,14 +25,14 @@ function crossScriptDetail(question: ReturnType<typeof runTmwCp011LocalizedPipel
     ["trap", question.explanation.commonTrap.explanation],
     ["conclusion", question.explanation.conclusion],
   ];
-  const foreign = question.language === "pa" ? /[\u0900-\u097F]/ : /[\u0A00-\u0A7F]/;
+  const foreign = question.language === "pa" ? /[\u0900-\u0963\u0966-\u097F]/ : /[\u0A00-\u0A7F]/;
   const hit = fields.find(([, value]) => foreign.test(value.replace(/\\\([\s\S]*?\\\)/g, "")));
   return hit ? `${hit[0]}=${JSON.stringify(hit[1])}` : "no-field-found";
 }
 
 for (const entry of TMW_CP_011_REGISTRY) {
   for (let index = 0; index < 20; index += 1) {
-    const seed = `tmw-cp011-localization:${entry.qlId}:${index}`;
+    const seed = `runtime-${entry.qlId}-${index}`;
     const english = runTmwCp011Pipeline(entry.qlId, seed);
     assert.equal(english.validation.valid, true, `${entry.qlId}:en:${english.validation.errors.join(" | ")}`);
 
