@@ -13,7 +13,7 @@ import {
   validateTermOrder,
 } from "./region-model";
 
-function independentProhibited(
+function independentlyProhibited(
   constraint: PrimitiveConstraint,
   termOrder: readonly TermId[],
   mask: number,
@@ -32,7 +32,7 @@ function independentProhibited(
   return false;
 }
 
-function independentObligationMatch(
+function independentlyMatchesObligation(
   constraint: PrimitiveConstraint,
   termOrder: readonly TermId[],
   mask: number,
@@ -49,7 +49,7 @@ function independentObligationMatch(
   return false;
 }
 
-function independentSatisfiability(
+function independentlySolveSatisfiability(
   constraints: readonly PrimitiveConstraint[],
   termOrder: readonly TermId[],
 ): SatisfiabilityResult {
@@ -65,7 +65,7 @@ function independentSatisfiability(
       || constraint.kind === "SOME_NOT",
   );
   const legalRegions = allRegionMasks(termOrder).filter((mask) =>
-    universal.every((constraint) => !independentProhibited(constraint, termOrder, mask)),
+    universal.every((constraint) => !independentlyProhibited(constraint, termOrder, mask)),
   );
 
   const selected: number[] = [];
@@ -74,12 +74,12 @@ function independentSatisfiability(
     const obligation = obligations[obligationIndex];
 
     for (const mask of selected) {
-      if (!independentObligationMatch(obligation, termOrder, mask)) continue;
+      if (!independentlyMatchesObligation(obligation, termOrder, mask)) continue;
       if (search(obligationIndex + 1)) return true;
     }
 
     for (const mask of legalRegions) {
-      if (!independentObligationMatch(obligation, termOrder, mask)) continue;
+      if (!independentlyMatchesObligation(obligation, termOrder, mask)) continue;
       selected.push(mask);
       if (search(obligationIndex + 1)) return true;
       selected.pop();
@@ -104,49 +104,51 @@ function independentTruthScenarios(
     : `${conclusion.conclusionId}:INDEPENDENT_NEGATION`;
 
   if (desiredTruth) {
-    if (conclusion.form === "ALL") {
-      return [[
-        { kind: "ALL", subject: conclusion.subject, predicate: conclusion.predicate, originId },
-        { kind: "EXISTS", term: conclusion.subject, originId },
-      ]];
+    switch (conclusion.form) {
+      case "ALL":
+        return [[
+          { kind: "ALL", subject: conclusion.subject, predicate: conclusion.predicate, originId },
+          { kind: "EXISTS", term: conclusion.subject, originId },
+        ]];
+      case "NO":
+        return [[
+          { kind: "NO", subject: conclusion.subject, predicate: conclusion.predicate, originId },
+          { kind: "EXISTS", term: conclusion.subject, originId },
+          { kind: "EXISTS", term: conclusion.predicate, originId },
+        ]];
+      case "SOME":
+        return [[{ kind: "SOME", subject: conclusion.subject, predicate: conclusion.predicate, originId }]];
+      case "SOME_NOT":
+        return [[{ kind: "SOME_NOT", subject: conclusion.subject, predicate: conclusion.predicate, originId }]];
     }
-    if (conclusion.form === "NO") {
-      return [[
-        { kind: "NO", subject: conclusion.subject, predicate: conclusion.predicate, originId },
-        { kind: "EXISTS", term: conclusion.subject, originId },
-      ]];
-    }
-    if (conclusion.form === "SOME") {
-      return [[{ kind: "SOME", subject: conclusion.subject, predicate: conclusion.predicate, originId }]];
-    }
-    return [[{ kind: "SOME_NOT", subject: conclusion.subject, predicate: conclusion.predicate, originId }]];
   }
 
-  if (conclusion.form === "ALL") {
-    return [
-      [{ kind: "EMPTY", term: conclusion.subject, originId }],
-      [{ kind: "SOME_NOT", subject: conclusion.subject, predicate: conclusion.predicate, originId }],
-    ];
+  switch (conclusion.form) {
+    case "ALL":
+      return [
+        [{ kind: "EMPTY", term: conclusion.subject, originId }],
+        [{ kind: "SOME_NOT", subject: conclusion.subject, predicate: conclusion.predicate, originId }],
+      ];
+    case "NO":
+      return [
+        [{ kind: "EMPTY", term: conclusion.subject, originId }],
+        [{ kind: "EMPTY", term: conclusion.predicate, originId }],
+        [{ kind: "SOME", subject: conclusion.subject, predicate: conclusion.predicate, originId }],
+      ];
+    case "SOME":
+      return [[{ kind: "NO", subject: conclusion.subject, predicate: conclusion.predicate, originId }]];
+    case "SOME_NOT":
+      return [[{ kind: "ALL", subject: conclusion.subject, predicate: conclusion.predicate, originId }]];
   }
-  if (conclusion.form === "NO") {
-    return [
-      [{ kind: "EMPTY", term: conclusion.subject, originId }],
-      [{ kind: "SOME", subject: conclusion.subject, predicate: conclusion.predicate, originId }],
-    ];
-  }
-  if (conclusion.form === "SOME") {
-    return [[{ kind: "NO", subject: conclusion.subject, predicate: conclusion.predicate, originId }]];
-  }
-  return [[{ kind: "ALL", subject: conclusion.subject, predicate: conclusion.predicate, originId }]];
 }
 
-function independentFindScenario(
+function independentlyFindScenario(
   premises: readonly PrimitiveConstraint[],
   scenarios: readonly (readonly PrimitiveConstraint[])[],
   termOrder: readonly TermId[],
 ): SatisfiabilityResult {
   for (const scenario of scenarios) {
-    const result = independentSatisfiability([...premises, ...scenario], termOrder);
+    const result = independentlySolveSatisfiability([...premises, ...scenario], termOrder);
     if (result.satisfiable) return result;
   }
   return { satisfiable: false, model: null };
@@ -157,17 +159,17 @@ export function classifyConclusionIndependent(
   conclusion: CanonicalConclusion,
   termOrder: readonly TermId[],
 ): ConclusionTruthProfile {
-  const premiseResult = independentSatisfiability(premises, termOrder);
+  const premiseResult = independentlySolveSatisfiability(premises, termOrder);
   if (!premiseResult.satisfiable) {
     throw new Error("Cannot independently classify a conclusion from inconsistent premises.");
   }
 
-  const trueResult = independentFindScenario(
+  const trueResult = independentlyFindScenario(
     premises,
     independentTruthScenarios(conclusion, true),
     termOrder,
   );
-  const falseResult = independentFindScenario(
+  const falseResult = independentlyFindScenario(
     premises,
     independentTruthScenarios(conclusion, false),
     termOrder,
