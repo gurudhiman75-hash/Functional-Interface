@@ -10,6 +10,7 @@ import type { Rational } from "./foundation/types";
 import type { IntCp002FinalClosureQuestion } from "./cp002-final-closure-types";
 
 const ONE_HUNDRED = rational(100);
+const ONE = rational(1);
 
 function readRational(question: IntCp002FinalClosureQuestion, key: string): Rational {
   const value = question.state.values[key] as Rational | undefined;
@@ -74,9 +75,20 @@ export function verifyIntCp002FinalClosureCandidate(
     }
 
     case "INT-CP002-CLOSE-SPLIT-PRINCIPAL-RATIO": {
-      const firstPart = readRational(question, "firstPart");
-      const secondPart = readRational(question, "secondPart");
-      return equalsRational(candidate, divideRational(firstPart, secondPart));
+      if (candidate.numerator <= 0n) return false;
+      const totalPrincipal = readRational(question, "totalPrincipal");
+      const firstRate = readRational(question, "firstRate");
+      const secondRate = readRational(question, "secondRate");
+      const time = readRational(question, "time");
+      const totalInterest = readRational(question, "totalInterest");
+      const secondPart = divideRational(totalPrincipal, addRational(candidate, ONE));
+      const firstPart = subtractRational(totalPrincipal, secondPart);
+      if (firstPart.numerator <= 0n || secondPart.numerator <= 0n) return false;
+      const reconstructed = addRational(
+        simpleInterest(firstPart, firstRate, time),
+        simpleInterest(secondPart, secondRate, time),
+      );
+      return equalsRational(reconstructed, totalInterest);
     }
 
     case "INT-CP002-CLOSE-EQUAL-INTEREST-PRINCIPAL-RATIO": {
