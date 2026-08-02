@@ -1,0 +1,96 @@
+name: Validate PNL Multilingual Editorial Wave 03
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-multilingual-editorial-reconstruction-wave03
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
+      - ".github/workflows/validate-pnl-multilingual-editorial-wave03.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
+      - ".github/workflows/validate-pnl-multilingual-editorial-wave03.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-wave03:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prove Wave 03 reconstruction boundaries
+        id: reconstruction
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-reconstruction-wave03.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-wave03-reconstruction.test.mjs \
+            2>&1 | tee pnl-wave03-reconstruction.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-wave03-reconstruction.test.mjs \
+            2>&1 | tee -a pnl-wave03-reconstruction.log
+
+      - name: Verify committed Wave 03 source parity
+        id: source_parity
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-multilingual-source-parity.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-wave03-source-parity.mjs \
+            2>&1 | tee pnl-wave03-source-parity.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-wave03-source-parity.mjs \
+            2>&1 | tee -a pnl-wave03-source-parity.log
+
+      - name: Build equation-aware review corpus
+        id: audit
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-wave03-audit.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-wave03-audit.mjs \
+            2>&1 | tee pnl-wave03-audit.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-wave03-audit.mjs \
+            2>&1 | tee -a pnl-wave03-audit.log
+
+      - name: Upload Wave 03 review package
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-001-multilingual-editorial-wave03-review
+          path: |
+            pnl-wave03-reconstruction.log
+            pnl-wave03-source-parity.log
+            pnl-wave03-audit.log
+            dist/quant-v4/pnl-001-multilingual-editorial-wave03-audit/**
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Enforce Wave 03 result
+        if: always()
+        run: |
+          test "${{ steps.reconstruction.outcome }}" = "success"
+          test "${{ steps.source_parity.outcome }}" = "success"
+          test "${{ steps.audit.outcome }}" = "success"
