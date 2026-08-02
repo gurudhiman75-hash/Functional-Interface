@@ -42,6 +42,7 @@ type Capture = Readonly<{ key: string; mode: CaptureMode }>;
 type Fragment = Readonly<{ pattern: string; captures: readonly Capture[] }>;
 
 export type Pnl001CanonicalContext = Readonly<Record<string, unknown>>;
+export type Pnl001CanonicalStemMode = "CURRENT_STRUCTURED" | "LEGACY_DATA_SUFFICIENCY";
 
 export type Pnl001CanonicalContextRecovery = Readonly<{
   qlId: string;
@@ -49,7 +50,9 @@ export type Pnl001CanonicalContextRecovery = Readonly<{
   context: Pnl001CanonicalContext;
   canonicalEntry: CanonicalEntry;
   englishEntry: StructuredEditorialEntry;
+  currentEnglishStem: string;
   currentEnglishExplanation: string;
+  canonicalStemMode: Pnl001CanonicalStemMode;
   rowSources: readonly string[];
   paragraphSources: readonly string[];
 }>;
@@ -215,12 +218,11 @@ function compileStem(stem: StructuredQuestionStem, variables: ReadonlySet<string
         });
         break;
       case "data_sufficiency":
-        parts.push(templateFragment(block.question, "prose", variables));
         block.statements.forEach((value, index) => {
           const fragment = templateFragment(value, "prose", variables);
-          parts.push({ pattern: `\\*\\*Statement ${index + 1}:\\*\\* ${fragment.pattern}`, captures: fragment.captures });
+          const numeral = index === 0 ? "I" : "II";
+          parts.push({ pattern: `\\*\\*Statement ${numeral}:\\*\\* ${fragment.pattern}`, captures: fragment.captures });
         });
-        parts.push(literal("Use the standard two-statement data-sufficiency answer scheme."));
         break;
       case "equation": {
         const fragment = templateFragment(block.latex, "latex", variables);
@@ -306,9 +308,7 @@ export function recoverPnl001CanonicalContext(qlId: string): Pnl001CanonicalCont
   if (!canonicalEntry || !englishEntry || !registryEntry || !cpId) {
     throw new Error(`${qlId}: canonical context authorities are incomplete.`);
   }
-  if (canonicalEntry.cpId !== cpId) {
-    throw new Error(`${qlId}: canonical CP ownership mismatch.`);
-  }
+  if (canonicalEntry.cpId !== cpId) throw new Error(`${qlId}: canonical CP ownership mismatch.`);
   if (
     canonicalEntry.options.length !== 4 ||
     new Set(canonicalEntry.options).size !== 4 ||
@@ -317,28 +317,33 @@ export function recoverPnl001CanonicalContext(qlId: string): Pnl001CanonicalCont
     throw new Error(`${qlId}: canonical keyed-answer contract is invalid.`);
   }
 
+  const canonicalStemMode: Pnl001CanonicalStemMode = englishEntry.stem.blocks.some(
+    (block) => block.type === "data_sufficiency",
+  )
+    ? "LEGACY_DATA_SUFFICIENCY"
+    : "CURRENT_STRUCTURED";
   const variables = new Set<string>([
     ...registryEntry.requiredVariables,
     ...stemVariables(englishEntry.stem),
   ]);
   const compiled = compileStem(englishEntry.stem, variables);
   const match = new RegExp(`^${compiled.pattern}$`, "u").exec(canonicalEntry.stem);
-  if (!match) {
-    throw new Error(`${qlId}: canonical stem does not match current structured authority.`);
-  }
+  if (!match) throw new Error(`${qlId}: canonical stem does not match its approved structured shape.`);
+
   const context: Record<string, unknown> = {};
   const modes = new Map<string, CaptureMode>();
   compiled.captures.forEach((capture, index) => {
     mergeCapture(context, modes, capture, match[index + 1] ?? "", qlId);
   });
 
-  const rerenderedStem = renderStructuredStemMarkdown(englishEntry.stem, context);
-  if (rerenderedStem !== canonicalEntry.stem) {
+  const currentEnglishStem = renderStructuredStemMarkdown(englishEntry.stem, context);
+  if (canonicalStemMode === "CURRENT_STRUCTURED" && currentEnglishStem !== canonicalEntry.stem) {
     throw new Error(`${qlId}: canonical stem does not round-trip exactly.`);
   }
-  const unresolvedStem = unresolvedPnl001ProsePlaceholders(rerenderedStem);
-  if (unresolvedStem.length > 0) {
-    throw new Error(`${qlId}: unresolved canonical stem placeholders: ${unresolvedStem.join(", ")}.`);
+  const unresolvedCanonicalStem = unresolvedPnl001ProsePlaceholders(canonicalEntry.stem);
+  const unresolvedCurrentStem = unresolvedPnl001ProsePlaceholders(currentEnglishStem);
+  if (unresolvedCanonicalStem.length > 0 || unresolvedCurrentStem.length > 0) {
+    throw new Error(`${qlId}: unresolved canonical stem placeholders remain.`);
   }
 
   const currentEnglishExplanation = renderFriendlyExplanationMarkdown(englishEntry.explanation, context);
@@ -357,7 +362,9 @@ export function recoverPnl001CanonicalContext(qlId: string): Pnl001CanonicalCont
     context,
     canonicalEntry,
     englishEntry,
+    currentEnglishStem,
     currentEnglishExplanation,
+    canonicalStemMode,
     rowSources,
     paragraphSources,
   };
