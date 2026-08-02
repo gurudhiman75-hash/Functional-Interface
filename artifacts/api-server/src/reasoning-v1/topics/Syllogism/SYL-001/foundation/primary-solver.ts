@@ -73,7 +73,9 @@ export function solveConstraintSatisfiability(
   };
 }
 
-function trueScenarios(conclusion: CanonicalConclusion): readonly (readonly PrimitiveConstraint[])[] {
+function trueScenarios(
+  conclusion: CanonicalConclusion,
+): readonly (readonly PrimitiveConstraint[])[] {
   const originId = conclusion.conclusionId;
   switch (conclusion.form) {
     case "ALL":
@@ -85,6 +87,7 @@ function trueScenarios(conclusion: CanonicalConclusion): readonly (readonly Prim
       return [[
         { kind: "NO", subject: conclusion.subject, predicate: conclusion.predicate, originId },
         { kind: "EXISTS", term: conclusion.subject, originId },
+        { kind: "EXISTS", term: conclusion.predicate, originId },
       ]];
     case "SOME":
       return [[{ kind: "SOME", subject: conclusion.subject, predicate: conclusion.predicate, originId }]];
@@ -97,7 +100,9 @@ function trueScenarios(conclusion: CanonicalConclusion): readonly (readonly Prim
   }
 }
 
-function falseScenarios(conclusion: CanonicalConclusion): readonly (readonly PrimitiveConstraint[])[] {
+function falseScenarios(
+  conclusion: CanonicalConclusion,
+): readonly (readonly PrimitiveConstraint[])[] {
   const originId = `${conclusion.conclusionId}:NEGATED`;
   switch (conclusion.form) {
     case "ALL":
@@ -108,6 +113,7 @@ function falseScenarios(conclusion: CanonicalConclusion): readonly (readonly Pri
     case "NO":
       return [
         [{ kind: "EMPTY", term: conclusion.subject, originId }],
+        [{ kind: "EMPTY", term: conclusion.predicate, originId }],
         [{ kind: "SOME", subject: conclusion.subject, predicate: conclusion.predicate, originId }],
       ];
     case "SOME":
