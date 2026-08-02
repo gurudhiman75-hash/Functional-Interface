@@ -57,6 +57,9 @@ assert(mpsPaceRow, "speedFromPace: m/s answer row is missing");
 assert(mpsPaceRow.input.solveMode === "speedFromPace" && mpsPaceRow.input.paceUnit === "SECOND_PER_KM", "speedFromPace: m/s row must use seconds per km");
 assert(/m\/s$/.test(mpsPaceRow.answerText), "speedFromPace: m/s answer label is missing");
 assert(mpsPaceRow.explanation.working.some((line) => /1000/.test(line) && /÷/.test(line)), "speedFromPace: 1000 metres ÷ seconds working is missing");
+const mpsPaceReasons = mpsPaceRow.explanation.optionAnalysis.map((option) => option.reason).join(" ");
+assert(/1000 metres|seconds per kilometre|distance must be divided by time/i.test(mpsPaceReasons), "speedFromPace: m/s option diagnoses do not teach the actual unit path");
+assert(!/minutes per kilometre as kilometres per hour|60 ÷ speed/i.test(mpsPaceReasons), "speedFromPace: minute-based diagnosis leaked into seconds/km row");
 
 const paceFromSpeedRows = rows.filter((row) => row.solveMode === "paceFromSpeed");
 const secondsPaceRow = paceFromSpeedRows.find(
@@ -66,6 +69,9 @@ assert(secondsPaceRow, "paceFromSpeed: seconds/km answer row is missing");
 assert(secondsPaceRow.input.solveMode === "paceFromSpeed" && secondsPaceRow.input.speedUnit === "MPS", "paceFromSpeed: seconds/km row must start from m/s");
 assert(/seconds\/km$/.test(secondsPaceRow.answerText), "paceFromSpeed: seconds/km answer label is missing");
 assert(secondsPaceRow.explanation.working.some((line) => /1000/.test(line) && /÷/.test(line)), "paceFromSpeed: 1000 metres ÷ m/s working is missing");
+const secondsPaceReasons = secondsPaceRow.explanation.optionAnalysis.map((option) => option.reason).join(" ");
+assert(/1000 metres|one-kilometre distance/i.test(secondsPaceReasons), "paceFromSpeed: seconds/km option diagnoses do not teach the one-kilometre distance");
+assert(!/60 ÷ speed|minutes needed for one kilometre/i.test(secondsPaceReasons), "paceFromSpeed: minute-based diagnosis leaked into seconds/km row");
 
 const distanceFromPaceRows = rows.filter((row) => row.solveMode === "distanceFromPaceAndTime");
 const metreDistanceRow = distanceFromPaceRows.find(
@@ -75,6 +81,11 @@ assert(metreDistanceRow, "distanceFromPaceAndTime: metre answer row is missing")
 assert(/ m$/.test(metreDistanceRow.answerText), "distanceFromPaceAndTime: metre answer label is missing");
 assert(metreDistanceRow.explanation.working.some((line) => /× 1000/.test(line)), "distanceFromPaceAndTime: km to metre conversion is missing");
 assert(metreDistanceRow.optionAudit.some((option) => option.misconceptionId === "OMIT_UNIT_CONVERSION"), "distanceFromPaceAndTime: omitted-output-conversion trap is missing");
+const omittedConversionReason = metreDistanceRow.explanation.optionAnalysis.find(
+  (option) => option.misconceptionId === "OMIT_UNIT_CONVERSION",
+)?.reason ?? "";
+assert(/kilometres/i.test(omittedConversionReason) && /1000/.test(omittedConversionReason), "distanceFromPaceAndTime: omitted km-to-m conversion is not explained precisely");
+assert(!/minutes per kilometre/i.test(metreDistanceRow.explanation.optionAnalysis.map((option) => option.reason).join(" ")), "distanceFromPaceAndTime: minute-based diagnosis leaked into seconds-based metre row");
 
 const distanceConversionRows = rows.filter((row) => row.solveMode === "convertDistanceUnit");
 assert(distanceConversionRows.some((row) => row.input.solveMode === "convertDistanceUnit" && (row.input.from === "MM" || row.input.to === "MM")), "convertDistanceUnit: millimetre edge is missing");
@@ -110,6 +121,7 @@ console.log(JSON.stringify({
     time: "seconds",
   },
   deadlineUnit: "km/h",
+  unitAwarePaceDiagnoses: true,
   addedNaturalEdges: [
     "mixed speed in km/h, m/s and m/min",
     "speed from seconds/km into m/s",
