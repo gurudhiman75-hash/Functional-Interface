@@ -6,7 +6,6 @@ import {
   normalizeEditorialProse,
   renderFriendlyExplanationMarkdown,
   renderStructuredStemMarkdown,
-  type FriendlyExplanation,
   type QuestionStemBlock,
   type StructuredEditorialEntry,
   type StructuredQuestionStem,
@@ -14,7 +13,6 @@ import {
 import { PNL_001_CANONICAL_REVIEW_LIBRARY } from "./question-studio-review.library";
 
 const CP_FOLDERS = ["CP-001", "CP-002", "CP-003", "CP-004", "CP-005", "CP-006"] as const;
-type CpFolder = (typeof CP_FOLDERS)[number];
 
 type CanonicalReviewEntry = Readonly<{
   qlId: string;
@@ -61,6 +59,7 @@ export type CanonicalContextRecovery = Readonly<{
   context: RecoveredCanonicalContext;
   englishEntry: StructuredEditorialEntry;
   canonicalEntry: CanonicalReviewEntry;
+  currentEnglishExplanation: string;
   rowSources: readonly string[];
   paragraphSources: readonly string[];
 }>;
@@ -70,13 +69,23 @@ function locateRoot(): string {
   const candidates = [
     moduleDir,
     join(moduleDir, ".."),
-    join(process.cwd(), "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"),
-    join(process.cwd(), "src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"),
+    join(
+      process.cwd(),
+      "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001",
+    ),
+    join(
+      process.cwd(),
+      "src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001",
+    ),
   ];
   for (const candidate of candidates) {
-    if (existsSync(join(candidate, "CP-001", "editorial-content.en.json"))) return candidate;
+    if (existsSync(join(candidate, "CP-001", "editorial-content.en.json"))) {
+      return candidate;
+    }
   }
-  throw new Error("Unable to locate the PNL-001 source root for canonical context recovery.");
+  throw new Error(
+    "Unable to locate the PNL-001 source root for canonical context recovery.",
+  );
 }
 
 function readJson<T>(path: string): T {
@@ -84,36 +93,46 @@ function readJson<T>(path: string): T {
 }
 
 const root = locateRoot();
-const canonicalLibrary = PNL_001_CANONICAL_REVIEW_LIBRARY as CanonicalReviewLibrary;
+const canonicalLibrary =
+  PNL_001_CANONICAL_REVIEW_LIBRARY as CanonicalReviewLibrary;
 const englishEntries = new Map<string, StructuredEditorialEntry>();
 const registryEntries = new Map<string, RegistryEntry>();
 const cpByQl = new Map<string, string>();
 
 for (const cp of CP_FOLDERS) {
-  const editorial = readJson<EditorialLibrary>(join(root, cp, "editorial-content.en.json"));
-  const registry = readJson<RegistryFile>(join(root, cp, "task-registry.library.json"));
+  const editorial = readJson<EditorialLibrary>(
+    join(root, cp, "editorial-content.en.json"),
+  );
+  const registry = readJson<RegistryFile>(
+    join(root, cp, "task-registry.library.json"),
+  );
   for (const [qlId, entry] of Object.entries(editorial.entries)) {
     englishEntries.set(qlId, entry);
     cpByQl.set(qlId, editorial.cpId);
   }
-  for (const [qlId, entry] of Object.entries(registry.entries)) registryEntries.set(qlId, entry);
+  for (const [qlId, entry] of Object.entries(registry.entries)) {
+    registryEntries.set(qlId, entry);
+  }
 }
 
 function escapeRegex(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-function prosePlaceholderNames(value: string | undefined): readonly string[] {
+function placeholderNames(value: string | undefined): readonly string[] {
   if (!value) return [];
-  return [...value.matchAll(/\{([A-Za-z][A-Za-z0-9_]*)\}/g)].map((match) => match[1]!);
+  return [...value.matchAll(/\{([A-Za-z][A-Za-z0-9_]*)\}/g)].map(
+    (match) => match[1]!,
+  );
 }
 
-function entryProsePlaceholderNames(entry: StructuredEditorialEntry): ReadonlySet<string> {
+function stemPlaceholderNames(stem: StructuredQuestionStem): ReadonlySet<string> {
   const names = new Set<string>();
-  const add = (value: string | undefined) => prosePlaceholderNames(value).forEach((name) => names.add(name));
+  const add = (value: string | undefined) =>
+    placeholderNames(value).forEach((name) => names.add(name));
 
-  add(entry.stem.prompt);
-  for (const block of entry.stem.blocks) {
+  add(stem.prompt);
+  for (const block of stem.blocks) {
     switch (block.type) {
       case "paragraph":
         add(block.content);
@@ -138,21 +157,10 @@ function entryProsePlaceholderNames(entry: StructuredEditorialEntry): ReadonlySe
         block.statements.forEach(add);
         break;
       case "equation":
+        add(block.latex);
         break;
     }
   }
-
-  add(entry.explanation.opening);
-  add(entry.explanation.concept);
-  entry.explanation.steps.forEach((step) => {
-    add(step.title);
-    add(step.body);
-  });
-  add(entry.explanation.conclusion);
-  add(entry.explanation.commonTrap);
-  add(entry.explanation.shortcut);
-  add(entry.difficultyRationale);
-
   return names;
 }
 
@@ -221,8 +229,18 @@ function compileStem(
         parts.push(compileTemplate(block.content, "prose", variableNames));
         break;
       case "table": {
-        if (block.caption) parts.push(bold(compileTemplate(block.caption, "prose", variableNames)));
-        parts.push(tableRow(block.columns.map((column) => compileTemplate(column, "prose", variableNames))));
+        if (block.caption) {
+          parts.push(
+            bold(compileTemplate(block.caption, "prose", variableNames)),
+          );
+        }
+        parts.push(
+          tableRow(
+            block.columns.map((column) =>
+              compileTemplate(column, "prose", variableNames),
+            ),
+          ),
+        );
         parts.push(tableRow(block.columns.map(() => literal("---"))));
         if (block.rows) {
           for (const row of block.rows) {
@@ -243,38 +261,69 @@ function compileStem(
         break;
       }
       case "caselet":
-        if (block.title) parts.push(bold(compileTemplate(block.title, "prose", variableNames)));
+        if (block.title) {
+          parts.push(
+            bold(compileTemplate(block.title, "prose", variableNames)),
+          );
+        }
         if (block.paragraphs) {
           block.paragraphs.forEach((paragraph) =>
-            parts.push(compileTemplate(paragraph, "prose", variableNames)),
+            parts.push(
+              compileTemplate(paragraph, "prose", variableNames),
+            ),
           );
         } else if (block.paragraphSource) {
           parts.push({
             pattern: "([\\s\\S]+?)",
-            captures: [{ key: block.paragraphSource, mode: "paragraph-source" }],
+            captures: [
+              { key: block.paragraphSource, mode: "paragraph-source" },
+            ],
           });
         }
         break;
       case "statements":
-        if (block.lead) parts.push(compileTemplate(block.lead, "prose", variableNames));
+        if (block.lead) {
+          parts.push(compileTemplate(block.lead, "prose", variableNames));
+        }
         block.statements.forEach((statement, index) => {
-          const compiled = compileTemplate(statement, "prose", variableNames);
-          parts.push({ pattern: `${index + 1}\\. ${compiled.pattern}`, captures: compiled.captures });
+          const compiled = compileTemplate(
+            statement,
+            "prose",
+            variableNames,
+          );
+          parts.push({
+            pattern: `${index + 1}\\. ${compiled.pattern}`,
+            captures: compiled.captures,
+          });
         });
         break;
       case "data_sufficiency":
-        parts.push(compileTemplate(block.question, "prose", variableNames));
+        parts.push(
+          compileTemplate(block.question, "prose", variableNames),
+        );
         block.statements.forEach((statement, index) => {
-          const compiled = compileTemplate(statement, "prose", variableNames);
+          const compiled = compileTemplate(
+            statement,
+            "prose",
+            variableNames,
+          );
           parts.push({
             pattern: `\\*\\*Statement ${index + 1}:\\*\\* ${compiled.pattern}`,
             captures: compiled.captures,
           });
         });
-        parts.push(literal("Use the standard two-statement data-sufficiency answer scheme."));
+        parts.push(
+          literal(
+            "Use the standard two-statement data-sufficiency answer scheme.",
+          ),
+        );
         break;
       case "equation": {
-        const compiled = compileTemplate(block.latex, "latex", variableNames);
+        const compiled = compileTemplate(
+          block.latex,
+          "latex",
+          variableNames,
+        );
         parts.push({
           pattern:
             block.display === false
@@ -288,54 +337,6 @@ function compileStem(
   }
 
   parts.push(compileTemplate(stem.prompt, "prose", variableNames));
-  return combine(parts);
-}
-
-function compileExplanation(
-  explanation: FriendlyExplanation,
-  variableNames: ReadonlySet<string>,
-): PatternFragment {
-  const parts: PatternFragment[] = [];
-  parts.push(compileTemplate(explanation.opening, "prose", variableNames));
-
-  const concept = compileTemplate(explanation.concept, "prose", variableNames);
-  parts.push({ pattern: `\\*\\*Key idea:\\*\\* ${concept.pattern}`, captures: concept.captures });
-
-  explanation.steps.forEach((step, index) => {
-    const title = compileTemplate(step.title, "prose", variableNames);
-    parts.push({
-      pattern: `\\*\\*Step ${index + 1}: ${title.pattern}\\*\\*`,
-      captures: title.captures,
-    });
-    parts.push(compileTemplate(step.body, "prose", variableNames));
-    if (step.equationLatex) {
-      const equation = compileTemplate(step.equationLatex, "latex", variableNames);
-      parts.push({ pattern: `\\\\\\[${equation.pattern}\\\\\\]`, captures: equation.captures });
-    }
-  });
-
-  const conclusion = compileTemplate(explanation.conclusion, "prose", variableNames);
-  parts.push({ pattern: `\\*\\*Conclusion:\\*\\* ${conclusion.pattern}`, captures: conclusion.captures });
-
-  if (explanation.finalAnswerLatex) {
-    const finalAnswer = compileTemplate(explanation.finalAnswerLatex, "latex", variableNames);
-    parts.push({
-      pattern: `\\\\\\[\\\\boxed\\{${finalAnswer.pattern}\\}\\\\\\]`,
-      captures: finalAnswer.captures,
-    });
-  }
-  if (explanation.commonTrap) {
-    const trap = compileTemplate(explanation.commonTrap, "prose", variableNames);
-    parts.push({
-      pattern: `\\*\\*Common mistake to avoid:\\*\\* ${trap.pattern}`,
-      captures: trap.captures,
-    });
-  }
-  if (explanation.shortcut) {
-    const shortcut = compileTemplate(explanation.shortcut, "prose", variableNames);
-    parts.push({ pattern: `\\*\\*Quick check:\\*\\* ${shortcut.pattern}`, captures: shortcut.captures });
-  }
-
   return combine(parts);
 }
 
@@ -353,7 +354,10 @@ function parseTableRows(value: string): readonly (readonly string[])[] {
 }
 
 function parseParagraphs(value: string): readonly string[] {
-  return value.split(/\n\n/).map((paragraph) => paragraph.trim()).filter(Boolean);
+  return value
+    .split(/\n\n/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
 }
 
 function normalizedComparable(value: string): string {
@@ -384,7 +388,9 @@ function mergeCapture(
   const currentMode = modes.get(definition.key)!;
   if (typeof current !== "string" || typeof parsed !== "string") {
     if (JSON.stringify(current) !== JSON.stringify(parsed)) {
-      throw new Error(`${qlId}: conflicting recovered source value for ${definition.key}.`);
+      throw new Error(
+        `${qlId}: conflicting recovered source value for ${definition.key}.`,
+      );
     }
     return;
   }
@@ -392,7 +398,8 @@ function mergeCapture(
   if (current === parsed) return;
   if (normalizedComparable(current) !== normalizedComparable(parsed)) {
     throw new Error(
-      `${qlId}: conflicting recovered scalar for ${definition.key}: ${JSON.stringify(current)} versus ${JSON.stringify(parsed)}.`,
+      `${qlId}: conflicting recovered scalar for ${definition.key}: ` +
+        `${JSON.stringify(current)} versus ${JSON.stringify(parsed)}.`,
     );
   }
 
@@ -402,31 +409,48 @@ function mergeCapture(
   }
 }
 
-function applyPattern(
+function applyStemPattern(
   rendered: string,
   compiled: PatternFragment,
   output: Record<string, unknown>,
   modes: Map<string, CaptureMode>,
   qlId: string,
-  surface: string,
 ): void {
   const match = new RegExp(`^${compiled.pattern}$`, "u").exec(rendered);
   if (!match) {
-    throw new Error(`${qlId}: canonical ${surface} does not match its structured English authority.`);
+    throw new Error(
+      `${qlId}: canonical stem does not match its structured English authority.`,
+    );
   }
   compiled.captures.forEach((definition, index) => {
-    mergeCapture(output, modes, definition, match[index + 1] ?? "", qlId);
+    mergeCapture(
+      output,
+      modes,
+      definition,
+      match[index + 1] ?? "",
+      qlId,
+    );
   });
 }
 
-function unresolvedProsePlaceholders(value: string): readonly string[] {
+export function unresolvedProsePlaceholders(
+  value: string,
+): readonly string[] {
   const proseOnly = value
     .replace(/\\\[[\s\S]*?\\\]/g, "")
     .replace(/\\\([\s\S]*?\\\)/g, "");
-  return [...new Set([...proseOnly.matchAll(/\{([a-z][A-Za-z0-9_]*)\}/g)].map((match) => match[1]!))].sort();
+  return [
+    ...new Set(
+      [...proseOnly.matchAll(/\{([a-z][A-Za-z0-9_]*)\}/g)].map(
+        (match) => match[1]!,
+      ),
+    ),
+  ].sort();
 }
 
-export function recoverPnl001CanonicalContext(qlId: string): CanonicalContextRecovery {
+export function recoverPnl001CanonicalContext(
+  qlId: string,
+): CanonicalContextRecovery {
   const canonicalEntry = canonicalLibrary.entries[qlId];
   const englishEntry = englishEntries.get(qlId);
   const registryEntry = registryEntries.get(qlId);
@@ -435,70 +459,71 @@ export function recoverPnl001CanonicalContext(qlId: string): CanonicalContextRec
     throw new Error(`${qlId}: canonical recovery authorities are incomplete.`);
   }
   if (canonicalEntry.cpId !== cpId) {
-    throw new Error(`${qlId}: canonical CP ownership differs from the English editorial library.`);
+    throw new Error(
+      `${qlId}: canonical CP ownership differs from the English editorial library.`,
+    );
+  }
+
+  const expectedAnswerSuffix = `\n\n**Final answer:** ${canonicalEntry.answer}`;
+  if (!canonicalEntry.explanation.endsWith(expectedAnswerSuffix)) {
+    throw new Error(
+      `${qlId}: canonical explanation is missing its reviewed keyed-answer suffix.`,
+    );
   }
 
   const variableNames = new Set<string>([
     ...registryEntry.requiredVariables,
-    ...entryProsePlaceholderNames(englishEntry),
+    ...stemPlaceholderNames(englishEntry.stem),
   ]);
   const context: Record<string, unknown> = {};
   const modes = new Map<string, CaptureMode>();
-  const keyedAnswerSuffix = `\n\n**Final answer:** ${canonicalEntry.answer}`;
-  if (!canonicalEntry.explanation.endsWith(keyedAnswerSuffix)) {
-    throw new Error(`${qlId}: canonical explanation is missing its reviewed keyed-answer suffix.`);
-  }
-  const structuredCanonicalExplanation = canonicalEntry.explanation.slice(
-    0,
-    -keyedAnswerSuffix.length,
-  );
 
-  applyPattern(
+  applyStemPattern(
     canonicalEntry.stem,
     compileStem(englishEntry.stem, variableNames),
     context,
     modes,
     qlId,
-    "stem",
-  );
-  applyPattern(
-    structuredCanonicalExplanation,
-    compileExplanation(englishEntry.explanation, variableNames),
-    context,
-    modes,
-    qlId,
-    "explanation",
   );
 
-  const rerenderedStem = renderStructuredStemMarkdown(englishEntry.stem, context);
-  const rerenderedStructuredExplanation = renderFriendlyExplanationMarkdown(
+  const rerenderedStem = renderStructuredStemMarkdown(
+    englishEntry.stem,
+    context,
+  );
+  if (rerenderedStem !== canonicalEntry.stem) {
+    throw new Error(
+      `${qlId}: recovered context does not reproduce the canonical English stem exactly.`,
+    );
+  }
+
+  const currentEnglishExplanation = renderFriendlyExplanationMarkdown(
     englishEntry.explanation,
     context,
   );
-  const rerenderedFullExplanation = `${rerenderedStructuredExplanation}${keyedAnswerSuffix}`;
-  if (rerenderedStem !== canonicalEntry.stem) {
-    throw new Error(`${qlId}: recovered context does not reproduce the canonical English stem exactly.`);
-  }
-  if (rerenderedStructuredExplanation !== structuredCanonicalExplanation) {
-    throw new Error(`${qlId}: recovered context does not reproduce the structured English explanation exactly.`);
-  }
-  if (rerenderedFullExplanation !== canonicalEntry.explanation) {
-    throw new Error(`${qlId}: recovered context does not reproduce the full canonical English explanation exactly.`);
-  }
-
-  const unresolved = unresolvedProsePlaceholders(
-    `${rerenderedStem}\n${rerenderedFullExplanation}`,
-  );
-  if (unresolved.length > 0) {
-    throw new Error(`${qlId}: recovered canonical context leaves unresolved prose placeholders: ${unresolved.join(", ")}.`);
+  const unresolvedStem = unresolvedProsePlaceholders(rerenderedStem);
+  if (unresolvedStem.length > 0) {
+    throw new Error(
+      `${qlId}: recovered canonical stem leaves unresolved prose placeholders: ` +
+        `${unresolvedStem.join(", ")}.`,
+    );
   }
 
   const rowSources = englishEntry.stem.blocks
-    .filter((block): block is Extract<QuestionStemBlock, { type: "table" }> => block.type === "table")
+    .filter(
+      (
+        block,
+      ): block is Extract<QuestionStemBlock, { type: "table" }> =>
+        block.type === "table",
+    )
     .map((block) => block.rowSource)
     .filter((value): value is string => Boolean(value));
   const paragraphSources = englishEntry.stem.blocks
-    .filter((block): block is Extract<QuestionStemBlock, { type: "caselet" }> => block.type === "caselet")
+    .filter(
+      (
+        block,
+      ): block is Extract<QuestionStemBlock, { type: "caselet" }> =>
+        block.type === "caselet",
+    )
     .map((block) => block.paragraphSource)
     .filter((value): value is string => Boolean(value));
 
@@ -508,6 +533,7 @@ export function recoverPnl001CanonicalContext(qlId: string): CanonicalContextRec
     context,
     englishEntry,
     canonicalEntry,
+    currentEnglishExplanation,
     rowSources,
     paragraphSources,
   };
@@ -516,7 +542,9 @@ export function recoverPnl001CanonicalContext(qlId: string): CanonicalContextRec
 export function recoverAllPnl001CanonicalContexts(): readonly CanonicalContextRecovery[] {
   const qlIds = Object.keys(canonicalLibrary.entries).sort();
   if (qlIds.length !== 186) {
-    throw new Error(`Expected 186 PNL canonical entries, received ${qlIds.length}.`);
+    throw new Error(
+      `Expected 186 PNL canonical entries, received ${qlIds.length}.`,
+    );
   }
   return qlIds.map(recoverPnl001CanonicalContext);
 }
