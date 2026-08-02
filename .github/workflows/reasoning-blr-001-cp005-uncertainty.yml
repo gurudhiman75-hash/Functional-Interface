@@ -53,6 +53,10 @@ jobs:
         run: |
           npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-005/cp005-runtime.test.ts | tee cp005-runtime.log
 
+      - name: Prove CP-005 exam-grade editorial remediation
+        run: |
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-005/cp005-editorial-remediation.test.ts | tee cp005-editorial-remediation.log
+
       - name: Prove CP-005 final source and authority freeze
         run: |
           npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-005/cp005-final-freeze.test.ts | tee cp005-final-freeze.log
@@ -82,6 +86,11 @@ jobs:
           test "$(wc -l < "$OUT/blr-cp005-final-freeze-records.jsonl")" -eq 184
           grep -q '@media(max-width:640px)' "$OUT/blr-cp005-final-freeze-review.html"
           grep -q '432 valid family models rendered' "$OUT/blr-cp005-final-freeze-review.html"
+          grep -q '\[CORRECT_COMPLETE_MODEL_MATCH\]' "$OUT/blr-cp005-final-freeze-records.jsonl"
+          if grep -Eiq 'gender of .* is not stated|whose gender is not stated|nothing states whether|no other family relation is given|available clues do not identify|available information does not identify|no clue distinguishes|exact number of additional children is not stated' "$OUT/blr-cp005-final-freeze-records.jsonl"; then
+            echo "Forbidden learner-facing meta phrase found in CP-005 export."
+            exit 1
+          fi
 
       - name: Install locked workspace dependencies
         run: |
@@ -105,6 +114,7 @@ jobs:
           path: |
             cp004-source-freeze.log
             cp005-runtime.log
+            cp005-editorial-remediation.log
             cp005-final-freeze.log
             cp005-export.log
             examtree-typecheck.log
