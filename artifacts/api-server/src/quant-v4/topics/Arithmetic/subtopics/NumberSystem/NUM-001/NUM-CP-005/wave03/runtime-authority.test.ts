@@ -1,13 +1,13 @@
 import assert from "node:assert/strict";
 import {
-  generateNumCp005Wave03Package,
-  generateNumCp005Wave03Sweep,
-} from "./runtime";
+  generateNumCp005Wave03ProvenPackage,
+  generateNumCp005Wave03ProvenSweep,
+} from "./runtime-proven";
 import { NUM_CP005_WAVE03_PROTOTYPE_IDS } from "./types";
 import type { NumCp005Difficulty } from "../wave01/types";
 
 const SEEDS_PER_PROTOTYPE = 100;
-const packages = generateNumCp005Wave03Sweep(SEEDS_PER_PROTOTYPE);
+const packages = generateNumCp005Wave03ProvenSweep(SEEDS_PER_PROTOTYPE);
 
 assert.equal(NUM_CP005_WAVE03_PROTOTYPE_IDS.length, 8);
 assert.equal(packages.length, 800);
@@ -28,7 +28,7 @@ let greatestBoundStates = 0;
 let pairTableStates = 0;
 
 for (const pkg of packages) {
-  const replay = generateNumCp005Wave03Package(pkg.temporaryPrototypeId, pkg.seed);
+  const replay = generateNumCp005Wave03ProvenPackage(pkg.temporaryPrototypeId, pkg.seed);
   assert.deepEqual(replay, pkg, `${pkg.temporaryPrototypeId} seed ${pkg.seed} is not deterministic`);
   assert.equal(pkg.packageId, "NUM-001");
   assert.equal(pkg.checkpointId, "NUM-CP-005");
@@ -160,10 +160,10 @@ assert.equal(evenMinimumTargets.get(12), "60");
 assert.equal(evenMinimumTargets.get(24), "360");
 
 assert.throws(
-  () => generateNumCp005Wave03Package("NUM-CP005-PROT-017", 0),
+  () => generateNumCp005Wave03ProvenPackage("NUM-CP005-PROT-017", 0),
   /positive integer/,
 );
-assert.throws(() => generateNumCp005Wave03Sweep(0), /positive integer/);
+assert.throws(() => generateNumCp005Wave03ProvenSweep(0), /positive integer/);
 
 console.log(JSON.stringify({
   status: "PASS_NUM_CP005_WAVE03_AUTHORITY",
