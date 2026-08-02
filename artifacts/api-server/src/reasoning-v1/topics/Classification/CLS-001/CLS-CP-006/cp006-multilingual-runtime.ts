@@ -23,6 +23,9 @@ export function generateClsCp006Question(
   seed = 0,
   requestedOptionCount?: 4 | 5,
 ): GeneratedClsCp006PermanentQuestion {
+  if (locale !== "en-IN" && locale !== "hi-IN" && locale !== "pa-IN") {
+    throw new Error(`Unsupported CLS-CP-006 locale: ${String(locale)}`);
+  }
   const english = generateClsCp006EnglishQuestion(qlId, seed, requestedOptionCount);
   return locale === "en-IN" ? english : localizeClsCp006Question(english, locale);
 }
