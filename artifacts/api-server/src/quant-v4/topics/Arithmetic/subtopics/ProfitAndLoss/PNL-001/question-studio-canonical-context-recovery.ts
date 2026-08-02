@@ -21,6 +21,7 @@ type CanonicalReviewEntry = Readonly<{
   cpId: string;
   stem: string;
   explanation: string;
+  answer: string;
 }>;
 
 type CanonicalReviewLibrary = Readonly<{
@@ -443,6 +444,14 @@ export function recoverPnl001CanonicalContext(qlId: string): CanonicalContextRec
   ]);
   const context: Record<string, unknown> = {};
   const modes = new Map<string, CaptureMode>();
+  const keyedAnswerSuffix = `\n\n**Final answer:** ${canonicalEntry.answer}`;
+  if (!canonicalEntry.explanation.endsWith(keyedAnswerSuffix)) {
+    throw new Error(`${qlId}: canonical explanation is missing its reviewed keyed-answer suffix.`);
+  }
+  const structuredCanonicalExplanation = canonicalEntry.explanation.slice(
+    0,
+    -keyedAnswerSuffix.length,
+  );
 
   applyPattern(
     canonicalEntry.stem,
@@ -453,7 +462,7 @@ export function recoverPnl001CanonicalContext(qlId: string): CanonicalContextRec
     "stem",
   );
   applyPattern(
-    canonicalEntry.explanation,
+    structuredCanonicalExplanation,
     compileExplanation(englishEntry.explanation, variableNames),
     context,
     modes,
@@ -462,15 +471,24 @@ export function recoverPnl001CanonicalContext(qlId: string): CanonicalContextRec
   );
 
   const rerenderedStem = renderStructuredStemMarkdown(englishEntry.stem, context);
-  const rerenderedExplanation = renderFriendlyExplanationMarkdown(englishEntry.explanation, context);
+  const rerenderedStructuredExplanation = renderFriendlyExplanationMarkdown(
+    englishEntry.explanation,
+    context,
+  );
+  const rerenderedFullExplanation = `${rerenderedStructuredExplanation}${keyedAnswerSuffix}`;
   if (rerenderedStem !== canonicalEntry.stem) {
     throw new Error(`${qlId}: recovered context does not reproduce the canonical English stem exactly.`);
   }
-  if (rerenderedExplanation !== canonicalEntry.explanation) {
-    throw new Error(`${qlId}: recovered context does not reproduce the canonical English explanation exactly.`);
+  if (rerenderedStructuredExplanation !== structuredCanonicalExplanation) {
+    throw new Error(`${qlId}: recovered context does not reproduce the structured English explanation exactly.`);
+  }
+  if (rerenderedFullExplanation !== canonicalEntry.explanation) {
+    throw new Error(`${qlId}: recovered context does not reproduce the full canonical English explanation exactly.`);
   }
 
-  const unresolved = unresolvedProsePlaceholders(`${rerenderedStem}\n${rerenderedExplanation}`);
+  const unresolved = unresolvedProsePlaceholders(
+    `${rerenderedStem}\n${rerenderedFullExplanation}`,
+  );
   if (unresolved.length > 0) {
     throw new Error(`${qlId}: recovered canonical context leaves unresolved prose placeholders: ${unresolved.join(", ")}.`);
   }
