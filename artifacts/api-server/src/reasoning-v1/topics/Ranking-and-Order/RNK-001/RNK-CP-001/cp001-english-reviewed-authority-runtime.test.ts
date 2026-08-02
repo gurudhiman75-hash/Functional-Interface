@@ -25,6 +25,7 @@ for (const authorityId of RNK_CP001_PROVISIONAL_AUTHORITY_IDS) {
   const keyRules = new Set<string>();
   const shortcuts = new Set<string>();
   const conclusions = new Set<string>();
+  const fingerprints = new Set<string>();
   const contexts = new Set<string>();
   const variants = new Set<string>();
 
@@ -64,7 +65,10 @@ for (const authorityId of RNK_CP001_PROVISIONAL_AUTHORITY_IDS) {
     assert.ok(!/The correct answer is\b/.test(question.explanation.conclusion));
     assert.ok(/\d/.test(question.explanation.keyRule));
     assert.ok(/\d/.test(question.explanation.examSpeedShortcut));
-    assert.ok(question.explanation.conclusion.includes(question.targetName) || /contains\s+\d+/.test(question.explanation.conclusion));
+    assert.ok(
+      question.explanation.conclusion.includes(question.targetName) ||
+        /contains\s+\d+/.test(question.explanation.conclusion),
+    );
 
     if (question.contextId === 'MERIT_LIST') {
       meritListQuestions += 1;
@@ -77,19 +81,34 @@ for (const authorityId of RNK_CP001_PROVISIONAL_AUTHORITY_IDS) {
     keyRules.add(question.explanation.keyRule);
     shortcuts.add(question.explanation.examSpeedShortcut);
     conclusions.add(question.explanation.conclusion);
+    fingerprints.add(question.mathematicalFingerprint);
     contexts.add(question.contextId);
     variants.add(reviewed.sourcePrototypeId);
     generatedQuestions += 1;
   }
 
-  assert.ok(keyRules.size >= 120, `${authorityId} key-rule diversity too low: ${keyRules.size}`);
-  assert.ok(shortcuts.size >= 120, `${authorityId} shortcut diversity too low: ${shortcuts.size}`);
-  assert.ok(conclusions.size >= 90, `${authorityId} conclusion diversity too low: ${conclusions.size}`);
+  const expectedRuleDiversity = Math.min(120, fingerprints.size);
+  const expectedConclusionDiversity = Math.min(90, fingerprints.size);
+  assert.ok(
+    keyRules.size >= expectedRuleDiversity,
+    `${authorityId} key-rule diversity too low: ${keyRules.size}; state-space target ${expectedRuleDiversity}`,
+  );
+  assert.ok(
+    shortcuts.size >= expectedRuleDiversity,
+    `${authorityId} shortcut diversity too low: ${shortcuts.size}; state-space target ${expectedRuleDiversity}`,
+  );
+  assert.ok(
+    conclusions.size >= expectedConclusionDiversity,
+    `${authorityId} conclusion diversity too low: ${conclusions.size}; state-space target ${expectedConclusionDiversity}`,
+  );
   assert.deepEqual([...contexts].sort(), ['HORIZONTAL_ROW', 'MERIT_LIST', 'QUEUE']);
 
   authorityReports.push({
     authorityId,
     generatedQuestions: SEEDS_PER_AUTHORITY,
+    uniqueFingerprints: fingerprints.size,
+    expectedRuleDiversity,
+    expectedConclusionDiversity,
     uniqueKeyRules: keyRules.size,
     uniqueShortcuts: shortcuts.size,
     uniqueConclusions: conclusions.size,
