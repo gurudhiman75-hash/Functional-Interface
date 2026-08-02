@@ -54,6 +54,12 @@ jobs:
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-provisional-authority-runtime.test.ts
           rnk-cp001-authority-review-output
 
+      - name: Humanize and audit English authority corpus
+        run: >-
+          npx --yes tsx
+          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/cp001-english-reviewed-authority-runtime.test.ts
+          rnk-cp001-authority-review-output
+
       - name: Enforce learner-facing review corpus hygiene
         run: >-
           npx --yes tsx
