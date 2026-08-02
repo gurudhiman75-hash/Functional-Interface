@@ -32,6 +32,14 @@ for (const question of bank) {
   );
   assert.ok(question.explanation.conclusion.length >= 35, question.itemId);
   assert.ok(question.explanation.examShortcut.length >= 35, question.itemId);
+  assert.ok(
+    question.explanation.modelAudit.every((line) => !/\.;/.test(line)),
+    question.itemId,
+  );
+  assert.ok(
+    question.explanation.modelAudit.every((line) => !/\.\./.test(line)),
+    question.itemId,
+  );
   assert.equal(question.explanation.optionAnalysis.length, 4, question.itemId);
 
   for (const analysis of question.explanation.optionAnalysis) {
