@@ -1,0 +1,99 @@
+name: Validate CLS-001 CP-006 Hindi Punjabi Localisation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-006/**"
+      - ".github/workflows/cls-001-cp006-localisation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cls-001-cp006-localisation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp006-localisation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle CP-006 localisation audit and reviewer
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-006
+          OUT=dist/reasoning-v1/cls-001/cp006-localisation
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/cp006-multilingual-runtime.test.ts" \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile="$OUT/cp006-multilingual-runtime.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/export-cp006-localisation-review.ts" \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile="$OUT/export-cp006-localisation-review.mjs"
+
+      - name: Run CP-006 localisation audit
+        id: localisation_audit
+        run: |
+          set +e
+          OUT=artifacts/api-server/dist/reasoning-v1/cls-001/cp006-localisation
+          DIAG=$OUT/diagnostics
+          mkdir -p "$DIAG"
+          (cd artifacts/api-server && node \
+            dist/reasoning-v1/cls-001/cp006-localisation/cp006-multilingual-runtime.test.mjs) \
+            >"$DIAG/cp006-localisation-audit.log" 2>&1
+          STATUS=$?
+          echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload CP-006 localisation diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp006-localisation-diagnostics
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp006-localisation/diagnostics
+          if-no-files-found: error
+
+      - name: Enforce CP-006 localisation audit
+        if: steps.localisation_audit.outputs.exit_code != '0'
+        run: |
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp006-localisation/diagnostics/cp006-localisation-audit.log
+          exit 1
+
+      - name: Generate CP-006 Hindi Punjabi review
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/cls-001/cp006-localisation/export-cp006-localisation-review.mjs
+
+      - name: Upload CP-006 Hindi Punjabi review
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp006-hi-pa-localisation-review
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp006-localisation-review
+          if-no-files-found: error
