@@ -81,12 +81,14 @@ export function stateMath(
   state: MalCp002State,
   context: MalCp002Context,
 ): string {
-  return `${context.componentALabel} = ${quantityMath(
-    state.componentA,
-    context,
-  )} and ${context.componentBLabel} = ${quantityMath(
-    state.componentB,
-    context,
+  return `${inlineMath(
+    `\\text{${latexText(context.componentALabel)}}=${latexNumber(
+      state.componentA,
+    )}\\,\\text{${latexText(context.quantityUnit)}}`,
+  )} and ${inlineMath(
+    `\\text{${latexText(context.componentBLabel)}}=${latexNumber(
+      state.componentB,
+    )}\\,\\text{${latexText(context.quantityUnit)}}`,
   )}`;
 }
 
@@ -182,7 +184,7 @@ export function buildMalCp002Stem(
       )} of ${context.componentALabel} and ${quantityMath(
         request.initialState.componentB,
         context,
-      )} of ${context.componentBLabel}. A well-mixed sample is removed once and replaced with the same quantity of ${replacement}. How many ${context.quantityUnit} should be replaced so that the final ratio of ${context.componentALabel} to ${context.componentBLabel} is ${ratioMath(
+      )} of ${context.componentBLabel}. A quantity of the well-mixed contents is removed once and replaced with the same quantity of ${replacement}. How many ${context.quantityUnit} should be replaced so that the final ratio of ${context.componentALabel} to ${context.componentBLabel} is ${ratioMath(
         request.targetRatio,
       )}?`;
     }
