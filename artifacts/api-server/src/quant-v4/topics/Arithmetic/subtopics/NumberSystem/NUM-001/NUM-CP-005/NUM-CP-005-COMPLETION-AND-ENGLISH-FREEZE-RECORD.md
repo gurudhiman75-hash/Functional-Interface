@@ -63,22 +63,25 @@ Held or reassigned rather than promoted:
 - HCF/LCM optimisation — `NUM-CP-006`;
 - perfect-power completion of the original number — `NUM-CP-012`.
 
-## Executable freeze contract
+## Executable freeze proof
 
-The completion workflow must prove:
+The completion workflow proves:
 
 - all four discovery-wave authority regressions;
 - source-gap and merge/split audit regression;
 - 24 continuous permanent QLs and 24 unique solve modes;
 - exact representation of all 32 temporary prototypes;
-- deterministic permanent runtime and canonical/verifier parity;
+- 2,880 deterministic permanent-runtime questions across 120 seeds per QL;
+- canonical/independent-verifier parity for all permanent-runtime questions;
 - every answer position and Easy/Medium/Hard reachability per QL;
 - full merged-parameter variant reachability;
+- 1,152 English freeze-audit questions across 48 seeds per QL;
 - four unique options, one correct option and three misconception-owned wrong options;
 - no learner-facing internal identity leak;
 - no cross-QL exact stem collision in the freeze corpus;
 - zero lifecycle exposure;
-- chapter-wide identity continuity through `NUM-QL-069`.
+- chapter-wide identity continuity through `NUM-QL-069`;
+- a 72-question English review pack in JSON, CSV and Markdown.
 
 ## Lifecycle truth
 
@@ -99,7 +102,7 @@ Hindi/Punjabi localisation, multilingual parity, Question Studio registration, Q
 
 ```text
 NUM_CP005_PRODUCT_OWNER_COUNT_APPROVED
-NUM_CP005_PERMANENT_RANGE_ALLOCATED
-NUM_CP005_ENGLISH_IMPLEMENTATION_FREEZE_UNDER_PROOF
+NUM_CP005_PERMANENT_RANGE_FROZEN
+NUM_CP005_ENGLISH_IMPLEMENTATION_COMPLETE
 NUM_CP005_LIFECYCLE_LOCKED
 ```
