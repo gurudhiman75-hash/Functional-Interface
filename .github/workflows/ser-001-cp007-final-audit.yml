@@ -1,0 +1,116 @@
+name: Final audit SER-001 CP-007
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-B/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-C/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-D/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-AUDIT/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-FINAL-AUDIT/**
+      - .github/workflows/ser-001-cp007-final-audit.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ser-001-cp007-final-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  final-audit-cp007:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare evidence directory
+        run: mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp007-final-audit
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Re-run Waves A-C chapter audit
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-final-audit
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/SER-CP-007-AUDIT/ser-cp-007-chapter-audit.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/ser-cp-007-abc-audit.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-007-abc-audit.test.mjs") \
+            | tee "$EVIDENCE/waves-a-c-audit.json"
+          grep -q 'PASS_SER_CP007_CHAPTER_WIDE_GAP_AUDIT_FREEZE_BLOCKED' \
+            "$EVIDENCE/waves-a-c-audit.json"
+
+      - name: Re-run Wave D structural audit
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-final-audit
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/SER-CP-007-WAVE-D/ser-cp-007-wave-d.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/ser-cp-007-wave-d.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-007-wave-d.test.mjs") \
+            | tee "$EVIDENCE/wave-d-audit.json"
+          grep -q 'PASS_SER_CP007_WAVE_D_PERMUTATION_COMPLEMENT_INSERTION_K_ROW_SATURATION' \
+            "$EVIDENCE/wave-d-audit.json"
+
+      - name: Validate combined post-Wave-D manifest
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-final-audit
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/SER-CP-007-FINAL-AUDIT/ser-cp-007-post-wave-d-manifest.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/ser-cp-007-final-manifest.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-007-final-manifest.test.mjs") \
+            | tee "$EVIDENCE/final-manifest-audit.json"
+          grep -q 'PASS_SER_CP007_POST_WAVE_D_MANIFEST_MATH_SATURATED_SOURCE_LEDGER_BLOCKED' \
+            "$EVIDENCE/final-manifest-audit.json"
+
+      - name: Collect final audit documents
+        run: |
+          set -euo pipefail
+          ROOT=artifacts/api-server/src/reasoning-v1/topics/Series/SER-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-final-audit
+          cp "$ROOT/SER-CP-007-FINAL-AUDIT/ser-cp-007-source-ledger-scaffold.md" \
+            "$EVIDENCE/ser-cp-007-source-ledger-scaffold.md"
+          cp "$ROOT/SER-CP-007-FINAL-AUDIT/ser-cp-007-post-wave-d-report.md" \
+            "$EVIDENCE/ser-cp-007-post-wave-d-report.md"
+          cp "$ROOT/SER-CP-007-AUDIT/ser-cp-007-chapter-gap-audit.md" \
+            "$EVIDENCE/ser-cp-007-pre-wave-d-gap-audit.md"
+          cp "$ROOT/SER-CP-007-WAVE-D/ser-cp-007-wave-d-report.md" \
+            "$EVIDENCE/ser-cp-007-wave-d-report.md"
+
+      - name: Upload final CP-007 audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ser-001-cp007-final-audit
+          path: artifacts/api-server/dist/reasoning-v1/ser-001/cp007-final-audit
+          if-no-files-found: error
+          retention-days: 30
