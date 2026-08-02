@@ -1,5 +1,5 @@
 import { PNL_001_CANONICAL_REVIEW_LIBRARY } from "./question-studio-review.library";
-import { localizePnl001CanonicalChoice } from "./question-studio-native-choice-localizer";
+import { localizePnl001CanonicalChoiceV2 } from "./question-studio-native-choice-localizer-v2";
 
 type Entry = Readonly<{
   qlId: string;
@@ -28,15 +28,18 @@ const failures: Array<{
   message: string;
 }> = [];
 let localizedValues = 0;
-for (const [value, owners] of [...textualValues.entries()].sort(([left], [right]) =>
-  left.localeCompare(right),
+for (const [value, owners] of [...textualValues.entries()].sort(
+  ([left], [right]) => left.localeCompare(right),
 )) {
   for (const language of ["hi", "pa"] as const) {
     try {
-      const localized = localizePnl001CanonicalChoice(value, language);
-      const script = language === "hi" ? /[\u0900-\u097F]/u : /[\u0A00-\u0A7F]/u;
+      const localized = localizePnl001CanonicalChoiceV2(value, language);
+      const script =
+        language === "hi" ? /[\u0900-\u097F]/u : /[\u0A00-\u0A7F]/u;
       if (!script.test(localized)) {
-        throw new Error("localized choice does not contain the requested native script");
+        throw new Error(
+          "localized choice does not contain the requested native script",
+        );
       }
       localizedValues += 1;
     } catch (error) {
