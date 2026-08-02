@@ -49,7 +49,7 @@ jobs:
           OUT=dist/reasoning-v1/ser-001
           EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-wave-b-review
           pnpm --dir artifacts/api-server exec esbuild \
-            "$ROOT/ser-cp-007-wave-b.test.ts" \
+            "$ROOT/ser-cp-007-wave-b-expanded.test.ts" \
             --bundle --platform=node --format=esm \
             --outfile="$OUT/ser-cp-007-wave-b.test.mjs"
           (cd artifacts/api-server && node "$OUT/ser-cp-007-wave-b.test.mjs") \
@@ -64,7 +64,7 @@ jobs:
           OUT=dist/reasoning-v1/ser-001
           EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-wave-b-review
           pnpm --dir artifacts/api-server exec esbuild \
-            "$ROOT/export-review.ts" \
+            "$ROOT/export-review-expanded.ts" \
             --bundle --platform=node --format=esm \
             --outfile="$OUT/export-cp007-wave-b-review.mjs"
           (cd artifacts/api-server && node "$OUT/export-cp007-wave-b-review.mjs") \
