@@ -39,6 +39,7 @@ export function normalizePremise(premise: SurfacePremise): NormalizedPremise {
       canonicalConstraints = [
         withOrigin({ kind: "NO", subject: premise.subject, predicate: premise.predicate }, originId),
         withOrigin({ kind: "EXISTS", term: premise.subject }, originId),
+        withOrigin({ kind: "EXISTS", term: premise.predicate }, originId),
       ];
       break;
     case "SOME":
@@ -48,6 +49,7 @@ export function normalizePremise(premise: SurfacePremise): NormalizedPremise {
       ];
       break;
     case "SOME_NOT":
+    case "NOT_ALL":
       canonicalConstraints = [
         withOrigin({ kind: "SOME_NOT", subject: premise.subject, predicate: premise.predicate }, originId),
       ];
