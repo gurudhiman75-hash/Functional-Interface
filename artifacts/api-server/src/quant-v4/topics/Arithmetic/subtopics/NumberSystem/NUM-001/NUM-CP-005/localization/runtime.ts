@@ -1,4 +1,5 @@
 import { runNumCp005PermanentPipeline } from "../permanent/runtime";
+import { hardenNumCp005LocalizedQuestion } from "./linguistic-hardening";
 import { localizeNumCp005Question } from "./localizer";
 import type {
   NumCp005LocalizedQuestion,
@@ -20,6 +21,7 @@ export function generateNumCp005LocalizedQuestion(
   const requiresSumLabel = sumStateKey !== null
     && english.hiddenState[sumStateKey] === "DIVISOR_SUM";
 
+  let localized: NumCp005LocalizedQuestion;
   if (requiresSumLabel && sumStateKey) {
     const adaptedEnglish = Object.freeze({
       ...english,
@@ -28,19 +30,21 @@ export function generateNumCp005LocalizedQuestion(
         [sumStateKey]: "TOTAL_DIVISORS",
       }),
     });
-    const localized = localizeNumCp005Question(adaptedEnglish, input.locale);
+    const adaptedLocalized = localizeNumCp005Question(adaptedEnglish, input.locale);
     const countLabel = input.locale === "hi-IN"
       ? "धनात्मक भाजकों की संख्या"
       : "ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦੀ ਗਿਣਤੀ";
     const sumLabel = input.locale === "hi-IN"
       ? "धनात्मक भाजकों का योग"
       : "ਧਨਾਤਮਕ ਭਾਜਕਾਂ ਦਾ ਜੋੜ";
-    return Object.freeze({
-      ...localized,
+    localized = Object.freeze({
+      ...adaptedLocalized,
       hiddenState: english.hiddenState,
-      stem: localized.stem.replace(countLabel, sumLabel),
+      stem: adaptedLocalized.stem.replace(countLabel, sumLabel),
     });
+  } else {
+    localized = localizeNumCp005Question(english, input.locale);
   }
 
-  return localizeNumCp005Question(english, input.locale);
+  return hardenNumCp005LocalizedQuestion(english, localized);
 }
