@@ -5,7 +5,7 @@ import {
   generateIntCp003Question,
   type IntCp003GeneratedQuestion,
   type IntCp003QlId,
-} from "./cp003-annual-compound-runtime";
+} from "./int-001-cp003-final-runtime";
 
 function stable(value: unknown): unknown {
   return JSON.parse(JSON.stringify(value, (_key, item) => typeof item === "bigint" ? item.toString() : item));
