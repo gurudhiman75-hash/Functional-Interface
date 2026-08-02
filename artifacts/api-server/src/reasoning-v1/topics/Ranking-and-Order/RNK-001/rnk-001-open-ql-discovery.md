@@ -1,77 +1,70 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001 English discovery frozen at `RNK-QL-001..009`; CP-002 onward remains open**.
+Status: **CP-001 frozen at `RNK-QL-001..009`; CP-002 executable discovery active; all later counts open**.
 
-This register prevents premature chapter sizing. Each checkpoint discovers its own identity count from source evidence, executable solver contracts, inverse directions, boundary states, ambiguity semantics, representations and ownership audits. Counts are never quotas.
+This register prevents premature chapter sizing. Each checkpoint discovers permanent identities from source evidence, executable solver contracts, inverse directions, edge states, ambiguity semantics, representations and ownership audits. Counts are never quotas.
 
 ## 1. Frozen checkpoint — RNK-CP-001
 
-### Discovery evidence
-
 ```text
-first foundation wave                 6 prototypes / 1,440 questions
-source and inverse-gap wave           6 prototypes / 1,440 questions
-final mirrored inverse addendum       1 prototype  /   240 questions
-------------------------------------------------------------------
-combined discovery                   13 prototypes / 3,120 questions
+combined discovery:             13 prototypes / 3,120 questions
+approved English review corpus: 54 questions
+frozen authorities:              9
+permanent range:                 RNK-QL-001..009
+next available identity:         RNK-QL-010
+freeze version:                  RNK_CP001_ENGLISH_DISCOVERY_FREEZE_V1
 ```
 
-Thirteen prototypes consolidated into nine permanent authorities:
+## 2. Active checkpoint — RNK-CP-002
+
+### First executable wave
 
 ```text
-RNK-QL-001  CONVERT_RANK_BETWEEN_ENDS
-RNK-QL-002  TOTAL_FROM_BOTH_END_RANKS
-RNK-QL-003  SIDE_COUNT_FROM_SAME_SIDE_RANK
-RNK-QL-004  OPPOSITE_SIDE_COUNT_FROM_TOTAL_AND_RANK
-RNK-QL-005  SAME_SIDE_RANK_FROM_SIDE_COUNT
-RNK-QL-006  OPPOSITE_END_RANK_FROM_TOTAL_AND_SIDE_COUNT
-RNK-QL-007  EXACT_MIDDLE_RANK_FROM_ODD_TOTAL
-RNK-QL-008  ODD_TOTAL_FROM_EXACT_MIDDLE_RANK
-RNK-QL-009  TOTAL_FROM_BEFORE_AND_AFTER_COUNTS
+RNK-CP002-PROT-PEOPLE-BETWEEN-SAME-END-RANKS
+RNK-CP002-PROT-POSITION-GAP-SAME-END-RANKS
+RNK-CP002-PROT-SECOND-RANK-FROM-RELATIVE-OFFSET
+RNK-CP002-PROT-PEOPLE-BETWEEN-MIXED-END-RANKS
+RNK-CP002-PROT-TOTAL-FROM-MIXED-END-RANKS-KNOWN-ORDER
+RNK-CP002-PROT-EXTREME-TOTAL-FROM-MIXED-END-RANKS-UNKNOWN-ORDER
 ```
 
-Frozen dimensions include:
+```text
+provisional prototypes:      6
+seeds per prototype:       240
+first-wave questions:    1,440
+permanent QLs:               0
+```
 
-- rank conversion from either end;
-- inclusive and exclusive rank/count inverses;
-- total reconstruction for one target;
-- exact-middle odd-total inverses;
-- top/bottom, left/right and front/back parity;
+### Dimensions covered by the first wave
+
+- same-end rank difference;
+- people strictly between two same-end ranks;
+- second rank from a directional offset;
+- start/end direction reversal;
+- mixed-end normalization when total is known;
+- total from mixed-end ranks and a known relative order;
+- both valid total equations under reversed order;
+- minimum/maximum total when relative order is unknown;
 - merit-list, row and queue contexts;
-- first/last, zero/one and interior edges;
+- adjacent, endpoint, reversed and wide-gap states;
 - Rank, Count and Total answers.
 
-### Freeze verdict
+### Dimensions still open
 
-```text
-open CP-001 source dimensions:      0
-approved English review questions: 54
-frozen authorities:                 9
-permanent QLs:                      9
-permanent range:             RNK-QL-001..009
-next available identity:     RNK-QL-010
-freeze version: RNK_CP001_ENGLISH_DISCOVERY_FREEZE_V1
-```
+- inverse offset queries;
+- offset or between-count from one rank and the second rank;
+- identify nearer/farther person from a named end;
+- compare who ranks higher after mixed-end normalization;
+- validate a proposed total;
+- identify the compatible relative order from a supplied total;
+- one-valid-arrangement versus two-valid-arrangement cases;
+- impossible totals and impossible between-counts;
+- possible-order and cannot-determine answer contracts;
+- source saturation and exam-pattern audit;
+- merge/split audit;
+- English manual review and post-review gap confirmation.
 
-Authority records:
-
-- `RNK-CP-001/RNK-CP-001-ENGLISH-MANUAL-REVIEW.md`;
-- `RNK-CP-001/RNK-CP-001-FINAL-DISCOVERY-FREEZE.md`;
-- `RNK-001-MANIFEST-AMENDMENT-CP001.md`.
-
-## 2. Open checkpoint — RNK-CP-002
-
-Candidate families:
-
-- people between two known ranks;
-- rank difference;
-- second rank from first rank plus relative offset;
-- total from mixed ranks of different people and a between count;
-- minimum/maximum possible total under uncertain relative order;
-- nearer/farther person from an end;
-- mixed-direction normalization before comparison.
-
-No QL count is allocated.
+The six first-wave prototypes are probes, not permanent identities. `RNK-QL-010` remains unallocated.
 
 ## 3. Open checkpoint — RNK-CP-003
 
@@ -84,8 +77,6 @@ Candidate families:
 - people passed or overtaken;
 - insertion/removal effects;
 - sequential multiple moves.
-
-No QL count is allocated.
 
 ## 4. Open later checkpoints
 
@@ -126,7 +117,9 @@ age/speed/marks arithmetic as main burden       -> relevant Quant chapter
 ```text
 CP-001 permanent QLs:          RNK-QL-001..009
 next available RNK ID:         RNK-QL-010
-CP-002 onward QL counts:       open
+CP-002 permanent QLs:          0
+CP-002 discovery frozen:       false
+CP-003 onward QL counts:       open
 chapter-wide freeze:           false
 English review-only:           true
 Hindi/Punjabi:                 not started
