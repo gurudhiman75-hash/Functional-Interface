@@ -1,0 +1,99 @@
+name: Validate INT-CP-002 final saturation
+
+on:
+  pull_request:
+    branches:
+      - feat/int-001-cp002-wave02-inverse-saturation
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp002-final-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-final-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-002/INT-CP-002-FINAL-SATURATION-AND-QL-PROPOSAL.md"
+      - ".github/workflows/int-cp002-final-saturation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-int-cp002-final-saturation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP-002 final saturation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-final-saturation-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp002-final-saturation-audit.mjs
+
+      - name: Run CP-002 final saturation audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp002-final-saturation-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp002-final-saturation-audit.log
+
+      - name: Bundle CP-002 final review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-final-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp002-final-review-export.mjs
+
+      - name: Generate CP-002 final review pack
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp002-final-review-export.mjs 2>&1 | tee dist/quant-v4/int-001-cp002-final-review-export.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Verify CP-002 final evidence
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          grep -q 'PASS_INT_CP002_FINAL_SATURATION_AND_QL_PROPOSAL' artifacts/api-server/dist/quant-v4/int-001-cp002-final-saturation-audit.log
+          grep -q 'PASS_INT_CP002_FINAL_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp002-final-review-export.log
+          summary=artifacts/api-server/dist/quant-v4/int-cp002-final-saturation/int-cp002-final-saturation-summary.json
+          registry=artifacts/api-server/dist/quant-v4/int-cp002-final-saturation/int-cp002-final-registry.json
+          review=artifacts/api-server/dist/quant-v4/int-cp002-final-review-pack
+          test -f "$summary"
+          test -f "$registry"
+          test -f "$review/int-cp002-final-124-review-questions.md"
+          test -f "$review/int-cp002-final-124-review-answers.md"
+          test -f "$review/int-cp002-final-124-review-data.json"
+          test -f "$review/int-cp002-final-124-review-checklist.csv"
+          test -f "$review/int-cp002-final-review-summary.json"
+          grep -q '"qlCount": 31' "$summary"
+          grep -q '"openMeaningfulOwnedGaps": 0' "$summary"
+          ! grep -R -n -P '[\x00-\x08\x09\x0B\x0C\x0E-\x1F]' "$review"/*.md
+          ! grep -R -n -E 'INT-QL-|INT-CP002-|PROT-|WAVE0|CLOSE-|prototypeId|effectiveSeed|generationAttempts' "$review"/*.md
+          grep -q '\\frac' "$review/int-cp002-final-124-review-answers.md"
+          grep -q 'Wrong-option analysis' "$review/int-cp002-final-124-review-answers.md"
+
+      - name: Upload CP-002 final evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp002-final-saturation-review-candidate
+          path: |
+            artifacts/api-server/dist/quant-v4/int-001-cp002-final-saturation-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp002-final-review-export.log
+            artifacts/api-server/dist/quant-v4/int-cp002-final-saturation/**
+            artifacts/api-server/dist/quant-v4/int-cp002-final-review-pack/**
+          if-no-files-found: error
+          retention-days: 14
