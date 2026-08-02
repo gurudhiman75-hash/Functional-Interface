@@ -1,6 +1,6 @@
 # BLR-001 — Open QL Discovery Policy
 
-Status: **authoritative for unfinished BLR-001 checkpoints; CP-001 through CP-004 are frozen and allocated**.
+Status: **authoritative for unfinished BLR-001 checkpoints; CP-001 through CP-005 are frozen and allocated**.
 
 No total chapter QL count is fixed. Each checkpoint discovers, audits and freezes its own solve identities before receiving the next contiguous range.
 
@@ -29,6 +29,7 @@ BLR-CP-001  11 exploratory prototypes -> 7 authorities -> BLR-QL-001..007
 BLR-CP-002   6 exploratory prototypes -> 1 authority  -> BLR-QL-008
 BLR-CP-003  29 source prototypes       -> 4 authorities -> BLR-QL-009..012
 BLR-CP-004  13 source prototypes       -> 5 authorities -> BLR-QL-013..017
+BLR-CP-005  23 source prototypes       -> 8 authorities -> BLR-QL-018..025
 ```
 
 ### CP-001
@@ -68,7 +69,20 @@ COUNT_GENERATIONS
 SELECT_FAMILY_COMPOSITION_PROFILE
 ```
 
-CP-004 member filters, relation vocabulary, marital-status state, reference arity, relation-pair predicate and composition values are instance properties. Possible, minimum, maximum and indeterminate counts are not CP-004 instances; they require CP-005 model enumeration.
+### CP-005
+
+```text
+RESOLVE_INVARIANT_RELATION
+RESOLVE_RELATION_UNCERTAINTY
+SELECT_CLAIM_BY_MODEL_STATUS
+IDENTIFY_PERSON_BY_MODEL_STATUS
+RESOLVE_PERSON_IDENTITY_UNCERTAINTY
+DETERMINE_COUNT_BOUND
+SELECT_COUNT_BY_MODEL_STATUS
+RESOLVE_COUNT_DETERMINACY
+```
+
+CP-005 answer semantics are not random “cannot be determined” distractors. Each item owns a complete finite model space. Definite means true in all models, possible means true in some but not all, and impossible means true in none. Minimum, maximum, one-of-two and indeterminate answers are derived from the same complete model set.
 
 ## Current ownership boundary
 
@@ -76,20 +90,20 @@ CP-004 member filters, relation vocabulary, marital-status state, reference arit
 - CP-002: pointer, photograph, portrait, conversation and nested self-reference — frozen;
 - CP-003: shared family passages — frozen;
 - CP-004: definite counts and family composition — frozen;
-- CP-005: possible, impossible, one-of-two and indeterminate semantics — open;
+- CP-005: possible, impossible, one-of-two, invariant and indeterminate semantics — frozen;
 - CP-006: coded relation decoding — open;
 - CP-007: coded expression construction and validation — open;
 - family-plus-profession/height/colour puzzles and Data Sufficiency — outside checkpoint ownership.
 
 ## Identity sequencing rule
 
-Later checkpoints must not reuse `BLR-QL-001..017`. The next checkpoint to complete exhaustive discovery begins at:
+Later checkpoints must not reuse `BLR-QL-001..025`. The next checkpoint to complete exhaustive discovery begins at:
 
 ```text
-BLR-QL-018
+BLR-QL-026
 ```
 
-Only the exact number of authorities justified by the CP-005 final freeze may be allocated. The final BLR-001 chapter total remains open until CP-007 is complete.
+Only the exact number of authorities justified by the CP-006 final freeze may be allocated. The final BLR-001 chapter total remains open until CP-007 is complete.
 
 ## Release rule
 
