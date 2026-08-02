@@ -39,7 +39,9 @@ export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
   const base = { questionLanguageId: input.questionLanguageId, seed: input.seed };
 
   if (ordinal <= 20) {
-    return runTmwCp001Pipeline({ ...base, language: input.language });
+    return input.language === "en"
+      ? runTmwCp001Pipeline({ ...base, language: "en" })
+      : runTmwCp001Pipeline({ ...base, language: input.language });
   }
   if (ordinal <= 34) {
     return input.language === "en"
