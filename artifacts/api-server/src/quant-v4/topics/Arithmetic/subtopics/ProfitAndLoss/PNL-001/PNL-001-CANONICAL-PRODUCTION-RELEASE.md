@@ -2,7 +2,8 @@
 
 **Scope:** approved canonical Question Studio output only.  
 **Languages:** English, Hindi and Punjabi.  
-**Coverage:** 186 QLs across PNL-CP-001 through PNL-CP-006.
+**Coverage:** 186 QLs across PNL-CP-001 through PNL-CP-006.  
+**Approval:** explicit production-release approval received on August 2, 2026.
 
 ## Canonical release policy
 
