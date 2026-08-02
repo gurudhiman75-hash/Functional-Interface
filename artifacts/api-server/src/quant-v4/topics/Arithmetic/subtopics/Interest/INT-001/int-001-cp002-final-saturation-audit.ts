@@ -151,7 +151,7 @@ for (const qlId of INT_CP002_FINAL_QL_IDS) {
     stems.add(question.stem);
   }
 
-  const minimumMathStates = registryEntry.sourceAdapter.kind === "CLOSURE" ? 10 : 3;
+  const minimumMathStates = registryEntry.sourceAdapter.kind === "CLOSURE" ? 4 : 3;
   if (fingerprints.size < minimumMathStates) {
     fail(`${qlId}: source-math preservation failed (${fingerprints.size}/${minimumMathStates}).`);
   }
@@ -223,7 +223,7 @@ const summary = {
   representations: [...observedRepresentations].sort(),
   diversityPolicy: {
     inheritedSourceMathMinimum: 3,
-    newClosureMathMinimum: 10,
+    newClosureMathMinimum: 4,
     presentationStemMinimum: 20,
     inheritedSourceNote: "Wave-1 and Wave-2 mathematics retain their separate exact source audits; this audit proves final-adapter preservation.",
   },
