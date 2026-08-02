@@ -22,3 +22,36 @@ export const SYL_001_FOUNDATION_AUTHORITY = Object.freeze({
   publiclyPublishable: false,
   localizationStarted: false,
 });
+
+export const SYL_001_CHAPTER_AUTHORITY = Object.freeze({
+  packageId: "SYL-001",
+  familyId: "REAS-SYL",
+  authorityId: "SYL_001_MULTILINGUAL_REVIEW_RUNTIME_V1",
+  status: "IMPLEMENTED_MULTILINGUAL_REVIEW_RUNTIME",
+  semanticsProfileId: "INDIAN_COMPETITIVE_EXAM_SYLLOGISM_V1",
+  permanentQlCount: 18,
+  permanentQlRange: "SYL-QL-001..SYL-QL-018",
+  permanentQlIds: Array.from(
+    { length: 18 },
+    (_, index) => `SYL-QL-${String(index + 1).padStart(3, "0")}`,
+  ),
+  checkpointRanges: {
+    "SYL-CP-001": "SYL-QL-001..SYL-QL-002",
+    "SYL-CP-002": "SYL-QL-003..SYL-QL-004",
+    "SYL-CP-003": "SYL-QL-005..SYL-QL-007",
+    "SYL-CP-004": "SYL-QL-008..SYL-QL-009",
+    "SYL-CP-005": "SYL-QL-010..SYL-QL-012",
+    "SYL-CP-006": "SYL-QL-013..SYL-QL-015",
+    "SYL-CP-007": "SYL-QL-016..SYL-QL-018",
+  },
+  sourcePatternCount: 6,
+  scenarioAuthorityCount: 36,
+  locales: ["en-IN", "hi-IN", "pa-IN"] as const,
+  localizationImplemented: true,
+  manualEditorialApproval: false,
+  chapterFreezeApproved: false,
+  questionStudioVisible: false,
+  questionBankWritable: false,
+  testEligible: false,
+  publiclyPublishable: false,
+});
