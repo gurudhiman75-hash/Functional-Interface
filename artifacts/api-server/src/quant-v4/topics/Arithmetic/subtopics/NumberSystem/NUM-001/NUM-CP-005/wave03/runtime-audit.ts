@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
-import { generateNumCp005Wave03Sweep } from "./runtime";
+import { generateNumCp005Wave03ProvenSweep } from "./runtime-proven";
 import { NUM_CP005_WAVE03_PROTOTYPE_IDS } from "./types";
 
-const packages = generateNumCp005Wave03Sweep(60);
+const packages = generateNumCp005Wave03ProvenSweep(60);
 const prototypeCounts = new Map<string, number>();
 const sourceFamilies = new Set<string>();
 const semantics = new Set<string>();
