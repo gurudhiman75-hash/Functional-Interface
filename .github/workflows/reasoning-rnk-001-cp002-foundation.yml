@@ -12,7 +12,7 @@ on:
 jobs:
   cp002-foundation:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -28,9 +28,17 @@ jobs:
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-002/cp002-foundation.test.ts
           rnk-cp002-foundation-output
 
+      - name: Run source and inverse saturation audit
+        run: >-
+          npx --yes tsx
+          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-002/cp002-source-wave.test.ts
+          rnk-cp002-source-wave-output
+
       - name: Upload RNK-CP-002 discovery evidence
         uses: actions/upload-artifact@v4
         with:
           name: rnk-001-cp002-foundation
-          path: rnk-cp002-foundation-output
+          path: |
+            rnk-cp002-foundation-output
+            rnk-cp002-source-wave-output
           retention-days: 14
