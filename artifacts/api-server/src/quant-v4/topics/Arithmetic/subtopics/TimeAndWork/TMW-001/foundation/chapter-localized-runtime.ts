@@ -1,0 +1,92 @@
+import { runTmwCp001Pipeline } from "./cp001-runtime";
+import { runTmwCp002Pipeline } from "./cp002-runtime";
+import { runTmwCp003Pipeline } from "./cp003-runtime";
+import { runTmwCp004Pipeline } from "./cp004-runtime";
+import { runTmwCp005Pipeline } from "./cp005-runtime";
+import { runTmwCp006Pipeline } from "./cp006-runtime";
+import { runTmwCp007Pipeline } from "./cp007-runtime";
+import { runTmwCp007LocalizedPipeline } from "./cp007-localized-runtime";
+import { runTmwCp008Pipeline } from "./cp008-runtime";
+import { runTmwCp008LocalizedPipeline } from "./cp008-localized-runtime";
+import { runTmwCp009Pipeline } from "./cp009-runtime";
+import { runTmwCp009LocalizedPipeline } from "./cp009-localized-runtime";
+import { runTmwCp010Pipeline } from "./cp010-runtime";
+import { runTmwCp010LocalizedPipeline } from "./cp010-localized-runtime";
+import { runTmwCp011Pipeline } from "./cp011-runtime";
+import { runTmwCp011LocalizedPipeline } from "./cp011-localized-runtime";
+import type { TmwLocalizedLanguage } from "./localization-types";
+
+export type Tmw001ChapterLanguage = "en" | TmwLocalizedLanguage;
+
+export interface Tmw001ChapterRequest {
+  questionLanguageId: string;
+  seed: string;
+  language: Tmw001ChapterLanguage;
+}
+
+function qlOrdinal(questionLanguageId: string): number {
+  const match = /^TMW-QL-(\d{3})$/.exec(questionLanguageId);
+  if (!match) throw new Error(`Unknown TMW-001 question-language ID: ${questionLanguageId}`);
+  const ordinal = Number(match[1]);
+  if (!Number.isInteger(ordinal) || ordinal < 1 || ordinal > 211) {
+    throw new Error(`TMW-001 question-language ID is outside the frozen range: ${questionLanguageId}`);
+  }
+  return ordinal;
+}
+
+export function runTmw001ChapterPipeline(input: Tmw001ChapterRequest): any {
+  const ordinal = qlOrdinal(input.questionLanguageId);
+  const base = { questionLanguageId: input.questionLanguageId, seed: input.seed };
+
+  if (ordinal <= 20) {
+    return runTmwCp001Pipeline({ ...base, language: input.language });
+  }
+  if (ordinal <= 34) {
+    return input.language === "en"
+      ? runTmwCp002Pipeline(base)
+      : runTmwCp002Pipeline({ ...base, language: input.language });
+  }
+  if (ordinal <= 57) {
+    return input.language === "en"
+      ? runTmwCp003Pipeline(base)
+      : runTmwCp003Pipeline({ ...base, language: input.language });
+  }
+  if (ordinal <= 81) {
+    return input.language === "en"
+      ? runTmwCp004Pipeline(base)
+      : runTmwCp004Pipeline({ ...base, language: input.language });
+  }
+  if (ordinal <= 105) {
+    return input.language === "en"
+      ? runTmwCp005Pipeline(base)
+      : runTmwCp005Pipeline({ ...base, language: input.language });
+  }
+  if (ordinal <= 127) {
+    return input.language === "en"
+      ? runTmwCp006Pipeline(base)
+      : runTmwCp006Pipeline({ ...base, language: input.language });
+  }
+  if (ordinal <= 143) {
+    return input.language === "en"
+      ? runTmwCp007Pipeline(base)
+      : runTmwCp007LocalizedPipeline({ ...base, language: input.language });
+  }
+  if (ordinal <= 156) {
+    return input.language === "en"
+      ? runTmwCp008Pipeline(base)
+      : runTmwCp008LocalizedPipeline({ ...base, language: input.language });
+  }
+  if (ordinal <= 174) {
+    return input.language === "en"
+      ? runTmwCp009Pipeline(base)
+      : runTmwCp009LocalizedPipeline({ ...base, language: input.language });
+  }
+  if (ordinal <= 192) {
+    return input.language === "en"
+      ? runTmwCp010Pipeline(base)
+      : runTmwCp010LocalizedPipeline({ ...base, language: input.language });
+  }
+  return input.language === "en"
+    ? runTmwCp011Pipeline(input.questionLanguageId, input.seed)
+    : runTmwCp011LocalizedPipeline({ ...base, language: input.language });
+}
