@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { listQuantV4Packages } from "../../../../../generation-engine";
 import { INT_CP001_FINAL_QL_IDS } from "./cp001-final-registry";
 import {
   INT_CP001_QUESTION_STUDIO_PRE_REGISTRATION_CAPABILITY,
@@ -48,6 +49,13 @@ function assertShape(response: any, expectedCount: number, label: string): void 
   assert(response.envelopes.length === expectedCount, `${label}: envelopes count mismatch`);
   assert(!stableJson(response).includes("[object Object]"), `${label}: malformed serialized value`);
 }
+
+const centralBeforePackages = listQuantV4Packages();
+const centralBefore = stableJson(centralBeforePackages);
+assert(
+  !centralBeforePackages.some((item) => String(item.packageId) === "INT-001"),
+  "INT-001 is already present in the central Quant V4 registry before soak execution",
+);
 
 let largeBatchRuns = 0;
 let largeBatchQuestions = 0;
@@ -137,6 +145,14 @@ assert(INT_CP001_QUESTION_STUDIO_PRE_REGISTRATION_CAPABILITY.questionStudioDisco
 assert(maximumSelectorAttempts <= 96, "selector attempt ceiling exceeded");
 assert(maximumProviderAttempts <= 32, "provider attempt ceiling exceeded");
 
+const centralAfterPackages = listQuantV4Packages();
+const centralAfter = stableJson(centralAfterPackages);
+assert(
+  !centralAfterPackages.some((item) => String(item.packageId) === "INT-001"),
+  "INT-001 entered the central Quant V4 registry during soak execution",
+);
+assert(centralAfter === centralBefore, "Central Quant V4 registry changed during soak execution");
+
 const summary = {
   packageId: "INT-001",
   canonicalProblemId: "INT-CP-001",
@@ -150,12 +166,16 @@ const summary = {
   lifecycleChecks,
   jsonChecks,
   parityChecks,
+  centralRegistryChecks: 3,
+  centralRegistryDigestBefore: digest(centralBeforePackages),
+  centralRegistryDigestAfter: digest(centralAfterPackages),
   maximumSelectorAttempts,
   maximumProviderAttempts,
   languageBatchDigests: languageDigests,
   enabled: true,
   stagingStatus: "ACTIVE_STAGING",
   registrationStatus: "NOT_REGISTERED",
+  centralRegistryContainsInt001: false,
   questionStudioDiscoverable: false,
   questionBankStatus: "NOT_STORED",
   testEligibility: "INELIGIBLE",
