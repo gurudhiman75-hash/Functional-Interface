@@ -1,44 +1,51 @@
-import { recoverAllPnl001CanonicalContexts } from "./question-studio-canonical-context-recovery";
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const recoveries = recoverAllPnl001CanonicalContexts();
-const cpCounts: Record<string, number> = {};
-let scalarValues = 0;
-let tableSources = 0;
-let paragraphSources = 0;
-const contextKeyCounts: number[] = [];
+import { renderFriendlyExplanationMarkdown, type StructuredEditorialEntry } from "./foundation/editorial-content";
+import { PNL_001_CANONICAL_REVIEW_LIBRARY } from "./question-studio-review.library";
 
-for (const recovery of recoveries) {
-  cpCounts[recovery.cpId] = (cpCounts[recovery.cpId] ?? 0) + 1;
-  contextKeyCounts.push(Object.keys(recovery.context).length);
-  for (const value of Object.values(recovery.context)) {
-    if (Array.isArray(value)) {
-      if (value.length > 0 && Array.isArray(value[0])) tableSources += 1;
-      else paragraphSources += 1;
-    } else {
-      scalarValues += 1;
-    }
-  }
-}
+type EditorialLibrary = Readonly<{ entries: Readonly<Record<string, StructuredEditorialEntry>> }>;
+type ReviewEntry = Readonly<{ explanation: string; answer: string }>;
+type ReviewLibrary = Readonly<{ entries: Readonly<Record<string, ReviewEntry>> }>;
 
-const summary = {
-  ok: true,
-  qlCount: recoveries.length,
-  cpCounts,
-  scalarValues,
-  tableSources,
-  paragraphSources,
-  minimumContextKeys: Math.min(...contextKeyCounts),
-  maximumContextKeys: Math.max(...contextKeyCounts),
-  exactEnglishStemRoundTrips: recoveries.length,
-  exactEnglishStructuredExplanationRoundTrips: recoveries.length,
-  exactEnglishFullExplanationRoundTrips: recoveries.length,
-};
-
-console.log(JSON.stringify(summary, null, 2));
-
-if (
-  recoveries.length !== 186 ||
-  JSON.stringify(Object.values(cpCounts)) !== JSON.stringify([36, 34, 24, 26, 29, 37])
+const root = dirname(fileURLToPath(import.meta.url));
+const editorial = JSON.parse(
+  readFileSync(join(root, "CP-001", "editorial-content.en.json"), "utf8"),
+) as EditorialLibrary;
+const review = PNL_001_CANONICAL_REVIEW_LIBRARY as ReviewLibrary;
+const qlId = "PNL-QL-003";
+const entry = review.entries[qlId]!;
+const suffix = `\n\n**Final answer:** ${entry.answer}`;
+const canonical = entry.explanation.endsWith(suffix)
+  ? entry.explanation.slice(0, -suffix.length)
+  : entry.explanation;
+const structured = renderFriendlyExplanationMarkdown(editorial.entries[qlId]!.explanation, {});
+let firstDifference = 0;
+while (
+  firstDifference < structured.length &&
+  firstDifference < canonical.length &&
+  structured[firstDifference] === canonical[firstDifference]
 ) {
-  throw new Error("PNL canonical context recovery coverage is incomplete.");
+  firstDifference += 1;
 }
+
+console.log(
+  JSON.stringify(
+    {
+      qlId,
+      suffixPresent: entry.explanation.endsWith(suffix),
+      firstDifference,
+      structuredLength: structured.length,
+      canonicalLength: canonical.length,
+      structured,
+      canonical,
+      structuredDifferenceWindow: structured.slice(Math.max(0, firstDifference - 100), firstDifference + 220),
+      canonicalDifferenceWindow: canonical.slice(Math.max(0, firstDifference - 100), firstDifference + 220),
+    },
+    null,
+    2,
+  ),
+);
+
+throw new Error(`${qlId}: explanation diagnostic complete.`);
