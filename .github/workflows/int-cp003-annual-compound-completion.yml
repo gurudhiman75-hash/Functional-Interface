@@ -1,0 +1,116 @@
+name: Validate INT-CP-003 annual compound completion
+
+on:
+  pull_request:
+    branches:
+      - feat/int-001-cp002-final-saturation-freeze
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-core.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-annual-compound-runtime.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp003-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-003/**"
+      - ".github/workflows/int-cp003-annual-compound-completion.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-int-cp003-annual-compound-completion:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle inherited CP-002 English freeze audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-english-freeze-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp002-english-freeze-audit.mjs
+
+      - name: Run inherited CP-002 English freeze audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp002-english-freeze-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp002-english-freeze-audit.log
+
+      - name: Bundle CP-003 completion audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp003-completion-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp003-completion-audit.mjs
+
+      - name: Run CP-003 completion audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp003-completion-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp003-completion-audit.log
+
+      - name: Bundle CP-003 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp003-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp003-review-export.mjs
+
+      - name: Generate CP-003 review pack
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp003-review-export.mjs 2>&1 | tee dist/quant-v4/int-001-cp003-review-export.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Verify CP-003 evidence
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          grep -q 'PASS_INT_CP002_APPROVED_ENGLISH_FREEZE' artifacts/api-server/dist/quant-v4/int-001-cp002-english-freeze-audit.log
+          grep -q 'PASS_INT_CP003_ANNUAL_COMPOUND_COMPLETION' artifacts/api-server/dist/quant-v4/int-001-cp003-completion-audit.log
+          grep -q 'PASS_INT_CP003_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp003-review-export.log
+          summary=artifacts/api-server/dist/quant-v4/int-cp003-annual-compound-completion/int-cp003-completion-summary.json
+          review=artifacts/api-server/dist/quant-v4/int-cp003-annual-compound-review-pack
+          test -f "$summary"
+          test -f "$review/int-cp003-56-review-questions.md"
+          test -f "$review/int-cp003-56-review-answers.md"
+          test -f "$review/int-cp003-56-review-data.json"
+          test -f "$review/int-cp003-56-review-checklist.csv"
+          test -f "$review/int-cp003-review-summary.json"
+          grep -q '"qlCount": 14' "$summary"
+          grep -q '"legacyFamiliesOwned": 14' "$summary"
+          grep -q '"openMeaningfulOwnedGaps": 0' "$summary"
+          grep -q '"questions": 56' "$review/int-cp003-review-summary.json"
+          ! grep -R -n -P '[\x00-\x08\x09\x0B\x0C\x0E-\x1F]' "$review"/*.md
+          ! grep -R -n -E 'INT-QL-|INT-CP003|prototype|effectiveSeed|generationAttempts' "$review"/*.md
+          ! grep -R -n -E '₹[^ ]*/|[0-9]+/[0-9]+ years' "$review"/*.md
+          grep -q 'Wrong-option analysis' "$review/int-cp003-56-review-answers.md"
+
+      - name: Upload CP-003 completion evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp003-annual-compound-review-candidate
+          path: |
+            artifacts/api-server/dist/quant-v4/int-001-cp002-english-freeze-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp003-completion-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp003-review-export.log
+            artifacts/api-server/dist/quant-v4/int-cp003-annual-compound-completion/**
+            artifacts/api-server/dist/quant-v4/int-cp003-annual-compound-review-pack/**
+          if-no-files-found: error
+          retention-days: 14
