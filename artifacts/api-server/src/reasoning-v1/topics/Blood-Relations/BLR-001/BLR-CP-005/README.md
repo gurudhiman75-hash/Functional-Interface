@@ -1,6 +1,6 @@
 # BLR-CP-005 — Determinacy, Possibility and Uncertainty
 
-Status: **English discovery frozen at `BLR-QL-018..BLR-QL-025`; exam-grade editorial remediation applied; review-only runtime available; release and merge locked**.
+Status: **English discovery frozen at `BLR-QL-018..BLR-QL-025`; review-only runtime available; exam-grade editorial and explicit-gender-evidence remediation complete; release and merge locked**.
 
 ## Permanent QLs
 
@@ -30,38 +30,33 @@ Next available Blood Relations identity: `BLR-QL-026`.
 184 / 184 unique learner-item signatures
 ```
 
-## Editorial standard
+## Learner-facing guarantees
 
-Every frozen question now contains:
-
-- a clean exam-style prompt and stem without learner-facing meta-spoonfeeding;
-- a QL-specific multi-model core concept;
-- an explicit audit line for every valid family model;
-- an aggregate outcome, identity-status or attainable-count audit;
-- a five-second exam shortcut;
-- four option-specific explanations ending in bracketed diagnostic misconception codes;
-- one family-tree diagram per valid model, with ASCII fallback.
-
-The editorial remediation does not change graph logic, answer semantics, permanent QL ownership or release locks. See `BLR-CP-005-EDITORIAL-REMEDIATION.md`.
+- no answer may infer gender from a person's name;
+- every fixed gender used by the solver has an explicit clue such as husband, wife, brother, sister, father, mother, son, daughter, man or woman;
+- deliberately open genders vary across the bounded model space;
+- irrelevant unstated genders are stored and rendered as `UNKNOWN`;
+- all 184 questions retain exam-grade stems and complete four-tier explanations;
+- all 736 option analyses retain diagnostic misconception codes;
+- all 432 family models retain SVG-compatible diagrams and ASCII fallbacks.
 
 ## Files
 
 - `cp005-model.ts` — contracts, model-space domain, truth semantics and diagram model;
 - `cp005-scenarios.ts` — bounded source scenarios and 23 discovered prototypes;
+- `cp005-gender-evidence.ts` — explicit gender-clue remediation, unknown-gender normalisation and regression audit;
 - `cp005-solver.ts` — production all-model solver;
-- `cp005-options.ts` — deterministic option construction;
-- `cp005-editorial.ts` — exam-grade prompt, stem and four-tier explanation renderer;
-- `cp005-editorial-polish.ts` — relation-only prose polish that preserves canonical claim text;
 - `cp005-bank.ts` — reviewed permanent question bank and telemetry;
+- `cp005-editorial.ts` — exam-grade stems and four-tier explanations;
+- `cp005-editorial-polish.ts` — relation prose and claim-preservation polish;
+- `cp005-editorial-remediation.test.ts` — learner-text, diagnostic-code, claim-preservation and gender-evidence gate;
 - `cp005-independent-verifier.ts` — diagram-reconstructed independent proof;
 - `cp005-runtime.ts` — deterministic QL and shared model-space runtime;
 - `cp005-runtime.test.ts` — complete 184-question/432-model regression;
-- `cp005-editorial-remediation.test.ts` — learner-text, claim-preservation and explanation-quality gate;
 - `cp005-final-freeze.ts` — source, boundary, merge/split, inverse and overlap freeze;
 - `cp005-final-freeze.test.ts` — final freeze proof;
 - `export-cp005-final-freeze.ts` — JSONL, CSV, HTML and summary exporter;
-- `BLR-CP-005-FINAL-DISCOVERY-FREEZE.md` — authoritative checkpoint record;
-- `BLR-CP-005-EDITORIAL-REMEDIATION.md` — owner-suite audit and canonical mapping record.
+- `BLR-CP-005-FINAL-DISCOVERY-FREEZE.md` — authoritative checkpoint record.
 
 ## Release lock
 
