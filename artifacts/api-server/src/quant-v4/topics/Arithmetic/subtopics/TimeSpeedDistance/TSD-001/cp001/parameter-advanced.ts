@@ -1,47 +1,160 @@
 import { add, multiply, rational, toMixedString } from "../foundation/rational";
-import type { PaceUnit, SpeedUnit } from "../foundation/units";
+import type { DistanceUnit, PaceUnit, SpeedUnit, TimeUnit } from "../foundation/units";
 import type { GeneratedState } from "./runtime-types";
-import { PACE_LABEL, SPEED_LABEL, SeededRng, formatClock, r } from "./runtime-support";
+import { DISTANCE_LABEL, PACE_LABEL, SPEED_LABEL, TIME_LABEL, SeededRng, formatClock, r } from "./runtime-support";
+
+interface SpeedFromPaceCase {
+  readonly pace: ReturnType<typeof r>;
+  readonly paceUnit: PaceUnit;
+  readonly outputUnit: SpeedUnit;
+  readonly paceText: string;
+}
+
+interface PaceFromSpeedCase {
+  readonly speed: ReturnType<typeof r>;
+  readonly speedUnit: SpeedUnit;
+  readonly outputUnit: PaceUnit;
+  readonly speedText: string;
+}
+
+interface DistanceFromPaceCase {
+  readonly pace: ReturnType<typeof r>;
+  readonly paceUnit: PaceUnit;
+  readonly duration: ReturnType<typeof r>;
+  readonly timeUnit: TimeUnit;
+  readonly outputUnit: DistanceUnit;
+  readonly paceText: string;
+  readonly durationText: string;
+}
 
 export function paceState(mode: "speedFromPace" | "paceFromSpeed" | "distanceFromPaceAndTime", rng: SeededRng): GeneratedState {
-  const pace = r(rng.pick([4, 5, 6, 8, 10, 12]));
-  const paceUnit: PaceUnit = "MINUTE_PER_KM";
   if (mode === "speedFromPace") {
-    const outputUnit: SpeedUnit = rng.pick(["KMPH", "MPS"] as const);
+    const cases: readonly SpeedFromPaceCase[] = [
+      { pace: r(12), paceUnit: "MINUTE_PER_KM", outputUnit: "KMPH", paceText: "12 minutes" },
+      { pace: r(8), paceUnit: "MINUTE_PER_KM", outputUnit: "KMPH", paceText: "8 minutes" },
+      { pace: r(6), paceUnit: "MINUTE_PER_KM", outputUnit: "KMPH", paceText: "6 minutes" },
+      { pace: r(200), paceUnit: "SECOND_PER_KM", outputUnit: "MPS", paceText: "200 seconds" },
+      { pace: r(250), paceUnit: "SECOND_PER_KM", outputUnit: "MPS", paceText: "250 seconds" },
+    ];
+    const selected = rng.pick(cases);
+    const kilometreText = selected.paceUnit === "MINUTE_PER_KM" ? "60 minutes" : "1000 metres";
     return {
-      input: { solveMode: mode, pace, paceUnit, outputUnit },
-      stem: `A runner takes ${toMixedString(pace)} minutes to cover 1 km. Find the speed in ${SPEED_LABEL[outputUnit]}.`,
+      input: {
+        solveMode: mode,
+        pace: selected.pace,
+        paceUnit: selected.paceUnit,
+        outputUnit: selected.outputUnit,
+      },
+      stem: `A runner takes ${selected.paceText} to cover 1 km. Find the speed in ${SPEED_LABEL[selected.outputUnit]}.`,
       display: {
-        unit: SPEED_LABEL[outputUnit],
-        formula: outputUnit === "KMPH" ? "Speed = 60 ÷ time taken for 1 km" : "Convert minutes into seconds, then use Speed = Distance ÷ Time",
-        givens: [`Time for 1 km = ${toMixedString(pace)} minutes`],
-        shortcut: outputUnit === "KMPH" ? "Divide 60 by the minutes taken for 1 km." : "Convert the time into seconds first.",
+        unit: SPEED_LABEL[selected.outputUnit],
+        formula: selected.outputUnit === "KMPH"
+          ? "Speed = 60 ÷ minutes taken for 1 km"
+          : "Speed = 1000 metres ÷ seconds taken for 1 km",
+        givens: [`Time for 1 km = ${selected.paceText}`],
+        shortcut: selected.outputUnit === "KMPH"
+          ? `One kilometre is covered in the given part of ${kilometreText}, so divide 60 by the minutes.`
+          : "One kilometre is 1000 metres, so divide 1000 by the seconds taken.",
       },
     };
   }
+
   if (mode === "paceFromSpeed") {
-    const speed = r(rng.pick([6, 8, 10, 12, 15, 20]));
-    const speedUnit: SpeedUnit = "KMPH";
+    const cases: readonly PaceFromSpeedCase[] = [
+      { speed: r(6), speedUnit: "KMPH", outputUnit: "MINUTE_PER_KM", speedText: "6 km/h" },
+      { speed: r(8), speedUnit: "KMPH", outputUnit: "MINUTE_PER_KM", speedText: "8 km/h" },
+      { speed: r(20), speedUnit: "KMPH", outputUnit: "MINUTE_PER_KM", speedText: "20 km/h" },
+      { speed: r(5), speedUnit: "MPS", outputUnit: "SECOND_PER_KM", speedText: "5 m/s" },
+      { speed: r(10), speedUnit: "MPS", outputUnit: "SECOND_PER_KM", speedText: "10 m/s" },
+    ];
+    const selected = rng.pick(cases);
+    const asksMinutes = selected.outputUnit === "MINUTE_PER_KM";
     return {
-      input: { solveMode: mode, speed, speedUnit, outputUnit: paceUnit },
-      stem: `A runner moves at ${toMixedString(speed)} km/h. How many minutes will the runner take to cover 1 km?`,
+      input: {
+        solveMode: mode,
+        speed: selected.speed,
+        speedUnit: selected.speedUnit,
+        outputUnit: selected.outputUnit,
+      },
+      stem: asksMinutes
+        ? `A runner moves at ${selected.speedText}. How many minutes will the runner take to cover 1 km?`
+        : `A runner moves at ${selected.speedText}. How many seconds will the runner take to cover 1 km?`,
       display: {
-        unit: PACE_LABEL[paceUnit],
-        formula: "Time for 1 km = 60 ÷ Speed",
-        givens: [`Speed = ${toMixedString(speed)} km/h`],
-        shortcut: "Divide 60 by the speed in km/h.",
+        unit: PACE_LABEL[selected.outputUnit],
+        formula: asksMinutes ? "Time for 1 km = 60 ÷ speed in km/h" : "Time for 1 km = 1000 ÷ speed in m/s",
+        givens: [`Speed = ${selected.speedText}`],
+        shortcut: asksMinutes
+          ? "Divide 60 by the speed in km/h."
+          : "Divide 1000 metres by the speed in metres per second.",
       },
     };
   }
-  const duration = r(rng.pick([20, 30, 40, 45, 60, 90]));
+
+  const cases: readonly DistanceFromPaceCase[] = [
+    {
+      pace: r(10),
+      paceUnit: "MINUTE_PER_KM",
+      duration: r(20),
+      timeUnit: "MINUTE",
+      outputUnit: "KM",
+      paceText: "10 minutes",
+      durationText: "20 minutes",
+    },
+    {
+      pace: r(12),
+      paceUnit: "MINUTE_PER_KM",
+      duration: r(30),
+      timeUnit: "MINUTE",
+      outputUnit: "KM",
+      paceText: "12 minutes",
+      durationText: "30 minutes",
+    },
+    {
+      pace: r(10),
+      paceUnit: "MINUTE_PER_KM",
+      duration: r(90),
+      timeUnit: "MINUTE",
+      outputUnit: "KM",
+      paceText: "10 minutes",
+      durationText: "90 minutes",
+    },
+    {
+      pace: r(200),
+      paceUnit: "SECOND_PER_KM",
+      duration: r(500),
+      timeUnit: "SECOND",
+      outputUnit: "M",
+      paceText: "200 seconds",
+      durationText: "500 seconds",
+    },
+    {
+      pace: r(250),
+      paceUnit: "SECOND_PER_KM",
+      duration: r(750),
+      timeUnit: "SECOND",
+      outputUnit: "M",
+      paceText: "250 seconds",
+      durationText: "750 seconds",
+    },
+  ];
+  const selected = rng.pick(cases);
   return {
-    input: { solveMode: mode, pace, paceUnit, duration, timeUnit: "MINUTE", outputUnit: "KM" },
-    stem: `A runner takes ${toMixedString(pace)} minutes to cover 1 km. How much distance will be covered in ${toMixedString(duration)} minutes?`,
+    input: {
+      solveMode: mode,
+      pace: selected.pace,
+      paceUnit: selected.paceUnit,
+      duration: selected.duration,
+      timeUnit: selected.timeUnit,
+      outputUnit: selected.outputUnit,
+    },
+    stem: `A runner takes ${selected.paceText} to cover 1 km. How much distance will be covered in ${selected.durationText}? Give the answer in ${DISTANCE_LABEL[selected.outputUnit]}.`,
     display: {
-      unit: "km",
-      formula: "Distance = Total time ÷ Time taken for 1 km",
-      givens: [`Time for 1 km = ${toMixedString(pace)} minutes`, `Total time = ${toMixedString(duration)} minutes`],
-      shortcut: "Divide the total minutes by the minutes taken for 1 km.",
+      unit: DISTANCE_LABEL[selected.outputUnit],
+      formula: `Distance in kilometres = total ${TIME_LABEL[selected.timeUnit]} ÷ ${TIME_LABEL[selected.timeUnit]} taken for 1 km`,
+      givens: [`Time for 1 km = ${selected.paceText}`, `Total time = ${selected.durationText}`],
+      shortcut: selected.outputUnit === "KM"
+        ? `Divide the total ${TIME_LABEL[selected.timeUnit]} by the ${TIME_LABEL[selected.timeUnit]} taken for 1 km.`
+        : "First find the distance in kilometres, then multiply by 1000 to express it in metres.",
     },
   };
 }
