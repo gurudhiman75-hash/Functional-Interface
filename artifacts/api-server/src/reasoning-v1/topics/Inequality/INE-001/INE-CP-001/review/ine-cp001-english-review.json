@@ -1,0 +1,934 @@
+[
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_DIRECT_RELATION",
+    "prototypeId": "INE-CP001-PROT-DIRECT-RELATION",
+    "seed": 0,
+    "difficulty": "MEDIUM",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between D and B, in that order.",
+    "statements": [
+      "D ≥ B"
+    ],
+    "options": [
+      "≥",
+      "=",
+      ">",
+      "Relation cannot be determined"
+    ],
+    "correctOption": "≥",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS1: D ≥ B.\nUse S1 to connect D with B.\nEvery step on the consistent path is inclusive, so equality remains possible.\nTherefore, the strongest relation that definitely follows is D ≥ B.\n=: An inclusive relation also permits the strict case.\n>: Inclusive steps allow equality, so strictness is not guaranteed.\nRelation cannot be determined: The displayed statements contain a valid connecting proof path.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_DIRECT_RELATION",
+    "prototypeId": "INE-CP001-PROT-DIRECT-RELATION",
+    "seed": 1,
+    "difficulty": "EASY",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between B and S, in that order.",
+    "statements": [
+      "B < S"
+    ],
+    "options": [
+      "Relation cannot be determined",
+      "<",
+      ">",
+      "="
+    ],
+    "correctOption": "<",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS1: B < S.\nUse S1 to connect B with S.\nThe consistent path contains a strict step, so the endpoint relation is strict.\nTherefore, the strongest relation that definitely follows is B < S.\nRelation cannot be determined: The displayed statements contain a valid connecting proof path.\n>: This reverses the order asked in the question.\n=: Equality cannot survive a path that contains a strict step.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_DIRECT_RELATION",
+    "prototypeId": "INE-CP001-PROT-DIRECT-RELATION",
+    "seed": 2,
+    "difficulty": "EASY",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between B and C, in that order.",
+    "statements": [
+      "C ≤ B"
+    ],
+    "options": [
+      ">",
+      "=",
+      "≥",
+      "≤"
+    ],
+    "correctOption": "≥",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS1: C ≤ B.\nUse S1 to connect B with C.\nEvery step on the consistent path is inclusive, so equality remains possible.\nTherefore, the strongest relation that definitely follows is B ≥ C.\n>: Inclusive steps allow equality, so strictness is not guaranteed.\n=: An inclusive relation also permits the strict case.\n≤: This reverses the order asked in the question.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_DIRECT_RELATION",
+    "prototypeId": "INE-CP001-PROT-DIRECT-RELATION",
+    "seed": 3,
+    "difficulty": "EASY",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between P and Q, in that order.",
+    "statements": [
+      "P < Q"
+    ],
+    "options": [
+      "=",
+      ">",
+      "≤",
+      "<"
+    ],
+    "correctOption": "<",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS1: P < Q.\nUse S1 to connect P with Q.\nThe consistent path contains a strict step, so the endpoint relation is strict.\nTherefore, the strongest relation that definitely follows is P < Q.\n=: Equality cannot survive a path that contains a strict step.\n>: This reverses the order asked in the question.\n≤: A strict step makes the complete consistent path strict.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_DIRECT_RELATION",
+    "prototypeId": "INE-CP001-PROT-DIRECT-RELATION",
+    "seed": 4,
+    "difficulty": "EASY",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between C and B, in that order.",
+    "statements": [
+      "B ≤ C"
+    ],
+    "options": [
+      "≥",
+      ">",
+      "=",
+      "≤"
+    ],
+    "correctOption": "≥",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS1: B ≤ C.\nUse S1 to connect C with B.\nEvery step on the consistent path is inclusive, so equality remains possible.\nTherefore, the strongest relation that definitely follows is C ≥ B.\n>: Inclusive steps allow equality, so strictness is not guaranteed.\n=: An inclusive relation also permits the strict case.\n≤: This reverses the order asked in the question.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_TRANSITIVE_RELATION",
+    "prototypeId": "INE-CP001-PROT-TRANSITIVE-STRICT",
+    "seed": 0,
+    "difficulty": "MEDIUM",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between Q and A, in that order.",
+    "statements": [
+      "Q > B",
+      "B ≥ A"
+    ],
+    "options": [
+      ">",
+      "Relation cannot be determined",
+      "<",
+      "≥"
+    ],
+    "correctOption": ">",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS1: Q > B.\nS2: B ≥ A.\nUse S1 and S2 to connect Q with A.\nThe consistent path contains a strict step, so the endpoint relation is strict.\nTherefore, the strongest relation that definitely follows is Q > A.\nRelation cannot be determined: The displayed statements contain a valid connecting proof path.\n<: This reverses the order asked in the question.\n≥: A strict step makes the complete consistent path strict.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_TRANSITIVE_RELATION",
+    "prototypeId": "INE-CP001-PROT-TRANSITIVE-STRICT",
+    "seed": 1,
+    "difficulty": "MEDIUM",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between Q and D, in that order.",
+    "statements": [
+      "Q ≥ R",
+      "R > D"
+    ],
+    "options": [
+      "<",
+      ">",
+      "=",
+      "Relation cannot be determined"
+    ],
+    "correctOption": ">",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS1: Q ≥ R.\nS2: R > D.\nUse S1 and S2 to connect Q with D.\nThe consistent path contains a strict step, so the endpoint relation is strict.\nTherefore, the strongest relation that definitely follows is Q > D.\n<: This reverses the order asked in the question.\n=: Equality cannot survive a path that contains a strict step.\nRelation cannot be determined: The displayed statements contain a valid connecting proof path.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_TRANSITIVE_RELATION",
+    "prototypeId": "INE-CP001-PROT-TRANSITIVE-STRICT",
+    "seed": 2,
+    "difficulty": "MEDIUM",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between A and C, in that order.",
+    "statements": [
+      "C > S",
+      "S > A"
+    ],
+    "options": [
+      "Relation cannot be determined",
+      "≤",
+      "<",
+      ">"
+    ],
+    "correctOption": "<",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS1: C > S.\nS2: S > A.\nUse S1 and S2 to connect A with C.\nThe consistent path contains a strict step, so the endpoint relation is strict.\nTherefore, the strongest relation that definitely follows is A < C.\nRelation cannot be determined: The displayed statements contain a valid connecting proof path.\n≤: A strict step makes the complete consistent path strict.\n>: This reverses the order asked in the question.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_TRANSITIVE_RELATION",
+    "prototypeId": "INE-CP001-PROT-TRANSITIVE-STRICT",
+    "seed": 3,
+    "difficulty": "MEDIUM",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between C and A, in that order.",
+    "statements": [
+      "C ≥ P",
+      "P > A"
+    ],
+    "options": [
+      "Relation cannot be determined",
+      "<",
+      "≥",
+      ">"
+    ],
+    "correctOption": ">",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS1: C ≥ P.\nS2: P > A.\nUse S1 and S2 to connect C with A.\nThe consistent path contains a strict step, so the endpoint relation is strict.\nTherefore, the strongest relation that definitely follows is C > A.\nRelation cannot be determined: The displayed statements contain a valid connecting proof path.\n<: This reverses the order asked in the question.\n≥: A strict step makes the complete consistent path strict.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_TRANSITIVE_RELATION",
+    "prototypeId": "INE-CP001-PROT-TRANSITIVE-STRICT",
+    "seed": 4,
+    "difficulty": "MEDIUM",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between Q and A, in that order.",
+    "statements": [
+      "A ≥ P",
+      "P > Q"
+    ],
+    "options": [
+      "<",
+      "=",
+      ">",
+      "Relation cannot be determined"
+    ],
+    "correctOption": "<",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS1: A ≥ P.\nS2: P > Q.\nUse S1 and S2 to connect Q with A.\nThe consistent path contains a strict step, so the endpoint relation is strict.\nTherefore, the strongest relation that definitely follows is Q < A.\n=: Equality cannot survive a path that contains a strict step.\n>: This reverses the order asked in the question.\nRelation cannot be determined: The displayed statements contain a valid connecting proof path.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_STRONGEST_DEFINITE_RELATION",
+    "prototypeId": "INE-CP001-PROT-STRONGEST-INCLUSIVE",
+    "seed": 0,
+    "difficulty": "MEDIUM",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between A and Q, in that order.",
+    "statements": [
+      "Q ≥ R",
+      "R ≥ A"
+    ],
+    "options": [
+      "≤",
+      "<",
+      "=",
+      "≥"
+    ],
+    "correctOption": "≤",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS1: Q ≥ R.\nS2: R ≥ A.\nUse S1 and S2 to connect A with Q.\nEvery step on the consistent path is inclusive, so equality remains possible.\nTherefore, the strongest relation that definitely follows is A ≤ Q.\n<: Inclusive steps allow equality, so strictness is not guaranteed.\n=: An inclusive relation also permits the strict case.\n≥: This reverses the order asked in the question.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_STRONGEST_DEFINITE_RELATION",
+    "prototypeId": "INE-CP001-PROT-STRONGEST-INCLUSIVE",
+    "seed": 1,
+    "difficulty": "MEDIUM",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between D and P, in that order.",
+    "statements": [
+      "D ≥ B",
+      "B ≥ P"
+    ],
+    "options": [
+      "Relation cannot be determined",
+      "≥",
+      "=",
+      ">"
+    ],
+    "correctOption": "≥",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS1: D ≥ B.\nS2: B ≥ P.\nUse S1 and S2 to connect D with P.\nEvery step on the consistent path is inclusive, so equality remains possible.\nTherefore, the strongest relation that definitely follows is D ≥ P.\nRelation cannot be determined: The displayed statements contain a valid connecting proof path.\n=: An inclusive relation also permits the strict case.\n>: Inclusive steps allow equality, so strictness is not guaranteed.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_STRONGEST_DEFINITE_RELATION",
+    "prototypeId": "INE-CP001-PROT-STRONGEST-INCLUSIVE",
+    "seed": 2,
+    "difficulty": "MEDIUM",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between D and S, in that order.",
+    "statements": [
+      "S ≥ P",
+      "P ≥ D"
+    ],
+    "options": [
+      "Relation cannot be determined",
+      "<",
+      "≤",
+      "="
+    ],
+    "correctOption": "≤",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS1: S ≥ P.\nS2: P ≥ D.\nUse S1 and S2 to connect D with S.\nEvery step on the consistent path is inclusive, so equality remains possible.\nTherefore, the strongest relation that definitely follows is D ≤ S.\nRelation cannot be determined: The displayed statements contain a valid connecting proof path.\n<: Inclusive steps allow equality, so strictness is not guaranteed.\n=: An inclusive relation also permits the strict case.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_STRONGEST_DEFINITE_RELATION",
+    "prototypeId": "INE-CP001-PROT-STRONGEST-INCLUSIVE",
+    "seed": 3,
+    "difficulty": "MEDIUM",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between B and C, in that order.",
+    "statements": [
+      "B ≥ R",
+      "R ≥ C"
+    ],
+    "options": [
+      "≤",
+      ">",
+      "Relation cannot be determined",
+      "≥"
+    ],
+    "correctOption": "≥",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS1: B ≥ R.\nS2: R ≥ C.\nUse S1 and S2 to connect B with C.\nEvery step on the consistent path is inclusive, so equality remains possible.\nTherefore, the strongest relation that definitely follows is B ≥ C.\n≤: This reverses the order asked in the question.\n>: Inclusive steps allow equality, so strictness is not guaranteed.\nRelation cannot be determined: The displayed statements contain a valid connecting proof path.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_STRONGEST_DEFINITE_RELATION",
+    "prototypeId": "INE-CP001-PROT-STRONGEST-INCLUSIVE",
+    "seed": 4,
+    "difficulty": "MEDIUM",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between B and R, in that order.",
+    "statements": [
+      "B ≥ C",
+      "C ≥ R"
+    ],
+    "options": [
+      "≥",
+      "≤",
+      ">",
+      "="
+    ],
+    "correctOption": "≥",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS1: B ≥ C.\nS2: C ≥ R.\nUse S1 and S2 to connect B with R.\nEvery step on the consistent path is inclusive, so equality remains possible.\nTherefore, the strongest relation that definitely follows is B ≥ R.\n≤: This reverses the order asked in the question.\n>: Inclusive steps allow equality, so strictness is not guaranteed.\n=: An inclusive relation also permits the strict case.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_RELATION_THROUGH_EQUALITY",
+    "prototypeId": "INE-CP001-PROT-EQUALITY-PROPAGATION",
+    "seed": 0,
+    "difficulty": "MEDIUM",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between A and C, in that order.",
+    "statements": [
+      "D > A",
+      "Q ≤ A",
+      "C = D"
+    ],
+    "options": [
+      "<",
+      ">",
+      "≤",
+      "Relation cannot be determined"
+    ],
+    "correctOption": "<",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS2: D > A.\nS3: Q ≤ A.\nS1: C = D.\nUse S2 to connect A with C.\nThe consistent path contains a strict step, so the endpoint relation is strict.\nTherefore, the strongest relation that definitely follows is A < C.\n>: This reverses the order asked in the question.\n≤: A strict step makes the complete consistent path strict.\nRelation cannot be determined: The displayed statements contain a valid connecting proof path.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_RELATION_THROUGH_EQUALITY",
+    "prototypeId": "INE-CP001-PROT-EQUALITY-PROPAGATION",
+    "seed": 1,
+    "difficulty": "HARD",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between R and S, in that order.",
+    "statements": [
+      "Q > R",
+      "S = Q",
+      "P ≤ R"
+    ],
+    "options": [
+      "=",
+      "<",
+      ">",
+      "Relation cannot be determined"
+    ],
+    "correctOption": "<",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS2: Q > R.\nS1: S = Q.\nS3: P ≤ R.\nUse S2 to connect R with S.\nThe consistent path contains a strict step, so the endpoint relation is strict.\nTherefore, the strongest relation that definitely follows is R < S.\n=: Equality cannot survive a path that contains a strict step.\n>: This reverses the order asked in the question.\nRelation cannot be determined: The displayed statements contain a valid connecting proof path.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_RELATION_THROUGH_EQUALITY",
+    "prototypeId": "INE-CP001-PROT-EQUALITY-PROPAGATION",
+    "seed": 2,
+    "difficulty": "HARD",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between C and B, in that order.",
+    "statements": [
+      "Q ≤ B",
+      "P ≥ B",
+      "C = P"
+    ],
+    "options": [
+      ">",
+      "=",
+      "≥",
+      "≤"
+    ],
+    "correctOption": "≥",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS3: Q ≤ B.\nS2: P ≥ B.\nS1: C = P.\nUse S2 to connect C with B.\nEvery step on the consistent path is inclusive, so equality remains possible.\nTherefore, the strongest relation that definitely follows is C ≥ B.\n>: Inclusive steps allow equality, so strictness is not guaranteed.\n=: An inclusive relation also permits the strict case.\n≤: This reverses the order asked in the question.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_RELATION_THROUGH_EQUALITY",
+    "prototypeId": "INE-CP001-PROT-EQUALITY-PROPAGATION",
+    "seed": 3,
+    "difficulty": "HARD",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between P and D, in that order.",
+    "statements": [
+      "Q ≤ D",
+      "S > D",
+      "P = S"
+    ],
+    "options": [
+      "≥",
+      "<",
+      "=",
+      ">"
+    ],
+    "correctOption": ">",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS3: Q ≤ D.\nS2: S > D.\nS1: P = S.\nUse S2 to connect P with D.\nThe consistent path contains a strict step, so the endpoint relation is strict.\nTherefore, the strongest relation that definitely follows is P > D.\n≥: A strict step makes the complete consistent path strict.\n<: This reverses the order asked in the question.\n=: Equality cannot survive a path that contains a strict step.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_RELATION_THROUGH_EQUALITY",
+    "prototypeId": "INE-CP001-PROT-EQUALITY-PROPAGATION",
+    "seed": 4,
+    "difficulty": "MEDIUM",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between A and Q, in that order.",
+    "statements": [
+      "P ≤ A",
+      "Q = S",
+      "S ≥ A"
+    ],
+    "options": [
+      "≤",
+      "Relation cannot be determined",
+      "<",
+      "="
+    ],
+    "correctOption": "≤",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS3: P ≤ A.\nS1: Q = S.\nS2: S ≥ A.\nUse S2 to connect A with Q.\nEvery step on the consistent path is inclusive, so equality remains possible.\nTherefore, the strongest relation that definitely follows is A ≤ Q.\nRelation cannot be determined: The displayed statements contain a valid connecting proof path.\n<: Inclusive steps allow equality, so strictness is not guaranteed.\n=: An inclusive relation also permits the strict case.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_RELATION_OR_INDETERMINATE",
+    "prototypeId": "INE-CP001-PROT-INDETERMINATE-BRANCH",
+    "seed": 0,
+    "difficulty": "HARD",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between S and Q, in that order.",
+    "statements": [
+      "S ≥ P",
+      "A = P",
+      "Q ≥ P"
+    ],
+    "options": [
+      "Relation cannot be determined",
+      "≥",
+      ">",
+      "="
+    ],
+    "correctOption": "Relation cannot be determined",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS2: S ≥ P.\nS3: A = P.\nS1: Q ≥ P.\nThere is no directed comparison path connecting S to Q.\nA valid model has S=0 and Q=1, so S < Q.\nA valid model has S=0 and Q=0, so S = Q.\nA valid model has S=1 and Q=0, so S > Q.\nThe valid models give different relations between S and Q; therefore, the relation cannot be determined.\n≥: A common bound does not create a comparison edge between the queried entities.\n>: Sharing a lower bound does not order the two upper entities.\n=: No fixed relation does not mean the two entities are equal.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_RELATION_OR_INDETERMINATE",
+    "prototypeId": "INE-CP001-PROT-INDETERMINATE-BRANCH",
+    "seed": 1,
+    "difficulty": "MEDIUM",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between D and A, in that order.",
+    "statements": [
+      "D > B",
+      "C = B",
+      "A > B"
+    ],
+    "options": [
+      "<",
+      "Relation cannot be determined",
+      "=",
+      ">"
+    ],
+    "correctOption": "Relation cannot be determined",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS1: D > B.\nS3: C = B.\nS2: A > B.\nThere is no directed comparison path connecting D to A.\nA valid model has D=1 and A=2, so D < A.\nA valid model has D=1 and A=1, so D = A.\nA valid model has D=2 and A=1, so D > A.\nThe valid models give different relations between D and A; therefore, the relation cannot be determined.\n<: Sharing a lower bound does not order the two upper entities.\n=: No fixed relation does not mean the two entities are equal.\n>: Sharing a lower bound does not order the two upper entities.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_RELATION_OR_INDETERMINATE",
+    "prototypeId": "INE-CP001-PROT-INDETERMINATE-BRANCH",
+    "seed": 2,
+    "difficulty": "MEDIUM",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between Q and P, in that order.",
+    "statements": [
+      "S = A",
+      "P ≥ A",
+      "Q ≥ A"
+    ],
+    "options": [
+      "<",
+      "≥",
+      "Relation cannot be determined",
+      ">"
+    ],
+    "correctOption": "Relation cannot be determined",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS3: S = A.\nS1: P ≥ A.\nS2: Q ≥ A.\nThere is no directed comparison path connecting Q to P.\nA valid model has Q=0 and P=1, so Q < P.\nA valid model has Q=0 and P=0, so Q = P.\nA valid model has Q=1 and P=0, so Q > P.\nThe valid models give different relations between Q and P; therefore, the relation cannot be determined.\n<: Sharing a lower bound does not order the two upper entities.\n≥: A common bound does not create a comparison edge between the queried entities.\n>: Sharing a lower bound does not order the two upper entities.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_RELATION_OR_INDETERMINATE",
+    "prototypeId": "INE-CP001-PROT-INDETERMINATE-BRANCH",
+    "seed": 3,
+    "difficulty": "HARD",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between R and B, in that order.",
+    "statements": [
+      "B > C",
+      "P = C",
+      "R > C"
+    ],
+    "options": [
+      "≥",
+      "=",
+      "<",
+      "Relation cannot be determined"
+    ],
+    "correctOption": "Relation cannot be determined",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS2: B > C.\nS3: P = C.\nS1: R > C.\nThere is no directed comparison path connecting R to B.\nA valid model has R=1 and B=2, so R < B.\nA valid model has R=1 and B=1, so R = B.\nA valid model has R=2 and B=1, so R > B.\nThe valid models give different relations between R and B; therefore, the relation cannot be determined.\n≥: A common bound does not create a comparison edge between the queried entities.\n=: No fixed relation does not mean the two entities are equal.\n<: Sharing a lower bound does not order the two upper entities.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "DETERMINE_RELATION_OR_INDETERMINATE",
+    "prototypeId": "INE-CP001-PROT-INDETERMINATE-BRANCH",
+    "seed": 4,
+    "difficulty": "MEDIUM",
+    "stem": "Study the statements and determine the strongest relation that definitely follows between A and P, in that order.",
+    "statements": [
+      "A ≥ D",
+      "P ≥ D",
+      "C = D"
+    ],
+    "options": [
+      "Relation cannot be determined",
+      ">",
+      "<",
+      "="
+    ],
+    "correctOption": "Relation cannot be determined",
+    "explanation": "Follow only consistently directed comparison paths. A strict step makes that path strict, while an all-inclusive path keeps equality possible.\nS1: A ≥ D.\nS2: P ≥ D.\nS3: C = D.\nThere is no directed comparison path connecting A to P.\nA valid model has A=0 and P=1, so A < P.\nA valid model has A=0 and P=0, so A = P.\nA valid model has A=1 and P=0, so A > P.\nThe valid models give different relations between A and P; therefore, the relation cannot be determined.\n>: Sharing a lower bound does not order the two upper entities.\n<: Sharing a lower bound does not order the two upper entities.\n=: No fixed relation does not mean the two entities are equal.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "EVALUATE_SINGLE_CONCLUSION",
+    "prototypeId": "INE-CP001-PROT-EVALUATE-SINGLE-CONCLUSION",
+    "seed": 0,
+    "difficulty": "MEDIUM",
+    "stem": "Classify the given conclusion using only the displayed statements.",
+    "statements": [
+      "A ≥ R",
+      "R > P"
+    ],
+    "conclusion": "A > P",
+    "options": [
+      "Definitely follows",
+      "Possibly true, but not definite",
+      "Impossible",
+      "Statements are contradictory"
+    ],
+    "correctOption": "Definitely follows",
+    "explanation": "A conclusion definitely follows only when it is true in every valid model of the displayed statements. A possible conclusion is not a definite conclusion.\nS1: A ≥ R.\nS2: R > P.\nA > P definitely follows.\nTherefore, the conclusion is classified as: Definitely follows.\nPossibly true, but not definite: This option does not match the independently verified conclusion status.\nImpossible: This option does not match the independently verified conclusion status.\nStatements are contradictory: The displayed statements are consistent and admit valid models.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "EVALUATE_SINGLE_CONCLUSION",
+    "prototypeId": "INE-CP001-PROT-EVALUATE-SINGLE-CONCLUSION",
+    "seed": 1,
+    "difficulty": "MEDIUM",
+    "stem": "Classify the given conclusion using only the displayed statements.",
+    "statements": [
+      "D ≥ S"
+    ],
+    "conclusion": "D > S",
+    "options": [
+      "Definitely follows",
+      "Possibly true, but not definite",
+      "Impossible",
+      "Statements are contradictory"
+    ],
+    "correctOption": "Possibly true, but not definite",
+    "explanation": "A conclusion definitely follows only when it is true in every valid model of the displayed statements. A possible conclusion is not a definite conclusion.\nS1: D ≥ S.\nD > S is possibly true, but does not definitely follow.\nA valid model has D=0 and S=0, so D = S.\nA valid model has D=1 and S=0, so D > S.\nTherefore, the conclusion is classified as: Possibly true, but not definite.\nDefinitely follows: This option does not match the independently verified conclusion status.\nImpossible: This option does not match the independently verified conclusion status.\nStatements are contradictory: The displayed statements are consistent and admit valid models.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "EVALUATE_SINGLE_CONCLUSION",
+    "prototypeId": "INE-CP001-PROT-EVALUATE-SINGLE-CONCLUSION",
+    "seed": 2,
+    "difficulty": "MEDIUM",
+    "stem": "Classify the given conclusion using only the displayed statements.",
+    "statements": [
+      "C > R"
+    ],
+    "conclusion": "C ≤ R",
+    "options": [
+      "Definitely follows",
+      "Possibly true, but not definite",
+      "Impossible",
+      "Statements are contradictory"
+    ],
+    "correctOption": "Impossible",
+    "explanation": "A conclusion definitely follows only when it is true in every valid model of the displayed statements. A possible conclusion is not a definite conclusion.\nS1: C > R.\nC ≤ R is impossible.\nTherefore, the conclusion is classified as: Impossible.\nDefinitely follows: This option does not match the independently verified conclusion status.\nPossibly true, but not definite: This option does not match the independently verified conclusion status.\nStatements are contradictory: The displayed statements are consistent and admit valid models.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "EVALUATE_SINGLE_CONCLUSION",
+    "prototypeId": "INE-CP001-PROT-EVALUATE-SINGLE-CONCLUSION",
+    "seed": 3,
+    "difficulty": "MEDIUM",
+    "stem": "Classify the given conclusion using only the displayed statements.",
+    "statements": [
+      "C ≥ S",
+      "S > D"
+    ],
+    "conclusion": "C > D",
+    "options": [
+      "Possibly true, but not definite",
+      "Impossible",
+      "Statements are contradictory",
+      "Definitely follows"
+    ],
+    "correctOption": "Definitely follows",
+    "explanation": "A conclusion definitely follows only when it is true in every valid model of the displayed statements. A possible conclusion is not a definite conclusion.\nS1: C ≥ S.\nS2: S > D.\nC > D definitely follows.\nTherefore, the conclusion is classified as: Definitely follows.\nPossibly true, but not definite: This option does not match the independently verified conclusion status.\nImpossible: This option does not match the independently verified conclusion status.\nStatements are contradictory: The displayed statements are consistent and admit valid models.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "EVALUATE_SINGLE_CONCLUSION",
+    "prototypeId": "INE-CP001-PROT-EVALUATE-SINGLE-CONCLUSION",
+    "seed": 4,
+    "difficulty": "MEDIUM",
+    "stem": "Classify the given conclusion using only the displayed statements.",
+    "statements": [
+      "R ≥ C"
+    ],
+    "conclusion": "R > C",
+    "options": [
+      "Possibly true, but not definite",
+      "Definitely follows",
+      "Impossible",
+      "Statements are contradictory"
+    ],
+    "correctOption": "Possibly true, but not definite",
+    "explanation": "A conclusion definitely follows only when it is true in every valid model of the displayed statements. A possible conclusion is not a definite conclusion.\nS1: R ≥ C.\nR > C is possibly true, but does not definitely follow.\nA valid model has R=0 and C=0, so R = C.\nA valid model has R=1 and C=0, so R > C.\nTherefore, the conclusion is classified as: Possibly true, but not definite.\nDefinitely follows: This option does not match the independently verified conclusion status.\nImpossible: This option does not match the independently verified conclusion status.\nStatements are contradictory: The displayed statements are consistent and admit valid models.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "SELECT_VALID_CONCLUSION",
+    "prototypeId": "INE-CP001-PROT-SELECT-VALID-CONCLUSION",
+    "seed": 0,
+    "difficulty": "HARD",
+    "stem": "Which conclusion definitely follows from the displayed statements?",
+    "statements": [
+      "Q > B",
+      "A ≥ Q"
+    ],
+    "options": [
+      "A > B",
+      "B > A",
+      "A = Q",
+      "Q ≤ B"
+    ],
+    "correctOption": "A > B",
+    "explanation": "A conclusion definitely follows only when it is true in every valid model of the displayed statements. A possible conclusion is not a definite conclusion.\nS2: Q > B.\nS1: A ≥ Q.\nA > B definitely follows.\nB > A is impossible.\nA = Q is possibly true, but does not definitely follow.\nQ ≤ B is impossible.\nTherefore, option 1 is the only conclusion that matches the question's validity condition.\nB > A: This option does not match the independently verified conclusion status.\nA = Q: This conclusion can be true, but it is not forced by every valid model.\nQ ≤ B: This option does not match the independently verified conclusion status.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "SELECT_VALID_CONCLUSION",
+    "prototypeId": "INE-CP001-PROT-SELECT-VALID-CONCLUSION",
+    "seed": 1,
+    "difficulty": "HARD",
+    "stem": "Which conclusion definitely follows from the displayed statements?",
+    "statements": [
+      "A ≥ C",
+      "C > R"
+    ],
+    "options": [
+      "R > A",
+      "A > R",
+      "A = C",
+      "C ≤ R"
+    ],
+    "correctOption": "A > R",
+    "explanation": "A conclusion definitely follows only when it is true in every valid model of the displayed statements. A possible conclusion is not a definite conclusion.\nS1: A ≥ C.\nS2: C > R.\nA > R definitely follows.\nR > A is impossible.\nA = C is possibly true, but does not definitely follow.\nC ≤ R is impossible.\nTherefore, option 2 is the only conclusion that matches the question's validity condition.\nR > A: This option does not match the independently verified conclusion status.\nA = C: This conclusion can be true, but it is not forced by every valid model.\nC ≤ R: This option does not match the independently verified conclusion status.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "SELECT_VALID_CONCLUSION",
+    "prototypeId": "INE-CP001-PROT-SELECT-VALID-CONCLUSION",
+    "seed": 2,
+    "difficulty": "HARD",
+    "stem": "Which conclusion definitely follows from the displayed statements?",
+    "statements": [
+      "R > Q",
+      "C ≥ R"
+    ],
+    "options": [
+      "Q > C",
+      "C = R",
+      "C > Q",
+      "R ≤ Q"
+    ],
+    "correctOption": "C > Q",
+    "explanation": "A conclusion definitely follows only when it is true in every valid model of the displayed statements. A possible conclusion is not a definite conclusion.\nS2: R > Q.\nS1: C ≥ R.\nC > Q definitely follows.\nQ > C is impossible.\nC = R is possibly true, but does not definitely follow.\nR ≤ Q is impossible.\nTherefore, option 3 is the only conclusion that matches the question's validity condition.\nQ > C: This option does not match the independently verified conclusion status.\nC = R: This conclusion can be true, but it is not forced by every valid model.\nR ≤ Q: This option does not match the independently verified conclusion status.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "SELECT_VALID_CONCLUSION",
+    "prototypeId": "INE-CP001-PROT-SELECT-VALID-CONCLUSION",
+    "seed": 3,
+    "difficulty": "HARD",
+    "stem": "Which conclusion definitely follows from the displayed statements?",
+    "statements": [
+      "B > P",
+      "S ≥ B"
+    ],
+    "options": [
+      "P > S",
+      "S = B",
+      "B ≤ P",
+      "S > P"
+    ],
+    "correctOption": "S > P",
+    "explanation": "A conclusion definitely follows only when it is true in every valid model of the displayed statements. A possible conclusion is not a definite conclusion.\nS2: B > P.\nS1: S ≥ B.\nS > P definitely follows.\nP > S is impossible.\nS = B is possibly true, but does not definitely follow.\nB ≤ P is impossible.\nTherefore, option 4 is the only conclusion that matches the question's validity condition.\nP > S: This option does not match the independently verified conclusion status.\nS = B: This conclusion can be true, but it is not forced by every valid model.\nB ≤ P: This option does not match the independently verified conclusion status.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "SELECT_VALID_CONCLUSION",
+    "prototypeId": "INE-CP001-PROT-SELECT-VALID-CONCLUSION",
+    "seed": 4,
+    "difficulty": "HARD",
+    "stem": "Which conclusion definitely follows from the displayed statements?",
+    "statements": [
+      "B > D",
+      "R ≥ B"
+    ],
+    "options": [
+      "R > D",
+      "D > R",
+      "R = B",
+      "B ≤ D"
+    ],
+    "correctOption": "R > D",
+    "explanation": "A conclusion definitely follows only when it is true in every valid model of the displayed statements. A possible conclusion is not a definite conclusion.\nS2: B > D.\nS1: R ≥ B.\nR > D definitely follows.\nD > R is impossible.\nR = B is possibly true, but does not definitely follow.\nB ≤ D is impossible.\nTherefore, option 1 is the only conclusion that matches the question's validity condition.\nD > R: This option does not match the independently verified conclusion status.\nR = B: This conclusion can be true, but it is not forced by every valid model.\nB ≤ D: This option does not match the independently verified conclusion status.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "SELECT_INVALID_CONCLUSION",
+    "prototypeId": "INE-CP001-PROT-SELECT-INVALID-CONCLUSION",
+    "seed": 0,
+    "difficulty": "HARD",
+    "stem": "Which conclusion does not follow from the displayed statements?",
+    "statements": [
+      "S > C",
+      "D > S",
+      "D = P"
+    ],
+    "options": [
+      "S ≥ D",
+      "D > C",
+      "C < D",
+      "P > S"
+    ],
+    "correctOption": "S ≥ D",
+    "explanation": "A conclusion definitely follows only when it is true in every valid model of the displayed statements. A possible conclusion is not a definite conclusion.\nS2: S > C.\nS1: D > S.\nS3: D = P.\nD > C definitely follows.\nC < D definitely follows.\nP > S definitely follows.\nS ≥ D is impossible.\nTherefore, option 1 is the only conclusion that matches the question's validity condition.\nD > C: This option does not match the independently verified conclusion status.\nC < D: This option does not match the independently verified conclusion status.\nP > S: This option does not match the independently verified conclusion status.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "SELECT_INVALID_CONCLUSION",
+    "prototypeId": "INE-CP001-PROT-SELECT-INVALID-CONCLUSION",
+    "seed": 1,
+    "difficulty": "HARD",
+    "stem": "Which conclusion does not follow from the displayed statements?",
+    "statements": [
+      "S > Q",
+      "A = P",
+      "A > S"
+    ],
+    "options": [
+      "A > Q",
+      "S ≥ A",
+      "Q < A",
+      "P > S"
+    ],
+    "correctOption": "S ≥ A",
+    "explanation": "A conclusion definitely follows only when it is true in every valid model of the displayed statements. A possible conclusion is not a definite conclusion.\nS2: S > Q.\nS3: A = P.\nS1: A > S.\nA > Q definitely follows.\nQ < A definitely follows.\nP > S definitely follows.\nS ≥ A is impossible.\nTherefore, option 2 is the only conclusion that matches the question's validity condition.\nA > Q: This option does not match the independently verified conclusion status.\nQ < A: This option does not match the independently verified conclusion status.\nP > S: This option does not match the independently verified conclusion status.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "SELECT_INVALID_CONCLUSION",
+    "prototypeId": "INE-CP001-PROT-SELECT-INVALID-CONCLUSION",
+    "seed": 2,
+    "difficulty": "HARD",
+    "stem": "Which conclusion does not follow from the displayed statements?",
+    "statements": [
+      "R > B",
+      "B > S",
+      "R = A"
+    ],
+    "options": [
+      "R > S",
+      "S < R",
+      "B ≥ R",
+      "A > B"
+    ],
+    "correctOption": "B ≥ R",
+    "explanation": "A conclusion definitely follows only when it is true in every valid model of the displayed statements. A possible conclusion is not a definite conclusion.\nS1: R > B.\nS2: B > S.\nS3: R = A.\nR > S definitely follows.\nS < R definitely follows.\nA > B definitely follows.\nB ≥ R is impossible.\nTherefore, option 3 is the only conclusion that matches the question's validity condition.\nR > S: This option does not match the independently verified conclusion status.\nS < R: This option does not match the independently verified conclusion status.\nA > B: This option does not match the independently verified conclusion status.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "SELECT_INVALID_CONCLUSION",
+    "prototypeId": "INE-CP001-PROT-SELECT-INVALID-CONCLUSION",
+    "seed": 3,
+    "difficulty": "HARD",
+    "stem": "Which conclusion does not follow from the displayed statements?",
+    "statements": [
+      "D > S",
+      "Q = C",
+      "Q > D"
+    ],
+    "options": [
+      "Q > S",
+      "S < Q",
+      "C > D",
+      "D ≥ Q"
+    ],
+    "correctOption": "D ≥ Q",
+    "explanation": "A conclusion definitely follows only when it is true in every valid model of the displayed statements. A possible conclusion is not a definite conclusion.\nS2: D > S.\nS3: Q = C.\nS1: Q > D.\nQ > S definitely follows.\nS < Q definitely follows.\nC > D definitely follows.\nD ≥ Q is impossible.\nTherefore, option 4 is the only conclusion that matches the question's validity condition.\nQ > S: This option does not match the independently verified conclusion status.\nS < Q: This option does not match the independently verified conclusion status.\nC > D: This option does not match the independently verified conclusion status.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-001",
+    "authorityId": "SELECT_INVALID_CONCLUSION",
+    "prototypeId": "INE-CP001-PROT-SELECT-INVALID-CONCLUSION",
+    "seed": 4,
+    "difficulty": "HARD",
+    "stem": "Which conclusion does not follow from the displayed statements?",
+    "statements": [
+      "R > P",
+      "D = A",
+      "D > R"
+    ],
+    "options": [
+      "R ≥ D",
+      "D > P",
+      "P < D",
+      "A > R"
+    ],
+    "correctOption": "R ≥ D",
+    "explanation": "A conclusion definitely follows only when it is true in every valid model of the displayed statements. A possible conclusion is not a definite conclusion.\nS2: R > P.\nS3: D = A.\nS1: D > R.\nD > P definitely follows.\nP < D definitely follows.\nA > R definitely follows.\nR ≥ D is impossible.\nTherefore, option 1 is the only conclusion that matches the question's validity condition.\nD > P: This option does not match the independently verified conclusion status.\nP < D: This option does not match the independently verified conclusion status.\nA > R: This option does not match the independently verified conclusion status.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  }
+]
