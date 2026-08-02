@@ -198,7 +198,7 @@ function correctReason(input: TsdCp001SolveInput, answerText: string, variant: n
           )
         : variants(
             `✅ Correct: 60 minutes divided by the minutes taken per kilometre gives ${answerText}.`,
-            `✅ Correct: the runner completes ${answerText} kilometres in one hour.`,
+            `✅ Correct: the hourly speed corresponding to the stated pace is ${answerText}.`,
             `✅ Correct: applying the reciprocal pace relation gives ${answerText}.`,
           );
     case "paceFromSpeed":
