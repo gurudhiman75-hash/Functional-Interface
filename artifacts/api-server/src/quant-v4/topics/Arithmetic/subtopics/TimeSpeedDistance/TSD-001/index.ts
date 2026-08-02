@@ -6,3 +6,4 @@ export * from "./cp001/discovery-registry";
 export * from "./cp001/canonical-solver";
 export * from "./cp001/independent-verifier";
 export * from "./cp001/runtime";
+export * from "./cp001/freeze-registry";
