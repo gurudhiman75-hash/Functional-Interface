@@ -40,6 +40,12 @@ jobs:
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-002/cp002-consolidation.test.ts
           rnk-cp002-consolidation-output
 
+      - name: Prove authority English review runtime
+        run: >-
+          npx --yes tsx
+          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-002/cp002-authority-runtime.test.ts
+          rnk-cp002-authority-review-output
+
       - name: Upload RNK-CP-002 discovery evidence
         uses: actions/upload-artifact@v4
         with:
@@ -48,4 +54,5 @@ jobs:
             rnk-cp002-foundation-output
             rnk-cp002-source-wave-output
             rnk-cp002-consolidation-output
+            rnk-cp002-authority-review-output
           retention-days: 14
