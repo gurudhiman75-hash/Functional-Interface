@@ -57,6 +57,21 @@ jobs:
           grep -q 'PASS_SER_CP007_WAVE_C_SOURCE_SATURATION_AND_ANSWER_SEMANTICS' \
             "$EVIDENCE/audit.json"
 
+      - name: Run refined replacement-option audit
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-C
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-wave-c-review
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/ser-cp-007-wave-c-refined-options.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/ser-cp-007-wave-c-refined-options.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-007-wave-c-refined-options.test.mjs") \
+            | tee "$EVIDENCE/refined-options-audit.json"
+          grep -q 'PASS_SER_CP007_WAVE_C_REFINED_REPLACEMENT_OPTIONS' \
+            "$EVIDENCE/refined-options-audit.json"
+
       - name: Generate Wave C English review
         run: |
           set -euo pipefail
@@ -64,7 +79,7 @@ jobs:
           OUT=dist/reasoning-v1/ser-001
           EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-wave-c-review
           pnpm --dir artifacts/api-server exec esbuild \
-            "$ROOT/export-review.ts" \
+            "$ROOT/export-review-refined.ts" \
             --bundle --platform=node --format=esm \
             --outfile="$OUT/export-cp007-wave-c-review.mjs"
           (cd artifacts/api-server && node "$OUT/export-cp007-wave-c-review.mjs") \
