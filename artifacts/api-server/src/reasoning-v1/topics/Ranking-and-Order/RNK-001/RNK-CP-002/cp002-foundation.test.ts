@@ -14,6 +14,7 @@ let deterministicReplayChecks = 0;
 let independentSolverChecks = 0;
 let lifecycleChecks = 0;
 let invariantChecks = 0;
+let optionRealismChecks = 0;
 
 for (const prototypeId of RNK_CP002_PROTOTYPE_IDS) {
   const contexts = new Set<string>();
@@ -87,6 +88,17 @@ for (const prototypeId of RNK_CP002_PROTOTYPE_IDS) {
     ) endpointCases += 1;
 
     const evidence = question.displayedEvidence;
+    if (
+      (evidence.kind === 'SAME_END_TWO_RANKS' && evidence.requested === 'POSITION_GAP') ||
+      evidence.kind === 'TOTAL_FROM_MIXED_END_RANKS_KNOWN_ORDER'
+    ) {
+      assert.ok(
+        question.options.every((option) => Math.abs(option.value - question.answer) <= 2),
+        `${prototypeId}:${seed} contains an exam-unrealistic distant distractor`,
+      );
+      optionRealismChecks += 1;
+    }
+
     if ('side' in evidence) sides.add(evidence.side);
     if ('direction' in evidence) directions.add(evidence.direction);
     if ('requestedExtreme' in evidence) extremes.add(evidence.requestedExtreme);
@@ -146,6 +158,7 @@ const summary = {
   independentSolverChecks,
   lifecycleChecks,
   invariantChecks,
+  optionRealismChecks,
   audits,
   conclusion: 'PASS_EXECUTABLE_TWO_PERSON_DISCOVERY_FOUNDATION',
 };
