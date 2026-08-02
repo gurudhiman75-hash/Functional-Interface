@@ -1,7 +1,7 @@
 # TSD-CP-001 Provisional Runtime — Implementation Status
 
 **Checkpoint:** `TSD-CP-001 — Uniform Motion, Units and Proportionality`  
-**Maturity:** `PROVISIONAL_REPRESENTATION_SATURATED_ENGLISH_REVIEW_READY`  
+**Maturity:** `PROVISIONAL_ANSWER_UNIT_EDGE_AUDITED_ENGLISH_REVIEW_READY`  
 **Permanent QLs:** 0  
 **Frozen solve modes:** 0  
 **Publication eligibility:** disabled
@@ -38,7 +38,12 @@ The source and previous-exam-pattern pass confirmed and implemented:
 - same-speed distance/time proportionality;
 - same-distance speed/time inverse proportionality;
 - equal-time, equal-distance and component-ratio comparisons;
-- pace and deadline forms.
+- pace and deadline forms;
+- seconds/km pace converted to m/s;
+- m/s speed converted to seconds/km pace;
+- pace-derived distance requested in metres;
+- millimetre-scale distance conversion;
+- day-scale time conversion.
 
 The three proportionality modes were restored after replacing their earlier redundant-given generators with genuine exam forms:
 
@@ -147,6 +152,36 @@ Its distractors diagnose:
 - multiplying the km/h number by `60` as though it were already m/s;
 - copying one numeric value into every unit without conversion.
 
+## Answer-unit and edge audit
+
+Natural answer-unit edges are implemented as representation states inside existing authorities. No new mathematical authority was created.
+
+The 69-row review now deterministically includes:
+
+- `speedFromMixedUnits`: one km/h row, one m/s row and one m/min row;
+- `speedFromPace`: two km/h rows and one seconds/km-to-m/s row;
+- `paceFromSpeed`: two minutes/km rows and one m/s-to-seconds/km row;
+- `distanceFromPaceAndTime`: two kilometre rows and one metre row;
+- `convertDistanceUnit`: kilometre, metre-centimetre and millimetre scales;
+- `convertTimeUnit`: hour-minute, second-hour and minute-day scales.
+
+The unit-specific teaching routes are explicit:
+
+- `m/s = 1000 metres ÷ seconds per kilometre`;
+- `seconds/km = 1000 metres ÷ speed in m/s`;
+- pace-derived kilometres are multiplied by `1000` when metres are requested.
+
+A dedicated pace option package prevents minute-based or kilometre-based generic traps from leaking into seconds/km, m/s or metre-output questions. The final option-refinement layer preserves these unit-aware misconceptions.
+
+Canonical direct-formula answer surfaces remain deliberately stable:
+
+- direct distance → metres;
+- direct speed → m/s;
+- direct time → seconds;
+- clock deadline speed → km/h.
+
+This avoids duplicating the dedicated conversion authorities with artificial unit variants.
+
 ## Runtime and editorial quality
 
 Implemented and guarded:
@@ -191,6 +226,11 @@ The workflow proves:
 - 200 equivalent-set and 400 scalar candidates across the dedicated 600-seed proof;
 - the exact `25 m/s = 90 km/h = 1500 m/min` equality;
 - a precise learner diagnosis for the km/h-number-times-60 trap;
+- exact answer-unit quotas across six audited mode families;
+- unit-aware pace working and option diagnoses;
+- explicit omitted km-to-m conversion trap and explanation;
+- day-scale and millimetre-scale review edges;
+- zero duplicated unit nouns such as `km/h kilometres`;
 - zero awkward fractional deadline options;
 - compound duration, fraction, mixed-unit and proportionality coverage;
 - zero duplicate-option, answer-key or publication-lock failures.
@@ -209,7 +249,6 @@ The HTML renders the four learner tiers, MathJax quantities and complete option 
 
 ## Remaining before permanent IDs
 
-1. audit direct answers requested in non-canonical units beyond current state coverage;
-2. complete the final merge/split review of the 23 learner modes;
-3. complete manual English approval;
-4. assign permanent IDs only after explicit approval.
+1. complete the final merge/split review of the 23 learner modes;
+2. complete manual English approval;
+3. assign permanent IDs only after explicit approval.
