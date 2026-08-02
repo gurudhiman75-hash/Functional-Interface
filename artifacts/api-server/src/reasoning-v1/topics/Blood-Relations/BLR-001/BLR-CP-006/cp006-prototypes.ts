@@ -245,6 +245,7 @@ export const BLR_CP006_PROTOTYPES: readonly PrototypeSpec[] = [
       ];
       return {
         statements,
+        expressionLines: [chainLine(statements.slice(0, 2)), expressionLine(statements[2]!)],
         subjectId: "D",
         referenceId: "B",
         stem: "How is D related to B?",
