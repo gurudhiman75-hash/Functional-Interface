@@ -60,12 +60,14 @@ jobs:
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-editorial-remediation-wave02.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-presentation-sanitizer.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-explanation-naturalizer.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp001-editorial-review-remediation.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-localized-runtime.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-chapter-parity.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-stem-editorial.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-stem-editorial-wave02.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-fraction-presentation.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-explanation-naturalness.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp001-editorial-review.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-chapter-review-export.ts
       - name: Bundle complete parity proof
         run: >-
@@ -122,6 +124,17 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/tmw-001-multilingual-explanation-naturalness.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-multilingual-explanation-naturalness-proof.log
+      - name: Bundle CP-001 editorial-review proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp001-editorial-review.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp001-editorial-review.test.mjs
+      - name: Run CP-001 editorial-review proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp001-editorial-review.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp001-editorial-review-proof.log
       - name: Bundle complete review export
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -144,6 +157,7 @@ jobs:
             artifacts/api-server/dist/quant-v4/tmw-001-multilingual-stem-editorial-wave02-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-multilingual-fraction-presentation-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-multilingual-explanation-naturalness-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-cp001-editorial-review-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-multilingual-chapter-review-export.log
             artifacts/api-server/dist/quant-v4/tmw-001-multilingual-chapter-review.json
           if-no-files-found: error
