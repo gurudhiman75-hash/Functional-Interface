@@ -146,6 +146,13 @@ export type MalCp003DiscoveryStatus =
   | "EXECUTABLE_DISCOVERY"
   | "SOURCE_RECOVERED_BOUNDARY_PENDING_EXECUTION";
 
+export type MalCp003SourceClass =
+  | "LEGACY_V2_DIRECT_EXECUTABLE_RECOVERY"
+  | "LEGACY_FAMILY_LABEL_ONLY"
+  | "INVERSE_CLOSURE"
+  | "REPRESENTATION_CLOSURE"
+  | "BOUNDARY_CONSTRUCTION";
+
 export interface MalCp003DiscoveryRegistryEntry {
   prototypeId: MalCp003DiscoveryPrototypeId;
   cpId: typeof MAL_CP_003_ID;
@@ -164,11 +171,7 @@ export interface MalCp003DiscoveryRegistryEntry {
     | "CONSERVATION_WITH_CONCENTRATION_SEMANTICS";
   baseDifficulty: MalDifficulty;
   discoveryStatus: MalCp003DiscoveryStatus;
-  sourceClasses: readonly (
-    | "LEGACY_V2_RECOVERY"
-    | "LEGACY_FAMILY_INVERSE_CLOSURE"
-    | "BOUNDARY_CONSTRUCTION"
-  )[];
+  sourceClasses: readonly MalCp003SourceClass[];
   currentOwnerVerdict: "MAL-CP-003" | "MAL-CP-003_CP004_BOUNDARY";
   permanentQlId: null;
   active: false;
