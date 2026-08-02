@@ -1,4 +1,5 @@
 import { runNumCp005PermanentPipeline } from "../permanent/runtime";
+import { applyNumCp005FinalLearnerTextCleanup } from "./final-learner-text-cleanup";
 import { hardenNumCp005LocalizedQuestion } from "./linguistic-hardening";
 import { localizeNumCp005Question } from "./localizer";
 import type {
@@ -46,5 +47,7 @@ export function generateNumCp005LocalizedQuestion(
     localized = localizeNumCp005Question(english, input.locale);
   }
 
-  return hardenNumCp005LocalizedQuestion(english, localized);
+  return applyNumCp005FinalLearnerTextCleanup(
+    hardenNumCp005LocalizedQuestion(english, localized),
+  );
 }
