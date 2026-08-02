@@ -81,11 +81,19 @@ function decisiveCheck(input: TsdCp001SolveInput): string {
     case "speedByProportion":
       return "the reconstructed journey distance and its division by the new time";
     case "speedFromPace":
-      return "the time taken for one kilometre and its conversion into speed";
+      return input.outputUnit === "MPS"
+        ? "1000 metres ÷ the seconds taken for one kilometre"
+        : "60 minutes ÷ the minutes taken for one kilometre";
     case "paceFromSpeed":
-      return "60 ÷ speed, which gives the minutes needed for one kilometre";
-    case "distanceFromPaceAndTime":
-      return "total time ÷ minutes per kilometre";
+      return input.outputUnit === "SECOND_PER_KM"
+        ? "1000 metres ÷ the metres covered each second"
+        : "60 minutes ÷ the speed in km/h";
+    case "distanceFromPaceAndTime": {
+      const timeUnit = input.paceUnit === "SECOND_PER_KM" ? "seconds" : "minutes";
+      return input.outputUnit === "M"
+        ? `total ${timeUnit} ÷ ${timeUnit} per kilometre, followed by kilometres × 1000`
+        : `total ${timeUnit} ÷ ${timeUnit} per kilometre`;
+    }
     case "requiredUniformSpeedForDeadline":
       return "the exact available time and distance ÷ available hours";
     default:
@@ -182,13 +190,41 @@ function correctReason(input: TsdCp001SolveInput, answerText: string, variant: n
         `✅ Correct: the numerator and denominator units combine to produce ${answerText}.`,
       );
     case "speedFromPace":
+      return input.outputUnit === "MPS"
+        ? variants(
+            `✅ Correct: 1000 metres divided by the stated seconds per kilometre gives ${answerText}.`,
+            `✅ Correct: one kilometre is 1000 metres, and distance ÷ time gives ${answerText}.`,
+            `✅ Correct: converting the one-kilometre pace directly into metres per second gives ${answerText}.`,
+          )
+        : variants(
+            `✅ Correct: 60 minutes divided by the minutes taken per kilometre gives ${answerText}.`,
+            `✅ Correct: the runner completes ${answerText} kilometres in one hour.`,
+            `✅ Correct: applying the reciprocal pace relation gives ${answerText}.`,
+          );
     case "paceFromSpeed":
+      return input.outputUnit === "SECOND_PER_KM"
+        ? variants(
+            `✅ Correct: 1000 metres divided by the metres covered each second gives ${answerText}.`,
+            `✅ Correct: the time needed to cover one kilometre at the stated m/s speed is ${answerText}.`,
+            `✅ Correct: distance ÷ speed gives a one-kilometre pace of ${answerText}.`,
+          )
+        : variants(
+            `✅ Correct: 60 minutes divided by the speed in km/h gives ${answerText}.`,
+            `✅ Correct: the time needed for one kilometre at the stated hourly speed is ${answerText}.`,
+            `✅ Correct: applying the inverse speed–pace relation gives ${answerText}.`,
+          );
     case "distanceFromPaceAndTime":
-      return variants(
-        `✅ Correct: using the one-kilometre meaning of pace gives ${answerText}.`,
-        `✅ Correct: the pace–speed relationship is applied in the correct direction, giving ${answerText}.`,
-        `✅ Correct: scaling the time taken for one kilometre gives ${answerText}.`,
-      );
+      return input.outputUnit === "M"
+        ? variants(
+            `✅ Correct: total time ÷ pace gives kilometres, and multiplying by 1000 gives ${answerText}.`,
+            `✅ Correct: the journey covers the calculated kilometre amount, which converts to ${answerText}.`,
+            `✅ Correct: after finding distance in kilometres, the final km-to-m conversion gives ${answerText}.`,
+          )
+        : variants(
+            `✅ Correct: dividing total time by the time needed for one kilometre gives ${answerText}.`,
+            `✅ Correct: the total duration contains exactly ${answerText} at the stated pace.`,
+            `✅ Correct: total time ÷ pace gives a distance of ${answerText}.`,
+          );
     default:
       return variants(
         `✅ Correct: substituting the stated values into the governing relation gives ${answerText}.`,
@@ -196,6 +232,52 @@ function correctReason(input: TsdCp001SolveInput, answerText: string, variant: n
         `✅ Correct: checking the result against the original data confirms ${answerText}.`,
       );
   }
+}
+
+function paceOptionReason(
+  input: Extract<TsdCp001SolveInput, { solveMode: "speedFromPace" | "paceFromSpeed" | "distanceFromPaceAndTime" }>,
+  option: TsdCp001OptionAnalysis,
+): string | null {
+  if (option.isCorrect) return null;
+
+  if (input.solveMode === "speedFromPace") {
+    if (option.misconceptionId === "FAIL_TO_INVERT_PACE") {
+      return `⚠️ ${option.text}: this copies the pace number as a speed. Pace is time per kilometre, so distance must be divided by time.`;
+    }
+    if (input.outputUnit === "MPS" && option.misconceptionId === "USE_WRONG_CONVERSION_FACTOR") {
+      return `⚠️ ${option.text}: this uses 60 where the distance should be 1000 metres. For m/s, calculate 1000 ÷ seconds per kilometre.`;
+    }
+    if (input.outputUnit === "MPS" && option.misconceptionId === "TREAT_SECONDS_AS_MINUTES") {
+      return `⚠️ ${option.text}: this treats the given seconds as though they were minutes. The pace is already in seconds per kilometre.`;
+    }
+  }
+
+  if (input.solveMode === "paceFromSpeed") {
+    if (option.misconceptionId === "FAIL_TO_INVERT_PACE") {
+      return `⚠️ ${option.text}: this copies the speed number as the time for one kilometre. Pace must be found by dividing the one-kilometre distance by speed.`;
+    }
+    if (option.misconceptionId === "MULTIPLY_INSTEAD_OF_DIVIDE") {
+      const distance = input.outputUnit === "SECOND_PER_KM" ? "1000 metres" : "60 minutes";
+      return `⚠️ ${option.text}: this multiplies ${distance} by the speed, but the time for one kilometre is found by division.`;
+    }
+    if (input.outputUnit === "SECOND_PER_KM" && option.misconceptionId === "USE_WRONG_CONVERSION_FACTOR") {
+      return `⚠️ ${option.text}: this uses 60 instead of the 1000 metres contained in one kilometre.`;
+    }
+  }
+
+  if (input.solveMode === "distanceFromPaceAndTime") {
+    if (input.outputUnit === "M" && option.misconceptionId === "OMIT_UNIT_CONVERSION") {
+      return `⚠️ ${option.text}: this finds the distance in kilometres but writes the same number as metres. Multiply the kilometre result by 1000.`;
+    }
+    if (option.misconceptionId === "MULTIPLY_PACE_AND_TIME") {
+      return `⚠️ ${option.text}: this multiplies total time by time per kilometre. The number of kilometres is total time ÷ time per kilometre.`;
+    }
+    if (option.misconceptionId === "REVERSE_DIVISION") {
+      return `⚠️ ${option.text}: this divides the one-kilometre time by the total time, reversing the required calculation.`;
+    }
+  }
+
+  return null;
 }
 
 function humanOptionReason(
@@ -222,6 +304,15 @@ function humanOptionReason(
     && /m\/min/.test(option.text)
   ) {
     return `⚠️ ${option.text}: this multiplies the km/h number by 60 as though it were already m/s. Convert to m/s first, then multiply by 60.`;
+  }
+
+  if (
+    input.solveMode === "speedFromPace"
+    || input.solveMode === "paceFromSpeed"
+    || input.solveMode === "distanceFromPaceAndTime"
+  ) {
+    const paceReason = paceOptionReason(input, option);
+    if (paceReason) return paceReason;
   }
 
   const existing = naturalize(option.reason);
