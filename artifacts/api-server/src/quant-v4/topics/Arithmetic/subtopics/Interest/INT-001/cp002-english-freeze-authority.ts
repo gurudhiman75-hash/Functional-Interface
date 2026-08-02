@@ -8,7 +8,7 @@ import {
 
 export const INT_CP002_ENGLISH_FREEZE_ID = "INT-CP-002-EN-v1-frozen" as const;
 
-export const INT_CP002_ENGLISH_FREEZE_APPROVAL = {
+export const INT_CP002_ENGLISH_FREEZE_APPROVAL = Object.freeze({
   approvalAuthority: "EXPLICIT_USER_EDITORIAL_SIGN_OFF" as const,
   approvalDate: "2026-08-02" as const,
   approvalCommentId: 5158690713 as const,
@@ -33,7 +33,7 @@ export const INT_CP002_ENGLISH_FREEZE_APPROVAL = {
   questionBankStatus: "NOT_STORED" as const,
   testEligibility: "INELIGIBLE" as const,
   publiclyPublishable: false as const,
-} as const;
+});
 
 export type IntCp002EnglishFreezeId = typeof INT_CP002_ENGLISH_FREEZE_ID;
 
