@@ -17,6 +17,17 @@ import {
   normaliseTeacherExplanation,
 } from "./number-system-v3-presentation";
 
+const auditStartedAt = Date.now();
+
+function stage(name: string, details: Record<string, unknown> = {}) {
+  console.log(JSON.stringify({
+    audit: "NUM-001 English Question Studio release",
+    stage: name,
+    elapsedMs: Date.now() - auditStartedAt,
+    ...details,
+  }));
+}
+
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
@@ -26,6 +37,14 @@ function wholeProseSentenceInMath(value: unknown): boolean {
   if (!/^\$[^$]+\$$/u.test(text)) return false;
   const body = text.slice(1, -1).replace(/\\[A-Za-z]+/gu, "");
   return /[A-Za-z]{2,}/u.test(body) && /\s/u.test(body);
+}
+
+function jsonStringify(value: unknown): string {
+  return JSON.stringify(
+    value,
+    (_key, item) => typeof item === "bigint" ? item.toString() : item,
+    2,
+  );
 }
 
 function releaseCard(card: any) {
@@ -51,6 +70,7 @@ function releaseCard(card: any) {
   });
 }
 
+stage("editorial-corpus:start");
 const releasedEditorialCards = Object.freeze(
   NUMBER_SYSTEM_GENERATOR_V3_CARDS.map(releaseCard),
 );
@@ -90,7 +110,12 @@ for (const card of releasedEditorialCards) {
   assert(card.options[card.correctAnswer.label.charCodeAt(0) - 65] === card.correctAnswer.value,
     `${card.qlId}: editorial answer differs from the safe option array`);
 }
+stage("editorial-corpus:complete", {
+  editorialCardCount: releasedEditorialCards.length,
+  permanentQlCount: editorialQlIds.size,
+});
 
+stage("active-registry:start");
 const cp003QlIds = [...getNum001QuestionStudioQlIds("NUM-CP-003")];
 const cp004QlIds = [...getNum001QuestionStudioQlIds("NUM-CP-004")];
 const activeQlIds = [...cp003QlIds, ...cp004QlIds];
@@ -101,19 +126,31 @@ assert(activeQlIds.length === 45 && new Set(activeQlIds).size === 45,
 for (const qlId of activeQlIds) {
   assert(editorialQlIds.has(qlId), `${qlId}: active QL lacks approved editorial evidence`);
 }
+stage("active-registry:complete", {
+  cp003QlCount: cp003QlIds.length,
+  cp004QlCount: cp004QlIds.length,
+});
 
+// The complete CP-specific workflows already prove every permanent QL over large
+// deterministic seed sweeps. This release audit exercises only the routing and
+// lifecycle boundary, so it deliberately uses bounded representative families
+// rather than the expensive nearest-prime optimisation edge family.
 const representativeRequests = [
   { cpId: "NUM-CP-003", qlId: "NUM-QL-001" },
   { cpId: "NUM-CP-003", qlId: "NUM-QL-017" },
   { cpId: "NUM-CP-004", qlId: "NUM-QL-018" },
-  { cpId: "NUM-CP-004", qlId: "NUM-QL-045" },
+  { cpId: "NUM-CP-004", qlId: "NUM-QL-019" },
 ];
-const runtimeSamples = representativeRequests.map(({ cpId, qlId }) =>
-  runNum001EnglishQuestionStudioRelease(cpId, {
+
+stage("runtime-samples:start", { count: representativeRequests.length });
+const runtimeSamples = representativeRequests.map(({ cpId, qlId }) => {
+  stage("runtime-sample:generate", { cpId, qlId });
+  return runNum001EnglishQuestionStudioRelease(cpId, {
     questionLanguageId: qlId,
     seed: `num-001-english-release-proof:${qlId}`,
     language: "en",
-  }));
+  });
+});
 
 for (const question of runtimeSamples) {
   assert(activeQlIds.includes(question.questionLanguageId),
@@ -140,7 +177,9 @@ for (const question of runtimeSamples) {
   assert(question.options.every((option) => !wholeProseSentenceInMath(option)),
     `${question.questionLanguageId}: runtime prose option is wholly inside MathJax`);
 }
+stage("runtime-samples:complete", { count: runtimeSamples.length });
 
+stage("capability:start");
 const packages = listQuantV4Packages();
 const capability = packages.find((entry: any) => entry.packageId === "NUM-001");
 assert(capability, "NUM-001 is missing from Question Studio capabilities");
@@ -157,7 +196,9 @@ assert(capability.testEligibility === "INELIGIBLE",
   "NUM-001 capability opened test eligibility");
 assert(capability.publiclyPublishable === false,
   "NUM-001 capability opened public publication");
+stage("capability:complete");
 
+stage("central-routing:cp003:start");
 const cp003Batch = await generateQuestion({
   packageId: "NUM-001",
   canonicalProblemId: "NUM-CP-003",
@@ -166,14 +207,18 @@ const cp003Batch = await generateQuestion({
   seed: "num-001-release-central-cp003",
   count: 2,
 });
+stage("central-routing:cp003:complete", { count: cp003Batch.questions.length });
+
+stage("central-routing:cp004:start");
 const cp004Batch = await generateQuestion({
   packageId: "NUM-001",
   canonicalProblemId: "NUM-CP-004",
-  questionLanguageId: "NUM-QL-045",
+  questionLanguageId: "NUM-QL-018",
   language: "en",
   seed: "num-001-release-central-cp004",
   count: 2,
 });
+stage("central-routing:cp004:complete", { count: cp004Batch.questions.length });
 
 for (const [label, batch] of [["CP-003", cp003Batch], ["CP-004", cp004Batch]]) {
   assert(batch.questions.length === 2, `${label}: central batch count mismatch`);
@@ -198,6 +243,7 @@ for (const [label, batch] of [["CP-003", cp003Batch], ["CP-004", cp004Batch]]) {
   }
 }
 
+stage("unsupported-language:start");
 let unsupportedLanguageRejected = false;
 try {
   await generateQuestion({ packageId: "NUM-001", language: "hi", count: 1 });
@@ -205,7 +251,9 @@ try {
   unsupportedLanguageRejected = true;
 }
 assert(unsupportedLanguageRejected, "NUM-001 accepted an unapproved language");
+stage("unsupported-language:complete");
 
+stage("evidence-export:start");
 const outputDirectory = resolve(
   process.cwd(),
   "dist/quant-v4/number-system-question-studio-release",
@@ -225,7 +273,7 @@ const releaseRegistry = activeQlIds.map((qlId) => ({
   publiclyPublishable: false,
 }));
 
-writeFileSync(jsonPath, `${JSON.stringify({
+writeFileSync(jsonPath, `${jsonStringify({
   status: "ACTIVE_QUESTION_STUDIO_NUM_001_ENGLISH_V1",
   release: NUM_001_ENGLISH_QUESTION_STUDIO_RELEASE,
   editorialCardCount: releasedEditorialCards.length,
@@ -235,7 +283,7 @@ writeFileSync(jsonPath, `${JSON.stringify({
   releaseRegistry,
   editorialCards: releasedEditorialCards,
   runtimeSamples,
-}, null, 2)}\n`, "utf8");
+})}\n`, "utf8");
 
 const markdown = [
   "# ExamTree NUM-001 — English Question Studio Release Review",
@@ -291,8 +339,9 @@ const csv = [
   ].map(csvEscape).join(",")),
 ].join("\n");
 writeFileSync(csvPath, `${csv}\n`, "utf8");
+stage("evidence-export:complete", { jsonPath, markdownPath, csvPath });
 
-console.log(JSON.stringify({
+console.log(jsonStringify({
   status: "PASS_NUM_001_ENGLISH_QUESTION_STUDIO_RELEASE",
   releaseId: NUM_001_ENGLISH_QUESTION_STUDIO_RELEASE.releaseId,
   editorialCardCount: releasedEditorialCards.length,
@@ -307,7 +356,8 @@ console.log(JSON.stringify({
   testEligible: false,
   publiclyPublishable: false,
   unsupportedLanguageRejected,
+  elapsedMs: Date.now() - auditStartedAt,
   jsonPath,
   markdownPath,
   csvPath,
-}, null, 2));
+}));
