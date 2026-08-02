@@ -37,6 +37,13 @@ export function patchNumberSystemV3Text(value: unknown): string {
     .trim();
 }
 
+function unwrapWholeProseMath(value: string): string {
+  const trimmed = value.trim();
+  if (!/^\$[^$]+\$$/u.test(trimmed)) return trimmed;
+  const body = trimmed.slice(1, -1);
+  return /[A-Za-z]{2,}\s+[A-Za-z]{2,}/u.test(body) ? body : trimmed;
+}
+
 function proseMath(value: string): string {
   return value
     .split(/(\$[^$]+\$)/gu)
@@ -57,7 +64,7 @@ function proseMath(value: string): string {
 }
 
 export function renderNumberSystemV3Option(value: unknown): string {
-  const clean = stripStudentOptionLeaks(value);
+  const clean = unwrapWholeProseMath(stripStudentOptionLeaks(value));
   const looksLikeProse = /[A-Za-z]{2,}\s+[A-Za-z]{2,}/u.test(clean);
   if (looksLikeProse) return proseMath(clean);
   return studentOptionDisplay(clean);
