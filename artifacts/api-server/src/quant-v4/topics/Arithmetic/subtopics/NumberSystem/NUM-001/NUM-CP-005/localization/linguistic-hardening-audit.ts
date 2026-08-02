@@ -33,6 +33,7 @@ let unrestrictedParityLeakViolations = 0;
 let duplicateTrapViolations = 0;
 let lifecycleViolations = 0;
 const misconceptionIds = new Set<string>();
+const violationSamples: string[] = [];
 const uniqueAnalysesByLocale = new Map<NumCp005TranslatedLocale, Set<string>>(
   LOCALES.map((locale) => [locale, new Set<string>()]),
 );
@@ -58,8 +59,16 @@ for (const locale of LOCALES) {
         question.explanation.finalAnswer,
       ].join("\n");
 
-      if (forbiddenPatterns.some((pattern) => pattern.test(learnerText))) {
+      const matchedPatterns = forbiddenPatterns.filter((pattern) => pattern.test(learnerText));
+      if (matchedPatterns.length > 0) {
         forbiddenPhraseViolations += 1;
+        if (violationSamples.length < 20) {
+          violationSamples.push([
+            `${locale}/${allocation.qlId}/${seed}`,
+            ...matchedPatterns.map((pattern) => String(pattern)),
+            learnerText,
+          ].join("\n"));
+        }
       }
 
       const wrongOptions = question.options.filter((option) => !option.isCorrect);
@@ -113,18 +122,10 @@ for (const locale of LOCALES) {
   }
 }
 
-assert(generatedQuestions === 2_880, "linguistic audit corpus size");
-assert(forbiddenPhraseViolations === 0, "forbidden phrase violations");
-assert(genericOptionAnalysisViolations === 0, "generic option analysis violations");
-assert(optionSpecificityViolations === 0, "option-specificity violations");
-assert(trapOwnershipViolations === 0, "common-trap ownership violations");
-assert(unrestrictedParityLeakViolations === 0, "unrestricted parity explanation leaks");
-assert(duplicateTrapViolations === 0, "duplicate localized traps");
-assert(lifecycleViolations === 0, "lifecycle violations");
-assert(misconceptionIds.size >= 45, "misconception coverage");
-
 console.log(JSON.stringify({
-  status: "PASS_NUM_CP005_HI_PA_LINGUISTIC_HARDENING_AUDIT",
+  status: forbiddenPhraseViolations === 0
+    ? "NUM_CP005_HI_PA_LINGUISTIC_HARDENING_AUDIT_PENDING_ASSERTIONS"
+    : "NUM_CP005_HI_PA_LINGUISTIC_HARDENING_RESIDUAL_PHRASES",
   translatedLocaleCount: LOCALES.length,
   permanentQlCount: NUM_CP005_PERMANENT_ALLOCATION.length,
   seedsPerQl,
@@ -140,5 +141,29 @@ console.log(JSON.stringify({
   unrestrictedParityLeakViolations,
   duplicateTrapViolations,
   lifecycleViolations,
+  violationSamples,
   freezeStatus: "LINGUISTIC_HARDENING_REVIEW",
+}, null, 2));
+
+assert(generatedQuestions === 2_880, "linguistic audit corpus size");
+assert(forbiddenPhraseViolations === 0, "forbidden phrase violations");
+assert(genericOptionAnalysisViolations === 0, "generic option analysis violations");
+assert(optionSpecificityViolations === 0, "option-specificity violations");
+assert(trapOwnershipViolations === 0, "common-trap ownership violations");
+assert(unrestrictedParityLeakViolations === 0, "unrestricted parity explanation leaks");
+assert(duplicateTrapViolations === 0, "duplicate localized traps");
+assert(lifecycleViolations === 0, "lifecycle violations");
+assert(misconceptionIds.size >= 45, "misconception coverage");
+
+console.log(JSON.stringify({
+  status: "PASS_NUM_CP005_HI_PA_LINGUISTIC_HARDENING_AUDIT",
+  generatedQuestions,
+  misconceptionIdCount: misconceptionIds.size,
+  forbiddenPhraseViolations,
+  genericOptionAnalysisViolations,
+  optionSpecificityViolations,
+  trapOwnershipViolations,
+  unrestrictedParityLeakViolations,
+  duplicateTrapViolations,
+  lifecycleViolations,
 }, null, 2));
