@@ -1,4 +1,5 @@
 import { deterministicIndex, rotate } from "./foundation/prng";
+import { formatMoney, rational, rationalKey } from "./foundation/rational";
 import type { Rational } from "./foundation/types";
 import { generateIntCp002Wave01PrototypeV2 } from "./cp002-wave01-runtime-v2";
 import type { IntCp002Wave01PrototypeId } from "./cp002-wave01-types";
@@ -64,6 +65,69 @@ function generateSource(adapter: IntCp002FinalSourceAdapter, seed: string): Comm
   }
 }
 
+function normalizeFinalStem(stem: string): string {
+  return stem
+    .replace(
+      /^(.+)'s an unknown principal deposit follows this simple-interest timeline:/u,
+      "$1 deposits an unknown principal. Its simple-interest timeline is:",
+    )
+    .replace(/another unknown principal/gu, "a second, unknown amount");
+}
+
+function roundPositiveToStep(value: Rational, step: bigint): Rational {
+  const scaledDenominator = value.denominator * step;
+  let units = value.numerator / scaledDenominator;
+  const remainder = value.numerator % scaledDenominator;
+  if (remainder * 2n >= scaledDenominator) units += 1n;
+  if (units <= 0n) units = 1n;
+  return rational(units * step);
+}
+
+function normalizeMoneyOptionAudit(
+  source: CommonSourceQuestion,
+  answerSemantic: string,
+): CommonSourceQuestion["optionAudit"] {
+  if (answerSemantic !== "MONEY" && answerSemantic !== "PRINCIPAL") {
+    return source.optionAudit.map((option) => ({ ...option }));
+  }
+
+  const correctKey = rationalKey(source.solution);
+  const reservedKeys = new Set(
+    source.optionAudit
+      .filter((option) => option.value.denominator === 1n)
+      .map((option) => rationalKey(option.value)),
+  );
+  reservedKeys.add(correctKey);
+  const usedKeys = new Set<string>();
+  const step = answerSemantic === "PRINCIPAL" ? 100n : 1n;
+  const roundingLabel = answerSemantic === "PRINCIPAL" ? "nearest ₹100" : "nearest rupee";
+
+  return source.optionAudit.map((option, optionIndex) => {
+    if (option.misconceptionId === "CORRECT" || option.value.denominator === 1n) {
+      usedKeys.add(rationalKey(option.value));
+      return { ...option };
+    }
+
+    let normalizedValue = roundPositiveToStep(option.value, step);
+    let normalizedKey = rationalKey(normalizedValue);
+    const direction = optionIndex % 2 === 0 ? 1n : -1n;
+    let collisionOffset = 0n;
+    while (reservedKeys.has(normalizedKey) || usedKeys.has(normalizedKey)) {
+      collisionOffset += 1n;
+      const shifted = normalizedValue.numerator + direction * step * collisionOffset;
+      normalizedValue = rational(shifted > 0n ? shifted : step * (collisionOffset + 1n));
+      normalizedKey = rationalKey(normalizedValue);
+    }
+    usedKeys.add(normalizedKey);
+    return {
+      ...option,
+      text: formatMoney(normalizedValue),
+      value: normalizedValue,
+      explanation: `${option.explanation} This exam-style distractor rounds that mistaken result to the ${roundingLabel}.`,
+    };
+  });
+}
+
 export interface IntCp002FinalGeneratedQuestion {
   packageId: "INT-001";
   canonicalProblemId: "INT-CP-002";
@@ -109,10 +173,13 @@ export function generateIntCp002FinalQuestion(
   const registryEntry = getIntCp002FinalRegistryEntry(qlId);
   const sourceSeed = `${qlId}:${registryEntry.sourceAdapter.kind}:${seed}`;
   const source = generateSource(registryEntry.sourceAdapter, sourceSeed);
+  const normalizedStem = normalizeFinalStem(source.stem);
+  const normalizedSourceAudit = normalizeMoneyOptionAudit(source, registryEntry.answerSemantic);
+  const normalizedSourceOptions = normalizedSourceAudit.map((option) => option.text);
   const desiredCorrectIndex = deterministicIndex(`${qlId}:${seed}:final-answer-position`, 4);
   const rotationOffset = source.correctIndex - desiredCorrectIndex;
-  const options = rotate(source.options, rotationOffset);
-  const optionAudit = rotate(source.optionAudit, rotationOffset);
+  const options = rotate(normalizedSourceOptions, rotationOffset);
+  const optionAudit = rotate(normalizedSourceAudit, rotationOffset);
   const correctIndex = desiredCorrectIndex;
   const explanation: CommonSourceQuestion["explanation"] = {
     ...source.explanation,
@@ -131,9 +198,21 @@ export function generateIntCp002FinalQuestion(
   if (options.length !== 4 || new Set(options).size !== 4) {
     errors.push("Final CP-002 package must contain four unique options.");
   }
+  if (new Set(optionAudit.map((option) => rationalKey(option.value))).size !== 4) {
+    errors.push("Final CP-002 option values are not unique after presentation normalization.");
+  }
   if (correctIndex < 0 || correctIndex > 3) errors.push("Final correct index is invalid.");
   if (optionAudit[correctIndex]?.misconceptionId !== "CORRECT") {
     errors.push("QL-owned answer rotation did not preserve correct-option ownership.");
+  }
+  if (rationalKey(optionAudit[correctIndex]!.value) !== rationalKey(source.solution)) {
+    errors.push("Final correct option value changed during presentation normalization.");
+  }
+  if (
+    (registryEntry.answerSemantic === "MONEY" || registryEntry.answerSemantic === "PRINCIPAL")
+    && optionAudit.some((option) => option.value.denominator !== 1n)
+  ) {
+    errors.push("Final money/principal options must use integral rupee values.");
   }
   if (!explanation.conclusion.includes(options[correctIndex]!)) {
     errors.push("Final explanation conclusion does not state the displayed correct answer.");
@@ -152,7 +231,7 @@ export function generateIntCp002FinalQuestion(
   }
 
   const learnerText = [
-    source.stem,
+    normalizedStem,
     ...options,
     explanation.mainRule,
     ...explanation.workedSteps,
@@ -163,6 +242,9 @@ export function generateIntCp002FinalQuestion(
   ].join(" ");
   if (/INT-CP|INT-QL|PROT-|WAVE0|CLOSE-|prototypeId|effectiveSeed|generationAttempts/iu.test(learnerText)) {
     errors.push("Learner-facing text leaks an internal identity.");
+  }
+  if (/'s an unknown principal|another unknown principal/iu.test(normalizedStem)) {
+    errors.push("Final stem contains a blocked unknown-principal construction.");
   }
 
   return {
@@ -180,7 +262,7 @@ export function generateIntCp002FinalQuestion(
     taskDirection: registryEntry.taskDirection,
     answerSemantic: registryEntry.answerSemantic,
     difficulty: source.difficulty,
-    stem: source.stem,
+    stem: normalizedStem,
     options,
     optionAudit,
     correctIndex,
