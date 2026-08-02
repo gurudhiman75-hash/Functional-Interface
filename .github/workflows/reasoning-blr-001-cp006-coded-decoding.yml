@@ -39,19 +39,19 @@ jobs:
 
       - name: Prove CP-005 source runtime
         run: |
-          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-005/cp005-runtime.test.ts | tee cp005-source.log
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-005/cp005-runtime.test.ts | tee cp005-source.log
 
       - name: Prove CP-006 permanent runtime and independent verifier
         run: |
-          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-runtime.test.ts | tee cp006-runtime.log
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-runtime.test.ts | tee cp006-runtime.log
 
       - name: Prove CP-006 final discovery freeze
         run: |
-          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-final-freeze.test.ts | tee cp006-final-freeze.log
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-final-freeze.test.ts | tee cp006-final-freeze.log
 
       - name: Export CP-006 final freeze review pack
         run: |
-          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/export-cp006-final-freeze.ts cp006-final-freeze-output | tee cp006-export.log
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/export-cp006-final-freeze.ts cp006-final-freeze-output | tee cp006-export.log
 
       - name: Verify CP-006 artifact contracts
         shell: bash
