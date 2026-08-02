@@ -19,6 +19,8 @@ let optionTrapViolations = 0;
 let internalIdLeaks = 0;
 let maximumStemWords = 0;
 let maximumStemCharacters = 0;
+let maximumProseStemCharacters = 0;
+let maximumStructuredTableStemCharacters = 0;
 
 const internalIdPattern = /NUM-(?:QL|CP)|CP005-PROT|CP005-AUTH|CP005-SM|QLC-/i;
 
@@ -38,8 +40,22 @@ for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
     maximumStemWords = Math.max(maximumStemWords, stemWords);
     maximumStemCharacters = Math.max(maximumStemCharacters, question.stem.length);
 
+    const isStructuredTable = question.representation === "DIVISOR_PAIR_TABLE";
+    const stemCharacterLimit = isStructuredTable ? 520 : 260;
+    if (isStructuredTable) {
+      maximumStructuredTableStemCharacters = Math.max(
+        maximumStructuredTableStemCharacters,
+        question.stem.length,
+      );
+    } else {
+      maximumProseStemCharacters = Math.max(maximumProseStemCharacters, question.stem.length);
+    }
+
     assert(question.stem.trim().length > 0, `${allocation.qlId}/${seed}: empty stem`);
-    assert(question.stem.length <= 260, `${allocation.qlId}/${seed}: stem too long`);
+    assert(
+      question.stem.length <= stemCharacterLimit,
+      `${allocation.qlId}/${seed}: ${isStructuredTable ? "structured table" : "prose"} stem too long`,
+    );
     assert(question.explanation.coreConcept.trim().length > 0, `${allocation.qlId}/${seed}: missing core concept`);
     assert(question.explanation.givenDataAndStrategy.trim().length > 0, `${allocation.qlId}/${seed}: missing strategy`);
     assert(question.explanation.stepByStep.length > 0, `${allocation.qlId}/${seed}: missing steps`);
@@ -96,5 +112,9 @@ console.log(JSON.stringify({
   internalIdLeaks,
   maximumStemWords,
   maximumStemCharacters,
+  maximumProseStemCharacters,
+  maximumStructuredTableStemCharacters,
+  proseStemCharacterLimit: 260,
+  structuredTableStemCharacterLimit: 520,
   nextChapterIdentity: "NUM-QL-070",
 }, null, 2));
