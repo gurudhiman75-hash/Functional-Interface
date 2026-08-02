@@ -5,9 +5,10 @@ function possessive(name: string): string {
 export function polishCp005ModelAudit(lines: readonly string[]): string[] {
   return lines.map((source) => {
     let line = source.replace(/\.;/g, ";").replace(/\.\./g, ".");
-    const relationLine = line.match(
-      /^(Model \d+ \(.+?\): )(.+?) is (.+?) of ([^.]+)\.(.*)$/,
-    );
+    const isClaimAudit = /^Model \d+ \(.+?\): true statements? — /.test(line);
+    const relationLine = isClaimAudit
+      ? null
+      : line.match(/^(Model \d+ \(.+?\): )(.+?) is (.+?) of ([^.]+)\.(.*)$/);
     if (relationLine) {
       const [, prefix, subject, relation, reference, suffix] = relationLine;
       line = `${prefix}${subject} is ${possessive(reference)} ${relation.toLocaleLowerCase("en-IN")}.${suffix}`;
