@@ -2,9 +2,7 @@ name: Format PNL Canonical Production Release
 
 on:
   pull_request:
-    types: [synchronize]
-    paths:
-      - ".github/workflows/pnl-canonical-production-release-format.yml"
+    types: [ready_for_review]
 
 permissions:
   contents: write
