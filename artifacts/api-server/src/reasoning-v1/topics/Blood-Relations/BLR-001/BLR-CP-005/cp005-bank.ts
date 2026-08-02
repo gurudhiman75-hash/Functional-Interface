@@ -14,8 +14,13 @@ import {
 } from "./cp005-model";
 import { BLR_CP005_PROTOTYPE_CASES, prototypeCase } from "./cp005-scenarios";
 import { solveBlrCp005Query } from "./cp005-solver";
-import { buildOptions, conclusionFor, coreConcept, optionExplanation, shortcut } from "./cp005-options";
-import { optionLabel } from "./cp005-model";
+import { buildOptions } from "./cp005-options";
+import {
+  BLR_CP005_EDITORIAL_VERSION,
+  buildCp005EditorialExplanation,
+  examGradeSharedPrompt,
+  examGradeStem,
+} from "./cp005-editorial";
 
 export function generateBlrCp005Question(
   prototypeId: BlrCp005PrototypeId,
@@ -29,6 +34,22 @@ export function generateBlrCp005Question(
   const solved = solveBlrCp005Query(built.modelSpace, built.querySpec);
   const { options, correctIndex } = buildOptions(prototypeId, seed, built, solved);
   const answerLabel = options[correctIndex]!.text;
+  const sharedPrompt = examGradeSharedPrompt(built.modelSpace.sharedPrompt);
+  const stem = examGradeStem({
+    prototypeId,
+    modelSpace: built.modelSpace,
+    querySpec: built.querySpec,
+    originalStem: built.stem,
+  });
+  const editorial = buildCp005EditorialExplanation({
+    authority: prototype.authority,
+    modelSpace: built.modelSpace,
+    querySpec: built.querySpec,
+    solved,
+    options,
+    correctIndex,
+    answerLabel,
+  });
   const relationQuery = built.querySpec.kind === "INVARIANT_RELATION" || built.querySpec.kind === "RELATION_UNCERTAINTY"
     ? { subjectId: built.querySpec.subjectId, referenceId: built.querySpec.referenceId }
     : undefined;
@@ -42,8 +63,8 @@ export function generateBlrCp005Question(
     questionStudioVisible: false, questionBankEligible: false, mockTestEligible: false,
     locale: "en-IN", seed: Math.trunc(seed), itemId,
     scenarioId: built.modelSpace.scenarioId, topologyId: built.modelSpace.topologyId,
-    groupKey: built.modelSpace.groupKey, sharedPrompt: built.modelSpace.sharedPrompt,
-    stem: built.stem, answerType: contract.answerType,
+    groupKey: built.modelSpace.groupKey, sharedPrompt,
+    stem, answerType: contract.answerType,
     options, correctIndex, querySpec: built.querySpec, answer: solved.answer,
     modelSpace: {
       variables: built.modelSpace.variables,
@@ -52,23 +73,7 @@ export function generateBlrCp005Question(
       assignments: built.modelSpace.models.map((model) => model.assignment),
     },
     explanation: {
-      coreConcept: coreConcept(prototype.authority),
-      modelAudit: solved.auditLines,
-      conclusion: conclusionFor(prototype.authority, solved, answerLabel, built.modelSpace.models.length),
-      examShortcut: shortcut(prototype.authority),
-      optionAnalysis: options.map((option, index) => ({
-        optionLabel: optionLabel(index), optionText: option.text, isCorrect: option.isCorrect,
-        explanation: optionExplanation(
-          option,
-          index,
-          built.querySpec.kind === "CLAIM_STATUS" || built.querySpec.kind === "PERSON_STATUS"
-            ? built.querySpec.requestedStatus
-            : built.querySpec.kind === "COUNT_STATUS"
-              ? built.querySpec.requestedStatus
-              : undefined,
-          built.modelSpace.models.length,
-        ),
-      })),
+      ...editorial,
       familyTrees: built.modelSpace.models.map((model, index) => familyTreeForModel(model, index, built.modelSpace.models.length, answerLabel, relationQuery)),
     },
     metadata: {
@@ -80,7 +85,8 @@ export function generateBlrCp005Question(
       difficulty: difficultyFor(built.modelSpace.models.length, optionStatusMix, prototype.authority.includes("UNCERTAINTY") || prototype.authority.includes("COUNT")),
       modelCount: built.modelSpace.models.length,
       semanticFingerprint: semanticFingerprint([
-        prototypeId, seed, built.modelSpace.scenarioId, built.stem,
+        prototypeId, seed, built.modelSpace.scenarioId, BLR_CP005_EDITORIAL_VERSION,
+        sharedPrompt, stem,
         ...built.modelSpace.models.map((model) => graphFingerprint(model.graph)),
         ...options.map((option) => option.semanticKey), correctIndex,
       ]),
