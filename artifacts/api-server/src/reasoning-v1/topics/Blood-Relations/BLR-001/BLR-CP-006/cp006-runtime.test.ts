@@ -86,6 +86,10 @@ for (const question of bank) {
   equal(keyRelations.size, question.codeKey.length, `${question.itemId}: one meaning per token`);
   question.codedStatements.forEach((coded) => {
     assert(keyTokens.has(coded.token), `${question.itemId}: statement token missing from key`);
+    assert(
+      question.sharedPrompt.includes(`${coded.leftId} ${coded.token} ${coded.rightId}`),
+      `${question.itemId}: displayed coded statement does not match the decoded assertion`,
+    );
   });
 
   for (const entry of question.codeKey) {
@@ -153,5 +157,6 @@ console.log(JSON.stringify({
   independentlyVerified: bank.length,
   explicitGenderEvidenceFailures: 0,
   nameBasedGenderAssumptions: 0,
+  displayedStatementMismatches: 0,
   verdict: "BLR-CP-006 PERMANENT RUNTIME PASSED",
 }, null, 2));
