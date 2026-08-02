@@ -8,6 +8,10 @@ import {
   type RnkCp002SourceEvidence,
   type RnkCp002SourceQuestion,
 } from './cp002-source-wave';
+import {
+  generateReviewedRnkCp002SourceQuestion,
+  reviewProjectionWithoutLearnerText,
+} from './cp002-source-wave-reviewed';
 
 const SEEDS_PER_PROTOTYPE = 240;
 
@@ -66,6 +70,7 @@ const audits: unknown[] = [];
 const reviewQuestions: RnkCp002SourceQuestion[] = [];
 let deterministicChecks = 0;
 let independentSolverChecks = 0;
+let reviewPreservationChecks = 0;
 let optionChecks = 0;
 let lifecycleChecks = 0;
 let lowBranchValidCases = 0;
@@ -86,9 +91,17 @@ for (const prototypeId of RNK_CP002_SOURCE_WAVE_PROTOTYPE_IDS) {
   const requestedRelations = new Set<string>();
 
   for (let seed = 0; seed < SEEDS_PER_PROTOTYPE; seed += 1) {
-    const question = generateRnkCp002SourceQuestion(prototypeId, seed);
-    assert.deepEqual(generateRnkCp002SourceQuestion(prototypeId, seed), question);
+    const raw = generateRnkCp002SourceQuestion(prototypeId, seed);
+    const question = generateReviewedRnkCp002SourceQuestion(prototypeId, seed);
+    assert.deepEqual(generateReviewedRnkCp002SourceQuestion(prototypeId, seed), question);
     deterministicChecks += 1;
+
+    assert.deepEqual(
+      reviewProjectionWithoutLearnerText(question),
+      reviewProjectionWithoutLearnerText(raw),
+      `${prototypeId}:${seed} reviewed text changed mathematical structure`,
+    );
+    reviewPreservationChecks += 1;
 
     assert.equal(question.answer, solveIndependently(question), `${prototypeId}:${seed}`);
     independentSolverChecks += 1;
@@ -110,10 +123,10 @@ for (const prototypeId of RNK_CP002_SOURCE_WAVE_PROTOTYPE_IDS) {
       ...question.explanation.optionAnalysis,
       question.explanation.conclusion,
     ].join(' ');
-    assert.ok(!/\bThere are one\b/i.test(learnerText));
-    assert.ok(!/\b1 (?:people|candidates|positions)\b/i.test(learnerText));
-    assert.ok(!/\b0 (?:people|candidates)\b/i.test(learnerText));
-    assert.ok(!/undefined|null|NaN/.test(learnerText));
+    assert.ok(!/\bThere are one\b/i.test(learnerText), `${prototypeId}:${seed}`);
+    assert.ok(!/\b1 (?:people|candidates|positions)\b/i.test(learnerText), `${prototypeId}:${seed}`);
+    assert.ok(!/\b0 (?:people|candidates)\b/i.test(learnerText), `${prototypeId}:${seed}`);
+    assert.ok(!/undefined|null|NaN/.test(learnerText), `${prototypeId}:${seed}`);
 
     assert.equal(question.permanentQlId, null);
     assert.equal(question.lifecycle.reviewStatus, 'UNREVIEWED');
@@ -221,6 +234,7 @@ const summary = {
   totalQuestions: RNK_CP002_SOURCE_WAVE_PROTOTYPE_IDS.length * SEEDS_PER_PROTOTYPE,
   deterministicChecks,
   independentSolverChecks,
+  reviewPreservationChecks,
   optionChecks,
   lifecycleChecks,
   lowBranchValidCases,
