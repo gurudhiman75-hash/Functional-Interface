@@ -50,7 +50,7 @@ export function forwardReplacementEditorial(
   );
 
   const stem = choose(`${question.seed}:stem`, [
-    `A vessel contains ${quantityMath(parameters.initialState.componentA, unit)} of ${labels[0]} and ${quantityMath(parameters.initialState.componentB, unit)} of ${labels[1]}. A well-mixed sample of ${quantityMath(parameters.removedQuantity, unit)} is removed and replaced with the same quantity of ${refillLabel}. Find the final ratio of ${labels[0]} to ${labels[1]}.`,
+    `A vessel contains ${quantityMath(parameters.initialState.componentA, unit)} of ${labels[0]} and ${quantityMath(parameters.initialState.componentB, unit)} of ${labels[1]}. A well-mixed sample of ${quantityMath(parameters.removedQuantity, unit)} is removed and replaced with the same quantity of ${refillLabel}. What is the final ratio of ${labels[0]} to ${labels[1]}?`,
     `A mixture contains ${stateMath(parameters.initialState, labels, unit)}. After removing ${quantityMath(parameters.removedQuantity, unit)} of the well-mixed contents and refilling the same amount with ${refillLabel}, what is the new ratio of ${labels[0]} to ${labels[1]}?`,
   ]);
 
@@ -88,7 +88,7 @@ export function invarianceEditorial(
 
   const stem = choose(`${question.seed}:stem`, [
     `${labels[0]} and ${labels[1]} are in the ratio ${ratioMath(parameters.initialRatio)}. A well-mixed sample of ${quantityMath(parameters.removedQuantity, unit)} is removed and nothing is added. What is the ratio of ${labels[0]} to ${labels[1]} in the remaining mixture?`,
-    `A mixture contains ${labels[0]} and ${labels[1]} in the ratio ${ratioMath(parameters.initialRatio)}. If ${quantityMath(parameters.removedQuantity, unit)} of the well-mixed mixture is taken out without replacement, find the ratio left behind.`,
+    `A mixture contains ${labels[0]} and ${labels[1]} in the ratio ${ratioMath(parameters.initialRatio)}. If ${quantityMath(parameters.removedQuantity, unit)} of the well-mixed mixture is taken out without replacement, what ratio is left behind?`,
   ]);
 
   return {
@@ -136,7 +136,7 @@ export function operationChoiceEditorial(
 
   const stem = choose(`${question.seed}:stem`, [
     `A mixture contains ${stateMath(parameters.initialState, labels, unit)}. Which single addition or removal will change the ratio of ${labels[0]} to ${labels[1]} to ${ratioMath(parameters.targetRatio)}?`,
-    `The quantities of ${labels[0]} and ${labels[1]} are ${quantityMath(parameters.initialState.componentA, unit)} and ${quantityMath(parameters.initialState.componentB, unit)}. Determine the one-item operation needed to obtain the ratio ${ratioMath(parameters.targetRatio)}.`,
+    `The quantities of ${labels[0]} and ${labels[1]} are ${quantityMath(parameters.initialState.componentA, unit)} and ${quantityMath(parameters.initialState.componentB, unit)}. What one-item operation is needed to obtain the ratio ${ratioMath(parameters.targetRatio)}?`,
   ]);
 
   return {
