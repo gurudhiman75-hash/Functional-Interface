@@ -1,0 +1,96 @@
+name: Validate TMW-001 multilingual editorial review progress
+
+on:
+  push:
+    branches:
+      - feat/tmw-001-hi-pa-localisation
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
+      - .github/workflows/tmw-multilingual-editorial-review-progress.yml
+      - package.json
+      - pnpm-lock.yaml
+  pull_request:
+    branches:
+      - design/tmw-001-blueprint
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
+      - .github/workflows/tmw-multilingual-editorial-review-progress.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-tmw-editorial-review-progress-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-reviewed-checkpoints:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec tsc
+          --noEmit
+          --target es2022
+          --module esnext
+          --moduleResolution bundler
+          --strictNullChecks
+          --noImplicitAny
+          --noImplicitReturns
+          --noFallthroughCasesInSwitch
+          --skipLibCheck
+          --types node
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp001-editorial-review-remediation.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp001-editorial-field-cleanup.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp002-editorial-review-remediation.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-localized-runtime.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp001-editorial-review.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp002-editorial-review.test.ts
+      - name: Bundle CP-001 editorial-review proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp001-editorial-review.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp001-editorial-review.test.mjs
+      - name: Run CP-001 editorial-review proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp001-editorial-review.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp001-editorial-review-proof.log
+      - name: Bundle CP-002 editorial-review proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp002-editorial-review.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp002-editorial-review.test.mjs
+      - name: Run CP-002 editorial-review proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp002-editorial-review.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp002-editorial-review-proof.log
+      - name: Upload editorial-review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tmw-001-multilingual-editorial-review-progress
+          path: |
+            artifacts/api-server/dist/quant-v4/tmw-001-cp001-editorial-review-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-cp002-editorial-review-proof.log
+          if-no-files-found: error
+          retention-days: 14
