@@ -1,0 +1,118 @@
+name: Validate INT-CP-002 approved English freeze
+
+on:
+  pull_request:
+    branches:
+      - feat/int-001-cp002-final-saturation-freeze
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp002-final-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp002-english-freeze*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp002-english-frozen-runtime.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-final-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-english-freeze-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-002/INT-CP-002-FINAL-ENGLISH-FREEZE.md"
+      - ".github/workflows/int-cp002-approved-english-freeze.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-int-cp002-approved-english-freeze:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle approved-source saturation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-final-saturation-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp002-final-saturation-audit.mjs
+
+      - name: Run approved-source saturation audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp002-final-saturation-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp002-final-saturation-audit.log
+
+      - name: Bundle approved review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-final-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp002-final-review-export.mjs
+
+      - name: Recreate approved review projection
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp002-final-review-export.mjs 2>&1 | tee dist/quant-v4/int-001-cp002-final-review-export.log
+
+      - name: Bundle approved English freeze audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-english-freeze-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp002-english-freeze-audit.mjs
+
+      - name: Run approved English freeze audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp002-english-freeze-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp002-english-freeze-audit.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Verify approved English freeze evidence
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          grep -q 'PASS_INT_CP002_FINAL_SATURATION_AND_QL_PROPOSAL' artifacts/api-server/dist/quant-v4/int-001-cp002-final-saturation-audit.log
+          grep -q 'PASS_INT_CP002_FINAL_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp002-final-review-export.log
+          grep -q 'PASS_INT_CP002_APPROVED_ENGLISH_FREEZE' artifacts/api-server/dist/quant-v4/int-001-cp002-english-freeze-audit.log
+          freeze=artifacts/api-server/dist/quant-v4/int-cp002-approved-english-freeze
+          summary="$freeze/int-cp002-approved-english-freeze-summary.json"
+          registry="$freeze/int-cp002-approved-english-frozen-registry.json"
+          review="$freeze/int-cp002-approved-english-frozen-review-data.json"
+          test -f "$summary"
+          test -f "$registry"
+          test -f "$review"
+          grep -q '"freezeId": "INT-CP-002-EN-v1-frozen"' "$summary"
+          grep -q '"approvalCommentId": 5158690713' "$summary"
+          grep -q '"qlCount": 31' "$summary"
+          grep -q '"approvedReviewRows": 124' "$summary"
+          grep -q '"runtimeQuestions": 3100' "$summary"
+          grep -q '"approvedReviewProjectionSha256": "22c554e9cc1e036bb5ae0847fced41fb950255f4bfca3b0cb89f8ea89146d8c7"' "$summary"
+          grep -q '"approvedRegistrySha256": "0de02d78014169a919937613a398ce4d106376173bb90f2bf2f081d3368eb0a1"' "$summary"
+          grep -q '"reviewStatus": "APPROVED_ENGLISH_FROZEN"' "$summary"
+          grep -q '"questionStudioDiscoverable": false' "$summary"
+          grep -q '"publiclyPublishable": false' "$summary"
+
+      - name: Upload approved English freeze evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp002-approved-english-freeze
+          path: |
+            artifacts/api-server/dist/quant-v4/int-001-cp002-final-saturation-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp002-final-review-export.log
+            artifacts/api-server/dist/quant-v4/int-001-cp002-english-freeze-audit.log
+            artifacts/api-server/dist/quant-v4/int-cp002-approved-english-freeze/**
+          if-no-files-found: error
+          retention-days: 14
