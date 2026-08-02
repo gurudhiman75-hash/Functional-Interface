@@ -47,6 +47,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp001/human-explanation-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp001/human-explanation-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp001/clock-boundary-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp001/clock-boundary-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp001/equivalent-speed-representation-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp001/equivalent-speed-representation-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp001/answer-unit-edge-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp001/answer-unit-edge-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp001/review-export.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp001/review-export.mjs"
 
       - name: Run exact proof suites
@@ -63,6 +64,7 @@ jobs:
           node dist/quant-v4/tsd-001/cp001/human-explanation-proof.mjs | tee dist/quant-v4/tsd-001/cp001/human-explanation-proof.log
           node dist/quant-v4/tsd-001/cp001/clock-boundary-proof.mjs | tee dist/quant-v4/tsd-001/cp001/clock-boundary-proof.log
           node dist/quant-v4/tsd-001/cp001/equivalent-speed-representation-proof.mjs | tee dist/quant-v4/tsd-001/cp001/equivalent-speed-representation-proof.log
+          node dist/quant-v4/tsd-001/cp001/answer-unit-edge-proof.mjs | tee dist/quant-v4/tsd-001/cp001/answer-unit-edge-proof.log
           node dist/quant-v4/tsd-001/cp001/review-export.mjs | tee dist/quant-v4/tsd-001/cp001/review-export.log
 
       - name: Upload proof logs
@@ -81,6 +83,7 @@ jobs:
             artifacts/api-server/dist/quant-v4/tsd-001/cp001/human-explanation-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp001/clock-boundary-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp001/equivalent-speed-representation-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp001/answer-unit-edge-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp001/review-export.log
           if-no-files-found: error
 
