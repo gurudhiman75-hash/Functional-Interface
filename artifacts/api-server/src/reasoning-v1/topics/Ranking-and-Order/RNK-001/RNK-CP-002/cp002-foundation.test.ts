@@ -94,10 +94,19 @@ for (const prototypeId of RNK_CP002_PROTOTYPE_IDS) {
       evidence.kind === 'BETWEEN_FROM_MIXED_END_RANKS' ||
       evidence.kind === 'TOTAL_FROM_MIXED_END_RANKS_KNOWN_ORDER'
     ) {
+      const maximumPlausibleDistance = question.answer === 0 ? 3 : 2;
       assert.ok(
-        question.options.every((option) => Math.abs(option.value - question.answer) <= 2),
+        question.options.every(
+          (option) => Math.abs(option.value - question.answer) <= maximumPlausibleDistance,
+        ),
         `${prototypeId}:${seed} contains an exam-unrealistic distant distractor`,
       );
+      if (question.answer === 0) {
+        assert.deepEqual(
+          [...question.options.map((option) => option.value)].sort((left, right) => left - right),
+          [0, 1, 2, 3],
+        );
+      }
       optionRealismChecks += 1;
     }
 
