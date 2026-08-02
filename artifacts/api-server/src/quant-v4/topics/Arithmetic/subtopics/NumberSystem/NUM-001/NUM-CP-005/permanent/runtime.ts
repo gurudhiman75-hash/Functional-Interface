@@ -139,6 +139,20 @@ export function generateNumCp005TemporaryAuthorityPackage(
   return result as NumCp005TemporaryPackage;
 }
 
+function permanentEnglishStem(
+  qlId: NumCp005PermanentQlId,
+  temporary: NumCp005TemporaryPackage,
+): string {
+  if (qlId === "NUM-QL-063") {
+    const rows = temporary.hiddenState.pairTable;
+    const integerValue = temporary.hiddenState.integerValue;
+    if (Array.isArray(rows) && typeof integerValue === "string") {
+      return `Complete the divisor pairs of ${integerValue}: ${rows.join(", ")}. What replaces ?`;
+    }
+  }
+  return temporary.stem;
+}
+
 export function runNumCp005PermanentPipeline(
   input: NumCp005PermanentRuntimeInput = {},
 ): NumCp005PermanentQuestion {
@@ -191,6 +205,7 @@ export function runNumCp005PermanentPipeline(
 
   return {
     ...temporary,
+    stem: permanentEnglishStem(allocation.qlId, temporary),
     permanentQlId: allocation.qlId,
     questionLanguageId: allocation.qlId,
     questionId: `NUM-001:${allocation.qlId}:${seed}`,
