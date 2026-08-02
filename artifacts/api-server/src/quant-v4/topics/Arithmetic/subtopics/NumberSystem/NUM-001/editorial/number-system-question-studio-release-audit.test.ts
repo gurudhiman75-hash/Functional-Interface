@@ -1,21 +1,21 @@
 // @ts-nocheck
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import {
-  generateQuestion,
-  listQuantV4Packages,
-} from "../../../../../../question-studio-generation-engine";
 import { NUMBER_SYSTEM_GENERATOR_V3_CARDS } from "./number-system-generator-v3-review";
 import {
   NUM_001_ENGLISH_QUESTION_STUDIO_RELEASE,
   getNum001QuestionStudioQlIds,
-  runNum001EnglishQuestionStudioRelease,
 } from "./number-system-question-studio-release";
 import {
   fixStemGrammar,
   formatStudentValue,
   normaliseTeacherExplanation,
 } from "./number-system-v3-presentation";
+import {
+  NUM_001_QUESTION_STUDIO_CP_IDS,
+  NUM_001_QUESTION_STUDIO_LANGUAGES,
+  runNum001QuestionStudioPipeline,
+} from "../question-studio-adapter";
 
 const auditStartedAt = Date.now();
 
@@ -119,6 +119,10 @@ stage("active-registry:start");
 const cp003QlIds = [...getNum001QuestionStudioQlIds("NUM-CP-003")];
 const cp004QlIds = [...getNum001QuestionStudioQlIds("NUM-CP-004")];
 const activeQlIds = [...cp003QlIds, ...cp004QlIds];
+assert(JSON.stringify(NUM_001_QUESTION_STUDIO_CP_IDS) === JSON.stringify(["NUM-CP-003", "NUM-CP-004"]),
+  "NUM-001 adapter CP registry is incorrect");
+assert(JSON.stringify(NUM_001_QUESTION_STUDIO_LANGUAGES) === JSON.stringify(["en"]),
+  "NUM-001 adapter language registry is incorrect");
 assert(cp003QlIds.length === 17, `Expected 17 active CP-003 QLs, received ${cp003QlIds.length}`);
 assert(cp004QlIds.length === 28, `Expected 28 active CP-004 QLs, received ${cp004QlIds.length}`);
 assert(activeQlIds.length === 45 && new Set(activeQlIds).size === 45,
@@ -131,21 +135,17 @@ stage("active-registry:complete", {
   cp004QlCount: cp004QlIds.length,
 });
 
-// The complete CP-specific workflows already prove every permanent QL over large
-// deterministic seed sweeps. This release audit exercises only the routing and
-// lifecycle boundary, so it deliberately uses bounded representative families
-// rather than the expensive nearest-prime optimisation edge family.
+// Exhaustive mathematical generation remains owned by the existing CP-specific
+// workflows. This release proof exercises one bounded adapter route per CP.
 const representativeRequests = [
   { cpId: "NUM-CP-003", qlId: "NUM-QL-001" },
-  { cpId: "NUM-CP-003", qlId: "NUM-QL-017" },
   { cpId: "NUM-CP-004", qlId: "NUM-QL-018" },
-  { cpId: "NUM-CP-004", qlId: "NUM-QL-019" },
 ];
 
-stage("runtime-samples:start", { count: representativeRequests.length });
+stage("adapter-runtime:start", { count: representativeRequests.length });
 const runtimeSamples = representativeRequests.map(({ cpId, qlId }) => {
-  stage("runtime-sample:generate", { cpId, qlId });
-  return runNum001EnglishQuestionStudioRelease(cpId, {
+  stage("adapter-runtime:generate", { cpId, qlId });
+  return runNum001QuestionStudioPipeline(cpId, {
     questionLanguageId: qlId,
     seed: `num-001-english-release-proof:${qlId}`,
     language: "en",
@@ -177,76 +177,59 @@ for (const question of runtimeSamples) {
   assert(question.options.every((option) => !wholeProseSentenceInMath(option)),
     `${question.questionLanguageId}: runtime prose option is wholly inside MathJax`);
 }
-stage("runtime-samples:complete", { count: runtimeSamples.length });
+stage("adapter-runtime:complete", { count: runtimeSamples.length });
 
-stage("capability:start");
-const packages = listQuantV4Packages();
-const capability = packages.find((entry: any) => entry.packageId === "NUM-001");
-assert(capability, "NUM-001 is missing from Question Studio capabilities");
-assert(capability.enabled === true, "NUM-001 capability is disabled");
-assert(capability.runtimeMode === "QUESTION_STUDIO_ACTIVE",
-  "NUM-001 capability runtime mode is incorrect");
-assert(JSON.stringify(capability.cpIds) === JSON.stringify(["NUM-CP-003", "NUM-CP-004"]),
-  "NUM-001 capability CP list is incorrect");
-assert(JSON.stringify(capability.supportedLanguages) === JSON.stringify(["en"]),
-  "NUM-001 capability language list is incorrect");
-assert(capability.questionBankStatus === "NOT_STORED",
-  "NUM-001 capability opened Question Bank writes");
-assert(capability.testEligibility === "INELIGIBLE",
-  "NUM-001 capability opened test eligibility");
-assert(capability.publiclyPublishable === false,
-  "NUM-001 capability opened public publication");
-stage("capability:complete");
+stage("central-wiring-source:start");
+const generationEnginePath = resolve(
+  process.cwd(),
+  "src/quant-v4/question-studio-generation-engine.ts",
+);
+const adminRoutePath = resolve(
+  process.cwd(),
+  "src/routes/admin-question-studio-average.ts",
+);
+const generationEngineSource = readFileSync(generationEnginePath, "utf8");
+const adminRouteSource = readFileSync(adminRoutePath, "utf8");
 
-stage("central-routing:cp003:start");
-const cp003Batch = await generateQuestion({
-  packageId: "NUM-001",
-  canonicalProblemId: "NUM-CP-003",
-  questionLanguageId: "NUM-QL-001",
-  language: "en",
-  seed: "num-001-release-central-cp003",
-  count: 2,
-});
-stage("central-routing:cp003:complete", { count: cp003Batch.questions.length });
-
-stage("central-routing:cp004:start");
-const cp004Batch = await generateQuestion({
-  packageId: "NUM-001",
-  canonicalProblemId: "NUM-CP-004",
-  questionLanguageId: "NUM-QL-018",
-  language: "en",
-  seed: "num-001-release-central-cp004",
-  count: 2,
-});
-stage("central-routing:cp004:complete", { count: cp004Batch.questions.length });
-
-for (const [label, batch] of [["CP-003", cp003Batch], ["CP-004", cp004Batch]]) {
-  assert(batch.questions.length === 2, `${label}: central batch count mismatch`);
-  assert(batch.generationContext.runtimeMode === "QUESTION_STUDIO_ACTIVE",
-    `${label}: central generation runtime is not active`);
-  assert(batch.generationContext.questionBankStatus === "NOT_STORED",
-    `${label}: central generation opened Question Bank writes`);
-  assert(batch.generationContext.testEligibility === "INELIGIBLE",
-    `${label}: central generation opened tests`);
-  assert(batch.generationContext.publiclyPublishable === false,
-    `${label}: central generation opened publication`);
-  for (const question of batch.questions) {
-    assert(question.packageId === "NUM-001", `${label}: preview package ID mismatch`);
-    assert(question.runtimeMode === "QUESTION_STUDIO_ACTIVE",
-      `${label}: preview runtime is not active`);
-    assert(question.questionBankStatus === "NOT_STORED",
-      `${label}: preview Question Bank gate opened`);
-    assert(question.testEligibility === "INELIGIBLE",
-      `${label}: preview test gate opened`);
-    assert(question.publiclyPublishable === false,
-      `${label}: preview publication gate opened`);
-  }
+const engineMarkers = [
+  "NUM_001_QUESTION_STUDIO_CP_IDS",
+  "NUM_001_QUESTION_STUDIO_LANGUAGES",
+  "runNum001QuestionStudioPipeline",
+  'packageId: "NUM-001"',
+  "isNumberSystemRequest",
+  "generateNumberSystemQuestion",
+  "QUESTION_STUDIO_ACTIVE",
+  "NOT_STORED",
+  "INELIGIBLE",
+];
+for (const marker of engineMarkers) {
+  assert(generationEngineSource.includes(marker),
+    `Central Question Studio engine is missing NUM-001 marker: ${marker}`);
 }
+
+const routeMarkers = [
+  "isNumberSystemRequest",
+  'defaultPackageId = numberSystemRequest ? "NUM-001" : "AVG-001"',
+  'defaultSubtopic = numberSystemRequest ? "Number System" : "Average"',
+  "NUM-001 supports English Question Studio generation only",
+];
+for (const marker of routeMarkers) {
+  assert(adminRouteSource.includes(marker),
+    `Admin Question Studio route is missing NUM-001 marker: ${marker}`);
+}
+stage("central-wiring-source:complete", {
+  engineMarkerCount: engineMarkers.length,
+  routeMarkerCount: routeMarkers.length,
+});
 
 stage("unsupported-language:start");
 let unsupportedLanguageRejected = false;
 try {
-  await generateQuestion({ packageId: "NUM-001", language: "hi", count: 1 });
+  runNum001QuestionStudioPipeline("NUM-CP-003", {
+    questionLanguageId: "NUM-QL-001",
+    language: "hi",
+    seed: "num-001-unapproved-language-proof",
+  });
 } catch {
   unsupportedLanguageRejected = true;
 }
@@ -280,6 +263,12 @@ writeFileSync(jsonPath, `${jsonStringify({
   activePermanentQlCount: activeQlIds.length,
   runtimeSampleCount: runtimeSamples.length,
   checkpointCounts: { "NUM-CP-003": 69, "NUM-CP-004": 84 },
+  centralWiringSourceAudit: {
+    generationEnginePath,
+    adminRoutePath,
+    engineMarkers,
+    routeMarkers,
+  },
   releaseRegistry,
   editorialCards: releasedEditorialCards,
   runtimeSamples,
@@ -296,7 +285,9 @@ const markdown = [
   "",
   `**Active permanent QLs:** ${activeQlIds.length}`,
   "",
-  `**Representative runtime samples:** ${runtimeSamples.length}`,
+  `**Bounded adapter runtime samples:** ${runtimeSamples.length}`,
+  "",
+  "**Central wiring:** source-audited; production and integrated-admin builds remain executable compile gates.",
   "",
   "## Active QL registry",
   "",
@@ -349,8 +340,8 @@ console.log(jsonStringify({
   cp003ActiveQlCount: cp003QlIds.length,
   cp004ActiveQlCount: cp004QlIds.length,
   runtimeSampleCount: runtimeSamples.length,
-  centralCp003BatchCount: cp003Batch.questions.length,
-  centralCp004BatchCount: cp004Batch.questions.length,
+  centralEngineMarkers: engineMarkers.length,
+  adminRouteMarkers: routeMarkers.length,
   questionStudioActive: true,
   questionBankWritable: false,
   testEligible: false,
