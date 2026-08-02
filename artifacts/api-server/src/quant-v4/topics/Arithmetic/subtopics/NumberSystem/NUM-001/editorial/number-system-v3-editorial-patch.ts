@@ -1,0 +1,67 @@
+// @ts-nocheck
+import {
+  cleanText,
+  mathNumber,
+  mathValue,
+  studentOptionDisplay,
+} from "./simple-teacher-voice-core";
+import { stripStudentOptionLeaks } from "./number-system-generator-contract";
+
+function inlineDisplayMath(value: unknown): string {
+  return String(value ?? "")
+    .replace(/\$\$\s*([\s\S]*?)\s*\$\$/gu, (_match, expression) => `$${String(expression).trim()}$`)
+    .replace(/\$(\d[\d,]*)\$\s*[×x]\s*\$(\d[\d,]*)\$\s*=\s*\$(\d[\d,]*)\$/gu, "$1 \\times $2 = $3")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
+export function patchNumberSystemV3Text(value: unknown): string {
+  return inlineDisplayMath(cleanText(value))
+    .replace(
+      /Choose the option that co-prime statements about ([^?]+) is correct\?/giu,
+      "Which of the following co-prime statements about $1 is correct?",
+    )
+    .replace(
+      /Choose the option that prime numbers divides ([^?]+) exactly\?/giu,
+      "Which of the following prime numbers divides $1 exactly?",
+    )
+    .replace(
+      /Choose the option that prime number divides ([^?]+) exactly\?/giu,
+      "Which of the following prime numbers divides $1 exactly?",
+    )
+    .replace(/\b(\d[\d,]*)\s*([+\-])\s*(\d[\d,]*)\b/gu, (_match, left, operator, right) =>
+      `$${left} ${operator} ${right}$`)
+    .replace(/\$\$+/g, "$ ")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
+function proseMath(value: string): string {
+  return value
+    .replace(/\b(\d[\d,]*)\^(\d+)\b/gu, (_match, base, exponent) => `$${base}^{${exponent}}$`)
+    .replace(/\b(\d[\d,]*)\b/gu, (match) => mathNumber(match.replaceAll(",", "")))
+    .replace(/\$\$+/g, "$")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
+export function renderNumberSystemV3Option(value: unknown): string {
+  const clean = stripStudentOptionLeaks(value);
+  const looksLikeProse = /[A-Za-z]{2,}\s+[A-Za-z]{2,}/u.test(clean);
+  if (looksLikeProse) return proseMath(clean);
+  return studentOptionDisplay(clean);
+}
+
+export function patchNumberSystemV3Teacher(teacher: any): any {
+  return Object.freeze({
+    ...teacher,
+    mainRule: teacher.mainRule.map(patchNumberSystemV3Text),
+    stepByStepSolution: teacher.stepByStepSolution.map(patchNumberSystemV3Text),
+    examSpeedTrick: teacher.examSpeedTrick.map(patchNumberSystemV3Text),
+    commonTraps: teacher.commonTraps.map((trap) => Object.freeze({
+      ...trap,
+      optionValue: renderNumberSystemV3Option(trap.optionValue),
+      message: patchNumberSystemV3Text(trap.message),
+    })),
+  });
+}
