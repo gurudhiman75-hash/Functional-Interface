@@ -32,54 +32,73 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle CP-002 Wave 1 audit
+      - name: Bundle CP-002 Wave 1 mathematical audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-wave01-prototype-audit.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/int-001-cp002-wave01-prototype-audit.mjs
 
-      - name: Run CP-002 Wave 1 audit
+      - name: Run CP-002 Wave 1 mathematical audit
         shell: bash --noprofile --norc -e -o pipefail {0}
         run: |
           set -o pipefail
           cd artifacts/api-server
           node dist/quant-v4/int-001-cp002-wave01-prototype-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp002-wave01-prototype-audit.log
 
-      - name: Bundle CP-002 Wave 1 review exporter
+      - name: Bundle CP-002 Wave 1 TeX-integrity audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-wave01-review-export.ts
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-wave01-tex-integrity-audit.ts
           --bundle --platform=node --format=esm
-          --outfile=dist/quant-v4/int-001-cp002-wave01-review-export.mjs
+          --outfile=dist/quant-v4/int-001-cp002-wave01-tex-integrity-audit.mjs
 
-      - name: Generate CP-002 Wave 1 review pack
+      - name: Run CP-002 Wave 1 TeX-integrity audit
         shell: bash --noprofile --norc -e -o pipefail {0}
         run: |
           set -o pipefail
           cd artifacts/api-server
-          node dist/quant-v4/int-001-cp002-wave01-review-export.mjs 2>&1 | tee dist/quant-v4/int-001-cp002-wave01-review-export.log
+          node dist/quant-v4/int-001-cp002-wave01-tex-integrity-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp002-wave01-tex-integrity-audit.log
+
+      - name: Bundle CP-002 Wave 1 V2 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-wave01-review-export-v2.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp002-wave01-review-export-v2.mjs
+
+      - name: Generate CP-002 Wave 1 V2 review pack
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp002-wave01-review-export-v2.mjs 2>&1 | tee dist/quant-v4/int-001-cp002-wave01-review-export-v2.log
 
       - name: Verify CP-002 Wave 1 evidence
         shell: bash --noprofile --norc -e -o pipefail {0}
         run: |
           grep -q 'PASS_INT_CP002_WAVE01_ARCHITECTURE_PROTOTYPES' artifacts/api-server/dist/quant-v4/int-001-cp002-wave01-prototype-audit.log
-          grep -q 'PASS_INT_CP002_WAVE01_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp002-wave01-review-export.log
-          root=artifacts/api-server/dist/quant-v4/int-cp002-wave01-review-pack
-          test -f "$root/int-001-cp002-wave01-64-review-questions.md"
-          test -f "$root/int-001-cp002-wave01-64-review-answers.md"
-          test -f "$root/int-001-cp002-wave01-64-review-data.json"
-          test -f "$root/int-001-cp002-wave01-64-review-checklist.csv"
-          test -f "$root/int-001-cp002-wave01-review-summary.json"
-          ! grep -R -n -E '<sub>Trace:|INT-QL-|INT-CP002-PROT-|int-cp002-wave01-review:|requestedSeed|effectiveSeed|generationAttempts|FIND_' "$root"/*.md
+          grep -q 'PASS_INT_CP002_WAVE01_TEX_INTEGRITY_V2' artifacts/api-server/dist/quant-v4/int-001-cp002-wave01-tex-integrity-audit.log
+          grep -q 'PASS_INT_CP002_WAVE01_REVIEW_EXPORT_V2' artifacts/api-server/dist/quant-v4/int-001-cp002-wave01-review-export-v2.log
+          root=artifacts/api-server/dist/quant-v4/int-cp002-wave01-review-pack-v2
+          test -f "$root/int-001-cp002-wave01-v2-64-review-questions.md"
+          test -f "$root/int-001-cp002-wave01-v2-64-review-answers.md"
+          test -f "$root/int-001-cp002-wave01-v2-64-review-data.json"
+          test -f "$root/int-001-cp002-wave01-v2-64-review-checklist.csv"
+          test -f "$root/int-001-cp002-wave01-v2-review-summary.json"
+          ! grep -R -n -P '[\x00-\x08\x09\x0B\x0C\x0E-\x1F]' "$root"/*.md
+          ! grep -R -n -E '<sub>Trace:|INT-QL-|INT-CP002-PROT-|int-cp002-wave01-review-v2:|requestedSeed|effectiveSeed|generationAttempts|FIND_' "$root"/*.md
+          grep -q '\\frac' "$root/int-001-cp002-wave01-v2-64-review-answers.md"
+          grep -q '\\times' "$root/int-001-cp002-wave01-v2-64-review-answers.md"
 
       - name: Upload CP-002 Wave 1 evidence
         uses: actions/upload-artifact@v4
         with:
-          name: int-cp002-wave01-architecture-prototypes
+          name: int-cp002-wave01-architecture-prototypes-v2
           path: |
             artifacts/api-server/dist/quant-v4/int-001-cp002-wave01-prototype-audit.log
-            artifacts/api-server/dist/quant-v4/int-001-cp002-wave01-review-export.log
-            artifacts/api-server/dist/quant-v4/int-cp002-wave01-review-pack/**
+            artifacts/api-server/dist/quant-v4/int-001-cp002-wave01-tex-integrity-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp002-wave01-review-export-v2.log
+            artifacts/api-server/dist/quant-v4/int-cp002-wave01-review-pack-v2/**
           if-no-files-found: error
           retention-days: 14
