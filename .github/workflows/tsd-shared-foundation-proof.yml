@@ -1,4 +1,4 @@
-name: Validate TSD Foundation and CP-001 Provisional Runtime
+name: Validate TSD Foundation and Frozen CP-001
 
 on:
   pull_request:
@@ -31,7 +31,7 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle TSD foundation and CP-001 discovery
+      - name: Bundle TSD foundation and CP-001
         run: |
           ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
           OUT=dist/quant-v4/tsd-001
@@ -48,6 +48,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp001/clock-boundary-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp001/clock-boundary-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp001/equivalent-speed-representation-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp001/equivalent-speed-representation-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp001/answer-unit-edge-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp001/answer-unit-edge-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp001/freeze-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp001/freeze-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp001/review-export.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp001/review-export.mjs"
 
       - name: Run exact proof suites
@@ -65,13 +66,14 @@ jobs:
           node dist/quant-v4/tsd-001/cp001/clock-boundary-proof.mjs | tee dist/quant-v4/tsd-001/cp001/clock-boundary-proof.log
           node dist/quant-v4/tsd-001/cp001/equivalent-speed-representation-proof.mjs | tee dist/quant-v4/tsd-001/cp001/equivalent-speed-representation-proof.log
           node dist/quant-v4/tsd-001/cp001/answer-unit-edge-proof.mjs | tee dist/quant-v4/tsd-001/cp001/answer-unit-edge-proof.log
+          node dist/quant-v4/tsd-001/cp001/freeze-proof.mjs | tee dist/quant-v4/tsd-001/cp001/freeze-proof.log
           node dist/quant-v4/tsd-001/cp001/review-export.mjs | tee dist/quant-v4/tsd-001/cp001/review-export.log
 
       - name: Upload proof logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-foundation-cp001-provisional-runtime-proof
+          name: tsd-foundation-cp001-frozen-runtime-proof
           path: |
             artifacts/api-server/dist/quant-v4/tsd-001/foundation/foundation-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp001/discovery-registry-proof.log
@@ -84,12 +86,13 @@ jobs:
             artifacts/api-server/dist/quant-v4/tsd-001/cp001/clock-boundary-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp001/equivalent-speed-representation-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp001/answer-unit-edge-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/cp001/freeze-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp001/review-export.log
           if-no-files-found: error
 
-      - name: Upload CP-001 provisional English review
+      - name: Upload CP-001 frozen English review
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-cp001-provisional-english-review
+          name: tsd-cp001-frozen-english-review
           path: artifacts/api-server/dist/quant-v4/tsd-001/cp001-review
           if-no-files-found: error
