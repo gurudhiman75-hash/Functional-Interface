@@ -59,11 +59,13 @@ jobs:
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-editorial-remediation.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-editorial-remediation-wave02.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-presentation-sanitizer.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-explanation-naturalizer.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-localized-runtime.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-chapter-parity.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-stem-editorial.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-stem-editorial-wave02.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-fraction-presentation.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-explanation-naturalness.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-chapter-review-export.ts
       - name: Bundle complete parity proof
         run: >-
@@ -109,6 +111,17 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/tmw-001-multilingual-fraction-presentation.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-multilingual-fraction-presentation-proof.log
+      - name: Bundle multilingual explanation-naturalness proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-multilingual-explanation-naturalness.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-multilingual-explanation-naturalness.test.mjs
+      - name: Run multilingual explanation-naturalness proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-multilingual-explanation-naturalness.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-multilingual-explanation-naturalness-proof.log
       - name: Bundle complete review export
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -130,6 +143,7 @@ jobs:
             artifacts/api-server/dist/quant-v4/tmw-001-multilingual-stem-editorial-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-multilingual-stem-editorial-wave02-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-multilingual-fraction-presentation-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-multilingual-explanation-naturalness-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-multilingual-chapter-review-export.log
             artifacts/api-server/dist/quant-v4/tmw-001-multilingual-chapter-review.json
           if-no-files-found: error
