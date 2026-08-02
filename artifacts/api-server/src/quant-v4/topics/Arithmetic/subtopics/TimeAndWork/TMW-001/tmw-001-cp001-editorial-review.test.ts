@@ -6,18 +6,18 @@ import type { TmwLocalizedLanguage } from "./foundation/localization-types";
 const languages: readonly TmwLocalizedLanguage[] = ["hi", "pa"];
 const blocked: Record<TmwLocalizedLanguage, RegExp[]> = {
   hi: [
-    /कार्य-दर प्रति दिन 4 आवेदन है/,
+    /कार्य-दर प्रति दिन \d+ [^।]+ है/,
     /प्रति इकाई समय के उत्पादन/,
-    /6 घंटे में कुल उत्पादन 72 बोतलें है/,
+    /\d+ घंटे में कुल उत्पादन .+ है/,
     /माँगी गई तुलना के बजाय दूसरी पूरी मात्रा/,
   ],
   pa: [
-    /ਕੰਮ ਦੀ ਦਰ ਪ੍ਰਤੀ ਦਿਨ 4 ਅਰਜ਼ੀਆਂ ਹੈ/,
+    /ਕੰਮ ਦੀ ਦਰ ਪ੍ਰਤੀ ਦਿਨ \d+ [^।]+ ਹੈ/,
     /ਕੰਮ ਦਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹਿੱਸਾ/,
     /ਪ੍ਰਤੀ ਇਕਾਈ ਸਮੇਂ ਦੇ ਉਤਪਾਦਨ/,
     /ਪਤਾ ਹਿੱਸੇ ਨੂੰ/,
     /ਅਧੂਰੇ ਕੰਮ ਦੇ ਸਮੇਂ ਨੂੰ/,
-    /6 ਘੰਟੇ ਵਿੱਚ ਕੁੱਲ ਉਤਪਾਦਨ 72 ਬੋਤਲਾਂ ਹੈ/,
+    /\d+ ਘੰਟੇ ਵਿੱਚ ਕੁੱਲ ਉਤਪਾਦਨ .+ ਹੈ/,
     /ਇੱਕੋ ਦਰ ਤੇ/,
     /ਆਮ ਤੌਰ ਤੇ/,
     /ਮੰਗੀ ਤੁਲਨਾ ਦੀ ਥਾਂ ਦੂਜੀ ਪੂਰੀ ਮਾਤਰਾ/,
@@ -32,6 +32,7 @@ assert.equal(TMW_CP001_REGISTRY.at(-1)?.qlId, "TMW-QL-020");
 let reviewedPackages = 0;
 let hindiPackages = 0;
 let punjabiPackages = 0;
+let parameterAwareTrapPackages = 0;
 
 for (const entry of TMW_CP001_REGISTRY) {
   for (let index = 0; index < 12; index += 1) {
@@ -72,14 +73,44 @@ for (const entry of TMW_CP001_REGISTRY) {
         );
       }
 
-      if (entry.qlId === "TMW-QL-006") {
-        assert.match(
-          question.explanation.commonTrap.explanation,
-          language === "hi"
-            ? /3 दिनों.*2 दिनों/
-            : /3 ਦਿਨਾਂ.*2 ਦਿਨਾਂ/,
-        );
+      const trap = question.explanation.commonTrap;
+      if (trap.misconceptionId === "SECOND_QUANTITY_REPORTED") {
+        const days = question.parameters.time.numerator / question.parameters.time.denominator;
+        switch (entry.solveMode) {
+          case "findWorkFromRateAndTime":
+          case "findOutputFromUnitRateAndTime":
+            assert.ok(trap.explanation.includes(String(days - 1)));
+            assert.ok(trap.explanation.includes(String(days)));
+            break;
+          case "findFractionCompletedInGivenTime":
+          case "findRemainingFractionAfterTime":
+            assert.ok(trap.explanation.includes(String(days)));
+            break;
+          case "compareWorkCompletedAtEqualTime":
+            assert.match(
+              trap.explanation,
+              language === "hi"
+                ? /दूसरे व्यक्ति.*उत्पादन.*अंतर/
+                : /ਦੂਜੇ ਵਿਅਕਤੀ.*ਉਤਪਾਦਨ.*ਫਰਕ/,
+            );
+            break;
+          case "compareTimeForDifferentWorkAtSameRate":
+            assert.match(
+              trap.explanation,
+              language === "hi"
+                ? /कम काम.*समय.*अंतर/
+                : /ਘੱਟ ਕੰਮ.*ਸਮਾਂ.*ਫਰਕ/,
+            );
+            break;
+          default:
+            assert.equal(
+              /दूसरी पूरी मात्रा|ਦੂਜੀ ਪੂਰੀ ਮਾਤਰਾ/.test(trap.explanation),
+              false,
+            );
+        }
+        parameterAwareTrapPackages += 1;
       }
+
       if (entry.qlId === "TMW-QL-012") {
         assert.match(
           question.explanation.opening,
@@ -92,8 +123,8 @@ for (const entry of TMW_CP001_REGISTRY) {
         assert.match(
           question.stem,
           language === "hi"
-            ? /72 बोतलें भरी जाती हैं.*कितनी बोतलें भरी जाएँगी/
-            : /72 ਬੋਤਲਾਂ ਭਰੀਆਂ ਜਾਂਦੀਆਂ ਹਨ.*ਕਿੰਨੀਆਂ ਬੋਤਲਾਂ ਭਰੀਆਂ ਜਾਣਗੀਆਂ/,
+            ? /उत्पादन = .+। उसी दर से .+ उत्पादन कितना होगा\?/
+            : /ਉਤਪਾਦਨ = .+। ਉਸੇ ਦਰ ਨਾਲ .+ ਉਤਪਾਦਨ ਕਿੰਨਾ ਹੋਵੇਗਾ\?/,
         );
       }
 
@@ -107,6 +138,7 @@ for (const entry of TMW_CP001_REGISTRY) {
 assert.equal(reviewedPackages, 480);
 assert.equal(hindiPackages, 240);
 assert.equal(punjabiPackages, 240);
+assert.ok(parameterAwareTrapPackages > 0);
 
 console.log(JSON.stringify({
   chapter: "TMW-001",
@@ -117,6 +149,7 @@ console.log(JSON.stringify({
   reviewedPackages,
   hindiPackages,
   punjabiPackages,
+  parameterAwareTrapPackages,
   openAutomatedFindings: 0,
   reviewVerdict: "ASSISTANT_EDITORIAL_REVIEW_COMPLETE_HUMAN_APPROVAL_PENDING",
   status: "PASS",
