@@ -275,9 +275,24 @@ function pnlPackageForQuestionStudio() {
     runtimeMode: "CANONICAL_REVIEW",
     supportedRuntimeModes: ["CANONICAL_REVIEW", "DYNAMIC_CANDIDATE"],
     dynamicCandidateCpIds: [...PNL_DYNAMIC_CP_IDS],
-    questionBankStatus: "NOT_STORED",
-    testEligibility: "INELIGIBLE",
-    publiclyPublishable: false,
+    reviewStatus: "APPROVED_EDITORIAL_CANONICAL",
+    questionBankStatus: "WRITABLE",
+    testEligibility: "ELIGIBLE",
+    publiclyPublishable: true,
+    runtimePolicies: {
+      CANONICAL_REVIEW: {
+        reviewStatus: "APPROVED_EDITORIAL_CANONICAL",
+        questionBankStatus: "WRITABLE",
+        testEligibility: "ELIGIBLE",
+        publiclyPublishable: true,
+      },
+      DYNAMIC_CANDIDATE: {
+        reviewStatus: "UNREVIEWED_DYNAMIC_CANDIDATE",
+        questionBankStatus: "NOT_STORED",
+        testEligibility: "INELIGIBLE",
+        publiclyPublishable: false,
+      },
+    },
   };
 }
 
@@ -392,9 +407,11 @@ async function generateWithRuntimePackage(
             pnlRuntimeMode === "DYNAMIC_CANDIDATE"
               ? "UNREVIEWED_DYNAMIC_CANDIDATE"
               : "APPROVED_EDITORIAL_CANONICAL",
-          questionBankStatus: "NOT_STORED",
-          testEligibility: "INELIGIBLE",
-          publiclyPublishable: false,
+          questionBankStatus:
+          pnlRuntimeMode === "DYNAMIC_CANDIDATE" ? "NOT_STORED" : "WRITABLE",
+        testEligibility:
+          pnlRuntimeMode === "DYNAMIC_CANDIDATE" ? "INELIGIBLE" : "ELIGIBLE",
+        publiclyPublishable: pnlRuntimeMode !== "DYNAMIC_CANDIDATE",
         }
       : {}),
     },

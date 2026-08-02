@@ -26,6 +26,22 @@ export type Pnl001ReviewSafety = Readonly<{
   runtimeMode: "CANONICAL_REVIEW";
 }>;
 
+export type Pnl001CanonicalReleasePolicy = Readonly<{
+  reviewStatus: "APPROVED_EDITORIAL_CANONICAL";
+  questionBankStatus: "WRITABLE";
+  testEligibility: "ELIGIBLE";
+  publiclyPublishable: true;
+  runtimeMode: "CANONICAL_REVIEW";
+}>;
+
+export const PNL_001_CANONICAL_RELEASE_POLICY = {
+  reviewStatus: "APPROVED_EDITORIAL_CANONICAL",
+  questionBankStatus: "WRITABLE",
+  testEligibility: "ELIGIBLE",
+  publiclyPublishable: true,
+  runtimeMode: "CANONICAL_REVIEW",
+} as const satisfies Pnl001CanonicalReleasePolicy;
+
 export type Pnl001ReviewEntry = Readonly<{
   qlId: string;
   cpId: Pnl001CanonicalProblemId;
@@ -150,13 +166,21 @@ export function runPnl001ReviewPipeline(
       message: "Question has four unique options and one reviewed keyed answer.",
     },
     {
-      name: "question-bank-safety",
-      passed:
-        entry.safety.questionBankStatus === "NOT_STORED" &&
-        entry.safety.testEligibility === "INELIGIBLE" &&
-        entry.safety.publiclyPublishable === false,
-      message: "Canonical review output is not eligible for Question Bank, tests or publication.",
-    },
+    name: "canonical-source-freeze",
+    passed:
+      entry.safety.questionBankStatus === "NOT_STORED" &&
+      entry.safety.testEligibility === "INELIGIBLE" &&
+      entry.safety.publiclyPublishable === false,
+    message: "The frozen source library remains immutable review provenance.",
+  },
+  {
+    name: "canonical-production-release-policy",
+    passed:
+      PNL_001_CANONICAL_RELEASE_POLICY.questionBankStatus === "WRITABLE" &&
+      PNL_001_CANONICAL_RELEASE_POLICY.testEligibility === "ELIGIBLE" &&
+      PNL_001_CANONICAL_RELEASE_POLICY.publiclyPublishable === true,
+    message: "Approved canonical output is eligible for Question Bank, tests and publication.",
+  },
   ];
   const validation = {
     valid: validationChecks.every((check) => check.passed),
@@ -199,11 +223,11 @@ export function runPnl001ReviewPipeline(
       representation: entry.representation,
       contextFamily: entry.contextFamily,
       seed,
-      runtimeMode: entry.safety.runtimeMode,
-      reviewStatus: entry.safety.reviewStatus,
-      questionBankStatus: entry.safety.questionBankStatus,
-      testEligibility: entry.safety.testEligibility,
-      publiclyPublishable: entry.safety.publiclyPublishable,
+      runtimeMode: PNL_001_CANONICAL_RELEASE_POLICY.runtimeMode,
+      reviewStatus: PNL_001_CANONICAL_RELEASE_POLICY.reviewStatus,
+      questionBankStatus: PNL_001_CANONICAL_RELEASE_POLICY.questionBankStatus,
+      testEligibility: PNL_001_CANONICAL_RELEASE_POLICY.testEligibility,
+      publiclyPublishable: PNL_001_CANONICAL_RELEASE_POLICY.publiclyPublishable,
     },
     solver: {
       answer: surface.answer,
@@ -222,7 +246,7 @@ export function runPnl001ReviewPipeline(
       nodes: [
         { id: "solve-mode", label: "Solve mode", value: entry.solveMode },
         { id: "answer", label: "Reviewed answer", value: surface.answer },
-        { id: "safety", label: "Runtime status", value: entry.safety.runtimeMode },
+        { id: "safety", label: "Runtime status", value: PNL_001_CANONICAL_RELEASE_POLICY.runtimeMode },
       ],
     },
     explanation: {
@@ -243,10 +267,10 @@ export function runPnl001ReviewPipeline(
       generationMode: "CANONICAL_REVIEW",
       source,
       seed,
-      reviewStatus: entry.safety.reviewStatus,
-      questionBankStatus: entry.safety.questionBankStatus,
-      testEligibility: entry.safety.testEligibility,
-      publiclyPublishable: entry.safety.publiclyPublishable,
+      reviewStatus: PNL_001_CANONICAL_RELEASE_POLICY.reviewStatus,
+      questionBankStatus: PNL_001_CANONICAL_RELEASE_POLICY.questionBankStatus,
+      testEligibility: PNL_001_CANONICAL_RELEASE_POLICY.testEligibility,
+      publiclyPublishable: PNL_001_CANONICAL_RELEASE_POLICY.publiclyPublishable,
     },
     validation,
     mathJax: {},

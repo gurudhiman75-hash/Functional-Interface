@@ -34,6 +34,7 @@ export function getGeneratedQuestionBankEligibilityIssue(value: unknown): string
   const payload = asRecord(value);
   const generationContext = asRecord(payload.generationContext);
   const runtimeMode = asText(payload.runtimeMode || generationContext.runtimeMode).toUpperCase();
+  const reviewStatus = asText(payload.reviewStatus || generationContext.reviewStatus).toUpperCase();
   const questionBankStatus = asText(
     payload.questionBankStatus || generationContext.questionBankStatus,
   ).toUpperCase();
@@ -51,8 +52,14 @@ export function getGeneratedQuestionBankEligibilityIssue(value: unknown): string
   if (publiclyPublishable === false) {
     return "publiclyPublishable is false";
   }
-  if (runtimeMode === "CANONICAL_REVIEW" || runtimeMode === "DYNAMIC_CANDIDATE") {
+  if (runtimeMode === "DYNAMIC_CANDIDATE") {
     return `runtimeMode ${runtimeMode} is review-only`;
+  }
+  if (
+    runtimeMode === "CANONICAL_REVIEW" &&
+    reviewStatus !== "APPROVED_EDITORIAL_CANONICAL"
+  ) {
+    return `reviewStatus ${reviewStatus || "MISSING"} is not release-approved`;
   }
   return null;
 }

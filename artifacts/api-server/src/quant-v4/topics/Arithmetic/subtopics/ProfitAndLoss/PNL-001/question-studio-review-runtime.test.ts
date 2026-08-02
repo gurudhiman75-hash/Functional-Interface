@@ -85,9 +85,9 @@ for (const entry of entries) {
     assert.equal(pkg.options[pkg.correctIndex], pkg.answer);
     assert.equal(pkg.validation.valid, true);
     assert.equal(pkg.traceability.generationMode, "CANONICAL_REVIEW");
-    assert.equal(pkg.traceability.questionBankStatus, "NOT_STORED");
-    assert.equal(pkg.traceability.testEligibility, "INELIGIBLE");
-    assert.equal(pkg.traceability.publiclyPublishable, false);
+    assert.equal(pkg.traceability.questionBankStatus, "WRITABLE");
+    assert.equal(pkg.traceability.testEligibility, "ELIGIBLE");
+    assert.equal(pkg.traceability.publiclyPublishable, true);
     assert.equal(
       unresolvedProsePlaceholders(
         `${pkg.stem}\n${pkg.explanation.lines.join("\n")}`,
@@ -177,9 +177,9 @@ console.log(
           entries.filter((entry) => entry.cpId === cpId).length,
         ]),
       ),
-      questionBankStatus: "NOT_STORED",
-      testEligibility: "INELIGIBLE",
-      publiclyPublishable: false,
+      questionBankStatus: "WRITABLE",
+      testEligibility: "ELIGIBLE",
+      publiclyPublishable: true,
     },
     null,
     2,

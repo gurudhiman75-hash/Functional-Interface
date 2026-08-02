@@ -31,9 +31,23 @@ assert.deepEqual((pnl as any).supportedRuntimeModes, [
   "DYNAMIC_CANDIDATE",
 ]);
 assert.deepEqual((pnl as any).dynamicCandidateCpIds, [...CP_IDS]);
-assert.equal((pnl as any).questionBankStatus, "NOT_STORED");
-assert.equal((pnl as any).testEligibility, "INELIGIBLE");
-assert.equal((pnl as any).publiclyPublishable, false);
+assert.equal((pnl as any).questionBankStatus, "WRITABLE");
+assert.equal((pnl as any).testEligibility, "ELIGIBLE");
+assert.equal((pnl as any).publiclyPublishable, true);
+assert.deepEqual((pnl as any).runtimePolicies, {
+  CANONICAL_REVIEW: {
+    reviewStatus: "APPROVED_EDITORIAL_CANONICAL",
+    questionBankStatus: "WRITABLE",
+    testEligibility: "ELIGIBLE",
+    publiclyPublishable: true,
+  },
+  DYNAMIC_CANDIDATE: {
+    reviewStatus: "UNREVIEWED_DYNAMIC_CANDIDATE",
+    questionBankStatus: "NOT_STORED",
+    testEligibility: "INELIGIBLE",
+    publiclyPublishable: false,
+  },
+});
 
 const rawPnlCheckpoints = packages.filter(
   (pkg) =>
@@ -58,9 +72,9 @@ for (const language of LANGUAGES) {
   assert.equal(canonical.questions.length, 12);
   assert.equal(canonical.generationContext.runtimeMode, "CANONICAL_REVIEW");
   assert.equal(canonical.generationContext.reviewStatus, "APPROVED_EDITORIAL_CANONICAL");
-  assert.equal(canonical.generationContext.questionBankStatus, "NOT_STORED");
-  assert.equal(canonical.generationContext.testEligibility, "INELIGIBLE");
-  assert.equal(canonical.generationContext.publiclyPublishable, false);
+  assert.equal(canonical.generationContext.questionBankStatus, "WRITABLE");
+  assert.equal(canonical.generationContext.testEligibility, "ELIGIBLE");
+  assert.equal(canonical.generationContext.publiclyPublishable, true);
   assert.deepEqual(
     [...new Set(canonical.questionPackages.map((pkg: any) => pkg.canonicalProblemId))].sort(),
     [...CP_IDS],
@@ -72,9 +86,9 @@ for (const language of LANGUAGES) {
     assert.equal(new Set(pkg.options).size, 4);
     assert.equal(pkg.options[pkg.correctIndex], pkg.answer);
     assert.equal(pkg.traceability.generationMode, "CANONICAL_REVIEW");
-    assert.equal(pkg.traceability.questionBankStatus, "NOT_STORED");
-    assert.equal(pkg.traceability.testEligibility, "INELIGIBLE");
-    assert.equal(pkg.traceability.publiclyPublishable, false);
+    assert.equal(pkg.traceability.questionBankStatus, "WRITABLE");
+    assert.equal(pkg.traceability.testEligibility, "ELIGIBLE");
+    assert.equal(pkg.traceability.publiclyPublishable, true);
     if (language !== "en") {
       const script = language === "hi" ? /[\u0900-\u097F]/u : /[\u0A00-\u0A7F]/u;
       assert.ok(script.test(pkg.stem));
@@ -154,7 +168,32 @@ process.env.DATABASE_URL ??= "postgresql://test:test@127.0.0.1:5432/test";
 const {
   assertGeneratedQuestionBankEligible,
   getGeneratedQuestionBankEligibilityIssue,
+  normalizeGeneratedQuestionPayload,
 } = await import("../../../../../../lib/admin-question-conversion");
+
+for (const language of LANGUAGES) {
+  const released = await generateQuestion({
+    packageId: "PNL-001",
+    runtimeMode: "CANONICAL_REVIEW",
+    language,
+    canonicalProblemId: "PNL-CP-001",
+    questionLanguageId: "PNL-QL-001",
+    seed: `pnl-question-bank-release:${language}`,
+  });
+  const releasedPreview = released.questions[0]!;
+  assert.equal(getGeneratedQuestionBankEligibilityIssue(releasedPreview), null);
+  assert.doesNotThrow(() => assertGeneratedQuestionBankEligible(releasedPreview));
+  const normalizedReleased = normalizeGeneratedQuestionPayload(releasedPreview, {
+    itemId: "00000000-0000-0000-0000-000000000001",
+    generationRunCode: `GEN-PNL-RELEASE-${language.toUpperCase()}`,
+  });
+  assert.equal(normalizedReleased.options.length, 4);
+  assert.equal(
+    normalizedReleased.options[normalizedReleased.correctIndex],
+    releasedPreview.options[releasedPreview.correctIndex],
+  );
+}
+
 const blocked = await generateQuestion({
   packageId: "PNL-001",
   runtimeMode: "DYNAMIC_CANDIDATE",
@@ -171,6 +210,20 @@ assert.equal(
 assert.throws(
   () => assertGeneratedQuestionBankEligible(preview),
   /cannot be converted to Question Bank: questionBankStatus is NOT_STORED/,
+);
+const tamperedDynamicPreview = {
+  ...preview,
+  questionBankStatus: "WRITABLE",
+  testEligibility: "ELIGIBLE",
+  publiclyPublishable: true,
+};
+assert.equal(
+  getGeneratedQuestionBankEligibilityIssue(tamperedDynamicPreview),
+  "runtimeMode DYNAMIC_CANDIDATE is review-only",
+);
+assert.throws(
+  () => assertGeneratedQuestionBankEligible(tamperedDynamicPreview),
+  /runtimeMode DYNAMIC_CANDIDATE is review-only/,
 );
 
 console.log(JSON.stringify({
