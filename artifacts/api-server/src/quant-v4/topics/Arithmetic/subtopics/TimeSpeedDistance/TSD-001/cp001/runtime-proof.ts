@@ -14,7 +14,7 @@ const normalizedStemOwners = new Map<string, string>();
 let crossAuthorityNormalizedStemCollisions = 0;
 const technicalLearnerLanguage = /\b(uniform motion|exact identity|physical value|continuous timeline|compatible units|motion state|state be classified|provisional authority|required answer)\b/i;
 const mixedNumberPattern = /\b\d+\s+\d+\/\d+\b/;
-const languageDefectPattern = /\.\.|\b1 (hours|minutes|seconds|days)\b/;
+const languageDefectPattern = /\.\.|(?<![\d.])\b1 (hours|minutes|seconds|days)\b/;
 const optionLabels = ["A", "B", "C", "D"] as const;
 
 function normalizeStem(stem: string): string {
