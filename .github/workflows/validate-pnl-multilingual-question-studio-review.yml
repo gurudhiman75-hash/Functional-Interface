@@ -71,6 +71,17 @@ jobs:
           node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-native-context-localizer.test.mjs \
             2>&1 | tee -a pnl-question-studio-native-context-localizer.log
 
+      - name: Prove all 558 review surfaces
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-multilingual-review-surface.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-multilingual-review-surface.test.mjs \
+            2>&1 | tee pnl-question-studio-multilingual-review-surface.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-multilingual-review-surface.test.mjs \
+            2>&1 | tee -a pnl-question-studio-multilingual-review-surface.log
+
       - name: Inventory canonical native context text
         run: |
           set -o pipefail
@@ -91,6 +102,7 @@ jobs:
             pnl-question-studio-canonical-context.log
             pnl-question-studio-native-choice-localizer.log
             pnl-question-studio-native-context-localizer.log
+            pnl-question-studio-multilingual-review-surface.log
             pnl-question-studio-native-context-inventory.log
           if-no-files-found: error
           retention-days: 7
