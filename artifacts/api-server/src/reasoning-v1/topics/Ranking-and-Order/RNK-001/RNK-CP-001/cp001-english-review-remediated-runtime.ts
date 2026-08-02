@@ -12,6 +12,7 @@ type UnderlyingQuestion = RnkCp001ProvisionalAuthorityReviewQuestion['question']
 interface ReviewContext {
   readonly singular: 'candidate' | 'person';
   readonly plural: 'candidates' | 'people';
+  readonly startPhrase: string;
   readonly beforeRelation: string;
   readonly afterRelation: string;
 }
@@ -22,6 +23,7 @@ function reviewContext(question: UnderlyingQuestion): ReviewContext {
       return {
         singular: 'candidate',
         plural: 'candidates',
+        startPhrase: 'from the top',
         beforeRelation: 'ranked above',
         afterRelation: 'ranked below',
       };
@@ -29,6 +31,7 @@ function reviewContext(question: UnderlyingQuestion): ReviewContext {
       return {
         singular: 'person',
         plural: 'people',
+        startPhrase: 'from the left',
         beforeRelation: 'standing to the left of',
         afterRelation: 'standing to the right of',
       };
@@ -36,6 +39,7 @@ function reviewContext(question: UnderlyingQuestion): ReviewContext {
       return {
         singular: 'person',
         plural: 'people',
+        startPhrase: 'from the front',
         beforeRelation: 'standing ahead of',
         afterRelation: 'standing behind',
       };
@@ -64,14 +68,6 @@ function polishLearnerText(text: string, question: UnderlyingQuestion): string {
       `To count the ${context.plural} ${context.afterRelation} ${name}, reduce the rank`,
     )
     .replace(
-      new RegExp(`Once the 0 positions after ${name} are removed`, 'g'),
-      `With no positions after ${name}`,
-    )
-    .replace(
-      new RegExp(`Once the 1 positions after ${name} are removed`, 'g'),
-      `After removing the one position after ${name}`,
-    )
-    .replace(
       new RegExp(`= 1 remain (${context.beforeRelation}|${context.afterRelation}) ${name}`, 'g'),
       `= one ${context.singular} remains $1 ${name}`,
     )
@@ -79,6 +75,8 @@ function polishLearnerText(text: string, question: UnderlyingQuestion): string {
       new RegExp(`= 0 remain (${context.beforeRelation}|${context.afterRelation}) ${name}`, 'g'),
       `= no ${context.plural} remain $1 ${name}`,
     )
+    .replace(/\bone candidate are\b/g, 'one candidate is')
+    .replace(/\bone person are\b/g, 'one person is')
     .replace(/\b1 candidates\b/g, 'one candidate')
     .replace(/\b1 people\b/g, 'one person')
     .replace(/\b1 positions\b/g, 'one position')
@@ -88,17 +86,36 @@ function polishLearnerText(text: string, question: UnderlyingQuestion): string {
     .replace(/(\d|\))\s*\/\s*(\d)/g, '$1 ÷ $2');
 }
 
+function edgeSpecificKeyRule(question: UnderlyingQuestion): string | null {
+  const evidence = question.displayedEvidence;
+  if (evidence.kind !== 'RANK_FROM_COUNT_AFTER_AND_TOTAL' || evidence.afterCount > 1) {
+    return null;
+  }
+
+  const context = reviewContext(question);
+  const relationSentence =
+    evidence.afterCount === 0
+      ? context.singular === 'candidate'
+        ? `No candidate is ${context.afterRelation} ${question.targetName}.`
+        : `No one is ${context.afterRelation} ${question.targetName}.`
+      : `One ${context.singular} is ${context.afterRelation} ${question.targetName}.`;
+
+  return `${relationSentence} Therefore, ${evidence.total} − ${evidence.afterCount} = ${question.answer}, so ${question.targetName}'s rank ${context.startPhrase} is ${question.answer}.`;
+}
+
 function remediateReviewQuestion(
   reviewQuestion: RnkCp001ProvisionalAuthorityReviewQuestion,
 ): RnkCp001ProvisionalAuthorityReviewQuestion {
   const question = reviewQuestion.question;
+  const reviewedKeyRule = edgeSpecificKeyRule(question) ?? question.explanation.keyRule;
+
   return {
     ...reviewQuestion,
     question: {
       ...question,
       stem: polishLearnerText(question.stem, question),
       explanation: {
-        keyRule: polishLearnerText(question.explanation.keyRule, question),
+        keyRule: polishLearnerText(reviewedKeyRule, question),
         stepByStepSolution: question.explanation.stepByStepSolution.map((step) =>
           polishLearnerText(step, question),
         ),
