@@ -22,6 +22,10 @@ import {
   examGradeStem,
 } from "./cp005-editorial";
 import { polishCp005ModelAudit } from "./cp005-editorial-polish";
+import {
+  BLR_CP005_GENDER_EVIDENCE_VERSION,
+  applyCp005GenderEvidence,
+} from "./cp005-gender-evidence";
 
 export function generateBlrCp005Question(
   prototypeId: BlrCp005PrototypeId,
@@ -29,7 +33,10 @@ export function generateBlrCp005Question(
 ): GeneratedBlrCp005Question {
   if (!Number.isFinite(seed)) throw new Error(`CP-005 seed must be finite: ${seed}.`);
   const prototype = prototypeCase(prototypeId);
-  const built = prototype.build(Math.trunc(seed));
+  const built = applyCp005GenderEvidence(
+    prototypeId,
+    prototype.build(Math.trunc(seed)),
+  );
   const contract = contractForAuthority(prototype.authority);
   if (!contract.sourcePrototypeIds.includes(prototypeId)) throw new Error(`${prototypeId} is outside ${prototype.authority}.`);
   const solved = solveBlrCp005Query(built.modelSpace, built.querySpec);
@@ -87,7 +94,8 @@ export function generateBlrCp005Question(
       difficulty: difficultyFor(built.modelSpace.models.length, optionStatusMix, prototype.authority.includes("UNCERTAINTY") || prototype.authority.includes("COUNT")),
       modelCount: built.modelSpace.models.length,
       semanticFingerprint: semanticFingerprint([
-        prototypeId, seed, built.modelSpace.scenarioId, BLR_CP005_EDITORIAL_VERSION,
+        prototypeId, seed, built.modelSpace.scenarioId,
+        BLR_CP005_EDITORIAL_VERSION, BLR_CP005_GENDER_EVIDENCE_VERSION,
         sharedPrompt, stem,
         ...built.modelSpace.models.map((model) => graphFingerprint(model.graph)),
         ...options.map((option) => option.semanticKey), correctIndex,
