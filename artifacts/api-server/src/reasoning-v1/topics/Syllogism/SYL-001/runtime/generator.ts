@@ -1,0 +1,162 @@
+import { normalizePremises } from "../foundation/normalization";
+import { SYL_001_SEMANTICS_PROFILE } from "../foundation/semantics-profile";
+import type { SylDifficulty, SylLocale } from "../foundation/types";
+import { selectedPremisesAreRelevant } from "./analysis";
+import { buildExplanation } from "./explanation";
+import {
+  commonPreamble,
+  renderConclusion,
+  renderPremise,
+  taskInstruction,
+} from "./localization";
+import { buildOptions } from "./options";
+import { createPrng, shuffle } from "./prng";
+import { getSylQlDefinition } from "./ql-registry";
+import { selectQuestionLogic } from "./selection";
+import { assignTerms } from "./term-assignment";
+import type {
+  GeneratedSylQuestion,
+  SylQlDefinition,
+  SylQlId,
+} from "./types";
+
+const ROMAN = ["I", "II", "III", "IV"];
+
+function answerType(definition: SylQlDefinition): GeneratedSylQuestion["answerType"] {
+  if (definition.renderer === "STATEMENT_OPTIONS") return "CONCLUSION_TEXT";
+  if (definition.renderer === "CONCLUSION_COMBINATION") return "FOLLOW_MASK";
+  if (definition.renderer === "MODAL_CLASSIFICATION") return "MODAL_LABEL";
+  return "PAIR_STATUS";
+}
+
+function adjustedDifficulty(definition: SylQlDefinition, base: SylDifficulty): SylDifficulty {
+  if (
+    definition.taskKind === "THREE_CONCLUSION_FOLLOW_MASK"
+    || definition.taskKind === "MIXED_THREE_CONCLUSION_MASK"
+    || definition.taskKind === "CLASSIFY_CONCLUSION_PAIR"
+  ) return "HARD";
+  if (definition.scenarioGroup === "ONLY" || definition.scenarioGroup === "FEW") {
+    return base === "EASY" ? "MEDIUM" : base;
+  }
+  return base;
+}
+
+function buildStem(
+  definition: SylQlDefinition,
+  locale: SylLocale,
+  statements: readonly string[],
+  conclusions: readonly string[],
+): string {
+  const statementHeading = locale === "en-IN" ? "Statements" : locale === "hi-IN" ? "कथन" : "ਕਥਨ";
+  const conclusionHeading = locale === "en-IN" ? "Conclusions" : locale === "hi-IN" ? "निष्कर्ष" : "ਨਤੀਜੇ";
+  const lines = [commonPreamble(locale), "", `${statementHeading}:`];
+  statements.forEach((statement, index) => lines.push(`${index + 1}. ${statement}`));
+
+  const selectionTask = definition.renderer === "STATEMENT_OPTIONS";
+  if (!selectionTask) {
+    lines.push("", `${conclusionHeading}:`);
+    conclusions.forEach((conclusion, index) => lines.push(`${ROMAN[index] ?? index + 1}. ${conclusion}`));
+  }
+  lines.push("", taskInstruction(definition.taskKind, locale));
+  return lines.join("\n");
+}
+
+export function generateSylQuestion(
+  qlId: SylQlId,
+  seed: number,
+  locale: SylLocale,
+): GeneratedSylQuestion {
+  if (!Number.isSafeInteger(seed)) throw new Error("Seed must be a safe integer.");
+  const definition = getSylQlDefinition(qlId);
+  const selected = selectQuestionLogic(definition, seed);
+  if (!selectedPremisesAreRelevant(selected.analysis, selected.conclusions, selected.relevanceMode)) {
+    throw new Error(`Premise relevance failed for ${qlId}/${seed}.`);
+  }
+
+  const assignment = assignTerms(qlId, seed, selected.analysis.termOrder);
+  const premiseRandom = createPrng(`${qlId}:${seed}:premise-order`);
+  const renderedPremises = shuffle(selected.analysis.premises, premiseRandom).map((premise) =>
+    renderPremise(premise, locale, assignment));
+  const renderedConclusions = selected.conclusions.map((candidate) =>
+    renderConclusion(candidate.conclusion, locale, assignment));
+  const options = buildOptions(definition, selected, locale, assignment, seed);
+  if (options.length !== definition.optionCount) {
+    throw new Error(`${qlId}/${seed} generated ${options.length} options, expected ${definition.optionCount}.`);
+  }
+  if (new Set(options.map((entry) => entry.text)).size !== options.length) {
+    throw new Error(`${qlId}/${seed}/${locale} has duplicate rendered options.`);
+  }
+  const correctIndexes = options
+    .map((entry, index) => (entry.isCorrect ? index : -1))
+    .filter((index) => index >= 0);
+  if (correctIndexes.length !== 1) throw new Error(`${qlId}/${seed} must have exactly one correct option.`);
+
+  const explanation = buildExplanation(definition, selected, locale, assignment, options);
+  const termKeys = selected.analysis.termOrder.map((termId) => assignment[termId].termKey);
+  const selectedClasses = selected.conclusions.map((candidate) => candidate.profile.classification);
+
+  return {
+    packageId: "SYL-001",
+    checkpointId: definition.checkpointId,
+    qlId,
+    permanentQlId: qlId,
+    seed,
+    locale,
+    difficulty: adjustedDifficulty(definition, selected.analysis.scenario.baseDifficulty),
+    renderer: definition.renderer,
+    answerType: answerType(definition),
+    semanticsProfileId: SYL_001_SEMANTICS_PROFILE.profileId,
+    sourcePatternId: selected.analysis.scenario.sourcePatternId,
+    scenarioId: selected.analysis.scenario.scenarioId,
+    stem: buildStem(definition, locale, renderedPremises, renderedConclusions),
+    structuredPrompt: {
+      premises: selected.analysis.premises,
+      conclusions: selected.conclusions.map((candidate) => candidate.conclusion),
+      termKeysById: Object.fromEntries(selected.analysis.termOrder.map((termId) => [termId, assignment[termId].termKey])),
+      normalizedConstraints: normalizePremises(selected.analysis.premises),
+    },
+    reviewLogic: {
+      conclusionEvaluations: selected.conclusions.map((candidate) => ({
+        conclusionId: candidate.conclusion.conclusionId,
+        classification: candidate.profile.classification,
+        canBeTrue: candidate.profile.canBeTrue,
+        canBeFalse: candidate.profile.canBeFalse,
+        verdictImpactPremiseIds: candidate.verdictImpactPremiseIds,
+        modelImpactPremiseIds: candidate.impactPremiseIds,
+      })),
+    },
+    statements: renderedPremises,
+    conclusions: renderedConclusions,
+    options,
+    correctIndex: correctIndexes[0],
+    explanation,
+    metadata: {
+      runtimeVersion: "syl-001-multilingual-runtime-v1",
+      taskKind: definition.taskKind,
+      topology: selected.analysis.scenario.topology,
+      premiseForms: selected.analysis.premises.map((premise) => premise.form),
+      termKeys,
+      selectedConclusionClasses: selectedClasses,
+      followMask: selected.followMask,
+      pairStatus: selected.pairStatus,
+      optionCount: definition.optionCount,
+      answerTemplateId: definition.answerTemplateId,
+      solverAgreementPassed: true,
+      premiseRelevancePassed: true,
+      ambiguityAuditPassed: true,
+      deterministic: true,
+      questionStudioVisible: false,
+      questionBankWritable: false,
+      testEligible: false,
+      publiclyPublishable: false,
+    },
+  };
+}
+
+export function generateSylQuestionByString(
+  qlId: string,
+  seed: number,
+  locale: SylLocale,
+): GeneratedSylQuestion {
+  return generateSylQuestion(qlId as SylQlId, seed, locale);
+}
