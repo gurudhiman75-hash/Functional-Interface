@@ -50,10 +50,21 @@ let nativePackageCount = 0;
 let nativeMathJaxPackageCount = 0;
 for (const entry of entries) {
   assert.equal(entry.options.length, 4, `${entry.qlId}: option count`);
-  assert.equal(new Set(entry.options).size, 4, `${entry.qlId}: duplicate option`);
-  assert.equal(entry.options[entry.correctIndex], entry.answer, `${entry.qlId}: answer key`);
+  assert.equal(
+    new Set(entry.options).size,
+    4,
+    `${entry.qlId}: duplicate option`,
+  );
+  assert.equal(
+    entry.options[entry.correctIndex],
+    entry.answer,
+    `${entry.qlId}: answer key`,
+  );
   assert.ok(entry.stem.trim().length >= 20, `${entry.qlId}: empty/short stem`);
-  assert.ok(entry.explanation.trim().length >= 80, `${entry.qlId}: shallow explanation`);
+  assert.ok(
+    entry.explanation.trim().length >= 80,
+    `${entry.qlId}: shallow explanation`,
+  );
   assert.equal(
     unresolvedProsePlaceholders(entry.stem).length,
     0,
@@ -85,9 +96,9 @@ for (const entry of entries) {
     assert.equal(pkg.options[pkg.correctIndex], pkg.answer);
     assert.equal(pkg.validation.valid, true);
     assert.equal(pkg.traceability.generationMode, "CANONICAL_REVIEW");
-    assert.equal(pkg.traceability.questionBankStatus, "NOT_STORED");
-    assert.equal(pkg.traceability.testEligibility, "INELIGIBLE");
-    assert.equal(pkg.traceability.publiclyPublishable, false);
+    assert.equal(pkg.traceability.questionBankStatus, "WRITABLE");
+    assert.equal(pkg.traceability.testEligibility, "ELIGIBLE");
+    assert.equal(pkg.traceability.publiclyPublishable, true);
     assert.equal(
       unresolvedProsePlaceholders(
         `${pkg.stem}\n${pkg.explanation.lines.join("\n")}`,
@@ -108,7 +119,10 @@ for (const entry of entries) {
       nativePackageCount += 1;
       const script =
         language === "hi" ? /[\u0900-\u097F]/u : /[\u0A00-\u0A7F]/u;
-      assert.ok(script.test(pkg.stem), `${entry.qlId}:${language}: native stem`);
+      assert.ok(
+        script.test(pkg.stem),
+        `${entry.qlId}:${language}: native stem`,
+      );
       assert.ok(
         script.test(pkg.explanation.lines.join("\n")),
         `${entry.qlId}:${language}: native explanation`,
@@ -177,9 +191,9 @@ console.log(
           entries.filter((entry) => entry.cpId === cpId).length,
         ]),
       ),
-      questionBankStatus: "NOT_STORED",
-      testEligibility: "INELIGIBLE",
-      publiclyPublishable: false,
+      questionBankStatus: "WRITABLE",
+      testEligibility: "ELIGIBLE",
+      publiclyPublishable: true,
     },
     null,
     2,

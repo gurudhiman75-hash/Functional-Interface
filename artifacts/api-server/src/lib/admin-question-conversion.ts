@@ -22,7 +22,7 @@ export type NormalizedGeneratedQuestion = {
 
 function asRecord(value: unknown): Record<string, unknown> {
   return value && typeof value === "object" && !Array.isArray(value)
-    ? value as Record<string, unknown>
+    ? (value as Record<string, unknown>)
     : {};
 }
 
@@ -30,17 +30,25 @@ function asText(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
-export function getGeneratedQuestionBankEligibilityIssue(value: unknown): string | null {
+export function getGeneratedQuestionBankEligibilityIssue(
+  value: unknown,
+): string | null {
   const payload = asRecord(value);
   const generationContext = asRecord(payload.generationContext);
-  const runtimeMode = asText(payload.runtimeMode || generationContext.runtimeMode).toUpperCase();
+  const runtimeMode = asText(
+    payload.runtimeMode || generationContext.runtimeMode,
+  ).toUpperCase();
+  const reviewStatus = asText(
+    payload.reviewStatus || generationContext.reviewStatus,
+  ).toUpperCase();
   const questionBankStatus = asText(
     payload.questionBankStatus || generationContext.questionBankStatus,
   ).toUpperCase();
   const testEligibility = asText(
     payload.testEligibility || generationContext.testEligibility,
   ).toUpperCase();
-  const publiclyPublishable = payload.publiclyPublishable ?? generationContext.publiclyPublishable;
+  const publiclyPublishable =
+    payload.publiclyPublishable ?? generationContext.publiclyPublishable;
 
   if (questionBankStatus === "NOT_STORED") {
     return "questionBankStatus is NOT_STORED";
@@ -51,8 +59,14 @@ export function getGeneratedQuestionBankEligibilityIssue(value: unknown): string
   if (publiclyPublishable === false) {
     return "publiclyPublishable is false";
   }
-  if (runtimeMode === "CANONICAL_REVIEW" || runtimeMode === "DYNAMIC_CANDIDATE") {
+  if (runtimeMode === "DYNAMIC_CANDIDATE") {
     return `runtimeMode ${runtimeMode} is review-only`;
+  }
+  if (
+    runtimeMode === "CANONICAL_REVIEW" &&
+    reviewStatus !== "APPROVED_EDITORIAL_CANONICAL"
+  ) {
+    return `reviewStatus ${reviewStatus || "MISSING"} is not release-approved`;
   }
   return null;
 }
@@ -70,7 +84,10 @@ export function optionKey(index: number): string {
   return String.fromCharCode(65 + index);
 }
 
-export function questionPublicCode(now = new Date(), uuid = randomUUID()): string {
+export function questionPublicCode(
+  now = new Date(),
+  uuid = randomUUID(),
+): string {
   const date = now.toISOString().slice(0, 10).replaceAll("-", "");
   const suffix = uuid.replaceAll("-", "").slice(0, 10).toUpperCase();
   return `Q-${date}-${suffix}`;
@@ -83,8 +100,10 @@ export function normalizeGeneratedQuestionPayload(
   const payload = asRecord(value);
   assertGeneratedQuestionBankEligible(payload);
   const stem = asText(payload.text) || asText(payload.stem);
-  const explanation = asText(payload.explanation) || "Explanation pending editorial review.";
-  const difficulty = asText(payload.difficultyLabel) || asText(payload.difficulty) || "Medium";
+  const explanation =
+    asText(payload.explanation) || "Explanation pending editorial review.";
+  const difficulty =
+    asText(payload.difficultyLabel) || asText(payload.difficulty) || "Medium";
   const options = Array.isArray(payload.options)
     ? payload.options.map((entry) => String(entry ?? "").trim()).filter(Boolean)
     : [];
@@ -92,10 +111,18 @@ export function normalizeGeneratedQuestionPayload(
   const correctIndex = Number.isInteger(correctIndexRaw) ? correctIndexRaw : -1;
 
   if (!stem) {
-    throw new Error(`Approved generation item ${context.itemId} has no question stem`);
+    throw new Error(
+      `Approved generation item ${context.itemId} has no question stem`,
+    );
   }
-  if (options.length < 2 || correctIndex < 0 || correctIndex >= options.length) {
-    throw new Error(`Approved generation item ${context.itemId} has an invalid option model`);
+  if (
+    options.length < 2 ||
+    correctIndex < 0 ||
+    correctIndex >= options.length
+  ) {
+    throw new Error(
+      `Approved generation item ${context.itemId} has an invalid option model`,
+    );
   }
 
   return {
@@ -108,7 +135,8 @@ export function normalizeGeneratedQuestionPayload(
       kind: "single_choice",
       correctIndex,
       correctOptionKey: optionKey(correctIndex),
-      canonicalAnswer: payload.canonicalAnswer ?? payload.answer ?? options[correctIndex],
+      canonicalAnswer:
+        payload.canonicalAnswer ?? payload.answer ?? options[correctIndex],
       generation: {
         generationItemId: context.itemId,
         generationRunCode: context.generationRunCode,

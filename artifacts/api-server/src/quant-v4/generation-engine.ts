@@ -45,11 +45,7 @@ export type QuantV4GenerationRequest = Omit<
   runtimeMode?: "CANONICAL_REVIEW" | "DYNAMIC_CANDIDATE";
 };
 
-export type {
-  QuantV4Difficulty,
-  QuantV4Language,
-  QuantV4PackageDefinition,
-};
+export type { QuantV4Difficulty, QuantV4Language, QuantV4PackageDefinition };
 export { QUANT_V4_PERCENTAGE_ALL_PATTERN_ID, toQuestionStudioPreview };
 
 const RAP_LANGUAGES: readonly QuantV4Language[] = ["en", "hi", "pa"];
@@ -148,7 +144,9 @@ class QuantV4RequestError extends Error {
 }
 
 function normalizePnlRuntimeMode(value: unknown): Pnl001RuntimeMode {
-  const normalized = String(value ?? "CANONICAL_REVIEW").trim().toUpperCase();
+  const normalized = String(value ?? "CANONICAL_REVIEW")
+    .trim()
+    .toUpperCase();
   if (normalized === "CANONICAL_REVIEW" || normalized === "DYNAMIC_CANDIDATE") {
     return normalized;
   }
@@ -223,7 +221,10 @@ function resolvePnlPackage(request: QuantV4GenerationRequest) {
     subtopic === "profitandloss" ||
     topic === "profit loss" ||
     topic === "profit and loss";
-  if (isProfitLoss && (!topic || topic === "arithmetic" || topic.includes("profit"))) {
+  if (
+    isProfitLoss &&
+    (!topic || topic === "arithmetic" || topic.includes("profit"))
+  ) {
     return PNL_RUNTIME_PACKAGE;
   }
 
@@ -275,9 +276,24 @@ function pnlPackageForQuestionStudio() {
     runtimeMode: "CANONICAL_REVIEW",
     supportedRuntimeModes: ["CANONICAL_REVIEW", "DYNAMIC_CANDIDATE"],
     dynamicCandidateCpIds: [...PNL_DYNAMIC_CP_IDS],
-    questionBankStatus: "NOT_STORED",
-    testEligibility: "INELIGIBLE",
-    publiclyPublishable: false,
+    reviewStatus: "APPROVED_EDITORIAL_CANONICAL",
+    questionBankStatus: "WRITABLE",
+    testEligibility: "ELIGIBLE",
+    publiclyPublishable: true,
+    runtimePolicies: {
+      CANONICAL_REVIEW: {
+        reviewStatus: "APPROVED_EDITORIAL_CANONICAL",
+        questionBankStatus: "WRITABLE",
+        testEligibility: "ELIGIBLE",
+        publiclyPublishable: true,
+      },
+      DYNAMIC_CANDIDATE: {
+        reviewStatus: "UNREVIEWED_DYNAMIC_CANDIDATE",
+        questionBankStatus: "NOT_STORED",
+        testEligibility: "INELIGIBLE",
+        publiclyPublishable: false,
+      },
+    },
   };
 }
 
@@ -314,12 +330,12 @@ async function generateWithRuntimePackage(
   const pnlRuntimeMode = isPnl
     ? normalizePnlRuntimeMode(request.runtimeMode)
     : undefined;
-  const runtimeCpIds = pnlRuntimeMode === "DYNAMIC_CANDIDATE"
-    ? [...PNL_DYNAMIC_CP_IDS]
-    : pkg.cpIds;
-  const runtimePackage = runtimeCpIds === pkg.cpIds
-    ? pkg
-    : { ...pkg, cpIds: runtimeCpIds };
+  const runtimeCpIds =
+    pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+      ? [...PNL_DYNAMIC_CP_IDS]
+      : pkg.cpIds;
+  const runtimePackage =
+    runtimeCpIds === pkg.cpIds ? pkg : { ...pkg, cpIds: runtimeCpIds };
 
   const count = Math.min(
     1000,
@@ -387,25 +403,29 @@ async function generateWithRuntimePackage(
       timestamp: Date.now(),
       runtimeMode: pnlRuntimeMode ?? "DYNAMIC",
       ...(isPnl
-      ? {
-          reviewStatus:
-            pnlRuntimeMode === "DYNAMIC_CANDIDATE"
-              ? "UNREVIEWED_DYNAMIC_CANDIDATE"
-              : "APPROVED_EDITORIAL_CANONICAL",
-          questionBankStatus: "NOT_STORED",
-          testEligibility: "INELIGIBLE",
-          publiclyPublishable: false,
-        }
-      : {}),
+        ? {
+            reviewStatus:
+              pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+                ? "UNREVIEWED_DYNAMIC_CANDIDATE"
+                : "APPROVED_EDITORIAL_CANONICAL",
+            questionBankStatus:
+              pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+                ? "NOT_STORED"
+                : "WRITABLE",
+            testEligibility:
+              pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+                ? "INELIGIBLE"
+                : "ELIGIBLE",
+            publiclyPublishable: pnlRuntimeMode !== "DYNAMIC_CANDIDATE",
+          }
+        : {}),
     },
     questionPackages: results.map((item) => item.questionPackage),
     questions: results.map((item) => item.question),
   };
 }
 
-export async function generateQuestion(
-  request: QuantV4GenerationRequest = {},
-) {
+export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
   const language = request.language ?? "en";
   const pnlPackage = resolvePnlPackage(request);
   if (pnlPackage) {
