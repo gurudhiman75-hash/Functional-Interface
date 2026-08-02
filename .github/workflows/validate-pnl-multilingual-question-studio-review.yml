@@ -60,6 +60,17 @@ jobs:
           node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-native-choice-localizer.test.mjs \
             2>&1 | tee -a pnl-question-studio-native-choice-localizer.log
 
+      - name: Prove native canonical context coverage
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-native-context-localizer.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-native-context-localizer.test.mjs \
+            2>&1 | tee pnl-question-studio-native-context-localizer.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-native-context-localizer.test.mjs \
+            2>&1 | tee -a pnl-question-studio-native-context-localizer.log
+
       - name: Inventory canonical native context text
         run: |
           set -o pipefail
@@ -79,6 +90,7 @@ jobs:
           path: |
             pnl-question-studio-canonical-context.log
             pnl-question-studio-native-choice-localizer.log
+            pnl-question-studio-native-context-localizer.log
             pnl-question-studio-native-context-inventory.log
           if-no-files-found: error
           retention-days: 7
