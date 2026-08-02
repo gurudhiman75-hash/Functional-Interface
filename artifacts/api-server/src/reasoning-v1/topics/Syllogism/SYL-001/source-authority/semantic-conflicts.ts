@@ -15,9 +15,9 @@ export const SYL_001_SEMANTIC_CONFLICTS: readonly SyllogismSemanticConflict[] = 
       "No predicate existence is inferred.",
       "Both named categories are treated as non-empty.",
     ],
-    selectedPolicy: "No predicate existence is inferred in the foundation profile.",
+    selectedPolicy: "Both named categories are non-empty under the frozen Indian competitive-exam profile.",
     status: "FROZEN",
-    notes: "CP-001 source saturation may request a versioned profile amendment, never a silent change.",
+    notes: "Amended from the pre-allocation rule after SATHEE source evidence confirmed E-conversion and Some B are not A.",
   },
   {
     conflictId: "SYL-CONFLICT-002",
