@@ -1,0 +1,58 @@
+name: Validate INT-CP-002 Wave 3 coverage inventory
+
+on:
+  pull_request:
+    branches:
+      - feat/int-001-cp002-wave02-inverse-saturation
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp002-wave03-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-wave03-*.ts"
+      - ".github/workflows/int-cp002-wave03-coverage-inventory.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-int-cp002-wave03-coverage-inventory:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Wave 3 inventory audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-wave03-coverage-inventory-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp002-wave03-coverage-inventory-audit.mjs
+
+      - name: Run Wave 3 inventory audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp002-wave03-coverage-inventory-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp002-wave03-coverage-inventory-audit.log
+
+      - name: Verify Wave 3 inventory evidence
+        run: grep -q 'PASS_INT_CP002_WAVE03_COVERAGE_INVENTORY_V1' artifacts/api-server/dist/quant-v4/int-001-cp002-wave03-coverage-inventory-audit.log
+
+      - name: Upload Wave 3 inventory evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp002-wave03-coverage-inventory-v1
+          path: artifacts/api-server/dist/quant-v4/int-001-cp002-wave03-coverage-inventory-audit.log
+          if-no-files-found: error
+          retention-days: 14
