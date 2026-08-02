@@ -136,6 +136,36 @@ function applyTrapReview(
   };
 }
 
+function naturalizeHindiRateStem(stem: string): string {
+  return stem.replace(
+    /कार्य-दर प्रति दिन (\d+) ([^।]+) है।/,
+    "कार्य-दर $1 $2 प्रतिदिन है।",
+  );
+}
+
+function naturalizePunjabiRateStem(stem: string): string {
+  return stem.replace(
+    /ਕੰਮ ਦੀ ਦਰ ਪ੍ਰਤੀ ਦਿਨ (\d+) ([^।]+) ਹੈ।/,
+    "ਕੰਮ ਦੀ ਦਰ $1 $2 ਪ੍ਰਤੀ ਦਿਨ ਹੈ।",
+  );
+}
+
+function naturalizeHindiConversionStem(stem: string): string {
+  const match = /^(\d+) घंटे में कुल उत्पादन (.+?) है। उसी दर से (\d+) घंटे में कुल उत्पादन कितना होगा\?$/.exec(stem);
+  if (!match) return stem;
+  return `${match[1]} घंटे में उत्पादन = ${match[2]}। उसी दर से ${match[3]} घंटे में उत्पादन कितना होगा?`;
+}
+
+function naturalizePunjabiConversionStem(stem: string): string {
+  const match = /^(\d+) ਘੰਟੇ ਵਿੱਚ ਕੁੱਲ ਉਤਪਾਦਨ (.+?) ਹੈ। ਉਸੇ ਦਰ ਨਾਲ (\d+) ਘੰਟੇ ਵਿੱਚ ਕੁੱਲ ਉਤਪਾਦਨ ਕਿੰਨਾ ਹੋਵੇਗਾ\?$/.exec(stem);
+  if (!match) return stem;
+  const sourceHours = Number(match[1]);
+  const targetHours = Number(match[3]);
+  const sourcePhrase = sourceHours === 1 ? "1 ਘੰਟੇ ਵਿੱਚ" : `${sourceHours} ਘੰਟਿਆਂ ਵਿੱਚ`;
+  const targetPhrase = targetHours === 1 ? "1 ਘੰਟੇ ਵਿੱਚ" : `${targetHours} ਘੰਟਿਆਂ ਵਿੱਚ`;
+  return `${sourcePhrase} ਉਤਪਾਦਨ = ${match[2]}। ਉਸੇ ਦਰ ਨਾਲ ${targetPhrase} ਉਤਪਾਦਨ ਕਿੰਨਾ ਹੋਵੇਗਾ?`;
+}
+
 function remediateHindi(
   question: ReviewedQuestion,
   qlId: string,
@@ -144,10 +174,7 @@ function remediateHindi(
     case "TMW-QL-003":
       return {
         ...question,
-        stem: question.stem.replace(
-          "कार्य-दर प्रति दिन 4 आवेदन है",
-          "कार्य-दर 4 आवेदन प्रतिदिन है",
-        ),
+        stem: naturalizeHindiRateStem(question.stem),
       };
     case "TMW-QL-012":
       return updateShortcut(
@@ -156,18 +183,14 @@ function remediateHindi(
         "hi",
       );
     case "TMW-QL-015": {
-      const sourceHours = wholeNumber(question.parameters.sourceDuration ?? question.parameters.time);
       const targetHours = wholeNumber(question.parameters.targetDuration ?? question.parameters.time);
       const updated = {
         ...question,
-        stem: question.stem
-          .replace("कुल उत्पादन", "")
-          .replace(/\s+/g, " ")
-          .trim(),
+        stem: naturalizeHindiConversionStem(question.stem),
       };
       return updateShortcut(
         updated,
-        `पहले एक घंटे में होने वाला उत्पादन निकालें, फिर उसे ${targetHours} से गुणा करें; स्रोत अवधि ${sourceHours} घंटे है।`,
+        `पहले एक घंटे का उत्पादन निकालें, फिर उसे ${targetHours} से गुणा करें।`,
         "hi",
       );
     }
@@ -184,10 +207,7 @@ function remediatePunjabi(
     case "TMW-QL-003":
       return {
         ...question,
-        stem: question.stem.replace(
-          "ਕੰਮ ਦੀ ਦਰ ਪ੍ਰਤੀ ਦਿਨ 4 ਅਰਜ਼ੀਆਂ ਹੈ",
-          "ਕੰਮ ਦੀ ਦਰ 4 ਅਰਜ਼ੀਆਂ ਪ੍ਰਤੀ ਦਿਨ ਹੈ",
-        ),
+        stem: naturalizePunjabiRateStem(question.stem),
       };
     case "TMW-QL-007":
     case "TMW-QL-011":
@@ -220,18 +240,14 @@ function remediatePunjabi(
         "pa",
       );
     case "TMW-QL-015": {
-      const sourceHours = wholeNumber(question.parameters.sourceDuration ?? question.parameters.time);
       const targetHours = wholeNumber(question.parameters.targetDuration ?? question.parameters.time);
       const updated = {
         ...question,
-        stem: question.stem
-          .replace("ਕੁੱਲ ਉਤਪਾਦਨ", "")
-          .replace(/\s+/g, " ")
-          .trim(),
+        stem: naturalizePunjabiConversionStem(question.stem),
       };
       return updateShortcut(
         updated,
-        `ਪਹਿਲਾਂ ਇੱਕ ਘੰਟੇ ਵਿੱਚ ਹੋਣ ਵਾਲਾ ਉਤਪਾਦਨ ਕੱਢੋ, ਫਿਰ ਉਸ ਨੂੰ ${targetHours} ਨਾਲ ਗੁਣਾ ਕਰੋ; ਸਰੋਤ ਮਿਆਦ ${sourceHours} ਘੰਟੇ ਹੈ।`,
+        `ਪਹਿਲਾਂ ਇੱਕ ਘੰਟੇ ਦਾ ਉਤਪਾਦਨ ਕੱਢੋ, ਫਿਰ ਉਸ ਨੂੰ ${targetHours} ਨਾਲ ਗੁਣਾ ਕਰੋ।`,
         "pa",
       );
     }
