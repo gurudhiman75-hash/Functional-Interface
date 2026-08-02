@@ -48,20 +48,44 @@ function replaceAllFields(
   };
 }
 
+function normalizeHindiConversionStem(stem: string): string {
+  const match = /^(\d+) (?:घंटा|घंटे) में कुल उत्पादन (.+?) है। उसी दर से (\d+) (?:घंटा|घंटे) में कुल उत्पादन कितना होगा\?$/.exec(stem);
+  if (!match) return stem;
+  return `${match[1]} घंटे में उत्पादन = ${match[2]}। उसी दर से ${match[3]} घंटे में उत्पादन कितना होगा?`;
+}
+
+function normalizePunjabiConversionStem(stem: string): string {
+  const match = /^(\d+) (?:ਘੰਟਾ|ਘੰਟੇ|ਘੰਟਿਆਂ) ਵਿੱਚ ਕੁੱਲ ਉਤਪਾਦਨ (.+?) ਹੈ। ਉਸੇ ਦਰ ਨਾਲ (\d+) (?:ਘੰਟਾ|ਘੰਟੇ|ਘੰਟਿਆਂ) ਵਿੱਚ ਕੁੱਲ ਉਤਪਾਦਨ ਕਿੰਨਾ ਹੋਵੇਗਾ\?$/.exec(stem);
+  if (!match) return stem;
+  const source = Number(match[1]);
+  const target = Number(match[3]);
+  const sourceTime = source === 1 ? "1 ਘੰਟੇ ਵਿੱਚ" : `${source} ਘੰਟਿਆਂ ਵਿੱਚ`;
+  const targetTime = target === 1 ? "1 ਘੰਟੇ ਵਿੱਚ" : `${target} ਘੰਟਿਆਂ ਵਿੱਚ`;
+  return `${sourceTime} ਉਤਪਾਦਨ = ${match[2]}। ਉਸੇ ਦਰ ਨਾਲ ${targetTime} ਉਤਪਾਦਨ ਕਿੰਨਾ ਹੋਵੇਗਾ?`;
+}
+
 export function applyTmwCp001EditorialFieldCleanup<T extends CleanupQuestion>(
   question: T,
   qlId: string,
   language: TmwLocalizedLanguage,
 ): T {
   if (language === "hi") {
+    let updated: CleanupQuestion = question;
     if (qlId === "TMW-QL-012") {
-      return replaceAllFields(question, [
+      updated = replaceAllFields(updated, [
         ["प्रति इकाई समय के उत्पादन", "प्रतिदिन उत्पादन"],
-      ]) as T;
+      ]);
     }
-    return question;
+    if (qlId === "TMW-QL-015") {
+      updated = {
+        ...updated,
+        stem: normalizeHindiConversionStem(updated.stem),
+      };
+    }
+    return updated as T;
   }
 
+  let updated: CleanupQuestion = question;
   const replacements: Array<readonly [string, string]> = [];
   if (qlId === "TMW-QL-012") {
     replacements.push(["ਪ੍ਰਤੀ ਇਕਾਈ ਸਮੇਂ ਦੇ ਉਤਪਾਦਨ", "ਰੋਜ਼ਾਨਾ ਉਤਪਾਦਨ"]);
@@ -81,8 +105,13 @@ export function applyTmwCp001EditorialFieldCleanup<T extends CleanupQuestion>(
   if (qlId === "TMW-QL-019" || qlId === "TMW-QL-020") {
     replacements.push(["ਆਮ ਤੌਰ ਤੇ", "ਆਮ ਤੌਰ 'ਤੇ"]);
   }
+  if (replacements.length > 0) updated = replaceAllFields(updated, replacements);
+  if (qlId === "TMW-QL-015") {
+    updated = {
+      ...updated,
+      stem: normalizePunjabiConversionStem(updated.stem),
+    };
+  }
 
-  return replacements.length > 0
-    ? replaceAllFields(question, replacements) as T
-    : question;
+  return updated as T;
 }
