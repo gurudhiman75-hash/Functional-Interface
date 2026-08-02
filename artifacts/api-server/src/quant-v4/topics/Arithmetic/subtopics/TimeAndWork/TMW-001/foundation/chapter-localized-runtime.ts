@@ -19,6 +19,7 @@ import { applyTmw001MultilingualStemRemediationWave02 } from "./chapter-editoria
 import { sanitizeTmw001LocalizedPresentation } from "./chapter-presentation-sanitizer";
 import { naturalizeTmw001LocalizedExplanation } from "./chapter-explanation-naturalizer";
 import { applyTmwCp001EditorialReviewRemediation } from "./cp001-editorial-review-remediation";
+import { applyTmwCp001EditorialFieldCleanup } from "./cp001-editorial-field-cleanup";
 import type { TmwLocalizedLanguage } from "./localization-types";
 
 export type Tmw001ChapterLanguage = "en" | TmwLocalizedLanguage;
@@ -60,8 +61,13 @@ function finishLocalized(
     questionLanguageId,
     language,
   );
-  return applyTmwCp001EditorialReviewRemediation(
+  const reviewed = applyTmwCp001EditorialReviewRemediation(
     naturalized,
+    questionLanguageId,
+    language,
+  );
+  return applyTmwCp001EditorialFieldCleanup(
+    reviewed,
     questionLanguageId,
     language,
   );
