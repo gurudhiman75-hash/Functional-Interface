@@ -119,6 +119,30 @@ for (const locale of locales) {
         localized.options.length - 1,
       );
 
+      const intendedSupport = localized.ambiguityAudit.candidateSupports.find(
+        (support) =>
+          support.ruleId === localized.intendedRuleId
+          && support.answerIndex === localized.correctIndex,
+      );
+      assert.ok(intendedSupport);
+      const coreConcept = localized.explanation.coreConcept.join(" ");
+      switch (localized.intendedRuleId) {
+        case "PAIR_ABSOLUTE_POSITION_GAP":
+        case "PAIR_POSITION_SUM":
+          assert.ok(coreConcept.includes(intendedSupport.commonValue));
+          break;
+        case "PAIR_SIGNED_POSITION_GAP":
+          assert.ok(
+            coreConcept.includes(String(Math.abs(Number(intendedSupport.commonValue)))),
+          );
+          break;
+        case "PAIR_OPPOSITE_STATUS":
+          assert.ok(coreConcept.includes("27"));
+          break;
+        default:
+          break;
+      }
+
       const learnerText = [
         localized.stem,
         ...localized.evidenceByOption,
@@ -144,6 +168,11 @@ for (const locale of locales) {
         learnerText,
         /(?:^|[\s:])(undefined|null|NaN|Infinity)(?=$|[\s.,;:])/,
       );
+      assert.doesNotMatch(
+        learnerText,
+        /स्वर\s*\(S\)|व्यंजन\s*\(V\)|ਸਵਰ\s*\(S\)|ਵਿਅੰਜਨ\s*\(V\)/u,
+      );
+      assert.doesNotMatch(learnerText, /\b(?:VV|VC|CV|CC)\b/u);
 
       rules.add(localized.intendedRuleId);
       localizedFingerprints.add(JSON.stringify({
