@@ -1,7 +1,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { INT_CP002_FINAL_QL_IDS } from "./cp002-final-registry";
-import { generateIntCp002FinalQuestion } from "./cp002-final-runtime";
+import { INT_CP002_FINAL_QL_IDS, type IntCp002FinalQlId } from "./cp002-final-registry";
+import { generateIntCp002FinalQuestion, type IntCp002FinalGeneratedQuestion } from "./cp002-final-runtime";
 
 function stable(value: unknown): unknown {
   return JSON.parse(JSON.stringify(value, (_key, item) => typeof item === "bigint" ? item.toString() : item));
@@ -12,12 +12,24 @@ function csv(value: unknown): string {
   return `"${text.replace(/"/gu, '""')}"`;
 }
 
-const rows = INT_CP002_FINAL_QL_IDS.flatMap((qlId) =>
-  Array.from({ length: 4 }, (_unused, sampleIndex) => {
-    const seed = `int-cp002-final-review:${qlId}:${sampleIndex}`;
-    return generateIntCp002FinalQuestion(qlId, seed);
-  }),
-);
+const globallySelectedStems = new Set<string>();
+
+function selectDistinctReviewRows(qlId: IntCp002FinalQlId): IntCp002FinalGeneratedQuestion[] {
+  const byAnswerPosition = new Map<number, IntCp002FinalGeneratedQuestion>();
+  for (let candidateIndex = 0; candidateIndex < 256 && byAnswerPosition.size < 4; candidateIndex += 1) {
+    const seed = `int-cp002-final-review:${qlId}:${candidateIndex}`;
+    const question = generateIntCp002FinalQuestion(qlId, seed);
+    if (byAnswerPosition.has(question.correctIndex) || globallySelectedStems.has(question.stem)) continue;
+    byAnswerPosition.set(question.correctIndex, question);
+    globallySelectedStems.add(question.stem);
+  }
+  if (byAnswerPosition.size !== 4) {
+    throw new Error(`${qlId}: could not select four distinct review stems covering all answer positions.`);
+  }
+  return [0, 1, 2, 3].map((position) => byAnswerPosition.get(position)!);
+}
+
+const rows = INT_CP002_FINAL_QL_IDS.flatMap(selectDistinctReviewRows);
 
 const questions: string[] = [
   "# INT-CP-002 Final English Review — Questions",
@@ -85,12 +97,21 @@ writeFileSync(
   `${[checklistHeader, ...checklistRows].join("\n")}\n`,
 );
 
+const distinctStems = new Set(rows.map((question) => question.stem)).size;
+if (distinctStems !== rows.length) {
+  throw new Error(`Final review exporter produced only ${distinctStems}/${rows.length} distinct stems.`);
+}
+const answerPositions = [0, 1, 2, 3].map((position) => rows.filter((question) => question.correctIndex === position).length);
+if (answerPositions.some((count) => count !== INT_CP002_FINAL_QL_IDS.length)) {
+  throw new Error(`Final review answer positions are unbalanced: ${answerPositions.join("/")}.`);
+}
+
 const summary = {
   questions: rows.length,
   qls: INT_CP002_FINAL_QL_IDS.length,
   samplesPerQl: 4,
-  distinctStems: new Set(rows.map((question) => question.stem)).size,
-  answerPositions: [0, 1, 2, 3].map((position) => rows.filter((question) => question.correctIndex === position).length),
+  distinctStems,
+  answerPositions,
   sourceKinds: Object.fromEntries(
     ["WAVE01", "WAVE02", "CLOSURE"].map((kind) => [
       kind,
