@@ -1,0 +1,58 @@
+name: Validate INT-CP-002 Wave 1 prototypes
+
+on:
+  pull_request:
+    branches:
+      - feat/int-001-cp002-wave00-ledger-foundation
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp002-wave01-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-wave01-prototype-audit.ts"
+      - ".github/workflows/int-cp002-wave01-prototypes.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-int-cp002-wave01-prototypes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP-002 Wave 1 audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-wave01-prototype-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp002-wave01-prototype-audit.mjs
+
+      - name: Run CP-002 Wave 1 audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp002-wave01-prototype-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp002-wave01-prototype-audit.log
+
+      - name: Verify CP-002 Wave 1 evidence
+        run: grep -q 'PASS_INT_CP002_WAVE01_ARCHITECTURE_PROTOTYPES' artifacts/api-server/dist/quant-v4/int-001-cp002-wave01-prototype-audit.log
+
+      - name: Upload CP-002 Wave 1 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp002-wave01-architecture-prototypes
+          path: artifacts/api-server/dist/quant-v4/int-001-cp002-wave01-prototype-audit.log
+          if-no-files-found: error
+          retention-days: 14
