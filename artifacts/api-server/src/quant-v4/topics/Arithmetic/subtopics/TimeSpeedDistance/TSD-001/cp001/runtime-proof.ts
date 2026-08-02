@@ -14,6 +14,7 @@ const normalizedStemOwners = new Map<string, string>();
 let crossAuthorityNormalizedStemCollisions = 0;
 const technicalLearnerLanguage = /\b(uniform motion|exact identity|physical value|continuous timeline|compatible units|motion state|state be classified|provisional authority|required answer)\b/i;
 const mixedNumberPattern = /\b\d+\s+\d+\/\d+\b/;
+const languageDefectPattern = /\.\.|\b1 (hours|minutes|seconds|days)\b/;
 const optionLabels = ["A", "B", "C", "D"] as const;
 
 function normalizeStem(stem: string): string {
@@ -32,7 +33,8 @@ for (const authority of TSD_CP001_DISCOVERY_AUTHORITIES) {
     const seed = `proof:${authority.provisionalId}:${index}`;
     const first = generateCp001Candidate(authority.provisionalId, seed);
     const second = generateCp001Candidate(authority.provisionalId, seed);
-    assert(stableStringify(first) === stableStringify(second), `${authority.solveMode}: deterministic replay failed at seed ${index}`);
+    const serialized = stableStringify(first);
+    assert(serialized === stableStringify(second), `${authority.solveMode}: deterministic replay failed at seed ${index}`);
     assert(first.validation.valid, `${authority.solveMode}: invalid candidate at seed ${index}: ${first.validation.errors.join("; ")}`);
     assert(first.options.length === 4, `${authority.solveMode}: option count failed`);
     assert(new Set(first.options).size === 4, `${authority.solveMode}: duplicate options`);
@@ -67,7 +69,8 @@ for (const authority of TSD_CP001_DISCOVERY_AUTHORITIES) {
     }
 
     assert(/^[A-Z]/.test(first.stem), `${authority.solveMode}: stem must begin with a capital letter`);
-    assert(!/\.\.|\b1 (hours|minutes|seconds|days)\b/.test(stableStringify(first)), `${authority.solveMode}: punctuation or singular-unit defect`);
+    const languageDefect = serialized.match(languageDefectPattern);
+    assert(!languageDefect, `${authority.solveMode}: learner-language defect at seed ${index}: ${languageDefect?.[0] ?? "unknown"}; ${serialized}`);
     if (!TSD_CP001_NON_LEARNER_MODES.has(authority.solveMode)) {
       const learnerVisible = `${first.stem} ${first.stemMathJax} ${first.options.join(" ")} ${first.explanation.keyRule} ${first.explanation.stepByStepSolution.join(" ")} ${first.explanation.examSpeedShortcut} ${first.explanation.optionAnalysis.map((option) => option.reason).join(" ")} ${first.explanation.conclusion}`;
       assert(first.stemMathJax.includes("\\("), `${authority.solveMode}: MathJax quantity missing from learner stem`);
