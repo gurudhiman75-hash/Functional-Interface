@@ -9,7 +9,7 @@ const englishPattern = /\b(?:output|rate|target|worker|crew|day|days|total|thres
 let rows = 0;
 
 for (const entry of TMW_CP_011_REGISTRY) {
-  const seed = `tmw-cp011-localization-review:${entry.qlId}`;
+  const seed = `review-${entry.qlId}-0`;
   for (const language of languages) {
     const question = runTmwCp011LocalizedPipeline({
       questionLanguageId: entry.qlId,
