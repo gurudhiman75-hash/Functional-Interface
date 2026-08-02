@@ -25,6 +25,7 @@ import {
   type Rap003CanonicalProblemId,
 } from "./topics/Arithmetic/subtopics/RatioAndProportion/RAP-003";
 import {
+  PNL_001_LANGUAGES,
   getPnl001ActiveCanonicalProblemIds,
   runPnl001ReviewPipeline,
   type Pnl001CanonicalProblemId,
@@ -50,7 +51,7 @@ export type {
 export { QUANT_V4_PERCENTAGE_ALL_PATTERN_ID, toQuestionStudioPreview };
 
 const RAP_LANGUAGES: readonly QuantV4Language[] = ["en", "hi", "pa"];
-const PNL_LANGUAGES: readonly QuantV4Language[] = ["en"];
+const PNL_LANGUAGES: readonly QuantV4Language[] = [...PNL_001_LANGUAGES];
 const PNL_DYNAMIC_CP_IDS = ["PNL-CP-001", "PNL-CP-002"] as const;
 type Pnl001RuntimeMode = "CANONICAL_REVIEW" | "DYNAMIC_CANDIDATE";
 
@@ -129,7 +130,7 @@ const PNL_RUNTIME_PACKAGE: QuantV4PackageDefinition & {
   run: (cpId, input) =>
     runPnl001ReviewPipeline(cpId as Pnl001CanonicalProblemId, {
       difficultyBand: input.difficulty,
-      language: input.language as "en" | undefined,
+      language: input.language,
       questionLanguageId: input.questionLanguageId,
       seed: input.seed,
     }),
@@ -311,6 +312,15 @@ async function generateWithRuntimePackage(
   const pnlRuntimeMode = isPnl
     ? normalizePnlRuntimeMode(request.runtimeMode)
     : undefined;
+  if (
+    isPnl &&
+    pnlRuntimeMode === "DYNAMIC_CANDIDATE" &&
+    language !== "en"
+  ) {
+    throw new QuantV4RequestError(
+      `PNL-001 dynamic candidate runtime currently supports English only; requested '${language}'.`,
+    );
+  }
   const runtimeCpIds = pnlRuntimeMode === "DYNAMIC_CANDIDATE"
     ? [...PNL_DYNAMIC_CP_IDS]
     : pkg.cpIds;

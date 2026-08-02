@@ -17,7 +17,7 @@ const pnl = pnlPackages[0]!;
 assert.equal(pnl.enabled, true);
 assert.equal(pnl.topic, "Arithmetic");
 assert.equal(pnl.subtopic, "Profit & Loss");
-assert.deepEqual(pnl.supportedLanguages, ["en"]);
+assert.deepEqual(pnl.supportedLanguages, ["en", "hi", "pa"]);
 assert.deepEqual(
   pnl.canonicalProblems.map((cp) => cp.id),
   [
@@ -53,56 +53,68 @@ assert.equal(
   "Nested PNL checkpoint folders must not appear as separate Question Studio packages.",
 );
 
-const batch = await generateQuestion({
-  packageId: "PNL-001",
-  language: "en",
-  count: 12,
-  seed: "pnl-question-studio-smoke",
-});
-assert.equal(batch.questionPackages.length, 12);
-assert.equal(batch.questions.length, 12);
-assert.equal(batch.generationContext.runtimeMode, "CANONICAL_REVIEW");
-assert.equal(
-  batch.generationContext.reviewStatus,
-  "APPROVED_EDITORIAL_CANONICAL",
-);
-assert.equal(batch.generationContext.questionBankStatus, "NOT_STORED");
-assert.equal(batch.generationContext.testEligibility, "INELIGIBLE");
-assert.equal(batch.generationContext.publiclyPublishable, false);
-assert.equal(
-  new Set(
-    batch.questionPackages.map(
-      (questionPackage: any) => questionPackage.canonicalProblemId,
-    ),
-  ).size,
-  6,
-  "A mixed canonical PNL batch should rotate through all six checkpoint groups.",
-);
-
-for (const questionPackage of batch.questionPackages as any[]) {
-  assert.equal(questionPackage.archetypeId, "PNL-001");
-  assert.equal(questionPackage.language, "en");
-  assert.equal(questionPackage.validation.valid, true);
-  assert.equal(questionPackage.options.length, 4);
-  assert.equal(new Set(questionPackage.options).size, 4);
+const canonicalBatches: Record<string, Awaited<ReturnType<typeof generateQuestion>>> = {};
+for (const language of ["en", "hi", "pa"] as const) {
+  const batch = await generateQuestion({
+    packageId: "PNL-001",
+    language,
+    count: 12,
+    seed: `pnl-question-studio-smoke:${language}`,
+  });
+  canonicalBatches[language] = batch;
+  assert.equal(batch.questionPackages.length, 12);
+  assert.equal(batch.questions.length, 12);
+  assert.equal(batch.generationContext.runtimeMode, "CANONICAL_REVIEW");
   assert.equal(
-    questionPackage.options[questionPackage.correctIndex],
-    questionPackage.answer,
+    batch.generationContext.reviewStatus,
+    "APPROVED_EDITORIAL_CANONICAL",
   );
-  assert.equal(questionPackage.traceability.generationMode, "CANONICAL_REVIEW");
-  assert.equal(questionPackage.traceability.questionBankStatus, "NOT_STORED");
-  assert.equal(questionPackage.traceability.testEligibility, "INELIGIBLE");
-  assert.equal(questionPackage.traceability.publiclyPublishable, false);
-}
+  assert.equal(batch.generationContext.questionBankStatus, "NOT_STORED");
+  assert.equal(batch.generationContext.testEligibility, "INELIGIBLE");
+  assert.equal(batch.generationContext.publiclyPublishable, false);
+  assert.equal(
+    new Set(
+      batch.questionPackages.map(
+        (questionPackage: any) => questionPackage.canonicalProblemId,
+      ),
+    ).size,
+    6,
+    `${language}: mixed canonical PNL batch should rotate through all six checkpoint groups.`,
+  );
 
-for (const question of batch.questions as any[]) {
-  assert.equal(question.runtimeMode, "CANONICAL_REVIEW");
-  assert.equal(question.reviewStatus, "APPROVED_EDITORIAL_CANONICAL");
-  assert.equal(question.questionBankStatus, "NOT_STORED");
-  assert.equal(question.testEligibility, "INELIGIBLE");
-  assert.equal(question.publiclyPublishable, false);
-  assert.equal(question.metadata.runtimeMode, "CANONICAL_REVIEW");
-  assert.equal(question.metadata.questionBankStatus, "NOT_STORED");
+  for (const questionPackage of batch.questionPackages as any[]) {
+    assert.equal(questionPackage.archetypeId, "PNL-001");
+    assert.equal(questionPackage.language, language);
+    assert.equal(questionPackage.parameters.language, language);
+    assert.equal(questionPackage.traceability.language, language);
+    assert.equal(questionPackage.validation.valid, true);
+    assert.equal(questionPackage.options.length, 4);
+    assert.equal(new Set(questionPackage.options).size, 4);
+    assert.equal(
+      questionPackage.options[questionPackage.correctIndex],
+      questionPackage.answer,
+    );
+    assert.equal(questionPackage.traceability.generationMode, "CANONICAL_REVIEW");
+    assert.equal(questionPackage.traceability.questionBankStatus, "NOT_STORED");
+    assert.equal(questionPackage.traceability.testEligibility, "INELIGIBLE");
+    assert.equal(questionPackage.traceability.publiclyPublishable, false);
+    if (language !== "en") {
+      const script =
+        language === "hi" ? /[\u0900-\u097F]/u : /[\u0A00-\u0A7F]/u;
+      assert.ok(script.test(questionPackage.stem));
+      assert.ok(script.test(questionPackage.explanation.lines.join("\n")));
+    }
+  }
+
+  for (const question of batch.questions as any[]) {
+    assert.equal(question.runtimeMode, "CANONICAL_REVIEW");
+    assert.equal(question.reviewStatus, "APPROVED_EDITORIAL_CANONICAL");
+    assert.equal(question.questionBankStatus, "NOT_STORED");
+    assert.equal(question.testEligibility, "INELIGIBLE");
+    assert.equal(question.publiclyPublishable, false);
+    assert.equal(question.metadata.runtimeMode, "CANONICAL_REVIEW");
+    assert.equal(question.metadata.questionBankStatus, "NOT_STORED");
+  }
 }
 
 const dynamicBatch = await generateQuestion({
@@ -199,6 +211,18 @@ assert.equal(
   deterministicDynamicSecond.questionPackages[0]!.answer,
 );
 
+for (const language of ["hi", "pa"] as const) {
+  await assert.rejects(
+    () =>
+      generateQuestion({
+        packageId: "PNL-001",
+        runtimeMode: "DYNAMIC_CANDIDATE",
+        language,
+        seed: `pnl-native-dynamic-safety:${language}`,
+      }),
+    /dynamic candidate runtime currently supports English only/,
+  );
+}
 await assert.rejects(
   () =>
     generateQuestion({
@@ -247,6 +271,25 @@ assert.equal(
   ql070CanonicalPackage.answer,
 );
 
+for (const language of ["hi", "pa"] as const) {
+  const ql145 = await generateQuestion({
+    packageId: "PNL-001",
+    language,
+    canonicalProblemId: "PNL-CP-005",
+    questionLanguageId: "PNL-QL-145",
+    seed: `pnl-ql145-native:${language}`,
+  });
+  const pkg = ql145.questionPackages[0]!;
+  const script =
+    language === "hi" ? /[\u0900-\u097F]/u : /[\u0A00-\u0A7F]/u;
+  assert.ok(script.test(pkg.stem));
+  assert.ok(script.test(pkg.explanation.lines.join("\n")));
+  assert.doesNotMatch(
+    `${pkg.stem}\n${pkg.explanation.lines.join("\n")}`,
+    /\{(?:firstScheme|secondScheme)\}/,
+  );
+}
+
 const ql092 = await generateQuestion({
   packageId: "PNL-001",
   canonicalProblemId: "PNL-CP-003",
@@ -279,21 +322,12 @@ const subtopicRequest = await generateQuestion({
   subtopic: "Profit & Loss",
   canonicalProblemId: "PNL-CP-001",
   difficulty: "Easy",
-  language: "en",
+  language: "pa",
   seed: "pnl-subtopic-resolution",
 });
 assert.equal(subtopicRequest.questionPackages[0]!.archetypeId, "PNL-001");
 assert.equal(subtopicRequest.questionPackages[0]!.difficultyBand, "Easy");
-
-await assert.rejects(
-  () =>
-    generateQuestion({
-      packageId: "PNL-001",
-      language: "hi",
-      seed: "pnl-language-safety",
-    }),
-  /does not support language 'hi'/,
-);
+assert.equal(subtopicRequest.questionPackages[0]!.language, "pa");
 
 process.env.DATABASE_URL ??= "postgresql://test:test@127.0.0.1:5432/test";
 const {
@@ -323,11 +357,18 @@ console.log(
       status: "PASS",
       packageId: "PNL-001",
       packageCount: pnlPackages.length,
+      supportedLanguages: pnl.supportedLanguages,
       canonicalProblemCount: pnl.canonicalProblems.length,
-      canonicalBatchSize: batch.questionPackages.length,
+      canonicalBatchSizes: Object.fromEntries(
+        Object.entries(canonicalBatches).map(([language, batch]) => [
+          language,
+          batch.questionPackages.length,
+        ]),
+      ),
       dynamicBatchSize: dynamicBatch.questionPackages.length,
       defaultRuntimeMode: "CANONICAL_REVIEW",
       optInRuntimeMode: "DYNAMIC_CANDIDATE",
+      dynamicCandidateLanguages: ["en"],
       dynamicCandidateCpIds: ["PNL-CP-001", "PNL-CP-002"],
       questionBankStatus: "NOT_STORED",
       testEligibility: "INELIGIBLE",
