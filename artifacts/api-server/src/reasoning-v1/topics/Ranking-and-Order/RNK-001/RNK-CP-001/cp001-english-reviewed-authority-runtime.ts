@@ -77,7 +77,9 @@ function adaptContextNouns(text: string, question: UnderlyingQuestion): string {
     .replace(/\bno one\b/g, 'no candidate')
     .replace(/\bOne person\b/g, 'One candidate')
     .replace(/\bone person\b/g, 'one candidate')
+    .replace(/\bPeople\b/g, 'Candidates')
     .replace(/\bpeople\b/g, 'candidates')
+    .replace(/\bPerson\b/g, 'Candidate')
     .replace(/\bperson\b/g, 'candidate');
 }
 
