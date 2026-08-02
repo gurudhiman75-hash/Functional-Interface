@@ -109,6 +109,88 @@ function halfLabel(
   return firstHalf ? "ਪਹਿਲੇ ਅੱਧ" : "ਦੂਜੇ ਅੱਧ";
 }
 
+function compositionLabel(
+  value: string,
+  locale: ClsCp006TranslatedLocale,
+): string {
+  const hindi = {
+    VV: "स्वर–स्वर",
+    VC: "स्वर–व्यंजन",
+    CV: "व्यंजन–स्वर",
+    CC: "व्यंजन–व्यंजन",
+  } as const;
+  const punjabi = {
+    VV: "ਸਵਰ–ਸਵਰ",
+    VC: "ਸਵਰ–ਵਿਅੰਜਨ",
+    CV: "ਵਿਅੰਜਨ–ਸਵਰ",
+    CC: "ਵਿਅੰਜਨ–ਵਿਅੰਜਨ",
+  } as const;
+  const labels = locale === "hi-IN" ? hindi : punjabi;
+  const label = labels[value as keyof typeof labels];
+  if (!label) throw new Error(`Unsupported CP-006 composition value: ${value}`);
+  return label;
+}
+
+function localizedCoreConcept(
+  ruleId: ClsCp006RuleId,
+  commonValue: string,
+  locale: ClsCp006TranslatedLocale,
+): string {
+  if (locale === "hi-IN") {
+    switch (ruleId) {
+      case "LETTER_VOWEL_CONSONANT_CLASS":
+        return `अधिकतर अक्षर ${commonValue === "VOWEL" ? "स्वर" : "व्यंजन"} हैं; केवल एक अक्षर दूसरे वर्ग का है।`;
+      case "LETTER_POSITION_PARITY":
+        return `अधिकतर अक्षरों के वर्णमाला क्रमांक ${commonValue === "EVEN_POSITION" ? "सम" : "विषम"} हैं; केवल एक अक्षर का क्रमांक अलग प्रकार का है।`;
+      case "LETTER_ALPHABET_HALF":
+        return `अधिकतर अक्षर वर्णमाला के ${commonValue === "FIRST_HALF" ? "पहले" : "दूसरे"} आधे भाग में हैं; केवल एक अक्षर दूसरे भाग में है।`;
+      case "PAIR_ABSOLUTE_POSITION_GAP":
+        return `अधिकतर जोड़ियों में दोनों अक्षरों के क्रमांकों का अंतर ${commonValue} है; केवल एक जोड़ी का अंतर अलग है।`;
+      case "PAIR_SIGNED_POSITION_GAP": {
+        const gap = Number(commonValue);
+        if (!Number.isFinite(gap) || gap === 0) {
+          throw new Error(`Invalid CP-006 signed-gap common value: ${commonValue}`);
+        }
+        return `अधिकतर जोड़ियों में दूसरा अक्षर पहले अक्षर से ${Math.abs(gap)} स्थान ${gap > 0 ? "आगे" : "पीछे"} है; केवल एक जोड़ी की दिशा या दूरी अलग है।`;
+      }
+      case "PAIR_POSITION_SUM":
+        return `अधिकतर जोड़ियों में दोनों अक्षरों के क्रमांकों का योग ${commonValue} है; केवल एक जोड़ी का योग अलग है।`;
+      case "PAIR_OPPOSITE_STATUS":
+        return commonValue === "OPPOSITE_PAIR"
+          ? "अधिकतर जोड़ियों के क्रमांकों का योग 27 है, इसलिए वे विपरीत अक्षर हैं; केवल एक जोड़ी ऐसी नहीं है।"
+          : "अधिकतर जोड़ियों के क्रमांकों का योग 27 नहीं है; केवल एक जोड़ी विपरीत अक्षरों की है।";
+      case "PAIR_VOWEL_CONSONANT_COMPOSITION":
+        return `अधिकतर जोड़ियों में अक्षरों का क्रम ${compositionLabel(commonValue, locale)} है; केवल एक जोड़ी का क्रम अलग है।`;
+    }
+  }
+
+  switch (ruleId) {
+    case "LETTER_VOWEL_CONSONANT_CLASS":
+      return `ਜ਼ਿਆਦਾਤਰ ਅੱਖਰ ${commonValue === "VOWEL" ? "ਸਵਰ" : "ਵਿਅੰਜਨ"} ਹਨ; ਸਿਰਫ਼ ਇੱਕ ਅੱਖਰ ਦੂਜੇ ਵਰਗ ਦਾ ਹੈ।`;
+    case "LETTER_POSITION_PARITY":
+      return `ਜ਼ਿਆਦਾਤਰ ਅੱਖਰਾਂ ਦੇ ਵਰਣਮਾਲਾ ਨੰਬਰ ${commonValue === "EVEN_POSITION" ? "ਜੋੜੇ" : "ਟਾਂਕ"} ਹਨ; ਸਿਰਫ਼ ਇੱਕ ਅੱਖਰ ਦਾ ਨੰਬਰ ਵੱਖਰੀ ਕਿਸਮ ਦਾ ਹੈ।`;
+    case "LETTER_ALPHABET_HALF":
+      return `ਜ਼ਿਆਦਾਤਰ ਅੱਖਰ ਵਰਣਮਾਲਾ ਦੇ ${commonValue === "FIRST_HALF" ? "ਪਹਿਲੇ" : "ਦੂਜੇ"} ਅੱਧ ਵਿੱਚ ਹਨ; ਸਿਰਫ਼ ਇੱਕ ਅੱਖਰ ਦੂਜੇ ਅੱਧ ਵਿੱਚ ਹੈ।`;
+    case "PAIR_ABSOLUTE_POSITION_GAP":
+      return `ਜ਼ਿਆਦਾਤਰ ਜੋੜਿਆਂ ਵਿੱਚ ਦੋਵਾਂ ਅੱਖਰਾਂ ਦੇ ਨੰਬਰਾਂ ਦਾ ਫਰਕ ${commonValue} ਹੈ; ਸਿਰਫ਼ ਇੱਕ ਜੋੜੇ ਦਾ ਫਰਕ ਵੱਖਰਾ ਹੈ।`;
+    case "PAIR_SIGNED_POSITION_GAP": {
+      const gap = Number(commonValue);
+      if (!Number.isFinite(gap) || gap === 0) {
+        throw new Error(`Invalid CP-006 signed-gap common value: ${commonValue}`);
+      }
+      return `ਜ਼ਿਆਦਾਤਰ ਜੋੜਿਆਂ ਵਿੱਚ ਦੂਜਾ ਅੱਖਰ ਪਹਿਲੇ ਅੱਖਰ ਤੋਂ ${Math.abs(gap)} ਥਾਂ ${gap > 0 ? "ਅੱਗੇ" : "ਪਿੱਛੇ"} ਹੈ; ਸਿਰਫ਼ ਇੱਕ ਜੋੜੇ ਦੀ ਦਿਸ਼ਾ ਜਾਂ ਦੂਰੀ ਵੱਖਰੀ ਹੈ।`;
+    }
+    case "PAIR_POSITION_SUM":
+      return `ਜ਼ਿਆਦਾਤਰ ਜੋੜਿਆਂ ਵਿੱਚ ਦੋਵਾਂ ਅੱਖਰਾਂ ਦੇ ਨੰਬਰਾਂ ਦਾ ਜੋੜ ${commonValue} ਹੈ; ਸਿਰਫ਼ ਇੱਕ ਜੋੜੇ ਦਾ ਜੋੜ ਵੱਖਰਾ ਹੈ।`;
+    case "PAIR_OPPOSITE_STATUS":
+      return commonValue === "OPPOSITE_PAIR"
+        ? "ਜ਼ਿਆਦਾਤਰ ਜੋੜਿਆਂ ਦੇ ਨੰਬਰਾਂ ਦਾ ਜੋੜ 27 ਹੈ, ਇਸ ਲਈ ਉਹ ਉਲਟ ਅੱਖਰ ਹਨ; ਸਿਰਫ਼ ਇੱਕ ਜੋੜਾ ਅਜਿਹਾ ਨਹੀਂ ਹੈ।"
+        : "ਜ਼ਿਆਦਾਤਰ ਜੋੜਿਆਂ ਦੇ ਨੰਬਰਾਂ ਦਾ ਜੋੜ 27 ਨਹੀਂ ਹੈ; ਸਿਰਫ਼ ਇੱਕ ਜੋੜਾ ਉਲਟ ਅੱਖਰਾਂ ਦਾ ਹੈ।";
+    case "PAIR_VOWEL_CONSONANT_COMPOSITION":
+      return `ਜ਼ਿਆਦਾਤਰ ਜੋੜਿਆਂ ਵਿੱਚ ਅੱਖਰਾਂ ਦਾ ਕ੍ਰਮ ${compositionLabel(commonValue, locale)} ਹੈ; ਸਿਰਫ਼ ਇੱਕ ਜੋੜੇ ਦਾ ਕ੍ਰਮ ਵੱਖਰਾ ਹੈ।`;
+  }
+}
+
 function localizedEvidenceBase(
   item: ClsCp006Item,
   ruleId: ClsCp006RuleId,
@@ -226,6 +308,17 @@ export function localizeClsCp006Question(
     throw new Error(`Unsupported CLS-CP-006 QL for localisation: ${question.qlId}`);
   }
 
+  const intendedSupport = question.ambiguityAudit.candidateSupports.find(
+    (support) =>
+      support.ruleId === question.intendedRuleId
+      && support.answerIndex === question.correctIndex,
+  );
+  if (!intendedSupport) {
+    throw new Error(
+      `${question.qlId}/${question.seed} has no intended-rule support for localisation`,
+    );
+  }
+
   const ruleText = localizedClsCp006RuleText(question.intendedRuleId, locale);
   const evidence = localizedEvidence(question, locale);
   const canonicalRuntimeVersion = question.metadata.runtimeVersion;
@@ -235,7 +328,13 @@ export function localizeClsCp006Question(
     stem: localizedStem(question, locale),
     evidenceByOption: evidence,
     explanation: {
-      coreConcept: [ruleText.statement],
+      coreConcept: [
+        localizedCoreConcept(
+          question.intendedRuleId,
+          intendedSupport.commonValue,
+          locale,
+        ),
+      ],
       stepByStep: localizedSteps(question, evidence, locale),
       examSpeedShortcut: [ruleText.shortcut],
       commonTrapWarning: [ruleText.trap],
