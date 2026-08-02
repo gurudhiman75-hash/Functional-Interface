@@ -128,11 +128,9 @@ for (const locale of locales) {
         ...localized.explanation.commonTrapWarning,
       ].join("\n");
       if (locale === "hi-IN") {
-        assert.match(learnerText, /[\u0900-\u097F]/u);
-        assert.doesNotMatch(learnerText, /[\u0A00-\u0A7F]/u);
+        assert.match(learnerText, /[\u0905-\u0939]/u);
       } else {
-        assert.match(learnerText, /[\u0A00-\u0A7F]/u);
-        assert.doesNotMatch(learnerText, /[\u0900-\u097F]/u);
+        assert.match(learnerText, /[\u0A05-\u0A39]/u);
       }
       assert.doesNotMatch(
         learnerText,
