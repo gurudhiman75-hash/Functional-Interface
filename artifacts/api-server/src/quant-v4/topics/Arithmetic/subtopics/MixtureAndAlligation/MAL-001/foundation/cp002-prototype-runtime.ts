@@ -5,7 +5,7 @@ import {
   buildMalCp002ReasoningGraph,
   buildMalCp002Stem,
   formatMalCp002Answer,
-} from "./cp002-authoring";
+} from "./cp002-authoring-v2";
 import type {
   MalCp002Explanation,
   MalCp002GeneratedPrototype,
@@ -62,6 +62,27 @@ function normalizeConclusion(
   };
 }
 
+function learnerText(
+  prototype: Omit<MalCp002GeneratedPrototype, "validation">,
+): string {
+  return [
+    prototype.stem,
+    prototype.explanation.coreConcept,
+    prototype.explanation.formula,
+    ...prototype.explanation.steps,
+    prototype.explanation.verification,
+    prototype.explanation.conclusion,
+    prototype.explanation.examShortcut,
+    prototype.explanation.commonTrap,
+  ].join("\n");
+}
+
+function proseOutsideMath(value: string): string {
+  return value
+    .replace(/\\\[[\s\S]*?\\\]/gu, " ")
+    .replace(/\\\([\s\S]*?\\\)/gu, " ");
+}
+
 function validateAuthoring(
   prototype: Omit<MalCp002GeneratedPrototype, "validation">,
 ): string[] {
@@ -85,6 +106,7 @@ function validateAuthoring(
   ) {
     errors.push("Explanation steps are not sequentially labelled.");
   }
+
   const methodOneText = [
     prototype.explanation.coreConcept,
     prototype.explanation.formula,
@@ -92,9 +114,55 @@ function validateAuthoring(
     prototype.explanation.verification,
     prototype.explanation.conclusion,
   ].join("\n");
+  const allLearnerText = learnerText(prototype);
+
   if (/alligation/iu.test(methodOneText)) {
     errors.push("CP-002 formula-first solution unexpectedly uses alligation.");
   }
+  if (
+    /\b(?:fixed counterpart|unaltered component|unchanged component|changed component)\b/iu.test(
+      allLearnerText,
+    )
+  ) {
+    errors.push("Learner text contains internal component-state jargon.");
+  }
+  if (/\bpure\b/iu.test(allLearnerText)) {
+    errors.push("Learner text unnecessarily labels an ordinary item as pure.");
+  }
+  if (/\|[^|\n]+\|/u.test(allLearnerText)) {
+    errors.push("Learner text uses raw absolute-value bars for a directed change.");
+  }
+  if (/\b1 parts\b/iu.test(allLearnerText)) {
+    errors.push("Learner text contains the grammatical error '1 parts'.");
+  }
+  if (/\[cite(?:_start|:)|googleusercontent|immersive_entry_chip/iu.test(allLearnerText)) {
+    errors.push("Learner text contains imported citation debris.");
+  }
+  if (
+    prototype.explanation.steps.some(
+      (step) => !/\\\(|\\\[/u.test(step),
+    )
+  ) {
+    errors.push("Every worked step must contain MathJax-formatted mathematics.");
+  }
+  if (!/\\\[/u.test(prototype.explanation.formula)) {
+    errors.push("The formula section must contain a displayed MathJax equation.");
+  }
+
+  const stemWithoutMath = proseOutsideMath(prototype.stem);
+  if (/\d/u.test(stemWithoutMath)) {
+    errors.push("A numeric value in the stem is outside MathJax delimiters.");
+  }
+
+  for (const step of prototype.explanation.steps) {
+    const withoutPrefix = step.replace(/^Step \d+:\s*/u, "");
+    const outsideMath = proseOutsideMath(withoutPrefix);
+    if (/\d/u.test(outsideMath)) {
+      errors.push("A worked-step number is outside MathJax delimiters.");
+      break;
+    }
+  }
+
   if (!prototype.explanation.examShortcut.trim()) {
     errors.push("Exam shortcut is empty.");
   }
