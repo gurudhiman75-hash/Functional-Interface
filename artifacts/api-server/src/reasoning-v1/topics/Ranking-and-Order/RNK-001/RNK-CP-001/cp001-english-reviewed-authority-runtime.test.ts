@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import {
   generateRnkCp001EnglishReviewedAuthorityQuestion,
   generateRnkCp001EnglishReviewedAuthoritySet,
-} from './cp001-english-reviewed-authority-runtime';
+} from './cp001-english-review-remediated-runtime';
 import { generateRnkCp001ProvisionalAuthorityReviewQuestion } from './cp001-provisional-authority-runtime';
 import {
   RNK_CP001_PROVISIONAL_AUTHORITIES,
@@ -15,6 +15,11 @@ const SEEDS_PER_AUTHORITY = 320;
 const REVIEW_SEEDS = [5, 16, 47, 92, 151, 233] as const;
 const INTERNAL_TAG = /\[[A-Z0-9_]+\]/;
 const RAW_MULTIPLICATION = /\b\d+\s+x\s+\d+\b/;
+const RAW_DIVISION = /(\d|\))\s*\/\s*(\d)/;
+const NUMBER_AGREEMENT_LEAK = /\b(?:0|1) (?:people|candidates|positions)\b/i;
+const AWKWARD_POSSESSIVE_RANK = /'s from the (?:top|bottom|left|right|front|back) rank/i;
+const BARE_GIVES_RANK = /\bgives \d+ from the (?:top|bottom|left|right|front|back)\b/i;
+const NUMERIC_REMAIN_LEAK = /\b(?:0|1) remain\b/i;
 
 let generatedQuestions = 0;
 let preservedMathematicalStates = 0;
@@ -62,6 +67,11 @@ for (const authorityId of RNK_CP001_PROVISIONAL_AUTHORITY_IDS) {
 
     assert.ok(!INTERNAL_TAG.test(learnerText), `${authorityId} seed ${seed}: internal tag leaked`);
     assert.ok(!RAW_MULTIPLICATION.test(learnerText), `${authorityId} seed ${seed}: raw x leaked`);
+    assert.ok(!RAW_DIVISION.test(learnerText), `${authorityId} seed ${seed}: raw division slash leaked`);
+    assert.ok(!NUMBER_AGREEMENT_LEAK.test(learnerText), `${authorityId} seed ${seed}: numeric noun agreement leaked`);
+    assert.ok(!AWKWARD_POSSESSIVE_RANK.test(learnerText), `${authorityId} seed ${seed}: awkward possessive rank leaked`);
+    assert.ok(!BARE_GIVES_RANK.test(learnerText), `${authorityId} seed ${seed}: bare rank result leaked`);
+    assert.ok(!NUMERIC_REMAIN_LEAK.test(learnerText), `${authorityId} seed ${seed}: numeric remain agreement leaked`);
     assert.ok(!/The correct answer is\b/.test(question.explanation.conclusion));
     assert.ok(/\d/.test(question.explanation.keyRule));
     assert.ok(/\d/.test(question.explanation.examSpeedShortcut));
