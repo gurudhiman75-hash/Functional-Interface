@@ -54,6 +54,17 @@ const allEnglishStems = new Map<string, string>();
 const answerCoverage = new Map<string, Set<number>>();
 const scenarioCoverage = new Map<string, Set<string>>();
 const semanticAnswerCoverage = new Map<string, Set<string>>();
+const diagramModeCoverage = new Set<string>();
+const pedagogyLeakPatterns = [
+  /canBeTrue/i,
+  /canBeFalse/i,
+  /occupied witness regions/i,
+  /places witnesses in these regions/i,
+  /मान्य सदस्य-क्षेत्र/u,
+  /सदस्य इन क्षेत्रों में रखे/u,
+  /ਮੰਨੇ ਹੋਏ ਮੈਂਬਰ-ਖੇਤਰ/u,
+  /ਮੈਂਬਰ ਇਨ੍ਹਾਂ ਖੇਤਰਾਂ ਵਿੱਚ ਰੱਖੇ/u,
+];
 
 for (const definition of SYL_QL_REGISTRY) {
   const positions = new Set<number>();
@@ -98,12 +109,64 @@ for (const definition of SYL_QL_REGISTRY) {
     assert(english.options.filter((entry) => entry.isCorrect).length === 1, `${definition.qlId}/${seed} must have one correct option.`);
     assert(english.correctIndex >= 0 && english.correctIndex < english.options.length, `${definition.qlId}/${seed} correct index invalid.`);
     assert(english.options[english.correctIndex].isCorrect, `${definition.qlId}/${seed} correct index does not point to answer.`);
-    assert(english.explanation.diagramSvg.includes('role="img"'), `${definition.qlId}/${seed} diagram lacks accessibility role.`);
-    assert(english.explanation.diagramSvg.includes("<title"), `${definition.qlId}/${seed} diagram lacks title.`);
-    assert(english.explanation.rule.length > 20, `${definition.qlId}/${seed} explanation rule too short.`);
-    assert(english.explanation.conclusionAnalysis.length === english.conclusions.length, `${definition.qlId}/${seed} conclusion explanation mismatch.`);
+
+    const explanation = english.explanation;
+    const studentExplanationText = JSON.stringify({
+      tier1Concept: explanation.tier1Concept,
+      tier2StepByStep: explanation.tier2StepByStep,
+      tier3Shortcut: explanation.tier3Shortcut,
+      studentWarning: explanation.tier4Trap.studentWarning,
+      finalAnswer: explanation.finalAnswer,
+      diagramTitle: explanation.diagramTitle,
+      diagramCaption: explanation.diagramCaption,
+    });
+    assert(explanation.schemaVersion === "syl-pedagogy-v2", `${definition.qlId}/${seed} explanation schema mismatch.`);
+    assert(explanation.tier1Concept.premiseBreakdown.length === english.statements.length, `${definition.qlId}/${seed} premise teaching count mismatch.`);
+    equal(
+      explanation.tier1Concept.premiseBreakdown.map((entry) => entry.statement),
+      english.statements,
+      `${definition.qlId}/${seed} explanation premise order must match the displayed stem`,
+    );
+    assert(explanation.tier2StepByStep.conclusionSteps.length === english.conclusions.length, `${definition.qlId}/${seed} conclusion teaching count mismatch.`);
+    equal(
+      explanation.tier2StepByStep.conclusionSteps.map((entry) => entry.conclusion),
+      english.conclusions,
+      `${definition.qlId}/${seed} explanation conclusion order mismatch`,
+    );
+    assert(explanation.tier3Shortcut.shortcut.length > 18, `${definition.qlId}/${seed} shortcut too short.`);
+    assert(explanation.tier4Trap.studentWarning.length > 25, `${definition.qlId}/${seed} student warning too short.`);
+    assert(/^[A-Z0-9_]+$/.test(explanation.tier4Trap.diagnosticTag), `${definition.qlId}/${seed} invalid diagnostic tag.`);
+    for (const pattern of pedagogyLeakPatterns) {
+      assert(!pattern.test(studentExplanationText), `${definition.qlId}/${seed} leaked solver/debug wording: ${pattern}.`);
+    }
+
+    const svg = explanation.overlappingVennSvg;
+    assert(svg.includes('role="img"'), `${definition.qlId}/${seed} diagram lacks accessibility role.`);
+    assert(svg.includes("<title"), `${definition.qlId}/${seed} diagram lacks title.`);
+    assert(svg.includes('data-diagram-mode="'), `${definition.qlId}/${seed} diagram lacks a mode contract.`);
+    assert(svg.includes('data-relation="'), `${definition.qlId}/${seed} diagram lacks relation geometry.`);
+    assert(svg.includes("<circle"), `${definition.qlId}/${seed} diagram lacks set geometry.`);
+    assert(!svg.includes("Occupied witness regions"), `${definition.qlId}/${seed} retained legacy witness list.`);
+    assert(!/cx="160"[^>]*><\/circle>.*cx="305"[^>]*><\/circle>.*cx="450"/s.test(svg), `${definition.qlId}/${seed} retained isolated three-circle layout.`);
+    if (english.metadata.premiseForms.some((form) => form === "SOME" || form === "A_FEW" || form === "ONLY_A_FEW")) {
+      assert(svg.includes('data-relation="SOME"') || svg.includes('data-relation="ONLY_A_FEW"'), `${definition.qlId}/${seed} overlap premise lacks overlapping relation card.`);
+      assert(svg.includes('class="witness"'), `${definition.qlId}/${seed} existential overlap lacks a witness mark.`);
+    }
+    if (english.metadata.premiseForms.includes("NO")) {
+      assert(svg.includes('data-relation="NO"'), `${definition.qlId}/${seed} NO premise lacks a disjoint relation card.`);
+      assert(svg.includes('class="cross-mark"'), `${definition.qlId}/${seed} NO relation lacks an exclusion mark.`);
+    }
+    if (english.metadata.premiseForms.some((form) => form === "ALL" || form === "ONLY" || form === "ARE_ONLY")) {
+      assert(svg.includes('data-relation="ALL"'), `${definition.qlId}/${seed} inclusion premise lacks nested relation geometry.`);
+    }
+    diagramModeCoverage.add(explanation.diagramMode);
+
     assert(!/SYL-QL-|SYL-SC-|C-(ALL|NO|SOME)/.test(english.stem), `${definition.qlId}/${seed} leaked internal identity.`);
     assert(!english.options.some((entry) => /SYL-|MASK_/.test(entry.text)), `${definition.qlId}/${seed} leaked internal option identity.`);
+    assert(english.metadata.runtimeVersion === "syl-001-pedagogy-runtime-v2", `${definition.qlId}/${seed} runtime version mismatch.`);
+    assert(english.metadata.studentExplanationNaturalized, `${definition.qlId}/${seed} naturalized explanation gate false.`);
+    assert(english.metadata.overlappingDiagramValidated, `${definition.qlId}/${seed} overlapping diagram gate false.`);
+    assert(english.metadata.localePedagogyParityPassed, `${definition.qlId}/${seed} locale pedagogy gate false.`);
     assert(english.metadata.answerTemplateId === definition.answerTemplateId, `${definition.qlId}/${seed} answer-template metadata mismatch.`);
     assert(english.metadata.solverAgreementPassed, `${definition.qlId}/${seed} solver gate false.`);
     assert(english.metadata.premiseRelevancePassed, `${definition.qlId}/${seed} premise relevance false.`);
@@ -156,6 +219,14 @@ for (const definition of SYL_QL_REGISTRY) {
     assert(!priorQl || priorQl === definition.qlId, `Cross-QL exact stem collision: ${priorQl}/${definition.qlId}.`);
     allEnglishStems.set(english.stem, definition.qlId);
 
+    const englishPedagogyShape = {
+      premiseRules: english.explanation.tier1Concept.premiseBreakdown.map((entry) => entry.compactRule),
+      verdicts: english.explanation.tier2StepByStep.conclusionSteps.map((entry) => entry.verdict),
+      diagramRole: english.explanation.diagramRole,
+      diagramMode: english.explanation.diagramMode,
+      diagnosticTag: english.explanation.tier4Trap.diagnosticTag,
+    };
+
     for (const locale of locales) {
       const question = locale === "en-IN" ? english : generateSylQuestion(definition.qlId, seed, locale);
       const semanticOptions = question.options.map((entry) => ({
@@ -168,14 +239,25 @@ for (const definition of SYL_QL_REGISTRY) {
       assert(question.scenarioId === english.scenarioId, `${definition.qlId}/${seed}/${locale} scenario parity failed.`);
       equal(question.metadata.selectedConclusionClasses, english.metadata.selectedConclusionClasses, `${definition.qlId}/${seed}/${locale} truth-class parity`);
       equal(question.structuredPrompt, english.structuredPrompt, `${definition.qlId}/${seed}/${locale} structured-prompt parity`);
+      equal({
+        premiseRules: question.explanation.tier1Concept.premiseBreakdown.map((entry) => entry.compactRule),
+        verdicts: question.explanation.tier2StepByStep.conclusionSteps.map((entry) => entry.verdict),
+        diagramRole: question.explanation.diagramRole,
+        diagramMode: question.explanation.diagramMode,
+        diagnosticTag: question.explanation.tier4Trap.diagnosticTag,
+      }, englishPedagogyShape, `${definition.qlId}/${seed}/${locale} pedagogy structure parity`);
       assert(question.options.every((entry) => entry.text.trim().length > 0), `${definition.qlId}/${seed}/${locale} blank option.`);
       assert(new Set(question.options.map((entry) => entry.text)).size === question.options.length, `${definition.qlId}/${seed}/${locale} duplicate localized options.`);
       if (locale === "hi-IN") {
         assert(/[\u0900-\u097F]/u.test(question.stem), `${definition.qlId}/${seed} Hindi script missing.`);
+        assert(question.explanation.tier1Concept.heading.includes("स्तर 1"), `${definition.qlId}/${seed} Hindi pedagogy header missing.`);
+        assert(!/मान्य व्यवस्था|सदस्य-क्षेत्र/u.test(JSON.stringify(question.explanation)), `${definition.qlId}/${seed} robotic Hindi pedagogy leaked.`);
       }
       if (locale === "pa-IN") {
         assert(/[\u0A00-\u0A7F]/u.test(question.stem), `${definition.qlId}/${seed} Punjabi script missing.`);
         assert(!/[\u0900-\u0963\u0966-\u097F]/u.test(question.stem), `${definition.qlId}/${seed} Devanagari leaked into Punjabi stem.`);
+        assert(question.explanation.tier1Concept.heading.includes("ਪੱਧਰ 1"), `${definition.qlId}/${seed} Punjabi pedagogy header missing.`);
+        assert(!/ਮੰਨੀ ਹੋਈ ਬਣਤਰ|ਮੈਂਬਰ-ਖੇਤਰ|ਸਮੂਹ-ਸੰਬੰਧ ਸਬੂਤ/u.test(JSON.stringify(question.explanation)), `${definition.qlId}/${seed} robotic Punjabi pedagogy leaked.`);
       }
       generatedCount += 1;
     }
@@ -193,12 +275,18 @@ for (const definition of SYL_QL_REGISTRY) {
 }
 
 assert(generatedCount === 18 * 80 * 3, `Expected 4320 questions, generated ${generatedCount}.`);
+assert(diagramModeCoverage.has("FORCED_WITH_FOCUS"), "Diagram audit lacks forced-focus coverage.");
+assert(diagramModeCoverage.has("TRUE_FALSE_COMPARISON"), "Diagram audit lacks standalone possibility comparison coverage.");
+assert(diagramModeCoverage.has("FORCED_AND_TRUE_FALSE_COMPARISON"), "Diagram audit lacks combined forced-and-possible comparison coverage.");
+assert(diagramModeCoverage.has("EITHER_OR_COMPARISON"), "Diagram audit lacks either-or comparison coverage.");
 console.log(JSON.stringify({
-  status: "SYL-001 multilingual chapter audit passed",
+  status: "SYL-001 pedagogy-remodeled multilingual chapter audit passed",
+  explanationSchema: "syl-pedagogy-v2",
   qls: SYL_QL_REGISTRY.length,
   scenarios: SYL_SCENARIOS.length,
   sourcePatterns: SYL_SOURCE_PATTERNS.length,
   generatedQuestions: generatedCount,
+  diagramModes: [...diagramModeCoverage].sort(),
   answerPositions: Object.fromEntries([...answerCoverage].map(([qlId, values]) => [qlId, [...values].sort()])),
   scenarioCounts: Object.fromEntries([...scenarioCoverage].map(([qlId, values]) => [qlId, values.size])),
   semanticAnswerCounts: Object.fromEntries([...semanticAnswerCoverage].map(([qlId, values]) => [qlId, values.size])),
