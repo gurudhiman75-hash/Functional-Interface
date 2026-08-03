@@ -12,7 +12,7 @@ on:
 jobs:
   cp003-discovery:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -22,15 +22,23 @@ jobs:
         with:
           node-version: 22
 
-      - name: Run transformation discovery, solver and editorial audit
+      - name: Run approved initial transformation audit
         run: >-
           npx --yes tsx
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-003/cp003-foundation.test.ts
           rnk-cp003-discovery-output
 
-      - name: Upload RNK-CP-003 review evidence
+      - name: Run source-gap and inverse expansion audit
+        run: >-
+          npx --yes tsx
+          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-003/cp003-source-wave.test.ts
+          rnk-cp003-source-wave-output
+
+      - name: Upload RNK-CP-003 expanded review evidence
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp003-english-review-pending-v1
-          path: rnk-cp003-discovery-output
+          name: rnk-001-cp003-expanded-english-review-pending-v2
+          path: |
+            rnk-cp003-discovery-output
+            rnk-cp003-source-wave-output
           retention-days: 14
