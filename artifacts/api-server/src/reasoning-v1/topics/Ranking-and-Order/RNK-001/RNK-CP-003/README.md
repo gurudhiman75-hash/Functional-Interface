@@ -1,82 +1,89 @@
 # RNK-CP-003 — Interchange, Movement and Changed Ranks
 
-Status: **initial 54-question English pack approved; supplementary source-backed review pending; permanent QL count open**.
+Status: **English discovery frozen; permanent range `RNK-QL-018..026`**.
 
 This checkpoint owns transformations of an already ranked order:
 
-- direct ranks after two people interchange positions;
-- original ranks recovered from final interchange evidence;
-- total count inferred from a rank change after interchange;
-- final rank after one movement;
-- number of people passed or overtaken from a rank change;
-- original rank recovered by reversing a movement;
+- direct or inverse ranks after two people interchange positions;
+- total count inferred from an interchange-driven rank change;
+- direct or inverse own rank after one movement;
+- people passed or overtaken;
 - target-rank effects of insertion and removal;
-- final rank after sequential movements;
-- target-rank effects when another person moves across or away from the target;
-- ordered movement-plus-membership transformations;
+- rank after sequential movements;
+- target-rank effects when another person crosses the target;
+- movement combined with people joining or leaving from an end;
 - rejection of impossible, out-of-bound or target-removal narratives.
 
-## Current executable discovery
+## Frozen evidence
 
 ```text
-initial prototypes:                    9
-initial runtime questions:         2,160
-approved English review questions:    54
+initial prototypes:                     9
+initial runtime questions:          2,160
 supplementary prototypes:               4
-supplementary runtime questions:      960
-supplementary review questions:        24
-cumulative prototypes:                 13
-cumulative runtime questions:       3,120
-permanent QLs:                       none
-next available RNK identity:     RNK-QL-018
+supplementary runtime questions:       960
+combined discovery:        13 prototypes / 3,120 questions
+approved English corpus:               78
+permanent authorities:                  9
+permanent runtime questions:        1,728
+open source dimensions:                 0
+permanent range:              RNK-QL-018..026
+next available identity:      RNK-QL-027
 ```
 
-The counts above are discovery evidence, not quotas or a frozen inventory.
+## Permanent authorities
 
-## Source-gap expansion
+```text
+RNK-QL-018  interchange ranks, direct or inverse
+RNK-QL-019  total from interchange rank change
+RNK-QL-020  own rank before or after one movement
+RNK-QL-021  people passed from rank change
+RNK-QL-022  target rank after insertion
+RNK-QL-023  target rank after removal
+RNK-QL-024  own rank after sequential moves
+RNK-QL-025  target-rank effect of another person’s move
+RNK-QL-026  own rank with movement and membership change
+```
 
-The supplementary wave closes two source-backed dimensions that were not represented in the approved initial pack:
+Direct/inverse forms merge when they replay the same transformation. Insertion and removal remain separate because they change group size in opposite directions and own different invalid-state and distractor contracts.
 
-1. another person moves and the target’s rank may shift by one place;
-2. movement is combined with people joining or leaving from an end, in either operation order, with direct or inverse rank queries.
+## Approved English projection
 
-See `RNK-CP-003-SOURCE-GAP-AUDIT.md`.
+```text
+sha256:6457a50fdde7673f9e66fe607a47a5c38a4c921489ed387b72c87ef8a22947d5
+```
 
 ## Construction model
 
 ```text
 construct a valid ranked state
-  -> apply or reverse the stated transformation ledger
+  -> apply or reverse the stated transformation
   -> normalize mixed-end ranks
   -> independently replay displayed evidence
   -> reject invalid intermediate states
   -> build misconception-owned options
   -> render question-specific English teaching
-  -> expose separate initial and supplementary review packs
+  -> expose permanent review identity while delivery stays locked
 ```
 
-## Next gate
+## Authoritative records
 
-The supplementary 24-question pack must receive manual English approval. Only then may the checkpoint proceed to:
-
-```text
-13-prototype merge/split proof
-  -> final source-gap audit
-  -> permanent authority allocation
-  -> permanent runtime proof
-  -> English discovery freeze
-```
+- `RNK-CP-003-SOURCE-GAP-AUDIT.md`;
+- `RNK-CP-003-ENGLISH-MANUAL-REVIEW.md`;
+- `RNK-CP-003-FINAL-DISCOVERY-FREEZE.md`;
+- `RNK-CP-003-IMPLEMENTATION-REPORT.md`;
+- `cp003-consolidation.test.ts`;
+- `cp003-final-source-gap.test.ts`;
+- `cp003-permanent-runtime.test.ts`;
+- `cp003-final-discovery-freeze.test.ts`.
 
 ## Safety boundary
 
 ```text
-initial English manual approval:       approved
-supplementary English manual approval: pending
-English discovery frozen:              false
-permanent QL count:                    open
-Hindi/Punjabi:                         not started
-Question Studio:                       disabled
-Question Bank:                         NOT_STORED
-test eligibility:                      INELIGIBLE
-public publication:                    false
+English discovery frozen:       true
+English review-only:             true
+Hindi/Punjabi:                  not started
+Question Studio:                disabled
+Question Bank:                  NOT_STORED
+test eligibility:               INELIGIBLE
+public publication:             false
 ```
