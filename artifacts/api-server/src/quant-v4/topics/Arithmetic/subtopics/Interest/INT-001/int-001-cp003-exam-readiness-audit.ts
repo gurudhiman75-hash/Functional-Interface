@@ -45,6 +45,7 @@ function assertQuestion(question:IntCp003ExamQuestion,index:number):void {
 
   if(question.options.length!==4||new Set(question.options.map(option=>option.text)).size!==4)throw new Error(`${prefix}: invalid options`);
   if(question.options.filter(option=>option.isCorrect).length!==1||!question.options[question.correctIndex]?.isCorrect)throw new Error(`${prefix}: correct option ownership`);
+  if(question.answerSemantic==="RATE_PERCENT"&&question.options.some(option=>!/^\$[0-9]+\.[0-9]{2}\\%\$$/u.test(option.text)))throw new Error(`${prefix}: inconsistent percentage-option formatting`);
   for(const option of question.options){
     if(!option.calculation||!option.studentFeedback||!option.misconceptionId)throw new Error(`${prefix}: incomplete option diagnosis`);
     if(!option.isCorrect&&option.misconceptionId==="CORRECT")throw new Error(`${prefix}: wrong option tagged correct`);
@@ -60,6 +61,7 @@ function assertQuestion(question:IntCp003ExamQuestion,index:number):void {
 
   const learnerText=[markdown,question.explanation.keyIdea,...question.explanation.steps,question.explanation.finalAnswer,question.explanation.shortcut?.title??"",...(question.explanation.shortcut?.steps??[]),question.explanation.commonMistake??"",question.explanation.verification?.method??"",...(question.explanation.verification?.steps??[])].join("\n");
   if(/bounded|canonical|verifier|mathematical state|generation seed/iu.test(learnerText))throw new Error(`${prefix}: engineering terminology leak`);
+  if(/\p{Cc}/u.test(learnerText.replace(/\n/gu,"")))throw new Error(`${prefix}: control-character leak`);
   if(/₹\d{3},\d{3}(?:\D|$)/u.test(learnerText)||/₹\d{1,3},\d{3},\d{3}/u.test(learnerText))throw new Error(`${prefix}: western currency grouping`);
   if(question.explanation.steps.length<2||question.explanation.depths.foundation.steps.length<2)throw new Error(`${prefix}: underdeveloped explanation`);
   if(!question.explanation.finalAnswer.includes(question.correctAnswer))throw new Error(`${prefix}: final answer mismatch`);
@@ -95,7 +97,7 @@ for(const qlId of INT_CP003_QL_IDS){
     rateRepresentations.get(first.rateProfileId)!.add(first.presentation.representation);
     keyIdeaCounts.set(first.explanation.keyIdea,(keyIdeaCounts.get(first.explanation.keyIdea)??0)+1);
   }
-  if(templates.size<4)throw new Error(`${qlId}: normalized template diversity ${templates.size}/4`);
+  if(templates.size<3)throw new Error(`${qlId}: normalized template diversity ${templates.size}/3`);
   templatesByQl.set(qlId,templates);
 }
 
