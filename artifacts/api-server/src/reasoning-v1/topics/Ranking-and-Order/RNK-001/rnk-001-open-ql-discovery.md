@@ -1,6 +1,6 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001 and CP-002 frozen at `RNK-QL-001..017`; CP-003 English executable discovery is active and awaiting manual review**.
+Status: **CP-001 and CP-002 frozen at `RNK-QL-001..017`; CP-003 initial English pack approved and supplementary source-backed review pending**.
 
 This register prevents premature chapter sizing. Each checkpoint discovers permanent identities from source evidence, executable solver contracts, inverse directions, edge states, ambiguity semantics, representations and ownership audits. Counts are never quotas.
 
@@ -40,19 +40,6 @@ RNK-QL-016  EXACT_TOTAL_OR_INDETERMINATE
 RNK-QL-017  PROPOSED_TOTAL_ORDER_STATUS
 ```
 
-Closed dimensions include:
-
-- people-between and positional gap from same-end or normalized mixed-end ranks;
-- direct and inverse separation contracts;
-- target-rank recovery from an offset or people-between evidence;
-- higher/lower/nearer comparison after common-end normalization;
-- total under known relative order;
-- minimum/maximum totals under unknown order;
-- one-valid versus two-valid total branches;
-- exact total versus cannot determine;
-- proposed-total compatible order and impossible status;
-- zero-between, endpoint and context parity edges.
-
 Approved English projection:
 
 ```text
@@ -63,45 +50,77 @@ Open CP-002 source dimensions: `0`.
 
 ## 3. Active checkpoint — RNK-CP-003
 
-### Current executable wave
+### Approved initial wave
 
 ```text
 provisional prototypes:          9
 runtime seeds per prototype:   240
-combined runtime questions:   2,160
-English review corpus:           54
-invalid narratives proved:        5
-permanent QLs:                 none
-next available identity: RNK-QL-018
-manual English approval:    pending
+runtime questions:            2,160
+English review questions:        54
+manual English approval:    approved
 ```
 
-The executable prototypes currently cover:
+The approved initial wave covers:
 
 - final ranks after interchange;
 - original ranks recovered from final interchange evidence;
-- total count from interchange-driven rank change;
+- total from interchange-driven rank change;
 - final rank after one movement;
-- number passed or overtaken from old and new ranks;
+- people passed or overtaken from old and new ranks;
 - original rank recovered from final rank and movement;
 - target-rank effects after insertion;
 - target-rank effects after removal;
 - final rank after sequential movements.
 
-Generated dimensions include top/bottom, left/right, front/back and race-order vocabulary; same-end and mixed-end evidence; requested rank direction; movement direction and distance; endpoint cases; insertion/removal position; and intermediate-state validity.
+### Supplementary source-gap wave
 
-The executable audit rejects movement outside the ranked group, interchange evidence that resolves to one position, removal of the target itself, and sequential narratives with an invalid intermediate position.
+A post-approval source re-check found two unrepresented dimensions:
 
-### Still open before consolidation
+1. another person moves and the target’s rank changes only if the mover crosses the target;
+2. movement is composed with people joining or leaving from an end, in either operation order, with direct or inverse queries.
 
-- broader source saturation and exam-pattern audit;
-- additional inverse and mixed-end transformation evidence;
-- possible merge/split boundaries among direct, inverse and representation variants;
-- option and English manual review of the 54-question corpus;
-- chapter-gap audit against CP-002, CP-004 and shared-passage ownership;
-- final permanent QL allocation and freeze proof.
+Four supplementary prototypes were added:
 
-No CP-003 QL count is allocated.
+```text
+TARGET_RANK_AFTER_ANOTHER_PERSON_MOVES
+ORIGINAL_TARGET_RANK_BEFORE_ANOTHER_PERSON_MOVED
+FINAL_RANK_AFTER_MOVEMENT_AND_MEMBERSHIP_CHANGE
+ORIGINAL_RANK_FROM_FINAL_AFTER_MOVEMENT_AND_MEMBERSHIP_CHANGE
+```
+
+Evidence target:
+
+```text
+supplementary prototypes:          4
+runtime seeds per prototype:     240
+supplementary runtime questions: 960
+supplementary review questions:   24
+manual supplementary approval: pending
+```
+
+### Cumulative CP-003 state
+
+```text
+cumulative prototypes:           13
+cumulative runtime questions:  3,120
+approved review questions:        54
+pending supplementary review:     24
+permanent QLs:                   none
+next available identity:   RNK-QL-018
+```
+
+The 13 prototypes remain discovery evidence. No permanent QL count is allocated.
+
+### Still open before freeze
+
+- supplementary 24-question English approval;
+- 13-prototype merge/split proof;
+- final source-gap and ownership audit;
+- permanent authority allocation;
+- permanent runtime proof;
+- final English freeze projection.
+
+The current consolidation hypothesis is nine authorities, but it is not frozen.
 
 ## 4. Open later checkpoints
 
@@ -140,18 +159,19 @@ age/speed/marks arithmetic as main burden       -> relevant Quant chapter
 ## 6. Current lifecycle
 
 ```text
-cumulative permanent range:   RNK-QL-001..017
-next available RNK ID:        RNK-QL-018
-CP-001 discovery frozen:      true
-CP-002 discovery frozen:      true
-CP-003 discovery frozen:      false
-CP-003 manual review:         pending
-CP-003 permanent QL count:    open
-chapter-wide freeze:          false
-English review-only:          true
-Hindi/Punjabi:                not started
-Question Studio:              disabled
-Question Bank:                NOT_STORED
-test eligibility:             INELIGIBLE
-public publication:           false
+cumulative permanent range:       RNK-QL-001..017
+next available RNK ID:            RNK-QL-018
+CP-001 discovery frozen:          true
+CP-002 discovery frozen:          true
+CP-003 discovery frozen:          false
+CP-003 initial review:            approved
+CP-003 supplementary review:      pending
+CP-003 permanent QL count:        open
+chapter-wide freeze:              false
+English review-only:              true
+Hindi/Punjabi:                    not started
+Question Studio:                  disabled
+Question Bank:                    NOT_STORED
+test eligibility:                 INELIGIBLE
+public publication:               false
 ```
