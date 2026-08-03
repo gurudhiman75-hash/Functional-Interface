@@ -26,9 +26,11 @@ export const SYL_001_FOUNDATION_AUTHORITY = Object.freeze({
 export const SYL_001_CHAPTER_AUTHORITY = Object.freeze({
   packageId: "SYL-001",
   familyId: "REAS-SYL",
-  authorityId: "SYL_001_MULTILINGUAL_REVIEW_RUNTIME_V1",
-  status: "IMPLEMENTED_MULTILINGUAL_REVIEW_RUNTIME",
+  authorityId: "SYL_001_MULTILINGUAL_REVIEW_RUNTIME_V2",
+  status: "PEDAGOGY_REMODELED_MULTILINGUAL_REVIEW_RUNTIME",
   semanticsProfileId: "INDIAN_COMPETITIVE_EXAM_SYLLOGISM_V1",
+  explanationSchemaVersion: "syl-pedagogy-v2",
+  diagramArchitectureVersion: "syl-venn-geometry-v2",
   permanentQlCount: 18,
   permanentQlRange: "SYL-QL-001..SYL-QL-018",
   permanentQlIds: Array.from(
@@ -48,6 +50,9 @@ export const SYL_001_CHAPTER_AUTHORITY = Object.freeze({
   scenarioAuthorityCount: 36,
   locales: ["en-IN", "hi-IN", "pa-IN"] as const,
   localizationImplemented: true,
+  studentExplanationNaturalized: true,
+  overlappingDiagramValidated: true,
+  internalSolverFlagsStudentVisible: false,
   manualEditorialApproval: false,
   chapterFreezeApproved: false,
   questionStudioVisible: false,
