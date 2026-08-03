@@ -16,7 +16,15 @@ export type RpnToken =
   | { readonly kind: "UNARY"; readonly operation: "NEGATE" | "FACTORIAL" }
   | {
       readonly kind: "BINARY";
-      readonly operation: "ADD" | "SUBTRACT" | "MULTIPLY" | "DIVIDE" | "OF" | "PERCENT_OF";
+      readonly operation:
+        | "ADD"
+        | "SUBTRACT"
+        | "MULTIPLY"
+        | "IMPLICIT_MULTIPLY"
+        | "DIVIDE"
+        | "FRACTION_BAR"
+        | "OF"
+        | "PERCENT_OF";
     }
   | { readonly kind: "POWER"; readonly exponent: bigint }
   | { readonly kind: "ROOT"; readonly degree: bigint };
@@ -77,7 +85,9 @@ function emitRpn(node: ExpressionNode, output: RpnToken[]): void {
     case "ADD":
     case "SUBTRACT":
     case "MULTIPLY":
+    case "IMPLICIT_MULTIPLY":
     case "DIVIDE":
+    case "FRACTION_BAR":
     case "OF":
       emitRpn(node.left, output);
       emitRpn(node.right, output);
@@ -133,10 +143,12 @@ export function evaluateIndependent(node: ExpressionNode): Rational {
         stack.push(subtractRational(left, right));
         break;
       case "MULTIPLY":
+      case "IMPLICIT_MULTIPLY":
       case "OF":
         stack.push(multiplyRational(left, right));
         break;
       case "DIVIDE":
+      case "FRACTION_BAR":
         stack.push(divideRational(left, right));
         break;
       case "PERCENT_OF":
