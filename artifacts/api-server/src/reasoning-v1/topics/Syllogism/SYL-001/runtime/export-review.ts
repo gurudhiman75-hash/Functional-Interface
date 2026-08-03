@@ -25,9 +25,21 @@ function localeName(locale: SylLocale): string {
   return "English";
 }
 
+function correctBadge(locale: SylLocale): string {
+  if (locale === "hi-IN") return "सही";
+  if (locale === "pa-IN") return "ਸਹੀ";
+  return "Correct";
+}
+
+function finalAnswerHeading(locale: SylLocale): string {
+  if (locale === "hi-IN") return "✅ अंतिम उत्तर";
+  if (locale === "pa-IN") return "✅ ਅੰਤਿਮ ਉੱਤਰ";
+  return "✅ Final Answer";
+}
+
 function renderQuestion(question: (typeof questions)[number]): string {
   const options = question.options.map((entry, index) =>
-    `<li class="option ${entry.isCorrect ? "correct" : ""}"><span class="option-number">${index + 1}</span><span>${escapeHtml(entry.text)}</span>${entry.isCorrect ? '<span class="answer-badge">Correct</span>' : ""}</li>`,
+    `<li class="option ${entry.isCorrect ? "correct" : ""}"><span class="option-number">${index + 1}</span><span>${escapeHtml(entry.text)}</span>${entry.isCorrect ? `<span class="answer-badge">${escapeHtml(correctBadge(question.locale))}</span>` : ""}</li>`,
   ).join("");
   const premiseBreakdown = question.explanation.tier1Concept.premiseBreakdown.map((point, index) =>
     `<li><strong>${index + 1}. ${escapeHtml(point.statement)}</strong><div>${escapeHtml(point.naturalRule)}</div><code>${escapeHtml(point.compactRule)}</code></li>`,
@@ -52,7 +64,7 @@ function renderQuestion(question: (typeof questions)[number]): string {
 <section class="tier tier-2"><h3>${escapeHtml(question.explanation.tier2StepByStep.heading)}</h3><ol class="conclusion-analysis">${conclusionSteps}</ol>${combination}</section>
 <section class="tier tier-3"><h3>${escapeHtml(question.explanation.tier3Shortcut.heading)}</h3><p><strong>${escapeHtml(question.explanation.tier3Shortcut.shortcut)}</strong></p><p>${escapeHtml(question.explanation.tier3Shortcut.application)}</p></section>
 <section class="tier tier-4"><h3>${escapeHtml(question.explanation.tier4Trap.heading)}</h3><p>${escapeHtml(question.explanation.tier4Trap.studentWarning)}</p></section>
-<section class="final-answer"><h3>✅ Final Answer</h3><p>${escapeHtml(question.explanation.finalAnswer)}</p></section>
+<section class="final-answer"><h3>${escapeHtml(finalAnswerHeading(question.locale))}</h3><p>${escapeHtml(question.explanation.finalAnswer)}</p></section>
 <section class="diagram"><h3>${escapeHtml(question.explanation.diagramTitle)}</h3>${question.explanation.overlappingVennSvg}<p class="diagram-caption">${escapeHtml(question.explanation.diagramCaption)}</p></section>
 <details><summary>Administrator-only structured evidence</summary><pre>${escapeHtml(JSON.stringify(adminMetadata, null, 2))}</pre></details>
 </article>`;
