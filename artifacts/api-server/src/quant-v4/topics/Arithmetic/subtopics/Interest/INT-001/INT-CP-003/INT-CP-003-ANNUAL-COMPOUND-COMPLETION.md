@@ -4,20 +4,8 @@ Status: `SECOND_REMEDIATION_REVIEW_CANDIDATE — STAGING_LOCKED`
 
 The mathematical inventory remains `INT-QL-053..INT-QL-066`, with all 14 legacy CP-003 families owned and zero open mathematical gaps.
 
-The second remediation separates contract-specific exact state, visible presentation, misconception-calculated options, instance-derived difficulty and method-aware explanation composition. It includes 16 exact rational rates, six rendered representations, relevant-field-only fingerprints, Indian number formatting, deterministic non-cyclic option shuffling, three explanation depths and runtime MathJax guards.
+The second remediation separates exact state, presentation, options, difficulty and explanations. It uses 16 rational rates, six visible representations, contract-specific fingerprints, Indian formatting, deterministic option shuffling, three explanation depths and MathJax guards.
 
-QL-065 no longer supplies both derived amounts. Amount-ratio rate recovery uses two years, while nth-year rate recovery is restricted to the second or third year.
+QL-065 no longer gives both derived amounts. Amount-ratio rate recovery uses two years, while nth-year rate recovery is limited to years two or three.
 
-The branch remains draft, unmerged and staging-locked. Exact evidence is maintained in PR #480. No English freeze may be created without fresh explicit approval.
-
-```text
-editorialStatus:             SECOND_REMEDIATION_REVIEW_CANDIDATE
-approvalStatus:              WITHDRAWN_PENDING_REAUDIT
-enabled:                     false
-stagingStatus:               NOT_STAGED
-registrationStatus:          NOT_REGISTERED
-questionStudioDiscoverable:  false
-questionBankStatus:          NOT_STORED
-testEligibility:             INELIGIBLE
-publiclyPublishable:         false
-```
+PR #480 remains draft, unmerged and staging-locked. No English freeze may be created without fresh explicit approval.
