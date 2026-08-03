@@ -194,27 +194,27 @@ function relationCaption(
   const subject = label(relation.subject, locale, assignment);
   const predicate = label(relation.predicate, locale, assignment);
   if (locale === "hi-IN") {
-    if (relation.form === "ALL") return `${subject} का पूरा समूह ${predicate} के अंदर है।`;
-    if (relation.form === "NO") return `${subject} और ${predicate} पूरी तरह अलग हैं।`;
-    if (relation.form === "SOME") return `${subject} और ${predicate} के साझा हिस्से में कम-से-कम एक सदस्य है।`;
-    if (relation.form === "SOME_NOT") return `${subject} का कम-से-कम एक सदस्य ${predicate} से बाहर है।`;
-    if (relation.form === "ONLY_A_FEW") return `${subject} का एक भाग ${predicate} में है और एक भाग बाहर है।`;
-    return `${subject} और ${predicate} एक ही समूह को दर्शाते हैं।`;
+    if (relation.form === "ALL") return `${subject} ⊆ ${predicate}`;
+    if (relation.form === "NO") return `${subject} ∩ ${predicate} = ∅`;
+    if (relation.form === "SOME") return `साझा भाग में ×`;
+    if (relation.form === "SOME_NOT") return `${subject}-मात्र भाग में ×`;
+    if (relation.form === "ONLY_A_FEW") return `साझा भाग + बाहर ×`;
+    return `${subject} = ${predicate}`;
   }
   if (locale === "pa-IN") {
-    if (relation.form === "ALL") return `${subject} ਦਾ ਪੂਰਾ ਸਮੂਹ ${predicate} ਦੇ ਅੰਦਰ ਹੈ।`;
-    if (relation.form === "NO") return `${subject} ਅਤੇ ${predicate} ਪੂਰੀ ਤਰ੍ਹਾਂ ਵੱਖ ਹਨ।`;
-    if (relation.form === "SOME") return `${subject} ਅਤੇ ${predicate} ਦੇ ਸਾਂਝੇ ਹਿੱਸੇ ਵਿੱਚ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਮੈਂਬਰ ਹੈ।`;
-    if (relation.form === "SOME_NOT") return `${subject} ਦਾ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਮੈਂਬਰ ${predicate} ਤੋਂ ਬਾਹਰ ਹੈ।`;
-    if (relation.form === "ONLY_A_FEW") return `${subject} ਦਾ ਇੱਕ ਹਿੱਸਾ ${predicate} ਵਿੱਚ ਹੈ ਅਤੇ ਇੱਕ ਹਿੱਸਾ ਬਾਹਰ ਹੈ।`;
-    return `${subject} ਅਤੇ ${predicate} ਇੱਕੋ ਸਮੂਹ ਨੂੰ ਦਰਸਾਉਂਦੇ ਹਨ।`;
+    if (relation.form === "ALL") return `${subject} ⊆ ${predicate}`;
+    if (relation.form === "NO") return `${subject} ∩ ${predicate} = ∅`;
+    if (relation.form === "SOME") return `ਸਾਂਝੇ ਹਿੱਸੇ ਵਿੱਚ ×`;
+    if (relation.form === "SOME_NOT") return `${subject}-ਵਾਲੇ ਹਿੱਸੇ ਵਿੱਚ ×`;
+    if (relation.form === "ONLY_A_FEW") return `ਸਾਂਝਾ ਹਿੱਸਾ + ਬਾਹਰ ×`;
+    return `${subject} = ${predicate}`;
   }
-  if (relation.form === "ALL") return `The whole ${subject} set lies inside ${predicate}.`;
-  if (relation.form === "NO") return `${subject} and ${predicate} are completely separate.`;
-  if (relation.form === "SOME") return `At least one member lies in the common part of ${subject} and ${predicate}.`;
-  if (relation.form === "SOME_NOT") return `At least one ${subject} member lies outside ${predicate}.`;
-  if (relation.form === "ONLY_A_FEW") return `One part of ${subject} lies in ${predicate}, and another part remains outside.`;
-  return `${subject} and ${predicate} denote the same set.`;
+  if (relation.form === "ALL") return `${subject} inside ${predicate}`;
+  if (relation.form === "NO") return `${subject} ∩ ${predicate} = ∅`;
+  if (relation.form === "SOME") return `× in the overlap`;
+  if (relation.form === "SOME_NOT") return `× in ${subject}-only region`;
+  if (relation.form === "ONLY_A_FEW") return `× overlap + × outside`;
+  return `${subject} = ${predicate}`;
 }
 
 function circle(
@@ -301,7 +301,7 @@ function renderRelationGeometry(
   return `<g data-relation="${relation.form}">
     <rect x="${x}" y="${y}" width="${width}" height="${height}" rx="12" fill="${fill}" stroke="${border}" stroke-width="1.5"/>
     ${geometry}
-    <text x="${cx}" y="${y + height - 14}" text-anchor="middle" class="relation-caption">${escapeXml(shortLabel(relationCaption(relation, locale, assignment)))}</text>
+    <text x="${cx}" y="${y + height - 14}" text-anchor="middle" class="relation-caption">${escapeXml(relationCaption(relation, locale, assignment))}</text>
   </g>`;
 }
 
