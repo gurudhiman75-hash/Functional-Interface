@@ -34,10 +34,10 @@ jobs:
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-003/cp003-source-wave.test.ts
           rnk-cp003-source-wave-output
 
-      - name: Audit reviewed supplementary English pack
+      - name: Audit final supplementary English pack
         run: >-
           npx --yes tsx
-          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-003/cp003-source-wave-reviewed.test.ts
+          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-003/cp003-source-wave-final.test.ts
           rnk-cp003-source-reviewed-output
 
       - name: Upload RNK-CP-003 expanded review evidence
