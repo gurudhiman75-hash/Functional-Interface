@@ -85,7 +85,9 @@ function evaluateNode(node: ExpressionNode, trace: EvaluationTraceStep[]): Ratio
     case "ADD":
     case "SUBTRACT":
     case "MULTIPLY":
+    case "IMPLICIT_MULTIPLY":
     case "DIVIDE":
+    case "FRACTION_BAR":
     case "OF": {
       const left = evaluateNode(node.left, trace);
       const right = evaluateNode(node.right, trace);
@@ -93,7 +95,7 @@ function evaluateNode(node: ExpressionNode, trace: EvaluationTraceStep[]): Ratio
         ? addRational(left, right)
         : node.kind === "SUBTRACT"
           ? subtractRational(left, right)
-          : node.kind === "DIVIDE"
+          : node.kind === "DIVIDE" || node.kind === "FRACTION_BAR"
             ? divideRational(left, right)
             : multiplyRational(left, right);
       trace.push({
