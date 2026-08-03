@@ -81,9 +81,8 @@ The learner receives principal, rate and required durations, not the two derived
 ## Exact-head proof
 
 ```text
-Validated head:                    73ce1333a2fdbbfc68b993a9e697cbb6064abb9f
-CP-003 workflow run:               30826109495 — PASS
-CP-001 isolation workflow run:     30826109487 — PASS
+Validated head:                    6ddd4a5063aab3a47c4543cf525bb1f61030c12c
+CP-003 workflow run:               30826643529 — PASS
 ```
 
 Full 1,400-question audit:
@@ -127,8 +126,8 @@ Evidence artifact:
 
 ```text
 Name:    int-cp003-exam-readiness-remediation-review-candidate
-ID:      8860895037
-Digest:  sha256:31bc24c2de548be747f1acb6cfa19793f1f01bcb6bb2dc83ff05886210d6d0ab
+ID:      8861122318
+Digest:  sha256:30d9e63c1381053df67e3ea13cfdd8ecc54ab4e5025c7e3ca820ff95f05101e9
 Expires: 2026-08-17
 ```
 
