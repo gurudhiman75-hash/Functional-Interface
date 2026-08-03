@@ -1,6 +1,6 @@
 # RNK-001 — Ranking and Order
 
-Status: **CP-001 and CP-002 English discovery frozen; cumulative permanent range `RNK-QL-001..017`**.
+Status: **CP-001 and CP-002 English discovery frozen; CP-003 English executable discovery active and awaiting manual review**.
 
 Student-facing chapter: **Ranking and Order**  
 Reasoning V1 package: `RNK-001`  
@@ -22,7 +22,7 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/
 |---|---|---|
 | `RNK-CP-001` | one-person rank arithmetic, side counts, totals and exact-middle inverses | frozen: `RNK-QL-001..009` |
 | `RNK-CP-002` | two-person positions, separation, comparison and mixed-end total constraints | frozen: `RNK-QL-010..017` |
-| `RNK-CP-003` | interchange, movement and changed-rank questions | open |
+| `RNK-CP-003` | interchange, movement, overtaking, insertion/removal and changed-rank questions | active English review: 9 prototypes / 2,160 runtime / 54 review questions |
 | `RNK-CP-004` | comparative ordering of several named entities | planned |
 | `RNK-CP-005` | shared ranking passages | planned |
 | `RNK-CP-006` | attribute-led ranking ownership extensions | planned ownership audit |
@@ -68,16 +68,31 @@ Approved CP-002 English projection:
 sha256:e1853b8864453ebcdbe88aa6f3ca5fedf9f7b7140c28a3b5ad5da8a0c4855430
 ```
 
+## CP-003 active discovery summary
+
+```text
+provisional executable prototypes:    9
+runtime seeds per prototype:        240
+combined runtime questions:       2,160
+English review questions:            54
+rejected invalid narratives:           5
+permanent QLs allocated:               0
+manual English approval:         pending
+```
+
+The active wave covers direct and inverse interchange, swap-derived totals, single and sequential movement, overtaking counts, original-rank recovery, insertion and removal effects. Prototype and QL totals remain open until source, inverse, edge, merge/split, editorial and chapter-gap audits are complete.
+
 ## Construction model
 
 ```text
 construct a valid hidden total order
   -> derive only the intended evidence
   -> solve displayed evidence independently
-  -> evaluate validity and ambiguity explicitly
+  -> replay each transformation and intermediate state
+  -> reject invalid or ambiguous narratives
   -> construct misconception-owned options
-  -> render reviewed question-specific teaching
-  -> expose permanent review identity while delivery stays locked
+  -> render question-specific teaching
+  -> expose review evidence while delivery stays locked
 ```
 
 ## Ownership boundaries
@@ -98,6 +113,9 @@ cumulative permanent range:      RNK-QL-001..017
 next available ID:               RNK-QL-018
 CP-001 discovery frozen:         true
 CP-002 discovery frozen:         true
+CP-003 discovery frozen:         false
+CP-003 English manual review:    pending
+CP-003 permanent QL count:       open
 English review-only:             true
 Hindi/Punjabi:                   not started
 Question Studio:                 disabled
