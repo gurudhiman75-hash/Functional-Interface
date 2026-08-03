@@ -1,9 +1,10 @@
 name: Export PNL-001 Canonical Production Payload
 
 on:
-  push:
+  pull_request:
     branches:
-      - ops/pnl-001-production-import-artifact
+      - New-main
+    types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/export-canonical-production-payload.ts
       - .github/workflows/pnl-001-export-production-payload.yml
