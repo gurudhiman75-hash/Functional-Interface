@@ -1,118 +1,71 @@
-# RNK-CP-003 — Source and Inverse Gap Audit
+# RNK-CP-003 — Final Source and Ownership Gap Audit
 
-Status: **initial English pack approved; supplementary source-backed pack pending review; permanent QL count open**.
+Status: **closed; English discovery frozen at `RNK-QL-018..026`**.
 
-## 1. Approved initial wave
-
-The first executable wave contains nine provisional prototypes:
-
-1. final ranks after interchange;
-2. original ranks from final interchange evidence;
-3. total from interchange-driven rank change;
-4. final rank after one movement;
-5. people passed or overtaken from old and new ranks;
-6. original rank from final rank and movement;
-7. target rank after insertion;
-8. target rank after removal;
-9. final rank after sequential movements.
-
-Evidence:
+## Discovery evidence
 
 ```text
-runtime questions:       2,160
-review questions:           54
-manual English approval: approved
+initial prototypes:                     9
+initial runtime questions:          2,160
+supplementary prototypes:               4
+supplementary runtime questions:       960
+cumulative prototypes:                  13
+cumulative discovery questions:      3,120
+approved English review questions:      78
+open source dimensions:                  0
 ```
 
-Approval of this pack does not close source discovery by itself.
+## Source-backed expansion
 
-## 2. Gap found after source re-check
+The first approved 54-question wave covered interchange, direct and inverse movement, overtaking, insertion, removal and sequential moves. A post-approval source re-check exposed two missing exam patterns:
 
-A competitive-exam ranking source includes a mixed narrative in which:
+1. one person changes position and another target changes by one place only when crossed;
+2. movement is composed with people joining or leaving from an end, in either operation order, with direct or inverse rank queries.
 
-- a person moves several places;
-- new people join from one end;
-- the final rank is supplied;
-- the original rank from the opposite end is requested.
+Four supplementary prototypes and 24 reviewed English questions closed these gaps.
 
-The initial wave could solve movement and insertion separately, but it did not own their ordered composition as one displayed problem.
+## Closed dimensions
 
-The re-check also exposed the closely related transformation contract in which one person changes position and the question asks how another named person’s rank changes. The target shifts by one place only when the moving person crosses the target.
+- direct and inverse interchange rank recovery;
+- total from interchange-driven rank change;
+- direct and inverse single-person movement;
+- people passed or overtaken;
+- insertion effects;
+- removal effects and target-removal rejection;
+- sequential movement with intermediate-state validity;
+- another person crossing or not crossing the target;
+- direct and inverse movement plus membership change;
+- movement and membership operation order;
+- joining or leaving from either end;
+- same-end and mixed-end displayed evidence;
+- top/bottom, left/right, front/back and race-order contexts;
+- endpoint, one-place, no-crossing and cross-entire-group edges;
+- all four answer positions and Easy, Medium and Hard reachability.
 
-## 3. Supplementary executable wave
-
-Four provisional prototypes were added:
+## Ownership exclusions
 
 ```text
-TARGET_RANK_AFTER_ANOTHER_PERSON_MOVES
-ORIGINAL_TARGET_RANK_BEFORE_ANOTHER_PERSON_MOVED
-FINAL_RANK_AFTER_MOVEMENT_AND_MEMBERSHIP_CHANGE
-ORIGINAL_RANK_FROM_FINAL_AFTER_MOVEMENT_AND_MEMBERSHIP_CHANGE
+three-or-more-person comparison reconstruction -> RNK-CP-004
+shared ranking passages                         -> RNK-CP-005
+partial-order possibility and definiteness      -> RNK-CP-007
+facing or adjacency geometry                    -> Seating Arrangement
+statement-wise sufficiency labels               -> Data Sufficiency
 ```
 
-They cover:
+## Consolidation result
 
-- direct and inverse target-rank effects when another person moves;
-- crossed-target and non-crossed-target cases;
-- movement plus insertion or removal;
-- changes at either reference end;
-- movement-before-membership and membership-before-movement order;
-- direct final-rank and inverse original-rank queries;
-- same-end and mixed-end evidence;
-- invalid movement and target-removal rejection.
+Thirteen prototypes consolidate into nine permanent authorities. Direct and inverse forms merge when they replay the same transformation contract. Insertion and removal remain separate because they change group cardinality in opposite directions and have different invalid-state and distractor contracts.
 
-Evidence target:
+## Safety boundary
 
 ```text
-supplementary prototypes:          4
-runtime seeds per prototype:     240
-supplementary runtime questions: 960
-supplementary review questions:   24
-```
-
-## 4. Cumulative discovery state
-
-```text
-initial prototypes:               9
-supplementary prototypes:         4
-cumulative prototypes:           13
-cumulative runtime questions:  3,120
-approved review questions:        54
-supplementary review questions:   24
-permanent QLs allocated:           0
-next available RNK identity: RNK-QL-018
-```
-
-The 13 prototypes are discovery evidence. They must still pass supplementary manual review, merge/split consolidation, final source-gap audit and English freeze before permanent QLs are allocated.
-
-## 5. Provisional consolidation hypothesis
-
-The current evidence may consolidate into authorities equivalent to:
-
-1. interchange rank pair, with direct and inverse query mode;
-2. total from interchange rank change;
-3. single-person movement rank, with direct and inverse query mode;
-4. people passed from a rank change;
-5. target rank after insertion;
-6. target rank after removal;
-7. sequential movement rank;
-8. target rank affected by another person’s movement, with direct and inverse query mode;
-9. rank under a mixed movement-and-membership ledger, with direct and inverse query mode.
-
-This is not a permanent allocation. Consolidation must be proved executable after the supplementary English pack is approved.
-
-## 6. Safety boundary
-
-```text
-initial English review:          approved
-supplementary English review:    pending
-English discovery frozen:        false
-permanent QL count:              open
-cumulative permanent range:      RNK-QL-001..017
-next available ID:               RNK-QL-018
-Hindi/Punjabi:                   not started
-Question Studio:                 disabled
-Question Bank:                   NOT_STORED
-test eligibility:                INELIGIBLE
-public publication:              false
+English discovery frozen:       true
+permanent range:                RNK-QL-018..026
+cumulative range:               RNK-QL-001..026
+next available ID:              RNK-QL-027
+Hindi/Punjabi:                  not started
+Question Studio:                disabled
+Question Bank:                  NOT_STORED
+test eligibility:               INELIGIBLE
+public publication:             false
 ```
