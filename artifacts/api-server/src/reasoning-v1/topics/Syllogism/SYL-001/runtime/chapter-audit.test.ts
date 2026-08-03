@@ -148,6 +148,7 @@ for (const definition of SYL_QL_REGISTRY) {
     assert(svg.includes("<circle"), `${definition.qlId}/${seed} diagram lacks set geometry.`);
     assert(!svg.includes("Occupied witness regions"), `${definition.qlId}/${seed} retained legacy witness list.`);
     assert(!/cx="160"[^>]*><\/circle>.*cx="305"[^>]*><\/circle>.*cx="450"/s.test(svg), `${definition.qlId}/${seed} retained isolated three-circle layout.`);
+    assert(!svg.includes("…"), `${definition.qlId}/${seed} diagram contains clipped relation captions.`);
     if (english.metadata.premiseForms.some((form) => form === "SOME" || form === "A_FEW" || form === "ONLY_A_FEW")) {
       assert(svg.includes('data-relation="SOME"') || svg.includes('data-relation="ONLY_A_FEW"'), `${definition.qlId}/${seed} overlap premise lacks overlapping relation card.`);
       assert(svg.includes('class="witness"'), `${definition.qlId}/${seed} existential overlap lacks a witness mark.`);
@@ -220,7 +221,7 @@ for (const definition of SYL_QL_REGISTRY) {
     allEnglishStems.set(english.stem, definition.qlId);
 
     const englishPedagogyShape = {
-      premiseRules: english.explanation.tier1Concept.premiseBreakdown.map((entry) => entry.compactRule),
+      premiseCount: english.explanation.tier1Concept.premiseBreakdown.length,
       verdicts: english.explanation.tier2StepByStep.conclusionSteps.map((entry) => entry.verdict),
       diagramRole: english.explanation.diagramRole,
       diagramMode: english.explanation.diagramMode,
@@ -240,7 +241,7 @@ for (const definition of SYL_QL_REGISTRY) {
       equal(question.metadata.selectedConclusionClasses, english.metadata.selectedConclusionClasses, `${definition.qlId}/${seed}/${locale} truth-class parity`);
       equal(question.structuredPrompt, english.structuredPrompt, `${definition.qlId}/${seed}/${locale} structured-prompt parity`);
       equal({
-        premiseRules: question.explanation.tier1Concept.premiseBreakdown.map((entry) => entry.compactRule),
+        premiseCount: question.explanation.tier1Concept.premiseBreakdown.length,
         verdicts: question.explanation.tier2StepByStep.conclusionSteps.map((entry) => entry.verdict),
         diagramRole: question.explanation.diagramRole,
         diagramMode: question.explanation.diagramMode,
@@ -251,12 +252,14 @@ for (const definition of SYL_QL_REGISTRY) {
       if (locale === "hi-IN") {
         assert(/[\u0900-\u097F]/u.test(question.stem), `${definition.qlId}/${seed} Hindi script missing.`);
         assert(question.explanation.tier1Concept.heading.includes("स्तर 1"), `${definition.qlId}/${seed} Hindi pedagogy header missing.`);
+        assert(question.explanation.tier1Concept.premiseBreakdown.every((entry) => /[\u0900-\u097F]/u.test(entry.compactRule)), `${definition.qlId}/${seed} Hindi compact rules leaked English category names.`);
         assert(!/मान्य व्यवस्था|सदस्य-क्षेत्र/u.test(JSON.stringify(question.explanation)), `${definition.qlId}/${seed} robotic Hindi pedagogy leaked.`);
       }
       if (locale === "pa-IN") {
         assert(/[\u0A00-\u0A7F]/u.test(question.stem), `${definition.qlId}/${seed} Punjabi script missing.`);
         assert(!/[\u0900-\u0963\u0966-\u097F]/u.test(question.stem), `${definition.qlId}/${seed} Devanagari leaked into Punjabi stem.`);
         assert(question.explanation.tier1Concept.heading.includes("ਪੱਧਰ 1"), `${definition.qlId}/${seed} Punjabi pedagogy header missing.`);
+        assert(question.explanation.tier1Concept.premiseBreakdown.every((entry) => /[\u0A00-\u0A7F]/u.test(entry.compactRule)), `${definition.qlId}/${seed} Punjabi compact rules leaked English category names.`);
         assert(!/ਮੰਨੀ ਹੋਈ ਬਣਤਰ|ਮੈਂਬਰ-ਖੇਤਰ|ਸਮੂਹ-ਸੰਬੰਧ ਸਬੂਤ/u.test(JSON.stringify(question.explanation)), `${definition.qlId}/${seed} robotic Punjabi pedagogy leaked.`);
       }
       generatedCount += 1;
