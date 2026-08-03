@@ -1,6 +1,6 @@
 # INT-CP-003 — Annual Compound Interest Fundamentals and Inverses
 
-Status: `FINAL_ENGLISH_REVIEW_CANDIDATE`
+Status: `EDITORIAL_REMEDIATION_CANDIDATE — STAGING_LOCKED`
 
 ## Ownership boundary
 
@@ -49,7 +49,7 @@ Next available Interest identity: `INT-QL-067`.
 
 ## Exact mathematics
 
-Canonical generation uses exact rational powers:
+Canonical generation continues to use exact rational powers:
 
 ```text
 A_n = P(1 + r/100)^n
@@ -57,30 +57,50 @@ CI_n = A_n - P
 J_k = P(r/100)(1 + r/100)^(k-1)
 ```
 
-The materially separate verifier rebuilds balances year by year. Rate and time inverses use bounded exact substitution; floating roots and logarithms are prohibited.
+The materially separate verifier rebuilds balances year by year. Rate and time inverses use bounded exact substitution; floating roots and logarithms are prohibited. Every option is independently checked against the complete state, and exactly one option may satisfy the verifier.
 
-Every option is independently checked against the complete state. Exactly one option may satisfy the verifier.
+## Editorial rejection and remediation
 
-## English review candidate
+The first combined review document was rejected for production after a senior editorial audit. Mathematical ownership and permanent QL identities remain unchanged, but its learner-facing corpus is not an approved authority.
 
-The review exporter produces four distinct questions per permanent QL, covering each correct answer position exactly once.
+The remediated editorial layer now requires:
+
+- SSC/Banking/RRB/PSSSB/PPSC-style question wording;
+- MathJax-ready inline and display notation;
+- decimal-first growth-factor presentation, with fractions retained only when they improve exact cancellation;
+- explicit intermediate cancellation and arithmetic rather than black-box power jumps;
+- the four-tier explanation schema:
+  - `📌 Core Concept`;
+  - `📝 Step-by-Step Solution`;
+  - `⚡ Exam Speed Shortcut`;
+  - `⚠️ Common Student Traps & Option Analysis`;
+- one aligned analysis row for every displayed option;
+- bracketed diagnostic trap codes for every wrong option;
+- no generic verification boilerplate;
+- no raw fractional money or complete-year answers.
+
+A dedicated editorial audit validates 1,400 regenerated packages. The review exporter additionally enforces all 224 option-to-analysis alignments and all 168 wrong-option trap tags across the 56-row review corpus.
+
+## Remediated review candidate
 
 ```text
-Review questions:       56
-Questions per QL:        4
-Distinct stems:         56 / 56
-Answer positions:       14 / 14 / 14 / 14
-Review status:          AWAITING_PRODUCT_OWNER_REVIEW
+Review questions:                    56
+Questions per QL:                     4
+Distinct review stems:               56 / 56
+Answer positions:              14 / 14 / 14 / 14
+Option-analysis alignment checks:   224
+Tagged wrong-option analyses:       168
+Editorial status:   REMEDIATED_REVIEW_CANDIDATE
 ```
 
-Representation metadata covers narrative, table, annual balance ledger and growth-factor card projections. They remain presentation variants rather than duplicate QLs.
+The combined Markdown and DOCX review artifacts place each question, answer, full derivation, shortcut and aligned option analysis together. They remain subject to fresh product-owner re-audit.
 
 ## Lifecycle locks
 
 ```text
 releaseCandidateId:          INT-CP-003-EN-v1-candidate
-maturity:                    FINAL_ENGLISH_REVIEW_CANDIDATE
-reviewStatus:                FINAL_ENGLISH_REVIEW_CANDIDATE
+editorialStatus:             REMEDIATED_REVIEW_CANDIDATE
+approvalStatus:              WITHDRAWN_PENDING_REAUDIT
 enabled:                     false
 stagingStatus:               NOT_STAGED
 registrationStatus:          NOT_REGISTERED
@@ -90,4 +110,4 @@ testEligibility:             INELIGIBLE
 publiclyPublishable:         false
 ```
 
-Explicit product-owner review is required before an immutable English freeze may be created.
+No immutable English freeze may be created until the remediated corpus receives explicit product-owner approval.
