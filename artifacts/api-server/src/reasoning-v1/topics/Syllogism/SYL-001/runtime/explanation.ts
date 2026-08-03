@@ -89,8 +89,8 @@ function premiseNaturalRule(
 ): { naturalRule: string; compactRule: string } {
   const subject = termLabel(premise.subject, locale, assignment);
   const predicate = termLabel(premise.predicate, locale, assignment);
-  const symbolSubject = termLabel(premise.subject, "en-IN", assignment);
-  const symbolPredicate = termLabel(premise.predicate, "en-IN", assignment);
+  const symbolSubject = subject;
+  const symbolPredicate = predicate;
 
   const en = (): { naturalRule: string; compactRule: string } => {
     switch (premise.form) {
