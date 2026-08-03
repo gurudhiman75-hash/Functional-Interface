@@ -1,6 +1,6 @@
 # RNK-001 — Ranking and Order
 
-Status: **CP-001, CP-002 and CP-003 English discovery frozen; cumulative permanent range `RNK-QL-001..026`**.
+Status: **CP-001, CP-002 and CP-003 English discovery frozen; CP-004 English executable discovery active**.
 
 Student-facing chapter: **Ranking and Order**  
 Reasoning V1 package: `RNK-001`  
@@ -24,8 +24,8 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/
 | `RNK-CP-001` | one-person rank arithmetic, side counts, totals and exact-middle inverses | frozen: `RNK-QL-001..009` |
 | `RNK-CP-002` | two-person positions, separation, comparison and mixed-end total constraints | frozen: `RNK-QL-010..017` |
 | `RNK-CP-003` | interchange, movement, overtaking, insertion/removal and changed-rank transformations | frozen: `RNK-QL-018..026` |
-| `RNK-CP-004` | comparative ordering of several named entities | open |
-| `RNK-CP-005` | shared ranking passages | planned |
+| `RNK-CP-004` | exact multi-entity comparison and explicit order reconstruction | active English review: 10 prototypes / 2,400 runtime / 60 review questions |
+| `RNK-CP-005` | presentation-led and shared ranking sets | planned |
 | `RNK-CP-006` | attribute-led ranking ownership extensions | planned ownership audit |
 | `RNK-CP-007` | partial-order, definite/possible and uniqueness semantics | planned |
 | `RNK-CP-008` | advanced synthesis | planned |
@@ -65,6 +65,23 @@ RNK-QL-026  own rank with movement and membership change
 
 Next available RNK identity: `RNK-QL-027`.
 
+## CP-004 active discovery summary
+
+```text
+provisional prototypes:          10
+runtime seeds per prototype:    240
+combined runtime questions:   2,400
+English review questions:        60
+permanent QLs allocated:          0
+next available identity: RNK-QL-027
+```
+
+The first wave covers highest, lowest, entity-at-rank, rank-of-entity, middle, complete order, pair relation, immediate neighbour, valid statement and missing-comparison tasks.
+
+The runtime constructs a strict hidden total order, derives structured comparison clues and independently reconstructs the displayed order with a uniqueness-aware topological solver. Cycles, duplicate names, self-comparisons, unknown names and ambiguous exact-order states are rejected.
+
+Prototype and QL totals remain open until source saturation, inverse, edge, merge/split, editorial and ownership audits are complete.
+
 ## Proof summary
 
 ```text
@@ -86,11 +103,10 @@ CP-003  sha256:6457a50fdde7673f9e66fe607a47a5c38a4c921489ed387b72c87ef8a22947d5
 construct a valid hidden total order
   -> derive only the intended evidence
   -> solve displayed evidence independently
-  -> replay transformations and intermediate states
-  -> reject invalid or ambiguous narratives
+  -> reject cycles, ambiguity and invalid identities
   -> construct misconception-owned options
-  -> render question-specific teaching
-  -> expose permanent review identity while delivery stays locked
+  -> render question-specific order-chain teaching
+  -> expose review evidence while delivery stays locked
 ```
 
 ## Ownership boundaries
@@ -98,8 +114,9 @@ construct a valid hidden total order
 - one-person rank arithmetic → CP-001;
 - relationships between two fixed positions → CP-002;
 - interchange, movement, overtaking, insertion or removal → CP-003;
-- three-or-more-person order reconstruction → CP-004;
-- shared passages → CP-005;
+- unique three-or-more-person order reconstruction → CP-004;
+- presentation-led or shared ranking sets → CP-005/CP-008;
+- attribute-led height, age and marks ranking → CP-006;
 - multi-person partial-order uncertainty → CP-007;
 - statement-wise sufficiency → Data Sufficiency;
 - facing/adjacency geometry → Seating Arrangement.
@@ -112,6 +129,9 @@ next available ID:               RNK-QL-027
 CP-001 discovery frozen:         true
 CP-002 discovery frozen:         true
 CP-003 discovery frozen:         true
+CP-004 discovery frozen:         false
+CP-004 manual English review:    pending
+CP-004 permanent QL count:       open
 chapter-wide freeze:             false
 English review-only:             true
 Hindi/Punjabi:                   not started
