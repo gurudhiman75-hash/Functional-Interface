@@ -1,0 +1,75 @@
+name: Export PNL-001 Canonical Production Payload
+
+on:
+  push:
+    branches:
+      - ops/pnl-001-production-import-artifact
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/export-canonical-production-payload.ts
+      - .github/workflows/pnl-001-export-production-payload.yml
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle exporter
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/export-canonical-production-payload.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=/tmp/pnl-001-export-production-payload.mjs
+
+      - name: Generate and validate 558 canonical payloads
+        env:
+          PNL_PRODUCTION_PAYLOAD_PATH: /tmp/pnl-001-canonical-production-payload.json
+        run: node /tmp/pnl-001-export-production-payload.mjs
+
+      - name: Verify artifact summary
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const path = '/tmp/pnl-001-canonical-production-payload.json';
+          const artifact = JSON.parse(fs.readFileSync(path, 'utf8'));
+          if (artifact.releaseId !== 'PNL-001-CANONICAL-PRODUCTION-V1') throw new Error('release mismatch');
+          if (artifact.qlCount !== 186) throw new Error('QL count mismatch');
+          if (artifact.itemCount !== 558) throw new Error('item count mismatch');
+          for (const language of ['en', 'hi', 'pa']) {
+            if (artifact.languageCounts?.[language] !== 186) throw new Error(`${language} count mismatch`);
+          }
+          console.log(JSON.stringify({
+            releaseId: artifact.releaseId,
+            sourceCommit: artifact.sourceCommit,
+            qlCount: artifact.qlCount,
+            itemCount: artifact.itemCount,
+            languageCounts: artifact.languageCounts,
+            cpCounts: artifact.cpCounts,
+          }, null, 2));
+          NODE
+
+      - name: Upload canonical payload
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-001-canonical-production-payload
+          path: /tmp/pnl-001-canonical-production-payload.json
+          retention-days: 1
+          if-no-files-found: error
