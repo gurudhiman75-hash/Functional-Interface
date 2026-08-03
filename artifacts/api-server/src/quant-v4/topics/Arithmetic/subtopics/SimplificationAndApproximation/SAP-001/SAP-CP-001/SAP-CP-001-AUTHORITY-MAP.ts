@@ -45,15 +45,19 @@ export const SAP_CP001_AUTHORITY_MAP: Readonly<Record<SapCp001DesignSolveMode, s
 export const SAP_CP001_MERGE_SPLIT_DECISIONS = Object.freeze({
   nestedParenthesesAndMixedBrackets: "MERGED_TEMPORARY_AUTHORITY",
   fractionBarScopeVersusFractionArithmetic: "SPLIT_BY_PRIMARY_CHALLENGE",
-  unaryNegativeVersusNegativeIntermediate: "RETAIN_SEPARATE_PENDING_EDITORIAL_AUDIT",
-  nestedGroupingVersusRepeatedGrouping: "RETAIN_SEPARATE_PENDING_STRESS_AND_EDITORIAL_AUDIT",
+  unaryNegativeVersusNegativeIntermediate: "RETAIN_SEPARATE_AFTER_EDITORIAL_AUDIT",
+  nestedGroupingVersusRepeatedGrouping: "MERGED_ENGLISH_TEMPLATE_FAMILY",
+  multiplyDivideVersusAddSubtractLeftToRight: "RETAIN_SEPARATE_MISCONCEPTION_CONTRACTS",
   validStepVersusIncorrectStep: "RETAIN_SEPARATE_ANSWER_SEMANTICS",
-  permanentQlAllocation: "BLOCKED_UNTIL_MANUAL_FREEZE",
+  permanentQlAllocation: "BLOCKED_PENDING_PRODUCT_APPROVAL_OF_16_TEMPLATE_PROPOSAL",
 } as const);
 
 export const SAP_CP001_CURRENT_DISCOVERY_STATE = Object.freeze({
   designSolveModeCount: SAP_CP001_DESIGN_SOLVE_MODES.length,
   temporaryPrototypeCount: 17,
+  proposedEnglishTemplateCount: 16,
+  englishManualFreezeStatus: "APPROVED" as const,
+  englishReviewExportCount: 51,
   permanentQlCount: 0,
   activePackageCount: 0,
   questionStudioDiscoverableCount: 0,
