@@ -160,16 +160,76 @@ export interface SylConclusionReview {
   counterModel: CanonicalModel | null;
 }
 
+export type PedagogicalVerdict =
+  | "DEFINITELY_FOLLOWS"
+  | "IMPOSSIBLE"
+  | "POSSIBILITY_ONLY";
+
+export interface SylPremiseTeachingPoint {
+  premiseId: string;
+  statement: string;
+  naturalRule: string;
+  compactRule: string;
+}
+
+export interface SylConclusionTeachingStep {
+  label: string;
+  conclusion: string;
+  verdict: PedagogicalVerdict;
+  verdictLabel: string;
+  reasoning: string;
+  supportingPremiseIds: readonly string[];
+}
+
+export interface SylExplanationTierOne {
+  heading: string;
+  coreRule: string;
+  premiseBreakdown: readonly SylPremiseTeachingPoint[];
+}
+
+export interface SylExplanationTierTwo {
+  heading: string;
+  conclusionSteps: readonly SylConclusionTeachingStep[];
+  combinationSummary: string | null;
+}
+
+export interface SylExplanationTierThree {
+  heading: string;
+  shortcut: string;
+  application: string;
+}
+
+export interface SylExplanationTierFour {
+  heading: string;
+  studentWarning: string;
+  diagnosticTag: string;
+}
+
+export type SylDiagramRole =
+  | "FORCED_FACTS"
+  | "POSSIBILITY_COMPARISON"
+  | "IMPOSSIBILITY_CONFLICT"
+  | "EITHER_OR_ALTERNATIVES";
+
+export type SylDiagramMode =
+  | "RELATION_CARDS"
+  | "FORCED_WITH_FOCUS"
+  | "TRUE_FALSE_COMPARISON"
+  | "FORCED_AND_TRUE_FALSE_COMPARISON"
+  | "EITHER_OR_COMPARISON";
+
 export interface SylExplanationTrace {
-  rule: string;
-  normalizedPremises: readonly string[];
-  conclusionAnalysis: readonly string[];
-  modelEvidence: readonly string[];
+  schemaVersion: "syl-pedagogy-v2";
+  tier1Concept: SylExplanationTierOne;
+  tier2StepByStep: SylExplanationTierTwo;
+  tier3Shortcut: SylExplanationTierThree;
+  tier4Trap: SylExplanationTierFour;
   finalAnswer: string;
-  quickMethod: string;
-  commonMistake: string;
-  diagramRole: "FORCED_RELATION" | "POSSIBLE_WITNESS" | "COUNTERMODEL" | "EITHER_OR_ALTERNATIVES";
-  diagramSvg: string;
+  diagramRole: SylDiagramRole;
+  diagramMode: SylDiagramMode;
+  diagramTitle: string;
+  diagramCaption: string;
+  overlappingVennSvg: string;
 }
 
 export interface GeneratedSylQuestion {
@@ -208,7 +268,7 @@ export interface GeneratedSylQuestion {
   correctIndex: number;
   explanation: SylExplanationTrace;
   metadata: {
-    runtimeVersion: "syl-001-multilingual-runtime-v1";
+    runtimeVersion: "syl-001-pedagogy-runtime-v2";
     taskKind: SylTaskKind;
     topology: SylTopology;
     premiseForms: readonly SurfacePremiseForm[];
@@ -222,6 +282,9 @@ export interface GeneratedSylQuestion {
     premiseRelevancePassed: true;
     ambiguityAuditPassed: true;
     deterministic: true;
+    studentExplanationNaturalized: true;
+    overlappingDiagramValidated: true;
+    localePedagogyParityPassed: true;
     questionStudioVisible: false;
     questionBankWritable: false;
     testEligible: false;
