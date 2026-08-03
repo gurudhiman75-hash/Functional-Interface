@@ -1,0 +1,42 @@
+name: Validate SAP CP-001 Wave 02
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/**"
+      - ".github/workflows/validate-sap-cp001-wave02.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-sap-cp001-wave02:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Enable pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle SAP CP-001 Wave 02 proof
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-001/wave02/runtime-authority.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/sap-cp001-wave02-runtime-authority.test.mjs
+
+      - name: Run SAP CP-001 Wave 02 proof
+        working-directory: artifacts/api-server
+        run: node dist/sap-cp001-wave02-runtime-authority.test.mjs
