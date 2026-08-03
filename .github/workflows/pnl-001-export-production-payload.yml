@@ -20,6 +20,19 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
+      - name: Report protected database credential availability
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NEON_DATABASE_URL: ${{ secrets.NEON_DATABASE_URL }}
+        run: |
+          if [ -n "$DATABASE_URL" ]; then
+            echo "protected_database_credential=DATABASE_URL"
+          elif [ -n "$NEON_DATABASE_URL" ]; then
+            echo "protected_database_credential=NEON_DATABASE_URL"
+          else
+            echo "protected_database_credential=unavailable"
+          fi
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
