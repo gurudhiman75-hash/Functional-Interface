@@ -1,4 +1,4 @@
-name: Validate SYL-001 multilingual runtime
+name: Validate SYL-001 pedagogy runtime
 
 on:
   pull_request:
@@ -49,14 +49,14 @@ jobs:
       - name: Run foundation proof
         run: node artifacts/api-server/dist/reasoning-v1/syl-001-foundation.test.mjs
 
-      - name: Bundle multilingual chapter audit
+      - name: Bundle multilingual pedagogy audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/reasoning-v1/topics/Syllogism/SYL-001/runtime/chapter-audit.test.ts
           --bundle --platform=node --format=esm
           --outfile=dist/reasoning-v1/syl-001-chapter-audit.test.mjs
 
-      - name: Run multilingual chapter audit
+      - name: Run multilingual pedagogy audit
         shell: bash
         run: |
           set -o pipefail
@@ -69,7 +69,7 @@ jobs:
           --bundle --platform=node --format=esm
           --outfile=dist/reasoning-v1/syl-001-export-review.mjs
 
-      - name: Generate multilingual review pack
+      - name: Generate pedagogy-remodelled review pack
         env:
           SYL_REVIEW_DIR: artifacts/api-server/dist/reasoning-v1/syl-001-review
         run: node artifacts/api-server/dist/reasoning-v1/syl-001-export-review.mjs
