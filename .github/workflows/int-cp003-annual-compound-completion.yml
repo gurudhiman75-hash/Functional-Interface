@@ -4,7 +4,9 @@ on:
   pull_request:
     branches:
       - feat/int-001-cp002-final-saturation-freeze
+      - feat/int-001-cp003-annual-compound-completion
     paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-math-authority.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-core.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-annual-compound-runtime.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-editorial-*.ts"
@@ -102,6 +104,8 @@ jobs:
           grep -q 'PASS_INT_CP003_ANNUAL_COMPOUND_COMPLETION' artifacts/api-server/dist/quant-v4/int-001-cp003-completion-audit.log
           grep -q 'PASS_INT_CP003_EXAM_READINESS_REMEDIATION' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-readiness-audit.log
           grep -q 'PASS_INT_CP003_EXAM_READINESS_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-review-export.log
+          grep -q '"authorityVersion": "INT-CP-003-MATH-AUTHORITY-v1"' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-readiness-audit.log
+          grep -q '"contextCoverage": 4' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-readiness-audit.log
           summary=artifacts/api-server/dist/quant-v4/int-cp003-annual-compound-completion/int-cp003-completion-summary.json
           review=artifacts/api-server/dist/quant-v4/int-cp003-exam-readiness-review-pack
           test -f "$summary"
