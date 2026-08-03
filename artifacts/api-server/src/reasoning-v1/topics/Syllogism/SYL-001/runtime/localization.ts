@@ -64,7 +64,7 @@ export function renderPremise(
       case "SOME": return `कुछ ${subject} ${predicate} हैं।`;
       case "SOME_NOT": return `कुछ ${subject} ${predicate} नहीं हैं।`;
       case "ONLY": return `केवल ${subject} ही ${predicate} हैं।`;
-      case "ARE_ONLY": return `सभी ${subject} केवल ${predicate} ही हैं।`;
+      case "ARE_ONLY": return `सभी ${subject} केवल ${predicate} हैं।`;
       case "A_FEW": return `कुछ ${subject} ${predicate} हैं।`;
       case "ONLY_A_FEW": return `केवल कुछ ${subject} ${predicate} हैं।`;
       case "NOT_ALL": return `कम-से-कम कुछ ${subject} ${predicate} नहीं हैं।`;
@@ -79,7 +79,7 @@ export function renderPremise(
     case "SOME": return `ਕੁਝ ${subject} ${predicate} ਹਨ।`;
     case "SOME_NOT": return `ਕੁਝ ${subject} ${predicate} ਨਹੀਂ ਹਨ।`;
     case "ONLY": return `ਕੇਵਲ ${subject} ਹੀ ${predicate} ਹਨ।`;
-    case "ARE_ONLY": return `${paAll(premise.subject, assignment)} ${subject} ਕੇਵਲ ${predicate} ਹੀ ਹਨ।`;
+    case "ARE_ONLY": return `${paAll(premise.subject, assignment)} ${subject} ਕੇਵਲ ${predicate} ਹਨ।`;
     case "A_FEW": return `ਕੁਝ ${subject} ${predicate} ਹਨ।`;
     case "ONLY_A_FEW": return `ਕੇਵਲ ਕੁਝ ${subject} ${predicate} ਹਨ।`;
     case "NOT_ALL": return `ਘੱਟੋ-ਘੱਟ ਕੁਝ ${subject} ${predicate} ਨਹੀਂ ਹਨ।`;
