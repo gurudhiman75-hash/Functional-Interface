@@ -50,15 +50,23 @@ assert.notEqual(
 
 assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.designSolveModeCount, 18);
 assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.temporaryPrototypeCount, 17);
+assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.proposedEnglishTemplateCount, 16);
+assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.englishManualFreezeStatus, "APPROVED");
+assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.englishReviewExportCount, 51);
 assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.permanentQlCount, 0);
 assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.activePackageCount, 0);
 assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.questionStudioDiscoverableCount, 0);
-assert.equal(SAP_CP001_MERGE_SPLIT_DECISIONS.permanentQlAllocation, "BLOCKED_UNTIL_MANUAL_FREEZE");
+assert.equal(
+  SAP_CP001_MERGE_SPLIT_DECISIONS.permanentQlAllocation,
+  "BLOCKED_PENDING_PRODUCT_APPROVAL_OF_16_TEMPLATE_PROPOSAL",
+);
 
 console.log(JSON.stringify({
   status: "PASS_SAP_CP001_SATURATION_AUTHORITY",
   designSolveModes: SAP_CP001_DESIGN_SOLVE_MODES.length,
   temporaryPrototypeCount: allPrototypeIds.length,
+  proposedEnglishTemplateCount: SAP_CP001_CURRENT_DISCOVERY_STATE.proposedEnglishTemplateCount,
+  englishManualFreezeStatus: SAP_CP001_CURRENT_DISCOVERY_STATE.englishManualFreezeStatus,
   uniquePrototypeCount: uniquePrototypeIds.size,
   mappedPrototypeCount: mappedPrototypeIds.size,
   permanentQlCount: 0,
