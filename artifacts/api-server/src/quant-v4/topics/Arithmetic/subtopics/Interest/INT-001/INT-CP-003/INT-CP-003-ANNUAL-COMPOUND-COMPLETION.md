@@ -38,22 +38,18 @@ feature-derived difficulty
 method-aware explanation composer
 ```
 
-### Contract-specific states and fingerprints
+Every solve mode has a discriminated state containing only fields that affect that contract. The mathematical fingerprint is generated only from those relevant fields and the exact answer.
 
-Every solve mode has a discriminated state containing only fields that affect that contract. The mathematical fingerprint is generated only from those relevant fields and the exact answer. Unused timing fields cannot inflate diversity.
-
-### Exact weighted rate library
-
-The authority contains 16 exact rational rates:
+The exact weighted rate authority contains:
 
 ```text
 4%, 5%, 6.25%, 8%, 8⅓%, 10%, 12.5%, 15%, 16⅔%,
 20%, 25%, 30%, 33⅓%, 40%, 50%, 14 2/7%
 ```
 
-Principals are constructed to remain compatible with annual-factor denominators and required powers. Amount-ratio rate recovery uses two complete years; nth-year rate recovery is restricted to the second or third year.
+Principals remain compatible with annual-factor denominators and required powers. Amount-ratio rate recovery uses two complete years; nth-year rate recovery is restricted to the second or third year.
 
-### Visible representations
+Visible learner representations are:
 
 ```text
 STANDARD_PROSE
@@ -64,25 +60,16 @@ BANK_STATEMENT
 MISSING_ENTRY
 ```
 
-Non-prose representations contain an actual rendered table or ledger. Rate, representation, stem family and difficulty are sampled independently.
+Every wrong option stores its exact wrong calculation, diagnostic misconception code and student feedback. Options are deterministically shuffled. Difficulty is derived from the generated instance. The explanation composer stores exam, student and foundation depths, with optional shortcuts and actual verifications.
 
-### Options, difficulty and explanations
-
-Every wrong option stores its exact wrong calculation, diagnostic misconception code and student feedback. Options are shuffled deterministically, while audits reject fixed cycles and excessive position runs.
-
-Difficulty is derived from conceptual transformations, direct/inverse/multi-stage direction, arithmetic burden, year gap and representation-reading burden.
-
-The explanation composer stores exam, student and foundation depths. Shortcut and verification sections are optional. Learner-facing engineering terminology and malformed MathJax delimiter patterns are runtime-blocked.
-
-### QL-065 correction
-
-The learner receives principal, rate and required durations, not the two derived amounts. Consecutive durations use the later-year-interest relationship; wider gaps require calculating both amounts.
+QL-065 now supplies principal, rate and durations rather than both derived amounts. Learner-facing engineering terminology and malformed MathJax delimiter patterns are runtime-blocked.
 
 ## Exact-head proof
 
 ```text
-Validated head:                    6ddd4a5063aab3a47c4543cf525bb1f61030c12c
-CP-003 workflow run:               30826643529 — PASS
+Validated head:                    141db44516d86b3eda89ddece65f6270415004e5
+CP-003 workflow run:               30826872590 — PASS
+CP-001 isolation workflow run:     30826871300 — PASS
 ```
 
 Full 1,400-question audit:
@@ -126,8 +113,8 @@ Evidence artifact:
 
 ```text
 Name:    int-cp003-exam-readiness-remediation-review-candidate
-ID:      8861122318
-Digest:  sha256:30d9e63c1381053df67e3ea13cfdd8ecc54ab4e5025c7e3ca820ff95f05101e9
+ID:      8861218171
+Digest:  sha256:cac2ec70480fcae24afa8c7140adfb85274e55ccf3b32cece6e2244ebea88bf2
 Expires: 2026-08-17
 ```
 
