@@ -34,11 +34,18 @@ jobs:
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-003/cp003-source-wave.test.ts
           rnk-cp003-source-wave-output
 
+      - name: Audit reviewed supplementary English pack
+        run: >-
+          npx --yes tsx
+          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-003/cp003-source-wave-reviewed.test.ts
+          rnk-cp003-source-reviewed-output
+
       - name: Upload RNK-CP-003 expanded review evidence
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp003-expanded-english-review-pending-v2
+          name: rnk-001-cp003-expanded-english-review-pending-v3
           path: |
             rnk-cp003-discovery-output
             rnk-cp003-source-wave-output
+            rnk-cp003-source-reviewed-output
           retention-days: 14
