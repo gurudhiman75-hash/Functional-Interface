@@ -1,6 +1,6 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001 and CP-002 frozen at `RNK-QL-001..017`; CP-003 onward remains open**.
+Status: **CP-001 and CP-002 frozen at `RNK-QL-001..017`; CP-003 English executable discovery is active and awaiting manual review**.
 
 This register prevents premature chapter sizing. Each checkpoint discovers permanent identities from source evidence, executable solver contracts, inverse directions, edge states, ambiguity semantics, representations and ownership audits. Counts are never quotas.
 
@@ -61,20 +61,45 @@ sha256:e1853b8864453ebcdbe88aa6f3ca5fedf9f7b7140c28a3b5ad5da8a0c4855430
 
 Open CP-002 source dimensions: `0`.
 
-## 3. Open checkpoint — RNK-CP-003
+## 3. Active checkpoint — RNK-CP-003
 
-Candidate families remain discoverable rather than pre-sized:
+### Current executable wave
 
-- new ranks after interchange;
-- original ranks from final interchange evidence;
-- total from rank change after a swap;
-- movement forward/backward or left/right;
-- number passed or overtaken;
-- original rank from final rank and movement;
-- insertion and removal effects;
-- sequential multiple moves;
-- movement with mixed-end evidence;
-- impossible or ambiguous movement narratives.
+```text
+provisional prototypes:          9
+runtime seeds per prototype:   240
+combined runtime questions:   2,160
+English review corpus:           54
+invalid narratives proved:        5
+permanent QLs:                 none
+next available identity: RNK-QL-018
+manual English approval:    pending
+```
+
+The executable prototypes currently cover:
+
+- final ranks after interchange;
+- original ranks recovered from final interchange evidence;
+- total count from interchange-driven rank change;
+- final rank after one movement;
+- number passed or overtaken from old and new ranks;
+- original rank recovered from final rank and movement;
+- target-rank effects after insertion;
+- target-rank effects after removal;
+- final rank after sequential movements.
+
+Generated dimensions include top/bottom, left/right, front/back and race-order vocabulary; same-end and mixed-end evidence; requested rank direction; movement direction and distance; endpoint cases; insertion/removal position; and intermediate-state validity.
+
+The executable audit rejects movement outside the ranked group, interchange evidence that resolves to one position, removal of the target itself, and sequential narratives with an invalid intermediate position.
+
+### Still open before consolidation
+
+- broader source saturation and exam-pattern audit;
+- additional inverse and mixed-end transformation evidence;
+- possible merge/split boundaries among direct, inverse and representation variants;
+- option and English manual review of the 54-question corpus;
+- chapter-gap audit against CP-002, CP-004 and shared-passage ownership;
+- final permanent QL allocation and freeze proof.
 
 No CP-003 QL count is allocated.
 
@@ -119,7 +144,9 @@ cumulative permanent range:   RNK-QL-001..017
 next available RNK ID:        RNK-QL-018
 CP-001 discovery frozen:      true
 CP-002 discovery frozen:      true
-CP-003 onward QL counts:      open
+CP-003 discovery frozen:      false
+CP-003 manual review:         pending
+CP-003 permanent QL count:    open
 chapter-wide freeze:          false
 English review-only:          true
 Hindi/Punjabi:                not started
