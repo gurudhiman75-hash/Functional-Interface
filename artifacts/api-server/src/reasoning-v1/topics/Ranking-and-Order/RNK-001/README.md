@@ -1,6 +1,6 @@
 # RNK-001 — Ranking and Order
 
-Status: **CP-001 and CP-002 English discovery frozen; CP-003 initial English pack approved and supplementary source-backed review pending**.
+Status: **CP-001, CP-002 and CP-003 English discovery frozen; cumulative permanent range `RNK-QL-001..026`**.
 
 Student-facing chapter: **Ranking and Order**  
 Reasoning V1 package: `RNK-001`  
@@ -11,10 +11,11 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/
 1. `../../../REASONING-V1-MASTER-BLUEPRINT.md`;
 2. `../../../REASONING-V1-ARCHITECTURE.md`;
 3. `RNK-001-END-TO-END-DESIGN.md`;
-4. `rnk-001-open-ql-discovery.md` for CP-003 onward;
+4. `rnk-001-open-ql-discovery.md` for CP-004 onward;
 5. `RNK-001-MANIFEST-AMENDMENT-CP001.md`;
 6. `RNK-001-MANIFEST-AMENDMENT-CP002.md`;
-7. checkpoint-specific review, freeze and permanent-runtime records.
+7. `RNK-001-MANIFEST-AMENDMENT-CP003.md`;
+8. checkpoint-specific review, freeze and permanent-runtime records.
 
 ## Checkpoint map
 
@@ -22,8 +23,8 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/
 |---|---|---|
 | `RNK-CP-001` | one-person rank arithmetic, side counts, totals and exact-middle inverses | frozen: `RNK-QL-001..009` |
 | `RNK-CP-002` | two-person positions, separation, comparison and mixed-end total constraints | frozen: `RNK-QL-010..017` |
-| `RNK-CP-003` | interchange, movement, overtaking, insertion/removal and changed-rank questions | active: 13 prototypes / 3,120 runtime; 54 approved + 24 supplementary review questions |
-| `RNK-CP-004` | comparative ordering of several named entities | planned |
+| `RNK-CP-003` | interchange, movement, overtaking, insertion/removal and changed-rank transformations | frozen: `RNK-QL-018..026` |
+| `RNK-CP-004` | comparative ordering of several named entities | open |
 | `RNK-CP-005` | shared ranking passages | planned |
 | `RNK-CP-006` | attribute-led ranking ownership extensions | planned ownership audit |
 | `RNK-CP-007` | partial-order, definite/possible and uniqueness semantics | planned |
@@ -48,47 +49,36 @@ RNK-QL-016  exact total or indeterminate
 RNK-QL-017  proposed-total order status
 ```
 
-Next available RNK identity: `RNK-QL-018`.
-
-## CP-002 proof summary
+### CP-003 — `RNK-QL-018..026`
 
 ```text
-source prototypes:                 13
-combined discovery questions:   3,120
-frozen authorities:                 8
-authority review runtime:        2,560
-approved English review pack:       48
-permanent runtime proof:          1,536
-open CP-002 source dimensions:        0
+RNK-QL-018  interchange ranks, direct or inverse
+RNK-QL-019  total from interchange rank change
+RNK-QL-020  own rank before or after one movement
+RNK-QL-021  people passed from rank change
+RNK-QL-022  target rank after insertion
+RNK-QL-023  target rank after removal
+RNK-QL-024  own rank after sequential moves
+RNK-QL-025  target-rank effect of another person’s move
+RNK-QL-026  own rank with movement and membership change
 ```
 
-Approved CP-002 English projection:
+Next available RNK identity: `RNK-QL-027`.
+
+## Proof summary
 
 ```text
-sha256:e1853b8864453ebcdbe88aa6f3ca5fedf9f7b7140c28a3b5ad5da8a0c4855430
+CP-001: 13 prototypes / 3,120 discovery / 54 approved / 9 authorities
+CP-002: 13 prototypes / 3,120 discovery / 48 approved / 8 authorities / 1,536 permanent
+CP-003: 13 prototypes / 3,120 discovery / 78 approved / 9 authorities / 1,728 permanent
 ```
 
-## CP-003 active discovery summary
+Approved English projections:
 
 ```text
-initial prototypes:                     9
-initial runtime questions:          2,160
-approved English review questions:     54
-supplementary source prototypes:         4
-supplementary runtime questions:       960
-supplementary review questions:         24
-cumulative prototypes:                  13
-cumulative runtime questions:        3,120
-permanent QLs allocated:                0
-next available RNK identity:     RNK-QL-018
+CP-002  sha256:e1853b8864453ebcdbe88aa6f3ca5fedf9f7b7140c28a3b5ad5da8a0c4855430
+CP-003  sha256:6457a50fdde7673f9e66fe607a47a5c38a4c921489ed387b72c87ef8a22947d5
 ```
-
-The supplementary wave closes two post-approval source gaps:
-
-- another person moves and the target shifts only when crossed;
-- movement is combined with people joining or leaving from an end, in either operation order, with direct or inverse rank queries.
-
-The initial 54-question pack is approved. The supplementary 24-question pack must be reviewed before merge/split consolidation, permanent allocation or freeze.
 
 ## Construction model
 
@@ -96,12 +86,11 @@ The initial 54-question pack is approved. The supplementary 24-question pack mus
 construct a valid hidden total order
   -> derive only the intended evidence
   -> solve displayed evidence independently
-  -> replay each transformation and intermediate state
-  -> update current total and current rank after every membership change
+  -> replay transformations and intermediate states
   -> reject invalid or ambiguous narratives
   -> construct misconception-owned options
   -> render question-specific teaching
-  -> expose review evidence while delivery stays locked
+  -> expose permanent review identity while delivery stays locked
 ```
 
 ## Ownership boundaries
@@ -118,18 +107,16 @@ construct a valid hidden total order
 ## Current lifecycle
 
 ```text
-cumulative permanent range:          RNK-QL-001..017
-next available ID:                   RNK-QL-018
-CP-001 discovery frozen:             true
-CP-002 discovery frozen:             true
-CP-003 discovery frozen:             false
-CP-003 initial English review:       approved
-CP-003 supplementary English review: pending
-CP-003 permanent QL count:           open
-English review-only:                 true
-Hindi/Punjabi:                       not started
-Question Studio:                     disabled
-Question Bank:                       NOT_STORED
-test eligibility:                    INELIGIBLE
-public publication:                  false
+cumulative permanent range:      RNK-QL-001..026
+next available ID:               RNK-QL-027
+CP-001 discovery frozen:         true
+CP-002 discovery frozen:         true
+CP-003 discovery frozen:         true
+chapter-wide freeze:             false
+English review-only:             true
+Hindi/Punjabi:                   not started
+Question Studio:                 disabled
+Question Bank:                   NOT_STORED
+test eligibility:                INELIGIBLE
+public publication:              false
 ```
