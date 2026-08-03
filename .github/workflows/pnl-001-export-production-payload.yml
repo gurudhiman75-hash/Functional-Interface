@@ -1,4 +1,4 @@
-name: Validate PNL-001 Canonical Production Import
+name: Stage PNL-001 Canonical Production Payload
 
 on:
   pull_request:
@@ -7,14 +7,14 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/export-canonical-production-payload.ts
-      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/import-canonical-question-bank.ts
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/stage-canonical-production-payload.ts
       - .github/workflows/pnl-001-export-production-payload.yml
 
 permissions:
   contents: read
 
 jobs:
-  validate-import:
+  stage-payload:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -44,20 +44,21 @@ jobs:
           PNL_PRODUCTION_PAYLOAD_PATH: /tmp/pnl-001-canonical-production-payload.json
         run: node /tmp/pnl-001-export-production-payload.mjs
 
-      - name: Bundle application importer
+      - name: Bundle restricted payload stager
         run: |
           mkdir -p artifacts/api-server/dist
           pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/import-canonical-question-bank.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/stage-canonical-production-payload.ts \
             --bundle --packages=external --platform=node --format=esm \
-            --outfile=dist/pnl-001-import-canonical-question-bank.mjs
+            --outfile=dist/pnl-001-stage-canonical-production-payload.mjs
 
-      - name: Import through ExamTree conversion transactions on validation branch
+      - name: Stage payloads in restricted production table
         run: |
-          CONNECTION_PASSWORD='7b8f5f3d6a0c4e1b9d2a7c6f8e3b1a4d'
+          CONNECTION_PASSWORD='42d8c5f1a9e374b60c7d2f8e5a1b9634'
           echo "::add-mask::$CONNECTION_PASSWORD"
-          export DATABASE_URL="postgresql://pnl_import_validator:${CONNECTION_PASSWORD}@ep-steep-sunset-at1p6oaz-pooler.c-9.us-east-1.aws.neon.tech/neondb?channel_binding=require&sslmode=require"
-          node artifacts/api-server/dist/pnl-001-import-canonical-question-bank.mjs
+          export DATABASE_URL="postgresql://pnl_payload_stager:${CONNECTION_PASSWORD}@ep-polished-king-atj47i5y-pooler.c-9.us-east-1.aws.neon.tech/neondb?channel_binding=require&sslmode=require"
+          export PNL_PRODUCTION_PAYLOAD_PATH=/tmp/pnl-001-canonical-production-payload.json
+          node artifacts/api-server/dist/pnl-001-stage-canonical-production-payload.mjs
 
       - name: Upload canonical payload evidence
         uses: actions/upload-artifact@v4
