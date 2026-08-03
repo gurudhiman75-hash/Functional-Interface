@@ -42,8 +42,13 @@ export function rateMath(value:Rational):string {
   const known = new Map<string,string>([["25/3","8\\frac{1}{3}"],["50/3","16\\frac{2}{3}"],["100/3","33\\frac{1}{3}"],["100/7","14\\frac{2}{7}"]]);
   return `$${known.get(`${value.numerator}/${value.denominator}`) ?? decimal(value,2)}\\%$`;
 }
+export function fixedDecimal(value:Rational,places:number):string {
+  const rounded=round(value,places),scale=10n**BigInt(places),scaled=rounded.numerator*scale/rounded.denominator;
+  const sign=scaled<0n?"-":"",digits=abs(scaled).toString().padStart(places+1,"0");
+  return places===0?`${sign}${digits}`:`${sign}${digits.slice(0,-places)}.${digits.slice(-places)}`;
+}
 export function answerText(semantic:Cp003AnswerSemantic,value:Rational):string {
-  if(semantic==="RATE_PERCENT")return rateMath(value);
+  if(semantic==="RATE_PERCENT")return `$${fixedDecimal(value,2)}\\%$`;
   if(semantic==="TIME_YEARS"){const years=integer(value);return `$${years}$ year${years===1?"":"s"}`;}
   return moneyMath(value);
 }
