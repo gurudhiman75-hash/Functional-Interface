@@ -7,7 +7,14 @@ export type ExpressionNode =
   | { readonly kind: "NEGATE"; readonly child: ExpressionNode }
   | { readonly kind: "GROUP"; readonly child: ExpressionNode; readonly style: BracketStyle }
   | {
-      readonly kind: "ADD" | "SUBTRACT" | "MULTIPLY" | "DIVIDE" | "OF";
+      readonly kind:
+        | "ADD"
+        | "SUBTRACT"
+        | "MULTIPLY"
+        | "IMPLICIT_MULTIPLY"
+        | "DIVIDE"
+        | "FRACTION_BAR"
+        | "OF";
       readonly left: ExpressionNode;
       readonly right: ExpressionNode;
     }
@@ -32,10 +39,36 @@ export const groupNode = (
 ): ExpressionNode => Object.freeze({ kind: "GROUP" as const, child, style });
 
 export const binaryNode = (
-  kind: "ADD" | "SUBTRACT" | "MULTIPLY" | "DIVIDE" | "OF",
+  kind:
+    | "ADD"
+    | "SUBTRACT"
+    | "MULTIPLY"
+    | "IMPLICIT_MULTIPLY"
+    | "DIVIDE"
+    | "FRACTION_BAR"
+    | "OF",
   left: ExpressionNode,
   right: ExpressionNode,
 ): ExpressionNode => Object.freeze({ kind, left, right });
+
+export const implicitMultiplyNode = (
+  coefficient: ExpressionNode,
+  groupedFactor: ExpressionNode,
+): ExpressionNode => {
+  if (groupedFactor.kind !== "GROUP") {
+    throw new Error("Implicit multiplication requires an explicitly grouped right factor.");
+  }
+  return binaryNode("IMPLICIT_MULTIPLY", coefficient, groupedFactor);
+};
+
+export const fractionBarNode = (
+  numerator: ExpressionNode,
+  denominator: ExpressionNode,
+): ExpressionNode => Object.freeze({
+  kind: "FRACTION_BAR" as const,
+  left: numerator,
+  right: denominator,
+});
 
 export const powerNode = (base: ExpressionNode, exponent: bigint): ExpressionNode => Object.freeze({
   kind: "POWER" as const,
@@ -73,7 +106,9 @@ export function expressionFingerprint(node: ExpressionNode): string {
     case "ADD":
     case "SUBTRACT":
     case "MULTIPLY":
+    case "IMPLICIT_MULTIPLY":
     case "DIVIDE":
+    case "FRACTION_BAR":
     case "OF":
       return `${node.kind}(${expressionFingerprint(node.left)},${expressionFingerprint(node.right)})`;
     case "POWER":
