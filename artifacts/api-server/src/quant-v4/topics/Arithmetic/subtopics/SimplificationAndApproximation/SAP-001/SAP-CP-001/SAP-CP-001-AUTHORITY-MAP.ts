@@ -49,16 +49,23 @@ export const SAP_CP001_MERGE_SPLIT_DECISIONS = Object.freeze({
   nestedGroupingVersusRepeatedGrouping: "MERGED_ENGLISH_TEMPLATE_FAMILY",
   multiplyDivideVersusAddSubtractLeftToRight: "RETAIN_SEPARATE_MISCONCEPTION_CONTRACTS",
   validStepVersusIncorrectStep: "RETAIN_SEPARATE_ANSWER_SEMANTICS",
-  permanentQlAllocation: "BLOCKED_PENDING_PRODUCT_APPROVAL_OF_16_TEMPLATE_PROPOSAL",
+  permanentQlAllocation: "ALLOCATED_INACTIVE_SAP_QL_001_TO_016",
 } as const);
 
 export const SAP_CP001_CURRENT_DISCOVERY_STATE = Object.freeze({
   designSolveModeCount: SAP_CP001_DESIGN_SOLVE_MODES.length,
   temporaryPrototypeCount: 17,
   proposedEnglishTemplateCount: 16,
+  approvedEnglishTemplateCount: 16,
   englishManualFreezeStatus: "APPROVED" as const,
   englishReviewExportCount: 51,
-  permanentQlCount: 0,
+  permanentQlCount: 16,
+  permanentQlRange: "SAP-QL-001..SAP-QL-016" as const,
+  nextAvailablePermanentQlId: "SAP-QL-017" as const,
+  permanentRuntimeStatus: "ALLOCATED_INACTIVE" as const,
   activePackageCount: 0,
   questionStudioDiscoverableCount: 0,
+  questionBankWritableCount: 0,
+  testEligibleCount: 0,
+  publiclyPublishableCount: 0,
 });

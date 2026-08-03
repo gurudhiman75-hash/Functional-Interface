@@ -51,25 +51,34 @@ assert.notEqual(
 assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.designSolveModeCount, 18);
 assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.temporaryPrototypeCount, 17);
 assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.proposedEnglishTemplateCount, 16);
+assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.approvedEnglishTemplateCount, 16);
 assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.englishManualFreezeStatus, "APPROVED");
 assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.englishReviewExportCount, 51);
-assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.permanentQlCount, 0);
+assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.permanentQlCount, 16);
+assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.permanentQlRange, "SAP-QL-001..SAP-QL-016");
+assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.nextAvailablePermanentQlId, "SAP-QL-017");
+assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.permanentRuntimeStatus, "ALLOCATED_INACTIVE");
 assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.activePackageCount, 0);
 assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.questionStudioDiscoverableCount, 0);
+assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.questionBankWritableCount, 0);
+assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.testEligibleCount, 0);
+assert.equal(SAP_CP001_CURRENT_DISCOVERY_STATE.publiclyPublishableCount, 0);
 assert.equal(
   SAP_CP001_MERGE_SPLIT_DECISIONS.permanentQlAllocation,
-  "BLOCKED_PENDING_PRODUCT_APPROVAL_OF_16_TEMPLATE_PROPOSAL",
+  "ALLOCATED_INACTIVE_SAP_QL_001_TO_016",
 );
 
 console.log(JSON.stringify({
   status: "PASS_SAP_CP001_SATURATION_AUTHORITY",
   designSolveModes: SAP_CP001_DESIGN_SOLVE_MODES.length,
   temporaryPrototypeCount: allPrototypeIds.length,
-  proposedEnglishTemplateCount: SAP_CP001_CURRENT_DISCOVERY_STATE.proposedEnglishTemplateCount,
+  approvedEnglishTemplateCount: SAP_CP001_CURRENT_DISCOVERY_STATE.approvedEnglishTemplateCount,
   englishManualFreezeStatus: SAP_CP001_CURRENT_DISCOVERY_STATE.englishManualFreezeStatus,
   uniquePrototypeCount: uniquePrototypeIds.size,
   mappedPrototypeCount: mappedPrototypeIds.size,
-  permanentQlCount: 0,
+  permanentQlCount: SAP_CP001_CURRENT_DISCOVERY_STATE.permanentQlCount,
+  permanentQlRange: SAP_CP001_CURRENT_DISCOVERY_STATE.permanentQlRange,
+  nextAvailablePermanentQlId: SAP_CP001_CURRENT_DISCOVERY_STATE.nextAvailablePermanentQlId,
   activePackageCount: 0,
   mergeSplitDecisions: SAP_CP001_MERGE_SPLIT_DECISIONS,
 }, null, 2));
