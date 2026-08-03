@@ -4,7 +4,9 @@ on:
   pull_request:
     branches:
       - feat/int-001-cp002-final-saturation-freeze
+      - feat/int-001-cp003-annual-compound-completion
     paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-math-authority.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-core.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-annual-compound-runtime.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-editorial-*.ts"
