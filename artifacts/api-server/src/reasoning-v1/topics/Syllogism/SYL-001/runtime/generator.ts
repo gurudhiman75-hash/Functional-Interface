@@ -75,7 +75,8 @@ export function generateSylQuestion(
 
   const assignment = assignTerms(qlId, seed, selected.analysis.termOrder);
   const premiseRandom = createPrng(`${qlId}:${seed}:premise-order`);
-  const renderedPremises = shuffle(selected.analysis.premises, premiseRandom).map((premise) =>
+  const displayedPremises = shuffle(selected.analysis.premises, premiseRandom);
+  const renderedPremises = displayedPremises.map((premise) =>
     renderPremise(premise, locale, assignment));
   const renderedConclusions = selected.conclusions.map((candidate) =>
     renderConclusion(candidate.conclusion, locale, assignment));
@@ -91,7 +92,14 @@ export function generateSylQuestion(
     .filter((index) => index >= 0);
   if (correctIndexes.length !== 1) throw new Error(`${qlId}/${seed} must have exactly one correct option.`);
 
-  const explanation = buildExplanation(definition, selected, locale, assignment, options);
+  const explanation = buildExplanation(
+    definition,
+    selected,
+    displayedPremises,
+    locale,
+    assignment,
+    options,
+  );
   const termKeys = selected.analysis.termOrder.map((termId) => assignment[termId].termKey);
   const selectedClasses = selected.conclusions.map((candidate) => candidate.profile.classification);
 
@@ -131,7 +139,7 @@ export function generateSylQuestion(
     correctIndex: correctIndexes[0],
     explanation,
     metadata: {
-      runtimeVersion: "syl-001-multilingual-runtime-v1",
+      runtimeVersion: "syl-001-pedagogy-runtime-v2",
       taskKind: definition.taskKind,
       topology: selected.analysis.scenario.topology,
       premiseForms: selected.analysis.premises.map((premise) => premise.form),
@@ -145,6 +153,9 @@ export function generateSylQuestion(
       premiseRelevancePassed: true,
       ambiguityAuditPassed: true,
       deterministic: true,
+      studentExplanationNaturalized: true,
+      overlappingDiagramValidated: true,
+      localePedagogyParityPassed: true,
       questionStudioVisible: false,
       questionBankWritable: false,
       testEligible: false,
