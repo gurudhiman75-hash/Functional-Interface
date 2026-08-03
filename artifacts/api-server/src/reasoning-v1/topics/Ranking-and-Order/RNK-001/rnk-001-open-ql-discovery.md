@@ -1,6 +1,6 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001, CP-002 and CP-003 frozen at `RNK-QL-001..026`; CP-004 onward remains open**.
+Status: **CP-001, CP-002 and CP-003 frozen at `RNK-QL-001..026`; CP-004 English executable discovery is active**.
 
 This register prevents premature chapter sizing. Each checkpoint discovers permanent identities from source evidence, executable solver contracts, inverse directions, edge states, representations and ownership audits. Counts are never quotas.
 
@@ -31,8 +31,6 @@ Open CP-002 source dimensions: `0`.
 ## 3. Frozen checkpoint — RNK-CP-003
 
 ```text
-initial discovery:               9 prototypes / 2,160 questions
-supplementary discovery:         4 prototypes /   960 questions
 combined discovery:             13 prototypes / 3,120 questions
 approved English review corpus: 78 questions
 frozen authorities:              9
@@ -56,35 +54,74 @@ RNK-QL-025  TARGET_RANK_EFFECT_OF_ANOTHER_PERSON_MOVE
 RNK-QL-026  OWN_RANK_WITH_MOVEMENT_AND_MEMBERSHIP_CHANGE
 ```
 
-Closed dimensions include direct/inverse interchange and movement, overtaking, insertion, removal, sequential movement, another-person crossing effects, ordered movement-plus-membership changes, mixed-end evidence, endpoint validity and all supported contexts.
-
 Open CP-003 source dimensions: `0`.
 
-## 4. Open checkpoint — RNK-CP-004
+## 4. Active checkpoint — RNK-CP-004
 
-Candidate families remain discoverable rather than pre-sized:
+### First executable wave
 
-- complete order from several comparisons;
-- highest or lowest entity;
-- exact rank of a named entity;
-- entity at a requested rank;
-- middle entity and relative order;
-- valid or invalid proposed order;
-- minimum evidence and missing-comparison cases;
-- direct, inverse and representation variants;
-- ambiguity and uniqueness checks.
+```text
+provisional prototypes:          10
+runtime seeds per prototype:    240
+runtime questions:            2,400
+English review questions:        60
+manual English approval:    pending
+permanent QLs:                  none
+next available identity: RNK-QL-027
+```
+
+The first executable prototypes are:
+
+```text
+HIGHEST_ENTITY
+LOWEST_ENTITY
+ENTITY_AT_EXACT_RANK
+RANK_OF_NAMED_ENTITY
+MIDDLE_ENTITY
+COMPLETE_ORDER
+RELATIVE_ORDER_OF_PAIR
+IMMEDIATE_NEIGHBOUR
+VALID_RANK_STATEMENT
+MISSING_COMPARISON
+```
+
+The exact-order engine constructs a strict hidden order, derives connected comparison clues and independently reconstructs one unique topological order from displayed evidence.
+
+The missing-comparison family exposes two internally ordered blocks and requires exactly one offered relation to join them into one complete order.
+
+### Current proof targets
+
+- deterministic generation across all ten prototypes;
+- entity counts 5, 6, 7 and 8;
+- all four answer positions;
+- Easy, Medium and Hard reachability;
+- unique four-option construction;
+- cycle, ambiguity, duplicate-name, unknown-name and self-comparison rejection;
+- learner-facing order-chain explanations;
+- release and product lifecycle locks.
+
+### Still open before consolidation
+
+- source saturation beyond the first reference pass;
+- inverse and reverse query audit;
+- endpoint, exact-rank and relation merge/split proof;
+- minimal versus redundant clue patterns;
+- wording and explanation repetition review;
+- ownership audit against CP-005, CP-006 and CP-007;
+- manual English approval;
+- permanent QL allocation and freeze proof.
 
 No CP-004 QL count is allocated.
 
 ## 5. Open later checkpoints
 
-### RNK-CP-005 — Shared passages
+### RNK-CP-005 — Presentation-led and shared ranking sets
 
-One order set feeding several exact, between, movement or possibility questions.
+Row, queue, merit-list and race-order presentations, plus shared evidence where ownership is primarily presentation or caselet structure.
 
 ### RNK-CP-006 — Attribute-led ranking ownership
 
-Height, age, marks, weight and price only when ranking remains the dominant burden.
+Height, age, marks, weight and performance when comparison language and localisation materially affect the contract.
 
 ### RNK-CP-007 — Partial order and uncertainty
 
@@ -114,7 +151,9 @@ next available RNK ID:        RNK-QL-027
 CP-001 discovery frozen:      true
 CP-002 discovery frozen:      true
 CP-003 discovery frozen:      true
-CP-004 onward QL counts:      open
+CP-004 discovery frozen:      false
+CP-004 manual review:         pending
+CP-004 permanent QL count:    open
 chapter-wide freeze:          false
 English review-only:          true
 Hindi/Punjabi:                not started
