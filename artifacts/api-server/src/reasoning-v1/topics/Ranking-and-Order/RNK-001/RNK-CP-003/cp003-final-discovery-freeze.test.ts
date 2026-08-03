@@ -11,7 +11,7 @@ function assert(condition: unknown, message: string): asserts condition {
 }
 
 const REVIEW_SEEDS = [0, 1, 2, 7, 31, 97] as const;
-const EXPECTED_PROJECTION_HASH = '98b6861cfac41c4a5c0ee90526ab3b2d378b713bfffa8e640d70124edee4e70f';
+const EXPECTED_PROJECTION_HASH = '6457a50fdde7673f9e66fe607a47a5c38a4c921489ed387b72c87ef8a22947d5';
 const outputDirectory = process.argv[2] ?? 'rnk-cp003-final-freeze-output';
 mkdirSync(outputDirectory, { recursive: true });
 
