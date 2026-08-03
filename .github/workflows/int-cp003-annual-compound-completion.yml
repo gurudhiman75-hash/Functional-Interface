@@ -8,6 +8,7 @@ on:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-core.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-annual-compound-runtime.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-editorial-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-exam-*.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp003-*.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-003/**"
       - ".github/workflows/int-cp003-annual-compound-completion.yml"
@@ -63,33 +64,33 @@ jobs:
           cd artifacts/api-server
           node dist/quant-v4/int-001-cp003-completion-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp003-completion-audit.log
 
-      - name: Bundle CP-003 editorial remediation audit
+      - name: Bundle CP-003 exam-readiness audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp003-editorial-audit.ts
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp003-exam-readiness-audit.ts
           --bundle --platform=node --format=esm
-          --outfile=dist/quant-v4/int-001-cp003-editorial-audit.mjs
+          --outfile=dist/quant-v4/int-001-cp003-exam-readiness-audit.mjs
 
-      - name: Run CP-003 editorial remediation audit
+      - name: Run CP-003 exam-readiness audit
         shell: bash --noprofile --norc -e -o pipefail {0}
         run: |
           set -o pipefail
           cd artifacts/api-server
-          node dist/quant-v4/int-001-cp003-editorial-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp003-editorial-audit.log
+          node dist/quant-v4/int-001-cp003-exam-readiness-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp003-exam-readiness-audit.log
 
-      - name: Bundle CP-003 review exporter
+      - name: Bundle CP-003 exam review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp003-review-export.ts
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp003-exam-review-export.ts
           --bundle --platform=node --format=esm
-          --outfile=dist/quant-v4/int-001-cp003-review-export.mjs
+          --outfile=dist/quant-v4/int-001-cp003-exam-review-export.mjs
 
-      - name: Generate remediated CP-003 review pack
+      - name: Generate CP-003 exam-readiness review pack
         shell: bash --noprofile --norc -e -o pipefail {0}
         run: |
           set -o pipefail
           cd artifacts/api-server
-          node dist/quant-v4/int-001-cp003-review-export.mjs 2>&1 | tee dist/quant-v4/int-001-cp003-review-export.log
+          node dist/quant-v4/int-001-cp003-exam-review-export.mjs 2>&1 | tee dist/quant-v4/int-001-cp003-exam-review-export.log
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
@@ -99,46 +100,43 @@ jobs:
         run: |
           grep -q 'PASS_INT_CP002_APPROVED_ENGLISH_FREEZE' artifacts/api-server/dist/quant-v4/int-001-cp002-english-freeze-audit.log
           grep -q 'PASS_INT_CP003_ANNUAL_COMPOUND_COMPLETION' artifacts/api-server/dist/quant-v4/int-001-cp003-completion-audit.log
-          grep -q 'PASS_INT_CP003_EDITORIAL_REMEDIATION' artifacts/api-server/dist/quant-v4/int-001-cp003-editorial-audit.log
-          grep -q 'PASS_INT_CP003_REMEDIATED_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp003-review-export.log
+          grep -q 'PASS_INT_CP003_EXAM_READINESS_REMEDIATION' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-readiness-audit.log
+          grep -q 'PASS_INT_CP003_EXAM_READINESS_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-review-export.log
           summary=artifacts/api-server/dist/quant-v4/int-cp003-annual-compound-completion/int-cp003-completion-summary.json
-          editorial=artifacts/api-server/dist/quant-v4/int-cp003-annual-compound-completion/int-cp003-editorial-remediation-summary.json
-          review=artifacts/api-server/dist/quant-v4/int-cp003-annual-compound-review-pack
+          review=artifacts/api-server/dist/quant-v4/int-cp003-exam-readiness-review-pack
           test -f "$summary"
-          test -f "$editorial"
-          test -f "$review/int-cp003-56-review-questions.md"
-          test -f "$review/int-cp003-56-review-answers.md"
-          test -f "$review/int-cp003-56-review-combined.md"
-          test -f "$review/int-cp003-56-review-data.json"
-          test -f "$review/int-cp003-56-review-checklist.csv"
-          test -f "$review/int-cp003-review-summary.json"
+          test -f "$review/int-cp003-56-exam-readiness-questions-and-answers.md"
+          test -f "$review/int-cp003-56-exam-readiness-data.json"
+          test -f "$review/int-cp003-exam-readiness-review-summary.json"
           grep -q '"qlCount": 14' "$summary"
           grep -q '"openMeaningfulOwnedGaps": 0' "$summary"
-          grep -q '"status": "EDITORIAL_REMEDIATION_VALIDATED_STAGING_LOCKED"' "$editorial"
-          grep -q '"questions": 56' "$review/int-cp003-review-summary.json"
-          grep -q '"optionAnalysisAlignmentChecks": 224' "$review/int-cp003-review-summary.json"
-          grep -q '"trapTaggedWrongOptions": 168' "$review/int-cp003-review-summary.json"
-          grep -Fq '📌 **Core Concept**' "$review/int-cp003-56-review-combined.md"
-          grep -Fq '📝 **Step-by-Step Solution**' "$review/int-cp003-56-review-combined.md"
-          grep -Fq '⚡ **Exam Speed Shortcut**' "$review/int-cp003-56-review-combined.md"
-          grep -Fq '⚠️ **Common Student Traps & Option Analysis**' "$review/int-cp003-56-review-combined.md"
-          grep -q '\$\$' "$review/int-cp003-56-review-combined.md"
-          grep -q '\[[A-Z0-9_]*_TRAP\]' "$review/int-cp003-56-review-combined.md"
+          grep -q '"questions": 56' "$review/int-cp003-exam-readiness-review-summary.json"
+          grep -q '"rateCoverage": 16' "$review/int-cp003-exam-readiness-review-summary.json"
+          grep -q '"representationCoverage": 6' "$review/int-cp003-exam-readiness-review-summary.json"
+          grep -q '"distinctMathematicalStates": 56' "$review/int-cp003-exam-readiness-review-summary.json"
+          grep -q '"distinctNumericFamilies": 56' "$review/int-cp003-exam-readiness-review-summary.json"
+          grep -q '"optionAnalysisAlignments": 224' "$review/int-cp003-exam-readiness-review-summary.json"
+          grep -q '"diagnosticWrongOptions": 168' "$review/int-cp003-exam-readiness-review-summary.json"
+          grep -Fq '### Key idea' "$review/int-cp003-56-exam-readiness-questions-and-answers.md"
+          grep -Fq '### Calculation' "$review/int-cp003-56-exam-readiness-questions-and-answers.md"
+          grep -Fq '### Option diagnosis' "$review/int-cp003-56-exam-readiness-questions-and-answers.md"
+          grep -q '\[[A-Z0-9_]*_TRAP\]' "$review/int-cp003-56-exam-readiness-questions-and-answers.md"
+          grep -Fq '| ---' "$review/int-cp003-56-exam-readiness-questions-and-answers.md"
           ! grep -R -n -P '[\x00-\x08\x09\x0B\x0C\x0E-\x1F]' "$review"/*.md
-          ! grep -R -n -E 'prototype|effectiveSeed|generationAttempts' "$review"/*.md
-          ! grep -R -n -E '^Rule$|^Worked solution$|^Wrong-option analysis$|^Verification:' "$review"/*.md
+          ! grep -R -n -E 'bounded|canonical|verifier|mathematical state|generation seed' "$review"/*.md
+          ! grep -R -n -E '₹[0-9]{3},[0-9]{3}([^0-9]|$)|₹[0-9]{1,3},[0-9]{3},[0-9]{3}' "$review"/*.md
           ! grep -R -n -E '₹[0-9]+/[0-9]+|[0-9]+/[0-9]+ years' "$review"/*.md
 
-      - name: Upload CP-003 remediated review evidence
+      - name: Upload CP-003 exam-readiness evidence
         uses: actions/upload-artifact@v4
         with:
-          name: int-cp003-annual-compound-remediated-review-candidate
+          name: int-cp003-exam-readiness-remediation-review-candidate
           path: |
             artifacts/api-server/dist/quant-v4/int-001-cp002-english-freeze-audit.log
             artifacts/api-server/dist/quant-v4/int-001-cp003-completion-audit.log
-            artifacts/api-server/dist/quant-v4/int-001-cp003-editorial-audit.log
-            artifacts/api-server/dist/quant-v4/int-001-cp003-review-export.log
+            artifacts/api-server/dist/quant-v4/int-001-cp003-exam-readiness-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp003-exam-review-export.log
             artifacts/api-server/dist/quant-v4/int-cp003-annual-compound-completion/**
-            artifacts/api-server/dist/quant-v4/int-cp003-annual-compound-review-pack/**
+            artifacts/api-server/dist/quant-v4/int-cp003-exam-readiness-review-pack/**
           if-no-files-found: error
           retention-days: 14
