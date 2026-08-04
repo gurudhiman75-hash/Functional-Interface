@@ -34,6 +34,7 @@ export function assertCp003PresentationGrounding(
   const prefix = `${contract.qlId}/${contract.presentation.representation}`;
   const markdown = presentation.markdown;
   const representation = contract.presentation.representation;
+  const annualFactorToken = annualFactorText(resolved.ratePercent).slice(1, -1);
 
   if (contract.qlId === "INT-QL-053" && representation === "BALANCE_LEDGER") {
     requireVisible(markdown, moneyMath(resolved.principal), prefix, "principal");
@@ -48,14 +49,14 @@ export function assertCp003PresentationGrounding(
   }
 
   if (contract.qlId === "INT-QL-055" && representation === "GROWTH_RATIO") {
-    requireVisible(markdown, annualFactorText(resolved.ratePercent), prefix, "annual multiplier");
+    requireVisible(markdown, annualFactorToken, prefix, "annual multiplier");
     requireVisible(markdown, moneyMath(resolved.amount), prefix, "final amount");
     requireVisible(markdown, String(resolved.years), prefix, "duration");
     if (hasOperation(trace, "ANNUAL_FACTOR")) throw new Error(`${prefix}: trace re-derives a displayed annual multiplier from a hidden rate`);
   }
 
   if (contract.qlId === "INT-QL-056" && representation === "GROWTH_RATIO") {
-    requireVisible(markdown, annualFactorText(resolved.ratePercent), prefix, "annual multiplier");
+    requireVisible(markdown, annualFactorToken, prefix, "annual multiplier");
     requireVisible(markdown, moneyMath(resolved.compoundInterest), prefix, "compound interest");
     if (hasOperation(trace, "ANNUAL_FACTOR")) throw new Error(`${prefix}: trace re-derives a displayed CI factor from a hidden rate`);
   }
@@ -96,7 +97,7 @@ export function assertCp003PresentationGrounding(
   if (contract.qlId === "INT-QL-066") {
     requireVisible(markdown, moneyMath(resolved.earlierInterest), prefix, "earlier-year interest");
     const rateVisible = markdown.includes(rateMath(resolved.ratePercent));
-    const factorVisible = markdown.includes(annualFactorText(resolved.ratePercent));
+    const factorVisible = markdown.includes(annualFactorToken);
     if (!rateVisible && !factorVisible) throw new Error(`${prefix}: displayed question omits the annual rate or multiplier`);
     requireVisible(markdown, ordinal(resolved.laterYear), prefix, "later year");
     if (representation === "GROWTH_RATIO") {
@@ -109,7 +110,7 @@ export function assertCp003PresentationGrounding(
   if (contract.qlId !== "INT-QL-057" && contract.qlId !== "INT-QL-061") {
     const explanationText = collectStrings(explanation).join("\n");
     const rateToken = rateMath(resolved.ratePercent).slice(1, -1);
-    if (explanationText.includes(rateToken) && !markdown.includes(rateToken) && !markdown.includes(annualFactorText(resolved.ratePercent).slice(1, -1))) {
+    if (explanationText.includes(rateToken) && !markdown.includes(rateToken) && !markdown.includes(annualFactorToken)) {
       throw new Error(`${prefix}: explanation uses an annual rate absent from the displayed givens`);
     }
   }
