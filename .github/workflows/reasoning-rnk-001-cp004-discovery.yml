@@ -12,7 +12,7 @@ on:
 jobs:
   cp004-discovery:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -22,15 +22,23 @@ jobs:
         with:
           node-version: 22
 
-      - name: Run multi-entity order discovery, solver and editorial audit
+      - name: Run raw multi-entity order discovery and solver audit
         run: >-
           npx --yes tsx
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-foundation.test.ts
           rnk-cp004-discovery-output
 
-      - name: Upload RNK-CP-004 review evidence
+      - name: Enforce exam-readiness English remodel gates
+        run: >-
+          npx --yes tsx
+          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-exam-ready.test.ts
+          rnk-cp004-exam-ready-output
+
+      - name: Upload RNK-CP-004 remodeled review evidence
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp004-english-review-pending-v1
-          path: rnk-cp004-discovery-output
+          name: rnk-001-cp004-english-remodel-review-pending-v2
+          path: |
+            rnk-cp004-discovery-output
+            rnk-cp004-exam-ready-output
           retention-days: 14
