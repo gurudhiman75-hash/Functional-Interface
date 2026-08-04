@@ -52,6 +52,7 @@ function correctOptionFocus(
     const chosen = selected.conclusions
       .map((_, index) => ((mask & (1 << index)) !== 0 ? focusEntry(selected, index) : null))
       .filter((entry): entry is PedagogicalDiagramFocus => entry !== null);
+    // When the correct option is "none follows", all listed conclusions belong to that option.
     if (chosen.length > 0) return chosen;
     return selected.conclusions
       .map((_, index) => focusEntry(selected, index))
@@ -67,6 +68,7 @@ function correctOptionFocus(
     return entry ? [entry] : [];
   }
 
+  // BOTH, NEITHER, EITHER-OR and pair-classification answers describe the pair itself.
   return selected.conclusions
     .slice(0, 3)
     .map((_, index) => focusEntry(selected, index))
@@ -289,6 +291,26 @@ function localizedDiagramText(
   };
 }
 
+function correctOnlyDiagramMode(
+  mode: SylExplanationTrace["diagramMode"],
+  premises: readonly SurfacePremise[],
+): SylExplanationTrace["diagramMode"] {
+  if (
+    mode === "TRUE_FALSE_COMPARISON"
+    && premises.some((premise) => ["ALL", "NO", "ONLY", "ARE_ONLY", "IDENTITY"].includes(premise.form))
+  ) {
+    return "FORCED_AND_TRUE_FALSE_COMPARISON";
+  }
+  return mode;
+}
+
+function replaceDiagramMode(
+  svg: string,
+  mode: SylExplanationTrace["diagramMode"],
+): string {
+  return svg.replace(/data-diagram-mode="[A-Z_]+"/u, `data-diagram-mode="${mode}"`);
+}
+
 function simplifySvgEnglish(svg: string): string {
   return svg
     .replaceAll("Basic Venn Diagram and Conclusion Check", "Venn Diagram for the Correct Answer")
@@ -322,16 +344,18 @@ export function remodelStudentPresentation(
     assignment,
     `${definition.qlId}-${selected.analysis.scenario.scenarioId}-correct-only`,
   );
-  const diagramText = localizedDiagramText(locale, diagram.mode);
-  const svg = locale === "en-IN"
+  const diagramMode = correctOnlyDiagramMode(diagram.mode, displayedPremises);
+  const diagramText = localizedDiagramText(locale, diagramMode);
+  const baseSvg = locale === "en-IN"
     ? simplifySvgEnglish(diagram.svg)
     : diagram.svg.replace("<svg ", '<svg data-correct-option-only="true" ');
+  const svg = replaceDiagramMode(baseSvg, diagramMode);
 
   if (locale !== "en-IN") {
     return {
       ...base,
       diagramRole: diagram.role,
-      diagramMode: diagram.mode,
+      diagramMode,
       diagramTitle: diagramText.title,
       diagramCaption: diagramText.caption,
       overlappingVennSvg: svg,
@@ -367,7 +391,7 @@ export function remodelStudentPresentation(
       studentWarning: simpleWarning(base.tier4Trap.diagnosticTag),
     },
     diagramRole: diagram.role,
-    diagramMode: diagram.mode,
+    diagramMode,
     diagramTitle: diagramText.title,
     diagramCaption: diagramText.caption,
     overlappingVennSvg: svg,
