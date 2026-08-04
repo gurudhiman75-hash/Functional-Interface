@@ -1,12 +1,12 @@
 # INT-CP-003 — Annual Compound Interest Fundamentals and Inverses
 
-Status: `ARCHITECTURE_CONSOLIDATION_REVIEW_CANDIDATE — STAGING_LOCKED`
+Status: `SEMANTIC_SOLUTION_TRACE_REVIEW_CANDIDATE — STAGING_LOCKED`
 
 The permanent mathematical inventory remains `INT-QL-053..INT-QL-066`, with all 14 legacy CP-003 families owned and zero open mathematical gaps.
 
-## Architecture consolidation
+## Shared mathematical authority
 
-The architecture-consolidation candidate introduces one shared mathematical authority for:
+The architecture-consolidation candidate uses one shared mathematical authority for:
 
 - exact rational arithmetic;
 - permanent QL identity and solve-contract metadata;
@@ -16,14 +16,71 @@ The architecture-consolidation candidate introduces one shared mathematical auth
 - independent recurrence/relation verification;
 - relevant-only mathematical fingerprints.
 
-The legacy completion runtime now delegates to this authority through a compatibility adapter. The exam model owns generation policy only: rate weighting, QL eligibility, maximum-year constraints, context eligibility, representation selection, stem-family selection and instance difficulty.
+The legacy completion runtime delegates to this authority through a compatibility adapter. The exam model owns generation policy only: rate weighting, QL eligibility, maximum-year constraints, context eligibility, representation selection, stem-family selection and instance difficulty.
 
-Every exam question now carries its permanent QL, solve contract, authority version, generator version, solver version and verifier version. The canonical answer must pass the independent relation verifier before options, explanations or review output are packaged.
+Every exam question carries its permanent QL, solve contract, authority version, generator version, solver version and verifier version. The canonical answer must pass the independent relation verifier before options, explanation traces or review output are packaged.
 
-Rate profiles now constrain eligible QLs, maximum years and allowed contexts. Bank-statement representations are permitted only for rates that allow a bank-deposit context. Declared prose stem families are limited to families that produce distinct rendered wording.
+## Semantic solution traces
 
-The learner-facing remediation still uses six rendered representations, Indian formatting, deterministic option shuffling, misconception-owned distractors, three explanation depths and MathJax guards. QL-065 continues to withhold derived endpoint amounts. Amount-ratio rate recovery remains restricted to two years, while nth-year rate recovery remains restricted to years two or three.
+`cp003-solution-trace.ts` is now the language-neutral reasoning authority between the mathematical solver and learner-facing explanation renderers.
 
-Draft PR #491 targets the current CP-003 remediation branch. It must pass the inherited completion proof, strengthened exam-readiness audit, review-pack export and API build before architectural review.
+Each generated question contains:
+
+- one versioned solution trace;
+- one QL-owned learner method;
+- typed semantic operations and exact rational operands;
+- separate core, foundation and verification step collections;
+- optional shortcut authority with explicit source-step lineage;
+- a misconception key rather than embedded learner prose;
+- a final answer that is independently relation-verified.
+
+The 14 current learner methods are:
+
+1. direct annual factor;
+2. amount minus principal;
+3. reverse compound factor;
+4. reverse compound-interest factor;
+5. amount-ratio factor match;
+6. factor-power time match;
+7. nth-year opening balance;
+8. reverse nth-year interest factor;
+9. nth-year rate substitution;
+10. reverse one-year factor;
+11. consecutive-balance rate;
+12. consecutive-balance principal;
+13. annual amount difference;
+14. yearly-interest geometric growth.
+
+`cp003-exam-explanation.ts` is now a pure English renderer over the approved trace. It does not independently reconstruct compound-interest mathematics. Exam, student and foundation views all carry source-step IDs back to the same trace.
+
+The trace audit rejects:
+
+- arithmetic-step disagreement;
+- trace/final-answer disagreement;
+- learner prose inside the semantic trace;
+- missing or unknown explanation source-step IDs;
+- stale method or trace versions;
+- shortcut text that merely repeats the main calculation;
+- singular-year grammar errors;
+- Unicode or plain mixed fractions inside MathJax expressions.
+
+## Generation and presentation policy
+
+Rate profiles constrain eligible QLs, maximum years and allowed contexts. Bank-statement representations are permitted only for rates that allow a bank-deposit context. Declared prose stem families are limited to families that produce distinct rendered wording.
+
+The learner-facing remediation uses six rendered representations, Indian formatting, deterministic option shuffling, misconception-owned distractors, three explanation depths and MathJax guards. QL-065 continues to withhold derived endpoint amounts. Amount-ratio rate recovery remains restricted to two years, while nth-year rate recovery remains restricted to years two or three.
+
+## Latest exact-head proof
+
+Draft PR #491 targets the current CP-003 remediation branch.
+
+```text
+Validated source head: 1b85bef2dc5814f2e76ed54f690c1c11b3c185ef
+Workflow run:          30871184923
+Evidence artifact:     8877929852
+Artifact digest:       sha256:0911fa556ad199ebe821f98df67edaf9ca26304567f3857b9f44fd7809469cd1
+```
+
+The inherited CP-002 freeze regression, legacy CP-003 completion proof, strengthened exam-readiness audit, semantic solution-trace audit, 56-question review export, evidence assertions and complete API build all passed.
 
 No English freeze, staging, registration, Question Studio discovery, Question Bank write, test eligibility or publication is permitted without fresh explicit approval.
