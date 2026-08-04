@@ -3,6 +3,7 @@ import { SYL_001_SEMANTICS_PROFILE } from "../foundation/semantics-profile";
 import type { SylDifficulty, SylLocale } from "../foundation/types";
 import { conclusionSemanticKey, selectedPremisesAreRelevant } from "./analysis";
 import { buildExplanation } from "./explanation";
+import { renderMobileFirstIntegratedDiagramV3 } from "./integrated-diagram-v3-mobile";
 import { polishLearnerExplanation } from "./learner-language-polish";
 import {
   commonPreamble,
@@ -186,7 +187,14 @@ export function generateSylQuestion(
     })),
     termLabels,
   });
-  const structuredProofV3 = enforceStructuredProofV3Consistency(naturalizedStructuredProofV3, {
+  const mobileDiagramStructuredProofV3 = renderMobileFirstIntegratedDiagramV3(naturalizedStructuredProofV3, {
+    locale,
+    displayedPremises,
+    termLabels,
+    correctIndex: correctIndexes[0],
+    correctOptionText: correctOption.text,
+  });
+  const structuredProofV3 = enforceStructuredProofV3Consistency(mobileDiagramStructuredProofV3, {
     locale,
     taskKind: definition.taskKind,
     correctIndex: correctIndexes[0],
