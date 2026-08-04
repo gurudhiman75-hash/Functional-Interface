@@ -129,6 +129,9 @@ export function assertCp003PresentationGrounding(
   const legacyFactor = legacyAnnualFactorText(resolved.ratePercent);
   if (legacyFactor !== groundedFactor) {
     const learnerText = collectStrings([presentation, explanation]).join("\n");
-    if (learnerText.includes(legacyFactor)) throw new Error(`${prefix}: truncated repeating decimal presented as an exact annual factor`);
+    const legacyInner = legacyFactor.slice(1, -1);
+    if (learnerText.includes(legacyFactor) || learnerText.includes(legacyInner)) {
+      throw new Error(`${prefix}: truncated repeating decimal presented as an exact annual factor`);
+    }
   }
 }
