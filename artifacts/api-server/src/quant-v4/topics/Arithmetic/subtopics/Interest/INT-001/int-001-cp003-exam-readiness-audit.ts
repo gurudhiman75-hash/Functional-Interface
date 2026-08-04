@@ -18,7 +18,7 @@ import {
   type IntCp003ExamQuestion,
 } from "./cp003-exam-runtime";
 import { presentationFor } from "./cp003-exam-presentation";
-import { resolve } from "./cp003-exam-support";
+import { rateMath, resolve } from "./cp003-exam-support";
 
 function stable(value: unknown): string {
   return JSON.stringify(value, (_key, item) => typeof item === "bigint" ? item.toString() : item);
@@ -98,7 +98,7 @@ function assertQuestion(question: IntCp003ExamQuestion, index: number): void {
 
   if (question.options.length !== 4 || new Set(question.options.map((option) => option.text)).size !== 4) throw new Error(`${prefix}: invalid options`);
   if (question.options.filter((option) => option.isCorrect).length !== 1 || !question.options[question.correctIndex]?.isCorrect) throw new Error(`${prefix}: correct option ownership`);
-  if (question.answerSemantic === "RATE_PERCENT" && question.options.some((option) => !/^\$[0-9]+\.[0-9]{2}\\%\$$/u.test(option.text))) throw new Error(`${prefix}: inconsistent percentage-option formatting`);
+  if (question.answerSemantic === "RATE_PERCENT" && question.options.some((option) => option.text !== rateMath(option.value))) throw new Error(`${prefix}: percentage option is not rendered from its exact value`);
   const independentlyAcceptedOptions = question.options.map((option) => verifyAnswer(question.mathematicalState, option.value));
   if (independentlyAcceptedOptions.filter(Boolean).length !== 1 || !independentlyAcceptedOptions[question.correctIndex]) throw new Error(`${prefix}: independent verifier does not own exactly the displayed correct option`);
   independentVerifierChecks += independentlyAcceptedOptions.length;
@@ -138,9 +138,15 @@ function assertQuestion(question: IntCp003ExamQuestion, index: number): void {
   if (/₹\d{3},\d{3}(?:\D|$)/u.test(learnerText) || /₹\d{1,3},\d{3},\d{3}/u.test(learnerText)) throw new Error(`${prefix}: western currency grouping`);
   if (question.explanation.steps.length < 2 || question.explanation.depths.foundation.steps.length < 2) throw new Error(`${prefix}: underdeveloped explanation`);
   if (!question.explanation.finalAnswer.includes(question.correctAnswer)) throw new Error(`${prefix}: final answer mismatch`);
-  explanationChecks += 5;
+  if (question.difficulty === "Easy" && question.difficultyProfile.score > 2) throw new Error(`${prefix}: Easy label exceeds the calibrated score ceiling`);
+  explanationChecks += 6;
   if (question.explanation.shortcut) shortcutCount += 1;
   if (question.explanation.verification) verificationCount += 1;
+
+  if (question.qlId === "INT-QL-061") {
+    const explicitSubstitution = question.explanation.steps.some((step) => /\\times/u.test(step) && /matching the given interest/iu.test(step));
+    if (!explicitSubstitution) throw new Error(`${prefix}: inverse-rate option check lacks explicit nth-year substitution`);
+  }
 
   if (question.qlId === "INT-QL-065") {
     if ("amount" in question.mathematicalState || "amountAtYear" in question.mathematicalState) throw new Error(`${prefix}: QL-065 gives away derived amounts`);
