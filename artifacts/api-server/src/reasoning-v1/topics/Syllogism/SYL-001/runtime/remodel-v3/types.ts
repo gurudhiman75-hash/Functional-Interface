@@ -208,7 +208,7 @@ export interface GeneratedSylQuestionV3 extends Omit<
     readonly testEligible: false;
     readonly publiclyPublishable: false;
   };
-  readonly metadata: GeneratedSylQuestion["metadata"] & {
+  readonly metadata: Omit<GeneratedSylQuestion["metadata"], "runtimeVersion"> & {
     readonly runtimeVersion: "syl-001-remodel-runtime-v3";
     readonly proofObjectGenerated: true;
     readonly optionExplanationSynchronized: true;
