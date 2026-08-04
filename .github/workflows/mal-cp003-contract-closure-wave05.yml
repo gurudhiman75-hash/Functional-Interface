@@ -1,0 +1,60 @@
+name: Validate MAL-CP-003 contract closure Wave 05
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp003-contract-closure-wave05.ts
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp003-contract-closure-audit.ts
+      - .github/workflows/mal-cp003-contract-closure-wave05.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-mal-cp003-contract-closure-wave05-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-mal-cp003-contract-closure-wave05:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle MAL-CP-003 contract closure audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp003-contract-closure-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp003-contract-closure-audit.mjs
+      - name: Run MAL-CP-003 contract closure audit
+        shell: bash
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/mal-001-cp003-contract-closure-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-cp003-contract-closure-audit.log
+      - name: Upload MAL-CP-003 Wave 05 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mal-cp003-contract-closure-wave05
+          path: |
+            artifacts/api-server/dist/quant-v4/mal-001-cp003-contract-closure-audit.log
+            artifacts/api-server/dist/quant-v4/mal-cp003-contract-closure-wave05.json
+            artifacts/api-server/dist/quant-v4/mal-cp003-contract-closure-wave05.md
+          if-no-files-found: error
+          retention-days: 14
