@@ -13,6 +13,7 @@ import { buildOptions } from "./options";
 import { createPrng, shuffle } from "./prng";
 import { getSylQlDefinition } from "./ql-registry";
 import { selectQuestionLogic } from "./selection";
+import { remodelStudentPresentation } from "./student-presentation";
 import { assignTerms } from "./term-assignment";
 import type {
   GeneratedSylQuestion,
@@ -92,7 +93,16 @@ export function generateSylQuestion(
     .filter((index) => index >= 0);
   if (correctIndexes.length !== 1) throw new Error(`${qlId}/${seed} must have exactly one correct option.`);
 
-  const explanation = buildExplanation(
+  const baseExplanation = buildExplanation(
+    definition,
+    selected,
+    displayedPremises,
+    locale,
+    assignment,
+    options,
+  );
+  const explanation = remodelStudentPresentation(
+    baseExplanation,
     definition,
     selected,
     displayedPremises,
