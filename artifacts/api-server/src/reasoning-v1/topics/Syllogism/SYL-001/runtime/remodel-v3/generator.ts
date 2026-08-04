@@ -9,6 +9,7 @@ import type { SylQlId } from "../types";
 import { renderCombinedDiagramV3 } from "./diagram";
 import { existenceDirection, v3Headings } from "./localization";
 import { buildStructuredProofCoreV3 } from "./proof";
+import { finalizeStructuredProofCoreV3 } from "./proof-finalize";
 import { polishStructuredProofCoreV3 } from "./reason-polish";
 import type {
   GeneratedSylOptionV3,
@@ -143,15 +144,19 @@ export function generateSylQuestionV3(
   if (correctIndex < 0 || options.filter((option) => option.isCorrect).length !== 1) {
     throw new Error(`${qlId}/${seed}/${locale} V3 must have exactly one correct option.`);
   }
-  const core = polishStructuredProofCoreV3(buildStructuredProofCoreV3(
-    definition,
-    selected,
-    displayedPremises,
-    options,
-    correctIndex,
+  const core = finalizeStructuredProofCoreV3(
+    polishStructuredProofCoreV3(buildStructuredProofCoreV3(
+      definition,
+      selected,
+      displayedPremises,
+      options,
+      correctIndex,
+      locale,
+      assignment,
+    ), locale, definition.taskKind),
     locale,
-    assignment,
-  ), locale, definition.taskKind);
+    definition.taskKind,
+  );
   const diagram = renderCombinedDiagramV3({
     qlId,
     seed,
