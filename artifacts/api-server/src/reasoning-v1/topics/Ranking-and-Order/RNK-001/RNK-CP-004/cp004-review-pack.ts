@@ -66,6 +66,17 @@ function moveCorrectOption(
   };
 }
 
+function addOptionLayoutFingerprint(question: RnkCp004ExamReadyQuestion): RnkCp004ExamReadyQuestion {
+  const layout = question.options.map((option) => option.misconceptionId).join('>');
+  return {
+    ...question,
+    reviewMetadata: {
+      ...question.reviewMetadata,
+      normalizedSemanticFingerprint: `${question.reviewMetadata.normalizedSemanticFingerprint}|OPTION_LAYOUT:${layout}`,
+    },
+  };
+}
+
 export function buildRnkCp004ReviewPack(): readonly RnkCp004ExamReadyQuestion[] {
   const questions: RnkCp004ExamReadyQuestion[] = [];
   const fingerprints = new Set<string>();
@@ -77,7 +88,7 @@ export function buildRnkCp004ReviewPack(): readonly RnkCp004ExamReadyQuestion[] 
       const outputIndex = prototypeIndex * 6 + accepted;
       const targetIndex = REVIEW_CORRECT_INDEX_SEQUENCE[outputIndex];
       const generated = generateRnkCp004ExamReadyQuestion(prototypeId, candidateSeed, targetIndex);
-      const question = moveCorrectOption(generated, targetIndex);
+      const question = addOptionLayoutFingerprint(moveCorrectOption(generated, targetIndex));
       candidateSeed += 1;
       if (fingerprints.has(question.reviewMetadata.normalizedSemanticFingerprint)) continue;
       fingerprints.add(question.reviewMetadata.normalizedSemanticFingerprint);
