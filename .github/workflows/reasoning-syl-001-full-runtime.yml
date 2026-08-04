@@ -115,6 +115,19 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/reasoning-v1/syl-001-structured-proof-v3-language-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-structured-proof-v3-language-audit.log
 
+      - name: Bundle V3 discovery prototypes
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/discovery-prototypes-v3.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-discovery-prototypes-v3.test.mjs
+
+      - name: Run V3 discovery prototypes
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-discovery-prototypes-v3.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-discovery-prototypes-v3.log
+
       - name: Bundle exhaustive QL gap discovery
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -150,6 +163,7 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/syl-001-learner-language-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-structured-proof-v3-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-structured-proof-v3-language-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-discovery-prototypes-v3.log
             artifacts/api-server/dist/reasoning-v1/syl-001-discovery-v3/**
             artifacts/api-server/dist/reasoning-v1/syl-001-review-v3/**
           if-no-files-found: error
