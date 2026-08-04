@@ -1,10 +1,10 @@
 # RNK-CP-004 — Multi-Entity Comparison and Explicit Order Reconstruction
 
-Status: **exam-readiness English remodel implemented; manual approval and source expansion pending; permanent QL count open**.
+Status: **adaptive English Remodel V2 implemented; manual approval and source expansion pending; permanent QL count open**.
 
 This checkpoint owns questions in which several named entities must be placed in one exact order from displayed comparison clues.
 
-Included in the first executable wave:
+Included in the current executable wave:
 
 - highest-ranked entity;
 - lowest-ranked entity;
@@ -12,9 +12,9 @@ Included in the first executable wave:
 - exact rank of a named entity;
 - middle entity in an odd-sized order;
 - complete order from highest to lowest;
-- relative order of a named pair;
+- relative direction and distance of a named pair;
 - immediate higher or lower neighbour;
-- validation of a transitive rank conclusion;
+- a conclusion derived through a comparison path;
 - the additional comparison sufficient to join ordered blocks uniquely.
 
 ## Boundary
@@ -27,63 +27,76 @@ non-unique, possible, definite or impossible     -> RNK-CP-007
 shared multi-question passages                   -> RNK-CP-008
 ```
 
-Ties, incomparable entities and cannot-determine answers are not silently forced into CP-004. They remain reserved for later partial-order discovery unless a separate exact contract is proved.
+Ties, incomparable entities and genuine cannot-determine answers are not forced into CP-004. They remain reserved for partial-order discovery unless a separate exact contract is proved.
 
-## Executable discovery and remodel
+## Executable discovery
 
 ```text
 provisional prototypes:             10
 runtime seeds per prototype:       240
-raw runtime questions:           2,400
-remodeled English review pack:      60
+runtime questions:               2,400
+adaptive English review pack:       60
 permanent QLs:                    none
 next available RNK identity: RNK-QL-027
 ```
 
-The original review pack was mathematically correct but failed exam-readiness review because of unsafe pair options, circular sufficiency explanations, repeated answer sequences, templated teaching and missing review metadata.
+These counts remain discovery evidence, not a fixed final inventory.
 
-`RNK-CP-004-EXAM-READINESS-REMEDIATION.md` records the implemented corrections.
+## Adaptive explanation model
 
-## Remodel guarantees
-
-- all pair-relation options address the requested pair;
-- pair and conclusion keys are not copied from displayed clues;
-- conclusion keys require transitive inference;
-- sufficient-comparison explanations show incomplete blocks before the added premise;
-- wrong sufficiency options identify contradiction or the remaining number of valid orders;
-- complete-order distractors cite a violated clue;
-- clues render one per line;
-- explanation rules and shortcuts vary by solve mode;
-- review answer positions are balanced 15/15/15/15;
-- no four-answer sequence repeats;
-- stable IDs, competency, difficulty, version and lifecycle metadata are exported.
-
-## Construction model
+The internal proof remains structured, but the learner renderer selects only the smallest useful mode:
 
 ```text
-construct a hidden strict total order
-  -> derive a connected comparison chain
-  -> independently topologically reconstruct the order
-  -> reject cycles or non-unique exact-answer states
-  -> derive the requested entity, rank, relation or order
-  -> remodel options under query-homogeneity rules
-  -> render solve-mode-specific teaching
-  -> run pool-level answer-sequence and metadata gates
-  -> expose a manual-review artifact
+ENDPOINT_MINIMAL
+POSITION_LINE
+PAIR_PATH
+NEIGHBOUR_HIGHLIGHT
+OPTION_CONTRADICTION
+TRANSITIVE_PROOF
+BLOCK_BRIDGE
+```
+
+Easy endpoint questions are no longer padded with universal headings or four-option commentary. Complete-order and missing-comparison questions retain deeper option analysis because it directly supports the reasoning task.
+
+## Remodel V2 guarantees
+
+- the conclusion rule correctly accepts both direct and indirect support;
+- the reviewed conclusion surface deliberately requires a multi-statement path;
+- strict pair questions contain no `same rank` or automatic `cannot determine` fillers;
+- pair options use direction and positional distance for the same named pair;
+- neighbour questions never offer the target as their own neighbour;
+- option explanations state verifiable rank, distance, direction, contradiction or remaining ambiguity;
+- topological-order counts stay in validator evidence rather than student prose;
+- clue redundancy is controlled and exposed as metadata;
+- normalized semantic fingerprints reject anonymized duplicates;
+- review seeds are unique across the 60-question pack;
+- answer positions remain balanced `15 / 15 / 15 / 15`;
+- no repeated four-answer sequence is allowed;
+- difficulty is derived from explicit reasoning features.
+
+`RNK-CP-004-EXAM-READINESS-REMEDIATION.md` records the complete V2 correction set.
+
+## Current executable evidence
+
+```text
+adaptive explanation modes:           7
+average visible explanation words: 34.73
+normalized semantic duplicates:       0
+pair dead distractors:                 0
+self-neighbour distractors:            0
+student permutation counts exposed:    0
 ```
 
 ## Next gate
 
 ```text
-manual review of remodeled 60-question pack
+manual review of adaptive 60-question pack
   -> source and inverse expansion
   -> ownership and boundary audit
   -> merge/split consolidation
   -> permanent runtime proof
   -> English discovery freeze
 ```
-
-The current ten prototypes remain discovery evidence. They are not permanent QLs or a fixed final inventory.
 
 ## Safety boundary
 
