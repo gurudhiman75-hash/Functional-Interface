@@ -57,6 +57,19 @@ function cp002AuthorityKey(row: TsdCp002GeneratedQuestion): string {
   }
 }
 
+function cp002FinalRepresentation(row: TsdCp002GeneratedQuestion): string {
+  if (row.solveMode === "totalDistanceFromAverageAndTime") {
+    return "OVERALL_AVERAGE_AS_EFFECTIVE_SPEED";
+  }
+  if (
+    row.representation.startsWith("TIME_SHARE_SUPPLEMENTAL_")
+    || row.representation.startsWith("TIME_RATIO_SUPPLEMENTAL_")
+  ) {
+    return row.representation;
+  }
+  return row.authoritySubmode === "STANDARD" ? row.representation : row.authoritySubmode;
+}
+
 function cp001Record(row: TsdCp001GeneratedQuestion): TsdFinalReviewRecord {
   const authorityKey = cp001AuthorityKey(row);
   const authority = finalAuthorityByKey(authorityKey);
@@ -84,11 +97,7 @@ function cp002Record(row: TsdCp002GeneratedQuestion): TsdFinalReviewRecord {
     finalCheckpointId: authority.checkpointId,
     permanentQlId: null,
     legacyReviewQlId: row.permanentQlId,
-    finalRepresentation: row.solveMode === "totalDistanceFromAverageAndTime"
-      ? "OVERALL_AVERAGE_AS_EFFECTIVE_SPEED"
-      : row.authoritySubmode === "STANDARD"
-        ? row.representation
-        : row.authoritySubmode,
+    finalRepresentation: cp002FinalRepresentation(row),
     questionLanguageId: row.questionLanguageId,
     sourceCheckpointId: "TSD-CP-002",
     sourceQuestion: row,
