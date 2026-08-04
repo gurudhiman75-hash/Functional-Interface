@@ -16,7 +16,7 @@ The architecture-consolidation candidate uses one shared mathematical authority 
 - independent recurrence/relation verification;
 - relevant-only mathematical fingerprints.
 
-The legacy completion runtime delegates to this authority through a compatibility adapter. The exam model owns generation policy only: rate weighting, QL eligibility, maximum-year constraints, context eligibility, representation selection, stem-family selection and instance difficulty.
+The legacy completion runtime delegates to this authority through a compatibility adapter. The exam model owns generation policy only: rate weighting, QL eligibility, maximum-year constraints, context eligibility, representation selection, stem-family selection, numeric construction and instance difficulty.
 
 Every exam question carries its permanent QL, solve contract, authority version, generator version, solver version and verifier version. The canonical answer must pass the independent relation verifier before options, explanation traces or review output are packaged.
 
@@ -62,13 +62,40 @@ The grounded layer enforces that:
 - every value required by the selected solution path is visible in the question or its answer choices;
 - a displayed annual multiplier is used directly instead of being re-derived from an undisclosed rate;
 - inverse-rate explanations derive the annual factor from the amount ratio before stating the rate;
-- nth-year inverse-rate explanations explicitly identify option substitution before testing the correct choice;
+- nth-year inverse-rate explanations explicitly identify option substitution and show the complete year-specific substitution before accepting a choice;
 - consecutive-balance principal questions display the actual observation years rather than abstract `t` and `t+1` labels;
 - balance-ledger variants show the principal, rate, duration or annual multiplier required to solve them;
 - repeating annual factors are rendered as exact fractions rather than truncated decimals presented as exact equalities;
-- year-gap wording uses forms such as `2-year gap`, not `2 years gap`.
+- exact repeating rates remain exact in answer choices and final answers, such as `16\frac{2}{3}\%` and `14\frac{2}{7}\%`;
+- year-gap wording uses forms such as `2-year gap`, not `2 years gap`;
+- singular durations render as `1 year`, never `1 years`.
 
-The grounding audit rejects hidden givens, circular rate reasoning, duplicated option-check verification, missing observation years and stale approximate factor text during generation of any review candidate.
+The grounding audit rejects hidden givens, circular rate reasoning, duplicated option-check verification, missing observation years, stale approximate factor text and singular displayed-duration grammar during generation of any review candidate.
+
+## Exam-friendly numeric construction
+
+Principal construction is owned by the selected solve contract rather than by unrelated random year fields.
+
+For each QL, the generator now determines the exact factor power actually required by that QL and constructs a principal compatible with that denominator power. It prefers familiar exam-scale values and friendly cancellation bases, while retaining exact rational authority and mathematical-state diversity.
+
+This prevents irrelevant generated fields from forcing awkward values such as arbitrary large denominator multiples and keeps calculations exact without relying on post-generation rounding.
+
+## Difficulty calibration
+
+Difficulty is derived from learner work rather than from presentation labels alone.
+
+The current model accounts for:
+
+- the QL's conceptual stages;
+- direct, inverse or multi-stage direction;
+- annual-factor and power arithmetic;
+- representation burden exactly once;
+- year-gap work;
+- repeating percentage forms, which cannot remain low arithmetic load.
+
+Compound-interest questions include the final amount-minus-principal stage. Non-terminating percentages such as `16\frac{2}{3}\%` and `14\frac{2}{7}\%` are never classified as Easy merely because their annual factors have small numerators and denominators.
+
+Review-pack difficulty coverage follows the calibrated labels; questions are not relabelled or artificially selected to satisfy a fixed Easy quota.
 
 ## Trace and editorial rejection rules
 
@@ -83,7 +110,9 @@ The trace and learner-output audits reject:
 - singular-year grammar errors;
 - Unicode or plain mixed fractions inside MathJax expressions;
 - truncated repeating decimals presented as exact annual factors;
-- explanations that use a non-answer annual rate absent from the displayed givens.
+- rounded display of an exact repeating correct rate;
+- explanations that use a non-answer annual rate absent from the displayed givens;
+- inverse-rate option checks that omit the actual nth-year substitution.
 
 ## Generation and presentation policy
 
@@ -95,6 +124,6 @@ The learner-facing remediation uses six rendered representations, Indian formatt
 
 Draft PR #491 targets the current CP-003 remediation branch. Exact branch-head proof is maintained in the PR description and GitHub Actions evidence rather than embedded here, so documentation-only commits cannot make this file self-stale.
 
-The inherited CP-002 freeze regression, legacy CP-003 completion proof, strengthened exam-readiness audit, semantic solution-trace audit, grounded presentation checks, 56-question review export, evidence assertions and complete API build must all pass at the reviewed head.
+The inherited CP-002 freeze regression, legacy CP-003 completion proof, strengthened exam-readiness audit, semantic solution-trace audit, grounded presentation checks, exact-rate checks, calibrated-difficulty checks, 56-question review export, evidence assertions and complete API build must all pass at the reviewed head.
 
 No English freeze, staging, registration, Question Studio discovery, Question Bank write, test eligibility or publication is permitted without fresh explicit approval.
