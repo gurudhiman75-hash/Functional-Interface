@@ -70,17 +70,10 @@ Rate profiles constrain eligible QLs, maximum years and allowed contexts. Bank-s
 
 The learner-facing remediation uses six rendered representations, Indian formatting, deterministic option shuffling, misconception-owned distractors, three explanation depths and MathJax guards. QL-065 continues to withhold derived endpoint amounts. Amount-ratio rate recovery remains restricted to two years, while nth-year rate recovery remains restricted to years two or three.
 
-## Exact-head proof
+## Validation proof
 
-Draft PR #491 targets the current CP-003 remediation branch.
+Draft PR #491 targets the current CP-003 remediation branch. Exact branch-head proof is maintained in the PR description and GitHub Actions evidence rather than embedded here, so documentation-only commits cannot make this file self-stale.
 
-```text
-Exact validated head:  5e11ed09cff64386489b3e437529abec9e922ac1
-Workflow run:          30871251217
-Evidence artifact:     8877953362
-Artifact digest:       sha256:70bf8a03616e504458842f0399a5d17aaa47ea142792d5a37db1ebe7ebbe2d14
-```
-
-The inherited CP-002 freeze regression, legacy CP-003 completion proof, strengthened exam-readiness audit, semantic solution-trace audit, 56-question review export, evidence assertions and complete API build all passed.
+The inherited CP-002 freeze regression, legacy CP-003 completion proof, strengthened exam-readiness audit, semantic solution-trace audit, 56-question review export, evidence assertions and complete API build must all pass at the reviewed head.
 
 No English freeze, staging, registration, Question Studio discovery, Question Bank write, test eligibility or publication is permitted without fresh explicit approval.
