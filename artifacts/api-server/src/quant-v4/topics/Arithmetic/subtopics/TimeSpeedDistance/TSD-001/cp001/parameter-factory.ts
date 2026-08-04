@@ -4,8 +4,9 @@ import { SeededRng } from "./runtime-support";
 import { clockState, conversionState, directState, mixedUnitState } from "./parameter-core";
 import { comparisonState, proportionState, ratioState } from "./parameter-relational";
 import { claimState, classificationState, deadlineState, paceState } from "./parameter-advanced";
+import { applyProportionRepresentation } from "./proportion-representation";
 
-export function generateState(authority: TsdCp001DiscoveryAuthority, seed: string): GeneratedState {
+function generateRawState(authority: TsdCp001DiscoveryAuthority, seed: string): GeneratedState {
   const rng = new SeededRng(`${authority.provisionalId}:${seed}`);
   switch (authority.solveMode) {
     case "distanceFromSpeedAndTime":
@@ -45,4 +46,8 @@ export function generateState(authority: TsdCp001DiscoveryAuthority, seed: strin
     case "verifyUniformMotionClaim":
       return claimState(rng);
   }
+}
+
+export function generateState(authority: TsdCp001DiscoveryAuthority, seed: string): GeneratedState {
+  return applyProportionRepresentation(seed, generateRawState(authority, seed));
 }
