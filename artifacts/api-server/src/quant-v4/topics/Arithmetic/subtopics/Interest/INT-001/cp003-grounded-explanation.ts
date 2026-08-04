@@ -22,7 +22,7 @@ export function explanationFor(trace: Cp003SolutionTrace): Cp003StudentExplanati
   const annualFactor = rational(factorStep, "annualFactor");
   const keyIdea = "Use the answer choices in the nth-year-interest relation. The option that reproduces the given yearly interest is the required rate.";
   const steps = Object.freeze([
-    `Check the option ${rateMath(rate)}: annual factor $=1+\\frac{${rate.numerator}}{${rate.denominator === 1n ? 100n : rate.denominator * 100n}}=${fractionLatex(annualFactor)}$.`,
+    `Check the option ${rateMath(rate)}: its annual factor is $${fractionLatex(annualFactor)}$.`,
     base.steps[1]!,
   ]);
   const sourceStepIds = Object.freeze([factorStep.id, verificationStep.id]);
