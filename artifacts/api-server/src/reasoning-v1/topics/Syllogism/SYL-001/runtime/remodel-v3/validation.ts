@@ -46,8 +46,9 @@ export function validateSylQuestionV3(
     question.explanation.fastRule.naturalLanguage,
     question.explanation.finalAnswer,
   ].join(" ");
-  if (BANNED_NATURALNESS.test(learnerText)) {
-    errors.push("Learner-facing text contains a known agreement, premise-list or punctuation regression.");
+  const naturalnessMatch = learnerText.match(BANNED_NATURALNESS)?.[0] ?? null;
+  if (naturalnessMatch !== null) {
+    errors.push(`Learner-facing text contains a known agreement, premise-list or punctuation regression: ${JSON.stringify(naturalnessMatch)}.`);
   }
 
   const svg = question.explanation.combinedDiagram.svg;
