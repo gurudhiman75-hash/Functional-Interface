@@ -24,6 +24,10 @@ const POSITION_PERMUTATIONS = Object.freeze([
 ]);
 
 const q = (value: Fraction): string => formatFraction(value);
+const quantity = (value: Fraction, singular: string, plural = `${singular}s`): string =>
+  `${q(value)} ${value.n === value.d ? singular : plural}`;
+const hours = (value: Fraction): string => quantity(value, "hour");
+const minutes = (value: Fraction): string => quantity(value, "minute");
 
 function numeric(solution: TsdCp002Solution): Fraction {
   if (typeof solution.value !== "object") throw new Error("Expected a numeric CP-002 solution");
@@ -73,9 +77,10 @@ export function cp002Difficulty(mode: TsdCp002LearnerSolveMode, input: TsdCp002I
 }
 
 function segmentSummary(segments: readonly Segment[]): readonly string[] {
-  return segments.map((segment, index) =>
-    `Segment ${index + 1} time = ${q(segment.distanceKm)} ÷ ${q(segment.speedKmph)} = ${q(segmentTime(segment))} hours.`,
-  );
+  return segments.map((segment, index) => {
+    const time = segmentTime(segment);
+    return `Segment ${index + 1} time = ${q(segment.distanceKm)} ÷ ${q(segment.speedKmph)} = ${hours(time)}.`;
+  });
 }
 
 export function cp002Shortcut(input: TsdCp002Input, fallback: string): string {
@@ -94,13 +99,23 @@ export function cp002Shortcut(input: TsdCp002Input, fallback: string): string {
 
 export function cp002WorkingLines(input: TsdCp002Input, solution: TsdCp002Solution, fallback: readonly string[]): readonly string[] {
   switch (input.mode) {
+    case "averageSpeedFromSegments": {
+      const totalDistance = totalSegmentDistance(input.segments);
+      const totalTime = totalSegmentTime(input.segments);
+      return Object.freeze([
+        ...segmentSummary(input.segments),
+        `Total distance = ${input.segments.map((segment) => q(segment.distanceKm)).join(" + ")} = ${q(totalDistance)} km.`,
+        `Total travelling time = ${input.segments.map((segment) => q(segmentTime(segment))).join(" + ")} = ${hours(totalTime)}.`,
+        `Average speed = ${q(totalDistance)} ÷ ${q(totalTime)} = ${q(numeric(solution))} km/h.`,
+      ]);
+    }
     case "averagePaceFromSegments": {
       const segmentMinutes = input.segments.map((segment) => multiply(segment.distanceKm, segment.paceMinutesPerKm));
       const totalMinutes = sum(segmentMinutes);
       const totalDistance = sum(input.segments.map((segment) => segment.distanceKm));
       return Object.freeze([
-        ...input.segments.map((segment, index) => `Segment ${index + 1} time = ${q(segment.distanceKm)} × ${q(segment.paceMinutesPerKm)} = ${q(segmentMinutes[index])} minutes.`),
-        `Total time = ${segmentMinutes.map(q).join(" + ")} = ${q(totalMinutes)} minutes.`,
+        ...input.segments.map((segment, index) => `Segment ${index + 1} time = ${q(segment.distanceKm)} × ${q(segment.paceMinutesPerKm)} = ${minutes(segmentMinutes[index])}.`),
+        `Total time = ${segmentMinutes.map(q).join(" + ")} = ${minutes(totalMinutes)}.`,
         `Total distance = ${input.segments.map((segment) => q(segment.distanceKm)).join(" + ")} = ${q(totalDistance)} km.`,
         `Average pace = ${q(totalMinutes)} ÷ ${q(totalDistance)} = ${q(numeric(solution))} minutes/km.`,
       ]);
@@ -112,9 +127,9 @@ export function cp002WorkingLines(input: TsdCp002Input, solution: TsdCp002Soluti
       const remainingTime = subtract(allowedTotalTime, knownTime);
       return Object.freeze([
         `Total distance = ${q(input.knownDistanceKm)} + ${q(input.unknownDistanceKm)} = ${q(totalDistance)} km.`,
-        `Allowed total time = ${q(totalDistance)} ÷ ${q(input.overallAverageKmph)} = ${q(allowedTotalTime)} hours.`,
-        `Known-leg time = ${q(input.knownDistanceKm)} ÷ ${q(input.knownSpeedKmph)} = ${q(knownTime)} hours.`,
-        `Unknown-leg time = ${q(allowedTotalTime)} − ${q(knownTime)} = ${q(remainingTime)} hours.`,
+        `Allowed total time = ${q(totalDistance)} ÷ ${q(input.overallAverageKmph)} = ${hours(allowedTotalTime)}.`,
+        `Known-leg time = ${q(input.knownDistanceKm)} ÷ ${q(input.knownSpeedKmph)} = ${hours(knownTime)}.`,
+        `Unknown-leg time = ${q(allowedTotalTime)} − ${q(knownTime)} = ${hours(remainingTime)}.`,
         `Unknown speed = ${q(input.unknownDistanceKm)} ÷ ${q(remainingTime)} = ${q(numeric(solution))} km/h.`,
       ]);
     }
@@ -124,9 +139,9 @@ export function cp002WorkingLines(input: TsdCp002Input, solution: TsdCp002Soluti
       const missingTime = subtract(totalTime, input.knownTimeHours);
       return Object.freeze([
         `Total distance = ${q(totalDistance)} km.`,
-        `Complete journey time = ${q(totalDistance)} ÷ ${q(input.overallAverageKmph)} = ${q(totalTime)} hours.`,
-        `Known time = ${q(input.knownTimeHours)} hours.`,
-        `Missing time = ${q(totalTime)} − ${q(input.knownTimeHours)} = ${q(missingTime)} hours.`,
+        `Complete journey time = ${q(totalDistance)} ÷ ${q(input.overallAverageKmph)} = ${hours(totalTime)}.`,
+        `Known time = ${hours(input.knownTimeHours)}.`,
+        `Missing time = ${q(totalTime)} − ${q(input.knownTimeHours)} = ${hours(missingTime)}.`,
       ]);
     }
     case "unknownSegmentDistanceFromAverage": {
@@ -135,6 +150,7 @@ export function cp002WorkingLines(input: TsdCp002Input, solution: TsdCp002Soluti
       const rightSide = subtract(multiply(input.overallAverageKmph, knownTime), input.knownDistanceKm);
       return Object.freeze([
         "Let the unknown second distance be x km.",
+        `Known-leg time = ${q(input.knownDistanceKm)} ÷ ${q(input.knownSpeedKmph)} = ${hours(knownTime)}.`,
         `(${q(input.knownDistanceKm)} + x) ÷ (${q(knownTime)} + x/${q(input.unknownSpeedKmph)}) = ${q(input.overallAverageKmph)}.`,
         `${q(input.knownDistanceKm)} + x = ${q(input.overallAverageKmph)} × (${q(knownTime)} + x/${q(input.unknownSpeedKmph)}).`,
         `Collecting terms gives ${q(coefficient)}x = ${q(rightSide)}.`,
@@ -175,15 +191,40 @@ export function cp002WorkingLines(input: TsdCp002Input, solution: TsdCp002Soluti
         `x = ${q(numerator)} ÷ ${q(denominator)} = ${q(numeric(solution))} km/h.`,
       ]);
     }
+    case "oneWayDistanceFromRoundTripData": {
+      const reciprocalSum = add(reciprocal(input.outwardSpeedKmph), reciprocal(input.returnSpeedKmph));
+      return Object.freeze([
+        "Let the one-way distance be d km.",
+        `Outward time = d/${q(input.outwardSpeedKmph)} and return time = d/${q(input.returnSpeedKmph)}.`,
+        `d(${q(reciprocal(input.outwardSpeedKmph))} + ${q(reciprocal(input.returnSpeedKmph))}) = ${q(input.totalTimeHours)}.`,
+        `The reciprocal-speed sum is ${q(reciprocalSum)}.`,
+        `d = ${q(input.totalTimeHours)} ÷ ${q(reciprocalSum)} = ${q(numeric(solution))} km.`,
+      ]);
+    }
+    case "roundTripTimeFromOneWayDistance": {
+      const outwardTime = divide(input.oneWayDistanceKm, input.outwardSpeedKmph);
+      const returnTime = divide(input.oneWayDistanceKm, input.returnSpeedKmph);
+      return Object.freeze([
+        `Outward time = ${q(input.oneWayDistanceKm)} ÷ ${q(input.outwardSpeedKmph)} = ${hours(outwardTime)}.`,
+        `Return time = ${q(input.oneWayDistanceKm)} ÷ ${q(input.returnSpeedKmph)} = ${hours(returnTime)}.`,
+        `Round-trip time = ${q(outwardTime)} + ${q(returnTime)} = ${hours(numeric(solution))}.`,
+      ]);
+    }
+    case "totalDistanceFromAverageAndTime":
+      return Object.freeze([
+        "Total distance = overall average × complete travelling time.",
+        `= ${q(input.overallAverageKmph)} × ${q(input.totalTimeHours)}.`,
+        `= ${q(numeric(solution))} km.`,
+      ]);
     case "segmentAllocationFromTotalsAndSpeeds": {
       const firstTime = divide(subtract(multiply(input.secondSpeedKmph, input.totalTimeHours), input.totalDistanceKm), subtract(input.secondSpeedKmph, input.firstSpeedKmph));
       const secondTime = subtract(input.totalTimeHours, firstTime);
       const firstDistance = multiply(input.firstSpeedKmph, firstTime);
       const secondDistance = multiply(input.secondSpeedKmph, secondTime);
       const finalLine = input.requested === "FIRST_TIME"
-        ? `Required first time = ${q(firstTime)} hours.`
+        ? `Required first time = ${hours(firstTime)}.`
         : input.requested === "SECOND_TIME"
-          ? `Required second time = ${q(secondTime)} hours.`
+          ? `Required second time = ${hours(secondTime)}.`
           : input.requested === "FIRST_DISTANCE"
             ? `Required first distance = ${q(firstDistance)} km.`
             : `Required second distance = ${q(secondDistance)} km.`;
@@ -191,8 +232,8 @@ export function cp002WorkingLines(input: TsdCp002Input, solution: TsdCp002Soluti
         `t₁ + t₂ = ${q(input.totalTimeHours)}.`,
         `${q(input.firstSpeedKmph)}t₁ + ${q(input.secondSpeedKmph)}t₂ = ${q(input.totalDistanceKm)}.`,
         `Substitute t₂ = ${q(input.totalTimeHours)} − t₁.`,
-        `t₁ = (${q(input.secondSpeedKmph)} × ${q(input.totalTimeHours)} − ${q(input.totalDistanceKm)}) ÷ (${q(input.secondSpeedKmph)} − ${q(input.firstSpeedKmph)}) = ${q(firstTime)} hours.`,
-        `t₂ = ${q(input.totalTimeHours)} − ${q(firstTime)} = ${q(secondTime)} hours.`,
+        `t₁ = (${q(input.secondSpeedKmph)} × ${q(input.totalTimeHours)} − ${q(input.totalDistanceKm)}) ÷ (${q(input.secondSpeedKmph)} − ${q(input.firstSpeedKmph)}) = ${hours(firstTime)}.`,
+        `t₂ = ${q(input.totalTimeHours)} − ${q(firstTime)} = ${hours(secondTime)}.`,
         `Distances are ${q(firstDistance)} km and ${q(secondDistance)} km.`,
         finalLine,
       ]);
@@ -226,9 +267,9 @@ export function cp002WorkingLines(input: TsdCp002Input, solution: TsdCp002Soluti
       const remainingDistance = subtract(input.totalDistanceKm, input.completedDistanceKm);
       const remainingTime = subtract(targetTime, input.completedTimeHours);
       return Object.freeze([
-        `Target total time = ${q(input.totalDistanceKm)} ÷ ${q(input.targetAverageKmph)} = ${q(targetTime)} hours.`,
-        `Time already used = ${q(input.completedTimeHours)} hours.`,
-        `Remaining time = ${q(targetTime)} − ${q(input.completedTimeHours)} = ${q(remainingTime)} hours.`,
+        `Target total time = ${q(input.totalDistanceKm)} ÷ ${q(input.targetAverageKmph)} = ${hours(targetTime)}.`,
+        `Time already used = ${hours(input.completedTimeHours)}.`,
+        `Remaining time = ${q(targetTime)} − ${q(input.completedTimeHours)} = ${hours(remainingTime)}.`,
         `Remaining distance = ${q(input.totalDistanceKm)} − ${q(input.completedDistanceKm)} = ${q(remainingDistance)} km.`,
         `Required speed = ${q(remainingDistance)} ÷ ${q(remainingTime)} = ${q(numeric(solution))} km/h.`,
       ]);
@@ -242,9 +283,9 @@ export function cp002WorkingLines(input: TsdCp002Input, solution: TsdCp002Soluti
       const averageB = averageSpeedForSegments(input.planB);
       return Object.freeze([
         ...segmentSummary(input.planA).map((line) => `Plan A — ${line}`),
-        `Plan A: total distance ${q(distanceA)} km, total time ${q(timeA)} hours, average ${q(averageA)} km/h.`,
+        `Plan A: total distance ${q(distanceA)} km, total time ${hours(timeA)}, average ${q(averageA)} km/h.`,
         ...segmentSummary(input.planB).map((line) => `Plan B — ${line}`),
-        `Plan B: total distance ${q(distanceB)} km, total time ${q(timeB)} hours, average ${q(averageB)} km/h.`,
+        `Plan B: total distance ${q(distanceB)} km, total time ${hours(timeB)}, average ${q(averageB)} km/h.`,
         `Therefore, ${solution.value}.`,
       ]);
     }
