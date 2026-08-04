@@ -307,11 +307,10 @@ function representationBurden(representation: Cp003Representation): 0 | 1 | 2 {
   if (representation === "ACCOUNT_TABLE" || representation === "BANK_STATEMENT") return 1;
   return 2;
 }
-function conceptualSteps(qlId: IntCp003QlId, representation: Cp003Representation, yearGap: number): number {
+function conceptualSteps(qlId: IntCp003QlId, _representation: Cp003Representation, yearGap: number): number {
   let steps = qlId === "INT-QL-053" ? 1 : qlId === "INT-QL-054" ? 3 : ["INT-QL-055", "INT-QL-058", "INT-QL-059", "INT-QL-062", "INT-QL-063"].includes(qlId) ? 2 : 3;
   if (["INT-QL-061", "INT-QL-064", "INT-QL-065", "INT-QL-066"].includes(qlId)) steps += 1;
   if (yearGap > 1) steps += 1;
-  if (representationBurden(representation) === 2) steps += 1;
   return steps;
 }
 function difficultyProfile(qlId: IntCp003QlId, representation: Cp003Representation, profile: RateProfile, powerValue: number, yearGap: number): Cp003DifficultyProfile {
