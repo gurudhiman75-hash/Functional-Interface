@@ -28,17 +28,17 @@ jobs:
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-foundation.test.ts
           rnk-cp004-discovery-output
 
-      - name: Enforce exam-readiness English remodel gates
+      - name: Enforce adaptive exam-readiness English V2 gates
         run: >-
           npx --yes tsx
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-exam-ready.test.ts
-          rnk-cp004-exam-ready-output
+          rnk-cp004-exam-ready-v2-output
 
-      - name: Upload RNK-CP-004 remodeled review evidence
+      - name: Upload RNK-CP-004 adaptive remodel V2 evidence
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp004-english-remodel-review-pending-v2
+          name: rnk-001-cp004-english-remodel-v2-review-pending
           path: |
             rnk-cp004-discovery-output
-            rnk-cp004-exam-ready-output
+            rnk-cp004-exam-ready-v2-output
           retention-days: 14
