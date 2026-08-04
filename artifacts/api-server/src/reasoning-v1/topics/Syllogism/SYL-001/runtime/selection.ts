@@ -1,5 +1,13 @@
 import type { EvaluatedConclusion, ModalAnswer, PairClassificationStatus, PairSemanticStatus, ScenarioAnalysis, SylQlDefinition } from "./types";
-import { analyzeScenario, conclusionSemanticKey, isGenuineEitherOr, pairClassificationStatus, pairSemanticStatus, selectedPremisesAreRelevant } from "./analysis";
+import {
+  analyzeScenario,
+  conclusionDirectlyRestatesPremise,
+  conclusionSemanticKey,
+  isGenuineEitherOr,
+  pairClassificationStatus,
+  pairSemanticStatus,
+  selectedPremisesAreRelevant,
+} from "./analysis";
 import { createPrng, shuffle } from "./prng";
 import { scenariosForGroup } from "./scenarios";
 
@@ -38,6 +46,22 @@ function combinations<T>(items: readonly T[], count: number, limit = 30000): T[]
   return out;
 }
 
+function candidateMode(candidate: EvaluatedConclusion): "VERDICT" | "MODEL_SPACE" {
+  return candidate.profile.classification === "UNDETERMINED" ? "MODEL_SPACE" : "VERDICT";
+}
+
+function novelCandidates(analysis: ScenarioAnalysis): readonly EvaluatedConclusion[] {
+  return analysis.candidates.filter((candidate) =>
+    !conclusionDirectlyRestatesPremise(analysis.premises, candidate.conclusion));
+}
+
+function correctCandidateUsesFullChain(
+  analysis: ScenarioAnalysis,
+  candidate: EvaluatedConclusion,
+): boolean {
+  return selectedPremisesAreRelevant(analysis, [candidate], candidateMode(candidate));
+}
+
 function chooseSelectionQuestion(
   definition: SylQlDefinition,
   seed: number,
@@ -51,12 +75,16 @@ function chooseSelectionQuestion(
 
   for (const scenario of scenarios) {
     const analysis = analyzeScenario(scenario);
-    const candidateOrder = shuffle(analysis.candidates, random);
+    const candidateOrder = shuffle(novelCandidates(analysis), random);
     const correctPool = candidateOrder.filter((candidate) => {
-      if (target === "ENTAILED") return candidate.profile.classification === "ENTAILED";
-      if (target === "NON_ENTAILED") return candidate.profile.classification !== "ENTAILED";
-      if (target === "UNDETERMINED") return candidate.profile.classification === "UNDETERMINED";
-      return candidate.profile.classification === "CONTRADICTED";
+      const targetMatch = target === "ENTAILED"
+        ? candidate.profile.classification === "ENTAILED"
+        : target === "NON_ENTAILED"
+          ? candidate.profile.classification !== "ENTAILED"
+          : target === "UNDETERMINED"
+            ? candidate.profile.classification === "UNDETERMINED"
+            : candidate.profile.classification === "CONTRADICTED";
+      return targetMatch && correctCandidateUsesFullChain(analysis, candidate);
     });
     const distractorPool = candidateOrder.filter((candidate) => {
       if (target === "ENTAILED") return candidate.profile.classification !== "ENTAILED";
@@ -69,14 +97,15 @@ function chooseSelectionQuestion(
       for (const distractors of combinations(distractorPool.slice(0, 32), 3, 2000)) {
         const selected = [correct, ...distractors];
         if (new Set(selected.map(conclusionSemanticKey)).size !== 4) continue;
-        if (!selectedPremisesAreRelevant(analysis, selected)) continue;
+        const relevanceMode = candidateMode(correct);
+        if (!selectedPremisesAreRelevant(analysis, selected, relevanceMode)) continue;
         return {
           analysis,
           conclusions: shuffle(selected, random),
           semanticAnswer: conclusionSemanticKey(correct),
           followMask: null,
           pairStatus: null,
-          relevanceMode: "VERDICT",
+          relevanceMode,
         };
       }
     }
@@ -98,20 +127,21 @@ function chooseModalQuestion(
   const scenarios = rotated(shuffle(scenariosForGroup(definition.scenarioGroup), random), seed);
   for (const scenario of scenarios) {
     const analysis = analyzeScenario(scenario);
-    const candidates = shuffle(analysis.candidates, random).filter((candidate) => {
+    const candidates = shuffle(novelCandidates(analysis), random).filter((candidate) => {
       if (target === "DEFINITELY_TRUE") return candidate.profile.classification === "ENTAILED";
       if (target === "POSSIBLY_TRUE_NOT_DEFINITE") return candidate.profile.classification === "UNDETERMINED";
       return candidate.profile.classification === "CONTRADICTED";
     });
     for (const candidate of candidates) {
-      if (!selectedPremisesAreRelevant(analysis, [candidate], target === "POSSIBLY_TRUE_NOT_DEFINITE" ? "MODEL_SPACE" : "VERDICT")) continue;
+      const relevanceMode = target === "POSSIBLY_TRUE_NOT_DEFINITE" ? "MODEL_SPACE" : "VERDICT";
+      if (!selectedPremisesAreRelevant(analysis, [candidate], relevanceMode)) continue;
       return {
         analysis,
         conclusions: [candidate],
         semanticAnswer: target,
         followMask: null,
         pairStatus: null,
-        relevanceMode: target === "POSSIBLY_TRUE_NOT_DEFINITE" ? "MODEL_SPACE" : "VERDICT",
+        relevanceMode,
       };
     }
   }
@@ -132,7 +162,7 @@ function chooseTwoConclusionQuestion(
 
   for (const scenario of scenarios) {
     const analysis = analyzeScenario(scenario);
-    const candidates = shuffle(analysis.candidates, random).slice(0, 60);
+    const candidates = shuffle(novelCandidates(analysis), random).slice(0, 60);
     for (let firstIndex = 0; firstIndex < candidates.length; firstIndex += 1) {
       for (let secondIndex = 0; secondIndex < candidates.length; secondIndex += 1) {
         if (firstIndex === secondIndex) continue;
@@ -176,7 +206,7 @@ function choosePairClassificationQuestion(
   const scenarios = rotated(shuffle(scenariosForGroup(definition.scenarioGroup), random), seed);
   for (const scenario of scenarios) {
     const analysis = analyzeScenario(scenario);
-    const candidates = shuffle(analysis.candidates, random).slice(0, 60);
+    const candidates = shuffle(novelCandidates(analysis), random).slice(0, 60);
     for (const first of candidates) {
       for (const second of candidates) {
         if (conclusionSemanticKey(first) === conclusionSemanticKey(second)) continue;
@@ -207,12 +237,13 @@ function chooseThreeConclusionQuestion(
   const scenarios = rotated(shuffle(scenariosForGroup(definition.scenarioGroup), random), seed);
   for (const scenario of scenarios) {
     const analysis = analyzeScenario(scenario);
+    const candidates = novelCandidates(analysis);
     const follows = shuffle(
-      analysis.candidates.filter((candidate) => candidate.profile.classification === "ENTAILED"),
+      candidates.filter((candidate) => candidate.profile.classification === "ENTAILED"),
       random,
     ).slice(0, 30);
     const notFollows = shuffle(
-      analysis.candidates.filter((candidate) => candidate.profile.classification !== "ENTAILED"),
+      candidates.filter((candidate) => candidate.profile.classification !== "ENTAILED"),
       random,
     ).slice(0, 40);
     const pools = [0, 1, 2].map((index) => ((targetMask & (1 << index)) !== 0 ? follows : notFollows));
