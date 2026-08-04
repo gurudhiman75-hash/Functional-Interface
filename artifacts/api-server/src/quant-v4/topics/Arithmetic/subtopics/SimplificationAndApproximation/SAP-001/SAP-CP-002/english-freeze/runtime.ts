@@ -1,6 +1,6 @@
 import { generateSapCp002Wave01Package } from "../wave01/runtime";
 import type { SapCp002Wave01Package } from "../wave01/types";
-import { generateSapCp002CompletionPackage } from "../completion/runtime";
+import { generateSapCp002CompletionPackage } from "../completion/final-runtime";
 import type { SapCp002CompletionPackage } from "../completion/types";
 import {
   SAP_CP002_ALL_PROTOTYPE_IDS,
