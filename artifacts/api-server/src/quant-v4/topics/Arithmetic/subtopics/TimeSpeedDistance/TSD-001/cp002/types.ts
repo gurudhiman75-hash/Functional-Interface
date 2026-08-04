@@ -1,3 +1,5 @@
+import type { TsdEditorialDifficulty, TsdEditorialLifecycle } from "../editorial-contract";
+import type { TsdCp002AuthoritySubmode } from "./editorial-authority-audit";
 import type { Fraction } from "./fraction";
 
 export const TSD_CP002_LEARNER_SOLVE_MODES = [
@@ -193,14 +195,19 @@ export interface TsdCp002Explanation {
 }
 
 export interface TsdCp002GeneratedQuestion {
+  readonly chapterId: "TSD-001";
+  readonly checkpointId: "TSD-CP-002";
   readonly archetypeId: "TSD-001";
   readonly canonicalProblemId: "TSD-CP-002";
   readonly provisionalAuthorityId: `TSD-CP002-DISC-${string}`;
   readonly permanentQlId: `TSD-QL-${string}`;
+  readonly questionLanguageId: string;
   readonly solveMode: TsdCp002LearnerSolveMode;
+  readonly authoritySubmode: TsdCp002AuthoritySubmode;
   readonly language: "en";
   readonly seed: string;
   readonly representation: string;
+  readonly difficulty: TsdEditorialDifficulty;
   readonly stem: string;
   readonly stemMathJax: string;
   readonly input: TsdCp002Input;
@@ -211,12 +218,11 @@ export interface TsdCp002GeneratedQuestion {
   readonly correctIndex: number;
   readonly explanation: TsdCp002Explanation;
   readonly mathematicalFingerprint: string;
-  readonly lifecycle: {
-    readonly englishFreezeStatus: "FROZEN";
-    readonly questionBankStatus: "NOT_STORED";
-    readonly testEligibility: "INELIGIBLE";
-    readonly publiclyPublishable: false;
-  };
+  readonly lifecycle: TsdEditorialLifecycle;
   readonly publiclyPublishable: false;
-  readonly validation: { readonly valid: boolean; readonly errors: readonly string[] };
+  readonly validation: {
+    readonly valid: boolean;
+    readonly errors: readonly string[];
+    readonly warnings: readonly string[];
+  };
 }
