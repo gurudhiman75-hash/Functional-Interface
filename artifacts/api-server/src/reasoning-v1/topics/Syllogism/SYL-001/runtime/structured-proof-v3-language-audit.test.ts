@@ -43,6 +43,8 @@ for (const definition of SYL_QL_REGISTRY) {
         assert(!/\bevery [A-Za-z]+s\b/iu.test(learnerText), `${key} uses a plural category directly after Every.`);
         assert(!/\banother [A-Za-z]+s\b/iu.test(learnerText), `${key} uses a plural category as another single member.`);
         assert(!/This option needs [^.]+ must [^.]+\./iu.test(learnerText), `${key} has a double-verb option explanation.`);
+        assert(!/This option requires that [^.]+ must [^.]+\./iu.test(learnerText), `${key} retains a double-modal option explanation.`);
+        assert(!/\b[a-z)] (?:At least one member|No member|Every member|One member|Together,|Therefore,|Combining these relations)/u.test(learnerText), `${key} joins proof sentences without punctuation.`);
         for (const analysis of proof.visibleOptionAnalysis) {
           for (const pattern of genericEnglishReasons) {
             assert(!pattern.test(analysis.studentReason.trim()), `${key}/option-${analysis.displayIndex} retained generic reasoning: ${analysis.studentReason}`);
