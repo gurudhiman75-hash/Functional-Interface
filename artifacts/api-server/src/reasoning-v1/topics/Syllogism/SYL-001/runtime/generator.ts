@@ -19,6 +19,7 @@ import { buildStructuredProofV3 } from "./structured-proof-v3";
 import { enforceStructuredProofV3Consistency } from "./structured-proof-v3-consistency";
 import { finalizeStructuredProofV3 } from "./structured-proof-v3-finalize";
 import { naturalizeStructuredProofV3 } from "./structured-proof-v3-naturalize";
+import { polishStructuredProofV3Statements } from "./structured-proof-v3-statement-polish";
 import type { GeneratedSylQuestionV3 } from "./structured-proof-v3-types";
 import { assignTerms } from "./term-assignment";
 import type {
@@ -165,7 +166,12 @@ export function generateSylQuestion(
     correctClassification: correctCandidate?.profile.classification ?? null,
     correctConclusionForm: correctCandidate?.conclusion.form ?? null,
   });
-  const naturalizedStructuredProofV3 = naturalizeStructuredProofV3(finalizedStructuredProofV3, {
+  const statementPolishedStructuredProofV3 = polishStructuredProofV3Statements(finalizedStructuredProofV3, {
+    locale,
+    displayedPremises,
+    termLabels,
+  });
+  const naturalizedStructuredProofV3 = naturalizeStructuredProofV3(statementPolishedStructuredProofV3, {
     locale,
     taskKind: definition.taskKind,
     displayedPremises,
