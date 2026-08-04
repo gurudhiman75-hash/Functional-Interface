@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import type { InternalConclusionClass, SylLocale } from "../foundation/types";
 import type { SylTaskKind } from "./types";
 import type { SylStructuredProofV3 } from "./structured-proof-v3-types";
@@ -11,6 +12,10 @@ interface ConsistencyInput {
 
 function localized(locale: SylLocale, en: string, hi: string, pa: string): string {
   return locale === "hi-IN" ? hi : locale === "pa-IN" ? pa : en;
+}
+
+function hash(value: unknown): string {
+  return createHash("sha256").update(JSON.stringify(value)).digest("hex");
 }
 
 function modalProof(input: ConsistencyInput): string | null {
@@ -57,19 +62,47 @@ export function enforceStructuredProofV3Consistency(
         }
       : step);
   const correctedModalProof = modalProof(input);
+  const correctOptionProof = {
+    ...proof.correctOptionProof,
+    premiseIdsUsed: decisivePremiseIds,
+    reasoningSteps: reasoningSteps.map((step) => step.text),
+    studentProof: correctedModalProof ?? proof.correctOptionProof.studentProof,
+  };
+  const combinedReasoning = {
+    ...proof.combinedReasoning,
+    decisivePremiseIds,
+    reasoningSteps,
+  };
+  const contentHash = hash({
+    authority: proof.authority,
+    locale: proof.locale,
+    taskKind: proof.taskKind,
+    statementMeanings: proof.statementMeanings,
+    combinedReasoning,
+    visibleOptionAnalysis: proof.visibleOptionAnalysis,
+    correctOptionProof,
+    fastRule: proof.fastRule,
+    diagramSpec: proof.diagramSpec,
+    integratedDiagramSvg: proof.integratedDiagramSvg,
+    finalAnswer: proof.finalAnswer,
+  });
+  const reviewVersionId = `syl-review-${contentHash.slice(0, 20)}`;
 
   return {
     ...proof,
-    combinedReasoning: {
-      ...proof.combinedReasoning,
-      decisivePremiseIds,
-      reasoningSteps,
+    identity: {
+      ...proof.identity,
+      reviewVersionId,
     },
-    correctOptionProof: {
-      ...proof.correctOptionProof,
-      premiseIdsUsed: decisivePremiseIds,
-      reasoningSteps: reasoningSteps.map((step) => step.text),
-      studentProof: correctedModalProof ?? proof.correctOptionProof.studentProof,
+    combinedReasoning,
+    correctOptionProof,
+    validationEvidence: proof.validationEvidence.map((entry) => ({
+      ...entry,
+      contentHash,
+    })),
+    humanReview: {
+      ...proof.humanReview,
+      contentVersion: reviewVersionId,
     },
   };
 }
