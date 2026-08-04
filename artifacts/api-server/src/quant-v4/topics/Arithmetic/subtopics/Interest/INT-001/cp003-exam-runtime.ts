@@ -13,16 +13,17 @@ import {
 } from "./cp003-exam-model";
 import type { IntCp003ExamQuestion } from "./cp003-exam-types";
 import { ANSWER_SEMANTICS, resolve } from "./cp003-exam-support";
-import { presentationFor } from "./cp003-exam-presentation";
+import { presentationFor } from "./cp003-grounded-presentation";
 import { optionsFor } from "./cp003-exam-options";
-import { explanationFor } from "./cp003-exam-explanation";
+import { explanationFor } from "./cp003-grounded-explanation";
 import {
   INT_CP003_SOLUTION_TRACE_VERSION,
   buildCp003SolutionTrace,
   validateCp003SolutionTrace,
-} from "./cp003-solution-trace";
+} from "./cp003-grounded-solution-trace";
+import { assertCp003PresentationGrounding } from "./cp003-presentation-grounding";
 
-export const INT_CP003_EXAM_GENERATOR_VERSION = "INT-CP-003-EXAM-GENERATOR-v3" as const;
+export const INT_CP003_EXAM_GENERATOR_VERSION = "INT-CP-003-EXAM-GENERATOR-v4" as const;
 
 export {
   INT_CP003_AUTHORITY_VERSION,
@@ -34,7 +35,7 @@ export {
   type IntCp003QlId,
   type Rational,
 } from "./cp003-exam-model";
-export { INT_CP003_SOLUTION_TRACE_VERSION } from "./cp003-solution-trace";
+export { INT_CP003_SOLUTION_TRACE_VERSION } from "./cp003-grounded-solution-trace";
 export type { IntCp003ExamQuestion } from "./cp003-exam-types";
 
 export function normalizePresentationTemplate(markdown: string): string {
@@ -85,15 +86,17 @@ export function generateIntCp003ExamQuestion(
   if (!verifyAnswer(contract.mathematicalState, solution)) throw new Error(`${qlId}: canonical solver and independent relation verifier disagree`);
   if (registryEntry.answerSemantic !== ANSWER_SEMANTICS[qlId]) throw new Error(`${qlId}: registry and learner answer semantics disagree`);
 
+  const presentation = presentationFor(contract, resolved);
   const solutionTrace = buildCp003SolutionTrace(contract, resolved, solution);
   const traceValidation = validateCp003SolutionTrace(solutionTrace, contract.mathematicalState);
   if (!traceValidation.ok) throw new Error(`${qlId}: invalid solution trace: ${traceValidation.errors.join(" | ")}`);
 
-  const presentation = presentationFor(contract, resolved);
   const options = optionsFor(contract, resolved);
   const correctIndex = options.findIndex((option) => option.isCorrect);
   if (correctIndex < 0 || options.filter((option) => option.isCorrect).length !== 1) throw new Error(`${qlId}: correct option ownership failure`);
   const explanation = explanationFor(solutionTrace);
+  assertCp003PresentationGrounding(contract, resolved, presentation, solutionTrace, explanation);
+
   const explanationStrings = collectStrings(explanation);
   if (explanationStrings.some((text) => /\$=\$[^$\n]+\$\$/u.test(text))) throw new Error(`${qlId}: malformed MathJax delimiter reached learner content`);
   if (explanationStrings.some((text) => /\$[^$\n]*(?:⅓|⅔|⅛|⅜|⅝|⅞|¼|½|¾|14 2\/7)[^$\n]*\$/u.test(text))) {
