@@ -40,6 +40,9 @@ for (const definition of SYL_QL_REGISTRY) {
         assert(!/Statements? \d+(?: and \d+)+ (?:blocks|forces|makes)\b/iu.test(learnerText), `${key} has subject–verb disagreement.`);
         assert(!/[.!?]\s+definitely follows\b/iu.test(learnerText), `${key} has broken final-answer punctuation.`);
         assert(!/at least one [a-z]+s (?:is|stays|must)\b/iu.test(learnerText), `${key} treats a plural category name as one object.`);
+        assert(!/\bevery [A-Za-z]+s\b/iu.test(learnerText), `${key} uses a plural category directly after Every.`);
+        assert(!/\banother [A-Za-z]+s\b/iu.test(learnerText), `${key} uses a plural category as another single member.`);
+        assert(!/This option needs [^.]+ must [^.]+\./iu.test(learnerText), `${key} has a double-verb option explanation.`);
         for (const analysis of proof.visibleOptionAnalysis) {
           for (const pattern of genericEnglishReasons) {
             assert(!pattern.test(analysis.studentReason.trim()), `${key}/option-${analysis.displayIndex} retained generic reasoning: ${analysis.studentReason}`);
