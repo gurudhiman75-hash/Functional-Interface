@@ -51,11 +51,11 @@ The 14 current learner methods are:
 13. annual amount difference;
 14. yearly-interest geometric growth.
 
-`cp003-exam-explanation.ts` remains a pure English renderer over the approved trace. It does not independently reconstruct compound-interest answers. Exam, student and foundation views all carry source-step IDs back to the same trace.
+The base English renderer remains trace-driven, while the grounded renderer applies representation-aware wording and exact-display policy without independently reconstructing answers. Exam, student and foundation views all carry source-step IDs back to the same trace.
 
 ## Grounded learner contract
 
-The exam runtime now validates the question presentation, semantic trace and rendered explanation as one learner-visible contract.
+The exam runtime validates the question presentation, semantic trace and rendered explanation as one learner-visible contract.
 
 The grounded layer enforces that:
 
