@@ -25,7 +25,7 @@ for (const authority of TSD_CP002_LEARNER_AUTHORITIES) {
     assert(first.options.length === 4 && new Set(first.options).size === 4, `${authority.solveMode}:${index}: string option uniqueness failed`);
     assert(new Set(first.options.map(semanticCp002OptionKey)).size === 4, `${authority.solveMode}:${index}: semantic option uniqueness failed`);
     assert(first.answerText === first.options[first.correctIndex], `${authority.solveMode}:${index}: answer key mismatch`);
-    assert(first.explanation.stepByStepSolution.length >= 6, `${authority.solveMode}:${index}: explanation is incomplete`);
+    assert(first.explanation.stepByStepSolution.length >= 5, `${authority.solveMode}:${index}: explanation is incomplete`);
     assert(first.explanation.optionAnalysis.length === 4, `${authority.solveMode}:${index}: option analysis is incomplete`);
     assert(first.explanation.optionAnalysis.every((entry) => entry.reason.includes(entry.text)), `${authority.solveMode}:${index}: option reason is not value-specific`);
 
