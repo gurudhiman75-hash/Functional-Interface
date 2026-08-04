@@ -23,6 +23,48 @@ function conclusionKey(conclusion: CanonicalConclusion): string {
   return `${conclusion.form}:${conclusion.subject}:${conclusion.predicate}`;
 }
 
+function directPremiseConclusionKeys(premise: SurfacePremise): readonly string[] {
+  const subject = premise.subject;
+  const predicate = premise.predicate;
+  const key = (form: CanonicalCategoricalForm, left: TermId, right: TermId): string =>
+    `${form}:${left}:${right}`;
+
+  switch (premise.form) {
+    case "ALL":
+      return [key("ALL", subject, predicate)];
+    case "NO":
+      return [key("NO", subject, predicate), key("NO", predicate, subject)];
+    case "SOME":
+    case "A_FEW":
+      return [key("SOME", subject, predicate), key("SOME", predicate, subject)];
+    case "SOME_NOT":
+    case "NOT_ALL":
+      return [key("SOME_NOT", subject, predicate)];
+    case "ONLY":
+      return [key("ALL", predicate, subject)];
+    case "ARE_ONLY":
+      return [key("ALL", subject, predicate)];
+    case "ONLY_A_FEW":
+      return [
+        key("SOME", subject, predicate),
+        key("SOME", predicate, subject),
+        key("SOME_NOT", subject, predicate),
+      ];
+    case "IDENTITY":
+      return [key("ALL", subject, predicate), key("ALL", predicate, subject)];
+    case "FEW":
+      return [];
+  }
+}
+
+export function conclusionDirectlyRestatesPremise(
+  premises: readonly SurfacePremise[],
+  conclusion: CanonicalConclusion,
+): boolean {
+  const target = conclusionKey(conclusion);
+  return premises.some((premise) => directPremiseConclusionKeys(premise).includes(target));
+}
+
 function modelSignature(model: EvaluatedConclusion["profile"]["witnessModel"]): string {
   if (!model) return "NONE";
   return model.occupiedRegions.map((region) => region.mask).sort((a, b) => a - b).join(",");
