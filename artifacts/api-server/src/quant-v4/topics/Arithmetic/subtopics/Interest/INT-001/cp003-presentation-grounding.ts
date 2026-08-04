@@ -1,4 +1,4 @@
-import type { Cp003QuestionContract } from "./cp003-exam-model";
+import { amount, type Cp003QuestionContract } from "./cp003-exam-model";
 import type { Cp003RenderedPresentation, Cp003StudentExplanation } from "./cp003-exam-types";
 import {
   annualFactorText,
@@ -74,7 +74,8 @@ export function assertCp003PresentationGrounding(
   }
 
   if (contract.qlId === "INT-QL-059" && representation === "BALANCE_LEDGER") {
-    requireVisible(markdown, moneyMath(resolved.earlierAmount), prefix, "opening balance of the required year");
+    const openingBalance = amount(resolved.principal, resolved.ratePercent, resolved.targetYear - 1);
+    requireVisible(markdown, moneyMath(openingBalance), prefix, "opening balance of the required year");
     requireVisible(markdown, rateMath(resolved.ratePercent), prefix, "annual rate");
     requireVisible(markdown, ordinal(resolved.targetYear), prefix, "required year");
   }
@@ -97,8 +98,12 @@ export function assertCp003PresentationGrounding(
     const rateVisible = markdown.includes(rateMath(resolved.ratePercent));
     const factorVisible = markdown.includes(annualFactorText(resolved.ratePercent));
     if (!rateVisible && !factorVisible) throw new Error(`${prefix}: displayed question omits the annual rate or multiplier`);
-    requireVisible(markdown, ordinal(resolved.earlierYear), prefix, "earlier year");
     requireVisible(markdown, ordinal(resolved.laterYear), prefix, "later year");
+    if (representation === "GROWTH_RATIO") {
+      requireVisible(markdown, String(resolved.laterYear - resolved.earlierYear), prefix, "year gap");
+    } else {
+      requireVisible(markdown, ordinal(resolved.earlierYear), prefix, "earlier year");
+    }
   }
 
   if (contract.qlId !== "INT-QL-057" && contract.qlId !== "INT-QL-061") {
