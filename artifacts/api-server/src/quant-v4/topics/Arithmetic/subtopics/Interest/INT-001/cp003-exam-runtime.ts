@@ -30,11 +30,11 @@ export {
   INT_CP003_RATE_LIBRARY,
   INT_CP003_SOLVER_VERSION,
   INT_CP003_VERIFIER_VERSION,
-  INT_CP003_SOLUTION_TRACE_VERSION,
   generateCp003QuestionContract,
   type IntCp003QlId,
   type Rational,
 } from "./cp003-exam-model";
+export { INT_CP003_SOLUTION_TRACE_VERSION } from "./cp003-solution-trace";
 export type { IntCp003ExamQuestion } from "./cp003-exam-types";
 
 export function normalizePresentationTemplate(markdown: string): string {
