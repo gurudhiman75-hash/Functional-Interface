@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { generateMalCp003DiscoveryPrototype } from "./foundation/cp003-prototype-runtime";
+import { runMalCp003DiscoveryPipeline } from "./foundation/cp003-discovery-pipeline";
 import { MAL_CP003_EXECUTABLE_PROTOTYPE_IDS } from "./foundation/cp003-discovery-registry";
 import {
   MAL_CP003_SOURCE_RUNTIME_ID,
@@ -137,7 +137,7 @@ assert(
 let existingPrototypeRegressionCount = 0;
 for (const prototypeId of MAL_CP003_EXECUTABLE_PROTOTYPE_IDS) {
   for (let index = 0; index < 10; index += 1) {
-    const question = generateMalCp003DiscoveryPrototype(
+    const question = runMalCp003DiscoveryPipeline(
       prototypeId,
       `cp003-discovery-${prototypeId}-${index}`,
     );
