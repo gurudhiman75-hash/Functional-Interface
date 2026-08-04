@@ -9,6 +9,7 @@ import type {
   Rational,
 } from "./cp003-exam-model";
 import type { Cp003SolveContract } from "./cp003-math-authority";
+import type { Cp003SolutionMethodId, Cp003SolutionTrace } from "./cp003-solution-trace";
 
 export interface Cp003PresentationTable {
   readonly headers: readonly string[];
@@ -33,15 +34,29 @@ export interface Cp003Option {
   readonly isCorrect: boolean;
 }
 
-export interface Cp003ExplanationLayer { readonly steps: readonly string[] }
+export interface Cp003ExplanationLayer {
+  readonly steps: readonly string[];
+  readonly sourceStepIds: readonly string[];
+}
 
 export interface Cp003StudentExplanation {
+  readonly traceVersion: string;
+  readonly methodId: Cp003SolutionMethodId;
   readonly keyIdea: string;
   readonly steps: readonly string[];
+  readonly sourceStepIds: readonly string[];
   readonly finalAnswer: string;
-  readonly shortcut?: Readonly<{ title: string; steps: readonly string[] }>;
+  readonly shortcut?: Readonly<{
+    title: string;
+    steps: readonly string[];
+    sourceStepIds: readonly string[];
+  }>;
   readonly commonMistake?: string;
-  readonly verification?: Readonly<{ method: string; steps: readonly string[] }>;
+  readonly verification?: Readonly<{
+    method: string;
+    steps: readonly string[];
+    sourceStepIds: readonly string[];
+  }>;
   readonly depths: Readonly<{
     exam: Cp003ExplanationLayer;
     student: Cp003ExplanationLayer;
@@ -75,6 +90,7 @@ export interface IntCp003ExamQuestion {
   readonly correctIndex: number;
   readonly correctAnswer: string;
   readonly solution: Rational;
+  readonly solutionTrace: Cp003SolutionTrace;
   readonly explanation: Cp003StudentExplanation;
   readonly editorialStatus: "SECOND_REMEDIATION_REVIEW_CANDIDATE";
   readonly approvalStatus: "WITHDRAWN_PENDING_REAUDIT";
