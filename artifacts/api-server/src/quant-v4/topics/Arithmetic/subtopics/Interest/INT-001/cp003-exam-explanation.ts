@@ -1,8 +1,9 @@
 import type { Cp003StudentExplanation } from "./cp003-exam-types";
-import {
-  type Cp003SolutionTrace,
-  type Cp003SolutionTraceStep,
-  type Cp003TraceDatum,
+import type {
+  Cp003SolutionTrace,
+  Cp003SolutionTraceStep,
+  Cp003TraceDatum,
+  Cp003TraceDatumSemantic,
 } from "./cp003-solution-trace";
 import {
   answerText,
@@ -43,243 +44,128 @@ function findStep(trace: Cp003SolutionTrace, teachingKey: string): Cp003Solution
   return step;
 }
 
+const yearsText = (years: number): string => `$${years}$ year${years === 1 ? "" : "s"}`;
+const completedYearsText = (years: number): string => `$${years}$ completed year${years === 1 ? "" : "s"}`;
+
+function renderedValue(value: Rational, semantic: Cp003TraceDatumSemantic): string {
+  switch (semantic) {
+    case "MONEY": return moneyMath(value);
+    case "RATE_PERCENT": return rateMath(value);
+    case "FACTOR": return `$${fractionLatex(value)}$`;
+    case "TIME_YEARS": return yearsText(Number(value.numerator / value.denominator));
+    case "NUMBER": return `$${fractionLatex(value)}$`;
+  }
+}
+
 function renderStep(step: Cp003SolutionTraceStep): string {
-  switch (step.teachingKey) {
+  switch (step.operationId) {
     case "ANNUAL_FACTOR": {
-      const ratePercent = rational(step, "ratePercent");
-      const annualFactor = rational(step, "annualFactor");
-      return `Annual factor: $1+\\frac{${ratePlain(ratePercent)}}{100}=${fractionLatex(annualFactor)}$.`;
+      const rate = rational(step, "ratePercent"), annualFactor = rational(step, "annualFactor");
+      return `Annual factor: $1+\\frac{${ratePlain(rate)}}{100}=${fractionLatex(annualFactor)}$.`;
     }
-    case "GROWTH_MULTIPLIER": {
-      const base = rational(step, "base");
-      const exponent = numeric(step, "exponent");
-      const result = rational(step, "result");
-      return `Multiplier for $${exponent}$ years: $\\left(${fractionLatex(base)}\\right)^{${exponent}}=${fractionLatex(result)}$.`;
+    case "POWER": {
+      const base = rational(step, "base"), exponent = numeric(step, "exponent"), result = rational(step, "result");
+      const label = step.teachingKey === "PRIOR_YEAR_GROWTH"
+        ? "Growth before the required year"
+        : step.teachingKey === "YEARLY_INTEREST_MULTIPLIER"
+          ? `Yearly-interest multiplier for the ${yearsText(exponent)} gap`
+          : step.teachingKey === "OBSERVED_FACTOR_POWER"
+            ? "Multiplier from the principal to the earlier observation"
+            : `Multiplier for ${yearsText(exponent)}`;
+      return `${label}: $\\left(${fractionLatex(base)}\\right)^{${exponent}}=${fractionLatex(result)}$.`;
     }
-    case "AMOUNT_PRODUCT": {
-      const principal = rational(step, "left");
-      const multiplier = rational(step, "right");
-      const result = rational(step, "result");
-      return `$A=${moneyPlain(principal)}\\times${fractionLatex(multiplier)}=${moneyPlain(result)}$.`;
+    case "MULTIPLY": {
+      const leftDatum = datum(step, "left"), resultDatum = datum(step, "result");
+      if (leftDatum.kind !== "RATIONAL" || resultDatum.kind !== "RATIONAL") throw new Error(`${step.id}: malformed multiplication trace`);
+      const left = renderedValue(leftDatum.value, leftDatum.semantic), right = rational(step, "right"), result = renderedValue(resultDatum.value, resultDatum.semantic);
+      const label = step.teachingKey === "AMOUNT_PRODUCT" ? "Amount"
+        : step.teachingKey === "NTH_YEAR_INTEREST_FACTOR" ? "Year-specific interest factor"
+          : step.teachingKey === "LATER_YEAR_INTEREST" ? "Later-year interest"
+            : "Product";
+      return `${label}: ${left} $\\times ${fractionLatex(right)} = ${result}$.`;
     }
-    case "COMPOUND_INTEREST_DIFFERENCE": {
-      const amount = rational(step, "left");
-      const principal = rational(step, "right");
-      const result = rational(step, "result");
-      return `$CI=A-P=${moneyPlain(amount)}-${moneyPlain(principal)}=${moneyPlain(result)}$.`;
+    case "SUBTRACT": {
+      const leftDatum = datum(step, "left"), rightDatum = datum(step, "right"), resultDatum = datum(step, "result");
+      if (leftDatum.kind !== "RATIONAL" || rightDatum.kind !== "RATIONAL" || resultDatum.kind !== "RATIONAL") throw new Error(`${step.id}: malformed subtraction trace`);
+      const left = renderedValue(leftDatum.value, leftDatum.semantic), right = renderedValue(rightDatum.value, rightDatum.semantic), result = renderedValue(resultDatum.value, resultDatum.semantic);
+      const label = step.teachingKey === "COMPOUND_INTEREST_DIFFERENCE" ? "Compound interest"
+        : step.teachingKey === "COMPOUND_INTEREST_FACTOR" ? "Compound-interest factor"
+          : step.teachingKey === "RATE_FRACTION_FROM_FACTOR" ? "Rate fraction"
+            : step.teachingKey === "ONE_YEAR_INCREASE" ? "One-year interest"
+              : "Required difference";
+      return `${label}: ${left} $-${right}=${result}$.`;
     }
-    case "REVERSE_AMOUNT_TO_PRINCIPAL": {
-      const amount = rational(step, "numerator");
-      const multiplier = rational(step, "denominator");
-      const result = rational(step, "result");
-      return `$P=${moneyPlain(amount)}\\div${fractionLatex(multiplier)}=${moneyPlain(result)}$.`;
+    case "DIVIDE": {
+      const numerator = rational(step, "numerator"), denominator = rational(step, "denominator"), resultDatum = datum(step, "result");
+      if (resultDatum.kind !== "RATIONAL") throw new Error(`${step.id}: malformed division trace`);
+      if (step.teachingKey === "AMOUNT_RATIO") return `$\\frac{A}{P}=\\frac{${numerator.numerator}}{${denominator.numerator}}=${fractionLatex(resultDatum.value)}$.`;
+      if (step.teachingKey === "OBSERVED_ANNUAL_FACTOR") return `Annual factor: $${moneyPlain(numerator)}\\div${moneyPlain(denominator)}=${fractionLatex(resultDatum.value)}$.`;
+      const label = step.teachingKey === "PREVIOUS_BALANCE" ? "Previous balance"
+        : step.teachingKey.includes("PRINCIPAL") || step.teachingKey.includes("REVERSE") ? "Principal"
+          : "Result";
+      return `${label}: $${moneyPlain(numerator)}\\div${fractionLatex(denominator)}=${moneyPlain(resultDatum.value)}$.`;
     }
-    case "COMPOUND_INTEREST_FACTOR": {
-      const multiplier = rational(step, "left");
-      const result = rational(step, "result");
-      return `Compound-interest factor: $${fractionLatex(multiplier)}-1=${fractionLatex(result)}$.`;
+    case "RATE_FROM_FACTOR": {
+      const annualFactor = rational(step, "annualFactor"), rate = rational(step, "ratePercent");
+      return `Annual factor $=${fractionLatex(annualFactor)}$, so rate $=(${fractionLatex(annualFactor)}-1)\\times100=${ratePlain(rate)}\\%$.`;
     }
-    case "PRINCIPAL_FROM_CI_FACTOR": {
-      const interest = rational(step, "numerator");
-      const ciFactor = rational(step, "denominator");
-      const result = rational(step, "result");
-      return `$P=${moneyPlain(interest)}\\div${fractionLatex(ciFactor)}=${moneyPlain(result)}$.`;
+    case "MATCH_POWER": {
+      const base = rational(step, "base"), exponent = numeric(step, "exponent"), target = rational(step, "target");
+      return step.teachingKey === "MATCH_FACTOR_POWER_FOR_TIME"
+        ? `$${fractionLatex(base)}^{${exponent}}=${fractionLatex(target)}$, so the time is ${yearsText(exponent)}.`
+        : `Recognise $${fractionLatex(target)}=\\left(${fractionLatex(base)}\\right)^{${exponent}}$.`;
     }
-    case "AMOUNT_RATIO": {
-      const amount = rational(step, "numerator");
-      const principal = rational(step, "denominator");
-      const ratio = rational(step, "result");
-      return `$\\frac{A}{P}=\\frac{${amount.numerator}}{${principal.numerator}}=${fractionLatex(ratio)}$.`;
-    }
-    case "MATCH_FACTOR_POWER_FOR_RATE": {
-      const base = rational(step, "base");
-      const exponent = numeric(step, "exponent");
-      const target = rational(step, "target");
-      return `Recognise $${fractionLatex(target)}=\\left(${fractionLatex(base)}\\right)^{${exponent}}$.`;
-    }
-    case "FACTOR_TO_RATE": {
-      const annualFactor = rational(step, "annualFactor");
-      const ratePercent = rational(step, "ratePercent");
-      return `Annual factor $=${fractionLatex(annualFactor)}$, so the rate is $(${fractionLatex(annualFactor)}-1)\\times100=${ratePlain(ratePercent)}\\%$.`;
-    }
-    case "VERIFY_AMOUNT_WITH_RATE": {
-      const principal = rational(step, "principal");
-      const ratePercent = rational(step, "ratePercent");
-      const year = numeric(step, "year");
-      const result = rational(step, "result");
-      return `${moneyMath(principal)} compounded at ${rateMath(ratePercent)} for $${year}$ years gives ${moneyMath(result)}.`;
-    }
-    case "MATCH_FACTOR_POWER_FOR_TIME": {
-      const base = rational(step, "base");
-      const exponent = numeric(step, "exponent");
-      const target = rational(step, "target");
-      return `$${fractionLatex(base)}^{${exponent}}=${fractionLatex(target)}$, so the time is $${exponent}$ years.`;
-    }
-    case "FOUNDATION_YEAR_BALANCE": {
-      const year = numeric(step, "year");
-      const result = rational(step, "result");
+    case "YEAR_BALANCE": {
+      const year = numeric(step, "year"), result = rational(step, "result");
+      if (step.teachingKey === "OPENING_BALANCE_OF_TARGET_YEAR") return `Opening balance of year $${year + 1}$, after ${completedYearsText(year)}: ${moneyMath(result)}.`;
+      if (step.teachingKey === "EARLIER_YEAR_AMOUNT" || step.teachingKey === "LATER_YEAR_AMOUNT") return `Amount after ${yearsText(year)}: ${moneyMath(result)}.`;
+      if (step.teachingKey === "VERIFY_AMOUNT_WITH_RATE") {
+        return `${moneyMath(rational(step, "principal"))} compounded at ${rateMath(rational(step, "ratePercent"))} for ${yearsText(year)} gives ${moneyMath(result)}.`;
+      }
       return `Balance after year $${year}$: ${moneyMath(result)}.`;
     }
-    case "OPENING_BALANCE_OF_TARGET_YEAR": {
-      const year = numeric(step, "year");
-      const result = rational(step, "result");
-      return `Opening balance of year $${year + 1}$, after $${year}$ completed years: ${moneyMath(result)}.`;
-    }
-    case "TARGET_YEAR_INTEREST": {
-      const amount = rational(step, "amount");
-      const ratePercent = rational(step, "ratePercent");
-      const result = rational(step, "result");
-      return `Required yearly interest: ${rateMath(ratePercent)} of ${moneyMath(amount)} $=${moneyPlain(result)}$.`;
-    }
-    case "FOUNDATION_YEAR_INTEREST": {
-      const year = numeric(step, "year");
-      const result = rational(step, "result");
+    case "YEAR_INTEREST": {
+      const year = numeric(step, "year"), result = rational(step, "result");
       return `Interest earned during the ${ordinal(year)} year: ${moneyMath(result)}.`;
     }
-    case "RATE_FRACTION_FROM_FACTOR": {
-      const annualFactor = rational(step, "left");
-      const rateFraction = rational(step, "result");
-      return `Rate as a fraction of the balance: $${fractionLatex(annualFactor)}-1=${fractionLatex(rateFraction)}$.`;
+    case "RATE_PERCENT_OF_AMOUNT": {
+      const amount = rational(step, "amount"), rate = rational(step, "ratePercent"), result = rational(step, "result");
+      return step.teachingKey === "CONSECUTIVE_AMOUNT_DIFFERENCE"
+        ? `The difference is the next year's interest: ${rateMath(rate)} of ${moneyMath(amount)} $=${moneyPlain(result)}$.`
+        : `Required yearly interest: ${rateMath(rate)} of ${moneyMath(amount)} $=${moneyPlain(result)}$.`;
     }
-    case "PRIOR_YEAR_GROWTH": {
-      const base = rational(step, "base");
-      const exponent = numeric(step, "exponent");
-      const result = rational(step, "result");
-      return `Growth before the required year: $(${fractionLatex(base)})^{${exponent}}=${fractionLatex(result)}$.`;
-    }
-    case "NTH_YEAR_INTEREST_FACTOR": {
-      const rateFraction = rational(step, "left");
-      const earlierGrowth = rational(step, "right");
-      const result = rational(step, "result");
-      return `Year-specific interest factor: $${fractionLatex(rateFraction)}\\times${fractionLatex(earlierGrowth)}=${fractionLatex(result)}$.`;
-    }
-    case "PRINCIPAL_FROM_NTH_YEAR_INTEREST_FACTOR": {
-      const yearlyInterest = rational(step, "numerator");
-      const interestFactor = rational(step, "denominator");
-      const result = rational(step, "result");
-      return `$P=${moneyPlain(yearlyInterest)}\\div${fractionLatex(interestFactor)}=${moneyPlain(result)}$.`;
+    case "RATE_FROM_INCREASE": {
+      const increase = rational(step, "increase"), opening = rational(step, "openingAmount"), rate = rational(step, "ratePercent");
+      return `Rate $=\\frac{${moneyPlain(increase)}}{${moneyPlain(opening)}}\\times100=${ratePlain(rate)}\\%$.`;
     }
     case "VERIFY_NTH_YEAR_RATE": {
-      const principal = rational(step, "principal");
-      const ratePercent = rational(step, "ratePercent");
-      const year = numeric(step, "year");
-      const expectedInterest = rational(step, "expectedInterest");
-      return `At ${rateMath(ratePercent)}, the ${ordinal(year)}-year interest on ${moneyMath(principal)} is exactly ${moneyMath(expectedInterest)}.`;
+      const principal = rational(step, "principal"), rate = rational(step, "ratePercent"), year = numeric(step, "year"), interest = rational(step, "expectedInterest");
+      return `At ${rateMath(rate)}, the ${ordinal(year)}-year interest on ${moneyMath(principal)} is exactly ${moneyMath(interest)}.`;
     }
-    case "PREVIOUS_BALANCE": {
-      const current = rational(step, "numerator");
-      const annualFactor = rational(step, "denominator");
-      const result = rational(step, "result");
-      return `Previous balance $=${moneyPlain(current)}\\div${fractionLatex(annualFactor)}=${moneyPlain(result)}$.`;
-    }
-    case "ONE_YEAR_INCREASE": {
-      const closing = rational(step, "left");
-      const opening = rational(step, "right");
-      const result = rational(step, "result");
-      return `One-year interest: $${moneyPlain(closing)}-${moneyPlain(opening)}=${moneyPlain(result)}$.`;
-    }
-    case "RATE_FROM_OPENING_BALANCE": {
-      const increase = rational(step, "increase");
-      const opening = rational(step, "openingAmount");
-      const ratePercent = rational(step, "ratePercent");
-      return `Rate $=\\frac{${moneyPlain(increase)}}{${moneyPlain(opening)}}\\times100=${ratePlain(ratePercent)}\\%$.`;
-    }
-    case "OBSERVED_ANNUAL_FACTOR": {
-      const nextAmount = rational(step, "numerator");
-      const currentAmount = rational(step, "denominator");
-      const result = rational(step, "result");
-      return `Annual factor $=${moneyPlain(nextAmount)}\\div${moneyPlain(currentAmount)}=${fractionLatex(result)}$.`;
-    }
-    case "OBSERVED_FACTOR_POWER": {
-      const base = rational(step, "base");
-      const exponent = numeric(step, "exponent");
-      const result = rational(step, "result");
-      return `Multiplier from the principal to the earlier observation: $(${fractionLatex(base)})^{${exponent}}=${fractionLatex(result)}$.`;
-    }
-    case "REVERSE_OBSERVED_AMOUNT_TO_PRINCIPAL": {
-      const amount = rational(step, "numerator");
-      const multiplier = rational(step, "denominator");
-      const result = rational(step, "result");
-      return `$P=${moneyPlain(amount)}\\div${fractionLatex(multiplier)}=${moneyPlain(result)}$.`;
-    }
-    case "EARLIER_YEAR_AMOUNT": {
-      const year = numeric(step, "year");
-      const result = rational(step, "result");
-      return `Amount after $${year}$ years: ${moneyMath(result)}.`;
-    }
-    case "LATER_YEAR_AMOUNT": {
-      const year = numeric(step, "year");
-      const result = rational(step, "result");
-      return `Amount after $${year}$ years: ${moneyMath(result)}.`;
-    }
-    case "CONSECUTIVE_AMOUNT_DIFFERENCE": {
-      const earlierAmount = rational(step, "amount");
-      const ratePercent = rational(step, "ratePercent");
-      const result = rational(step, "result");
-      return `The difference is the next year's interest: ${rateMath(ratePercent)} of ${moneyMath(earlierAmount)} $=${moneyPlain(result)}$.`;
-    }
-    case "AMOUNT_DIFFERENCE": {
-      const laterAmount = rational(step, "left");
-      const earlierAmount = rational(step, "right");
-      const result = rational(step, "result");
-      return `Difference $=${moneyPlain(laterAmount)}-${moneyPlain(earlierAmount)}=${moneyPlain(result)}$.`;
-    }
-    case "YEARLY_INTEREST_MULTIPLIER": {
-      const base = rational(step, "base");
-      const exponent = numeric(step, "exponent");
-      const result = rational(step, "result");
-      return `Yearly-interest multiplier for the $${exponent}$-year gap: $(${fractionLatex(base)})^{${exponent}}=${fractionLatex(result)}$.`;
-    }
-    case "LATER_YEAR_INTEREST": {
-      const earlierInterest = rational(step, "left");
-      const multiplier = rational(step, "right");
-      const result = rational(step, "result");
-      return `Later-year interest $=${moneyPlain(earlierInterest)}\\times${fractionLatex(multiplier)}=${moneyPlain(result)}$.`;
-    }
-    default:
-      throw new Error(`unhandled explanation teaching key: ${step.teachingKey}`);
   }
 }
 
 function renderConcept(trace: Cp003SolutionTrace): string {
   switch (trace.conceptKey) {
-    case "AMOUNT_BY_ANNUAL_FACTOR": {
-      const step = findStep(trace, "ANNUAL_FACTOR");
-      return `The balance is multiplied by ${annualFactorText(rational(step, "ratePercent"))} once each year.`;
-    }
-    case "CI_AS_AMOUNT_MINUS_PRINCIPAL":
-      return "First find the maturity amount, then subtract the original principal.";
-    case "REVERSE_COMPOUND_AMOUNT":
-      return "Reverse all annual growth factors to recover the original principal.";
-    case "PRINCIPAL_FROM_CI_FACTOR":
-      return "The given compound interest equals the principal multiplied by the compound-interest factor.";
-    case "RATE_FROM_GROWTH_FACTOR":
-      return "Compare amount with principal, then identify the annual factor whose repeated power gives that growth.";
-    case "TIME_FROM_GROWTH_FACTOR":
-      return "Match the observed amount ratio with repeated powers of the known annual factor.";
+    case "AMOUNT_BY_ANNUAL_FACTOR": return `The balance is multiplied by ${annualFactorText(rational(findStep(trace, "ANNUAL_FACTOR"), "ratePercent"))} once each year.`;
+    case "CI_AS_AMOUNT_MINUS_PRINCIPAL": return "First find the maturity amount, then subtract the original principal.";
+    case "REVERSE_COMPOUND_AMOUNT": return "Reverse all annual growth factors to recover the original principal.";
+    case "PRINCIPAL_FROM_CI_FACTOR": return "The given compound interest equals the principal multiplied by the compound-interest factor.";
+    case "RATE_FROM_GROWTH_FACTOR": return "Compare amount with principal, then identify the annual factor whose repeated power gives that growth.";
+    case "TIME_FROM_GROWTH_FACTOR": return "Match the observed amount ratio with repeated powers of the known annual factor.";
     case "NTH_YEAR_INTEREST_FROM_OPENING_BALANCE": {
-      const step = findStep(trace, "OPENING_BALANCE_OF_TARGET_YEAR");
-      const year = numeric(step, "year") + 1;
-      return `Interest in the ${ordinal(year)} year is calculated on the balance after $${year - 1}$ completed years.`;
+      const completed = numeric(findStep(trace, "OPENING_BALANCE_OF_TARGET_YEAR"), "year");
+      return `Interest in the ${ordinal(completed + 1)} year is calculated on the balance after ${completedYearsText(completed)}.`;
     }
-    case "PRINCIPAL_FROM_NTH_YEAR_INTEREST":
-      return "Undo the year-specific interest factor to recover the principal.";
-    case "RATE_BY_NTH_YEAR_SUBSTITUTION":
-      return "Test the exact annual rate against the specified year's interest relation.";
-    case "PREVIOUS_BALANCE_BY_REVERSE_FACTOR":
-      return "Undo one year's growth by dividing the current balance by the annual factor.";
-    case "RATE_FROM_CONSECUTIVE_BALANCES":
-      return "The increase between consecutive balances is one year's interest on the opening balance.";
-    case "PRINCIPAL_FROM_CONSECUTIVE_BALANCES":
-      return "Use consecutive balances to obtain the annual factor, then reverse the earlier observation.";
-    case "AMOUNT_DIFFERENCE":
-      return trace.shortcut?.key === "NEXT_YEAR_INTEREST"
-        ? "The difference between consecutive year-end amounts is the interest earned in the later year."
-        : "Find the two required year-end amounts from the same principal and subtract.";
-    case "YEARLY_INTEREST_GP":
-      return "Successive yearly interests grow by the same annual factor as the account balance.";
-    default:
-      throw new Error(`unhandled concept key: ${trace.conceptKey}`);
+    case "PRINCIPAL_FROM_NTH_YEAR_INTEREST": return "Undo the year-specific interest factor to recover the principal.";
+    case "RATE_BY_NTH_YEAR_SUBSTITUTION": return "Test the exact annual rate against the specified year's interest relation.";
+    case "PREVIOUS_BALANCE_BY_REVERSE_FACTOR": return "Undo one year's growth by dividing the current balance by the annual factor.";
+    case "RATE_FROM_CONSECUTIVE_BALANCES": return "The increase between consecutive balances is one year's interest on the opening balance.";
+    case "PRINCIPAL_FROM_CONSECUTIVE_BALANCES": return "Use consecutive balances to obtain the annual factor, then reverse the earlier observation.";
+    case "AMOUNT_DIFFERENCE": return trace.shortcut?.key === "NEXT_YEAR_INTEREST"
+      ? "The difference between consecutive year-end amounts is the interest earned in the later year."
+      : "Find the two required year-end amounts from the same principal and subtract.";
+    case "YEARLY_INTEREST_GP": return "Successive yearly interests grow by the same annual factor as the account balance.";
   }
 }
 
@@ -307,85 +193,61 @@ function renderCommonMistake(key: string): string {
 
 function renderShortcut(trace: Cp003SolutionTrace): Cp003StudentExplanation["shortcut"] {
   if (!trace.shortcut) return undefined;
-  const sourceSteps = trace.shortcut.sourceStepIds.map((id) => {
-    const step = trace.coreSteps.find((candidate) => candidate.id === id);
-    if (!step) throw new Error(`${trace.qlId}: shortcut source step ${id} missing`);
-    return step;
-  });
+  const sourceStepIds = Object.freeze([...trace.shortcut.sourceStepIds]);
   switch (trace.shortcut.key) {
-    case "CANCEL_BEFORE_MULTIPLYING":
-      return Object.freeze({
-        title: "Cancel before multiplying",
-        steps: Object.freeze(sourceSteps.map(renderStep)),
-        sourceStepIds: Object.freeze([...trace.shortcut.sourceStepIds]),
-      });
-    case "REVERSE_FACTOR_DIRECTLY":
-      return Object.freeze({
-        title: "Reverse the complete growth factor directly",
-        steps: Object.freeze(sourceSteps.map(renderStep)),
-        sourceStepIds: Object.freeze([...trace.shortcut.sourceStepIds]),
-      });
-    case "OPENING_BALANCE_ONLY":
-      return Object.freeze({
-        title: "Find only the required year's opening balance",
-        steps: Object.freeze(sourceSteps.map(renderStep)),
-        sourceStepIds: Object.freeze([...trace.shortcut.sourceStepIds]),
-      });
-    case "NEXT_YEAR_INTEREST":
-      return Object.freeze({
-        title: "Treat the consecutive-year difference as interest",
-        steps: Object.freeze(sourceSteps.map(renderStep)),
-        sourceStepIds: Object.freeze([...trace.shortcut.sourceStepIds]),
-      });
-    case "YEARLY_INTEREST_GP":
-      return Object.freeze({
-        title: "Use the yearly-interest geometric progression",
-        steps: Object.freeze(sourceSteps.map(renderStep)),
-        sourceStepIds: Object.freeze([...trace.shortcut.sourceStepIds]),
-      });
-    default:
-      throw new Error(`unhandled shortcut key: ${trace.shortcut.key}`);
+    case "CANCEL_BEFORE_MULTIPLYING": return Object.freeze({
+      title: "Cancel before multiplying",
+      steps: Object.freeze(["Cancel the denominator of the total growth multiplier against the principal before multiplying its numerator."]),
+      sourceStepIds,
+    });
+    case "REVERSE_FACTOR_DIRECTLY": return Object.freeze({
+      title: "Reverse the complete growth factor directly",
+      steps: Object.freeze(["Compute the complete multi-year growth factor once, then divide the final amount by it."]),
+      sourceStepIds,
+    });
+    case "OPENING_BALANCE_ONLY": return Object.freeze({
+      title: "Find only the required year's opening balance",
+      steps: Object.freeze(["Skip total compound interest: find the balance at the start of the required year and take the given rate of that balance."]),
+      sourceStepIds,
+    });
+    case "NEXT_YEAR_INTEREST": return Object.freeze({
+      title: "Treat the consecutive-year difference as interest",
+      steps: Object.freeze(["For consecutive years, the amount difference is exactly the interest earned in the later year."]),
+      sourceStepIds,
+    });
+    case "YEARLY_INTEREST_GP": return Object.freeze({
+      title: "Use the yearly-interest geometric progression",
+      steps: Object.freeze(["Multiply the earlier yearly interest by the annual factor once for each year in the gap."]),
+      sourceStepIds,
+    });
+    default: throw new Error(`unhandled shortcut key: ${trace.shortcut.key}`);
   }
 }
 
 export function explanationFor(trace: Cp003SolutionTrace): Cp003StudentExplanation {
-  const keyIdea = renderConcept(trace);
-  const studentSteps = trace.coreSteps.map(renderStep);
+  const keyIdea = renderConcept(trace), studentSteps = trace.coreSteps.map(renderStep);
   const examSourceSteps = trace.coreSteps.length <= 2 ? trace.coreSteps : trace.coreSteps.slice(-2);
   const foundationSourceSteps = trace.foundationSteps.length > 0 ? trace.foundationSteps : trace.coreSteps;
   const shortcut = renderShortcut(trace);
-  const verification = trace.verificationSteps.length > 0
-    ? Object.freeze({
-        method: "Exact relation check",
-        steps: Object.freeze(trace.verificationSteps.map(renderStep)),
-        sourceStepIds: Object.freeze(trace.verificationSteps.map((step) => step.id)),
-      })
-    : undefined;
-  const finalAnswer = answerText(trace.answerSemantic, trace.finalAnswer);
-
+  const verification = trace.verificationSteps.length > 0 ? Object.freeze({
+    method: "Exact relation check",
+    steps: Object.freeze(trace.verificationSteps.map(renderStep)),
+    sourceStepIds: Object.freeze(trace.verificationSteps.map((step) => step.id)),
+  }) : undefined;
   return Object.freeze({
     traceVersion: trace.version,
     methodId: trace.methodId,
     keyIdea,
     steps: Object.freeze(studentSteps),
     sourceStepIds: Object.freeze(trace.coreSteps.map((step) => step.id)),
-    finalAnswer: `Therefore, the answer is ${finalAnswer}.`,
+    finalAnswer: `Therefore, the answer is ${answerText(trace.answerSemantic, trace.finalAnswer)}.`,
     ...(shortcut ? { shortcut } : {}),
     ...(trace.commonMistakeKey ? { commonMistake: renderCommonMistake(trace.commonMistakeKey) } : {}),
     ...(verification ? { verification } : {}),
     depths: Object.freeze({
-      exam: Object.freeze({
-        steps: Object.freeze(examSourceSteps.map(renderStep)),
-        sourceStepIds: Object.freeze(examSourceSteps.map((step) => step.id)),
-      }),
-      student: Object.freeze({
-        steps: Object.freeze([keyIdea, ...studentSteps]),
-        sourceStepIds: Object.freeze(trace.coreSteps.map((step) => step.id)),
-      }),
-      foundation: Object.freeze({
-        steps: Object.freeze(foundationSourceSteps.map(renderStep)),
-        sourceStepIds: Object.freeze(foundationSourceSteps.map((step) => step.id)),
-      }),
+      exam: Object.freeze({ steps: Object.freeze(examSourceSteps.map(renderStep)), sourceStepIds: Object.freeze(examSourceSteps.map((step) => step.id)) }),
+      student: Object.freeze({ steps: Object.freeze([keyIdea, ...studentSteps]), sourceStepIds: Object.freeze(trace.coreSteps.map((step) => step.id)) }),
+      foundation: Object.freeze({ steps: Object.freeze(foundationSourceSteps.map(renderStep)), sourceStepIds: Object.freeze(foundationSourceSteps.map((step) => step.id)) }),
     }),
   });
 }
