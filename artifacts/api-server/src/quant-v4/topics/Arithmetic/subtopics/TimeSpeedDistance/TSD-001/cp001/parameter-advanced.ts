@@ -65,7 +65,7 @@ export function paceState(mode: "speedFromPace" | "paceFromSpeed" | "distanceFro
       { speed: r(8), speedUnit: "KMPH", outputUnit: "MINUTE_PER_KM", speedText: "8 km/h" },
       { speed: r(20), speedUnit: "KMPH", outputUnit: "MINUTE_PER_KM", speedText: "20 km/h" },
       { speed: r(5), speedUnit: "MPS", outputUnit: "SECOND_PER_KM", speedText: "5 m/s" },
-      { speed: r(10), speedUnit: "MPS", outputUnit: "SECOND_PER_KM", speedText: "10 m/s" },
+      { speed: r(8), speedUnit: "MPS", outputUnit: "SECOND_PER_KM", speedText: "8 m/s" },
     ];
     const selected = rng.pick(cases);
     const asksMinutes = selected.outputUnit === "MINUTE_PER_KM";
@@ -77,15 +77,15 @@ export function paceState(mode: "speedFromPace" | "paceFromSpeed" | "distanceFro
         outputUnit: selected.outputUnit,
       },
       stem: asksMinutes
-        ? `A runner moves at ${selected.speedText}. How many minutes will the runner take to cover 1 km?`
-        : `A runner moves at ${selected.speedText}. How many seconds will the runner take to cover 1 km?`,
+        ? `A runner moves at ${selected.speedText}. What is the runner's pace in minutes per kilometre?`
+        : `A runner moves at ${selected.speedText}. What is the runner's pace in seconds per kilometre?`,
       display: {
         unit: PACE_LABEL[selected.outputUnit],
-        formula: asksMinutes ? "Time for 1 km = 60 ÷ speed in km/h" : "Time for 1 km = 1000 ÷ speed in m/s",
+        formula: asksMinutes ? "Pace in minutes/km = 60 ÷ speed in km/h" : "Pace in seconds/km = 1000 ÷ speed in m/s",
         givens: [`Speed = ${selected.speedText}`],
         shortcut: asksMinutes
-          ? "Divide 60 by the speed in km/h."
-          : "Divide 1000 metres by the speed in metres per second.",
+          ? "Divide 60 by the speed in km/h to obtain minutes per kilometre."
+          : "Divide 1000 metres by the speed in metres per second to obtain seconds per kilometre.",
       },
     };
   }
