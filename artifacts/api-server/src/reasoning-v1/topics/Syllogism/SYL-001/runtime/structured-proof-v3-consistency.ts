@@ -38,6 +38,7 @@ function polishFinalEnglish(value: string, locale: SylLocale): string {
     .replace(/\bevery ([A-Za-z]+s) is inside\b/giu, "every member of $1 is inside")
     .replace(/\banother ([A-Za-z]+s) may stay outside\b/giu, "another member of $1 may stay outside")
     .replace(/while another leaves one outside/giu, "while another valid arrangement leaves one member outside")
+    .replace(/\banother (has|makes|leaves|shows|keeps)\b/giu, "another valid arrangement $1")
     .replace(/This option needs ([^.]+ must [^.]+)\./giu, "This option requires that $1.")
     .replace(/This option requires that every member of ([^.]+) must be inside ([^.]+)\./giu, "This option requires every member of $1 to be inside $2.")
     .replace(/This option requires that at least one member of ([^.]+) must stay outside ([^.]+)\./giu, "This option requires at least one member of $1 to stay outside $2.")
@@ -70,7 +71,7 @@ function modalProof(input: ConsistencyInput): string | null {
   }
   return localized(
     input.locale,
-    `One valid arrangement makes the tested conclusion true and another makes it false. Therefore Option ${input.correctIndex + 1}, “possible but not definite,” is correct.`,
+    `One valid arrangement makes the tested conclusion true and another valid arrangement makes it false. Therefore Option ${input.correctIndex + 1}, “possible but not definite,” is correct.`,
     `एक सही व्यवस्था जाँचे गए निष्कर्ष को सत्य और दूसरी उसे असत्य बनाती है। इसलिए विकल्प ${input.correctIndex + 1}, “संभव, पर निश्चित नहीं,” सही है।`,
     `ਇੱਕ ਠੀਕ ਬਣਤਰ ਜਾਂਚੇ ਗਏ ਨਤੀਜੇ ਨੂੰ ਸਹੀ ਅਤੇ ਦੂਜੀ ਉਸ ਨੂੰ ਗਲਤ ਬਣਾਉਂਦੀ ਹੈ। ਇਸ ਲਈ ਵਿਕਲਪ ${input.correctIndex + 1}, “ਸੰਭਵ, ਪਰ ਨਿਸ਼ਚਿਤ ਨਹੀਂ,” ਠੀਕ ਹੈ।`,
   );
