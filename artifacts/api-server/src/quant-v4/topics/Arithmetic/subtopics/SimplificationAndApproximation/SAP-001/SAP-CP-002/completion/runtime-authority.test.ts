@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { SAP_CP002_COMPLETION_PROTOTYPE_IDS } from "./types";
-import { generateSapCp002CompletionSweep } from "./runtime";
+import { generateSapCp002CompletionSweep } from "./final-runtime";
 
 const packages = generateSapCp002CompletionSweep(100);
 assert.equal(SAP_CP002_COMPLETION_PROTOTYPE_IDS.length, 11);
@@ -81,6 +81,7 @@ console.log(JSON.stringify({
   temporaryPrototypeCount: SAP_CP002_COMPLETION_PROTOTYPE_IDS.length,
   generatedPackages: packages.length,
   taskDirections: [...directions].sort(),
+  fingerprintCounts: Object.fromEntries([...stats].map(([prototypeId, stat]) => [prototypeId, stat.fingerprints.size])),
   inverseCount,
   comparisonCount,
   selectionCount,
