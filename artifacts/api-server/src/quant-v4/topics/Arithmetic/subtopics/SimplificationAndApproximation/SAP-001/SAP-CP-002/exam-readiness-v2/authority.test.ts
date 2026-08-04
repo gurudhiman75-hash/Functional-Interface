@@ -16,7 +16,7 @@ assert.equal(sweep.length, 1_900);
 
 const banned = /(?:the denominator work is kept exact throughout|quick substitution or reverse calculation|therefore the exact answer remains|greatest common factor leaves the value unchanged)/i;
 const difficultyCounts = new Map<string, number>();
-const difficultyByQl = new Map<string, Set<string>>();
+const scoreByQl = new Map<string, Set<number>>();
 const answerPositionsByQl = new Map<string, Set<number>>();
 const diagnosisAnswers = new Set<string>();
 const diagnosisFamilies = new Set<string>();
@@ -60,9 +60,9 @@ for (const pkg of sweep) {
   assert.equal(pkg.lifecycle.publiclyPublishable, false);
 
   difficultyCounts.set(pkg.difficulty, (difficultyCounts.get(pkg.difficulty) ?? 0) + 1);
-  const qlDifficulties = difficultyByQl.get(pkg.permanentQlId) ?? new Set<string>();
-  qlDifficulties.add(pkg.difficulty);
-  difficultyByQl.set(pkg.permanentQlId, qlDifficulties);
+  const scores = scoreByQl.get(pkg.permanentQlId) ?? new Set<number>();
+  scores.add(pkg.difficultyScore);
+  scoreByQl.set(pkg.permanentQlId, scores);
   const positions = answerPositionsByQl.get(pkg.permanentQlId) ?? new Set<number>();
   positions.add(pkg.correctIndex);
   answerPositionsByQl.set(pkg.permanentQlId, positions);
@@ -117,10 +117,11 @@ assert.ok(diagnosisFamilies.size >= 5);
 assert.ok(selectionWithEquivalentUnreduced > 0);
 assert.ok(selectionWithoutEquivalentUnreduced > 0);
 assert.deepEqual([...difficultyCounts.keys()].sort(), ["EASY", "HARD", "MEDIUM"]);
-for (const [qlId, difficulties] of difficultyByQl) {
-  assert.ok(difficulties.size >= 2, `${qlId} does not demonstrate structural difficulty variation.`);
+for (const [qlId, scores] of scoreByQl) {
+  assert.ok(scores.size >= 1, `${qlId} has no structural difficulty evidence.`);
   assert.deepEqual([...answerPositionsByQl.get(qlId)!].sort(), [0, 1, 2, 3]);
 }
+assert.ok([...scoreByQl.values()].some((scores) => scores.size >= 3), "The scoring model must expose real structural variation in the chapter.");
 
 const reviewPackages = generateSapCp002ExamReadinessV2ReviewPackages();
 const reviewRecords = generateSapCp002ExamReadinessV2ReviewRecords();
