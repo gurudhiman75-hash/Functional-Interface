@@ -47,10 +47,20 @@ function findStep(trace: Cp003SolutionTrace, teachingKey: string): Cp003Solution
 const yearsText = (years: number): string => `$${years}$ year${years === 1 ? "" : "s"}`;
 const completedYearsText = (years: number): string => `$${years}$ completed year${years === 1 ? "" : "s"}`;
 
+function rateFormula(value: Rational): string {
+  const known = new Map<string, string>([
+    ["25/3", "8\\frac{1}{3}"],
+    ["50/3", "16\\frac{2}{3}"],
+    ["100/3", "33\\frac{1}{3}"],
+    ["100/7", "14\\frac{2}{7}"],
+  ]);
+  return known.get(`${value.numerator}/${value.denominator}`) ?? ratePlain(value);
+}
+
 function rawValue(value: Rational, semantic: Cp003TraceDatumSemantic): string {
   switch (semantic) {
     case "MONEY": return moneyPlain(value);
-    case "RATE_PERCENT": return `${ratePlain(value)}\\%`;
+    case "RATE_PERCENT": return `${rateFormula(value)}\\%`;
     case "FACTOR": return fractionLatex(value);
     case "TIME_YEARS": return `${value.numerator / value.denominator}\\text{ years}`;
     case "NUMBER": return fractionLatex(value);
@@ -61,7 +71,7 @@ function renderStep(step: Cp003SolutionTraceStep): string {
   switch (step.operationId) {
     case "ANNUAL_FACTOR": {
       const rate = rational(step, "ratePercent"), annualFactor = rational(step, "annualFactor");
-      return `Annual factor: $1+\\frac{${ratePlain(rate)}}{100}=${fractionLatex(annualFactor)}$.`;
+      return `Annual factor: $1+\\frac{${rateFormula(rate)}}{100}=${fractionLatex(annualFactor)}$.`;
     }
     case "POWER": {
       const base = rational(step, "base"), exponent = numeric(step, "exponent"), result = rational(step, "result");
@@ -107,7 +117,7 @@ function renderStep(step: Cp003SolutionTraceStep): string {
     }
     case "RATE_FROM_FACTOR": {
       const annualFactor = rational(step, "annualFactor"), rate = rational(step, "ratePercent");
-      return `Annual factor $=${fractionLatex(annualFactor)}$, so rate $=(${fractionLatex(annualFactor)}-1)\\times100=${ratePlain(rate)}\\%$.`;
+      return `Annual factor $=${fractionLatex(annualFactor)}$, so rate $=(${fractionLatex(annualFactor)}-1)\\times100=${rateFormula(rate)}\\%$.`;
     }
     case "MATCH_POWER": {
       const base = rational(step, "base"), exponent = numeric(step, "exponent"), target = rational(step, "target");
@@ -131,12 +141,12 @@ function renderStep(step: Cp003SolutionTraceStep): string {
     case "RATE_PERCENT_OF_AMOUNT": {
       const amount = rational(step, "amount"), rate = rational(step, "ratePercent"), result = rational(step, "result");
       return step.teachingKey === "CONSECUTIVE_AMOUNT_DIFFERENCE"
-        ? `The difference is the next year's interest: $${ratePlain(rate)}\\%\\text{ of }${moneyPlain(amount)}=${moneyPlain(result)}$.`
-        : `Required yearly interest: $${ratePlain(rate)}\\%\\text{ of }${moneyPlain(amount)}=${moneyPlain(result)}$.`;
+        ? `The difference is the next year's interest: $${rateFormula(rate)}\\%\\text{ of }${moneyPlain(amount)}=${moneyPlain(result)}$.`
+        : `Required yearly interest: $${rateFormula(rate)}\\%\\text{ of }${moneyPlain(amount)}=${moneyPlain(result)}$.`;
     }
     case "RATE_FROM_INCREASE": {
       const increase = rational(step, "increase"), opening = rational(step, "openingAmount"), rate = rational(step, "ratePercent");
-      return `Rate $=\\frac{${moneyPlain(increase)}}{${moneyPlain(opening)}}\\times100=${ratePlain(rate)}\\%$.`;
+      return `Rate $=\\frac{${moneyPlain(increase)}}{${moneyPlain(opening)}}\\times100=${rateFormula(rate)}\\%$.`;
     }
     case "VERIFY_NTH_YEAR_RATE": {
       const principal = rational(step, "principal"), rate = rational(step, "ratePercent"), year = numeric(step, "year"), interest = rational(step, "expectedInterest");
