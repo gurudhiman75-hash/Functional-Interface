@@ -2,7 +2,7 @@ import { RNK_CP004_PROTOTYPE_IDS, type RnkCp004Option } from './cp004-foundation
 import {
   generateRnkCp004ExamReadyQuestion,
   type RnkCp004ExamReadyQuestion,
-} from './cp004-exam-ready-v3';
+} from './cp004-exam-ready-v4';
 
 const REVIEW_CORRECT_INDEX_SEQUENCE = [
   1, 2, 3, 0, 2, 0,
