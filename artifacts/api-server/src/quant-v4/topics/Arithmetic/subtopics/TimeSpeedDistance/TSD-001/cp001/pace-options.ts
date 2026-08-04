@@ -50,14 +50,14 @@ function wrongValues(
     if (input.outputUnit === "MINUTE_PER_KM" && input.speedUnit === "KMPH") {
       return [
         { value: input.speed, misconceptionId: "FAIL_TO_INVERT_PACE" },
-        { value: multiply(rational(60), input.speed), misconceptionId: "MULTIPLY_INSTEAD_OF_DIVIDE" },
-        { value: divide(input.speed, rational(60)), misconceptionId: "APPLY_SIXTY_IN_WRONG_DIRECTION" },
+        { value: divide(rational(100), input.speed), misconceptionId: "USE_WRONG_CONVERSION_FACTOR" },
+        { value: divide(rational(1), input.speed), misconceptionId: "USE_MINUTES_AS_HOURS" },
       ];
     }
     return [
       { value: input.speed, misconceptionId: "FAIL_TO_INVERT_PACE" },
-      { value: multiply(rational(1000), input.speed), misconceptionId: "MULTIPLY_INSTEAD_OF_DIVIDE" },
-      { value: divide(rational(60), input.speed), misconceptionId: "USE_WRONG_CONVERSION_FACTOR" },
+      { value: divide(rational(100), input.speed), misconceptionId: "OMIT_UNIT_CONVERSION" },
+      { value: divide(rational(1000), multiply(input.speed, rational(60))), misconceptionId: "TREAT_SECONDS_AS_MINUTES" },
     ];
   }
 
