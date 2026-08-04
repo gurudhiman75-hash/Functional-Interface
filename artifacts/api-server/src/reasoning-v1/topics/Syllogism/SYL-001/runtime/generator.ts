@@ -1,7 +1,7 @@
 import { normalizePremises } from "../foundation/normalization";
 import { SYL_001_SEMANTICS_PROFILE } from "../foundation/semantics-profile";
 import type { SylDifficulty, SylLocale } from "../foundation/types";
-import { selectedPremisesAreRelevant } from "./analysis";
+import { conclusionSemanticKey, selectedPremisesAreRelevant } from "./analysis";
 import { buildExplanation } from "./explanation";
 import { polishLearnerExplanation } from "./learner-language-polish";
 import {
@@ -16,6 +16,7 @@ import { getSylQlDefinition } from "./ql-registry";
 import { selectQuestionLogic } from "./selection";
 import { remodelStudentPresentation } from "./student-presentation";
 import { buildStructuredProofV3 } from "./structured-proof-v3";
+import { finalizeStructuredProofV3 } from "./structured-proof-v3-finalize";
 import type { GeneratedSylQuestionV3 } from "./structured-proof-v3-types";
 import { assignTerms } from "./term-assignment";
 import type {
@@ -118,7 +119,12 @@ export function generateSylQuestion(
   );
   const termKeys = selected.analysis.termOrder.map((termId) => assignment[termId].termKey);
   const selectedClasses = selected.conclusions.map((candidate) => candidate.profile.classification);
-  const structuredProofV3 = buildStructuredProofV3({
+  const correctOption = options[correctIndexes[0]];
+  const correctCandidate = selected.conclusions.find((candidate) =>
+    conclusionSemanticKey(candidate) === correctOption.semanticValue)
+    ?? selected.conclusions[0]
+    ?? null;
+  const rawStructuredProofV3 = buildStructuredProofV3({
     qlId,
     checkpointId: definition.checkpointId,
     seed,
@@ -147,6 +153,14 @@ export function generateSylQuestion(
     followMask: selected.followMask,
     pairStatus: selected.pairStatus,
     termLabels: Object.fromEntries(selected.analysis.termOrder.map((termId) => [termId, assignment[termId].labels[locale]])),
+  });
+  const structuredProofV3 = finalizeStructuredProofV3(rawStructuredProofV3, {
+    locale,
+    taskKind: definition.taskKind,
+    correctIndex: correctIndexes[0],
+    correctOptionText: correctOption.text,
+    correctClassification: correctCandidate?.profile.classification ?? null,
+    correctConclusionForm: correctCandidate?.conclusion.form ?? null,
   });
 
   return {
