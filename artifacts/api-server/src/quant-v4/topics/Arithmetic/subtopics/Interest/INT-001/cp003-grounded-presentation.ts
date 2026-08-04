@@ -2,13 +2,14 @@ import type { Cp003QuestionContract } from "./cp003-exam-model";
 import type { Cp003PresentationTable, Cp003RenderedPresentation } from "./cp003-exam-types";
 import { presentationFor as basePresentationFor } from "./cp003-exam-presentation";
 import {
-  annualFactorText,
+  annualFactorText as legacyAnnualFactorText,
   moneyMath,
   ordinal,
   rateMath,
   tableMarkdown,
   type ResolvedState,
 } from "./cp003-exam-support";
+import { groundedAnnualFactorText } from "./cp003-grounded-factor-text";
 
 function freezeTable(table: Cp003PresentationTable): Cp003PresentationTable {
   return Object.freeze({
@@ -35,14 +36,56 @@ function rendered(
   });
 }
 
+function replaceFactorText(
+  presentation: Cp003RenderedPresentation,
+  resolved: ResolvedState,
+): Cp003RenderedPresentation {
+  const legacy = legacyAnnualFactorText(resolved.ratePercent);
+  const grounded = groundedAnnualFactorText(resolved.ratePercent);
+  if (legacy === grounded) return presentation;
+  const replace = (value: string): string => value.split(legacy).join(grounded);
+  const table = presentation.table
+    ? freezeTable({
+        headers: presentation.table.headers.map(replace),
+        rows: presentation.table.rows.map((row) => row.map(replace)),
+      })
+    : undefined;
+  return Object.freeze({
+    representation: presentation.representation,
+    stemFamilyId: presentation.stemFamilyId,
+    ...(presentation.leadText ? { leadText: replace(presentation.leadText) } : {}),
+    ...(table ? { table } : {}),
+    prompt: replace(presentation.prompt),
+    markdown: replace(presentation.markdown),
+  });
+}
+
 const yearsText = (years: number): string => `${years} year${years === 1 ? "" : "s"}`;
 
 export function presentationFor(
   contract: Cp003QuestionContract,
   resolved: ResolvedState,
 ): Cp003RenderedPresentation {
-  if (contract.presentation.representation !== "BALANCE_LEDGER") {
-    return basePresentationFor(contract, resolved);
+  const representation = contract.presentation.representation;
+
+  if (contract.qlId === "INT-QL-064" && representation === "GROWTH_RATIO") {
+    return rendered(
+      contract,
+      "Use the two consecutive year-end balances to find the one-year multiplier and reconstruct the original sum.",
+      {
+        headers: ["Observation", "Balance"],
+        rows: [
+          [`Amount after ${yearsText(resolved.currentYear)}`, moneyMath(resolved.currentAmount)],
+          [`Amount after ${yearsText(resolved.currentYear + 1)}`, moneyMath(resolved.nextAmount)],
+          ["Original principal", "?"],
+        ],
+      },
+      "Find the original principal.",
+    );
+  }
+
+  if (representation !== "BALANCE_LEDGER") {
+    return replaceFactorText(basePresentationFor(contract, resolved), resolved);
   }
 
   switch (contract.qlId) {
@@ -106,7 +149,7 @@ export function presentationFor(
     case "INT-QL-066":
       return rendered(
         contract,
-        `The yearly-interest sequence has annual multiplier ${annualFactorText(resolved.ratePercent)}. Complete the ledger.`,
+        `The yearly-interest sequence has annual multiplier ${groundedAnnualFactorText(resolved.ratePercent)}. Complete the ledger.`,
         {
           headers: ["Year", "Interest earned"],
           rows: [
@@ -118,6 +161,6 @@ export function presentationFor(
       );
 
     default:
-      return basePresentationFor(contract, resolved);
+      return replaceFactorText(basePresentationFor(contract, resolved), resolved);
   }
 }
