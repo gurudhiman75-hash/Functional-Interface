@@ -92,6 +92,29 @@ function mathJaxStem(stem: string): string {
   return converted.includes("\\(") ? converted : `${stem} \\(\\text{Use exact values.}\\)`;
 }
 
+function editorialStem(mode: TsdCp002LearnerSolveMode, stem: string): string {
+  if (mode === "unknownSegmentSpeedFromAverage") {
+    return stem.replace(/What is the second speed\?/i, "At what speed does it travel during the second part?");
+  }
+  if (mode === "unknownSegmentDistanceFromAverage") {
+    return stem.replace(/What is the second distance\?/i, "How far does it travel during the second part of the journey?");
+  }
+  return stem;
+}
+
+function explanationGivens(mode: TsdCp002LearnerSolveMode, givens: readonly string[]): readonly string[] {
+  switch (mode) {
+    case "unknownSegmentShareFromAverage":
+    case "unknownRoundTripLegSpeedFromAverage":
+    case "segmentRatioFromAverageAndSpeeds":
+    case "compareSegmentedJourneyPlans":
+    case "totalDistanceFromAverageAndTime":
+      return givens;
+    default:
+      return Object.freeze([] as string[]);
+  }
+}
+
 function correctReason(mode: TsdCp002LearnerSolveMode, answerText: string): string {
   const reason: Record<TsdCp002LearnerSolveMode, string> = {
     averageSpeedFromSegments: "the complete distance divided by the complete travelling time gives this value",
@@ -170,7 +193,7 @@ function validationErrors(question: Omit<TsdCp002GeneratedQuestion, "validation"
   if (question.optionAudit.filter((entry) => entry.isCorrect).length !== 1) errors.push("Exactly one option must be correct");
   if (!question.optionAudit[question.correctIndex]?.isCorrect) errors.push("Correct option index is invalid");
   if (question.options[question.correctIndex] !== question.answerText) errors.push("Answer text and keyed option differ");
-  if (question.explanation.stepByStepSolution.length < 6) errors.push("Explanation is too brief");
+  if (question.explanation.stepByStepSolution.length < 5) errors.push("Explanation is too brief");
   if (!question.explanation.keyRule.startsWith("📌 Main Rule:")) errors.push("Main-rule tier is missing");
   if (!question.explanation.examSpeedShortcut.startsWith("⚡ Exam Speed Trick:")) errors.push("Shortcut tier is missing");
   if (question.explanation.optionAnalysis.length !== 4) errors.push("Option analysis is incomplete");
@@ -220,10 +243,14 @@ export function generateCp002Candidate(
   if (frozenAuthority.provisionalAuthorityId !== authority.provisionalId) throw new Error(`${mode}: current-review/discovery authority mismatch`);
   const answerText = formatCp002Solution(solution);
   const teachingVariant = ordinal % 3;
-  const working = cp002WorkingLines(definition.input, solution, definition.working(solution));
+  const rawWorking = cp002WorkingLines(definition.input, solution, definition.working(solution));
+  const working = mode === "compareSegmentedJourneyPlans"
+    ? rawWorking.map((line) => line.replace(/^Therefore,\s*/i, "Comparison result: "))
+    : rawWorking;
+  const stem = editorialStem(mode, definition.stem);
   const steps = Object.freeze([
     CP002_TEACHING_LEADS[mode][teachingVariant],
-    ...definition.givens,
+    ...explanationGivens(mode, definition.givens),
     ...working,
     `Therefore, the answer is ${answerText}.`,
   ]);
@@ -242,8 +269,8 @@ export function generateCp002Candidate(
     seed,
     representation: definition.representation,
     difficulty: cp002Difficulty(mode, definition.input),
-    stem: definition.stem,
-    stemMathJax: mathJaxStem(definition.stem),
+    stem,
+    stemMathJax: mathJaxStem(stem),
     input: definition.input,
     solution,
     answerText,
