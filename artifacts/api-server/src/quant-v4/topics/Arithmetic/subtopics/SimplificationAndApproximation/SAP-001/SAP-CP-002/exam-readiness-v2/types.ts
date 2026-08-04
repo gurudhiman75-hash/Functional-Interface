@@ -71,6 +71,7 @@ export interface SapCp002ExamReadinessV2Package extends Omit<
   | "options"
   | "correctIndex"
   | "explanation"
+  | "editorialStatus"
   | "reviewDecision"
   | "lifecycle"
 > {
