@@ -15,6 +15,8 @@ import { createPrng, shuffle } from "./prng";
 import { getSylQlDefinition } from "./ql-registry";
 import { selectQuestionLogic } from "./selection";
 import { remodelStudentPresentation } from "./student-presentation";
+import { buildStructuredProofV3 } from "./structured-proof-v3";
+import type { GeneratedSylQuestionV3 } from "./structured-proof-v3-types";
 import { assignTerms } from "./term-assignment";
 import type {
   GeneratedSylQuestion,
@@ -67,7 +69,7 @@ export function generateSylQuestion(
   qlId: SylQlId,
   seed: number,
   locale: SylLocale,
-): GeneratedSylQuestion {
+): GeneratedSylQuestionV3 {
   if (!Number.isSafeInteger(seed)) throw new Error("Seed must be a safe integer.");
   const definition = getSylQlDefinition(qlId);
   const selected = selectQuestionLogic(definition, seed);
@@ -116,6 +118,36 @@ export function generateSylQuestion(
   );
   const termKeys = selected.analysis.termOrder.map((termId) => assignment[termId].termKey);
   const selectedClasses = selected.conclusions.map((candidate) => candidate.profile.classification);
+  const structuredProofV3 = buildStructuredProofV3({
+    qlId,
+    checkpointId: definition.checkpointId,
+    seed,
+    locale,
+    scenarioId: selected.analysis.scenario.scenarioId,
+    sourcePatternId: selected.analysis.scenario.sourcePatternId,
+    taskKind: definition.taskKind,
+    premises: selected.analysis.premises,
+    displayedPremises,
+    statements: renderedPremises,
+    conclusions: renderedConclusions,
+    canonicalConclusions: selected.conclusions.map((candidate) => candidate.conclusion),
+    conclusionProfiles: selected.conclusions.map((candidate, index) => ({
+      conclusion: candidate.conclusion,
+      rendered: renderedConclusions[index],
+      classification: candidate.profile.classification,
+      canBeTrue: candidate.profile.canBeTrue,
+      canBeFalse: candidate.profile.canBeFalse,
+      witnessModel: candidate.profile.witnessModel,
+      counterModel: candidate.profile.counterModel,
+      verdictImpactPremiseIds: candidate.verdictImpactPremiseIds,
+      modelImpactPremiseIds: candidate.impactPremiseIds,
+    })),
+    options,
+    correctIndex: correctIndexes[0],
+    followMask: selected.followMask,
+    pairStatus: selected.pairStatus,
+    termLabels: Object.fromEntries(selected.analysis.termOrder.map((termId) => [termId, assignment[termId].labels[locale]])),
+  });
 
   return {
     packageId: "SYL-001",
@@ -152,6 +184,7 @@ export function generateSylQuestion(
     options,
     correctIndex: correctIndexes[0],
     explanation,
+    structuredProofV3,
     metadata: {
       runtimeVersion: "syl-001-pedagogy-runtime-v2",
       taskKind: definition.taskKind,
@@ -182,6 +215,6 @@ export function generateSylQuestionByString(
   qlId: string,
   seed: number,
   locale: SylLocale,
-): GeneratedSylQuestion {
+): GeneratedSylQuestionV3 {
   return generateSylQuestion(qlId as SylQlId, seed, locale);
 }
