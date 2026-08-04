@@ -48,7 +48,7 @@ export function fixedDecimal(value:Rational,places:number):string {
   return places===0?`${sign}${digits}`:`${sign}${digits.slice(0,-places)}.${digits.slice(-places)}`;
 }
 export function answerText(semantic:Cp003AnswerSemantic,value:Rational):string {
-  if(semantic==="RATE_PERCENT")return `$${fixedDecimal(value,2)}\\%$`;
+  if(semantic==="RATE_PERCENT")return rateMath(value);
   if(semantic==="TIME_YEARS"){const years=integer(value);return `$${years}$ year${years===1?"":"s"}`;}
   return moneyMath(value);
 }
