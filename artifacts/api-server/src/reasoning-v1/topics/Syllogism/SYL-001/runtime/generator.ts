@@ -17,6 +17,7 @@ import { selectQuestionLogic } from "./selection";
 import { remodelStudentPresentation } from "./student-presentation";
 import { buildStructuredProofV3 } from "./structured-proof-v3";
 import { finalizeStructuredProofV3 } from "./structured-proof-v3-finalize";
+import { naturalizeStructuredProofV3 } from "./structured-proof-v3-naturalize";
 import type { GeneratedSylQuestionV3 } from "./structured-proof-v3-types";
 import { assignTerms } from "./term-assignment";
 import type {
@@ -124,6 +125,7 @@ export function generateSylQuestion(
     conclusionSemanticKey(candidate) === correctOption.semanticValue)
     ?? selected.conclusions[0]
     ?? null;
+  const termLabels = Object.fromEntries(selected.analysis.termOrder.map((termId) => [termId, assignment[termId].labels[locale]]));
   const rawStructuredProofV3 = buildStructuredProofV3({
     qlId,
     checkpointId: definition.checkpointId,
@@ -152,15 +154,30 @@ export function generateSylQuestion(
     correctIndex: correctIndexes[0],
     followMask: selected.followMask,
     pairStatus: selected.pairStatus,
-    termLabels: Object.fromEntries(selected.analysis.termOrder.map((termId) => [termId, assignment[termId].labels[locale]])),
+    termLabels,
   });
-  const structuredProofV3 = finalizeStructuredProofV3(rawStructuredProofV3, {
+  const finalizedStructuredProofV3 = finalizeStructuredProofV3(rawStructuredProofV3, {
     locale,
     taskKind: definition.taskKind,
     correctIndex: correctIndexes[0],
     correctOptionText: correctOption.text,
     correctClassification: correctCandidate?.profile.classification ?? null,
     correctConclusionForm: correctCandidate?.conclusion.form ?? null,
+  });
+  const structuredProofV3 = naturalizeStructuredProofV3(finalizedStructuredProofV3, {
+    locale,
+    taskKind: definition.taskKind,
+    displayedPremises,
+    statements: renderedPremises,
+    options,
+    correctIndex: correctIndexes[0],
+    conclusions: selected.conclusions.map((candidate) => ({
+      conclusion: candidate.conclusion,
+      classification: candidate.profile.classification,
+      verdictImpactPremiseIds: candidate.verdictImpactPremiseIds,
+      modelImpactPremiseIds: candidate.impactPremiseIds,
+    })),
+    termLabels,
   });
 
   return {
