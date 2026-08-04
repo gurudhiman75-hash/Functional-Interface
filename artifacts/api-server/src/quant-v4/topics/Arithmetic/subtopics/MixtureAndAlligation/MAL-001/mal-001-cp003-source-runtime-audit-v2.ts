@@ -139,9 +139,12 @@ for (const prototypeId of MAL_CP003_EXECUTABLE_PROTOTYPE_IDS) {
   for (let index = 0; index < 10; index += 1) {
     const question = generateMalCp003DiscoveryPrototype(
       prototypeId,
-      `cp003-source-wave07-v2-regression:${prototypeId}:${index}`,
+      `cp003-discovery-${prototypeId}-${index}`,
     );
-    assert(question.validation.ok, `${prototypeId}: existing prototype regression failed.`);
+    assert(
+      question.validation.ok,
+      `${prototypeId}: existing prototype regression failed: ${question.validation.errors.join("; ")}`,
+    );
     assert(!question.active && !question.publiclyPublishable, `${prototypeId}: delivery flag regressed.`);
     existingPrototypeRegressionCount += 1;
   }
