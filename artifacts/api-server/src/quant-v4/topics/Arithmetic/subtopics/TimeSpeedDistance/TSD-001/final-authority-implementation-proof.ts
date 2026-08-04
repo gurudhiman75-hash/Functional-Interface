@@ -47,8 +47,9 @@ for (const source of expectedSources) {
 
 const review = generateFinalAuthorityReview();
 const coverage = finalAuthorityCoverage(review);
-assert(review.length === 111, "Final ownership adapter must preserve all 111 current review records");
-assert(new Set(review.map((row) => row.questionLanguageId)).size === review.length, "Duplicate questionLanguageId after authority remap");
+assert(review.length === 116, "Final authority review must contain 111 remapped records plus five supplemental pool states");
+assert(new Set(review.map((row) => row.questionLanguageId)).size === review.length, "Duplicate questionLanguageId after authority remap and pool expansion");
+assert(review.every((row) => row.sourceQuestion.validation.valid), "An invalid source question entered the final authority review");
 assert(review.every((row) => row.permanentQlId === null), "A remapped review row has a premature permanent QL");
 assert(review.every((row) => row.reviewStatus === "EDITORIAL_REVIEW_REQUIRED" && row.englishFreezeStatus === "UNFROZEN"), "A remapped review row escaped the reopened lifecycle");
 assert(review.every((row) => !row.publiclyPublishable), "A remapped review row became publicly publishable");
@@ -71,33 +72,36 @@ assert(referenceTime.representations.includes("REFERENCE_TRIP_CHANGED_SPEED"), "
 
 const distanceShare = coverage.find((entry) => entry.authorityKey === "unknownDistanceShareFromAverageSpeed")!;
 const timeShare = coverage.find((entry) => entry.authorityKey === "unknownTimeShareFromAverageSpeed")!;
-assert(distanceShare.rowCount === 2 && timeShare.rowCount === 1, "Current QL-029 rows were not split by equation as expected");
+assert(distanceShare.rowCount === 2, "Distance-share authority lost its two distinct source states");
+assert(timeShare.rowCount === 3, "Time-share authority must contain its original state plus two supplemental states");
+assert(timeShare.representations.includes("TIME_SHARE"), "Original time-share representation is missing");
+assert(timeShare.representations.includes("TIME_SHARE_SUPPLEMENTAL_50_PERCENT"), "First supplemental time-share representation is missing");
+assert(timeShare.representations.includes("TIME_SHARE_SUPPLEMENTAL_25_PERCENT"), "Second supplemental time-share representation is missing");
+
 const distanceRatio = coverage.find((entry) => entry.authorityKey === "distanceRatioFromAverageAndSpeeds")!;
 const timeRatio = coverage.find((entry) => entry.authorityKey === "timeRatioFromAverageAndSpeeds")!;
-assert(distanceRatio.rowCount === 2 && timeRatio.rowCount === 1, "Current QL-035 rows were not split by equation as expected");
+assert(distanceRatio.rowCount === 2, "Distance-ratio authority lost its two distinct source states");
+assert(timeRatio.rowCount === 3, "Time-ratio authority must contain its original state plus two supplemental states");
+assert(timeRatio.representations.includes("TIME_RATIO_SUPPLEMENTAL_EQUAL"), "Equal-time supplemental ratio is missing");
+assert(timeRatio.representations.includes("TIME_RATIO_SUPPLEMENTAL_ONE_TO_THREE"), "One-to-three supplemental ratio is missing");
 
 const allocation = coverage.find((entry) => entry.authorityKey === "segmentAllocationFromTotalsAndSpeeds")!;
-assert(allocation.representations.includes("FIRST_DISTANCE"), "Allocation first-distance representation missing");
-assert(allocation.representations.includes("FIRST_TIME"), "Allocation first-time representation missing");
-assert(allocation.representations.includes("SECOND_DISTANCE"), "Allocation second-distance representation missing");
-assert(!allocation.representations.includes("SECOND_TIME"), "Unexpected second-time representation; update documented gap set");
-
-const documentedPoolGaps = Object.freeze([
-  Object.freeze({ authorityKey: "unknownTimeShareFromAverageSpeed", gap: "Only one distinct review state; expand to multiple time-share cases." }),
-  Object.freeze({ authorityKey: "timeRatioFromAverageAndSpeeds", gap: "Only one distinct review state; expand to multiple time-ratio cases." }),
-  Object.freeze({ authorityKey: "segmentAllocationFromTotalsAndSpeeds", gap: "SECOND_TIME requested-quantity representation is absent." }),
-]);
+for (const representation of ["FIRST_DISTANCE", "SECOND_DISTANCE", "FIRST_TIME", "SECOND_TIME"] as const) {
+  assert(allocation.representations.includes(representation), `Allocation representation ${representation} is missing`);
+}
+assert(allocation.rowCount === 4, "Allocation authority must contain one state for each requested quantity");
 
 console.log(JSON.stringify({
-  status: "PASS_WITH_DOCUMENTED_POOL_GAPS",
-  phase: "FINAL_AUTHORITY_OWNERSHIP_IMPLEMENTATION",
+  status: "PASS",
+  phase: "FINAL_AUTHORITY_OWNERSHIP_AND_POOL_IMPLEMENTATION",
   sourceCandidatesOwnedExactlyOnce: sourceOwners.size,
   finalMathematicalAuthorities: TSD_FINAL_AUTHORITIES.length,
   finalLearnerAuthorities: TSD_FINAL_LEARNER_AUTHORITIES.length,
   finalInternalQaAuthorities: TSD_FINAL_INTERNAL_AUTHORITIES.length,
-  remappedReviewRows: review.length,
+  remappedAndSupplementalReviewRows: review.length,
+  supplementalPoolRows: 5,
+  remainingAuthorityPoolGaps: 0,
   permanentQlIdsAssigned: 0,
-  documentedPoolGaps,
   englishFreezeStatus: "UNFROZEN",
   questionBankStored: 0,
   testEligible: 0,
