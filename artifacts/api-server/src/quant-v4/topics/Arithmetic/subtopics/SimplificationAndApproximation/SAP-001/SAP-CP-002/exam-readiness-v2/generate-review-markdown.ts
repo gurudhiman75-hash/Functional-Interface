@@ -12,6 +12,14 @@ const difficultyCounts = Object.fromEntries(
   ]),
 );
 const qlIds = [...new Set(records.map((record) => record.permanentQlId))];
+
+function sectionLabel(qlId: (typeof qlIds)[number]): string {
+  const labels = [...new Set(records
+    .filter((record) => record.permanentQlId === qlId)
+    .map((record) => record.solveModeLabel))];
+  return labels.join(" / ");
+}
+
 const lines: string[] = [
   "# SAP-CP-002 — 300 Questions and Explanations Review Pack V2",
   "",
@@ -47,7 +55,7 @@ const lines: string[] = [
 
 for (const qlId of qlIds) {
   const qlRecords = records.filter((record) => record.permanentQlId === qlId);
-  lines.push(`| \`${qlId}\` | ${qlRecords[0]!.solveModeLabel} | ${qlRecords.length} |`);
+  lines.push(`| \`${qlId}\` | ${sectionLabel(qlId)} | ${qlRecords.length} |`);
 }
 
 lines.push(
@@ -60,7 +68,7 @@ lines.push(
 
 for (const qlId of qlIds) {
   const qlRecords = records.filter((record) => record.permanentQlId === qlId);
-  lines.push(`# ${qlId} — ${qlRecords[0]!.solveModeLabel}`, "");
+  lines.push(`# ${qlId} — ${sectionLabel(qlId)}`, "");
   for (const record of qlRecords) {
     lines.push(
       `## ${record.questionId}`,
