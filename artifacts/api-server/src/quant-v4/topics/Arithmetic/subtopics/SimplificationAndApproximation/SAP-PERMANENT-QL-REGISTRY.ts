@@ -1,30 +1,26 @@
 import {
   SAP_CP001_ENGLISH_TEMPLATE_PROPOSAL,
   type SapCp001EnglishTemplateId,
-  type SapCp001PrototypeId,
 } from "./SAP-001/SAP-CP-001/SAP-CP-001-ENGLISH-TEMPLATE-PROPOSAL";
+import {
+  SAP_CP002_ENGLISH_TEMPLATE_AUTHORITIES,
+  type SapCp002EnglishTemplateId,
+} from "./SAP-001/SAP-CP-002/SAP-CP-002-AUTHORITY-AND-TEMPLATE-MAP";
+import {
+  SAP_CP002_PERMANENT_QL_IDS,
+  SAP_CP002_TEMPLATE_TO_PERMANENT_QL,
+  type SapCp002PermanentQlId,
+} from "./SAP-001/SAP-CP-002/permanent-runtime/runtime";
 
 export const SAP_CP001_PERMANENT_QL_IDS = [
-  "SAP-QL-001",
-  "SAP-QL-002",
-  "SAP-QL-003",
-  "SAP-QL-004",
-  "SAP-QL-005",
-  "SAP-QL-006",
-  "SAP-QL-007",
-  "SAP-QL-008",
-  "SAP-QL-009",
-  "SAP-QL-010",
-  "SAP-QL-011",
-  "SAP-QL-012",
-  "SAP-QL-013",
-  "SAP-QL-014",
-  "SAP-QL-015",
-  "SAP-QL-016",
+  "SAP-QL-001", "SAP-QL-002", "SAP-QL-003", "SAP-QL-004", "SAP-QL-005", "SAP-QL-006",
+  "SAP-QL-007", "SAP-QL-008", "SAP-QL-009", "SAP-QL-010", "SAP-QL-011", "SAP-QL-012",
+  "SAP-QL-013", "SAP-QL-014", "SAP-QL-015", "SAP-QL-016",
 ] as const;
 
 export type SapCp001PermanentQlId = (typeof SAP_CP001_PERMANENT_QL_IDS)[number];
-export type SapPermanentQlId = SapCp001PermanentQlId;
+export type SapPermanentQlId = SapCp001PermanentQlId | SapCp002PermanentQlId;
+export type SapPermanentTemplateId = SapCp001EnglishTemplateId | SapCp002EnglishTemplateId;
 
 export const SAP_CP001_TEMPLATE_TO_PERMANENT_QL = Object.freeze({
   "SAP-CP001-TPL-MIXED-ORDER-OF-OPERATIONS": "SAP-QL-001",
@@ -48,17 +44,17 @@ export const SAP_CP001_TEMPLATE_TO_PERMANENT_QL = Object.freeze({
 export interface SapPermanentQlRegistryEntry {
   readonly permanentQlId: SapPermanentQlId;
   readonly packageId: "SAP-001";
-  readonly checkpointId: "SAP-CP-001";
-  readonly templateId: SapCp001EnglishTemplateId;
+  readonly checkpointId: "SAP-CP-001" | "SAP-CP-002";
+  readonly templateId: SapPermanentTemplateId;
   readonly title: string;
   readonly solveAuthority: string;
   readonly answerSemantic: string;
   readonly taskDirections: readonly string[];
   readonly representations: readonly string[];
-  readonly prototypeAncestry: readonly SapCp001PrototypeId[];
+  readonly prototypeAncestry: readonly string[];
   readonly allocationStatus: "PERMANENT_ID_ALLOCATED_INACTIVE";
   readonly englishStatus: "ENGLISH_MANUAL_FREEZE_APPROVED";
-  readonly allocationApproval: "PRODUCT_OWNER_APPROVED_2026_08_03";
+  readonly allocationApproval: "PRODUCT_OWNER_APPROVED_2026_08_03" | "PRODUCT_OWNER_DIRECTED_CP002_COMPLETION_2026_08_04";
   readonly active: false;
   readonly questionStudioDiscoverable: false;
   readonly questionBankWritable: false;
@@ -66,46 +62,72 @@ export interface SapPermanentQlRegistryEntry {
   readonly publiclyPublishable: false;
 }
 
-export const SAP_PERMANENT_QL_REGISTRY: readonly SapPermanentQlRegistryEntry[] = Object.freeze(
-  SAP_CP001_ENGLISH_TEMPLATE_PROPOSAL.map((template) => Object.freeze({
-    permanentQlId: SAP_CP001_TEMPLATE_TO_PERMANENT_QL[template.temporaryTemplateId],
-    packageId: "SAP-001" as const,
-    checkpointId: "SAP-CP-001" as const,
-    templateId: template.temporaryTemplateId,
-    title: template.title,
-    solveAuthority: template.solveAuthority,
-    answerSemantic: template.answerSemantic,
-    taskDirections: template.taskDirections,
-    representations: template.representations,
-    prototypeAncestry: template.prototypeAncestry,
-    allocationStatus: "PERMANENT_ID_ALLOCATED_INACTIVE" as const,
-    englishStatus: "ENGLISH_MANUAL_FREEZE_APPROVED" as const,
-    allocationApproval: "PRODUCT_OWNER_APPROVED_2026_08_03" as const,
-    active: false as const,
-    questionStudioDiscoverable: false as const,
-    questionBankWritable: false as const,
-    testEligible: false as const,
-    publiclyPublishable: false as const,
-  })),
+const cp001Entries: readonly SapPermanentQlRegistryEntry[] = SAP_CP001_ENGLISH_TEMPLATE_PROPOSAL.map((template) => Object.freeze({
+  permanentQlId: SAP_CP001_TEMPLATE_TO_PERMANENT_QL[template.temporaryTemplateId],
+  packageId: "SAP-001" as const,
+  checkpointId: "SAP-CP-001" as const,
+  templateId: template.temporaryTemplateId,
+  title: template.title,
+  solveAuthority: template.solveAuthority,
+  answerSemantic: template.answerSemantic,
+  taskDirections: template.taskDirections,
+  representations: template.representations,
+  prototypeAncestry: template.prototypeAncestry,
+  allocationStatus: "PERMANENT_ID_ALLOCATED_INACTIVE" as const,
+  englishStatus: "ENGLISH_MANUAL_FREEZE_APPROVED" as const,
+  allocationApproval: "PRODUCT_OWNER_APPROVED_2026_08_03" as const,
+  active: false as const,
+  questionStudioDiscoverable: false as const,
+  questionBankWritable: false as const,
+  testEligible: false as const,
+  publiclyPublishable: false as const,
+}));
+
+const cp002Entries: readonly SapPermanentQlRegistryEntry[] = SAP_CP002_ENGLISH_TEMPLATE_AUTHORITIES.map((template) => Object.freeze({
+  permanentQlId: SAP_CP002_TEMPLATE_TO_PERMANENT_QL[template.templateId],
+  packageId: "SAP-001" as const,
+  checkpointId: "SAP-CP-002" as const,
+  templateId: template.templateId,
+  title: template.title,
+  solveAuthority: template.solveAuthority,
+  answerSemantic: template.answerSemantic,
+  taskDirections: template.taskDirections,
+  representations: template.representations,
+  prototypeAncestry: template.prototypeAncestry,
+  allocationStatus: "PERMANENT_ID_ALLOCATED_INACTIVE" as const,
+  englishStatus: "ENGLISH_MANUAL_FREEZE_APPROVED" as const,
+  allocationApproval: "PRODUCT_OWNER_DIRECTED_CP002_COMPLETION_2026_08_04" as const,
+  active: false as const,
+  questionStudioDiscoverable: false as const,
+  questionBankWritable: false as const,
+  testEligible: false as const,
+  publiclyPublishable: false as const,
+}));
+
+export const SAP_PERMANENT_QL_REGISTRY: readonly SapPermanentQlRegistryEntry[] = Object.freeze([
+  ...cp001Entries,
+  ...cp002Entries,
+]);
+
+export const SAP_PERMANENT_QL_BY_ID: Readonly<Record<SapPermanentQlId, SapPermanentQlRegistryEntry>> = Object.freeze(
+  Object.fromEntries(SAP_PERMANENT_QL_REGISTRY.map((entry) => [entry.permanentQlId, entry])) as Record<SapPermanentQlId, SapPermanentQlRegistryEntry>,
 );
 
-export const SAP_PERMANENT_QL_BY_ID: Readonly<Record<SapPermanentQlId, SapPermanentQlRegistryEntry>> =
-  Object.freeze(Object.fromEntries(
-    SAP_PERMANENT_QL_REGISTRY.map((entry) => [entry.permanentQlId, entry]),
-  ) as Record<SapPermanentQlId, SapPermanentQlRegistryEntry>);
-
 export const SAP_PERMANENT_QL_REGISTRY_STATE = Object.freeze({
-  registryVersion: 1,
-  allocationApproval: "PRODUCT_OWNER_APPROVED_2026_08_03" as const,
-  allocatedCheckpointCount: 1,
+  registryVersion: 2,
+  allocatedCheckpointCount: 2,
   allocatedTemplateCount: SAP_PERMANENT_QL_REGISTRY.length,
   firstAllocatedId: "SAP-QL-001" as const,
-  lastAllocatedId: "SAP-QL-016" as const,
-  nextAvailableId: "SAP-QL-017" as const,
-  allocatedRange: "SAP-QL-001..SAP-QL-016" as const,
+  lastAllocatedId: "SAP-QL-033" as const,
+  nextAvailableId: "SAP-QL-034" as const,
+  allocatedRange: "SAP-QL-001..SAP-QL-033" as const,
+  cp001Range: "SAP-QL-001..SAP-QL-016" as const,
+  cp002Range: "SAP-QL-017..SAP-QL-033" as const,
   activeQlCount: 0,
   questionStudioDiscoverableCount: 0,
   questionBankWritableCount: 0,
   testEligibleCount: 0,
   publiclyPublishableCount: 0,
 });
+
+export { SAP_CP002_PERMANENT_QL_IDS, SAP_CP002_TEMPLATE_TO_PERMANENT_QL };
