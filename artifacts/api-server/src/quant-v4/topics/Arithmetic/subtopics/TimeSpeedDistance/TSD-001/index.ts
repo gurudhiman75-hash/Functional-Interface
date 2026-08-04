@@ -12,3 +12,4 @@ export * from "./cp002/solver";
 export * from "./cp002/verifier";
 export * from "./cp002/runtime";
 export * from "./cp002/freeze-registry";
+export * from "./authority-overlap-audit";
