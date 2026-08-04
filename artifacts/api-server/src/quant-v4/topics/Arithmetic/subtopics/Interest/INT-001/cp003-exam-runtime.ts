@@ -23,7 +23,7 @@ import {
 } from "./cp003-grounded-solution-trace";
 import { assertCp003PresentationGrounding } from "./cp003-presentation-grounding";
 
-export const INT_CP003_EXAM_GENERATOR_VERSION = "INT-CP-003-EXAM-GENERATOR-v6" as const;
+export const INT_CP003_EXAM_GENERATOR_VERSION = "INT-CP-003-EXAM-GENERATOR-v7" as const;
 
 export {
   INT_CP003_AUTHORITY_VERSION,
