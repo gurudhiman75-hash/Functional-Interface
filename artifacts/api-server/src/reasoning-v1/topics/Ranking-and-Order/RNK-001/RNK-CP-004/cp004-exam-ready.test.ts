@@ -10,7 +10,7 @@ import {
 import {
   countTopologicalOrders,
   generateRnkCp004ExamReadyQuestion,
-} from './cp004-exam-ready';
+} from './cp004-exam-ready-v2';
 import {
   buildRnkCp004ReviewPack,
   renderRnkCp004QuestionsAndExplanationsMarkdown,
