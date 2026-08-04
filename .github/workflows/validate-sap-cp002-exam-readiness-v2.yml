@@ -1,0 +1,64 @@
+name: Validate SAP CP-002 Exam Readiness V2
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/**"
+      - ".github/workflows/validate-sap-cp002-exam-readiness-v2.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-sap-cp002-exam-readiness-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle SAP CP-002 exam-readiness V2 authority
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-002/exam-readiness-v2/authority.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/sap-cp002-exam-readiness-v2-authority.test.mjs
+
+      - name: Run SAP CP-002 exam-readiness V2 authority
+        working-directory: artifacts/api-server
+        run: node dist/sap-cp002-exam-readiness-v2-authority.test.mjs
+
+      - name: Bundle 300-question V2 review exporter
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-002/exam-readiness-v2/generate-review-markdown.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/sap-cp002-generate-review-v2.mjs
+
+      - name: Generate 300-question V2 review pack
+        working-directory: artifacts/api-server
+        run: >-
+          node dist/sap-cp002-generate-review-v2.mjs
+          dist/SAP-CP-002-300-QUESTIONS-AND-EXPLANATIONS-REVIEW-V2.md
+
+      - name: Upload V2 review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: sap-cp002-300-question-review-v2
+          path: artifacts/api-server/dist/SAP-CP-002-300-QUESTIONS-AND-EXPLANATIONS-REVIEW-V2.md
+          if-no-files-found: error
