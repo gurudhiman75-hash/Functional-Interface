@@ -1,6 +1,6 @@
 import type { SylLocale } from "../../foundation/types";
 import type { SylStructuredProofCoreV3 } from "./proof";
-import type { SylVisibleOptionAnalysisV3 } from "./types";
+import type { SylStatementMeaningV3, SylVisibleOptionAnalysisV3 } from "./types";
 
 function stripTerminal(value: string): string {
   return value.trim().replace(/[।.!?;:]+$/u, "");
@@ -25,6 +25,67 @@ function statementReference(index: number, locale: SylLocale): string {
   if (locale === "hi-IN") return `कथन ${index}`;
   if (locale === "pa-IN") return `ਕਥਨ ${index}`;
   return `Statement ${index}`;
+}
+
+function naturalRelationMeaning(relation: string, locale: SylLocale): string | null {
+  const onlyAFew = relation.match(/^(.+?) ∩ (.+?) ≠ ∅; \1 \\ \2 ≠ ∅$/u);
+  if (onlyAFew) {
+    const [, subject, predicate] = onlyAFew;
+    if (locale === "hi-IN") return `${subject} का कम-से-कम एक सदस्य ${predicate} में है और कम-से-कम एक सदस्य ${predicate} में नहीं है।`;
+    if (locale === "pa-IN") return `${subject} ਦਾ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਮੈਂਬਰ ${predicate} ਵਿੱਚ ਹੈ ਅਤੇ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਮੈਂਬਰ ${predicate} ਵਿੱਚ ਨਹੀਂ ਹੈ।`;
+    return `At least one member of ${subject} belongs to ${predicate}, and at least one member of ${subject} does not belong to ${predicate}.`;
+  }
+
+  const subset = relation.match(/^(.+?) ⊆ (.+)$/u);
+  if (subset) {
+    const [, subject, predicate] = subset;
+    if (locale === "hi-IN") return `${subject} का हर सदस्य ${predicate} में है।`;
+    if (locale === "pa-IN") return `${subject} ਦਾ ਹਰ ਮੈਂਬਰ ${predicate} ਵਿੱਚ ਹੈ।`;
+    return `Every member of ${subject} belongs to ${predicate}.`;
+  }
+
+  const disjoint = relation.match(/^(.+?) ∩ (.+?) = ∅$/u);
+  if (disjoint) {
+    const [, subject, predicate] = disjoint;
+    if (locale === "hi-IN") return `${subject} और ${predicate} के बीच कोई साझा सदस्य नहीं है।`;
+    if (locale === "pa-IN") return `${subject} ਅਤੇ ${predicate} ਵਿਚਕਾਰ ਕੋਈ ਸਾਂਝਾ ਮੈਂਬਰ ਨਹੀਂ ਹੈ।`;
+    return `${subject} and ${predicate} have no common member.`;
+  }
+
+  const overlap = relation.match(/^(.+?) ∩ (.+?) ≠ ∅$/u);
+  if (overlap) {
+    const [, subject, predicate] = overlap;
+    if (locale === "hi-IN") return `कम-से-कम एक सदस्य ${subject} और ${predicate} दोनों में है।`;
+    if (locale === "pa-IN") return `ਘੱਟੋ-ਘੱਟ ਇੱਕ ਮੈਂਬਰ ${subject} ਅਤੇ ${predicate} ਦੋਵਾਂ ਵਿੱਚ ਹੈ।`;
+    return `At least one member belongs to both ${subject} and ${predicate}.`;
+  }
+
+  const outside = relation.match(/^(.+?) \\ (.+?) ≠ ∅$/u);
+  if (outside) {
+    const [, subject, predicate] = outside;
+    if (locale === "hi-IN") return `${subject} का कम-से-कम एक सदस्य ${predicate} में नहीं है।`;
+    if (locale === "pa-IN") return `${subject} ਦਾ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਮੈਂਬਰ ${predicate} ਵਿੱਚ ਨਹੀਂ ਹੈ।`;
+    return `At least one member of ${subject} does not belong to ${predicate}.`;
+  }
+
+  const identity = relation.match(/^(.+?) = (.+)$/u);
+  if (identity) {
+    const [, subject, predicate] = identity;
+    if (locale === "hi-IN") return `${subject} और ${predicate} एक ही वर्ग को दर्शाते हैं।`;
+    if (locale === "pa-IN") return `${subject} ਅਤੇ ${predicate} ਇੱਕੋ ਵਰਗ ਨੂੰ ਦਰਸਾਉਂਦੇ ਹਨ।`;
+    return `${subject} and ${predicate} name the same class.`;
+  }
+  return null;
+}
+
+function naturalizeStatementMeanings(
+  meanings: readonly SylStatementMeaningV3[],
+  locale: SylLocale,
+): readonly SylStatementMeaningV3[] {
+  return Object.freeze(meanings.map((meaning) => Object.freeze({
+    ...meaning,
+    normalizedMeaning: naturalRelationMeaning(meaning.normalizedRelation, locale) ?? meaning.normalizedMeaning,
+  })));
 }
 
 function decisiveFacts(
@@ -114,29 +175,31 @@ export function polishStructuredProofCoreV3(
   core: SylStructuredProofCoreV3,
   locale: SylLocale,
 ): SylStructuredProofCoreV3 {
-  const optionAnalysis = Object.freeze(core.optionAnalysis.map((analysis) => Object.freeze({
+  const statementMeanings = naturalizeStatementMeanings(core.statementMeanings, locale);
+  const naturalCore: SylStructuredProofCoreV3 = Object.freeze({ ...core, statementMeanings });
+  const optionAnalysis = Object.freeze(naturalCore.optionAnalysis.map((analysis) => Object.freeze({
     ...analysis,
     studentReason: isStatementConclusionOption(analysis)
-      ? polishedStatementReason(analysis, core, locale)
+      ? polishedStatementReason(analysis, naturalCore, locale)
       : analysis.studentReason.replace(/\s+/g, " ").trim(),
   })));
   const correct = optionAnalysis.find((analysis) => analysis.taskDisposition === "CORRECT_FOR_TASK");
   if (!correct) throw new Error("V3 proof polish cannot find the correct visible option.");
   const decisiveMeanings = correct.premiseIdsUsed
-    .map((premiseId) => core.statementMeanings.find((entry) => entry.premiseId === premiseId))
+    .map((premiseId) => statementMeanings.find((entry) => entry.premiseId === premiseId))
     .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
   const reasoningSteps = Object.freeze([
     ...decisiveMeanings.map((meaning) => `${statementReference(meaning.displayIndex, locale)}: ${stripTerminal(meaning.normalizedMeaning)}.`),
     correct.studentReason,
   ]);
   const correctOptionProof = Object.freeze({
-    ...core.correctOptionProof,
+    ...naturalCore.correctOptionProof,
     reasoningSteps,
     studentProof: `${reasoningSteps.join(" ")} ${finalSentence(correct.displayIndex, correct.optionText, locale)}`,
   });
   const combinedRelation = `${joinNatural(decisiveMeanings.map((meaning) => meaning.normalizedMeaning), locale)}. ${correct.studentReason}`;
   return Object.freeze({
-    ...core,
+    ...naturalCore,
     optionAnalysis,
     correctOptionProof,
     combinedRelation,
