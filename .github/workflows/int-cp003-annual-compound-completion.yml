@@ -8,6 +8,7 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-math-authority.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-core.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-solution-trace.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-annual-compound-runtime.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-editorial-*.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-exam-*.ts"
@@ -80,6 +81,20 @@ jobs:
           cd artifacts/api-server
           node dist/quant-v4/int-001-cp003-exam-readiness-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp003-exam-readiness-audit.log
 
+      - name: Bundle CP-003 semantic solution-trace audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp003-solution-trace-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp003-solution-trace-audit.mjs
+
+      - name: Run CP-003 semantic solution-trace audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp003-solution-trace-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp003-solution-trace-audit.log
+
       - name: Bundle CP-003 exam review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -103,9 +118,12 @@ jobs:
           grep -q 'PASS_INT_CP002_APPROVED_ENGLISH_FREEZE' artifacts/api-server/dist/quant-v4/int-001-cp002-english-freeze-audit.log
           grep -q 'PASS_INT_CP003_ANNUAL_COMPOUND_COMPLETION' artifacts/api-server/dist/quant-v4/int-001-cp003-completion-audit.log
           grep -q 'PASS_INT_CP003_EXAM_READINESS_REMEDIATION' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-readiness-audit.log
+          grep -q 'PASS_INT_CP003_SEMANTIC_SOLUTION_TRACE' artifacts/api-server/dist/quant-v4/int-001-cp003-solution-trace-audit.log
           grep -q 'PASS_INT_CP003_EXAM_READINESS_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-review-export.log
           grep -q '"authorityVersion": "INT-CP-003-MATH-AUTHORITY-v1"' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-readiness-audit.log
           grep -q '"contextCoverage": 4' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-readiness-audit.log
+          grep -q '"traceVersion": "INT-CP-003-SOLUTION-TRACE-v1"' artifacts/api-server/dist/quant-v4/int-001-cp003-solution-trace-audit.log
+          grep -q '"questionCount": 1400' artifacts/api-server/dist/quant-v4/int-001-cp003-solution-trace-audit.log
           summary=artifacts/api-server/dist/quant-v4/int-cp003-annual-compound-completion/int-cp003-completion-summary.json
           review=artifacts/api-server/dist/quant-v4/int-cp003-exam-readiness-review-pack
           test -f "$summary"
@@ -139,6 +157,7 @@ jobs:
             artifacts/api-server/dist/quant-v4/int-001-cp002-english-freeze-audit.log
             artifacts/api-server/dist/quant-v4/int-001-cp003-completion-audit.log
             artifacts/api-server/dist/quant-v4/int-001-cp003-exam-readiness-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp003-solution-trace-audit.log
             artifacts/api-server/dist/quant-v4/int-001-cp003-exam-review-export.log
             artifacts/api-server/dist/quant-v4/int-cp003-annual-compound-completion/**
             artifacts/api-server/dist/quant-v4/int-cp003-exam-readiness-review-pack/**
