@@ -1,4 +1,4 @@
-import { RNK_CP004_PROTOTYPE_IDS } from './cp004-foundation';
+import { RNK_CP004_PROTOTYPE_IDS, type RnkCp004Option } from './cp004-foundation';
 import {
   generateRnkCp004ExamReadyQuestion,
   type RnkCp004ExamReadyQuestion,
@@ -17,6 +17,55 @@ const REVIEW_CORRECT_INDEX_SEQUENCE = [
   0, 1, 3, 2, 3, 0,
 ] as const;
 
+function optionAnalysis(options: readonly RnkCp004Option[]): readonly string[] {
+  return options.map(
+    (option, index) => `Option ${String.fromCharCode(65 + index)} (${option.label}): ${option.explanation}.`,
+  );
+}
+
+function visibleWrongAnalysis(
+  question: RnkCp004ExamReadyQuestion,
+  options: readonly RnkCp004Option[],
+): readonly string[] | undefined {
+  if (!question.visibleExplanation.optionAnalysis) return undefined;
+  return options
+    .map((option, index) => ({ option, index }))
+    .filter(({ option }) => option.answerKey !== question.answerKey)
+    .map(({ option, index }) => `Option ${String.fromCharCode(65 + index)}: ${option.explanation}.`);
+}
+
+function moveCorrectOption(
+  question: RnkCp004ExamReadyQuestion,
+  targetIndex: number,
+): RnkCp004ExamReadyQuestion {
+  if (question.options[targetIndex]?.answerKey === question.answerKey) return question;
+  const correct = question.options.find((option) => option.answerKey === question.answerKey);
+  if (!correct) throw new Error(`Correct option missing for ${question.reviewMetadata.stableQuestionId}`);
+  const wrong = question.options.filter((option) => option.answerKey !== question.answerKey);
+  const options: RnkCp004Option[] = [];
+  let wrongIndex = 0;
+  for (let index = 0; index < 4; index += 1) {
+    options.push(index === targetIndex ? correct : wrong[wrongIndex++]);
+  }
+  const answer = options[targetIndex].label;
+  return {
+    ...question,
+    answer,
+    options,
+    correctIndex: targetIndex,
+    explanation: {
+      ...question.explanation,
+      optionAnalysis: optionAnalysis(options),
+      conclusion: `Answer: ${answer}.`,
+    },
+    visibleExplanation: {
+      ...question.visibleExplanation,
+      answer,
+      optionAnalysis: visibleWrongAnalysis(question, options),
+    },
+  };
+}
+
 export function buildRnkCp004ReviewPack(): readonly RnkCp004ExamReadyQuestion[] {
   const questions: RnkCp004ExamReadyQuestion[] = [];
   const fingerprints = new Set<string>();
@@ -26,11 +75,9 @@ export function buildRnkCp004ReviewPack(): readonly RnkCp004ExamReadyQuestion[] 
     let candidateSeed = prototypeIndex * 1000;
     while (accepted < 6) {
       const outputIndex = prototypeIndex * 6 + accepted;
-      const question = generateRnkCp004ExamReadyQuestion(
-        prototypeId,
-        candidateSeed,
-        REVIEW_CORRECT_INDEX_SEQUENCE[outputIndex],
-      );
+      const targetIndex = REVIEW_CORRECT_INDEX_SEQUENCE[outputIndex];
+      const generated = generateRnkCp004ExamReadyQuestion(prototypeId, candidateSeed, targetIndex);
+      const question = moveCorrectOption(generated, targetIndex);
       candidateSeed += 1;
       if (fingerprints.has(question.reviewMetadata.normalizedSemanticFingerprint)) continue;
       fingerprints.add(question.reviewMetadata.normalizedSemanticFingerprint);
