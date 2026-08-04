@@ -293,11 +293,11 @@ function localizedDiagramText(
 
 function correctOnlyDiagramMode(
   mode: SylExplanationTrace["diagramMode"],
-  premises: readonly SurfacePremise[],
+  definition: SylQlDefinition,
 ): SylExplanationTrace["diagramMode"] {
   if (
     mode === "TRUE_FALSE_COMPARISON"
-    && premises.some((premise) => ["ALL", "NO", "ONLY", "ARE_ONLY", "IDENTITY"].includes(premise.form))
+    && definition.renderer === "MODAL_CLASSIFICATION"
   ) {
     return "FORCED_AND_TRUE_FALSE_COMPARISON";
   }
@@ -344,7 +344,7 @@ export function remodelStudentPresentation(
     assignment,
     `${definition.qlId}-${selected.analysis.scenario.scenarioId}-correct-only`,
   );
-  const diagramMode = correctOnlyDiagramMode(diagram.mode, displayedPremises);
+  const diagramMode = correctOnlyDiagramMode(diagram.mode, definition);
   const diagramText = localizedDiagramText(locale, diagramMode);
   const baseSvg = locale === "en-IN"
     ? simplifySvgEnglish(diagram.svg)
