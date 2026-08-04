@@ -1,4 +1,4 @@
-name: Validate TSD P0 Remodel and Authority Audit
+name: Validate TSD Authority Ownership Implementation
 
 on:
   pull_request:
@@ -7,6 +7,7 @@ on:
       - feat/tsd-001-cp001-foundation
       - feat/tsd-001-cp002-segmented-average
       - feat/tsd-cp001-cp002-editorial-remodel-p0
+      - audit/tsd-cp001-cp002-authority-overlap
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/**
@@ -34,11 +35,11 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle TSD foundation, P0 remodel and authority audit
+      - name: Bundle TSD remodel, audit and ownership implementation
         run: |
           ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
           OUT=dist/quant-v4/tsd-001
-          mkdir -p artifacts/api-server/$OUT/foundation artifacts/api-server/$OUT/cp001 artifacts/api-server/$OUT/cp002 artifacts/api-server/$OUT/audit
+          mkdir -p artifacts/api-server/$OUT/foundation artifacts/api-server/$OUT/cp001 artifacts/api-server/$OUT/cp002 artifacts/api-server/$OUT/audit artifacts/api-server/$OUT/final-authority
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="$OUT/index.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/foundation/foundation-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/foundation/foundation-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp001/discovery-registry-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp001/discovery-registry-proof.mjs"
@@ -57,6 +58,8 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp002/runtime-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp002/runtime-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp002/review-export.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp002/review-export.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/authority-overlap-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/audit/authority-overlap-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/final-authority-implementation-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/final-authority/final-authority-implementation-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/final-authority-review-export.ts" --bundle --platform=node --format=esm --outfile="$OUT/final-authority/final-authority-review-export.mjs"
 
       - name: Run exact proof suites
         run: |
@@ -79,12 +82,14 @@ jobs:
           node dist/quant-v4/tsd-001/cp002/runtime-proof.mjs | tee dist/quant-v4/tsd-001/cp002/runtime-proof.log
           node dist/quant-v4/tsd-001/cp002/review-export.mjs | tee dist/quant-v4/tsd-001/cp002/review-export.log
           node dist/quant-v4/tsd-001/audit/authority-overlap-proof.mjs | tee dist/quant-v4/tsd-001/audit/authority-overlap-proof.log
+          node dist/quant-v4/tsd-001/final-authority/final-authority-implementation-proof.mjs | tee dist/quant-v4/tsd-001/final-authority/final-authority-implementation-proof.log
+          node dist/quant-v4/tsd-001/final-authority/final-authority-review-export.mjs | tee dist/quant-v4/tsd-001/final-authority/final-authority-review-export.log
 
-      - name: Upload remodel and audit proof logs
+      - name: Upload implementation proof logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-cp001-cp002-p0-and-authority-audit-proof
+          name: tsd-final-authority-ownership-implementation-proof
           path: |
             artifacts/api-server/dist/quant-v4/tsd-001/foundation/foundation-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp001/discovery-registry-proof.log
@@ -103,6 +108,15 @@ jobs:
             artifacts/api-server/dist/quant-v4/tsd-001/cp002/runtime-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/cp002/review-export.log
             artifacts/api-server/dist/quant-v4/tsd-001/audit/authority-overlap-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/final-authority/final-authority-implementation-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/final-authority/final-authority-review-export.log
+          if-no-files-found: error
+
+      - name: Upload final authority ownership review
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-final-authority-ownership-review
+          path: artifacts/api-server/dist/quant-v4/tsd-001/final-authority-review
           if-no-files-found: error
 
       - name: Upload CP-001 P0 editorial review
