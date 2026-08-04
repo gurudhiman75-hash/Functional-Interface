@@ -2,7 +2,7 @@ import { RNK_CP004_PROTOTYPE_IDS } from './cp004-foundation';
 import {
   generateRnkCp004ExamReadyQuestion,
   type RnkCp004ExamReadyQuestion,
-} from './cp004-exam-ready';
+} from './cp004-exam-ready-v2';
 
 const REVIEW_SEEDS = [0, 1, 2, 7, 31, 97] as const;
 
