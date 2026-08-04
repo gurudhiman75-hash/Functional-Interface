@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - feat/syl-001-foundation
+      - feat/syl-001-full-runtime
       - New-main
     types: [opened, reopened, synchronize]
     paths:
@@ -23,7 +24,7 @@ concurrency:
 jobs:
   validate-syl-001-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -88,27 +89,54 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/reasoning-v1/syl-001-learner-language-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-learner-language-audit.log
 
-      - name: Bundle multilingual review exporter
+      - name: Bundle structured-proof V3 audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-review.ts
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/structured-proof-v3-audit.test.ts
           --bundle --platform=node --format=esm
-          --outfile=dist/reasoning-v1/syl-001-export-review.mjs
+          --outfile=dist/reasoning-v1/syl-001-structured-proof-v3-audit.test.mjs
 
-      - name: Generate pedagogy-remodelled review pack
+      - name: Run structured-proof V3 audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-structured-proof-v3-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-structured-proof-v3-audit.log
+
+      - name: Bundle exhaustive QL gap discovery
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/ql-gap-discovery-v3.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-ql-gap-discovery-v3.mjs
+
+      - name: Generate open QL gap report
         env:
-          SYL_REVIEW_DIR: artifacts/api-server/dist/reasoning-v1/syl-001-review
-        run: node artifacts/api-server/dist/reasoning-v1/syl-001-export-review.mjs
+          SYL_DISCOVERY_DIR: artifacts/api-server/dist/reasoning-v1/syl-001-discovery-v3
+        run: node artifacts/api-server/dist/reasoning-v1/syl-001-ql-gap-discovery-v3.mjs
 
-      - name: Upload multilingual review evidence
+      - name: Bundle structured-proof V3 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-review-v3.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-export-review-v3.mjs
+
+      - name: Generate structured-proof V3 review pack
+        env:
+          SYL_REVIEW_DIR: artifacts/api-server/dist/reasoning-v1/syl-001-review-v3
+        run: node artifacts/api-server/dist/reasoning-v1/syl-001-export-review-v3.mjs
+
+      - name: Upload structured-proof review evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: syl-001-multilingual-review
+          name: syl-001-structured-proof-v3-review
           path: |
             artifacts/api-server/dist/reasoning-v1/syl-001-chapter-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-learner-quality-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-learner-language-audit.log
-            artifacts/api-server/dist/reasoning-v1/syl-001-review/**
+            artifacts/api-server/dist/reasoning-v1/syl-001-structured-proof-v3-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-discovery-v3/**
+            artifacts/api-server/dist/reasoning-v1/syl-001-review-v3/**
           if-no-files-found: error
           retention-days: 30
