@@ -292,7 +292,9 @@ function taskDirection(qlId: IntCp003QlId): Cp003Direction {
 }
 function arithmeticLoad(profile: RateProfile, powerValue: number): Cp003ArithmeticLoad {
   const burden = profile.annualFactor.denominator.toString().length + profile.annualFactor.numerator.toString().length + powerValue;
-  return burden <= 5 ? "LOW" : burden <= 8 ? "MEDIUM" : "HIGH";
+  const baseLoad: Cp003ArithmeticLoad = burden <= 5 ? "LOW" : burden <= 8 ? "MEDIUM" : "HIGH";
+  if (profile.tier === "SELECTIVE" && baseLoad === "LOW") return "MEDIUM";
+  return baseLoad;
 }
 function representationBurden(representation: Cp003Representation): 0 | 1 | 2 {
   if (representation === "STANDARD_PROSE" || representation === "GROWTH_RATIO") return 0;
@@ -300,7 +302,7 @@ function representationBurden(representation: Cp003Representation): 0 | 1 | 2 {
   return 2;
 }
 function conceptualSteps(qlId: IntCp003QlId, representation: Cp003Representation, yearGap: number): number {
-  let steps = ["INT-QL-053", "INT-QL-054"].includes(qlId) ? 1 : ["INT-QL-055", "INT-QL-058", "INT-QL-059", "INT-QL-062", "INT-QL-063"].includes(qlId) ? 2 : 3;
+  let steps = qlId === "INT-QL-053" ? 1 : qlId === "INT-QL-054" ? 3 : ["INT-QL-055", "INT-QL-058", "INT-QL-059", "INT-QL-062", "INT-QL-063"].includes(qlId) ? 2 : 3;
   if (["INT-QL-061", "INT-QL-064", "INT-QL-065", "INT-QL-066"].includes(qlId)) steps += 1;
   if (yearGap > 1) steps += 1;
   if (representationBurden(representation) === 2) steps += 1;
