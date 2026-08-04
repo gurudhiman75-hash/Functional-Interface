@@ -1,3 +1,4 @@
+import { editorialDifficulty, questionLanguageId, reopenedEditorialLifecycle } from "../editorial-contract";
 import { TSD_CP001_DISCOVERY_AUTHORITIES, type TsdCp001DiscoveryAuthority, type TsdCp001DiscoverySolveMode } from "./discovery-registry";
 import { solveCp001 } from "./canonical-solver";
 import { verifyCp001Solution } from "./independent-verifier";
@@ -21,6 +22,7 @@ import {
 } from "./answer-unit-review";
 import { examWorkingLines } from "./exam-working";
 import { editorialStem, inlineMathText } from "./pedagogy";
+import { remodelCp001Stem } from "./editorial-remodel";
 import { buildHumanExplanation } from "./human-explanation";
 import { authorityOrdinal, formatAnswer, stableStringify } from "./runtime-support";
 
@@ -33,12 +35,71 @@ export const TSD_CP001_LEARNER_AUTHORITIES = TSD_CP001_DISCOVERY_AUTHORITIES.fil
   (authority) => !TSD_CP001_NON_LEARNER_MODES.has(authority.solveMode),
 );
 
+function cp001Difficulty(mode: TsdCp001DiscoverySolveMode): TsdCp001Difficulty {
+  switch (mode) {
+    case "distanceFromSpeedAndTime":
+    case "speedFromDistanceAndTime":
+    case "timeFromDistanceAndSpeed":
+    case "convertSpeedUnit":
+    case "convertDistanceUnit":
+    case "convertTimeUnit":
+    case "compareDistancesAtEqualTime":
+    case "compareTimesAtEqualDistance":
+    case "compareSpeedsAtEqualTime":
+      return editorialDifficulty("Easy", 1);
+    case "speedFromMixedUnits":
+    case "arrivalClockTime":
+    case "departureClockTime":
+    case "elapsedClockTime":
+    case "distanceRatioFromSpeedAndTimeRatios":
+    case "speedRatioFromDistanceAndTimeRatios":
+    case "timeRatioFromDistanceAndSpeedRatios":
+    case "distanceByProportion":
+    case "timeByProportion":
+    case "speedByProportion":
+    case "speedFromPace":
+    case "paceFromSpeed":
+    case "distanceFromPaceAndTime":
+    case "requiredUniformSpeedForDeadline":
+      return editorialDifficulty("Medium", 2);
+    case "classifyUniformMotionState":
+    case "verifyUniformMotionClaim":
+      return editorialDifficulty("Easy", 1);
+  }
+}
+
+function clockSemanticKey(text: string, question: Omit<TsdCp001GeneratedQuestion, "validation">): string | null {
+  const match = text.match(/^(\d{1,2}):(\d{2})\s+(AM|PM)(?:\s+(next day))?$/i);
+  if (!match) return null;
+  const hour12 = Number(match[1]);
+  const minute = Number(match[2]);
+  const isPm = match[3].toUpperCase() === "PM";
+  const hour24 = (hour12 % 12) + (isPm ? 12 : 0);
+  let dayOffset = match[4] ? 1 : 0;
+
+  if (
+    !match[4]
+    && question.solution.answerKind === "CLOCK_TIME"
+    && question.solution.dayOffset === 1n
+    && question.solution.minuteOfDay.denominator === 1n
+    && Number(question.solution.minuteOfDay.numerator) === hour24 * 60 + minute
+  ) {
+    dayOffset = 1;
+  }
+  return `CLOCK:${dayOffset}:${hour24 * 60 + minute}`;
+}
+
+function semanticOptionKey(text: string, question: Omit<TsdCp001GeneratedQuestion, "validation">): string {
+  return clockSemanticKey(text, question) ?? text.trim().toLowerCase().replace(/\s+/g, " ");
+}
+
 function validationErrors(question: Omit<TsdCp001GeneratedQuestion, "validation">): string[] {
   const errors: string[] = [];
   const verification = verifyCp001Solution(question.input, question.solution);
   if (!verification.valid) errors.push(...verification.errors.map((error) => `Verifier: ${error}`));
   if (!question.stem.trim().endsWith("?") && !question.stem.trim().endsWith(".")) errors.push("Stem must end with punctuation");
   if (question.options.length !== 4 || new Set(question.options).size !== 4) errors.push("Options must contain four unique values");
+  if (new Set(question.options.map((option) => semanticOptionKey(option, question))).size !== 4) errors.push("Options contain semantically equivalent values");
   if (question.optionAudit.filter((option) => option.isCorrect).length !== 1) errors.push("Exactly one option must be correct");
   if (!question.optionAudit[question.correctIndex]?.isCorrect) errors.push("Correct index does not identify the correct option");
   if (question.answerText !== question.options[question.correctIndex]) errors.push("Answer text and keyed option differ");
@@ -53,12 +114,16 @@ function validationErrors(question: Omit<TsdCp001GeneratedQuestion, "validation"
   if (question.explanation.optionAnalysis.some((option, index) => option.text !== question.options[index])) errors.push("Option analysis and option text differ");
   if (question.explanation.optionAnalysis.some((option) => !option.reason.trim())) errors.push("Option-analysis reason is missing");
   if (!TSD_CP001_NON_LEARNER_MODES.has(question.solveMode) && !question.stemMathJax.includes("\\(")) errors.push("Learner stem has no MathJax quantity");
-  if (question.lifecycle.reviewStatus !== "UNREVIEWED") errors.push("Review status must remain UNREVIEWED");
+  if (question.lifecycle.reviewStatus !== "EDITORIAL_REVIEW_REQUIRED") errors.push("Editorial review status is not reopened");
+  if (question.lifecycle.englishDecision !== "NEEDS_REVISION") errors.push("English decision must remain NEEDS_REVISION during remodel");
+  if (question.lifecycle.englishFreezeStatus !== "UNFROZEN") errors.push("English freeze must remain UNFROZEN during remodel");
   if (question.lifecycle.questionBankStatus !== "NOT_STORED") errors.push("Question Bank status must remain NOT_STORED");
   if (question.lifecycle.testEligibility !== "INELIGIBLE") errors.push("Test eligibility must remain INELIGIBLE");
   if (question.lifecycle.publiclyPublishable || question.publiclyPublishable) errors.push("Candidate must not be publicly publishable");
+  if (!question.questionLanguageId.trim()) errors.push("Stable questionLanguageId is missing");
+  if (question.difficulty.status !== "EDITORIAL_CALIBRATION_REQUIRED") errors.push("Difficulty must remain editorially provisional");
   const serialized = stableStringify(question);
-  if (/TSD-QL-|\{\{[A-Z_][^}]*\}\}|TODO|PLACEHOLDER/.test(serialized)) errors.push("Permanent ID or unresolved placeholder leaked into candidate");
+  if (/\{\{[A-Z_][^}]*\}\}|TODO|PLACEHOLDER/.test(serialized)) errors.push("Unresolved placeholder leaked into candidate");
   return errors;
 }
 
@@ -71,8 +136,8 @@ export function generateCp001Candidate(
   const generatedState = generateState(authority, seed);
   const input = prepareEquivalentSpeedInput(seed, generatedState.input);
   const solution = solveCp001(input);
-  const representation = buildEquivalentSpeedRepresentation(authority, seed, input, solution);
-  const display = representation?.display ?? generatedState.display;
+  const equivalentRepresentation = buildEquivalentSpeedRepresentation(authority, seed, input, solution);
+  const display = equivalentRepresentation?.display ?? generatedState.display;
   const formattedAnswerText = formatAnswer(solution, display);
   const paceOptionSet = paceOptionPackage(authority, seed, input, solution, display);
   const baseOptionSet = paceOptionSet ?? (
@@ -82,26 +147,30 @@ export function generateCp001Candidate(
         ? elapsedClockOptionPackage(authority, seed, input, solution, display)
         : optionPackage(authority, seed, input, solution, display)
   );
-  const optionSet = representation?.optionSet ?? (TSD_CP001_NON_LEARNER_MODES.has(authority.solveMode)
+  const optionSet = equivalentRepresentation?.optionSet ?? (TSD_CP001_NON_LEARNER_MODES.has(authority.solveMode)
     ? baseOptionSet
     : examOptionPackage(input, solution, display, baseOptionSet));
-  const answerText = representation?.answerText ?? (
+  const answerText = equivalentRepresentation?.answerText ?? (
     solution.answerKind === "CLASSIFICATION" || solution.answerKind === "BOOLEAN"
       ? optionSet.options[optionSet.correctIndex]
       : formattedAnswerText
   );
-  const ordinal = authorityOrdinal(authority);
-  const difficulty: TsdCp001Difficulty = ordinal <= 10 ? "Easy" : ordinal <= 20 ? "Medium" : "Hard";
-  const working = representation?.working ?? examWorkingLines(input, solution, display);
-  const stem = representation?.stem ?? editorialStem(input, generatedState.stem, seed);
-  const representationFingerprint = representation?.fingerprintSuffix
+  const difficulty = cp001Difficulty(authority.solveMode);
+  const working = equivalentRepresentation?.working ?? examWorkingLines(input, solution, display);
+  const originalStem = equivalentRepresentation?.stem ?? editorialStem(input, generatedState.stem, seed);
+  const stem = remodelCp001Stem(input, originalStem, seed);
+  const representationFingerprint = equivalentRepresentation?.fingerprintSuffix
     ?? (input.solveMode === "convertSpeedUnit" ? SCALAR_SPEED_FINGERPRINT : "representation:STANDARD");
+  const representation = representationFingerprint.replace(/^representation:/, "");
   const base = {
+    chapterId: "TSD-001" as const,
+    checkpointId: "TSD-CP-001" as const,
     archetypeId: "TSD-001" as const,
     canonicalProblemId: "TSD-CP-001" as const,
     provisionalAuthorityId: authority.provisionalId,
-    questionLanguageId: `${authority.provisionalId}:${seed}`,
+    questionLanguageId: questionLanguageId("TSD-CP-001", authority.provisionalId, seed),
     solveMode: authority.solveMode,
+    representation,
     language: "en" as const,
     seed,
     difficulty,
@@ -115,18 +184,13 @@ export function generateCp001Candidate(
     correctIndex: optionSet.correctIndex,
     explanation: buildHumanExplanation(authority, input, display, working, optionSet.optionAudit, answerText, seed),
     mathematicalFingerprint: `${authority.provisionalId}|${authority.solveMode}|${stableStringify(input)}|${representationFingerprint}`,
-    lifecycle: {
-      reviewStatus: "UNREVIEWED" as const,
-      questionBankStatus: "NOT_STORED" as const,
-      testEligibility: "INELIGIBLE" as const,
-      publiclyPublishable: false as const,
-    },
+    lifecycle: reopenedEditorialLifecycle(),
     publiclyPublishable: false as const,
   };
   const errors = validationErrors(base);
   return Object.freeze({
     ...base,
-    validation: Object.freeze({ valid: errors.length === 0, errors: Object.freeze(errors) }),
+    validation: Object.freeze({ valid: errors.length === 0, errors: Object.freeze(errors), warnings: Object.freeze([] as string[]) }),
   });
 }
 

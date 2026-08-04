@@ -1,7 +1,8 @@
+import type { TsdEditorialDifficulty, TsdEditorialLifecycle } from "../editorial-contract";
 import type { TsdCp001Solution, TsdCp001SolveInput } from "./canonical-solver";
 import type { TsdCp001DiscoveryAuthority, TsdCp001DiscoverySolveMode } from "./discovery-registry";
 
-export type TsdCp001Difficulty = "Easy" | "Medium" | "Hard";
+export type TsdCp001Difficulty = TsdEditorialDifficulty;
 export type TsdCp001MisconceptionId =
   | "CORRECT"
   | "MULTIPLY_INSTEAD_OF_DIVIDE"
@@ -49,12 +50,7 @@ export type TsdCp001MisconceptionId =
   | "IGNORE_INCONSISTENT_IDENTITY"
   | "ASSUME_CLAIM_WITHOUT_CHECKING";
 
-export interface TsdCp001Lifecycle {
-  readonly reviewStatus: "UNREVIEWED";
-  readonly questionBankStatus: "NOT_STORED";
-  readonly testEligibility: "INELIGIBLE";
-  readonly publiclyPublishable: false;
-}
+export type TsdCp001Lifecycle = TsdEditorialLifecycle;
 
 export interface TsdCp001OptionAudit {
   readonly text: string;
@@ -87,11 +83,14 @@ export interface TsdCp001Explanation {
 }
 
 export interface TsdCp001GeneratedQuestion {
+  readonly chapterId: "TSD-001";
+  readonly checkpointId: "TSD-CP-001";
   readonly archetypeId: "TSD-001";
   readonly canonicalProblemId: "TSD-CP-001";
   readonly provisionalAuthorityId: TsdCp001DiscoveryAuthority["provisionalId"];
   readonly questionLanguageId: string;
   readonly solveMode: TsdCp001DiscoverySolveMode;
+  readonly representation: string;
   readonly language: "en";
   readonly seed: string;
   readonly difficulty: TsdCp001Difficulty;
@@ -109,6 +108,7 @@ export interface TsdCp001GeneratedQuestion {
   readonly validation: {
     readonly valid: boolean;
     readonly errors: readonly string[];
+    readonly warnings: readonly string[];
   };
   readonly publiclyPublishable: false;
 }
