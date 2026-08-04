@@ -69,6 +69,12 @@ for (const definition of SYL_QL_REGISTRY) {
       assert(proof.combinedReasoning.reasoningSteps.at(-1)?.premiseIds.length === proof.diagramSpec.relevantPremiseIds.length, `${key} final reasoning step omits a diagram premise.`);
 
       const svg = proof.integratedDiagramSvg;
+      assert(svg.includes('viewBox="0 0 360 '), `${key} does not use the mobile-first 360-unit diagram canvas.`);
+      assert(!svg.includes('viewBox="0 0 720 '), `${key} retained the unreadable 720-unit diagram canvas.`);
+      assert(svg.includes('data-diagram-version="syl-integrated-diagram-v3-mobile"'), `${key} lacks the mobile diagram version contract.`);
+      assert(svg.includes('.node-label{font-size:10.5px'), `${key} node labels are below the mobile readability contract.`);
+      assert(svg.includes('.edge-label{font-size:8.5px'), `${key} relation labels are below the mobile readability contract.`);
+      assert(svg.includes('.answer-text{font-size:10px'), `${key} answer text is below the mobile readability contract.`);
       const ids = [...svg.matchAll(/(?:^|\s)id="([^"]+)"/gu)].map((match) => match[1]);
       assert(ids.length >= 4, `${key} SVG lacks expected accessibility/marker IDs.`);
       assert(new Set(ids).size === ids.length, `${key} SVG repeats an internal ID.`);
@@ -99,4 +105,5 @@ console.log(JSON.stringify({
   records,
   options,
   globallyUniqueSvgIds: allSvgIds.size,
+  mobileDiagramCanvas: 360,
 }, null, 2));
