@@ -75,6 +75,19 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/reasoning-v1/syl-001-learner-quality-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-learner-quality-audit.log
 
+      - name: Bundle weak-English language audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-language-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-learner-language-audit.test.mjs
+
+      - name: Run weak-English language audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-learner-language-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-learner-language-audit.log
+
       - name: Bundle multilingual review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -95,6 +108,7 @@ jobs:
           path: |
             artifacts/api-server/dist/reasoning-v1/syl-001-chapter-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-learner-quality-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-learner-language-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-review/**
           if-no-files-found: error
           retention-days: 30
