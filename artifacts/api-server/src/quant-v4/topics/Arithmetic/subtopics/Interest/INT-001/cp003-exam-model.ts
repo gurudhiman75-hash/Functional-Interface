@@ -161,6 +161,12 @@ const TARGET_PRINCIPALS = [
   10000n, 12000n, 12500n, 16000n, 20000n, 25000n, 32000n, 40000n, 50000n, 62500n,
   76800n, 80000n, 100000n, 125000n, 160000n, 200000n, 250000n, 300000n, 400000n, 500000n,
 ] as const;
+const FRIENDLY_BASE_MULTIPLIERS = [
+  1n, 2n, 3n, 4n, 5n, 6n, 8n, 10n, 12n, 15n, 16n, 20n, 24n, 25n, 30n, 32n, 40n, 48n,
+  50n, 60n, 64n, 75n, 80n, 100n, 120n, 125n, 150n, 160n, 200n, 240n, 250n, 300n, 320n,
+  400n, 500n, 625n, 800n, 1000n, 1200n, 1250n, 1600n, 2000n, 2500n, 3200n, 4000n, 5000n,
+  6250n, 8000n, 10000n, 12500n, 16000n, 20000n, 25000n, 32000n, 40000n, 50000n,
+] as const;
 const abs = (value: bigint): bigint => value < 0n ? -value : value;
 
 function selectRate(seed: string, qlId: IntCp003QlId): RateProfile {
@@ -180,9 +186,30 @@ function selectYears(seed: string, qlId: IntCp003QlId, profile: RateProfile, min
   const maximum = Math.max(minimum, maxYearsFor(profile, qlId));
   return minimum + hash(`${seed}:${qlId}:years`) % (maximum - minimum + 1);
 }
-function compatiblePrincipal(seed: string, qlId: IntCp003QlId, profile: RateProfile, maximumPower: number): Rational {
-  const denominatorPower = profile.annualFactor.denominator ** BigInt(maximumPower);
+function compatiblePrincipal(seed: string, qlId: IntCp003QlId, profile: RateProfile, requiredPower: number): Rational {
+  const denominatorPower = profile.annualFactor.denominator ** BigInt(requiredPower);
   const target = pick(TARGET_PRINCIPALS, seed, `${qlId}:targetPrincipal`);
+  if (target % denominatorPower === 0n) return rat(target);
+
+  const candidates = [...new Set(
+    FRIENDLY_BASE_MULTIPLIERS
+      .map((base) => base * denominatorPower)
+      .filter((value) => value >= 800n && value <= 500000n)
+      .map((value) => value.toString()),
+  )]
+    .map((value) => BigInt(value))
+    .sort((left, right) => {
+      const leftDistance = abs(target - left);
+      const rightDistance = abs(target - right);
+      if (leftDistance !== rightDistance) return leftDistance < rightDistance ? -1 : 1;
+      return left < right ? -1 : left > right ? 1 : 0;
+    });
+
+  if (candidates.length > 0) {
+    const shortlist = candidates.slice(0, Math.min(3, candidates.length));
+    return rat(pick(shortlist, seed, `${qlId}:friendlyPrincipalVariant`));
+  }
+
   const quotient = target / denominatorPower;
   const lower = quotient > 0n ? quotient : 1n;
   const upper = lower + 1n;
@@ -285,8 +312,38 @@ function difficultyProfile(qlId: IntCp003QlId, representation: Cp003Representati
   const rep = representationBurden(representation);
   const steps = conceptualSteps(qlId, representation, yearGap);
   const score = steps + (direction === "INVERSE" ? 1 : direction === "MULTI_STAGE" ? 2 : 0) + (load === "MEDIUM" ? 1 : load === "HIGH" ? 2 : 0) + rep;
-  const label: Cp003Difficulty = score <= 3 ? "Easy" : score <= 6 ? "Medium" : "Hard";
+  const label: Cp003Difficulty = score <= 2 ? "Easy" : score <= 6 ? "Medium" : "Hard";
   return Object.freeze({ conceptualSteps: steps, arithmeticLoad: load, direction, representationBurden: rep, shortcutAvailable: profile.annualFactor.denominator <= 10n, score, label });
+}
+
+function requiredPrincipalPower(
+  qlId: IntCp003QlId,
+  years: number,
+  targetYear: number,
+  currentYear: number,
+  laterYear: number,
+): number {
+  switch (qlId) {
+    case "INT-QL-053":
+    case "INT-QL-054":
+    case "INT-QL-055":
+    case "INT-QL-056":
+    case "INT-QL-057":
+    case "INT-QL-058":
+      return years;
+    case "INT-QL-059":
+    case "INT-QL-060":
+    case "INT-QL-061":
+      return targetYear;
+    case "INT-QL-062":
+    case "INT-QL-063":
+      return currentYear;
+    case "INT-QL-064":
+      return currentYear + 1;
+    case "INT-QL-065":
+    case "INT-QL-066":
+      return laterYear;
+  }
 }
 
 function buildState(qlId: IntCp003QlId, seed: string, profile: RateProfile): Cp003MathematicalState {
@@ -297,8 +354,8 @@ function buildState(qlId: IntCp003QlId, seed: string, profile: RateProfile): Cp0
   const gap = 1 + hash(`${seed}:${qlId}:yearGap`) % 2;
   const laterYear = Math.min(earlierYear + gap, Math.max(2, maximumYear));
   const currentYear = 1 + hash(`${seed}:${qlId}:currentYear`) % Math.max(1, Math.min(3, maximumYear));
-  const maximumPower = Math.max(years, targetYear, laterYear, currentYear + 1);
-  const principal = compatiblePrincipal(seed, qlId, profile, maximumPower);
+  const principalPower = requiredPrincipalPower(qlId, years, targetYear, currentYear, laterYear);
+  const principal = compatiblePrincipal(seed, qlId, profile, principalPower);
   const maturityAmount = amount(principal, profile.ratePercent, years);
   switch (qlId) {
     case "INT-QL-053": return Object.freeze({ qlId, principal, ratePercent: profile.ratePercent, years });
