@@ -84,7 +84,7 @@ assert(/Total time = .*Total distance = .*Average pace =/i.test(explanationText(
 assert(/Allowed total time = .*Unknown-leg time = .*Unknown speed =/i.test(explanationText("TSD-QL-026")), "QL-026 still skips remaining-time derivation");
 assert(!/Solving gives/i.test(explanationText("TSD-QL-028")) && /Collecting terms gives/i.test(explanationText("TSD-QL-028")), "QL-028 still jumps over algebra");
 assert(/distance fraction/i.test(explanationText("TSD-QL-029")) && /time fraction/i.test(explanationText("TSD-QL-029")), "QL-029 submode equations are incomplete");
-assert(/harmonic-average equation/i.test(explanationText("TSD-QL-030")), "QL-030 harmonic algebra is missing");
+assert(/= 2 × .* × x ÷ \(.* \+ x\)/i.test(explanationText("TSD-QL-030")), "QL-030 harmonic equation is missing");
 assert(/t₁ \+ t₂ = .*Distances are/i.test(explanationText("TSD-QL-034")), "QL-034 simultaneous equations are not solved");
 assert(/simplified distance ratio/i.test(explanationText("TSD-QL-035")) && /simplified time ratio/i.test(explanationText("TSD-QL-035")), "QL-035 representation-specific ratio derivations are incomplete");
 assert(/Target total time = .*Remaining time = .*Required speed =/i.test(explanationText("TSD-QL-036")), "QL-036 time-budget derivation is incomplete");
