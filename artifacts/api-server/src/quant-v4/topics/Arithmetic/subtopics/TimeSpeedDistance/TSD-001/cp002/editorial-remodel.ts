@@ -4,6 +4,7 @@ import {
   divide,
   f,
   formatFraction,
+  formatRatio,
   multiply,
   reciprocal,
   subtract,
@@ -11,12 +12,7 @@ import {
   type Fraction,
 } from "./fraction";
 import { averageSpeedForSegments, segmentTime, totalSegmentDistance, totalSegmentTime } from "./solver";
-import type {
-  Segment,
-  TsdCp002Input,
-  TsdCp002LearnerSolveMode,
-  TsdCp002Solution,
-} from "./types";
+import type { Segment, TsdCp002Input, TsdCp002LearnerSolveMode, TsdCp002Solution } from "./types";
 
 const POSITION_PERMUTATIONS = Object.freeze([
   Object.freeze([0, 3, 1, 2] as const),
@@ -27,9 +23,7 @@ const POSITION_PERMUTATIONS = Object.freeze([
   Object.freeze([2, 3, 1, 0] as const),
 ]);
 
-function q(value: Fraction): string {
-  return formatFraction(value);
-}
+const q = (value: Fraction): string => formatFraction(value);
 
 function numeric(solution: TsdCp002Solution): Fraction {
   if (typeof solution.value !== "object") throw new Error("Expected a numeric CP-002 solution");
@@ -73,7 +67,6 @@ export function cp002Difficulty(mode: TsdCp002LearnerSolveMode, input: TsdCp002I
     case "unknownSegmentShareFromAverage":
       return editorialDifficulty(input.shareKind === "DISTANCE" ? "Hard" : "Medium", input.shareKind === "DISTANCE" ? 4 : 3);
     case "segmentAllocationFromTotalsAndSpeeds":
-      return editorialDifficulty("Hard", 4);
     case "segmentRatioFromAverageAndSpeeds":
       return editorialDifficulty("Hard", 4);
   }
@@ -99,22 +92,8 @@ export function cp002Shortcut(input: TsdCp002Input, fallback: string): string {
   return fallback;
 }
 
-export function cp002WorkingLines(
-  input: TsdCp002Input,
-  solution: TsdCp002Solution,
-  fallback: readonly string[],
-): readonly string[] {
+export function cp002WorkingLines(input: TsdCp002Input, solution: TsdCp002Solution, fallback: readonly string[]): readonly string[] {
   switch (input.mode) {
-    case "averageSpeedFromSegments": {
-      const totalDistance = totalSegmentDistance(input.segments);
-      const totalTime = totalSegmentTime(input.segments);
-      return Object.freeze([
-        ...segmentSummary(input.segments),
-        `Total distance = ${input.segments.map((segment) => q(segment.distanceKm)).join(" + ")} = ${q(totalDistance)} km.`,
-        `Total travelling time = ${input.segments.map((segment) => q(segmentTime(segment))).join(" + ")} = ${q(totalTime)} hours.`,
-        `Average speed = ${q(totalDistance)} ÷ ${q(totalTime)} = ${q(numeric(solution))} km/h.`,
-      ]);
-    }
     case "averagePaceFromSegments": {
       const segmentMinutes = input.segments.map((segment) => multiply(segment.distanceKm, segment.paceMinutesPerKm));
       const totalMinutes = sum(segmentMinutes);
@@ -144,7 +123,7 @@ export function cp002WorkingLines(
       const totalTime = divide(totalDistance, input.overallAverageKmph);
       const missingTime = subtract(totalTime, input.knownTimeHours);
       return Object.freeze([
-        `Total distance = ${q(input.knownDistanceKm)} + ${q(input.unknownDistanceKm)} = ${q(totalDistance)} km.`,
+        `Total distance = ${q(totalDistance)} km.`,
         `Complete journey time = ${q(totalDistance)} ÷ ${q(input.overallAverageKmph)} = ${q(totalTime)} hours.`,
         `Known time = ${q(input.knownTimeHours)} hours.`,
         `Missing time = ${q(totalTime)} − ${q(input.knownTimeHours)} = ${q(missingTime)} hours.`,
@@ -152,14 +131,14 @@ export function cp002WorkingLines(
     }
     case "unknownSegmentDistanceFromAverage": {
       const knownTime = divide(input.knownDistanceKm, input.knownSpeedKmph);
-      const leftCoefficient = subtract(f(1), divide(input.overallAverageKmph, input.unknownSpeedKmph));
+      const coefficient = subtract(f(1), divide(input.overallAverageKmph, input.unknownSpeedKmph));
       const rightSide = subtract(multiply(input.overallAverageKmph, knownTime), input.knownDistanceKm);
       return Object.freeze([
-        `Let the unknown second distance be x km.`,
-        `Then (${q(input.knownDistanceKm)} + x) ÷ (${q(knownTime)} + x/${q(input.unknownSpeedKmph)}) = ${q(input.overallAverageKmph)}.`,
-        `After multiplying through: ${q(input.knownDistanceKm)} + x = ${q(input.overallAverageKmph)} × (${q(knownTime)} + x/${q(input.unknownSpeedKmph)}).`,
-        `Collecting the x terms gives ${q(leftCoefficient)}x = ${q(rightSide)}.`,
-        `Therefore, x = ${q(rightSide)} ÷ ${q(leftCoefficient)} = ${q(numeric(solution))} km.`,
+        "Let the unknown second distance be x km.",
+        `(${q(input.knownDistanceKm)} + x) ÷ (${q(knownTime)} + x/${q(input.unknownSpeedKmph)}) = ${q(input.overallAverageKmph)}.`,
+        `${q(input.knownDistanceKm)} + x = ${q(input.overallAverageKmph)} × (${q(knownTime)} + x/${q(input.unknownSpeedKmph)}).`,
+        `Collecting terms gives ${q(coefficient)}x = ${q(rightSide)}.`,
+        `x = ${q(rightSide)} ÷ ${q(coefficient)} = ${q(numeric(solution))} km.`,
       ]);
     }
     case "unknownSegmentShareFromAverage": {
@@ -168,64 +147,36 @@ export function cp002WorkingLines(
         const coefficient = subtract(reciprocal(input.firstSpeedKmph), reciprocal(input.secondSpeedKmph));
         const rightSide = subtract(reciprocal(input.overallAverageKmph), reciprocal(input.secondSpeedKmph));
         return Object.freeze([
-          `Let x be the fraction of total distance covered at ${q(input.firstSpeedKmph)} km/h.`,
-          `For distance weights: 1/${q(input.overallAverageKmph)} = x/${q(input.firstSpeedKmph)} + (1 − x)/${q(input.secondSpeedKmph)}.`,
-          `So x(${q(reciprocal(input.firstSpeedKmph))} − ${q(reciprocal(input.secondSpeedKmph))}) = ${q(reciprocal(input.overallAverageKmph))} − ${q(reciprocal(input.secondSpeedKmph))}.`,
-          `Hence x = ${q(rightSide)} ÷ ${q(coefficient)} = ${q(share)}.`,
-          `Required percentage = ${q(share)} × 100 = ${q(numeric(solution))}%.`,
+          `Let x be the distance fraction at ${q(input.firstSpeedKmph)} km/h.`,
+          `1/${q(input.overallAverageKmph)} = x/${q(input.firstSpeedKmph)} + (1 − x)/${q(input.secondSpeedKmph)}.`,
+          `x × ${q(coefficient)} = ${q(rightSide)}.`,
+          `x = ${q(rightSide)} ÷ ${q(coefficient)} = ${q(share)}.`,
+          `Percentage = ${q(share)} × 100 = ${q(numeric(solution))}%.`,
         ]);
       }
       const numerator = subtract(input.secondSpeedKmph, input.overallAverageKmph);
       const denominator = subtract(input.secondSpeedKmph, input.firstSpeedKmph);
       return Object.freeze([
-        `Let x be the fraction of total time spent at ${q(input.firstSpeedKmph)} km/h.`,
-        `For time weights: ${q(input.overallAverageKmph)} = ${q(input.firstSpeedKmph)}x + ${q(input.secondSpeedKmph)}(1 − x).`,
-        `Rearranging gives ${q(denominator)}x = ${q(numerator)}.`,
-        `Hence x = ${q(numerator)} ÷ ${q(denominator)} = ${q(share)}.`,
-        `Required percentage = ${q(share)} × 100 = ${q(numeric(solution))}%.`,
+        `Let x be the time fraction at ${q(input.firstSpeedKmph)} km/h.`,
+        `${q(input.overallAverageKmph)} = ${q(input.firstSpeedKmph)}x + ${q(input.secondSpeedKmph)}(1 − x).`,
+        `${q(denominator)}x = ${q(numerator)}.`,
+        `x = ${q(numerator)} ÷ ${q(denominator)} = ${q(share)}.`,
+        `Percentage = ${q(share)} × 100 = ${q(numeric(solution))}%.`,
       ]);
     }
     case "unknownRoundTripLegSpeedFromAverage": {
       const numerator = multiply(input.overallAverageKmph, input.knownLegSpeedKmph);
       const denominator = subtract(multiply(f(2), input.knownLegSpeedKmph), input.overallAverageKmph);
       return Object.freeze([
-        `Let the unknown equal-distance leg speed be x km/h.`,
-        `The harmonic-average equation is ${q(input.overallAverageKmph)} = 2 × ${q(input.knownLegSpeedKmph)} × x ÷ (${q(input.knownLegSpeedKmph)} + x).`,
-        `Multiplying through gives ${q(input.overallAverageKmph)} × (${q(input.knownLegSpeedKmph)} + x) = ${q(multiply(f(2), input.knownLegSpeedKmph))}x.`,
-        `Therefore, ${q(numerator)} = ${q(denominator)}x.`,
-        `So x = ${q(numerator)} ÷ ${q(denominator)} = ${q(numeric(solution))} km/h.`,
+        "Let the unknown equal-distance leg speed be x km/h.",
+        `${q(input.overallAverageKmph)} = 2 × ${q(input.knownLegSpeedKmph)} × x ÷ (${q(input.knownLegSpeedKmph)} + x).`,
+        `${q(input.overallAverageKmph)} × (${q(input.knownLegSpeedKmph)} + x) = ${q(multiply(f(2), input.knownLegSpeedKmph))}x.`,
+        `${q(numerator)} = ${q(denominator)}x.`,
+        `x = ${q(numerator)} ÷ ${q(denominator)} = ${q(numeric(solution))} km/h.`,
       ]);
     }
-    case "oneWayDistanceFromRoundTripData": {
-      const reciprocalSum = add(reciprocal(input.outwardSpeedKmph), reciprocal(input.returnSpeedKmph));
-      return Object.freeze([
-        `Let the one-way distance be d km.`,
-        `Outward time = d/${q(input.outwardSpeedKmph)} and return time = d/${q(input.returnSpeedKmph)}.`,
-        `So d(${q(reciprocal(input.outwardSpeedKmph))} + ${q(reciprocal(input.returnSpeedKmph))}) = ${q(input.totalTimeHours)}.`,
-        `The reciprocal-speed sum is ${q(reciprocalSum)}.`,
-        `Hence d = ${q(input.totalTimeHours)} ÷ ${q(reciprocalSum)} = ${q(numeric(solution))} km.`,
-      ]);
-    }
-    case "roundTripTimeFromOneWayDistance": {
-      const outwardTime = divide(input.oneWayDistanceKm, input.outwardSpeedKmph);
-      const returnTime = divide(input.oneWayDistanceKm, input.returnSpeedKmph);
-      return Object.freeze([
-        `Outward time = ${q(input.oneWayDistanceKm)} ÷ ${q(input.outwardSpeedKmph)} = ${q(outwardTime)} hours.`,
-        `Return time = ${q(input.oneWayDistanceKm)} ÷ ${q(input.returnSpeedKmph)} = ${q(returnTime)} hours.`,
-        `Round-trip time = ${q(outwardTime)} + ${q(returnTime)} = ${q(numeric(solution))} hours.`,
-      ]);
-    }
-    case "totalDistanceFromAverageAndTime":
-      return Object.freeze([
-        `Total distance = overall average × complete travelling time.`,
-        `= ${q(input.overallAverageKmph)} × ${q(input.totalTimeHours)}.`,
-        `= ${q(numeric(solution))} km.`,
-      ]);
     case "segmentAllocationFromTotalsAndSpeeds": {
-      const firstTime = divide(
-        subtract(multiply(input.secondSpeedKmph, input.totalTimeHours), input.totalDistanceKm),
-        subtract(input.secondSpeedKmph, input.firstSpeedKmph),
-      );
+      const firstTime = divide(subtract(multiply(input.secondSpeedKmph, input.totalTimeHours), input.totalDistanceKm), subtract(input.secondSpeedKmph, input.firstSpeedKmph));
       const secondTime = subtract(input.totalTimeHours, firstTime);
       const firstDistance = multiply(input.firstSpeedKmph, firstTime);
       const secondDistance = multiply(input.secondSpeedKmph, secondTime);
@@ -237,12 +188,12 @@ export function cp002WorkingLines(
             ? `Required first distance = ${q(firstDistance)} km.`
             : `Required second distance = ${q(secondDistance)} km.`;
       return Object.freeze([
-        `Let the times at ${q(input.firstSpeedKmph)} km/h and ${q(input.secondSpeedKmph)} km/h be t₁ and t₂.`,
-        `Then t₁ + t₂ = ${q(input.totalTimeHours)} and ${q(input.firstSpeedKmph)}t₁ + ${q(input.secondSpeedKmph)}t₂ = ${q(input.totalDistanceKm)}.`,
-        `Substitute t₂ = ${q(input.totalTimeHours)} − t₁ into the distance equation.`,
+        `t₁ + t₂ = ${q(input.totalTimeHours)}.`,
+        `${q(input.firstSpeedKmph)}t₁ + ${q(input.secondSpeedKmph)}t₂ = ${q(input.totalDistanceKm)}.`,
+        `Substitute t₂ = ${q(input.totalTimeHours)} − t₁.`,
         `t₁ = (${q(input.secondSpeedKmph)} × ${q(input.totalTimeHours)} − ${q(input.totalDistanceKm)}) ÷ (${q(input.secondSpeedKmph)} − ${q(input.firstSpeedKmph)}) = ${q(firstTime)} hours.`,
         `t₂ = ${q(input.totalTimeHours)} − ${q(firstTime)} = ${q(secondTime)} hours.`,
-        `Distances are ${q(input.firstSpeedKmph)} × ${q(firstTime)} = ${q(firstDistance)} km and ${q(input.secondSpeedKmph)} × ${q(secondTime)} = ${q(secondDistance)} km.`,
+        `Distances are ${q(firstDistance)} km and ${q(secondDistance)} km.`,
         finalLine,
       ]);
     }
@@ -254,21 +205,20 @@ export function cp002WorkingLines(
         const firstPart = subtract(v2, average);
         const secondPart = subtract(average, v1);
         return Object.freeze([
-          `Let the times at ${q(v1)} km/h and ${q(v2)} km/h be t₁ and t₂.`,
           `${q(average)}(t₁ + t₂) = ${q(v1)}t₁ + ${q(v2)}t₂.`,
-          `So (${q(average)} − ${q(v1)})t₁ = (${q(v2)} − ${q(average)})t₂.`,
-          `Therefore, t₁:t₂ = ${q(firstPart)}:${q(secondPart)} = ${q(numeric(solution).n === undefined ? f(1) : numeric(solution))}.`,
-          `The simplified requested time ratio is ${numeric(solution).n}:${numeric(solution).d}.`,
+          `(${q(average)} − ${q(v1)})t₁ = (${q(v2)} − ${q(average)})t₂.`,
+          `t₁:t₂ = (${q(v2)} − ${q(average)}):(${q(average)} − ${q(v1)}).`,
+          `Substituting values gives ${q(firstPart)}:${q(secondPart)}.`,
+          `The simplified time ratio is ${formatRatio(numeric(solution))}.`,
         ]);
       }
       const firstPart = multiply(v1, subtract(v2, average));
       const secondPart = multiply(v2, subtract(average, v1));
       return Object.freeze([
-        `Let the distances at ${q(v1)} km/h and ${q(v2)} km/h be d₁ and d₂.`,
         `${q(average)} = (d₁ + d₂) ÷ (d₁/${q(v1)} + d₂/${q(v2)}).`,
-        `Rearranging gives d₁:d₂ = ${q(v1)}(${q(v2)} − ${q(average)}) : ${q(v2)}(${q(average)} − ${q(v1)}).`,
+        `d₁:d₂ = ${q(v1)}(${q(v2)} − ${q(average)}) : ${q(v2)}(${q(average)} − ${q(v1)}).`,
         `Substituting values gives ${q(firstPart)}:${q(secondPart)}.`,
-        `The simplified requested distance ratio is ${numeric(solution).n}:${numeric(solution).d}.`,
+        `The simplified distance ratio is ${formatRatio(numeric(solution))}.`,
       ]);
     }
     case "requiredRemainingSpeedForTargetAverage": {
@@ -292,10 +242,10 @@ export function cp002WorkingLines(
       const averageB = averageSpeedForSegments(input.planB);
       return Object.freeze([
         ...segmentSummary(input.planA).map((line) => `Plan A — ${line}`),
-        `Plan A total distance = ${q(distanceA)} km; total time = ${q(timeA)} hours; average = ${q(averageA)} km/h.`,
+        `Plan A: total distance ${q(distanceA)} km, total time ${q(timeA)} hours, average ${q(averageA)} km/h.`,
         ...segmentSummary(input.planB).map((line) => `Plan B — ${line}`),
-        `Plan B total distance = ${q(distanceB)} km; total time = ${q(timeB)} hours; average = ${q(averageB)} km/h.`,
-        `Comparing ${q(averageA)} km/h and ${q(averageB)} km/h gives: ${solution.value}.`,
+        `Plan B: total distance ${q(distanceB)} km, total time ${q(timeB)} hours, average ${q(averageB)} km/h.`,
+        `Therefore, ${solution.value}.`,
       ]);
     }
     default:
@@ -323,8 +273,6 @@ export function semanticCp002OptionKey(text: string): string {
     return `RATIO:${first / divisor}:${second / divisor}`;
   }
   const normalized = text.trim().toLowerCase().replace(/\s+/g, " ");
-  if (normalized === "plan a and plan b are equal" || normalized === "both plans have the same average speed") {
-    return "PLAN_TIE";
-  }
+  if (normalized === "plan a and plan b are equal" || normalized === "both plans have the same average speed") return "PLAN_TIE";
   return normalized;
 }
