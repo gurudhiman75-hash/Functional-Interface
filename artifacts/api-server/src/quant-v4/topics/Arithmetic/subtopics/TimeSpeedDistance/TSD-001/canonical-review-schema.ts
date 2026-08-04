@@ -160,18 +160,22 @@ export function canonicalReviewValue(value: unknown): TsdCanonicalValue {
   throw new Error(`Unsupported canonical review value: ${String(value)}`);
 }
 
-function canonicalInput(sourceQuestion: SourceQuestion): { readonly [key: string]: TsdCanonicalValue } {
-  const input = sourceQuestion.input as unknown as Record<string, unknown>;
+function canonicalStructuredObject(value: unknown): { readonly [key: string]: TsdCanonicalValue } {
+  if (!isObject(value)) throw new Error("Canonical structured value must be an object");
   return Object.freeze(Object.fromEntries(
-    Object.entries(input)
-      .filter(([key, value]) => key !== "mode" && key !== "solveMode" && value !== undefined)
+    Object.entries(value)
+      .filter(([key, child]) => key !== "mode" && key !== "solveMode" && child !== undefined)
       .sort(([first], [second]) => first.localeCompare(second))
-      .map(([key, value]) => [key, canonicalReviewValue(value)]),
+      .map(([key, child]) => [key, canonicalReviewValue(child)]),
   ));
 }
 
+function canonicalInput(sourceQuestion: SourceQuestion): { readonly [key: string]: TsdCanonicalValue } {
+  return canonicalStructuredObject(sourceQuestion.input);
+}
+
 function canonicalSolution(sourceQuestion: SourceQuestion): { readonly [key: string]: TsdCanonicalValue } {
-  return canonicalReviewValue(sourceQuestion.solution) as { readonly [key: string]: TsdCanonicalValue };
+  return canonicalStructuredObject(sourceQuestion.solution);
 }
 
 function stripTierPrefix(value: string): string {
