@@ -25,17 +25,27 @@ function polishFinalEnglish(value: string, locale: SylLocale): string {
       /The statements do not place every ([A-Za-z]+s) inside ([A-Za-z]+s)\. All may be inside, but another \1 may stay outside\./giu,
       "The statements do not place every member of $1 inside $2. Every member of $1 may be inside $2, but another member of $1 may stay outside $2.",
     )
+    .replace(
+      /The statements do not force a ([A-Za-z]+s) outside ([A-Za-z]+s)\. One valid arrangement puts every \1 inside, while another leaves one outside\./giu,
+      "The statements do not force any member of $1 to stay outside $2. One valid arrangement puts every member of $1 inside $2, while another leaves one member of $1 outside $2.",
+    )
+    .replace(/\bputs every ([A-Za-z]+s) inside\b/giu, "puts every member of $1 inside")
+    .replace(/\bevery ([A-Za-z]+s) may be inside\b/giu, "every member of $1 may be inside")
     .replace(/\bat least one ([A-Za-z]+s) must stay outside\b/giu, "at least one member of $1 must stay outside")
     .replace(/\bat least one ([A-Za-z]+s) is not\b/giu, "at least one member of $1 is not")
     .replace(/\bat least one ([A-Za-z]+s) is\b/giu, "at least one member of $1 is")
     .replace(/\bevery ([A-Za-z]+s) must be inside\b/giu, "every member of $1 must be inside")
     .replace(/\bevery ([A-Za-z]+s) is inside\b/giu, "every member of $1 is inside")
     .replace(/\banother ([A-Za-z]+s) may stay outside\b/giu, "another member of $1 may stay outside")
+    .replace(/This option requires that every member of ([^.]+) must be inside ([^.]+)\./giu, "This option requires every member of $1 to be inside $2.")
+    .replace(/This option requires that at least one member of ([^.]+) must stay outside ([^.]+)\./giu, "This option requires at least one member of $1 to stay outside $2.")
+    .replace(/This option requires that ([^.]+) and ([^.]+) must have no common member\./giu, "This option requires $1 and $2 to have no common member.")
+    .replace(/This option requires that ([^.]+) and ([^.]+) must have at least one common member\./giu, "This option requires $1 and $2 to have at least one common member.")
     .replace(/This option needs ([^.]+ must [^.]+)\./giu, "This option requires that $1.")
     .replace(/\bStatements (\d+(?: and \d+)+) blocks\b/gu, "Statements $1 block")
     .replace(/\bStatements (\d+(?: and \d+)+) forces\b/gu, "Statements $1 force")
     .replace(/\bStatements (\d+(?: and \d+)+) makes\b/gu, "Statements $1 make")
-    .replace(/([a-z)]) (At least one member|No member|Every member|One member|“Only”|Together,|Combining these relations)/gu, "$1. $2")
+    .replace(/([a-z)]) (At least one member|No member|Every member|One member|“Only”|Together,|Therefore,|Combining these relations)/gu, "$1. $2")
     .replace(/\.{2,}/gu, ".");
 }
 
