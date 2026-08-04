@@ -27,7 +27,7 @@ function polishFinalEnglish(value: string, locale: SylLocale): string {
     )
     .replace(
       /The statements do not force a ([A-Za-z]+s) outside ([A-Za-z]+s)\. One valid arrangement puts every \1 inside, while another leaves one outside\./giu,
-      "The statements do not force any member of $1 to stay outside $2. One valid arrangement puts every member of $1 inside $2, while another leaves one member of $1 outside $2.",
+      "The statements do not force any member of $1 to stay outside $2. One valid arrangement puts every member of $1 inside $2, while another valid arrangement leaves one member of $1 outside $2.",
     )
     .replace(/\bputs every ([A-Za-z]+s) inside\b/giu, "puts every member of $1 inside")
     .replace(/\bevery ([A-Za-z]+s) may be inside\b/giu, "every member of $1 may be inside")
@@ -37,6 +37,7 @@ function polishFinalEnglish(value: string, locale: SylLocale): string {
     .replace(/\bevery ([A-Za-z]+s) must be inside\b/giu, "every member of $1 must be inside")
     .replace(/\bevery ([A-Za-z]+s) is inside\b/giu, "every member of $1 is inside")
     .replace(/\banother ([A-Za-z]+s) may stay outside\b/giu, "another member of $1 may stay outside")
+    .replace(/while another leaves one outside/giu, "while another valid arrangement leaves one member outside")
     .replace(/This option needs ([^.]+ must [^.]+)\./giu, "This option requires that $1.")
     .replace(/This option requires that every member of ([^.]+) must be inside ([^.]+)\./giu, "This option requires every member of $1 to be inside $2.")
     .replace(/This option requires that at least one member of ([^.]+) must stay outside ([^.]+)\./giu, "This option requires at least one member of $1 to stay outside $2.")
