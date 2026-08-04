@@ -22,6 +22,7 @@ import {
 } from "./answer-unit-review";
 import { examWorkingLines } from "./exam-working";
 import { editorialStem, inlineMathText } from "./pedagogy";
+import { remodelCp001Stem } from "./editorial-remodel";
 import { buildHumanExplanation } from "./human-explanation";
 import { authorityOrdinal, formatAnswer, stableStringify } from "./runtime-support";
 
@@ -83,8 +84,6 @@ function clockSemanticKey(text: string, question: Omit<TsdCp001GeneratedQuestion
     && question.solution.minuteOfDay.denominator === 1n
     && Number(question.solution.minuteOfDay.numerator) === hour24 * 60 + minute
   ) {
-    // In a journey that necessarily crosses midnight, an otherwise identical clock reading
-    // without “next day” is contextually the same instant and must not be a second option.
     dayOffset = 1;
   }
   return `CLOCK:${dayOffset}:${hour24 * 60 + minute}`;
@@ -158,7 +157,8 @@ export function generateCp001Candidate(
   );
   const difficulty = cp001Difficulty(authority.solveMode);
   const working = equivalentRepresentation?.working ?? examWorkingLines(input, solution, display);
-  const stem = equivalentRepresentation?.stem ?? editorialStem(input, generatedState.stem, seed);
+  const originalStem = equivalentRepresentation?.stem ?? editorialStem(input, generatedState.stem, seed);
+  const stem = remodelCp001Stem(input, originalStem, seed);
   const representationFingerprint = equivalentRepresentation?.fingerprintSuffix
     ?? (input.solveMode === "convertSpeedUnit" ? SCALAR_SPEED_FINGERPRINT : "representation:STANDARD");
   const representation = representationFingerprint.replace(/^representation:/, "");
