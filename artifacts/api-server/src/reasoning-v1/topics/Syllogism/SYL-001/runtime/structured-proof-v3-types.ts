@@ -28,18 +28,18 @@ export type SylTaskStatusV3 =
   | "MASK_MISMATCH"
   | "PAIR_CLASSIFICATION_MISMATCH";
 
-export type SylStudentVerdictV3 =
-  | "Correct — definitely follows"
-  | "Correct — impossible"
-  | "Correct — genuinely possible"
-  | "Correct — does not necessarily follow"
-  | "Correct — matches the conclusion result"
-  | "Wrong — impossible"
-  | "Wrong — possible, but not definite"
-  | "Wrong — definitely follows, but this task asks for something else"
-  | "Wrong — does not match the conclusion result"
-  | "Wrong — pair is not complementary"
-  | "Wrong — not the required answer";
+export type SylStudentVerdictCodeV3 =
+  | "CORRECT_DEFINITE"
+  | "CORRECT_IMPOSSIBLE"
+  | "CORRECT_POSSIBLE"
+  | "CORRECT_NON_FOLLOWING"
+  | "CORRECT_MATCH"
+  | "WRONG_IMPOSSIBLE"
+  | "WRONG_POSSIBLE_NOT_DEFINITE"
+  | "WRONG_TRUE_NOT_REQUESTED"
+  | "WRONG_MASK"
+  | "WRONG_PAIR"
+  | "WRONG_OTHER";
 
 export type SylOptionReasonCodeV3 =
   | "DIRECT_CONTRADICTION"
@@ -133,7 +133,8 @@ export interface SylVisibleOptionAnalysisV3 {
   semanticValue: string;
   semanticStatus: SylSemanticStatusV3;
   taskStatus: SylTaskStatusV3;
-  studentVerdict: SylStudentVerdictV3;
+  studentVerdictCode: SylStudentVerdictCodeV3;
+  studentVerdict: string;
   isCorrectForTask: boolean;
   premiseIdsUsed: readonly string[];
   witnessIdsUsed: readonly string[];
