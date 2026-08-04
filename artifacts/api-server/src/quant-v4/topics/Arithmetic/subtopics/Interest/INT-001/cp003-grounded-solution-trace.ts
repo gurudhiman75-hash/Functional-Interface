@@ -21,11 +21,13 @@ function rebuildTrace(
   trace: Cp003SolutionTrace,
   coreSteps: readonly Cp003SolutionTraceStep[],
   foundationSteps: readonly Cp003SolutionTraceStep[] = trace.foundationSteps,
+  verificationSteps: readonly Cp003SolutionTraceStep[] = trace.verificationSteps,
 ): Cp003SolutionTrace {
   return Object.freeze({
     ...trace,
     coreSteps: Object.freeze([...coreSteps]),
     foundationSteps: Object.freeze([...foundationSteps]),
+    verificationSteps: Object.freeze([...verificationSteps]),
   });
 }
 
@@ -54,6 +56,10 @@ export function buildCp003SolutionTrace(
   if (contract.qlId === "INT-QL-057") {
     const grounded = withoutAnnualFactor(trace.coreSteps);
     return rebuildTrace(trace, grounded, grounded);
+  }
+
+  if (contract.qlId === "INT-QL-061") {
+    return rebuildTrace(trace, trace.coreSteps, trace.coreSteps, []);
   }
 
   return trace;
