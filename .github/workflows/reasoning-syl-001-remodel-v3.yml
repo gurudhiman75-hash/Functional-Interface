@@ -51,6 +51,19 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/reasoning-v1/syl-001-remodel-v3-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-remodel-v3-authority.log
 
+      - name: Bundle learner-safe review-surface authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/remodel-v3/review-surface.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-remodel-v3-review-surface.test.mjs
+
+      - name: Run learner-safe review-surface authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-remodel-v3-review-surface.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-remodel-v3-review-surface.log
+
       - name: Bundle immutable V3 review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -70,6 +83,7 @@ jobs:
           name: syl-001-remodel-v3-review
           path: |
             artifacts/api-server/dist/reasoning-v1/syl-001-remodel-v3-authority.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-remodel-v3-review-surface.log
             artifacts/api-server/dist/reasoning-v1/syl-001-remodel-v3-review/**
           if-no-files-found: error
           retention-days: 30
