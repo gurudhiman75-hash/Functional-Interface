@@ -94,7 +94,11 @@ export function generateIntCp003ExamQuestion(
   const correctIndex = options.findIndex((option) => option.isCorrect);
   if (correctIndex < 0 || options.filter((option) => option.isCorrect).length !== 1) throw new Error(`${qlId}: correct option ownership failure`);
   const explanation = explanationFor(solutionTrace);
-  if (collectStrings(explanation).some((text) => /\$=\$[^$\n]+\$\$/u.test(text))) throw new Error(`${qlId}: malformed MathJax delimiter reached learner content`);
+  const explanationStrings = collectStrings(explanation);
+  if (explanationStrings.some((text) => /\$=\$[^$\n]+\$\$/u.test(text))) throw new Error(`${qlId}: malformed MathJax delimiter reached learner content`);
+  if (explanationStrings.some((text) => /\$[^$\n]*(?:⅓|⅔|⅛|⅜|⅝|⅞|¼|½|¾|14 2\/7)[^$\n]*\$/u.test(text))) {
+    throw new Error(`${qlId}: unicode or plain mixed fraction reached MathJax content`);
+  }
   const normalizedTemplateKey = `${qlId}|${normalizePresentationTemplate(presentation.markdown)}`;
   const question: IntCp003ExamQuestion = {
     packageId: "INT-001",
