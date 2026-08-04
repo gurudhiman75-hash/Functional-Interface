@@ -51,7 +51,7 @@ The 14 current learner methods are:
 13. annual amount difference;
 14. yearly-interest geometric growth.
 
-`cp003-exam-explanation.ts` is now a pure English renderer over the approved trace. It does not independently reconstruct compound-interest mathematics. Exam, student and foundation views all carry source-step IDs back to the same trace.
+`cp003-exam-explanation.ts` is now a pure English renderer over the approved trace. It does not independently reconstruct compound-interest answers. Exam, student and foundation views all carry source-step IDs back to the same trace.
 
 The trace audit rejects:
 
@@ -70,15 +70,15 @@ Rate profiles constrain eligible QLs, maximum years and allowed contexts. Bank-s
 
 The learner-facing remediation uses six rendered representations, Indian formatting, deterministic option shuffling, misconception-owned distractors, three explanation depths and MathJax guards. QL-065 continues to withhold derived endpoint amounts. Amount-ratio rate recovery remains restricted to two years, while nth-year rate recovery remains restricted to years two or three.
 
-## Latest exact-head proof
+## Exact-head proof
 
 Draft PR #491 targets the current CP-003 remediation branch.
 
 ```text
-Validated source head: 1b85bef2dc5814f2e76ed54f690c1c11b3c185ef
-Workflow run:          30871184923
-Evidence artifact:     8877929852
-Artifact digest:       sha256:0911fa556ad199ebe821f98df67edaf9ca26304567f3857b9f44fd7809469cd1
+Exact validated head:  5e11ed09cff64386489b3e437529abec9e922ac1
+Workflow run:          30871251217
+Evidence artifact:     8877953362
+Artifact digest:       sha256:70bf8a03616e504458842f0399a5d17aaa47ea142792d5a37db1ebe7ebbe2d14
 ```
 
 The inherited CP-002 freeze regression, legacy CP-003 completion proof, strengthened exam-readiness audit, semantic solution-trace audit, 56-question review export, evidence assertions and complete API build all passed.
