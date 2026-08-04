@@ -105,6 +105,23 @@ export function presentationFor(
     );
   }
 
+  if (contract.qlId === "INT-QL-065" && representation === "ACCOUNT_TABLE") {
+    return rendered(
+      contract,
+      "Use the investment terms to compare the two maturity dates.",
+      {
+        headers: ["Investment", "Annual rate", "Earlier duration", "Later duration"],
+        rows: [[
+          moneyMath(resolved.principal),
+          rateMath(resolved.ratePercent),
+          yearsText(resolved.earlierYear),
+          yearsText(resolved.laterYear),
+        ]],
+      },
+      `Find the difference between the amounts after $${resolved.earlierYear}$ and $${resolved.laterYear}$ years.`,
+    );
+  }
+
   if (representation !== "BALANCE_LEDGER") {
     return replaceFactorText(basePresentationFor(contract, resolved), resolved);
   }
