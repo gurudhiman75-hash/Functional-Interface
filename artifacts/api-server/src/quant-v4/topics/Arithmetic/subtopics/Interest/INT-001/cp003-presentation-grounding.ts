@@ -1,0 +1,111 @@
+import type { Cp003QuestionContract } from "./cp003-exam-model";
+import type { Cp003RenderedPresentation, Cp003StudentExplanation } from "./cp003-exam-types";
+import {
+  annualFactorText,
+  moneyMath,
+  ordinal,
+  rateMath,
+  type ResolvedState,
+} from "./cp003-exam-support";
+import type { Cp003SolutionTrace } from "./cp003-grounded-solution-trace";
+
+function collectStrings(value: unknown, output: string[] = []): string[] {
+  if (typeof value === "string") output.push(value);
+  else if (Array.isArray(value)) value.forEach((item) => collectStrings(item, output));
+  else if (value && typeof value === "object") Object.values(value as Record<string, unknown>).forEach((item) => collectStrings(item, output));
+  return output;
+}
+
+function requireVisible(markdown: string, expected: string, prefix: string, label: string): void {
+  if (!markdown.includes(expected)) throw new Error(`${prefix}: displayed question omits ${label}`);
+}
+
+function hasOperation(trace: Cp003SolutionTrace, operationId: string): boolean {
+  return trace.coreSteps.some((step) => step.operationId === operationId);
+}
+
+export function assertCp003PresentationGrounding(
+  contract: Cp003QuestionContract,
+  resolved: ResolvedState,
+  presentation: Cp003RenderedPresentation,
+  trace: Cp003SolutionTrace,
+  explanation: Cp003StudentExplanation,
+): void {
+  const prefix = `${contract.qlId}/${contract.presentation.representation}`;
+  const markdown = presentation.markdown;
+  const representation = contract.presentation.representation;
+
+  if (contract.qlId === "INT-QL-053" && representation === "BALANCE_LEDGER") {
+    requireVisible(markdown, moneyMath(resolved.principal), prefix, "principal");
+    requireVisible(markdown, rateMath(resolved.ratePercent), prefix, "annual rate");
+    requireVisible(markdown, String(resolved.years), prefix, "target year");
+  }
+
+  if (contract.qlId === "INT-QL-054" && representation === "BALANCE_LEDGER") {
+    requireVisible(markdown, moneyMath(resolved.principal), prefix, "principal");
+    requireVisible(markdown, rateMath(resolved.ratePercent), prefix, "annual rate");
+    requireVisible(markdown, String(resolved.years), prefix, "duration");
+  }
+
+  if (contract.qlId === "INT-QL-055" && representation === "GROWTH_RATIO") {
+    requireVisible(markdown, annualFactorText(resolved.ratePercent), prefix, "annual multiplier");
+    requireVisible(markdown, moneyMath(resolved.amount), prefix, "final amount");
+    requireVisible(markdown, String(resolved.years), prefix, "duration");
+    if (hasOperation(trace, "ANNUAL_FACTOR")) throw new Error(`${prefix}: trace re-derives a displayed annual multiplier from a hidden rate`);
+  }
+
+  if (contract.qlId === "INT-QL-056" && representation === "GROWTH_RATIO") {
+    requireVisible(markdown, annualFactorText(resolved.ratePercent), prefix, "annual multiplier");
+    requireVisible(markdown, moneyMath(resolved.compoundInterest), prefix, "compound interest");
+    if (hasOperation(trace, "ANNUAL_FACTOR")) throw new Error(`${prefix}: trace re-derives a displayed CI factor from a hidden rate`);
+  }
+
+  if (contract.qlId === "INT-QL-057") {
+    const operations = trace.coreSteps.map((step) => step.operationId).join("|");
+    if (operations !== "DIVIDE|MATCH_POWER|RATE_FROM_FACTOR") {
+      throw new Error(`${prefix}: inverse-rate trace remains circular (${operations})`);
+    }
+  }
+
+  if (contract.qlId === "INT-QL-058") {
+    requireVisible(markdown, moneyMath(resolved.principal), prefix, "principal");
+    requireVisible(markdown, moneyMath(resolved.amount), prefix, "final amount");
+    requireVisible(markdown, rateMath(resolved.ratePercent), prefix, "annual rate");
+  }
+
+  if (contract.qlId === "INT-QL-059" && representation === "BALANCE_LEDGER") {
+    requireVisible(markdown, moneyMath(resolved.earlierAmount), prefix, "opening balance of the required year");
+    requireVisible(markdown, rateMath(resolved.ratePercent), prefix, "annual rate");
+    requireVisible(markdown, ordinal(resolved.targetYear), prefix, "required year");
+  }
+
+  if (contract.qlId === "INT-QL-061") {
+    if (!/answer choices/iu.test(explanation.keyIdea)) throw new Error(`${prefix}: option-substitution method is not disclosed`);
+    if (!explanation.steps[0]?.startsWith("Check the option")) throw new Error(`${prefix}: explanation states the unknown rate before identifying it as an option check`);
+    if (explanation.verification) throw new Error(`${prefix}: option check is duplicated as a verification section`);
+  }
+
+  if (contract.qlId === "INT-QL-065") {
+    requireVisible(markdown, moneyMath(resolved.principal), prefix, "principal");
+    requireVisible(markdown, rateMath(resolved.ratePercent), prefix, "annual rate");
+    requireVisible(markdown, String(resolved.earlierYear), prefix, "earlier year");
+    requireVisible(markdown, String(resolved.laterYear), prefix, "later year");
+  }
+
+  if (contract.qlId === "INT-QL-066") {
+    requireVisible(markdown, moneyMath(resolved.earlierInterest), prefix, "earlier-year interest");
+    const rateVisible = markdown.includes(rateMath(resolved.ratePercent));
+    const factorVisible = markdown.includes(annualFactorText(resolved.ratePercent));
+    if (!rateVisible && !factorVisible) throw new Error(`${prefix}: displayed question omits the annual rate or multiplier`);
+    requireVisible(markdown, ordinal(resolved.earlierYear), prefix, "earlier year");
+    requireVisible(markdown, ordinal(resolved.laterYear), prefix, "later year");
+  }
+
+  if (contract.qlId !== "INT-QL-057" && contract.qlId !== "INT-QL-061") {
+    const explanationText = collectStrings(explanation).join("\n");
+    const rateToken = rateMath(resolved.ratePercent).slice(1, -1);
+    if (explanationText.includes(rateToken) && !markdown.includes(rateToken) && !markdown.includes(annualFactorText(resolved.ratePercent).slice(1, -1))) {
+      throw new Error(`${prefix}: explanation uses an annual rate absent from the displayed givens`);
+    }
+  }
+}
