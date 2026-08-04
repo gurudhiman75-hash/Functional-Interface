@@ -80,8 +80,9 @@ assert(reviewRows.every((row) => row.lifecycle.englishFreezeStatus === "UNFROZEN
 assert(reviewRows.every((row) => row.difficulty.status === "EDITORIAL_CALIBRATION_REQUIRED"), "A CP-001 review row lacks provisional difficulty");
 assert(reviewRows.every((row) => row.questionLanguageId.length > 10), "A CP-001 review row lacks questionLanguageId");
 
-const arrivalRows = reviewRows.filter((row) => row.solveMode === "arrivalClockTime");
-assert(arrivalRows.every((row) => !row.options.includes(row.answerText.replace(" next day", ""))), "Ambiguous next-day clock option remains");
+const nextDayArrivalRows = reviewRows.filter((row) => row.solveMode === "arrivalClockTime" && row.answerText.includes(" next day"));
+assert(nextDayArrivalRows.length > 0, "No next-day arrival row reached the P0 review");
+assert(nextDayArrivalRows.every((row) => !row.options.includes(row.answerText.replace(" next day", ""))), "Ambiguous next-day clock option remains");
 const paceRows = reviewRows.filter((row) => row.solveMode === "paceFromSpeed");
 assert(paceRows.every((row) => /pace in (seconds|minutes) per kilometre/i.test(row.stem)), "Pace stem/unit mismatch remains");
 
@@ -95,6 +96,7 @@ console.log(JSON.stringify({
   candidateCount,
   answerPositionDistribution,
   reviewRows: reviewRows.length,
+  nextDayArrivalRows: nextDayArrivalRows.length,
   reviewStatus: "EDITORIAL_REVIEW_REQUIRED",
   englishFreezeStatus: "UNFROZEN",
   questionBankStored: 0,
