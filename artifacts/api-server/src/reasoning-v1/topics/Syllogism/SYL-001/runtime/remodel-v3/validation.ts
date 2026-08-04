@@ -1,6 +1,7 @@
 import type { GeneratedSylQuestionV3, SylRemodelV3ParitySignature, SylRemodelV3ValidationResult } from "./types";
 
 const BANNED_GENERIC = /(?:the statements allow this relation, but they do not force it|this conclusion cannot be true|use statements? \d+(?: and \d+)? together\.?$)/i;
+const BANNED_NATURALNESS = /(?:\bEvery\s+\S+s\s+is\s+a\s+\S+s\b|\bAt least one member is both a\b|\bStatements?\s+\d+(?:\s+and\s+\d+)*\s+block\b|और\s+[^।.]+\s+का कोई सदस्य साझा नहीं है|ਅਤੇ\s+[^।.]+\s+ਦਾ ਕੋਈ ਮੈਂਬਰ ਸਾਂਝਾ ਨਹੀਂ ਹੈ|[।]{2,}|\.{2,})/iu;
 
 function countMatches(text: string, pattern: RegExp): number {
   return [...text.matchAll(pattern)].length;
@@ -36,6 +37,19 @@ export function validateSylQuestionV3(
   )) && question.explanation.correctOptionProof.reasoningSteps.length > 0;
   if (!proofEvidencePassed) errors.push("At least one option lacks question-dependent structured proof evidence.");
 
+  const learnerText = [
+    ...question.explanation.statementMeanings.flatMap((meaning) => [meaning.normalizedMeaning, meaning.statement]),
+    question.explanation.combinedRelation,
+    ...analyses.flatMap((analysis) => [analysis.studentVerdict, analysis.studentReason]),
+    ...question.explanation.correctOptionProof.reasoningSteps,
+    question.explanation.correctOptionProof.studentProof,
+    question.explanation.fastRule.naturalLanguage,
+    question.explanation.finalAnswer,
+  ].join(" ");
+  if (BANNED_NATURALNESS.test(learnerText)) {
+    errors.push("Learner-facing text contains a known agreement, premise-list or punctuation regression.");
+  }
+
   const svg = question.explanation.combinedDiagram.svg;
   const diagramCountPassed = question.explanation.combinedDiagram.diagramCount === 1
     && countMatches(svg, /<svg\b/g) === 1
@@ -53,7 +67,7 @@ export function validateSylQuestionV3(
     && svg.includes("data-integrated-premise-map=\"true\"")
     && question.explanation.combinedDiagram.titleId.includes(question.locale.toLowerCase())
     && question.explanation.combinedDiagram.titleId.includes(question.qlId.toLowerCase())
-    && question.explanation.combinedDiagram.titleId.includes(`seed-${question.seed}`.replace("-", "-"));
+    && question.explanation.combinedDiagram.titleId.includes(`seed-${question.seed}`);
   if (!diagramSemanticCoveragePassed) errors.push("The combined diagram omits a relevant premise or lacks stable accessible identity.");
 
   const lifecyclePassed = question.humanReviewStatus === "REVISE"
