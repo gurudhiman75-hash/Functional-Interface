@@ -107,7 +107,7 @@ export function assertCp003PresentationGrounding(
     }
   }
 
-  if (contract.qlId !== "INT-QL-057" && contract.qlId !== "INT-QL-061") {
+  if (trace.answerSemantic !== "RATE_PERCENT") {
     const explanationText = collectStrings(explanation).join("\n");
     const rateToken = rateMath(resolved.ratePercent).slice(1, -1);
     if (explanationText.includes(rateToken) && !markdown.includes(rateToken) && !markdown.includes(annualFactorToken)) {
