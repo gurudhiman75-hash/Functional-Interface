@@ -10,6 +10,20 @@ function quoted(value: string): string {
   return `“${stripTerminal(value)}”`;
 }
 
+function cleanupLegacyReason(value: string): string {
+  return value
+    .replace(/\s*\.\s*;/g, ";")
+    .replace(/\.{2,}/g, ".")
+    .replace(/।{2,}/g, "।")
+    .replace(/\s+([,.;:!?।])/g, "$1")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function extractQuotedConclusion(value: string): string | null {
+  return value.match(/“([^”]+)”/u)?.[1]?.trim() ?? null;
+}
+
 function joinNatural(values: readonly string[], locale: SylLocale): string {
   const clean = values.map(stripTerminal).filter(Boolean);
   if (clean.length <= 1) return clean[0] ?? "";
@@ -165,6 +179,16 @@ function isStatementConclusionOption(analysis: SylVisibleOptionAnalysisV3): bool
   return /^(?:ALL|NO|SOME|SOME_NOT):/.test(analysis.semanticValue);
 }
 
+function hasConclusionEvidence(analysis: SylVisibleOptionAnalysisV3): boolean {
+  return /^(?:ALL|NO|SOME|SOME_NOT)\(/.test(analysis.proofEvidence.requiredRelation);
+}
+
+function conclusionSurfaceForReason(analysis: SylVisibleOptionAnalysisV3): string | null {
+  if (isStatementConclusionOption(analysis)) return analysis.optionText;
+  if (analysis.taskDisposition !== "CORRECT_FOR_TASK" || !hasConclusionEvidence(analysis)) return null;
+  return extractQuotedConclusion(analysis.studentReason);
+}
+
 function finalSentence(index: number, text: string, locale: SylLocale): string {
   if (locale === "hi-IN") return `अतः विकल्प ${index} — ${stripTerminal(text)} सही है।`;
   if (locale === "pa-IN") return `ਇਸ ਲਈ ਵਿਕਲਪ ${index} — ${stripTerminal(text)} ਸਹੀ ਹੈ।`;
@@ -177,12 +201,18 @@ export function polishStructuredProofCoreV3(
 ): SylStructuredProofCoreV3 {
   const statementMeanings = naturalizeStatementMeanings(core.statementMeanings, locale);
   const naturalCore: SylStructuredProofCoreV3 = Object.freeze({ ...core, statementMeanings });
-  const optionAnalysis = Object.freeze(naturalCore.optionAnalysis.map((analysis) => Object.freeze({
-    ...analysis,
-    studentReason: isStatementConclusionOption(analysis)
-      ? polishedStatementReason(analysis, naturalCore, locale)
-      : analysis.studentReason.replace(/\s+/g, " ").trim(),
-  })));
+  const optionAnalysis = Object.freeze(naturalCore.optionAnalysis.map((analysis) => {
+    const conclusionSurface = conclusionSurfaceForReason(analysis);
+    const proofAnalysis: SylVisibleOptionAnalysisV3 = conclusionSurface === null
+      ? analysis
+      : Object.freeze({ ...analysis, optionText: conclusionSurface });
+    return Object.freeze({
+      ...analysis,
+      studentReason: conclusionSurface === null
+        ? cleanupLegacyReason(analysis.studentReason)
+        : polishedStatementReason(proofAnalysis, naturalCore, locale),
+    });
+  }));
   const correct = optionAnalysis.find((analysis) => analysis.taskDisposition === "CORRECT_FOR_TASK");
   if (!correct) throw new Error("V3 proof polish cannot find the correct visible option.");
   const decisiveMeanings = correct.premiseIdsUsed
