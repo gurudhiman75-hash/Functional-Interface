@@ -47,13 +47,13 @@ function findStep(trace: Cp003SolutionTrace, teachingKey: string): Cp003Solution
 const yearsText = (years: number): string => `$${years}$ year${years === 1 ? "" : "s"}`;
 const completedYearsText = (years: number): string => `$${years}$ completed year${years === 1 ? "" : "s"}`;
 
-function renderedValue(value: Rational, semantic: Cp003TraceDatumSemantic): string {
+function rawValue(value: Rational, semantic: Cp003TraceDatumSemantic): string {
   switch (semantic) {
-    case "MONEY": return moneyMath(value);
-    case "RATE_PERCENT": return rateMath(value);
-    case "FACTOR": return `$${fractionLatex(value)}$`;
-    case "TIME_YEARS": return yearsText(Number(value.numerator / value.denominator));
-    case "NUMBER": return `$${fractionLatex(value)}$`;
+    case "MONEY": return moneyPlain(value);
+    case "RATE_PERCENT": return `${ratePlain(value)}\\%`;
+    case "FACTOR": return fractionLatex(value);
+    case "TIME_YEARS": return `${value.numerator / value.denominator}\\text{ years}`;
+    case "NUMBER": return fractionLatex(value);
   }
 }
 
@@ -77,23 +77,23 @@ function renderStep(step: Cp003SolutionTraceStep): string {
     case "MULTIPLY": {
       const leftDatum = datum(step, "left"), resultDatum = datum(step, "result");
       if (leftDatum.kind !== "RATIONAL" || resultDatum.kind !== "RATIONAL") throw new Error(`${step.id}: malformed multiplication trace`);
-      const left = renderedValue(leftDatum.value, leftDatum.semantic), right = rational(step, "right"), result = renderedValue(resultDatum.value, resultDatum.semantic);
+      const left = rawValue(leftDatum.value, leftDatum.semantic), right = fractionLatex(rational(step, "right")), result = rawValue(resultDatum.value, resultDatum.semantic);
       const label = step.teachingKey === "AMOUNT_PRODUCT" ? "Amount"
         : step.teachingKey === "NTH_YEAR_INTEREST_FACTOR" ? "Year-specific interest factor"
           : step.teachingKey === "LATER_YEAR_INTEREST" ? "Later-year interest"
             : "Product";
-      return `${label}: ${left} $\\times ${fractionLatex(right)} = ${result}$.`;
+      return `${label}: $${left}\\times${right}=${result}$.`;
     }
     case "SUBTRACT": {
       const leftDatum = datum(step, "left"), rightDatum = datum(step, "right"), resultDatum = datum(step, "result");
       if (leftDatum.kind !== "RATIONAL" || rightDatum.kind !== "RATIONAL" || resultDatum.kind !== "RATIONAL") throw new Error(`${step.id}: malformed subtraction trace`);
-      const left = renderedValue(leftDatum.value, leftDatum.semantic), right = renderedValue(rightDatum.value, rightDatum.semantic), result = renderedValue(resultDatum.value, resultDatum.semantic);
+      const left = rawValue(leftDatum.value, leftDatum.semantic), right = rawValue(rightDatum.value, rightDatum.semantic), result = rawValue(resultDatum.value, resultDatum.semantic);
       const label = step.teachingKey === "COMPOUND_INTEREST_DIFFERENCE" ? "Compound interest"
         : step.teachingKey === "COMPOUND_INTEREST_FACTOR" ? "Compound-interest factor"
           : step.teachingKey === "RATE_FRACTION_FROM_FACTOR" ? "Rate fraction"
             : step.teachingKey === "ONE_YEAR_INCREASE" ? "One-year interest"
               : "Required difference";
-      return `${label}: ${left} $-${right}=${result}$.`;
+      return `${label}: $${left}-${right}=${result}$.`;
     }
     case "DIVIDE": {
       const numerator = rational(step, "numerator"), denominator = rational(step, "denominator"), resultDatum = datum(step, "result");
@@ -131,8 +131,8 @@ function renderStep(step: Cp003SolutionTraceStep): string {
     case "RATE_PERCENT_OF_AMOUNT": {
       const amount = rational(step, "amount"), rate = rational(step, "ratePercent"), result = rational(step, "result");
       return step.teachingKey === "CONSECUTIVE_AMOUNT_DIFFERENCE"
-        ? `The difference is the next year's interest: ${rateMath(rate)} of ${moneyMath(amount)} $=${moneyPlain(result)}$.`
-        : `Required yearly interest: ${rateMath(rate)} of ${moneyMath(amount)} $=${moneyPlain(result)}$.`;
+        ? `The difference is the next year's interest: $${ratePlain(rate)}\\%\\text{ of }${moneyPlain(amount)}=${moneyPlain(result)}$.`
+        : `Required yearly interest: $${ratePlain(rate)}\\%\\text{ of }${moneyPlain(amount)}=${moneyPlain(result)}$.`;
     }
     case "RATE_FROM_INCREASE": {
       const increase = rational(step, "increase"), opening = rational(step, "openingAmount"), rate = rational(step, "ratePercent");
