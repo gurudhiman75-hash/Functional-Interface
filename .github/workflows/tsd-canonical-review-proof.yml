@@ -1,0 +1,66 @@
+name: Validate TSD Canonical Review Schema
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feat/tsd-authority-audit-implementation
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/**
+      - .github/workflows/tsd-canonical-review-proof.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate-canonical-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle canonical schema, proof and exporter
+        run: |
+          ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
+          OUT=dist/quant-v4/tsd-001/canonical-review
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/index.ts" --bundle --platform=node --format=esm --outfile="dist/quant-v4/tsd-001/index.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/canonical-review-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/canonical-review-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/canonical-review-export.ts" --bundle --platform=node --format=esm --outfile="$OUT/canonical-review-export.mjs"
+
+      - name: Run canonical schema proof and export
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/tsd-001/canonical-review/canonical-review-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/canonical-review-proof.log
+          node dist/quant-v4/tsd-001/canonical-review/canonical-review-export.mjs | tee dist/quant-v4/tsd-001/canonical-review/canonical-review-export.log
+
+      - name: Upload canonical schema proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-canonical-review-schema-proof
+          path: |
+            artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/canonical-review-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/canonical-review-export.log
+          if-no-files-found: error
+
+      - name: Upload canonical review package
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-canonical-editorial-review
+          path: artifacts/api-server/dist/quant-v4/tsd-001/canonical-review
+          if-no-files-found: error
