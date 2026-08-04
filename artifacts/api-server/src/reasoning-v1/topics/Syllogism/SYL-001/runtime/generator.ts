@@ -16,6 +16,7 @@ import { getSylQlDefinition } from "./ql-registry";
 import { selectQuestionLogic } from "./selection";
 import { remodelStudentPresentation } from "./student-presentation";
 import { buildStructuredProofV3 } from "./structured-proof-v3";
+import { enforceStructuredProofV3Consistency } from "./structured-proof-v3-consistency";
 import { finalizeStructuredProofV3 } from "./structured-proof-v3-finalize";
 import { naturalizeStructuredProofV3 } from "./structured-proof-v3-naturalize";
 import type { GeneratedSylQuestionV3 } from "./structured-proof-v3-types";
@@ -164,7 +165,7 @@ export function generateSylQuestion(
     correctClassification: correctCandidate?.profile.classification ?? null,
     correctConclusionForm: correctCandidate?.conclusion.form ?? null,
   });
-  const structuredProofV3 = naturalizeStructuredProofV3(finalizedStructuredProofV3, {
+  const naturalizedStructuredProofV3 = naturalizeStructuredProofV3(finalizedStructuredProofV3, {
     locale,
     taskKind: definition.taskKind,
     displayedPremises,
@@ -178,6 +179,12 @@ export function generateSylQuestion(
       modelImpactPremiseIds: candidate.impactPremiseIds,
     })),
     termLabels,
+  });
+  const structuredProofV3 = enforceStructuredProofV3Consistency(naturalizedStructuredProofV3, {
+    locale,
+    taskKind: definition.taskKind,
+    correctIndex: correctIndexes[0],
+    correctClassification: correctCandidate?.profile.classification ?? null,
   });
 
   return {
