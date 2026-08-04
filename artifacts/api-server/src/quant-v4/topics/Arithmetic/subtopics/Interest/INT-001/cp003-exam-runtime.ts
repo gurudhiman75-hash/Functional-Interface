@@ -16,8 +16,13 @@ import { ANSWER_SEMANTICS, resolve } from "./cp003-exam-support";
 import { presentationFor } from "./cp003-exam-presentation";
 import { optionsFor } from "./cp003-exam-options";
 import { explanationFor } from "./cp003-exam-explanation";
+import {
+  INT_CP003_SOLUTION_TRACE_VERSION,
+  buildCp003SolutionTrace,
+  validateCp003SolutionTrace,
+} from "./cp003-solution-trace";
 
-export const INT_CP003_EXAM_GENERATOR_VERSION = "INT-CP-003-EXAM-GENERATOR-v2" as const;
+export const INT_CP003_EXAM_GENERATOR_VERSION = "INT-CP-003-EXAM-GENERATOR-v3" as const;
 
 export {
   INT_CP003_AUTHORITY_VERSION,
@@ -25,6 +30,7 @@ export {
   INT_CP003_RATE_LIBRARY,
   INT_CP003_SOLVER_VERSION,
   INT_CP003_VERIFIER_VERSION,
+  INT_CP003_SOLUTION_TRACE_VERSION,
   generateCp003QuestionContract,
   type IntCp003QlId,
   type Rational,
@@ -53,15 +59,6 @@ function contractForReview(qlId: IntCp003QlId, seed: string) {
   throw new Error(`${qlId}: could not construct an exam-friendly inverse-rate state`);
 }
 
-function repairMathDelimiters<T>(value: T): T {
-  if (typeof value === "string") return value.replace(/\$=\$([^$\n]+)\$\$/gu, "$=$1$") as T;
-  if (Array.isArray(value)) return value.map((item) => repairMathDelimiters(item)) as T;
-  if (value && typeof value === "object") {
-    return Object.fromEntries(Object.entries(value as Record<string, unknown>).map(([key, item]) => [key, repairMathDelimiters(item)])) as T;
-  }
-  return value;
-}
-
 function collectStrings(value: unknown, output: string[] = []): string[] {
   if (typeof value === "string") output.push(value);
   else if (Array.isArray(value)) value.forEach((item) => collectStrings(item, output));
@@ -88,11 +85,15 @@ export function generateIntCp003ExamQuestion(
   if (!verifyAnswer(contract.mathematicalState, solution)) throw new Error(`${qlId}: canonical solver and independent relation verifier disagree`);
   if (registryEntry.answerSemantic !== ANSWER_SEMANTICS[qlId]) throw new Error(`${qlId}: registry and learner answer semantics disagree`);
 
+  const solutionTrace = buildCp003SolutionTrace(contract, resolved, solution);
+  const traceValidation = validateCp003SolutionTrace(solutionTrace, contract.mathematicalState);
+  if (!traceValidation.ok) throw new Error(`${qlId}: invalid solution trace: ${traceValidation.errors.join(" | ")}`);
+
   const presentation = presentationFor(contract, resolved);
   const options = optionsFor(contract, resolved);
   const correctIndex = options.findIndex((option) => option.isCorrect);
   if (correctIndex < 0 || options.filter((option) => option.isCorrect).length !== 1) throw new Error(`${qlId}: correct option ownership failure`);
-  const explanation = repairMathDelimiters(explanationFor(contract, resolved, solution, options));
+  const explanation = explanationFor(solutionTrace);
   if (collectStrings(explanation).some((text) => /\$=\$[^$\n]+\$\$/u.test(text))) throw new Error(`${qlId}: malformed MathJax delimiter reached learner content`);
   const normalizedTemplateKey = `${qlId}|${normalizePresentationTemplate(presentation.markdown)}`;
   const question: IntCp003ExamQuestion = {
@@ -121,6 +122,7 @@ export function generateIntCp003ExamQuestion(
     correctIndex,
     correctAnswer: options[correctIndex]!.text,
     solution,
+    solutionTrace,
     explanation,
     editorialStatus: "SECOND_REMEDIATION_REVIEW_CANDIDATE",
     approvalStatus: "WITHDRAWN_PENDING_REAUDIT",
