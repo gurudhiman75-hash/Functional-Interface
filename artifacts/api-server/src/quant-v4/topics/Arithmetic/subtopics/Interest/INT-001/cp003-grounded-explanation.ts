@@ -1,10 +1,12 @@
-import type { Rational } from "./cp003-exam-model";
+import { div, pow, rat, type Rational } from "./cp003-exam-model";
 import type { Cp003StudentExplanation } from "./cp003-exam-types";
 import { explanationFor as baseExplanationFor } from "./cp003-exam-explanation";
 import type { Cp003SolutionTrace, Cp003SolutionTraceStep } from "./cp003-grounded-solution-trace";
 import {
   annualFactorText as legacyAnnualFactorText,
   fractionLatex,
+  moneyPlain,
+  ordinal,
   rateMath,
 } from "./cp003-exam-support";
 import { groundedAnnualFactorText } from "./cp003-grounded-factor-text";
@@ -12,6 +14,12 @@ import { groundedAnnualFactorText } from "./cp003-grounded-factor-text";
 function rational(step: Cp003SolutionTraceStep, key: string): Rational {
   const datum = step.data.find((entry) => entry.key === key);
   if (!datum || datum.kind !== "RATIONAL") throw new Error(`${step.id}: missing rational datum ${key}`);
+  return datum.value;
+}
+
+function numeric(step: Cp003SolutionTraceStep, key: string): number {
+  const datum = step.data.find((entry) => entry.key === key);
+  if (!datum || datum.kind !== "NUMBER") throw new Error(`${step.id}: missing numeric datum ${key}`);
   return datum.value;
 }
 
@@ -79,10 +87,15 @@ export function explanationFor(trace: Cp003SolutionTrace): Cp003StudentExplanati
 
   const rate = rational(factorStep, "ratePercent");
   const annualFactor = rational(factorStep, "annualFactor");
+  const principal = rational(verificationStep, "principal");
+  const year = numeric(verificationStep, "year");
+  const expectedInterest = rational(verificationStep, "expectedInterest");
+  const rateFraction = div(rate, rat(100));
+  const priorGrowth = pow(annualFactor, year - 1);
   const keyIdea = "Use the answer choices in the nth-year-interest relation. The option that reproduces the given yearly interest is the required rate.";
   const steps = Object.freeze([
     `Check the option ${rateMath(rate)}: its annual factor is $${fractionLatex(annualFactor)}$.`,
-    base.steps[1]!,
+    `For this option, interest during the ${ordinal(year)} year is $${moneyPlain(principal)}\\times${fractionLatex(rateFraction)}\\times\\left(${fractionLatex(annualFactor)}\\right)^{${year - 1}}=${moneyPlain(expectedInterest)}$, matching the given interest.`,
   ]);
   const sourceStepIds = Object.freeze([factorStep.id, verificationStep.id]);
 
