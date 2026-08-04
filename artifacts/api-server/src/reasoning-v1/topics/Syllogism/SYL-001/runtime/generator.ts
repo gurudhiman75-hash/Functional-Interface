@@ -3,6 +3,7 @@ import { SYL_001_SEMANTICS_PROFILE } from "../foundation/semantics-profile";
 import type { SylDifficulty, SylLocale } from "../foundation/types";
 import { selectedPremisesAreRelevant } from "./analysis";
 import { buildExplanation } from "./explanation";
+import { polishLearnerExplanation } from "./learner-language-polish";
 import {
   commonPreamble,
   renderConclusion,
@@ -101,14 +102,17 @@ export function generateSylQuestion(
     assignment,
     options,
   );
-  const explanation = remodelStudentPresentation(
-    baseExplanation,
-    definition,
-    selected,
-    displayedPremises,
+  const explanation = polishLearnerExplanation(
+    remodelStudentPresentation(
+      baseExplanation,
+      definition,
+      selected,
+      displayedPremises,
+      locale,
+      assignment,
+      options,
+    ),
     locale,
-    assignment,
-    options,
   );
   const termKeys = selected.analysis.termOrder.map((termId) => assignment[termId].termKey);
   const selectedClasses = selected.conclusions.map((candidate) => candidate.profile.classification);
