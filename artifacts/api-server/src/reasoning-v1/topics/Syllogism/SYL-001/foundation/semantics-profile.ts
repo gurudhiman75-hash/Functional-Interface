@@ -1,5 +1,11 @@
 export interface SyllogismSemanticsProfile {
   profileId: "INDIAN_COMPETITIVE_EXAM_SYLLOGISM_V1";
+  existencePolicyId: "EXAM_NON_EMPTY_PREMISE_TERMS_V1";
+  existencePolicyVersion: 1;
+  existencePolicyVisibleToStudent: true;
+  premiseTermsAreNonEmpty: true;
+  conclusionOnlyTermsAreNonEmpty: false;
+  syntheticTermsAreNonEmpty: false;
   universalSubjectExistence: true;
   negativeUniversalSubjectExistence: true;
   negativeUniversalPredicateExistence: "ASSUMED_BY_SOURCE_PROFILE";
@@ -21,6 +27,12 @@ export interface SyllogismSemanticsProfile {
 
 export const SYL_001_SEMANTICS_PROFILE: SyllogismSemanticsProfile = Object.freeze({
   profileId: "INDIAN_COMPETITIVE_EXAM_SYLLOGISM_V1",
+  existencePolicyId: "EXAM_NON_EMPTY_PREMISE_TERMS_V1",
+  existencePolicyVersion: 1,
+  existencePolicyVisibleToStudent: true,
+  premiseTermsAreNonEmpty: true,
+  conclusionOnlyTermsAreNonEmpty: false,
+  syntheticTermsAreNonEmpty: false,
   universalSubjectExistence: true,
   negativeUniversalSubjectExistence: true,
   negativeUniversalPredicateExistence: "ASSUMED_BY_SOURCE_PROFILE",
