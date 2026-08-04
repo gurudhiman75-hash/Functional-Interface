@@ -151,7 +151,7 @@ export function generateSylQuestionV3(
     correctIndex,
     locale,
     assignment,
-  ), locale);
+  ), locale, definition.taskKind);
   const diagram = renderCombinedDiagramV3({
     qlId,
     seed,
