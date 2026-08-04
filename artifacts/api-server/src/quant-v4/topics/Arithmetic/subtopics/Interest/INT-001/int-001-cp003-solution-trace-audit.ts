@@ -37,6 +37,7 @@ let sourceStepChecks = 0;
 let languageNeutralityChecks = 0;
 let frozenTraceChecks = 0;
 let relationVerificationChecks = 0;
+let editorialTraceChecks = 0;
 let totalCoreSteps = 0;
 let totalFoundationSteps = 0;
 let totalVerificationSteps = 0;
@@ -76,6 +77,10 @@ function assertSourceIds(
     if (!allowedIds.has(sourceId)) throw new Error(`${prefix}: ${surface} references unknown trace step ${sourceId}`);
     sourceStepChecks += 1;
   }
+}
+
+function normalizedText(value: string): string {
+  return value.replace(/\s+/gu, " ").trim().toLowerCase();
 }
 
 for (const qlId of INT_CP003_QL_IDS) {
@@ -125,11 +130,29 @@ for (const qlId of INT_CP003_QL_IDS) {
       if (!trace.shortcut) throw new Error(`${prefix}: rendered shortcut lacks trace authority`);
       if (question.explanation.shortcut.sourceStepIds.join("|") !== trace.shortcut.sourceStepIds.join("|")) throw new Error(`${prefix}: shortcut lineage drift`);
       assertSourceIds(question.explanation.shortcut.sourceStepIds, coreIds, prefix, "shortcut");
+      const mainSteps = new Set(question.explanation.steps.map(normalizedText));
+      if (question.explanation.shortcut.steps.every((step) => mainSteps.has(normalizedText(step)))) {
+        throw new Error(`${prefix}: shortcut only repeats the main calculation`);
+      }
+      editorialTraceChecks += question.explanation.shortcut.steps.length;
     } else if (trace.shortcut) throw new Error(`${prefix}: trace shortcut was not rendered`);
     if (question.explanation.verification) {
       if (verificationIds.size === 0) throw new Error(`${prefix}: rendered verification lacks trace authority`);
       assertSourceIds(question.explanation.verification.sourceStepIds, verificationIds, prefix, "verification");
     } else if (verificationIds.size > 0) throw new Error(`${prefix}: trace verification was not rendered`);
+
+    const learnerText = [
+      question.explanation.keyIdea,
+      ...question.explanation.steps,
+      ...question.explanation.depths.exam.steps,
+      ...question.explanation.depths.student.steps,
+      ...question.explanation.depths.foundation.steps,
+      ...(question.explanation.shortcut?.steps ?? []),
+      ...(question.explanation.verification?.steps ?? []),
+    ].join("\n");
+    if (/\$1\$ (?:completed )?years\b/gu.test(learnerText)) throw new Error(`${prefix}: singular-year grammar regression`);
+    if (/\b1 years\b/iu.test(learnerText)) throw new Error(`${prefix}: plain singular-year grammar regression`);
+    editorialTraceChecks += 2;
     explanationLineageChecks += 10;
   }
 }
@@ -156,6 +179,7 @@ const summary = {
   sourceStepChecks,
   languageNeutralityChecks,
   frozenTraceChecks,
+  editorialTraceChecks,
   totalCoreSteps,
   totalFoundationSteps,
   totalVerificationSteps,
