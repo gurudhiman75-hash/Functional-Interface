@@ -1,13 +1,14 @@
 import { amount, type Cp003QuestionContract } from "./cp003-exam-model";
 import type { Cp003RenderedPresentation, Cp003StudentExplanation } from "./cp003-exam-types";
 import {
-  annualFactorText,
+  annualFactorText as legacyAnnualFactorText,
   moneyMath,
   ordinal,
   rateMath,
   type ResolvedState,
 } from "./cp003-exam-support";
 import type { Cp003SolutionTrace } from "./cp003-grounded-solution-trace";
+import { groundedAnnualFactorText } from "./cp003-grounded-factor-text";
 
 function collectStrings(value: unknown, output: string[] = []): string[] {
   if (typeof value === "string") output.push(value);
@@ -24,6 +25,8 @@ function hasOperation(trace: Cp003SolutionTrace, operationId: string): boolean {
   return trace.coreSteps.some((step) => step.operationId === operationId);
 }
 
+const yearsText = (years: number): string => `${years} year${years === 1 ? "" : "s"}`;
+
 export function assertCp003PresentationGrounding(
   contract: Cp003QuestionContract,
   resolved: ResolvedState,
@@ -34,7 +37,8 @@ export function assertCp003PresentationGrounding(
   const prefix = `${contract.qlId}/${contract.presentation.representation}`;
   const markdown = presentation.markdown;
   const representation = contract.presentation.representation;
-  const annualFactorToken = annualFactorText(resolved.ratePercent).slice(1, -1);
+  const groundedFactor = groundedAnnualFactorText(resolved.ratePercent);
+  const annualFactorToken = groundedFactor.slice(1, -1);
 
   if (contract.qlId === "INT-QL-053" && representation === "BALANCE_LEDGER") {
     requireVisible(markdown, moneyMath(resolved.principal), prefix, "principal");
@@ -87,6 +91,13 @@ export function assertCp003PresentationGrounding(
     if (explanation.verification) throw new Error(`${prefix}: option check is duplicated as a verification section`);
   }
 
+  if (contract.qlId === "INT-QL-064" && representation === "GROWTH_RATIO") {
+    requireVisible(markdown, `Amount after ${yearsText(resolved.currentYear)}`, prefix, "earlier observation year");
+    requireVisible(markdown, `Amount after ${yearsText(resolved.currentYear + 1)}`, prefix, "later observation year");
+    requireVisible(markdown, moneyMath(resolved.currentAmount), prefix, "earlier observed amount");
+    requireVisible(markdown, moneyMath(resolved.nextAmount), prefix, "later observed amount");
+  }
+
   if (contract.qlId === "INT-QL-065") {
     requireVisible(markdown, moneyMath(resolved.principal), prefix, "principal");
     requireVisible(markdown, rateMath(resolved.ratePercent), prefix, "annual rate");
@@ -113,5 +124,11 @@ export function assertCp003PresentationGrounding(
     if (explanationText.includes(rateToken) && !markdown.includes(rateToken) && !markdown.includes(annualFactorToken)) {
       throw new Error(`${prefix}: explanation uses an annual rate absent from the displayed givens`);
     }
+  }
+
+  const legacyFactor = legacyAnnualFactorText(resolved.ratePercent);
+  if (legacyFactor !== groundedFactor) {
+    const learnerText = collectStrings([presentation, explanation]).join("\n");
+    if (learnerText.includes(legacyFactor)) throw new Error(`${prefix}: truncated repeating decimal presented as an exact annual factor`);
   }
 }
