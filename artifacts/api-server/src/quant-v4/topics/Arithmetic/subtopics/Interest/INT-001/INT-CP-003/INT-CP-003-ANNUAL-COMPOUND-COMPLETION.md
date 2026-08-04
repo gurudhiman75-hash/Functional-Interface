@@ -1,6 +1,6 @@
 # INT-CP-003 — Annual Compound Interest Fundamentals and Inverses
 
-Status: `SEMANTIC_SOLUTION_TRACE_REVIEW_CANDIDATE — STAGING_LOCKED`
+Status: `GROUNDED_SOLUTION_TRACE_REVIEW_CANDIDATE — STAGING_LOCKED`
 
 The permanent mathematical inventory remains `INT-QL-053..INT-QL-066`, with all 14 legacy CP-003 families owned and zero open mathematical gaps.
 
@@ -22,7 +22,7 @@ Every exam question carries its permanent QL, solve contract, authority version,
 
 ## Semantic solution traces
 
-`cp003-solution-trace.ts` is now the language-neutral reasoning authority between the mathematical solver and learner-facing explanation renderers.
+`cp003-solution-trace.ts` is the language-neutral reasoning authority between the mathematical solver and learner-facing explanation renderers.
 
 Each generated question contains:
 
@@ -51,18 +51,39 @@ The 14 current learner methods are:
 13. annual amount difference;
 14. yearly-interest geometric growth.
 
-`cp003-exam-explanation.ts` is now a pure English renderer over the approved trace. It does not independently reconstruct compound-interest answers. Exam, student and foundation views all carry source-step IDs back to the same trace.
+`cp003-exam-explanation.ts` remains a pure English renderer over the approved trace. It does not independently reconstruct compound-interest answers. Exam, student and foundation views all carry source-step IDs back to the same trace.
 
-The trace audit rejects:
+## Grounded learner contract
+
+The exam runtime now validates the question presentation, semantic trace and rendered explanation as one learner-visible contract.
+
+The grounded layer enforces that:
+
+- every value required by the selected solution path is visible in the question or its answer choices;
+- a displayed annual multiplier is used directly instead of being re-derived from an undisclosed rate;
+- inverse-rate explanations derive the annual factor from the amount ratio before stating the rate;
+- nth-year inverse-rate explanations explicitly identify option substitution before testing the correct choice;
+- consecutive-balance principal questions display the actual observation years rather than abstract `t` and `t+1` labels;
+- balance-ledger variants show the principal, rate, duration or annual multiplier required to solve them;
+- repeating annual factors are rendered as exact fractions rather than truncated decimals presented as exact equalities;
+- year-gap wording uses forms such as `2-year gap`, not `2 years gap`.
+
+The grounding audit rejects hidden givens, circular rate reasoning, duplicated option-check verification, missing observation years and stale approximate factor text during generation of any review candidate.
+
+## Trace and editorial rejection rules
+
+The trace and learner-output audits reject:
 
 - arithmetic-step disagreement;
 - trace/final-answer disagreement;
 - learner prose inside the semantic trace;
 - missing or unknown explanation source-step IDs;
-- stale method or trace versions;
+- stale method, generator or trace versions;
 - shortcut text that merely repeats the main calculation;
 - singular-year grammar errors;
-- Unicode or plain mixed fractions inside MathJax expressions.
+- Unicode or plain mixed fractions inside MathJax expressions;
+- truncated repeating decimals presented as exact annual factors;
+- explanations that use a non-answer annual rate absent from the displayed givens.
 
 ## Generation and presentation policy
 
@@ -74,6 +95,6 @@ The learner-facing remediation uses six rendered representations, Indian formatt
 
 Draft PR #491 targets the current CP-003 remediation branch. Exact branch-head proof is maintained in the PR description and GitHub Actions evidence rather than embedded here, so documentation-only commits cannot make this file self-stale.
 
-The inherited CP-002 freeze regression, legacy CP-003 completion proof, strengthened exam-readiness audit, semantic solution-trace audit, 56-question review export, evidence assertions and complete API build must all pass at the reviewed head.
+The inherited CP-002 freeze regression, legacy CP-003 completion proof, strengthened exam-readiness audit, semantic solution-trace audit, grounded presentation checks, 56-question review export, evidence assertions and complete API build must all pass at the reviewed head.
 
 No English freeze, staging, registration, Question Studio discovery, Question Bank write, test eligibility or publication is permitted without fresh explicit approval.
