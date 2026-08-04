@@ -102,7 +102,7 @@ for (const pkg of sweep) {
     diagnosisAnswers.add(pkg.canonicalAnswer);
     diagnosisFamilies.add(pkg.explanation.methodId.split("_").slice(0, 2).join("_"));
     assert.match(pkg.stem, /Given:/);
-    assert.doesNotMatch(pkg.stem, /^Step 1:/m);
+    assert.match(pkg.stem, /Step 1:/);
     assert.deepEqual(new Set(pkg.options.map((option) => option.value)), new Set(["Step 1", "Step 2", "Step 3", "No error"]));
     assert.doesNotMatch(pkg.explanation.finalAnswer, /numerator and denominator|greatest common factor/i);
   }
