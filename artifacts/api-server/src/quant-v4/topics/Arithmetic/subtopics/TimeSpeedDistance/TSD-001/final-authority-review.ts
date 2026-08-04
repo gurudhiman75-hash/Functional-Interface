@@ -2,6 +2,7 @@ import { TSD_CP001_FROZEN_AUTHORITIES } from "./cp001/freeze-registry";
 import { proportionRepresentation } from "./cp001/proportion-representation";
 import { generateCp001ReviewRows } from "./cp001/runtime";
 import type { TsdCp001GeneratedQuestion } from "./cp001/runtime-types";
+import { generateFinalPoolSupplements } from "./cp002/final-pool-supplements";
 import { generateCp002ReviewRows } from "./cp002/runtime";
 import type { TsdCp002GeneratedQuestion } from "./cp002/types";
 import {
@@ -101,6 +102,7 @@ export function generateFinalAuthorityReview(): readonly TsdFinalReviewRecord[] 
   return Object.freeze([
     ...generateCp001ReviewRows(3).map(cp001Record),
     ...generateCp002ReviewRows().map(cp002Record),
+    ...generateFinalPoolSupplements().map(cp002Record),
   ]);
 }
 
