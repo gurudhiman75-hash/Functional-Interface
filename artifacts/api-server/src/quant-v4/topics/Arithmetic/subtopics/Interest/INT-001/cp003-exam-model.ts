@@ -290,10 +290,16 @@ function taskDirection(qlId: IntCp003QlId): Cp003Direction {
   if (["INT-QL-055", "INT-QL-056", "INT-QL-057", "INT-QL-058", "INT-QL-060", "INT-QL-061"].includes(qlId)) return "INVERSE";
   return "MULTI_STAGE";
 }
+function hasTerminatingDecimal(denominator: bigint): boolean {
+  let value = denominator < 0n ? -denominator : denominator;
+  while (value % 2n === 0n) value /= 2n;
+  while (value % 5n === 0n) value /= 5n;
+  return value === 1n;
+}
 function arithmeticLoad(profile: RateProfile, powerValue: number): Cp003ArithmeticLoad {
   const burden = profile.annualFactor.denominator.toString().length + profile.annualFactor.numerator.toString().length + powerValue;
   const baseLoad: Cp003ArithmeticLoad = burden <= 5 ? "LOW" : burden <= 8 ? "MEDIUM" : "HIGH";
-  if (profile.tier === "SELECTIVE" && baseLoad === "LOW") return "MEDIUM";
+  if ((!hasTerminatingDecimal(profile.ratePercent.denominator) || profile.tier === "SELECTIVE") && baseLoad === "LOW") return "MEDIUM";
   return baseLoad;
 }
 function representationBurden(representation: Cp003Representation): 0 | 1 | 2 {
