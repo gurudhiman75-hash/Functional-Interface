@@ -43,7 +43,11 @@ function replaceFactorText(
   const legacy = legacyAnnualFactorText(resolved.ratePercent);
   const grounded = groundedAnnualFactorText(resolved.ratePercent);
   if (legacy === grounded) return presentation;
-  const replace = (value: string): string => value.split(legacy).join(grounded);
+  const legacyInner = legacy.slice(1, -1);
+  const groundedInner = grounded.slice(1, -1);
+  const replace = (value: string): string => value
+    .split(legacy).join(grounded)
+    .split(legacyInner).join(groundedInner);
   const table = presentation.table
     ? freezeTable({
         headers: presentation.table.headers.map(replace),
@@ -67,6 +71,23 @@ export function presentationFor(
   resolved: ResolvedState,
 ): Cp003RenderedPresentation {
   const representation = contract.presentation.representation;
+
+  if (contract.qlId === "INT-QL-056" && representation === "GROWTH_RATIO") {
+    return rendered(
+      contract,
+      "Use the exact annual multiplier and duration to obtain the compound-interest factor.",
+      {
+        headers: ["Annual multiplier", "Time", "Given compound interest", "Principal"],
+        rows: [[
+          groundedAnnualFactorText(resolved.ratePercent),
+          yearsText(resolved.years),
+          moneyMath(resolved.compoundInterest),
+          "?",
+        ]],
+      },
+      "Find the principal.",
+    );
+  }
 
   if (contract.qlId === "INT-QL-064" && representation === "GROWTH_RATIO") {
     return rendered(
