@@ -54,7 +54,8 @@ assert(review.every((row) => row.permanentQlId === null), "A remapped review row
 assert(review.every((row) => row.reviewStatus === "EDITORIAL_REVIEW_REQUIRED" && row.englishFreezeStatus === "UNFROZEN"), "A remapped review row escaped the reopened lifecycle");
 assert(review.every((row) => !row.publiclyPublishable), "A remapped review row became publicly publishable");
 assert(coverage.length === 38, "Coverage report must include all 38 learner authorities");
-assert(coverage.every((entry) => entry.rowCount > 0), "A final learner authority has no mapped review row");
+const missingCoverage = coverage.filter((entry) => entry.rowCount === 0).map((entry) => entry.authorityKey);
+assert(missingCoverage.length === 0, `Final learner authorities with no mapped review row: ${missingCoverage.join(", ")}`);
 
 const directDistance = coverage.find((entry) => entry.authorityKey === "distanceFromSpeedAndTime")!;
 assert(directDistance.rowCount === 6, "Direct-distance authority must own its three original rows plus three effective-average rows");
