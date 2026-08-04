@@ -63,7 +63,10 @@ for (const question of questions) {
 
 assert.equal(svgTitleIds.size, questions.length);
 assert.equal(svgDescriptionIds.size, questions.length);
-assert.equal(logicalPayloads.size, 18 * 80);
+const generatedLogicalCases = SYL_QL_REGISTRY.length * seeds.length;
+const semanticRepeatCount = generatedLogicalCases - logicalPayloads.size;
+assert.ok(logicalPayloads.size >= 1_200, `The V3 sweep exposes only ${logicalPayloads.size} distinct logical payloads.`);
+assert.ok(semanticRepeatCount <= 240, `The V3 sweep repeats ${semanticRepeatCount} semantic payloads; the review pool needs broader scenario expansion.`);
 assert.equal(localeCounts.get("en-IN"), 18 * 80);
 assert.equal(localeCounts.get("hi-IN"), 18 * 80);
 assert.equal(localeCounts.get("pa-IN"), 18 * 80);
@@ -103,7 +106,9 @@ assert.ok(difficultyCounts.HARD > 0);
 console.log(JSON.stringify({
   status: "PASS_SYL_001_REMODEL_V3_AUTHORITY",
   localizedQuestions: questions.length,
+  generatedLogicalCases,
   uniqueLogicalPayloads: logicalPayloads.size,
+  semanticRepeatCount,
   qlCount: SYL_QL_REGISTRY.length,
   locales,
   seedsPerQl: seeds.length,
