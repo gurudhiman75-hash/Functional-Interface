@@ -1,111 +1,132 @@
 # RNK-CP-004 — Exam-Readiness Remediation
 
-Status: **English remodel implemented and executable review pending**.
+Status: **English Remodel V2 implemented; manual review and source expansion pending**.
 
-Basis: the critical review of the original 60-question English pack found a mathematically sound ordering engine but an unsafe and over-templated candidate-facing layer.
+Basis: `RNK-CP004-REMODEL-V1-CRITICAL-REVIEW.md` confirmed that Remodel V1 was mathematically reliable but still forced every question through the same visible six-section explanation shell.
 
-## Release blockers closed
-
-### Pair-relation options
-
-All options now answer the same named-pair query. Unrelated but factually true comparisons are no longer used as distractors.
-
-The selected pair is required to be indirect and its correct relation cannot duplicate a displayed clue.
-
-### Sufficient-comparison explanations
-
-The explanation now follows the correct logical order:
+## V2 design principle
 
 ```text
-show separate base blocks
-  -> count the valid base orders
-  -> test every added comparison
-  -> explain remaining ambiguity or contradiction
-  -> apply the one sufficient comparison
-  -> show the final unique order
+store proof data structurally
+  -> select the smallest useful teaching mode
+  -> render only the reasoning needed for this question
+  -> retain deeper validator evidence for administrators
 ```
 
-The final chain is never displayed before the added premise is applied.
+Templates now organize internal reasoning. They no longer force `Mental picture`, `Key rule`, `Step-by-step solution`, `Exam-speed shortcut`, `Option analysis`, and `Answer` onto every learner explanation.
 
-### Answer-key security
-
-The 60-question review pack uses a deterministic balanced answer schedule:
+## Seven adaptive explanation modes
 
 ```text
-A: 15
-B: 15
-C: 15
-D: 15
+ENDPOINT_MINIMAL       highest or lowest
+POSITION_LINE          exact rank, named rank or middle
+PAIR_PATH              shortest decisive path for a named pair
+NEIGHBOUR_HIGHLIGHT    local segment around the target
+OPTION_CONTRADICTION   full-order option validation
+TRANSITIVE_PROOF       direct/indirect conclusion proof
+BLOCK_BRIDGE           join partial blocks uniquely
 ```
 
-No four-answer sequence repeats anywhere in the pack.
+Endpoint questions normally render one chain and one conclusion. Detailed wrong-option analysis is retained only for complete-order and block-bridge questions, where it materially teaches the task.
 
-### Stable review metadata
+## Conceptual corrections
 
-Each reviewed record now contains:
+### Conclusions
 
-- stable question ID;
-- prototype/authority candidate;
-- seed;
-- difficulty;
-- competency;
-- intended exam families;
-- generation version;
-- review state;
-- lifecycle locks.
+The false V1 rule that a conclusion must not repeat a clue was removed.
 
-## Major editorial corrections
-
-- clues render one per line for mobile readability;
-- the false rule equating `cycle-free` with `unique` was removed;
-- key rules and shortcuts are query-specific;
-- conclusion questions require a non-direct transitive inference;
-- complete-order distractors identify the exact violated clue;
-- sufficiency distractors state the remaining number of valid orders or the contradiction;
-- explanations no longer repeat the answer through multiple conclusion fields;
-- difficulty is derived from entity count, clue density, query burden and relation distance rather than prototype alone.
-
-## Immediate-neighbour design note
-
-With strict pairwise comparison clues and one uniquely determined total order, two truly adjacent entities require a directed path between them. A path through a third entity would place that entity between them; therefore the adjacent relation must ultimately be represented by a direct edge.
-
-The remodel does not pretend this edge can always be removed. Instead, the explanation distinguishes:
+The learner rule is now:
 
 ```text
-direct comparison -> establishes direction
-complete unique chain -> proves nobody lies between them
+a conclusion may follow directly from one clue
+or indirectly through a valid comparison path
 ```
 
-This family remains under manual review for difficulty calibration.
+The current reviewed conclusion surface explicitly asks which conclusion is derived from two or more statements, so its keyed answer remains intentionally transitive.
 
-## Executable gates
+### Relative order
 
-The remodel gate audits all 2,400 generated questions and rejects:
+The repeated dead options `same rank` and `cannot be determined` were removed from strict unique-order questions.
 
-- pair options that do not address the named pair;
-- direct-clue leakage in pair and conclusion questions;
-- multiple true conclusion options;
-- circular sufficiency explanations;
-- insufficient options falsely marked sufficient;
-- complete-order distractors without an identifiable clue violation;
-- repeated four-answer sequences;
-- missing stable metadata;
-- premature lifecycle activation.
+All four choices now describe the requested pair using direction and positional distance. The correct pair remains indirect and is not copied from a displayed clue.
+
+### Immediate neighbour
+
+The target person is never offered as their own neighbour. Wrong options come from the opposite adjacent side or from entities two or more positions away. Their explanations state actual distance and direction instead of inventing a top/bottom counting mistake.
+
+### Missing comparison
+
+Exact topological-order counts remain in validator metadata, but learner explanations use the simpler exam method:
+
+```text
+identify fixed blocks
+  -> connect the open end of the upper block
+     to the open start of the lower block
+  -> read the unique final chain
+```
+
+Wrong options explain contradiction or continuing block ambiguity without asking students to enumerate permutations.
+
+## Pool-quality controls
+
+The V2 review pack is selected under these gates:
+
+- 60 unique stable identities;
+- 60 unique seeds rather than six reused seeds across prototypes;
+- zero normalized semantic duplicates;
+- normalized fingerprints include anonymized clue topology, query contract and option-role layout;
+- balanced answer positions: `15 / 15 / 15 / 15`;
+- no repeated four-answer sequence;
+- controlled clue redundancy;
+- feature-derived difficulty;
+- Easy, Medium and Hard reachability.
+
+The normalized duplicate previously identified between Questions 28 and 30 cannot survive the V2 review-pack selector.
+
+## Reasoning-feature metadata
+
+Each reviewed record exposes:
+
+```text
+entityCount
+essentialClueCount
+redundantClueCount
+shortestProofClueCount
+disconnectedBlockCount
+featureScore
+```
+
+Difficulty is derived from these features plus the query burden. More words or clues alone do not establish difficulty.
+
+## Executable evidence
+
+```text
+runtime questions:                    2,400
+review questions:                        60
+adaptive explanation modes:               7
+average visible explanation words:     34.73
+unique review seeds:                      60
+normalized semantic duplicates:            0
+pair dead distractors:                      0
+self-neighbour distractors:                 0
+student permutation counts exposed:         0
+```
+
+The executable gate also proves answer correctness, unique-order safety, conclusion single-answer safety, block-bridge sufficiency, lifecycle locks and compatibility with frozen CP-001 through CP-003.
 
 ## Current state
 
 ```text
-raw discovery:                 10 prototypes / 2,400 questions
-remodeled review pack:         60 questions
-permanent QLs allocated:       0
-next available RNK identity:   RNK-QL-027
-English manual approval:       pending
-source-gap expansion:          pending
-merge/split consolidation:     blocked
-Question Studio:               disabled
-Question Bank:                 NOT_STORED
-test eligibility:              INELIGIBLE
-public publication:            false
+provisional prototypes:              10
+permanent QLs allocated:              0
+next available RNK identity: RNK-QL-027
+English manual approval:         pending
+source/inverse expansion:        pending
+merge/split consolidation:       blocked
+Question Studio:                disabled
+Question Bank:              NOT_STORED
+test eligibility:            INELIGIBLE
+public publication:              false
 ```
 
-The remodeled pack must receive manual English approval and then undergo source-gap and ownership expansion before any permanent QL allocation or discovery freeze.
+Remodel V2 remains a manual-review candidate, not a discovery freeze or permanent QL allocation.
