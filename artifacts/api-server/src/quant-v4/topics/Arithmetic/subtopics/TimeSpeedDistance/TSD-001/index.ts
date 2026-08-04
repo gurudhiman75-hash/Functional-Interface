@@ -15,3 +15,4 @@ export * from "./cp002/freeze-registry";
 export * from "./authority-overlap-audit";
 export * from "./final-authority-registry";
 export * from "./final-authority-review";
+export * from "./canonical-review-schema";
