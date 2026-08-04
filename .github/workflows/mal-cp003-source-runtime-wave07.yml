@@ -7,7 +7,8 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp003-source-runtime-wave07.ts
-      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp003-source-runtime-audit.ts
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp003-source-runtime-wave07-varied.ts
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp003-source-runtime-audit-v2.ts
       - .github/workflows/mal-cp003-source-runtime-wave07.yml
       - package.json
       - pnpm-lock.yaml
@@ -35,13 +36,13 @@ jobs:
         run: corepack enable
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
-      - name: Bundle MAL-CP-003 source runtime audit
+      - name: Bundle MAL-CP-003 source runtime audit V2
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp003-source-runtime-audit.ts
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp003-source-runtime-audit-v2.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/mal-001-cp003-source-runtime-audit.mjs
-      - name: Run MAL-CP-003 source runtime audit
+      - name: Run MAL-CP-003 source runtime audit V2
         shell: bash
         run: |
           set -o pipefail
