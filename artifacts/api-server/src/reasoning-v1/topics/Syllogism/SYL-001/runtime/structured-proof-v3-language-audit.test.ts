@@ -64,14 +64,14 @@ for (const definition of SYL_QL_REGISTRY) {
       assert(proof.combinedReasoning.reasoningSteps.at(-1)?.premiseIds.length === proof.diagramSpec.relevantPremiseIds.length, `${key} final reasoning step omits a diagram premise.`);
 
       const svg = proof.integratedDiagramSvg;
-      const ids = [...svg.matchAll(/\bid="([^"]+)"/gu)].map((match) => match[1]);
+      const ids = [...svg.matchAll(/(?:^|\s)id="([^"]+)"/gu)].map((match) => match[1]);
       assert(ids.length >= 4, `${key} SVG lacks expected accessibility/marker IDs.`);
       assert(new Set(ids).size === ids.length, `${key} SVG repeats an internal ID.`);
       for (const id of ids) {
         assert(!allSvgIds.has(id), `${key} SVG ID is not globally unique: ${id}`);
         allSvgIds.add(id);
       }
-      assert(!/id="arrow(?:-back)?"/u.test(svg), `${key} retains global marker IDs.`);
+      assert(!/\sid="arrow(?:-back)?"/u.test(svg), `${key} retains global marker IDs.`);
       assert(!/url\(#arrow(?:-back)?\)/u.test(svg), `${key} retains global marker references.`);
       assert(svg.includes(`lang="${locale}"`), `${key} SVG lang is incorrect.`);
       assert(svg.includes(`aria-labelledby="${proof.diagramSpec.titleId} ${proof.diagramSpec.descriptionId}"`), `${key} SVG accessibility references are inconsistent.`);
