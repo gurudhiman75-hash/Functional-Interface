@@ -55,11 +55,12 @@ jobs:
           set -euo pipefail
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-v2-editorial.test.ts | tee cp007-v2-editorial.log
 
-      - name: Export CP-007 V2 review pack and deep proof
+      - name: Export and polish CP-007 V2 review pack
         run: |
           set -euo pipefail
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-cp007-v2.ts cp007-v2-output | tee cp007-v2-export.log
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/audit-cp007-v2-deep-remediation.ts cp007-v2-output | tee cp007-v2-deep-audit.log
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/polish-cp007-v2-review-html.ts cp007-v2-output | tee cp007-v2-html-polish.log
 
       - name: Verify CP-007 V2 artifact contracts
         shell: bash
@@ -93,6 +94,12 @@ jobs:
           grep -q 'marker-end=' "$OUT/blr-cp007-v2-review.html"
           grep -q 'Solid: coded assertion' "$OUT/blr-cp007-v2-review.html"
           grep -q '@media(max-width:700px)' "$OUT/blr-cp007-v2-review.html"
+          grep -q 'class="analysis-panel"' "$OUT/blr-cp007-v2-review.html"
+          grep -q 'class="diagram-panel"' "$OUT/blr-cp007-v2-review.html"
+          grep -q 'Why each option works or fails' "$OUT/blr-cp007-v2-review.html"
+          grep -q 'Family diagram (optional)' "$OUT/blr-cp007-v2-review.html"
+          test "$(grep -o 'class="analysis-panel"' "$OUT/blr-cp007-v2-review.html" | wc -l)" -eq 168
+          test "$(grep -o 'class="diagram-panel"' "$OUT/blr-cp007-v2-review.html" | wc -l)" -eq 168
 
       - name: Upload CP-007 V2 diagnostics
         if: always()
@@ -106,6 +113,7 @@ jobs:
             cp007-v2-editorial.log
             cp007-v2-export.log
             cp007-v2-deep-audit.log
+            cp007-v2-html-polish.log
           if-no-files-found: warn
           retention-days: 14
 
