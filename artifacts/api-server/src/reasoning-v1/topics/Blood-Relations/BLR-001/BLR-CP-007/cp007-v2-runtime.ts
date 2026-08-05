@@ -20,7 +20,7 @@ import {
   BLR_CP007_V2_RUNTIME_VERSION,
   type BlrCp007V2Question,
 } from "./cp007-v2-model";
-import { buildAccessibleBlrCp007V2Explanation } from "./cp007-v2-accessibility";
+import { buildManualReviewedBlrCp007V2Explanation } from "./cp007-v2-manual-review";
 import { blrCp007V2EnhancedScenario } from "./cp007-v2-enhanced-scenarios";
 import { blrCp007V2GraphPath } from "./cp007-v2-presentation";
 
@@ -153,7 +153,7 @@ export function generateBlrCp007V2Question(
     completedStatements: selected.statements,
     decodedStatements: decoded.decodedStatements,
     graph: decoded.graph,
-    explanation: buildAccessibleBlrCp007V2Explanation(
+    explanation: buildManualReviewedBlrCp007V2Explanation(
       scenario,
       options,
       selected,
