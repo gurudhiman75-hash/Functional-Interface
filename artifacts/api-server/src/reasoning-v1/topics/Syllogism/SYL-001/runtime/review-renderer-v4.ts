@@ -3,6 +3,7 @@ import type { GeneratedSylQuestionV4 } from "./learner-v4-types";
 
 export function escapeHtmlV4(value: string): string {
   return value
+    .replace(/([।.!?])\1+/gu, "$1")
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
