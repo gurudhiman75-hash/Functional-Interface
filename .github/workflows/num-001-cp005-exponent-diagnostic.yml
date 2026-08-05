@@ -1,0 +1,45 @@
+name: Diagnose NUM-CP-005 exponent rendering
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-005/**
+      - .github/workflows/num-001-cp005-exponent-diagnostic.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose-num-cp005-exponent-rendering:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle exponent diagnostic
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-005/permanent/exponent-rendering-diagnostic.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp005-exponent-rendering-diagnostic.mjs
+
+      - name: Run exponent diagnostic
+        run: node artifacts/api-server/dist/quant-v4/num-001-cp005-exponent-rendering-diagnostic.mjs
