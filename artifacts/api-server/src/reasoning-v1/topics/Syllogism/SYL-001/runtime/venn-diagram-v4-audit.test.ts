@@ -54,7 +54,17 @@ function modelMakesConclusion(model: CanonicalModel, conclusion: CanonicalConclu
 function correctConclusion(question: GeneratedSylQuestionV4): CanonicalConclusion | null {
   const analysis = question.structuredProofV3.visibleOptionAnalysis
     .find((entry) => entry.displayIndex === question.correctIndex + 1);
-  return analysis ? parseConclusion(analysis.semanticValue) : null;
+  const direct = analysis ? parseConclusion(analysis.semanticValue) : null;
+  if (direct) return direct;
+
+  const diagramConclusionIds = new Set(question.structuredProofV3.diagramSpec.conclusionIds);
+  const diagramConclusion = question.structuredPrompt.conclusions
+    .find((conclusion) => diagramConclusionIds.has(conclusion.conclusionId));
+  if (diagramConclusion) return diagramConclusion;
+
+  return question.structuredPrompt.conclusions.length === 1
+    ? question.structuredPrompt.conclusions[0]
+    : null;
 }
 
 function count(value: string, pattern: RegExp): number {
