@@ -1,4 +1,4 @@
-name: Validate SER-001 CP-007 adaptive English V1
+name: Validate SER-001 CP-007 adaptive English V2
 
 on:
   pull_request:
@@ -23,7 +23,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  validate-adaptive-english-v1:
+  validate-adaptive-english-v2:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -42,54 +42,71 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Prepare evidence directory
-        run: mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp007-english-remodel-v1
+        run: mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp007-english-remodel-v2
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
-      - name: Validate adaptive English candidate V1
+      - name: Re-run Candidate V1 regression gates
         run: |
           set -euo pipefail
           ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL
           OUT=dist/reasoning-v1/ser-001
-          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-english-remodel-v1
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-english-remodel-v2
           pnpm --dir artifacts/api-server exec esbuild \
             "$ROOT/adaptive-review.test.ts" \
             --bundle --platform=node --format=esm \
-            --outfile="$OUT/ser-cp-007-adaptive-review.test.mjs"
-          (cd artifacts/api-server && node "$OUT/ser-cp-007-adaptive-review.test.mjs") \
-            | tee "$EVIDENCE/adaptive-review-audit.json"
+            --outfile="$OUT/ser-cp-007-adaptive-review-v1-regression.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-007-adaptive-review-v1-regression.test.mjs") \
+            | tee "$EVIDENCE/adaptive-review-v1-regression.json"
           grep -q 'PASS_SER_CP007_ADAPTIVE_ENGLISH_CANDIDATE_V1' \
-            "$EVIDENCE/adaptive-review-audit.json"
+            "$EVIDENCE/adaptive-review-v1-regression.json"
 
-      - name: Export adaptive English review pack
+      - name: Validate Candidate V2 proof sufficiency
         run: |
           set -euo pipefail
           ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL
           OUT=dist/reasoning-v1/ser-001
-          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-english-remodel-v1
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-english-remodel-v2
           pnpm --dir artifacts/api-server exec esbuild \
-            "$ROOT/export-adaptive-review.ts" \
+            "$ROOT/adaptive-review-v2.test.ts" \
             --bundle --platform=node --format=esm \
-            --outfile="$OUT/export-ser-cp007-adaptive-review.mjs"
-          (cd artifacts/api-server && node "$OUT/export-ser-cp007-adaptive-review.mjs") \
-            > "$EVIDENCE/ser-cp-007-adaptive-English-V1-review.md"
-          grep -q '# SER-CP-007 adaptive English candidate V1' \
-            "$EVIDENCE/ser-cp-007-adaptive-English-V1-review.md"
+            --outfile="$OUT/ser-cp-007-adaptive-review-v2.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-007-adaptive-review-v2.test.mjs") \
+            | tee "$EVIDENCE/adaptive-review-v2-audit.json"
+          grep -q 'PASS_SER_CP007_ADAPTIVE_ENGLISH_CANDIDATE_V2' \
+            "$EVIDENCE/adaptive-review-v2-audit.json"
 
-      - name: Collect candidate report
+      - name: Export adaptive English V2 review pack
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-english-remodel-v2
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/export-adaptive-review-v2.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/export-ser-cp007-adaptive-review-v2.mjs"
+          (cd artifacts/api-server && node "$OUT/export-ser-cp007-adaptive-review-v2.mjs") \
+            > "$EVIDENCE/ser-cp-007-adaptive-English-V2-review.md"
+          grep -q '# SER-CP-007 adaptive English candidate V2' \
+            "$EVIDENCE/ser-cp-007-adaptive-English-V2-review.md"
+
+      - name: Collect candidate reports
         run: |
           set -euo pipefail
           ROOT=artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL
-          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-english-remodel-v1
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-english-remodel-v2
           cp "$ROOT/ser-cp-007-adaptive-review-report.md" \
-            "$EVIDENCE/ser-cp-007-adaptive-review-report.md"
+            "$EVIDENCE/ser-cp-007-adaptive-review-v1-report.md"
+          cp "$ROOT/ser-cp-007-adaptive-review-v2-report.md" \
+            "$EVIDENCE/ser-cp-007-adaptive-review-v2-report.md"
 
-      - name: Upload adaptive English evidence
+      - name: Upload adaptive English V2 evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ser-001-cp007-adaptive-english-v1
-          path: artifacts/api-server/dist/reasoning-v1/ser-001/cp007-english-remodel-v1
+          name: ser-001-cp007-adaptive-english-v2
+          path: artifacts/api-server/dist/reasoning-v1/ser-001/cp007-english-remodel-v2
           if-no-files-found: error
           retention-days: 30
