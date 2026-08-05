@@ -63,13 +63,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v2-exam-review.test.ts | tee cp007-editorial-v2-exam.log
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v2-exam-review-final.test.ts | tee cp007-editorial-v2-exam.log
 
       - name: Export CP-007 V2 exam-review pack
         shell: bash
         run: |
           set -euo pipefail
-          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-cp007-editorial-v2-exam-review.ts cp007-editorial-v2-exam-review-output | tee cp007-editorial-v2-export.log
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-cp007-editorial-v2-exam-review-final.ts cp007-editorial-v2-exam-review-output | tee cp007-editorial-v2-export.log
 
       - name: Verify CP-007 V2 artifact contracts
         shell: bash
