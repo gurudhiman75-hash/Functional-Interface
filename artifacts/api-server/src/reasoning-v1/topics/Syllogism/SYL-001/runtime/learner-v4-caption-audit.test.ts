@@ -25,6 +25,7 @@ let records = 0;
 let enabledDiagrams = 0;
 let captionParityPassed = 0;
 let firstQuestionValidated = false;
+let containmentCaptionValidated = false;
 
 for (const definition of SYL_QL_REGISTRY) {
   for (let seed = 0; seed < 80; seed += 1) {
@@ -50,13 +51,20 @@ for (const definition of SYL_QL_REGISTRY) {
 
       if (locale === "en-IN") {
         assert(!/\bBecause [^.]+? is separate from [^,]+?, the same × is outside\b/u.test(diagram.caption!), `${key} retains singular-verb witness-transfer grammar: ${diagram.caption}`);
-        assert(!/\b[A-Za-z][A-Za-z-]*s is separate from\b/u.test(diagram.caption!), `${key} contains plural subject with singular verb: ${diagram.caption}`);
+        assert(!/\b[A-Za-z][A-Za-z-]*s is separate from\b/u.test(diagram.caption!), `${key} contains plural subject with singular separation verb: ${diagram.caption}`);
+        assert(!/\b[A-Za-z][A-Za-z-]*s (?:is inside|lies inside)\b/u.test(diagram.caption!), `${key} contains plural category with singular containment verb: ${diagram.caption}`);
       }
 
       if (definition.qlId === "SYL-QL-001" && seed === 0 && locale === "en-IN") {
         assert(diagram.caption!.includes("stones and books are separate"), `${key} does not explicitly state the corrected separation relation.`);
         assert(diagram.svg!.includes("stones and books are separate"), `${key} SVG title/description does not contain the corrected caption.`);
         firstQuestionValidated = true;
+      }
+
+      if (definition.qlId === "SYL-QL-001" && seed === 5 && locale === "en-IN") {
+        assert(diagram.caption!.includes("The bells set lies inside the windows set"), `${key} does not use set-to-set containment wording: ${diagram.caption}`);
+        assert(diagram.caption!.includes("windows and rivers sets are separate"), `${key} does not use grammatical set separation wording: ${diagram.caption}`);
+        containmentCaptionValidated = true;
       }
 
       enabledDiagrams += 1;
@@ -66,6 +74,7 @@ for (const definition of SYL_QL_REGISTRY) {
 }
 
 assert(firstQuestionValidated, "The exact first English question caption was not validated.");
+assert(containmentCaptionValidated, "The seed-5 containment/separation caption was not validated.");
 assert(enabledDiagrams > 0, "No enabled learner diagrams were validated.");
 
 console.log(JSON.stringify({
@@ -74,5 +83,9 @@ console.log(JSON.stringify({
   enabledDiagrams,
   captionParityPassed,
   firstQuestionValidated,
-  rejectedEnglishPattern: "plural category + is separate from",
+  containmentCaptionValidated,
+  rejectedEnglishPatterns: [
+    "plural category + is separate from",
+    "plural category + is/lies inside",
+  ],
 }, null, 2));
