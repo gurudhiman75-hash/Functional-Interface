@@ -2,12 +2,25 @@ import { INE_CP002_PROTOTYPE_CONTRACTS } from "./contracts";
 import { generateIneCp002Question } from "./generator";
 
 export interface IneCp002ReviewRow {
+  recordId: string;
   packageId: "INE-001";
   checkpointId: "INE-CP-002";
   authorityId: string;
   prototypeId: string;
   seed: number;
   difficulty: string;
+  competency: string;
+  topologyId: string;
+  explanationMode: string;
+  nodeCount: number;
+  statementCount: number;
+  relevantStatementCount: number;
+  irrelevantStatementCount: number;
+  equalityStatementCount: number;
+  strictStatementCount: number;
+  answerRelation?: string;
+  contentHash: string;
+  reviewStatus: string;
   stem: string;
   statements: readonly string[];
   options: readonly string[];
@@ -44,12 +57,25 @@ export function buildIneCp002ReviewPack(
     Array.from({ length: seedsPerPrototype }, (_, seed) => {
       const question = generateIneCp002Question(contract.prototypeId, seed);
       return {
+        recordId: question.recordId,
         packageId: question.packageId,
         checkpointId: question.checkpointId,
         authorityId: question.authorityId,
         prototypeId: question.prototypeId,
         seed,
         difficulty: question.difficulty,
+        competency: question.metadata.competency,
+        topologyId: question.metadata.topologyId,
+        explanationMode: question.metadata.explanationMode,
+        nodeCount: question.metadata.nodeCount,
+        statementCount: question.metadata.statementCount,
+        relevantStatementCount: question.metadata.relevantStatementCount,
+        irrelevantStatementCount: question.metadata.irrelevantStatementCount,
+        equalityStatementCount: question.metadata.equalityStatementCount,
+        strictStatementCount: question.metadata.strictStatementCount,
+        answerRelation: question.metadata.answerRelation,
+        contentHash: question.metadata.contentHash,
+        reviewStatus: question.metadata.reviewStatus,
         stem: question.stem,
         statements: question.displayedStatements,
         options: question.options.map((option) => option.value),
@@ -74,6 +100,8 @@ export function renderIneCp002ReviewMarkdown(
       .join("\n");
     return [
       `## ${index + 1}. ${row.authorityId} — seed ${row.seed}`,
+      "",
+      `**Record:** ${row.recordId} · **Difficulty:** ${row.difficulty} · **Topology:** ${row.topologyId} · **Explanation mode:** ${row.explanationMode}`,
       "",
       row.stem,
       "",

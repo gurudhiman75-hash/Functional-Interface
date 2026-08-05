@@ -1,13 +1,13 @@
+import { assertSolverAgreement } from "../foundation/solver-agreement";
 import type {
+  AtomicOrder,
   ComparisonRelation,
   SolverAgreementEvidence,
 } from "../foundation/types";
-import { buildIneCp001Explanation } from "../INE-CP-001/explanation";
 import { answerLabel, formatStatement } from "../INE-CP-001/presentation";
 import type {
   IneCp001AnswerSemantic,
   IneCp001Explanation,
-  IneCp001Option,
 } from "../INE-CP-001/types";
 import { formatPairOption } from "./option-builder";
 import type { IneCp002Option, IneCp002Scenario } from "./types";
@@ -24,20 +24,98 @@ function routeText(
       if (!statement) throw new Error(`Missing route statement ${sourceId}.`);
       return formatStatement(statement, scenario.entityNames);
     })
-    .join(", ");
+    .join(" and ");
+}
+
+function queryNames(scenario: IneCp002Scenario): [string, string] {
+  const query = scenario.query!;
+  return [
+    scenario.entityNames[query.leftId] ?? query.leftId,
+    scenario.entityNames[query.rightId] ?? query.rightId,
+  ];
+}
+
+function resultText(
+  leftName: string,
+  rightName: string,
+  answer: IneCp001AnswerSemantic,
+): string {
+  return answer === "INDETERMINATE"
+    ? `the order of ${leftName} and ${rightName} is not fixed`
+    : `${leftName} ${answerLabel(answer)} ${rightName}`;
+}
+
+function connectedEntityIds(
+  scenario: IneCp002Scenario,
+  startId: string,
+): ReadonlySet<string> {
+  const seen = new Set([startId]);
+  const queue = [startId];
+  while (queue.length > 0) {
+    const current = queue.shift()!;
+    for (const statement of scenario.statements) {
+      const neighbour =
+        statement.leftId === current
+          ? statement.rightId
+          : statement.rightId === current
+            ? statement.leftId
+            : undefined;
+      if (neighbour && !seen.has(neighbour)) {
+        seen.add(neighbour);
+        queue.push(neighbour);
+      }
+    }
+  }
+  return seen;
+}
+
+function componentText(scenario: IneCp002Scenario, entityId: string): string {
+  const ids = connectedEntityIds(scenario, entityId);
+  return scenario.statements
+    .filter(
+      (statement) => ids.has(statement.leftId) && ids.has(statement.rightId),
+    )
+    .map((statement) => formatStatement(statement, scenario.entityNames))
+    .join("; ");
+}
+
+function atomicSymbol(order: AtomicOrder): string {
+  return order === "GT" ? ">" : order === "LT" ? "<" : "=";
+}
+
+function countermodels(
+  scenario: IneCp002Scenario,
+  agreement: SolverAgreementEvidence,
+): readonly string[] {
+  if (agreement.graphEvidence?.strongestDefiniteRelation) return [];
+  const [leftName, rightName] = queryNames(scenario);
+  return agreement.modelEvidence.possibleAtomicRelations
+    .slice(0, 2)
+    .map((order) => {
+      const witness = agreement.modelEvidence.witnessByRelation[order];
+      if (!witness) return "";
+      const assignments = Object.entries(witness)
+        .sort(([left], [right]) =>
+          (scenario.entityNames[left] ?? left).localeCompare(
+            scenario.entityNames[right] ?? right,
+          ),
+        )
+        .map(
+          ([entityId, value]) =>
+            `${scenario.entityNames[entityId] ?? entityId}=${value}`,
+        )
+        .join(", ");
+      return `${assignments} satisfies every statement and gives ${leftName} ${atomicSymbol(order)} ${rightName}.`;
+    })
+    .filter(Boolean);
 }
 
 function relationProof(
   scenario: IneCp002Scenario,
   correctAnswer: IneCp001AnswerSemantic,
 ): { opening: string; steps: readonly string[] } {
-  const query = scenario.query!;
-  const leftName = scenario.entityNames[query.leftId] ?? query.leftId;
-  const rightName = scenario.entityNames[query.rightId] ?? query.rightId;
-  const result =
-    correctAnswer === "INDETERMINATE"
-      ? "no single relation is forced"
-      : `${leftName} ${answerLabel(correctAnswer)} ${rightName}`;
+  const [leftName, rightName] = queryNames(scenario);
+  const result = resultText(leftName, rightName, correctAnswer);
   const routes = scenario.proofRoutes.map((route) =>
     routeText(scenario, route),
   );
@@ -45,33 +123,35 @@ function relationProof(
   switch (scenario.explanationKind) {
     case "LONG_CHAIN":
       return {
-        opening: `Follow the complete chain: ${routes[0]}.`,
+        opening: `Read the links as one chain: ${routes[0]}.`,
         steps: [
           correctAnswer === "GREATER_THAN_OR_EQUAL" ||
           correctAnswer === "LESS_THAN_OR_EQUAL"
-            ? "Every comparison on the route is inclusive, so equality at the two ends is still possible."
-            : "At least one comparison on the route is strict, so equality at the two ends is impossible.",
+            ? `None of those links forces the end values apart. Equality is still possible, so the guaranteed relation is ${result}.`
+            : `A strict link occurs on the route, so the two ends cannot be equal. This proves ${result}.`,
         ],
       };
     case "MULTIPLE_ROUTES":
       return {
-        opening: `There are two routes between ${leftName} and ${rightName}: ${routes[0]}; and ${routes[1]}.`,
+        opening: `Two separate routes connect ${leftName} and ${rightName}.`,
         steps: [
-          `Both routes agree, and each contains a strict comparison. Therefore, they both support ${result}.`,
+          `Route 1: ${routes[0]} — this gives ${result}.`,
+          `Route 2: ${routes[1]} — this independently gives the same result.`,
         ],
       };
     case "ALTERNATE_STRICT_PATH":
       return {
-        opening: `One route is ${routes[0]}. The alternate route is ${routes[1]}.`,
+        opening: `Compare the two available routes from ${leftName} to ${rightName}.`,
         steps: [
-          `The first route is only inclusive, but the alternate route contains a strict comparison. That stricter route proves ${result}.`,
+          `Direct route: ${routes[0]} — this is only inclusive.`,
+          `Alternate route: ${routes[1]} — its strict link rules out equality, proving ${result}.`,
         ],
       };
     case "BRANCHED_GRAPH":
       return {
-        opening: `The statements place ${leftName} and ${rightName} on separate branches of the same graph.`,
+        opening: `${leftName} and ${rightName} sit on different branches of the same connected graph.`,
         steps: [
-          `Sharing bounds does not compare the two branch terms with each other, so ${result}.`,
+          `The branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, ${result}.`,
         ],
       };
     case "IRRELEVANT_EVIDENCE": {
@@ -79,29 +159,64 @@ function relationProof(
         routeText(scenario, [sourceId]),
       );
       return {
-        opening: `Only ${routes[0]} connects ${leftName} with ${rightName}.`,
+        opening: `Relevant route: ${routes[0]}.`,
         steps: [
-          `${ignored.join(" and ")} form a separate branch and do not change that route. The relevant chain gives ${result}.`,
+          `The remaining clues — ${ignored.join(" and ")} — do not complete another route between ${leftName} and ${rightName}. The relevant route proves ${result}.`,
         ],
       };
     }
     case "DISCONNECTED_COMPONENTS":
       return {
-        opening: `${leftName} and ${rightName} belong to different connected groups of statements.`,
+        opening: `${leftName} and ${rightName} belong to two separate groups of statements.`,
         steps: [
-          `No comparison path joins the two groups. Either term may be above, equal to, or below the other, so ${result}.`,
+          `Group containing ${leftName}: ${componentText(scenario, scenario.query!.leftId)}.`,
+          `Group containing ${rightName}: ${componentText(scenario, scenario.query!.rightId)}. No comparison joins the groups, so ${result}.`,
         ],
       };
     case "EQUALITY_SPANNING_BRANCHES":
       return {
-        opening: `The equality route is ${routes[0]}.`,
+        opening: `Collapse the equality route first: ${routes[0]}.`,
         steps: [
-          `The two queried terms belong to the same equality group. Comparisons leaving that group do not change their equality, so ${result}.`,
+          `This places ${leftName} and ${rightName} in the same equality group. The other comparisons leave that group but cannot separate its members, so ${result}.`,
         ],
       };
     case "PAIR_SELECTION":
       throw new Error("Pair-selection explanations use a separate builder.");
   }
+}
+
+function relationDistractorReason(
+  scenario: IneCp002Scenario,
+  correctAnswer: IneCp001AnswerSemantic,
+  option: IneCp002Option,
+): string {
+  const [leftName, rightName] = queryNames(scenario);
+  const optionAnswer = option.semanticRelation!;
+  if (correctAnswer === "INDETERMINATE") {
+    return `The valid arrangements above give different orders for ${leftName} and ${rightName}, so ${option.value} is not guaranteed.`;
+  }
+  if (correctAnswer === "EQUAL_TO") {
+    return optionAnswer === "INDETERMINATE"
+      ? `The equality route fixes ${leftName} and ${rightName} exactly; their relation is known.`
+      : `The equality route proves ${leftName} = ${rightName}, so neither term can be strictly above the other.`;
+  }
+  if (optionAnswer === "INDETERMINATE") {
+    return `A complete route connects ${leftName} and ${rightName}, so their relation is determined.`;
+  }
+  if (optionAnswer === "EQUAL_TO") {
+    return correctAnswer === "GREATER_THAN_OR_EQUAL" ||
+      correctAnswer === "LESS_THAN_OR_EQUAL"
+      ? "Equality is possible, but the inclusive chain does not force it."
+      : "The strict link on the decisive route makes equality impossible.";
+  }
+  if (
+    (correctAnswer === "GREATER_THAN_OR_EQUAL" &&
+      optionAnswer === "GREATER_THAN") ||
+    (correctAnswer === "LESS_THAN_OR_EQUAL" && optionAnswer === "LESS_THAN")
+  ) {
+    return "Every link on the decisive route is inclusive, so equality remains possible and a strict answer is not guaranteed.";
+  }
+  return `${option.value} points in the wrong direction; the decisive route establishes ${resultText(leftName, rightName, correctAnswer)}.`;
 }
 
 export function buildIneCp002RelationExplanation(
@@ -110,30 +225,28 @@ export function buildIneCp002RelationExplanation(
   options: readonly IneCp002Option[],
   agreement: SolverAgreementEvidence,
 ): IneCp001Explanation {
-  const prompt = {
-    statements: scenario.statements,
-    query: scenario.query!,
-    entityNames: scenario.entityNames,
-  };
-  const base = buildIneCp001Explanation(
-    prompt,
-    correctAnswer,
-    options.map(
-      (option): IneCp001Option => ({
-        value: option.value,
-        semanticValue: option.semanticRelation!,
-        isCorrect: option.isCorrect,
-        errorLabel: option.errorLabel,
-      }),
-    ),
-    agreement,
-  );
+  const [leftName, rightName] = queryNames(scenario);
   const proof = relationProof(scenario, correctAnswer);
   return {
-    ...base,
     ruleStatement: proof.opening,
     normalizedStatements: [],
     proofSteps: proof.steps,
+    modelWitnesses: countermodels(scenario, agreement),
+    conclusion:
+      correctAnswer === "INDETERMINATE"
+        ? `Because valid arrangements give different results, the relation between ${leftName} and ${rightName} cannot be determined.`
+        : `Therefore, ${resultText(leftName, rightName, correctAnswer)} is definitely established.`,
+    distractorAnalysis: options
+      .filter((option) => !option.isCorrect)
+      .map((option) => ({
+        optionValue: option.value,
+        errorLabel: option.errorLabel!,
+        studentWarning: relationDistractorReason(
+          scenario,
+          correctAnswer,
+          option,
+        ),
+      })),
   };
 }
 
@@ -152,38 +265,55 @@ function definiteRelationText(
 function pairReason(
   scenario: IneCp002Scenario,
   option: IneCp002Option,
-  pairRelations: Readonly<Record<string, ComparisonRelation | undefined>>,
 ): string {
-  const relation = pairRelations[option.pair!.pairId];
+  const pair = option.pair!;
+  const agreement = assertSolverAgreement(
+    scenario.statements,
+    pair.leftId,
+    pair.rightId,
+  );
+  const relation = agreement.graphEvidence?.strongestDefiniteRelation;
   if (relation) {
-    return `The statements force ${definiteRelationText(scenario, option, relation)}, so this pair has a definite relation.`;
+    const sourceIds =
+      agreement.graphEvidence?.proofPath?.steps.flatMap(
+        (step) => step.sourceStatementIds,
+      ) ?? [];
+    const path = routeText(scenario, [...new Set(sourceIds)]);
+    return `${formatPairOption(pair, scenario.entityNames)}: ${path}, so ${definiteRelationText(scenario, option, relation)}.`;
   }
-  return `No comparison path fixes the order of ${formatPairOption(option.pair!, scenario.entityNames)}; either one may be greater, or they may be equal.`;
+  const [leftName, rightName] = [
+    scenario.entityNames[pair.leftId] ?? pair.leftId,
+    scenario.entityNames[pair.rightId] ?? pair.rightId,
+  ];
+  const connected = connectedEntityIds(scenario, pair.leftId).has(pair.rightId);
+  return connected
+    ? `${leftName} and ${rightName} are on separate branches of one graph, with no directed path fixing their order.`
+    : `${leftName} and ${rightName} are in disconnected groups, so no comparison path fixes their order.`;
 }
 
 export function buildIneCp002PairExplanation(
   scenario: IneCp002Scenario,
   options: readonly IneCp002Option[],
   correctIndex: number,
-  pairRelations: Readonly<Record<string, ComparisonRelation | undefined>>,
+  _pairRelations: Readonly<Record<string, ComparisonRelation | undefined>>,
 ): IneCp001Explanation {
   const correct = options[correctIndex]!;
   const selectingDefinite = scenario.taskKind === "SELECT_DEFINITE_PAIR";
   return {
     ruleStatement:
-      "Check each pair separately. A pair is definite only when the displayed statements force one relation between its two terms.",
+      "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.",
     normalizedStatements: [],
-    proofSteps: [pairReason(scenario, correct, pairRelations)],
+    proofSteps: [pairReason(scenario, correct)],
     modelWitnesses: [],
     conclusion: selectingDefinite
-      ? `Therefore, option ${correctIndex + 1} — ${correct.value} — is the pair with a definite relation.`
-      : `Therefore, option ${correctIndex + 1} — ${correct.value} — is the pair whose relation cannot be determined.`,
+      ? `Therefore, option ${correctIndex + 1} — ${correct.value} — is the only pair with a definite relation.`
+      : `Therefore, option ${correctIndex + 1} — ${correct.value} — is the only pair whose relation is not determined.`,
     distractorAnalysis: options
       .filter((option) => !option.isCorrect)
       .map((option) => ({
         optionValue: option.value,
         errorLabel: option.errorLabel!,
-        studentWarning: pairReason(scenario, option, pairRelations),
+        studentWarning: pairReason(scenario, option),
       })),
   };
 }

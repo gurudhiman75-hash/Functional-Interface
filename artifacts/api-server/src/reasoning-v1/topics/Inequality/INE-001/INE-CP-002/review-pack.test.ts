@@ -11,7 +11,7 @@ assert.equal(new Set(rows.map((row) => row.authorityId)).size, 9);
 assert.equal(new Set(rows.map((row) => row.prototypeId)).size, 9);
 assert.ok(rows.every((row) => row.permanentQlId === null));
 assert.ok(rows.every((row) => row.questionStudioVisible === false));
-assert.ok(rows.every((row) => row.statements.length >= 4));
+assert.ok(rows.every((row) => row.statements.length >= 3));
 assert.ok(rows.every((row) => row.options.length === 4));
 assert.ok(rows.every((row) => new Set(row.options).size === 4));
 assert.ok(rows.every((row) => row.options.includes(row.correctOption)));
@@ -20,6 +20,25 @@ assert.ok(rows.every((row) => !/\bE\d+\b/.test(row.explanation)));
 assert.ok(rows.every((row) => !row.explanation.includes("A valid model has")));
 assert.ok(
   rows.every((row) => !row.explanation.includes("independently verified")),
+);
+assert.equal(new Set(rows.map((row) => row.recordId)).size, rows.length);
+assert.ok(rows.every((row) => /^[0-9a-f]{8}$/.test(row.contentHash)));
+assert.ok(
+  rows
+    .filter((row) => row.authorityId === "DETERMINE_DISCONNECTED_PAIR_RELATION")
+    .every(
+      (row) =>
+        row.explanation.includes("separate groups") &&
+        !row.explanation.includes("shared upper or lower bound"),
+    ),
+);
+const answerPositions = [0, 0, 0, 0];
+for (const row of rows) {
+  answerPositions[row.options.indexOf(row.correctOption)] += 1;
+}
+assert.ok(
+  Math.max(...answerPositions) - Math.min(...answerPositions) <= 8,
+  `Review-pack answer positions are too imbalanced: ${answerPositions.join(", ")}`,
 );
 
 assert.deepEqual(buildIneCp002ReviewPack(4), rows);

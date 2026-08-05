@@ -1,6 +1,7 @@
 import { assertSolverAgreement } from "../foundation/solver-agreement";
+import { SeededRandom, stableHash } from "../foundation/prng";
 import type { ComparisonRelation } from "../foundation/types";
-import { buildIneCp001Options } from "../INE-CP-001/option-builder";
+import { answerOptionLabel } from "../INE-CP-001/presentation";
 import type {
   IneCp001AnswerSemantic,
   IneCp001StructuredPrompt,
@@ -10,6 +11,19 @@ import type {
   IneCp002PairCandidate,
   IneCp002Scenario,
 } from "./types";
+
+function balancedCorrectIndex(namespace: string, seed: number): number {
+  const normalizedSeed = (Number.isFinite(seed) ? Math.trunc(seed) : 0) >>> 0;
+  const block = Math.floor(normalizedSeed / 4);
+  const slot = normalizedSeed % 4;
+  const permutationRandom = new SeededRandom(
+    Number.parseInt(
+      stableHash([namespace, block, "cp002-balanced-position-v2"]),
+      16,
+    ),
+  );
+  return permutationRandom.shuffle([0, 1, 2, 3])[slot]!;
+}
 
 export function formatPairOption(
   pair: IneCp002PairCandidate,
@@ -30,19 +44,85 @@ export function buildIneCp002RelationOptions(
     query: scenario.query!,
     entityNames: scenario.entityNames,
   };
-  const result = buildIneCp001Options(
-    correctAnswer,
-    scenario.scenarioId,
+  const distractors: Readonly<
+    Record<
+      IneCp001AnswerSemantic,
+      readonly { semanticValue: IneCp001AnswerSemantic; errorLabel: string }[]
+    >
+  > = {
+    GREATER_THAN: [
+      { semanticValue: "LESS_THAN", errorLabel: "REVERSE_STRICT_ORDER" },
+      { semanticValue: "EQUAL_TO", errorLabel: "IGNORE_STRICTNESS" },
+      { semanticValue: "INDETERMINATE", errorLabel: "DROP_VALID_PROOF_PATH" },
+      { semanticValue: "LESS_THAN_OR_EQUAL", errorLabel: "REVERSE_ORDER" },
+    ],
+    LESS_THAN: [
+      { semanticValue: "GREATER_THAN", errorLabel: "REVERSE_STRICT_ORDER" },
+      { semanticValue: "EQUAL_TO", errorLabel: "IGNORE_STRICTNESS" },
+      { semanticValue: "INDETERMINATE", errorLabel: "DROP_VALID_PROOF_PATH" },
+      { semanticValue: "GREATER_THAN_OR_EQUAL", errorLabel: "REVERSE_ORDER" },
+    ],
+    EQUAL_TO: [
+      { semanticValue: "GREATER_THAN", errorLabel: "BREAK_EQUALITY" },
+      { semanticValue: "LESS_THAN", errorLabel: "BREAK_EQUALITY" },
+      {
+        semanticValue: "INDETERMINATE",
+        errorLabel: "TREAT_EQUALITY_AS_UNKNOWN",
+      },
+    ],
+    GREATER_THAN_OR_EQUAL: [
+      {
+        semanticValue: "GREATER_THAN",
+        errorLabel: "PROMOTE_INCLUSIVE_TO_STRICT",
+      },
+      { semanticValue: "LESS_THAN", errorLabel: "REVERSE_STRICT_ORDER" },
+      { semanticValue: "EQUAL_TO", errorLabel: "KEEP_ONLY_EQUALITY_CASE" },
+      { semanticValue: "INDETERMINATE", errorLabel: "DROP_VALID_PROOF_PATH" },
+    ],
+    LESS_THAN_OR_EQUAL: [
+      { semanticValue: "LESS_THAN", errorLabel: "PROMOTE_INCLUSIVE_TO_STRICT" },
+      { semanticValue: "GREATER_THAN", errorLabel: "REVERSE_STRICT_ORDER" },
+      { semanticValue: "EQUAL_TO", errorLabel: "KEEP_ONLY_EQUALITY_CASE" },
+      { semanticValue: "INDETERMINATE", errorLabel: "DROP_VALID_PROOF_PATH" },
+    ],
+    INDETERMINATE: [
+      { semanticValue: "EQUAL_TO", errorLabel: "TREAT_UNKNOWN_AS_EQUAL" },
+      { semanticValue: "GREATER_THAN", errorLabel: "ASSUME_LEFT_HIGHER" },
+      { semanticValue: "LESS_THAN", errorLabel: "ASSUME_RIGHT_HIGHER" },
+      { semanticValue: "GREATER_THAN_OR_EQUAL", errorLabel: "ASSUME_ORDER" },
+    ],
+  };
+  const optionRandom = new SeededRandom(
+    seed ^
+      Number.parseInt(
+        stableHash([scenario.scenarioId, "cp002-option-content-v2"]),
+        16,
+      ),
+  );
+  const selectedDistractors = optionRandom
+    .shuffle(distractors[correctAnswer])
+    .slice(0, 3);
+  const correctIndex = balancedCorrectIndex(
+    `${scenario.taskKind}:${scenario.explanationKind}`,
     seed,
-    prompt,
+  );
+  const shuffledDistractors = optionRandom.shuffle(selectedDistractors);
+  let distractorIndex = 0;
+  const entries = Array.from({ length: 4 }, (_, index) =>
+    index === correctIndex
+      ? { semanticValue: correctAnswer, isCorrect: true }
+      : {
+          ...shuffledDistractors[distractorIndex++]!,
+          isCorrect: false,
+        },
   );
   return {
-    correctIndex: result.correctIndex,
-    options: result.options.map((option) => ({
-      value: option.value,
-      semanticRelation: option.semanticValue,
-      isCorrect: option.isCorrect,
-      errorLabel: option.errorLabel,
+    correctIndex,
+    options: entries.map((entry) => ({
+      value: answerOptionLabel(entry.semanticValue, prompt),
+      semanticRelation: entry.semanticValue,
+      isCorrect: entry.isCorrect,
+      errorLabel: "errorLabel" in entry ? entry.errorLabel : undefined,
     })),
   };
 }
@@ -87,14 +167,22 @@ export function buildIneCp002PairOptions(
   const incorrect = scenario.candidatePairs!.filter(
     (candidate) => candidate !== correct[0],
   );
-  const correctIndex = ((Math.trunc(seed) % 4) + 4) % 4;
-  const ordered: IneCp002PairCandidate[] = [];
+  const optionRandom = new SeededRandom(
+    seed ^
+      Number.parseInt(
+        stableHash([scenario.scenarioId, "cp002-pair-option-permutation-v2"]),
+        16,
+      ),
+  );
+  const correctIndex = balancedCorrectIndex(
+    `${scenario.taskKind}:${scenario.explanationKind}`,
+    seed,
+  );
+  const shuffledIncorrect = optionRandom.shuffle(incorrect);
   let incorrectIndex = 0;
-  for (let index = 0; index < 4; index += 1) {
-    ordered.push(
-      index === correctIndex ? correct[0]! : incorrect[incorrectIndex++]!,
-    );
-  }
+  const ordered = Array.from({ length: 4 }, (_, index) =>
+    index === correctIndex ? correct[0]! : shuffledIncorrect[incorrectIndex++]!,
+  );
   return {
     correctIndex,
     pairDefiniteness,

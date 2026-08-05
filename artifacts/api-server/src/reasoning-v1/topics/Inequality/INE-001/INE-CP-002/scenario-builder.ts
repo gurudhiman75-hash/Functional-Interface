@@ -38,6 +38,27 @@ function pair(
   return { pairId, leftId, rightId };
 }
 
+export function reverseComparisonOrientation(
+  statement: ComparisonConstraint,
+): ComparisonConstraint {
+  const reversedRelation: ComparisonRelation =
+    statement.relation === "GREATER_THAN"
+      ? "LESS_THAN"
+      : statement.relation === "LESS_THAN"
+        ? "GREATER_THAN"
+        : statement.relation === "GREATER_THAN_OR_EQUAL"
+          ? "LESS_THAN_OR_EQUAL"
+          : statement.relation === "LESS_THAN_OR_EQUAL"
+            ? "GREATER_THAN_OR_EQUAL"
+            : "EQUAL_TO";
+  return c(
+    statement.rightId,
+    reversedRelation,
+    statement.leftId,
+    statement.sourceStatementId,
+  );
+}
+
 function namesFor(
   entityIds: readonly string[],
   random: SeededRandom,
@@ -166,26 +187,48 @@ export function buildIneCp002Scenario(
       irrelevantStatementIds: [],
     };
   } else if (prototypeId === "INE-CP002-PROT-IRRELEVANT-EVIDENCE") {
+    const detachedNoise = seed % 2 === 1;
     scenario = {
-      scenarioId: "CHAIN_WITH_TWO_IRRELEVANT_COMPONENTS",
-      topologyId: "RELEVANT_CHAIN_PLUS_NOISE",
+      scenarioId: detachedNoise
+        ? "CHAIN_WITH_DETACHED_NOISE"
+        : "CHAIN_WITH_ATTACHED_NOISE",
+      topologyId: detachedNoise
+        ? "RELEVANT_CHAIN_PLUS_DISCONNECTED_CLUE"
+        : "RELEVANT_CHAIN_PLUS_SIDE_BRANCH",
       taskKind: "RELATION",
       explanationKind: "IRRELEVANT_EVIDENCE",
       hiddenValues: { E1: 5, E2: 4, E3: 2, E4: 3, E5: 1 },
-      statements: [
-        c("E1", "GREATER_THAN_OR_EQUAL", "E2", "S1"),
-        c("E2", "GREATER_THAN", "E3", "S2"),
-        c("E1", "GREATER_THAN", "E4", "S3"),
-        c("E4", "GREATER_THAN", "E5", "S4"),
-      ],
+      statements: detachedNoise
+        ? [
+            c("E1", "GREATER_THAN_OR_EQUAL", "E2", "S1"),
+            c("E2", "GREATER_THAN", "E3", "S2"),
+            c("E4", "GREATER_THAN", "E5", "S3"),
+          ]
+        : [
+            c("E1", "GREATER_THAN_OR_EQUAL", "E2", "S1"),
+            c("E2", "GREATER_THAN", "E3", "S2"),
+            c("E1", "GREATER_THAN", "E4", "S3"),
+            c("E4", "GREATER_THAN", "E5", "S4"),
+          ],
       query:
         seed % 2 === 0
           ? { leftId: "E1", rightId: "E3" }
           : { leftId: "E3", rightId: "E1" },
       proofRoutes: [["S1", "S2"]],
-      irrelevantStatementIds: ["S3", "S4"],
+      irrelevantStatementIds: detachedNoise ? ["S3"] : ["S3", "S4"],
     };
   } else if (prototypeId === "INE-CP002-PROT-SELECT-DEFINITE-PAIR") {
+    const definitePairVariant = ((seed % 5) + 5) % 5;
+    const definitePair =
+      definitePairVariant === 0
+        ? pair("P1", "E1", "E3")
+        : definitePairVariant === 1
+          ? pair("P1", "E3", "E1")
+          : definitePairVariant === 2
+            ? pair("P1", "E5", "E4")
+            : definitePairVariant === 3
+              ? pair("P1", "E2", "E3")
+              : pair("P1", "E3", "E2");
     scenario = {
       scenarioId: "ONE_DEFINITE_AMONG_FOUR_PAIRS",
       topologyId: "BRANCH_PLUS_DISCONNECTED_EQUALITY",
@@ -199,12 +242,18 @@ export function buildIneCp002Scenario(
         c("E5", "EQUAL_TO", "E4", "S4"),
       ],
       candidatePairs: [
-        pair("P1", "E1", "E3"),
+        definitePair,
         pair("P2", "E2", "E4"),
         pair("P3", "E1", "E4"),
         pair("P4", "E2", "E5"),
       ],
-      proofRoutes: [["S1", "S2"]],
+      proofRoutes: [
+        definitePairVariant <= 1
+          ? ["S1", "S2"]
+          : definitePairVariant === 2
+            ? ["S4"]
+            : ["S2"],
+      ],
       irrelevantStatementIds: ["S4"],
     };
   } else if (prototypeId === "INE-CP002-PROT-SELECT-INDETERMINATE-PAIR") {
@@ -267,9 +316,22 @@ export function buildIneCp002Scenario(
 
   assertHiddenState(scenario.statements, scenario.hiddenValues);
   const entityIds = Object.keys(scenario.hiddenValues).sort();
+  const orientationRandom = new SeededRandom(
+    seed ^
+      Number.parseInt(
+        stableHash([prototypeId, "statement-orientation-v2"]),
+        16,
+      ),
+  );
+  const orientedStatements = scenario.statements.map((statement) =>
+    orientationRandom.int(2) === 0
+      ? statement
+      : reverseComparisonOrientation(statement),
+  );
+  assertHiddenState(orientedStatements, scenario.hiddenValues);
   return {
     ...scenario,
-    statements: random.shuffle(scenario.statements),
+    statements: random.shuffle(orientedStatements),
     entityNames: namesFor(entityIds, random),
   };
 }

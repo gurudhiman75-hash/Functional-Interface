@@ -56,7 +56,7 @@ export const INE_CP002_PROTOTYPE_CONTRACTS: readonly IneCp002PrototypeContract[]
       prototypeId: "INE-CP002-PROT-IRRELEVANT-EVIDENCE",
       authorityId: "FILTER_IRRELEVANT_STATEMENTS",
       taskKind: "RELATION",
-      minimumStatementCount: 4,
+      minimumStatementCount: 3,
       maximumStatementCount: 4,
       status: "PROTOTYPE",
       permanentQlId: null,

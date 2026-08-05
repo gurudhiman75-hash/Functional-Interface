@@ -33,6 +33,7 @@ export function generateIneCp002Question(
   }
 
   let strongestDefiniteRelation: ComparisonRelation | undefined;
+  let answerRelation: IneCp001AnswerSemantic | undefined;
   let possibleAtomicRelations: GeneratedIneCp002Question["metadata"]["possibleAtomicRelations"];
   let candidatePairDefiniteness:
     | GeneratedIneCp002Question["metadata"]["candidatePairDefiniteness"]
@@ -56,6 +57,7 @@ export function generateIneCp002Question(
     possibleAtomicRelations = agreement.graphEvidence?.possibleAtomicRelations;
     const correctAnswer: IneCp001AnswerSemantic =
       strongestDefiniteRelation ?? "INDETERMINATE";
+    answerRelation = correctAnswer;
     const result = buildIneCp002RelationOptions(scenario, correctAnswer, seed);
     options = result.options;
     correctIndex = result.correctIndex;
@@ -67,7 +69,12 @@ export function generateIneCp002Question(
     pairRelations = result.pairRelations;
   }
 
+  const displayedStatements = scenario.statements.map((statement) =>
+    formatStatement(statement, scenario.entityNames),
+  );
+  const recordId = `INE-CP002-${stableHash([prototypeId, seed, "record-v2"]).toUpperCase()}`;
   const question: GeneratedIneCp002Question = {
+    recordId,
     packageId: "INE-001",
     checkpointId: "INE-CP-002",
     prototypeId,
@@ -85,17 +92,15 @@ export function generateIneCp002Question(
     renderer: "STRUCTURED_TEXT",
     answerType:
       scenario.taskKind === "RELATION"
-        ? "STRONGEST_DEFINITE_RELATION"
+        ? "DEFINITELY_ESTABLISHED_RELATION"
         : "PAIR_SELECTION",
     stem:
       scenario.taskKind === "RELATION"
-        ? `What is the strongest relation that must be true for ${scenario.entityNames[scenario.query!.leftId]} compared with ${scenario.entityNames[scenario.query!.rightId]}?`
+        ? `Which relation between ${scenario.entityNames[scenario.query!.leftId]} and ${scenario.entityNames[scenario.query!.rightId]} is definitely established by the statements?`
         : scenario.taskKind === "SELECT_DEFINITE_PAIR"
           ? "Which pair has a relation that is completely determined by the statements?"
           : "Which pair has a relation that cannot be determined from the statements?",
-    displayedStatements: scenario.statements.map((statement) =>
-      formatStatement(statement, scenario.entityNames),
-    ),
+    displayedStatements,
     structuredPrompt: {
       statements: scenario.statements,
       entityNames: scenario.entityNames,
@@ -119,7 +124,14 @@ export function generateIneCp002Question(
             pairRelations!,
           ),
     metadata: {
-      runtimeVersion: "ine-cp002-prototype-v1",
+      runtimeVersion: "ine-cp002-prototype-v2",
+      competency: "MULTI_LINK_INEQUALITY_REASONING",
+      reviewStatus: "PENDING_MANUAL_REVIEW",
+      contentHash: stableHash([
+        recordId,
+        ...displayedStatements,
+        ...options.map((option) => option.value),
+      ]),
       topologyId: scenario.topologyId,
       hiddenFingerprint: stableHash([
         prototypeId,
@@ -129,9 +141,27 @@ export function generateIneCp002Question(
           .flatMap(([entityId, value]) => [entityId, value]),
       ]),
       taskKind: scenario.taskKind,
+      explanationMode: scenario.explanationKind,
+      nodeCount: Object.keys(scenario.entityNames).length,
       statementCount: scenario.statements.length,
+      relevantStatementCount:
+        scenario.statements.length - scenario.irrelevantStatementIds.length,
       routeCount: scenario.proofRoutes.length,
       irrelevantStatementCount: scenario.irrelevantStatementIds.length,
+      equalityStatementCount: scenario.statements.filter(
+        (statement) => statement.relation === "EQUAL_TO",
+      ).length,
+      strictStatementCount: scenario.statements.filter(
+        (statement) =>
+          statement.relation === "GREATER_THAN" ||
+          statement.relation === "LESS_THAN",
+      ).length,
+      answerRelation,
+      optionRoles: options.map((option, index) => ({
+        index,
+        role: option.isCorrect ? "CORRECT" : "DISTRACTOR",
+        errorLabel: option.errorLabel,
+      })),
       possibleAtomicRelations,
       strongestDefiniteRelation,
       candidatePairDefiniteness,

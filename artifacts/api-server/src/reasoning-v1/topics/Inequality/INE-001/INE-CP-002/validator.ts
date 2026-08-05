@@ -1,4 +1,5 @@
 import { verifySolverAgreement } from "../foundation/solver-agreement";
+import { relationAcceptsAtomicOrder } from "../foundation/relations";
 import { answerOptionLabel } from "../INE-CP-001/presentation";
 import type { IneCp001StructuredPrompt } from "../INE-CP-001/types";
 import { formatPairOption } from "./option-builder";
@@ -53,6 +54,24 @@ export function validateIneCp002Question(
         query,
         entityNames: question.structuredPrompt.entityNames,
       };
+      const necessarilyTrueOptions = question.options.filter((option) => {
+        const semanticRelation = option.semanticRelation;
+        if (!semanticRelation) return false;
+        if (semanticRelation === "INDETERMINATE") {
+          return expected === "INDETERMINATE";
+        }
+        return agreement.modelEvidence.possibleAtomicRelations.every((order) =>
+          relationAcceptsAtomicOrder(semanticRelation, order),
+        );
+      });
+      if (
+        necessarilyTrueOptions.length !== 1 ||
+        necessarilyTrueOptions[0]?.isCorrect !== true
+      ) {
+        errors.push(
+          "Exam-standard relation options must contain exactly one necessarily true answer.",
+        );
+      }
       for (const option of question.options) {
         if (!option.semanticRelation) {
           errors.push(`Relation option “${option.value}” lacks semantics.`);

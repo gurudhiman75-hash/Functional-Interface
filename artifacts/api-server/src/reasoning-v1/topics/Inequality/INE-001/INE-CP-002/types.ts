@@ -82,6 +82,7 @@ export interface IneCp002StructuredPrompt {
 }
 
 export interface GeneratedIneCp002Question {
+  recordId: string;
   packageId: "INE-001";
   checkpointId: "INE-CP-002";
   prototypeId: IneCp002PrototypeId;
@@ -94,7 +95,7 @@ export interface GeneratedIneCp002Question {
   locale: "en-IN";
   difficulty: "MEDIUM" | "HARD";
   renderer: "STRUCTURED_TEXT";
-  answerType: "STRONGEST_DEFINITE_RELATION" | "PAIR_SELECTION";
+  answerType: "DEFINITELY_ESTABLISHED_RELATION" | "PAIR_SELECTION";
   stem: string;
   displayedStatements: readonly string[];
   structuredPrompt: IneCp002StructuredPrompt;
@@ -102,13 +103,27 @@ export interface GeneratedIneCp002Question {
   correctIndex: number;
   explanation: IneCp001Explanation;
   metadata: {
-    runtimeVersion: "ine-cp002-prototype-v1";
+    runtimeVersion: "ine-cp002-prototype-v2";
+    competency: "MULTI_LINK_INEQUALITY_REASONING";
+    reviewStatus: "PENDING_MANUAL_REVIEW";
+    contentHash: string;
     topologyId: string;
     hiddenFingerprint: string;
     taskKind: IneCp002TaskKind;
+    explanationMode: IneCp002ExplanationKind;
+    nodeCount: number;
     statementCount: number;
+    relevantStatementCount: number;
     routeCount: number;
     irrelevantStatementCount: number;
+    equalityStatementCount: number;
+    strictStatementCount: number;
+    answerRelation?: IneCp001AnswerSemantic;
+    optionRoles: readonly {
+      index: number;
+      role: "CORRECT" | "DISTRACTOR";
+      errorLabel?: string;
+    }[];
     possibleAtomicRelations?: readonly AtomicOrder[];
     strongestDefiniteRelation?: ComparisonRelation;
     candidatePairDefiniteness?: Readonly<Record<string, boolean>>;
