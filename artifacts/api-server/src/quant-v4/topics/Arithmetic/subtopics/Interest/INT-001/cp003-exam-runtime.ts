@@ -23,7 +23,7 @@ import {
 } from "./cp003-grounded-solution-trace";
 import { assertCp003PresentationGrounding } from "./cp003-presentation-grounding";
 
-export const INT_CP003_EXAM_GENERATOR_VERSION = "INT-CP-003-EXAM-GENERATOR-v10" as const;
+export const INT_CP003_EXAM_GENERATOR_VERSION = "INT-CP-003-EXAM-GENERATOR-v11" as const;
 
 export {
   INT_CP003_AUTHORITY_VERSION,
@@ -45,7 +45,8 @@ export function normalizePresentationTemplate(markdown: string): string {
     .replace(/\$[0-9]+(?:\.[0-9]+)?\\%\$/gu, "$R%$")
     .replace(/\$[0-9]+\^\{\\text\{(?:st|nd|rd|th)\}\}\$/gu, "$Kth$")
     .replace(/\$[0-9]+\$/gu, "$N$")
-    .replace(/\b[0-9]+\b/gu, "N");
+    .replace(/\b[0-9]+\b/gu, "N")
+    .replace(/\byears?\b/gu, "YEAR");
 }
 
 function stableIndex(source: string, length: number): number {
