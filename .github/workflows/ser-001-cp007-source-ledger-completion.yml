@@ -9,6 +9,8 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-FINAL-AUDIT/ser-cp-007-source-ledger-scaffold.md
       - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-FINAL-AUDIT/ser-cp-007-source-ledger-completion-tranche.md
       - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-FINAL-AUDIT/ser-cp-007-source-ledger-completion.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-FINAL-AUDIT/ser-cp-007-wave-d-source-ancestry-decision.md
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-FINAL-AUDIT/ser-cp-007-wave-d-source-ancestry-decision.test.ts
       - .github/workflows/ser-001-cp007-source-ledger-completion.yml
   workflow_dispatch:
 
@@ -53,8 +55,23 @@ jobs:
             --outfile="$OUT/ser-cp-007-source-ledger-completion.test.mjs"
           (cd artifacts/api-server && node "$OUT/ser-cp-007-source-ledger-completion.test.mjs") \
             | tee "$EVIDENCE/source-ledger-completion.json"
-          grep -q 'PASS_SER_CP007_SOURCE_LEDGER_36_VERIFIED_ONE_EXAM_RECORD_PENDING' \
+          grep -q 'PASS_SER_CP007_SOURCE_LEDGER_36_VERIFIED_WAVE_D_ANCESTRY_CLOSED_ONE_EXAM_RECORD_PENDING' \
             "$EVIDENCE/source-ledger-completion.json"
+
+      - name: Validate Wave-D ancestry decision
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-FINAL-AUDIT
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-source-ledger
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/ser-cp-007-wave-d-source-ancestry-decision.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/ser-cp-007-wave-d-source-ancestry-decision.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-007-wave-d-source-ancestry-decision.test.mjs") \
+            | tee "$EVIDENCE/wave-d-source-ancestry-decision.json"
+          grep -q 'PASS_SER_CP007_WAVE_D_FINAL_SATURATION_ONLY_ANCESTRY_DECISIONS' \
+            "$EVIDENCE/wave-d-source-ancestry-decision.json"
 
       - name: Collect source-ledger documents
         run: |
@@ -65,6 +82,8 @@ jobs:
             "$EVIDENCE/ser-cp-007-source-ledger-scaffold.md"
           cp "$ROOT/ser-cp-007-source-ledger-completion-tranche.md" \
             "$EVIDENCE/ser-cp-007-source-ledger-completion-tranche.md"
+          cp "$ROOT/ser-cp-007-wave-d-source-ancestry-decision.md" \
+            "$EVIDENCE/ser-cp-007-wave-d-source-ancestry-decision.md"
 
       - name: Upload source-ledger evidence
         if: always()
