@@ -4,7 +4,8 @@ import { ql052, ql053, ql054, ql056 } from "./english-remediation-052-057";
 import { ql055RenderSafe } from "./english-remediation-055-render-safe";
 import { ql057ParitySafe } from "./english-remediation-057-parity-safe";
 import { ql058, ql059, ql060, ql061, ql062, ql063 } from "./english-remediation-058-063";
-import { ql064, ql065, ql066, ql067, ql068, ql069 } from "./english-remediation-064-069";
+import { ql064, ql065, ql067, ql068, ql069 } from "./english-remediation-064-069";
+import { ql066RenderSafe } from "./english-remediation-066-render-safe";
 export function remediateNumCp005English(source) {
     switch (source.qlId) {
         case "NUM-QL-046": return ql046(source);
@@ -27,7 +28,7 @@ export function remediateNumCp005English(source) {
         case "NUM-QL-063": return ql063(source);
         case "NUM-QL-064": return ql064(source);
         case "NUM-QL-065": return ql065(source);
-        case "NUM-QL-066": return ql066(source);
+        case "NUM-QL-066": return ql066RenderSafe(source);
         case "NUM-QL-067": return ql067(source);
         case "NUM-QL-068": return ql068(source);
         case "NUM-QL-069": return ql069(source);
