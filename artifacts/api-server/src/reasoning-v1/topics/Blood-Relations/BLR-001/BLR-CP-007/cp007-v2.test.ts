@@ -46,6 +46,7 @@ assert.ok(telemetry.semicolonWrongOptionCount > 0);
 
 const oldCycles = new Set(["03010301", "21032103", "32103210", "10321032"]);
 const answerPatterns = new Set<string>();
+const answerStream: number[] = [];
 for (const [prototypeId, pattern] of BLR_CP007_V2_ANSWER_POSITION_PATTERNS) {
   const encoded = pattern.join("");
   assert.equal(pattern.length, 8, `${prototypeId}: answer-pattern length`);
@@ -57,8 +58,17 @@ for (const [prototypeId, pattern] of BLR_CP007_V2_ANSWER_POSITION_PATTERNS) {
   assert.ok(!oldCycles.has(encoded), `${prototypeId}: legacy answer cycle survived`);
   assert.ok(encoded.slice(0, 4) !== encoded.slice(4), `${prototypeId}: repeated four-answer cycle`);
   answerPatterns.add(encoded);
+  answerStream.push(...pattern);
 }
 assert.equal(answerPatterns.size, 21, "Every prototype requires a distinct answer sequence.");
+for (const length of [6, 7, 8]) {
+  const seen = new Set<string>();
+  for (let index = 0; index + length <= answerStream.length; index += 1) {
+    const ngram = answerStream.slice(index, index + length).join("");
+    assert.ok(!seen.has(ngram), `Repeated ${length}-answer sequence: ${ngram}`);
+    seen.add(ngram);
+  }
+}
 
 const certified = bank.map((question) => {
   assert.deepEqual(verifyBlrCp007V2Question(question), []);
@@ -107,6 +117,16 @@ for (const question of certified) {
     !/construction audit|graph audit|exact construction/iu.test(
       visibleExplanation(question),
     ),
+  );
+  const optionTokens = new Set(
+    question.options.flatMap((option) =>
+      option.statements.map((statement) => statement.token),
+    ),
+  );
+  assert.deepEqual(
+    new Set(question.codeKey.map((entry) => entry.token)),
+    optionTokens,
+    `${question.itemId}: visible key contains unused or missing tokens`,
   );
   question.explanation.optionAnalysis.forEach((analysis, index) => {
     assert.equal(analysis.optionText, question.options[index]!.text);
@@ -211,6 +231,7 @@ console.log(
       authorityCount: telemetry.authorityCount,
       answerPositions: telemetry.answerPositions,
       uniqueAnswerPatterns: answerPatterns.size,
+      repeatedLongAnswerNgrams: 0,
       semicolonCorrectOptionCount: telemetry.semicolonCorrectOptionCount,
       semicolonWrongOptionCount: telemetry.semicolonWrongOptionCount,
       invalidStatementQuestions: invalidStatementQuestions.length,
