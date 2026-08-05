@@ -1,0 +1,84 @@
+name: Validate SER-001 CP-007 Wave E
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-E/**
+      - .github/workflows/ser-001-cp007-wave-e.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ser-001-cp007-wave-e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp007-wave-e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare evidence directory
+        run: mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp007-wave-e-review
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Run Wave E discovery audit
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-E
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-wave-e-review
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/ser-cp-007-wave-e.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/ser-cp-007-wave-e.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-007-wave-e.test.mjs") \
+            | tee "$EVIDENCE/audit.json"
+          grep -q 'PASS_SER_CP007_WAVE_E_MARKER_AND_POSITIONAL_SUBSTITUTION_DISCOVERY' \
+            "$EVIDENCE/audit.json"
+
+      - name: Generate Wave E English review
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-E
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-wave-e-review
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/export-review.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/export-cp007-wave-e-review.mjs"
+          (cd artifacts/api-server && node "$OUT/export-cp007-wave-e-review.mjs") \
+            > "$EVIDENCE/ser-cp-007-wave-e-en-IN-review.md"
+          cp "artifacts/api-server/$ROOT/ser-cp-007-wave-e-plan.md" \
+            "$EVIDENCE/ser-cp-007-wave-e-plan.md"
+          cp "artifacts/api-server/$ROOT/ser-cp-007-wave-e-report.md" \
+            "$EVIDENCE/ser-cp-007-wave-e-report.md"
+
+      - name: Upload Wave E evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ser-001-cp007-wave-e-review
+          path: artifacts/api-server/dist/reasoning-v1/ser-001/cp007-wave-e-review
+          if-no-files-found: error
+          retention-days: 30
