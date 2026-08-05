@@ -92,6 +92,44 @@ jobs:
           grep -q '# SER-CP-007 adaptive English candidate V2' \
             "$EVIDENCE/ser-cp-007-adaptive-English-V2-review.md"
 
+      - name: Export authority and task manual review pack
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-english-remodel-v2
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/export-adaptive-review-v2-by-authority.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/export-ser-cp007-adaptive-review-v2-by-authority.mjs"
+          (cd artifacts/api-server && node "$OUT/export-ser-cp007-adaptive-review-v2-by-authority.mjs") \
+            > "$EVIDENCE/ser-cp-007-adaptive-English-V2-by-authority-review.md"
+          grep -q '# SER-CP-007 adaptive English V2 — authority/task manual review pack' \
+            "$EVIDENCE/ser-cp-007-adaptive-English-V2-by-authority-review.md"
+          grep -q 'Authorities reviewed: 17' \
+            "$EVIDENCE/ser-cp-007-adaptive-English-V2-by-authority-review.md"
+          grep -q 'Templates reviewed:   140' \
+            "$EVIDENCE/ser-cp-007-adaptive-English-V2-by-authority-review.md"
+
+      - name: Export authority decision matrix
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-english-remodel-v2
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/export-adaptive-review-v2-authority-matrix.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/export-ser-cp007-adaptive-review-v2-authority-matrix.mjs"
+          (cd artifacts/api-server && node "$OUT/export-ser-cp007-adaptive-review-v2-authority-matrix.mjs") \
+            > "$EVIDENCE/ser-cp-007-adaptive-English-V2-authority-matrix.md"
+          grep -q '# SER-CP-007 adaptive English V2 — authority matrix' \
+            "$EVIDENCE/ser-cp-007-adaptive-English-V2-authority-matrix.md"
+          grep -q 'Authorities: 17' \
+            "$EVIDENCE/ser-cp-007-adaptive-English-V2-authority-matrix.md"
+          grep -q 'Templates:   140' \
+            "$EVIDENCE/ser-cp-007-adaptive-English-V2-authority-matrix.md"
+
       - name: Collect candidate reports
         run: |
           set -euo pipefail
