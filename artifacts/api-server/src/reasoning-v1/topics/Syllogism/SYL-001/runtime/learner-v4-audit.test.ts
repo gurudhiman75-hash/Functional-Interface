@@ -1,5 +1,6 @@
 import type { SylLocale } from "../foundation/types";
 import { generateSylQuestionV4 } from "./generator-v4";
+import { learnerCopyV4 } from "./learner-v4-localization";
 import type { SylLearnerExplanationModeV4 } from "./learner-v4-types";
 import { SYL_QL_REGISTRY } from "./ql-registry";
 import { renderLearnerQuestionV4 } from "./review-renderer-v4";
@@ -96,9 +97,10 @@ for (const definition of SYL_QL_REGISTRY) {
         .map(normalizedSentence)
         .filter(Boolean);
       assert(new Set(proofSentences).size === proofSentences.length, `${key} repeats a proof sentence in the learner explanation.`);
+      const copy = learnerCopyV4(locale);
       assert(explanation.wordCount === words([
         ...explanation.shortReasoning,
-        ...explanation.conclusionResults.map((entry) => `${entry.label} ${entry.follows ? "follows" : "does not follow"} ${entry.shortReason ?? ""}`),
+        ...explanation.conclusionResults.map((entry) => `${entry.label} ${entry.follows ? copy.follows : copy.doesNotFollow} ${entry.shortReason ?? ""}`),
         explanation.conclusion,
       ].join(" ")), `${key} word-count evidence is stale.`);
       assert(explanation.wordCount <= limits[explanation.mode], `${key} ${explanation.mode} explanation is too long (${explanation.wordCount}).`);
