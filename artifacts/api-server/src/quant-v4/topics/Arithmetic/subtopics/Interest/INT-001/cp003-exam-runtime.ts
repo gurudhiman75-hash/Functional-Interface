@@ -23,7 +23,7 @@ import {
 } from "./cp003-grounded-solution-trace";
 import { assertCp003PresentationGrounding } from "./cp003-presentation-grounding";
 
-export const INT_CP003_EXAM_GENERATOR_VERSION = "INT-CP-003-EXAM-GENERATOR-v8" as const;
+export const INT_CP003_EXAM_GENERATOR_VERSION = "INT-CP-003-EXAM-GENERATOR-v9" as const;
 
 export {
   INT_CP003_AUTHORITY_VERSION,
@@ -48,16 +48,28 @@ export function normalizePresentationTemplate(markdown: string): string {
     .replace(/\b[0-9]+\b/gu, "N");
 }
 
+function stableIndex(source: string, length: number): number {
+  let state = 2166136261;
+  for (const character of source) {
+    state ^= character.charCodeAt(0);
+    state = Math.imul(state, 16777619);
+  }
+  return (state >>> 0) % length;
+}
+
 function contractForReview(qlId: IntCp003QlId, seed: string) {
-  for (let attempt = 0; attempt < 32; attempt += 1) {
+  const preferProse = stableIndex(`${seed}:${qlId}:representation-policy-v1`, 10) < 7;
+  for (let attempt = 0; attempt < 96; attempt += 1) {
     const effectiveSeed = attempt === 0 ? seed : `${seed}:exam-shape:${attempt}`;
     const contract = generateCp003QuestionContract(qlId, effectiveSeed);
     const state = contract.mathematicalState;
     if (qlId === "INT-QL-057" && "years" in state && state.years !== 2) continue;
     if (qlId === "INT-QL-061" && "targetYear" in state && state.targetYear > 3) continue;
+    const isProse = contract.presentation.representation === "STANDARD_PROSE";
+    if (preferProse !== isProse) continue;
     return contract;
   }
-  throw new Error(`${qlId}: could not construct an exam-friendly inverse-rate state`);
+  throw new Error(`${qlId}: could not construct an exam-friendly ${preferProse ? "prose" : "structured"} state`);
 }
 
 function collectStrings(value: unknown, output: string[] = []): string[] {
