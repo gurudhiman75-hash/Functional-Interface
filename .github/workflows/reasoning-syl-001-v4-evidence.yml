@@ -1,0 +1,83 @@
+name: Validate SYL-001 V4 record evidence
+
+on:
+  pull_request:
+    branches:
+      - feat/syl-001-structured-proof-v3
+      - feat/syl-001-full-runtime
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v4-evidence.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v4-evidence-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-evidence-v4.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v4-native-polish.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/generator-v4.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v4.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v4-localization.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v4-visual-remediation.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/venn-diagram-v4.ts
+      - .github/workflows/reasoning-syl-001-v4-evidence.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-syl-001-v4-evidence-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-v4-record-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle record-level evidence audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v4-evidence-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-v4-evidence-audit.test.mjs
+
+      - name: Run record-level evidence audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-v4-evidence-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-v4-evidence-audit.log
+
+      - name: Bundle record-level evidence exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-evidence-v4.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-export-evidence-v4.mjs
+
+      - name: Generate record-level evidence pack
+        env:
+          SYL_REVIEW_V4_DIR: artifacts/api-server/dist/reasoning-v1/syl-001-review-v4-evidence
+        run: node artifacts/api-server/dist/reasoning-v1/syl-001-export-evidence-v4.mjs
+
+      - name: Upload record-level evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: syl-001-v4-record-level-evidence
+          path: |
+            artifacts/api-server/dist/reasoning-v1/syl-001-v4-evidence-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-review-v4-evidence/**
+          if-no-files-found: error
+          retention-days: 30
