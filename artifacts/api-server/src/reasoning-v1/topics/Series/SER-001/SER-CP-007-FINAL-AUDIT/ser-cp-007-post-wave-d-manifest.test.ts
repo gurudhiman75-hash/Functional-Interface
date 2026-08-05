@@ -177,6 +177,9 @@ const ledgerPath =
   "src/reasoning-v1/topics/Series/SER-001/SER-CP-007-FINAL-AUDIT/ser-cp-007-source-ledger-scaffold.md";
 const ledger = readFileSync(ledgerPath, "utf8");
 for (const required of [
+  "Traceability pass:          IN_PROGRESS",
+  "Verified source records:    9 covered/delegated",
+  "Pending traced records:     3 grouped or classification-pending",
   "Ledger completeness:       BLOCKED",
   "Page-level traceability:   BLOCKED",
   "English discovery freeze:  BLOCKED",
@@ -184,13 +187,29 @@ for (const required of [
 ]) {
   assert.ok(ledger.includes(required), `source ledger missing: ${required}`);
 }
+for (const traceEvidence of [
+  "`RADIAN-2022`",
+  "`DISHA-VNV`",
+  "`SER-SRC-007-001`",
+  "`SER-SRC-007-009`",
+  "printed p. `6-4`, Example 34",
+  "Miscellaneous Question Bank p. `QB-7`, item 167",
+  "`CLASSIFICATION_PENDING`",
+  "`SATURATION_ONLY`",
+]) {
+  assert.ok(
+    ledger.includes(traceEvidence),
+    `source ledger missing trace evidence: ${traceEvidence}`,
+  );
+}
 assert.doesNotMatch(ledger, /Ledger completeness:\s+COMPLETE/);
+assert.doesNotMatch(ledger, /English discovery freeze:\s+(?:COMPLETE|FROZEN)/);
 
 console.log(
   JSON.stringify(
     {
       status:
-        "PASS_SER_CP007_POST_WAVE_D_MANIFEST_MATH_SATURATED_SOURCE_LEDGER_BLOCKED",
+        "PASS_SER_CP007_POST_WAVE_D_MANIFEST_MATH_SATURATED_SOURCE_LEDGER_IN_PROGRESS",
       waves: 4,
       sourceShapedProbes: sourceProbeCount,
       temporaryTemplates: templateIds.length,
@@ -203,6 +222,9 @@ console.log(
       sampleReviewProofs: sampleReviews,
       delegatedSurfaces: SER_CP007_WAVE_C_EXCLUDED_SURFACES.length,
       mathematicalSaturation: "PROVISIONALLY_COMPLETE",
+      traceabilityPass: "IN_PROGRESS",
+      verifiedSourceRecords: 9,
+      pendingTraceRecords: 3,
       sourceLedger: "BLOCKED",
       pageLevelTraceability: "BLOCKED",
       englishDiscoveryFreeze: "BLOCKED",
