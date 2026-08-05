@@ -26,7 +26,7 @@ concurrency:
 jobs:
   final-audit-cp007:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 75
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -78,19 +78,34 @@ jobs:
           grep -q 'PASS_SER_CP007_WAVE_D_PERMUTATION_COMPLEMENT_INSERTION_K_ROW_SATURATION' \
             "$EVIDENCE/wave-d-audit.json"
 
-      - name: Validate post-Wave-D manifest and reopened source gap
+      - name: Run Wave E discovery audit
         run: |
           set -euo pipefail
           ROOT=src/reasoning-v1/topics/Series/SER-001
           OUT=dist/reasoning-v1/ser-001
           EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-final-audit
           pnpm --dir artifacts/api-server exec esbuild \
-            "$ROOT/SER-CP-007-FINAL-AUDIT/ser-cp-007-post-wave-d-manifest.test.ts" \
+            "$ROOT/SER-CP-007-WAVE-E/ser-cp-007-wave-e.test.ts" \
             --bundle --platform=node --format=esm \
-            --outfile="$OUT/ser-cp-007-final-manifest.test.mjs"
-          (cd artifacts/api-server && node "$OUT/ser-cp-007-final-manifest.test.mjs") \
+            --outfile="$OUT/ser-cp-007-wave-e.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-007-wave-e.test.mjs") \
+            | tee "$EVIDENCE/wave-e-audit.json"
+          grep -q 'PASS_SER_CP007_WAVE_E_MARKER_AND_POSITIONAL_SUBSTITUTION_DISCOVERY' \
+            "$EVIDENCE/wave-e-audit.json"
+
+      - name: Validate five-wave manifest and pending source audit
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-final-audit
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/SER-CP-007-FINAL-AUDIT/ser-cp-007-post-wave-e-manifest.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/ser-cp-007-post-wave-e-manifest.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-007-post-wave-e-manifest.test.mjs") \
             | tee "$EVIDENCE/final-manifest-audit.json"
-          grep -q 'PASS_SER_CP007_POST_WAVE_D_MANIFEST_SOURCE_GAP_REOPENED' \
+          grep -q 'PASS_SER_CP007_POST_WAVE_E_MANIFEST_SOURCE_AUDIT_PENDING' \
             "$EVIDENCE/final-manifest-audit.json"
 
       - name: Collect final audit documents
@@ -102,8 +117,12 @@ jobs:
             "$EVIDENCE/ser-cp-007-source-ledger-scaffold.md"
           cp "$ROOT/SER-CP-007-FINAL-AUDIT/ser-cp-007-post-wave-d-report.md" \
             "$EVIDENCE/ser-cp-007-post-wave-d-report.md"
+          cp "$ROOT/SER-CP-007-FINAL-AUDIT/ser-cp-007-post-wave-e-report.md" \
+            "$EVIDENCE/ser-cp-007-post-wave-e-report.md"
           cp "$ROOT/SER-CP-007-WAVE-E/ser-cp-007-wave-e-plan.md" \
             "$EVIDENCE/ser-cp-007-wave-e-plan.md"
+          cp "$ROOT/SER-CP-007-WAVE-E/ser-cp-007-wave-e-report.md" \
+            "$EVIDENCE/ser-cp-007-wave-e-report.md"
           cp "$ROOT/SER-CP-007-AUDIT/ser-cp-007-chapter-gap-audit.md" \
             "$EVIDENCE/ser-cp-007-pre-wave-d-gap-audit.md"
           cp "$ROOT/SER-CP-007-WAVE-D/ser-cp-007-wave-d-report.md" \
