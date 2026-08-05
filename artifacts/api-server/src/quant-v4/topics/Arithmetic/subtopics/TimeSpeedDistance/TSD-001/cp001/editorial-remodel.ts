@@ -18,12 +18,18 @@ function possessiveSpeedQuestion(stem: string): string {
   return stem.replace(/What is its speed in m\/s\?/i, `What is the ${actor}'s speed in m/s?`);
 }
 
-function variant(seed: string): 0 | 1 | 2 {
-  return (trailingSeedOrdinal(seed) % 3) as 0 | 1 | 2;
+function variant(mode: TsdCp001SolveInput["solveMode"], seed: string): 0 | 1 | 2 {
+  const ordinal = trailingSeedOrdinal(seed);
+
+  if ((mode === "compareDistancesAtEqualTime" || mode === "compareTimesAtEqualDistance") && ordinal === 3) return 2;
+  if ((mode === "speedRatioFromDistanceAndTimeRatios" || mode === "timeRatioFromDistanceAndSpeedRatios") && ordinal === 4) return 2;
+  if (mode === "speedByProportion" && ordinal === 6) return 2;
+
+  return (ordinal % 3) as 0 | 1 | 2;
 }
 
 function relationalStem(input: TsdCp001SolveInput, seed: string): string | null {
-  const stemVariant = variant(seed);
+  const stemVariant = variant(input.solveMode, seed);
 
   switch (input.solveMode) {
     case "compareDistancesAtEqualTime": {
