@@ -101,6 +101,7 @@ function renderAdministratorProof(question: GeneratedSylQuestionV4): string {
 
 export function renderLearnerQuestionV4(question: GeneratedSylQuestionV4): string {
   const v4 = question.learnerPresentationV4;
+  const copy = learnerCopyV4(question.locale);
   return `<article lang="${question.locale}"
     data-language="${question.locale}"
     data-ql="${question.qlId}"
@@ -116,7 +117,7 @@ export function renderLearnerQuestionV4(question: GeneratedSylQuestionV4): strin
         <h2>${escapeHtmlV4(question.structuredProofV3.identity.questionLanguageId)}</h2>
         <p>${escapeHtmlV4(`${question.qlId} · ${question.checkpointId} · ${localeName(question.locale)} · seed ${question.seed}`)}</p>
       </div>
-      <div class="badges"><span>${question.difficulty}</span><span>${escapeHtmlV4(v4.learnerExplanation.mode)}</span><span class="revise">REVISE</span></div>
+      <div class="badges"><span>${question.difficulty}</span><span>${escapeHtmlV4(copy.modeLabels[v4.learnerExplanation.mode])}</span><span class="revise">REVISE</span></div>
     </header>
 
     <section class="question">
@@ -126,7 +127,7 @@ export function renderLearnerQuestionV4(question: GeneratedSylQuestionV4): strin
 
     <div class="learner-view">
       <section class="answer-card" data-answer-card="1">
-        <strong>${escapeHtmlV4(v4.answer.label)}: ${escapeHtmlV4(`${learnerCopyV4(question.locale).option} ${v4.answer.displayIndex}`)}</strong>
+        <strong>${escapeHtmlV4(v4.answer.label)}: ${escapeHtmlV4(`${copy.option} ${v4.answer.displayIndex}`)}</strong>
         <p>${escapeHtmlV4(v4.answer.text)}</p>
       </section>
       ${renderExplanation(question)}
