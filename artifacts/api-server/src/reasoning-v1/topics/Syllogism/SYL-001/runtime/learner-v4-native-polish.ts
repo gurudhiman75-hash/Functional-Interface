@@ -72,6 +72,26 @@ function polishDiagramText(value: string | null, locale: SylLocale): string | nu
     );
 }
 
+function escapeXml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
+}
+
+function synchronizeSvgText(
+  svg: string | null,
+  caption: string | null,
+  description: string | null,
+): string | null {
+  if (svg === null || caption === null || description === null) return svg;
+  return svg
+    .replace(/<title([^>]*)>[\s\S]*?<\/title>/u, `<title$1>${escapeXml(caption)}</title>`)
+    .replace(/<desc([^>]*)>[\s\S]*?<\/desc>/u, `<desc$1>${escapeXml(description)}</desc>`);
+}
+
 export function polishLearnerPresentationV4(
   presentation: SylLearnerPresentationV4,
 ): SylLearnerPresentationV4 {
@@ -89,7 +109,7 @@ export function polishLearnerPresentationV4(
   const existenceNote = polish(presentation.learnerExplanation.existenceNote, locale);
   const diagramCaption = polishDiagramText(presentation.diagram.caption, locale);
   const diagramDescription = polishDiagramText(presentation.diagram.accessibleDescription, locale);
-  const diagramSvg = polishDiagramText(presentation.diagram.svg, locale);
+  const diagramSvg = synchronizeSvgText(presentation.diagram.svg, diagramCaption, diagramDescription);
 
   return {
     ...presentation,
