@@ -167,8 +167,7 @@ function selectSteps(
     return steps.slice(0, 3);
   }
 
-  const selected = [steps[0]!, steps[1]!, steps.at(-1)!];
-  return uniqueSteps(selected);
+  return uniqueSteps([steps[0]!, steps[1]!, steps.at(-1)!]);
 }
 
 function tokens(value: string): Set<string> {
@@ -196,8 +195,11 @@ function shouldRenderShortcut(question: SerCp007EditorialQuestion): boolean {
   if (shortcut.length === 0) return false;
   const shortcutWords = shortcut.split(/\s+/).length;
   const ruleWords = question.explanation.rule.split(/\s+/).length;
-  return shortcutWords <= 24 && shortcutWords < ruleWords * 1.15 &&
-    similarity(shortcut, question.explanation.rule) < 0.72;
+  return (
+    shortcutWords <= 24 &&
+    shortcutWords < ruleWords * 1.15 &&
+    similarity(shortcut, question.explanation.rule) < 0.72
+  );
 }
 
 function shouldRenderCheck(
@@ -259,9 +261,6 @@ export function buildAdaptiveSerCp007Review(
   }
 
   const review = [
-    `## ${question.temporaryTemplateId} · seed ${question.seed}`,
-    `*Editorial task: ${editorialTaskKind} · proof model: ${proofModel}*`,
-    "",
     stem,
     "",
     ...options,
