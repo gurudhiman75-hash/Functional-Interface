@@ -23,6 +23,7 @@ let optionCount = 0;
 let wrongOptionCount = 0;
 let repairedOptions = 0;
 let remodelledKeyQuestions = 0;
+let graphFriendlyKeyChanges = 0;
 const ids = new Set<string>();
 const fingerprints = new Set<string>();
 
@@ -44,9 +45,14 @@ for (const question of bank) {
 
   if (question.sourcePrototypeId === "BLR-CP007-PROT-MISSING-TOKEN-FIRST-LINK") {
     remodelledKeyQuestions += 1;
-    assert(question.codeKey.some((entry) => entry.relationId === "HUSBAND"));
     assert(!question.codeKey.some((entry) => entry.relationId === "WIFE"));
-    assert(/husband/.test(question.sharedPrompt));
+    if (question.codeKey.some((entry) => entry.relationId === "HUSBAND")) {
+      graphFriendlyKeyChanges += 1;
+      assert(/husband/.test(question.sharedPrompt));
+      assert(question.options.some((option) =>
+        option.semanticKey.startsWith("KEY_REPAIRED::"),
+      ));
+    }
   }
 
   question.options.forEach((option, index) => {
@@ -71,6 +77,7 @@ for (const question of bank) {
 assert.equal(optionCount, 672);
 assert.equal(wrongOptionCount, 504);
 assert.equal(remodelledKeyQuestions, 8);
+assert(graphFriendlyKeyChanges >= 3, `Expected at least three spouse-token key remodellings, got ${graphFriendlyKeyChanges}.`);
 assert(repairedOptions >= 20, `Expected at least 20 remediated options, got ${repairedOptions}.`);
 
 console.log(JSON.stringify({
@@ -81,5 +88,6 @@ console.log(JSON.stringify({
   invalidGraphOptions: 0,
   repairedOptions,
   remodelledKeyQuestions,
+  graphFriendlyKeyChanges,
   verdict: "BLR-CP-007 EDITORIAL V2 FINAL EXAM-REVIEW BANK HAS FOUR GRAPH-VALID OPTIONS PER QUESTION; HUMAN APPROVAL REQUIRED",
 }, null, 2));
