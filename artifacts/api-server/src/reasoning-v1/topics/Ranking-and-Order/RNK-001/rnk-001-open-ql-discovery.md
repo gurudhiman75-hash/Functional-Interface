@@ -1,6 +1,6 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001, CP-002 and CP-003 frozen at `RNK-QL-001..026`; CP-004 English Remodel V4 review is active**.
+Status: **CP-001, CP-002 and CP-003 frozen at `RNK-QL-001..026`; CP-004 English Remodel V5 review is active**.
 
 This register prevents premature chapter sizing. Each checkpoint discovers permanent identities from source evidence, executable solver contracts, inverse directions, edge states, representations and ownership audits. Counts are never quotas.
 
@@ -58,7 +58,7 @@ Open CP-003 source dimensions: `0`.
 
 ## 4. Active checkpoint — RNK-CP-004
 
-### Remodel V4 executable wave
+### Remodel V5 executable wave
 
 ```text
 provisional authorities:         11
@@ -86,29 +86,36 @@ VALID_RANK_STATEMENT
 MISSING_COMPARISON
 ```
 
-`RELATIVE_ORDER_OF_PAIR` owns direction only. `EXACT_RANK_DIFFERENCE_OF_PAIR` remains a separate provisional authority because it requires complete-position proof and rank arithmetic.
+`RELATIVE_ORDER_OF_PAIR` owns direction only. `EXACT_RANK_DIFFERENCE_OF_PAIR` remains separate because it requires complete-position proof and rank arithmetic.
 
-### Proof model
+### Proof and difficulty model
 
-V4 retains:
+V5 records:
 
 ```text
 shortestDirectionalPathClues
 shortestExactPositionProofClues
 fullOrderProofClues
-```
-
-and adds the task-specific field:
-
-```text
 shortestAnswerProofClues
 ```
 
-Difficulty uses the proof required by the actual task, irrelevant clue count, candidate count and option closeness.
+Missing-comparison records additionally state whether the selected option relation is included:
 
-### Clue-role model
+```text
+shortestBaseClueProof
+selectedOptionRelations
+completedProofRelations
+```
 
-Every displayed statement is classified as exactly one of:
+Difficulty is stored under the versioned authority:
+
+```text
+RNK_CP004_DIFFICULTY_V1
+```
+
+### Clue and edge metadata
+
+Every displayed statement remains classified as exactly one of:
 
 ```text
 ESSENTIAL_FOR_FULL_ORDER
@@ -117,7 +124,16 @@ CONFIRMATORY
 REDUNDANT_OTHER
 ```
 
-The review pack currently proves:
+The edge contract separately records:
+
+```text
+coreReductionEdges
+displayedAdjacentEdges
+displayedNonAdjacentEdges
+addedConfirmatoryNonAdjacentEdges
+```
+
+The 66-question review pack proves:
 
 ```text
 ordinary-question essential clues: 322
@@ -125,51 +141,61 @@ ordinary-question confirmatory clues: 45
 unclassified clues: 0
 ```
 
-### Core topology boundary
+### Learner-renderer boundary
 
-A unique total order from only pairwise higher/lower comparisons has a chain transitive reduction. V4 reports the core structure as:
+- clue-role notes remain admin-only;
+- normalized admin notes do not use quotation marks;
+- optional distractor help uses a `NATIVE_COLLAPSED` data contract;
+- raw Markdown HTML is removed;
+- actual Question Studio mobile and accessibility validation remains pending integration.
+
+### Transitive-conclusion contract
+
+`VALID_RANK_STATEMENT` now includes:
 
 ```text
-TOTAL_ORDER_CHAIN
-TWO_ORDERED_BLOCKS
+one correct multi-statement conclusion
+one true direct-clue distractor
+one false reverse of a direct clue
+one false reverse of the transitive conclusion
 ```
 
-Non-adjacent transitive edges are stored separately as confirmatory evidence rather than claimed as a new topology. Genuinely branched, partial and non-unique orders remain owned by CP-007.
+The authority-specific validator proves that the correct option is true, not directly stated and supported by at least two clue edges. The direct-true distractor is proved to lack any separate multi-clue path.
 
 ### Current executable evidence
 
 ```text
-runtime clue-accounting failures:          0
-average visible explanation words:      47.64
-normalized semantic duplicates:             0
-answer positions:                   16/17/17/16
-repeated four-answer sequences:              0
+average visible explanation words:                35.95
+average words including optional help:             73.11
+normalized semantic duplicates:                        0
+answer positions:                              16/17/17/16
+repeated four-answer sequences:                         0
 ```
 
 ### Current proof targets passed
 
 - deterministic generation and independent answer proof;
 - complete clue-role accounting by removal testing;
-- task-specific shortest-answer proof;
-- task-specific difficulty calibration;
+- truthful core and added-edge metadata;
+- explicit missing-comparison option-edge counting;
+- versioned and reproducible difficulty scoring;
 - direction-only versus exact-distance ownership separation;
-- pair-direction non-adjacent safety when immediate distractors are used;
-- exact-position proof for distance and adjacency;
-- compact numbered rank rendering;
-- collapsed question-specific distractor help;
-- concrete alternate-order proof for missing-comparison distractors;
-- truthful core-topology reporting;
+- pair-direction local-path grounding;
+- exact-distance reasons derived from actual options;
+- authority-specific multi-statement conclusion validation;
+- true direct-clue distractor safety;
+- native collapsed disclosure data contract;
 - semantic duplicate and answer-sequence controls;
 - lifecycle and publication locks.
 
 ### Still open before consolidation
 
-- manual English approval of the 66-question Remodel V4 pack;
+- manual English approval of the 66-question Remodel V5 pack;
+- Question Studio native-disclosure integration and mobile/accessibility validation;
 - source saturation beyond the first reference pass;
 - inverse and reverse query audit;
 - endpoint, exact-rank, relation and distance merge/split proof;
 - ownership audit against CP-005, CP-006 and CP-007;
-- controlled direct-true distractor expansion for transitive-conclusion questions;
 - final provisional-authority consolidation;
 - permanent QL allocation and freeze proof.
 
