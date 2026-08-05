@@ -8,6 +8,7 @@ on:
       - New-main
     types: [opened, reopened, synchronize]
     paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v4-model-topology.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v4-visual-remediation.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v4-visual-remediation.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/generator-v4.ts
