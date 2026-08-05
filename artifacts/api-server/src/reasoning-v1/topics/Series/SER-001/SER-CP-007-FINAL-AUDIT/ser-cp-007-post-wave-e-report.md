@@ -65,15 +65,57 @@ Independent solver proofs:             4,320
 Answer positions:       [1080, 1080, 1080, 1080]
 ```
 
-## Five-wave authority result
+## Post-Wave-E authority collision result
+
+The complete current authority pool has now been audited as 17 explicit solve contracts.
 
 ```text
-Current unique provisional authorities: 17
-New authorities contributed by Wave E:   2
-Permanent QLs:                            0
+Retained provisional authorities: 17
+Pairwise off-diagonal comparisons: 136
+Unresolved retained collisions:     0
+Temporary templates:              140
+Generated structural spot proofs: 420
+Declared source-shape collisions:  20
+Ambiguous source-rule mappings:      0
+Permanent QLs:                       0
 ```
 
-All 140 temporary templates remain disposable discovery identities. The five-wave total does not authorize a one-template-to-one-QL conversion.
+The contract comparison uses:
+
+```text
+surface
+width behaviour
+change axis
+partition model
+state model
+recovery model
+```
+
+The generated proof replays three deterministic samples from every temporary template and checks authority identity, observed width behaviour, options, answer position and lifecycle locks.
+
+## Renewed source-ledger result
+
+The post-Wave-E source pass has advanced from 18 verified records and 4 pending groups to:
+
+```text
+Verified covered/delegated/Wave-E-resolved records: 26
+Grouped or stem/classification-pending records:       3
+Post-Wave-E collision audit:                    COMPLETE
+```
+
+Important source decisions include:
+
+```text
+Disha item 169 -> REPEATED_BLOCK_COMPLETION
+Disha item 170 -> MARKER_BLOCK_POSITION_SHIFT_OVER_PERIODIC_FRAME
+Disha item 188 -> REPEATED_BLOCK_COMPLETION
+Disha item 196 -> REPEATED_BLOCK_COMPLETION
+Disha item 197 -> REPEATED_BLOCK_COMPLETION
+```
+
+This proves that a continuous line with blanks is a presentation surface, not an authority. The completed sequence must be reconstructed before ownership is assigned.
+
+Disha item 195 remains unresolved because the extracted blank spacing and one option transcription are not reliable enough to force a canonical classification.
 
 ## Current saturation state
 
@@ -81,22 +123,21 @@ All 140 temporary templates remain disposable discovery identities. The five-wav
 Wave-D tested inventory:        provisionally saturated at that boundary
 Source-ledger Wave-E gaps:      closed by executable proof
 Wave E executable discovery:   COMPLETE
-Post-Wave-E source audit:      NOT_STARTED
-Mathematical saturation:       PENDING_POST_WAVE_E_SOURCE_AUDIT
+Post-Wave-E collision audit:   COMPLETE
+Mathematical saturation:       PENDING_SOURCE_LEDGER_COMPLETION
 English discovery freeze:      BLOCKED
 ```
 
-The next step is a renewed source-to-authority and chapter-wide collision audit. The uploaded references must be checked again with both Wave E authorities available. The audit may either close source saturation or identify another bounded discovery wave.
+No unresolved collision remains inside the current 17-authority inventory. The remaining blocker is exact source-ledger completion, not another currently demonstrated mathematical gap.
 
 ## Remaining traceability work
 
-1. Split Radian printed page `6-17`, items `133–141`, into exact stem-level records.
-2. Attach complete stems for Radian items `221`, `222`, `225` and `227`.
-3. Resolve Disha continuous-pattern items against repeated versus alternating block completion.
-4. Trace whole-cluster rotation, variable-length clusters, progressive column movement, cumulative prefix and symmetric growth.
-5. Classify each Wave D mathematical probe as source-backed or explicitly `SATURATION_ONLY`.
-6. Rerun the complete 17-authority collision matrix.
-7. Begin full English editorial review only if no meaningful uncovered mode remains.
+1. Inspect the printed image for Disha item `195` and resolve its blank/option transcription.
+2. Attach exact stems and authority rows for Radian items `134–141`.
+3. Attach complete stems for Radian items `221` and `222`.
+4. Trace direct source rows for variable-length clusters, progressive column movement, cumulative prefix and symmetric growth where available.
+5. Replace provisional Wave D `SATURATION_ONLY` labels with direct source ancestry when found; otherwise retain the explicit saturation-only disposition.
+6. Begin full English editorial review only after these rows stop changing.
 
 ## Lifecycle
 
@@ -112,5 +153,5 @@ CP-008:                 blocked
 ## Next authority
 
 ```text
-SER_CP007_POST_WAVE_E_SOURCE_LEDGER_AND_COLLISION_AUDIT
+SER_CP007_POST_WAVE_E_SOURCE_LEDGER_COMPLETION
 ```
