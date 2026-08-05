@@ -1,0 +1,133 @@
+name: Validate SER-001 CP-007 adaptive English V3
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-B/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-C/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-D/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-E/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-DISTRACTOR-AUDIT/**
+      - .github/workflows/ser-001-cp007-adaptive-english-v3.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ser-001-cp007-adaptive-english-v3-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-adaptive-english-v3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare evidence directory
+        run: mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp007-adaptive-english-v3
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Re-run refined V2 proof audit
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-adaptive-english-v3
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/adaptive-review-v2.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/adaptive-review-v2-regression.test.mjs"
+          (cd artifacts/api-server && node "$OUT/adaptive-review-v2-regression.test.mjs") \
+            | tee "$EVIDENCE/adaptive-review-v2-regression.json"
+          grep -q 'PASS_SER_CP007_ADAPTIVE_ENGLISH_CANDIDATE_V2' \
+            "$EVIDENCE/adaptive-review-v2-regression.json"
+
+      - name: Re-run distractor Candidate V1 audit
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-DISTRACTOR-AUDIT
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-adaptive-english-v3
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/distractor-candidate-v1.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/distractor-candidate-v1-regression.test.mjs"
+          (cd artifacts/api-server && node "$OUT/distractor-candidate-v1-regression.test.mjs") \
+            | tee "$EVIDENCE/distractor-candidate-v1-regression.json"
+          grep -q 'PASS_SER_CP007_DISTRACTOR_CANDIDATE_V1' \
+            "$EVIDENCE/distractor-candidate-v1-regression.json"
+
+      - name: Validate V3 integration
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-adaptive-english-v3
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/adaptive-review-v3-integration.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/adaptive-review-v3-integration.test.mjs"
+          (cd artifacts/api-server && node "$OUT/adaptive-review-v3-integration.test.mjs") \
+            | tee "$EVIDENCE/adaptive-review-v3-integration.json"
+          grep -q 'PASS_SER_CP007_ADAPTIVE_ENGLISH_DISTRACTOR_CANDIDATE_V3' \
+            "$EVIDENCE/adaptive-review-v3-integration.json"
+
+      - name: Export V3 manual review pack
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-adaptive-english-v3
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/export-adaptive-review-v3.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/export-adaptive-review-v3.mjs"
+          (cd artifacts/api-server && node "$OUT/export-adaptive-review-v3.mjs") \
+            > "$EVIDENCE/ser-cp-007-adaptive-English-V3-review.md"
+          grep -q '# SER-CP-007 adaptive English and distractor candidate V3' \
+            "$EVIDENCE/ser-cp-007-adaptive-English-V3-review.md"
+          grep -q 'Templates reviewed: 140' \
+            "$EVIDENCE/ser-cp-007-adaptive-English-V3-review.md"
+
+      - name: Collect V3 reports
+        run: |
+          set -euo pipefail
+          ENGLISH_ROOT=artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL
+          DISTRACTOR_ROOT=artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-DISTRACTOR-AUDIT
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-adaptive-english-v3
+          cp "$ENGLISH_ROOT/ser-cp-007-adaptive-review-v2-report.md" \
+            "$EVIDENCE/ser-cp-007-adaptive-review-v2-report.md"
+          cp "$ENGLISH_ROOT/adaptive-review-v3-report.md" \
+            "$EVIDENCE/adaptive-review-v3-report.md"
+          cp "$DISTRACTOR_ROOT/distractor-candidate-v1-report.md" \
+            "$EVIDENCE/distractor-candidate-v1-report.md"
+
+      - name: Upload V3 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ser-001-cp007-adaptive-english-v3
+          path: artifacts/api-server/dist/reasoning-v1/ser-001/cp007-adaptive-english-v3
+          if-no-files-found: error
+          retention-days: 30
