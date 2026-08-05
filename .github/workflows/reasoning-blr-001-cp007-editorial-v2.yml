@@ -36,16 +36,22 @@ jobs:
           node-version: 22
 
       - name: Prove CP-006 source runtime
+        shell: bash
         run: |
+          set -euo pipefail
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-runtime.test.ts | tee cp006-source.log
 
       - name: Prove CP-007 V1 solver baseline
+        shell: bash
         run: |
+          set -euo pipefail
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-runtime.test.ts | tee cp007-v1-baseline.log
 
-      - name: Prove CP-007 editorial V2 gates
+      - name: Prove CP-007 hardened editorial V2 review bank
+        shell: bash
         run: |
-          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v2.test.ts | tee cp007-editorial-v2.log
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v2-review.test.ts | tee cp007-editorial-v2.log
 
       - name: Upload CP-007 V2 diagnostics
         if: always()
