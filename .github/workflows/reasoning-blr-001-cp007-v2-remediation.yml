@@ -50,10 +50,11 @@ jobs:
           set -euo pipefail
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-v2.test.ts | tee cp007-v2.log
 
-      - name: Export CP-007 V2 review pack
+      - name: Export CP-007 V2 review pack and deep proof
         run: |
           set -euo pipefail
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-cp007-v2.ts cp007-v2-output | tee cp007-v2-export.log
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/audit-cp007-v2-deep-remediation.ts cp007-v2-output | tee cp007-v2-deep-audit.log
 
       - name: Verify CP-007 V2 artifact contracts
         shell: bash
@@ -61,10 +62,12 @@ jobs:
           set -euo pipefail
           OUT=cp007-v2-output
           test -f "$OUT/blr-cp007-v2-summary.json"
+          test -f "$OUT/blr-cp007-v2-deep-remediation-audit.json"
           test -f "$OUT/blr-cp007-v2-records.jsonl"
           test -f "$OUT/blr-cp007-v2-records.csv"
           test -f "$OUT/blr-cp007-v2-review.html"
           test -f "$OUT/BLR-CP-007-V2-REMEDIATION-RECORD.md"
+          test -f "$OUT/BLR-CP-007-V2-DEEP-REMEDIATION-AUDIT.md"
           grep -q '"recordCount": 168' "$OUT/blr-cp007-v2-summary.json"
           grep -q '"prototypeCount": 21' "$OUT/blr-cp007-v2-summary.json"
           grep -q '"authorityCount": 5' "$OUT/blr-cp007-v2-summary.json"
@@ -75,6 +78,10 @@ jobs:
           grep -q '"genericOptionExplanations": 0' "$OUT/blr-cp007-v2-summary.json"
           grep -q '"invalidStatementPolarityDefects": 0' "$OUT/blr-cp007-v2-summary.json"
           grep -q '"humanReviewStatus": "REQUIRED"' "$OUT/blr-cp007-v2-summary.json"
+          grep -q '"targetDerivedOrderedPairQuestions": 24' "$OUT/blr-cp007-v2-deep-remediation-audit.json"
+          grep -q '"orderedPairQuestionsWithUniqueSemanticTarget": 24' "$OUT/blr-cp007-v2-deep-remediation-audit.json"
+          grep -q '"connectedMissingPersonDistractors": 96' "$OUT/blr-cp007-v2-deep-remediation-audit.json"
+          grep -q '"disconnectedMissingPersonDistractors": 0' "$OUT/blr-cp007-v2-deep-remediation-audit.json"
           test "$(wc -l < "$OUT/blr-cp007-v2-records.jsonl")" -eq 168
           grep -q 'all 672 option graphs independently valid' "$OUT/blr-cp007-v2-review.html"
           grep -q 'HUMAN_REVIEW_REQUIRED' "$OUT/blr-cp007-v2-review.html"
@@ -92,6 +99,7 @@ jobs:
             cp007-v1-baseline.log
             cp007-v2.log
             cp007-v2-export.log
+            cp007-v2-deep-audit.log
           if-no-files-found: warn
           retention-days: 14
 
