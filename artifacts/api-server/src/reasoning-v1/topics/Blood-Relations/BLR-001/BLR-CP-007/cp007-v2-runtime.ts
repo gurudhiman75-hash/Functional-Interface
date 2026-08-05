@@ -6,6 +6,10 @@ import {
 } from "./cp007-model";
 import { BLR_CP007_PROTOTYPES } from "./cp007-prototypes";
 import {
+  completeBlrCp007V2Key,
+  blrCp007V2KeyPrompt,
+} from "./cp007-v2-key";
+import {
   buildBlrCp007V2Options,
   decodeBlrCp007V2,
   orderBlrCp007V2Options,
@@ -49,7 +53,16 @@ export function generateBlrCp007V2Question(
 ): BlrCp007V2Question {
   if (!Number.isFinite(seed)) throw new Error("CP-007 V2 seed must be finite.");
   const normalizedSeed = Math.trunc(seed);
-  const scenario = blrCp007V2Scenario(prototypeId, normalizedSeed);
+  const sourceScenario = blrCp007V2Scenario(prototypeId, normalizedSeed);
+  const completeKey = completeBlrCp007V2Key(normalizedSeed);
+  const scenario = prototypeId.includes("MISSING-PERSON")
+    ? sourceScenario
+    : {
+        ...sourceScenario,
+        keyStyle: completeKey.keyStyle,
+        codeKey: completeKey.codeKey,
+        sharedPrompt: blrCp007V2KeyPrompt(completeKey.codeKey),
+      };
   const rawOptions = buildBlrCp007V2Options(scenario);
   const options = orderBlrCp007V2Options(
     prototypeId,
