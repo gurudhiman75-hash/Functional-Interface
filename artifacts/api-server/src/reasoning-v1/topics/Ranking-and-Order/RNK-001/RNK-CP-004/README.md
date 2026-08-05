@@ -1,6 +1,6 @@
 # RNK-CP-004 — Multi-Entity Comparison and Explicit Order Reconstruction
 
-Status: **truthful-metadata English Remodel V4 implemented; manual approval and source expansion pending; permanent QL count open**.
+Status: **learner-safe English Remodel V5 implemented; manual approval, renderer integration and source expansion pending; permanent QL count open**.
 
 This checkpoint owns questions in which several named entities are compared and one exact total order is reconstructed or made unique by one additional comparison.
 
@@ -34,7 +34,7 @@ shared multi-question passages                   -> RNK-CP-008
 
 Ties, incomparable entities and genuine cannot-determine answers are not forced into CP-004. Branched or partially determined orders remain owned by CP-007 unless a separate exact contract is proved.
 
-## Executable Remodel V4 discovery
+## Executable Remodel V5 discovery
 
 ```text
 provisional authorities:             11
@@ -47,9 +47,9 @@ next available RNK identity:  RNK-QL-027
 
 These counts remain discovery evidence rather than a fixed final inventory.
 
-## Explanation model
+## Learner explanation model
 
-The internal proof remains structured, while the learner renderer shows the few decisive steps needed by the question:
+The internal proof remains structured, while the learner renderer shows only the decisive construction, requested calculation and answer. Optional distractor teaching uses a native collapsed disclosure contract.
 
 ```text
 CHAIN_BUILD
@@ -62,21 +62,43 @@ TRANSITIVE_PROOF
 BLOCK_BRIDGE
 ```
 
-V4 retains the proof-safe fields:
+Raw Markdown HTML is not used. Clue-role notes remain admin-only. Actual Question Studio disclosure, mobile-width and accessibility validation remain pending integration.
+
+## Proof and metadata contracts
+
+V5 retains:
 
 ```text
 shortestDirectionalPathClues
 shortestExactPositionProofClues
 fullOrderProofClues
-```
-
-and adds:
-
-```text
 shortestAnswerProofClues
 ```
 
-Wrong-option teaching is available through a collapsed progressive-disclosure component rather than being forced into the default explanation.
+Missing-comparison records additionally distinguish:
+
+```text
+shortestBaseClueProof
+selectedOptionRelations
+completedProofRelations
+```
+
+Edge reporting separates:
+
+```text
+coreReductionEdges
+displayedAdjacentEdges
+displayedNonAdjacentEdges
+addedConfirmatoryNonAdjacentEdges
+```
+
+Difficulty uses the versioned model:
+
+```text
+RNK_CP004_DIFFICULTY_V1
+```
+
+with stored score, label and component values.
 
 ## Truthful clue accounting
 
@@ -89,8 +111,6 @@ CONFIRMATORY
 REDUNDANT_OTHER
 ```
 
-Edge distance and proof role are stored separately. A non-adjacent edge may be confirmatory without representing a new reasoning topology.
-
 The review pack contains:
 
 ```text
@@ -99,54 +119,55 @@ ordinary-question confirmatory clues: 45
 unclassified clues: 0
 ```
 
-## Core topology reporting
+## Transitive-conclusion authority
 
-A unique total order produced only from pairwise comparisons has a chain as its transitive reduction. V4 therefore reports:
+`VALID_RANK_STATEMENT` now genuinely tests the phrase “two or more statements.” Its option contract contains:
 
 ```text
-TOTAL_ORDER_CHAIN
-TWO_ORDERED_BLOCKS
+CORRECT_MULTI_STATEMENT_CONCLUSION
+TRUE_DIRECT_SINGLE_CLUE
+FALSE_REVERSE_OF_DIRECT_CLUE
+FALSE_REVERSE_OF_TRANSITIVE_CONCLUSION
 ```
 
-Confirmatory non-adjacent edges are reported separately as added evidence and are not claimed as a new core topology.
+The direct-true distractor is invalid because it follows from one displayed statement and has no separate multi-clue proof.
 
-## Remodel V4 guarantees
+## Remodel V5 guarantees
 
-- every statement is counted and classified;
-- clue accounting is independently checked by removal testing;
-- shortest-answer proof is recorded for every authority;
-- difficulty uses task-specific proof size, irrelevant clues, entity count and option closeness;
-- direction-only pair questions cannot make an immediate-neighbour distractor simultaneously true;
-- exact-distance explanations show both ranks and subtraction;
-- neighbour explanations establish the complete order before adjacency;
-- numbered rank displays use compact rows;
-- confirmatory clues are explained through an optional clue-role note;
-- wrong-option help is collapsed by default;
-- missing-comparison explanations demonstrate ambiguity using concrete alternate orders;
+- all V4 mathematical, uniqueness and clue-accounting guarantees remain intact;
+- core reduction edges are not described as added edges;
+- missing-comparison option relations are counted explicitly;
+- difficulty scoring is versioned and reproducible;
+- clue-role notes are admin-only and do not use false quotation marks;
+- learner distractor help uses a native collapsed data contract;
+- direction-pair distractor teaching is grounded in the visible local path;
+- exact-distance reasons are generated from actual option values;
+- transitive-conclusion distractors test the defining multi-statement condition;
 - semantic duplicates and answer-sequence patterns are rejected;
 - lifecycle and publication locks remain active.
 
-`RNK-CP-004-REMODEL-V4-REMEDIATION.md` records the complete V4 correction set.
+`RNK-CP-004-REMODEL-V5-REMEDIATION.md` records the complete V5 correction set.
 
 ## Current executable evidence
 
 ```text
-runtime questions:                     2,640
-review questions:                         66
-runtime clue-accounting failures:          0
-review essential clues:                  322
-review confirmatory clues:                45
-review unclassified clues:                 0
-average visible explanation words:      47.64
-normalized semantic duplicates:             0
-answer positions:                   16/17/17/16
-repeated four-answer sequences:              0
+runtime questions:                              2,640
+review questions:                                  66
+review essential clues:                           322
+review confirmatory clues:                         45
+review unclassified clues:                          0
+average visible explanation words:              35.95
+average words including optional help:           73.11
+normalized semantic duplicates:                      0
+answer positions:                            16/17/17/16
+repeated four-answer sequences:                       0
 ```
 
 ## Next gate
 
 ```text
-manual review of Remodel V4 English pack
+manual review of Remodel V5 English pack
+  -> Question Studio native-disclosure integration and UI validation
   -> source and inverse expansion
   -> ownership and boundary audit
   -> merge/split consolidation
