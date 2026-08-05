@@ -1,6 +1,6 @@
 import type { SylLocale } from "../foundation/types";
 import { generateSylQuestionV4 } from "./generator-v4";
-import { applyDuplicateClustersV4, buildEvidenceRowV4 } from "./learner-v4-evidence";
+import { applyDuplicateClustersV4, buildEvidenceRowV4 } from "./learner-v4-evidence-remediated";
 import { SYL_QL_REGISTRY } from "./ql-registry";
 
 function assert(condition: unknown, message: string): asserts condition {
