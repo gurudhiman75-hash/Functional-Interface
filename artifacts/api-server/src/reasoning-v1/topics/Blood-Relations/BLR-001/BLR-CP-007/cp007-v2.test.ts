@@ -185,6 +185,25 @@ for (const question of invalidStatementQuestions) {
   }
 }
 
+const ql033 = certified.filter((question) => question.qlId === "BLR-QL-033");
+assert.equal(ql033.length, 24);
+for (const question of ql033) {
+  assert.equal(question.query.kind, "MISSING_TOKEN_PAIR");
+  assert.ok(
+    question.topologyId.startsWith("V2_TARGET_DERIVED_"),
+    `${question.itemId}: QL-033 must be solved from the final target relation`,
+  );
+  assert.equal(
+    question.options.filter((option) => option.targetSatisfied).length,
+    1,
+    `${question.itemId}: QL-033 target relation must admit one token pair`,
+  );
+  assert.ok(
+    /so that|becomes/iu.test(question.stem),
+    `${question.itemId}: QL-033 stem must state a final target relation`,
+  );
+}
+
 const ql034 = certified.filter((question) => question.qlId === "BLR-QL-034");
 assert.equal(ql034.length, 32);
 const correctPersonCounts = Object.fromEntries(
@@ -200,6 +219,19 @@ for (const question of ql034) {
     ["A", "B", "C", "D"],
   );
   assert.ok(question.completedStatements.length >= 5);
+  for (const option of question.options.filter((entry) => !entry.isCorrect)) {
+    assert.ok(
+      option.actualRelation,
+      `${question.itemId}: wrong person ${option.text} must still yield a supported connected relation`,
+    );
+    const analysis = question.explanation.optionAnalysis.find(
+      (entry) => entry.optionText === option.text,
+    )!;
+    assert.ok(
+      !/no connected relation/iu.test(analysis.explanation),
+      `${question.itemId}: wrong person ${option.text} remains a disconnected filler`,
+    );
+  }
 }
 
 const inferredEdges = certified.flatMap(
@@ -235,6 +267,8 @@ console.log(
       semicolonCorrectOptionCount: telemetry.semicolonCorrectOptionCount,
       semicolonWrongOptionCount: telemetry.semicolonWrongOptionCount,
       invalidStatementQuestions: invalidStatementQuestions.length,
+      targetDerivedOrderedPairQuestions: ql033.length,
+      connectedMissingPersonDistractors: ql034.length * 3,
       correctPersonCounts,
       inferredEdgesMarked: inferredEdges.length,
       independentVerifierDisagreements: 0,
