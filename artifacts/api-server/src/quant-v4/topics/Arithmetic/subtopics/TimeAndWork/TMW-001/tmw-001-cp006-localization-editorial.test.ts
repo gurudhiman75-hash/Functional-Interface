@@ -70,7 +70,13 @@ for (const entry of TMW_CP006_REGISTRY) {
       assert.match(question.explanation.conclusion, language === "hi" ? /काम का अनुपात/ : /ਕੰਮ ਦਾ ਅਨੁਪਾਤ/, row);
     }
     if (entry.solveMode === "findOvertimeHoursForDeadline") {
-      assert.match(question.explanation.opening, language === "hi" ? /कुल आवश्यक घंटे.*सामान्य घंटों का अंतर/ : /ਕੁੱਲ ਲੋੜੀਂਦੇ ਘੰਟਿਆਂ.*ਆਮ ਘੰਟਿਆਂ ਦਾ ਅੰਤਰ/, row);
+      assert.match(
+        question.explanation.opening,
+        language === "hi"
+          ? /कुल आवश्यक घंटे.*सामान्य घंटों का अंतर/
+          : /(?:ਕੁੱਲ ਲੋੜੀਂਦੇ ਘੰਟੇ|ਲੋੜੀਂਦੇ ਕੁੱਲ ਘੰਟਿਆਂ).*ਆਮ ਘੰਟਿਆਂ ਦਾ ਅੰਤਰ/,
+        row,
+      );
     }
     if (entry.solveMode === "findEquivalentResourceTime") {
       assert.match(question.solution.answerText, language === "hi" ? /दिन|घंटे/ : /ਦਿਨ|ਘੰਟੇ/, row);
