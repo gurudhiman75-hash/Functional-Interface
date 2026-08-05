@@ -166,6 +166,7 @@ function modelPanels(question: ReturnType<typeof generateSylQuestionV4>): readon
 const locales: readonly SylLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 let identityNoRecords = 0;
 let modelRecords = 0;
+let modelOmissions = 0;
 let dualRecords = 0;
 let explicitNoPairsSeparated = 0;
 let relationlessPairsSeparated = 0;
@@ -194,7 +195,13 @@ for (const definition of SYL_QL_REGISTRY) {
       }
 
       if (diagram.modelSignature !== null) {
-        assert(diagram.enabled, `${key} relation-aware model diagram was omitted.`);
+        if (!diagram.enabled) {
+          assert(diagram.mode === "OMITTED_NOT_USEFUL", `${key} disabled model diagram has an invalid mode.`);
+          assert(diagram.omissionReason === "NO_STABLE_SIMPLE_VENN", `${key} disabled model diagram has an invalid reason.`);
+          assert(diagram.svg === null && diagram.diagramCount === 0, `${key} disabled model diagram retained misleading SVG content.`);
+          modelOmissions += 1;
+          continue;
+        }
         assert(Boolean(diagram.svg), `${key} relation-aware model diagram is missing.`);
         assert(diagram.svg!.includes('data-relation-aware-model="true"'), `${key} retained generic all-overlap model geometry.`);
         const legend = locale === "en-IN"
@@ -249,6 +256,7 @@ for (const definition of SYL_QL_REGISTRY) {
 
 assert(identityNoRecords > 0, "No identity-plus-separation record was validated.");
 assert(modelRecords > 0, "No relation-aware model diagram was validated.");
+assert(modelRecords > modelOmissions, "Most model diagrams were omitted instead of rendered.");
 assert(dualRecords > 0, "No dual-model readability record was validated.");
 assert(explicitNoPairsSeparated > 0, "No explicit NO pair was proved visually separate.");
 assert(relationlessPairsSeparated > 0, "No relationless pair was proved visually separate.");
@@ -259,6 +267,7 @@ console.log(JSON.stringify({
   status: "SYL-001 V4 relation-aware visual remediation audit passed",
   identityNoRecords,
   modelRecords,
+  modelOmissions,
   dualRecords,
   pairGeometryChecks,
   explicitNoPairsSeparated,
