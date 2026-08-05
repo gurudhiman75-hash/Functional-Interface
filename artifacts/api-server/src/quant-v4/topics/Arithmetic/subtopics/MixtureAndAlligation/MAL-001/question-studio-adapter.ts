@@ -12,10 +12,17 @@ import {
   type MalCp002ReleasedQuestion,
 } from "./foundation/cp002-permanent-runtime";
 import { runMalCp002EnglishEditorialV2Pipeline } from "./foundation/cp002-editorial-v2";
+import {
+  MAL_CP003_PERMANENT_ALLOCATION,
+  runMalCp003EnglishReleasePipeline,
+  type MalCp003PermanentQlId,
+  type MalCp003ReleasedQuestion,
+} from "./foundation/cp003-permanent-runtime";
 
 export const MAL_001_QUESTION_STUDIO_CP_IDS = [
   "MAL-CP-001",
   "MAL-CP-002",
+  "MAL-CP-003",
 ] as const;
 
 export type Mal001QuestionStudioCpId =
@@ -23,13 +30,20 @@ export type Mal001QuestionStudioCpId =
 
 export type Mal001QuestionStudioQlId =
   | MalCp001PermanentQlId
-  | MalCp002PermanentQlId;
+  | MalCp002PermanentQlId
+  | MalCp003PermanentQlId;
 
 export type Mal001QuestionStudioQuestion =
   | MalCp001ReleasedQuestion
-  | MalCp002ReleasedQuestion;
+  | MalCp002ReleasedQuestion
+  | MalCp003ReleasedQuestion;
 
 type Difficulty = "Easy" | "Medium" | "Hard";
+
+type AllocationEntry = {
+  qlId: Mal001QuestionStudioQlId;
+  difficulty: Difficulty;
+};
 
 function hash(value: string): number {
   let result = 2166136261;
@@ -38,6 +52,42 @@ function hash(value: string): number {
     result = Math.imul(result, 16777619);
   }
   return result >>> 0;
+}
+
+function chooseQl<T extends AllocationEntry>(
+  cpId: Mal001QuestionStudioCpId,
+  allocations: readonly T[],
+  input: {
+    difficulty?: Difficulty;
+    questionLanguageId?: Mal001QuestionStudioQlId | string;
+    seed?: string;
+  },
+): T["qlId"] {
+  const entries = allocations.filter(
+    (entry) => !input.difficulty || entry.difficulty === input.difficulty,
+  );
+  if (entries.length === 0) {
+    throw new Error(
+      `No active ${cpId} QLs match${
+        input.difficulty ? ` difficulty ${input.difficulty}` : " the request"
+      }.`,
+    );
+  }
+  if (input.questionLanguageId) {
+    const explicit = entries.find(
+      (entry) => entry.qlId === input.questionLanguageId,
+    );
+    if (!explicit) {
+      throw new Error(
+        `${input.questionLanguageId} is not active for ${cpId}${
+          input.difficulty ? ` / ${input.difficulty}` : ""
+        }.`,
+      );
+    }
+    return explicit.qlId;
+  }
+  const seed = input.seed ?? `mal-001-question-studio:${cpId}`;
+  return entries[hash(seed) % entries.length]!.qlId;
 }
 
 export function runMal001QuestionStudioPipeline(
@@ -61,34 +111,11 @@ export function runMal001QuestionStudioPipeline(
   }
 
   if (cpId === "MAL-CP-001") {
-    const entries = MAL_CP001_PERMANENT_ALLOCATION.filter(
-      (entry) => !input.difficulty || entry.difficulty === input.difficulty,
-    );
-    if (entries.length === 0) {
-      throw new Error(
-        `No active MAL-CP-001 QLs match${
-          input.difficulty ? ` difficulty ${input.difficulty}` : " the request"
-        }.`,
-      );
-    }
-
-    let questionLanguageId = input.questionLanguageId as
-      | MalCp001PermanentQlId
-      | undefined;
-    if (questionLanguageId) {
-      const explicit = entries.find((entry) => entry.qlId === questionLanguageId);
-      if (!explicit) {
-        throw new Error(
-          `${questionLanguageId} is not active for MAL-CP-001${
-            input.difficulty ? ` / ${input.difficulty}` : ""
-          }.`,
-        );
-      }
-    } else {
-      const seed = input.seed ?? "mal-001-question-studio:MAL-CP-001";
-      questionLanguageId = entries[hash(seed) % entries.length]!.qlId;
-    }
-
+    const questionLanguageId = chooseQl(
+      cpId,
+      MAL_CP001_PERMANENT_ALLOCATION,
+      input,
+    ) as MalCp001PermanentQlId;
     return runMalCp001EnglishReleasePipeline({
       questionLanguageId,
       seed: input.seed,
@@ -96,35 +123,25 @@ export function runMal001QuestionStudioPipeline(
     });
   }
 
-  const entries = MAL_CP002_PERMANENT_ALLOCATION.filter(
-    (entry) => !input.difficulty || entry.difficulty === input.difficulty,
-  );
-  if (entries.length === 0) {
-    throw new Error(
-      `No active MAL-CP-002 QLs match${
-        input.difficulty ? ` difficulty ${input.difficulty}` : " the request"
-      }.`,
-    );
+  if (cpId === "MAL-CP-002") {
+    const questionLanguageId = chooseQl(
+      cpId,
+      MAL_CP002_PERMANENT_ALLOCATION,
+      input,
+    ) as MalCp002PermanentQlId;
+    return runMalCp002EnglishEditorialV2Pipeline({
+      questionLanguageId,
+      seed: input.seed,
+      language: "en",
+    });
   }
 
-  let questionLanguageId = input.questionLanguageId as
-    | MalCp002PermanentQlId
-    | undefined;
-  if (questionLanguageId) {
-    const explicit = entries.find((entry) => entry.qlId === questionLanguageId);
-    if (!explicit) {
-      throw new Error(
-        `${questionLanguageId} is not active for MAL-CP-002${
-          input.difficulty ? ` / ${input.difficulty}` : ""
-        }.`,
-      );
-    }
-  } else {
-    const seed = input.seed ?? "mal-001-question-studio:MAL-CP-002";
-    questionLanguageId = entries[hash(seed) % entries.length]!.qlId;
-  }
-
-  return runMalCp002EnglishEditorialV2Pipeline({
+  const questionLanguageId = chooseQl(
+    cpId,
+    MAL_CP003_PERMANENT_ALLOCATION,
+    input,
+  ) as MalCp003PermanentQlId;
+  return runMalCp003EnglishReleasePipeline({
     questionLanguageId,
     seed: input.seed,
     language: "en",
