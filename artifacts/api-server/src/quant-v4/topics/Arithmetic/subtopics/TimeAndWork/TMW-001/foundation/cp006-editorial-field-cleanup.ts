@@ -6,13 +6,15 @@ function clean(text: string, language: TmwLocalizedLanguage): string {
       .replace(/कुल उत्पादक क्षमता/g, "कुल काम करने की क्षमता")
       .replace(/बदली व्यवस्था/g, "नई स्थिति")
       .replace(/मूल व्यवस्था/g, "पुरानी स्थिति")
-      .replace(/समायोजन/g, "बदलाव");
+      .replace(/समायोजन/g, "बदलाव")
+      .replace(/अतः हटाए गए लोगों की संख्या (.+) है।/g, "अतः $1 हटाए जा सकते हैं।");
   }
   return text
     .replace(/ਕੁੱਲ ਉਤਪਾਦਕ ਸਮਰੱਥਾ/g, "ਕੁੱਲ ਕੰਮ ਕਰਨ ਦੀ ਸਮਰੱਥਾ")
     .replace(/ਬਦਲੀ ਵਿਵਸਥਾ/g, "ਨਵੀਂ ਸਥਿਤੀ")
     .replace(/ਮੂਲ ਵਿਵਸਥਾ/g, "ਪੁਰਾਣੀ ਸਥਿਤੀ")
-    .replace(/ਸਮਾਯੋਜਨ/g, "ਬਦਲਾਅ");
+    .replace(/ਸਮਾਯੋਜਨ/g, "ਬਦਲਾਅ")
+    .replace(/ਇਸ ਲਈ ਹਟਾਏ ਗਏ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ (.+) ਹੈ।/g, "ਇਸ ਲਈ $1 ਹਟਾਏ ਜਾ ਸਕਦੇ ਹਨ।");
 }
 
 export function cleanupTmwCp006EditorialFields(
