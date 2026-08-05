@@ -44,26 +44,31 @@ const metrics = TARGET_MODES.map((mode) => {
     questionLanguageId: row.questionLanguageId,
     seed: row.seed,
     stem: row.stem,
+    answerText: row.answerText,
     normalizedTemplate: normalizedTemplate(row.stem),
   }));
   const templates = new Set(rowDiagnostics.map((row) => row.normalizedTemplate));
+  const answers = new Set(modeRows.map((row) => row.answerText));
   assert(
     templates.size === 3,
     `${mode}: expected three materially different normalized stem templates, received ${templates.size}; rows=${JSON.stringify(rowDiagnostics)}`,
   );
   assert(new Set(modeRows.map((row) => row.stem)).size === 3, `${mode}: duplicate visible stem remains`);
+  assert(
+    answers.size === 3,
+    `${mode}: expected three distinct answers, received ${answers.size}; rows=${JSON.stringify(rowDiagnostics)}`,
+  );
   return Object.freeze({
     solveMode: mode,
     rows: modeRows.length,
     normalizedTemplates: templates.size,
-    uniqueAnswers: new Set(modeRows.map((row) => row.answerText)).size,
+    uniqueAnswers: answers.size,
     answers: Object.freeze(modeRows.map((row) => row.answerText)),
     seeds: Object.freeze(modeRows.map((row) => row.seed)),
   });
 });
 
 const speedRows = rows.filter((row) => row.solveMode === "speedByProportion");
-assert(new Set(speedRows.map((row) => row.answerText)).size === 3, "speedByProportion still repeats the same answer across all three review rows");
 const reference = speedRows.find((row) =>
   rationalEquals(row.input.knownSpeed, "40")
   && rationalEquals(row.input.knownTime, "6")
