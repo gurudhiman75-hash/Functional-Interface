@@ -102,14 +102,31 @@ function isGapCompletionTask(taskKind: SerCp007EditorialTaskKind): boolean {
   return taskKind === "FILL_GAPS" || taskKind === "FILL_GAP_GROUPS";
 }
 
+function answerTerms(question: SerCp007EditorialQuestion): readonly string[] {
+  const terms = question.hiddenState?.canonicalTerms;
+  const indexes =
+    question.hiddenState?.answerIndexes ??
+    (typeof question.hiddenState?.answerIndex === "number"
+      ? [question.hiddenState.answerIndex]
+      : []);
+  if (terms && indexes.length > 0) {
+    return indexes.map((index) => terms[index]!).filter(Boolean);
+  }
+  const replacement = question.correctAnswer.split("→").at(-1)?.trim();
+  return replacement ? [replacement] : [question.correctAnswer];
+}
+
 const taskCounts = new Map<SerCp007EditorialTaskKind, number>();
 const proofModelCounts = new Map<SerCp007ProofModel, number>();
 const reviewWords: number[] = [];
 let sampledReviews = 0;
 let decisiveAnswerProofs = 0;
 let gapReconstructionProofs = 0;
+let multiAnswerProofs = 0;
+let wrongPairProofs = 0;
 let completePositionTableProofs = 0;
 let compressedWrongSeriesProofs = 0;
+let replacementCheckWordingProofs = 0;
 let shortcutReviews = 0;
 let checkReviews = 0;
 let reviewsOver160Words = 0;
@@ -160,6 +177,31 @@ for (const probe of probes) {
       gapReconstructionProofs += 1;
     }
 
+    if (
+      candidate.editorialTaskKind === "NEXT_TWO_TERMS" ||
+      candidate.editorialTaskKind === "MISSING_TWO_TERMS"
+    ) {
+      const requiredTerms = answerTerms(question);
+      assert.equal(requiredTerms.length, 2);
+      for (const term of requiredTerms) {
+        assert.ok(
+          candidate.workedSteps.some((step) => step.includes(term)),
+          `${question.temporaryTemplateId}: two-answer proof omits ${term}`,
+        );
+      }
+      multiAnswerProofs += 1;
+    }
+
+    if (candidate.editorialTaskKind === "WRONG_AND_REPLACEMENT") {
+      const requiredTerms = answerTerms(question);
+      assert.equal(requiredTerms.length, 1);
+      assert.ok(
+        candidate.workedSteps.some((step) => step.includes(requiredTerms[0]!)),
+      );
+      assert.equal(new Set(candidate.workedSteps).size, candidate.workedSteps.length);
+      wrongPairProofs += 1;
+    }
+
     if (candidate.editorialTaskKind === "MISSING_TERM") {
       if (originalPositionRows.length === 0) {
         assert.ok(
@@ -177,6 +219,10 @@ for (const probe of probes) {
         /^First write the correct series:/m,
       );
       assert.ok(candidate.review.includes(question.explanation.conclusion));
+      if (candidate.renderedCheck) {
+        assert.doesNotMatch(candidate.review, /row containing the blank|the blank/i);
+        replacementCheckWordingProofs += 1;
+      }
       compressedWrongSeriesProofs += 1;
     }
 
@@ -207,7 +253,10 @@ assert.equal(sampledReviews, 420);
 assert.equal(proofModelCounts.size, 6);
 assert.equal(missingTermAnswerProofs, 99);
 assert.equal(gapReconstructionProofs, 12);
+assert.equal(multiAnswerProofs, 21);
+assert.equal(wrongPairProofs, 3);
 assert.equal(compressedWrongSeriesProofs, 99);
+assert.ok(replacementCheckWordingProofs > 0);
 assert.ok(decisiveAnswerProofs > 0);
 assert.ok(completePositionTableProofs > 0);
 assert.ok(shortcutReviews >= 50 && shortcutReviews <= 260);
@@ -231,9 +280,12 @@ console.log(
       editorialTaskCounts: Object.fromEntries([...taskCounts.entries()].sort()),
       decisiveAnswerProofs,
       gapReconstructionProofs,
+      multiAnswerProofs,
+      wrongPairProofs,
       completePositionTableProofs,
       missingTermAnswerProofs,
       compressedWrongSeriesProofs,
+      replacementCheckWordingProofs,
       shortcutReviews,
       checkReviews,
       averageReviewWords: Number(averageReviewWords.toFixed(2)),
