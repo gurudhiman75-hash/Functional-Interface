@@ -35,9 +35,10 @@ const MODAL_TASKS = new Set([
   "MIXED_MODAL_CLASSIFICATION",
 ]);
 
-function cleanSentence(value: string): string {
+function cleanSentence(value: string, locale: SylLearnerBuildInputV4["locale"]): string {
   const text = value.trim().replace(/\s+/gu, " ").replace(/[.!?।]+$/u, "");
-  return text ? `${text}.` : "";
+  if (!text) return "";
+  return locale === "en-IN" ? `${text}.` : `${text}।`;
 }
 
 function countWords(values: readonly string[]): number {
@@ -79,8 +80,8 @@ function decisiveStatements(proof: SylStructuredProofV3, input: SylLearnerBuildI
   const result = input.displayedPremises
     .map((premise, index) => ({ premise, statement: input.statements[index] }))
     .filter(({ premise }) => ids.has(premise.premiseId))
-    .map(({ statement }) => cleanSentence(statement));
-  return unique(result.length > 0 ? result : input.statements.map(cleanSentence)).slice(0, 3);
+    .map(({ statement }) => cleanSentence(statement, input.locale));
+  return unique(result.length > 0 ? result : input.statements.map((statement) => cleanSentence(statement, input.locale))).slice(0, 3);
 }
 
 function joinedLabels(terms: readonly TermId[], input: SylLearnerBuildInputV4): string {
@@ -123,7 +124,7 @@ function shortReasoning(
     case "WITNESS_TRANSFER":
       return [...statements, witnessBridge(proof, input)];
     case "DIRECT_CONTRADICTION":
-      return [statements[0] ?? cleanSentence(input.statements[0] ?? ""), copy.directContradiction].filter(Boolean);
+      return [statements[0] ?? cleanSentence(input.statements[0] ?? "", input.locale), copy.directContradiction].filter(Boolean);
     case "POSSIBLE_NOT_DEFINITE":
       return [copy.possibleNotDefinite, copy.dualTrue, copy.dualFalse];
     case "COUNTEREXAMPLE":
