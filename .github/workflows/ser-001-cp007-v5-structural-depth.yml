@@ -45,7 +45,7 @@ jobs:
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
-      - name: Run V5 structural-depth proof
+      - name: Run V5 structural-depth and paired-proof validation
         run: |
           set -euo pipefail
           ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL
@@ -56,49 +56,54 @@ jobs:
             --bundle --platform=node --format=esm \
             --outfile="$OUT/adaptive-review-v5-structural-depth.test.mjs"
           (cd artifacts/api-server && node "$OUT/adaptive-review-v5-structural-depth.test.mjs") \
-            | tee "$EVIDENCE/SER-CP-007-V5-Structural-Depth-Proof.json"
+            | tee "$EVIDENCE/SER-CP-007-V5-Final-Structural-Depth-Proof.json"
           grep -q 'PASS_SER_CP007_V5_STRUCTURAL_DEPTH_REMEDIATION' \
-            "$EVIDENCE/SER-CP-007-V5-Structural-Depth-Proof.json"
+            "$EVIDENCE/SER-CP-007-V5-Final-Structural-Depth-Proof.json"
           grep -q '"knownBadQuestionRejected": true' \
-            "$EVIDENCE/SER-CP-007-V5-Structural-Depth-Proof.json"
+            "$EVIDENCE/SER-CP-007-V5-Final-Structural-Depth-Proof.json"
           grep -q '"structuralDepthFailures": 0' \
-            "$EVIDENCE/SER-CP-007-V5-Structural-Depth-Proof.json"
+            "$EVIDENCE/SER-CP-007-V5-Final-Structural-Depth-Proof.json"
+          grep -q '"pairedExplanationProofs": 60' \
+            "$EVIDENCE/SER-CP-007-V5-Final-Structural-Depth-Proof.json"
 
-      - name: Export V5 400-question review pack
+      - name: Export final V5 400-question review pack
         run: |
           set -euo pipefail
           ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL
           OUT=dist/reasoning-v1/ser-001
           EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v5-structural-depth
           pnpm --dir artifacts/api-server exec esbuild \
-            "$ROOT/export-adaptive-review-v5-400-questions.ts" \
+            "$ROOT/export-adaptive-review-v5-final-400-questions.ts" \
             --bundle --platform=node --format=esm \
-            --outfile="$OUT/export-adaptive-review-v5-400-questions.mjs"
-          (cd artifacts/api-server && node "$OUT/export-adaptive-review-v5-400-questions.mjs") \
-            > "$EVIDENCE/SER-CP-007-V5-400-Non-Trivial-Questions-and-Explanations-Review.md"
+            --outfile="$OUT/export-adaptive-review-v5-final-400-questions.mjs"
+          (cd artifacts/api-server && node "$OUT/export-adaptive-review-v5-final-400-questions.mjs") \
+            > "$EVIDENCE/SER-CP-007-V5-Final-400-Non-Trivial-Questions-and-Explanations.md"
 
-      - name: Validate V5 review pack
+      - name: Validate final V5 review pack
         run: |
           set -euo pipefail
-          FILE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v5-structural-depth/SER-CP-007-V5-400-Non-Trivial-Questions-and-Explanations-Review.md
-          grep -q '# SER-CP-007 V5 — 400 Non-Trivial Questions and Explanations Review' "$FILE"
-          grep -q 'Structural-depth failures:    0' "$FILE"
-          grep -q 'Requires intended rule application.*YES' "$FILE"
+          FILE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v5-structural-depth/SER-CP-007-V5-Final-400-Non-Trivial-Questions-and-Explanations.md
+          grep -q '# SER-CP-007 V5 Final — 400 Non-Trivial Questions and Explanations' "$FILE"
+          grep -q 'Structural-depth failures:       0' "$FILE"
+          grep -q 'Paired-proof explanations:' "$FILE"
+          grep -q '\*\*Use the two-part pair pattern:\*\*' "$FILE"
           QUESTION_COUNT=$(grep -c '^## Question [0-9][0-9][0-9]$' "$FILE")
           ANSWER_COUNT=$(grep -c '^\*\*Answer:\*\*' "$FILE")
           EXPLANATION_COUNT=$(grep -c '^### Explanation$' "$FILE")
           STRUCTURAL_PASS_COUNT=$(grep -c '^\- \*\*Structural depth:\*\* \*\*PASS\*\*$' "$FILE")
+          PAIRED_PROOF_COUNT=$(grep -c '^\*\*Use the two-part pair pattern:\*\*$' "$FILE")
           test "$QUESTION_COUNT" -eq 400
           test "$ANSWER_COUNT" -eq 400
           test "$EXPLANATION_COUNT" -eq 400
           test "$STRUCTURAL_PASS_COUNT" -eq 400
+          test "$PAIRED_PROOF_COUNT" -gt 0
           ! grep -q 'CGRLMQF, XTIONJU, CGRLMQF, XTIONJU' "$FILE"
-          echo 'PASS_SER_CP007_V5_400_NON_TRIVIAL_REVIEW_PACK'
+          echo "PASS_SER_CP007_V5_FINAL_400_NON_TRIVIAL_REVIEW_PACK paired_proofs=$PAIRED_PROOF_COUNT"
 
-      - name: Upload V5 evidence
+      - name: Upload final V5 evidence
         uses: actions/upload-artifact@v4
         with:
-          name: ser-001-cp007-v5-structural-depth
+          name: ser-001-cp007-v5-final-structural-depth
           path: artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v5-structural-depth/
           if-no-files-found: error
           retention-days: 30
