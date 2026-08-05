@@ -130,11 +130,18 @@ for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
 
     if (allocation.qlId === "NUM-QL-057") {
       const parity = question.hiddenState.parity;
+      const numericOptions = question.options.filter((option) => /^\d+$/u.test(option.value));
       if (parity === "ODD") {
-        assert(question.options.every((option) => Number(option.value) % 2 === 1), `${allocation.qlId}/${seed}: odd-option parity leak`);
+        assert(numericOptions.every((option) => Number(option.value) % 2 === 1), `${allocation.qlId}/${seed}: odd-option parity leak`);
       }
       if (parity === "EVEN") {
-        assert(question.options.every((option) => Number(option.value) % 2 === 0), `${allocation.qlId}/${seed}: even-option parity leak`);
+        assert(numericOptions.every((option) => Number(option.value) % 2 === 0), `${allocation.qlId}/${seed}: even-option parity leak`);
+      }
+      if (question.canonicalAnswer === "No such integer") {
+        assert(question.options.filter((option) => !/^\d+$/u.test(option.value)).length === 1, `${allocation.qlId}/${seed}: no-solution option contract`);
+        assert(question.options[question.correctIndex]?.value === "No such integer", `${allocation.qlId}/${seed}: governed no-solution answer lost`);
+      } else {
+        assert(numericOptions.length === 4, `${allocation.qlId}/${seed}: solved bounded maximum must use four numeric options`);
       }
     }
 
