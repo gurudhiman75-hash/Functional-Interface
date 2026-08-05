@@ -1,28 +1,14 @@
 import type { RnkCp004Option } from './cp004-foundation';
 import {
-  RNK_CP004_REMODEL_V4_PROTOTYPE_IDS,
+  RNK_CP004_REMODEL_V5_PROTOTYPE_IDS,
   generateRnkCp004ExamReadyQuestion,
   type RnkCp004ExamReadyQuestion,
-} from './cp004-exam-ready-v6';
+} from './cp004-exam-ready-v7';
 
 function optionAnalysis(options: readonly RnkCp004Option[]): readonly string[] {
   return options.map(
     (option, index) => `Option ${String.fromCharCode(65 + index)} (${option.label}): ${option.explanation}.`,
   );
-}
-
-function visibleWrongAnalysis(
-  question: RnkCp004ExamReadyQuestion,
-  options: readonly RnkCp004Option[],
-): readonly string[] | undefined {
-  if (!question.visibleExplanation.optionAnalysis) return undefined;
-  if (question.visibleExplanation.optionAnalysis.length <= 2) {
-    return question.visibleExplanation.optionAnalysis;
-  }
-  return options
-    .map((option, index) => ({ option, index }))
-    .filter(({ option }) => option.answerKey !== question.answerKey)
-    .map(({ option, index }) => `Option ${String.fromCharCode(65 + index)}: ${option.explanation}.`);
 }
 
 function moveCorrectOption(
@@ -39,6 +25,10 @@ function moveCorrectOption(
     options.push(index === targetIndex ? correct : wrong[wrongIndex++]);
   }
   const answer = options[targetIndex].label;
+  const wrongAnalysis = options
+    .map((option, index) => ({ option, index }))
+    .filter(({ option }) => option.answerKey !== question.answerKey)
+    .map(({ option, index }) => `Option ${String.fromCharCode(65 + index)}: ${option.explanation}.`);
   return {
     ...question,
     answer,
@@ -52,7 +42,7 @@ function moveCorrectOption(
     visibleExplanation: {
       ...question.visibleExplanation,
       answer,
-      optionAnalysis: visibleWrongAnalysis(question, options),
+      optionAnalysis: wrongAnalysis,
     },
   };
 }
@@ -95,7 +85,7 @@ export function buildRnkCp004ReviewPack(): readonly RnkCp004ExamReadyQuestion[] 
   const answerCounts = [0, 0, 0, 0];
   const usedFourGrams = new Set<string>();
 
-  RNK_CP004_REMODEL_V4_PROTOTYPE_IDS.forEach((prototypeId, prototypeIndex) => {
+  RNK_CP004_REMODEL_V5_PROTOTYPE_IDS.forEach((prototypeId, prototypeIndex) => {
     let accepted = 0;
     let candidateSeed = prototypeIndex * 1000;
     while (accepted < 6) {
@@ -141,41 +131,77 @@ function clueProfileLine(question: RnkCp004ExamReadyQuestion): string {
   return `**Clue profile:** ${profile.statementCount} statements · ${essentialLabel} · ${profile.confirmatory} confirmatory · ${profile.redundantOther} other redundant · accounted ${profile.accountedStatementCount}/${profile.statementCount}  `;
 }
 
+function proofContractLines(question: RnkCp004ExamReadyQuestion): readonly string[] {
+  const contract = question.reviewMetadata.proofCountingContract;
+  if (contract.mode === 'OPTION_AUGMENTATION') {
+    return [
+      `**Shortest base-clue proof:** ${contract.shortestBaseClueProof} clue(s)  `,
+      `**Selected bridge relations:** ${contract.selectedOptionRelations}  `,
+      `**Completed unique-order proof:** ${contract.completedProofRelations} relation(s)  `,
+    ];
+  }
+  return [metadataLine('Shortest answer proof', contract.shortestBaseClueProof)];
+}
+
+function adminNoteLines(question: RnkCp004ExamReadyQuestion): readonly string[] {
+  const notes = question.reviewMetadata.adminClueRoleNotes;
+  if (notes.length === 0) return [];
+  return [
+    `**Admin-only clue-role note:** ${notes.join(' ')}`,
+    '',
+  ];
+}
+
+function optionRoleLine(question: RnkCp004ExamReadyQuestion): readonly string[] {
+  if (question.displayedEvidence.query.kind !== 'VALID_RANK_STATEMENT') return [];
+  return [
+    `**Option-role contract:** ${question.reviewMetadata.optionRoleMetadata.map((role) => role.role).join(' · ')}  `,
+  ];
+}
+
 export function renderRnkCp004QuestionsAndExplanationsMarkdown(
   questions: readonly RnkCp004ExamReadyQuestion[],
 ): string {
   const lines: string[] = [
-    '# RNK-CP-004 Questions and Explanations — English Remodel V4',
+    '# RNK-CP-004 Questions and Explanations — English Remodel V5',
     '',
     '> Status: manual English review pending. Permanent QL allocation remains open.',
     '',
-    '> Remodel V4 truthfully accounts for every clue, separates core topology from confirmatory edges, and keeps distractor help behind progressive disclosure.',
+    '> Remodel V5 separates learner explanations from admin proof metadata, gives missing-comparison proof counts an explicit option-augmentation contract, and makes the two-or-more-statements condition testable.',
+    '',
+    '> Product renderer contract: optional distractor help uses a native collapsed disclosure. Raw Markdown HTML is not used.',
     '',
   ];
 
   questions.forEach((question, index) => {
     const proof = question.reviewMetadata.proofMetrics;
     const topology = question.reviewMetadata.coreTopologyProfile;
-    const difficulty = question.reviewMetadata.difficultyProfile;
+    const edge = question.reviewMetadata.edgeContract;
+    const difficulty = question.reviewMetadata.difficultyModel;
+    const renderer = question.reviewMetadata.learnerRendererContract;
     lines.push(
       `## Question ${index + 1}`,
       '',
       `**Stable ID:** \`${question.reviewMetadata.stableQuestionId}\`  `,
       `**Prototype:** \`${question.prototypeId}\`  `,
       `**Seed:** \`${question.seed}\`  `,
-      `**Difficulty:** ${question.difficulty} · score ${difficulty.featureScore}  `,
+      `**Difficulty:** ${question.difficulty} · score ${difficulty.score} · model \`${difficulty.modelId}\`  `,
       `**Competency:** ${question.reviewMetadata.competency}  `,
       `**Explanation mode:** \`${question.reviewMetadata.explanationMode}\`  `,
-      `**Core topology:** \`${topology.transitiveReductionFamily}\` · ${topology.transitiveReductionEdgeCount} reduction edge(s)  `,
-      `**Added edges:** \`${topology.addedEdgeProfile}\` · ${topology.adjacentDisplayedEdges} adjacent · ${topology.nonAdjacentDisplayedEdges} non-adjacent displayed edge(s)  `,
+      `**Core topology:** \`${topology.transitiveReductionFamily}\` · ${edge.coreReductionEdges} reduction edge(s)  `,
+      `**Displayed edge breakdown:** ${edge.displayedAdjacentEdges} adjacent · ${edge.displayedNonAdjacentEdges} non-adjacent  `,
+      `**Added confirmatory edges:** ${edge.addedConfirmatoryNonAdjacentEdges} non-adjacent  `,
       clueProfileLine(question),
-      metadataLine('Shortest answer proof', question.reviewMetadata.shortestAnswerProofClues),
+      ...proofContractLines(question),
       metadataLine('Shortest directional path', proof.shortestDirectionalPathClues),
       metadataLine('Shortest exact-position proof', proof.shortestExactPositionProofClues),
       metadataLine('Full-order proof', proof.fullOrderProofClues),
+      ...optionRoleLine(question),
+      `**Learner disclosure:** \`${renderer.disclosureComponent}\` · default closed · raw HTML false  `,
       `**Review state:** ${question.reviewMetadata.reviewStatus}  `,
       '**Lifecycle:** Question Studio disabled · Question Bank NOT_STORED · Tests INELIGIBLE · Public false',
       '',
+      ...adminNoteLines(question),
       question.stem,
       '',
     );
@@ -187,26 +213,13 @@ export function renderRnkCp004QuestionsAndExplanationsMarkdown(
     lines.push('', '### Explanation', '');
     question.visibleExplanation.lines.forEach((line) => lines.push(line, ''));
 
-    if (question.visibleExplanation.verificationNote) {
-      lines.push(
-        '<details>',
-        '<summary>Clue-role note</summary>',
-        '',
-        question.visibleExplanation.verificationNote,
-        '',
-        '</details>',
-        '',
-      );
-    }
-
     if (question.visibleExplanation.optionAnalysis?.length) {
       lines.push(
-        '<details>',
-        '<summary>Why are the other options wrong?</summary>',
+        `**Optional learner help — ${renderer.learnerLabel} (collapsed by default in product):**`,
         '',
       );
       question.visibleExplanation.optionAnalysis.forEach((analysis) => lines.push(`- ${analysis}`));
-      lines.push('', '</details>', '');
+      lines.push('');
     }
 
     lines.push(`**Answer: ${question.visibleExplanation.answer}**`, '', '---', '');
