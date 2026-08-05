@@ -11,7 +11,7 @@ import {
   analyzeSerCp007StructuralDepth,
   type SerCp007StructuralBlocker,
 } from "./structural-depth";
-import { buildAdaptiveSerCp007ReviewV4 } from "./adaptive-review-v4";
+import { buildAdaptiveSerCp007ReviewV5 } from "./adaptive-review-v5";
 import type { SerCp007EditorialQuestion } from "./adaptive-review";
 
 type FullEditorialQuestion = SerCp007EditorialQuestion & {
@@ -101,6 +101,26 @@ assert.notDeepEqual(
   originalComplement.hiddenState?.canonicalTerms,
   remodelledComplement.hiddenState?.canonicalTerms,
 );
+const remodelledComplementReview = buildAdaptiveSerCp007ReviewV5(
+  remodelledComplement,
+);
+assert.match(
+  remodelledComplementReview.review,
+  /\*\*Use the two-part pair pattern:\*\*/,
+);
+assert.match(
+  remodelledComplementReview.review,
+  /First groups of the four pairs:/,
+);
+assert.match(
+  remodelledComplementReview.review,
+  /This fixes the first group of the required pair as/,
+);
+assert.match(
+  remodelledComplementReview.review,
+  /replace every letter with its alphabet opposite/,
+);
+assert.equal(remodelledComplementReview.difficulty, "MEDIUM");
 
 const failureRows: Array<{
   readonly template: string;
@@ -117,12 +137,13 @@ let remodelledQuestions = 0;
 let questionsWithEightUniqueStates = 0;
 let answerOccurrencesAfterRemodel = 0;
 let reviewProofs = 0;
+let pairedExplanationProofs = 0;
 
 for (const probe of SER_CP007_TEMPLATE_PROBES_V5) {
   for (const seed of [1, 2, 3]) {
     const question = probe.generate(seed) as unknown as FullEditorialQuestion;
     const profile = analyzeSerCp007StructuralDepth(question);
-    const review = buildAdaptiveSerCp007ReviewV4(question);
+    const review = buildAdaptiveSerCp007ReviewV5(question);
     sampledQuestions += 1;
     reviewProofs += 1;
 
@@ -160,6 +181,11 @@ for (const probe of SER_CP007_TEMPLATE_PROBES_V5) {
       answerOccurrencesAfterRemodel += profile.visibleAnswerOccurrences;
       assert.equal(profile.visibleAnswerOccurrences, 0);
       assert.equal(profile.minimumExactPeriod, null);
+      assert.match(review.review, /\*\*Use the two-part pair pattern:\*\*/);
+      assert.match(review.review, /First groups of the four pairs:/);
+      assert.match(review.review, /Therefore, the pair is/);
+      assert.notEqual(review.difficulty, "EASY");
+      pairedExplanationProofs += 1;
     }
   }
 }
@@ -184,6 +210,7 @@ assert.equal(reviewProofs, 420);
 assert.equal(remodelledQuestions, 60);
 assert.equal(questionsWithEightUniqueStates, 60);
 assert.equal(answerOccurrencesAfterRemodel, 0);
+assert.equal(pairedExplanationProofs, 60);
 assert.equal(failureRows.length, 0);
 assert.ok(roleCombinations.size >= 18);
 
@@ -199,6 +226,7 @@ console.log(
       remodelledQuestions,
       questionsWithEightUniqueStates,
       answerOccurrencesAfterRemodel,
+      pairedExplanationProofs,
       structuralDepthFailures: failureRows.length,
       blockerCounts: Object.fromEntries(blockerCounts),
       distractorRoleCombinations: roleCombinations.size,
