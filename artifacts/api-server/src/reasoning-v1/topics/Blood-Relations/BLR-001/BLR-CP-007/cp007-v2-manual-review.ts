@@ -12,12 +12,22 @@ export function buildManualReviewedBlrCp007V2Explanation(
   selected: BlrCp007V2Option,
   graph: BlrCp006Graph,
 ): BlrCp007V2Question["explanation"] {
-  const explanation = buildAccessibleBlrCp007V2Explanation(
+  const source = buildAccessibleBlrCp007V2Explanation(
     scenario,
     options,
     selected,
     graph,
   );
+  const explanation = {
+    ...source,
+    optionAnalysis: source.optionAnalysis.map((analysis) => ({
+      ...analysis,
+      explanation: analysis.explanation.replace(
+        "Correct choice: the statement is not valid.",
+        "Correct choice: the statement is invalid.",
+      ),
+    })),
+  };
   if (explanation.mode !== "DIRECT_LOOKUP_MINIMAL") return explanation;
   return {
     ...explanation,
