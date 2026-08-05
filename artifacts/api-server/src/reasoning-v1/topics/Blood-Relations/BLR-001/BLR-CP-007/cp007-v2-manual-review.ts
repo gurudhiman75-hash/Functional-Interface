@@ -33,10 +33,19 @@ export function buildManualReviewedBlrCp007V2Explanation(
   );
   const explanation = {
     ...source,
-    optionAnalysis: source.optionAnalysis.map((analysis) => ({
-      ...analysis,
-      explanation: preserveEstablishedWording(analysis.explanation),
-    })),
+    optionAnalysis: source.optionAnalysis.map((analysis, index) => {
+      const option = options[index]!;
+      const directCorrect =
+        scenario.query.kind === "SELECT_EXPRESSION" &&
+        option.isCorrect &&
+        option.decodedAssertions.length === 1;
+      return {
+        ...analysis,
+        explanation: directCorrect
+          ? `Correct: ${option.decodedAssertions[0]} This directly matches the relation asked.`
+          : preserveEstablishedWording(analysis.explanation),
+      };
+    }),
   };
   if (explanation.mode !== "DIRECT_LOOKUP_MINIMAL") return explanation;
   return {
