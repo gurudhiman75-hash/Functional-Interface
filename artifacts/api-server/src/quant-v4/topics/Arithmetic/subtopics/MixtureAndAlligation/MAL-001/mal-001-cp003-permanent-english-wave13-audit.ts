@@ -282,7 +282,7 @@ assert(deterministicCount === 1800, "Deterministic replay count mismatch.");
 assert(reviewRows.length === 36, "Expected 36 permanent review rows.");
 assert(questionStudioExplicitCount === 9, "Question Studio explicit routing count mismatch.");
 assert(questionStudioSelectionCount === 90, "Question Studio selection count mismatch.");
-assert(answerPositionCounts.every((count) >= 300), `Answer positions are imbalanced: ${answerPositionCounts.join(", ")}.`);
+assert(answerPositionCounts.every((count) => count >= 300), `Answer positions are imbalanced: ${answerPositionCounts.join(", ")}.`);
 assert(stems.size >= 300, `Released stem diversity is too low: ${stems.size}.`);
 assert(fingerprints.size >= 150, `Released mathematical diversity is too low: ${fingerprints.size}.`);
 assert(explanations.size >= 300, `Released explanation diversity is too low: ${explanations.size}.`);
