@@ -49,8 +49,8 @@ for (const definition of SYL_QL_REGISTRY) {
       assert(diagram.caption === diagram.accessibleDescription, `${key} visible and accessible captions are not synchronized.`);
 
       if (locale === "en-IN") {
-        assert(!/\bBecause [^.]+? is separate from [^,]+?, the same × is outside\b/u.test(diagram.caption!), `${key} retains singular-verb witness-transfer grammar.`);
-        assert(!/\b[A-Za-z][A-Za-z-]*s is separate from\b/u.test(diagram.caption!), `${key} contains plural subject with singular verb.`);
+        assert(!/\bBecause [^.]+? is separate from [^,]+?, the same × is outside\b/u.test(diagram.caption!), `${key} retains singular-verb witness-transfer grammar: ${diagram.caption}`);
+        assert(!/\b[A-Za-z][A-Za-z-]*s is separate from\b/u.test(diagram.caption!), `${key} contains plural subject with singular verb: ${diagram.caption}`);
       }
 
       if (definition.qlId === "SYL-QL-001" && seed === 0 && locale === "en-IN") {
