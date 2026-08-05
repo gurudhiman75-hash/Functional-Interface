@@ -4,7 +4,7 @@ import { SeededRng, r, ratioText } from "./runtime-support";
 
 export function comparisonState(mode: "compareDistancesAtEqualTime" | "compareTimesAtEqualDistance" | "compareSpeedsAtEqualTime", rng: SeededRng): GeneratedState {
   const first = r(rng.pick([3, 4, 5, 6, 8, 9, 11, 14]));
-  const secondPool = [2, 5, 7, 10, 12, 15, 17, 20] as const;
+  const secondPool = [2, 5, 7, 10, 12, 15, 17, 19] as const;
   let secondValue = rng.pick(secondPool);
   if (BigInt(secondValue) === first.numerator && first.denominator === 1n) {
     secondValue = secondPool[(secondPool.indexOf(secondValue) + 1) % secondPool.length];
