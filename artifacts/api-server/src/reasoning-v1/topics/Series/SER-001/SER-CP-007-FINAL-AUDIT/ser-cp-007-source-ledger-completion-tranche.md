@@ -39,25 +39,28 @@ Item 222
 
 The seven fixed-column questions are parameter variations rather than seven authorities. Item 138 is a useful collision guard: comparing adjacent terms hides the simpler two-row rule.
 
-## Aggregate traceability after this tranche
+## Aggregate traceability after ancestry decision
 
 ```text
 Verified source records:             36 covered/delegated/Wave-E-resolved
 Unresolved traced exam records:       1
 Unresolved record:                    DISHA-VNV item 195
-Wave D direct-ancestry decisions:     8 provisional SATURATION_ONLY
+Wave-D probes reviewed:               8
+Final SATURATION_ONLY_SERIES:          7
+Final SATURATION_ONLY_SERIES_COLLISION: 1
+Unresolved Wave-D ancestry decisions:  0
 Post-Wave-E collision audit:          COMPLETE
-Mathematical saturation:              PENDING_FINAL_SOURCE_ANCESTRY_DECISIONS
+Mathematical saturation:              PENDING_ITEM_195_RESOLUTION
 Ledger completeness:                  BLOCKED
 English discovery freeze:             BLOCKED
 Permanent QLs:                         0
 CP-008:                               BLOCKED
 ```
 
-The only currently unresolved extracted exam item is Disha item `195`. Separately, the eight Wave D probes still require either direct page ancestry or an explicit final `SATURATION_ONLY` freeze decision.
+The only remaining extracted exam-item blocker is Disha item `195`. The eight Wave-D probes now have explicit final evidence dispositions and are no longer ancestry-pending.
 
 ## Next authority
 
 ```text
-SER_CP007_FINAL_SOURCE_ANCESTRY_AND_ITEM_195_RESOLUTION
+SER_CP007_ITEM_195_RESOLUTION_AND_SOURCE_LEDGER_CLOSE
 ```
