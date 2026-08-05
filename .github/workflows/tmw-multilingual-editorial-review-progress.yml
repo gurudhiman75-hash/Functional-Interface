@@ -30,7 +30,7 @@ concurrency:
 jobs:
   validate-reviewed-checkpoints:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 40
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -63,11 +63,15 @@ jobs:
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp003-editorial-field-cleanup.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp004-editorial-review-remediation.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp004.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp005-editorial-review-remediation-v2.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp005-editorial-review-remediation-final.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp005.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-localized-runtime.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp001-editorial-review.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp002-editorial-review.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp003-editorial-review.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp004-editorial-review.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp005-editorial-review.test.ts
       - name: Bundle CP-001 editorial-review proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -112,6 +116,17 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/tmw-001-cp004-editorial-review.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp004-editorial-review-proof.log
+      - name: Bundle CP-005 editorial-review proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp005-editorial-review.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp005-editorial-review.test.mjs
+      - name: Run CP-005 editorial-review proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp005-editorial-review.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp005-editorial-review-proof.log
       - name: Upload editorial-review evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -122,5 +137,6 @@ jobs:
             artifacts/api-server/dist/quant-v4/tmw-001-cp002-editorial-review-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-cp003-editorial-review-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-cp004-editorial-review-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-cp005-editorial-review-proof.log
           if-no-files-found: error
           retention-days: 14
