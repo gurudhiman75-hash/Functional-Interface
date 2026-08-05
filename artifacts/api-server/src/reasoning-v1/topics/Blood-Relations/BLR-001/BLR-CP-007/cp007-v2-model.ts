@@ -213,27 +213,47 @@ function isPeriodic(values: readonly number[]): boolean {
   return false;
 }
 
+function hasRepeatedLongNgram(values: readonly number[]): boolean {
+  for (const length of [8, 7, 6]) {
+    const seen = new Set<string>();
+    for (let index = 0; index + length <= values.length; index += 1) {
+      const ngram = values.slice(index, index + length).join("");
+      if (seen.has(ngram)) return true;
+      seen.add(ngram);
+    }
+  }
+  return false;
+}
+
 export const BLR_CP007_V2_ANSWER_POSITION_PATTERNS: ReadonlyMap<
   BlrCp007PrototypeId,
   readonly number[]
 > = (() => {
   const used = new Set<string>();
+  const answerStream: number[] = [];
   const result = new Map<BlrCp007PrototypeId, readonly number[]>();
   BLR_CP007_PROTOTYPES.forEach((prototype, prototypeIndex) => {
     let salt = 0;
-    while (true) {
+    while (salt < 100_000) {
       const pattern = shuffled(
         [0, 0, 1, 1, 2, 2, 3, 3],
         `${prototype.prototypeId}|${prototypeIndex}|${salt}|answer-position-v2`,
       );
       const key = pattern.join("");
-      if (!isPeriodic(pattern) && !used.has(key)) {
+      const candidateStream = [...answerStream, ...pattern];
+      if (
+        !isPeriodic(pattern) &&
+        !used.has(key) &&
+        !hasRepeatedLongNgram(candidateStream)
+      ) {
         used.add(key);
+        answerStream.push(...pattern);
         result.set(prototype.prototypeId, pattern);
-        break;
+        return;
       }
       salt += 1;
     }
+    throw new Error(`Could not build a secure answer pattern for ${prototype.prototypeId}.`);
   });
   return result;
 })();
