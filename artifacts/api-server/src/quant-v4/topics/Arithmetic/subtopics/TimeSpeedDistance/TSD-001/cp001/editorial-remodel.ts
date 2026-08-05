@@ -190,7 +190,7 @@ function clockAndPaceStem(input: TsdCp001SolveInput, seed: string): string | nul
       return [
         `A bus reaches its destination at ${arrival} after travelling for ${duration}. At what time did it depart?`,
         `An express coach arrives at ${arrival}. If the journey takes ${duration}, when did the coach leave?`,
-        `A delivery vehicle completes its route at ${arrival} after a ${duration} journey. Find its starting time.`,
+        `A delivery vehicle completes its route at ${arrival} after travelling for ${duration}. Find its starting time.`,
       ][stemVariant];
     }
 
@@ -220,7 +220,7 @@ function clockAndPaceStem(input: TsdCp001SolveInput, seed: string): string | nul
       const output = paceOutputText(input.outputUnit);
       return [
         `A runner moves at ${speed}. Find the equivalent pace in ${output}.`,
-        `A training log records a constant speed of ${speed}. How much time is taken per kilometre in ${output}?`,
+        `A training log records a constant speed of ${speed}. What is the equivalent pace in ${output}?`,
         `A cyclist maintains ${speed}. State this speed as a pace in ${output}.`,
       ][stemVariant];
     }
