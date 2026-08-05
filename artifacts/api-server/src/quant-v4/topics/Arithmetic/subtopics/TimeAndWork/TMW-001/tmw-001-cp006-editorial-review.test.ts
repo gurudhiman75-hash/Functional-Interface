@@ -33,7 +33,7 @@ for (const entry of TMW_CP006_REGISTRY) {
       assert.equal(question.options.includes(question.explanation.commonTrap.optionText), true, `${row}: trap option mismatch`);
       assert.equal(question.explanation.conclusion.includes(question.solution.answerText), true, `${row}: answer missing from conclusion`);
       assert.equal(/स्वतंत्र गुणक|अपरिवर्तनीय नियम|उत्पादक क्षमता संबंध|ਸੁਤੰਤਰ ਗੁਣਕ|ਅਪਰਿਵਰਤਨਸ਼ੀਲ ਨਿਯਮ|ਉਤਪਾਦਕ ਸਮਰੱਥਾ ਸੰਬੰਧ/.test(prose), false, `${row}: textbook rule wording`);
-      assert.equal(/कुल उत्पादक क्षमता|ਬਦਲੀ ਵਿਵਸਥਾ|ਮੂਲ ਵਿਵਸਥਾ|कुल उत्पादक क्षमता|बदली व्यवस्था|मूल व्यवस्था/.test(prose), false, `${row}: formal system wording`);
+      assert.equal(/कुल उत्पादक क्षमता|ਬਦਲੀ ਵਿਵਸਥਾ|ਮੂਲ ਵਿਵਸਥਾ|बदली व्यवस्था|मूल व्यवस्था/.test(prose), false, `${row}: formal system wording`);
       assert.equal(/\d+ दिन में|\d+ ਦਿਨ ਵਿੱਚ|\d+ घंटा में|\d+ ਘੰਟਾ ਵਿੱਚ/.test(prose), false, `${row}: uninflected time`);
 
       switch (entry.solveMode) {
@@ -63,12 +63,19 @@ for (const entry of TMW_CP006_REGISTRY) {
           break;
         case "findWorkersRemovedForDelay":
           assert.match(question.explanation.opening, language === "hi" ? /मूल संख्या.*बची संख्या का अंतर/ : /ਮੂਲ ਗਿਣਤੀ.*ਬਚੀ ਗਿਣਤੀ ਦਾ ਅੰਤਰ/, row);
+          assert.match(question.explanation.conclusion, language === "hi" ? /हटाए जा सकते/ : /ਹਟਾਏ ਜਾ ਸਕਦੇ/, row);
           break;
         case "findOriginalWorkforceFromChangedSchedule":
           assert.match(question.explanation.opening, language === "hi" ? /मूल संख्या को अज्ञात.*कुल काम बराबर/ : /ਮੂਲ ਗਿਣਤੀ ਨੂੰ ਅਣਜਾਣ.*ਕੁੱਲ ਕੰਮ ਬਰਾਬਰ/, row);
           break;
         case "findRemainingDaysFromActualProgress":
-          assert.match(question.explanation.opening, language === "hi" ? /शेष काम.*1 − पूरा हुआ भाग/ : /ਬਾਕੀ ਕੰਮ.*1 − ਪੂਰਾ ਹੋਇਆ ਹਿੱਸਾ/, row);
+          assert.match(
+            question.explanation.opening,
+            language === "hi"
+              ? /शेष काम.*(?:1 − पूरा हुआ भाग|1 में से पूरा हुआ भाग घटाएँ)/
+              : /ਬਾਕੀ ਕੰਮ.*(?:1 − ਪੂਰਾ ਹੋਇਆ ਹਿੱਸਾ|1 ਵਿੱਚੋਂ ਪੂਰਾ ਹੋਇਆ ਹਿੱਸਾ ਘਟਾਓ)/,
+            row,
+          );
           break;
         case "findPercentWorkCompletedFromResourceHours":
           assert.match(question.explanation.opening, language === "hi" ? /संसाधन-घंटों.*100/ : /ਸਰੋਤ-ਘੰਟਿਆਂ.*100/, row);
@@ -77,7 +84,13 @@ for (const entry of TMW_CP006_REGISTRY) {
           assert.match(question.explanation.opening, language === "hi" ? /देरी = नया समय − मूल समय/ : /ਦੇਰੀ = ਨਵਾਂ ਸਮਾਂ − ਮੂਲ ਸਮਾਂ/, row);
           break;
         case "findOvertimeHoursForDeadline":
-          assert.match(question.explanation.opening, language === "hi" ? /कुल आवश्यक घंटे.*सामान्य घंटों का अंतर/ : /ਕੁੱਲ ਲੋੜੀਂਦੇ ਘੰਟਿਆਂ.*ਆਮ ਘੰਟਿਆਂ ਦਾ ਅੰਤਰ/, row);
+          assert.match(
+            question.explanation.opening,
+            language === "hi"
+              ? /कुल आवश्यक घंटे.*सामान्य घंटों का अंतर/
+              : /(?:ਕੁੱਲ ਲੋੜੀਂਦੇ ਘੰਟੇ|ਲੋੜੀਂਦੇ ਕੁੱਲ ਘੰਟਿਆਂ).*ਆਮ ਘੰਟਿਆਂ ਦਾ ਅੰਤਰ/,
+            row,
+          );
           break;
         case "findShiftCountForProductionTarget":
           assert.match(question.explanation.opening, language === "hi" ? /एक पाली.*लक्ष्य उत्पादन/ : /ਇੱਕ ਸ਼ਿਫ਼ਟ.*ਟੀਚਾ ਉਤਪਾਦਨ/, row);
@@ -117,7 +130,17 @@ for (const entry of TMW_CP006_REGISTRY) {
           assert.match(question.explanation.commonTrap.explanation, language === "hi" ? /दक्षता का बदलाव/ : /ਦੱਖਤਾ ਦਾ ਬਦਲਾਅ/, row);
           break;
         case "TOTAL_REPORTED_AS_CHANGE":
-          assert.match(question.explanation.commonTrap.explanation, language === "hi" ? /अंतर के बजाय.*कुल संख्या/ : /ਅੰਤਰ ਦੀ ਥਾਂ.*ਕੁੱਲ ਗਿਣਤੀ/, row);
+          if (entry.solveMode === "findOvertimeHoursForDeadline") {
+            assert.match(
+              question.explanation.commonTrap.explanation,
+              language === "hi"
+                ? /अतिरिक्त घंटों.*प्रतिदिन आवश्यक कुल घंटे/
+                : /ਵਾਧੂ ਘੰਟਿਆਂ.*ਹਰ ਦਿਨ ਦੇ ਕੁੱਲ ਲੋੜੀਂਦੇ ਘੰਟੇ/,
+              row,
+            );
+          } else {
+            assert.match(question.explanation.commonTrap.explanation, language === "hi" ? /अंतर के बजाय.*कुल संख्या/ : /ਅੰਤਰ ਦੀ ਥਾਂ.*ਕੁੱਲ ਗਿਣਤੀ/, row);
+          }
           break;
         case "CHANGE_REPORTED_AS_TOTAL":
           assert.match(question.explanation.commonTrap.explanation, language === "hi" ? /कुल संख्या के बजाय/ : /ਕੁੱਲ ਗਿਣਤੀ ਦੀ ਥਾਂ/, row);
