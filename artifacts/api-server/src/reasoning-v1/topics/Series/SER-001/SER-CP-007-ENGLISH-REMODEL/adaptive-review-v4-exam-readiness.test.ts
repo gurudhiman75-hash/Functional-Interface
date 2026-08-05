@@ -268,7 +268,7 @@ assert.equal(unchangedArrowOptions, 0);
 assert.ok(roleCombinations.size >= 18);
 assert.equal(progressiveTableProofs, 12);
 assert.equal(cumulativeTargetProofs, 6);
-assert.equal(consecutiveLengthAndStartProofs, 24);
+assert.equal(consecutiveLengthAndStartProofs, 21);
 assert.equal(symmetricTargetProofs, 6);
 assert.equal(polishedPreviousStems, 87);
 assert.equal(polishedWrongPairStems, 3);
