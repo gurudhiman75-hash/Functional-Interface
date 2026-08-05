@@ -31,7 +31,7 @@ jobs:
       - name: Enforce truthful-metadata English Remodel V4 gates
         run: >-
           npx --yes tsx
-          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-exam-ready-v4.test.ts
+          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-exam-ready-v4-gates.test.ts
           rnk-cp004-exam-ready-v4-output
 
       - name: Upload RNK-CP-004 Remodel V4 review evidence
