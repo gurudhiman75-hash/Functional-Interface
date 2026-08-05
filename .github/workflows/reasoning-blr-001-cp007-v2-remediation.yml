@@ -1,0 +1,100 @@
+name: Reasoning BLR-001 CP-007 V2 Remediation
+
+on:
+  push:
+    branches:
+      - remediate/blr-001-cp007-exam-pedagogy-v2
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/**"
+      - ".github/workflows/reasoning-blr-001-cp007-v2-remediation.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/**"
+      - ".github/workflows/reasoning-blr-001-cp007-v2-remediation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blr-001-cp007-v2-remediation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp007-v2-remediation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prove CP-006 source runtime
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-runtime.test.ts | tee cp006-source.log
+
+      - name: Prove CP-007 V1 logical baseline
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-runtime.test.ts | tee cp007-v1-baseline.log
+
+      - name: Prove CP-007 V2 remediation and independent verifier
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-v2.test.ts | tee cp007-v2.log
+
+      - name: Export CP-007 V2 review pack
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-cp007-v2.ts cp007-v2-output | tee cp007-v2-export.log
+
+      - name: Verify CP-007 V2 artifact contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=cp007-v2-output
+          test -f "$OUT/blr-cp007-v2-summary.json"
+          test -f "$OUT/blr-cp007-v2-records.jsonl"
+          test -f "$OUT/blr-cp007-v2-records.csv"
+          test -f "$OUT/blr-cp007-v2-review.html"
+          test -f "$OUT/BLR-CP-007-V2-REMEDIATION-RECORD.md"
+          grep -q '"recordCount": 168' "$OUT/blr-cp007-v2-summary.json"
+          grep -q '"prototypeCount": 21' "$OUT/blr-cp007-v2-summary.json"
+          grep -q '"authorityCount": 5' "$OUT/blr-cp007-v2-summary.json"
+          grep -q '"permanentQlCount": 5' "$OUT/blr-cp007-v2-summary.json"
+          grep -q '"optionCount": 672' "$OUT/blr-cp007-v2-summary.json"
+          grep -q '"invalidOptionGraphs": 0' "$OUT/blr-cp007-v2-summary.json"
+          grep -q '"answerPatternCycles": 0' "$OUT/blr-cp007-v2-summary.json"
+          grep -q '"genericOptionExplanations": 0' "$OUT/blr-cp007-v2-summary.json"
+          grep -q '"invalidStatementPolarityDefects": 0' "$OUT/blr-cp007-v2-summary.json"
+          grep -q '"humanReviewStatus": "REQUIRED"' "$OUT/blr-cp007-v2-summary.json"
+          test "$(wc -l < "$OUT/blr-cp007-v2-records.jsonl")" -eq 168
+          grep -q 'all 672 option graphs independently valid' "$OUT/blr-cp007-v2-review.html"
+          grep -q 'HUMAN_REVIEW_REQUIRED' "$OUT/blr-cp007-v2-review.html"
+          grep -q 'marker-end=' "$OUT/blr-cp007-v2-review.html"
+          grep -q 'Solid: coded assertion' "$OUT/blr-cp007-v2-review.html"
+          grep -q '@media(max-width:700px)' "$OUT/blr-cp007-v2-review.html"
+
+      - name: Upload CP-007 V2 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-v2-remediation-logs
+          path: |
+            cp006-source.log
+            cp007-v1-baseline.log
+            cp007-v2.log
+            cp007-v2-export.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload CP-007 V2 review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-v2-remediation-review
+          path: cp007-v2-output
+          if-no-files-found: error
+          retention-days: 30
