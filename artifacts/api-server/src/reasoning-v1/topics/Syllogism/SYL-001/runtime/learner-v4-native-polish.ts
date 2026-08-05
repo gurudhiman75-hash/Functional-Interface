@@ -61,8 +61,6 @@ export function polishLearnerPresentationV4(
     .filter(Boolean);
   const conclusionResults = presentation.learnerExplanation.conclusionResults.map((entry) => ({
     ...entry,
-    label: polish(entry.label, locale)?.replace(/[.!?।]+$/u, "") ?? entry.label,
-    text: polish(entry.text, locale)?.replace(/[.!?।]+$/u, "") ?? entry.text,
     shortReason: polish(entry.shortReason, locale),
   }));
   const conclusion = polish(presentation.learnerExplanation.conclusion, locale) ?? presentation.learnerExplanation.conclusion;
@@ -71,11 +69,6 @@ export function polishLearnerPresentationV4(
 
   return {
     ...presentation,
-    answer: {
-      ...presentation.answer,
-      label: polish(presentation.answer.label, locale)?.replace(/[.!?।]+$/u, "") ?? presentation.answer.label,
-      text: polish(presentation.answer.text, locale)?.replace(/[.!?।]+$/u, "") ?? presentation.answer.text,
-    },
     learnerExplanation: {
       ...presentation.learnerExplanation,
       shortReasoning,
@@ -91,14 +84,7 @@ export function polishLearnerPresentationV4(
     },
     optionAnalysis: presentation.optionAnalysis.map((entry) => ({
       ...entry,
-      text: polish(entry.text, locale)?.replace(/[.!?।]+$/u, "") ?? entry.text,
-      verdictLabel: polish(entry.verdictLabel, locale)?.replace(/[.!?।]+$/u, "") ?? entry.verdictLabel,
       studentReason: polish(entry.studentReason, locale) ?? entry.studentReason,
     })),
-    diagram: {
-      ...presentation.diagram,
-      caption: polish(presentation.diagram.caption, locale),
-      accessibleDescription: polish(presentation.diagram.accessibleDescription, locale),
-    },
   };
 }
