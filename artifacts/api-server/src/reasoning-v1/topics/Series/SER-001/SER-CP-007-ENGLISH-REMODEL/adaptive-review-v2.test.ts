@@ -35,27 +35,42 @@ const probes: readonly Probe[] = [
   ...SER_CP007_TEMPORARY_TEMPLATES.map((template) => ({
     temporaryTemplateId: template.temporaryTemplateId,
     generate: (seed: number) =>
-      generateSerCp007Question(template.temporaryTemplateId, seed) as unknown as SerCp007EditorialQuestion,
+      generateSerCp007Question(
+        template.temporaryTemplateId,
+        seed,
+      ) as unknown as SerCp007EditorialQuestion,
   })),
   ...SER_CP007_WAVE_B_TEMPORARY_TEMPLATES.map((template) => ({
     temporaryTemplateId: template.temporaryTemplateId,
     generate: (seed: number) =>
-      generateSerCp007WaveBQuestion(template.temporaryTemplateId, seed) as unknown as SerCp007EditorialQuestion,
+      generateSerCp007WaveBQuestion(
+        template.temporaryTemplateId,
+        seed,
+      ) as unknown as SerCp007EditorialQuestion,
   })),
   ...SER_CP007_WAVE_C_TEMPORARY_TEMPLATES.map((template) => ({
     temporaryTemplateId: template.temporaryTemplateId,
     generate: (seed: number) =>
-      generateSerCp007WaveCQuestion(template.temporaryTemplateId, seed) as unknown as SerCp007EditorialQuestion,
+      generateSerCp007WaveCQuestion(
+        template.temporaryTemplateId,
+        seed,
+      ) as unknown as SerCp007EditorialQuestion,
   })),
   ...SER_CP007_WAVE_D_TEMPORARY_TEMPLATES.map((template) => ({
     temporaryTemplateId: template.temporaryTemplateId,
     generate: (seed: number) =>
-      generateSerCp007WaveDQuestion(template.temporaryTemplateId, seed) as unknown as SerCp007EditorialQuestion,
+      generateSerCp007WaveDQuestion(
+        template.temporaryTemplateId,
+        seed,
+      ) as unknown as SerCp007EditorialQuestion,
   })),
   ...SER_CP007_WAVE_E_TEMPORARY_TEMPLATES.map((template) => ({
     temporaryTemplateId: template.temporaryTemplateId,
     generate: (seed: number) =>
-      generateSerCp007WaveEQuestion(template.temporaryTemplateId, seed) as unknown as SerCp007EditorialQuestion,
+      generateSerCp007WaveEQuestion(
+        template.temporaryTemplateId,
+        seed,
+      ) as unknown as SerCp007EditorialQuestion,
   })),
 ];
 
@@ -72,15 +87,19 @@ function wordCount(value: string): number {
     .filter(Boolean).length;
 }
 
-function isSingleClusterProofTask(taskKind: SerCp007EditorialTaskKind): boolean {
+function requiresTermAnswerApplication(
+  taskKind: SerCp007EditorialTaskKind,
+): boolean {
   return [
     "NEXT_TERM",
     "MISSING_TERM",
     "PREVIOUS_TERM",
     "REPLACE_WRONG_TERM",
-    "FILL_GAPS",
-    "FILL_GAP_GROUPS",
   ].includes(taskKind);
+}
+
+function isGapCompletionTask(taskKind: SerCp007EditorialTaskKind): boolean {
+  return taskKind === "FILL_GAPS" || taskKind === "FILL_GAP_GROUPS";
 }
 
 const taskCounts = new Map<SerCp007EditorialTaskKind, number>();
@@ -88,6 +107,7 @@ const proofModelCounts = new Map<SerCp007ProofModel, number>();
 const reviewWords: number[] = [];
 let sampledReviews = 0;
 let decisiveAnswerProofs = 0;
+let gapReconstructionProofs = 0;
 let completePositionTableProofs = 0;
 let compressedWrongSeriesProofs = 0;
 let shortcutReviews = 0;
@@ -102,8 +122,14 @@ for (const probe of probes) {
 
     assert.ok(candidate.workedSteps.length > 0);
     assert.equal(new Set(candidate.workedSteps).size, candidate.workedSteps.length);
-    assert.doesNotMatch(candidate.workedSteps.join(" "), /^First write the correct series:/m);
-    assert.doesNotMatch(candidate.workedSteps.join(" "), /^First check the shown groups:/m);
+    assert.doesNotMatch(
+      candidate.workedSteps.join(" "),
+      /^First write the correct series:/m,
+    );
+    assert.doesNotMatch(
+      candidate.workedSteps.join(" "),
+      /^First check the shown groups:/m,
+    );
 
     const originalPositionRows = question.explanation.steps.filter((step) =>
       /^Position \d+:/i.test(step),
@@ -115,25 +141,41 @@ for (const probe of probes) {
     if (originalPositionRows.length > 0) {
       assert.deepEqual(selectedPositionRows, originalPositionRows);
       completePositionTableProofs += 1;
-    } else if (isSingleClusterProofTask(candidate.editorialTaskKind)) {
+    } else if (requiresTermAnswerApplication(candidate.editorialTaskKind)) {
       assert.ok(
-        candidate.workedSteps.some((step) => step.includes(question.correctAnswer)),
+        candidate.workedSteps.some((step) =>
+          step.includes(question.correctAnswer),
+        ),
         `${question.temporaryTemplateId}: worked proof does not apply the rule to ${question.correctAnswer}`,
       );
       decisiveAnswerProofs += 1;
     }
 
+    if (isGapCompletionTask(candidate.editorialTaskKind)) {
+      assert.equal(candidate.proofModel, "CONTINUOUS_GAP_COMPLETION");
+      assert.ok(
+        candidate.workedSteps.some((step) => /Complete line:/i.test(step)),
+        `${question.temporaryTemplateId}: gap proof does not reconstruct the complete line`,
+      );
+      gapReconstructionProofs += 1;
+    }
+
     if (candidate.editorialTaskKind === "MISSING_TERM") {
       if (originalPositionRows.length === 0) {
         assert.ok(
-          candidate.workedSteps.some((step) => step.includes(question.correctAnswer)),
+          candidate.workedSteps.some((step) =>
+            step.includes(question.correctAnswer),
+          ),
         );
       }
       missingTermAnswerProofs += 1;
     }
 
     if (candidate.editorialTaskKind === "REPLACE_WRONG_TERM") {
-      assert.doesNotMatch(candidate.workedSteps.join("\n"), /^First write the correct series:/m);
+      assert.doesNotMatch(
+        candidate.workedSteps.join("\n"),
+        /^First write the correct series:/m,
+      );
       assert.ok(candidate.review.includes(question.explanation.conclusion));
       compressedWrongSeriesProofs += 1;
     }
@@ -150,7 +192,10 @@ for (const probe of probes) {
     assert.doesNotMatch(candidate.review, /⚡ \*\*Quick Method\*\*/);
     assert.doesNotMatch(candidate.review, /⚠️ \*\*Common Mistake\*\*/);
     assert.doesNotMatch(candidate.review, /\[[A-Z][A-Z0-9_]*\]/);
-    assert.doesNotMatch(candidate.review, /editorial task|proof model|trap code|canonical authority/i);
+    assert.doesNotMatch(
+      candidate.review,
+      /editorial task|proof model|trap code|canonical authority/i,
+    );
 
     increment(taskCounts, candidate.editorialTaskKind);
     increment(proofModelCounts, candidate.proofModel);
@@ -161,6 +206,7 @@ for (const probe of probes) {
 assert.equal(sampledReviews, 420);
 assert.equal(proofModelCounts.size, 6);
 assert.equal(missingTermAnswerProofs, 99);
+assert.equal(gapReconstructionProofs, 12);
 assert.equal(compressedWrongSeriesProofs, 99);
 assert.ok(decisiveAnswerProofs > 0);
 assert.ok(completePositionTableProofs > 0);
@@ -184,6 +230,7 @@ console.log(
       proofModels: Object.fromEntries([...proofModelCounts.entries()].sort()),
       editorialTaskCounts: Object.fromEntries([...taskCounts.entries()].sort()),
       decisiveAnswerProofs,
+      gapReconstructionProofs,
       completePositionTableProofs,
       missingTermAnswerProofs,
       compressedWrongSeriesProofs,
@@ -201,7 +248,8 @@ console.log(
       manualEnglishApproval: "PENDING",
       englishDiscoveryFreeze: "BLOCKED",
       permanentQls: 0,
-      nextAuthority: "SER_CP007_ADAPTIVE_ENGLISH_CANDIDATE_V2_MANUAL_REVIEW",
+      nextAuthority:
+        "SER_CP007_ADAPTIVE_ENGLISH_CANDIDATE_V2_MANUAL_REVIEW",
     },
     null,
     2,
