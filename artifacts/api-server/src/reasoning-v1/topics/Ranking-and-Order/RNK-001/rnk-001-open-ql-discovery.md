@@ -1,6 +1,6 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001, CP-002 and CP-003 frozen at `RNK-QL-001..026`; CP-004 English executable discovery is active**.
+Status: **CP-001, CP-002 and CP-003 frozen at `RNK-QL-001..026`; CP-004 English Remodel V3 review is active**.
 
 This register prevents premature chapter sizing. Each checkpoint discovers permanent identities from source evidence, executable solver contracts, inverse directions, edge states, representations and ownership audits. Counts are never quotas.
 
@@ -58,19 +58,19 @@ Open CP-003 source dimensions: `0`.
 
 ## 4. Active checkpoint — RNK-CP-004
 
-### First executable wave
+### Remodel V3 executable wave
 
 ```text
-provisional prototypes:          10
-runtime seeds per prototype:    240
-runtime questions:            2,400
-English review questions:        60
+provisional authorities:         11
+runtime seeds per authority:    240
+runtime questions:            2,640
+English review questions:        66
 manual English approval:    pending
 permanent QLs:                  none
 next available identity: RNK-QL-027
 ```
 
-The first executable prototypes are:
+The current provisional authorities are:
 
 ```text
 HIGHEST_ENTITY
@@ -80,35 +80,72 @@ RANK_OF_NAMED_ENTITY
 MIDDLE_ENTITY
 COMPLETE_ORDER
 RELATIVE_ORDER_OF_PAIR
+EXACT_RANK_DIFFERENCE_OF_PAIR
 IMMEDIATE_NEIGHBOUR
 VALID_RANK_STATEMENT
 MISSING_COMPARISON
 ```
 
-The exact-order engine constructs a strict hidden order, derives connected comparison clues and independently reconstructs one unique topological order from displayed evidence.
+`RELATIVE_ORDER_OF_PAIR` owns direction only. `EXACT_RANK_DIFFERENCE_OF_PAIR` is a separate provisional authority because it requires complete-position proof and rank arithmetic.
 
-The missing-comparison family exposes two internally ordered blocks and requires exactly one offered relation to join them into one complete order.
+### Proof model
 
-### Current proof targets
+The exact-order engine constructs a strict hidden order and independently reconstructs one unique topological order from displayed evidence.
 
-- deterministic generation across all ten prototypes;
-- entity counts 5, 6, 7 and 8;
-- all four answer positions;
+Remodel V3 records three distinct proof demands:
+
+```text
+shortestDirectionalPathClues
+shortestExactPositionProofClues
+fullOrderProofClues
+```
+
+A directional path is not treated as proof of exact distance or immediate adjacency.
+
+### Topology boundary
+
+A unique total order from pairwise comparisons requires an adjacent-pair backbone. CP-004 therefore uses:
+
+```text
+CHAIN_BACKBONE
+CHAIN_WITH_NON_ADJACENT_VERIFICATION
+TWO_ORDERED_BLOCKS
+```
+
+Genuinely branched, partial and non-unique orders remain owned by CP-007.
+
+### Current executable evidence
+
+```text
+average visible explanation words:       41.95
+review adjacent-edge ratio:               0.8855
+runtime questions with non-adjacent links: 1,602
+normalized semantic duplicates:               0
+answer positions:                     16/17/17/16
+repeated four-answer sequences:                0
+```
+
+### Current proof targets passed
+
+- deterministic generation and independent answer proof;
+- entity counts 5–8;
 - Easy, Medium and Hard reachability;
-- unique four-option construction;
-- cycle, ambiguity, duplicate-name, unknown-name and self-comparison rejection;
-- learner-facing order-chain explanations;
-- release and product lifecycle locks.
+- direction-only versus exact-distance ownership separation;
+- exact-position proof for distance and adjacency;
+- distinct complete-order contradiction targets;
+- neutral missing-comparison block labels;
+- consistent-but-insufficient wrong bridge options;
+- semantic duplicate and answer-sequence controls;
+- lifecycle and publication locks.
 
 ### Still open before consolidation
 
+- manual English approval of the 66-question Remodel V3 pack;
 - source saturation beyond the first reference pass;
 - inverse and reverse query audit;
-- endpoint, exact-rank and relation merge/split proof;
-- minimal versus redundant clue patterns;
-- wording and explanation repetition review;
+- endpoint, exact-rank, relation and distance merge/split proof;
 - ownership audit against CP-005, CP-006 and CP-007;
-- manual English approval;
+- final provisional-authority consolidation;
 - permanent QL allocation and freeze proof.
 
 No CP-004 QL count is allocated.
