@@ -89,14 +89,42 @@ function identityWithNoDiagram(
   };
 }
 
-function relationAwareModelOrOmission(
+function strictLegend(locale: SylLocale): { oldText: string; newText: string } {
+  if (locale === "hi-IN") {
+    return {
+      oldText: "जिन वर्गों के बीच न कथन-संबंध है और न साझा मॉडल-सदस्य, उनके वृत्त अलग हैं।",
+      newText: "जिन वर्गों के बीच कथनों से कोई प्रत्यक्ष या निष्कर्षित संबंध नहीं बनता, उनके वृत्त हमेशा अलग हैं।",
+    };
+  }
+  if (locale === "pa-IN") {
+    return {
+      oldText: "ਜਿਨ੍ਹਾਂ ਵਰਗਾਂ ਵਿਚ ਨਾ ਕਥਨ-ਸੰਬੰਧ ਹੈ ਅਤੇ ਨਾ ਸਾਂਝਾ ਮਾਡਲ-ਮੈਂਬਰ, ਉਨ੍ਹਾਂ ਦੇ ਘੇਰੇ ਵੱਖ ਹਨ।",
+      newText: "ਜਿਨ੍ਹਾਂ ਵਰਗਾਂ ਵਿਚ ਕਥਨਾਂ ਤੋਂ ਕੋਈ ਸਿੱਧਾ ਜਾਂ ਨਿਕਲਿਆ ਸੰਬੰਧ ਨਹੀਂ ਬਣਦਾ, ਉਨ੍ਹਾਂ ਦੇ ਘੇਰੇ ਹਮੇਸ਼ਾਂ ਵੱਖ ਹਨ।",
+    };
+  }
+  return {
+    oldText: "Classes with neither a premise relation nor a shared model member are shown separately.",
+    newText: "Classes with no stated or derived relation are always shown separately.",
+  };
+}
+
+function applyStrictLegend(
+  diagram: SylLearnerPresentationV4["diagram"],
+  locale: SylLocale,
+): SylLearnerPresentationV4["diagram"] {
+  const copy = strictLegend(locale);
+  return {
+    ...diagram,
+    svg: diagram.svg?.replaceAll(copy.oldText, copy.newText) ?? null,
+    caption: diagram.caption?.replaceAll(copy.oldText, copy.newText) ?? null,
+    accessibleDescription: diagram.accessibleDescription?.replaceAll(copy.oldText, copy.newText) ?? null,
+  };
+}
+
+function strictOmission(
   presentation: SylLearnerPresentationV4,
-  input: VisualRemediationInputV4,
-): SylLearnerPresentationV4["diagram"] | null {
-  const modelModes = new Set(["VENN_COUNTEREXAMPLE", "VENN_POSSIBILITY", "VENN_DUAL_MODEL"]);
-  if (!modelModes.has(presentation.diagram.mode)) return null;
-  const rendered = renderRelationAwareModelDiagramV4(presentation, input);
-  if (rendered) return rendered;
+  reason: "MODEL_ONLY_OVERLAP" | "NO_STABLE_SIMPLE_VENN",
+): SylLearnerPresentationV4["diagram"] {
   return {
     enabled: false,
     mode: "OMITTED_NOT_USEFUL",
@@ -104,12 +132,33 @@ function relationAwareModelOrOmission(
     svg: null,
     caption: null,
     accessibleDescription: null,
-    semanticSignature: `OMIT:RELATION_AWARE:${presentation.diagram.semanticSignature}`,
+    semanticSignature: `OMIT:STRICT_NO_UNRELATED_OVERLAP:${reason}:${presentation.diagram.semanticSignature}`,
     modelSignature: presentation.diagram.modelSignature,
     answerSentenceEmbedded: false,
     mobileViewBoxWidth: 360,
     diagramCount: 0,
   };
+}
+
+function relationAwareModelOrOmission(
+  presentation: SylLearnerPresentationV4,
+  input: VisualRemediationInputV4,
+): SylLearnerPresentationV4["diagram"] | null {
+  const modelModes = new Set(["VENN_COUNTEREXAMPLE", "VENN_POSSIBILITY", "VENN_DUAL_MODEL"]);
+  if (!modelModes.has(presentation.diagram.mode)) return null;
+  const rendered = renderRelationAwareModelDiagramV4(presentation, input);
+  if (!rendered) return strictOmission(presentation, "NO_STABLE_SIMPLE_VENN");
+
+  // A model may place one possible member in two classes even when the
+  // statements establish no relation between those classes. That is a valid
+  // model-theory device, but it visually suggests a relation to learners.
+  // ExamTree's learner diagram rule is stricter: no stated or derived relation
+  // means no overlap. Such a model diagram is omitted instead of displayed.
+  if (rendered.svg?.includes('data-basis="MODEL_WITNESS"')) {
+    return strictOmission(presentation, "MODEL_ONLY_OVERLAP");
+  }
+
+  return applyStrictLegend(rendered, input.locale);
 }
 
 export function remediateLearnerVisualV4(
