@@ -1,4 +1,5 @@
 import type {
+  CanonicalConclusion,
   CanonicalModel,
   SurfacePremise,
   SylLocale,
@@ -80,6 +81,30 @@ function modelSignature(model: CanonicalModel | null): string | null {
   return `${model.termOrder.join(",")}|${masks.join(",")}`;
 }
 
+function parseConclusion(value: string): CanonicalConclusion | null {
+  const [form, subject, predicate] = value.split(":");
+  if (!["ALL", "NO", "SOME", "SOME_NOT"].includes(form) || !subject || !predicate) return null;
+  return {
+    conclusionId: `V4-DIAGRAM-${form}-${subject}-${predicate}`,
+    form: form as CanonicalConclusion["form"],
+    subject: subject as TermId,
+    predicate: predicate as TermId,
+  };
+}
+
+function fittedText(
+  x: number,
+  y: number,
+  text: string,
+  className: string,
+  maxWidth: number,
+): string {
+  const fit = [...text].length > 7
+    ? ` textLength="${maxWidth}" lengthAdjust="spacingAndGlyphs"`
+    : "";
+  return `<text x="${x}" y="${y}" text-anchor="middle" class="${className}"${fit}>${esc(text)}</text>`;
+}
+
 function circle(cx: number, cy: number, r: number, cls: string, term: TermId, text: string): string {
   return `<g data-set="${esc(term)}"><circle cx="${cx}" cy="${cy}" r="${r}" class="${cls}"/><text x="${cx}" y="${cy - r + 19}" text-anchor="middle" class="set-label">${esc(text)}</text></g>`;
 }
@@ -111,9 +136,7 @@ function twoSet(relationValue: Relation, input: VennInputV4, impossible = false)
       body,
       height: 220,
       caption: impossible ? c.captionImpossible(a, b) : c.captionContainment(a, b),
-      description: impossible
-        ? `${a} is contained in ${b}; a member of ${a} outside ${b} is forbidden.`
-        : c.captionContainment(a, b),
+      description: impossible ? c.captionImpossible(a, b) : c.captionContainment(a, b),
       semanticSignature: `${impossible ? "IMPOSSIBLE:" : ""}${signature}`,
       modelSignature: null,
     };
@@ -181,6 +204,72 @@ function twoSet(relationValue: Relation, input: VennInputV4, impossible = false)
     semanticSignature: signature,
     modelSignature: null,
   };
+}
+
+function impossibleConclusionDiagram(
+  semanticValue: string,
+  input: VennInputV4,
+): SvgResult | null {
+  const conclusion = parseConclusion(semanticValue);
+  if (!conclusion) return null;
+  const subject = label(conclusion.subject, input);
+  const predicate = label(conclusion.predicate, input);
+  const subjectOnly = `${conclusion.subject}&!${conclusion.predicate}`;
+  const overlap = `${conclusion.subject}&${conclusion.predicate}`;
+
+  if (conclusion.form === "ALL") {
+    const bodyBase = `${circle(138, 112, 76, "set-a", conclusion.subject, subject)}${circle(222, 112, 76, "set-b", conclusion.predicate, predicate)}`;
+    const body = `<g data-relation="IMPOSSIBLE_ALL" data-invalid-conclusion="ALL">${bodyBase}${witness(102, 125, subjectOnly)}<circle cx="102" cy="117" r="18" class="counter-ring"/></g>`;
+    const caption = input.locale === "en-IN"
+      ? `The × is ${subject} but not ${predicate}. Therefore, not all ${subject} are ${predicate}.`
+      : input.locale === "hi-IN"
+        ? `× ${subject} है, लेकिन ${predicate} नहीं है। इसलिए सभी ${subject}, ${predicate} नहीं हैं।`
+        : `× ${subject} ਹੈ, ਪਰ ${predicate} ਨਹੀਂ ਹੈ। ਇਸ ਲਈ ਸਾਰੇ ${subject}, ${predicate} ਨਹੀਂ ਹਨ।`;
+    return {
+      mode: "VENN_IMPOSSIBLE",
+      body,
+      height: 220,
+      caption,
+      description: caption,
+      semanticSignature: `IMPOSSIBLE:ALL:${conclusion.subject}:${conclusion.predicate}`,
+      modelSignature: null,
+    };
+  }
+
+  if (conclusion.form === "NO") {
+    const bodyBase = `${circle(138, 112, 76, "set-a", conclusion.subject, subject)}${circle(222, 112, 76, "set-b", conclusion.predicate, predicate)}`;
+    const body = `<g data-relation="IMPOSSIBLE_NO" data-invalid-conclusion="NO">${bodyBase}${witness(180, 125, overlap)}<circle cx="180" cy="117" r="18" class="counter-ring"/></g>`;
+    const caption = input.locale === "en-IN"
+      ? `The × belongs to both ${subject} and ${predicate}, so the two sets cannot be completely separate.`
+      : input.locale === "hi-IN"
+        ? `× ${subject} और ${predicate} दोनों में है, इसलिए दोनों वर्ग पूरी तरह अलग नहीं हो सकते।`
+        : `× ${subject} ਅਤੇ ${predicate} ਦੋਵਾਂ ਵਿੱਚ ਹੈ, ਇਸ ਲਈ ਦੋਵੇਂ ਵਰਗ ਪੂਰੀ ਤਰ੍ਹਾਂ ਵੱਖ ਨਹੀਂ ਹੋ ਸਕਦੇ।`;
+    return {
+      mode: "VENN_IMPOSSIBLE",
+      body,
+      height: 220,
+      caption,
+      description: caption,
+      semanticSignature: `IMPOSSIBLE:NO:${conclusion.subject}:${conclusion.predicate}`,
+      modelSignature: null,
+    };
+  }
+
+  if (conclusion.form === "SOME") {
+    return twoSet({
+      kind: "NO",
+      subject: conclusion.subject,
+      predicate: conclusion.predicate,
+      premiseId: conclusion.conclusionId,
+    }, input, true);
+  }
+
+  return twoSet({
+    kind: "ALL",
+    subject: conclusion.subject,
+    predicate: conclusion.predicate,
+    premiseId: conclusion.conclusionId,
+  }, input, true);
 }
 
 function universalChain(relations: readonly Relation[], input: VennInputV4): SvgResult | null {
@@ -280,45 +369,103 @@ function allAndNo(relations: readonly Relation[], input: VennInputV4): SvgResult
   };
 }
 
-const REGION_POINTS: Readonly<Record<string, readonly [number, number]>> = {
-  "": [180, 190],
-  "0": [88, 108],
-  "1": [272, 108],
-  "2": [180, 174],
-  "0,1": [180, 92],
-  "0,2": [132, 142],
-  "1,2": [228, 142],
-  "0,1,2": [180, 126],
+const FULL_REGION_POINTS: Readonly<Record<string, readonly [number, number]>> = {
+  "": [180, 294],
+  "0": [73, 130],
+  "1": [287, 130],
+  "2": [180, 232],
+  "0,1": [180, 100],
+  "0,2": [120, 182],
+  "1,2": [240, 182],
+  "0,1,2": [180, 150],
 };
 
-function modelPanel(
+const MINI_REGION_POINTS: Readonly<Record<string, readonly [number, number]>> = {
+  "": [87, 190],
+  "0": [25, 98],
+  "1": [149, 98],
+  "2": [87, 158],
+  "0,1": [87, 74],
+  "0,2": [56, 126],
+  "1,2": [118, 126],
+  "0,1,2": [87, 104],
+};
+
+function modelMemberKey(model: CanonicalModel, regionTerms: readonly TermId[]): string {
+  return model.termOrder.slice(0, 3)
+    .map((term, index) => regionTerms.includes(term) ? String(index) : null)
+    .filter((entry): entry is string => entry !== null)
+    .join(",");
+}
+
+function fullModelPanel(
   model: CanonicalModel,
   input: VennInputV4,
-  xOffset: number,
-  yOffset: number,
-  scale: number,
   heading: string,
   panelId: string,
 ): string {
   const terms = model.termOrder.slice(0, 3);
-  const centers: readonly [number, number][] = [[125, 105], [235, 105], [180, 175]];
   const classes = ["set-a", "set-b", "set-c"] as const;
+  const centers: readonly [number, number][] = terms.length === 2
+    ? [[128, 150], [232, 150]]
+    : [[125, 130], [235, 130], [180, 202]];
+  const radius = terms.length === 2 ? 78 : 74;
+  const labelPositions: readonly [number, number][] = terms.length === 2
+    ? [[78, 82], [282, 82]]
+    : [[72, 74], [288, 74], [180, 286]];
   const circles = terms.map((term, index) => {
     const [cx, cy] = centers[index];
-    return circle(cx, cy, 72, classes[index], term, label(term, input));
+    const [lx, ly] = labelPositions[index];
+    return `<g data-set="${esc(term)}"><circle cx="${cx}" cy="${cy}" r="${radius}" class="${classes[index]}"/>${fittedText(lx, ly, label(term, input), "model-label", 76)}</g>`;
   }).join("");
   const points = model.occupiedRegions.map((region, index) => {
-    const members = terms
-      .map((term, termIndex) => region.memberTerms.includes(term) ? String(termIndex) : null)
-      .filter((entry): entry is string => entry !== null)
-      .join(",");
-    const [x, y] = REGION_POINTS[members] ?? [180, 205];
-    return witness(x, y, members || "outside-all", String(index + 1));
+    const key = modelMemberKey(model, region.memberTerms);
+    const pointMap = terms.length === 2
+      ? { "": [180, 278], "0": [72, 155], "1": [288, 155], "0,1": [180, 155] } as const
+      : FULL_REGION_POINTS;
+    const [x, y] = pointMap[key as keyof typeof pointMap] ?? [180, 294];
+    return witness(x, y, key || "outside-all", String(index + 1));
   }).join("");
-  return `<g transform="translate(${xOffset} ${yOffset}) scale(${scale})" data-model-panel="${esc(panelId)}">
-    <rect x="8" y="8" width="344" height="222" rx="14" class="panel"/>
+  return `<g data-model-panel="${esc(panelId)}">
+    <rect x="8" y="8" width="344" height="300" rx="14" class="panel"/>
     <text x="180" y="30" text-anchor="middle" class="panel-label">${esc(heading)}</text>
-    <g transform="translate(0 20)">${circles}${points}</g>
+    ${circles}${points}
+  </g>`;
+}
+
+function miniModelPanel(
+  model: CanonicalModel,
+  input: VennInputV4,
+  xOffset: number,
+  heading: string,
+  panelId: string,
+): string {
+  const terms = model.termOrder.slice(0, 3);
+  const classes = ["set-a", "set-b", "set-c"] as const;
+  const centers: readonly [number, number][] = terms.length === 2
+    ? [[57, 103], [117, 103]]
+    : [[55, 92], [119, 92], [87, 138]];
+  const radius = terms.length === 2 ? 44 : 42;
+  const labelPositions: readonly [number, number][] = terms.length === 2
+    ? [[30, 58], [144, 58]]
+    : [[28, 53], [146, 53], [87, 184]];
+  const circles = terms.map((term, index) => {
+    const [cx, cy] = centers[index];
+    const [lx, ly] = labelPositions[index];
+    return `<g data-set="${esc(term)}"><circle cx="${cx}" cy="${cy}" r="${radius}" class="${classes[index]}"/>${fittedText(lx, ly, label(term, input), "mini-model-label", 50)}</g>`;
+  }).join("");
+  const twoTermPoints: Readonly<Record<string, readonly [number, number]>> = {
+    "": [87, 190], "0": [24, 105], "1": [150, 105], "0,1": [87, 105],
+  };
+  const points = model.occupiedRegions.map((region, index) => {
+    const key = modelMemberKey(model, region.memberTerms);
+    const [x, y] = (terms.length === 2 ? twoTermPoints : MINI_REGION_POINTS)[key] ?? [87, 190];
+    return `<text x="${x}" y="${y}" text-anchor="middle" class="mini-witness" data-witness-region="${esc(key || "outside-all")}">×${index + 1}</text>`;
+  }).join("");
+  return `<g transform="translate(${xOffset} 0)" data-model-panel="${esc(panelId)}">
+    <rect x="2" y="8" width="174" height="198" rx="12" class="panel"/>
+    <text x="87" y="29" text-anchor="middle" class="panel-label">${esc(heading)}</text>
+    ${circles}${points}
   </g>`;
 }
 
@@ -330,12 +477,12 @@ function modelDiagram(
   if (model.termOrder.length > 3 || model.termOrder.length < 2) return null;
   const c = learnerCopyV4(input.locale);
   const heading = mode === "VENN_COUNTEREXAMPLE" ? c.modelFalse : c.oneValidArrangement;
-  const body = modelPanel(model, input, 0, 0, 1, heading, mode);
+  const body = fullModelPanel(model, input, heading, mode);
   const caption = mode === "VENN_COUNTEREXAMPLE" ? c.captionCounterexample : c.captionPossibility;
   return {
     mode,
     body,
-    height: 248,
+    height: 318,
     caption,
     description: caption,
     semanticSignature: `${mode}:${model.termOrder.join(",")}:${modelSignature(model)}`,
@@ -351,11 +498,11 @@ function dualModelDiagram(
   const terms = new Set([...primary.termOrder, ...alternate.termOrder]);
   if (terms.size > 3 || terms.size < 2) return null;
   const c = learnerCopyV4(input.locale);
-  const body = `${modelPanel(primary, input, 0, 0, .49, c.modelTrue, "TRUE")}${modelPanel(alternate, input, 183, 0, .49, c.modelFalse, "FALSE")}`;
+  const body = `${miniModelPanel(primary, input, 0, c.modelTrue, "TRUE")}${miniModelPanel(alternate, input, 184, c.modelFalse, "FALSE")}`;
   return {
     mode: "VENN_DUAL_MODEL",
     body,
-    height: 128,
+    height: 214,
     caption: c.captionDual,
     description: c.captionDual,
     semanticSignature: `DUAL:${modelSignature(primary)}:${modelSignature(alternate)}`,
@@ -404,7 +551,11 @@ function wrapSvg(result: SvgResult, proof: SylStructuredProofV3, locale: SylLoca
       .set-c{fill:#e2e8f0;fill-opacity:.72;stroke:#475569;stroke-width:2.5}
       .set-label,.mini-label{font:700 14px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#0f172a}
       .mini-label{font-size:11px}
+      .model-label{font:750 12px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#0f172a}
+      .mini-model-label{font:750 9.5px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#0f172a}
       .witness{font:900 25px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#111827}
+      .mini-witness{font:900 15px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#111827}
+      .counter-ring{fill:none;stroke:#dc2626;stroke-width:3}
       .forbidden{stroke:#dc2626;stroke-width:3;stroke-linecap:round}
       .panel{fill:#fff;stroke:#94a3b8;stroke-width:1.5}
       .panel-label{font:800 12px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#0f172a;letter-spacing:.03em}
@@ -460,9 +611,7 @@ export function renderVennDiagramV4(
   } else if (input.learnerMode === "WITNESS_TRANSFER") {
     result = witnessTransfer(relations, input);
   } else if (input.learnerMode === "DIRECT_CONTRADICTION") {
-    const no = relations.find((entry) => entry.kind === "NO");
-    const all = relations.find((entry) => entry.kind === "ALL");
-    result = no ? twoSet(no, input, true) : all ? twoSet(all, input, true) : null;
+    result = impossibleConclusionDiagram(input.correctSemanticValue, input);
   } else {
     result = universalChain(relations, input)
       ?? witnessTransfer(relations, input)
