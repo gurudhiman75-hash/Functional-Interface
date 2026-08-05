@@ -1,4 +1,5 @@
 import type { SurfacePremise, SylLocale, TermId } from "../foundation/types";
+import { renderRelationAwareModelDiagramV4 } from "./learner-v4-model-topology";
 import type { SylLearnerPresentationV4 } from "./learner-v4-types";
 
 interface VisualRemediationInputV4 {
@@ -18,12 +19,6 @@ function esc(value: string): string {
 
 function label(term: TermId, input: VisualRemediationInputV4): string {
   return input.termLabels[term] ?? term;
-}
-
-function modelLegend(locale: SylLocale): string {
-  if (locale === "hi-IN") return "हर × एक संभावित सदस्य दिखाता है; अंक अलग सदस्यों को पहचानते हैं।";
-  if (locale === "pa-IN") return "ਹਰ × ਇੱਕ ਸੰਭਵ ਮੈਂਬਰ ਦਿਖਾਉਂਦਾ ਹੈ; ਅੰਕ ਵੱਖਰੇ ਮੈਂਬਰਾਂ ਨੂੰ ਪਛਾਣਦੇ ਹਨ।";
-  return "Each × represents one possible member; the numbers distinguish different members.";
 }
 
 function identityNoCaption(
@@ -94,25 +89,26 @@ function identityWithNoDiagram(
   };
 }
 
-function improveModelDiagram(
+function relationAwareModelOrOmission(
   presentation: SylLearnerPresentationV4,
   input: VisualRemediationInputV4,
-): SylLearnerPresentationV4["diagram"] {
-  const diagram = presentation.diagram;
-  if (!diagram.enabled || !diagram.svg) return diagram;
+): SylLearnerPresentationV4["diagram"] | null {
   const modelModes = new Set(["VENN_COUNTEREXAMPLE", "VENN_POSSIBILITY", "VENN_DUAL_MODEL"]);
-  if (!modelModes.has(diagram.mode)) return diagram;
-  const legend = modelLegend(input.locale);
-  const caption = `${diagram.caption ?? ""} ${legend}`.trim();
-  const accessibleDescription = `${diagram.accessibleDescription ?? diagram.caption ?? ""} ${legend}`.trim();
-  const svg = diagram.svg
-    .replace(".mini-model-label{font:750 9.5px", ".mini-model-label{font:750 12px")
-    .replace(".mini-witness{font:900 15px", ".mini-witness{font:900 17px");
+  if (!modelModes.has(presentation.diagram.mode)) return null;
+  const rendered = renderRelationAwareModelDiagramV4(presentation, input);
+  if (rendered) return rendered;
   return {
-    ...diagram,
-    svg,
-    caption,
-    accessibleDescription,
+    enabled: false,
+    mode: "OMITTED_NOT_USEFUL",
+    omissionReason: "NO_STABLE_SIMPLE_VENN",
+    svg: null,
+    caption: null,
+    accessibleDescription: null,
+    semanticSignature: `OMIT:RELATION_AWARE:${presentation.diagram.semanticSignature}`,
+    modelSignature: presentation.diagram.modelSignature,
+    answerSentenceEmbedded: false,
+    mobileViewBoxWidth: 360,
+    diagramCount: 0,
   };
 }
 
@@ -123,7 +119,8 @@ export function remediateLearnerVisualV4(
   const identityNo = presentation.diagram.mode === "VENN_SEPARATION"
     ? identityWithNoDiagram(presentation, input)
     : null;
-  const diagram = identityNo ?? improveModelDiagram(presentation, input);
+  const modelDiagram = relationAwareModelOrOmission(presentation, input);
+  const diagram = identityNo ?? modelDiagram ?? presentation.diagram;
   return {
     ...presentation,
     learnerExplanation: {
