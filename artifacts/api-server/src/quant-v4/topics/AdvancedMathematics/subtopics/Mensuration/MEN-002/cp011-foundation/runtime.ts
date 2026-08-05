@@ -15,6 +15,7 @@ const SUPPORTED_VISIBLE_TEX_COMMANDS = new Set([
   "frac",
   "text",
   "times",
+  "div",
   "quad",
   "qquad",
   "sqrt",
@@ -71,7 +72,7 @@ function revalidateVisibleTex(
       ? {
           ...check,
           passed: texValid,
-          message: "Visible TeX must use supported MathJax commands, including valid spacing commands such as \\quad and \\qquad, while rejecting \\pih, unknown commands and unbalanced delimiters.",
+          message: "Visible TeX must use supported MathJax commands, including valid arithmetic and spacing commands such as \\div, \\quad and \\qquad, while rejecting \\pih, unknown commands and unbalanced delimiters.",
         }
       : check,
   );
