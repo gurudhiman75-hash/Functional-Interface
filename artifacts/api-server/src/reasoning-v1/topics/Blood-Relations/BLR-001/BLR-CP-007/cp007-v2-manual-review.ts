@@ -6,6 +6,19 @@ import type {
 } from "./cp007-v2-model";
 import { buildAccessibleBlrCp007V2Explanation } from "./cp007-v2-accessibility";
 
+function preserveEstablishedWording(value: string): string {
+  const invalid = value.replace(
+    "Correct choice: the statement is not valid.",
+    "Correct choice: the statement is invalid.",
+  );
+  const validDistractor = invalid.match(
+    /^Not the answer: (.*) This interpretation is valid, so it cannot be selected in an “incorrect statement” question\.$/u,
+  );
+  return validDistractor
+    ? `Not the answer: this statement is valid. ${validDistractor[1]} It should not be selected in an “incorrect statement” question.`
+    : invalid;
+}
+
 export function buildManualReviewedBlrCp007V2Explanation(
   scenario: BlrCp007Scenario,
   options: readonly BlrCp007V2Option[],
@@ -22,10 +35,7 @@ export function buildManualReviewedBlrCp007V2Explanation(
     ...source,
     optionAnalysis: source.optionAnalysis.map((analysis) => ({
       ...analysis,
-      explanation: analysis.explanation.replace(
-        "Correct choice: the statement is not valid.",
-        "Correct choice: the statement is invalid.",
-      ),
+      explanation: preserveEstablishedWording(analysis.explanation),
     })),
   };
   if (explanation.mode !== "DIRECT_LOOKUP_MINIMAL") return explanation;
