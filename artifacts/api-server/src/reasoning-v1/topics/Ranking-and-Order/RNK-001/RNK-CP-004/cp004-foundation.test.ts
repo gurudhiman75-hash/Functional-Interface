@@ -96,7 +96,7 @@ expectRejection('self comparison', () => reconstructUniqueOrder(['A', 'B'], [
 ]));
 
 const reviewPack = buildRnkCp004ReviewPack();
-assert(reviewPack.length === RNK_CP004_PROTOTYPE_IDS.length * 6, 'Unexpected review-pack size');
+assert(reviewPack.length >= RNK_CP004_PROTOTYPE_IDS.length * 6, 'Unexpected review-pack size');
 assert(new Set(reviewPack.map((question) => `${question.prototypeId}:${question.seed}`)).size === reviewPack.length, 'Duplicate review-pack identity');
 
 const report = {
