@@ -42,6 +42,7 @@ export interface SerCp007AdaptiveReview {
   readonly proofModel: SerCp007ProofModel;
   readonly stem: string;
   readonly review: string;
+  readonly workedSteps: readonly string[];
   readonly renderedShortcut: boolean;
   readonly renderedCheck: boolean;
 }
@@ -150,24 +151,55 @@ function uniqueSteps(steps: readonly string[]): readonly string[] {
   return [...new Set(steps.map((step) => step.trim()).filter(Boolean))];
 }
 
+function decisiveStep(
+  steps: readonly string[],
+  correctAnswer: string,
+): string | undefined {
+  return [...steps]
+    .reverse()
+    .find((step) => step.includes(correctAnswer));
+}
+
+function structuralSteps(steps: readonly string[]): readonly string[] {
+  return steps.filter(
+    (step) =>
+      !/^First write the correct series:/i.test(step) &&
+      !/^First check the shown groups:/i.test(step) &&
+      !/^Now move one step backward/i.test(step),
+  );
+}
+
 function selectSteps(
   question: SerCp007EditorialQuestion,
   proofModel: SerCp007ProofModel,
 ): readonly string[] {
-  const steps = uniqueSteps(question.explanation.steps);
-  if (steps.length <= 3) return steps;
+  const allSteps = uniqueSteps(question.explanation.steps);
+  if (allSteps.length <= 3) return allSteps;
 
-  if (proofModel === "INTERLEAVED_ROWS") return steps.slice(0, 4);
-  if (proofModel === "CONTINUOUS_GAP_COMPLETION") return steps.slice(0, 3);
+  const structural = structuralSteps(allSteps);
+  const usable = structural.length > 0 ? structural : allSteps;
+  const decisive = decisiveStep(usable, question.correctAnswer) ?? usable.at(-1)!;
 
-  if (
-    question.taskKind === "WRONG_TERM" ||
-    question.taskKind === "PREVIOUS_TERM"
-  ) {
-    return steps.slice(0, 3);
+  if (proofModel === "DIRECT_COLUMN_MOVEMENT") {
+    const positionRows = usable.filter((step) => /^Position \d+:/i.test(step));
+    if (positionRows.length > 0) return positionRows;
   }
 
-  return uniqueSteps([steps[0]!, steps[1]!, steps.at(-1)!]);
+  if (proofModel === "INTERLEAVED_ROWS") {
+    const rows = usable.filter((step) => /(?:^|-)position row:/i.test(step));
+    if (rows.length > 0) return rows;
+  }
+
+  if (proofModel === "CONTINUOUS_GAP_COMPLETION") {
+    return uniqueSteps([...usable.slice(0, 2), decisive]);
+  }
+
+  if (question.taskKind === "PREVIOUS_TERM") {
+    const backward = allSteps.find((step) => /move one step backward/i.test(step));
+    return uniqueSteps([...(backward ? [backward] : []), decisive]);
+  }
+
+  return uniqueSteps([usable[0]!, usable[1]!, decisive]);
 }
 
 function tokens(value: string): Set<string> {
@@ -190,7 +222,20 @@ function similarity(left: string, right: string): number {
   return intersection / union.size;
 }
 
-function shouldRenderShortcut(question: SerCp007EditorialQuestion): boolean {
+function shouldRenderShortcut(
+  question: SerCp007EditorialQuestion,
+  proofModel: SerCp007ProofModel,
+): boolean {
+  const eligible =
+    proofModel === "INTERLEAVED_ROWS" ||
+    proofModel === "CONTINUOUS_GAP_COMPLETION" ||
+    proofModel === "MARKER_OR_BOUNDARY_MOVEMENT" ||
+    (proofModel === "DIRECT_COLUMN_MOVEMENT" &&
+      /each letter position|top to bottom by position/i.test(
+        question.explanation.rule,
+      ));
+  if (!eligible) return false;
+
   const shortcut = question.explanation.quickMethod.trim();
   if (shortcut.length === 0) return false;
   const shortcutWords = shortcut.split(/\s+/).length;
@@ -202,13 +247,12 @@ function shouldRenderShortcut(question: SerCp007EditorialQuestion): boolean {
   );
 }
 
-function shouldRenderCheck(
-  question: SerCp007EditorialQuestion,
-  proofModel: SerCp007ProofModel,
-): boolean {
+function shouldRenderCheck(question: SerCp007EditorialQuestion): boolean {
   if (question.explanation.commonMistake.trim().length === 0) return false;
-  if (question.taskKind === "WRONG_TERM") return true;
-  return proofModel !== "DIRECT_COLUMN_MOVEMENT";
+  return (
+    question.taskKind === "WRONG_TERM" ||
+    question.taskKind === "WRONG_AND_REPLACEMENT"
+  );
 }
 
 function workLabel(proofModel: SerCp007ProofModel): string {
@@ -234,9 +278,9 @@ export function buildAdaptiveSerCp007Review(
   const editorialTaskKind = editorialTaskKindFor(question.taskKind);
   const proofModel = proofModelFor(question.canonicalAuthorityId);
   const stem = adaptiveStem(question, editorialTaskKind);
-  const selectedSteps = selectSteps(question, proofModel);
-  const renderedShortcut = shouldRenderShortcut(question);
-  const renderedCheck = shouldRenderCheck(question, proofModel);
+  const workedSteps = selectSteps(question, proofModel);
+  const renderedShortcut = shouldRenderShortcut(question, proofModel);
+  const renderedCheck = shouldRenderCheck(question);
 
   const options = question.options.map(
     (option, index) =>
@@ -249,8 +293,8 @@ export function buildAdaptiveSerCp007Review(
     question.explanation.rule,
     "",
     `**${workLabel(proofModel)}:**`,
-    ...selectedSteps.map((step, index) => `${index + 1}. ${step}`),
-    `${selectedSteps.length + 1}. ${question.explanation.conclusion}`,
+    ...workedSteps.map((step, index) => `${index + 1}. ${step}`),
+    `${workedSteps.length + 1}. ${question.explanation.conclusion}`,
   ];
 
   if (renderedShortcut) {
@@ -275,6 +319,7 @@ export function buildAdaptiveSerCp007Review(
     proofModel,
     stem,
     review,
+    workedSteps,
     renderedShortcut,
     renderedCheck,
   };
