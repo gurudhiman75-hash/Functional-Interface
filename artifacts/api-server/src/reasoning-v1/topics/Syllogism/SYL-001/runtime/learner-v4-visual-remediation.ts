@@ -60,7 +60,7 @@ function identityWithNoDiagram(
   const titleId = `syl-v4-title-${suffix}`;
   const descId = `syl-v4-desc-${suffix}`;
   const equivalentLabel = `${leftLabel} = ${rightLabel}`;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 220" role="img" lang="${input.locale}" aria-labelledby="${titleId} ${descId}" data-venn-v4="true" data-diagram-mode="VENN_SEPARATION" data-answer-sentence="false">
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 220" role="img" lang="${input.locale}" aria-labelledby="${titleId} ${descId}" data-venn-v4="true" data-diagram-mode="VENN_SEPARATION" data-answer-sentence="false" data-static-relation-aware="true">
     <title id="${titleId}">${esc(caption)}</title>
     <desc id="${descId}">${esc(caption)}</desc>
     <style>
@@ -82,6 +82,88 @@ function identityWithNoDiagram(
     caption,
     accessibleDescription: caption,
     semanticSignature: `IDENTITY_NO:${identity.subject}:${identity.predicate}:!${outside}`,
+    modelSignature: null,
+    answerSentenceEmbedded: false,
+    mobileViewBoxWidth: 360,
+    diagramCount: 1,
+  };
+}
+
+function witnessTransferRelation(input: VisualRemediationInputV4): {
+  inside: TermId;
+  shared: TermId;
+  outside: TermId;
+} | null {
+  const some = input.displayedPremises.find((premise) =>
+    premise.form === "SOME" || premise.form === "A_FEW" || premise.form === "ONLY_A_FEW");
+  if (!some) return null;
+  const no = input.displayedPremises.find((premise) =>
+    premise.form === "NO"
+    && [some.subject, some.predicate].some((term) =>
+      premise.subject === term || premise.predicate === term));
+  if (!no) return null;
+
+  const shared = [some.subject, some.predicate].find((term) =>
+    no.subject === term || no.predicate === term);
+  if (!shared) return null;
+  const inside = some.subject === shared ? some.predicate : some.subject;
+  const outside = no.subject === shared ? no.predicate : no.subject;
+  if (inside === outside) return null;
+  return { inside, shared, outside };
+}
+
+function strictWitnessTransferDiagram(
+  presentation: SylLearnerPresentationV4,
+  input: VisualRemediationInputV4,
+): SylLearnerPresentationV4["diagram"] | null {
+  if (presentation.diagram.mode !== "VENN_WITNESS_TRANSFER") return null;
+  const relation = witnessTransferRelation(input);
+  if (!relation) return null;
+
+  const insideLabel = label(relation.inside, input);
+  const sharedLabel = label(relation.shared, input);
+  const outsideLabel = label(relation.outside, input);
+  const caption = presentation.diagram.caption ?? presentation.diagram.accessibleDescription ?? "";
+  const suffix = presentation.administratorProof.identity.reviewVersionId.slice(0, 18);
+  const titleId = `syl-v4-title-${suffix}`;
+  const descId = `syl-v4-desc-${suffix}`;
+
+  // Geometry is deliberate:
+  // inside/shared: centres 58 apart, radii total 124 -> required overlap.
+  // shared/outside: centres 146 apart, radii total 112 -> 34-unit gap.
+  // inside/outside: centres 204 apart, radii total 112 -> 92-unit gap.
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 230" role="img" lang="${input.locale}" aria-labelledby="${titleId} ${descId}" data-venn-v4="true" data-diagram-mode="VENN_WITNESS_TRANSFER" data-answer-sentence="false" data-static-relation-aware="true">
+    <title id="${titleId}">${esc(caption)}</title>
+    <desc id="${descId}">${esc(caption)}</desc>
+    <style>
+      .set-a{fill:#dbeafe;fill-opacity:.78;stroke:#2563eb;stroke-width:2.5}
+      .set-b{fill:#fef3c7;fill-opacity:.72;stroke:#d97706;stroke-width:2.5}
+      .set-c{fill:#e2e8f0;fill-opacity:.72;stroke:#475569;stroke-width:2.5}
+      .set-label{font:700 14px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#0f172a}
+      .witness{font:900 25px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#111827}
+      .no-mark{stroke:#dc2626;stroke-width:3;stroke-linecap:round}
+    </style>
+    <g data-relation="WITNESS_TRANSFER" data-inside="${esc(relation.inside)}" data-shared="${esc(relation.shared)}" data-outside="${esc(relation.outside)}">
+      <g data-panel="STATIC" data-pair="${esc(relation.inside)}|${esc(relation.shared)}" data-geometry="overlap" data-basis="SOME"></g>
+      <g data-panel="STATIC" data-pair="${esc(relation.shared)}|${esc(relation.outside)}" data-geometry="separate" data-basis="NO"></g>
+      <g data-panel="STATIC" data-pair="${esc(relation.inside)}|${esc(relation.outside)}" data-geometry="separate" data-basis="NO_RELATION"></g>
+      <g data-set-group="${esc(relation.inside)}"><circle data-panel="STATIC" data-terms="${esc(relation.inside)}" data-cx="90" data-cy="118" data-r="62" cx="90" cy="118" r="62" class="set-a"/><text x="90" y="76" text-anchor="middle" class="set-label">${esc(insideLabel)}</text></g>
+      <g data-set-group="${esc(relation.shared)}"><circle data-panel="STATIC" data-terms="${esc(relation.shared)}" data-cx="148" data-cy="118" data-r="62" cx="148" cy="118" r="62" class="set-b"/><text x="148" y="76" text-anchor="middle" class="set-label">${esc(sharedLabel)}</text></g>
+      <g data-set-group="${esc(relation.outside)}"><circle data-panel="STATIC" data-terms="${esc(relation.outside)}" data-cx="294" data-cy="118" data-r="50" cx="294" cy="118" r="50" class="set-c"/><text x="294" y="87" text-anchor="middle" class="set-label">${esc(outsideLabel)}</text></g>
+      <text x="119" y="132" text-anchor="middle" class="witness" data-witness-region="${esc(relation.inside)}&amp;${esc(relation.shared)}&amp;!${esc(relation.outside)}">×</text>
+      <line x1="222" y1="108" x2="238" y2="124" class="no-mark"/><line x1="238" y1="108" x2="222" y2="124" class="no-mark"/>
+    </g>
+  </svg>`;
+
+  return {
+    ...presentation.diagram,
+    enabled: true,
+    mode: "VENN_WITNESS_TRANSFER",
+    omissionReason: null,
+    svg,
+    caption,
+    accessibleDescription: caption,
+    semanticSignature: `STRICT_WITNESS_TRANSFER:${relation.inside}:${relation.shared}:!${relation.outside}`,
     modelSignature: null,
     answerSentenceEmbedded: false,
     mobileViewBoxWidth: 360,
@@ -149,11 +231,6 @@ function relationAwareModelOrOmission(
   const rendered = renderRelationAwareModelDiagramV4(presentation, input);
   if (!rendered) return strictOmission(presentation, "NO_STABLE_SIMPLE_VENN");
 
-  // A model may place one possible member in two classes even when the
-  // statements establish no relation between those classes. That is a valid
-  // model-theory device, but it visually suggests a relation to learners.
-  // ExamTree's learner diagram rule is stricter: no stated or derived relation
-  // means no overlap. Such a model diagram is omitted instead of displayed.
   if (rendered.svg?.includes('data-basis="MODEL_WITNESS"')) {
     return strictOmission(presentation, "MODEL_ONLY_OVERLAP");
   }
@@ -168,8 +245,9 @@ export function remediateLearnerVisualV4(
   const identityNo = presentation.diagram.mode === "VENN_SEPARATION"
     ? identityWithNoDiagram(presentation, input)
     : null;
+  const witnessTransfer = strictWitnessTransferDiagram(presentation, input);
   const modelDiagram = relationAwareModelOrOmission(presentation, input);
-  const diagram = identityNo ?? modelDiagram ?? presentation.diagram;
+  const diagram = identityNo ?? witnessTransfer ?? modelDiagram ?? presentation.diagram;
   return {
     ...presentation,
     learnerExplanation: {
