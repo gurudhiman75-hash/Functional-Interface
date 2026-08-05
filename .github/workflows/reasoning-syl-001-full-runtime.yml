@@ -5,6 +5,7 @@ on:
     branches:
       - feat/syl-001-foundation
       - feat/syl-001-full-runtime
+      - feat/syl-001-structured-proof-v3
       - New-main
     types: [opened, reopened, synchronize]
     paths:
@@ -24,7 +25,7 @@ concurrency:
 jobs:
   validate-syl-001-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 55
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -128,6 +129,32 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/reasoning-v1/syl-001-discovery-prototypes-v3.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-discovery-prototypes-v3.log
 
+      - name: Bundle V4 learner explanation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v4-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-learner-v4-audit.test.mjs
+
+      - name: Run V4 learner explanation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-learner-v4-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-learner-v4-audit.log
+
+      - name: Bundle V4 Venn and parity audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/venn-diagram-v4-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-venn-v4-audit.test.mjs
+
+      - name: Run V4 Venn and parity audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-venn-v4-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-venn-v4-audit.log
+
       - name: Bundle exhaustive QL gap discovery
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -152,11 +179,23 @@ jobs:
           SYL_REVIEW_DIR: artifacts/api-server/dist/reasoning-v1/syl-001-review-v3
         run: node artifacts/api-server/dist/reasoning-v1/syl-001-export-review-v3.mjs
 
+      - name: Bundle V4 learner review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-review-v4.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-export-review-v4.mjs
+
+      - name: Generate V4 learner review pack
+        env:
+          SYL_REVIEW_V4_DIR: artifacts/api-server/dist/reasoning-v1/syl-001-review-v4
+        run: node artifacts/api-server/dist/reasoning-v1/syl-001-export-review-v4.mjs
+
       - name: Upload structured-proof review evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: syl-001-structured-proof-v3-review
+          name: syl-001-structured-proof-v4-learner-review
           path: |
             artifacts/api-server/dist/reasoning-v1/syl-001-chapter-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-learner-quality-audit.log
@@ -164,7 +203,10 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/syl-001-structured-proof-v3-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-structured-proof-v3-language-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-discovery-prototypes-v3.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-learner-v4-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-venn-v4-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-discovery-v3/**
             artifacts/api-server/dist/reasoning-v1/syl-001-review-v3/**
+            artifacts/api-server/dist/reasoning-v1/syl-001-review-v4/**
           if-no-files-found: error
           retention-days: 30
