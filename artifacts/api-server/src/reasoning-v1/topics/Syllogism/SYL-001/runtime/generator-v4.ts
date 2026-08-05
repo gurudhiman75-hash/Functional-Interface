@@ -2,6 +2,7 @@ import type { SylLocale, TermId } from "../foundation/types";
 import { generateSylQuestion } from "./generator";
 import { buildLearnerPresentationV4 } from "./learner-v4";
 import type { GeneratedSylQuestionV4 } from "./learner-v4-types";
+import { remediateLearnerVisualV4 } from "./learner-v4-visual-remediation";
 import { createPrng, shuffle } from "./prng";
 import { assignTerms } from "./term-assignment";
 import type { SylQlId } from "./types";
@@ -22,22 +23,25 @@ export function generateSylQuestionV4(
     createPrng(`${qlId}:${seed}:premise-order`),
   );
 
-  const learnerPresentationV4 = buildLearnerPresentationV4(question.structuredProofV3, {
-    qlId,
-    sourcePatternId: question.sourcePatternId,
-    scenarioId: question.scenarioId,
-    locale,
-    taskKind: question.metadata.taskKind,
-    displayedPremises,
-    statements: question.statements,
-    conclusions: question.conclusions,
-    canonicalConclusions: question.structuredPrompt.conclusions,
-    termLabels,
-    correctIndex: question.correctIndex,
-    options: question.options,
-    reviewLogic: question.reviewLogic,
-    structuredPrompt: question.structuredPrompt,
-  });
+  const learnerPresentationV4 = remediateLearnerVisualV4(
+    buildLearnerPresentationV4(question.structuredProofV3, {
+      qlId,
+      sourcePatternId: question.sourcePatternId,
+      scenarioId: question.scenarioId,
+      locale,
+      taskKind: question.metadata.taskKind,
+      displayedPremises,
+      statements: question.statements,
+      conclusions: question.conclusions,
+      canonicalConclusions: question.structuredPrompt.conclusions,
+      termLabels,
+      correctIndex: question.correctIndex,
+      options: question.options,
+      reviewLogic: question.reviewLogic,
+      structuredPrompt: question.structuredPrompt,
+    }),
+    { locale, displayedPremises, termLabels },
+  );
 
   return {
     ...question,
