@@ -32,7 +32,7 @@ function rationalEquals(value: TsdCanonicalValue | undefined, numerator: string,
 }
 
 const rows = generateCanonicalReviewRecords();
-assert(rows.length === 116, "P1 batch must preserve the 116-record canonical pool");
+assert(rows.length === 118, "P1 Batch 01 regression must coexist with the expanded 118-record canonical pool");
 assert(rows.every((row) => row.validation.valid), "Invalid record entered the P1 diversity review");
 assert(rows.every((row) => row.permanentQlId === null), "Permanent QL assigned during P1 diversity work");
 assert(rows.every((row) => row.lifecycle.englishFreezeStatus === "UNFROZEN"), "P1 batch accidentally refroze English");
@@ -87,7 +87,7 @@ const canonicalFamilyUses = printedNumbers.filter((value) => value === "30" || v
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "P1_DIVERSITY_BATCH_01",
+  phase: "P1_DIVERSITY_BATCH_01_REGRESSION",
   canonicalRecordsPreserved: rows.length,
   targetedAuthorities: TARGET_MODES.length,
   targetedRows: targetedRows.length,
