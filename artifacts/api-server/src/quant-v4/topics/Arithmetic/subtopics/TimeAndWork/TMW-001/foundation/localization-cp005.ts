@@ -20,7 +20,7 @@ import {
   polishTmwCp005LocalizedText,
   polishTmwCp005LocalizedTrap,
 } from "./localization-cp005-manual-polish";
-import { applyTmwCp005EditorialReviewRemediation } from "./cp005-editorial-review-remediation-v2";
+import { applyTmwCp005EditorialReviewRemediation } from "./cp005-editorial-review-remediation-final";
 
 export function localizeTmwCp005Question(
   source: TmwCp005GeneratedQuestion,
