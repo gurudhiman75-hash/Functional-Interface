@@ -40,6 +40,11 @@ const THRESHOLD_EDITORIAL_CASES = [
   { vesselVolume: 80, removedQuantity: 20, original: "milk", refill: "water", container: "tank" },
   { vesselVolume: 96, removedQuantity: 12, original: "fruit juice", refill: "water", container: "vessel" },
   { vesselVolume: 100, removedQuantity: 10, original: "liquid A", refill: "liquid B", container: "container" },
+  { vesselVolume: 60, removedQuantity: 30, original: "milk", refill: "water", container: "drum" },
+  { vesselVolume: 72, removedQuantity: 18, original: "syrup", refill: "water", container: "tank" },
+  { vesselVolume: 100, removedQuantity: 20, original: "wine", refill: "water", container: "cask" },
+  { vesselVolume: 120, removedQuantity: 15, original: "juice", refill: "water", container: "vessel" },
+  { vesselVolume: 90, removedQuantity: 9, original: "oil", refill: "lighter oil", container: "drum" },
 ] as const;
 
 function hash(value: string): number {
