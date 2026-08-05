@@ -1,6 +1,13 @@
 import { toMixedString } from "../foundation/rational";
 import type { TsdCp001SolveInput } from "./canonical-solver";
-import { ratioText, trailingSeedOrdinal } from "./runtime-support";
+import {
+  DISTANCE_LABEL,
+  SPEED_LABEL,
+  TIME_LABEL,
+  formatClock,
+  ratioText,
+  trailingSeedOrdinal,
+} from "./runtime-support";
 
 function rationalNumber(value: { readonly numerator: bigint; readonly denominator: bigint }): number {
   return Number(value.numerator) / Number(value.denominator);
@@ -18,20 +25,59 @@ function possessiveSpeedQuestion(stem: string): string {
   return stem.replace(/What is its speed in m\/s\?/i, `What is the ${actor}'s speed in m/s?`);
 }
 
+function quantity(
+  value: { readonly numerator: bigint; readonly denominator: bigint },
+  singular: string,
+  plural: string,
+): string {
+  const one = value.numerator === value.denominator;
+  return `${toMixedString(value)} ${one ? singular : plural}`;
+}
+
+function paceText(
+  value: { readonly numerator: bigint; readonly denominator: bigint },
+  unit: "SECOND_PER_KM" | "MINUTE_PER_KM",
+): string {
+  return unit === "SECOND_PER_KM"
+    ? quantity(value, "second per kilometre", "seconds per kilometre")
+    : quantity(value, "minute per kilometre", "minutes per kilometre");
+}
+
+function paceOutputText(unit: "SECOND_PER_KM" | "MINUTE_PER_KM"): string {
+  return unit === "SECOND_PER_KM" ? "seconds per kilometre" : "minutes per kilometre";
+}
+
+function paceDurationText(
+  value: { readonly numerator: bigint; readonly denominator: bigint },
+  unit: "SECOND_PER_KM" | "MINUTE_PER_KM",
+): string {
+  return unit === "SECOND_PER_KM"
+    ? quantity(value, "second", "seconds")
+    : quantity(value, "minute", "minutes");
+}
+
 function variant(mode: TsdCp001SolveInput["solveMode"], seed: string): 0 | 1 | 2 {
   const ordinal = trailingSeedOrdinal(seed);
 
-  if (mode === "timeRatioFromDistanceAndSpeedRatios") {
+  const secondOrdinalMiddleModes = new Set<TsdCp001SolveInput["solveMode"]>([
+    "arrivalClockTime",
+    "elapsedClockTime",
+    "timeRatioFromDistanceAndSpeedRatios",
+  ]);
+  if (secondOrdinalMiddleModes.has(mode)) {
     if (ordinal === 0) return 0;
     if (ordinal === 2) return 1;
     return 2;
   }
 
   const stableThirdBucketModes = new Set<TsdCp001SolveInput["solveMode"]>([
+    "departureClockTime",
     "compareDistancesAtEqualTime",
     "compareTimesAtEqualDistance",
     "speedRatioFromDistanceAndTimeRatios",
     "speedByProportion",
+    "paceFromSpeed",
+    "distanceFromPaceAndTime",
   ]);
 
   if (stableThirdBucketModes.has(mode)) {
@@ -124,8 +170,84 @@ function relationalStem(input: TsdCp001SolveInput, seed: string): string | null 
   }
 }
 
+function clockAndPaceStem(input: TsdCp001SolveInput, seed: string): string | null {
+  const stemVariant = variant(input.solveMode, seed);
+
+  switch (input.solveMode) {
+    case "arrivalClockTime": {
+      const departure = formatClock(input.departureMinuteOfDay, 0n);
+      const duration = quantity(input.durationMinutes, "minute", "minutes");
+      return [
+        `A bus departs at ${departure} and the journey lasts ${duration}. At what clock time will it arrive?`,
+        `A night coach leaves its terminal at ${departure}. After travelling for ${duration}, when will it reach the destination?`,
+        `A delivery van begins a fixed route at ${departure} and remains on the road for ${duration}. State its arrival time.`,
+      ][stemVariant];
+    }
+
+    case "departureClockTime": {
+      const arrival = formatClock(input.arrivalMinuteOfDay, input.arrivalDayOffset);
+      const duration = quantity(input.durationMinutes, "minute", "minutes");
+      return [
+        `A bus reaches its destination at ${arrival} after travelling for ${duration}. At what time did it depart?`,
+        `An express coach arrives at ${arrival}. If the journey takes ${duration}, when did the coach leave?`,
+        `A delivery vehicle completes its route at ${arrival} after a ${duration} journey. Find its starting time.`,
+      ][stemVariant];
+    }
+
+    case "elapsedClockTime": {
+      const departure = formatClock(input.departureMinuteOfDay, 0n);
+      const arrival = formatClock(input.arrivalMinuteOfDay, input.arrivalDayOffset);
+      return [
+        `A train leaves at ${departure} and reaches its destination at ${arrival}. How long is the journey?`,
+        `A scheduled trip begins at ${departure} and ends at ${arrival}. Find the elapsed travelling time.`,
+        `A courier starts a route at ${departure} and finishes at ${arrival}. Determine the total journey duration.`,
+      ][stemVariant];
+    }
+
+    case "speedFromPace": {
+      const pace = paceText(input.pace, input.paceUnit);
+      const duration = paceDurationText(input.pace, input.paceUnit);
+      const output = SPEED_LABEL[input.outputUnit];
+      return [
+        `A runner takes ${duration} to cover 1 km. Find the corresponding speed in ${output}.`,
+        `A road cyclist records a pace of ${pace}. Convert this pace into a speed in ${output}.`,
+        `A trainee covers 1 km in ${duration}. What constant speed does this represent in ${output}?`,
+      ][stemVariant];
+    }
+
+    case "paceFromSpeed": {
+      const speed = `${toMixedString(input.speed)} ${SPEED_LABEL[input.speedUnit]}`;
+      const output = paceOutputText(input.outputUnit);
+      return [
+        `A runner moves at ${speed}. Find the equivalent pace in ${output}.`,
+        `A training log records a constant speed of ${speed}. How much time is taken per kilometre in ${output}?`,
+        `A cyclist maintains ${speed}. State this speed as a pace in ${output}.`,
+      ][stemVariant];
+    }
+
+    case "distanceFromPaceAndTime": {
+      const pace = paceText(input.pace, input.paceUnit);
+      const kilometreTime = paceDurationText(input.pace, input.paceUnit);
+      const duration = quantity(
+        input.duration,
+        TIME_LABEL[input.timeUnit].replace(/s$/, ""),
+        TIME_LABEL[input.timeUnit],
+      );
+      const output = DISTANCE_LABEL[input.outputUnit];
+      return [
+        `A runner's pace is ${pace}. How far will the runner travel in ${duration}? Give the answer in ${output}.`,
+        `An athlete completes 1 km in ${kilometreTime}. Over ${duration}, what distance is covered in ${output}?`,
+        `A training session lasts ${duration} at a steady pace of ${pace}. Find the distance covered in ${output}.`,
+      ][stemVariant];
+    }
+
+    default:
+      return null;
+  }
+}
+
 export function remodelCp001Stem(input: TsdCp001SolveInput, stem: string, seed: string): string {
-  let output = relationalStem(input, seed) ?? stem;
+  let output = relationalStem(input, seed) ?? clockAndPaceStem(input, seed) ?? stem;
 
   if (input.solveMode === "distanceFromSpeedAndTime" && rationalNumber(input.speedMps) >= 12.5) {
     const vehicles = ["car", "bus", "train"] as const;
