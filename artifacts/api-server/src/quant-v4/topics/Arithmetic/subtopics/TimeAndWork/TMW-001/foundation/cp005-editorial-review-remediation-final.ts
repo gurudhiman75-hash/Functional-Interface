@@ -7,12 +7,25 @@ import type {
 } from "./localization-types";
 import { applyTmwCp005EditorialReviewRemediation as applyReviewedLayer } from "./cp005-editorial-review-remediation-v2";
 
+function naturalizeAnyRestInterval(
+  stem: string,
+  language: TmwLocalizedLanguage,
+): string {
+  return language === "hi"
+    ? stem.replace(/हर (\d+वें) दिन विश्राम रहता है/g, "हर $1 दिन कोई काम नहीं होता")
+    : stem.replace(/ਹਰ (\d+ਵੇਂ) ਦਿਨ ਆਰਾਮ ਰਹਿੰਦਾ ਹੈ/g, "ਹਰ $1 ਦਿਨ ਕੋਈ ਕੰਮ ਨਹੀਂ ਹੁੰਦਾ");
+}
+
 export function applyTmwCp005EditorialReviewRemediation(
   question: TmwLocalizedQuestion<TmwLocalizedValue>,
   source: TmwCp005GeneratedQuestion,
   language: TmwLocalizedLanguage,
 ): TmwLocalizedQuestion<TmwLocalizedValue> {
-  const reviewed = applyReviewedLayer(question, source, language);
+  const base = applyReviewedLayer(question, source, language);
+  const reviewed: TmwLocalizedQuestion<TmwLocalizedValue> = {
+    ...base,
+    stem: naturalizeAnyRestInterval(base.stem, language),
+  };
 
   if (source.solveMode === "findCompletionWithPeriodicNegativeWork") {
     return {
