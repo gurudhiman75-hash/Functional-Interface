@@ -1,0 +1,103 @@
+name: Validate SER-001 CP-007 authority policy
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-AUTHORITY-FREEZE-CANDIDATE/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL/adaptive-review.ts
+      - .github/workflows/ser-001-cp007-authority-policy.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ser-001-cp007-authority-policy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-authority-policy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare evidence directory
+        run: mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp007-authority-policy
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Validate policy recommendation and fallback
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-AUTHORITY-FREEZE-CANDIDATE
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-authority-policy
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/ser-cp-007-authority-policy-decision.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/ser-cp-007-authority-policy-decision.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-007-authority-policy-decision.test.mjs") \
+            | tee "$EVIDENCE/authority-policy-decision.json"
+          grep -q 'PASS_SER_CP007_AUTHORITY_POLICY_RECOMMENDS_13_WITH_14_FALLBACK' \
+            "$EVIDENCE/authority-policy-decision.json"
+
+      - name: Export 13-authority decision matrix
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-AUTHORITY-FREEZE-CANDIDATE
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-authority-policy
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/export-ser-cp-007-13-authority-matrix.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/export-ser-cp-007-13-authority-matrix.mjs"
+          (cd artifacts/api-server && node "$OUT/export-ser-cp-007-13-authority-matrix.mjs") \
+            > "$EVIDENCE/ser-cp-007-13-authority-decision-matrix.md"
+          grep -q '# SER-CP-007 contract-first 13-authority decision matrix' \
+            "$EVIDENCE/ser-cp-007-13-authority-decision-matrix.md"
+          grep -q 'Candidate authorities: 13' \
+            "$EVIDENCE/ser-cp-007-13-authority-decision-matrix.md"
+          grep -q 'Original authorities:  17' \
+            "$EVIDENCE/ser-cp-007-13-authority-decision-matrix.md"
+          grep -q 'Templates:             140' \
+            "$EVIDENCE/ser-cp-007-13-authority-decision-matrix.md"
+
+      - name: Collect policy reports
+        run: |
+          set -euo pipefail
+          ROOT=artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-AUTHORITY-FREEZE-CANDIDATE
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-authority-policy
+          cp "$ROOT/ser-cp-007-authority-compression-candidate-report.md" \
+            "$EVIDENCE/ser-cp-007-authority-compression-17-to-14-report.md"
+          cp "$ROOT/ser-cp-007-authority-compression-contract-first-report.md" \
+            "$EVIDENCE/ser-cp-007-authority-compression-17-to-13-report.md"
+          cp "$ROOT/ser-cp-007-position-permutation-subtype-preservation-report.md" \
+            "$EVIDENCE/ser-cp-007-position-permutation-subtype-preservation-report.md"
+          cp "$ROOT/ser-cp-007-authority-policy-decision.md" \
+            "$EVIDENCE/ser-cp-007-authority-policy-decision.md"
+
+      - name: Upload authority policy evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ser-001-cp007-authority-policy
+          path: artifacts/api-server/dist/reasoning-v1/ser-001/cp007-authority-policy
+          if-no-files-found: error
+          retention-days: 30
