@@ -10,8 +10,8 @@ import {
     ql053CalculationSafe,
     ql056CalculationSafe,
     ql059CalculationSafe,
-    ql065CalculationSafe,
 } from "./english-remediation-calculation-safe";
+import { ql065CalculationSafeFinal } from "./english-remediation-065-calculation-safe";
 export function remediateNumCp005English(source) {
     switch (source.qlId) {
         case "NUM-QL-046": return ql046(source);
@@ -33,7 +33,7 @@ export function remediateNumCp005English(source) {
         case "NUM-QL-062": return ql062(source);
         case "NUM-QL-063": return ql063(source);
         case "NUM-QL-064": return ql064(source);
-        case "NUM-QL-065": return ql065CalculationSafe(source);
+        case "NUM-QL-065": return ql065CalculationSafeFinal(source);
         case "NUM-QL-066": return ql066RenderSafe(source);
         case "NUM-QL-067": return ql067(source);
         case "NUM-QL-068": return ql068(source);
