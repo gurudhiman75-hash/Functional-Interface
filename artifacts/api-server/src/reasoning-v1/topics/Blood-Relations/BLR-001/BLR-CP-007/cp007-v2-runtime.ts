@@ -20,10 +20,8 @@ import {
   BLR_CP007_V2_RUNTIME_VERSION,
   type BlrCp007V2Question,
 } from "./cp007-v2-model";
-import {
-  blrCp007V2GraphPath,
-  buildBlrCp007V2Explanation,
-} from "./cp007-v2-presentation";
+import { buildAccessibleBlrCp007V2Explanation } from "./cp007-v2-accessibility";
+import { blrCp007V2GraphPath } from "./cp007-v2-presentation";
 import { blrCp007V2Scenario } from "./cp007-v2-scenarios";
 
 function answerTypeFor(
@@ -144,7 +142,7 @@ export function generateBlrCp007V2Question(
     completedStatements: selected.statements,
     decodedStatements: decoded.decodedStatements,
     graph: decoded.graph,
-    explanation: buildBlrCp007V2Explanation(
+    explanation: buildAccessibleBlrCp007V2Explanation(
       scenario,
       options,
       selected,
