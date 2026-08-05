@@ -1,0 +1,119 @@
+name: Validate SER-001 CP-007 authority freeze candidates
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-B/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-C/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-D/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-E/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL/adaptive-review.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-AUTHORITY-FREEZE-CANDIDATE/**
+      - .github/workflows/ser-001-cp007-authority-freeze-candidate.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ser-001-cp007-authority-freeze-candidate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-authority-freeze-candidates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare evidence directory
+        run: mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp007-authority-freeze-candidate
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Validate corrected 14 and 13 candidates
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-AUTHORITY-FREEZE-CANDIDATE
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-authority-freeze-candidate
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/authority-compression-candidates.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/authority-compression-candidates.test.mjs"
+          (cd artifacts/api-server && node "$OUT/authority-compression-candidates.test.mjs") \
+            | tee "$EVIDENCE/authority-compression-candidates.json"
+          grep -q 'PASS_SER_CP007_AUTHORITY_COMPRESSION_CANDIDATES_17_TO_14_AND_13' \
+            "$EVIDENCE/authority-compression-candidates.json"
+
+      - name: Validate policy recommendation and fallback
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-AUTHORITY-FREEZE-CANDIDATE
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-authority-freeze-candidate
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/authority-policy-decision.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/authority-policy-decision.test.mjs"
+          (cd artifacts/api-server && node "$OUT/authority-policy-decision.test.mjs") \
+            | tee "$EVIDENCE/authority-policy-decision.json"
+          grep -q 'PASS_SER_CP007_AUTHORITY_POLICY_RECOMMENDS_13_WITH_14_FALLBACK' \
+            "$EVIDENCE/authority-policy-decision.json"
+
+      - name: Export corrected 13-authority decision matrix
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-AUTHORITY-FREEZE-CANDIDATE
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-authority-freeze-candidate
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/export-13-authority-decision-matrix.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/export-13-authority-decision-matrix.mjs"
+          (cd artifacts/api-server && node "$OUT/export-13-authority-decision-matrix.mjs") \
+            > "$EVIDENCE/ser-cp-007-13-authority-decision-matrix.md"
+          grep -q '# SER-CP-007 corrected 13-authority decision matrix' \
+            "$EVIDENCE/ser-cp-007-13-authority-decision-matrix.md"
+          grep -q 'Candidate authorities: 13' \
+            "$EVIDENCE/ser-cp-007-13-authority-decision-matrix.md"
+          grep -q 'Original authorities:  17' \
+            "$EVIDENCE/ser-cp-007-13-authority-decision-matrix.md"
+          grep -q 'Templates:             140' \
+            "$EVIDENCE/ser-cp-007-13-authority-decision-matrix.md"
+
+      - name: Collect reports
+        run: |
+          set -euo pipefail
+          ROOT=artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-AUTHORITY-FREEZE-CANDIDATE
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-authority-freeze-candidate
+          cp "$ROOT/authority-compression-candidates-report.md" \
+            "$EVIDENCE/authority-compression-candidates-report.md"
+          cp "$ROOT/authority-policy-decision.md" \
+            "$EVIDENCE/authority-policy-decision.md"
+
+      - name: Upload authority freeze candidate evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ser-001-cp007-authority-freeze-candidate
+          path: artifacts/api-server/dist/reasoning-v1/ser-001/cp007-authority-freeze-candidate
+          if-no-files-found: error
+          retention-days: 30
