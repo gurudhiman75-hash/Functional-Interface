@@ -32,11 +32,11 @@ export interface NumCp005PermanentAllocationEntry {
   readonly sourceEvidence: readonly string[];
   readonly difficultyPolicy: "STATE_DERIVED";
   readonly language: "en";
-  readonly allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION";
+  readonly allocationStatus: "EDITORIAL_REMEDIATION_AWAITING_PRODUCT_OWNER_REVIEW";
   readonly permanentIdentityFrozen: true;
   readonly active: false;
-  readonly maturity: "ENGLISH_IMPLEMENTATION_FROZEN";
-  readonly reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED";
+  readonly maturity: "ENGLISH_EDITORIAL_REVIEW";
+  readonly reviewStatus: "CRITICAL_REVIEW_REMEDIATED_AWAITING_APPROVAL";
   readonly publiclyPublishable: false;
   readonly questionStudioDiscoverable: false;
   readonly questionBankWritable: false;
@@ -92,14 +92,15 @@ export const NUM_CP005_PERMANENT_ALLOCATION =
     sourceEvidence: [
       "NUM-CP-005-SOURCE-GAP-AND-MERGE-SPLIT-AUDIT",
       ...authority.prototypeIds,
+      "NUM-CP-005-ENGLISH-EXAM-READINESS-REMEDIATION",
     ],
     difficultyPolicy: "STATE_DERIVED" as const,
     language: "en" as const,
-    allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION" as const,
+    allocationStatus: "EDITORIAL_REMEDIATION_AWAITING_PRODUCT_OWNER_REVIEW" as const,
     permanentIdentityFrozen: true as const,
     active: false as const,
-    maturity: "ENGLISH_IMPLEMENTATION_FROZEN" as const,
-    reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED" as const,
+    maturity: "ENGLISH_EDITORIAL_REVIEW" as const,
+    reviewStatus: "CRITICAL_REVIEW_REMEDIATED_AWAITING_APPROVAL" as const,
     publiclyPublishable: false as const,
     questionStudioDiscoverable: false as const,
     questionBankWritable: false as const,
