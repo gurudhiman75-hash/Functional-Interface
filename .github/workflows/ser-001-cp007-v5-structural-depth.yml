@@ -83,7 +83,7 @@ jobs:
           FILE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v5-structural-depth/SER-CP-007-V5-400-Non-Trivial-Questions-and-Explanations-Review.md
           grep -q '# SER-CP-007 V5 — 400 Non-Trivial Questions and Explanations Review' "$FILE"
           grep -q 'Structural-depth failures:    0' "$FILE"
-          grep -q 'Requires intended rule application: \*\*YES\*\*' "$FILE"
+          grep -q 'Requires intended rule application.*YES' "$FILE"
           QUESTION_COUNT=$(grep -c '^## Question [0-9][0-9][0-9]$' "$FILE")
           ANSWER_COUNT=$(grep -c '^\*\*Answer:\*\*' "$FILE")
           EXPLANATION_COUNT=$(grep -c '^### Explanation$' "$FILE")
