@@ -1,10 +1,10 @@
-import { divide, equals, multiply, rational, toMixedString, type Rational } from "../foundation/rational";
+import { divide, equals, multiply, rational, toMixedString } from "../foundation/rational";
 import type { GeneratedState } from "./runtime-types";
 import { SeededRng, r, ratioText } from "./runtime-support";
 
 export function comparisonState(mode: "compareDistancesAtEqualTime" | "compareTimesAtEqualDistance" | "compareSpeedsAtEqualTime", rng: SeededRng): GeneratedState {
-  const first = r(rng.pick([3, 4, 5, 6, 8, 9]));
-  const secondPool = [2, 5, 7, 10, 12, 15] as const;
+  const first = r(rng.pick([3, 4, 5, 6, 8, 9, 11, 14]));
+  const secondPool = [2, 5, 7, 10, 12, 15, 17, 20] as const;
   let secondValue = rng.pick(secondPool);
   if (BigInt(secondValue) === first.numerator && first.denominator === 1n) {
     secondValue = secondPool[(secondPool.indexOf(secondValue) + 1) % secondPool.length];
@@ -50,12 +50,13 @@ export function comparisonState(mode: "compareDistancesAtEqualTime" | "compareTi
 export function ratioState(mode: "distanceRatioFromSpeedAndTimeRatios" | "speedRatioFromDistanceAndTimeRatios" | "timeRatioFromDistanceAndSpeedRatios", rng: SeededRng): GeneratedState {
   const ratioPool = [
     rational(2, 3),
-    rational(3, 4),
-    rational(4, 5),
-    rational(5, 7),
     rational(3, 5),
+    rational(4, 7),
+    rational(5, 8),
+    rational(7, 9),
     rational(5, 4),
-    rational(7, 5),
+    rational(8, 5),
+    rational(9, 7),
   ] as const;
   let firstRatio = rng.pick(ratioPool);
   let secondRatio = rng.pick(ratioPool);
@@ -144,11 +145,11 @@ export function proportionState(mode: "distanceByProportion" | "timeByProportion
 
   const sameDistanceCases = [
     [40, 6, 4],
-    [48, 5, 4],
-    [60, 4, 5],
-    [45, 4, 3],
-    [36, 5, 3],
-    [50, 6, 5],
+    [56, 5, 4],
+    [72, 4, 6],
+    [63, 4, 3],
+    [66, 6, 4],
+    [54, 5, 3],
   ] as const;
   const [knownSpeedValue, knownTimeValue, targetTimeValue] = rng.pick(sameDistanceCases);
   const knownSpeed = r(knownSpeedValue);
