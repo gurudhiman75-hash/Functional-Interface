@@ -156,15 +156,6 @@ function uniqueSteps(steps: readonly string[]): readonly string[] {
   return [...new Set(steps.map((step) => step.trim()).filter(Boolean))];
 }
 
-function decisiveStep(
-  steps: readonly string[],
-  correctAnswer: string,
-): string | undefined {
-  return [...steps]
-    .reverse()
-    .find((step) => step.includes(correctAnswer));
-}
-
 const STRUCTURAL_MARKERS = [
   "Odd-position row:",
   "Even-position row:",
@@ -191,23 +182,61 @@ function structuralSteps(steps: readonly string[]): readonly string[] {
   );
 }
 
-function answerTermIndex(question: SerCp007EditorialQuestion): number | undefined {
+function answerIndexesFor(
+  question: SerCp007EditorialQuestion,
+): readonly number[] {
   const state = question.hiddenState;
-  if (!state?.canonicalTerms) return undefined;
-  if (typeof state.answerIndex === "number") return state.answerIndex;
-  if (state.answerIndexes?.length === 1) return state.answerIndexes[0];
-  const direct = state.canonicalTerms.findIndex(
-    (term) => term === question.correctAnswer,
-  );
-  return direct >= 0 ? direct : undefined;
+  if (!state?.canonicalTerms) return [];
+  if (state.answerIndexes && state.answerIndexes.length > 0) {
+    return state.answerIndexes;
+  }
+  if (typeof state.answerIndex === "number") return [state.answerIndex];
+
+  const answerParts = question.correctAnswer
+    .split(/,|→/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+  const indexes: number[] = [];
+  for (const part of answerParts) {
+    const index = state.canonicalTerms.findIndex((term) => term === part);
+    if (index >= 0 && !indexes.includes(index)) indexes.push(index);
+  }
+  return indexes;
 }
 
-function derivedAnswerStep(
+function answerTermsFor(
   question: SerCp007EditorialQuestion,
+): readonly string[] {
+  const terms = question.hiddenState?.canonicalTerms;
+  const indexes = answerIndexesFor(question);
+  if (terms && indexes.length > 0) {
+    return indexes.map((index) => terms[index]!).filter(Boolean);
+  }
+  if (
+    question.taskKind === "FILL_GAPS" ||
+    question.taskKind === "FILL_GAP_GROUPS"
+  ) {
+    return [];
+  }
+  const replacement = question.correctAnswer.split("→").at(-1)?.trim();
+  return replacement ? [replacement] : [question.correctAnswer];
+}
+
+function decisiveStep(
+  steps: readonly string[],
+  answerTerms: readonly string[],
+): string | undefined {
+  return [...steps]
+    .reverse()
+    .find((step) => answerTerms.some((answer) => step.includes(answer)));
+}
+
+function derivedAnswerStepAt(
+  question: SerCp007EditorialQuestion,
+  answerIndex: number,
 ): string | undefined {
   const terms = question.hiddenState?.canonicalTerms;
-  const answerIndex = answerTermIndex(question);
-  if (!terms || answerIndex === undefined || !terms[answerIndex]) return undefined;
+  if (!terms || !terms[answerIndex]) return undefined;
 
   const answer = terms[answerIndex]!;
   if (answerIndex > 0) {
@@ -229,15 +258,23 @@ function derivedAnswerStep(
   return undefined;
 }
 
-function ensureAnswerApplication(
+function ensureAnswerApplications(
   question: SerCp007EditorialQuestion,
   selected: readonly string[],
 ): readonly string[] {
-  if (selected.some((step) => step.includes(question.correctAnswer))) {
-    return selected;
-  }
-  const derived = derivedAnswerStep(question);
-  return derived ? uniqueSteps([...selected, derived]) : selected;
+  const output = [...selected];
+  const answerTerms = answerTermsFor(question);
+  const answerIndexes = answerIndexesFor(question);
+
+  answerTerms.forEach((answer, position) => {
+    if (output.some((step) => step.includes(answer))) return;
+    const answerIndex = answerIndexes[position];
+    if (answerIndex === undefined) return;
+    const derived = derivedAnswerStepAt(question, answerIndex);
+    if (derived) output.push(derived);
+  });
+
+  return uniqueSteps(output);
 }
 
 function selectSteps(
@@ -249,12 +286,14 @@ function selectSteps(
     const selected = uniqueSteps(allSteps.map(stripBookkeepingPrefix));
     return proofModel === "CONTINUOUS_GAP_COMPLETION"
       ? selected
-      : ensureAnswerApplication(question, selected);
+      : ensureAnswerApplications(question, selected);
   }
 
   const structural = structuralSteps(allSteps);
   const usable = structural.length > 0 ? structural : allSteps;
-  const decisive = decisiveStep(usable, question.correctAnswer) ?? usable.at(-1)!;
+  const answerTerms = answerTermsFor(question);
+  const decisive =
+    decisiveStep(usable, answerTerms) ?? usable.at(-1)!;
 
   if (proofModel === "DIRECT_COLUMN_MOVEMENT") {
     const positionRows = usable.filter((step) => /^Position \d+:/i.test(step));
@@ -264,10 +303,9 @@ function selectSteps(
   if (proofModel === "INTERLEAVED_ROWS") {
     const rows = usable.filter(
       (step) =>
-        /(?:^|-)position row:/i.test(step) ||
-        /^Row \d+:/i.test(step),
+        /(?:^|-)position row:/i.test(step) || /^Row \d+:/i.test(step),
     );
-    if (rows.length > 0) return ensureAnswerApplication(question, rows);
+    if (rows.length > 0) return ensureAnswerApplications(question, rows);
   }
 
   if (proofModel === "CONTINUOUS_GAP_COMPLETION") {
@@ -276,13 +314,13 @@ function selectSteps(
 
   if (question.taskKind === "PREVIOUS_TERM") {
     const backward = allSteps.find((step) => /move one step backward/i.test(step));
-    return ensureAnswerApplication(
+    return ensureAnswerApplications(
       question,
       uniqueSteps([...(backward ? [backward] : []), decisive]),
     );
   }
 
-  return ensureAnswerApplication(
+  return ensureAnswerApplications(
     question,
     uniqueSteps([usable[0]!, usable[1]!, decisive]),
   );
@@ -341,6 +379,19 @@ function shouldRenderCheck(question: SerCp007EditorialQuestion): boolean {
   );
 }
 
+function checkText(
+  question: SerCp007EditorialQuestion,
+  editorialTaskKind: SerCp007EditorialTaskKind,
+): string {
+  let text = question.explanation.commonMistake.trim();
+  if (editorialTaskKind === "REPLACE_WRONG_TERM") {
+    text = text
+      .replace(/row containing the blank/gi, "row containing the incorrect term")
+      .replace(/the blank/gi, "the incorrect position");
+  }
+  return text;
+}
+
 function workLabel(proofModel: SerCp007ProofModel): string {
   switch (proofModel) {
     case "DIRECT_COLUMN_MOVEMENT":
@@ -387,7 +438,10 @@ export function buildAdaptiveSerCp007Review(
     explanationLines.push("", `**Shortcut:** ${question.explanation.quickMethod}`);
   }
   if (renderedCheck) {
-    explanationLines.push("", `**Check:** ${question.explanation.commonMistake}`);
+    explanationLines.push(
+      "",
+      `**Check:** ${checkText(question, editorialTaskKind)}`,
+    );
   }
 
   const review = [
