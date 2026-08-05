@@ -75,17 +75,17 @@ function targetDerivedPairScenario(
     stem =
       "B is a woman, as shown by the fixed first statement. Complete the two blanks so that A becomes C's maternal grandfather.";
   } else if (prototypeId === "BLR-CP007-PROT-MISSING-PAIR-THREE-LINK") {
-    topologyId = "V2_TARGET_DERIVED_PATERNAL_UNCLE_PAIR";
+    topologyId = "V2_TARGET_DERIVED_THREE_LINK_GRANDFATHER_PAIR";
     completeStatements = [
-      statement(key, "C", "SISTER", "E"),
-      statement(key, "A", "BROTHER", "B"),
+      statement(key, "C", "BROTHER", "E"),
+      statement(key, "A", "FATHER", "B"),
       statement(key, "B", "FATHER", "C"),
-      statement(key, "C", "SISTER", "D"),
+      statement(key, "C", "BROTHER", "D"),
     ];
     blankStatementIndices = [1, 3];
-    target = { subjectId: "A", relationId: "UNCLE", referenceId: "D" };
+    target = { subjectId: "A", relationId: "GRANDFATHER", referenceId: "D" };
     stem =
-      "C is a woman, and the fixed middle statement makes B the father of C. Complete the outer blanks so that A becomes D's paternal uncle.";
+      "C is a man, and the fixed middle statement makes B the father of C. Complete the outer blanks so that A becomes D's grandfather.";
   } else if (prototypeId === "BLR-CP007-PROT-MISSING-PAIR-AFFINAL") {
     topologyId = "V2_TARGET_DERIVED_BROTHER_IN_LAW_PAIR";
     completeStatements = [
