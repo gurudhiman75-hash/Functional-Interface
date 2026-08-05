@@ -1,0 +1,70 @@
+name: Export MEN-CP-011 final exam-readiness review
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-011/review/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp011-foundation/**
+      - .github/workflows/men-002-cp011-final-exam-readiness-review-export.yml
+      - build-api.sh
+      - package.json
+      - pnpm-lock.yaml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: export-men-002-cp011-final-exam-readiness-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  export-review-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle final review exporter
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-011/review/export-final-exam-readiness-review.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp011-final-exam-readiness-review-export.mjs
+      - name: Generate and validate final review JSON
+        shell: bash
+        run: |
+          set -euo pipefail
+          node artifacts/api-server/dist/quant-v4/men-cp011-final-exam-readiness-review-export.mjs
+          test -s dist/review/MEN-CP-011-Final-Exam-Readiness-Review-Source.json
+      - name: Re-prove canonical foundation
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp011-foundation/foundation.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/men-cp011-final-review-proof.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp011-final-review-proof.test.mjs
+      - name: Build production API bundle
+        shell: bash
+        run: bash build-api.sh
+      - name: Upload final review source
+        uses: actions/upload-artifact@v4
+        with:
+          name: MEN-CP-011-Final-Exam-Readiness-Review-Source
+          path: dist/review/MEN-CP-011-Final-Exam-Readiness-Review-Source.json
+          if-no-files-found: error
+          retention-days: 14
