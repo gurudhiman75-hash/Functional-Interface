@@ -111,7 +111,7 @@ export function renderLearnerQuestionV4(question: GeneratedSylQuestionV4): strin
     data-difficulty="${question.difficulty}"
     data-explanation="${v4.learnerExplanation.mode.toLowerCase()}"
     data-diagram="${v4.diagram.mode}"
-    data-existence="${question.structuredProofV3.existencePolicy.dependentAnswer ? "DEPENDENT" : "INDEPENDENT"}"
+    data-existence="${v4.learnerExplanation.existenceNote ? "DEPENDENT" : "INDEPENDENT"}"
     data-review="${v4.lifecycle.reviewStatus}">
     <header>
       <div>
