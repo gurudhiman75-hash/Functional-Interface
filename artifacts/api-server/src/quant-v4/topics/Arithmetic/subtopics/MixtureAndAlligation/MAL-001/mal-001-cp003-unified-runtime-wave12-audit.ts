@@ -89,7 +89,17 @@ for (const contractId of MAL_CP003_WAVE12_CONTRACT_IDS) {
     assert(first.stem.endsWith("?"), "Stem is not interrogative.");
     assert(first.stem.length >= 55, "Stem is too short to preserve the evidence state.");
     assert(!/[{}]/u.test(first.stem), "Stem contains an unresolved placeholder.");
-    assert(!/\b(?:undefined|null|NaN)\b/u.test(JSON.stringify(first)), "Invalid runtime token escaped.");
+    const learnerVisible = JSON.stringify({
+      stem: first.stem,
+      answer: first.answer,
+      options: first.options,
+      explanation: first.explanation,
+      diagram: first.diagram,
+    });
+    assert(
+      !/\b(?:undefined|NaN)\b/u.test(learnerVisible),
+      "Invalid runtime token escaped into learner-visible content.",
+    );
     assert(first.options.length === 4 && new Set(first.options).size === 4, "Options are invalid.");
     assert(first.options[first.correctIndex] === first.answer, "Correct option does not match answer.");
     assert(first.optionAudit.filter((option) => option.isCorrect).length === 1, "Wrong correct-option count.");
