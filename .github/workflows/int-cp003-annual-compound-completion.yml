@@ -12,6 +12,7 @@ on:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-annual-compound-runtime.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-editorial-*.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-exam-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-grounded-*.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp003-*.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-003/**"
       - ".github/workflows/int-cp003-annual-compound-completion.yml"
@@ -119,31 +120,39 @@ jobs:
           grep -q 'PASS_INT_CP003_ANNUAL_COMPOUND_COMPLETION' artifacts/api-server/dist/quant-v4/int-001-cp003-completion-audit.log
           grep -q 'PASS_INT_CP003_EXAM_READINESS_REMEDIATION' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-readiness-audit.log
           grep -q 'PASS_INT_CP003_SEMANTIC_SOLUTION_TRACE' artifacts/api-server/dist/quant-v4/int-001-cp003-solution-trace-audit.log
-          grep -q 'PASS_INT_CP003_EXAM_READINESS_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-review-export.log
+          grep -q 'PASS_INT_CP003_EDITORIAL_DIVERSITY_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-review-export.log
           grep -q '"authorityVersion": "INT-CP-003-MATH-AUTHORITY-v1"' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-readiness-audit.log
+          grep -q '"generatorVersion": "INT-CP-003-EXAM-GENERATOR-v10"' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-readiness-audit.log
           grep -q '"contextCoverage": 4' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-readiness-audit.log
           grep -q '"traceVersion": "INT-CP-003-SOLUTION-TRACE-v1"' artifacts/api-server/dist/quant-v4/int-001-cp003-solution-trace-audit.log
           grep -q '"questionCount": 1400' artifacts/api-server/dist/quant-v4/int-001-cp003-solution-trace-audit.log
           summary=artifacts/api-server/dist/quant-v4/int-cp003-annual-compound-completion/int-cp003-completion-summary.json
           review=artifacts/api-server/dist/quant-v4/int-cp003-exam-readiness-review-pack
+          clean_review="$review/INT-CP-003-Questions-and-Explanations-Review-V3.md"
+          review_summary="$review/int-cp003-exam-readiness-review-summary.json"
           test -f "$summary"
-          test -f "$review/int-cp003-56-exam-readiness-questions-and-answers.md"
+          test -f "$clean_review"
           test -f "$review/int-cp003-56-exam-readiness-data.json"
-          test -f "$review/int-cp003-exam-readiness-review-summary.json"
+          test -f "$review_summary"
           grep -q '"qlCount": 14' "$summary"
           grep -q '"openMeaningfulOwnedGaps": 0' "$summary"
-          grep -q '"questions": 56' "$review/int-cp003-exam-readiness-review-summary.json"
-          grep -q '"rateCoverage": 16' "$review/int-cp003-exam-readiness-review-summary.json"
-          grep -q '"representationCoverage": 6' "$review/int-cp003-exam-readiness-review-summary.json"
-          grep -q '"distinctMathematicalStates": 56' "$review/int-cp003-exam-readiness-review-summary.json"
-          grep -q '"distinctNumericFamilies": 56' "$review/int-cp003-exam-readiness-review-summary.json"
-          grep -q '"optionAnalysisAlignments": 224' "$review/int-cp003-exam-readiness-review-summary.json"
-          grep -q '"diagnosticWrongOptions": 168' "$review/int-cp003-exam-readiness-review-summary.json"
-          grep -Fq '### Key idea' "$review/int-cp003-56-exam-readiness-questions-and-answers.md"
-          grep -Fq '### Calculation' "$review/int-cp003-56-exam-readiness-questions-and-answers.md"
-          grep -Fq '### Option diagnosis' "$review/int-cp003-56-exam-readiness-questions-and-answers.md"
-          grep -q '\[[A-Z0-9_]*_TRAP\]' "$review/int-cp003-56-exam-readiness-questions-and-answers.md"
-          grep -Fq '| ---' "$review/int-cp003-56-exam-readiness-questions-and-answers.md"
+          grep -q '"questions": 56' "$review_summary"
+          grep -q '"proseQuestions": 42' "$review_summary"
+          grep -q '"structuredQuestions": 14' "$review_summary"
+          grep -q '"prosePerQl": 3' "$review_summary"
+          grep -q '"structuredPerQl": 1' "$review_summary"
+          grep -q '"rateCoverage": 16' "$review_summary"
+          grep -q '"representationCoverage": 6' "$review_summary"
+          grep -q '"distinctMathematicalStates": 56' "$review_summary"
+          grep -q '"distinctNumericFamilies": 56' "$review_summary"
+          grep -Fq '### Explanation' "$clean_review"
+          grep -Fq '**Answer:**' "$clean_review"
+          grep -Fq '| ---' "$clean_review"
+          test "$(grep -c '^## Question ' "$clean_review")" -eq 56
+          test "$(grep -c '^### Explanation$' "$clean_review")" -eq 56
+          ! grep -Fq 'Option diagnosis' "$clean_review"
+          ! grep -Fq 'Stem family' "$clean_review"
+          ! grep -Fq 'Representation:' "$clean_review"
           ! grep -R -n -P '[\x00-\x08\x09\x0B\x0C\x0E-\x1F]' "$review"/*.md
           ! grep -R -n -E 'bounded|canonical|verifier|mathematical state|generation seed' "$review"/*.md
           ! grep -R -n -E '₹[0-9]{3},[0-9]{3}([^0-9]|$)|₹[0-9]{1,3},[0-9]{3},[0-9]{3}' "$review"/*.md
