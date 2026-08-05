@@ -12,6 +12,7 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-D/**
       - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-E/**
       - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-AUDIT/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-POST-WAVE-E-AUDIT/**
       - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-FINAL-AUDIT/**
       - .github/workflows/ser-001-cp007-final-audit.yml
   workflow_dispatch:
@@ -26,7 +27,7 @@ concurrency:
 jobs:
   final-audit-cp007:
     runs-on: ubuntu-latest
-    timeout-minutes: 75
+    timeout-minutes: 90
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -93,7 +94,22 @@ jobs:
           grep -q 'PASS_SER_CP007_WAVE_E_MARKER_AND_POSITIONAL_SUBSTITUTION_DISCOVERY' \
             "$EVIDENCE/wave-e-audit.json"
 
-      - name: Validate five-wave manifest and pending source audit
+      - name: Run post-Wave-E authority collision matrix
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-final-audit
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/SER-CP-007-POST-WAVE-E-AUDIT/ser-cp-007-authority-collision-matrix.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/ser-cp-007-authority-collision-matrix.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-007-authority-collision-matrix.test.mjs") \
+            | tee "$EVIDENCE/authority-collision-matrix.json"
+          grep -q 'PASS_SER_CP007_POST_WAVE_E_17_AUTHORITY_COLLISION_MATRIX' \
+            "$EVIDENCE/authority-collision-matrix.json"
+
+      - name: Validate five-wave manifest and remaining source ledger
         run: |
           set -euo pipefail
           ROOT=src/reasoning-v1/topics/Series/SER-001
@@ -105,7 +121,7 @@ jobs:
             --outfile="$OUT/ser-cp-007-post-wave-e-manifest.test.mjs"
           (cd artifacts/api-server && node "$OUT/ser-cp-007-post-wave-e-manifest.test.mjs") \
             | tee "$EVIDENCE/final-manifest-audit.json"
-          grep -q 'PASS_SER_CP007_POST_WAVE_E_MANIFEST_SOURCE_AUDIT_PENDING' \
+          grep -q 'PASS_SER_CP007_POST_WAVE_E_MANIFEST_COLLISION_COMPLETE_LEDGER_PENDING' \
             "$EVIDENCE/final-manifest-audit.json"
 
       - name: Collect final audit documents
@@ -123,6 +139,8 @@ jobs:
             "$EVIDENCE/ser-cp-007-wave-e-plan.md"
           cp "$ROOT/SER-CP-007-WAVE-E/ser-cp-007-wave-e-report.md" \
             "$EVIDENCE/ser-cp-007-wave-e-report.md"
+          cp "$ROOT/SER-CP-007-POST-WAVE-E-AUDIT/ser-cp-007-authority-collision-matrix-report.md" \
+            "$EVIDENCE/ser-cp-007-authority-collision-matrix-report.md"
           cp "$ROOT/SER-CP-007-AUDIT/ser-cp-007-chapter-gap-audit.md" \
             "$EVIDENCE/ser-cp-007-pre-wave-d-gap-audit.md"
           cp "$ROOT/SER-CP-007-WAVE-D/ser-cp-007-wave-d-report.md" \
