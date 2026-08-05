@@ -160,12 +160,29 @@ function decisiveStep(
     .find((step) => step.includes(correctAnswer));
 }
 
+const STRUCTURAL_MARKERS = [
+  "Odd-position row:",
+  "Even-position row:",
+  "Position 1:",
+  "Row 1:",
+] as const;
+
+function stripBookkeepingPrefix(step: string): string {
+  if (!/^First (?:write the correct series|check the shown groups):/i.test(step)) {
+    return step;
+  }
+  const markerIndexes = STRUCTURAL_MARKERS
+    .map((marker) => step.indexOf(marker))
+    .filter((index) => index >= 0);
+  if (markerIndexes.length === 0) return "";
+  return step.slice(Math.min(...markerIndexes)).trim();
+}
+
 function structuralSteps(steps: readonly string[]): readonly string[] {
-  return steps.filter(
-    (step) =>
-      !/^First write the correct series:/i.test(step) &&
-      !/^First check the shown groups:/i.test(step) &&
-      !/^Now move one step backward/i.test(step),
+  return uniqueSteps(
+    steps
+      .filter((step) => !/^Now move one step backward/i.test(step))
+      .map(stripBookkeepingPrefix),
   );
 }
 
@@ -174,7 +191,9 @@ function selectSteps(
   proofModel: SerCp007ProofModel,
 ): readonly string[] {
   const allSteps = uniqueSteps(question.explanation.steps);
-  if (allSteps.length <= 3) return allSteps;
+  if (allSteps.length <= 3) {
+    return uniqueSteps(allSteps.map(stripBookkeepingPrefix));
+  }
 
   const structural = structuralSteps(allSteps);
   const usable = structural.length > 0 ? structural : allSteps;
@@ -186,7 +205,11 @@ function selectSteps(
   }
 
   if (proofModel === "INTERLEAVED_ROWS") {
-    const rows = usable.filter((step) => /(?:^|-)position row:/i.test(step));
+    const rows = usable.filter(
+      (step) =>
+        /(?:^|-)position row:/i.test(step) ||
+        /^Row \d+:/i.test(step),
+    );
     if (rows.length > 0) return rows;
   }
 
