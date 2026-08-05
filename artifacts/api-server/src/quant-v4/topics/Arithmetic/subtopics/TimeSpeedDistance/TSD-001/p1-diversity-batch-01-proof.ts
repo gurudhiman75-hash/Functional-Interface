@@ -1,4 +1,4 @@
-import { generateCanonicalReviewRecords, type TsdCanonicalReviewRecord, type TsdCanonicalValue } from "./canonical-review-schema";
+import { generateCanonicalReviewRecords, type TsdCanonicalValue } from "./canonical-review-schema";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -40,8 +40,17 @@ assert(rows.every((row) => row.lifecycle.englishFreezeStatus === "UNFROZEN"), "P
 const metrics = TARGET_MODES.map((mode) => {
   const modeRows = rows.filter((row) => row.solveMode === mode);
   assert(modeRows.length === 3, `${mode}: expected exactly three current review rows`);
-  const templates = new Set(modeRows.map((row) => normalizedTemplate(row.stem)));
-  assert(templates.size === 3, `${mode}: expected three materially different normalized stem templates, received ${templates.size}`);
+  const rowDiagnostics = modeRows.map((row) => ({
+    questionLanguageId: row.questionLanguageId,
+    seed: row.seed,
+    stem: row.stem,
+    normalizedTemplate: normalizedTemplate(row.stem),
+  }));
+  const templates = new Set(rowDiagnostics.map((row) => row.normalizedTemplate));
+  assert(
+    templates.size === 3,
+    `${mode}: expected three materially different normalized stem templates, received ${templates.size}; rows=${JSON.stringify(rowDiagnostics)}`,
+  );
   assert(new Set(modeRows.map((row) => row.stem)).size === 3, `${mode}: duplicate visible stem remains`);
   return Object.freeze({
     solveMode: mode,
@@ -49,6 +58,7 @@ const metrics = TARGET_MODES.map((mode) => {
     normalizedTemplates: templates.size,
     uniqueAnswers: new Set(modeRows.map((row) => row.answerText)).size,
     answers: Object.freeze(modeRows.map((row) => row.answerText)),
+    seeds: Object.freeze(modeRows.map((row) => row.seed)),
   });
 });
 
