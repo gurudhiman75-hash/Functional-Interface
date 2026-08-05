@@ -14,8 +14,9 @@ for (const entry of TMW_CP005_REGISTRY) {
     for (const language of languages) {
       const first = runTmwCp005Pipeline({ questionLanguageId: entry.qlId, seed, language });
       const second = runTmwCp005Pipeline({ questionLanguageId: entry.qlId, seed, language });
-      assert.deepEqual(first, second);
-      assert.equal(first.validation.valid, true, `${entry.qlId}:${language}:${first.validation.errors.join(" | ")}`);
+      const row = `${entry.qlId}:${language}:${index}`;
+      assert.deepEqual(first, second, `${row}: nondeterministic package`);
+      assert.equal(first.validation.valid, true, `${row}:${first.validation.errors.join(" | ")}`);
       assert.equal(first.language, language);
       assert.equal(first.locale, language === "hi" ? "hi-IN" : "pa-IN");
       assert.equal(first.sourceLanguage, "en");
@@ -58,11 +59,11 @@ for (const entry of TMW_CP005_REGISTRY) {
         first.explanation.commonTrap.explanation,
         first.explanation.conclusion,
       ].join("\n");
-      assert.equal(/undefined|null|NaN|Infinity|find[A-Z]|TMW_|Do not|Don't/i.test(learnerText), false);
-      assert.equal(/\b(?:Operator|Technician|Clerk|Machine|Crew|Team|Inspector|Typist|Painter|Recorder|Surveyor|Assembler) [ABC]\b/.test(learnerText), false, `${entry.qlId}:${language}: English actor leakage`);
-      assert.equal(/\b(?:Rest day|Saturday|Sunday|Cannot be determined)\b/.test(learnerText), false, `${entry.qlId}:${language}: English cycle label leakage`);
-      assert.equal(/\d+ दिन में|\d+ ਦਿਨ ਵਿੱਚ|\d+ घंटा में|\d+ ਘੰਟਾ ਵਿੱਚ/.test(learnerText), false, `${entry.qlId}:${language}: uninflected time before postposition`);
-      assert.equal(/\b(?:work|cycle|turn|worker|rate|deadline|output|rest day|weekend|shift)\b/i.test(learnerText), false, `${entry.qlId}:${language}: English prose leakage`);
+      assert.equal(/undefined|null|NaN|Infinity|find[A-Z]|TMW_|Do not|Don't/i.test(learnerText), false, `${row}: internal wording`);
+      assert.equal(/\b(?:Operator|Technician|Clerk|Machine|Crew|Team|Inspector|Typist|Painter|Recorder|Surveyor|Assembler) [ABC]\b/.test(learnerText), false, `${row}: English actor leakage`);
+      assert.equal(/\b(?:Rest day|Saturday|Sunday|Cannot be determined)\b/.test(learnerText), false, `${row}: English cycle label leakage`);
+      assert.equal(/\d+ दिन में|\d+ ਦਿਨ ਵਿੱਚ|\d+ घंटा में|\d+ ਘੰਟਾ ਵਿੱਚ/.test(learnerText), false, `${row}: uninflected time before postposition`);
+      assert.equal(/\b(?:work|cycle|turn|worker|rate|deadline|output|rest day|weekend|shift)\b/i.test(learnerText), false, `${row}: English prose leakage`);
       assert.equal(language === "hi" ? /[\u0900-\u097F]/.test(learnerText) : /[\u0A00-\u0A7F]/.test(learnerText), true);
 
       switch (first.solution.answerType) {
@@ -99,7 +100,11 @@ for (const entry of TMW_CP005_REGISTRY) {
         assert.match(first.explanation.shortcut.steps.join(" "), language === "hi" ? /शून्य|विश्राम/ : /ਸਿਫ਼ਰ|ਆਰਾਮ/);
       }
       if (entry.solveMode === "findTimeFromArbitraryCyclePhase") {
-        assert.match(first.explanation.commonTrap.explanation, language === "hi" ? /दी गई शुरुआती बारी|सामान्य पहली बारी/ : /ਦਿੱਤੀ ਸ਼ੁਰੂਆਤੀ ਵਾਰੀ|ਆਮ ਪਹਿਲੀ ਵਾਰੀ/);
+        if (first.explanation.commonTrap.misconceptionId === "OFFSET_IGNORED") {
+          assert.match(first.explanation.commonTrap.explanation, language === "hi" ? /दी गई शुरुआती बारी|सामान्य पहली बारी/ : /ਦਿੱਤੀ ਸ਼ੁਰੂਆਤੀ ਵਾਰੀ|ਆਮ ਪਹਿਲੀ ਵਾਰੀ/, row);
+        } else if (first.explanation.commonTrap.misconceptionId === "FINAL_CYCLE_OMITTED") {
+          assert.match(first.explanation.commonTrap.explanation, language === "hi" ? /अंतिम चक्र|आवश्यक भाग/ : /ਆਖ਼ਰੀ ਚੱਕਰ|ਲੋੜੀਂਦਾ ਹਿੱਸਾ/, row);
+        }
       }
 
       counts[language] += 1;
