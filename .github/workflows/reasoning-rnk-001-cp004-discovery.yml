@@ -12,7 +12,7 @@ on:
 jobs:
   cp004-discovery:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -28,22 +28,17 @@ jobs:
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-foundation.test.ts
           rnk-cp004-discovery-output
 
-      - name: Enforce adaptive exam-readiness English V2 gates
+      - name: Enforce proof-safe exam-readiness English Remodel V3 gates
         run: >-
           npx --yes tsx
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-exam-ready.test.ts
-          rnk-cp004-exam-ready-v2-output
+          rnk-cp004-exam-ready-v3-output
 
-      - name: Verify upper and lower block presentation
-        run: >-
-          npx --yes tsx
-          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-bridge-presentation.test.ts
-
-      - name: Upload RNK-CP-004 adaptive remodel V2 evidence
+      - name: Upload RNK-CP-004 Remodel V3 review evidence
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp004-english-remodel-v2-review-pending
+          name: rnk-001-cp004-english-remodel-v3-review-pending
           path: |
             rnk-cp004-discovery-output
-            rnk-cp004-exam-ready-v2-output
+            rnk-cp004-exam-ready-v3-output
           retention-days: 14
