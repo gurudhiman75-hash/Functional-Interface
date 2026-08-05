@@ -39,28 +39,30 @@ Item 222
 
 The seven fixed-column questions are parameter variations rather than seven authorities. Item 138 is a useful collision guard: comparing adjacent terms hides the simpler two-row rule.
 
-## Aggregate traceability after ancestry decision
+## Aggregate traceability after source close
 
 ```text
-Verified source records:             36 covered/delegated/Wave-E-resolved
-Unresolved traced exam records:       1
-Unresolved record:                    DISHA-VNV item 195
-Wave-D probes reviewed:               8
-Final SATURATION_ONLY_SERIES:          7
-Final SATURATION_ONLY_SERIES_COLLISION: 1
-Unresolved Wave-D ancestry decisions:  0
-Post-Wave-E collision audit:          COMPLETE
-Mathematical saturation:              PENDING_ITEM_195_RESOLUTION
-Ledger completeness:                  BLOCKED
-English discovery freeze:             BLOCKED
-Permanent QLs:                         0
-CP-008:                               BLOCKED
+Covered/delegated/Wave-E-resolved source records: 36
+Rejected defective/ambiguous source records:       1
+Unresolved traced exam records:                     0
+Wave-D probes reviewed:                             8
+Final SATURATION_ONLY_SERIES:                        7
+Final SATURATION_ONLY_SERIES_COLLISION:              1
+Unresolved Wave-D ancestry decisions:                0
+Post-Wave-E collision audit:                  COMPLETE
+Source-ledger completeness:                   COMPLETE
+Page/item traceability disposition:           COMPLETE
+Mathematical saturation:                      PROVISIONALLY_COMPLETE_AFTER_SOURCE_CLOSE
+English editorial review:                     NOT_STARTED
+English discovery freeze:                     BLOCKED
+Permanent QLs:                                 0
+CP-008:                                       BLOCKED
 ```
 
-The only remaining extracted exam-item blocker is Disha item `195`. The eight Wave-D probes now have explicit final evidence dispositions and are no longer ancestry-pending.
+Disha item `195` is retained as a traceable `REJECTED_SOURCE_DEFECT_AMBIGUOUS_RULE` record. Its answer label is stable, but copied option text conflicts and the finite completion does not uniquely establish a canonical authority. It does not justify Wave F.
 
 ## Next authority
 
 ```text
-SER_CP007_ITEM_195_RESOLUTION_AND_SOURCE_LEDGER_CLOSE
+SER_CP007_FULL_ENGLISH_EDITORIAL_REVIEW_AND_MERGE_SPLIT_FREEZE
 ```
