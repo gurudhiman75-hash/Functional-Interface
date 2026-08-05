@@ -74,6 +74,7 @@ function count(value: string, pattern: RegExp): number {
 const locales: readonly SylLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 const relationCoverage = new Set<string>();
 const modeCoverage = new Set<string>();
+const globalSvgIds = new Set<string>();
 let records = 0;
 let enabled = 0;
 let omitted = 0;
@@ -131,7 +132,13 @@ for (const definition of SYL_QL_REGISTRY) {
       assert(svg.includes(`lang="${question.locale}"`), `${key} SVG language is wrong.`);
       assert(!/\bwidth="\d{4,}/u.test(svg), `${key} requests a wide fixed SVG.`);
       assert(!/overflow-x|white-space:\s*nowrap/iu.test(svg), `${key} may require horizontal scrolling.`);
-      assert(/(?:11|12|14|25)px/u.test(svg), `${key} has no legible label-size evidence.`);
+      assert(/(?:9\.5|11|12|14|15|25)px/u.test(svg), `${key} has no legible label-size evidence.`);
+      const ids = [...svg.matchAll(/(?:^|\s)id="([^"]+)"/gu)].map((match) => match[1]);
+      assert(new Set(ids).size === ids.length, `${key} repeats an internal SVG ID.`);
+      for (const id of ids) {
+        assert(!globalSvgIds.has(id), `${key} reuses SVG ID ${id}.`);
+        globalSvgIds.add(id);
+      }
 
       const setColors = [...svg.matchAll(/\.(?:set-a|set-b|set-c)\{[^}]*?(#[0-9a-f]{6})/giu)].map((match) => match[1].toLowerCase());
       assert(new Set(setColors).size <= 3, `${key} uses more than three primary set colours.`);
@@ -156,10 +163,15 @@ for (const definition of SYL_QL_REGISTRY) {
         assert(/data-relation="NO"/u.test(svg), `${key} separation diagram lacks NO semantics.`);
       }
       if (diagram.mode === "VENN_IMPOSSIBLE") {
-        assert(/data-forbidden-region=/u.test(svg), `${key} impossible diagram lacks a forbidden witness.`);
+        assert(/data-(?:forbidden-region|invalid-conclusion)=/u.test(svg), `${key} impossible diagram does not show why the conclusion fails.`);
+      }
+      if (diagram.mode === "VENN_COUNTEREXAMPLE" || diagram.mode === "VENN_POSSIBILITY") {
+        assert(/viewBox="0 0 360 318"/u.test(svg), `${key} full model canvas does not reserve readable label space.`);
       }
       if (diagram.mode === "VENN_DUAL_MODEL") {
         assert(count(svg, /data-model-panel=/gu) === 2, `${key} dual model is not split into two panels.`);
+        assert(!/scale\(/u.test(svg), `${key} dual model shrinks labels through SVG scaling.`);
+        assert(/viewBox="0 0 360 214"/u.test(svg), `${key} dual model canvas is not mobile-readable.`);
       }
 
       if (question.locale === "hi-IN") {
@@ -233,4 +245,5 @@ console.log(JSON.stringify({
   countermodels,
   possibilityModels,
   dualModels,
+  globallyUniqueSvgIds: globalSvgIds.size,
 }, null, 2));
