@@ -1,5 +1,6 @@
 import { getTmwCp006Entry } from "./cp006-registry";
 import type { TmwCp006GeneratedQuestion } from "./cp006-types";
+import { cleanupTmwCp006EditorialFields } from "./cp006-editorial-field-cleanup";
 import { remediateTmwCp006LocalizedQuestion } from "./cp006-editorial-review-remediation";
 import type { TmwLocalizedLanguage, TmwLocalizedQuestion } from "./localization-types";
 import { displayLocale } from "./localization-types";
@@ -79,7 +80,7 @@ export function localizeTmwCp006Question(
   if (language === "hi" && !/[\u0900-\u097F]/.test(learnerText)) errors.push("Hindi delivery has no Devanagari text");
   if (language === "pa" && !/[\u0A00-\u0A7F]/.test(learnerText)) errors.push("Punjabi delivery has no Gurmukhi text");
 
-  return remediateTmwCp006LocalizedQuestion(source, {
+  const localized = remediateTmwCp006LocalizedQuestion(source, {
     archetypeId: source.archetypeId,
     canonicalProblemId: source.canonicalProblemId,
     questionLanguageId: source.questionLanguageId,
@@ -113,4 +114,6 @@ export function localizeTmwCp006Question(
     editorialStatus: "PENDING",
     publiclyPublishable: false,
   }, language);
+
+  return cleanupTmwCp006EditorialFields(localized, language);
 }
