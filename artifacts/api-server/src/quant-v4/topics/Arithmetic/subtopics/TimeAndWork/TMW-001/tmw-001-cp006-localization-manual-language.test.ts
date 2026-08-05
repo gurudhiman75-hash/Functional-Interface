@@ -69,7 +69,22 @@ for (const entry of TMW_CP006_REGISTRY) {
       if (entry.solveMode === "findEquivalentResourceTime") {
         assert.equal(/कितना है\?|ਕਿੰਨਾ ਹੈ\?/.test(question.stem), false);
         assert.equal(/N_2=1|D_2=1|H_2=1|E_2=1/.test((question.explanation.givens ?? []).join(" ")), false);
-        assert.match(question.explanation.commonTrap.explanation, language === "hi" ? /एक गुणक छोड़/ : /ਇੱਕ ਗੁਣਕ ਛੱਡ/);
+        switch (question.explanation.commonTrap.misconceptionId) {
+          case "WORK_RATIO_OMITTED":
+            assert.match(question.explanation.commonTrap.explanation, language === "hi" ? /काम का अनुपात.*नहीं/ : /ਕੰਮ ਦਾ ਅਨੁਪਾਤ.*ਨਹੀਂ/);
+            break;
+          case "HOURS_FACTOR_OMITTED":
+            assert.match(question.explanation.commonTrap.explanation, language === "hi" ? /घंटों का बदलाव/ : /ਘੰਟਿਆਂ ਦਾ ਬਦਲਾਅ/);
+            break;
+          case "EFFICIENCY_FACTOR_OMITTED":
+            assert.match(question.explanation.commonTrap.explanation, language === "hi" ? /दक्षता का बदलाव/ : /ਦੱਖਤਾ ਦਾ ਬਦਲਾਅ/);
+            break;
+          case "DIRECT_INVERSE_PROPORTION_CONFUSED":
+            assert.match(question.explanation.commonTrap.explanation, language === "hi" ? /सीधे और उलटे संबंध/ : /ਸਿੱਧੇ ਅਤੇ ਉਲਟੇ ਸੰਬੰਧ/);
+            break;
+          default:
+            assert.ok(question.explanation.commonTrap.explanation.length > 20);
+        }
       }
 
       checked += 1;
