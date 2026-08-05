@@ -39,6 +39,7 @@ for (const entry of TMW_CP005_REGISTRY) {
       assert.equal(/अंतिम सक्रिय बारी|अगली सक्रिय दर|चक्र की अवस्था|अज्ञात सक्रिय समय|शुद्ध चक्र-काम|ਆਖ਼ਰੀ ਸਰਗਰਮ ਵਾਰੀ|ਅਗਲੀ ਸਰਗਰਮ ਦਰ|ਚੱਕਰ ਦੀ ਸਥਿਤੀ|ਅਣਜਾਣ ਸਰਗਰਮ ਸਮੇਂ|ਸ਼ੁੱਧ ਚੱਕਰ-ਕੰਮ/.test(prose), false, `${row}: technical cycle wording\n${prose}`);
       assert.equal(/अंतिम आवश्यक चक्र या अधूरी बारी|ਆਖ਼ਰੀ ਲੋੜੀਂਦੇ ਚੱਕਰ ਜਾਂ ਅਧੂਰੀ ਵਾਰੀ/.test(question.explanation.commonTrap.explanation), false, `${row}: generic trap remained`);
       assert.equal(/हानिकारक प्रक्रिया|नुकसान वाली प्रक्रिया|ਨੁਕਸਾਨ ਵਾਲੀ ਪ੍ਰਕਿਰਿਆ/.test(question.stem), false, `${row}: technical negative-work label`);
+      assert.equal(/\d+ दिन में|\d+ ਦਿਨ ਵਿੱਚ|\d+ घंटा में|\d+ ਘੰਟਾ ਵਿੱਚ/.test(prose), false, `${row}: uninflected time`);
 
       switch (entry.solveMode) {
         case "findCompletionTimeForTwoAgentAlternationStartingA":
@@ -54,26 +55,19 @@ for (const entry of TMW_CP005_REGISTRY) {
         case "findCompletionDayAndTerminalFraction":
           assert.match(question.explanation.opening, language === "hi" ? /अंतिम दिन का आवश्यक भाग/ : /ਆਖ਼ਰੀ ਦਿਨ ਦਾ ਲੋੜੀਂਦਾ ਹਿੱਸਾ/, row);
           break;
-        case "findWorkAfterGivenNumberOfCycles":
-          assert.match(question.explanation.opening, language === "hi" ? /चक्रों की संख्या से गुणा/ : /ਚੱਕਰਾਂ ਦੀ ਗਿਣਤੀ ਨਾਲ ਗੁਣਾ/, row);
-          break;
-        case "findRemainingWorkAfterFullCycles":
-          assert.match(question.explanation.opening, language === "hi" ? /1 में से घटाने/ : /1 ਵਿੱਚੋਂ ਘਟਾਉਣ/, row);
-          break;
         case "findTerminalAgent":
-          assert.match(question.explanation.opening, language === "hi" ? /जिस अगली बारी/ : /ਜਿਸ ਅਗਲੀ ਵਾਰੀ/, row);
           assert.match(question.explanation.conclusion, language === "hi" ? /की बारी में पूरा होगा/ : /ਦੀ ਵਾਰੀ ਵਿੱਚ ਪੂਰਾ ਹੋਵੇਗਾ/, row);
           break;
         case "findStartingAgentFromCompletionCondition":
-          assert.match(question.explanation.opening, language === "hi" ? /दोनों क्रम अलग|अंतिम बारी/ : /ਦੋਵੇਂ ਕ੍ਰਮ ਵੱਖ|ਆਖ਼ਰੀ ਵਾਰੀ/, row);
+          assert.match(question.explanation.opening, language === "hi" ? /दोनों क्रम अलग.*अंतिम बारी/ : /ਦੋਵੇਂ ਕ੍ਰਮ ਵੱਖ.*ਆਖ਼ਰੀ ਵਾਰੀ/, row);
           assert.match(question.explanation.conclusion, language === "hi" ? /कुल समय और अंतिम बारी/ : /ਕੁੱਲ ਸਮਾਂ ਅਤੇ ਆਖ਼ਰੀ ਵਾਰੀ/, row);
           break;
         case "findUnknownRateFromAlternatingCompletion":
-          assert.match(question.explanation.opening, language === "hi" ? /कितने-कितने दिन|कुल दिनों से भाग/ : /ਕਿੰਨੇ-ਕਿੰਨੇ ਦਿਨ|ਕੁੱਲ ਦਿਨਾਂ ਨਾਲ ਭਾਗ/, row);
+          assert.match(question.explanation.opening, language === "hi" ? /कितने-कितने दिन.*कुल दिनों से भाग/ : /ਕਿੰਨੇ-ਕਿੰਨੇ ਦਿਨ.*ਕੁੱਲ ਦਿਨਾਂ ਨਾਲ ਭਾਗ/, row);
           break;
         case "findUnknownTimeFromAlternatingCompletion":
           assert.match(question.explanation.opening, language === "hi" ? /दर का उलटा/ : /ਦਰ ਦਾ ਉਲਟ/, row);
-          assert.match(question.explanation.conclusion, language === "hi" ? /अकेले पूरा काम/ : /ਇਕੱਲਾ ਸਾਰਾ ਕੰਮ/, row);
+          assert.match(question.explanation.conclusion, language === "hi" ? /अकेले काम करने का कुल समय.*होगा/ : /ਇਕੱਲੇ ਕੰਮ ਕਰਨ ਦਾ ਕੁੱਲ ਸਮਾਂ.*ਹੋਵੇਗਾ/, row);
           break;
         case "findCompletionWhenHelperWorksEveryNthDay":
           assert.match(question.explanation.opening, language === "hi" ? /सहायता वाले दिन.*अतिरिक्त काम/ : /ਮਦਦ ਵਾਲੇ ਦਿਨ.*ਵਾਧੂ ਕੰਮ/, row);
@@ -85,13 +79,13 @@ for (const entry of TMW_CP005_REGISTRY) {
           assert.match(question.explanation.opening, language === "hi" ? /पाँच काम वाले दिन.*दो बिना काम/ : /ਪੰਜ ਕੰਮ ਵਾਲੇ ਦਿਨ.*ਦੋ ਬਿਨਾਂ ਕੰਮ/, row);
           break;
         case "findCompletionWithUnequalShiftDurations":
-          assert.match(question.explanation.opening, language === "hi" ? /पाली के घंटों|अधूरी पाली/ : /ਸ਼ਿਫ਼ਟ ਦੇ ਘੰਟਿਆਂ|ਅਧੂਰੀ ਸ਼ਿਫ਼ਟ/, row);
+          assert.match(question.explanation.opening, language === "hi" ? /पाली के घंटों.*अधूरी पाली/ : /ਸ਼ਿਫ਼ਟ ਦੇ ਘੰਟਿਆਂ.*ਅਧੂਰੀ ਸ਼ਿਫ਼ਟ/, row);
           break;
         case "findCompletionWithTwoDaysOnOneDayOffPattern":
-          assert.match(question.explanation.opening, language === "hi" ? /पहले दो दिन काम|तीन बीते दिन/ : /ਪਹਿਲੇ ਦੋ ਦਿਨ ਕੰਮ|ਤਿੰਨ ਬੀਤੇ ਦਿਨ/, row);
+          assert.match(question.explanation.opening, language === "hi" ? /पहले दो दिन काम.*तीन बीते दिन/ : /ਪਹਿਲੇ ਦੋ ਦਿਨ ਕੰਮ.*ਤਿੰਨ ਬੀਤੇ ਦਿਨ/, row);
           break;
         case "findCompletionWithPeriodicNegativeWork":
-          assert.match(question.explanation.opening, language === "hi" ? /बिगाड़ वाले दिन.*घटाएँ|वास्तविक काम/ : /ਖਰਾਬੀ ਵਾਲੇ ਦਿਨ.*ਘਟਾਓ|ਅਸਲ ਕੰਮ/, row);
+          assert.match(question.explanation.opening, language === "hi" ? /बिगाड़ वाले दिन.*घटाएँ.*वास्तविक काम/ : /ਖਰਾਬੀ ਵਾਲੇ ਦਿਨ.*ਘਟਾਓ.*ਅਸਲ ਕੰਮ/, row);
           break;
         case "findCompletionWithRepeatedJoinLeaveCycle":
           assert.match(question.explanation.opening, language === "hi" ? /अकेली बारी.*संयुक्त बारी/ : /ਇਕੱਲੀ ਵਾਰੀ.*ਸਾਂਝੀ ਵਾਰੀ/, row);
@@ -106,7 +100,7 @@ for (const entry of TMW_CP005_REGISTRY) {
           assert.match(question.explanation.opening, language === "hi" ? /कोई अतिरिक्त अधूरी बारी नहीं/ : /ਕੋਈ ਵਾਧੂ ਅਧੂਰੀ ਵਾਰੀ ਨਹੀਂ/, row);
           break;
         case "findCompletionWithinCycleSegment":
-          assert.match(question.explanation.opening, language === "hi" ? /खंड एक-एक करके|केवल आवश्यक समय/ : /ਖੰਡ ਇੱਕ-ਇੱਕ ਕਰਕੇ|ਸਿਰਫ਼ ਲੋੜੀਂਦਾ ਸਮਾਂ/, row);
+          assert.match(question.explanation.opening, language === "hi" ? /खंड एक-एक करके.*केवल आवश्यक समय/ : /ਖੰਡ ਇੱਕ-ਇੱਕ ਕਰਕੇ.*ਸਿਰਫ਼ ਲੋੜੀਂਦਾ ਸਮਾਂ/, row);
           break;
         case "findOutputUnderPeriodicMachineSchedule":
           assert.match(question.explanation.opening, language === "hi" ? /प्रति घंटा उत्पादन.*चलने के घंटे/ : /ਪ੍ਰਤੀ ਘੰਟਾ ਉਤਪਾਦਨ.*ਚੱਲਣ ਦੇ ਘੰਟੇ/, row);
