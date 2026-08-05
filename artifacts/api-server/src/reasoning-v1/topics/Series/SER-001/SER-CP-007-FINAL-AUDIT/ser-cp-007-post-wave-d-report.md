@@ -1,16 +1,18 @@
 # SER-CP-007 post-Wave-D audit report
 
-## Consolidated system
+## Consolidated completed system
 
 ```text
-Discovery waves:                 4
+Completed executable waves:      4
 Source-shaped probes:           36
 Temporary templates:           104
 Seeds per template:            120
 Generated questions:        12,480
-Unique provisional authorities: 15
+Current provisional authorities: 15
 Permanent QLs:                   0
 ```
+
+These figures describe the completed Waves A–D corpus. They do not include the newly required Wave E candidates.
 
 ## Consolidated task coverage
 
@@ -36,7 +38,7 @@ Two-cluster ordered list:            840
 Wrong group → replacement pair:      120
 ```
 
-## Mathematical saturation result
+## Wave D result
 
 Wave D closed the four mathematical blockers raised by the first chapter audit:
 
@@ -47,24 +49,21 @@ interior insertion growth           -> provisional authority established
 four-row interleaving               -> merged into K_INTERLEAVED_CLUSTER_SERIES
 ```
 
-```text
-Mathematical saturation: PROVISIONALLY_COMPLETE
-```
+At that boundary, the tested structural inventory was provisionally saturated. The Wave D executable proof remains valid for the families it covers.
 
-This status is provisional because the source ledger may reveal a meaningful mode not present in the current structural inventory.
+## Source-ledger result
 
-## Source-ledger progress
-
-The first page-level traceability tranche has now been completed from the uploaded Radian and Disha reasoning references.
+Page-level tracing subsequently found source-backed fixed-width modes outside the Waves A–D inventory.
 
 ```text
-Opened reference files:                 2
-Verified covered/delegated records:     9
-Grouped or classification-pending:      3
-Traceability pass:            IN_PROGRESS
+Opened reference files:                    2
+Verified covered/delegated/new-gap records: 18
+Grouped or stem/classification-pending:     4
+Meaningful uncovered candidate authorities: 2
+Traceability pass:               IN_PROGRESS
 ```
 
-The verified tranche directly sources:
+The existing authorities directly supported by the traced tranche include:
 
 ```text
 COLUMNWISE_FIXED_CLUSTER_MOVEMENT
@@ -73,29 +72,73 @@ EDGE_DELETION_WORD_SEQUENCE
 REPEATED_BLOCK_COMPLETION
 ```
 
-It also reaffirms that width-one alphabetic series remain owned by `SER-CP-006`. No new authority or permanent QL is justified by the traced records.
+The second Radian tranche adds two meaningful uncovered candidates:
 
-The executable final-manifest audit now requires the source identities, record IDs, printed page/item markers and the still-blocked freeze state to remain present.
+```text
+MARKER_BLOCK_POSITION_SHIFT_OVER_PERIODIC_FRAME
+PROGRESSIVE_POSITIONAL_SUBSTITUTION
+```
+
+Representative fixed-width surfaces move a single marker or marker block through a regenerated periodic background, preserve case as a meaningful marker state, or convert one additional position from a source pattern into a target pattern at every step.
+
+These modes do not collapse safely into:
+
+```text
+whole-token cyclic rotation
+one repeated fixed positional permutation
+column-wise letter-value movement
+edge deletion or insertion
+cumulative-prefix growth
+interleaved term rows
+```
+
+## Saturation decision
+
+```text
+Previous Wave-D status:   PROVISIONALLY_COMPLETE_FOR_TESTED_INVENTORY
+Source-ledger finding:    MEANINGFUL_UNCOVERED_MODES_FOUND
+Mathematical saturation:  REOPENED_BY_SOURCE_LEDGER
+English discovery freeze: BLOCKED
+```
+
+This is not a failure of the source-ledger process. It is the intended safeguard: traceable exam and textbook evidence overrides an incomplete synthetic inventory before permanent identities are allocated.
+
+## Wave E boundary
+
+The required next authority is:
+
+```text
+SER_CP007_WAVE_E_MOVING_MARKER_AND_POSITIONAL_SUBSTITUTION_DISCOVERY
+```
+
+Wave E must implement and collision-test:
+
+```text
+single-marker fixed-step movement
+marker-block fixed-step movement
+case-state marker movement
+marker movement with fixed edge tokens
+movement over periodic backgrounds
+progressive prefix substitution
+progressive suffix substitution
+moving source/target pattern boundaries
+```
+
+The provisional two-authority compression must remain open until independent complete-pool solving proves the merge/split result.
 
 ## Remaining gates
 
 ```text
-Source-to-authority ledger:    IN_PROGRESS / BLOCKED FROM FREEZE
-Page-level traceability:       IN_PROGRESS / BLOCKED FROM FREEZE
-Full English editorial review: BLOCKED
-English discovery freeze:      BLOCKED
-Permanent QLs:                 0
-CP-008:                        BLOCKED
+Wave E executable discovery:      NOT STARTED
+Renewed source-to-authority audit: BLOCKED ON WAVE E
+Page-level traceability:           IN_PROGRESS / BLOCKED FROM FREEZE
+Full English editorial review:     BLOCKED
+English discovery freeze:          BLOCKED
+Permanent QLs:                     0
+CP-008:                            BLOCKED
 ```
 
-The next source pass must:
-
-1. split Radian printed page `6-17`, items 133–141 into exact stem-level rows;
-2. classify the Disha continuous-pattern items against repeated versus alternating block completion;
-3. attach exact rows for rotation, progressive column movement, variable-length clusters and growth families;
-4. decide whether every Wave D probe is source-backed or explicitly `SATURATION_ONLY`.
-
-No missing page reference may be guessed.
+After Wave E, the chapter must return to source tracing. English review may begin only if the renewed ledger finds no further meaningful mode.
 
 ## Lifecycle
 
@@ -107,8 +150,4 @@ Public publication:    disabled
 Localization:          not started
 ```
 
-## Next authority
-
-```text
-SER_CP007_FINAL_SOURCE_LEDGER_AND_ENGLISH_FREEZE_REVIEW
-```
+No product or localization gate is opened by the Wave E plan.
