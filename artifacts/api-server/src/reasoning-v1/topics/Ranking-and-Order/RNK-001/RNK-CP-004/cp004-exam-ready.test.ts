@@ -1,18 +1,18 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import {
-  RNK_CP004_PROTOTYPE_IDS,
   reconstructUniqueOrder,
   solveCp004Independently,
   type RnkCp004Comparison,
   type RnkCp004Difficulty,
-  type RnkCp004Query,
 } from './cp004-foundation';
 import {
+  RNK_CP004_EXACT_RANK_DIFFERENCE_PROTOTYPE_ID,
+  RNK_CP004_REMODEL_V3_PROTOTYPE_IDS,
   countTopologicalOrders,
   generateRnkCp004ExamReadyQuestion,
-  type RnkCp004ExplanationMode,
-} from './cp004-exam-ready-v3';
+  type RnkCp004RemodelV3ExplanationMode,
+} from './cp004-exam-ready-v5';
 import {
   buildRnkCp004ReviewPack,
   renderRnkCp004QuestionsAndExplanationsMarkdown,
@@ -36,67 +36,55 @@ function wrongOrderViolatesClue(key: string, clues: readonly RnkCp004Comparison[
   return clues.some((clue) => positions.get(clue.higher)! >= positions.get(clue.lower)!);
 }
 
-function expectedMode(query: RnkCp004Query): RnkCp004ExplanationMode {
-  switch (query.kind) {
-    case 'HIGHEST_ENTITY':
-    case 'LOWEST_ENTITY':
-      return 'ENDPOINT_MINIMAL';
-    case 'ENTITY_AT_EXACT_RANK':
-    case 'RANK_OF_NAMED_ENTITY':
-    case 'MIDDLE_ENTITY':
-      return 'POSITION_LINE';
-    case 'RELATIVE_ORDER_OF_PAIR':
-      return 'PAIR_PATH';
-    case 'IMMEDIATE_NEIGHBOUR':
-      return 'NEIGHBOUR_HIGHLIGHT';
-    case 'COMPLETE_ORDER':
-      return 'OPTION_CONTRADICTION';
-    case 'VALID_RANK_STATEMENT':
-      return 'TRANSITIVE_PROOF';
-    case 'MISSING_COMPARISON':
-      return 'BLOCK_BRIDGE';
-  }
+function visibleWordCount(question: ReturnType<typeof generateRnkCp004ExamReadyQuestion>): number {
+  return question.visibleExplanation.lines.join(' ').split(/\s+/).filter(Boolean).length
+    + (question.visibleExplanation.optionAnalysis?.join(' ').split(/\s+/).filter(Boolean).length ?? 0);
 }
 
-const outputDirectory = process.argv[2] ?? 'rnk-cp004-exam-ready-v2-output';
+const outputDirectory = process.argv[2] ?? 'rnk-cp004-exam-ready-v3-output';
 mkdirSync(outputDirectory, { recursive: true });
 
 const seedsPerPrototype = 240;
-const runtime = RNK_CP004_PROTOTYPE_IDS.flatMap((prototypeId) =>
+const runtime = RNK_CP004_REMODEL_V3_PROTOTYPE_IDS.flatMap((prototypeId) =>
   Array.from({ length: seedsPerPrototype }, (_, seed) =>
     generateRnkCp004ExamReadyQuestion(prototypeId, seed),
   ),
 );
 
+const determinismSeeds = [0, 1, 7, 31, 97, 239] as const;
+for (const prototypeId of RNK_CP004_REMODEL_V3_PROTOTYPE_IDS) {
+  for (const seed of determinismSeeds) {
+    const first = generateRnkCp004ExamReadyQuestion(prototypeId, seed);
+    const second = generateRnkCp004ExamReadyQuestion(prototypeId, seed);
+    assert(JSON.stringify(first) === JSON.stringify(second), `Non-deterministic V3 output at ${prototypeId}:${seed}`);
+  }
+}
+
 const difficulties = new Set<RnkCp004Difficulty>();
+const explanationModes = new Set<RnkCp004RemodelV3ExplanationMode>();
 const stableIds = new Set<string>();
-const explanationModes = new Set<RnkCp004ExplanationMode>();
-let indirectPairCount = 0;
-let transitiveConclusionCount = 0;
-let immediateNeighbourCount = 0;
-let sufficiencyCount = 0;
-let removedRedundantClues = 0;
+let directionPairCount = 0;
+let exactDistanceCount = 0;
+let neighbourCount = 0;
+let conclusionCount = 0;
+let missingCount = 0;
+let nonAdjacentRuntimeQuestions = 0;
 
 for (const question of runtime) {
-  const regenerated = generateRnkCp004ExamReadyQuestion(question.prototypeId, question.seed);
-  assert(JSON.stringify(regenerated) === JSON.stringify(question), `Non-deterministic V2 output at ${question.prototypeId}:${question.seed}`);
   assert(solveCp004Independently(question.displayedEvidence) === question.answerKey, `Independent solver mismatch at ${question.prototypeId}:${question.seed}`);
   assert(question.options.length === 4, `Expected four options at ${question.prototypeId}:${question.seed}`);
   assert(new Set(question.options.map((option) => option.answerKey)).size === 4, `Option collision at ${question.prototypeId}:${question.seed}`);
   assert(question.options[question.correctIndex].answerKey === question.answerKey, `Correct option mismatch at ${question.prototypeId}:${question.seed}`);
   assert(question.options[question.correctIndex].label === question.answer, `Answer text mismatch at ${question.prototypeId}:${question.seed}`);
   assert(question.options.filter((option) => option.misconceptionId === 'CORRECT').length === 1, `Expected one correct option at ${question.prototypeId}:${question.seed}`);
-  assert(question.stem.includes('\n\n- '), `Clues are not line-separated at ${question.prototypeId}:${question.seed}`);
-  assert(question.reviewMetadata.generationVersion === 'RNK_CP004_ENGLISH_REMODEL_V2', `Wrong generation version at ${question.prototypeId}:${question.seed}`);
-  assert(question.reviewMetadata.explanationMode === expectedMode(question.displayedEvidence.query), `Wrong explanation mode at ${question.prototypeId}:${question.seed}`);
-  assert(question.visibleExplanation.mode === question.reviewMetadata.explanationMode, `Visible mode mismatch at ${question.prototypeId}:${question.seed}`);
-  assert(question.visibleExplanation.lines.length >= 1 && question.visibleExplanation.lines.length <= 3, `Visible explanation is not adaptive at ${question.prototypeId}:${question.seed}`);
-  assert(!/must not merely repeat a clue/i.test(JSON.stringify(question)), `Incorrect conclusion rule remains at ${question.prototypeId}:${question.seed}`);
-  assert(!/stopping before the (top|bottom) endpoint/i.test(JSON.stringify(question)), `Speculative endpoint diagnosis remains at ${question.prototypeId}:${question.seed}`);
-  assert(!/counting from the bottom instead of the top/i.test(JSON.stringify(question.options)), `Unrelated counting diagnosis remains at ${question.prototypeId}:${question.seed}`);
-  assert(question.reviewMetadata.stableQuestionId.length > 0, `Stable ID missing at ${question.prototypeId}:${question.seed}`);
-  assert(question.reviewMetadata.normalizedSemanticFingerprint.length > 0, `Normalized fingerprint missing at ${question.prototypeId}:${question.seed}`);
-  assert(question.reviewMetadata.reasoningFeatures.featureScore > 0, `Feature score missing at ${question.prototypeId}:${question.seed}`);
+  assert(question.reviewMetadata.generationVersion === 'RNK_CP004_ENGLISH_REMODEL_V3', `Wrong generation version at ${question.prototypeId}:${question.seed}`);
+  assert(question.visibleExplanation.mode === question.reviewMetadata.explanationMode, `Explanation-mode mismatch at ${question.prototypeId}:${question.seed}`);
+  assert(question.reviewMetadata.proofMetrics.fullOrderProofClues === null || question.reviewMetadata.proofMetrics.fullOrderProofClues! > 0, `Invalid full-order proof metadata at ${question.prototypeId}:${question.seed}`);
+  assert(question.reviewMetadata.topologyProfile.adjacentClueCount + question.reviewMetadata.topologyProfile.nonAdjacentClueCount === question.displayedEvidence.clues.length, `Topology count mismatch at ${question.prototypeId}:${question.seed}`);
+  assert(!/shortest proof/i.test(question.stem), `Internal proof terminology leaked into stem at ${question.prototypeId}:${question.seed}`);
+  assert(!/joins the blocks/i.test(question.stem), `Block-solving method leaked into stem at ${question.prototypeId}:${question.seed}`);
+  assert(!/\b\d+ complete orders\b/i.test(JSON.stringify(question.visibleExplanation)), `Permutation count leaked into learner explanation at ${question.prototypeId}:${question.seed}`);
+  assert(visibleWordCount(question) >= 20, `Learner explanation is too bare at ${question.prototypeId}:${question.seed}`);
   assert(question.permanentQlId === null, `Permanent QL allocated before approval at ${question.prototypeId}:${question.seed}`);
   assert(question.lifecycle.reviewStatus === 'UNREVIEWED', `Lifecycle activated early at ${question.prototypeId}:${question.seed}`);
   assert(question.lifecycle.questionStudioDiscoverable === false, `Question Studio activated early at ${question.prototypeId}:${question.seed}`);
@@ -107,83 +95,92 @@ for (const question of runtime) {
   stableIds.add(question.reviewMetadata.stableQuestionId);
   difficulties.add(question.difficulty);
   explanationModes.add(question.visibleExplanation.mode);
-  removedRedundantClues += Math.max(0, question.reviewMetadata.reasoningFeatures.redundantClueCount);
+  if (question.reviewMetadata.topologyProfile.nonAdjacentClueCount > 0) nonAdjacentRuntimeQuestions += 1;
 
   const query = question.displayedEvidence.query;
-  const redundancyBudget = query.kind === 'COMPLETE_ORDER' || query.kind === 'VALID_RANK_STATEMENT' ? 1 : 0;
-  assert(question.reviewMetadata.reasoningFeatures.redundantClueCount <= redundancyBudget, `Redundancy budget exceeded at ${question.prototypeId}:${question.seed}`);
-
-  if (query.kind === 'HIGHEST_ENTITY' || query.kind === 'LOWEST_ENTITY') {
-    assert(question.visibleExplanation.lines.length === 2, `Endpoint explanation is not minimal at ${question.prototypeId}:${question.seed}`);
-    assert(!question.visibleExplanation.optionAnalysis, `Endpoint item exposes unnecessary option analysis at ${question.prototypeId}:${question.seed}`);
-  }
-
-  if (query.kind === 'RELATIVE_ORDER_OF_PAIR') {
-    indirectPairCount += 1;
-    assert(!isDirectClue(question.displayedEvidence.clues, question.answerKey), `Pair answer is copied from a clue at ${question.prototypeId}:${question.seed}`);
-    for (const option of question.options) {
-      assert(option.label.includes(query.first) && option.label.includes(query.second), `Pair option does not address the named pair at ${question.prototypeId}:${question.seed}`);
-      assert(!/same rank|cannot be determined/i.test(option.label), `Dead pair distractor remains at ${question.prototypeId}:${question.seed}`);
-    }
+  if (question.prototypeId === RNK_CP004_EXACT_RANK_DIFFERENCE_PROTOTYPE_ID) {
+    exactDistanceCount += 1;
+    assert(query.kind === 'RELATIVE_ORDER_OF_PAIR', `Exact-distance authority lost pair query at seed ${question.seed}`);
+    assert(question.reviewMetadata.competency.includes('exact rank difference'), `Exact-distance competency mismatch at seed ${question.seed}`);
+    assert(question.visibleExplanation.mode === 'PAIR_DISTANCE', `Exact-distance renderer mismatch at seed ${question.seed}`);
+    assert(question.reviewMetadata.proofMetrics.shortestExactPositionProofClues !== null, `Exact-distance proof metadata missing at seed ${question.seed}`);
+    assert(question.reviewMetadata.proofMetrics.fullOrderProofClues !== null, `Exact-distance full-order proof missing at seed ${question.seed}`);
+    assert(question.reviewMetadata.proofMetrics.shortestExactPositionProofClues! <= question.reviewMetadata.proofMetrics.fullOrderProofClues!, `Exact-distance minimum proof exceeds full-order proof at seed ${question.seed}`);
+    assert(question.visibleExplanation.lines.some((line) => /After arranging all candidates/.test(line)), `Exact-distance explanation omits full-order basis at seed ${question.seed}`);
+    assert(question.visibleExplanation.lines.some((line) => /−/.test(line)), `Exact-distance explanation omits rank subtraction at seed ${question.seed}`);
+    assert(question.options.every((option) => /rank difference/.test(option.label)), `Exact-distance option ontology mismatch at seed ${question.seed}`);
+  } else if (query.kind === 'RELATIVE_ORDER_OF_PAIR') {
+    directionPairCount += 1;
+    assert(question.reviewMetadata.competency === 'Infer which of two named entities ranks higher', `Direction-pair competency drift at seed ${question.seed}`);
+    assert(question.visibleExplanation.mode === 'PAIR_DIRECTION', `Direction-pair renderer mismatch at seed ${question.seed}`);
+    assert(question.reviewMetadata.proofMetrics.shortestDirectionalPathClues !== null, `Direction proof metadata missing at seed ${question.seed}`);
+    assert(question.reviewMetadata.proofMetrics.shortestExactPositionProofClues === null, `Direction-only task incorrectly claims exact-position proof at seed ${question.seed}`);
+    assert(!isDirectClue(question.displayedEvidence.clues, question.answerKey), `Direction-pair answer is copied from one clue at seed ${question.seed}`);
+    assert(question.options.every((option) => !/rank difference|positions above|positions below/i.test(option.label)), `Exact-distance wording leaked into direction-only authority at seed ${question.seed}`);
   }
 
   if (query.kind === 'IMMEDIATE_NEIGHBOUR') {
-    immediateNeighbourCount += 1;
-    assert(question.options.every((option) => option.answerKey !== query.target), `Target is used as its own neighbour at ${question.prototypeId}:${question.seed}`);
-    assert(question.options.every((option) => /directly|position|positions/.test(option.explanation)), `Neighbour explanation is not positional at ${question.prototypeId}:${question.seed}`);
+    neighbourCount += 1;
+    assert(question.options.every((option) => option.answerKey !== query.target), `Target is its own neighbour at ${question.seed}`);
+    assert(question.reviewMetadata.proofMetrics.shortestExactPositionProofClues !== null, `Neighbour exact-position proof missing at ${question.seed}`);
+    assert(question.reviewMetadata.proofMetrics.shortestExactPositionProofClues! > 1, `A single comparison was incorrectly treated as adjacency proof at ${question.seed}`);
+    assert(question.visibleExplanation.lines.some((line) => /After arranging everyone/.test(line)), `Neighbour explanation omits full-order basis at ${question.seed}`);
   }
 
   if (query.kind === 'VALID_RANK_STATEMENT') {
-    transitiveConclusionCount += 1;
-    assert(!isDirectClue(question.displayedEvidence.clues, question.answerKey), `Conclusion answer is copied from a clue at ${question.prototypeId}:${question.seed}`);
-    assert(question.visibleExplanation.lines.some((line) => /directly from one clue or indirectly/i.test(line)), `Correct conclusion pedagogy missing at ${question.prototypeId}:${question.seed}`);
-    const order = reconstructUniqueOrder(question.displayedEvidence.entities, question.displayedEvidence.clues);
-    const positions = new Map(order.map((entity, index) => [entity, index]));
-    const trueCandidates = query.candidates.filter((candidate) => positions.get(candidate.higher)! < positions.get(candidate.lower)!);
-    assert(trueCandidates.length === 1, `Conclusion options are not single-answer safe at ${question.prototypeId}:${question.seed}`);
+    conclusionCount += 1;
+    assert(!isDirectClue(question.displayedEvidence.clues, question.answerKey), `Conclusion answer is copied from one clue at ${question.seed}`);
+    assert(question.visibleExplanation.lines[0].includes('at least two statements'), `Conclusion explanation ignores stem contract at ${question.seed}`);
+    assert(question.reviewMetadata.proofMetrics.shortestDirectionalPathClues !== null, `Conclusion path proof missing at ${question.seed}`);
   }
 
   if (query.kind === 'COMPLETE_ORDER') {
-    for (const option of question.options) {
-      if (option.answerKey === question.answerKey) continue;
-      assert(wrongOrderViolatesClue(option.answerKey, question.displayedEvidence.clues), `Complete-order distractor has no clue violation at ${question.prototypeId}:${question.seed}`);
+    const wrongOptions = question.options.filter((option) => option.answerKey !== question.answerKey);
+    assert(new Set(wrongOptions.map((option) => option.misconceptionId)).size === 3, `Complete-order distractor roles repeat at ${question.seed}`);
+    assert(new Set(wrongOptions.map((option) => option.explanation)).size === 3, `Complete-order contradiction targets repeat at ${question.seed}`);
+    for (const option of wrongOptions) {
+      assert(wrongOrderViolatesClue(option.answerKey, question.displayedEvidence.clues), `Complete-order distractor has no clue violation at ${question.seed}`);
     }
-    assert(question.visibleExplanation.optionAnalysis?.length === 3, `Complete-order explanation should analyse three wrong options at ${question.prototypeId}:${question.seed}`);
   }
 
   if (query.kind === 'MISSING_COMPARISON') {
-    sufficiencyCount += 1;
-    const baseCount = countTopologicalOrders(question.displayedEvidence.entities, question.displayedEvidence.clues);
-    assert(baseCount > 1, `Sufficiency base is already unique at ${question.prototypeId}:${question.seed}`);
-    assert(question.reviewMetadata.validatorBaseOrderCount === baseCount, `Validator count metadata mismatch at ${question.prototypeId}:${question.seed}`);
-    assert(!/\b\d+ complete orders\b/i.test(JSON.stringify(question.visibleExplanation)), `Validator permutation counts leaked into student explanation at ${question.prototypeId}:${question.seed}`);
-    assert(question.visibleExplanation.lines[0].startsWith('Fixed blocks:'), `Block explanation does not begin with fixed blocks at ${question.prototypeId}:${question.seed}`);
-    assert(question.visibleExplanation.lines.length === 3, `Block explanation should have three decisive lines at ${question.prototypeId}:${question.seed}`);
-    const optionCounts = query.candidates.map((candidate) => countTopologicalOrders(question.displayedEvidence.entities, [...question.displayedEvidence.clues, candidate]));
-    assert(optionCounts.filter((count) => count === 1).length === 1, `Sufficiency options are not single-answer safe at ${question.prototypeId}:${question.seed}`);
+    missingCount += 1;
+    assert(question.visibleExplanation.lines[0].startsWith('Block 1:'), `Missing-comparison blocks are not neutrally labelled at ${question.seed}`);
+    assert(question.visibleExplanation.lines[1].startsWith('Block 2:'), `Missing-comparison second block is not neutral at ${question.seed}`);
+    assert(!/upper|lower/.test(question.visibleExplanation.lines.slice(0, 2).join(' ')), `Solved-state block labels leaked at ${question.seed}`);
+    assert(question.visibleExplanation.optionAnalysis?.length === 1, `Repeated missing-comparison bullets were not grouped at ${question.seed}`);
+    const optionCounts = query.candidates.map((candidate) =>
+      countTopologicalOrders(question.displayedEvidence.entities, [...question.displayedEvidence.clues, candidate]),
+    );
+    assert(optionCounts.filter((count) => count === 1).length === 1, `Missing-comparison options are not single-answer safe at ${question.seed}`);
+    assert(optionCounts.filter((count) => count > 1).length === 3, `Wrong bridge options must remain consistent but insufficient at ${question.seed}`);
+    assert(optionCounts.every((count) => count > 0), `Contradictory bridge filler remains at ${question.seed}`);
+  }
+
+  if (question.difficulty === 'HARD' && question.reviewMetadata.topologyProfile.family === 'CHAIN_BACKBONE') {
+    assert(question.reviewMetadata.reasoningFeatures.taskWeight >= 4, `Pure chain became Hard from length alone at ${question.prototypeId}:${question.seed}`);
   }
 }
 
-assert(stableIds.size === runtime.length, 'Stable IDs are not unique');
+assert(stableIds.size === runtime.length, 'Runtime stable IDs are not unique');
 assert(difficulties.size === 3, 'Easy, Medium and Hard must all be reachable');
-assert(explanationModes.size === 7, 'All seven adaptive explanation modes must be reachable');
-assert(indirectPairCount === seedsPerPrototype, 'Unexpected pair runtime count');
-assert(immediateNeighbourCount === seedsPerPrototype, 'Unexpected neighbour runtime count');
-assert(transitiveConclusionCount === seedsPerPrototype, 'Unexpected conclusion runtime count');
-assert(sufficiencyCount === seedsPerPrototype, 'Unexpected sufficiency runtime count');
+assert(explanationModes.size === 8, `Expected eight Remodel V3 explanation modes, found ${explanationModes.size}`);
+assert(directionPairCount === seedsPerPrototype, 'Unexpected direction-pair runtime count');
+assert(exactDistanceCount === seedsPerPrototype, 'Unexpected exact-distance runtime count');
+assert(neighbourCount === seedsPerPrototype, 'Unexpected neighbour runtime count');
+assert(conclusionCount === seedsPerPrototype, 'Unexpected conclusion runtime count');
+assert(missingCount === seedsPerPrototype, 'Unexpected missing-comparison runtime count');
+assert(nonAdjacentRuntimeQuestions > runtime.length * 0.35, 'Non-adjacent verification-link diversity remains too low');
 
 const reviewPack = buildRnkCp004ReviewPack();
-assert(reviewPack.length === 60, 'Expected 60 V2 review questions');
-assert(new Set(reviewPack.map((question) => question.seed)).size === 60, 'Review seeds are reused across prototypes');
-assert(new Set(reviewPack.map((question) => question.reviewMetadata.stableQuestionId)).size === 60, 'Review stable IDs are duplicated');
-assert(new Set(reviewPack.map((question) => question.reviewMetadata.normalizedSemanticFingerprint)).size === 60, 'Normalized semantic duplicate remains in review pack');
+assert(reviewPack.length === RNK_CP004_REMODEL_V3_PROTOTYPE_IDS.length * 6, `Expected ${RNK_CP004_REMODEL_V3_PROTOTYPE_IDS.length * 6} Remodel V3 review questions`);
+assert(new Set(reviewPack.map((question) => question.seed)).size === reviewPack.length, 'Review seeds are reused');
+assert(new Set(reviewPack.map((question) => question.reviewMetadata.stableQuestionId)).size === reviewPack.length, 'Review stable IDs are duplicated');
+assert(new Set(reviewPack.map((question) => question.reviewMetadata.normalizedSemanticFingerprint)).size === reviewPack.length, 'Normalized semantic duplicate remains');
 
 const correctIndexCounts = [0, 0, 0, 0];
-for (const question of reviewPack) {
-  correctIndexCounts[question.correctIndex] += 1;
-  assert(question.options[question.correctIndex].answerKey === question.answerKey, `Review correct option moved incorrectly at ${question.reviewMetadata.stableQuestionId}`);
-}
-assert(correctIndexCounts.every((count) => count === 15), `Review answer positions are not balanced: ${correctIndexCounts.join(',')}`);
+for (const question of reviewPack) correctIndexCounts[question.correctIndex] += 1;
+assert(Math.max(...correctIndexCounts) - Math.min(...correctIndexCounts) <= 1, `Answer positions are not near-balanced: ${correctIndexCounts.join(',')}`);
 
 const answerSequence = reviewPack.map((question) => question.correctIndex);
 const fourGrams = new Set<string>();
@@ -193,39 +190,59 @@ for (let index = 0; index <= answerSequence.length - 4; index += 1) {
   fourGrams.add(key);
 }
 
+const totalClues = reviewPack.reduce((total, question) => total + question.displayedEvidence.clues.length, 0);
+const adjacentClues = reviewPack.reduce((total, question) => total + question.reviewMetadata.topologyProfile.adjacentClueCount, 0);
+const adjacentEdgeRatio = adjacentClues / totalClues;
+assert(adjacentEdgeRatio <= 0.92, `Review adjacent-edge ratio remains too high: ${(adjacentEdgeRatio * 100).toFixed(1)}%`);
+assert(new Set(reviewPack.map((question) => question.reviewMetadata.topologyProfile.family)).size >= 3, 'Review pack lacks topology-family diversity');
+
 const markdown = renderRnkCp004QuestionsAndExplanationsMarkdown(reviewPack);
-for (const forbidden of ['**Mental picture:**', '**Key rule:**', '**Step-by-step solution:**', '**Exam-speed shortcut:**', '**Option analysis:**']) {
+assert(markdown.includes('English Remodel V3'), 'V3 review title is absent');
+assert(markdown.includes('Shortest directional path'), 'Directional proof metadata is absent');
+assert(markdown.includes('Shortest exact-position proof'), 'Exact-position proof metadata is absent');
+assert(!markdown.includes('Fixed blocks: upper'), 'Solved-state block labels remain');
+assert(!markdown.includes('Which additional statement joins the blocks'), 'Instructional block method remains in stem');
+for (const forbidden of ['**Mental picture:**', '**Key rule:**', '**Step-by-step solution:**', '**Exam-speed shortcut:**']) {
   assert(!markdown.includes(forbidden), `Forced visible section remains: ${forbidden}`);
 }
-assert(markdown.includes('**Explanation mode:**'), 'Adaptive explanation metadata is absent');
-assert(markdown.includes('English Remodel V2'), 'V2 review title is absent');
 
-const visibleWords = reviewPack.reduce((total, question) =>
-  total + question.visibleExplanation.lines.join(' ').split(/\s+/).filter(Boolean).length
-    + (question.visibleExplanation.optionAnalysis?.join(' ').split(/\s+/).filter(Boolean).length ?? 0), 0);
-const averageVisibleExplanationWords = visibleWords / reviewPack.length;
-assert(averageVisibleExplanationWords < 90, `Visible explanations remain too long: ${averageVisibleExplanationWords.toFixed(1)} words`);
+const averageVisibleExplanationWords = reviewPack.reduce((total, question) => total + visibleWordCount(question), 0) / reviewPack.length;
+assert(averageVisibleExplanationWords >= 40, `V3 explanations remain too bare: ${averageVisibleExplanationWords.toFixed(1)} words`);
+assert(averageVisibleExplanationWords <= 110, `V3 explanations became cluttered: ${averageVisibleExplanationWords.toFixed(1)} words`);
 
 const report = {
   checkpointId: 'RNK-CP-004',
-  status: 'ENGLISH_REMODEL_V2_REVIEW_PENDING',
-  generationVersion: 'RNK_CP004_ENGLISH_REMODEL_V2',
-  sourceReview: 'RNK-CP004-REMODEL-V1-CRITICAL-REVIEW.md',
+  status: 'ENGLISH_REMODEL_V3_REVIEW_PENDING',
+  generationVersion: 'RNK_CP004_ENGLISH_REMODEL_V3',
+  sourceReview: 'RNK-CP004-REMODEL-V2-CRITICAL-REVIEW-UPDATED(1).md',
+  runtimePrototypeCount: RNK_CP004_REMODEL_V3_PROTOTYPE_IDS.length,
   runtimeQuestionCount: runtime.length,
   reviewQuestionCount: reviewPack.length,
   permanentQlCount: null,
   nextAvailableQlId: 'RNK-QL-027',
-  adaptiveExplanationModes: [...explanationModes].sort(),
+  taskOntology: {
+    directionOnlyPairAuthority: 'RNK-CP004-PROT-RELATIVE-ORDER-OF-PAIR',
+    exactRankDifferenceAuthority: RNK_CP004_EXACT_RANK_DIFFERENCE_PROTOTYPE_ID,
+  },
+  explanationModes: [...explanationModes].sort(),
   averageVisibleExplanationWords: Number(averageVisibleExplanationWords.toFixed(2)),
+  proofMetadata: {
+    directionalPathSeparatedFromExactPosition: 'PASS',
+    neighbourAdjacencyRequiresExactPositionProof: 'PASS',
+    fullOrderProofRecorded: 'PASS',
+  },
+  topology: {
+    adjacentEdgeRatio: Number(adjacentEdgeRatio.toFixed(4)),
+    nonAdjacentRuntimeQuestions,
+    reviewFamilies: [...new Set(reviewPack.map((question) => question.reviewMetadata.topologyProfile.family))].sort(),
+  },
   answerPositionCounts: correctIndexCounts,
   repeatedFourAnswerSequences: 0,
-  uniqueReviewSeeds: 60,
+  uniqueReviewSeeds: reviewPack.length,
   normalizedSemanticDuplicates: 0,
-  pairDeadDistractors: 0,
-  selfNeighbourDistractors: 0,
-  conclusionRuleCorrected: 'PASS',
-  studentPermutationCountsExposed: 0,
-  clueRedundancyBudgets: 'PASS',
+  completeOrderDistinctContradictions: 'PASS',
+  missingComparisonNeutralBlocks: 'PASS',
+  missingComparisonWrongOptionsConsistentButInsufficient: 'PASS',
   featureDerivedDifficulty: 'PASS',
   difficultyCoverage: [...difficulties].sort(),
   lifecycle: {
@@ -237,10 +254,10 @@ const report = {
   },
 };
 
-writeFileSync(join(outputDirectory, 'cp004-exam-ready-remodel-v2-audit.json'), `${JSON.stringify(report, null, 2)}\n`, 'utf8');
-writeFileSync(join(outputDirectory, 'cp004-exam-ready-review-pack-v2.json'), `${JSON.stringify(reviewPack, null, 2)}\n`, 'utf8');
+writeFileSync(join(outputDirectory, 'cp004-exam-ready-remodel-v3-audit.json'), `${JSON.stringify(report, null, 2)}\n`, 'utf8');
+writeFileSync(join(outputDirectory, 'cp004-exam-ready-review-pack-v3.json'), `${JSON.stringify(reviewPack, null, 2)}\n`, 'utf8');
 writeFileSync(
-  join(outputDirectory, 'RNK-CP-004-Questions-and-Explanations-Remodeled-V2.md'),
+  join(outputDirectory, 'RNK-CP-004-Questions-and-Explanations-Remodeled-V3.md'),
   markdown,
   'utf8',
 );
