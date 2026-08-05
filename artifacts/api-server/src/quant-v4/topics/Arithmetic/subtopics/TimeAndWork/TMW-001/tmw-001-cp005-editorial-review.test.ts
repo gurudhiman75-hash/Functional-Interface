@@ -82,7 +82,7 @@ for (const entry of TMW_CP005_REGISTRY) {
           assert.match(question.explanation.opening, language === "hi" ? /पाली के घंटों.*अधूरी पाली/ : /ਸ਼ਿਫ਼ਟ ਦੇ ਘੰਟਿਆਂ.*ਅਧੂਰੀ ਸ਼ਿਫ਼ਟ/, row);
           break;
         case "findCompletionWithTwoDaysOnOneDayOffPattern":
-          assert.match(question.explanation.opening, language === "hi" ? /पहले दो दिन काम.*तीन बीते दिन/ : /ਪਹਿਲੇ ਦੋ ਦਿਨ ਕੰਮ.*ਤਿੰਨ ਬੀਤੇ ਦਿਨ/, row);
+          assert.match(question.explanation.opening, language === "hi" ? /तीन बीते दिनों.*पहले दो दिन काम/ : /ਤਿੰਨ ਬੀਤੇ ਦਿਨਾਂ.*ਪਹਿਲੇ ਦੋ ਦਿਨ ਕੰਮ/, row);
           break;
         case "findCompletionWithPeriodicNegativeWork":
           assert.match(question.explanation.opening, language === "hi" ? /बिगाड़ वाले दिन.*घटाएँ.*वास्तविक काम/ : /ਖਰਾਬੀ ਵਾਲੇ ਦਿਨ.*ਘਟਾਓ.*ਅਸਲ ਕੰਮ/, row);
