@@ -1,0 +1,1127 @@
+[
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "DETERMINE_LONG_CHAIN_RELATION",
+    "prototypeId": "INE-CP002-PROT-LONG-CHAIN",
+    "seed": 0,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for B compared with P?",
+    "statements": [
+      "R = C",
+      "C ≥ P",
+      "D ≥ R",
+      "B ≥ D"
+    ],
+    "options": [
+      "B ≥ P",
+      "B = P",
+      "B ≤ P",
+      "B > P"
+    ],
+    "correctOption": "B ≥ P",
+    "explanation": "Follow the complete chain: B ≥ D, D ≥ R, R = C, C ≥ P.\n\nEvery comparison on the route is inclusive, so equality at the two ends is still possible.\n\nTherefore, the strongest relation we can guarantee is B ≥ P.\n\nWhy not “B = P”? Equality is allowed, but it is not forced; the end terms may also be strictly ordered.\n\nWhy not “B ≤ P”? That reads the comparison backwards. The question asks for B relative to P.\n\nWhy not “B > P”? The inclusive chain still allows the two end terms to be equal, so a strict answer is not guaranteed.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "DETERMINE_LONG_CHAIN_RELATION",
+    "prototypeId": "INE-CP002-PROT-LONG-CHAIN",
+    "seed": 1,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for S compared with B?",
+    "statements": [
+      "Q = C",
+      "C ≥ B",
+      "D > Q",
+      "S ≥ D"
+    ],
+    "options": [
+      "S < B",
+      "S > B",
+      "The relation cannot be determined",
+      "S = B"
+    ],
+    "correctOption": "S > B",
+    "explanation": "Follow the complete chain: S ≥ D, D > Q, Q = C, C ≥ B.\n\nAt least one comparison on the route is strict, so equality at the two ends is impossible.\n\nTherefore, the strongest relation we can guarantee is S > B.\n\nWhy not “S < B”? That reads the comparison backwards. The question asks for S relative to B.\n\nWhy not “The relation cannot be determined”? The displayed statements do connect S to B, so their relation is not unknown.\n\nWhy not “S = B”? Equality is ruled out because the chain contains a strict comparison.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "DETERMINE_LONG_CHAIN_RELATION",
+    "prototypeId": "INE-CP002-PROT-LONG-CHAIN",
+    "seed": 2,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for R compared with B?",
+    "statements": [
+      "C = S",
+      "B ≥ Q",
+      "Q ≥ C",
+      "S ≥ R"
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "R < B",
+      "R ≤ B",
+      "R = B"
+    ],
+    "correctOption": "R ≤ B",
+    "explanation": "Follow the complete chain: B ≥ Q, Q ≥ C, C = S, S ≥ R.\n\nEvery comparison on the route is inclusive, so equality at the two ends is still possible.\n\nTherefore, the strongest relation we can guarantee is R ≤ B.\n\nWhy not “The relation cannot be determined”? The displayed statements do connect R to B, so their relation is not unknown.\n\nWhy not “R < B”? The inclusive chain still allows the two end terms to be equal, so a strict answer is not guaranteed.\n\nWhy not “R = B”? Equality is allowed, but it is not forced; the end terms may also be strictly ordered.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "DETERMINE_LONG_CHAIN_RELATION",
+    "prototypeId": "INE-CP002-PROT-LONG-CHAIN",
+    "seed": 3,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for D compared with B?",
+    "statements": [
+      "S > Q",
+      "B ≥ S",
+      "Q = R",
+      "R ≥ D"
+    ],
+    "options": [
+      "D ≤ B",
+      "D > B",
+      "D = B",
+      "D < B"
+    ],
+    "correctOption": "D < B",
+    "explanation": "Follow the complete chain: B ≥ S, S > Q, Q = R, R ≥ D.\n\nAt least one comparison on the route is strict, so equality at the two ends is impossible.\n\nTherefore, the strongest relation we can guarantee is D < B.\n\nWhy not “D ≤ B”? That answer is weaker than the result proved by the strict link in the chain. The strongest answer is D < B.\n\nWhy not “D > B”? That reads the comparison backwards. The question asks for D relative to B.\n\nWhy not “D = B”? Equality is ruled out because the chain contains a strict comparison.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "DETERMINE_LONG_CHAIN_RELATION",
+    "prototypeId": "INE-CP002-PROT-LONG-CHAIN",
+    "seed": 4,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for P compared with D?",
+    "statements": [
+      "B ≥ R",
+      "A ≥ D",
+      "P ≥ B",
+      "R = A"
+    ],
+    "options": [
+      "P ≥ D",
+      "P = D",
+      "P > D",
+      "The relation cannot be determined"
+    ],
+    "correctOption": "P ≥ D",
+    "explanation": "Follow the complete chain: P ≥ B, B ≥ R, R = A, A ≥ D.\n\nEvery comparison on the route is inclusive, so equality at the two ends is still possible.\n\nTherefore, the strongest relation we can guarantee is P ≥ D.\n\nWhy not “P = D”? Equality is allowed, but it is not forced; the end terms may also be strictly ordered.\n\nWhy not “P > D”? The inclusive chain still allows the two end terms to be equal, so a strict answer is not guaranteed.\n\nWhy not “The relation cannot be determined”? The displayed statements do connect P to D, so their relation is not unknown.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "DETERMINE_MULTI_ROUTE_RELATION",
+    "prototypeId": "INE-CP002-PROT-MULTIPLE-ROUTES",
+    "seed": 0,
+    "difficulty": "HARD",
+    "stem": "What is the strongest relation that must be true for R compared with A?",
+    "statements": [
+      "R > C",
+      "R ≥ S",
+      "S > A",
+      "C ≥ A"
+    ],
+    "options": [
+      "R > A",
+      "R < A",
+      "The relation cannot be determined",
+      "R ≥ A"
+    ],
+    "correctOption": "R > A",
+    "explanation": "There are two routes between R and A: R > C, C ≥ A; and R ≥ S, S > A.\n\nBoth routes agree, and each contains a strict comparison. Therefore, they both support R > A.\n\nTherefore, the strongest relation we can guarantee is R > A.\n\nWhy not “R < A”? That reads the comparison backwards. The question asks for R relative to A.\n\nWhy not “The relation cannot be determined”? The displayed statements do connect R to A, so their relation is not unknown.\n\nWhy not “R ≥ A”? That answer is weaker than the result proved by the strict link in the chain. The strongest answer is R > A.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "DETERMINE_MULTI_ROUTE_RELATION",
+    "prototypeId": "INE-CP002-PROT-MULTIPLE-ROUTES",
+    "seed": 1,
+    "difficulty": "HARD",
+    "stem": "What is the strongest relation that must be true for S compared with R?",
+    "statements": [
+      "R ≥ C",
+      "Q ≥ S",
+      "R > Q",
+      "C > S"
+    ],
+    "options": [
+      "S = R",
+      "S < R",
+      "The relation cannot be determined",
+      "S ≤ R"
+    ],
+    "correctOption": "S < R",
+    "explanation": "There are two routes between S and R: R > Q, Q ≥ S; and R ≥ C, C > S.\n\nBoth routes agree, and each contains a strict comparison. Therefore, they both support S < R.\n\nTherefore, the strongest relation we can guarantee is S < R.\n\nWhy not “S = R”? Equality is ruled out because the chain contains a strict comparison.\n\nWhy not “The relation cannot be determined”? The displayed statements do connect S to R, so their relation is not unknown.\n\nWhy not “S ≤ R”? That answer is weaker than the result proved by the strict link in the chain. The strongest answer is S < R.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "DETERMINE_MULTI_ROUTE_RELATION",
+    "prototypeId": "INE-CP002-PROT-MULTIPLE-ROUTES",
+    "seed": 2,
+    "difficulty": "HARD",
+    "stem": "What is the strongest relation that must be true for D compared with C?",
+    "statements": [
+      "S ≥ C",
+      "D ≥ R",
+      "D > S",
+      "R > C"
+    ],
+    "options": [
+      "D < C",
+      "D ≥ C",
+      "D > C",
+      "The relation cannot be determined"
+    ],
+    "correctOption": "D > C",
+    "explanation": "There are two routes between D and C: D > S, S ≥ C; and D ≥ R, R > C.\n\nBoth routes agree, and each contains a strict comparison. Therefore, they both support D > C.\n\nTherefore, the strongest relation we can guarantee is D > C.\n\nWhy not “D < C”? That reads the comparison backwards. The question asks for D relative to C.\n\nWhy not “D ≥ C”? That answer is weaker than the result proved by the strict link in the chain. The strongest answer is D > C.\n\nWhy not “The relation cannot be determined”? The displayed statements do connect D to C, so their relation is not unknown.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "DETERMINE_MULTI_ROUTE_RELATION",
+    "prototypeId": "INE-CP002-PROT-MULTIPLE-ROUTES",
+    "seed": 3,
+    "difficulty": "HARD",
+    "stem": "What is the strongest relation that must be true for D compared with P?",
+    "statements": [
+      "R ≥ D",
+      "C > D",
+      "P > R",
+      "P ≥ C"
+    ],
+    "options": [
+      "D = P",
+      "D > P",
+      "The relation cannot be determined",
+      "D < P"
+    ],
+    "correctOption": "D < P",
+    "explanation": "There are two routes between D and P: P > R, R ≥ D; and P ≥ C, C > D.\n\nBoth routes agree, and each contains a strict comparison. Therefore, they both support D < P.\n\nTherefore, the strongest relation we can guarantee is D < P.\n\nWhy not “D = P”? Equality is ruled out because the chain contains a strict comparison.\n\nWhy not “D > P”? That reads the comparison backwards. The question asks for D relative to P.\n\nWhy not “The relation cannot be determined”? The displayed statements do connect D to P, so their relation is not unknown.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "DETERMINE_MULTI_ROUTE_RELATION",
+    "prototypeId": "INE-CP002-PROT-MULTIPLE-ROUTES",
+    "seed": 4,
+    "difficulty": "HARD",
+    "stem": "What is the strongest relation that must be true for P compared with B?",
+    "statements": [
+      "A > B",
+      "P ≥ A",
+      "P > S",
+      "S ≥ B"
+    ],
+    "options": [
+      "P > B",
+      "The relation cannot be determined",
+      "P = B",
+      "P ≥ B"
+    ],
+    "correctOption": "P > B",
+    "explanation": "There are two routes between P and B: P > S, S ≥ B; and P ≥ A, A > B.\n\nBoth routes agree, and each contains a strict comparison. Therefore, they both support P > B.\n\nTherefore, the strongest relation we can guarantee is P > B.\n\nWhy not “The relation cannot be determined”? The displayed statements do connect P to B, so their relation is not unknown.\n\nWhy not “P = B”? Equality is ruled out because the chain contains a strict comparison.\n\nWhy not “P ≥ B”? That answer is weaker than the result proved by the strict link in the chain. The strongest answer is P > B.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "APPLY_ALTERNATE_PATH_STRICTNESS",
+    "prototypeId": "INE-CP002-PROT-ALTERNATE-STRICT-PATH",
+    "seed": 0,
+    "difficulty": "HARD",
+    "stem": "What is the strongest relation that must be true for A compared with Q?",
+    "statements": [
+      "A ≥ C",
+      "C > B",
+      "A ≥ Q",
+      "B ≥ Q"
+    ],
+    "options": [
+      "A > Q",
+      "A ≥ Q",
+      "The relation cannot be determined",
+      "A < Q"
+    ],
+    "correctOption": "A > Q",
+    "explanation": "One route is A ≥ Q. The alternate route is A ≥ C, C > B, B ≥ Q.\n\nThe first route is only inclusive, but the alternate route contains a strict comparison. That stricter route proves A > Q.\n\nTherefore, the strongest relation we can guarantee is A > Q.\n\nWhy not “A ≥ Q”? That answer is weaker than the result proved by the strict link in the chain. The strongest answer is A > Q.\n\nWhy not “The relation cannot be determined”? The displayed statements do connect A to Q, so their relation is not unknown.\n\nWhy not “A < Q”? That reads the comparison backwards. The question asks for A relative to Q.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "APPLY_ALTERNATE_PATH_STRICTNESS",
+    "prototypeId": "INE-CP002-PROT-ALTERNATE-STRICT-PATH",
+    "seed": 1,
+    "difficulty": "HARD",
+    "stem": "What is the strongest relation that must be true for P compared with S?",
+    "statements": [
+      "C > A",
+      "S ≥ P",
+      "A ≥ P",
+      "S ≥ C"
+    ],
+    "options": [
+      "P = S",
+      "P < S",
+      "The relation cannot be determined",
+      "P ≤ S"
+    ],
+    "correctOption": "P < S",
+    "explanation": "One route is S ≥ P. The alternate route is S ≥ C, C > A, A ≥ P.\n\nThe first route is only inclusive, but the alternate route contains a strict comparison. That stricter route proves P < S.\n\nTherefore, the strongest relation we can guarantee is P < S.\n\nWhy not “P = S”? Equality is ruled out because the chain contains a strict comparison.\n\nWhy not “The relation cannot be determined”? The displayed statements do connect P to S, so their relation is not unknown.\n\nWhy not “P ≤ S”? That answer is weaker than the result proved by the strict link in the chain. The strongest answer is P < S.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "APPLY_ALTERNATE_PATH_STRICTNESS",
+    "prototypeId": "INE-CP002-PROT-ALTERNATE-STRICT-PATH",
+    "seed": 2,
+    "difficulty": "HARD",
+    "stem": "What is the strongest relation that must be true for B compared with S?",
+    "statements": [
+      "B ≥ S",
+      "R > Q",
+      "B ≥ R",
+      "Q ≥ S"
+    ],
+    "options": [
+      "B < S",
+      "B ≥ S",
+      "B > S",
+      "The relation cannot be determined"
+    ],
+    "correctOption": "B > S",
+    "explanation": "One route is B ≥ S. The alternate route is B ≥ R, R > Q, Q ≥ S.\n\nThe first route is only inclusive, but the alternate route contains a strict comparison. That stricter route proves B > S.\n\nTherefore, the strongest relation we can guarantee is B > S.\n\nWhy not “B < S”? That reads the comparison backwards. The question asks for B relative to S.\n\nWhy not “B ≥ S”? That answer is weaker than the result proved by the strict link in the chain. The strongest answer is B > S.\n\nWhy not “The relation cannot be determined”? The displayed statements do connect B to S, so their relation is not unknown.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "APPLY_ALTERNATE_PATH_STRICTNESS",
+    "prototypeId": "INE-CP002-PROT-ALTERNATE-STRICT-PATH",
+    "seed": 3,
+    "difficulty": "HARD",
+    "stem": "What is the strongest relation that must be true for A compared with D?",
+    "statements": [
+      "R > Q",
+      "Q ≥ A",
+      "D ≥ R",
+      "D ≥ A"
+    ],
+    "options": [
+      "A > D",
+      "A ≤ D",
+      "The relation cannot be determined",
+      "A < D"
+    ],
+    "correctOption": "A < D",
+    "explanation": "One route is D ≥ A. The alternate route is D ≥ R, R > Q, Q ≥ A.\n\nThe first route is only inclusive, but the alternate route contains a strict comparison. That stricter route proves A < D.\n\nTherefore, the strongest relation we can guarantee is A < D.\n\nWhy not “A > D”? That reads the comparison backwards. The question asks for A relative to D.\n\nWhy not “A ≤ D”? That answer is weaker than the result proved by the strict link in the chain. The strongest answer is A < D.\n\nWhy not “The relation cannot be determined”? The displayed statements do connect A to D, so their relation is not unknown.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "APPLY_ALTERNATE_PATH_STRICTNESS",
+    "prototypeId": "INE-CP002-PROT-ALTERNATE-STRICT-PATH",
+    "seed": 4,
+    "difficulty": "HARD",
+    "stem": "What is the strongest relation that must be true for S compared with A?",
+    "statements": [
+      "Q ≥ A",
+      "S ≥ D",
+      "D > Q",
+      "S ≥ A"
+    ],
+    "options": [
+      "S > A",
+      "S ≥ A",
+      "S < A",
+      "The relation cannot be determined"
+    ],
+    "correctOption": "S > A",
+    "explanation": "One route is S ≥ A. The alternate route is S ≥ D, D > Q, Q ≥ A.\n\nThe first route is only inclusive, but the alternate route contains a strict comparison. That stricter route proves S > A.\n\nTherefore, the strongest relation we can guarantee is S > A.\n\nWhy not “S ≥ A”? That answer is weaker than the result proved by the strict link in the chain. The strongest answer is S > A.\n\nWhy not “S < A”? That reads the comparison backwards. The question asks for S relative to A.\n\nWhy not “The relation cannot be determined”? The displayed statements do connect S to A, so their relation is not unknown.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "DETERMINE_BRANCHED_GRAPH_RELATION",
+    "prototypeId": "INE-CP002-PROT-BRANCHED-GRAPH",
+    "seed": 0,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for S compared with R?",
+    "statements": [
+      "A > S",
+      "A > R",
+      "S ≥ B",
+      "R > B"
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "S ≥ R",
+      "S < R",
+      "S = R"
+    ],
+    "correctOption": "The relation cannot be determined",
+    "explanation": "The statements place S and R on separate branches of the same graph.\n\nSharing bounds does not compare the two branch terms with each other, so no single relation is forced.\n\nAll three arrangements remain possible: S < R, S = R, or S > R.\n\nSo the relation between S and R cannot be determined.\n\nWhy not “S ≥ R”? A shared upper or lower bound does not tell us whether S is above, equal to, or below R.\n\nWhy not “S < R”? A shared upper or lower bound does not tell us whether S is above, equal to, or below R.\n\nWhy not “S = R”? A missing comparison does not imply equality.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "DETERMINE_BRANCHED_GRAPH_RELATION",
+    "prototypeId": "INE-CP002-PROT-BRANCHED-GRAPH",
+    "seed": 1,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for B compared with S?",
+    "statements": [
+      "R > B",
+      "S > A",
+      "R > S",
+      "B ≥ A"
+    ],
+    "options": [
+      "B > S",
+      "The relation cannot be determined",
+      "B = S",
+      "B ≥ S"
+    ],
+    "correctOption": "The relation cannot be determined",
+    "explanation": "The statements place B and S on separate branches of the same graph.\n\nSharing bounds does not compare the two branch terms with each other, so no single relation is forced.\n\nAll three arrangements remain possible: B < S, B = S, or B > S.\n\nSo the relation between B and S cannot be determined.\n\nWhy not “B > S”? A shared upper or lower bound does not tell us whether B is above, equal to, or below S.\n\nWhy not “B = S”? A missing comparison does not imply equality.\n\nWhy not “B ≥ S”? A shared upper or lower bound does not tell us whether B is above, equal to, or below S.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "DETERMINE_BRANCHED_GRAPH_RELATION",
+    "prototypeId": "INE-CP002-PROT-BRANCHED-GRAPH",
+    "seed": 2,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for S compared with D?",
+    "statements": [
+      "B > D",
+      "D > P",
+      "S ≥ P",
+      "B > S"
+    ],
+    "options": [
+      "S > D",
+      "S < D",
+      "The relation cannot be determined",
+      "S ≥ D"
+    ],
+    "correctOption": "The relation cannot be determined",
+    "explanation": "The statements place S and D on separate branches of the same graph.\n\nSharing bounds does not compare the two branch terms with each other, so no single relation is forced.\n\nAll three arrangements remain possible: S < D, S = D, or S > D.\n\nSo the relation between S and D cannot be determined.\n\nWhy not “S > D”? A shared upper or lower bound does not tell us whether S is above, equal to, or below D.\n\nWhy not “S < D”? A shared upper or lower bound does not tell us whether S is above, equal to, or below D.\n\nWhy not “S ≥ D”? A shared upper or lower bound does not tell us whether S is above, equal to, or below D.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "DETERMINE_BRANCHED_GRAPH_RELATION",
+    "prototypeId": "INE-CP002-PROT-BRANCHED-GRAPH",
+    "seed": 3,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for R compared with D?",
+    "statements": [
+      "R ≥ C",
+      "S > R",
+      "S > D",
+      "D > C"
+    ],
+    "options": [
+      "R = D",
+      "R ≥ D",
+      "R > D",
+      "The relation cannot be determined"
+    ],
+    "correctOption": "The relation cannot be determined",
+    "explanation": "The statements place R and D on separate branches of the same graph.\n\nSharing bounds does not compare the two branch terms with each other, so no single relation is forced.\n\nAll three arrangements remain possible: R < D, R = D, or R > D.\n\nSo the relation between R and D cannot be determined.\n\nWhy not “R = D”? A missing comparison does not imply equality.\n\nWhy not “R ≥ D”? A shared upper or lower bound does not tell us whether R is above, equal to, or below D.\n\nWhy not “R > D”? A shared upper or lower bound does not tell us whether R is above, equal to, or below D.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "DETERMINE_BRANCHED_GRAPH_RELATION",
+    "prototypeId": "INE-CP002-PROT-BRANCHED-GRAPH",
+    "seed": 4,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for R compared with Q?",
+    "statements": [
+      "B > Q",
+      "R ≥ P",
+      "Q > P",
+      "B > R"
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "R = Q",
+      "R > Q",
+      "R < Q"
+    ],
+    "correctOption": "The relation cannot be determined",
+    "explanation": "The statements place R and Q on separate branches of the same graph.\n\nSharing bounds does not compare the two branch terms with each other, so no single relation is forced.\n\nAll three arrangements remain possible: R < Q, R = Q, or R > Q.\n\nSo the relation between R and Q cannot be determined.\n\nWhy not “R = Q”? A missing comparison does not imply equality.\n\nWhy not “R > Q”? A shared upper or lower bound does not tell us whether R is above, equal to, or below Q.\n\nWhy not “R < Q”? A shared upper or lower bound does not tell us whether R is above, equal to, or below Q.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "FILTER_IRRELEVANT_STATEMENTS",
+    "prototypeId": "INE-CP002-PROT-IRRELEVANT-EVIDENCE",
+    "seed": 0,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for R compared with C?",
+    "statements": [
+      "R ≥ B",
+      "R > Q",
+      "B > C",
+      "Q > S"
+    ],
+    "options": [
+      "R > C",
+      "R = C",
+      "R < C",
+      "The relation cannot be determined"
+    ],
+    "correctOption": "R > C",
+    "explanation": "Only R ≥ B, B > C connects R with C.\n\nR > Q and Q > S form a separate branch and do not change that route. The relevant chain gives R > C.\n\nTherefore, the strongest relation we can guarantee is R > C.\n\nWhy not “R = C”? Equality is ruled out because the chain contains a strict comparison.\n\nWhy not “R < C”? That reads the comparison backwards. The question asks for R relative to C.\n\nWhy not “The relation cannot be determined”? The displayed statements do connect R to C, so their relation is not unknown.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "FILTER_IRRELEVANT_STATEMENTS",
+    "prototypeId": "INE-CP002-PROT-IRRELEVANT-EVIDENCE",
+    "seed": 1,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for A compared with Q?",
+    "statements": [
+      "R > A",
+      "D > S",
+      "Q > D",
+      "Q ≥ R"
+    ],
+    "options": [
+      "A = Q",
+      "A < Q",
+      "A ≤ Q",
+      "The relation cannot be determined"
+    ],
+    "correctOption": "A < Q",
+    "explanation": "Only Q ≥ R, R > A connects A with Q.\n\nQ > D and D > S form a separate branch and do not change that route. The relevant chain gives A < Q.\n\nTherefore, the strongest relation we can guarantee is A < Q.\n\nWhy not “A = Q”? Equality is ruled out because the chain contains a strict comparison.\n\nWhy not “A ≤ Q”? That answer is weaker than the result proved by the strict link in the chain. The strongest answer is A < Q.\n\nWhy not “The relation cannot be determined”? The displayed statements do connect A to Q, so their relation is not unknown.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "FILTER_IRRELEVANT_STATEMENTS",
+    "prototypeId": "INE-CP002-PROT-IRRELEVANT-EVIDENCE",
+    "seed": 2,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for B compared with C?",
+    "statements": [
+      "B ≥ A",
+      "R > S",
+      "B > R",
+      "A > C"
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "B ≥ C",
+      "B > C",
+      "B < C"
+    ],
+    "correctOption": "B > C",
+    "explanation": "Only B ≥ A, A > C connects B with C.\n\nB > R and R > S form a separate branch and do not change that route. The relevant chain gives B > C.\n\nTherefore, the strongest relation we can guarantee is B > C.\n\nWhy not “The relation cannot be determined”? The displayed statements do connect B to C, so their relation is not unknown.\n\nWhy not “B ≥ C”? That answer is weaker than the result proved by the strict link in the chain. The strongest answer is B > C.\n\nWhy not “B < C”? That reads the comparison backwards. The question asks for B relative to C.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "FILTER_IRRELEVANT_STATEMENTS",
+    "prototypeId": "INE-CP002-PROT-IRRELEVANT-EVIDENCE",
+    "seed": 3,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for Q compared with A?",
+    "statements": [
+      "P > R",
+      "A ≥ C",
+      "C > Q",
+      "A > P"
+    ],
+    "options": [
+      "Q = A",
+      "The relation cannot be determined",
+      "Q ≤ A",
+      "Q < A"
+    ],
+    "correctOption": "Q < A",
+    "explanation": "Only A ≥ C, C > Q connects Q with A.\n\nA > P and P > R form a separate branch and do not change that route. The relevant chain gives Q < A.\n\nTherefore, the strongest relation we can guarantee is Q < A.\n\nWhy not “Q = A”? Equality is ruled out because the chain contains a strict comparison.\n\nWhy not “The relation cannot be determined”? The displayed statements do connect Q to A, so their relation is not unknown.\n\nWhy not “Q ≤ A”? That answer is weaker than the result proved by the strict link in the chain. The strongest answer is Q < A.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "FILTER_IRRELEVANT_STATEMENTS",
+    "prototypeId": "INE-CP002-PROT-IRRELEVANT-EVIDENCE",
+    "seed": 4,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for B compared with A?",
+    "statements": [
+      "D > P",
+      "S > A",
+      "B > D",
+      "B ≥ S"
+    ],
+    "options": [
+      "B > A",
+      "B = A",
+      "The relation cannot be determined",
+      "B ≥ A"
+    ],
+    "correctOption": "B > A",
+    "explanation": "Only B ≥ S, S > A connects B with A.\n\nB > D and D > P form a separate branch and do not change that route. The relevant chain gives B > A.\n\nTherefore, the strongest relation we can guarantee is B > A.\n\nWhy not “B = A”? Equality is ruled out because the chain contains a strict comparison.\n\nWhy not “The relation cannot be determined”? The displayed statements do connect B to A, so their relation is not unknown.\n\nWhy not “B ≥ A”? That answer is weaker than the result proved by the strict link in the chain. The strongest answer is B > A.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "IDENTIFY_PAIR_WITH_DEFINITE_RELATION",
+    "prototypeId": "INE-CP002-PROT-SELECT-DEFINITE-PAIR",
+    "seed": 0,
+    "difficulty": "HARD",
+    "stem": "Which pair has a relation that is completely determined by the statements?",
+    "statements": [
+      "S ≥ A",
+      "B = Q",
+      "Q > A",
+      "D > S"
+    ],
+    "options": [
+      "D and A",
+      "S and Q",
+      "D and Q",
+      "S and B"
+    ],
+    "correctOption": "D and A",
+    "explanation": "Check each pair separately. A pair is definite only when the displayed statements force one relation between its two terms.\n\nThe statements force D > A, so this pair has a definite relation.\n\nTherefore, option 1 — D and A — is the pair with a definite relation.\n\nWhy not “S and Q”? No comparison path fixes the order of S and Q; either one may be greater, or they may be equal.\n\nWhy not “D and Q”? No comparison path fixes the order of D and Q; either one may be greater, or they may be equal.\n\nWhy not “S and B”? No comparison path fixes the order of S and B; either one may be greater, or they may be equal.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "IDENTIFY_PAIR_WITH_DEFINITE_RELATION",
+    "prototypeId": "INE-CP002-PROT-SELECT-DEFINITE-PAIR",
+    "seed": 1,
+    "difficulty": "HARD",
+    "stem": "Which pair has a relation that is completely determined by the statements?",
+    "statements": [
+      "A > B",
+      "R = A",
+      "Q > C",
+      "C ≥ B"
+    ],
+    "options": [
+      "C and A",
+      "Q and B",
+      "Q and A",
+      "C and R"
+    ],
+    "correctOption": "Q and B",
+    "explanation": "Check each pair separately. A pair is definite only when the displayed statements force one relation between its two terms.\n\nThe statements force Q > B, so this pair has a definite relation.\n\nTherefore, option 2 — Q and B — is the pair with a definite relation.\n\nWhy not “C and A”? No comparison path fixes the order of C and A; either one may be greater, or they may be equal.\n\nWhy not “Q and A”? No comparison path fixes the order of Q and A; either one may be greater, or they may be equal.\n\nWhy not “C and R”? No comparison path fixes the order of C and R; either one may be greater, or they may be equal.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "IDENTIFY_PAIR_WITH_DEFINITE_RELATION",
+    "prototypeId": "INE-CP002-PROT-SELECT-DEFINITE-PAIR",
+    "seed": 2,
+    "difficulty": "HARD",
+    "stem": "Which pair has a relation that is completely determined by the statements?",
+    "statements": [
+      "C ≥ B",
+      "R > C",
+      "A > B",
+      "D = A"
+    ],
+    "options": [
+      "C and A",
+      "R and A",
+      "R and B",
+      "C and D"
+    ],
+    "correctOption": "R and B",
+    "explanation": "Check each pair separately. A pair is definite only when the displayed statements force one relation between its two terms.\n\nThe statements force R > B, so this pair has a definite relation.\n\nTherefore, option 3 — R and B — is the pair with a definite relation.\n\nWhy not “C and A”? No comparison path fixes the order of C and A; either one may be greater, or they may be equal.\n\nWhy not “R and A”? No comparison path fixes the order of R and A; either one may be greater, or they may be equal.\n\nWhy not “C and D”? No comparison path fixes the order of C and D; either one may be greater, or they may be equal.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "IDENTIFY_PAIR_WITH_DEFINITE_RELATION",
+    "prototypeId": "INE-CP002-PROT-SELECT-DEFINITE-PAIR",
+    "seed": 3,
+    "difficulty": "HARD",
+    "stem": "Which pair has a relation that is completely determined by the statements?",
+    "statements": [
+      "A > S",
+      "Q = A",
+      "D ≥ S",
+      "P > D"
+    ],
+    "options": [
+      "D and A",
+      "P and A",
+      "D and Q",
+      "P and S"
+    ],
+    "correctOption": "P and S",
+    "explanation": "Check each pair separately. A pair is definite only when the displayed statements force one relation between its two terms.\n\nThe statements force P > S, so this pair has a definite relation.\n\nTherefore, option 4 — P and S — is the pair with a definite relation.\n\nWhy not “D and A”? No comparison path fixes the order of D and A; either one may be greater, or they may be equal.\n\nWhy not “P and A”? No comparison path fixes the order of P and A; either one may be greater, or they may be equal.\n\nWhy not “D and Q”? No comparison path fixes the order of D and Q; either one may be greater, or they may be equal.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "IDENTIFY_PAIR_WITH_DEFINITE_RELATION",
+    "prototypeId": "INE-CP002-PROT-SELECT-DEFINITE-PAIR",
+    "seed": 4,
+    "difficulty": "HARD",
+    "stem": "Which pair has a relation that is completely determined by the statements?",
+    "statements": [
+      "A = C",
+      "Q > S",
+      "S ≥ B",
+      "C > B"
+    ],
+    "options": [
+      "Q and B",
+      "S and C",
+      "Q and C",
+      "S and A"
+    ],
+    "correctOption": "Q and B",
+    "explanation": "Check each pair separately. A pair is definite only when the displayed statements force one relation between its two terms.\n\nThe statements force Q > B, so this pair has a definite relation.\n\nTherefore, option 1 — Q and B — is the pair with a definite relation.\n\nWhy not “S and C”? No comparison path fixes the order of S and C; either one may be greater, or they may be equal.\n\nWhy not “Q and C”? No comparison path fixes the order of Q and C; either one may be greater, or they may be equal.\n\nWhy not “S and A”? No comparison path fixes the order of S and A; either one may be greater, or they may be equal.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "IDENTIFY_PAIR_WITHOUT_DEFINITE_RELATION",
+    "prototypeId": "INE-CP002-PROT-SELECT-INDETERMINATE-PAIR",
+    "seed": 0,
+    "difficulty": "HARD",
+    "stem": "Which pair has a relation that cannot be determined from the statements?",
+    "statements": [
+      "P ≥ Q",
+      "R > P",
+      "Q = D",
+      "A > D"
+    ],
+    "options": [
+      "P and A",
+      "R and Q",
+      "D and P",
+      "R and D"
+    ],
+    "correctOption": "P and A",
+    "explanation": "Check each pair separately. A pair is definite only when the displayed statements force one relation between its two terms.\n\nNo comparison path fixes the order of P and A; either one may be greater, or they may be equal.\n\nTherefore, option 1 — P and A — is the pair whose relation cannot be determined.\n\nWhy not “R and Q”? The statements force R > Q, so this pair has a definite relation.\n\nWhy not “D and P”? The statements force D ≤ P, so this pair has a definite relation.\n\nWhy not “R and D”? The statements force R > D, so this pair has a definite relation.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "IDENTIFY_PAIR_WITHOUT_DEFINITE_RELATION",
+    "prototypeId": "INE-CP002-PROT-SELECT-INDETERMINATE-PAIR",
+    "seed": 1,
+    "difficulty": "HARD",
+    "stem": "Which pair has a relation that cannot be determined from the statements?",
+    "statements": [
+      "S > A",
+      "R > Q",
+      "Q ≥ B",
+      "B = A"
+    ],
+    "options": [
+      "R and B",
+      "Q and S",
+      "A and Q",
+      "R and A"
+    ],
+    "correctOption": "Q and S",
+    "explanation": "Check each pair separately. A pair is definite only when the displayed statements force one relation between its two terms.\n\nNo comparison path fixes the order of Q and S; either one may be greater, or they may be equal.\n\nTherefore, option 2 — Q and S — is the pair whose relation cannot be determined.\n\nWhy not “R and B”? The statements force R > B, so this pair has a definite relation.\n\nWhy not “A and Q”? The statements force A ≤ Q, so this pair has a definite relation.\n\nWhy not “R and A”? The statements force R > A, so this pair has a definite relation.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "IDENTIFY_PAIR_WITHOUT_DEFINITE_RELATION",
+    "prototypeId": "INE-CP002-PROT-SELECT-INDETERMINATE-PAIR",
+    "seed": 2,
+    "difficulty": "HARD",
+    "stem": "Which pair has a relation that cannot be determined from the statements?",
+    "statements": [
+      "C = Q",
+      "P > Q",
+      "S ≥ C",
+      "A > S"
+    ],
+    "options": [
+      "A and C",
+      "Q and S",
+      "S and P",
+      "A and Q"
+    ],
+    "correctOption": "S and P",
+    "explanation": "Check each pair separately. A pair is definite only when the displayed statements force one relation between its two terms.\n\nNo comparison path fixes the order of S and P; either one may be greater, or they may be equal.\n\nTherefore, option 3 — S and P — is the pair whose relation cannot be determined.\n\nWhy not “A and C”? The statements force A > C, so this pair has a definite relation.\n\nWhy not “Q and S”? The statements force Q ≤ S, so this pair has a definite relation.\n\nWhy not “A and Q”? The statements force A > Q, so this pair has a definite relation.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "IDENTIFY_PAIR_WITHOUT_DEFINITE_RELATION",
+    "prototypeId": "INE-CP002-PROT-SELECT-INDETERMINATE-PAIR",
+    "seed": 3,
+    "difficulty": "HARD",
+    "stem": "Which pair has a relation that cannot be determined from the statements?",
+    "statements": [
+      "P > C",
+      "R = Q",
+      "B > Q",
+      "C ≥ R"
+    ],
+    "options": [
+      "P and R",
+      "Q and C",
+      "P and Q",
+      "C and B"
+    ],
+    "correctOption": "C and B",
+    "explanation": "Check each pair separately. A pair is definite only when the displayed statements force one relation between its two terms.\n\nNo comparison path fixes the order of C and B; either one may be greater, or they may be equal.\n\nTherefore, option 4 — C and B — is the pair whose relation cannot be determined.\n\nWhy not “P and R”? The statements force P > R, so this pair has a definite relation.\n\nWhy not “Q and C”? The statements force Q ≤ C, so this pair has a definite relation.\n\nWhy not “P and Q”? The statements force P > Q, so this pair has a definite relation.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "IDENTIFY_PAIR_WITHOUT_DEFINITE_RELATION",
+    "prototypeId": "INE-CP002-PROT-SELECT-INDETERMINATE-PAIR",
+    "seed": 4,
+    "difficulty": "HARD",
+    "stem": "Which pair has a relation that cannot be determined from the statements?",
+    "statements": [
+      "B > A",
+      "A ≥ R",
+      "D > Q",
+      "R = Q"
+    ],
+    "options": [
+      "A and D",
+      "B and R",
+      "Q and A",
+      "B and Q"
+    ],
+    "correctOption": "A and D",
+    "explanation": "Check each pair separately. A pair is definite only when the displayed statements force one relation between its two terms.\n\nNo comparison path fixes the order of A and D; either one may be greater, or they may be equal.\n\nTherefore, option 1 — A and D — is the pair whose relation cannot be determined.\n\nWhy not “B and R”? The statements force B > R, so this pair has a definite relation.\n\nWhy not “Q and A”? The statements force Q ≤ A, so this pair has a definite relation.\n\nWhy not “B and Q”? The statements force B > Q, so this pair has a definite relation.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "DETERMINE_DISCONNECTED_PAIR_RELATION",
+    "prototypeId": "INE-CP002-PROT-DISCONNECTED-COMPONENTS",
+    "seed": 0,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for P compared with Q?",
+    "statements": [
+      "R > P",
+      "P ≥ D",
+      "B > Q",
+      "R > D"
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "P ≥ Q",
+      "P = Q",
+      "P < Q"
+    ],
+    "correctOption": "The relation cannot be determined",
+    "explanation": "P and Q belong to different connected groups of statements.\n\nNo comparison path joins the two groups. Either term may be above, equal to, or below the other, so no single relation is forced.\n\nAll three arrangements remain possible: P < Q, P = Q, or P > Q.\n\nSo the relation between P and Q cannot be determined.\n\nWhy not “P ≥ Q”? A shared upper or lower bound does not tell us whether P is above, equal to, or below Q.\n\nWhy not “P = Q”? A missing comparison does not imply equality.\n\nWhy not “P < Q”? A shared upper or lower bound does not tell us whether P is above, equal to, or below Q.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "DETERMINE_DISCONNECTED_PAIR_RELATION",
+    "prototypeId": "INE-CP002-PROT-DISCONNECTED-COMPONENTS",
+    "seed": 1,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for D compared with A?",
+    "statements": [
+      "R > A",
+      "S > P",
+      "S > D",
+      "D ≥ P"
+    ],
+    "options": [
+      "D < A",
+      "The relation cannot be determined",
+      "D = A",
+      "D > A"
+    ],
+    "correctOption": "The relation cannot be determined",
+    "explanation": "D and A belong to different connected groups of statements.\n\nNo comparison path joins the two groups. Either term may be above, equal to, or below the other, so no single relation is forced.\n\nAll three arrangements remain possible: D < A, D = A, or D > A.\n\nSo the relation between D and A cannot be determined.\n\nWhy not “D < A”? A shared upper or lower bound does not tell us whether D is above, equal to, or below A.\n\nWhy not “D = A”? A missing comparison does not imply equality.\n\nWhy not “D > A”? A shared upper or lower bound does not tell us whether D is above, equal to, or below A.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "DETERMINE_DISCONNECTED_PAIR_RELATION",
+    "prototypeId": "INE-CP002-PROT-DISCONNECTED-COMPONENTS",
+    "seed": 2,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for R compared with P?",
+    "statements": [
+      "D > R",
+      "D > B",
+      "R ≥ B",
+      "C > P"
+    ],
+    "options": [
+      "R = P",
+      "R < P",
+      "The relation cannot be determined",
+      "R > P"
+    ],
+    "correctOption": "The relation cannot be determined",
+    "explanation": "R and P belong to different connected groups of statements.\n\nNo comparison path joins the two groups. Either term may be above, equal to, or below the other, so no single relation is forced.\n\nAll three arrangements remain possible: R < P, R = P, or R > P.\n\nSo the relation between R and P cannot be determined.\n\nWhy not “R = P”? A missing comparison does not imply equality.\n\nWhy not “R < P”? A shared upper or lower bound does not tell us whether R is above, equal to, or below P.\n\nWhy not “R > P”? A shared upper or lower bound does not tell us whether R is above, equal to, or below P.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "DETERMINE_DISCONNECTED_PAIR_RELATION",
+    "prototypeId": "INE-CP002-PROT-DISCONNECTED-COMPONENTS",
+    "seed": 3,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for D compared with B?",
+    "statements": [
+      "C > A",
+      "D ≥ A",
+      "C > D",
+      "Q > B"
+    ],
+    "options": [
+      "D = B",
+      "D < B",
+      "D ≥ B",
+      "The relation cannot be determined"
+    ],
+    "correctOption": "The relation cannot be determined",
+    "explanation": "D and B belong to different connected groups of statements.\n\nNo comparison path joins the two groups. Either term may be above, equal to, or below the other, so no single relation is forced.\n\nAll three arrangements remain possible: D < B, D = B, or D > B.\n\nSo the relation between D and B cannot be determined.\n\nWhy not “D = B”? A missing comparison does not imply equality.\n\nWhy not “D < B”? A shared upper or lower bound does not tell us whether D is above, equal to, or below B.\n\nWhy not “D ≥ B”? A shared upper or lower bound does not tell us whether D is above, equal to, or below B.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "DETERMINE_DISCONNECTED_PAIR_RELATION",
+    "prototypeId": "INE-CP002-PROT-DISCONNECTED-COMPONENTS",
+    "seed": 4,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for C compared with B?",
+    "statements": [
+      "C ≥ R",
+      "Q > B",
+      "D > R",
+      "D > C"
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "C > B",
+      "C < B",
+      "C = B"
+    ],
+    "correctOption": "The relation cannot be determined",
+    "explanation": "C and B belong to different connected groups of statements.\n\nNo comparison path joins the two groups. Either term may be above, equal to, or below the other, so no single relation is forced.\n\nAll three arrangements remain possible: C < B, C = B, or C > B.\n\nSo the relation between C and B cannot be determined.\n\nWhy not “C > B”? A shared upper or lower bound does not tell us whether C is above, equal to, or below B.\n\nWhy not “C < B”? A shared upper or lower bound does not tell us whether C is above, equal to, or below B.\n\nWhy not “C = B”? A missing comparison does not imply equality.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "PROPAGATE_EQUALITY_ACROSS_BRANCHES",
+    "prototypeId": "INE-CP002-PROT-EQUALITY-SPANNING-BRANCHES",
+    "seed": 0,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for B compared with P?",
+    "statements": [
+      "S = P",
+      "B > D",
+      "B = S",
+      "P ≥ R"
+    ],
+    "options": [
+      "B = P",
+      "The relation cannot be determined",
+      "B < P",
+      "B > P"
+    ],
+    "correctOption": "B = P",
+    "explanation": "The equality route is B = S, S = P.\n\nThe two queried terms belong to the same equality group. Comparisons leaving that group do not change their equality, so B = P.\n\nTherefore, the strongest relation we can guarantee is B = P.\n\nWhy not “The relation cannot be determined”? An equality sign gives an exact relation; it is not missing information.\n\nWhy not “B < P”? Equal terms must keep the same comparison with every other term.\n\nWhy not “B > P”? Equal terms must keep the same comparison with every other term.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "PROPAGATE_EQUALITY_ACROSS_BRANCHES",
+    "prototypeId": "INE-CP002-PROT-EQUALITY-SPANNING-BRANCHES",
+    "seed": 1,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for Q compared with A?",
+    "statements": [
+      "Q > R",
+      "Q = C",
+      "C = A",
+      "A ≥ B"
+    ],
+    "options": [
+      "Q < A",
+      "Q = A",
+      "The relation cannot be determined",
+      "Q ≥ A"
+    ],
+    "correctOption": "Q = A",
+    "explanation": "The equality route is Q = C, C = A.\n\nThe two queried terms belong to the same equality group. Comparisons leaving that group do not change their equality, so Q = A.\n\nTherefore, the strongest relation we can guarantee is Q = A.\n\nWhy not “Q < A”? Equal terms must keep the same comparison with every other term.\n\nWhy not “The relation cannot be determined”? An equality sign gives an exact relation; it is not missing information.\n\nWhy not “Q ≥ A”? The statements prove equality exactly, so a weaker inclusive relation is not the strongest answer.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "PROPAGATE_EQUALITY_ACROSS_BRANCHES",
+    "prototypeId": "INE-CP002-PROT-EQUALITY-SPANNING-BRANCHES",
+    "seed": 2,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for R compared with Q?",
+    "statements": [
+      "R = D",
+      "Q ≥ C",
+      "D = Q",
+      "R > S"
+    ],
+    "options": [
+      "R ≥ Q",
+      "R < Q",
+      "R = Q",
+      "The relation cannot be determined"
+    ],
+    "correctOption": "R = Q",
+    "explanation": "The equality route is R = D, D = Q.\n\nThe two queried terms belong to the same equality group. Comparisons leaving that group do not change their equality, so R = Q.\n\nTherefore, the strongest relation we can guarantee is R = Q.\n\nWhy not “R ≥ Q”? The statements prove equality exactly, so a weaker inclusive relation is not the strongest answer.\n\nWhy not “R < Q”? Equal terms must keep the same comparison with every other term.\n\nWhy not “The relation cannot be determined”? An equality sign gives an exact relation; it is not missing information.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "PROPAGATE_EQUALITY_ACROSS_BRANCHES",
+    "prototypeId": "INE-CP002-PROT-EQUALITY-SPANNING-BRANCHES",
+    "seed": 3,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for S compared with R?",
+    "statements": [
+      "S > D",
+      "S = B",
+      "B = R",
+      "R ≥ A"
+    ],
+    "options": [
+      "S ≥ R",
+      "S > R",
+      "S < R",
+      "S = R"
+    ],
+    "correctOption": "S = R",
+    "explanation": "The equality route is S = B, B = R.\n\nThe two queried terms belong to the same equality group. Comparisons leaving that group do not change their equality, so S = R.\n\nTherefore, the strongest relation we can guarantee is S = R.\n\nWhy not “S ≥ R”? The statements prove equality exactly, so a weaker inclusive relation is not the strongest answer.\n\nWhy not “S > R”? Equal terms must keep the same comparison with every other term.\n\nWhy not “S < R”? Equal terms must keep the same comparison with every other term.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "packageId": "INE-001",
+    "checkpointId": "INE-CP-002",
+    "authorityId": "PROPAGATE_EQUALITY_ACROSS_BRANCHES",
+    "prototypeId": "INE-CP002-PROT-EQUALITY-SPANNING-BRANCHES",
+    "seed": 4,
+    "difficulty": "MEDIUM",
+    "stem": "What is the strongest relation that must be true for C compared with Q?",
+    "statements": [
+      "D = Q",
+      "C = D",
+      "C > B",
+      "Q ≥ A"
+    ],
+    "options": [
+      "C = Q",
+      "C > Q",
+      "The relation cannot be determined",
+      "C < Q"
+    ],
+    "correctOption": "C = Q",
+    "explanation": "The equality route is C = D, D = Q.\n\nThe two queried terms belong to the same equality group. Comparisons leaving that group do not change their equality, so C = Q.\n\nTherefore, the strongest relation we can guarantee is C = Q.\n\nWhy not “C > Q”? Equal terms must keep the same comparison with every other term.\n\nWhy not “The relation cannot be determined”? An equality sign gives an exact relation; it is not missing information.\n\nWhy not “C < Q”? Equal terms must keep the same comparison with every other term.",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  }
+]
