@@ -20,10 +20,19 @@ function possessiveSpeedQuestion(stem: string): string {
 
 function variant(mode: TsdCp001SolveInput["solveMode"], seed: string): 0 | 1 | 2 {
   const ordinal = trailingSeedOrdinal(seed);
+  const stableThirdBucketModes = new Set<TsdCp001SolveInput["solveMode"]>([
+    "compareDistancesAtEqualTime",
+    "compareTimesAtEqualDistance",
+    "speedRatioFromDistanceAndTimeRatios",
+    "timeRatioFromDistanceAndSpeedRatios",
+    "speedByProportion",
+  ]);
 
-  if ((mode === "compareDistancesAtEqualTime" || mode === "compareTimesAtEqualDistance") && ordinal === 3) return 2;
-  if ((mode === "speedRatioFromDistanceAndTimeRatios" || mode === "timeRatioFromDistanceAndSpeedRatios") && ordinal === 4) return 2;
-  if (mode === "speedByProportion" && ordinal === 6) return 2;
+  if (stableThirdBucketModes.has(mode)) {
+    if (ordinal === 0) return 0;
+    if (ordinal === 1) return 1;
+    return 2;
+  }
 
   return (ordinal % 3) as 0 | 1 | 2;
 }
