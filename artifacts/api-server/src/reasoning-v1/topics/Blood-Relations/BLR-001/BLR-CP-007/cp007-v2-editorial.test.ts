@@ -36,8 +36,18 @@ for (const question of bank) {
   if (question.explanation.mode === "DIRECT_LOOKUP_MINIMAL") {
     assert.equal(
       question.explanation.steps.length,
-      1,
-      `${question.itemId}: direct lookup repeats its conclusion`,
+      2,
+      `${question.itemId}: direct lookup must remain concise`,
+    );
+    assert.match(
+      question.explanation.steps[1]!,
+      /direct match with the relation asked/iu,
+      `${question.itemId}: direct lookup repeats the relation instead of confirming it`,
+    );
+    assert.notEqual(
+      question.explanation.steps[0],
+      question.explanation.steps[1],
+      `${question.itemId}: duplicate direct steps`,
     );
   }
 
