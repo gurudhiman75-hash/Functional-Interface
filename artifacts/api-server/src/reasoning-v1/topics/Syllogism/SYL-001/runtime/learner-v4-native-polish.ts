@@ -53,10 +53,23 @@ function polish(value: string | null, locale: SylLocale): string | null {
 
 function polishDiagramText(value: string | null, locale: SylLocale): string | null {
   if (value === null || locale !== "en-IN") return value;
-  return value.replace(
-    /Because ([^.]+?) is separate from ([^,]+?), the same × is outside ([^.]+?)\./gu,
-    "Since $1 and $2 are separate, the same × is outside $3.",
-  );
+  return value
+    .replace(
+      /Because ([^.]+?) is separate from ([^,]+?), the same × is outside ([^.]+?)\./gu,
+      "Since $1 and $2 are separate, the same × is outside $3.",
+    )
+    .replace(
+      /^([^.]+?) is inside ([^,]+?), and ([^.]+?) is separate from ([^.]+?)\.$/gu,
+      "The $1 set lies inside the $2 set, and the $3 and $4 sets are separate.",
+    )
+    .replace(
+      /^([^.]+?) lies inside ([^,]+?), and ([^.]+?) lies inside ([^.]+?)\.$/gu,
+      "The $1 set lies inside the $2 set, and the $3 set lies inside the $4 set.",
+    )
+    .replace(
+      /^The whole ([^.]+?) set lies inside ([^.]+?)\.$/gu,
+      "The $1 set lies inside the $2 set.",
+    );
 }
 
 export function polishLearnerPresentationV4(
