@@ -74,6 +74,14 @@ function optionShouldBeCorrect(
   }
   if (query.kind === "MISSING_TOKEN_PAIR") {
     if (option.completionValue.kind !== "TOKEN_PAIR") return false;
+    if (question.topologyId.startsWith("V2_TARGET_DERIVED_")) {
+      return relationMatches(
+        graph,
+        query.target.subjectId,
+        query.target.referenceId,
+        query.target.relationId,
+      );
+    }
     const expected = [
       query.completeStatements[query.blankStatementIndices[0]]!.token,
       query.completeStatements[query.blankStatementIndices[1]]!.token,
