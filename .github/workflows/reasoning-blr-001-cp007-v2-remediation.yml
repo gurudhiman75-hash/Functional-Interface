@@ -55,12 +55,13 @@ jobs:
           set -euo pipefail
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-v2-editorial.test.ts | tee cp007-v2-editorial.log
 
-      - name: Export and polish CP-007 V2 review pack
+      - name: Export and audit CP-007 V2 manual-review pack
         run: |
           set -euo pipefail
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-cp007-v2.ts cp007-v2-output | tee cp007-v2-export.log
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/audit-cp007-v2-deep-remediation.ts cp007-v2-output | tee cp007-v2-deep-audit.log
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/polish-cp007-v2-review-html.ts cp007-v2-output | tee cp007-v2-html-polish.log
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/audit-cp007-v2-manual-editorial.ts cp007-v2-output | tee cp007-v2-manual-audit.log
 
       - name: Verify CP-007 V2 artifact contracts
         shell: bash
@@ -69,11 +70,13 @@ jobs:
           OUT=cp007-v2-output
           test -f "$OUT/blr-cp007-v2-summary.json"
           test -f "$OUT/blr-cp007-v2-deep-remediation-audit.json"
+          test -f "$OUT/blr-cp007-v2-manual-editorial-audit.json"
           test -f "$OUT/blr-cp007-v2-records.jsonl"
           test -f "$OUT/blr-cp007-v2-records.csv"
           test -f "$OUT/blr-cp007-v2-review.html"
           test -f "$OUT/BLR-CP-007-V2-REMEDIATION-RECORD.md"
           test -f "$OUT/BLR-CP-007-V2-DEEP-REMEDIATION-AUDIT.md"
+          test -f "$OUT/BLR-CP-007-V2-MANUAL-EDITORIAL-AUDIT.md"
           grep -q '"recordCount": 168' "$OUT/blr-cp007-v2-summary.json"
           grep -q '"prototypeCount": 21' "$OUT/blr-cp007-v2-summary.json"
           grep -q '"authorityCount": 5' "$OUT/blr-cp007-v2-summary.json"
@@ -88,6 +91,18 @@ jobs:
           grep -q '"orderedPairQuestionsWithUniqueSemanticTarget": 24' "$OUT/blr-cp007-v2-deep-remediation-audit.json"
           grep -q '"connectedMissingPersonDistractors": 96' "$OUT/blr-cp007-v2-deep-remediation-audit.json"
           grep -q '"disconnectedMissingPersonDistractors": 0' "$OUT/blr-cp007-v2-deep-remediation-audit.json"
+          grep -q '"questionsReviewed": 168' "$OUT/blr-cp007-v2-manual-editorial-audit.json"
+          grep -q '"optionExplanationsReviewed": 672' "$OUT/blr-cp007-v2-manual-editorial-audit.json"
+          grep -q '"genericConclusions": 0' "$OUT/blr-cp007-v2-manual-editorial-audit.json"
+          grep -q '"broadWrongGenerationLabels": 0' "$OUT/blr-cp007-v2-manual-editorial-audit.json"
+          grep -q '"directLookupRepetitionDefects": 0' "$OUT/blr-cp007-v2-manual-editorial-audit.json"
+          grep -q '"focusedMissingPersonQuestions": 32' "$OUT/blr-cp007-v2-manual-editorial-audit.json"
+          grep -q '"unfocusedMissingPersonQuestions": 0' "$OUT/blr-cp007-v2-manual-editorial-audit.json"
+          grep -q '"genderUnsupportedClaimsExplained": 8' "$OUT/blr-cp007-v2-manual-editorial-audit.json"
+          grep -q '"optionAnalysisPanels": 168' "$OUT/blr-cp007-v2-manual-editorial-audit.json"
+          grep -q '"optionalDiagramPanels": 168' "$OUT/blr-cp007-v2-manual-editorial-audit.json"
+          grep -q '"expandedOptionAnalysisPanels": 0' "$OUT/blr-cp007-v2-manual-editorial-audit.json"
+          grep -q '"expandedDiagramPanels": 0' "$OUT/blr-cp007-v2-manual-editorial-audit.json"
           test "$(wc -l < "$OUT/blr-cp007-v2-records.jsonl")" -eq 168
           grep -q 'all 672 option graphs independently valid' "$OUT/blr-cp007-v2-review.html"
           grep -q 'HUMAN_REVIEW_REQUIRED' "$OUT/blr-cp007-v2-review.html"
@@ -114,6 +129,7 @@ jobs:
             cp007-v2-export.log
             cp007-v2-deep-audit.log
             cp007-v2-html-polish.log
+            cp007-v2-manual-audit.log
           if-no-files-found: warn
           retention-days: 14
 
