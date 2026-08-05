@@ -47,4 +47,20 @@ disconnected wrong-person fillers:        0
 invalid displayed option graphs:          0
 ```
 
+## Exact-head evidence
+
+```text
+head: a996d883e6e87722bb1f82d6c51d90e615cde1e7
+V2 workflow: 30991340440 — passed
+V1 CP-007 regression: 30991340626 — passed
+CP-003 regression: 30991340892 — passed
+CP-002 regression: 30991340444 — passed
+CP-001 regression: 30991341390 — passed
+
+review artifact ID: 8924245958
+review digest: sha256:1cd3caef5852cec9e8949cf26e330e17d64ca3fc3e7ccec10a042ba139289e77
+logs artifact ID: 8924245581
+logs digest: sha256:f8e0eadc909b1b73f4e128100272f0739b373792aef09c503c4d97f01f578532
+```
+
 This record documents V2 readiness for human approval. It does not self-authorise English freeze, Question Studio exposure, localisation, learner release, production staging or merge.
