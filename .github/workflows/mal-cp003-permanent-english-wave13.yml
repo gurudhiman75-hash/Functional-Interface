@@ -1,0 +1,63 @@
+name: Validate MAL-CP-003 permanent English Wave 13
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp003-permanent-runtime.ts
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp003-completion-ledger.ts
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-adapter.ts
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp003-permanent-english-wave13-audit.ts
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/MAL-CP-003/MAL-CP-003-WAVE-13-PERMANENT-ENGLISH-RELEASE.md
+      - .github/workflows/mal-cp003-permanent-english-wave13.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-mal-cp003-permanent-english-wave13-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-mal-cp003-permanent-english-wave13:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle MAL-CP-003 Wave 13 audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp003-permanent-english-wave13-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp003-permanent-english-wave13-audit.mjs
+      - name: Run MAL-CP-003 Wave 13 audit
+        shell: bash
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/mal-001-cp003-permanent-english-wave13-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-cp003-permanent-english-wave13-audit.log
+      - name: Upload MAL-CP-003 Wave 13 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mal-cp003-permanent-english-wave13
+          path: |
+            artifacts/api-server/dist/quant-v4/mal-001-cp003-permanent-english-wave13-audit.log
+            artifacts/api-server/dist/quant-v4/mal-cp003-permanent-english-wave13-review.json
+            artifacts/api-server/dist/quant-v4/mal-cp003-permanent-english-wave13-review.md
+          if-no-files-found: error
+          retention-days: 14
