@@ -10,11 +10,11 @@ import {
   blrCp007V2KeyPrompt,
 } from "./cp007-v2-key";
 import {
-  buildBlrCp007V2Options,
   decodeBlrCp007V2,
   orderBlrCp007V2Options,
   targetForQuery,
 } from "./cp007-v2-option-builder";
+import { buildBlrCp007V2EnhancedOptions } from "./cp007-v2-enhanced-option-builder";
 import {
   BLR_CP007_V2_DATASET_VERSION,
   BLR_CP007_V2_RUNTIME_VERSION,
@@ -61,7 +61,7 @@ export function generateBlrCp007V2Question(
         codeKey: completeKey.codeKey,
         sharedPrompt: blrCp007V2KeyPrompt(completeKey.codeKey),
       };
-  const rawOptions = buildBlrCp007V2Options(constructionScenario);
+  const rawOptions = buildBlrCp007V2EnhancedOptions(constructionScenario);
   const options = orderBlrCp007V2Options(
     prototypeId,
     normalizedSeed,
