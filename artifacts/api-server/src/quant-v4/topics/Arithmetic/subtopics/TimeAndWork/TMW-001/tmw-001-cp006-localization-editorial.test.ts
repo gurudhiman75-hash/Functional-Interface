@@ -53,7 +53,13 @@ for (const entry of TMW_CP006_REGISTRY) {
       assert.match(question.explanation.conclusion, language === "hi" ? /हटाए गए लोगों की संख्या/ : /ਹਟਾਏ ਗਏ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ/, row);
     }
     if (entry.solveMode === "findRemainingDaysFromActualProgress") {
-      assert.match(question.explanation.opening, language === "hi" ? /1 − पूरा हुआ भाग/ : /1 − ਪੂਰਾ ਹੋਇਆ ਹਿੱਸਾ/, row);
+      assert.match(
+        question.explanation.opening,
+        language === "hi"
+          ? /(?:1 − पूरा हुआ भाग|1 में से पूरा हुआ भाग घटाएँ)/
+          : /(?:1 − ਪੂਰਾ ਹੋਇਆ ਹਿੱਸਾ|1 ਵਿੱਚੋਂ ਪੂਰਾ ਹੋਇਆ ਹਿੱਸਾ ਘਟਾਓ)/,
+        row,
+      );
     }
     if (entry.solveMode === "findCompletionWithBatchWorkerAdditions") {
       assert.match(question.explanation.opening, language === "hi" ? /दिनवार संख्याओं का योग/ : /ਦਿਨਵਾਰ ਗਿਣਤੀਆਂ ਦਾ ਜੋੜ/, row);
