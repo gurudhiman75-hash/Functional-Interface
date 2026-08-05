@@ -47,43 +47,51 @@ jobs:
           set -euo pipefail
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-runtime.test.ts | tee cp007-v1-baseline.log
 
-      - name: Prove CP-007 hardened editorial V2 review bank
+      - name: Prove CP-007 hardened V2 contracts
         shell: bash
         run: |
           set -euo pipefail
-          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v2-review.test.ts | tee cp007-editorial-v2.log
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v2-review.test.ts | tee cp007-editorial-v2-foundation.log
 
-      - name: Export CP-007 editorial V2 human-review pack
+      - name: Prove CP-007 final human-review surface
         shell: bash
         run: |
           set -euo pipefail
-          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-cp007-editorial-v2-review.ts cp007-editorial-v2-review-output | tee cp007-editorial-v2-export.log
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v2-final-review.test.ts | tee cp007-editorial-v2-final.log
+
+      - name: Export CP-007 final V2 human-review pack
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-cp007-editorial-v2-final-review.ts cp007-editorial-v2-final-review-output | tee cp007-editorial-v2-export.log
 
       - name: Verify CP-007 V2 artifact contracts
         shell: bash
         run: |
           set -euo pipefail
-          OUT=cp007-editorial-v2-review-output
-          test -f "$OUT/blr-cp007-editorial-v2-summary.json"
-          test -f "$OUT/blr-cp007-editorial-v2-records.jsonl"
-          test -f "$OUT/blr-cp007-editorial-v2-records.csv"
-          test -f "$OUT/blr-cp007-editorial-v2-review.html"
-          test -f "$OUT/BLR-CP-007-EDITORIAL-V2-REMEDIATION.md"
-          test "$(wc -l < "$OUT/blr-cp007-editorial-v2-records.jsonl")" -eq 168
-          grep -q '"recordCount": 168' "$OUT/blr-cp007-editorial-v2-summary.json"
-          grep -q '"prototypeCount": 21' "$OUT/blr-cp007-editorial-v2-summary.json"
-          grep -q '"authorityCount": 5' "$OUT/blr-cp007-editorial-v2-summary.json"
-          grep -q '"optionAnalysisCount": 672' "$OUT/blr-cp007-editorial-v2-summary.json"
-          grep -q '"invalidStatementQuestionCount": 16' "$OUT/blr-cp007-editorial-v2-summary.json"
-          grep -q '"semicolonCorrectCount": 56' "$OUT/blr-cp007-editorial-v2-summary.json"
-          grep -q '"humanReviewRequired": true' "$OUT/blr-cp007-editorial-v2-summary.json"
-          grep -q 'Human review required' "$OUT/blr-cp007-editorial-v2-review.html"
-          grep -q 'Administrator review proof' "$OUT/blr-cp007-editorial-v2-review.html"
-          grep -q 'marker-end=' "$OUT/blr-cp007-editorial-v2-review.html"
-          grep -q 'Solid edge: directly coded' "$OUT/blr-cp007-editorial-v2-review.html"
-          grep -q 'Dashed edge: inferred' "$OUT/blr-cp007-editorial-v2-review.html"
-          grep -q 'HUMAN_REVIEW_REQUIRED' "$OUT/blr-cp007-editorial-v2-review.html"
-          grep -q 'V1 final-freeze review superseded' "$OUT/BLR-CP-007-EDITORIAL-V2-REMEDIATION.md"
+          OUT=cp007-editorial-v2-final-review-output
+          test -f "$OUT/blr-cp007-editorial-v2-final-summary.json"
+          test -f "$OUT/blr-cp007-editorial-v2-final-records.jsonl"
+          test -f "$OUT/blr-cp007-editorial-v2-final-records.csv"
+          test -f "$OUT/blr-cp007-editorial-v2-final-review.html"
+          test -f "$OUT/BLR-CP-007-EDITORIAL-V2-FINAL-REVIEW.md"
+          test "$(wc -l < "$OUT/blr-cp007-editorial-v2-final-records.jsonl")" -eq 168
+          grep -q '"recordCount": 168' "$OUT/blr-cp007-editorial-v2-final-summary.json"
+          grep -q '"prototypeCount": 21' "$OUT/blr-cp007-editorial-v2-final-summary.json"
+          grep -q '"authorityCount": 5' "$OUT/blr-cp007-editorial-v2-final-summary.json"
+          grep -q '"optionAnalysisCount": 672' "$OUT/blr-cp007-editorial-v2-final-summary.json"
+          grep -q '"invalidStatementQuestionCount": 16' "$OUT/blr-cp007-editorial-v2-final-summary.json"
+          grep -q '"semicolonCorrectCount": 56' "$OUT/blr-cp007-editorial-v2-final-summary.json"
+          grep -q '"humanReviewRequired": true' "$OUT/blr-cp007-editorial-v2-final-summary.json"
+          grep -q 'Candidates: P, Q, R, S' "$OUT/blr-cp007-editorial-v2-final-review.html"
+          ! grep -qE '\bV[1-4]\b' "$OUT/blr-cp007-editorial-v2-final-review.html"
+          grep -q 'Human review required' "$OUT/blr-cp007-editorial-v2-final-review.html"
+          grep -q 'Administrator review proof' "$OUT/blr-cp007-editorial-v2-final-review.html"
+          grep -q 'marker-end=' "$OUT/blr-cp007-editorial-v2-final-review.html"
+          grep -q 'Solid edge: directly coded' "$OUT/blr-cp007-editorial-v2-final-review.html"
+          grep -q 'Dashed edge: inferred' "$OUT/blr-cp007-editorial-v2-final-review.html"
+          grep -q 'HUMAN_REVIEW_REQUIRED' "$OUT/blr-cp007-editorial-v2-final-review.html"
+          grep -q 'V1 final-freeze review superseded' "$OUT/BLR-CP-007-EDITORIAL-V2-FINAL-REVIEW.md"
 
       - name: Upload CP-007 V2 diagnostics
         if: always()
@@ -93,15 +101,16 @@ jobs:
           path: |
             cp006-source.log
             cp007-v1-baseline.log
-            cp007-editorial-v2.log
+            cp007-editorial-v2-foundation.log
+            cp007-editorial-v2-final.log
             cp007-editorial-v2-export.log
           if-no-files-found: warn
           retention-days: 14
 
-      - name: Upload CP-007 editorial V2 review pack
+      - name: Upload CP-007 final editorial V2 review pack
         uses: actions/upload-artifact@v4
         with:
-          name: blr-001-cp007-editorial-v2-human-review
-          path: cp007-editorial-v2-review-output
+          name: blr-001-cp007-editorial-v2-final-human-review
+          path: cp007-editorial-v2-final-review-output
           if-no-files-found: error
           retention-days: 30
