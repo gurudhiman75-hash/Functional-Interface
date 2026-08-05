@@ -1,9 +1,9 @@
 import type { RnkCp004Option } from './cp004-foundation';
 import {
-  RNK_CP004_REMODEL_V3_PROTOTYPE_IDS,
+  RNK_CP004_REMODEL_V4_PROTOTYPE_IDS,
   generateRnkCp004ExamReadyQuestion,
   type RnkCp004ExamReadyQuestion,
-} from './cp004-exam-ready-v5';
+} from './cp004-exam-ready-v6';
 
 function optionAnalysis(options: readonly RnkCp004Option[]): readonly string[] {
   return options.map(
@@ -16,7 +16,7 @@ function visibleWrongAnalysis(
   options: readonly RnkCp004Option[],
 ): readonly string[] | undefined {
   if (!question.visibleExplanation.optionAnalysis) return undefined;
-  if (question.visibleExplanation.optionAnalysis.length === 1) {
+  if (question.visibleExplanation.optionAnalysis.length <= 2) {
     return question.visibleExplanation.optionAnalysis;
   }
   return options
@@ -95,7 +95,7 @@ export function buildRnkCp004ReviewPack(): readonly RnkCp004ExamReadyQuestion[] 
   const answerCounts = [0, 0, 0, 0];
   const usedFourGrams = new Set<string>();
 
-  RNK_CP004_REMODEL_V3_PROTOTYPE_IDS.forEach((prototypeId, prototypeIndex) => {
+  RNK_CP004_REMODEL_V4_PROTOTYPE_IDS.forEach((prototypeId, prototypeIndex) => {
     let accepted = 0;
     let candidateSeed = prototypeIndex * 1000;
     while (accepted < 6) {
@@ -133,33 +133,43 @@ function metadataLine(label: string, value: number | null): string {
   return `**${label}:** ${value === null ? 'not applicable' : `${value} clue(s)`}  `;
 }
 
+function clueProfileLine(question: RnkCp004ExamReadyQuestion): string {
+  const profile = question.reviewMetadata.clueRoleProfile;
+  const essentialLabel = profile.essentialForFullOrder === null
+    ? `${profile.essentialForBlockOrder ?? 0} essential for block order`
+    : `${profile.essentialForFullOrder} essential for full order`;
+  return `**Clue profile:** ${profile.statementCount} statements · ${essentialLabel} · ${profile.confirmatory} confirmatory · ${profile.redundantOther} other redundant · accounted ${profile.accountedStatementCount}/${profile.statementCount}  `;
+}
+
 export function renderRnkCp004QuestionsAndExplanationsMarkdown(
   questions: readonly RnkCp004ExamReadyQuestion[],
 ): string {
   const lines: string[] = [
-    '# RNK-CP-004 Questions and Explanations — English Remodel V3',
+    '# RNK-CP-004 Questions and Explanations — English Remodel V4',
     '',
     '> Status: manual English review pending. Permanent QL allocation remains open.',
     '',
-    '> Remodel V3 separates direction-only pair order from exact rank difference and distinguishes directional-path proof from exact-position proof.',
+    '> Remodel V4 truthfully accounts for every clue, separates core topology from confirmatory edges, and keeps distractor help behind progressive disclosure.',
     '',
   ];
 
   questions.forEach((question, index) => {
-    const features = question.reviewMetadata.reasoningFeatures;
     const proof = question.reviewMetadata.proofMetrics;
-    const topology = question.reviewMetadata.topologyProfile;
+    const topology = question.reviewMetadata.coreTopologyProfile;
+    const difficulty = question.reviewMetadata.difficultyProfile;
     lines.push(
       `## Question ${index + 1}`,
       '',
       `**Stable ID:** \`${question.reviewMetadata.stableQuestionId}\`  `,
       `**Prototype:** \`${question.prototypeId}\`  `,
       `**Seed:** \`${question.seed}\`  `,
-      `**Difficulty:** ${question.difficulty}  `,
+      `**Difficulty:** ${question.difficulty} · score ${difficulty.featureScore}  `,
       `**Competency:** ${question.reviewMetadata.competency}  `,
       `**Explanation mode:** \`${question.reviewMetadata.explanationMode}\`  `,
-      `**Topology:** \`${topology.family}\` · ${topology.adjacentClueCount} adjacent · ${topology.nonAdjacentClueCount} non-adjacent clue(s)  `,
-      `**Clue profile:** ${features.essentialClueCount} essential · ${features.redundantClueCount} redundant  `,
+      `**Core topology:** \`${topology.transitiveReductionFamily}\` · ${topology.transitiveReductionEdgeCount} reduction edge(s)  `,
+      `**Added edges:** \`${topology.addedEdgeProfile}\` · ${topology.adjacentDisplayedEdges} adjacent · ${topology.nonAdjacentDisplayedEdges} non-adjacent displayed edge(s)  `,
+      clueProfileLine(question),
+      metadataLine('Shortest answer proof', question.reviewMetadata.shortestAnswerProofClues),
       metadataLine('Shortest directional path', proof.shortestDirectionalPathClues),
       metadataLine('Shortest exact-position proof', proof.shortestExactPositionProofClues),
       metadataLine('Full-order proof', proof.fullOrderProofClues),
@@ -177,10 +187,26 @@ export function renderRnkCp004QuestionsAndExplanationsMarkdown(
     lines.push('', '### Explanation', '');
     question.visibleExplanation.lines.forEach((line) => lines.push(line, ''));
 
+    if (question.visibleExplanation.verificationNote) {
+      lines.push(
+        '<details>',
+        '<summary>Clue-role note</summary>',
+        '',
+        question.visibleExplanation.verificationNote,
+        '',
+        '</details>',
+        '',
+      );
+    }
+
     if (question.visibleExplanation.optionAnalysis?.length) {
-      lines.push('**Why the other options fail:**', '');
+      lines.push(
+        '<details>',
+        '<summary>Why are the other options wrong?</summary>',
+        '',
+      );
       question.visibleExplanation.optionAnalysis.forEach((analysis) => lines.push(`- ${analysis}`));
-      lines.push('');
+      lines.push('', '</details>', '');
     }
 
     lines.push(`**Answer: ${question.visibleExplanation.answer}**`, '', '---', '');
