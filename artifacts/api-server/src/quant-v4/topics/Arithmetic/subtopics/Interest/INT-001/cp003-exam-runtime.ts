@@ -23,7 +23,7 @@ import {
 } from "./cp003-grounded-solution-trace";
 import { assertCp003PresentationGrounding } from "./cp003-presentation-grounding";
 
-export const INT_CP003_EXAM_GENERATOR_VERSION = "INT-CP-003-EXAM-GENERATOR-v9" as const;
+export const INT_CP003_EXAM_GENERATOR_VERSION = "INT-CP-003-EXAM-GENERATOR-v10" as const;
 
 export {
   INT_CP003_AUTHORITY_VERSION,
@@ -98,7 +98,9 @@ export function generateIntCp003ExamQuestion(
   if (!verifyAnswer(contract.mathematicalState, solution)) throw new Error(`${qlId}: canonical solver and independent relation verifier disagree`);
   if (registryEntry.answerSemantic !== ANSWER_SEMANTICS[qlId]) throw new Error(`${qlId}: registry and learner answer semantics disagree`);
 
-  const presentation = presentationFor(contract, resolved);
+  // Mathematical resampling may change contract.seed. Editorial wording must remain owned by the caller's stable seed.
+  const presentationContract = Object.freeze({ ...contract, seed });
+  const presentation = presentationFor(presentationContract, resolved);
   if (/\$1\$\s+years\b/u.test(presentation.markdown)) throw new Error(`${qlId}: singular duration grammar reached the displayed question`);
   const solutionTrace = buildCp003SolutionTrace(contract, resolved, solution);
   const traceValidation = validateCp003SolutionTrace(solutionTrace, contract.mathematicalState);
