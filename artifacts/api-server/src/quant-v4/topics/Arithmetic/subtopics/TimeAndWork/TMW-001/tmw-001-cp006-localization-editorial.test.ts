@@ -50,7 +50,7 @@ for (const entry of TMW_CP006_REGISTRY) {
       assert.match(question.explanation.conclusion, language === "hi" ? /अतिरिक्त चाहिए/ : /ਵਾਧੂ ਚਾਹੀਦੇ/, row);
     }
     if (entry.solveMode === "findWorkersRemovedForDelay") {
-      assert.match(question.explanation.conclusion, language === "hi" ? /हटाए गए लोगों की संख्या/ : /ਹਟਾਏ ਗਏ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ/, row);
+      assert.match(question.explanation.conclusion, language === "hi" ? /हटाए जा सकते/ : /ਹਟਾਏ ਜਾ ਸਕਦੇ/, row);
     }
     if (entry.solveMode === "findRemainingDaysFromActualProgress") {
       assert.match(
