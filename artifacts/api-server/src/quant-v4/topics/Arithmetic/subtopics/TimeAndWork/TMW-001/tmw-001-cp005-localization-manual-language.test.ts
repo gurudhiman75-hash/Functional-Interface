@@ -27,7 +27,7 @@ for (const entry of TMW_CP005_REGISTRY) {
       assert.equal(/काम [^।;]+ से होता है|ਕੰਮ [^।;]+ ਨਾਲ ਹੁੰਦਾ ਹੈ/.test(question.stem), false, `${row}: agent-as-instrument phrasing`);
       assert.equal(/(?:[2-9]|\d{2,}) घंटा\b|(?:[2-9]|\d{2,}) ਘੰਟਾ\b/.test([prose, ...question.options].join("\n")), false, `${row}: plural hour agreement`);
       assert.equal(/चक्र[^।]* दोहरता है|क्रम[^।]* दोहरता है|ਚੱਕਰ[^।]* ਦੁਹਰਦਾ ਹੈ|ਕ੍ਰਮ[^।]* ਦੁਹਰਦਾ ਹੈ/.test(prose), false, `${row}: repeated-cycle verb`);
-      assert.equal(/अंतिम पूरा होने वाले चक्र|आख़ਰੀ ਪੂਰਾ ਹੋਣ ਵਾਲੇ ਚੱਕਰ/.test(question.explanation.commonTrap.explanation), false, `${row}: stale generic trap`);
+      assert.equal(/अंतिम पूरा होने वाले चक्र|आख਼ਰੀ ਪੂਰਾ ਹੋਣ ਵਾਲੇ ਚੱਕਰ/.test(question.explanation.commonTrap.explanation), false, `${row}: stale generic trap`);
       assert.equal(/अंतिम आवश्यक चक्र या अधूरी बारी|ਆਖ਼ਰੀ ਲੋੜੀਂਦੇ ਚੱਕਰ ਜਾਂ ਅਧੂਰੀ ਵਾਰੀ/.test(question.explanation.commonTrap.explanation), false, `${row}: uncustomized trap`);
       assert.equal(/हर खंड का दर|ਹਰ ਖੰਡ ਦਾ ਦਰ|पाली-अवधि|ਸ਼ਿਫ਼ਟ ਮਿਆਦ|मशीनों का दर|ਮਸ਼ੀਨਾਂ ਦਾ ਦਰ/.test(prose), false, `${row}: shortcut grammar`);
       assert.equal(/(?:[2-9]|\d{2,}) चक्र के बाद|(?:[2-9]|\d{2,}) ਚੱਕਰ ਤੋਂ ਬਾਅਦ/.test(prose), false, `${row}: cycle-count inflection`);
@@ -57,7 +57,11 @@ for (const entry of TMW_CP005_REGISTRY) {
         assert.match(question.stem, language === "hi" ? /काम बिगाड़ने वाली प्रक्रिया/ : /ਕੰਮ ਖਰਾਬ ਕਰਨ ਵਾਲੀ ਪ੍ਰਕਿਰਿਆ/, row);
       }
       if (entry.solveMode === "findTimeFromArbitraryCyclePhase") {
-        assert.match(question.explanation.commonTrap.explanation, language === "hi" ? /दी गई शुरुआती बारी.*सामान्य पहली बारी/ : /ਦਿੱਤੀ ਸ਼ੁਰੂਆਤੀ ਵਾਰੀ.*ਆਮ ਪਹਿਲੀ ਵਾਰੀ/, row);
+        if (question.explanation.commonTrap.misconceptionId === "OFFSET_IGNORED") {
+          assert.match(question.explanation.commonTrap.explanation, language === "hi" ? /दी गई शुरुआती बारी.*सामान्य पहली बारी/ : /ਦਿੱਤੀ ਸ਼ੁਰੂਆਤੀ ਵਾਰੀ.*ਆਮ ਪਹਿਲੀ ਵਾਰੀ/, row);
+        } else if (question.explanation.commonTrap.misconceptionId === "FINAL_CYCLE_OMITTED") {
+          assert.match(question.explanation.commonTrap.explanation, language === "hi" ? /अंतिम चक्र|आवश्यक भाग/ : /ਆਖ਼ਰੀ ਚੱਕਰ|ਲੋੜੀਂਦਾ ਹਿੱਸਾ/, row);
+        }
       }
       if (entry.solveMode === "findOutputUnderPeriodicMachineSchedule") {
         assert.match(question.stem, language === "hi" ? /मशीन A.*मशीन B/ : /ਮਸ਼ੀਨ A.*ਮਸ਼ੀਨ B/);
