@@ -21,8 +21,8 @@ import {
   type BlrCp007V2Question,
 } from "./cp007-v2-model";
 import { buildAccessibleBlrCp007V2Explanation } from "./cp007-v2-accessibility";
+import { blrCp007V2EnhancedScenario } from "./cp007-v2-enhanced-scenarios";
 import { blrCp007V2GraphPath } from "./cp007-v2-presentation";
-import { blrCp007V2Scenario } from "./cp007-v2-scenarios";
 
 function answerTypeFor(
   qlId: BlrCp007QlId,
@@ -51,7 +51,7 @@ export function generateBlrCp007V2Question(
 ): BlrCp007V2Question {
   if (!Number.isFinite(seed)) throw new Error("CP-007 V2 seed must be finite.");
   const normalizedSeed = Math.trunc(seed);
-  const sourceScenario = blrCp007V2Scenario(prototypeId, normalizedSeed);
+  const sourceScenario = blrCp007V2EnhancedScenario(prototypeId, normalizedSeed);
   const completeKey = completeBlrCp007V2Key(normalizedSeed);
   const constructionScenario = prototypeId.includes("MISSING-PERSON")
     ? sourceScenario
