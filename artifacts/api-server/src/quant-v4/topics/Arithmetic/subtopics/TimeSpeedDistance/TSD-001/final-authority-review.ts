@@ -3,6 +3,7 @@ import { proportionRepresentation } from "./cp001/proportion-representation";
 import { generateCp001ReviewRows } from "./cp001/runtime";
 import type { TsdCp001GeneratedQuestion } from "./cp001/runtime-types";
 import { generateFinalPoolSupplements } from "./cp002/final-pool-supplements";
+import { generateP1DiversityBatch02Supplements } from "./cp002/p1-diversity-batch-02-supplements";
 import { generateCp002ReviewRows } from "./cp002/runtime";
 import type { TsdCp002GeneratedQuestion } from "./cp002/types";
 import {
@@ -64,6 +65,8 @@ function cp002FinalRepresentation(row: TsdCp002GeneratedQuestion): string {
   if (
     row.representation.startsWith("TIME_SHARE_SUPPLEMENTAL_")
     || row.representation.startsWith("TIME_RATIO_SUPPLEMENTAL_")
+    || row.representation.startsWith("DISTANCE_SHARE_SUPPLEMENTAL_")
+    || row.representation.startsWith("DISTANCE_RATIO_SUPPLEMENTAL_")
   ) {
     return row.representation;
   }
@@ -112,6 +115,7 @@ export function generateFinalAuthorityReview(): readonly TsdFinalReviewRecord[] 
     ...generateCp001ReviewRows(3).map(cp001Record),
     ...generateCp002ReviewRows().map(cp002Record),
     ...generateFinalPoolSupplements().map(cp002Record),
+    ...generateP1DiversityBatch02Supplements().map(cp002Record),
   ]);
 }
 
