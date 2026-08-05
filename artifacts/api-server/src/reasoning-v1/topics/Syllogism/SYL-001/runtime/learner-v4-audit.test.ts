@@ -21,6 +21,14 @@ function learnerHtmlOnly(html: string): string {
   return html.split('<details class="administrator-proof">')[0] ?? html;
 }
 
+function expectedMaterialExistenceNote(question: ReturnType<typeof generateSylQuestionV4>): boolean {
+  if (!question.structuredProofV3.existencePolicy.dependentAnswer) return false;
+  const decisiveIds = new Set(question.structuredProofV3.correctOptionProof.premiseIdsUsed);
+  return !question.structuredPrompt.premises.some((premise) =>
+    decisiveIds.has(premise.premiseId)
+    && ["SOME", "SOME_NOT", "A_FEW", "NOT_ALL", "ONLY_A_FEW"].includes(premise.form));
+}
+
 const locales: readonly SylLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 const limits: Readonly<Record<SylLearnerExplanationModeV4, number>> = {
   DIRECT_CHAIN: 70,
@@ -119,9 +127,23 @@ for (const definition of SYL_QL_REGISTRY) {
         assert(explanation.shortcut === null, `${key} hides a non-null shortcut.`);
       }
 
-      const dependent = question.structuredProofV3.existencePolicy.dependentAnswer;
+      const dependent = expectedMaterialExistenceNote(question);
       assert(Boolean(explanation.existenceNote) === dependent, `${key} existence note visibility is wrong.`);
       if (dependent) dependentNotes += 1;
+
+      if (explanation.mode === "COUNTEREXAMPLE") {
+        assert(/does not definitely follow|निश्चित रूप से नहीं निकलता|ਨਿਸ਼ਚਿਤ ਤੌਰ ’ਤੇ ਨਹੀਂ ਨਿਕਲਦਾ/u.test(explanation.conclusion), `${key} non-following conclusion is phrased affirmatively.`);
+      }
+      if (explanation.mode === "DIRECT_CONTRADICTION") {
+        assert(/impossible|असंभव|ਅਸੰਭਵ/iu.test(explanation.conclusion), `${key} impossible conclusion is not stated as impossible.`);
+        assert(explanation.shortReasoning.length >= 2, `${key} impossible explanation omits its decisive proof.`);
+      }
+      if (explanation.mode === "POSSIBILITY_MODEL") {
+        assert(/possible|संभव|ਸੰਭਵ/iu.test(explanation.conclusion), `${key} possibility conclusion is not stated as possible.`);
+      }
+      if (explanation.mode === "DUAL_MODEL") {
+        assert(/possible|संभव|ਸੰਭਵ/iu.test(explanation.conclusion) && /not definite|निश्चित नहीं|ਨਿਸ਼ਚਿਤ ਨਹੀਂ/iu.test(explanation.conclusion), `${key} dual-model conclusion does not say possible but not definite.`);
+      }
 
       assert(v4.optionAnalysis.length === question.options.length - 1, `${key} does not explain every wrong option.`);
       for (const entry of v4.optionAnalysis) {
