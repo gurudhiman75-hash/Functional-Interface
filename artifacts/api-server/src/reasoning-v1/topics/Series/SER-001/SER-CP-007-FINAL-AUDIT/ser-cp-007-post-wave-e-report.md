@@ -68,16 +68,20 @@ Permanent QLs:                       0
 
 The complete authority pool is compared across surface, width behaviour, change axis, partition model, state model and recovery model. Three deterministic samples are replayed from every temporary template.
 
-## Renewed source-ledger result
+## Closed source-ledger result
 
-The base source ledger first reached 26 verified records with three grouped or stem-pending records. The exact Radian completion tranche now replaces the grouped Radian rows with ten stem-level records.
+The base ledger, exact Radian completion tranche, Wave-D ancestry decision and Disha item-195 resolution now form the complete traceability record.
 
 ```text
-Verified covered/delegated/Wave-E-resolved records: 36
-Unresolved traced exam records:                       1
-Unresolved record:                         DISHA-VNV item 195
-Wave D direct-ancestry decisions:      8 provisional SATURATION_ONLY
-Post-Wave-E collision audit:                         COMPLETE
+Covered/delegated/Wave-E-resolved records: 36
+Rejected defective/ambiguous records:       1
+Unresolved traced exam records:              0
+Wave-D probes reviewed:                      8
+Final SATURATION_ONLY_SERIES:                 7
+Final SATURATION_ONLY_SERIES_COLLISION:       1
+Unresolved Wave-D ancestry decisions:         0
+Source-ledger completeness:            COMPLETE
+Page/item traceability disposition:    COMPLETE
 ```
 
 ### Exact Radian compression
@@ -96,9 +100,9 @@ Item 222
   -> PROGRESSIVE_POSITIONAL_SUBSTITUTION
 ```
 
-Item 138 is a useful source collision guard: the adjacent terms look irregular, but separating odd and even positions exposes two clean `+2` cluster rows.
+Item 138 is a useful source collision guard: adjacent terms look irregular, but odd and even terms expose two independent `+2` rows.
 
-### Disha decisions already resolved
+### Disha source decisions
 
 ```text
 Item 169 -> REPEATED_BLOCK_COMPLETION
@@ -106,30 +110,60 @@ Item 170 -> MARKER_BLOCK_POSITION_SHIFT_OVER_PERIODIC_FRAME
 Item 188 -> REPEATED_BLOCK_COMPLETION
 Item 196 -> REPEATED_BLOCK_COMPLETION
 Item 197 -> REPEATED_BLOCK_COMPLETION
+Item 195 -> REJECTED_SOURCE_DEFECT_AMBIGUOUS_RULE
 ```
 
-A continuous line with blanks is only a presentation surface. Ownership follows the reconstructed sequence.
+Item 195 is rejected rather than forced into the taxonomy. Its answer label is stable as option `(a)`, but copied option text conflicts, the source gives no rule explanation, and the finite reconstructed line does not establish a unique canonical authority. It does not justify Wave F.
 
-Disha item 195 remains unresolved because available transcriptions disagree on one option and the blank layout is not reliable enough to force a canonical rule.
+## Wave-D ancestry result
+
+No direct autonomous Series example was found for the eight Wave-D probes in the current uploaded evidence set. Related operations occur in Analogy, Coding-Decoding and Alphabet Test, but those are not direct Series ancestry.
+
+```text
+PAIRWISE_ADJACENT_SWAP_PERMUTATION
+FULL_REVERSAL_PERMUTATION
+ODD_EVEN_POSITION_REORDERING
+ALPHABET_COMPLEMENT_CLUSTER
+ALPHABET_COMPLEMENT_WITH_ROTATION
+CENTER_INSERTION_GROWTH
+ALTERNATING_INTERIOR_INSERTION_GROWTH
+  -> final SATURATION_ONLY_SERIES
+
+FOUR_INTERLEAVED_CLUSTER_ROWS
+  -> final SATURATION_ONLY_SERIES_COLLISION
+```
+
+The explicit labels preserve mathematical coverage without inventing page ancestry.
 
 ## Current saturation state
 
 ```text
-Wave E executable discovery:   COMPLETE
-Post-Wave-E collision audit:   COMPLETE
-Extracted source records:      36 verified / 1 unresolved
-Mathematical saturation:       PENDING_FINAL_SOURCE_ANCESTRY_DECISIONS
-English discovery freeze:      BLOCKED
+Wave E executable discovery:      COMPLETE
+Post-Wave-E collision audit:      COMPLETE
+Source-ledger completeness:       COMPLETE
+Mathematical saturation:          PROVISIONALLY_COMPLETE_AFTER_SOURCE_CLOSE
+English editorial review:         NOT_STARTED
+English discovery freeze:         BLOCKED
 ```
 
-No unresolved collision remains inside the current 17-authority inventory. The remaining work is source ancestry and one exam-item transcription, not another currently demonstrated mathematical gap.
+No uncovered source mode or unresolved retained-authority collision remains. `PROVISIONALLY_COMPLETE_AFTER_SOURCE_CLOSE` does not allocate permanent QLs; it opens the full English editorial and authority merge/split review.
 
-## Remaining traceability work
+## Next phase
 
-1. Resolve the printed layout and official option for Disha item `195`.
-2. Seek direct page ancestry for the eight Wave-D mathematical probes.
-3. Replace each provisional `SATURATION_ONLY` label with direct ancestry when found; otherwise retain an explicit final saturation-only decision.
-4. Begin full English editorial review only after these decisions stop changing.
+The English review must assess all 140 temporary templates as one learner-facing system, including:
+
+```text
+question-stem realism
+explanation clarity and sufficient depth
+formulaic heading overuse
+technical/internal wording
+option realism and misconception quality
+wrong-term wording and replacement semantics
+multi-answer rendering
+cross-template repetition
+cross-authority editorial overlap
+final authority merge/split decisions
+```
 
 ## Lifecycle
 
@@ -146,5 +180,5 @@ CP-008:                 blocked
 ## Next authority
 
 ```text
-SER_CP007_FINAL_SOURCE_ANCESTRY_AND_ITEM_195_RESOLUTION
+SER_CP007_FULL_ENGLISH_EDITORIAL_REVIEW_AND_MERGE_SPLIT_FREEZE
 ```
