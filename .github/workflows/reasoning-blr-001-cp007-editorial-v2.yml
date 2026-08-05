@@ -1,0 +1,60 @@
+name: Reasoning BLR-001 CP-007 Editorial V2
+
+on:
+  push:
+    branches:
+      - feat/blr-001-cp007-editorial-v2
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/**"
+      - ".github/workflows/reasoning-blr-001-cp007-editorial-v2.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/**"
+      - ".github/workflows/reasoning-blr-001-cp007-editorial-v2.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blr-001-cp007-editorial-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp007-editorial-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prove CP-006 source runtime
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-runtime.test.ts | tee cp006-source.log
+
+      - name: Prove CP-007 V1 solver baseline
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-runtime.test.ts | tee cp007-v1-baseline.log
+
+      - name: Prove CP-007 editorial V2 gates
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v2.test.ts | tee cp007-editorial-v2.log
+
+      - name: Upload CP-007 V2 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-editorial-v2-logs
+          path: |
+            cp006-source.log
+            cp007-v1-baseline.log
+            cp007-editorial-v2.log
+          if-no-files-found: warn
+          retention-days: 14
