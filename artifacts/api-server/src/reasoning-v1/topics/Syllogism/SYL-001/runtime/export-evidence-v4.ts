@@ -7,7 +7,7 @@ import {
   buildEvidenceRowV4,
   legacyLocalizationDefectsV4,
   type SylLearnerEvidenceRowV4,
-} from "./learner-v4-evidence";
+} from "./learner-v4-evidence-remediated";
 import { SYL_QL_REGISTRY } from "./ql-registry";
 
 const locales: readonly SylLocale[] = ["en-IN", "hi-IN", "pa-IN"];
