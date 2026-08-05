@@ -50,6 +50,11 @@ jobs:
           set -euo pipefail
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-v2.test.ts | tee cp007-v2.log
 
+      - name: Prove CP-007 full-manual-review editorial gates
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-v2-editorial.test.ts | tee cp007-v2-editorial.log
+
       - name: Export CP-007 V2 review pack and deep proof
         run: |
           set -euo pipefail
@@ -98,6 +103,7 @@ jobs:
             cp006-source.log
             cp007-v1-baseline.log
             cp007-v2.log
+            cp007-v2-editorial.log
             cp007-v2-export.log
             cp007-v2-deep-audit.log
           if-no-files-found: warn
