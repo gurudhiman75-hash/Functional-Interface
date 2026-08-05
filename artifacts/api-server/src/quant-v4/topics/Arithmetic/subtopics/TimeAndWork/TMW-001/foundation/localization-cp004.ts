@@ -14,6 +14,7 @@ import { polishTmwCp004LocalizedQuestion } from "./localization-cp004-polish";
 import { finalizeTmwCp004LocalizedQuestion } from "./localization-cp004-final-cleanup";
 import { inflectTmwCp004LocalizedQuestion } from "./localization-cp004-inflection";
 import { applyTmwCp004EditorialReviewRemediation } from "./cp004-editorial-review-remediation";
+import { cleanTmwCp004EditorialResiduals } from "./cp004-editorial-residual-cleanup";
 
 export function localizeTmwCp004Question(
   source: TmwCp004GeneratedQuestion,
@@ -84,5 +85,6 @@ export function localizeTmwCp004Question(
   const polished = polishTmwCp004LocalizedQuestion(localized, source, language);
   const finalized = finalizeTmwCp004LocalizedQuestion(polished, source, language);
   const inflected = inflectTmwCp004LocalizedQuestion(finalized, source, language);
-  return applyTmwCp004EditorialReviewRemediation(inflected, source, language);
+  const remediated = applyTmwCp004EditorialReviewRemediation(inflected, source, language);
+  return cleanTmwCp004EditorialResiduals(remediated, language);
 }
