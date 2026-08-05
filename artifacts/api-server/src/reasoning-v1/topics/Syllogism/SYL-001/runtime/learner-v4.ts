@@ -189,6 +189,7 @@ function stripTechnical(value: string): string {
   return value
     .replace(/\bSYL-[A-Z0-9-]+\b/gu, "")
     .replace(/\b(?:ENTAILED|CONTRADICTED|UNDETERMINED|FORCED_WITNESS_TRANSFER|VALID_COUNTERMODEL|VALID_SATISFYING_MODEL)\b/gu, "")
+    .replace(/([।.!?])\1+/gu, "$1")
     .replace(/\s+/gu, " ")
     .replace(/\s+([,.!?।])/gu, "$1")
     .trim();
