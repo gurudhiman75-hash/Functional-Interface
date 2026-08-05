@@ -13,6 +13,7 @@ import {
   type NumCp005PermanentAllocationEntry,
   type NumCp005PermanentQlId,
 } from "./allocation";
+import { remediateNumCp005English } from "./english-remediation";
 
 export interface NumCp005PermanentRuntimeInput {
   readonly questionLanguageId?: NumCp005PermanentQlId;
@@ -56,8 +57,8 @@ interface NumCp005TemporaryPackage {
 
 export interface NumCp005PermanentLifecycle {
   readonly permanentQlId: NumCp005PermanentQlId;
-  readonly maturity: "ENGLISH_IMPLEMENTATION_FROZEN";
-  readonly reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED";
+  readonly maturity: "ENGLISH_EDITORIAL_REVIEW";
+  readonly reviewStatus: "CRITICAL_REVIEW_REMEDIATED_AWAITING_APPROVAL";
   readonly questionBankStatus: "NOT_STORED";
   readonly testEligibility: "INELIGIBLE";
   readonly active: false;
@@ -95,10 +96,10 @@ export interface NumCp005PermanentQuestion {
   readonly explanation: NumCp005Explanation;
   readonly sourceAncestry: readonly string[];
   readonly prototypeAncestry: readonly string[];
-  readonly allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION";
+  readonly allocationStatus: "EDITORIAL_REMEDIATION_AWAITING_PRODUCT_OWNER_REVIEW";
   readonly permanentIdentityFrozen: true;
-  readonly reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED";
-  readonly maturity: "ENGLISH_IMPLEMENTATION_FROZEN";
+  readonly reviewStatus: "CRITICAL_REVIEW_REMEDIATED_AWAITING_APPROVAL";
+  readonly maturity: "ENGLISH_EDITORIAL_REVIEW";
   readonly lifecycle: NumCp005PermanentLifecycle;
   readonly traceability: Readonly<{
     packageId: "NUM-001";
@@ -139,20 +140,6 @@ export function generateNumCp005TemporaryAuthorityPackage(
   return result as NumCp005TemporaryPackage;
 }
 
-function permanentEnglishStem(
-  qlId: NumCp005PermanentQlId,
-  temporary: NumCp005TemporaryPackage,
-): string {
-  if (qlId === "NUM-QL-063") {
-    const rows = temporary.hiddenState.pairTable;
-    const integerValue = temporary.hiddenState.integerValue;
-    if (Array.isArray(rows) && typeof integerValue === "string") {
-      return `Complete the divisor pairs of ${integerValue}: ${rows.join(", ")}. What replaces ?`;
-    }
-  }
-  return temporary.stem;
-}
-
 export function runNumCp005PermanentPipeline(
   input: NumCp005PermanentRuntimeInput = {},
 ): NumCp005PermanentQuestion {
@@ -190,10 +177,24 @@ export function runNumCp005PermanentPipeline(
     throw new Error(`${questionLanguageId}/${seed}: discovery lifecycle boundary violated`);
   }
 
+  const editorial = remediateNumCp005English({
+    qlId: allocation.qlId,
+    seed,
+    difficulty: temporary.difficulty,
+    stem: temporary.stem,
+    options: temporary.options,
+    correctIndex: temporary.correctIndex,
+    canonicalAnswer: temporary.canonicalAnswer,
+    verifierAnswer: temporary.verifierAnswer,
+    hiddenState: temporary.hiddenState,
+    representation: temporary.representation,
+    explanation: temporary.explanation,
+  });
+
   const lifecycle: NumCp005PermanentLifecycle = {
     permanentQlId: allocation.qlId,
-    maturity: "ENGLISH_IMPLEMENTATION_FROZEN",
-    reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED",
+    maturity: "ENGLISH_EDITORIAL_REVIEW",
+    reviewStatus: "CRITICAL_REVIEW_REMEDIATED_AWAITING_APPROVAL",
     questionBankStatus: "NOT_STORED",
     testEligibility: "INELIGIBLE",
     active: false,
@@ -205,7 +206,7 @@ export function runNumCp005PermanentPipeline(
 
   return {
     ...temporary,
-    stem: permanentEnglishStem(allocation.qlId, temporary),
+    ...editorial,
     permanentQlId: allocation.qlId,
     questionLanguageId: allocation.qlId,
     questionId: `NUM-001:${allocation.qlId}:${seed}`,
@@ -216,11 +217,10 @@ export function runNumCp005PermanentPipeline(
     seed,
     sourceSeed,
     language: "en",
-    representation: temporary.representation ?? "DIRECT",
-    allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION",
+    allocationStatus: "EDITORIAL_REMEDIATION_AWAITING_PRODUCT_OWNER_REVIEW",
     permanentIdentityFrozen: true,
-    reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED",
-    maturity: "ENGLISH_IMPLEMENTATION_FROZEN",
+    reviewStatus: "CRITICAL_REVIEW_REMEDIATED_AWAITING_APPROVAL",
+    maturity: "ENGLISH_EDITORIAL_REVIEW",
     lifecycle,
     traceability: {
       packageId: "NUM-001",
