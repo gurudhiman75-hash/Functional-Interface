@@ -93,8 +93,68 @@ function joinedLabels(terms: readonly TermId[], input: SylLearnerBuildInputV4): 
   return `${labels.slice(0, -1).join(", ")}, and ${labels.at(-1)}`;
 }
 
+interface InferredWitnessV4 {
+  memberOf: readonly TermId[];
+  outsideOf: readonly TermId[];
+}
+
+function inferredWitness(
+  proof: SylStructuredProofV3,
+  input: SylLearnerBuildInputV4,
+): InferredWitnessV4 | null {
+  const decisiveIds = new Set(proof.correctOptionProof.premiseIdsUsed);
+  const premises = input.displayedPremises.filter((premise) => decisiveIds.has(premise.premiseId));
+  const memberOf = new Set<TermId>();
+  const outsideOf = new Set<TermId>();
+  const stored = proof.combinedReasoning.witnesses[0];
+
+  if (stored) {
+    stored.memberOf.forEach((term) => memberOf.add(term));
+    stored.outsideOf.forEach((term) => outsideOf.add(term));
+  } else {
+    const existential = premises.find((premise) =>
+      ["SOME", "A_FEW", "SOME_NOT", "NOT_ALL", "ONLY_A_FEW"].includes(premise.form));
+    if (!existential) return null;
+    memberOf.add(existential.subject);
+    if (["SOME", "A_FEW", "ONLY_A_FEW"].includes(existential.form)) {
+      memberOf.add(existential.predicate);
+    } else {
+      outsideOf.add(existential.predicate);
+    }
+  }
+
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const premise of premises) {
+      const addMember = (term: TermId) => {
+        if (!memberOf.has(term)) { memberOf.add(term); changed = true; }
+      };
+      const addOutside = (term: TermId) => {
+        if (!outsideOf.has(term)) { outsideOf.add(term); changed = true; }
+      };
+      if (["ALL", "ARE_ONLY"].includes(premise.form) && memberOf.has(premise.subject)) {
+        addMember(premise.predicate);
+      }
+      if (premise.form === "ONLY" && memberOf.has(premise.predicate)) {
+        addMember(premise.subject);
+      }
+      if (premise.form === "IDENTITY") {
+        if (memberOf.has(premise.subject)) addMember(premise.predicate);
+        if (memberOf.has(premise.predicate)) addMember(premise.subject);
+      }
+      if (premise.form === "NO") {
+        if (memberOf.has(premise.subject)) addOutside(premise.predicate);
+        if (memberOf.has(premise.predicate)) addOutside(premise.subject);
+      }
+    }
+  }
+
+  return { memberOf: [...memberOf], outsideOf: [...outsideOf] };
+}
+
 function witnessBridge(proof: SylStructuredProofV3, input: SylLearnerBuildInputV4): string {
-  const witness = proof.combinedReasoning.witnesses[0];
+  const witness = inferredWitness(proof, input);
   const copy = learnerCopyV4(input.locale);
   if (!witness) return copy.directChainBridge;
   return copy.witnessSameMember(
@@ -103,11 +163,46 @@ function witnessBridge(proof: SylStructuredProofV3, input: SylLearnerBuildInputV
   );
 }
 
-function localizedTherefore(locale: SylLearnerBuildInputV4["locale"], answerText: string): string {
+function conclusionSentence(
+  mode: SylLearnerExplanationModeV4,
+  input: SylLearnerBuildInputV4,
+  answerText: string,
+): string {
   const answer = answerText.trim().replace(/[.!?।]+$/u, "");
-  if (locale === "hi-IN") return `इसलिए, ${answer}।`;
-  if (locale === "pa-IN") return `ਇਸ ਲਈ, ${answer}।`;
+  if (input.locale === "hi-IN") {
+    if (mode === "COUNTEREXAMPLE") return "इसलिए, यह निष्कर्ष निश्चित रूप से नहीं निकलता।";
+    if (mode === "DIRECT_CONTRADICTION") return "इसलिए, यह निष्कर्ष असंभव है।";
+    if (mode === "POSSIBILITY_MODEL") return "इसलिए, यह निष्कर्ष संभव है।";
+    if (mode === "DUAL_MODEL" || mode === "POSSIBLE_NOT_DEFINITE") return "इसलिए, निष्कर्ष संभव है, लेकिन निश्चित नहीं है।";
+    if (MODAL_TASKS.has(input.taskKind)) return `इसलिए, निष्कर्ष ${answer} है।`;
+    return `इसलिए, ${answer}।`;
+  }
+  if (input.locale === "pa-IN") {
+    if (mode === "COUNTEREXAMPLE") return "ਇਸ ਲਈ, ਇਹ ਨਤੀਜਾ ਨਿਸ਼ਚਿਤ ਤੌਰ ’ਤੇ ਨਹੀਂ ਨਿਕਲਦਾ।";
+    if (mode === "DIRECT_CONTRADICTION") return "ਇਸ ਲਈ, ਇਹ ਨਤੀਜਾ ਅਸੰਭਵ ਹੈ।";
+    if (mode === "POSSIBILITY_MODEL") return "ਇਸ ਲਈ, ਇਹ ਨਤੀਜਾ ਸੰਭਵ ਹੈ।";
+    if (mode === "DUAL_MODEL" || mode === "POSSIBLE_NOT_DEFINITE") return "ਇਸ ਲਈ, ਨਤੀਜਾ ਸੰਭਵ ਹੈ, ਪਰ ਨਿਸ਼ਚਿਤ ਨਹੀਂ ਹੈ।";
+    if (MODAL_TASKS.has(input.taskKind)) return `ਇਸ ਲਈ, ਨਤੀਜਾ ${answer} ਹੈ।`;
+    return `ਇਸ ਲਈ, ${answer}।`;
+  }
+  if (mode === "COUNTEREXAMPLE") return "Therefore, this conclusion does not definitely follow.";
+  if (mode === "DIRECT_CONTRADICTION") return "Therefore, this conclusion is impossible.";
+  if (mode === "POSSIBILITY_MODEL") return "Therefore, this conclusion is possible.";
+  if (mode === "DUAL_MODEL" || mode === "POSSIBLE_NOT_DEFINITE") return "Therefore, the conclusion is possible, but not definite.";
+  if (MODAL_TASKS.has(input.taskKind)) return `Therefore, the conclusion is ${answer.toLocaleLowerCase("en-IN")}.`;
   return `Therefore, ${answer}.`;
+}
+
+function materiallyDependsOnExistencePolicy(
+  proof: SylStructuredProofV3,
+  input: SylLearnerBuildInputV4,
+): boolean {
+  if (!proof.existencePolicy.dependentAnswer) return false;
+  const decisiveIds = new Set(proof.correctOptionProof.premiseIdsUsed);
+  const hasExplicitWitness = input.displayedPremises.some((premise) =>
+    decisiveIds.has(premise.premiseId)
+    && ["SOME", "SOME_NOT", "A_FEW", "NOT_ALL", "ONLY_A_FEW"].includes(premise.form));
+  return !hasExplicitWitness;
 }
 
 function shortReasoning(
@@ -123,8 +218,12 @@ function shortReasoning(
       return [...statements, copy.directChainBridge];
     case "WITNESS_TRANSFER":
       return [...statements, witnessBridge(proof, input)];
-    case "DIRECT_CONTRADICTION":
-      return [statements[0] ?? cleanSentence(input.statements[0] ?? "", input.locale), copy.directContradiction].filter(Boolean);
+    case "DIRECT_CONTRADICTION": {
+      const witness = inferredWitness(proof, input);
+      return witness
+        ? [...statements, witnessBridge(proof, input)]
+        : [...statements, copy.directContradiction];
+    }
     case "POSSIBLE_NOT_DEFINITE":
       return [copy.possibleNotDefinite, copy.dualTrue, copy.dualFalse];
     case "COUNTEREXAMPLE":
@@ -383,7 +482,7 @@ export function buildLearnerPresentationV4(
   const mode = modeFor(proof, input);
   const reasoning = shortReasoning(mode, proof, input);
   const results = mode === "CONCLUSION_MASK" ? conclusionResults(input) : [];
-  const conclusion = localizedTherefore(input.locale, correctOption.text);
+  const conclusion = conclusionSentence(mode, input, correctOption.text);
   const shortcut = shortcutFor(mode, input);
   const diagram = renderVennDiagramV4(proof, {
     locale: input.locale,
@@ -416,7 +515,7 @@ export function buildLearnerPresentationV4(
       showShortcut: shortcut !== null,
       shortcut,
       showOptionAnalysisCollapsed: true,
-      existenceNote: proof.existencePolicy.dependentAnswer ? copy.existenceNote : null,
+      existenceNote: materiallyDependsOnExistencePolicy(proof, input) ? copy.existenceNote : null,
       wordCount: countWords([...reasoning, ...results.map((entry) => `${entry.label} ${entry.follows ? copy.follows : copy.doesNotFollow} ${entry.shortReason ?? ""}`), conclusion]),
     },
     optionAnalysis: wrongOptions(proof, input),
