@@ -21,6 +21,14 @@ function requireVisible(markdown: string, expected: string, prefix: string, labe
   if (!markdown.includes(expected)) throw new Error(`${prefix}: displayed question omits ${label}`);
 }
 
+function requireYearVisible(markdown: string, year: number, prefix: string, label: string): void {
+  const explicitOrdinal = ordinal(year);
+  const explicitYear = new RegExp(`\\byear\\s+\\$?${year}\\$?\\b`, "iu");
+  if (!markdown.includes(explicitOrdinal) && !explicitYear.test(markdown)) {
+    throw new Error(`${prefix}: displayed question omits ${label}`);
+  }
+}
+
 function hasOperation(trace: Cp003SolutionTrace, operationId: string): boolean {
   return trace.coreSteps.some((step) => step.operationId === operationId);
 }
@@ -110,11 +118,11 @@ export function assertCp003PresentationGrounding(
     const rateVisible = markdown.includes(rateMath(resolved.ratePercent));
     const factorVisible = markdown.includes(annualFactorToken);
     if (!rateVisible && !factorVisible) throw new Error(`${prefix}: displayed question omits the annual rate or multiplier`);
-    requireVisible(markdown, ordinal(resolved.laterYear), prefix, "later year");
+    requireYearVisible(markdown, resolved.laterYear, prefix, "later year");
     if (representation === "GROWTH_RATIO") {
       requireVisible(markdown, String(resolved.laterYear - resolved.earlierYear), prefix, "year gap");
     } else {
-      requireVisible(markdown, ordinal(resolved.earlierYear), prefix, "earlier year");
+      requireYearVisible(markdown, resolved.earlierYear, prefix, "earlier year");
     }
   }
 
