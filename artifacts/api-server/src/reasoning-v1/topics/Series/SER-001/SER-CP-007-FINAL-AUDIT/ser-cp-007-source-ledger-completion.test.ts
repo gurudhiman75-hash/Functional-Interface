@@ -11,6 +11,7 @@ const ancestry = readFileSync(
   `${root}/ser-cp-007-wave-d-source-ancestry-decision.md`,
   "utf8",
 );
+const item195 = readFileSync(`${root}/ser-cp-007-item-195-resolution.md`, "utf8");
 
 for (const mainRequirement of [
   "`SER-SRC-007-024`",
@@ -22,7 +23,7 @@ for (const mainRequirement of [
 ]) {
   assert.ok(
     mainLedger.includes(mainRequirement),
-    `main source ledger missing: ${mainRequirement}`,
+    `main source ledger missing historical base state: ${mainRequirement}`,
   );
 }
 
@@ -60,20 +61,22 @@ for (const exactStem of [
 }
 
 for (const state of [
-  "Verified source records:             36 covered/delegated/Wave-E-resolved",
-  "Unresolved traced exam records:       1",
-  "Unresolved record:                    DISHA-VNV item 195",
-  "Wave-D probes reviewed:               8",
-  "Final SATURATION_ONLY_SERIES:          7",
-  "Final SATURATION_ONLY_SERIES_COLLISION: 1",
-  "Unresolved Wave-D ancestry decisions:  0",
-  "Post-Wave-E collision audit:          COMPLETE",
-  "Mathematical saturation:              PENDING_ITEM_195_RESOLUTION",
-  "Ledger completeness:                  BLOCKED",
-  "English discovery freeze:             BLOCKED",
-  "Permanent QLs:                         0",
-  "CP-008:                               BLOCKED",
-  "SER_CP007_ITEM_195_RESOLUTION_AND_SOURCE_LEDGER_CLOSE",
+  "Covered/delegated/Wave-E-resolved source records: 36",
+  "Rejected defective/ambiguous source records:       1",
+  "Unresolved traced exam records:                     0",
+  "Wave-D probes reviewed:                             8",
+  "Final SATURATION_ONLY_SERIES:                        7",
+  "Final SATURATION_ONLY_SERIES_COLLISION:              1",
+  "Unresolved Wave-D ancestry decisions:                0",
+  "Post-Wave-E collision audit:                  COMPLETE",
+  "Source-ledger completeness:                   COMPLETE",
+  "Page/item traceability disposition:           COMPLETE",
+  "Mathematical saturation:                      PROVISIONALLY_COMPLETE_AFTER_SOURCE_CLOSE",
+  "English editorial review:                     NOT_STARTED",
+  "English discovery freeze:                     BLOCKED",
+  "Permanent QLs:                                 0",
+  "CP-008:                                       BLOCKED",
+  "SER_CP007_FULL_ENGLISH_EDITORIAL_REVIEW_AND_MERGE_SPLIT_FREEZE",
 ]) {
   assert.ok(completion.includes(state), `completion state missing: ${state}`);
 }
@@ -84,35 +87,49 @@ for (const ancestryState of [
   "Final SATURATION_ONLY_SERIES decisions:     7",
   "Final SATURATION_ONLY_SERIES_COLLISION:     1",
   "Unresolved Wave-D ancestry decisions:       0",
-  "Mathematical saturation:       PENDING_ITEM_195_RESOLUTION",
-  "SER_CP007_ITEM_195_RESOLUTION_AND_SOURCE_LEDGER_CLOSE",
 ]) {
   assert.ok(ancestry.includes(ancestryState), `ancestry decision missing: ${ancestryState}`);
 }
 
-assert.doesNotMatch(completion, /Ledger completeness:\s+COMPLETE/);
+for (const itemResolutionState of [
+  "REJECTED_SOURCE_DEFECT_AMBIGUOUS_RULE",
+  "New authority justified:               NO",
+  "Wave F justified:                       NO",
+  "Unresolved traced exam records:                     0",
+  "Source-ledger completeness:                   COMPLETE",
+  "Mathematical saturation:                      PROVISIONALLY_COMPLETE_AFTER_SOURCE_CLOSE",
+  "SER_CP007_FULL_ENGLISH_EDITORIAL_REVIEW_AND_MERGE_SPLIT_FREEZE",
+]) {
+  assert.ok(item195.includes(itemResolutionState), `item-195 resolution missing: ${itemResolutionState}`);
+}
+
+assert.doesNotMatch(completion, /Unresolved traced exam records:\s+[1-9]/);
+assert.doesNotMatch(completion, /Unresolved Wave-D ancestry decisions:\s+[1-9]/);
 assert.doesNotMatch(completion, /English discovery freeze:\s+(?:COMPLETE|FROZEN)/);
-assert.doesNotMatch(ancestry, /Unresolved Wave-D ancestry decisions:\s+[1-9]/);
+assert.doesNotMatch(item195, /New authority justified:\s+YES/);
+assert.doesNotMatch(item195, /Wave F justified:\s+YES/);
 
 console.log(
   JSON.stringify(
     {
-      status:
-        "PASS_SER_CP007_SOURCE_LEDGER_36_VERIFIED_WAVE_D_ANCESTRY_CLOSED_ONE_EXAM_RECORD_PENDING",
-      verifiedSourceRecords: 36,
-      unresolvedTracedExamRecords: 1,
-      unresolvedRecord: "DISHA-VNV item 195",
+      status: "PASS_SER_CP007_SOURCE_LEDGER_CLOSED_36_COVERED_ONE_REJECTED",
+      coveredDelegatedOrWaveEResolvedRecords: 36,
+      rejectedDefectiveOrAmbiguousRecords: 1,
+      unresolvedTracedExamRecords: 0,
       waveDProbesReviewed: 8,
       finalSaturationOnlySeriesDecisions: 7,
       finalSaturationOnlySeriesCollisionDecisions: 1,
       unresolvedWaveDAncestryDecisions: 0,
       postWaveECollisionAudit: "COMPLETE",
-      mathematicalSaturation: "PENDING_ITEM_195_RESOLUTION",
-      ledgerCompleteness: "BLOCKED",
+      sourceLedgerCompleteness: "COMPLETE",
+      pageItemTraceabilityDisposition: "COMPLETE",
+      mathematicalSaturation: "PROVISIONALLY_COMPLETE_AFTER_SOURCE_CLOSE",
+      englishEditorialReview: "NOT_STARTED",
       englishDiscoveryFreeze: "BLOCKED",
       permanentQls: 0,
       cp008Status: "BLOCKED",
-      nextAuthority: "SER_CP007_ITEM_195_RESOLUTION_AND_SOURCE_LEDGER_CLOSE",
+      nextAuthority:
+        "SER_CP007_FULL_ENGLISH_EDITORIAL_REVIEW_AND_MERGE_SPLIT_FREEZE",
     },
     null,
     2,
