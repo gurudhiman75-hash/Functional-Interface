@@ -1,21 +1,21 @@
 # BLR-001 — Chapter-Wide English Gap Audit
 
-Status: **executable chapter audit passed; English gap-freeze candidate approved technically; manual English freeze pending**.
+Status: **V1 executable ownership audit passed; manual English freeze readiness superseded by CP-007 editorial findings; V2 approval and chapter re-audit pending**.
 
 ## Purpose
 
 The end-to-end design contains seven content checkpoints. `BLR-CP-007` is the final planned content checkpoint; no `BLR-CP-008` is currently justified.
 
-The audit treats the complete English chapter as one system:
+The V1 audit treated the complete English chapter as one system:
 
 ```text
 BLR-CP-001 through BLR-CP-007
 BLR-QL-001 through BLR-QL-035
 ```
 
-`BLR-QL-036` remains unallocated. A new QL or checkpoint may be created only if a later source audit proves a materially uncovered generator, solver, answer, ambiguity, explanation, localisation or renderer contract.
+`BLR-QL-036` remains unallocated. The CP-007 editorial remediation does not create a new solve identity.
 
-## Executable audit corpus
+## V1 executable audit corpus
 
 ```text
 CP-001 deterministic runtime sweep          448
@@ -24,52 +24,70 @@ CP-003 complete frozen bank                  298
 CP-004 complete frozen bank                  612
 CP-005 complete frozen bank                  184
 CP-006 complete frozen bank                  152
-CP-007 complete frozen bank                  168
+CP-007 V1 complete frozen bank               168
 -----------------------------------------------
 chapter-wide audited questions             1,958
 ```
 
-The audit includes:
+The V1 audit proved:
 
 - every permanent QL and solve-authority mapping;
 - contiguous QL sequencing;
-- exact cross-QL learner-surface collision checks;
-- normalized cross-QL template-overlap checks;
+- exact and normalized cross-QL learner-surface collision checks under its then-current rules;
 - option uniqueness, correct-index and answer parity;
-- learner-facing internal-jargon and broken-render checks;
-- explicit gender-evidence checks for gendered answers;
-- name-based gender-stereotype phrase rejection;
-- checkpoint ownership and authority parity;
-- review-only lifecycle locks;
-- included-source coverage and explicit out-of-scope boundaries.
+- explicit gender evidence and zero name-based gender assumptions;
+- checkpoint ownership and included-source coverage;
+- review-only lifecycle locks.
 
-## Final executable result
+## V1 technical result retained
 
 ```text
 planned content checkpoints                         7
 permanent QLs                                      35
 solve authorities                                  35
-exact cross-QL learner-surface collisions           0
-normalized cross-QL template collisions             0
-learner-text failures                               0
-gender-evidence failures                            0
-option-contract failures                            0
-lifecycle-lock failures                             0
 ownership failures                                  0
 open included source families                       0
 ```
 
-Verdict:
+The result still proves that the planned V1 scope has no missing solve authority and does not justify `BLR-QL-036` or `BLR-CP-008`.
+
+## Why manual-freeze readiness is revoked
+
+The V1 audit did not test several learner-facing security and pedagogy properties later exposed in CP-007:
+
+- prototype-local answer-sequence leakage;
+- option-format correlation with correctness;
+- option-specific diagnostic accuracy;
+- statement-validity versus answer-selection polarity;
+- distractor graph realism;
+- candidate-label balance;
+- adaptive explanation length and relevance;
+- directional and direct-versus-inferred diagram semantics;
+- visible immutable human-review proof.
+
+Therefore the historical verdict `CHAPTER_ENGLISH_GAP_FREEZE_CANDIDATE` must not be interpreted as current manual-freeze readiness.
+
+## CP-007 V2 remediation
+
+`BLR_CP007_ENGLISH_EDITORIAL_REVIEW_V2` preserves the five CP-007 solve identities while remediating the learner-facing layer. Its executable review proves:
 
 ```text
-CHAPTER_ENGLISH_GAP_FREEZE_CANDIDATE
+English review questions                         168
+option analyses                                  672
+valid wrong-option graphs                        504
+invalid option graphs                              0
+correct invalid-statement selections              16
+valid unselected statements correctly described   48
+QL-034 labels                         P/Q/R/S = 8 each
+legacy answer cycles                               0
+human review required                            true
 ```
 
-The audit created a 70-question human-review corpus containing two deterministic samples per permanent QL, plus the complete ownership matrix, source-coverage matrix, failure list and machine-readable summaries.
+See `BLR-CP-007/BLR-CP-007-EDITORIAL-V2-REMEDIATION.md`.
 
 ## Included chapter scope
 
-Covered:
+Covered solve ownership remains:
 
 - direct, reverse, multi-edge and exact-lineage named-person relations;
 - generation, person, pair and claim queries;
@@ -89,24 +107,18 @@ Explicitly outside BLR-001 V1:
 - step, half, adoptive and foster relations without later source justification;
 - free-form runtime parsing.
 
-## Interpretation
+## Required next sequence
 
-The clean result means the planned V1 scope has no executable authority gap and does not justify `BLR-QL-036` or `BLR-CP-008`.
+```text
+CP-007 V2 human review and remediation
+  -> immutable CP-007 V2 approval
+  -> rerun chapter-wide English audit using V2 CP-007 authority
+  -> manual English chapter freeze
+  -> Hindi and Punjabi localisation
+  -> multilingual parity and freeze
+  -> Question Studio integration
+```
 
-It does not prevent later evidence-based extension. Any future extension must repeat the full discovery sequence and prove a genuinely new contract rather than a new name, path length, symbol set, difficulty or presentation.
+## Release boundary
 
-## Freeze boundary
-
-The green executable audit creates an **English gap-freeze candidate**, not an automatic manual freeze or product release.
-
-The following remain separate explicit gates:
-
-- manual English chapter review and freeze;
-- Hindi and Punjabi localisation;
-- multilingual parity proof and freeze;
-- Question Studio integration;
-- Question Bank storage;
-- mock-test eligibility;
-- public publication;
-- production staging;
-- PR merge.
+Question Studio, Question Bank, mock-test eligibility, localisation, publication, production staging and merge remain disabled.
