@@ -1,21 +1,9 @@
-import { RNK_CP004_PROTOTYPE_IDS, type RnkCp004Option } from './cp004-foundation';
+import type { RnkCp004Option } from './cp004-foundation';
 import {
+  RNK_CP004_REMODEL_V3_PROTOTYPE_IDS,
   generateRnkCp004ExamReadyQuestion,
   type RnkCp004ExamReadyQuestion,
-} from './cp004-exam-ready-v4';
-
-const REVIEW_CORRECT_INDEX_SEQUENCE = [
-  1, 2, 3, 0, 2, 0,
-  3, 1, 0, 3, 1, 2,
-  1, 3, 2, 0, 2, 1,
-  0, 3, 2, 1, 3, 0,
-  2, 3, 1, 0, 1, 0,
-  3, 0, 2, 1, 3, 1,
-  2, 3, 2, 0, 3, 0,
-  1, 2, 3, 1, 2, 0,
-  1, 0, 2, 3, 2, 1,
-  0, 1, 3, 2, 3, 0,
-] as const;
+} from './cp004-exam-ready-v5';
 
 function optionAnalysis(options: readonly RnkCp004Option[]): readonly string[] {
   return options.map(
@@ -28,6 +16,9 @@ function visibleWrongAnalysis(
   options: readonly RnkCp004Option[],
 ): readonly string[] | undefined {
   if (!question.visibleExplanation.optionAnalysis) return undefined;
+  if (question.visibleExplanation.optionAnalysis.length === 1) {
+    return question.visibleExplanation.optionAnalysis;
+  }
   return options
     .map((option, index) => ({ option, index }))
     .filter(({ option }) => option.answerKey !== question.answerKey)
@@ -77,21 +68,59 @@ function addOptionLayoutFingerprint(question: RnkCp004ExamReadyQuestion): RnkCp0
   };
 }
 
+function chooseCorrectIndex(
+  answerSequence: readonly number[],
+  counts: readonly number[],
+  usedFourGrams: ReadonlySet<string>,
+  salt: number,
+): number {
+  const candidates = [0, 1, 2, 3].sort((left, right) => {
+    const countDifference = counts[left] - counts[right];
+    if (countDifference !== 0) return countDifference;
+    return ((left + salt) % 4) - ((right + salt) % 4);
+  });
+  for (const candidate of candidates) {
+    if (answerSequence.length < 3) return candidate;
+    const fourGram = [...answerSequence.slice(-3), candidate].join('');
+    if (!usedFourGrams.has(fourGram)) return candidate;
+  }
+  return candidates[0];
+}
+
 export function buildRnkCp004ReviewPack(): readonly RnkCp004ExamReadyQuestion[] {
   const questions: RnkCp004ExamReadyQuestion[] = [];
   const fingerprints = new Set<string>();
+  const usedSeeds = new Set<number>();
+  const answerSequence: number[] = [];
+  const answerCounts = [0, 0, 0, 0];
+  const usedFourGrams = new Set<string>();
 
-  RNK_CP004_PROTOTYPE_IDS.forEach((prototypeId, prototypeIndex) => {
+  RNK_CP004_REMODEL_V3_PROTOTYPE_IDS.forEach((prototypeId, prototypeIndex) => {
     let accepted = 0;
     let candidateSeed = prototypeIndex * 1000;
     while (accepted < 6) {
-      const outputIndex = prototypeIndex * 6 + accepted;
-      const targetIndex = REVIEW_CORRECT_INDEX_SEQUENCE[outputIndex];
+      const targetIndex = chooseCorrectIndex(
+        answerSequence,
+        answerCounts,
+        usedFourGrams,
+        prototypeIndex + accepted + candidateSeed,
+      );
       const generated = generateRnkCp004ExamReadyQuestion(prototypeId, candidateSeed, targetIndex);
       const question = addOptionLayoutFingerprint(moveCorrectOption(generated, targetIndex));
       candidateSeed += 1;
+      if (usedSeeds.has(question.seed)) continue;
       if (fingerprints.has(question.reviewMetadata.normalizedSemanticFingerprint)) continue;
+
+      if (answerSequence.length >= 3) {
+        const fourGram = [...answerSequence.slice(-3), targetIndex].join('');
+        if (usedFourGrams.has(fourGram)) continue;
+        usedFourGrams.add(fourGram);
+      }
+
       fingerprints.add(question.reviewMetadata.normalizedSemanticFingerprint);
+      usedSeeds.add(question.seed);
+      answerSequence.push(targetIndex);
+      answerCounts[targetIndex] += 1;
       questions.push(question);
       accepted += 1;
     }
@@ -100,20 +129,26 @@ export function buildRnkCp004ReviewPack(): readonly RnkCp004ExamReadyQuestion[] 
   return questions;
 }
 
+function metadataLine(label: string, value: number | null): string {
+  return `**${label}:** ${value === null ? 'not applicable' : `${value} clue(s)`}  `;
+}
+
 export function renderRnkCp004QuestionsAndExplanationsMarkdown(
   questions: readonly RnkCp004ExamReadyQuestion[],
 ): string {
   const lines: string[] = [
-    '# RNK-CP-004 Questions and Explanations — English Remodel V2',
+    '# RNK-CP-004 Questions and Explanations — English Remodel V3',
     '',
     '> Status: manual English review pending. Permanent QL allocation remains open.',
     '',
-    '> The internal proof object remains structured, but the student explanation renders only the reasoning needed for each question.',
+    '> Remodel V3 separates direction-only pair order from exact rank difference and distinguishes directional-path proof from exact-position proof.',
     '',
   ];
 
   questions.forEach((question, index) => {
     const features = question.reviewMetadata.reasoningFeatures;
+    const proof = question.reviewMetadata.proofMetrics;
+    const topology = question.reviewMetadata.topologyProfile;
     lines.push(
       `## Question ${index + 1}`,
       '',
@@ -123,7 +158,11 @@ export function renderRnkCp004QuestionsAndExplanationsMarkdown(
       `**Difficulty:** ${question.difficulty}  `,
       `**Competency:** ${question.reviewMetadata.competency}  `,
       `**Explanation mode:** \`${question.reviewMetadata.explanationMode}\`  `,
-      `**Clue profile:** ${features.essentialClueCount} essential · ${features.redundantClueCount} redundant · shortest proof ${features.shortestProofClueCount} clue(s)  `,
+      `**Topology:** \`${topology.family}\` · ${topology.adjacentClueCount} adjacent · ${topology.nonAdjacentClueCount} non-adjacent clue(s)  `,
+      `**Clue profile:** ${features.essentialClueCount} essential · ${features.redundantClueCount} redundant  `,
+      metadataLine('Shortest directional path', proof.shortestDirectionalPathClues),
+      metadataLine('Shortest exact-position proof', proof.shortestExactPositionProofClues),
+      metadataLine('Full-order proof', proof.fullOrderProofClues),
       `**Review state:** ${question.reviewMetadata.reviewStatus}  `,
       '**Lifecycle:** Question Studio disabled · Question Bank NOT_STORED · Tests INELIGIBLE · Public false',
       '',
