@@ -178,8 +178,10 @@ const ledgerPath =
 const ledger = readFileSync(ledgerPath, "utf8");
 for (const required of [
   "Traceability pass:          IN_PROGRESS",
-  "Verified source records:    9 covered/delegated",
-  "Pending traced records:     3 grouped or classification-pending",
+  "Verified source records:    18 covered/delegated/new-gap",
+  "Pending traced records:     4 grouped or stem/classification-pending",
+  "Meaningful uncovered modes: 2 candidate authorities",
+  "Mathematical saturation:    REOPENED_BY_SOURCE_LEDGER",
   "Ledger completeness:       BLOCKED",
   "Page-level traceability:   BLOCKED",
   "English discovery freeze:  BLOCKED",
@@ -191,11 +193,16 @@ for (const traceEvidence of [
   "`RADIAN-2022`",
   "`DISHA-VNV`",
   "`SER-SRC-007-001`",
-  "`SER-SRC-007-009`",
+  "`SER-SRC-007-021`",
   "printed p. `6-4`, Example 34",
+  "printed p. `6-12`, item 228",
   "Miscellaneous Question Bank p. `QB-7`, item 167",
+  "`MARKER_BLOCK_POSITION_SHIFT_OVER_PERIODIC_FRAME`",
+  "`PROGRESSIVE_POSITIONAL_SUBSTITUTION`",
+  "`NEW_GAP`",
   "`CLASSIFICATION_PENDING`",
   "`SATURATION_ONLY`",
+  "SER_CP007_WAVE_E_MOVING_MARKER_AND_POSITIONAL_SUBSTITUTION_DISCOVERY",
 ]) {
   assert.ok(
     ledger.includes(traceEvidence),
@@ -204,27 +211,29 @@ for (const traceEvidence of [
 }
 assert.doesNotMatch(ledger, /Ledger completeness:\s+COMPLETE/);
 assert.doesNotMatch(ledger, /English discovery freeze:\s+(?:COMPLETE|FROZEN)/);
+assert.doesNotMatch(ledger, /Mathematical saturation:\s+PROVISIONALLY_COMPLETE/);
 
 console.log(
   JSON.stringify(
     {
       status:
-        "PASS_SER_CP007_POST_WAVE_D_MANIFEST_MATH_SATURATED_SOURCE_LEDGER_IN_PROGRESS",
-      waves: 4,
+        "PASS_SER_CP007_POST_WAVE_D_MANIFEST_SOURCE_GAP_REOPENED",
+      completedWaves: 4,
       sourceShapedProbes: sourceProbeCount,
       temporaryTemplates: templateIds.length,
       seedsPerTemplate: SEEDS_PER_TEMPLATE,
       generatedQuestions: templateIds.length * SEEDS_PER_TEMPLATE,
-      uniqueProvisionalAuthorities: authorityIds.size,
+      currentProvisionalAuthorities: authorityIds.size,
       taskCounts: expectedTaskCounts,
       answerSemanticCounts: expectedAnswerSemanticCounts,
       authorityCounts: expectedAuthorityCounts,
       sampleReviewProofs: sampleReviews,
       delegatedSurfaces: SER_CP007_WAVE_C_EXCLUDED_SURFACES.length,
-      mathematicalSaturation: "PROVISIONALLY_COMPLETE",
+      mathematicalSaturation: "REOPENED_BY_SOURCE_LEDGER",
       traceabilityPass: "IN_PROGRESS",
-      verifiedSourceRecords: 9,
-      pendingTraceRecords: 3,
+      verifiedSourceRecords: 18,
+      pendingTraceRecords: 4,
+      meaningfulUncoveredModes: 2,
       sourceLedger: "BLOCKED",
       pageLevelTraceability: "BLOCKED",
       englishDiscoveryFreeze: "BLOCKED",
@@ -235,7 +244,8 @@ console.log(
       publiclyPublishable: 0,
       localizationStarted: 0,
       cp008Status: "BLOCKED",
-      nextAuthority: "SER_CP007_FINAL_SOURCE_LEDGER_AND_ENGLISH_FREEZE_REVIEW",
+      nextAuthority:
+        "SER_CP007_WAVE_E_MOVING_MARKER_AND_POSITIONAL_SUBSTITUTION_DISCOVERY",
     },
     null,
     2,
