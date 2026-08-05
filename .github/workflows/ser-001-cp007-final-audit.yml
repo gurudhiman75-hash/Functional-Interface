@@ -10,6 +10,7 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-B/**
       - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-C/**
       - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-D/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-E/**
       - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-AUDIT/**
       - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-FINAL-AUDIT/**
       - .github/workflows/ser-001-cp007-final-audit.yml
@@ -77,7 +78,7 @@ jobs:
           grep -q 'PASS_SER_CP007_WAVE_D_PERMUTATION_COMPLEMENT_INSERTION_K_ROW_SATURATION' \
             "$EVIDENCE/wave-d-audit.json"
 
-      - name: Validate combined post-Wave-D manifest and source trace
+      - name: Validate post-Wave-D manifest and reopened source gap
         run: |
           set -euo pipefail
           ROOT=src/reasoning-v1/topics/Series/SER-001
@@ -89,7 +90,7 @@ jobs:
             --outfile="$OUT/ser-cp-007-final-manifest.test.mjs"
           (cd artifacts/api-server && node "$OUT/ser-cp-007-final-manifest.test.mjs") \
             | tee "$EVIDENCE/final-manifest-audit.json"
-          grep -q 'PASS_SER_CP007_POST_WAVE_D_MANIFEST_MATH_SATURATED_SOURCE_LEDGER_IN_PROGRESS' \
+          grep -q 'PASS_SER_CP007_POST_WAVE_D_MANIFEST_SOURCE_GAP_REOPENED' \
             "$EVIDENCE/final-manifest-audit.json"
 
       - name: Collect final audit documents
@@ -101,6 +102,8 @@ jobs:
             "$EVIDENCE/ser-cp-007-source-ledger-scaffold.md"
           cp "$ROOT/SER-CP-007-FINAL-AUDIT/ser-cp-007-post-wave-d-report.md" \
             "$EVIDENCE/ser-cp-007-post-wave-d-report.md"
+          cp "$ROOT/SER-CP-007-WAVE-E/ser-cp-007-wave-e-plan.md" \
+            "$EVIDENCE/ser-cp-007-wave-e-plan.md"
           cp "$ROOT/SER-CP-007-AUDIT/ser-cp-007-chapter-gap-audit.md" \
             "$EVIDENCE/ser-cp-007-pre-wave-d-gap-audit.md"
           cp "$ROOT/SER-CP-007-WAVE-D/ser-cp-007-wave-d-report.md" \
