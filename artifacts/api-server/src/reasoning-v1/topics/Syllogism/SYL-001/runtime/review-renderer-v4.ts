@@ -41,7 +41,7 @@ function renderExplanation(question: GeneratedSylQuestionV4): string {
       ).join("")}</div>`
     : `<div class="reasoning-lines">${explanation.shortReasoning.map((line) => `<p>${escapeHtmlV4(line)}</p>`).join("")}</div>`;
 
-  return `<section class="simple-explanation" data-explanation-mode="${explanation.mode}">
+  return `<section class="simple-explanation" data-explanation-mode="${explanation.mode.toLowerCase()}">
     <h3>${escapeHtmlV4(copy.why)}</h3>
     ${reasoning}
     <p class="conclusion-line">${escapeHtmlV4(explanation.conclusion)}</p>
@@ -109,7 +109,7 @@ export function renderLearnerQuestionV4(question: GeneratedSylQuestionV4): strin
     data-checkpoint="${question.checkpointId}"
     data-task="${question.metadata.taskKind}"
     data-difficulty="${question.difficulty}"
-    data-explanation="${v4.learnerExplanation.mode}"
+    data-explanation="${v4.learnerExplanation.mode.toLowerCase()}"
     data-diagram="${v4.diagram.mode}"
     data-existence="${question.structuredProofV3.existencePolicy.dependentAnswer ? "DEPENDENT" : "INDEPENDENT"}"
     data-review="${v4.lifecycle.reviewStatus}">
