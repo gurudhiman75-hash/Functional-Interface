@@ -55,8 +55,16 @@ for (const entry of TMW_CP006_REGISTRY) {
         const givens = (question.explanation.givens ?? []).join(" ");
         assert.match(givens, language === "hi" ? /मूल योजना.*वास्तविक प्रगति.*शेष समय/ : /ਮੂਲ ਯੋਜਨਾ.*ਅਸਲ ਤਰੱਕੀ.*ਬਾਕੀ ਸਮਾਂ/);
       }
-      if (entry.solveMode === "findOvertimeHoursForDeadline") {
-        assert.match(question.explanation.commonTrap.explanation, language === "hi" ? /कुल आवश्यक दैनिक घंटे.*अतिरिक्त घंटे/ : /ਕੁੱਲ ਲੋੜੀਂਦੇ ਰੋਜ਼ਾਨਾ ਘੰਟੇ.*ਵਾਧੂ ਘੰਟੇ/);
+      if (
+        entry.solveMode === "findOvertimeHoursForDeadline" &&
+        question.explanation.commonTrap.misconceptionId === "TOTAL_REPORTED_AS_CHANGE"
+      ) {
+        assert.match(
+          question.explanation.commonTrap.explanation,
+          language === "hi"
+            ? /अतिरिक्त घंटों.*प्रतिदिन आवश्यक कुल घंटे/
+            : /ਵਾਧੂ ਘੰਟਿਆਂ.*ਹਰ ਦਿਨ ਦੇ ਕੁੱਲ ਲੋੜੀਂਦੇ ਘੰਟੇ/,
+        );
       }
       if (entry.solveMode === "findEquivalentResourceTime") {
         assert.equal(/कितना है\?|ਕਿੰਨਾ ਹੈ\?/.test(question.stem), false);
