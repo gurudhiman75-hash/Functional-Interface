@@ -124,7 +124,7 @@ jobs:
           grep -q 'PASS_SER_CP007_POST_WAVE_E_MANIFEST_COLLISION_COMPLETE_LEDGER_PENDING' \
             "$EVIDENCE/final-manifest-audit.json"
 
-      - name: Validate exact source-ledger completion tranche
+      - name: Validate closed source ledger
         run: |
           set -euo pipefail
           ROOT=src/reasoning-v1/topics/Series/SER-001
@@ -136,7 +136,7 @@ jobs:
             --outfile="$OUT/ser-cp-007-source-ledger-completion.test.mjs"
           (cd artifacts/api-server && node "$OUT/ser-cp-007-source-ledger-completion.test.mjs") \
             | tee "$EVIDENCE/source-ledger-completion.json"
-          grep -q 'PASS_SER_CP007_SOURCE_LEDGER_36_VERIFIED_WAVE_D_ANCESTRY_CLOSED_ONE_EXAM_RECORD_PENDING' \
+          grep -q 'PASS_SER_CP007_SOURCE_LEDGER_CLOSED_36_COVERED_ONE_REJECTED' \
             "$EVIDENCE/source-ledger-completion.json"
 
       - name: Validate Wave-D source-ancestry decision
@@ -154,6 +154,21 @@ jobs:
           grep -q 'PASS_SER_CP007_WAVE_D_FINAL_SATURATION_ONLY_ANCESTRY_DECISIONS' \
             "$EVIDENCE/wave-d-source-ancestry-decision.json"
 
+      - name: Validate item-195 rejection and source close
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-final-audit
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/SER-CP-007-FINAL-AUDIT/ser-cp-007-item-195-resolution.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/ser-cp-007-item-195-resolution.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-007-item-195-resolution.test.mjs") \
+            | tee "$EVIDENCE/item-195-resolution.json"
+          grep -q 'PASS_SER_CP007_ITEM_195_REJECTED_SOURCE_DEFECT_AND_LEDGER_CLOSED' \
+            "$EVIDENCE/item-195-resolution.json"
+
       - name: Collect final audit documents
         run: |
           set -euo pipefail
@@ -165,6 +180,8 @@ jobs:
             "$EVIDENCE/ser-cp-007-source-ledger-completion-tranche.md"
           cp "$ROOT/SER-CP-007-FINAL-AUDIT/ser-cp-007-wave-d-source-ancestry-decision.md" \
             "$EVIDENCE/ser-cp-007-wave-d-source-ancestry-decision.md"
+          cp "$ROOT/SER-CP-007-FINAL-AUDIT/ser-cp-007-item-195-resolution.md" \
+            "$EVIDENCE/ser-cp-007-item-195-resolution.md"
           cp "$ROOT/SER-CP-007-FINAL-AUDIT/ser-cp-007-post-wave-d-report.md" \
             "$EVIDENCE/ser-cp-007-post-wave-d-report.md"
           cp "$ROOT/SER-CP-007-FINAL-AUDIT/ser-cp-007-post-wave-e-report.md" \
