@@ -47,7 +47,7 @@ function inspectCanonicalValue(
 }
 
 const rows = generateCanonicalReviewRecords();
-assert(rows.length === 116, "Canonical review must contain all 116 final-authority pool records");
+assert(rows.length === 118, "Canonical review must contain all 118 final-authority pool records");
 assert(new Set(rows.map((row) => row.questionLanguageId)).size === rows.length, "Canonical questionLanguageId values are not unique");
 assert(new Set(rows.map((row) => row.solveMode)).size === 38, "Canonical review must expose 38 final learner solve modes");
 assert(rows.every((row) => row.schemaVersion === TSD_CANONICAL_REVIEW_SCHEMA_VERSION), "Canonical schema version mismatch");
@@ -108,7 +108,7 @@ for (const row of rows) {
 const cp001Rows = rows.filter((row) => row.checkpointId === "TSD-CP-001");
 const cp002Rows = rows.filter((row) => row.checkpointId === "TSD-CP-002");
 assert(cp001Rows.length === 72, "Final CP-001 canonical row count must include the three rehomed effective-average rows");
-assert(cp002Rows.length === 44, "Final CP-002 canonical row count must exclude QL-033 and include five supplements");
+assert(cp002Rows.length === 46, "Final CP-002 canonical row count must exclude QL-033 and include seven supplements");
 const rehomedRows = rows.filter((row) => row.representation === "OVERALL_AVERAGE_AS_EFFECTIVE_SPEED");
 assert(rehomedRows.length === 3, "Expected three rehomed effective-average rows");
 assert(rehomedRows.every((row) => row.checkpointId === "TSD-CP-001" && row.sourceTrace.sourceCheckpointId === "TSD-CP-002"), "Rehomed source/final checkpoint trace is incorrect");
