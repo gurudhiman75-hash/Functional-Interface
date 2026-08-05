@@ -51,6 +51,14 @@ function polish(value: string | null, locale: SylLocale): string | null {
   return finish(transformed, locale);
 }
 
+function polishDiagramText(value: string | null, locale: SylLocale): string | null {
+  if (value === null || locale !== "en-IN") return value;
+  return value.replace(
+    /Because ([^.]+?) is separate from ([^,]+?), the same × is outside ([^.]+?)\./gu,
+    "Since $1 and $2 are separate, the same × is outside $3.",
+  );
+}
+
 export function polishLearnerPresentationV4(
   presentation: SylLearnerPresentationV4,
 ): SylLearnerPresentationV4 {
@@ -66,6 +74,9 @@ export function polishLearnerPresentationV4(
   const conclusion = polish(presentation.learnerExplanation.conclusion, locale) ?? presentation.learnerExplanation.conclusion;
   const shortcut = polish(presentation.learnerExplanation.shortcut, locale);
   const existenceNote = polish(presentation.learnerExplanation.existenceNote, locale);
+  const diagramCaption = polishDiagramText(presentation.diagram.caption, locale);
+  const diagramDescription = polishDiagramText(presentation.diagram.accessibleDescription, locale);
+  const diagramSvg = polishDiagramText(presentation.diagram.svg, locale);
 
   return {
     ...presentation,
@@ -86,5 +97,11 @@ export function polishLearnerPresentationV4(
       ...entry,
       studentReason: polish(entry.studentReason, locale) ?? entry.studentReason,
     })),
+    diagram: {
+      ...presentation.diagram,
+      caption: diagramCaption,
+      accessibleDescription: diagramDescription,
+      svg: diagramSvg,
+    },
   };
 }
