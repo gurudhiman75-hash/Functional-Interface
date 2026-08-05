@@ -23,12 +23,7 @@ export interface MenCp011ReviewBatch {
   audit: MenCp011BatchAudit;
 }
 
-const TARGET_POSITION_PLANS: readonly (readonly number[])[] = [
-  [0, 1, 2, 3, 0, 2, 1, 3, 2, 3, 0, 1],
-  [1, 3, 0, 2, 2, 0, 3, 1, 3, 1, 2, 0],
-  [2, 0, 3, 1, 3, 1, 2, 0, 0, 2, 1, 3],
-  [3, 2, 1, 0, 1, 3, 0, 2, 2, 0, 3, 1],
-] as const;
+const LABELS = ["A", "B", "C", "D"] as const;
 
 function normalizedStem(stem: string) {
   return stem
@@ -118,45 +113,55 @@ export function generateMenCp011ReviewBatch(
   const usedExactStems = new Set<string>();
   const usedQuestionOptions = new Set<string>();
   const normalizedCounts = new Map<string, number>();
-  const stateCountsByPrototype = new Map<MenCp011PrototypeId, Map<string, number>>();
 
   prototypeIds.forEach((prototypeId, prototypeIndex) => {
     const stateCounts = new Map<string, number>();
-    stateCountsByPrototype.set(prototypeId, stateCounts);
-    const targetPlan = TARGET_POSITION_PLANS[prototypeIndex]!;
+    const positionCounts = [0, 0, 0, 0];
+    const preferredStart = prototypeIndex % LABELS.length;
 
     for (let sampleIndex = 0; sampleIndex < recordsPerPrototype; sampleIndex += 1) {
-      const targetCorrectIndex = targetPlan[sampleIndex]!;
       let accepted: MenCp011ExamReadyPackage | null = null;
+      const preferredPositions = Array.from({ length: LABELS.length }, (_, offset) =>
+        (preferredStart + sampleIndex + offset) % LABELS.length,
+      ).filter((position) => positionCounts[position]! < 3);
 
-      for (let attempt = 0; attempt < 4096; attempt += 1) {
-        const seed = `${seedNamespace}:${prototypeId}:${sampleIndex + 1}:candidate-${attempt}`;
-        const candidate = generateMenCp011FoundationPrototype(prototypeId, seed);
-        const stemKey = candidate.stem;
-        const optionKey = questionOptionKey(candidate);
-        const normalizedKey = normalizedStem(candidate.stem);
-        const stateKey = physicalStateKey(candidate);
+      for (const preferredPosition of preferredPositions) {
+        for (let attempt = 0; attempt < 8192; attempt += 1) {
+          const seed = `${seedNamespace}:${prototypeId}:${sampleIndex + 1}:position-${preferredPosition}:candidate-${attempt}`;
+          const candidate = generateMenCp011FoundationPrototype(prototypeId, seed);
+          const stemKey = candidate.stem;
+          const optionKey = questionOptionKey(candidate);
+          const normalizedKey = normalizedStem(candidate.stem);
+          const stateKey = physicalStateKey(candidate);
 
-        if (candidate.correctIndex !== targetCorrectIndex) continue;
-        if (usedExactStems.has(stemKey)) continue;
-        if (usedQuestionOptions.has(optionKey)) continue;
-        if ((normalizedCounts.get(normalizedKey) ?? 0) >= 3) continue;
-        if ((stateCounts.get(stateKey) ?? 0) >= 2) continue;
+          if (candidate.correctIndex !== preferredPosition) continue;
+          if (positionCounts[preferredPosition]! >= 3) continue;
+          if (usedExactStems.has(stemKey)) continue;
+          if (usedQuestionOptions.has(optionKey)) continue;
+          if ((normalizedCounts.get(normalizedKey) ?? 0) >= 3) continue;
+          if ((stateCounts.get(stateKey) ?? 0) >= 2) continue;
 
-        accepted = candidate;
-        usedExactStems.add(stemKey);
-        usedQuestionOptions.add(optionKey);
-        normalizedCounts.set(normalizedKey, (normalizedCounts.get(normalizedKey) ?? 0) + 1);
-        stateCounts.set(stateKey, (stateCounts.get(stateKey) ?? 0) + 1);
-        break;
+          accepted = candidate;
+          usedExactStems.add(stemKey);
+          usedQuestionOptions.add(optionKey);
+          normalizedCounts.set(normalizedKey, (normalizedCounts.get(normalizedKey) ?? 0) + 1);
+          stateCounts.set(stateKey, (stateCounts.get(stateKey) ?? 0) + 1);
+          positionCounts[preferredPosition] += 1;
+          break;
+        }
+        if (accepted) break;
       }
 
       if (!accepted) {
         throw new Error(
-          `Unable to construct a duplicate-safe MEN-CP-011 review record for ${prototypeId} sample ${sampleIndex + 1}.`,
+          `Unable to construct a duplicate-safe, position-balanced MEN-CP-011 review record for ${prototypeId} sample ${sampleIndex + 1}.`,
         );
       }
       records.push(accepted);
+    }
+
+    if (!positionCounts.every((count) => count === 3)) {
+      throw new Error(`${prototypeId} must contribute exactly three correct answers in each option position.`);
     }
   });
 
