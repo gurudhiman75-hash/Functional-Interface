@@ -35,6 +35,11 @@ export interface SerCp007EditorialQuestion {
     readonly trapCode: string;
     readonly conclusion: string;
   };
+  readonly hiddenState?: {
+    readonly canonicalTerms?: readonly string[];
+    readonly answerIndex?: number;
+    readonly answerIndexes?: readonly number[];
+  };
 }
 
 export interface SerCp007AdaptiveReview {
@@ -186,13 +191,65 @@ function structuralSteps(steps: readonly string[]): readonly string[] {
   );
 }
 
+function answerTermIndex(question: SerCp007EditorialQuestion): number | undefined {
+  const state = question.hiddenState;
+  if (!state?.canonicalTerms) return undefined;
+  if (typeof state.answerIndex === "number") return state.answerIndex;
+  if (state.answerIndexes?.length === 1) return state.answerIndexes[0];
+  const direct = state.canonicalTerms.findIndex(
+    (term) => term === question.correctAnswer,
+  );
+  return direct >= 0 ? direct : undefined;
+}
+
+function derivedAnswerStep(
+  question: SerCp007EditorialQuestion,
+): string | undefined {
+  const terms = question.hiddenState?.canonicalTerms;
+  const answerIndex = answerTermIndex(question);
+  if (!terms || answerIndex === undefined || !terms[answerIndex]) return undefined;
+
+  const answer = terms[answerIndex]!;
+  if (answerIndex > 0) {
+    const previous = terms[answerIndex - 1]!;
+    const lengthNote =
+      previous.length === answer.length
+        ? ""
+        : ` (${previous.length} → ${answer.length} letters)`;
+    return `Answer step: ${previous} → ${answer}${lengthNote}.`;
+  }
+  if (terms.length > 1) {
+    const next = terms[1]!;
+    const lengthNote =
+      answer.length === next.length
+        ? ""
+        : ` (${answer.length} → ${next.length} letters)`;
+    return `Check from the required term: ${answer} → ${next}${lengthNote}.`;
+  }
+  return undefined;
+}
+
+function ensureAnswerApplication(
+  question: SerCp007EditorialQuestion,
+  selected: readonly string[],
+): readonly string[] {
+  if (selected.some((step) => step.includes(question.correctAnswer))) {
+    return selected;
+  }
+  const derived = derivedAnswerStep(question);
+  return derived ? uniqueSteps([...selected, derived]) : selected;
+}
+
 function selectSteps(
   question: SerCp007EditorialQuestion,
   proofModel: SerCp007ProofModel,
 ): readonly string[] {
   const allSteps = uniqueSteps(question.explanation.steps);
   if (allSteps.length <= 3) {
-    return uniqueSteps(allSteps.map(stripBookkeepingPrefix));
+    const selected = uniqueSteps(allSteps.map(stripBookkeepingPrefix));
+    return proofModel === "CONTINUOUS_GAP_COMPLETION"
+      ? selected
+      : ensureAnswerApplication(question, selected);
   }
 
   const structural = structuralSteps(allSteps);
@@ -210,7 +267,7 @@ function selectSteps(
         /(?:^|-)position row:/i.test(step) ||
         /^Row \d+:/i.test(step),
     );
-    if (rows.length > 0) return rows;
+    if (rows.length > 0) return ensureAnswerApplication(question, rows);
   }
 
   if (proofModel === "CONTINUOUS_GAP_COMPLETION") {
@@ -219,10 +276,16 @@ function selectSteps(
 
   if (question.taskKind === "PREVIOUS_TERM") {
     const backward = allSteps.find((step) => /move one step backward/i.test(step));
-    return uniqueSteps([...(backward ? [backward] : []), decisive]);
+    return ensureAnswerApplication(
+      question,
+      uniqueSteps([...(backward ? [backward] : []), decisive]),
+    );
   }
 
-  return uniqueSteps([usable[0]!, usable[1]!, decisive]);
+  return ensureAnswerApplication(
+    question,
+    uniqueSteps([usable[0]!, usable[1]!, decisive]),
+  );
 }
 
 function tokens(value: string): Set<string> {
