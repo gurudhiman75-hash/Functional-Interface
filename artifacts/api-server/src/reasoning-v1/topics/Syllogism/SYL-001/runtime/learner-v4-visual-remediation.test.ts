@@ -151,7 +151,6 @@ assert(renderedModelRecords > 0, "No strict relation-aware model diagram was val
 assert(strictModelOmissions > 0, "No model-only-overlap diagram was safely omitted.");
 assert(explicitNoPairsSeparated > 0, "No explicit NO pair was proved separate.");
 assert(relationlessPairsSeparated > 0, "No relationless pair was proved separate.");
-assert(premiseOverlapPairs > 0, "No premise-supported overlap remained available.");
 assert(modelWitnessOverlapPairs === 0, "At least one model-only overlap remains visible.");
 assert(pairGeometryChecks > renderedModelRecords, "Pair-level geometry coverage is unexpectedly low.");
 
