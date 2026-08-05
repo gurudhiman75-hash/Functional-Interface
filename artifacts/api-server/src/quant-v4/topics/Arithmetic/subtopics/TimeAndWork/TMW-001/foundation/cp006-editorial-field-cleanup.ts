@@ -17,6 +17,21 @@ function clean(text: string, language: TmwLocalizedLanguage): string {
     .replace(/ਇਸ ਲਈ ਹਟਾਏ ਗਏ ਲੋਕਾਂ ਦੀ ਗਿਣਤੀ (.+) ਹੈ।/g, "ਇਸ ਲਈ $1 ਹਟਾਏ ਜਾ ਸਕਦੇ ਹਨ।");
 }
 
+function cleanTrap(
+  question: TmwLocalizedQuestion,
+  language: TmwLocalizedLanguage,
+): string {
+  if (
+    question.solveMode === "findOvertimeHoursForDeadline" &&
+    question.explanation.commonTrap.misconceptionId === "TOTAL_REPORTED_AS_CHANGE"
+  ) {
+    return language === "hi"
+      ? "यह विकल्प अतिरिक्त घंटों के बजाय प्रतिदिन आवश्यक कुल घंटे बता देता है।"
+      : "ਇਹ ਵਿਕਲਪ ਵਾਧੂ ਘੰਟਿਆਂ ਦੀ ਥਾਂ ਹਰ ਦਿਨ ਦੇ ਕੁੱਲ ਲੋੜੀਂਦੇ ਘੰਟੇ ਦੱਸ ਦਿੰਦਾ ਹੈ।";
+  }
+  return clean(question.explanation.commonTrap.explanation, language);
+}
+
 export function cleanupTmwCp006EditorialFields(
   question: TmwLocalizedQuestion,
   language: TmwLocalizedLanguage,
@@ -34,7 +49,7 @@ export function cleanupTmwCp006EditorialFields(
       },
       commonTrap: {
         ...question.explanation.commonTrap,
-        explanation: clean(question.explanation.commonTrap.explanation, language),
+        explanation: cleanTrap(question, language),
       },
       conclusion: clean(question.explanation.conclusion, language),
     },
