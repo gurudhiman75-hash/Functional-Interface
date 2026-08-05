@@ -64,6 +64,10 @@ function strictLegend(locale: SylLocale): string {
 
 const locales: readonly SylLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 let identityNoRecords = 0;
+let witnessTransferRecords = 0;
+let staticSomeOverlapPairs = 0;
+let staticNoPairsSeparated = 0;
+let staticRelationlessPairsSeparated = 0;
 let renderedModelRecords = 0;
 let strictModelOmissions = 0;
 let pairGeometryChecks = 0;
@@ -72,6 +76,7 @@ let derivedNoPairsSeparated = 0;
 let relationlessPairsSeparated = 0;
 let premiseOverlapPairs = 0;
 let modelWitnessOverlapPairs = 0;
+let firstQuestionValidated = false;
 
 for (const definition of SYL_QL_REGISTRY) {
   for (let seed = 0; seed < 80; seed += 1) {
@@ -90,6 +95,47 @@ for (const definition of SYL_QL_REGISTRY) {
         assert(Boolean(diagram.svg), `${key} identity-separation diagram is missing.`);
         assert(diagram.svg!.includes('data-relation="IDENTITY_AND_NO"'), `${key} omits identity from the separation diagram.`);
         identityNoRecords += 1;
+      }
+
+      if (diagram.mode === "VENN_WITNESS_TRANSFER") {
+        assert(Boolean(diagram.svg), `${key} witness-transfer diagram is missing.`);
+        const svg = diagram.svg!;
+        assert(svg.includes('data-static-relation-aware="true"'), `${key} retained the old unvalidated witness-transfer geometry.`);
+        const parsedCircles = circles(svg);
+        const markers = pairMarkers(svg);
+        assert(parsedCircles.length === 3, `${key} witness-transfer diagram must contain exactly three measurable circles.`);
+        assert(markers.length === 3, `${key} witness-transfer diagram must declare all three pair relations.`);
+
+        for (const marker of markers) {
+          const leftCircle = circleFor(parsedCircles, marker.panel, marker.left);
+          const rightCircle = circleFor(parsedCircles, marker.panel, marker.right);
+          assert(leftCircle && rightCircle, `${key}/${marker.left}-${marker.right} lacks a measurable circle.`);
+          const actual = actualGeometry(leftCircle, rightCircle);
+          assert(actual === marker.geometry, `${key}/${marker.left}-${marker.right} is ${actual}, expected ${marker.geometry}.`);
+          if (marker.basis === "SOME") {
+            assert(marker.geometry === "overlap", `${key} SOME pair is not overlapping.`);
+            staticSomeOverlapPairs += 1;
+          } else if (marker.basis === "NO") {
+            assert(marker.geometry === "separate", `${key} NO pair still overlaps.`);
+            staticNoPairsSeparated += 1;
+          } else if (marker.basis === "NO_RELATION") {
+            assert(marker.geometry === "separate", `${key} unrelated pair still overlaps.`);
+            staticRelationlessPairsSeparated += 1;
+          } else {
+            throw new Error(`${key} witness-transfer diagram uses unsupported basis ${marker.basis}.`);
+          }
+        }
+
+        if (definition.qlId === "SYL-QL-001" && seed === 0 && locale === "en-IN") {
+          const somePair = markers.find((marker) => marker.basis === "SOME");
+          const noPair = markers.find((marker) => marker.basis === "NO");
+          const unrelatedPair = markers.find((marker) => marker.basis === "NO_RELATION");
+          assert(somePair?.geometry === "overlap", "First question does not show Windows–Stones overlap.");
+          assert(noPair?.geometry === "separate", "First question still overlaps Stones–Books.");
+          assert(unrelatedPair?.geometry === "separate", "First question still overlaps Windows–Books.");
+          firstQuestionValidated = true;
+        }
+        witnessTransferRecords += 1;
       }
 
       if (diagram.modelSignature === null) continue;
@@ -147,6 +193,11 @@ for (const definition of SYL_QL_REGISTRY) {
 }
 
 assert(identityNoRecords > 0, "No identity-plus-separation record was validated.");
+assert(witnessTransferRecords > 0, "No witness-transfer diagram was validated.");
+assert(staticSomeOverlapPairs > 0, "No premise-supported witness-transfer overlap was validated.");
+assert(staticNoPairsSeparated > 0, "No witness-transfer NO pair was proved separate.");
+assert(staticRelationlessPairsSeparated > 0, "No witness-transfer unrelated pair was proved separate.");
+assert(firstQuestionValidated, "The exact first English question was not validated.");
 assert(renderedModelRecords > 0, "No strict relation-aware model diagram was validated.");
 assert(strictModelOmissions > 0, "No model-only-overlap diagram was safely omitted.");
 assert(explicitNoPairsSeparated > 0, "No explicit NO pair was proved separate.");
@@ -155,8 +206,13 @@ assert(modelWitnessOverlapPairs === 0, "At least one model-only overlap remains 
 assert(pairGeometryChecks > renderedModelRecords, "Pair-level geometry coverage is unexpectedly low.");
 
 console.log(JSON.stringify({
-  status: "SYL-001 V4 strict no-unrelated-overlap audit passed",
+  status: "SYL-001 V4 all-mode strict geometry audit passed",
   identityNoRecords,
+  witnessTransferRecords,
+  staticSomeOverlapPairs,
+  staticNoPairsSeparated,
+  staticRelationlessPairsSeparated,
+  firstQuestionValidated,
   renderedModelRecords,
   strictModelOmissions,
   pairGeometryChecks,
