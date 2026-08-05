@@ -1,0 +1,113 @@
+name: Export SER-001 CP-007 V3 manual review pack
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-B/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-C/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-D/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-E/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-DISTRACTOR-AUDIT/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-AUTHORITY-FREEZE-CANDIDATE/**
+      - .github/workflows/ser-001-cp007-v3-manual-review-pack.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ser-001-cp007-v3-manual-review-pack-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  export-v3-manual-review-pack:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare evidence directory
+        run: mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v3-manual-review
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Re-run V3 integration gate
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v3-manual-review
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/adaptive-review-v3-integration.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/adaptive-review-v3-manual-pack-regression.test.mjs"
+          (cd artifacts/api-server && node "$OUT/adaptive-review-v3-manual-pack-regression.test.mjs") \
+            | tee "$EVIDENCE/adaptive-review-v3-integration.json"
+          grep -q 'PASS_SER_CP007_ADAPTIVE_ENGLISH_DISTRACTOR_CANDIDATE_V3' \
+            "$EVIDENCE/adaptive-review-v3-integration.json"
+
+      - name: Export review pack by 13 candidate authorities
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v3-manual-review
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/export-adaptive-review-v3-by-candidate-authority.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/export-adaptive-review-v3-by-candidate-authority.mjs"
+          (cd artifacts/api-server && node "$OUT/export-adaptive-review-v3-by-candidate-authority.mjs") \
+            > "$EVIDENCE/ser-cp-007-V3-13-authority-manual-review.md"
+          grep -q '# SER-CP-007 V3 manual review — 13 candidate authorities' \
+            "$EVIDENCE/ser-cp-007-V3-13-authority-manual-review.md"
+          grep -q 'Candidate authorities: 13' \
+            "$EVIDENCE/ser-cp-007-V3-13-authority-manual-review.md"
+          grep -q 'Discovery authorities: 17' \
+            "$EVIDENCE/ser-cp-007-V3-13-authority-manual-review.md"
+          grep -q 'Templates reviewed:    140' \
+            "$EVIDENCE/ser-cp-007-V3-13-authority-manual-review.md"
+          grep -q 'Distractors reviewed:  420' \
+            "$EVIDENCE/ser-cp-007-V3-13-authority-manual-review.md"
+
+      - name: Collect policy and V3 reports
+        run: |
+          set -euo pipefail
+          AUTHORITY_ROOT=artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-AUTHORITY-FREEZE-CANDIDATE
+          ENGLISH_ROOT=artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL
+          DISTRACTOR_ROOT=artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-DISTRACTOR-AUDIT
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v3-manual-review
+          cp "$AUTHORITY_ROOT/authority-policy-decision.md" \
+            "$EVIDENCE/authority-policy-decision.md"
+          cp "$AUTHORITY_ROOT/authority-compression-candidates-report.md" \
+            "$EVIDENCE/authority-compression-candidates-report.md"
+          cp "$ENGLISH_ROOT/adaptive-review-v3-report.md" \
+            "$EVIDENCE/adaptive-review-v3-report.md"
+          cp "$DISTRACTOR_ROOT/distractor-candidate-v1-report.md" \
+            "$EVIDENCE/distractor-candidate-v1-report.md"
+
+      - name: Upload V3 manual review pack
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ser-001-cp007-v3-13-authority-manual-review
+          path: artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v3-manual-review
+          if-no-files-found: error
+          retention-days: 30
