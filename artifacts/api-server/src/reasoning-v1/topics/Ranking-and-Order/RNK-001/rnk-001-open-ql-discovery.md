@@ -1,6 +1,6 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001, CP-002 and CP-003 frozen at `RNK-QL-001..026`; CP-004 English Remodel V3 review is active**.
+Status: **CP-001, CP-002 and CP-003 frozen at `RNK-QL-001..026`; CP-004 English Remodel V4 review is active**.
 
 This register prevents premature chapter sizing. Each checkpoint discovers permanent identities from source evidence, executable solver contracts, inverse directions, edge states, representations and ownership audits. Counts are never quotas.
 
@@ -58,7 +58,7 @@ Open CP-003 source dimensions: `0`.
 
 ## 4. Active checkpoint — RNK-CP-004
 
-### Remodel V3 executable wave
+### Remodel V4 executable wave
 
 ```text
 provisional authorities:         11
@@ -86,13 +86,11 @@ VALID_RANK_STATEMENT
 MISSING_COMPARISON
 ```
 
-`RELATIVE_ORDER_OF_PAIR` owns direction only. `EXACT_RANK_DIFFERENCE_OF_PAIR` is a separate provisional authority because it requires complete-position proof and rank arithmetic.
+`RELATIVE_ORDER_OF_PAIR` owns direction only. `EXACT_RANK_DIFFERENCE_OF_PAIR` remains a separate provisional authority because it requires complete-position proof and rank arithmetic.
 
 ### Proof model
 
-The exact-order engine constructs a strict hidden order and independently reconstructs one unique topological order from displayed evidence.
-
-Remodel V3 records three distinct proof demands:
+V4 retains:
 
 ```text
 shortestDirectionalPathClues
@@ -100,51 +98,78 @@ shortestExactPositionProofClues
 fullOrderProofClues
 ```
 
-A directional path is not treated as proof of exact distance or immediate adjacency.
-
-### Topology boundary
-
-A unique total order from pairwise comparisons requires an adjacent-pair backbone. CP-004 therefore uses:
+and adds the task-specific field:
 
 ```text
-CHAIN_BACKBONE
-CHAIN_WITH_NON_ADJACENT_VERIFICATION
+shortestAnswerProofClues
+```
+
+Difficulty uses the proof required by the actual task, irrelevant clue count, candidate count and option closeness.
+
+### Clue-role model
+
+Every displayed statement is classified as exactly one of:
+
+```text
+ESSENTIAL_FOR_FULL_ORDER
+ESSENTIAL_FOR_BLOCK_ORDER
+CONFIRMATORY
+REDUNDANT_OTHER
+```
+
+The review pack currently proves:
+
+```text
+ordinary-question essential clues: 322
+ordinary-question confirmatory clues: 45
+unclassified clues: 0
+```
+
+### Core topology boundary
+
+A unique total order from only pairwise higher/lower comparisons has a chain transitive reduction. V4 reports the core structure as:
+
+```text
+TOTAL_ORDER_CHAIN
 TWO_ORDERED_BLOCKS
 ```
 
-Genuinely branched, partial and non-unique orders remain owned by CP-007.
+Non-adjacent transitive edges are stored separately as confirmatory evidence rather than claimed as a new topology. Genuinely branched, partial and non-unique orders remain owned by CP-007.
 
 ### Current executable evidence
 
 ```text
-average visible explanation words:       41.95
-review adjacent-edge ratio:               0.8855
-runtime questions with non-adjacent links: 1,602
-normalized semantic duplicates:               0
-answer positions:                     16/17/17/16
-repeated four-answer sequences:                0
+runtime clue-accounting failures:          0
+average visible explanation words:      47.64
+normalized semantic duplicates:             0
+answer positions:                   16/17/17/16
+repeated four-answer sequences:              0
 ```
 
 ### Current proof targets passed
 
 - deterministic generation and independent answer proof;
-- entity counts 5–8;
-- Easy, Medium and Hard reachability;
+- complete clue-role accounting by removal testing;
+- task-specific shortest-answer proof;
+- task-specific difficulty calibration;
 - direction-only versus exact-distance ownership separation;
+- pair-direction non-adjacent safety when immediate distractors are used;
 - exact-position proof for distance and adjacency;
-- distinct complete-order contradiction targets;
-- neutral missing-comparison block labels;
-- consistent-but-insufficient wrong bridge options;
+- compact numbered rank rendering;
+- collapsed question-specific distractor help;
+- concrete alternate-order proof for missing-comparison distractors;
+- truthful core-topology reporting;
 - semantic duplicate and answer-sequence controls;
 - lifecycle and publication locks.
 
 ### Still open before consolidation
 
-- manual English approval of the 66-question Remodel V3 pack;
+- manual English approval of the 66-question Remodel V4 pack;
 - source saturation beyond the first reference pass;
 - inverse and reverse query audit;
 - endpoint, exact-rank, relation and distance merge/split proof;
 - ownership audit against CP-005, CP-006 and CP-007;
+- controlled direct-true distractor expansion for transitive-conclusion questions;
 - final provisional-authority consolidation;
 - permanent QL allocation and freeze proof.
 
