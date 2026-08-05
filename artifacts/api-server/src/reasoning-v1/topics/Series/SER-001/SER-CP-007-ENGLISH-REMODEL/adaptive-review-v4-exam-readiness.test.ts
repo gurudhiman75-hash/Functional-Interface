@@ -270,7 +270,7 @@ assert.equal(progressiveTableProofs, 12);
 assert.equal(cumulativeTargetProofs, 6);
 assert.equal(consecutiveLengthAndStartProofs, 24);
 assert.equal(symmetricTargetProofs, 6);
-assert.equal(polishedPreviousStems, 84);
+assert.equal(polishedPreviousStems, 87);
 assert.equal(polishedWrongPairStems, 3);
 assert.equal(visibleCheckProofs, 102);
 assert.ok(targetStepProofs >= 400);
