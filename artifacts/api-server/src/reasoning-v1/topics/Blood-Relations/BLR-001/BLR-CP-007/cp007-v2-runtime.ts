@@ -53,7 +53,7 @@ export function generateBlrCp007V2Question(
   const normalizedSeed = Math.trunc(seed);
   const sourceScenario = blrCp007V2Scenario(prototypeId, normalizedSeed);
   const completeKey = completeBlrCp007V2Key(normalizedSeed);
-  const scenario = prototypeId.includes("MISSING-PERSON")
+  const constructionScenario = prototypeId.includes("MISSING-PERSON")
     ? sourceScenario
     : {
         ...sourceScenario,
@@ -61,12 +61,23 @@ export function generateBlrCp007V2Question(
         codeKey: completeKey.codeKey,
         sharedPrompt: blrCp007V2KeyPrompt(completeKey.codeKey),
       };
-  const rawOptions = buildBlrCp007V2Options(scenario);
+  const rawOptions = buildBlrCp007V2Options(constructionScenario);
   const options = orderBlrCp007V2Options(
     prototypeId,
     normalizedSeed,
     rawOptions,
   );
+  const usedTokens = new Set(
+    options.flatMap((option) => option.statements.map((statement) => statement.token)),
+  );
+  const visibleCodeKey = constructionScenario.codeKey.filter((entry) =>
+    usedTokens.has(entry.token),
+  );
+  const scenario = {
+    ...constructionScenario,
+    codeKey: visibleCodeKey,
+    sharedPrompt: blrCp007V2KeyPrompt(visibleCodeKey),
+  };
   const correctIndex = options.findIndex((option) => option.isCorrect);
   const selected = options[correctIndex]!;
   const decoded = decodeBlrCp007V2(
