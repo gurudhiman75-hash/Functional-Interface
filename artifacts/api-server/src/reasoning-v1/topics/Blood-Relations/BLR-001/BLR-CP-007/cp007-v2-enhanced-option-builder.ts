@@ -96,7 +96,9 @@ function targetDerivedPairOptions(
   const correctRows = rows.filter((row) => row.targetSatisfied);
   if (correctRows.length !== 1) {
     throw new Error(
-      `${scenario.scenarioId}: target-derived pair requires one semantic answer, got ${correctRows.length}.`,
+      `${scenario.scenarioId}: target-derived pair requires one semantic answer, got ${correctRows.length}: ${correctRows
+        .map((row) => `${row.tokens[0]},${row.tokens[1]}`)
+        .join(" | ")}.`,
     );
   }
   const correct = correctRows[0]!;
