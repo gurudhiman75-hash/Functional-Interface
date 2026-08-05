@@ -1,0 +1,48 @@
+name: Validate SYL-001 V4 visual remediation
+
+on:
+  pull_request:
+    branches:
+      - feat/syl-001-structured-proof-v3
+      - feat/syl-001-full-runtime
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v4-visual-remediation.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v4-visual-remediation.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/generator-v4.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/venn-diagram-v4.ts
+      - .github/workflows/reasoning-syl-001-v4-visual.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-v4-visual-remediation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle V4 visual remediation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v4-visual-remediation.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-v4-visual-remediation.test.mjs
+
+      - name: Run V4 visual remediation audit
+        run: node artifacts/api-server/dist/reasoning-v1/syl-001-v4-visual-remediation.test.mjs
