@@ -1,6 +1,6 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001, CP-002 and CP-003 frozen at `RNK-QL-001..026`; CP-004 English Remodel V5 review is active**.
+Status: **CP-001, CP-002 and CP-003 frozen at `RNK-QL-001..026`; CP-004 SSC/banking exam-authentic English Remodel V6 review is active**.
 
 This register prevents premature chapter sizing. Each checkpoint discovers permanent identities from source evidence, executable solver contracts, inverse directions, edge states, representations and ownership audits. Counts are never quotas.
 
@@ -58,7 +58,7 @@ Open CP-003 source dimensions: `0`.
 
 ## 4. Active checkpoint — RNK-CP-004
 
-### Remodel V5 executable wave
+### Remodel V6 executable wave
 
 ```text
 provisional authorities:         11
@@ -70,7 +70,7 @@ permanent QLs:                  none
 next available identity: RNK-QL-027
 ```
 
-The current provisional authorities are:
+### Provisional authorities
 
 ```text
 HIGHEST_ENTITY
@@ -82,15 +82,78 @@ COMPLETE_ORDER
 RELATIVE_ORDER_OF_PAIR
 EXACT_RANK_DIFFERENCE_OF_PAIR
 IMMEDIATE_NEIGHBOUR
-VALID_RANK_STATEMENT
+DEFINITELY_TRUE_RELATION
 MISSING_COMPARISON
 ```
 
+The runtime compatibility ID for `DEFINITELY_TRUE_RELATION` remains the historical `VALID_RANK_STATEMENT` prototype until merge/split consolidation.
+
 `RELATIVE_ORDER_OF_PAIR` owns direction only. `EXACT_RANK_DIFFERENCE_OF_PAIR` remains separate because it requires complete-position proof and rank arithmetic.
 
-### Proof and difficulty model
+### SSC and banking exam-authenticity layer
 
-V5 records:
+The 66-question review pack contains eleven records from each context family:
+
+```text
+SELECTION_TEST
+MERIT_LIST
+COMPETITION_STANDINGS
+PERFORMANCE_REVIEW
+INTERVIEW_SHORTLIST
+NEUTRAL_RANKING
+```
+
+Runtime gates enforce:
+
+- one coherent context per question;
+- maximum clue-phrase repetition of two;
+- reversed wording in Medium and Hard records;
+- natural question stems rather than generator-demo introductions;
+- three explanation depths;
+- misconception-based option roles;
+- separation of student content and admin proof metadata.
+
+### Explanation model
+
+```text
+DIRECT
+SEGMENT_BUILDING
+FULL_POSITIONAL
+```
+
+The learner explanation uses the smallest sufficient display. Optional wrong-option teaching remains a native collapsed product component.
+
+### Prototype remodels
+
+- named rank distinguishes top rank from bottom rank;
+- relative pair tests both direction and rank-gap errors;
+- middle position includes the `(n + 1) / 2` step;
+- immediate neighbour highlights the relevant local segment;
+- definitely-true relation excludes directly displayed true options;
+- every missing-comparison distractor has an enumerated ambiguity or contradiction proof;
+- exact rank difference distinguishes rank difference, people between and inclusive count.
+
+Genuine cannot-determine relations are not inserted into CP-004 because partial-order uncertainty remains owned by CP-007.
+
+### Difficulty and proof model
+
+Difficulty uses:
+
+```text
+RNK_CP004_DIFFICULTY_V2
+```
+
+Every score equals the sum of its stored components. A final reconciliation gate corrected 86 runtime records after their language profile changed.
+
+Final review distribution:
+
+```text
+Easy:    10
+Medium:  41
+Hard:    15
+```
+
+Proof metadata retains:
 
 ```text
 shortestDirectionalPathClues
@@ -99,23 +162,11 @@ fullOrderProofClues
 shortestAnswerProofClues
 ```
 
-Missing-comparison records additionally state whether the selected option relation is included:
-
-```text
-shortestBaseClueProof
-selectedOptionRelations
-completedProofRelations
-```
-
-Difficulty is stored under the versioned authority:
-
-```text
-RNK_CP004_DIFFICULTY_V1
-```
+Missing comparison also stores base-clue, selected-option and completed-relation counts.
 
 ### Clue and edge metadata
 
-Every displayed statement remains classified as exactly one of:
+Every displayed clue has exactly one role:
 
 ```text
 ESSENTIAL_FOR_FULL_ORDER
@@ -124,16 +175,7 @@ CONFIRMATORY
 REDUNDANT_OTHER
 ```
 
-The edge contract separately records:
-
-```text
-coreReductionEdges
-displayedAdjacentEdges
-displayedNonAdjacentEdges
-addedConfirmatoryNonAdjacentEdges
-```
-
-The 66-question review pack proves:
+The review pack proves:
 
 ```text
 ordinary-question essential clues: 322
@@ -141,61 +183,25 @@ ordinary-question confirmatory clues: 45
 unclassified clues: 0
 ```
 
-### Learner-renderer boundary
-
-- clue-role notes remain admin-only;
-- normalized admin notes do not use quotation marks;
-- optional distractor help uses a `NATIVE_COLLAPSED` data contract;
-- raw Markdown HTML is removed;
-- actual Question Studio mobile and accessibility validation remains pending integration.
-
-### Transitive-conclusion contract
-
-`VALID_RANK_STATEMENT` now includes:
-
-```text
-one correct multi-statement conclusion
-one true direct-clue distractor
-one false reverse of a direct clue
-one false reverse of the transitive conclusion
-```
-
-The authority-specific validator proves that the correct option is true, not directly stated and supported by at least two clue edges. The direct-true distractor is proved to lack any separate multi-clue path.
+Core reduction edges, displayed edges and added confirmatory edges remain separate fields.
 
 ### Current executable evidence
 
 ```text
-average visible explanation words:                35.95
-average words including optional help:             73.11
+average visible explanation words:                41.53
+average words including optional help:             82.59
 normalized semantic duplicates:                        0
 answer positions:                              16/17/17/16
 repeated four-answer sequences:                         0
 ```
 
-### Current proof targets passed
-
-- deterministic generation and independent answer proof;
-- complete clue-role accounting by removal testing;
-- truthful core and added-edge metadata;
-- explicit missing-comparison option-edge counting;
-- versioned and reproducible difficulty scoring;
-- direction-only versus exact-distance ownership separation;
-- pair-direction local-path grounding;
-- exact-distance reasons derived from actual options;
-- authority-specific multi-statement conclusion validation;
-- true direct-clue distractor safety;
-- native collapsed disclosure data contract;
-- semantic duplicate and answer-sequence controls;
-- lifecycle and publication locks.
-
 ### Still open before consolidation
 
-- manual English approval of the 66-question Remodel V5 pack;
+- manual English approval of the 66-question Remodel V6 pack;
 - Question Studio native-disclosure integration and mobile/accessibility validation;
-- source saturation beyond the first reference pass;
-- inverse and reverse query audit;
-- endpoint, exact-rank, relation and distance merge/split proof;
+- source saturation and inverse-query audit;
 - ownership audit against CP-005, CP-006 and CP-007;
+- endpoint, exact-rank, relation and distance merge/split proof;
 - final provisional-authority consolidation;
 - permanent QL allocation and freeze proof.
 
