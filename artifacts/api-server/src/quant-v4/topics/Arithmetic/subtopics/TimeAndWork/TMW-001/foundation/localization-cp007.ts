@@ -104,25 +104,38 @@ export function localizeTmwCp007Question(
     answerText,
     language,
   );
+  const finalEditorial = source.solveMode === "findIntegerCrewCompositionUnderConstraints"
+    ? {
+        ...editorial,
+        opening: `${editorial.opening} ${language === "hi" ? "क्योंकि ये सदस्यों की संख्याएँ हैं, इसलिए x और y धनात्मक पूर्णांक होने चाहिए।" : "ਕਿਉਂਕਿ ਇਹ ਮੈਂਬਰਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹਨ, ਇਸ ਲਈ x ਅਤੇ y ਧਨਾਤਮਕ ਪੂਰਨ ਅੰਕ ਹੋਣੇ ਚਾਹੀਦੇ ਹਨ।"}`,
+        shortcut: {
+          ...editorial.shortcut,
+          steps: [
+            `${editorial.shortcut.steps[0]} ${language === "hi" ? "केवल धनात्मक पूर्णांक हल स्वीकार करें।" : "ਕੇਵਲ ਧਨਾਤਮਕ ਪੂਰਨ ਅੰਕ ਹੱਲ ਹੀ ਮੰਨੋ।"}`,
+            ...editorial.shortcut.steps.slice(1),
+          ],
+        },
+      }
+    : editorial;
   const errors = [...source.validation.errors];
 
   if (trapIndex < 0) errors.push("Localized common trap is not linked to an option");
   if (options.length !== 4) errors.push("Localized question does not contain exactly four options");
   if (new Set(options).size !== 4) errors.push("Localized options are not unique");
   if (optionAudit[source.correctIndex]?.key !== source.solution.answerKey) errors.push("Localized correct option key differs from canonical answer key");
-  if (!editorial.stem.trim()) errors.push("Localized stem is empty");
-  if (editorial.givens.length < 2) errors.push("Localized givens are incomplete");
-  if (editorial.shortcut.steps.length < 2) errors.push("Localized shortcut is incomplete");
+  if (!finalEditorial.stem.trim()) errors.push("Localized stem is empty");
+  if (finalEditorial.givens.length < 2) errors.push("Localized givens are incomplete");
+  if (finalEditorial.shortcut.steps.length < 2) errors.push("Localized shortcut is incomplete");
 
   const learnerText = [
-    editorial.stem,
+    finalEditorial.stem,
     ...options,
-    editorial.opening,
-    ...editorial.givens,
-    editorial.shortcut.title,
-    ...editorial.shortcut.steps,
-    editorial.trapExplanation,
-    editorial.conclusion,
+    finalEditorial.opening,
+    ...finalEditorial.givens,
+    finalEditorial.shortcut.title,
+    ...finalEditorial.shortcut.steps,
+    finalEditorial.trapExplanation,
+    finalEditorial.conclusion,
   ].join(" ");
   if (language === "hi" && !/[\u0900-\u097F]/.test(learnerText)) errors.push("Hindi delivery has no Devanagari text");
   if (language === "pa" && !/[\u0A00-\u0A7F]/.test(learnerText)) errors.push("Punjabi delivery has no Gurmukhi text");
@@ -139,25 +152,25 @@ export function localizeTmwCp007Question(
     locale: displayLocale(language),
     sourceLanguage: "en",
     seed: source.seed,
-    stem: editorial.stem,
+    stem: finalEditorial.stem,
     parameters: source.parameters,
     solution: { ...source.solution, answerText },
     options,
     optionAudit,
     correctIndex: source.correctIndex,
     explanation: {
-      opening: editorial.opening,
+      opening: finalEditorial.opening,
       formula: source.explanation.formula,
-      givens: editorial.givens,
-      steps: editorial.workedSteps,
-      shortcut: editorial.shortcut,
+      givens: finalEditorial.givens,
+      steps: finalEditorial.workedSteps,
+      shortcut: finalEditorial.shortcut,
       commonTrap: {
         optionLabel: localizedOptionLabel(trapIndex, language),
         optionText: options[trapIndex] ?? options[0] ?? "",
         misconceptionId: trapId,
-        explanation: editorial.trapExplanation,
+        explanation: finalEditorial.trapExplanation,
       },
-      conclusion: editorial.conclusion,
+      conclusion: finalEditorial.conclusion,
     },
     mathematicalFingerprint: source.mathematicalFingerprint,
     validation: { valid: errors.length === 0, errors },
