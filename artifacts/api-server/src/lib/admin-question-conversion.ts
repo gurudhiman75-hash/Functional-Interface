@@ -30,6 +30,12 @@ function asText(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
+function asTextArray(value: unknown): string[] {
+  return Array.isArray(value)
+    ? value.map((entry) => asText(entry)).filter(Boolean)
+    : [];
+}
+
 export function getGeneratedQuestionBankEligibilityIssue(value: unknown): string | null {
   const payload = asRecord(value);
   const generationContext = asRecord(payload.generationContext);
@@ -81,6 +87,7 @@ export function normalizeGeneratedQuestionPayload(
   context: { itemId: string; generationRunCode: string },
 ): NormalizedGeneratedQuestion {
   const payload = asRecord(value);
+  const generationContext = asRecord(payload.generationContext);
   assertGeneratedQuestionBankEligible(payload);
   const stem = asText(payload.text) || asText(payload.stem);
   const explanation = asText(payload.explanation) || "Explanation pending editorial review.";
@@ -97,6 +104,13 @@ export function normalizeGeneratedQuestionPayload(
   if (options.length < 2 || correctIndex < 0 || correctIndex >= options.length) {
     throw new Error(`Approved generation item ${context.itemId} has an invalid option model`);
   }
+
+  const renderingContract = asRecord(
+    payload.renderingContract ?? generationContext.renderingContract,
+  );
+  const examSuitability = asTextArray(
+    payload.examSuitability ?? generationContext.examSuitability,
+  );
 
   return {
     stem,
@@ -118,6 +132,18 @@ export function normalizeGeneratedQuestionPayload(
         topic: payload.topic ?? null,
         subtopic: payload.subtopic ?? null,
         language: payload.language ?? "en",
+        releasePoolId:
+          asText(payload.releasePoolId ?? generationContext.releasePoolId) || null,
+        releaseStatus:
+          asText(payload.releaseStatus ?? generationContext.releaseStatus) || null,
+        authorityId:
+          asText(payload.authorityId ?? generationContext.authorityId) || null,
+        taskKind: asText(payload.taskKind ?? generationContext.taskKind) || null,
+        explanationMode:
+          asText(payload.explanationMode ?? generationContext.explanationMode) || null,
+        examSuitability,
+        renderingContract:
+          Object.keys(renderingContract).length > 0 ? renderingContract : null,
       },
     },
   };
