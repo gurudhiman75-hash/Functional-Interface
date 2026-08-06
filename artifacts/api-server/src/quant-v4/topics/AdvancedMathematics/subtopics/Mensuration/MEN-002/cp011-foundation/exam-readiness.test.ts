@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
 import { generateMenCp011ReviewBatch } from "./exam-readiness-batch";
 import {
+  getMenCp011MeasurementProfiles,
+  MEN_CP011_MEASUREMENT_AUTHORITY,
+} from "./measurement-profiles";
+import {
   getMenCp011PhysicalStateCatalog,
   getMenCp011ScaleProfiles,
   isMenCp011CatalogState,
@@ -26,13 +30,22 @@ assert.ok(catalog.every((state) =>
   state.ringCoefficient === state.outerRadius ** 2n - state.innerRadius ** 2n
 ));
 
+const profiles = getMenCp011MeasurementProfiles();
+assert.equal(profiles.length, 4);
+assert.equal(new Set(profiles.map((profile) => profile.id)).size, 4);
+assert.deepEqual(
+  profiles.map((profile) => profile.volumeScaleFromNominalState),
+  [1n, 1n, 100n, 10_000n],
+);
+
 const { records, audit } = generateMenCp011ReviewBatch(
-  "men-cp011-phase2a-state-pool-proof-v1",
+  "men-cp011-phase2b-unit-representation-proof-v1",
   12,
 );
 
 assert.equal(records.length, 48);
 assert.equal(audit.statePoolAuthority, MEN_CP011_STATE_POOL_AUTHORITY);
+assert.equal(audit.measurementAuthority, MEN_CP011_MEASUREMENT_AUTHORITY);
 assert.equal(audit.physicalStatePoolSize, 72);
 assert.equal(audit.uniquePhysicalStateCount, 48);
 assert.ok(audit.uniqueRadialPairCount >= 16);
@@ -48,21 +61,33 @@ assert.deepEqual(audit.answerPositionCounts, {
   D: 12,
 });
 assert.equal(new Set(Object.values(audit.answerPositionSequences)).size, 4);
+assert.ok(Object.values(audit.measurementProfileCounts).every((count) => count === 12));
+assert.ok(Object.values(audit.representationUnitMatrix).every((row) =>
+  Object.values(row).every((count) => count === 3)
+));
+assert.equal(audit.mixedUnitRecordCount, 24);
 assert.equal(audit.publicationEligible, false);
 assert.ok(!audit.blockers.includes("INSUFFICIENT_PHYSICAL_STATE_DIVERSITY"));
-assert.ok(audit.blockers.includes("UNIT_REPRESENTATION_COVERAGE_INCOMPLETE"));
+assert.ok(!audit.blockers.includes("UNIT_REPRESENTATION_COVERAGE_INCOMPLETE"));
 assert.ok(audit.blockers.includes("CHAPTER_COVERAGE_INCOMPLETE"));
 assert.ok(audit.blockers.includes("PERMANENT_QLS_UNALLOCATED"));
+assert.ok(audit.blockers.includes("MANUAL_ENGLISH_REVIEW_PENDING"));
 
 const reviewStateKeys = new Set<string>();
 for (const question of records) {
+  const profile = question.measurementProfile;
   assert.equal(question.statePoolAuthority, MEN_CP011_STATE_POOL_AUTHORITY);
+  assert.equal(question.measurementAuthority, MEN_CP011_MEASUREMENT_AUTHORITY);
+  assert.equal(question.state.measurementProfileId, profile.id);
+  assert.equal(question.state.radialUnit, profile.radialUnit);
+  assert.equal(question.state.heightUnit, profile.heightUnit);
+  assert.equal(question.state.calculationUnit, profile.calculationUnit);
   assert.ok(isMenCp011CatalogState(question.state));
   reviewStateKeys.add(menCp011PhysicalStateKey(question.state));
   assert.equal(
     question.validation.valid,
     true,
-    `${question.prototypeId} failed Phase 2A validation for ${question.seed}.`,
+    `${question.prototypeId} failed Phase 2B validation for ${question.seed}: ${question.validation.checks.filter((check) => !check.passed).map((check) => `${check.name}: ${check.message}`).join(" | ")}`,
   );
   assert.match(question.optionPermutationSeed, /^MEN-CP011-OPTION-PERMUTATION-V2\|/);
   assert.equal(question.options.length, 4);
@@ -96,12 +121,32 @@ for (const question of records) {
     assert.match(question.diagram.svg, />r = \?</);
     assert.doesNotMatch(
       question.diagram.svg,
-      new RegExp(`r = ${question.state.innerRadius} cm`),
+      new RegExp(`r = ${question.state.innerRadius} ${profile.radialUnit}`),
     );
     assert.match(
       question.solutionDiagram.svg,
-      new RegExp(`r = ${question.state.innerRadius} cm`),
+      new RegExp(`r = ${question.state.innerRadius} ${profile.radialUnit}`),
     );
+  }
+
+  if (profile.mixedUnits) {
+    const workedText = [
+      ...question.explanation.steps.map((step) => `${step.title} ${step.body} ${step.equation ?? ""}`),
+      ...question.learnerSolution.steps,
+    ].join("\n");
+    assert.match(workedText, /Convert/);
+    assert.match(workedText, /100/);
+  }
+
+  if (question.target === "VOLUME" && profile.id === "RADIAL_CM_LENGTH_M_TO_CM3") {
+    assert.ok(question.options.some(
+      (option) => option.misconceptionId === "OMITTED_MIXED_LENGTH_CONVERSION",
+    ));
+  }
+  if (question.target === "VOLUME" && profile.id === "RADIAL_M_LENGTH_CM_TO_CM3") {
+    assert.ok(question.options.some(
+      (option) => option.misconceptionId === "USED_LINEAR_UNIT_CONVERSION_FOR_AREA",
+    ));
   }
 
   assert.equal(question.renderSurfaces.attempt.diagram, null);
@@ -132,5 +177,5 @@ for (const question of records) {
 assert.equal(reviewStateKeys.size, 48);
 
 console.log(
-  "MEN-CP-011 Phase 2A passed for a 72-state authority and 48 unique-state review records with balanced answers, prompt-safe diagrams and lifecycle locks.",
+  "MEN-CP-011 Phase 2B passed for four balanced unit profiles across all four existing representations, including 24 mixed-unit records, exact conversion traps and lifecycle locks.",
 );
