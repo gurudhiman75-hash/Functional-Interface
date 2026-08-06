@@ -8,6 +8,7 @@ import {
   classifyMenCp011Difficulty,
   generateMenCp011FoundationPrototype,
 } from "./runtime";
+import { MEN_CP011_MEASUREMENT_AUTHORITY } from "./measurement-profiles";
 
 const prototypeIds = getMenCp011FoundationPrototypeIds();
 assert.equal(MEN_CP_011_FOUNDATION_PROTOTYPES.length, 4);
@@ -19,6 +20,7 @@ const policies = new Set<string>();
 const difficulties = new Set<string>();
 const targets = new Set<string>();
 const representations = new Set<string>();
+const measurementProfiles = new Set<string>();
 
 for (const definition of MEN_CP_011_FOUNDATION_PROTOTYPES) {
   const answerPositions = new Set<number>();
@@ -46,6 +48,7 @@ for (const definition of MEN_CP_011_FOUNDATION_PROTOTYPES) {
     assert.equal(first.target, definition.target);
     assert.equal(first.state.representation, definition.representation);
     assert.equal(first.difficulty, classifyMenCp011Difficulty(definition.prototypeId));
+    assert.equal(first.measurementAuthority, MEN_CP011_MEASUREMENT_AUTHORITY);
 
     assert.ok(first.state.innerRadius > 0n);
     assert.ok(first.state.outerRadius > first.state.innerRadius);
@@ -67,6 +70,8 @@ for (const definition of MEN_CP_011_FOUNDATION_PROTOTYPES) {
 
     assert.match(first.explanation.keyRule, /^(Think|Picture)\b/);
     assert.match(first.explanation.keyRule, /Here, \$R\$/);
+    assert.match(first.explanation.keyRule, /outer cylinder/);
+    assert.match(first.explanation.keyRule, /smaller coaxial cylinder removed|inner empty-cylinder volume/);
     assert.ok(first.explanation.steps.length >= 2);
     assert.ok(first.explanation.steps.every((step) => step.body.includes("Unit check:")));
     assert.match(first.explanation.shortcut, /^⚡ Exam speed:/);
@@ -76,20 +81,43 @@ for (const definition of MEN_CP_011_FOUNDATION_PROTOTYPES) {
     assert.ok(first.explanation.traps.every((trap) => !/FALLBACK_|UNCLASSIFIED|GENERAL_CALCULATION_ERROR/.test(trap)));
 
     if (first.target === "VOLUME") {
-      assert.ok(first.explanation.keyRule.includes("outer cylinder volume minus inner empty-cylinder volume"));
-      assert.ok(first.explanation.shortcut.includes("R^2-r^2"));
-      assert.ok(first.explanation.steps.some((step) => /cm\^?2|cm\}\^2|cm\}²|cm²/.test(`${step.body}${step.equation ?? ""}`)));
-      assert.ok(first.explanation.steps.some((step) => /cm\^?3|cm\}\^3|cm\}³|cm³/.test(`${step.body}${step.equation ?? ""}`)));
+      assert.ok(
+        first.explanation.shortcut.includes("R^2-r^2") ||
+        first.explanation.shortcut.includes("100^2") ||
+        first.explanation.shortcut.includes("convert only $h$"),
+      );
+      const worked = first.explanation.steps
+        .map((step) => `${step.body}${step.equation ?? ""}`)
+        .join("\n");
+      assert.match(worked, new RegExp(`${first.state.calculationUnit}[^\\n]*2|${first.state.calculationUnit}\\}\\^2`));
+      assert.match(worked, new RegExp(`${first.state.calculationUnit}[^\\n]*3|${first.state.calculationUnit}\\}\\^3`));
     }
 
     assert.equal(first.diagram.kind, "HOLLOW_CYLINDER");
     assert.equal(first.diagram.notToScale, true);
     assert.match(first.diagram.svg, /empty void/);
     assert.match(first.diagram.svg, /not to scale/);
-    assert.ok(first.diagram.visibleLabels.every((label) => !/\d/.test(label) || /\bcm\b/.test(label)));
+    assert.ok(first.diagram.visibleLabels.every((label) =>
+      !/\d/.test(label) ||
+      label.includes(first.state.radialUnit) ||
+      label.includes(first.state.heightUnit)
+    ));
     if (first.state.representation === "INVERSE_INNER_RADIUS") {
       assert.ok(first.diagram.visibleLabels.includes("r = ?"));
-      assert.equal(first.diagram.visibleLabels.includes(`r = ${first.state.innerRadius} cm`), false);
+      assert.equal(
+        first.diagram.visibleLabels.includes(
+          `r = ${first.state.innerRadius} ${first.state.radialUnit}`,
+        ),
+        false,
+      );
+    }
+
+    if (first.measurementProfile.mixedUnits) {
+      const conversionText = first.explanation.steps
+        .map((step) => `${step.title} ${step.body} ${step.equation ?? ""}`)
+        .join("\n");
+      assert.match(conversionText, /Convert/);
+      assert.match(conversionText, /100/);
     }
 
     assert.equal(first.reviewStatus, "UNREVIEWED");
@@ -120,6 +148,7 @@ for (const definition of MEN_CP_011_FOUNDATION_PROTOTYPES) {
     difficulties.add(first.difficulty);
     targets.add(first.target);
     representations.add(first.state.representation);
+    measurementProfiles.add(first.measurementProfile.id);
     generated += 1;
   }
 
@@ -139,8 +168,9 @@ assert.deepEqual(
   [...representations].sort(),
   ["DIAMETERS", "INVERSE_INNER_RADIUS", "OUTER_RADIUS_AND_THICKNESS", "RADII"],
 );
+assert.equal(measurementProfiles.size, 4);
 assert.equal(generated, 4 * 80);
 
 console.log(
-  `MEN-CP-011 foundation wave 01 passed for ${generated} deterministic temporary packages across ${prototypeIds.length} prototype families. Permanent QLs remain 0 and all product surfaces remain disabled.`,
+  `MEN-CP-011 foundation proof passed for ${generated} deterministic temporary packages across four measurement profiles and ${prototypeIds.length} representation families. Permanent QLs remain 0 and all product surfaces remain disabled.`,
 );
