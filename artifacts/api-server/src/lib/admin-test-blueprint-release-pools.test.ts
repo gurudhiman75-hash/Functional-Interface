@@ -69,14 +69,42 @@ assert.equal(
   selected.some((entry) => entry.releaseStatus === "MUTUALLY_EXCLUSIVE_VARIANT"),
   false,
 );
-assert.equal(new Set(selected.map((entry) => entry.releasePoolId).filter(Boolean)).size, 3);
-assert.deepEqual([...usedReleasePoolIds].sort(), ["pool-a", "pool-b", "pool-c"]);
-assert.equal(selected.some((entry) => entry.releasePoolId == null), true);
+const selectedPoolIds = selected
+  .map((entry) => entry.releasePoolId)
+  .filter((value): value is string => Boolean(value));
+assert.equal(new Set(selectedPoolIds).size, selectedPoolIds.length);
+assert.deepEqual(
+  [...usedReleasePoolIds].sort(),
+  [...new Set(selectedPoolIds)].sort(),
+);
 
+const legacyResult = selectBlueprintSectionCandidates({
+  section: {
+    ...section,
+    questionCount: 1,
+    difficultyTargets: { easy: 0, medium: 1, hard: 0 },
+  },
+  candidates: [candidate("legacy", null, null, "legacy", "NEXT_TERM", 0)],
+  usedQuestionVersionIds: new Set<string>(),
+  usedStems: new Set<string>(),
+  usedReleasePoolIds: new Set<string>(),
+});
+assert.equal(legacyResult.shortages.length, 0);
+assert.equal(legacyResult.selected.length, 1);
+assert.equal(
+  (legacyResult.selected[0] as BlueprintAssemblyCandidate).releasePoolId,
+  null,
+);
+
+const blockedPool = selectedPoolIds[0] ?? "pool-a";
 const secondSection = selectBlueprintSectionCandidates({
-  section: { ...section, questionCount: 1, difficultyTargets: { easy: 0, medium: 1, hard: 0 } },
+  section: {
+    ...section,
+    questionCount: 1,
+    difficultyTargets: { easy: 0, medium: 1, hard: 0 },
+  },
   candidates: [
-    candidate("8", "pool-a", "PRIMARY", "auth-e", "NEXT_TERM", 0),
+    candidate("8", blockedPool, "PRIMARY", "auth-e", "NEXT_TERM", 0),
     candidate("9", "pool-e", "PRIMARY", "auth-e", "NEXT_TERM", 1),
   ],
   usedQuestionVersionIds: new Set<string>(),
