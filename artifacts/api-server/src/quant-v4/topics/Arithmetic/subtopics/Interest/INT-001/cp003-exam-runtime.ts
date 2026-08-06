@@ -107,7 +107,7 @@ function simplerStudentLanguage(text: string): string {
     .replace("Applying the given yearly rate", "Increasing it at the given rate")
     .replace(
       /There are (\d+) years? between the two given yearly interests\. Increasing it at the given rate \1 times gives/u,
-      (_match, steps: string) => `From the earlier year to the later year, the interest increases ${steps === "1" ? "once" : `${steps} times`} at the given rate:`,
+      (_match, steps: string) => `From the earlier year to the later year, the interest increases ${steps === "1" ? "once" : steps === "2" ? "twice" : `${steps} times`} at the given rate:`,
     )
     .replace(
       /Because that year's interest is calculated after (\d+) years? of earlier interest, those earlier increases must be included before solving for the original sum\./u,
