@@ -37,11 +37,25 @@ export function buildAdaptiveSerCp007ReviewV7Final(
     base.stem,
     question,
   );
+  const expandedSource =
+    question.sourceRuleId === "UNIFORM_FRAME_CASE_MARKER_ROTATION"
+      ? base.conciseReview
+      : base.expandedReview;
   const expandedReview = renderWithQuestionOptions(
-    base.expandedReview,
+    expandedSource,
     base.stem,
     question,
   );
+  if (
+    conciseReview.includes("x→X (0)") ||
+    conciseReview.includes("X→x (0)") ||
+    expandedReview.includes("x→X (0)") ||
+    expandedReview.includes("X→x (0)")
+  ) {
+    throw new Error(
+      `Legacy zero-delta marker explanation survived in ${question.temporaryTemplateId}:${question.seed}`,
+    );
+  }
   return {
     ...base,
     review: conciseReview,
