@@ -8,6 +8,12 @@ Exact reviewed implementation head:
 00572b7e0629df093427a4cf8129b797a6adc70c
 ```
 
+Final stable documentation/proof head:
+
+```text
+905f1c4424a084d846480b2a5c36519d3ec1ca58
+```
+
 ## Reviewed checkpoints
 
 | Checkpoint | QLs | Native rows | Deterministic native packages | Result |
@@ -21,34 +27,34 @@ Exact reviewed implementation head:
 | TMW-CP-007 | 16 | 32 | 384 | Assistant review complete; human approval pending |
 | **Total** | **143** | **286** | **3,432** | **Zero open automated findings** |
 
-## Exact implementation evidence
+## Final stable evidence
 
 Cumulative editorial workflow:
 
 ```text
-Run: 31066709438
-Artifact: 8954095821
-Digest: sha256:7815aed006881331d066d9507413786b761d716d2a420c577ea54cedf1419d80
+Run: 31066883091
+Artifact: 8954149176
+Digest: sha256:340031134400b2fea058a765a1d1344a35692ddfd902872c7d86a285c4bcbbd4
 ```
 
 CP-007 dedicated localisation proof:
 
 ```text
-Run: 31066709513
-Artifact: 8954082533
-Digest: sha256:739498d16f6ff5415d269edb2e79c85cb67eb3a77bfaeb3c2e5ea43cf9f26e38
+Run: 31066883115
+Artifact: 8954137098
+Digest: sha256:80ad74c579068ca86e0095821d59b0cd4b2b68c770654ccdad3ee7117b28c435
 QLs: 16
 Deterministic native packages: 640
 Hindi distinct stems: 151
 Punjabi distinct stems: 151
 ```
 
-Full chapter parity on the same reviewed implementation head:
+Full chapter parity:
 
 ```text
-Run: 31066709520
-Artifact: 8954107737
-Digest: sha256:51f60582397693db55bcfd7354f1e254647f2b1306a1bab35b271bf2f6815850
+Run: 31066883052
+Artifact: 8954145579
+Digest: sha256:18cd02cbc5dd85418e61638c32de264232404054426b11db8102a9666bace3d9
 English packages: 2,532
 Localized packages: 5,064
 Parity checks: 5,064
