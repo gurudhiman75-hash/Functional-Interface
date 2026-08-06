@@ -90,6 +90,19 @@ const UNEQUAL_DIVISOR_SEQUENCES = [
 const STAGE_DIVISORS = [2, 3, 4, 5, 6, 8, 10, 12] as const;
 const MULTI_STAGE_VOLUMES = [120, 240, 360, 480] as const;
 
+function sampleOrdinal(seed: string): number {
+  const diversity = seed.match(/diversity-set:(\d+)/u);
+  if (diversity) return Math.floor(Number(diversity[1]) / 9);
+  const beforeCandidate = seed.match(/:(\d+):candidate-\d+$/u);
+  if (beforeCandidate) return Number(beforeCandidate[1]);
+  const trailing = seed.match(/(\d+)(?!.*\d)/u);
+  return trailing ? Numbr(trailing[1]) : hashSeed(seed);
+}
+
+function prototypeOffset(prototypeId: MalCp003ExecutablePrototypeId): number {
+  return hashSeed(prototypeId) % EQUAL_STAGE_CASES.length;
+}
+
 function retainedFraction(volume: number, removed: number) {
   return rational(volume - removed, volume);
 }
@@ -123,7 +136,10 @@ export function generateMalCp003Parameters(
   seed = `mal-cp003:${prototypeId}:default`,
 ): MalCp003GeneratedParameters {
   const random = new DeterministicRandom(`${prototypeId}:${seed}`);
-  const selected = random.pick(EQUAL_STAGE_CASES);
+  const ordinal = sampleOrdinal(seed);
+  const selected = EQUAL_STAGE_CASES[
+    (ordinal + prototypeOffset(prototypeId)) % EQUAL_STAGE_CASES.length
+  ]!;
   const vesselVolume = rational(selected.volume);
   const removedQuantity = rational(selected.removed);
   const operations = random.int(2, 5);
@@ -210,8 +226,10 @@ export function generateMalCp003Parameters(
     }
 
     case "MAL-CP003-PROT-FINAL-ORIGINAL-QUANTITY-UNEQUAL-REPLACEMENTS": {
-      const divisors = random.pick(UNEQUAL_DIVISOR_SEQUENCES);
-      const volume = random.pick(MULTI_STAGE_VOLUMES);
+      const divisors = UNEQUAL_DIVISOR_SEQUENCES[
+        ordinal % UNEQUAL_DIVISOR_SEQUENCES.length
+      ]!;
+      const volume = MULTI_STAGE_VOLUMES[ordinal % MULTI_STAGE_VOLUMES.length]!;
       request = {
         mode: "FINAL_ORIGINAL_QUANTITY_UNEQUAL_STAGES",
         vesselVolume: rational(volume),
@@ -222,9 +240,11 @@ export function generateMalCp003Parameters(
     }
 
     case "MAL-CP003-PROT-THIRD-LIQUID-TWO-STAGE-COMPOSITION": {
-      const volume = random.pick(MULTI_STAGE_VOLUMES);
-      const firstRemoved = rational(volume, random.pick(STAGE_DIVISORS));
-      const secondRemoved = rational(volume, random.pick(STAGE_DIVISORS));
+      const volume = MULTI_STAGE_VOLUMES[ordinal % MULTI_STAGE_VOLUMES.length]!;
+      const firstDivisor = STAGE_DIVISORS[ordinal % STAGE_DIVISORS.length]!;
+      const secondDivisor = STAGE_DIVISORS[(ordinal + 3) % STAGE_DIVISORS.length]!;
+      const firstRemoved = rational(volume, firstDivisor);
+      const secondRemoved = rational(volume, secondDivisor);
       request = {
         mode: "FINAL_THREE_COMPONENT_STATE",
         vesselVolume: rational(volume),
