@@ -156,6 +156,13 @@ export function canonicalOption(value: string): string {
     const divisor = gcd(first, second);
     return `ratio:${first / divisor}:${second / divisor}`;
   }
+  const tupleTokens = compact.match(/-?\d+(?:\s+\d+\/\d+|\/\d+|\.\d+)?/gu) ?? [];
+  if (tupleTokens.length > 1) {
+    return `tuple:${tupleTokens.map((token) => {
+      const number = parseNumber(token);
+      return `${number.numerator}/${number.denominator}`;
+    }).join("|")}`;
+  }
   try {
     const number = parseNumber(compact);
     const semantic = /operation/u.test(compact)
