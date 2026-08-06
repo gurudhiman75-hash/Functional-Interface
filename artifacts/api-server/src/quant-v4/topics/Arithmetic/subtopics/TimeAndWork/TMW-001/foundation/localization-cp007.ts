@@ -56,6 +56,19 @@ function inlineMath(latex: string): string {
   return `\\(${latex}\\)`;
 }
 
+function inflectGovernedDuration(text: string, language: TmwLocalizedLanguage): string {
+  if (language === "hi") {
+    return text
+      .replace(/(\d+(?:\.\d+)?) दिन में/g, "$1 दिनों में")
+      .replace(/(\d+(?:\.\d+)?) घंटे में/g, "$1 घंटों में")
+      .replace(/(\d+(?:\.\d+)?) घंटा में/g, "$1 घंटे में");
+  }
+  return text
+    .replace(/(\d+(?:\.\d+)?) ਦਿਨ ਵਿੱਚ/g, "$1 ਦਿਨਾਂ ਵਿੱਚ")
+    .replace(/(\d+(?:\.\d+)?) ਘੰਟੇ ਵਿੱਚ/g, "$1 ਘੰਟਿਆਂ ਵਿੱਚ")
+    .replace(/(\d+(?:\.\d+)?) ਘੰਟਾ ਵਿੱਚ/g, "$1 ਘੰਟਿਆਂ ਵਿੱਚ");
+}
+
 export function localizeTmwCp007Question(
   source: TmwCp007GeneratedQuestion,
   language: TmwLocalizedLanguage,
@@ -104,7 +117,7 @@ export function localizeTmwCp007Question(
     answerText,
     language,
   );
-  const finalEditorial = source.solveMode === "findIntegerCrewCompositionUnderConstraints"
+  const constrainedEditorial = source.solveMode === "findIntegerCrewCompositionUnderConstraints"
     ? {
         ...editorial,
         opening: `${editorial.opening} ${language === "hi" ? "क्योंकि ये सदस्यों की संख्याएँ हैं, इसलिए x और y धनात्मक पूर्णांक होने चाहिए।" : "ਕਿਉਂਕਿ ਇਹ ਮੈਂਬਰਾਂ ਦੀਆਂ ਗਿਣਤੀਆਂ ਹਨ, ਇਸ ਲਈ x ਅਤੇ y ਧਨਾਤਮਕ ਪੂਰਨ ਅੰਕ ਹੋਣੇ ਚਾਹੀਦੇ ਹਨ।"}`,
@@ -117,6 +130,18 @@ export function localizeTmwCp007Question(
         },
       }
     : editorial;
+  const finalEditorial = {
+    ...constrainedEditorial,
+    stem: inflectGovernedDuration(constrainedEditorial.stem, language),
+    opening: inflectGovernedDuration(constrainedEditorial.opening, language),
+    givens: constrainedEditorial.givens.map((text) => inflectGovernedDuration(text, language)),
+    shortcut: {
+      title: inflectGovernedDuration(constrainedEditorial.shortcut.title, language),
+      steps: constrainedEditorial.shortcut.steps.map((text) => inflectGovernedDuration(text, language)),
+    },
+    trapExplanation: inflectGovernedDuration(constrainedEditorial.trapExplanation, language),
+    conclusion: inflectGovernedDuration(constrainedEditorial.conclusion, language),
+  };
   const errors = [...source.validation.errors];
 
   if (trapIndex < 0) errors.push("Localized common trap is not linked to an option");
