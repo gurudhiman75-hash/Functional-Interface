@@ -1,17 +1,26 @@
 import { getMenCp011FoundationPrototypeIds } from "./registry";
 import {
   generateMenCp011FoundationPrototype,
-  type MenCp011ExamReadyPackage,
+  type MenCp011StateExpandedPackage,
 } from "./runtime";
+import {
+  getMenCp011PhysicalStateCatalog,
+  menCp011PhysicalStateKey,
+  MEN_CP011_STATE_POOL_AUTHORITY,
+} from "./state-pool";
 import type { MenCp011PrototypeId } from "./types";
 
 export interface MenCp011BatchAudit {
+  statePoolAuthority: typeof MEN_CP011_STATE_POOL_AUTHORITY;
+  physicalStatePoolSize: number;
   recordCount: number;
   exactStemCount: number;
   exactQuestionOptionCount: number;
   normalizedStemGroupCount: number;
   maximumNormalizedStemRepetition: number;
   uniquePhysicalStateCount: number;
+  uniqueRadialPairCount: number;
+  uniqueHeightCount: number;
   answerPositionCounts: Record<"A" | "B" | "C" | "D", number>;
   answerPositionSequences: Record<MenCp011PrototypeId, string>;
   blockers: string[];
@@ -19,7 +28,7 @@ export interface MenCp011BatchAudit {
 }
 
 export interface MenCp011ReviewBatch {
-  records: MenCp011ExamReadyPackage[];
+  records: MenCp011StateExpandedPackage[];
   audit: MenCp011BatchAudit;
 }
 
@@ -33,17 +42,11 @@ function normalizedStem(stem: string) {
     .trim();
 }
 
-function physicalStateKey(question: MenCp011ExamReadyPackage) {
-  const state = question.state;
-  return [
-    state.outerRadius,
-    state.innerRadius,
-    state.height,
-    state.thickness,
-  ].join("|");
+function radialPairKey(question: MenCp011StateExpandedPackage) {
+  return `${question.state.outerRadius}|${question.state.innerRadius}`;
 }
 
-function questionOptionKey(question: MenCp011ExamReadyPackage) {
+function questionOptionKey(question: MenCp011StateExpandedPackage) {
   return [
     question.stem,
     ...question.options.map((option) => option.display),
@@ -55,7 +58,7 @@ function duplicateCount(values: readonly string[]) {
 }
 
 export function auditMenCp011ReviewBatch(
-  records: readonly MenCp011ExamReadyPackage[],
+  records: readonly MenCp011StateExpandedPackage[],
 ): MenCp011BatchAudit {
   const exactStems = records.map((question) => question.stem);
   const exactQuestionOptions = records.map(questionOptionKey);
@@ -64,7 +67,11 @@ export function auditMenCp011ReviewBatch(
   for (const key of normalized) {
     normalizedCounts.set(key, (normalizedCounts.get(key) ?? 0) + 1);
   }
-  const stateKeys = records.map(physicalStateKey);
+  const stateKeys = records.map((question) =>
+    menCp011PhysicalStateKey(question.state),
+  );
+  const radialPairs = records.map(radialPairKey);
+  const heights = records.map((question) => question.state.height.toString());
   const answerPositionCounts = { A: 0, B: 0, C: 0, D: 0 };
   for (const question of records) {
     const label = question.options[question.correctIndex]!.label;
@@ -80,19 +87,23 @@ export function auditMenCp011ReviewBatch(
     ]),
   ) as Record<MenCp011PrototypeId, string>;
   const blockers = [
-    "INSUFFICIENT_PHYSICAL_STATE_DIVERSITY",
+    "UNIT_REPRESENTATION_COVERAGE_INCOMPLETE",
     "CHAPTER_COVERAGE_INCOMPLETE",
     "PERMANENT_QLS_UNALLOCATED",
     "MANUAL_ENGLISH_REVIEW_PENDING",
   ];
 
   return {
+    statePoolAuthority: MEN_CP011_STATE_POOL_AUTHORITY,
+    physicalStatePoolSize: getMenCp011PhysicalStateCatalog().length,
     recordCount: records.length,
     exactStemCount: new Set(exactStems).size,
     exactQuestionOptionCount: new Set(exactQuestionOptions).size,
     normalizedStemGroupCount: normalizedCounts.size,
     maximumNormalizedStemRepetition: Math.max(...normalizedCounts.values()),
     uniquePhysicalStateCount: new Set(stateKeys).size,
+    uniqueRadialPairCount: new Set(radialPairs).size,
+    uniqueHeightCount: new Set(heights).size,
     answerPositionCounts,
     answerPositionSequences,
     blockers,
@@ -109,43 +120,43 @@ export function generateMenCp011ReviewBatch(
   }
 
   const prototypeIds = getMenCp011FoundationPrototypeIds();
-  const records: MenCp011ExamReadyPackage[] = [];
+  const records: MenCp011StateExpandedPackage[] = [];
   const usedExactStems = new Set<string>();
   const usedQuestionOptions = new Set<string>();
+  const usedPhysicalStates = new Set<string>();
   const normalizedCounts = new Map<string, number>();
 
   prototypeIds.forEach((prototypeId, prototypeIndex) => {
-    const stateCounts = new Map<string, number>();
     const positionCounts = [0, 0, 0, 0];
     const preferredStart = prototypeIndex % LABELS.length;
 
     for (let sampleIndex = 0; sampleIndex < recordsPerPrototype; sampleIndex += 1) {
-      let accepted: MenCp011ExamReadyPackage | null = null;
+      let accepted: MenCp011StateExpandedPackage | null = null;
       const preferredPositions = Array.from({ length: LABELS.length }, (_, offset) =>
         (preferredStart + sampleIndex + offset) % LABELS.length,
       ).filter((position) => positionCounts[position]! < 3);
 
       for (const preferredPosition of preferredPositions) {
-        for (let attempt = 0; attempt < 8192; attempt += 1) {
+        for (let attempt = 0; attempt < 16384; attempt += 1) {
           const seed = `${seedNamespace}:${prototypeId}:${sampleIndex + 1}:position-${preferredPosition}:candidate-${attempt}`;
           const candidate = generateMenCp011FoundationPrototype(prototypeId, seed);
           const stemKey = candidate.stem;
           const optionKey = questionOptionKey(candidate);
           const normalizedKey = normalizedStem(candidate.stem);
-          const stateKey = physicalStateKey(candidate);
+          const stateKey = menCp011PhysicalStateKey(candidate.state);
 
           if (candidate.correctIndex !== preferredPosition) continue;
           if (positionCounts[preferredPosition]! >= 3) continue;
           if (usedExactStems.has(stemKey)) continue;
           if (usedQuestionOptions.has(optionKey)) continue;
+          if (usedPhysicalStates.has(stateKey)) continue;
           if ((normalizedCounts.get(normalizedKey) ?? 0) >= 3) continue;
-          if ((stateCounts.get(stateKey) ?? 0) >= 2) continue;
 
           accepted = candidate;
           usedExactStems.add(stemKey);
           usedQuestionOptions.add(optionKey);
+          usedPhysicalStates.add(stateKey);
           normalizedCounts.set(normalizedKey, (normalizedCounts.get(normalizedKey) ?? 0) + 1);
-          stateCounts.set(stateKey, (stateCounts.get(stateKey) ?? 0) + 1);
           positionCounts[preferredPosition] += 1;
           break;
         }
@@ -154,7 +165,7 @@ export function generateMenCp011ReviewBatch(
 
       if (!accepted) {
         throw new Error(
-          `Unable to construct a duplicate-safe, position-balanced MEN-CP-011 review record for ${prototypeId} sample ${sampleIndex + 1}.`,
+          `Unable to construct a unique-state, duplicate-safe, position-balanced MEN-CP-011 review record for ${prototypeId} sample ${sampleIndex + 1}.`,
         );
       }
       records.push(accepted);
@@ -171,6 +182,12 @@ export function generateMenCp011ReviewBatch(
   }
   if (duplicateCount(records.map(questionOptionKey)) !== 0) {
     throw new Error("The MEN-CP-011 review batch contains an exact duplicate stem-and-option package.");
+  }
+  if (audit.uniquePhysicalStateCount !== records.length) {
+    throw new Error("Every MEN-CP-011 Phase 2A review record must use a unique physical state.");
+  }
+  if (audit.physicalStatePoolSize !== 72) {
+    throw new Error("The MEN-CP-011 Phase 2A physical-state authority must contain exactly 72 states.");
   }
   if (audit.maximumNormalizedStemRepetition > 3) {
     throw new Error("A normalized MEN-CP-011 stem skeleton appears more than three times.");
