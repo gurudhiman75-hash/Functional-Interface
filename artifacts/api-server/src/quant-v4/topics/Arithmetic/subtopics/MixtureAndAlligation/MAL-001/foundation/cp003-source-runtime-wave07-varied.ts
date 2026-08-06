@@ -14,7 +14,14 @@ const STEM_OPENERS = [
   "A technician performs the same replacement repeatedly. ",
 ] as const;
 
-const RETAINED_FRACTION_BANK = [
+const RATIO_RETAINED_FRACTION_BANK = [
+  "9/10",
+  "4/5",
+  "3/4",
+  "5/6",
+] as const;
+
+const VESSEL_RETAINED_FRACTION_BANK = [
   "2/3",
   "9/10",
   "4/5",
@@ -63,13 +70,19 @@ function variedStem(baseStem: string, seed: string): string {
   return `${opener}${lowerFirst(baseStem)}`;
 }
 
+function fractionBank(candidateId: MalCp003Wave04SourceCandidateId) {
+  return candidateId ===
+    "MAL-CP003-PROT-FINAL-ORIGINAL-TO-REFILL-RATIO-EQUAL-REPLACEMENTS"
+    ? RATIO_RETAINED_FRACTION_BANK
+    : VESSEL_RETAINED_FRACTION_BANK;
+}
+
 export function generateMalCp003VariedSourceRuntimeQuestion(
   candidateId: MalCp003Wave04SourceCandidateId,
   seed = `mal-cp003-source-runtime-varied:${candidateId}:default`,
 ): MalCp003SourceRuntimeQuestion {
-  const targetFraction = RETAINED_FRACTION_BANK[
-    sampleOrdinal(seed) % RETAINED_FRACTION_BANK.length
-  ]!;
+  const bank = fractionBank(candidateId);
+  const targetFraction = bank[sampleOrdinal(seed) % bank.length]!;
   let base: MalCp003SourceRuntimeQuestion | undefined;
   for (let attempt = 0; attempt < 80; attempt += 1) {
     const candidate = generateMalCp003SourceRuntimeQuestion(
