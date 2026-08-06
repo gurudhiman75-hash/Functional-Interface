@@ -8,12 +8,11 @@ function valueNode(raw: string): ExprNode | null {
 }
 
 export function recoverProductAstFromFingerprint(fingerprint: string): ExprNode | null {
-  const match = fingerprint.match(
-    /^MULTIPLY\(V:(?:FRACTION|INTEGER)\((-?\d+)\/(\d+)\),V:(?:FRACTION|INTEGER)\((-?\d+)\/(\d+)\)\)$/,
-  );
-  if (!match) return null;
-  const leftRaw = `${match[1]}/${match[2]}`;
-  const rightRaw = `${match[3]}/${match[4]}`;
+  if (!/MULTIPLY/i.test(fingerprint)) return null;
+  const fractions = [...fingerprint.matchAll(/(-?\d+)\/(\d+)/g)];
+  if (fractions.length < 2) return null;
+  const leftRaw = `${fractions[0]![1]}/${fractions[0]![2]}`;
+  const rightRaw = `${fractions[1]![1]}/${fractions[1]![2]}`;
   const left = valueNode(leftRaw);
   const right = valueNode(rightRaw);
   if (!left || !right) return null;
