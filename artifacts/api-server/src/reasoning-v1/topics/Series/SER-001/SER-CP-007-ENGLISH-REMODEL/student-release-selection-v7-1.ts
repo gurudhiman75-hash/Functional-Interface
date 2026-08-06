@@ -26,7 +26,7 @@ export interface SerCp007PrimarySelectionV71<
   readonly advancedAnswerPositionCounts: readonly [number, number, number, number];
 }
 
-function identity(entry: SerCp007ReleaseEntryV71): string {
+function identity(entry: { readonly question: SerCp007EditorialQuestion }): string {
   return `${entry.question.temporaryTemplateId}:${entry.question.seed}`;
 }
 
