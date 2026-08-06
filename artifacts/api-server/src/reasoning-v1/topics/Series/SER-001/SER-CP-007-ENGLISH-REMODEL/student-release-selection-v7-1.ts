@@ -1,8 +1,6 @@
 import type { SerCp007EditorialQuestion } from "./adaptive-review";
-import {
-  buildAdaptiveSerCp007ReviewV71,
-  type SerCp007AdaptiveReviewV71,
-} from "./adaptive-review-v7-1";
+import type { SerCp007AdaptiveReviewV71 } from "./adaptive-review-v7-1";
+import { buildAdaptiveSerCp007ReviewV71Final } from "./adaptive-review-v7-1-final";
 import {
   assertSerCp007ReleasePoolUniquenessV7,
   excludeRecentSerCp007ReleasePoolsV7,
@@ -71,7 +69,7 @@ function rebalanceEntries<T extends SerCp007ReleaseEntryV71>(
     .map((entry, index) => {
       const targetIndex = index % 4;
       const question = moveCorrectOption(entry.question, targetIndex);
-      const review = buildAdaptiveSerCp007ReviewV71(question);
+      const review = buildAdaptiveSerCp007ReviewV71Final(question);
       return { ...entry, question, review } as T;
     });
 }
