@@ -16,6 +16,7 @@ import { ANSWER_SEMANTICS, resolve } from "./cp003-exam-support";
 import { presentationFor } from "./cp003-grounded-presentation";
 import { optionsFor } from "./cp003-exam-options";
 import { explanationFor } from "./cp003-grounded-explanation";
+import { assertCp003ExplanationStyle } from "./cp003-exam-explanation-style";
 import {
   INT_CP003_SOLUTION_TRACE_VERSION,
   buildCp003SolutionTrace,
@@ -23,7 +24,7 @@ import {
 } from "./cp003-grounded-solution-trace";
 import { assertCp003PresentationGrounding } from "./cp003-presentation-grounding";
 
-export const INT_CP003_EXAM_GENERATOR_VERSION = "INT-CP-003-EXAM-GENERATOR-v11" as const;
+export const INT_CP003_EXAM_GENERATOR_VERSION = "INT-CP-003-EXAM-GENERATOR-v12" as const;
 
 export {
   INT_CP003_AUTHORITY_VERSION,
@@ -111,6 +112,7 @@ export function generateIntCp003ExamQuestion(
   const correctIndex = options.findIndex((option) => option.isCorrect);
   if (correctIndex < 0 || options.filter((option) => option.isCorrect).length !== 1) throw new Error(`${qlId}: correct option ownership failure`);
   const explanation = explanationFor(solutionTrace);
+  assertCp003ExplanationStyle(qlId, explanation);
   assertCp003PresentationGrounding(contract, resolved, presentation, solutionTrace, explanation);
 
   const explanationStrings = collectStrings(explanation);
