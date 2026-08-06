@@ -42,8 +42,19 @@ function calibratedDifficulty(prototypeId: BlrCp007PrototypeId): BlrCp007V3Diffi
 
 function calibrate(question: GeneratedBlrCp007EditorialV3Question): GeneratedBlrCp007EditorialV3Question {
   const difficulty = calibratedDifficulty(question.sourcePrototypeId);
+  const options = question.qlId === "BLR-QL-031" && question.completedStatements.length === 1
+    ? question.options.map((option) => option.isCorrectAnswerForTask
+      ? { ...option, studentExplanation: `${option.text} decodes as: ${option.decodedAssertions[0]}` }
+      : option)
+    : question.options;
+  const optionAnalysis = question.explanation.optionAnalysis.map((analysis, index) => ({
+    ...analysis,
+    explanation: options[index]!.studentExplanation,
+  }));
   return {
     ...question,
+    options,
+    explanation: { ...question.explanation, optionAnalysis },
     reviewProof: { ...question.reviewProof, difficulty },
     metadata: { ...question.metadata, difficulty },
   };
