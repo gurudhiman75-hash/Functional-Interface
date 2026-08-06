@@ -5,7 +5,7 @@ Status: **assistant review in progress; human approval pending**.
 Exact reviewed implementation head:
 
 ```text
-8e066e71962d1c8edba323ea1142eb3fe62ca4d6
+00572b7e0629df093427a4cf8129b797a6adc70c
 ```
 
 ## Reviewed checkpoints
@@ -18,36 +18,37 @@ Exact reviewed implementation head:
 | TMW-CP-004 | 24 | 48 | 576 | Assistant review complete; human approval pending |
 | TMW-CP-005 | 24 | 48 | 576 | Assistant review complete; human approval pending |
 | TMW-CP-006 | 22 | 44 | 528 | Assistant review complete; human approval pending |
-| **Total** | **127** | **254** | **3,048** | **Zero open automated findings** |
+| TMW-CP-007 | 16 | 32 | 384 | Assistant review complete; human approval pending |
+| **Total** | **143** | **286** | **3,432** | **Zero open automated findings** |
 
 ## Exact implementation evidence
 
 Cumulative editorial workflow:
 
 ```text
-Run: 31019057397
-Artifact: 8935803823
-Digest: sha256:9728f925748624ea0c9f3699a0f12a0ad9265ce8f4265e0e23289b6a7704e26d
+Run: 31066709438
+Artifact: 8954095821
+Digest: sha256:7815aed006881331d066d9507413786b761d716d2a420c577ea54cedf1419d80
 ```
 
-CP-006 dedicated localisation proof:
+CP-007 dedicated localisation proof:
 
 ```text
-Run: 31019056786
-Artifact: 8935806894
-Digest: sha256:df6c3595556985902d1a2ee1bed63f285f99f5f22feca995263ae94fac05281b
-QLs: 22
-Deterministic native packages: 880
-Hindi distinct stems: 177
-Punjabi distinct stems: 177
+Run: 31066709513
+Artifact: 8954082533
+Digest: sha256:739498d16f6ff5415d269edb2e79c85cb67eb3a77bfaeb3c2e5ea43cf9f26e38
+QLs: 16
+Deterministic native packages: 640
+Hindi distinct stems: 151
+Punjabi distinct stems: 151
 ```
 
 Full chapter parity on the same reviewed implementation head:
 
 ```text
-Run: 31019056887
-Artifact: 8935848829
-Digest: sha256:5ae9f2ce5ebcd07ab82850b86079835841e5abe1236ad7b7f3a5eed5b3a32e85
+Run: 31066709520
+Artifact: 8954107737
+Digest: sha256:51f60582397693db55bcfd7354f1e254647f2b1306a1bab35b271bf2f6815850
 English packages: 2,532
 Localized packages: 5,064
 Parity checks: 5,064
@@ -64,8 +65,8 @@ This progress record does not set `editorialStatus: APPROVED`, does not enable p
 ## Remaining assistant-review frontier
 
 ```text
-TMW-CP-007 through TMW-CP-011
-TMW-QL-128 through TMW-QL-211
+TMW-CP-008 through TMW-CP-011
+TMW-QL-144 through TMW-QL-211
 ```
 
 All 211 Hindi and 211 Punjabi rows remain `AWAITING_HUMAN_REVIEW` until explicit human approval and a separate immutable multilingual manual-freeze checkpoint.
