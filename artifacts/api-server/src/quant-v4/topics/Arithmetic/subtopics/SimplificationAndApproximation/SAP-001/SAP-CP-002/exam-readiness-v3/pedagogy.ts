@@ -111,7 +111,10 @@ export function explanationFor(
     ]);
     finalAnswer = `Therefore, the answer is ${answer}.`;
   }
-  const traps = options.filter((option) => !option.isCorrect).map((option) => option.analysis).slice(0, 3);
+  const traps = options
+    .filter((option) => !option.isCorrect)
+    .map((option) => `Option ${option.displayIndex} (${option.value}): ${option.analysis}`)
+    .slice(0, 3);
   return Object.freeze({
     answerContract: pkg.explanation.answerContract,
     methodId,
