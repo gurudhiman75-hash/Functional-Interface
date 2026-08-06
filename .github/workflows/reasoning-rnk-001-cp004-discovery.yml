@@ -32,7 +32,13 @@ jobs:
         run: >-
           npx --yes tsx
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-exam-ready-v6-gates.test.ts
-          rnk-cp004-exam-ready-v6-output
+          rnk-cp004-exam-ready-v6-base-output
+
+      - name: Enforce final V6 language and difficulty reconciliation
+        run: >-
+          npx --yes tsx
+          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-exam-ready-v6-final-gates.test.ts
+          rnk-cp004-exam-ready-v6-final-output
 
       - name: Upload RNK-CP-004 Remodel V6 review evidence
         uses: actions/upload-artifact@v4
@@ -40,5 +46,6 @@ jobs:
           name: rnk-001-cp004-english-remodel-v6-review-pending
           path: |
             rnk-cp004-discovery-output
-            rnk-cp004-exam-ready-v6-output
+            rnk-cp004-exam-ready-v6-base-output
+            rnk-cp004-exam-ready-v6-final-output
           retention-days: 14
