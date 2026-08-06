@@ -2,6 +2,7 @@ import type { SapCp002PrototypeId } from "../SAP-CP-002-AUTHORITY-AND-TEMPLATE-M
 import { generateSapCp002FinalExamReadinessV2Package } from "../exam-readiness-v2/final-runtime";
 import type { SapCp002ExamReadinessV3Package } from "./types";
 import { extractExpression, parseExpression, visibleOperands } from "./exact";
+import { recoverProductAstFromFingerprint } from "./fingerprint";
 import { canonicalPayloadKey, makeOption, ownedOptions, shuffled, splitMode } from "./options";
 import { explanationFor, semanticDifficulty, validateV3 } from "./pedagogy";
 
@@ -12,7 +13,8 @@ export function generateSapCp002ExamReadinessV3Package(
   if (!Number.isSafeInteger(seed) || seed <= 0) throw new Error("SAP-CP-002 V3 seed must be a positive safe integer.");
   const v2 = generateSapCp002FinalExamReadinessV2Package(prototypeId, seed);
   const expression = extractExpression(v2.stem);
-  const ast = parseExpression(expression);
+  const ast = parseExpression(expression)
+    ?? (v2.permanentQlId === "SAP-QL-018" ? recoverProductAstFromFingerprint(v2.mathematicalFingerprint) : null);
   const mode = splitMode(v2);
   const visible = visibleOperands(v2.stem);
   const owned = ownedOptions(v2, ast, visible);
