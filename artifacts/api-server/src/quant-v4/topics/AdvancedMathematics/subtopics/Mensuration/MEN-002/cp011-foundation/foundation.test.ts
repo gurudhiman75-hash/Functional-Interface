@@ -3,6 +3,7 @@ import "./exam-readiness.test";
 import assert from "node:assert/strict";
 import { getMenCp011FoundationPrototypeIds } from "./registry";
 import { generateMenCp011FoundationPrototype } from "./runtime";
+import { MEN_CP011_MEASUREMENT_AUTHORITY } from "./measurement-profiles";
 
 const seedsPerPrototype = 32;
 let packageCount = 0;
@@ -15,12 +16,14 @@ for (const prototypeId of getMenCp011FoundationPrototypeIds()) {
     );
     const promptSvg = question.diagram.svg;
     const solutionSvg = question.solutionDiagram.svg;
+    const radialUnit = question.measurementProfile.radialUnit;
 
     assert.equal(
       question.validation.valid,
       true,
-      `${prototypeId} failed MEN-CP-011 exam-ready V2 validation for seed ${index}.`,
+      `${prototypeId} failed MEN-CP-011 Phase 2B validation for seed ${index}: ${question.validation.checks.filter((check) => !check.passed).map((check) => `${check.name}: ${check.message}`).join(" | ")}`,
     );
+    assert.equal(question.measurementAuthority, MEN_CP011_MEASUREMENT_AUTHORITY);
 
     for (const svg of [promptSvg, solutionSvg]) {
       assert.match(svg, /data-diagram-version="TUBE_EXAMTREE_EXAM_READY_V2"/);
@@ -60,11 +63,11 @@ for (const prototypeId of getMenCp011FoundationPrototypeIds()) {
         assert.match(promptSvg, />r = \?</);
         assert.doesNotMatch(
           promptSvg,
-          new RegExp(`r = ${question.state.innerRadius} cm`),
+          new RegExp(`r = ${question.state.innerRadius} ${radialUnit}`),
         );
         assert.match(
           solutionSvg,
-          new RegExp(`r = ${question.state.innerRadius} cm`),
+          new RegExp(`r = ${question.state.innerRadius} ${radialUnit}`),
         );
         assert.match(
           promptSvg,
@@ -76,11 +79,11 @@ for (const prototypeId of getMenCp011FoundationPrototypeIds()) {
         assert.match(promptSvg, />r = \?</);
         assert.doesNotMatch(
           promptSvg,
-          new RegExp(`r = ${question.state.innerRadius} cm`),
+          new RegExp(`r = ${question.state.innerRadius} ${radialUnit}`),
         );
         assert.match(
           solutionSvg,
-          new RegExp(`r = ${question.state.innerRadius} cm`),
+          new RegExp(`r = ${question.state.innerRadius} ${radialUnit}`),
         );
         break;
       case "RADII":
@@ -111,6 +114,12 @@ for (const prototypeId of getMenCp011FoundationPrototypeIds()) {
       /^MEN-CP011-OPTION-PERMUTATION-V2\|/,
     );
     assert.doesNotMatch(question.explanation.shortcut, /\\pih/);
+    if (question.measurementProfile.mixedUnits) {
+      assert.match(
+        question.explanation.steps.map((step) => `${step.title} ${step.body}`).join("\n"),
+        /Convert/,
+      );
+    }
     packageCount += 1;
   }
 }
@@ -121,5 +130,5 @@ assert.equal(
 );
 
 console.log(
-  `MEN-CP-011 exam-ready V2 runtime proof passed for ${packageCount} deterministic packages in addition to the 320-package base proof and 48-record batch proof.`,
+  `MEN-CP-011 Phase 2B runtime proof passed for ${packageCount} deterministic packages in addition to the 320-package base proof and 48-record balanced unit-representation batch proof.`,
 );
