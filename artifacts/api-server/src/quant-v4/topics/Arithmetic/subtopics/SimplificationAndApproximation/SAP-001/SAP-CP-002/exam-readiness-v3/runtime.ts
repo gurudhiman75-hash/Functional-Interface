@@ -35,7 +35,7 @@ export function generateSapCp002ExamReadinessV3Package(
   const options = Object.freeze(optionDrafts.map((option, index) => makeOption(option, index + 1)));
   const correctIndex = options.findIndex((option) => option.isCorrect);
   if (correctIndex < 0) throw new Error(`${prototypeId}/${seed} V3 has no correct option.`);
-  const explanation = explanationFor(
+  const generatedExplanation = explanationFor(
     v2,
     owned.stem,
     owned.canonicalAnswer,
@@ -44,6 +44,14 @@ export function generateSapCp002ExamReadinessV3Package(
     ast,
     visibleOperands(owned.stem),
   );
+  const explanation = v2.permanentQlId === "SAP-QL-031"
+    ? Object.freeze({
+      ...generatedExplanation,
+      commonTraps: Object.freeze(options
+        .filter((option) => !option.isCorrect)
+        .map((option) => `Option ${option.displayIndex} (${option.semanticValue}): ${option.analysis}`)),
+    })
+    : generatedExplanation;
   const difficulty = semanticDifficulty(v2, mode.subtype, ast, owned.stem);
   const generationIdentity = [
     "SAP_CP002_V3",
