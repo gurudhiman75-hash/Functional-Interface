@@ -1,3 +1,4 @@
+import { relationDisplay } from "../BLR-CP-006/cp006-model";
 import type { BlrCp007PrototypeId } from "./cp007-model";
 import {
   buildBlrCp007EditorialV3Telemetry,
@@ -40,13 +41,41 @@ function calibratedDifficulty(prototypeId: BlrCp007PrototypeId): BlrCp007V3Diffi
   return "MEDIUM";
 }
 
+function relationText(value: NonNullable<GeneratedBlrCp007EditorialV3Question["options"][number]["actualRelation"]>): string {
+  return relationDisplay(value).toLocaleLowerCase("en-IN");
+}
+
+function validityExplanation(
+  question: GeneratedBlrCp007EditorialV3Question,
+  option: GeneratedBlrCp007EditorialV3Question["options"][number],
+): string {
+  const decoded = option.decodedAssertions.join(" ");
+  const desiredStatus = question.query.kind === "SELECT_VALIDITY" ? question.query.desiredStatus : "VALID";
+  if (option.statementValidity === "VALID") {
+    const polarity = desiredStatus === "VALID"
+      ? "It is therefore the required correct statement."
+      : "It is valid, so it is not the required incorrect statement.";
+    return `${decoded} The written claim matches the decoded relation. ${polarity}`;
+  }
+  const actual = option.actualRelation ? relationText(option.actualRelation) : "relation shown by the code";
+  const claimed = option.claimedRelation ? relationText(option.claimedRelation) : "written relation";
+  const polarity = desiredStatus === "INVALID"
+    ? "It is therefore the required incorrect statement."
+    : "It is invalid, so it is not the required correct statement.";
+  return `${decoded} The actual relation is ${actual}, but the written claim says ${claimed}. ${polarity}`;
+}
+
 function calibrate(question: GeneratedBlrCp007EditorialV3Question): GeneratedBlrCp007EditorialV3Question {
   const difficulty = calibratedDifficulty(question.sourcePrototypeId);
-  const options = question.qlId === "BLR-QL-031" && question.completedStatements.length === 1
-    ? question.options.map((option) => option.isCorrectAnswerForTask
-      ? { ...option, studentExplanation: `${option.text} decodes as: ${option.decodedAssertions[0]}` }
-      : option)
-    : question.options;
+  const options = question.options.map((option) => {
+    if (question.qlId === "BLR-QL-031" && question.completedStatements.length === 1 && option.isCorrectAnswerForTask) {
+      return { ...option, studentExplanation: `${option.text} decodes as: ${option.decodedAssertions[0]}` };
+    }
+    if (question.qlId === "BLR-QL-035") {
+      return { ...option, studentExplanation: validityExplanation(question, option) };
+    }
+    return option;
+  });
   const optionAnalysis = question.explanation.optionAnalysis.map((analysis, index) => ({
     ...analysis,
     explanation: options[index]!.studentExplanation,
