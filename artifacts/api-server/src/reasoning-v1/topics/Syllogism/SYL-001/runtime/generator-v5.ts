@@ -1,6 +1,7 @@
 import type { SylLocale, TermId } from "../foundation/types";
 import { generateSylQuestionV4 } from "./generator-v4";
 import { buildLearnerPresentationV5 } from "./learner-v5";
+import { polishLearnerPresentationV5 } from "./learner-v5-editorial-polish";
 import type { GeneratedSylQuestionV5 } from "./learner-v5-types";
 import { assignTerms } from "./term-assignment";
 import type { SylQlId } from "./types";
@@ -16,10 +17,14 @@ export function generateSylQuestionV5(
   const termLabels = Object.fromEntries(
     termOrder.map((termId) => [termId, assignment[termId].labels[locale]]),
   ) as Readonly<Record<TermId, string>>;
+  const learnerPresentationV5 = polishLearnerPresentationV5(
+    question,
+    buildLearnerPresentationV5(question, termLabels),
+  );
 
   return {
     ...question,
-    learnerPresentationV5: buildLearnerPresentationV5(question, termLabels),
+    learnerPresentationV5,
   };
 }
 
