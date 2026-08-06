@@ -1,8 +1,8 @@
 # RNK-CP-004 — Multi-Entity Comparison and Explicit Order Reconstruction
 
-Status: **learner-safe English Remodel V5 implemented; manual approval, renderer integration and source expansion pending; permanent QL count open**.
+Status: **SSC/banking exam-authentic English Remodel V6 implemented; manual approval, renderer integration and source expansion pending; permanent QL count open**.
 
-This checkpoint owns questions in which several named entities are compared and one exact total order is reconstructed or made unique by one additional comparison.
+This checkpoint owns strict multi-entity comparison questions in which one exact total order is reconstructed or made unique by one additional comparison.
 
 ## Current provisional authorities
 
@@ -16,25 +16,25 @@ COMPLETE_ORDER
 RELATIVE_ORDER_OF_PAIR
 EXACT_RANK_DIFFERENCE_OF_PAIR
 IMMEDIATE_NEIGHBOUR
-VALID_RANK_STATEMENT
+DEFINITELY_TRUE_RELATION
 MISSING_COMPARISON
 ```
 
-Direction-only pair comparison and exact rank difference remain separate provisional authorities.
+The executable compatibility prototype still uses the historical `VALID_RANK_STATEMENT` identifier, but its proposed student-facing authority is `DEFINITELY_TRUE_RELATION`.
 
 ## Boundary
 
 ```text
-unique total order from multi-entity comparisons -> RNK-CP-004
-row/queue/merit/race presentation ownership      -> RNK-CP-005
-auto-generated height/age/marks vocabulary       -> RNK-CP-006
-non-unique, possible, definite or impossible     -> RNK-CP-007
-shared multi-question passages                   -> RNK-CP-008
+strict unique order from multi-entity comparisons -> RNK-CP-004
+row/queue/merit/race presentation ownership       -> RNK-CP-005
+height/age/marks attribute ownership              -> RNK-CP-006
+partial order, possible or cannot determine       -> RNK-CP-007
+shared multi-question passages                    -> RNK-CP-008
 ```
 
-Ties, incomparable entities and genuine cannot-determine answers are not forced into CP-004. Branched or partially determined orders remain owned by CP-007 unless a separate exact contract is proved.
+Ties, incomparable entities and genuine uncertainty are not forced into CP-004.
 
-## Executable Remodel V5 discovery
+## Executable Remodel V6 discovery
 
 ```text
 provisional authorities:             11
@@ -45,28 +45,79 @@ permanent QLs:                     none
 next available RNK identity:  RNK-QL-027
 ```
 
-These counts remain discovery evidence rather than a fixed final inventory.
+These remain discovery counts rather than a fixed final inventory.
+
+## Exam-authentic language model
+
+The V6 review pack represents six coherent context families equally:
+
+```text
+SELECTION_TEST             11
+MERIT_LIST                 11
+COMPETITION_STANDINGS      11
+PERFORMANCE_REVIEW         11
+INTERVIEW_SHORTLIST        11
+NEUTRAL_RANKING            11
+```
+
+Rules enforced across all 2,640 runtime questions:
+
+- one coherent context per question;
+- no clue phrase used more than twice;
+- Medium and Hard questions include reversed clue wording;
+- no generator-demo introductions;
+- no placeholder grammar;
+- student content excludes proof-debug terminology.
 
 ## Learner explanation model
 
-The internal proof remains structured, while the learner renderer shows only the decisive construction, requested calculation and answer. Optional distractor teaching uses a native collapsed disclosure contract.
-
 ```text
-CHAIN_BUILD
-POSITION_LINE
-PAIR_DIRECTION
-PAIR_DISTANCE
-NEIGHBOUR_HIGHLIGHT
-OPTION_CONTRADICTION
-TRANSITIVE_PROOF
-BLOCK_BRIDGE
+DIRECT
+SEGMENT_BUILDING
+FULL_POSITIONAL
 ```
 
-Raw Markdown HTML is not used. Clue-role notes remain admin-only. Actual Question Studio disclosure, mobile-width and accessibility validation remain pending integration.
+The renderer shows the smallest sufficient reasoning display:
 
-## Proof and metadata contracts
+- decisive local chain for simple relation questions;
+- joined segments for medium reconstruction;
+- complete order, numbering, local target or block bridge for exact-position and advanced tasks.
 
-V5 retains:
+Optional distractor teaching remains behind a native collapsed product component. Raw Markdown HTML is not used. Actual Question Studio mobile and accessibility validation remains pending integration.
+
+## Prototype improvements
+
+- named-rank options include top/bottom conversion traps;
+- relative-pair options test direction and rank-gap misconceptions;
+- middle questions state the middle-position calculation;
+- immediate-neighbour explanations show the local target segment;
+- `DEFINITELY_TRUE_RELATION` contains one transitive truth and three false relations, with no directly stated true option;
+- every missing-comparison distractor receives an enumerated ambiguity or contradiction proof;
+- exact rank difference distinguishes rank gap, persons between and inclusive count.
+
+## Difficulty contract
+
+V6 uses the reproducible model:
+
+```text
+RNK_CP004_DIFFICULTY_V2
+```
+
+The score is the sum of stored components for entity load, essential clues, reversed clues, blocks, non-adjacent comparisons, exact-position demand, confirmatory clues, option competition, shortest proof and task burden.
+
+The final review distribution is:
+
+```text
+Easy:    10
+Medium:  41
+Hard:    15
+```
+
+A final reconciliation gate corrected 86 runtime records whose language profile changed after initial difficulty scoring.
+
+## Proof and clue-accounting contracts
+
+V6 preserves:
 
 ```text
 shortestDirectionalPathClues
@@ -75,34 +126,9 @@ fullOrderProofClues
 shortestAnswerProofClues
 ```
 
-Missing-comparison records additionally distinguish:
+Missing comparison also distinguishes base clues, selected option relations and completed proof relations.
 
-```text
-shortestBaseClueProof
-selectedOptionRelations
-completedProofRelations
-```
-
-Edge reporting separates:
-
-```text
-coreReductionEdges
-displayedAdjacentEdges
-displayedNonAdjacentEdges
-addedConfirmatoryNonAdjacentEdges
-```
-
-Difficulty uses the versioned model:
-
-```text
-RNK_CP004_DIFFICULTY_V1
-```
-
-with stored score, label and component values.
-
-## Truthful clue accounting
-
-Every displayed clue receives exactly one proof role:
+Every displayed clue has exactly one role:
 
 ```text
 ESSENTIAL_FOR_FULL_ORDER
@@ -111,62 +137,32 @@ CONFIRMATORY
 REDUNDANT_OTHER
 ```
 
-The review pack contains:
+Review evidence:
 
 ```text
-ordinary-question essential clues: 322
-ordinary-question confirmatory clues: 45
-unclassified clues: 0
+essential clues:    322
+confirmatory clues:  45
+unclassified clues:   0
 ```
-
-## Transitive-conclusion authority
-
-`VALID_RANK_STATEMENT` now genuinely tests the phrase “two or more statements.” Its option contract contains:
-
-```text
-CORRECT_MULTI_STATEMENT_CONCLUSION
-TRUE_DIRECT_SINGLE_CLUE
-FALSE_REVERSE_OF_DIRECT_CLUE
-FALSE_REVERSE_OF_TRANSITIVE_CONCLUSION
-```
-
-The direct-true distractor is invalid because it follows from one displayed statement and has no separate multi-clue proof.
-
-## Remodel V5 guarantees
-
-- all V4 mathematical, uniqueness and clue-accounting guarantees remain intact;
-- core reduction edges are not described as added edges;
-- missing-comparison option relations are counted explicitly;
-- difficulty scoring is versioned and reproducible;
-- clue-role notes are admin-only and do not use false quotation marks;
-- learner distractor help uses a native collapsed data contract;
-- direction-pair distractor teaching is grounded in the visible local path;
-- exact-distance reasons are generated from actual option values;
-- transitive-conclusion distractors test the defining multi-statement condition;
-- semantic duplicates and answer-sequence patterns are rejected;
-- lifecycle and publication locks remain active.
-
-`RNK-CP-004-REMODEL-V5-REMEDIATION.md` records the complete V5 correction set.
 
 ## Current executable evidence
 
 ```text
-runtime questions:                              2,640
-review questions:                                  66
-review essential clues:                           322
-review confirmatory clues:                         45
-review unclassified clues:                          0
-average visible explanation words:              35.95
-average words including optional help:           73.11
-normalized semantic duplicates:                      0
-answer positions:                            16/17/17/16
-repeated four-answer sequences:                       0
+runtime questions:                          2,640
+review questions:                              66
+average visible explanation words:          41.53
+average words including optional help:       82.59
+answer positions:                       16/17/17/16
+repeated four-answer sequences:                   0
+normalized semantic duplicates:                   0
 ```
+
+`RNK-CP-004-REMODEL-V6-REMEDIATION.md` records the full correction set.
 
 ## Next gate
 
 ```text
-manual review of Remodel V5 English pack
+manual review of Remodel V6 English pack
   -> Question Studio native-disclosure integration and UI validation
   -> source and inverse expansion
   -> ownership and boundary audit
