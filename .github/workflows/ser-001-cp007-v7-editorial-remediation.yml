@@ -1,0 +1,121 @@
+name: Validate SER-001 CP-007 V7 editorial remediation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-B/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-C/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-D/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-WAVE-E/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-AUTHORITY-FREEZE-CANDIDATE/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL/**
+      - .github/workflows/ser-001-cp007-v7-editorial-remediation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ser-001-cp007-v7-editorial-remediation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-and-export-v7:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare V7 evidence directory
+        run: mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v7-editorial-remediation
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Run V7 editorial remediation proof
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v7-editorial-remediation
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/adaptive-review-v7.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/adaptive-review-v7.test.mjs"
+          (cd artifacts/api-server && node "$OUT/adaptive-review-v7.test.mjs") \
+            | tee "$EVIDENCE/SER-CP-007-V7-Editorial-Remediation-Proof.json"
+          grep -q 'PASS_SER_CP007_V7_EDITORIAL_REMEDIATION' \
+            "$EVIDENCE/SER-CP-007-V7-Editorial-Remediation-Proof.json"
+          grep -q '"interleavedSameRowProofs": 48' \
+            "$EVIDENCE/SER-CP-007-V7-Editorial-Remediation-Proof.json"
+          grep -q '"uniformWholeAnswerShiftDistractors": 0' \
+            "$EVIDENCE/SER-CP-007-V7-Editorial-Remediation-Proof.json"
+          grep -q '"standardOverLength": 0' \
+            "$EVIDENCE/SER-CP-007-V7-Editorial-Remediation-Proof.json"
+          grep -q '"standardOverLoad": 0' \
+            "$EVIDENCE/SER-CP-007-V7-Editorial-Remediation-Proof.json"
+
+      - name: Export V7 400-question review corpus
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v7-editorial-remediation
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/export-adaptive-review-v7-400-questions.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/export-adaptive-review-v7-400-questions.mjs"
+          (cd artifacts/api-server && node "$OUT/export-adaptive-review-v7-400-questions.mjs") \
+            > "$EVIDENCE/SER-CP-007-V7-400-Editorially-Remediated-Questions-and-Explanations.md"
+
+      - name: Validate V7 review corpus
+        run: |
+          set -euo pipefail
+          FILE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v7-editorial-remediation/SER-CP-007-V7-400-Editorially-Remediated-Questions-and-Explanations.md
+          grep -q '# SER-CP-007 V7 — 400 Editorially Remediated Questions and Explanations' "$FILE"
+          grep -q 'Interleaved same-row proof failures:    0' "$FILE"
+          grep -q 'Uniform whole-answer shift distractors: 0' "$FILE"
+          grep -q 'Standard PRIMARY task distribution' "$FILE"
+          grep -q 'Marker positions:' "$FILE"
+          grep -q 'target row only' "$FILE"
+          QUESTION_COUNT=$(grep -c '^## Question [0-9][0-9][0-9]$' "$FILE")
+          ANSWER_COUNT=$(grep -c '^\*\*Answer:\*\*' "$FILE")
+          EXPLANATION_COUNT=$(grep -c '^### Explanation$' "$FILE")
+          PRIMARY_COUNT=$(grep -c '^\- \*\*Pool status:\*\* \*\*PRIMARY\*\*$' "$FILE")
+          SAME_ROW_PASS_COUNT=$(grep -c '^\- \*\*Interleaved same-row proof:\*\* \*\*PASS\*\*$' "$FILE")
+          test "$QUESTION_COUNT" -eq 400
+          test "$ANSWER_COUNT" -eq 400
+          test "$EXPLANATION_COUNT" -eq 400
+          test "$PRIMARY_COUNT" -eq 135
+          test "$SAME_ROW_PASS_COUNT" -eq 48
+          ! grep -q 'YA → XK: Y→X' "$FILE"
+          ! grep -q 'DVUPNG → ZFOMAN' "$FILE"
+          ! grep -q 'EIDJ → GREP' "$FILE"
+          ! grep -q 'OMS → KWC' "$FILE"
+          ! grep -q 'x→X (0)' "$FILE"
+          ! grep -q 'X→x (0)' "$FILE"
+          echo "PASS_SER_CP007_V7_400_EDITORIAL_CORPUS primary=$PRIMARY_COUNT"
+
+      - name: Upload V7 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: ser-001-cp007-v7-editorial-remediation
+          path: artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v7-editorial-remediation/
+          if-no-files-found: error
+          retention-days: 30
