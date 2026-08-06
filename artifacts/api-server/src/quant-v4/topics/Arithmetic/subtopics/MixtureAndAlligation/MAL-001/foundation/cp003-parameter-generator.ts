@@ -212,7 +212,7 @@ export function generateMalCp003Parameters(
     case "MAL-CP003-PROT-THIRD-LIQUID-TWO-STAGE-COMPOSITION": {
       const volume = MULTI_STAGE_VOLUMES[ordinal % MULTI_STAGE_VOLUMES.length]!;
       const firstDivisor = STAGE_DIVISORS[ordinal % STAGE_DIVISORS.length]!;
-      const secondDivisor = STAGE_DIVISORS[(ordinal + 3) % STAGE_DIVISORS.length]!;
+      const secondDivisor = STAGE_DIVISORS[Math.floor(ordinal / STAGE_DIVISORS.length) % STAGE_DIVISORS.length]!;
       const firstRemoved = rational(volume, firstDivisor);
       const secondRemoved = rational(volume, secondDivisor);
       request = {
