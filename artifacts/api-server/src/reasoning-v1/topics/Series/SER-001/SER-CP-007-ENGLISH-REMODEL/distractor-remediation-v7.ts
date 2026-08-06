@@ -59,7 +59,7 @@ export function isUniformWholeAnswerShiftV7(
     }
     deltas.push(mod(actualIndex - expectedIndex, 26));
   }
-  return deltas.length > 0 && new Set(deltas).size === 1 && deltas[0] !== 0;
+  return deltas.length >= 2 && new Set(deltas).size === 1 && deltas[0] !== 0;
 }
 
 function answerIndexes(
