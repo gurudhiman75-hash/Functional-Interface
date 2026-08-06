@@ -7,9 +7,12 @@ import type {
   MenCp011ExamReadyPackage,
   MenCp011LearnerSolution,
 } from "./runtime-exam-readiness";
-import type { MenCp011PrototypeId } from "./types";
+import type {
+  MenCp011Explanation,
+  MenCp011PrototypeId,
+} from "./types";
 
-const DIAGNOSTIC_TEX_COMMANDS = new Set([
+const ALLOWED_VISIBLE_TEX_COMMANDS = new Set([
   "pi",
   "frac",
   "text",
@@ -23,8 +26,30 @@ const DIAGNOSTIC_TEX_COMMANDS = new Set([
   "right",
 ]);
 
+function repairMalformedTex(text: string) {
+  return text.replace(/\\pih\b/g, "\\pi h");
+}
+
 function normalizeNestedAnswerDelimiter(text: string) {
-  return text.replace(/=\$([^$]+)\$\$$/, "=$1$");
+  return repairMalformedTex(text).replace(/=\$([^$]+)\$\$$/, "=$1$");
+}
+
+function repairExplanation(
+  explanation: MenCp011Explanation,
+): MenCp011Explanation {
+  return {
+    keyRule: repairMalformedTex(explanation.keyRule),
+    steps: explanation.steps.map((step) => ({
+      ...step,
+      title: repairMalformedTex(step.title),
+      body: repairMalformedTex(step.body),
+      equation: step.equation
+        ? repairMalformedTex(step.equation)
+        : undefined,
+    })),
+    shortcut: repairMalformedTex(explanation.shortcut),
+    traps: explanation.traps.map(repairMalformedTex),
+  };
 }
 
 function normalizeLearnerSolution(
@@ -36,8 +61,51 @@ function normalizeLearnerSolution(
     steps: solution.steps.map(normalizeNestedAnswerDelimiter),
     finalAnswer: normalizeNestedAnswerDelimiter(solution.finalAnswer),
     shortcut: normalizeNestedAnswerDelimiter(solution.shortcut),
-    wrongOptionAnalysis: solution.wrongOptionAnalysis.map(normalizeNestedAnswerDelimiter),
+    wrongOptionAnalysis: solution.wrongOptionAnalysis.map(
+      normalizeNestedAnswerDelimiter,
+    ),
   };
+}
+
+function visibleTextValues(
+  question: MenCp011ExamReadyPackage,
+  explanation: MenCp011Explanation,
+  learnerSolution: MenCp011LearnerSolution,
+) {
+  return [
+    question.stem,
+    ...question.options.map((option) => option.display),
+    explanation.keyRule,
+    ...explanation.steps.flatMap((step) => [
+      step.title,
+      step.body,
+      step.equation ?? "",
+    ]),
+    explanation.shortcut,
+    ...explanation.traps,
+    learnerSolution.formula,
+    ...learnerSolution.steps,
+    learnerSolution.finalAnswer,
+    learnerSolution.shortcut,
+    ...learnerSolution.wrongOptionAnalysis,
+  ];
+}
+
+function visibleTexIsValid(
+  question: MenCp011ExamReadyPackage,
+  explanation: MenCp011Explanation,
+  learnerSolution: MenCp011LearnerSolution,
+) {
+  return visibleTextValues(question, explanation, learnerSolution).every((text) => {
+    if (text.includes("\\pih")) return false;
+    if ((text.match(/\$/g) ?? []).length % 2 !== 0) return false;
+    const commands = [...text.matchAll(/\\([A-Za-z]+)/g)].map(
+      (match) => match[1]!,
+    );
+    return commands.every((command) =>
+      ALLOWED_VISIBLE_TEX_COMMANDS.has(command),
+    );
+  });
 }
 
 function learnerDelimitersAreValid(solution: MenCp011LearnerSolution) {
@@ -50,78 +118,29 @@ function learnerDelimitersAreValid(solution: MenCp011LearnerSolution) {
   ];
   return values.every((value) =>
     !/=\$[^$]+\$\$$/.test(value) &&
+    !value.includes("\\pih") &&
     (value.match(/\$/g) ?? []).length % 2 === 0,
   );
 }
 
-function visibleTextFields(
+function rebuildFinalValidation(
   question: MenCp011ExamReadyPackage,
-  learnerSolution: MenCp011LearnerSolution,
-) {
-  return [
-    ["stem", question.stem],
-    ...question.options.map((option, index) => [
-      `option-${index + 1}`,
-      option.display,
-    ] as const),
-    ["key-rule", question.explanation.keyRule],
-    ...question.explanation.steps.flatMap((step, index) => [
-      [`step-${index + 1}-title`, step.title] as const,
-      [`step-${index + 1}-body`, step.body] as const,
-      [`step-${index + 1}-equation`, step.equation ?? ""] as const,
-    ]),
-    ["admin-shortcut", question.explanation.shortcut],
-    ...question.explanation.traps.map((trap, index) => [
-      `trap-${index + 1}`,
-      trap,
-    ] as const),
-    ["learner-formula", learnerSolution.formula],
-    ...learnerSolution.steps.map((step, index) => [
-      `learner-step-${index + 1}`,
-      step,
-    ] as const),
-    ["learner-answer", learnerSolution.finalAnswer],
-    ["learner-shortcut", learnerSolution.shortcut],
-    ...learnerSolution.wrongOptionAnalysis.map((text, index) => [
-      `learner-wrong-${index + 1}`,
-      text,
-    ] as const),
-  ] as const;
-}
-
-function texDiagnostics(
-  question: MenCp011ExamReadyPackage,
-  learnerSolution: MenCp011LearnerSolution,
-) {
-  const failures: string[] = [];
-  for (const [field, text] of visibleTextFields(question, learnerSolution)) {
-    const dollarCount = (text.match(/\$/g) ?? []).length;
-    const commands = [...text.matchAll(/\\([A-Za-z]+)/g)].map(
-      (match) => match[1]!,
-    );
-    const unsupported = [...new Set(
-      commands.filter((command) => !DIAGNOSTIC_TEX_COMMANDS.has(command)),
-    )];
-    if (text.includes("\\pih") || dollarCount % 2 !== 0 || unsupported.length > 0) {
-      failures.push(
-        `${field}{dollars=${dollarCount};unsupported=${unsupported.join(",") || "none"};pih=${text.includes("\\pih")}}`,
-      );
-    }
-  }
-  return failures.length === 0 ? "no field-level failure found" : failures.join(" | ");
-}
-
-function addLearnerDelimiterValidation(
-  question: MenCp011ExamReadyPackage,
+  explanation: MenCp011Explanation,
   learnerSolution: MenCp011LearnerSolution,
 ): MenCp011ExamReadyPackage["validation"] {
+  const texValid = visibleTexIsValid(
+    question,
+    explanation,
+    learnerSolution,
+  );
   const checks = question.validation.checks
     .filter((check) => check.name !== "learner TeX delimiter composition")
     .map((check) =>
-      check.name === "visible TeX lint" && !check.passed
+      check.name === "visible TeX lint"
         ? {
             ...check,
-            message: `${check.message} Diagnostics: ${texDiagnostics(question, learnerSolution)}`,
+            passed: texValid,
+            message: "Final learner and admin text must use supported TeX, balanced delimiters and a separated \\pi h product; the malformed command \\pih is forbidden.",
           }
         : check,
     );
@@ -140,19 +159,37 @@ export function generateMenCp011FoundationPrototype(
   prototypeId: MenCp011PrototypeId,
   seed: string,
 ): MenCp011StateExpandedPackage {
-  const generated = generateExpandedMenCp011FoundationPrototype(prototypeId, seed);
-  const learnerSolution = normalizeLearnerSolution(generated.learnerSolution);
-  return {
+  const generated = generateExpandedMenCp011FoundationPrototype(
+    prototypeId,
+    seed,
+  );
+  const explanation = repairExplanation(generated.explanation);
+  const learnerSolution = normalizeLearnerSolution(
+    generated.learnerSolution,
+  );
+  const withTextRepairs: MenCp011StateExpandedPackage = {
     ...generated,
+    explanation,
     learnerSolution,
-    validation: addLearnerDelimiterValidation(generated, learnerSolution),
     renderSurfaces: {
       ...generated.renderSurfaces,
       solution: {
         ...generated.renderSurfaces.solution,
         explanation: learnerSolution,
       },
+      admin: {
+        ...generated.renderSurfaces.admin,
+        explanation,
+      },
     },
+  };
+  return {
+    ...withTextRepairs,
+    validation: rebuildFinalValidation(
+      withTextRepairs,
+      explanation,
+      learnerSolution,
+    ),
   };
 }
 
