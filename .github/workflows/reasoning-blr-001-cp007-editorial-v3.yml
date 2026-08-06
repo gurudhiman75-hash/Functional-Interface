@@ -59,6 +59,42 @@ jobs:
           set -euo pipefail
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v3-authority.test.ts | tee cp007-v3.log
 
+      - name: Export CP-007 V3 human-review pack
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-cp007-editorial-v3-review.ts cp007-editorial-v3-review-output | tee cp007-v3-export.log
+
+      - name: Verify CP-007 V3 artifact contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=cp007-editorial-v3-review-output
+          test -f "$OUT/blr-cp007-editorial-v3-summary.json"
+          test -f "$OUT/blr-cp007-editorial-v3-records.jsonl"
+          test -f "$OUT/blr-cp007-editorial-v3-records.csv"
+          test -f "$OUT/blr-cp007-editorial-v3-review.html"
+          test -f "$OUT/BLR-CP-007-EDITORIAL-V3-REVIEW.md"
+          test "$(wc -l < "$OUT/blr-cp007-editorial-v3-records.jsonl")" -eq 168
+          grep -q '"semanticScenarioCount": 168' "$OUT/blr-cp007-editorial-v3-summary.json"
+          grep -q '"minimumSemanticScenariosPerPrototype": 8' "$OUT/blr-cp007-editorial-v3-summary.json"
+          grep -q '"MALE": 75' "$OUT/blr-cp007-editorial-v3-summary.json"
+          grep -q '"FEMALE": 75' "$OUT/blr-cp007-editorial-v3-summary.json"
+          grep -q '"NEUTRAL": 18' "$OUT/blr-cp007-editorial-v3-summary.json"
+          grep -q '"SYMBOL": 126' "$OUT/blr-cp007-editorial-v3-summary.json"
+          grep -q '"LETTER": 29' "$OUT/blr-cp007-editorial-v3-summary.json"
+          grep -q '"NEUTRAL_WORD": 13' "$OUT/blr-cp007-editorial-v3-summary.json"
+          grep -q '"EASY": 32' "$OUT/blr-cp007-editorial-v3-summary.json"
+          grep -q '"MEDIUM": 88' "$OUT/blr-cp007-editorial-v3-summary.json"
+          grep -q '"HARD": 48' "$OUT/blr-cp007-editorial-v3-summary.json"
+          grep -q '"validWrongGraphOptions": 504' "$OUT/blr-cp007-editorial-v3-summary.json"
+          grep -q '"ql034MeaningfulCandidateQuestions": 32' "$OUT/blr-cp007-editorial-v3-summary.json"
+          grep -q '168 genuinely varied English review questions' "$OUT/blr-cp007-editorial-v3-review.html"
+          grep -q 'Diagram hidden for this direct lookup' "$OUT/blr-cp007-editorial-v3-review.html"
+          grep -q 'Administrator review proof' "$OUT/blr-cp007-editorial-v3-review.html"
+          ! grep -q '<strong>Therefore:</strong> Therefore' "$OUT/blr-cp007-editorial-v3-review.html"
+          grep -q 'executable semantic-remodel review candidate' "$OUT/BLR-CP-007-EDITORIAL-V3-REVIEW.md"
+
       - name: Upload CP-007 V3 diagnostics
         if: always()
         uses: actions/upload-artifact@v4
@@ -69,5 +105,14 @@ jobs:
             cp007-v1-baseline.log
             cp007-v2-baseline.log
             cp007-v3.log
+            cp007-v3-export.log
           if-no-files-found: warn
           retention-days: 14
+
+      - name: Upload CP-007 V3 review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-editorial-v3-human-review
+          path: cp007-editorial-v3-review-output
+          if-no-files-found: error
+          retention-days: 30
