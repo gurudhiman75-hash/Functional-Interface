@@ -11,18 +11,21 @@ const TARGETS = [
   ["unknownRoundTripLegSpeedFromAverage", "p1-b03:roundtrip-speed:84", "84 km/h"],
   ["oneWayDistanceFromRoundTripData", "p1-b03:one-way-distance:144", "144 km"],
   ["roundTripLegTimeSum", "p1-b03:roundtrip-time:5", "5 hours"],
+  ["roundTripLegTimeSum", "p1-b03:roundtrip-time:4", "4 hours"],
   ["requiredRemainingSpeedForTargetAverage", "p1-b03:target-average:84", "84 km/h"],
 ] as const;
+
+const TARGET_MODES = [...new Set(TARGETS.map(([mode]) => mode))];
 
 function normalizedTemplate(stem: string): string {
   return stem.toLowerCase()
     .replace(/\d+(?:\.\d+)?/g, "<n>")
-    .replace(/\b(courier|transport log|service vehicle|survey vehicle|technician|maintenance team|driver)\b/g, "<context>")
+    .replace(/\b(courier|transport log|service vehicle|survey vehicle|technician|maintenance team|field engineer|driver)\b/g, "<context>")
     .replace(/\s+/g, " ").trim();
 }
 
 const rows = generateCanonicalReviewRecords();
-assert(rows.length === 125, "Batch 03 must expose 125 canonical review records");
+assert(rows.length === 126, "Batch 03 must expose 126 canonical review records");
 assert(new Set(rows.map((row) => row.solveMode)).size === 38, "Batch 03 changed the learner authority boundary");
 assert(rows.every((row) => row.validation.valid), "Invalid record entered Batch 03");
 assert(rows.every((row) => row.permanentQlId === null), "Permanent QL assigned during Batch 03");
@@ -30,7 +33,7 @@ assert(rows.every((row) => row.lifecycle.englishFreezeStatus === "UNFROZEN"), "B
 
 const supplementalRows = TARGETS.map(([mode, seed, expectedAnswer]) => {
   const row = rows.find((candidate) => candidate.solveMode === mode && candidate.seed === seed);
-  assert(row, `${mode}: Batch 03 supplement is missing`);
+  assert(row, `${mode}: Batch 03 supplement ${seed} is missing`);
   assert(row.answerText === expectedAnswer, `${mode}: expected ${expectedAnswer}, received ${row.answerText}`);
   assert(row.options.length === 4 && new Set(row.options).size === 4, `${mode}: option uniqueness failed`);
   assert(row.options[row.correctIndex] === row.answerText, `${mode}: answer key mismatch`);
@@ -40,13 +43,17 @@ const supplementalRows = TARGETS.map(([mode, seed, expectedAnswer]) => {
   return row;
 });
 
-for (const [mode] of TARGETS) {
+for (const mode of TARGET_MODES) {
   const modeRows = rows.filter((row) => row.solveMode === mode);
-  assert(modeRows.length === 4, `${mode}: expected three inherited rows plus one Batch 03 supplement`);
+  const expectedRows = mode === "roundTripLegTimeSum" ? 5 : 4;
+  assert(modeRows.length === expectedRows, `${mode}: expected ${expectedRows} review states`);
   assert(new Set(modeRows.map((row) => row.answerText)).size >= 3, `${mode}: answer pool remains too repetitive`);
   assert(new Set(modeRows.map((row) => normalizedTemplate(row.stem))).size >= 2, `${mode}: no material stem-template expansion`);
   assert(new Set(modeRows.map((row) => row.sourceTrace.mathematicalFingerprint)).size === modeRows.length, `${mode}: mathematical state repeated`);
 }
+
+const roundTripAnswers = new Set(rows.filter((row) => row.solveMode === "roundTripLegTimeSum").map((row) => row.answerText));
+assert(roundTripAnswers.has("3 hours") && roundTripAnswers.has("4 hours") && roundTripAnswers.has("5 hours"), "Round-trip-time pool must contain 3, 4 and 5 hour answers");
 
 const printedNumbers = supplementalRows.flatMap((row) => row.stem.match(/\d+(?:\.\d+)?/g) ?? []);
 const canonicalFamilyUses = printedNumbers.filter((value) => value === "30" || value === "40" || value === "60").length;
@@ -58,9 +65,10 @@ console.log(JSON.stringify({
   status: "PASS",
   phase: "P1_DIVERSITY_BATCH_03",
   canonicalRecords: rows.length,
-  targetedAuthorities: TARGETS.length,
+  targetedAuthorities: TARGET_MODES.length,
   supplementalRows: supplementalRows.length,
   supplementalAnswers: supplementalRows.map((row) => row.answerText),
+  roundTripTimeAnswers: [...roundTripAnswers],
   supplementalPrintedNumbers: printedNumbers.length,
   supplemental304060Uses: canonicalFamilyUses,
   permanentQlIdsAssigned: 0,
