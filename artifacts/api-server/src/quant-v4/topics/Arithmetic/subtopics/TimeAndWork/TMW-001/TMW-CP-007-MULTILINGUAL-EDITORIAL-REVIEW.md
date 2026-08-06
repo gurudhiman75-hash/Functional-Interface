@@ -9,15 +9,16 @@ Hindi rows: 16
 Punjabi rows: 16
 Total reviewed rows: 32
 Exact reviewed implementation head: 00572b7e0629df093427a4cf8129b797a6adc70c
-Checkpoint localisation run: 31066709513
-Checkpoint localisation artifact: 8954082533
-Checkpoint localisation digest: sha256:739498d16f6ff5415d269edb2e79c85cb67eb3a77bfaeb3c2e5ea43cf9f26e38
-Cumulative editorial run: 31066709438
-Cumulative editorial artifact: 8954095821
-Cumulative editorial digest: sha256:7815aed006881331d066d9507413786b761d716d2a420c577ea54cedf1419d80
-Full chapter run: 31066709520
-Full chapter artifact: 8954107737
-Full chapter digest: sha256:51f60582397693db55bcfd7354f1e254647f2b1306a1bab35b271bf2f6815850
+Final stable documentation/proof head: b34ca3dafaad667b5cbc501c93d0111ec7c65117
+Checkpoint localisation run: 31067018419
+Checkpoint localisation artifact: 8954190170
+Checkpoint localisation digest: sha256:d84141aeb4930929686f5358bc36ce285ac97f39bfa1b274d7853b811fc18e35
+Cumulative editorial run: 31067018313
+Cumulative editorial artifact: 8954187441
+Cumulative editorial digest: sha256:1cb1f22c71d5f52171862391ebe8cae7a22fd67382107ba65c345c9a63bb05dc
+Full chapter run: 31067018415
+Full chapter artifact: 8954185958
+Full chapter digest: sha256:56219c632ecbdc028766b67f3a63dd2c69a3d36bd066bea1dcac0b8f6249ddf0
 ```
 
 ## Review boundary
