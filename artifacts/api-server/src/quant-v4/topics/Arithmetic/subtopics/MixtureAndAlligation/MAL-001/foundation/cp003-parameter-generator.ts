@@ -9,7 +9,6 @@ import type {
   MalCp003ExecutablePrototypeId,
   MalCp003SolveRequest,
 } from "./cp003-types";
-
 function hashSeed(value: string): number {
   let hash = 2166136261;
   for (const character of value) {
@@ -18,14 +17,11 @@ function hashSeed(value: string): number {
   }
   return hash >>> 0;
 }
-
 class DeterministicRandom {
   private state: number;
-
   constructor(seed: string) {
     this.state = hashSeed(seed) || 0x9e3779b9;
   }
-
   next(): number {
     let value = this.state;
     value ^= value << 13;
@@ -34,39 +30,30 @@ class DeterministicRandom {
     this.state = value >>> 0;
     return this.state;
   }
-
   int(minimum: number, maximum: number): number {
     if (maximum < minimum) {
       throw new Error(`Invalid deterministic range ${minimum}..${maximum}.`);
     }
     return minimum + (this.next() % (maximum - minimum + 1));
   }
-
   pick<T>(values: readonly T[]): T {
     if (values.length === 0) throw new Error("Cannot pick from an empty list.");
     return values[this.next() % values.length]!;
   }
 }
-
-/**
- * One exam-friendly case per retained-fraction family. The V2 editorial
- * selector deliberately rotates these families instead of allowing 3/4 to
- * dominate the generated corpus.
- */
 const EQUAL_STAGE_CASES = [
-  { volume: 60, removed: 30 },  // 1/2
-  { volume: 50, removed: 20 },  // 3/5
-  { volume: 80, removed: 30 },  // 5/8
-  { volume: 81, removed: 27 },  // 2/3
-  { volume: 100, removed: 30 }, // 7/10
-  { volume: 64, removed: 16 },  // 3/4
-  { volume: 100, removed: 20 }, // 4/5
-  { volume: 90, removed: 15 },  // 5/6
-  { volume: 80, removed: 10 },  // 7/8
-  { volume: 100, removed: 10 }, // 9/10
-  { volume: 120, removed: 10 }, // 11/12
+  { volume: 60, removed: 30 },
+  { volume: 50, removed: 20 },
+  { volume: 80, removed: 30 },
+  { volume: 81, removed: 27 },
+  { volume: 100, removed: 30 },
+  { volume: 64, removed: 16 },
+  { volume: 100, removed: 20 },
+  { volume: 90, removed: 15 },
+  { volume: 80, removed: 10 },
+  { volume: 100, removed: 10 },
+  { volume: 120, removed: 10 },
 ] as const;
-
 const INITIAL_SHARES = [
   rational(1),
   rational(3, 4),
@@ -75,7 +62,6 @@ const INITIAL_SHARES = [
   rational(1, 2),
   rational(4, 5),
 ] as const;
-
 const UNEQUAL_DIVISOR_SEQUENCES = [
   [2, 4],
   [3, 5, 6],
@@ -86,31 +72,25 @@ const UNEQUAL_DIVISOR_SEQUENCES = [
   [10, 5, 8],
   [12, 6, 4],
 ] as const;
-
 const STAGE_DIVISORS = [2, 3, 4, 5, 6, 8, 10, 12] as const;
 const MULTI_STAGE_VOLUMES = [120, 240, 360, 480] as const;
-
 function sampleOrdinal(seed: string): number {
   const diversity = seed.match(/diversity-set:(\d+)/u);
   if (diversity) return Math.floor(Number(diversity[1]) / 9);
   const beforeCandidate = seed.match(/:(\d+):candidate-\d+$/u);
   if (beforeCandidate) return Number(beforeCandidate[1]);
   const trailing = seed.match(/(\d+)(?!.*\d)/u);
-  return trailing ? Numbr(trailing[1]) : hashSeed(seed);
+  return trailing ? Number(trailing[1]) : hashSeed(seed);
 }
-
 function prototypeOffset(prototypeId: MalCp003ExecutablePrototypeId): number {
   return hashSeed(prototypeId) % EQUAL_STAGE_CASES.length;
 }
-
 function retainedFraction(volume: number, removed: number) {
   return rational(volume - removed, volume);
 }
-
 function initialOriginalQuantity(volume: number, random: DeterministicRandom) {
   return multiplyRational(rational(volume), random.pick(INITIAL_SHARES));
 }
-
 function equalFinal(
   volume: number,
   removed: number,
@@ -122,7 +102,6 @@ function equalFinal(
     powerRational(retainedFraction(volume, removed), operations),
   );
 }
-
 export interface MalCp003GeneratedParameters {
   prototypeId: MalCp003ExecutablePrototypeId;
   seed: string;
@@ -130,7 +109,6 @@ export interface MalCp003GeneratedParameters {
   generationFingerprint: string;
   construction: "VALID_STATE_FIRST";
 }
-
 export function generateMalCp003Parameters(
   prototypeId: MalCp003ExecutablePrototypeId,
   seed = `mal-cp003:${prototypeId}:default`,
@@ -144,7 +122,6 @@ export function generateMalCp003Parameters(
   const removedQuantity = rational(selected.removed);
   const operations = random.int(2, 5);
   let request: MalCp003SolveRequest;
-
   switch (prototypeId) {
     case "MAL-CP003-PROT-FINAL-ORIGINAL-QUANTITY-EQUAL-REPLACEMENTS":
       request = {
@@ -155,7 +132,6 @@ export function generateMalCp003Parameters(
         operations,
       };
       break;
-
     case "MAL-CP003-PROT-FINAL-ORIGINAL-FRACTION-EQUAL-REPLACEMENTS":
       request = {
         mode: "FINAL_ORIGINAL_FRACTION_EQUAL_STAGES",
@@ -163,7 +139,6 @@ export function generateMalCp003Parameters(
         operations,
       };
       break;
-
     case "MAL-CP003-PROT-FINAL-REFILL-QUANTITY-EQUAL-REPLACEMENTS":
       request = {
         mode: "FINAL_REFILL_QUANTITY_EQUAL_STAGES",
@@ -172,7 +147,6 @@ export function generateMalCp003Parameters(
         operations,
       };
       break;
-
     case "MAL-CP003-PROT-INITIAL-ORIGINAL-QUANTITY-FROM-FINAL": {
       const initial = initialOriginalQuantity(selected.volume, random);
       request = {
@@ -189,7 +163,6 @@ export function generateMalCp003Parameters(
       };
       break;
     }
-
     case "MAL-CP003-PROT-REMOVAL-QUANTITY-FROM-FINAL": {
       const initial = initialOriginalQuantity(selected.volume, random);
       request = {
@@ -206,7 +179,6 @@ export function generateMalCp003Parameters(
       };
       break;
     }
-
     case "MAL-CP003-PROT-OPERATION-COUNT-FROM-FINAL": {
       const initial = initialOriginalQuantity(selected.volume, random);
       request = {
@@ -224,7 +196,6 @@ export function generateMalCp003Parameters(
       };
       break;
     }
-
     case "MAL-CP003-PROT-FINAL-ORIGINAL-QUANTITY-UNEQUAL-REPLACEMENTS": {
       const divisors = UNEQUAL_DIVISOR_SEQUENCES[
         ordinal % UNEQUAL_DIVISOR_SEQUENCES.length
@@ -238,7 +209,6 @@ export function generateMalCp003Parameters(
       };
       break;
     }
-
     case "MAL-CP003-PROT-THIRD-LIQUID-TWO-STAGE-COMPOSITION": {
       const volume = MULTI_STAGE_VOLUMES[ordinal % MULTI_STAGE_VOLUMES.length]!;
       const firstDivisor = STAGE_DIVISORS[ordinal % STAGE_DIVISORS.length]!;
@@ -261,7 +231,6 @@ export function generateMalCp003Parameters(
       break;
     }
   }
-
   return {
     prototypeId,
     seed,
@@ -274,7 +243,6 @@ export function generateMalCp003Parameters(
     construction: "VALID_STATE_FIRST",
   };
 }
-
 export function malCp003RequestFingerprint(request: MalCp003SolveRequest): string {
   switch (request.mode) {
     case "FINAL_ORIGINAL_QUANTITY_EQUAL_STAGES":
