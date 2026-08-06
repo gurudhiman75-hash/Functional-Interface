@@ -69,6 +69,20 @@ function inflectGovernedDuration(text: string, language: TmwLocalizedLanguage): 
     .replace(/(\d+(?:\.\d+)?) ਘੰਟਾ ਵਿੱਚ/g, "$1 ਘੰਟਿਆਂ ਵਿੱਚ");
 }
 
+function naturalConclusionWithExactAnswer(
+  text: string,
+  answerText: string,
+  language: TmwLocalizedLanguage,
+): string {
+  if (!text.includes(answerText)) return text;
+  const governed = `${answerText} ${language === "hi" ? "में" : "ਵਿੱਚ"}`;
+  if (!text.includes(governed)) return inflectGovernedDuration(text, language);
+  return text.replace(
+    governed,
+    `${answerText} ${language === "hi" ? "लगेंगे" : "ਲੱਗਣਗੇ"}`,
+  );
+}
+
 export function localizeTmwCp007Question(
   source: TmwCp007GeneratedQuestion,
   language: TmwLocalizedLanguage,
@@ -140,7 +154,7 @@ export function localizeTmwCp007Question(
       steps: constrainedEditorial.shortcut.steps.map((text) => inflectGovernedDuration(text, language)),
     },
     trapExplanation: inflectGovernedDuration(constrainedEditorial.trapExplanation, language),
-    conclusion: inflectGovernedDuration(constrainedEditorial.conclusion, language),
+    conclusion: naturalConclusionWithExactAnswer(constrainedEditorial.conclusion, answerText, language),
   };
   const errors = [...source.validation.errors];
 
