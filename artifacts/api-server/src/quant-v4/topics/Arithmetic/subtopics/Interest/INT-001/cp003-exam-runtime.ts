@@ -90,18 +90,27 @@ function collectStrings(value: unknown, output: string[] = []): string[] {
 function simplerStudentLanguage(text: string): string {
   return text
     .replace("First see how many times the money became:", "First compare the final amount with the original sum:")
+    .replace("First find how many times the money became, and then find the increase for one year.", "First compare the two amounts, and then find the yearly increase.")
     .replace("We compare the total increase with the same increase applied year after year.", "We compare the final amount with the original sum and check how the money changes each year.")
-    .replace(/the same yearly increase/giu, "the given yearly rate")
-    .replace(/same yearly increase/giu, "given yearly rate")
+    .replace("The same yearly increase", "The given yearly rate")
+    .replace("Same yearly increase", "Given yearly rate")
+    .replace(/the same yearly increase/gu, "the given yearly rate")
+    .replace(/same yearly increase/gu, "given yearly rate")
     .replace(/complete increase for all the years/giu, "interest added over all the years")
     .replace(/complete multi-year increase/giu, "interest added over the full period")
     .replace(/ of growth\b/giu, " of earlier interest")
     .replace(/This change took place over/giu, "This happened over")
     .replace(/the balance became (\$[^$]+\$) times in each year\./gu, "the amount was multiplied by $1 each year.")
     .replace(/move the earlier interest forward through each year in between/giu, "increase the earlier interest once for each year in between")
-    .replace(/for every ₹1 of the original sum, the interest in the required year is/giu, "the interest in the required year is this part of the original sum:")
+    .replace(/for every ₹1 of the original sum, the interest in the required year is/giu, "the required year's interest is this part of the original sum:")
     .replace("Applying the given yearly rate once gives", "Increasing it once at the given rate gives")
-    .replace("Applying the given yearly rate", "Increasing it at the given rate");
+    .replace("Applying the given yearly rate", "Increasing it at the given rate")
+    .replace(
+      /Because that year's interest is calculated after (\d+) years? of earlier interest, those earlier increases must be included before solving for the original sum\./u,
+      "That year's interest is calculated on the balance present at the start of the year, after $1 earlier year$1. We must include that earlier interest before finding the original sum.",
+    )
+    .replace("after 1 earlier year1.", "after 1 earlier year.")
+    .replace(/after (\d+) earlier years?\1\./gu, "after $1 earlier years.");
 }
 
 function polishExplanationWording(
