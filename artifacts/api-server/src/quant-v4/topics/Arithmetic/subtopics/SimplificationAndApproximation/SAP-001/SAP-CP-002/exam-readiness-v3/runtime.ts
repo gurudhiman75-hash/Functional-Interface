@@ -1,7 +1,7 @@
 import type { SapCp002PrototypeId } from "../SAP-CP-002-AUTHORITY-AND-TEMPLATE-MAP";
 import { generateSapCp002FinalExamReadinessV2Package } from "../exam-readiness-v2/final-runtime";
 import type { SapCp002ExamReadinessV3Package } from "./types";
-import { extractExpression, parseExpression, visibleOperands } from "./exact";
+import { extractExpression, normalizeFingerprint, parseExpression, visibleOperands } from "./exact";
 import { recoverProductAstFromFingerprint } from "./fingerprint";
 import { canonicalPayloadKey, makeOption, ownedOptions, shuffled, splitMode } from "./options";
 import { explanationFor, semanticDifficulty, validateV3 } from "./pedagogy";
@@ -18,7 +18,10 @@ export function generateSapCp002ExamReadinessV3Package(
   const mode = splitMode(v2);
   const visible = visibleOperands(v2.stem);
   const owned = ownedOptions(v2, ast, visible);
-  const canonicalKey = canonicalPayloadKey(v2, mode.subtype, ast);
+  const baseCanonicalKey = canonicalPayloadKey(v2, mode.subtype, ast);
+  const canonicalKey = v2.taskDirection === "INVERSE"
+    ? `${baseCanonicalKey}|EQUALITY:${normalizeFingerprint(owned.stem)}`
+    : baseCanonicalKey;
   const answerBoundOptions = Object.freeze(owned.options.map((option) => option.isCorrect
     ? Object.freeze({
       ...option,
