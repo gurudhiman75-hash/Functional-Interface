@@ -4,7 +4,7 @@ import {
   type MalCp003Wave12UnifiedQuestion,
 } from "./cp003-unified-runtime-wave12-editorial";
 import { canonicalOption, parseNumber } from "./cp003-editorial-v2-core";
-import { BANNED_OPENERS, cleanStem, cleanStep, cleanText, operationCountFrom, retainedFractionFrom, rootName } from "./cp003-editorial-v2-language";
+import { BANNED_OPENERS, cleanStem, cleanStep, cleanText, operationCountFrom, retainedFractionFrom, rootName, varyOpening } from "./cp003-editorial-v2-language";
 import { conceptualOptions } from "./cp003-editorial-v2-options";
 import { diagramFor, ql034Variant } from "./cp003-editorial-v2-three-component";
 
@@ -188,7 +188,7 @@ function remediate(
   base: MalCp003Wave12UnifiedQuestion,
   seed: string,
 ): MalCp003EditorialV2Question {
-  const cleanedStem = cleanStem(base);
+  const cleanedStem = varyOpening(cleanStem(base), seed);
   const cleanedBase = { ...base, stem: cleanedStem };
   const baseWithStem = ql034Variant(cleanedBase, seed);
   const quality = numericalQuality(baseWithStem);
