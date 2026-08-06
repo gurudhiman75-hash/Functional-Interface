@@ -9,6 +9,20 @@ import type {
 } from "./runtime-exam-readiness";
 import type { MenCp011PrototypeId } from "./types";
 
+const DIAGNOSTIC_TEX_COMMANDS = new Set([
+  "pi",
+  "frac",
+  "text",
+  "times",
+  "div",
+  "quad",
+  "qquad",
+  "sqrt",
+  "cdot",
+  "left",
+  "right",
+]);
+
 function normalizeNestedAnswerDelimiter(text: string) {
   return text.replace(/=\$([^$]+)\$\$$/, "=$1$");
 }
@@ -40,13 +54,77 @@ function learnerDelimitersAreValid(solution: MenCp011LearnerSolution) {
   );
 }
 
+function visibleTextFields(
+  question: MenCp011ExamReadyPackage,
+  learnerSolution: MenCp011LearnerSolution,
+) {
+  return [
+    ["stem", question.stem],
+    ...question.options.map((option, index) => [
+      `option-${index + 1}`,
+      option.display,
+    ] as const),
+    ["key-rule", question.explanation.keyRule],
+    ...question.explanation.steps.flatMap((step, index) => [
+      [`step-${index + 1}-title`, step.title] as const,
+      [`step-${index + 1}-body`, step.body] as const,
+      [`step-${index + 1}-equation`, step.equation ?? ""] as const,
+    ]),
+    ["admin-shortcut", question.explanation.shortcut],
+    ...question.explanation.traps.map((trap, index) => [
+      `trap-${index + 1}`,
+      trap,
+    ] as const),
+    ["learner-formula", learnerSolution.formula],
+    ...learnerSolution.steps.map((step, index) => [
+      `learner-step-${index + 1}`,
+      step,
+    ] as const),
+    ["learner-answer", learnerSolution.finalAnswer],
+    ["learner-shortcut", learnerSolution.shortcut],
+    ...learnerSolution.wrongOptionAnalysis.map((text, index) => [
+      `learner-wrong-${index + 1}`,
+      text,
+    ] as const),
+  ] as const;
+}
+
+function texDiagnostics(
+  question: MenCp011ExamReadyPackage,
+  learnerSolution: MenCp011LearnerSolution,
+) {
+  const failures: string[] = [];
+  for (const [field, text] of visibleTextFields(question, learnerSolution)) {
+    const dollarCount = (text.match(/\$/g) ?? []).length;
+    const commands = [...text.matchAll(/\\([A-Za-z]+)/g)].map(
+      (match) => match[1]!,
+    );
+    const unsupported = [...new Set(
+      commands.filter((command) => !DIAGNOSTIC_TEX_COMMANDS.has(command)),
+    )];
+    if (text.includes("\\pih") || dollarCount % 2 !== 0 || unsupported.length > 0) {
+      failures.push(
+        `${field}{dollars=${dollarCount};unsupported=${unsupported.join(",") || "none"};pih=${text.includes("\\pih")}}`,
+      );
+    }
+  }
+  return failures.length === 0 ? "no field-level failure found" : failures.join(" | ");
+}
+
 function addLearnerDelimiterValidation(
   question: MenCp011ExamReadyPackage,
   learnerSolution: MenCp011LearnerSolution,
 ): MenCp011ExamReadyPackage["validation"] {
-  const checks = question.validation.checks.filter(
-    (check) => check.name !== "learner TeX delimiter composition",
-  );
+  const checks = question.validation.checks
+    .filter((check) => check.name !== "learner TeX delimiter composition")
+    .map((check) =>
+      check.name === "visible TeX lint" && !check.passed
+        ? {
+            ...check,
+            message: `${check.message} Diagnostics: ${texDiagnostics(question, learnerSolution)}`,
+          }
+        : check,
+    );
   checks.push({
     name: "learner TeX delimiter composition",
     passed: learnerDelimitersAreValid(learnerSolution),
