@@ -44,7 +44,9 @@ for (const entry of TMW_CP007_REGISTRY) {
       assert.ok(first.explanation.steps.length >= 2);
       assert.ok(first.explanation.steps.every((step) => step.startsWith("\\(") && step.endsWith("\\)")));
       assert.ok(first.explanation.givens.length >= 2);
-      assert.ok(first.explanation.shortcut.title.startsWith(language === "hi" ? "10-सेकंड" : "10-ਸਕਿੰਟ"));
+      assert.ok(first.explanation.shortcut.title.trim().length > 0);
+      assert.equal(language === "hi" ? /[\u0900-\u097F]/.test(first.explanation.shortcut.title) : /[\u0A00-\u0A7F]/.test(first.explanation.shortcut.title), true);
+      assert.equal(/10-सेकंड|10-ਸਕਿੰਟ/.test(first.explanation.shortcut.title), false, `${entry.qlId}:${language}: generic shortcut title`);
       assert.ok(first.options.includes(first.explanation.commonTrap.optionText));
       assert.notEqual(first.explanation.commonTrap.misconceptionId, "CORRECT");
 
