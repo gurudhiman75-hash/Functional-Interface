@@ -4,10 +4,8 @@ import {
   SER_CP007_TEMPLATE_PROBES_V7,
 } from "../SER-CP-007-AUTHORITY-FREEZE-CANDIDATE/authority-compression-contract-v7";
 import type { SerCp007EditorialQuestion } from "./adaptive-review";
-import {
-  buildAdaptiveSerCp007ReviewV7,
-  type SerCp007AdaptiveReviewV7,
-} from "./adaptive-review-v7";
+import type { SerCp007AdaptiveReviewV7 } from "./adaptive-review-v7";
+import { buildAdaptiveSerCp007ReviewV7Final } from "./adaptive-review-v7-final";
 import { isUniformWholeAnswerShiftV7 } from "./distractor-remediation-v7";
 import {
   selectSerCp007PrimaryReleaseV7,
@@ -56,7 +54,7 @@ for (const [probeIndex, probe] of sortedProbes.entries()) {
   const seeds = probeIndex % 7 === 6 ? [1, 2] : [1, 2, 3];
   for (const seed of seeds) {
     const question = probe.generate(seed) as unknown as SerCp007EditorialQuestion;
-    const review = buildAdaptiveSerCp007ReviewV7(question);
+    const review = buildAdaptiveSerCp007ReviewV7Final(question);
     if (!review.structuralDepth.passesStructuralDepth) {
       throw new Error(
         `${question.temporaryTemplateId}:${seed} failed V7 structural depth.`,
