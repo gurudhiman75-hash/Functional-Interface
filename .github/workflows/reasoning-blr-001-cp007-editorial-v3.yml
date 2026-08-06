@@ -1,0 +1,73 @@
+name: Reasoning BLR-001 CP-007 Editorial V3
+
+on:
+  push:
+    branches:
+      - feat/blr-001-cp007-editorial-v3
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/**"
+      - ".github/workflows/reasoning-blr-001-cp007-editorial-v3.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/**"
+      - ".github/workflows/reasoning-blr-001-cp007-editorial-v3.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blr-001-cp007-editorial-v3-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp007-editorial-v3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prove CP-006 source runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-runtime.test.ts | tee cp006-source.log
+
+      - name: Prove CP-007 V1 solver baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-runtime.test.ts | tee cp007-v1-baseline.log
+
+      - name: Prove CP-007 V2 engineering baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v2-exam-review-final.test.ts | tee cp007-v2-baseline.log
+
+      - name: Prove CP-007 V3 semantic editorial bank
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v3.test.ts | tee cp007-v3.log
+
+      - name: Upload CP-007 V3 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-editorial-v3-logs
+          path: |
+            cp006-source.log
+            cp007-v1-baseline.log
+            cp007-v2-baseline.log
+            cp007-v3.log
+          if-no-files-found: warn
+          retention-days: 14
