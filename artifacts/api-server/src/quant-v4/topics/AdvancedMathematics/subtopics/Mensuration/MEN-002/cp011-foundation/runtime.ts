@@ -1,7 +1,8 @@
 import {
   classifyMenCp011Difficulty,
-  generateMenCp011FoundationPrototype as generateExamStemMenCp011FoundationPrototype,
-} from "./runtime-exam-stems";
+  generateMenCp011FoundationPrototype as generateExpandedMenCp011FoundationPrototype,
+  type MenCp011StateExpandedPackage,
+} from "./runtime-state-expansion";
 import type {
   MenCp011ExamReadyPackage,
   MenCp011LearnerSolution,
@@ -60,8 +61,8 @@ function addLearnerDelimiterValidation(
 export function generateMenCp011FoundationPrototype(
   prototypeId: MenCp011PrototypeId,
   seed: string,
-): MenCp011ExamReadyPackage {
-  const generated = generateExamStemMenCp011FoundationPrototype(prototypeId, seed);
+): MenCp011StateExpandedPackage {
+  const generated = generateExpandedMenCp011FoundationPrototype(prototypeId, seed);
   const learnerSolution = normalizeLearnerSolution(generated.learnerSolution);
   return {
     ...generated,
@@ -78,6 +79,7 @@ export function generateMenCp011FoundationPrototype(
 }
 
 export { classifyMenCp011Difficulty };
+export type { MenCp011StateExpandedPackage } from "./runtime-state-expansion";
 export type {
   MenCp011DiagramRole,
   MenCp011ExamReadyPackage,
