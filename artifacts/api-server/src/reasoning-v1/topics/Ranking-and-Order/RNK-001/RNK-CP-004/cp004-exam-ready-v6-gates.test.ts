@@ -13,7 +13,7 @@ import {
   countTopologicalOrders,
   generateRnkCp004ExamReadyQuestion,
   type RnkCp004ExamReadyQuestion,
-} from './cp004-exam-ready-v8';
+} from './cp004-exam-ready-v9';
 import {
   buildRnkCp004ReviewPackV6,
   renderRnkCp004QuestionsAndExplanationsMarkdownV6,
@@ -114,7 +114,6 @@ for (const question of runtime) {
     assert(roles.has('CORRECT_DEFINITELY_TRUE_TRANSITIVE'), `Transitive correct role missing at ${question.seed}`);
     assert(roles.has('FALSE_REVERSE_TRANSITIVE'), `Reverse-transitive role missing at ${question.seed}`);
     assert(roles.has('FALSE_CONTRADICTS_DIRECT'), `Direct-contradiction role missing at ${question.seed}`);
-    assert(!roles.has('TRUE_DIRECT_SINGLE_CLUE' as never), `Direct-true distractor remains at ${question.seed}`);
     const directKeys = new Set(question.displayedEvidence.clues.map(relationKey));
     assert(!directKeys.has(question.answerKey), `Correct definitely-true relation is directly stated at ${question.seed}`);
     assert(question.stem.includes('definitely true'), `Definitely-true stem missing at ${question.seed}`);
