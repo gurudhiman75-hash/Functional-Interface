@@ -189,13 +189,14 @@ function remediate(
   seed: string,
 ): MalCp003EditorialV2Question {
   const cleanedStem = cleanStem(base);
-  const baseWithStem = ql034Variant({ ...base, stem: cleanedStem }, seed);
+  const cleanedBase = { ...base, stem: cleanedStem };
+  const baseWithStem = ql034Variant(cleanedBase, seed);
   const quality = numericalQuality(baseWithStem);
   if (!quality) throw new Error("Numerical values are not exam-friendly.");
   const options = conceptualOptions(baseWithStem, `${seed}:conceptual-options`);
   const explanation = explanationFor(baseWithStem);
   const operationCount = operationCountFrom(baseWithStem);
-  const retained = retainedFractionFrom(baseWithStem);
+  const retained = retainedFractionFrom(cleanedBase);
   const optionPattern = options.optionAudit
     .map((option) => option.misconceptionId)
     .join("|");
