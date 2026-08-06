@@ -62,7 +62,7 @@ jobs:
             | tee "$EVIDENCE/SER-CP-007-V7-Editorial-Remediation-Proof.json"
           grep -q 'PASS_SER_CP007_V7_EDITORIAL_REMEDIATION' \
             "$EVIDENCE/SER-CP-007-V7-Editorial-Remediation-Proof.json"
-          grep -q '"interleavedSameRowProofs": 48' \
+          grep -q '"interleavedSameRowProofs": 51' \
             "$EVIDENCE/SER-CP-007-V7-Editorial-Remediation-Proof.json"
           grep -q '"uniformWholeAnswerShiftDistractors": 0' \
             "$EVIDENCE/SER-CP-007-V7-Editorial-Remediation-Proof.json"
