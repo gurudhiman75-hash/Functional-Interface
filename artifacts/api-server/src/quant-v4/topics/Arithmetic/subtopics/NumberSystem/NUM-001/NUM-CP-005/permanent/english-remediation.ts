@@ -7,38 +7,54 @@ import { ql058, ql060, ql061, ql062, ql063 } from "./english-remediation-058-063
 import { ql064, ql067, ql068, ql069 } from "./english-remediation-064-069";
 import { ql066RenderSafe } from "./english-remediation-066-render-safe";
 import {
-    ql053CalculationSafe,
-    ql056CalculationSafe,
-    ql059CalculationSafe,
+  ql053CalculationSafe,
+  ql056CalculationSafe,
+  ql059CalculationSafe,
 } from "./english-remediation-calculation-safe";
 import { ql065CalculationSafeFinal } from "./english-remediation-065-calculation-safe";
+import { buildNumCp005StudentExplanation } from "./student-friendly-explanations";
+
 export function remediateNumCp005English(source) {
-    switch (source.qlId) {
-        case "NUM-QL-046": return ql046(source);
-        case "NUM-QL-047": return ql047ZeroSafe(source);
-        case "NUM-QL-048": return ql048(source);
-        case "NUM-QL-049": return ql049(source);
-        case "NUM-QL-050": return ql050(source);
-        case "NUM-QL-051": return ql051(source);
-        case "NUM-QL-052": return ql052(source);
-        case "NUM-QL-053": return ql053CalculationSafe(source);
-        case "NUM-QL-054": return ql054(source);
-        case "NUM-QL-055": return ql055RenderSafe(source);
-        case "NUM-QL-056": return ql056CalculationSafe(source);
-        case "NUM-QL-057": return ql057ParitySafe(source);
-        case "NUM-QL-058": return ql058(source);
-        case "NUM-QL-059": return ql059CalculationSafe(source);
-        case "NUM-QL-060": return ql060(source);
-        case "NUM-QL-061": return ql061(source);
-        case "NUM-QL-062": return ql062(source);
-        case "NUM-QL-063": return ql063(source);
-        case "NUM-QL-064": return ql064(source);
-        case "NUM-QL-065": return ql065CalculationSafeFinal(source);
-        case "NUM-QL-066": return ql066RenderSafe(source);
-        case "NUM-QL-067": return ql067(source);
-        case "NUM-QL-068": return ql068(source);
-        case "NUM-QL-069": return ql069(source);
-        default: throw new Error(`Unsupported NUM-CP-005 QL: ${source.qlId}`);
-    }
+  let result;
+  switch (source.qlId) {
+    case "NUM-QL-046": result = ql046(source); break;
+    case "NUM-QL-047": result = ql047ZeroSafe(source); break;
+    case "NUM-QL-048": result = ql048(source); break;
+    case "NUM-QL-049": result = ql049(source); break;
+    case "NUM-QL-050": result = ql050(source); break;
+    case "NUM-QL-051": result = ql051(source); break;
+    case "NUM-QL-052": result = ql052(source); break;
+    case "NUM-QL-053": result = ql053CalculationSafe(source); break;
+    case "NUM-QL-054": result = ql054(source); break;
+    case "NUM-QL-055": result = ql055RenderSafe(source); break;
+    case "NUM-QL-056": result = ql056CalculationSafe(source); break;
+    case "NUM-QL-057": result = ql057ParitySafe(source); break;
+    case "NUM-QL-058": result = ql058(source); break;
+    case "NUM-QL-059": result = ql059CalculationSafe(source); break;
+    case "NUM-QL-060": result = ql060(source); break;
+    case "NUM-QL-061": result = ql061(source); break;
+    case "NUM-QL-062": result = ql062(source); break;
+    case "NUM-QL-063": result = ql063(source); break;
+    case "NUM-QL-064": result = ql064(source); break;
+    case "NUM-QL-065": result = ql065CalculationSafeFinal(source); break;
+    case "NUM-QL-066": result = ql066RenderSafe(source); break;
+    case "NUM-QL-067": result = ql067(source); break;
+    case "NUM-QL-068": result = ql068(source); break;
+    case "NUM-QL-069": result = ql069(source); break;
+    default: throw new Error(`Unsupported NUM-CP-005 QL: ${source.qlId}`);
+  }
+
+  return {
+    ...result,
+    explanation: buildNumCp005StudentExplanation({
+      qlId: source.qlId,
+      seed: source.seed,
+      stem: result.stem,
+      hiddenState: source.hiddenState,
+      canonicalAnswer: result.canonicalAnswer,
+      options: result.options,
+    }),
+  };
 }
+
 export { normalizeNumCp005OptionSemantic } from "./english-remediation-common";
