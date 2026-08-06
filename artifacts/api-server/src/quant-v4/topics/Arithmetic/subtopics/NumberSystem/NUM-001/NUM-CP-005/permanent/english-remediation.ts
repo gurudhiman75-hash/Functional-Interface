@@ -13,6 +13,7 @@ import {
 } from "./english-remediation-calculation-safe";
 import { ql065CalculationSafeFinal } from "./english-remediation-065-calculation-safe";
 import { buildNumCp005StudentExplanation } from "./student-friendly-explanations";
+import { enforceNumCp005StudentExplanationPolicy } from "./student-explanation-policy";
 
 export function remediateNumCp005English(source) {
   let result;
@@ -44,16 +45,19 @@ export function remediateNumCp005English(source) {
     default: throw new Error(`Unsupported NUM-CP-005 QL: ${source.qlId}`);
   }
 
+  const explanationInput = {
+    qlId: source.qlId,
+    seed: source.seed,
+    stem: result.stem,
+    hiddenState: source.hiddenState,
+    canonicalAnswer: result.canonicalAnswer,
+    options: result.options,
+  };
+  const explanation = buildNumCp005StudentExplanation(explanationInput);
+
   return {
     ...result,
-    explanation: buildNumCp005StudentExplanation({
-      qlId: source.qlId,
-      seed: source.seed,
-      stem: result.stem,
-      hiddenState: source.hiddenState,
-      canonicalAnswer: result.canonicalAnswer,
-      options: result.options,
-    }),
+    explanation: enforceNumCp005StudentExplanationPolicy(explanationInput, explanation),
   };
 }
 
