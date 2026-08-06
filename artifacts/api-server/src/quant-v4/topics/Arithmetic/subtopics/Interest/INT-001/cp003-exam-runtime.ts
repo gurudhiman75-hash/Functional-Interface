@@ -107,10 +107,8 @@ function simplerStudentLanguage(text: string): string {
     .replace("Applying the given yearly rate", "Increasing it at the given rate")
     .replace(
       /Because that year's interest is calculated after (\d+) years? of earlier interest, those earlier increases must be included before solving for the original sum\./u,
-      "That year's interest is calculated on the balance present at the start of the year, after $1 earlier year$1. We must include that earlier interest before finding the original sum.",
-    )
-    .replace("after 1 earlier year1.", "after 1 earlier year.")
-    .replace(/after (\d+) earlier years?\1\./gu, "after $1 earlier years.");
+      (_match, years: string) => `That year's interest is calculated on the balance present at the start of the year, after ${years} earlier year${years === "1" ? "" : "s"}. We must include that earlier interest before finding the original sum.`,
+    );
 }
 
 function polishExplanationWording(
