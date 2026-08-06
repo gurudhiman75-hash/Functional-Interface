@@ -5,8 +5,15 @@ function normalizeLine(value) {
 function fixSimpleGrammar(value) {
   return value
     .replace(/(^|[\s(])1 choices\b/gu, "$11 choice")
+    .replace(/\b1 positive divisors\b/gu, "1 positive divisor")
+    .replace(/\b1 odd divisors\b/gu, "1 odd divisor")
+    .replace(/\b1 square divisors\b/gu, "1 square divisor")
+    .replace(/\b1 divisors\b/gu, "1 divisor")
+    .replace(/\b1 are\b/gu, "1 is")
+    .replace(/\bcalculate the (positive divisors|odd positive divisors|perfect-square positive divisors)\b/giu, "calculate the number of $1")
     .replace(/\b2th\b/gu, "2nd")
-    .replace(/\b3th\b/gu, "3rd");
+    .replace(/\b3th\b/gu, "3rd")
+    .replace(/\.\.+$/gu, ".");
 }
 
 function wordCount(value) {
@@ -25,10 +32,102 @@ function questionSpecificOpeningStep(input) {
   return `Start with \\((x+1)(y+1)=${target}\\).`;
 }
 
+function polishQuestionSpecificText(input, explanation) {
+  const result = {
+    ...explanation,
+    stepByStep: [...explanation.stepByStep],
+    commonTraps: [...explanation.commonTraps],
+  };
+
+  if (input.qlId === "NUM-QL-047") {
+    const factorState = Array.isArray(input.hiddenState.factorState) ? input.hiddenState.factorState : [];
+    const hasFactorTwo = factorState.some((entry) => Number(entry?.prime) === 2);
+    const asksForOdd = /\bodd\b/iu.test(input.stem);
+    if (!hasFactorTwo && asksForOdd) {
+      const count = String(input.canonicalAnswer);
+      result.coreConcept = "Because n is odd, all its positive divisors are odd.";
+      result.givenDataAndStrategy = "Count all positive divisors of n; this is also the number of odd divisors.";
+      result.examSpeedMethod = "For an odd n, odd-divisor count = total divisor count.";
+      result.commonTraps = [
+        "n has no factor 2, so none of its divisors can be even.",
+        "Do not remove any divisor; every positive divisor here is odd.",
+        `The odd-divisor count and the total divisor count are both ${count}.`,
+      ];
+    }
+  }
+
+  if (input.qlId === "NUM-QL-048") {
+    result.commonTraps = [
+      "For a required prime, exponent 0 is not allowed.",
+      "Start from the exponent shown in the condition and include every larger allowed exponent.",
+      "Multiply the number of choices for the different primes.",
+    ];
+  }
+
+  if (input.qlId === "NUM-QL-049") {
+    const firstCount = Number(input.hiddenState.divisibleByFirst);
+    const overlap = Number(input.hiddenState.divisibleByBoth);
+    result.commonTraps = [
+      `The first count is ${firstCount}, but it still includes divisors that satisfy both conditions.`,
+      `The overlap is ${overlap}; remove it from ${firstCount}.`,
+      `The words “but not” mean ${firstCount}-${overlap}=${input.canonicalAnswer}.`,
+    ];
+  }
+
+  if (input.qlId === "NUM-QL-059") {
+    const index = Number(input.hiddenState.requestedIndex);
+    const positionClass = String(input.hiddenState.positionClass ?? "MIDDLE");
+    if (positionClass === "FIRST") {
+      result.commonTraps = [
+        "1 is the first divisor because 1 divides every positive integer.",
+        "Position 1 means the first entry; positions do not begin at 0.",
+        "Do not choose n, which is the last divisor in the ordered list.",
+      ];
+    } else if (positionClass === "LAST") {
+      result.commonTraps = [
+        "The last positive divisor is n itself.",
+        "Count positions from 1, not from 0.",
+        "Do not choose 1, which is the first divisor.",
+      ];
+    } else {
+      result.commonTraps = [
+        "Arrange all divisors in increasing order before reading the position.",
+        `Position ${index} means the ${index}th entry in a one-based list.`,
+        "Do not return the position number unless that number is actually at the position.",
+      ];
+    }
+  }
+
+  if (input.qlId === "NUM-QL-061") {
+    const actual = String(input.hiddenState.actualValue);
+    const claimed = String(input.hiddenState.claimedValue);
+    const correct = actual === claimed;
+    result.stepByStep = [
+      ...result.stepByStep,
+      correct
+        ? `The calculated value ${actual} matches the claimed value ${claimed}, so the claim is correct.`
+        : `The calculated value ${actual} does not match ${claimed}, so the claim is incorrect.`,
+    ];
+  }
+
+  if (input.qlId === "NUM-QL-068") {
+    const first = String(input.hiddenState.firstValue);
+    const second = String(input.hiddenState.secondValue);
+    const outcome = String(input.canonicalAnswer).split(";").at(-1)?.trim().replace(/\.$/u, "") ?? "the comparison follows";
+    result.stepByStep = [
+      ...result.stepByStep.slice(0, -1),
+      `A has ${first} divisors and B has ${second}. Therefore, ${outcome}.`,
+    ];
+  }
+
+  return result;
+}
+
 export function enforceNumCp005StudentExplanationPolicy(input, explanation) {
-  const coreConcept = fixSimpleGrammar(explanation.coreConcept);
-  const givenDataAndStrategy = fixSimpleGrammar(explanation.givenDataAndStrategy);
-  const finalAnswer = fixSimpleGrammar(explanation.finalAnswer);
+  const questionSpecific = polishQuestionSpecificText(input, explanation);
+  const coreConcept = fixSimpleGrammar(questionSpecific.coreConcept);
+  const givenDataAndStrategy = fixSimpleGrammar(questionSpecific.givenDataAndStrategy);
+  const finalAnswer = fixSimpleGrammar(questionSpecific.finalAnswer);
   const seen = new Set([
     normalizeLine(coreConcept),
     normalizeLine(givenDataAndStrategy),
@@ -37,8 +136,8 @@ export function enforceNumCp005StudentExplanationPolicy(input, explanation) {
 
   const openingStep = questionSpecificOpeningStep(input);
   const rawSteps = openingStep
-    ? [openingStep, ...explanation.stepByStep]
-    : explanation.stepByStep;
+    ? [openingStep, ...questionSpecific.stepByStep]
+    : questionSpecific.stepByStep;
   const stepByStep = [];
   for (const rawStep of rawSteps) {
     const step = fixSimpleGrammar(rawStep);
@@ -48,8 +147,8 @@ export function enforceNumCp005StudentExplanationPolicy(input, explanation) {
     stepByStep.push(step);
   }
 
-  const examSpeedMethod = fixSimpleGrammar(explanation.examSpeedMethod);
-  const traps = explanation.commonTraps.map(fixSimpleGrammar);
+  const examSpeedMethod = fixSimpleGrammar(questionSpecific.examSpeedMethod);
+  const traps = questionSpecific.commonTraps.map(fixSimpleGrammar);
   const commonTraps = [...new Map(traps.map((trap) => [normalizeLine(trap), trap])).values()];
 
   const polished = {
