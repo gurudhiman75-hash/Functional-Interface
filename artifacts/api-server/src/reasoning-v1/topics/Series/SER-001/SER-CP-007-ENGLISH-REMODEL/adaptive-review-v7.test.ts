@@ -20,6 +20,10 @@ const INTERLEAVED_RULES = new Set([
   "NEXT_TWO_INTERLEAVED_ROWS",
 ]);
 
+function answerLetterCount(answer: string): number {
+  return [...answer].filter((character) => /[A-Za-z]/.test(character)).length;
+}
+
 const entries: SerCp007ReleaseEntryV7[] = [];
 let sampledQuestions = 0;
 let interleavedProofs = 0;
@@ -47,6 +51,7 @@ for (const probe of SER_CP007_TEMPLATE_PROBES_V7) {
 
     for (const option of review.options) {
       if (
+        answerLetterCount(question.correctAnswer) >= 2 &&
         option !== question.correctAnswer &&
         isUniformWholeAnswerShiftV7(option, question.correctAnswer)
       ) {
