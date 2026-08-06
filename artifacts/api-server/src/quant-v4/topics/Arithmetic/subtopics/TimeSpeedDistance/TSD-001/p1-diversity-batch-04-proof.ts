@@ -19,8 +19,8 @@ const EXPECTED_ROW_COUNTS = new Map<string, number>([
   ["requiredUniformSpeedForDeadline", 4],
   ["unknownTimeShareFromAverageSpeed", 4],
   ["timeRatioFromAverageAndSpeeds", 4],
-  ["averageSpeedFromSegments", 4],
-  ["segmentAllocationFromTotalsAndSpeeds", 5],
+  ["averageSpeedFromSegments", 5],
+  ["segmentAllocationFromTotalsAndSpeeds", 6],
   ["compareSegmentedJourneyPlans", 4],
 ]);
 
@@ -33,7 +33,7 @@ function normalizedTemplate(stem: string): string {
 }
 
 const rows = generateCanonicalReviewRecords();
-assert(rows.length === 133, "Batch 04 must expose 133 canonical review records");
+assert(rows.length === 139, "Batch 04 compatibility gate expects 139 canonical review records");
 assert(new Set(rows.map((row) => row.solveMode)).size === 38, "Batch 04 changed the learner authority boundary");
 assert(rows.every((row) => row.validation.valid), "Invalid record entered Batch 04");
 assert(rows.every((row) => row.permanentQlId === null), "Permanent QL assigned during Batch 04");
@@ -78,7 +78,7 @@ assert(new Set(supplementalRows.map((row) => row.representation)).size === suppl
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "P1_DIVERSITY_BATCH_04",
+  phase: "P1_DIVERSITY_BATCH_04_COMPATIBILITY",
   canonicalRecords: rows.length,
   targetedAuthorities: TARGETS.length,
   supplementalRows: supplementalRows.length,
