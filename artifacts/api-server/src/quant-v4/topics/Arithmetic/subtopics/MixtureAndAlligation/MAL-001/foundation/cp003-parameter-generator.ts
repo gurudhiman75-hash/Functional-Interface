@@ -3,7 +3,6 @@ import {
   multiplyRational,
   rational,
   rationalKey,
-  subtractRational,
 } from "./rational";
 import { powerRational } from "./cp003-solver";
 import type {
@@ -49,22 +48,23 @@ class DeterministicRandom {
   }
 }
 
+/**
+ * One exam-friendly case per retained-fraction family. The V2 editorial
+ * selector deliberately rotates these families instead of allowing 3/4 to
+ * dominate the generated corpus.
+ */
 const EQUAL_STAGE_CASES = [
-  { volume: 64, removed: 16 },
-  { volume: 72, removed: 18 },
-  { volume: 80, removed: 20 },
-  { volume: 81, removed: 27 },
-  { volume: 90, removed: 15 },
-  { volume: 90, removed: 30 },
-  { volume: 96, removed: 16 },
-  { volume: 96, removed: 24 },
-  { volume: 100, removed: 20 },
-  { volume: 120, removed: 20 },
-  { volume: 120, removed: 30 },
-  { volume: 125, removed: 25 },
-  { volume: 144, removed: 24 },
-  { volume: 150, removed: 30 },
-  { volume: 160, removed: 40 },
+  { volume: 60, removed: 30 },  // 1/2
+  { volume: 50, removed: 20 },  // 3/5
+  { volume: 80, removed: 30 },  // 5/8
+  { volume: 81, removed: 27 },  // 2/3
+  { volume: 100, removed: 30 }, // 7/10
+  { volume: 64, removed: 16 },  // 3/4
+  { volume: 100, removed: 20 }, // 4/5
+  { volume: 90, removed: 15 },  // 5/6
+  { volume: 80, removed: 10 },  // 7/8
+  { volume: 100, removed: 10 }, // 9/10
+  { volume: 120, removed: 10 }, // 11/12
 ] as const;
 
 const INITIAL_SHARES = [
@@ -76,18 +76,25 @@ const INITIAL_SHARES = [
   rational(4, 5),
 ] as const;
 
-function equalCase(random: DeterministicRandom) {
-  return random.pick(EQUAL_STAGE_CASES);
-}
+const UNEQUAL_DIVISOR_SEQUENCES = [
+  [2, 4],
+  [3, 5, 6],
+  [4, 5],
+  [5, 4, 8],
+  [6, 3, 4],
+  [8, 5, 4],
+  [10, 5, 8],
+  [12, 6, 4],
+] as const;
+
+const STAGE_DIVISORS = [2, 3, 4, 5, 6, 8, 10, 12] as const;
+const MULTI_STAGE_VOLUMES = [120, 240, 360, 480] as const;
 
 function retainedFraction(volume: number, removed: number) {
   return rational(volume - removed, volume);
 }
 
-function initialOriginalQuantity(
-  volume: number,
-  random: DeterministicRandom,
-) {
+function initialOriginalQuantity(volume: number, random: DeterministicRandom) {
   return multiplyRational(rational(volume), random.pick(INITIAL_SHARES));
 }
 
@@ -116,37 +123,32 @@ export function generateMalCp003Parameters(
   seed = `mal-cp003:${prototypeId}:default`,
 ): MalCp003GeneratedParameters {
   const random = new DeterministicRandom(`${prototypeId}:${seed}`);
-  const selected = equalCase(random);
+  const selected = random.pick(EQUAL_STAGE_CASES);
   const vesselVolume = rational(selected.volume);
   const removedQuantity = rational(selected.removed);
   const operations = random.int(2, 5);
   let request: MalCp003SolveRequest;
 
   switch (prototypeId) {
-    case "MAL-CP003-PROT-FINAL-ORIGINAL-QUANTITY-EQUAL-REPLACEMENTS": {
+    case "MAL-CP003-PROT-FINAL-ORIGINAL-QUANTITY-EQUAL-REPLACEMENTS":
       request = {
         mode: "FINAL_ORIGINAL_QUANTITY_EQUAL_STAGES",
         vesselVolume,
-        initialOriginalQuantity: initialOriginalQuantity(
-          selected.volume,
-          random,
-        ),
+        initialOriginalQuantity: initialOriginalQuantity(selected.volume, random),
         removedQuantity,
         operations,
       };
       break;
-    }
 
-    case "MAL-CP003-PROT-FINAL-ORIGINAL-FRACTION-EQUAL-REPLACEMENTS": {
+    case "MAL-CP003-PROT-FINAL-ORIGINAL-FRACTION-EQUAL-REPLACEMENTS":
       request = {
         mode: "FINAL_ORIGINAL_FRACTION_EQUAL_STAGES",
         removedFraction: divideRational(removedQuantity, vesselVolume),
         operations,
       };
       break;
-    }
 
-    case "MAL-CP003-PROT-FINAL-REFILL-QUANTITY-EQUAL-REPLACEMENTS": {
+    case "MAL-CP003-PROT-FINAL-REFILL-QUANTITY-EQUAL-REPLACEMENTS":
       request = {
         mode: "FINAL_REFILL_QUANTITY_EQUAL_STAGES",
         vesselVolume,
@@ -154,7 +156,6 @@ export function generateMalCp003Parameters(
         operations,
       };
       break;
-    }
 
     case "MAL-CP003-PROT-INITIAL-ORIGINAL-QUANTITY-FROM-FINAL": {
       const initial = initialOriginalQuantity(selected.volume, random);
@@ -209,14 +210,8 @@ export function generateMalCp003Parameters(
     }
 
     case "MAL-CP003-PROT-FINAL-ORIGINAL-QUANTITY-UNEQUAL-REPLACEMENTS": {
-      const divisors = random.pick([
-        [4, 5],
-        [5, 4, 8],
-        [6, 4],
-        [8, 5, 4],
-        [5, 6, 8],
-      ] as const);
-      const volume = random.pick([120, 160, 240, 360] as const);
+      const divisors = random.pick(UNEQUAL_DIVISOR_SEQUENCES);
+      const volume = random.pick(MULTI_STAGE_VOLUMES);
       request = {
         mode: "FINAL_ORIGINAL_QUANTITY_UNEQUAL_STAGES",
         vesselVolume: rational(volume),
@@ -227,9 +222,9 @@ export function generateMalCp003Parameters(
     }
 
     case "MAL-CP003-PROT-THIRD-LIQUID-TWO-STAGE-COMPOSITION": {
-      const volume = random.pick([60, 72, 80, 90, 96, 120] as const);
-      const firstRemoved = rational(volume, random.pick([4, 5, 6] as const));
-      const secondRemoved = rational(volume, random.pick([4, 5, 8] as const));
+      const volume = random.pick(MULTI_STAGE_VOLUMES);
+      const firstRemoved = rational(volume, random.pick(STAGE_DIVISORS));
+      const secondRemoved = rational(volume, random.pick(STAGE_DIVISORS));
       request = {
         mode: "FINAL_THREE_COMPONENT_STATE",
         vesselVolume: rational(volume),
@@ -260,9 +255,7 @@ export function generateMalCp003Parameters(
   };
 }
 
-export function malCp003RequestFingerprint(
-  request: MalCp003SolveRequest,
-): string {
+export function malCp003RequestFingerprint(request: MalCp003SolveRequest): string {
   switch (request.mode) {
     case "FINAL_ORIGINAL_QUANTITY_EQUAL_STAGES":
       return [
