@@ -3,7 +3,7 @@ import {
   SER_CP007_TEMPLATE_PROBES_V6,
 } from "../SER-CP-007-AUTHORITY-FREEZE-CANDIDATE/authority-compression-contract-v6";
 import type { SerCp007EditorialQuestion } from "./adaptive-review";
-import { buildAdaptiveSerCp007ReviewV6 } from "./adaptive-review-v6";
+import { buildAdaptiveSerCp007ReviewV6Final } from "./adaptive-review-v6-final";
 
 const insertionRules = new Set([
   "CENTER_INSERTION_GROWTH",
@@ -35,7 +35,7 @@ let visibleAnswerOccurrences = 0;
 for (const probe of SER_CP007_TEMPLATE_PROBES_V6) {
   for (const seed of [1, 2, 3]) {
     const question = probe.generate(seed) as unknown as SerCp007EditorialQuestion;
-    const review = buildAdaptiveSerCp007ReviewV6(question);
+    const review = buildAdaptiveSerCp007ReviewV6Final(question);
     sampledQuestions += 1;
     visibleAnswerOccurrences += review.structuralDepth.visibleAnswerOccurrences;
     releasePools.add(review.studentReleasePoolKey);
