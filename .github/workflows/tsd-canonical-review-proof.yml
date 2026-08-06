@@ -1,4 +1,4 @@
-name: Validate TSD Canonical Review and P1 Diversity Batches
+name: Validate TSD Canonical Review and Diversity Batches
 
 on:
   pull_request:
@@ -9,6 +9,7 @@ on:
       - feat/tsd-p1-diversity-batch-01
       - feat/tsd-p1-diversity-batch-02
       - feat/tsd-p1-diversity-batch-03
+      - feat/tsd-p1-diversity-batch-04-verified
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/**
@@ -36,7 +37,7 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle canonical schema and P1 diversity proofs
+      - name: Bundle canonical schema and diversity proofs
         run: |
           ROOT=src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001
           OUT=dist/quant-v4/tsd-001/canonical-review
@@ -47,9 +48,10 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/p1-diversity-batch-02-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/p1-diversity-batch-02-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/p1-diversity-batch-03-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/p1-diversity-batch-03-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/p1-diversity-batch-04-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/p1-diversity-batch-04-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/p2-diversity-batch-01-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/p2-diversity-batch-01-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/canonical-review-export.ts" --bundle --platform=node --format=esm --outfile="$OUT/canonical-review-export.mjs"
 
-      - name: Run canonical schema and P1 diversity proofs
+      - name: Run canonical schema and diversity proofs
         run: |
           set -o pipefail
           cd artifacts/api-server
@@ -58,25 +60,27 @@ jobs:
           node dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-02-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-02-proof.log
           node dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-03-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-03-proof.log
           node dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-04-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-04-proof.log
+          node dist/quant-v4/tsd-001/canonical-review/p2-diversity-batch-01-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/p2-diversity-batch-01-proof.log
           node dist/quant-v4/tsd-001/canonical-review/canonical-review-export.mjs | tee dist/quant-v4/tsd-001/canonical-review/canonical-review-export.log
 
-      - name: Upload canonical and P1 proof logs
+      - name: Upload canonical and diversity proof logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-p1-diversity-batch-04-proof
+          name: tsd-p2-diversity-batch-01-proof
           path: |
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/canonical-review-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-01-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-02-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-03-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-04-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/p2-diversity-batch-01-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/canonical-review-export.log
           if-no-files-found: error
 
       - name: Upload diversified canonical review package
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-p1-diversity-batch-04-review
+          name: tsd-p2-diversity-batch-01-review
           path: artifacts/api-server/dist/quant-v4/tsd-001/canonical-review
           if-no-files-found: error
