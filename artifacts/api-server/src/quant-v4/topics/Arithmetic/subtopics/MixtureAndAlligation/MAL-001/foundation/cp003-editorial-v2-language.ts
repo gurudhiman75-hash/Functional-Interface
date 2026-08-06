@@ -61,8 +61,8 @@ export function retainedFractionFrom(question: MalCp003Wave12UnifiedQuestion): R
 export function capacityFromStem(stem: string): Rational | null {
   const patterns = [
     /(?:fixed volume of|total volume of|volume)\s+(\d+(?:\s+\d+\/\d+)?)\s+litres/iu,
-    /(?:contains|holding|holds)\s+(\d+(?:\s+\d+\/\d+)?)\s+litres/iu,
-    /a[n]?\s+(\d+(?:\s+\d+\/\d+)?)-litre/iu,
+    /(?:contains|holding|holds|starts with|filled with)\s+(\d+(?:\s+\d+\/\d+)?)\s+litres/iu,
+    /(?:a[n]?\s+|the\s+)?(\d+(?:\s+\d+\/\d+)?)-litre/iu,
   ];
   for (const pattern of patterns) {
     const match = stem.match(pattern);
@@ -72,7 +72,9 @@ export function capacityFromStem(stem: string): Rational | null {
 }
 
 export function initialOriginalFromStem(stem: string): Rational | null {
-  const match = stem.match(/contains\s+(\d+(?:\s+\d+\/\d+)?)\s+litres of/iu);
+  const match = stem.match(
+    /(?:contains|starts with|filled with)\s+(\d+(?:\s+\d+\/\d+)?)\s+litres of/iu,
+  );
   return match ? parseNumber(match[1]!) : null;
 }
 
