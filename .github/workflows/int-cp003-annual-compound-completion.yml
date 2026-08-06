@@ -122,7 +122,7 @@ jobs:
           grep -q 'PASS_INT_CP003_SEMANTIC_SOLUTION_TRACE' artifacts/api-server/dist/quant-v4/int-001-cp003-solution-trace-audit.log
           grep -q 'PASS_INT_CP003_EDITORIAL_DIVERSITY_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-review-export.log
           grep -q '"authorityVersion": "INT-CP-003-MATH-AUTHORITY-v1"' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-readiness-audit.log
-          grep -q '"generatorVersion": "INT-CP-003-EXAM-GENERATOR-v11"' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-readiness-audit.log
+          grep -q '"generatorVersion": "INT-CP-003-EXAM-GENERATOR-v12"' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-readiness-audit.log
           grep -q '"contextCoverage": 4' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-readiness-audit.log
           grep -q '"traceVersion": "INT-CP-003-SOLUTION-TRACE-v1"' artifacts/api-server/dist/quant-v4/int-001-cp003-solution-trace-audit.log
           grep -q '"questionCount": 1400' artifacts/api-server/dist/quant-v4/int-001-cp003-solution-trace-audit.log
