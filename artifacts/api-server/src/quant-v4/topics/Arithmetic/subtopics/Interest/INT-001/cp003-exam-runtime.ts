@@ -81,28 +81,48 @@ function collectStrings(value: unknown, output: string[] = []): string[] {
   return output;
 }
 
-function alignRateCheckWording(
+function polishExplanationWording(
   qlId: IntCp003QlId,
   explanation: Cp003StudentExplanation,
 ): Cp003StudentExplanation {
-  if (qlId !== "INT-QL-061") return explanation;
-  const replace = (text: string, index: number): string => {
-    const aligned = text.replace(
-      "This is exactly the interest given in the question, so",
-      "This is the calculated interest, matching the given interest exactly. Therefore,",
-    );
-    return index === 1 && !/\\times/u.test(aligned)
-      ? `${aligned} In multiplication form, this is opening balance $\\times$ rate divided by 100.`
-      : aligned;
+  const polish = (text: string, index = -1): string => {
+    let result = text
+      .replace("There are 1 year between the two given yearly interests.", "There is 1 year between the two given yearly interests.")
+      .replace("Applying the same yearly increase 1 time gives", "Applying the same yearly increase once gives")
+      .replace("carry the earlier amount back to year 0", "use that one-year change to work backwards and find the starting sum");
+    if (qlId === "INT-QL-061") {
+      result = result.replace(
+        "This is exactly the interest given in the question, so",
+        "This is the calculated interest, matching the given interest exactly. Therefore,",
+      );
+      if (index === 1 && !/\\times/u.test(result)) {
+        result = `${result} In multiplication form, this is opening balance $\\times$ rate divided by 100.`;
+      }
+    }
+    return result;
   };
-  const steps = Object.freeze(explanation.steps.map(replace));
+  const steps = Object.freeze(explanation.steps.map(polish));
   return Object.freeze({
     ...explanation,
+    keyIdea: polish(explanation.keyIdea),
     steps,
+    ...(explanation.shortcut ? {
+      shortcut: Object.freeze({
+        ...explanation.shortcut,
+        steps: Object.freeze(explanation.shortcut.steps.map(polish)),
+      }),
+    } : {}),
+    ...(explanation.commonMistake ? { commonMistake: polish(explanation.commonMistake) } : {}),
+    ...(explanation.verification ? {
+      verification: Object.freeze({
+        ...explanation.verification,
+        steps: Object.freeze(explanation.verification.steps.map(polish)),
+      }),
+    } : {}),
     depths: Object.freeze({
-      exam: Object.freeze({ steps: Object.freeze(explanation.depths.exam.steps.map(replace)), sourceStepIds: explanation.depths.exam.sourceStepIds }),
-      student: Object.freeze({ steps: Object.freeze(explanation.depths.student.steps.map(replace)), sourceStepIds: explanation.depths.student.sourceStepIds }),
-      foundation: explanation.depths.foundation,
+      exam: Object.freeze({ steps: Object.freeze(explanation.depths.exam.steps.map(polish)), sourceStepIds: explanation.depths.exam.sourceStepIds }),
+      student: Object.freeze({ steps: Object.freeze(explanation.depths.student.steps.map(polish)), sourceStepIds: explanation.depths.student.sourceStepIds }),
+      foundation: Object.freeze({ steps: Object.freeze(explanation.depths.foundation.steps.map(polish)), sourceStepIds: explanation.depths.foundation.sourceStepIds }),
     }),
   });
 }
@@ -137,7 +157,7 @@ export function generateIntCp003ExamQuestion(
   const options = optionsFor(contract, resolved);
   const correctIndex = options.findIndex((option) => option.isCorrect);
   if (correctIndex < 0 || options.filter((option) => option.isCorrect).length !== 1) throw new Error(`${qlId}: correct option ownership failure`);
-  const explanation = alignRateCheckWording(qlId, explanationFor(solutionTrace));
+  const explanation = polishExplanationWording(qlId, explanationFor(solutionTrace));
   assertCp003ExplanationStyle(qlId, explanation);
   assertCp003PresentationGrounding(contract, resolved, presentation, solutionTrace, explanation);
 
