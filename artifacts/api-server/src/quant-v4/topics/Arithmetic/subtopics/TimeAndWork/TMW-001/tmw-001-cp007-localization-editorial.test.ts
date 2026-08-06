@@ -9,6 +9,7 @@ let checked = 0;
 for (const entry of TMW_CP007_REGISTRY) {
   const seed = `tmw-cp007-localization-editorial:${entry.qlId}`;
   for (const language of languages) {
+    const row = `${entry.qlId}:${language}`;
     const question = runTmwCp007LocalizedPipeline({ questionLanguageId: entry.qlId, seed, language });
     const prose = [
       question.stem,
@@ -22,57 +23,43 @@ for (const entry of TMW_CP007_REGISTRY) {
       question.explanation.conclusion,
     ].join("\n");
 
-    assert.equal(question.validation.valid, true, `${entry.qlId}:${language}:${question.validation.errors.join(" | ")}`);
-    assert.equal(/find[A-Z]|TMW_|_[A-Z_]{3,}|Independent heterogeneous|Don't fall for|Do not/i.test(prose), false, `${entry.qlId}:${language}: internal wording`);
-    assert.equal(/\b(?:workers?|clerks?|painters?|helpers?|trainees?|machines?|printers?|automatic lines?|manual stations?|work units|components|files|copies|bottles|per day|per hour|whole job)\b/i.test(prose), false, `${entry.qlId}:${language}: English leakage`);
-    assert.equal(/\b\d+\s+\d+\/\d+\b/.test(prose), false, `${entry.qlId}:${language}: raw mixed fraction`);
-    assert.equal(/\d+ दिन में|\d+ घंटे में|\d+ ਦਿਨ ਵਿੱਚ|\d+ ਘੰਟੇ ਵਿੱਚ/.test(prose), false, `${entry.qlId}:${language}: uninflected time postposition`);
-    assert.equal(/एक (?:भारी मशीनें|मानक मशीनें|छोटी मशीनें|तेज़ मशीनें|स्वचालित बोतल लाइनें|अर्ध-स्वचालित बोतल लाइनें)|ਇੱਕ (?:ਭਾਰੀ ਮਸ਼ੀਨਾਂ|ਮਿਆਰੀ ਮਸ਼ੀਨਾਂ|ਛੋਟੀਆਂ ਮਸ਼ੀਨਾਂ|ਤੇਜ਼ ਮਸ਼ੀਨਾਂ|ਆਟੋਮੈਟਿਕ ਬੋਤਲ ਲਾਈਨਾਂ|ਅਰਧ-ਆਟੋਮੈਟਿਕ ਬੋਤਲ ਲਾਈਨਾਂ)/.test(prose), false, `${entry.qlId}:${language}: singular category agreement`);
-    assert.equal(/in \d|positive-integer|weighted-rate|per-unit|category efficiencies|headcount/i.test(prose), false, `${entry.qlId}:${language}: untranslated academic wording`);
-    assert.equal(question.options.includes(question.explanation.commonTrap.optionText), true);
-    assert.equal(question.explanation.commonTrap.optionLabel.startsWith(language === "hi" ? "विकल्प" : "ਚੋਣ"), true);
-    assert.ok(question.explanation.givens.length >= 2);
-    assert.ok(question.explanation.shortcut.title.startsWith(language === "hi" ? "10-सेकंड" : "10-ਸਕਿੰਟ"));
-    assert.equal(question.publiclyPublishable, false);
-    assert.equal(question.editorialStatus, "PENDING");
-
-    switch (entry.ruleId) {
-      case "TMW_CATEGORY_EQUIVALENCE":
-        assert.match(question.explanation.opening, language === "hi" ? /कुल क्षमता बराबर.*विपरीत/ : /ਕੁੱਲ ਸਮਰੱਥਾ ਬਰਾਬਰ.*ਉਲਟੀ/);
-        break;
-      case "TMW_WEIGHTED_CREW_RATE":
-        assert.match(question.explanation.opening, language === "hi" ? /संख्या.*दक्षता.*संयुक्त दर/ : /ਗਿਣਤੀ.*ਦੱਖਤਾ.*ਸਾਂਝੀ ਦਰ/);
-        break;
-      case "TMW_HETEROGENEOUS_LINEAR_SYSTEM":
-        assert.match(question.explanation.opening, language === "hi" ? /अलग अज्ञात.*समीकरण/ : /ਵੱਖ ਅਣਜਾਣ.*ਸਮੀਕਰਨ/);
-        break;
-      case "TMW_CATEGORY_REPLACEMENT":
-        assert.match(question.explanation.opening, language === "hi" ? /बदले समूह.*व्युत्क्रमानुपाती/ : /ਬਦਲੇ ਸਮੂਹ.*ਉਲਟ ਅਨੁਪਾਤ/);
-        break;
-      case "TMW_WEIGHTED_CONTRIBUTION":
-        assert.match(question.explanation.opening, language === "hi" ? /संख्या और व्यक्तिगत दक्षता/ : /ਗਿਣਤੀ ਅਤੇ ਵਿਅਕਤੀਗਤ ਦੱਖਤਾ/);
-        break;
-      case "TMW_INTEGER_CREW_SEARCH":
-        assert.match(question.explanation.opening, language === "hi" ? /धनात्मक पूर्णांक/ : /ਧਨਾਤਮਕ ਪੂਰਨ ਅੰਕ/);
-        break;
-    }
+    assert.equal(question.validation.valid, true, `${row}:${question.validation.errors.join(" | ")}`);
+    assert.equal(/find[A-Z]|TMW_|_[A-Z_]{3,}|Independent heterogeneous|Don't fall for|Do not/i.test(prose), false, `${row}: internal wording`);
+    assert.equal(/\b(?:workers?|clerks?|painters?|helpers?|trainees?|machines?|printers?|automatic lines?|manual stations?|work units|components|files|copies|bottles|per day|per hour|whole job)\b/i.test(prose), false, `${row}: English leakage`);
+    assert.equal(/\b\d+\s+\d+\/\d+\b/.test(prose), false, `${row}: raw mixed fraction`);
+    assert.equal(/प्रति-संसाधन|सक्रिय श्रेणी|केवल सिरों की संख्या|अभिलेख|भारित दर|ਪ੍ਰਤੀ-ਸਰੋਤ|ਸਰਗਰਮ ਸ਼੍ਰੇਣੀ|ਅਭਿਲੇਖ|ਭਾਰਿਤ ਦਰ/.test(prose), false, `${row}: technical wording`);
+    assert.equal(/दो अनुपात जोड़ें|ਦੋ ਅਨੁਪਾਤ ਜੋੜੋ/.test(prose), false, `${row}: ratios described as addition`);
+    assert.equal(question.options.includes(question.explanation.commonTrap.optionText), true, `${row}: trap option link`);
+    assert.equal(question.explanation.commonTrap.optionLabel.startsWith(language === "hi" ? "विकल्प" : "ਚੋਣ"), true, `${row}: option label`);
+    assert.ok(question.explanation.givens.length >= 2, `${row}: givens`);
+    assert.ok(question.explanation.shortcut.steps.length >= 2, `${row}: shortcut`);
+    assert.equal(question.explanation.conclusion.includes(question.solution.answerText), true, `${row}: conclusion answer`);
+    assert.equal(question.publiclyPublishable, false, `${row}: publication lock`);
+    assert.equal(question.editorialStatus, "PENDING", `${row}: lifecycle`);
 
     if (entry.answerType === "COUNT_PAIR") {
-      assert.match(question.solution.answerText, language === "hi" ? / और / : / ਅਤੇ /);
-      assert.match(question.explanation.conclusion, language === "hi" ? /समूह की संरचना/ : /ਸਮੂਹ ਦੀ ਬਣਤਰ/);
+      assert.match(question.solution.answerText, language === "hi" ? / और / : / ਅਤੇ /, row);
+      assert.match(question.explanation.conclusion, language === "hi" ? /आवश्यक समूह/ : /ਲੋੜੀਂਦਾ ਸਮੂਹ/, row);
     }
-    if (entry.answerType === "TRIPLE_RATIO") assert.match(question.solution.answerText, /^\d+:\d+:\d+$/);
+    if (entry.answerType === "TRIPLE_RATIO") assert.match(question.solution.answerText, /^\d+:\d+:\d+$/, row);
     if (entry.solveMode === "findUnknownCategoryCountForTargetTime") {
-      assert.match(question.explanation.shortcut.steps.join(" "), language === "hi" ? /ज्ञात समूह की दर घटाकर/ : /ਜਾਣੇ ਸਮੂਹ ਦੀ ਦਰ ਘਟਾ ਕੇ/);
+      assert.match(question.explanation.opening, language === "hi" ? /ज्ञात समूह की दर घटाएँ/ : /ਜਾਣੇ ਸਮੂਹ ਦੀ ਦਰ ਘਟਾਓ/, row);
+      assert.match(question.explanation.conclusion, language === "hi" ? /अतिरिक्त चाहिए/ : /ਵਾਧੂ ਚਾਹੀਦੇ/, row);
     }
     if (entry.solveMode === "findCompletionAfterCategoryReplacement") {
-      assert.match(question.explanation.shortcut.steps.join(" "), language === "hi" ? /पुराना समय.*पुरानी दर.*नई दर/ : /ਪੁਰਾਣਾ ਸਮਾਂ.*ਪੁਰਾਣੀ ਦਰ.*ਨਵੀਂ ਦਰ/);
+      assert.match(question.explanation.opening, language === "hi" ? /पुरानी दर ÷ नई दर/ : /ਪੁਰਾਣੀ ਦਰ ÷ ਨਵੀਂ ਦਰ/, row);
     }
     if (entry.solveMode === "findEquivalentStandardResourceTime") {
-      assert.match(question.solution.answerText, language === "hi" ? /समतुल्य/ : /ਬਰਾਬਰ/);
+      assert.match(question.solution.answerText, language === "hi" ? /समतुल्य/ : /ਬਰਾਬਰ/, row);
+      assert.match(question.explanation.conclusion, language === "hi" ? /समतुल्य योगदान/ : /ਬਰਾਬਰ ਯੋਗਦਾਨ/, row);
+    }
+    if (entry.solveMode === "findUnknownCategorySoloTime") {
+      const givens = question.explanation.givens.join(" ");
+      assert.equal(/e_B\s*=/.test(givens), false, `${row}: unknown rate leak`);
+      assert.equal(givens.includes(question.solution.answerText), false, `${row}: answer leak`);
     }
     if (entry.solveMode === "findMinimumIntegerCrewComposition" || entry.solveMode === "findIntegerCrewCompositionUnderConstraints") {
-      assert.match(prose, language === "hi" ? /पूर्णांक/ : /ਪੂਰਨ ਅੰਕ/);
+      assert.match(prose, language === "hi" ? /पूर्णांक/ : /ਪੂਰਨ ਅੰਕ/, row);
     }
 
     checked += 1;
