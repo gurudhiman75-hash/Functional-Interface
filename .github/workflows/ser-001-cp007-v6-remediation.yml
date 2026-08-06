@@ -75,10 +75,10 @@ jobs:
           OUT=dist/reasoning-v1/ser-001
           EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v6-remediation
           pnpm --dir artifacts/api-server exec esbuild \
-            "$ROOT/export-adaptive-review-v6-400-questions.ts" \
+            "$ROOT/export-adaptive-review-v6-final-400-questions.ts" \
             --bundle --platform=node --format=esm \
-            --outfile="$OUT/export-adaptive-review-v6-400-questions.mjs"
-          (cd artifacts/api-server && node "$OUT/export-adaptive-review-v6-400-questions.mjs") \
+            --outfile="$OUT/export-adaptive-review-v6-final-400-questions.mjs"
+          (cd artifacts/api-server && node "$OUT/export-adaptive-review-v6-final-400-questions.mjs") \
             > "$EVIDENCE/SER-CP-007-V6-400-Validity-Remediated-Questions-and-Explanations.md"
 
       - name: Validate V6 review corpus
