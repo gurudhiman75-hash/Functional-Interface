@@ -55,12 +55,19 @@ function neutralizeMethodHints(text: string): string {
     .replace("Use the observed yearly interest.", "The yearly interest details are shown below.")
     .replace("One entry is missing from the inverse-interest record.", "One entry is missing from the yearly-interest record.")
     .replace("Use the year-specific interest observation.", "The yearly interest details are shown below.")
-    .replace("Reverse the final transition in the annual balance ledger.", "One balance is missing from the annual record.")
+    .replace("Reverse the final transition in the annual balance ledger.", "One balance is missing from the yearly balance table.")
     .replace("Infer the annual rate from two consecutive bank-statement balances.", "Two consecutive balances are shown below.")
     .replace("Use the one-year opening and closing balances.", "The opening and closing balances for one year are shown below.")
     .replace("Use the consecutive-balance ratio to reconstruct the original sum.", "Two consecutive year-end balances are shown below.")
-    .replace("Use the account observations.", "The account details are shown below.")
-    .replace("Working backward by one year, determine", "Determine");
+    .replace("Use the account observations.", "The balance details are shown below.")
+    .replace("Working backward by one year, determine", "Determine")
+    .replace(/annual balance ledger/giu, "yearly balance table")
+    .replace(/compound-interest account/giu, "investment")
+    .replace(/Observed year/gu, "Year")
+    .replace(
+      /A year-end balance of (.+?) includes one year's growth at (.+?)\. Find the immediately preceding year-end balance\./u,
+      "A balance becomes $1 after one year at $2. Find the balance at the beginning of that year.",
+    );
 }
 
 function neutralizeBankingLanguage(text: string): string {
