@@ -65,8 +65,9 @@ for (const [mode] of TARGETS) {
 }
 
 const planRows = rows.filter((row) => row.solveMode === "compareSegmentedJourneyPlans");
+const planTemplateCount = new Set(planRows.map((row) => normalizedTemplate(row.stem))).size;
 assert(new Set(planRows.map((row) => row.answerText)).size === 3, "Plan-comparison answer coverage regressed");
-assert(new Set(planRows.map((row) => normalizedTemplate(row.stem))).size >= 3, "Plan-comparison stem structures remain too repetitive");
+assert(planTemplateCount >= 3, "Plan-comparison stem structures remain too repetitive");
 
 const fixedCp002Rows = supplementalRows.filter((row) => row.checkpointId === "TSD-CP-002");
 const printedNumbers = fixedCp002Rows.flatMap((row) => row.stem.match(/\d+(?:\.\d+)?/g) ?? []);
@@ -82,7 +83,7 @@ console.log(JSON.stringify({
   targetedAuthorities: TARGETS.length,
   supplementalRows: supplementalRows.length,
   supplementalAnswers: supplementalRows.map((row) => row.answerText),
-  planComparisonTemplates: new Set(planRows.map((row) => normalizedTemplate(row.stem)).size),
+  planComparisonTemplates: planTemplateCount,
   fixedCp002PrintedNumbers: printedNumbers.length,
   fixedCp002304060Uses: concentratedUses,
   permanentQlIdsAssigned: 0,
