@@ -11,6 +11,7 @@ function fixSimpleGrammar(value) {
     .replace(/\b1 divisors\b/gu, "1 divisor")
     .replace(/\b1 are\b/gu, "1 is")
     .replace(/\bcalculate the (positive divisors|odd positive divisors|perfect-square positive divisors)\b/giu, "calculate the number of $1")
+    .replace(/\\\)=(-?\d+)/gu, "=$1\\)")
     .replace(/\b2th\b/gu, "2nd")
     .replace(/\b3th\b/gu, "3rd")
     .replace(/\.\.+$/gu, ".");
@@ -113,10 +114,15 @@ function polishQuestionSpecificText(input, explanation) {
   if (input.qlId === "NUM-QL-068") {
     const first = String(input.hiddenState.firstValue);
     const second = String(input.hiddenState.secondValue);
-    const outcome = String(input.canonicalAnswer).split(";").at(-1)?.trim().replace(/\.$/u, "") ?? "the comparison follows";
+    const outcome = String(input.canonicalAnswer).split(";").at(-1)?.trim().replace(/\.$/u, "") ?? "";
+    const conclusion = outcome === "Number A"
+      ? "Number A has more divisors."
+      : outcome === "Number B"
+        ? "Number B has more divisors."
+        : "Both numbers have the same number of divisors.";
     result.stepByStep = [
       ...result.stepByStep.slice(0, -1),
-      `A has ${first} divisors and B has ${second}. Therefore, ${outcome}.`,
+      `A has ${first} divisors and B has ${second}. ${conclusion}`,
     ];
   }
 
