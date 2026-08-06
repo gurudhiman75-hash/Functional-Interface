@@ -77,10 +77,20 @@ function naturalConclusionWithExactAnswer(
   if (!text.includes(answerText)) return text;
   const governed = `${answerText} ${language === "hi" ? "में" : "ਵਿੱਚ"}`;
   if (!text.includes(governed)) return inflectGovernedDuration(text, language);
-  return text.replace(
-    governed,
-    `${answerText} ${language === "hi" ? "लगेंगे" : "ਲੱਗਣਗੇ"}`,
-  );
+  return text.replace(governed, `${answerText} ${language === "hi" ? "लगेंगे" : "ਲੱਗਣਗੇ"}`);
+}
+
+function naturalizeCountAnswerCopula(
+  text: string,
+  answerText: string,
+  answerType: TmwCp007Solution["answerType"],
+  language: TmwLocalizedLanguage,
+): string {
+  if (answerType !== "COUNT") return text;
+  if (language === "hi") {
+    return text.replace(`${answerText} है।`, `${answerText} चाहिए।`);
+  }
+  return text.replace(`${answerText} ਹੈ।`, `${answerText} ਚਾਹੀਦੇ ਹਨ।`);
 }
 
 export function localizeTmwCp007Question(
@@ -151,10 +161,20 @@ export function localizeTmwCp007Question(
     givens: constrainedEditorial.givens.map((text) => inflectGovernedDuration(text, language)),
     shortcut: {
       title: inflectGovernedDuration(constrainedEditorial.shortcut.title, language),
-      steps: constrainedEditorial.shortcut.steps.map((text) => inflectGovernedDuration(text, language)),
+      steps: constrainedEditorial.shortcut.steps.map((text) => naturalizeCountAnswerCopula(
+        inflectGovernedDuration(text, language),
+        answerText,
+        source.solution.answerType,
+        language,
+      )),
     },
     trapExplanation: inflectGovernedDuration(constrainedEditorial.trapExplanation, language),
-    conclusion: naturalConclusionWithExactAnswer(constrainedEditorial.conclusion, answerText, language),
+    conclusion: naturalizeCountAnswerCopula(
+      naturalConclusionWithExactAnswer(constrainedEditorial.conclusion, answerText, language),
+      answerText,
+      source.solution.answerType,
+      language,
+    ),
   };
   const errors = [...source.validation.errors];
 
