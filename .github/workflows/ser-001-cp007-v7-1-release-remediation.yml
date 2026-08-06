@@ -110,13 +110,13 @@ jobs:
       - name: Prove accessible Series rendering contracts
         run: |
           set -euo pipefail
-          OUT=artifacts/api-server/dist/reasoning-v1/ser-001
+          OUT=dist/reasoning-v1/ser-001
           EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v7-1-release-remediation
-          pnpm exec esbuild \
-            artifacts/examtree/src/lib/series-rendering-contract.test.ts \
+          pnpm --dir artifacts/api-server exec esbuild \
+            ../examtree/src/lib/series-rendering-contract.test.ts \
             --bundle --platform=node --format=esm \
             --outfile="$OUT/series-rendering-contract.test.mjs"
-          node "$OUT/series-rendering-contract.test.mjs" \
+          (cd artifacts/api-server && node "$OUT/series-rendering-contract.test.mjs") \
             | tee "$EVIDENCE/SER-CP-007-V7-1-Rendering-Contract-Proof.json"
           grep -q 'PASS_SERIES_ACCESSIBLE_RENDERING_CONTRACT' \
             "$EVIDENCE/SER-CP-007-V7-1-Rendering-Contract-Proof.json"
