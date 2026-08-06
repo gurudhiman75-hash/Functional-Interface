@@ -19,7 +19,16 @@ export function generateSapCp002ExamReadinessV3Package(
   const visible = visibleOperands(v2.stem);
   const owned = ownedOptions(v2, ast, visible);
   const canonicalKey = canonicalPayloadKey(v2, mode.subtype, ast);
-  const optionDrafts = shuffled(owned.options, `${canonicalKey}|${seed}|SAP_CP002_OPTION_ORDER_V3`);
+  const answerBoundOptions = Object.freeze(owned.options.map((option) => option.isCorrect
+    ? Object.freeze({
+      ...option,
+      value: owned.canonicalAnswer,
+      semanticValue: owned.answerSemanticValue,
+      numericEquivalenceToCorrect: true,
+      satisfiesRequiredForm: true,
+    })
+    : option));
+  const optionDrafts = shuffled(answerBoundOptions, `${canonicalKey}|${seed}|SAP_CP002_OPTION_ORDER_V3`);
   const options = Object.freeze(optionDrafts.map((option, index) => makeOption(option, index + 1)));
   const correctIndex = options.findIndex((option) => option.isCorrect);
   if (correctIndex < 0) throw new Error(`${prototypeId}/${seed} V3 has no correct option.`);
