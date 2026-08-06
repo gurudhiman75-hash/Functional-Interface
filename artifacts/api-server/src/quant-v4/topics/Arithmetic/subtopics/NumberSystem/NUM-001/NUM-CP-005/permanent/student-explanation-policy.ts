@@ -110,6 +110,11 @@ function polishQuestionSpecificText(input, explanation) {
   if (input.qlId === "NUM-QL-059") {
     const index = Number(input.hiddenState.requestedIndex);
     const positionClass = String(input.hiddenState.positionClass ?? "MIDDLE");
+    const orderedWorking = result.stepByStep[0];
+    result.stepByStep = [
+      orderedWorking,
+      `At position ${index}, \\(d_{${index}}=${input.canonicalAnswer}\\).`,
+    ];
     if (positionClass === "FIRST") {
       result.commonTraps = [
         "1 is the first divisor because 1 divides every positive integer.",
