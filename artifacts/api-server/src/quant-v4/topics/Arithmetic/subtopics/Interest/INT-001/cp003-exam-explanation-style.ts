@@ -1,6 +1,7 @@
 import type { Cp003StudentExplanation } from "./cp003-exam-types";
 
 const FORBIDDEN_TECHNICAL_LANGUAGE = /\b(?:annual factor|growth factor|compound-interest factor|year-specific interest factor|yearly-interest multiplier|geometric progression|observed ratio|solution relation|rate substitution|reverse all annual growth factors)\b/iu;
+const FORBIDDEN_AWKWARD_WORDING = /(?:There are 1 year|Applying the same yearly increase 1 time|carry the earlier amount back to year 0)/iu;
 
 function words(value: string): number {
   return value.match(/[A-Za-z₹0-9]+/gu)?.length ?? 0;
@@ -34,5 +35,8 @@ export function assertCp003ExplanationStyle(
   }
   if (FORBIDDEN_TECHNICAL_LANGUAGE.test(allLearnerText)) {
     throw new Error(`${qlId}: prohibited technical wording reached the student explanation`);
+  }
+  if (FORBIDDEN_AWKWARD_WORDING.test(allLearnerText)) {
+    throw new Error(`${qlId}: awkward template wording reached the student explanation`);
   }
 }
