@@ -15,88 +15,44 @@ const TARGET_MODES = [
 ] as const;
 
 function normalizedTemplate(stem: string): string {
-  return stem
-    .toLowerCase()
+  return stem.toLowerCase()
     .replace(/\d+(?:,\d{3})*(?:\.\d+)?(?:\/\d+)?(?::\d+(?:\.\d+)?)?/g, "<n>")
     .replace(/\b(cars?|vehicles?|riders?|couriers?|bus|delivery van)\b/g, "<actor>")
-    .replace(/\s+/g, " ")
-    .trim();
+    .replace(/\s+/g, " ").trim();
 }
 
 function rationalEquals(value: TsdCanonicalValue | undefined, numerator: string, denominator = "1"): boolean {
-  return typeof value === "object"
-    && value !== null
-    && !Array.isArray(value)
-    && value.numerator === numerator
-    && value.denominator === denominator;
+  return typeof value === "object" && value !== null && !Array.isArray(value)
+    && value.numerator === numerator && value.denominator === denominator;
 }
 
 const rows = generateCanonicalReviewRecords();
-assert(rows.length === 118, "P1 Batch 01 regression must coexist with the expanded 118-record canonical pool");
-assert(rows.every((row) => row.validation.valid), "Invalid record entered the P1 diversity review");
-assert(rows.every((row) => row.permanentQlId === null), "Permanent QL assigned during P1 diversity work");
-assert(rows.every((row) => row.lifecycle.englishFreezeStatus === "UNFROZEN"), "P1 batch accidentally refroze English");
+assert(rows.length === 126, "Batch 01 compatibility gate expects the Batch 03-expanded pool");
+assert(rows.every((row) => row.validation.valid), "Invalid record entered the P1 pool");
+assert(rows.every((row) => row.permanentQlId === null && row.lifecycle.englishFreezeStatus === "UNFROZEN"), "Lifecycle changed");
 
-const metrics = TARGET_MODES.map((mode) => {
+for (const mode of TARGET_MODES) {
   const modeRows = rows.filter((row) => row.solveMode === mode);
-  assert(modeRows.length === 3, `${mode}: expected exactly three current review rows`);
-  const rowDiagnostics = modeRows.map((row) => ({
-    questionLanguageId: row.questionLanguageId,
-    seed: row.seed,
-    stem: row.stem,
-    answerText: row.answerText,
-    normalizedTemplate: normalizedTemplate(row.stem),
-  }));
-  const templates = new Set(rowDiagnostics.map((row) => row.normalizedTemplate));
-  const answers = new Set(modeRows.map((row) => row.answerText));
-  assert(
-    templates.size === 3,
-    `${mode}: expected three materially different normalized stem templates, received ${templates.size}; rows=${JSON.stringify(rowDiagnostics)}`,
-  );
-  assert(new Set(modeRows.map((row) => row.stem)).size === 3, `${mode}: duplicate visible stem remains`);
-  assert(
-    answers.size === 3,
-    `${mode}: expected three distinct answers, received ${answers.size}; rows=${JSON.stringify(rowDiagnostics)}`,
-  );
-  return Object.freeze({
-    solveMode: mode,
-    rows: modeRows.length,
-    normalizedTemplates: templates.size,
-    uniqueAnswers: answers.size,
-    answers: Object.freeze(modeRows.map((row) => row.answerText)),
-    seeds: Object.freeze(modeRows.map((row) => row.seed)),
-  });
-});
+  assert(modeRows.length === 3, `${mode}: expected three Batch 01 rows`);
+  assert(new Set(modeRows.map((row) => normalizedTemplate(row.stem))).size === 3, `${mode}: template diversity regressed`);
+  assert(new Set(modeRows.map((row) => row.answerText)).size === 3, `${mode}: answer diversity regressed`);
+}
 
 const speedRows = rows.filter((row) => row.solveMode === "speedByProportion");
-const reference = speedRows.find((row) =>
-  rationalEquals(row.input.knownSpeed, "40")
+const reference = speedRows.find((row) => rationalEquals(row.input.knownSpeed, "40")
   && rationalEquals(row.input.knownTime, "6")
   && rationalEquals(row.input.targetTime, "4")
-  && rationalEquals(row.input.knownDistance, "240"),
-);
-assert(reference, "The required 40 km/h × 6 hours = 240 km reference state was lost");
-assert(reference.answerText === "60 km/h", "The preserved reference state no longer answers 60 km/h");
-const referenceWorking = reference.explanation.steps.join(" ");
-assert(referenceWorking.includes("40 \\times 6"), "Reference explanation no longer reconstructs 40 × 6");
-assert(referenceWorking.includes("240 \\div 4"), "Reference explanation no longer computes 240 ÷ 4");
-
-const targetedRows = rows.filter((row) => TARGET_MODES.includes(row.solveMode as (typeof TARGET_MODES)[number]));
-const printedNumbers = targetedRows.flatMap((row) => row.stem.match(/\d+(?:\.\d+)?/g) ?? []);
-const canonicalFamilyUses = printedNumbers.filter((value) => value === "30" || value === "40" || value === "60").length;
+  && rationalEquals(row.input.knownDistance, "240"));
+assert(reference?.answerText === "60 km/h", "Required 40 × 6, then 240 ÷ 4 reference state was lost");
+const working = reference.explanation.steps.join(" ");
+assert(working.includes("40 \\times 6") && working.includes("240 \\div 4"), "Reference working regressed");
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "P1_DIVERSITY_BATCH_01_REGRESSION",
-  canonicalRecordsPreserved: rows.length,
+  phase: "P1_DIVERSITY_BATCH_01_COMPATIBILITY",
+  canonicalRecords: rows.length,
   targetedAuthorities: TARGET_MODES.length,
-  targetedRows: targetedRows.length,
-  authorityMetrics: metrics,
-  speedByProportionAnswers: speedRows.map((row) => row.answerText),
-  preservedReferenceQuestionLanguageId: reference.questionLanguageId,
   preservedReferenceAnswer: reference.answerText,
-  targetedPrintedNumbers: printedNumbers.length,
-  targeted304060Uses: canonicalFamilyUses,
   permanentQlIdsAssigned: 0,
   englishFreezeStatus: "UNFROZEN",
 }, null, 2));

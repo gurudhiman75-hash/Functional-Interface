@@ -7,6 +7,7 @@ on:
       - feat/tsd-authority-audit-implementation
       - feat/tsd-canonical-review-schema
       - feat/tsd-p1-diversity-batch-01
+      - feat/tsd-p1-diversity-batch-02
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/**
@@ -43,6 +44,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/canonical-review-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/canonical-review-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/p1-diversity-batch-01-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/p1-diversity-batch-01-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/p1-diversity-batch-02-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/p1-diversity-batch-02-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/p1-diversity-batch-03-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/p1-diversity-batch-03-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/canonical-review-export.ts" --bundle --platform=node --format=esm --outfile="$OUT/canonical-review-export.mjs"
 
       - name: Run canonical schema and P1 diversity proofs
@@ -52,23 +54,25 @@ jobs:
           node dist/quant-v4/tsd-001/canonical-review/canonical-review-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/canonical-review-proof.log
           node dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-01-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-01-proof.log
           node dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-02-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-02-proof.log
+          node dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-03-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-03-proof.log
           node dist/quant-v4/tsd-001/canonical-review/canonical-review-export.mjs | tee dist/quant-v4/tsd-001/canonical-review/canonical-review-export.log
 
       - name: Upload canonical and P1 proof logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-p1-diversity-batch-02-proof
+          name: tsd-p1-diversity-batch-03-proof
           path: |
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/canonical-review-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-01-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-02-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-03-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/canonical-review-export.log
           if-no-files-found: error
 
       - name: Upload diversified canonical review package
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-p1-diversity-batch-02-review
+          name: tsd-p1-diversity-batch-03-review
           path: artifacts/api-server/dist/quant-v4/tsd-001/canonical-review
           if-no-files-found: error
