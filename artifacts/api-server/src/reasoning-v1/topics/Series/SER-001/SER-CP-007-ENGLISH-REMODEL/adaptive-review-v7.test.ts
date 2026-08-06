@@ -3,7 +3,7 @@ import {
   SER_CP007_TEMPLATE_PROBES_V7,
 } from "../SER-CP-007-AUTHORITY-FREEZE-CANDIDATE/authority-compression-contract-v7";
 import type { SerCp007EditorialQuestion } from "./adaptive-review";
-import { buildAdaptiveSerCp007ReviewV7 } from "./adaptive-review-v7";
+import { buildAdaptiveSerCp007ReviewV7Final } from "./adaptive-review-v7-final";
 import { isUniformWholeAnswerShiftV7 } from "./distractor-remediation-v7";
 import {
   assertSerCp007ReleasePoolUniquenessV7,
@@ -38,7 +38,7 @@ const releaseCounts = new Map<string, number>();
 for (const probe of SER_CP007_TEMPLATE_PROBES_V7) {
   for (const seed of [1, 2, 3]) {
     const question = probe.generate(seed) as unknown as SerCp007EditorialQuestion;
-    const review = buildAdaptiveSerCp007ReviewV7(question);
+    const review = buildAdaptiveSerCp007ReviewV7Final(question);
     entries.push({ question, review });
     sampledQuestions += 1;
 
