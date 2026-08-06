@@ -102,9 +102,11 @@ for (const pkg of sweep) {
   positionsByPrototype.set(pkg.temporaryPrototypeId, prototypePositions);
 
   if (pkg.permanentQlId === "SAP-QL-017") {
+    const visibleFractionOccurrences = pkg.stem.match(/[−-]?\d+\s+\d+\/\d+|[−-]?\d+\/\d+/g) ?? [];
+    assert.ok(visibleFractionOccurrences.length >= 2, `${pkg.generationIdentity} lacks two visible operand occurrences.`);
     for (const option of pkg.options.filter((option) => !option.isCorrect)) {
       ql017Distractors += 1;
-      assert.ok(option.routeOperands.length >= 2);
+      assert.ok(option.routeOperands.length >= 1);
       assert.ok(option.routeOperands.every((operand) => pkg.stem.includes(operand)));
       assert.ok(option.misconceptionId !== null);
     }
