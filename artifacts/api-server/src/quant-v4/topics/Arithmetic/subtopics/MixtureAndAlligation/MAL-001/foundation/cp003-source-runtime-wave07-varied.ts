@@ -22,7 +22,6 @@ const RATIO_RETAINED_FRACTION_BANK = [
 ] as const;
 
 const VESSEL_RETAINED_FRACTION_BANK = [
-  "2/3",
   "9/10",
   "4/5",
   "3/4",
