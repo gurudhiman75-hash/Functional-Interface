@@ -2,7 +2,7 @@ import {
   RNK_CP004_REMODEL_V6_PROTOTYPE_IDS,
   generateRnkCp004ExamReadyQuestion,
   type RnkCp004ExamReadyQuestion,
-} from './cp004-exam-ready-v9';
+} from './cp004-exam-ready-v10';
 
 function addOptionLayoutFingerprint(question: RnkCp004ExamReadyQuestion): RnkCp004ExamReadyQuestion {
   const layout = question.options.map((option) => option.misconceptionId).join('>');
