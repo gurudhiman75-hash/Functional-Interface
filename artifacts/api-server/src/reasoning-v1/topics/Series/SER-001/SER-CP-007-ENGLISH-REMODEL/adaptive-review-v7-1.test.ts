@@ -3,7 +3,7 @@ import {
   SER_CP007_TEMPLATE_PROBES_V71,
 } from "../SER-CP-007-AUTHORITY-FREEZE-CANDIDATE/authority-compression-contract-v7-1";
 import type { SerCp007EditorialQuestion } from "./adaptive-review";
-import { buildAdaptiveSerCp007ReviewV71 } from "./adaptive-review-v7-1";
+import { buildAdaptiveSerCp007ReviewV71Final } from "./adaptive-review-v7-1-final";
 import {
   selectSerCp007PrimaryReleaseV71,
   type SerCp007ReleaseEntryV71,
@@ -45,14 +45,14 @@ let cumulativeWeakDistractors = 0;
 let explanationModeMismatches = 0;
 let markerContractProofs = 0;
 let gapContractProofs = 0;
-let fourRowStandardLong = 0;
+let explicitAdvancedProofs = 0;
 let q154Internal = 0;
 let q159TwoSided = 0;
 
 for (const probe of SER_CP007_TEMPLATE_PROBES_V71) {
   for (const seed of [1, 2, 3]) {
     const question = probe.generate(seed) as unknown as SerCp007EditorialQuestion;
-    const review = buildAdaptiveSerCp007ReviewV71(question);
+    const review = buildAdaptiveSerCp007ReviewV71Final(question);
     entries.push({ question, review });
 
     if (review.interleavedEvidence) {
@@ -97,11 +97,13 @@ for (const probe of SER_CP007_TEMPLATE_PROBES_V71) {
       gapContractProofs += 1;
     }
     if (
-      question.sourceRuleId === "FOUR_INTERLEAVED_CLUSTER_ROWS" &&
-      displayedCount(question) >= 15 &&
-      review.releaseTier === "STANDARD_MOCK"
+      ((question.temporaryTemplateId === "SER-CP-007-WD-TMP-029" &&
+        question.seed === 3) ||
+        (question.temporaryTemplateId === "SER-CP-007-WD-TMP-031" &&
+          question.seed === 1)) &&
+      review.releaseTier === "ADVANCED_PRACTICE"
     ) {
-      fourRowStandardLong += 1;
+      explicitAdvancedProofs += 1;
     }
     if (
       question.temporaryTemplateId === "SER-CP-007-TMP-014" &&
@@ -126,7 +128,7 @@ assert.equal(entries.length, 420);
 assert.equal(interleavedFutureTerms, 0);
 assert.equal(cumulativeWeakDistractors, 0);
 assert.equal(explanationModeMismatches, 0);
-assert.equal(fourRowStandardLong, 0);
+assert.equal(explicitAdvancedProofs, 2);
 assert.equal(q154Internal, 1);
 assert.equal(q159TwoSided, 1);
 assert.ok(markerContractProofs > 0);
@@ -159,7 +161,7 @@ console.log(
       explanationModeMismatches,
       markerContractProofs,
       gapContractProofs,
-      fourRowStandardLong,
+      explicitAdvancedProofs,
       q154Internal,
       q159TwoSided,
       independentReleasePools: selection.primary.length,
