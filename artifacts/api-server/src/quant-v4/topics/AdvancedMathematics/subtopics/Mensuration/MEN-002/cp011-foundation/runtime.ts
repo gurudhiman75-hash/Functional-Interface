@@ -1,3 +1,4 @@
+import { formatWithUnit } from "../foundation/exact";
 import {
   classifyMenCp011Difficulty,
   generateMenCp011FoundationPrototype as generateUnitRepresentedMenCp011FoundationPrototype,
@@ -160,12 +161,25 @@ export function generateMenCp011FoundationPrototype(
     prototypeId,
     seed,
   );
+  const expectedVolumeDisplay = formatWithUnit(
+    generated.state.materialVolume,
+    generated.measurementProfile.volumeUnit,
+  );
+  const preRepairVolumeDisplay = formatWithUnit(
+    generated.state.materialVolume,
+    generated.state.unit === "m" ? "m³" : "cm³",
+  );
+  const stem = generated.stem.replace(
+    preRepairVolumeDisplay,
+    expectedVolumeDisplay,
+  );
   const explanation = repairExplanation(generated.explanation);
   const learnerSolution = normalizeLearnerSolution(
     generated.learnerSolution,
   );
   const withTextRepairs: MenCp011UnitRepresentationPackage = {
     ...generated,
+    stem,
     explanation,
     learnerSolution,
     renderSurfaces: {
