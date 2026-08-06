@@ -14,7 +14,7 @@ Final verified proof head:
 b34ca3dafaad667b5cbc501c93d0111ec7c65117
 ```
 
-Current documentation head includes only evidence-record updates after that verified proof head.
+Later commits only update this evidence record and the CP-007 review note; they do not change localized runtime content, answers, options, traps or mathematical state.
 
 ## Reviewed checkpoints
 
