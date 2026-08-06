@@ -28,7 +28,7 @@ function rationalEquals(value: TsdCanonicalValue | undefined, numerator: string,
 }
 
 const rows = generateCanonicalReviewRecords();
-assert(rows.length === 126, "Batch 02 compatibility gate expects the Batch 03-expanded 126-record pool");
+assert(rows.length === 133, "Batch 02 compatibility gate expects the Batch 04-expanded 133-record pool");
 assert(new Set(rows.map((row) => row.solveMode)).size === 38, "Learner authority boundary changed");
 assert(rows.every((row) => row.validation.valid), "Invalid record entered the combined P1 pool");
 assert(rows.every((row) => row.permanentQlId === null && row.lifecycle.englishFreezeStatus === "UNFROZEN"), "Lifecycle lock changed");

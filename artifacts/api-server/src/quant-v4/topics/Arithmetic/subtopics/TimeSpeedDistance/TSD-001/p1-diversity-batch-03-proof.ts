@@ -25,7 +25,7 @@ function normalizedTemplate(stem: string): string {
 }
 
 const rows = generateCanonicalReviewRecords();
-assert(rows.length === 126, "Batch 03 must expose 126 canonical review records");
+assert(rows.length === 133, "Batch 03 compatibility gate expects 133 canonical review records");
 assert(new Set(rows.map((row) => row.solveMode)).size === 38, "Batch 03 changed the learner authority boundary");
 assert(rows.every((row) => row.validation.valid), "Invalid record entered Batch 03");
 assert(rows.every((row) => row.permanentQlId === null), "Permanent QL assigned during Batch 03");
@@ -63,7 +63,7 @@ assert(new Set(supplementalRows.map((row) => row.representation)).size === suppl
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "P1_DIVERSITY_BATCH_03",
+  phase: "P1_DIVERSITY_BATCH_03_COMPATIBILITY",
   canonicalRecords: rows.length,
   targetedAuthorities: TARGET_MODES.length,
   supplementalRows: supplementalRows.length,

@@ -36,7 +36,7 @@ function inspectValue(value: TsdCanonicalValue, path: string, rationalPaths: str
 }
 
 const rows = generateCanonicalReviewRecords();
-assert(rows.length === 126, "Canonical review must contain 126 records after P1 Batch 03");
+assert(rows.length === 133, "Canonical review must contain 133 records after P1 Batch 04");
 assert(new Set(rows.map((row) => row.questionLanguageId)).size === rows.length, "questionLanguageId values are not unique");
 assert(new Set(rows.map((row) => row.solveMode)).size === 38, "Final learner authority count changed");
 assert(rows.every((row) => row.schemaVersion === TSD_CANONICAL_REVIEW_SCHEMA_VERSION), "Schema version mismatch");
@@ -60,8 +60,8 @@ for (const row of rows) {
 
 const cp001Rows = rows.filter((row) => row.checkpointId === "TSD-CP-001");
 const cp002Rows = rows.filter((row) => row.checkpointId === "TSD-CP-002");
-assert(cp001Rows.length === 72, "Unexpected CP-001 canonical count");
-assert(cp002Rows.length === 54, "Unexpected CP-002 canonical count after 15 supplements");
+assert(cp001Rows.length === 74, "Unexpected CP-001 canonical count after Batch 04");
+assert(cp002Rows.length === 59, "Unexpected CP-002 canonical count after Batch 04");
 assert(rows.filter((row) => row.representation === "OVERALL_AVERAGE_AS_EFFECTIVE_SPEED").length === 3, "Effective-average rehoming changed");
 
 const rationalPaths: string[] = [];
@@ -69,7 +69,7 @@ for (const row of rows) {
   inspectValue(row.input, `${row.questionLanguageId}.input`, rationalPaths);
   inspectValue(row.solution, `${row.questionLanguageId}.solution`, rationalPaths);
 }
-assert(rationalPaths.length > 435, "Expected normalized rational coverage is missing");
+assert(rationalPaths.length > 477, "Expected Batch 04 normalized rational coverage is missing");
 
 const serialized = JSON.stringify(rows);
 assert(!/"(?:numerator|denominator)":"-?\d+n"/.test(serialized), "BigInt suffix leaked");
@@ -78,7 +78,7 @@ assert(!/"canonicalProblemId":|"archetypeId":/.test(serialized), "Deprecated ID 
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "CANONICAL_REVIEW_SCHEMA_P1_BATCH_03",
+  phase: "CANONICAL_REVIEW_SCHEMA_P1_BATCH_04",
   schemaVersion: TSD_CANONICAL_REVIEW_SCHEMA_VERSION,
   records: rows.length,
   finalLearnerSolveModes: new Set(rows.map((row) => row.solveMode)).size,
