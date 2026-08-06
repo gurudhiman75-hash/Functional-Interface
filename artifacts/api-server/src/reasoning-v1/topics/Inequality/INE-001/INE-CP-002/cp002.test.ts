@@ -4,6 +4,7 @@ import { INE_CP002_PROTOTYPE_CONTRACTS } from "./contracts";
 import { generateIneCp002Question } from "./generator";
 import { reverseComparisonOrientation } from "./scenario-builder";
 import { assertSolverAgreement } from "../foundation/solver-agreement";
+import { createComparisonConstraint } from "../foundation/relations";
 import { validateIneCp002Question } from "./validator";
 
 assert.equal(INE_CP002_PROTOTYPE_CONTRACTS.length, 9);
@@ -36,6 +37,23 @@ const reviewGraphFingerprints = new Set<string>();
 const reviewNodeCounts = new Set<number>();
 const reviewStatementCounts = new Set<number>();
 const difficulties = new Set<string>();
+const releaseTiers = new Set<string>();
+const allowedDistractorRoles = new Set([
+  "REVERSED_DIRECTION",
+  "STRICTNESS_IGNORED",
+  "VALID_PATH_IGNORED",
+  "QUERY_ORDER_REVERSED",
+  "EQUALITY_PROPAGATION_IGNORED",
+  "EQUALITY_MISREAD_AS_UNKNOWN",
+  "STRICTNESS_INVENTED",
+  "EQUALITY_ASSUMED",
+  "NO_PATH_MISREAD_AS_EQUALITY",
+  "COMMON_BOUND_MISREAD",
+  "DIRECT_BUT_WRONG_PAIR",
+  "ACTUAL_DEFINITE_PATH",
+  "COMMON_BOUND_ONLY",
+  "DISCONNECTED_PAIR",
+]);
 
 for (const contract of INE_CP002_PROTOTYPE_CONTRACTS) {
   const prototypePositions: number[] = [];
@@ -52,13 +70,15 @@ for (const contract of INE_CP002_PROTOTYPE_CONTRACTS) {
     assert.equal(question.checkpointId, "INE-CP-002");
     assert.equal(question.authorityId, contract.authorityId);
     assert.equal(question.metadata.taskKind, contract.taskKind);
-    assert.equal(question.metadata.runtimeVersion, "ine-cp002-prototype-v3");
+    assert.equal(question.metadata.runtimeVersion, "ine-cp002-prototype-v4");
     assert.match(question.recordId, /^INE-CP002-[0-9A-F]{8}$/);
     assert.equal(
       question.metadata.competency,
       "MULTI_LINK_INEQUALITY_REASONING",
     );
     assert.equal(question.metadata.reviewStatus, "PENDING_MANUAL_REVIEW");
+    assert.ok(question.solutions.mock.length > 60);
+    assert.deepEqual(question.solutions.learning, question.explanation);
     assert.match(question.metadata.contentHash, /^[0-9a-f]{8}$/);
     assert.match(question.metadata.graphFingerprint, /^[0-9a-f]{8}$/);
     assert.equal(
@@ -88,6 +108,11 @@ for (const contract of INE_CP002_PROTOTYPE_CONTRACTS) {
     );
     assert.equal(question.options[question.correctIndex]?.isCorrect, true);
     assert.equal(question.metadata.distractorErrorLabels.length, 3);
+    assert.ok(
+      question.metadata.distractorErrorLabels.every((label) =>
+        allowedDistractorRoles.has(label),
+      ),
+    );
     assert.equal(question.explanation.distractorAnalysis.length, 3);
     assert.ok(question.explanation.ruleStatement.length > 20);
     assert.ok(question.explanation.proofSteps.length >= 1);
@@ -157,6 +182,7 @@ for (const contract of INE_CP002_PROTOTYPE_CONTRACTS) {
     taskKinds.add(question.metadata.taskKind);
     generatedCount += 1;
     difficulties.add(question.difficulty);
+    releaseTiers.add(question.metadata.releaseTier);
     if (seed < 5) {
       reviewGraphFingerprints.add(question.metadata.graphFingerprint);
       reviewNodeCounts.add(question.metadata.nodeCount);
@@ -210,6 +236,11 @@ assert.ok(
 assert.deepEqual([...reviewNodeCounts].sort(), [3, 4, 5]);
 assert.deepEqual([...reviewStatementCounts].sort(), [2, 3, 4, 5, 6]);
 assert.deepEqual([...difficulties].sort(), ["EASY", "HARD", "MEDIUM"]);
+assert.deepEqual([...releaseTiers].sort(), [
+  "ADVANCED_PRACTICE",
+  "BANKING_PRELIMS",
+  "SSC_STANDARD_MOCK",
+]);
 assert.deepEqual([...definitePairRelations].sort(), [
   "EQUAL_TO",
   "GREATER_THAN",
@@ -217,6 +248,58 @@ assert.deepEqual([...definitePairRelations].sort(), [
   "LESS_THAN",
   "LESS_THAN_OR_EQUAL",
 ]);
+
+const emptyRouteQuestion = generateIneCp002Question(
+  "INE-CP002-PROT-SELECT-DEFINITE-PAIR",
+  2,
+);
+const emptyRouteValidation = validateIneCp002Question({
+  ...emptyRouteQuestion,
+  solutions: {
+    ...emptyRouteQuestion.solutions,
+    learning: {
+      ...emptyRouteQuestion.solutions.learning,
+      proofSteps: ["D and A: , so D = A."],
+    },
+  },
+});
+assert.ok(
+  emptyRouteValidation.errors.includes(
+    "Learner explanation contains an empty displayed route.",
+  ),
+);
+
+const exposedPairQuestion = generateIneCp002Question(
+  "INE-CP002-PROT-SELECT-DEFINITE-PAIR",
+  0,
+);
+const exposedPair =
+  exposedPairQuestion.options[exposedPairQuestion.correctIndex]!.pair!;
+const exposedPairRelation = assertSolverAgreement(
+  exposedPairQuestion.structuredPrompt.statements,
+  exposedPair.leftId,
+  exposedPair.rightId,
+).graphEvidence!.strongestDefiniteRelation!;
+const exposureValidation = validateIneCp002Question({
+  ...exposedPairQuestion,
+  structuredPrompt: {
+    ...exposedPairQuestion.structuredPrompt,
+    statements: [
+      ...exposedPairQuestion.structuredPrompt.statements,
+      createComparisonConstraint(
+        exposedPair.leftId,
+        exposedPairRelation,
+        exposedPair.rightId,
+        "S-EXPOSED",
+      ),
+    ],
+  },
+});
+assert.ok(
+  exposureValidation.errors.includes(
+    "A hard pair audit cannot expose the correct pair in one statement.",
+  ),
+);
 
 console.log("INE-CP-002 multi-link discovery audit passed.", {
   generatedCount,
@@ -233,5 +316,6 @@ console.log("INE-CP-002 multi-link discovery audit passed.", {
   reviewNodeCounts: [...reviewNodeCounts].sort(),
   reviewStatementCounts: [...reviewStatementCounts].sort(),
   difficulties: [...difficulties].sort(),
+  releaseTiers: [...releaseTiers].sort(),
   permanentQlCount: 0,
 });

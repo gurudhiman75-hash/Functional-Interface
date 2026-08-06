@@ -35,6 +35,11 @@ export type IneCp002TaskKind =
   | "SELECT_DEFINITE_PAIR"
   | "SELECT_INDETERMINATE_PAIR";
 
+export type IneCp002ReleaseTier =
+  | "SSC_STANDARD_MOCK"
+  | "BANKING_PRELIMS"
+  | "ADVANCED_PRACTICE";
+
 export type IneCp002ExplanationKind =
   | "LONG_CHAIN"
   | "MULTIPLE_ROUTES"
@@ -102,10 +107,15 @@ export interface GeneratedIneCp002Question {
   options: readonly IneCp002Option[];
   correctIndex: number;
   explanation: IneCp001Explanation;
+  solutions: {
+    mock: string;
+    learning: IneCp001Explanation;
+  };
   metadata: {
-    runtimeVersion: "ine-cp002-prototype-v3";
+    runtimeVersion: "ine-cp002-prototype-v4";
     competency: "MULTI_LINK_INEQUALITY_REASONING";
     reviewStatus: "PENDING_MANUAL_REVIEW";
+    releaseTier: IneCp002ReleaseTier;
     difficultyBasis:
       | "SHORT_SINGLE_PATH"
       | "STANDARD_GRAPH_REASONING"

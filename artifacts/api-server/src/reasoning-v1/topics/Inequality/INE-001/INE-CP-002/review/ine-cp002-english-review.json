@@ -8,6 +8,7 @@
     "seed": 0,
     "difficulty": "EASY",
     "difficultyBasis": "SHORT_SINGLE_PATH",
+    "releaseTier": "SSC_STANDARD_MOCK",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "CHAIN_3_ENTITIES_INCLUSIVE",
     "graphFingerprint": "33a89bf2",
@@ -21,6 +22,27 @@
     "answerRelation": "GREATER_THAN_OR_EQUAL",
     "contentHash": "cce77604",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "EQUALITY_ASSUMED"
+      },
+      {
+        "index": 1,
+        "role": "CORRECT"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "STRICTNESS_INVENTED"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "VALID_PATH_IGNORED"
+      }
+    ],
     "stem": "Which relation between Q and C is definitely established by the statements?",
     "statements": [
       "B ≥ C",
@@ -34,6 +56,8 @@
     ],
     "correctOption": "Q ≥ C",
     "explanation": "Read the links as one chain: B ≤ Q and B ≥ C.\n\nNone of those links forces the end values apart. Equality is still possible, so the guaranteed relation is Q ≥ C.\n\nTherefore, Q ≥ C is definitely established.",
+    "mockExplanation": "Read the links as one chain: B ≤ Q and B ≥ C. None of those links forces the end values apart. Equality is still possible, so the guaranteed relation is Q ≥ C. Therefore, Q ≥ C is definitely established.",
+    "learningExplanation": "Read the links as one chain: B ≤ Q and B ≥ C.\n\nNone of those links forces the end values apart. Equality is still possible, so the guaranteed relation is Q ≥ C.\n\nTherefore, Q ≥ C is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -46,6 +70,7 @@
     "seed": 1,
     "difficulty": "EASY",
     "difficultyBasis": "SHORT_SINGLE_PATH",
+    "releaseTier": "SSC_STANDARD_MOCK",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "CHAIN_3_ENTITIES_STRICT",
     "graphFingerprint": "62ba4101",
@@ -59,6 +84,27 @@
     "answerRelation": "LESS_THAN",
     "contentHash": "7a2cc0cb",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "VALID_PATH_IGNORED"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "STRICTNESS_IGNORED"
+      },
+      {
+        "index": 2,
+        "role": "CORRECT"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "QUERY_ORDER_REVERSED"
+      }
+    ],
     "stem": "Which relation between Q and C is definitely established by the statements?",
     "statements": [
       "Q < B",
@@ -72,6 +118,8 @@
     ],
     "correctOption": "Q < C",
     "explanation": "Read the links as one chain: C ≥ B and Q < B.\n\nA strict link occurs on the route, so the two ends cannot be equal. This proves Q < C.\n\nTherefore, Q < C is definitely established.",
+    "mockExplanation": "Read the links as one chain: C ≥ B and Q < B. A strict link occurs on the route, so the two ends cannot be equal. This proves Q < C. Therefore, Q < C is definitely established.",
+    "learningExplanation": "Read the links as one chain: C ≥ B and Q < B.\n\nA strict link occurs on the route, so the two ends cannot be equal. This proves Q < C.\n\nTherefore, Q < C is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -84,6 +132,7 @@
     "seed": 2,
     "difficulty": "EASY",
     "difficultyBasis": "SHORT_SINGLE_PATH",
+    "releaseTier": "SSC_STANDARD_MOCK",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "CHAIN_4_ENTITIES_WITH_EQUALITY",
     "graphFingerprint": "b6c80723",
@@ -97,6 +146,27 @@
     "answerRelation": "GREATER_THAN",
     "contentHash": "c2cff542",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "QUERY_ORDER_REVERSED"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "VALID_PATH_IGNORED"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "STRICTNESS_IGNORED"
+      },
+      {
+        "index": 3,
+        "role": "CORRECT"
+      }
+    ],
     "stem": "Which relation between P and Q is definitely established by the statements?",
     "statements": [
       "P > B",
@@ -111,6 +181,8 @@
     ],
     "correctOption": "P > Q",
     "explanation": "Read the links as one chain: P > B and B = C and Q ≤ C.\n\nA strict link occurs on the route, so the two ends cannot be equal. This proves P > Q.\n\nTherefore, P > Q is definitely established.",
+    "mockExplanation": "Read the links as one chain: P > B and B = C and Q ≤ C. A strict link occurs on the route, so the two ends cannot be equal. This proves P > Q. Therefore, P > Q is definitely established.",
+    "learningExplanation": "Read the links as one chain: P > B and B = C and Q ≤ C.\n\nA strict link occurs on the route, so the two ends cannot be equal. This proves P > Q.\n\nTherefore, P > Q is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -123,6 +195,7 @@
     "seed": 3,
     "difficulty": "MEDIUM",
     "difficultyBasis": "STANDARD_GRAPH_REASONING",
+    "releaseTier": "BANKING_PRELIMS",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "CHAIN_5_ENTITIES_INCLUSIVE_EQUALITY",
     "graphFingerprint": "c91f1140",
@@ -136,6 +209,27 @@
     "answerRelation": "LESS_THAN_OR_EQUAL",
     "contentHash": "6e069b4c",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "CORRECT"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "REVERSED_DIRECTION"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "VALID_PATH_IGNORED"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "EQUALITY_ASSUMED"
+      }
+    ],
     "stem": "Which relation between D and B is definitely established by the statements?",
     "statements": [
       "S ≥ Q",
@@ -151,6 +245,8 @@
     ],
     "correctOption": "D ≤ B",
     "explanation": "Read the links as one chain: B ≥ S and S ≥ Q and Q = R and D ≤ R.\n\nNone of those links forces the end values apart. Equality is still possible, so the guaranteed relation is D ≤ B.\n\nTherefore, D ≤ B is definitely established.",
+    "mockExplanation": "Read the links as one chain: B ≥ S and S ≥ Q and Q = R and D ≤ R. None of those links forces the end values apart. Equality is still possible, so the guaranteed relation is D ≤ B. Therefore, D ≤ B is definitely established.",
+    "learningExplanation": "Read the links as one chain: B ≥ S and S ≥ Q and Q = R and D ≤ R.\n\nNone of those links forces the end values apart. Equality is still possible, so the guaranteed relation is D ≤ B.\n\nTherefore, D ≤ B is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -163,6 +259,7 @@
     "seed": 4,
     "difficulty": "MEDIUM",
     "difficultyBasis": "STANDARD_GRAPH_REASONING",
+    "releaseTier": "BANKING_PRELIMS",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "CHAIN_5_ENTITIES_LATE_STRICT",
     "graphFingerprint": "146fe539",
@@ -176,6 +273,27 @@
     "answerRelation": "GREATER_THAN",
     "contentHash": "65eb4f15",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "VALID_PATH_IGNORED"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "QUERY_ORDER_REVERSED"
+      },
+      {
+        "index": 2,
+        "role": "CORRECT"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "REVERSED_DIRECTION"
+      }
+    ],
     "stem": "Which relation between P and D is definitely established by the statements?",
     "statements": [
       "R ≤ B",
@@ -191,6 +309,8 @@
     ],
     "correctOption": "P > D",
     "explanation": "Read the links as one chain: B ≤ P and R ≤ B and R ≥ A and D < A.\n\nA strict link occurs on the route, so the two ends cannot be equal. This proves P > D.\n\nTherefore, P > D is definitely established.",
+    "mockExplanation": "Read the links as one chain: B ≤ P and R ≤ B and R ≥ A and D < A. A strict link occurs on the route, so the two ends cannot be equal. This proves P > D. Therefore, P > D is definitely established.",
+    "learningExplanation": "Read the links as one chain: B ≤ P and R ≤ B and R ≥ A and D < A.\n\nA strict link occurs on the route, so the two ends cannot be equal. This proves P > D.\n\nTherefore, P > D is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -203,33 +323,58 @@
     "seed": 0,
     "difficulty": "MEDIUM",
     "difficultyBasis": "STANDARD_GRAPH_REASONING",
+    "releaseTier": "BANKING_PRELIMS",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
-    "topologyId": "DIRECT_PLUS_TWO_EDGE_ROUTE",
-    "graphFingerprint": "3eebac4e",
+    "topologyId": "INDIRECT_DIAMOND_TWO_ROUTES",
+    "graphFingerprint": "5f8baf51",
     "explanationMode": "MULTIPLE_ROUTES",
-    "nodeCount": 3,
-    "statementCount": 3,
-    "relevantStatementCount": 3,
+    "nodeCount": 4,
+    "statementCount": 4,
+    "relevantStatementCount": 4,
     "irrelevantStatementCount": 0,
     "equalityStatementCount": 0,
     "strictStatementCount": 2,
     "answerRelation": "GREATER_THAN",
-    "contentHash": "80dd0c14",
+    "contentHash": "aa738262",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
-    "stem": "Which relation between B and R is definitely established by the statements?",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "CORRECT"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "STRICTNESS_IGNORED"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "REVERSED_DIRECTION"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "QUERY_ORDER_REVERSED"
+      }
+    ],
+    "stem": "Which relation between R and A is definitely established by the statements?",
     "statements": [
-      "B > R",
-      "C > R",
-      "C ≤ B"
+      "R ≥ C",
+      "R > S",
+      "S ≥ A",
+      "A < C"
     ],
     "options": [
-      "B > R",
-      "B ≤ R",
-      "B < R",
-      "B = R"
+      "R > A",
+      "R = A",
+      "R < A",
+      "R ≤ A"
     ],
-    "correctOption": "B > R",
-    "explanation": "Two separate routes connect B and R.\n\nRoute 1: B > R — this gives B > R.\n\nRoute 2: C ≤ B and C > R — this independently gives the same result.\n\nTherefore, B > R is definitely established.",
+    "correctOption": "R > A",
+    "explanation": "Two separate routes connect R and A.\n\nRoute 1: R ≥ C and A < C — this gives R > A.\n\nRoute 2: R > S and S ≥ A — this independently gives the same result.\n\nTherefore, R > A is definitely established.",
+    "mockExplanation": "Two separate routes connect R and A. Route 1: R ≥ C and A < C — this gives R > A. Route 2: R > S and S ≥ A — this independently gives the same result. Therefore, R > A is definitely established.",
+    "learningExplanation": "Two separate routes connect R and A.\n\nRoute 1: R ≥ C and A < C — this gives R > A.\n\nRoute 2: R > S and S ≥ A — this independently gives the same result.\n\nTherefore, R > A is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -242,6 +387,7 @@
     "seed": 1,
     "difficulty": "MEDIUM",
     "difficultyBasis": "STANDARD_GRAPH_REASONING",
+    "releaseTier": "BANKING_PRELIMS",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "DIAMOND_TWO_ROUTES",
     "graphFingerprint": "7cdf1b3d",
@@ -255,6 +401,27 @@
     "answerRelation": "LESS_THAN",
     "contentHash": "4791f99a",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "REVERSED_DIRECTION"
+      },
+      {
+        "index": 1,
+        "role": "CORRECT"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "QUERY_ORDER_REVERSED"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "STRICTNESS_IGNORED"
+      }
+    ],
     "stem": "Which relation between S and R is definitely established by the statements?",
     "statements": [
       "C ≤ R",
@@ -270,6 +437,8 @@
     ],
     "correctOption": "S < R",
     "explanation": "Two separate routes connect S and R.\n\nRoute 1: R > Q and Q ≥ S — this gives S < R.\n\nRoute 2: C ≤ R and C > S — this independently gives the same result.\n\nTherefore, S < R is definitely established.",
+    "mockExplanation": "Two separate routes connect S and R. Route 1: R > Q and Q ≥ S — this gives S < R. Route 2: C ≤ R and C > S — this independently gives the same result. Therefore, S < R is definitely established.",
+    "learningExplanation": "Two separate routes connect S and R.\n\nRoute 1: R > Q and Q ≥ S — this gives S < R.\n\nRoute 2: C ≤ R and C > S — this independently gives the same result.\n\nTherefore, S < R is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -282,6 +451,7 @@
     "seed": 2,
     "difficulty": "HARD",
     "difficultyBasis": "ADVANCED_GRAPH_REASONING",
+    "releaseTier": "ADVANCED_PRACTICE",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "TWO_AND_THREE_EDGE_ROUTES",
     "graphFingerprint": "3977b62a",
@@ -295,6 +465,27 @@
     "answerRelation": "GREATER_THAN",
     "contentHash": "f934f19c",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "QUERY_ORDER_REVERSED"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "REVERSED_DIRECTION"
+      },
+      {
+        "index": 2,
+        "role": "CORRECT"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "STRICTNESS_IGNORED"
+      }
+    ],
     "stem": "Which relation between S and D is definitely established by the statements?",
     "statements": [
       "A ≤ S",
@@ -311,6 +502,8 @@
     ],
     "correctOption": "S > D",
     "explanation": "Two separate routes connect S and D.\n\nRoute 1: S > C and C ≥ D — this gives S > D.\n\nRoute 2: A ≤ S and A > R and R ≥ D — this independently gives the same result.\n\nTherefore, S > D is definitely established.",
+    "mockExplanation": "Two separate routes connect S and D. Route 1: S > C and C ≥ D — this gives S > D. Route 2: A ≤ S and A > R and R ≥ D — this independently gives the same result. Therefore, S > D is definitely established.",
+    "learningExplanation": "Two separate routes connect S and D.\n\nRoute 1: S > C and C ≥ D — this gives S > D.\n\nRoute 2: A ≤ S and A > R and R ≥ D — this independently gives the same result.\n\nTherefore, S > D is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -323,6 +516,7 @@
     "seed": 3,
     "difficulty": "MEDIUM",
     "difficultyBasis": "STANDARD_GRAPH_REASONING",
+    "releaseTier": "BANKING_PRELIMS",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "INCLUSIVE_DIAMOND_WITH_EQUALITY",
     "graphFingerprint": "4c932af3",
@@ -336,6 +530,27 @@
     "answerRelation": "GREATER_THAN_OR_EQUAL",
     "contentHash": "bedd149c",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "REVERSED_DIRECTION"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "VALID_PATH_IGNORED"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "EQUALITY_ASSUMED"
+      },
+      {
+        "index": 3,
+        "role": "CORRECT"
+      }
+    ],
     "stem": "Which relation between P and D is definitely established by the statements?",
     "statements": [
       "R = D",
@@ -351,6 +566,8 @@
     ],
     "correctOption": "P ≥ D",
     "explanation": "Two separate routes connect P and D.\n\nRoute 1: P ≥ R and R = D — this gives P ≥ D.\n\nRoute 2: P ≥ C and D ≤ C — this independently gives the same result.\n\nTherefore, P ≥ D is definitely established.",
+    "mockExplanation": "Two separate routes connect P and D. Route 1: P ≥ R and R = D — this gives P ≥ D. Route 2: P ≥ C and D ≤ C — this independently gives the same result. Therefore, P ≥ D is definitely established.",
+    "learningExplanation": "Two separate routes connect P and D.\n\nRoute 1: P ≥ R and R = D — this gives P ≥ D.\n\nRoute 2: P ≥ C and D ≤ C — this independently gives the same result.\n\nTherefore, P ≥ D is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -363,6 +580,7 @@
     "seed": 4,
     "difficulty": "HARD",
     "difficultyBasis": "ADVANCED_GRAPH_REASONING",
+    "releaseTier": "ADVANCED_PRACTICE",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "TWO_ROUTES_WITH_CROSS_LINK",
     "graphFingerprint": "5ffdcf96",
@@ -376,6 +594,27 @@
     "answerRelation": "GREATER_THAN",
     "contentHash": "aa4a4265",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "VALID_PATH_IGNORED"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "REVERSED_DIRECTION"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "STRICTNESS_IGNORED"
+      },
+      {
+        "index": 3,
+        "role": "CORRECT"
+      }
+    ],
     "stem": "Which relation between P and A is definitely established by the statements?",
     "statements": [
       "R > A",
@@ -393,6 +632,8 @@
     ],
     "correctOption": "P > A",
     "explanation": "Two separate routes connect P and A.\n\nRoute 1: Q < P and B ≤ Q and A ≤ B — this gives P > A.\n\nRoute 2: P ≥ R and R > A — this independently gives the same result.\n\nTherefore, P > A is definitely established.",
+    "mockExplanation": "Two separate routes connect P and A. Route 1: Q < P and B ≤ Q and A ≤ B — this gives P > A. Route 2: P ≥ R and R > A — this independently gives the same result. Therefore, P > A is definitely established.",
+    "learningExplanation": "Two separate routes connect P and A.\n\nRoute 1: Q < P and B ≤ Q and A ≤ B — this gives P > A.\n\nRoute 2: P ≥ R and R > A — this independently gives the same result.\n\nTherefore, P > A is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -405,6 +646,7 @@
     "seed": 0,
     "difficulty": "HARD",
     "difficultyBasis": "ADVANCED_GRAPH_REASONING",
+    "releaseTier": "ADVANCED_PRACTICE",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "DIRECT_PLUS_LONG_ALTERNATE",
     "graphFingerprint": "a00782cb",
@@ -418,6 +660,27 @@
     "answerRelation": "GREATER_THAN",
     "contentHash": "402c4135",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "CORRECT"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "STRICTNESS_IGNORED"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "REVERSED_DIRECTION"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "QUERY_ORDER_REVERSED"
+      }
+    ],
     "stem": "Which relation between A and Q is definitely established by the statements?",
     "statements": [
       "C ≤ A",
@@ -433,6 +696,8 @@
     ],
     "correctOption": "A > Q",
     "explanation": "Compare the two available routes from A to Q.\n\nDirect route: Q ≤ A — this is only inclusive.\n\nAlternate route: C ≤ A and C > B and B ≥ Q — its strict link rules out equality, proving A > Q.\n\nTherefore, A > Q is definitely established.",
+    "mockExplanation": "Compare the two available routes from A to Q. Direct route: Q ≤ A — this is only inclusive. Alternate route: C ≤ A and C > B and B ≥ Q — its strict link rules out equality, proving A > Q. Therefore, A > Q is definitely established.",
+    "learningExplanation": "Compare the two available routes from A to Q.\n\nDirect route: Q ≤ A — this is only inclusive.\n\nAlternate route: C ≤ A and C > B and B ≥ Q — its strict link rules out equality, proving A > Q.\n\nTherefore, A > Q is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -445,6 +710,7 @@
     "seed": 1,
     "difficulty": "HARD",
     "difficultyBasis": "ADVANCED_GRAPH_REASONING",
+    "releaseTier": "ADVANCED_PRACTICE",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "DIRECT_PLUS_LONG_ALTERNATE",
     "graphFingerprint": "f855fc3b",
@@ -458,6 +724,27 @@
     "answerRelation": "LESS_THAN",
     "contentHash": "1571abc1",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "STRICTNESS_IGNORED"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "REVERSED_DIRECTION"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "VALID_PATH_IGNORED"
+      },
+      {
+        "index": 3,
+        "role": "CORRECT"
+      }
+    ],
     "stem": "Which relation between P and S is definitely established by the statements?",
     "statements": [
       "A < C",
@@ -473,6 +760,8 @@
     ],
     "correctOption": "P < S",
     "explanation": "Compare the two available routes from P to S.\n\nDirect route: S ≥ P — this is only inclusive.\n\nAlternate route: C ≤ S and A < C and P ≤ A — its strict link rules out equality, proving P < S.\n\nTherefore, P < S is definitely established.",
+    "mockExplanation": "Compare the two available routes from P to S. Direct route: S ≥ P — this is only inclusive. Alternate route: C ≤ S and A < C and P ≤ A — its strict link rules out equality, proving P < S. Therefore, P < S is definitely established.",
+    "learningExplanation": "Compare the two available routes from P to S.\n\nDirect route: S ≥ P — this is only inclusive.\n\nAlternate route: C ≤ S and A < C and P ≤ A — its strict link rules out equality, proving P < S.\n\nTherefore, P < S is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -485,6 +774,7 @@
     "seed": 2,
     "difficulty": "HARD",
     "difficultyBasis": "ADVANCED_GRAPH_REASONING",
+    "releaseTier": "ADVANCED_PRACTICE",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "DIRECT_PLUS_LONG_ALTERNATE",
     "graphFingerprint": "a00782cb",
@@ -498,6 +788,27 @@
     "answerRelation": "GREATER_THAN",
     "contentHash": "ea7e07cf",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "STRICTNESS_IGNORED"
+      },
+      {
+        "index": 1,
+        "role": "CORRECT"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "REVERSED_DIRECTION"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "QUERY_ORDER_REVERSED"
+      }
+    ],
     "stem": "Which relation between B and S is definitely established by the statements?",
     "statements": [
       "S ≤ B",
@@ -513,6 +824,8 @@
     ],
     "correctOption": "B > S",
     "explanation": "Compare the two available routes from B to S.\n\nDirect route: S ≤ B — this is only inclusive.\n\nAlternate route: R ≤ B and R > Q and Q ≥ S — its strict link rules out equality, proving B > S.\n\nTherefore, B > S is definitely established.",
+    "mockExplanation": "Compare the two available routes from B to S. Direct route: S ≤ B — this is only inclusive. Alternate route: R ≤ B and R > Q and Q ≥ S — its strict link rules out equality, proving B > S. Therefore, B > S is definitely established.",
+    "learningExplanation": "Compare the two available routes from B to S.\n\nDirect route: S ≤ B — this is only inclusive.\n\nAlternate route: R ≤ B and R > Q and Q ≥ S — its strict link rules out equality, proving B > S.\n\nTherefore, B > S is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -525,6 +838,7 @@
     "seed": 3,
     "difficulty": "HARD",
     "difficultyBasis": "ADVANCED_GRAPH_REASONING",
+    "releaseTier": "ADVANCED_PRACTICE",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "DIRECT_PLUS_LONG_ALTERNATE",
     "graphFingerprint": "f855fc3b",
@@ -538,6 +852,27 @@
     "answerRelation": "LESS_THAN",
     "contentHash": "20a3820a",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "QUERY_ORDER_REVERSED"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "STRICTNESS_IGNORED"
+      },
+      {
+        "index": 2,
+        "role": "CORRECT"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "VALID_PATH_IGNORED"
+      }
+    ],
     "stem": "Which relation between A and D is definitely established by the statements?",
     "statements": [
       "Q < R",
@@ -553,6 +888,8 @@
     ],
     "correctOption": "A < D",
     "explanation": "Compare the two available routes from A to D.\n\nDirect route: D ≥ A — this is only inclusive.\n\nAlternate route: R ≤ D and Q < R and Q ≥ A — its strict link rules out equality, proving A < D.\n\nTherefore, A < D is definitely established.",
+    "mockExplanation": "Compare the two available routes from A to D. Direct route: D ≥ A — this is only inclusive. Alternate route: R ≤ D and Q < R and Q ≥ A — its strict link rules out equality, proving A < D. Therefore, A < D is definitely established.",
+    "learningExplanation": "Compare the two available routes from A to D.\n\nDirect route: D ≥ A — this is only inclusive.\n\nAlternate route: R ≤ D and Q < R and Q ≥ A — its strict link rules out equality, proving A < D.\n\nTherefore, A < D is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -565,6 +902,7 @@
     "seed": 4,
     "difficulty": "HARD",
     "difficultyBasis": "ADVANCED_GRAPH_REASONING",
+    "releaseTier": "ADVANCED_PRACTICE",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "DIRECT_PLUS_LONG_ALTERNATE",
     "graphFingerprint": "a00782cb",
@@ -578,6 +916,27 @@
     "answerRelation": "GREATER_THAN",
     "contentHash": "a318a267",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "CORRECT"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "REVERSED_DIRECTION"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "STRICTNESS_IGNORED"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "VALID_PATH_IGNORED"
+      }
+    ],
     "stem": "Which relation between S and A is definitely established by the statements?",
     "statements": [
       "Q ≥ A",
@@ -593,6 +952,8 @@
     ],
     "correctOption": "S > A",
     "explanation": "Compare the two available routes from S to A.\n\nDirect route: S ≥ A — this is only inclusive.\n\nAlternate route: D ≤ S and Q < D and Q ≥ A — its strict link rules out equality, proving S > A.\n\nTherefore, S > A is definitely established.",
+    "mockExplanation": "Compare the two available routes from S to A. Direct route: S ≥ A — this is only inclusive. Alternate route: D ≤ S and Q < D and Q ≥ A — its strict link rules out equality, proving S > A. Therefore, S > A is definitely established.",
+    "learningExplanation": "Compare the two available routes from S to A.\n\nDirect route: S ≥ A — this is only inclusive.\n\nAlternate route: D ≤ S and Q < D and Q ≥ A — its strict link rules out equality, proving S > A.\n\nTherefore, S > A is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -605,6 +966,7 @@
     "seed": 0,
     "difficulty": "MEDIUM",
     "difficultyBasis": "STANDARD_GRAPH_REASONING",
+    "releaseTier": "BANKING_PRELIMS",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "BRANCHES_COMMON_UPPER_ONLY",
     "graphFingerprint": "1b9be191",
@@ -618,6 +980,27 @@
     "answerRelation": "INDETERMINATE",
     "contentHash": "1e509d42",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      },
+      {
+        "index": 2,
+        "role": "CORRECT"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "NO_PATH_MISREAD_AS_EQUALITY"
+      }
+    ],
     "stem": "Which relation between A and B is definitely established by the statements?",
     "statements": [
       "S > A",
@@ -632,6 +1015,8 @@
     ],
     "correctOption": "The relation cannot be determined",
     "explanation": "A and B sit on different branches of the same connected graph.\n\nThe branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of A and B is not fixed.\n\nA=1, B=2, Q=0, S=2 satisfies every statement and gives A < B.\n\nA=1, B=1, Q=0, S=2 satisfies every statement and gives A = B.\n\nBecause valid arrangements give different results, the relation between A and B cannot be determined.",
+    "mockExplanation": "A and B sit on different branches of the same connected graph. The branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of A and B is not fixed. Because valid arrangements give different results, the relation between A and B cannot be determined.",
+    "learningExplanation": "A and B sit on different branches of the same connected graph.\n\nThe branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of A and B is not fixed.\n\nA=1, B=2, Q=0, S=2 satisfies every statement and gives A < B.\n\nA=1, B=1, Q=0, S=2 satisfies every statement and gives A = B.\n\nBecause valid arrangements give different results, the relation between A and B cannot be determined.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -644,6 +1029,7 @@
     "seed": 1,
     "difficulty": "MEDIUM",
     "difficultyBasis": "STANDARD_GRAPH_REASONING",
+    "releaseTier": "BANKING_PRELIMS",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "BRANCHES_COMMON_LOWER_ONLY",
     "graphFingerprint": "5bb3f6ed",
@@ -657,6 +1043,27 @@
     "answerRelation": "INDETERMINATE",
     "contentHash": "35a8eb4a",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "NO_PATH_MISREAD_AS_EQUALITY"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      },
+      {
+        "index": 3,
+        "role": "CORRECT"
+      }
+    ],
     "stem": "Which relation between B and A is definitely established by the statements?",
     "statements": [
       "B > Q",
@@ -671,6 +1078,8 @@
     ],
     "correctOption": "The relation cannot be determined",
     "explanation": "B and A sit on different branches of the same connected graph.\n\nThe branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of B and A is not fixed.\n\nA=2, B=1, Q=0, R=2 satisfies every statement and gives B < A.\n\nA=1, B=1, Q=0, R=2 satisfies every statement and gives B = A.\n\nBecause valid arrangements give different results, the relation between B and A cannot be determined.",
+    "mockExplanation": "B and A sit on different branches of the same connected graph. The branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of B and A is not fixed. Because valid arrangements give different results, the relation between B and A cannot be determined.",
+    "learningExplanation": "B and A sit on different branches of the same connected graph.\n\nThe branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of B and A is not fixed.\n\nA=2, B=1, Q=0, R=2 satisfies every statement and gives B < A.\n\nA=1, B=1, Q=0, R=2 satisfies every statement and gives B = A.\n\nBecause valid arrangements give different results, the relation between B and A cannot be determined.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -683,6 +1092,7 @@
     "seed": 2,
     "difficulty": "MEDIUM",
     "difficultyBasis": "STANDARD_GRAPH_REASONING",
+    "releaseTier": "BANKING_PRELIMS",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "UPPER_AND_LOWER_SHARED_BOUNDS",
     "graphFingerprint": "40fcc460",
@@ -696,6 +1106,27 @@
     "answerRelation": "INDETERMINATE",
     "contentHash": "bb21715b",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      },
+      {
+        "index": 1,
+        "role": "CORRECT"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      }
+    ],
     "stem": "Which relation between S and D is definitely established by the statements?",
     "statements": [
       "D < B",
@@ -711,6 +1142,8 @@
     ],
     "correctOption": "The relation cannot be determined",
     "explanation": "S and D sit on different branches of the same connected graph.\n\nThe branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of S and D is not fixed.\n\nB=2, D=1, P=0, S=0 satisfies every statement and gives S < D.\n\nB=2, D=1, P=0, S=1 satisfies every statement and gives S = D.\n\nBecause valid arrangements give different results, the relation between S and D cannot be determined.",
+    "mockExplanation": "S and D sit on different branches of the same connected graph. The branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of S and D is not fixed. Because valid arrangements give different results, the relation between S and D cannot be determined.",
+    "learningExplanation": "S and D sit on different branches of the same connected graph.\n\nThe branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of S and D is not fixed.\n\nB=2, D=1, P=0, S=0 satisfies every statement and gives S < D.\n\nB=2, D=1, P=0, S=1 satisfies every statement and gives S = D.\n\nBecause valid arrangements give different results, the relation between S and D cannot be determined.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -723,6 +1156,7 @@
     "seed": 3,
     "difficulty": "MEDIUM",
     "difficultyBasis": "STANDARD_GRAPH_REASONING",
+    "releaseTier": "BANKING_PRELIMS",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "ASYMMETRIC_BRANCH_DEPTH",
     "graphFingerprint": "22233892",
@@ -736,6 +1170,27 @@
     "answerRelation": "INDETERMINATE",
     "contentHash": "3886c6df",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "CORRECT"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "NO_PATH_MISREAD_AS_EQUALITY"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      }
+    ],
     "stem": "Which relation between P and Q is definitely established by the statements?",
     "statements": [
       "P ≤ C",
@@ -750,6 +1205,8 @@
     ],
     "correctOption": "The relation cannot be determined",
     "explanation": "P and Q sit on different branches of the same connected graph.\n\nThe branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of P and Q is not fixed.\n\nC=0, P=0, Q=1, R=2 satisfies every statement and gives P < Q.\n\nC=0, P=0, Q=0, R=1 satisfies every statement and gives P = Q.\n\nBecause valid arrangements give different results, the relation between P and Q cannot be determined.",
+    "mockExplanation": "P and Q sit on different branches of the same connected graph. The branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of P and Q is not fixed. Because valid arrangements give different results, the relation between P and Q cannot be determined.",
+    "learningExplanation": "P and Q sit on different branches of the same connected graph.\n\nThe branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of P and Q is not fixed.\n\nC=0, P=0, Q=1, R=2 satisfies every statement and gives P < Q.\n\nC=0, P=0, Q=0, R=1 satisfies every statement and gives P = Q.\n\nBecause valid arrangements give different results, the relation between P and Q cannot be determined.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -762,6 +1219,7 @@
     "seed": 4,
     "difficulty": "HARD",
     "difficultyBasis": "ADVANCED_GRAPH_REASONING",
+    "releaseTier": "ADVANCED_PRACTICE",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "BRANCH_WITH_EQUALITY_DEPTH",
     "graphFingerprint": "430d8cf6",
@@ -775,6 +1233,27 @@
     "answerRelation": "INDETERMINATE",
     "contentHash": "fae2ed85",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "CORRECT"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      }
+    ],
     "stem": "Which relation between C and P is definitely established by the statements?",
     "statements": [
       "B = C",
@@ -791,6 +1270,8 @@
     ],
     "correctOption": "The relation cannot be determined",
     "explanation": "C and P sit on different branches of the same connected graph.\n\nThe branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of C and P is not fixed.\n\nB=0, C=0, P=1, Q=0, R=2 satisfies every statement and gives C < P.\n\nB=1, C=1, P=1, Q=0, R=2 satisfies every statement and gives C = P.\n\nBecause valid arrangements give different results, the relation between C and P cannot be determined.",
+    "mockExplanation": "C and P sit on different branches of the same connected graph. The branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of C and P is not fixed. Because valid arrangements give different results, the relation between C and P cannot be determined.",
+    "learningExplanation": "C and P sit on different branches of the same connected graph.\n\nThe branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of C and P is not fixed.\n\nB=0, C=0, P=1, Q=0, R=2 satisfies every statement and gives C < P.\n\nB=1, C=1, P=1, Q=0, R=2 satisfies every statement and gives C = P.\n\nBecause valid arrangements give different results, the relation between C and P cannot be determined.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -803,6 +1284,7 @@
     "seed": 0,
     "difficulty": "MEDIUM",
     "difficultyBasis": "STANDARD_GRAPH_REASONING",
+    "releaseTier": "BANKING_PRELIMS",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "RELEVANT_CHAIN_PLUS_SIDE_BRANCH",
     "graphFingerprint": "1e09029f",
@@ -816,6 +1298,27 @@
     "answerRelation": "GREATER_THAN",
     "contentHash": "fcda3359",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "REVERSED_DIRECTION"
+      },
+      {
+        "index": 1,
+        "role": "CORRECT"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "VALID_PATH_IGNORED"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "QUERY_ORDER_REVERSED"
+      }
+    ],
     "stem": "Which relation between R and C is definitely established by the statements?",
     "statements": [
       "B ≤ R",
@@ -831,6 +1334,8 @@
     ],
     "correctOption": "R > C",
     "explanation": "Relevant route: B ≤ R and B > C.\n\nThe remaining clues — Q < R and S < Q — do not complete another route between R and C. The relevant route proves R > C.\n\nTherefore, R > C is definitely established.",
+    "mockExplanation": "Relevant route: B ≤ R and B > C. The remaining clues — Q < R and S < Q — do not complete another route between R and C. The relevant route proves R > C. Therefore, R > C is definitely established.",
+    "learningExplanation": "Relevant route: B ≤ R and B > C.\n\nThe remaining clues — Q < R and S < Q — do not complete another route between R and C. The relevant route proves R > C.\n\nTherefore, R > C is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -843,6 +1348,7 @@
     "seed": 1,
     "difficulty": "MEDIUM",
     "difficultyBasis": "STANDARD_GRAPH_REASONING",
+    "releaseTier": "BANKING_PRELIMS",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "RELEVANT_CHAIN_PLUS_DISCONNECTED_CLUE",
     "graphFingerprint": "a6eec590",
@@ -856,6 +1362,27 @@
     "answerRelation": "LESS_THAN",
     "contentHash": "5e919868",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "STRICTNESS_IGNORED"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "VALID_PATH_IGNORED"
+      },
+      {
+        "index": 2,
+        "role": "CORRECT"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "QUERY_ORDER_REVERSED"
+      }
+    ],
     "stem": "Which relation between S and Q is definitely established by the statements?",
     "statements": [
       "A > R",
@@ -870,6 +1397,8 @@
     ],
     "correctOption": "S < Q",
     "explanation": "Relevant route: Q ≥ D and S < D.\n\nThe remaining clues — A > R — do not complete another route between S and Q. The relevant route proves S < Q.\n\nTherefore, S < Q is definitely established.",
+    "mockExplanation": "Relevant route: Q ≥ D and S < D. The remaining clues — A > R — do not complete another route between S and Q. The relevant route proves S < Q. Therefore, S < Q is definitely established.",
+    "learningExplanation": "Relevant route: Q ≥ D and S < D.\n\nThe remaining clues — A > R — do not complete another route between S and Q. The relevant route proves S < Q.\n\nTherefore, S < Q is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -882,6 +1411,7 @@
     "seed": 2,
     "difficulty": "MEDIUM",
     "difficultyBasis": "STANDARD_GRAPH_REASONING",
+    "releaseTier": "BANKING_PRELIMS",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "RELEVANT_CHAIN_PLUS_SIDE_BRANCH",
     "graphFingerprint": "1e09029f",
@@ -895,6 +1425,27 @@
     "answerRelation": "GREATER_THAN",
     "contentHash": "46239376",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "REVERSED_DIRECTION"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "VALID_PATH_IGNORED"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "QUERY_ORDER_REVERSED"
+      },
+      {
+        "index": 3,
+        "role": "CORRECT"
+      }
+    ],
     "stem": "Which relation between B and C is definitely established by the statements?",
     "statements": [
       "B ≥ A",
@@ -910,6 +1461,8 @@
     ],
     "correctOption": "B > C",
     "explanation": "Relevant route: B ≥ A and C < A.\n\nThe remaining clues — R < B and R > S — do not complete another route between B and C. The relevant route proves B > C.\n\nTherefore, B > C is definitely established.",
+    "mockExplanation": "Relevant route: B ≥ A and C < A. The remaining clues — R < B and R > S — do not complete another route between B and C. The relevant route proves B > C. Therefore, B > C is definitely established.",
+    "learningExplanation": "Relevant route: B ≥ A and C < A.\n\nThe remaining clues — R < B and R > S — do not complete another route between B and C. The relevant route proves B > C.\n\nTherefore, B > C is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -922,6 +1475,7 @@
     "seed": 3,
     "difficulty": "MEDIUM",
     "difficultyBasis": "STANDARD_GRAPH_REASONING",
+    "releaseTier": "BANKING_PRELIMS",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "RELEVANT_CHAIN_PLUS_DISCONNECTED_CLUE",
     "graphFingerprint": "a6eec590",
@@ -935,6 +1489,27 @@
     "answerRelation": "LESS_THAN",
     "contentHash": "cf75d215",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "CORRECT"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "VALID_PATH_IGNORED"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "REVERSED_DIRECTION"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "STRICTNESS_IGNORED"
+      }
+    ],
     "stem": "Which relation between Q and P is definitely established by the statements?",
     "statements": [
       "A < D",
@@ -949,6 +1524,8 @@
     ],
     "correctOption": "Q < P",
     "explanation": "Relevant route: P ≥ B and Q < B.\n\nThe remaining clues — A < D — do not complete another route between Q and P. The relevant route proves Q < P.\n\nTherefore, Q < P is definitely established.",
+    "mockExplanation": "Relevant route: P ≥ B and Q < B. The remaining clues — A < D — do not complete another route between Q and P. The relevant route proves Q < P. Therefore, Q < P is definitely established.",
+    "learningExplanation": "Relevant route: P ≥ B and Q < B.\n\nThe remaining clues — A < D — do not complete another route between Q and P. The relevant route proves Q < P.\n\nTherefore, Q < P is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -961,6 +1538,7 @@
     "seed": 4,
     "difficulty": "MEDIUM",
     "difficultyBasis": "STANDARD_GRAPH_REASONING",
+    "releaseTier": "BANKING_PRELIMS",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "RELEVANT_CHAIN_PLUS_SIDE_BRANCH",
     "graphFingerprint": "1e09029f",
@@ -974,6 +1552,27 @@
     "answerRelation": "GREATER_THAN",
     "contentHash": "4b6ec8c5",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "VALID_PATH_IGNORED"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "STRICTNESS_IGNORED"
+      },
+      {
+        "index": 2,
+        "role": "CORRECT"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "QUERY_ORDER_REVERSED"
+      }
+    ],
     "stem": "Which relation between B and A is definitely established by the statements?",
     "statements": [
       "P < D",
@@ -989,6 +1588,8 @@
     ],
     "correctOption": "B > A",
     "explanation": "Relevant route: S ≤ B and A < S.\n\nThe remaining clues — B > D and P < D — do not complete another route between B and A. The relevant route proves B > A.\n\nTherefore, B > A is definitely established.",
+    "mockExplanation": "Relevant route: S ≤ B and A < S. The remaining clues — B > D and P < D — do not complete another route between B and A. The relevant route proves B > A. Therefore, B > A is definitely established.",
+    "learningExplanation": "Relevant route: S ≤ B and A < S.\n\nThe remaining clues — B > D and P < D — do not complete another route between B and A. The relevant route proves B > A.\n\nTherefore, B > A is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1001,18 +1602,40 @@
     "seed": 0,
     "difficulty": "HARD",
     "difficultyBasis": "PAIR_AUDIT",
+    "releaseTier": "ADVANCED_PRACTICE",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
-    "topologyId": "BRANCH_PLUS_DISCONNECTED_EQUALITY",
-    "graphFingerprint": "0f8dbb76",
+    "topologyId": "PAIR_AUDIT_CONNECTED_BRANCHES_MULTI_STEP",
+    "graphFingerprint": "9a5134fb",
     "explanationMode": "PAIR_SELECTION",
     "nodeCount": 5,
     "statementCount": 4,
-    "relevantStatementCount": 3,
-    "irrelevantStatementCount": 1,
+    "relevantStatementCount": 4,
+    "irrelevantStatementCount": 0,
     "equalityStatementCount": 1,
     "strictStatementCount": 2,
-    "contentHash": "f9c7b952",
+    "contentHash": "3e5b635e",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_ONLY"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_ONLY"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_ONLY"
+      },
+      {
+        "index": 3,
+        "role": "CORRECT"
+      }
+    ],
     "stem": "Which pair has a relation that is completely determined by the statements?",
     "statements": [
       "S ≥ A",
@@ -1021,13 +1644,15 @@
       "D > S"
     ],
     "options": [
-      "S and B",
       "S and Q",
       "D and Q",
+      "S and B",
       "D and A"
     ],
     "correctOption": "D and A",
-    "explanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nD and A: D > S and S ≥ A, so D > A.\n\nTherefore, option 4 — D and A — is the only pair with a definite relation.\n\nPair check: S and B are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: S and Q are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: D and Q are on separate branches of one graph, with no directed path fixing their order.",
+    "explanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nD and A: D > S and S ≥ A, so D > A.\n\nTherefore, option 4 — D and A — is the only pair with a definite relation.\n\nPair check: S and Q are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: D and Q are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: S and B are on separate branches of one graph, with no directed path fixing their order.",
+    "mockExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. D and A: D > S and S ≥ A, so D > A. Therefore, option 4 — D and A — is the only pair with a definite relation.",
+    "learningExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nD and A: D > S and S ≥ A, so D > A.\n\nTherefore, option 4 — D and A — is the only pair with a definite relation.\n\nPair check: S and Q are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: D and Q are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: S and B are on separate branches of one graph, with no directed path fixing their order.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1040,18 +1665,40 @@
     "seed": 1,
     "difficulty": "HARD",
     "difficultyBasis": "PAIR_AUDIT",
+    "releaseTier": "ADVANCED_PRACTICE",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
-    "topologyId": "BRANCH_PLUS_DISCONNECTED_EQUALITY",
-    "graphFingerprint": "458de8b6",
+    "topologyId": "PAIR_AUDIT_CONNECTED_BRANCHES_MULTI_STEP",
+    "graphFingerprint": "6fd42b2b",
     "explanationMode": "PAIR_SELECTION",
     "nodeCount": 5,
     "statementCount": 4,
-    "relevantStatementCount": 3,
-    "irrelevantStatementCount": 1,
+    "relevantStatementCount": 4,
+    "irrelevantStatementCount": 0,
     "equalityStatementCount": 1,
     "strictStatementCount": 2,
-    "contentHash": "2d42660c",
+    "contentHash": "0b2d1420",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_ONLY"
+      },
+      {
+        "index": 1,
+        "role": "CORRECT"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_ONLY"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_ONLY"
+      }
+    ],
     "stem": "Which pair has a relation that is completely determined by the statements?",
     "statements": [
       "A > B",
@@ -1060,13 +1707,15 @@
       "B ≤ C"
     ],
     "options": [
-      "C and A",
+      "Q and A",
       "B and Q",
-      "C and R",
-      "Q and A"
+      "C and A",
+      "C and R"
     ],
     "correctOption": "B and Q",
-    "explanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nB and Q: Q > C and B ≤ C, so B < Q.\n\nTherefore, option 2 — B and Q — is the only pair with a definite relation.\n\nPair check: C and A are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: C and R are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: Q and A are on separate branches of one graph, with no directed path fixing their order.",
+    "explanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nB and Q: Q > C and B ≤ C, so B < Q.\n\nTherefore, option 2 — B and Q — is the only pair with a definite relation.\n\nPair check: Q and A are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: C and A are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: C and R are on separate branches of one graph, with no directed path fixing their order.",
+    "mockExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. B and Q: Q > C and B ≤ C, so B < Q. Therefore, option 2 — B and Q — is the only pair with a definite relation.",
+    "learningExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nB and Q: Q > C and B ≤ C, so B < Q.\n\nTherefore, option 2 — B and Q — is the only pair with a definite relation.\n\nPair check: Q and A are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: C and A are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: C and R are on separate branches of one graph, with no directed path fixing their order.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1079,33 +1728,56 @@
     "seed": 2,
     "difficulty": "HARD",
     "difficultyBasis": "PAIR_AUDIT",
+    "releaseTier": "ADVANCED_PRACTICE",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
-    "topologyId": "BRANCH_PLUS_DISCONNECTED_EQUALITY",
-    "graphFingerprint": "9ad8a31b",
+    "topologyId": "PAIR_AUDIT_EQUALITY_CHAIN_WITH_DISCONNECTED_EDGE",
+    "graphFingerprint": "5a41f99a",
     "explanationMode": "PAIR_SELECTION",
     "nodeCount": 5,
-    "statementCount": 4,
-    "relevantStatementCount": 3,
+    "statementCount": 3,
+    "relevantStatementCount": 2,
     "irrelevantStatementCount": 1,
-    "equalityStatementCount": 1,
-    "strictStatementCount": 2,
-    "contentHash": "99c56779",
+    "equalityStatementCount": 2,
+    "strictStatementCount": 1,
+    "contentHash": "6a72ec52",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "DISCONNECTED_PAIR"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "DISCONNECTED_PAIR"
+      },
+      {
+        "index": 2,
+        "role": "CORRECT"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "DISCONNECTED_PAIR"
+      }
+    ],
     "stem": "Which pair has a relation that is completely determined by the statements?",
     "statements": [
-      "C ≥ B",
-      "R > C",
-      "B < A",
-      "A = D"
+      "R = B",
+      "B = A",
+      "Q < S"
     ],
     "options": [
-      "C and A",
+      "B and Q",
+      "R and S",
       "R and A",
-      "D and A",
-      "C and D"
+      "A and S"
     ],
-    "correctOption": "D and A",
-    "explanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nD and A: , so D = A.\n\nTherefore, option 3 — D and A — is the only pair with a definite relation.\n\nPair check: C and A are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: R and A are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: C and D are on separate branches of one graph, with no directed path fixing their order.",
+    "correctOption": "R and A",
+    "explanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nR and A: R = B and B = A, so R = A.\n\nTherefore, option 3 — R and A — is the only pair with a definite relation.\n\nPair check: B and Q are in disconnected groups, so no comparison path fixes their order.\n\nPair check: R and S are in disconnected groups, so no comparison path fixes their order.\n\nPair check: A and S are in disconnected groups, so no comparison path fixes their order.",
+    "mockExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. R and A: R = B and B = A, so R = A. Therefore, option 3 — R and A — is the only pair with a definite relation.",
+    "learningExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nR and A: R = B and B = A, so R = A.\n\nTherefore, option 3 — R and A — is the only pair with a definite relation.\n\nPair check: B and Q are in disconnected groups, so no comparison path fixes their order.\n\nPair check: R and S are in disconnected groups, so no comparison path fixes their order.\n\nPair check: A and S are in disconnected groups, so no comparison path fixes their order.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1118,33 +1790,57 @@
     "seed": 3,
     "difficulty": "HARD",
     "difficultyBasis": "PAIR_AUDIT",
+    "releaseTier": "ADVANCED_PRACTICE",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
-    "topologyId": "BRANCH_PLUS_DISCONNECTED_EQUALITY",
-    "graphFingerprint": "f91af003",
+    "topologyId": "PAIR_AUDIT_CONNECTED_BRANCHES_MULTI_STEP",
+    "graphFingerprint": "77b3b0e8",
     "explanationMode": "PAIR_SELECTION",
     "nodeCount": 5,
     "statementCount": 4,
-    "relevantStatementCount": 3,
-    "irrelevantStatementCount": 1,
+    "relevantStatementCount": 4,
+    "irrelevantStatementCount": 0,
     "equalityStatementCount": 1,
-    "strictStatementCount": 2,
-    "contentHash": "e9cd56f5",
+    "strictStatementCount": 1,
+    "contentHash": "2fe4fe20",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "CORRECT"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_ONLY"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_ONLY"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_ONLY"
+      }
+    ],
     "stem": "Which pair has a relation that is completely determined by the statements?",
     "statements": [
       "S < A",
       "A = Q",
       "S ≤ D",
-      "P > D"
+      "P ≥ D"
     ],
     "options": [
-      "D and S",
+      "P and S",
       "D and Q",
-      "D and A",
-      "P and A"
+      "P and A",
+      "D and A"
     ],
-    "correctOption": "D and S",
-    "explanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nD and S: S ≤ D, so D ≥ S.\n\nTherefore, option 1 — D and S — is the only pair with a definite relation.\n\nPair check: D and Q are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: D and A are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: P and A are on separate branches of one graph, with no directed path fixing their order.",
+    "correctOption": "P and S",
+    "explanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nP and S: P ≥ D and S ≤ D, so P ≥ S.\n\nTherefore, option 1 — P and S — is the only pair with a definite relation.\n\nPair check: D and Q are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: P and A are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: D and A are on separate branches of one graph, with no directed path fixing their order.",
+    "mockExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. P and S: P ≥ D and S ≤ D, so P ≥ S. Therefore, option 1 — P and S — is the only pair with a definite relation.",
+    "learningExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nP and S: P ≥ D and S ≤ D, so P ≥ S.\n\nTherefore, option 1 — P and S — is the only pair with a definite relation.\n\nPair check: D and Q are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: P and A are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: D and A are on separate branches of one graph, with no directed path fixing their order.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1157,33 +1853,57 @@
     "seed": 4,
     "difficulty": "HARD",
     "difficultyBasis": "PAIR_AUDIT",
+    "releaseTier": "ADVANCED_PRACTICE",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
-    "topologyId": "BRANCH_PLUS_DISCONNECTED_EQUALITY",
-    "graphFingerprint": "13ee44a7",
+    "topologyId": "PAIR_AUDIT_CONNECTED_BRANCHES_MULTI_STEP",
+    "graphFingerprint": "c9047f50",
     "explanationMode": "PAIR_SELECTION",
     "nodeCount": 5,
     "statementCount": 4,
-    "relevantStatementCount": 3,
-    "irrelevantStatementCount": 1,
+    "relevantStatementCount": 4,
+    "irrelevantStatementCount": 0,
     "equalityStatementCount": 1,
-    "strictStatementCount": 2,
-    "contentHash": "44e5914e",
+    "strictStatementCount": 1,
+    "contentHash": "54000ea8",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_ONLY"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_ONLY"
+      },
+      {
+        "index": 2,
+        "role": "CORRECT"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_ONLY"
+      }
+    ],
     "stem": "Which pair has a relation that is completely determined by the statements?",
     "statements": [
       "A = C",
-      "S < Q",
+      "S ≤ Q",
       "B ≤ S",
       "B < C"
     ],
     "options": [
-      "S and C",
       "Q and C",
-      "B and S",
-      "S and A"
+      "S and A",
+      "B and Q",
+      "S and C"
     ],
-    "correctOption": "B and S",
-    "explanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nB and S: B ≤ S, so B ≤ S.\n\nTherefore, option 3 — B and S — is the only pair with a definite relation.\n\nPair check: S and C are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: Q and C are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: S and A are on separate branches of one graph, with no directed path fixing their order.",
+    "correctOption": "B and Q",
+    "explanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nB and Q: S ≤ Q and B ≤ S, so B ≤ Q.\n\nTherefore, option 3 — B and Q — is the only pair with a definite relation.\n\nPair check: Q and C are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: S and A are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: S and C are on separate branches of one graph, with no directed path fixing their order.",
+    "mockExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. B and Q: S ≤ Q and B ≤ S, so B ≤ Q. Therefore, option 3 — B and Q — is the only pair with a definite relation.",
+    "learningExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nB and Q: S ≤ Q and B ≤ S, so B ≤ Q.\n\nTherefore, option 3 — B and Q — is the only pair with a definite relation.\n\nPair check: Q and C are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: S and A are on separate branches of one graph, with no directed path fixing their order.\n\nPair check: S and C are on separate branches of one graph, with no directed path fixing their order.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1196,18 +1916,40 @@
     "seed": 0,
     "difficulty": "HARD",
     "difficultyBasis": "PAIR_AUDIT",
+    "releaseTier": "ADVANCED_PRACTICE",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
-    "topologyId": "CHAIN_PLUS_DISCONNECTED_EQUALITY",
-    "graphFingerprint": "153ba217",
+    "topologyId": "PAIR_AUDIT_CONNECTED_GRAPH_SINGLE_UNKNOWN",
+    "graphFingerprint": "86ac78b8",
     "explanationMode": "PAIR_SELECTION",
     "nodeCount": 5,
     "statementCount": 4,
-    "relevantStatementCount": 3,
-    "irrelevantStatementCount": 1,
+    "relevantStatementCount": 4,
+    "irrelevantStatementCount": 0,
     "equalityStatementCount": 1,
     "strictStatementCount": 2,
     "contentHash": "5e7a0da3",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "ACTUAL_DEFINITE_PATH"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "ACTUAL_DEFINITE_PATH"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "ACTUAL_DEFINITE_PATH"
+      },
+      {
+        "index": 3,
+        "role": "CORRECT"
+      }
+    ],
     "stem": "Which pair has a relation that cannot be determined from the statements?",
     "statements": [
       "P ≥ Q",
@@ -1223,6 +1965,8 @@
     ],
     "correctOption": "P and A",
     "explanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nP and A are on separate branches of one graph, with no directed path fixing their order.\n\nTherefore, option 4 — P and A — is the only pair whose relation is not determined.\n\nPair check: D and P: P ≥ Q, so D ≤ P.\n\nPair check: R and D: P < R and P ≥ Q, so R > D.\n\nPair check: R and Q: P < R and P ≥ Q, so R > Q.",
+    "mockExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. P and A are on separate branches of one graph, with no directed path fixing their order. Therefore, option 4 — P and A — is the only pair whose relation is not determined.",
+    "learningExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nP and A are on separate branches of one graph, with no directed path fixing their order.\n\nTherefore, option 4 — P and A — is the only pair whose relation is not determined.\n\nPair check: D and P: P ≥ Q, so D ≤ P.\n\nPair check: R and D: P < R and P ≥ Q, so R > D.\n\nPair check: R and Q: P < R and P ≥ Q, so R > Q.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1235,18 +1979,40 @@
     "seed": 1,
     "difficulty": "HARD",
     "difficultyBasis": "PAIR_AUDIT",
+    "releaseTier": "ADVANCED_PRACTICE",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
-    "topologyId": "CHAIN_PLUS_DISCONNECTED_EQUALITY",
-    "graphFingerprint": "153ba217",
+    "topologyId": "PAIR_AUDIT_CONNECTED_GRAPH_SINGLE_UNKNOWN",
+    "graphFingerprint": "86ac78b8",
     "explanationMode": "PAIR_SELECTION",
     "nodeCount": 5,
     "statementCount": 4,
-    "relevantStatementCount": 3,
-    "irrelevantStatementCount": 1,
+    "relevantStatementCount": 4,
+    "irrelevantStatementCount": 0,
     "equalityStatementCount": 1,
     "strictStatementCount": 2,
     "contentHash": "d4b1f66a",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "ACTUAL_DEFINITE_PATH"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "ACTUAL_DEFINITE_PATH"
+      },
+      {
+        "index": 2,
+        "role": "CORRECT"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "ACTUAL_DEFINITE_PATH"
+      }
+    ],
     "stem": "Which pair has a relation that cannot be determined from the statements?",
     "statements": [
       "A < S",
@@ -1262,6 +2028,8 @@
     ],
     "correctOption": "Q and S",
     "explanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nQ and S are on separate branches of one graph, with no directed path fixing their order.\n\nTherefore, option 3 — Q and S — is the only pair whose relation is not determined.\n\nPair check: R and A: Q < R and Q ≥ B, so R > A.\n\nPair check: A and Q: Q ≥ B, so A ≤ Q.\n\nPair check: R and B: Q < R and Q ≥ B, so R > B.",
+    "mockExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. Q and S are on separate branches of one graph, with no directed path fixing their order. Therefore, option 3 — Q and S — is the only pair whose relation is not determined.",
+    "learningExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nQ and S are on separate branches of one graph, with no directed path fixing their order.\n\nTherefore, option 3 — Q and S — is the only pair whose relation is not determined.\n\nPair check: R and A: Q < R and Q ≥ B, so R > A.\n\nPair check: A and Q: Q ≥ B, so A ≤ Q.\n\nPair check: R and B: Q < R and Q ≥ B, so R > B.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1274,18 +2042,40 @@
     "seed": 2,
     "difficulty": "HARD",
     "difficultyBasis": "PAIR_AUDIT",
+    "releaseTier": "ADVANCED_PRACTICE",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
-    "topologyId": "CHAIN_PLUS_DISCONNECTED_EQUALITY",
-    "graphFingerprint": "153ba217",
+    "topologyId": "PAIR_AUDIT_CONNECTED_GRAPH_SINGLE_UNKNOWN",
+    "graphFingerprint": "86ac78b8",
     "explanationMode": "PAIR_SELECTION",
     "nodeCount": 5,
     "statementCount": 4,
-    "relevantStatementCount": 3,
-    "irrelevantStatementCount": 1,
+    "relevantStatementCount": 4,
+    "irrelevantStatementCount": 0,
     "equalityStatementCount": 1,
     "strictStatementCount": 2,
     "contentHash": "e60e74d1",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "CORRECT"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "ACTUAL_DEFINITE_PATH"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "ACTUAL_DEFINITE_PATH"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "ACTUAL_DEFINITE_PATH"
+      }
+    ],
     "stem": "Which pair has a relation that cannot be determined from the statements?",
     "statements": [
       "Q = C",
@@ -1301,6 +2091,8 @@
     ],
     "correctOption": "S and P",
     "explanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nS and P are on separate branches of one graph, with no directed path fixing their order.\n\nTherefore, option 1 — S and P — is the only pair whose relation is not determined.\n\nPair check: A and Q: A > S and S ≥ C, so A > Q.\n\nPair check: Q and S: S ≥ C, so Q ≤ S.\n\nPair check: A and C: A > S and S ≥ C, so A > C.",
+    "mockExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. S and P are on separate branches of one graph, with no directed path fixing their order. Therefore, option 1 — S and P — is the only pair whose relation is not determined.",
+    "learningExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nS and P are on separate branches of one graph, with no directed path fixing their order.\n\nTherefore, option 1 — S and P — is the only pair whose relation is not determined.\n\nPair check: A and Q: A > S and S ≥ C, so A > Q.\n\nPair check: Q and S: S ≥ C, so Q ≤ S.\n\nPair check: A and C: A > S and S ≥ C, so A > C.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1313,18 +2105,40 @@
     "seed": 3,
     "difficulty": "HARD",
     "difficultyBasis": "PAIR_AUDIT",
+    "releaseTier": "ADVANCED_PRACTICE",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
-    "topologyId": "CHAIN_PLUS_DISCONNECTED_EQUALITY",
-    "graphFingerprint": "153ba217",
+    "topologyId": "PAIR_AUDIT_CONNECTED_GRAPH_SINGLE_UNKNOWN",
+    "graphFingerprint": "86ac78b8",
     "explanationMode": "PAIR_SELECTION",
     "nodeCount": 5,
     "statementCount": 4,
-    "relevantStatementCount": 3,
-    "irrelevantStatementCount": 1,
+    "relevantStatementCount": 4,
+    "irrelevantStatementCount": 0,
     "equalityStatementCount": 1,
     "strictStatementCount": 2,
     "contentHash": "b8c6fee3",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "ACTUAL_DEFINITE_PATH"
+      },
+      {
+        "index": 1,
+        "role": "CORRECT"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "ACTUAL_DEFINITE_PATH"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "ACTUAL_DEFINITE_PATH"
+      }
+    ],
     "stem": "Which pair has a relation that cannot be determined from the statements?",
     "statements": [
       "C < P",
@@ -1340,6 +2154,8 @@
     ],
     "correctOption": "C and B",
     "explanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nC and B are on separate branches of one graph, with no directed path fixing their order.\n\nTherefore, option 2 — C and B — is the only pair whose relation is not determined.\n\nPair check: P and Q: C < P and R ≤ C, so P > Q.\n\nPair check: P and R: C < P and R ≤ C, so P > R.\n\nPair check: Q and C: R ≤ C, so Q ≤ C.",
+    "mockExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. C and B are on separate branches of one graph, with no directed path fixing their order. Therefore, option 2 — C and B — is the only pair whose relation is not determined.",
+    "learningExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nC and B are on separate branches of one graph, with no directed path fixing their order.\n\nTherefore, option 2 — C and B — is the only pair whose relation is not determined.\n\nPair check: P and Q: C < P and R ≤ C, so P > Q.\n\nPair check: P and R: C < P and R ≤ C, so P > R.\n\nPair check: Q and C: R ≤ C, so Q ≤ C.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1352,18 +2168,40 @@
     "seed": 4,
     "difficulty": "HARD",
     "difficultyBasis": "PAIR_AUDIT",
+    "releaseTier": "ADVANCED_PRACTICE",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
-    "topologyId": "CHAIN_PLUS_DISCONNECTED_EQUALITY",
-    "graphFingerprint": "153ba217",
+    "topologyId": "PAIR_AUDIT_CONNECTED_GRAPH_SINGLE_UNKNOWN",
+    "graphFingerprint": "86ac78b8",
     "explanationMode": "PAIR_SELECTION",
     "nodeCount": 5,
     "statementCount": 4,
-    "relevantStatementCount": 3,
-    "irrelevantStatementCount": 1,
+    "relevantStatementCount": 4,
+    "irrelevantStatementCount": 0,
     "equalityStatementCount": 1,
     "strictStatementCount": 2,
     "contentHash": "5f3270b1",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "CORRECT"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "ACTUAL_DEFINITE_PATH"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "ACTUAL_DEFINITE_PATH"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "ACTUAL_DEFINITE_PATH"
+      }
+    ],
     "stem": "Which pair has a relation that cannot be determined from the statements?",
     "statements": [
       "A < B",
@@ -1379,6 +2217,8 @@
     ],
     "correctOption": "A and D",
     "explanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nA and D are on separate branches of one graph, with no directed path fixing their order.\n\nTherefore, option 1 — A and D — is the only pair whose relation is not determined.\n\nPair check: B and Q: A < B and A ≥ R, so B > Q.\n\nPair check: B and R: A < B and A ≥ R, so B > R.\n\nPair check: Q and A: A ≥ R, so Q ≤ A.",
+    "mockExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. A and D are on separate branches of one graph, with no directed path fixing their order. Therefore, option 1 — A and D — is the only pair whose relation is not determined.",
+    "learningExplanation": "Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.\n\nA and D are on separate branches of one graph, with no directed path fixing their order.\n\nTherefore, option 1 — A and D — is the only pair whose relation is not determined.\n\nPair check: B and Q: A < B and A ≥ R, so B > Q.\n\nPair check: B and R: A < B and A ≥ R, so B > R.\n\nPair check: Q and A: A ≥ R, so Q ≤ A.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1391,6 +2231,7 @@
     "seed": 0,
     "difficulty": "EASY",
     "difficultyBasis": "SHORT_SINGLE_PATH",
+    "releaseTier": "SSC_STANDARD_MOCK",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "DISCONNECTED_TWO_EDGES",
     "graphFingerprint": "1ebb5f68",
@@ -1404,6 +2245,27 @@
     "answerRelation": "INDETERMINATE",
     "contentHash": "eb7d29f5",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      },
+      {
+        "index": 1,
+        "role": "CORRECT"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "NO_PATH_MISREAD_AS_EQUALITY"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      }
+    ],
     "stem": "Which relation between Q and A is definitely established by the statements?",
     "statements": [
       "P > Q",
@@ -1417,6 +2279,8 @@
     ],
     "correctOption": "The relation cannot be determined",
     "explanation": "Q and A belong to two separate groups of statements.\n\nGroup containing Q: P > Q.\n\nGroup containing A: D > A. No comparison joins the groups, so the order of Q and A is not fixed.\n\nA=1, D=2, P=1, Q=0 satisfies every statement and gives Q < A.\n\nA=0, D=1, P=1, Q=0 satisfies every statement and gives Q = A.\n\nBecause valid arrangements give different results, the relation between Q and A cannot be determined.",
+    "mockExplanation": "Q and A belong to two separate groups of statements. Group containing Q: P > Q. Group containing A: D > A. No comparison joins the groups, so the order of Q and A is not fixed. Because valid arrangements give different results, the relation between Q and A cannot be determined.",
+    "learningExplanation": "Q and A belong to two separate groups of statements.\n\nGroup containing Q: P > Q.\n\nGroup containing A: D > A. No comparison joins the groups, so the order of Q and A is not fixed.\n\nA=1, D=2, P=1, Q=0 satisfies every statement and gives Q < A.\n\nA=0, D=1, P=1, Q=0 satisfies every statement and gives Q = A.\n\nBecause valid arrangements give different results, the relation between Q and A cannot be determined.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1429,6 +2293,7 @@
     "seed": 1,
     "difficulty": "EASY",
     "difficultyBasis": "SHORT_SINGLE_PATH",
+    "releaseTier": "SSC_STANDARD_MOCK",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "DISCONNECTED_CHAIN_PLUS_EDGE",
     "graphFingerprint": "2171b108",
@@ -1442,6 +2307,27 @@
     "answerRelation": "INDETERMINATE",
     "contentHash": "f0e443e2",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "CORRECT"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "NO_PATH_MISREAD_AS_EQUALITY"
+      }
+    ],
     "stem": "Which relation between D and C is definitely established by the statements?",
     "statements": [
       "C < A",
@@ -1456,6 +2342,8 @@
     ],
     "correctOption": "The relation cannot be determined",
     "explanation": "D and C belong to two separate groups of statements.\n\nGroup containing D: D < R; Q ≤ D.\n\nGroup containing C: C < A. No comparison joins the groups, so the order of D and C is not fixed.\n\nA=2, C=1, D=0, Q=0, R=1 satisfies every statement and gives D < C.\n\nA=1, C=0, D=0, Q=0, R=1 satisfies every statement and gives D = C.\n\nBecause valid arrangements give different results, the relation between D and C cannot be determined.",
+    "mockExplanation": "D and C belong to two separate groups of statements. Group containing D: D < R; Q ≤ D. Group containing C: C < A. No comparison joins the groups, so the order of D and C is not fixed. Because valid arrangements give different results, the relation between D and C cannot be determined.",
+    "learningExplanation": "D and C belong to two separate groups of statements.\n\nGroup containing D: D < R; Q ≤ D.\n\nGroup containing C: C < A. No comparison joins the groups, so the order of D and C is not fixed.\n\nA=2, C=1, D=0, Q=0, R=1 satisfies every statement and gives D < C.\n\nA=1, C=0, D=0, Q=0, R=1 satisfies every statement and gives D = C.\n\nBecause valid arrangements give different results, the relation between D and C cannot be determined.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1468,6 +2356,7 @@
     "seed": 2,
     "difficulty": "EASY",
     "difficultyBasis": "SHORT_SINGLE_PATH",
+    "releaseTier": "SSC_STANDARD_MOCK",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "DISCONNECTED_EQUALITY_PLUS_CHAIN",
     "graphFingerprint": "d33d1840",
@@ -1481,6 +2370,27 @@
     "answerRelation": "INDETERMINATE",
     "contentHash": "84a5ecec",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "NO_PATH_MISREAD_AS_EQUALITY"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      },
+      {
+        "index": 2,
+        "role": "CORRECT"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      }
+    ],
     "stem": "Which relation between Q and D is definitely established by the statements?",
     "statements": [
       "D > A",
@@ -1495,6 +2405,8 @@
     ],
     "correctOption": "The relation cannot be determined",
     "explanation": "Q and D belong to two separate groups of statements.\n\nGroup containing Q: C = Q.\n\nGroup containing D: D > A; B > D. No comparison joins the groups, so the order of Q and D is not fixed.\n\nA=0, B=2, C=0, D=1, Q=0 satisfies every statement and gives Q < D.\n\nA=0, B=2, C=1, D=1, Q=1 satisfies every statement and gives Q = D.\n\nBecause valid arrangements give different results, the relation between Q and D cannot be determined.",
+    "mockExplanation": "Q and D belong to two separate groups of statements. Group containing Q: C = Q. Group containing D: D > A; B > D. No comparison joins the groups, so the order of Q and D is not fixed. Because valid arrangements give different results, the relation between Q and D cannot be determined.",
+    "learningExplanation": "Q and D belong to two separate groups of statements.\n\nGroup containing Q: C = Q.\n\nGroup containing D: D > A; B > D. No comparison joins the groups, so the order of Q and D is not fixed.\n\nA=0, B=2, C=0, D=1, Q=0 satisfies every statement and gives Q < D.\n\nA=0, B=2, C=1, D=1, Q=1 satisfies every statement and gives Q = D.\n\nBecause valid arrangements give different results, the relation between Q and D cannot be determined.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1507,6 +2419,7 @@
     "seed": 3,
     "difficulty": "EASY",
     "difficultyBasis": "SHORT_SINGLE_PATH",
+    "releaseTier": "SSC_STANDARD_MOCK",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "DISCONNECTED_BRANCH_PLUS_EDGE",
     "graphFingerprint": "1b47e97c",
@@ -1520,6 +2433,27 @@
     "answerRelation": "INDETERMINATE",
     "contentHash": "b8f1d0be",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      },
+      {
+        "index": 3,
+        "role": "CORRECT"
+      }
+    ],
     "stem": "Which relation between A and Q is definitely established by the statements?",
     "statements": [
       "C > P",
@@ -1534,6 +2468,8 @@
     ],
     "correctOption": "The relation cannot be determined",
     "explanation": "A and Q belong to two separate groups of statements.\n\nGroup containing A: C > P; A < C.\n\nGroup containing Q: B ≥ Q. No comparison joins the groups, so the order of A and Q is not fixed.\n\nA=0, B=1, C=1, P=0, Q=1 satisfies every statement and gives A < Q.\n\nA=0, B=0, C=1, P=0, Q=0 satisfies every statement and gives A = Q.\n\nBecause valid arrangements give different results, the relation between A and Q cannot be determined.",
+    "mockExplanation": "A and Q belong to two separate groups of statements. Group containing A: C > P; A < C. Group containing Q: B ≥ Q. No comparison joins the groups, so the order of A and Q is not fixed. Because valid arrangements give different results, the relation between A and Q cannot be determined.",
+    "learningExplanation": "A and Q belong to two separate groups of statements.\n\nGroup containing A: C > P; A < C.\n\nGroup containing Q: B ≥ Q. No comparison joins the groups, so the order of A and Q is not fixed.\n\nA=0, B=1, C=1, P=0, Q=1 satisfies every statement and gives A < Q.\n\nA=0, B=0, C=1, P=0, Q=0 satisfies every statement and gives A = Q.\n\nBecause valid arrangements give different results, the relation between A and Q cannot be determined.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1546,6 +2482,7 @@
     "seed": 4,
     "difficulty": "EASY",
     "difficultyBasis": "SHORT_SINGLE_PATH",
+    "releaseTier": "SSC_STANDARD_MOCK",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "DISCONNECTED_EQUALITY_CHAIN_PLUS_EDGE",
     "graphFingerprint": "cfe686f5",
@@ -1559,6 +2496,27 @@
     "answerRelation": "INDETERMINATE",
     "contentHash": "e45c06d3",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      },
+      {
+        "index": 1,
+        "role": "CORRECT"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "NO_PATH_MISREAD_AS_EQUALITY"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "COMMON_BOUND_MISREAD"
+      }
+    ],
     "stem": "Which relation between P and D is definitely established by the statements?",
     "statements": [
       "P = B",
@@ -1573,6 +2531,8 @@
     ],
     "correctOption": "The relation cannot be determined",
     "explanation": "P and D belong to two separate groups of statements.\n\nGroup containing P: P = B; P = S.\n\nGroup containing D: Q > D. No comparison joins the groups, so the order of P and D is not fixed.\n\nB=0, D=1, P=0, Q=2, S=0 satisfies every statement and gives P < D.\n\nB=0, D=0, P=0, Q=1, S=0 satisfies every statement and gives P = D.\n\nBecause valid arrangements give different results, the relation between P and D cannot be determined.",
+    "mockExplanation": "P and D belong to two separate groups of statements. Group containing P: P = B; P = S. Group containing D: Q > D. No comparison joins the groups, so the order of P and D is not fixed. Because valid arrangements give different results, the relation between P and D cannot be determined.",
+    "learningExplanation": "P and D belong to two separate groups of statements.\n\nGroup containing P: P = B; P = S.\n\nGroup containing D: Q > D. No comparison joins the groups, so the order of P and D is not fixed.\n\nB=0, D=1, P=0, Q=2, S=0 satisfies every statement and gives P < D.\n\nB=0, D=0, P=0, Q=1, S=0 satisfies every statement and gives P = D.\n\nBecause valid arrangements give different results, the relation between P and D cannot be determined.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1585,6 +2545,7 @@
     "seed": 0,
     "difficulty": "EASY",
     "difficultyBasis": "SHORT_SINGLE_PATH",
+    "releaseTier": "SSC_STANDARD_MOCK",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "DIRECT_EQUALITY_ONE_BRANCH",
     "graphFingerprint": "f819c53b",
@@ -1598,6 +2559,27 @@
     "answerRelation": "EQUAL_TO",
     "contentHash": "257cce65",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "EQUALITY_MISREAD_AS_UNKNOWN"
+      },
+      {
+        "index": 1,
+        "role": "CORRECT"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "EQUALITY_PROPAGATION_IGNORED"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "EQUALITY_PROPAGATION_IGNORED"
+      }
+    ],
     "stem": "Which relation between C and Q is definitely established by the statements?",
     "statements": [
       "C = Q",
@@ -1611,6 +2593,8 @@
     ],
     "correctOption": "C = Q",
     "explanation": "Collapse the equality route first: C = Q.\n\nThis places C and Q in the same equality group. The other comparisons leave that group but cannot separate its members, so C = Q.\n\nTherefore, C = Q is definitely established.",
+    "mockExplanation": "Collapse the equality route first: C = Q. This places C and Q in the same equality group. The other comparisons leave that group but cannot separate its members, so C = Q. Therefore, C = Q is definitely established.",
+    "learningExplanation": "Collapse the equality route first: C = Q.\n\nThis places C and Q in the same equality group. The other comparisons leave that group but cannot separate its members, so C = Q.\n\nTherefore, C = Q is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1623,6 +2607,7 @@
     "seed": 1,
     "difficulty": "EASY",
     "difficultyBasis": "SHORT_SINGLE_PATH",
+    "releaseTier": "SSC_STANDARD_MOCK",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "EQUALITY_CHAIN_ONE_BRANCH",
     "graphFingerprint": "31541464",
@@ -1636,6 +2621,27 @@
     "answerRelation": "EQUAL_TO",
     "contentHash": "12772245",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "EQUALITY_PROPAGATION_IGNORED"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "EQUALITY_PROPAGATION_IGNORED"
+      },
+      {
+        "index": 2,
+        "role": "CORRECT"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "EQUALITY_MISREAD_AS_UNKNOWN"
+      }
+    ],
     "stem": "Which relation between C and Q is definitely established by the statements?",
     "statements": [
       "C = S",
@@ -1650,6 +2656,8 @@
     ],
     "correctOption": "C = Q",
     "explanation": "Collapse the equality route first: C = S and Q = S.\n\nThis places C and Q in the same equality group. The other comparisons leave that group but cannot separate its members, so C = Q.\n\nTherefore, C = Q is definitely established.",
+    "mockExplanation": "Collapse the equality route first: C = S and Q = S. This places C and Q in the same equality group. The other comparisons leave that group but cannot separate its members, so C = Q. Therefore, C = Q is definitely established.",
+    "learningExplanation": "Collapse the equality route first: C = S and Q = S.\n\nThis places C and Q in the same equality group. The other comparisons leave that group but cannot separate its members, so C = Q.\n\nTherefore, C = Q is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1662,6 +2670,7 @@
     "seed": 2,
     "difficulty": "MEDIUM",
     "difficultyBasis": "STANDARD_GRAPH_REASONING",
+    "releaseTier": "BANKING_PRELIMS",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "EQUALITY_HUB_AND_BRANCHES",
     "graphFingerprint": "371f862d",
@@ -1675,6 +2684,27 @@
     "answerRelation": "EQUAL_TO",
     "contentHash": "9102f859",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "CORRECT"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "EQUALITY_PROPAGATION_IGNORED"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "EQUALITY_PROPAGATION_IGNORED"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "EQUALITY_MISREAD_AS_UNKNOWN"
+      }
+    ],
     "stem": "Which relation between R and Q is definitely established by the statements?",
     "statements": [
       "D = R",
@@ -1690,6 +2720,8 @@
     ],
     "correctOption": "R = Q",
     "explanation": "Collapse the equality route first: D = R and Q = D.\n\nThis places R and Q in the same equality group. The other comparisons leave that group but cannot separate its members, so R = Q.\n\nTherefore, R = Q is definitely established.",
+    "mockExplanation": "Collapse the equality route first: D = R and Q = D. This places R and Q in the same equality group. The other comparisons leave that group but cannot separate its members, so R = Q. Therefore, R = Q is definitely established.",
+    "learningExplanation": "Collapse the equality route first: D = R and Q = D.\n\nThis places R and Q in the same equality group. The other comparisons leave that group but cannot separate its members, so R = Q.\n\nTherefore, R = Q is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1702,6 +2734,7 @@
     "seed": 3,
     "difficulty": "MEDIUM",
     "difficultyBasis": "STANDARD_GRAPH_REASONING",
+    "releaseTier": "BANKING_PRELIMS",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "LONG_EQUALITY_COMPONENT_SHARED_LOWER",
     "graphFingerprint": "e3ebb54c",
@@ -1715,6 +2748,27 @@
     "answerRelation": "EQUAL_TO",
     "contentHash": "4ea5b225",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "EQUALITY_PROPAGATION_IGNORED"
+      },
+      {
+        "index": 1,
+        "role": "DISTRACTOR",
+        "errorLabel": "EQUALITY_MISREAD_AS_UNKNOWN"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "EQUALITY_PROPAGATION_IGNORED"
+      },
+      {
+        "index": 3,
+        "role": "CORRECT"
+      }
+    ],
     "stem": "Which relation between B and D is definitely established by the statements?",
     "statements": [
       "S > P",
@@ -1731,6 +2785,8 @@
     ],
     "correctOption": "B = D",
     "explanation": "Collapse the equality route first: R = B and R = D.\n\nThis places B and D in the same equality group. The other comparisons leave that group but cannot separate its members, so B = D.\n\nTherefore, B = D is definitely established.",
+    "mockExplanation": "Collapse the equality route first: R = B and R = D. This places B and D in the same equality group. The other comparisons leave that group but cannot separate its members, so B = D. Therefore, B = D is definitely established.",
+    "learningExplanation": "Collapse the equality route first: R = B and R = D.\n\nThis places B and D in the same equality group. The other comparisons leave that group but cannot separate its members, so B = D.\n\nTherefore, B = D is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   },
@@ -1743,6 +2799,7 @@
     "seed": 4,
     "difficulty": "MEDIUM",
     "difficultyBasis": "STANDARD_GRAPH_REASONING",
+    "releaseTier": "BANKING_PRELIMS",
     "competency": "MULTI_LINK_INEQUALITY_REASONING",
     "topologyId": "EQUALITY_STAR_SPLIT_BRANCHES",
     "graphFingerprint": "371f862d",
@@ -1756,6 +2813,27 @@
     "answerRelation": "EQUAL_TO",
     "contentHash": "a370ff68",
     "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "optionRoles": [
+      {
+        "index": 0,
+        "role": "DISTRACTOR",
+        "errorLabel": "EQUALITY_PROPAGATION_IGNORED"
+      },
+      {
+        "index": 1,
+        "role": "CORRECT"
+      },
+      {
+        "index": 2,
+        "role": "DISTRACTOR",
+        "errorLabel": "EQUALITY_MISREAD_AS_UNKNOWN"
+      },
+      {
+        "index": 3,
+        "role": "DISTRACTOR",
+        "errorLabel": "EQUALITY_PROPAGATION_IGNORED"
+      }
+    ],
     "stem": "Which relation between C and Q is definitely established by the statements?",
     "statements": [
       "D = Q",
@@ -1771,6 +2849,8 @@
     ],
     "correctOption": "C = Q",
     "explanation": "Collapse the equality route first: C = D and D = Q.\n\nThis places C and Q in the same equality group. The other comparisons leave that group but cannot separate its members, so C = Q.\n\nTherefore, C = Q is definitely established.",
+    "mockExplanation": "Collapse the equality route first: C = D and D = Q. This places C and Q in the same equality group. The other comparisons leave that group but cannot separate its members, so C = Q. Therefore, C = Q is definitely established.",
+    "learningExplanation": "Collapse the equality route first: C = D and D = Q.\n\nThis places C and Q in the same equality group. The other comparisons leave that group but cannot separate its members, so C = Q.\n\nTherefore, C = Q is definitely established.",
     "permanentQlId": null,
     "questionStudioVisible": false
   }

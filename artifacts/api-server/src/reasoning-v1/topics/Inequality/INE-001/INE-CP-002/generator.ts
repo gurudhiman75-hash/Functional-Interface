@@ -20,7 +20,15 @@ import { validateIneCp002Question } from "./validator";
 function difficultyFor(
   scenario: ReturnType<typeof buildIneCp002Scenario>,
 ): GeneratedIneCp002Question["difficulty"] {
-  if (scenario.taskKind !== "RELATION") return "HARD";
+  if (scenario.taskKind !== "RELATION") {
+    const longestAuditPath = Math.max(
+      0,
+      ...scenario.proofRoutes.map((route) => route.length),
+    );
+    return (scenario.candidatePairs?.length ?? 0) >= 4 && longestAuditPath >= 2
+      ? "HARD"
+      : "MEDIUM";
+  }
   if (scenario.explanationKind === "ALTERNATE_STRICT_PATH") return "HARD";
   if (
     scenario.explanationKind === "MULTIPLE_ROUTES" ||
@@ -56,6 +64,26 @@ function difficultyBasisFor(
   if (difficulty === "EASY") return "SHORT_SINGLE_PATH";
   if (difficulty === "HARD") return "ADVANCED_GRAPH_REASONING";
   return "STANDARD_GRAPH_REASONING";
+}
+
+function releaseTierFor(
+  difficulty: GeneratedIneCp002Question["difficulty"],
+): GeneratedIneCp002Question["metadata"]["releaseTier"] {
+  if (difficulty === "EASY") return "SSC_STANDARD_MOCK";
+  if (difficulty === "HARD") return "ADVANCED_PRACTICE";
+  return "BANKING_PRELIMS";
+}
+
+function mockSolutionFor(
+  explanation: GeneratedIneCp002Question["explanation"],
+): string {
+  return [
+    explanation.ruleStatement,
+    ...explanation.proofSteps,
+    explanation.conclusion,
+  ]
+    .filter((sentence) => sentence.trim().length > 0)
+    .join(" ");
 }
 
 export function generateIneCp002Question(
@@ -114,6 +142,21 @@ export function generateIneCp002Question(
   const displayedStatements = scenario.statements.map((statement) =>
     formatStatement(statement, scenario.entityNames),
   );
+  const difficulty = difficultyFor(scenario);
+  const learningExplanation =
+    scenario.taskKind === "RELATION"
+      ? buildIneCp002RelationExplanation(
+          scenario,
+          strongestDefiniteRelation ?? "INDETERMINATE",
+          options,
+          relationAgreement!,
+        )
+      : buildIneCp002PairExplanation(
+          scenario,
+          options,
+          correctIndex,
+          pairRelations!,
+        );
   const recordId = `INE-CP002-${stableHash([prototypeId, seed, "record-v2"]).toUpperCase()}`;
   const question: GeneratedIneCp002Question = {
     recordId,
@@ -127,7 +170,7 @@ export function generateIneCp002Question(
     questionStudioVisible: false,
     seed,
     locale: "en-IN",
-    difficulty: difficultyFor(scenario),
+    difficulty,
     renderer: "STRUCTURED_TEXT",
     answerType:
       scenario.taskKind === "RELATION"
@@ -148,24 +191,16 @@ export function generateIneCp002Question(
     },
     options,
     correctIndex,
-    explanation:
-      scenario.taskKind === "RELATION"
-        ? buildIneCp002RelationExplanation(
-            scenario,
-            strongestDefiniteRelation ?? "INDETERMINATE",
-            options,
-            relationAgreement!,
-          )
-        : buildIneCp002PairExplanation(
-            scenario,
-            options,
-            correctIndex,
-            pairRelations!,
-          ),
+    explanation: learningExplanation,
+    solutions: {
+      mock: mockSolutionFor(learningExplanation),
+      learning: learningExplanation,
+    },
     metadata: {
-      runtimeVersion: "ine-cp002-prototype-v3",
+      runtimeVersion: "ine-cp002-prototype-v4",
       competency: "MULTI_LINK_INEQUALITY_REASONING",
       reviewStatus: "PENDING_MANUAL_REVIEW",
+      releaseTier: releaseTierFor(difficulty),
       difficultyBasis: difficultyBasisFor(scenario),
       contentHash: stableHash([
         recordId,

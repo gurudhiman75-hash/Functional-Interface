@@ -10,6 +10,7 @@ export interface IneCp002ReviewRow {
   seed: number;
   difficulty: string;
   difficultyBasis: string;
+  releaseTier: string;
   competency: string;
   topologyId: string;
   graphFingerprint: string;
@@ -23,11 +24,18 @@ export interface IneCp002ReviewRow {
   answerRelation?: string;
   contentHash: string;
   reviewStatus: string;
+  optionRoles: readonly {
+    index: number;
+    role: "CORRECT" | "DISTRACTOR";
+    errorLabel?: string;
+  }[];
   stem: string;
   statements: readonly string[];
   options: readonly string[];
   correctOption: string;
   explanation: string;
+  mockExplanation: string;
+  learningExplanation: string;
   permanentQlId: null;
   questionStudioVisible: false;
 }
@@ -70,6 +78,7 @@ export function buildIneCp002ReviewPack(
         seed,
         difficulty: question.difficulty,
         difficultyBasis: question.metadata.difficultyBasis,
+        releaseTier: question.metadata.releaseTier,
         competency: question.metadata.competency,
         topologyId: question.metadata.topologyId,
         graphFingerprint: question.metadata.graphFingerprint,
@@ -83,12 +92,18 @@ export function buildIneCp002ReviewPack(
         answerRelation: question.metadata.answerRelation,
         contentHash: question.metadata.contentHash,
         reviewStatus: question.metadata.reviewStatus,
+        optionRoles: question.metadata.optionRoles,
         stem: question.stem,
         statements: question.displayedStatements,
         options: question.options.map((option) => option.value),
         correctOption: question.options[question.correctIndex]!.value,
         explanation: explanationText(
           question.explanation,
+          question.metadata.taskKind !== "RELATION",
+        ),
+        mockExplanation: question.solutions.mock,
+        learningExplanation: explanationText(
+          question.solutions.learning,
           question.metadata.taskKind !== "RELATION",
         ),
         permanentQlId: null,
@@ -111,7 +126,7 @@ export function renderIneCp002ReviewMarkdown(
     return [
       `## ${index + 1}. ${row.authorityId} — seed ${row.seed}`,
       "",
-      `**Record:** ${row.recordId} · **Difficulty:** ${row.difficulty} (${row.difficultyBasis}) · **Topology:** ${row.topologyId} · **Explanation mode:** ${row.explanationMode}`,
+      `**Record:** ${row.recordId} · **Difficulty:** ${row.difficulty} (${row.difficultyBasis}) · **Release tier:** ${row.releaseTier} · **Topology:** ${row.topologyId} · **Explanation mode:** ${row.explanationMode}`,
       "",
       row.stem,
       "",
@@ -125,9 +140,13 @@ export function renderIneCp002ReviewMarkdown(
       "",
       `**Correct:** ${row.correctOption}`,
       "",
-      "### Explanation",
+      "### Mock solution",
       "",
-      row.explanation,
+      row.mockExplanation,
+      "",
+      "### Learning solution",
+      "",
+      row.learningExplanation,
     ].join("\n");
   });
   return [

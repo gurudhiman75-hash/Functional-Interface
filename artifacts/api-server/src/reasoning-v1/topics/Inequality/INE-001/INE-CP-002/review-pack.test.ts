@@ -16,6 +16,13 @@ assert.ok(rows.every((row) => row.options.length === 4));
 assert.ok(rows.every((row) => new Set(row.options).size === 4));
 assert.ok(rows.every((row) => row.options.includes(row.correctOption)));
 assert.ok(rows.every((row) => row.explanation.length > 100));
+assert.ok(rows.every((row) => row.mockExplanation.length > 60));
+assert.ok(rows.every((row) => row.learningExplanation.length > 100));
+assert.deepEqual([...new Set(rows.map((row) => row.releaseTier))].sort(), [
+  "ADVANCED_PRACTICE",
+  "BANKING_PRELIMS",
+  "SSC_STANDARD_MOCK",
+]);
 assert.ok(rows.every((row) => !/\bE\d+\b/.test(row.explanation)));
 assert.ok(rows.every((row) => !row.explanation.includes("A valid model has")));
 assert.ok(
@@ -46,9 +53,12 @@ const markdown = renderIneCp002ReviewMarkdown(rows);
 assert.ok(markdown.startsWith("# INE-CP-002 English Prototype Review Pack"));
 assert.equal((markdown.match(/^## /gm) ?? []).length, 36);
 assert.equal((markdown.match(/^### Options$/gm) ?? []).length, 36);
+assert.equal((markdown.match(/^### Mock solution$/gm) ?? []).length, 36);
+assert.equal((markdown.match(/^### Learning solution$/gm) ?? []).length, 36);
 assert.equal((markdown.match(/^\*\*Correct:\*\*/gm) ?? []).length, 36);
 assert.ok(markdown.includes("Permanent QLs remain unallocated"));
 assert.ok(!markdown.includes("undefined"));
+assert.ok(!/:\s*,/.test(markdown));
 
 console.log("INE-CP-002 review-pack audit passed.", {
   rowCount: rows.length,

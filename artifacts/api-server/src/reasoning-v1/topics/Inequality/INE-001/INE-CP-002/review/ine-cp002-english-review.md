@@ -4,7 +4,7 @@ Prototype-only review material. Permanent QLs remain unallocated and Question St
 
 ## 1. DETERMINE_LONG_CHAIN_RELATION — seed 0
 
-**Record:** INE-CP002-293CD530 · **Difficulty:** EASY (SHORT_SINGLE_PATH) · **Topology:** CHAIN_3_ENTITIES_INCLUSIVE · **Explanation mode:** LONG_CHAIN
+**Record:** INE-CP002-293CD530 · **Difficulty:** EASY (SHORT_SINGLE_PATH) · **Release tier:** SSC_STANDARD_MOCK · **Topology:** CHAIN_3_ENTITIES_INCLUSIVE · **Explanation mode:** LONG_CHAIN
 
 Which relation between Q and C is definitely established by the statements?
 
@@ -22,7 +22,11 @@ Which relation between Q and C is definitely established by the statements?
 
 **Correct:** Q ≥ C
 
-### Explanation
+### Mock solution
+
+Read the links as one chain: B ≤ Q and B ≥ C. None of those links forces the end values apart. Equality is still possible, so the guaranteed relation is Q ≥ C. Therefore, Q ≥ C is definitely established.
+
+### Learning solution
 
 Read the links as one chain: B ≤ Q and B ≥ C.
 
@@ -32,7 +36,7 @@ Therefore, Q ≥ C is definitely established.
 
 ## 2. DETERMINE_LONG_CHAIN_RELATION — seed 1
 
-**Record:** INE-CP002-43291FD3 · **Difficulty:** EASY (SHORT_SINGLE_PATH) · **Topology:** CHAIN_3_ENTITIES_STRICT · **Explanation mode:** LONG_CHAIN
+**Record:** INE-CP002-43291FD3 · **Difficulty:** EASY (SHORT_SINGLE_PATH) · **Release tier:** SSC_STANDARD_MOCK · **Topology:** CHAIN_3_ENTITIES_STRICT · **Explanation mode:** LONG_CHAIN
 
 Which relation between Q and C is definitely established by the statements?
 
@@ -50,7 +54,11 @@ Which relation between Q and C is definitely established by the statements?
 
 **Correct:** Q < C
 
-### Explanation
+### Mock solution
+
+Read the links as one chain: C ≥ B and Q < B. A strict link occurs on the route, so the two ends cannot be equal. This proves Q < C. Therefore, Q < C is definitely established.
+
+### Learning solution
 
 Read the links as one chain: C ≥ B and Q < B.
 
@@ -60,7 +68,7 @@ Therefore, Q < C is definitely established.
 
 ## 3. DETERMINE_LONG_CHAIN_RELATION — seed 2
 
-**Record:** INE-CP002-4E6C2C8E · **Difficulty:** EASY (SHORT_SINGLE_PATH) · **Topology:** CHAIN_4_ENTITIES_WITH_EQUALITY · **Explanation mode:** LONG_CHAIN
+**Record:** INE-CP002-4E6C2C8E · **Difficulty:** EASY (SHORT_SINGLE_PATH) · **Release tier:** SSC_STANDARD_MOCK · **Topology:** CHAIN_4_ENTITIES_WITH_EQUALITY · **Explanation mode:** LONG_CHAIN
 
 Which relation between P and Q is definitely established by the statements?
 
@@ -79,7 +87,11 @@ Which relation between P and Q is definitely established by the statements?
 
 **Correct:** P > Q
 
-### Explanation
+### Mock solution
+
+Read the links as one chain: P > B and B = C and Q ≤ C. A strict link occurs on the route, so the two ends cannot be equal. This proves P > Q. Therefore, P > Q is definitely established.
+
+### Learning solution
 
 Read the links as one chain: P > B and B = C and Q ≤ C.
 
@@ -89,7 +101,7 @@ Therefore, P > Q is definitely established.
 
 ## 4. DETERMINE_LONG_CHAIN_RELATION — seed 3
 
-**Record:** INE-CP002-3F4467E9 · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Topology:** CHAIN_5_ENTITIES_INCLUSIVE_EQUALITY · **Explanation mode:** LONG_CHAIN
+**Record:** INE-CP002-3F4467E9 · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Release tier:** BANKING_PRELIMS · **Topology:** CHAIN_5_ENTITIES_INCLUSIVE_EQUALITY · **Explanation mode:** LONG_CHAIN
 
 Which relation between D and B is definitely established by the statements?
 
@@ -109,7 +121,11 @@ Which relation between D and B is definitely established by the statements?
 
 **Correct:** D ≤ B
 
-### Explanation
+### Mock solution
+
+Read the links as one chain: B ≥ S and S ≥ Q and Q = R and D ≤ R. None of those links forces the end values apart. Equality is still possible, so the guaranteed relation is D ≤ B. Therefore, D ≤ B is definitely established.
+
+### Learning solution
 
 Read the links as one chain: B ≥ S and S ≥ Q and Q = R and D ≤ R.
 
@@ -119,7 +135,7 @@ Therefore, D ≤ B is definitely established.
 
 ## 5. DETERMINE_LONG_CHAIN_RELATION — seed 4
 
-**Record:** INE-CP002-5D7403E4 · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Topology:** CHAIN_5_ENTITIES_LATE_STRICT · **Explanation mode:** LONG_CHAIN
+**Record:** INE-CP002-5D7403E4 · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Release tier:** BANKING_PRELIMS · **Topology:** CHAIN_5_ENTITIES_LATE_STRICT · **Explanation mode:** LONG_CHAIN
 
 Which relation between P and D is definitely established by the statements?
 
@@ -139,7 +155,11 @@ Which relation between P and D is definitely established by the statements?
 
 **Correct:** P > D
 
-### Explanation
+### Mock solution
+
+Read the links as one chain: B ≤ P and R ≤ B and R ≥ A and D < A. A strict link occurs on the route, so the two ends cannot be equal. This proves P > D. Therefore, P > D is definitely established.
+
+### Learning solution
 
 Read the links as one chain: B ≤ P and R ≤ B and R ≥ A and D < A.
 
@@ -149,38 +169,43 @@ Therefore, P > D is definitely established.
 
 ## 6. DETERMINE_MULTI_ROUTE_RELATION — seed 0
 
-**Record:** INE-CP002-6E133C6B · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Topology:** DIRECT_PLUS_TWO_EDGE_ROUTE · **Explanation mode:** MULTIPLE_ROUTES
+**Record:** INE-CP002-6E133C6B · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Release tier:** BANKING_PRELIMS · **Topology:** INDIRECT_DIAMOND_TWO_ROUTES · **Explanation mode:** MULTIPLE_ROUTES
 
-Which relation between B and R is definitely established by the statements?
+Which relation between R and A is definitely established by the statements?
 
 ### Statements
 
-- B > R
-- C > R
-- C ≤ B
+- R ≥ C
+- R > S
+- S ≥ A
+- A < C
 
 ### Options
 
-1. B > R
-2. B ≤ R
-3. B < R
-4. B = R
+1. R > A
+2. R = A
+3. R < A
+4. R ≤ A
 
-**Correct:** B > R
+**Correct:** R > A
 
-### Explanation
+### Mock solution
 
-Two separate routes connect B and R.
+Two separate routes connect R and A. Route 1: R ≥ C and A < C — this gives R > A. Route 2: R > S and S ≥ A — this independently gives the same result. Therefore, R > A is definitely established.
 
-Route 1: B > R — this gives B > R.
+### Learning solution
 
-Route 2: C ≤ B and C > R — this independently gives the same result.
+Two separate routes connect R and A.
 
-Therefore, B > R is definitely established.
+Route 1: R ≥ C and A < C — this gives R > A.
+
+Route 2: R > S and S ≥ A — this independently gives the same result.
+
+Therefore, R > A is definitely established.
 
 ## 7. DETERMINE_MULTI_ROUTE_RELATION — seed 1
 
-**Record:** INE-CP002-C443CD48 · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Topology:** DIAMOND_TWO_ROUTES · **Explanation mode:** MULTIPLE_ROUTES
+**Record:** INE-CP002-C443CD48 · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Release tier:** BANKING_PRELIMS · **Topology:** DIAMOND_TWO_ROUTES · **Explanation mode:** MULTIPLE_ROUTES
 
 Which relation between S and R is definitely established by the statements?
 
@@ -200,7 +225,11 @@ Which relation between S and R is definitely established by the statements?
 
 **Correct:** S < R
 
-### Explanation
+### Mock solution
+
+Two separate routes connect S and R. Route 1: R > Q and Q ≥ S — this gives S < R. Route 2: C ≤ R and C > S — this independently gives the same result. Therefore, S < R is definitely established.
+
+### Learning solution
 
 Two separate routes connect S and R.
 
@@ -212,7 +241,7 @@ Therefore, S < R is definitely established.
 
 ## 8. DETERMINE_MULTI_ROUTE_RELATION — seed 2
 
-**Record:** INE-CP002-80970D01 · **Difficulty:** HARD (ADVANCED_GRAPH_REASONING) · **Topology:** TWO_AND_THREE_EDGE_ROUTES · **Explanation mode:** MULTIPLE_ROUTES
+**Record:** INE-CP002-80970D01 · **Difficulty:** HARD (ADVANCED_GRAPH_REASONING) · **Release tier:** ADVANCED_PRACTICE · **Topology:** TWO_AND_THREE_EDGE_ROUTES · **Explanation mode:** MULTIPLE_ROUTES
 
 Which relation between S and D is definitely established by the statements?
 
@@ -233,7 +262,11 @@ Which relation between S and D is definitely established by the statements?
 
 **Correct:** S > D
 
-### Explanation
+### Mock solution
+
+Two separate routes connect S and D. Route 1: S > C and C ≥ D — this gives S > D. Route 2: A ≤ S and A > R and R ≥ D — this independently gives the same result. Therefore, S > D is definitely established.
+
+### Learning solution
 
 Two separate routes connect S and D.
 
@@ -245,7 +278,7 @@ Therefore, S > D is definitely established.
 
 ## 9. DETERMINE_MULTI_ROUTE_RELATION — seed 3
 
-**Record:** INE-CP002-77E746C6 · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Topology:** INCLUSIVE_DIAMOND_WITH_EQUALITY · **Explanation mode:** MULTIPLE_ROUTES
+**Record:** INE-CP002-77E746C6 · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Release tier:** BANKING_PRELIMS · **Topology:** INCLUSIVE_DIAMOND_WITH_EQUALITY · **Explanation mode:** MULTIPLE_ROUTES
 
 Which relation between P and D is definitely established by the statements?
 
@@ -265,7 +298,11 @@ Which relation between P and D is definitely established by the statements?
 
 **Correct:** P ≥ D
 
-### Explanation
+### Mock solution
+
+Two separate routes connect P and D. Route 1: P ≥ R and R = D — this gives P ≥ D. Route 2: P ≥ C and D ≤ C — this independently gives the same result. Therefore, P ≥ D is definitely established.
+
+### Learning solution
 
 Two separate routes connect P and D.
 
@@ -277,7 +314,7 @@ Therefore, P ≥ D is definitely established.
 
 ## 10. DETERMINE_MULTI_ROUTE_RELATION — seed 4
 
-**Record:** INE-CP002-18DC090F · **Difficulty:** HARD (ADVANCED_GRAPH_REASONING) · **Topology:** TWO_ROUTES_WITH_CROSS_LINK · **Explanation mode:** MULTIPLE_ROUTES
+**Record:** INE-CP002-18DC090F · **Difficulty:** HARD (ADVANCED_GRAPH_REASONING) · **Release tier:** ADVANCED_PRACTICE · **Topology:** TWO_ROUTES_WITH_CROSS_LINK · **Explanation mode:** MULTIPLE_ROUTES
 
 Which relation between P and A is definitely established by the statements?
 
@@ -299,7 +336,11 @@ Which relation between P and A is definitely established by the statements?
 
 **Correct:** P > A
 
-### Explanation
+### Mock solution
+
+Two separate routes connect P and A. Route 1: Q < P and B ≤ Q and A ≤ B — this gives P > A. Route 2: P ≥ R and R > A — this independently gives the same result. Therefore, P > A is definitely established.
+
+### Learning solution
 
 Two separate routes connect P and A.
 
@@ -311,7 +352,7 @@ Therefore, P > A is definitely established.
 
 ## 11. APPLY_ALTERNATE_PATH_STRICTNESS — seed 0
 
-**Record:** INE-CP002-FE96204A · **Difficulty:** HARD (ADVANCED_GRAPH_REASONING) · **Topology:** DIRECT_PLUS_LONG_ALTERNATE · **Explanation mode:** ALTERNATE_STRICT_PATH
+**Record:** INE-CP002-FE96204A · **Difficulty:** HARD (ADVANCED_GRAPH_REASONING) · **Release tier:** ADVANCED_PRACTICE · **Topology:** DIRECT_PLUS_LONG_ALTERNATE · **Explanation mode:** ALTERNATE_STRICT_PATH
 
 Which relation between A and Q is definitely established by the statements?
 
@@ -331,7 +372,11 @@ Which relation between A and Q is definitely established by the statements?
 
 **Correct:** A > Q
 
-### Explanation
+### Mock solution
+
+Compare the two available routes from A to Q. Direct route: Q ≤ A — this is only inclusive. Alternate route: C ≤ A and C > B and B ≥ Q — its strict link rules out equality, proving A > Q. Therefore, A > Q is definitely established.
+
+### Learning solution
 
 Compare the two available routes from A to Q.
 
@@ -343,7 +388,7 @@ Therefore, A > Q is definitely established.
 
 ## 12. APPLY_ALTERNATE_PATH_STRICTNESS — seed 1
 
-**Record:** INE-CP002-FC342A65 · **Difficulty:** HARD (ADVANCED_GRAPH_REASONING) · **Topology:** DIRECT_PLUS_LONG_ALTERNATE · **Explanation mode:** ALTERNATE_STRICT_PATH
+**Record:** INE-CP002-FC342A65 · **Difficulty:** HARD (ADVANCED_GRAPH_REASONING) · **Release tier:** ADVANCED_PRACTICE · **Topology:** DIRECT_PLUS_LONG_ALTERNATE · **Explanation mode:** ALTERNATE_STRICT_PATH
 
 Which relation between P and S is definitely established by the statements?
 
@@ -363,7 +408,11 @@ Which relation between P and S is definitely established by the statements?
 
 **Correct:** P < S
 
-### Explanation
+### Mock solution
+
+Compare the two available routes from P to S. Direct route: S ≥ P — this is only inclusive. Alternate route: C ≤ S and A < C and P ≤ A — its strict link rules out equality, proving P < S. Therefore, P < S is definitely established.
+
+### Learning solution
 
 Compare the two available routes from P to S.
 
@@ -375,7 +424,7 @@ Therefore, P < S is definitely established.
 
 ## 13. APPLY_ALTERNATE_PATH_STRICTNESS — seed 2
 
-**Record:** INE-CP002-4D04FAEC · **Difficulty:** HARD (ADVANCED_GRAPH_REASONING) · **Topology:** DIRECT_PLUS_LONG_ALTERNATE · **Explanation mode:** ALTERNATE_STRICT_PATH
+**Record:** INE-CP002-4D04FAEC · **Difficulty:** HARD (ADVANCED_GRAPH_REASONING) · **Release tier:** ADVANCED_PRACTICE · **Topology:** DIRECT_PLUS_LONG_ALTERNATE · **Explanation mode:** ALTERNATE_STRICT_PATH
 
 Which relation between B and S is definitely established by the statements?
 
@@ -395,7 +444,11 @@ Which relation between B and S is definitely established by the statements?
 
 **Correct:** B > S
 
-### Explanation
+### Mock solution
+
+Compare the two available routes from B to S. Direct route: S ≤ B — this is only inclusive. Alternate route: R ≤ B and R > Q and Q ≥ S — its strict link rules out equality, proving B > S. Therefore, B > S is definitely established.
+
+### Learning solution
 
 Compare the two available routes from B to S.
 
@@ -407,7 +460,7 @@ Therefore, B > S is definitely established.
 
 ## 14. APPLY_ALTERNATE_PATH_STRICTNESS — seed 3
 
-**Record:** INE-CP002-55B887DF · **Difficulty:** HARD (ADVANCED_GRAPH_REASONING) · **Topology:** DIRECT_PLUS_LONG_ALTERNATE · **Explanation mode:** ALTERNATE_STRICT_PATH
+**Record:** INE-CP002-55B887DF · **Difficulty:** HARD (ADVANCED_GRAPH_REASONING) · **Release tier:** ADVANCED_PRACTICE · **Topology:** DIRECT_PLUS_LONG_ALTERNATE · **Explanation mode:** ALTERNATE_STRICT_PATH
 
 Which relation between A and D is definitely established by the statements?
 
@@ -427,7 +480,11 @@ Which relation between A and D is definitely established by the statements?
 
 **Correct:** A < D
 
-### Explanation
+### Mock solution
+
+Compare the two available routes from A to D. Direct route: D ≥ A — this is only inclusive. Alternate route: R ≤ D and Q < R and Q ≥ A — its strict link rules out equality, proving A < D. Therefore, A < D is definitely established.
+
+### Learning solution
 
 Compare the two available routes from A to D.
 
@@ -439,7 +496,7 @@ Therefore, A < D is definitely established.
 
 ## 15. APPLY_ALTERNATE_PATH_STRICTNESS — seed 4
 
-**Record:** INE-CP002-15F6AF56 · **Difficulty:** HARD (ADVANCED_GRAPH_REASONING) · **Topology:** DIRECT_PLUS_LONG_ALTERNATE · **Explanation mode:** ALTERNATE_STRICT_PATH
+**Record:** INE-CP002-15F6AF56 · **Difficulty:** HARD (ADVANCED_GRAPH_REASONING) · **Release tier:** ADVANCED_PRACTICE · **Topology:** DIRECT_PLUS_LONG_ALTERNATE · **Explanation mode:** ALTERNATE_STRICT_PATH
 
 Which relation between S and A is definitely established by the statements?
 
@@ -459,7 +516,11 @@ Which relation between S and A is definitely established by the statements?
 
 **Correct:** S > A
 
-### Explanation
+### Mock solution
+
+Compare the two available routes from S to A. Direct route: S ≥ A — this is only inclusive. Alternate route: D ≤ S and Q < D and Q ≥ A — its strict link rules out equality, proving S > A. Therefore, S > A is definitely established.
+
+### Learning solution
 
 Compare the two available routes from S to A.
 
@@ -471,7 +532,7 @@ Therefore, S > A is definitely established.
 
 ## 16. DETERMINE_BRANCHED_GRAPH_RELATION — seed 0
 
-**Record:** INE-CP002-34FE440A · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Topology:** BRANCHES_COMMON_UPPER_ONLY · **Explanation mode:** BRANCHED_GRAPH
+**Record:** INE-CP002-34FE440A · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Release tier:** BANKING_PRELIMS · **Topology:** BRANCHES_COMMON_UPPER_ONLY · **Explanation mode:** BRANCHED_GRAPH
 
 Which relation between A and B is definitely established by the statements?
 
@@ -490,7 +551,11 @@ Which relation between A and B is definitely established by the statements?
 
 **Correct:** The relation cannot be determined
 
-### Explanation
+### Mock solution
+
+A and B sit on different branches of the same connected graph. The branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of A and B is not fixed. Because valid arrangements give different results, the relation between A and B cannot be determined.
+
+### Learning solution
 
 A and B sit on different branches of the same connected graph.
 
@@ -504,7 +569,7 @@ Because valid arrangements give different results, the relation between A and B 
 
 ## 17. DETERMINE_BRANCHED_GRAPH_RELATION — seed 1
 
-**Record:** INE-CP002-295A6C25 · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Topology:** BRANCHES_COMMON_LOWER_ONLY · **Explanation mode:** BRANCHED_GRAPH
+**Record:** INE-CP002-295A6C25 · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Release tier:** BANKING_PRELIMS · **Topology:** BRANCHES_COMMON_LOWER_ONLY · **Explanation mode:** BRANCHED_GRAPH
 
 Which relation between B and A is definitely established by the statements?
 
@@ -523,7 +588,11 @@ Which relation between B and A is definitely established by the statements?
 
 **Correct:** The relation cannot be determined
 
-### Explanation
+### Mock solution
+
+B and A sit on different branches of the same connected graph. The branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of B and A is not fixed. Because valid arrangements give different results, the relation between B and A cannot be determined.
+
+### Learning solution
 
 B and A sit on different branches of the same connected graph.
 
@@ -537,7 +606,7 @@ Because valid arrangements give different results, the relation between B and A 
 
 ## 18. DETERMINE_BRANCHED_GRAPH_RELATION — seed 2
 
-**Record:** INE-CP002-7A2B3CAC · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Topology:** UPPER_AND_LOWER_SHARED_BOUNDS · **Explanation mode:** BRANCHED_GRAPH
+**Record:** INE-CP002-7A2B3CAC · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Release tier:** BANKING_PRELIMS · **Topology:** UPPER_AND_LOWER_SHARED_BOUNDS · **Explanation mode:** BRANCHED_GRAPH
 
 Which relation between S and D is definitely established by the statements?
 
@@ -557,7 +626,11 @@ Which relation between S and D is definitely established by the statements?
 
 **Correct:** The relation cannot be determined
 
-### Explanation
+### Mock solution
+
+S and D sit on different branches of the same connected graph. The branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of S and D is not fixed. Because valid arrangements give different results, the relation between S and D cannot be determined.
+
+### Learning solution
 
 S and D sit on different branches of the same connected graph.
 
@@ -571,7 +644,7 @@ Because valid arrangements give different results, the relation between S and D 
 
 ## 19. DETERMINE_BRANCHED_GRAPH_RELATION — seed 3
 
-**Record:** INE-CP002-5FED5A9F · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Topology:** ASYMMETRIC_BRANCH_DEPTH · **Explanation mode:** BRANCHED_GRAPH
+**Record:** INE-CP002-5FED5A9F · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Release tier:** BANKING_PRELIMS · **Topology:** ASYMMETRIC_BRANCH_DEPTH · **Explanation mode:** BRANCHED_GRAPH
 
 Which relation between P and Q is definitely established by the statements?
 
@@ -590,7 +663,11 @@ Which relation between P and Q is definitely established by the statements?
 
 **Correct:** The relation cannot be determined
 
-### Explanation
+### Mock solution
+
+P and Q sit on different branches of the same connected graph. The branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of P and Q is not fixed. Because valid arrangements give different results, the relation between P and Q cannot be determined.
+
+### Learning solution
 
 P and Q sit on different branches of the same connected graph.
 
@@ -604,7 +681,7 @@ Because valid arrangements give different results, the relation between P and Q 
 
 ## 20. DETERMINE_BRANCHED_GRAPH_RELATION — seed 4
 
-**Record:** INE-CP002-26FFEE16 · **Difficulty:** HARD (ADVANCED_GRAPH_REASONING) · **Topology:** BRANCH_WITH_EQUALITY_DEPTH · **Explanation mode:** BRANCHED_GRAPH
+**Record:** INE-CP002-26FFEE16 · **Difficulty:** HARD (ADVANCED_GRAPH_REASONING) · **Release tier:** ADVANCED_PRACTICE · **Topology:** BRANCH_WITH_EQUALITY_DEPTH · **Explanation mode:** BRANCHED_GRAPH
 
 Which relation between C and P is definitely established by the statements?
 
@@ -625,7 +702,11 @@ Which relation between C and P is definitely established by the statements?
 
 **Correct:** The relation cannot be determined
 
-### Explanation
+### Mock solution
+
+C and P sit on different branches of the same connected graph. The branches share other terms, but neither branch provides a directed comparison path to the other. Therefore, the order of C and P is not fixed. Because valid arrangements give different results, the relation between C and P cannot be determined.
+
+### Learning solution
 
 C and P sit on different branches of the same connected graph.
 
@@ -639,7 +720,7 @@ Because valid arrangements give different results, the relation between C and P 
 
 ## 21. FILTER_IRRELEVANT_STATEMENTS — seed 0
 
-**Record:** INE-CP002-F7B6A136 · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Topology:** RELEVANT_CHAIN_PLUS_SIDE_BRANCH · **Explanation mode:** IRRELEVANT_EVIDENCE
+**Record:** INE-CP002-F7B6A136 · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Release tier:** BANKING_PRELIMS · **Topology:** RELEVANT_CHAIN_PLUS_SIDE_BRANCH · **Explanation mode:** IRRELEVANT_EVIDENCE
 
 Which relation between R and C is definitely established by the statements?
 
@@ -659,7 +740,11 @@ Which relation between R and C is definitely established by the statements?
 
 **Correct:** R > C
 
-### Explanation
+### Mock solution
+
+Relevant route: B ≤ R and B > C. The remaining clues — Q < R and S < Q — do not complete another route between R and C. The relevant route proves R > C. Therefore, R > C is definitely established.
+
+### Learning solution
 
 Relevant route: B ≤ R and B > C.
 
@@ -669,7 +754,7 @@ Therefore, R > C is definitely established.
 
 ## 22. FILTER_IRRELEVANT_STATEMENTS — seed 1
 
-**Record:** INE-CP002-184147B1 · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Topology:** RELEVANT_CHAIN_PLUS_DISCONNECTED_CLUE · **Explanation mode:** IRRELEVANT_EVIDENCE
+**Record:** INE-CP002-184147B1 · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Release tier:** BANKING_PRELIMS · **Topology:** RELEVANT_CHAIN_PLUS_DISCONNECTED_CLUE · **Explanation mode:** IRRELEVANT_EVIDENCE
 
 Which relation between S and Q is definitely established by the statements?
 
@@ -688,7 +773,11 @@ Which relation between S and Q is definitely established by the statements?
 
 **Correct:** S < Q
 
-### Explanation
+### Mock solution
+
+Relevant route: Q ≥ D and S < D. The remaining clues — A > R — do not complete another route between S and Q. The relevant route proves S < Q. Therefore, S < Q is definitely established.
+
+### Learning solution
 
 Relevant route: Q ≥ D and S < D.
 
@@ -698,7 +787,7 @@ Therefore, S < Q is definitely established.
 
 ## 23. FILTER_IRRELEVANT_STATEMENTS — seed 2
 
-**Record:** INE-CP002-2446B4B8 · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Topology:** RELEVANT_CHAIN_PLUS_SIDE_BRANCH · **Explanation mode:** IRRELEVANT_EVIDENCE
+**Record:** INE-CP002-2446B4B8 · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Release tier:** BANKING_PRELIMS · **Topology:** RELEVANT_CHAIN_PLUS_SIDE_BRANCH · **Explanation mode:** IRRELEVANT_EVIDENCE
 
 Which relation between B and C is definitely established by the statements?
 
@@ -718,7 +807,11 @@ Which relation between B and C is definitely established by the statements?
 
 **Correct:** B > C
 
-### Explanation
+### Mock solution
+
+Relevant route: B ≥ A and C < A. The remaining clues — R < B and R > S — do not complete another route between B and C. The relevant route proves B > C. Therefore, B > C is definitely established.
+
+### Learning solution
 
 Relevant route: B ≥ A and C < A.
 
@@ -728,7 +821,7 @@ Therefore, B > C is definitely established.
 
 ## 24. FILTER_IRRELEVANT_STATEMENTS — seed 3
 
-**Record:** INE-CP002-C98765DB · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Topology:** RELEVANT_CHAIN_PLUS_DISCONNECTED_CLUE · **Explanation mode:** IRRELEVANT_EVIDENCE
+**Record:** INE-CP002-C98765DB · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Release tier:** BANKING_PRELIMS · **Topology:** RELEVANT_CHAIN_PLUS_DISCONNECTED_CLUE · **Explanation mode:** IRRELEVANT_EVIDENCE
 
 Which relation between Q and P is definitely established by the statements?
 
@@ -747,7 +840,11 @@ Which relation between Q and P is definitely established by the statements?
 
 **Correct:** Q < P
 
-### Explanation
+### Mock solution
+
+Relevant route: P ≥ B and Q < B. The remaining clues — A < D — do not complete another route between Q and P. The relevant route proves Q < P. Therefore, Q < P is definitely established.
+
+### Learning solution
 
 Relevant route: P ≥ B and Q < B.
 
@@ -757,7 +854,7 @@ Therefore, Q < P is definitely established.
 
 ## 25. FILTER_IRRELEVANT_STATEMENTS — seed 4
 
-**Record:** INE-CP002-2B916E2A · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Topology:** RELEVANT_CHAIN_PLUS_SIDE_BRANCH · **Explanation mode:** IRRELEVANT_EVIDENCE
+**Record:** INE-CP002-2B916E2A · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Release tier:** BANKING_PRELIMS · **Topology:** RELEVANT_CHAIN_PLUS_SIDE_BRANCH · **Explanation mode:** IRRELEVANT_EVIDENCE
 
 Which relation between B and A is definitely established by the statements?
 
@@ -777,7 +874,11 @@ Which relation between B and A is definitely established by the statements?
 
 **Correct:** B > A
 
-### Explanation
+### Mock solution
+
+Relevant route: S ≤ B and A < S. The remaining clues — B > D and P < D — do not complete another route between B and A. The relevant route proves B > A. Therefore, B > A is definitely established.
+
+### Learning solution
 
 Relevant route: S ≤ B and A < S.
 
@@ -787,7 +888,7 @@ Therefore, B > A is definitely established.
 
 ## 26. IDENTIFY_PAIR_WITH_DEFINITE_RELATION — seed 0
 
-**Record:** INE-CP002-65D3D470 · **Difficulty:** HARD (PAIR_AUDIT) · **Topology:** BRANCH_PLUS_DISCONNECTED_EQUALITY · **Explanation mode:** PAIR_SELECTION
+**Record:** INE-CP002-65D3D470 · **Difficulty:** HARD (PAIR_AUDIT) · **Release tier:** ADVANCED_PRACTICE · **Topology:** PAIR_AUDIT_CONNECTED_BRANCHES_MULTI_STEP · **Explanation mode:** PAIR_SELECTION
 
 Which pair has a relation that is completely determined by the statements?
 
@@ -800,14 +901,18 @@ Which pair has a relation that is completely determined by the statements?
 
 ### Options
 
-1. S and B
-2. S and Q
-3. D and Q
+1. S and Q
+2. D and Q
+3. S and B
 4. D and A
 
 **Correct:** D and A
 
-### Explanation
+### Mock solution
+
+Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. D and A: D > S and S ≥ A, so D > A. Therefore, option 4 — D and A — is the only pair with a definite relation.
+
+### Learning solution
 
 Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.
 
@@ -815,15 +920,15 @@ D and A: D > S and S ≥ A, so D > A.
 
 Therefore, option 4 — D and A — is the only pair with a definite relation.
 
-Pair check: S and B are on separate branches of one graph, with no directed path fixing their order.
-
 Pair check: S and Q are on separate branches of one graph, with no directed path fixing their order.
 
 Pair check: D and Q are on separate branches of one graph, with no directed path fixing their order.
 
+Pair check: S and B are on separate branches of one graph, with no directed path fixing their order.
+
 ## 27. IDENTIFY_PAIR_WITH_DEFINITE_RELATION — seed 1
 
-**Record:** INE-CP002-0DE14213 · **Difficulty:** HARD (PAIR_AUDIT) · **Topology:** BRANCH_PLUS_DISCONNECTED_EQUALITY · **Explanation mode:** PAIR_SELECTION
+**Record:** INE-CP002-0DE14213 · **Difficulty:** HARD (PAIR_AUDIT) · **Release tier:** ADVANCED_PRACTICE · **Topology:** PAIR_AUDIT_CONNECTED_BRANCHES_MULTI_STEP · **Explanation mode:** PAIR_SELECTION
 
 Which pair has a relation that is completely determined by the statements?
 
@@ -836,14 +941,18 @@ Which pair has a relation that is completely determined by the statements?
 
 ### Options
 
-1. C and A
+1. Q and A
 2. B and Q
-3. C and R
-4. Q and A
+3. C and A
+4. C and R
 
 **Correct:** B and Q
 
-### Explanation
+### Mock solution
+
+Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. B and Q: Q > C and B ≤ C, so B < Q. Therefore, option 2 — B and Q — is the only pair with a definite relation.
+
+### Learning solution
 
 Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.
 
@@ -851,51 +960,54 @@ B and Q: Q > C and B ≤ C, so B < Q.
 
 Therefore, option 2 — B and Q — is the only pair with a definite relation.
 
+Pair check: Q and A are on separate branches of one graph, with no directed path fixing their order.
+
 Pair check: C and A are on separate branches of one graph, with no directed path fixing their order.
 
 Pair check: C and R are on separate branches of one graph, with no directed path fixing their order.
 
-Pair check: Q and A are on separate branches of one graph, with no directed path fixing their order.
-
 ## 28. IDENTIFY_PAIR_WITH_DEFINITE_RELATION — seed 2
 
-**Record:** INE-CP002-E3BB68CE · **Difficulty:** HARD (PAIR_AUDIT) · **Topology:** BRANCH_PLUS_DISCONNECTED_EQUALITY · **Explanation mode:** PAIR_SELECTION
+**Record:** INE-CP002-E3BB68CE · **Difficulty:** HARD (PAIR_AUDIT) · **Release tier:** ADVANCED_PRACTICE · **Topology:** PAIR_AUDIT_EQUALITY_CHAIN_WITH_DISCONNECTED_EDGE · **Explanation mode:** PAIR_SELECTION
 
 Which pair has a relation that is completely determined by the statements?
 
 ### Statements
 
-- C ≥ B
-- R > C
-- B < A
-- A = D
+- R = B
+- B = A
+- Q < S
 
 ### Options
 
-1. C and A
-2. R and A
-3. D and A
-4. C and D
+1. B and Q
+2. R and S
+3. R and A
+4. A and S
 
-**Correct:** D and A
+**Correct:** R and A
 
-### Explanation
+### Mock solution
+
+Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. R and A: R = B and B = A, so R = A. Therefore, option 3 — R and A — is the only pair with a definite relation.
+
+### Learning solution
 
 Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.
 
-D and A: , so D = A.
+R and A: R = B and B = A, so R = A.
 
-Therefore, option 3 — D and A — is the only pair with a definite relation.
+Therefore, option 3 — R and A — is the only pair with a definite relation.
 
-Pair check: C and A are on separate branches of one graph, with no directed path fixing their order.
+Pair check: B and Q are in disconnected groups, so no comparison path fixes their order.
 
-Pair check: R and A are on separate branches of one graph, with no directed path fixing their order.
+Pair check: R and S are in disconnected groups, so no comparison path fixes their order.
 
-Pair check: C and D are on separate branches of one graph, with no directed path fixing their order.
+Pair check: A and S are in disconnected groups, so no comparison path fixes their order.
 
 ## 29. IDENTIFY_PAIR_WITH_DEFINITE_RELATION — seed 3
 
-**Record:** INE-CP002-D7F8E429 · **Difficulty:** HARD (PAIR_AUDIT) · **Topology:** BRANCH_PLUS_DISCONNECTED_EQUALITY · **Explanation mode:** PAIR_SELECTION
+**Record:** INE-CP002-D7F8E429 · **Difficulty:** HARD (PAIR_AUDIT) · **Release tier:** ADVANCED_PRACTICE · **Topology:** PAIR_AUDIT_CONNECTED_BRANCHES_MULTI_STEP · **Explanation mode:** PAIR_SELECTION
 
 Which pair has a relation that is completely determined by the statements?
 
@@ -904,70 +1016,78 @@ Which pair has a relation that is completely determined by the statements?
 - S < A
 - A = Q
 - S ≤ D
-- P > D
+- P ≥ D
 
 ### Options
 
-1. D and S
+1. P and S
 2. D and Q
-3. D and A
-4. P and A
+3. P and A
+4. D and A
 
-**Correct:** D and S
+**Correct:** P and S
 
-### Explanation
+### Mock solution
+
+Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. P and S: P ≥ D and S ≤ D, so P ≥ S. Therefore, option 1 — P and S — is the only pair with a definite relation.
+
+### Learning solution
 
 Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.
 
-D and S: S ≤ D, so D ≥ S.
+P and S: P ≥ D and S ≤ D, so P ≥ S.
 
-Therefore, option 1 — D and S — is the only pair with a definite relation.
+Therefore, option 1 — P and S — is the only pair with a definite relation.
 
 Pair check: D and Q are on separate branches of one graph, with no directed path fixing their order.
 
-Pair check: D and A are on separate branches of one graph, with no directed path fixing their order.
-
 Pair check: P and A are on separate branches of one graph, with no directed path fixing their order.
+
+Pair check: D and A are on separate branches of one graph, with no directed path fixing their order.
 
 ## 30. IDENTIFY_PAIR_WITH_DEFINITE_RELATION — seed 4
 
-**Record:** INE-CP002-4E82D524 · **Difficulty:** HARD (PAIR_AUDIT) · **Topology:** BRANCH_PLUS_DISCONNECTED_EQUALITY · **Explanation mode:** PAIR_SELECTION
+**Record:** INE-CP002-4E82D524 · **Difficulty:** HARD (PAIR_AUDIT) · **Release tier:** ADVANCED_PRACTICE · **Topology:** PAIR_AUDIT_CONNECTED_BRANCHES_MULTI_STEP · **Explanation mode:** PAIR_SELECTION
 
 Which pair has a relation that is completely determined by the statements?
 
 ### Statements
 
 - A = C
-- S < Q
+- S ≤ Q
 - B ≤ S
 - B < C
 
 ### Options
 
-1. S and C
-2. Q and C
-3. B and S
-4. S and A
+1. Q and C
+2. S and A
+3. B and Q
+4. S and C
 
-**Correct:** B and S
+**Correct:** B and Q
 
-### Explanation
+### Mock solution
+
+Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. B and Q: S ≤ Q and B ≤ S, so B ≤ Q. Therefore, option 3 — B and Q — is the only pair with a definite relation.
+
+### Learning solution
 
 Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.
 
-B and S: B ≤ S, so B ≤ S.
+B and Q: S ≤ Q and B ≤ S, so B ≤ Q.
 
-Therefore, option 3 — B and S — is the only pair with a definite relation.
-
-Pair check: S and C are on separate branches of one graph, with no directed path fixing their order.
+Therefore, option 3 — B and Q — is the only pair with a definite relation.
 
 Pair check: Q and C are on separate branches of one graph, with no directed path fixing their order.
 
 Pair check: S and A are on separate branches of one graph, with no directed path fixing their order.
 
+Pair check: S and C are on separate branches of one graph, with no directed path fixing their order.
+
 ## 31. IDENTIFY_PAIR_WITHOUT_DEFINITE_RELATION — seed 0
 
-**Record:** INE-CP002-FF243FB7 · **Difficulty:** HARD (PAIR_AUDIT) · **Topology:** CHAIN_PLUS_DISCONNECTED_EQUALITY · **Explanation mode:** PAIR_SELECTION
+**Record:** INE-CP002-FF243FB7 · **Difficulty:** HARD (PAIR_AUDIT) · **Release tier:** ADVANCED_PRACTICE · **Topology:** PAIR_AUDIT_CONNECTED_GRAPH_SINGLE_UNKNOWN · **Explanation mode:** PAIR_SELECTION
 
 Which pair has a relation that cannot be determined from the statements?
 
@@ -987,7 +1107,11 @@ Which pair has a relation that cannot be determined from the statements?
 
 **Correct:** P and A
 
-### Explanation
+### Mock solution
+
+Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. P and A are on separate branches of one graph, with no directed path fixing their order. Therefore, option 4 — P and A — is the only pair whose relation is not determined.
+
+### Learning solution
 
 Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.
 
@@ -1003,7 +1127,7 @@ Pair check: R and Q: P < R and P ≥ Q, so R > Q.
 
 ## 32. IDENTIFY_PAIR_WITHOUT_DEFINITE_RELATION — seed 1
 
-**Record:** INE-CP002-EFCA51E4 · **Difficulty:** HARD (PAIR_AUDIT) · **Topology:** CHAIN_PLUS_DISCONNECTED_EQUALITY · **Explanation mode:** PAIR_SELECTION
+**Record:** INE-CP002-EFCA51E4 · **Difficulty:** HARD (PAIR_AUDIT) · **Release tier:** ADVANCED_PRACTICE · **Topology:** PAIR_AUDIT_CONNECTED_GRAPH_SINGLE_UNKNOWN · **Explanation mode:** PAIR_SELECTION
 
 Which pair has a relation that cannot be determined from the statements?
 
@@ -1023,7 +1147,11 @@ Which pair has a relation that cannot be determined from the statements?
 
 **Correct:** Q and S
 
-### Explanation
+### Mock solution
+
+Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. Q and S are on separate branches of one graph, with no directed path fixing their order. Therefore, option 3 — Q and S — is the only pair whose relation is not determined.
+
+### Learning solution
 
 Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.
 
@@ -1039,7 +1167,7 @@ Pair check: R and B: Q < R and Q ≥ B, so R > B.
 
 ## 33. IDENTIFY_PAIR_WITHOUT_DEFINITE_RELATION — seed 2
 
-**Record:** INE-CP002-F06AD11D · **Difficulty:** HARD (PAIR_AUDIT) · **Topology:** CHAIN_PLUS_DISCONNECTED_EQUALITY · **Explanation mode:** PAIR_SELECTION
+**Record:** INE-CP002-F06AD11D · **Difficulty:** HARD (PAIR_AUDIT) · **Release tier:** ADVANCED_PRACTICE · **Topology:** PAIR_AUDIT_CONNECTED_GRAPH_SINGLE_UNKNOWN · **Explanation mode:** PAIR_SELECTION
 
 Which pair has a relation that cannot be determined from the statements?
 
@@ -1059,7 +1187,11 @@ Which pair has a relation that cannot be determined from the statements?
 
 **Correct:** S and P
 
-### Explanation
+### Mock solution
+
+Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. S and P are on separate branches of one graph, with no directed path fixing their order. Therefore, option 1 — S and P — is the only pair whose relation is not determined.
+
+### Learning solution
 
 Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.
 
@@ -1075,7 +1207,7 @@ Pair check: A and C: A > S and S ≥ C, so A > C.
 
 ## 34. IDENTIFY_PAIR_WITHOUT_DEFINITE_RELATION — seed 3
 
-**Record:** INE-CP002-EAE58842 · **Difficulty:** HARD (PAIR_AUDIT) · **Topology:** CHAIN_PLUS_DISCONNECTED_EQUALITY · **Explanation mode:** PAIR_SELECTION
+**Record:** INE-CP002-EAE58842 · **Difficulty:** HARD (PAIR_AUDIT) · **Release tier:** ADVANCED_PRACTICE · **Topology:** PAIR_AUDIT_CONNECTED_GRAPH_SINGLE_UNKNOWN · **Explanation mode:** PAIR_SELECTION
 
 Which pair has a relation that cannot be determined from the statements?
 
@@ -1095,7 +1227,11 @@ Which pair has a relation that cannot be determined from the statements?
 
 **Correct:** C and B
 
-### Explanation
+### Mock solution
+
+Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. C and B are on separate branches of one graph, with no directed path fixing their order. Therefore, option 2 — C and B — is the only pair whose relation is not determined.
+
+### Learning solution
 
 Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.
 
@@ -1111,7 +1247,7 @@ Pair check: Q and C: R ≤ C, so Q ≤ C.
 
 ## 35. IDENTIFY_PAIR_WITHOUT_DEFINITE_RELATION — seed 4
 
-**Record:** INE-CP002-D57F6DD3 · **Difficulty:** HARD (PAIR_AUDIT) · **Topology:** CHAIN_PLUS_DISCONNECTED_EQUALITY · **Explanation mode:** PAIR_SELECTION
+**Record:** INE-CP002-D57F6DD3 · **Difficulty:** HARD (PAIR_AUDIT) · **Release tier:** ADVANCED_PRACTICE · **Topology:** PAIR_AUDIT_CONNECTED_GRAPH_SINGLE_UNKNOWN · **Explanation mode:** PAIR_SELECTION
 
 Which pair has a relation that cannot be determined from the statements?
 
@@ -1131,7 +1267,11 @@ Which pair has a relation that cannot be determined from the statements?
 
 **Correct:** A and D
 
-### Explanation
+### Mock solution
+
+Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own. A and D are on separate branches of one graph, with no directed path fixing their order. Therefore, option 1 — A and D — is the only pair whose relation is not determined.
+
+### Learning solution
 
 Check each pair by tracing an actual comparison path. A shared name or nearby branch is not enough on its own.
 
@@ -1147,7 +1287,7 @@ Pair check: Q and A: A ≥ R, so Q ≤ A.
 
 ## 36. DETERMINE_DISCONNECTED_PAIR_RELATION — seed 0
 
-**Record:** INE-CP002-6E34CEAC · **Difficulty:** EASY (SHORT_SINGLE_PATH) · **Topology:** DISCONNECTED_TWO_EDGES · **Explanation mode:** DISCONNECTED_COMPONENTS
+**Record:** INE-CP002-6E34CEAC · **Difficulty:** EASY (SHORT_SINGLE_PATH) · **Release tier:** SSC_STANDARD_MOCK · **Topology:** DISCONNECTED_TWO_EDGES · **Explanation mode:** DISCONNECTED_COMPONENTS
 
 Which relation between Q and A is definitely established by the statements?
 
@@ -1165,7 +1305,11 @@ Which relation between Q and A is definitely established by the statements?
 
 **Correct:** The relation cannot be determined
 
-### Explanation
+### Mock solution
+
+Q and A belong to two separate groups of statements. Group containing Q: P > Q. Group containing A: D > A. No comparison joins the groups, so the order of Q and A is not fixed. Because valid arrangements give different results, the relation between Q and A cannot be determined.
+
+### Learning solution
 
 Q and A belong to two separate groups of statements.
 
@@ -1181,7 +1325,7 @@ Because valid arrangements give different results, the relation between Q and A 
 
 ## 37. DETERMINE_DISCONNECTED_PAIR_RELATION — seed 1
 
-**Record:** INE-CP002-53F6EC9F · **Difficulty:** EASY (SHORT_SINGLE_PATH) · **Topology:** DISCONNECTED_CHAIN_PLUS_EDGE · **Explanation mode:** DISCONNECTED_COMPONENTS
+**Record:** INE-CP002-53F6EC9F · **Difficulty:** EASY (SHORT_SINGLE_PATH) · **Release tier:** SSC_STANDARD_MOCK · **Topology:** DISCONNECTED_CHAIN_PLUS_EDGE · **Explanation mode:** DISCONNECTED_COMPONENTS
 
 Which relation between D and C is definitely established by the statements?
 
@@ -1200,7 +1344,11 @@ Which relation between D and C is definitely established by the statements?
 
 **Correct:** The relation cannot be determined
 
-### Explanation
+### Mock solution
+
+D and C belong to two separate groups of statements. Group containing D: D < R; Q ≤ D. Group containing C: C < A. No comparison joins the groups, so the order of D and C is not fixed. Because valid arrangements give different results, the relation between D and C cannot be determined.
+
+### Learning solution
 
 D and C belong to two separate groups of statements.
 
@@ -1216,7 +1364,7 @@ Because valid arrangements give different results, the relation between D and C 
 
 ## 38. DETERMINE_DISCONNECTED_PAIR_RELATION — seed 2
 
-**Record:** INE-CP002-2907D60A · **Difficulty:** EASY (SHORT_SINGLE_PATH) · **Topology:** DISCONNECTED_EQUALITY_PLUS_CHAIN · **Explanation mode:** DISCONNECTED_COMPONENTS
+**Record:** INE-CP002-2907D60A · **Difficulty:** EASY (SHORT_SINGLE_PATH) · **Release tier:** SSC_STANDARD_MOCK · **Topology:** DISCONNECTED_EQUALITY_PLUS_CHAIN · **Explanation mode:** DISCONNECTED_COMPONENTS
 
 Which relation between Q and D is definitely established by the statements?
 
@@ -1235,7 +1383,11 @@ Which relation between Q and D is definitely established by the statements?
 
 **Correct:** The relation cannot be determined
 
-### Explanation
+### Mock solution
+
+Q and D belong to two separate groups of statements. Group containing Q: C = Q. Group containing D: D > A; B > D. No comparison joins the groups, so the order of Q and D is not fixed. Because valid arrangements give different results, the relation between Q and D cannot be determined.
+
+### Learning solution
 
 Q and D belong to two separate groups of statements.
 
@@ -1251,7 +1403,7 @@ Because valid arrangements give different results, the relation between Q and D 
 
 ## 39. DETERMINE_DISCONNECTED_PAIR_RELATION — seed 3
 
-**Record:** INE-CP002-1D63FE25 · **Difficulty:** EASY (SHORT_SINGLE_PATH) · **Topology:** DISCONNECTED_BRANCH_PLUS_EDGE · **Explanation mode:** DISCONNECTED_COMPONENTS
+**Record:** INE-CP002-1D63FE25 · **Difficulty:** EASY (SHORT_SINGLE_PATH) · **Release tier:** SSC_STANDARD_MOCK · **Topology:** DISCONNECTED_BRANCH_PLUS_EDGE · **Explanation mode:** DISCONNECTED_COMPONENTS
 
 Which relation between A and Q is definitely established by the statements?
 
@@ -1270,7 +1422,11 @@ Which relation between A and Q is definitely established by the statements?
 
 **Correct:** The relation cannot be determined
 
-### Explanation
+### Mock solution
+
+A and Q belong to two separate groups of statements. Group containing A: C > P; A < C. Group containing Q: B ≥ Q. No comparison joins the groups, so the order of A and Q is not fixed. Because valid arrangements give different results, the relation between A and Q cannot be determined.
+
+### Learning solution
 
 A and Q belong to two separate groups of statements.
 
@@ -1286,7 +1442,7 @@ Because valid arrangements give different results, the relation between A and Q 
 
 ## 40. DETERMINE_DISCONNECTED_PAIR_RELATION — seed 4
 
-**Record:** INE-CP002-11310D18 · **Difficulty:** EASY (SHORT_SINGLE_PATH) · **Topology:** DISCONNECTED_EQUALITY_CHAIN_PLUS_EDGE · **Explanation mode:** DISCONNECTED_COMPONENTS
+**Record:** INE-CP002-11310D18 · **Difficulty:** EASY (SHORT_SINGLE_PATH) · **Release tier:** SSC_STANDARD_MOCK · **Topology:** DISCONNECTED_EQUALITY_CHAIN_PLUS_EDGE · **Explanation mode:** DISCONNECTED_COMPONENTS
 
 Which relation between P and D is definitely established by the statements?
 
@@ -1305,7 +1461,11 @@ Which relation between P and D is definitely established by the statements?
 
 **Correct:** The relation cannot be determined
 
-### Explanation
+### Mock solution
+
+P and D belong to two separate groups of statements. Group containing P: P = B; P = S. Group containing D: Q > D. No comparison joins the groups, so the order of P and D is not fixed. Because valid arrangements give different results, the relation between P and D cannot be determined.
+
+### Learning solution
 
 P and D belong to two separate groups of statements.
 
@@ -1321,7 +1481,7 @@ Because valid arrangements give different results, the relation between P and D 
 
 ## 41. PROPAGATE_EQUALITY_ACROSS_BRANCHES — seed 0
 
-**Record:** INE-CP002-E45B3926 · **Difficulty:** EASY (SHORT_SINGLE_PATH) · **Topology:** DIRECT_EQUALITY_ONE_BRANCH · **Explanation mode:** EQUALITY_SPANNING_BRANCHES
+**Record:** INE-CP002-E45B3926 · **Difficulty:** EASY (SHORT_SINGLE_PATH) · **Release tier:** SSC_STANDARD_MOCK · **Topology:** DIRECT_EQUALITY_ONE_BRANCH · **Explanation mode:** EQUALITY_SPANNING_BRANCHES
 
 Which relation between C and Q is definitely established by the statements?
 
@@ -1339,7 +1499,11 @@ Which relation between C and Q is definitely established by the statements?
 
 **Correct:** C = Q
 
-### Explanation
+### Mock solution
+
+Collapse the equality route first: C = Q. This places C and Q in the same equality group. The other comparisons leave that group but cannot separate its members, so C = Q. Therefore, C = Q is definitely established.
+
+### Learning solution
 
 Collapse the equality route first: C = Q.
 
@@ -1349,7 +1513,7 @@ Therefore, C = Q is definitely established.
 
 ## 42. PROPAGATE_EQUALITY_ACROSS_BRANCHES — seed 1
 
-**Record:** INE-CP002-198E38E1 · **Difficulty:** EASY (SHORT_SINGLE_PATH) · **Topology:** EQUALITY_CHAIN_ONE_BRANCH · **Explanation mode:** EQUALITY_SPANNING_BRANCHES
+**Record:** INE-CP002-198E38E1 · **Difficulty:** EASY (SHORT_SINGLE_PATH) · **Release tier:** SSC_STANDARD_MOCK · **Topology:** EQUALITY_CHAIN_ONE_BRANCH · **Explanation mode:** EQUALITY_SPANNING_BRANCHES
 
 Which relation between C and Q is definitely established by the statements?
 
@@ -1368,7 +1532,11 @@ Which relation between C and Q is definitely established by the statements?
 
 **Correct:** C = Q
 
-### Explanation
+### Mock solution
+
+Collapse the equality route first: C = S and Q = S. This places C and Q in the same equality group. The other comparisons leave that group but cannot separate its members, so C = Q. Therefore, C = Q is definitely established.
+
+### Learning solution
 
 Collapse the equality route first: C = S and Q = S.
 
@@ -1378,7 +1546,7 @@ Therefore, C = Q is definitely established.
 
 ## 43. PROPAGATE_EQUALITY_ACROSS_BRANCHES — seed 2
 
-**Record:** INE-CP002-A9612EA8 · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Topology:** EQUALITY_HUB_AND_BRANCHES · **Explanation mode:** EQUALITY_SPANNING_BRANCHES
+**Record:** INE-CP002-A9612EA8 · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Release tier:** BANKING_PRELIMS · **Topology:** EQUALITY_HUB_AND_BRANCHES · **Explanation mode:** EQUALITY_SPANNING_BRANCHES
 
 Which relation between R and Q is definitely established by the statements?
 
@@ -1398,7 +1566,11 @@ Which relation between R and Q is definitely established by the statements?
 
 **Correct:** R = Q
 
-### Explanation
+### Mock solution
+
+Collapse the equality route first: D = R and Q = D. This places R and Q in the same equality group. The other comparisons leave that group but cannot separate its members, so R = Q. Therefore, R = Q is definitely established.
+
+### Learning solution
 
 Collapse the equality route first: D = R and Q = D.
 
@@ -1408,7 +1580,7 @@ Therefore, R = Q is definitely established.
 
 ## 44. PROPAGATE_EQUALITY_ACROSS_BRANCHES — seed 3
 
-**Record:** INE-CP002-91AB42CB · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Topology:** LONG_EQUALITY_COMPONENT_SHARED_LOWER · **Explanation mode:** EQUALITY_SPANNING_BRANCHES
+**Record:** INE-CP002-91AB42CB · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Release tier:** BANKING_PRELIMS · **Topology:** LONG_EQUALITY_COMPONENT_SHARED_LOWER · **Explanation mode:** EQUALITY_SPANNING_BRANCHES
 
 Which relation between B and D is definitely established by the statements?
 
@@ -1429,7 +1601,11 @@ Which relation between B and D is definitely established by the statements?
 
 **Correct:** B = D
 
-### Explanation
+### Mock solution
+
+Collapse the equality route first: R = B and R = D. This places B and D in the same equality group. The other comparisons leave that group but cannot separate its members, so B = D. Therefore, B = D is definitely established.
+
+### Learning solution
 
 Collapse the equality route first: R = B and R = D.
 
@@ -1439,7 +1615,7 @@ Therefore, B = D is definitely established.
 
 ## 45. PROPAGATE_EQUALITY_ACROSS_BRANCHES — seed 4
 
-**Record:** INE-CP002-C102EA9A · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Topology:** EQUALITY_STAR_SPLIT_BRANCHES · **Explanation mode:** EQUALITY_SPANNING_BRANCHES
+**Record:** INE-CP002-C102EA9A · **Difficulty:** MEDIUM (STANDARD_GRAPH_REASONING) · **Release tier:** BANKING_PRELIMS · **Topology:** EQUALITY_STAR_SPLIT_BRANCHES · **Explanation mode:** EQUALITY_SPANNING_BRANCHES
 
 Which relation between C and Q is definitely established by the statements?
 
@@ -1459,7 +1635,11 @@ Which relation between C and Q is definitely established by the statements?
 
 **Correct:** C = Q
 
-### Explanation
+### Mock solution
+
+Collapse the equality route first: C = D and D = Q. This places C and Q in the same equality group. The other comparisons leave that group but cannot separate its members, so C = Q. Therefore, C = Q is definitely established.
+
+### Learning solution
 
 Collapse the equality route first: C = D and D = Q.
 

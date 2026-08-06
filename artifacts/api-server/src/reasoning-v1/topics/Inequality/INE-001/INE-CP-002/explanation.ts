@@ -69,6 +69,49 @@ function connectedEntityIds(
   return seen;
 }
 
+function comparisonSourcePath(
+  scenario: IneCp002Scenario,
+  startId: string,
+  endId: string,
+  equalityOnly: boolean,
+): readonly string[] {
+  const queue = [startId];
+  const visited = new Set([startId]);
+  const previous = new Map<
+    string,
+    { entityId: string; sourceStatementId: string }
+  >();
+  while (queue.length > 0 && !visited.has(endId)) {
+    const current = queue.shift()!;
+    for (const statement of scenario.statements) {
+      if (equalityOnly && statement.relation !== "EQUAL_TO") continue;
+      const neighbour =
+        statement.leftId === current
+          ? statement.rightId
+          : statement.rightId === current
+            ? statement.leftId
+            : undefined;
+      if (!neighbour || visited.has(neighbour)) continue;
+      visited.add(neighbour);
+      previous.set(neighbour, {
+        entityId: current,
+        sourceStatementId: statement.sourceStatementId,
+      });
+      queue.push(neighbour);
+    }
+  }
+  if (!visited.has(endId)) return [];
+  const sourceIds: string[] = [];
+  let current = endId;
+  while (current !== startId) {
+    const step = previous.get(current);
+    if (!step) return [];
+    sourceIds.unshift(step.sourceStatementId);
+    current = step.entityId;
+  }
+  return sourceIds;
+}
+
 function componentText(scenario: IneCp002Scenario, entityId: string): string {
   const ids = connectedEntityIds(scenario, entityId);
   return scenario.statements
@@ -274,10 +317,23 @@ function pairReason(
   );
   const relation = agreement.graphEvidence?.strongestDefiniteRelation;
   if (relation) {
-    const sourceIds =
+    let sourceIds: readonly string[] =
       agreement.graphEvidence?.proofPath?.steps.flatMap(
         (step) => step.sourceStatementIds,
       ) ?? [];
+    if (sourceIds.length === 0) {
+      sourceIds = comparisonSourcePath(
+        scenario,
+        pair.leftId,
+        pair.rightId,
+        relation === "EQUAL_TO",
+      );
+    }
+    if (sourceIds.length === 0) {
+      throw new Error(
+        `${scenario.scenarioId} has a definite pair without a displayable proof path.`,
+      );
+    }
     const path = routeText(scenario, [...new Set(sourceIds)]);
     return `${formatPairOption(pair, scenario.entityNames)}: ${path}, so ${definiteRelationText(scenario, option, relation)}.`;
   }

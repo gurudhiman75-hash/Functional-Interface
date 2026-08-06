@@ -42,9 +42,15 @@ All authorities remain provisional. Graph shape alone does not justify a permane
 - pair-selection explanations show the decisive path for every definite pair;
 - stable record IDs, content hashes, competency, topology, clue counts, explanation mode, and review status are exported;
 - the five-seed review pack contains 34 canonical graph fingerprints across 45 records, up from the reviewed baseline of 21;
-- 30 named topologies span three to five nodes and two to six statements;
+- 31 named topologies span three to five nodes and two to six statements;
 - calibrated difficulty coverage contains 10 easy, 17 medium, and 18 hard review records;
 - standard relation explanations use a short path/interpretation/conclusion structure, while pair-selection records retain a full pair audit;
+- every record exports separate concise mock and detailed learning solutions;
+- release-tier metadata separates `SSC_STANDARD_MOCK`, `BANKING_PRELIMS`, and `ADVANCED_PRACTICE` from difficulty;
+- hard pair audits reject direct exposure of the correct pair and require a path of at least two statements;
+- multi-route records reject any source statement that directly contains the queried pair;
+- empty proof text and `: , so ...` route defects are rejected by runtime validation and mutation tests;
+- distractors expose auditable misconception roles, including direction, strictness, equality, common-bound, disconnected-pair, and definite-path errors;
 - deterministic English review-pack export for every authority.
 
 ## Critical-review remediation
@@ -58,7 +64,9 @@ The remediation passes address the August 2026 English prototype reviews:
 - diversified definite-pair outcomes across `>`, `<`, `=`, `≥`, and `≤`;
 - added attached and disconnected irrelevant-clue variants;
 - varied statement counts, node counts, chain length, branch depth, equality placement, component shape, and route length;
-- added canonical graph-fingerprint diversity gates and explicit difficulty bases.
+- added canonical graph-fingerprint diversity gates and explicit difficulty bases;
+- repaired equality-path rendering for pair audits and removed all direct-answer hard pair constructions;
+- corrected pair-audit topology labels and added dual-solution and release-tier contracts.
 
 Further corpus-scale expansion remains appropriate after the nine provisional authorities are merged or split into final QLs; it is not a blocker for the next manual prototype review.
 

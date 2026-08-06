@@ -65,7 +65,7 @@ export const INE_CP002_PROTOTYPE_CONTRACTS: readonly IneCp002PrototypeContract[]
       prototypeId: "INE-CP002-PROT-SELECT-DEFINITE-PAIR",
       authorityId: "IDENTIFY_PAIR_WITH_DEFINITE_RELATION",
       taskKind: "SELECT_DEFINITE_PAIR",
-      minimumStatementCount: 4,
+      minimumStatementCount: 3,
       maximumStatementCount: 4,
       status: "PROTOTYPE",
       permanentQlId: null,

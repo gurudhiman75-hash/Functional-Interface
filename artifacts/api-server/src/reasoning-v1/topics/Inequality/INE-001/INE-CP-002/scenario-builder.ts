@@ -184,18 +184,22 @@ export function buildIneCp002Scenario(
     const variant = ((seed % 5) + 5) % 5;
     const variants: readonly Omit<IneCp002Scenario, "entityNames">[] = [
       {
-        scenarioId: "DIRECT_AND_TWO_EDGE_CONFIRMATION",
-        topologyId: "DIRECT_PLUS_TWO_EDGE_ROUTE",
+        scenarioId: "TWO_SHORT_INDIRECT_ROUTES",
+        topologyId: "INDIRECT_DIAMOND_TWO_ROUTES",
         taskKind: "RELATION",
         explanationKind: "MULTIPLE_ROUTES",
-        hiddenValues: { E1: 5, E2: 3, E3: 1 },
+        hiddenValues: { E1: 5, E2: 4, E3: 3, E4: 1 },
         statements: [
-          c("E1", "GREATER_THAN", "E3", "S1"),
-          c("E1", "GREATER_THAN_OR_EQUAL", "E2", "S2"),
-          c("E2", "GREATER_THAN", "E3", "S3"),
+          c("E1", "GREATER_THAN_OR_EQUAL", "E2", "S1"),
+          c("E2", "GREATER_THAN", "E4", "S2"),
+          c("E1", "GREATER_THAN", "E3", "S3"),
+          c("E3", "GREATER_THAN_OR_EQUAL", "E4", "S4"),
         ],
-        query: { leftId: "E1", rightId: "E3" },
-        proofRoutes: [["S1"], ["S2", "S3"]],
+        query: { leftId: "E1", rightId: "E4" },
+        proofRoutes: [
+          ["S1", "S2"],
+          ["S3", "S4"],
+        ],
         irrelevantStatementIds: [],
       },
       {
@@ -415,47 +419,63 @@ export function buildIneCp002Scenario(
     };
   } else if (prototypeId === "INE-CP002-PROT-SELECT-DEFINITE-PAIR") {
     const definitePairVariant = ((seed % 5) + 5) % 5;
-    const definitePair =
-      definitePairVariant === 0
-        ? pair("P1", "E1", "E3")
-        : definitePairVariant === 1
-          ? pair("P1", "E3", "E1")
-          : definitePairVariant === 2
-            ? pair("P1", "E5", "E4")
-            : definitePairVariant === 3
-              ? pair("P1", "E2", "E3")
-              : pair("P1", "E3", "E2");
-    scenario = {
-      scenarioId: "ONE_DEFINITE_AMONG_FOUR_PAIRS",
-      topologyId: "BRANCH_PLUS_DISCONNECTED_EQUALITY",
-      taskKind: "SELECT_DEFINITE_PAIR",
-      explanationKind: "PAIR_SELECTION",
-      hiddenValues: { E1: 5, E2: 3, E3: 2, E4: 4, E5: 4 },
-      statements: [
-        c("E1", "GREATER_THAN", "E2", "S1"),
-        c("E2", "GREATER_THAN_OR_EQUAL", "E3", "S2"),
-        c("E4", "GREATER_THAN", "E3", "S3"),
-        c("E5", "EQUAL_TO", "E4", "S4"),
-      ],
-      candidatePairs: [
-        definitePair,
-        pair("P2", "E2", "E4"),
-        pair("P3", "E1", "E4"),
-        pair("P4", "E2", "E5"),
-      ],
-      proofRoutes: [
-        definitePairVariant <= 1
-          ? ["S1", "S2"]
-          : definitePairVariant === 2
-            ? ["S4"]
-            : ["S2"],
-      ],
-      irrelevantStatementIds: ["S4"],
-    };
+    if (definitePairVariant === 2) {
+      scenario = {
+        scenarioId: "MULTI_STEP_EQUALITY_PAIR_AUDIT",
+        topologyId: "PAIR_AUDIT_EQUALITY_CHAIN_WITH_DISCONNECTED_EDGE",
+        taskKind: "SELECT_DEFINITE_PAIR",
+        explanationKind: "PAIR_SELECTION",
+        hiddenValues: { E1: 5, E2: 5, E3: 5, E4: 4, E5: 2 },
+        statements: [
+          c("E1", "EQUAL_TO", "E2", "S1"),
+          c("E2", "EQUAL_TO", "E3", "S2"),
+          c("E4", "GREATER_THAN", "E5", "S3"),
+        ],
+        candidatePairs: [
+          pair("P1", "E1", "E3"),
+          pair("P2", "E1", "E4"),
+          pair("P3", "E2", "E5"),
+          pair("P4", "E3", "E4"),
+        ],
+        proofRoutes: [["S1", "S2"]],
+        irrelevantStatementIds: ["S3"],
+      };
+    } else {
+      const reversed = definitePairVariant === 1 || definitePairVariant === 4;
+      const inclusive = definitePairVariant >= 3;
+      scenario = {
+        scenarioId: inclusive
+          ? "MULTI_STEP_INCLUSIVE_PAIR_AUDIT"
+          : "MULTI_STEP_STRICT_PAIR_AUDIT",
+        topologyId: "PAIR_AUDIT_CONNECTED_BRANCHES_MULTI_STEP",
+        taskKind: "SELECT_DEFINITE_PAIR",
+        explanationKind: "PAIR_SELECTION",
+        hiddenValues: { E1: 5, E2: 3, E3: 2, E4: 4, E5: 4 },
+        statements: [
+          c(
+            "E1",
+            inclusive ? "GREATER_THAN_OR_EQUAL" : "GREATER_THAN",
+            "E2",
+            "S1",
+          ),
+          c("E2", "GREATER_THAN_OR_EQUAL", "E3", "S2"),
+          c("E4", "GREATER_THAN", "E3", "S3"),
+          c("E5", "EQUAL_TO", "E4", "S4"),
+        ],
+        candidatePairs: [
+          reversed ? pair("P1", "E3", "E1") : pair("P1", "E1", "E3"),
+          pair("P2", "E2", "E4"),
+          pair("P3", "E1", "E4"),
+          pair("P4", "E2", "E5"),
+        ],
+        proofRoutes: [["S1", "S2"]],
+        irrelevantStatementIds: [],
+      };
+    }
   } else if (prototypeId === "INE-CP002-PROT-SELECT-INDETERMINATE-PAIR") {
     scenario = {
       scenarioId: "ONE_INDETERMINATE_AMONG_FOUR_PAIRS",
-      topologyId: "CHAIN_PLUS_DISCONNECTED_EQUALITY",
+      topologyId: "PAIR_AUDIT_CONNECTED_GRAPH_SINGLE_UNKNOWN",
       taskKind: "SELECT_INDETERMINATE_PAIR",
       explanationKind: "PAIR_SELECTION",
       hiddenValues: { E1: 5, E2: 4, E3: 2, E4: 2, E5: 3 },
@@ -472,7 +492,7 @@ export function buildIneCp002Scenario(
         pair("P4", "E2", "E5"),
       ],
       proofRoutes: [["S1", "S2", "S3"]],
-      irrelevantStatementIds: ["S4"],
+      irrelevantStatementIds: [],
     };
   } else if (prototypeId === "INE-CP002-PROT-DISCONNECTED-COMPONENTS") {
     const variant = ((seed % 5) + 5) % 5;

@@ -34,6 +34,40 @@ export function formatPairOption(
   return `${leftName} and ${rightName}`;
 }
 
+function pairErrorLabel(
+  scenario: IneCp002Scenario,
+  pair: IneCp002PairCandidate,
+  definite: boolean,
+): string {
+  const directlyCompared = scenario.statements.some(
+    (statement) =>
+      (statement.leftId === pair.leftId &&
+        statement.rightId === pair.rightId) ||
+      (statement.leftId === pair.rightId && statement.rightId === pair.leftId),
+  );
+  if (definite) {
+    return directlyCompared ? "DIRECT_BUT_WRONG_PAIR" : "ACTUAL_DEFINITE_PATH";
+  }
+  const visited = new Set([pair.leftId]);
+  const queue = [pair.leftId];
+  while (queue.length > 0) {
+    const current = queue.shift()!;
+    for (const statement of scenario.statements) {
+      const neighbour =
+        statement.leftId === current
+          ? statement.rightId
+          : statement.rightId === current
+            ? statement.leftId
+            : undefined;
+      if (neighbour && !visited.has(neighbour)) {
+        visited.add(neighbour);
+        queue.push(neighbour);
+      }
+    }
+  }
+  return visited.has(pair.rightId) ? "COMMON_BOUND_ONLY" : "DISCONNECTED_PAIR";
+}
+
 export function buildIneCp002RelationOptions(
   scenario: IneCp002Scenario,
   correctAnswer: IneCp001AnswerSemantic,
@@ -51,45 +85,63 @@ export function buildIneCp002RelationOptions(
     >
   > = {
     GREATER_THAN: [
-      { semanticValue: "LESS_THAN", errorLabel: "REVERSE_STRICT_ORDER" },
-      { semanticValue: "EQUAL_TO", errorLabel: "IGNORE_STRICTNESS" },
-      { semanticValue: "INDETERMINATE", errorLabel: "DROP_VALID_PROOF_PATH" },
-      { semanticValue: "LESS_THAN_OR_EQUAL", errorLabel: "REVERSE_ORDER" },
+      { semanticValue: "LESS_THAN", errorLabel: "REVERSED_DIRECTION" },
+      { semanticValue: "EQUAL_TO", errorLabel: "STRICTNESS_IGNORED" },
+      { semanticValue: "INDETERMINATE", errorLabel: "VALID_PATH_IGNORED" },
+      {
+        semanticValue: "LESS_THAN_OR_EQUAL",
+        errorLabel: "QUERY_ORDER_REVERSED",
+      },
     ],
     LESS_THAN: [
-      { semanticValue: "GREATER_THAN", errorLabel: "REVERSE_STRICT_ORDER" },
-      { semanticValue: "EQUAL_TO", errorLabel: "IGNORE_STRICTNESS" },
-      { semanticValue: "INDETERMINATE", errorLabel: "DROP_VALID_PROOF_PATH" },
-      { semanticValue: "GREATER_THAN_OR_EQUAL", errorLabel: "REVERSE_ORDER" },
+      { semanticValue: "GREATER_THAN", errorLabel: "REVERSED_DIRECTION" },
+      { semanticValue: "EQUAL_TO", errorLabel: "STRICTNESS_IGNORED" },
+      { semanticValue: "INDETERMINATE", errorLabel: "VALID_PATH_IGNORED" },
+      {
+        semanticValue: "GREATER_THAN_OR_EQUAL",
+        errorLabel: "QUERY_ORDER_REVERSED",
+      },
     ],
     EQUAL_TO: [
-      { semanticValue: "GREATER_THAN", errorLabel: "BREAK_EQUALITY" },
-      { semanticValue: "LESS_THAN", errorLabel: "BREAK_EQUALITY" },
+      {
+        semanticValue: "GREATER_THAN",
+        errorLabel: "EQUALITY_PROPAGATION_IGNORED",
+      },
+      {
+        semanticValue: "LESS_THAN",
+        errorLabel: "EQUALITY_PROPAGATION_IGNORED",
+      },
       {
         semanticValue: "INDETERMINATE",
-        errorLabel: "TREAT_EQUALITY_AS_UNKNOWN",
+        errorLabel: "EQUALITY_MISREAD_AS_UNKNOWN",
       },
     ],
     GREATER_THAN_OR_EQUAL: [
       {
         semanticValue: "GREATER_THAN",
-        errorLabel: "PROMOTE_INCLUSIVE_TO_STRICT",
+        errorLabel: "STRICTNESS_INVENTED",
       },
-      { semanticValue: "LESS_THAN", errorLabel: "REVERSE_STRICT_ORDER" },
-      { semanticValue: "EQUAL_TO", errorLabel: "KEEP_ONLY_EQUALITY_CASE" },
-      { semanticValue: "INDETERMINATE", errorLabel: "DROP_VALID_PROOF_PATH" },
+      { semanticValue: "LESS_THAN", errorLabel: "REVERSED_DIRECTION" },
+      { semanticValue: "EQUAL_TO", errorLabel: "EQUALITY_ASSUMED" },
+      { semanticValue: "INDETERMINATE", errorLabel: "VALID_PATH_IGNORED" },
     ],
     LESS_THAN_OR_EQUAL: [
-      { semanticValue: "LESS_THAN", errorLabel: "PROMOTE_INCLUSIVE_TO_STRICT" },
-      { semanticValue: "GREATER_THAN", errorLabel: "REVERSE_STRICT_ORDER" },
-      { semanticValue: "EQUAL_TO", errorLabel: "KEEP_ONLY_EQUALITY_CASE" },
-      { semanticValue: "INDETERMINATE", errorLabel: "DROP_VALID_PROOF_PATH" },
+      { semanticValue: "LESS_THAN", errorLabel: "STRICTNESS_INVENTED" },
+      { semanticValue: "GREATER_THAN", errorLabel: "REVERSED_DIRECTION" },
+      { semanticValue: "EQUAL_TO", errorLabel: "EQUALITY_ASSUMED" },
+      { semanticValue: "INDETERMINATE", errorLabel: "VALID_PATH_IGNORED" },
     ],
     INDETERMINATE: [
-      { semanticValue: "EQUAL_TO", errorLabel: "TREAT_UNKNOWN_AS_EQUAL" },
-      { semanticValue: "GREATER_THAN", errorLabel: "ASSUME_LEFT_HIGHER" },
-      { semanticValue: "LESS_THAN", errorLabel: "ASSUME_RIGHT_HIGHER" },
-      { semanticValue: "GREATER_THAN_OR_EQUAL", errorLabel: "ASSUME_ORDER" },
+      {
+        semanticValue: "EQUAL_TO",
+        errorLabel: "NO_PATH_MISREAD_AS_EQUALITY",
+      },
+      { semanticValue: "GREATER_THAN", errorLabel: "COMMON_BOUND_MISREAD" },
+      { semanticValue: "LESS_THAN", errorLabel: "COMMON_BOUND_MISREAD" },
+      {
+        semanticValue: "GREATER_THAN_OR_EQUAL",
+        errorLabel: "COMMON_BOUND_MISREAD",
+      },
     ],
   };
   const optionRandom = new SeededRandom(
@@ -195,9 +247,11 @@ export function buildIneCp002PairOptions(
       errorLabel:
         index === correctIndex
           ? undefined
-          : pairDefiniteness[candidate.pairId]
-            ? "PAIR_HAS_DEFINITE_RELATION"
-            : "PAIR_HAS_NO_DEFINITE_RELATION",
+          : pairErrorLabel(
+              scenario,
+              candidate,
+              pairDefiniteness[candidate.pairId]!,
+            ),
     })),
   };
 }

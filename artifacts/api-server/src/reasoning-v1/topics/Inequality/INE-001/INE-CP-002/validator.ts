@@ -8,6 +8,62 @@ import type {
   IneCp002ValidationResult,
 } from "./types";
 
+function directlyCompared(
+  question: GeneratedIneCp002Question,
+  leftId: string,
+  rightId: string,
+): boolean {
+  return question.structuredPrompt.statements.some(
+    (statement) =>
+      (statement.leftId === leftId && statement.rightId === rightId) ||
+      (statement.leftId === rightId && statement.rightId === leftId),
+  );
+}
+
+function shortestUndirectedPathLength(
+  question: GeneratedIneCp002Question,
+  startId: string,
+  endId: string,
+): number | undefined {
+  const queue: { entityId: string; distance: number }[] = [
+    { entityId: startId, distance: 0 },
+  ];
+  const visited = new Set([startId]);
+  while (queue.length > 0) {
+    const current = queue.shift()!;
+    if (current.entityId === endId) return current.distance;
+    for (const statement of question.structuredPrompt.statements) {
+      const neighbour =
+        statement.leftId === current.entityId
+          ? statement.rightId
+          : statement.rightId === current.entityId
+            ? statement.leftId
+            : undefined;
+      if (neighbour && !visited.has(neighbour)) {
+        visited.add(neighbour);
+        queue.push({ entityId: neighbour, distance: current.distance + 1 });
+      }
+    }
+  }
+  return undefined;
+}
+
+function explanationStrings(question: GeneratedIneCp002Question): string[] {
+  const explanation = question.solutions.learning;
+  return [
+    question.solutions.mock,
+    explanation.ruleStatement,
+    ...explanation.normalizedStatements,
+    ...explanation.proofSteps,
+    ...explanation.modelWitnesses,
+    explanation.conclusion,
+    ...explanation.distractorAnalysis.flatMap((entry) => [
+      entry.optionValue,
+      entry.studentWarning,
+    ]),
+  ];
+}
+
 export function validateIneCp002Question(
   question: GeneratedIneCp002Question,
 ): IneCp002ValidationResult {
@@ -26,6 +82,34 @@ export function validateIneCp002Question(
   }
   if (question.metadata.distractorErrorLabels.length !== 3) {
     errors.push("Every distractor requires a misconception owner.");
+  }
+  if (question.structuredPrompt.statements.length === 0) {
+    errors.push("A question cannot have an empty statement list.");
+  }
+  if (
+    question.metadata.topologyId === "BRANCH_PLUS_DISCONNECTED_EQUALITY" ||
+    question.metadata.topologyId === "CHAIN_PLUS_DISCONNECTED_EQUALITY"
+  ) {
+    errors.push("Pair-audit topology metadata is misleading.");
+  }
+  const expectedTier =
+    question.difficulty === "EASY"
+      ? "SSC_STANDARD_MOCK"
+      : question.difficulty === "HARD"
+        ? "ADVANCED_PRACTICE"
+        : "BANKING_PRELIMS";
+  if (question.metadata.releaseTier !== expectedTier) {
+    errors.push("Release tier does not match calibrated difficulty.");
+  }
+  const explanationParts = explanationStrings(question);
+  if (explanationParts.some((part) => part.trim().length === 0)) {
+    errors.push("Learner explanations cannot contain empty proof text.");
+  }
+  if (explanationParts.some((part) => /:\s*,/.test(part))) {
+    errors.push("Learner explanation contains an empty displayed route.");
+  }
+  if (question.solutions.learning.proofSteps.length === 0) {
+    errors.push("A learning solution requires at least one proof step.");
   }
 
   if (question.metadata.taskKind === "RELATION") {
@@ -84,6 +168,22 @@ export function validateIneCp002Question(
           errors.push(`Relation option “${option.value}” is rendered wrongly.`);
         }
       }
+      const leftName = question.structuredPrompt.entityNames[query.leftId]!;
+      const rightName = question.structuredPrompt.entityNames[query.rightId]!;
+      if (
+        !question.solutions.learning.conclusion.includes(leftName) ||
+        !question.solutions.learning.conclusion.includes(rightName)
+      ) {
+        errors.push("The relation explanation must name the queried pair.");
+      }
+      if (
+        question.authorityId === "DETERMINE_MULTI_ROUTE_RELATION" &&
+        directlyCompared(question, query.leftId, query.rightId)
+      ) {
+        errors.push(
+          "A medium or hard multi-route question cannot state the answer pair directly.",
+        );
+      }
     }
   } else {
     const pairs = question.structuredPrompt.candidatePairs;
@@ -126,6 +226,30 @@ export function validateIneCp002Question(
       });
       if (matchingOptions.length !== 1 || !matchingOptions[0]!.isCorrect) {
         errors.push("The marked pair does not match the selection contract.");
+      }
+      const correctPair = question.options[question.correctIndex]?.pair;
+      if (
+        question.difficulty === "HARD" &&
+        question.metadata.taskKind === "SELECT_DEFINITE_PAIR" &&
+        correctPair
+      ) {
+        if (
+          directlyCompared(question, correctPair.leftId, correctPair.rightId)
+        ) {
+          errors.push(
+            "A hard pair audit cannot expose the correct pair in one statement.",
+          );
+        }
+        const pathLength = shortestUndirectedPathLength(
+          question,
+          correctPair.leftId,
+          correctPair.rightId,
+        );
+        if (pathLength === undefined || pathLength < 2) {
+          errors.push(
+            "A hard definite-pair answer requires a multi-step comparison path.",
+          );
+        }
       }
     }
   }

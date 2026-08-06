@@ -26,9 +26,13 @@ The current executable discovery covers:
 - visible proof paths for pair-selection questions;
 - two countermodels for undetermined relations;
 - balanced, independently seeded option permutation;
-- 30 graph topologies with canonical-fingerprint diversity auditing;
+- 31 graph topologies with canonical-fingerprint diversity auditing;
 - three- to five-node graphs containing two to six statements;
 - explicit Easy, Medium, and Hard calibration with stored difficulty bases;
+- separate SSC mock, banking prelims, and advanced-practice release tiers;
+- concise mock solutions alongside detailed learning solutions;
+- proof-path completeness and direct-answer-exposure rejection gates;
+- explicit distractor misconception roles;
 - complete relation and pair-option validation against both solvers.
 
 All nine authorities are provisional discovery labels. Representation-only variants and closely related graph operations remain open to merge/split review.
