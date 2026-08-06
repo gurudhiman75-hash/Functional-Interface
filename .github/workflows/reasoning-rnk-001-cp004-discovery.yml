@@ -28,17 +28,17 @@ jobs:
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-foundation.test.ts
           rnk-cp004-discovery-output
 
-      - name: Enforce learner-safe English Remodel V5 gates
+      - name: Enforce SSC and banking exam-authentic English Remodel V6 gates
         run: >-
           npx --yes tsx
-          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-exam-ready-v5-gates.test.ts
-          rnk-cp004-exam-ready-v5-output
+          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-exam-ready-v6-gates.test.ts
+          rnk-cp004-exam-ready-v6-output
 
-      - name: Upload RNK-CP-004 Remodel V5 review evidence
+      - name: Upload RNK-CP-004 Remodel V6 review evidence
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp004-english-remodel-v5-review-pending
+          name: rnk-001-cp004-english-remodel-v6-review-pending
           path: |
             rnk-cp004-discovery-output
-            rnk-cp004-exam-ready-v5-output
+            rnk-cp004-exam-ready-v6-output
           retention-days: 14
