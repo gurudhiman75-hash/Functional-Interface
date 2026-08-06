@@ -1,0 +1,169 @@
+name: Validate SER-001 CP-007 V7.1 release remediation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-AUTHORITY-FREEZE-CANDIDATE/**
+      - artifacts/api-server/src/lib/admin-question-conversion.ts
+      - artifacts/api-server/src/lib/admin-question-release-metadata.test.ts
+      - artifacts/api-server/src/lib/admin-test-blueprint-assembly.ts
+      - artifacts/api-server/src/lib/admin-test-blueprint-release-pools.test.ts
+      - artifacts/api-server/src/routes/admin-test-blueprint-assembly.ts
+      - artifacts/examtree/src/components/EnglishQuestionLayout.tsx
+      - artifacts/examtree/src/lib/series-rendering-contract.ts
+      - artifacts/examtree/src/lib/series-rendering-contract.test.ts
+      - .github/workflows/ser-001-cp007-v7-1-release-remediation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ser-001-cp007-v7-1-release-remediation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-and-export-v7-1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare V7.1 evidence directory
+        run: mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v7-1-release-remediation
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Build learner application
+        run: pnpm --dir artifacts/examtree build
+
+      - name: Run V7.1 corpus remediation proof
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v7-1-release-remediation
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/adaptive-review-v7-1.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/adaptive-review-v7-1.test.mjs"
+          (cd artifacts/api-server && node "$OUT/adaptive-review-v7-1.test.mjs") \
+            | tee "$EVIDENCE/SER-CP-007-V7-1-Release-Remediation-Proof.json"
+          grep -q 'PASS_SER_CP007_V7_1_RELEASE_REMEDIATION' \
+            "$EVIDENCE/SER-CP-007-V7-1-Release-Remediation-Proof.json"
+          grep -q '"interleavedFutureTerms": 0' \
+            "$EVIDENCE/SER-CP-007-V7-1-Release-Remediation-Proof.json"
+          grep -q '"cumulativeWeakDistractors": 0' \
+            "$EVIDENCE/SER-CP-007-V7-1-Release-Remediation-Proof.json"
+          grep -q '"standardAnswerPositionCounts": \[' \
+            "$EVIDENCE/SER-CP-007-V7-1-Release-Remediation-Proof.json"
+
+      - name: Prove Question Bank release metadata preservation
+        run: |
+          set -euo pipefail
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v7-1-release-remediation
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/lib/admin-question-release-metadata.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/admin-question-release-metadata.test.mjs"
+          (cd artifacts/api-server && node "$OUT/admin-question-release-metadata.test.mjs") \
+            | tee "$EVIDENCE/SER-CP-007-V7-1-Question-Bank-Metadata-Proof.json"
+          grep -q 'PASS_QUESTION_BANK_RELEASE_METADATA_PRESERVATION' \
+            "$EVIDENCE/SER-CP-007-V7-1-Question-Bank-Metadata-Proof.json"
+
+      - name: Prove real assembler release-pool enforcement
+        run: |
+          set -euo pipefail
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v7-1-release-remediation
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/lib/admin-test-blueprint-release-pools.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/admin-test-blueprint-release-pools.test.mjs"
+          (cd artifacts/api-server && node "$OUT/admin-test-blueprint-release-pools.test.mjs") \
+            | tee "$EVIDENCE/SER-CP-007-V7-1-Assembler-Pool-Proof.json"
+          grep -q 'PASS_TEST_ASSEMBLER_RELEASE_POOL_ENFORCEMENT' \
+            "$EVIDENCE/SER-CP-007-V7-1-Assembler-Pool-Proof.json"
+          grep -q '"releasePoolCollisions": 0' \
+            "$EVIDENCE/SER-CP-007-V7-1-Assembler-Pool-Proof.json"
+          grep -q '"nonPrimarySelections": 0' \
+            "$EVIDENCE/SER-CP-007-V7-1-Assembler-Pool-Proof.json"
+
+      - name: Prove accessible Series rendering contracts
+        run: |
+          set -euo pipefail
+          OUT=artifacts/api-server/dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v7-1-release-remediation
+          pnpm exec esbuild \
+            artifacts/examtree/src/lib/series-rendering-contract.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/series-rendering-contract.test.mjs"
+          node "$OUT/series-rendering-contract.test.mjs" \
+            | tee "$EVIDENCE/SER-CP-007-V7-1-Rendering-Contract-Proof.json"
+          grep -q 'PASS_SERIES_ACCESSIBLE_RENDERING_CONTRACT' \
+            "$EVIDENCE/SER-CP-007-V7-1-Rendering-Contract-Proof.json"
+
+      - name: Export V7.1 400-question review corpus
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v7-1-release-remediation
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/export-adaptive-review-v7-1-400-questions.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/export-adaptive-review-v7-1-400-questions.mjs"
+          (cd artifacts/api-server && node "$OUT/export-adaptive-review-v7-1-400-questions.mjs") \
+            > "$EVIDENCE/SER-CP-007-V7-1-400-Release-Remediated-Questions-and-Explanations.md"
+
+      - name: Validate V7.1 review corpus
+        run: |
+          set -euo pipefail
+          FILE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v7-1-release-remediation/SER-CP-007-V7-1-400-Release-Remediated-Questions-and-Explanations.md
+          grep -q '# SER-CP-007 V7.1 — 400 Release-Remediated Questions and Explanations' "$FILE"
+          grep -q 'Unseen future terms in concise proofs:  0' "$FILE"
+          grep -q 'Standard PRIMARY answer positions:      24 / 24 / 24 / 24' "$FILE"
+          grep -q 'Case-marker rendering contracts:' "$FILE"
+          grep -q 'Periodic-gap rendering contracts:' "$FILE"
+          grep -q 'CONCISE_ONLY' "$FILE"
+          grep -q 'CONCISE_WITH_SHORTCUT' "$FILE"
+          grep -q 'CONCISE_WITH_EXPANDED_HELP' "$FILE"
+          grep -q 'FULL_WORKED_EXPLANATION' "$FILE"
+          grep -q 'SDNG → OZKJ → KVHM' "$FILE"
+          QUESTION_COUNT=$(grep -c '^## Question [0-9][0-9][0-9]$' "$FILE")
+          ANSWER_COUNT=$(grep -c '^\*\*Answer:\*\*' "$FILE")
+          EXPLANATION_COUNT=$(grep -c '^### Explanation$' "$FILE")
+          PRIMARY_COUNT=$(grep -c '^\- \*\*Pool status:\*\* \*\*PRIMARY\*\*$' "$FILE")
+          DISPLAYED_PASS_COUNT=$(grep -c '^\- \*\*Interleaved displayed-only proof:\*\* \*\*PASS\*\*$' "$FILE")
+          test "$QUESTION_COUNT" -eq 400
+          test "$ANSWER_COUNT" -eq 400
+          test "$EXPLANATION_COUNT" -ge 400
+          test "$PRIMARY_COUNT" -eq 135
+          test "$DISPLAYED_PASS_COUNT" -gt 0
+          echo "PASS_SER_CP007_V7_1_400_RELEASE_CORPUS primary=$PRIMARY_COUNT"
+
+      - name: Upload V7.1 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: ser-001-cp007-v7-1-release-remediation
+          path: artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v7-1-release-remediation/
+          if-no-files-found: error
+          retention-days: 30
