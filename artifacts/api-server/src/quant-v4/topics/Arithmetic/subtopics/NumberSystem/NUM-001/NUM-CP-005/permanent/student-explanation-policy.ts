@@ -16,6 +16,15 @@ function wordCount(value) {
 const machineLanguagePattern =
   /\b(?:governed|admissible|independently|exponent-choice|set-difference|canonical|verifier|semantic|bounded optimisation|retain)\b/iu;
 
+function questionSpecificOpeningStep(input) {
+  if (input.qlId !== "NUM-QL-064" && input.qlId !== "NUM-QL-065") return null;
+  const target = Number(input.hiddenState.targetDivisorCount);
+  if (!Number.isFinite(target)) {
+    throw new Error(`${input.qlId}/${input.seed}: missing divisor-count target`);
+  }
+  return `Start with \\((x+1)(y+1)=${target}\\).`;
+}
+
 export function enforceNumCp005StudentExplanationPolicy(input, explanation) {
   const coreConcept = fixSimpleGrammar(explanation.coreConcept);
   const givenDataAndStrategy = fixSimpleGrammar(explanation.givenDataAndStrategy);
@@ -26,8 +35,12 @@ export function enforceNumCp005StudentExplanationPolicy(input, explanation) {
     normalizeLine(finalAnswer),
   ]);
 
+  const openingStep = questionSpecificOpeningStep(input);
+  const rawSteps = openingStep
+    ? [openingStep, ...explanation.stepByStep]
+    : explanation.stepByStep;
   const stepByStep = [];
-  for (const rawStep of explanation.stepByStep) {
+  for (const rawStep of rawSteps) {
     const step = fixSimpleGrammar(rawStep);
     const normalized = normalizeLine(step);
     if (seen.has(normalized)) continue;
