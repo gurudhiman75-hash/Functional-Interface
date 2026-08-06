@@ -4,10 +4,8 @@ import {
   SER_CP007_TEMPLATE_PROBES_V71,
 } from "../SER-CP-007-AUTHORITY-FREEZE-CANDIDATE/authority-compression-contract-v7-1";
 import type { SerCp007EditorialQuestion } from "./adaptive-review";
-import {
-  buildAdaptiveSerCp007ReviewV71,
-  type SerCp007AdaptiveReviewV71,
-} from "./adaptive-review-v7-1";
+import type { SerCp007AdaptiveReviewV71 } from "./adaptive-review-v7-1";
+import { buildAdaptiveSerCp007ReviewV71Final } from "./adaptive-review-v7-1-final";
 import {
   selectSerCp007PrimaryReleaseV71,
   type SerCp007ReleaseEntryV71,
@@ -62,7 +60,7 @@ for (const [probeIndex, probe] of sortedProbes.entries()) {
   const seeds = probeIndex % 7 === 6 ? [1, 2] : [1, 2, 3];
   for (const seed of seeds) {
     const question = probe.generate(seed) as unknown as SerCp007EditorialQuestion;
-    const review = buildAdaptiveSerCp007ReviewV71(question);
+    const review = buildAdaptiveSerCp007ReviewV71Final(question);
     if (!review.structuralDepth.passesStructuralDepth) {
       throw new Error(
         `${question.temporaryTemplateId}:${seed} failed V7.1 structural depth.`,
@@ -170,7 +168,7 @@ const sections: string[] = [
   "- replaces cumulative-prefix dead options with local append, insertion, omission or transposition mistakes;",
   "- balances correct-answer positions after PRIMARY selection;",
   "- reports the actual explanation mode used by every record;",
-  "- moves long four-row interleaved displays to advanced practice;",
+  "- moves the two identified long four-row records to advanced practice;",
   "- adds exam-suitability metadata;",
   "- adds enforceable case-marker and periodic-gap rendering contracts;",
   "- preserves one-question-per-release-pool architecture.",
@@ -260,7 +258,6 @@ for (const [index, entry] of finalEntries.entries()) {
   const number = String(index + 1).padStart(3, "0");
   const primary = selection.primaryIds.has(identity(entry));
   const expanded = explanationOnly(entry.review.expandedReview);
-  const concise = explanationOnly(entry.review.conciseReview);
   sections.push(
     `## Question ${number}`,
     "",
