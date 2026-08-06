@@ -5,6 +5,7 @@ import type { TsdCp001GeneratedQuestion } from "./cp001/runtime-types";
 import { generateFinalPoolSupplements } from "./cp002/final-pool-supplements";
 import { generateP1DiversityBatch02Supplements } from "./cp002/p1-diversity-batch-02-supplements";
 import { generateP1DiversityBatch03Supplements } from "./cp002/p1-diversity-batch-03-supplements";
+import { generateP1Batch03RoundTripFourHourSupplement } from "./cp002/p1-diversity-batch-03-roundtrip-supplement";
 import { generateCp002ReviewRows } from "./cp002/runtime";
 import type { TsdCp002GeneratedQuestion } from "./cp002/types";
 import {
@@ -60,9 +61,7 @@ function cp002AuthorityKey(row: TsdCp002GeneratedQuestion): string {
 }
 
 function cp002FinalRepresentation(row: TsdCp002GeneratedQuestion): string {
-  if (row.solveMode === "totalDistanceFromAverageAndTime") {
-    return "OVERALL_AVERAGE_AS_EFFECTIVE_SPEED";
-  }
+  if (row.solveMode === "totalDistanceFromAverageAndTime") return "OVERALL_AVERAGE_AS_EFFECTIVE_SPEED";
   if (
     row.representation.startsWith("TIME_SHARE_SUPPLEMENTAL_")
     || row.representation.startsWith("TIME_RATIO_SUPPLEMENTAL_")
@@ -73,22 +72,18 @@ function cp002FinalRepresentation(row: TsdCp002GeneratedQuestion): string {
     || row.representation.startsWith("ROUND_TRIP_")
     || row.representation.startsWith("OUTWARD_RETURN_")
     || row.representation.startsWith("TARGET_AVERAGE_")
-  ) {
-    return row.representation;
-  }
+  ) return row.representation;
   return row.authoritySubmode === "STANDARD" ? row.representation : row.authoritySubmode;
 }
 
 function cp001Record(row: TsdCp001GeneratedQuestion): TsdFinalReviewRecord {
-  const authorityKey = cp001AuthorityKey(row);
-  const authority = finalAuthorityByKey(authorityKey);
-  const finalRepresentation = proportionRepresentation(row.input) ?? row.representation;
+  const authority = finalAuthorityByKey(cp001AuthorityKey(row));
   return Object.freeze({
     finalAuthorityKey: authority.authorityKey,
     finalCheckpointId: authority.checkpointId,
     permanentQlId: null,
     legacyReviewQlId: cp001LegacyQl(row.solveMode),
-    finalRepresentation,
+    finalRepresentation: proportionRepresentation(row.input) ?? row.representation,
     questionLanguageId: row.questionLanguageId,
     sourceCheckpointId: "TSD-CP-001",
     sourceQuestion: row,
@@ -99,8 +94,7 @@ function cp001Record(row: TsdCp001GeneratedQuestion): TsdFinalReviewRecord {
 }
 
 function cp002Record(row: TsdCp002GeneratedQuestion): TsdFinalReviewRecord {
-  const authorityKey = cp002AuthorityKey(row);
-  const authority = finalAuthorityByKey(authorityKey);
+  const authority = finalAuthorityByKey(cp002AuthorityKey(row));
   return Object.freeze({
     finalAuthorityKey: authority.authorityKey,
     finalCheckpointId: authority.checkpointId,
@@ -123,6 +117,7 @@ export function generateFinalAuthorityReview(): readonly TsdFinalReviewRecord[] 
     ...generateFinalPoolSupplements().map(cp002Record),
     ...generateP1DiversityBatch02Supplements().map(cp002Record),
     ...generateP1DiversityBatch03Supplements().map(cp002Record),
+    cp002Record(generateP1Batch03RoundTripFourHourSupplement()),
   ]);
 }
 
