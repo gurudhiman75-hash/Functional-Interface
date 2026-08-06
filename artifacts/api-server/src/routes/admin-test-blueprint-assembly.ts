@@ -109,6 +109,7 @@ async function buildPlan(
 ): Promise<BlueprintAssemblyPlan> {
   const usedQuestionVersionIds = new Set<string>();
   const usedStems = new Set<string>();
+  const usedReleasePoolIds = new Set<string>();
   const sections: BlueprintAssemblyPlan["sections"] = [];
   const shortages: BlueprintAssemblyPlan["shortages"] = [];
 
@@ -126,7 +127,13 @@ async function buildPlan(
         v.id::text AS "questionVersionId",
         q.public_code AS "publicCode",
         lower(v.difficulty) AS difficulty,
-        v.stem
+        v.stem,
+        v.answer_model #>> '{generation,releasePoolId}' AS "releasePoolId",
+        v.answer_model #>> '{generation,releaseStatus}' AS "releaseStatus",
+        v.answer_model #>> '{generation,authorityId}' AS "authorityId",
+        v.answer_model #>> '{generation,taskKind}' AS "taskKind",
+        NULLIF(v.answer_model #>> '{correctIndex}', '')::int AS "answerPosition",
+        COALESCE(v.answer_model #> '{generation,examSuitability}', '[]'::jsonb) AS "examSuitability"
       FROM content.questions q
       JOIN content.question_versions v ON v.id = q.published_version_id
       WHERE q.status = 'published'::question_status
@@ -159,12 +166,22 @@ async function buildPlan(
       publicCode: String(row.publicCode),
       difficulty: String(row.difficulty),
       stem: String(row.stem),
+      releasePoolId: row.releasePoolId ? String(row.releasePoolId) : null,
+      releaseStatus: row.releaseStatus ? String(row.releaseStatus) : null,
+      authorityId: row.authorityId ? String(row.authorityId) : null,
+      taskKind: row.taskKind ? String(row.taskKind) : null,
+      answerPosition:
+        row.answerPosition == null ? null : Number(row.answerPosition),
+      examSuitability: Array.isArray(row.examSuitability)
+        ? row.examSuitability.map(String)
+        : [],
     }));
     const selected = selectBlueprintSectionCandidates({
       section,
       candidates,
       usedQuestionVersionIds,
       usedStems,
+      usedReleasePoolIds,
     });
     shortages.push(...selected.shortages);
     sections.push({
