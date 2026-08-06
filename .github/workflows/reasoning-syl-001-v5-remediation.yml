@@ -1,0 +1,81 @@
+name: Validate SYL-001 V5 exam-readiness remediation
+
+on:
+  pull_request:
+    branches:
+      - feat/syl-001-learner-v4
+      - feat/syl-001-structured-proof-v3
+      - feat/syl-001-full-runtime
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-types.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/generator-v5.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-review-v5.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/SYL-001-V5-EXAM-READINESS-REMEDIATION.md
+      - .github/workflows/reasoning-syl-001-v5-remediation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-syl-001-v5-remediation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-v5-remediation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle V5 remediation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-v5-audit.test.mjs
+
+      - name: Run exhaustive V5 remediation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-v5-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-v5-audit.log
+
+      - name: Bundle V5 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-review-v5.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-export-review-v5.mjs
+
+      - name: Generate V5 human-review pack
+        env:
+          SYL_REVIEW_V5_DIR: artifacts/api-server/dist/reasoning-v1/syl-001-review-v5
+        run: node artifacts/api-server/dist/reasoning-v1/syl-001-export-review-v5.mjs
+
+      - name: Upload V5 remediation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: syl-001-v5-exam-readiness-remediation
+          path: |
+            artifacts/api-server/dist/reasoning-v1/syl-001-v5-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-review-v5/**
+          if-no-files-found: error
+          retention-days: 30
