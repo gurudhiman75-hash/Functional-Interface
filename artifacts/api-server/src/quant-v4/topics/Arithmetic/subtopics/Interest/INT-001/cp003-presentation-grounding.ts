@@ -29,10 +29,6 @@ function requireYearVisible(markdown: string, year: number, prefix: string, labe
   }
 }
 
-function hasOperation(trace: Cp003SolutionTrace, operationId: string): boolean {
-  return trace.coreSteps.some((step) => step.operationId === operationId);
-}
-
 const yearsText = (years: number): string => `${years} year${years === 1 ? "" : "s"}`;
 
 export function assertCp003PresentationGrounding(
@@ -61,16 +57,15 @@ export function assertCp003PresentationGrounding(
   }
 
   if (contract.qlId === "INT-QL-055" && representation === "GROWTH_RATIO") {
-    requireVisible(markdown, annualFactorToken, prefix, "annual multiplier");
+    requireVisible(markdown, rateMath(resolved.ratePercent), prefix, "annual rate");
     requireVisible(markdown, moneyMath(resolved.amount), prefix, "final amount");
     requireVisible(markdown, String(resolved.years), prefix, "duration");
-    if (hasOperation(trace, "ANNUAL_FACTOR")) throw new Error(`${prefix}: trace re-derives a displayed annual multiplier from a hidden rate`);
   }
 
   if (contract.qlId === "INT-QL-056" && representation === "GROWTH_RATIO") {
-    requireVisible(markdown, annualFactorToken, prefix, "annual multiplier");
+    requireVisible(markdown, rateMath(resolved.ratePercent), prefix, "annual rate");
     requireVisible(markdown, moneyMath(resolved.compoundInterest), prefix, "compound interest");
-    if (hasOperation(trace, "ANNUAL_FACTOR")) throw new Error(`${prefix}: trace re-derives a displayed CI factor from a hidden rate`);
+    requireVisible(markdown, String(resolved.years), prefix, "duration");
   }
 
   if (contract.qlId === "INT-QL-057") {
@@ -94,7 +89,9 @@ export function assertCp003PresentationGrounding(
   }
 
   if (contract.qlId === "INT-QL-061") {
-    if (!/answer choices/iu.test(explanation.keyIdea)) throw new Error(`${prefix}: option-substitution method is not disclosed`);
+    if (!/balance (?:present )?at the start of the year/iu.test(explanation.keyIdea)) {
+      throw new Error(`${prefix}: later-year rate explanation omits the correct percentage base`);
+    }
     if (!explanation.steps[0]?.startsWith("Check the option")) throw new Error(`${prefix}: explanation states the unknown rate before identifying it as an option check`);
     if (explanation.verification) throw new Error(`${prefix}: option check is duplicated as a verification section`);
   }
@@ -117,13 +114,9 @@ export function assertCp003PresentationGrounding(
     requireVisible(markdown, moneyMath(resolved.earlierInterest), prefix, "earlier-year interest");
     const rateVisible = markdown.includes(rateMath(resolved.ratePercent));
     const factorVisible = markdown.includes(annualFactorToken);
-    if (!rateVisible && !factorVisible) throw new Error(`${prefix}: displayed question omits the annual rate or multiplier`);
+    if (!rateVisible && !factorVisible) throw new Error(`${prefix}: displayed question omits the annual rate`);
+    requireYearVisible(markdown, resolved.earlierYear, prefix, "earlier year");
     requireYearVisible(markdown, resolved.laterYear, prefix, "later year");
-    if (representation === "GROWTH_RATIO") {
-      requireVisible(markdown, String(resolved.laterYear - resolved.earlierYear), prefix, "year gap");
-    } else {
-      requireYearVisible(markdown, resolved.earlierYear, prefix, "earlier year");
-    }
   }
 
   if (trace.answerSemantic !== "RATE_PERCENT") {
