@@ -159,14 +159,25 @@ export function varyOpening(stem: string, seed: string): string {
   if (!match) return stem;
   const subject = match[1]!;
   const contents = match[2]!;
-  const article = /^[aeiou]/iu.test(subject) ? "an" : "a";
+  const article = /^(?:[aeiou]|8|11|18)/iu.test(subject) ? "an" : "a";
+  const capitalArticle = `${article[0]!.toUpperCase()}${article.slice(1)}`;
   const variants = [
-    `${article[0]!.toUpperCase()}${article.slice(1)} ${subject} initially contains ${contents}.`,
+    `${capitalArticle} ${subject} initially contains ${contents}.`,
     `Initially, ${article} ${subject} contains ${contents}.`,
     `At first, the ${subject} contains ${contents}.`,
     `Before any replacement, ${article} ${subject} contains ${contents}.`,
-    `${article[0]!.toUpperCase()}${article.slice(1)} ${subject} starts with ${contents}.`,
+    `${capitalArticle} ${subject} starts with ${contents}.`,
     `The ${subject} is initially filled with ${contents}.`,
+    `${capitalArticle} ${subject} has ${contents} before the first replacement.`,
+    `At the start, the ${subject} contains ${contents}.`,
+    `To begin with, the ${subject} contains ${contents}.`,
+    `Before the process begins, the ${subject} contains ${contents}.`,
+    `The starting contents of the ${subject} are ${contents}.`,
+    `Initially placed in the ${subject} are ${contents}.`,
+    `The ${subject} initially holds ${contents}.`,
+    `${capitalArticle} ${subject} begins with ${contents}.`,
+    `At the beginning, the ${subject} holds ${contents}.`,
+    `The initial contents of the ${subject} are ${contents}.`,
   ];
   return stem.replace(firstSentence, variants[hash(`${seed}:opening`) % variants.length]!);
 }
