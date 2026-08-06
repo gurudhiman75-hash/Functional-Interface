@@ -18,13 +18,18 @@ import { optionsFor } from "./cp003-exam-options";
 import { explanationFor } from "./cp003-grounded-explanation";
 import { assertCp003ExplanationStyle } from "./cp003-exam-explanation-style";
 import {
+  assertCp003ExamStemStyle,
+  isCp003BankContextRealistic,
+  refineCp003Presentation,
+} from "./cp003-editorial-policy";
+import {
   INT_CP003_SOLUTION_TRACE_VERSION,
   buildCp003SolutionTrace,
   validateCp003SolutionTrace,
 } from "./cp003-grounded-solution-trace";
 import { assertCp003PresentationGrounding } from "./cp003-presentation-grounding";
 
-export const INT_CP003_EXAM_GENERATOR_VERSION = "INT-CP-003-EXAM-GENERATOR-v12" as const;
+export const INT_CP003_EXAM_GENERATOR_VERSION = "INT-CP-003-EXAM-GENERATOR-v13" as const;
 
 export {
   INT_CP003_AUTHORITY_VERSION,
@@ -65,6 +70,7 @@ function contractForReview(qlId: IntCp003QlId, seed: string) {
     const effectiveSeed = attempt === 0 ? seed : `${seed}:exam-shape:${attempt}`;
     const contract = generateCp003QuestionContract(qlId, effectiveSeed);
     const state = contract.mathematicalState;
+    if (!isCp003BankContextRealistic(contract)) continue;
     if (qlId === "INT-QL-057" && "years" in state && state.years !== 2) continue;
     if (qlId === "INT-QL-061" && "targetYear" in state && state.targetYear > 3) continue;
     const isProse = contract.presentation.representation === "STANDARD_PROSE";
@@ -81,22 +87,43 @@ function collectStrings(value: unknown, output: string[] = []): string[] {
   return output;
 }
 
+function simplerStudentLanguage(text: string): string {
+  return text
+    .replace("First see how many times the money became:", "First compare the final amount with the original sum:")
+    .replace("We compare the total increase with the same increase applied year after year.", "We compare the final amount with the original sum and check how the money changes each year.")
+    .replace(/the same yearly increase/giu, "the given yearly rate")
+    .replace(/same yearly increase/giu, "given yearly rate")
+    .replace(/complete increase for all the years/giu, "interest added over all the years")
+    .replace(/complete multi-year increase/giu, "interest added over the full period")
+    .replace(/ of growth\b/giu, " of earlier interest")
+    .replace(/This change took place over/giu, "This happened over")
+    .replace(/the balance became (\$[^$]+\$) times in each year\./gu, "the amount was multiplied by $1 each year.")
+    .replace(/move the earlier interest forward through each year in between/giu, "increase the earlier interest once for each year in between")
+    .replace(/for every ₹1 of the original sum, the interest in the required year is/giu, "the interest in the required year is this part of the original sum:")
+    .replace("Applying the given yearly rate once gives", "Increasing it once at the given rate gives")
+    .replace("Applying the given yearly rate", "Increasing it at the given rate");
+}
+
 function polishExplanationWording(
   qlId: IntCp003QlId,
   explanation: Cp003StudentExplanation,
 ): Cp003StudentExplanation {
   const polish = (text: string, index = -1): string => {
-    let result = text
+    let result = simplerStudentLanguage(text)
       .replace("There are 1 year between the two given yearly interests.", "There is 1 year between the two given yearly interests.")
-      .replace("Applying the same yearly increase 1 time gives", "Applying the same yearly increase once gives")
+      .replace("Applying the given yearly rate 1 time gives", "Increasing it once at the given rate gives")
       .replace("carry the earlier amount back to year 0", "use that one-year change to work backwards and find the starting sum");
     if (qlId === "INT-QL-061") {
+      result = result.replace(
+        "Because answer choices are given and each choice changes both the opening balance and that year's interest, the clearest method is to check the choices directly.",
+        "Interest in that year is calculated on the balance present at the start of the year. We will check an option by first finding that balance and then calculating that year's interest.",
+      );
       result = result.replace(
         "This is exactly the interest given in the question, so",
         "This is the calculated interest, matching the given interest exactly. Therefore,",
       );
       if (index === 1 && !/\\times/u.test(result)) {
-        result = `${result} In multiplication form, this is opening balance $\\times$ rate divided by 100.`;
+        result = `${result} Written as a multiplication, this is the opening balance $\\times$ rate divided by 100.`;
       }
     }
     return result;
@@ -148,7 +175,9 @@ export function generateIntCp003ExamQuestion(
 
   // Mathematical resampling may change contract.seed. Editorial wording must remain owned by the caller's stable seed.
   const presentationContract = Object.freeze({ ...contract, seed });
-  const presentation = presentationFor(presentationContract, resolved);
+  const rawPresentation = presentationFor(presentationContract, resolved);
+  const presentation = refineCp003Presentation(presentationContract, resolved, rawPresentation);
+  assertCp003ExamStemStyle(presentationContract, presentation);
   if (/\$1\$\s+years\b/u.test(presentation.markdown)) throw new Error(`${qlId}: singular duration grammar reached the displayed question`);
   const solutionTrace = buildCp003SolutionTrace(contract, resolved, solution);
   const traceValidation = validateCp003SolutionTrace(solutionTrace, contract.mathematicalState);
