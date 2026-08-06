@@ -86,10 +86,15 @@ function alignRateCheckWording(
   explanation: Cp003StudentExplanation,
 ): Cp003StudentExplanation {
   if (qlId !== "INT-QL-061") return explanation;
-  const replace = (text: string): string => text.replace(
-    "This is exactly the interest given in the question, so",
-    "This is the calculated interest, matching the given interest exactly. Therefore,",
-  );
+  const replace = (text: string, index: number): string => {
+    const aligned = text.replace(
+      "This is exactly the interest given in the question, so",
+      "This is the calculated interest, matching the given interest exactly. Therefore,",
+    );
+    return index === 1 && !/\\times/u.test(aligned)
+      ? `${aligned} In multiplication form, this is opening balance $\\times$ rate divided by 100.`
+      : aligned;
+  };
   const steps = Object.freeze(explanation.steps.map(replace));
   return Object.freeze({
     ...explanation,
