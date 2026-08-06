@@ -1,12 +1,9 @@
 import {
   classifyMenCp011Difficulty,
-  generateMenCp011FoundationPrototype as generateExpandedMenCp011FoundationPrototype,
-  type MenCp011StateExpandedPackage,
-} from "./runtime-state-expansion";
-import type {
-  MenCp011ExamReadyPackage,
-  MenCp011LearnerSolution,
-} from "./runtime-exam-readiness";
+  generateMenCp011FoundationPrototype as generateUnitRepresentedMenCp011FoundationPrototype,
+  type MenCp011UnitRepresentationPackage,
+} from "./runtime-unit-representations";
+import type { MenCp011LearnerSolution } from "./runtime-exam-readiness";
 import type {
   MenCp011Explanation,
   MenCp011PrototypeId,
@@ -68,7 +65,7 @@ function normalizeLearnerSolution(
 }
 
 function visibleTextValues(
-  question: MenCp011ExamReadyPackage,
+  question: MenCp011UnitRepresentationPackage,
   explanation: MenCp011Explanation,
   learnerSolution: MenCp011LearnerSolution,
 ) {
@@ -92,7 +89,7 @@ function visibleTextValues(
 }
 
 function visibleTexIsValid(
-  question: MenCp011ExamReadyPackage,
+  question: MenCp011UnitRepresentationPackage,
   explanation: MenCp011Explanation,
   learnerSolution: MenCp011LearnerSolution,
 ) {
@@ -124,10 +121,10 @@ function learnerDelimitersAreValid(solution: MenCp011LearnerSolution) {
 }
 
 function rebuildFinalValidation(
-  question: MenCp011ExamReadyPackage,
+  question: MenCp011UnitRepresentationPackage,
   explanation: MenCp011Explanation,
   learnerSolution: MenCp011LearnerSolution,
-): MenCp011ExamReadyPackage["validation"] {
+): MenCp011UnitRepresentationPackage["validation"] {
   const texValid = visibleTexIsValid(
     question,
     explanation,
@@ -158,8 +155,8 @@ function rebuildFinalValidation(
 export function generateMenCp011FoundationPrototype(
   prototypeId: MenCp011PrototypeId,
   seed: string,
-): MenCp011StateExpandedPackage {
-  const generated = generateExpandedMenCp011FoundationPrototype(
+): MenCp011UnitRepresentationPackage {
+  const generated = generateUnitRepresentedMenCp011FoundationPrototype(
     prototypeId,
     seed,
   );
@@ -167,7 +164,7 @@ export function generateMenCp011FoundationPrototype(
   const learnerSolution = normalizeLearnerSolution(
     generated.learnerSolution,
   );
-  const withTextRepairs: MenCp011StateExpandedPackage = {
+  const withTextRepairs: MenCp011UnitRepresentationPackage = {
     ...generated,
     explanation,
     learnerSolution,
@@ -194,7 +191,10 @@ export function generateMenCp011FoundationPrototype(
 }
 
 export { classifyMenCp011Difficulty };
-export type { MenCp011StateExpandedPackage } from "./runtime-state-expansion";
+export type {
+  MenCp011MeasuredState,
+  MenCp011UnitRepresentationPackage,
+} from "./runtime-unit-representations";
 export type {
   MenCp011DiagramRole,
   MenCp011ExamReadyPackage,
