@@ -104,8 +104,10 @@ export function diagramFor(question: MalCp003Wave12UnifiedQuestion): unknown {
   }
   const diagram = question.diagram as any;
   const stages = Array.isArray(diagram?.stages) ? diagram.stages : [];
-  const capacity = capacityFromStem(question.stem);
-  if (!capacity || stages.length < 2) return question.diagram;
+  if (stages.length < 2) return question.diagram;
+  const firstRetention = parseNumber(String(stages[0]!.retainedFraction));
+  const firstOriginalAfter = parseNumber(String(stages[0]!.originalQuantityAfterStage));
+  const capacity = capacityFromStem(question.stem) ?? divide(firstOriginalAfter, firstRetention);
   const firstRemoved = parseNumber(String(stages[0]!.removedQuantity));
   const secondRemoved = parseNumber(String(stages[1]!.removedQuantity));
   const firstA = subtract(capacity, firstRemoved);
@@ -133,3 +135,4 @@ export function diagramFor(question: MalCp003Wave12UnifiedQuestion): unknown {
     note: "Every liquid already in the vessel is reduced in the same proportion before the new liquid is added.",
   };
 }
+
