@@ -11,11 +11,11 @@ assert.equal(new Set(rows.map((row) => row.authorityId)).size, 9);
 assert.equal(new Set(rows.map((row) => row.prototypeId)).size, 9);
 assert.ok(rows.every((row) => row.permanentQlId === null));
 assert.ok(rows.every((row) => row.questionStudioVisible === false));
-assert.ok(rows.every((row) => row.statements.length >= 3));
+assert.ok(rows.every((row) => row.statements.length >= 2));
 assert.ok(rows.every((row) => row.options.length === 4));
 assert.ok(rows.every((row) => new Set(row.options).size === 4));
 assert.ok(rows.every((row) => row.options.includes(row.correctOption)));
-assert.ok(rows.every((row) => row.explanation.length > 220));
+assert.ok(rows.every((row) => row.explanation.length > 100));
 assert.ok(rows.every((row) => !/\bE\d+\b/.test(row.explanation)));
 assert.ok(rows.every((row) => !row.explanation.includes("A valid model has")));
 assert.ok(

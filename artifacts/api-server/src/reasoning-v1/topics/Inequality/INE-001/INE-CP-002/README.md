@@ -26,6 +26,9 @@ The current executable discovery covers:
 - visible proof paths for pair-selection questions;
 - two countermodels for undetermined relations;
 - balanced, independently seeded option permutation;
+- 30 graph topologies with canonical-fingerprint diversity auditing;
+- three- to five-node graphs containing two to six statements;
+- explicit Easy, Medium, and Hard calibration with stored difficulty bases;
 - complete relation and pair-option validation against both solvers.
 
 All nine authorities are provisional discovery labels. Representation-only variants and closely related graph operations remain open to merge/split review.
@@ -35,7 +38,7 @@ No permanent QL, multilingual runtime, central registry entry, or release toggle
 ## Next discovery work
 
 1. Manually review the remediated English pack.
-2. Expand graph, node-count, branch-depth, and difficulty variation.
-3. Complete page-level source mapping when the synced library material is available.
-4. Decide which graph-shape authorities merge into shared permanent solve contracts.
+2. Complete page-level source mapping when the synced library material is available.
+3. Decide which graph-shape authorities merge into shared permanent solve contracts.
+4. Expand the accepted final QLs into a corpus-scale generation matrix.
 5. Request approval before allocating permanent QLs.

@@ -13,7 +13,7 @@
 
 | Authority                                 | Discovery ownership                                                   |
 | ----------------------------------------- | --------------------------------------------------------------------- |
-| `DETERMINE_LONG_CHAIN_RELATION`           | Four-link chains with strictness and equality composition             |
+| `DETERMINE_LONG_CHAIN_RELATION`           | Two- to four-link chains with strictness and equality composition     |
 | `DETERMINE_MULTI_ROUTE_RELATION`          | Two independently valid routes connecting the same pair               |
 | `APPLY_ALTERNATE_PATH_STRICTNESS`         | Inclusive direct evidence strengthened by a strict alternate path     |
 | `DETERMINE_BRANCHED_GRAPH_RELATION`       | Querying sibling terms on a branched graph                            |
@@ -41,20 +41,26 @@ All authorities remain provisional. Graph shape alone does not justify a permane
 - undetermined answers include two learner-facing countermodels without leaking internal entity IDs;
 - pair-selection explanations show the decisive path for every definite pair;
 - stable record IDs, content hashes, competency, topology, clue counts, explanation mode, and review status are exported;
+- the five-seed review pack contains 34 canonical graph fingerprints across 45 records, up from the reviewed baseline of 21;
+- 30 named topologies span three to five nodes and two to six statements;
+- calibrated difficulty coverage contains 10 easy, 17 medium, and 18 hard review records;
+- standard relation explanations use a short path/interpretation/conclusion structure, while pair-selection records retain a full pair audit;
 - deterministic English review-pack export for every authority.
 
 ## Critical-review remediation
 
-The first remediation pass addresses the August 2026 English prototype critical review:
+The remediation passes address the August 2026 English prototype reviews:
 
 - removed the fixed `A, B, C, D, A` seed pattern;
 - replaced the ambiguous strongest-relation contract with mutually unambiguous exam-standard options;
 - separated connected-branch and disconnected-component explanations;
 - added mixed sign orientation and solver-parity checks;
 - diversified definite-pair outcomes across `>`, `<`, `=`, `≥`, and `≤`;
-- added attached and disconnected irrelevant-clue variants with three- and four-statement forms.
+- added attached and disconnected irrelevant-clue variants;
+- varied statement counts, node counts, chain length, branch depth, equality placement, component shape, and route length;
+- added canonical graph-fingerprint diversity gates and explicit difficulty bases.
 
-Broader topology, node-count, branch-depth, and difficulty variation remains a later discovery gate rather than being treated as complete.
+Further corpus-scale expansion remains appropriate after the nine provisional authorities are merged or split into final QLs; it is not a blocker for the next manual prototype review.
 
 ## Provisional merge/split questions
 

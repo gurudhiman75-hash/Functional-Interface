@@ -32,6 +32,10 @@ let indeterminateCount = 0;
 const sourceOperators = new Set<string>();
 const fiveSeedPositionSequences = new Set<string>();
 const definitePairRelations = new Set<string>();
+const reviewGraphFingerprints = new Set<string>();
+const reviewNodeCounts = new Set<number>();
+const reviewStatementCounts = new Set<number>();
+const difficulties = new Set<string>();
 
 for (const contract of INE_CP002_PROTOTYPE_CONTRACTS) {
   const prototypePositions: number[] = [];
@@ -48,7 +52,7 @@ for (const contract of INE_CP002_PROTOTYPE_CONTRACTS) {
     assert.equal(question.checkpointId, "INE-CP-002");
     assert.equal(question.authorityId, contract.authorityId);
     assert.equal(question.metadata.taskKind, contract.taskKind);
-    assert.equal(question.metadata.runtimeVersion, "ine-cp002-prototype-v2");
+    assert.equal(question.metadata.runtimeVersion, "ine-cp002-prototype-v3");
     assert.match(question.recordId, /^INE-CP002-[0-9A-F]{8}$/);
     assert.equal(
       question.metadata.competency,
@@ -56,6 +60,7 @@ for (const contract of INE_CP002_PROTOTYPE_CONTRACTS) {
     );
     assert.equal(question.metadata.reviewStatus, "PENDING_MANUAL_REVIEW");
     assert.match(question.metadata.contentHash, /^[0-9a-f]{8}$/);
+    assert.match(question.metadata.graphFingerprint, /^[0-9a-f]{8}$/);
     assert.equal(
       question.metadata.nodeCount,
       Object.keys(question.structuredPrompt.entityNames).length,
@@ -151,6 +156,12 @@ for (const contract of INE_CP002_PROTOTYPE_CONTRACTS) {
     authorities.add(question.authorityId);
     taskKinds.add(question.metadata.taskKind);
     generatedCount += 1;
+    difficulties.add(question.difficulty);
+    if (seed < 5) {
+      reviewGraphFingerprints.add(question.metadata.graphFingerprint);
+      reviewNodeCounts.add(question.metadata.nodeCount);
+      reviewStatementCounts.add(question.metadata.statementCount);
+    }
   }
   assert.ok(
     new Set(prototypePositions).size >= 3,
@@ -192,6 +203,13 @@ assert.deepEqual([...taskKinds].sort(), [
 ]);
 assert.equal(pairSelectionCount, 40);
 assert.equal(indeterminateCount, 40);
+assert.ok(
+  reviewGraphFingerprints.size >= 30,
+  `Review pack has only ${reviewGraphFingerprints.size} canonical graph profiles.`,
+);
+assert.deepEqual([...reviewNodeCounts].sort(), [3, 4, 5]);
+assert.deepEqual([...reviewStatementCounts].sort(), [2, 3, 4, 5, 6]);
+assert.deepEqual([...difficulties].sort(), ["EASY", "HARD", "MEDIUM"]);
 assert.deepEqual([...definitePairRelations].sort(), [
   "EQUAL_TO",
   "GREATER_THAN",
@@ -211,5 +229,9 @@ console.log("INE-CP-002 multi-link discovery audit passed.", {
   pairSelectionCount,
   indeterminateCount,
   definitePairRelations: [...definitePairRelations].sort(),
+  reviewGraphFingerprintCount: reviewGraphFingerprints.size,
+  reviewNodeCounts: [...reviewNodeCounts].sort(),
+  reviewStatementCounts: [...reviewStatementCounts].sort(),
+  difficulties: [...difficulties].sort(),
   permanentQlCount: 0,
 });

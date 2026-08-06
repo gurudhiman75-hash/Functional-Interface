@@ -4,6 +4,7 @@ import type { ComparisonRelation } from "../foundation/types";
 import { formatStatement } from "../INE-CP-001/presentation";
 import type { IneCp001AnswerSemantic } from "../INE-CP-001/types";
 import { getIneCp002PrototypeContract } from "./contracts";
+import { canonicalIneCp002GraphFingerprint } from "./graph-profile";
 import {
   buildIneCp002PairExplanation,
   buildIneCp002RelationExplanation,
@@ -15,6 +16,47 @@ import {
 import { buildIneCp002Scenario } from "./scenario-builder";
 import type { GeneratedIneCp002Question, IneCp002PrototypeId } from "./types";
 import { validateIneCp002Question } from "./validator";
+
+function difficultyFor(
+  scenario: ReturnType<typeof buildIneCp002Scenario>,
+): GeneratedIneCp002Question["difficulty"] {
+  if (scenario.taskKind !== "RELATION") return "HARD";
+  if (scenario.explanationKind === "ALTERNATE_STRICT_PATH") return "HARD";
+  if (
+    scenario.explanationKind === "MULTIPLE_ROUTES" ||
+    scenario.explanationKind === "BRANCHED_GRAPH"
+  ) {
+    return scenario.statements.length >= 5 ? "HARD" : "MEDIUM";
+  }
+  if (
+    scenario.statements.length <= 3 &&
+    scenario.irrelevantStatementIds.length === 0
+  ) {
+    return "EASY";
+  }
+  return "MEDIUM";
+}
+
+function scenarioNodeCount(
+  scenario: ReturnType<typeof buildIneCp002Scenario>,
+): number {
+  return new Set(
+    scenario.statements.flatMap((statement) => [
+      statement.leftId,
+      statement.rightId,
+    ]),
+  ).size;
+}
+
+function difficultyBasisFor(
+  scenario: ReturnType<typeof buildIneCp002Scenario>,
+): GeneratedIneCp002Question["metadata"]["difficultyBasis"] {
+  if (scenario.taskKind !== "RELATION") return "PAIR_AUDIT";
+  const difficulty = difficultyFor(scenario);
+  if (difficulty === "EASY") return "SHORT_SINGLE_PATH";
+  if (difficulty === "HARD") return "ADVANCED_GRAPH_REASONING";
+  return "STANDARD_GRAPH_REASONING";
+}
 
 export function generateIneCp002Question(
   prototypeId: IneCp002PrototypeId,
@@ -85,10 +127,7 @@ export function generateIneCp002Question(
     questionStudioVisible: false,
     seed,
     locale: "en-IN",
-    difficulty:
-      scenario.taskKind === "RELATION" && scenario.proofRoutes.length <= 1
-        ? "MEDIUM"
-        : "HARD",
+    difficulty: difficultyFor(scenario),
     renderer: "STRUCTURED_TEXT",
     answerType:
       scenario.taskKind === "RELATION"
@@ -124,15 +163,17 @@ export function generateIneCp002Question(
             pairRelations!,
           ),
     metadata: {
-      runtimeVersion: "ine-cp002-prototype-v2",
+      runtimeVersion: "ine-cp002-prototype-v3",
       competency: "MULTI_LINK_INEQUALITY_REASONING",
       reviewStatus: "PENDING_MANUAL_REVIEW",
+      difficultyBasis: difficultyBasisFor(scenario),
       contentHash: stableHash([
         recordId,
         ...displayedStatements,
         ...options.map((option) => option.value),
       ]),
       topologyId: scenario.topologyId,
+      graphFingerprint: canonicalIneCp002GraphFingerprint(scenario),
       hiddenFingerprint: stableHash([
         prototypeId,
         seed,
@@ -142,7 +183,7 @@ export function generateIneCp002Question(
       ]),
       taskKind: scenario.taskKind,
       explanationMode: scenario.explanationKind,
-      nodeCount: Object.keys(scenario.entityNames).length,
+      nodeCount: scenarioNodeCount(scenario),
       statementCount: scenario.statements.length,
       relevantStatementCount:
         scenario.statements.length - scenario.irrelevantStatementIds.length,

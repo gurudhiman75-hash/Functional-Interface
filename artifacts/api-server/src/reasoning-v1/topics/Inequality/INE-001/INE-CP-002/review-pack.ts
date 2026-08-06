@@ -9,8 +9,10 @@ export interface IneCp002ReviewRow {
   prototypeId: string;
   seed: number;
   difficulty: string;
+  difficultyBasis: string;
   competency: string;
   topologyId: string;
+  graphFingerprint: string;
   explanationMode: string;
   nodeCount: number;
   statementCount: number;
@@ -32,6 +34,7 @@ export interface IneCp002ReviewRow {
 
 function explanationText(
   explanation: import("../INE-CP-001/types").IneCp001Explanation,
+  includePairAudit: boolean,
 ): string {
   return [
     explanation.ruleStatement,
@@ -39,9 +42,11 @@ function explanationText(
     ...explanation.proofSteps,
     ...explanation.modelWitnesses,
     explanation.conclusion,
-    ...explanation.distractorAnalysis.map(
-      (entry) => `Why not “${entry.optionValue}”? ${entry.studentWarning}`,
-    ),
+    ...(includePairAudit
+      ? explanation.distractorAnalysis.map(
+          (entry) => `Pair check: ${entry.studentWarning}`,
+        )
+      : []),
   ]
     .filter((paragraph) => paragraph.trim().length > 0)
     .join("\n\n");
@@ -64,8 +69,10 @@ export function buildIneCp002ReviewPack(
         prototypeId: question.prototypeId,
         seed,
         difficulty: question.difficulty,
+        difficultyBasis: question.metadata.difficultyBasis,
         competency: question.metadata.competency,
         topologyId: question.metadata.topologyId,
+        graphFingerprint: question.metadata.graphFingerprint,
         explanationMode: question.metadata.explanationMode,
         nodeCount: question.metadata.nodeCount,
         statementCount: question.metadata.statementCount,
@@ -80,7 +87,10 @@ export function buildIneCp002ReviewPack(
         statements: question.displayedStatements,
         options: question.options.map((option) => option.value),
         correctOption: question.options[question.correctIndex]!.value,
-        explanation: explanationText(question.explanation),
+        explanation: explanationText(
+          question.explanation,
+          question.metadata.taskKind !== "RELATION",
+        ),
         permanentQlId: null,
         questionStudioVisible: false,
       } satisfies IneCp002ReviewRow;
@@ -101,7 +111,7 @@ export function renderIneCp002ReviewMarkdown(
     return [
       `## ${index + 1}. ${row.authorityId} — seed ${row.seed}`,
       "",
-      `**Record:** ${row.recordId} · **Difficulty:** ${row.difficulty} · **Topology:** ${row.topologyId} · **Explanation mode:** ${row.explanationMode}`,
+      `**Record:** ${row.recordId} · **Difficulty:** ${row.difficulty} (${row.difficultyBasis}) · **Topology:** ${row.topologyId} · **Explanation mode:** ${row.explanationMode}`,
       "",
       row.stem,
       "",

@@ -93,7 +93,7 @@ export interface GeneratedIneCp002Question {
   questionStudioVisible: false;
   seed: number;
   locale: "en-IN";
-  difficulty: "MEDIUM" | "HARD";
+  difficulty: "EASY" | "MEDIUM" | "HARD";
   renderer: "STRUCTURED_TEXT";
   answerType: "DEFINITELY_ESTABLISHED_RELATION" | "PAIR_SELECTION";
   stem: string;
@@ -103,11 +103,17 @@ export interface GeneratedIneCp002Question {
   correctIndex: number;
   explanation: IneCp001Explanation;
   metadata: {
-    runtimeVersion: "ine-cp002-prototype-v2";
+    runtimeVersion: "ine-cp002-prototype-v3";
     competency: "MULTI_LINK_INEQUALITY_REASONING";
     reviewStatus: "PENDING_MANUAL_REVIEW";
+    difficultyBasis:
+      | "SHORT_SINGLE_PATH"
+      | "STANDARD_GRAPH_REASONING"
+      | "ADVANCED_GRAPH_REASONING"
+      | "PAIR_AUDIT";
     contentHash: string;
     topologyId: string;
+    graphFingerprint: string;
     hiddenFingerprint: string;
     taskKind: IneCp002TaskKind;
     explanationMode: IneCp002ExplanationKind;
