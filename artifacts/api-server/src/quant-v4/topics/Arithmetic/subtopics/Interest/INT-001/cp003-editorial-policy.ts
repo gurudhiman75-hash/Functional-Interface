@@ -51,7 +51,9 @@ function neutralizeMethodHints(text: string): string {
     .replace("The compound-interest factor is provided, but the original sum is missing.", "The annual rate, time and compound interest are shown below.")
     .replace("The total growth ratio is shown below.", "The original amount, final amount and time are shown below.")
     .replace("Match the observed multiplier with repeated annual growth.", "The original amount, final amount and annual rate are shown below.")
+    .replace("Use the observed yearly interest to reconstruct the opening principal.", "The interest earned in one particular year is shown below.")
     .replace("Use the observed yearly interest.", "The yearly interest details are shown below.")
+    .replace("One entry is missing from the inverse-interest record.", "One entry is missing from the yearly-interest record.")
     .replace("Use the year-specific interest observation.", "The yearly interest details are shown below.")
     .replace("Reverse the final transition in the annual balance ledger.", "One balance is missing from the annual record.")
     .replace("Infer the annual rate from two consecutive bank-statement balances.", "Two consecutive balances are shown below.")
@@ -196,14 +198,14 @@ export function refineCp003Presentation(
     return highRateForBanking ? neutralizeBankingLanguage(withoutHints) : withoutHints;
   };
 
-  let table = source.table
+  const table = source.table
     ? {
         headers: source.table.headers.map(clean),
         rows: source.table.rows.map((row) => row.map(clean)),
       }
     : undefined;
   let leadText = source.leadText ? clean(source.leadText) : undefined;
-  let prompt = clean(source.prompt);
+  const prompt = clean(source.prompt);
 
   if (contract.qlId === "INT-QL-066" && source.representation === "BALANCE_LEDGER" && table) {
     leadText = `The interest earned in one year is shown below. Interest is compounded annually at ${rateMath(resolved.ratePercent)}.`;
