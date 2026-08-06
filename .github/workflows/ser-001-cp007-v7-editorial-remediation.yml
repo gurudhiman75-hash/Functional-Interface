@@ -1,4 +1,4 @@
-name: Validate SER-001 CP-007 V7.1 release remediation
+name: Validate SER-001 CP-007 V7.1 release remediation (registered)
 
 on:
   pull_request:
@@ -28,7 +28,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: ser-001-cp007-v7-1-release-remediation-${{ github.ref }}
+  group: ser-001-cp007-v7-1-registered-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -71,12 +71,9 @@ jobs:
             --outfile="$OUT/adaptive-review-v7-1.test.mjs"
           (cd artifacts/api-server && node "$OUT/adaptive-review-v7-1.test.mjs") \
             | tee "$EVIDENCE/SER-CP-007-V7-1-Release-Remediation-Proof.json"
-          grep -q 'PASS_SER_CP007_V7_1_RELEASE_REMEDIATION' \
-            "$EVIDENCE/SER-CP-007-V7-1-Release-Remediation-Proof.json"
-          grep -q '"interleavedFutureTerms": 0' \
-            "$EVIDENCE/SER-CP-007-V7-1-Release-Remediation-Proof.json"
-          grep -q '"cumulativeWeakDistractors": 0' \
-            "$EVIDENCE/SER-CP-007-V7-1-Release-Remediation-Proof.json"
+          grep -q 'PASS_SER_CP007_V7_1_RELEASE_REMEDIATION' "$EVIDENCE/SER-CP-007-V7-1-Release-Remediation-Proof.json"
+          grep -q '"interleavedFutureTerms": 0' "$EVIDENCE/SER-CP-007-V7-1-Release-Remediation-Proof.json"
+          grep -q '"cumulativeWeakDistractors": 0' "$EVIDENCE/SER-CP-007-V7-1-Release-Remediation-Proof.json"
 
       - name: Prove Question Bank release metadata preservation
         run: |
@@ -89,8 +86,7 @@ jobs:
             --outfile="$OUT/admin-question-release-metadata.test.mjs"
           (cd artifacts/api-server && node "$OUT/admin-question-release-metadata.test.mjs") \
             | tee "$EVIDENCE/SER-CP-007-V7-1-Question-Bank-Metadata-Proof.json"
-          grep -q 'PASS_QUESTION_BANK_RELEASE_METADATA_PRESERVATION' \
-            "$EVIDENCE/SER-CP-007-V7-1-Question-Bank-Metadata-Proof.json"
+          grep -q 'PASS_QUESTION_BANK_RELEASE_METADATA_PRESERVATION' "$EVIDENCE/SER-CP-007-V7-1-Question-Bank-Metadata-Proof.json"
 
       - name: Prove real assembler release-pool enforcement
         run: |
@@ -103,26 +99,22 @@ jobs:
             --outfile="$OUT/admin-test-blueprint-release-pools.test.mjs"
           (cd artifacts/api-server && node "$OUT/admin-test-blueprint-release-pools.test.mjs") \
             | tee "$EVIDENCE/SER-CP-007-V7-1-Assembler-Pool-Proof.json"
-          grep -q 'PASS_TEST_ASSEMBLER_RELEASE_POOL_ENFORCEMENT' \
-            "$EVIDENCE/SER-CP-007-V7-1-Assembler-Pool-Proof.json"
-          grep -q '"releasePoolCollisions": 0' \
-            "$EVIDENCE/SER-CP-007-V7-1-Assembler-Pool-Proof.json"
-          grep -q '"nonPrimarySelections": 0' \
-            "$EVIDENCE/SER-CP-007-V7-1-Assembler-Pool-Proof.json"
+          grep -q 'PASS_TEST_ASSEMBLER_RELEASE_POOL_ENFORCEMENT' "$EVIDENCE/SER-CP-007-V7-1-Assembler-Pool-Proof.json"
+          grep -q '"releasePoolCollisions": 0' "$EVIDENCE/SER-CP-007-V7-1-Assembler-Pool-Proof.json"
+          grep -q '"nonPrimarySelections": 0' "$EVIDENCE/SER-CP-007-V7-1-Assembler-Pool-Proof.json"
 
       - name: Prove accessible Series rendering contracts
         run: |
           set -euo pipefail
-          OUT=artifacts/api-server/dist/reasoning-v1/ser-001
+          OUT=dist/reasoning-v1/ser-001
           EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v7-1-release-remediation
-          pnpm exec esbuild \
-            artifacts/examtree/src/lib/series-rendering-contract.test.ts \
+          pnpm --dir artifacts/api-server exec esbuild \
+            ../examtree/src/lib/series-rendering-contract.test.ts \
             --bundle --platform=node --format=esm \
             --outfile="$OUT/series-rendering-contract.test.mjs"
-          node "$OUT/series-rendering-contract.test.mjs" \
+          (cd artifacts/api-server && node "$OUT/series-rendering-contract.test.mjs") \
             | tee "$EVIDENCE/SER-CP-007-V7-1-Rendering-Contract-Proof.json"
-          grep -q 'PASS_SERIES_ACCESSIBLE_RENDERING_CONTRACT' \
-            "$EVIDENCE/SER-CP-007-V7-1-Rendering-Contract-Proof.json"
+          grep -q 'PASS_SERIES_ACCESSIBLE_RENDERING_CONTRACT' "$EVIDENCE/SER-CP-007-V7-1-Rendering-Contract-Proof.json"
 
       - name: Export V7.1 400-question review corpus
         run: |
@@ -166,7 +158,7 @@ jobs:
       - name: Upload V7.1 evidence
         uses: actions/upload-artifact@v4
         with:
-          name: ser-001-cp007-v7-1-release-remediation
+          name: ser-001-cp007-v7-1-release-remediation-registered
           path: artifacts/api-server/dist/reasoning-v1/ser-001/cp007-v7-1-release-remediation/
           if-no-files-found: error
           retention-days: 30
