@@ -122,7 +122,7 @@ for (const probe of SER_CP007_TEMPLATE_PROBES_V7) {
 const selection = selectSerCp007PrimaryReleaseV7(entries);
 assert.equal(SER_CP007_TEMPLATE_PROBES_V7.length, 140);
 assert.equal(sampledQuestions, 420);
-assert.equal(interleavedProofs, 48);
+assert.equal(interleavedProofs, 51);
 assert.equal(markerProofs, 12);
 assert.equal(progressiveAdvancedProofs, 12);
 assert.equal(globalShiftDistractors, 0);
