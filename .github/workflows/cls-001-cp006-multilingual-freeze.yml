@@ -1,0 +1,59 @@
+name: Validate CLS-001 CP-006 Multilingual Freeze
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feat/cls-001-cp006-hi-pa-localisation
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-006/**"
+      - ".github/workflows/cls-001-cp006-multilingual-freeze.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cls-001-cp006-multilingual-freeze-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-multilingual-freeze:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle multilingual freeze guard
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-006
+          OUT=dist/reasoning-v1/cls-001/cp006-multilingual-freeze
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/cp006-multilingual-freeze.test.ts" \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile="$OUT/cp006-multilingual-freeze.test.mjs"
+
+      - name: Run approval, parity and lifecycle freeze guard
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/cls-001/cp006-multilingual-freeze/cp006-multilingual-freeze.test.mjs

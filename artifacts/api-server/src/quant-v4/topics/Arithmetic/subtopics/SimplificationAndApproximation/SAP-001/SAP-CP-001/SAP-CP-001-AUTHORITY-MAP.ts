@@ -1,0 +1,71 @@
+export const SAP_CP001_DESIGN_SOLVE_MODES = [
+  "evaluateFlatMixedOperationExpression",
+  "evaluateMultiplicationDivisionLeftToRight",
+  "evaluateAdditionSubtractionLeftToRight",
+  "evaluateNestedParenthesesExpression",
+  "evaluateMixedBracketExpression",
+  "evaluateVinculumOrFractionBarGrouping",
+  "evaluateExpressionWithUnaryNegative",
+  "evaluateExpressionWithNegativeIntermediateValue",
+  "evaluateExpressionWithOfMultiplication",
+  "evaluateExpressionWithImplicitMultiplicationWhenUnambiguous",
+  "evaluateExpressionWithRepeatedGrouping",
+  "evaluateExpressionWithPowerBeforeArithmetic",
+  "evaluateExpressionWithFactorialBeforeArithmetic",
+  "compareResultsUnderTwoDifferentGroupings",
+  "selectCorrectlyParenthesisedEquivalentExpression",
+  "identifyFirstValidEvaluationStep",
+  "identifyIncorrectPrecedenceStep",
+  "findValueAfterOneDeclaredSubexpressionIsSimplified",
+] as const;
+
+export type SapCp001DesignSolveMode = (typeof SAP_CP001_DESIGN_SOLVE_MODES)[number];
+
+export const SAP_CP001_AUTHORITY_MAP: Readonly<Record<SapCp001DesignSolveMode, string>> = Object.freeze({
+  evaluateFlatMixedOperationExpression: "SAP-CP001-PROT-FLAT-MIXED-OPERATIONS",
+  evaluateMultiplicationDivisionLeftToRight: "SAP-CP001-PROT-MULTIPLY-DIVIDE-LEFT-TO-RIGHT",
+  evaluateAdditionSubtractionLeftToRight: "SAP-CP001-PROT-ADD-SUBTRACT-LEFT-TO-RIGHT",
+  evaluateNestedParenthesesExpression: "SAP-CP001-PROT-NESTED-GROUPING",
+  evaluateMixedBracketExpression: "SAP-CP001-PROT-NESTED-GROUPING",
+  evaluateVinculumOrFractionBarGrouping: "SAP-CP001-PROT-VINCULUM-FRACTION-BAR-SCOPE",
+  evaluateExpressionWithUnaryNegative: "SAP-CP001-PROT-SIGNED-ARITHMETIC",
+  evaluateExpressionWithNegativeIntermediateValue: "SAP-CP001-PROT-NEGATIVE-INTERMEDIATE",
+  evaluateExpressionWithOfMultiplication: "SAP-CP001-PROT-SCOPED-OF-MULTIPLICATION",
+  evaluateExpressionWithImplicitMultiplicationWhenUnambiguous: "SAP-CP001-PROT-UNAMBIGUOUS-IMPLICIT-MULTIPLICATION",
+  evaluateExpressionWithRepeatedGrouping: "SAP-CP001-PROT-REPEATED-GROUPING",
+  evaluateExpressionWithPowerBeforeArithmetic: "SAP-CP001-PROT-POWER-BEFORE-ARITHMETIC",
+  evaluateExpressionWithFactorialBeforeArithmetic: "SAP-CP001-PROT-FACTORIAL-BEFORE-ARITHMETIC",
+  compareResultsUnderTwoDifferentGroupings: "SAP-CP001-PROT-COMPARE-DIFFERENT-GROUPINGS",
+  selectCorrectlyParenthesisedEquivalentExpression: "SAP-CP001-PROT-SELECT-EQUIVALENT-GROUPING",
+  identifyFirstValidEvaluationStep: "SAP-CP001-PROT-IDENTIFY-FIRST-VALID-STEP",
+  identifyIncorrectPrecedenceStep: "SAP-CP001-PROT-IDENTIFY-INCORRECT-PRECEDENCE-STEP",
+  findValueAfterOneDeclaredSubexpressionIsSimplified: "SAP-CP001-PROT-PARTIAL-SUBEXPRESSION-VALUE",
+});
+
+export const SAP_CP001_MERGE_SPLIT_DECISIONS = Object.freeze({
+  nestedParenthesesAndMixedBrackets: "MERGED_TEMPORARY_AUTHORITY",
+  fractionBarScopeVersusFractionArithmetic: "SPLIT_BY_PRIMARY_CHALLENGE",
+  unaryNegativeVersusNegativeIntermediate: "RETAIN_SEPARATE_AFTER_EDITORIAL_AUDIT",
+  nestedGroupingVersusRepeatedGrouping: "MERGED_ENGLISH_TEMPLATE_FAMILY",
+  multiplyDivideVersusAddSubtractLeftToRight: "RETAIN_SEPARATE_MISCONCEPTION_CONTRACTS",
+  validStepVersusIncorrectStep: "RETAIN_SEPARATE_ANSWER_SEMANTICS",
+  permanentQlAllocation: "ALLOCATED_INACTIVE_SAP_QL_001_TO_016",
+} as const);
+
+export const SAP_CP001_CURRENT_DISCOVERY_STATE = Object.freeze({
+  designSolveModeCount: SAP_CP001_DESIGN_SOLVE_MODES.length,
+  temporaryPrototypeCount: 17,
+  proposedEnglishTemplateCount: 16,
+  approvedEnglishTemplateCount: 16,
+  englishManualFreezeStatus: "APPROVED" as const,
+  englishReviewExportCount: 51,
+  permanentQlCount: 16,
+  permanentQlRange: "SAP-QL-001..SAP-QL-016" as const,
+  nextAvailablePermanentQlId: "SAP-QL-017" as const,
+  permanentRuntimeStatus: "ALLOCATED_INACTIVE" as const,
+  activePackageCount: 0,
+  questionStudioDiscoverableCount: 0,
+  questionBankWritableCount: 0,
+  testEligibleCount: 0,
+  publiclyPublishableCount: 0,
+});

@@ -1,0 +1,106 @@
+name: Validate NUM-CP-005 Hindi Punjabi linguistic hardening
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**
+      - .github/workflows/num-001-cp005-hi-pa-linguistic-hardening.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-num-cp005-hi-pa-linguistic-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-num-cp005-hi-pa-linguistic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle frozen English runtime regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-005/permanent/runtime-proof.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp005-linguistic-english-regression.mjs
+
+      - name: Run frozen English runtime regression
+        run: node artifacts/api-server/dist/quant-v4/num-001-cp005-linguistic-english-regression.mjs
+
+      - name: Bundle mathematical parity regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-005/localization/runtime-parity.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp005-linguistic-parity.mjs
+
+      - name: Run mathematical parity regression
+        run: node artifacts/api-server/dist/quant-v4/num-001-cp005-linguistic-parity.mjs
+
+      - name: Bundle editorial regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-005/localization/editorial-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp005-linguistic-editorial.mjs
+
+      - name: Run editorial regression
+        run: node artifacts/api-server/dist/quant-v4/num-001-cp005-linguistic-editorial.mjs
+
+      - name: Bundle linguistic hardening audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-005/localization/linguistic-hardening-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp005-hi-pa-linguistic-hardening.mjs
+
+      - name: Run linguistic hardening audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp005-hi-pa-linguistic-hardening.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp005-hi-pa-linguistic-hardening.log
+
+      - name: Bundle hardened review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-005/localization/review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp005-hi-pa-hardened-review-export.mjs
+
+      - name: Generate hardened bilingual review pack
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/num-001-cp005-hi-pa-hardened-review-export.mjs
+
+      - name: Upload linguistic hardening evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-001-cp005-hi-pa-linguistic-hardening
+          path: |
+            artifacts/api-server/dist/quant-v4/num-001-cp005-hi-pa-linguistic-hardening.log
+            artifacts/api-server/dist/quant-v4/num-001-cp005-hi-pa-localisation-review.json
+            artifacts/api-server/dist/quant-v4/num-001-cp005-hi-pa-localisation-review.csv
+            artifacts/api-server/dist/quant-v4/num-001-cp005-hi-pa-localisation-review.md
+          if-no-files-found: warn
+          retention-days: 14

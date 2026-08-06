@@ -1,0 +1,47 @@
+name: Validate ALP-001 freeze readiness
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Alphabet-Test/ALP-001/**
+      - .github/workflows/alp-001-freeze-readiness.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: alp-001-freeze-readiness-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-freeze-readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle readiness guard
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/alp-001
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Alphabet-Test/ALP-001/alp-001-freeze-readiness.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/alp-001/alp-001-freeze-readiness.test.mjs
+      - name: Run readiness guard
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/alp-001/alp-001-freeze-readiness.test.mjs

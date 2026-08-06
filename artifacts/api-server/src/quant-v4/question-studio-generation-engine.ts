@@ -17,11 +17,18 @@ import {
   runMal001QuestionStudioPipeline,
   type Mal001QuestionStudioCpId,
 } from "./topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-adapter";
+import {
+  NUM_001_QUESTION_STUDIO_CP_IDS,
+  NUM_001_QUESTION_STUDIO_LANGUAGES,
+  runNum001QuestionStudioPipeline,
+  type Num001QuestionStudioCpId,
+} from "./topics/Arithmetic/subtopics/NumberSystem/NUM-001/question-studio-adapter";
 
 export type QuestionStudioQuantV4PackageId =
   | NonNullable<QuantV4GenerationRequest["packageId"]>
   | "AVG-001"
-  | "MAL-001";
+  | "MAL-001"
+  | "NUM-001";
 
 export type QuestionStudioQuantV4GenerationRequest = Omit<
   QuantV4GenerationRequest,
@@ -44,9 +51,18 @@ const MAL_PACKAGE_DEFINITION = {
   packageId: "MAL-001",
   topic: "Arithmetic",
   subtopic: "Mixture & Alligation",
-  label: "Mixture & Alligation — Standard Blends",
+  label: "Mixture & Alligation",
   cpIds: MAL_001_QUESTION_STUDIO_CP_IDS,
   supportedLanguages: ["en"] as const,
+};
+
+const NUM_PACKAGE_DEFINITION = {
+  packageId: "NUM-001",
+  topic: "Arithmetic",
+  subtopic: "Number System",
+  label: "Number System",
+  cpIds: NUM_001_QUESTION_STUDIO_CP_IDS,
+  supportedLanguages: NUM_001_QUESTION_STUDIO_LANGUAGES,
 };
 
 function normalizeSelector(value: unknown) {
@@ -90,6 +106,22 @@ function isMixtureAndAlligationRequest(
     patternId.includes("mal 001") ||
     (mixtureSelector.has(topic) && !subtopic) ||
     (topic === "arithmetic" && mixtureSelector.has(subtopic))
+  );
+}
+
+function isNumberSystemRequest(
+  request: QuestionStudioQuantV4GenerationRequest,
+) {
+  const packageId = normalizeSelector(request.packageId ?? request.archetypeId);
+  const patternId = normalizeSelector(request.patternId);
+  const topic = normalizeSelector(request.topic);
+  const subtopic = normalizeSelector(request.subtopic);
+  const selectors = new Set(["number system", "numbers", "number theory"]);
+  return (
+    packageId === "num 001" ||
+    patternId.includes("num 001") ||
+    (selectors.has(topic) && !subtopic) ||
+    (topic === "arithmetic" && selectors.has(subtopic))
   );
 }
 
@@ -139,10 +171,41 @@ function packageCard(
     supportedLanguages: [...definition.supportedLanguages],
     enabled: true,
     runtimeMode: "RELEASED",
-    reviewStatus: average ? "APPROVED_MULTILINGUAL" : "APPROVED_EDITORIAL_ENGLISH",
+    reviewStatus: average
+      ? "APPROVED_MULTILINGUAL"
+      : "APPROVED_EDITORIAL_ENGLISH",
     questionBankStatus: "WRITABLE",
     testEligibility: "ELIGIBLE",
     publiclyPublishable: true,
+  };
+}
+
+function numberSystemPackageCard() {
+  return {
+    id: NUM_PACKAGE_DEFINITION.packageId,
+    packageId: NUM_PACKAGE_DEFINITION.packageId,
+    type: "quant-v4",
+    section: "Quant",
+    domain: "quant",
+    topic: NUM_PACKAGE_DEFINITION.topic,
+    subtopic: NUM_PACKAGE_DEFINITION.subtopic,
+    name: `${NUM_PACKAGE_DEFINITION.packageId} ${NUM_PACKAGE_DEFINITION.label}`,
+    label: NUM_PACKAGE_DEFINITION.label,
+    generationDomain: "quant-v4",
+    cpIds: [...NUM_PACKAGE_DEFINITION.cpIds],
+    canonicalProblems: NUM_PACKAGE_DEFINITION.cpIds.map((cpId) => ({
+      id: cpId,
+      label: cpId,
+    })),
+    supportedDifficulties: ["easy", "medium", "hard"],
+    supportedLanguages: [...NUM_PACKAGE_DEFINITION.supportedLanguages],
+    enabled: true,
+    runtimeMode: "QUESTION_STUDIO_ACTIVE",
+    supportedRuntimeModes: ["QUESTION_STUDIO_ACTIVE"],
+    reviewStatus: "APPROVED_EDITORIAL_ENGLISH_V3",
+    questionBankStatus: "NOT_STORED",
+    testEligibility: "INELIGIBLE",
+    publiclyPublishable: false,
   };
 }
 
@@ -154,6 +217,9 @@ export function listQuantV4Packages() {
   }
   if (!existing.some((pkg: any) => pkg.packageId === "MAL-001")) {
     additions.push(packageCard(MAL_PACKAGE_DEFINITION));
+  }
+  if (!existing.some((pkg: any) => pkg.packageId === "NUM-001")) {
+    additions.push(numberSystemPackageCard());
   }
   return [...existing, ...additions].sort((left: any, right: any) =>
     String(left.packageId).localeCompare(String(right.packageId)),
@@ -260,12 +326,118 @@ function toMalQuestionStudioPreview(
   };
 }
 
+function toNumQuestionStudioPreview(
+  pkg: any,
+  context: {
+    questionIndex: number;
+    questionCount: number;
+    seed: string;
+  },
+) {
+  const traceability = pkg.traceability ?? {};
+  const hiddenState = pkg.hiddenState ?? {};
+  const explanationLines = Array.isArray(pkg.explanation?.lines)
+    ? pkg.explanation.lines.map((line: unknown) => String(line ?? ""))
+    : [];
+  const taskKind = traceability.taskDirection ?? hiddenState.kind ?? hiddenState.mode;
+  const canonicalAnswer = {
+    kind: "symbolic",
+    value: pkg.answer,
+    display: pkg.answer,
+    rendered: pkg.answer,
+    rounding: "exact",
+  };
+
+  return {
+    text: pkg.stem,
+    options: [...pkg.options],
+    correct: pkg.correctIndex,
+    correctIndex: pkg.correctIndex,
+    explanation: explanationLines.join("\n\n"),
+    packageExplanation: pkg.explanation,
+    difficulty: pkg.difficultyBand,
+    difficultyLabel: pkg.difficultyBand,
+    patternId: "NUM-001",
+    section: "Quant",
+    topic: NUM_PACKAGE_DEFINITION.topic,
+    subtopic: NUM_PACKAGE_DEFINITION.subtopic,
+    generationBackend: "quant-v4",
+    debugSource: "quant-v4-package-runtime",
+    reasoningGraph: pkg.reasoningGraph,
+    semanticMetadata: traceability,
+    traceability,
+    validation: pkg.validation,
+    questionId: pkg.questionId,
+    seed: context.seed,
+    answer: pkg.answer,
+    canonicalAnswer,
+    runtimeMode: pkg.runtimeMode,
+    reviewStatus: pkg.reviewStatus,
+    questionBankStatus: pkg.questionBankStatus,
+    testEligibility: pkg.testEligibility,
+    publiclyPublishable: pkg.publiclyPublishable,
+    packageSource: "quant-v4-package-runtime",
+    packageId: "NUM-001",
+    taskKind,
+    scenarioId: undefined,
+    language: pkg.language,
+    metadata: {
+      language: pkg.language,
+      packageId: "NUM-001",
+      canonicalProblemId: pkg.canonicalProblemId,
+      questionLanguageId: pkg.questionLanguageId,
+      explanationId: pkg.explanationId,
+      taskKind,
+      scenarioId: undefined,
+      runtimeMode: pkg.runtimeMode,
+      reviewStatus: pkg.reviewStatus,
+      questionBankStatus: pkg.questionBankStatus,
+      testEligibility: pkg.testEligibility,
+      publiclyPublishable: pkg.publiclyPublishable,
+      releaseId: traceability.releaseId,
+    },
+    questionIndex: context.questionIndex,
+    questionCount: context.questionCount,
+    canonicalProblemId: pkg.canonicalProblemId,
+    questionLanguageId: pkg.questionLanguageId,
+    explanationId: pkg.explanationId,
+    proceduralLogic: hiddenState,
+    logic: hiddenState,
+    debugMetadata: {
+      generationDomain: "quant-v4",
+      selectedPattern: "NUM-001",
+      selectedArchetype: "NUM-001",
+      selectedMotif: pkg.canonicalProblemId,
+      canonicalProblemId: pkg.canonicalProblemId,
+      questionLanguageId: pkg.questionLanguageId,
+      explanationId: pkg.explanationId,
+      taskKind,
+      scenarioId: undefined,
+      questionIndex: context.questionIndex,
+      questionCount: context.questionCount,
+      questionId: pkg.questionId,
+      packageSource: "quant-v4-package-runtime",
+      seed: context.seed,
+      reasoningGraph: pkg.reasoningGraph,
+      semanticMetadata: traceability,
+      validatorReports: pkg.validation,
+      releaseId: traceability.releaseId,
+    },
+  };
+}
+
 async function generateAverageQuestion(
   request: QuestionStudioQuantV4GenerationRequest,
 ) {
   const language = (request.language ?? "en") as QuantV4Language;
-  if (!AVG_001_QUESTION_STUDIO_LANGUAGES.includes(language as "en" | "hi" | "pa")) {
-    throw new Error(`AVG-001 does not support Question Studio language ${language}.`);
+  if (
+    !AVG_001_QUESTION_STUDIO_LANGUAGES.includes(
+      language as "en" | "hi" | "pa",
+    )
+  ) {
+    throw new Error(
+      `AVG-001 does not support Question Studio language ${language}.`,
+    );
   }
 
   const count = Math.min(
@@ -280,7 +452,9 @@ async function generateAverageQuestion(
       explicitCp as Avg001QuestionStudioCpId,
     )
   ) {
-    throw new Error(`Unknown canonical problem '${explicitCp}' for package AVG-001`);
+    throw new Error(
+      `Unknown canonical problem '${explicitCp}' for package AVG-001`,
+    );
   }
 
   const batchSeed =
@@ -327,7 +501,10 @@ async function generateAverageQuestion(
       seed: batchSeed,
       timestamp: Date.now(),
       runtimeMode: "RELEASED",
-      reviewStatus: language === "en" ? "APPROVED_EDITORIAL_ENGLISH_V2" : "APPROVED_LOCALIZED",
+      reviewStatus:
+        language === "en"
+          ? "APPROVED_EDITORIAL_ENGLISH_V2"
+          : "APPROVED_LOCALIZED",
       questionBankStatus: "WRITABLE",
       testEligibility: "ELIGIBLE",
       publiclyPublishable: true,
@@ -339,12 +516,23 @@ async function generateAverageQuestion(
   };
 }
 
+function inferMalCpFromQl(value: unknown): Mal001QuestionStudioCpId | undefined {
+  const match = /^MAL-QL-(\d{3})$/u.exec(String(value ?? ""));
+  if (!match) return undefined;
+  const number = Number(match[1]);
+  if (number >= 1 && number <= 11) return "MAL-CP-001";
+  if (number >= 12 && number <= 28) return "MAL-CP-002";
+  return undefined;
+}
+
 async function generateMixtureAndAlligationQuestion(
   request: QuestionStudioQuantV4GenerationRequest,
 ) {
   const language = (request.language ?? "en") as QuantV4Language;
   if (language !== "en") {
-    throw new Error("MAL-001 supports English generation only in Question Studio.");
+    throw new Error(
+      "MAL-001 supports English generation only in Question Studio.",
+    );
   }
 
   const count = Math.min(
@@ -359,16 +547,23 @@ async function generateMixtureAndAlligationQuestion(
       explicitCp as Mal001QuestionStudioCpId,
     )
   ) {
-    throw new Error(`Unknown canonical problem '${explicitCp}' for package MAL-001`);
+    throw new Error(
+      `Unknown canonical problem '${explicitCp}' for package MAL-001`,
+    );
   }
 
-  const cpId = (explicitCp ??
-    MAL_001_QUESTION_STUDIO_CP_IDS[0]) as Mal001QuestionStudioCpId;
+  const inferredCp = inferMalCpFromQl(request.questionLanguageId);
+  const fixedCp = (explicitCp ?? inferredCp) as
+    | Mal001QuestionStudioCpId
+    | undefined;
   const batchSeed =
     request.seed ??
-    `quant-v4:MAL-001:${cpId}:${Date.now()}:${Math.random()
+    `quant-v4:MAL-001:${fixedCp ?? "mixed"}:${Date.now()}:${Math.random()
       .toString(36)
       .slice(2)}`;
+  const cpOffset =
+    seededHash(`${batchSeed}:cp-offset`) %
+    MAL_001_QUESTION_STUDIO_CP_IDS.length;
   const questionPackages = [];
   const questions = [];
 
@@ -376,6 +571,10 @@ async function generateMixtureAndAlligationQuestion(
     if (index > 0 && index % 100 === 0) {
       await new Promise((resolve) => setImmediate(resolve));
     }
+    const cpId = (fixedCp ??
+      MAL_001_QUESTION_STUDIO_CP_IDS[
+        (cpOffset + index) % MAL_001_QUESTION_STUDIO_CP_IDS.length
+      ]) as Mal001QuestionStudioCpId;
     const seed = `${batchSeed}:${cpId}:${index}`;
     const pkg = runMal001QuestionStudioPipeline(cpId, {
       difficulty,
@@ -393,17 +592,116 @@ async function generateMixtureAndAlligationQuestion(
     );
   }
 
+  const first = questionPackages[0] as any;
   return {
     generationContext: {
       generationDomain: "quant-v4",
       seed: batchSeed,
       timestamp: Date.now(),
       runtimeMode: "RELEASED",
-      reviewStatus: "APPROVED_EDITORIAL_ENGLISH",
+      reviewStatus: first?.reviewStatus ?? "APPROVED_EDITORIAL_ENGLISH",
       questionBankStatus: "WRITABLE",
       testEligibility: "ELIGIBLE",
       publiclyPublishable: true,
-      releaseId: "MAL-CP001-EN-v1",
+      releaseId: first?.traceability?.releaseId,
+      language: "en",
+      canonicalProblemId: fixedCp ?? "MIXED",
+    },
+    questionPackages,
+    questions,
+  };
+}
+
+function inferNumCpFromQl(value: unknown): Num001QuestionStudioCpId | undefined {
+  const match = /^NUM-QL-(\d{3})$/u.exec(String(value ?? ""));
+  if (!match) return undefined;
+  const number = Number(match[1]);
+  if (number >= 1 && number <= 17) return "NUM-CP-003";
+  if (number >= 18 && number <= 45) return "NUM-CP-004";
+  return undefined;
+}
+
+async function generateNumberSystemQuestion(
+  request: QuestionStudioQuantV4GenerationRequest,
+) {
+  const language = (request.language ?? "en") as QuantV4Language;
+  if (language !== "en") {
+    throw new Error(
+      "NUM-001 supports English generation only in Question Studio.",
+    );
+  }
+
+  const count = Math.min(
+    1000,
+    Math.max(1, Math.floor(Number(request.count ?? 1) || 1)),
+  );
+  const difficulty = normalizeDifficulty(request.difficulty);
+  const explicitCp = request.canonicalProblemId ?? request.cpId;
+  if (
+    explicitCp &&
+    !NUM_001_QUESTION_STUDIO_CP_IDS.includes(
+      explicitCp as Num001QuestionStudioCpId,
+    )
+  ) {
+    throw new Error(
+      `Unknown canonical problem '${explicitCp}' for package NUM-001`,
+    );
+  }
+
+  const inferredCp = inferNumCpFromQl(request.questionLanguageId);
+  const fixedCp = (explicitCp ?? inferredCp) as
+    | Num001QuestionStudioCpId
+    | undefined;
+  const batchSeed =
+    request.seed ??
+    `quant-v4:NUM-001:${fixedCp ?? "mixed"}:${Date.now()}:${Math.random()
+      .toString(36)
+      .slice(2)}`;
+  const cpOffset =
+    seededHash(`${batchSeed}:cp-offset`) %
+    NUM_001_QUESTION_STUDIO_CP_IDS.length;
+  const questionPackages = [];
+  const questions = [];
+
+  for (let index = 0; index < count; index += 1) {
+    if (index > 0 && index % 100 === 0) {
+      await new Promise((resolve) => setImmediate(resolve));
+    }
+    const cpId = (fixedCp ??
+      NUM_001_QUESTION_STUDIO_CP_IDS[
+        (cpOffset + index) % NUM_001_QUESTION_STUDIO_CP_IDS.length
+      ]) as Num001QuestionStudioCpId;
+    const seed = `${batchSeed}:${cpId}:${index}`;
+    const pkg = runNum001QuestionStudioPipeline(cpId, {
+      difficulty,
+      language: "en",
+      questionLanguageId: request.questionLanguageId,
+      seed,
+    });
+    questionPackages.push(pkg);
+    questions.push(
+      toNumQuestionStudioPreview(pkg, {
+        questionIndex: index + 1,
+        questionCount: count,
+        seed,
+      }),
+    );
+  }
+
+  const first = questionPackages[0] as any;
+  return {
+    generationContext: {
+      generationDomain: "quant-v4",
+      seed: batchSeed,
+      timestamp: Date.now(),
+      runtimeMode: "QUESTION_STUDIO_ACTIVE",
+      reviewStatus: "APPROVED_EDITORIAL_ENGLISH_V3",
+      questionBankStatus: "NOT_STORED",
+      testEligibility: "INELIGIBLE",
+      publiclyPublishable: false,
+      releaseId: first?.traceability?.releaseId,
+      language: "en",
+      canonicalProblemId: fixedCp ?? "MIXED",
     },
     questionPackages,
     questions,
@@ -413,6 +711,9 @@ async function generateMixtureAndAlligationQuestion(
 export async function generateQuestion(
   request: QuestionStudioQuantV4GenerationRequest = {},
 ) {
+  if (isNumberSystemRequest(request)) {
+    return generateNumberSystemQuestion(request);
+  }
   if (isMixtureAndAlligationRequest(request)) {
     return generateMixtureAndAlligationQuestion(request);
   }

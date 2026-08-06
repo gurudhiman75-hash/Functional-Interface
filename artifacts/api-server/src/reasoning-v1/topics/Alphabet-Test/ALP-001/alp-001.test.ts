@@ -58,7 +58,12 @@ for (const ql of ALP_001_QLS) {
     if (legacyAnswer !== undefined) equal(question.answer, legacyAnswer, `${ql.qlId} seed ${seed} solver parity`);
     else {
       completionChecks += 1;
-      assert((question.structuredPrompt.sequence?.length ?? 0) > 0, `${ql.qlId} seed ${seed} missing completion sequence`);
+      if (ql.solveMode === "IDENTIFY_WORD_BY_ALPHA_PAIR_COUNT") {
+        assert(!question.structuredPrompt.sequence?.length, `${ql.qlId} seed ${seed} option-only question leaked a source sequence`);
+        assert(!question.structuredPrompt.word, `${ql.qlId} seed ${seed} option-only question leaked a source word`);
+      } else {
+        assert((question.structuredPrompt.sequence?.length ?? 0) > 0, `${ql.qlId} seed ${seed} missing completion sequence`);
+      }
     }
     equal(question.options.length, 4, `${ql.qlId} seed ${seed} option count`);
     equal(new Set(question.options.map((option) => option.value)).size, 4, `${ql.qlId} seed ${seed} unique options`);

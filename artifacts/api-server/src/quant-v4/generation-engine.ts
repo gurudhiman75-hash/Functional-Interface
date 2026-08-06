@@ -25,12 +25,15 @@ import {
   type Rap003CanonicalProblemId,
 } from "./topics/Arithmetic/subtopics/RatioAndProportion/RAP-003";
 import {
+  PNL_001_LANGUAGES,
   getPnl001ActiveCanonicalProblemIds,
   runPnl001ReviewPipeline,
   type Pnl001CanonicalProblemId,
 } from "./topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-review-runtime";
-import { runPnlCp001DynamicPipeline } from "./topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-001/cp001-dynamic-runtime";
-import { runPnlCp002DynamicPipeline } from "./topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime";
+import {
+  getPnl001StandaloneDynamicCpIds,
+  runPnl001StandaloneDynamicPipeline,
+} from "./topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-standalone-multilingual-dynamic-runtime";
 
 export type QuantV4PackageId = CoreQuantV4PackageId | "PNL-001";
 export type QuantV4GenerationRequest = Omit<
@@ -42,16 +45,12 @@ export type QuantV4GenerationRequest = Omit<
   runtimeMode?: "CANONICAL_REVIEW" | "DYNAMIC_CANDIDATE";
 };
 
-export type {
-  QuantV4Difficulty,
-  QuantV4Language,
-  QuantV4PackageDefinition,
-};
+export type { QuantV4Difficulty, QuantV4Language, QuantV4PackageDefinition };
 export { QUANT_V4_PERCENTAGE_ALL_PATTERN_ID, toQuestionStudioPreview };
 
 const RAP_LANGUAGES: readonly QuantV4Language[] = ["en", "hi", "pa"];
-const PNL_LANGUAGES: readonly QuantV4Language[] = ["en"];
-const PNL_DYNAMIC_CP_IDS = ["PNL-CP-001", "PNL-CP-002"] as const;
+const PNL_LANGUAGES: readonly QuantV4Language[] = [...PNL_001_LANGUAGES];
+const PNL_DYNAMIC_CP_IDS = getPnl001StandaloneDynamicCpIds();
 type Pnl001RuntimeMode = "CANONICAL_REVIEW" | "DYNAMIC_CANDIDATE";
 
 const normalizeSelectorText = (value: unknown) =>
@@ -123,13 +122,13 @@ const PNL_RUNTIME_PACKAGE: QuantV4PackageDefinition & {
   packageId: "PNL-001",
   topic: "Arithmetic",
   subtopic: "Profit & Loss",
-  label: "Profit & Loss — Canonical Review",
+  label: "Profit & Loss — Canonical & Dynamic",
   cpIds: getPnl001ActiveCanonicalProblemIds(),
   supportedLanguages: PNL_LANGUAGES,
   run: (cpId, input) =>
     runPnl001ReviewPipeline(cpId as Pnl001CanonicalProblemId, {
       difficultyBand: input.difficulty,
-      language: input.language as "en" | undefined,
+      language: input.language,
       questionLanguageId: input.questionLanguageId,
       seed: input.seed,
     }),
@@ -145,7 +144,9 @@ class QuantV4RequestError extends Error {
 }
 
 function normalizePnlRuntimeMode(value: unknown): Pnl001RuntimeMode {
-  const normalized = String(value ?? "CANONICAL_REVIEW").trim().toUpperCase();
+  const normalized = String(value ?? "CANONICAL_REVIEW")
+    .trim()
+    .toUpperCase();
   if (normalized === "CANONICAL_REVIEW" || normalized === "DYNAMIC_CANDIDATE") {
     return normalized;
   }
@@ -220,7 +221,10 @@ function resolvePnlPackage(request: QuantV4GenerationRequest) {
     subtopic === "profitandloss" ||
     topic === "profit loss" ||
     topic === "profit and loss";
-  if (isProfitLoss && (!topic || topic === "arithmetic" || topic.includes("profit"))) {
+  if (
+    isProfitLoss &&
+    (!topic || topic === "arithmetic" || topic.includes("profit"))
+  ) {
     return PNL_RUNTIME_PACKAGE;
   }
 
@@ -272,9 +276,24 @@ function pnlPackageForQuestionStudio() {
     runtimeMode: "CANONICAL_REVIEW",
     supportedRuntimeModes: ["CANONICAL_REVIEW", "DYNAMIC_CANDIDATE"],
     dynamicCandidateCpIds: [...PNL_DYNAMIC_CP_IDS],
-    questionBankStatus: "NOT_STORED",
-    testEligibility: "INELIGIBLE",
-    publiclyPublishable: false,
+    reviewStatus: "APPROVED_EDITORIAL_CANONICAL",
+    questionBankStatus: "WRITABLE",
+    testEligibility: "ELIGIBLE",
+    publiclyPublishable: true,
+    runtimePolicies: {
+      CANONICAL_REVIEW: {
+        reviewStatus: "APPROVED_EDITORIAL_CANONICAL",
+        questionBankStatus: "WRITABLE",
+        testEligibility: "ELIGIBLE",
+        publiclyPublishable: true,
+      },
+      DYNAMIC_CANDIDATE: {
+        reviewStatus: "UNREVIEWED_DYNAMIC_CANDIDATE",
+        questionBankStatus: "NOT_STORED",
+        testEligibility: "INELIGIBLE",
+        publiclyPublishable: false,
+      },
+    },
   };
 }
 
@@ -311,12 +330,12 @@ async function generateWithRuntimePackage(
   const pnlRuntimeMode = isPnl
     ? normalizePnlRuntimeMode(request.runtimeMode)
     : undefined;
-  const runtimeCpIds = pnlRuntimeMode === "DYNAMIC_CANDIDATE"
-    ? [...PNL_DYNAMIC_CP_IDS]
-    : pkg.cpIds;
-  const runtimePackage = runtimeCpIds === pkg.cpIds
-    ? pkg
-    : { ...pkg, cpIds: runtimeCpIds };
+  const runtimeCpIds =
+    pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+      ? [...PNL_DYNAMIC_CP_IDS]
+      : pkg.cpIds;
+  const runtimePackage =
+    runtimeCpIds === pkg.cpIds ? pkg : { ...pkg, cpIds: runtimeCpIds };
 
   const count = Math.min(
     1000,
@@ -352,32 +371,20 @@ async function generateWithRuntimePackage(
     const cpId = cpOrder[index % cpOrder.length]!;
     const seed = `${batchSeed}:${cpId}:${index}`;
     const questionPackage =
-    pnlRuntimeMode === "DYNAMIC_CANDIDATE"
-      ? cpId === "PNL-CP-001"
-        ? runPnlCp001DynamicPipeline({
+      pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+        ? runPnl001StandaloneDynamicPipeline({
+            canonicalProblemId: cpId as any,
             difficultyBand,
-            language: language as "en",
+            language: language as any,
             questionLanguageId: request.questionLanguageId,
             seed,
           })
-        : cpId === "PNL-CP-002"
-          ? runPnlCp002DynamicPipeline({
-              difficultyBand,
-              language: language as "en",
-              questionLanguageId: request.questionLanguageId,
-              seed,
-            })
-          : (() => {
-              throw new QuantV4RequestError(
-                `No dynamic PNL runtime is registered for '${cpId}'.`,
-              );
-            })()
-      : await pkg.run(cpId, {
-          difficulty: difficultyBand,
-          language,
-          questionLanguageId: request.questionLanguageId,
-          seed,
-        });
+        : await pkg.run(cpId, {
+            difficulty: difficultyBand,
+            language,
+            questionLanguageId: request.questionLanguageId,
+            seed,
+          });
     results.push({
       questionPackage,
       question: toQuestionStudioPreview(questionPackage, {
@@ -396,25 +403,29 @@ async function generateWithRuntimePackage(
       timestamp: Date.now(),
       runtimeMode: pnlRuntimeMode ?? "DYNAMIC",
       ...(isPnl
-      ? {
-          reviewStatus:
-            pnlRuntimeMode === "DYNAMIC_CANDIDATE"
-              ? "UNREVIEWED_DYNAMIC_CANDIDATE"
-              : "APPROVED_EDITORIAL_CANONICAL",
-          questionBankStatus: "NOT_STORED",
-          testEligibility: "INELIGIBLE",
-          publiclyPublishable: false,
-        }
-      : {}),
+        ? {
+            reviewStatus:
+              pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+                ? "UNREVIEWED_DYNAMIC_CANDIDATE"
+                : "APPROVED_EDITORIAL_CANONICAL",
+            questionBankStatus:
+              pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+                ? "NOT_STORED"
+                : "WRITABLE",
+            testEligibility:
+              pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+                ? "INELIGIBLE"
+                : "ELIGIBLE",
+            publiclyPublishable: pnlRuntimeMode !== "DYNAMIC_CANDIDATE",
+          }
+        : {}),
     },
     questionPackages: results.map((item) => item.questionPackage),
     questions: results.map((item) => item.question),
   };
 }
 
-export async function generateQuestion(
-  request: QuantV4GenerationRequest = {},
-) {
+export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
   const language = request.language ?? "en";
   const pnlPackage = resolvePnlPackage(request);
   if (pnlPackage) {

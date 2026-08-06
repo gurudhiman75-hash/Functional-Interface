@@ -11,26 +11,14 @@ import {
   getNumCp004PermanentAllocation,
 } from "../NUM-CP-004/permanent/allocation";
 import { runNumCp004PermanentPipeline } from "../NUM-CP-004/permanent/runtime";
-
-const CP003_TITLES = {
-  "NUM-QL-001": "Divisor polarity selection",
-  "NUM-QL-002": "Unique missing digit",
-  "NUM-QL-003": "Extremum valid digit",
-  "NUM-QL-004": "Valid digit count",
-  "NUM-QL-005": "Sum of valid digits",
-  "NUM-QL-006": "Complete valid digit set",
-  "NUM-QL-007": "Extremum completed number",
-  "NUM-QL-008": "Unique ordered digit pair",
-  "NUM-QL-009": "Ordered digit-pair count",
-  "NUM-QL-010": "Complete ordered digit-pair set",
-  "NUM-QL-011": "Ordered-pair solution classification",
-  "NUM-QL-012": "Least or greatest n-digit multiple",
-  "NUM-QL-013": "Inclusive range multiple count",
-  "NUM-QL-014": "Repeated-block divisibility",
-  "NUM-QL-015": "Linked arithmetic-divisibility extremum",
-  "NUM-QL-016": "Missing-digit data sufficiency",
-  "NUM-QL-017": "Divisibility claim verification",
-} as const;
+import { normaliseNumberSystemReviewMath } from "./explanation-rendering";
+import {
+  SIMPLE_NUMBER_SYSTEM_QL_TITLES,
+  buildNumberSystemTeacherExplanation,
+  correctAnswerDisplay,
+  renderTeacherExplanationMarkdown,
+  studentOptionDisplay,
+} from "./simple-teacher-voice";
 
 const CP003_SIX_SAMPLE_QLS = new Set([
   "NUM-QL-002",
@@ -40,6 +28,31 @@ const CP003_SIX_SAMPLE_QLS = new Set([
   "NUM-QL-012",
   "NUM-QL-016",
 ]);
+
+export const NUM_CP003_CP004_STAGING_LIFECYCLE = Object.freeze({
+  environment: "STAGING",
+  status: "ACTIVE_STAGING",
+  active: true,
+  stagingReviewEligible: true,
+  questionStudioStagingDiscoverable: true,
+  answerVisibleInEditorialReview: true,
+  explanationModel: "FOUR_TIER_SIMPLE_TEACHER_VOICE_V2",
+  production: Object.freeze({
+    questionStudioDiscoverable: false,
+    questionBankWritable: false,
+    testEligible: false,
+    publiclyPublishable: false,
+  }),
+  language: "en",
+});
+
+export function stripAnswerMarkers(value: unknown): string {
+  return String(value ?? "")
+    .replace(/\s*\*\*[✓✔]\*\*\s*/gu, " ")
+    .replace(/\s*[✓✔]\s*/gu, " ")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
 
 function stableStateKey(question): string {
   if (question.mathematicalFingerprint) return String(question.mathematicalFingerprint);
@@ -65,7 +78,7 @@ function selectUniqueCp003Rows(qlId, sampleCount) {
     rows.push({
       checkpoint: "NUM-CP-003",
       allocation,
-      title: CP003_TITLES[qlId],
+      title: SIMPLE_NUMBER_SYSTEM_QL_TITLES[qlId],
       question,
     });
   }
@@ -87,7 +100,7 @@ function selectUniqueCp004Rows(qlId, sampleCount) {
     rows.push({
       checkpoint: "NUM-CP-004",
       allocation,
-      title: allocation.title,
+      title: SIMPLE_NUMBER_SYSTEM_QL_TITLES[qlId],
       question,
     });
   }
@@ -108,16 +121,14 @@ const cp004Rows = NUM_CP004_PERMANENT_QL_IDS.flatMap((qlId) =>
 export const NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS = [...cp003Rows, ...cp004Rows];
 
 function normaliseMath(text: unknown): string {
-  return String(text ?? "")
-    .replace(/\\\((.+?)\\\)/g, "$$$1$")
-    .replace(/n−1/g, "$n - 1$")
-    .replace(/n\+1/g, "$n + 1$")
-    .replace(/\u2212/g, "-");
+  return normaliseNumberSystemReviewMath(text);
 }
 
 function optionValues(row): string[] {
-  if (row.checkpoint === "NUM-CP-003") return row.question.options.map(String);
-  return row.question.options.map((option) => String(option.value));
+  if (row.checkpoint === "NUM-CP-003") {
+    return row.question.options.map((value) => stripAnswerMarkers(value));
+  }
+  return row.question.options.map((option) => stripAnswerMarkers(option.value));
 }
 
 function correctIndex(row): number {
@@ -130,67 +141,32 @@ function canonicalAnswer(row): string {
     : String(row.question.canonicalAnswer);
 }
 
-function renderCp003Explanation(question): string[] {
-  const explanation = question.explanation;
-  const diagnostics = question.optionAudit
-    .filter((row) => row.misconceptionId !== "CORRECT")
-    .map((row) => `- **${normaliseMath(row.text)}:** ${row.diagnostic} (\`${row.misconceptionId}\`)`);
-  return [
-    "### 📌 Core Concept",
-    "",
-    normaliseMath(explanation.coreConcept),
-    "",
-    `**Approach:** ${normaliseMath(explanation.strategy)}`,
-    "",
-    "### 📝 Step-by-Step Solution",
-    "",
-    ...explanation.steps.map((line, index) => `${index + 1}. ${normaliseMath(line)}`),
-    "",
-    "### ⚡ Exam Speed Shortcut",
-    "",
-    normaliseMath(explanation.shortcut),
-    "",
-    `**Verification:** ${normaliseMath(explanation.verification)}`,
-    "",
-    `**Conclusion:** ${normaliseMath(explanation.conclusion)}`,
-    "",
-    "### ⚠️ Common Traps & Student Warnings",
-    "",
-    ...explanation.traps.map((line) => `- ${normaliseMath(line)}`),
-    ...diagnostics,
-  ];
+function studentSafeQuestion(row, teacherExplanation) {
+  if (row.checkpoint === "NUM-CP-003") {
+    return {
+      ...row.question,
+      options: row.question.options.map((value) => stripAnswerMarkers(value)),
+      explanation: teacherExplanation,
+    };
+  }
+  return {
+    ...row.question,
+    options: row.question.options.map((option) => ({
+      ...option,
+      value: stripAnswerMarkers(option.value),
+    })),
+    explanation: teacherExplanation,
+  };
 }
 
-function renderCp004Explanation(question): string[] {
-  const explanation = question.explanation;
-  return [
-    "### 📌 Core Concept",
-    "",
-    ...explanation.coreConcept.map((line) => normaliseMath(line)),
-    "",
-    ...explanation.givenDataAndStrategy.map((line) => `**Approach:** ${normaliseMath(line)}`),
-    "",
-    "### 📝 Step-by-Step Solution",
-    "",
-    ...explanation.stepByStep.map((line, index) => `${index + 1}. ${normaliseMath(line)}`),
-    "",
-    "### ⚡ Exam Speed Shortcut",
-    "",
-    ...explanation.examSpeedMethod.map((line) => normaliseMath(line)),
-    "",
-    "### ⚠️ Common Traps & Student Warnings",
-    "",
-    ...explanation.commonTraps.map((line) => `- ${normaliseMath(line)}`),
-    "",
-    `**Final answer:** ${normaliseMath(explanation.finalAnswer)}`,
-  ];
-}
-
-function renderExplanation(row): string[] {
-  return row.checkpoint === "NUM-CP-003"
-    ? renderCp003Explanation(row.question)
-    : renderCp004Explanation(row.question);
-}
+const reviewRows = NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS.map((row, index) => {
+  const teacherExplanation = buildNumberSystemTeacherExplanation(row);
+  return {
+    ...row,
+    reviewNumber: index + 1,
+    teacherExplanation,
+  };
+});
 
 const outputDirectory = resolve(process.cwd(), "dist/quant-v4");
 mkdirSync(outputDirectory, { recursive: true });
@@ -198,20 +174,22 @@ const jsonPath = resolve(outputDirectory, "num-001-cp003-cp004-editorial-review.
 const csvPath = resolve(outputDirectory, "num-001-cp003-cp004-editorial-review.csv");
 const markdownPath = resolve(outputDirectory, "num-001-cp003-cp004-editorial-review.md");
 
-const serialisableRows = NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS.map((row, index) => ({
-  reviewNumber: index + 1,
+const serialisableRows = reviewRows.map((row) => ({
+  reviewNumber: row.reviewNumber,
   checkpoint: row.checkpoint,
   qlId: row.allocation.qlId,
   qlTemplateId: row.allocation.qlTemplateId,
   title: row.title,
   solveModeId: row.allocation.solveModeId,
-  question: row.question,
+  stagingStatus: "ACTIVE_STAGING",
+  explanationModel: row.teacherExplanation.model,
+  question: studentSafeQuestion(row, row.teacherExplanation),
 }));
 
 writeFileSync(
   jsonPath,
   `${JSON.stringify({
-    status: "NUM_CP003_CP004_EDITORIAL_REVIEW_CORPUS",
+    status: "NUM_CP003_CP004_ACTIVE_STAGING_SIMPLE_TEACHER_VOICE_CORPUS",
     questionCount: serialisableRows.length,
     permanentQlRange: "NUM-QL-001..NUM-QL-045",
     permanentQlCount: 45,
@@ -219,14 +197,9 @@ writeFileSync(
       "NUM-CP-003": cp003Rows.length,
       "NUM-CP-004": cp004Rows.length,
     },
-    lifecycle: {
-      active: false,
-      questionStudioDiscoverable: false,
-      questionBankWritable: false,
-      testEligible: false,
-      publiclyPublishable: false,
-      language: "en",
-    },
+    explanationModel: "FOUR_TIER_SIMPLE_TEACHER_VOICE_V2",
+    lifecycle: NUM_CP003_CP004_STAGING_LIFECYCLE,
+    studentSafeOptions: true,
     rows: serialisableRows,
   }, (_key, value) => typeof value === "bigint" ? value.toString() : value, 2)}\n`,
   "utf8",
@@ -238,28 +211,38 @@ const csv = [
     "reviewNumber",
     "checkpoint",
     "qlId",
-    "qlTemplateId",
     "title",
     "difficulty",
+    "stagingStatus",
     "stem",
     "options",
     "correctOption",
     "canonicalAnswer",
+    "mainRule",
+    "stepByStepSolution",
+    "examSpeedTrick",
+    "commonTraps",
     "questionId",
   ].join(","),
-  ...NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS.map((row, index) => {
+  ...reviewRows.map((row) => {
     const options = optionValues(row);
+    const teacher = row.teacherExplanation;
     return [
-      index + 1,
+      row.reviewNumber,
       row.checkpoint,
       row.allocation.qlId,
-      row.allocation.qlTemplateId,
       row.title,
       row.question.difficulty,
+      "ACTIVE_STAGING",
       row.question.stem,
       options.map((value, optionIndex) => `${String.fromCharCode(65 + optionIndex)}:${value}`).join(" | "),
       String.fromCharCode(65 + correctIndex(row)),
       canonicalAnswer(row),
+      teacher.mainRule.join("\n"),
+      teacher.stepByStepSolution.map((step, index) => `${index + 1}. ${step}`).join("\n"),
+      teacher.examSpeedTrick.join("\n"),
+      teacher.commonTraps.map((trap) =>
+        `Option ${trap.optionLabel} (${trap.optionValue}): ${trap.message} [${trap.misconceptionTag}]`).join("\n"),
       row.question.questionId,
     ].map(csvEscape).join(",");
   }),
@@ -267,38 +250,40 @@ const csv = [
 writeFileSync(csvPath, `${csv}\n`, "utf8");
 
 const markdown = [
-  "# ExamTree Number System — CP-003 and CP-004 Editorial Review Corpus",
+  "# ExamTree Number System — Simple Teacher-Voice Review Corpus",
   "",
-  `**Questions:** ${NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS.length}`,
+  `**Questions:** ${reviewRows.length}`,
   "",
   "**Permanent QLs:** `NUM-QL-001..NUM-QL-045`",
   "",
   `**Checkpoint distribution:** NUM-CP-003 = ${cp003Rows.length}; NUM-CP-004 = ${cp004Rows.length}`,
   "",
-  "**Lifecycle:** inactive English review corpus. It is not exposed to Question Studio, Question Bank, tests or public delivery.",
+  "**Explanation model:** Every question uses exactly four student-facing parts: 📌 Main Rule, 📝 Step-by-Step Solution, ⚡ Exam Speed Trick and ⚠️ Common Traps.",
+  "",
+  "**Lifecycle:** Active Staging. Production Question Bank, live tests and public delivery remain off.",
+  "",
+  "**Option safety:** Correct-answer marks are never written inside option text.",
   "",
   "---",
   "",
-  ...NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS.flatMap((row, index) => {
+  ...reviewRows.flatMap((row) => {
     const options = optionValues(row);
-    const answerIndex = correctIndex(row);
+    const answer = correctAnswerDisplay(row);
     return [
-      `## Q${index + 1}. ${row.allocation.qlId} — ${row.title}`,
+      `## Q${row.reviewNumber}. ${row.allocation.qlId} — ${row.title}`,
       "",
-      `**Checkpoint:** \`${row.checkpoint}\`  `,
-      `**Difficulty:** ${row.question.difficulty}  `,
-      `**Solve mode:** \`${row.allocation.solveModeId}\``,
+      `**Difficulty:** ${row.question.difficulty}`,
       "",
       "### Question",
       "",
       normaliseMath(row.question.stem).replace(/\n/g, "  \n"),
       "",
       ...options.map((value, optionIndex) =>
-        `${String.fromCharCode(65 + optionIndex)}. ${normaliseMath(value)}${optionIndex === answerIndex ? " **✓**" : ""}`),
+        `${String.fromCharCode(65 + optionIndex)}. ${studentOptionDisplay(value)}`),
       "",
-      `**Correct answer:** ${normaliseMath(canonicalAnswer(row))}`,
+      `**Correct Answer:** ${answer.label}. ${answer.value}`,
       "",
-      ...renderExplanation(row),
+      ...renderTeacherExplanationMarkdown(row.teacherExplanation),
       "",
       "---",
       "",
@@ -308,11 +293,15 @@ const markdown = [
 writeFileSync(markdownPath, `${markdown}\n`, "utf8");
 
 console.log(JSON.stringify({
-  status: "PASS_NUM_CP003_CP004_EDITORIAL_REVIEW_EXPORT",
-  questionCount: NUM_CP003_CP004_EDITORIAL_REVIEW_ROWS.length,
+  status: "PASS_NUM_CP003_CP004_ACTIVE_STAGING_SIMPLE_TEACHER_VOICE_EXPORT",
+  questionCount: reviewRows.length,
   cp003QuestionCount: cp003Rows.length,
   cp004QuestionCount: cp004Rows.length,
   permanentQlCount: 45,
+  explanationModel: "FOUR_TIER_SIMPLE_TEACHER_VOICE_V2",
+  stagingActive: true,
+  productionActivated: false,
+  studentSafeOptions: true,
   jsonPath,
   csvPath,
   markdownPath,

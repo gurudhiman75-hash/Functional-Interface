@@ -5,9 +5,9 @@ import type { AlpLocale } from "./types";
 
 const locale = (process.argv[2] ?? "en-IN") as AlpLocale;
 const samplesPerQl = Number.parseInt(process.argv[3] ?? "3", 10);
-const outputPath = process.argv[4] ?? `alp-001-cp001-cp005-${locale}-editorial-v2-review.md`;
+const outputPath = process.argv[4] ?? `alp-001-cp001-cp010-${locale}-complete-review.md`;
 const label = <T>(en: T, hi: T, pa: T): T => locale === "en-IN" ? en : locale === "hi-IN" ? hi : pa;
-const lines: string[] = [`# ALP-001 CP-001–CP-005 Editorial V2 Review — ${locale}`, ""];
+const lines: string[] = [`# ALP-001 CP-001–CP-010 Complete Chapter Review — ${locale}`, ""];
 
 for (const ql of ALP_001_QLS) {
   lines.push(`## ${ql.qlId} — ${ql.solveMode}`, "");

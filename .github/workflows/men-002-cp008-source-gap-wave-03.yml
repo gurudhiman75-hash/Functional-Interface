@@ -1,0 +1,126 @@
+name: Validate MEN-CP-008 source gap wave 03
+
+on:
+  pull_request:
+    branches:
+      - feat/men-002-cp008-gap-wave-02
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/foundation/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp008-foundation/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp008-gap-wave-01/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp008-gap-wave-02/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp008-source-gap-wave-03/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp008-chapter-audit/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-008/**
+      - .github/workflows/men-002-cp008-source-gap-wave-03.yml
+      - build-api.sh
+      - package.json
+      - pnpm-lock.yaml
+      - pnpm-workspace.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-men-002-cp008-wave03-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp008-wave03:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle complete CP-008 proof stack and chapter audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          base=src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002
+          out=dist/quant-v4
+          pnpm --dir artifacts/api-server exec esbuild "$base/MEN-CP-007/approved/english.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp007-approved-regression.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/cp008-foundation/runtime.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-foundation-regression.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/cp008-gap-wave-01/runtime.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-gap-wave-01-regression.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/cp008-gap-wave-02/runtime.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-gap-wave-02-regression.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/cp008-source-gap-wave-03/runtime.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-source-gap-wave-03.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/cp008-chapter-audit/merge-review.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-directional-merge-review.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/cp008-chapter-audit/compression.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-chapter-compression.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/cp008-chapter-audit/candidate-registry.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-candidate-registry.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/cp008-chapter-audit/no-gap-matrix.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-no-gap-matrix.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/cp008-chapter-audit/freeze-readiness.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-freeze-readiness.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/cp008-source-gap-wave-03/review-export.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-source-gap-wave-03-review-export.mjs"
+
+      - name: Run complete executable proof stack and chapter audit
+        shell: bash
+        run: |
+          set -o pipefail
+          out=artifacts/api-server/dist/quant-v4
+          node "$out/men-cp007-approved-regression.test.mjs" 2>&1 | tee "$out/men-cp007-approved-regression.log"
+          node "$out/men-cp008-foundation-regression.test.mjs" 2>&1 | tee "$out/men-cp008-foundation-regression.log"
+          node "$out/men-cp008-gap-wave-01-regression.test.mjs" 2>&1 | tee "$out/men-cp008-gap-wave-01-regression.log"
+          node "$out/men-cp008-gap-wave-02-regression.test.mjs" 2>&1 | tee "$out/men-cp008-gap-wave-02-regression.log"
+          node "$out/men-cp008-source-gap-wave-03.test.mjs" 2>&1 | tee "$out/men-cp008-source-gap-wave-03.log"
+          node "$out/men-cp008-directional-merge-review.test.mjs" 2>&1 | tee "$out/men-cp008-directional-merge-review.log"
+          node "$out/men-cp008-chapter-compression.test.mjs" 2>&1 | tee "$out/men-cp008-chapter-compression.log"
+          node "$out/men-cp008-candidate-registry.test.mjs" 2>&1 | tee "$out/men-cp008-candidate-registry.log"
+          node "$out/men-cp008-no-gap-matrix.test.mjs" 2>&1 | tee "$out/men-cp008-no-gap-matrix.log"
+          node "$out/men-cp008-freeze-readiness.test.mjs" 2>&1 | tee "$out/men-cp008-freeze-readiness.log"
+
+      - name: Generate source Wave-03 review evidence
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/men-cp008-source-gap-wave-03-review-export.mjs
+
+      - name: Run exact Render production build
+        id: render_build
+        shell: bash
+        run: |
+          set +e
+          bash build-api.sh > artifacts/api-server/dist/quant-v4/men-cp008-source-gap-wave-03-render-build.log 2>&1
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Enforce Render production build
+        shell: bash
+        run: |
+          cat artifacts/api-server/dist/quant-v4/men-cp008-source-gap-wave-03-render-build.log
+          test "${{ steps.render_build.outputs.exit_code }}" = "0"
+          test -f artifacts/api-server/dist/index.mjs
+          test -f artifacts/examtree/dist/public/index.html
+          test -f artifacts/examtree/dist/public/admin/index.html
+
+      - name: Upload source Wave-03 proof and review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: men-002-cp008-source-gap-wave-03
+          path: |
+            artifacts/api-server/dist/quant-v4/men-cp007-approved-regression.log
+            artifacts/api-server/dist/quant-v4/men-cp008-foundation-regression.log
+            artifacts/api-server/dist/quant-v4/men-cp008-gap-wave-01-regression.log
+            artifacts/api-server/dist/quant-v4/men-cp008-gap-wave-02-regression.log
+            artifacts/api-server/dist/quant-v4/men-cp008-source-gap-wave-03.log
+            artifacts/api-server/dist/quant-v4/men-cp008-directional-merge-review.log
+            artifacts/api-server/dist/quant-v4/men-cp008-chapter-compression.log
+            artifacts/api-server/dist/quant-v4/men-cp008-candidate-registry.log
+            artifacts/api-server/dist/quant-v4/men-cp008-no-gap-matrix.log
+            artifacts/api-server/dist/quant-v4/men-cp008-freeze-readiness.log
+            artifacts/api-server/dist/quant-v4/men-cp008-source-gap-wave-03-render-build.log
+            artifacts/api-server/dist/quant-v4/men-002-cp008-source-gap-wave-03-review/**
+          if-no-files-found: error
+          retention-days: 14

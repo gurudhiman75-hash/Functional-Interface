@@ -35,12 +35,30 @@ export const NUMBER_SYSTEM_COMPLETED_CHECKPOINT_ALLOCATIONS = [
     testEligible: false,
     publiclyPublishable: false,
   },
+  {
+    cpId: "NUM-CP-005",
+    packageId: "NUM-001",
+    title: "Divisors and Divisor Functions",
+    firstQlNumber: 46,
+    lastQlNumber: 69,
+    permanentQlCount: 24,
+    frozenLearnerTemplateCount: 24,
+    frozenSolveModeCount: 24,
+    authorityRoute: "NUM-001/NUM-CP-005/permanent/allocation.ts",
+    maturity: "ENGLISH_IMPLEMENTATION_FROZEN",
+    language: "en",
+    active: false,
+    questionStudioDiscoverable: false,
+    questionBankWritable: false,
+    testEligible: false,
+    publiclyPublishable: false,
+  },
 ] as const;
 
 export const NUMBER_SYSTEM_CURRENT_PERMANENT_QL_RANGE = {
   first: 1,
-  last: 45,
-  count: 45,
+  last: 69,
+  count: 69,
 } as const;
 
-export const NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT = 46 as const;
+export const NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT = 70 as const;

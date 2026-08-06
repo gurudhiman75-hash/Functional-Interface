@@ -1,0 +1,76 @@
+name: Validate MAL-CP-002 complete English release
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/foundation/cp002-**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/MAL-CP-002/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp002-**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-adapter.ts
+      - artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts
+      - artifacts/examtree/src/components/QuestionRichText.tsx
+      - artifacts/examtree/src/components/math/RatioAdjustmentDiagram.tsx
+      - .github/workflows/mal-cp002-complete-english.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-mal-cp002-complete-english-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-mal-cp002-complete-english:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle CP-002 freeze audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp002-freeze-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp002-freeze-audit.mjs
+      - name: Run CP-002 freeze audit
+        shell: bash
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/mal-001-cp002-freeze-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-cp002-freeze-audit.log
+      - name: Bundle complete CP-002 English audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp002-complete-english-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp002-complete-english-audit.mjs
+      - name: Run complete CP-002 English audit
+        shell: bash
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/mal-001-cp002-complete-english-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-cp002-complete-english-audit.log
+      - name: Upload complete CP-002 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mal-cp002-complete-english-evidence
+          path: |
+            artifacts/api-server/dist/quant-v4/mal-001-cp002-freeze-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp002-complete-english-audit.log
+            artifacts/api-server/dist/quant-v4/mal-cp002-complete-english-review.json
+            artifacts/api-server/dist/quant-v4/mal-cp002-complete-english-review.md
+          if-no-files-found: error
+          retention-days: 14

@@ -1,4 +1,5 @@
 import { PNL_001_CANONICAL_REVIEW_LIBRARY } from "./question-studio-review.library";
+import { buildPnl001LocalizedReviewSurface } from "./question-studio-multilingual-review-surface";
 
 export const PNL_001_ARCHETYPE_ID = "PNL-001" as const;
 export const PNL_001_CP_IDS = [
@@ -9,7 +10,7 @@ export const PNL_001_CP_IDS = [
   "PNL-CP-005",
   "PNL-CP-006",
 ] as const;
-export const PNL_001_LANGUAGES = ["en"] as const;
+export const PNL_001_LANGUAGES = ["en", "hi", "pa"] as const;
 
 export type Pnl001CanonicalProblemId = (typeof PNL_001_CP_IDS)[number];
 export type Pnl001Language = (typeof PNL_001_LANGUAGES)[number];
@@ -22,6 +23,22 @@ export type Pnl001ReviewSafety = Readonly<{
   publiclyPublishable: false;
   runtimeMode: "CANONICAL_REVIEW";
 }>;
+
+export type Pnl001CanonicalReleasePolicy = Readonly<{
+  reviewStatus: "APPROVED_EDITORIAL_CANONICAL";
+  questionBankStatus: "WRITABLE";
+  testEligibility: "ELIGIBLE";
+  publiclyPublishable: true;
+  runtimeMode: "CANONICAL_REVIEW";
+}>;
+
+export const PNL_001_CANONICAL_RELEASE_POLICY = {
+  reviewStatus: "APPROVED_EDITORIAL_CANONICAL",
+  questionBankStatus: "WRITABLE",
+  testEligibility: "ELIGIBLE",
+  publiclyPublishable: true,
+  runtimeMode: "CANONICAL_REVIEW",
+} as const satisfies Pnl001CanonicalReleasePolicy;
 
 export type Pnl001ReviewEntry = Readonly<{
   qlId: string;
@@ -42,7 +59,7 @@ type Pnl001ReviewLibrary = Readonly<{
   schemaVersion: 1;
   archetypeId: typeof PNL_001_ARCHETYPE_ID;
   title: "Profit & Loss";
-  language: Pnl001Language;
+  language: "en";
   runtimeMode: "CANONICAL_REVIEW";
   entryCount: number;
   entries: Readonly<Record<string, Pnl001ReviewEntry>>;
@@ -71,14 +88,12 @@ function selectReviewEntry(
   cpId: Pnl001CanonicalProblemId,
   input: Pnl001ReviewPipelineInput,
 ) {
-  if (input.language && input.language !== "en") {
-    throw new Error("PNL-001 canonical review runtime currently supports English only.");
-  }
-
   if (input.questionLanguageId) {
     const forced = reviewLibrary.entries[input.questionLanguageId];
     if (!forced) {
-      throw new Error(`Unknown PNL-001 question-language ID: ${input.questionLanguageId}`);
+      throw new Error(
+        `Unknown PNL-001 question-language ID: ${input.questionLanguageId}`,
+      );
     }
     if (forced.cpId !== cpId) {
       throw new Error(
@@ -96,7 +111,9 @@ function selectReviewEntry(
   if (!eligible.length) {
     throw new Error(
       `No PNL-001 canonical review entries match ${cpId}` +
-        (input.difficultyBand ? ` at ${input.difficultyBand} difficulty.` : "."),
+        (input.difficultyBand
+          ? ` at ${input.difficultyBand} difficulty.`
+          : "."),
     );
   }
 
@@ -123,107 +140,146 @@ export function runPnl001ReviewPipeline(
   if (!PNL_001_CP_IDS.includes(cpId)) {
     throw new Error(`Unknown PNL-001 canonical problem: ${cpId}`);
   }
+  const language = input.language ?? "en";
   const entry = selectReviewEntry(cpId, input);
+  const surface = buildPnl001LocalizedReviewSurface(entry.qlId, language);
   const seed = input.seed ?? `${entry.qlId}:canonical-review`;
-  const explanationId = `${entry.qlId}-EXPLANATION-V2`;
+  const explanationId =
+    language === "en"
+      ? `${entry.qlId}-EXPLANATION-V2`
+      : `${entry.qlId}-EXPLANATION-WAVE03-${language.toUpperCase()}`;
+  const questionId =
+    language === "en"
+      ? `${entry.qlId}:canonical-review`
+      : `${entry.qlId}:canonical-review:${language}`;
   const validationChecks = [
     {
       name: "canonical-review-source",
       passed: entry.safety.runtimeMode === "CANONICAL_REVIEW",
-      message: "Question is sourced from the approved canonical review library.",
+      message:
+        "Question is sourced from the approved canonical review authority.",
     },
+    ...surface.validation.checks,
     {
       name: "four-unique-options",
       passed:
-        entry.options.length === 4 &&
-        new Set(entry.options).size === 4 &&
-        entry.options[entry.correctIndex] === entry.answer,
-      message: "Question has four unique options and one reviewed keyed answer.",
+        surface.options.length === 4 &&
+        new Set(surface.options).size === 4 &&
+        surface.options[surface.correctIndex] === surface.answer,
+      message:
+        "Question has four unique options and one reviewed keyed answer.",
     },
     {
-      name: "question-bank-safety",
+      name: "canonical-source-freeze",
       passed:
         entry.safety.questionBankStatus === "NOT_STORED" &&
         entry.safety.testEligibility === "INELIGIBLE" &&
         entry.safety.publiclyPublishable === false,
-      message: "Canonical review output is not eligible for Question Bank, tests or publication.",
+      message: "The frozen source library remains immutable review provenance.",
+    },
+    {
+      name: "canonical-production-release-policy",
+      passed:
+        PNL_001_CANONICAL_RELEASE_POLICY.questionBankStatus === "WRITABLE" &&
+        PNL_001_CANONICAL_RELEASE_POLICY.testEligibility === "ELIGIBLE" &&
+        PNL_001_CANONICAL_RELEASE_POLICY.publiclyPublishable === true,
+      message:
+        "Approved canonical output is eligible for Question Bank, tests and publication.",
     },
   ];
   const validation = {
     valid: validationChecks.every((check) => check.passed),
     checks: validationChecks,
   };
+  if (!validation.valid) {
+    throw new Error(
+      `${entry.qlId} ${language}: canonical review package validation failed: ${validationChecks
+        .filter((check) => !check.passed)
+        .map((check) => check.message)
+        .join(" | ")}`,
+    );
+  }
 
+  const source =
+    language === "en"
+      ? "PNL-001 Editorial V2 canonical review"
+      : "PNL-001 Wave 03 multilingual canonical review";
   return {
     archetypeId: PNL_001_ARCHETYPE_ID,
     canonicalProblemId: cpId,
-    questionId: `${entry.qlId}:canonical-review`,
+    questionId,
     questionLanguageId: entry.qlId,
     explanationId,
-    language: "en" as const,
+    language,
     difficultyBand: entry.difficulty,
-    stem: entry.stem,
-    answer: entry.answer,
-    options: [...entry.options],
-    correctIndex: entry.correctIndex,
+    stem: surface.stem,
+    answer: surface.answer,
+    options: [...surface.options],
+    correctIndex: surface.correctIndex,
     parameters: {
       archetypeId: PNL_001_ARCHETYPE_ID,
       canonicalProblemId: cpId,
       questionLanguageId: entry.qlId,
       explanationId,
-      language: "en" as const,
+      language,
       difficultyBand: entry.difficulty,
       taskKind: entry.solveMode,
       answerType: "TEXT",
       representation: entry.representation,
       contextFamily: entry.contextFamily,
       seed,
-      runtimeMode: entry.safety.runtimeMode,
-      reviewStatus: entry.safety.reviewStatus,
-      questionBankStatus: entry.safety.questionBankStatus,
-      testEligibility: entry.safety.testEligibility,
-      publiclyPublishable: entry.safety.publiclyPublishable,
+      runtimeMode: PNL_001_CANONICAL_RELEASE_POLICY.runtimeMode,
+      reviewStatus: PNL_001_CANONICAL_RELEASE_POLICY.reviewStatus,
+      questionBankStatus: PNL_001_CANONICAL_RELEASE_POLICY.questionBankStatus,
+      testEligibility: PNL_001_CANONICAL_RELEASE_POLICY.testEligibility,
+      publiclyPublishable: PNL_001_CANONICAL_RELEASE_POLICY.publiclyPublishable,
     },
     solver: {
-      answer: entry.answer,
+      answer: surface.answer,
       numericAnswer: null,
       answerType: "TEXT",
       evidence: {
-        source: "PNL-001 Editorial V2 canonical review",
+        source,
         solveMode: entry.solveMode,
-        reviewedCorrectIndex: entry.correctIndex,
+        reviewedCorrectIndex: surface.correctIndex,
+        language,
       },
       mathJax: {},
     },
     reasoningGraph: {
-      graphId: `${entry.qlId}-canonical-review-graph`,
+      graphId: `${entry.qlId}-canonical-review-${language}-graph`,
       nodes: [
         { id: "solve-mode", label: "Solve mode", value: entry.solveMode },
-        { id: "answer", label: "Reviewed answer", value: entry.answer },
-        { id: "safety", label: "Runtime status", value: entry.safety.runtimeMode },
+        { id: "answer", label: "Reviewed answer", value: surface.answer },
+        {
+          id: "safety",
+          label: "Runtime status",
+          value: PNL_001_CANONICAL_RELEASE_POLICY.runtimeMode,
+        },
       ],
     },
     explanation: {
       explanationId,
-      lines: entry.explanation.split(/\n{2,}/),
+      lines: surface.explanation.split(/\n{2,}/),
     },
     traceability: {
-      questionId: `${entry.qlId}:canonical-review`,
+      questionId,
       canonicalProblemId: cpId,
       questionLanguageId: entry.qlId,
       explanationId,
+      language,
       difficultyBand: entry.difficulty,
       taskKind: entry.solveMode,
       answerType: "TEXT",
       representation: entry.representation,
       contextFamily: entry.contextFamily,
       generationMode: "CANONICAL_REVIEW",
-      source: "PNL-001 Editorial V2",
+      source,
       seed,
-      reviewStatus: entry.safety.reviewStatus,
-      questionBankStatus: entry.safety.questionBankStatus,
-      testEligibility: entry.safety.testEligibility,
-      publiclyPublishable: entry.safety.publiclyPublishable,
+      reviewStatus: PNL_001_CANONICAL_RELEASE_POLICY.reviewStatus,
+      questionBankStatus: PNL_001_CANONICAL_RELEASE_POLICY.questionBankStatus,
+      testEligibility: PNL_001_CANONICAL_RELEASE_POLICY.testEligibility,
+      publiclyPublishable: PNL_001_CANONICAL_RELEASE_POLICY.publiclyPublishable,
     },
     validation,
     mathJax: {},

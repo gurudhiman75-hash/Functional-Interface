@@ -1,0 +1,61 @@
+name: Validate CLS-001 CP-008 Mixed-Token Ownership Closure
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-008/**
+      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/README.md
+      - .github/workflows/cls-001-cp008-ownership.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate-mixed-token-ownership:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle CP-008 ownership audit and exporter
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-008
+          OUT=dist/reasoning-v1/cls-001/cp008
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/ownership.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/ownership.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-ownership-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-ownership-review.mjs"
+
+      - name: Run CP-008 zero-allocation ownership audit
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/cls-001/cp008/ownership.test.mjs
+
+      - name: Generate CP-008 ownership review
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/cls-001/cp008/export-ownership-review.mjs
+
+      - name: Upload CP-008 ownership review
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp008-ownership-review
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp008-ownership-review
+          if-no-files-found: error

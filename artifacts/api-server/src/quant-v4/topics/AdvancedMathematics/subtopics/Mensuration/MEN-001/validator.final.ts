@@ -1,3 +1,5 @@
+import { auditMen001FiveElementBlueprint } from "./five-element-editorial";
+import { getMen001QuestionEntry } from "./library";
 import { getFinalMen001NaturalExplanationProfile } from "./natural-explanation-profile-final";
 import { toMen001LatexEquation } from "./structured-math-latex";
 import { validateMen001QuestionPackage as validateAllMen001QuestionPackage } from "./validator.all";
@@ -44,6 +46,7 @@ export function validateMen001QuestionPackage(
   const profile = getFinalMen001NaturalExplanationProfile(
     question.questionLanguageId,
   );
+  const entry = getMen001QuestionEntry(question.questionLanguageId);
   const explanationLines = question.explanation.lines;
   const keyRule = question.explanation.sections.find(
     (section) => section.kind === "KEY_RULE",
@@ -103,6 +106,13 @@ export function validateMen001QuestionPackage(
       return !genericPaddingPattern.test(body) && !ROBOTIC_EXPLANATION_PATTERN.test(body);
     }),
     "Explanations must not use robotic formula labels, taxonomy prose or generic padding.",
+  ));
+
+  checks.push(...auditMen001FiveElementBlueprint(
+    question.explanation.sections,
+    question.parameters,
+    question.solver,
+    entry.distractorStrategyIds,
   ));
 
   if ([

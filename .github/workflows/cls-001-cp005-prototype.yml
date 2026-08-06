@@ -1,0 +1,134 @@
+name: Validate CLS-001 CP-005 Number-Tuple Discovery
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-005/**
+      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/README.md
+      - .github/workflows/cls-001-cp005-prototype.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate-number-tuple-classification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle CLS-CP-005 audits
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-005
+          OUT=dist/reasoning-v1/cls-001/cp005
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/prototype.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/prototype.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/editorial.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/editorial.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/simple-option-explanation.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/simple-option-explanation.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/source-gap.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/source-gap.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/wave2.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/wave2.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/wave2-digit-product.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/wave2-digit-product.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/wave2-digit-product-equivalent.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/wave2-digit-product-equivalent.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp005-english-runtime.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp005-english-runtime.test.mjs"
+
+      - name: Run CLS-CP-005 audits
+        id: cp005_audit
+        run: |
+          set +e
+          OUT=artifacts/api-server/dist/reasoning-v1/cls-001/cp005
+          DIAG=$OUT/diagnostics
+          mkdir -p "$DIAG"
+          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp005/prototype.test.mjs") >"$DIAG/prototype-audit.log" 2>&1
+          PROTOTYPE_STATUS=$?
+          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp005/editorial.test.mjs") >"$DIAG/editorial-audit.log" 2>&1
+          EDITORIAL_STATUS=$?
+          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp005/simple-option-explanation.test.mjs") >"$DIAG/simple-option-explanation-audit.log" 2>&1
+          SIMPLE_EXPLANATION_STATUS=$?
+          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp005/source-gap.test.mjs") >"$DIAG/source-gap-audit.log" 2>&1
+          SOURCE_GAP_STATUS=$?
+          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp005/wave2.test.mjs") >"$DIAG/wave2-audit.log" 2>&1
+          WAVE2_STATUS=$?
+          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp005/wave2-digit-product.test.mjs") >"$DIAG/wave2-digit-product-audit.log" 2>&1
+          DIGIT_PRODUCT_STATUS=$?
+          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp005/wave2-digit-product-equivalent.test.mjs") >"$DIAG/wave2-digit-product-equivalent-audit.log" 2>&1
+          DIGIT_PRODUCT_EQUIVALENT_STATUS=$?
+          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp005/cp005-english-runtime.test.mjs") >"$DIAG/cp005-english-runtime-audit.log" 2>&1
+          PERMANENT_ENGLISH_STATUS=$?
+          if [ "$PROTOTYPE_STATUS" -ne 0 ] || [ "$EDITORIAL_STATUS" -ne 0 ] || [ "$SIMPLE_EXPLANATION_STATUS" -ne 0 ] || [ "$SOURCE_GAP_STATUS" -ne 0 ] || [ "$WAVE2_STATUS" -ne 0 ] || [ "$DIGIT_PRODUCT_STATUS" -ne 0 ] || [ "$DIGIT_PRODUCT_EQUIVALENT_STATUS" -ne 0 ] || [ "$PERMANENT_ENGLISH_STATUS" -ne 0 ]; then
+            STATUS=1
+          else
+            STATUS=0
+          fi
+          echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload CLS-CP-005 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp005-audit-diagnostics
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics
+          if-no-files-found: error
+
+      - name: Enforce CLS-CP-005 audits
+        if: steps.cp005_audit.outputs.exit_code != '0'
+        run: |
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/prototype-audit.log
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/editorial-audit.log
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/simple-option-explanation-audit.log
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/source-gap-audit.log
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/wave2-audit.log
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/wave2-digit-product-audit.log
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/wave2-digit-product-equivalent-audit.log
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp005/diagnostics/cp005-english-runtime-audit.log
+          exit 1
+
+      - name: Generate CLS-CP-005 reviews
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-005
+          OUT=dist/reasoning-v1/cls-001/cp005
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-review.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-wave2-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-wave2-review.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-wave2-digit-product-review.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-wave2-digit-product-review.mjs"
+          (cd artifacts/api-server && node "$OUT/export-review.mjs")
+          (cd artifacts/api-server && node "$OUT/export-wave2-review.mjs")
+          (cd artifacts/api-server && node "$OUT/export-wave2-digit-product-review.mjs")
+
+      - name: Upload CLS-CP-005 Wave 1 review
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp005-number-tuple-discovery-review
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp005-review
+          if-no-files-found: error
+
+      - name: Upload CLS-CP-005 Wave 2 review
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp005-source-gap-wave2-review
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp005-wave2-review
+          if-no-files-found: error
+
+      - name: Upload CLS-CP-005 digit-product supplement
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp005-wave2-digit-product-review
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp005-wave2-digit-product-review
+          if-no-files-found: error

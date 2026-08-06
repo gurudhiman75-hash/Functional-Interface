@@ -10,18 +10,24 @@ import {
   isAlligationDiagramData,
   type AlligationDiagramData,
 } from "@/components/math/AlligationDiagram";
+import {
+  isRatioAdjustmentDiagramData,
+  RatioAdjustmentDiagram,
+  type RatioAdjustmentDiagramData,
+} from "@/components/math/RatioAdjustmentDiagram";
 import { cn } from "@/lib/utils";
 
-const STANDALONE_IMAGE_URL = /^\s*(https?:\/\/\S+\.(?:png|jpe?g|gif|webp|svg)(?:\?\S*)?)\s*$/i;
-const ALLIGATION_DIRECTIVE_RE =
-  /\[\[EXAMTREE_ALLIGATION_SVG_V1:([A-Za-z0-9_-]+)\]\]/g;
-const MAX_ALLIGATION_DIRECTIVE_LENGTH = 32_768;
+const STANDALONE_IMAGE_URL =
+  /^\s*(https?:\/\/\S+\.(?:png|jpe?g|gif|webp|svg)(?:\?\S*)?)\s*$/i;
+const STRUCTURED_DIAGRAM_DIRECTIVE_RE =
+  /\[\[(EXAMTREE_ALLIGATION_SVG_V1|EXAMTREE_RATIO_ADJUSTMENT_SVG_V1):([A-Za-z0-9_-]+)\]\]/g;
+const MAX_STRUCTURED_DIRECTIVE_LENGTH = 32_768;
 
 export function safeImgUrl(src: string): string | null {
   try {
-    const u = new URL(src.trim());
-    if (u.protocol !== "http:" && u.protocol !== "https:") return null;
-    return u.href;
+    const url = new URL(src.trim());
+    if (url.protocol !== "http:" && url.protocol !== "https:") return null;
+    return url.href;
   } catch {
     return null;
   }
@@ -31,7 +37,8 @@ type Piece =
   | { kind: "text"; value: string }
   | { kind: "img"; src: string; alt: string }
   | { kind: "html"; value: string }
-  | { kind: "alligation"; value: AlligationDiagramData };
+  | { kind: "alligation"; value: AlligationDiagramData }
+  | { kind: "ratio-adjustment"; value: RatioAdjustmentDiagramData };
 
 type MathToken =
   | { kind: "text"; value: string }
@@ -50,14 +57,12 @@ function unwrapGurmukhiTextMath(value: string) {
     .replace(
       /\$\\text\{([^}]*)\}\$/g,
       (_match, inner: string) =>
-        containsGurmukhi(inner)
-          ? inner
-          : _match,
+        containsGurmukhi(inner) ? inner : _match,
     );
 }
 
 function decodeBase64Url(encoded: string): string | null {
-  if (!encoded || encoded.length > MAX_ALLIGATION_DIRECTIVE_LENGTH) {
+  if (!encoded || encoded.length > MAX_STRUCTURED_DIRECTIVE_LENGTH) {
     return null;
   }
   try {
@@ -76,12 +81,27 @@ function decodeBase64Url(encoded: string): string | null {
   }
 }
 
-function parseAlligationDirective(encoded: string): AlligationDiagramData | null {
+function parseStructuredDiagram(
+  directive: string,
+  encoded: string,
+): Piece | null {
   const decoded = decodeBase64Url(encoded);
   if (!decoded) return null;
   try {
     const value: unknown = JSON.parse(decoded);
-    return isAlligationDiagramData(value) ? value : null;
+    if (
+      directive === "EXAMTREE_ALLIGATION_SVG_V1" &&
+      isAlligationDiagramData(value)
+    ) {
+      return { kind: "alligation", value };
+    }
+    if (
+      directive === "EXAMTREE_RATIO_ADJUSTMENT_SVG_V1" &&
+      isRatioAdjustmentDiagramData(value)
+    ) {
+      return { kind: "ratio-adjustment", value };
+    }
+    return null;
   } catch {
     return null;
   }
@@ -89,37 +109,34 @@ function parseAlligationDirective(encoded: string): AlligationDiagramData | null
 
 function splitTextAndStandaloneUrls(text: string): Piece[] {
   const lines = text.split("\n");
-  const out: Piece[] = [];
-  const buf: string[] = [];
+  const output: Piece[] = [];
+  const buffer: string[] = [];
 
   const flushText = () => {
-    if (buf.length) {
-      const value = buf.join("\n");
-      if (value.trim()) out.push({ kind: "text", value });
-      buf.length = 0;
-    }
+    if (buffer.length === 0) return;
+    const value = buffer.join("\n");
+    if (value.trim()) output.push({ kind: "text", value });
+    buffer.length = 0;
   };
 
   for (const line of lines) {
     const match = line.match(STANDALONE_IMAGE_URL);
-    if (match) {
-      flushText();
-      const src = safeImgUrl(match[1]);
-      if (src) out.push({ kind: "img", src, alt: "" });
-    } else {
-      buf.push(line);
+    if (!match) {
+      buffer.push(line);
+      continue;
     }
+    flushText();
+    const src = safeImgUrl(match[1]);
+    if (src) output.push({ kind: "img", src, alt: "" });
   }
   flushText();
-  return out;
+  return output;
 }
 
 function splitMarkdownImages(raw: string): Piece[] {
   const pattern = /!\[([^\]]*)\]\((https?:[^)\s]+)\)/g;
   const matches = [...raw.matchAll(pattern)];
-  if (matches.length === 0) {
-    return splitTextAndStandaloneUrls(raw);
-  }
+  if (matches.length === 0) return splitTextAndStandaloneUrls(raw);
 
   const pieces: Piece[] = [];
   let last = 0;
@@ -172,17 +189,15 @@ function tryHtmlFragment(raw: string): Piece[] | null {
       "loading",
     ],
   });
-  if (!clean.trim()) return null;
-  return [{ kind: "html", value: clean }];
+  return clean.trim() ? [{ kind: "html", value: clean }] : null;
 }
 
 function splitStandardPieces(raw: string): Piece[] {
-  const html = tryHtmlFragment(raw);
-  return html ?? splitMarkdownImages(raw);
+  return tryHtmlFragment(raw) ?? splitMarkdownImages(raw);
 }
 
-function splitAlligationDirectives(raw: string): Piece[] {
-  const matches = [...raw.matchAll(ALLIGATION_DIRECTIVE_RE)];
+function splitStructuredDiagramDirectives(raw: string): Piece[] {
+  const matches = [...raw.matchAll(STRUCTURED_DIAGRAM_DIRECTIVE_RE)];
   if (matches.length === 0) return splitStandardPieces(raw);
 
   const pieces: Piece[] = [];
@@ -192,9 +207,12 @@ function splitAlligationDirectives(raw: string): Piece[] {
     if (index > last) {
       pieces.push(...splitStandardPieces(raw.slice(last, index)));
     }
-    const diagram = parseAlligationDirective(match[1] ?? "");
-    if (diagram) {
-      pieces.push({ kind: "alligation", value: diagram });
+    const parsed = parseStructuredDiagram(
+      match[1] ?? "",
+      match[2] ?? "",
+    );
+    if (parsed) {
+      pieces.push(parsed);
     } else {
       pieces.push(...splitStandardPieces(match[0] ?? ""));
     }
@@ -222,29 +240,25 @@ function tokenizeMath(raw: string): MathToken[] {
         value: normalizedRaw.slice(lastIndex, matchIndex),
       });
     }
-
     if (match[1] !== undefined || match[3] !== undefined) {
       tokens.push({
         kind: "display-math",
         value: (match[1] ?? match[3] ?? "").trim(),
       });
-    } else if (match[2] !== undefined || match[4] !== undefined) {
+    } else {
       tokens.push({
         kind: "inline-math",
         value: (match[2] ?? match[4] ?? "").trim(),
       });
     }
-
     lastIndex = matchIndex + match[0].length;
   }
-
   if (lastIndex < normalizedRaw.length) {
     tokens.push({
       kind: "text",
       value: normalizedRaw.slice(lastIndex),
     });
   }
-
   return tokens;
 }
 
@@ -257,23 +271,15 @@ const LOGIC_ICON_MAP: Record<string, string> = {
   Wife: "♀",
 };
 
-function renderTextWithLogicIcons(
-  value: string,
-  keyPrefix: string,
-) {
-  const pattern =
-    /\b(Father|Mother|Brother|Sister|Husband|Wife)\b/g;
+function renderTextWithLogicIcons(value: string, keyPrefix: string) {
+  const pattern = /\b(Father|Mother|Brother|Sister|Husband|Wife)\b/g;
   const parts: ReactNode[] = [];
   let lastIndex = 0;
 
   for (const match of value.matchAll(pattern)) {
     const index = match.index ?? 0;
     const label = match[0]!;
-
-    if (index > lastIndex) {
-      parts.push(value.slice(lastIndex, index));
-    }
-
+    if (index > lastIndex) parts.push(value.slice(lastIndex, index));
     parts.push(
       <span
         key={`${keyPrefix}-${index}`}
@@ -287,21 +293,10 @@ function renderTextWithLogicIcons(
     parts.push(label);
     lastIndex = index + label.length;
   }
-
-  if (lastIndex < value.length) {
-    parts.push(value.slice(lastIndex));
-  }
-
+  if (lastIndex < value.length) parts.push(value.slice(lastIndex));
   return parts.length ? parts : value;
 }
 
-/**
- * Tokenize math on the full string first so display blocks may span lines:
- *   \[
- *   N=10\times 3+5
- *   \]
- * Splitting on "\n" before tokenizing breaks those blocks (Quant V2 explanations).
- */
 function renderMathContent(
   content: string,
   blockIndex: number,
@@ -321,18 +316,15 @@ function renderMathContent(
   let lineParts: ReactNode[] = [];
   let lineIndex = 0;
   let lineText = "";
-
   const lineUsesPunjabi = () =>
     lang === "pa" || containsGurmukhi(lineText);
 
   const flushLine = () => {
     const key = `${blockIndex}-line-${lineIndex}`;
-    if (lineParts.length === 0) {
-      rows.push(
-        <div key={key} className="min-h-[1.25rem]" />,
-      );
-    } else {
-      rows.push(
+    rows.push(
+      lineParts.length === 0 ? (
+        <div key={key} className="min-h-[1.25rem]" />
+      ) : (
         <div
           key={key}
           className={cn(
@@ -342,9 +334,9 @@ function renderMathContent(
           lang={lineUsesPunjabi() ? "pa" : undefined}
         >
           {lineParts}
-        </div>,
-      );
-    }
+        </div>
+      ),
+    );
     lineParts = [];
     lineText = "";
     lineIndex += 1;
@@ -352,33 +344,23 @@ function renderMathContent(
 
   const appendText = (text: string, keyPrefix: string) => {
     const segments = text.split("\n");
-    for (
-      let segmentIndex = 0;
-      segmentIndex < segments.length;
-      segmentIndex += 1
-    ) {
-      if (segmentIndex > 0) {
-        flushLine();
-      }
-      const segment = segments[segmentIndex] ?? "";
-      if (!segment) continue;
+    segments.forEach((segment, segmentIndex) => {
+      if (segmentIndex > 0) flushLine();
+      if (!segment) return;
       lineText += segment;
       lineParts.push(
         <Fragment key={`${keyPrefix}-${segmentIndex}`}>
           {renderTextWithLogicIcons(segment, keyPrefix)}
         </Fragment>,
       );
-    }
+    });
   };
 
-  let tokenIndex = 0;
-  for (const token of tokens) {
+  tokens.forEach((token, tokenIndex) => {
     if (token.kind === "text") {
       appendText(token.value, `text-${blockIndex}-${tokenIndex}`);
-      tokenIndex += 1;
-      continue;
+      return;
     }
-
     if (token.kind === "display-math") {
       flushLine();
       rows.push(
@@ -390,10 +372,8 @@ function renderMathContent(
           {`\\[${token.value}\\]`}
         </MathJax>,
       );
-      tokenIndex += 1;
-      continue;
+      return;
     }
-
     lineText += token.value;
     lineParts.push(
       <MathJax
@@ -404,20 +384,16 @@ function renderMathContent(
         {`\\(${token.value}\\)`}
       </MathJax>,
     );
-    tokenIndex += 1;
-  }
+  });
 
   flushLine();
   return rows;
 }
 
 /**
- * Renders question, option or explanation text with:
- * - TeX via `$...$`, `$$...$$`, `\(...\)`, `\[...\]` (MathJax)
- * - Markdown images `![alt](https://...)`
- * - A line that is only a direct image URL (https://...png|jpg|...)
- * - Optional HTML fragment starting with `<` (sanitized; img and basic formatting only)
- * - ExamTree structured alligation directives rendered as lightweight inline SVG
+ * Renders question, option or explanation text with MathJax, safe images,
+ * sanitized basic HTML, logic icons, and versioned ExamTree inline-SVG
+ * directives for alligation and ratio adjustment.
  */
 export function QuestionRichText({
   content,
@@ -427,9 +403,7 @@ export function QuestionRichText({
 }: {
   content: string | number | null | undefined;
   className?: string;
-  /** Slightly tighter spacing when used inside option rows */
   inline?: boolean;
-  /** Language of the content — used to apply correct font/whitespace for Gurmukhi */
   lang?: string;
 }) {
   const normalizedContent =
@@ -440,7 +414,7 @@ export function QuestionRichText({
         : String(content);
 
   const pieces = useMemo(
-    () => splitAlligationDirectives(normalizedContent),
+    () => splitStructuredDiagramDirectives(normalizedContent),
     [normalizedContent],
   );
 
@@ -463,6 +437,15 @@ export function QuestionRichText({
             />
           );
         }
+        if (piece.kind === "ratio-adjustment") {
+          return (
+            <RatioAdjustmentDiagram
+              key={index}
+              diagram={piece.value}
+              className="my-2"
+            />
+          );
+        }
         if (piece.kind === "img") {
           return (
             <img
@@ -476,22 +459,15 @@ export function QuestionRichText({
           );
         }
         if (piece.kind === "html") {
-          if (lang === "pa" || containsGurmukhi(piece.value)) {
-            return (
-              <MathJax key={index} dynamic hideUntilTypeset="first">
-                <div
-                  className="math-only prose prose-sm max-w-none punjabi-content text-foreground dark:prose-invert [&_img]:my-3 [&_img]:max-h-72 [&_img]:rounded-lg [&_img]:border [&_img]:border-border [&_p]:my-2"
-                  lang="pa"
-                  dangerouslySetInnerHTML={{ __html: piece.value }}
-                />
-              </MathJax>
-            );
-          }
-
+          const punjabi = lang === "pa" || containsGurmukhi(piece.value);
           return (
             <MathJax key={index} dynamic hideUntilTypeset="first">
               <div
-                className="math-only prose prose-sm max-w-none text-foreground dark:prose-invert [&_img]:my-3 [&_img]:max-h-72 [&_img]:rounded-lg [&_img]:border [&_img]:border-border [&_p]:my-2"
+                className={cn(
+                  "math-only prose prose-sm max-w-none text-foreground dark:prose-invert [&_img]:my-3 [&_img]:max-h-72 [&_img]:rounded-lg [&_img]:border [&_img]:border-border [&_p]:my-2",
+                  punjabi && "punjabi-content",
+                )}
+                lang={punjabi ? "pa" : undefined}
                 dangerouslySetInnerHTML={{ __html: piece.value }}
               />
             </MathJax>

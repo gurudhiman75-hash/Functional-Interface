@@ -1,0 +1,80 @@
+name: Validate PNL Standalone Multilingual Dynamic
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/generation-engine.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
+      - ".github/workflows/validate-pnl-standalone-multilingual-dynamic.yml"
+  push:
+    branches:
+      - feat/pnl-001-standalone-multilingual-dynamic-completion
+    paths:
+      - "artifacts/api-server/src/quant-v4/generation-engine.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
+      - ".github/workflows/validate-pnl-standalone-multilingual-dynamic.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-standalone-multilingual-dynamic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle dynamic native surface inventory
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-dynamic-native-surface-inventory.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-dynamic-native-surface-inventory.mjs \
+            2>&1 | tee pnl-standalone-multilingual-dynamic.log
+
+      - name: Run 4,464-package surface inventory
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-dynamic-native-surface-inventory.mjs \
+            2>&1 | tee -a pnl-standalone-multilingual-dynamic.log
+
+      - name: Bundle exhaustive multilingual completeness proof
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-standalone-multilingual-dynamic-completeness.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-standalone-multilingual-dynamic-completeness.test.mjs \
+            2>&1 | tee -a pnl-standalone-multilingual-dynamic.log
+
+      - name: Run 13,392-package multilingual proof
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-standalone-multilingual-dynamic-completeness.test.mjs \
+            2>&1 | tee -a pnl-standalone-multilingual-dynamic.log
+
+      - name: Upload multilingual dynamic evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-standalone-multilingual-dynamic
+          path: pnl-standalone-multilingual-dynamic.log
+          if-no-files-found: error
+          retention-days: 14

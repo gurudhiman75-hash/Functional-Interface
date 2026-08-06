@@ -1,0 +1,101 @@
+name: Validate MEN-CP-008 clean prototype foundation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/foundation/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp008-foundation/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-008/**
+      - .github/workflows/men-002-cp008-clean-foundation.yml
+      - build-api.sh
+      - package.json
+      - pnpm-lock.yaml
+      - pnpm-workspace.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-men-002-cp008-clean-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp008-foundation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP-007 regression and CP-008 foundation
+        shell: bash
+        run: |
+          set -euo pipefail
+          base=src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002
+          out=dist/quant-v4
+          pnpm --dir artifacts/api-server exec esbuild "$base/MEN-CP-007/approved/english.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp007-approved-regression.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/foundation/exact-pi.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-002-exact-pi.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/cp008-foundation/runtime.test.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-clean-foundation.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/cp008-foundation/review-export.ts" --bundle --platform=node --format=esm --outfile="$out/men-cp008-clean-review-export.mjs"
+
+      - name: Run exact and runtime gates
+        shell: bash
+        run: |
+          set -o pipefail
+          out=artifacts/api-server/dist/quant-v4
+          node "$out/men-cp007-approved-regression.test.mjs" 2>&1 | tee "$out/men-cp007-approved-regression.log"
+          node "$out/men-002-exact-pi.test.mjs" 2>&1 | tee "$out/men-002-exact-pi.log"
+          node "$out/men-cp008-clean-foundation.test.mjs" 2>&1 | tee "$out/men-cp008-clean-foundation.log"
+
+      - name: Generate CP-008 review evidence
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/men-cp008-clean-review-export.mjs
+
+      - name: Run exact Render production build
+        id: render_build
+        shell: bash
+        run: |
+          set +e
+          bash build-api.sh > artifacts/api-server/dist/quant-v4/men-cp008-clean-render-build.log 2>&1
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Enforce Render production build
+        shell: bash
+        run: |
+          cat artifacts/api-server/dist/quant-v4/men-cp008-clean-render-build.log
+          test "${{ steps.render_build.outputs.exit_code }}" = "0"
+          test -f artifacts/api-server/dist/index.mjs
+          test -f artifacts/examtree/dist/public/index.html
+          test -f artifacts/examtree/dist/public/admin/index.html
+
+      - name: Upload clean CP-008 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: men-002-cp008-clean-prototype-foundation
+          path: |
+            artifacts/api-server/dist/quant-v4/men-cp007-approved-regression.log
+            artifacts/api-server/dist/quant-v4/men-002-exact-pi.log
+            artifacts/api-server/dist/quant-v4/men-cp008-clean-foundation.log
+            artifacts/api-server/dist/quant-v4/men-cp008-clean-render-build.log
+            artifacts/api-server/dist/quant-v4/men-002-cp008-foundation-review/**
+          if-no-files-found: error
+          retention-days: 14

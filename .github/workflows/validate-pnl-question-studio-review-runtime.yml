@@ -6,6 +6,7 @@ on:
       - feat/pnl-001-question-studio-review-runtime
       - feat/pnl-001-cp001-question-studio-dynamic-review
       - feat/pnl-001-cp002-question-studio-dynamic-review
+      - feat/pnl-001-standalone-multilingual-dynamic-completion
     paths:
       - "artifacts/api-server/src/quant-v4/generation-engine.ts"
       - "artifacts/api-server/src/quant-v4/generation-engine-core.ts"
@@ -59,7 +60,7 @@ jobs:
           node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-review-runtime.test.mjs \
             2>&1 | tee -a pnl-question-studio-review-runtime.log
 
-      - name: Bundle and run shared routing and safety proof
+      - name: Bundle and run full multilingual routing and safety proof
         run: |
           set -o pipefail
           pnpm --dir artifacts/api-server exec esbuild \
@@ -70,17 +71,6 @@ jobs:
           node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-integration.test.mjs \
             2>&1 | tee -a pnl-question-studio-integration.log
 
-      - name: Bundle and run CP-002 dynamic routing proof
-        run: |
-          set -o pipefail
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-cp002-dynamic-integration.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-cp002-dynamic-integration.test.mjs \
-            2>&1 | tee pnl-question-studio-cp002-dynamic-integration.log
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-cp002-dynamic-integration.test.mjs \
-            2>&1 | tee -a pnl-question-studio-cp002-dynamic-integration.log
-
       - name: Upload runtime proof
         if: always()
         uses: actions/upload-artifact@v4
@@ -89,6 +79,5 @@ jobs:
           path: |
             pnl-question-studio-review-runtime.log
             pnl-question-studio-integration.log
-            pnl-question-studio-cp002-dynamic-integration.log
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 14

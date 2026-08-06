@@ -4,14 +4,27 @@ on:
   push:
     branches:
       - audit/pnl-001-multilingual-editorial-freeze
+      - feat/pnl-001-multilingual-editorial-reconstruction-wave03
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/editorial-content.*.json"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/cp00*-dynamic-runtime.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-multilingual-naturalness-wave02.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-multilingual-reconstruction-wave03.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-reconstruction-wave03.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-wave03-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-wave03-runtime-review.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-multilingual-source-parity.ts"
       - ".github/workflows/validate-pnl-multilingual-editorial-audit.yml"
   pull_request:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/editorial-content.*.json"
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-*/cp00*-dynamic-runtime.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-multilingual-naturalness-wave02.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-multilingual-reconstruction-wave03.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-reconstruction-wave03.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-wave03-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-wave03-runtime-review.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-multilingual-source-parity.ts"
       - ".github/workflows/validate-pnl-multilingual-editorial-audit.yml"
 
 permissions:
@@ -38,13 +51,14 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Prove existing multilingual source contract
+      - name: Prove multilingual runtime and source contracts
         run: |
           root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
           for source in \
             editorial-v2-multilingual-audit.ts \
             editorial-v2-multilingual-render.test.ts \
-            editorial-v2-multilingual-source-parity.ts; do
+            editorial-v2-multilingual-source-parity.ts \
+            pnl-001-multilingual-editorial-reconstruction-wave03.test.ts; do
             name="${source%.ts}"
             pnpm --dir artifacts/api-server exec esbuild \
               "src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/$source" \
@@ -53,39 +67,35 @@ jobs:
             node "$root/.$name.mjs"
           done
 
-      - name: Bundle multilingual editorial corpus audit
+      - name: Build equation-aware Wave 03 review corpus
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-audit.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-wave03-audit.ts \
             --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-editorial-audit.mjs
-
-      - name: Generate 372-row native review corpus
-        run: |
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-editorial-wave03-audit.mjs
           set -o pipefail
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-editorial-audit.mjs \
-            2>&1 | tee pnl-multilingual-editorial-audit.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-editorial-wave03-audit.mjs \
+            2>&1 | tee pnl-multilingual-editorial-wave03-audit.log
 
-      - name: Reject structural blockers
+      - name: Build rendered runtime review corpus
         run: |
-          node - <<'NODE'
-          const fs = require("node:fs");
-          const path = "dist/quant-v4/pnl-001-multilingual-editorial-audit/pnl-001-multilingual-editorial-findings.json";
-          const findings = JSON.parse(fs.readFileSync(path, "utf8"));
-          if (findings.fatalFindings.length) {
-            console.error(JSON.stringify(findings.fatalFindings, null, 2));
-            process.exit(1);
-          }
-          console.log(JSON.stringify({ fatalFindingCount: 0 }, null, 2));
-          NODE
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-multilingual-editorial-wave03-runtime-review.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-editorial-wave03-runtime-review.mjs
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-multilingual-editorial-wave03-runtime-review.mjs \
+            2>&1 | tee pnl-multilingual-editorial-wave03-runtime-review.log
 
       - name: Upload multilingual review corpus
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pnl-001-multilingual-editorial-audit
+          name: pnl-001-multilingual-editorial-wave03-review
           path: |
-            dist/quant-v4/pnl-001-multilingual-editorial-audit
-            pnl-multilingual-editorial-audit.log
+            dist/quant-v4/pnl-001-multilingual-editorial-wave03-audit
+            dist/quant-v4/pnl-001-multilingual-editorial-wave03-runtime-review
+            pnl-multilingual-editorial-wave03-audit.log
+            pnl-multilingual-editorial-wave03-runtime-review.log
           if-no-files-found: error
           retention-days: 14

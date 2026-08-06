@@ -1,14 +1,16 @@
-name: Validate NUM-CP-003 and NUM-CP-004 English editorial hardening
+name: Validate Number System V3 and English Question Studio release
 
 on:
   pull_request:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**"
+      - "artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
       - ".github/workflows/num-001-cp003-cp004-editorial-audit.yml"
   workflow_dispatch:
 
 jobs:
-  validate-number-system-editorial-hardening:
+  validate-number-system-generator-v3:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
@@ -26,28 +28,46 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle combined editorial audit and review exporter
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/editorial/english-editorial-audit.test.ts
-          --bundle --platform=node --format=esm
-          --outfile=dist/quant-v4/num-001-cp003-cp004-english-editorial-audit.mjs
+      - name: Bundle editorial audit and Question Studio release proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/editorial/english-editorial-audit.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/number-system-generator-v3-audit.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/editorial/number-system-question-studio-release-audit.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/number-system-question-studio-release-audit.mjs
 
-      - name: Run combined English editorial audit
+      - name: Run V3 editorial audit
         working-directory: artifacts/api-server
         shell: bash
         run: |
           set -o pipefail
-          node dist/quant-v4/num-001-cp003-cp004-english-editorial-audit.mjs 2>&1 | tee dist/quant-v4/num-001-cp003-cp004-english-editorial-audit.log
+          node dist/quant-v4/number-system-generator-v3-audit.mjs 2>&1 | tee dist/quant-v4/number-system-generator-v3-audit.log
 
-      - name: Upload editorial review evidence
+      - name: Run bounded English Question Studio release audit
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout --signal=TERM --kill-after=30s 12m \
+            node dist/quant-v4/number-system-question-studio-release-audit.mjs \
+            2>&1 | tee dist/quant-v4/number-system-question-studio-release-audit.log
+
+      - name: Upload release evidence and diagnostics
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: num-001-cp003-cp004-english-editorial-review
+          name: num-001-english-question-studio-release-review
           path: |
-            artifacts/api-server/dist/quant-v4/num-001-cp003-cp004-english-editorial-audit.log
-            artifacts/api-server/dist/quant-v4/num-001-cp003-cp004-editorial-review.json
-            artifacts/api-server/dist/quant-v4/num-001-cp003-cp004-editorial-review.csv
-            artifacts/api-server/dist/quant-v4/num-001-cp003-cp004-editorial-review.md
-          if-no-files-found: error
+            artifacts/api-server/dist/quant-v4/number-system-generator-v3-audit.log
+            artifacts/api-server/dist/quant-v4/number-system-question-studio-release-audit.log
+            artifacts/api-server/dist/quant-v4/number-system-generator-v3/number-system-generator-v3-review.json
+            artifacts/api-server/dist/quant-v4/number-system-generator-v3/number-system-generator-v3-review.csv
+            artifacts/api-server/dist/quant-v4/number-system-generator-v3/number-system-generator-v3-review.md
+            artifacts/api-server/dist/quant-v4/number-system-question-studio-release/num-001-question-studio-release-review.json
+            artifacts/api-server/dist/quant-v4/number-system-question-studio-release/num-001-question-studio-release-review.csv
+            artifacts/api-server/dist/quant-v4/number-system-question-studio-release/num-001-question-studio-release-review.md
+          if-no-files-found: warn
           retention-days: 30

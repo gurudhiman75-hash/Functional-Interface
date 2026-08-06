@@ -1,0 +1,92 @@
+name: Validate CLS-001 CP-003 Hindi Punjabi Localisation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-003/**
+      - artifacts/api-server/src/reasoning-v1/topics/Classification/CLS-001/README.md
+      - .github/workflows/cls-001-cp003-localized.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate-cp003-localized-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle CP-003 English and localized audits
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-003
+          OUT=dist/reasoning-v1/cls-001/cp003-localized
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003-english-runtime.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp003-english-runtime.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003-localized-runtime.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp003-localized-runtime.test.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/cp003-localized-runtime-v4.test.ts" --bundle --platform=node --format=esm --outfile="$OUT/cp003-localized-runtime-v4.test.mjs"
+
+      - name: Run CP-003 runtime audits
+        id: cp003_localized_audit
+        run: |
+          set +e
+          OUT=artifacts/api-server/dist/reasoning-v1/cls-001/cp003-localized
+          DIAG=$OUT/diagnostics
+          mkdir -p "$DIAG"
+          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp003-localized/cp003-english-runtime.test.mjs") >"$DIAG/english-regression.log" 2>&1
+          EN_STATUS=$?
+          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp003-localized/cp003-localized-runtime.test.mjs") >"$DIAG/localized-runtime-v3.log" 2>&1
+          LOC_STATUS=$?
+          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp003-localized/cp003-localized-runtime-v4.test.mjs") >"$DIAG/localized-runtime-v4.log" 2>&1
+          GRAMMAR_STATUS=$?
+          STATUS=$(( EN_STATUS != 0 || LOC_STATUS != 0 || GRAMMAR_STATUS != 0 ))
+          echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload CP-003 localization diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp003-hi-pa-diagnostics
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp003-localized/diagnostics
+          if-no-files-found: error
+
+      - name: Enforce CP-003 runtime audits
+        if: steps.cp003_localized_audit.outputs.exit_code != '0'
+        run: |
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp003-localized/diagnostics/english-regression.log
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp003-localized/diagnostics/localized-runtime-v3.log
+          cat artifacts/api-server/dist/reasoning-v1/cls-001/cp003-localized/diagnostics/localized-runtime-v4.log
+          exit 1
+
+      - name: Generate CP-003 Hindi Punjabi review
+        run: |
+          ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-003
+          OUT=dist/reasoning-v1/cls-001/cp003-localized
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/export-cp003-localized-review-v4.ts" --bundle --platform=node --format=esm --outfile="$OUT/export-cp003-localized-review-v4.mjs"
+          (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/cp003-localized/export-cp003-localized-review-v4.mjs")
+
+      - name: Upload CP-003 Hindi Punjabi review
+        uses: actions/upload-artifact@v4
+        with:
+          name: cls-001-cp003-hi-pa-review
+          path: artifacts/api-server/dist/reasoning-v1/cls-001/cp003-localized-review
+          if-no-files-found: error

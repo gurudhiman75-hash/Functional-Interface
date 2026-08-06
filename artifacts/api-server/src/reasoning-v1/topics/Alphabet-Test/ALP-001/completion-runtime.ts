@@ -4,7 +4,8 @@ import { buildCp007 } from "./completion/cp007";
 import { buildCp008 } from "./completion/cp008";
 import { buildCp009 } from "./completion/cp009";
 import { buildCp010 } from "./completion/cp010";
-import { difficulty, options, tr, track, type C } from "./completion/shared";
+import { renderCompletionEditorial } from "./completion/editorial";
+import { difficulty, options, rank, track, type C } from "./completion/shared";
 
 function build(ql: AlpQuestionLogic, seed: number): C {
   switch (ql.checkpointId) {
@@ -17,28 +18,142 @@ function build(ql: AlpQuestionLogic, seed: number): C {
   }
 }
 
+function selectedDigitTransformStem(completion: C, locale: AlpLocale): string {
+  const number = completion.source.join("");
+  const kind = completion.query.en.match(/apply\s+(ASC|DESC|REV|SWAP)/)?.[1] ?? "ASC";
+  const action = kind === "ASC"
+    ? { en: "arranged from smallest to largest", hi: "छोटे से बड़े क्रम में सजाया जाए", pa: "ਛੋਟੇ ਤੋਂ ਵੱਡੇ ਕ੍ਰਮ ਵਿੱਚ ਲਾਇਆ ਜਾਵੇ" }
+    : kind === "DESC"
+      ? { en: "arranged from largest to smallest", hi: "बड़े से छोटे क्रम में सजाया जाए", pa: "ਵੱਡੇ ਤੋਂ ਛੋਟੇ ਕ੍ਰਮ ਵਿੱਚ ਲਾਇਆ ਜਾਵੇ" }
+      : kind === "REV"
+        ? { en: "written in reverse order", hi: "उलटे क्रम में लिखा जाए", pa: "ਉਲਟ ਕ੍ਰਮ ਵਿੱਚ ਲਿਖਿਆ ਜਾਵੇ" }
+        : { en: "interchanged in adjacent pairs", hi: "साथ वाले युग्मों में आपस में बदला जाए", pa: "ਨਾਲ ਵਾਲੇ ਜੋੜਿਆਂ ਵਿੱਚ ਆਪਸ ਵਿੱਚ ਬਦਲਿਆ ਜਾਵੇ" };
+  if (locale === "hi-IN") return `यदि संख्या ${number} के अंकों को ${action.hi}, तो कितने अंक अपने मूल स्थान पर रहेंगे?`;
+  if (locale === "pa-IN") return `ਜੇ ਸੰਖਿਆ ${number} ਦੇ ਅੰਕਾਂ ਨੂੰ ${action.pa}, ਤਾਂ ਕਿੰਨੇ ਅੰਕ ਆਪਣੀ ਮੂਲ ਥਾਂ ਉੱਤੇ ਰਹਿਣਗੇ?`;
+  return `If the digits of ${number} are ${action.en}, how many digits will remain in their original positions?`;
+}
+
+function qualifyingWordPairs(items: readonly string[]) {
+  const pairs: Array<{ first: string; second: string; firstPosition: number; secondPosition: number; gap: number }> = [];
+  for (let firstIndex = 0; firstIndex < items.length; firstIndex += 1) {
+    for (let secondIndex = firstIndex + 1; secondIndex < items.length; secondIndex += 1) {
+      const first = items[firstIndex]!;
+      const second = items[secondIndex]!;
+      const wordDistance = secondIndex - firstIndex;
+      const alphabetDistance = Math.abs(rank(first) - rank(second));
+      if (wordDistance !== alphabetDistance) continue;
+      pairs.push({
+        first,
+        second,
+        firstPosition: firstIndex + 1,
+        secondPosition: secondIndex + 1,
+        gap: wordDistance - 1,
+      });
+    }
+  }
+  return pairs;
+}
+
+function optionCountStem(completion: C, locale: AlpLocale): string {
+  const count = qualifyingWordPairs(completion.source).length;
+  if (locale === "hi-IN") {
+    return count === 1
+      ? "किस विकल्प में अक्षरों का ठीक 1 ऐसा युग्म है जिसका शब्द-अंतर और वर्णमाला-अंतर समान है?"
+      : `किस विकल्प में अक्षरों के ठीक ${count} ऐसे युग्म हैं जिनका शब्द-अंतर और वर्णमाला-अंतर समान है?`;
+  }
+  if (locale === "pa-IN") {
+    return count === 1
+      ? "ਕਿਹੜੀ ਚੋਣ ਵਿੱਚ ਅੱਖਰਾਂ ਦਾ ਠੀਕ 1 ਅਜਿਹਾ ਜੋੜਾ ਹੈ ਜਿਸਦਾ ਸ਼ਬਦ-ਫਰਕ ਅਤੇ ਵਰਣਮਾਲਾ-ਫਰਕ ਇੱਕੋ ਹੈ?"
+      : `ਕਿਹੜੀ ਚੋਣ ਵਿੱਚ ਅੱਖਰਾਂ ਦੇ ਠੀਕ ${count} ਅਜੇਹੇ ਜੋੜੇ ਹਨ ਜਿਨ੍ਹਾਂ ਦਾ ਸ਼ਬਦ-ਫਰਕ ਅਤੇ ਵਰਣਮਾਲਾ-ਫਰਕ ਇੱਕੋ ਹੈ?`;
+  }
+  return `Which option contains exactly ${count} qualifying letter ${count === 1 ? "pair" : "pairs"}, with the same gap in the word and in the English alphabet?`;
+}
+
+function optionCountWorking(completion: C, locale: AlpLocale) {
+  const pairs = qualifyingWordPairs(completion.source);
+  const count = pairs.length;
+  const pairList = pairs.map((pair) => `${pair.first}(${pair.firstPosition})–${pair.second}(${pair.secondPosition}) [${pair.gap}]`).join(", ");
+  if (locale === "hi-IN") {
+    return {
+      steps: [
+        "हर विकल्प के अक्षरों को बाईं ओर से क्रम संख्या दें।",
+        `${completion.answer} में सही ${count === 1 ? "युग्म" : "युग्म हैं"}: ${pairList}। कोष्ठक में दोनों स्थानों के बीच के अक्षरों की संख्या दी गई है।`,
+        `${completion.answer} में ठीक ${count} सही ${count === 1 ? "युग्म है" : "युग्म हैं"}, इसलिए यही विकल्प माँगी संख्या पूरी करता है।`,
+      ],
+      visualWorking: [
+        `जाँचा विकल्प: ${completion.answer}`,
+        `समान-अंतर युग्म: ${pairList}`,
+        `सत्यापित संख्या: ${count}`,
+        `उत्तर: ${completion.answer}`,
+      ],
+    };
+  }
+  if (locale === "pa-IN") {
+    return {
+      steps: [
+        "ਹਰ ਚੋਣ ਦੇ ਅੱਖਰਾਂ ਨੂੰ ਖੱਬੇ ਪਾਸੋਂ ਕ੍ਰਮ ਅੰਕ ਦਿਓ।",
+        `${completion.answer} ਵਿੱਚ ਸਹੀ ${count === 1 ? "ਜੋੜਾ ਹੈ" : "ਜੋੜੇ ਹਨ"}: ${pairList}। ਕੋਠੀਆਂ ਵਿੱਚ ਦੋਵੇਂ ਥਾਵਾਂ ਦੇ ਵਿਚਕਾਰ ਅੱਖਰਾਂ ਦੀ ਗਿਣਤੀ ਦਿੱਤੀ ਹੈ।`,
+        `${completion.answer} ਵਿੱਚ ਠੀਕ ${count} ਸਹੀ ${count === 1 ? "ਜੋੜਾ ਹੈ" : "ਜੋੜੇ ਹਨ"}, ਇਸ ਲਈ ਇਹੀ ਚੋਣ ਮੰਗੀ ਗਿਣਤੀ ਪੂਰੀ ਕਰਦੀ ਹੈ।`,
+      ],
+      visualWorking: [
+        `ਜਾਂਚੀ ਚੋਣ: ${completion.answer}`,
+        `ਇੱਕੋ-ਫਰਕ ਜੋੜੇ: ${pairList}`,
+        `ਜਾਂਚੀ ਗਿਣਤੀ: ${count}`,
+        `ਉੱਤਰ: ${completion.answer}`,
+      ],
+    };
+  }
+  return {
+    steps: [
+      "Number the letters of each option from left to right.",
+      `In ${completion.answer}, the qualifying ${count === 1 ? "pair is" : "pairs are"}: ${pairList}. The bracket shows the number of letters between the two positions.`,
+      `${completion.answer} has exactly ${count} qualifying ${count === 1 ? "pair" : "pairs"}, so it matches the required count.`,
+    ],
+    visualWorking: [
+      `Option checked: ${completion.answer}`,
+      `Equal-gap ${count === 1 ? "pair" : "pairs"}: ${pairList}`,
+      `Verified count: ${count}`,
+      `Answer: ${completion.answer}`,
+    ],
+  };
+}
+
+function ensureVerifiedAnswerInTraps(
+  analyses: GeneratedAlpQuestion["explanation"]["distractorAnalyses"],
+  answer: string,
+  locale: AlpLocale,
+): GeneratedAlpQuestion["explanation"]["distractorAnalyses"] {
+  const verification = locale === "hi-IN"
+    ? `सत्यापित उत्तर ${answer} है।`
+    : locale === "pa-IN"
+      ? `ਜਾਂਚਿਆ ਉੱਤਰ ${answer} ਹੈ।`
+      : `The verified answer is ${answer}.`;
+  return analyses.map((analysis) => analysis.explanation.includes(answer)
+    ? analysis
+    : { ...analysis, explanation: `${analysis.explanation} ${verification}` });
+}
+
+function naturalizeCompletionText(text: string): string {
+  return text
+    .replaceAll("माँगी श्रेणी", "प्रश्न में बताई गई किस्म")
+    .replaceAll("ਮੰਗੀ ਸ਼੍ਰੇਣੀ", "ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦੱਸੀ ਕਿਸਮ")
+    .replaceAll("digit pairs in", "digit pairs in")
+    .replaceAll("between its members in the number", "between their members in the number");
+}
+
 export function generateAlpCompletionQuestion(ql: AlpQuestionLogic, seed: number, locale: AlpLocale): GeneratedAlpQuestion {
   if (!Number.isInteger(seed)) throw new Error("ALP-001 completion seed must be an integer.");
   const completion = build(ql, seed);
   const builtOptions = options(completion.answer, completion.pool, ql, seed);
-  const wrongIndices = builtOptions.out.map((_, index) => index).filter((index) => index !== builtOptions.correctIndex);
-  const traps = [
-    { en: "uses the source row before the stated operation is complete", hi: "दी गई क्रिया पूरी होने से पहले मूल पंक्ति पढ़ता है", pa: "ਦਿੱਤੀ ਕਿਰਿਆ ਪੂਰੀ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ ਮੂਲ ਕਤਾਰ ਪੜ੍ਹਦਾ ਹੈ" },
-    { en: "counts from the opposite end or moves in the opposite direction", hi: "विपरीत सिरे से गिनता है या उलटी दिशा में चलता है", pa: "ਉਲਟ ਸਿਰੇ ਤੋਂ ਗਿਣਦਾ ਹੈ ਜਾਂ ਉਲਟੀ ਦਿਸ਼ਾ ਵਿੱਚ ਚਲਦਾ ਹੈ" },
-    { en: "mixes the requested category, gap or final-position condition with a different rule", hi: "माँगी श्रेणी, अंतर या अंतिम-स्थान शर्त को अलग नियम से मिला देता है", pa: "ਮੰਗੀ ਸ਼੍ਰੇਣੀ, ਫਰਕ ਜਾਂ ਅੰਤਿਮ-ਥਾਂ ਸ਼ਰਤ ਨੂੰ ਵੱਖਰੇ ਨਿਯਮ ਨਾਲ ਮਿਲਾ ਦਿੰਦਾ ਹੈ" },
-  ];
-  const distractorAnalyses = wrongIndices.map((optionIndex, trapIndex) => ({
-    optionIndex,
-    optionValue: builtOptions.out[optionIndex]!.value,
-    errorLabel: builtOptions.out[optionIndex]!.errorLabel!,
-    explanation: tr(locale, {
-      en: `${builtOptions.out[optionIndex]!.value} is wrong because it ${traps[trapIndex]!.en}.`,
-      hi: `${builtOptions.out[optionIndex]!.value} गलत है क्योंकि यह ${traps[trapIndex]!.hi}।`,
-      pa: `${builtOptions.out[optionIndex]!.value} ਗਲਤ ਹੈ ਕਿਉਂਕਿ ਇਹ ${traps[trapIndex]!.pa}।`,
-    }),
-  }));
-  const original = completion.source.join(" ");
-  const changed = (completion.changed ?? completion.source).join(" ");
+  const editorial = renderCompletionEditorial(ql, completion, builtOptions.out, builtOptions.correctIndex, locale);
+  const distractorAnalyses = ensureVerifiedAnswerInTraps(editorial.distractorAnalyses, completion.answer, locale);
+  const optionOnlyQuestion = ql.solveMode === "IDENTIFY_WORD_BY_ALPHA_PAIR_COUNT";
+  const optionOnlyWorking = optionOnlyQuestion ? optionCountWorking(completion, locale) : undefined;
+  const renderedStem = ql.solveMode === "DIGIT_COUNT_UNCHANGED_SELECTED_TRANSFORM"
+    ? selectedDigitTransformStem(completion, locale)
+    : optionOnlyQuestion
+      ? optionCountStem(completion, locale)
+      : naturalizeCompletionText(editorial.stem);
 
   return {
     chapterId: "ALP-001",
@@ -51,47 +166,30 @@ export function generateAlpCompletionQuestion(ql: AlpQuestionLogic, seed: number
     difficulty: difficulty(ql, seed),
     renderer: ql.renderer,
     presentationMode: ql.presentationMode,
-    stem: tr(locale, {
-      en: `Given ${original}. First ${completion.operation.en}; then ${completion.query.en}.`,
-      hi: `दी गई पंक्ति ${original}। पहले ${completion.operation.hi}; फिर ${completion.query.hi}।`,
-      pa: `ਦਿੱਤੀ ਕਤਾਰ ${original}। ਪਹਿਲਾਂ ${completion.operation.pa}; ਫਿਰ ${completion.query.pa}।`,
-    }),
+    stem: renderedStem,
     structuredPrompt: {
-      sequence: completion.source,
-      ...(completion.changed ? { transformedSequence: completion.changed } : {}),
-      ...(completion.word ? { word: completion.word } : {}),
-      ...(completion.changedWord ? { transformedWord: completion.changedWord } : {}),
-      positionTrack: track(completion.source),
+      ...(!optionOnlyQuestion ? { sequence: completion.source } : {}),
+      ...(!optionOnlyQuestion && completion.changed ? { transformedSequence: completion.changed } : {}),
+      ...(!optionOnlyQuestion && completion.word ? { word: completion.word } : {}),
+      ...(!optionOnlyQuestion && completion.changedWord ? { transformedWord: completion.changedWord } : {}),
+      ...(!optionOnlyQuestion ? { positionTrack: track(completion.source) } : {}),
     },
     options: builtOptions.out,
     correctIndex: builtOptions.correctIndex,
     answer: completion.answer,
     explanation: {
       schemaVersion: "ALP-001-PEDAGOGY-V2",
-      coreConcept: tr(locale, {
-        en: "This question uses one explicit token-position operation. Preserve the shown order, complete the stated rule and verify the requested result only from the final row.",
-        hi: "यह प्रश्न एक स्पष्ट तत्त्व-स्थान क्रिया पर आधारित है। दिखाया क्रम बनाए रखें, दिया नियम पूरा करें और केवल अंतिम पंक्ति से माँगा परिणाम जाँचें।",
-        pa: "ਇਹ ਪ੍ਰਸ਼ਨ ਇੱਕ ਸਪਸ਼ਟ ਤੱਤ-ਥਾਂ ਕਿਰਿਆ ਉੱਤੇ ਆਧਾਰਿਤ ਹੈ। ਦਿੱਤਾ ਕ੍ਰਮ ਬਣਾਈ ਰੱਖੋ, ਦੱਸਿਆ ਨਿਯਮ ਪੂਰਾ ਕਰੋ ਅਤੇ ਕੇਵਲ ਅੰਤਿਮ ਕਤਾਰ ਤੋਂ ਮੰਗਿਆ ਨਤੀਜਾ ਜਾਂਚੋ।",
-      }),
-      ruleStatement: tr(locale, {
-        en: `Complete this explicit operation before reading the result: ${completion.operation.en}.`,
-        hi: `परिणाम पढ़ने से पहले यह स्पष्ट क्रिया पूरी करें: ${completion.operation.hi}।`,
-        pa: `ਨਤੀਜਾ ਪੜ੍ਹਨ ਤੋਂ ਪਹਿਲਾਂ ਇਹ ਸਪਸ਼ਟ ਕਿਰਿਆ ਪੂਰੀ ਕਰੋ: ${completion.operation.pa}।`,
-      }),
-      steps: [tr(locale, completion.query), tr(locale, completion.working)],
-      visualWorking: [
-        tr(locale, { en: `Given row: ${original}`, hi: `दी गई पंक्ति: ${original}`, pa: `ਦਿੱਤੀ ਕਤਾਰ: ${original}` }),
-        tr(locale, { en: `Completed row: ${changed}`, hi: `पूरी बनी पंक्ति: ${changed}`, pa: `ਪੂਰੀ ਬਣੀ ਕਤਾਰ: ${changed}` }),
-        tr(locale, { en: `Requested result: ${completion.answer}`, hi: `माँगा परिणाम: ${completion.answer}`, pa: `ਮੰਗਿਆ ਨਤੀਜਾ: ${completion.answer}` }),
-      ],
-      examShortcut: tr(locale, completion.shortcut),
-      conclusion: tr(locale, { en: `Therefore, the correct answer is ${completion.answer}.`, hi: `इसलिए सही उत्तर ${completion.answer} है।`, pa: `ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ${completion.answer} ਹੈ।` }),
-      distractorAnalyses,
-      closestTrapRejection: tr(locale, {
-        en: `The closest wrong option fails the exact final-row condition; ${completion.answer} satisfies every stated step.`,
-        hi: `सबसे निकट गलत विकल्प अंतिम पंक्ति की पूरी शर्त नहीं मानता; ${completion.answer} हर चरण पूरा करता है।`,
-        pa: `ਸਭ ਤੋਂ ਨੇੜਲੀ ਗਲਤ ਚੋਣ ਅੰਤਿਮ ਕਤਾਰ ਦੀ ਪੂਰੀ ਸ਼ਰਤ ਨਹੀਂ ਮੰਨਦੀ; ${completion.answer} ਹਰ ਪੜਾਅ ਪੂਰਾ ਕਰਦਾ ਹੈ।`,
-      }),
+      coreConcept: naturalizeCompletionText(editorial.coreConcept),
+      ruleStatement: naturalizeCompletionText(editorial.ruleStatement),
+      steps: optionOnlyWorking?.steps ?? editorial.steps.map(naturalizeCompletionText),
+      visualWorking: optionOnlyWorking?.visualWorking ?? editorial.visualWorking.map(naturalizeCompletionText),
+      examShortcut: naturalizeCompletionText(editorial.examShortcut),
+      conclusion: naturalizeCompletionText(editorial.conclusion),
+      distractorAnalyses: distractorAnalyses.map((analysis) => ({
+        ...analysis,
+        explanation: naturalizeCompletionText(analysis.explanation),
+      })),
+      closestTrapRejection: naturalizeCompletionText(editorial.closestTrapRejection),
     },
     metadata: {
       runtimeVersion: "ALP-001-RUNTIME-V3",
