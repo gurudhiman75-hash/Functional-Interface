@@ -28,7 +28,7 @@ export function ql034Variant(
     answer = quantity(a!);
     candidates = [
       { text: quantity(b!), misconceptionId: "component_order_swapped" },
-      { text: quantity(c!), misconceptionId: "component_order_swapped" },
+      { text: quantity(c!), misconceptionId: "replacement_component_reported" },
       { text: quantity(add(a!, b!)), misconceptionId: "stage_skipped" },
       { text: quantity(add(add(a!, b!), c!)), misconceptionId: "initial_state_reported" },
     ];
@@ -40,7 +40,7 @@ export function ql034Variant(
     candidates = [
       { text: ratioText(c!, b!), misconceptionId: "ratio_reversal" },
       { text: ratioText(a!, c!), misconceptionId: "component_order_swapped" },
-      { text: ratioText(b!, a!), misconceptionId: "component_order_swapped" },
+      { text: ratioText(b!, a!), misconceptionId: "ignored_mixture_change" },
       { text: ratioText(add(a!, b!), c!), misconceptionId: "stage_skipped" },
     ];
     requestedStep = `Using the final row, ${bLabel}:${cLabel} = ${formatNumber(b!)}:${formatNumber(c!)} = ${answer}.`;
@@ -51,7 +51,7 @@ export function ql034Variant(
     candidates = [
       { text: quantity(a!), misconceptionId: "initial_state_reported" },
       { text: quantity(b!), misconceptionId: "stage_skipped" },
-      { text: quantity(c!), misconceptionId: "stage_skipped" },
+      { text: quantity(c!), misconceptionId: "replacement_component_reported" },
       { text: quantity(add(a!, b!)), misconceptionId: "component_order_swapped" },
     ];
     requestedStep = `Total ${bLabel} and ${cLabel} = ${formatNumber(b!)} + ${formatNumber(c!)} = ${answer}.`;
@@ -61,14 +61,22 @@ export function ql034Variant(
     answer = quantity(absolute(subtract(a!, b!)));
     candidates = [
       { text: quantity(add(a!, b!)), misconceptionId: "component_order_swapped" },
-      { text: quantity(absolute(subtract(a!, c!))), misconceptionId: "component_order_swapped" },
-      { text: quantity(absolute(subtract(b!, c!))), misconceptionId: "component_order_swapped" },
-      { text: quantity(c!), misconceptionId: "stage_skipped" },
+      { text: quantity(absolute(subtract(a!, c!))), misconceptionId: "ignored_mixture_change" },
+      { text: quantity(absolute(subtract(b!, c!))), misconceptionId: "stage_skipped" },
+      { text: quantity(c!), misconceptionId: "replacement_component_reported" },
     ];
     requestedStep = `Difference = ${formatNumber(a!)} - ${formatNumber(b!)} = ${answer}.`;
     conclusion = `The required difference is ${answer}.`;
   } else {
-    return { ...question, diagram: table };
+    const capacity = add(add(a!, b!), c!);
+    candidates = [
+      { text: `${quantity(b!)}, ${quantity(a!)}, ${quantity(c!)}`, misconceptionId: "component_order_swapped" },
+      { text: `${quantity(a!)}, ${quantity(c!)}, ${quantity(b!)}`, misconceptionId: "replacement_component_reported" },
+      { text: `${quantity(a!)}, ${quantity(b!)}, 0 litres`, misconceptionId: "stage_skipped" },
+      { text: `${quantity(capacity)}, 0 litres, 0 litres`, misconceptionId: "initial_state_reported" },
+    ];
+    requestedStep = `The final row gives ${aLabel} = ${quantity(a!)}, ${bLabel} = ${quantity(b!)} and ${cLabel} = ${quantity(c!)}.`;
+    conclusion = question.explanation.conclusion;
   }
 
   const options = buildOptions(answer, candidates, `${seed}:three-component-options`);
