@@ -5,6 +5,7 @@ import {
 } from "./cp007-editorial-v3";
 import type {
   BlrCp007EditorialV3Telemetry,
+  BlrCp007V3Difficulty,
   GeneratedBlrCp007EditorialV3Question,
 } from "./cp007-editorial-v3-model";
 import {
@@ -16,6 +17,37 @@ import {
 const mutablePlan = (plan: BlrCp007V3PrototypePlan) => plan as {
   templates: readonly BlrCp007V3RelationTemplate[];
 };
+
+const EASY_PROTOTYPES = new Set<BlrCp007PrototypeId>([
+  "BLR-CP007-PROT-SELECT-DIRECT-FORWARD",
+  "BLR-CP007-PROT-SELECT-DIRECT-REVERSE",
+  "BLR-CP007-PROT-MISSING-TOKEN-DIRECT",
+  "BLR-CP007-PROT-MISSING-TOKEN-REVERSE",
+]);
+
+const HARD_PROTOTYPES = new Set<BlrCp007PrototypeId>([
+  "BLR-CP007-PROT-SELECT-THREE-LINK",
+  "BLR-CP007-PROT-SELECT-AFFINAL",
+  "BLR-CP007-PROT-MISSING-PAIR-THREE-LINK",
+  "BLR-CP007-PROT-MISSING-PAIR-AFFINAL",
+  "BLR-CP007-PROT-MISSING-PERSON-ENDPOINT",
+  "BLR-CP007-PROT-VALIDITY-INCORRECT-DERIVED",
+]);
+
+function calibratedDifficulty(prototypeId: BlrCp007PrototypeId): BlrCp007V3Difficulty {
+  if (EASY_PROTOTYPES.has(prototypeId)) return "EASY";
+  if (HARD_PROTOTYPES.has(prototypeId)) return "HARD";
+  return "MEDIUM";
+}
+
+function calibrate(question: GeneratedBlrCp007EditorialV3Question): GeneratedBlrCp007EditorialV3Question {
+  const difficulty = calibratedDifficulty(question.sourcePrototypeId);
+  return {
+    ...question,
+    reviewProof: { ...question.reviewProof, difficulty },
+    metadata: { ...question.metadata, difficulty },
+  };
+}
 
 /**
  * The foundation validity generator uses a rolling four-option window. Without
@@ -29,7 +61,7 @@ export function generateBlrCp007EditorialV3FinalQuestion(
 ): GeneratedBlrCp007EditorialV3Question {
   const plan = BLR_CP007_V3_PROTOTYPE_PLANS.find((value) => value.prototypeId === prototypeId);
   if (!plan || plan.taskKind !== "SELECT_VALIDITY") {
-    return generateBlrCp007EditorialV3Question(prototypeId, seed);
+    return calibrate(generateBlrCp007EditorialV3Question(prototypeId, seed));
   }
 
   const original = plan.templates;
@@ -42,7 +74,7 @@ export function generateBlrCp007EditorialV3FinalQuestion(
 
   mutablePlan(plan).templates = rotated;
   try {
-    return generateBlrCp007EditorialV3Question(prototypeId, seed);
+    return calibrate(generateBlrCp007EditorialV3Question(prototypeId, seed));
   } finally {
     mutablePlan(plan).templates = original;
   }
