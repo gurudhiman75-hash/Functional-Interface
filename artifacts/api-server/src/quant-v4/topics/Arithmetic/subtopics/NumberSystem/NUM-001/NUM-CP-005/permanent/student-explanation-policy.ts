@@ -33,6 +33,23 @@ function questionSpecificOpeningStep(input) {
   return `Start with \\((x+1)(y+1)=${target}\\).`;
 }
 
+function factorText(state) {
+  return state.map((entry) => {
+    const prime = Number(entry?.prime);
+    const exponent = Number(entry?.exponent);
+    return exponent === 1 ? String(prime) : `${prime}^{${exponent}}`;
+  }).join(" \\times ");
+}
+
+function isRedundantAnswerRestatement(step, input) {
+  const text = step.trim();
+  if (!/^(?:so|therefore|hence)\b/iu.test(text)) return false;
+  if (/(?:=|\\times|\\div|\\frac|\\lfloor)/u.test(text)) return false;
+  const answer = String(input.canonicalAnswer).replaceAll("\\", "");
+  const plainText = text.replaceAll("\\", "");
+  return answer.length > 0 && plainText.includes(answer);
+}
+
 function polishQuestionSpecificText(input, explanation) {
   const result = {
     ...explanation,
@@ -73,6 +90,21 @@ function polishQuestionSpecificText(input, explanation) {
       `The overlap is ${overlap}; remove it from ${firstCount}.`,
       `The words “but not” mean ${firstCount}-${overlap}=${input.canonicalAnswer}.`,
     ];
+  }
+
+  if (input.qlId === "NUM-QL-056") {
+    const state = Array.isArray(input.hiddenState.factorState) ? input.hiddenState.factorState : [];
+    if (state.length === 1) {
+      const exponent = Number(state[0]?.exponent);
+      const target = Number(input.hiddenState.targetDivisorCount);
+      const expression = factorText(state);
+      const answer = String(input.hiddenState.integerValue);
+      result.stepByStep = [
+        `The exponent must be ${exponent} because ${exponent}+1=${target}.`,
+        `Using the smallest allowed prime gives \\(n=${expression}=${answer}\\).`,
+        `Check: \\(d(n)=${exponent}+1=${target}\\).`,
+      ];
+    }
   }
 
   if (input.qlId === "NUM-QL-059") {
@@ -147,6 +179,7 @@ export function enforceNumCp005StudentExplanationPolicy(input, explanation) {
   const stepByStep = [];
   for (const rawStep of rawSteps) {
     const step = fixSimpleGrammar(rawStep);
+    if (isRedundantAnswerRestatement(step, input)) continue;
     const normalized = normalizeLine(step);
     if (seen.has(normalized)) continue;
     seen.add(normalized);
