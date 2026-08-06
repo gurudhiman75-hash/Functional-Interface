@@ -10,7 +10,7 @@ import {
 
 const REALISTIC_BANK_RATE_IDS = new Set(["R04", "R05", "R0625", "R08", "R10", "R125"]);
 const BANKING_WORDS = /\b(?:bank|banking|fixed[- ]deposit|deposit|account)\b/iu;
-const METHOD_HINTS = /\b(?:use .*? to|working backward|work backwards|match the|reconstruct|infer the|reverse the|annual multiplier|compound-interest factor|one-year ratio|total growth ratio)\b/iu;
+const METHOD_HINTS = /\b(?:use .*? to|working backward|work backwards|match the|reconstruct|infer the|reverse the|annual factor|annual multiplier|compound-interest factor|one-year ratio|total growth ratio)\b/iu;
 const OUT_OF_SCOPE_CP_LANGUAGE = /\b(?:half[- ]yearly|quarterly|monthly compounding|depreciation|population|successive rates|different rates in different years|simple-interest difference|ci-si difference)\b/iu;
 
 const yearsText = (years: number): string => `${years} year${years === 1 ? "" : "s"}`;
@@ -86,6 +86,24 @@ function structuredWithoutGivenMethod(
   resolved: ResolvedState,
   presentation: Cp003RenderedPresentation,
 ): Cp003RenderedPresentation | null {
+  if (contract.qlId === "INT-QL-066" && presentation.representation !== "STANDARD_PROSE") {
+    return rebuild(
+      presentation,
+      "The interest earned in one year and the annual rate are shown below.",
+      {
+        headers: ["Earlier year", "Interest in that year", "Annual rate", "Later year", "Interest required"],
+        rows: [[
+          ordinal(resolved.earlierYear),
+          moneyMath(resolved.earlierInterest),
+          rateMath(resolved.ratePercent),
+          ordinal(resolved.laterYear),
+          "?",
+        ]],
+      },
+      `Find the interest earned during the ${ordinal(resolved.laterYear)} year.`,
+    );
+  }
+
   if (presentation.representation !== "GROWTH_RATIO") return null;
 
   switch (contract.qlId) {
@@ -159,23 +177,6 @@ function structuredWithoutGivenMethod(
         "Find the original sum.",
       );
 
-    case "INT-QL-066":
-      return rebuild(
-        presentation,
-        "The interest earned in one year and the annual rate are shown below.",
-        {
-          headers: ["Earlier year", "Interest in that year", "Annual rate", "Later year", "Interest required"],
-          rows: [[
-            ordinal(resolved.earlierYear),
-            moneyMath(resolved.earlierInterest),
-            rateMath(resolved.ratePercent),
-            ordinal(resolved.laterYear),
-            "?",
-          ]],
-        },
-        `Find the interest earned during the ${ordinal(resolved.laterYear)} year.`,
-      );
-
     default:
       return null;
   }
@@ -204,12 +205,8 @@ export function refineCp003Presentation(
         rows: source.table.rows.map((row) => row.map(clean)),
       }
     : undefined;
-  let leadText = source.leadText ? clean(source.leadText) : undefined;
+  const leadText = source.leadText ? clean(source.leadText) : undefined;
   const prompt = clean(source.prompt);
-
-  if (contract.qlId === "INT-QL-066" && source.representation === "BALANCE_LEDGER" && table) {
-    leadText = `The interest earned in one year is shown below. Interest is compounded annually at ${rateMath(resolved.ratePercent)}.`;
-  }
 
   return rebuild(source, leadText, table, prompt);
 }
