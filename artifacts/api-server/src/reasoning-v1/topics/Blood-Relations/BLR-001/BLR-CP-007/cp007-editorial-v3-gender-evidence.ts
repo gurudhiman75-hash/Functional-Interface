@@ -16,7 +16,7 @@ templates.forEach((template, index) => {
     {
       leftId: "A",
       relationId: maleTargetIndices.has(index) ? "HUSBAND" : "WIFE",
-      rightId: `GA${index + 1}`,
+      rightId: "T",
     },
   ];
 });
