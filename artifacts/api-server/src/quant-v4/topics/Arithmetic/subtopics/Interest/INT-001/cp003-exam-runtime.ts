@@ -11,7 +11,7 @@ import {
   type IntCp003QlId,
   type Rational,
 } from "./cp003-exam-model";
-import type { IntCp003ExamQuestion } from "./cp003-exam-types";
+import type { Cp003StudentExplanation, IntCp003ExamQuestion } from "./cp003-exam-types";
 import { ANSWER_SEMANTICS, resolve } from "./cp003-exam-support";
 import { presentationFor } from "./cp003-grounded-presentation";
 import { optionsFor } from "./cp003-exam-options";
@@ -81,6 +81,27 @@ function collectStrings(value: unknown, output: string[] = []): string[] {
   return output;
 }
 
+function alignRateCheckWording(
+  qlId: IntCp003QlId,
+  explanation: Cp003StudentExplanation,
+): Cp003StudentExplanation {
+  if (qlId !== "INT-QL-061") return explanation;
+  const replace = (text: string): string => text.replace(
+    "This is exactly the interest given in the question, so",
+    "This is the calculated interest, matching the given interest exactly. Therefore,",
+  );
+  const steps = Object.freeze(explanation.steps.map(replace));
+  return Object.freeze({
+    ...explanation,
+    steps,
+    depths: Object.freeze({
+      exam: Object.freeze({ steps: Object.freeze(explanation.depths.exam.steps.map(replace)), sourceStepIds: explanation.depths.exam.sourceStepIds }),
+      student: Object.freeze({ steps: Object.freeze(explanation.depths.student.steps.map(replace)), sourceStepIds: explanation.depths.student.sourceStepIds }),
+      foundation: explanation.depths.foundation,
+    }),
+  });
+}
+
 function deepFreeze<T>(value: T): T {
   if (value && typeof value === "object" && !Object.isFrozen(value)) {
     for (const nested of Object.values(value as Record<string, unknown>)) deepFreeze(nested);
@@ -111,7 +132,7 @@ export function generateIntCp003ExamQuestion(
   const options = optionsFor(contract, resolved);
   const correctIndex = options.findIndex((option) => option.isCorrect);
   if (correctIndex < 0 || options.filter((option) => option.isCorrect).length !== 1) throw new Error(`${qlId}: correct option ownership failure`);
-  const explanation = explanationFor(solutionTrace);
+  const explanation = alignRateCheckWording(qlId, explanationFor(solutionTrace));
   assertCp003ExplanationStyle(qlId, explanation);
   assertCp003PresentationGrounding(contract, resolved, presentation, solutionTrace, explanation);
 
