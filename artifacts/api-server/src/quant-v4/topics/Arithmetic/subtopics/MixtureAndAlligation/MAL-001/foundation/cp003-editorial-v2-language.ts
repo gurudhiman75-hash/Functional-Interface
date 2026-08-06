@@ -1,5 +1,5 @@
 import type { MalCp003Wave12ContractId, MalCp003Wave12UnifiedQuestion } from "./cp003-unified-runtime-wave12-editorial";
-import { divide, formatNumber, parseNumber, quantity, rational, subtract, type Rational } from "./cp003-editorial-v2-core";
+import { divide, formatNumber, hash, parseNumber, quantity, rational, subtract, type Rational } from "./cp003-editorial-v2-core";
 
 export const BANNED_OPENERS = [
   "In a competitive-exam mixture problem, ",
@@ -144,6 +144,29 @@ export function cleanStem(question: MalCp003Wave12UnifiedQuestion): string {
     stem = fixUnequalStagePunctuation(stem);
   }
   return cleanText(stem);
+}
+
+export function varyOpening(stem: string, seed: string): string {
+  const firstSentence = stem.match(/^.*?\./u)?.[0];
+  if (!firstSentence) return stem;
+  const sentence = firstSentence.slice(0, -1);
+  const initiallyContains = sentence.match(/^(?:A|An) (.+?) initially contains (.+)$/u);
+  const contains = sentence.match(/^(?:A|An) (.+?) contains (.+)$/u);
+  const filled = sentence.match(/^(?:A|An) (.+?) is filled with (.+)$/u);
+  const match = initiallyContains ?? contains ?? filled;
+  if (!match) return stem;
+  const subject = match[1]!;
+  const contents = match[2]!;
+  const article = /^[aeiou]/iu.test(subject) ? "an" : "a";
+  const variants = [
+    `${article[0]!.toUpperCase()}${article.slice(1)} ${subject} initially contains ${contents}.`,
+    `Initially, ${article} ${subject} contains ${contents}.`,
+    `At first, the ${subject} contains ${contents}.`,
+    `Before any replacement, ${article} ${subject} contains ${contents}.`,
+    `${article[0]!.toUpperCase()}${article.slice(1)} ${subject} starts with ${contents}.`,
+    `The ${subject} is initially filled with ${contents}.`,
+  ];
+  return stem.replace(firstSentence, variants[hash(`${seed}:opening`) % variants.length]!);
 }
 
 export function rootName(operationCount: number): string {
