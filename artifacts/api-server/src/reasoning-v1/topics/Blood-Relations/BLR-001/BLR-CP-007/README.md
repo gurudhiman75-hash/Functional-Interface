@@ -1,6 +1,6 @@
 # BLR-CP-007 — Coded Relation Construction
 
-Status: **permanent identities `BLR-QL-031..BLR-QL-035` discovery-frozen; V2 English editorial remediation is an executable human-review candidate; release and merge locked**.
+Status: **permanent identities `BLR-QL-031..BLR-QL-035` discovery-frozen; V3 semantic English review is executable; human approval, release and merge locked**.
 
 ## Permanent QLs
 
@@ -12,80 +12,68 @@ Status: **permanent identities `BLR-QL-031..BLR-QL-035` discovery-frozen; V2 Eng
 
 Next available Blood Relations identity: `BLR-QL-036`.
 
-## Authority status
-
-The V1 graph solver, source discovery and five-Ql ownership remain valid. The V1 learner-facing final-freeze review is superseded and must not be used for manual freeze, localisation or release.
-
-The current review authority is:
+## Current review authority
 
 ```text
-BLR_CP007_ENGLISH_EDITORIAL_REVIEW_V2
+BLR_CP007_ENGLISH_EDITORIAL_REVIEW_V3
 ```
 
-It remains explicitly `HUMAN_REVIEW_REQUIRED`.
+V1 graph-solver and QL-ownership evidence remains valid. V2 engineering remediation evidence remains valid, but the V2 learner-facing review is superseded because it still relied heavily on token reskins.
 
-## V2 review inventory
+## V3 inventory
 
 ```text
 168 English review questions
-21 source prototypes
-5 permanent solve authorities
+168 semantic scenarios
+21 prototype families
+8 distinct constructions per prototype
 672 option analyses
-168 / 168 unique learner signatures
-41 / 45 / 42 / 40 answer positions
+42 / 42 / 42 / 42 answer positions
 504 graph-valid wrong options
 0 invalid option graphs
+75 / 75 / 18 male / female / neutral targets
+126 / 29 / 13 symbol / letter / word keys
+32 / 88 / 48 Easy / Medium / Hard
+84 standalone and 84 shared-set questions
 P / Q / R / S correct 8 times each in QL-034
-16 incorrect-statement answers with correct polarity
-48 valid unselected statements correctly described
 ```
 
-## Learner-facing guarantees
+## Student-facing guarantees
 
-- Every code meaning is supplied explicitly.
-- Symbols and words are never interpreted as arithmetic.
-- Every coded pair is read from left to right.
-- Seeded option ordering rejects the V1 prototype-local answer cycles.
-- Statement validity is stored separately from correctness for the requested task.
-- Every wrong option has one exact diagnostic code and question-specific explanation.
-- All four options form valid family graphs.
-- Missing-person candidates are balanced and checked through the complete graph.
-- Semicolon formatting occurs in both correct and wrong options.
-- Explanations are selected by reasoning need rather than a forced audit template.
-- Diagrams label relation direction, highlight the decisive path and distinguish directly coded from inferred edges.
-- Accessibility summaries state the actual relation path and use correct singular/plural grammar.
-- Gender comes only from explicit gender-bearing relations, never from a letter or name.
-- The chapter uses `FULL_SIBLING_UNLESS_EXPLICITLY_QUALIFIED`; half-relations remain outside V1.
-- Every review card exposes immutable proof metadata and remains marked for human review.
+- Every code meaning is explicit and every pair is read left to right.
+- Every displayed token has one unique relation meaning within its question.
+- Eight records in a prototype represent eight semantic constructions, not token-only reskins.
+- Male and female target relations are balanced; neutral relations are also covered.
+- Every option forms a valid family graph and wrong choices fail for a precise reasoning reason.
+- All four QL-034 candidates appear in meaningful clues; absence or repeated-letter matching cannot identify the answer.
+- QL-033 states the final kinship target without supplying both local links.
+- Difficulty is determined by reasoning depth, inverse use, affinal structure and option work—not token style.
+- Student explanations do not expose internal diagnostic labels.
+- Validity explanations decode the actual option before applying question polarity.
+- Direct diagrams are hidden when unnecessary; multi-link and affinal diagrams remain available.
+- Standalone and shared-set delivery contracts are both represented.
+- Gender comes only from explicit evidence, never from names or letters.
 
-## V2 files
+## V3 files
 
-- `cp007-editorial-v2-model.ts` — V2 option, explanation, diagram and review-proof contracts;
-- `cp007-editorial-v2.ts` — seeded ordering, precise diagnostics and adaptive explanation foundation;
-- `cp007-editorial-v2-review.ts` — hardened review contracts;
-- `cp007-editorial-v2-final-review.ts` — natural QL-034 and final learner surface;
-- `cp007-editorial-v2-exam-review.ts` — valid-but-wrong distractor reconstruction;
-- `cp007-editorial-v2-exam-review-final.ts` — graph-friendly token-key remediation;
-- corresponding V2 test files — answer security, polarity, naturalness, length, diagram and graph-valid option gates;
-- `export-cp007-editorial-v2-exam-review-final.ts` — current human-review exporter;
-- `BLR-CP-007-EDITORIAL-V2-REMEDIATION.md` — remediation and lifecycle authority.
+- `cp007-editorial-v3-model.ts` — V3 review, delivery and telemetry contracts;
+- `cp007-editorial-v3-scenarios.ts` — semantic relation and missing-person scenario pools;
+- `cp007-editorial-v3-scenario-corrections.ts` — explicit graph-safe scenario corrections;
+- `cp007-editorial-v3-endpoint-compatibility.ts` — exact reverse-query authority;
+- `cp007-editorial-v3-gender-evidence.ts` — candidate-neutral target-gender evidence;
+- `cp007-editorial-v3.ts` — semantic question generation foundation;
+- `cp007-editorial-v3-final.ts` — final validity diversification, explanation polish and difficulty calibration;
+- `cp007-editorial-v3-final.test.ts` — executable exam-readiness gates;
+- `cp007-editorial-v3-authority.test.ts` — ordered authority loader;
+- `export-cp007-editorial-v3-review.ts` — JSONL, CSV, HTML and Markdown review exporter;
+- `BLR-CP-007-EDITORIAL-V3-PLAN.md` — current V3 authority and lifecycle record.
 
-## V1 files retained for solver regression
+## Retained baselines
 
-- `cp007-model.ts`;
-- `cp007-prototypes.ts`;
-- `cp007-runtime.ts`;
-- `cp007-independent-verifier.ts`;
-- `cp007-runtime.test.ts`;
-- `cp007-final-freeze.ts`;
-- `cp007-final-freeze.test.ts`;
-- `export-cp007-final-freeze.ts`;
-- `BLR-CP-007-FINAL-DISCOVERY-FREEZE.md`.
-
-These retain source and solver evidence, but their learner-facing review output is not the current editorial authority.
+The V1 runtime and V2 editorial-remediation files remain in regression coverage. They retain source, solver and engineering evidence but are not the current student-facing editorial authority.
 
 ## Boundary
 
-Pure decoding remains CP-006. Open-ended code induction, Data Sufficiency, Question Studio, Question Bank, Hindi/Punjabi localisation, mock tests, public publication, production staging and merge remain disabled.
+Pure decoding remains CP-006. Open-ended code induction and Data Sufficiency remain outside CP-007 V1.
 
-The next required gate is manual review and approval of the V2 English artifact, followed by a new chapter-wide English audit.
+Human review of the V3 artifact is the next gate. Only after approval may the chapter-wide English audit be rerun. Hindi/Punjabi localisation, Question Studio, Question Bank, mock tests, publication, staging and merge remain disabled.
