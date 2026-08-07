@@ -22,7 +22,7 @@ export type SylLearnerExplanationModeV5 =
 
 export type SylDiagramModeV5 =
   | SylLearnerDiagramV4["mode"]
-  | "RELATION_MAP";
+  | "VENN_FOCUSED_CONCLUSION_CHECK";
 
 export type SylDiagramOmissionReasonV5 =
   | SylLearnerDiagramV4["omissionReason"]
