@@ -54,6 +54,9 @@ for (let seed = 1; seed <= 100; seed += 1) {
   assert.equal(pkg.options.length, 4);
   assert.equal(new Set(pkg.options.map((option) => option.value)).size, 4);
   assert.equal(pkg.options[pkg.correctIndex]?.value, pkg.canonicalAnswer);
+  assert.doesNotMatch(pkg.canonicalAnswer, /\./, `${mixedPrototype}/${seed}: reduced-fraction answer is displayed as a decimal.`);
+  assert.ok(pkg.options.every((option) => !option.value.includes(".")), `${mixedPrototype}/${seed}: a reduced-fraction option is displayed as a decimal.`);
+  assert.match(pkg.explanation.finalAnswer, /reduced fraction/i);
   const answer = parseNumericLiteral(pkg.canonicalAnswer);
   assert.ok(answer, `${mixedPrototype}/${seed}: answer is not an exact numeric value.`);
   maximumMixedAnswerDenominator = answer!.d > maximumMixedAnswerDenominator ? answer!.d : maximumMixedAnswerDenominator;
@@ -73,6 +76,8 @@ for (let seed = 1; seed <= 100; seed += 1) {
   assert.match(pkg.stem, /\d+\.\d+/);
   assert.match(pkg.stem, /Give the answer as a reduced fraction/);
   assert.ok(pkg.explanation.steps.length >= 2);
+  assert.doesNotMatch(pkg.canonicalAnswer, /\./, `${fractionTargetPrototype}/${seed}: reduced-fraction answer is displayed as a decimal.`);
+  assert.ok(pkg.options.every((option) => !option.value.includes(".")), `${fractionTargetPrototype}/${seed}: a reduced-fraction option is displayed as a decimal.`);
   const answer = parseNumericLiteral(pkg.canonicalAnswer);
   assert.ok(answer, `${fractionTargetPrototype}/${seed}: answer is not exact.`);
   maximumFractionTargetDenominator = answer!.d > maximumFractionTargetDenominator ? answer!.d : maximumFractionTargetDenominator;
@@ -127,6 +132,7 @@ console.log(JSON.stringify({
   hiddenLeadingZeroDefects: 0,
   decimalFractionFrameCount: decimalFractionFrames.size,
   mixedRepresentationFrameCount: mixedFrameSignatures.size,
+  reducedFractionDisplayDefects: 0,
   maximumMixedAnswerDenominator: maximumMixedAnswerDenominator.toString(),
   fractionTargetFrameCount: fractionTargetFrames.size,
   fractionTargetUniquePayloads: fractionTargetPayloads.size,
