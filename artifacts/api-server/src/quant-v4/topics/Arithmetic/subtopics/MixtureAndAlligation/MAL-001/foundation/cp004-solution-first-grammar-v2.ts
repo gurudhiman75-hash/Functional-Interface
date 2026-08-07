@@ -6,9 +6,12 @@ import type { MalCp004PermanentQlId } from "./cp004-permanent-runtime";
 
 export function polishMalCp004SolutionFirstStem(value: string): string {
   return value
-    .replace(/\bA (8\d*|18\d*|11)-litre/gu, "An $1-litre")
+    .replace(/\bA (8\d*|18\d*|11)(?=[\s%-])/gu, "An $1")
+    .replace(/\ba (8\d*|18\d*|11)(?=[\s%-])/gu, "an $1")
+    .replace(/\ba alcohol\b/giu, "an alcohol")
     .replace(/\blitres of solution contains\b/giu, "litres of solution contain")
     .replace(/\blitres of water evaporates\b/giu, "litres of water evaporate")
+    .replace(/\blitres evaporates\b/giu, "litres evaporate")
     .replace(/\blitres of water is lost\b/giu, "litres of water are lost");
 }
 
