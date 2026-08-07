@@ -357,6 +357,12 @@ function translateCore(source: string, locale: SerCp007Locale): TranslationResul
       `${match[1]} ਜੋੜੀ/ਤਰੱਕੀ ਦੀ ਬਣਤਰ ਤੋੜਦਾ ਹੈ; ਇਸ ਦੀ ਥਾਂ ${match[2]} ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।`,
     );
   }
+  if ((match = value.match(/^(.+) breaks the rotation\. It should be (.+)\.$/))) {
+    return ok(
+      `${match[1]} घूर्णन-क्रम तोड़ता है; इसके स्थान पर ${match[2]} होना चाहिए।`,
+      `${match[1]} ਘੁੰਮਾਅ-ਕ੍ਰਮ ਤੋੜਦਾ ਹੈ; ਇਸ ਦੀ ਥਾਂ ${match[2]} ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।`,
+    );
+  }
   if ((match = value.match(/^(.+) is the wrong group and (.+) is its replacement\.$/))) {
     return ok(
       `${match[1]} गलत समूह है और उसका सही प्रतिस्थापन ${match[2]} है।`,
@@ -453,6 +459,12 @@ function translateCore(source: string, locale: SerCp007Locale): TranslationResul
       `${match[1]} ਸਥਾਨ ਦੇ ਅੱਖਰ: ${match[2]}।`,
     );
   }
+  if ((match = value.match(/^First locate (.+) in each term\. Its positions are (.+)\.$/))) {
+    return ok(
+      `पहले प्रत्येक समूह में ${match[1]} का स्थान देखें। इसके स्थान हैं: ${match[2]}।`,
+      `ਪਹਿਲਾਂ ਹਰ ਸਮੂਹ ਵਿੱਚ ${match[1]} ਦਾ ਸਥਾਨ ਵੇਖੋ। ਇਸ ਦੇ ਸਥਾਨ ਹਨ: ${match[2]}।`,
+    );
+  }
   if ((match = value.match(/^(.+) → (.+) establishes the movement; applying it once more gives (.+)\.$/))) {
     return ok(
       `${match[1]} → ${match[2]} से परिवर्तन स्पष्ट होता है; वही परिवर्तन एक बार और लगाने पर ${match[3]} मिलता है।`,
@@ -507,13 +519,20 @@ function translateCore(source: string, locale: SerCp007Locale): TranslationResul
       `${match[1]} → ${match[2]}: ਹਰ ਅੱਖਰ ਨੂੰ ${match[3]} ਸਥਾਨ ਅੱਗੇ ਵਧਾਓ।`,
     );
   }
-  if ((match = value.match(/^(.+) → (.+): replace every letter with its alphabet opposite(?:, then move the first (\d+|one) letters? to the end)?\. Therefore, the pair is (.+), (.+)\.$/))) {
-    const rotation = match[3]
-      ? translated(
-          locale,
-          ` और फिर पहले ${match[3]} अक्षर को अंत में रखें`,
-          ` ਅਤੇ ਫਿਰ ਪਹਿਲੇ ${match[3]} ਅੱਖਰ ਨੂੰ ਅੰਤ ਵਿੱਚ ਰੱਖੋ`,
-        )
+  if ((match = value.match(/^(.+) → (.+): replace every letter with its alphabet opposite(?:, then move the first (?:(\d+|one) )?letters? to the end)?\. Therefore, the pair is (.+), (.+)\.$/))) {
+    const hasRotation = value.includes(", then move the first");
+    const rotation = hasRotation
+      ? match[3]
+        ? translated(
+            locale,
+            ` और फिर पहले ${match[3]} अक्षरों को अंत में रखें`,
+            ` ਅਤੇ ਫਿਰ ਪਹਿਲੇ ${match[3]} ਅੱਖਰਾਂ ਨੂੰ ਅੰਤ ਵਿੱਚ ਰੱਖੋ`,
+          )
+        : translated(
+            locale,
+            " और फिर पहले अक्षर को अंत में रखें",
+            " ਅਤੇ ਫਿਰ ਪਹਿਲੇ ਅੱਖਰ ਨੂੰ ਅੰਤ ਵਿੱਚ ਰੱਖੋ",
+          )
       : "";
     return {
       text: translated(
@@ -554,6 +573,12 @@ function translateCore(source: string, locale: SerCp007Locale): TranslationResul
       `${match[1]} → ${match[2]}: ਪਹਿਲੇ ${match[3]} ਅੱਖਰਾਂ ਨੂੰ ਅੰਤ ਵਿੱਚ ਲੈ ਜਾਓ।`,
     );
   }
+  if ((match = value.match(/^(.+) → (.+): move the first letter to the end\.$/))) {
+    return ok(
+      `${match[1]} → ${match[2]}: पहले अक्षर को अंत में ले जाएँ।`,
+      `${match[1]} → ${match[2]}: ਪਹਿਲੇ ਅੱਖਰ ਨੂੰ ਅੰਤ ਵਿੱਚ ਲੈ ਜਾਓ।`,
+    );
+  }
   if ((match = value.match(/^(.+) → (.+) after removing (.+) from the (beginning|end)\.$/))) {
     const sideHi = match[4] === "beginning" ? "आरंभ" : "अंत";
     const sidePa = match[4] === "beginning" ? "ਸ਼ੁਰੂ" : "ਅੰਤ";
@@ -574,6 +599,26 @@ function translateCore(source: string, locale: SerCp007Locale): TranslationResul
     return ok(
       `${match[1]} का अंतिम अक्षर ${match[2]} है। ${directionHi} चलते हुए ${match[4]} छोड़ें; अगला समूह ${match[5]} से आरंभ होकर ${match[6]} अक्षरों का होगा: ${match[7]}।`,
       `${match[1]} ਦਾ ਆਖਰੀ ਅੱਖਰ ${match[2]} ਹੈ। ${directionPa} ਚਲਦੇ ਹੋਏ ${match[4]} ਛੱਡੋ; ਅਗਲਾ ਸਮੂਹ ${match[5]} ਤੋਂ ਸ਼ੁਰੂ ਹੋ ਕੇ ${match[6]} ਅੱਖਰਾਂ ਦਾ ਹੋਵੇਗਾ: ${match[7]}।`,
+    );
+  }
+  if ((match = value.match(/^(.+) ends at (.+)\. Moving (forward|backward), skip (.+) before (.+); therefore the required previous group is (.+)\.$/))) {
+    const directionHi = match[3] === "forward" ? "आगे" : "पीछे";
+    const directionPa = match[3] === "forward" ? "ਅੱਗੇ" : "ਪਿੱਛੇ";
+    const skippedHi = match[4] === "no letters"
+      ? "कोई अक्षर नहीं"
+      : match[4]!.replace(/ and /g, " और ");
+    const skippedPa = match[4] === "no letters"
+      ? "ਕੋਈ ਅੱਖਰ ਨਹੀਂ"
+      : match[4]!.replace(/ and /g, " ਅਤੇ ");
+    return ok(
+      `${match[1]} का अंतिम अक्षर ${match[2]} है। ${directionHi} चलते हुए ${match[5]} से पहले ${skippedHi} छोड़ें; इसलिए आवश्यक पिछला समूह ${match[6]} है।`,
+      `${match[1]} ਦਾ ਆਖਰੀ ਅੱਖਰ ${match[2]} ਹੈ। ${directionPa} ਚਲਦੇ ਹੋਏ ${match[5]} ਤੋਂ ਪਹਿਲਾਂ ${skippedPa} ਛੱਡੋ; ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਪਿਛਲਾ ਸਮੂਹ ${match[6]} ਹੈ।`,
+    );
+  }
+  if ((match = value.match(/^(.+) must come before (.+) because the same position order changes (.+) into (.+)\.$/))) {
+    return ok(
+      `${match[2]} से पहले ${match[1]} आएगा, क्योंकि वही स्थान-क्रम ${match[3]} को ${match[4]} में बदलता है।`,
+      `${match[2]} ਤੋਂ ਪਹਿਲਾਂ ${match[1]} ਆਵੇਗਾ, ਕਿਉਂਕਿ ਉਹੀ ਸਥਾਨ-ਕ੍ਰਮ ${match[3]} ਨੂੰ ${match[4]} ਵਿੱਚ ਬਦਲਦਾ ਹੈ।`,
     );
   }
   if ((match = value.match(/^Marker positions: (.+)\.$/))) {
@@ -616,6 +661,47 @@ function translateCore(source: string, locale: SerCp007Locale): TranslationResul
       `${match[1]} में स्थान ${match[3]} पर ${match[2]} जोड़ने से ${match[4]} मिलता है।`,
       `${match[1]} ਵਿੱਚ ਸਥਾਨ ${match[3]} ਉੱਤੇ ${match[2]} ਜੋੜਨ ਨਾਲ ${match[4]} ਮਿਲਦਾ ਹੈ।`,
     );
+  }
+  if ((match = value.match(/^Mark the boundary between the old and new patterns\. It moves (\d+) place(?:s)? toward the (right|left) each time\.$/))) {
+    const sideHi = match[2] === "right" ? "दाएँ" : "बाएँ";
+    const sidePa = match[2] === "right" ? "ਸੱਜੇ" : "ਖੱਬੇ";
+    return ok(
+      `पुराने और नए पैटर्न के बीच की सीमा चिह्नित करें। यह हर बार ${match[1]} स्थान ${sideHi} खिसकती है।`,
+      `ਪੁਰਾਣੇ ਅਤੇ ਨਵੇਂ ਪੈਟਰਨ ਵਿਚਕਾਰ ਦੀ ਹੱਦ ਨਿਸ਼ਾਨਬੱਧ ਕਰੋ। ਇਹ ਹਰ ਵਾਰ ${match[1]} ਸਥਾਨ ${sidePa} ਖਿਸਕਦੀ ਹੈ।`,
+    );
+  }
+  if (value === "Mark the repeated block boundaries, then read each blank group from left to right.") {
+    return ok(
+      "दोहराए गए खंडों की सीमाएँ चिह्नित करें, फिर प्रत्येक रिक्त समूह को बाएँ से दाएँ पढ़ें।",
+      "ਦੁਹਰਾਏ ਖੰਡਾਂ ਦੀਆਂ ਹੱਦਾਂ ਨਿਸ਼ਾਨਬੱਧ ਕਰੋ, ਫਿਰ ਹਰ ਖਾਲੀ ਸਮੂਹ ਨੂੰ ਖੱਬੇ ਤੋਂ ਸੱਜੇ ਪੜ੍ਹੋ।",
+    );
+  }
+  if (value === "Mark the repeating block boundaries before filling any blank.") {
+    return ok(
+      "किसी भी रिक्त स्थान को भरने से पहले दोहराते खंडों की सीमाएँ चिह्नित करें।",
+      "ਕਿਸੇ ਵੀ ਖਾਲੀ ਥਾਂ ਨੂੰ ਭਰਨ ਤੋਂ ਪਹਿਲਾਂ ਦੁਹਰਾਉਂਦੇ ਖੰਡਾਂ ਦੀਆਂ ਹੱਦਾਂ ਨਿਸ਼ਾਨਬੱਧ ਕਰੋ।",
+    );
+  }
+  if (value === "Split the line into equal blocks and compare odd and even block positions.") {
+    return ok(
+      "पंक्ति को समान खंडों में बाँटें और विषम तथा सम खंड-स्थानों की तुलना करें।",
+      "ਲਾਈਨ ਨੂੰ ਬਰਾਬਰ ਖੰਡਾਂ ਵਿੱਚ ਵੰਡੋ ਅਤੇ ਵਿਸ਼ਮ ਅਤੇ ਸਮ ਖੰਡ-ਸਥਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+    );
+  }
+  if (value === "Write the groups one below another and follow each vertical position separately.") {
+    return ok(
+      "समूहों को एक-दूसरे के नीचे लिखें और प्रत्येक ऊर्ध्वाधर स्थान को अलग-अलग देखें।",
+      "ਸਮੂਹਾਂ ਨੂੰ ਇੱਕ-ਦੂਜੇ ਦੇ ਹੇਠਾਂ ਲਿਖੋ ਅਤੇ ਹਰ ਲੰਬਕਾਰੀ ਸਥਾਨ ਨੂੰ ਵੱਖ-ਵੱਖ ਵੇਖੋ।",
+    );
+  }
+  if (value === "Keep the same seven letters and move the first letter to the end each time. The series stops before any state repeats.") {
+    return ok(
+      "उन्हीं सात अक्षरों को रखें और हर बार पहले अक्षर को अंत में ले जाएँ। किसी अवस्था के दोहरने से पहले श्रृंखला समाप्त होती है।",
+      "ਉਹੀ ਸੱਤ ਅੱਖਰ ਰੱਖੋ ਅਤੇ ਹਰ ਵਾਰ ਪਹਿਲੇ ਅੱਖਰ ਨੂੰ ਅੰਤ ਵਿੱਚ ਲੈ ਜਾਓ। ਕਿਸੇ ਅਵਸਥਾ ਦੇ ਦੁਹਰਾਉਣ ਤੋਂ ਪਹਿਲਾਂ ਲੜੀ ਸਮਾਪਤ ਹੁੰਦੀ ਹੈ।",
+    );
+  }
+  if (/^[A-Za-z]+ → [A-Za-z]+: (?:[A-Za-z]→[A-Za-z] \([+\-]?\d+\)(?:, )?)+\.$/.test(value)) {
+    return { text: value, fallback: false };
   }
   if (/^[A-Za-z]+(?:\s*[+→=]\s*[A-Za-z]+)+(?:\.)?$/.test(value)) {
     return { text: value, fallback: false };
