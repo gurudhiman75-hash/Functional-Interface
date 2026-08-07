@@ -79,7 +79,7 @@ function assertCoreParity(
 
 function assertStem(question: MalCp004ClutterFreeQuestion): void {
   const prefix = `${question.permanentQlId}/${question.seed}`;
-  assert(/^[A-Z]/u.test(question.stem), `${prefix}: stem does not start with a capital.`);
+  assert(/^(?:[A-Z]|\d)/u.test(question.stem), `${prefix}: stem starts with lowercase text.`);
   assert(question.stem.endsWith("?"), `${prefix}: stem is not interrogative.`);
   const forbidden = [
     /^chemical A\b/u,
