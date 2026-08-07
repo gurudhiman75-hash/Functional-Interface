@@ -41,6 +41,7 @@ import {
   type QuestionStudioItem,
   type QuestionStudioRun,
 } from '@/features/question-studio/api';
+import { QuestionExplanationDisclosure } from '@/features/question-studio/QuestionExplanationDisclosure';
 import { useQuestionStudio } from '@/features/question-studio/useQuestionStudio';
 import { cn } from '@/lib/utils';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
@@ -67,9 +68,17 @@ function firstText(payload: Record<string, unknown> | null, keys: string[], fall
 
 function itemOptions(payload: Record<string, unknown> | null) {
   const options = payload?.options;
-  return Array.isArray(options)
-    ? options.map((option) => String(option ?? '')).filter(Boolean)
-    : [];
+  if (!Array.isArray(options)) return [];
+  return options
+    .map((option) => {
+      if (typeof option === 'string') return option.trim();
+      if (typeof option === 'object' && option !== null && !Array.isArray(option)) {
+        const label = (option as Record<string, unknown>).label;
+        return typeof label === 'string' ? label.trim() : '';
+      }
+      return String(option ?? '').trim();
+    })
+    .filter(Boolean);
 }
 
 function runStatusTone(status: GenerationRunStatus) {
@@ -498,8 +507,17 @@ export function QuestionStudioLivePage() {
                           }}
                           aria-label={`Select items in ${run.publicCode}`}
                         />
-                        <button type="button" onClick={() => toggleRun(run.id)} className="rounded-md p-1 hover:bg-muted">
-                          {expanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
+                        <button
+                          type="button"
+                          onClick={() => toggleRun(run.id)}
+                          className="rounded-md p-1 hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                          aria-expanded={expanded}
+                          aria-controls={`question-studio-run-${run.id}`}
+                          aria-label={`${expanded ? 'Collapse' : 'Expand'} generation run ${run.publicCode}`}
+                        >
+                          {expanded
+                            ? <ChevronDown className="h-4 w-4" aria-hidden="true" />
+                            : <ChevronRight className="h-4 w-4" aria-hidden="true" />}
                         </button>
                       </div>
 
@@ -527,7 +545,11 @@ export function QuestionStudioLivePage() {
                     </div>
 
                     {expanded && (
-                      <div className="border-t bg-muted/10">
+                      <div
+                        id={`question-studio-run-${run.id}`}
+                        className="border-t bg-muted/10"
+                        aria-label={`Generated items in ${run.publicCode}`}
+                      >
                         {items.map((item) => (
                           <GeneratedItemRow
                             key={item.id}
@@ -636,15 +658,24 @@ function GeneratedItemRow({
 }) {
   const stem = firstText(item.payload, ['text', 'stem'], 'Generated stem unavailable');
   const options = itemOptions(item.payload);
-  const explanation = firstText(item.payload, ['explanation'], 'No explanation recorded.');
   const correctIndex = Number(item.payload?.correctIndex ?? item.payload?.correct ?? -1);
+  const detailsId = `question-studio-item-${item.id}`;
 
   return (
     <div className="border-b px-4 py-3 last:border-b-0">
       <div className="flex items-start gap-3">
         <Checkbox checked={selected} onCheckedChange={(checked) => onSelected(checked === true)} aria-label={`Select generated item ${item.itemNumber}`} />
-        <button type="button" onClick={onExpanded} className="mt-0.5 rounded-md p-1 hover:bg-muted">
-          {expanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
+        <button
+          type="button"
+          onClick={onExpanded}
+          className="mt-0.5 rounded-md p-1 hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          aria-expanded={expanded}
+          aria-controls={detailsId}
+          aria-label={`${expanded ? 'Collapse' : 'Expand'} generated item ${item.itemNumber}`}
+        >
+          {expanded
+            ? <ChevronDown className="h-4 w-4" aria-hidden="true" />
+            : <ChevronRight className="h-4 w-4" aria-hidden="true" />}
         </button>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
@@ -653,19 +684,29 @@ function GeneratedItemRow({
             <Badge variant="outline" className="text-[10px]">{firstText(item.payload, ['difficulty', 'difficultyLabel'], 'Unrated')}</Badge>
             <Badge variant="outline" className="text-[10px]">{firstText(item.payload, ['patternId', 'packageId'], 'Pattern pending')}</Badge>
           </div>
-          <p className="mt-2 text-sm leading-relaxed">{stem}</p>
+          <p className="mt-2 max-w-full whitespace-pre-wrap break-words text-sm leading-relaxed [overflow-wrap:anywhere]">{stem}</p>
           {item.retryReason && <p className="mt-2 text-xs text-warning">Review reason: {item.retryReason}</p>}
         </div>
       </div>
 
       {expanded && (
-        <div className="ml-16 mt-3 grid gap-4 rounded-lg border bg-background p-4 lg:grid-cols-2">
+        <div
+          id={detailsId}
+          className="mt-3 grid min-w-0 max-w-full gap-4 rounded-lg border bg-background p-3 sm:ml-16 sm:p-4 xl:grid-cols-2"
+          aria-label={`Details for generated item ${item.itemNumber}`}
+        >
           <div>
             <p className="mb-2 text-xs font-semibold">Answer options</p>
             {options.length > 0 ? (
               <div className="space-y-2">
                 {options.map((option, index) => (
-                  <div key={`${item.id}-${index}`} className={cn('rounded-md border px-3 py-2 text-xs', index === correctIndex && 'border-success/40 bg-success/5 text-success')}>
+                  <div
+                    key={`${item.id}-${index}`}
+                    className={cn(
+                      'max-w-full break-words rounded-md border px-3 py-2 text-xs [overflow-wrap:anywhere]',
+                      index === correctIndex && 'border-success/40 bg-success/5 text-success',
+                    )}
+                  >
                     <span className="mr-2 font-mono font-bold">{String.fromCharCode(65 + index)}.</span>{option}
                   </div>
                 ))}
@@ -674,8 +715,8 @@ function GeneratedItemRow({
           </div>
           <div>
             <p className="mb-2 text-xs font-semibold">Explanation</p>
-            <p className="whitespace-pre-wrap text-xs leading-relaxed text-muted-foreground">{explanation}</p>
-            <div className="mt-4 grid grid-cols-2 gap-2 text-[10px] text-muted-foreground">
+            <QuestionExplanationDisclosure payload={item.payload} />
+            <div className="mt-4 grid min-w-0 grid-cols-1 gap-2 text-[10px] text-muted-foreground sm:grid-cols-2">
               <span>Topic: {firstText(item.payload, ['topic'])}</span>
               <span>Subtopic: {firstText(item.payload, ['subtopic'])}</span>
               <span>Language: {firstText(item.payload, ['language'])}</span>
