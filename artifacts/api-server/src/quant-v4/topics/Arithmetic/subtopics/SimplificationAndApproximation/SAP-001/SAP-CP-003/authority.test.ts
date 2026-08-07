@@ -3,7 +3,7 @@ import { SAP_CP003_PROTOTYPE_AUTHORITIES } from "./catalogue";
 import { SAP_CP003_EXAM_READINESS_POLICY } from "./exam-readiness-policy";
 import { parseNumericLiteral, parseRecurringDecimal, formatRat } from "./exact";
 import { generateSapCp003ReviewRecords } from "./review-export";
-import { generateSapCp003Sweep, SAP_CP003_RUNTIME_STATE } from "./editorial-runtime";
+import { generateSapCp003Sweep } from "./editorial-runtime";
 import { SAP_CP003_PROTOTYPE_IDS } from "./types";
 
 function maximumRun(sequence: readonly number[]): number {
@@ -71,7 +71,8 @@ assert.equal(formatRat(parseRecurringDecimal("0.8(3)")!), "5/6");
 assert.equal(formatRat(parseNumericLiteral("37.5%")!), "3/8");
 assert.equal(formatRat(parseNumericLiteral("0.625")!), "5/8");
 assert.equal(Object.keys(SAP_CP003_EXAM_READINESS_POLICY).length, 19);
-assert.ok(new Set(Object.values(SAP_CP003_EXAM_READINESS_POLICY).map((policy) => policy.mockUse)).size >= 4);
+assert.equal(new Set(Object.values(SAP_CP003_EXAM_READINESS_POLICY).map((policy) => policy.mockUse)).size, 3);
+assert.equal(Object.values(SAP_CP003_EXAM_READINESS_POLICY).filter((policy) => policy.mockUse === "REMEDIATION_PENDING").length, 0);
 
 const sweep = generateSapCp003Sweep(100);
 assert.equal(sweep.length, 1_900);
@@ -231,6 +232,8 @@ console.log(JSON.stringify({
   diagnosisCount,
   recurringCount,
   decimalPlacementCount,
-  nextAvailableQlId: SAP_CP003_RUNTIME_STATE.nextAvailableQlId,
-  lifecycle: SAP_CP003_RUNTIME_STATE.status,
+  mockUseTiers: [...new Set(Object.values(SAP_CP003_EXAM_READINESS_POLICY).map((policy) => policy.mockUse))].sort(),
+  remediationPendingPolicyCount: 0,
+  nextAvailableQlId: "SAP-QL-053",
+  lifecycle: "STRUCTURAL_REMEDIATION_V2_HUMAN_REVIEW_PENDING",
 }, null, 2));
