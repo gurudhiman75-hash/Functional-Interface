@@ -115,6 +115,19 @@ function releaseConnectedQl034(
     ...analysis,
     explanation: options[index]!.studentExplanation,
   }));
+  const diagramProof = {
+    ...question.explanation.diagramProof,
+    edges: question.explanation.diagramProof.edges.filter((edge) =>
+      !/^inferred parent$/i.test(edge.label.trim()),
+    ),
+  };
+  const familyTree = {
+    ...question.explanation.familyTree,
+    asciiFallback: question.explanation.familyTree.asciiFallback
+      .split("\n")
+      .filter((line) => !/inferred parent/i.test(line))
+      .join("\n"),
+  };
   return {
     ...question,
     stem: remodelStem(question),
@@ -124,6 +137,8 @@ function releaseConnectedQl034(
       steps: decisiveSteps(question),
       conclusion: `${question.answer} must replace ?; with this substitution, ${targetSentence(question)}.`,
       optionAnalysis,
+      diagramProof,
+      familyTree,
     },
     reviewProof: {
       ...question.reviewProof,
