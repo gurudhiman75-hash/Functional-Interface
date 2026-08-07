@@ -5,6 +5,9 @@ import { buildOptionDraftsV4, normalizedAnswerV4, normalizedStemV4, orderOptions
 import type { SapCp002ExamReadinessV4Package } from "./types";
 
 function proofStem(pkg: SapCp002ExamReadinessV3Package, stem: string): string {
+  if (pkg.permanentQlId === "SAP-QL-033") {
+    return stem.replace(/\s+(Given:|Step 1:|Step 2:|Step 3:)/g, "\n$1");
+  }
   if (pkg.taskDirection === "INVERSE") {
     const missingNumeratorOrDenominator = stem.match(/(□\/\d+\s*\+\s*[−-]?\d+\/\d+|\d+\/□\s*\+\s*[−-]?\d+\/\d+)\s*=\s*([−-]?\d+(?:\/\d+)?)/);
     if (missingNumeratorOrDenominator) {
