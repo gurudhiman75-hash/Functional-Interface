@@ -51,6 +51,14 @@ jobs:
           PY
           git diff --check
 
+      - name: Upload comprehensive Markdown
+        uses: actions/upload-artifact@v4
+        with:
+          name: probability-comprehensive-questions
+          path: artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Commit generated Markdown
         if: success()
         run: |
