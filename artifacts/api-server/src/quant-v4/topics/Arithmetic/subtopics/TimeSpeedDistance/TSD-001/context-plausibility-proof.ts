@@ -67,11 +67,12 @@ for (const expected of expectedContexts) {
 }
 assert(remediatedRows === 18, `Expected 18 context-remediated rows, received ${remediatedRows}`);
 
-const controlledHighSpeedRows = rows.filter((row) => (
-  /(?:126|144)\s*km\/h/i.test(row.sourceQuestion.stem)
-  && /controlled (?:route|road) (?:test|trial)/i.test(row.sourceQuestion.stem)
-));
-assert(controlledHighSpeedRows.length >= 3, `Expected controlled framing for high-speed human-origin scenarios, received ${controlledHighSpeedRows.length}`);
+const controlledHighSpeedRows = rows.filter((row) => {
+  const learnerText = `${row.sourceQuestion.stem} ${row.sourceQuestion.answerText}`;
+  return /(?:108|126|144)\s*km\/h/i.test(learnerText)
+    && /controlled (?:route|road) (?:test|trial)/i.test(row.sourceQuestion.stem);
+});
+assert(controlledHighSpeedRows.length >= 4, `Expected controlled framing for four high-speed human-origin scenarios, received ${controlledHighSpeedRows.length}`);
 
 console.log(JSON.stringify({
   status: "PASS",
