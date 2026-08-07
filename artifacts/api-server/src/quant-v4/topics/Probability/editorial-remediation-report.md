@@ -23,7 +23,7 @@ Explanations remain short but now show the actual outcomes whenever the sample s
 4. Number-range and conditional-number questions show the relevant integers or restricted set.
 5. Successive-draw questions distinguish orders such as red-blue and blue-red when both orders are valid.
 
-The final calculation still follows the simplest student-friendly structure: identify the possible cases, identify the required cases, divide and simplify. For larger outcome spaces, the explanation uses a compact counting method instead of printing an unreadable exhaustive list.
+The final calculation still follows the simplest student-friendly structure: identify the possible cases, identify the required cases, divide and simplify. For larger outcome spaces, the explanation uses a compact counting method or a shortened explicit set rather than printing an unreadable exhaustive list.
 
 ## Exam profiles
 
