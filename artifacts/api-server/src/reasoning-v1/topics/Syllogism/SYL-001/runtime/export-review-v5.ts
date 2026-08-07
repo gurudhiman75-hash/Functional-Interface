@@ -60,6 +60,7 @@ const deadInconsistentOptions = questions.reduce((sum, question) =>
     option.semanticValue === "PREMISES_INCONSISTENT").length, 0);
 const modalDiagnosticRecords = questions.filter((question) =>
   question.metadata.answerTemplateId === "DIAGNOSTIC_THREE_OPTION_V1").length;
+const editorialStatuses = questions[0]?.learnerPresentationV5.remediationEvidence;
 
 const summary = {
   authority: "SYL_001_EXAM_READINESS_REMEDIATION_V5",
@@ -91,12 +92,16 @@ const summary = {
     modalDiagnosticRecords,
     modalDiagnosticOptionCount: 3,
     modalDiagnosticTemplate: "DIAGNOSTIC_THREE_OPTION_V1",
+    questionExplanationApproval: {
+      approvedAt: "2026-08-07",
+      authority: "PRODUCT_OWNER_APPROVAL",
+      English: editorialStatuses?.nativeEnglishEditorialStatus,
+      Hindi: editorialStatuses?.nativeHindiEditorialStatus,
+      Punjabi: editorialStatuses?.nativePunjabiEditorialStatus,
+    },
   },
   retainedReleaseBlockers: {
-    nativeEnglishEditorialStatus: "PENDING",
-    nativeHindiEditorialStatus: "PENDING",
-    nativePunjabiEditorialStatus: "PENDING",
-    humanViewportStatus: "PENDING",
+    humanViewportStatus: editorialStatuses?.humanViewportStatus,
     mockWeightCalibrationStatus: "PENDING_SEPARATE_SOURCE_DECISION",
   },
   lifecycle: {
@@ -131,6 +136,7 @@ const markdown: string[] = [
   `- Localized records: ${summary.records}`,
   `- Logical questions: ${summary.logicalQuestions}`,
   `- English/Hindi/Punjabi: ${summary.languages["en-IN"]}/${summary.languages["hi-IN"]}/${summary.languages["pa-IN"]}`,
+  "- Question and explanation content approved by the product owner on 2026-08-07.",
   "- QL-008 explanation and diagram modes are derived from the actual pair status.",
   "- QL-009 and every mask question explain each displayed conclusion.",
   "- Counterexample, possibility and dual-model explanations narrate canonical models.",
@@ -142,8 +148,7 @@ const markdown: string[] = [
   "",
   "## Remaining blockers",
   "",
-  "- Native English, Hindi and Punjabi editorial approval: pending.",
-  "- Human viewport approval at 360, 412 and 768 px: pending.",
+  "- Human viewport approval at 360, 412 and 768 px: evidence ready, approval pending.",
   "- Source-authentic task weighting and difficulty calibration: pending.",
   "",
   "## Records",
