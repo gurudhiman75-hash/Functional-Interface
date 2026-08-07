@@ -77,8 +77,44 @@ function ql054(input, explanation) {
   };
 }
 
+function setText(values) {
+  return Array.isArray(values) && values.length > 0
+    ? values.join(", ")
+    : "none";
+}
+
+function ql069(input, explanation) {
+  const k = Number(input.hiddenState.knownExponent);
+  const first = input.hiddenState.firstCandidates;
+  const second = input.hiddenState.secondCandidates;
+  const combined = input.hiddenState.combinedCandidates;
+  return {
+    ...explanation,
+    coreConcept: `For ${math(`n=2^{x}\\times3^{${k}}`)}, each statement leaves a set of possible values of x.`,
+    givenDataAndStrategy: `Test the visible conditions only for ${math("x\\in\\{0,1,2,3,4,5\\}")}; then compare the two remaining sets.`,
+    stepByStep: [
+      `Statement I leaves ${math(`S_I=\\{${setText(first)}\\}`)}.`,
+      `Statement II leaves ${math(`S_{II}=\\{${setText(second)}\\}`)}.`,
+      `Using both statements gives ${math(`S_I\\cap S_{II}=\\{${setText(combined)}\\}`)}.`,
+      combined.length === 1
+        ? `The common set contains only x=${combined[0]}, so the combined information fixes x.`
+        : combined.length === 0
+          ? "The statements have no common valid value of x, so they do not determine a valid answer."
+          : `The common set still contains ${combined.length} values, so x is not uniquely fixed.`,
+    ],
+    examSpeedMethod: `Write the possible x-values from each statement and inspect their intersection.`,
+    commonTraps: [
+      `The fixed exponent ${k} belongs to 3; only x is unknown.`,
+      "A statement is sufficient alone only when its candidate set has one value.",
+      "When neither statement is sufficient alone, check the intersection before deciding.",
+    ],
+    finalAnswer: input.canonicalAnswer,
+  };
+}
+
 export function applyNumCp005ExplanationUniqueness(input, explanation) {
   if (input.qlId === "NUM-QL-052") return ql052(input, explanation);
   if (input.qlId === "NUM-QL-054") return ql054(input, explanation);
+  if (input.qlId === "NUM-QL-069") return ql069(input, explanation);
   return explanation;
 }
