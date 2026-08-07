@@ -163,10 +163,7 @@ function cleanVolumeStem(question: MalCp004ReleasedQuestion): string {
     .replace(/\bcomplete solution quantity\b/giu, "total volume")
     .replace(/\bcomplete mixture\b/giu, "mixture")
     .replace(/\bFor a stored solution, a solution\b/gu, "A solution")
-    .replace(
-      /Only the water quantity changes:\s*(1 litre|[0-9]+(?: [0-9/]+)? litres) of water evaporates\./iu,
-      "If $1 of water evaporates,",
-    )
+    .replace(/Only the water quantity changes:\s*/giu, "")
     .replace(/\blitres of water is added\b/giu, "litres of water are added")
     .replace(/\bcalculate the new ([^?]+)\?/iu, "what is the new $1?")
     .replace(/\bWhat percent acid remains in the final solution\?/u, "What is the final acid concentration?")
