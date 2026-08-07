@@ -1,0 +1,66 @@
+name: Validate SAP CP-003 explanation review
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-003/**"
+      - ".github/workflows/validate-sap-cp003-explanation-review.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-sap-cp003-explanation-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle explanation authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-003/SAP-CP-003-EXPLANATION-REVIEW-AUTHORITY.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/sap-cp003-explanation-review-authority.test.mjs
+
+      - name: Run explanation authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/sap-cp003-explanation-review-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp003-explanation-review-authority.log
+
+      - name: Bundle compact explanation exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-003/english-freeze/generate-review-markdown.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/sap-cp003-explanation-review-export.mjs
+
+      - name: Generate compact explanation review
+        run: >-
+          node artifacts/api-server/dist/quant-v4/sap-cp003-explanation-review-export.mjs
+          artifacts/api-server/dist/quant-v4/SAP-CP-003-57-EXPLANATION-REVIEW.md
+
+      - name: Upload explanation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sap-cp003-explanation-review
+          path: |
+            artifacts/api-server/dist/quant-v4/sap-cp003-explanation-review-authority.log
+            artifacts/api-server/dist/quant-v4/SAP-CP-003-57-EXPLANATION-REVIEW.md
+          if-no-files-found: error
+          retention-days: 30
