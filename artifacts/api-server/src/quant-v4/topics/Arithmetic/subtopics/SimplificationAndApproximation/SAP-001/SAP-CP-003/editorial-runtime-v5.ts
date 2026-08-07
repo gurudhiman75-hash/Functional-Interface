@@ -4,6 +4,7 @@ import {
   SAP_CP003_RUNTIME_STATE,
 } from "./editorial-runtime-v4";
 import { applySapCp003StructuralVariantsV2 } from "./structural-variants-v2";
+import { applySapCp003StructuralVariantsV3 } from "./structural-variants-v3";
 import {
   SAP_CP003_PROTOTYPE_IDS,
   type SapCp003Option,
@@ -95,8 +96,9 @@ export function generateSapCp003Package(
   prototypeId: SapCp003PrototypeId,
   seed: number,
 ): SapCp003Package {
-  const varied = applySapCp003StructuralVariantsV2(generateV4Package(prototypeId, seed));
-  const presentationSafe = normaliseVisibleDecimalPlacement(varied);
+  const v2 = applySapCp003StructuralVariantsV2(generateV4Package(prototypeId, seed));
+  const v3 = applySapCp003StructuralVariantsV3(v2);
+  const presentationSafe = normaliseVisibleDecimalPlacement(v3);
   return finalOptionShuffle(presentationSafe);
 }
 
