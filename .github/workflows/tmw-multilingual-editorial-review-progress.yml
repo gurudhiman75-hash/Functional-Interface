@@ -49,7 +49,7 @@ jobs:
           set -euo pipefail
           root="src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001"
           files=()
-          for cp in 001 002 003 004 005 006 007 008 009 010; do
+          for cp in 001 002 003 004 005 006 007 008 009 010 011; do
             files+=("${root}/tmw-001-cp${cp}-editorial-review.test.ts")
           done
           pnpm exec tsc \
@@ -64,14 +64,14 @@ jobs:
             --skipLibCheck \
             --types node \
             "${files[@]}"
-      - name: Bundle and run CP-001 through CP-010 editorial-review proofs
+      - name: Bundle and run CP-001 through CP-011 editorial-review proofs
         shell: bash
         run: |
           set -euo pipefail
           root="src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001"
           out="artifacts/api-server/dist/quant-v4"
           mkdir -p "$out"
-          for cp in 001 002 003 004 005 006 007 008 009 010; do
+          for cp in 001 002 003 004 005 006 007 008 009 010 011; do
             source="${root}/tmw-001-cp${cp}-editorial-review.test.ts"
             bundle="dist/quant-v4/tmw-001-cp${cp}-editorial-review.test.mjs"
             log="${out}/tmw-001-cp${cp}-editorial-review-proof.log"
