@@ -27,7 +27,7 @@ jobs:
           cat .prb-bootstrap/part-* > /tmp/probability_payload.b64
           base64 -d /tmp/probability_payload.b64 > /tmp/probability_payload.tar.gz
           echo "5f7d1bbf4edb77b2c40763e87cded5296cf960d372dfdeb37831f60b9d1330e4  /tmp/probability_payload.tar.gz" | sha256sum -c -
-          tar -xzf /tmp/probability_payload.tar.gz -C .
+          tar -xzf /tmp/probability_payload.tar.gz --strip-components=3 -C .
           rm -f artifacts/api-server/src/quant-v4/topics/Probability/cases-001-005.ts
           rm -f artifacts/api-server/src/quant-v4/topics/Probability/cases-006-009.ts
 
