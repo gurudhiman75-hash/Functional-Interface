@@ -9,10 +9,18 @@ import {
 
 function naturalQuestionStem(stem: string): string {
   const normalized = stem
+    .replace(/\b1 litres\b/gu, "1 litre")
+    .replace(
+      /\b(?!1\b)(\d+(?:\s+\d+\/\d+)?|\d+\/\d+) litres is\b/gu,
+      "$1 litres are",
+    )
     .replace(/\. Find the ([^.]+)\.$/u, ". What is the $1?")
     .replace(/\. Determine the ([^.]+)\.$/u, ". What is the $1?")
     .replace(/\. Find its ([^.]+)\.$/u, ". What is its $1?")
-    .replace(/\. Given ([^,]+), calculate the ([^.]+)\.$/u, ". Given $1, what is the $2?")
+    .replace(
+      /\. Given ([^,]+), calculate the ([^.]+)\.$/u,
+      ". Given $1, what is the $2?",
+    )
     .replace(/\. Calculate the ([^.]+)\.$/u, ". What is the $1?");
   if (normalized.endsWith("?")) return normalized;
   return normalized.endsWith(".")
