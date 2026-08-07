@@ -136,9 +136,13 @@ export function applyNumCp005FinalDifficulty(source, result) {
       const integer = Number(hiddenState.integerValue);
       const visible = Number(hiddenState.visiblePartner);
       const answer = Number(result.canonicalAnswer);
-      difficulty = integer <= 10_000 && visible <= 100 && answer <= 1_000
-        ? "EASY"
-        : "MEDIUM";
+      const cleanTensDivision = integer % 10 === 0
+        && visible % 10 === 0
+        && answer <= 1_000;
+      const smallDirectDivision = integer <= 10_000
+        && visible <= 100
+        && answer <= 1_000;
+      difficulty = cleanTensDivision || smallDirectDivision ? "EASY" : "MEDIUM";
       break;
     }
     default:
