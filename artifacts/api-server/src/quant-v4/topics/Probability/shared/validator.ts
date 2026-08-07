@@ -19,11 +19,14 @@ function probabilityLiteralsAreValid(stem: string): boolean {
   }
   return true;
 }
-function hasGrammarDefect(text: string): boolean {
-  return /\b1\s+(?:tosses|balls|women|men|cards|draws|sectors|outcomes)\b/i.test(text)
-    || /\bexactly\s+one\s+\w+\s+are\b/i.test(text)
-    || /\bexactly\s+\d+\s+\w+\s+is\b/i.test(text)
-    || /\b1\s+are\b/i.test(text);
+function hasGrammarDefect(value: string): boolean {
+  if (/\b1\s+(?:tosses|balls|women|men|cards|draws|sectors|outcomes)\b/i.test(value)) return true;
+  if (/\b(?:exactly\s+)?one\s+\w+\s+are\b/i.test(value)) return true;
+  for (const match of value.matchAll(/\bexactly\s+(\d+)\s+\w+\s+(is|are)\b/gi)) {
+    const count = Number(match[1]), verb = match[2]!.toLowerCase();
+    if ((count === 1 && verb !== "is") || (count !== 1 && verb !== "are")) return true;
+  }
+  return /\b1\s+are\b/i.test(value);
 }
 
 export function validateProbabilityQuestion(args: {
@@ -47,9 +50,9 @@ export function validateProbabilityQuestion(args: {
   checks.push(check("no-unresolved-placeholders", !/\{[^}]+\}/.test(stem), "The stem contains an unresolved placeholder."));
   checks.push(check("no-invalid-literals", !/(?:NaN|undefined|null|Infinity)/.test(studentText), "Invalid runtime literal found."));
   checks.push(check("exam-option-count", options.options.length === examProfile.optionCount, `${examProfile.id} requires ${examProfile.optionCount} options.`));
-  checks.push(check("unique-options", new Set(options.options.map((value) => value.trim().toLowerCase())).size === examProfile.optionCount, "Options are not unique."));
+  checks.push(check("unique-options", new Set(options.options.map((item) => item.trim().toLowerCase())).size === examProfile.optionCount, "Options are not unique."));
   checks.push(check("valid-correct-index", options.correctIndex >= 0 && options.correctIndex < examProfile.optionCount, "Correct option index is invalid."));
-  checks.push(check("correct-answer-once", options.options.filter((value) => value === answerText(solved.answer)).length === 1, "Correct answer must appear exactly once."));
+  checks.push(check("correct-answer-once", options.options.filter((item) => item === answerText(solved.answer)).length === 1, "Correct answer must appear exactly once."));
 
   if (solved.answer.kind === "PROBABILITY") checks.push(check("probability-range", isProbability(solved.answer.exact), "Probability is outside [0,1]."));
   checks.push(check("positive-denominator", solved.answer.kind !== "PROBABILITY" || solved.answer.exact.denominator > 0n, "Probability denominator is not positive."));
