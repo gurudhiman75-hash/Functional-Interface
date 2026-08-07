@@ -8,7 +8,7 @@ import {
   SER_CP007_TEMPLATE_PROBES_V71,
 } from "../SER-CP-007-AUTHORITY-FREEZE-CANDIDATE/authority-compression-contract-v7-1";
 import type { SerCp007EditorialQuestion } from "../SER-CP-007-ENGLISH-REMODEL/adaptive-review";
-import { buildAdaptiveSerCp007ReviewV71 } from "../SER-CP-007-ENGLISH-REMODEL/adaptive-review-v7-1";
+import { buildAdaptiveSerCp007ReviewV71Final } from "../SER-CP-007-ENGLISH-REMODEL/adaptive-review-v7-1-final";
 import {
   selectSerCp007PrimaryReleaseV71,
   type SerCp007ReleaseEntryV71,
@@ -193,7 +193,7 @@ for (const probe of SER_CP007_TEMPLATE_PROBES_V71) {
     const question = probe.generate(seed) as unknown as SerCp007EditorialQuestion;
     releaseEntries.push({
       question,
-      review: buildAdaptiveSerCp007ReviewV71(question),
+      review: buildAdaptiveSerCp007ReviewV71Final(question),
     });
   }
 }
