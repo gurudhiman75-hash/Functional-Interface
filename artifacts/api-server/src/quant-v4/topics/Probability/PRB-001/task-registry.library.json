@@ -1,0 +1,10 @@
+{
+  "packageId": "PRB-001",
+  "groups": [
+    {"packageId":"PRB-001","cpId":"PRB-CP-001","start":1,"count":22,"solveModes":["directProbability","findFavourableCount","findTotalCount","frequencyProbability","certainOrImpossible","compareEvents"],"taskKinds":["CLASSICAL_PROBABILITY","COUNT_RECOVERY"],"difficultyAllocation":{"easyUntil":0.34,"mediumUntil":0.77}},
+    {"packageId":"PRB-001","cpId":"PRB-CP-002","start":101,"count":24,"solveModes":["complementProbability","atLeastOne","noneOccurs","exactlyOne","exactlyK","atMostK","allOrNotAll"],"taskKinds":["COMPLEMENT","BINOMIAL_SMALL_N"],"difficultyAllocation":{"easyUntil":0.34,"mediumUntil":0.77}},
+    {"packageId":"PRB-001","cpId":"PRB-CP-003","start":201,"count":24,"solveModes":["coinPattern","coinHeadCount","singleDieEvent","twoDiceSum","twoDiceProduct","spinnerEvent","numberProperty","reverseOutcomeCount"],"taskKinds":["STANDARD_EXPERIMENT"],"difficultyAllocation":{"easyUntil":0.34,"mediumUntil":0.77}},
+    {"packageId":"PRB-001","cpId":"PRB-CP-004","start":301,"count":24,"solveModes":["cardRank","cardSuit","cardColour","cardFace","cardUnion","cardComplement","cardIntersection","cardReverseCount"],"taskKinds":["CARD_PROBABILITY"],"difficultyAllocation":{"easyUntil":0.34,"mediumUntil":0.77}},
+    {"packageId":"PRB-001","cpId":"PRB-CP-005","start":401,"count":26,"solveModes":["singleUrnDraw","sameTypeSelection","differentTypeSelection","exactComposition","noneOfType","atLeastOneType","urnReverseCount","combinationSelection"],"taskKinds":["URN_SELECTION"],"difficultyAllocation":{"easyUntil":0.34,"mediumUntil":0.77}}
+  ]
+}
