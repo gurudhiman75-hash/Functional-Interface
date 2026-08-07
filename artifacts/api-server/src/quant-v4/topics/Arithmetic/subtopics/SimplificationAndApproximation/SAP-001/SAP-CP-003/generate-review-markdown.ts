@@ -2,15 +2,16 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { generateSapCp003ReviewRecords } from "./review-export";
 
-const outputPath = resolve(process.argv[2] ?? "dist/SAP-CP-003-300-QUESTIONS-AND-ANSWERS.md");
+const outputPath = resolve(process.argv[2] ?? "dist/SAP-CP-003-300-QUESTIONS-AND-ANSWERS-V2.md");
 const records = generateSapCp003ReviewRecords();
 const labels = ["A", "B", "C", "D"] as const;
 const lines: string[] = [
-  "# SAP-CP-003 — 300 Questions and Answers",
+  "# SAP-CP-003 — 300 Questions and Answers — Structural Remediation V2",
   "",
   "**Checkpoint:** Decimals, Percentages and Exact Representation Switching  ",
-  "**Status:** Executable discovery; human review pending  ",
-  "**Permanent QL allocation:** Not allocated  ",
+  "**Status:** Structural remediation candidate; human review pending  ",
+  "**Permanent QL allocation:** SAP-QL-034 through SAP-QL-052 retained  ",
+  "**Question Studio and mock use:** Disabled pending renewed approval  ",
   "",
 ];
 
@@ -23,7 +24,7 @@ for (const record of records) {
 mkdirSync(dirname(outputPath), { recursive: true });
 writeFileSync(outputPath, lines.join("\n"), "utf8");
 console.log(JSON.stringify({
-  status: "WROTE_SAP_CP003_COMPACT_REVIEW",
+  status: "WROTE_SAP_CP003_COMPACT_REVIEW_V2",
   outputPath,
   questionCount: records.length,
   uniquePayloads: new Set(records.map((record) => record.canonicalPayloadKey)).size,
