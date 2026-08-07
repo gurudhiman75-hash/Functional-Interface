@@ -1,101 +1,106 @@
 # INE-CP-003 Book and Platform Critical Review
 
-**Review date:** 7 August 2026  
-**Reviewed branch:** `design/ine-cp003-conclusion-discovery`  
-**Reviewed commit:** `172054323371c3b35a6352214210b5b859405929`  
+**Review date:** 7 August 2026
+
+**Reviewed branch:** `design/ine-cp003-conclusion-discovery`
+
+**Implementation commit:** `172054323371c3b35a6352214210b5b859405929`
+
 **Review sample:** all 72 English records, 12 per provisional authority
+
+**Book audit:** all relevant pages in the four supplied PDFs
 
 ## Overall verdict
 
-**The formal reasoning is strong, but the pack is not yet an SSC or banking mock-test pack.**
+**The logical engine is strong, but the pack is not yet ready to represent SSC or banking mock questions.**
 
-The checkpoint correctly distinguishes conclusions that must be true, can be true, and cannot be true. It also handles inclusive relations correctly and supplies supporting and rejecting arrangements for non-definite claims. Those are meaningful improvements over shortcut-only preparation material.
+The book audit confirms the earlier platform review. CP-003 correctly distinguishes conclusions that must be true, can be true, and cannot be true. It handles strict and inclusive relations formally and supplies supporting and rejecting arrangements for non-definite claims. These are valuable guided-learning features.
 
-The principal weakness is delivery format. Most current banking inequality questions present two or more numbered conclusions and ask the learner to choose a response such as `Only I`, `Only II`, `Either I or II`, `Neither`, or `Both`. CP-003 instead uses four direct conclusion choices, explicit truth-class labels, or complete-relation-set choices. Those formats are useful for guided learning and diagnostics, but they should not currently be labelled `SSC_STANDARD_MOCK` or `BANKING_PRELIMS`.
+The mismatch is the learner-facing contract. The two primary book chapters mainly present two or three numbered conclusions and ask the learner to choose a response mask such as `Only I`, `Only II`, `Either I or II`, `Neither`, or `Both`. CP-003 instead asks learners to select one direct conclusion, classify one conclusion, or identify the complete relation set. Those are useful diagnostic tasks, but they are not the dominant source-shaped banking format.
 
-### Recommended status
+> **Decision: CONDITIONAL HOLD — retain the CP-003 solver and prototype authorities, but do not allocate permanent QLs or release the current records as SSC/banking mocks.**
 
-> **CONDITIONAL HOLD — approve the CP-003 logic engine for continued discovery, but do not allocate permanent QLs or release these records as SSC/banking mocks.**
+## Book audit and source roles
 
-## Evidence limitation: the reasoning books are not available in this workspace
+| Supplied PDF | Relevant pages inspected | Source role | Finding |
+| --- | --- | --- | --- |
+| Premil Aggarwal and Tanuj Aggarwal, *A New Approach to Reasoning for Competitions* | PDF 438–443; printed 27-1–27-6 | Primary | Dedicated Inequalities chapter: ordinary and coded statements, two/three conclusions, four response masks, and chain-first solutions |
+| Gajendra Kumar and Abhishek Banerjee, *Verbal & Non-Verbal Reasoning for Competitive Exams with Practice Sets* | PDF 175–187; printed 171–183 | Primary | Dedicated Inequality chapter with 87 questions across four difficulty bands; mainly two/three conclusions and five banking-style response masks |
+| Jaikishan and Premkishan, *How to Crack Test of Reasoning in All Competitive Exams* | PDF 176–180; printed 170–174 | Auxiliary | Mathematical Operations chapter; only its coded relational conclusion examples are relevant to response-mask design |
+| Meenakshi Upadhyay and Arun Sharma, *How to Prepare for Verbal Ability and Reading Comprehension for CAT* | Whole-book metadata and inequality search checked | Excluded | This is a verbal-ability/reading-comprehension book. Its uses of “inequality” concern passage content, not reasoning inequalities |
 
-The repository itself records that the page-level source ledger and source-saturation statement are incomplete. The synced project `sources` directory is empty in this task. Therefore, this review can verify CP-003 against the source-derived end-to-end design, but it cannot honestly claim page-by-page verification against the original uploaded books.
+The detailed record is in [INE-CP-003-SOURCE-LEDGER.md](./INE-CP-003-SOURCE-LEDGER.md).
 
-This is a formal closure blocker, not a cosmetic documentation gap. Before permanent QL allocation, the actual book files or page extracts must be restored and the following fields recorded for every admitted pattern:
+### What the books establish
 
-- source title and edition;
-- page number;
-- displayed statement form;
-- conclusion and response scheme;
-- operator inventory;
-- learner operation;
-- inverse form;
-- source-specific semantic convention.
+1. **The primary exam-shaped task is multi-conclusion evaluation.** Disha normally uses two conclusions with five response masks. Aggarwal uses two or three conclusions with four source-specific masks.
+2. **A merely possible conclusion does not “follow.”** Unless possibility is explicitly asked, the source task is to identify conclusions guaranteed by the statements.
+3. **Ordinary and coded forms both matter.** Coded symbols are a separate presentation layer over the same relation logic and should remain owned by the coded checkpoint.
+4. **Solutions are chain-first.** They combine the decisive statements, derive the endpoint relation, and then mark each conclusion.
+5. **Either-or is central but belongs to CP-004.** CP-003 may support non-complementary `Only I`, `Only II`, `Neither`, and `Both` masks; CP-004 should prove and own complementary pairs.
+6. **Routine contradiction options are not source-shaped.** The books tell the learner to assume the statements are true. Contradiction detection belongs in validation, not as a repeated distractor.
+7. **Difficulty is not just chain length.** Disha’s difficult section includes missing-symbol and expression-selection tasks that belong to later checkpoints. CP ownership must not be blurred merely to imitate its difficulty labels.
+
+### Source-semantic caution
+
+Aggarwal teaches learner shortcuts such as “priority of symbols.” These are useful summaries but must not replace formal entailment. In particular, the runtime must preserve the mathematical rule that a proven strict relation also satisfies its matching inclusive conclusion: `A > B` guarantees `A ≥ B`.
+
+Where an individual source item or public platform conflicts with formal semantics, record the convention or editorial error in provenance; do not weaken the solver to reproduce it.
 
 ## Source-design alignment
 
-| Source-derived CP-003 requirement                                           | Current implementation                                               | Assessment              |
-| --------------------------------------------------------------------------- | -------------------------------------------------------------------- | ----------------------- |
-| Distinguish definite, possible, and impossible conclusions                  | All three classes are generated and independently checked            | Pass                    |
-| Determine all possible atomic relations                                     | 12 relation-set records cover one-, two-, and three-relation domains | Pass as guided learning |
-| Test inclusive conclusions without promoting `≥` or `≤` to strict relations | Dedicated inclusive authority; balanced truth classes                | Pass                    |
-| Provide witnesses for non-definite claims                                   | Supporting and rejecting numeric arrangements are emitted            | Pass                    |
-| Use all five ordinary symbols                                               | `>`, `<`, `=`, `≥`, and `≤` all occur in source statements           | Pass                    |
-| Preserve a formal solver rather than textbook priority guessing             | Graph solver and finite-model enumerator agree                       | Strong pass             |
-| Supply a page-level source ledger                                           | No book/page provenance is attached to CP-003                        | Blocker                 |
-| Complete source saturation before checkpoint closure                        | Not demonstrated                                                     | Blocker                 |
+| CP-003 requirement | Current implementation | Assessment |
+| --- | --- | --- |
+| Distinguish definite, possible, and impossible conclusions | All three classes are generated and independently checked | Pass |
+| Determine all possible atomic relations | 12 relation-set records cover one-, two-, and three-relation domains | Pass as guided learning |
+| Test inclusive conclusions without promoting `≥` or `≤` to strict relations | Dedicated inclusive authority; balanced truth classes | Pass |
+| Provide witnesses for non-definite claims | Supporting and rejecting numeric arrangements are emitted | Pass |
+| Use all five ordinary symbols | `>`, `<`, `=`, `≥`, and `≤` all occur | Pass |
+| Preserve a formal solver rather than textbook priority guessing | Graph solver and finite-model enumerator agree | Strong pass |
+| Match book-shaped conclusion/option contracts | No numbered conclusion-mask authority exists | Blocker for mock release |
+| Attach exact source provenance | Supplied-book ledger now exists; record-level mapping is still absent | Partial |
+| Demonstrate source saturation | Four supplied books are classified; broader saturation is not yet demonstrated | Pending |
 
-## Current platform benchmark
+## Platform benchmark
 
-The benchmark used current or representative material from Testbook, Oliveboard, Guidely, Adda247/BankersAdda, and SATHEE.
-
-### What the benchmark consistently shows
-
-1. **Banking questions usually use numbered conclusions and a response mask.** Testbook and Guidely examples commonly use five choices: only I, only II, either, neither, or both. Adda247's SBI Clerk material uses the same pattern.
-2. **The exam asks what is definitely true.** A conclusion that is merely possible is normally treated as not following unless the conclusion itself explicitly asks about possibility.
-3. **Solutions first combine the useful chain.** They then mark each numbered conclusion true, false, or undetermined.
-4. **Four-option direct-relation questions do exist as concept practice.** Oliveboard uses them for isolated rules such as `A > B ≥ C = D` and asks for the definite endpoint relation.
-5. **Either-or and coded forms are central advanced variants.** They belong to later INE checkpoints, but the eventual mock profile must support their source-shaped response schemes.
-
-### Platform references
+The current platform evidence agrees with the two primary books:
 
 - [Testbook mathematical inequality quiz](https://testbook.com/blog/mathematical-inequality-quiz-1-for-banking-and-insurance/) — multiple conclusions, five response choices, combined-chain solutions.
-- [Oliveboard inequality practice](https://www.oliveboard.in/blog/inequalities-questions-quiz/) — four-option concept checks, inclusive-relation rules, blocked-path questions, and either-or instruction.
+- [Oliveboard inequality practice](https://www.oliveboard.in/blog/inequalities-questions-quiz/) — direct concept checks, inclusive-relation rules, blocked-path questions, and either-or instruction.
 - [Guidely inequality question bank](https://cdn.guidely.in/pdf/170555530892.pdf) — long chains followed by two conclusions and the five-choice banking response scheme.
-- [Adda247 SBI Clerk reasoning paper](https://blogmedia.testbook.com/blog/wp-content/uploads/2022/09/56.-sbi-clerk-prelims-2020-reasoning-ability--a2661f31.pdf) — memory-paper style two-conclusion inequality questions.
-- [SATHEE coded inequality theory](https://sathee.iitk.ac.in/sathee-bank-exam/bank-exams/ibps-po/study-materials/memory-based-questions/inequality/theory/) — formal distinction between definite and merely possible relations, mixed-direction uncertainty, and complementary pairs.
-- [SATHEE railway inequality practice](https://sathee.iitk.ac.in/sathee-railway-exams/student-corner/topic-wise-practice/reasoning/inequality/) — chain combination, equality substitution, safe inclusive conclusions, and conclusion-count tasks.
+- [Adda247 SBI Clerk reasoning paper](https://blogmedia.testbook.com/blog/wp-content/uploads/2022/09/56.-sbi-clerk-prelims-2020-reasoning-ability--a2661f31.pdf) — memory-paper-style two-conclusion inequality questions.
+- [SATHEE coded inequality theory](https://sathee.iitk.ac.in/sathee-bank-exam/bank-exams/ibps-po/study-materials/memory-based-questions/inequality/theory/) — distinction between definite and merely possible relations and treatment of complementary pairs.
+- [SATHEE railway inequality practice](https://sathee.iitk.ac.in/sathee-railway-exams/student-corner/topic-wise-practice/reasoning/inequality/) — chain combination, equality substitution, inclusive conclusions, and conclusion-count tasks.
 
-Platform content must be treated as evidence of question shape, not as mathematical authority. One Testbook quiz, for example, rejects an inclusive conclusion even though its own strict chain proves it; Oliveboard and SATHEE correctly state elsewhere that a strict relation also satisfies the matching inclusive conclusion. CP-003's formal solver is safer than copying such editorial inconsistencies.
+Platform material is evidence of question shape, not mathematical authority. Editorial inconsistencies must be rejected by the formal solver.
 
 ## Measured audit of the 72-record pack
 
-| Measure                                          |                                 Result | Assessment                                   |
-| ------------------------------------------------ | -------------------------------------: | -------------------------------------------- |
-| Records                                          |                                     72 | Adequate first review sample                 |
-| Provisional authorities                          |                                      6 | Matches implementation contract              |
-| Correct answer positions                         |                      18 / 18 / 18 / 18 | Excellent                                    |
-| Unique content hashes                            |                                     72 | Pass, but not structural proof               |
-| Underlying topologies                            |                                      6 | Too narrow for production                    |
-| Statement counts                                 |        12 with 2; 36 with 3; 24 with 4 | No long exam chains                          |
-| Easy / Medium / Hard                             |                            4 / 50 / 18 | Poorly calibrated                            |
-| SSC / Banking / Advanced labels                  |                            4 / 50 / 18 | Unsupported by actual response format        |
-| Classification truth classes                     | 8 definite / 8 possible / 8 impossible | Excellent balance                            |
-| Correct option positions                         |                       exactly balanced | Pass                                         |
-| Directly repeated classification conclusions     |                                0 of 24 | Strong                                       |
-| Correct selection using a directly compared pair |                                2 of 36 | Acceptable for strictness teaching; not hard |
-| Mock-solution length                             |              32–74 words; average 53.7 | Usually longer than needed                   |
-| Learning-solution length                         |            73–173 words; average 119.6 | Reasonable, but repetitive                   |
+| Measure | Result | Assessment |
+| --- | ---: | --- |
+| Records | 72 | Adequate first review sample |
+| Provisional authorities | 6 | Matches implementation contract |
+| Correct answer positions | 18 / 18 / 18 / 18 | Excellent |
+| Unique content hashes | 72 | Pass, but not structural proof |
+| Underlying topologies | 6 | Too narrow for production |
+| Statement counts | 12 with 2; 36 with 3; 24 with 4 | No long exam chains |
+| Easy / Medium / Hard | 4 / 50 / 18 | Poorly calibrated |
+| SSC / Banking / Advanced labels | 4 / 50 / 18 | Unsupported by response format |
+| Classification truth classes | 8 definite / 8 possible / 8 impossible | Excellent balance |
+| Directly repeated classification conclusions | 0 of 24 | Strong |
+| Correct selection using a directly compared pair | 2 of 36 | Acceptable for strictness teaching; not hard |
+| Mock-solution length | 32–74 words; average 53.7 | Usually longer than needed |
+| Learning-solution length | 73–173 words; average 119.6 | Useful but repetitive |
 
-All five source operators are present: 76 `>`, 44 `<`, 34 `≥`, 50 `≤`, and 24 `=` statements.
+All five statement operators are present: 76 `>`, 44 `<`, 34 `≥`, 50 `≤`, and 24 `=` occurrences.
 
 ## What is genuinely strong
 
 ### 1. Answer correctness and option uniqueness
 
-Every answer is re-derived from the displayed statements. Selection questions contain exactly one conclusion of the requested truth class. Reverse-equivalent conclusions are canonicalised, preventing duplicate options such as `A > B` and `B < A`.
+Every answer is re-derived from the displayed statements. Selection questions contain exactly one conclusion of the requested truth class. Reverse-equivalent conclusions are canonicalised, preventing duplicates such as `A > B` and `B < A`.
 
-### 2. Inclusive reasoning is better than shortcut-led material
+### 2. Inclusive reasoning is formally correct
 
 The runtime understands that:
 
@@ -103,163 +108,131 @@ The runtime understands that:
 - `A ≥ B` does not make `A > B` definite;
 - a strict edge anywhere in a same-direction path forces strictness at the endpoints.
 
-This should remain solver authority even when a preparation platform or book uses an imprecise “symbol priority” shortcut.
+This must remain solver authority even when a source uses an imprecise shortcut.
 
-### 3. Possibility is proved rather than asserted
+### 3. Possibility is proved, not asserted
 
-For a possibly true conclusion, the learning solution gives one valid arrangement where it holds and another where it fails. That is a rigorous teaching method and should be retained in guided-learning mode.
+For a possibly true conclusion, the learning solution provides one valid arrangement where it holds and another where it fails. This rigorous teaching feature should remain in guided-learning mode.
 
 ### 4. Answer-position leakage is absent
 
-The 72-review pack places exactly 18 answers in each position. The position schedule is namespaced by task, avoiding one shared seed pattern across authorities.
+The 72-record pack places exactly 18 answers in each position. The position schedule is namespaced by task, avoiding one shared seed pattern across authorities.
 
 ## Release blockers
 
-### 1. No record uses the dominant banking response scheme
+### 1. No source-shaped conclusion-mask authority
 
-None of the 72 questions uses the standard five-option response family:
+None of the 72 records uses numbered conclusions followed by a governed response mask. This is the clearest book-and-platform mismatch.
 
-1. Only conclusion I follows
-2. Only conclusion II follows
-3. Either conclusion I or II follows
-4. Neither conclusion I nor II follows
-5. Both conclusions follow
+It does not make CP-003 logically wrong. It means these records are guided concept questions, not representative banking mock questions.
 
-This does not make CP-003 logically wrong. It means the current records are guided concept questions, not representative banking mock questions.
-
-### 2. The contradiction option is an eliminable artificial distractor
+### 2. The contradiction option is an artificial distractor
 
 All 24 classification questions include:
 
-> The statements are contradictory
+> The statements are contradictory.
 
-The generator deliberately constructs consistent statements, and standard exam directions tell the learner to assume the statements are true. A prepared learner can dismiss this option without reasoning about the conclusion.
+Because the generator deliberately constructs consistent statements and exam directions ask the learner to assume them true, a prepared learner can eliminate this option without evaluating the conclusion.
 
-Keep contradiction detection inside validation. Do not use it as a routine learner option in SSC or banking mode.
+Keep contradiction detection inside validation. Do not use it as a routine exam-facing option.
 
-### 3. Release-tier metadata overclaims exam readiness
+### 3. Release-tier metadata overclaims readiness
 
-The pack labels 50 records `BANKING_PRELIMS` and 4 records `SSC_STANDARD_MOCK`. These labels currently describe intended difficulty, not verified exam shape.
+The pack labels 50 records `BANKING_PRELIMS` and four `SSC_STANDARD_MOCK`. These labels describe intended difficulty, not verified exam shape.
 
-Until source-shaped response contracts exist, use profiles such as:
+Until source-shaped contracts exist, use profiles such as:
 
 - `GUIDED_CONCEPT`;
 - `DIAGNOSTIC_PRACTICE`;
 - `ADVANCED_REASONING_LAB`.
 
-Exam tier and difficulty should be separate fields.
+Store exam tier and difficulty separately.
 
 ### 4. Structural diversity is too small
 
 Seventy-two surface records reduce to six base graph topologies. Name changes, statement order, symbol reversal, and query reversal improve presentation variety but do not create new reasoning structures.
 
-Production discovery should add at least:
+Production discovery should add:
 
-- longer five- and six-statement chains;
-- two independent chains feeding conclusion masks;
-- multiple valid routes with different strictness;
+- five- and six-statement chains;
+- two independent chains feeding a conclusion mask;
+- multiple valid paths with different strictness;
 - equality at the start, middle, and end;
 - one controlled irrelevant statement;
 - connected branches with one, two, or all three endpoint relations possible;
-- disconnected components combined with a definite conclusion elsewhere;
-- explicit `≠` handling if the restored books admit it.
+- disconnected components paired with a definite conclusion elsewhere.
 
-### 5. The explanations still sound generated
+### 5. Explanations still sound generated
 
-The wording is clearer than the earlier pack, but the same frame repeats:
+The repeated frame — “The statements allow… The conclusion is… Therefore…” — is accurate but robotic. It often states a relation domain without showing the decisive chain.
 
-> The statements allow ... The conclusion is ... Therefore, the conclusion is ...
-
-The mock solution often states a relation domain without showing the actual chain that produced it. Major platforms generally show the combined chain first, then audit the conclusions.
-
-#### Better mock style
+The book-shaped mock explanation should be short and path-first:
 
 ```text
 S ≥ P > R, so S > R.
-Therefore, “S ≥ R” must be true.
+Therefore, S ≥ R must also be true.
 ```
 
-#### Better learning style for possibility
+For possibility, use natural contrast:
 
 ```text
-From S ≥ P, S may equal P or be greater than P.
-
-If S = P, then P ≥ S is true.
-If S > P, then P ≥ S is false.
-
-So P ≥ S is possible, but it is not guaranteed.
+S may be equal to P or greater than P.
+If S = P, then P ≥ S is true. If S > P, it is false.
+So the conclusion is possible, but it is not guaranteed.
 ```
 
-Use arbitrary numeric assignments only when they materially clarify an undetermined branch. Introduce them as examples, not as raw solver output.
+Numeric witnesses are useful when they clarify an undetermined branch. Present them as examples, not raw solver output.
 
 ### 6. Difficulty is task-driven rather than reasoning-driven
 
-Only four questions are easy, while 18 are marked hard despite the entire pack using two to four statements. A four-statement selection task is not automatically hard.
-
-Difficulty should consider:
-
-- shortest decisive path length;
-- number of conclusions to evaluate;
-- count of plausible distractors;
-- equality compression;
-- strictness changes across alternate routes;
-- irrelevant information;
-- whether the queried pair appears directly;
-- number of valid endpoint relations.
+Only four questions are easy, while 18 are marked hard despite the entire pack using two to four statements. Difficulty should consider decisive path length, conclusions to evaluate, plausible distractors, equality compression, alternate routes, irrelevant information, direct comparisons, and the size of the possible endpoint-relation set.
 
 ## Recommended delivery profiles
 
 ### Guided concept mode
 
-Retain:
-
-- direct classification as definite, possible, or impossible;
-- complete possible-relation-set questions;
-- supporting and rejecting witness arrangements;
-- detailed misconception feedback.
-
-Replace the contradiction distractor with a fourth meaningful task-specific alternative or use a three-choice component if the product supports it.
+Retain direct truth classification, complete possible-relation-set questions, witness arrangements, and detailed misconception feedback. Replace the contradiction distractor with a meaningful fourth alternative or use a three-choice component.
 
 ### Banking mock mode
 
-Add source-shaped two- and three-conclusion questions with governed five-option masks. The mock explanation should show the combined chain and a one-line result for each conclusion.
-
-CP-004 should own complementary/either-or proof, but CP-003 can still own the non-complementary `Only I`, `Only II`, `Neither`, and `Both` truth-mask cases.
+Add source-shaped two- and three-conclusion questions with governed response masks. CP-003 can own non-complementary `Only I`, `Only II`, `Neither`, and `Both` cases. CP-004 should own complementary/either-or proof.
 
 ### SSC mock mode
 
-Use only source-verified four-option forms after the book/page ledger is restored. Prefer short chains, one clear task, and mutually exclusive options.
+Admit only exact four-option forms supported by the source ledger. Use short chains, one clear operation, and mutually exclusive options.
 
 ## Required remediation before permanent QLs
 
-1. Restore the reasoning-book files and complete the page-level source ledger.
-2. Separate guided-learning, diagnostic, SSC, and banking delivery profiles.
-3. Remove the contradiction option from exam-facing classification questions.
-4. Add source-shaped conclusion-mask authorities.
-5. Reclassify the current release tiers honestly.
-6. Replace generic domain narration with path-first mock explanations.
-7. Naturalise witness explanations and remove repeated conclusion sentences.
-8. Expand beyond six graph topologies and include five- and six-statement structures.
-9. Add normalized structural fingerprints and duplicate-cluster reporting.
-10. Re-audit at least 12 records per proposed permanent QL against exact book pages and platform-shaped benchmarks.
+1. Separate guided-learning, diagnostic, SSC, and banking delivery profiles.
+2. Remove the contradiction option from exam-facing classification questions.
+3. Add source-shaped conclusion-mask authorities without moving CP-004 ownership into CP-003.
+4. Reclassify the current release tiers honestly.
+5. Replace generic domain narration with path-first explanations.
+6. Expand beyond six graph topologies and include five- and six-statement structures.
+7. Add normalized structural fingerprints and duplicate-cluster reporting.
+8. Map every proposed permanent QL to exact source-ledger records.
+9. Document source-specific semantic conflicts while keeping the formal solver authoritative.
+10. Re-audit at least 12 records per proposed permanent QL before English freeze.
 
 ## Readiness scores
 
-| Area                       |  Score |
-| -------------------------- | -----: |
+| Area | Score |
+| --- | ---: |
 | Formal logical correctness | 9.5/10 |
-| Source-design coverage     | 8.5/10 |
-| Page-level book provenance |   2/10 |
-| Option correctness         |   9/10 |
-| Guided-learning value      |   8/10 |
-| Explanation naturalness    | 6.5/10 |
-| Structural diversity       |   5/10 |
-| SSC mock realism           | 4.5/10 |
-| Banking mock realism       |   5/10 |
-| Production readiness       | 4.5/10 |
+| Source-design coverage | 8.5/10 |
+| Supplied-book provenance | 8/10 |
+| Record-to-page provenance | 4/10 |
+| Option correctness | 9/10 |
+| Source-shaped option design | 4.5/10 |
+| Guided-learning value | 8/10 |
+| Explanation naturalness | 6.5/10 |
+| Structural diversity | 5/10 |
+| SSC mock realism | 4.5/10 |
+| Banking mock realism | 5/10 |
+| Production readiness | 4.5/10 |
 
 ## Final decision
 
-The CP-003 engine should be retained. Its formal handling of strict, inclusive, possible, and impossible relations is dependable and, in places, more mathematically reliable than public preparation material.
+Retain the CP-003 engine. Its treatment of strict, inclusive, possible, and impossible relations is dependable and sometimes more mathematically reliable than shortcut-led preparation material.
 
-The current 72 records should be reclassified as guided or diagnostic prototypes. Permanent QL allocation, English freeze, Question Studio exposure, and mock-test eligibility should remain disabled until the source ledger and exam-profile remediation are complete.
+Reclassify the current 72 records as guided or diagnostic prototypes. Keep permanent QL allocation, English freeze, Question Studio exposure, and mock-test eligibility disabled until the response contracts, explanations, structural diversity, and record-level provenance are remediated.
