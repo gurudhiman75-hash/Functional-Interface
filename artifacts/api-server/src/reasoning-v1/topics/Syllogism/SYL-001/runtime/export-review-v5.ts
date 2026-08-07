@@ -60,6 +60,11 @@ const deadInconsistentOptions = questions.reduce((sum, question) =>
     option.semanticValue === "PREMISES_INCONSISTENT").length, 0);
 const modalDiagnosticRecords = questions.filter((question) =>
   question.metadata.answerTemplateId === "DIAGNOSTIC_THREE_OPTION_V1").length;
+const enabledDiagramRecords = questions.filter((question) =>
+  question.learnerPresentationV5.diagram.enabled
+  && Boolean(question.learnerPresentationV5.diagram.svg)).length;
+const relationMapRecords = questions.filter((question) =>
+  question.learnerPresentationV5.diagram.mode === "RELATION_MAP").length;
 const editorialStatuses = questions[0]?.learnerPresentationV5.remediationEvidence;
 
 const summary = {
@@ -71,6 +76,12 @@ const summary = {
   difficulty: countBy(questions.filter((question) => question.locale === "en-IN").map((question) => question.difficulty)),
   explanationModes: countBy(questions.map((question) => question.learnerPresentationV5.learnerExplanation.mode)),
   diagramModes: countBy(questions.map((question) => question.learnerPresentationV5.diagram.mode)),
+  diagramCoverage: {
+    requiredRecords: questions.length,
+    enabledRecords: enabledDiagramRecords,
+    missingRecords: questions.length - enabledDiagramRecords,
+    relationMapFallbackRecords: relationMapRecords,
+  },
   modelEvidence: {
     requiredRecords: questions.filter((question) => question.learnerPresentationV5.modelEvidence.required).length,
     missingCanonicalModels: questions.filter((question) =>
@@ -87,7 +98,8 @@ const summary = {
     concreteDualModels: true,
     logicalStatusSeparatedFromTaskDisposition: true,
     nonEmptyDirectionVisibleBeforeAttempt: true,
-    unsafeUnknownRelationDiagramsOmitted: true,
+    allRecordsHaveSafeVisual: enabledDiagramRecords === questions.length,
+    unsafeUnknownRelationVisualsUseRelationMap: true,
     deadInconsistentOptionRemoved: deadInconsistentOptions === 0,
     modalDiagnosticRecords,
     modalDiagnosticOptionCount: 3,
@@ -137,10 +149,13 @@ const markdown: string[] = [
   `- Logical questions: ${summary.logicalQuestions}`,
   `- English/Hindi/Punjabi: ${summary.languages["en-IN"]}/${summary.languages["hi-IN"]}/${summary.languages["pa-IN"]}`,
   "- Question and explanation content approved by the product owner on 2026-08-07.",
+  `- Visual coverage: ${summary.diagramCoverage.enabledRecords}/${summary.diagramCoverage.requiredRecords}; missing: ${summary.diagramCoverage.missingRecords}.`,
+  `- Safe relation-map fallbacks: ${summary.diagramCoverage.relationMapFallbackRecords}.`,
+  "- Exact Venn diagrams are retained where justified; otherwise a relation map shows only stated or forced links.",
   "- QL-008 explanation and diagram modes are derived from the actual pair status.",
   "- QL-009 and every mask question explain each displayed conclusion.",
   "- Counterexample, possibility and dual-model explanations narrate canonical models.",
-  "- Unknown witness-transfer relations are not drawn as proved separation.",
+  "- Unknown witness-transfer relations are never drawn as proved separation.",
   "- Logical option status is displayed separately from task disposition.",
   "- The non-empty-class direction is visible before the attempt.",
   "- Modal diagnostic QLs use the exhaustive three live statuses: definitely true, possible but not definite, and impossible.",
@@ -178,9 +193,6 @@ for (const record of records) {
   if (record.diagram.enabled && record.diagram.caption) {
     markdown.push("");
     markdown.push(`**Diagram caption:** ${record.diagram.caption}`);
-  } else if (record.diagram.omissionReason) {
-    markdown.push("");
-    markdown.push(`**Diagram omitted:** ${record.diagram.omissionReason}`);
   }
   markdown.push("");
 }
