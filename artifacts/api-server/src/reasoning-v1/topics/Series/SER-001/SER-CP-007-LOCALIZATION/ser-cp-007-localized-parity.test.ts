@@ -54,6 +54,25 @@ const fallbackByLocale = new Map<SerCp007Locale, Set<string>>(
 const englishLeakByLocale = new Map<SerCp007Locale, Set<string>>(
   SER_CP007_LOCALES.map((locale) => [locale, new Set<string>()]),
 );
+const englishLeakLinesByLocale = new Map<SerCp007Locale, Set<string>>(
+  SER_CP007_LOCALES.map((locale) => [locale, new Set<string>()]),
+);
+
+function recordEnglishLeaks(input: {
+  readonly locale: SerCp007Locale;
+  readonly temporaryTemplateId: string;
+  readonly seed: number;
+  readonly text: string;
+}): void {
+  for (const line of input.text.split("\n")) {
+    const words = unexpectedAsciiProse(line);
+    if (words.length === 0) continue;
+    for (const word of words) englishLeakByLocale.get(input.locale)!.add(word);
+    englishLeakLinesByLocale.get(input.locale)!.add(
+      `${input.temporaryTemplateId}:${input.seed} :: ${line.trim()}`,
+    );
+  }
+}
 
 for (const locale of SER_CP007_LOCALES) {
   const script = expectedScript(locale);
@@ -133,12 +152,18 @@ for (const locale of SER_CP007_LOCALES) {
       for (const source of first.review.localizationDiagnostics.fallbackSourceLines) {
         fallbackByLocale.get(locale)!.add(source);
       }
-      for (const word of unexpectedAsciiProse(first.review.conciseReview)) {
-        englishLeakByLocale.get(locale)!.add(word);
-      }
-      for (const word of unexpectedAsciiProse(first.review.expandedReview)) {
-        englishLeakByLocale.get(locale)!.add(word);
-      }
+      recordEnglishLeaks({
+        locale,
+        temporaryTemplateId: probe.temporaryTemplateId,
+        seed,
+        text: first.review.conciseReview,
+      });
+      recordEnglishLeaks({
+        locale,
+        temporaryTemplateId: probe.temporaryTemplateId,
+        seed,
+        text: first.review.expandedReview,
+      });
 
       if (locale === "pa-IN") {
         assert.ok(!first.question.stem.includes("ਪਦ"));
@@ -167,6 +192,12 @@ const fallbackSummary = Object.fromEntries(
 const englishLeakSummary = Object.fromEntries(
   [...englishLeakByLocale].map(([locale, values]) => [locale, [...values].sort()]),
 );
+const englishLeakLineSummary = Object.fromEntries(
+  [...englishLeakLinesByLocale].map(([locale, values]) => [
+    locale,
+    [...values].sort(),
+  ]),
+);
 
 assert.equal(packageProofs, 840);
 assert.equal(reachedPermanentQls.size, 13);
@@ -178,7 +209,11 @@ assert.equal(
 assert.equal(
   [...englishLeakByLocale.values()].reduce((total, values) => total + values.size, 0),
   0,
-  `English prose leaked into localized reviews:\n${JSON.stringify(englishLeakSummary, null, 2)}`,
+  `English prose leaked into localized reviews:\n${JSON.stringify(
+    { words: englishLeakSummary, lines: englishLeakLineSummary },
+    null,
+    2,
+  )}`,
 );
 
 console.log(
@@ -197,6 +232,7 @@ console.log(
       lifecycleLockProofs,
       fallbackPatterns: fallbackSummary,
       englishProseLeaks: englishLeakSummary,
+      englishProseLeakLines: englishLeakLineSummary,
       localizationStatus: "IMPLEMENTED_PENDING_NATIVE_LANGUAGE_MANUAL_REVIEW",
       lifecycle: {
         questionStudioDiscoverable: false,
