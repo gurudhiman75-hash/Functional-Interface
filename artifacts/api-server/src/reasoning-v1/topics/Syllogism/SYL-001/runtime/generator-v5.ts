@@ -2,6 +2,7 @@ import type { SylLocale, TermId } from "../foundation/types";
 import { generateSylQuestionV4 } from "./generator-v4";
 import { buildLearnerPresentationV5 } from "./learner-v5";
 import { markDeadOptionRemediationV5 } from "./learner-v5-dead-option-remediation";
+import { completeRequiredDiagramV5 } from "./learner-v5-diagram-completion";
 import { polishLearnerPresentationV5 } from "./learner-v5-editorial-polish";
 import { remediateModelTargetV5 } from "./learner-v5-model-target-remediation";
 import { markQuestionExplanationApprovalV5 } from "./learner-v5-review-status";
@@ -22,11 +23,15 @@ export function generateSylQuestionV5(
   ) as Readonly<Record<TermId, string>>;
   const learnerPresentationV5 = markQuestionExplanationApprovalV5(
     markDeadOptionRemediationV5(
-      remediateModelTargetV5(
+      completeRequiredDiagramV5(
         question,
-        polishLearnerPresentationV5(
+        remediateModelTargetV5(
           question,
-          buildLearnerPresentationV5(question, termLabels),
+          polishLearnerPresentationV5(
+            question,
+            buildLearnerPresentationV5(question, termLabels),
+          ),
+          termLabels,
         ),
         termLabels,
       ),
