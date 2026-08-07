@@ -76,21 +76,6 @@ jobs:
           path.write_text(text)
           PY
 
-      - name: Polish reverse-probability stems
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          path = Path("artifacts/api-server/src/quant-v4/topics/Probability/shared/student-facing-renderer.ts")
-          text = path.read_text()
-          old = 'return tidy(`${num(p, "favourable")} outcomes are ${text(p, "context", "favourable")}. If their probability is ${frac(num(p, "probabilityNumerator"), num(p, "probabilityDenominator", 1))}, how many equally likely outcomes are there in total?`);'
-          new = 'return tidy(`A group contains ${num(p, "favourable")} ${text(p, "context", "favourable outcomes")}. If the probability of selecting one of them is ${frac(num(p, "probabilityNumerator"), num(p, "probabilityDenominator", 1))}, how many equally likely items are there in total?`);'
-          if new not in text:
-              if old not in text:
-                  raise SystemExit("Could not find reverse-probability stem renderer")
-              text = text.replace(old, new, 1)
-          path.write_text(text)
-          PY
-
       - name: Probability TypeScript integration
         run: >-
           npx -y -p typescript@5.6.3 tsc
@@ -118,7 +103,10 @@ jobs:
       - name: Regenerate review sheets and report
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/generate-exam-review.ts
 
-      - name: Verify generated files
+      - name: Generate comprehensive Markdown
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/generate-comprehensive-questions.ts
+
+      - name: Verify generated review evidence
         run: |
           python - <<'PY'
           import csv
@@ -128,17 +116,19 @@ jobs:
               "PRB-001": (75, 4, "SSC_CGL_CHSL"),
               "PRB-002": (60, 5, "BANKING_MAINS"),
           }
+          all_keys = set()
           for package_id, (count, option_count, profile) in expected.items():
               path = Path(f"artifacts/api-server/src/quant-v4/topics/Probability/{package_id}/human-review-en.csv")
               rows = list(csv.DictReader(path.open()))
               if len(rows) != count:
                   raise SystemExit(f"{package_id}: expected {count} rows, found {len(rows)}")
-              keys = set()
+              package_keys = set()
               for row in rows:
                   key = (" ".join(row["stem"].lower().split()), row["answer"])
-                  if key in keys:
-                      raise SystemExit(f"{package_id}: duplicate visible question: {row['stem']}")
-                  keys.add(key)
+                  if key in package_keys or key in all_keys:
+                      raise SystemExit(f"Duplicate visible question: {row['stem']}")
+                  package_keys.add(key)
+                  all_keys.add(key)
                   if row["examProfile"] != profile:
                       raise SystemExit(f"{package_id}: wrong exam profile")
                   options = [row[f"option{letter}"] for letter in "ABCDE" if row[f"option{letter}"]]
@@ -146,24 +136,53 @@ jobs:
                       raise SystemExit(f"{package_id}: invalid options for {row['qlId']}")
                   if row["validationValid"] != "true":
                       raise SystemExit(f"{package_id}: invalid review row {row['qlId']}")
-              if len(keys) != count:
-                  raise SystemExit(f"{package_id}: uniqueness proof failed")
+                  explanation_words = len(row["explanation"].split())
+                  if not 12 <= explanation_words <= 120:
+                      raise SystemExit(f"{package_id}: unsuitable explanation length for {row['qlId']}: {explanation_words}")
+                  banned_stem = ["equally likely items", "it does not happen", "satisfies A", "satisfies B"]
+                  if any(phrase.lower() in row["stem"].lower() for phrase in banned_stem):
+                      raise SystemExit(f"{package_id}: unnatural stem language in {row['qlId']}")
+                  banned_explanation_starts = ("Favourable outcomes =", "Total outcomes =", "Total possible outcomes =")
+                  if row["explanation"].startswith(banned_explanation_starts):
+                      raise SystemExit(f"{package_id}: generic explanation in {row['qlId']}")
+
+          markdown = Path("artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md").read_text()
+          checks = {
+              "questions": markdown.count("\n#### Question "),
+              "answers": markdown.count("\n**Correct answer:**"),
+              "explanations": markdown.count("\n**Explanation:**"),
+          }
+          if checks != {"questions": 135, "answers": 135, "explanations": 135}:
+              raise SystemExit(f"Markdown coverage mismatch: {checks}")
+          if len(all_keys) != 135:
+              raise SystemExit(f"Expected 135 unique visible questions, found {len(all_keys)}")
           PY
           git diff --check
 
-      - name: Commit verified remediation evidence
+      - name: Upload comprehensive Markdown
+        uses: actions/upload-artifact@v4
+        with:
+          name: probability-contextual-questions
+          path: artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Commit verified editorial evidence
         if: success()
         run: |
-          if git diff --quiet; then
+          targets=(
+            artifacts/api-server/src/quant-v4/generation-engine.ts
+            artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/human-review-en.csv
+            artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/human-review-en.csv
+            artifacts/api-server/src/quant-v4/topics/Probability/editorial-remediation-report.md
+            artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md
+          )
+          if [ -z "$(git status --porcelain -- "${targets[@]}")" ]; then
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            artifacts/api-server/src/quant-v4/generation-engine.ts \
-            artifacts/api-server/src/quant-v4/topics/Probability/shared/student-facing-renderer.ts \
-            artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/human-review-en.csv \
-            artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/human-review-en.csv \
-            artifacts/api-server/src/quant-v4/topics/Probability/editorial-remediation-report.md
-          git commit -m "feat(probability): regenerate unique exam-ready review evidence [skip ci]"
+          git add "${targets[@]}"
+          git diff --cached --check
+          git commit -m "docs(probability): regenerate contextual review evidence [skip ci]"
           git push
