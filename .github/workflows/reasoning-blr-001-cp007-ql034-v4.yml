@@ -83,17 +83,51 @@ jobs:
           grep -q '"S": 8' "$OUT/blr-cp007-v4-wave2-summary.json"
           grep -q '32 missing-person questions rebuilt as connected family networks' "$OUT/blr-cp007-v4-wave2-ql034-review.html"
 
-      - name: Upload Wave 2 diagnostics
+      - name: Prove final 168-question V4 review corpus
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v4-final-review.test.ts 2>&1 | tee cp007-v4-final.log
+
+      - name: Export final 168-question V4 review pack
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-cp007-editorial-v4-final-review.ts cp007-editorial-v4-final-review-output | tee cp007-v4-final-export.log
+
+      - name: Verify final V4 artifact contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=cp007-editorial-v4-final-review-output
+          test -f "$OUT/blr-cp007-editorial-v4-final-summary.json"
+          test -f "$OUT/blr-cp007-editorial-v4-final-records.jsonl"
+          test -f "$OUT/blr-cp007-editorial-v4-final-records.csv"
+          test -f "$OUT/blr-cp007-editorial-v4-final-review.html"
+          test -f "$OUT/BLR-CP-007-EDITORIAL-V4-FINAL-REVIEW.md"
+          test "$(wc -l < "$OUT/blr-cp007-editorial-v4-final-records.jsonl")" -eq 168
+          grep -q '"releaseCandidateCount": 136' "$OUT/blr-cp007-editorial-v4-final-summary.json"
+          grep -q '"foundationPracticeCount": 32' "$OUT/blr-cp007-editorial-v4-final-summary.json"
+          grep -q '"remediationHoldCount": 0' "$OUT/blr-cp007-editorial-v4-final-summary.json"
+          grep -q '"finalReviewRecordCount": 168' "$OUT/blr-cp007-editorial-v4-final-summary.json"
+          grep -q '"finalReviewUniqueStemCount": 168' "$OUT/blr-cp007-editorial-v4-final-summary.json"
+          grep -q '"finalReviewUniqueEditorialFingerprintCount": 168' "$OUT/blr-cp007-editorial-v4-final-summary.json"
+          grep -q 'BLR-CP-007 — Editorial V4 Final Human Review' "$OUT/blr-cp007-editorial-v4-final-review.html"
+          grep -q 'Human approval required' "$OUT/blr-cp007-editorial-v4-final-review.html"
+
+      - name: Upload V4 diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: blr-001-cp007-v4-wave2-logs
+          name: blr-001-cp007-v4-final-logs
           path: |
             cp006-source.log
             cp007-v3.log
             cp007-v4-wave1.log
             cp007-v4-wave2.log
             cp007-v4-wave2-export.log
+            cp007-v4-final.log
+            cp007-v4-final-export.log
           if-no-files-found: warn
           retention-days: 14
 
@@ -102,5 +136,13 @@ jobs:
         with:
           name: blr-001-cp007-v4-wave2-ql034-human-review
           path: cp007-editorial-v4-wave2-review-output
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload final 168-question V4 review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-editorial-v4-final-human-review
+          path: cp007-editorial-v4-final-review-output
           if-no-files-found: error
           retention-days: 30
