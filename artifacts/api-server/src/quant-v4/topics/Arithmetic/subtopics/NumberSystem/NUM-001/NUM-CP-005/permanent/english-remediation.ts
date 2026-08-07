@@ -18,6 +18,7 @@ import {
   applyNumCp005ExplanationCorrections,
   applyNumCp005QuestionCorrections,
 } from "./release-review-corrections";
+import { applyNumCp005Ql058EdgeSafe } from "./release-review-ql058-edge-safe";
 
 export function remediateNumCp005English(source) {
   let result;
@@ -49,7 +50,9 @@ export function remediateNumCp005English(source) {
     default: throw new Error(`Unsupported NUM-CP-005 QL: ${source.qlId}`);
   }
 
-  const corrected = applyNumCp005QuestionCorrections(source, result);
+  const corrected = source.qlId === "NUM-QL-058"
+    ? applyNumCp005Ql058EdgeSafe(source, result)
+    : applyNumCp005QuestionCorrections(source, result);
   const explanationInput = {
     qlId: source.qlId,
     seed: source.seed,
