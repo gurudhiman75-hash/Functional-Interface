@@ -1,0 +1,68 @@
+name: Validate MEN-CP-011 chapter-wide coverage and English audit
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp011-foundation/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-011/**
+      - .github/workflows/men-002-cp011-chapter-wide-english-audit.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-men-002-cp011-chapter-wide-english-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-chapter-wide-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle chapter-wide audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp011-foundation/chapter-wide-english-audit.ts
+          --bundle --packages=external --platform=node --format=esm
+          --outfile=dist/quant-v4/men-cp011-chapter-wide-english-audit.mjs
+
+      - name: Run chapter-wide audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/men-cp011-chapter-wide-english-audit.mjs \
+            2>&1 | tee dist/quant-v4/men-cp011-chapter-wide-english-audit.log
+
+      - name: Upload chapter-wide audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: men-cp011-chapter-wide-coverage-english-audit
+          path: |
+            artifacts/api-server/dist/quant-v4/men-cp011-chapter-wide-english-audit.log
+            artifacts/api-server/dist/quant-v4/men-cp011-chapter-wide-english-audit.json
+            artifacts/api-server/dist/quant-v4/men-cp011-chapter-wide-english-review.md
+          if-no-files-found: error
+          retention-days: 14
