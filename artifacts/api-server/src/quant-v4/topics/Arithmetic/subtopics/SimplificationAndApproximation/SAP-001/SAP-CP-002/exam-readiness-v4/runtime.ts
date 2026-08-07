@@ -2,6 +2,7 @@ import type { SapCp002PrototypeId } from "../SAP-CP-002-AUTHORITY-AND-TEMPLATE-M
 import { generateSapCp002ExamReadinessV3Package } from "../exam-readiness-v3/runtime";
 import { buildExplanationV4, difficultyV4, normalizeMathDisplay, validateV4 } from "./pedagogy";
 import { buildOptionDraftsV4, normalizedAnswerV4, normalizedStemV4, orderOptionsV4 } from "./options";
+import { enforceQl032FormTrap } from "./ql032-form-trap";
 import type { SapCp002ExamReadinessV4Package } from "./types";
 
 function proofStem(pkg: SapCp002ExamReadinessV3Package, stem: string): string {
@@ -44,7 +45,8 @@ export function generateSapCp002ExamReadinessV4Package(
     .replace(/\bvalue\s+of\b/gi, "value:");
   const executableStem = proofStem(v3, stem);
   const answer = normalizedAnswerV4(v3);
-  const drafts = buildOptionDraftsV4(v3, executableStem, answer);
+  const rawDrafts = buildOptionDraftsV4(v3, executableStem, answer);
+  const drafts = enforceQl032FormTrap(v3, answer, rawDrafts);
   const options = orderOptionsV4(v3, drafts);
   const correctIndex = options.findIndex((option) => option.isCorrect);
   if (correctIndex < 0) throw new Error(`${prototypeId}/${seed}: V4 has no correct option.`);
