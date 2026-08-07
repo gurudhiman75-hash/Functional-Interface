@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { SAP_CP003_PROTOTYPE_AUTHORITIES } from "./catalogue";
+import { SAP_CP003_EXAM_READINESS_POLICY } from "./exam-readiness-policy";
 import { parseNumericLiteral, parseRecurringDecimal, formatRat } from "./exact";
 import { generateSapCp003ReviewRecords } from "./review-export";
 import { generateSapCp003Sweep, SAP_CP003_RUNTIME_STATE } from "./editorial-runtime";
@@ -69,6 +70,8 @@ assert.equal(formatRat(parseRecurringDecimal("0.1(6)")!), "1/6");
 assert.equal(formatRat(parseRecurringDecimal("0.8(3)")!), "5/6");
 assert.equal(formatRat(parseNumericLiteral("37.5%")!), "3/8");
 assert.equal(formatRat(parseNumericLiteral("0.625")!), "5/8");
+assert.equal(Object.keys(SAP_CP003_EXAM_READINESS_POLICY).length, 19);
+assert.ok(new Set(Object.values(SAP_CP003_EXAM_READINESS_POLICY).map((policy) => policy.mockUse)).size >= 4);
 
 const sweep = generateSapCp003Sweep(100);
 assert.equal(sweep.length, 1_900);
@@ -81,8 +84,10 @@ const counts = new Map<string, number>();
 const difficultyBands = new Set<string>();
 let inverseCount = 0;
 let comparisonCount = 0;
+let cannotDetermineComparisonCount = 0;
 let diagnosisCount = 0;
 let recurringCount = 0;
+let decimalPlacementCount = 0;
 
 for (const pkg of sweep) {
   assert.equal(pkg.validation.ok, true, `${pkg.prototypeId}/${pkg.seed}: ${pkg.validation.errors.join("; ")}`);
@@ -117,7 +122,13 @@ for (const pkg of sweep) {
   }
   if (pkg.taskDirection === "COMPARISON") {
     comparisonCount += 1;
-    assert.match(pkg.canonicalAnswer, /^A [<>=] B$/);
+    if (pkg.canonicalAnswer === "Cannot be determined") {
+      cannotDetermineComparisonCount += 1;
+      assert.match(pkg.stem, /positive numbers/);
+      assert.ok(pkg.explanation.steps.some((step) => /cannot be compared/i.test(step)));
+    } else {
+      assert.match(pkg.canonicalAnswer, /^A [<>=] B$/);
+    }
   }
   if (pkg.taskDirection === "DIAGNOSIS") {
     diagnosisCount += 1;
@@ -128,9 +139,15 @@ for (const pkg of sweep) {
   }
   if (pkg.prototypeId === "SAP-CP003-PROT-RECURRING-DECIMAL-IN-EXPRESSION") {
     recurringCount += 1;
-    assert.match(pkg.stem, /\d\.\d*\(\d+\)/);
+    assert.match(pkg.stem, /recurring/);
+    assert.doesNotMatch(pkg.stem, /\.\d*\(\d+\)/);
     assert.match(pkg.explanation.steps[0]!, /exact fraction/i);
     assert.ok(pkg.options.some((option) => option.misconceptionId === "RECURRING_BLOCK_READ_AS_FINITE"));
+  }
+  if (pkg.prototypeId === "SAP-CP003-PROT-SELECT-CORRECT-DECIMAL-PLACEMENT") {
+    decimalPlacementCount += 1;
+    assert.match(pkg.stem, /^Ignoring decimal points,/);
+    assert.ok(pkg.explanation.steps.some((step) => /visible factors have/i.test(step)));
   }
   if (pkg.prototypeId === "SAP-CP003-PROT-MISSING-PERCENTAGE-LITERAL") {
     for (const option of pkg.options) {
@@ -156,8 +173,10 @@ for (const prototypeId of SAP_CP003_PROTOTYPE_IDS) {
 assert.equal(difficultyBands.size, 3);
 assert.equal(inverseCount, 200);
 assert.equal(comparisonCount, 100);
+assert.equal(cannotDetermineComparisonCount, 20);
 assert.equal(diagnosisCount, 100);
 assert.equal(recurringCount, 100);
+assert.equal(decimalPlacementCount, 100);
 
 const records = generateSapCp003ReviewRecords();
 assert.equal(records.length, 300);
@@ -166,6 +185,7 @@ assert.equal(new Set(records.map((record) => record.generationIdentity)).size, 3
 assert.equal(new Set(records.map((record) => record.prototypeId)).size, 19);
 assert.equal(records.filter((record) => record.options.length !== 4).length, 0);
 assert.equal(records.filter((record) => record.options.filter((option) => option.isCorrect).length !== 1).length, 0);
+assert.ok(records.filter((record) => record.correctAnswer === "Cannot be determined").length >= 3);
 
 const reviewSequence = records.map((record) => record.correctIndex);
 const reviewDistribution = distribution(reviewSequence);
@@ -207,8 +227,10 @@ console.log(JSON.stringify({
   },
   inverseCount,
   comparisonCount,
+  cannotDetermineComparisonCount,
   diagnosisCount,
   recurringCount,
+  decimalPlacementCount,
   nextAvailableQlId: SAP_CP003_RUNTIME_STATE.nextAvailableQlId,
   lifecycle: SAP_CP003_RUNTIME_STATE.status,
 }, null, 2));
