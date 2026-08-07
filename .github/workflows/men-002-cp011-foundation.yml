@@ -53,6 +53,33 @@ jobs:
             --outfile=dist/quant-v4/men-cp011-foundation-wave-01.test.mjs
           node artifacts/api-server/dist/quant-v4/men-cp011-foundation-wave-01.test.mjs
 
+      - name: Export MEN-CP-011 open-container review evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp011-foundation/open-containers-review-export.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/men-cp011-open-containers-wave01-review.mjs
+          cd artifacts/api-server
+          node dist/quant-v4/men-cp011-open-containers-wave01-review.mjs \
+            2>&1 | tee dist/quant-v4/men-cp011-open-containers-wave01-review.log
+
       - name: Build production API bundle
         shell: bash
         run: bash build-api.sh
+
+      - name: Upload MEN-CP-011 open-container review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: men-cp011-open-containers-wave01-review
+          path: |
+            artifacts/api-server/dist/quant-v4/men-cp011-open-containers-wave01-review.log
+            artifacts/api-server/dist/quant-v4/men-cp011-open-containers-wave01-review.json
+            artifacts/api-server/dist/quant-v4/men-cp011-open-containers-wave01-review.md
+          if-no-files-found: error
+          retention-days: 14

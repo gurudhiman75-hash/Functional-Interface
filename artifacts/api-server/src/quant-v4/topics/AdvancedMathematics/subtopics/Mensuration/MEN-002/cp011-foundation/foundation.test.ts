@@ -1,6 +1,7 @@
 import "./foundation-base.test";
 import "./exam-readiness.test";
 import "./surface-area.test";
+import "./open-containers.test";
 import assert from "node:assert/strict";
 import { getMenCp011FoundationPrototypeIds } from "./registry";
 import { generateMenCp011FoundationPrototype } from "./runtime";
