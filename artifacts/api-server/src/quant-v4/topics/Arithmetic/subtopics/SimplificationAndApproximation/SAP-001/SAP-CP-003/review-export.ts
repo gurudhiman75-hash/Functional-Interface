@@ -1,5 +1,5 @@
 import { SAP_CP003_PROTOTYPE_IDS, type SapCp003PrototypeId, type SapCp003ReviewRecord } from "./types";
-import { generateSapCp003Package } from "./runtime";
+import { generateSapCp003Package } from "./editorial-runtime";
 
 const TARGETS: Readonly<Record<SapCp003PrototypeId, number>> = Object.freeze(
   Object.fromEntries(SAP_CP003_PROTOTYPE_IDS.map((prototypeId, index) => [prototypeId, index < 15 ? 16 : 15])) as Record<SapCp003PrototypeId, number>,
