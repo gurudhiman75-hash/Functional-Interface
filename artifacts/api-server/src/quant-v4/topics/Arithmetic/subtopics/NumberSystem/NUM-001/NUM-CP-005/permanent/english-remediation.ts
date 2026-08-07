@@ -27,6 +27,7 @@ import { applyNumCp005ReleaseReviewRenderingSafety } from "./release-review-rend
 import { applyNumCp005FinalExplanationSafety } from "./release-review-final-explanation-safe";
 import { applyNumCp005FinalExamQuestionCorrections } from "./final-exam-readiness-question-corrections";
 import { applyNumCp005FinalExamExplanationCorrections } from "./final-exam-readiness-explanations";
+import { applyNumCp005ExplanationUniqueness } from "./final-exam-readiness-explanation-uniqueness";
 import { applyNumCp005FinalQl066Safe } from "./final-exam-readiness-ql066-safe";
 import { applyNumCp005FinalQl054Safe } from "./final-exam-readiness-ql054-safe";
 import { applyNumCp005FinalDifficulty } from "./final-exam-readiness-difficulty";
@@ -109,12 +110,16 @@ export function remediateNumCp005English(source) {
     explanationInput,
     policyCheckedExplanation,
   );
+  const examExplanation = applyNumCp005FinalExamExplanationCorrections(
+    explanationInput,
+    finalSafetyExplanation,
+  );
 
   return {
     ...difficultyQuestion,
-    explanation: applyNumCp005FinalExamExplanationCorrections(
+    explanation: applyNumCp005ExplanationUniqueness(
       explanationInput,
-      finalSafetyExplanation,
+      examExplanation,
     ),
   };
 }
