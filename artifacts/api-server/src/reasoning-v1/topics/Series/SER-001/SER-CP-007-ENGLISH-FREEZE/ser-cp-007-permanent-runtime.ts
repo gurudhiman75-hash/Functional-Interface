@@ -1,7 +1,7 @@
 import {
   SER_CP007_TEMPLATE_PROBES_V71,
-  type SerCp007TemplateProbe,
 } from "../SER-CP-007-AUTHORITY-FREEZE-CANDIDATE/authority-compression-contract-v7-1";
+import type { SerCp007TemplateProbe } from "../SER-CP-007-AUTHORITY-FREEZE-CANDIDATE/authority-compression-contract";
 import type { SerCp007EditorialQuestion } from "../SER-CP-007-ENGLISH-REMODEL/adaptive-review";
 import {
   buildAdaptiveSerCp007ReviewV71,
