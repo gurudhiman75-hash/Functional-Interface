@@ -39,8 +39,8 @@ for (const pkg of sweep) {
   assert.equal(pkg.permanentQlId, SAP_CP003_PROTOTYPE_TO_PERMANENT_QL[pkg.prototypeId]);
   assert.equal(pkg.lifecycle.permanentQlId, pkg.permanentQlId);
   assert.equal(pkg.lifecycle.identityStatus, "PERMANENT_ID_ALLOCATED");
-  assert.equal(pkg.lifecycle.contentStatus, "QUESTIONS_AND_ANSWERS_APPROVED_EXPLANATION_FREEZE_PENDING");
-  assert.equal(pkg.approvalStatus, "QUESTIONS_AND_ANSWERS_APPROVED");
+  assert.equal(pkg.lifecycle.contentStatus, "QUESTIONS_AND_ANSWERS_REOPENED_STRUCTURAL_REMEDIATION_V2");
+  assert.equal(pkg.approvalStatus, "QUESTIONS_AND_ANSWERS_REOPENED_FOR_STRUCTURAL_REMEDIATION");
   assert.equal(pkg.options.length, 4);
   assert.equal(new Set(pkg.options.map((option) => option.value)).size, 4);
   assert.equal(pkg.options.filter((option) => option.isCorrect).length, 1);
@@ -71,7 +71,7 @@ for (const qlId of SAP_CP003_PERMANENT_QL_IDS) {
   const entry = SAP_PERMANENT_QL_BY_ID[qlId];
   assert.equal(entry.checkpointId, "SAP-CP-003");
   assert.equal(entry.allocationStatus, "PERMANENT_ID_ALLOCATED_INACTIVE");
-  assert.equal(entry.englishStatus, "QUESTION_AND_ANSWER_REVIEW_APPROVED_EXPLANATION_FREEZE_PENDING");
+  assert.equal(entry.englishStatus, "QUESTION_AND_ANSWER_REVIEW_REOPENED_STRUCTURAL_REMEDIATION_V2");
   assert.equal(entry.allocationApproval, "PRODUCT_OWNER_APPROVED_CP003_QA_2026_08_07");
   assert.equal(entry.active, false);
   assert.equal(entry.questionStudioDiscoverable, false);
@@ -82,16 +82,18 @@ for (const qlId of SAP_CP003_PERMANENT_QL_IDS) {
 
 assert.equal(SAP_CP003_PERMANENT_STATE.permanentQlRange, "SAP-QL-034..SAP-QL-052");
 assert.equal(SAP_CP003_PERMANENT_STATE.nextAvailableQlId, "SAP-QL-053");
-assert.equal(SAP_CP003_PERMANENT_STATE.englishExplanationFreeze, "PENDING");
+assert.equal(SAP_CP003_PERMANENT_STATE.questionAndAnswerReview, "REOPENED_STRUCTURAL_REMEDIATION_V2");
+assert.equal(SAP_CP003_PERMANENT_STATE.englishExplanationFreeze, "BLOCKED_PENDING_RENEWED_QA_APPROVAL");
 
 console.log(JSON.stringify({
-  status: "PASS_SAP_CP003_PERMANENT_ALLOCATION_AUTHORITY",
+  status: "PASS_SAP_CP003_PERMANENT_IDENTITY_STRUCTURAL_REVIEW_AUTHORITY",
   permanentQlRange: SAP_CP003_PERMANENT_STATE.permanentQlRange,
   permanentQlCount: SAP_CP003_PERMANENT_QL_IDS.length,
   packagesTested: sweep.length,
   uniqueGenerationIdentities: generationIdentities.size,
   registryEntries: SAP_PERMANENT_QL_REGISTRY.length,
   nextAvailableQlId: SAP_CP003_PERMANENT_STATE.nextAvailableQlId,
+  contentReview: SAP_CP003_PERMANENT_STATE.questionAndAnswerReview,
   explanationFreeze: SAP_CP003_PERMANENT_STATE.englishExplanationFreeze,
   lifecycle: "INACTIVE",
 }, null, 2));
