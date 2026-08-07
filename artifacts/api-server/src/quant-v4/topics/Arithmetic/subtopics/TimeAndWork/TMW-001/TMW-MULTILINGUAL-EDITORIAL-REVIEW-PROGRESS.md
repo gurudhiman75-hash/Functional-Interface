@@ -5,16 +5,10 @@ Status: **assistant review in progress; human approval pending**.
 Exact reviewed implementation head:
 
 ```text
-00572b7e0629df093427a4cf8129b797a6adc70c
+77cdec264c41e577c8799978c85313a5d8ab156a
 ```
 
-Final verified proof head:
-
-```text
-b34ca3dafaad667b5cbc501c93d0111ec7c65117
-```
-
-Later commits only update this evidence record and the CP-007 review note; they do not change localized runtime content, answers, options, traps or mathematical state.
+The evidence below was generated on that exact implementation head. Later commits may update only this progress record and checkpoint review notes; such documentation-only commits do not alter localized runtime content, answers, options, traps or mathematical state.
 
 ## Reviewed checkpoints
 
@@ -27,36 +21,37 @@ Later commits only update this evidence record and the CP-007 review note; they 
 | TMW-CP-005 | 24 | 48 | 576 | Assistant review complete; human approval pending |
 | TMW-CP-006 | 22 | 44 | 528 | Assistant review complete; human approval pending |
 | TMW-CP-007 | 16 | 32 | 384 | Assistant review complete; human approval pending |
-| **Total** | **143** | **286** | **3,432** | **Zero open automated findings** |
+| TMW-CP-008 | 13 | 26 | 312 | Assistant review complete; human approval pending |
+| **Total** | **156** | **312** | **3,744** | **Zero open automated findings** |
 
-## Final verified evidence
+## Verified implementation evidence
 
 Cumulative editorial workflow:
 
 ```text
-Run: 31067018313
-Artifact: 8954187441
-Digest: sha256:1cb1f22c71d5f52171862391ebe8cae7a22fd67382107ba65c345c9a63bb05dc
+Run: 31142646704
+Artifact: 8980334292
+Digest: sha256:9d94db9e78ec1491b91647bfa37f81e5750cc4630fa8a2ada7131347aa2b4e80
 ```
 
-CP-007 dedicated localisation proof:
+CP-008 dedicated localisation proof:
 
 ```text
-Run: 31067018419
-Artifact: 8954190170
-Digest: sha256:d84141aeb4930929686f5358bc36ce285ac97f39bfa1b274d7853b811fc18e35
-QLs: 16
-Deterministic native packages: 640
-Hindi distinct stems: 151
-Punjabi distinct stems: 151
+Run: 31142643574
+Artifact: 8980322831
+Digest: sha256:b906eaf19350fdee6e7def9aaca165755f236387ea48fd4dc6fe01309c56bbbc
+QLs: 13
+Deterministic native packages: 520
+Hindi distinct stems: 118
+Punjabi distinct stems: 118
 ```
 
 Full chapter parity:
 
 ```text
-Run: 31067018415
-Artifact: 8954185958
-Digest: sha256:56219c632ecbdc028766b67f3a63dd2c69a3d36bd066bea1dcac0b8f6249ddf0
+Run: 31142646822
+Artifact: 8980343498
+Digest: sha256:c7a35c6d7659b1275f931fb90b8593ae166892dc0aa30bd4b39cf3e99a3931e1
 English packages: 2,532
 Localized packages: 5,064
 Parity checks: 5,064
@@ -73,8 +68,8 @@ This progress record does not set `editorialStatus: APPROVED`, does not enable p
 ## Remaining assistant-review frontier
 
 ```text
-TMW-CP-008 through TMW-CP-011
-TMW-QL-144 through TMW-QL-211
+TMW-CP-009 through TMW-CP-011
+TMW-QL-157 through TMW-QL-211
 ```
 
 All 211 Hindi and 211 Punjabi rows remain `AWAITING_HUMAN_REVIEW` until explicit human approval and a separate immutable multilingual manual-freeze checkpoint.
