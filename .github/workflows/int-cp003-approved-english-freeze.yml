@@ -1,0 +1,114 @@
+name: Validate INT-CP-003 approved English freeze
+
+on:
+  pull_request:
+    branches:
+      - feat/int-001-cp003-annual-compound-completion
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp003-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp003-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-003/**"
+      - ".github/workflows/int-cp003-approved-english-freeze.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-int-cp003-approved-english-freeze:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP-003 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp003-exam-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp003-exam-review-export.mjs
+
+      - name: Regenerate approved review projection
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp003-exam-review-export.mjs 2>&1 | tee dist/quant-v4/int-001-cp003-exam-review-export.log
+
+      - name: Bundle CP-003 English freeze audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp003-english-freeze-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp003-english-freeze-audit.mjs
+
+      - name: Run CP-003 English freeze audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp003-english-freeze-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp003-english-freeze-audit.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Verify immutable approval evidence
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          review=artifacts/api-server/dist/quant-v4/int-cp003-exam-readiness-review-pack
+          freeze=artifacts/api-server/dist/quant-v4/int-cp003-approved-english-freeze
+          markdown="$review/INT-CP-003-Questions-and-Explanations-Review-V3.md"
+          data="$review/int-cp003-56-exam-readiness-data.json"
+          summary="$freeze/int-cp003-approved-english-freeze-summary.json"
+
+          grep -q 'PASS_INT_CP003_EDITORIAL_DIVERSITY_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp003-exam-review-export.log
+          grep -q 'PASS_INT_CP003_APPROVED_ENGLISH_FREEZE' artifacts/api-server/dist/quant-v4/int-001-cp003-english-freeze-audit.log
+          test -f "$markdown"
+          test -f "$data"
+          test -f "$summary"
+          test -f "$freeze/int-cp003-approved-english-frozen-registry.json"
+
+          echo '281cc8df2b9cb3b2c57bc33e66107d806efc4c0805cc6bef203cfe305214825d  '"$markdown" | sha256sum --check --strict
+          DATA_FILE="$data" node --input-type=module <<'NODE'
+          import { createHash } from 'node:crypto';
+          import { readFileSync } from 'node:fs';
+          const value = JSON.parse(readFileSync(process.env.DATA_FILE, 'utf8'));
+          const digest = createHash('sha256').update(JSON.stringify(value), 'utf8').digest('hex');
+          const expected = 'b9630a95c2e67a650d2e631bcc3ae2f961734da4aa0b06cc08c30b55c184490b';
+          if (digest !== expected) throw new Error(`Approved review data changed: ${digest}`);
+          NODE
+
+          grep -q '"freezeId": "INT-CP-003-EN-v1-frozen"' "$summary"
+          grep -q '"approvalCommentId": 5211491612' "$summary"
+          grep -q '"approvedSourceHead": "f9b48eb776b644c81f1e7ad0ff5a3707511658f1"' "$summary"
+          grep -q '"qlCount": 14' "$summary"
+          grep -q '"runtimeQuestions": 1400' "$summary"
+          grep -q '"reviewStatus": "APPROVED_ENGLISH_FROZEN"' "$summary"
+          grep -q '"enabled": false' "$summary"
+          grep -q '"registrationStatus": "NOT_REGISTERED"' "$summary"
+          grep -q '"publiclyPublishable": false' "$summary"
+
+      - name: Upload CP-003 approved English freeze evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp003-approved-english-freeze
+          path: |
+            artifacts/api-server/dist/quant-v4/int-001-cp003-exam-review-export.log
+            artifacts/api-server/dist/quant-v4/int-001-cp003-english-freeze-audit.log
+            artifacts/api-server/dist/quant-v4/int-cp003-exam-readiness-review-pack/**
+            artifacts/api-server/dist/quant-v4/int-cp003-approved-english-freeze/**
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-003/INT-CP-003-FINAL-ENGLISH-FREEZE.md
+          if-no-files-found: error
+          retention-days: 30
