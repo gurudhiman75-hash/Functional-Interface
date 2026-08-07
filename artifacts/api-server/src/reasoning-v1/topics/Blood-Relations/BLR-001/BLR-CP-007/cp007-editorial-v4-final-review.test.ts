@@ -89,6 +89,18 @@ for (const question of bank) {
     assert(["STANDARD_MOCK", "ADVANCED_PRACTICE"].includes(question.metadata.recommendedUse));
   }
 
+  if (
+    question.qlId === "BLR-QL-031" &&
+    question.metadata.disposition === "FOUNDATION_PRACTICE"
+  ) {
+    assert(!/The option therefore represents/i.test(learnerText));
+    assert(!/This matches the required/i.test(question.options[question.correctIndex]!.studentExplanation));
+    assert.equal(
+      question.explanation.steps.length,
+      question.sourcePrototypeId.includes("DIRECT-REVERSE") ? 2 : 1,
+    );
+  }
+
   if (question.qlId === "BLR-QL-034") {
     assert.equal(question.metadata.candidateNetworkComponentCount, 1);
     assert.equal(question.options.every((option) => option.graphValidity === "VALID"), true);
