@@ -16,12 +16,17 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-dead-option-remediation.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-editorial-polish.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-model-target-remediation.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-review-status.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-viewport-contract.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/generator-v5.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-dead-option-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-editorial-polish.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-model-target-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-review-status-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-viewport-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-review-v5.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-viewport-review-v5.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/SYL-001-V5-EXAM-READINESS-REMEDIATION.md
       - .github/workflows/reasoning-syl-001-v5-remediation.yml
   workflow_dispatch:
@@ -104,6 +109,32 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/reasoning-v1/syl-001-v5-dead-option-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-v5-dead-option-audit.log
 
+      - name: Bundle V5 approval-status audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-review-status-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-v5-review-status-audit.test.mjs
+
+      - name: Run exhaustive V5 approval-status audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-v5-review-status-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-v5-review-status-audit.log
+
+      - name: Bundle V5 viewport audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-viewport-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-v5-viewport-audit.test.mjs
+
+      - name: Run exhaustive V5 viewport audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-v5-viewport-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-v5-viewport-audit.log
+
       - name: Bundle V5 review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -116,6 +147,18 @@ jobs:
           SYL_REVIEW_V5_DIR: artifacts/api-server/dist/reasoning-v1/syl-001-review-v5
         run: node artifacts/api-server/dist/reasoning-v1/syl-001-export-review-v5.mjs
 
+      - name: Bundle V5 viewport exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-viewport-review-v5.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-export-viewport-v5.mjs
+
+      - name: Generate V5 viewport-review pack
+        env:
+          SYL_VIEWPORT_V5_DIR: artifacts/api-server/dist/reasoning-v1/syl-001-viewport-v5
+        run: node artifacts/api-server/dist/reasoning-v1/syl-001-export-viewport-v5.mjs
+
       - name: Upload V5 remediation evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -126,6 +169,9 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/syl-001-v5-editorial-polish.log
             artifacts/api-server/dist/reasoning-v1/syl-001-v5-model-target-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-v5-dead-option-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-v5-review-status-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-v5-viewport-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-review-v5/**
+            artifacts/api-server/dist/reasoning-v1/syl-001-viewport-v5/**
           if-no-files-found: error
           retention-days: 30
