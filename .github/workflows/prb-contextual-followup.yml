@@ -21,26 +21,112 @@ jobs:
         with:
           node-version: 20
 
-      - name: Correct singular head wording
+      - name: Polish manual-review findings
         run: |
           python - <<'PY'
           from pathlib import Path
-          path = Path("artifacts/api-server/src/quant-v4/topics/Probability/shared/explanation-renderer.ts")
-          text = path.read_text()
-          old = '''    return [
-                `At most ${k} heads means 0, 1, ..., ${k} heads. Required sequences = ${parts} = ${favourable ?? 0n}.`,
-                probabilityCalculation(favourable ?? 0n, total ?? BigInt(2 ** tosses), solved.exactDisplay),
-              ];'''
-          new = '''    const range = k === 1 ? "0 or 1 head" : `0, 1, ..., ${k} heads`;
-              return [
-                `At most ${k} ${plural(k, "head")} means ${range}. Required sequences = ${parts} = ${favourable ?? 0n}.`,
-                probabilityCalculation(favourable ?? 0n, total ?? BigInt(2 ** tosses), solved.exactDisplay),
-              ];'''
-          if new not in text:
+
+          def replace_once(text: str, old: str, new: str, label: str) -> str:
+              if new in text:
+                  return text
               if old not in text:
-                  raise SystemExit("Could not find the at-most-heads explanation block.")
-              text = text.replace(old, new, 1)
-          path.write_text(text)
+                  raise SystemExit(f"Could not patch {label}")
+              return text.replace(old, new, 1)
+
+          explanation_path = Path("artifacts/api-server/src/quant-v4/topics/Probability/shared/explanation-renderer.ts")
+          explanation = explanation_path.read_text()
+          explanation = replace_once(
+              explanation,
+              '''    const ways = choose(tosses, heads);
+              return [
+                `Choose which ${heads} of the ${tosses} tosses are heads: C(${tosses},${heads}) = ${ways} ways.`,
+                `There are ${2 ** tosses} H/T sequences. ${probabilityCalculation(ways, 2 ** tosses, solved.exactDisplay)}`,
+              ];''',
+              '''    const ways = choose(tosses, heads);
+              const selectionReason = heads === 1
+                ? `Choose the toss on which the head appears: C(${tosses},1) = ${ways} ways.`
+                : `Choose the ${heads} tosses that show heads: C(${tosses},${heads}) = ${ways} ways.`;
+              return [
+                selectionReason,
+                `There are ${2 ** tosses} H/T sequences. ${probabilityCalculation(ways, 2 ** tosses, solved.exactDisplay)}`,
+              ];''',
+              "coin head-count explanation",
+          )
+          explanation = replace_once(
+              explanation,
+              '    const range = k === 1 ? "0 or 1 head" : `0, 1, ..., ${k} heads`;',
+              '    const range = k === 1 ? "0 or 1 head" : k === 2 ? "0, 1 or 2 heads" : `0 to ${k} heads`;',
+              "at-most-heads range",
+          )
+          explanation = replace_once(
+              explanation,
+              '    if (mode === "findSuitProbability") reason = `A ${suit} suit contains 13 cards.`;',
+              '    if (mode === "findSuitProbability") reason = `There are 13 ${suit}s in a standard deck.`;',
+              "card suit explanation",
+          )
+          explanation_path.write_text(explanation)
+
+          stem_path = Path("artifacts/api-server/src/quant-v4/topics/Probability/shared/student-facing-renderer.ts")
+          stem = stem_path.read_text()
+          stem = replace_once(
+              stem,
+              'const noun = (count: number, one: string, many = `${one}s`) => count === 1 ? one : many;\n',
+              'const noun = (count: number, one: string, many = `${one}s`) => count === 1 ? one : many;\nconst article = (word: string) => /^[aeiou]/i.test(word) ? "an" : "a";\n',
+              "indefinite article helper",
+          )
+          stem = replace_once(
+              stem,
+              '''  if (entry.solveMode === "findSuitProbability") return `a ${suit}`;
+              if (entry.solveMode === "findColourProbability") return `a ${colour} card`;
+              if (entry.solveMode === "findFaceCardProbability") return "a face card";
+              if (entry.solveMode === "findUnionCardEventProbability") return `a ${rank} or a ${suit}`;
+              if (entry.solveMode === "findComplementCardProbability") return `not a ${suit}`;
+              if (entry.solveMode === "findCardPropertyIntersection") return `the ${rank} of ${suit}s`;
+              return `a ${rank}`;''',
+              '''  if (entry.solveMode === "findSuitProbability") return `${article(suit)} ${suit}`;
+              if (entry.solveMode === "findColourProbability") return `${article(colour)} ${colour} card`;
+              if (entry.solveMode === "findFaceCardProbability") return "a face card";
+              if (entry.solveMode === "findUnionCardEventProbability") return `${article(rank)} ${rank} or ${article(suit)} ${suit}`;
+              if (entry.solveMode === "findComplementCardProbability") return `not ${article(suit)} ${suit}`;
+              if (entry.solveMode === "findCardPropertyIntersection") return `the ${rank} of ${suit}s`;
+              return `${article(rank)} ${rank}`;''',
+              "card article rendering",
+          )
+          stem = replace_once(
+              stem,
+              '    case "findExactlyKSuccessSmallCase": { const k = num(p, "k"); return `A fair coin is tossed ${trials} times. What is the probability of getting exactly ${k} ${noun(k, "head")}?`; }',
+              '    case "findExactlyKSuccessSmallCase": { const k = num(p, "k"), count = k === 1 ? "one" : String(k); return `A fair coin is tossed ${trials} times. What is the probability of getting exactly ${count} ${noun(k, "head")}?`; }',
+              "exactly-k coin stem",
+          )
+          stem = replace_once(
+              stem,
+              '    case "findAtMostKSuccessSmallCase": { const k = num(p, "k"); return `A fair coin is tossed ${trials} times. What is the probability of getting at most ${k} ${noun(k, "head")}?`; }',
+              '    case "findAtMostKSuccessSmallCase": { const k = num(p, "k"), count = k === 1 ? "one" : String(k); return `A fair coin is tossed ${trials} times. What is the probability of getting at most ${count} ${noun(k, "head")}?`; }',
+              "at-most-k coin stem",
+          )
+          stem = replace_once(
+              stem,
+              '    case "findCoinHeadCountProbability": { const heads = num(p, "heads"); return `A fair coin is tossed ${num(p, "tosses")} times. What is the probability of getting exactly ${heads} ${noun(heads, "head")}?`; }',
+              '    case "findCoinHeadCountProbability": { const heads = num(p, "heads"), count = heads === 1 ? "one" : String(heads); return `A fair coin is tossed ${num(p, "tosses")} times. What is the probability of getting exactly ${count} ${noun(heads, "head")}?`; }',
+              "coin head-count stem",
+          )
+          stem = replace_once(
+              stem,
+              '    case "findSelectionProbabilityUsingCombination": { const exact = num(p, "exactRed", 1); return `A bag contains ${red} red and ${blue} blue balls. ${draw} balls are drawn together without replacement. What is the probability that exactly ${exact} of the drawn ${noun(draw, "ball")} ${exact === 1 ? "is" : "are"} red?`; }',
+              '    case "findSelectionProbabilityUsingCombination": { const exact = num(p, "exactRed", 1), count = exact === 1 ? "one" : String(exact); return `A bag contains ${red} red and ${blue} blue balls. ${draw} balls are drawn together without replacement. What is the probability that exactly ${count} of the drawn ${noun(draw, "ball")} ${exact === 1 ? "is" : "are"} red?`; }',
+              "exact-composition urn stem",
+          )
+          stem_path.write_text(stem)
+
+          validator_path = Path("artifacts/api-server/src/quant-v4/topics/Probability/shared/validator.ts")
+          validator = validator_path.read_text()
+          validator = replace_once(
+              validator,
+              '    /\\bit does not happen\\b/i,\n    /\\bsatisf(?:y|ies) A(?:\\s+or\\s+B|\\s+and\\s+B)?\\b/i,',
+              '    /\\bit does not happen\\b/i,\n    /\\ba ace\\b/i,\n    /\\bsatisf(?:y|ies) A(?:\\s+or\\s+B|\\s+and\\s+B)?\\b/i,',
+              "article validation",
+          )
+          validator_path.write_text(validator)
           PY
 
       - name: TypeScript proof
@@ -86,9 +172,13 @@ jobs:
               rows.extend(current)
           if len({(" ".join(row["stem"].lower().split()), row["answer"]) for row in rows}) != 135:
               raise SystemExit("Visible question uniqueness failed.")
+          banned = ("a ace", "choose which 1", "a spade suit", "a heart suit", "a club suit", "a diamond suit")
           for row in rows:
               if row["validationValid"] != "true":
                   raise SystemExit(f"Invalid row: {row['qlId']}")
+              combined = f"{row['stem']} {row['explanation']}".lower()
+              if any(phrase in combined for phrase in banned):
+                  raise SystemExit(f"Manual-review wording defect remains in {row['qlId']}: {combined}")
               if row["explanation"].startswith(("Favourable outcomes =", "Total outcomes =", "Total possible outcomes =")):
                   raise SystemExit(f"Generic explanation: {row['qlId']}")
           markdown = Path("artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md").read_text()
@@ -100,7 +190,7 @@ jobs:
       - name: Upload revised Markdown
         uses: actions/upload-artifact@v4
         with:
-          name: probability-contextual-questions-v3
+          name: probability-contextual-questions-v4
           path: artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md
           if-no-files-found: error
           retention-days: 7
@@ -111,10 +201,12 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
             artifacts/api-server/src/quant-v4/topics/Probability/shared/explanation-renderer.ts \
+            artifacts/api-server/src/quant-v4/topics/Probability/shared/student-facing-renderer.ts \
+            artifacts/api-server/src/quant-v4/topics/Probability/shared/validator.ts \
             artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/human-review-en.csv \
             artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/human-review-en.csv \
             artifacts/api-server/src/quant-v4/topics/Probability/editorial-remediation-report.md \
             artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md
           git diff --cached --check
-          git commit -m "docs(probability): regenerate contextual questions and explanations [skip ci]"
+          git commit -m "docs(probability): polish contextual stems and explanations [skip ci]"
           git push
