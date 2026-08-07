@@ -6,7 +6,6 @@ import {
   canonicalCp004Answer,
   generateIntCp004Question,
   verifyCp004Answer,
-  type IntCp004Question,
 } from "./cp004-frequency-runtime";
 
 function stable(value: unknown): string {
@@ -31,7 +30,10 @@ function assertDeepFrozen(value: unknown, path: string, seen = new WeakSet<objec
 const FORBIDDEN_STEM = /\b(?:population|depreciation|simple versus compound|simple-interest difference|instalment|repayment|different annual rates|successive rates|banker'?s discount|true discount)\b/iu;
 const FORBIDDEN_EXPLANATION = /\b(?:annual factor|growth factor|accumulated multiplier|geometric progression|inverse relation|canonical|verifier|mathematical state|rate substitution|period topology)\b/iu;
 const METHOD_HINT = /\b(?:use .*? to find|divide .*? to obtain|work backwards by|reconstruct|apply the formula)\b/iu;
+const HIGH_RATE_BANKING_CONTEXT = /\b(?:bank|banking|fixed deposit|savings account|loan|borrowed|lender)\b/iu;
 const INVERSE_QLS = new Set(["INT-QL-069", "INT-QL-070", "INT-QL-071", "INT-QL-072", "INT-QL-077", "INT-QL-081", "INT-QL-082", "INT-QL-083"]);
+const EXACT_RATIO_QLS = new Set(["INT-QL-069", "INT-QL-070", "INT-QL-081"]);
+const REPRESENTATION_TABLES = new Set(["TERMS_TABLE", "BALANCE_RECORD", "SCHEME_COMPARISON"]);
 
 let questionCount = 0;
 let verifierChecks = 0;
@@ -41,6 +43,10 @@ let explanationChecks = 0;
 let lifecycleChecks = 0;
 let frozenObjectChecks = 0;
 let inverseLeakChecks = 0;
+let inversePedagogyChecks = 0;
+let misconceptionOwnershipChecks = 0;
+let representationStructureChecks = 0;
+let contextRateChecks = 0;
 const qlCounts = new Map<string, number>();
 const answerPositions = [0, 0, 0, 0];
 const frequencies = new Set<number>();
@@ -49,6 +55,8 @@ const difficulties = new Set<string>();
 const semantics = new Set<string>();
 const domains = new Set<string>();
 const templateKeys = new Set<string>();
+const ql077Frequencies = new Set<number>();
+const mixedFrequencies = new Set<number>();
 
 for (const qlId of INT_CP004_QL_IDS) {
   for (let index = 0; index < 100; index += 1) {
@@ -74,24 +82,55 @@ for (const qlId of INT_CP004_QL_IDS) {
     if (new Set(question.options.map((option) => option.text)).size !== 4) fail(`${qlId}/${seed}: duplicate option display values.`);
     if (question.options.some((option) => !option.isCorrect && option.misconceptionId === "CORRECT")) fail(`${qlId}/${seed}: wrong option has correct metadata.`);
 
+    misconceptionOwnershipChecks += 1;
+    const wrongMisconceptions = question.options.filter((option) => !option.isCorrect).map((option) => option.misconceptionId);
+    if (wrongMisconceptions.some((id) => id === "NEARBY_RATE" || id === "ARITHMETIC_SLIP" || id === "ARITHMETIC_SLIP_FALLBACK")) {
+      fail(`${qlId}/${seed}: generic or arbitrary distractor reached the review corpus.`);
+    }
+    if (new Set(wrongMisconceptions).size !== 3) fail(`${qlId}/${seed}: wrong options do not have three distinct misconception owners.`);
+
     explanationChecks += 6;
     const explanationText = [question.explanation.whatAsked, ...question.explanation.steps, question.explanation.finalAnswer, question.explanation.commonMistake].join(" ");
     if (!question.explanation.whatAsked.startsWith("We need to find")) fail(`${qlId}/${seed}: explanation does not first state the target.`);
-    if (wordCount(explanationText) < 55) fail(`${qlId}/${seed}: explanation is too short (${wordCount(explanationText)} words).`);
+    if (wordCount(explanationText) < 65) fail(`${qlId}/${seed}: explanation is too short (${wordCount(explanationText)} words).`);
     if (question.explanation.steps.length < 3) fail(`${qlId}/${seed}: explanation has fewer than three teaching steps.`);
     if (!question.explanation.steps.some((step) => /[=÷×+−]/u.test(step))) fail(`${qlId}/${seed}: explanation shows no intermediate calculation.`);
     if (FORBIDDEN_EXPLANATION.test(explanationText)) fail(`${qlId}/${seed}: technical internal wording reached the explanation.`);
     if (!question.explanation.finalAnswer.includes(question.correctAnswer)) fail(`${qlId}/${seed}: final answer does not match the keyed option.`);
 
+    if (INVERSE_QLS.has(qlId)) {
+      inversePedagogyChecks += 1;
+      if (question.explanation.steps.length < 5) fail(`${qlId}/${seed}: inverse explanation is not sufficiently worked.`);
+      if (!question.explanation.steps.some((step) => step.includes(question.correctAnswer) || step.includes(question.correctAnswer.replace(/ complete years?$/u, "")))) {
+        fail(`${qlId}/${seed}: inverse explanation never numerically establishes the keyed answer.`);
+      }
+      if (EXACT_RATIO_QLS.has(qlId) && !/\b\d+\/\d+\b/u.test(explanationText)) {
+        fail(`${qlId}/${seed}: exact-ratio inverse uses only rounded decimal arithmetic.`);
+      }
+    }
+
     if (FORBIDDEN_STEM.test(question.stem)) fail(`${qlId}/${seed}: stem drifted outside CP-004.`);
     if (METHOD_HINT.test(question.stem)) fail(`${qlId}/${seed}: stem reveals the method.`);
-    if (!question.stem.includes("?")) {
-      if (!/\bFind\b/u.test(question.stem)) fail(`${qlId}/${seed}: stem has no clear task prompt.`);
-    }
+    if (!question.stem.includes("?") && !/\bFind\b/u.test(question.stem)) fail(`${qlId}/${seed}: stem has no clear task prompt.`);
 
     if (INVERSE_QLS.has(qlId)) {
       inverseLeakChecks += 1;
       if (containsExactDisplay(question.stem, question.correctAnswer)) fail(`${qlId}/${seed}: inverse answer leaked into the displayed stem.`);
+    }
+
+    representationStructureChecks += 1;
+    if (REPRESENTATION_TABLES.has(question.representation) && !/\|\s*---/u.test(question.stem)) {
+      fail(`${qlId}/${seed}: ${question.representation} is labelled as structured but contains no actual table.`);
+    }
+    if (question.representation === "STANDARD_PROSE" && /\|\s*---/u.test(question.stem)) {
+      fail(`${qlId}/${seed}: standard prose unexpectedly contains a table.`);
+    }
+
+    contextRateChecks += 1;
+    const rate = question.mathematicalState.nominalAnnualRatePercent;
+    const highRate = rate.numerator > 20n * rate.denominator;
+    if (highRate && HIGH_RATE_BANKING_CONTEXT.test(question.stem)) {
+      fail(`${qlId}/${seed}: high nominal rate is presented as a normal banking product.`);
     }
 
     lifecycleChecks += 8;
@@ -105,6 +144,11 @@ for (const qlId of INT_CP004_QL_IDS) {
     frequencies.add(question.mathematicalState.frequency);
     frequencies.add(question.mathematicalState.firstFrequency);
     frequencies.add(question.mathematicalState.secondFrequency);
+    if (qlId === "INT-QL-077") ql077Frequencies.add(question.mathematicalState.frequency);
+    if (qlId === "INT-QL-084" || qlId === "INT-QL-085") {
+      mixedFrequencies.add(question.mathematicalState.firstFrequency);
+      mixedFrequencies.add(question.mathematicalState.secondFrequency);
+    }
     representations.add(question.representation);
     difficulties.add(question.difficulty);
     semantics.add(question.answerSemantic);
@@ -118,16 +162,19 @@ if (questionCount !== 1900) fail(`Question count changed: ${questionCount}.`);
 if ([...qlCounts.values()].some((count) => count !== 100)) fail("One or more QLs did not receive 100 audit seeds.");
 if (frequencies.size !== 4) fail(`Frequency coverage changed: ${frequencies.size}/4.`);
 if (representations.size < 4) fail(`Representation coverage changed: ${representations.size}/4.`);
+if (ql077Frequencies.size !== 2 || !ql077Frequencies.has(2) || !ql077Frequencies.has(4)) fail("INT-QL-077 must cover half-yearly and quarterly inverse effective-rate cases.");
+if (mixedFrequencies.size !== 4 || !mixedFrequencies.has(12)) fail("Mixed-frequency QLs must include annual, half-yearly, quarterly and monthly intervals across the corpus.");
 for (const expected of ["Easy", "Medium", "Hard"]) if (!difficulties.has(expected)) fail(`Difficulty ${expected} is missing.`);
 for (const expected of ["MONEY", "RATE_PERCENT", "DURATION", "FREQUENCY"]) if (!semantics.has(expected)) fail(`Answer semantic ${expected} is missing.`);
 for (const expected of ["COMPLETE_PERIODS", "FREQUENCY_COMPARISON", "EFFECTIVE_RATE", "BROKEN_PERIOD", "MIXED_FREQUENCY"]) if (!domains.has(expected)) fail(`Domain ${expected} is missing.`);
 if (answerPositions.some((count) => count < 350)) fail(`Answer positions are poorly distributed: ${answerPositions.join("/")}.`);
-if (templateKeys.size < 70) fail(`Editorial template coverage is too low: ${templateKeys.size}.`);
+if (templateKeys.size < 75) fail(`Editorial template coverage is too low: ${templateKeys.size}.`);
 
 const outputDirectory = join(process.cwd(), "dist", "quant-v4", "int-cp004-frequency-broken-periods");
 mkdirSync(outputDirectory, { recursive: true });
 const summary = {
   status: "INT_CP004_ENGLISH_IMPLEMENTATION_COMPLETE_REVIEW_REQUIRED",
+  editorialRemediationStatus: "INT_CP004_EDITORIALLY_REMEDIATED_REVIEW_REQUIRED",
   qlRange: "INT-QL-067..INT-QL-085",
   qlCount: INT_CP004_QL_IDS.length,
   questionCount,
@@ -136,10 +183,16 @@ const summary = {
   optionChecks,
   explanationChecks,
   inverseLeakChecks,
+  inversePedagogyChecks,
+  misconceptionOwnershipChecks,
+  representationStructureChecks,
+  contextRateChecks,
   lifecycleChecks,
   frozenObjectChecks,
   answerPositions,
   frequencies: [...frequencies].sort((a, b) => a - b),
+  effectiveRateInverseFrequencies: [...ql077Frequencies].sort((a, b) => a - b),
+  mixedIntervalFrequencies: [...mixedFrequencies].sort((a, b) => a - b),
   representations: [...representations].sort(),
   difficulties: [...difficulties].sort(),
   answerSemantics: [...semantics].sort(),
@@ -150,6 +203,7 @@ const summary = {
     generator: "INT-CP-004-EXAM-GENERATOR-v1",
     solver: "INT-CP-004-CANONICAL-SOLVER-v1",
     verifier: "INT-CP-004-RELATION-VERIFIER-v1",
+    editorialRemediation: "INT-CP-004-EDITORIAL-REMEDIATION-v2",
   },
   lifecycle: {
     approvalStatus: "NOT_APPROVED",
