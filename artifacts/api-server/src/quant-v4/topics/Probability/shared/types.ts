@@ -4,6 +4,7 @@ export type ProbabilityCanonicalProblemId =
   | "PRB-CP-006" | "PRB-CP-007" | "PRB-CP-008" | "PRB-CP-009";
 export type ProbabilityDifficulty = "Easy" | "Medium" | "Hard";
 export type ProbabilityLanguage = "en" | "hi" | "pa";
+export type ProbabilityExamProfile = "SSC_CGL_CHSL" | "SSC_CGL_JSO" | "BANKING_PRELIMS" | "BANKING_MAINS" | "GENERIC_PRACTICE";
 export type ExperimentKind =
   | "COIN_TOSS" | "DIE_ROLL" | "SPINNER" | "NUMBER_SELECTION" | "CARD_DRAW"
   | "URN_DRAW" | "RANDOM_SELECTION" | "RANDOM_ARRANGEMENT" | "COMPOUND_EXPERIMENT";
@@ -137,6 +138,7 @@ export interface ProbabilityGenerationInput {
   difficultyBand?: ProbabilityDifficulty;
   language?: ProbabilityLanguage;
   questionLanguageId?: string;
+  examProfile?: ProbabilityExamProfile;
   seed?: string;
 }
 
@@ -148,7 +150,10 @@ export interface ProbabilityQuestion {
   questionId: string;
   seed: string;
   language: "en";
+  examProfile: ProbabilityExamProfile;
+  optionCount: 4 | 5;
   difficultyBand: ProbabilityDifficulty;
+  difficultyAssessment: { estimatedSteps: number; reason: string; registryDifficulty: ProbabilityDifficulty; };
   taskKind: string;
   solveMode: string;
   stem: string;
