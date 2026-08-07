@@ -94,7 +94,7 @@ export function completeRequiredDiagramV5(
       svg: rendered.svg,
       caption: rendered.caption,
       accessibleDescription: `${rendered.title}. ${rendered.caption}`,
-      semanticSignature: `syl-v5:standard-venn:${rendered.mode}:${classificationSignature}:${question.qlId}:${question.seed}:${question.locale}`,
+      semanticSignature: `syl-v5:focused-venn:${rendered.mode}:${classificationSignature}:${question.qlId}:${question.seed}:${question.locale}`,
       modelSignature: presentation.diagram.modelSignature,
       answerSentenceEmbedded: false,
       mobileViewBoxWidth: 360,
