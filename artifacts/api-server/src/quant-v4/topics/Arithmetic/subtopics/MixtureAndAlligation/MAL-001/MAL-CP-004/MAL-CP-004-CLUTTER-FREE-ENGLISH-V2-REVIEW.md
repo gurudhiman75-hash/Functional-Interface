@@ -26,15 +26,16 @@ The default learner view now contains only:
 `More help` is collapsed by default and contains:
 
 - why the three displayed wrong options are wrong;
-- verification only for `MAL-QL-045` and `MAL-QL-047`, where the inverse reconstruction benefits from it.
+- verification only for `MAL-QL-045` and `MAL-QL-047`, where inverse reconstruction benefits from it.
 
 No Fast Method is generated merely to fill a section. A future alternative method may be added only when it is genuinely different and shorter than the main calculation.
 
 ## Preserved authority
 
-The remediation changes presentation only. It must preserve exactly:
+The remediation changes presentation only. It preserves exactly:
 
 - permanent QLs `MAL-QL-038..047`;
+- the frozen core runtime `MAL-CP004-EN-PERMANENT-RUNTIME-V1`;
 - mathematical state and fingerprint;
 - stems;
 - option text, values and order;
@@ -45,21 +46,22 @@ The remediation changes presentation only. It must preserve exactly:
 - reasoning graph;
 - Question Studio, Question Bank, test and publication permissions.
 
-The frozen V1 runtime remains available as the immutable comparison authority.
+The V1 permanent runtime remains the immutable mathematical and lifecycle authority. V2 is a separate learner-presentation projection over that runtime.
 
 ## Candidate identity
 
 ```text
 release candidate:       MAL-CP004-EN-v2
-runtime:                 MAL-CP004-EN-PERMANENT-RUNTIME-V2
-presentation:            MAL-CP004-EN-CLUTTER-FREE-PRESENTATION-V2
+core runtime:            MAL-CP004-EN-PERMANENT-RUNTIME-V1
+presentation runtime:    MAL-CP004-EN-PRESENTATION-RUNTIME-V2
+presentation contract:   MAL-CP004-EN-CLUTTER-FREE-PRESENTATION-V2
 permanent QL range:      MAL-QL-038..MAL-QL-047
 languages:               English only
 human review:            pending
 merge:                   not authorised before review
 ```
 
-## Executable review plan
+## Executable result
 
 ```text
 10 permanent QLs × 200 seeds = 2,000 V2 questions
@@ -68,6 +70,8 @@ merge:                   not authorised before review
 6,000 hidden displayed-option analyses
 2,000 explicit Question Studio route checks
 100 human-review questions
+maximum default explanation: 54 words
+maximum calculation lines: 4
 forced Fast Method sections: 0
 ```
 
