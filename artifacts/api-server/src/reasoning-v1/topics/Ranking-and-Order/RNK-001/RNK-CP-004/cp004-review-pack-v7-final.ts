@@ -20,6 +20,9 @@ const CONTEXTS = [
   'NEUTRAL_RANKING',
 ] as const;
 
+const BALANCED_UNIQUE_FOUR_GRAM_SEQUENCE =
+  '002312310233121002133210123020131302120323110032230101320121323002213103023031201123233012021130301301102232203132110320303212112003';
+
 interface Candidate {
   readonly seed: number;
   readonly question: RnkCp004ExamReadyQuestion;
@@ -76,44 +79,27 @@ function selectPrototypeEvidence(
   return selected;
 }
 
-function deBruijn(alphabetSize: number, order: number): readonly number[] {
-  const working = Array(alphabetSize * order).fill(0);
-  const sequence: number[] = [];
-  const visit = (position: number, period: number): void => {
-    if (position > order) {
-      if (order % period === 0) {
-        for (let index = 1; index <= period; index += 1) sequence.push(working[index]);
-      }
-      return;
-    }
-    working[position] = working[position - period];
-    visit(position + 1, period);
-    for (let value = working[position - period] + 1; value < alphabetSize; value += 1) {
-      working[position] = value;
-      visit(position + 1, position);
-    }
-  };
-  visit(1, 1);
-  return sequence;
-}
-
 function balancedAnswerSequence(length: number): readonly number[] {
-  const cycle = deBruijn(4, 4);
-  if (cycle.length !== 256) throw new Error(`Unexpected de Bruijn cycle length ${cycle.length}`);
-  let best: number[] | null = null;
-  let bestSpread = Number.POSITIVE_INFINITY;
-  for (let rotation = 0; rotation < cycle.length; rotation += 1) {
-    const candidate = Array.from({ length }, (_, index) => cycle[(rotation + index) % cycle.length]);
-    const counts = [0, 0, 0, 0];
-    for (const value of candidate) counts[value] += 1;
-    const spread = Math.max(...counts) - Math.min(...counts);
-    if (spread < bestSpread) {
-      bestSpread = spread;
-      best = candidate;
-    }
+  if (length !== 132 || BALANCED_UNIQUE_FOUR_GRAM_SEQUENCE.length !== length) {
+    throw new Error(`Balanced answer authority expects 132 records, found ${length}`);
   }
-  if (!best || bestSpread > 1) throw new Error(`Unable to balance answer sequence; spread ${bestSpread}`);
-  return best;
+  const sequence = [...BALANCED_UNIQUE_FOUR_GRAM_SEQUENCE].map((value) => Number(value));
+  const counts = [0, 0, 0, 0];
+  for (const value of sequence) {
+    if (!Number.isInteger(value) || value < 0 || value > 3) throw new Error(`Invalid answer position ${value}`);
+    counts[value] += 1;
+  }
+  if (counts.some((count) => count !== 33)) {
+    throw new Error(`Answer sequence is not exactly balanced: ${counts.join('/')}`);
+  }
+  const fourGrams = new Set<string>();
+  for (let index = 0; index <= sequence.length - 4; index += 1) {
+    const key = sequence.slice(index, index + 4).join('');
+    if (fourGrams.has(key)) throw new Error(`Balanced authority repeats four-gram ${key}`);
+    fourGrams.add(key);
+  }
+  if (fourGrams.size !== 129) throw new Error(`Expected 129 unique four-grams, found ${fourGrams.size}`);
+  return sequence;
 }
 
 function addReviewFingerprint(question: RnkCp004ExamReadyQuestion): RnkCp004ExamReadyQuestion {
