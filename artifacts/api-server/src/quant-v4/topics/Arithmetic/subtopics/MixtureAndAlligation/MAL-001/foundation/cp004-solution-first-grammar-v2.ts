@@ -18,9 +18,14 @@ export function polishMalCp004SolutionFirstStem(value: string): string {
       /After drying, ([0-9][^,]*? kg) of ([^.]+?) contains/giu,
       "After drying, a $1 batch of $2 contains",
     )
+    .replace(/For a processing vessel,/giu, "In a processing vessel,")
     .replace(
-      /For a processing vessel, a container initially contains/giu,
-      "In a processing vessel, the solution initially contains",
+      /In a processing vessel, the solution initially contains a ([^.]+) solution\./giu,
+      "In a processing vessel, the initial solution is $1.",
+    )
+    .replace(
+      /holds ([0-9][0-9 /]*) litres of concentrate solution of concentration ([^.]+)\./giu,
+      "holds $1 litres of a $2 concentrate solution.",
     );
 }
 
