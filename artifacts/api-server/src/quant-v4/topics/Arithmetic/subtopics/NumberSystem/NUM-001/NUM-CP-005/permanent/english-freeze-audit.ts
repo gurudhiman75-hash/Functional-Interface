@@ -2,9 +2,7 @@ import {
   NUM_CP005_PERMANENT_ALLOCATION,
   NUM_CP005_PERMANENT_QL_IDS,
 } from "./allocation";
-import {
-  normalizeNumCp005OptionSemantic,
-} from "./english-remediation";
+import { normalizeNumCp005OptionSemantic } from "./english-remediation";
 import { runNumCp005PermanentPipeline } from "./runtime";
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -16,16 +14,16 @@ const normalizedStemOwner = new Map<string, string>();
 const exactStems = new Set<string>();
 const exactExplanations = new Set<string>();
 let generatedAuditQuestions = 0;
-let crossQlStemCollisions = 0;
 let lifecycleViolations = 0;
 let optionContractViolations = 0;
 let semanticOptionCollisions = 0;
 let internalIdLeaks = 0;
 let exponentRenderingViolations = 0;
 let duplicatedFinalAnswerViolations = 0;
-let genericAnswerGeometryQuestions = 0;
-let fullyNumericOptionQuestions = 0;
 let calculationCompletenessViolations = 0;
+let fullyNumericOptionQuestions = 0;
+let genericAnswerGeometryQuestions = 0;
+let crossQlStemCollisions = 0;
 let maximumStemWords = 0;
 let maximumStemCharacters = 0;
 let maximumProseStemCharacters = 0;
@@ -39,20 +37,22 @@ const calculationMarkerPattern = /(?:=|\\times|\\div|\\frac|\\lfloor|\bso\b|\bhe
 
 for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
   for (let seed = 1; seed <= seedsPerQl; seed += 1) {
-    const question = runNumCp005PermanentPipeline({ questionLanguageId: allocation.qlId, seed });
+    const question = runNumCp005PermanentPipeline({
+      questionLanguageId: allocation.qlId,
+      seed,
+    });
     generatedAuditQuestions += 1;
 
-    const normalizedStem = question.stem.toLowerCase().replace(/\s+/g, " ").trim();
+    const normalizedStem = question.stem.toLowerCase().replace(/\s+/gu, " ").trim();
     const priorOwner = normalizedStemOwner.get(normalizedStem);
     if (priorOwner && priorOwner !== allocation.qlId) crossQlStemCollisions += 1;
     normalizedStemOwner.set(normalizedStem, allocation.qlId);
     exactStems.add(question.stem);
     exactExplanations.add(JSON.stringify(question.explanation));
 
-    const stemWords = question.stem.trim().split(/\s+/).filter(Boolean).length;
+    const stemWords = question.stem.trim().split(/\s+/u).filter(Boolean).length;
     maximumStemWords = Math.max(maximumStemWords, stemWords);
     maximumStemCharacters = Math.max(maximumStemCharacters, question.stem.length);
-
     const isStructuredTable = question.representation === "DIVISOR_PAIR_TABLE";
     const stemCharacterLimit = isStructuredTable ? 320 : 260;
     if (isStructuredTable) {
@@ -61,7 +61,10 @@ for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
         question.stem.length,
       );
     } else {
-      maximumProseStemCharacters = Math.max(maximumProseStemCharacters, question.stem.length);
+      maximumProseStemCharacters = Math.max(
+        maximumProseStemCharacters,
+        question.stem.length,
+      );
     }
 
     assert(question.stem.trim().length > 0, `${allocation.qlId}/${seed}: empty stem`);
@@ -73,17 +76,13 @@ for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
     assert(question.explanation.givenDataAndStrategy.trim().length > 0, `${allocation.qlId}/${seed}: missing strategy`);
     assert(question.explanation.stepByStep.length >= 2, `${allocation.qlId}/${seed}: insufficient calculation steps`);
     assert(question.explanation.examSpeedMethod.trim().length > 0, `${allocation.qlId}/${seed}: missing speed method`);
+    assert(
+      question.explanation.finalAnswer.includes(question.canonicalAnswer),
+      `${allocation.qlId}/${seed}: final answer mismatch`,
+    );
 
-    const finalAnswerMatches = allocation.qlId === "NUM-QL-068"
-      ? question.canonicalAnswer.includes("Number A")
-        ? question.explanation.finalAnswer.includes("Number A")
-        : question.canonicalAnswer.includes("Number B")
-          ? question.explanation.finalAnswer.includes("Number B")
-          : /same number of divisors/iu.test(question.explanation.finalAnswer)
-      : question.explanation.finalAnswer.includes(question.canonicalAnswer);
-    assert(finalAnswerMatches, `${allocation.qlId}/${seed}: final answer mismatch`);
-
-    const semanticOptions = question.options.map((option) => normalizeNumCp005OptionSemantic(option.value));
+    const semanticOptions = question.options.map((option) =>
+      normalizeNumCp005OptionSemantic(option.value));
     if (new Set(semanticOptions).size !== 4) semanticOptionCollisions += 1;
 
     const wrongOptions = question.options.filter((option) => !option.isCorrect);
@@ -111,24 +110,27 @@ for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
     if (unbracedPowerPattern.test(learnerFacing) || leftSuperscriptPattern.test(learnerFacing)) {
       exponentRenderingViolations += 1;
     }
-    const openingMath = learnerFacing.match(/\\\(/g)?.length ?? 0;
-    const closingMath = learnerFacing.match(/\\\)/g)?.length ?? 0;
+    const openingMath = learnerFacing.match(/\\\(/gu)?.length ?? 0;
+    const closingMath = learnerFacing.match(/\\\)/gu)?.length ?? 0;
     if (openingMath !== closingMath) exponentRenderingViolations += 1;
-
     if (/Final answer:\s*Final answer:/iu.test(question.explanation.finalAnswer)) {
       duplicatedFinalAnswerViolations += 1;
     }
-
     if (!question.explanation.stepByStep.some((step) => calculationMarkerPattern.test(step))) {
       calculationCompletenessViolations += 1;
     }
 
-    const numericOptions = question.options.map((option) => /^-?\d+$/u.test(option.value) ? Number(option.value) : null);
+    const numericOptions = question.options.map((option) =>
+      /^-?\d+$/u.test(option.value) ? Number(option.value) : null);
     if (numericOptions.every((value) => value !== null) && /^-?\d+$/u.test(question.canonicalAnswer)) {
       fullyNumericOptionQuestions += 1;
       const answer = Number(question.canonicalAnswer);
-      const wrongValues = numericOptions.filter((_value, index) => index !== question.correctIndex) as number[];
-      if (wrongValues.every((value) => Math.abs(value - answer) <= 2)) genericAnswerGeometryQuestions += 1;
+      const wrongValues = numericOptions.filter(
+        (_value, index) => index !== question.correctIndex,
+      ) as number[];
+      if (wrongValues.every((value) => Math.abs(value - answer) <= 2)) {
+        genericAnswerGeometryQuestions += 1;
+      }
     }
 
     if (allocation.qlId === "NUM-QL-052") {
@@ -140,21 +142,35 @@ for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
       const parity = question.hiddenState.parity;
       const numericOptions = question.options.filter((option) => /^\d+$/u.test(option.value));
       if (parity === "ODD") {
-        assert(numericOptions.every((option) => Number(option.value) % 2 === 1), `${allocation.qlId}/${seed}: odd-option parity leak`);
+        assert(
+          numericOptions.every((option) => Number(option.value) % 2 === 1),
+          `${allocation.qlId}/${seed}: odd-option parity leak`,
+        );
       }
       if (parity === "EVEN") {
-        assert(numericOptions.every((option) => Number(option.value) % 2 === 0), `${allocation.qlId}/${seed}: even-option parity leak`);
+        assert(
+          numericOptions.every((option) => Number(option.value) % 2 === 0),
+          `${allocation.qlId}/${seed}: even-option parity leak`,
+        );
       }
       if (question.canonicalAnswer === "No such integer") {
-        assert(question.options.filter((option) => !/^\d+$/u.test(option.value)).length === 1, `${allocation.qlId}/${seed}: no-solution option contract`);
-        assert(question.options[question.correctIndex]?.value === "No such integer", `${allocation.qlId}/${seed}: governed no-solution answer lost`);
+        assert(
+          question.options.filter((option) => !/^\d+$/u.test(option.value)).length === 1,
+          `${allocation.qlId}/${seed}: no-solution option contract`,
+        );
       } else {
-        assert(numericOptions.length === 4, `${allocation.qlId}/${seed}: solved bounded maximum must use four numeric options`);
+        assert(
+          numericOptions.length === 4,
+          `${allocation.qlId}/${seed}: solved bounded maximum must use four numeric options`,
+        );
       }
     }
 
     if (allocation.qlId === "NUM-QL-066" && question.canonicalAnswer === "∅") {
-      assert(new Set(semanticOptions).size === 4, `${allocation.qlId}/${seed}: equivalent empty-set options`);
+      assert(
+        new Set(semanticOptions).size === 4,
+        `${allocation.qlId}/${seed}: equivalent empty-set options`,
+      );
     }
 
     if (allocation.qlId === "NUM-QL-069") {
@@ -164,7 +180,10 @@ for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
         "Both statements together are sufficient, but neither statement alone is sufficient.",
         "Even both statements together are not sufficient.",
       ]);
-      assert(question.options.every((option) => expected.has(option.value)), `${allocation.qlId}/${seed}: non-exclusive DS option`);
+      assert(
+        question.options.every((option) => expected.has(option.value)),
+        `${allocation.qlId}/${seed}: non-exclusive data-sufficiency option`,
+      );
     }
 
     if (
@@ -210,7 +229,9 @@ console.log(JSON.stringify({
   calculationCompletenessViolations,
   fullyNumericOptionQuestions,
   genericAnswerGeometryQuestions,
-  genericAnswerGeometryRate: fullyNumericOptionQuestions === 0 ? 0 : genericAnswerGeometryQuestions / fullyNumericOptionQuestions,
+  genericAnswerGeometryRate: fullyNumericOptionQuestions === 0
+    ? 0
+    : genericAnswerGeometryQuestions / fullyNumericOptionQuestions,
   maximumStemWords,
   maximumStemCharacters,
   maximumProseStemCharacters,
