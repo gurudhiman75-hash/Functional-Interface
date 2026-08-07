@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { SAP_CP003_PROTOTYPE_AUTHORITIES } from "./catalogue";
 import { parseNumericLiteral, parseRecurringDecimal, formatRat } from "./exact";
 import { generateSapCp003ReviewRecords } from "./review-export";
-import { generateSapCp003Sweep, SAP_CP003_RUNTIME_STATE } from "./runtime";
+import { generateSapCp003Sweep, SAP_CP003_RUNTIME_STATE } from "./editorial-runtime";
 import { SAP_CP003_PROTOTYPE_IDS } from "./types";
 
 function maximumRun(sequence: readonly number[]): number {
@@ -50,6 +50,7 @@ for (const pkg of sweep) {
   assert.equal(new Set(pkg.options.map((option) => option.value)).size, 4);
   assert.equal(pkg.options.filter((option) => option.isCorrect).length, 1);
   assert.equal(pkg.options[pkg.correctIndex]?.value, pkg.canonicalAnswer);
+  assert.equal(pkg.options.filter((option) => !option.isCorrect && !option.misconceptionId).length, 0);
   assert.equal(pkg.lifecycle.permanentQlId, null);
   assert.equal(pkg.lifecycle.active, false);
   assert.equal(pkg.lifecycle.questionStudioDiscoverable, false);
@@ -76,11 +77,20 @@ for (const pkg of sweep) {
     assert.match(pkg.stem, /\nStep 1:/);
     assert.match(pkg.stem, /\nStep 2:/);
     assert.match(pkg.stem, /\nStep 3:/);
+    assert.match(pkg.stem, /\nWhich is the first incorrect step\?/);
   }
   if (pkg.prototypeId === "SAP-CP003-PROT-RECURRING-DECIMAL-IN-EXPRESSION") {
     recurringCount += 1;
     assert.match(pkg.stem, /\d\.\d*\(\d+\)/);
     assert.match(pkg.explanation.steps[0]!, /exact fraction/i);
+    assert.ok(pkg.options.some((option) => option.misconceptionId === "RECURRING_BLOCK_READ_AS_FINITE"));
+  }
+  if (pkg.prototypeId === "SAP-CP003-PROT-MISSING-PERCENTAGE-LITERAL") {
+    for (const option of pkg.options) {
+      assert.match(option.value, /%$/);
+      const value = parseNumericLiteral(option.value)!;
+      assert.ok(value.n >= 0n && value.n * 2n <= value.d * 3n, `${option.value} is outside the bounded percentage option range.`);
+    }
   }
 }
 
