@@ -14,7 +14,7 @@ jobs:
   materialize:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: feat/prb-probability-end-to-end
           fetch-depth: 0
@@ -34,10 +34,22 @@ jobs:
       - name: Typecheck Probability surface
         shell: bash
         run: |
-          set -euo pipefail
+          set +e
           npx --yes tsc --noEmit --target ES2022 --module commonjs --moduleResolution node --resolveJsonModule --esModuleInterop --skipLibCheck \
             $(find artifacts/api-server/src/quant-v4/shared/counting artifacts/api-server/src/quant-v4/topics/Probability -name '*.ts' -print) \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001/foundation/math.ts
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001/foundation/math.ts \
+            > /tmp/probability-tsc.log 2>&1
+          status=$?
+          set -e
+          if [ "$status" -ne 0 ]; then
+            while IFS= read -r line; do
+              line="${line//'%'/'%25'}"
+              line="${line//$'\r'/'%0D'}"
+              line="${line//$'\n'/'%0A'}"
+              echo "::error::$line"
+            done < /tmp/probability-tsc.log
+            exit "$status"
+          fi
 
       - name: Run design QA
         shell: bash
