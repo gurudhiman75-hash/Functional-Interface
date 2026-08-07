@@ -135,11 +135,18 @@ assert(
     ),
   )}`,
 );
+const directPrototypeCount = [...directCoverageByPrototype.values()].filter(
+  (sourceIds) => sourceIds.size > 0,
+).length;
+const formulaEquivalentOnlyPrototypeCount =
+  MAL_CP004_DISCOVERY_PROTOTYPE_IDS.length - directPrototypeCount;
 assert(
-  [...directCoverageByPrototype.values()].filter(
-    (sourceIds) => sourceIds.size > 0,
-  ).length >= 5,
-  "Fewer than five prototypes have direct task matches.",
+  directPrototypeCount === 4,
+  `Expected four directly matched prototypes, received ${directPrototypeCount}.`,
+);
+assert(
+  formulaEquivalentOnlyPrototypeCount === 3,
+  `Expected three formula-equivalent-only prototypes, received ${formulaEquivalentOnlyPrototypeCount}.`,
 );
 
 let exactGapCaseCount = 0;
@@ -270,6 +277,8 @@ writeFileSync(
       sourceReferenceCount: MAL_CP004_WAVE02_SOURCE_REFERENCES.length,
       directSourceCount: directSources.length,
       formulaEquivalentSourceCount: formulaEquivalentSources.length,
+      directPrototypeCount,
+      formulaEquivalentOnlyPrototypeCount,
       collisionSourceCount: collisionSources.length,
       boundarySourceCount: boundarySources.length,
       exactNormalizedCaseCount,
@@ -295,6 +304,8 @@ const markdown = [
   `Source references: **${MAL_CP004_WAVE02_SOURCE_REFERENCES.length}**`,
   `Direct task sources: **${directSources.length}**`,
   `Formula-equivalent source directions: **${formulaEquivalentSources.length}**`,
+  `Directly matched prototypes: **${directPrototypeCount}**`,
+  `Formula-equivalent-only prototypes: **${formulaEquivalentOnlyPrototypeCount}**`,
   `Exact current-prototype cases: **${exactNormalizedCaseCount}**`,
   `Exact source-gap cases: **${exactGapCaseCount}**`,
   `Wave 01 compatibility questions: **${compatibilityQuestionCount}**`,
@@ -330,6 +341,8 @@ console.log(
       sourceReferenceCount: MAL_CP004_WAVE02_SOURCE_REFERENCES.length,
       directSourceCount: directSources.length,
       formulaEquivalentSourceCount: formulaEquivalentSources.length,
+      directPrototypeCount,
+      formulaEquivalentOnlyPrototypeCount,
       exactNormalizedCaseCount,
       sourceGapCount: MAL_CP004_WAVE02_SOURCE_GAPS.length,
       exactGapCaseCount,
