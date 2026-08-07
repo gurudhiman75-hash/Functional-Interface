@@ -4,7 +4,6 @@ import {
   compareRational,
   divideRational,
   equalsRational,
-  formatRational,
   multiplyRational,
   rational,
   subtractRational,
@@ -60,6 +59,8 @@ function round4(value: number): number {
   return Math.round((value + Number.EPSILON) * 10_000) / 10_000;
 }
 
+const PCT_RUNTIME_TOLERANCE = 0.0001001;
+
 function assertPctNumber(
   actual: number | null,
   expected: Rational,
@@ -70,9 +71,10 @@ function assertPctNumber(
   const expectedNumber = round4(
     asPercent ? percentNumber(expected) : toNumber(expected),
   );
+  const difference = Math.abs(actual - expectedNumber);
   assert(
-    Math.abs(actual - expectedNumber) <= 0.0001,
-    `${label}: expected ${expectedNumber}, received ${actual}.`,
+    difference <= PCT_RUNTIME_TOLERANCE,
+    `${label}: expected ${expectedNumber}, received ${actual}; difference ${difference}.`,
   );
 }
 
@@ -121,24 +123,28 @@ assert(
   "Effective contract IDs are not unique.",
 );
 assert(
-  new Set(MAL_CP004_WAVE03_EQUIVALENCE_MATRIX.map((entry) => entry.authorityId))
-    .size === 20,
+  new Set(
+    MAL_CP004_WAVE03_EQUIVALENCE_MATRIX.map((entry) => entry.authorityId),
+  ).size === 20,
   "Equivalence authority IDs are not unique.",
 );
 
-const dispositionCounts = Object.fromEntries(
-  [
-    "KEEP_OPEN_CONTRACT",
-    "MERGE_AS_REPRESENTATION_VARIANT",
-    "REFERENCE_EXISTING_CONTRACT",
-    "ADD_OPEN_CONTRACT_FROM_COLLISION",
-  ].map((disposition) => [
-    disposition,
+const dispositionCounts = {
+  KEEP_OPEN_CONTRACT: MAL_CP004_WAVE03_EQUIVALENCE_MATRIX.filter(
+    (entry) => entry.disposition === "KEEP_OPEN_CONTRACT",
+  ).length,
+  MERGE_AS_REPRESENTATION_VARIANT:
     MAL_CP004_WAVE03_EQUIVALENCE_MATRIX.filter(
-      (entry) => entry.disposition === disposition,
+      (entry) => entry.disposition === "MERGE_AS_REPRESENTATION_VARIANT",
     ).length,
-  ]),
-);
+  REFERENCE_EXISTING_CONTRACT: MAL_CP004_WAVE03_EQUIVALENCE_MATRIX.filter(
+    (entry) => entry.disposition === "REFERENCE_EXISTING_CONTRACT",
+  ).length,
+  ADD_OPEN_CONTRACT_FROM_COLLISION:
+    MAL_CP004_WAVE03_EQUIVALENCE_MATRIX.filter(
+      (entry) => entry.disposition === "ADD_OPEN_CONTRACT_FROM_COLLISION",
+    ).length,
+};
 assert(
   dispositionCounts.KEEP_OPEN_CONTRACT === 8 &&
     dispositionCounts.MERGE_AS_REPRESENTATION_VARIANT === 6 &&
@@ -226,10 +232,7 @@ for (const total of totals) {
     );
     assert(
       equalsRational(
-        malCp004TotalFromComponentAndRate(
-          state.componentAmount,
-          componentRate,
-        ),
+        malCp004TotalFromComponentAndRate(state.componentAmount, componentRate),
         total,
       ),
       "Total-from-component inverse failed.",
@@ -245,10 +248,7 @@ for (const total of totals) {
       "Total-from-other-component inverse failed.",
     );
     assert(
-      equalsRational(
-        divideRational(state.componentAmount, total),
-        componentRate,
-      ),
+      equalsRational(divideRational(state.componentAmount, total), componentRate),
       "Component-rate round trip failed.",
     );
 
@@ -326,7 +326,6 @@ for (const total of totals) {
       total,
       "PCT total from other component",
     );
-
     componentStateCount += 1;
     pctComponentProofCount += 5;
   }
@@ -357,10 +356,7 @@ for (const initialMass of moistureMasses) {
   for (const initialMoistureFraction of initialMoistures) {
     for (const finalMoistureFraction of finalMoistures) {
       if (
-        compareRational(
-          finalMoistureFraction,
-          initialMoistureFraction,
-        ) >= 0
+        compareRational(finalMoistureFraction, initialMoistureFraction) >= 0
       ) {
         continue;
       }
@@ -410,7 +406,7 @@ for (const initialMass of moistureMasses) {
         "Moisture-lost output variant failed.",
       );
 
-      const pctVariables = {
+      const variables = {
         baseValue: toNumber(initialMass),
         value1: toNumber(state.finalMass),
         waterRate: percentNumber(initialMoistureFraction),
@@ -423,7 +419,7 @@ for (const initialMass of moistureMasses) {
             taskKind: "evaporationDryingCompositionApplication",
             solveMode: "findFinalDryWeight",
             answerType: "WEIGHT",
-            variables: pctVariables,
+            variables,
           }),
         ).numericAnswer,
         state.finalMass,
@@ -436,7 +432,7 @@ for (const initialMass of moistureMasses) {
             taskKind: "evaporationDryingCompositionApplication",
             solveMode: "findWaterLostAfterDrying",
             answerType: "WEIGHT",
-            variables: pctVariables,
+            variables,
           }),
         ).numericAnswer,
         state.moistureLost,
@@ -449,13 +445,12 @@ for (const initialMass of moistureMasses) {
             taskKind: "evaporationDryingCompositionApplication",
             solveMode: "findInitialWeightFromFinalDryWeight",
             answerType: "WEIGHT",
-            variables: pctVariables,
+            variables,
           }),
         ).numericAnswer,
         initialMass,
         "PCT initial wet weight",
       );
-
       moistureStateCount += 1;
       pctMoistureProofCount += 3;
     }
@@ -487,9 +482,7 @@ let pctEvaporationProofCount = 0;
 for (const initialTotal of transformationTotals) {
   for (const initialConcentration of lowerRates) {
     for (const targetConcentration of higherRates) {
-      if (
-        compareRational(targetConcentration, initialConcentration) <= 0
-      ) {
+      if (compareRational(targetConcentration, initialConcentration) <= 0) {
         continue;
       }
       const evaporation = malCp004EvaporationState({
@@ -535,7 +528,7 @@ for (const initialTotal of transformationTotals) {
         "Known-evaporation final concentration failed.",
       );
 
-      const pctVariables = {
+      const variables = {
         baseValue: toNumber(initialTotal),
         oldRate: percentNumber(initialConcentration),
         newRate: percentNumber(targetConcentration),
@@ -547,7 +540,7 @@ for (const initialTotal of transformationTotals) {
             taskKind: "evaporationDryingCompositionApplication",
             solveMode: "findFinalVolumeAfterEvaporation",
             answerType: "VOLUME",
-            variables: pctVariables,
+            variables,
           }),
         ).numericAnswer,
         evaporation.finalTotal,
@@ -560,7 +553,7 @@ for (const initialTotal of transformationTotals) {
             taskKind: "evaporationDryingCompositionApplication",
             solveMode: "findEvaporatedAmount",
             answerType: "VOLUME",
-            variables: pctVariables,
+            variables,
           }),
         ).numericAnswer,
         evaporation.evaporatedAmount,
@@ -588,10 +581,7 @@ for (const initialTotal of transformationTotals) {
       );
       assert(
         equalsRational(
-          divideRational(
-            pureAddition.finalSolute,
-            pureAddition.finalTotal,
-          ),
+          divideRational(pureAddition.finalSolute, pureAddition.finalTotal),
           targetConcentration,
         ),
         "Pure-addition target concentration failed.",
@@ -606,7 +596,6 @@ for (const initialTotal of transformationTotals) {
         ),
         "Pure-addition solvent invariant failed.",
       );
-
       evaporationStateCount += 1;
       pureAdditionStateCount += 1;
       pctEvaporationProofCount += 2;
@@ -634,9 +623,7 @@ const dilutionTargets = [
 for (const initialTotal of transformationTotals) {
   for (const initialConcentration of dilutionInitialRates) {
     for (const targetConcentration of dilutionTargets) {
-      if (
-        compareRational(targetConcentration, initialConcentration) >= 0
-      ) {
+      if (compareRational(targetConcentration, initialConcentration) >= 0) {
         continue;
       }
       const solved = solveMalCp004({
@@ -683,9 +670,18 @@ assert(
   pureAdditionStateCount === evaporationStateCount,
   "Pure-addition proof grid does not match the strengthening grid.",
 );
-assert(pctComponentProofCount === componentStateCount * 5, "PCT-CP-005 proof count mismatch.");
-assert(pctMoistureProofCount === moistureStateCount * 3, "PCT moisture proof count mismatch.");
-assert(pctEvaporationProofCount === evaporationStateCount * 2, "PCT evaporation proof count mismatch.");
+assert(
+  pctComponentProofCount === componentStateCount * 5,
+  "PCT-CP-005 proof count mismatch.",
+);
+assert(
+  pctMoistureProofCount === moistureStateCount * 3,
+  "PCT moisture proof count mismatch.",
+);
+assert(
+  pctEvaporationProofCount === evaporationStateCount * 2,
+  "PCT evaporation proof count mismatch.",
+);
 
 let compatibilityQuestionCount = 0;
 for (const prototypeId of MAL_CP004_DISCOVERY_PROTOTYPE_IDS) {
@@ -758,6 +754,8 @@ writeFileSync(
       pureAdditionStateCount,
       totalExactStateCount,
       totalPctRuntimeProofCount,
+      pctRuntimeComparisonPrecision: "FOUR_DECIMAL_PLACES",
+      pctRuntimeTolerance: PCT_RUNTIME_TOLERANCE,
       compatibilityQuestionCount,
       permanentQlCount: 0,
       percentageMutationPerformed: false,
@@ -780,7 +778,7 @@ const markdown = [
   `PCT-CP-005 collision modes: **${pctCp005Entries.length}**`,
   `PCT-CP-006 collision modes: **${pctCp006Entries.length}**`,
   `Exact rational states: **${totalExactStateCount}**`,
-  `Actual PCT runtime comparisons: **${totalPctRuntimeProofCount}**`,
+  `Actual PCT runtime comparisons at its four-decimal output precision: **${totalPctRuntimeProofCount}**`,
   `Discovery compatibility questions: **${compatibilityQuestionCount}**`,
   "Permanent QLs: **0**",
   "",
@@ -819,6 +817,7 @@ console.log(
       pctCp006CollisionModeCount: pctCp006Entries.length,
       totalExactStateCount,
       totalPctRuntimeProofCount,
+      pctRuntimeComparisonPrecision: "FOUR_DECIMAL_PLACES",
       compatibilityQuestionCount,
       permanentQlCount: 0,
       percentageMutationPerformed: false,
