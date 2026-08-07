@@ -7,6 +7,7 @@ import { applySapCp003StructuralVariantsV2 } from "./structural-variants-v2";
 import { applySapCp003StructuralVariantsV3 } from "./structural-variants-v3";
 import { applySapCp003StructuralVariantsV4 } from "./structural-variants-v4";
 import { applySapCp003StructuralVariantsV5 } from "./structural-variants-v5";
+import { applySapCp003StructuralVariantsV6 } from "./structural-variants-v6";
 import {
   SAP_CP003_PROTOTYPE_IDS,
   type SapCp003Option,
@@ -102,7 +103,8 @@ export function generateSapCp003Package(
   const v3 = applySapCp003StructuralVariantsV3(v2);
   const v4 = applySapCp003StructuralVariantsV4(v3);
   const v5 = applySapCp003StructuralVariantsV5(v4);
-  const presentationSafe = normaliseVisibleDecimalPlacement(v5);
+  const v6 = applySapCp003StructuralVariantsV6(v5);
+  const presentationSafe = normaliseVisibleDecimalPlacement(v6);
   return finalOptionShuffle(presentationSafe);
 }
 
