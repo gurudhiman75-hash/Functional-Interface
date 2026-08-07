@@ -74,7 +74,9 @@ export interface SylLearnerRemediationEvidenceV5 {
   nativeHindiEditorialStatus: "PENDING";
   nativePunjabiEditorialStatus: "PENDING";
   humanViewportStatus: "PENDING";
-  deadOptionRemediationStatus: "PENDING_SEPARATE_SOURCE_DECISION";
+  deadOptionRemediationStatus:
+    | "PENDING_SEPARATE_SOURCE_DECISION"
+    | "REMOVED_THREE_STATUS_DIAGNOSTIC";
   mockWeightCalibrationStatus: "PENDING_SEPARATE_SOURCE_DECISION";
 }
 
