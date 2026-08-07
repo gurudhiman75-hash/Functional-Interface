@@ -20,6 +20,10 @@ export type SylLearnerExplanationModeV5 =
   | SylLearnerExplanationV4["mode"]
   | "PAIR_CLASSIFICATION";
 
+export type SylDiagramModeV5 =
+  | SylLearnerDiagramV4["mode"]
+  | "RELATION_MAP";
+
 export type SylDiagramOmissionReasonV5 =
   | SylLearnerDiagramV4["omissionReason"]
   | "ANSWER_MODE_MISMATCH"
@@ -49,7 +53,8 @@ export interface SylLearnerOptionAnalysisV5
 }
 
 export interface SylLearnerDiagramV5
-  extends Omit<SylLearnerDiagramV4, "omissionReason"> {
+  extends Omit<SylLearnerDiagramV4, "mode" | "omissionReason"> {
+  mode: SylDiagramModeV5;
   omissionReason: SylDiagramOmissionReasonV5;
 }
 
