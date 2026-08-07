@@ -123,6 +123,10 @@ export const MAL_CP004_WAVE04_INITIAL_FROM_EVAPORATION_CASES:
     { evaporated: 30, initialRate: [3, 5], targetRate: [4, 5] },
     { evaporated: 50, initialRate: [1, 5], targetRate: [2, 5] },
     { evaporated: 24, initialRate: [3, 8], targetRate: [1, 2] },
+    { evaporated: 18, initialRate: [2, 5], targetRate: [1, 2] },
+    { evaporated: 16, initialRate: [1, 2], targetRate: [3, 5] },
+    { evaporated: 36, initialRate: [1, 4], targetRate: [2, 5] },
+    { evaporated: 24, initialRate: [1, 5], targetRate: [1, 3] },
   ] as const;
 
 export interface MalCp004Wave04MoistureCase {
