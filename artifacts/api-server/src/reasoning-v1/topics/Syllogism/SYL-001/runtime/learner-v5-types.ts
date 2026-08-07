@@ -63,6 +63,15 @@ export interface SylLearnerModelEvidenceV5 {
     | "TRUE_FALSE_MODELS";
 }
 
+export type SylEditorialReviewStatusV5 =
+  | "PENDING"
+  | "APPROVED_BY_PRODUCT_OWNER";
+
+export type SylViewportReviewStatusV5 =
+  | "PENDING"
+  | "EVIDENCE_READY_PENDING_APPROVAL"
+  | "APPROVED";
+
 export interface SylLearnerRemediationEvidenceV5 {
   answerDerivedExplanationMode: true;
   answerDerivedDiagramMode: true;
@@ -70,10 +79,10 @@ export interface SylLearnerRemediationEvidenceV5 {
   logicalStatusSeparatedFromTaskDisposition: true;
   nonEmptyClassDirectionVisibleBeforeAttempt: true;
   unknownRelationsNeverRenderedAsProvedSeparation: true;
-  nativeEnglishEditorialStatus: "PENDING";
-  nativeHindiEditorialStatus: "PENDING";
-  nativePunjabiEditorialStatus: "PENDING";
-  humanViewportStatus: "PENDING";
+  nativeEnglishEditorialStatus: SylEditorialReviewStatusV5;
+  nativeHindiEditorialStatus: SylEditorialReviewStatusV5;
+  nativePunjabiEditorialStatus: SylEditorialReviewStatusV5;
+  humanViewportStatus: SylViewportReviewStatusV5;
   deadOptionRemediationStatus:
     | "PENDING_SEPARATE_SOURCE_DECISION"
     | "REMOVED_THREE_STATUS_DIAGNOSTIC";
