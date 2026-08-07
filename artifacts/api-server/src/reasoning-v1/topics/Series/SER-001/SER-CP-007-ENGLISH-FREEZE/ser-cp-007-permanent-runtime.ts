@@ -3,10 +3,8 @@ import {
 } from "../SER-CP-007-AUTHORITY-FREEZE-CANDIDATE/authority-compression-contract-v7-1";
 import type { SerCp007TemplateProbe } from "../SER-CP-007-AUTHORITY-FREEZE-CANDIDATE/authority-compression-contract";
 import type { SerCp007EditorialQuestion } from "../SER-CP-007-ENGLISH-REMODEL/adaptive-review";
-import {
-  buildAdaptiveSerCp007ReviewV71,
-  type SerCp007AdaptiveReviewV71,
-} from "../SER-CP-007-ENGLISH-REMODEL/adaptive-review-v7-1";
+import type { SerCp007AdaptiveReviewV71 } from "../SER-CP-007-ENGLISH-REMODEL/adaptive-review-v7-1";
+import { buildAdaptiveSerCp007ReviewV71Final } from "../SER-CP-007-ENGLISH-REMODEL/adaptive-review-v7-1-final";
 import type { SerPermanentQlRegistryEntry } from "../SER-PERMANENT-QL-REGISTRY";
 import {
   SER_CP007_FROZEN_TEMPLATE_BY_ID,
@@ -81,7 +79,7 @@ export function generateSerCp007PermanentEnglishPackage(
   }
 
   const question = probe.generate(seed) as unknown as SerCp007EditorialQuestion;
-  const review = buildAdaptiveSerCp007ReviewV71(question);
+  const review = buildAdaptiveSerCp007ReviewV71Final(question);
   const registryEntry = frozenTemplateAuthority.registryEntry;
   if (
     registryEntry.permanentQlId !== frozenTemplateAuthority.permanentQlId ||
