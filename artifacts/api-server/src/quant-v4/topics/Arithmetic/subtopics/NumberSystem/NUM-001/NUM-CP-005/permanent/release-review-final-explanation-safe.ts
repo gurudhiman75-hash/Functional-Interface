@@ -41,12 +41,10 @@ function ql064Or065Final(input, explanation) {
   };
 }
 
-function ql068Final(explanation) {
-  const countLine = explanation.stepByStep.find((step) => /A gives \d+; B gives \d+\./u.test(step));
-  const match = countLine?.match(/A gives (\d+); B gives (\d+)\./u);
-  if (!match) return explanation;
-  const first = Number(match[1]);
-  const second = Number(match[2]);
+function ql068Final(input, explanation) {
+  const first = Number(input.hiddenState.firstMetricValue);
+  const second = Number(input.hiddenState.secondMetricValue);
+  if (!Number.isFinite(first) || !Number.isFinite(second)) return explanation;
   const sign = first > second ? ">" : first < second ? "<" : "=";
   const conclusion = first > second
     ? "Number A has more divisors."
@@ -82,7 +80,7 @@ export function applyNumCp005FinalExplanationSafety(input, explanation) {
   if (input.qlId === "NUM-QL-064" || input.qlId === "NUM-QL-065") {
     return ql064Or065Final(input, explanation);
   }
-  if (input.qlId === "NUM-QL-068") return ql068Final(explanation);
+  if (input.qlId === "NUM-QL-068") return ql068Final(input, explanation);
   if (input.qlId === "NUM-QL-069") return ql069Final(input, explanation);
   return explanation;
 }
