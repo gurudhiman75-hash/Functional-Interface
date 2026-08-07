@@ -5,6 +5,16 @@ import { buildOptionDraftsV4, normalizedAnswerV4, normalizedStemV4, orderOptions
 import type { SapCp002ExamReadinessV4Package } from "./types";
 
 function proofStem(pkg: SapCp002ExamReadinessV3Package, stem: string): string {
+  if (pkg.taskDirection === "INVERSE") {
+    const missingNumeratorOrDenominator = stem.match(/(□\/\d+\s*\+\s*[−-]?\d+\/\d+|\d+\/□\s*\+\s*[−-]?\d+\/\d+)\s*=\s*([−-]?\d+(?:\/\d+)?)/);
+    if (missingNumeratorOrDenominator) {
+      return `${missingNumeratorOrDenominator[1]} = ${missingNumeratorOrDenominator[2]}.`;
+    }
+    const missingOperand = stem.match(/([−-]?\d+\/\d+\s*[+−-]\s*□)\s*=\s*([−-]?\d+(?:\/\d+)?)/);
+    if (missingOperand) {
+      return `${missingOperand[1]} = ${missingOperand[2]}.`;
+    }
+  }
   if (pkg.permanentQlId === "SAP-QL-023") {
     const blocks = stem.match(/⟦([^⟦⟧]+)⟧[^⟦⟧]*⟦([^⟦⟧]+)⟧/);
     if (blocks) return `Evaluate ((${blocks[1]}) ÷ (${blocks[2]})).`;
@@ -29,12 +39,13 @@ export function generateSapCp002ExamReadinessV4Package(
   const v3 = generateSapCp002ExamReadinessV3Package(prototypeId, seed);
   const stem = normalizedStemV4(v3)
     .replace(/\bvalue\s+of\b/gi, "value:");
+  const executableStem = proofStem(v3, stem);
   const answer = normalizedAnswerV4(v3);
-  const drafts = buildOptionDraftsV4(v3, stem, answer);
+  const drafts = buildOptionDraftsV4(v3, executableStem, answer);
   const options = orderOptionsV4(v3, drafts);
   const correctIndex = options.findIndex((option) => option.isCorrect);
   if (correctIndex < 0) throw new Error(`${prototypeId}/${seed}: V4 has no correct option.`);
-  const explanation = buildExplanationV4(v3, proofStem(v3, stem), answer, options);
+  const explanation = buildExplanationV4(v3, executableStem, answer, options);
   const difficulty = difficultyV4(v3, stem);
   const canonicalPayloadKey = v3.canonicalPayloadKey
     .replace(/^SAP_CP002_CANONICAL_V3\|/, "SAP_CP002_CANONICAL_V4|")
