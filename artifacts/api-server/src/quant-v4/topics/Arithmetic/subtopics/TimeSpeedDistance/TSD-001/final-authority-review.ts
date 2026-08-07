@@ -1,6 +1,7 @@
 import { remodelCp001DeadlineOptionFeedback } from "./cp001/deadline-option-feedback";
 import { remodelCp001DirectOptionFeedback } from "./cp001/direct-option-feedback";
 import { TSD_CP001_FROZEN_AUTHORITIES } from "./cp001/freeze-registry";
+import { remodelCp001MixedUnitOptionFeedback } from "./cp001/mixed-unit-option-feedback";
 import { generateP1DiversityBatch04Cp001Supplements } from "./cp001/p1-diversity-batch-04-supplements";
 import { generateP2DiversityBatch02Supplements } from "./cp001/p2-diversity-batch-02-supplements";
 import { remodelCp001ProportionOptionLabels } from "./cp001/proportion-option-label-integrity";
@@ -94,8 +95,10 @@ function cp002FinalRepresentation(row: TsdCp002GeneratedQuestion): string {
 
 function cp001Record(row: TsdCp001GeneratedQuestion): TsdFinalReviewRecord {
   const remediated = remodelTsdContext(
-    remodelCp001DeadlineOptionFeedback(
-      remodelCp001ProportionOptionLabels(remodelCp001DirectOptionFeedback(row)),
+    remodelCp001MixedUnitOptionFeedback(
+      remodelCp001DeadlineOptionFeedback(
+        remodelCp001ProportionOptionLabels(remodelCp001DirectOptionFeedback(row)),
+      ),
     ),
   );
   const authority = finalAuthorityByKey(cp001AuthorityKey(remediated));
