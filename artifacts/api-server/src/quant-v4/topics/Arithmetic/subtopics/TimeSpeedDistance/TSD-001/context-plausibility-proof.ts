@@ -19,7 +19,7 @@ assert(rows.every((row) => row.sourceQuestion.validation.valid), "A remediated s
 const bannedPatterns = [
   /\bA cyclist covers part of a journey\b/i,
   /\bA cyclist travels at\b/i,
-  /\bA rider\b/i,
+  /\brider\b/i,
   /\bA courier covers\b/i,
   /\bA field engineer travels\b/i,
   /\bA survey crew reaches\b/i,
@@ -38,13 +38,15 @@ for (const row of rows) {
   }
 }
 
+const motorcyclistRows = rows.filter((row) => /\bmotorcyclist\b/i.test(row.sourceQuestion.stem));
+assert(motorcyclistRows.length === 9, `Expected 9 normalized motorcyclist rows, received ${motorcyclistRows.length}`);
+for (const row of motorcyclistRows) {
+  assert(/\bmotorcyclist\b/i.test(row.sourceQuestion.stemMathJax), `${row.questionLanguageId}: motorcyclist context differs between plain and MathJax stem`);
+}
+
 const expectedContexts = [
   { phrase: "A motorcycle covers part of a journey", count: 1 },
   { phrase: "A motorcycle travels at", count: 1 },
-  { phrase: "A motorcyclist covers", count: 3 },
-  { phrase: "A motorcyclist travels", count: 1 },
-  { phrase: "A motorcyclist goes", count: 1 },
-  { phrase: "A motorcyclist wants", count: 1 },
   { phrase: "During a controlled route test, a courier van covers", count: 1 },
   { phrase: "During a controlled road trial, a test vehicle travels", count: 2 },
   { phrase: "During a controlled road trial, a survey vehicle reaches", count: 1 },
@@ -56,7 +58,7 @@ const expectedContexts = [
   { phrase: "An inspection vehicle travels", count: 1 },
 ] as const;
 
-let remediatedRows = 0;
+let remediatedRows = motorcyclistRows.length;
 for (const expected of expectedContexts) {
   const matched = rows.filter((row) => row.sourceQuestion.stem.includes(expected.phrase));
   assert(matched.length === expected.count, `${expected.phrase}: expected ${expected.count} rows, received ${matched.length}`);
@@ -65,7 +67,7 @@ for (const expected of expectedContexts) {
   }
   remediatedRows += matched.length;
 }
-assert(remediatedRows === 18, `Expected 18 context-remediated rows, received ${remediatedRows}`);
+assert(remediatedRows === 21, `Expected 21 context-remediated rows, received ${remediatedRows}`);
 
 const controlledHighSpeedRows = rows.filter((row) => {
   const learnerText = `${row.sourceQuestion.stem} ${row.sourceQuestion.answerText}`;
@@ -81,6 +83,7 @@ console.log(JSON.stringify({
   finalCp001Rows: rows.filter((row) => row.finalCheckpointId === "TSD-CP-001").length,
   finalCp002Rows: rows.filter((row) => row.finalCheckpointId === "TSD-CP-002").length,
   contextRemediatedRows: remediatedRows,
+  normalizedMotorcyclistRows: motorcyclistRows.length,
   controlledHighSpeedRows: controlledHighSpeedRows.length,
   permanentQls: rows.filter((row) => row.permanentQlId !== null).length,
   englishFreezeStatus: "UNFROZEN",
