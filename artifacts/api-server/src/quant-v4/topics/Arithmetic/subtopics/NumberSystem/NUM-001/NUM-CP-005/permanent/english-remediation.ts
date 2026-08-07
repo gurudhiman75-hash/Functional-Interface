@@ -32,6 +32,7 @@ import { applyNumCp005FinalQl066Safe } from "./final-exam-readiness-ql066-safe";
 import { applyNumCp005FinalQl054Safe } from "./final-exam-readiness-ql054-safe";
 import { applyNumCp005FinalDifficulty } from "./final-exam-readiness-difficulty";
 import { applyNumCp005FinalPublicationReadinessCorrections } from "./final-publication-readiness-corrections";
+import { applyNumCp005FinalPublicationDifficulty } from "./final-publication-difficulty-safe";
 import {
   applyNumCp005FinalQl053Diversity,
   applyNumCp005FinalQl059Diversity,
@@ -92,19 +93,23 @@ export function remediateNumCp005English(source) {
     source,
     difficultyQuestion,
   );
+  const publicationDifficultyQuestion = applyNumCp005FinalPublicationDifficulty(
+    source,
+    publicationQuestion,
+  );
   const explanationInput = {
     qlId: source.qlId,
     seed: source.seed,
-    stem: publicationQuestion.stem,
-    hiddenState: publicationQuestion.hiddenState ?? source.hiddenState,
-    canonicalAnswer: publicationQuestion.canonicalAnswer,
-    options: publicationQuestion.options,
+    stem: publicationDifficultyQuestion.stem,
+    hiddenState: publicationDifficultyQuestion.hiddenState ?? source.hiddenState,
+    canonicalAnswer: publicationDifficultyQuestion.canonicalAnswer,
+    options: publicationDifficultyQuestion.options,
   };
   const initialExplanation = buildNumCp005StudentExplanation(explanationInput);
   const correctedExplanation = applyNumCp005ExplanationCorrections(
     explanationInput,
     initialExplanation,
-    publicationQuestion.difficulty,
+    publicationDifficultyQuestion.difficulty,
   );
   const renderingSafeExplanation = applyNumCp005ReleaseReviewRenderingSafety(correctedExplanation);
   const policyCheckedExplanation = enforceNumCp005StudentExplanationPolicy(
@@ -121,7 +126,7 @@ export function remediateNumCp005English(source) {
   );
 
   return {
-    ...publicationQuestion,
+    ...publicationDifficultyQuestion,
     explanation: applyNumCp005ExplanationUniqueness(
       explanationInput,
       examExplanation,
