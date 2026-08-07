@@ -8,7 +8,13 @@ Exact reviewed implementation head:
 77cdec264c41e577c8799978c85313a5d8ab156a
 ```
 
-The evidence below was generated on that exact implementation head. Later commits may update only this progress record and checkpoint review notes; such documentation-only commits do not alter localized runtime content, answers, options, traps or mathematical state.
+Final verified documentation head:
+
+```text
+7db23c4a1efe574e37db27e9e34037f13c1389c2
+```
+
+The implementation evidence and the documentation-head rerun both passed. Any later changes to this file are evidence-record updates only and do not alter localized runtime content, answers, options, traps or mathematical state.
 
 ## Reviewed checkpoints
 
@@ -24,22 +30,22 @@ The evidence below was generated on that exact implementation head. Later commit
 | TMW-CP-008 | 13 | 26 | 312 | Assistant review complete; human approval pending |
 | **Total** | **156** | **312** | **3,744** | **Zero open automated findings** |
 
-## Verified implementation evidence
+## Final verified evidence
 
 Cumulative editorial workflow:
 
 ```text
-Run: 31142646704
-Artifact: 8980334292
-Digest: sha256:9d94db9e78ec1491b91647bfa37f81e5750cc4630fa8a2ada7131347aa2b4e80
+Run: 31142802227
+Artifact: 8980378352
+Digest: sha256:042b983496bcd8e9e55a5b8c1bb6e2eb4de5158f333ea39dda510f69740b375f
 ```
 
 CP-008 dedicated localisation proof:
 
 ```text
-Run: 31142643574
-Artifact: 8980322831
-Digest: sha256:b906eaf19350fdee6e7def9aaca165755f236387ea48fd4dc6fe01309c56bbbc
+Run: 31142802228
+Artifact: 8980385189
+Digest: sha256:264f4b951e0c0efb1c3f0013681627032aa88e218124f0272b2f1039e76bed46
 QLs: 13
 Deterministic native packages: 520
 Hindi distinct stems: 118
@@ -49,9 +55,9 @@ Punjabi distinct stems: 118
 Full chapter parity:
 
 ```text
-Run: 31142646822
-Artifact: 8980343498
-Digest: sha256:c7a35c6d7659b1275f931fb90b8593ae166892dc0aa30bd4b39cf3e99a3931e1
+Run: 31142802193
+Artifact: 8980387266
+Digest: sha256:db6dae21595b90c48e6f6e87880c022966f353a9d94bfe6452b75f6a19223424
 English packages: 2,532
 Localized packages: 5,064
 Parity checks: 5,064
