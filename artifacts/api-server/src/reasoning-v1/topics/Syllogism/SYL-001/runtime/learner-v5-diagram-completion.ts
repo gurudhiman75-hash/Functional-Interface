@@ -39,7 +39,7 @@ function buildFocus(
   });
 }
 
-function fallbackMode(
+function vennMode(
   question: GeneratedSylQuestionV4,
   presentation: SylLearnerPresentationV5,
   focus: readonly PedagogicalDiagramFocus[],
@@ -67,20 +67,6 @@ export function completeRequiredDiagramV5(
   presentation: SylLearnerPresentationV5,
   assignment: TermAssignment,
 ): SylLearnerPresentationV5 {
-  if (
-    presentation.diagram.enabled
-    && presentation.diagram.svg
-    && presentation.diagram.mode !== "RELATION_MAP"
-  ) {
-    return {
-      ...presentation,
-      learnerExplanation: {
-        ...presentation.learnerExplanation,
-        showDiagram: true,
-      },
-    };
-  }
-
   const focus = buildFocus(question, presentation);
   const rendered = renderPedagogicalVennDiagram(
     question.structuredPrompt.premises,
@@ -90,7 +76,7 @@ export function completeRequiredDiagramV5(
     assignment,
     `${question.qlId}-${question.seed}-${question.locale}`.replace(/[^a-zA-Z0-9_-]/gu, "-"),
   );
-  const mode = fallbackMode(question, presentation, focus);
+  const mode = vennMode(question, presentation, focus);
   const classificationSignature = focus
     .map((entry) => entry.classification)
     .join(",") || "PREMISES_ONLY";
@@ -108,7 +94,7 @@ export function completeRequiredDiagramV5(
       svg: rendered.svg,
       caption: rendered.caption,
       accessibleDescription: `${rendered.title}. ${rendered.caption}`,
-      semanticSignature: `syl-v5:focused-venn:${rendered.mode}:${classificationSignature}:${question.qlId}:${question.seed}:${question.locale}`,
+      semanticSignature: `syl-v5:standard-venn:${rendered.mode}:${classificationSignature}:${question.qlId}:${question.seed}:${question.locale}`,
       modelSignature: presentation.diagram.modelSignature,
       answerSentenceEmbedded: false,
       mobileViewBoxWidth: 360,
