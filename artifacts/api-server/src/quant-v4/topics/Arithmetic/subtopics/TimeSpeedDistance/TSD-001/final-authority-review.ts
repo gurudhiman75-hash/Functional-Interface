@@ -4,6 +4,7 @@ import { generateP2DiversityBatch02Supplements } from "./cp001/p2-diversity-batc
 import { proportionRepresentation } from "./cp001/proportion-representation";
 import { generateCp001ReviewRows } from "./cp001/runtime";
 import type { TsdCp001GeneratedQuestion } from "./cp001/runtime-types";
+import { remodelCp002DistractorExplanations } from "./cp002/distractor-explanation-integrity";
 import { generateFinalPoolSupplements } from "./cp002/final-pool-supplements";
 import { generateP1DiversityBatch02Supplements } from "./cp002/p1-diversity-batch-02-supplements";
 import { generateP1DiversityBatch03Supplements } from "./cp002/p1-diversity-batch-03-supplements";
@@ -105,16 +106,17 @@ function cp001Record(row: TsdCp001GeneratedQuestion): TsdFinalReviewRecord {
 }
 
 function cp002Record(row: TsdCp002GeneratedQuestion): TsdFinalReviewRecord {
-  const authority = finalAuthorityByKey(cp002AuthorityKey(row));
+  const remediated = remodelCp002DistractorExplanations(row);
+  const authority = finalAuthorityByKey(cp002AuthorityKey(remediated));
   return Object.freeze({
     finalAuthorityKey: authority.authorityKey,
     finalCheckpointId: authority.checkpointId,
     permanentQlId: null,
-    legacyReviewQlId: row.permanentQlId,
-    finalRepresentation: cp002FinalRepresentation(row),
-    questionLanguageId: row.questionLanguageId,
+    legacyReviewQlId: remediated.permanentQlId,
+    finalRepresentation: cp002FinalRepresentation(remediated),
+    questionLanguageId: remediated.questionLanguageId,
     sourceCheckpointId: "TSD-CP-002",
-    sourceQuestion: row,
+    sourceQuestion: remediated,
     reviewStatus: "EDITORIAL_REVIEW_REQUIRED",
     englishFreezeStatus: "UNFROZEN",
     publiclyPublishable: false,
