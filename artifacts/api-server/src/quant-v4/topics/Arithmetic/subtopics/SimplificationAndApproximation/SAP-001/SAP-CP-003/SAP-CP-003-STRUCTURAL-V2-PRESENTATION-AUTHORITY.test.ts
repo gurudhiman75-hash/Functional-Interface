@@ -54,8 +54,13 @@ assert.equal(successivePolicy.structuralRisk, "MEDIUM");
 assert.match(successivePolicy.mockWeightGuidance, /broadened/i);
 
 const mixedThreeRepresentationPolicy = SAP_CP003_EXAM_READINESS_POLICY[mixedPrototype];
-assert.equal(mixedThreeRepresentationPolicy.mockUse, "REMEDIATION_PENDING");
-assert.equal(mixedThreeRepresentationPolicy.structuralRisk, "HIGH");
+assert.equal(mixedThreeRepresentationPolicy.mockUse, "SSC_AND_BANKING_ELIGIBLE");
+assert.equal(mixedThreeRepresentationPolicy.structuralRisk, "MEDIUM");
+assert.match(mixedThreeRepresentationPolicy.mockWeightGuidance, /denominators no greater than eight/i);
+
+const decimalFractionMixedPolicy = SAP_CP003_EXAM_READINESS_POLICY["SAP-CP003-PROT-DECIMAL-FRACTION-MIXED-EXPRESSION"];
+assert.equal(decimalFractionMixedPolicy.mockUse, "REMEDIATION_PENDING");
+assert.equal(decimalFractionMixedPolicy.structuralRisk, "HIGH");
 
 assert.equal(SAP_CP003_PERMANENT_STATE.permanentQlRange, "SAP-QL-034..SAP-QL-052");
 assert.equal(SAP_CP003_PERMANENT_STATE.nextAvailableQlId, "SAP-QL-053");
@@ -75,6 +80,7 @@ console.log(JSON.stringify({
   complementaryMockUse: complementaryPolicy.mockUse,
   successivePercentageMockUse: successivePolicy.mockUse,
   mixedThreeRepresentationMockUse: mixedThreeRepresentationPolicy.mockUse,
+  remainingRemediationFamily: "SAP-CP003-PROT-DECIMAL-FRACTION-MIXED-EXPRESSION",
   permanentQlRange: SAP_CP003_PERMANENT_STATE.permanentQlRange,
   nextAvailableQlId: SAP_CP003_PERMANENT_STATE.nextAvailableQlId,
   explanationFreeze: SAP_CP003_PERMANENT_STATE.englishExplanationFreeze,
