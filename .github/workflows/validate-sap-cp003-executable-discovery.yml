@@ -1,0 +1,76 @@
+name: Validate SAP-CP-003 executable discovery
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-003/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-002/exam-readiness-v3/exact.ts
+      - .github/workflows/validate-sap-cp003-executable-discovery.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-sap-cp003-executable-discovery-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-sap-cp003-executable-discovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-003/authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp003-executable-discovery-authority.test.mjs
+
+      - name: Run authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/sap-cp003-executable-discovery-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp003-executable-discovery-authority.log
+
+      - name: Bundle compact review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-003/generate-review-markdown.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp003-compact-review.mjs
+
+      - name: Generate compact 300-question review
+        run: >-
+          node artifacts/api-server/dist/quant-v4/sap-cp003-compact-review.mjs
+          artifacts/api-server/dist/quant-v4/SAP-CP-003-300-QUESTIONS-AND-ANSWERS.md
+
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sap-cp003-executable-discovery-review
+          path: |
+            artifacts/api-server/dist/quant-v4/sap-cp003-executable-discovery-authority.log
+            artifacts/api-server/dist/quant-v4/SAP-CP-003-300-QUESTIONS-AND-ANSWERS.md
+          if-no-files-found: error
+          retention-days: 30
