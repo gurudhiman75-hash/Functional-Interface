@@ -1,3 +1,4 @@
+import { remodelCp001DirectOptionFeedback } from "./cp001/direct-option-feedback";
 import { TSD_CP001_FROZEN_AUTHORITIES } from "./cp001/freeze-registry";
 import { generateP1DiversityBatch04Cp001Supplements } from "./cp001/p1-diversity-batch-04-supplements";
 import { generateP2DiversityBatch02Supplements } from "./cp001/p2-diversity-batch-02-supplements";
@@ -90,7 +91,7 @@ function cp002FinalRepresentation(row: TsdCp002GeneratedQuestion): string {
 }
 
 function cp001Record(row: TsdCp001GeneratedQuestion): TsdFinalReviewRecord {
-  const remediated = remodelTsdContext(row);
+  const remediated = remodelTsdContext(remodelCp001DirectOptionFeedback(row));
   const authority = finalAuthorityByKey(cp001AuthorityKey(remediated));
   return Object.freeze({
     finalAuthorityKey: authority.authorityKey,
