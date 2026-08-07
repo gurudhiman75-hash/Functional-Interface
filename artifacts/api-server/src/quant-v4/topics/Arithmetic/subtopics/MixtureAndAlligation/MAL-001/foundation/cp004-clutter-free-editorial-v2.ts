@@ -12,13 +12,16 @@ export const MAL_CP004_CLUTTER_FREE_PRESENTATION_ID =
   "MAL-CP004-EN-CLUTTER-FREE-PRESENTATION-V2" as const;
 
 export const MAL_CP004_CLUTTER_FREE_RUNTIME_ID =
+  MAL_CP004_PERMANENT_RUNTIME_ID;
+
+export const MAL_CP004_CLUTTER_FREE_PRESENTATION_RUNTIME_ID =
   "MAL-CP004-EN-PRESENTATION-RUNTIME-V2" as const;
 
 export const MAL_CP004_ENGLISH_RELEASE_V2 = Object.freeze({
   ...MAL_CP004_ENGLISH_RELEASE,
   releaseId: "MAL-CP004-EN-v2" as const,
   runtimeId: MAL_CP004_PERMANENT_RUNTIME_ID,
-  presentationRuntimeId: MAL_CP004_CLUTTER_FREE_RUNTIME_ID,
+  presentationRuntimeId: MAL_CP004_CLUTTER_FREE_PRESENTATION_RUNTIME_ID,
   sourcePermanentRuntimeId: MAL_CP004_PERMANENT_RUNTIME_ID,
   editorialStatus: "CLUTTER_FREE_REMEDIATION_REVIEW_CANDIDATE" as const,
   reviewMethod:
@@ -63,7 +66,7 @@ export type MalCp004ClutterFreeQuestion = Omit<
   | "validation"
   | "traceability"
 > & {
-  presentationRuntimeId: typeof MAL_CP004_CLUTTER_FREE_RUNTIME_ID;
+  presentationRuntimeId: typeof MAL_CP004_CLUTTER_FREE_PRESENTATION_RUNTIME_ID;
   sourcePermanentRuntimeId: typeof MAL_CP004_PERMANENT_RUNTIME_ID;
   explanationId: string;
   explanation: MalCp004ClutterFreeExplanation;
@@ -75,7 +78,7 @@ export type MalCp004ClutterFreeQuestion = Omit<
   traceability: Omit<BaseTraceability, "releaseId"> & {
     releaseId: "MAL-CP004-EN-v2";
     presentationVersion: typeof MAL_CP004_CLUTTER_FREE_PRESENTATION_ID;
-    presentationRuntimeId: typeof MAL_CP004_CLUTTER_FREE_RUNTIME_ID;
+    presentationRuntimeId: typeof MAL_CP004_CLUTTER_FREE_PRESENTATION_RUNTIME_ID;
   };
 };
 
@@ -140,7 +143,10 @@ function assertClutterFree(question: MalCp004ClutterFreeQuestion): void {
   if (question.runtimeId !== MAL_CP004_PERMANENT_RUNTIME_ID) {
     throw new Error(`${question.questionId}: permanent runtime identity changed.`);
   }
-  if (question.presentationRuntimeId !== MAL_CP004_CLUTTER_FREE_RUNTIME_ID) {
+  if (
+    question.presentationRuntimeId !==
+    MAL_CP004_CLUTTER_FREE_PRESENTATION_RUNTIME_ID
+  ) {
     throw new Error(`${question.questionId}: V2 presentation runtime is missing.`);
   }
   if (explanation.layoutId !== "MAL-CP004-EN-CLUTTER-FREE-V2") {
@@ -192,7 +198,7 @@ export function runMalCp004EnglishClutterFreeV2Pipeline(
   const base = runMalCp004EnglishReleasePipelineV1(input);
   const question: MalCp004ClutterFreeQuestion = {
     ...base,
-    presentationRuntimeId: MAL_CP004_CLUTTER_FREE_RUNTIME_ID,
+    presentationRuntimeId: MAL_CP004_CLUTTER_FREE_PRESENTATION_RUNTIME_ID,
     sourcePermanentRuntimeId: MAL_CP004_PERMANENT_RUNTIME_ID,
     explanationId: `${base.permanentQlId}-EN-CLUTTER-FREE-V2`,
     explanation: clutterFreeExplanation(base),
@@ -229,7 +235,7 @@ export function runMalCp004EnglishClutterFreeV2Pipeline(
       ...base.traceability,
       releaseId: "MAL-CP004-EN-v2",
       presentationVersion: MAL_CP004_CLUTTER_FREE_PRESENTATION_ID,
-      presentationRuntimeId: MAL_CP004_CLUTTER_FREE_RUNTIME_ID,
+      presentationRuntimeId: MAL_CP004_CLUTTER_FREE_PRESENTATION_RUNTIME_ID,
     },
   };
 
