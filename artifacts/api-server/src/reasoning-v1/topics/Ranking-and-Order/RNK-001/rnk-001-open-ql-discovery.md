@@ -1,8 +1,8 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001, CP-002 and CP-003 frozen at `RNK-QL-001..026`; CP-004 SSC/banking exam-authentic English Remodel V6 review is active**.
+Status: **CP-001, CP-002 and CP-003 frozen at `RNK-QL-001..026`; CP-004 targeted SSC/banking English Remodel V7 review is active**.
 
-This register prevents premature chapter sizing. Each checkpoint discovers permanent identities from source evidence, executable solver contracts, inverse directions, edge states, representations and ownership audits. Counts are never quotas.
+This register prevents premature chapter sizing. Counts are discovery evidence, never quotas.
 
 ## 1. Frozen checkpoint — RNK-CP-001
 
@@ -40,8 +40,6 @@ freeze version:                  RNK_CP003_ENGLISH_DISCOVERY_FREEZE_V1
 projection: sha256:6457a50fdde7673f9e66fe607a47a5c38a4c921489ed387b72c87ef8a22947d5
 ```
 
-### Frozen authorities
-
 ```text
 RNK-QL-018  INTERCHANGE_RANKS_DIRECT_OR_INVERSE
 RNK-QL-019  TOTAL_FROM_INTERCHANGE_RANK_CHANGE
@@ -58,16 +56,18 @@ Open CP-003 source dimensions: `0`.
 
 ## 4. Active checkpoint — RNK-CP-004
 
-### Remodel V6 executable wave
+### Remodel V7 executable wave
 
 ```text
-provisional authorities:         11
-runtime seeds per authority:    240
-runtime questions:            2,640
-English review questions:        66
-manual English approval:    pending
-permanent QLs:                  none
-next available identity: RNK-QL-027
+provisional authorities:          11
+runtime seeds per authority:     240
+runtime questions:             2,640
+English review questions:        132
+review evidence per authority:    12
+mixed review batches:             12
+manual English approval:     pending
+permanent QLs:                   none
+next available identity:  RNK-QL-027
 ```
 
 ### Provisional authorities
@@ -86,74 +86,62 @@ DEFINITELY_TRUE_RELATION
 MISSING_COMPARISON
 ```
 
-The runtime compatibility ID for `DEFINITELY_TRUE_RELATION` remains the historical `VALID_RANK_STATEMENT` prototype until merge/split consolidation.
+The compatibility runtime ID for `DEFINITELY_TRUE_RELATION` remains `VALID_RANK_STATEMENT` until consolidation.
 
-`RELATIVE_ORDER_OF_PAIR` owns direction only. `EXACT_RANK_DIFFERENCE_OF_PAIR` remains separate because it requires complete-position proof and rank arithmetic.
+`RELATIVE_ORDER_OF_PAIR` owns direction only. `EXACT_RANK_DIFFERENCE_OF_PAIR` remains separate because it requires complete-position proof and arithmetic.
 
-### SSC and banking exam-authenticity layer
+### V7 corrections
 
-The 66-question review pack contains eleven records from each context family:
+- singular/plural rendering is validated;
+- every four-option question records exactly three distractors;
+- distance options use natural `place/places above` wording;
+- endpoint feedback is option-specific;
+- missing-comparison mock help is compact;
+- pair learner help is regenerated from the displayed remapped options;
+- each authority has at least three stem and explanation-shell variants.
 
-```text
-SELECTION_TEST
-MERIT_LIST
-COMPETITION_STANDINGS
-PERFORMANCE_REVIEW
-INTERVIEW_SHORTLIST
-NEUTRAL_RANKING
-```
-
-Runtime gates enforce:
-
-- one coherent context per question;
-- maximum clue-phrase repetition of two;
-- reversed wording in Medium and Hard records;
-- natural question stems rather than generator-demo introductions;
-- three explanation depths;
-- misconception-based option roles;
-- separation of student content and admin proof metadata.
-
-### Explanation model
+Direction-only pair options now share one semantic contract:
 
 ```text
-DIRECT
-SEGMENT_BUILDING
-FULL_POSITIONAL
+correct direction
+reverse direction
+same-rank contradiction
+cannot-determine contradiction
 ```
 
-The learner explanation uses the smallest sufficient display. Optional wrong-option teaching remains a native collapsed product component.
+Exact-distance options test:
 
-### Prototype remodels
-
-- named rank distinguishes top rank from bottom rank;
-- relative pair tests both direction and rank-gap errors;
-- middle position includes the `(n + 1) / 2` step;
-- immediate neighbour highlights the relevant local segment;
-- definitely-true relation excludes directly displayed true options;
-- every missing-comparison distractor has an enumerated ambiguity or contradiction proof;
-- exact rank difference distinguishes rank difference, people between and inclusive count.
-
-Genuine cannot-determine relations are not inserted into CP-004 because partial-order uncertainty remains owned by CP-007.
+```text
+correct distance and direction
+reversed direction
+people-between error
+inclusive-count error
+```
 
 ### Difficulty and proof model
 
 Difficulty uses:
 
 ```text
-RNK_CP004_DIFFICULTY_V2
+RNK_CP004_DIFFICULTY_V3
 ```
 
-Every score equals the sum of its stored components. A final reconciliation gate corrected 86 runtime records after their language profile changed.
-
-Final review distribution:
+The shortest answer proof and task burden dominate. Entity count is only a small scanning factor.
 
 ```text
-Easy:    10
-Medium:  41
-Hard:    15
+runtime: 838 Easy / 1,595 Medium / 207 Hard
+review:   17 Easy /   100 Medium /  15 Hard
 ```
 
-Proof metadata retains:
+Calibration gates prove:
+
+- five-person middle questions are Easy;
+- short direction-only pair proofs are Easy;
+- named-rank and ordinary immediate-neighbour chains are not Hard;
+- definitely-true relations are Medium;
+- exact-distance Hard requires the combined large-chain, reversed-wording and confirmatory burden.
+
+Proof metadata remains:
 
 ```text
 shortestDirectionalPathClues
@@ -162,48 +150,58 @@ fullOrderProofClues
 shortestAnswerProofClues
 ```
 
-Missing comparison also stores base-clue, selected-option and completed-relation counts.
+Missing comparison separately records base-clue, selected-option and completed-relation counts.
 
-### Clue and edge metadata
+### Expanded structural evidence
 
-Every displayed clue has exactly one role:
-
-```text
-ESSENTIAL_FOR_FULL_ORDER
-ESSENTIAL_FOR_BLOCK_ORDER
-CONFIRMATORY
-REDUNDANT_OTHER
-```
-
-The review pack proves:
+The review pack provides:
 
 ```text
-ordinary-question essential clues: 322
-ordinary-question confirmatory clues: 45
-unclassified clues: 0
+12 distinct structural fingerprints per authority
+6 context families × 22 records
+confirmatory counts 0, 1 and 2
+12 mixed-authority batches
 ```
 
-Core reduction edges, displayed edges and added confirmatory edges remain separate fields.
+Fingerprints normalise names to solved-order positions and store clue shape, query shape, confirmatory count and option roles.
+
+Answer-position authority:
+
+```text
+A/B/C/D: 33/33/33/33
+unique four-answer windows: 129
+repeated four-answer windows: 0
+normalized semantic duplicates: 0
+```
+
+### Learner renderer boundary
+
+```text
+DIRECT
+SEGMENT_BUILDING
+FULL_POSITIONAL
+```
+
+Student content remains separate from admin proof metadata. Optional wrong-option teaching uses a native collapsed component. Actual Question Studio mobile/accessibility validation remains pending.
 
 ### Current executable evidence
 
 ```text
-average visible explanation words:                41.53
-average words including optional help:             82.59
-normalized semantic duplicates:                        0
-answer positions:                              16/17/17/16
-repeated four-answer sequences:                         0
+runtime questions:                          2,640
+review questions:                             132
+average visible explanation words:          45.28
+average words including optional help:       87.73
 ```
 
 ### Still open before consolidation
 
-- manual English approval of the 66-question Remodel V6 pack;
-- Question Studio native-disclosure integration and mobile/accessibility validation;
+- manual English approval of the 132-question Remodel V7 pack;
 - source saturation and inverse-query audit;
 - ownership audit against CP-005, CP-006 and CP-007;
 - endpoint, exact-rank, relation and distance merge/split proof;
 - final provisional-authority consolidation;
-- permanent QL allocation and freeze proof.
+- permanent QL allocation and freeze proof;
+- Question Studio disclosure, mobile and accessibility validation.
 
 No CP-004 QL count is allocated.
 
