@@ -59,10 +59,10 @@ jobs:
             artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/package.test.ts
             artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/package.test.ts
             artifacts/api-server/src/quant-v4/topics/Probability/probability-family.test.ts
-            artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/question-studio-smoke.test.ts
-            artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/question-studio-smoke.test.ts
-            artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/diversity-test.ts
-            artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/diversity-test.ts
+            artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/question-studio-smoke.ts
+            artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/question-studio-smoke.ts
+            artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/diversity-audit.ts
+            artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/diversity-audit.ts
             artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/coverage-audit.ts
             artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/coverage-audit.ts
             artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/residual-qa.ts
@@ -73,8 +73,8 @@ jobs:
             artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/cross-chapter-duplicate-audit.ts
             artifacts/api-server/src/quant-v4/topics/Probability/cross-package-duplicate-audit.ts
             artifacts/api-server/src/quant-v4/topics/Probability/cross-chapter-authority-audit.ts
-            artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/multilingual-parity-test.ts
-            artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/multilingual-parity-test.ts
+            artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/multilingual-audit.ts
+            artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/multilingual-audit.ts
             artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/maturity-audit.ts
             artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/maturity-audit.ts
           )
