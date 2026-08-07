@@ -36,12 +36,13 @@ function inspectValue(value: TsdCanonicalValue, path: string, rationalPaths: str
 }
 
 const rows = generateCanonicalReviewRecords();
-assert(rows.length === 139, "Canonical review must contain 139 records after P2 Batch 01");
+assert(rows.length === 145, "Canonical review must contain 145 records after P2 Batch 02");
 assert(new Set(rows.map((row) => row.questionLanguageId)).size === rows.length, "questionLanguageId values are not unique");
 assert(new Set(rows.map((row) => row.solveMode)).size === 38, "Final learner authority count changed");
 assert(rows.every((row) => row.schemaVersion === TSD_CANONICAL_REVIEW_SCHEMA_VERSION), "Schema version mismatch");
 assert(rows.every((row) => row.permanentQlId === null), "Permanent QL assigned before approval");
-assert(rows.every((row) => row.validation.valid && row.validation.errors.length === 0), "Invalid source record entered canonical review");
+const invalidRows = rows.filter((row) => !row.validation.valid || row.validation.errors.length > 0);
+assert(invalidRows.length === 0, `Invalid source records: ${invalidRows.map((row) => `${row.seed} => ${row.validation.errors.join(" | ")}`).join("; ")}`);
 assert(rows.every((row) => row.lifecycle.reviewStatus === "EDITORIAL_REVIEW_REQUIRED"), "Review lifecycle changed");
 assert(rows.every((row) => row.lifecycle.englishDecision === "NEEDS_REVISION" && row.lifecycle.englishFreezeStatus === "UNFROZEN"), "English was accidentally refrozen");
 assert(rows.every((row) => row.lifecycle.questionBankStatus === "NOT_STORED" && row.lifecycle.testEligibility === "INELIGIBLE" && !row.lifecycle.publiclyPublishable), "Delivery lock failed");
@@ -60,8 +61,8 @@ for (const row of rows) {
 
 const cp001Rows = rows.filter((row) => row.checkpointId === "TSD-CP-001");
 const cp002Rows = rows.filter((row) => row.checkpointId === "TSD-CP-002");
-assert(cp001Rows.length === 74, "Unexpected CP-001 canonical count after P2 Batch 01");
-assert(cp002Rows.length === 65, "Unexpected CP-002 canonical count after P2 Batch 01");
+assert(cp001Rows.length === 80, "Unexpected CP-001 canonical count after P2 Batch 02");
+assert(cp002Rows.length === 65, "Unexpected CP-002 canonical count after P2 Batch 02");
 assert(rows.filter((row) => row.representation === "OVERALL_AVERAGE_AS_EFFECTIVE_SPEED").length === 3, "Effective-average rehoming changed");
 
 const rationalPaths: string[] = [];
@@ -69,7 +70,7 @@ for (const row of rows) {
   inspectValue(row.input, `${row.questionLanguageId}.input`, rationalPaths);
   inspectValue(row.solution, `${row.questionLanguageId}.solution`, rationalPaths);
 }
-assert(rationalPaths.length > 477, "Expected normalized rational coverage is missing after P2 Batch 01");
+assert(rationalPaths.length > 495, "Expected normalized rational coverage is missing after P2 Batch 02");
 
 const serialized = JSON.stringify(rows);
 assert(!/"(?:numerator|denominator)":"-?\d+n"/.test(serialized), "BigInt suffix leaked");
@@ -78,7 +79,7 @@ assert(!/"canonicalProblemId":|"archetypeId":/.test(serialized), "Deprecated ID 
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "CANONICAL_REVIEW_SCHEMA_P2_BATCH_01",
+  phase: "CANONICAL_REVIEW_SCHEMA_P2_BATCH_02",
   schemaVersion: TSD_CANONICAL_REVIEW_SCHEMA_VERSION,
   records: rows.length,
   finalLearnerSolveModes: new Set(rows.map((row) => row.solveMode)).size,

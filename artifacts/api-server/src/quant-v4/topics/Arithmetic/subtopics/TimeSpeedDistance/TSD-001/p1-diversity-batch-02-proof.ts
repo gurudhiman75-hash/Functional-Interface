@@ -28,22 +28,22 @@ function rationalEquals(value: TsdCanonicalValue | undefined, numerator: string,
 }
 
 const rows = generateCanonicalReviewRecords();
-assert(rows.length === 139, "Batch 02 compatibility gate expects the P2 Batch 01-expanded pool");
+assert(rows.length >= 139, "Batch 02 compatibility gate lost the P2 Batch 01-expanded pool");
 assert(new Set(rows.map((row) => row.solveMode)).size === 38, "Learner authority boundary changed");
 assert(rows.every((row) => row.validation.valid), "Invalid record entered the combined P1 pool");
 assert(rows.every((row) => row.permanentQlId === null && row.lifecycle.englishFreezeStatus === "UNFROZEN"), "Lifecycle lock changed");
 
 for (const mode of STEM_DIVERSITY_MODES) {
   const modeRows = rows.filter((row) => row.solveMode === mode);
-  assert(modeRows.length === 3, `${mode}: expected three Batch 02 rows`);
-  assert(new Set(modeRows.map((row) => normalizedTemplate(row.stem))).size === 3, `${mode}: stem diversity regressed`);
-  assert(new Set(modeRows.map((row) => row.answerText)).size === 3, `${mode}: answer diversity regressed`);
+  assert(modeRows.length >= 3, `${mode}: Batch 02 rows were lost`);
+  assert(new Set(modeRows.map((row) => normalizedTemplate(row.stem))).size >= 3, `${mode}: stem diversity regressed`);
+  assert(new Set(modeRows.map((row) => row.answerText)).size >= 3, `${mode}: answer diversity regressed`);
 }
 
 for (const mode of POOL_EXPANSION_MODES) {
   const modeRows = rows.filter((row) => row.solveMode === mode);
   const expectedRows = mode === "distanceRatioFromAverageAndSpeeds" ? 4 : 3;
-  assert(modeRows.length === expectedRows, `${mode}: expected ${expectedRows} split-pool states`);
+  assert(modeRows.length >= expectedRows, `${mode}: split-pool states were lost`);
   assert(new Set(modeRows.map((row) => row.answerText)).size >= 3, `${mode}: answer diversity regressed`);
   assert(new Set(modeRows.map((row) => row.sourceTrace.mathematicalFingerprint)).size === modeRows.length, `${mode}: mathematical state repeated`);
 }

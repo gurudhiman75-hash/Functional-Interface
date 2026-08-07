@@ -1,5 +1,6 @@
 import { TSD_CP001_FROZEN_AUTHORITIES } from "./cp001/freeze-registry";
 import { generateP1DiversityBatch04Cp001Supplements } from "./cp001/p1-diversity-batch-04-supplements";
+import { generateP2DiversityBatch02Supplements } from "./cp001/p2-diversity-batch-02-supplements";
 import { proportionRepresentation } from "./cp001/proportion-representation";
 import { generateCp001ReviewRows } from "./cp001/runtime";
 import type { TsdCp001GeneratedQuestion } from "./cp001/runtime-types";
@@ -123,6 +124,7 @@ export function generateFinalAuthorityReview(): readonly TsdFinalReviewRecord[] 
   return Object.freeze([
     ...generateCp001ReviewRows(3).map(cp001Record),
     ...generateP1DiversityBatch04Cp001Supplements().map(cp001Record),
+    ...generateP2DiversityBatch02Supplements().map(cp001Record),
     ...generateCp002ReviewRows().map(cp002Record),
     ...generateFinalPoolSupplements().map(cp002Record),
     ...generateP1DiversityBatch02Supplements().map(cp002Record),
