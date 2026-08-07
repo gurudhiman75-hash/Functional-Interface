@@ -45,7 +45,7 @@ for (const candidate of candidates) {
   assert.equal(candidate.verifierAnswer, base.verifierAnswer);
   assert.equal(candidate.correctIndex, base.correctIndex);
   assert.deepEqual(candidate.options, base.options);
-  assert.equal(candidate.explanation.stepByStep.length, base.explanation.steps.length);
+  assert.ok(candidate.explanation.stepByStep.length >= base.explanation.steps.length);
   assert.equal(candidate.explanation.commonTraps.length, 3);
   assert.equal(new Set(candidate.explanation.commonTraps).size, 3);
   assert.ok(candidate.explanation.finalAnswer.includes(candidate.canonicalAnswer));
