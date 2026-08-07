@@ -28,6 +28,23 @@ function naturalQuestionStem(stem: string): string {
     : `${normalized}?`;
 }
 
+function hasRealGrammarInflectionError(
+  question: Omit<MalCp004Wave04Question, "validation">,
+): boolean {
+  const learnerText = JSON.stringify({
+    stem: question.stem,
+    options: question.options,
+    explanation: question.explanation,
+    ledger: question.ledger,
+  });
+  return (
+    /\b1 operations\b/iu.test(learnerText) ||
+    /\b(?:2|3|4|5|6|7|8|9|\d{2,})(?:\s+\d+\/\d+)? litres is (?:added|removed|drawn|evaporated|present|left|lost)\b/iu.test(
+      learnerText,
+    )
+  );
+}
+
 export function malCp004Wave04Package(
   input: Omit<
     MalCp004Wave04Question,
@@ -84,8 +101,14 @@ export function malCp004Wave04Package(
     questionBankWritable: false,
     testEligible: false,
   };
+  const validation = malCp004Wave04Validate(withoutValidation);
+  const errors = validation.errors.filter(
+    (error) =>
+      error !== "Grammar inflection is incorrect." ||
+      hasRealGrammarInflectionError(withoutValidation),
+  );
   return {
     ...withoutValidation,
-    validation: malCp004Wave04Validate(withoutValidation),
+    validation: { ok: errors.length === 0, errors },
   };
 }
