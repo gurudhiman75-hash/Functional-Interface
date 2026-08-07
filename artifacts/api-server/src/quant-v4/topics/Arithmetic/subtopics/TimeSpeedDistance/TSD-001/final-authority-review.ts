@@ -14,6 +14,7 @@ import { generateP2DiversityBatch01Supplements } from "./cp002/p2-diversity-batc
 import { generateP2DiversityBatch03Supplements } from "./cp002/p2-diversity-batch-03-supplements";
 import { generateCp002ReviewRows } from "./cp002/runtime";
 import type { TsdCp002GeneratedQuestion } from "./cp002/types";
+import { remodelTsdContext } from "./context-plausibility";
 import {
   TSD_FINAL_LEARNER_AUTHORITIES,
   finalAuthorityByKey,
@@ -89,16 +90,17 @@ function cp002FinalRepresentation(row: TsdCp002GeneratedQuestion): string {
 }
 
 function cp001Record(row: TsdCp001GeneratedQuestion): TsdFinalReviewRecord {
-  const authority = finalAuthorityByKey(cp001AuthorityKey(row));
+  const remediated = remodelTsdContext(row);
+  const authority = finalAuthorityByKey(cp001AuthorityKey(remediated));
   return Object.freeze({
     finalAuthorityKey: authority.authorityKey,
     finalCheckpointId: authority.checkpointId,
     permanentQlId: null,
-    legacyReviewQlId: cp001LegacyQl(row.solveMode),
-    finalRepresentation: proportionRepresentation(row.input) ?? row.representation,
-    questionLanguageId: row.questionLanguageId,
+    legacyReviewQlId: cp001LegacyQl(remediated.solveMode),
+    finalRepresentation: proportionRepresentation(remediated.input) ?? remediated.representation,
+    questionLanguageId: remediated.questionLanguageId,
     sourceCheckpointId: "TSD-CP-001",
-    sourceQuestion: row,
+    sourceQuestion: remediated,
     reviewStatus: "EDITORIAL_REVIEW_REQUIRED",
     englishFreezeStatus: "UNFROZEN",
     publiclyPublishable: false,
@@ -106,7 +108,7 @@ function cp001Record(row: TsdCp001GeneratedQuestion): TsdFinalReviewRecord {
 }
 
 function cp002Record(row: TsdCp002GeneratedQuestion): TsdFinalReviewRecord {
-  const remediated = remodelCp002DistractorExplanations(row);
+  const remediated = remodelTsdContext(remodelCp002DistractorExplanations(row));
   const authority = finalAuthorityByKey(cp002AuthorityKey(remediated));
   return Object.freeze({
     finalAuthorityKey: authority.authorityKey,
