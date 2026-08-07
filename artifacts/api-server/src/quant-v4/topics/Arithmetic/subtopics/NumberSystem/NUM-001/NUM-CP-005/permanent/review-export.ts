@@ -46,9 +46,13 @@ const expectedReviewCount = NUM_CP005_PERMANENT_ALLOCATION.reduce(
 );
 const distinctStems = new Set(questions.map((question) => question.stem));
 const distinctFingerprints = new Set(questions.map(reviewFingerprint));
+const distinctExplanations = new Set(
+  questions.map((question) => JSON.stringify(question.explanation)),
+);
 assert(questions.length === expectedReviewCount, "expanded review count mismatch");
 assert(distinctStems.size === questions.length, "expanded review contains repeated stems");
 assert(distinctFingerprints.size === questions.length, "expanded review contains duplicate question records");
+assert(distinctExplanations.size === questions.length, "expanded review contains repeated explanations");
 
 const outputDirectory = join(process.cwd(), "dist", "quant-v4");
 mkdirSync(outputDirectory, { recursive: true });
@@ -68,6 +72,7 @@ const markdownHeader = [
   `- Total review questions: ${questions.length}`,
   `- Distinct stems: ${distinctStems.size}`,
   `- Distinct question records: ${distinctFingerprints.size}`,
+  `- Distinct explanations: ${distinctExplanations.size}`,
   "- Status: manual product-owner review required; all delivery gates remain closed",
   "",
   "---",
@@ -136,6 +141,7 @@ console.log(JSON.stringify({
   reviewQuestionCount: questions.length,
   distinctStemCount: distinctStems.size,
   distinctQuestionRecordCount: distinctFingerprints.size,
+  distinctExplanationCount: distinctExplanations.size,
   jsonPath,
   markdownPath,
   csvPath,
