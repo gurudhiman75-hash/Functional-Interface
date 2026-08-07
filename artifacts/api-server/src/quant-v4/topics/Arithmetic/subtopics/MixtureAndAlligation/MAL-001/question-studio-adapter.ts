@@ -22,10 +22,8 @@ import {
   MAL_CP004_PERMANENT_ALLOCATION,
   type MalCp004PermanentQlId,
 } from "./foundation/cp004-permanent-runtime";
-import {
-  runMalCp004EnglishClutterFreeV2Pipeline,
-  type MalCp004ClutterFreeQuestion,
-} from "./foundation/cp004-clutter-free-editorial-v2";
+import type { MalCp004ClutterFreeQuestion } from "./foundation/cp004-clutter-free-editorial-v2";
+import { runMalCp004EnglishSolutionFirstV2Pipeline } from "./foundation/cp004-solution-first-grammar-v2";
 
 export const MAL_001_QUESTION_STUDIO_CP_IDS = [
   "MAL-CP-001",
@@ -165,7 +163,7 @@ export function runMal001QuestionStudioPipeline(
     MAL_CP004_PERMANENT_ALLOCATION,
     input,
   ) as MalCp004PermanentQlId;
-  return runMalCp004EnglishClutterFreeV2Pipeline({
+  return runMalCp004EnglishSolutionFirstV2Pipeline({
     questionLanguageId,
     seed: input.seed,
     language: "en",
