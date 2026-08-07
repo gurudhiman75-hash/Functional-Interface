@@ -58,10 +58,16 @@ jobs:
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-authority-consolidation-v1-gates.test.ts
           rnk-cp004-authority-consolidation-v1-output
 
-      - name: Upload RNK-CP-004 approved-English consolidation evidence
+      - name: Project permanent runtime and compute freeze digest
+        run: >-
+          npx --yes tsx
+          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-permanent-runtime-v1-gates.test.ts
+          rnk-cp004-permanent-runtime-v1-output
+
+      - name: Upload RNK-CP-004 permanent projection evidence
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp004-approved-english-authority-consolidation-active
+          name: rnk-001-cp004-permanent-runtime-projection
           path: |
             rnk-cp004-discovery-output
             rnk-cp004-exam-ready-v6-regression-output
@@ -69,4 +75,5 @@ jobs:
             rnk-cp004-exam-ready-v7-release-output
             rnk-cp004-source-inverse-v1-output
             rnk-cp004-authority-consolidation-v1-output
+            rnk-cp004-permanent-runtime-v1-output
           retention-days: 14
