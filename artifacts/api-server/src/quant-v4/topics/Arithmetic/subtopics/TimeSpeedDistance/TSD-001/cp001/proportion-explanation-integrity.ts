@@ -103,9 +103,9 @@ function replaceOuterSteps(
 export function remodelProportionExplanation(
   input: TsdCp001SolveInput,
   explanation: TsdCp001Explanation,
-  seed: string,
+  seed?: string,
 ): TsdCp001Explanation {
-  const variant = hashSeed(seed) % 3;
+  const variant = hashSeed(seed ?? explanation.stepByStepSolution[0] ?? "") % 3;
 
   if (input.solveMode === "distanceByProportion") {
     const changedSpeed = !sameRational(input.knownSpeed, input.targetSpeed);
