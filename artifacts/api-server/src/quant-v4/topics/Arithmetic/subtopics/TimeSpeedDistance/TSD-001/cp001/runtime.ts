@@ -24,6 +24,10 @@ import { examWorkingLines } from "./exam-working";
 import { editorialStem, inlineMathText } from "./pedagogy";
 import { remodelCp001Stem } from "./editorial-remodel";
 import { buildHumanExplanation } from "./human-explanation";
+import {
+  proportionWorkingLines,
+  remodelProportionExplanation,
+} from "./proportion-explanation-integrity";
 import { authorityOrdinal, formatAnswer, stableStringify } from "./runtime-support";
 
 export const TSD_CP001_NON_LEARNER_MODES = new Set<TsdCp001DiscoverySolveMode>([
@@ -156,12 +160,18 @@ export function generateCp001Candidate(
       : formattedAnswerText
   );
   const difficulty = cp001Difficulty(authority.solveMode);
-  const working = equivalentRepresentation?.working ?? examWorkingLines(input, solution, display);
+  const working = equivalentRepresentation?.working
+    ?? proportionWorkingLines(input, solution, display)
+    ?? examWorkingLines(input, solution, display);
   const originalStem = equivalentRepresentation?.stem ?? editorialStem(input, generatedState.stem, seed);
   const stem = remodelCp001Stem(input, originalStem, seed);
   const representationFingerprint = equivalentRepresentation?.fingerprintSuffix
     ?? (input.solveMode === "convertSpeedUnit" ? SCALAR_SPEED_FINGERPRINT : "representation:STANDARD");
   const representation = representationFingerprint.replace(/^representation:/, "");
+  const explanation = remodelProportionExplanation(
+    input,
+    buildHumanExplanation(authority, input, display, working, optionSet.optionAudit, answerText, seed),
+  );
   const base = {
     chapterId: "TSD-001" as const,
     checkpointId: "TSD-CP-001" as const,
@@ -182,7 +192,7 @@ export function generateCp001Candidate(
     options: optionSet.options,
     optionAudit: optionSet.optionAudit,
     correctIndex: optionSet.correctIndex,
-    explanation: buildHumanExplanation(authority, input, display, working, optionSet.optionAudit, answerText, seed),
+    explanation,
     mathematicalFingerprint: `${authority.provisionalId}|${authority.solveMode}|${stableStringify(input)}|${representationFingerprint}`,
     lifecycle: reopenedEditorialLifecycle(),
     publiclyPublishable: false as const,
