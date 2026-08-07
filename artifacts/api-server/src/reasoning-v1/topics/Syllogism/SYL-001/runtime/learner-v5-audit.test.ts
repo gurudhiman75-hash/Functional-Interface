@@ -52,7 +52,8 @@ let ql008NonEitherOrRecords = 0;
 let ql009Records = 0;
 let modelRecords = 0;
 let unsafeWitnessDiagramsReplaced = 0;
-let relationMapFallbacks = 0;
+let focusedVennFallbacks = 0;
+let nonVennVisuals = 0;
 let answerModeContradictions = 0;
 let diagramModeContradictions = 0;
 let unexplainedConclusions = 0;
@@ -66,6 +67,7 @@ for (const definition of SYL_QL_REGISTRY) {
       const presentation = question.learnerPresentationV5;
       const explanation = presentation.learnerExplanation;
       const answerText = question.options[question.correctIndex]?.text ?? presentation.answer.text;
+      const diagramSvg = presentation.diagram.svg ?? "";
       records += 1;
 
       assert.equal(presentation.authority, "SYL_001_EXAM_READINESS_REMEDIATION_V5");
@@ -81,13 +83,22 @@ for (const definition of SYL_QL_REGISTRY) {
       assert.equal(presentation.remediationEvidence.nativePunjabiEditorialStatus, "APPROVED_BY_PRODUCT_OWNER");
       assert.equal(presentation.remediationEvidence.humanViewportStatus, "EVIDENCE_READY_PENDING_APPROVAL");
 
-      assert.equal(explanation.showDiagram, true, `${definition.qlId}/${seed}/${locale}: learner explanation hides its visual`);
-      assert.equal(presentation.diagram.enabled, true, `${definition.qlId}/${seed}/${locale}: missing compulsory diagram`);
-      assert.equal(presentation.diagram.diagramCount, 1, `${definition.qlId}/${seed}/${locale}: expected exactly one diagram`);
-      assert.ok(presentation.diagram.svg, `${definition.qlId}/${seed}/${locale}: diagram SVG is empty`);
-      assert.match(presentation.diagram.svg ?? "", /<svg\b/u);
+      assert.equal(explanation.showDiagram, true, `${definition.qlId}/${seed}/${locale}: learner explanation hides its Venn diagram`);
+      assert.equal(presentation.diagram.enabled, true, `${definition.qlId}/${seed}/${locale}: missing compulsory Venn diagram`);
+      assert.equal(presentation.diagram.diagramCount, 1, `${definition.qlId}/${seed}/${locale}: expected exactly one Venn diagram`);
+      assert.ok(diagramSvg, `${definition.qlId}/${seed}/${locale}: diagram SVG is empty`);
+      assert.match(diagramSvg, /<svg\b/u);
+      assert.match(diagramSvg, /<(?:circle|ellipse)\b/u, `${definition.qlId}/${seed}/${locale}: visual is not circle-based Venn geometry`);
+      assert.match(presentation.diagram.mode, /^VENN_/u, `${definition.qlId}/${seed}/${locale}: non-Venn diagram mode remains`);
+      assert.doesNotMatch(diagramSvg, /relation map|relation-map|node-link|arrow map/iu);
       assert.equal(presentation.diagram.omissionReason, null);
-      if (presentation.diagram.mode === "RELATION_MAP") relationMapFallbacks += 1;
+      if (presentation.diagram.semanticSignature.startsWith("syl-v5:focused-venn:")) {
+        focusedVennFallbacks += 1;
+        assert.match(diagramSvg, /class="examtree-venn-svg"/u);
+      }
+      if (!/<(?:circle|ellipse)\b/u.test(diagramSvg) || !/^VENN_/u.test(presentation.diagram.mode)) {
+        nonVennVisuals += 1;
+      }
 
       assert.equal(
         explanation.conclusionResults.length,
@@ -185,10 +196,9 @@ for (const definition of SYL_QL_REGISTRY) {
         && hasUnknownPremisePair(question.structuredPrompt.premises);
       if (hasUnsafeWitnessGeometry) {
         unsafeWitnessDiagramsReplaced += 1;
-        assert.equal(presentation.diagram.mode, "RELATION_MAP");
-        assert.equal(presentation.diagram.enabled, true);
-        assert.equal(presentation.diagram.omissionReason, null);
-        assert.ok(presentation.diagram.svg);
+        assert.ok(presentation.diagram.semanticSignature.startsWith("syl-v5:focused-venn:"));
+        assert.match(presentation.diagram.mode, /^VENN_/u);
+        assert.match(diagramSvg, /<(?:circle|ellipse)\b/u);
       }
 
       deadInconsistentOptionOccurrences += question.options.filter((option) =>
@@ -207,9 +217,10 @@ assert.equal(diagramModeContradictions, 0);
 assert.equal(unexplainedConclusions, 0);
 assert.equal(optionStatusLabelMismatches, 0);
 assert.equal(deadInconsistentOptionOccurrences, 0);
+assert.equal(nonVennVisuals, 0);
 assert.ok(modelRecords > 0);
 assert.ok(unsafeWitnessDiagramsReplaced > 0);
-assert.ok(relationMapFallbacks > 0);
+assert.ok(focusedVennFallbacks > 0);
 
 console.log(JSON.stringify({
   status: "PASS_SYL_001_V5_EXAM_READINESS_REMEDIATION",
@@ -225,7 +236,8 @@ console.log(JSON.stringify({
   diagramCoverage: {
     required: records,
     enabled: records,
-    relationMapFallbacks,
+    focusedVennFallbacks,
+    nonVennVisuals,
     unsafeWitnessDiagramsReplaced,
   },
   gates: {
@@ -238,7 +250,7 @@ console.log(JSON.stringify({
     deadInconsistentOptionOccurrences,
     questionExplanationEditorialReview: "APPROVED_BY_PRODUCT_OWNER",
     viewportEvidence: "READY_AT_360_412_768",
-    diagramCoverage: "ALL_RECORDS_HAVE_SAFE_VISUAL",
+    diagramCoverage: "ALL_RECORDS_HAVE_VENN_DIAGRAM",
   },
   retainedReleaseBlockers: {
     humanViewportReview: "EVIDENCE_READY_PENDING_APPROVAL",
