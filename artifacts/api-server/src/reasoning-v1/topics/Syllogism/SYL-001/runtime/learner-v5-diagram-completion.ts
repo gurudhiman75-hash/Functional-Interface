@@ -62,6 +62,13 @@ function vennMode(
   return "VENN_FOCUSED_CONCLUSION_CHECK";
 }
 
+function removeOverlappingSectionHeading(svg: string): string {
+  return svg.replace(
+    /<text x="24" y="258" class="section-title">[^<]*<\/text>/u,
+    "",
+  );
+}
+
 export function completeRequiredDiagramV5(
   question: GeneratedSylQuestionV4,
   presentation: SylLearnerPresentationV5,
@@ -80,6 +87,7 @@ export function completeRequiredDiagramV5(
   const classificationSignature = focus
     .map((entry) => entry.classification)
     .join(",") || "PREMISES_ONLY";
+  const svg = removeOverlappingSectionHeading(rendered.svg);
 
   return {
     ...presentation,
@@ -91,7 +99,7 @@ export function completeRequiredDiagramV5(
       enabled: true,
       mode,
       omissionReason: null,
-      svg: rendered.svg,
+      svg,
       caption: rendered.caption,
       accessibleDescription: `${rendered.title}. ${rendered.caption}`,
       semanticSignature: `syl-v5:focused-venn:${rendered.mode}:${classificationSignature}:${question.qlId}:${question.seed}:${question.locale}`,
