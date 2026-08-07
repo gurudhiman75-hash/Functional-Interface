@@ -1,0 +1,106 @@
+name: Reasoning BLR-001 CP-007 QL-034 V4
+
+on:
+  push:
+    branches:
+      - remediate/blr-001-cp007-ql034-coherent-network-v4
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/**"
+      - ".github/workflows/reasoning-blr-001-cp007-ql034-v4.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/**"
+      - ".github/workflows/reasoning-blr-001-cp007-ql034-v4.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blr-001-cp007-ql034-v4-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-ql034-coherent-networks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prove CP-006 source runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-runtime.test.ts | tee cp006-source.log
+
+      - name: Prove CP-007 V3 retained authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v3-authority.test.ts | tee cp007-v3.log
+
+      - name: Prove CP-007 V4 Wave 1 baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v4.test.ts | tee cp007-v4-wave1.log
+
+      - name: Prove QL-034 coherent-network remodel
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v4-wave2.test.ts | tee cp007-v4-wave2.log
+
+      - name: Export QL-034 human-review pack
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-cp007-editorial-v4-wave2-review.ts cp007-editorial-v4-wave2-review-output | tee cp007-v4-wave2-export.log
+
+      - name: Verify Wave 2 artifact contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=cp007-editorial-v4-wave2-review-output
+          test -f "$OUT/blr-cp007-v4-wave2-summary.json"
+          test -f "$OUT/blr-cp007-v4-wave2-ql034-records.jsonl"
+          test -f "$OUT/blr-cp007-v4-wave2-ql034-review.html"
+          test -f "$OUT/BLR-CP-007-V4-WAVE2-REVIEW.md"
+          test "$(wc -l < "$OUT/blr-cp007-v4-wave2-ql034-records.jsonl")" -eq 32
+          grep -q '"releaseCandidateCount": 136' "$OUT/blr-cp007-v4-wave2-summary.json"
+          grep -q '"remediationHoldCount": 0' "$OUT/blr-cp007-v4-wave2-summary.json"
+          grep -q '"ql034ConnectedNetworks": 32' "$OUT/blr-cp007-v4-wave2-summary.json"
+          grep -q '"ql034DisconnectedNetworkCount": 0' "$OUT/blr-cp007-v4-wave2-summary.json"
+          grep -q '"P": 8' "$OUT/blr-cp007-v4-wave2-summary.json"
+          grep -q '"Q": 8' "$OUT/blr-cp007-v4-wave2-summary.json"
+          grep -q '"R": 8' "$OUT/blr-cp007-v4-wave2-summary.json"
+          grep -q '"S": 8' "$OUT/blr-cp007-v4-wave2-summary.json"
+          grep -q '32 missing-person questions rebuilt as connected family networks' "$OUT/blr-cp007-v4-wave2-ql034-review.html"
+
+      - name: Upload Wave 2 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-v4-wave2-logs
+          path: |
+            cp006-source.log
+            cp007-v3.log
+            cp007-v4-wave1.log
+            cp007-v4-wave2.log
+            cp007-v4-wave2-export.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload QL-034 review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-v4-wave2-ql034-human-review
+          path: cp007-editorial-v4-wave2-review-output
+          if-no-files-found: error
+          retention-days: 30
