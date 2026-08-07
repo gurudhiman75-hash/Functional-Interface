@@ -1,0 +1,76 @@
+name: Validate SAP-CP-002 exam-readiness V4
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-002/exam-readiness-v3/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-002/exam-readiness-v4/**
+      - .github/workflows/validate-sap-cp002-exam-readiness-v4.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-sap-cp002-exam-readiness-v4-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-sap-cp002-exam-readiness-v4:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle V4 authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-002/exam-readiness-v4/authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp002-exam-readiness-v4-authority.test.mjs
+
+      - name: Run V4 authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/sap-cp002-exam-readiness-v4-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp002-exam-readiness-v4-authority.log
+
+      - name: Bundle V4 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-002/exam-readiness-v4/generate-review-markdown.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp002-exam-readiness-v4-review.mjs
+
+      - name: Generate V4 300-question review
+        run: >-
+          node artifacts/api-server/dist/quant-v4/sap-cp002-exam-readiness-v4-review.mjs
+          artifacts/api-server/dist/quant-v4/SAP-CP-002-300-QUESTIONS-AND-EXPLANATIONS-REVIEW-V4.md
+
+      - name: Upload V4 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sap-cp002-exam-readiness-v4-review
+          path: |
+            artifacts/api-server/dist/quant-v4/sap-cp002-exam-readiness-v4-authority.log
+            artifacts/api-server/dist/quant-v4/SAP-CP-002-300-QUESTIONS-AND-EXPLANATIONS-REVIEW-V4.md
+          if-no-files-found: error
+          retention-days: 30
