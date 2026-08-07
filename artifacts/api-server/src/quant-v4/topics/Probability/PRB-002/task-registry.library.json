@@ -1,0 +1,9 @@
+{
+  "packageId": "PRB-002",
+  "groups": [
+    {"packageId":"PRB-002","cpId":"PRB-CP-006","start":501,"count":24,"solveModes":["independentCoinEvents","independentDieEvents","withReplacement","withoutReplacement","orderedWithoutReplacement","sameTypeSuccessive","differentTypeSuccessive","atLeastOneSuccess"],"taskKinds":["COMPOUND_EVENT"],"difficultyAllocation":{"easyUntil":0.34,"mediumUntil":0.77}},
+    {"packageId":"PRB-002","cpId":"PRB-CP-007","start":601,"count":22,"solveModes":["conditionalCards","conditionalNumbers","conditionalUrn","conditionalTable","conditionalReverseCount","conditionalByCounting"],"taskKinds":["CONDITIONAL_PROBABILITY"],"difficultyAllocation":{"easyUntil":0.34,"mediumUntil":0.77}},
+    {"packageId":"PRB-002","cpId":"PRB-CP-008","start":701,"count":26,"solveModes":["committeeComposition","arrangementFirstPosition","specificTogether","specificApart","positionRestriction","numberFormation","restrictedSelection","countingReverseProbability"],"taskKinds":["COUNTING_BASED_PROBABILITY"],"difficultyAllocation":{"easyUntil":0.34,"mediumUntil":0.77}},
+    {"packageId":"PRB-002","cpId":"PRB-CP-009","start":801,"count":24,"solveModes":["unionWithOverlap","independentIntersection","exactlyOneEvent","neitherEvent","mutuallyExclusiveUnion","recoverIntersection","recoverEventProbability","mixedEventExpression"],"taskKinds":["EVENT_ALGEBRA"],"difficultyAllocation":{"easyUntil":0.34,"mediumUntil":0.77}}
+  ]
+}
