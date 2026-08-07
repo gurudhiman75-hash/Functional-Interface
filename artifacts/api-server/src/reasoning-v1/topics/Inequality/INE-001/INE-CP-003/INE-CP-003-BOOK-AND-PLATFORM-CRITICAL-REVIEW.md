@@ -22,7 +22,7 @@ The mismatch is the learner-facing contract. The two primary book chapters mainl
 
 ## Post-review implementation update
 
-The required code changes from this review were completed on 7 August 2026. The revised pack is ready for a second manual review, but it remains unreleased.
+The required code changes from this review were completed on 7 August 2026. The user subsequently approved the revised 84-question English pack. It remains unreleased because permanent QL allocation and Question Studio exposure are separate lifecycle decisions.
 
 | Review finding                                                    | Implemented response                                                                                                       |
 | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
@@ -251,6 +251,6 @@ Admit only exact four-option forms supported by the source ledger. Use short cha
 
 ## Final decision after remediation
 
-Retain the revised CP-003 engine and submit the regenerated 84-question English pack for a second manual review. The implementation now addresses the option-contract, explanation, profile, diversity, and authority-level provenance findings.
+Retain the revised CP-003 engine. The regenerated 84-question English pack passed its second manual review, and the implementation addresses the option-contract, explanation, profile, diversity, and authority-level provenance findings.
 
-Permanent QL allocation, English freeze, Question Studio exposure, and public mock-test eligibility remain disabled until that second review is explicitly accepted.
+Permanent QL allocation, Question Studio exposure, and public mock-test eligibility remain disabled until separately authorized.

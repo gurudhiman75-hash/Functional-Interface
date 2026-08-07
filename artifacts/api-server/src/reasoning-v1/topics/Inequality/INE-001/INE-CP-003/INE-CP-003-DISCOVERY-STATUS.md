@@ -4,7 +4,7 @@
 
 **Implementation:** Revised English prototype complete
 
-**Manual review:** First review completed; revised pack awaiting second review
+**Manual review:** Revised English pack approved by the user on 7 August 2026
 
 **Book audit:** Completed against all relevant pages in four supplied PDFs
 
@@ -46,17 +46,17 @@
 
 ## Manual review decision
 
-The solver and validation model remain accepted. The first review's required implementation changes are complete, including source-shaped two-conclusion masks, corrected option cardinality, natural explanations, honest delivery profiles, source provenance, and expanded structural diversity.
+The solver, validation model, revised option contracts, explanations, delivery profiles, provenance, and expanded structural diversity are approved for checkpoint completion.
 
-Before permanent QLs, CP-003 must now:
+The following lifecycle restrictions remain:
 
-- pass a second manual review of the revised 84-question English pack;
-- confirm the four-choice mock-format prototype against the product's exam profile;
-- retain CP-004 ownership of complementary/either-or proof;
-- receive an explicit permanent-QL decision.
+- permanent QLs remain unallocated;
+- Question Studio and public release remain disabled;
+- CP-004 retains complementary/either-or ownership;
+- any permanent-QL allocation requires a separate explicit decision.
 
 See [INE-CP-003-BOOK-AND-PLATFORM-CRITICAL-REVIEW.md](./INE-CP-003-BOOK-AND-PLATFORM-CRITICAL-REVIEW.md) and [INE-CP-003-SOURCE-LEDGER.md](./INE-CP-003-SOURCE-LEDGER.md).
 
 ## Gate to the next checkpoint
 
-CP-003 remains a prototype. Permanent QL allocation requires a revised English pack and explicit manual acceptance. This hold does not prevent isolated implementation work on the next checkpoint, provided CP ownership remains clear.
+CP-003's revised English prototype is manually accepted. Work may proceed to CP-004 with the checkpoint boundary preserved. Permanent QL allocation remains a separate lifecycle decision.

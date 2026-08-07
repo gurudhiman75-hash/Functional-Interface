@@ -1,0 +1,3863 @@
+[
+  {
+    "recordId": "INE-CP004-A42CF22D",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-CLASSIFY-COMPLEMENTARY-PAIR",
+    "seed": 0,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "DIRECT_GTE_WITH_INDEPENDENT_STRICT",
+    "taskKind": "CLASSIFY_PAIR",
+    "stem": "How should conclusions I and II be evaluated as a pair?",
+    "statements": [
+      "P < D",
+      "B ≥ A"
+    ],
+    "conclusions": [
+      "A < B",
+      "B = A"
+    ],
+    "options": [
+      "Valid either-or pair",
+      "Not either-or: some valid cases are left uncovered",
+      "Not either-or: the conclusions overlap"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Valid either-or pair",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "LT"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use B ≥ A. The valid possibilities are A < B or A = B. Conclusion I covers A < B, while conclusion II covers A = B. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Therefore, this is classified as “Valid either-or pair”.",
+    "learningSolution": "Use B ≥ A. The valid possibilities are A < B or A = B. Conclusion I covers A < B, while conclusion II covers A = B. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, this is classified as “Valid either-or pair”.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.",
+    "structuralFingerprint": "a259377f",
+    "contentHash": "1f0b082d",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-535B151A",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-CLASSIFY-COMPLEMENTARY-PAIR",
+    "seed": 1,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "DIRECT_LTE_WITH_STRICT_CHAIN",
+    "taskKind": "CLASSIFY_PAIR",
+    "stem": "How should conclusions I and II be evaluated as a pair?",
+    "statements": [
+      "B ≤ C",
+      "P ≥ S",
+      "B > A"
+    ],
+    "conclusions": [
+      "P > S",
+      "S > P"
+    ],
+    "options": [
+      "Not either-or: the conclusions overlap",
+      "Not either-or: some valid cases are left uncovered",
+      "Valid either-or pair"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Not either-or: some valid cases are left uncovered",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "IMPOSSIBLE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "GT"
+        ],
+        "secondSatisfyingRelations": [],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      }
+    ],
+    "mockSolution": "Use P ≥ S. The valid possibilities are P = S or P > S. Conclusion I covers P > S, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered. Therefore, this is classified as “Not either-or: some valid cases are left uncovered”.",
+    "learningSolution": "Use P ≥ S. The valid possibilities are P = S or P > S. Conclusion I covers P > S, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered.\n\nTherefore, this is classified as “Not either-or: some valid cases are left uncovered”.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.",
+    "structuralFingerprint": "7077a527",
+    "contentHash": "16320119",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-1FA0417F",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-CLASSIFY-COMPLEMENTARY-PAIR",
+    "seed": 2,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "SHARED_UPPER_BRANCH_WITH_FREE_ENDPOINTS",
+    "taskKind": "CLASSIFY_PAIR",
+    "stem": "How should conclusions I and II be evaluated as a pair?",
+    "statements": [
+      "S < D",
+      "C > P",
+      "B < C"
+    ],
+    "conclusions": [
+      "P ≤ B",
+      "P ≥ B"
+    ],
+    "options": [
+      "Not either-or: some valid cases are left uncovered",
+      "Valid either-or pair",
+      "Not either-or: the conclusions overlap"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Not either-or: the conclusions overlap",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": false,
+        "jointlyExhaustive": true,
+        "validEitherOr": false,
+        "status": "NOT_EXCLUSIVE"
+      }
+    ],
+    "mockSolution": "No chain fixes the relation between P and B. The valid possibilities are P < B, P = B, or P > B. Conclusion I covers P < B or P = B, while conclusion II covers P = B or P > B. Their coverage overlaps, so both conclusions can be true in the same case. Therefore, this is classified as “Not either-or: the conclusions overlap”.",
+    "learningSolution": "No chain fixes the relation between P and B. The valid possibilities are P < B, P = B, or P > B. Conclusion I covers P < B or P = B, while conclusion II covers P = B or P > B. Their coverage overlaps, so both conclusions can be true in the same case.\n\nTherefore, this is classified as “Not either-or: the conclusions overlap”.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.",
+    "structuralFingerprint": "ceb885da",
+    "contentHash": "a88b11d0",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-06770EB4",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-CLASSIFY-COMPLEMENTARY-PAIR",
+    "seed": 3,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "SHARED_LOWER_BRANCH_WITH_EQUALITY_PROOF",
+    "taskKind": "CLASSIFY_PAIR",
+    "stem": "How should conclusions I and II be evaluated as a pair?",
+    "statements": [
+      "Q > C",
+      "P < B",
+      "P < R",
+      "A = Q"
+    ],
+    "conclusions": [
+      "R ≤ B",
+      "R > B"
+    ],
+    "options": [
+      "Valid either-or pair",
+      "Not either-or: the conclusions overlap",
+      "Not either-or: some valid cases are left uncovered"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Valid either-or pair",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "No chain fixes the relation between R and B. The valid possibilities are R < B, R = B, or R > B. Conclusion I covers R < B or R = B, while conclusion II covers R > B. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Therefore, this is classified as “Valid either-or pair”.",
+    "learningSolution": "No chain fixes the relation between R and B. The valid possibilities are R < B, R = B, or R > B. Conclusion I covers R < B or R = B, while conclusion II covers R > B. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, this is classified as “Valid either-or pair”.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.",
+    "structuralFingerprint": "be46571e",
+    "contentHash": "c8cd22c8",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-0B720DB9",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-CLASSIFY-COMPLEMENTARY-PAIR",
+    "seed": 4,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "GTE_CHAIN_THROUGH_EQUALITY",
+    "taskKind": "CLASSIFY_PAIR",
+    "stem": "How should conclusions I and II be evaluated as a pair?",
+    "statements": [
+      "B ≥ A",
+      "A = D",
+      "Q < C"
+    ],
+    "conclusions": [
+      "D > B",
+      "B > D"
+    ],
+    "options": [
+      "Valid either-or pair",
+      "Not either-or: the conclusions overlap",
+      "Not either-or: some valid cases are left uncovered"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Not either-or: some valid cases are left uncovered",
+    "conclusionTruths": [
+      "IMPOSSIBLE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [],
+        "secondSatisfyingRelations": [
+          "LT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      }
+    ],
+    "mockSolution": "Use B ≥ A and A = D. The valid possibilities are D < B or D = B. Conclusion I covers no valid case, while conclusion II covers D < B. Together, they leave at least one valid case uncovered. Therefore, this is classified as “Not either-or: some valid cases are left uncovered”.",
+    "learningSolution": "Use B ≥ A and A = D. The valid possibilities are D < B or D = B. Conclusion I covers no valid case, while conclusion II covers D < B. Together, they leave at least one valid case uncovered.\n\nTherefore, this is classified as “Not either-or: some valid cases are left uncovered”.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.",
+    "structuralFingerprint": "afd1dc74",
+    "contentHash": "ad7a7aee",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-9A786F36",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-CLASSIFY-COMPLEMENTARY-PAIR",
+    "seed": 5,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "LTE_CHAIN_THROUGH_EQUALITY",
+    "taskKind": "CLASSIFY_PAIR",
+    "stem": "How should conclusions I and II be evaluated as a pair?",
+    "statements": [
+      "A = B",
+      "Q > P",
+      "B ≥ R",
+      "Q ≤ S"
+    ],
+    "conclusions": [
+      "R ≤ A",
+      "R < A"
+    ],
+    "options": [
+      "Valid either-or pair",
+      "Not either-or: the conclusions overlap",
+      "Not either-or: some valid cases are left uncovered"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Not either-or: the conclusions overlap",
+    "conclusionTruths": [
+      "DEFINITELY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "LT"
+        ],
+        "firstDefinitelyTrue": true,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": false,
+        "jointlyExhaustive": true,
+        "validEitherOr": false,
+        "status": "NOT_EXCLUSIVE"
+      }
+    ],
+    "mockSolution": "Use B ≥ R and A = B. The valid possibilities are R < A or R = A. Conclusion I covers R < A or R = A, while conclusion II covers R < A. Their coverage overlaps, so both conclusions can be true in the same case. Therefore, this is classified as “Not either-or: the conclusions overlap”.",
+    "learningSolution": "Use B ≥ R and A = B. The valid possibilities are R < A or R = A. Conclusion I covers R < A or R = A, while conclusion II covers R < A. Their coverage overlaps, so both conclusions can be true in the same case.\n\nTherefore, this is classified as “Not either-or: the conclusions overlap”.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.",
+    "structuralFingerprint": "ef241a5b",
+    "contentHash": "22475156",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-D327380B",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-CLASSIFY-COMPLEMENTARY-PAIR",
+    "seed": 6,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "INCLUSIVE_ARMS_TO_COMMON_LOWER_BOUND",
+    "taskKind": "CLASSIFY_PAIR",
+    "stem": "How should conclusions I and II be evaluated as a pair?",
+    "statements": [
+      "D < B",
+      "P ≥ R",
+      "R ≤ A"
+    ],
+    "conclusions": [
+      "A > P",
+      "A ≤ P"
+    ],
+    "options": [
+      "Not either-or: the conclusions overlap",
+      "Valid either-or pair",
+      "Not either-or: some valid cases are left uncovered"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Valid either-or pair",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "GT"
+        ],
+        "secondSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "No chain fixes the relation between A and P. The valid possibilities are A < P, A = P, or A > P. Conclusion I covers A > P, while conclusion II covers A < P or A = P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Therefore, this is classified as “Valid either-or pair”.",
+    "learningSolution": "No chain fixes the relation between A and P. The valid possibilities are A < P, A = P, or A > P. Conclusion I covers A > P, while conclusion II covers A < P or A = P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, this is classified as “Valid either-or pair”.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.",
+    "structuralFingerprint": "45582a2f",
+    "contentHash": "a032fd87",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-C4474100",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-CLASSIFY-COMPLEMENTARY-PAIR",
+    "seed": 7,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "TWO_EDGE_GTE_QUERY_CHAIN",
+    "taskKind": "CLASSIFY_PAIR",
+    "stem": "How should conclusions I and II be evaluated as a pair?",
+    "statements": [
+      "Q > B",
+      "P ≥ A",
+      "A ≥ D"
+    ],
+    "conclusions": [
+      "P ≤ D",
+      "D > P"
+    ],
+    "options": [
+      "Not either-or: some valid cases are left uncovered",
+      "Valid either-or pair",
+      "Not either-or: the conclusions overlap"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Not either-or: some valid cases are left uncovered",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "IMPOSSIBLE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      }
+    ],
+    "mockSolution": "Use P ≥ A and A ≥ D. The valid possibilities are P = D or P > D. Conclusion I covers P = D, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered. Therefore, this is classified as “Not either-or: some valid cases are left uncovered”.",
+    "learningSolution": "Use P ≥ A and A ≥ D. The valid possibilities are P = D or P > D. Conclusion I covers P = D, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered.\n\nTherefore, this is classified as “Not either-or: some valid cases are left uncovered”.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.",
+    "structuralFingerprint": "c254e7d8",
+    "contentHash": "486c3aba",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-A2684605",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-CLASSIFY-COMPLEMENTARY-PAIR",
+    "seed": 8,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "DIRECT_GTE_WITH_INDEPENDENT_STRICT",
+    "taskKind": "CLASSIFY_PAIR",
+    "stem": "How should conclusions I and II be evaluated as a pair?",
+    "statements": [
+      "C ≤ D",
+      "P > B"
+    ],
+    "conclusions": [
+      "C = D",
+      "C ≤ D"
+    ],
+    "options": [
+      "Valid either-or pair",
+      "Not either-or: some valid cases are left uncovered",
+      "Not either-or: the conclusions overlap"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Not either-or: the conclusions overlap",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "DEFINITELY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": true,
+        "mutuallyExclusive": false,
+        "jointlyExhaustive": true,
+        "validEitherOr": false,
+        "status": "NOT_EXCLUSIVE"
+      }
+    ],
+    "mockSolution": "Use C ≤ D. The valid possibilities are C < D or C = D. Conclusion I covers C = D, while conclusion II covers C < D or C = D. Their coverage overlaps, so both conclusions can be true in the same case. Therefore, this is classified as “Not either-or: the conclusions overlap”.",
+    "learningSolution": "Use C ≤ D. The valid possibilities are C < D or C = D. Conclusion I covers C = D, while conclusion II covers C < D or C = D. Their coverage overlaps, so both conclusions can be true in the same case.\n\nTherefore, this is classified as “Not either-or: the conclusions overlap”.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.",
+    "structuralFingerprint": "a259377f",
+    "contentHash": "a2702cfc",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-8C0A0BD2",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-CLASSIFY-COMPLEMENTARY-PAIR",
+    "seed": 9,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "DIRECT_LTE_WITH_STRICT_CHAIN",
+    "taskKind": "CLASSIFY_PAIR",
+    "stem": "How should conclusions I and II be evaluated as a pair?",
+    "statements": [
+      "D > B",
+      "D ≤ A",
+      "C ≥ R"
+    ],
+    "conclusions": [
+      "R < C",
+      "C = R"
+    ],
+    "options": [
+      "Not either-or: the conclusions overlap",
+      "Valid either-or pair",
+      "Not either-or: some valid cases are left uncovered"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Valid either-or pair",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "LT"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use C ≥ R. The valid possibilities are R < C or R = C. Conclusion I covers R < C, while conclusion II covers R = C. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Therefore, this is classified as “Valid either-or pair”.",
+    "learningSolution": "Use C ≥ R. The valid possibilities are R < C or R = C. Conclusion I covers R < C, while conclusion II covers R = C. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, this is classified as “Valid either-or pair”.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.",
+    "structuralFingerprint": "7077a527",
+    "contentHash": "656b0d8c",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-40387D04",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-CLASSIFY-COMPLEMENTARY-PAIR",
+    "seed": 10,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "SHARED_UPPER_BRANCH_WITH_FREE_ENDPOINTS",
+    "taskKind": "CLASSIFY_PAIR",
+    "stem": "How should conclusions I and II be evaluated as a pair?",
+    "statements": [
+      "Q < D",
+      "P < D",
+      "B < C"
+    ],
+    "conclusions": [
+      "P < Q",
+      "P > Q"
+    ],
+    "options": [
+      "Not either-or: some valid cases are left uncovered",
+      "Valid either-or pair",
+      "Not either-or: the conclusions overlap"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Not either-or: some valid cases are left uncovered",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "LT"
+        ],
+        "secondSatisfyingRelations": [
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      }
+    ],
+    "mockSolution": "No chain fixes the relation between P and Q. The valid possibilities are P < Q, P = Q, or P > Q. Conclusion I covers P < Q, while conclusion II covers P > Q. Together, they leave at least one valid case uncovered. Therefore, this is classified as “Not either-or: some valid cases are left uncovered”.",
+    "learningSolution": "No chain fixes the relation between P and Q. The valid possibilities are P < Q, P = Q, or P > Q. Conclusion I covers P < Q, while conclusion II covers P > Q. Together, they leave at least one valid case uncovered.\n\nTherefore, this is classified as “Not either-or: some valid cases are left uncovered”.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.",
+    "structuralFingerprint": "ceb885da",
+    "contentHash": "722583cc",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-C8B493CF",
+    "authorityId": "CLASSIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-CLASSIFY-COMPLEMENTARY-PAIR",
+    "seed": 11,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "SHARED_LOWER_BRANCH_WITH_EQUALITY_PROOF",
+    "taskKind": "CLASSIFY_PAIR",
+    "stem": "How should conclusions I and II be evaluated as a pair?",
+    "statements": [
+      "P < S",
+      "A > P",
+      "B > Q",
+      "R = B"
+    ],
+    "conclusions": [
+      "A ≤ S",
+      "S ≤ A"
+    ],
+    "options": [
+      "Valid either-or pair",
+      "Not either-or: some valid cases are left uncovered",
+      "Not either-or: the conclusions overlap"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Not either-or: the conclusions overlap",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": false,
+        "jointlyExhaustive": true,
+        "validEitherOr": false,
+        "status": "NOT_EXCLUSIVE"
+      }
+    ],
+    "mockSolution": "No chain fixes the relation between A and S. The valid possibilities are A < S, A = S, or A > S. Conclusion I covers A < S or A = S, while conclusion II covers A = S or A > S. Their coverage overlaps, so both conclusions can be true in the same case. Therefore, this is classified as “Not either-or: the conclusions overlap”.",
+    "learningSolution": "No chain fixes the relation between A and S. The valid possibilities are A < S, A = S, or A > S. Conclusion I covers A < S or A = S, while conclusion II covers A = S or A > S. Their coverage overlaps, so both conclusions can be true in the same case.\n\nTherefore, this is classified as “Not either-or: the conclusions overlap”.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.",
+    "structuralFingerprint": "be46571e",
+    "contentHash": "73573ffe",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-441C8CAB",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-IDENTIFY-COMPLEMENTARY-PAIR",
+    "seed": 0,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "DIRECT_GTE_WITH_INDEPENDENT_STRICT",
+    "taskKind": "SELECT_PAIR",
+    "stem": "Which option contains a valid either-or pair?",
+    "statements": [
+      "B > D",
+      "P ≤ Q"
+    ],
+    "options": [
+      "I. P < Q; II. P = Q",
+      "I. Q < P; II. P ≥ Q",
+      "I. P ≥ Q; II. P ≤ Q",
+      "I. P ≥ Q; II. P > Q"
+    ],
+    "correctIndex": 0,
+    "correctOption": "I. P < Q; II. P = Q",
+    "conclusionTruths": [],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "LT"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": true,
+        "mutuallyExclusive": false,
+        "jointlyExhaustive": true,
+        "validEitherOr": false,
+        "status": "NOT_EXCLUSIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [],
+        "secondSatisfyingRelations": [
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      }
+    ],
+    "mockSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements. Option 1: Use P ≤ Q. The valid possibilities are P < Q or P = Q. Conclusion I covers P < Q, while conclusion II covers P = Q. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Option 2: Use P ≤ Q. The valid possibilities are Q = P or Q > P. Conclusion I covers no valid case, while conclusion II covers Q = P. Together, they leave at least one valid case uncovered. Option 3: Use P ≤ Q. The valid possibilities are P < Q or P = Q. Conclusion I covers P = Q, while conclusion II covers P < Q or P = Q. Their coverage overlaps, so both conclusions can be true in the same case. Option 4: Use P ≤ Q. The valid possibilities are P < Q or P = Q. Conclusion I covers P = Q, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered. Only option 1 passes all three tests.",
+    "learningSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.\n\nOption 1: Use P ≤ Q. The valid possibilities are P < Q or P = Q. Conclusion I covers P < Q, while conclusion II covers P = Q. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nOption 2: Use P ≤ Q. The valid possibilities are Q = P or Q > P. Conclusion I covers no valid case, while conclusion II covers Q = P. Together, they leave at least one valid case uncovered.\n\nOption 3: Use P ≤ Q. The valid possibilities are P < Q or P = Q. Conclusion I covers P = Q, while conclusion II covers P < Q or P = Q. Their coverage overlaps, so both conclusions can be true in the same case.\n\nOption 4: Use P ≤ Q. The valid possibilities are P < Q or P = Q. Conclusion I covers P = Q, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered.\n\nOnly option 1 passes all three tests.\n\nI. Q < P; II. P ≥ Q: The pair misses at least one relation still permitted by the statements.\n\nI. P ≥ Q; II. P ≤ Q: The two conclusions overlap, so they are not mutually exclusive.\n\nI. P ≥ Q; II. P > Q: The pair misses at least one relation still permitted by the statements.",
+    "structuralFingerprint": "ecd6e42d",
+    "contentHash": "b36dc6af",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-FF790D20",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-IDENTIFY-COMPLEMENTARY-PAIR",
+    "seed": 1,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "DIRECT_LTE_WITH_STRICT_CHAIN",
+    "taskKind": "SELECT_PAIR",
+    "stem": "Which option contains a valid either-or pair?",
+    "statements": [
+      "A ≥ D",
+      "P ≤ R",
+      "B < D"
+    ],
+    "options": [
+      "I. R > P; II. P ≤ R",
+      "I. R > P; II. R < P",
+      "I. R = P; II. R > P",
+      "I. P ≥ R; II. P > R"
+    ],
+    "correctIndex": 2,
+    "correctOption": "I. R = P; II. R > P",
+    "conclusionTruths": [],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "GT"
+        ],
+        "secondSatisfyingRelations": [],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "GT"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": true,
+        "mutuallyExclusive": false,
+        "jointlyExhaustive": true,
+        "validEitherOr": false,
+        "status": "NOT_EXCLUSIVE"
+      }
+    ],
+    "mockSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements. Option 1: Use P ≤ R. The valid possibilities are R = P or R > P. Conclusion I covers R > P, while conclusion II covers R = P or R > P. Their coverage overlaps, so both conclusions can be true in the same case. Option 2: Use P ≤ R. The valid possibilities are R = P or R > P. Conclusion I covers R > P, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered. Option 3: Use P ≤ R. The valid possibilities are R = P or R > P. Conclusion I covers R = P, while conclusion II covers R > P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Option 4: Use P ≤ R. The valid possibilities are P < R or P = R. Conclusion I covers P = R, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered. Only option 3 passes all three tests.",
+    "learningSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.\n\nOption 1: Use P ≤ R. The valid possibilities are R = P or R > P. Conclusion I covers R > P, while conclusion II covers R = P or R > P. Their coverage overlaps, so both conclusions can be true in the same case.\n\nOption 2: Use P ≤ R. The valid possibilities are R = P or R > P. Conclusion I covers R > P, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered.\n\nOption 3: Use P ≤ R. The valid possibilities are R = P or R > P. Conclusion I covers R = P, while conclusion II covers R > P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nOption 4: Use P ≤ R. The valid possibilities are P < R or P = R. Conclusion I covers P = R, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered.\n\nOnly option 3 passes all three tests.\n\nI. R > P; II. P ≤ R: The two conclusions overlap, so they are not mutually exclusive.\n\nI. R > P; II. R < P: The pair misses at least one relation still permitted by the statements.\n\nI. P ≥ R; II. P > R: The pair misses at least one relation still permitted by the statements.",
+    "structuralFingerprint": "4189e6a1",
+    "contentHash": "0d47b516",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-BF804ED9",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-IDENTIFY-COMPLEMENTARY-PAIR",
+    "seed": 2,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "SHARED_UPPER_BRANCH_WITH_FREE_ENDPOINTS",
+    "taskKind": "SELECT_PAIR",
+    "stem": "Which option contains a valid either-or pair?",
+    "statements": [
+      "Q < B",
+      "A > P",
+      "B > S"
+    ],
+    "options": [
+      "I. Q = S; II. S < Q",
+      "I. Q = S; II. S > Q",
+      "I. Q ≤ S; II. Q ≥ S",
+      "I. Q ≥ S; II. Q < S"
+    ],
+    "correctIndex": 3,
+    "correctOption": "I. Q ≥ S; II. Q < S",
+    "conclusionTruths": [],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": false,
+        "jointlyExhaustive": true,
+        "validEitherOr": false,
+        "status": "NOT_EXCLUSIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "LT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ",
+          "GT"
+        ],
+        "secondSatisfyingRelations": [
+          "LT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements. Option 1: No chain fixes the relation between Q and S. The valid possibilities are Q < S, Q = S, or Q > S. Conclusion I covers Q = S, while conclusion II covers Q > S. Together, they leave at least one valid case uncovered. Option 2: No chain fixes the relation between Q and S. The valid possibilities are Q < S, Q = S, or Q > S. Conclusion I covers Q = S, while conclusion II covers Q < S. Together, they leave at least one valid case uncovered. Option 3: No chain fixes the relation between Q and S. The valid possibilities are Q < S, Q = S, or Q > S. Conclusion I covers Q < S or Q = S, while conclusion II covers Q = S or Q > S. Their coverage overlaps, so both conclusions can be true in the same case. Option 4: No chain fixes the relation between Q and S. The valid possibilities are Q < S, Q = S, or Q > S. Conclusion I covers Q = S or Q > S, while conclusion II covers Q < S. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Only option 4 passes all three tests.",
+    "learningSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.\n\nOption 1: No chain fixes the relation between Q and S. The valid possibilities are Q < S, Q = S, or Q > S. Conclusion I covers Q = S, while conclusion II covers Q > S. Together, they leave at least one valid case uncovered.\n\nOption 2: No chain fixes the relation between Q and S. The valid possibilities are Q < S, Q = S, or Q > S. Conclusion I covers Q = S, while conclusion II covers Q < S. Together, they leave at least one valid case uncovered.\n\nOption 3: No chain fixes the relation between Q and S. The valid possibilities are Q < S, Q = S, or Q > S. Conclusion I covers Q < S or Q = S, while conclusion II covers Q = S or Q > S. Their coverage overlaps, so both conclusions can be true in the same case.\n\nOption 4: No chain fixes the relation between Q and S. The valid possibilities are Q < S, Q = S, or Q > S. Conclusion I covers Q = S or Q > S, while conclusion II covers Q < S. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nOnly option 4 passes all three tests.\n\nI. Q = S; II. S < Q: The pair misses at least one relation still permitted by the statements.\n\nI. Q = S; II. S > Q: The pair misses at least one relation still permitted by the statements.\n\nI. Q ≤ S; II. Q ≥ S: The two conclusions overlap, so they are not mutually exclusive.",
+    "structuralFingerprint": "57ed6990",
+    "contentHash": "41939f39",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-062C1FD6",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-IDENTIFY-COMPLEMENTARY-PAIR",
+    "seed": 3,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "SHARED_LOWER_BRANCH_WITH_EQUALITY_PROOF",
+    "taskKind": "SELECT_PAIR",
+    "stem": "Which option contains a valid either-or pair?",
+    "statements": [
+      "Q > R",
+      "R < A",
+      "P > S",
+      "B = P"
+    ],
+    "options": [
+      "I. Q ≥ A; II. A ≥ Q",
+      "I. Q ≤ A; II. A < Q",
+      "I. A < Q; II. Q = A",
+      "I. Q < A; II. Q > A"
+    ],
+    "correctIndex": 1,
+    "correctOption": "I. Q ≤ A; II. A < Q",
+    "conclusionTruths": [],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ",
+          "GT"
+        ],
+        "secondSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": false,
+        "jointlyExhaustive": true,
+        "validEitherOr": false,
+        "status": "NOT_EXCLUSIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "LT"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "LT"
+        ],
+        "secondSatisfyingRelations": [
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      }
+    ],
+    "mockSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements. Option 1: No chain fixes the relation between Q and A. The valid possibilities are Q < A, Q = A, or Q > A. Conclusion I covers Q = A or Q > A, while conclusion II covers Q < A or Q = A. Their coverage overlaps, so both conclusions can be true in the same case. Option 2: No chain fixes the relation between Q and A. The valid possibilities are Q < A, Q = A, or Q > A. Conclusion I covers Q < A or Q = A, while conclusion II covers Q > A. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Option 3: No chain fixes the relation between A and Q. The valid possibilities are A < Q, A = Q, or A > Q. Conclusion I covers A < Q, while conclusion II covers A = Q. Together, they leave at least one valid case uncovered. Option 4: No chain fixes the relation between Q and A. The valid possibilities are Q < A, Q = A, or Q > A. Conclusion I covers Q < A, while conclusion II covers Q > A. Together, they leave at least one valid case uncovered. Only option 2 passes all three tests.",
+    "learningSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.\n\nOption 1: No chain fixes the relation between Q and A. The valid possibilities are Q < A, Q = A, or Q > A. Conclusion I covers Q = A or Q > A, while conclusion II covers Q < A or Q = A. Their coverage overlaps, so both conclusions can be true in the same case.\n\nOption 2: No chain fixes the relation between Q and A. The valid possibilities are Q < A, Q = A, or Q > A. Conclusion I covers Q < A or Q = A, while conclusion II covers Q > A. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nOption 3: No chain fixes the relation between A and Q. The valid possibilities are A < Q, A = Q, or A > Q. Conclusion I covers A < Q, while conclusion II covers A = Q. Together, they leave at least one valid case uncovered.\n\nOption 4: No chain fixes the relation between Q and A. The valid possibilities are Q < A, Q = A, or Q > A. Conclusion I covers Q < A, while conclusion II covers Q > A. Together, they leave at least one valid case uncovered.\n\nOnly option 2 passes all three tests.\n\nI. Q ≥ A; II. A ≥ Q: The two conclusions overlap, so they are not mutually exclusive.\n\nI. A < Q; II. Q = A: The pair misses at least one relation still permitted by the statements.\n\nI. Q < A; II. Q > A: The pair misses at least one relation still permitted by the statements.",
+    "structuralFingerprint": "294b5b7c",
+    "contentHash": "e9222087",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-B69B2B9F",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-IDENTIFY-COMPLEMENTARY-PAIR",
+    "seed": 4,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "GTE_CHAIN_THROUGH_EQUALITY",
+    "taskKind": "SELECT_PAIR",
+    "stem": "Which option contains a valid either-or pair?",
+    "statements": [
+      "A = D",
+      "C > B",
+      "S ≥ D"
+    ],
+    "options": [
+      "I. A < S; II. S = A",
+      "I. S < A; II. A = S",
+      "I. A = S; II. S ≥ A",
+      "I. S > A; II. S < A"
+    ],
+    "correctIndex": 0,
+    "correctOption": "I. A < S; II. S = A",
+    "conclusionTruths": [],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "GT"
+        ],
+        "secondSatisfyingRelations": [],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": true,
+        "mutuallyExclusive": false,
+        "jointlyExhaustive": true,
+        "validEitherOr": false,
+        "status": "NOT_EXCLUSIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [],
+        "secondSatisfyingRelations": [
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "LT"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements. Option 1: Use S ≥ D and A = D. The valid possibilities are A < S or A = S. Conclusion I covers A < S, while conclusion II covers A = S. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Option 2: Use S ≥ D and A = D. The valid possibilities are S = A or S > A. Conclusion I covers no valid case, while conclusion II covers S = A. Together, they leave at least one valid case uncovered. Option 3: Use S ≥ D and A = D. The valid possibilities are A < S or A = S. Conclusion I covers A = S, while conclusion II covers A < S or A = S. Their coverage overlaps, so both conclusions can be true in the same case. Option 4: Use S ≥ D and A = D. The valid possibilities are S = A or S > A. Conclusion I covers S > A, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered. Only option 1 passes all three tests.",
+    "learningSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.\n\nOption 1: Use S ≥ D and A = D. The valid possibilities are A < S or A = S. Conclusion I covers A < S, while conclusion II covers A = S. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nOption 2: Use S ≥ D and A = D. The valid possibilities are S = A or S > A. Conclusion I covers no valid case, while conclusion II covers S = A. Together, they leave at least one valid case uncovered.\n\nOption 3: Use S ≥ D and A = D. The valid possibilities are A < S or A = S. Conclusion I covers A = S, while conclusion II covers A < S or A = S. Their coverage overlaps, so both conclusions can be true in the same case.\n\nOption 4: Use S ≥ D and A = D. The valid possibilities are S = A or S > A. Conclusion I covers S > A, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered.\n\nOnly option 1 passes all three tests.\n\nI. S < A; II. A = S: The pair misses at least one relation still permitted by the statements.\n\nI. A = S; II. S ≥ A: The two conclusions overlap, so they are not mutually exclusive.\n\nI. S > A; II. S < A: The pair misses at least one relation still permitted by the statements.",
+    "structuralFingerprint": "d4912ae2",
+    "contentHash": "9e260637",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-BA8DCA54",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-IDENTIFY-COMPLEMENTARY-PAIR",
+    "seed": 5,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "LTE_CHAIN_THROUGH_EQUALITY",
+    "taskKind": "SELECT_PAIR",
+    "stem": "Which option contains a valid either-or pair?",
+    "statements": [
+      "D > Q",
+      "P ≥ B",
+      "C = P",
+      "D ≤ A"
+    ],
+    "options": [
+      "I. B ≥ C; II. C < B",
+      "I. B ≤ C; II. B < C",
+      "I. B < C; II. C = B",
+      "I. B > C; II. C > B"
+    ],
+    "correctIndex": 2,
+    "correctOption": "I. B < C; II. C = B",
+    "conclusionTruths": [],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "LT"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [],
+        "secondSatisfyingRelations": [
+          "LT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "LT"
+        ],
+        "firstDefinitelyTrue": true,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": false,
+        "jointlyExhaustive": true,
+        "validEitherOr": false,
+        "status": "NOT_EXCLUSIVE"
+      }
+    ],
+    "mockSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements. Option 1: Use P ≥ B and C = P. The valid possibilities are B < C or B = C. Conclusion I covers B = C, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered. Option 2: Use P ≥ B and C = P. The valid possibilities are B < C or B = C. Conclusion I covers B < C or B = C, while conclusion II covers B < C. Their coverage overlaps, so both conclusions can be true in the same case. Option 3: Use P ≥ B and C = P. The valid possibilities are B < C or B = C. Conclusion I covers B < C, while conclusion II covers B = C. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Option 4: Use P ≥ B and C = P. The valid possibilities are B < C or B = C. Conclusion I covers no valid case, while conclusion II covers B < C. Together, they leave at least one valid case uncovered. Only option 3 passes all three tests.",
+    "learningSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.\n\nOption 1: Use P ≥ B and C = P. The valid possibilities are B < C or B = C. Conclusion I covers B = C, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered.\n\nOption 2: Use P ≥ B and C = P. The valid possibilities are B < C or B = C. Conclusion I covers B < C or B = C, while conclusion II covers B < C. Their coverage overlaps, so both conclusions can be true in the same case.\n\nOption 3: Use P ≥ B and C = P. The valid possibilities are B < C or B = C. Conclusion I covers B < C, while conclusion II covers B = C. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nOption 4: Use P ≥ B and C = P. The valid possibilities are B < C or B = C. Conclusion I covers no valid case, while conclusion II covers B < C. Together, they leave at least one valid case uncovered.\n\nOnly option 3 passes all three tests.\n\nI. B ≥ C; II. C < B: The pair misses at least one relation still permitted by the statements.\n\nI. B ≤ C; II. B < C: The two conclusions overlap, so they are not mutually exclusive.\n\nI. B > C; II. C > B: The pair misses at least one relation still permitted by the statements.",
+    "structuralFingerprint": "03b09b51",
+    "contentHash": "721d66ef",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-32E4C8CD",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-IDENTIFY-COMPLEMENTARY-PAIR",
+    "seed": 6,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "INCLUSIVE_ARMS_TO_COMMON_LOWER_BOUND",
+    "taskKind": "SELECT_PAIR",
+    "stem": "Which option contains a valid either-or pair?",
+    "statements": [
+      "C > S",
+      "Q ≥ A",
+      "R ≥ A"
+    ],
+    "options": [
+      "I. R = Q; II. R > Q",
+      "I. Q > R; II. Q ≤ R",
+      "I. Q ≤ R; II. R ≤ Q",
+      "I. R > Q; II. Q = R"
+    ],
+    "correctIndex": 1,
+    "correctOption": "I. Q > R; II. Q ≤ R",
+    "conclusionTruths": [],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": false,
+        "jointlyExhaustive": true,
+        "validEitherOr": false,
+        "status": "NOT_EXCLUSIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "GT"
+        ],
+        "secondSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "GT"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      }
+    ],
+    "mockSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements. Option 1: No chain fixes the relation between R and Q. The valid possibilities are R < Q, R = Q, or R > Q. Conclusion I covers R = Q, while conclusion II covers R > Q. Together, they leave at least one valid case uncovered. Option 2: No chain fixes the relation between Q and R. The valid possibilities are Q < R, Q = R, or Q > R. Conclusion I covers Q > R, while conclusion II covers Q < R or Q = R. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Option 3: No chain fixes the relation between Q and R. The valid possibilities are Q < R, Q = R, or Q > R. Conclusion I covers Q < R or Q = R, while conclusion II covers Q = R or Q > R. Their coverage overlaps, so both conclusions can be true in the same case. Option 4: No chain fixes the relation between R and Q. The valid possibilities are R < Q, R = Q, or R > Q. Conclusion I covers R > Q, while conclusion II covers R = Q. Together, they leave at least one valid case uncovered. Only option 2 passes all three tests.",
+    "learningSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.\n\nOption 1: No chain fixes the relation between R and Q. The valid possibilities are R < Q, R = Q, or R > Q. Conclusion I covers R = Q, while conclusion II covers R > Q. Together, they leave at least one valid case uncovered.\n\nOption 2: No chain fixes the relation between Q and R. The valid possibilities are Q < R, Q = R, or Q > R. Conclusion I covers Q > R, while conclusion II covers Q < R or Q = R. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nOption 3: No chain fixes the relation between Q and R. The valid possibilities are Q < R, Q = R, or Q > R. Conclusion I covers Q < R or Q = R, while conclusion II covers Q = R or Q > R. Their coverage overlaps, so both conclusions can be true in the same case.\n\nOption 4: No chain fixes the relation between R and Q. The valid possibilities are R < Q, R = Q, or R > Q. Conclusion I covers R > Q, while conclusion II covers R = Q. Together, they leave at least one valid case uncovered.\n\nOnly option 2 passes all three tests.\n\nI. R = Q; II. R > Q: The pair misses at least one relation still permitted by the statements.\n\nI. Q ≤ R; II. R ≤ Q: The two conclusions overlap, so they are not mutually exclusive.\n\nI. R > Q; II. Q = R: The pair misses at least one relation still permitted by the statements.",
+    "structuralFingerprint": "92a2e5dd",
+    "contentHash": "62dd310b",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-21F0783A",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-IDENTIFY-COMPLEMENTARY-PAIR",
+    "seed": 7,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "TWO_EDGE_GTE_QUERY_CHAIN",
+    "taskKind": "SELECT_PAIR",
+    "stem": "Which option contains a valid either-or pair?",
+    "statements": [
+      "C ≥ P",
+      "B ≤ P",
+      "R > Q"
+    ],
+    "options": [
+      "I. B ≤ C; II. C ≤ B",
+      "I. C = B; II. B > C",
+      "I. B > C; II. B < C",
+      "I. C > B; II. C = B"
+    ],
+    "correctIndex": 3,
+    "correctOption": "I. C > B; II. C = B",
+    "conclusionTruths": [],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [],
+        "secondSatisfyingRelations": [
+          "LT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "GT"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ"
+        ],
+        "firstDefinitelyTrue": true,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": false,
+        "jointlyExhaustive": true,
+        "validEitherOr": false,
+        "status": "NOT_EXCLUSIVE"
+      }
+    ],
+    "mockSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements. Option 1: Use C ≥ P and B ≤ P. The valid possibilities are B < C or B = C. Conclusion I covers B < C or B = C, while conclusion II covers B = C. Their coverage overlaps, so both conclusions can be true in the same case. Option 2: Use C ≥ P and B ≤ P. The valid possibilities are C = B or C > B. Conclusion I covers C = B, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered. Option 3: Use C ≥ P and B ≤ P. The valid possibilities are B < C or B = C. Conclusion I covers no valid case, while conclusion II covers B < C. Together, they leave at least one valid case uncovered. Option 4: Use C ≥ P and B ≤ P. The valid possibilities are C = B or C > B. Conclusion I covers C > B, while conclusion II covers C = B. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Only option 4 passes all three tests.",
+    "learningSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.\n\nOption 1: Use C ≥ P and B ≤ P. The valid possibilities are B < C or B = C. Conclusion I covers B < C or B = C, while conclusion II covers B = C. Their coverage overlaps, so both conclusions can be true in the same case.\n\nOption 2: Use C ≥ P and B ≤ P. The valid possibilities are C = B or C > B. Conclusion I covers C = B, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered.\n\nOption 3: Use C ≥ P and B ≤ P. The valid possibilities are B < C or B = C. Conclusion I covers no valid case, while conclusion II covers B < C. Together, they leave at least one valid case uncovered.\n\nOption 4: Use C ≥ P and B ≤ P. The valid possibilities are C = B or C > B. Conclusion I covers C > B, while conclusion II covers C = B. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nOnly option 4 passes all three tests.\n\nI. B ≤ C; II. C ≤ B: The two conclusions overlap, so they are not mutually exclusive.\n\nI. C = B; II. B > C: The pair misses at least one relation still permitted by the statements.\n\nI. B > C; II. B < C: The pair misses at least one relation still permitted by the statements.",
+    "structuralFingerprint": "f9950286",
+    "contentHash": "2a0f0103",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-061430C3",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-IDENTIFY-COMPLEMENTARY-PAIR",
+    "seed": 8,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "DIRECT_GTE_WITH_INDEPENDENT_STRICT",
+    "taskKind": "SELECT_PAIR",
+    "stem": "Which option contains a valid either-or pair?",
+    "statements": [
+      "D > P",
+      "A ≥ C"
+    ],
+    "options": [
+      "I. A = C; II. A > C",
+      "I. A < C; II. C < A",
+      "I. C = A; II. A ≥ C",
+      "I. A = C; II. C > A"
+    ],
+    "correctIndex": 0,
+    "correctOption": "I. A = C; II. A > C",
+    "conclusionTruths": [],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": true,
+        "mutuallyExclusive": false,
+        "jointlyExhaustive": true,
+        "validEitherOr": false,
+        "status": "NOT_EXCLUSIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [],
+        "secondSatisfyingRelations": [
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      }
+    ],
+    "mockSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements. Option 1: Use A ≥ C. The valid possibilities are A = C or A > C. Conclusion I covers A = C, while conclusion II covers A > C. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Option 2: Use A ≥ C. The valid possibilities are A = C or A > C. Conclusion I covers no valid case, while conclusion II covers A > C. Together, they leave at least one valid case uncovered. Option 3: Use A ≥ C. The valid possibilities are C < A or C = A. Conclusion I covers C = A, while conclusion II covers C < A or C = A. Their coverage overlaps, so both conclusions can be true in the same case. Option 4: Use A ≥ C. The valid possibilities are A = C or A > C. Conclusion I covers A = C, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered. Only option 1 passes all three tests.",
+    "learningSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.\n\nOption 1: Use A ≥ C. The valid possibilities are A = C or A > C. Conclusion I covers A = C, while conclusion II covers A > C. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nOption 2: Use A ≥ C. The valid possibilities are A = C or A > C. Conclusion I covers no valid case, while conclusion II covers A > C. Together, they leave at least one valid case uncovered.\n\nOption 3: Use A ≥ C. The valid possibilities are C < A or C = A. Conclusion I covers C = A, while conclusion II covers C < A or C = A. Their coverage overlaps, so both conclusions can be true in the same case.\n\nOption 4: Use A ≥ C. The valid possibilities are A = C or A > C. Conclusion I covers A = C, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered.\n\nOnly option 1 passes all three tests.\n\nI. A < C; II. C < A: The pair misses at least one relation still permitted by the statements.\n\nI. C = A; II. A ≥ C: The two conclusions overlap, so they are not mutually exclusive.\n\nI. A = C; II. C > A: The pair misses at least one relation still permitted by the statements.",
+    "structuralFingerprint": "ecd6e42d",
+    "contentHash": "2048ff0f",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-8ADAE918",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-IDENTIFY-COMPLEMENTARY-PAIR",
+    "seed": 9,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "DIRECT_LTE_WITH_STRICT_CHAIN",
+    "taskKind": "SELECT_PAIR",
+    "stem": "Which option contains a valid either-or pair?",
+    "statements": [
+      "R ≥ S",
+      "Q ≥ C",
+      "A < C"
+    ],
+    "options": [
+      "I. S ≥ R; II. R < S",
+      "I. R = S; II. S > R",
+      "I. S < R; II. S ≤ R",
+      "I. S < R; II. R = S"
+    ],
+    "correctIndex": 3,
+    "correctOption": "I. S < R; II. R = S",
+    "conclusionTruths": [],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "LT"
+        ],
+        "secondSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": true,
+        "mutuallyExclusive": false,
+        "jointlyExhaustive": true,
+        "validEitherOr": false,
+        "status": "NOT_EXCLUSIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "LT"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements. Option 1: Use R ≥ S. The valid possibilities are S < R or S = R. Conclusion I covers S = R, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered. Option 2: Use R ≥ S. The valid possibilities are R = S or R > S. Conclusion I covers R = S, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered. Option 3: Use R ≥ S. The valid possibilities are S < R or S = R. Conclusion I covers S < R, while conclusion II covers S < R or S = R. Their coverage overlaps, so both conclusions can be true in the same case. Option 4: Use R ≥ S. The valid possibilities are S < R or S = R. Conclusion I covers S < R, while conclusion II covers S = R. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Only option 4 passes all three tests.",
+    "learningSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.\n\nOption 1: Use R ≥ S. The valid possibilities are S < R or S = R. Conclusion I covers S = R, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered.\n\nOption 2: Use R ≥ S. The valid possibilities are R = S or R > S. Conclusion I covers R = S, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered.\n\nOption 3: Use R ≥ S. The valid possibilities are S < R or S = R. Conclusion I covers S < R, while conclusion II covers S < R or S = R. Their coverage overlaps, so both conclusions can be true in the same case.\n\nOption 4: Use R ≥ S. The valid possibilities are S < R or S = R. Conclusion I covers S < R, while conclusion II covers S = R. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nOnly option 4 passes all three tests.\n\nI. S ≥ R; II. R < S: The pair misses at least one relation still permitted by the statements.\n\nI. R = S; II. S > R: The pair misses at least one relation still permitted by the statements.\n\nI. S < R; II. S ≤ R: The two conclusions overlap, so they are not mutually exclusive.",
+    "structuralFingerprint": "4189e6a1",
+    "contentHash": "38d309d9",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-61C84136",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-IDENTIFY-COMPLEMENTARY-PAIR",
+    "seed": 10,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "SHARED_UPPER_BRANCH_WITH_FREE_ENDPOINTS",
+    "taskKind": "SELECT_PAIR",
+    "stem": "Which option contains a valid either-or pair?",
+    "statements": [
+      "D > R",
+      "B > P",
+      "D > A"
+    ],
+    "options": [
+      "I. A ≤ R; II. R ≤ A",
+      "I. A > R; II. R > A",
+      "I. A ≥ R; II. R > A",
+      "I. A < R; II. A > R"
+    ],
+    "correctIndex": 2,
+    "correctOption": "I. A ≥ R; II. R > A",
+    "conclusionTruths": [],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "GT"
+        ],
+        "secondSatisfyingRelations": [
+          "LT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ",
+          "GT"
+        ],
+        "secondSatisfyingRelations": [
+          "LT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "LT"
+        ],
+        "secondSatisfyingRelations": [
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": false,
+        "jointlyExhaustive": true,
+        "validEitherOr": false,
+        "status": "NOT_EXCLUSIVE"
+      }
+    ],
+    "mockSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements. Option 1: No chain fixes the relation between A and R. The valid possibilities are A < R, A = R, or A > R. Conclusion I covers A < R or A = R, while conclusion II covers A = R or A > R. Their coverage overlaps, so both conclusions can be true in the same case. Option 2: No chain fixes the relation between A and R. The valid possibilities are A < R, A = R, or A > R. Conclusion I covers A > R, while conclusion II covers A < R. Together, they leave at least one valid case uncovered. Option 3: No chain fixes the relation between A and R. The valid possibilities are A < R, A = R, or A > R. Conclusion I covers A = R or A > R, while conclusion II covers A < R. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Option 4: No chain fixes the relation between A and R. The valid possibilities are A < R, A = R, or A > R. Conclusion I covers A < R, while conclusion II covers A > R. Together, they leave at least one valid case uncovered. Only option 3 passes all three tests.",
+    "learningSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.\n\nOption 1: No chain fixes the relation between A and R. The valid possibilities are A < R, A = R, or A > R. Conclusion I covers A < R or A = R, while conclusion II covers A = R or A > R. Their coverage overlaps, so both conclusions can be true in the same case.\n\nOption 2: No chain fixes the relation between A and R. The valid possibilities are A < R, A = R, or A > R. Conclusion I covers A > R, while conclusion II covers A < R. Together, they leave at least one valid case uncovered.\n\nOption 3: No chain fixes the relation between A and R. The valid possibilities are A < R, A = R, or A > R. Conclusion I covers A = R or A > R, while conclusion II covers A < R. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nOption 4: No chain fixes the relation between A and R. The valid possibilities are A < R, A = R, or A > R. Conclusion I covers A < R, while conclusion II covers A > R. Together, they leave at least one valid case uncovered.\n\nOnly option 3 passes all three tests.\n\nI. A ≤ R; II. R ≤ A: The two conclusions overlap, so they are not mutually exclusive.\n\nI. A > R; II. R > A: The pair misses at least one relation still permitted by the statements.\n\nI. A < R; II. A > R: The pair misses at least one relation still permitted by the statements.",
+    "structuralFingerprint": "57ed6990",
+    "contentHash": "b3e9745c",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-D2C1DFB9",
+    "authorityId": "IDENTIFY_COMPLEMENTARY_PAIR",
+    "prototypeId": "INE-CP004-PROT-IDENTIFY-COMPLEMENTARY-PAIR",
+    "seed": 11,
+    "difficulty": "HARD",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "topologyId": "SHARED_LOWER_BRANCH_WITH_EQUALITY_PROOF",
+    "taskKind": "SELECT_PAIR",
+    "stem": "Which option contains a valid either-or pair?",
+    "statements": [
+      "C < P",
+      "D = Q",
+      "B > C",
+      "Q > A"
+    ],
+    "options": [
+      "I. B < P; II. B = P",
+      "I. P < B; II. P ≥ B",
+      "I. B = P; II. B < P",
+      "I. P ≥ B; II. B ≥ P"
+    ],
+    "correctIndex": 1,
+    "correctOption": "I. P < B; II. P ≥ B",
+    "conclusionTruths": [],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ",
+          "GT"
+        ],
+        "secondSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": false,
+        "jointlyExhaustive": true,
+        "validEitherOr": false,
+        "status": "NOT_EXCLUSIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "LT"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "LT"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      },
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "LT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": false,
+        "validEitherOr": false,
+        "status": "NOT_EXHAUSTIVE"
+      }
+    ],
+    "mockSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements. Option 1: No chain fixes the relation between B and P. The valid possibilities are B < P, B = P, or B > P. Conclusion I covers B < P, while conclusion II covers B = P. Together, they leave at least one valid case uncovered. Option 2: No chain fixes the relation between P and B. The valid possibilities are P < B, P = B, or P > B. Conclusion I covers P < B, while conclusion II covers P = B or P > B. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Option 3: No chain fixes the relation between B and P. The valid possibilities are B < P, B = P, or B > P. Conclusion I covers B = P, while conclusion II covers B < P. Together, they leave at least one valid case uncovered. Option 4: No chain fixes the relation between P and B. The valid possibilities are P < B, P = B, or P > B. Conclusion I covers P = B or P > B, while conclusion II covers P < B or P = B. Their coverage overlaps, so both conclusions can be true in the same case. Only option 2 passes all three tests.",
+    "learningSolution": "Check whether each pair is individually uncertain, non-overlapping, and complete over the relations allowed by the statements.\n\nOption 1: No chain fixes the relation between B and P. The valid possibilities are B < P, B = P, or B > P. Conclusion I covers B < P, while conclusion II covers B = P. Together, they leave at least one valid case uncovered.\n\nOption 2: No chain fixes the relation between P and B. The valid possibilities are P < B, P = B, or P > B. Conclusion I covers P < B, while conclusion II covers P = B or P > B. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nOption 3: No chain fixes the relation between B and P. The valid possibilities are B < P, B = P, or B > P. Conclusion I covers B = P, while conclusion II covers B < P. Together, they leave at least one valid case uncovered.\n\nOption 4: No chain fixes the relation between P and B. The valid possibilities are P < B, P = B, or P > B. Conclusion I covers P = B or P > B, while conclusion II covers P < B or P = B. Their coverage overlaps, so both conclusions can be true in the same case.\n\nOnly option 2 passes all three tests.\n\nI. B < P; II. B = P: The pair misses at least one relation still permitted by the statements.\n\nI. B = P; II. B < P: The pair misses at least one relation still permitted by the statements.\n\nI. P ≥ B; II. B ≥ P: The two conclusions overlap, so they are not mutually exclusive.",
+    "structuralFingerprint": "294b5b7c",
+    "contentHash": "d68eabe8",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-541FF268",
+    "authorityId": "RESOLVE_EITHER_OR_CONCLUSIONS",
+    "prototypeId": "INE-CP004-PROT-RESOLVE-EITHER-OR-CONCLUSIONS",
+    "seed": 0,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "DIRECT_GTE_WITH_INDEPENDENT_STRICT",
+    "taskKind": "EVALUATE_TWO_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "S ≥ D",
+      "Q > R"
+    ],
+    "conclusions": [
+      "S = D",
+      "D < S"
+    ],
+    "options": [
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion II follows",
+      "Either conclusion I or conclusion II follows",
+      "Both conclusions I and II follow",
+      "Only conclusion I follows"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Either conclusion I or conclusion II follows",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use S ≥ D. The valid possibilities are S = D or S > D. Conclusion I covers S = D, while conclusion II covers S > D. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
+    "learningSolution": "Use S ≥ D. The valid possibilities are S = D or S > D. Conclusion I covers S = D, while conclusion II covers S > D. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.",
+    "structuralFingerprint": "05ac8c1f",
+    "contentHash": "d8bafec5",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "DISHA-INE-003",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-EDAC50D3",
+    "authorityId": "RESOLVE_EITHER_OR_CONCLUSIONS",
+    "prototypeId": "INE-CP004-PROT-RESOLVE-EITHER-OR-CONCLUSIONS",
+    "seed": 1,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "DIRECT_LTE_WITH_STRICT_CHAIN",
+    "taskKind": "EVALUATE_TWO_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "P ≤ C",
+      "B > A",
+      "B ≤ Q"
+    ],
+    "conclusions": [
+      "P = C",
+      "P < C"
+    ],
+    "options": [
+      "Only conclusion II follows",
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion I follows",
+      "Either conclusion I or conclusion II follows",
+      "Both conclusions I and II follow"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Either conclusion I or conclusion II follows",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "LT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use P ≤ C. The valid possibilities are P < C or P = C. Conclusion I covers P = C, while conclusion II covers P < C. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
+    "learningSolution": "Use P ≤ C. The valid possibilities are P < C or P = C. Conclusion I covers P = C, while conclusion II covers P < C. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.",
+    "structuralFingerprint": "c15a279f",
+    "contentHash": "9b788b1e",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "DISHA-INE-003",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-5796AC9E",
+    "authorityId": "RESOLVE_EITHER_OR_CONCLUSIONS",
+    "prototypeId": "INE-CP004-PROT-RESOLVE-EITHER-OR-CONCLUSIONS",
+    "seed": 2,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "SHARED_UPPER_BRANCH_WITH_FREE_ENDPOINTS",
+    "taskKind": "EVALUATE_TWO_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "C > B",
+      "R > P",
+      "S < R"
+    ],
+    "conclusions": [
+      "P > S",
+      "S ≥ P"
+    ],
+    "options": [
+      "Only conclusion I follows",
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion II follows",
+      "Both conclusions I and II follow",
+      "Either conclusion I or conclusion II follows"
+    ],
+    "correctIndex": 4,
+    "correctOption": "Either conclusion I or conclusion II follows",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "GT"
+        ],
+        "secondSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "No chain fixes the relation between P and S. The valid possibilities are P < S, P = S, or P > S. Conclusion I covers P > S, while conclusion II covers P < S or P = S. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
+    "learningSolution": "No chain fixes the relation between P and S. The valid possibilities are P < S, P = S, or P > S. Conclusion I covers P > S, while conclusion II covers P < S or P = S. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.",
+    "structuralFingerprint": "d6ee4452",
+    "contentHash": "d12b31c7",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "DISHA-INE-003",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-AFC740A1",
+    "authorityId": "RESOLVE_EITHER_OR_CONCLUSIONS",
+    "prototypeId": "INE-CP004-PROT-RESOLVE-EITHER-OR-CONCLUSIONS",
+    "seed": 3,
+    "difficulty": "HARD",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "SHARED_LOWER_BRANCH_WITH_EQUALITY_PROOF",
+    "taskKind": "EVALUATE_TWO_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "S < Q",
+      "P > B",
+      "B < A",
+      "C = Q"
+    ],
+    "conclusions": [
+      "A > P",
+      "A ≤ P"
+    ],
+    "options": [
+      "Both conclusions I and II follow",
+      "Either conclusion I or conclusion II follows",
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion I follows",
+      "Only conclusion II follows"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Either conclusion I or conclusion II follows",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "GT"
+        ],
+        "secondSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "No chain fixes the relation between A and P. The valid possibilities are A < P, A = P, or A > P. Conclusion I covers A > P, while conclusion II covers A < P or A = P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
+    "learningSolution": "No chain fixes the relation between A and P. The valid possibilities are A < P, A = P, or A > P. Conclusion I covers A > P, while conclusion II covers A < P or A = P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.",
+    "structuralFingerprint": "1c0c855c",
+    "contentHash": "c63b4eee",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "DISHA-INE-003",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-884B31FC",
+    "authorityId": "RESOLVE_EITHER_OR_CONCLUSIONS",
+    "prototypeId": "INE-CP004-PROT-RESOLVE-EITHER-OR-CONCLUSIONS",
+    "seed": 4,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "GTE_CHAIN_THROUGH_EQUALITY",
+    "taskKind": "EVALUATE_TWO_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "R ≥ A",
+      "P < S",
+      "D = A"
+    ],
+    "conclusions": [
+      "D < R",
+      "R = D"
+    ],
+    "options": [
+      "Either conclusion I or conclusion II follows",
+      "Only conclusion II follows",
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion I follows",
+      "Both conclusions I and II follow"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Either conclusion I or conclusion II follows",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "LT"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use R ≥ A and D = A. The valid possibilities are D < R or D = R. Conclusion I covers D < R, while conclusion II covers D = R. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
+    "learningSolution": "Use R ≥ A and D = A. The valid possibilities are D < R or D = R. Conclusion I covers D < R, while conclusion II covers D = R. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.",
+    "structuralFingerprint": "9341db02",
+    "contentHash": "d9d979c6",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "DISHA-INE-003",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-DB331C47",
+    "authorityId": "RESOLVE_EITHER_OR_CONCLUSIONS",
+    "prototypeId": "INE-CP004-PROT-RESOLVE-EITHER-OR-CONCLUSIONS",
+    "seed": 5,
+    "difficulty": "HARD",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "LTE_CHAIN_THROUGH_EQUALITY",
+    "taskKind": "EVALUATE_TWO_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "D > R",
+      "S ≥ P",
+      "C ≥ D",
+      "Q = S"
+    ],
+    "conclusions": [
+      "P = Q",
+      "P < Q"
+    ],
+    "options": [
+      "Only conclusion II follows",
+      "Neither conclusion I nor conclusion II follows",
+      "Either conclusion I or conclusion II follows",
+      "Both conclusions I and II follow",
+      "Only conclusion I follows"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Either conclusion I or conclusion II follows",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "LT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use S ≥ P and Q = S. The valid possibilities are P < Q or P = Q. Conclusion I covers P = Q, while conclusion II covers P < Q. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
+    "learningSolution": "Use S ≥ P and Q = S. The valid possibilities are P < Q or P = Q. Conclusion I covers P = Q, while conclusion II covers P < Q. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.",
+    "structuralFingerprint": "82402463",
+    "contentHash": "b58e3b30",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "DISHA-INE-003",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-0ECF7542",
+    "authorityId": "RESOLVE_EITHER_OR_CONCLUSIONS",
+    "prototypeId": "INE-CP004-PROT-RESOLVE-EITHER-OR-CONCLUSIONS",
+    "seed": 6,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "INCLUSIVE_ARMS_TO_COMMON_LOWER_BOUND",
+    "taskKind": "EVALUATE_TWO_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "C > Q",
+      "P ≤ R",
+      "P ≤ S"
+    ],
+    "conclusions": [
+      "R > S",
+      "R ≤ S"
+    ],
+    "options": [
+      "Either conclusion I or conclusion II follows",
+      "Only conclusion I follows",
+      "Only conclusion II follows",
+      "Both conclusions I and II follow",
+      "Neither conclusion I nor conclusion II follows"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Either conclusion I or conclusion II follows",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "GT"
+        ],
+        "secondSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "No chain fixes the relation between R and S. The valid possibilities are R < S, R = S, or R > S. Conclusion I covers R > S, while conclusion II covers R < S or R = S. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
+    "learningSolution": "No chain fixes the relation between R and S. The valid possibilities are R < S, R = S, or R > S. Conclusion I covers R > S, while conclusion II covers R < S or R = S. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.",
+    "structuralFingerprint": "d7a7bdd5",
+    "contentHash": "73ee7e98",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "DISHA-INE-003",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-B714E435",
+    "authorityId": "RESOLVE_EITHER_OR_CONCLUSIONS",
+    "prototypeId": "INE-CP004-PROT-RESOLVE-EITHER-OR-CONCLUSIONS",
+    "seed": 7,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "TWO_EDGE_GTE_QUERY_CHAIN",
+    "taskKind": "EVALUATE_TWO_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "B > S",
+      "C ≤ Q",
+      "Q ≤ D"
+    ],
+    "conclusions": [
+      "C < D",
+      "D = C"
+    ],
+    "options": [
+      "Only conclusion II follows",
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion I follows",
+      "Either conclusion I or conclusion II follows",
+      "Both conclusions I and II follow"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Either conclusion I or conclusion II follows",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "LT"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use Q ≤ D and C ≤ Q. The valid possibilities are C < D or C = D. Conclusion I covers C < D, while conclusion II covers C = D. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
+    "learningSolution": "Use Q ≤ D and C ≤ Q. The valid possibilities are C < D or C = D. Conclusion I covers C < D, while conclusion II covers C = D. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.",
+    "structuralFingerprint": "e2fbdf38",
+    "contentHash": "b483a863",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "DISHA-INE-003",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-61C2FD30",
+    "authorityId": "RESOLVE_EITHER_OR_CONCLUSIONS",
+    "prototypeId": "INE-CP004-PROT-RESOLVE-EITHER-OR-CONCLUSIONS",
+    "seed": 8,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "DIRECT_GTE_WITH_INDEPENDENT_STRICT",
+    "taskKind": "EVALUATE_TWO_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "Q ≤ R",
+      "C > A"
+    ],
+    "conclusions": [
+      "R > Q",
+      "Q = R"
+    ],
+    "options": [
+      "Both conclusions I and II follow",
+      "Either conclusion I or conclusion II follows",
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion II follows",
+      "Only conclusion I follows"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Either conclusion I or conclusion II follows",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "GT"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use Q ≤ R. The valid possibilities are R = Q or R > Q. Conclusion I covers R > Q, while conclusion II covers R = Q. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
+    "learningSolution": "Use Q ≤ R. The valid possibilities are R = Q or R > Q. Conclusion I covers R > Q, while conclusion II covers R = Q. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.",
+    "structuralFingerprint": "05ac8c1f",
+    "contentHash": "fea32fac",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "DISHA-INE-003",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-72EAC4FB",
+    "authorityId": "RESOLVE_EITHER_OR_CONCLUSIONS",
+    "prototypeId": "INE-CP004-PROT-RESOLVE-EITHER-OR-CONCLUSIONS",
+    "seed": 9,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "DIRECT_LTE_WITH_STRICT_CHAIN",
+    "taskKind": "EVALUATE_TWO_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "D ≤ A",
+      "D > B",
+      "Q ≤ P"
+    ],
+    "conclusions": [
+      "Q < P",
+      "P = Q"
+    ],
+    "options": [
+      "Neither conclusion I nor conclusion II follows",
+      "Both conclusions I and II follow",
+      "Only conclusion II follows",
+      "Only conclusion I follows",
+      "Either conclusion I or conclusion II follows"
+    ],
+    "correctIndex": 4,
+    "correctOption": "Either conclusion I or conclusion II follows",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "LT"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use Q ≤ P. The valid possibilities are Q < P or Q = P. Conclusion I covers Q < P, while conclusion II covers Q = P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
+    "learningSolution": "Use Q ≤ P. The valid possibilities are Q < P or Q = P. Conclusion I covers Q < P, while conclusion II covers Q = P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.",
+    "structuralFingerprint": "c15a279f",
+    "contentHash": "7e159498",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "DISHA-INE-003",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-3CAE0447",
+    "authorityId": "RESOLVE_EITHER_OR_CONCLUSIONS",
+    "prototypeId": "INE-CP004-PROT-RESOLVE-EITHER-OR-CONCLUSIONS",
+    "seed": 10,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "SHARED_UPPER_BRANCH_WITH_FREE_ENDPOINTS",
+    "taskKind": "EVALUATE_TWO_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "Q > B",
+      "C < D",
+      "P < Q"
+    ],
+    "conclusions": [
+      "B ≥ P",
+      "P > B"
+    ],
+    "options": [
+      "Either conclusion I or conclusion II follows",
+      "Both conclusions I and II follow",
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion I follows",
+      "Only conclusion II follows"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Either conclusion I or conclusion II follows",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ",
+          "GT"
+        ],
+        "secondSatisfyingRelations": [
+          "LT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "No chain fixes the relation between B and P. The valid possibilities are B < P, B = P, or B > P. Conclusion I covers B = P or B > P, while conclusion II covers B < P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
+    "learningSolution": "No chain fixes the relation between B and P. The valid possibilities are B < P, B = P, or B > P. Conclusion I covers B = P or B > P, while conclusion II covers B < P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.",
+    "structuralFingerprint": "d6ee4452",
+    "contentHash": "2485c3b6",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "DISHA-INE-003",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-E9C619FC",
+    "authorityId": "RESOLVE_EITHER_OR_CONCLUSIONS",
+    "prototypeId": "INE-CP004-PROT-RESOLVE-EITHER-OR-CONCLUSIONS",
+    "seed": 11,
+    "difficulty": "HARD",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "SHARED_LOWER_BRANCH_WITH_EQUALITY_PROOF",
+    "taskKind": "EVALUATE_TWO_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "D > S",
+      "Q > A",
+      "R > A",
+      "B = D"
+    ],
+    "conclusions": [
+      "Q > R",
+      "R ≥ Q"
+    ],
+    "options": [
+      "Both conclusions I and II follow",
+      "Only conclusion II follows",
+      "Only conclusion I follows",
+      "Either conclusion I or conclusion II follows",
+      "Neither conclusion I nor conclusion II follows"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Either conclusion I or conclusion II follows",
+    "conclusionTruths": [
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "GT"
+        ],
+        "secondSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "No chain fixes the relation between Q and R. The valid possibilities are Q < R, Q = R, or Q > R. Conclusion I covers Q > R, while conclusion II covers Q < R or Q = R. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
+    "learningSolution": "No chain fixes the relation between Q and R. The valid possibilities are Q < R, Q = R, or Q > R. Conclusion I covers Q > R, while conclusion II covers Q < R or Q = R. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.",
+    "structuralFingerprint": "1c0c855c",
+    "contentHash": "78a52e61",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "DISHA-INE-003",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-C5FB47D6",
+    "authorityId": "RESOLVE_DEFINITE_PLUS_EITHER_OR",
+    "prototypeId": "INE-CP004-PROT-DEFINITE-PLUS-EITHER-OR",
+    "seed": 0,
+    "difficulty": "HARD",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "DIRECT_GTE_WITH_INDEPENDENT_STRICT",
+    "taskKind": "EVALUATE_THREE_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "R ≤ B",
+      "Q < D"
+    ],
+    "conclusions": [
+      "D > Q",
+      "R < B",
+      "R = B"
+    ],
+    "options": [
+      "None of the conclusions follows",
+      "Only conclusion I follows",
+      "Either conclusion II or conclusion III follows",
+      "Conclusion I and either conclusion II or conclusion III follow"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Conclusion I and either conclusion II or conclusion III follow",
+    "conclusionTruths": [
+      "DEFINITELY_TRUE",
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "LT"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use Q < D. This proves conclusion I: D > Q. For conclusions II and III: Use R ≤ B. The valid possibilities are R < B or R = B. Conclusion II covers R < B, while conclusion III covers R = B. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Therefore, conclusion I and either conclusion II or conclusion III follow.",
+    "learningSolution": "Use Q < D. This proves conclusion I: D > Q.\n\nFor conclusions II and III: Use R ≤ B. The valid possibilities are R < B or R = B. Conclusion II covers R < B, while conclusion III covers R = B. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, conclusion I and either conclusion II or conclusion III follow.\n\nNone of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.\n\nOnly conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.\n\nEither conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.",
+    "structuralFingerprint": "a7db7549",
+    "contentHash": "344a2712",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-7F4F76D9",
+    "authorityId": "RESOLVE_DEFINITE_PLUS_EITHER_OR",
+    "prototypeId": "INE-CP004-PROT-DEFINITE-PLUS-EITHER-OR",
+    "seed": 1,
+    "difficulty": "HARD",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "DIRECT_LTE_WITH_STRICT_CHAIN",
+    "taskKind": "EVALUATE_THREE_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "D ≥ A",
+      "C ≥ S",
+      "S > P"
+    ],
+    "conclusions": [
+      "C > P",
+      "D = A",
+      "A < D"
+    ],
+    "options": [
+      "Only conclusion I follows",
+      "None of the conclusions follows",
+      "Conclusion I and either conclusion II or conclusion III follow",
+      "Either conclusion II or conclusion III follows"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Conclusion I and either conclusion II or conclusion III follow",
+    "conclusionTruths": [
+      "DEFINITELY_TRUE",
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use C ≥ S and S > P. This proves conclusion I: C > P. For conclusions II and III: Use D ≥ A. The valid possibilities are D = A or D > A. Conclusion II covers D = A, while conclusion III covers D > A. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Therefore, conclusion I and either conclusion II or conclusion III follow.",
+    "learningSolution": "Use C ≥ S and S > P. This proves conclusion I: C > P.\n\nFor conclusions II and III: Use D ≥ A. The valid possibilities are D = A or D > A. Conclusion II covers D = A, while conclusion III covers D > A. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, conclusion I and either conclusion II or conclusion III follow.\n\nOnly conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.\n\nNone of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.\n\nEither conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.",
+    "structuralFingerprint": "46adb875",
+    "contentHash": "4182a2ad",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-BF483520",
+    "authorityId": "RESOLVE_DEFINITE_PLUS_EITHER_OR",
+    "prototypeId": "INE-CP004-PROT-DEFINITE-PLUS-EITHER-OR",
+    "seed": 2,
+    "difficulty": "HARD",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "SHARED_UPPER_BRANCH_WITH_FREE_ENDPOINTS",
+    "taskKind": "EVALUATE_THREE_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "P < A",
+      "Q < A",
+      "C > B"
+    ],
+    "conclusions": [
+      "C > B",
+      "P ≥ Q",
+      "P < Q"
+    ],
+    "options": [
+      "Only conclusion I follows",
+      "Conclusion I and either conclusion II or conclusion III follow",
+      "Either conclusion II or conclusion III follows",
+      "None of the conclusions follows"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Conclusion I and either conclusion II or conclusion III follow",
+    "conclusionTruths": [
+      "DEFINITELY_TRUE",
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ",
+          "GT"
+        ],
+        "secondSatisfyingRelations": [
+          "LT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use C > B. This proves conclusion I: C > B. For conclusions II and III: No chain fixes the relation between P and Q. The valid possibilities are P < Q, P = Q, or P > Q. Conclusion II covers P = Q or P > Q, while conclusion III covers P < Q. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Therefore, conclusion I and either conclusion II or conclusion III follow.",
+    "learningSolution": "Use C > B. This proves conclusion I: C > B.\n\nFor conclusions II and III: No chain fixes the relation between P and Q. The valid possibilities are P < Q, P = Q, or P > Q. Conclusion II covers P = Q or P > Q, while conclusion III covers P < Q. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, conclusion I and either conclusion II or conclusion III follow.\n\nOnly conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.\n\nEither conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.\n\nNone of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.",
+    "structuralFingerprint": "5cde859c",
+    "contentHash": "9f576182",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-03EBB4AB",
+    "authorityId": "RESOLVE_DEFINITE_PLUS_EITHER_OR",
+    "prototypeId": "INE-CP004-PROT-DEFINITE-PLUS-EITHER-OR",
+    "seed": 3,
+    "difficulty": "HARD",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "SHARED_LOWER_BRANCH_WITH_EQUALITY_PROOF",
+    "taskKind": "EVALUATE_THREE_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "B = S",
+      "S > C",
+      "R > P",
+      "Q > P"
+    ],
+    "conclusions": [
+      "C < B",
+      "Q ≤ R",
+      "R < Q"
+    ],
+    "options": [
+      "Conclusion I and either conclusion II or conclusion III follow",
+      "None of the conclusions follows",
+      "Only conclusion I follows",
+      "Either conclusion II or conclusion III follows"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Conclusion I and either conclusion II or conclusion III follow",
+    "conclusionTruths": [
+      "DEFINITELY_TRUE",
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use S > C and B = S. This proves conclusion I: C < B. For conclusions II and III: No chain fixes the relation between Q and R. The valid possibilities are Q < R, Q = R, or Q > R. Conclusion II covers Q < R or Q = R, while conclusion III covers Q > R. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Therefore, conclusion I and either conclusion II or conclusion III follow.",
+    "learningSolution": "Use S > C and B = S. This proves conclusion I: C < B.\n\nFor conclusions II and III: No chain fixes the relation between Q and R. The valid possibilities are Q < R, Q = R, or Q > R. Conclusion II covers Q < R or Q = R, while conclusion III covers Q > R. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, conclusion I and either conclusion II or conclusion III follow.\n\nNone of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.\n\nOnly conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.\n\nEither conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.",
+    "structuralFingerprint": "3c1b46fa",
+    "contentHash": "6d29ef6b",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-E1BFA03A",
+    "authorityId": "RESOLVE_DEFINITE_PLUS_EITHER_OR",
+    "prototypeId": "INE-CP004-PROT-DEFINITE-PLUS-EITHER-OR",
+    "seed": 4,
+    "difficulty": "HARD",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "GTE_CHAIN_THROUGH_EQUALITY",
+    "taskKind": "EVALUATE_THREE_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "C ≤ D",
+      "C = R",
+      "A > S"
+    ],
+    "conclusions": [
+      "S < A",
+      "D > R",
+      "D = R"
+    ],
+    "options": [
+      "Conclusion I and either conclusion II or conclusion III follow",
+      "None of the conclusions follows",
+      "Either conclusion II or conclusion III follows",
+      "Only conclusion I follows"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Conclusion I and either conclusion II or conclusion III follow",
+    "conclusionTruths": [
+      "DEFINITELY_TRUE",
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "GT"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use A > S. This proves conclusion I: S < A. For conclusions II and III: Use C ≤ D and C = R. The valid possibilities are D = R or D > R. Conclusion II covers D > R, while conclusion III covers D = R. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Therefore, conclusion I and either conclusion II or conclusion III follow.",
+    "learningSolution": "Use A > S. This proves conclusion I: S < A.\n\nFor conclusions II and III: Use C ≤ D and C = R. The valid possibilities are D = R or D > R. Conclusion II covers D > R, while conclusion III covers D = R. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, conclusion I and either conclusion II or conclusion III follow.\n\nNone of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.\n\nEither conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.\n\nOnly conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.",
+    "structuralFingerprint": "61edb4ec",
+    "contentHash": "d858ae61",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-F2B3F0CD",
+    "authorityId": "RESOLVE_DEFINITE_PLUS_EITHER_OR",
+    "prototypeId": "INE-CP004-PROT-DEFINITE-PLUS-EITHER-OR",
+    "seed": 5,
+    "difficulty": "HARD",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "LTE_CHAIN_THROUGH_EQUALITY",
+    "taskKind": "EVALUATE_THREE_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "R > D",
+      "S = C",
+      "C ≥ A",
+      "R ≤ P"
+    ],
+    "conclusions": [
+      "D < P",
+      "A = S",
+      "A < S"
+    ],
+    "options": [
+      "None of the conclusions follows",
+      "Either conclusion II or conclusion III follows",
+      "Conclusion I and either conclusion II or conclusion III follow",
+      "Only conclusion I follows"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Conclusion I and either conclusion II or conclusion III follow",
+    "conclusionTruths": [
+      "DEFINITELY_TRUE",
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "LT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use R ≤ P and R > D. This proves conclusion I: D < P. For conclusions II and III: Use C ≥ A and S = C. The valid possibilities are A < S or A = S. Conclusion II covers A = S, while conclusion III covers A < S. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Therefore, conclusion I and either conclusion II or conclusion III follow.",
+    "learningSolution": "Use R ≤ P and R > D. This proves conclusion I: D < P.\n\nFor conclusions II and III: Use C ≥ A and S = C. The valid possibilities are A < S or A = S. Conclusion II covers A = S, while conclusion III covers A < S. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, conclusion I and either conclusion II or conclusion III follow.\n\nNone of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.\n\nEither conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.\n\nOnly conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.",
+    "structuralFingerprint": "1baa42ed",
+    "contentHash": "d30911b5",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-7A5CF254",
+    "authorityId": "RESOLVE_DEFINITE_PLUS_EITHER_OR",
+    "prototypeId": "INE-CP004-PROT-DEFINITE-PLUS-EITHER-OR",
+    "seed": 6,
+    "difficulty": "HARD",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "INCLUSIVE_ARMS_TO_COMMON_LOWER_BOUND",
+    "taskKind": "EVALUATE_THREE_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "R < Q",
+      "B ≤ P",
+      "B ≤ C"
+    ],
+    "conclusions": [
+      "Q > R",
+      "P ≤ C",
+      "C < P"
+    ],
+    "options": [
+      "Either conclusion II or conclusion III follows",
+      "Conclusion I and either conclusion II or conclusion III follow",
+      "None of the conclusions follows",
+      "Only conclusion I follows"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Conclusion I and either conclusion II or conclusion III follow",
+    "conclusionTruths": [
+      "DEFINITELY_TRUE",
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use R < Q. This proves conclusion I: Q > R. For conclusions II and III: No chain fixes the relation between P and C. The valid possibilities are P < C, P = C, or P > C. Conclusion II covers P < C or P = C, while conclusion III covers P > C. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Therefore, conclusion I and either conclusion II or conclusion III follow.",
+    "learningSolution": "Use R < Q. This proves conclusion I: Q > R.\n\nFor conclusions II and III: No chain fixes the relation between P and C. The valid possibilities are P < C, P = C, or P > C. Conclusion II covers P < C or P = C, while conclusion III covers P > C. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, conclusion I and either conclusion II or conclusion III follow.\n\nEither conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.\n\nNone of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.\n\nOnly conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.",
+    "structuralFingerprint": "0e666e83",
+    "contentHash": "374d3a5a",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-766A539F",
+    "authorityId": "RESOLVE_DEFINITE_PLUS_EITHER_OR",
+    "prototypeId": "INE-CP004-PROT-DEFINITE-PLUS-EITHER-OR",
+    "seed": 7,
+    "difficulty": "HARD",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "TWO_EDGE_GTE_QUERY_CHAIN",
+    "taskKind": "EVALUATE_THREE_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "C ≥ Q",
+      "Q ≥ B",
+      "S < R"
+    ],
+    "conclusions": [
+      "R > S",
+      "C = B",
+      "B < C"
+    ],
+    "options": [
+      "Either conclusion II or conclusion III follows",
+      "None of the conclusions follows",
+      "Only conclusion I follows",
+      "Conclusion I and either conclusion II or conclusion III follow"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Conclusion I and either conclusion II or conclusion III follow",
+    "conclusionTruths": [
+      "DEFINITELY_TRUE",
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use S < R. This proves conclusion I: R > S. For conclusions II and III: Use C ≥ Q and Q ≥ B. The valid possibilities are C = B or C > B. Conclusion II covers C = B, while conclusion III covers C > B. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Therefore, conclusion I and either conclusion II or conclusion III follow.",
+    "learningSolution": "Use S < R. This proves conclusion I: R > S.\n\nFor conclusions II and III: Use C ≥ Q and Q ≥ B. The valid possibilities are C = B or C > B. Conclusion II covers C = B, while conclusion III covers C > B. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, conclusion I and either conclusion II or conclusion III follow.\n\nEither conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.\n\nNone of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.\n\nOnly conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.",
+    "structuralFingerprint": "f15586c6",
+    "contentHash": "593b5e09",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-C0FCAD0E",
+    "authorityId": "RESOLVE_DEFINITE_PLUS_EITHER_OR",
+    "prototypeId": "INE-CP004-PROT-DEFINITE-PLUS-EITHER-OR",
+    "seed": 8,
+    "difficulty": "HARD",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "DIRECT_GTE_WITH_INDEPENDENT_STRICT",
+    "taskKind": "EVALUATE_THREE_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "P ≤ A",
+      "D < S"
+    ],
+    "conclusions": [
+      "S > D",
+      "P = A",
+      "P < A"
+    ],
+    "options": [
+      "None of the conclusions follows",
+      "Conclusion I and either conclusion II or conclusion III follow",
+      "Either conclusion II or conclusion III follows",
+      "Only conclusion I follows"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Conclusion I and either conclusion II or conclusion III follow",
+    "conclusionTruths": [
+      "DEFINITELY_TRUE",
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "LT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use D < S. This proves conclusion I: S > D. For conclusions II and III: Use P ≤ A. The valid possibilities are P < A or P = A. Conclusion II covers P = A, while conclusion III covers P < A. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Therefore, conclusion I and either conclusion II or conclusion III follow.",
+    "learningSolution": "Use D < S. This proves conclusion I: S > D.\n\nFor conclusions II and III: Use P ≤ A. The valid possibilities are P < A or P = A. Conclusion II covers P = A, while conclusion III covers P < A. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, conclusion I and either conclusion II or conclusion III follow.\n\nNone of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.\n\nEither conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.\n\nOnly conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.",
+    "structuralFingerprint": "a7db7549",
+    "contentHash": "329477f4",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-E6689211",
+    "authorityId": "RESOLVE_DEFINITE_PLUS_EITHER_OR",
+    "prototypeId": "INE-CP004-PROT-DEFINITE-PLUS-EITHER-OR",
+    "seed": 9,
+    "difficulty": "HARD",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "DIRECT_LTE_WITH_STRICT_CHAIN",
+    "taskKind": "EVALUATE_THREE_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "P ≤ Q",
+      "C < S",
+      "S ≤ B"
+    ],
+    "conclusions": [
+      "C < B",
+      "P = Q",
+      "P < Q"
+    ],
+    "options": [
+      "Either conclusion II or conclusion III follows",
+      "None of the conclusions follows",
+      "Only conclusion I follows",
+      "Conclusion I and either conclusion II or conclusion III follow"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Conclusion I and either conclusion II or conclusion III follow",
+    "conclusionTruths": [
+      "DEFINITELY_TRUE",
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ"
+        ],
+        "firstSatisfyingRelations": [
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "LT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use S ≤ B and C < S. This proves conclusion I: C < B. For conclusions II and III: Use P ≤ Q. The valid possibilities are P < Q or P = Q. Conclusion II covers P = Q, while conclusion III covers P < Q. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Therefore, conclusion I and either conclusion II or conclusion III follow.",
+    "learningSolution": "Use S ≤ B and C < S. This proves conclusion I: C < B.\n\nFor conclusions II and III: Use P ≤ Q. The valid possibilities are P < Q or P = Q. Conclusion II covers P = Q, while conclusion III covers P < Q. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, conclusion I and either conclusion II or conclusion III follow.\n\nEither conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.\n\nNone of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.\n\nOnly conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.",
+    "structuralFingerprint": "46adb875",
+    "contentHash": "b453b9cc",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-895203A1",
+    "authorityId": "RESOLVE_DEFINITE_PLUS_EITHER_OR",
+    "prototypeId": "INE-CP004-PROT-DEFINITE-PLUS-EITHER-OR",
+    "seed": 10,
+    "difficulty": "HARD",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "SHARED_UPPER_BRANCH_WITH_FREE_ENDPOINTS",
+    "taskKind": "EVALUATE_THREE_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "A < D",
+      "S < C",
+      "R < C"
+    ],
+    "conclusions": [
+      "D > A",
+      "R < S",
+      "S ≤ R"
+    ],
+    "options": [
+      "Conclusion I and either conclusion II or conclusion III follow",
+      "None of the conclusions follows",
+      "Only conclusion I follows",
+      "Either conclusion II or conclusion III follows"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Conclusion I and either conclusion II or conclusion III follow",
+    "conclusionTruths": [
+      "DEFINITELY_TRUE",
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "LT"
+        ],
+        "secondSatisfyingRelations": [
+          "EQ",
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use A < D. This proves conclusion I: D > A. For conclusions II and III: No chain fixes the relation between R and S. The valid possibilities are R < S, R = S, or R > S. Conclusion II covers R < S, while conclusion III covers R = S or R > S. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Therefore, conclusion I and either conclusion II or conclusion III follow.",
+    "learningSolution": "Use A < D. This proves conclusion I: D > A.\n\nFor conclusions II and III: No chain fixes the relation between R and S. The valid possibilities are R < S, R = S, or R > S. Conclusion II covers R < S, while conclusion III covers R = S or R > S. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, conclusion I and either conclusion II or conclusion III follow.\n\nNone of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.\n\nOnly conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.\n\nEither conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.",
+    "structuralFingerprint": "5cde859c",
+    "contentHash": "cbbc69de",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "recordId": "INE-CP004-31216F9E",
+    "authorityId": "RESOLVE_DEFINITE_PLUS_EITHER_OR",
+    "prototypeId": "INE-CP004-PROT-DEFINITE-PLUS-EITHER-OR",
+    "seed": 11,
+    "difficulty": "HARD",
+    "deliveryProfile": "BANKING_MOCK_PROTOTYPE",
+    "topologyId": "SHARED_LOWER_BRANCH_WITH_EQUALITY_PROOF",
+    "taskKind": "EVALUATE_THREE_CONCLUSIONS",
+    "stem": "Which of the following conclusions follow from the statements?",
+    "statements": [
+      "R = B",
+      "S > A",
+      "B > Q",
+      "C > A"
+    ],
+    "conclusions": [
+      "Q < R",
+      "S ≤ C",
+      "S > C"
+    ],
+    "options": [
+      "None of the conclusions follows",
+      "Either conclusion II or conclusion III follows",
+      "Conclusion I and either conclusion II or conclusion III follow",
+      "Only conclusion I follows"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Conclusion I and either conclusion II or conclusion III follow",
+    "conclusionTruths": [
+      "DEFINITELY_TRUE",
+      "POSSIBLY_TRUE",
+      "POSSIBLY_TRUE"
+    ],
+    "complementaryEvidence": [
+      {
+        "sameCanonicalPair": true,
+        "consistent": true,
+        "validAtomicRelations": [
+          "LT",
+          "EQ",
+          "GT"
+        ],
+        "firstSatisfyingRelations": [
+          "LT",
+          "EQ"
+        ],
+        "secondSatisfyingRelations": [
+          "GT"
+        ],
+        "firstDefinitelyTrue": false,
+        "secondDefinitelyTrue": false,
+        "mutuallyExclusive": true,
+        "jointlyExhaustive": true,
+        "validEitherOr": true,
+        "status": "VALID_EITHER_OR"
+      }
+    ],
+    "mockSolution": "Use B > Q and R = B. This proves conclusion I: Q < R. For conclusions II and III: No chain fixes the relation between S and C. The valid possibilities are S < C, S = C, or S > C. Conclusion II covers S < C or S = C, while conclusion III covers S > C. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Therefore, conclusion I and either conclusion II or conclusion III follow.",
+    "learningSolution": "Use B > Q and R = B. This proves conclusion I: Q < R.\n\nFor conclusions II and III: No chain fixes the relation between S and C. The valid possibilities are S < C, S = C, or S > C. Conclusion II covers S < C or S = C, while conclusion III covers S > C. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, conclusion I and either conclusion II or conclusion III follow.\n\nNone of the conclusions follows: Conclusion I is definite, and conclusions II and III form an exhaustive either-or pair.\n\nEither conclusion II or conclusion III follows: This leaves out conclusion I, which is separately proved.\n\nOnly conclusion I follows: This ignores the exhaustive either-or pair formed by conclusions II and III.",
+    "structuralFingerprint": "3c1b46fa",
+    "contentHash": "e49dd2c4",
+    "sourceLedgerIds": [
+      "AGG-INE-002",
+      "AGG-INE-005",
+      "DISHA-INE-006"
+    ],
+    "reviewStatus": "PENDING_MANUAL_REVIEW",
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  }
+]
