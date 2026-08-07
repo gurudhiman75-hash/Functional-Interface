@@ -13,7 +13,11 @@ export function generateIntCp004Question(qlId: IntCp004QlId, seed = "int-cp004-d
   const mathematicalState = generateCp004State(qlId, seed);
   const solution = canonicalCp004Answer(mathematicalState);
   if (!verifyCp004Answer(mathematicalState, solution)) throw new Error(`${qlId}/${seed}: canonical answer failed independent verification.`);
-  const presentation = hardenCp004Presentation(mathematicalState, stemFor(mathematicalState, seed));
+  const hardenedPresentation = hardenCp004Presentation(mathematicalState, stemFor(mathematicalState, seed));
+  const presentation = Object.freeze({
+    ...hardenedPresentation,
+    stem: hardenedPresentation.stem.replace(/\bDetermine\b/gu, "Find").replace(/\bIdentify\b/gu, "Find"),
+  });
   const options = optionsFor(mathematicalState, seed);
   const correctIndex = options.findIndex((option) => option.isCorrect);
   if (correctIndex < 0 || options.filter((option) => option.isCorrect).length !== 1) throw new Error(`${qlId}/${seed}: option ownership failed.`);
