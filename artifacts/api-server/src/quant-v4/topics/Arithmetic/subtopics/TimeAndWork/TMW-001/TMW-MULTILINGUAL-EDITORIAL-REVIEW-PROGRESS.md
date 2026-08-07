@@ -8,13 +8,13 @@ Exact reviewed implementation head:
 77cdec264c41e577c8799978c85313a5d8ab156a
 ```
 
-Final verified branch head:
+Final verified proof head:
 
 ```text
 660c821deb7ac92288c0813e38c6fa89d56679ce
 ```
 
-The final branch head passed the dedicated CP-008, cumulative CP-001–CP-008 and complete multilingual chapter workflows. This evidence record does not alter localized runtime content, answers, options, traps or mathematical state.
+The current branch contains this evidence-record update after the verified proof head. It does not alter localized runtime content, answers, options, traps or mathematical state.
 
 ## Reviewed checkpoints
 
