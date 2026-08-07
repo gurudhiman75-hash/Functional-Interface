@@ -5,7 +5,7 @@ import {
   MEN_CP011_OPEN_CUBOID_DISPOSITION,
   generateMenCp011OpenContainerReviewBatch,
   proveMenCp011OpenCuboidOwnership,
-} from "./open-containers";
+} from "./open-containers-runtime";
 
 const review = generateMenCp011OpenContainerReviewBatch();
 const boundaryProofs = Array.from({ length: 32 }, (_, index) =>
