@@ -31,7 +31,10 @@ function stemScore(stem) {
 }
 
 export function applyNumCp005FinalDifficulty(source, result) {
-  const hiddenState = result.hiddenState ?? source.hiddenState ?? {};
+  const hiddenState = {
+    ...(source.hiddenState ?? {}),
+    ...(result.hiddenState ?? {}),
+  };
   const state = primePowers(hiddenState);
   const divisorCount = state.length ? divisorCountFromState(state) : 1;
   let difficulty = result.difficulty;
@@ -145,5 +148,6 @@ export function applyNumCp005FinalDifficulty(source, result) {
   return {
     ...result,
     difficulty,
+    hiddenState,
   };
 }
