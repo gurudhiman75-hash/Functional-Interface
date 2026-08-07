@@ -20,7 +20,7 @@ export function polishMalCp004SolutionFirstStem(value: string): string {
     )
     .replace(/For a processing vessel,/giu, "In a processing vessel,")
     .replace(
-      /In a processing vessel, the solution initially contains a ([^.]+) solution\./giu,
+      /In a processing vessel, (?:the solution|a container) initially contains a ([^.]+) solution\./giu,
       "In a processing vessel, the initial solution is $1.",
     )
     .replace(
