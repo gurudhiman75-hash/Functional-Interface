@@ -12,7 +12,8 @@ export function generateSapCp002ExamReadinessV4Package(
     throw new Error("SAP-CP-002 V4 seed must be a positive safe integer.");
   }
   const v3 = generateSapCp002ExamReadinessV3Package(prototypeId, seed);
-  const stem = normalizedStemV4(v3);
+  const stem = normalizedStemV4(v3)
+    .replace(/\bvalue\s+of(?=\s*[−-]?\d)/gi, "value:");
   const answer = normalizedAnswerV4(v3);
   const drafts = buildOptionDraftsV4(v3, stem, answer);
   const options = orderOptionsV4(v3, drafts);
