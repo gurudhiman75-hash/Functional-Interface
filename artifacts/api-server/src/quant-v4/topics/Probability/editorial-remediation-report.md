@@ -7,7 +7,7 @@
 - Unique visible review questions: **135/135**
 - PRB-001 review set: **75** questions using the SSC CGL/CHSL profile and four options
 - PRB-002 review set: **60** questions using the Banking Mains profile and five options
-- Average review explanation length: **15.8 words**
+- Average review explanation length: **20.8 words**
 
 ## Student-facing standard
 
