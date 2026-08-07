@@ -19,6 +19,35 @@ function nextXorShift32(state: number): number {
   return value >>> 0;
 }
 
+function stripLeadingZerosFromVisibleInteger(value: string): string {
+  return value.replace(/^0+(?=\d)/, "");
+}
+
+function normaliseVisibleDecimalPlacement(pkg: SapCp003Package): SapCp003Package {
+  if (pkg.prototypeId !== "SAP-CP003-PROT-SELECT-CORRECT-DECIMAL-PLACEMENT") return pkg;
+
+  const normaliseLine = (line: string): string => line.replace(
+    /(?:Ignoring decimal points, |Ignore the decimal points: )(\d+) × (\d+) = (\d+)/,
+    (match, left: string, right: string, product: string) => match
+      .replace(left, stripLeadingZerosFromVisibleInteger(left))
+      .replace(right, stripLeadingZerosFromVisibleInteger(right))
+      .replace(product, stripLeadingZerosFromVisibleInteger(product)),
+  );
+
+  const stem = normaliseLine(pkg.stem);
+  const steps = Object.freeze(pkg.explanation.steps.map(normaliseLine));
+  return stem === pkg.stem && steps.every((step, index) => step === pkg.explanation.steps[index])
+    ? pkg
+    : Object.freeze({
+      ...pkg,
+      stem,
+      explanation: Object.freeze({
+        ...pkg.explanation,
+        steps,
+      }),
+    });
+}
+
 function finalOptionShuffle(pkg: SapCp003Package): SapCp003Package {
   const order = [0, 1, 2, 3];
   let state = hash32([
@@ -66,8 +95,9 @@ export function generateSapCp003Package(
   prototypeId: SapCp003PrototypeId,
   seed: number,
 ): SapCp003Package {
-  const remediated = applySapCp003StructuralVariantsV2(generateV4Package(prototypeId, seed));
-  return finalOptionShuffle(remediated);
+  const varied = applySapCp003StructuralVariantsV2(generateV4Package(prototypeId, seed));
+  const presentationSafe = normaliseVisibleDecimalPlacement(varied);
+  return finalOptionShuffle(presentationSafe);
 }
 
 export function generateSapCp003Sweep(
