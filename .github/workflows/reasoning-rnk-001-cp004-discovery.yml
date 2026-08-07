@@ -34,11 +34,17 @@ jobs:
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-exam-ready-v6-publish-gates.test.ts
           rnk-cp004-exam-ready-v6-regression-output
 
-      - name: Enforce final targeted SSC and banking English Remodel V7 gates
+      - name: Enforce targeted SSC and banking English Remodel V7 gates
         run: >-
           npx --yes tsx
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-exam-ready-v7-final-gates.test.ts
-          rnk-cp004-exam-ready-v7-output
+          rnk-cp004-exam-ready-v7-base-output
+
+      - name: Enforce final V7 learner-help release alignment
+        run: >-
+          npx --yes tsx
+          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-exam-ready-v7-release-gates.test.ts
+          rnk-cp004-exam-ready-v7-release-output
 
       - name: Upload RNK-CP-004 Remodel V7 review evidence
         uses: actions/upload-artifact@v4
@@ -47,5 +53,6 @@ jobs:
           path: |
             rnk-cp004-discovery-output
             rnk-cp004-exam-ready-v6-regression-output
-            rnk-cp004-exam-ready-v7-output
+            rnk-cp004-exam-ready-v7-base-output
+            rnk-cp004-exam-ready-v7-release-output
           retention-days: 14
