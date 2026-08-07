@@ -52,6 +52,7 @@ for (const entry of TMW_CP009_REGISTRY) {
     assert.equal(new Set(question.options).size, 4);
     assert.equal(question.options[question.correctIndex], question.solution.answerText);
     assert.notEqual(question.explanation.commonTrap.optionText, question.solution.answerText);
+    assert.ok(question.explanation.conclusion.includes(question.solution.answerText));
 
     if (entry.answerType === "DIRECTION") {
       assert.match(question.solution.answerText, language === "hi" ? /टंकी|पानी का स्तर/ : /ਟੈਂਕੀ|ਪਾਣੀ ਦਾ ਪੱਧਰ/);
@@ -70,35 +71,38 @@ for (const entry of TMW_CP009_REGISTRY) {
     switch (entry.solveMode) {
       case "findFillTimeFromPositiveInlets":
         assert.match(question.stem, language === "hi" ? /टंकी के पूरी तरह भरने में कितना समय लगेगा\?$/ : /ਟੈਂਕੀ ਦੇ ਪੂਰੀ ਤਰ੍ਹਾਂ ਭਰਨ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ\?$/);
+        assert.match(question.explanation.opening, language === "hi" ? /समय उलटकर.*भरने की दर.*दरें जोड़ें/ : /ਸਮੇਂ ਨੂੰ ਉਲਟ.*ਭਰਨ ਦਰ.*ਦਰਾਂ ਜੋੜੋ/);
         break;
       case "findFillTimeFromMixedPipes":
+        assert.match(question.explanation.opening, language === "hi" ? /भरने वाली पाइपों की दरें जोड़ें.*निकासी.*घटाएँ/ : /ਭਰਨ ਵਾਲੀਆਂ ਪਾਈਪਾਂ ਦੀਆਂ ਦਰਾਂ ਜੋੜੋ.*ਨਿਕਾਸੀ.*ਘਟਾਓ/);
+        break;
       case "findEmptyTimeFromMixedPipes":
-        assert.match(question.explanation.opening, language === "hi" ? /धनात्मक.*ऋणात्मक/ : /ਧਨਾਤਮਕ.*ਰਿਣਾਤਮਕ/);
+        assert.match(question.explanation.opening, language === "hi" ? /निकासी और रिसाव की दरें जोड़ें.*भरने वाली.*घटाएँ/ : /ਨਿਕਾਸੀ ਅਤੇ ਰਿਸਾਅ ਦੀਆਂ ਦਰਾਂ ਜੋੜੋ.*ਭਰਨ ਵਾਲੀਆਂ.*ਘਟਾਓ/);
         break;
       case "findNetFractionChangedInGivenTime":
-        assert.match(question.explanation.shortcut.title, language === "hi" ? /दर गुणा समय/ : /ਦਰ ਗੁਣਾ ਸਮਾਂ/);
+        assert.match(question.explanation.shortcut.title, language === "hi" ? /शुद्ध दर × खुला समय/ : /ਸ਼ੁੱਧ ਦਰ × ਖੁੱਲ੍ਹਾ ਸਮਾਂ/);
         break;
       case "findMissingInletTime":
       case "findMissingOutletOrLeakTime":
-        assert.match(question.explanation.givens[0], language === "hi" ? /खाली हो जाती है/ : /ਖਾਲੀ ਹੋ ਜਾਂਦੀ ਹੈ/);
+        assert.match(question.explanation.givens[0], language === "hi" ? /(?:भर जाती है|खाली हो जाती है)/ : /(?:ਭਰ ਜਾਂਦੀ ਹੈ|ਖਾਲੀ ਹੋ ਜਾਂਦੀ ਹੈ)/);
         if (/रिसाव|ਰਿਸਾਅ/.test(question.stem)) {
           assert.match(question.stem, language === "hi" ? /रिसाव [A-Z] अकेला.*कितना समय लेगा\?$/ : /ਰਿਸਾਅ [A-Z] ਇਕੱਲਾ.*ਕਿੰਨਾ ਸਮਾਂ ਲਵੇਗਾ\?$/);
           assert.match(question.explanation.givens[1], language === "hi" ? /रिसाव [A-Z] द्वारा अकेले टंकी खाली/ : /ਰਿਸਾਅ [A-Z] ਨੂੰ ਇਕੱਲੇ ਟੈਂਕੀ ਖਾਲੀ/);
         }
         break;
       case "findTimeFromInitialLevelToBoundary":
-        assert.match(question.stem, language === "hi" ? /पूरी तरह भरने में/ : /ਪੂਰੀ ਤਰ੍ਹਾਂ ਭਰਨ ਵਿੱਚ/);
-        assert.match(question.explanation.opening, language === "hi" ? /1−प्रारंभिक स्तर/ : /1−ਸ਼ੁਰੂਆਤੀ ਪੱਧਰ/);
+        assert.match(question.stem, language === "hi" ? /पूरी तरह (?:भरने|खाली होने) में/ : /ਪੂਰੀ ਤਰ੍ਹਾਂ (?:ਭਰਨ|ਖਾਲੀ ਹੋਣ) ਵਿੱਚ/);
+        assert.match(question.explanation.opening, language === "hi" ? /1 − प्रारंभिक भाग.*प्रारंभिक भरा भाग/ : /1 − ਸ਼ੁਰੂਆਤੀ ਹਿੱਸਾ.*ਸ਼ੁਰੂਆਤੀ ਭਰਿਆ ਹਿੱਸਾ/);
         break;
       case "findFinalLevelAfterGivenTime":
-        assert.match(question.explanation.shortcut.title, language === "hi" ? /चिह्न सहित स्तर परिवर्तन/ : /ਚਿੰਨ੍ਹ ਸਮੇਤ ਪੱਧਰ ਬਦਲਾਅ/);
+        assert.match(question.explanation.shortcut.title, language === "hi" ? /प्रारंभिक भाग ± शुद्ध परिवर्तन/ : /ਸ਼ੁਰੂਆਤੀ ਹਿੱਸਾ ± ਸ਼ੁੱਧ ਬਦਲਾਅ/);
         break;
       case "findNetRateDirection":
         assert.match(question.stem, language === "hi" ? /बढ़ेगा, घटेगा या स्थिर रहेगा/ : /ਵਧੇਗਾ, ਘਟੇਗਾ ਜਾਂ ਸਥਿਰ ਰਹੇਗਾ/);
-        assert.match(question.explanation.shortcut.title, language === "hi" ? /चिन्ह जाँच/ : /ਚਿੰਨ੍ਹ ਜਾਂਚ/);
+        assert.match(question.explanation.shortcut.title, language === "hi" ? /दर का चिन्ह दिशा बताता है/ : /ਦਰ ਦਾ ਚਿੰਨ੍ਹ ਦਿਸ਼ਾ ਦੱਸਦਾ ਹੈ/);
         break;
       case "findBoundaryEventFeasibility":
-        assert.match(question.explanation.shortcut.title, language === "hi" ? /सीमा तुलना/ : /ਸੀਮਾ ਤੁਲਨਾ/);
+        assert.match(question.explanation.shortcut.title, language === "hi" ? /दिशा और समय—दोनों जाँचें/ : /ਦਿਸ਼ਾ ਅਤੇ ਸਮਾਂ—ਦੋਵੇਂ ਜਾਂਚੋ/);
         break;
     }
 
