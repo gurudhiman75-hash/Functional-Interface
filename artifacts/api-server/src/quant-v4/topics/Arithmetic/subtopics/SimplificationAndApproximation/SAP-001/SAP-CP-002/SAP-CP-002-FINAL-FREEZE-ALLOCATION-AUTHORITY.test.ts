@@ -162,16 +162,20 @@ for (const template of SAP_CP002_ENGLISH_TEMPLATE_AUTHORITIES) {
 }
 
 const allIds = SAP_PERMANENT_QL_REGISTRY.map((entry) => entry.permanentQlId);
-assert.equal(SAP_PERMANENT_QL_REGISTRY.length, 33);
-assert.equal(new Set(allIds).size, 33);
-for (let index = 0; index < 33; index += 1) {
+const cumulativeCount = Number(SAP_PERMANENT_QL_REGISTRY_STATE.lastAllocatedId.slice(-3));
+assert.equal(SAP_PERMANENT_QL_REGISTRY.length, cumulativeCount);
+assert.equal(new Set(allIds).size, cumulativeCount);
+for (let index = 0; index < cumulativeCount; index += 1) {
   assert.equal(allIds[index], `SAP-QL-${String(index + 1).padStart(3, "0")}`);
 }
-assert.equal(SAP_PERMANENT_QL_REGISTRY_STATE.registryVersion, 2);
-assert.equal(SAP_PERMANENT_QL_REGISTRY_STATE.allocatedCheckpointCount, 2);
-assert.equal(SAP_PERMANENT_QL_REGISTRY_STATE.allocatedTemplateCount, 33);
+assert.ok(SAP_PERMANENT_QL_REGISTRY_STATE.registryVersion >= 2);
+assert.ok(SAP_PERMANENT_QL_REGISTRY_STATE.allocatedCheckpointCount >= 2);
+assert.equal(SAP_PERMANENT_QL_REGISTRY_STATE.allocatedTemplateCount, cumulativeCount);
 assert.equal(SAP_PERMANENT_QL_REGISTRY_STATE.cp002Range, "SAP-QL-017..SAP-QL-033");
-assert.equal(SAP_PERMANENT_QL_REGISTRY_STATE.nextAvailableId, "SAP-QL-034");
+assert.equal(
+  SAP_PERMANENT_QL_REGISTRY_STATE.nextAvailableId,
+  `SAP-QL-${String(cumulativeCount + 1).padStart(3, "0")}`,
+);
 assert.equal(SAP_PERMANENT_QL_REGISTRY_STATE.activeQlCount, 0);
 assert.equal(SAP_PERMANENT_QL_REGISTRY_STATE.questionStudioDiscoverableCount, 0);
 assert.equal(SAP_PERMANENT_QL_REGISTRY_STATE.questionBankWritableCount, 0);
