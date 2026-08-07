@@ -4,9 +4,13 @@ import { buildExplanationV4, difficultyV4, normalizeMathDisplay, validateV4 } fr
 import { buildOptionDraftsV4, normalizedAnswerV4, normalizedStemV4, orderOptionsV4 } from "./options";
 import type { SapCp002ExamReadinessV4Package } from "./types";
 
-function proofStem(stem: string): string {
+function proofStem(pkg: SapCp002ExamReadinessV3Package, stem: string): string {
+  if (pkg.permanentQlId === "SAP-QL-023") {
+    const blocks = stem.match(/⟦([^⟦⟧]+)⟧[^⟦⟧]*⟦([^⟦⟧]+)⟧/);
+    if (blocks) return `Evaluate ((${blocks[1]}) ÷ (${blocks[2]})).`;
+  }
   let output = stem;
-  const stacked = /⟦([^⟦⟧]+)⟧\s*⁄\s*⟦([^⟦⟧]+)⟧/g;
+  const stacked = /⟦([^⟦⟧]+)⟧\s*[^0-9A-Za-z⟦⟧()\s]\s*⟦([^⟦⟧]+)⟧/g;
   for (let pass = 0; pass < 12; pass += 1) {
     const next = output.replace(stacked, "(($1) ÷ ($2))");
     if (next === output) break;
@@ -30,7 +34,7 @@ export function generateSapCp002ExamReadinessV4Package(
   const options = orderOptionsV4(v3, drafts);
   const correctIndex = options.findIndex((option) => option.isCorrect);
   if (correctIndex < 0) throw new Error(`${prototypeId}/${seed}: V4 has no correct option.`);
-  const explanation = buildExplanationV4(v3, proofStem(stem), answer, options);
+  const explanation = buildExplanationV4(v3, proofStem(v3, stem), answer, options);
   const difficulty = difficultyV4(v3, stem);
   const canonicalPayloadKey = v3.canonicalPayloadKey
     .replace(/^SAP_CP002_CANONICAL_V3\|/, "SAP_CP002_CANONICAL_V4|")
