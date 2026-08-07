@@ -92,10 +92,13 @@ export function explanationFor(state: Cp004MathematicalState, correctAnswer: str
       const firstAmount = completeAmountFromNominal(state.principal, state.nominalAnnualRatePercent, state.frequency, state.frequency * state.years);
       const secondAmount = completeAmountFromNominal(state.principal, state.nominalAnnualRatePercent, state.comparisonFrequency, state.comparisonFrequency * state.years);
       whatAsked = "We need to find how much extra one compounding schedule produces.";
+      const firstRate = periodicRate(state.nominalAnnualRatePercent, state.frequency);
+      const secondRate = periodicRate(state.nominalAnnualRatePercent, state.comparisonFrequency);
       steps = Object.freeze([
-        `Under ${frequencyScheduleLabel(state.frequency)} compounding, the amount after ${state.years} year${state.years === 1 ? "" : "s"} is ${moneyText(firstAmount)}.`,
-        `Under ${frequencyScheduleLabel(state.comparisonFrequency)} compounding, the amount is ${moneyText(secondAmount)}.`,
-        `Excess = larger amount − smaller amount = ${moneyText(absRational(sub(firstAmount, secondAmount)))}.`,
+        `For ${frequencyScheduleLabel(state.frequency)} compounding, the rate used each time is ${percentText(state.nominalAnnualRatePercent)} ÷ ${state.frequency} = ${percentText(firstRate)}, and it is applied ${state.frequency * state.years} times. The amount is ${moneyText(firstAmount)}.`,
+        `For ${frequencyScheduleLabel(state.comparisonFrequency)} compounding, the rate used each time is ${percentText(state.nominalAnnualRatePercent)} ÷ ${state.comparisonFrequency} = ${percentText(secondRate)}, and it is applied ${state.comparisonFrequency * state.years} times. The amount is ${moneyText(secondAmount)}.`,
+        `Now compare the two maturity amounts: ${moneyText(firstAmount)} and ${moneyText(secondAmount)}.`,
+        `Difference = larger amount − smaller amount = ${moneyText(absRational(sub(firstAmount, secondAmount)))}.`,
       ]);
       commonMistake = "Do not compare the quoted yearly rates alone; both schemes quote the same rate but add interest at different times.";
       break;
@@ -115,11 +118,13 @@ export function explanationFor(state: Cp004MathematicalState, correctAnswer: str
     case "INT-QL-077": {
       const effective = effectiveAnnualRate(state.nominalAnnualRatePercent, state.frequency);
       whatAsked = "We need to find the annual rate quoted by the scheme.";
+      const afterFirstPeriod = add(rat(100), mul(rat(100), div(periodRate, rat(100))));
+      const afterOneYear = completeAmountFromNominal(rat(100), state.nominalAnnualRatePercent, state.frequency, state.frequency);
       steps = Object.freeze([
         `The effective rate ${percentText(effective)} means ₹100 becomes ${moneyText(add(rat(100), effective))} after one year.`,
-        `Interest is added ${interestTimesPerYear(state.frequency)}. The exact rate used each time is ${percentText(periodRate)}.`,
-        `Annual quoted rate = ${percentText(periodRate)} × ${state.frequency} = ${percentText(state.nominalAnnualRatePercent)}.`,
-        `Checking this quoted rate for one year gives the effective increase ${percentText(effective)}.`,
+        `Test ${percentText(state.nominalAnnualRatePercent)} from the options. Since interest is added ${interestTimesPerYear(state.frequency)}, the rate for one period is ${percentText(state.nominalAnnualRatePercent)} ÷ ${state.frequency} = ${percentText(periodRate)}.`,
+        `After the first period, ₹100 becomes ${moneyText(afterFirstPeriod)}. After the remaining period${state.frequency === 2 ? "" : "s"}, it becomes ${moneyText(afterOneYear)}.`,
+        `${moneyText(afterOneYear)} is an increase of ${percentText(effective)} on ₹100, so the quoted annual rate is ${percentText(state.nominalAnnualRatePercent)}.`,
       ]);
       commonMistake = "Do not multiply the effective rate by the number of periods. First find the rate used in one period.";
       break;
@@ -150,10 +155,10 @@ export function explanationFor(state: Cp004MathematicalState, correctAnswer: str
     case "INT-QL-081": {
       whatAsked = "We need to find the original principal from the final broken-period amount.";
       steps = Object.freeze([
-        `The complete years and the extra ${state.tailMonths} months together turn every ₹1 into ${decimal(div(brokenAmount, state.principal), 5)}.`,
-        `Therefore, principal = final amount ÷ this complete increase.`,
-        `${moneyText(brokenAmount)} ÷ ${decimal(div(brokenAmount, state.principal), 5)} = ${moneyText(state.principal)}.`,
-        `Checking forward gives ${moneyText(brokenAmount)}, so the original sum is correct.`,
+        `Using the stated rule for the complete years and the extra ${state.tailMonths} months, every ₹1 of the starting sum becomes ₹${decimal(div(brokenAmount, state.principal), 5)}.`,
+        `The final amount is ${moneyText(brokenAmount)}, so divide it by ${decimal(div(brokenAmount, state.principal), 5)} to recover the starting sum.`,
+        `Principal = ${moneyText(brokenAmount)} ÷ ${decimal(div(brokenAmount, state.principal), 5)} = ${moneyText(state.principal)}.`,
+        `Checking forward with ${moneyText(state.principal)} gives ${moneyText(brokenAmount)}, so the original sum is correct.`,
       ]);
       commonMistake = "Do not remove only the complete-year interest; the simple-interest tail must also be removed.";
       break;
@@ -162,7 +167,7 @@ export function explanationFor(state: Cp004MathematicalState, correctAnswer: str
       whatAsked = "We need to find the annual rate that produces the stated broken-period amount.";
       steps = Object.freeze([
         `The principal is ${moneyText(state.principal)} and the final amount is ${moneyText(brokenAmount)}.`,
-        `Try the exam-friendly rates using the stated rule: compound for ${state.fullYears} complete year${state.fullYears === 1 ? "" : "s"}, then use simple interest for ${state.tailMonths} months.`,
+        `Test the rate options using the stated rule: compound for ${state.fullYears} complete year${state.fullYears === 1 ? "" : "s"}, then use simple interest for ${state.tailMonths} months.`,
         `At ${percentText(state.nominalAnnualRatePercent)}, the amount after the complete years is ${moneyText(afterWholeYears)}.`,
         `The extra-month interest is ${moneyText(tailInterest)}, so the final amount is ${moneyText(afterWholeYears)} + ${moneyText(tailInterest)} = ${moneyText(brokenAmount)}.`,
       ]);

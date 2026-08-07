@@ -3,6 +3,7 @@ import { generateCp004State } from "./cp004-frequency-generation";
 import { optionsFor } from "./cp004-frequency-options";
 import { explanationFor } from "./cp004-frequency-explanations";
 import { stemFor } from "./cp004-frequency-presentations";
+import { hardenCp004Presentation } from "./cp004-editorial-hardening";
 
 export * from "./cp004-frequency-math";
 export { generateCp004State } from "./cp004-frequency-generation";
@@ -12,7 +13,7 @@ export function generateIntCp004Question(qlId: IntCp004QlId, seed = "int-cp004-d
   const mathematicalState = generateCp004State(qlId, seed);
   const solution = canonicalCp004Answer(mathematicalState);
   if (!verifyCp004Answer(mathematicalState, solution)) throw new Error(`${qlId}/${seed}: canonical answer failed independent verification.`);
-  const presentation = stemFor(mathematicalState, seed);
+  const presentation = hardenCp004Presentation(mathematicalState, stemFor(mathematicalState, seed));
   const options = optionsFor(mathematicalState, seed);
   const correctIndex = options.findIndex((option) => option.isCorrect);
   if (correctIndex < 0 || options.filter((option) => option.isCorrect).length !== 1) throw new Error(`${qlId}/${seed}: option ownership failed.`);

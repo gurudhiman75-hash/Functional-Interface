@@ -33,12 +33,20 @@ function compatiblePrincipal(seed: string, state: Omit<Cp004MathematicalState, "
   const unit = denominator / gcdForCp004(denominator, 100n);
   if (unit > 100000n) throw new Error(`${state.qlId}: exact-paise construction requires an unrealistic principal unit ${unit}.`);
   const target = pick(FRIENDLY_BASES, seed, `${state.qlId}:principal-target`);
+  const friendlyCandidates = FRIENDLY_BASES.filter((value) => value % unit === 0n);
   const multiple = target / unit > 0n ? target / unit : 1n;
-  const candidates = [multiple, multiple + 1n, multiple > 1n ? multiple - 1n : 1n]
+  const fallbackCandidates = [multiple, multiple + 1n, multiple > 1n ? multiple - 1n : 1n]
     .map((item) => item * unit)
     .filter((item) => item >= 800n && item <= 100000n);
+  const candidates = [...(friendlyCandidates.length > 0 ? friendlyCandidates : fallbackCandidates)];
   if (candidates.length === 0) throw new Error(`${state.qlId}: no realistic exact-paise principal candidate.`);
-  return rat(pick(candidates, seed, `${state.qlId}:principal-exact`));
+  candidates.sort((left, right) => {
+    const leftDistance = left > target ? left - target : target - left;
+    const rightDistance = right > target ? right - target : target - right;
+    if (leftDistance !== rightDistance) return leftDistance < rightDistance ? -1 : 1;
+    return left < right ? -1 : left > right ? 1 : 0;
+  });
+  return rat(candidates[0]!);
 }
 
 function periodsForFrequency(seed: string, frequency: Cp004Frequency): number {
