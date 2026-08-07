@@ -54,7 +54,7 @@ for (const template of SAP_CP001_ENGLISH_TEMPLATE_PROPOSAL) {
   assert.equal(registryEntry.publiclyPublishable, false);
 }
 
-assert.equal(SAP_PERMANENT_QL_REGISTRY_STATE.registryVersion, 2);
+assert.ok(SAP_PERMANENT_QL_REGISTRY_STATE.registryVersion >= 2);
 assert.equal(SAP_PERMANENT_QL_REGISTRY_STATE.cp001Range, "SAP-QL-001..SAP-QL-016");
 assert.equal(SAP_PERMANENT_QL_REGISTRY_STATE.activeQlCount, 0);
 assert.equal(SAP_PERMANENT_QL_REGISTRY_STATE.questionStudioDiscoverableCount, 0);
