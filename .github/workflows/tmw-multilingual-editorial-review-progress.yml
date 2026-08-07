@@ -70,6 +70,8 @@ jobs:
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp006.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp007-editorial-review-remediation.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp007.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp008-editorial-review-remediation.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp008.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/chapter-localized-runtime.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp001-editorial-review.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp002-editorial-review.test.ts
@@ -78,6 +80,7 @@ jobs:
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp005-editorial-review.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp006-editorial-review.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp007-editorial-review.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp008-editorial-review.test.ts
       - name: Bundle CP-001 editorial-review proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -155,6 +158,17 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/tmw-001-cp007-editorial-review.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp007-editorial-review-proof.log
+      - name: Bundle CP-008 editorial-review proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp008-editorial-review.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp008-editorial-review.test.mjs
+      - name: Run CP-008 editorial-review proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp008-editorial-review.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp008-editorial-review-proof.log
       - name: Upload editorial-review evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -168,5 +182,6 @@ jobs:
             artifacts/api-server/dist/quant-v4/tmw-001-cp005-editorial-review-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-cp006-editorial-review-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-cp007-editorial-review-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-cp008-editorial-review-proof.log
           if-no-files-found: error
           retention-days: 14
