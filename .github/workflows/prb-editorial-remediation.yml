@@ -76,6 +76,21 @@ jobs:
           path.write_text(text)
           PY
 
+      - name: Polish reverse-probability stems
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("artifacts/api-server/src/quant-v4/topics/Probability/shared/student-facing-renderer.ts")
+          text = path.read_text()
+          old = 'return tidy(`${num(p, "favourable")} outcomes are ${text(p, "context", "favourable")}. If their probability is ${frac(num(p, "probabilityNumerator"), num(p, "probabilityDenominator", 1))}, how many equally likely outcomes are there in total?`);'
+          new = 'return tidy(`A group contains ${num(p, "favourable")} ${text(p, "context", "favourable outcomes")}. If the probability of selecting one of them is ${frac(num(p, "probabilityNumerator"), num(p, "probabilityDenominator", 1))}, how many equally likely items are there in total?`);'
+          if new not in text:
+              if old not in text:
+                  raise SystemExit("Could not find reverse-probability stem renderer")
+              text = text.replace(old, new, 1)
+          path.write_text(text)
+          PY
+
       - name: Probability TypeScript integration
         run: >-
           npx -y -p typescript@5.6.3 tsc
@@ -105,8 +120,35 @@ jobs:
 
       - name: Verify generated files
         run: |
-          test "$(($(wc -l < artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/human-review-en.csv) - 1))" -eq 75
-          test "$(($(wc -l < artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/human-review-en.csv) - 1))" -eq 60
+          python - <<'PY'
+          import csv
+          from pathlib import Path
+
+          expected = {
+              "PRB-001": (75, 4, "SSC_CGL_CHSL"),
+              "PRB-002": (60, 5, "BANKING_MAINS"),
+          }
+          for package_id, (count, option_count, profile) in expected.items():
+              path = Path(f"artifacts/api-server/src/quant-v4/topics/Probability/{package_id}/human-review-en.csv")
+              rows = list(csv.DictReader(path.open()))
+              if len(rows) != count:
+                  raise SystemExit(f"{package_id}: expected {count} rows, found {len(rows)}")
+              keys = set()
+              for row in rows:
+                  key = (" ".join(row["stem"].lower().split()), row["answer"])
+                  if key in keys:
+                      raise SystemExit(f"{package_id}: duplicate visible question: {row['stem']}")
+                  keys.add(key)
+                  if row["examProfile"] != profile:
+                      raise SystemExit(f"{package_id}: wrong exam profile")
+                  options = [row[f"option{letter}"] for letter in "ABCDE" if row[f"option{letter}"]]
+                  if len(options) != option_count or len(set(options)) != option_count:
+                      raise SystemExit(f"{package_id}: invalid options for {row['qlId']}")
+                  if row["validationValid"] != "true":
+                      raise SystemExit(f"{package_id}: invalid review row {row['qlId']}")
+              if len(keys) != count:
+                  raise SystemExit(f"{package_id}: uniqueness proof failed")
+          PY
           git diff --check
 
       - name: Commit verified remediation evidence
@@ -119,8 +161,9 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add \
             artifacts/api-server/src/quant-v4/generation-engine.ts \
+            artifacts/api-server/src/quant-v4/topics/Probability/shared/student-facing-renderer.ts \
             artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/human-review-en.csv \
             artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/human-review-en.csv \
             artifacts/api-server/src/quant-v4/topics/Probability/editorial-remediation-report.md
-          git commit -m "feat(probability): regenerate exam-ready review evidence [skip ci]"
+          git commit -m "feat(probability): regenerate unique exam-ready review evidence [skip ci]"
           git push
