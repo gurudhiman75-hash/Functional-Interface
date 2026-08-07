@@ -1,0 +1,124 @@
+name: Validate INT-CP-004 frequency and broken periods
+
+on:
+  pull_request:
+    branches:
+      - fix/int-cp003-authority-consolidation
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp004-frequency-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-004/**"
+      - ".github/workflows/int-cp004-frequency-broken-periods.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-int-cp004-frequency-broken-periods:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle inherited CP-003 approved English freeze audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp003-english-freeze-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp003-english-freeze-audit.mjs
+
+      - name: Run inherited CP-003 approved English freeze audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp003-english-freeze-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp003-english-freeze-audit.log
+
+      - name: Bundle CP-004 completion audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-completion-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-completion-audit.mjs
+
+      - name: Run CP-004 completion audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-completion-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-completion-audit.log
+
+      - name: Bundle CP-004 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-review-export.mjs
+
+      - name: Generate CP-004 review pack
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-review-export.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-review-export.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Verify CP-004 evidence
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          grep -q 'PASS_INT_CP003_APPROVED_ENGLISH_FREEZE' artifacts/api-server/dist/quant-v4/int-001-cp003-english-freeze-audit.log
+          grep -q 'PASS_INT_CP004_FREQUENCY_BROKEN_PERIODS_COMPLETION' artifacts/api-server/dist/quant-v4/int-001-cp004-completion-audit.log
+          grep -q 'PASS_INT_CP004_REVIEW_EXPORT' artifacts/api-server/dist/quant-v4/int-001-cp004-review-export.log
+          summary=artifacts/api-server/dist/quant-v4/int-cp004-frequency-broken-periods/int-cp004-completion-summary.json
+          review=artifacts/api-server/dist/quant-v4/int-cp004-review-pack
+          review_summary="$review/int-cp004-review-summary.json"
+          clean_review="$review/INT-CP-004-Questions-and-Explanations-Review.md"
+          test -f "$summary"
+          test -f "$review_summary"
+          test -f "$clean_review"
+          test -f "$review/int-cp004-76-review-data.json"
+          grep -q '"status": "INT_CP004_ENGLISH_IMPLEMENTATION_COMPLETE_REVIEW_REQUIRED"' "$summary"
+          grep -q '"qlRange": "INT-QL-067..INT-QL-085"' "$summary"
+          grep -q '"qlCount": 19' "$summary"
+          grep -q '"questionCount": 1900' "$summary"
+          grep -q '"approvalStatus": "NOT_APPROVED"' "$summary"
+          grep -q '"registrationStatus": "NOT_REGISTERED"' "$summary"
+          grep -q '"publiclyPublishable": false' "$summary"
+          grep -q '"questions": 76' "$review_summary"
+          grep -q '"qlCount": 19' "$review_summary"
+          grep -q '"questionsPerQl": 4' "$review_summary"
+          grep -q '"structuredQuestions": 19' "$review_summary"
+          grep -q '"proseQuestions": 57' "$review_summary"
+          grep -q '"answerPositions": \[' "$review_summary"
+          test "$(grep -c '^## Question ' "$clean_review")" -eq 76
+          test "$(grep -c '^### Explanation$' "$clean_review")" -eq 76
+          ! grep -E -i 'canonical|verifier|mathematical state|generation seed|annual factor|growth factor' "$clean_review"
+
+      - name: Upload CP-004 completion evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp004-frequency-broken-periods-review-candidate
+          path: |
+            artifacts/api-server/dist/quant-v4/int-001-cp003-english-freeze-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-completion-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-review-export.log
+            artifacts/api-server/dist/quant-v4/int-cp004-frequency-broken-periods/**
+            artifacts/api-server/dist/quant-v4/int-cp004-review-pack/**
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-004/INT-CP-004-DISCOVERY-AND-COMPLETION.md
+          if-no-files-found: error
+          retention-days: 30
