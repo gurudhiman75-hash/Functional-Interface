@@ -24,21 +24,27 @@ function speedText(value: Fraction): string {
 }
 
 const rows = generateFinalAuthorityReview();
+const finalCp001Rows = rows.filter((row) => row.finalCheckpointId === "TSD-CP-001");
+const finalCp002Rows = rows.filter((row) => row.finalCheckpointId === "TSD-CP-002");
+const sourceCp001Rows = rows.filter((row) => row.sourceCheckpointId === "TSD-CP-001");
+const sourceCp002Rows = rows.filter((row) => row.sourceCheckpointId === "TSD-CP-002");
+
 assert(rows.length === 153, `Expected 153 final records, received ${rows.length}`);
 assert(new Set(rows.map((row) => row.finalAuthorityKey)).size === TSD_FINAL_LEARNER_AUTHORITIES.length, "Final learner-authority coverage changed");
-assert(rows.filter((row) => row.sourceCheckpointId === "TSD-CP-001").length === 80, "CP-001 row count changed");
-assert(rows.filter((row) => row.sourceCheckpointId === "TSD-CP-002").length === 73, "CP-002 row count changed");
+assert(finalCp001Rows.length === 80, `Final CP-001 row count changed: ${finalCp001Rows.length}`);
+assert(finalCp002Rows.length === 73, `Final CP-002 row count changed: ${finalCp002Rows.length}`);
+assert(sourceCp001Rows.length === 77, `Source CP-001 row count changed: ${sourceCp001Rows.length}`);
+assert(sourceCp002Rows.length === 76, `Source CP-002 row count changed: ${sourceCp002Rows.length}`);
 assert(rows.every((row) => row.permanentQlId === null), "Permanent QL allocation was enabled");
 assert(rows.every((row) => row.reviewStatus === "EDITORIAL_REVIEW_REQUIRED"), "Review lock changed");
 assert(rows.every((row) => row.englishFreezeStatus === "UNFROZEN"), "English freeze changed");
 assert(rows.every((row) => row.publiclyPublishable === false), "Public delivery was enabled");
 
-const cp002Rows = rows.filter((row) => row.sourceCheckpointId === "TSD-CP-002");
 let correctedShareCount = 0;
 let correctedRatioCount = 0;
 let correctedRemainingSpeedCount = 0;
 
-for (const record of cp002Rows) {
+for (const record of sourceCp002Rows) {
   const question = record.sourceQuestion as TsdCp002GeneratedQuestion;
   assert(question.optionAudit.length === question.explanation.optionAnalysis.length, `${record.questionLanguageId}: audit and analysis lengths differ`);
 
@@ -110,7 +116,7 @@ function findOption(
   answerText: string,
   optionText: string,
 ): { readonly question: TsdCp002GeneratedQuestion; readonly optionIndex: number } {
-  const record = cp002Rows.find((candidate) => (
+  const record = sourceCp002Rows.find((candidate) => (
     candidate.finalAuthorityKey === authorityKey
     && candidate.sourceQuestion.answerText === answerText
     && candidate.sourceQuestion.options.includes(optionText)
@@ -140,8 +146,10 @@ console.log(JSON.stringify({
   status: "PASS",
   records: rows.length,
   learnerAuthorities: TSD_FINAL_LEARNER_AUTHORITIES.length,
-  cp001Rows: rows.filter((row) => row.sourceCheckpointId === "TSD-CP-001").length,
-  cp002Rows: cp002Rows.length,
+  finalCp001Rows: finalCp001Rows.length,
+  finalCp002Rows: finalCp002Rows.length,
+  sourceCp001Rows: sourceCp001Rows.length,
+  sourceCp002Rows: sourceCp002Rows.length,
   correctedFalseComplements: correctedShareCount,
   correctedFalseReverseRatios: correctedRatioCount,
   correctedRemainingSpeedDiagnoses: correctedRemainingSpeedCount,
