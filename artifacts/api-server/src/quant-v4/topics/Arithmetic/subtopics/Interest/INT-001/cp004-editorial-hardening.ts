@@ -1,5 +1,5 @@
 import {
-  brokenAmountForState, completeAmountForState, effectiveAnnualRate, sub,
+  add, brokenAmountForState, completeAmountForState, effectiveAnnualRate, rat, sub,
   type Cp004MathematicalState, type Cp004Representation,
 } from "./cp004-frequency-math";
 import {
@@ -7,126 +7,207 @@ import {
   moneyText, percentText,
 } from "./cp004-frequency-options";
 
-function proseStem(state: Cp004MathematicalState, frame: 1 | 2 | 3): string {
+type Row = readonly [string, string];
+
+function card(title: string, rows: readonly Row[], prompt: string): string {
+  return [
+    `**${title}**`,
+    "",
+    "| Entry | Record |",
+    "| --- | --- |",
+    ...rows.map(([label, value]) => `| ${label} | ${value} |`),
+    "",
+    prompt,
+  ].join("\n");
+}
+
+function scheduleTable(title: string, headings: readonly string[], rows: readonly (readonly string[])[], prompt: string): string {
+  return [
+    `**${title}**`,
+    "",
+    `| ${headings.join(" | ")} |`,
+    `| ${headings.map(() => "---").join(" | ")} |`,
+    ...rows.map((row) => `| ${row.join(" | ")} |`),
+    "",
+    prompt,
+  ].join("\n");
+}
+
+function neutralPlan(state: Cp004MathematicalState): string {
+  const highRate = state.nominalAnnualRatePercent.numerator > 20n * state.nominalAnnualRatePercent.denominator;
+  return highRate ? "an illustrative compound-growth plan" : "an investment plan";
+}
+
+function standardProseStem(state: Cp004MathematicalState): string {
   const amount = completeAmountForState(state);
-  const ci = sub(amount, state.principal);
+  const compoundInterest = sub(amount, state.principal);
   const brokenAmount = brokenAmountForState(state);
+  const effective = effectiveAnnualRate(state.nominalAnnualRatePercent, state.frequency);
   const rate = percentText(state.nominalAnnualRatePercent);
   const periodRate = percentText(state.periodicRatePercent);
   const duration = durationText(state.periods, state.frequency);
   const schedule = frequencyLabel(state.frequency);
   const original = moneyText(state.principal);
   const finalAmount = moneyText(amount);
-  const compoundInterest = moneyText({ numerator: ci.numerator, denominator: ci.denominator });
-  const brokenFinal = moneyText(brokenAmount);
-  const yearText = `${state.years} year${state.years === 1 ? "" : "s"}`;
-  const fullYearText = `${state.fullYears} complete year${state.fullYears === 1 ? "" : "s"}`;
-  const firstInterval = `${state.firstYears} year${state.firstYears === 1 ? "" : "s"}`;
-  const secondInterval = `${state.secondYears} year${state.secondYears === 1 ? "" : "s"}`;
-  const firstSchedule = frequencyLabel(state.firstFrequency);
-  const secondSchedule = frequencyLabel(state.secondFrequency);
+  const plan = neutralPlan(state);
 
   switch (state.qlId) {
-    case "INT-QL-067": return [
-      `A sum of ${original} is invested at ${rate} per annum, compounded ${schedule}, for ${duration}. Find the amount.`,
-      `The balance of an investment is ${original} at the start. Interest is added ${interestTimesPerYear(state.frequency)} at ${rate} per annum. What will the balance be after ${duration}?`,
-      `Under a ${frequencyScheduleLabel(state.frequency)} compounding scheme, ${original} is kept for ${duration} at ${rate} per annum. Find its maturity amount.`,
-    ][frame - 1]!;
-    case "INT-QL-068": return [
-      `Find the compound interest on ${original} at ${rate} per annum for ${duration}, when interest is compounded ${schedule}.`,
-      `An investment starts with ${original}. It earns ${rate} per annum, with interest added ${interestTimesPerYear(state.frequency)}, for ${duration}. How much interest is earned?`,
-      `${original} is placed in a ${frequencyScheduleLabel(state.frequency)} compounding scheme at ${rate} per annum for ${duration}. Find the interest included in the maturity value.`,
-    ][frame - 1]!;
-    case "INT-QL-069": return [
-      `A sum amounts to ${finalAmount} in ${duration} at ${rate} per annum, compounded ${schedule}. Find the original sum.`,
-      `An investment record shows a closing balance of ${finalAmount} after ${duration}. Interest was added ${interestTimesPerYear(state.frequency)} at ${rate} per annum. What was the opening balance?`,
-      `The maturity value under a ${frequencyScheduleLabel(state.frequency)} compounding scheme is ${finalAmount}. The annual rate is ${rate} and the term is ${duration}. Find the amount invested initially.`,
-    ][frame - 1]!;
-    case "INT-QL-070": return [
-      `The compound interest earned in ${duration} is ${compoundInterest} at ${rate} per annum, compounded ${schedule}. Find the principal.`,
-      `An account earns ${compoundInterest} as compound interest over ${duration}. Interest is added ${interestTimesPerYear(state.frequency)} at ${rate} per annum. Find its starting balance.`,
-      `Under a ${schedule} compounding scheme at ${rate} per annum, the interest after ${duration} is ${compoundInterest}. Determine the original sum.`,
-    ][frame - 1]!;
-    case "INT-QL-071": return [
-      `${original} amounts to ${finalAmount} in ${duration} when interest is compounded ${schedule}. Find the annual rate.`,
-      `A balance grows from ${original} to ${finalAmount} over ${duration}, with interest added ${interestTimesPerYear(state.frequency)}. What annual rate was charged?`,
-      `A ${frequencyScheduleLabel(state.frequency)} compounding scheme turns ${original} into ${finalAmount} in ${duration}. Find the quoted annual rate.`,
-    ][frame - 1]!;
-    case "INT-QL-072": return [
-      `${original} amounts to ${finalAmount} at ${rate} per annum, compounded ${schedule}. Find the time.`,
-      `An account starts with ${original} and reaches ${finalAmount}. Interest is added ${interestTimesPerYear(state.frequency)} at ${rate} per annum. How long was the money invested?`,
-      `Under a ${frequencyScheduleLabel(state.frequency)} compounding scheme at ${rate} per annum, ${original} becomes ${finalAmount}. Find the investment period.`,
-    ][frame - 1]!;
-    case "INT-QL-073": return [
-      `A sum of ${original} earns ${periodRate} in every ${frequencyNoun(state.frequency)} for ${state.periods} such periods. Find the amount.`,
-      `The opening balance is ${original}. At the end of each ${frequencyNoun(state.frequency)}, ${periodRate} interest is added. Find the balance after ${state.periods} periods.`,
-      `An investment pays ${periodRate} per ${frequencyNoun(state.frequency)} and remains invested for ${state.periods} complete periods. Find its maturity value.`,
-    ][frame - 1]!;
-    case "INT-QL-074": return [
-      `A sum of ${original} earns ${periodRate} in every ${frequencyNoun(state.frequency)} for ${state.periods} such periods. Find the compound interest.`,
-      `The opening balance is ${original}. Interest of ${periodRate} is added after each ${frequencyNoun(state.frequency)} for ${state.periods} periods. How much interest is earned altogether?`,
-      `An investment pays ${periodRate} per ${frequencyNoun(state.frequency)} and runs for ${state.periods} complete periods. Find only the interest earned.`,
-    ][frame - 1]!;
-    case "INT-QL-075": return [
-      `The same sum of ${original} is invested for ${yearText} at ${rate} per annum under ${frequencyScheduleLabel(state.frequency)} and ${frequencyScheduleLabel(state.comparisonFrequency)} compounding. Find the difference between the two amounts.`,
-      `Two schemes accept ${original} for ${yearText} at the same annual rate of ${rate}. One adds interest ${interestTimesPerYear(state.frequency)} and the other ${interestTimesPerYear(state.comparisonFrequency)}. How much do their maturity amounts differ?`,
-      `${original} is placed in two compound-interest plans for ${yearText}. Both quote ${rate} per annum, but one compounds ${frequencyLabel(state.frequency)} and the other ${frequencyLabel(state.comparisonFrequency)}. Find the excess amount produced by the better plan.`,
-    ][frame - 1]!;
-    case "INT-QL-076": return [
-      `A scheme quotes ${rate} per annum and adds interest ${interestTimesPerYear(state.frequency)}. Find the effective annual rate, correct to two decimal places.`,
-      `Interest is credited ${interestTimesPerYear(state.frequency)} under a plan quoting ${rate} per annum. What is the actual percentage increase in one year, correct to two decimal places?`,
-      `A compound-interest plan has a nominal annual rate of ${rate} with ${schedule} compounding. Find the one-year effective rate, correct to two decimal places.`,
-    ][frame - 1]!;
-    case "INT-QL-077": {
-      const effectiveValue = effectiveAnnualRate(state.nominalAnnualRatePercent, state.frequency);
-      const effective = percentText(effectiveValue);
-      return [
-        `The effective annual rate is ${effective} when interest is added ${interestTimesPerYear(state.frequency)}. Find the nominal annual rate.`,
-        `A plan increases ₹100 to ${moneyText({ numerator: 100n * effectiveValue.denominator + effectiveValue.numerator, denominator: effectiveValue.denominator })} in one year and credits interest ${interestTimesPerYear(state.frequency)}. Find its quoted annual rate.`,
-        `The actual one-year return of a ${schedule} compounding scheme is ${effective}. Determine the nominal rate stated per annum.`,
-      ][frame - 1]!;
-    }
-    case "INT-QL-078": return [
-      `${original} amounts to ${finalAmount} in ${yearText} at a nominal rate of ${rate} per annum. Interest is added annually, half-yearly, quarterly or monthly. Which schedule was used?`,
-      `An account grows from ${original} to ${finalAmount} in ${yearText} at a quoted rate of ${rate} per annum. Identify how often interest was added.`,
-      `A compound-interest plan produces ${finalAmount} from ${original} in ${yearText} at ${rate} per annum. Was the compounding annual, half-yearly, quarterly or monthly?`,
-    ][frame - 1]!;
-    case "INT-QL-079": return [
-      `A sum of ${original} is invested at ${rate} per annum for ${fullYearText} and ${state.tailMonths} more months. Interest is compounded annually for the complete years and simple interest is used for the remaining months. Find the amount.`,
-      `After ${fullYearText}, an investment of ${original} continues for another ${state.tailMonths} months. The complete years earn annual compound interest at ${rate}; the extra months earn simple interest on the latest balance. Find the final amount.`,
-      `A scheme keeps ${original} at ${rate} per annum for ${fullYearText} plus ${state.tailMonths} months. It compounds the complete years and uses simple interest for the last ${state.tailMonths} months. Determine the maturity value.`,
-    ][frame - 1]!;
-    case "INT-QL-080": return [
-      `A sum of ${original} is invested at ${rate} per annum for ${fullYearText} and ${state.tailMonths} more months. Interest is compounded annually for the complete years and simple interest is used for the remaining months. Find the compound interest.`,
-      `An investment of ${original} runs for ${fullYearText} and another ${state.tailMonths} months at ${rate} per annum. Annual compounding applies to the complete years and simple interest to the extra months. How much interest is earned in total?`,
-      `A scheme compounds ${original} annually for ${fullYearText}, then gives simple interest for ${state.tailMonths} months, all at ${rate} per annum. Find only the interest included in the final value.`,
-    ][frame - 1]!;
-    case "INT-QL-081": return [
-      `An investment amounts to ${brokenFinal} at ${rate} per annum after ${fullYearText} and ${state.tailMonths} more months. Interest is compounded annually for the complete years and simple interest is used for the remaining months. Find the principal.`,
-      `A maturity record shows ${brokenFinal} after ${fullYearText} plus ${state.tailMonths} months. The rate was ${rate}; complete years were compounded annually and the final months used simple interest. What was the opening sum?`,
-      `Under a scheme that compounds complete years and uses simple interest for the final ${state.tailMonths} months, the maturity amount is ${brokenFinal}. The annual rate is ${rate} and the complete term is ${fullYearText}. Find the original investment.`,
-    ][frame - 1]!;
-    case "INT-QL-082": return [
-      `${original} amounts to ${brokenFinal} after ${fullYearText} and ${state.tailMonths} more months. Interest is compounded annually for the complete years and simple interest is used for the remaining months. Find the annual rate.`,
-      `An account grows from ${original} to ${brokenFinal} over ${fullYearText} plus ${state.tailMonths} months. Complete years are compounded annually, while the last months use simple interest. Determine the yearly rate.`,
-      `A broken-period scheme turns ${original} into ${brokenFinal}. It compounds for ${fullYearText} and then uses simple interest for ${state.tailMonths} months. Find the annual rate charged throughout.`,
-    ][frame - 1]!;
-    case "INT-QL-083": return [
-      `${original} amounts to ${brokenFinal} at ${rate} per annum after some complete years and ${state.tailMonths} more months. Interest is compounded annually for the complete years and simple interest is used for the remaining months. Find the number of complete years.`,
-      `An account starting with ${original} reaches ${brokenFinal} at ${rate} per annum. After an unknown number of annually compounded years, simple interest is applied for ${state.tailMonths} months. How many complete years were there?`,
-      `A broken-period investment has principal ${original}, maturity value ${brokenFinal} and annual rate ${rate}. The last ${state.tailMonths} months use simple interest. Determine the number of complete compound-interest years before them.`,
-    ][frame - 1]!;
-    case "INT-QL-084": return [
-      `${original} is invested at ${rate} per annum. Interest is compounded ${firstSchedule} for the first ${firstInterval}, then ${secondSchedule} for the next ${secondInterval}. Find the amount.`,
-      `An investment starts at ${original}. For ${firstInterval}, interest at ${rate} per annum is added ${interestTimesPerYear(state.firstFrequency)}; for the following ${secondInterval}, it is added ${interestTimesPerYear(state.secondFrequency)}. Find the closing balance.`,
-      `A compound-interest scheme changes its schedule: ${firstSchedule} compounding for ${firstInterval}, followed by ${secondSchedule} compounding for ${secondInterval}, at ${rate} per annum throughout. Find the maturity amount on ${original}.`,
-    ][frame - 1]!;
-    case "INT-QL-085": return [
-      `${original} is invested at ${rate} per annum. Interest is compounded ${firstSchedule} for the first ${firstInterval}, then ${secondSchedule} for the next ${secondInterval}. Find the compound interest.`,
-      `An investment of ${original} earns ${rate} per annum. Interest is added ${interestTimesPerYear(state.firstFrequency)} for ${firstInterval} and ${interestTimesPerYear(state.secondFrequency)} for the following ${secondInterval}. How much interest is earned altogether?`,
-      `A compound-interest plan changes from ${firstSchedule} compounding for ${firstInterval} to ${secondSchedule} compounding for ${secondInterval}. At ${rate} per annum on ${original}, find only the interest in the maturity value.`,
-    ][frame - 1]!;
+    case "INT-QL-067": return `${original} is placed in ${plan} at ${rate} per annum, compounded ${schedule}, for ${duration}. Find the maturity amount.`;
+    case "INT-QL-068": return `${original} is placed in ${plan} at ${rate} per annum for ${duration}, with interest compounded ${schedule}. Find only the compound interest.`;
+    case "INT-QL-069": return `${finalAmount} is the maturity value after ${duration} at ${rate} per annum, compounded ${schedule}. Find the original principal.`;
+    case "INT-QL-070": return `The compound interest earned over ${duration} is ${moneyText(compoundInterest)} at ${rate} per annum, compounded ${schedule}. Find the principal.`;
+    case "INT-QL-071": return `${original} grows to ${finalAmount} in ${duration}, with interest compounded ${schedule}. Find the nominal annual rate.`;
+    case "INT-QL-072": return `${original} grows to ${finalAmount} at ${rate} per annum, compounded ${schedule}. Find the investment period.`;
+    case "INT-QL-073": return `${original} earns ${periodRate} in every ${frequencyNoun(state.frequency)} for ${state.periods} complete periods. Find the amount.`;
+    case "INT-QL-074": return `${original} earns ${periodRate} in every ${frequencyNoun(state.frequency)} for ${state.periods} complete periods. Find only the compound interest.`;
+    case "INT-QL-075": return `${original} is invested for ${state.years} year${state.years === 1 ? "" : "s"} at ${rate} per annum under ${frequencyScheduleLabel(state.frequency)} and ${frequencyScheduleLabel(state.comparisonFrequency)} compounding. Find the difference between the maturity amounts.`;
+    case "INT-QL-076": return `${neutralPlan(state)} quotes ${rate} per annum and credits interest ${interestTimesPerYear(state.frequency)}. Find the effective annual rate, correct to two decimal places.`;
+    case "INT-QL-077": return `The effective annual rate is ${percentText(effective)} when interest is credited ${interestTimesPerYear(state.frequency)}. Find the nominal annual rate.`;
+    case "INT-QL-078": return `${original} grows to ${finalAmount} in ${state.years} year${state.years === 1 ? "" : "s"} at a nominal rate of ${rate} per annum. Find whether interest was compounded annually, half-yearly, quarterly or monthly.`;
+    case "INT-QL-079": return `${original} is invested at ${rate} per annum for ${state.fullYears} complete year${state.fullYears === 1 ? "" : "s"} and ${state.tailMonths} extra months. Complete years are compounded annually; the extra months earn simple interest on the latest balance. Find the amount.`;
+    case "INT-QL-080": return `${original} is invested at ${rate} per annum for ${state.fullYears} complete year${state.fullYears === 1 ? "" : "s"} and ${state.tailMonths} extra months. Complete years are compounded annually; the extra months earn simple interest on the latest balance. Find the total interest.`;
+    case "INT-QL-081": return `A maturity value of ${moneyText(brokenAmount)} is obtained after ${state.fullYears} complete year${state.fullYears === 1 ? "" : "s"} and ${state.tailMonths} extra months at ${rate} per annum. Complete years are compounded annually and the final months use simple interest. Find the principal.`;
+    case "INT-QL-082": return `${original} becomes ${moneyText(brokenAmount)} after ${state.fullYears} complete year${state.fullYears === 1 ? "" : "s"} and ${state.tailMonths} extra months. Complete years are compounded annually and the final months use simple interest. Find the annual rate.`;
+    case "INT-QL-083": return `${original} becomes ${moneyText(brokenAmount)} at ${rate} per annum after some complete years and ${state.tailMonths} extra months. The extra months use simple interest after annual compounding. Find the number of complete years.`;
+    case "INT-QL-084": return `${original} earns ${rate} per annum. Interest is compounded ${frequencyLabel(state.firstFrequency)} for the first ${state.firstYears} year${state.firstYears === 1 ? "" : "s"}, then ${frequencyLabel(state.secondFrequency)} for the next ${state.secondYears} year${state.secondYears === 1 ? "" : "s"}. Find the amount.`;
+    case "INT-QL-085": return `${original} earns ${rate} per annum. Interest is compounded ${frequencyLabel(state.firstFrequency)} for the first ${state.firstYears} year${state.firstYears === 1 ? "" : "s"}, then ${frequencyLabel(state.secondFrequency)} for the next ${state.secondYears} year${state.secondYears === 1 ? "" : "s"}. Find only the compound interest.`;
   }
+}
+
+function balanceRecordStem(state: Cp004MathematicalState): string {
+  const amount = completeAmountForState(state);
+  const compoundInterest = sub(amount, state.principal);
+  const brokenAmount = brokenAmountForState(state);
+  const effective = effectiveAnnualRate(state.nominalAnnualRatePercent, state.frequency);
+  const rate = percentText(state.nominalAnnualRatePercent);
+  const duration = durationText(state.periods, state.frequency);
+  const schedule = frequencyScheduleLabel(state.frequency);
+  const common: Row[] = [["Crediting schedule", schedule], ["Term", duration]];
+
+  switch (state.qlId) {
+    case "INT-QL-067": return card("Maturity record", [["Opening balance", moneyText(state.principal)], ["Nominal annual rate", rate], ...common, ["Closing balance", "?"]], "Find the closing balance.");
+    case "INT-QL-068": return card("Interest record", [["Opening balance", moneyText(state.principal)], ["Nominal annual rate", rate], ...common, ["Compound interest", "?"]], "Find the compound interest.");
+    case "INT-QL-069": return card("Maturity record", [["Opening balance", "?"], ["Closing balance", moneyText(amount)], ["Nominal annual rate", rate], ...common], "Find the opening balance.");
+    case "INT-QL-070": return card("Interest record", [["Opening balance", "?"], ["Compound interest", moneyText(compoundInterest)], ["Nominal annual rate", rate], ...common], "Find the opening balance.");
+    case "INT-QL-071": return card("Rate record", [["Opening balance", moneyText(state.principal)], ["Closing balance", moneyText(amount)], ["Nominal annual rate", "?"], ...common], "Find the nominal annual rate.");
+    case "INT-QL-072": return card("Term record", [["Opening balance", moneyText(state.principal)], ["Closing balance", moneyText(amount)], ["Nominal annual rate", rate], ["Crediting schedule", schedule], ["Term", "?"]], "Find the term.");
+    case "INT-QL-073": return card("Periodic-rate record", [["Opening balance", moneyText(state.principal)], ["Rate per period", percentText(state.periodicRatePercent)], ["Period", frequencyNoun(state.frequency)], ["Number of periods", String(state.periods)], ["Closing balance", "?"]], "Find the closing balance.");
+    case "INT-QL-074": return card("Periodic-rate record", [["Opening balance", moneyText(state.principal)], ["Rate per period", percentText(state.periodicRatePercent)], ["Period", frequencyNoun(state.frequency)], ["Number of periods", String(state.periods)], ["Compound interest", "?"]], "Find the compound interest.");
+    case "INT-QL-075": return card("Two-plan record", [["Principal in each plan", moneyText(state.principal)], ["Nominal annual rate", rate], ["Term", `${state.years} year${state.years === 1 ? "" : "s"}`], ["Plan 1", frequencyScheduleLabel(state.frequency)], ["Plan 2", frequencyScheduleLabel(state.comparisonFrequency)], ["Difference in maturity values", "?"]], "Find the difference between the two maturity values.");
+    case "INT-QL-076": return card("One-year return record", [["Starting value", "₹100"], ["Quoted annual rate", rate], ["Interest credited", interestTimesPerYear(state.frequency)], ["Actual one-year increase", "?"]], "Find the effective annual rate, correct to two decimal places.");
+    case "INT-QL-077": return card("One-year return record", [["Starting value", "₹100"], ["Actual one-year increase", percentText(effective)], ["Interest credited", interestTimesPerYear(state.frequency)], ["Quoted annual rate", "?"]], "Find the nominal annual rate.");
+    case "INT-QL-078": return card("Compounding record", [["Opening balance", moneyText(state.principal)], ["Closing balance", moneyText(amount)], ["Nominal annual rate", rate], ["Term", `${state.years} year${state.years === 1 ? "" : "s"}`], ["Crediting schedule", "?"]], "Find the compounding schedule.");
+    case "INT-QL-079": return card("Broken-period record", [["Opening balance", moneyText(state.principal)], ["Annual rate", rate], ["Stage 1", `${state.fullYears} complete compounded year${state.fullYears === 1 ? "" : "s"}`], ["Stage 2", `${state.tailMonths} months at simple interest on the latest balance`], ["Closing balance", "?"]], "Find the closing balance.");
+    case "INT-QL-080": return card("Broken-period record", [["Opening balance", moneyText(state.principal)], ["Annual rate", rate], ["Stage 1", `${state.fullYears} complete compounded year${state.fullYears === 1 ? "" : "s"}`], ["Stage 2", `${state.tailMonths} months at simple interest on the latest balance`], ["Total interest", "?"]], "Find the total interest.");
+    case "INT-QL-081": return card("Broken-period maturity record", [["Opening balance", "?"], ["Closing balance", moneyText(brokenAmount)], ["Annual rate", rate], ["Stage 1", `${state.fullYears} complete compounded year${state.fullYears === 1 ? "" : "s"}`], ["Stage 2", `${state.tailMonths} months at simple interest`]], "Find the opening balance.");
+    case "INT-QL-082": return card("Broken-period rate record", [["Opening balance", moneyText(state.principal)], ["Closing balance", moneyText(brokenAmount)], ["Annual rate", "?"], ["Stage 1", `${state.fullYears} complete compounded year${state.fullYears === 1 ? "" : "s"}`], ["Stage 2", `${state.tailMonths} months at simple interest`]], "Find the annual rate.");
+    case "INT-QL-083": return card("Broken-period term record", [["Opening balance", moneyText(state.principal)], ["Closing balance", moneyText(brokenAmount)], ["Annual rate", rate], ["Complete compounded years", "?"], ["Final stage", `${state.tailMonths} months at simple interest`]], "Find the number of complete years.");
+    case "INT-QL-084": return card("Changing-schedule record", [["Opening balance", moneyText(state.principal)], ["Annual rate", rate], ["First interval", `${state.firstYears} year${state.firstYears === 1 ? "" : "s"}; ${frequencyScheduleLabel(state.firstFrequency)} compounding`], ["Second interval", `${state.secondYears} year${state.secondYears === 1 ? "" : "s"}; ${frequencyScheduleLabel(state.secondFrequency)} compounding`], ["Closing balance", "?"]], "Find the closing balance.");
+    case "INT-QL-085": return card("Changing-schedule record", [["Opening balance", moneyText(state.principal)], ["Annual rate", rate], ["First interval", `${state.firstYears} year${state.firstYears === 1 ? "" : "s"}; ${frequencyScheduleLabel(state.firstFrequency)} compounding`], ["Second interval", `${state.secondYears} year${state.secondYears === 1 ? "" : "s"}; ${frequencyScheduleLabel(state.secondFrequency)} compounding`], ["Compound interest", "?"]], "Find the compound interest.");
+  }
+}
+
+function comparisonStem(state: Cp004MathematicalState): string {
+  const amount = completeAmountForState(state);
+  const brokenAmount = brokenAmountForState(state);
+  const rate = percentText(state.nominalAnnualRatePercent);
+  const duration = durationText(state.periods, state.frequency);
+
+  if (state.qlId === "INT-QL-075") {
+    return scheduleTable(
+      "Scheme comparison",
+      ["Term", "Plan A", "Plan B"],
+      [
+        ["Principal", moneyText(state.principal), moneyText(state.principal)],
+        ["Nominal annual rate", rate, rate],
+        ["Compounding", frequencyScheduleLabel(state.frequency), frequencyScheduleLabel(state.comparisonFrequency)],
+        ["Duration", `${state.years} year${state.years === 1 ? "" : "s"}`, `${state.years} year${state.years === 1 ? "" : "s"}`],
+        ["Maturity amount", "To be calculated", "To be calculated"],
+      ],
+      "Find the difference between the two maturity amounts.",
+    );
+  }
+
+  if (["INT-QL-079", "INT-QL-080", "INT-QL-081", "INT-QL-082", "INT-QL-083"].includes(state.qlId)) {
+    const requested = state.qlId === "INT-QL-079" ? "final amount"
+      : state.qlId === "INT-QL-080" ? "total interest"
+        : state.qlId === "INT-QL-081" ? "principal"
+          : state.qlId === "INT-QL-082" ? "annual rate"
+            : "number of complete years";
+    const principal = state.qlId === "INT-QL-081" ? "?" : moneyText(state.principal);
+    const annualRate = state.qlId === "INT-QL-082" ? "?" : rate;
+    const years = state.qlId === "INT-QL-083" ? "? complete years" : `${state.fullYears} complete year${state.fullYears === 1 ? "" : "s"}`;
+    const final = ["INT-QL-081", "INT-QL-082", "INT-QL-083"].includes(state.qlId) ? moneyText(brokenAmount) : "To be calculated";
+    return scheduleTable(
+      "Broken-period timeline",
+      ["Starting value", "Stage 1", "Stage 2", "Final value"],
+      [[principal, `${years}; annual compounding at ${annualRate}`, `${state.tailMonths} months; simple interest at ${annualRate} on the latest balance`, final]],
+      `Find the ${requested}.`,
+    );
+  }
+
+  if (state.qlId === "INT-QL-084" || state.qlId === "INT-QL-085") {
+    return scheduleTable(
+      "Changing compounding timeline",
+      ["Starting value", "First interval", "Second interval", "Required"],
+      [[
+        moneyText(state.principal),
+        `${state.firstYears} year${state.firstYears === 1 ? "" : "s"}; ${frequencyScheduleLabel(state.firstFrequency)} at ${rate} per annum`,
+        `${state.secondYears} year${state.secondYears === 1 ? "" : "s"}; ${frequencyScheduleLabel(state.secondFrequency)} at ${rate} per annum`,
+        state.qlId === "INT-QL-084" ? "Amount" : "Compound interest",
+      ]],
+      state.qlId === "INT-QL-084" ? "Find the amount." : "Find the compound interest.",
+    );
+  }
+
+  if (state.qlId === "INT-QL-078") {
+    return scheduleTable(
+      "Frequency identification card",
+      ["Principal", "Maturity amount", "Nominal annual rate", "Duration", "Possible schedules"],
+      [[moneyText(state.principal), moneyText(amount), rate, `${state.years} year${state.years === 1 ? "" : "s"}`, "Annual / Half-yearly / Quarterly / Monthly"]],
+      "Find the compounding schedule.",
+    );
+  }
+
+  if (state.qlId === "INT-QL-076" || state.qlId === "INT-QL-077") {
+    const effective = effectiveAnnualRate(state.nominalAnnualRatePercent, state.frequency);
+    return scheduleTable(
+      "Nominal and effective rate card",
+      ["Starting value", "Nominal annual rate", "Crediting frequency", "Actual one-year increase"],
+      [[
+        "₹100",
+        state.qlId === "INT-QL-077" ? "?" : rate,
+        interestTimesPerYear(state.frequency),
+        state.qlId === "INT-QL-076" ? "?" : percentText(effective),
+      ]],
+      state.qlId === "INT-QL-076"
+        ? "Find the effective annual rate, correct to two decimal places."
+        : "Find the nominal annual rate.",
+    );
+  }
+
+  const required = state.qlId === "INT-QL-067" ? "Amount"
+    : state.qlId === "INT-QL-068" ? "Compound interest"
+      : state.qlId === "INT-QL-069" || state.qlId === "INT-QL-070" ? "Principal"
+        : state.qlId === "INT-QL-071" ? "Nominal annual rate"
+          : state.qlId === "INT-QL-072" ? "Duration"
+            : state.qlId === "INT-QL-073" ? "Amount"
+              : "Compound interest";
+  const principal = state.qlId === "INT-QL-069" || state.qlId === "INT-QL-070" ? "?" : moneyText(state.principal);
+  const ending = state.qlId === "INT-QL-069" || state.qlId === "INT-QL-071" || state.qlId === "INT-QL-072" ? moneyText(amount)
+    : state.qlId === "INT-QL-070" ? moneyText(sub(amount, state.principal))
+      : "To be calculated";
+  const annualRate = state.qlId === "INT-QL-071" ? "?" : rate;
+  const term = state.qlId === "INT-QL-072" ? "?" : duration;
+  const rateEntry = state.qlId === "INT-QL-073" || state.qlId === "INT-QL-074"
+    ? `${percentText(state.periodicRatePercent)} per ${frequencyNoun(state.frequency)}`
+    : `${annualRate}; ${frequencyScheduleLabel(state.frequency)} compounding`;
+  return scheduleTable(
+    "Compounding schedule card",
+    ["Opening value", "Rate and schedule", "Term", "Observed / required value"],
+    [[principal, rateEntry, term, ending]],
+    `Find the ${required.toLowerCase()}.`,
+  );
 }
 
 export function hardenCp004Presentation(
@@ -136,11 +217,11 @@ export function hardenCp004Presentation(
   const match = original.stemFamilyId.match(/FRAME-(\d)$/u);
   const frame = Number(match?.[1] ?? 1);
   if (frame <= 1) return original;
-  const proseFrame = (frame - 1) as 1 | 2 | 3;
-  const representation: Cp004Representation = frame === 2 ? "STANDARD_PROSE" : frame === 3 ? "BALANCE_RECORD" : "SCHEME_COMPARISON";
-  return Object.freeze({
-    representation,
-    stemFamilyId: original.stemFamilyId,
-    stem: proseStem(state, proseFrame),
-  });
+  if (frame === 2) {
+    return Object.freeze({ representation: "STANDARD_PROSE", stemFamilyId: original.stemFamilyId, stem: standardProseStem(state) });
+  }
+  if (frame === 3) {
+    return Object.freeze({ representation: "BALANCE_RECORD", stemFamilyId: original.stemFamilyId, stem: balanceRecordStem(state) });
+  }
+  return Object.freeze({ representation: "SCHEME_COMPARISON", stemFamilyId: original.stemFamilyId, stem: comparisonStem(state) });
 }
