@@ -21,6 +21,7 @@ import {
 import { applyNumCp005Ql058EdgeSafe } from "./release-review-ql058-edge-safe";
 import { applyNumCp005Ql059EdgeSafe } from "./release-review-ql059-edge-safe";
 import { applyNumCp005Ql063DifficultySafe } from "./release-review-ql063-difficulty-safe";
+import { applyNumCp005Ql065DiversitySafe } from "./release-review-ql065-diversity-safe";
 
 export function remediateNumCp005English(source) {
   let result;
@@ -58,7 +59,9 @@ export function remediateNumCp005English(source) {
       ? applyNumCp005Ql059EdgeSafe(source, result)
       : source.qlId === "NUM-QL-063"
         ? applyNumCp005Ql063DifficultySafe(source, result)
-        : applyNumCp005QuestionCorrections(source, result);
+        : source.qlId === "NUM-QL-065"
+          ? applyNumCp005Ql065DiversitySafe(source, result)
+          : applyNumCp005QuestionCorrections(source, result);
   const explanationInput = {
     qlId: source.qlId,
     seed: source.seed,
