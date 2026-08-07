@@ -28,6 +28,7 @@ import { applyNumCp005FinalExplanationSafety } from "./release-review-final-expl
 import { applyNumCp005FinalExamQuestionCorrections } from "./final-exam-readiness-question-corrections";
 import { applyNumCp005FinalExamExplanationCorrections } from "./final-exam-readiness-explanations";
 import { applyNumCp005FinalQl066Safe } from "./final-exam-readiness-ql066-safe";
+import { applyNumCp005FinalQl054Safe } from "./final-exam-readiness-ql054-safe";
 import { applyNumCp005FinalDifficulty } from "./final-exam-readiness-difficulty";
 import {
   applyNumCp005FinalQl053Diversity,
@@ -77,11 +78,13 @@ export function remediateNumCp005English(source) {
             : applyNumCp005QuestionCorrections(source, result);
   const finalQuestion = source.qlId === "NUM-QL-053"
     ? applyNumCp005FinalQl053Diversity(source, corrected)
-    : source.qlId === "NUM-QL-059"
-      ? applyNumCp005FinalQl059Diversity(source, corrected)
-      : source.qlId === "NUM-QL-066"
-        ? applyNumCp005FinalQl066Safe(source, corrected)
-        : applyNumCp005FinalExamQuestionCorrections(source, corrected);
+    : source.qlId === "NUM-QL-054"
+      ? applyNumCp005FinalQl054Safe(source, corrected)
+      : source.qlId === "NUM-QL-059"
+        ? applyNumCp005FinalQl059Diversity(source, corrected)
+        : source.qlId === "NUM-QL-066"
+          ? applyNumCp005FinalQl066Safe(source, corrected)
+          : applyNumCp005FinalExamQuestionCorrections(source, corrected);
   const difficultyQuestion = applyNumCp005FinalDifficulty(source, finalQuestion);
   const explanationInput = {
     qlId: source.qlId,
