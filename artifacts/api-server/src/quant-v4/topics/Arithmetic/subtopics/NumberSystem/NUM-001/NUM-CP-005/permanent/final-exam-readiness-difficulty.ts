@@ -31,7 +31,8 @@ function stemScore(stem) {
 }
 
 export function applyNumCp005FinalDifficulty(source, result) {
-  const state = primePowers(result.hiddenState ?? source.hiddenState);
+  const hiddenState = result.hiddenState ?? source.hiddenState ?? {};
+  const state = primePowers(hiddenState);
   const divisorCount = state.length ? divisorCountFromState(state) : 1;
   let difficulty = result.difficulty;
 
@@ -51,19 +52,19 @@ export function applyNumCp005FinalDifficulty(source, result) {
       break;
     }
     case "NUM-QL-048": {
-      const requirementTerms = factorTermCount(result.hiddenState.requirementFactorisation);
+      const requirementTerms = factorTermCount(hiddenState.requirementFactorisation);
       const score = state.length + requirementTerms + (/not divisible/iu.test(result.stem) ? 1 : 0);
       difficulty = band(score);
       break;
     }
     case "NUM-QL-049": {
-      const firstTerms = factorTermCount(result.hiddenState.firstRequirement);
-      const secondTerms = factorTermCount(result.hiddenState.secondRequirement);
+      const firstTerms = factorTermCount(hiddenState.firstRequirement);
+      const secondTerms = factorTermCount(hiddenState.secondRequirement);
       difficulty = band(state.length + firstTerms + secondTerms + 1);
       break;
     }
     case "NUM-QL-050": {
-      const power = Number(result.hiddenState.power ?? (/fifth/iu.test(result.stem) ? 5 : /cube/iu.test(result.stem) ? 3 : 2));
+      const power = Number(hiddenState.power ?? (/fifth/iu.test(result.stem) ? 5 : /cube/iu.test(result.stem) ? 3 : 2));
       difficulty = band(state.length + (power >= 5 ? 2 : power === 3 ? 1 : 0) + (maxExponent(state) >= 8 ? 1 : 0));
       break;
     }
@@ -80,7 +81,7 @@ export function applyNumCp005FinalDifficulty(source, result) {
       break;
     }
     case "NUM-QL-054": {
-      const target = Number(result.hiddenState.targetDivisorCount ?? result.hiddenState.divisorCount ?? divisorCount);
+      const target = Number(hiddenState.targetDivisorCount ?? hiddenState.divisorCount ?? divisorCount);
       difficulty = target <= 12 ? "EASY" : target <= 36 ? "MEDIUM" : "HARD";
       break;
     }
@@ -106,9 +107,9 @@ export function applyNumCp005FinalDifficulty(source, result) {
       break;
     }
     case "NUM-QL-060": {
-      const lower = Number(result.hiddenState.lower);
-      const upper = Number(result.hiddenState.upper);
-      const target = Number(result.hiddenState.targetDivisorCount);
+      const lower = Number(hiddenState.lower);
+      const upper = Number(hiddenState.upper);
+      const target = Number(hiddenState.targetDivisorCount);
       const width = upper - lower + 1;
       difficulty = (target === 2 || target === 3) && width <= 20
         ? "EASY"
@@ -118,7 +119,7 @@ export function applyNumCp005FinalDifficulty(source, result) {
       break;
     }
     case "NUM-QL-061": {
-      const property = String(result.hiddenState.propertyKind);
+      const property = String(hiddenState.propertyKind);
       difficulty = (property === "TOTAL_DIVISORS" || property === "ODD_DIVISORS") && state.length <= 2
         ? "EASY"
         : "MEDIUM";
@@ -129,8 +130,8 @@ export function applyNumCp005FinalDifficulty(source, result) {
       break;
     }
     case "NUM-QL-063": {
-      const integer = Number(result.hiddenState.integerValue);
-      const visible = Number(result.hiddenState.visiblePartner);
+      const integer = Number(hiddenState.integerValue);
+      const visible = Number(hiddenState.visiblePartner);
       const answer = Number(result.canonicalAnswer);
       difficulty = integer <= 10_000 && visible <= 100 && answer <= 1_000
         ? "EASY"
