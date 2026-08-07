@@ -41,7 +41,8 @@ assert(new Set(rows.map((row) => row.questionLanguageId)).size === rows.length, 
 assert(new Set(rows.map((row) => row.solveMode)).size === 38, "Final learner authority count changed");
 assert(rows.every((row) => row.schemaVersion === TSD_CANONICAL_REVIEW_SCHEMA_VERSION), "Schema version mismatch");
 assert(rows.every((row) => row.permanentQlId === null), "Permanent QL assigned before approval");
-assert(rows.every((row) => row.validation.valid && row.validation.errors.length === 0), "Invalid source record entered canonical review");
+const invalidRows = rows.filter((row) => !row.validation.valid || row.validation.errors.length > 0);
+assert(invalidRows.length === 0, `Invalid source records: ${invalidRows.map((row) => `${row.seed} => ${row.validation.errors.join(" | ")}`).join("; ")}`);
 assert(rows.every((row) => row.lifecycle.reviewStatus === "EDITORIAL_REVIEW_REQUIRED"), "Review lifecycle changed");
 assert(rows.every((row) => row.lifecycle.englishDecision === "NEEDS_REVISION" && row.lifecycle.englishFreezeStatus === "UNFROZEN"), "English was accidentally refrozen");
 assert(rows.every((row) => row.lifecycle.questionBankStatus === "NOT_STORED" && row.lifecycle.testEligibility === "INELIGIBLE" && !row.lifecycle.publiclyPublishable), "Delivery lock failed");
