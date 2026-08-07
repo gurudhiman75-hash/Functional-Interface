@@ -50,12 +50,36 @@ export interface TmwCp010LocalizedQuestion {
   publiclyPublishable: false;
 }
 
+function localizeDynamicScheduleLabels(text: string, language: TmwLocalizedLanguage): string {
+  if (language === "hi") {
+    return text
+      .replace(/Fast inlet\s+पाली/gi, "तेज़ भराव वाली पाली")
+      .replace(/Slow inlet\s+पाली/gi, "धीमे भराव वाली पाली")
+      .replace(/Fast outlet\s+पाली/gi, "तेज़ निकासी वाली पाली")
+      .replace(/Slow outlet\s+पाली/gi, "धीमी निकासी वाली पाली")
+      .replace(/Fast inlet/gi, "तेज़ भराव")
+      .replace(/Slow inlet/gi, "धीमा भराव")
+      .replace(/Fast outlet/gi, "तेज़ निकासी")
+      .replace(/Slow outlet/gi, "धीमी निकासी");
+  }
+  return text
+    .replace(/Fast inlet\s+(?:ਪਾਰੀ|ਵਾਰੀ)/gi, "ਤੇਜ਼ ਭਰਾਵ ਵਾਲੀ ਵਾਰੀ")
+    .replace(/Slow inlet\s+(?:ਪਾਰੀ|ਵਾਰੀ)/gi, "ਹੌਲੇ ਭਰਾਵ ਵਾਲੀ ਵਾਰੀ")
+    .replace(/Fast outlet\s+(?:ਪਾਰੀ|ਵਾਰੀ)/gi, "ਤੇਜ਼ ਨਿਕਾਸੀ ਵਾਲੀ ਵਾਰੀ")
+    .replace(/Slow outlet\s+(?:ਪਾਰੀ|ਵਾਰੀ)/gi, "ਹੌਲੀ ਨਿਕਾਸੀ ਵਾਲੀ ਵਾਰੀ")
+    .replace(/Fast inlet/gi, "ਤੇਜ਼ ਭਰਾਵ")
+    .replace(/Slow inlet/gi, "ਹੌਲਾ ਭਰਾਵ")
+    .replace(/Fast outlet/gi, "ਤੇਜ਼ ਨਿਕਾਸੀ")
+    .replace(/Slow outlet/gi, "ਹੌਲੀ ਨਿਕਾਸੀ");
+}
+
 export function localizeTmwCp010Question(
   source: TmwCp010GeneratedQuestion,
   language: TmwLocalizedLanguage,
 ): TmwCp010LocalizedQuestion {
   const entry = getTmwCp010Entry(source.questionLanguageId);
   const polish = (text: string): string => polishTmwCp010Text(text, language);
+  const polishProse = (text: string): string => localizeDynamicScheduleLabels(polish(text), language);
   const answerText = polish(cp010AnswerText(
     source,
     source.solution.answerValues,
@@ -77,18 +101,18 @@ export function localizeTmwCp010Question(
   );
   if (trapIndex < 0) trapIndex = source.optionAudit.findIndex((option) => option.misconceptionId === trapId);
 
-  const rawStem = polish(renderTmwCp010LocalizedStem(source, language));
-  const rawOpening = polish(tmwCp010LocalizedOpening(entry.ruleId, language));
+  const rawStem = polishProse(renderTmwCp010LocalizedStem(source, language));
+  const rawOpening = polishProse(tmwCp010LocalizedOpening(entry.ruleId, language));
   const formula = polish(source.explanation.formula);
-  const rawGivens = tmwCp010LocalizedGivens(source, language).map(polish);
-  const rawSteps = source.explanation.steps.map((step) => polish(localizeMathStep(step, language)));
+  const rawGivens = tmwCp010LocalizedGivens(source, language).map(polishProse);
+  const rawSteps = source.explanation.steps.map((step) => polishProse(localizeMathStep(step, language)));
   const rawShortcutSource = tmwCp010LocalizedShortcut(source, answerText, language);
   const rawShortcut = {
-    title: polish(rawShortcutSource.title),
-    steps: rawShortcutSource.steps.map(polish),
+    title: polishProse(rawShortcutSource.title),
+    steps: rawShortcutSource.steps.map(polishProse),
   };
-  const rawTrapExplanation = polish(tmwCp010LocalizedTrapReason(trapId, language));
-  const rawConclusion = polish(tmwCp010LocalizedConclusion(source, answerText, language));
+  const rawTrapExplanation = polishProse(tmwCp010LocalizedTrapReason(trapId, language));
+  const rawConclusion = polishProse(tmwCp010LocalizedConclusion(source, answerText, language));
   const editorial = remediateTmwCp010LocalizedEditorial(
     source,
     {
