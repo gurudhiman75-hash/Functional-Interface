@@ -13,5 +13,7 @@ export * from "./probability-visual";
 export * from "./validator";
 export * from "./library";
 export * from "./pipeline";
-
+export * from "./exam-profile";
+export * from "./difficulty-calibrator";
+export * from "./student-facing-renderer";
 export * from "./coverage-auditor";
