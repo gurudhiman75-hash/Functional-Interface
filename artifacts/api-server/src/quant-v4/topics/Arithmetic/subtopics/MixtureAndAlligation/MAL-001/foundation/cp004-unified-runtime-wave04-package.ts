@@ -7,6 +7,19 @@ import {
   malCp004Wave04Validate,
 } from "./cp004-unified-runtime-wave04-core";
 
+function naturalQuestionStem(stem: string): string {
+  const normalized = stem
+    .replace(/\. Find the ([^.]+)\.$/u, ". What is the $1?")
+    .replace(/\. Determine the ([^.]+)\.$/u, ". What is the $1?")
+    .replace(/\. Find its ([^.]+)\.$/u, ". What is its $1?")
+    .replace(/\. Given ([^,]+), calculate the ([^.]+)\.$/u, ". Given $1, what is the $2?")
+    .replace(/\. Calculate the ([^.]+)\.$/u, ". What is the $1?");
+  if (normalized.endsWith("?")) return normalized;
+  return normalized.endsWith(".")
+    ? `${normalized.slice(0, -1)}?`
+    : `${normalized}?`;
+}
+
 export function malCp004Wave04Package(
   input: Omit<
     MalCp004Wave04Question,
@@ -40,7 +53,7 @@ export function malCp004Wave04Package(
     difficulty: input.difficulty,
     sourceEvidenceIds: input.sourceEvidenceIds,
     sourceMatchKind: input.sourceMatchKind,
-    stem: input.stem,
+    stem: naturalQuestionStem(input.stem),
     answer: input.answer,
     answerValue: input.answerValue,
     answerUnit: input.answerUnit,
