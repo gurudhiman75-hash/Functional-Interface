@@ -1,10 +1,13 @@
 import {
+  addRational,
   compareRational,
+  divideRational,
   equalsRational,
   formatRational,
   multiplyRational,
   rational,
   rationalKey,
+  subtractRational,
 } from "./rational";
 import type { Rational } from "./types";
 import type {
@@ -73,6 +76,70 @@ export function malCp004Wave04AnswerText(
     : malCp004Wave04Quantity(value, unit);
 }
 
+function addControlledFallbackDistractors(
+  unique: Map<
+    string,
+    { value: Rational; misconceptionId: string; isCorrect: boolean }
+  >,
+  input: {
+    answerValue: Rational;
+    answerUnit: "litres" | "kg" | "percent";
+  },
+): void {
+  const candidates =
+    input.answerUnit === "percent"
+      ? [
+          {
+            value: subtractRational(rational(1), input.answerValue),
+            misconceptionId: "reported_complement_percentage",
+          },
+          {
+            value: divideRational(input.answerValue, rational(2)),
+            misconceptionId: "halved_component_rate",
+          },
+          {
+            value: divideRational(
+              addRational(input.answerValue, rational(1)),
+              rational(2),
+            ),
+            misconceptionId: "averaged_rate_with_pure_component",
+          },
+        ]
+      : [
+          {
+            value: divideRational(input.answerValue, rational(2)),
+            misconceptionId: "divided_required_change_between_two_steps",
+          },
+          {
+            value: multiplyRational(input.answerValue, rational(2)),
+            misconceptionId: "applied_required_change_twice",
+          },
+          {
+            value: multiplyRational(input.answerValue, rational(3, 2)),
+            misconceptionId: "used_one_and_half_times_required_change",
+          },
+        ];
+
+  for (const candidate of candidates) {
+    if (unique.size >= 4) break;
+    if (compareRational(candidate.value, rational(0)) <= 0) continue;
+    if (
+      input.answerUnit === "percent" &&
+      compareRational(candidate.value, rational(1)) >= 0
+    ) {
+      continue;
+    }
+    const key = rationalKey(candidate.value);
+    if (!unique.has(key)) {
+      unique.set(key, {
+        value: candidate.value,
+        misconceptionId: candidate.misconceptionId,
+        isCorrect: false,
+      });
+    }
+  }
+}
+
 export function malCp004Wave04BuildOptions(input: {
   answerValue: Rational;
   answerUnit: "litres" | "kg" | "percent";
@@ -109,6 +176,9 @@ export function malCp004Wave04BuildOptions(input: {
         isCorrect: false,
       });
     }
+  }
+  if (unique.size < 4) {
+    addControlledFallbackDistractors(unique, input);
   }
   if (unique.size < 4) {
     throw new Error(
@@ -148,7 +218,9 @@ export function malCp004Wave04StateFingerprint(
   return Object.entries(exactState)
     .sort(([left], [right]) => left.localeCompare(right))
     .map(([key, value]) =>
-      typeof value === "string" ? `${key}=${value}` : `${key}=${rationalKey(value)}`,
+      typeof value === "string"
+        ? `${key}=${value}`
+        : `${key}=${rationalKey(value)}`,
     )
     .join("|");
 }
@@ -158,8 +230,10 @@ export function malCp004Wave04Validate(
 ): { ok: boolean; errors: string[] } {
   const errors: string[] = [];
   if (!question.stem.endsWith("?")) errors.push("Stem is not interrogative.");
-  if (question.options.length !== 4) errors.push("Question does not have four options.");
-  if (new Set(question.options).size !== 4) errors.push("Options are not unique.");
+  if (question.options.length !== 4)
+    errors.push("Question does not have four options.");
+  if (new Set(question.options).size !== 4)
+    errors.push("Options are not unique.");
   if (question.options[question.correctIndex] !== question.answer) {
     errors.push("Correct option does not match the answer.");
   }
@@ -174,13 +248,16 @@ export function malCp004Wave04Validate(
   }
   if (
     !question.optionAudit.some(
-      (option) => option.isCorrect && equalsRational(option.value, question.answerValue),
+      (option) =>
+        option.isCorrect && equalsRational(option.value, question.answerValue),
     )
   ) {
     errors.push("Correct option value does not match the exact answer.");
   }
-  if (question.sourceEvidenceIds.length === 0) errors.push("Source evidence is missing.");
-  if (question.permanentQlId !== null) errors.push("Permanent QL leaked into discovery.");
+  if (question.sourceEvidenceIds.length === 0)
+    errors.push("Source evidence is missing.");
+  if (question.permanentQlId !== null)
+    errors.push("Permanent QL leaked into discovery.");
   if (
     question.active ||
     question.publiclyPublishable ||
@@ -190,7 +267,8 @@ export function malCp004Wave04Validate(
   ) {
     errors.push("A Wave 04 product flag became enabled.");
   }
-  if (question.ledger.rows.length === 0) errors.push("Conservation table is empty.");
+  if (question.ledger.rows.length === 0)
+    errors.push("Conservation table is empty.");
   if (question.explanation.calculation.length < 2) {
     errors.push("Explanation calculation is too shallow.");
   }
@@ -213,7 +291,12 @@ export function malCp004Wave04Validate(
   ) {
     errors.push("Learner output contains artificial or unrelated language.");
   }
-  if (/\b1 operations\b|\b\d+ litres is\b/iu.test(learnerText)) {
+  if (
+    /\b1 operations\b/iu.test(learnerText) ||
+    /\b(?:2|3|4|5|6|7|8|9|\d{2,})(?:\s+\d+\/\d+)? litres is (?:added|removed|drawn|evaporated|present|left|lost)\b/iu.test(
+      learnerText,
+    )
+  ) {
     errors.push("Grammar inflection is incorrect.");
   }
   return { ok: errors.length === 0, errors };
