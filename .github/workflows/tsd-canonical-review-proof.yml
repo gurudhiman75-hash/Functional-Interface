@@ -20,6 +20,7 @@ on:
       - fix/tsd-proportion-option-labels
       - fix/tsd-deadline-option-feedback
       - fix/tsd-mixed-unit-option-feedback
+      - fix/tsd-clock-option-labels
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/**
@@ -69,6 +70,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/deadline-option-feedback-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/deadline-option-feedback-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/mixed-unit-option-feedback-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/mixed-unit-option-feedback-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/clock-option-label-integrity-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/clock-option-label-integrity-proof.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$ROOT/direct-option-label-integrity-proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/direct-option-label-integrity-proof.mjs"
           pnpm --dir artifacts/api-server exec esbuild "$ROOT/canonical-review-export.ts" --bundle --platform=node --format=esm --outfile="$OUT/canonical-review-export.mjs"
 
       - name: Run canonical schema and diversity proofs
@@ -91,13 +93,14 @@ jobs:
           node dist/quant-v4/tsd-001/canonical-review/deadline-option-feedback-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/deadline-option-feedback-proof.log
           node dist/quant-v4/tsd-001/canonical-review/mixed-unit-option-feedback-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/mixed-unit-option-feedback-proof.log
           node dist/quant-v4/tsd-001/canonical-review/clock-option-label-integrity-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/clock-option-label-integrity-proof.log
+          node dist/quant-v4/tsd-001/canonical-review/direct-option-label-integrity-proof.mjs | tee dist/quant-v4/tsd-001/canonical-review/direct-option-label-integrity-proof.log
           node dist/quant-v4/tsd-001/canonical-review/canonical-review-export.mjs | tee dist/quant-v4/tsd-001/canonical-review/canonical-review-export.log
 
       - name: Upload canonical and diversity proof logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-clock-option-label-integrity-proof
+          name: tsd-direct-option-label-integrity-proof
           path: |
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/canonical-review-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/p1-diversity-batch-01-proof.log
@@ -115,12 +118,13 @@ jobs:
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/deadline-option-feedback-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/mixed-unit-option-feedback-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/clock-option-label-integrity-proof.log
+            artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/direct-option-label-integrity-proof.log
             artifacts/api-server/dist/quant-v4/tsd-001/canonical-review/canonical-review-export.log
           if-no-files-found: error
 
       - name: Upload corrected canonical review package
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-clock-option-label-integrity-review
+          name: tsd-direct-option-label-integrity-review
           path: artifacts/api-server/dist/quant-v4/tsd-001/canonical-review
           if-no-files-found: error
