@@ -22,7 +22,9 @@ export function generateIntCp004Question(qlId: IntCp004QlId, seed = "int-cp004-d
       .replace(/, find only the interest/gu, ". Find only the interest")
       .replace(/from annually compounding/gu, "from annual compounding")
       .replace(/to annually compounding/gu, "to annual compounding")
-      .replace(/\bannually compounding\b/gu, "annual compounding"),
+      .replace(/\bannually compounding\b/gu, "annual compounding")
+      .replace(/\ba annual compounding scheme\b/gu, "an annual compounding scheme")
+      .replace(/At ([0-9.]+%) per annum on (₹[0-9,.]+)\. Find only the interest in the maturity value\./gu, "Find only the interest in the maturity value on $2 at $1 per annum."),
   });
   const options = optionsFor(mathematicalState, seed);
   const correctIndex = options.findIndex((option) => option.isCorrect);
