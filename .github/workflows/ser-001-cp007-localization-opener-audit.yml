@@ -1,0 +1,50 @@
+name: Audit SER-001 CP-007 localization stem openers
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-LOCALIZATION/ser-cp-007-stem-opener-audit.ts"
+      - ".github/workflows/ser-001-cp007-localization-opener-audit.yml"
+
+jobs:
+  audit-openers:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Audit live stem openers
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-LOCALIZATION
+          OUT=dist/reasoning-v1/ser-001
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/ser-cp-007-stem-opener-audit.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/ser-cp-007-stem-opener-audit.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-007-stem-opener-audit.mjs") \
+            | tee SER-CP-007-Stem-Opener-Audit.json
+          grep -q 'PASS_SER_CP007_STEM_OPENER_AUDIT' SER-CP-007-Stem-Opener-Audit.json
+
+      - name: Upload opener audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: ser-001-cp007-localization-stem-openers
+          path: SER-CP-007-Stem-Opener-Audit.json
+          if-no-files-found: error
+          retention-days: 7
