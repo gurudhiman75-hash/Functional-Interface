@@ -1,0 +1,120 @@
+name: Probability contextual follow-up
+
+on:
+  push:
+    branches:
+      - feat/prb-probability-end-to-end
+    paths:
+      - ".github/workflows/prb-contextual-followup.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  contextual-follow-up:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Correct singular head wording
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("artifacts/api-server/src/quant-v4/topics/Probability/shared/explanation-renderer.ts")
+          text = path.read_text()
+          old = '''    return [
+                `At most ${k} heads means 0, 1, ..., ${k} heads. Required sequences = ${parts} = ${favourable ?? 0n}.`,
+                probabilityCalculation(favourable ?? 0n, total ?? BigInt(2 ** tosses), solved.exactDisplay),
+              ];'''
+          new = '''    const range = k === 1 ? "0 or 1 head" : `0, 1, ..., ${k} heads`;
+              return [
+                `At most ${k} ${plural(k, "head")} means ${range}. Required sequences = ${parts} = ${favourable ?? 0n}.`,
+                probabilityCalculation(favourable ?? 0n, total ?? BigInt(2 ** tosses), solved.exactDisplay),
+              ];'''
+          if new not in text:
+              if old not in text:
+                  raise SystemExit("Could not find the at-most-heads explanation block.")
+              text = text.replace(old, new, 1)
+          path.write_text(text)
+          PY
+
+      - name: TypeScript proof
+        run: >-
+          npx -y -p typescript@5.6.3 tsc
+          --noEmit
+          --target ES2020
+          --module commonjs
+          --moduleResolution node
+          --resolveJsonModule
+          --esModuleInterop
+          --skipLibCheck
+          artifacts/api-server/src/quant-v4/topics/Probability/exam-readiness.test.ts
+
+      - name: PRB-001 proof
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/package.test.ts
+
+      - name: PRB-002 proof
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/package.test.ts
+
+      - name: Exam-readiness proof
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/exam-readiness.test.ts
+
+      - name: Question Studio proof
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/question-studio-profile.test.ts
+
+      - name: Regenerate review evidence
+        run: |
+          npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/generate-exam-review.ts
+          npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/generate-comprehensive-questions.ts
+
+      - name: Verify review evidence
+        run: |
+          python - <<'PY'
+          import csv
+          from pathlib import Path
+          rows = []
+          for package_id, expected in (("PRB-001", 75), ("PRB-002", 60)):
+              path = Path(f"artifacts/api-server/src/quant-v4/topics/Probability/{package_id}/human-review-en.csv")
+              current = list(csv.DictReader(path.open()))
+              if len(current) != expected:
+                  raise SystemExit(f"{package_id}: expected {expected}, found {len(current)}")
+              rows.extend(current)
+          if len({(" ".join(row["stem"].lower().split()), row["answer"]) for row in rows}) != 135:
+              raise SystemExit("Visible question uniqueness failed.")
+          for row in rows:
+              if row["validationValid"] != "true":
+                  raise SystemExit(f"Invalid row: {row['qlId']}")
+              if row["explanation"].startswith(("Favourable outcomes =", "Total outcomes =", "Total possible outcomes =")):
+                  raise SystemExit(f"Generic explanation: {row['qlId']}")
+          markdown = Path("artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md").read_text()
+          if markdown.count("\n#### Question ") != 135:
+              raise SystemExit("Markdown does not contain 135 questions.")
+          PY
+          git diff --check
+
+      - name: Upload revised Markdown
+        uses: actions/upload-artifact@v4
+        with:
+          name: probability-contextual-questions-v3
+          path: artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Commit corrected source and evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            artifacts/api-server/src/quant-v4/topics/Probability/shared/explanation-renderer.ts \
+            artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/human-review-en.csv \
+            artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/human-review-en.csv \
+            artifacts/api-server/src/quant-v4/topics/Probability/editorial-remediation-report.md \
+            artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md
+          git diff --cached --check
+          git commit -m "docs(probability): regenerate contextual questions and explanations [skip ci]"
+          git push
