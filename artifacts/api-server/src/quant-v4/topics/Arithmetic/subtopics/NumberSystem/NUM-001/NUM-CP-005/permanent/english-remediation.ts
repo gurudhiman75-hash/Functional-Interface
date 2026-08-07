@@ -19,6 +19,7 @@ import {
   applyNumCp005QuestionCorrections,
 } from "./release-review-corrections";
 import { applyNumCp005Ql058EdgeSafe } from "./release-review-ql058-edge-safe";
+import { applyNumCp005Ql059EdgeSafe } from "./release-review-ql059-edge-safe";
 
 export function remediateNumCp005English(source) {
   let result;
@@ -52,7 +53,9 @@ export function remediateNumCp005English(source) {
 
   const corrected = source.qlId === "NUM-QL-058"
     ? applyNumCp005Ql058EdgeSafe(source, result)
-    : applyNumCp005QuestionCorrections(source, result);
+    : source.qlId === "NUM-QL-059"
+      ? applyNumCp005Ql059EdgeSafe(source, result)
+      : applyNumCp005QuestionCorrections(source, result);
   const explanationInput = {
     qlId: source.qlId,
     seed: source.seed,
