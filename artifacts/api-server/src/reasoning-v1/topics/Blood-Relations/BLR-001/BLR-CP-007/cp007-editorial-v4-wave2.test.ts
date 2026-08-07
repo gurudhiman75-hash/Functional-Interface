@@ -35,6 +35,10 @@ function componentCount(
   return components;
 }
 
+function wordCount(value: string): number {
+  return value.trim().split(/\s+/).filter(Boolean).length;
+}
+
 const bank = generateBlrCp007EditorialV4Wave2Bank();
 const telemetry = buildBlrCp007EditorialV4Wave2Telemetry(bank);
 const ql034 = bank.filter((question) => question.qlId === "BLR-QL-034");
@@ -54,6 +58,7 @@ assert.equal(telemetry.repeatedStepConclusionCount, 0);
 const scenarioFingerprints = new Set<string>();
 const answerCounts = { P: 0, Q: 0, R: 0, S: 0 };
 const prototypeCounts = new Map<string, number>();
+let maximumOptionExplanationWords = 0;
 
 for (const question of ql034) {
   assert.equal(question.metadata.candidateNetworkComponentCount, 1);
@@ -72,16 +77,26 @@ for (const question of ql034) {
   scenarioFingerprints.add(question.metadata.semanticScenarioFingerprint);
   prototypeCounts.set(question.sourcePrototypeId, (prototypeCounts.get(question.sourcePrototypeId) ?? 0) + 1);
 
+  assert(!/\bto make\s+[A-Z]+\s+is\b/i.test(question.stem));
+  assert(!/\binferred parent\b/i.test(JSON.stringify(question.explanation)));
+  assert(question.explanation.steps.length >= 2);
+  assert(question.explanation.conclusion.includes(`${question.answer} must replace ?`));
+  assert(question.explanation.conclusion.includes("with this substitution"));
+  assert(!question.explanation.steps.includes(question.explanation.conclusion));
+
   if (question.query.kind === "MISSING_PERSON") {
     const clueStatements = question.query.completeStatements.filter((_, index) => index !== question.query.blankStatementIndex);
     const cluePeople = new Set(clueStatements.flatMap((statement) => [statement.leftId, statement.rightId]));
     for (const candidate of ["P", "Q", "R", "S"]) assert(cluePeople.has(candidate));
   }
 
-  for (const option of question.options) {
+  question.options.forEach((option, index) => {
     assert.equal(option.graphValidity, "VALID");
     assert.equal(componentCount(option.completedStatements), 1);
-  }
+    assert.equal(question.explanation.optionAnalysis[index]!.explanation, option.studentExplanation);
+    maximumOptionExplanationWords = Math.max(maximumOptionExplanationWords, wordCount(option.studentExplanation));
+    assert(wordCount(option.studentExplanation) <= 30);
+  });
 
   answerCounts[question.answer as keyof typeof answerCounts] += 1;
 }
@@ -96,5 +111,6 @@ console.log(JSON.stringify({
   ql034Questions: ql034.length,
   ql034ConnectedNetworks: ql034.filter((question) => question.metadata.candidateNetworkComponentCount === 1).length,
   ql034AnswerCounts: answerCounts,
+  maximumOptionExplanationWords,
   verdict: "BLR-CP-007 V4 WAVE 2 QL-034 COHERENT NETWORK REMODEL PASSED; HUMAN APPROVAL REQUIRED",
 }, null, 2));
