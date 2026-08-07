@@ -1,0 +1,124 @@
+name: Validate SER-001 CP-007 English freeze allocation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-PERMANENT-QL-REGISTRY.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-FREEZE/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-AUTHORITY-FREEZE-CANDIDATE/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL/**
+      - artifacts/examtree/src/components/EnglishQuestionLayout.tsx
+      - artifacts/examtree/src/lib/series-rendering-contract.ts
+      - artifacts/examtree/src/lib/series-rendering-contract.test.ts
+      - .github/workflows/ser-001-cp007-english-freeze-allocation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ser-001-cp007-english-freeze-allocation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-freeze-and-allocation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare freeze evidence directory
+        run: mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp007-english-freeze-allocation
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Re-run V7.1 release-remediation gate
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-REMODEL
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-english-freeze-allocation
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/adaptive-review-v7-1.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/adaptive-review-v7-1.freeze-regression.test.mjs"
+          (cd artifacts/api-server && node "$OUT/adaptive-review-v7-1.freeze-regression.test.mjs") \
+            | tee "$EVIDENCE/SER-CP-007-V7-1-Freeze-Regression-Proof.json"
+          grep -q 'PASS_SER_CP007_V7_1_RELEASE_REMEDIATION' \
+            "$EVIDENCE/SER-CP-007-V7-1-Freeze-Regression-Proof.json"
+          grep -q '"independentReleasePools": 135' \
+            "$EVIDENCE/SER-CP-007-V7-1-Freeze-Regression-Proof.json"
+
+      - name: Prove English freeze and permanent allocation
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-FREEZE
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-english-freeze-allocation
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/ser-cp-007-permanent-allocation.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/ser-cp-007-permanent-allocation.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-007-permanent-allocation.test.mjs") \
+            | tee "$EVIDENCE/SER-CP-007-English-Freeze-Permanent-Allocation-Proof.json"
+          grep -q 'PASS_SER_CP007_ENGLISH_FREEZE_AND_PERMANENT_ALLOCATION' \
+            "$EVIDENCE/SER-CP-007-English-Freeze-Permanent-Allocation-Proof.json"
+          grep -q '"permanentQlRange": "SER-QL-001..SER-QL-013"' \
+            "$EVIDENCE/SER-CP-007-English-Freeze-Permanent-Allocation-Proof.json"
+          grep -q '"permanentQlsAllocatedInactive": 13' \
+            "$EVIDENCE/SER-CP-007-English-Freeze-Permanent-Allocation-Proof.json"
+          grep -q '"frozenPrototypeTemplates": 140' \
+            "$EVIDENCE/SER-CP-007-English-Freeze-Permanent-Allocation-Proof.json"
+          grep -q '"frozenLearnerReleasePools": 135' \
+            "$EVIDENCE/SER-CP-007-English-Freeze-Permanent-Allocation-Proof.json"
+          grep -q '"historicalEvidenceMutationFailures": 0' \
+            "$EVIDENCE/SER-CP-007-English-Freeze-Permanent-Allocation-Proof.json"
+
+      - name: Build learner application
+        run: pnpm --dir artifacts/examtree build
+
+      - name: Re-prove accessible Series rendering contracts
+        run: |
+          set -euo pipefail
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-english-freeze-allocation
+          pnpm --dir artifacts/api-server exec esbuild \
+            ../examtree/src/lib/series-rendering-contract.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/series-rendering-contract.freeze.test.mjs"
+          (cd artifacts/api-server && node "$OUT/series-rendering-contract.freeze.test.mjs") \
+            | tee "$EVIDENCE/SER-CP-007-English-Freeze-Rendering-Proof.json"
+          grep -q 'PASS_SERIES_ACCESSIBLE_RENDERING_CONTRACT' \
+            "$EVIDENCE/SER-CP-007-English-Freeze-Rendering-Proof.json"
+
+      - name: Copy freeze reports into evidence
+        run: |
+          set -euo pipefail
+          ROOT=artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-FREEZE
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-english-freeze-allocation
+          cp "$ROOT/SER-CP-007-ENGLISH-MANUAL-FREEZE-REPORT.md" "$EVIDENCE/"
+          cp "$ROOT/SER-CP-007-PERMANENT-QL-ALLOCATION-REPORT.md" "$EVIDENCE/"
+
+      - name: Upload freeze and allocation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: ser-001-cp007-english-freeze-allocation
+          path: artifacts/api-server/dist/reasoning-v1/ser-001/cp007-english-freeze-allocation/
+          if-no-files-found: error
+          retention-days: 30
