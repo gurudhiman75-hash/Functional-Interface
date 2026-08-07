@@ -1,10 +1,10 @@
 # RNK-CP-004 — Multi-Entity Comparison and Explicit Order Reconstruction
 
-Status: **SSC/banking exam-authentic English Remodel V6 implemented; manual approval, renderer integration and source expansion pending; permanent QL count open**.
+Status: **targeted SSC/banking English Remodel V7 implemented; manual approval, renderer integration and consolidation pending; permanent QL count open**.
 
 This checkpoint owns strict multi-entity comparison questions in which one exact total order is reconstructed or made unique by one additional comparison.
 
-## Current provisional authorities
+## Provisional authorities
 
 ```text
 HIGHEST_ENTITY
@@ -20,54 +20,94 @@ DEFINITELY_TRUE_RELATION
 MISSING_COMPARISON
 ```
 
-The executable compatibility prototype still uses the historical `VALID_RANK_STATEMENT` identifier, but its proposed student-facing authority is `DEFINITELY_TRUE_RELATION`.
+The compatibility prototype for `DEFINITELY_TRUE_RELATION` remains `VALID_RANK_STATEMENT` until consolidation.
 
 ## Boundary
 
 ```text
-strict unique order from multi-entity comparisons -> RNK-CP-004
-row/queue/merit/race presentation ownership       -> RNK-CP-005
-height/age/marks attribute ownership              -> RNK-CP-006
-partial order, possible or cannot determine       -> RNK-CP-007
-shared multi-question passages                    -> RNK-CP-008
+strict unique multi-entity order              -> RNK-CP-004
+row/queue/merit/race presentation ownership   -> RNK-CP-005
+height/age/marks attribute ownership          -> RNK-CP-006
+partial order, possible or cannot determine   -> RNK-CP-007
+shared multi-question passages                -> RNK-CP-008
 ```
 
-Ties, incomparable entities and genuine uncertainty are not forced into CP-004.
+Ties and genuine uncertainty are not forced into CP-004.
 
-## Executable Remodel V6 discovery
+## Remodel V7 executable wave
 
 ```text
 provisional authorities:             11
 runtime seeds per authority:        240
 runtime questions:                2,640
-English review pack:                 66
+English review pack:                132
+review evidence per authority:       12
+mixed review batches:                12
 permanent QLs:                     none
 next available RNK identity:  RNK-QL-027
 ```
 
-These remain discovery counts rather than a fixed final inventory.
+## Surface and option corrections
 
-## Exam-authentic language model
+V7 guarantees:
 
-The V6 review pack represents six coherent context families equally:
+- correct singular/plural rendering;
+- exactly three distractors in every four-option question;
+- natural `place/places above` distance wording;
+- option-specific highest/lowest feedback;
+- compact mock-mode missing-comparison help;
+- learner-help alignment with every remapped pair option;
+- at least three stem variants and three explanation-shell variants per authority.
+
+`RELATIVE_ORDER_OF_PAIR` is direction-only and uses:
 
 ```text
-SELECTION_TEST             11
-MERIT_LIST                 11
-COMPETITION_STANDINGS      11
-PERFORMANCE_REVIEW         11
-INTERVIEW_SHORTLIST        11
-NEUTRAL_RANKING            11
+correct direction
+reverse direction
+same-rank contradiction
+cannot-determine contradiction
 ```
 
-Rules enforced across all 2,640 runtime questions:
+`EXACT_RANK_DIFFERENCE_OF_PAIR` remains separate and tests correct distance/direction, reversed direction, people-between and inclusive-count errors.
 
-- one coherent context per question;
-- no clue phrase used more than twice;
-- Medium and Hard questions include reversed clue wording;
-- no generator-demo introductions;
-- no placeholder grammar;
-- student content excludes proof-debug terminology.
+## Difficulty contract
+
+V7 uses:
+
+```text
+RNK_CP004_DIFFICULTY_V3
+```
+
+The shortest answer proof and actual task burden dominate. Entity count contributes only a small scanning load.
+
+```text
+runtime: 838 Easy / 1,595 Medium / 207 Hard
+review:   17 Easy /   100 Medium /  15 Hard
+```
+
+Five-person middle questions are Easy. Named-rank and ordinary immediate-neighbour chains are capped at Medium. Exact distance is Hard only when size, reversed wording and confirmatory evidence combine.
+
+## Expanded structural evidence
+
+The 132-question review pack contains:
+
+```text
+12 distinct structural fingerprints per authority
+22 records in each of 6 context families
+confirmatory counts 0, 1 and 2
+12 mixed-authority batches
+```
+
+Fingerprints normalise names to solved-order positions and include clue shape, query shape, confirmatory count and option roles.
+
+Answer-position authority:
+
+```text
+A/B/C/D: 33/33/33/33
+unique four-answer windows: 129
+repeated four-answer windows: 0
+semantic duplicates: 0
+```
 
 ## Learner explanation model
 
@@ -77,98 +117,30 @@ SEGMENT_BUILDING
 FULL_POSITIONAL
 ```
 
-The renderer shows the smallest sufficient reasoning display:
-
-- decisive local chain for simple relation questions;
-- joined segments for medium reconstruction;
-- complete order, numbering, local target or block bridge for exact-position and advanced tasks.
-
-Optional distractor teaching remains behind a native collapsed product component. Raw Markdown HTML is not used. Actual Question Studio mobile and accessibility validation remains pending integration.
-
-## Prototype improvements
-
-- named-rank options include top/bottom conversion traps;
-- relative-pair options test direction and rank-gap misconceptions;
-- middle questions state the middle-position calculation;
-- immediate-neighbour explanations show the local target segment;
-- `DEFINITELY_TRUE_RELATION` contains one transitive truth and three false relations, with no directly stated true option;
-- every missing-comparison distractor receives an enumerated ambiguity or contradiction proof;
-- exact rank difference distinguishes rank gap, persons between and inclusive count.
-
-## Difficulty contract
-
-V6 uses the reproducible model:
-
-```text
-RNK_CP004_DIFFICULTY_V2
-```
-
-The score is the sum of stored components for entity load, essential clues, reversed clues, blocks, non-adjacent comparisons, exact-position demand, confirmatory clues, option competition, shortest proof and task burden.
-
-The final review distribution is:
-
-```text
-Easy:    10
-Medium:  41
-Hard:    15
-```
-
-A final reconciliation gate corrected 86 runtime records whose language profile changed after initial difficulty scoring.
-
-## Proof and clue-accounting contracts
-
-V6 preserves:
-
-```text
-shortestDirectionalPathClues
-shortestExactPositionProofClues
-fullOrderProofClues
-shortestAnswerProofClues
-```
-
-Missing comparison also distinguishes base clues, selected option relations and completed proof relations.
-
-Every displayed clue has exactly one role:
-
-```text
-ESSENTIAL_FOR_FULL_ORDER
-ESSENTIAL_FOR_BLOCK_ORDER
-CONFIRMATORY
-REDUNDANT_OTHER
-```
-
-Review evidence:
-
-```text
-essential clues:    322
-confirmatory clues:  45
-unclassified clues:   0
-```
+The learner view shows the smallest sufficient proof. Optional distractor teaching remains behind a native collapsed component. Admin proof metadata remains separate.
 
 ## Current executable evidence
 
 ```text
 runtime questions:                          2,640
-review questions:                              66
-average visible explanation words:          41.53
-average words including optional help:       82.59
-answer positions:                       16/17/17/16
-repeated four-answer sequences:                   0
-normalized semantic duplicates:                   0
+review questions:                             132
+average visible explanation words:          45.28
+average words including optional help:       87.73
+answer positions:                       33/33/33/33
 ```
 
-`RNK-CP-004-REMODEL-V6-REMEDIATION.md` records the full correction set.
+`RNK-CP-004-REMODEL-V7-REMEDIATION.md` records the complete correction set.
 
 ## Next gate
 
 ```text
-manual review of Remodel V6 English pack
-  -> Question Studio native-disclosure integration and UI validation
+manual review of Remodel V7 English pack
   -> source and inverse expansion
   -> ownership and boundary audit
   -> merge/split consolidation
   -> permanent runtime proof
   -> English discovery freeze
+  -> Question Studio renderer/mobile/accessibility validation
 ```
 
 ## Safety boundary
