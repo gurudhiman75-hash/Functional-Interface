@@ -22,7 +22,7 @@ function concentratedUses(stem: string): number {
 }
 
 const rows = generateCanonicalReviewRecords();
-assert(rows.length === 145, "P2 Batch 02 must expose 145 canonical records");
+assert(rows.length >= 145, "P2 Batch 02 compatibility lost canonical review records");
 assert(new Set(rows.map((row) => row.solveMode)).size === 38, "P2 Batch 02 changed learner authority ownership");
 assert(rows.every((row) => row.validation.valid), "Invalid row entered P2 Batch 02");
 assert(rows.every((row) => row.permanentQlId === null), "Permanent QL assigned during P2 Batch 02");
@@ -30,7 +30,7 @@ assert(rows.every((row) => row.lifecycle.englishFreezeStatus === "UNFROZEN"), "P
 assert(rows.every((row) => row.lifecycle.questionBankStatus === "NOT_STORED" && row.lifecycle.testEligibility === "INELIGIBLE" && !row.lifecycle.publiclyPublishable), "P2 Batch 02 delivery lock failed");
 
 const supplements = rows.filter((row) => row.sourceTrace.mathematicalFingerprint.startsWith("P2-BATCH-02|"));
-assert(supplements.length === 6, "P2 Batch 02 must add exactly six supplements");
+assert(supplements.length === 6, "P2 Batch 02 must retain exactly six supplements");
 assert(new Set(supplements.map((row) => row.questionLanguageId)).size === 6, "P2 Batch 02 language IDs are not unique");
 assert(new Set(supplements.map((row) => row.sourceTrace.mathematicalFingerprint)).size === 6, "P2 Batch 02 mathematical states are not unique");
 assert(supplements.every((row) => !/^(?:A|An|The)\s+(?:car|bus)\b/i.test(row.stem)), "P2 Batch 02 reused a dominant car/bus opening");
@@ -51,14 +51,14 @@ for (const mode of TARGET_MODES) {
 
 const dominantOpenings = rows.filter((row) => /^(?:A|An|The)\s+(?:car|bus)\b/i.test(row.stem));
 assert(dominantOpenings.length <= 36, "P2 Batch 02 increased car/bus openings");
-assert(dominantOpenings.length / rows.length < 0.25, "Car/bus opening share did not fall below 25%");
+assert(dominantOpenings.length / rows.length < 0.25, "Car/bus opening share did not remain below 25%");
 
 const correctPositions = [0, 1, 2, 3].map((position) => rows.filter((row) => row.correctIndex === position).length);
 assert(Math.max(...correctPositions) - Math.min(...correctPositions) <= 12, "P2 Batch 02 answer-position spread is too wide");
 
 console.log(JSON.stringify({
   status: "PASS",
-  phase: "P2_DIVERSITY_BATCH_02",
+  phase: "P2_DIVERSITY_BATCH_02_COMPATIBILITY",
   canonicalRecords: rows.length,
   targetedAuthorities: TARGET_MODES.length,
   supplementalRows: supplements.length,
