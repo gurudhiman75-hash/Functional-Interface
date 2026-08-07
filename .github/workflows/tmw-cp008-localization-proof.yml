@@ -62,12 +62,15 @@ jobs:
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp008-stems.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp008-learning.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp008-polish.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp008-final-polish.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp008-editorial-review-remediation.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/localization-cp008.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp008-localized-runtime.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/foundation/cp008-runtime.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp008-localization.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp008-localization-editorial.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp008-localization-manual-language.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp008-editorial-review.test.ts
           src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp008-localization-review-export.ts
       - name: Bundle bilingual parity proof
         run: >-
@@ -102,6 +105,17 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/tmw-001-cp008-localization-manual-language.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp008-localization-manual-language-proof.log
+      - name: Bundle assistant editorial-review proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp008-editorial-review.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp008-editorial-review.test.mjs
+      - name: Run assistant editorial-review proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp008-editorial-review.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp008-editorial-review-proof.log
       - name: Bundle bilingual review export
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -119,6 +133,7 @@ jobs:
             artifacts/api-server/dist/quant-v4/tmw-001-cp008-localization-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-cp008-localization-editorial-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-cp008-localization-manual-language-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-cp008-editorial-review-proof.log
             artifacts/api-server/dist/quant-v4/tmw-001-cp008-localization-review.json
           if-no-files-found: error
           retention-days: 7
