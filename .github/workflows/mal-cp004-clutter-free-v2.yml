@@ -1,4 +1,4 @@
-name: Validate MAL-CP-004 clutter-free English V2
+name: Validate MAL-CP-004 solution-first English V2
 
 on:
   pull_request:
@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 jobs:
-  validate-mal-cp004-clutter-free-v2:
+  validate-mal-cp004-solution-first-v2:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -31,7 +31,7 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle MAL-CP-004 clutter-free V2 audit
+      - name: Bundle MAL-CP-004 solution-first V2 audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp004-clutter-free-v2-audit.ts
@@ -40,21 +40,21 @@ jobs:
           --format=esm
           --outfile=dist/quant-v4/mal-001-cp004-clutter-free-v2-audit.mjs
 
-      - name: Run MAL-CP-004 clutter-free V2 audit
+      - name: Run MAL-CP-004 solution-first V2 audit
         shell: bash --noprofile --norc -e -o pipefail {0}
         run: |
           set -o pipefail
           cd artifacts/api-server
           node dist/quant-v4/mal-001-cp004-clutter-free-v2-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-cp004-clutter-free-v2-audit.log
 
-      - name: Upload MAL-CP-004 clutter-free V2 evidence
+      - name: Upload MAL-CP-004 solution-first V2 evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: mal-cp004-clutter-free-v2-review
+          name: mal-cp004-solution-first-v2-review
           path: |
             artifacts/api-server/dist/quant-v4/mal-001-cp004-clutter-free-v2-audit.log
             artifacts/api-server/dist/quant-v4/mal-cp004-clutter-free-v2-review.json
-            artifacts/api-server/dist/quant-v4/MAL-CP-004-CLUTTER-FREE-V2-100Q-REVIEW.md
+            artifacts/api-server/dist/quant-v4/MAL-CP-004-SOLUTION-FIRST-V2-100Q-REVIEW.md
           if-no-files-found: error
           retention-days: 14
