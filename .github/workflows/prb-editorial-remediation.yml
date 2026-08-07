@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   probability-editorial-proof:
@@ -21,6 +21,20 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+
+      - name: Correct renderer delimiter
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("artifacts/api-server/src/quant-v4/topics/Probability/shared/student-facing-renderer.ts")
+          text = path.read_text()
+          broken = 'num(p, "total", 1)))}'
+          corrected = 'num(p, "total", 1))}'
+          occurrences = text.count(broken)
+          if occurrences != 2:
+              raise SystemExit(f"Expected 2 renderer delimiter defects, found {occurrences}")
+          path.write_text(text.replace(broken, corrected))
+          PY
 
       - name: TypeScript integration
         run: >-
@@ -42,3 +56,15 @@ jobs:
 
       - name: SSC and banking editorial readiness proof
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/exam-readiness.test.ts
+
+      - name: Commit verified renderer correction
+        if: success()
+        run: |
+          if git diff --quiet; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/Probability/shared/student-facing-renderer.ts
+          git commit -m "fix(probability): correct event stem delimiters [skip ci]"
+          git push
