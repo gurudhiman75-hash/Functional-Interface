@@ -31,6 +31,7 @@ import { applyNumCp005ExplanationUniqueness } from "./final-exam-readiness-expla
 import { applyNumCp005FinalQl066Safe } from "./final-exam-readiness-ql066-safe";
 import { applyNumCp005FinalQl054Safe } from "./final-exam-readiness-ql054-safe";
 import { applyNumCp005FinalDifficulty } from "./final-exam-readiness-difficulty";
+import { applyNumCp005FinalPublicationReadinessCorrections } from "./final-publication-readiness-corrections";
 import {
   applyNumCp005FinalQl053Diversity,
   applyNumCp005FinalQl059Diversity,
@@ -87,19 +88,23 @@ export function remediateNumCp005English(source) {
           ? applyNumCp005FinalQl066Safe(source, corrected)
           : applyNumCp005FinalExamQuestionCorrections(source, corrected);
   const difficultyQuestion = applyNumCp005FinalDifficulty(source, finalQuestion);
+  const publicationQuestion = applyNumCp005FinalPublicationReadinessCorrections(
+    source,
+    difficultyQuestion,
+  );
   const explanationInput = {
     qlId: source.qlId,
     seed: source.seed,
-    stem: difficultyQuestion.stem,
-    hiddenState: difficultyQuestion.hiddenState ?? source.hiddenState,
-    canonicalAnswer: difficultyQuestion.canonicalAnswer,
-    options: difficultyQuestion.options,
+    stem: publicationQuestion.stem,
+    hiddenState: publicationQuestion.hiddenState ?? source.hiddenState,
+    canonicalAnswer: publicationQuestion.canonicalAnswer,
+    options: publicationQuestion.options,
   };
   const initialExplanation = buildNumCp005StudentExplanation(explanationInput);
   const correctedExplanation = applyNumCp005ExplanationCorrections(
     explanationInput,
     initialExplanation,
-    difficultyQuestion.difficulty,
+    publicationQuestion.difficulty,
   );
   const renderingSafeExplanation = applyNumCp005ReleaseReviewRenderingSafety(correctedExplanation);
   const policyCheckedExplanation = enforceNumCp005StudentExplanationPolicy(
@@ -116,7 +121,7 @@ export function remediateNumCp005English(source) {
   );
 
   return {
-    ...difficultyQuestion,
+    ...publicationQuestion,
     explanation: applyNumCp005ExplanationUniqueness(
       explanationInput,
       examExplanation,
