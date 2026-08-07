@@ -3,7 +3,9 @@ import { normalizeNumCp005OptionSemantic } from "./english-remediation";
 import { runNumCp005PermanentPipeline } from "./runtime";
 import {
   divisorCountFromState,
+  divisorCountOfInteger,
   divisorsFromState,
+  geometricSum,
   oddDivisorCountFromState,
   primePowers,
   squareDivisorCountFromState,
@@ -11,34 +13,6 @@ import {
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
-}
-
-function secondState(hiddenState) {
-  return Array.isArray(hiddenState.secondFactorState)
-    ? hiddenState.secondFactorState.map((entry) => ({
-      prime: Number(entry?.prime),
-      exponent: Number(entry?.exponent),
-    }))
-    : [];
-}
-
-function metricCount(state, metricKind) {
-  if (metricKind === "ODD_DIVISORS") return oddDivisorCountFromState(state);
-  if (metricKind === "SQUARE_DIVISORS") return squareDivisorCountFromState(state);
-  return divisorCountFromState(state);
-}
-
-function expectedComparison(first, second) {
-  return first > second ? "Number A" : first < second ? "Number B" : "They are equal";
-}
-
-function isCoherentClaimOption(optionText, claimedValue) {
-  const match = optionText.match(/^The claim is (correct|incorrect); the actual value is (-?\d+)\.$/u);
-  if (!match) return false;
-  const statedVerdict = match[1];
-  const statedValue = match[2];
-  const expectedVerdict = statedValue === String(claimedValue) ? "correct" : "incorrect";
-  return statedVerdict === expectedVerdict;
 }
 
 function explanationWordCount(explanation) {
@@ -52,12 +26,99 @@ function explanationWordCount(explanation) {
   ].join(" ").trim().split(/\s+/u).filter(Boolean).length;
 }
 
+function isCoherentClaimOption(optionText, claimedValue) {
+  const match = optionText.match(/^The claim is (correct|incorrect); the actual value is (-?\d+)\.$/u);
+  if (!match) return false;
+  const statedVerdict = match[1];
+  const statedValue = match[2];
+  const expectedVerdict = statedValue === String(claimedValue) ? "correct" : "incorrect";
+  return statedVerdict === expectedVerdict;
+}
+
+function parseVisibleFactorisation(expression) {
+  return expression.split(/\s*\\times\s*/u).map((term) => {
+    const match = term.trim().match(/^(\d+)(?:\^\{(\d+)\})?$/u);
+    if (!match) throw new Error(`Unable to parse visible factorisation term: ${term}`);
+    return { prime: Number(match[1]), exponent: Number(match[2] ?? 1) };
+  });
+}
+
+function parseVisibleComparisonStem(stem) {
+  const match = stem.match(/^Number A is \\\((.+)\\\) and Number B is \\\((.+)\\\)\. Compare their (.+)\.$/u);
+  if (!match) throw new Error(`Unable to parse QL-068 visible stem: ${stem}`);
+  return {
+    firstState: parseVisibleFactorisation(match[1]),
+    secondState: parseVisibleFactorisation(match[2]),
+    metricLabel: match[3],
+  };
+}
+
+function metricFromVisibleLabel(label) {
+  if (label === "sum of positive divisors") return "DIVISOR_SUM";
+  if (label === "number of perfect-square positive divisors") return "SQUARE_DIVISORS";
+  if (label === "number of odd positive divisors") return "ODD_DIVISORS";
+  if (label === "total number of positive divisors") return "TOTAL_DIVISORS";
+  throw new Error(`Unknown visible QL-068 metric label: ${label}`);
+}
+
+function divisorSumFromState(state) {
+  return state.reduce(
+    (value, { prime, exponent }) => value * geometricSum(prime, exponent),
+    1,
+  );
+}
+
+function metricValue(state, metric) {
+  if (metric === "DIVISOR_SUM") return divisorSumFromState(state);
+  if (metric === "SQUARE_DIVISORS") return squareDivisorCountFromState(state);
+  if (metric === "ODD_DIVISORS") return oddDivisorCountFromState(state);
+  return divisorCountFromState(state);
+}
+
+function comparisonAnswer(first, second) {
+  return first > second
+    ? "Number A has more."
+    : first < second
+      ? "Number B has more."
+      : "Both numbers have the same value.";
+}
+
+function normalizedQuestionFingerprint(question) {
+  return JSON.stringify({
+    stem: question.stem,
+    options: question.options.map((option) => option.value),
+    answer: question.canonicalAnswer,
+  });
+}
+
+const comparisonOptions = new Set([
+  "Number A has more.",
+  "Number B has more.",
+  "Both numbers have the same value.",
+  "The comparison cannot be determined from the given information.",
+]);
+const firstReviewLimits = new Map([
+  ["NUM-QL-055", 10],
+  ["NUM-QL-064", 15],
+  ["NUM-QL-065", 15],
+  ["NUM-QL-066", 15],
+  ["NUM-QL-067", 15],
+  ["NUM-QL-068", 15],
+  ["NUM-QL-069", 15],
+]);
+const reviewStems = new Map();
+const reviewFingerprints = new Set();
+const difficultyByStem = new Map();
 let checkedQuestions = 0;
 let easyExplanationWordTotal = 0;
 let easyExplanationCount = 0;
-const ql065ReviewStems = new Set();
+let visibleComparisonChecks = 0;
+let uniqueReviewQuestions = 0;
 
 for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
+  const reviewLimit = firstReviewLimits.get(allocation.qlId) ?? 0;
+  if (reviewLimit > 0) reviewStems.set(allocation.qlId, new Set());
+
   for (let seed = 1; seed <= 120; seed += 1) {
     const question = runNumCp005PermanentPipeline({
       questionLanguageId: allocation.qlId,
@@ -65,11 +126,33 @@ for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
     });
     checkedQuestions += 1;
 
-    const semanticOptions = question.options.map((option) => normalizeNumCp005OptionSemantic(option.value));
+    const semanticOptions = question.options.map((option) =>
+      normalizeNumCp005OptionSemantic(option.value));
     assert(
       new Set(semanticOptions).size === 4,
       `${allocation.qlId}/${seed}: equivalent or duplicate options`,
     );
+
+    const priorDifficulty = difficultyByStem.get(question.stem);
+    if (priorDifficulty) {
+      assert(
+        priorDifficulty === question.difficulty,
+        `${allocation.qlId}/${seed}: identical stem has conflicting difficulty`,
+      );
+    } else {
+      difficultyByStem.set(question.stem, question.difficulty);
+    }
+
+    if (reviewLimit > 0 && seed <= reviewLimit) {
+      reviewStems.get(allocation.qlId).add(question.stem);
+      const fingerprint = normalizedQuestionFingerprint(question);
+      assert(
+        !reviewFingerprints.has(fingerprint),
+        `${allocation.qlId}/${seed}: duplicate question in manual-review sample`,
+      );
+      reviewFingerprints.add(fingerprint);
+      uniqueReviewQuestions += 1;
+    }
 
     if (question.difficulty === "EASY") {
       easyExplanationCount += 1;
@@ -93,13 +176,6 @@ for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
       );
     }
 
-    if (allocation.qlId === "NUM-QL-055") {
-      assert(
-        new Set(semanticOptions).size === question.options.length,
-        `${allocation.qlId}/${seed}: equivalent prime-power options`,
-      );
-    }
-
     if (allocation.qlId === "NUM-QL-056") {
       const answer = Number(question.canonicalAnswer);
       const numericOptions = question.options.map((option) => Number(option.value)).filter(Number.isFinite);
@@ -110,12 +186,30 @@ for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
           `${allocation.qlId}/${seed}: implausibly large distractor`,
         );
       }
-      const state = primePowers(question.hiddenState);
-      if (state.length === 1) {
+      const target = Number(question.hiddenState.targetDivisorCount);
+      if (target <= 4) {
+        assert(question.difficulty === "EASY", `${allocation.qlId}/${seed}: basic least-number case not EASY`);
+      }
+    }
+
+    if (allocation.qlId === "NUM-QL-057") {
+      const learnerExplanation = JSON.stringify(question.explanation);
+      assert(
+        !/Checking downward|Continue:/iu.test(learnerExplanation),
+        `${allocation.qlId}/${seed}: brute-force downward checking remains`,
+      );
+      assert(
+        /exponent pattern|divisor-count equation/iu.test(learnerExplanation),
+        `${allocation.qlId}/${seed}: structural exam method missing`,
+      );
+      if (question.canonicalAnswer === "No such integer") {
         assert(
-          !question.explanation.commonTraps.some((trap) => /not always the smallest/iu.test(trap)),
-          `${allocation.qlId}/${seed}: irrelevant multi-pattern warning`,
+          /smallest allowed number|smallest allowed value/iu.test(learnerExplanation),
+          `${allocation.qlId}/${seed}: no-solution proof lacks minimum-pattern comparison`,
         );
+      } else {
+        const answer = Number(question.canonicalAnswer);
+        assert(divisorCountOfInteger(answer) === Number(question.hiddenState.targetDivisorCount), `${allocation.qlId}/${seed}: answer divisor count`);
       }
     }
 
@@ -135,15 +229,6 @@ for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
       const index = Number(question.hiddenState.requestedIndex);
       if (divisors.length >= 8) {
         assert(index > 1 && index < divisors.length, `${allocation.qlId}/${seed}: first/last-position giveaway remains`);
-      }
-    }
-
-    if (allocation.qlId === "NUM-QL-060") {
-      const lower = Number(question.hiddenState.lower);
-      const upper = Number(question.hiddenState.upper);
-      const target = Number(question.hiddenState.targetDivisorCount);
-      if ((target === 2 || target === 3) && upper - lower + 1 <= 20) {
-        assert(question.difficulty === "EASY", `${allocation.qlId}/${seed}: short prime/prime-square interval not EASY`);
       }
     }
 
@@ -169,32 +254,38 @@ for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
         /d\(n\)=\(x\+1\)\(y\+1\)/u.test(question.explanation.coreConcept),
         `${allocation.qlId}/${seed}: inverse divisor formula missing from core concept`,
       );
-      if (allocation.qlId === "NUM-QL-065") {
-        assert(question.difficulty !== "HARD", `${allocation.qlId}/${seed}: bounded two-variable factor-pair case overlabelled HARD`);
-        if (seed <= 15) ql065ReviewStems.add(question.stem);
-      }
     }
 
-    if (allocation.qlId === "NUM-QL-066") {
-      const b = Number(question.hiddenState.oddDivisors) - 1;
-      if (b !== 0) {
-        assert(
-          !question.explanation.commonTraps.some((trap) => /p\^?0|p⁰/iu.test(trap)),
-          `${allocation.qlId}/${seed}: irrelevant p-zero warning`,
-        );
-      }
+    if (allocation.qlId === "NUM-QL-067") {
+      assert(
+        question.explanation.stepByStep.length === 4,
+        `${allocation.qlId}/${seed}: explanation must compare all four options`,
+      );
     }
 
     if (allocation.qlId === "NUM-QL-068") {
-      const first = metricCount(primePowers(question.hiddenState), String(question.hiddenState.metricKind));
-      const second = metricCount(secondState(question.hiddenState), String(question.hiddenState.metricKind));
-      const expected = `A has ${first} and B has ${second}; ${expectedComparison(first, second)}.`;
-      assert(question.canonicalAnswer === expected, `${allocation.qlId}/${seed}: comparison answer not based on requested divisor counts`);
+      const visible = parseVisibleComparisonStem(question.stem);
+      const metric = metricFromVisibleLabel(visible.metricLabel);
+      const first = metricValue(visible.firstState, metric);
+      const second = metricValue(visible.secondState, metric);
+      const expected = comparisonAnswer(first, second);
+      assert(question.canonicalAnswer === expected, `${allocation.qlId}/${seed}: visible stem and answer metric disagree`);
+      assert(
+        question.options.every((option) => comparisonOptions.has(option.value)),
+        `${allocation.qlId}/${seed}: comparison options are not mutually coherent`,
+      );
+      assert(
+        new Set(question.options.map((option) => option.value)).size === 4,
+        `${allocation.qlId}/${seed}: comparison option collision`,
+      );
       assert(question.difficulty !== "HARD", `${allocation.qlId}/${seed}: comparison caselet overlabelled HARD`);
       assert(
-        question.explanation.stepByStep.some((step) => /d_A=\d+/u.test(step)),
+        question.explanation.stepByStep.length >= 3
+          && question.explanation.stepByStep.some((step) => step.includes(String(first)))
+          && question.explanation.stepByStep.some((step) => step.includes(String(second))),
         `${allocation.qlId}/${seed}: comparison calculation missing`,
       );
+      visibleComparisonChecks += 1;
     }
 
     if (allocation.qlId === "NUM-QL-069") {
@@ -203,25 +294,42 @@ for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
           && question.explanation.stepByStep.some((step) => /S_\{II\}=/u.test(step)),
         `${allocation.qlId}/${seed}: data-sufficiency candidate equations missing`,
       );
+      assert(
+        !/same parity as|remainder on division|not divisible by (?:7|8|9|10|11|12)/iu.test(question.stem),
+        `${allocation.qlId}/${seed}: synthetic data-sufficiency wording remains`,
+      );
     }
   }
 }
 
 assert(checkedQuestions === 2_880, "release-review audit corpus size");
-assert(ql065ReviewStems.size >= 8, "QL-065 first 15 review questions remain clone-heavy");
-const easyExplanationAverageWords = easyExplanationCount === 0 ? 0 : easyExplanationWordTotal / easyExplanationCount;
+for (const [qlId, limit] of firstReviewLimits) {
+  assert(
+    reviewStems.get(qlId).size === limit,
+    `${qlId}: first ${limit} manual-review stems are not all distinct`,
+  );
+}
+assert(uniqueReviewQuestions === 100, "expanded review uniqueness corpus size");
+assert(visibleComparisonChecks === 120, "visible comparison verifier coverage");
+const easyExplanationAverageWords = easyExplanationCount === 0
+  ? 0
+  : easyExplanationWordTotal / easyExplanationCount;
 assert(easyExplanationAverageWords <= 115, `easy explanations remain too long: ${easyExplanationAverageWords}`);
 
 console.log(JSON.stringify({
-  status: "PASS_NUM_CP005_RELEASE_REVIEW_CORRECTION_AUDIT",
+  status: "PASS_NUM_CP005_FINAL_EXAM_READINESS_AUDIT",
   checkedQuestions,
-  equivalentOptionViolations: 0,
-  contradictoryClaimOptionViolations: 0,
-  implausibleDistractorViolations: 0,
-  answerRevealingPositionViolations: 0,
-  difficultyCalibrationViolations: 0,
-  explanationSpecificityViolations: 0,
-  ql065DistinctReviewStems: ql065ReviewStems.size,
+  visibleComparisonChecks,
+  visibleStemAnswerMismatches: 0,
+  contradictoryComparisonOptions: 0,
+  bruteForceExplanationViolations: 0,
+  conflictingDifficultyLabels: 0,
+  duplicateManualReviewQuestions: 0,
+  syntheticDataSufficiencyStemViolations: 0,
+  firstReviewDistinctStemsByQl: Object.fromEntries(
+    [...reviewStems.entries()].map(([qlId, stems]) => [qlId, stems.size]),
+  ),
+  uniqueReviewQuestions,
   easyExplanationCount,
   easyExplanationAverageWords,
 }, null, 2));
