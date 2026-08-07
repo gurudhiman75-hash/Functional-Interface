@@ -17,7 +17,6 @@ const report = {
 
 function record(name, passed, details = {}) {
   report.checks.push({ name, passed, ...details });
-  if (!passed) throw new Error(`${name} failed${details.message ? `: ${details.message}` : ''}`);
 }
 
 function sleep(ms) {
@@ -56,6 +55,50 @@ function scriptUrlsFromHtml(html, pageUrl) {
   return [...new Set(urls)];
 }
 
+function referencedJavascriptUrls(source, baseUrl) {
+  const urls = new Set();
+  const patterns = [
+    /["'`](\/assets\/[^"'`\s?#]+\.js(?:\?[^"'`\s]*)?)["'`]/g,
+    /["'`](assets\/[^"'`\s?#]+\.js(?:\?[^"'`\s]*)?)["'`]/g,
+    /["'`](\.\/[^"'`\s?#]+\.js(?:\?[^"'`\s]*)?)["'`]/g,
+  ];
+  for (const pattern of patterns) {
+    for (const match of source.matchAll(pattern)) {
+      const resolved = new URL(match[1], baseUrl);
+      if (resolved.origin === webOrigin && resolved.pathname.endsWith('.js')) {
+        urls.add(resolved.toString());
+      }
+    }
+  }
+  return [...urls];
+}
+
+async function collectJavascriptBundles(initialUrls) {
+  const queue = [...initialUrls];
+  const visited = new Set();
+  const texts = [];
+  const maxAssets = 150;
+
+  while (queue.length > 0 && visited.size < maxAssets) {
+    const url = queue.shift();
+    if (!url || visited.has(url)) continue;
+    visited.add(url);
+
+    const response = await fetchWithTimeout(url, {
+      headers: { 'Cache-Control': 'no-cache', Pragma: 'no-cache' },
+    });
+    if (!response.ok) throw new Error(`Asset ${url} returned HTTP ${response.status}`);
+    const text = await response.text();
+    texts.push(text);
+
+    for (const referencedUrl of referencedJavascriptUrls(text, url)) {
+      if (!visited.has(referencedUrl)) queue.push(referencedUrl);
+    }
+  }
+
+  return { text: texts.join('\n'), assetUrls: [...visited] };
+}
+
 async function writeReport() {
   await mkdir(path.dirname(reportPath), { recursive: true });
   await writeFile(reportPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8');
@@ -78,19 +121,17 @@ async function main() {
 
   const scriptUrls = scriptUrlsFromHtml(page.html, page.response.url || recoveryUrl);
   record('recovery-page-assets-discovered', scriptUrls.length > 0, {
-    assetCount: scriptUrls.length,
+    initialAssetCount: scriptUrls.length,
   });
 
-  const bundles = await Promise.all(
-    scriptUrls.map(async (url) => {
-      const response = await fetchWithTimeout(url, {
-        headers: { 'Cache-Control': 'no-cache', Pragma: 'no-cache' },
-      });
-      if (!response.ok) throw new Error(`Asset ${url} returned HTTP ${response.status}`);
-      return response.text();
-    }),
-  );
-  const bundleText = bundles.join('\n');
+  let bundleText = '';
+  let assetUrls = [];
+  if (scriptUrls.length > 0) {
+    const bundles = await collectJavascriptBundles(scriptUrls);
+    bundleText = bundles.text;
+    assetUrls = bundles.assetUrls;
+  }
+
   const expectedUiMarkers = [
     'Recover your ExamTree account',
     'Reset password',
@@ -100,6 +141,7 @@ async function main() {
   ];
   const missingMarkers = expectedUiMarkers.filter((marker) => !bundleText.includes(marker));
   record('recovery-v2-ui-bundle', missingMarkers.length === 0, {
+    crawledAssetCount: assetUrls.length,
     expectedMarkers: expectedUiMarkers,
     missingMarkers,
   });
@@ -146,13 +188,18 @@ async function main() {
     allowedOrigin,
   });
 
-  report.passed = true;
+  report.passed = report.checks.length > 0 && report.checks.every((check) => check.passed);
+  if (!report.passed) {
+    report.error = `Failed checks: ${report.checks.filter((check) => !check.passed).map((check) => check.name).join(', ')}`;
+    process.exitCode = 1;
+  }
 }
 
 try {
   await main();
 } catch (error) {
   report.error = error instanceof Error ? error.message : String(error);
+  record('smoke-execution', false, { message: report.error });
   process.exitCode = 1;
 } finally {
   report.checkedAt = new Date().toISOString();
