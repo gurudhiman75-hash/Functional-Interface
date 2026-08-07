@@ -39,18 +39,31 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle authority
+      - name: Bundle structural authority
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-003/authority.test.ts
           --bundle --platform=node --format=esm
-          --outfile=dist/quant-v4/sap-cp003-executable-discovery-authority.test.mjs
+          --outfile=dist/quant-v4/sap-cp003-structural-remediation-v2-authority.test.mjs
 
-      - name: Run authority
+      - name: Run structural authority
         shell: bash
         run: |
           set -o pipefail
-          node artifacts/api-server/dist/quant-v4/sap-cp003-executable-discovery-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp003-executable-discovery-authority.log
+          node artifacts/api-server/dist/quant-v4/sap-cp003-structural-remediation-v2-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp003-structural-remediation-v2-authority.log
+
+      - name: Bundle presentation authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-003/SAP-CP-003-STRUCTURAL-V2-PRESENTATION-AUTHORITY.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp003-structural-v2-presentation-authority.test.mjs
+
+      - name: Run presentation authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/sap-cp003-structural-v2-presentation-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp003-structural-v2-presentation-authority.log
 
       - name: Bundle compact review exporter
         run: >-
@@ -82,7 +95,8 @@ jobs:
         with:
           name: sap-cp003-structural-remediation-v2-review
           path: |
-            artifacts/api-server/dist/quant-v4/sap-cp003-executable-discovery-authority.log
+            artifacts/api-server/dist/quant-v4/sap-cp003-structural-remediation-v2-authority.log
+            artifacts/api-server/dist/quant-v4/sap-cp003-structural-v2-presentation-authority.log
             artifacts/api-server/dist/quant-v4/SAP-CP-003-300-QUESTIONS-AND-ANSWERS-V2.md
             artifacts/api-server/dist/quant-v4/SAP-CP-003-300-STRUCTURAL-REVIEW-V2.md
           if-no-files-found: error
