@@ -43,6 +43,12 @@ function targetOf(question: GeneratedBlrCp007EditorialV4Question) {
   return question.query.target;
 }
 
+function anyTargetSentence(question: GeneratedBlrCp007EditorialV4Question): string | undefined {
+  if (!("target" in question.query)) return undefined;
+  const target = question.query.target;
+  return `${target.subjectId} is the ${relationText(target.relationId)} of ${target.referenceId}`;
+}
+
 function targetSentence(question: GeneratedBlrCp007EditorialV4Question): string {
   const target = targetOf(question);
   return `${target.subjectId} is the ${relationText(target.relationId)} of ${target.referenceId}`;
@@ -58,6 +64,44 @@ function polishInheritedStem(stem: string): string {
     .replace(/\band makes (?=[A-Z]+ is\b)/g, "so that ")
     .replace(/\bthat makes (?=[A-Z]+ is\b)/g, "that shows that ")
     .replace(/\bthat make (?=[A-Z]+ is\b)/g, "that show that ");
+}
+
+function polishFoundationDirectExplanation(
+  question: GeneratedBlrCp007EditorialV4Question,
+): GeneratedBlrCp007EditorialV4Question {
+  if (
+    question.qlId !== "BLR-QL-031" ||
+    question.metadata.disposition !== "FOUNDATION_PRACTICE"
+  ) return question;
+
+  const target = anyTargetSentence(question);
+  if (!target) return question;
+  const correct = question.options[question.correctIndex]!;
+  const decoded = ensurePeriod(correct.decodedAssertions[0] ?? target);
+  const reverse = question.sourcePrototypeId.includes("DIRECT-REVERSE");
+  const correctExplanation = reverse
+    ? `${decoded} Reading this relation in reverse, ${target}.`
+    : `This expression directly states that ${target}.`;
+  const options = question.options.map((option, index) =>
+    index === question.correctIndex
+      ? { ...option, studentExplanation: correctExplanation }
+      : option,
+  );
+  const optionAnalysis = question.explanation.optionAnalysis.map((analysis, index) => ({
+    ...analysis,
+    explanation: options[index]!.studentExplanation,
+  }));
+  return {
+    ...question,
+    options,
+    explanation: {
+      ...question.explanation,
+      steps: reverse
+        ? [decoded, `Reading the relation in reverse, ${target}.`]
+        : [decoded],
+      optionAnalysis,
+    },
+  };
 }
 
 function remodelStem(question: GeneratedBlrCp007EditorialV4Question): string {
@@ -156,10 +200,10 @@ function applyFinalFingerprint(
 function releaseConnectedQl034(
   sourceQuestion: GeneratedBlrCp007EditorialV4Question,
 ): GeneratedBlrCp007EditorialV4Question {
-  const question = {
+  const question = polishFoundationDirectExplanation({
     ...sourceQuestion,
     stem: polishInheritedStem(sourceQuestion.stem),
-  };
+  });
   if (question.qlId !== "BLR-QL-034") return applyFinalFingerprint(question);
   const components = question.metadata.candidateNetworkComponentCount;
   if (components !== 1) {
