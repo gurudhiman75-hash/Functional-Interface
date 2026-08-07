@@ -54,10 +54,11 @@ export function hardenCp004ExplanationV3(
     const amount = completeAmountForState(state);
     const periodRate = periodicRate(state.nominalAnnualRatePercent, state.frequency);
     const referenceAmount = completeAmountFromNominal(rat(100), state.nominalAnnualRatePercent, state.frequency, state.periods);
+    const referenceRatio = rat(referenceAmount.numerator, referenceAmount.denominator * 100n);
     const steps = Object.freeze([
       rateStep(state),
       `Use a reference principal of ₹100. Amount after ${periodCountText(state)} = ₹100 × (1 + ${percentText(periodRate)})^${state.periods} = ${exactReferenceMoney(referenceAmount)}.`,
-      `Therefore, every ₹100 of principal produces ${exactReferenceMoney(referenceAmount)} as the final amount.`,
+      `Therefore, every ₹100 of principal produces ${exactReferenceMoney(referenceAmount)} as the final amount. The exact A/P ratio is ${rationalText(referenceRatio)}.`,
       `Principal = ${moneyText(amount)} × 100 ÷ ${exactDecimalText(referenceAmount)} = ${moneyText(state.principal)}.`,
       `Check: compounding ${moneyText(state.principal)} for ${periodCountText(state)} gives ${moneyText(amount)}.`,
     ]);
@@ -74,10 +75,11 @@ export function hardenCp004ExplanationV3(
     const periodRate = periodicRate(state.nominalAnnualRatePercent, state.frequency);
     const referenceAmount = completeAmountFromNominal(rat(100), state.nominalAnnualRatePercent, state.frequency, state.periods);
     const referenceInterest = sub(referenceAmount, rat(100));
+    const referenceInterestRatio = rat(referenceInterest.numerator, referenceInterest.denominator * 100n);
     const steps = Object.freeze([
       rateStep(state),
       `Use a reference principal of ₹100. Amount after ${periodCountText(state)} = ₹100 × (1 + ${percentText(periodRate)})^${state.periods} = ${exactReferenceMoney(referenceAmount)}.`,
-      `Compound interest on ₹100 = ${exactReferenceMoney(referenceAmount)} − ₹100 = ${exactReferenceMoney(referenceInterest)}.`,
+      `Compound interest on ₹100 = ${exactReferenceMoney(referenceAmount)} − ₹100 = ${exactReferenceMoney(referenceInterest)}. The exact CI/P ratio is ${rationalText(referenceInterestRatio)}.`,
       `Principal = ${moneyText(compoundInterest)} × 100 ÷ ${exactDecimalText(referenceInterest)} = ${moneyText(state.principal)}.`,
       `Check: ${moneyText(state.principal)} becomes ${moneyText(amount)}, so its compound interest is ${moneyText(amount)} − ${moneyText(state.principal)} = ${moneyText(compoundInterest)}.`,
     ]);
@@ -91,19 +93,19 @@ export function hardenCp004ExplanationV3(
   if (state.qlId === "INT-QL-081") {
     const amount = brokenAmountForState(state);
     const referenceAfterWholeYears = completeAmountFromNominal(rat(100), state.nominalAnnualRatePercent, 1, state.fullYears);
-    const referenceFinalAmount = completeAmountFromNominal(rat(100), state.nominalAnnualRatePercent, 1, state.fullYears);
     const referenceTailInterest = rat(
       referenceAfterWholeYears.numerator * state.nominalAnnualRatePercent.numerator * BigInt(state.tailMonths),
       referenceAfterWholeYears.denominator * state.nominalAnnualRatePercent.denominator * 100n * 12n,
     );
     const referenceBrokenAmount = rat(
-      referenceFinalAmount.numerator * referenceTailInterest.denominator + referenceTailInterest.numerator * referenceFinalAmount.denominator,
-      referenceFinalAmount.denominator * referenceTailInterest.denominator,
+      referenceAfterWholeYears.numerator * referenceTailInterest.denominator + referenceTailInterest.numerator * referenceAfterWholeYears.denominator,
+      referenceAfterWholeYears.denominator * referenceTailInterest.denominator,
     );
+    const referenceRatio = rat(referenceBrokenAmount.numerator, referenceBrokenAmount.denominator * 100n);
     const steps = Object.freeze([
       `Start with a reference principal of ₹100. After ${state.fullYears} complete compounded year${state.fullYears === 1 ? "" : "s"}: ₹100 × (1 + ${percentText(state.nominalAnnualRatePercent)})^${state.fullYears} = ${exactReferenceMoney(referenceAfterWholeYears)}.`,
       `Simple interest for the final ${state.tailMonths} months = ${exactReferenceMoney(referenceAfterWholeYears)} × ${percentText(state.nominalAnnualRatePercent)} × ${state.tailMonths}/12 = ${exactReferenceMoney(referenceTailInterest)}.`,
-      `Thus ₹100 becomes ${exactReferenceMoney(referenceAfterWholeYears)} + ${exactReferenceMoney(referenceTailInterest)} = ${exactReferenceMoney(referenceBrokenAmount)}.`,
+      `Thus ₹100 becomes ${exactReferenceMoney(referenceAfterWholeYears)} + ${exactReferenceMoney(referenceTailInterest)} = ${exactReferenceMoney(referenceBrokenAmount)}. The exact A/P ratio is ${rationalText(referenceRatio)}.`,
       `Principal = ${moneyText(amount)} × 100 ÷ ${exactDecimalText(referenceBrokenAmount)} = ${moneyText(state.principal)}.`,
       `Check: ${moneyText(state.principal)} becomes ${moneyText(amount)} after the complete-year compounding and the stated simple-interest tail.`,
     ]);
