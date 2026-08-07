@@ -8,6 +8,8 @@
 
 **Critical self-review:** Complete; ready for user review
 
+**Exam readiness:** Concept/exam-practice ready; not mock/PYQ ready for Banking, SSC, Railways, PSSSB, or PPSC
+
 **Permanent QLs:** 0
 
 **Question Studio visibility:** Disabled
@@ -27,6 +29,7 @@
 - contextual subject agreement and realistic product/plant entity labels;
 - natural, option-specific learner feedback;
 - semantic-to-display validation for every relation option;
+- task-aware difficulty calibration instead of treating every conclusion question as hard;
 - exact supplied-book source-ledger mappings.
 
 ## Boundary

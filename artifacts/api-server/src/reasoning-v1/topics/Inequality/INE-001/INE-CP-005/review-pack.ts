@@ -117,7 +117,7 @@ export function renderIneCp005ReviewMarkdown(
   return [
     "# INE-CP-005 English Prototype Review Pack",
     "",
-    "This pack contains 12 questions for each provisional linguistic-inequality authority. Every question has exactly four answer options. Permanent QLs and Question Studio visibility remain disabled.",
+    "This pack contains 12 questions for each provisional linguistic-inequality authority. Every question has exactly four answer options. These are product prototypes, not previous-year questions. Permanent QLs and Question Studio visibility remain disabled.",
     "",
     sections.join("\n\n"),
     "",

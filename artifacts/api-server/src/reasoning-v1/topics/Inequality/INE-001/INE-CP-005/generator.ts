@@ -42,6 +42,25 @@ function contextualQueryLabel(
   return `${left}'s ${property} and ${right}'s ${property}`;
 }
 
+function calibrateDifficulty(
+  scenario: ReturnType<typeof buildIneCp005Scenario>,
+): GeneratedIneCp005Question["difficulty"] {
+  if (scenario.taskKind === "INTERPRET_RELATION") return "EASY";
+  if (
+    scenario.taskKind === "SOLVE_RELATION" &&
+    scenario.statements.length === 1
+  )
+    return "EASY";
+  if (scenario.statements.length >= 4) return "HARD";
+  if (
+    (scenario.taskKind === "SOLVE_MIXED_RELATION" ||
+      scenario.taskKind === "EVALUATE_CONCLUSIONS") &&
+    scenario.statements.length >= 3
+  )
+    return "HARD";
+  return "MEDIUM";
+}
+
 export function generateIneCp005Question(
   prototypeId: IneCp005PrototypeId,
   seed = 0,
@@ -104,13 +123,7 @@ export function generateIneCp005Question(
     questionStudioVisible: false,
     seed,
     locale: "en-IN",
-    difficulty:
-      scenario.taskKind === "INTERPRET_RELATION"
-        ? "EASY"
-        : scenario.statements.length >= 4 ||
-            scenario.taskKind === "EVALUATE_CONCLUSIONS"
-          ? "HARD"
-          : "MEDIUM",
+    difficulty: calibrateDifficulty(scenario),
     renderer: "STRUCTURED_TEXT",
     answerType:
       scenario.taskKind === "EVALUATE_CONCLUSIONS"

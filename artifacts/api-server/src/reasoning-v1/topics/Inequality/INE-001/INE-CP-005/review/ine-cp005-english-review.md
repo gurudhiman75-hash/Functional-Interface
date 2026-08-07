@@ -1,6 +1,6 @@
 # INE-CP-005 English Prototype Review Pack
 
-This pack contains 12 questions for each provisional linguistic-inequality authority. Every question has exactly four answer options. Permanent QLs and Question Studio visibility remain disabled.
+This pack contains 12 questions for each provisional linguistic-inequality authority. Every question has exactly four answer options. These are product prototypes, not previous-year questions. Permanent QLs and Question Studio visibility remain disabled.
 
 ## 1. INTERPRET_LINGUISTIC_RELATION — seed 0
 
@@ -424,7 +424,7 @@ Gagan < Diya: This comparison points in the wrong direction or uses the wrong de
 
 ## 13. SOLVE_LINGUISTIC_CHAIN — seed 0
 
-**Record:** INE-CP005-C6134201 · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** GENERIC · **Topology:** DIRECT_STRICT
+**Record:** INE-CP005-C6134201 · **Difficulty:** EASY · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** GENERIC · **Topology:** DIRECT_STRICT
 
 What is the strongest definite relation between B and P?
 
@@ -463,7 +463,7 @@ B < P: This comparison points in the wrong direction or uses the wrong degree of
 
 ## 14. SOLVE_LINGUISTIC_CHAIN — seed 1
 
-**Record:** INE-CP005-6DE2ADFE · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** MARKS · **Topology:** DIRECT_INCLUSIVE
+**Record:** INE-CP005-6DE2ADFE · **Difficulty:** EASY · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** MARKS · **Topology:** DIRECT_INCLUSIVE
 
 What is the strongest definite relation between Gagan's marks and Bina's marks?
 
@@ -1143,7 +1143,7 @@ Gagan < Charan: The wording allows both less than and equal to, so this option i
 
 ## 30. SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN — seed 5
 
-**Record:** INE-CP005-747B3F66 · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** SCORE · **Topology:** THREE_EDGE_WEAK_CHAIN
+**Record:** INE-CP005-747B3F66 · **Difficulty:** HARD · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** SCORE · **Topology:** THREE_EDGE_WEAK_CHAIN
 
 What is the strongest definite relation between Gagan's score and Charan's score?
 
@@ -1354,7 +1354,7 @@ Charan = Diya: The wording allows both greater than and equal to, so this option
 
 ## 35. SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN — seed 10
 
-**Record:** INE-CP005-53CBC9B4 · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** SALARY · **Topology:** CONVERGING_BRANCH
+**Record:** INE-CP005-53CBC9B4 · **Difficulty:** HARD · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** SALARY · **Topology:** CONVERGING_BRANCH
 
 What is the strongest definite relation between Aman's salary and Charan's salary?
 
@@ -1397,7 +1397,7 @@ Aman ≤ Charan: The statements do not fix one definite relation, so this option
 
 ## 36. SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN — seed 11
 
-**Record:** INE-CP005-6CF4FC7F · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** HEIGHT · **Topology:** CHAIN_WITH_IRRELEVANT_EDGE
+**Record:** INE-CP005-6CF4FC7F · **Difficulty:** HARD · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** HEIGHT · **Topology:** CHAIN_WITH_IRRELEVANT_EDGE
 
 What is the strongest definite relation between Charan's height and Bina's height?
 
@@ -1440,7 +1440,7 @@ The relation cannot be determined: A definite relation can be derived from the s
 
 ## 37. EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS — seed 0
 
-**Record:** INE-CP005-C3C3F468 · **Difficulty:** HARD · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** GENERIC · **Topology:** TWO_EDGE_STRICT_CHAIN
+**Record:** INE-CP005-C3C3F468 · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** GENERIC · **Topology:** TWO_EDGE_STRICT_CHAIN
 
 Assuming the statements to be true, which conclusion or conclusions definitely follow?
 
@@ -1489,7 +1489,7 @@ Both conclusions I and II follow: This option treats both conclusions as certain
 
 ## 38. EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS — seed 1
 
-**Record:** INE-CP005-5D5052D3 · **Difficulty:** HARD · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** MARKS · **Topology:** INCLUSIVE_STRICT_CHAIN
+**Record:** INE-CP005-5D5052D3 · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** MARKS · **Topology:** INCLUSIVE_STRICT_CHAIN
 
 Assuming the statements to be true, which conclusion or conclusions definitely follow?
 
@@ -1538,7 +1538,7 @@ Neither conclusion I nor conclusion II follows: This option rejects both conclus
 
 ## 39. EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS — seed 2
 
-**Record:** INE-CP005-C73AAE9E · **Difficulty:** HARD · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** SALARY · **Topology:** TWO_EDGE_STRICT_CHAIN
+**Record:** INE-CP005-C73AAE9E · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** SALARY · **Topology:** TWO_EDGE_STRICT_CHAIN
 
 Assuming the statements to be true, which conclusion or conclusions definitely follow?
 
@@ -1587,7 +1587,7 @@ Only conclusion I follows: This option keeps the wrong conclusion. Both conclusi
 
 ## 40. EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS — seed 3
 
-**Record:** INE-CP005-1F6B42A1 · **Difficulty:** HARD · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** HEIGHT · **Topology:** INCLUSIVE_STRICT_CHAIN
+**Record:** INE-CP005-1F6B42A1 · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** HEIGHT · **Topology:** INCLUSIVE_STRICT_CHAIN
 
 Assuming the statements to be true, which conclusion or conclusions definitely follow?
 
@@ -1636,7 +1636,7 @@ Only conclusion II follows: This option keeps the wrong conclusion. Neither conc
 
 ## 41. EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS — seed 4
 
-**Record:** INE-CP005-F7EF33FC · **Difficulty:** HARD · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** WEIGHT · **Topology:** EQUALITY_BRIDGE_CHAIN
+**Record:** INE-CP005-F7EF33FC · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** WEIGHT · **Topology:** EQUALITY_BRIDGE_CHAIN
 
 Assuming the statements to be true, which conclusion or conclusions definitely follow?
 
@@ -1737,7 +1737,7 @@ Neither conclusion I nor conclusion II follows: This option rejects both conclus
 
 ## 43. EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS — seed 6
 
-**Record:** INE-CP005-7E737742 · **Difficulty:** HARD · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** PRICE · **Topology:** SHARED_UPPER_FREE_ENDPOINTS
+**Record:** INE-CP005-7E737742 · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** PRICE · **Topology:** SHARED_UPPER_FREE_ENDPOINTS
 
 Assuming the statements to be true, which conclusion or conclusions definitely follow?
 
@@ -1786,7 +1786,7 @@ Only conclusion I follows: This option keeps the wrong conclusion. Both conclusi
 
 ## 44. EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS — seed 7
 
-**Record:** INE-CP005-26B8E635 · **Difficulty:** HARD · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** PRODUCTION · **Topology:** DISCONNECTED_COMPONENTS
+**Record:** INE-CP005-26B8E635 · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Context:** PRODUCTION · **Topology:** DISCONNECTED_COMPONENTS
 
 Assuming the statements to be true, which conclusion or conclusions definitely follow?
 

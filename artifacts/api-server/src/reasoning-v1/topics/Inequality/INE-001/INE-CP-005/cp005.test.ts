@@ -16,6 +16,7 @@ const contexts = new Set<string>();
 const topologies = new Set<string>();
 const masks = new Set<string>();
 const interpretRelations = new Set<string>();
+const difficultyCounts = { EASY: 0, MEDIUM: 0, HARD: 0 };
 let generatedCount = 0;
 let maximumStatementCount = 0;
 
@@ -46,6 +47,7 @@ for (const contract of INE_CP005_PROTOTYPE_CONTRACTS) {
       question.metadata.sourceLedgerIds,
       contract.sourceLedgerIds,
     );
+    difficultyCounts[question.difficulty] += 1;
 
     const positions = positionsByAuthority.get(contract.authorityId) ?? [
       0, 0, 0, 0,
@@ -88,6 +90,7 @@ assert.ok(topologies.size >= 12);
 assert.equal(masks.size, 4);
 assert.equal(interpretRelations.size, 5);
 assert.equal(maximumStatementCount, 4);
+assert.deepEqual(difficultyCounts, { EASY: 14, MEDIUM: 22, HARD: 12 });
 for (const positions of positionsByAuthority.values())
   assert.deepEqual(positions, [3, 3, 3, 3]);
 
@@ -99,5 +102,6 @@ console.log("INE-CP-005 linguistic-inequality audit passed.", {
   topologyCount: topologies.size,
   positionsByAuthority: Object.fromEntries(positionsByAuthority),
   maximumStatementCount,
+  difficultyCounts,
   permanentQlCount: 0,
 });
