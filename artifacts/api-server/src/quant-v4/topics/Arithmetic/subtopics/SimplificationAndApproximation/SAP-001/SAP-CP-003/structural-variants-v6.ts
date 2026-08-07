@@ -27,11 +27,11 @@ interface WrongCandidate {
 }
 
 const CONVERSION_CASES: readonly ConversionCase[] = Object.freeze([
-  Object.freeze({ decimal: "0.375", decimalValue: rat(3n, 8n), percent: "25%", percentValue: rat(1n, 4n), fraction: "1/8", fractionValue: rat(1n, 8n) }),
+  Object.freeze({ decimal: "0.375", decimalValue: rat(3n, 8n), percent: "25%", percentValue: rat(1n, 4n), fraction: "1/2", fractionValue: rat(1n, 2n) }),
   Object.freeze({ decimal: "0.625", decimalValue: rat(5n, 8n), percent: "12.5%", percentValue: rat(1n, 8n), fraction: "1/4", fractionValue: rat(1n, 4n) }),
   Object.freeze({ decimal: "0.75", decimalValue: rat(3n, 4n), percent: "50%", percentValue: rat(1n, 2n), fraction: "3/8", fractionValue: rat(3n, 8n) }),
   Object.freeze({ decimal: "0.2", decimalValue: rat(1n, 5n), percent: "40%", percentValue: rat(2n, 5n), fraction: "3/5", fractionValue: rat(3n, 5n) }),
-  Object.freeze({ decimal: "0.875", decimalValue: rat(7n, 8n), percent: "25%", percentValue: rat(1n, 4n), fraction: "1/8", fractionValue: rat(1n, 8n) }),
+  Object.freeze({ decimal: "0.875", decimalValue: rat(7n, 8n), percent: "25%", percentValue: rat(1n, 4n), fraction: "1/2", fractionValue: rat(1n, 2n) }),
   Object.freeze({ decimal: "1.25", decimalValue: rat(5n, 4n), percent: "75%", percentValue: rat(3n, 4n), fraction: "1/2", fractionValue: rat(1n, 2n) }),
 ]);
 
