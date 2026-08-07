@@ -18,11 +18,18 @@ import {
   type MalCp003PermanentQlId,
   type MalCp003ReleasedQuestion,
 } from "./foundation/cp003-permanent-runtime";
+import {
+  MAL_CP004_PERMANENT_ALLOCATION,
+  runMalCp004EnglishReleasePipeline,
+  type MalCp004PermanentQlId,
+  type MalCp004ReleasedQuestion,
+} from "./foundation/cp004-permanent-runtime";
 
 export const MAL_001_QUESTION_STUDIO_CP_IDS = [
   "MAL-CP-001",
   "MAL-CP-002",
   "MAL-CP-003",
+  "MAL-CP-004",
 ] as const;
 
 export type Mal001QuestionStudioCpId =
@@ -31,12 +38,14 @@ export type Mal001QuestionStudioCpId =
 export type Mal001QuestionStudioQlId =
   | MalCp001PermanentQlId
   | MalCp002PermanentQlId
-  | MalCp003PermanentQlId;
+  | MalCp003PermanentQlId
+  | MalCp004PermanentQlId;
 
 export type Mal001QuestionStudioQuestion =
   | MalCp001ReleasedQuestion
   | MalCp002ReleasedQuestion
-  | MalCp003ReleasedQuestion;
+  | MalCp003ReleasedQuestion
+  | MalCp004ReleasedQuestion;
 
 type Difficulty = "Easy" | "Medium" | "Hard";
 
@@ -136,12 +145,25 @@ export function runMal001QuestionStudioPipeline(
     });
   }
 
+  if (cpId === "MAL-CP-003") {
+    const questionLanguageId = chooseQl(
+      cpId,
+      MAL_CP003_PERMANENT_ALLOCATION,
+      input,
+    ) as MalCp003PermanentQlId;
+    return runMalCp003EnglishReleasePipeline({
+      questionLanguageId,
+      seed: input.seed,
+      language: "en",
+    });
+  }
+
   const questionLanguageId = chooseQl(
     cpId,
-    MAL_CP003_PERMANENT_ALLOCATION,
+    MAL_CP004_PERMANENT_ALLOCATION,
     input,
-  ) as MalCp003PermanentQlId;
-  return runMalCp003EnglishReleasePipeline({
+  ) as MalCp004PermanentQlId;
+  return runMalCp004EnglishReleasePipeline({
     questionLanguageId,
     seed: input.seed,
     language: "en",
