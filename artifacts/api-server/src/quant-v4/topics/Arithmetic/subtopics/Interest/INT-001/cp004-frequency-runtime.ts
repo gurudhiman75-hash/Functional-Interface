@@ -4,6 +4,11 @@ import { optionsFor } from "./cp004-frequency-options";
 import { explanationFor } from "./cp004-frequency-explanations";
 import { stemFor } from "./cp004-frequency-presentations";
 import { hardenCp004Presentation } from "./cp004-editorial-hardening";
+import {
+  assertCp004ReviewV3,
+  hardenCp004ExplanationV3,
+  hardenCp004PresentationV3,
+} from "./cp004-frequency-review-v3";
 
 export * from "./cp004-frequency-math";
 export { generateCp004State } from "./cp004-frequency-generation";
@@ -14,7 +19,7 @@ export function generateIntCp004Question(qlId: IntCp004QlId, seed = "int-cp004-d
   const solution = canonicalCp004Answer(mathematicalState);
   if (!verifyCp004Answer(mathematicalState, solution)) throw new Error(`${qlId}/${seed}: canonical answer failed independent verification.`);
   const hardenedPresentation = hardenCp004Presentation(mathematicalState, stemFor(mathematicalState, seed));
-  const presentation = Object.freeze({
+  const cleanedPresentation = Object.freeze({
     ...hardenedPresentation,
     stem: hardenedPresentation.stem
       .replace(/\bDetermine\b/gu, "Find")
@@ -26,11 +31,13 @@ export function generateIntCp004Question(qlId: IntCp004QlId, seed = "int-cp004-d
       .replace(/\ba annual compounding scheme\b/gu, "an annual compounding scheme")
       .replace(/At ([0-9.]+%) per annum on (₹[0-9,.]+)\. Find only the interest in the maturity value\./gu, "Find only the interest in the maturity value on $2 at $1 per annum."),
   });
+  const presentation = hardenCp004PresentationV3(cleanedPresentation);
   const options = optionsFor(mathematicalState, seed);
   const correctIndex = options.findIndex((option) => option.isCorrect);
   if (correctIndex < 0 || options.filter((option) => option.isCorrect).length !== 1) throw new Error(`${qlId}/${seed}: option ownership failed.`);
   const correctAnswer = options[correctIndex]!.text;
-  const explanation = explanationFor(mathematicalState, correctAnswer);
+  const explanation = hardenCp004ExplanationV3(mathematicalState, explanationFor(mathematicalState, correctAnswer));
+  assertCp004ReviewV3(mathematicalState, presentation, explanation);
   return deepFreeze({ packageId: "INT-001", canonicalProblemId: "INT-CP-004", permanentQlId: qlId, qlId,
     solveContract: entry.solveContract, answerSemantic: entry.answerSemantic, difficulty: entry.difficulty, seed, mathematicalState,
     representation: presentation.representation, stemFamilyId: presentation.stemFamilyId, stem: presentation.stem, options,
