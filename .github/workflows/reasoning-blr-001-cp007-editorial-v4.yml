@@ -1,0 +1,99 @@
+name: Reasoning BLR-001 CP-007 Editorial V4
+
+on:
+  push:
+    branches:
+      - remediate/blr-001-cp007-exam-readiness-v4
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/**"
+      - ".github/workflows/reasoning-blr-001-cp007-editorial-v4.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/**"
+      - ".github/workflows/reasoning-blr-001-cp007-editorial-v4.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blr-001-cp007-editorial-v4-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp007-editorial-v4:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prove CP-006 source runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-runtime.test.ts | tee cp006-source.log
+
+      - name: Prove CP-007 V3 authority baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v3-authority.test.ts | tee cp007-v3-baseline.log
+
+      - name: Prove CP-007 V4 exam-readiness remediation
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v4.test.ts | tee cp007-v4.log
+
+      - name: Export CP-007 V4 human-review pack
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-cp007-editorial-v4-review.ts cp007-editorial-v4-review-output | tee cp007-v4-export.log
+
+      - name: Verify CP-007 V4 artifact contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=cp007-editorial-v4-review-output
+          test -f "$OUT/blr-cp007-editorial-v4-summary.json"
+          test -f "$OUT/blr-cp007-editorial-v4-records.jsonl"
+          test -f "$OUT/blr-cp007-editorial-v4-records.csv"
+          test -f "$OUT/blr-cp007-editorial-v4-review.html"
+          test -f "$OUT/BLR-CP-007-EDITORIAL-V4-REVIEW.md"
+          test "$(wc -l < "$OUT/blr-cp007-editorial-v4-records.jsonl")" -eq 168
+          grep -q '"releaseCandidateCount": 104' "$OUT/blr-cp007-editorial-v4-summary.json"
+          grep -q '"foundationPracticeCount": 32' "$OUT/blr-cp007-editorial-v4-summary.json"
+          grep -q '"remediationHoldCount": 32' "$OUT/blr-cp007-editorial-v4-summary.json"
+          grep -q '"neutralWordCodeQuestions": 0' "$OUT/blr-cp007-editorial-v4-summary.json"
+          grep -q '"colourTokenOccurrences": 0' "$OUT/blr-cp007-editorial-v4-summary.json"
+          grep -q '"ql034DisconnectedNetworkCount": 32' "$OUT/blr-cp007-editorial-v4-summary.json"
+          grep -q 'The code key below applies to all four items and is intentionally shown once.' "$OUT/blr-cp007-editorial-v4-review.html"
+          grep -q 'QL-034 questions remain on remediation hold' "$OUT/blr-cp007-editorial-v4-review.html"
+
+      - name: Upload CP-007 V4 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-editorial-v4-logs
+          path: |
+            cp006-source.log
+            cp007-v3-baseline.log
+            cp007-v4.log
+            cp007-v4-export.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload CP-007 V4 review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-editorial-v4-human-review
+          path: cp007-editorial-v4-review-output
+          if-no-files-found: error
+          retention-days: 30
