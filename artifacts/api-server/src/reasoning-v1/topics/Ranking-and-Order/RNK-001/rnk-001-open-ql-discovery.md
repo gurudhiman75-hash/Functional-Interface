@@ -1,6 +1,6 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001, CP-002 and CP-003 frozen at `RNK-QL-001..026`; CP-004 targeted SSC/banking English Remodel V7 review is active**.
+Status: **CP-001 through CP-004 are frozen at `RNK-QL-001..035`; `RNK-QL-036` is the next available identity.**
 
 This register prevents premature chapter sizing. Counts are discovery evidence, never quotas.
 
@@ -54,156 +54,91 @@ RNK-QL-026  OWN_RANK_WITH_MOVEMENT_AND_MEMBERSHIP_CHANGE
 
 Open CP-003 source dimensions: `0`.
 
-## 4. Active checkpoint — RNK-CP-004
+## 4. Frozen checkpoint — RNK-CP-004
 
-### Remodel V7 executable wave
-
-```text
-provisional authorities:          11
-runtime seeds per authority:     240
-runtime questions:             2,640
-English review questions:        132
-review evidence per authority:    12
-mixed review batches:             12
-manual English approval:     pending
-permanent QLs:                   none
-next available identity:  RNK-QL-027
-```
-
-### Provisional authorities
+### Freeze summary
 
 ```text
-HIGHEST_ENTITY
-LOWEST_ENTITY
-ENTITY_AT_EXACT_RANK
-RANK_OF_NAMED_ENTITY
-MIDDLE_ENTITY
-COMPLETE_ORDER
-RELATIVE_ORDER_OF_PAIR
-EXACT_RANK_DIFFERENCE_OF_PAIR
-IMMEDIATE_NEIGHBOUR
-DEFINITELY_TRUE_RELATION
-MISSING_COMPARISON
+approved English review corpus: 132 questions
+source prototypes/forms:          11
+frozen authorities:                9
+permanent runtime:             1,728 questions
+questions per authority:          192
+permanent range:            RNK-QL-027..035
+freeze version:             RNK_CP004_ENGLISH_DISCOVERY_FREEZE_V1
+runtime version:            RNK_CP004_PERMANENT_RUNTIME_V1
+projection: sha256:39c35edb20d0452ccec4018a1166cefa5f8c445d92c968c601e59158aed4a97f
 ```
 
-The compatibility runtime ID for `DEFINITELY_TRUE_RELATION` remains `VALID_RANK_STATEMENT` until consolidation.
-
-`RELATIVE_ORDER_OF_PAIR` owns direction only. `EXACT_RANK_DIFFERENCE_OF_PAIR` remains separate because it requires complete-position proof and arithmetic.
-
-### V7 corrections
-
-- singular/plural rendering is validated;
-- every four-option question records exactly three distractors;
-- distance options use natural `place/places above` wording;
-- endpoint feedback is option-specific;
-- missing-comparison mock help is compact;
-- pair learner help is regenerated from the displayed remapped options;
-- each authority has at least three stem and explanation-shell variants.
-
-Direction-only pair options now share one semantic contract:
+### Frozen authorities
 
 ```text
-correct direction
-reverse direction
-same-rank contradiction
-cannot-determine contradiction
+RNK-QL-027  ENDPOINT_ENTITY
+RNK-QL-028  ENTITY_AT_POSITION
+RNK-QL-029  RANK_OF_NAMED_ENTITY
+RNK-QL-030  COMPLETE_ORDER
+RNK-QL-031  RELATIVE_ORDER_OF_PAIR
+RNK-QL-032  EXACT_RANK_DIFFERENCE_OF_PAIR
+RNK-QL-033  IMMEDIATE_NEIGHBOUR
+RNK-QL-034  DEFINITELY_TRUE_RELATION
+RNK-QL-035  MISSING_COMPARISON
 ```
 
-Exact-distance options test:
+### Consolidation record
 
 ```text
-correct distance and direction
-reversed direction
-people-between error
-inclusive-count error
+HIGHEST_ENTITY + LOWEST_ENTITY
+  -> ENDPOINT_ENTITY
+
+ENTITY_AT_EXACT_RANK + MIDDLE_ENTITY
+  -> ENTITY_AT_POSITION
 ```
 
-### Difficulty and proof model
+Endpoint direction and explicit-versus-derived position are parameters, not separate QLs. Named rank, complete order, pair direction, exact distance, immediate neighbour, definitely-true relation and missing comparison retain distinct proof or answer contracts.
 
-Difficulty uses:
+### Source and inverse record
+
+Inverse presentation was audited across 2,640 discovery records and a targeted 36-question review pack.
+
+Permanent runtime inverse coverage:
 
 ```text
-RNK_CP004_DIFFICULTY_V3
+canonical:                               1,488
+person at a rank from bottom:               48
+rank of a named entity from bottom:          96
+complete order from lowest to highest:       96
 ```
 
-The shortest answer proof and task burden dominate. Entity count is only a small scanning factor.
+No inverse form created a duplicate authority identity.
+
+### Permanent runtime evidence
 
 ```text
-runtime: 838 Easy / 1,595 Medium / 207 Hard
-review:   17 Easy /   100 Medium /  15 Hard
+Easy:       470
+Medium:   1,106
+Hard:       152
+
+six context families: 288 each
+answer positions per QL: 48 / 48 / 48 / 48
+normalised semantic duplicates: 0
 ```
 
-Calibration gates prove:
-
-- five-person middle questions are Easy;
-- short direction-only pair proofs are Easy;
-- named-rank and ordinary immediate-neighbour chains are not Hard;
-- definitely-true relations are Medium;
-- exact-distance Hard requires the combined large-chain, reversed-wording and confirmatory burden.
-
-Proof metadata remains:
+### Ownership boundary
 
 ```text
-shortestDirectionalPathClues
-shortestExactPositionProofClues
-fullOrderProofClues
-shortestAnswerProofClues
+exact unique multi-entity order                  -> RNK-CP-004
+row/queue/merit/race presentation-led forms       -> RNK-CP-005
+height/age/marks/weight attribute-led forms       -> RNK-CP-006
+possible/impossible/cannot-determine partial order -> RNK-CP-007
+shared multi-question ranking sets                 -> RNK-CP-008
+statement I/II sufficiency labels                  -> Data Sufficiency
 ```
 
-Missing comparison separately records base-clue, selected-option and completed-relation counts.
+`DEFINITELY_FALSE_RELATION` remains unallocated without additional source proof. Possible, impossible, cannot-determine and minimum/maximum possible-rank forms remain excluded to RNK-CP-007.
 
-### Expanded structural evidence
+Open CP-004 English discovery dimensions: `0`.
 
-The review pack provides:
-
-```text
-12 distinct structural fingerprints per authority
-6 context families × 22 records
-confirmatory counts 0, 1 and 2
-12 mixed-authority batches
-```
-
-Fingerprints normalise names to solved-order positions and store clue shape, query shape, confirmatory count and option roles.
-
-Answer-position authority:
-
-```text
-A/B/C/D: 33/33/33/33
-unique four-answer windows: 129
-repeated four-answer windows: 0
-normalized semantic duplicates: 0
-```
-
-### Learner renderer boundary
-
-```text
-DIRECT
-SEGMENT_BUILDING
-FULL_POSITIONAL
-```
-
-Student content remains separate from admin proof metadata. Optional wrong-option teaching uses a native collapsed component. Actual Question Studio mobile/accessibility validation remains pending.
-
-### Current executable evidence
-
-```text
-runtime questions:                          2,640
-review questions:                             132
-average visible explanation words:          45.28
-average words including optional help:       87.73
-```
-
-### Still open before consolidation
-
-- manual English approval of the 132-question Remodel V7 pack;
-- source saturation and inverse-query audit;
-- ownership audit against CP-005, CP-006 and CP-007;
-- endpoint, exact-rank, relation and distance merge/split proof;
-- final provisional-authority consolidation;
-- permanent QL allocation and freeze proof;
-- Question Studio disclosure, mobile and accessibility validation.
-
-No CP-004 QL count is allocated.
+Question Studio disclosure/mobile/accessibility integration and Hindi/Punjabi localisation remain downstream product work, not open English authority discovery.
 
 ## 5. Open later checkpoints
 
@@ -238,16 +173,13 @@ age/speed/marks arithmetic as main burden       -> relevant Quant chapter
 ## 7. Current lifecycle
 
 ```text
-cumulative permanent range:   RNK-QL-001..026
-next available RNK ID:        RNK-QL-027
+cumulative permanent range:   RNK-QL-001..035
+next available RNK ID:        RNK-QL-036
 CP-001 discovery frozen:      true
 CP-002 discovery frozen:      true
 CP-003 discovery frozen:      true
-CP-004 discovery frozen:      false
-CP-004 manual review:         pending
-CP-004 permanent QL count:    open
+CP-004 discovery frozen:      true
 chapter-wide freeze:          false
-English review-only:          true
 Hindi/Punjabi:                not started
 Question Studio:              disabled
 Question Bank:                NOT_STORED
