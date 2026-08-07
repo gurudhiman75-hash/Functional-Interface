@@ -78,7 +78,7 @@ jobs:
       - name: Reproduce frozen CP-004 permanent projection
         run: |
           set -o pipefail
-          npx --yes tsx \
+          pnpm dlx tsx \
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-permanent-runtime-v1-gates.test.ts \
             rnk-cp004-renderer-freeze-proof \
             | tee rnk-cp004-freeze-proof.log
