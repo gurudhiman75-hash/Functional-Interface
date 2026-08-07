@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { getFirebaseAuth } from '@/lib/firebase';
+import { API_BASE_URL } from '@/lib/api';
 import {
   PASSWORD_RESET_ACCEPTED_MESSAGE,
   classifyPasswordResetFailure,
@@ -22,11 +22,11 @@ import {
   validateManualRecovery,
   validateRecoveryEmail,
 } from '@/lib/account-recovery-contract';
-
-const configuredBase = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
-const apiBase = (configuredBase || '/api').replace(/\/$/, '');
+import { getFirebaseAuth } from '@/lib/firebase';
 
 type RecoveryMode = 'password' | 'identity';
+
+const apiBase = API_BASE_URL.replace(/\/$/, '');
 
 export default function AccountRecovery() {
   const [, setLocation] = useLocation();
@@ -41,7 +41,6 @@ export default function AccountRecovery() {
   const [resetEmail, setResetEmail] = useState(initialEmail);
   const [resetSubmitting, setResetSubmitting] = useState(false);
   const [resetAccepted, setResetAccepted] = useState(false);
-
   const [identifier, setIdentifier] = useState(initialEmail);
   const [contactEmail, setContactEmail] = useState(initialEmail);
   const [explanation, setExplanation] = useState('');
@@ -119,11 +118,7 @@ export default function AccountRecovery() {
 
   const submitIdentityRecovery = async (event: React.FormEvent) => {
     event.preventDefault();
-    const errors = validateManualRecovery({
-      identifier,
-      contactEmail,
-      explanation,
-    });
+    const errors = validateManualRecovery({ identifier, contactEmail, explanation });
     const firstError = errors.identifier || errors.contactEmail || errors.explanation;
     if (firstError) {
       toast({
@@ -189,7 +184,11 @@ export default function AccountRecovery() {
             </div>
           </div>
 
-          <div className="mt-6 grid grid-cols-2 gap-2 rounded-lg border bg-muted/30 p-1" role="tablist" aria-label="Recovery method">
+          <div
+            className="mt-6 grid grid-cols-2 gap-2 rounded-lg border bg-muted/30 p-1"
+            role="tablist"
+            aria-label="Recovery method"
+          >
             <button
               type="button"
               role="tab"
@@ -226,10 +225,7 @@ export default function AccountRecovery() {
                   </p>
                   <div className="mt-4 flex flex-col gap-2 sm:flex-row">
                     <Button onClick={returnToLogin}>Return to login</Button>
-                    <Button
-                      variant="outline"
-                      onClick={() => setResetAccepted(false)}
-                    >
+                    <Button variant="outline" onClick={() => setResetAccepted(false)}>
                       Edit email
                     </Button>
                     <Button
