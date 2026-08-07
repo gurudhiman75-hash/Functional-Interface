@@ -58,16 +58,16 @@ jobs:
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-authority-consolidation-v1-gates.test.ts
           rnk-cp004-authority-consolidation-v1-output
 
-      - name: Project permanent runtime and compute freeze digest
+      - name: Enforce pinned permanent runtime and English discovery freeze
         run: >-
           npx --yes tsx
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-permanent-runtime-v1-gates.test.ts
           rnk-cp004-permanent-runtime-v1-output
 
-      - name: Upload RNK-CP-004 permanent projection evidence
+      - name: Upload RNK-CP-004 English discovery freeze evidence
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp004-permanent-runtime-projection
+          name: rnk-001-cp004-english-discovery-freeze-v1
           path: |
             rnk-cp004-discovery-output
             rnk-cp004-exam-ready-v6-regression-output
