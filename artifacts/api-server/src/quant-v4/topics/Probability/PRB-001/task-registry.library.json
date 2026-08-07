@@ -1,10 +1,3376 @@
 {
   "packageId": "PRB-001",
-  "groups": [
-    {"packageId":"PRB-001","cpId":"PRB-CP-001","start":1,"count":22,"solveModes":["directProbability","findFavourableCount","findTotalCount","frequencyProbability","certainOrImpossible","compareEvents"],"taskKinds":["CLASSICAL_PROBABILITY","COUNT_RECOVERY"],"difficultyAllocation":{"easyUntil":0.34,"mediumUntil":0.77}},
-    {"packageId":"PRB-001","cpId":"PRB-CP-002","start":101,"count":24,"solveModes":["complementProbability","atLeastOne","noneOccurs","exactlyOne","exactlyK","atMostK","allOrNotAll"],"taskKinds":["COMPLEMENT","BINOMIAL_SMALL_N"],"difficultyAllocation":{"easyUntil":0.34,"mediumUntil":0.77}},
-    {"packageId":"PRB-001","cpId":"PRB-CP-003","start":201,"count":24,"solveModes":["coinPattern","coinHeadCount","singleDieEvent","twoDiceSum","twoDiceProduct","spinnerEvent","numberProperty","reverseOutcomeCount"],"taskKinds":["STANDARD_EXPERIMENT"],"difficultyAllocation":{"easyUntil":0.34,"mediumUntil":0.77}},
-    {"packageId":"PRB-001","cpId":"PRB-CP-004","start":301,"count":24,"solveModes":["cardRank","cardSuit","cardColour","cardFace","cardUnion","cardComplement","cardIntersection","cardReverseCount"],"taskKinds":["CARD_PROBABILITY"],"difficultyAllocation":{"easyUntil":0.34,"mediumUntil":0.77}},
-    {"packageId":"PRB-001","cpId":"PRB-CP-005","start":401,"count":26,"solveModes":["singleUrnDraw","sameTypeSelection","differentTypeSelection","exactComposition","noneOfType","atLeastOneType","urnReverseCount","combinationSelection"],"taskKinds":["URN_SELECTION"],"difficultyAllocation":{"easyUntil":0.34,"mediumUntil":0.77}}
+  "contractVersion": "PRB-TASK-REGISTRY-V1",
+  "entries": [
+    {
+      "qlId": "PRB-QL-001",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "CLASSICAL_DIRECT",
+      "solveMode": "findDirectProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "DIRECT_EVENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "favourable",
+        "object"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "DIRECT_CLASSICAL",
+      "distractorStrategyIds": [
+        "REVERSE_FAVOURABLE_TOTAL",
+        "NEARBY_VALUE"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-002",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "REVERSE_CLASSICAL",
+      "solveMode": "findFavourableOutcomeCount",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "REVERSE_FAVOURABLE",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "probabilityNumerator",
+        "probabilityDenominator",
+        "total",
+        "favourable",
+        "context"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_PROBABILITY_AS_COUNT",
+        "DIVIDE_INSTEAD_MULTIPLY"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-003",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "REVERSE_CLASSICAL",
+      "solveMode": "findTotalOutcomeCount",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "REVERSE_TOTAL",
+      "answerDimension": "COUNT",
+      "answerSemantic": "TOTAL_OUTCOME_COUNT",
+      "requiredVariables": [
+        "probabilityNumerator",
+        "probabilityDenominator",
+        "total",
+        "favourable",
+        "context"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_TOTAL",
+      "distractorStrategyIds": [
+        "USE_FAVOURABLE_AS_TOTAL",
+        "MULTIPLY_INSTEAD_DIVIDE"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-004",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "EVENT_CLASSIFICATION",
+      "solveMode": "identifyImpossibleCertainOrPossibleEvent",
+      "experimentKinds": [
+        "NUMBER_SELECTION"
+      ],
+      "eventStrategyId": "CERTAIN_IMPOSSIBLE_POSSIBLE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "n",
+        "state",
+        "favourable",
+        "eventLabel"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "EVENT_CLASSIFICATION",
+      "distractorStrategyIds": [
+        "ASSUME_NONZERO",
+        "ASSUME_NOT_CERTAIN"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-005",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "FREQUENCY_CLASSICAL",
+      "solveMode": "findProbabilityFromSimpleFrequencyTable",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "FREQUENCY_EVENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "green",
+        "target"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "FREQUENCY_DIRECT",
+      "distractorStrategyIds": [
+        "USE_WRONG_CATEGORY",
+        "OMIT_CATEGORY_FROM_TOTAL"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-006",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "REVERSE_CLASSICAL",
+      "solveMode": "findMissingEventCountFromProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "MISSING_EVENT_COUNT",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "probabilityNumerator",
+        "probabilityDenominator",
+        "total",
+        "favourable",
+        "context"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_PROBABILITY_AS_COUNT",
+        "ENDPOINT_OFF_BY_ONE"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-007",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "CLASSICAL_DIRECT",
+      "solveMode": "findDirectProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "DIRECT_EVENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "favourable",
+        "object"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "DIRECT_CLASSICAL",
+      "distractorStrategyIds": [
+        "REVERSE_FAVOURABLE_TOTAL",
+        "NEARBY_VALUE"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-008",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "REVERSE_CLASSICAL",
+      "solveMode": "findFavourableOutcomeCount",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "REVERSE_FAVOURABLE",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "probabilityNumerator",
+        "probabilityDenominator",
+        "total",
+        "favourable",
+        "context"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_PROBABILITY_AS_COUNT",
+        "DIVIDE_INSTEAD_MULTIPLY"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-009",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "REVERSE_CLASSICAL",
+      "solveMode": "findTotalOutcomeCount",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "REVERSE_TOTAL",
+      "answerDimension": "COUNT",
+      "answerSemantic": "TOTAL_OUTCOME_COUNT",
+      "requiredVariables": [
+        "probabilityNumerator",
+        "probabilityDenominator",
+        "total",
+        "favourable",
+        "context"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_TOTAL",
+      "distractorStrategyIds": [
+        "USE_FAVOURABLE_AS_TOTAL",
+        "MULTIPLY_INSTEAD_DIVIDE"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-010",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "EVENT_CLASSIFICATION",
+      "solveMode": "identifyImpossibleCertainOrPossibleEvent",
+      "experimentKinds": [
+        "NUMBER_SELECTION"
+      ],
+      "eventStrategyId": "CERTAIN_IMPOSSIBLE_POSSIBLE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "n",
+        "state",
+        "favourable",
+        "eventLabel"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "EVENT_CLASSIFICATION",
+      "distractorStrategyIds": [
+        "ASSUME_NONZERO",
+        "ASSUME_NOT_CERTAIN"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-011",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "FREQUENCY_CLASSICAL",
+      "solveMode": "findProbabilityFromSimpleFrequencyTable",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "FREQUENCY_EVENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "green",
+        "target"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "FREQUENCY_DIRECT",
+      "distractorStrategyIds": [
+        "USE_WRONG_CATEGORY",
+        "OMIT_CATEGORY_FROM_TOTAL"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-012",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "REVERSE_CLASSICAL",
+      "solveMode": "findMissingEventCountFromProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "MISSING_EVENT_COUNT",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "probabilityNumerator",
+        "probabilityDenominator",
+        "total",
+        "favourable",
+        "context"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_PROBABILITY_AS_COUNT",
+        "ENDPOINT_OFF_BY_ONE"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-013",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "CLASSICAL_DIRECT",
+      "solveMode": "findDirectProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "DIRECT_EVENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "favourable",
+        "object"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "DIRECT_CLASSICAL",
+      "distractorStrategyIds": [
+        "REVERSE_FAVOURABLE_TOTAL",
+        "NEARBY_VALUE"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-014",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "REVERSE_CLASSICAL",
+      "solveMode": "findFavourableOutcomeCount",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "REVERSE_FAVOURABLE",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "probabilityNumerator",
+        "probabilityDenominator",
+        "total",
+        "favourable",
+        "context"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_PROBABILITY_AS_COUNT",
+        "DIVIDE_INSTEAD_MULTIPLY"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-015",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "REVERSE_CLASSICAL",
+      "solveMode": "findTotalOutcomeCount",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "REVERSE_TOTAL",
+      "answerDimension": "COUNT",
+      "answerSemantic": "TOTAL_OUTCOME_COUNT",
+      "requiredVariables": [
+        "probabilityNumerator",
+        "probabilityDenominator",
+        "total",
+        "favourable",
+        "context"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_TOTAL",
+      "distractorStrategyIds": [
+        "USE_FAVOURABLE_AS_TOTAL",
+        "MULTIPLY_INSTEAD_DIVIDE"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-016",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "EVENT_CLASSIFICATION",
+      "solveMode": "identifyImpossibleCertainOrPossibleEvent",
+      "experimentKinds": [
+        "NUMBER_SELECTION"
+      ],
+      "eventStrategyId": "CERTAIN_IMPOSSIBLE_POSSIBLE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "n",
+        "state",
+        "favourable",
+        "eventLabel"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "EVENT_CLASSIFICATION",
+      "distractorStrategyIds": [
+        "ASSUME_NONZERO",
+        "ASSUME_NOT_CERTAIN"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-017",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "FREQUENCY_CLASSICAL",
+      "solveMode": "findProbabilityFromSimpleFrequencyTable",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "FREQUENCY_EVENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "green",
+        "target"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "FREQUENCY_DIRECT",
+      "distractorStrategyIds": [
+        "USE_WRONG_CATEGORY",
+        "OMIT_CATEGORY_FROM_TOTAL"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-018",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "REVERSE_CLASSICAL",
+      "solveMode": "findMissingEventCountFromProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "MISSING_EVENT_COUNT",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "probabilityNumerator",
+        "probabilityDenominator",
+        "total",
+        "favourable",
+        "context"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_PROBABILITY_AS_COUNT",
+        "ENDPOINT_OFF_BY_ONE"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-019",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "CLASSICAL_DIRECT",
+      "solveMode": "findDirectProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "DIRECT_EVENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "total",
+        "favourable",
+        "object"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "DIRECT_CLASSICAL",
+      "distractorStrategyIds": [
+        "REVERSE_FAVOURABLE_TOTAL",
+        "NEARBY_VALUE"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-020",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "REVERSE_CLASSICAL",
+      "solveMode": "findFavourableOutcomeCount",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "REVERSE_FAVOURABLE",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "probabilityNumerator",
+        "probabilityDenominator",
+        "total",
+        "favourable",
+        "context"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_PROBABILITY_AS_COUNT",
+        "DIVIDE_INSTEAD_MULTIPLY"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-021",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "REVERSE_CLASSICAL",
+      "solveMode": "findTotalOutcomeCount",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "REVERSE_TOTAL",
+      "answerDimension": "COUNT",
+      "answerSemantic": "TOTAL_OUTCOME_COUNT",
+      "requiredVariables": [
+        "probabilityNumerator",
+        "probabilityDenominator",
+        "total",
+        "favourable",
+        "context"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_TOTAL",
+      "distractorStrategyIds": [
+        "USE_FAVOURABLE_AS_TOTAL",
+        "MULTIPLY_INSTEAD_DIVIDE"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-022",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-001",
+      "taskKind": "EVENT_CLASSIFICATION",
+      "solveMode": "identifyImpossibleCertainOrPossibleEvent",
+      "experimentKinds": [
+        "NUMBER_SELECTION"
+      ],
+      "eventStrategyId": "CERTAIN_IMPOSSIBLE_POSSIBLE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "n",
+        "state",
+        "favourable",
+        "eventLabel"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "EVENT_CLASSIFICATION",
+      "distractorStrategyIds": [
+        "ASSUME_NONZERO",
+        "ASSUME_NOT_CERTAIN"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-101",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COMPLEMENT",
+      "solveMode": "findComplementProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "COMPLEMENT_EVENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "givenNumerator",
+        "givenDenominator",
+        "eventLabel"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "COMPLEMENT",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "SUBTRACT_WRONG_WAY"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-102",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COIN_COMPLEMENT",
+      "solveMode": "findAtLeastOneUsingComplement",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "AT_LEAST_ONE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "trials",
+        "k",
+        "successLabel",
+        "failureLabel"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "AT_LEAST_ONE",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "COUNT_EXACTLY_ONE_ONLY"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-103",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COIN_COUNT",
+      "solveMode": "findNoneProbability",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "NONE_SUCCESS",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "trials",
+        "k",
+        "successLabel",
+        "failureLabel"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "NONE_SUCCESS",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "COUNT_EXACTLY_ONE_ONLY"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-104",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COIN_COUNT",
+      "solveMode": "findExactlyOneSuccess",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "EXACTLY_ONE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "trials",
+        "k",
+        "successLabel",
+        "failureLabel"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "EXACTLY_ONE",
+      "distractorStrategyIds": [
+        "COUNT_ONE_PATTERN_ONLY",
+        "FORGET_COMBINATION_FACTOR"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-105",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COIN_COUNT",
+      "solveMode": "findExactlyKSuccessSmallCase",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "EXACTLY_K",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "trials",
+        "k",
+        "successLabel",
+        "failureLabel"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "EXACTLY_K",
+      "distractorStrategyIds": [
+        "COUNT_ONE_PATTERN_ONLY",
+        "USE_AT_LEAST_K"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-106",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COIN_COUNT",
+      "solveMode": "findAtMostKSuccessSmallCase",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "AT_MOST_K",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "trials",
+        "k",
+        "successLabel",
+        "failureLabel"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "AT_MOST_K",
+      "distractorStrategyIds": [
+        "USE_EXACTLY_K",
+        "OMIT_ZERO_SUCCESS"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-107",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COIN_COUNT",
+      "solveMode": "findAllSuccessOrNotAll",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "ALL_OR_NOT_ALL",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "trials",
+        "k",
+        "successLabel",
+        "failureLabel"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "ALL_OR_NOT_ALL",
+      "distractorStrategyIds": [
+        "COUNT_ONLY_ALL_HEADS",
+        "FORGET_SECOND_EXTREME"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-108",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COMPLEMENT",
+      "solveMode": "findComplementProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "COMPLEMENT_EVENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "givenNumerator",
+        "givenDenominator",
+        "eventLabel"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "COMPLEMENT",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "SUBTRACT_WRONG_WAY"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-109",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COIN_COMPLEMENT",
+      "solveMode": "findAtLeastOneUsingComplement",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "AT_LEAST_ONE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "trials",
+        "k",
+        "successLabel",
+        "failureLabel"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "AT_LEAST_ONE",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "COUNT_EXACTLY_ONE_ONLY"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-110",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COIN_COUNT",
+      "solveMode": "findNoneProbability",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "NONE_SUCCESS",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "trials",
+        "k",
+        "successLabel",
+        "failureLabel"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "NONE_SUCCESS",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "COUNT_EXACTLY_ONE_ONLY"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-111",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COIN_COUNT",
+      "solveMode": "findExactlyOneSuccess",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "EXACTLY_ONE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "trials",
+        "k",
+        "successLabel",
+        "failureLabel"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "EXACTLY_ONE",
+      "distractorStrategyIds": [
+        "COUNT_ONE_PATTERN_ONLY",
+        "FORGET_COMBINATION_FACTOR"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-112",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COIN_COUNT",
+      "solveMode": "findExactlyKSuccessSmallCase",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "EXACTLY_K",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "trials",
+        "k",
+        "successLabel",
+        "failureLabel"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "EXACTLY_K",
+      "distractorStrategyIds": [
+        "COUNT_ONE_PATTERN_ONLY",
+        "USE_AT_LEAST_K"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-113",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COIN_COUNT",
+      "solveMode": "findAtMostKSuccessSmallCase",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "AT_MOST_K",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "trials",
+        "k",
+        "successLabel",
+        "failureLabel"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "AT_MOST_K",
+      "distractorStrategyIds": [
+        "USE_EXACTLY_K",
+        "OMIT_ZERO_SUCCESS"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-114",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COIN_COUNT",
+      "solveMode": "findAllSuccessOrNotAll",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "ALL_OR_NOT_ALL",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "trials",
+        "k",
+        "successLabel",
+        "failureLabel"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "ALL_OR_NOT_ALL",
+      "distractorStrategyIds": [
+        "COUNT_ONLY_ALL_HEADS",
+        "FORGET_SECOND_EXTREME"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-115",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COMPLEMENT",
+      "solveMode": "findComplementProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "COMPLEMENT_EVENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "givenNumerator",
+        "givenDenominator",
+        "eventLabel"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "COMPLEMENT",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "SUBTRACT_WRONG_WAY"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-116",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COIN_COMPLEMENT",
+      "solveMode": "findAtLeastOneUsingComplement",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "AT_LEAST_ONE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "trials",
+        "k",
+        "successLabel",
+        "failureLabel"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "AT_LEAST_ONE",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "COUNT_EXACTLY_ONE_ONLY"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-117",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COIN_COUNT",
+      "solveMode": "findNoneProbability",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "NONE_SUCCESS",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "trials",
+        "k",
+        "successLabel",
+        "failureLabel"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "NONE_SUCCESS",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "COUNT_EXACTLY_ONE_ONLY"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-118",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COIN_COUNT",
+      "solveMode": "findExactlyOneSuccess",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "EXACTLY_ONE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "trials",
+        "k",
+        "successLabel",
+        "failureLabel"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "EXACTLY_ONE",
+      "distractorStrategyIds": [
+        "COUNT_ONE_PATTERN_ONLY",
+        "FORGET_COMBINATION_FACTOR"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-119",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COIN_COUNT",
+      "solveMode": "findExactlyKSuccessSmallCase",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "EXACTLY_K",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "trials",
+        "k",
+        "successLabel",
+        "failureLabel"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "EXACTLY_K",
+      "distractorStrategyIds": [
+        "COUNT_ONE_PATTERN_ONLY",
+        "USE_AT_LEAST_K"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-120",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COIN_COUNT",
+      "solveMode": "findAtMostKSuccessSmallCase",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "AT_MOST_K",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "trials",
+        "k",
+        "successLabel",
+        "failureLabel"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "AT_MOST_K",
+      "distractorStrategyIds": [
+        "USE_EXACTLY_K",
+        "OMIT_ZERO_SUCCESS"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-121",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COIN_COUNT",
+      "solveMode": "findAllSuccessOrNotAll",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "ALL_OR_NOT_ALL",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "trials",
+        "k",
+        "successLabel",
+        "failureLabel"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "ALL_OR_NOT_ALL",
+      "distractorStrategyIds": [
+        "COUNT_ONLY_ALL_HEADS",
+        "FORGET_SECOND_EXTREME"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-122",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COMPLEMENT",
+      "solveMode": "findComplementProbability",
+      "experimentKinds": [
+        "COMPOUND_EXPERIMENT"
+      ],
+      "eventStrategyId": "COMPLEMENT_EVENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "givenNumerator",
+        "givenDenominator",
+        "eventLabel"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "COMPLEMENT",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "SUBTRACT_WRONG_WAY"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-123",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COIN_COMPLEMENT",
+      "solveMode": "findAtLeastOneUsingComplement",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "AT_LEAST_ONE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "trials",
+        "k",
+        "successLabel",
+        "failureLabel"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "AT_LEAST_ONE",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "COUNT_EXACTLY_ONE_ONLY"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-124",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-002",
+      "taskKind": "COIN_COUNT",
+      "solveMode": "findNoneProbability",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "NONE_SUCCESS",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "trials",
+        "k",
+        "successLabel",
+        "failureLabel"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "NONE_SUCCESS",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "COUNT_EXACTLY_ONE_ONLY"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-201",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "STANDARD_COIN",
+      "solveMode": "findCoinPatternProbability",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "COIN_PATTERN",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "tosses",
+        "pattern"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "COIN_PATTERN",
+      "distractorStrategyIds": [
+        "COUNT_HEADS_NOT_PATTERN",
+        "TREAT_TOSSES_UNORDERED"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-202",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "STANDARD_COIN",
+      "solveMode": "findCoinHeadCountProbability",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "COIN_HEAD_COUNT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "tosses",
+        "heads"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "COIN_HEAD_COUNT",
+      "distractorStrategyIds": [
+        "COUNT_ONE_PATTERN_ONLY",
+        "FORGET_COMBINATION_FACTOR"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-203",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "STANDARD_DIE",
+      "solveMode": "findSingleDieEventProbability",
+      "experimentKinds": [
+        "DIE_ROLL"
+      ],
+      "eventStrategyId": "SINGLE_DIE_PROPERTY",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "dieSides",
+        "property",
+        "threshold"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "SINGLE_DIE",
+      "distractorStrategyIds": [
+        "MISCOUNT_DIE_FACES",
+        "INCLUDE_BOUNDARY_WRONGLY"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-204",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "TWO_DICE",
+      "solveMode": "findTwoDiceSumProbability",
+      "experimentKinds": [
+        "DIE_ROLL"
+      ],
+      "eventStrategyId": "TWO_DICE_SUM",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "dieSides",
+        "targetSum"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "TWO_DICE_SUM",
+      "distractorStrategyIds": [
+        "TREAT_DICE_UNORDERED",
+        "USE_SUM_AS_FAVOURABLE_COUNT"
+      ],
+      "visualStrategyId": "TWO_DICE_OUTCOME_GRID"
+    },
+    {
+      "qlId": "PRB-QL-205",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "TWO_DICE",
+      "solveMode": "findTwoDiceProductOrParityProbability",
+      "experimentKinds": [
+        "DIE_ROLL"
+      ],
+      "eventStrategyId": "TWO_DICE_PRODUCT_PARITY",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "dieSides",
+        "eventType",
+        "targetProduct"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "TWO_DICE_PRODUCT_PARITY",
+      "distractorStrategyIds": [
+        "TREAT_DICE_UNORDERED",
+        "COUNT_ONLY_ONE_ORDER"
+      ],
+      "visualStrategyId": "TWO_DICE_OUTCOME_GRID"
+    },
+    {
+      "qlId": "PRB-QL-206",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "STANDARD_SPINNER",
+      "solveMode": "findSpinnerEventProbability",
+      "experimentKinds": [
+        "SPINNER"
+      ],
+      "eventStrategyId": "SPINNER_EVENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "sectors",
+        "favourableSectors",
+        "sectorLabel"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "SPINNER",
+      "distractorStrategyIds": [
+        "USE_UNEQUAL_SECTOR_ASSUMPTION",
+        "REVERSE_FAVOURABLE_TOTAL"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-207",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "NUMBER_SELECTION",
+      "solveMode": "findNumberRangePropertyProbability",
+      "experimentKinds": [
+        "NUMBER_SELECTION"
+      ],
+      "eventStrategyId": "NUMBER_PROPERTY",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "lower",
+        "upper",
+        "property",
+        "divisor"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "NUMBER_PROPERTY",
+      "distractorStrategyIds": [
+        "ENDPOINT_OFF_BY_ONE",
+        "USE_DIVISOR_AS_COUNT"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-208",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "REVERSE_STANDARD_EXPERIMENT",
+      "solveMode": "findReverseDiceOrSpinnerEventCount",
+      "experimentKinds": [
+        "SPINNER"
+      ],
+      "eventStrategyId": "REVERSE_SPINNER_COUNT",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "sectors",
+        "favourableSectors"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_PROBABILITY_AS_COUNT",
+        "ENDPOINT_OFF_BY_ONE"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-209",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "STANDARD_COIN",
+      "solveMode": "findCoinPatternProbability",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "COIN_PATTERN",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "tosses",
+        "pattern"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "COIN_PATTERN",
+      "distractorStrategyIds": [
+        "COUNT_HEADS_NOT_PATTERN",
+        "TREAT_TOSSES_UNORDERED"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-210",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "STANDARD_COIN",
+      "solveMode": "findCoinHeadCountProbability",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "COIN_HEAD_COUNT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "tosses",
+        "heads"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "COIN_HEAD_COUNT",
+      "distractorStrategyIds": [
+        "COUNT_ONE_PATTERN_ONLY",
+        "FORGET_COMBINATION_FACTOR"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-211",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "STANDARD_DIE",
+      "solveMode": "findSingleDieEventProbability",
+      "experimentKinds": [
+        "DIE_ROLL"
+      ],
+      "eventStrategyId": "SINGLE_DIE_PROPERTY",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "dieSides",
+        "property",
+        "threshold"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "SINGLE_DIE",
+      "distractorStrategyIds": [
+        "MISCOUNT_DIE_FACES",
+        "INCLUDE_BOUNDARY_WRONGLY"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-212",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "TWO_DICE",
+      "solveMode": "findTwoDiceSumProbability",
+      "experimentKinds": [
+        "DIE_ROLL"
+      ],
+      "eventStrategyId": "TWO_DICE_SUM",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "dieSides",
+        "targetSum"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "TWO_DICE_SUM",
+      "distractorStrategyIds": [
+        "TREAT_DICE_UNORDERED",
+        "USE_SUM_AS_FAVOURABLE_COUNT"
+      ],
+      "visualStrategyId": "TWO_DICE_OUTCOME_GRID"
+    },
+    {
+      "qlId": "PRB-QL-213",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "TWO_DICE",
+      "solveMode": "findTwoDiceProductOrParityProbability",
+      "experimentKinds": [
+        "DIE_ROLL"
+      ],
+      "eventStrategyId": "TWO_DICE_PRODUCT_PARITY",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "dieSides",
+        "eventType",
+        "targetProduct"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "TWO_DICE_PRODUCT_PARITY",
+      "distractorStrategyIds": [
+        "TREAT_DICE_UNORDERED",
+        "COUNT_ONLY_ONE_ORDER"
+      ],
+      "visualStrategyId": "TWO_DICE_OUTCOME_GRID"
+    },
+    {
+      "qlId": "PRB-QL-214",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "STANDARD_SPINNER",
+      "solveMode": "findSpinnerEventProbability",
+      "experimentKinds": [
+        "SPINNER"
+      ],
+      "eventStrategyId": "SPINNER_EVENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "sectors",
+        "favourableSectors",
+        "sectorLabel"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "SPINNER",
+      "distractorStrategyIds": [
+        "USE_UNEQUAL_SECTOR_ASSUMPTION",
+        "REVERSE_FAVOURABLE_TOTAL"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-215",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "NUMBER_SELECTION",
+      "solveMode": "findNumberRangePropertyProbability",
+      "experimentKinds": [
+        "NUMBER_SELECTION"
+      ],
+      "eventStrategyId": "NUMBER_PROPERTY",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "lower",
+        "upper",
+        "property",
+        "divisor"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "NUMBER_PROPERTY",
+      "distractorStrategyIds": [
+        "ENDPOINT_OFF_BY_ONE",
+        "USE_DIVISOR_AS_COUNT"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-216",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "REVERSE_STANDARD_EXPERIMENT",
+      "solveMode": "findReverseDiceOrSpinnerEventCount",
+      "experimentKinds": [
+        "SPINNER"
+      ],
+      "eventStrategyId": "REVERSE_SPINNER_COUNT",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "sectors",
+        "favourableSectors"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_PROBABILITY_AS_COUNT",
+        "ENDPOINT_OFF_BY_ONE"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-217",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "STANDARD_COIN",
+      "solveMode": "findCoinPatternProbability",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "COIN_PATTERN",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "tosses",
+        "pattern"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "COIN_PATTERN",
+      "distractorStrategyIds": [
+        "COUNT_HEADS_NOT_PATTERN",
+        "TREAT_TOSSES_UNORDERED"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-218",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "STANDARD_COIN",
+      "solveMode": "findCoinHeadCountProbability",
+      "experimentKinds": [
+        "COIN_TOSS"
+      ],
+      "eventStrategyId": "COIN_HEAD_COUNT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "tosses",
+        "heads"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "COIN_HEAD_COUNT",
+      "distractorStrategyIds": [
+        "COUNT_ONE_PATTERN_ONLY",
+        "FORGET_COMBINATION_FACTOR"
+      ],
+      "visualStrategyId": "COIN_OUTCOME_TREE"
+    },
+    {
+      "qlId": "PRB-QL-219",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "STANDARD_DIE",
+      "solveMode": "findSingleDieEventProbability",
+      "experimentKinds": [
+        "DIE_ROLL"
+      ],
+      "eventStrategyId": "SINGLE_DIE_PROPERTY",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "dieSides",
+        "property",
+        "threshold"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "SINGLE_DIE",
+      "distractorStrategyIds": [
+        "MISCOUNT_DIE_FACES",
+        "INCLUDE_BOUNDARY_WRONGLY"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-220",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "TWO_DICE",
+      "solveMode": "findTwoDiceSumProbability",
+      "experimentKinds": [
+        "DIE_ROLL"
+      ],
+      "eventStrategyId": "TWO_DICE_SUM",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "dieSides",
+        "targetSum"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "TWO_DICE_SUM",
+      "distractorStrategyIds": [
+        "TREAT_DICE_UNORDERED",
+        "USE_SUM_AS_FAVOURABLE_COUNT"
+      ],
+      "visualStrategyId": "TWO_DICE_OUTCOME_GRID"
+    },
+    {
+      "qlId": "PRB-QL-221",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "TWO_DICE",
+      "solveMode": "findTwoDiceProductOrParityProbability",
+      "experimentKinds": [
+        "DIE_ROLL"
+      ],
+      "eventStrategyId": "TWO_DICE_PRODUCT_PARITY",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "dieSides",
+        "eventType",
+        "targetProduct"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "ORDERED",
+      "explanationStrategyId": "TWO_DICE_PRODUCT_PARITY",
+      "distractorStrategyIds": [
+        "TREAT_DICE_UNORDERED",
+        "COUNT_ONLY_ONE_ORDER"
+      ],
+      "visualStrategyId": "TWO_DICE_OUTCOME_GRID"
+    },
+    {
+      "qlId": "PRB-QL-222",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "STANDARD_SPINNER",
+      "solveMode": "findSpinnerEventProbability",
+      "experimentKinds": [
+        "SPINNER"
+      ],
+      "eventStrategyId": "SPINNER_EVENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "sectors",
+        "favourableSectors",
+        "sectorLabel"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "SPINNER",
+      "distractorStrategyIds": [
+        "USE_UNEQUAL_SECTOR_ASSUMPTION",
+        "REVERSE_FAVOURABLE_TOTAL"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-223",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "NUMBER_SELECTION",
+      "solveMode": "findNumberRangePropertyProbability",
+      "experimentKinds": [
+        "NUMBER_SELECTION"
+      ],
+      "eventStrategyId": "NUMBER_PROPERTY",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "lower",
+        "upper",
+        "property",
+        "divisor"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "NUMBER_PROPERTY",
+      "distractorStrategyIds": [
+        "ENDPOINT_OFF_BY_ONE",
+        "USE_DIVISOR_AS_COUNT"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-224",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-003",
+      "taskKind": "REVERSE_STANDARD_EXPERIMENT",
+      "solveMode": "findReverseDiceOrSpinnerEventCount",
+      "experimentKinds": [
+        "SPINNER"
+      ],
+      "eventStrategyId": "REVERSE_SPINNER_COUNT",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "sectors",
+        "favourableSectors"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_PROBABILITY_AS_COUNT",
+        "ENDPOINT_OFF_BY_ONE"
+      ]
+    },
+    {
+      "qlId": "PRB-QL-301",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_DIRECT",
+      "solveMode": "findRankProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_RANK",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_DIRECT",
+      "distractorStrategyIds": [
+        "DECK_FACT_TRAP",
+        "USE_13_FOR_RANK"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-302",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_DIRECT",
+      "solveMode": "findSuitProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_SUIT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_DIRECT",
+      "distractorStrategyIds": [
+        "DECK_FACT_TRAP",
+        "USE_4_FOR_SUIT"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-303",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_DIRECT",
+      "solveMode": "findColourProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_COLOUR",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_DIRECT",
+      "distractorStrategyIds": [
+        "DECK_FACT_TRAP",
+        "USE_13_FOR_COLOUR"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-304",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_DIRECT",
+      "solveMode": "findFaceCardProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_FACE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_DIRECT",
+      "distractorStrategyIds": [
+        "DECK_FACT_TRAP",
+        "COUNT_ACES_AS_FACE"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-305",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_UNION",
+      "solveMode": "findUnionCardEventProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_UNION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_UNION",
+      "distractorStrategyIds": [
+        "FAIL_SUBTRACT_OVERLAP",
+        "SUBTRACT_TWO_OVERLAPS"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-306",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_COMPLEMENT",
+      "solveMode": "findComplementCardProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_COMPLEMENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_COMPLEMENT",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "DECK_FACT_TRAP"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-307",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_INTERSECTION",
+      "solveMode": "findCardPropertyIntersection",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_INTERSECTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_INTERSECTION",
+      "distractorStrategyIds": [
+        "ADD_RANK_AND_SUIT",
+        "ASSUME_FOUR_INTERSECTION"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-308",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_REVERSE",
+      "solveMode": "findMissingDeckCountOrEventCount",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_REVERSE_COUNT",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_PROBABILITY_AS_COUNT",
+        "DECK_FACT_TRAP"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-309",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_DIRECT",
+      "solveMode": "findRankProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_RANK",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_DIRECT",
+      "distractorStrategyIds": [
+        "DECK_FACT_TRAP",
+        "USE_13_FOR_RANK"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-310",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_DIRECT",
+      "solveMode": "findSuitProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_SUIT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_DIRECT",
+      "distractorStrategyIds": [
+        "DECK_FACT_TRAP",
+        "USE_4_FOR_SUIT"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-311",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_DIRECT",
+      "solveMode": "findColourProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_COLOUR",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_DIRECT",
+      "distractorStrategyIds": [
+        "DECK_FACT_TRAP",
+        "USE_13_FOR_COLOUR"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-312",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_DIRECT",
+      "solveMode": "findFaceCardProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_FACE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_DIRECT",
+      "distractorStrategyIds": [
+        "DECK_FACT_TRAP",
+        "COUNT_ACES_AS_FACE"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-313",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_UNION",
+      "solveMode": "findUnionCardEventProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_UNION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_UNION",
+      "distractorStrategyIds": [
+        "FAIL_SUBTRACT_OVERLAP",
+        "SUBTRACT_TWO_OVERLAPS"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-314",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_COMPLEMENT",
+      "solveMode": "findComplementCardProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_COMPLEMENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_COMPLEMENT",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "DECK_FACT_TRAP"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-315",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_INTERSECTION",
+      "solveMode": "findCardPropertyIntersection",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_INTERSECTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_INTERSECTION",
+      "distractorStrategyIds": [
+        "ADD_RANK_AND_SUIT",
+        "ASSUME_FOUR_INTERSECTION"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-316",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_REVERSE",
+      "solveMode": "findMissingDeckCountOrEventCount",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_REVERSE_COUNT",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_PROBABILITY_AS_COUNT",
+        "DECK_FACT_TRAP"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-317",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_DIRECT",
+      "solveMode": "findRankProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_RANK",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_DIRECT",
+      "distractorStrategyIds": [
+        "DECK_FACT_TRAP",
+        "USE_13_FOR_RANK"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-318",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_DIRECT",
+      "solveMode": "findSuitProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_SUIT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_DIRECT",
+      "distractorStrategyIds": [
+        "DECK_FACT_TRAP",
+        "USE_4_FOR_SUIT"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-319",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_DIRECT",
+      "solveMode": "findColourProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_COLOUR",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_DIRECT",
+      "distractorStrategyIds": [
+        "DECK_FACT_TRAP",
+        "USE_13_FOR_COLOUR"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-320",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_DIRECT",
+      "solveMode": "findFaceCardProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_FACE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_DIRECT",
+      "distractorStrategyIds": [
+        "DECK_FACT_TRAP",
+        "COUNT_ACES_AS_FACE"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-321",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_UNION",
+      "solveMode": "findUnionCardEventProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_UNION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_UNION",
+      "distractorStrategyIds": [
+        "FAIL_SUBTRACT_OVERLAP",
+        "SUBTRACT_TWO_OVERLAPS"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-322",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_COMPLEMENT",
+      "solveMode": "findComplementCardProbability",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_COMPLEMENT",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_COMPLEMENT",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "DECK_FACT_TRAP"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-323",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_INTERSECTION",
+      "solveMode": "findCardPropertyIntersection",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_INTERSECTION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "CARD_INTERSECTION",
+      "distractorStrategyIds": [
+        "ADD_RANK_AND_SUIT",
+        "ASSUME_FOUR_INTERSECTION"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-324",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-004",
+      "taskKind": "CARD_REVERSE",
+      "solveMode": "findMissingDeckCountOrEventCount",
+      "experimentKinds": [
+        "CARD_DRAW"
+      ],
+      "eventStrategyId": "CARD_REVERSE_COUNT",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "rank",
+        "suit",
+        "colour",
+        "deckSize"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_PROBABILITY_AS_COUNT",
+        "DECK_FACT_TRAP"
+      ],
+      "visualStrategyId": "CARD_DECK_SUMMARY"
+    },
+    {
+      "qlId": "PRB-QL-401",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_DIRECT",
+      "solveMode": "findSingleDrawColourProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_SINGLE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_SINGLE",
+      "distractorStrategyIds": [
+        "REVERSE_FAVOURABLE_TOTAL",
+        "OMIT_OTHER_COLOUR"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-402",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_SELECTION",
+      "solveMode": "findSimultaneousSameTypeProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_SAME_TYPE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_SAME_TYPE",
+      "distractorStrategyIds": [
+        "COUNT_ONLY_RED_CASE",
+        "USE_ORDERED_DENOMINATOR"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-403",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_SELECTION",
+      "solveMode": "findSimultaneousDifferentTypeProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_BOTH_COLOURS",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_DIFFERENT_TYPE",
+      "distractorStrategyIds": [
+        "COUNT_ONE_ORDER_ONLY",
+        "USE_ORDERED_DENOMINATOR"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-404",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_SELECTION",
+      "solveMode": "findExactCompositionProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_EXACT_COMPOSITION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_EXACT_COMPOSITION",
+      "distractorStrategyIds": [
+        "OMIT_ONE_COMBINATION_FACTOR",
+        "USE_ORDERED_DENOMINATOR"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-405",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_SELECTION",
+      "solveMode": "findNoObjectOfTypeProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_NONE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_NONE",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "USE_RED_COUNT"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-406",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_SELECTION",
+      "solveMode": "findAtLeastOneObjectOfType",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_AT_LEAST_ONE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_AT_LEAST_ONE",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "COUNT_EXACTLY_ONE_ONLY"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-407",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_REVERSE",
+      "solveMode": "findMissingObjectCountFromProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_REVERSE_COUNT",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_PROBABILITY_AS_COUNT",
+        "ENDPOINT_OFF_BY_ONE"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-408",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_SELECTION",
+      "solveMode": "findSelectionProbabilityUsingCombination",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_COMBINATION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_EXACT_COMPOSITION",
+      "distractorStrategyIds": [
+        "PERMUTATION_DENOMINATOR",
+        "OMIT_ONE_COMBINATION_FACTOR"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-409",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_DIRECT",
+      "solveMode": "findSingleDrawColourProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_SINGLE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_SINGLE",
+      "distractorStrategyIds": [
+        "REVERSE_FAVOURABLE_TOTAL",
+        "OMIT_OTHER_COLOUR"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-410",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_SELECTION",
+      "solveMode": "findSimultaneousSameTypeProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_SAME_TYPE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_SAME_TYPE",
+      "distractorStrategyIds": [
+        "COUNT_ONLY_RED_CASE",
+        "USE_ORDERED_DENOMINATOR"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-411",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_SELECTION",
+      "solveMode": "findSimultaneousDifferentTypeProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_BOTH_COLOURS",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_DIFFERENT_TYPE",
+      "distractorStrategyIds": [
+        "COUNT_ONE_ORDER_ONLY",
+        "USE_ORDERED_DENOMINATOR"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-412",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_SELECTION",
+      "solveMode": "findExactCompositionProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_EXACT_COMPOSITION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_EXACT_COMPOSITION",
+      "distractorStrategyIds": [
+        "OMIT_ONE_COMBINATION_FACTOR",
+        "USE_ORDERED_DENOMINATOR"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-413",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_SELECTION",
+      "solveMode": "findNoObjectOfTypeProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_NONE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_NONE",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "USE_RED_COUNT"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-414",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_SELECTION",
+      "solveMode": "findAtLeastOneObjectOfType",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_AT_LEAST_ONE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_AT_LEAST_ONE",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "COUNT_EXACTLY_ONE_ONLY"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-415",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_REVERSE",
+      "solveMode": "findMissingObjectCountFromProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_REVERSE_COUNT",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_PROBABILITY_AS_COUNT",
+        "ENDPOINT_OFF_BY_ONE"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-416",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_SELECTION",
+      "solveMode": "findSelectionProbabilityUsingCombination",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_COMBINATION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_EXACT_COMPOSITION",
+      "distractorStrategyIds": [
+        "PERMUTATION_DENOMINATOR",
+        "OMIT_ONE_COMBINATION_FACTOR"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-417",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_DIRECT",
+      "solveMode": "findSingleDrawColourProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_SINGLE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_SINGLE",
+      "distractorStrategyIds": [
+        "REVERSE_FAVOURABLE_TOTAL",
+        "OMIT_OTHER_COLOUR"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-418",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_SELECTION",
+      "solveMode": "findSimultaneousSameTypeProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_SAME_TYPE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_SAME_TYPE",
+      "distractorStrategyIds": [
+        "COUNT_ONLY_RED_CASE",
+        "USE_ORDERED_DENOMINATOR"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-419",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_SELECTION",
+      "solveMode": "findSimultaneousDifferentTypeProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_BOTH_COLOURS",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_DIFFERENT_TYPE",
+      "distractorStrategyIds": [
+        "COUNT_ONE_ORDER_ONLY",
+        "USE_ORDERED_DENOMINATOR"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-420",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_SELECTION",
+      "solveMode": "findExactCompositionProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_EXACT_COMPOSITION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_EXACT_COMPOSITION",
+      "distractorStrategyIds": [
+        "OMIT_ONE_COMBINATION_FACTOR",
+        "USE_ORDERED_DENOMINATOR"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-421",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_SELECTION",
+      "solveMode": "findNoObjectOfTypeProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_NONE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_NONE",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "USE_RED_COUNT"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-422",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_SELECTION",
+      "solveMode": "findAtLeastOneObjectOfType",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_AT_LEAST_ONE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "COMPLEMENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Easy",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_AT_LEAST_ONE",
+      "distractorStrategyIds": [
+        "FORGET_COMPLEMENT",
+        "COUNT_EXACTLY_ONE_ONLY"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-423",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_REVERSE",
+      "solveMode": "findMissingObjectCountFromProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_REVERSE_COUNT",
+      "answerDimension": "COUNT",
+      "answerSemantic": "FAVOURABLE_OUTCOME_COUNT",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "REVERSE_COUNT",
+      "distractorStrategyIds": [
+        "USE_PROBABILITY_AS_COUNT",
+        "ENDPOINT_OFF_BY_ONE"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-424",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_SELECTION",
+      "solveMode": "findSelectionProbabilityUsingCombination",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_COMBINATION",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Hard",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_EXACT_COMPOSITION",
+      "distractorStrategyIds": [
+        "PERMUTATION_DENOMINATOR",
+        "OMIT_ONE_COMBINATION_FACTOR"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-425",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_DIRECT",
+      "solveMode": "findSingleDrawColourProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_SINGLE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "NOT_APPLICABLE",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_SINGLE",
+      "distractorStrategyIds": [
+        "REVERSE_FAVOURABLE_TOTAL",
+        "OMIT_OTHER_COLOUR"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    },
+    {
+      "qlId": "PRB-QL-426",
+      "packageId": "PRB-001",
+      "cpId": "PRB-CP-005",
+      "taskKind": "URN_SELECTION",
+      "solveMode": "findSimultaneousSameTypeProbability",
+      "experimentKinds": [
+        "URN_DRAW"
+      ],
+      "eventStrategyId": "URN_SAME_TYPE",
+      "answerDimension": "PROBABILITY",
+      "answerSemantic": "EVENT_PROBABILITY",
+      "requiredVariables": [
+        "red",
+        "blue",
+        "total",
+        "draw",
+        "targetColour",
+        "secondaryColour",
+        "exactRed"
+      ],
+      "difficulty": "Medium",
+      "replacementPolicy": "WITHOUT_REPLACEMENT",
+      "orderPolicy": "UNORDERED",
+      "explanationStrategyId": "URN_SAME_TYPE",
+      "distractorStrategyIds": [
+        "COUNT_ONLY_RED_CASE",
+        "USE_ORDERED_DENOMINATOR"
+      ],
+      "visualStrategyId": "URN_COMPOSITION_DISPLAY"
+    }
   ]
 }

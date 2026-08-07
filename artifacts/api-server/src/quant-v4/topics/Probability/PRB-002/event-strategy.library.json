@@ -1,0 +1,185 @@
+{
+  "packageId": "PRB-002",
+  "strategies": [
+    {
+      "id": "AT_LEAST_ONE_INDEPENDENT",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "COMMITTEE_COMPOSITION",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "COMMITTEE_SELECTION",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "CONDITIONAL_CARD",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "CONDITIONAL_COUNT",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "CONDITIONAL_NUMBER",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "CONDITIONAL_TABLE",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "CONDITIONAL_URN",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "DIFFERENT_TYPES_SUCCESSIVE",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "EXACTLY_ONE_OF_TWO",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "INDEPENDENT_INTERSECTION",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "INTERSECTION",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "MISSING_INTERSECTION",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "MIXED_EVENT_EXPRESSION",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "MUTUALLY_EXCLUSIVE_UNION",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "NEITHER",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "NUMBER_FORMATION",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "ORDERED_SEQUENCE",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "POSITION_RESTRICTION",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "RANDOM_ARRANGEMENT",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "RESTRICTED_SELECTION",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "REVERSE_CONDITIONAL",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "REVERSE_COUNTING",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "SAME_TYPE_SUCCESSIVE",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "SUCCESSIVE_DEPENDENT",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "SUCCESSIVE_INDEPENDENT",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "TOGETHER_APART",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "UNION",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "WITHOUT_REPLACEMENT",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "WITH_REPLACEMENT",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    }
+  ]
+}

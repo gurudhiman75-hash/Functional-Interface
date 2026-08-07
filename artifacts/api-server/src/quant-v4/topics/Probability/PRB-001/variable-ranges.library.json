@@ -1,0 +1,40 @@
+{
+  "packageId": "PRB-001",
+  "ranges": {
+    "coinTosses": [
+      2,
+      5
+    ],
+    "dieSides": [
+      6,
+      6
+    ],
+    "spinnerSectors": [
+      6,
+      16
+    ],
+    "numberUpper": [
+      20,
+      60
+    ],
+    "urnColourCount": [
+      4,
+      12
+    ],
+    "committeePopulation": [
+      9,
+      19
+    ],
+    "arrangementSize": [
+      5,
+      8
+    ]
+  },
+  "rules": [
+    "all counts are positive integers",
+    "selection count never exceeds population",
+    "number ranges are inclusive",
+    "standard deck state is canonical",
+    "hardness comes from event structure rather than huge arithmetic"
+  ]
+}

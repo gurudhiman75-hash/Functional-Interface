@@ -1,3 +1,3 @@
-# PRB-001 Classical Probability & Standard Experiments
+# PRB-001 — Classical Probability & Standard Experiments
 
-English runtime for classical probability, complements, coins/dice/spinners, cards and urn selection. Automated QA only; manual editorial freeze remains required before publication.
+This package is built around an explicit experiment, sample space, typed event expression, exact rational solver, independent verifier, task-specific distractors and teacher-like explanation. It remains non-public until human review is complete.

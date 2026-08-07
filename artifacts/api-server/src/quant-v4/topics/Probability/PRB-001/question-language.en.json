@@ -1,1 +1,1686 @@
-{"packageId":"PRB-001","language":"en","qlRange":"PRB-QL-001..PRB-QL-425","activeQlCount":120,"note":"Runtime expands stable QLs from task-registry.library.json."}
+{
+  "packageId": "PRB-001",
+  "locale": "en",
+  "entries": [
+    {
+      "qlId": "PRB-QL-001",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-001-STEM-1",
+      "stemTemplate": "In this standard problem, a container has {total} equally likely {object}, and {favourable} satisfy the marked condition. One is selected at random. What is the probability of the marked event? {answerInstruction}",
+      "contextFamily": "CLASSICAL_DIRECT",
+      "eventWording": "Direct Event",
+      "explanationLead": "First identify the complete universe.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-002",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-002-STEM-2",
+      "stemTemplate": "In this classical problem, there are {total} equally likely outcomes and the probability of selecting one of the {context} is {probability}. How many favourable outcomes are present? All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "REVERSE_CLASSICAL",
+      "eventWording": "Reverse Favourable",
+      "explanationLead": "First identify the relevant universe.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-003",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-003-STEM-3",
+      "stemTemplate": "In this finite problem, {favourable} outcomes are favourable and their probability is {probability}. How many equally likely outcomes are there in the complete sample space? All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "REVERSE_CLASSICAL",
+      "eventWording": "Reverse Total",
+      "explanationLead": "First identify the restricted universe.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-004",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-004-STEM-4",
+      "stemTemplate": "In this structured problem, one integer is selected uniformly from 1 to {n}. Find the probability of selecting {eventLabel}. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "EVENT_CLASSIFICATION",
+      "eventWording": "Certain Impossible Possible",
+      "explanationLead": "First identify the ordered universe.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-005",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-005-STEM-5",
+      "stemTemplate": "In this objective problem, a box contains {red} red, {blue} blue and {green} green tokens. One token is chosen uniformly. Find the probability that it is {target}. {answerInstruction}",
+      "contextFamily": "FREQUENCY_CLASSICAL",
+      "eventWording": "Frequency Event",
+      "explanationLead": "First identify the unordered universe.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-006",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-006-STEM-6",
+      "stemTemplate": "In this exam-style problem, {total} outcomes are equally likely and the event probability is {probability}. Determine how many outcomes belong to the event. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "REVERSE_CLASSICAL",
+      "eventWording": "Missing Event Count",
+      "explanationLead": "First identify the conditional universe.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-007",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-007-STEM-1",
+      "stemTemplate": "In this practice problem, a container has {total} equally likely {object}, and {favourable} satisfy the marked condition. One is selected at random. What is the probability of the marked event? All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CLASSICAL_DIRECT",
+      "eventWording": "Direct Event",
+      "explanationLead": "First identify the finite universe.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-008",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-008-STEM-2",
+      "stemTemplate": "In this mock-test problem, there are {total} equally likely outcomes and the probability of selecting one of the {context} is {probability}. How many favourable outcomes are present? {answerInstruction}",
+      "contextFamily": "REVERSE_CLASSICAL",
+      "eventWording": "Reverse Favourable",
+      "explanationLead": "First identify the exact universe.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-009",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-009-STEM-3",
+      "stemTemplate": "In this textbook problem, {favourable} outcomes are favourable and their probability is {probability}. How many equally likely outcomes are there in the complete sample space? All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "REVERSE_CLASSICAL",
+      "eventWording": "Reverse Total",
+      "explanationLead": "First identify the canonical universe.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-010",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-010-STEM-4",
+      "stemTemplate": "In this classroom problem, one integer is selected uniformly from 1 to {n}. Find the probability of selecting {eventLabel}. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "EVENT_CLASSIFICATION",
+      "eventWording": "Certain Impossible Possible",
+      "explanationLead": "First identify the successive universe.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-011",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-011-STEM-5",
+      "stemTemplate": "In this selection-based problem, a box contains {red} red, {blue} blue and {green} green tokens. One token is chosen uniformly. Find the probability that it is {target}. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "FREQUENCY_CLASSICAL",
+      "eventWording": "Frequency Event",
+      "explanationLead": "First identify the simultaneous universe.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-012",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-012-STEM-6",
+      "stemTemplate": "In this counting-based problem, {total} outcomes are equally likely and the event probability is {probability}. Determine how many outcomes belong to the event. {answerInstruction}",
+      "contextFamily": "REVERSE_CLASSICAL",
+      "eventWording": "Missing Event Count",
+      "explanationLead": "First identify the independent universe.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-013",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-013-STEM-1",
+      "stemTemplate": "In this event-based problem, a container has {total} equally likely {object}, and {favourable} satisfy the marked condition. One is selected at random. What is the probability of the marked event? All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CLASSICAL_DIRECT",
+      "eventWording": "Direct Event",
+      "explanationLead": "First identify the dependent universe.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-014",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-014-STEM-2",
+      "stemTemplate": "In this conditional problem, there are {total} equally likely outcomes and the probability of selecting one of the {context} is {probability}. How many favourable outcomes are present? All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "REVERSE_CLASSICAL",
+      "eventWording": "Reverse Favourable",
+      "explanationLead": "First identify the complementary universe.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-015",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-015-STEM-3",
+      "stemTemplate": "In this multi-stage problem, {favourable} outcomes are favourable and their probability is {probability}. How many equally likely outcomes are there in the complete sample space? {answerInstruction}",
+      "contextFamily": "REVERSE_CLASSICAL",
+      "eventWording": "Reverse Total",
+      "explanationLead": "First identify the overlapping universe.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-016",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-016-STEM-4",
+      "stemTemplate": "In this outcome-based problem, one integer is selected uniformly from 1 to {n}. Find the probability of selecting {eventLabel}. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "EVENT_CLASSIFICATION",
+      "eventWording": "Certain Impossible Possible",
+      "explanationLead": "First identify the favourable universe.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-017",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-017-STEM-5",
+      "stemTemplate": "In this competitive-exam problem, a box contains {red} red, {blue} blue and {green} green tokens. One token is chosen uniformly. Find the probability that it is {target}. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "FREQUENCY_CLASSICAL",
+      "eventWording": "Frequency Event",
+      "explanationLead": "First identify the total universe.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-018",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-018-STEM-6",
+      "stemTemplate": "In this review problem, {total} outcomes are equally likely and the event probability is {probability}. Determine how many outcomes belong to the event. {answerInstruction}",
+      "contextFamily": "REVERSE_CLASSICAL",
+      "eventWording": "Missing Event Count",
+      "explanationLead": "First identify the declared universe.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-019",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-019-STEM-1",
+      "stemTemplate": "In this standard question, a container has {total} equally likely {object}, and {favourable} satisfy the marked condition. One is selected at random. What is the probability of the marked event? {answerInstruction}",
+      "contextFamily": "CLASSICAL_DIRECT",
+      "eventWording": "Direct Event",
+      "explanationLead": "First identify the complete experiment.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-020",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-020-STEM-2",
+      "stemTemplate": "In this classical question, there are {total} equally likely outcomes and the probability of selecting one of the {context} is {probability}. How many favourable outcomes are present? {answerInstruction}",
+      "contextFamily": "REVERSE_CLASSICAL",
+      "eventWording": "Reverse Favourable",
+      "explanationLead": "First identify the relevant experiment.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-021",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-021-STEM-3",
+      "stemTemplate": "In this finite question, {favourable} outcomes are favourable and their probability is {probability}. How many equally likely outcomes are there in the complete sample space? {answerInstruction}",
+      "contextFamily": "REVERSE_CLASSICAL",
+      "eventWording": "Reverse Total",
+      "explanationLead": "First identify the restricted experiment.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-022",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-022-STEM-4",
+      "stemTemplate": "In this structured question, one integer is selected uniformly from 1 to {n}. Find the probability of selecting {eventLabel}. {answerInstruction}",
+      "contextFamily": "EVENT_CLASSIFICATION",
+      "eventWording": "Certain Impossible Possible",
+      "explanationLead": "First identify the ordered experiment.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-101",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-101-STEM-1",
+      "stemTemplate": "In this objective question, the probability that {eventLabel} is {givenProbability}. What is the probability that this event does not occur? {answerInstruction}",
+      "contextFamily": "COMPLEMENT",
+      "eventWording": "Complement Event",
+      "explanationLead": "First identify the unordered experiment.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-102",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-102-STEM-2",
+      "stemTemplate": "In this exam-style question, a fair coin is tossed {trials} times. Find the probability of obtaining at least one head. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COIN_COMPLEMENT",
+      "eventWording": "At Least One",
+      "explanationLead": "First identify the conditional experiment.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-103",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-103-STEM-3",
+      "stemTemplate": "In this practice question, a fair coin is tossed {trials} times. Find the probability that no head appears. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COIN_COUNT",
+      "eventWording": "None Success",
+      "explanationLead": "First identify the finite experiment.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-104",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-104-STEM-4",
+      "stemTemplate": "In this mock-test question, a fair coin is tossed {trials} times. What is the probability of getting exactly one head? All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COIN_COUNT",
+      "eventWording": "Exactly One",
+      "explanationLead": "First identify the exact experiment.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-105",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-105-STEM-5",
+      "stemTemplate": "In this textbook question, a fair coin is tossed {trials} times. What is the probability of getting exactly {k} heads? {answerInstruction}",
+      "contextFamily": "COIN_COUNT",
+      "eventWording": "Exactly K",
+      "explanationLead": "First identify the canonical experiment.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-106",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-106-STEM-6",
+      "stemTemplate": "In this classroom question, a fair coin is tossed {trials} times. Find the probability of getting at most {k} heads. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COIN_COUNT",
+      "eventWording": "At Most K",
+      "explanationLead": "First identify the successive experiment.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-107",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-107-STEM-1",
+      "stemTemplate": "In this selection-based question, a fair coin is tossed {trials} times. Find the probability that all tosses show the same face. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COIN_COUNT",
+      "eventWording": "All Or Not All",
+      "explanationLead": "First identify the simultaneous experiment.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-108",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-108-STEM-2",
+      "stemTemplate": "In this counting-based question, the probability that {eventLabel} is {givenProbability}. What is the probability that this event does not occur? {answerInstruction}",
+      "contextFamily": "COMPLEMENT",
+      "eventWording": "Complement Event",
+      "explanationLead": "First identify the independent experiment.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-109",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-109-STEM-3",
+      "stemTemplate": "In this event-based question, a fair coin is tossed {trials} times. Find the probability of obtaining at least one head. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COIN_COMPLEMENT",
+      "eventWording": "At Least One",
+      "explanationLead": "First identify the dependent experiment.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-110",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-110-STEM-4",
+      "stemTemplate": "In this conditional question, a fair coin is tossed {trials} times. Find the probability that no head appears. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COIN_COUNT",
+      "eventWording": "None Success",
+      "explanationLead": "First identify the complementary experiment.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-111",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-111-STEM-5",
+      "stemTemplate": "In this multi-stage question, a fair coin is tossed {trials} times. What is the probability of getting exactly one head? All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COIN_COUNT",
+      "eventWording": "Exactly One",
+      "explanationLead": "First identify the overlapping experiment.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-112",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-112-STEM-6",
+      "stemTemplate": "In this outcome-based question, a fair coin is tossed {trials} times. What is the probability of getting exactly {k} heads? {answerInstruction}",
+      "contextFamily": "COIN_COUNT",
+      "eventWording": "Exactly K",
+      "explanationLead": "First identify the favourable experiment.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-113",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-113-STEM-1",
+      "stemTemplate": "In this competitive-exam question, a fair coin is tossed {trials} times. Find the probability of getting at most {k} heads. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COIN_COUNT",
+      "eventWording": "At Most K",
+      "explanationLead": "First identify the total experiment.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-114",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-114-STEM-2",
+      "stemTemplate": "In this review question, a fair coin is tossed {trials} times. Find the probability that all tosses show the same face. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COIN_COUNT",
+      "eventWording": "All Or Not All",
+      "explanationLead": "First identify the declared experiment.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-115",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-115-STEM-3",
+      "stemTemplate": "In this standard experiment, the probability that {eventLabel} is {givenProbability}. What is the probability that this event does not occur? {answerInstruction}",
+      "contextFamily": "COMPLEMENT",
+      "eventWording": "Complement Event",
+      "explanationLead": "First identify the complete event.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-116",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-116-STEM-4",
+      "stemTemplate": "In this classical experiment, a fair coin is tossed {trials} times. Find the probability of obtaining at least one head. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COIN_COMPLEMENT",
+      "eventWording": "At Least One",
+      "explanationLead": "First identify the relevant event.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-117",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-117-STEM-5",
+      "stemTemplate": "In this finite experiment, a fair coin is tossed {trials} times. Find the probability that no head appears. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COIN_COUNT",
+      "eventWording": "None Success",
+      "explanationLead": "First identify the restricted event.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-118",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-118-STEM-6",
+      "stemTemplate": "In this structured experiment, a fair coin is tossed {trials} times. What is the probability of getting exactly one head? All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COIN_COUNT",
+      "eventWording": "Exactly One",
+      "explanationLead": "First identify the ordered event.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-119",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-119-STEM-1",
+      "stemTemplate": "In this objective experiment, a fair coin is tossed {trials} times. What is the probability of getting exactly {k} heads? {answerInstruction}",
+      "contextFamily": "COIN_COUNT",
+      "eventWording": "Exactly K",
+      "explanationLead": "First identify the unordered event.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-120",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-120-STEM-2",
+      "stemTemplate": "In this exam-style experiment, a fair coin is tossed {trials} times. Find the probability of getting at most {k} heads. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "COIN_COUNT",
+      "eventWording": "At Most K",
+      "explanationLead": "First identify the conditional event.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-121",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-121-STEM-3",
+      "stemTemplate": "In this practice experiment, a fair coin is tossed {trials} times. Find the probability that all tosses show the same face. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COIN_COUNT",
+      "eventWording": "All Or Not All",
+      "explanationLead": "First identify the finite event.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-122",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-122-STEM-4",
+      "stemTemplate": "In this mock-test experiment, the probability that {eventLabel} is {givenProbability}. What is the probability that this event does not occur? {answerInstruction}",
+      "contextFamily": "COMPLEMENT",
+      "eventWording": "Complement Event",
+      "explanationLead": "First identify the exact event.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-123",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-123-STEM-5",
+      "stemTemplate": "In this textbook experiment, a fair coin is tossed {trials} times. Find the probability of obtaining at least one head. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COIN_COMPLEMENT",
+      "eventWording": "At Least One",
+      "explanationLead": "First identify the canonical event.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-124",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-124-STEM-6",
+      "stemTemplate": "In this classroom experiment, a fair coin is tossed {trials} times. Find the probability that no head appears. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "COIN_COUNT",
+      "eventWording": "None Success",
+      "explanationLead": "First identify the successive event.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-201",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-201-STEM-1",
+      "stemTemplate": "In this selection-based experiment, a fair coin is tossed {tosses} times in order. Find the probability that the exact sequence {pattern} occurs. {answerInstruction}",
+      "contextFamily": "STANDARD_COIN",
+      "eventWording": "Coin Pattern",
+      "explanationLead": "First identify the simultaneous event.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-202",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-202-STEM-2",
+      "stemTemplate": "In this counting-based experiment, a fair coin is tossed {tosses} times. Find the probability that exactly {heads} tosses show heads. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "STANDARD_COIN",
+      "eventWording": "Coin Head Count",
+      "explanationLead": "First identify the independent event.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-203",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-203-STEM-3",
+      "stemTemplate": "In this event-based experiment, a fair six-sided die is rolled once. Find the probability that the result satisfies the stated {property} condition, using threshold {threshold} where required. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "STANDARD_DIE",
+      "eventWording": "Single Die Property",
+      "explanationLead": "First identify the dependent event.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-204",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-204-STEM-4",
+      "stemTemplate": "In this conditional experiment, two distinguishable fair dice are rolled together. Find the probability that their sum is {targetSum}. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "TWO_DICE",
+      "eventWording": "Two Dice Sum",
+      "explanationLead": "First identify the complementary event.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-205",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-205-STEM-5",
+      "stemTemplate": "In this multi-stage experiment, two distinguishable fair dice are rolled together. Determine the probability of the {eventType} event, using target product {targetProduct} when applicable. {answerInstruction}",
+      "contextFamily": "TWO_DICE",
+      "eventWording": "Two Dice Product Parity",
+      "explanationLead": "First identify the overlapping event.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-206",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-206-STEM-6",
+      "stemTemplate": "In this outcome-based experiment, a fair spinner has {sectors} equal sectors, of which {favourableSectors} are marked. Find the probability of landing on a marked sector. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "STANDARD_SPINNER",
+      "eventWording": "Spinner Event",
+      "explanationLead": "First identify the favourable event.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-207",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-207-STEM-1",
+      "stemTemplate": "In this competitive-exam experiment, one integer is selected uniformly from {lower} to {upper}, inclusive. Find the probability that it satisfies the {property} property, using divisor {divisor} when relevant. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "NUMBER_SELECTION",
+      "eventWording": "Number Property",
+      "explanationLead": "First identify the total event.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-208",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-208-STEM-2",
+      "stemTemplate": "In this review experiment, a fair spinner has {sectors} equal sectors and the marked-event probability is {answer}. How many sectors are marked? {answerInstruction}",
+      "contextFamily": "REVERSE_STANDARD_EXPERIMENT",
+      "eventWording": "Reverse Spinner Count",
+      "explanationLead": "First identify the declared event.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-209",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-209-STEM-3",
+      "stemTemplate": "In this standard exercise, a fair coin is tossed {tosses} times in order. Find the probability that the exact sequence {pattern} occurs. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "STANDARD_COIN",
+      "eventWording": "Coin Pattern",
+      "explanationLead": "First identify the complete outcome.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-210",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-210-STEM-4",
+      "stemTemplate": "In this classical exercise, a fair coin is tossed {tosses} times. Find the probability that exactly {heads} tosses show heads. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "STANDARD_COIN",
+      "eventWording": "Coin Head Count",
+      "explanationLead": "First identify the relevant outcome.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-211",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-211-STEM-5",
+      "stemTemplate": "In this finite exercise, a fair six-sided die is rolled once. Find the probability that the result satisfies the stated {property} condition, using threshold {threshold} where required. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "STANDARD_DIE",
+      "eventWording": "Single Die Property",
+      "explanationLead": "First identify the restricted outcome.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-212",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-212-STEM-6",
+      "stemTemplate": "In this structured exercise, two distinguishable fair dice are rolled together. Find the probability that their sum is {targetSum}. {answerInstruction}",
+      "contextFamily": "TWO_DICE",
+      "eventWording": "Two Dice Sum",
+      "explanationLead": "First identify the ordered outcome.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-213",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-213-STEM-1",
+      "stemTemplate": "In this objective exercise, two distinguishable fair dice are rolled together. Determine the probability of the {eventType} event, using target product {targetProduct} when applicable. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "TWO_DICE",
+      "eventWording": "Two Dice Product Parity",
+      "explanationLead": "First identify the unordered outcome.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-214",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-214-STEM-2",
+      "stemTemplate": "In this exam-style exercise, a fair spinner has {sectors} equal sectors, of which {favourableSectors} are marked. Find the probability of landing on a marked sector. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "STANDARD_SPINNER",
+      "eventWording": "Spinner Event",
+      "explanationLead": "First identify the conditional outcome.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-215",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-215-STEM-3",
+      "stemTemplate": "In this practice exercise, one integer is selected uniformly from {lower} to {upper}, inclusive. Find the probability that it satisfies the {property} property, using divisor {divisor} when relevant. {answerInstruction}",
+      "contextFamily": "NUMBER_SELECTION",
+      "eventWording": "Number Property",
+      "explanationLead": "First identify the finite outcome.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-216",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-216-STEM-4",
+      "stemTemplate": "In this mock-test exercise, a fair spinner has {sectors} equal sectors and the marked-event probability is {answer}. How many sectors are marked? All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "REVERSE_STANDARD_EXPERIMENT",
+      "eventWording": "Reverse Spinner Count",
+      "explanationLead": "First identify the exact outcome.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-217",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-217-STEM-5",
+      "stemTemplate": "In this textbook exercise, a fair coin is tossed {tosses} times in order. Find the probability that the exact sequence {pattern} occurs. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "STANDARD_COIN",
+      "eventWording": "Coin Pattern",
+      "explanationLead": "First identify the canonical outcome.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-218",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-218-STEM-6",
+      "stemTemplate": "In this classroom exercise, a fair coin is tossed {tosses} times. Find the probability that exactly {heads} tosses show heads. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "STANDARD_COIN",
+      "eventWording": "Coin Head Count",
+      "explanationLead": "First identify the successive outcome.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-219",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-219-STEM-1",
+      "stemTemplate": "In this selection-based exercise, a fair six-sided die is rolled once. Find the probability that the result satisfies the stated {property} condition, using threshold {threshold} where required. {answerInstruction}",
+      "contextFamily": "STANDARD_DIE",
+      "eventWording": "Single Die Property",
+      "explanationLead": "First identify the simultaneous outcome.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-220",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-220-STEM-2",
+      "stemTemplate": "In this counting-based exercise, two distinguishable fair dice are rolled together. Find the probability that their sum is {targetSum}. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "TWO_DICE",
+      "eventWording": "Two Dice Sum",
+      "explanationLead": "First identify the independent outcome.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-221",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-221-STEM-3",
+      "stemTemplate": "In this event-based exercise, two distinguishable fair dice are rolled together. Determine the probability of the {eventType} event, using target product {targetProduct} when applicable. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "TWO_DICE",
+      "eventWording": "Two Dice Product Parity",
+      "explanationLead": "First identify the dependent outcome.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-222",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-222-STEM-4",
+      "stemTemplate": "In this conditional exercise, a fair spinner has {sectors} equal sectors, of which {favourableSectors} are marked. Find the probability of landing on a marked sector. {answerInstruction}",
+      "contextFamily": "STANDARD_SPINNER",
+      "eventWording": "Spinner Event",
+      "explanationLead": "First identify the complementary outcome.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-223",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-223-STEM-5",
+      "stemTemplate": "In this multi-stage exercise, one integer is selected uniformly from {lower} to {upper}, inclusive. Find the probability that it satisfies the {property} property, using divisor {divisor} when relevant. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "NUMBER_SELECTION",
+      "eventWording": "Number Property",
+      "explanationLead": "First identify the overlapping outcome.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-224",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-224-STEM-6",
+      "stemTemplate": "In this outcome-based exercise, a fair spinner has {sectors} equal sectors and the marked-event probability is {answer}. How many sectors are marked? {answerInstruction}",
+      "contextFamily": "REVERSE_STANDARD_EXPERIMENT",
+      "eventWording": "Reverse Spinner Count",
+      "explanationLead": "First identify the favourable outcome.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-301",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-301-STEM-1",
+      "stemTemplate": "In this competitive-exam exercise, one card is drawn from a standard 52-card deck. Find the probability that its rank is {rank}. {answerInstruction}",
+      "contextFamily": "CARD_DIRECT",
+      "eventWording": "Card Rank",
+      "explanationLead": "First identify the total outcome.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-302",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-302-STEM-2",
+      "stemTemplate": "In this review exercise, one card is drawn from a standard 52-card deck. Find the probability that it belongs to the suit of {suit}. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CARD_DIRECT",
+      "eventWording": "Card Suit",
+      "explanationLead": "First identify the declared outcome.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-303",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-303-STEM-3",
+      "stemTemplate": "In this standard item, one card is drawn from a standard 52-card deck. Find the probability that it is {colour}. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "CARD_DIRECT",
+      "eventWording": "Card Colour",
+      "explanationLead": "First identify the complete sample-space.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-304",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-304-STEM-4",
+      "stemTemplate": "In this classical item, one card is drawn from a standard 52-card deck. Find the probability that it is a face card. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CARD_DIRECT",
+      "eventWording": "Card Face",
+      "explanationLead": "First identify the relevant sample-space.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-305",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-305-STEM-5",
+      "stemTemplate": "In this finite item, one card is drawn from a standard 52-card deck. Find the probability that it is a {rank} or belongs to {suit}. {answerInstruction}",
+      "contextFamily": "CARD_UNION",
+      "eventWording": "Card Union",
+      "explanationLead": "First identify the restricted sample-space.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-306",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-306-STEM-6",
+      "stemTemplate": "In this structured item, one card is drawn from a standard 52-card deck. Find the probability that it does not belong to {suit}. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "CARD_COMPLEMENT",
+      "eventWording": "Card Complement",
+      "explanationLead": "First identify the ordered sample-space.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-307",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-307-STEM-1",
+      "stemTemplate": "In this objective item, one card is drawn from a standard 52-card deck. Find the probability that it is the {rank} of {suit}. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CARD_INTERSECTION",
+      "eventWording": "Card Intersection",
+      "explanationLead": "First identify the unordered sample-space.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-308",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-308-STEM-2",
+      "stemTemplate": "In this exam-style item, an event in a standard 52-card deck has probability {answer}. Determine the number of cards that satisfy that event. {answerInstruction}",
+      "contextFamily": "CARD_REVERSE",
+      "eventWording": "Card Reverse Count",
+      "explanationLead": "First identify the conditional sample-space.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-309",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-309-STEM-3",
+      "stemTemplate": "In this practice item, one card is drawn from a standard 52-card deck. Find the probability that its rank is {rank}. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CARD_DIRECT",
+      "eventWording": "Card Rank",
+      "explanationLead": "First identify the finite sample-space.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-310",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-310-STEM-4",
+      "stemTemplate": "In this mock-test item, one card is drawn from a standard 52-card deck. Find the probability that it belongs to the suit of {suit}. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "CARD_DIRECT",
+      "eventWording": "Card Suit",
+      "explanationLead": "First identify the exact sample-space.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-311",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-311-STEM-5",
+      "stemTemplate": "In this textbook item, one card is drawn from a standard 52-card deck. Find the probability that it is {colour}. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CARD_DIRECT",
+      "eventWording": "Card Colour",
+      "explanationLead": "First identify the canonical sample-space.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-312",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-312-STEM-6",
+      "stemTemplate": "In this classroom item, one card is drawn from a standard 52-card deck. Find the probability that it is a face card. {answerInstruction}",
+      "contextFamily": "CARD_DIRECT",
+      "eventWording": "Card Face",
+      "explanationLead": "First identify the successive sample-space.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-313",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-313-STEM-1",
+      "stemTemplate": "In this selection-based item, one card is drawn from a standard 52-card deck. Find the probability that it is a {rank} or belongs to {suit}. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "CARD_UNION",
+      "eventWording": "Card Union",
+      "explanationLead": "First identify the simultaneous sample-space.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-314",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-314-STEM-2",
+      "stemTemplate": "In this counting-based item, one card is drawn from a standard 52-card deck. Find the probability that it does not belong to {suit}. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CARD_COMPLEMENT",
+      "eventWording": "Card Complement",
+      "explanationLead": "First identify the independent sample-space.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-315",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-315-STEM-3",
+      "stemTemplate": "In this event-based item, one card is drawn from a standard 52-card deck. Find the probability that it is the {rank} of {suit}. {answerInstruction}",
+      "contextFamily": "CARD_INTERSECTION",
+      "eventWording": "Card Intersection",
+      "explanationLead": "First identify the dependent sample-space.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-316",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-316-STEM-4",
+      "stemTemplate": "In this conditional item, an event in a standard 52-card deck has probability {answer}. Determine the number of cards that satisfy that event. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CARD_REVERSE",
+      "eventWording": "Card Reverse Count",
+      "explanationLead": "First identify the complementary sample-space.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-317",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-317-STEM-5",
+      "stemTemplate": "In this multi-stage item, one card is drawn from a standard 52-card deck. Find the probability that its rank is {rank}. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "CARD_DIRECT",
+      "eventWording": "Card Rank",
+      "explanationLead": "First identify the overlapping sample-space.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-318",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-318-STEM-6",
+      "stemTemplate": "In this outcome-based item, one card is drawn from a standard 52-card deck. Find the probability that it belongs to the suit of {suit}. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CARD_DIRECT",
+      "eventWording": "Card Suit",
+      "explanationLead": "First identify the favourable sample-space.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-319",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-319-STEM-1",
+      "stemTemplate": "In this competitive-exam item, one card is drawn from a standard 52-card deck. Find the probability that it is {colour}. {answerInstruction}",
+      "contextFamily": "CARD_DIRECT",
+      "eventWording": "Card Colour",
+      "explanationLead": "First identify the total sample-space.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-320",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-320-STEM-2",
+      "stemTemplate": "In this review item, one card is drawn from a standard 52-card deck. Find the probability that it is a face card. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "CARD_DIRECT",
+      "eventWording": "Card Face",
+      "explanationLead": "First identify the declared sample-space.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-321",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-321-STEM-3",
+      "stemTemplate": "In this standard scenario, one card is drawn from a standard 52-card deck. Find the probability that it is a {rank} or belongs to {suit}. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CARD_UNION",
+      "eventWording": "Card Union",
+      "explanationLead": "First identify the complete denominator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-322",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-322-STEM-4",
+      "stemTemplate": "In this classical scenario, one card is drawn from a standard 52-card deck. Find the probability that it does not belong to {suit}. {answerInstruction}",
+      "contextFamily": "CARD_COMPLEMENT",
+      "eventWording": "Card Complement",
+      "explanationLead": "First identify the relevant denominator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-323",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-323-STEM-5",
+      "stemTemplate": "In this finite scenario, one card is drawn from a standard 52-card deck. Find the probability that it is the {rank} of {suit}. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CARD_INTERSECTION",
+      "eventWording": "Card Intersection",
+      "explanationLead": "First identify the restricted denominator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-324",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-324-STEM-6",
+      "stemTemplate": "In this structured scenario, an event in a standard 52-card deck has probability {answer}. Determine the number of cards that satisfy that event. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "CARD_REVERSE",
+      "eventWording": "Card Reverse Count",
+      "explanationLead": "First identify the ordered denominator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-401",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-401-STEM-1",
+      "stemTemplate": "In this objective scenario, a bag contains {red} red and {blue} blue balls. One ball is drawn uniformly. Find the probability that it is red. {answerInstruction}",
+      "contextFamily": "URN_DIRECT",
+      "eventWording": "Urn Single",
+      "explanationLead": "First identify the unordered denominator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-402",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-402-STEM-2",
+      "stemTemplate": "In this exam-style scenario, a bag contains {red} red and {blue} blue balls. {draw} balls are selected simultaneously without replacement. Find the probability that all selected balls have the same colour. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "URN_SELECTION",
+      "eventWording": "Urn Same Type",
+      "explanationLead": "First identify the conditional denominator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-403",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-403-STEM-3",
+      "stemTemplate": "In this practice scenario, a bag contains {red} red and {blue} blue balls. {draw} balls are selected simultaneously without replacement. Find the probability that the selection contains both colours. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "URN_SELECTION",
+      "eventWording": "Urn Both Colours",
+      "explanationLead": "First identify the finite denominator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-404",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-404-STEM-4",
+      "stemTemplate": "In this mock-test scenario, a bag contains {red} red and {blue} blue balls. {draw} balls are selected simultaneously without replacement. Find the probability that exactly {exactRed} selected balls are red. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "URN_SELECTION",
+      "eventWording": "Urn Exact Composition",
+      "explanationLead": "First identify the exact denominator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-405",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-405-STEM-5",
+      "stemTemplate": "In this textbook scenario, a bag contains {red} red and {blue} blue balls. {draw} balls are selected simultaneously without replacement. Find the probability that no red ball is selected. {answerInstruction}",
+      "contextFamily": "URN_SELECTION",
+      "eventWording": "Urn None",
+      "explanationLead": "First identify the canonical denominator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-406",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-406-STEM-6",
+      "stemTemplate": "In this classroom scenario, a bag contains {red} red and {blue} blue balls. {draw} balls are selected simultaneously without replacement. Find the probability that at least one red ball is selected. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "URN_SELECTION",
+      "eventWording": "Urn At Least One",
+      "explanationLead": "First identify the successive denominator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-407",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-407-STEM-1",
+      "stemTemplate": "In this selection-based scenario, a bag contains {urnTotal} balls and the probability of drawing a red ball is {answer}. How many red balls are in the bag? All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "URN_REVERSE",
+      "eventWording": "Urn Reverse Count",
+      "explanationLead": "First identify the simultaneous denominator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-408",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-408-STEM-2",
+      "stemTemplate": "In this counting-based scenario, a bag contains {red} red and {blue} blue balls. {draw} balls are chosen simultaneously without replacement. Find the probability that exactly {exactRed} are red. {answerInstruction}",
+      "contextFamily": "URN_SELECTION",
+      "eventWording": "Urn Combination",
+      "explanationLead": "First identify the independent denominator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-409",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-409-STEM-3",
+      "stemTemplate": "In this event-based scenario, a bag contains {red} red and {blue} blue balls. One ball is drawn uniformly. Find the probability that it is red. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "URN_DIRECT",
+      "eventWording": "Urn Single",
+      "explanationLead": "First identify the dependent denominator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-410",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-410-STEM-4",
+      "stemTemplate": "In this conditional scenario, a bag contains {red} red and {blue} blue balls. {draw} balls are selected simultaneously without replacement. Find the probability that all selected balls have the same colour. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "URN_SELECTION",
+      "eventWording": "Urn Same Type",
+      "explanationLead": "First identify the complementary denominator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-411",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-411-STEM-5",
+      "stemTemplate": "In this multi-stage scenario, a bag contains {red} red and {blue} blue balls. {draw} balls are selected simultaneously without replacement. Find the probability that the selection contains both colours. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "URN_SELECTION",
+      "eventWording": "Urn Both Colours",
+      "explanationLead": "First identify the overlapping denominator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-412",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-412-STEM-6",
+      "stemTemplate": "In this outcome-based scenario, a bag contains {red} red and {blue} blue balls. {draw} balls are selected simultaneously without replacement. Find the probability that exactly {exactRed} selected balls are red. {answerInstruction}",
+      "contextFamily": "URN_SELECTION",
+      "eventWording": "Urn Exact Composition",
+      "explanationLead": "First identify the favourable denominator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-413",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-413-STEM-1",
+      "stemTemplate": "In this competitive-exam scenario, a bag contains {red} red and {blue} blue balls. {draw} balls are selected simultaneously without replacement. Find the probability that no red ball is selected. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "URN_SELECTION",
+      "eventWording": "Urn None",
+      "explanationLead": "First identify the total denominator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-414",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-414-STEM-2",
+      "stemTemplate": "In this review scenario, a bag contains {red} red and {blue} blue balls. {draw} balls are selected simultaneously without replacement. Find the probability that at least one red ball is selected. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "URN_SELECTION",
+      "eventWording": "Urn At Least One",
+      "explanationLead": "First identify the declared denominator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-415",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-415-STEM-3",
+      "stemTemplate": "In this standard task, a bag contains {urnTotal} balls and the probability of drawing a red ball is {answer}. How many red balls are in the bag? {answerInstruction}",
+      "contextFamily": "URN_REVERSE",
+      "eventWording": "Urn Reverse Count",
+      "explanationLead": "First identify the complete numerator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-416",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-416-STEM-4",
+      "stemTemplate": "In this classical task, a bag contains {red} red and {blue} blue balls. {draw} balls are chosen simultaneously without replacement. Find the probability that exactly {exactRed} are red. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "URN_SELECTION",
+      "eventWording": "Urn Combination",
+      "explanationLead": "First identify the relevant numerator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-417",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-417-STEM-5",
+      "stemTemplate": "In this finite task, a bag contains {red} red and {blue} blue balls. One ball is drawn uniformly. Find the probability that it is red. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "URN_DIRECT",
+      "eventWording": "Urn Single",
+      "explanationLead": "First identify the restricted numerator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-418",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-418-STEM-6",
+      "stemTemplate": "In this structured task, a bag contains {red} red and {blue} blue balls. {draw} balls are selected simultaneously without replacement. Find the probability that all selected balls have the same colour. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "URN_SELECTION",
+      "eventWording": "Urn Same Type",
+      "explanationLead": "First identify the ordered numerator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-419",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-419-STEM-1",
+      "stemTemplate": "In this objective task, a bag contains {red} red and {blue} blue balls. {draw} balls are selected simultaneously without replacement. Find the probability that the selection contains both colours. {answerInstruction}",
+      "contextFamily": "URN_SELECTION",
+      "eventWording": "Urn Both Colours",
+      "explanationLead": "First identify the unordered numerator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-420",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-420-STEM-2",
+      "stemTemplate": "In this exam-style task, a bag contains {red} red and {blue} blue balls. {draw} balls are selected simultaneously without replacement. Find the probability that exactly {exactRed} selected balls are red. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "URN_SELECTION",
+      "eventWording": "Urn Exact Composition",
+      "explanationLead": "First identify the conditional numerator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-421",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-421-STEM-3",
+      "stemTemplate": "In this practice task, a bag contains {red} red and {blue} blue balls. {draw} balls are selected simultaneously without replacement. Find the probability that no red ball is selected. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "URN_SELECTION",
+      "eventWording": "Urn None",
+      "explanationLead": "First identify the finite numerator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-422",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-422-STEM-4",
+      "stemTemplate": "In this mock-test task, a bag contains {red} red and {blue} blue balls. {draw} balls are selected simultaneously without replacement. Find the probability that at least one red ball is selected. {answerInstruction}",
+      "contextFamily": "URN_SELECTION",
+      "eventWording": "Urn At Least One",
+      "explanationLead": "First identify the exact numerator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-423",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-423-STEM-5",
+      "stemTemplate": "In this textbook task, a bag contains {urnTotal} balls and the probability of drawing a red ball is {answer}. How many red balls are in the bag? All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "URN_REVERSE",
+      "eventWording": "Urn Reverse Count",
+      "explanationLead": "First identify the canonical numerator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-424",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-424-STEM-6",
+      "stemTemplate": "In this classroom task, a bag contains {red} red and {blue} blue balls. {draw} balls are chosen simultaneously without replacement. Find the probability that exactly {exactRed} are red. All elementary outcomes are equally likely; preserve the stated ordering, replacement condition and restricted universe throughout the calculation. {answerInstruction}",
+      "contextFamily": "URN_SELECTION",
+      "eventWording": "Urn Combination",
+      "explanationLead": "First identify the successive numerator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-425",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-425-STEM-1",
+      "stemTemplate": "In this selection-based task, a bag contains {red} red and {blue} blue balls. One ball is drawn uniformly. Find the probability that it is red. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "URN_DIRECT",
+      "eventWording": "Urn Single",
+      "explanationLead": "First identify the simultaneous numerator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    },
+    {
+      "qlId": "PRB-QL-426",
+      "locale": "en",
+      "stemTemplateId": "PRB-QL-426-STEM-2",
+      "stemTemplate": "In this counting-based task, a bag contains {red} red and {blue} blue balls. {draw} balls are selected simultaneously without replacement. Find the probability that all selected balls have the same colour. All elementary outcomes under the stated procedure are equally likely. {answerInstruction}",
+      "contextFamily": "URN_SELECTION",
+      "eventWording": "Urn Same Type",
+      "explanationLead": "First identify the independent numerator.",
+      "terminology": {
+        "probability": "probability",
+        "event": "event",
+        "sampleSpace": "sample space"
+      }
+    }
+  ]
+}

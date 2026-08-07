@@ -1,0 +1,227 @@
+{
+  "packageId": "PRB-001",
+  "strategies": [
+    {
+      "id": "ALL_OR_NOT_ALL",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "AT_LEAST_ONE",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "AT_MOST_K",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "CARD_COLOUR",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "CARD_COMPLEMENT",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "CARD_FACE",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "CARD_INTERSECTION",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "CARD_RANK",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "CARD_REVERSE_COUNT",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "CARD_SUIT",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "CARD_UNION",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "CERTAIN_IMPOSSIBLE_POSSIBLE",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "COIN_HEAD_COUNT",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "COIN_PATTERN",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "COMPLEMENT_EVENT",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "DIRECT_EVENT",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "EXACTLY_K",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "EXACTLY_ONE",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "FREQUENCY_EVENT",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "MISSING_EVENT_COUNT",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "NONE_SUCCESS",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "NUMBER_PROPERTY",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "REVERSE_FAVOURABLE",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "REVERSE_SPINNER_COUNT",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "REVERSE_TOTAL",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "SINGLE_DIE_PROPERTY",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "SPINNER_EVENT",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "TWO_DICE_PRODUCT_PARITY",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "TWO_DICE_SUM",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "URN_AT_LEAST_ONE",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "URN_BOTH_COLOURS",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "URN_COMBINATION",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "URN_EXACT_COMPOSITION",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "URN_NONE",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "URN_REVERSE_COUNT",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "URN_SAME_TYPE",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    },
+    {
+      "id": "URN_SINGLE",
+      "sourceOfTruth": "TYPED_EVENT_AST",
+      "rendererUsesSameDefinition": true,
+      "solverUsesSameDefinition": true
+    }
+  ]
+}

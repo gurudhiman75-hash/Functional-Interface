@@ -1,0 +1,11 @@
+import taskRegistry from "../task-registry.library.json";
+import questionLanguage from "../question-language.en.json";
+import variableRanges from "../variable-ranges.library.json";
+import experimentDomains from "../experiment-domains.library.json";
+import eventStrategies from "../event-strategy.library.json";
+import distractorStrategies from "../distractor-strategy.library.json";
+import coverageTargets from "../coverage-targets.library.json";
+import distributionTargets from "../distribution-targets.library.json";
+import { validateProbabilityLibraries } from "../../shared/library";
+import type { ProbabilityPackageLibraries } from "../../shared/types";
+export const PRB_002_LIBRARIES: ProbabilityPackageLibraries = validateProbabilityLibraries({ packageId: "PRB-002", registry: taskRegistry.entries as ProbabilityPackageLibraries["registry"], language: questionLanguage.entries as ProbabilityPackageLibraries["language"], variables: variableRanges, experimentDomains, eventStrategies, distractorStrategies, coverageTargets, distributionTargets }, 96);

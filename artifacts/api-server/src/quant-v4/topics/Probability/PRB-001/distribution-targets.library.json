@@ -1,0 +1,34 @@
+{
+  "packageId": "PRB-001",
+  "difficultyTargets": {
+    "PRB-CP-001": {
+      "Easy": 10,
+      "Medium": 9,
+      "Hard": 3
+    },
+    "PRB-CP-002": {
+      "Easy": 7,
+      "Medium": 11,
+      "Hard": 6
+    },
+    "PRB-CP-003": {
+      "Easy": 8,
+      "Medium": 11,
+      "Hard": 5
+    },
+    "PRB-CP-004": {
+      "Easy": 7,
+      "Medium": 11,
+      "Hard": 6
+    },
+    "PRB-CP-005": {
+      "Easy": 7,
+      "Medium": 12,
+      "Hard": 7
+    }
+  },
+  "residualPreviewMinimum": 1500,
+  "sameQlSeedCount": 12,
+  "questionStudioSmokeMinimum": 300,
+  "manualReviewPerCp": 15
+}

@@ -1,0 +1,29 @@
+{
+  "packageId": "PRB-002",
+  "difficultyTargets": {
+    "PRB-CP-006": {
+      "Easy": 4,
+      "Medium": 12,
+      "Hard": 8
+    },
+    "PRB-CP-007": {
+      "Easy": 2,
+      "Medium": 10,
+      "Hard": 10
+    },
+    "PRB-CP-008": {
+      "Easy": 1,
+      "Medium": 10,
+      "Hard": 15
+    },
+    "PRB-CP-009": {
+      "Easy": 2,
+      "Medium": 11,
+      "Hard": 11
+    }
+  },
+  "residualPreviewMinimum": 1500,
+  "sameQlSeedCount": 12,
+  "questionStudioSmokeMinimum": 300,
+  "manualReviewPerCp": 15
+}

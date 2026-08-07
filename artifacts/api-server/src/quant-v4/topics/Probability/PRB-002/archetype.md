@@ -1,3 +1,3 @@
-# PRB-002 Compound, Conditional & Counting-Based Probability
+# PRB-002 — Compound, Conditional & Counting-Based Probability
 
-English runtime for compound probability, conditional probability, counting-based probability and event algebra. Automated QA only; manual editorial freeze remains required before publication.
+This package is built around an explicit experiment, sample space, typed event expression, exact rational solver, independent verifier, task-specific distractors and teacher-like explanation. It remains non-public until human review is complete.

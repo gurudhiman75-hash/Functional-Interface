@@ -1,0 +1,6 @@
+# Canonical problems
+
+- `PRB-CP-006` — 24 production QLs; solve modes: findSuccessiveIndependentProbability, findSuccessiveDependentProbability, findWithReplacementProbability, findWithoutReplacementProbability, findOrderedDrawSequenceProbability, findSameTypeInSuccessiveDraws, findDifferentTypesInSuccessiveDraws, findAtLeastOneAcrossIndependentStages
+- `PRB-CP-007` — 22 production QLs; solve modes: findConditionalProbabilityByCounting, findConditionalCardProbability, findConditionalNumberProbability, findConditionalUrnProbability, findReverseConditionalCount, findConditionalFromTwoWayTable
+- `PRB-CP-008` — 26 production QLs; solve modes: findSelectionProbabilityUsingCombination, findCommitteeCompositionProbability, findRandomArrangementPropertyProbability, findTogetherOrApartProbability, findPositionRestrictionProbability, findNumberFormationProbability, findRestrictedSelectionProbability, findReverseCountFromProbability
+- `PRB-CP-009` — 24 production QLs; solve modes: findUnionProbability, findIntersectionProbability, findExactlyOneOfTwoEvents, findNeitherEventProbability, findMutuallyExclusiveUnion, findIndependentIntersection, findMissingIntersectionOrUnionProbability, findMixedEventExpressionProbability

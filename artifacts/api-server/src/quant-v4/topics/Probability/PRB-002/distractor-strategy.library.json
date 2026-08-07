@@ -1,0 +1,185 @@
+{
+  "packageId": "PRB-002",
+  "strategies": [
+    {
+      "id": "ADD_INSTEAD_OF_MULTIPLY",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "ADD_UNION_INSTEAD_SUBTRACT",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "ALLOW_REPETITION",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "ASSUME_INDEPENDENCE",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "ASSUME_ZERO_INTERSECTION",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "COUNT_BOTH_ORDERS",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "COUNT_EXACTLY_ONE_ONLY",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "COUNT_ONE_ORDER_ONLY",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "COUNT_ONLY_RED_CASE",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "DECK_FACT_TRAP",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "FAIL_SUBTRACT_OVERLAP",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "FIX_WRONG_POSITION",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "FORGET_COMPLEMENT",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "FORGET_INTERNAL_PAIR_ORDER",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "FORGET_REPLACEMENT",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "FORGET_SECOND_REGION",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "IGNORE_FIXED_POSITION",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "IGNORE_TERMINAL_RESTRICTION",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "INVENT_OVERLAP",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "KEEP_DENOMINATOR_UNCHANGED",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "KEEP_NUMERATOR_UNCHANGED",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "MULTIPLY_INSTEAD_ADD",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "OMIT_ONE_COMBINATION_FACTOR",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "PERMUTATION_DENOMINATOR",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "REMOVE_BALL_DESPITE_REPLACEMENT",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "REVERSE_CONDITION",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "REVERSE_SEQUENCE_ONLY",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "SUBTRACT_OVERLAP_FORMULA",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "SUBTRACT_OVERLAP_ONCE",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "SUBTRACT_OVERLAP_TWICE",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "USE_AT_LEAST_INSTEAD_EXACT",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "USE_COMBINATION_DENOMINATOR",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "USE_GRAND_TOTAL",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "USE_ORIGINAL_TOTAL",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "USE_PROBABILITY_AS_COUNT",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    },
+    {
+      "id": "USE_UNION_VALUE",
+      "kind": "TASK_SPECIFIC_MISCONCEPTION",
+      "mustRemainValidProbability": true
+    }
+  ]
+}

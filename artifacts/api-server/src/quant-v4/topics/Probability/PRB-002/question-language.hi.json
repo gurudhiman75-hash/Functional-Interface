@@ -1,0 +1,7 @@
+{
+  "packageId": "PRB-002",
+  "locale": "hi",
+  "supported": false,
+  "reason": "Blocked until human-authored or human-reviewed localisation parity exists.",
+  "entries": []
+}

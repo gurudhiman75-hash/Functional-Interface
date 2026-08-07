@@ -1,0 +1,3 @@
+import { runPrb002Pipeline, listPrb002QuestionEntries, PRB_002_LIBRARIES } from "./index";
+function assert(condition:unknown,message:string):asserts condition{if(!condition)throw new Error(message);}
+const entries=listPrb002QuestionEntries();for(let index=0;index<300;index++){const entry=entries[index%entries.length]!;const q=runPrb002Pipeline(entry.cpId as any,{questionLanguageId:entry.qlId,seed:`PRB-002:studio:${index}`});assert(q.validation.valid,`Question Studio smoke failed at ${index} / ${entry.qlId}`);assert(q.options.length===4&&q.options[q.correctIndex]===q.answer,"Option contract failed");}console.log(JSON.stringify({packageId:"PRB-002",questionStudioSmoke:300}));
