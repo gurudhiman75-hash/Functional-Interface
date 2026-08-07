@@ -10,7 +10,7 @@ import {
 
 export const RNK_CP004_PERMANENT_RUNTIME_VERSION = 'RNK_CP004_PERMANENT_RUNTIME_V1' as const;
 export const RNK_CP004_ENGLISH_DISCOVERY_FREEZE_VERSION = 'RNK_CP004_ENGLISH_DISCOVERY_FREEZE_V1' as const;
-export const RNK_CP004_EXPECTED_PROJECTION_SHA256 = 'PENDING_DIGEST_PIN' as const;
+export const RNK_CP004_EXPECTED_PROJECTION_SHA256 = '39c35edb20d0452ccec4018a1166cefa5f8c445d92c968c601e59158aed4a97f' as const;
 
 export const RNK_CP004_PERMANENT_AUTHORITY_ASSIGNMENTS = [
   { qlId: 'RNK-QL-027', authorityId: 'ENDPOINT_ENTITY' },
@@ -42,7 +42,7 @@ export interface RnkCp004PermanentProfile {
 
 export type RnkCp004PermanentQuestion = Omit<RnkCp004ConsolidatedQuestion, 'reviewMetadata'> & {
   readonly reviewMetadata: RnkCp004ConsolidatedQuestion['reviewMetadata'] & {
-    readonly permanentRuntimeStatus: 'PROJECTED';
+    readonly permanentRuntimeStatus: 'FROZEN';
     readonly permanentProfile: RnkCp004PermanentProfile;
   };
 };
@@ -79,7 +79,7 @@ function permanentQuestionsFor(
         mathematicalFingerprint: `${base.mathematicalFingerprint}:${RNK_CP004_PERMANENT_RUNTIME_VERSION}:${qlId}:${permanentOrdinalWithinAuthority}`,
         reviewMetadata: {
           ...base.reviewMetadata,
-          permanentRuntimeStatus: 'PROJECTED',
+          permanentRuntimeStatus: 'FROZEN',
           permanentProfile: {
             runtimeVersion: RNK_CP004_PERMANENT_RUNTIME_VERSION,
             freezeVersion: RNK_CP004_ENGLISH_DISCOVERY_FREEZE_VERSION,
@@ -87,7 +87,7 @@ function permanentQuestionsFor(
             authorityId,
             permanentOrdinalWithinAuthority,
             questionsPerAuthority: 192,
-            projectionDigestPinned: RNK_CP004_EXPECTED_PROJECTION_SHA256 !== 'PENDING_DIGEST_PIN',
+            projectionDigestPinned: true,
           },
           normalizedSemanticFingerprint: `${base.reviewMetadata.normalizedSemanticFingerprint}|${RNK_CP004_PERMANENT_RUNTIME_VERSION}:${qlId}:${permanentOrdinalWithinAuthority}`,
         },
