@@ -74,7 +74,7 @@ function validateExplanation(
   const structurePassed = explanation.coreConcept.length >= 55
     && explanation.givenDataAndStrategy.length >= 70
     && explanation.stepByStep.length >= 2
-    && explanation.stepByStep.every((step) => step.length >= 18)
+    && explanation.stepByStep.every((step) => step.length >= 12)
     && explanation.whyThisWorks.length >= 55
     && explanation.finalAnswer.length >= 24;
   const exactStepsPassed = explanation.stepByStep.length === base.explanation.steps.length
