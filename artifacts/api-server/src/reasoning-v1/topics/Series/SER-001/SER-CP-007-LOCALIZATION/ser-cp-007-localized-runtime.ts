@@ -88,6 +88,38 @@ const STEM_OPENERS: Readonly<
     "hi-IN": "दिए गए पहले अक्षर-समूह से ठीक पहले कौन-सा अक्षर-समूह आएगा?",
     "pa-IN": "ਦਿੱਤੇ ਪਹਿਲੇ ਅੱਖਰ-ਸਮੂਹ ਤੋਂ ਠੀਕ ਪਹਿਲਾਂ ਕਿਹੜਾ ਅੱਖਰ-ਸਮੂਹ ਆਵੇਗਾ?",
   },
+  "Which letter group should come immediately before the given series?": {
+    "hi-IN": "दी गई श्रृंखला से ठीक पहले कौन-सा अक्षर-समूह आएगा?",
+    "pa-IN": "ਦਿੱਤੀ ਲੜੀ ਤੋਂ ਠੀਕ ਪਹਿਲਾਂ ਕਿਹੜਾ ਅੱਖਰ-ਸਮੂਹ ਆਵੇਗਾ?",
+  },
+  "Which letter group should come next in the series?": {
+    "hi-IN": "श्रृंखला में अगला अक्षर-समूह कौन-सा होगा?",
+    "pa-IN": "ਲੜੀ ਵਿੱਚ ਅਗਲਾ ਅੱਖਰ-ਸਮੂਹ ਕਿਹੜਾ ਹੋਵੇਗਾ?",
+  },
+  "Which letter group should replace the incorrect term?": {
+    "hi-IN": "गलत समूह के स्थान पर कौन-सा अक्षर-समूह आएगा?",
+    "pa-IN": "ਗਲਤ ਸਮੂਹ ਦੀ ਥਾਂ ਕਿਹੜਾ ਅੱਖਰ-ਸਮੂਹ ਆਵੇਗਾ?",
+  },
+  "Which letter group should replace the incorrectly placed group?": {
+    "hi-IN": "गलत स्थान पर रखे गए समूह के स्थान पर कौन-सा अक्षर-समूह आएगा?",
+    "pa-IN": "ਗਲਤ ਥਾਂ ਰੱਖੇ ਸਮੂਹ ਦੀ ਥਾਂ ਕਿਹੜਾ ਅੱਖਰ-ਸਮੂਹ ਆਵੇਗਾ?",
+  },
+  "Which letter group should replace the question mark?": {
+    "hi-IN": "प्रश्नवाचक चिन्ह के स्थान पर कौन-सा अक्षर-समूह आएगा?",
+    "pa-IN": "ਪ੍ਰਸ਼ਨ ਚਿੰਨ੍ਹ ਦੀ ਥਾਂ ਕਿਹੜਾ ਅੱਖਰ-ਸਮੂਹ ਆਵੇਗਾ?",
+  },
+  "Which option correctly shows the wrong group and its replacement?": {
+    "hi-IN": "कौन-सा विकल्प गलत समूह और उसके सही प्रतिस्थापन को दर्शाता है?",
+    "pa-IN": "ਕਿਹੜਾ ਵਿਕਲਪ ਗਲਤ ਸਮੂਹ ਅਤੇ ਉਸ ਦੇ ਸਹੀ ਬਦਲ ਨੂੰ ਦਰਸਾਉਂਦਾ ਹੈ?",
+  },
+  "Which two letter groups should come next?": {
+    "hi-IN": "अगले दो अक्षर-समूह कौन-से होंगे?",
+    "pa-IN": "ਅਗਲੇ ਦੋ ਅੱਖਰ-ਸਮੂਹ ਕਿਹੜੇ ਹੋਣਗੇ?",
+  },
+  "Which two letter groups should replace the question marks from left to right?": {
+    "hi-IN": "बाएँ से दाएँ प्रश्नवाचक चिह्नों के स्थान पर कौन-से दो अक्षर-समूह आएँगे?",
+    "pa-IN": "ਖੱਬੇ ਤੋਂ ਸੱਜੇ ਪ੍ਰਸ਼ਨ ਚਿੰਨ੍ਹਾਂ ਦੀ ਥਾਂ ਕਿਹੜੇ ਦੋ ਅੱਖਰ-ਸਮੂਹ ਆਉਣਗੇ?",
+  },
   "Find the next letter group in the series.": {
     "hi-IN": "श्रृंखला में अगला अक्षर-समूह ज्ञात कीजिए।",
     "pa-IN": "ਲੜੀ ਵਿੱਚ ਅਗਲਾ ਅੱਖਰ-ਸਮੂਹ ਲੱਭੋ।",
@@ -400,7 +432,7 @@ function translateCore(source: string, locale: SerCp007Locale): TranslationResul
   }
   if ((match = value.match(/^(Odd-position|Even-position) row: (.+)\.$/))) {
     const rowHi = match[1] === "Odd-position" ? "विषम स्थानों की पंक्ति" : "सम स्थानों की पंक्ति";
-    const rowPa = match[1] === "Odd-position" ? "ਟਾਂਕ ਸਥਾਨਾਂ ਦੀ ਕਤਾਰ" : "ਜੋੜੇ ਸਥਾਨਾਂ ਦੀ ਕਤਾਰ";
+    const rowPa = match[1] === "Odd-position" ? "ਵਿਸ਼ਮ ਸਥਾਨਾਂ ਦੀ ਕਤਾਰ" : "ਸਮ ਸਥਾਨਾਂ ਦੀ ਕਤਾਰ";
     return ok(`${rowHi}: ${match[2]}।`, `${rowPa}: ${match[2]}।`);
   }
   if ((match = value.match(/^Row (\d+) \(positions (.+)\.\.\.\): (.+)\.$/))) {
@@ -507,7 +539,7 @@ function translateCore(source: string, locale: SerCp007Locale): TranslationResul
   if ((match = value.match(/^(.+) → (.+): write the odd-position letters first and the even-position letters afterwards\. Therefore, the pair is (.+), (.+)\.$/))) {
     return ok(
       `${match[1]} → ${match[2]}: पहले विषम स्थानों के अक्षर और फिर सम स्थानों के अक्षर लिखें। इसलिए युग्म ${match[3]}, ${match[4]} है।`,
-      `${match[1]} → ${match[2]}: ਪਹਿਲਾਂ ਟਾਂਕ ਸਥਾਨਾਂ ਦੇ ਅੱਖਰ ਅਤੇ ਫਿਰ ਜੋੜੇ ਸਥਾਨਾਂ ਦੇ ਅੱਖਰ ਲਿਖੋ। ਇਸ ਲਈ ਜੋੜੀ ${match[3]}, ${match[4]} ਹੈ।`,
+      `${match[1]} → ${match[2]}: ਪਹਿਲਾਂ ਵਿਸ਼ਮ ਸਥਾਨਾਂ ਦੇ ਅੱਖਰ ਅਤੇ ਫਿਰ ਸਮ ਸਥਾਨਾਂ ਦੇ ਅੱਖਰ ਲਿਖੋ। ਇਸ ਲਈ ਜੋੜੀ ${match[3]}, ${match[4]} ਹੈ।`,
     );
   }
   if ((match = value.match(/^Use position order (.+); the letters are rearranged, not changed alphabetically\.$/))) {
@@ -592,7 +624,7 @@ function translateCore(source: string, locale: SerCp007Locale): TranslationResul
   const exactRules: Readonly<Record<string, readonly [string, string]>> = {
     "Separate the odd-position and even-position groups. Use only the displayed terms in the row containing the blank.": [
       "विषम और सम स्थानों के समूह अलग करें। केवल उसी पंक्ति के दिखाए गए समूहों का प्रयोग करें जिसमें रिक्त स्थान है।",
-      "ਟਾਂਕ ਅਤੇ ਜੋੜੇ ਸਥਾਨਾਂ ਦੇ ਸਮੂਹ ਵੱਖ ਕਰੋ। ਸਿਰਫ਼ ਉਸ ਕਤਾਰ ਦੇ ਦਿਖਾਏ ਸਮੂਹ ਵਰਤੋ ਜਿਸ ਵਿੱਚ ਖਾਲੀ ਥਾਂ ਹੈ।",
+      "ਵਿਸ਼ਮ ਅਤੇ ਸਮ ਸਥਾਨਾਂ ਦੇ ਸਮੂਹ ਵੱਖ ਕਰੋ। ਸਿਰਫ਼ ਉਸ ਕਤਾਰ ਦੇ ਦਿਖਾਏ ਸਮੂਹ ਵਰਤੋ ਜਿਸ ਵਿੱਚ ਖਾਲੀ ਥਾਂ ਹੈ।",
     ],
     "Follow each letter position separately. Its jump changes by a fixed amount at every step.": [
       "हर अक्षर-स्थान को अलग-अलग देखें। प्रत्येक चरण पर उसका परिवर्तन एक निश्चित मात्रा से बदलता है।",
