@@ -131,7 +131,7 @@ jobs:
           grep -F 'SESSION_REVOKED' artifacts/api-server/src/middlewares/auth.ts
           grep -F 'ACCOUNT_RECOVERY_COMPLETED' artifacts/examtree/src/lib/auth.ts
           grep -F 'account-recovery-completed' artifacts/examtree/src/lib/auth.ts
-          grep -F 'Can’t access your account?' artifacts/examtree/src/pages/login.tsx
+          grep -F 'Can’t access your account?' artifacts/examtree/src/App.tsx
           grep -F '/account-recovery' artifacts/examtree/src/App.tsx
           grep -F 'sendPasswordResetEmail' artifacts/examtree/src/pages/account-recovery.tsx
           grep -F '/account-recovery/request' artifacts/examtree/src/pages/account-recovery.tsx
@@ -166,7 +166,7 @@ jobs:
 
       - name: Test web account recovery contracts
         run: |
-          pnpm --dir artifacts/examtree exec esbuild src/lib/account-recovery-contract.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/account-recovery-contract.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild ../examtree/src/lib/account-recovery-contract.test.ts --bundle --packages=external --platform=node --format=esm --outfile=../examtree/dist/account-recovery-contract.test.mjs
           node artifacts/examtree/dist/account-recovery-contract.test.mjs
 
       - name: Typecheck admin application
