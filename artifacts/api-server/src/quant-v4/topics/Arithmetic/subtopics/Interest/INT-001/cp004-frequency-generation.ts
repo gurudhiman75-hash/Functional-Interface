@@ -23,6 +23,7 @@ function requiredMultiplier(state: Omit<Cp004MathematicalState, "principal">): R
     default: return pow(periodMultiplierFromPeriodicRate(periodicRate(state.nominalAnnualRatePercent, state.frequency)), state.periods);
   }
 }
+
 function compatiblePrincipal(seed: string, state: Omit<Cp004MathematicalState, "principal">): Rational {
   const exactEvidenceQl = new Set<IntCp004QlId>([
     "INT-QL-069", "INT-QL-070", "INT-QL-071", "INT-QL-072",
@@ -58,51 +59,81 @@ function periodsForFrequency(seed: string, frequency: Cp004Frequency): number {
   };
   return pick(pools[frequency], seed, "periods");
 }
+
 function chooseFrequency(seed: string, qlId: IntCp004QlId): Cp004Frequency {
   if (["INT-QL-069", "INT-QL-070", "INT-QL-071", "INT-QL-072"].includes(qlId)) {
     return pick([2, 4] as const, seed, `${qlId}:frequency`);
   }
-  if (qlId === "INT-QL-077") return 2;
+  if (qlId === "INT-QL-077") return pick([2, 4] as const, seed, `${qlId}:frequency`);
   if (["INT-QL-075", "INT-QL-076", "INT-QL-078"].includes(qlId)) {
     return pick([2, 4, 12] as const, seed, `${qlId}:frequency`);
   }
   if (["INT-QL-079", "INT-QL-080", "INT-QL-081", "INT-QL-082", "INT-QL-083"].includes(qlId)) return 1;
   return pick(FREQUENCIES, seed, `${qlId}:frequency`);
 }
-function nominalRatePoolFor(qlId: IntCp004QlId, frequency: Cp004Frequency): readonly Rational[] {
-  if (["INT-QL-069", "INT-QL-070", "INT-QL-071", "INT-QL-072"].includes(qlId)) {
-    return frequency === 2
-      ? Object.freeze([rat(8), rat(12), rat(16), rat(20), rat(24), rat(30)])
-      : Object.freeze([rat(20), rat(40)]);
-  }
-  if (qlId === "INT-QL-077") return Object.freeze([rat(4), rat(6), rat(8), rat(10), rat(12), rat(16), rat(20), rat(24), rat(30)]);
+
+function inverseRatePool(frequency: Cp004Frequency): readonly Rational[] {
+  if (frequency === 2) return Object.freeze([rat(8), rat(12), rat(16), rat(20), rat(24), rat(30)]);
+  return Object.freeze([rat(8), rat(16), rat(20), rat(24), rat(32), rat(40)]);
+}
+
+function nominalRatePoolFor(
+  qlId: IntCp004QlId,
+  frequency: Cp004Frequency,
+  firstFrequency: Cp004Frequency,
+  secondFrequency: Cp004Frequency,
+): readonly Rational[] {
+  if (["INT-QL-069", "INT-QL-070", "INT-QL-071", "INT-QL-072"].includes(qlId)) return inverseRatePool(frequency);
+  if (qlId === "INT-QL-077") return inverseRatePool(frequency);
   if (["INT-QL-081", "INT-QL-082", "INT-QL-083"].includes(qlId)) return Object.freeze([rat(10), rat(20), rat(25)]);
+  if (["INT-QL-084", "INT-QL-085"].includes(qlId)) {
+    return firstFrequency === 12 || secondFrequency === 12
+      ? Object.freeze([rat(12), rat(24)])
+      : Object.freeze([rat(8), rat(12), rat(16), rat(20), rat(24)]);
+  }
   return NOMINAL_RATE_POOLS[frequency];
 }
 
 export function generateCp004State(qlId: IntCp004QlId, seed: string): Cp004MathematicalState {
   const frequency = chooseFrequency(seed, qlId);
-  const nominalAnnualRatePercent = pick(nominalRatePoolFor(qlId, frequency), seed, `${qlId}:nominal-rate`);
+  const firstFrequency = pick(FREQUENCIES, seed, `${qlId}:first-frequency`);
+  const secondFrequency = pick(FREQUENCIES.filter((item) => item !== firstFrequency), seed, `${qlId}:second-frequency`);
+  const nominalAnnualRatePercent = pick(
+    nominalRatePoolFor(qlId, frequency, firstFrequency, secondFrequency),
+    seed,
+    `${qlId}:nominal-rate`,
+  );
   const periodicRatePercent = pick(PERIODIC_RATES, seed, `${qlId}:periodic-rate`);
   const years = pick([1, 2, 3] as const, seed, `${qlId}:years`);
   const periods = qlId === "INT-QL-078"
     ? frequency * years
-    : ["INT-QL-069", "INT-QL-070", "INT-QL-071", "INT-QL-072"].includes(qlId)
-      ? pick(frequency === 2 ? [2, 3, 4] as const : [2, 4] as const, seed, `${qlId}:inverse-periods`)
-      : periodsForFrequency(seed, frequency);
+    : qlId === "INT-QL-071"
+      ? pick(frequency === 2 ? [3, 4] as const : [2, 3] as const, seed, `${qlId}:inverse-rate-periods`)
+      : ["INT-QL-069", "INT-QL-070", "INT-QL-072"].includes(qlId)
+        ? pick(frequency === 2 ? [2, 3, 4] as const : [2, 4] as const, seed, `${qlId}:inverse-periods`)
+        : periodsForFrequency(seed, frequency);
   const fullYears = ["INT-QL-081", "INT-QL-082", "INT-QL-083"].includes(qlId)
     ? pick([1, 2, 3] as const, seed, `${qlId}:full-years`)
     : pick([1, 2, 3, 4] as const, seed, `${qlId}:full-years`);
   const tailMonths = pick(TAIL_MONTHS, seed, `${qlId}:tail-months`);
   const comparisonFrequency = pick(FREQUENCIES.filter((item) => item !== frequency), seed, `${qlId}:comparison-frequency`);
-  const firstFrequency = pick([1, 2, 4] as const, seed, `${qlId}:first-frequency`);
-  const secondFrequency = pick(([1, 2, 4] as const).filter((item) => item !== firstFrequency), seed, `${qlId}:second-frequency`);
   const firstYears = pick([1, 2] as const, seed, `${qlId}:first-years`);
   const secondYears = pick([1, 2] as const, seed, `${qlId}:second-years`);
 
   const withoutPrincipal: Omit<Cp004MathematicalState, "principal"> = {
-    qlId, nominalAnnualRatePercent, periodicRatePercent, frequency, periods,
-    comparisonFrequency, years, fullYears, tailMonths, firstFrequency, firstYears, secondFrequency, secondYears,
+    qlId,
+    nominalAnnualRatePercent,
+    periodicRatePercent,
+    frequency,
+    periods,
+    comparisonFrequency,
+    years,
+    fullYears,
+    tailMonths,
+    firstFrequency,
+    firstYears,
+    secondFrequency,
+    secondYears,
   };
   return deepFreeze({ ...withoutPrincipal, principal: compatiblePrincipal(seed, withoutPrincipal) });
 }
