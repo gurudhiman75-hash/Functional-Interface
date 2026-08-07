@@ -16,7 +16,13 @@ export function generateIntCp004Question(qlId: IntCp004QlId, seed = "int-cp004-d
   const hardenedPresentation = hardenCp004Presentation(mathematicalState, stemFor(mathematicalState, seed));
   const presentation = Object.freeze({
     ...hardenedPresentation,
-    stem: hardenedPresentation.stem.replace(/\bDetermine\b/gu, "Find").replace(/\bIdentify\b/gu, "Find"),
+    stem: hardenedPresentation.stem
+      .replace(/\bDetermine\b/gu, "Find")
+      .replace(/\bIdentify\b/gu, "Find")
+      .replace(/, find only the interest/gu, ". Find only the interest")
+      .replace(/from annually compounding/gu, "from annual compounding")
+      .replace(/to annually compounding/gu, "to annual compounding")
+      .replace(/\bannually compounding\b/gu, "annual compounding"),
   });
   const options = optionsFor(mathematicalState, seed);
   const correctIndex = options.findIndex((option) => option.isCorrect);
