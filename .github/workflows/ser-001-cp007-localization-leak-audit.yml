@@ -1,0 +1,51 @@
+name: Audit SER-001 CP-007 localized English leak lines
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-LOCALIZATION/**"
+      - ".github/workflows/ser-001-cp007-localization-leak-audit.yml"
+
+jobs:
+  audit-localized-leaks:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Audit exact localized leak lines
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-LOCALIZATION
+          OUT=dist/reasoning-v1/ser-001
+          mkdir -p artifacts/api-server/$OUT
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/ser-cp-007-localized-leak-audit.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/ser-cp-007-localized-leak-audit.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-007-localized-leak-audit.mjs") \
+            | tee SER-CP-007-Localized-English-Leak-Audit.json
+          grep -q 'PASS_SER_CP007_LOCALIZED_ENGLISH_LEAK_AUDIT' \
+            SER-CP-007-Localized-English-Leak-Audit.json
+
+      - name: Upload leak audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: ser-001-cp007-localized-english-leak-audit
+          path: SER-CP-007-Localized-English-Leak-Audit.json
+          if-no-files-found: error
+          retention-days: 7
