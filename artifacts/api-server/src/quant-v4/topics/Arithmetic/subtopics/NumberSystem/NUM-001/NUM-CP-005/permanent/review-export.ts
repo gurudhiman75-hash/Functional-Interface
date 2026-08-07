@@ -20,6 +20,18 @@ function reviewSeedCount(qlId) {
   return advancedReviewQls.has(qlId) ? 15 : 10;
 }
 
+function assert(condition, message) {
+  if (!condition) throw new Error(message);
+}
+
+function reviewFingerprint(question) {
+  return JSON.stringify({
+    stem: question.stem,
+    options: question.options.map((option) => option.value),
+    answer: question.canonicalAnswer,
+  });
+}
+
 const questions = NUM_CP005_PERMANENT_ALLOCATION.flatMap((allocation) =>
   Array.from({ length: reviewSeedCount(allocation.qlId) }, (_unused, index) => index + 1)
     .map((seed) => runNumCp005PermanentPipeline({
@@ -27,6 +39,16 @@ const questions = NUM_CP005_PERMANENT_ALLOCATION.flatMap((allocation) =>
       seed,
     })),
 );
+
+const expectedReviewCount = NUM_CP005_PERMANENT_ALLOCATION.reduce(
+  (count, allocation) => count + reviewSeedCount(allocation.qlId),
+  0,
+);
+const distinctStems = new Set(questions.map((question) => question.stem));
+const distinctFingerprints = new Set(questions.map(reviewFingerprint));
+assert(questions.length === expectedReviewCount, "expanded review count mismatch");
+assert(distinctStems.size === questions.length, "expanded review contains repeated stems");
+assert(distinctFingerprints.size === questions.length, "expanded review contains duplicate question records");
 
 const outputDirectory = join(process.cwd(), "dist", "quant-v4");
 mkdirSync(outputDirectory, { recursive: true });
@@ -44,6 +66,8 @@ const markdownHeader = [
   `- Direct QLs: 10 questions each`,
   `- Inverse, optimisation and data-sufficiency QLs: 15 questions each`,
   `- Total review questions: ${questions.length}`,
+  `- Distinct stems: ${distinctStems.size}`,
+  `- Distinct question records: ${distinctFingerprints.size}`,
   "- Status: manual product-owner review required; all delivery gates remain closed",
   "",
   "---",
@@ -104,12 +128,14 @@ const csvRows = [
 writeFileSync(csvPath, csvRows);
 
 console.log(JSON.stringify({
-  status: "PASS_NUM_CP005_EXPANDED_ENGLISH_REVIEW_EXPORT",
+  status: "PASS_NUM_CP005_UNIQUE_EXPANDED_ENGLISH_REVIEW_EXPORT",
   permanentQlCount: NUM_CP005_PERMANENT_ALLOCATION.length,
   directQuestionsPerQl: 10,
   advancedQuestionsPerQl: 15,
   advancedQlCount: advancedReviewQls.size,
   reviewQuestionCount: questions.length,
+  distinctStemCount: distinctStems.size,
+  distinctQuestionRecordCount: distinctFingerprints.size,
   jsonPath,
   markdownPath,
   csvPath,
