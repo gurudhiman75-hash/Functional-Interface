@@ -32,6 +32,10 @@ function isWave2QlId(qlId: IntCp003QlId): qlId is IntCp003PresentationWave2QlId 
   return (INT_CP003_PRESENTATION_WAVE2_QL_IDS as readonly IntCp003QlId[]).includes(qlId);
 }
 
+function localized(locale: IntCp003LocalizedLocale, hindi: string, punjabi: string): string {
+  return locale === "hi-IN" ? hindi : punjabi;
+}
+
 function freezeTable(table: IntCp003LocalizedPresentationTable): IntCp003LocalizedPresentationTable {
   return Object.freeze({
     headers: Object.freeze([...table.headers]),
@@ -67,23 +71,19 @@ function leadForRepresentation(
   locale: IntCp003LocalizedLocale,
   representation: IntCp003EnglishFrozenQuestion["presentation"]["representation"],
 ): string {
-  if (locale === "hi-IN") {
-    switch (representation) {
-      case "ACCOUNT_TABLE": return "ब्याज और राशि का विवरण नीचे दिया गया है।";
-      case "BALANCE_LEDGER": return "वर्षवार शेष राशि का विवरण नीचे दिया गया है।";
-      case "GROWTH_RATIO": return "दो संबंधित राशियों का विवरण नीचे दिया गया है।";
-      case "BANK_STATEMENT": return "निवेश की वर्षवार राशि नीचे दी गई है।";
-      case "MISSING_ENTRY": return "तालिका की एक प्रविष्टि रिक्त है।";
-      case "STANDARD_PROSE": return "";
-    }
-  }
   switch (representation) {
-    case "ACCOUNT_TABLE": return "ਵਿਆਜ ਅਤੇ ਰਕਮ ਦਾ ਵੇਰਵਾ ਹੇਠਾਂ ਦਿੱਤਾ ਗਿਆ ਹੈ।";
-    case "BALANCE_LEDGER": return "ਸਾਲ-ਵਾਰ ਬਕਾਇਆ ਰਕਮ ਦਾ ਵੇਰਵਾ ਹੇਠਾਂ ਦਿੱਤਾ ਗਿਆ ਹੈ।";
-    case "GROWTH_RATIO": return "ਦੋ ਸੰਬੰਧਿਤ ਰਕਮਾਂ ਦਾ ਵੇਰਵਾ ਹੇਠਾਂ ਦਿੱਤਾ ਗਿਆ ਹੈ।";
-    case "BANK_STATEMENT": return "ਨਿਵੇਸ਼ ਦੀ ਸਾਲ-ਵਾਰ ਰਕਮ ਹੇਠਾਂ ਦਿੱਤੀ ਗਈ ਹੈ।";
-    case "MISSING_ENTRY": return "ਸਾਰਣੀ ਦੀ ਇੱਕ ਐਂਟਰੀ ਖਾਲੀ ਹੈ।";
-    case "STANDARD_PROSE": return "";
+    case "ACCOUNT_TABLE":
+      return localized(locale, "ब्याज और राशि का विवरण नीचे दिया गया है।", "ਵਿਆਜ ਅਤੇ ਰਕਮ ਦਾ ਵੇਰਵਾ ਹੇਠਾਂ ਦਿੱਤਾ ਗਿਆ ਹੈ।");
+    case "BALANCE_LEDGER":
+      return localized(locale, "वर्षवार शेष राशि का विवरण नीचे दिया गया है।", "ਸਾਲ-ਵਾਰ ਬਕਾਇਆ ਰਕਮ ਦਾ ਵੇਰਵਾ ਹੇਠਾਂ ਦਿੱਤਾ ਗਿਆ ਹੈ।");
+    case "GROWTH_RATIO":
+      return localized(locale, "दो संबंधित राशियों का विवरण नीचे दिया गया है।", "ਦੋ ਸੰਬੰਧਿਤ ਰਕਮਾਂ ਦਾ ਵੇਰਵਾ ਹੇਠਾਂ ਦਿੱਤਾ ਗਿਆ ਹੈ।");
+    case "BANK_STATEMENT":
+      return localized(locale, "निवेश की वर्षवार राशि नीचे दी गई है।", "ਨਿਵੇਸ਼ ਦੀ ਸਾਲ-ਵਾਰ ਰਕਮ ਹੇਠਾਂ ਦਿੱਤੀ ਗਈ ਹੈ।");
+    case "MISSING_ENTRY":
+      return localized(locale, "तालिका की एक प्रविष्टि रिक्त है।", "ਸਾਰਣੀ ਦੀ ਇੱਕ ਐਂਟਰੀ ਖਾਲੀ ਹੈ।");
+    case "STANDARD_PROSE":
+      return "";
   }
 }
 
@@ -99,8 +99,7 @@ function tableFor(
   const interest = cp003Term(locale, "INTEREST");
   const earlierYear = cp003Term(locale, "EARLIER_YEAR");
   const laterYear = cp003Term(locale, "LATER_YEAR");
-  const yearLabel = cp003Term(locale, "YEAR");
-  const amountLabel = cp003Term(locale, "AMOUNT");
+  const year = cp003Term(locale, "YEAR");
   const targetYear = cp003OrdinalYearText(locale, state.targetYear);
   const earlierOrdinal = cp003OrdinalYearText(locale, state.earlierYear);
   const laterOrdinal = cp003OrdinalYearText(locale, state.laterYear);
@@ -109,43 +108,43 @@ function tableFor(
   switch (source.qlId) {
     case "INT-QL-059":
       return {
-        headers: [principal, rate, yearLabel, interest],
+        headers: [principal, rate, year, interest],
         rows: [[moneyMath(state.principal), rateMath(state.ratePercent), targetYear, "?"]],
       };
     case "INT-QL-060":
       return {
-        headers: [principal, rate, yearLabel, interest],
+        headers: [principal, rate, year, interest],
         rows: [["?", rateMath(state.ratePercent), targetYear, moneyMath(state.nthYearInterest)]],
       };
     case "INT-QL-061":
       return {
-        headers: [principal, yearLabel, interest, rate],
+        headers: [principal, year, interest, rate],
         rows: [[moneyMath(state.principal), targetYear, moneyMath(state.nthYearInterest), "?"]],
       };
     case "INT-QL-062":
       return {
-        headers: [yearLabel, balance, rate, locale === "hi-IN" ? "पिछले वर्ष की शेष राशि" : "ਪਿਛਲੇ ਸਾਲ ਦੀ ਬਕਾਇਆ ਰਕਮ"],
+        headers: [year, balance, rate, localized(locale, "पिछले वर्ष की शेष राशि", "ਪਿਛਲੇ ਸਾਲ ਦੀ ਬਕਾਇਆ ਰਕਮ")],
         rows: [[String(state.currentYear), moneyMath(state.currentAmount), rateMath(state.ratePercent), "?"]],
       };
     case "INT-QL-063":
       return {
-        headers: [locale === "hi-IN" ? "आरंभिक शेष राशि" : "ਸ਼ੁਰੂਆਤੀ ਬਕਾਇਆ ਰਕਮ", locale === "hi-IN" ? "एक वर्ष बाद की राशि" : "ਇੱਕ ਸਾਲ ਬਾਅਦ ਦੀ ਰਕਮ", rate, yearLabel],
-        rows: [[moneyMath(previousBalance), moneyMath(state.currentAmount), "?", String(state.currentYear)]],
+        headers: [localized(locale, "आरंभिक शेष राशि", "ਸ਼ੁਰੂਆਤੀ ਬਕਾਇਆ ਰਕਮ"), localized(locale, "एक वर्ष बाद की राशि", "ਇੱਕ ਸਾਲ ਬਾਅਦ ਦੀ ਰਕਮ"), rate],
+        rows: [[moneyMath(previousBalance), moneyMath(state.currentAmount), "?"]],
       };
     case "INT-QL-064":
       return {
-        headers: [originalSum, yearLabel, amountLabel, locale === "hi-IN" ? "अगले वर्ष की राशि" : "ਅਗਲੇ ਸਾਲ ਦੀ ਰਕਮ"],
-        rows: [["?", String(state.currentYear), moneyMath(state.currentAmount), moneyMath(state.nextAmount)]],
+        headers: [originalSum, localized(locale, `${state.currentYear} वर्ष बाद की राशि`, `${state.currentYear} ਸਾਲ ਬਾਅਦ ਦੀ ਰਕਮ`), localized(locale, `${state.currentYear + 1} वर्ष बाद की राशि`, `${state.currentYear + 1} ਸਾਲ ਬਾਅਦ ਦੀ ਰਕਮ`)],
+        rows: [["?", moneyMath(state.currentAmount), moneyMath(state.nextAmount)]],
       };
     case "INT-QL-065":
       return {
-        headers: [principal, rate, earlierYear, laterYear],
-        rows: [[moneyMath(state.principal), rateMath(state.ratePercent), `${earlierOrdinal}: ${moneyMath(state.earlierAmount)}`, `${laterOrdinal}: ${moneyMath(state.laterAmount)}`]],
+        headers: [principal, rate, earlierYear, laterYear, localized(locale, "राशियों का अंतर", "ਰਕਮਾਂ ਦਾ ਅੰਤਰ")],
+        rows: [[moneyMath(state.principal), rateMath(state.ratePercent), cp003YearsText(locale, state.earlierYear), cp003YearsText(locale, state.laterYear), "?"]],
       };
     case "INT-QL-066":
       return {
-        headers: [earlierYear, interest, rate, laterYear],
-        rows: [[`${earlierOrdinal}: ${moneyMath(state.earlierInterest)}`, moneyMath(state.earlierInterest), rateMath(state.ratePercent), `${laterOrdinal}: ?`]],
+        headers: [earlierYear, localized(locale, "पहले दिए गए वर्ष का ब्याज", "ਪਹਿਲਾਂ ਦਿੱਤੇ ਸਾਲ ਦਾ ਵਿਆਜ"), rate, laterYear, localized(locale, "बाद वाले वर्ष का ब्याज", "ਬਾਅਦ ਵਾਲੇ ਸਾਲ ਦਾ ਵਿਆਜ")],
+        rows: [[earlierOrdinal, moneyMath(state.earlierInterest), rateMath(state.ratePercent), laterOrdinal, "?"]],
       };
     default:
       throw new Error(`${source.qlId}: unsupported Wave 2 table presentation.`);
@@ -218,10 +217,10 @@ function structuredPrompt(
     case "INT-QL-059": return cp003FindPrompt(locale, cp003Term(locale, "INTEREST_IN_YEAR"));
     case "INT-QL-060": return cp003FindPrompt(locale, cp003Term(locale, "PRINCIPAL"));
     case "INT-QL-061": return cp003FindPrompt(locale, cp003Term(locale, "ANNUAL_RATE"));
-    case "INT-QL-062": return cp003FindPrompt(locale, locale === "hi-IN" ? "पिछले वर्ष की शेष राशि" : "ਪਿਛਲੇ ਸਾਲ ਦੀ ਬਕਾਇਆ ਰਕਮ");
+    case "INT-QL-062": return cp003FindPrompt(locale, localized(locale, "पिछले वर्ष की शेष राशि", "ਪਿਛਲੇ ਸਾਲ ਦੀ ਬਕਾਇਆ ਰਕਮ"));
     case "INT-QL-063": return cp003FindPrompt(locale, cp003Term(locale, "ANNUAL_RATE"));
     case "INT-QL-064": return cp003FindPrompt(locale, cp003Term(locale, "ORIGINAL_SUM"));
-    case "INT-QL-065": return cp003FindPrompt(locale, locale === "hi-IN" ? "दोनों राशियों का अंतर" : "ਦੋਵੇਂ ਰਕਮਾਂ ਦਾ ਅੰਤਰ");
+    case "INT-QL-065": return cp003FindPrompt(locale, localized(locale, "दोनों राशियों का अंतर", "ਦੋਵੇਂ ਰਕਮਾਂ ਦਾ ਅੰਤਰ"));
     case "INT-QL-066": return cp003FindPrompt(locale, cp003Term(locale, "INTEREST_IN_YEAR"));
     default: throw new Error(`${source.qlId}: unsupported Wave 2 prompt.`);
   }
