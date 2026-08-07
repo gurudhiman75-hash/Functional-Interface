@@ -8,13 +8,13 @@ Exact reviewed implementation head:
 77cdec264c41e577c8799978c85313a5d8ab156a
 ```
 
-Final verified proof head:
+Verified proof head:
 
 ```text
 660c821deb7ac92288c0813e38c6fa89d56679ce
 ```
 
-The branch contains this final evidence note after the verified proof head. It does not alter localized runtime content, answers, options, traps or mathematical state.
+Subsequent commits update only this evidence record. They do not alter localized runtime content, answers, options, traps or mathematical state.
 
 ## Reviewed checkpoints
 
@@ -30,7 +30,7 @@ The branch contains this final evidence note after the verified proof head. It d
 | TMW-CP-008 | 13 | 26 | 312 | Assistant review complete; human approval pending |
 | **Total** | **156** | **312** | **3,744** | **Zero open automated findings** |
 
-## Final verified evidence
+## Verified evidence
 
 Cumulative editorial workflow:
 
