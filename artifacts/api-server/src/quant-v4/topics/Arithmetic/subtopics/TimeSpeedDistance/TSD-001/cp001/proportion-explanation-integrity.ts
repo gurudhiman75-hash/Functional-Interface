@@ -5,7 +5,7 @@ import type {
   TsdCp001Explanation,
   TsdCp001OptionAnalysis,
 } from "./runtime-types";
-import { formatAnswer } from "./runtime-support";
+import { formatAnswer, hashSeed } from "./runtime-support";
 
 function sameRational(
   first: { readonly numerator: bigint; readonly denominator: bigint },
@@ -103,13 +103,24 @@ function replaceOuterSteps(
 export function remodelProportionExplanation(
   input: TsdCp001SolveInput,
   explanation: TsdCp001Explanation,
+  seed: string,
 ): TsdCp001Explanation {
+  const variant = hashSeed(seed) % 3;
+
   if (input.solveMode === "distanceByProportion") {
     const changedSpeed = !sameRational(input.knownSpeed, input.targetSpeed);
     const concept = "For the target journey, distance equals the stated target speed multiplied by the target time.";
-    const lead = changedSpeed
-      ? "The target speed differs from the reference speed, so use the target speed explicitly in the final multiplication."
-      : "The target speed matches the reference speed, but the target distance is still found from target speed × target time.";
+    const changedLeads = [
+      "First identify the target journey values: its stated speed must be multiplied by its stated travelling time.",
+      "The target speed differs from the reference speed, so use the target speed explicitly in the final multiplication.",
+      "Treat the first trip as reference data, but calculate the second distance from the second trip's own speed and time.",
+    ] as const;
+    const sameSpeedLeads = [
+      "The target speed matches the reference speed; multiply this common speed by the target time.",
+      "Although the speed is unchanged here, the target distance must still be calculated from target speed × target time.",
+      "Use the shared speed with the new journey duration to obtain the target distance.",
+    ] as const;
+    const lead = changedSpeed ? changedLeads[variant] : sameSpeedLeads[variant];
     const interpretation = `Therefore, at ${toMixedString(input.targetSpeed)} km/h for ${toMixedString(input.targetTime)} hours, the target distance is ${explanation.conclusion.replace(/^Answer:\s*/, "").replace(/\.$/, "")}.`;
     return Object.freeze({
       ...explanation,
@@ -131,9 +142,17 @@ export function remodelProportionExplanation(
   if (input.solveMode === "timeByProportion") {
     const changedSpeed = !sameRational(input.knownSpeed, input.targetSpeed);
     const concept = "For the target journey, time equals the target distance divided by the stated target speed.";
-    const lead = changedSpeed
-      ? "The target journey uses a different speed, so divide its target distance by that stated target speed."
-      : "The target speed matches the reference speed, so divide the target distance by this common speed.";
+    const changedLeads = [
+      "Read the target journey separately: divide its target distance by the speed stated for that journey.",
+      "The target journey uses a different speed, so divide its target distance by that stated target speed.",
+      "The reference trip provides comparison data, but the required time comes from the target distance and target speed.",
+    ] as const;
+    const sameSpeedLeads = [
+      "The target speed matches the reference speed, so divide the target distance by this common speed.",
+      "Use the shared speed with the target distance to calculate the second journey's time.",
+      "Because both journeys use the same speed here, target time is target distance divided by that speed.",
+    ] as const;
+    const lead = changedSpeed ? changedLeads[variant] : sameSpeedLeads[variant];
     const interpretation = `Therefore, covering ${toMixedString(input.targetDistance)} km at ${toMixedString(input.targetSpeed)} km/h takes ${explanation.conclusion.replace(/^Answer:\s*/, "").replace(/\.$/, "")}.`;
     return Object.freeze({
       ...explanation,
