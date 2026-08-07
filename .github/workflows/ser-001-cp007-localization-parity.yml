@@ -1,0 +1,57 @@
+name: Validate SER-001 CP-007 Hindi Punjabi localization parity
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/**"
+      - ".github/workflows/ser-001-cp007-localization-parity.yml"
+
+jobs:
+  validate-localization-parity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare localization evidence directory
+        run: mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp007-localization-parity
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Run Hindi Punjabi localization parity proof
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-LOCALIZATION
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-localization-parity
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/ser-cp-007-localized-parity.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/ser-cp-007-localized-parity.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-007-localized-parity.test.mjs") \
+            | tee "$EVIDENCE/SER-CP-007-Hindi-Punjabi-Localization-Parity-Proof.json"
+          grep -q 'PASS_SER_CP007_HINDI_PUNJABI_LOCALIZATION_PARITY_CANDIDATE' \
+            "$EVIDENCE/SER-CP-007-Hindi-Punjabi-Localization-Parity-Proof.json"
+
+      - name: Upload localization parity evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: ser-001-cp007-hindi-punjabi-localization-parity
+          path: artifacts/api-server/dist/reasoning-v1/ser-001/cp007-localization-parity/
+          if-no-files-found: error
+          retention-days: 30
