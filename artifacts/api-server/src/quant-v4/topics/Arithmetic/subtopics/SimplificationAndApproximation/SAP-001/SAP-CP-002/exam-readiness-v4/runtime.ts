@@ -5,25 +5,32 @@ import { buildOptionDraftsV4, normalizedAnswerV4, normalizedStemV4, orderOptions
 import { enforceQl032FormTrap } from "./ql032-form-trap";
 import type { SapCp002ExamReadinessV4Package } from "./types";
 
-function proofStem(pkg: SapCp002ExamReadinessV3Package, stem: string): string {
+function learnerStem(pkg: SapCp002ExamReadinessV3Package): string {
+  const normalized = normalizedStemV4(pkg);
   if (pkg.permanentQlId === "SAP-QL-033") {
-    return stem.replace(/\s+(Given:|Step 1:|Step 2:|Step 3:)/g, "\n$1");
+    return normalized.replace(/\s+(Given:|Step 1:|Step 2:|Step 3:)/g, "\n$1");
   }
+  return normalized;
+}
+
+function proofStem(pkg: SapCp002ExamReadinessV3Package, stem: string): string {
+  if (pkg.permanentQlId === "SAP-QL-033") return stem;
+  const sanitized = stem.replace(/\bvalue\s+of\b/gi, "value:");
   if (pkg.taskDirection === "INVERSE") {
-    const missingNumeratorOrDenominator = stem.match(/(□\/\d+\s*\+\s*[−-]?\d+\/\d+|\d+\/□\s*\+\s*[−-]?\d+\/\d+)\s*=\s*([−-]?\d+(?:\/\d+)?)/);
+    const missingNumeratorOrDenominator = sanitized.match(/(□\/\d+\s*\+\s*[−-]?\d+\/\d+|\d+\/□\s*\+\s*[−-]?\d+\/\d+)\s*=\s*([−-]?\d+(?:\/\d+)?)/);
     if (missingNumeratorOrDenominator) {
       return `${missingNumeratorOrDenominator[1]} = ${missingNumeratorOrDenominator[2]}.`;
     }
-    const missingOperand = stem.match(/([−-]?\d+\/\d+\s*[+−-]\s*□)\s*=\s*([−-]?\d+(?:\/\d+)?)/);
+    const missingOperand = sanitized.match(/([−-]?\d+\/\d+\s*[+−-]\s*□)\s*=\s*([−-]?\d+(?:\/\d+)?)/);
     if (missingOperand) {
       return `${missingOperand[1]} = ${missingOperand[2]}.`;
     }
   }
   if (pkg.permanentQlId === "SAP-QL-023") {
-    const blocks = stem.match(/⟦([^⟦⟧]+)⟧[^⟦⟧]*⟦([^⟦⟧]+)⟧/);
+    const blocks = sanitized.match(/⟦([^⟦⟧]+)⟧[^⟦⟧]*⟦([^⟦⟧]+)⟧/);
     if (blocks) return `Evaluate ((${blocks[1]}) ÷ (${blocks[2]})).`;
   }
-  let output = stem;
+  let output = sanitized;
   const stacked = /⟦([^⟦⟧]+)⟧\s*[^0-9A-Za-z⟦⟧()\s]\s*⟦([^⟦⟧]+)⟧/g;
   for (let pass = 0; pass < 12; pass += 1) {
     const next = output.replace(stacked, "(($1) ÷ ($2))");
@@ -41,8 +48,7 @@ export function generateSapCp002ExamReadinessV4Package(
     throw new Error("SAP-CP-002 V4 seed must be a positive safe integer.");
   }
   const v3 = generateSapCp002ExamReadinessV3Package(prototypeId, seed);
-  const stem = normalizedStemV4(v3)
-    .replace(/\bvalue\s+of\b/gi, "value:");
+  const stem = learnerStem(v3);
   const executableStem = proofStem(v3, stem);
   const answer = normalizedAnswerV4(v3);
   const rawDrafts = buildOptionDraftsV4(v3, executableStem, answer);
