@@ -32,10 +32,10 @@ export const SAP_CP003_EXAM_READINESS_POLICY: Readonly<Record<SapCp003PrototypeI
   }),
   "SAP-CP003-PROT-DECIMAL-FRACTION-MIXED-EXPRESSION": Object.freeze({
     releaseTier: "SSC_STANDARD",
-    mockUse: "SSC_ELIGIBLE",
-    structuralRisk: "MEDIUM",
+    mockUse: "REMEDIATION_PENDING",
+    structuralRisk: "HIGH",
     learnerUse: "Mixed decimal and fraction evaluation.",
-    mockWeightGuidance: "Low SSC mock weight until additional cancellation-friendly and multi-frame variants are added.",
+    mockWeightGuidance: "Hold from unrestricted mocks until cancellation-friendly values and genuinely different operation frames are implemented.",
   }),
   "SAP-CP003-PROT-DECIMAL-PRODUCT-PLACE-VALUE": Object.freeze({
     releaseTier: "FOUNDATION_DRILL",
@@ -74,10 +74,10 @@ export const SAP_CP003_EXAM_READINESS_POLICY: Readonly<Record<SapCp003PrototypeI
   }),
   "SAP-CP003-PROT-MIXED-PERCENT-FRACTION-DECIMAL": Object.freeze({
     releaseTier: "ADVANCED_SPEED_PRACTICE",
-    mockUse: "REMEDIATION_PENDING",
-    structuralRisk: "HIGH",
-    learnerUse: "Exact evaluation across three representations.",
-    mockWeightGuidance: "Hold from unrestricted mocks until artificial large-fraction outcomes are filtered and additional expression frames are implemented.",
+    mockUse: "SSC_AND_BANKING_ELIGIBLE",
+    structuralRisk: "MEDIUM",
+    learnerUse: "Evaluate percentage, fraction and decimal terms through four curated exact-arithmetic frames.",
+    mockWeightGuidance: "Controlled normal weight using cancellation-friendly quantities and answer denominators no greater than eight.",
   }),
   "SAP-CP003-PROT-CONVERT-TERMS-TO-FRACTIONS": Object.freeze({
     releaseTier: "ADVANCED_SPEED_PRACTICE",
