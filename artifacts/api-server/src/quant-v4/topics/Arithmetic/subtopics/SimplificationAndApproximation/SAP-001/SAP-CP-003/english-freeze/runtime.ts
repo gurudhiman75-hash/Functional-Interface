@@ -8,7 +8,6 @@ import {
 import {
   SAP_CP003_PROTOTYPE_IDS,
   type SapCp003PrototypeId,
-  type SapCp003TaskDirection,
 } from "../types";
 import { SAP_CP003_EXPLANATION_POLICY } from "./explanation-policy";
 import type {
@@ -19,31 +18,71 @@ import type {
 
 const BANNED_LEARNER_TERMS = /\b(?:AST|RPN|canonical|verifier|prototype|seed|payload|runtime|authority|fingerprint|package)\b/i;
 const MALFORMED_SURFACE = /undefined|NaN|Evaluate\s+\*|\?\s*\.|\bnull\b/i;
+const DIAGNOSIS_PROTOTYPE = "SAP-CP003-PROT-IDENTIFY-INCORRECT-CONVERSION-STEP" as const;
 
 function stripTerminalPunctuation(value: string): string {
   return value.trim().replace(/[.!?]+$/u, "");
 }
 
-function finalAnswerFor(direction: SapCp003TaskDirection, answer: string): string {
-  switch (direction) {
-    case "INVERSE":
-      return ensureSentence(`Therefore, the missing value is ${answer}`);
-    case "COMPARISON":
-      return ensureSentence(`Therefore, the correct relation is ${answer}`);
-    case "SELECTION":
-      return ensureSentence(`Therefore, the correct option value is ${answer}`);
-    case "DIAGNOSIS":
-      return ensureSentence(`Therefore, the first incorrect step is ${answer}`);
-    default:
-      return ensureSentence(`Therefore, the value of the expression is ${answer}`);
+function finalAnswerFor(base: SapCp003PermanentPackage): string {
+  if (base.prototypeId === "SAP-CP003-PROT-MISSING-PERCENTAGE-LITERAL") {
+    return ensureSentence(`Therefore, the missing percentage is ${base.canonicalAnswer}`);
   }
+  if (base.prototypeId === "SAP-CP003-PROT-MISSING-DECIMAL-OPERAND") {
+    return ensureSentence(`Therefore, the missing decimal value is ${base.canonicalAnswer}`);
+  }
+  if (base.prototypeId === DIAGNOSIS_PROTOTYPE && base.canonicalAnswer === "No error") {
+    return "Therefore, no displayed step is incorrect, so the correct answer is No error.";
+  }
+  switch (base.taskDirection) {
+    case "COMPARISON":
+      return ensureSentence(`Therefore, the correct relation is ${base.canonicalAnswer}`);
+    case "SELECTION":
+      return ensureSentence(`Therefore, the correct option value is ${base.canonicalAnswer}`);
+    case "DIAGNOSIS":
+      return ensureSentence(`Therefore, the first incorrect step is ${base.canonicalAnswer}`);
+    case "INVERSE":
+      return ensureSentence(`Therefore, the missing value is ${base.canonicalAnswer}`);
+    default:
+      return ensureSentence(`Therefore, the value of the expression is ${base.canonicalAnswer}`);
+  }
+}
+
+function afterLastEquals(line: string): string {
+  const parts = line.split(" = ");
+  return stripTerminalPunctuation(parts[parts.length - 1] ?? line);
+}
+
+function diagnosisSteps(base: SapCp003PermanentPackage): readonly string[] {
+  const sourceSteps = base.explanation.steps.map(stripTerminalPunctuation);
+  const lines = base.stem.split("\n");
+  const step1Form = afterLastEquals(lines[1] ?? "Step 1");
+  const step2Value = afterLastEquals(lines[2] ?? "Step 2");
+  const step3Value = afterLastEquals(lines[3] ?? "Step 3");
+  const answer = base.canonicalAnswer;
+  const steps: string[] = [`Step 1: ${ensureSentence(sourceSteps[0] ?? "Convert the original expression exactly")}`];
+
+  if (answer === "Step 1") {
+    steps.push(`Step 2: The first displayed conversion gives ${step1Form}, whose computed value is ${step2Value}; it does not equal the original exact value.`);
+  } else if (answer === "Step 2") {
+    steps.push(`Step 2: Step 1 preserves the original value as ${step1Form}, but Step 2 changes it to ${step2Value}.`);
+  } else if (answer === "Step 3") {
+    steps.push(`Step 2: Steps 1 and 2 preserve the value ${step2Value}, but Step 3 changes it to ${step3Value}.`);
+  } else {
+    steps.push(`Step 2: The converted form ${step1Form}, the combined value ${step2Value}, and the final form ${step3Value} all preserve the original value.`);
+  }
+
+  steps.push(`Step 3: ${ensureSentence(sourceSteps[1] ?? `${answer} is the correct diagnosis`)}`);
+  return Object.freeze(steps);
 }
 
 function buildExplanation(base: SapCp003PermanentPackage): SapCp003FrozenExplanation {
   const policy = SAP_CP003_EXPLANATION_POLICY[base.prototypeId];
-  const stepByStep = Object.freeze(base.explanation.steps.map((step, index) =>
-    `Step ${index + 1}: ${ensureSentence(stripTerminalPunctuation(step))}`,
-  ));
+  const stepByStep = base.prototypeId === DIAGNOSIS_PROTOTYPE
+    ? diagnosisSteps(base)
+    : Object.freeze(base.explanation.steps.map((step, index) =>
+      `Step ${index + 1}: ${ensureSentence(stripTerminalPunctuation(step))}`,
+    ));
   return Object.freeze({
     coreConcept: ensureSentence(stripTerminalPunctuation(policy.coreConcept)),
     givenDataAndStrategy: ensureSentence(stripTerminalPunctuation(policy.givenDataAndStrategy)),
@@ -52,7 +91,7 @@ function buildExplanation(base: SapCp003PermanentPackage): SapCp003FrozenExplana
     commonTraps: Object.freeze(policy.commonTraps.map((trap) =>
       ensureSentence(stripTerminalPunctuation(trap)),
     )) as readonly [string, string, string],
-    finalAnswer: finalAnswerFor(base.taskDirection, base.canonicalAnswer),
+    finalAnswer: finalAnswerFor(base),
   });
 }
 
@@ -77,12 +116,10 @@ function validateExplanation(
     && explanation.stepByStep.every((step) => step.length >= 12)
     && explanation.whyThisWorks.length >= 55
     && explanation.finalAnswer.length >= 24;
-  const exactStepsPassed = explanation.stepByStep.length === base.explanation.steps.length
-    && base.explanation.steps.every((sourceStep, index) => {
-      const source = normalizePayload(stripTerminalPunctuation(sourceStep));
-      const frozen = normalizePayload(explanation.stepByStep[index] ?? "");
-      return frozen.includes(source);
-    });
+  const frozenSteps = normalizePayload(explanation.stepByStep.join(" "));
+  const exactStepsPassed = base.explanation.steps.every((sourceStep) =>
+    frozenSteps.includes(normalizePayload(stripTerminalPunctuation(sourceStep))),
+  );
   const trapQualityPassed = explanation.commonTraps.length === 3
     && new Set(explanation.commonTraps).size === 3
     && explanation.commonTraps.every((trap) => trap.length >= 28);
@@ -95,7 +132,7 @@ function validateExplanation(
 
   if (!learnerLanguagePassed) errors.push("The explanation contains technical or malformed learner-facing text.");
   if (!structurePassed) errors.push("The explanation does not satisfy the complete student-friendly structure.");
-  if (!exactStepsPassed) errors.push("The frozen explanation does not preserve every exact calculation step.");
+  if (!exactStepsPassed) errors.push("The explanation does not preserve every exact calculation statement.");
   if (!trapQualityPassed) errors.push("The explanation must contain three distinct, specific common traps.");
   if (!finalAnswerBindingPassed) errors.push("The final sentence is not bound to the approved answer.");
   if (!lifecyclePassed) errors.push("The permanent package lifecycle is not safely inactive.");
