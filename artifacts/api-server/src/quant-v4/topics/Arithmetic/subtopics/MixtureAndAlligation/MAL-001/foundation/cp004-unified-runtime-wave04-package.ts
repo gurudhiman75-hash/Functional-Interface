@@ -28,6 +28,55 @@ function naturalQuestionStem(stem: string): string {
     : `${normalized}?`;
 }
 
+function seedOrdinal(seed: string): number {
+  const match = seed.match(/:(\d+)(?:\D.*)?$/u);
+  if (match) return Number(match[1]);
+  let value = 0;
+  for (const character of seed) {
+    value = (value * 31 + (character.codePointAt(0) ?? 0)) >>> 0;
+  }
+  return value;
+}
+
+function lowerCaseOpening(stem: string): string {
+  if (stem.length === 0 || /^\d/u.test(stem)) return stem;
+  return `${stem[0]!.toLowerCase()}${stem.slice(1)}`;
+}
+
+function editorialStemVariation(input: {
+  contractId: string;
+  seed: string;
+  stem: string;
+}): string {
+  const ordinal = seedOrdinal(input.seed);
+  const evaporationContexts = [
+    "During a solution-strength check,",
+    "For a processing vessel,",
+    "In a laboratory concentration record,",
+    "During a routine concentration test,",
+    "For a stored solution,",
+    "In a chemical preparation problem,",
+  ] as const;
+  const moistureContexts = [
+    "During food processing,",
+    "In a drying plant,",
+    "For a stored batch,",
+    "During a moisture-control test,",
+    "In a production record,",
+    "For a drying operation,",
+  ] as const;
+
+  const contexts =
+    input.contractId === "MAL-CP004-EFF-INITIAL-TOTAL-FROM-EVAPORATION"
+      ? evaporationContexts
+      : input.contractId === "MAL-CP004-EFF-MOISTURE-FORWARD" ||
+          input.contractId === "MAL-CP004-EFF-MOISTURE-INVERSE"
+        ? moistureContexts
+        : null;
+  if (!contexts) return input.stem;
+  return `${contexts[ordinal % contexts.length]} ${lowerCaseOpening(input.stem)}`;
+}
+
 function hasRealGrammarInflectionError(
   question: Omit<MalCp004Wave04Question, "validation">,
 ): boolean {
@@ -65,6 +114,11 @@ export function malCp004Wave04Package(
     | "testEligible"
   >,
 ): MalCp004Wave04Question {
+  const stem = editorialStemVariation({
+    contractId: input.effectiveContractId,
+    seed: input.seed,
+    stem: naturalQuestionStem(input.stem),
+  });
   const withoutValidation: Omit<MalCp004Wave04Question, "validation"> = {
     archetypeId: "MAL-001",
     canonicalProblemId: "MAL-CP-004",
@@ -78,7 +132,7 @@ export function malCp004Wave04Package(
     difficulty: input.difficulty,
     sourceEvidenceIds: input.sourceEvidenceIds,
     sourceMatchKind: input.sourceMatchKind,
-    stem: naturalQuestionStem(input.stem),
+    stem,
     answer: input.answer,
     answerValue: input.answerValue,
     answerUnit: input.answerUnit,
