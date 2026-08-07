@@ -1,3 +1,4 @@
+import { remodelCp001ClockOptionLabels } from "./cp001/clock-option-label-integrity";
 import { remodelCp001DeadlineOptionFeedback } from "./cp001/deadline-option-feedback";
 import { remodelCp001DirectOptionFeedback } from "./cp001/direct-option-feedback";
 import { TSD_CP001_FROZEN_AUTHORITIES } from "./cp001/freeze-registry";
@@ -95,9 +96,11 @@ function cp002FinalRepresentation(row: TsdCp002GeneratedQuestion): string {
 
 function cp001Record(row: TsdCp001GeneratedQuestion): TsdFinalReviewRecord {
   const remediated = remodelTsdContext(
-    remodelCp001MixedUnitOptionFeedback(
-      remodelCp001DeadlineOptionFeedback(
-        remodelCp001ProportionOptionLabels(remodelCp001DirectOptionFeedback(row)),
+    remodelCp001ClockOptionLabels(
+      remodelCp001MixedUnitOptionFeedback(
+        remodelCp001DeadlineOptionFeedback(
+          remodelCp001ProportionOptionLabels(remodelCp001DirectOptionFeedback(row)),
+        ),
       ),
     ),
   );
