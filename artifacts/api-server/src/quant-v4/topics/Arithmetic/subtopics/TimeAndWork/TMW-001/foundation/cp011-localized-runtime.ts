@@ -3,6 +3,7 @@ import {
   localizeTmwCp011Question,
   type TmwCp011LocalizedQuestion,
 } from "./localization-cp011";
+import { remediateTmwCp011LocalizedQuestion } from "./cp011-editorial-review-remediation";
 import type { TmwLocalizedLanguage } from "./localization-types";
 
 function learnerText(question: TmwCp011LocalizedQuestion): string {
@@ -48,5 +49,7 @@ export function runTmwCp011LocalizedPipeline(input: {
   language: TmwLocalizedLanguage;
 }): TmwCp011LocalizedQuestion {
   const source = runTmwCp011Pipeline(input.questionLanguageId, input.seed);
-  return removePunjabiDandaFalsePositive(localizeTmwCp011Question(source, input.language));
+  const localized = localizeTmwCp011Question(source, input.language);
+  const remediated = remediateTmwCp011LocalizedQuestion(source, localized);
+  return removePunjabiDandaFalsePositive(remediated);
 }
