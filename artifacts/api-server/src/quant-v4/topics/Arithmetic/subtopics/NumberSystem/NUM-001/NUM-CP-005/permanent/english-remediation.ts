@@ -22,6 +22,7 @@ import { applyNumCp005Ql058EdgeSafe } from "./release-review-ql058-edge-safe";
 import { applyNumCp005Ql059EdgeSafe } from "./release-review-ql059-edge-safe";
 import { applyNumCp005Ql063DifficultySafe } from "./release-review-ql063-difficulty-safe";
 import { applyNumCp005Ql065DiversitySafe } from "./release-review-ql065-diversity-safe";
+import { applyNumCp005Ql068CorrectnessSafe } from "./release-review-ql068-correctness-safe";
 import { applyNumCp005ReleaseReviewRenderingSafety } from "./release-review-rendering-safe";
 import { applyNumCp005FinalExplanationSafety } from "./release-review-final-explanation-safe";
 
@@ -63,7 +64,9 @@ export function remediateNumCp005English(source) {
         ? applyNumCp005Ql063DifficultySafe(source, result)
         : source.qlId === "NUM-QL-065"
           ? applyNumCp005Ql065DiversitySafe(source, result)
-          : applyNumCp005QuestionCorrections(source, result);
+          : source.qlId === "NUM-QL-068"
+            ? applyNumCp005Ql068CorrectnessSafe(source, result)
+            : applyNumCp005QuestionCorrections(source, result);
   const explanationInput = {
     qlId: source.qlId,
     seed: source.seed,
