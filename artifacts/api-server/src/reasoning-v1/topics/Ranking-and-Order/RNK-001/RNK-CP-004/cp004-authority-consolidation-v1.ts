@@ -1,6 +1,6 @@
 import type { RnkCp004AnswerSemantic } from './cp004-foundation';
+import { RNK_CP004_DEFINITELY_TRUE_AUTHORITY_ID } from './cp004-exam-ready-v14';
 import {
-  RNK_CP004_DEFINITELY_TRUE_AUTHORITY_ID,
   RNK_CP004_EXACT_RANK_DIFFERENCE_PROTOTYPE_ID,
   RNK_CP004_REMODEL_V7_PROTOTYPE_IDS,
   generateRnkCp004SourceInverseQuestion,
