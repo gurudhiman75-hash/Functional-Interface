@@ -100,7 +100,7 @@ function mixedUnitSupplements(): readonly TsdCp001GeneratedQuestion[] {
     const output = SPEED_LABEL[input.outputUnit];
     const frame = found.length === 0
       ? `A motion sensor records an inspection unit covering ${distance} in ${duration}. What is its speed in ${output}?`
-      : `During a calibrated track test, a mobile platform travels ${distance} in ${duration}. Express its speed in ${output}.`;
+      : `During a calibrated track test, a mobile platform travels ${distance} in ${duration}. What is its speed in ${output}?`;
     if (CONCENTRATED_NUMBER_FAMILY.test(frame) || CONCENTRATED_NUMBER_FAMILY.test(candidate.answerText)) continue;
     const representation = found.length === 0
       ? "P2_SENSOR_LOG_MIXED_UNIT_SPEED"
