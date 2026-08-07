@@ -61,8 +61,9 @@ function localizeDynamicScheduleLabels(text: string, language: TmwLocalizedLangu
       .replace(/Slow inlet/gi, "धीमा भराव")
       .replace(/Fast outlet/gi, "तेज़ निकासी")
       .replace(/Slow outlet/gi, "धीमी निकासी")
-      .replace(/पाइपें एक साथ चलते हैं/g, "पाइपें एक साथ चलती हैं")
-      .replace(/पाइपें चलती है/g, "पाइपें चलती हैं");
+      .replace(/(भरने वाली पाइप [A-Z] और भरने वाली पाइप [A-Z]) एक साथ चलते हैं/g, "$1 एक साथ काम करती हैं")
+      .replace(/पाइपें एक साथ चलते हैं/g, "पाइपें एक साथ काम करती हैं")
+      .replace(/पाइपें चलती है(?:ं+)*/g, "पाइपें काम करती हैं");
   }
   return text
     .replace(/Fast inlet\s+(?:ਪਾਰੀ|ਵਾਰੀ)/gi, "ਤੇਜ਼ ਭਰਾਵ ਵਾਲੀ ਵਾਰੀ")
@@ -73,8 +74,8 @@ function localizeDynamicScheduleLabels(text: string, language: TmwLocalizedLangu
     .replace(/Slow inlet/gi, "ਹੌਲਾ ਭਰਾਵ")
     .replace(/Fast outlet/gi, "ਤੇਜ਼ ਨਿਕਾਸੀ")
     .replace(/Slow outlet/gi, "ਹੌਲੀ ਨਿਕਾਸੀ")
-    .replace(/ਪਾਈਪਾਂ ਇਕੱਠੇ ਚੱਲਦੇ ਹਨ/g, "ਪਾਈਪਾਂ ਇਕੱਠੀਆਂ ਚੱਲਦੀਆਂ ਹਨ")
-    .replace(/ਪਾਈਪਾਂ ਚੱਲਦੀ ਹੈ/g, "ਪਾਈਪਾਂ ਚੱਲਦੀਆਂ ਹਨ");
+    .replace(/ਪਾਈਪਾਂ ਇਕੱਠੇ ਚੱਲਦੇ ਹਨ/g, "ਪਾਈਪਾਂ ਇਕੱਠੀਆਂ ਕੰਮ ਕਰਦੀਆਂ ਹਨ")
+    .replace(/ਪਾਈਪਾਂ ਚੱਲਦੀ ਹੈ/g, "ਪਾਈਪਾਂ ਕੰਮ ਕਰਦੀਆਂ ਹਨ");
 }
 
 export function localizeTmwCp010Question(
