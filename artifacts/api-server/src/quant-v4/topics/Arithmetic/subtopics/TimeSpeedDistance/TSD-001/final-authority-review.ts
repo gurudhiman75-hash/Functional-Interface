@@ -10,6 +10,7 @@ import { generateP1DiversityBatch03Supplements } from "./cp002/p1-diversity-batc
 import { generateP1Batch03RoundTripFourHourSupplement } from "./cp002/p1-diversity-batch-03-roundtrip-supplement";
 import { generateP1DiversityBatch04Cp002Supplements } from "./cp002/p1-diversity-batch-04-supplements";
 import { generateP2DiversityBatch01Supplements } from "./cp002/p2-diversity-batch-01-supplements";
+import { generateP2DiversityBatch03Supplements } from "./cp002/p2-diversity-batch-03-supplements";
 import { generateCp002ReviewRows } from "./cp002/runtime";
 import type { TsdCp002GeneratedQuestion } from "./cp002/types";
 import {
@@ -132,6 +133,7 @@ export function generateFinalAuthorityReview(): readonly TsdFinalReviewRecord[] 
     cp002Record(generateP1Batch03RoundTripFourHourSupplement()),
     ...generateP1DiversityBatch04Cp002Supplements().map(cp002Record),
     ...generateP2DiversityBatch01Supplements().map(cp002Record),
+    ...generateP2DiversityBatch03Supplements().map(cp002Record),
   ]);
 }
 
