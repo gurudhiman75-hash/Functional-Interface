@@ -28,7 +28,7 @@ export function generateSapCp002ExamReadinessV4Package(
   }
   const v3 = generateSapCp002ExamReadinessV3Package(prototypeId, seed);
   const stem = normalizedStemV4(v3)
-    .replace(/\bvalue\s+of(?=\s*[−-]?\d)/gi, "value:");
+    .replace(/\bvalue\s+of\b/gi, "value:");
   const answer = normalizedAnswerV4(v3);
   const drafts = buildOptionDraftsV4(v3, stem, answer);
   const options = orderOptionsV4(v3, drafts);
