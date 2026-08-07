@@ -17,10 +17,73 @@ export type {
 } from "./ser-cp-007-localized-runtime";
 
 export const SER_CP007_LOCALIZATION_FINALIZATION_VERSION =
-  "SER_CP007_HI_PA_LOCALIZATION_FINALIZATION_V1" as const;
+  "SER_CP007_HI_PA_LOCALIZATION_FINALIZATION_V2" as const;
 
 function language(locale: SerCp007Locale, hi: string, pa: string): string {
   return locale === "hi-IN" ? hi : pa;
+}
+
+type ResidualTranslation = readonly [hi: string, pa: string];
+
+const RESIDUAL_LEARNER_PROSE: Readonly<Record<string, ResidualTranslation>> =
+  Object.freeze({
+    after: ["इसके बाद", "ਇਸ ਤੋਂ ਬਾਅਦ"],
+    alphabet: ["वर्णमाला", "ਵਰਣਮਾਲਾ"],
+    both: ["दोनों", "ਦੋਵੇਂ"],
+    check: ["जाँचें", "ਜਾਂਚੋ"],
+    compare: ["तुलना करें", "ਤੁਲਨਾ ਕਰੋ"],
+    continue: ["क्रम जारी रखें", "ਕ੍ਰਮ ਜਾਰੀ ਰੱਖੋ"],
+    each: ["प्रत्येक", "ਹਰ"],
+    end: ["अंत", "ਅੰਤ"],
+    even: ["सम", "ਸਮ"],
+    every: ["प्रत्येक", "ਹਰ"],
+    first: ["पहले", "ਪਹਿਲਾਂ"],
+    group: ["समूह", "ਸਮੂਹ"],
+    ignore: ["अनदेखा करें", "ਨਜ਼ਰਅੰਦਾਜ਼ ਕਰੋ"],
+    inner: ["भीतरी", "ਅੰਦਰਲਾ"],
+    its: ["उसका", "ਉਸ ਦਾ"],
+    keep: ["रखें", "ਰੱਖੋ"],
+    last: ["अंतिम", "ਆਖਰੀ"],
+    letter: ["अक्षर", "ਅੱਖਰ"],
+    mark: ["चिह्नित करें", "ਨਿਸ਼ਾਨ ਲਗਾਓ"],
+    middle: ["मध्य", "ਮੱਧ"],
+    move: ["ले जाएँ", "ਲੈ ਜਾਓ"],
+    now: ["अब", "ਹੁਣ"],
+    number: ["संख्या", "ਸੰਖਿਆ"],
+    odd: ["विषम", "ਵਿਸ਼ਮ"],
+    only: ["केवल", "ਕੇਵਲ"],
+    opposite: ["विपरीत", "ਵਿਰੋਧੀ"],
+    outer: ["बाहरी", "ਬਾਹਰਲਾ"],
+    position: ["स्थान", "ਸਥਾਨ"],
+    put: ["रखें", "ਰੱਖੋ"],
+    remove: ["हटाएँ", "ਹਟਾਓ"],
+    replace: ["बदलें", "ਬਦਲੋ"],
+    rotating: ["घुमाते हुए", "ਘੁਮਾਉਂਦੇ ਹੋਏ"],
+    row: ["पंक्ति", "ਕਤਾਰ"],
+    separate: ["अलग करें", "ਵੱਖ ਕਰੋ"],
+    the: ["", ""],
+    then: ["फिर", "ਫਿਰ"],
+    to: ["को", "ਨੂੰ"],
+    track: ["क्रम पर नज़र रखें", "ਕ੍ਰਮ ਉੱਤੇ ਨਜ਼ਰ ਰੱਖੋ"],
+    use: ["प्रयोग करें", "ਵਰਤੋ"],
+    with: ["से", "ਨਾਲ"],
+  });
+
+function localizeResidualLearnerProse(
+  source: string,
+  locale: SerCp007Locale,
+): string {
+  return source
+    .replace(/[A-Za-z]+/g, (token) => {
+      // Uppercase strings are series terms, symbols or option data, not prose.
+      if (token === token.toUpperCase()) return token;
+      const translation = RESIDUAL_LEARNER_PROSE[token.toLowerCase()];
+      if (!translation) return token;
+      return locale === "hi-IN" ? translation[0] : translation[1];
+    })
+    .replace(/\s{2,}/g, " ")
+    .replace(/\s+([,.;:!?।])/g, "$1")
+    .trim();
 }
 
 function localizeEmbeddedClauses(
@@ -91,7 +154,7 @@ function localizeEmbeddedClauses(
     language(
       locale,
       "पहले मध्य के ठीक बाएँ, फिर मध्य के ठीक दाएँ अक्षर जोड़ें और यही क्रम दोहराएँ",
-      "ਪਹਿਲਾਂ ਮੱਧ ਦੇ ਠੀਕ ਖੱਬੇ, ਫਿਰ ਮੱਧ ਦੇ ਠੀਕ ਸੱਜੇ ਅੱਖਰ ਜੋੜੋ ਅਤੇ ਇਹੀ ਕ੍ਰਮ ਦੁਹਰਾਓ",
+      "ਪਹਿਲਾਂ ਮੱਧ ਦੇ ਠੀਕ ਖੱਬੇ, ਫਿਰ ਮੱਧ ਦੇ ਠੀਕ ਸੱਜੇ अक्षर जोड़ें और यही क्रम दोहराएँ",
     ),
   );
   text = text.replace(
@@ -120,7 +183,7 @@ function localizeEmbeddedClauses(
     language(locale, " और ", " ਅਤੇ "),
   );
 
-  return text;
+  return localizeResidualLearnerProse(text, locale);
 }
 
 function finalizePackage(
