@@ -61,6 +61,10 @@ function localizeDynamicScheduleLabels(text: string, language: TmwLocalizedLangu
       .replace(/Slow inlet/gi, "धीमा भराव")
       .replace(/Fast outlet/gi, "तेज़ निकासी")
       .replace(/Slow outlet/gi, "धीमी निकासी")
+      .replace(/कार्यक्रम/g, "समय-सारणी")
+      .replace(/चिह्न सहित/g, "भराव और निकासी जोड़कर")
+      .replace(/अंतिम सक्रिय खंड/g, "लक्ष्य पूरा करने वाला अंतिम हिस्सा")
+      .replace(/टर्मिनल खंड/g, "अंतिम हिस्सा")
       .replace(/(भरने वाली पाइप [A-Z] और भरने वाली पाइप [A-Z]) एक साथ चलते हैं/g, "$1 एक साथ काम करती हैं")
       .replace(/पाइपें एक साथ चलते हैं/g, "पाइपें एक साथ काम करती हैं")
       .replace(/पाइपें चलती है(?:ं+)*/g, "पाइपें काम करती हैं");
@@ -74,6 +78,10 @@ function localizeDynamicScheduleLabels(text: string, language: TmwLocalizedLangu
     .replace(/Slow inlet/gi, "ਹੌਲਾ ਭਰਾਵ")
     .replace(/Fast outlet/gi, "ਤੇਜ਼ ਨਿਕਾਸੀ")
     .replace(/Slow outlet/gi, "ਹੌਲੀ ਨਿਕਾਸੀ")
+    .replace(/ਕਾਰਜਕ੍ਰਮ/g, "ਸਮਾਂ-ਸਾਰਣੀ")
+    .replace(/ਚਿੰਨ੍ਹ ਸਮੇਤ/g, "ਭਰਨ ਅਤੇ ਨਿਕਾਸੀ ਜੋੜ ਕੇ")
+    .replace(/ਅੰਤਿਮ ਸਰਗਰਮ ਖੰਡ/g, "ਟੀਚਾ ਪੂਰਾ ਕਰਨ ਵਾਲਾ ਅੰਤਿਮ ਹਿੱਸਾ")
+    .replace(/ਟਰਮੀਨਲ ਖੰਡ/g, "ਅੰਤਿਮ ਹਿੱਸਾ")
     .replace(/ਪਾਈਪਾਂ ਇਕੱਠੇ ਚੱਲਦੇ ਹਨ/g, "ਪਾਈਪਾਂ ਇਕੱਠੀਆਂ ਕੰਮ ਕਰਦੀਆਂ ਹਨ")
     .replace(/ਪਾਈਪਾਂ ਚੱਲਦੀ ਹੈ/g, "ਪਾਈਪਾਂ ਕੰਮ ਕਰਦੀਆਂ ਹਨ");
 }
@@ -85,7 +93,7 @@ export function localizeTmwCp010Question(
   const entry = getTmwCp010Entry(source.questionLanguageId);
   const polish = (text: string): string => polishTmwCp010Text(text, language);
   const polishProse = (text: string): string => localizeDynamicScheduleLabels(polish(text), language);
-  const answerText = polish(cp010AnswerText(
+  const answerText = polishProse(cp010AnswerText(
     source,
     source.solution.answerValues,
     language,
@@ -93,7 +101,7 @@ export function localizeTmwCp010Question(
   ));
   const optionAudit = source.optionAudit.map((option) => ({
     ...option,
-    text: polish(
+    text: polishProse(
       option.key === source.solution.answerKey
         ? answerText
         : cp010OptionText(source, option.key, language),
