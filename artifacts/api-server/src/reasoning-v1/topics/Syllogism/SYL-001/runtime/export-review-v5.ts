@@ -57,7 +57,9 @@ const countBy = <T extends string>(values: readonly T[]): Readonly<Record<string
 
 const deadInconsistentOptions = questions.reduce((sum, question) =>
   sum + question.options.filter((option) =>
-    option.semanticValue === "PREMISES_INCONSISTENT" && !option.isCorrect).length, 0);
+    option.semanticValue === "PREMISES_INCONSISTENT").length, 0);
+const modalDiagnosticRecords = questions.filter((question) =>
+  question.metadata.answerTemplateId === "DIAGNOSTIC_THREE_OPTION_V1").length;
 
 const summary = {
   authority: "SYL_001_EXAM_READINESS_REMEDIATION_V5",
@@ -85,10 +87,12 @@ const summary = {
     logicalStatusSeparatedFromTaskDisposition: true,
     nonEmptyDirectionVisibleBeforeAttempt: true,
     unsafeUnknownRelationDiagramsOmitted: true,
+    deadInconsistentOptionRemoved: deadInconsistentOptions === 0,
+    modalDiagnosticRecords,
+    modalDiagnosticOptionCount: 3,
+    modalDiagnosticTemplate: "DIAGNOSTIC_THREE_OPTION_V1",
   },
   retainedReleaseBlockers: {
-    deadInconsistentOptions,
-    deadOptionDecision: "PENDING_SEPARATE_SOURCE_DECISION",
     nativeEnglishEditorialStatus: "PENDING",
     nativeHindiEditorialStatus: "PENDING",
     nativePunjabiEditorialStatus: "PENDING",
@@ -133,10 +137,11 @@ const markdown: string[] = [
   "- Unknown witness-transfer relations are not drawn as proved separation.",
   "- Logical option status is displayed separately from task disposition.",
   "- The non-empty-class direction is visible before the attempt.",
+  "- Modal diagnostic QLs use the exhaustive three live statuses: definitely true, possible but not definite, and impossible.",
+  `- Dead inconsistent-option occurrences: ${deadInconsistentOptions}.`,
   "",
   "## Remaining blockers",
   "",
-  `- Dead inconsistent-option occurrences in this review pack: ${summary.retainedReleaseBlockers.deadInconsistentOptions}`,
   "- Native English, Hindi and Punjabi editorial approval: pending.",
   "- Human viewport approval at 360, 412 and 768 px: pending.",
   "- Source-authentic task weighting and difficulty calibration: pending.",
