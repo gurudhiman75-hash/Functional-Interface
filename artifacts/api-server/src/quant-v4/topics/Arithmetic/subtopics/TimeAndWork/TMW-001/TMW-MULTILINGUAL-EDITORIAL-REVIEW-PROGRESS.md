@@ -8,13 +8,13 @@ Exact reviewed implementation head:
 77cdec264c41e577c8799978c85313a5d8ab156a
 ```
 
-Final verified documentation head:
+Final verified branch head:
 
 ```text
-7db23c4a1efe574e37db27e9e34037f13c1389c2
+660c821deb7ac92288c0813e38c6fa89d56679ce
 ```
 
-The implementation evidence and the documentation-head rerun both passed. Any later changes to this file are evidence-record updates only and do not alter localized runtime content, answers, options, traps or mathematical state.
+The final branch head passed the dedicated CP-008, cumulative CP-001–CP-008 and complete multilingual chapter workflows. This evidence record does not alter localized runtime content, answers, options, traps or mathematical state.
 
 ## Reviewed checkpoints
 
@@ -35,17 +35,17 @@ The implementation evidence and the documentation-head rerun both passed. Any la
 Cumulative editorial workflow:
 
 ```text
-Run: 31142802227
-Artifact: 8980378352
-Digest: sha256:042b983496bcd8e9e55a5b8c1bb6e2eb4de5158f333ea39dda510f69740b375f
+Run: 31142928248
+Artifact: 8980431399
+Digest: sha256:1c8ab88e5577e8a787632e0858d53bb85f61007ab49c3cff346bb29f02485d9c
 ```
 
 CP-008 dedicated localisation proof:
 
 ```text
-Run: 31142802228
-Artifact: 8980385189
-Digest: sha256:264f4b951e0c0efb1c3f0013681627032aa88e218124f0272b2f1039e76bed46
+Run: 31142928231
+Artifact: 8980428924
+Digest: sha256:229f05a602292318f0d27f4af8c6105ae337e49ffb0052a627470d74aee6c92a
 QLs: 13
 Deterministic native packages: 520
 Hindi distinct stems: 118
@@ -55,9 +55,9 @@ Punjabi distinct stems: 118
 Full chapter parity:
 
 ```text
-Run: 31142802193
-Artifact: 8980387266
-Digest: sha256:db6dae21595b90c48e6f6e87880c022966f353a9d94bfe6452b75f6a19223424
+Run: 31142928254
+Artifact: 8980435724
+Digest: sha256:d041fff2076a20355e2d6d7be5bb8a5c68543f79cecba577f26ba43fb58eb5c7
 English packages: 2,532
 Localized packages: 5,064
 Parity checks: 5,064
