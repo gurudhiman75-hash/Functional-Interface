@@ -35,7 +35,7 @@ jobs:
         shell: bash
         run: |
           set +e
-          npx --yes tsc --noEmit --target ES2022 --module commonjs --moduleResolution node --resolveJsonModule --esModuleInterop --skipLibCheck \
+          npx --yes tsc --ignoreConfig --noEmit --target ES2022 --module commonjs --moduleResolution node --resolveJsonModule --esModuleInterop --skipLibCheck \
             $(find artifacts/api-server/src/quant-v4/shared/counting artifacts/api-server/src/quant-v4/topics/Probability -name '*.ts' -print) \
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001/foundation/math.ts \
             > /tmp/probability-tsc.log 2>&1
