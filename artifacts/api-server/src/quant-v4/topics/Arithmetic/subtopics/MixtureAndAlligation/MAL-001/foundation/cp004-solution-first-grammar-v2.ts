@@ -12,7 +12,16 @@ export function polishMalCp004SolutionFirstStem(value: string): string {
     .replace(/\blitres of solution contains\b/giu, "litres of solution contain")
     .replace(/\blitres of water evaporates\b/giu, "litres of water evaporate")
     .replace(/\blitres evaporates\b/giu, "litres evaporate")
-    .replace(/\blitres of water is lost\b/giu, "litres of water are lost");
+    .replace(/\blitres of water is lost\b/giu, "litres of water are lost")
+    .replace(/\bthe (raisins|dried grapes) contains\b/giu, "the $1 contain")
+    .replace(
+      /After drying, ([0-9][^,]*? kg) of ([^.]+?) contains/giu,
+      "After drying, a $1 batch of $2 contains",
+    )
+    .replace(
+      /For a processing vessel, a container initially contains/giu,
+      "In a processing vessel, the solution initially contains",
+    );
 }
 
 export function runMalCp004EnglishSolutionFirstV2Pipeline(input: {
