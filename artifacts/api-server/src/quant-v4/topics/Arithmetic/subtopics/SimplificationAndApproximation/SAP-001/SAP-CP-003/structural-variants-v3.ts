@@ -42,7 +42,7 @@ function exactDisplay(value: Rat): string {
 }
 
 function makeOptions(correct: Rat, wrongCandidates: readonly WrongCandidate[]): readonly SapCp003Option[] {
-  const correctText = exactDisplay(correct);
+  const correctText = formatRat(correct);
   const candidates: readonly WrongCandidate[] = Object.freeze([
     ...wrongCandidates,
     Object.freeze({
@@ -65,7 +65,7 @@ function makeOptions(correct: Rat, wrongCandidates: readonly WrongCandidate[]): 
   const wrongOptions: SapCp003Option[] = [];
   for (const candidate of candidates) {
     if (equalRat(candidate.value, correct)) continue;
-    const text = exactDisplay(candidate.value);
+    const text = formatRat(candidate.value);
     if (used.has(text)) continue;
     used.add(text);
     wrongOptions.push(Object.freeze({
@@ -84,7 +84,7 @@ function makeOptions(correct: Rat, wrongCandidates: readonly WrongCandidate[]): 
       value: correctText,
       isCorrect: true,
       misconceptionId: null,
-      analysis: "This option matches the exact value after all three representations are simplified.",
+      analysis: "This option matches the exact reduced fraction after all three representations are simplified.",
     }),
     ...wrongOptions,
   ]);
@@ -117,7 +117,7 @@ function mixedRepresentationVariant(pkg: SapCp003Package): SapCp003Package {
     steps = Object.freeze([
       `${benchmark.percent} of ${firstQuantity} = ${formatRat(benchmark.percentValue)} × ${firstQuantity} = ${exactDisplay(percentTerm)}`,
       `${benchmark.fraction} of ${secondQuantity} = ${exactDisplay(fractionTerm)} and ${benchmark.decimal} × ${thirdQuantity} = ${exactDisplay(decimalTerm)}`,
-      `${exactDisplay(percentTerm)} + ${exactDisplay(fractionTerm)} + ${exactDisplay(decimalTerm)} = ${exactDisplay(answer)}`,
+      `${exactDisplay(percentTerm)} + ${exactDisplay(fractionTerm)} + ${exactDisplay(decimalTerm)} = ${formatRat(answer)}`,
     ]);
     payloadFrame = "THREE_TERM_SUM";
     wrongs = Object.freeze([
@@ -133,7 +133,7 @@ function mixedRepresentationVariant(pkg: SapCp003Package): SapCp003Package {
     steps = Object.freeze([
       `${benchmark.fraction} + ${benchmark.decimal} = ${formatRat(benchmark.fractionValue)} + ${formatRat(benchmark.decimalValue)} = ${formatRat(bracketFactor)}`,
       `${formatRat(bracketFactor)} × ${secondQuantity} = ${exactDisplay(bracketValue)}`,
-      `${benchmark.percent} of ${firstQuantity} = ${exactDisplay(percentTerm)}, so ${exactDisplay(bracketValue)} − ${exactDisplay(percentTerm)} = ${exactDisplay(answer)}`,
+      `${benchmark.percent} of ${firstQuantity} = ${exactDisplay(percentTerm)}, so ${exactDisplay(bracketValue)} − ${exactDisplay(percentTerm)} = ${formatRat(answer)}`,
     ]);
     payloadFrame = "BRACKET_FACTOR_MINUS_PERCENT";
     wrongs = Object.freeze([
@@ -149,7 +149,7 @@ function mixedRepresentationVariant(pkg: SapCp003Package): SapCp003Package {
     steps = Object.freeze([
       `${benchmark.percent} of ${firstQuantity} = ${exactDisplay(percentTerm)}`,
       `${benchmark.fraction} × ${benchmark.decimal} = ${formatRat(benchmark.fractionValue)} × ${formatRat(benchmark.decimalValue)} = ${formatRat(fractionDecimalProduct)}`,
-      `${formatRat(fractionDecimalProduct)} of ${secondQuantity} = ${exactDisplay(middleValue)}, so the total is ${exactDisplay(answer)}`,
+      `${formatRat(fractionDecimalProduct)} of ${secondQuantity} = ${exactDisplay(middleValue)}, so the total is ${formatRat(answer)}`,
     ]);
     payloadFrame = "PERCENT_PLUS_FRACTION_DECIMAL_PRODUCT";
     wrongs = Object.freeze([
@@ -165,7 +165,7 @@ function mixedRepresentationVariant(pkg: SapCp003Package): SapCp003Package {
     steps = Object.freeze([
       `${firstQuantity} + ${secondQuantity} = ${firstQuantity + secondQuantity}, so ${benchmark.percent} of the bracket = ${exactDisplay(combinedPercent)}`,
       `${benchmark.fraction} of ${secondQuantity} = ${exactDisplay(fractionTerm)} and ${benchmark.decimal} × ${thirdQuantity} = ${exactDisplay(decimalTerm)}`,
-      `${exactDisplay(combinedPercent)} − ${exactDisplay(fractionTerm)} + ${exactDisplay(decimalTerm)} = ${exactDisplay(answer)}`,
+      `${exactDisplay(combinedPercent)} − ${exactDisplay(fractionTerm)} + ${exactDisplay(decimalTerm)} = ${formatRat(answer)}`,
     ]);
     payloadFrame = "PERCENT_OF_BRACKET_MIXED_CHAIN";
     wrongs = Object.freeze([
@@ -176,7 +176,7 @@ function mixedRepresentationVariant(pkg: SapCp003Package): SapCp003Package {
   }
 
   const options = makeOptions(answer, wrongs);
-  const displayedAnswer = exactDisplay(answer);
+  const displayedAnswer = formatRat(answer);
   return Object.freeze({
     ...pkg,
     difficulty: frame === 3 ? "HARD" as const : "MEDIUM" as const,
@@ -189,7 +189,7 @@ function mixedRepresentationVariant(pkg: SapCp003Package): SapCp003Package {
     explanation: Object.freeze({
       coreConcept: ensureSentence("Convert the percentage, fraction and decimal terms to exact rational factors, preserve each operation's scope, and simplify after cancellation"),
       steps: Object.freeze(steps.map(ensureSentence)),
-      finalAnswer: ensureSentence(`Therefore, the reduced answer is ${displayedAnswer}`),
+      finalAnswer: ensureSentence(`Therefore, the reduced fraction is ${displayedAnswer}`),
     }),
     canonicalPayloadKey: [
       "SAP_CP003_STRUCTURAL_V3",
