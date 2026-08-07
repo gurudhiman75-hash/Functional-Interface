@@ -22,6 +22,7 @@ function probabilityLiteralsAreValid(stem: string): boolean {
 function hasGrammarDefect(value: string): boolean {
   if (/\b1\s+(?:tosses|balls|women|men|cards|draws|sectors|outcomes|heads|tails|students|people)\b/i.test(value)) return true;
   if (/\b(?:exactly\s+)?one\s+\w+\s+are\b/i.test(value)) return true;
+  if (/\ba ace\b/i.test(value)) return true;
   for (const match of value.matchAll(/\bexactly\s+(\d+)\s+(?:of\s+the\s+drawn\s+)?\w+\s+(is|are)\b/gi)) {
     const count = Number(match[1]), verb = match[2]!.toLowerCase();
     if ((count === 1 && verb !== "is") || (count !== 1 && verb !== "are")) return true;
@@ -37,6 +38,8 @@ function hasGenericExplanation(explanation: string[]): boolean {
     /^Count (?:all|the) /i,
     /^Use the (?:stated|given) probability relation/i,
     /^Apply the probability relation/i,
+    /^Choose which 1\b/i,
+    /^A (?:spade|heart|club|diamond) suit contains\b/i,
   ];
   return explanation.some((line) => genericPatterns.some((pattern) => pattern.test(line.trim())));
 }
@@ -84,13 +87,13 @@ export function validateProbabilityQuestion(args: {
     /\bsatisf(?:y|ies) A(?:\s+or\s+B|\s+and\s+B)?\b/i,
   ];
   checks.push(check("natural-exam-language", forbiddenStemPatterns.every((pattern) => !pattern.test(stem)), "The stem contains internal, abstract or artificial template language."));
-  checks.push(check("grammar-safe", !hasGrammarDefect(studentText), "The stem or explanation has a singular/plural grammar defect."));
+  checks.push(check("grammar-safe", !hasGrammarDefect(studentText), "The stem or explanation has a singular/plural or article defect."));
 
   const stemWords = words(stem);
   checks.push(check("concise-stem", stemWords >= 7 && stemWords <= 62, `Stem has ${stemWords} words; expected 7-62.`));
   const explanationText = explanation.join(" "), explanationWords = words(explanationText);
   checks.push(check("simple-explanation-length", explanationWords >= 12 && explanationWords <= 120, `Explanation has ${explanationWords} words; expected 12-120.`));
-  checks.push(check("contextual-explanation", !hasGenericExplanation(explanation), "The explanation states generic counts without explaining the question-specific reasoning."));
+  checks.push(check("contextual-explanation", !hasGenericExplanation(explanation), "The explanation states generic counts or uses unnatural instructional wording."));
   checks.push(check("no-qa-jargon-in-explanation", !/(typed event|independent check|permitted range|generated parameter|review trail|publication|validator|renderer|fingerprint|canonical universe)/i.test(explanationText), "The explanation contains internal QA language."));
   checks.push(check("no-adjacent-duplicate-lines", explanation.every((line, index) => index === 0 || line.trim() !== explanation[index - 1]!.trim()), "The explanation repeats the same line."));
 
