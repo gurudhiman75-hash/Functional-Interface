@@ -212,8 +212,11 @@ export function renderProbabilityExplanation(
     const tosses = n(parameters, "trials", n(parameters, "tosses"));
     const heads = mode === "findExactlyOneSuccess" ? 1 : n(parameters, mode === "findCoinHeadCountProbability" ? "heads" : "k", 1);
     const ways = choose(tosses, heads);
+    const selectionReason = heads === 1
+      ? `Choose the toss on which the head appears: C(${tosses},1) = ${ways} ways.`
+      : `Choose the ${heads} tosses that show heads: C(${tosses},${heads}) = ${ways} ways.`;
     return [
-      `Choose which ${heads} of the ${tosses} tosses are heads: C(${tosses},${heads}) = ${ways} ways.`,
+      selectionReason,
       `There are ${2 ** tosses} H/T sequences. ${probabilityCalculation(ways, 2 ** tosses, solved.exactDisplay)}`,
     ];
   }
@@ -222,7 +225,7 @@ export function renderProbabilityExplanation(
     const tosses = n(parameters, "trials");
     const k = n(parameters, "k");
     const parts = Array.from({ length: k + 1 }, (_, heads) => `C(${tosses},${heads})`).join(" + ");
-    const range = k === 1 ? "0 or 1 head" : `0, 1, ..., ${k} heads`;
+    const range = k === 1 ? "0 or 1 head" : k === 2 ? "0, 1 or 2 heads" : `0 to ${k} heads`;
     return [
       `At most ${k} ${plural(k, "head")} means ${range}. Required sequences = ${parts} = ${favourable ?? 0n}.`,
       probabilityCalculation(favourable ?? 0n, total ?? BigInt(2 ** tosses), solved.exactDisplay),
@@ -318,7 +321,7 @@ export function renderProbabilityExplanation(
     const colour = s(parameters, "colour", "red");
     let reason = `There are ${favourable ?? 0n} required cards in a 52-card deck.`;
     if (mode === "findRankProbability") reason = `There are 4 ${rank}s, one in each suit.`;
-    if (mode === "findSuitProbability") reason = `A ${suit} suit contains 13 cards.`;
+    if (mode === "findSuitProbability") reason = `There are 13 ${suit}s in a standard deck.`;
     if (mode === "findColourProbability") reason = `The deck has 26 ${colour} cards.`;
     if (mode === "findFaceCardProbability") reason = `Each suit has a jack, queen and king, so there are 3 × 4 = 12 face cards.`;
     if (mode === "findCardPropertyIntersection") reason = `Only one card is both the ${rank} and a ${suit}: the ${rank} of ${suit}s.`;

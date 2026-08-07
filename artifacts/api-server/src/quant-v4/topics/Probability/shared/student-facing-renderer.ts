@@ -5,6 +5,7 @@ const num = (p: GeneratedParameters, key: string, fallback = 0) => typeof p[key]
 const text = (p: GeneratedParameters, key: string, fallback = "") => typeof p[key] === "string" ? p[key] as string : fallback;
 const frac = (a: number | bigint, b: number | bigint) => rationalText(rational(a, b));
 const noun = (count: number, one: string, many = `${one}s`) => count === 1 ? one : many;
+const article = (word: string) => /^[aeiou]/i.test(word) ? "an" : "a";
 const tidy = (value: string) => value.replace(/\s+/g, " ").replace(/\s+([?.!,])/g, "$1").trim();
 const clean = (value: string) => value.replace(/_/g, " ").replace(/\bnot \((.+)\)$/i, "not $1").toLowerCase().replace(/\s+/g, " ").trim();
 const eventName = (event: EventExpression) => clean(event.label);
@@ -42,13 +43,13 @@ function cardCondition(entry: ProbabilityTaskRegistryEntry, p: GeneratedParamete
   const rank = text(p, "rank", "king");
   const suit = suitSingular(text(p, "suit", "spades"));
   const colour = text(p, "colour", "red");
-  if (entry.solveMode === "findSuitProbability") return `a ${suit}`;
-  if (entry.solveMode === "findColourProbability") return `a ${colour} card`;
+  if (entry.solveMode === "findSuitProbability") return `${article(suit)} ${suit}`;
+  if (entry.solveMode === "findColourProbability") return `${article(colour)} ${colour} card`;
   if (entry.solveMode === "findFaceCardProbability") return "a face card";
-  if (entry.solveMode === "findUnionCardEventProbability") return `a ${rank} or a ${suit}`;
-  if (entry.solveMode === "findComplementCardProbability") return `not a ${suit}`;
+  if (entry.solveMode === "findUnionCardEventProbability") return `${article(rank)} ${rank} or ${article(suit)} ${suit}`;
+  if (entry.solveMode === "findComplementCardProbability") return `not ${article(suit)} ${suit}`;
   if (entry.solveMode === "findCardPropertyIntersection") return `the ${rank} of ${suit}s`;
-  return `a ${rank}`;
+  return `${article(rank)} ${rank}`;
 }
 
 function oppositeEvent(eventLabel: string): string {
@@ -127,11 +128,11 @@ export function renderStudentFacingStem(entry: ProbabilityTaskRegistryEntry, p: 
     case "findAtLeastOneUsingComplement": return `A fair coin is tossed ${trials} times. What is the probability of getting at least one head?`;
     case "findNoneProbability": return `A fair coin is tossed ${trials} times. What is the probability of getting no heads?`;
     case "findExactlyOneSuccess": return `A fair coin is tossed ${trials} times. What is the probability of getting exactly one head?`;
-    case "findExactlyKSuccessSmallCase": { const k = num(p, "k"); return `A fair coin is tossed ${trials} times. What is the probability of getting exactly ${k} ${noun(k, "head")}?`; }
-    case "findAtMostKSuccessSmallCase": { const k = num(p, "k"); return `A fair coin is tossed ${trials} times. What is the probability of getting at most ${k} ${noun(k, "head")}?`; }
+    case "findExactlyKSuccessSmallCase": { const k = num(p, "k"), count = k === 1 ? "one" : String(k); return `A fair coin is tossed ${trials} times. What is the probability of getting exactly ${count} ${noun(k, "head")}?`; }
+    case "findAtMostKSuccessSmallCase": { const k = num(p, "k"), count = k === 1 ? "one" : String(k); return `A fair coin is tossed ${trials} times. What is the probability of getting at most ${count} ${noun(k, "head")}?`; }
     case "findAllSuccessOrNotAll": return `A fair coin is tossed ${trials} times. What is the probability that all tosses show the same face?`;
     case "findCoinPatternProbability": return `A fair coin is tossed ${num(p, "tosses")} times. What is the probability of obtaining the sequence ${text(p, "pattern")}?`;
-    case "findCoinHeadCountProbability": { const heads = num(p, "heads"); return `A fair coin is tossed ${num(p, "tosses")} times. What is the probability of getting exactly ${heads} ${noun(heads, "head")}?`; }
+    case "findCoinHeadCountProbability": { const heads = num(p, "heads"), count = heads === 1 ? "one" : String(heads); return `A fair coin is tossed ${num(p, "tosses")} times. What is the probability of getting exactly ${count} ${noun(heads, "head")}?`; }
     case "findSingleDieEventProbability": return `A fair die is rolled once. What is the probability of rolling a number that is ${propertyPhrase(p)}?`;
     case "findTwoDiceSumProbability": return `Two fair dice are rolled. What is the probability that the sum of the numbers obtained is ${num(p, "targetSum")}?`;
     case "findTwoDiceProductOrParityProbability": {
@@ -157,7 +158,7 @@ export function renderStudentFacingStem(entry: ProbabilityTaskRegistryEntry, p: 
       ? `A bag contains ${red} red and ${blue} blue balls. Two balls are drawn together without replacement. What is the probability of drawing one red and one blue ball?`
       : `A bag contains ${red} red and ${blue} blue balls. ${draw} balls are drawn together without replacement. What is the probability that at least one ball of each colour is drawn?`;
     case "findExactCompositionProbability":
-    case "findSelectionProbabilityUsingCombination": { const exact = num(p, "exactRed", 1); return `A bag contains ${red} red and ${blue} blue balls. ${draw} balls are drawn together without replacement. What is the probability that exactly ${exact} of the drawn ${noun(draw, "ball")} ${exact === 1 ? "is" : "are"} red?`; }
+    case "findSelectionProbabilityUsingCombination": { const exact = num(p, "exactRed", 1), count = exact === 1 ? "one" : String(exact); return `A bag contains ${red} red and ${blue} blue balls. ${draw} balls are drawn together without replacement. What is the probability that exactly ${count} of the drawn ${noun(draw, "ball")} ${exact === 1 ? "is" : "are"} red?`; }
     case "findNoObjectOfTypeProbability": return `A bag contains ${red} red and ${blue} blue balls. ${draw} balls are drawn together without replacement. What is the probability that all the drawn balls are blue?`;
     case "findAtLeastOneObjectOfType": return `A bag contains ${red} red and ${blue} blue balls. ${draw} balls are drawn together without replacement. What is the probability that at least one red ball is drawn?`;
     case "findSuccessiveIndependentProbability":

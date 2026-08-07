@@ -399,24 +399,24 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 3/8
 
-**Explanation:** Choose which 1 of the 3 tosses are heads: C(3,1) = 3 ways. There are 8 H/T sequences. So the probability is 3/8.
+**Explanation:** Choose the toss on which the head appears: C(3,1) = 3 ways. There are 8 H/T sequences. So the probability is 3/8.
 
 ---
 
 #### Question 23 — PRB-QL-105 (Medium)
 
-**Question:** A fair coin is tossed 3 times. What is the probability of getting exactly 1 head?
+**Question:** A fair coin is tossed 3 times. What is the probability of getting exactly 2 heads?
 
 **Options:**
 
-- **A.** 3/8
-- **B.** 5/8
-- **C.** 1/4
+- **A.** 5/8
+- **B.** 1/4
+- **C.** 3/8
 - **D.** 1/2
 
-**Correct answer:** A. 3/8
+**Correct answer:** C. 3/8
 
-**Explanation:** Choose which 1 of the 3 tosses are heads: C(3,1) = 3 ways. There are 8 H/T sequences. So the probability is 3/8.
+**Explanation:** Choose the 2 tosses that show heads: C(3,2) = 3 ways. There are 8 H/T sequences. So the probability is 3/8.
 
 ---
 
@@ -433,7 +433,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 11/16
 
-**Explanation:** At most 2 heads means 0, 1, ..., 2 heads. Required sequences = C(4,0) + C(4,1) + C(4,2) = 11. So the probability is 11/16.
+**Explanation:** At most 2 heads means 0, 1 or 2 heads. Required sequences = C(4,0) + C(4,1) + C(4,2) = 11. So the probability is 11/16.
 
 ---
 
@@ -501,24 +501,24 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/4
 
-**Explanation:** Choose which 1 of the 4 tosses are heads: C(4,1) = 4 ways. There are 16 H/T sequences. So the probability is 4/16 = 1/4.
+**Explanation:** Choose the toss on which the head appears: C(4,1) = 4 ways. There are 16 H/T sequences. So the probability is 4/16 = 1/4.
 
 ---
 
 #### Question 29 — PRB-QL-112 (Medium)
 
-**Question:** A fair coin is tossed 3 times. What is the probability of getting exactly 2 heads?
+**Question:** A fair coin is tossed 4 times. What is the probability of getting exactly 3 heads?
 
 **Options:**
 
-- **A.** 1/2
-- **B.** 5/8
-- **C.** 3/8
-- **D.** 1/4
+- **A.** 1/4
+- **B.** 3/4
+- **C.** 0
+- **D.** 1/2
 
-**Correct answer:** C. 3/8
+**Correct answer:** A. 1/4
 
-**Explanation:** Choose which 2 of the 3 tosses are heads: C(3,2) = 3 ways. There are 8 H/T sequences. So the probability is 3/8.
+**Explanation:** Choose the 3 tosses that show heads: C(4,3) = 4 ways. There are 16 H/T sequences. So the probability is 4/16 = 1/4.
 
 ---
 
@@ -535,7 +535,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 7/8
 
-**Explanation:** At most 2 heads means 0, 1, ..., 2 heads. Required sequences = C(3,0) + C(3,1) + C(3,2) = 7. So the probability is 7/8.
+**Explanation:** At most 2 heads means 0, 1 or 2 heads. Required sequences = C(3,0) + C(3,1) + C(3,2) = 7. So the probability is 7/8.
 
 ---
 
@@ -628,7 +628,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 36 — PRB-QL-202 (Medium)
 
-**Question:** A fair coin is tossed 2 times. What is the probability of getting exactly 1 head?
+**Question:** A fair coin is tossed 2 times. What is the probability of getting exactly one head?
 
 **Options:**
 
@@ -639,7 +639,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/2
 
-**Explanation:** Choose which 1 of the 2 tosses are heads: C(2,1) = 2 ways. There are 4 H/T sequences. So the probability is 2/4 = 1/2.
+**Explanation:** Choose the toss on which the head appears: C(2,1) = 2 ways. There are 4 H/T sequences. So the probability is 2/4 = 1/2.
 
 ---
 
@@ -696,18 +696,18 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 40 — PRB-QL-210 (Medium)
 
-**Question:** A fair coin is tossed 4 times. What is the probability of getting exactly 3 heads?
+**Question:** A fair coin is tossed 4 times. What is the probability of getting exactly 2 heads?
 
 **Options:**
 
-- **A.** 1/2
-- **B.** 1/4
-- **C.** 0
-- **D.** 3/4
+- **A.** 3/8
+- **B.** 1/2
+- **C.** 1/4
+- **D.** 5/8
 
-**Correct answer:** B. 1/4
+**Correct answer:** A. 3/8
 
-**Explanation:** Choose which 3 of the 4 tosses are heads: C(4,3) = 4 ways. There are 16 H/T sequences. So the probability is 4/16 = 1/4.
+**Explanation:** Choose the 2 tosses that show heads: C(4,2) = 6 ways. There are 16 H/T sequences. So the probability is 6/16 = 3/8.
 
 ---
 
@@ -828,7 +828,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/4
 
-**Explanation:** A spade suit contains 13 cards. So the probability is 13/52 = 1/4.
+**Explanation:** There are 13 spades in a standard deck. So the probability is 13/52 = 1/4.
 
 ---
 
@@ -885,7 +885,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 51 — PRB-QL-305 (Medium)
 
-**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability of drawing a ace or a heart?
+**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability of drawing an ace or a heart?
 
 **Options:**
 
@@ -970,7 +970,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 56 — PRB-QL-308 (Easy)
 
-**Question:** In a standard deck, the probability of drawing a ace is 1/13. How many cards satisfy this condition?
+**Question:** In a standard deck, the probability of drawing an ace is 1/13. How many cards satisfy this condition?
 
 **Options:**
 
@@ -1015,7 +1015,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/4
 
-**Explanation:** A club suit contains 13 cards. So the probability is 13/52 = 1/4.
+**Explanation:** There are 13 clubs in a standard deck. So the probability is 13/52 = 1/4.
 
 ---
 
@@ -1176,7 +1176,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 68 — PRB-QL-404 (Medium)
 
-**Question:** A bag contains 8 red and 8 blue balls. 2 balls are drawn together without replacement. What is the probability that exactly 1 of the drawn balls is red?
+**Question:** A bag contains 8 red and 8 blue balls. 2 balls are drawn together without replacement. What is the probability that exactly one of the drawn balls is red?
 
 **Options:**
 
@@ -1261,7 +1261,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 73 — PRB-QL-408 (Medium)
 
-**Question:** A bag contains 6 red and 4 blue balls. 2 balls are drawn together without replacement. What is the probability that exactly 1 of the drawn balls is red?
+**Question:** A bag contains 6 red and 4 blue balls. 2 balls are drawn together without replacement. What is the probability that exactly one of the drawn balls is red?
 
 **Options:**
 

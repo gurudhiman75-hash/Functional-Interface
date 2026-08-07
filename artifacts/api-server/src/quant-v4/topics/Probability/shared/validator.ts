@@ -80,6 +80,7 @@ export function validateProbabilityQuestion(args: {
     /\bThere are \d+ equally likely outcomes\b/i,
     /\bequally likely items\b/i,
     /\bit does not happen\b/i,
+    /\ba ace\b/i,
     /\bsatisf(?:y|ies) A(?:\s+or\s+B|\s+and\s+B)?\b/i,
   ];
   checks.push(check("natural-exam-language", forbiddenStemPatterns.every((pattern) => !pattern.test(stem)), "The stem contains internal, abstract or artificial template language."));
