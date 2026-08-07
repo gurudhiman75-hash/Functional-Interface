@@ -167,7 +167,9 @@ export function buildIneCp004Explanation(
               ? "An either-or pair must be both non-overlapping and complete."
               : option.pairStatus === "NOT_EXHAUSTIVE"
                 ? "The pair does cover every valid possibility, so incompleteness is not the problem."
-                : "The pair does not share a valid case, so overlap is not the problem.",
+                : option.pairStatus === "NOT_EXCLUSIVE"
+                  ? "The pair does not share a valid case, so overlap is not the problem."
+                  : "The statements give enough information to compare the conclusions across every valid case.",
         })),
     };
   }

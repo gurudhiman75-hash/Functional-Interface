@@ -10,6 +10,7 @@ assert.equal(rows.length, 48);
 assert.equal(new Set(rows.map((row) => row.authorityId)).size, 4);
 assert.equal(new Set(rows.map((row) => row.topologyId)).size, 8);
 assert.ok(rows.every((row) => row.statements.length >= 2));
+assert.ok(rows.every((row) => row.options.length === 4));
 assert.ok(
   rows.every((row) => new Set(row.options).size === row.options.length),
 );
@@ -34,6 +35,7 @@ for (const authority of new Set(rows.map((row) => row.authorityId))) {
 
 const markdown = renderIneCp004ReviewMarkdown(rows);
 assert.ok(markdown.startsWith("# INE-CP-004 English Prototype Review Pack"));
+assert.ok(markdown.includes("Every question has exactly four answer options."));
 assert.equal((markdown.match(/^## /gm) ?? []).length, 48);
 assert.equal((markdown.match(/^### Options$/gm) ?? []).length, 48);
 assert.equal((markdown.match(/^### Mock solution$/gm) ?? []).length, 48);

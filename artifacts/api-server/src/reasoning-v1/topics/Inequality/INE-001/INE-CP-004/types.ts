@@ -28,6 +28,8 @@ export type IneCp004PairStatus =
   | "NOT_EXHAUSTIVE"
   | "NOT_EXCLUSIVE";
 
+export type IneCp004PairResponse = IneCp004PairStatus | "CANNOT_DETERMINE";
+
 export type IneCp004TwoConclusionMask =
   | "ONLY_I"
   | "ONLY_II"
@@ -75,7 +77,7 @@ export interface IneCp004Option {
   value: string;
   isCorrect: boolean;
   errorLabel?: string;
-  pairStatus?: IneCp004PairStatus;
+  pairStatus?: IneCp004PairResponse;
   candidatePairIndex?: number;
   twoConclusionMask?: IneCp004TwoConclusionMask;
   threeConclusionMask?: IneCp004ThreeConclusionMask;
@@ -109,7 +111,7 @@ export interface GeneratedIneCp004Question {
   explanation: IneCp001Explanation;
   solutions: { mock: string; learning: IneCp001Explanation };
   metadata: {
-    runtimeVersion: "ine-cp004-prototype-v1";
+    runtimeVersion: "ine-cp004-prototype-v2";
     competency: "COMPLEMENTARY_EXHAUSTIVENESS_REASONING";
     reviewStatus: "PENDING_MANUAL_REVIEW";
     deliveryProfile: "GUIDED_CONCEPT" | "BANKING_MOCK_PROTOTYPE";

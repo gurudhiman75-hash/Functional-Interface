@@ -127,7 +127,7 @@ export function generateIneCp004Question(
     explanation,
     solutions: { mock: mockSolutionFor(explanation), learning: explanation },
     metadata: {
-      runtimeVersion: "ine-cp004-prototype-v1",
+      runtimeVersion: "ine-cp004-prototype-v2",
       competency: "COMPLEMENTARY_EXHAUSTIVENESS_REASONING",
       reviewStatus: "PENDING_MANUAL_REVIEW",
       deliveryProfile: contract.deliveryProfile,

@@ -20,7 +20,8 @@
     "options": [
       "Valid either-or pair",
       "Not either-or: some valid cases are left uncovered",
-      "Not either-or: the conclusions overlap"
+      "Not either-or: the conclusions overlap",
+      "Cannot be determined from the statements"
     ],
     "correctIndex": 0,
     "correctOption": "Valid either-or pair",
@@ -51,9 +52,9 @@
       }
     ],
     "mockSolution": "Use B ≥ A. The valid possibilities are A < B or A = B. Conclusion I covers A < B, while conclusion II covers A = B. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Therefore, this is classified as “Valid either-or pair”.",
-    "learningSolution": "Use B ≥ A. The valid possibilities are A < B or A = B. Conclusion I covers A < B, while conclusion II covers A = B. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, this is classified as “Valid either-or pair”.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.",
+    "learningSolution": "Use B ≥ A. The valid possibilities are A < B or A = B. Conclusion I covers A < B, while conclusion II covers A = B. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, this is classified as “Valid either-or pair”.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.\n\nCannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.",
     "structuralFingerprint": "a259377f",
-    "contentHash": "1f0b082d",
+    "contentHash": "099447f7",
     "sourceLedgerIds": [
       "AGG-INE-001",
       "AGG-INE-005",
@@ -84,10 +85,11 @@
     ],
     "options": [
       "Not either-or: the conclusions overlap",
-      "Not either-or: some valid cases are left uncovered",
-      "Valid either-or pair"
+      "Cannot be determined from the statements",
+      "Valid either-or pair",
+      "Not either-or: some valid cases are left uncovered"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "correctOption": "Not either-or: some valid cases are left uncovered",
     "conclusionTruths": [
       "POSSIBLY_TRUE",
@@ -114,9 +116,9 @@
       }
     ],
     "mockSolution": "Use P ≥ S. The valid possibilities are P = S or P > S. Conclusion I covers P > S, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered. Therefore, this is classified as “Not either-or: some valid cases are left uncovered”.",
-    "learningSolution": "Use P ≥ S. The valid possibilities are P = S or P > S. Conclusion I covers P > S, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered.\n\nTherefore, this is classified as “Not either-or: some valid cases are left uncovered”.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.",
+    "learningSolution": "Use P ≥ S. The valid possibilities are P = S or P > S. Conclusion I covers P > S, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered.\n\nTherefore, this is classified as “Not either-or: some valid cases are left uncovered”.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.\n\nCannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.",
     "structuralFingerprint": "7077a527",
-    "contentHash": "16320119",
+    "contentHash": "1c091d8f",
     "sourceLedgerIds": [
       "AGG-INE-001",
       "AGG-INE-005",
@@ -147,10 +149,11 @@
     ],
     "options": [
       "Not either-or: some valid cases are left uncovered",
-      "Valid either-or pair",
-      "Not either-or: the conclusions overlap"
+      "Not either-or: the conclusions overlap",
+      "Cannot be determined from the statements",
+      "Valid either-or pair"
     ],
-    "correctIndex": 2,
+    "correctIndex": 1,
     "correctOption": "Not either-or: the conclusions overlap",
     "conclusionTruths": [
       "POSSIBLY_TRUE",
@@ -182,9 +185,9 @@
       }
     ],
     "mockSolution": "No chain fixes the relation between P and B. The valid possibilities are P < B, P = B, or P > B. Conclusion I covers P < B or P = B, while conclusion II covers P = B or P > B. Their coverage overlaps, so both conclusions can be true in the same case. Therefore, this is classified as “Not either-or: the conclusions overlap”.",
-    "learningSolution": "No chain fixes the relation between P and B. The valid possibilities are P < B, P = B, or P > B. Conclusion I covers P < B or P = B, while conclusion II covers P = B or P > B. Their coverage overlaps, so both conclusions can be true in the same case.\n\nTherefore, this is classified as “Not either-or: the conclusions overlap”.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.",
+    "learningSolution": "No chain fixes the relation between P and B. The valid possibilities are P < B, P = B, or P > B. Conclusion I covers P < B or P = B, while conclusion II covers P = B or P > B. Their coverage overlaps, so both conclusions can be true in the same case.\n\nTherefore, this is classified as “Not either-or: the conclusions overlap”.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.\n\nCannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.",
     "structuralFingerprint": "ceb885da",
-    "contentHash": "a88b11d0",
+    "contentHash": "0b3fbb58",
     "sourceLedgerIds": [
       "AGG-INE-001",
       "AGG-INE-005",
@@ -215,11 +218,12 @@
       "R > B"
     ],
     "options": [
+      "Cannot be determined from the statements",
+      "Not either-or: some valid cases are left uncovered",
       "Valid either-or pair",
-      "Not either-or: the conclusions overlap",
-      "Not either-or: some valid cases are left uncovered"
+      "Not either-or: the conclusions overlap"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "correctOption": "Valid either-or pair",
     "conclusionTruths": [
       "POSSIBLY_TRUE",
@@ -250,9 +254,9 @@
       }
     ],
     "mockSolution": "No chain fixes the relation between R and B. The valid possibilities are R < B, R = B, or R > B. Conclusion I covers R < B or R = B, while conclusion II covers R > B. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Therefore, this is classified as “Valid either-or pair”.",
-    "learningSolution": "No chain fixes the relation between R and B. The valid possibilities are R < B, R = B, or R > B. Conclusion I covers R < B or R = B, while conclusion II covers R > B. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, this is classified as “Valid either-or pair”.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.",
+    "learningSolution": "No chain fixes the relation between R and B. The valid possibilities are R < B, R = B, or R > B. Conclusion I covers R < B or R = B, while conclusion II covers R > B. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, this is classified as “Valid either-or pair”.\n\nCannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.",
     "structuralFingerprint": "be46571e",
-    "contentHash": "c8cd22c8",
+    "contentHash": "5131c76a",
     "sourceLedgerIds": [
       "AGG-INE-001",
       "AGG-INE-005",
@@ -282,11 +286,12 @@
       "B > D"
     ],
     "options": [
+      "Not either-or: some valid cases are left uncovered",
+      "Cannot be determined from the statements",
       "Valid either-or pair",
-      "Not either-or: the conclusions overlap",
-      "Not either-or: some valid cases are left uncovered"
+      "Not either-or: the conclusions overlap"
     ],
-    "correctIndex": 2,
+    "correctIndex": 0,
     "correctOption": "Not either-or: some valid cases are left uncovered",
     "conclusionTruths": [
       "IMPOSSIBLE",
@@ -313,9 +318,9 @@
       }
     ],
     "mockSolution": "Use B ≥ A and A = D. The valid possibilities are D < B or D = B. Conclusion I covers no valid case, while conclusion II covers D < B. Together, they leave at least one valid case uncovered. Therefore, this is classified as “Not either-or: some valid cases are left uncovered”.",
-    "learningSolution": "Use B ≥ A and A = D. The valid possibilities are D < B or D = B. Conclusion I covers no valid case, while conclusion II covers D < B. Together, they leave at least one valid case uncovered.\n\nTherefore, this is classified as “Not either-or: some valid cases are left uncovered”.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.",
+    "learningSolution": "Use B ≥ A and A = D. The valid possibilities are D < B or D = B. Conclusion I covers no valid case, while conclusion II covers D < B. Together, they leave at least one valid case uncovered.\n\nTherefore, this is classified as “Not either-or: some valid cases are left uncovered”.\n\nCannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.",
     "structuralFingerprint": "afd1dc74",
-    "contentHash": "ad7a7aee",
+    "contentHash": "7388646e",
     "sourceLedgerIds": [
       "AGG-INE-001",
       "AGG-INE-005",
@@ -346,11 +351,12 @@
       "R < A"
     ],
     "options": [
+      "Not either-or: some valid cases are left uncovered",
       "Valid either-or pair",
       "Not either-or: the conclusions overlap",
-      "Not either-or: some valid cases are left uncovered"
+      "Cannot be determined from the statements"
     ],
-    "correctIndex": 1,
+    "correctIndex": 2,
     "correctOption": "Not either-or: the conclusions overlap",
     "conclusionTruths": [
       "DEFINITELY_TRUE",
@@ -380,9 +386,9 @@
       }
     ],
     "mockSolution": "Use B ≥ R and A = B. The valid possibilities are R < A or R = A. Conclusion I covers R < A or R = A, while conclusion II covers R < A. Their coverage overlaps, so both conclusions can be true in the same case. Therefore, this is classified as “Not either-or: the conclusions overlap”.",
-    "learningSolution": "Use B ≥ R and A = B. The valid possibilities are R < A or R = A. Conclusion I covers R < A or R = A, while conclusion II covers R < A. Their coverage overlaps, so both conclusions can be true in the same case.\n\nTherefore, this is classified as “Not either-or: the conclusions overlap”.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.",
+    "learningSolution": "Use B ≥ R and A = B. The valid possibilities are R < A or R = A. Conclusion I covers R < A or R = A, while conclusion II covers R < A. Their coverage overlaps, so both conclusions can be true in the same case.\n\nTherefore, this is classified as “Not either-or: the conclusions overlap”.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.\n\nCannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.",
     "structuralFingerprint": "ef241a5b",
-    "contentHash": "22475156",
+    "contentHash": "8ae11070",
     "sourceLedgerIds": [
       "AGG-INE-001",
       "AGG-INE-005",
@@ -412,11 +418,12 @@
       "A ≤ P"
     ],
     "options": [
+      "Not either-or: some valid cases are left uncovered",
+      "Cannot be determined from the statements",
       "Not either-or: the conclusions overlap",
-      "Valid either-or pair",
-      "Not either-or: some valid cases are left uncovered"
+      "Valid either-or pair"
     ],
-    "correctIndex": 1,
+    "correctIndex": 3,
     "correctOption": "Valid either-or pair",
     "conclusionTruths": [
       "POSSIBLY_TRUE",
@@ -447,9 +454,9 @@
       }
     ],
     "mockSolution": "No chain fixes the relation between A and P. The valid possibilities are A < P, A = P, or A > P. Conclusion I covers A > P, while conclusion II covers A < P or A = P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Therefore, this is classified as “Valid either-or pair”.",
-    "learningSolution": "No chain fixes the relation between A and P. The valid possibilities are A < P, A = P, or A > P. Conclusion I covers A > P, while conclusion II covers A < P or A = P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, this is classified as “Valid either-or pair”.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.",
+    "learningSolution": "No chain fixes the relation between A and P. The valid possibilities are A < P, A = P, or A > P. Conclusion I covers A > P, while conclusion II covers A < P or A = P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, this is classified as “Valid either-or pair”.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.\n\nCannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.",
     "structuralFingerprint": "45582a2f",
-    "contentHash": "a032fd87",
+    "contentHash": "8a897731",
     "sourceLedgerIds": [
       "AGG-INE-001",
       "AGG-INE-005",
@@ -479,11 +486,12 @@
       "D > P"
     ],
     "options": [
+      "Not either-or: the conclusions overlap",
       "Not either-or: some valid cases are left uncovered",
       "Valid either-or pair",
-      "Not either-or: the conclusions overlap"
+      "Cannot be determined from the statements"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "correctOption": "Not either-or: some valid cases are left uncovered",
     "conclusionTruths": [
       "POSSIBLY_TRUE",
@@ -510,9 +518,9 @@
       }
     ],
     "mockSolution": "Use P ≥ A and A ≥ D. The valid possibilities are P = D or P > D. Conclusion I covers P = D, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered. Therefore, this is classified as “Not either-or: some valid cases are left uncovered”.",
-    "learningSolution": "Use P ≥ A and A ≥ D. The valid possibilities are P = D or P > D. Conclusion I covers P = D, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered.\n\nTherefore, this is classified as “Not either-or: some valid cases are left uncovered”.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.",
+    "learningSolution": "Use P ≥ A and A ≥ D. The valid possibilities are P = D or P > D. Conclusion I covers P = D, while conclusion II covers no valid case. Together, they leave at least one valid case uncovered.\n\nTherefore, this is classified as “Not either-or: some valid cases are left uncovered”.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.\n\nCannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.",
     "structuralFingerprint": "c254e7d8",
-    "contentHash": "486c3aba",
+    "contentHash": "a2b799e6",
     "sourceLedgerIds": [
       "AGG-INE-001",
       "AGG-INE-005",
@@ -542,8 +550,9 @@
     ],
     "options": [
       "Valid either-or pair",
-      "Not either-or: some valid cases are left uncovered",
-      "Not either-or: the conclusions overlap"
+      "Cannot be determined from the statements",
+      "Not either-or: the conclusions overlap",
+      "Not either-or: some valid cases are left uncovered"
     ],
     "correctIndex": 2,
     "correctOption": "Not either-or: the conclusions overlap",
@@ -575,9 +584,9 @@
       }
     ],
     "mockSolution": "Use C ≤ D. The valid possibilities are C < D or C = D. Conclusion I covers C = D, while conclusion II covers C < D or C = D. Their coverage overlaps, so both conclusions can be true in the same case. Therefore, this is classified as “Not either-or: the conclusions overlap”.",
-    "learningSolution": "Use C ≤ D. The valid possibilities are C < D or C = D. Conclusion I covers C = D, while conclusion II covers C < D or C = D. Their coverage overlaps, so both conclusions can be true in the same case.\n\nTherefore, this is classified as “Not either-or: the conclusions overlap”.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.",
+    "learningSolution": "Use C ≤ D. The valid possibilities are C < D or C = D. Conclusion I covers C = D, while conclusion II covers C < D or C = D. Their coverage overlaps, so both conclusions can be true in the same case.\n\nTherefore, this is classified as “Not either-or: the conclusions overlap”.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.\n\nCannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.",
     "structuralFingerprint": "a259377f",
-    "contentHash": "a2702cfc",
+    "contentHash": "48da2a2c",
     "sourceLedgerIds": [
       "AGG-INE-001",
       "AGG-INE-005",
@@ -607,9 +616,10 @@
       "C = R"
     ],
     "options": [
-      "Not either-or: the conclusions overlap",
+      "Not either-or: some valid cases are left uncovered",
       "Valid either-or pair",
-      "Not either-or: some valid cases are left uncovered"
+      "Cannot be determined from the statements",
+      "Not either-or: the conclusions overlap"
     ],
     "correctIndex": 1,
     "correctOption": "Valid either-or pair",
@@ -640,9 +650,9 @@
       }
     ],
     "mockSolution": "Use C ≥ R. The valid possibilities are R < C or R = C. Conclusion I covers R < C, while conclusion II covers R = C. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Therefore, this is classified as “Valid either-or pair”.",
-    "learningSolution": "Use C ≥ R. The valid possibilities are R < C or R = C. Conclusion I covers R < C, while conclusion II covers R = C. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, this is classified as “Valid either-or pair”.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.",
+    "learningSolution": "Use C ≥ R. The valid possibilities are R < C or R = C. Conclusion I covers R < C, while conclusion II covers R = C. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nTherefore, this is classified as “Valid either-or pair”.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.\n\nCannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.",
     "structuralFingerprint": "7077a527",
-    "contentHash": "656b0d8c",
+    "contentHash": "e4d12154",
     "sourceLedgerIds": [
       "AGG-INE-001",
       "AGG-INE-005",
@@ -674,7 +684,8 @@
     "options": [
       "Not either-or: some valid cases are left uncovered",
       "Valid either-or pair",
-      "Not either-or: the conclusions overlap"
+      "Not either-or: the conclusions overlap",
+      "Cannot be determined from the statements"
     ],
     "correctIndex": 0,
     "correctOption": "Not either-or: some valid cases are left uncovered",
@@ -706,9 +717,9 @@
       }
     ],
     "mockSolution": "No chain fixes the relation between P and Q. The valid possibilities are P < Q, P = Q, or P > Q. Conclusion I covers P < Q, while conclusion II covers P > Q. Together, they leave at least one valid case uncovered. Therefore, this is classified as “Not either-or: some valid cases are left uncovered”.",
-    "learningSolution": "No chain fixes the relation between P and Q. The valid possibilities are P < Q, P = Q, or P > Q. Conclusion I covers P < Q, while conclusion II covers P > Q. Together, they leave at least one valid case uncovered.\n\nTherefore, this is classified as “Not either-or: some valid cases are left uncovered”.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.",
+    "learningSolution": "No chain fixes the relation between P and Q. The valid possibilities are P < Q, P = Q, or P > Q. Conclusion I covers P < Q, while conclusion II covers P > Q. Together, they leave at least one valid case uncovered.\n\nTherefore, this is classified as “Not either-or: some valid cases are left uncovered”.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.\n\nNot either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.\n\nCannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.",
     "structuralFingerprint": "ceb885da",
-    "contentHash": "722583cc",
+    "contentHash": "8b4c27b8",
     "sourceLedgerIds": [
       "AGG-INE-001",
       "AGG-INE-005",
@@ -740,10 +751,11 @@
     ],
     "options": [
       "Valid either-or pair",
+      "Cannot be determined from the statements",
       "Not either-or: some valid cases are left uncovered",
       "Not either-or: the conclusions overlap"
     ],
-    "correctIndex": 2,
+    "correctIndex": 3,
     "correctOption": "Not either-or: the conclusions overlap",
     "conclusionTruths": [
       "POSSIBLY_TRUE",
@@ -775,9 +787,9 @@
       }
     ],
     "mockSolution": "No chain fixes the relation between A and S. The valid possibilities are A < S, A = S, or A > S. Conclusion I covers A < S or A = S, while conclusion II covers A = S or A > S. Their coverage overlaps, so both conclusions can be true in the same case. Therefore, this is classified as “Not either-or: the conclusions overlap”.",
-    "learningSolution": "No chain fixes the relation between A and S. The valid possibilities are A < S, A = S, or A > S. Conclusion I covers A < S or A = S, while conclusion II covers A = S or A > S. Their coverage overlaps, so both conclusions can be true in the same case.\n\nTherefore, this is classified as “Not either-or: the conclusions overlap”.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.",
+    "learningSolution": "No chain fixes the relation between A and S. The valid possibilities are A < S, A = S, or A > S. Conclusion I covers A < S or A = S, while conclusion II covers A = S or A > S. Their coverage overlaps, so both conclusions can be true in the same case.\n\nTherefore, this is classified as “Not either-or: the conclusions overlap”.\n\nValid either-or pair: An either-or pair must be both non-overlapping and complete.\n\nCannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.\n\nNot either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.",
     "structuralFingerprint": "be46571e",
-    "contentHash": "73573ffe",
+    "contentHash": "2004cc98",
     "sourceLedgerIds": [
       "AGG-INE-001",
       "AGG-INE-005",
@@ -2237,10 +2249,9 @@
       "D < S"
     ],
     "options": [
-      "Neither conclusion I nor conclusion II follows",
       "Only conclusion II follows",
+      "Neither conclusion I nor conclusion II follows",
       "Either conclusion I or conclusion II follows",
-      "Both conclusions I and II follow",
       "Only conclusion I follows"
     ],
     "correctIndex": 2,
@@ -2272,9 +2283,9 @@
       }
     ],
     "mockSolution": "Use S ≥ D. The valid possibilities are S = D or S > D. Conclusion I covers S = D, while conclusion II covers S > D. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
-    "learningSolution": "Use S ≥ D. The valid possibilities are S = D or S > D. Conclusion I covers S = D, while conclusion II covers S > D. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.",
+    "learningSolution": "Use S ≥ D. The valid possibilities are S = D or S > D. Conclusion I covers S = D, while conclusion II covers S > D. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.",
     "structuralFingerprint": "05ac8c1f",
-    "contentHash": "d8bafec5",
+    "contentHash": "bfcefb2d",
     "sourceLedgerIds": [
       "AGG-INE-002",
       "DISHA-INE-003",
@@ -2304,11 +2315,10 @@
       "P < C"
     ],
     "options": [
-      "Only conclusion II follows",
       "Neither conclusion I nor conclusion II follows",
       "Only conclusion I follows",
-      "Either conclusion I or conclusion II follows",
-      "Both conclusions I and II follow"
+      "Both conclusions I and II follow",
+      "Either conclusion I or conclusion II follows"
     ],
     "correctIndex": 3,
     "correctOption": "Either conclusion I or conclusion II follows",
@@ -2339,9 +2349,9 @@
       }
     ],
     "mockSolution": "Use P ≤ C. The valid possibilities are P < C or P = C. Conclusion I covers P = C, while conclusion II covers P < C. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
-    "learningSolution": "Use P ≤ C. The valid possibilities are P < C or P = C. Conclusion I covers P = C, while conclusion II covers P < C. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.",
+    "learningSolution": "Use P ≤ C. The valid possibilities are P < C or P = C. Conclusion I covers P = C, while conclusion II covers P < C. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.",
     "structuralFingerprint": "c15a279f",
-    "contentHash": "9b788b1e",
+    "contentHash": "b2860177",
     "sourceLedgerIds": [
       "AGG-INE-002",
       "DISHA-INE-003",
@@ -2371,13 +2381,12 @@
       "S ≥ P"
     ],
     "options": [
-      "Only conclusion I follows",
-      "Neither conclusion I nor conclusion II follows",
       "Only conclusion II follows",
-      "Both conclusions I and II follow",
-      "Either conclusion I or conclusion II follows"
+      "Either conclusion I or conclusion II follows",
+      "Only conclusion I follows",
+      "Both conclusions I and II follow"
     ],
-    "correctIndex": 4,
+    "correctIndex": 1,
     "correctOption": "Either conclusion I or conclusion II follows",
     "conclusionTruths": [
       "POSSIBLY_TRUE",
@@ -2408,9 +2417,9 @@
       }
     ],
     "mockSolution": "No chain fixes the relation between P and S. The valid possibilities are P < S, P = S, or P > S. Conclusion I covers P > S, while conclusion II covers P < S or P = S. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
-    "learningSolution": "No chain fixes the relation between P and S. The valid possibilities are P < S, P = S, or P > S. Conclusion I covers P > S, while conclusion II covers P < S or P = S. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.",
+    "learningSolution": "No chain fixes the relation between P and S. The valid possibilities are P < S, P = S, or P > S. Conclusion I covers P > S, while conclusion II covers P < S or P = S. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.",
     "structuralFingerprint": "d6ee4452",
-    "contentHash": "d12b31c7",
+    "contentHash": "858cd9e8",
     "sourceLedgerIds": [
       "AGG-INE-002",
       "DISHA-INE-003",
@@ -2441,13 +2450,12 @@
       "A ≤ P"
     ],
     "options": [
-      "Both conclusions I and II follow",
       "Either conclusion I or conclusion II follows",
-      "Neither conclusion I nor conclusion II follows",
-      "Only conclusion I follows",
-      "Only conclusion II follows"
+      "Both conclusions I and II follow",
+      "Only conclusion II follows",
+      "Neither conclusion I nor conclusion II follows"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "correctOption": "Either conclusion I or conclusion II follows",
     "conclusionTruths": [
       "POSSIBLY_TRUE",
@@ -2478,9 +2486,9 @@
       }
     ],
     "mockSolution": "No chain fixes the relation between A and P. The valid possibilities are A < P, A = P, or A > P. Conclusion I covers A > P, while conclusion II covers A < P or A = P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
-    "learningSolution": "No chain fixes the relation between A and P. The valid possibilities are A < P, A = P, or A > P. Conclusion I covers A > P, while conclusion II covers A < P or A = P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.",
+    "learningSolution": "No chain fixes the relation between A and P. The valid possibilities are A < P, A = P, or A > P. Conclusion I covers A > P, while conclusion II covers A < P or A = P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.",
     "structuralFingerprint": "1c0c855c",
-    "contentHash": "c63b4eee",
+    "contentHash": "f819348c",
     "sourceLedgerIds": [
       "AGG-INE-002",
       "DISHA-INE-003",
@@ -2510,13 +2518,12 @@
       "R = D"
     ],
     "options": [
-      "Either conclusion I or conclusion II follows",
-      "Only conclusion II follows",
       "Neither conclusion I nor conclusion II follows",
-      "Only conclusion I follows",
+      "Only conclusion II follows",
+      "Either conclusion I or conclusion II follows",
       "Both conclusions I and II follow"
     ],
-    "correctIndex": 0,
+    "correctIndex": 2,
     "correctOption": "Either conclusion I or conclusion II follows",
     "conclusionTruths": [
       "POSSIBLY_TRUE",
@@ -2545,9 +2552,9 @@
       }
     ],
     "mockSolution": "Use R ≥ A and D = A. The valid possibilities are D < R or D = R. Conclusion I covers D < R, while conclusion II covers D = R. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
-    "learningSolution": "Use R ≥ A and D = A. The valid possibilities are D < R or D = R. Conclusion I covers D < R, while conclusion II covers D = R. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.",
+    "learningSolution": "Use R ≥ A and D = A. The valid possibilities are D < R or D = R. Conclusion I covers D < R, while conclusion II covers D = R. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.",
     "structuralFingerprint": "9341db02",
-    "contentHash": "d9d979c6",
+    "contentHash": "ae7d8b36",
     "sourceLedgerIds": [
       "AGG-INE-002",
       "DISHA-INE-003",
@@ -2578,13 +2585,12 @@
       "P < Q"
     ],
     "options": [
-      "Only conclusion II follows",
-      "Neither conclusion I nor conclusion II follows",
       "Either conclusion I or conclusion II follows",
+      "Only conclusion II follows",
       "Both conclusions I and II follow",
       "Only conclusion I follows"
     ],
-    "correctIndex": 2,
+    "correctIndex": 0,
     "correctOption": "Either conclusion I or conclusion II follows",
     "conclusionTruths": [
       "POSSIBLY_TRUE",
@@ -2613,9 +2619,9 @@
       }
     ],
     "mockSolution": "Use S ≥ P and Q = S. The valid possibilities are P < Q or P = Q. Conclusion I covers P = Q, while conclusion II covers P < Q. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
-    "learningSolution": "Use S ≥ P and Q = S. The valid possibilities are P < Q or P = Q. Conclusion I covers P = Q, while conclusion II covers P < Q. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.",
+    "learningSolution": "Use S ≥ P and Q = S. The valid possibilities are P < Q or P = Q. Conclusion I covers P = Q, while conclusion II covers P < Q. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.",
     "structuralFingerprint": "82402463",
-    "contentHash": "b58e3b30",
+    "contentHash": "3145e01f",
     "sourceLedgerIds": [
       "AGG-INE-002",
       "DISHA-INE-003",
@@ -2645,13 +2651,12 @@
       "R ≤ S"
     ],
     "options": [
-      "Either conclusion I or conclusion II follows",
       "Only conclusion I follows",
+      "Either conclusion I or conclusion II follows",
       "Only conclusion II follows",
-      "Both conclusions I and II follow",
       "Neither conclusion I nor conclusion II follows"
     ],
-    "correctIndex": 0,
+    "correctIndex": 1,
     "correctOption": "Either conclusion I or conclusion II follows",
     "conclusionTruths": [
       "POSSIBLY_TRUE",
@@ -2682,9 +2687,9 @@
       }
     ],
     "mockSolution": "No chain fixes the relation between R and S. The valid possibilities are R < S, R = S, or R > S. Conclusion I covers R > S, while conclusion II covers R < S or R = S. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
-    "learningSolution": "No chain fixes the relation between R and S. The valid possibilities are R < S, R = S, or R > S. Conclusion I covers R > S, while conclusion II covers R < S or R = S. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.",
+    "learningSolution": "No chain fixes the relation between R and S. The valid possibilities are R < S, R = S, or R > S. Conclusion I covers R > S, while conclusion II covers R < S or R = S. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.",
     "structuralFingerprint": "d7a7bdd5",
-    "contentHash": "73ee7e98",
+    "contentHash": "39a064d4",
     "sourceLedgerIds": [
       "AGG-INE-002",
       "DISHA-INE-003",
@@ -2714,11 +2719,10 @@
       "D = C"
     ],
     "options": [
-      "Only conclusion II follows",
       "Neither conclusion I nor conclusion II follows",
       "Only conclusion I follows",
-      "Either conclusion I or conclusion II follows",
-      "Both conclusions I and II follow"
+      "Both conclusions I and II follow",
+      "Either conclusion I or conclusion II follows"
     ],
     "correctIndex": 3,
     "correctOption": "Either conclusion I or conclusion II follows",
@@ -2749,9 +2753,9 @@
       }
     ],
     "mockSolution": "Use Q ≤ D and C ≤ Q. The valid possibilities are C < D or C = D. Conclusion I covers C < D, while conclusion II covers C = D. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
-    "learningSolution": "Use Q ≤ D and C ≤ Q. The valid possibilities are C < D or C = D. Conclusion I covers C < D, while conclusion II covers C = D. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.",
+    "learningSolution": "Use Q ≤ D and C ≤ Q. The valid possibilities are C < D or C = D. Conclusion I covers C < D, while conclusion II covers C = D. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.",
     "structuralFingerprint": "e2fbdf38",
-    "contentHash": "b483a863",
+    "contentHash": "98331c7c",
     "sourceLedgerIds": [
       "AGG-INE-002",
       "DISHA-INE-003",
@@ -2780,13 +2784,12 @@
       "Q = R"
     ],
     "options": [
-      "Both conclusions I and II follow",
       "Either conclusion I or conclusion II follows",
+      "Both conclusions I and II follow",
       "Neither conclusion I nor conclusion II follows",
-      "Only conclusion II follows",
-      "Only conclusion I follows"
+      "Only conclusion II follows"
     ],
-    "correctIndex": 1,
+    "correctIndex": 0,
     "correctOption": "Either conclusion I or conclusion II follows",
     "conclusionTruths": [
       "POSSIBLY_TRUE",
@@ -2815,9 +2818,9 @@
       }
     ],
     "mockSolution": "Use Q ≤ R. The valid possibilities are R = Q or R > Q. Conclusion I covers R > Q, while conclusion II covers R = Q. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
-    "learningSolution": "Use Q ≤ R. The valid possibilities are R = Q or R > Q. Conclusion I covers R > Q, while conclusion II covers R = Q. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.",
+    "learningSolution": "Use Q ≤ R. The valid possibilities are R = Q or R > Q. Conclusion I covers R > Q, while conclusion II covers R = Q. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.",
     "structuralFingerprint": "05ac8c1f",
-    "contentHash": "fea32fac",
+    "contentHash": "b54ccfb6",
     "sourceLedgerIds": [
       "AGG-INE-002",
       "DISHA-INE-003",
@@ -2847,13 +2850,12 @@
       "P = Q"
     ],
     "options": [
-      "Neither conclusion I nor conclusion II follows",
-      "Both conclusions I and II follow",
       "Only conclusion II follows",
-      "Only conclusion I follows",
-      "Either conclusion I or conclusion II follows"
+      "Either conclusion I or conclusion II follows",
+      "Both conclusions I and II follow",
+      "Only conclusion I follows"
     ],
-    "correctIndex": 4,
+    "correctIndex": 1,
     "correctOption": "Either conclusion I or conclusion II follows",
     "conclusionTruths": [
       "POSSIBLY_TRUE",
@@ -2882,9 +2884,9 @@
       }
     ],
     "mockSolution": "Use Q ≤ P. The valid possibilities are Q < P or Q = P. Conclusion I covers Q < P, while conclusion II covers Q = P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
-    "learningSolution": "Use Q ≤ P. The valid possibilities are Q < P or Q = P. Conclusion I covers Q < P, while conclusion II covers Q = P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.",
+    "learningSolution": "Use Q ≤ P. The valid possibilities are Q < P or Q = P. Conclusion I covers Q < P, while conclusion II covers Q = P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.",
     "structuralFingerprint": "c15a279f",
-    "contentHash": "7e159498",
+    "contentHash": "a3098e07",
     "sourceLedgerIds": [
       "AGG-INE-002",
       "DISHA-INE-003",
@@ -2914,13 +2916,12 @@
       "P > B"
     ],
     "options": [
-      "Either conclusion I or conclusion II follows",
       "Both conclusions I and II follow",
-      "Neither conclusion I nor conclusion II follows",
       "Only conclusion I follows",
-      "Only conclusion II follows"
+      "Neither conclusion I nor conclusion II follows",
+      "Either conclusion I or conclusion II follows"
     ],
-    "correctIndex": 0,
+    "correctIndex": 3,
     "correctOption": "Either conclusion I or conclusion II follows",
     "conclusionTruths": [
       "POSSIBLY_TRUE",
@@ -2951,9 +2952,9 @@
       }
     ],
     "mockSolution": "No chain fixes the relation between B and P. The valid possibilities are B < P, B = P, or B > P. Conclusion I covers B = P or B > P, while conclusion II covers B < P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
-    "learningSolution": "No chain fixes the relation between B and P. The valid possibilities are B < P, B = P, or B > P. Conclusion I covers B = P or B > P, while conclusion II covers B < P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.",
+    "learningSolution": "No chain fixes the relation between B and P. The valid possibilities are B < P, B = P, or B > P. Conclusion I covers B = P or B > P, while conclusion II covers B < P. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.",
     "structuralFingerprint": "d6ee4452",
-    "contentHash": "2485c3b6",
+    "contentHash": "a4fcff65",
     "sourceLedgerIds": [
       "AGG-INE-002",
       "DISHA-INE-003",
@@ -2984,13 +2985,12 @@
       "R ≥ Q"
     ],
     "options": [
-      "Both conclusions I and II follow",
-      "Only conclusion II follows",
+      "Neither conclusion I nor conclusion II follows",
       "Only conclusion I follows",
       "Either conclusion I or conclusion II follows",
-      "Neither conclusion I nor conclusion II follows"
+      "Only conclusion II follows"
     ],
-    "correctIndex": 3,
+    "correctIndex": 2,
     "correctOption": "Either conclusion I or conclusion II follows",
     "conclusionTruths": [
       "POSSIBLY_TRUE",
@@ -3021,9 +3021,9 @@
       }
     ],
     "mockSolution": "No chain fixes the relation between Q and R. The valid possibilities are Q < R, Q = R, or Q > R. Conclusion I covers Q > R, while conclusion II covers Q < R or Q = R. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility. Hence, either conclusion I or conclusion II follows.",
-    "learningSolution": "No chain fixes the relation between Q and R. The valid possibilities are Q < R, Q = R, or Q > R. Conclusion I covers Q > R, while conclusion II covers Q < R or Q = R. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nBoth conclusions I and II follow: The two conclusions cannot be true together.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.",
+    "learningSolution": "No chain fixes the relation between Q and R. The valid possibilities are Q < R, Q = R, or Q > R. Conclusion I covers Q > R, while conclusion II covers Q < R or Q = R. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.\n\nHence, either conclusion I or conclusion II follows.\n\nNeither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.\n\nOnly conclusion I follows: Neither single conclusion is guaranteed on its own.\n\nOnly conclusion II follows: Neither single conclusion is guaranteed on its own.",
     "structuralFingerprint": "1c0c855c",
-    "contentHash": "78a52e61",
+    "contentHash": "84f22533",
     "sourceLedgerIds": [
       "AGG-INE-002",
       "DISHA-INE-003",

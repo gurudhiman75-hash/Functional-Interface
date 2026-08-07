@@ -20,7 +20,7 @@
 - conditional `>` versus `=` and `<` versus `=` cases;
 - universal strict/inclusive complementary partitions;
 - pair classification and valid-pair selection;
-- full five-mask two-conclusion response scheme;
+- four-option standard-exam response scheme across every authority;
 - definite conclusion plus either-or three-conclusion scheme;
 - eight graph topologies and controlled irrelevant evidence;
 - chain-first explanations with explicit relation-domain coverage;

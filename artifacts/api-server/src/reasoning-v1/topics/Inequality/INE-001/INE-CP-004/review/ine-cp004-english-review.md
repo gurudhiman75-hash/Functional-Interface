@@ -1,6 +1,6 @@
 # INE-CP-004 English Prototype Review Pack
 
-This pack contains 12 questions for each provisional complementary/either-or authority. Permanent QLs remain unallocated, and Question Studio visibility remains disabled.
+This pack contains 12 questions for each provisional complementary/either-or authority. Every question has exactly four answer options. Permanent QLs remain unallocated, and Question Studio visibility remains disabled.
 
 ## 1. CLASSIFY_COMPLEMENTARY_PAIR — seed 0
 
@@ -23,6 +23,7 @@ II. B = A
 1. Valid either-or pair
 2. Not either-or: some valid cases are left uncovered
 3. Not either-or: the conclusions overlap
+4. Cannot be determined from the statements
 
 **Correct:** 1. Valid either-or pair
 
@@ -39,6 +40,8 @@ Therefore, this is classified as “Valid either-or pair”.
 Not either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.
 
 Not either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.
+
+Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
 
 ## 2. CLASSIFY_COMPLEMENTARY_PAIR — seed 1
 
@@ -60,10 +63,11 @@ II. S > P
 ### Options
 
 1. Not either-or: the conclusions overlap
-2. Not either-or: some valid cases are left uncovered
+2. Cannot be determined from the statements
 3. Valid either-or pair
+4. Not either-or: some valid cases are left uncovered
 
-**Correct:** 2. Not either-or: some valid cases are left uncovered
+**Correct:** 4. Not either-or: some valid cases are left uncovered
 
 ### Mock solution
 
@@ -76,6 +80,8 @@ Use P ≥ S. The valid possibilities are P = S or P > S. Conclusion I covers P >
 Therefore, this is classified as “Not either-or: some valid cases are left uncovered”.
 
 Not either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.
+
+Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
 
 Valid either-or pair: An either-or pair must be both non-overlapping and complete.
 
@@ -99,10 +105,11 @@ II. P ≥ B
 ### Options
 
 1. Not either-or: some valid cases are left uncovered
-2. Valid either-or pair
-3. Not either-or: the conclusions overlap
+2. Not either-or: the conclusions overlap
+3. Cannot be determined from the statements
+4. Valid either-or pair
 
-**Correct:** 3. Not either-or: the conclusions overlap
+**Correct:** 2. Not either-or: the conclusions overlap
 
 ### Mock solution
 
@@ -115,6 +122,8 @@ No chain fixes the relation between P and B. The valid possibilities are P < B, 
 Therefore, this is classified as “Not either-or: the conclusions overlap”.
 
 Not either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.
+
+Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
 
 Valid either-or pair: An either-or pair must be both non-overlapping and complete.
 
@@ -138,11 +147,12 @@ II. R > B
 
 ### Options
 
-1. Valid either-or pair
-2. Not either-or: the conclusions overlap
-3. Not either-or: some valid cases are left uncovered
+1. Cannot be determined from the statements
+2. Not either-or: some valid cases are left uncovered
+3. Valid either-or pair
+4. Not either-or: the conclusions overlap
 
-**Correct:** 1. Valid either-or pair
+**Correct:** 3. Valid either-or pair
 
 ### Mock solution
 
@@ -154,9 +164,11 @@ No chain fixes the relation between R and B. The valid possibilities are R < B, 
 
 Therefore, this is classified as “Valid either-or pair”.
 
-Not either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.
+Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
 
 Not either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.
+
+Not either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.
 
 ## 5. CLASSIFY_COMPLEMENTARY_PAIR — seed 4
 
@@ -177,11 +189,12 @@ II. B > D
 
 ### Options
 
-1. Valid either-or pair
-2. Not either-or: the conclusions overlap
-3. Not either-or: some valid cases are left uncovered
+1. Not either-or: some valid cases are left uncovered
+2. Cannot be determined from the statements
+3. Valid either-or pair
+4. Not either-or: the conclusions overlap
 
-**Correct:** 3. Not either-or: some valid cases are left uncovered
+**Correct:** 1. Not either-or: some valid cases are left uncovered
 
 ### Mock solution
 
@@ -192,6 +205,8 @@ Use B ≥ A and A = D. The valid possibilities are D < B or D = B. Conclusion I 
 Use B ≥ A and A = D. The valid possibilities are D < B or D = B. Conclusion I covers no valid case, while conclusion II covers D < B. Together, they leave at least one valid case uncovered.
 
 Therefore, this is classified as “Not either-or: some valid cases are left uncovered”.
+
+Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
 
 Valid either-or pair: An either-or pair must be both non-overlapping and complete.
 
@@ -217,11 +232,12 @@ II. R < A
 
 ### Options
 
-1. Valid either-or pair
-2. Not either-or: the conclusions overlap
-3. Not either-or: some valid cases are left uncovered
+1. Not either-or: some valid cases are left uncovered
+2. Valid either-or pair
+3. Not either-or: the conclusions overlap
+4. Cannot be determined from the statements
 
-**Correct:** 2. Not either-or: the conclusions overlap
+**Correct:** 3. Not either-or: the conclusions overlap
 
 ### Mock solution
 
@@ -233,9 +249,11 @@ Use B ≥ R and A = B. The valid possibilities are R < A or R = A. Conclusion I 
 
 Therefore, this is classified as “Not either-or: the conclusions overlap”.
 
+Not either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.
+
 Valid either-or pair: An either-or pair must be both non-overlapping and complete.
 
-Not either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.
+Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
 
 ## 7. CLASSIFY_COMPLEMENTARY_PAIR — seed 6
 
@@ -256,11 +274,12 @@ II. A ≤ P
 
 ### Options
 
-1. Not either-or: the conclusions overlap
-2. Valid either-or pair
-3. Not either-or: some valid cases are left uncovered
+1. Not either-or: some valid cases are left uncovered
+2. Cannot be determined from the statements
+3. Not either-or: the conclusions overlap
+4. Valid either-or pair
 
-**Correct:** 2. Valid either-or pair
+**Correct:** 4. Valid either-or pair
 
 ### Mock solution
 
@@ -272,9 +291,11 @@ No chain fixes the relation between A and P. The valid possibilities are A < P, 
 
 Therefore, this is classified as “Valid either-or pair”.
 
-Not either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.
-
 Not either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.
+
+Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
+
+Not either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.
 
 ## 8. CLASSIFY_COMPLEMENTARY_PAIR — seed 7
 
@@ -295,11 +316,12 @@ II. D > P
 
 ### Options
 
-1. Not either-or: some valid cases are left uncovered
-2. Valid either-or pair
-3. Not either-or: the conclusions overlap
+1. Not either-or: the conclusions overlap
+2. Not either-or: some valid cases are left uncovered
+3. Valid either-or pair
+4. Cannot be determined from the statements
 
-**Correct:** 1. Not either-or: some valid cases are left uncovered
+**Correct:** 2. Not either-or: some valid cases are left uncovered
 
 ### Mock solution
 
@@ -311,9 +333,11 @@ Use P ≥ A and A ≥ D. The valid possibilities are P = D or P > D. Conclusion 
 
 Therefore, this is classified as “Not either-or: some valid cases are left uncovered”.
 
+Not either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.
+
 Valid either-or pair: An either-or pair must be both non-overlapping and complete.
 
-Not either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.
+Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
 
 ## 9. CLASSIFY_COMPLEMENTARY_PAIR — seed 8
 
@@ -334,8 +358,9 @@ II. C ≤ D
 ### Options
 
 1. Valid either-or pair
-2. Not either-or: some valid cases are left uncovered
+2. Cannot be determined from the statements
 3. Not either-or: the conclusions overlap
+4. Not either-or: some valid cases are left uncovered
 
 **Correct:** 3. Not either-or: the conclusions overlap
 
@@ -350,6 +375,8 @@ Use C ≤ D. The valid possibilities are C < D or C = D. Conclusion I covers C =
 Therefore, this is classified as “Not either-or: the conclusions overlap”.
 
 Valid either-or pair: An either-or pair must be both non-overlapping and complete.
+
+Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
 
 Not either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.
 
@@ -372,9 +399,10 @@ II. C = R
 
 ### Options
 
-1. Not either-or: the conclusions overlap
+1. Not either-or: some valid cases are left uncovered
 2. Valid either-or pair
-3. Not either-or: some valid cases are left uncovered
+3. Cannot be determined from the statements
+4. Not either-or: the conclusions overlap
 
 **Correct:** 2. Valid either-or pair
 
@@ -388,9 +416,11 @@ Use C ≥ R. The valid possibilities are R < C or R = C. Conclusion I covers R <
 
 Therefore, this is classified as “Valid either-or pair”.
 
-Not either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.
-
 Not either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.
+
+Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
+
+Not either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.
 
 ## 11. CLASSIFY_COMPLEMENTARY_PAIR — seed 10
 
@@ -414,6 +444,7 @@ II. P > Q
 1. Not either-or: some valid cases are left uncovered
 2. Valid either-or pair
 3. Not either-or: the conclusions overlap
+4. Cannot be determined from the statements
 
 **Correct:** 1. Not either-or: some valid cases are left uncovered
 
@@ -430,6 +461,8 @@ Therefore, this is classified as “Not either-or: some valid cases are left unc
 Valid either-or pair: An either-or pair must be both non-overlapping and complete.
 
 Not either-or: the conclusions overlap: The pair does not share a valid case, so overlap is not the problem.
+
+Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
 
 ## 12. CLASSIFY_COMPLEMENTARY_PAIR — seed 11
 
@@ -452,10 +485,11 @@ II. S ≤ A
 ### Options
 
 1. Valid either-or pair
-2. Not either-or: some valid cases are left uncovered
-3. Not either-or: the conclusions overlap
+2. Cannot be determined from the statements
+3. Not either-or: some valid cases are left uncovered
+4. Not either-or: the conclusions overlap
 
-**Correct:** 3. Not either-or: the conclusions overlap
+**Correct:** 4. Not either-or: the conclusions overlap
 
 ### Mock solution
 
@@ -468,6 +502,8 @@ No chain fixes the relation between A and S. The valid possibilities are A < S, 
 Therefore, this is classified as “Not either-or: the conclusions overlap”.
 
 Valid either-or pair: An either-or pair must be both non-overlapping and complete.
+
+Cannot be determined from the statements: The statements give enough information to compare the conclusions across every valid case.
 
 Not either-or: some valid cases are left uncovered: The pair does cover every valid possibility, so incompleteness is not the problem.
 
@@ -1030,11 +1066,10 @@ II. D < S
 
 ### Options
 
-1. Neither conclusion I nor conclusion II follows
-2. Only conclusion II follows
+1. Only conclusion II follows
+2. Neither conclusion I nor conclusion II follows
 3. Either conclusion I or conclusion II follows
-4. Both conclusions I and II follow
-5. Only conclusion I follows
+4. Only conclusion I follows
 
 **Correct:** 3. Either conclusion I or conclusion II follows
 
@@ -1048,11 +1083,9 @@ Use S ≥ D. The valid possibilities are S = D or S > D. Conclusion I covers S =
 
 Hence, either conclusion I or conclusion II follows.
 
-Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
-
 Only conclusion II follows: Neither single conclusion is guaranteed on its own.
 
-Both conclusions I and II follow: The two conclusions cannot be true together.
+Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
 
 Only conclusion I follows: Neither single conclusion is guaranteed on its own.
 
@@ -1075,11 +1108,10 @@ II. P < C
 
 ### Options
 
-1. Only conclusion II follows
-2. Neither conclusion I nor conclusion II follows
-3. Only conclusion I follows
+1. Neither conclusion I nor conclusion II follows
+2. Only conclusion I follows
+3. Both conclusions I and II follow
 4. Either conclusion I or conclusion II follows
-5. Both conclusions I and II follow
 
 **Correct:** 4. Either conclusion I or conclusion II follows
 
@@ -1092,8 +1124,6 @@ Use P ≤ C. The valid possibilities are P < C or P = C. Conclusion I covers P =
 Use P ≤ C. The valid possibilities are P < C or P = C. Conclusion I covers P = C, while conclusion II covers P < C. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.
 
 Hence, either conclusion I or conclusion II follows.
-
-Only conclusion II follows: Neither single conclusion is guaranteed on its own.
 
 Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
 
@@ -1120,13 +1150,12 @@ II. S ≥ P
 
 ### Options
 
-1. Only conclusion I follows
-2. Neither conclusion I nor conclusion II follows
-3. Only conclusion II follows
+1. Only conclusion II follows
+2. Either conclusion I or conclusion II follows
+3. Only conclusion I follows
 4. Both conclusions I and II follow
-5. Either conclusion I or conclusion II follows
 
-**Correct:** 5. Either conclusion I or conclusion II follows
+**Correct:** 2. Either conclusion I or conclusion II follows
 
 ### Mock solution
 
@@ -1138,11 +1167,9 @@ No chain fixes the relation between P and S. The valid possibilities are P < S, 
 
 Hence, either conclusion I or conclusion II follows.
 
-Only conclusion I follows: Neither single conclusion is guaranteed on its own.
-
-Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
-
 Only conclusion II follows: Neither single conclusion is guaranteed on its own.
+
+Only conclusion I follows: Neither single conclusion is guaranteed on its own.
 
 Both conclusions I and II follow: The two conclusions cannot be true together.
 
@@ -1166,13 +1193,12 @@ II. A ≤ P
 
 ### Options
 
-1. Both conclusions I and II follow
-2. Either conclusion I or conclusion II follows
-3. Neither conclusion I nor conclusion II follows
-4. Only conclusion I follows
-5. Only conclusion II follows
+1. Either conclusion I or conclusion II follows
+2. Both conclusions I and II follow
+3. Only conclusion II follows
+4. Neither conclusion I nor conclusion II follows
 
-**Correct:** 2. Either conclusion I or conclusion II follows
+**Correct:** 1. Either conclusion I or conclusion II follows
 
 ### Mock solution
 
@@ -1186,11 +1212,9 @@ Hence, either conclusion I or conclusion II follows.
 
 Both conclusions I and II follow: The two conclusions cannot be true together.
 
-Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
-
-Only conclusion I follows: Neither single conclusion is guaranteed on its own.
-
 Only conclusion II follows: Neither single conclusion is guaranteed on its own.
+
+Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
 
 ## 29. RESOLVE_EITHER_OR_CONCLUSIONS — seed 4
 
@@ -1211,13 +1235,12 @@ II. R = D
 
 ### Options
 
-1. Either conclusion I or conclusion II follows
+1. Neither conclusion I nor conclusion II follows
 2. Only conclusion II follows
-3. Neither conclusion I nor conclusion II follows
-4. Only conclusion I follows
-5. Both conclusions I and II follow
+3. Either conclusion I or conclusion II follows
+4. Both conclusions I and II follow
 
-**Correct:** 1. Either conclusion I or conclusion II follows
+**Correct:** 3. Either conclusion I or conclusion II follows
 
 ### Mock solution
 
@@ -1229,11 +1252,9 @@ Use R ≥ A and D = A. The valid possibilities are D < R or D = R. Conclusion I 
 
 Hence, either conclusion I or conclusion II follows.
 
-Only conclusion II follows: Neither single conclusion is guaranteed on its own.
-
 Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
 
-Only conclusion I follows: Neither single conclusion is guaranteed on its own.
+Only conclusion II follows: Neither single conclusion is guaranteed on its own.
 
 Both conclusions I and II follow: The two conclusions cannot be true together.
 
@@ -1257,13 +1278,12 @@ II. P < Q
 
 ### Options
 
-1. Only conclusion II follows
-2. Neither conclusion I nor conclusion II follows
-3. Either conclusion I or conclusion II follows
-4. Both conclusions I and II follow
-5. Only conclusion I follows
+1. Either conclusion I or conclusion II follows
+2. Only conclusion II follows
+3. Both conclusions I and II follow
+4. Only conclusion I follows
 
-**Correct:** 3. Either conclusion I or conclusion II follows
+**Correct:** 1. Either conclusion I or conclusion II follows
 
 ### Mock solution
 
@@ -1276,8 +1296,6 @@ Use S ≥ P and Q = S. The valid possibilities are P < Q or P = Q. Conclusion I 
 Hence, either conclusion I or conclusion II follows.
 
 Only conclusion II follows: Neither single conclusion is guaranteed on its own.
-
-Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
 
 Both conclusions I and II follow: The two conclusions cannot be true together.
 
@@ -1302,13 +1320,12 @@ II. R ≤ S
 
 ### Options
 
-1. Either conclusion I or conclusion II follows
-2. Only conclusion I follows
+1. Only conclusion I follows
+2. Either conclusion I or conclusion II follows
 3. Only conclusion II follows
-4. Both conclusions I and II follow
-5. Neither conclusion I nor conclusion II follows
+4. Neither conclusion I nor conclusion II follows
 
-**Correct:** 1. Either conclusion I or conclusion II follows
+**Correct:** 2. Either conclusion I or conclusion II follows
 
 ### Mock solution
 
@@ -1323,8 +1340,6 @@ Hence, either conclusion I or conclusion II follows.
 Only conclusion I follows: Neither single conclusion is guaranteed on its own.
 
 Only conclusion II follows: Neither single conclusion is guaranteed on its own.
-
-Both conclusions I and II follow: The two conclusions cannot be true together.
 
 Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
 
@@ -1347,11 +1362,10 @@ II. D = C
 
 ### Options
 
-1. Only conclusion II follows
-2. Neither conclusion I nor conclusion II follows
-3. Only conclusion I follows
+1. Neither conclusion I nor conclusion II follows
+2. Only conclusion I follows
+3. Both conclusions I and II follow
 4. Either conclusion I or conclusion II follows
-5. Both conclusions I and II follow
 
 **Correct:** 4. Either conclusion I or conclusion II follows
 
@@ -1364,8 +1378,6 @@ Use Q ≤ D and C ≤ Q. The valid possibilities are C < D or C = D. Conclusion 
 Use Q ≤ D and C ≤ Q. The valid possibilities are C < D or C = D. Conclusion I covers C < D, while conclusion II covers C = D. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.
 
 Hence, either conclusion I or conclusion II follows.
-
-Only conclusion II follows: Neither single conclusion is guaranteed on its own.
 
 Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
 
@@ -1391,13 +1403,12 @@ II. Q = R
 
 ### Options
 
-1. Both conclusions I and II follow
-2. Either conclusion I or conclusion II follows
+1. Either conclusion I or conclusion II follows
+2. Both conclusions I and II follow
 3. Neither conclusion I nor conclusion II follows
 4. Only conclusion II follows
-5. Only conclusion I follows
 
-**Correct:** 2. Either conclusion I or conclusion II follows
+**Correct:** 1. Either conclusion I or conclusion II follows
 
 ### Mock solution
 
@@ -1414,8 +1425,6 @@ Both conclusions I and II follow: The two conclusions cannot be true together.
 Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
 
 Only conclusion II follows: Neither single conclusion is guaranteed on its own.
-
-Only conclusion I follows: Neither single conclusion is guaranteed on its own.
 
 ## 34. RESOLVE_EITHER_OR_CONCLUSIONS — seed 9
 
@@ -1436,13 +1445,12 @@ II. P = Q
 
 ### Options
 
-1. Neither conclusion I nor conclusion II follows
-2. Both conclusions I and II follow
-3. Only conclusion II follows
+1. Only conclusion II follows
+2. Either conclusion I or conclusion II follows
+3. Both conclusions I and II follow
 4. Only conclusion I follows
-5. Either conclusion I or conclusion II follows
 
-**Correct:** 5. Either conclusion I or conclusion II follows
+**Correct:** 2. Either conclusion I or conclusion II follows
 
 ### Mock solution
 
@@ -1454,11 +1462,9 @@ Use Q ≤ P. The valid possibilities are Q < P or Q = P. Conclusion I covers Q <
 
 Hence, either conclusion I or conclusion II follows.
 
-Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
+Only conclusion II follows: Neither single conclusion is guaranteed on its own.
 
 Both conclusions I and II follow: The two conclusions cannot be true together.
-
-Only conclusion II follows: Neither single conclusion is guaranteed on its own.
 
 Only conclusion I follows: Neither single conclusion is guaranteed on its own.
 
@@ -1481,13 +1487,12 @@ II. P > B
 
 ### Options
 
-1. Either conclusion I or conclusion II follows
-2. Both conclusions I and II follow
+1. Both conclusions I and II follow
+2. Only conclusion I follows
 3. Neither conclusion I nor conclusion II follows
-4. Only conclusion I follows
-5. Only conclusion II follows
+4. Either conclusion I or conclusion II follows
 
-**Correct:** 1. Either conclusion I or conclusion II follows
+**Correct:** 4. Either conclusion I or conclusion II follows
 
 ### Mock solution
 
@@ -1501,11 +1506,9 @@ Hence, either conclusion I or conclusion II follows.
 
 Both conclusions I and II follow: The two conclusions cannot be true together.
 
-Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
-
 Only conclusion I follows: Neither single conclusion is guaranteed on its own.
 
-Only conclusion II follows: Neither single conclusion is guaranteed on its own.
+Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
 
 ## 36. RESOLVE_EITHER_OR_CONCLUSIONS — seed 11
 
@@ -1527,13 +1530,12 @@ II. R ≥ Q
 
 ### Options
 
-1. Both conclusions I and II follow
-2. Only conclusion II follows
-3. Only conclusion I follows
-4. Either conclusion I or conclusion II follows
-5. Neither conclusion I nor conclusion II follows
+1. Neither conclusion I nor conclusion II follows
+2. Only conclusion I follows
+3. Either conclusion I or conclusion II follows
+4. Only conclusion II follows
 
-**Correct:** 4. Either conclusion I or conclusion II follows
+**Correct:** 3. Either conclusion I or conclusion II follows
 
 ### Mock solution
 
@@ -1545,13 +1547,11 @@ No chain fixes the relation between Q and R. The valid possibilities are Q < R, 
 
 Hence, either conclusion I or conclusion II follows.
 
-Both conclusions I and II follow: The two conclusions cannot be true together.
-
-Only conclusion II follows: Neither single conclusion is guaranteed on its own.
+Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
 
 Only conclusion I follows: Neither single conclusion is guaranteed on its own.
 
-Neither conclusion I nor conclusion II follows: Together the conclusions cover every valid possibility.
+Only conclusion II follows: Neither single conclusion is guaranteed on its own.
 
 ## 37. RESOLVE_DEFINITE_PLUS_EITHER_OR — seed 0
 

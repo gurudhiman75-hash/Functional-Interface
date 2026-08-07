@@ -43,12 +43,7 @@ export function validateIneCp004Question(
 ): IneCp004ValidationResult {
   const errors: string[] = [];
   const scenario = question.structuredScenario;
-  const expectedOptionCount =
-    scenario.taskKind === "CLASSIFY_PAIR"
-      ? 3
-      : scenario.taskKind === "EVALUATE_TWO_CONCLUSIONS"
-        ? 5
-        : 4;
+  const expectedOptionCount = 4;
 
   if (question.options.length !== expectedOptionCount) {
     errors.push(`Exactly ${expectedOptionCount} options are required.`);
@@ -107,8 +102,11 @@ export function validateIneCp004Question(
       errors.push("The marked pair status does not match formal evidence.");
     }
     const statuses = question.options.map((option) => option.pairStatus);
-    if (statuses.some((status) => !status) || new Set(statuses).size !== 3) {
-      errors.push("All three pair-status options must appear exactly once.");
+    if (
+      statuses.some((status) => !status) ||
+      new Set(statuses).size !== Object.keys(CP004_PAIR_STATUS_LABELS).length
+    ) {
+      errors.push("All four pair-status responses must appear exactly once.");
     }
     for (const option of question.options) {
       if (
@@ -160,11 +158,10 @@ export function validateIneCp004Question(
       errors.push("The marked response must be the either-or mask.");
     }
     const masks = question.options.map((option) => option.twoConclusionMask);
-    if (
-      masks.some((mask) => !mask) ||
-      new Set(masks).size !== Object.keys(CP004_TWO_MASK_LABELS).length
-    ) {
-      errors.push("All five two-conclusion masks must appear exactly once.");
+    if (masks.some((mask) => !mask) || new Set(masks).size !== 4) {
+      errors.push(
+        "Exactly four distinct two-conclusion responses are required.",
+      );
     }
     for (const option of question.options) {
       if (

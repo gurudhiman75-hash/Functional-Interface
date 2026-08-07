@@ -31,6 +31,7 @@ let reversedPairCount = 0;
 let conditionalStrictEqualityCount = 0;
 let universalStrictInclusiveCount = 0;
 let generatedCount = 0;
+const twoConclusionMasks = new Set<string>();
 
 for (const contract of INE_CP004_PROTOTYPE_CONTRACTS) {
   for (let seed = 0; seed < 12; seed += 1) {
@@ -45,7 +46,7 @@ for (const contract of INE_CP004_PROTOTYPE_CONTRACTS) {
     assert.equal(validation.valid, true, validation.errors.join(" "));
     assert.equal(question.checkpointId, "INE-CP-004");
     assert.equal(question.authorityId, contract.authorityId);
-    assert.equal(question.metadata.runtimeVersion, "ine-cp004-prototype-v1");
+    assert.equal(question.metadata.runtimeVersion, "ine-cp004-prototype-v2");
     assert.equal(question.metadata.deliveryProfile, contract.deliveryProfile);
     assert.deepEqual(
       question.metadata.sourceLedgerIds,
@@ -55,12 +56,7 @@ for (const contract of INE_CP004_PROTOTYPE_CONTRACTS) {
     assert.equal(question.prototypeOnly, true);
     assert.equal(question.publiclyPublishable, false);
     assert.equal(question.questionStudioVisible, false);
-    const expectedOptionCount =
-      contract.taskKind === "CLASSIFY_PAIR"
-        ? 3
-        : contract.taskKind === "EVALUATE_TWO_CONCLUSIONS"
-          ? 5
-          : 4;
+    const expectedOptionCount = 4;
     assert.equal(question.options.length, expectedOptionCount);
     assert.equal(
       new Set(question.options.map((option) => option.value)).size,
@@ -90,6 +86,9 @@ for (const contract of INE_CP004_PROTOTYPE_CONTRACTS) {
       pairStatuses.add(question.structuredScenario.expectedPairStatus!);
     }
     if (contract.taskKind === "EVALUATE_TWO_CONCLUSIONS") {
+      question.options.forEach((option) =>
+        twoConclusionMasks.add(option.twoConclusionMask!),
+      );
       assert.equal(
         question.options[question.correctIndex]!.twoConclusionMask,
         "EITHER_I_OR_II",
@@ -187,6 +186,13 @@ assert.deepEqual([...pairStatuses].sort(), [
 assert.ok(reversedPairCount > 0);
 assert.ok(conditionalStrictEqualityCount > 0);
 assert.ok(universalStrictInclusiveCount > 0);
+assert.deepEqual([...twoConclusionMasks].sort(), [
+  "BOTH",
+  "EITHER_I_OR_II",
+  "NEITHER",
+  "ONLY_I",
+  "ONLY_II",
+]);
 for (const positions of positionsByAuthority.values()) {
   assert.ok(Math.max(...positions) - Math.min(...positions) <= 1);
 }

@@ -6,18 +6,19 @@ import type {
   IneCp004ComplementEvidence,
   IneCp004ConclusionPair,
   IneCp004Option,
-  IneCp004PairStatus,
+  IneCp004PairResponse,
   IneCp004Scenario,
   IneCp004ThreeConclusionMask,
   IneCp004TwoConclusionMask,
 } from "./types";
 
 export const CP004_PAIR_STATUS_LABELS: Readonly<
-  Record<IneCp004PairStatus, string>
+  Record<IneCp004PairResponse, string>
 > = {
   VALID_EITHER_OR: "Valid either-or pair",
   NOT_EXHAUSTIVE: "Not either-or: some valid cases are left uncovered",
   NOT_EXCLUSIVE: "Not either-or: the conclusions overlap",
+  CANNOT_DETERMINE: "Cannot be determined from the statements",
 };
 
 export const CP004_TWO_MASK_LABELS: Readonly<
@@ -81,9 +82,11 @@ function placeCorrectOption(
   return { options, correctIndex };
 }
 
-function statusErrorLabel(status: IneCp004PairStatus): string {
+function statusErrorLabel(status: IneCp004PairResponse): string {
   if (status === "VALID_EITHER_OR") return "MISSED_VALID_PARTITION";
   if (status === "NOT_EXHAUSTIVE") return "IGNORED_UNCOVERED_RELATION";
+  if (status === "CANNOT_DETERMINE")
+    return "FAILED_TO_USE_AVAILABLE_RELATION_DOMAIN";
   return "IGNORED_OVERLAP";
 }
 
@@ -119,7 +122,7 @@ export function buildIneCp004Options(
       isCorrect: true,
     };
     const distractors = random.shuffle(
-      (Object.keys(CP004_PAIR_STATUS_LABELS) as IneCp004PairStatus[])
+      (Object.keys(CP004_PAIR_STATUS_LABELS) as IneCp004PairResponse[])
         .filter((candidate) => candidate !== status)
         .map(
           (candidate): IneCp004Option => ({
@@ -200,9 +203,17 @@ export function buildIneCp004Options(
       twoConclusionMask: correctMask,
       isCorrect: true,
     };
+    const allDistractorMasks = (
+      Object.keys(CP004_TWO_MASK_LABELS) as IneCp004TwoConclusionMask[]
+    ).filter((mask) => mask !== correctMask);
+    const omittedMaskIndex = balancedCorrectIndex(
+      `${scenario.taskKind}:OMITTED_DISTRACTOR`,
+      seed,
+      allDistractorMasks.length,
+    );
     const distractors = random.shuffle(
-      (Object.keys(CP004_TWO_MASK_LABELS) as IneCp004TwoConclusionMask[])
-        .filter((mask) => mask !== correctMask)
+      allDistractorMasks
+        .filter((_, index) => index !== omittedMaskIndex)
         .map(
           (mask): IneCp004Option => ({
             value: CP004_TWO_MASK_LABELS[mask],

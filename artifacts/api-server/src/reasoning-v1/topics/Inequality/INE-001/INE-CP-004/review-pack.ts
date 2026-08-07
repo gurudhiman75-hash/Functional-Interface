@@ -122,7 +122,7 @@ export function renderIneCp004ReviewMarkdown(
   return [
     "# INE-CP-004 English Prototype Review Pack",
     "",
-    "This pack contains 12 questions for each provisional complementary/either-or authority. Permanent QLs remain unallocated, and Question Studio visibility remains disabled.",
+    "This pack contains 12 questions for each provisional complementary/either-or authority. Every question has exactly four answer options. Permanent QLs remain unallocated, and Question Studio visibility remains disabled.",
     "",
     sections.join("\n\n"),
     "",

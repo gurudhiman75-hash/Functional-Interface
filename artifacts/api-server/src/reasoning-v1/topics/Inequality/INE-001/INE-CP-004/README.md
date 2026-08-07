@@ -8,7 +8,7 @@ INE-CP-004 proves complementary/either-or conclusions from the relation domain p
 | --------------------------------- | ------------------------------------------------------------------------------ | ---------------------- |
 | `CLASSIFY_COMPLEMENTARY_PAIR`     | Decide whether a pair is valid either-or, incomplete, or overlapping           | Guided concept         |
 | `IDENTIFY_COMPLEMENTARY_PAIR`     | Select the only pair that is individually uncertain, exclusive, and exhaustive | Guided concept         |
-| `RESOLVE_EITHER_OR_CONCLUSIONS`   | Solve the five-mask two-conclusion Banking format                              | Banking mock prototype |
+| `RESOLVE_EITHER_OR_CONCLUSIONS`   | Solve the four-option two-conclusion exam format                               | Banking mock prototype |
 | `RESOLVE_DEFINITE_PLUS_EITHER_OR` | Combine one definite conclusion with an either-or pair                         | Banking mock prototype |
 
 ## Formal either-or contract
@@ -30,6 +30,7 @@ This correctly handles conditional pairs. For example, `A > B` versus `A = B` is
 - all eight topologies include formal complementary evidence;
 - reversal forms are generated and checked canonically;
 - options have explicit misconception ownership;
+- every generated question has exactly four unique answer options;
 - explanations show individual non-definiteness, mutual exclusivity, and joint exhaustiveness;
 - source-ledger IDs are attached to every authority;
 - permanent QLs and Question Studio visibility remain disabled.
