@@ -1,0 +1,1569 @@
+[
+  {
+    "index": 1,
+    "recordId": "INE-CP005-1FB43370",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 0,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "context": "GENERIC",
+    "topologyId": "PHRASE_LESS_THAN",
+    "stem": "Which symbolic relation has exactly the same meaning as the statement?",
+    "statements": [
+      "B is less than D."
+    ],
+    "options": [
+      "B > D",
+      "B < D",
+      "B = D",
+      "B ≥ D"
+    ],
+    "correctIndex": 1,
+    "correctOption": "B < D",
+    "mockSolution": "“B is less than D” means less than. So the sentence is written symbolically as B < D.",
+    "learningSolution": "“B is less than D” means less than.\n\nSo the sentence is written symbolically as B < D.\n\nB > D: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nB = D: Nothing in the statement or chain forces the two values to be equal.\n\nB ≥ D: This comparison points in the wrong direction or uses the wrong degree of certainty.",
+    "sourceLedgerIds": [
+      "AGG-INE-001"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 2,
+    "recordId": "INE-CP005-2D76BB3B",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 1,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "context": "MARKS",
+    "topologyId": "PHRASE_NEITHER_GREATER_NOR_EQUAL",
+    "stem": "Which symbolic relation has exactly the same meaning as the statement?",
+    "statements": [
+      "Farah's marks are neither greater than nor equal to Gagan's marks."
+    ],
+    "options": [
+      "Farah ≥ Gagan",
+      "Farah = Gagan",
+      "Farah < Gagan",
+      "Farah > Gagan"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Farah < Gagan",
+    "mockSolution": "“Farah's marks are neither greater than nor equal to Gagan's marks” rules out greater than and equal to, so it means less than. So the sentence is written symbolically as Farah < Gagan.",
+    "learningSolution": "“Farah's marks are neither greater than nor equal to Gagan's marks” rules out greater than and equal to, so it means less than.\n\nSo the sentence is written symbolically as Farah < Gagan.\n\nFarah ≥ Gagan: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nFarah = Gagan: Nothing in the statement or chain forces the two values to be equal.\n\nFarah > Gagan: This comparison points in the wrong direction or uses the wrong degree of certainty.",
+    "sourceLedgerIds": [
+      "AGG-INE-001"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 3,
+    "recordId": "INE-CP005-599C97A6",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 2,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "context": "SALARY",
+    "topologyId": "PHRASE_NOT_GREATER_THAN",
+    "stem": "Which symbolic relation has exactly the same meaning as the statement?",
+    "statements": [
+      "Aman's salary is not greater than Charan's salary."
+    ],
+    "options": [
+      "Aman = Charan",
+      "Aman < Charan",
+      "Aman > Charan",
+      "Aman ≤ Charan"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Aman ≤ Charan",
+    "mockSolution": "“Aman's salary is not greater than Charan's salary” allows less than or equal to. So the sentence is written symbolically as Aman ≤ Charan.",
+    "learningSolution": "“Aman's salary is not greater than Charan's salary” allows less than or equal to.\n\nSo the sentence is written symbolically as Aman ≤ Charan.\n\nAman = Charan: The wording allows both less than and equal to, so this option is too specific.\n\nAman < Charan: The wording allows both less than and equal to, so this option is too specific.\n\nAman > Charan: This comparison points in the wrong direction or uses the wrong degree of certainty.",
+    "sourceLedgerIds": [
+      "AGG-INE-001"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 4,
+    "recordId": "INE-CP005-B38F2D29",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 3,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "context": "HEIGHT",
+    "topologyId": "PHRASE_NOT_GREATER_THAN",
+    "stem": "Which symbolic relation has exactly the same meaning as the statement?",
+    "statements": [
+      "Farah's height is not greater than Gagan's height."
+    ],
+    "options": [
+      "Farah ≤ Gagan",
+      "Farah > Gagan",
+      "Farah < Gagan",
+      "The relation cannot be determined"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Farah ≤ Gagan",
+    "mockSolution": "“Farah's height is not greater than Gagan's height” allows less than or equal to. So the sentence is written symbolically as Farah ≤ Gagan.",
+    "learningSolution": "“Farah's height is not greater than Gagan's height” allows less than or equal to.\n\nSo the sentence is written symbolically as Farah ≤ Gagan.\n\nFarah > Gagan: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nFarah < Gagan: The wording allows both less than and equal to, so this option is too specific.\n\nThe relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.",
+    "sourceLedgerIds": [
+      "AGG-INE-001"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 5,
+    "recordId": "INE-CP005-972B75A4",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 4,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "context": "WEIGHT",
+    "topologyId": "PHRASE_EQUAL_TO",
+    "stem": "Which symbolic relation has exactly the same meaning as the statement?",
+    "statements": [
+      "Gagan's weight is equal to Farah's weight."
+    ],
+    "options": [
+      "Gagan = Farah",
+      "The relation cannot be determined",
+      "Gagan < Farah",
+      "Gagan ≥ Farah"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Gagan = Farah",
+    "mockSolution": "“Gagan's weight is equal to Farah's weight” means equal to. So the sentence is written symbolically as Gagan = Farah.",
+    "learningSolution": "“Gagan's weight is equal to Farah's weight” means equal to.\n\nSo the sentence is written symbolically as Gagan = Farah.\n\nThe relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.\n\nGagan < Farah: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nGagan ≥ Farah: This comparison points in the wrong direction or uses the wrong degree of certainty.",
+    "sourceLedgerIds": [
+      "AGG-INE-001"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 6,
+    "recordId": "INE-CP005-C9146BEF",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 5,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "context": "SCORE",
+    "topologyId": "PHRASE_NEITHER_LESS_NOR_EQUAL",
+    "stem": "Which symbolic relation has exactly the same meaning as the statement?",
+    "statements": [
+      "Diya's score is neither less than nor equal to Aman's score."
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "Diya = Aman",
+      "Diya > Aman",
+      "Diya < Aman"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Diya > Aman",
+    "mockSolution": "“Diya's score is neither less than nor equal to Aman's score” rules out less than and equal to, so it means greater than. So the sentence is written symbolically as Diya > Aman.",
+    "learningSolution": "“Diya's score is neither less than nor equal to Aman's score” rules out less than and equal to, so it means greater than.\n\nSo the sentence is written symbolically as Diya > Aman.\n\nThe relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.\n\nDiya = Aman: Nothing in the statement or chain forces the two values to be equal.\n\nDiya < Aman: This comparison points in the wrong direction or uses the wrong degree of certainty.",
+    "sourceLedgerIds": [
+      "AGG-INE-001"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 7,
+    "recordId": "INE-CP005-B31FD58A",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 6,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "context": "PRICE",
+    "topologyId": "PHRASE_LESS_THAN",
+    "stem": "Which symbolic relation has exactly the same meaning as the statement?",
+    "statements": [
+      "The price of Product F is less than the price of Product B."
+    ],
+    "options": [
+      "Product F ≤ Product B",
+      "Product F < Product B",
+      "Product F > Product B",
+      "Product F ≥ Product B"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Product F < Product B",
+    "mockSolution": "“The price of Product F is less than the price of Product B” means less than. So the sentence is written symbolically as Product F < Product B.",
+    "learningSolution": "“The price of Product F is less than the price of Product B” means less than.\n\nSo the sentence is written symbolically as Product F < Product B.\n\nProduct F ≤ Product B: This is weaker than the strict less-than relation proved by the chain.\n\nProduct F > Product B: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nProduct F ≥ Product B: This comparison points in the wrong direction or uses the wrong degree of certainty.",
+    "sourceLedgerIds": [
+      "AGG-INE-001"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 8,
+    "recordId": "INE-CP005-9C3E2DDD",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 7,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "context": "PRODUCTION",
+    "topologyId": "PHRASE_NEITHER_LESS_NOR_GREATER",
+    "stem": "Which symbolic relation has exactly the same meaning as the statement?",
+    "statements": [
+      "Plant C's production is neither less than nor greater than Plant D's production."
+    ],
+    "options": [
+      "Plant C ≥ Plant D",
+      "Plant C < Plant D",
+      "Plant C ≤ Plant D",
+      "Plant C = Plant D"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Plant C = Plant D",
+    "mockSolution": "“Plant C's production is neither less than nor greater than Plant D's production” means equal to. So the sentence is written symbolically as Plant C = Plant D.",
+    "learningSolution": "“Plant C's production is neither less than nor greater than Plant D's production” means equal to.\n\nSo the sentence is written symbolically as Plant C = Plant D.\n\nPlant C ≥ Plant D: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nPlant C < Plant D: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nPlant C ≤ Plant D: This comparison points in the wrong direction or uses the wrong degree of certainty.",
+    "sourceLedgerIds": [
+      "AGG-INE-001"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 9,
+    "recordId": "INE-CP005-F22A06A8",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 8,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "context": "GENERIC",
+    "topologyId": "PHRASE_LESS_THAN",
+    "stem": "Which symbolic relation has exactly the same meaning as the statement?",
+    "statements": [
+      "C is less than B."
+    ],
+    "options": [
+      "C ≥ B",
+      "C = B",
+      "C > B",
+      "C < B"
+    ],
+    "correctIndex": 3,
+    "correctOption": "C < B",
+    "mockSolution": "“C is less than B” means less than. So the sentence is written symbolically as C < B.",
+    "learningSolution": "“C is less than B” means less than.\n\nSo the sentence is written symbolically as C < B.\n\nC ≥ B: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nC = B: Nothing in the statement or chain forces the two values to be equal.\n\nC > B: This comparison points in the wrong direction or uses the wrong degree of certainty.",
+    "sourceLedgerIds": [
+      "AGG-INE-001"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 10,
+    "recordId": "INE-CP005-BEF70A13",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 9,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "context": "MARKS",
+    "topologyId": "PHRASE_NEITHER_GREATER_NOR_EQUAL",
+    "stem": "Which symbolic relation has exactly the same meaning as the statement?",
+    "statements": [
+      "Aman's marks are neither greater than nor equal to Farah's marks."
+    ],
+    "options": [
+      "Aman < Farah",
+      "Aman ≥ Farah",
+      "Aman > Farah",
+      "Aman ≤ Farah"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Aman < Farah",
+    "mockSolution": "“Aman's marks are neither greater than nor equal to Farah's marks” rules out greater than and equal to, so it means less than. So the sentence is written symbolically as Aman < Farah.",
+    "learningSolution": "“Aman's marks are neither greater than nor equal to Farah's marks” rules out greater than and equal to, so it means less than.\n\nSo the sentence is written symbolically as Aman < Farah.\n\nAman ≥ Farah: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nAman > Farah: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nAman ≤ Farah: This is weaker than the strict less-than relation proved by the chain.",
+    "sourceLedgerIds": [
+      "AGG-INE-001"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 11,
+    "recordId": "INE-CP005-3B95BA1F",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 10,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "context": "SALARY",
+    "topologyId": "PHRASE_NOT_GREATER_THAN",
+    "stem": "Which symbolic relation has exactly the same meaning as the statement?",
+    "statements": [
+      "Bina's salary is not greater than Aman's salary."
+    ],
+    "options": [
+      "Bina < Aman",
+      "Bina > Aman",
+      "Bina ≤ Aman",
+      "Bina ≥ Aman"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Bina ≤ Aman",
+    "mockSolution": "“Bina's salary is not greater than Aman's salary” allows less than or equal to. So the sentence is written symbolically as Bina ≤ Aman.",
+    "learningSolution": "“Bina's salary is not greater than Aman's salary” allows less than or equal to.\n\nSo the sentence is written symbolically as Bina ≤ Aman.\n\nBina < Aman: The wording allows both less than and equal to, so this option is too specific.\n\nBina > Aman: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nBina ≥ Aman: This comparison points in the wrong direction or uses the wrong degree of certainty.",
+    "sourceLedgerIds": [
+      "AGG-INE-001"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 12,
+    "recordId": "INE-CP005-3F8858D4",
+    "authorityId": "INTERPRET_LINGUISTIC_RELATION",
+    "seed": 11,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "context": "HEIGHT",
+    "topologyId": "PHRASE_NOT_LESS_THAN",
+    "stem": "Which symbolic relation has exactly the same meaning as the statement?",
+    "statements": [
+      "Gagan's height is not less than Diya's height."
+    ],
+    "options": [
+      "Gagan = Diya",
+      "Gagan ≥ Diya",
+      "Gagan ≤ Diya",
+      "Gagan < Diya"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Gagan ≥ Diya",
+    "mockSolution": "“Gagan's height is not less than Diya's height” allows greater than or equal to. So the sentence is written symbolically as Gagan ≥ Diya.",
+    "learningSolution": "“Gagan's height is not less than Diya's height” allows greater than or equal to.\n\nSo the sentence is written symbolically as Gagan ≥ Diya.\n\nGagan = Diya: The wording allows both greater than and equal to, so this option is too specific.\n\nGagan ≤ Diya: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nGagan < Diya: This comparison points in the wrong direction or uses the wrong degree of certainty.",
+    "sourceLedgerIds": [
+      "AGG-INE-001"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 13,
+    "recordId": "INE-CP005-C6134201",
+    "authorityId": "SOLVE_LINGUISTIC_CHAIN",
+    "seed": 0,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "GENERIC",
+    "topologyId": "DIRECT_STRICT",
+    "stem": "What is the strongest definite relation between B and P?",
+    "statements": [
+      "P is less than B."
+    ],
+    "options": [
+      "B ≥ P",
+      "B = P",
+      "B < P",
+      "B > P"
+    ],
+    "correctIndex": 3,
+    "correctOption": "B > P",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “P is less than B” means less than; symbolically, P < B. The translated statements allow B > P. Therefore, B > P is the strongest definite relation.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“P is less than B” means less than; symbolically, P < B.\n\nThe translated statements allow B > P.\n\nTherefore, B > P is the strongest definite relation.\n\nB ≥ P: This is weaker than the strict greater-than relation proved by the chain.\n\nB = P: Nothing in the statement or chain forces the two values to be equal.\n\nB < P: This comparison points in the wrong direction or uses the wrong degree of certainty.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-002"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 14,
+    "recordId": "INE-CP005-6DE2ADFE",
+    "authorityId": "SOLVE_LINGUISTIC_CHAIN",
+    "seed": 1,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "MARKS",
+    "topologyId": "DIRECT_INCLUSIVE",
+    "stem": "What is the strongest definite relation between Gagan's marks and Bina's marks?",
+    "statements": [
+      "Gagan's marks are not less than Bina's marks."
+    ],
+    "options": [
+      "Gagan < Bina",
+      "Gagan ≥ Bina",
+      "Gagan = Bina",
+      "The relation cannot be determined"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Gagan ≥ Bina",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Gagan's marks are not less than Bina's marks” allows greater than or equal to; symbolically, Gagan ≥ Bina. The translated statements allow Gagan = Bina or Gagan > Bina. Therefore, Gagan ≥ Bina is the strongest definite relation.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“Gagan's marks are not less than Bina's marks” allows greater than or equal to; symbolically, Gagan ≥ Bina.\n\nThe translated statements allow Gagan = Bina or Gagan > Bina.\n\nTherefore, Gagan ≥ Bina is the strongest definite relation.\n\nGagan < Bina: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nGagan = Bina: The wording allows both greater than and equal to, so this option is too specific.\n\nThe relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-002"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 15,
+    "recordId": "INE-CP005-75B6B533",
+    "authorityId": "SOLVE_LINGUISTIC_CHAIN",
+    "seed": 2,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "SALARY",
+    "topologyId": "TWO_EDGE_STRICT_CHAIN",
+    "stem": "What is the strongest definite relation between Aman's salary and Bina's salary?",
+    "statements": [
+      "Diya's salary is greater than Bina's salary.",
+      "Aman's salary is neither less than nor equal to Diya's salary."
+    ],
+    "options": [
+      "Aman > Bina",
+      "Aman < Bina",
+      "Aman = Bina",
+      "Aman ≤ Bina"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Aman > Bina",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Diya's salary is greater than Bina's salary” means greater than; symbolically, Diya > Bina. “Aman's salary is neither less than nor equal to Diya's salary” rules out less than and equal to, so it means greater than; symbolically, Aman > Diya. The translated statements allow Aman > Bina. Therefore, Aman > Bina is the strongest definite relation.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“Diya's salary is greater than Bina's salary” means greater than; symbolically, Diya > Bina.\n\n“Aman's salary is neither less than nor equal to Diya's salary” rules out less than and equal to, so it means greater than; symbolically, Aman > Diya.\n\nThe translated statements allow Aman > Bina.\n\nTherefore, Aman > Bina is the strongest definite relation.\n\nAman < Bina: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nAman = Bina: Nothing in the statement or chain forces the two values to be equal.\n\nAman ≤ Bina: This comparison points in the wrong direction or uses the wrong degree of certainty.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-002"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 16,
+    "recordId": "INE-CP005-7C667848",
+    "authorityId": "SOLVE_LINGUISTIC_CHAIN",
+    "seed": 3,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "HEIGHT",
+    "topologyId": "INCLUSIVE_STRICT_CHAIN",
+    "stem": "What is the strongest definite relation between Diya's height and Bina's height?",
+    "statements": [
+      "Diya's height is not less than Aman's height.",
+      "Aman's height is greater than Bina's height."
+    ],
+    "options": [
+      "Diya ≤ Bina",
+      "The relation cannot be determined",
+      "Diya > Bina",
+      "Diya < Bina"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Diya > Bina",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Diya's height is not less than Aman's height” allows greater than or equal to; symbolically, Diya ≥ Aman. “Aman's height is greater than Bina's height” means greater than; symbolically, Aman > Bina. The translated statements allow Diya > Bina. Therefore, Diya > Bina is the strongest definite relation.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“Diya's height is not less than Aman's height” allows greater than or equal to; symbolically, Diya ≥ Aman.\n\n“Aman's height is greater than Bina's height” means greater than; symbolically, Aman > Bina.\n\nThe translated statements allow Diya > Bina.\n\nTherefore, Diya > Bina is the strongest definite relation.\n\nDiya ≤ Bina: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nThe relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.\n\nDiya < Bina: This comparison points in the wrong direction or uses the wrong degree of certainty.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-002"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 17,
+    "recordId": "INE-CP005-A619EC15",
+    "authorityId": "SOLVE_LINGUISTIC_CHAIN",
+    "seed": 4,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "WEIGHT",
+    "topologyId": "EQUALITY_BRIDGE_CHAIN",
+    "stem": "What is the strongest definite relation between Aman's weight and Farah's weight?",
+    "statements": [
+      "Farah's weight is equal to Gagan's weight.",
+      "Gagan's weight is not greater than Aman's weight."
+    ],
+    "options": [
+      "Aman ≤ Farah",
+      "Aman > Farah",
+      "Aman ≥ Farah",
+      "The relation cannot be determined"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Aman ≥ Farah",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Farah's weight is equal to Gagan's weight” means equal to; symbolically, Farah = Gagan. “Gagan's weight is not greater than Aman's weight” allows less than or equal to; symbolically, Gagan ≤ Aman. The translated statements allow Aman = Farah or Aman > Farah. Therefore, Aman ≥ Farah is the strongest definite relation.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“Farah's weight is equal to Gagan's weight” means equal to; symbolically, Farah = Gagan.\n\n“Gagan's weight is not greater than Aman's weight” allows less than or equal to; symbolically, Gagan ≤ Aman.\n\nThe translated statements allow Aman = Farah or Aman > Farah.\n\nTherefore, Aman ≥ Farah is the strongest definite relation.\n\nAman ≤ Farah: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nAman > Farah: The wording allows both greater than and equal to, so this option is too specific.\n\nThe relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-002"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 18,
+    "recordId": "INE-CP005-18AB7AA2",
+    "authorityId": "SOLVE_LINGUISTIC_CHAIN",
+    "seed": 5,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "SCORE",
+    "topologyId": "THREE_EDGE_WEAK_CHAIN",
+    "stem": "What is the strongest definite relation between Diya's score and Aman's score?",
+    "statements": [
+      "Diya's score is not greater than Farah's score.",
+      "Gagan's score is not greater than Aman's score.",
+      "Gagan's score is neither less than nor greater than Farah's score."
+    ],
+    "options": [
+      "Diya = Aman",
+      "Diya < Aman",
+      "The relation cannot be determined",
+      "Diya ≤ Aman"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Diya ≤ Aman",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Diya's score is not greater than Farah's score” allows less than or equal to; symbolically, Diya ≤ Farah. “Gagan's score is not greater than Aman's score” allows less than or equal to; symbolically, Gagan ≤ Aman. “Gagan's score is neither less than nor greater than Farah's score” means equal to; symbolically, Gagan = Farah. The translated statements allow Diya < Aman or Diya = Aman. Therefore, Diya ≤ Aman is the strongest definite relation.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“Diya's score is not greater than Farah's score” allows less than or equal to; symbolically, Diya ≤ Farah.\n\n“Gagan's score is not greater than Aman's score” allows less than or equal to; symbolically, Gagan ≤ Aman.\n\n“Gagan's score is neither less than nor greater than Farah's score” means equal to; symbolically, Gagan = Farah.\n\nThe translated statements allow Diya < Aman or Diya = Aman.\n\nTherefore, Diya ≤ Aman is the strongest definite relation.\n\nDiya = Aman: The wording allows both less than and equal to, so this option is too specific.\n\nDiya < Aman: The wording allows both less than and equal to, so this option is too specific.\n\nThe relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-002"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 19,
+    "recordId": "INE-CP005-35D27727",
+    "authorityId": "SOLVE_LINGUISTIC_CHAIN",
+    "seed": 6,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "PRICE",
+    "topologyId": "SHARED_UPPER_FREE_ENDPOINTS",
+    "stem": "What is the strongest definite relation between the prices of Product C and Product A?",
+    "statements": [
+      "The price of Product D is greater than the price of Product C.",
+      "The price of Product D is neither less than nor equal to the price of Product A."
+    ],
+    "options": [
+      "Product C ≥ Product A",
+      "The relation cannot be determined",
+      "Product C ≤ Product A",
+      "Product C < Product A"
+    ],
+    "correctIndex": 1,
+    "correctOption": "The relation cannot be determined",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “The price of Product D is greater than the price of Product C” means greater than; symbolically, Product D > Product C. “The price of Product D is neither less than nor equal to the price of Product A” rules out less than and equal to, so it means greater than; symbolically, Product D > Product A. The translated statements allow Product C < Product A, Product C = Product A, or Product C > Product A. Therefore, the relation between Product C and Product A cannot be determined.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“The price of Product D is greater than the price of Product C” means greater than; symbolically, Product D > Product C.\n\n“The price of Product D is neither less than nor equal to the price of Product A” rules out less than and equal to, so it means greater than; symbolically, Product D > Product A.\n\nThe translated statements allow Product C < Product A, Product C = Product A, or Product C > Product A.\n\nTherefore, the relation between Product C and Product A cannot be determined.\n\nProduct C ≥ Product A: The statements do not fix one definite relation, so this option claims more than the information proves.\n\nProduct C ≤ Product A: The statements do not fix one definite relation, so this option claims more than the information proves.\n\nProduct C < Product A: The statements do not fix one definite relation, so this option claims more than the information proves.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-002"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 20,
+    "recordId": "INE-CP005-2E18185C",
+    "authorityId": "SOLVE_LINGUISTIC_CHAIN",
+    "seed": 7,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "PRODUCTION",
+    "topologyId": "DISCONNECTED_COMPONENTS",
+    "stem": "What is the strongest definite relation between Plant C's production and Plant B's production?",
+    "statements": [
+      "Plant A's production is neither less than nor equal to Plant C's production.",
+      "Plant B's production is less than Plant D's production."
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "Plant C < Plant B",
+      "Plant C ≤ Plant B",
+      "Plant C > Plant B"
+    ],
+    "correctIndex": 0,
+    "correctOption": "The relation cannot be determined",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Plant A's production is neither less than nor equal to Plant C's production” rules out less than and equal to, so it means greater than; symbolically, Plant A > Plant C. “Plant B's production is less than Plant D's production” means less than; symbolically, Plant B < Plant D. The translated statements allow Plant C < Plant B, Plant C = Plant B, or Plant C > Plant B. Therefore, the relation between Plant C and Plant B cannot be determined.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“Plant A's production is neither less than nor equal to Plant C's production” rules out less than and equal to, so it means greater than; symbolically, Plant A > Plant C.\n\n“Plant B's production is less than Plant D's production” means less than; symbolically, Plant B < Plant D.\n\nThe translated statements allow Plant C < Plant B, Plant C = Plant B, or Plant C > Plant B.\n\nTherefore, the relation between Plant C and Plant B cannot be determined.\n\nPlant C < Plant B: The statements do not fix one definite relation, so this option claims more than the information proves.\n\nPlant C ≤ Plant B: The statements do not fix one definite relation, so this option claims more than the information proves.\n\nPlant C > Plant B: The statements do not fix one definite relation, so this option claims more than the information proves.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-002"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 21,
+    "recordId": "INE-CP005-921045C9",
+    "authorityId": "SOLVE_LINGUISTIC_CHAIN",
+    "seed": 8,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "GENERIC",
+    "topologyId": "FOUR_EDGE_MIXED_CHAIN",
+    "stem": "What is the strongest definite relation between A and D?",
+    "statements": [
+      "P is equal to C.",
+      "P is not greater than A.",
+      "D is not greater than Q.",
+      "C is neither less than nor equal to Q."
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "A ≤ D",
+      "A > D",
+      "A < D"
+    ],
+    "correctIndex": 2,
+    "correctOption": "A > D",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “P is equal to C” means equal to; symbolically, P = C. “P is not greater than A” allows less than or equal to; symbolically, P ≤ A. “D is not greater than Q” allows less than or equal to; symbolically, D ≤ Q. “C is neither less than nor equal to Q” rules out less than and equal to, so it means greater than; symbolically, C > Q. The translated statements allow A > D. Therefore, A > D is the strongest definite relation.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“P is equal to C” means equal to; symbolically, P = C.\n\n“P is not greater than A” allows less than or equal to; symbolically, P ≤ A.\n\n“D is not greater than Q” allows less than or equal to; symbolically, D ≤ Q.\n\n“C is neither less than nor equal to Q” rules out less than and equal to, so it means greater than; symbolically, C > Q.\n\nThe translated statements allow A > D.\n\nTherefore, A > D is the strongest definite relation.\n\nThe relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.\n\nA ≤ D: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nA < D: This comparison points in the wrong direction or uses the wrong degree of certainty.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-002"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 22,
+    "recordId": "INE-CP005-00777746",
+    "authorityId": "SOLVE_LINGUISTIC_CHAIN",
+    "seed": 9,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "MARKS",
+    "topologyId": "FOUR_EDGE_WEAK_CHAIN",
+    "stem": "What is the strongest definite relation between Diya's marks and Aman's marks?",
+    "statements": [
+      "Farah's marks are neither less than nor greater than Diya's marks.",
+      "Gagan's marks are not less than Aman's marks.",
+      "Bina's marks are not greater than Farah's marks.",
+      "Bina's marks are equal to Gagan's marks."
+    ],
+    "options": [
+      "Diya < Aman",
+      "Diya ≥ Aman",
+      "Diya > Aman",
+      "Diya = Aman"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Diya ≥ Aman",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Farah's marks are neither less than nor greater than Diya's marks” means equal to; symbolically, Farah = Diya. “Gagan's marks are not less than Aman's marks” allows greater than or equal to; symbolically, Gagan ≥ Aman. “Bina's marks are not greater than Farah's marks” allows less than or equal to; symbolically, Bina ≤ Farah. “Bina's marks are equal to Gagan's marks” means equal to; symbolically, Bina = Gagan. The translated statements allow Diya = Aman or Diya > Aman. Therefore, Diya ≥ Aman is the strongest definite relation.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“Farah's marks are neither less than nor greater than Diya's marks” means equal to; symbolically, Farah = Diya.\n\n“Gagan's marks are not less than Aman's marks” allows greater than or equal to; symbolically, Gagan ≥ Aman.\n\n“Bina's marks are not greater than Farah's marks” allows less than or equal to; symbolically, Bina ≤ Farah.\n\n“Bina's marks are equal to Gagan's marks” means equal to; symbolically, Bina = Gagan.\n\nThe translated statements allow Diya = Aman or Diya > Aman.\n\nTherefore, Diya ≥ Aman is the strongest definite relation.\n\nDiya < Aman: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nDiya > Aman: The wording allows both greater than and equal to, so this option is too specific.\n\nDiya = Aman: The wording allows both greater than and equal to, so this option is too specific.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-002"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 23,
+    "recordId": "INE-CP005-09235E70",
+    "authorityId": "SOLVE_LINGUISTIC_CHAIN",
+    "seed": 10,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "SALARY",
+    "topologyId": "CONVERGING_BRANCH",
+    "stem": "What is the strongest definite relation between Farah's salary and Bina's salary?",
+    "statements": [
+      "Bina's salary is greater than Charan's salary.",
+      "Gagan's salary is neither less than nor equal to Bina's salary.",
+      "Charan's salary is not greater than Farah's salary."
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "Farah < Bina",
+      "Farah ≥ Bina",
+      "Farah ≤ Bina"
+    ],
+    "correctIndex": 0,
+    "correctOption": "The relation cannot be determined",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Bina's salary is greater than Charan's salary” means greater than; symbolically, Bina > Charan. “Gagan's salary is neither less than nor equal to Bina's salary” rules out less than and equal to, so it means greater than; symbolically, Gagan > Bina. “Charan's salary is not greater than Farah's salary” allows less than or equal to; symbolically, Charan ≤ Farah. The translated statements allow Farah < Bina, Farah = Bina, or Farah > Bina. Therefore, the relation between Farah and Bina cannot be determined.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“Bina's salary is greater than Charan's salary” means greater than; symbolically, Bina > Charan.\n\n“Gagan's salary is neither less than nor equal to Bina's salary” rules out less than and equal to, so it means greater than; symbolically, Gagan > Bina.\n\n“Charan's salary is not greater than Farah's salary” allows less than or equal to; symbolically, Charan ≤ Farah.\n\nThe translated statements allow Farah < Bina, Farah = Bina, or Farah > Bina.\n\nTherefore, the relation between Farah and Bina cannot be determined.\n\nFarah < Bina: The statements do not fix one definite relation, so this option claims more than the information proves.\n\nFarah ≥ Bina: The statements do not fix one definite relation, so this option claims more than the information proves.\n\nFarah ≤ Bina: The statements do not fix one definite relation, so this option claims more than the information proves.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-002"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 24,
+    "recordId": "INE-CP005-16E5E63B",
+    "authorityId": "SOLVE_LINGUISTIC_CHAIN",
+    "seed": 11,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "HEIGHT",
+    "topologyId": "CHAIN_WITH_IRRELEVANT_EDGE",
+    "stem": "What is the strongest definite relation between Charan's height and Diya's height?",
+    "statements": [
+      "Charan's height is neither less than nor equal to Aman's height.",
+      "Aman's height is not less than Diya's height.",
+      "Gagan's height is neither less than nor greater than Farah's height."
+    ],
+    "options": [
+      "Charan ≥ Diya",
+      "Charan ≤ Diya",
+      "Charan < Diya",
+      "Charan > Diya"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Charan > Diya",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Charan's height is neither less than nor equal to Aman's height” rules out less than and equal to, so it means greater than; symbolically, Charan > Aman. “Aman's height is not less than Diya's height” allows greater than or equal to; symbolically, Aman ≥ Diya. “Gagan's height is neither less than nor greater than Farah's height” means equal to; symbolically, Gagan = Farah. The translated statements allow Charan > Diya. Therefore, Charan > Diya is the strongest definite relation.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“Charan's height is neither less than nor equal to Aman's height” rules out less than and equal to, so it means greater than; symbolically, Charan > Aman.\n\n“Aman's height is not less than Diya's height” allows greater than or equal to; symbolically, Aman ≥ Diya.\n\n“Gagan's height is neither less than nor greater than Farah's height” means equal to; symbolically, Gagan = Farah.\n\nThe translated statements allow Charan > Diya.\n\nTherefore, Charan > Diya is the strongest definite relation.\n\nCharan ≥ Diya: This is weaker than the strict greater-than relation proved by the chain.\n\nCharan ≤ Diya: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nCharan < Diya: This comparison points in the wrong direction or uses the wrong degree of certainty.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-005",
+      "DISHA-INE-002"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 25,
+    "recordId": "INE-CP005-90C6269D",
+    "authorityId": "SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN",
+    "seed": 0,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "GENERIC",
+    "topologyId": "TWO_EDGE_STRICT_CHAIN",
+    "stem": "What is the strongest definite relation between Q and A?",
+    "statements": [
+      "P is greater than Q.",
+      "P < A"
+    ],
+    "options": [
+      "Q ≤ A",
+      "Q > A",
+      "The relation cannot be determined",
+      "Q < A"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Q < A",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “P is greater than Q” means greater than; symbolically, P > Q. The translated statements allow Q < A. Therefore, Q < A is the strongest definite relation.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“P is greater than Q” means greater than; symbolically, P > Q.\n\nThe translated statements allow Q < A.\n\nTherefore, Q < A is the strongest definite relation.\n\nQ ≤ A: This is weaker than the strict less-than relation proved by the chain.\n\nQ > A: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nThe relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 26,
+    "recordId": "INE-CP005-9E20114A",
+    "authorityId": "SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN",
+    "seed": 1,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "MARKS",
+    "topologyId": "INCLUSIVE_STRICT_CHAIN",
+    "stem": "What is the strongest definite relation between Bina's marks and Gagan's marks?",
+    "statements": [
+      "Bina's marks are not less than Aman's marks.",
+      "Gagan < Aman"
+    ],
+    "options": [
+      "Bina ≥ Gagan",
+      "Bina > Gagan",
+      "Bina = Gagan",
+      "Bina ≤ Gagan"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Bina > Gagan",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Bina's marks are not less than Aman's marks” allows greater than or equal to; symbolically, Bina ≥ Aman. The translated statements allow Bina > Gagan. Therefore, Bina > Gagan is the strongest definite relation.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“Bina's marks are not less than Aman's marks” allows greater than or equal to; symbolically, Bina ≥ Aman.\n\nThe translated statements allow Bina > Gagan.\n\nTherefore, Bina > Gagan is the strongest definite relation.\n\nBina ≥ Gagan: This is weaker than the strict greater-than relation proved by the chain.\n\nBina = Gagan: Nothing in the statement or chain forces the two values to be equal.\n\nBina ≤ Gagan: This comparison points in the wrong direction or uses the wrong degree of certainty.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 27,
+    "recordId": "INE-CP005-87E156AF",
+    "authorityId": "SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN",
+    "seed": 2,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "SALARY",
+    "topologyId": "TWO_EDGE_STRICT_CHAIN",
+    "stem": "What is the strongest definite relation between Bina's salary and Diya's salary?",
+    "statements": [
+      "Diya's salary is less than Charan's salary.",
+      "Charan < Bina"
+    ],
+    "options": [
+      "Bina > Diya",
+      "Bina ≤ Diya",
+      "Bina ≥ Diya",
+      "Bina < Diya"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Bina > Diya",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Diya's salary is less than Charan's salary” means less than; symbolically, Diya < Charan. The translated statements allow Bina > Diya. Therefore, Bina > Diya is the strongest definite relation.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“Diya's salary is less than Charan's salary” means less than; symbolically, Diya < Charan.\n\nThe translated statements allow Bina > Diya.\n\nTherefore, Bina > Diya is the strongest definite relation.\n\nBina ≤ Diya: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nBina ≥ Diya: This is weaker than the strict greater-than relation proved by the chain.\n\nBina < Diya: This comparison points in the wrong direction or uses the wrong degree of certainty.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 28,
+    "recordId": "INE-CP005-8B669C64",
+    "authorityId": "SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN",
+    "seed": 3,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "HEIGHT",
+    "topologyId": "INCLUSIVE_STRICT_CHAIN",
+    "stem": "What is the strongest definite relation between Diya's height and Charan's height?",
+    "statements": [
+      "Diya's height is neither greater than nor equal to Farah's height.",
+      "Charan ≥ Farah"
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "Diya > Charan",
+      "Diya < Charan",
+      "Diya ≥ Charan"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Diya < Charan",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Diya's height is neither greater than nor equal to Farah's height” rules out greater than and equal to, so it means less than; symbolically, Diya < Farah. The translated statements allow Diya < Charan. Therefore, Diya < Charan is the strongest definite relation.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“Diya's height is neither greater than nor equal to Farah's height” rules out greater than and equal to, so it means less than; symbolically, Diya < Farah.\n\nThe translated statements allow Diya < Charan.\n\nTherefore, Diya < Charan is the strongest definite relation.\n\nThe relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.\n\nDiya > Charan: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nDiya ≥ Charan: This comparison points in the wrong direction or uses the wrong degree of certainty.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 29,
+    "recordId": "INE-CP005-5C8EF7E9",
+    "authorityId": "SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN",
+    "seed": 4,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "WEIGHT",
+    "topologyId": "EQUALITY_BRIDGE_CHAIN",
+    "stem": "What is the strongest definite relation between Gagan's weight and Charan's weight?",
+    "statements": [
+      "Gagan's weight is equal to Aman's weight.",
+      "Aman ≤ Charan"
+    ],
+    "options": [
+      "Gagan ≥ Charan",
+      "Gagan ≤ Charan",
+      "Gagan > Charan",
+      "Gagan < Charan"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Gagan ≤ Charan",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Gagan's weight is equal to Aman's weight” means equal to; symbolically, Gagan = Aman. The translated statements allow Gagan < Charan or Gagan = Charan. Therefore, Gagan ≤ Charan is the strongest definite relation.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“Gagan's weight is equal to Aman's weight” means equal to; symbolically, Gagan = Aman.\n\nThe translated statements allow Gagan < Charan or Gagan = Charan.\n\nTherefore, Gagan ≤ Charan is the strongest definite relation.\n\nGagan ≥ Charan: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nGagan > Charan: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nGagan < Charan: The wording allows both less than and equal to, so this option is too specific.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 30,
+    "recordId": "INE-CP005-747B3F66",
+    "authorityId": "SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN",
+    "seed": 5,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "SCORE",
+    "topologyId": "THREE_EDGE_WEAK_CHAIN",
+    "stem": "What is the strongest definite relation between Gagan's score and Charan's score?",
+    "statements": [
+      "Charan's score is not less than Aman's score.",
+      "Farah ≥ Gagan",
+      "Farah's score is neither less than nor greater than Aman's score."
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "Gagan ≥ Charan",
+      "Gagan > Charan",
+      "Gagan ≤ Charan"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Gagan ≤ Charan",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Charan's score is not less than Aman's score” allows greater than or equal to; symbolically, Charan ≥ Aman. “Farah's score is neither less than nor greater than Aman's score” means equal to; symbolically, Farah = Aman. The translated statements allow Gagan < Charan or Gagan = Charan. Therefore, Gagan ≤ Charan is the strongest definite relation.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“Charan's score is not less than Aman's score” allows greater than or equal to; symbolically, Charan ≥ Aman.\n\n“Farah's score is neither less than nor greater than Aman's score” means equal to; symbolically, Farah = Aman.\n\nThe translated statements allow Gagan < Charan or Gagan = Charan.\n\nTherefore, Gagan ≤ Charan is the strongest definite relation.\n\nThe relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.\n\nGagan ≥ Charan: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nGagan > Charan: This comparison points in the wrong direction or uses the wrong degree of certainty.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 31,
+    "recordId": "INE-CP005-7DBE48FB",
+    "authorityId": "SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN",
+    "seed": 6,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "PRICE",
+    "topologyId": "SHARED_UPPER_FREE_ENDPOINTS",
+    "stem": "What is the strongest definite relation between the prices of Product E and Product A?",
+    "statements": [
+      "The price of Product E is less than the price of Product D.",
+      "Product A < Product D"
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "Product E > Product A",
+      "Product E = Product A",
+      "Product E ≥ Product A"
+    ],
+    "correctIndex": 0,
+    "correctOption": "The relation cannot be determined",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “The price of Product E is less than the price of Product D” means less than; symbolically, Product E < Product D. The translated statements allow Product E < Product A, Product E = Product A, or Product E > Product A. Therefore, the relation between Product E and Product A cannot be determined.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“The price of Product E is less than the price of Product D” means less than; symbolically, Product E < Product D.\n\nThe translated statements allow Product E < Product A, Product E = Product A, or Product E > Product A.\n\nTherefore, the relation between Product E and Product A cannot be determined.\n\nProduct E > Product A: The statements do not fix one definite relation, so this option claims more than the information proves.\n\nProduct E = Product A: The statements do not fix one definite relation, so this option claims more than the information proves.\n\nProduct E ≥ Product A: The statements do not fix one definite relation, so this option claims more than the information proves.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 32,
+    "recordId": "INE-CP005-6C968130",
+    "authorityId": "SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN",
+    "seed": 7,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "PRODUCTION",
+    "topologyId": "DISCONNECTED_COMPONENTS",
+    "stem": "What is the strongest definite relation between Plant E's production and Plant B's production?",
+    "statements": [
+      "Plant D's production is neither less than nor equal to Plant E's production.",
+      "Plant A > Plant B"
+    ],
+    "options": [
+      "Plant E = Plant B",
+      "Plant E ≤ Plant B",
+      "The relation cannot be determined",
+      "Plant E > Plant B"
+    ],
+    "correctIndex": 2,
+    "correctOption": "The relation cannot be determined",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Plant D's production is neither less than nor equal to Plant E's production” rules out less than and equal to, so it means greater than; symbolically, Plant D > Plant E. The translated statements allow Plant E < Plant B, Plant E = Plant B, or Plant E > Plant B. Therefore, the relation between Plant E and Plant B cannot be determined.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“Plant D's production is neither less than nor equal to Plant E's production” rules out less than and equal to, so it means greater than; symbolically, Plant D > Plant E.\n\nThe translated statements allow Plant E < Plant B, Plant E = Plant B, or Plant E > Plant B.\n\nTherefore, the relation between Plant E and Plant B cannot be determined.\n\nPlant E = Plant B: The statements do not fix one definite relation, so this option claims more than the information proves.\n\nPlant E ≤ Plant B: The statements do not fix one definite relation, so this option claims more than the information proves.\n\nPlant E > Plant B: The statements do not fix one definite relation, so this option claims more than the information proves.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 33,
+    "recordId": "INE-CP005-C1E86835",
+    "authorityId": "SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN",
+    "seed": 8,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "GENERIC",
+    "topologyId": "FOUR_EDGE_MIXED_CHAIN",
+    "stem": "What is the strongest definite relation between A and B?",
+    "statements": [
+      "Q is not less than B.",
+      "P > Q",
+      "D is equal to P.",
+      "A ≥ D"
+    ],
+    "options": [
+      "A ≥ B",
+      "A = B",
+      "A ≤ B",
+      "A > B"
+    ],
+    "correctIndex": 3,
+    "correctOption": "A > B",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Q is not less than B” allows greater than or equal to; symbolically, Q ≥ B. “D is equal to P” means equal to; symbolically, D = P. The translated statements allow A > B. Therefore, A > B is the strongest definite relation.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“Q is not less than B” allows greater than or equal to; symbolically, Q ≥ B.\n\n“D is equal to P” means equal to; symbolically, D = P.\n\nThe translated statements allow A > B.\n\nTherefore, A > B is the strongest definite relation.\n\nA ≥ B: This is weaker than the strict greater-than relation proved by the chain.\n\nA = B: Nothing in the statement or chain forces the two values to be equal.\n\nA ≤ B: This comparison points in the wrong direction or uses the wrong degree of certainty.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 34,
+    "recordId": "INE-CP005-19A2F942",
+    "authorityId": "SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN",
+    "seed": 9,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "MARKS",
+    "topologyId": "FOUR_EDGE_WEAK_CHAIN",
+    "stem": "What is the strongest definite relation between Charan's marks and Diya's marks?",
+    "statements": [
+      "Diya's marks are not greater than Gagan's marks.",
+      "Gagan = Bina",
+      "Bina's marks are not greater than Aman's marks.",
+      "Aman = Charan"
+    ],
+    "options": [
+      "Charan < Diya",
+      "Charan ≥ Diya",
+      "Charan ≤ Diya",
+      "Charan = Diya"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Charan ≥ Diya",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Diya's marks are not greater than Gagan's marks” allows less than or equal to; symbolically, Diya ≤ Gagan. “Bina's marks are not greater than Aman's marks” allows less than or equal to; symbolically, Bina ≤ Aman. The translated statements allow Charan = Diya or Charan > Diya. Therefore, Charan ≥ Diya is the strongest definite relation.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“Diya's marks are not greater than Gagan's marks” allows less than or equal to; symbolically, Diya ≤ Gagan.\n\n“Bina's marks are not greater than Aman's marks” allows less than or equal to; symbolically, Bina ≤ Aman.\n\nThe translated statements allow Charan = Diya or Charan > Diya.\n\nTherefore, Charan ≥ Diya is the strongest definite relation.\n\nCharan < Diya: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nCharan ≤ Diya: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nCharan = Diya: The wording allows both greater than and equal to, so this option is too specific.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 35,
+    "recordId": "INE-CP005-53CBC9B4",
+    "authorityId": "SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN",
+    "seed": 10,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "SALARY",
+    "topologyId": "CONVERGING_BRANCH",
+    "stem": "What is the strongest definite relation between Aman's salary and Charan's salary?",
+    "statements": [
+      "Diya's salary is not greater than Charan's salary.",
+      "Diya < Aman",
+      "Gagan's salary is greater than Aman's salary."
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "Aman < Charan",
+      "Aman = Charan",
+      "Aman ≤ Charan"
+    ],
+    "correctIndex": 0,
+    "correctOption": "The relation cannot be determined",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Diya's salary is not greater than Charan's salary” allows less than or equal to; symbolically, Diya ≤ Charan. “Gagan's salary is greater than Aman's salary” means greater than; symbolically, Gagan > Aman. The translated statements allow Aman < Charan, Aman = Charan, or Aman > Charan. Therefore, the relation between Aman and Charan cannot be determined.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“Diya's salary is not greater than Charan's salary” allows less than or equal to; symbolically, Diya ≤ Charan.\n\n“Gagan's salary is greater than Aman's salary” means greater than; symbolically, Gagan > Aman.\n\nThe translated statements allow Aman < Charan, Aman = Charan, or Aman > Charan.\n\nTherefore, the relation between Aman and Charan cannot be determined.\n\nAman < Charan: The statements do not fix one definite relation, so this option claims more than the information proves.\n\nAman = Charan: The statements do not fix one definite relation, so this option claims more than the information proves.\n\nAman ≤ Charan: The statements do not fix one definite relation, so this option claims more than the information proves.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 36,
+    "recordId": "INE-CP005-6CF4FC7F",
+    "authorityId": "SOLVE_MIXED_LINGUISTIC_SYMBOLIC_CHAIN",
+    "seed": 11,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "HEIGHT",
+    "topologyId": "CHAIN_WITH_IRRELEVANT_EDGE",
+    "stem": "What is the strongest definite relation between Charan's height and Bina's height?",
+    "statements": [
+      "Farah's height is neither less than nor greater than Gagan's height.",
+      "Charan ≤ Diya",
+      "Diya's height is neither greater than nor equal to Bina's height."
+    ],
+    "options": [
+      "Charan ≤ Bina",
+      "Charan > Bina",
+      "Charan < Bina",
+      "The relation cannot be determined"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Charan < Bina",
+    "mockSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms. “Farah's height is neither less than nor greater than Gagan's height” means equal to; symbolically, Farah = Gagan. “Diya's height is neither greater than nor equal to Bina's height” rules out greater than and equal to, so it means less than; symbolically, Diya < Bina. The translated statements allow Charan < Bina. Therefore, Charan < Bina is the strongest definite relation.",
+    "learningSolution": "Translate the verbal comparisons first, then connect only the statements that link the two required terms.\n\n“Farah's height is neither less than nor greater than Gagan's height” means equal to; symbolically, Farah = Gagan.\n\n“Diya's height is neither greater than nor equal to Bina's height” rules out greater than and equal to, so it means less than; symbolically, Diya < Bina.\n\nThe translated statements allow Charan < Bina.\n\nTherefore, Charan < Bina is the strongest definite relation.\n\nCharan ≤ Bina: This is weaker than the strict less-than relation proved by the chain.\n\nCharan > Bina: This comparison points in the wrong direction or uses the wrong degree of certainty.\n\nThe relation cannot be determined: A definite relation can be derived from the statements, so the answer is not indeterminate.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 37,
+    "recordId": "INE-CP005-C3C3F468",
+    "authorityId": "EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS",
+    "seed": 0,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "GENERIC",
+    "topologyId": "TWO_EDGE_STRICT_CHAIN",
+    "stem": "Assuming the statements to be true, which conclusion or conclusions definitely follow?",
+    "statements": [
+      "P is less than A.",
+      "Q is neither less than nor equal to A."
+    ],
+    "conclusions": [
+      "P is neither greater than nor equal to A.",
+      "P is greater than Q."
+    ],
+    "options": [
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion I follows",
+      "Only conclusion II follows",
+      "Both conclusions I and II follow"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Only conclusion I follows",
+    "mockSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain. “P is less than A” means less than; symbolically, P < A. “Q is neither less than nor equal to A” rules out less than and equal to, so it means greater than; symbolically, Q > A. Conclusion I: P is neither greater than nor equal to A. The statements allow P < A, so it definitely follows. Conclusion II: P is greater than Q. The statements allow P < Q, so it is not guaranteed. Therefore, only conclusion I follows.",
+    "learningSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain.\n\n“P is less than A” means less than; symbolically, P < A.\n\n“Q is neither less than nor equal to A” rules out less than and equal to, so it means greater than; symbolically, Q > A.\n\nConclusion I: P is neither greater than nor equal to A. The statements allow P < A, so it definitely follows.\n\nConclusion II: P is greater than Q. The statements allow P < Q, so it is not guaranteed.\n\nTherefore, only conclusion I follows.\n\nNeither conclusion I nor conclusion II follows: This option rejects both conclusions. Only conclusion I is guaranteed.\n\nOnly conclusion II follows: This option keeps the wrong conclusion. Only conclusion I is guaranteed.\n\nBoth conclusions I and II follow: This option treats both conclusions as certain. Only conclusion I is guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-002",
+      "DISHA-INE-003"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 38,
+    "recordId": "INE-CP005-5D5052D3",
+    "authorityId": "EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS",
+    "seed": 1,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "MARKS",
+    "topologyId": "INCLUSIVE_STRICT_CHAIN",
+    "stem": "Assuming the statements to be true, which conclusion or conclusions definitely follow?",
+    "statements": [
+      "Gagan's marks are neither less than nor equal to Farah's marks.",
+      "Gagan's marks are not greater than Charan's marks."
+    ],
+    "conclusions": [
+      "Charan's marks are equal to Gagan's marks.",
+      "Gagan's marks are neither less than nor equal to Farah's marks."
+    ],
+    "options": [
+      "Both conclusions I and II follow",
+      "Only conclusion I follows",
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion II follows"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Only conclusion II follows",
+    "mockSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain. “Gagan's marks are neither less than nor equal to Farah's marks” rules out less than and equal to, so it means greater than; symbolically, Gagan > Farah. “Gagan's marks are not greater than Charan's marks” allows less than or equal to; symbolically, Gagan ≤ Charan. Conclusion I: Charan's marks are equal to Gagan's marks. The statements allow Charan = Gagan or Charan > Gagan, so it is not guaranteed. Conclusion II: Gagan's marks are neither less than nor equal to Farah's marks. The statements allow Gagan > Farah, so it definitely follows. Therefore, only conclusion II follows.",
+    "learningSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain.\n\n“Gagan's marks are neither less than nor equal to Farah's marks” rules out less than and equal to, so it means greater than; symbolically, Gagan > Farah.\n\n“Gagan's marks are not greater than Charan's marks” allows less than or equal to; symbolically, Gagan ≤ Charan.\n\nConclusion I: Charan's marks are equal to Gagan's marks. The statements allow Charan = Gagan or Charan > Gagan, so it is not guaranteed.\n\nConclusion II: Gagan's marks are neither less than nor equal to Farah's marks. The statements allow Gagan > Farah, so it definitely follows.\n\nTherefore, only conclusion II follows.\n\nBoth conclusions I and II follow: This option treats both conclusions as certain. Only conclusion II is guaranteed.\n\nOnly conclusion I follows: This option keeps the wrong conclusion. Only conclusion II is guaranteed.\n\nNeither conclusion I nor conclusion II follows: This option rejects both conclusions. Only conclusion II is guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-002",
+      "DISHA-INE-003"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 39,
+    "recordId": "INE-CP005-C73AAE9E",
+    "authorityId": "EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS",
+    "seed": 2,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "SALARY",
+    "topologyId": "TWO_EDGE_STRICT_CHAIN",
+    "stem": "Assuming the statements to be true, which conclusion or conclusions definitely follow?",
+    "statements": [
+      "Bina's salary is less than Charan's salary.",
+      "Farah's salary is neither less than nor equal to Charan's salary."
+    ],
+    "conclusions": [
+      "Farah's salary is neither less than nor equal to Charan's salary.",
+      "Farah's salary is not less than Bina's salary."
+    ],
+    "options": [
+      "Both conclusions I and II follow",
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion II follows",
+      "Only conclusion I follows"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Both conclusions I and II follow",
+    "mockSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain. “Bina's salary is less than Charan's salary” means less than; symbolically, Bina < Charan. “Farah's salary is neither less than nor equal to Charan's salary” rules out less than and equal to, so it means greater than; symbolically, Farah > Charan. Conclusion I: Farah's salary is neither less than nor equal to Charan's salary. The statements allow Farah > Charan, so it definitely follows. Conclusion II: Farah's salary is not less than Bina's salary. The statements allow Farah > Bina, so it definitely follows. Therefore, both conclusions I and II follow.",
+    "learningSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain.\n\n“Bina's salary is less than Charan's salary” means less than; symbolically, Bina < Charan.\n\n“Farah's salary is neither less than nor equal to Charan's salary” rules out less than and equal to, so it means greater than; symbolically, Farah > Charan.\n\nConclusion I: Farah's salary is neither less than nor equal to Charan's salary. The statements allow Farah > Charan, so it definitely follows.\n\nConclusion II: Farah's salary is not less than Bina's salary. The statements allow Farah > Bina, so it definitely follows.\n\nTherefore, both conclusions I and II follow.\n\nNeither conclusion I nor conclusion II follows: This option rejects both conclusions. Both conclusions are guaranteed.\n\nOnly conclusion II follows: This option keeps the wrong conclusion. Both conclusions are guaranteed.\n\nOnly conclusion I follows: This option keeps the wrong conclusion. Both conclusions are guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-002",
+      "DISHA-INE-003"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 40,
+    "recordId": "INE-CP005-1F6B42A1",
+    "authorityId": "EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS",
+    "seed": 3,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "HEIGHT",
+    "topologyId": "INCLUSIVE_STRICT_CHAIN",
+    "stem": "Assuming the statements to be true, which conclusion or conclusions definitely follow?",
+    "statements": [
+      "Aman's height is neither greater than nor equal to Charan's height.",
+      "Farah's height is not less than Charan's height."
+    ],
+    "conclusions": [
+      "Charan's height is not less than Farah's height.",
+      "Charan's height is neither greater than nor equal to Aman's height."
+    ],
+    "options": [
+      "Only conclusion I follows",
+      "Both conclusions I and II follow",
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion II follows"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Neither conclusion I nor conclusion II follows",
+    "mockSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain. “Aman's height is neither greater than nor equal to Charan's height” rules out greater than and equal to, so it means less than; symbolically, Aman < Charan. “Farah's height is not less than Charan's height” allows greater than or equal to; symbolically, Farah ≥ Charan. Conclusion I: Charan's height is not less than Farah's height. The statements allow Charan < Farah or Charan = Farah, so it is not guaranteed. Conclusion II: Charan's height is neither greater than nor equal to Aman's height. The statements allow Charan > Aman, so it is not guaranteed. Therefore, neither conclusion I nor conclusion II follows.",
+    "learningSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain.\n\n“Aman's height is neither greater than nor equal to Charan's height” rules out greater than and equal to, so it means less than; symbolically, Aman < Charan.\n\n“Farah's height is not less than Charan's height” allows greater than or equal to; symbolically, Farah ≥ Charan.\n\nConclusion I: Charan's height is not less than Farah's height. The statements allow Charan < Farah or Charan = Farah, so it is not guaranteed.\n\nConclusion II: Charan's height is neither greater than nor equal to Aman's height. The statements allow Charan > Aman, so it is not guaranteed.\n\nTherefore, neither conclusion I nor conclusion II follows.\n\nOnly conclusion I follows: This option keeps the wrong conclusion. Neither conclusion is guaranteed.\n\nBoth conclusions I and II follow: This option treats both conclusions as certain. Neither conclusion is guaranteed.\n\nOnly conclusion II follows: This option keeps the wrong conclusion. Neither conclusion is guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-002",
+      "DISHA-INE-003"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 41,
+    "recordId": "INE-CP005-F7EF33FC",
+    "authorityId": "EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS",
+    "seed": 4,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "WEIGHT",
+    "topologyId": "EQUALITY_BRIDGE_CHAIN",
+    "stem": "Assuming the statements to be true, which conclusion or conclusions definitely follow?",
+    "statements": [
+      "Aman's weight is not less than Gagan's weight.",
+      "Gagan's weight is neither less than nor greater than Charan's weight."
+    ],
+    "conclusions": [
+      "Charan's weight is not greater than Gagan's weight.",
+      "Gagan's weight is equal to Aman's weight."
+    ],
+    "options": [
+      "Only conclusion II follows",
+      "Only conclusion I follows",
+      "Both conclusions I and II follow",
+      "Neither conclusion I nor conclusion II follows"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Only conclusion I follows",
+    "mockSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain. “Aman's weight is not less than Gagan's weight” allows greater than or equal to; symbolically, Aman ≥ Gagan. “Gagan's weight is neither less than nor greater than Charan's weight” means equal to; symbolically, Gagan = Charan. Conclusion I: Charan's weight is not greater than Gagan's weight. The statements allow Charan = Gagan, so it definitely follows. Conclusion II: Gagan's weight is equal to Aman's weight. The statements allow Gagan < Aman or Gagan = Aman, so it is not guaranteed. Therefore, only conclusion I follows.",
+    "learningSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain.\n\n“Aman's weight is not less than Gagan's weight” allows greater than or equal to; symbolically, Aman ≥ Gagan.\n\n“Gagan's weight is neither less than nor greater than Charan's weight” means equal to; symbolically, Gagan = Charan.\n\nConclusion I: Charan's weight is not greater than Gagan's weight. The statements allow Charan = Gagan, so it definitely follows.\n\nConclusion II: Gagan's weight is equal to Aman's weight. The statements allow Gagan < Aman or Gagan = Aman, so it is not guaranteed.\n\nTherefore, only conclusion I follows.\n\nOnly conclusion II follows: This option keeps the wrong conclusion. Only conclusion I is guaranteed.\n\nBoth conclusions I and II follow: This option treats both conclusions as certain. Only conclusion I is guaranteed.\n\nNeither conclusion I nor conclusion II follows: This option rejects both conclusions. Only conclusion I is guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-002",
+      "DISHA-INE-003"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 42,
+    "recordId": "INE-CP005-4AD71E47",
+    "authorityId": "EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS",
+    "seed": 5,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "SCORE",
+    "topologyId": "THREE_EDGE_WEAK_CHAIN",
+    "stem": "Assuming the statements to be true, which conclusion or conclusions definitely follow?",
+    "statements": [
+      "Bina's score is not less than Gagan's score.",
+      "Charan's score is not greater than Farah's score.",
+      "Charan's score is neither less than nor greater than Bina's score."
+    ],
+    "conclusions": [
+      "Farah's score is not greater than Bina's score.",
+      "Charan's score is not greater than Farah's score."
+    ],
+    "options": [
+      "Both conclusions I and II follow",
+      "Only conclusion I follows",
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion II follows"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Only conclusion II follows",
+    "mockSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain. “Bina's score is not less than Gagan's score” allows greater than or equal to; symbolically, Bina ≥ Gagan. “Charan's score is not greater than Farah's score” allows less than or equal to; symbolically, Charan ≤ Farah. “Charan's score is neither less than nor greater than Bina's score” means equal to; symbolically, Charan = Bina. Conclusion I: Farah's score is not greater than Bina's score. The statements allow Farah = Bina or Farah > Bina, so it is not guaranteed. Conclusion II: Charan's score is not greater than Farah's score. The statements allow Charan < Farah or Charan = Farah, so it definitely follows. Therefore, only conclusion II follows.",
+    "learningSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain.\n\n“Bina's score is not less than Gagan's score” allows greater than or equal to; symbolically, Bina ≥ Gagan.\n\n“Charan's score is not greater than Farah's score” allows less than or equal to; symbolically, Charan ≤ Farah.\n\n“Charan's score is neither less than nor greater than Bina's score” means equal to; symbolically, Charan = Bina.\n\nConclusion I: Farah's score is not greater than Bina's score. The statements allow Farah = Bina or Farah > Bina, so it is not guaranteed.\n\nConclusion II: Charan's score is not greater than Farah's score. The statements allow Charan < Farah or Charan = Farah, so it definitely follows.\n\nTherefore, only conclusion II follows.\n\nBoth conclusions I and II follow: This option treats both conclusions as certain. Only conclusion II is guaranteed.\n\nOnly conclusion I follows: This option keeps the wrong conclusion. Only conclusion II is guaranteed.\n\nNeither conclusion I nor conclusion II follows: This option rejects both conclusions. Only conclusion II is guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-002",
+      "DISHA-INE-003"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 43,
+    "recordId": "INE-CP005-7E737742",
+    "authorityId": "EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS",
+    "seed": 6,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "PRICE",
+    "topologyId": "SHARED_UPPER_FREE_ENDPOINTS",
+    "stem": "Assuming the statements to be true, which conclusion or conclusions definitely follow?",
+    "statements": [
+      "The price of Product F is greater than the price of Product B.",
+      "The price of Product F is neither less than nor equal to the price of Product D."
+    ],
+    "conclusions": [
+      "The price of Product F is neither less than nor equal to the price of Product B.",
+      "The price of Product D is not greater than the price of Product F."
+    ],
+    "options": [
+      "Both conclusions I and II follow",
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion II follows",
+      "Only conclusion I follows"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Both conclusions I and II follow",
+    "mockSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain. “The price of Product F is greater than the price of Product B” means greater than; symbolically, Product F > Product B. “The price of Product F is neither less than nor equal to the price of Product D” rules out less than and equal to, so it means greater than; symbolically, Product F > Product D. Conclusion I: The price of Product F is neither less than nor equal to the price of Product B. The statements allow Product F > Product B, so it definitely follows. Conclusion II: The price of Product D is not greater than the price of Product F. The statements allow Product D < Product F, so it definitely follows. Therefore, both conclusions I and II follow.",
+    "learningSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain.\n\n“The price of Product F is greater than the price of Product B” means greater than; symbolically, Product F > Product B.\n\n“The price of Product F is neither less than nor equal to the price of Product D” rules out less than and equal to, so it means greater than; symbolically, Product F > Product D.\n\nConclusion I: The price of Product F is neither less than nor equal to the price of Product B. The statements allow Product F > Product B, so it definitely follows.\n\nConclusion II: The price of Product D is not greater than the price of Product F. The statements allow Product D < Product F, so it definitely follows.\n\nTherefore, both conclusions I and II follow.\n\nNeither conclusion I nor conclusion II follows: This option rejects both conclusions. Both conclusions are guaranteed.\n\nOnly conclusion II follows: This option keeps the wrong conclusion. Both conclusions are guaranteed.\n\nOnly conclusion I follows: This option keeps the wrong conclusion. Both conclusions are guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-002",
+      "DISHA-INE-003"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 44,
+    "recordId": "INE-CP005-26B8E635",
+    "authorityId": "EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS",
+    "seed": 7,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "PRODUCTION",
+    "topologyId": "DISCONNECTED_COMPONENTS",
+    "stem": "Assuming the statements to be true, which conclusion or conclusions definitely follow?",
+    "statements": [
+      "Plant E's production is neither greater than nor equal to Plant B's production.",
+      "Plant A's production is greater than Plant D's production."
+    ],
+    "conclusions": [
+      "Plant B's production is equal to Plant E's production.",
+      "Plant E's production is not greater than Plant D's production."
+    ],
+    "options": [
+      "Only conclusion II follows",
+      "Both conclusions I and II follow",
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion I follows"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Neither conclusion I nor conclusion II follows",
+    "mockSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain. “Plant E's production is neither greater than nor equal to Plant B's production” rules out greater than and equal to, so it means less than; symbolically, Plant E < Plant B. “Plant A's production is greater than Plant D's production” means greater than; symbolically, Plant A > Plant D. Conclusion I: Plant B's production is equal to Plant E's production. The statements allow Plant B > Plant E, so it is not guaranteed. Conclusion II: Plant E's production is not greater than Plant D's production. The statements allow Plant E < Plant D, Plant E = Plant D, or Plant E > Plant D, so it is not guaranteed. Therefore, neither conclusion I nor conclusion II follows.",
+    "learningSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain.\n\n“Plant E's production is neither greater than nor equal to Plant B's production” rules out greater than and equal to, so it means less than; symbolically, Plant E < Plant B.\n\n“Plant A's production is greater than Plant D's production” means greater than; symbolically, Plant A > Plant D.\n\nConclusion I: Plant B's production is equal to Plant E's production. The statements allow Plant B > Plant E, so it is not guaranteed.\n\nConclusion II: Plant E's production is not greater than Plant D's production. The statements allow Plant E < Plant D, Plant E = Plant D, or Plant E > Plant D, so it is not guaranteed.\n\nTherefore, neither conclusion I nor conclusion II follows.\n\nOnly conclusion II follows: This option keeps the wrong conclusion. Neither conclusion is guaranteed.\n\nBoth conclusions I and II follow: This option treats both conclusions as certain. Neither conclusion is guaranteed.\n\nOnly conclusion I follows: This option keeps the wrong conclusion. Neither conclusion is guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-002",
+      "DISHA-INE-003"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 45,
+    "recordId": "INE-CP005-D166FF30",
+    "authorityId": "EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS",
+    "seed": 8,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "GENERIC",
+    "topologyId": "FOUR_EDGE_MIXED_CHAIN",
+    "stem": "Assuming the statements to be true, which conclusion or conclusions definitely follow?",
+    "statements": [
+      "C is not greater than A.",
+      "D is neither less than nor greater than Q.",
+      "A is less than D.",
+      "B is not less than Q."
+    ],
+    "conclusions": [
+      "Q is not greater than D.",
+      "B is less than C."
+    ],
+    "options": [
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion I follows",
+      "Both conclusions I and II follow",
+      "Only conclusion II follows"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Only conclusion I follows",
+    "mockSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain. “C is not greater than A” allows less than or equal to; symbolically, C ≤ A. “D is neither less than nor greater than Q” means equal to; symbolically, D = Q. “A is less than D” means less than; symbolically, A < D. “B is not less than Q” allows greater than or equal to; symbolically, B ≥ Q. Conclusion I: Q is not greater than D. The statements allow Q = D, so it definitely follows. Conclusion II: B is less than C. The statements allow B > C, so it is not guaranteed. Therefore, only conclusion I follows.",
+    "learningSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain.\n\n“C is not greater than A” allows less than or equal to; symbolically, C ≤ A.\n\n“D is neither less than nor greater than Q” means equal to; symbolically, D = Q.\n\n“A is less than D” means less than; symbolically, A < D.\n\n“B is not less than Q” allows greater than or equal to; symbolically, B ≥ Q.\n\nConclusion I: Q is not greater than D. The statements allow Q = D, so it definitely follows.\n\nConclusion II: B is less than C. The statements allow B > C, so it is not guaranteed.\n\nTherefore, only conclusion I follows.\n\nNeither conclusion I nor conclusion II follows: This option rejects both conclusions. Only conclusion I is guaranteed.\n\nBoth conclusions I and II follow: This option treats both conclusions as certain. Only conclusion I is guaranteed.\n\nOnly conclusion II follows: This option keeps the wrong conclusion. Only conclusion I is guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-002",
+      "DISHA-INE-003"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 46,
+    "recordId": "INE-CP005-E28EC6FB",
+    "authorityId": "EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS",
+    "seed": 9,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "MARKS",
+    "topologyId": "FOUR_EDGE_WEAK_CHAIN",
+    "stem": "Assuming the statements to be true, which conclusion or conclusions definitely follow?",
+    "statements": [
+      "Farah's marks are not less than Charan's marks.",
+      "Aman's marks are equal to Charan's marks.",
+      "Aman's marks are not less than Diya's marks.",
+      "Farah's marks are equal to Bina's marks."
+    ],
+    "conclusions": [
+      "Charan's marks are not greater than Diya's marks.",
+      "Aman's marks are not greater than Bina's marks."
+    ],
+    "options": [
+      "Neither conclusion I nor conclusion II follows",
+      "Both conclusions I and II follow",
+      "Only conclusion I follows",
+      "Only conclusion II follows"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Only conclusion II follows",
+    "mockSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain. “Farah's marks are not less than Charan's marks” allows greater than or equal to; symbolically, Farah ≥ Charan. “Aman's marks are equal to Charan's marks” means equal to; symbolically, Aman = Charan. “Aman's marks are not less than Diya's marks” allows greater than or equal to; symbolically, Aman ≥ Diya. “Farah's marks are equal to Bina's marks” means equal to; symbolically, Farah = Bina. Conclusion I: Charan's marks are not greater than Diya's marks. The statements allow Charan = Diya or Charan > Diya, so it is not guaranteed. Conclusion II: Aman's marks are not greater than Bina's marks. The statements allow Aman < Bina or Aman = Bina, so it definitely follows. Therefore, only conclusion II follows.",
+    "learningSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain.\n\n“Farah's marks are not less than Charan's marks” allows greater than or equal to; symbolically, Farah ≥ Charan.\n\n“Aman's marks are equal to Charan's marks” means equal to; symbolically, Aman = Charan.\n\n“Aman's marks are not less than Diya's marks” allows greater than or equal to; symbolically, Aman ≥ Diya.\n\n“Farah's marks are equal to Bina's marks” means equal to; symbolically, Farah = Bina.\n\nConclusion I: Charan's marks are not greater than Diya's marks. The statements allow Charan = Diya or Charan > Diya, so it is not guaranteed.\n\nConclusion II: Aman's marks are not greater than Bina's marks. The statements allow Aman < Bina or Aman = Bina, so it definitely follows.\n\nTherefore, only conclusion II follows.\n\nNeither conclusion I nor conclusion II follows: This option rejects both conclusions. Only conclusion II is guaranteed.\n\nBoth conclusions I and II follow: This option treats both conclusions as certain. Only conclusion II is guaranteed.\n\nOnly conclusion I follows: This option keeps the wrong conclusion. Only conclusion II is guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-002",
+      "DISHA-INE-003"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 47,
+    "recordId": "INE-CP005-FBDD2A47",
+    "authorityId": "EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS",
+    "seed": 10,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "SALARY",
+    "topologyId": "CONVERGING_BRANCH",
+    "stem": "Assuming the statements to be true, which conclusion or conclusions definitely follow?",
+    "statements": [
+      "Diya's salary is greater than Farah's salary.",
+      "Gagan's salary is not less than Charan's salary.",
+      "Charan's salary is less than Farah's salary."
+    ],
+    "conclusions": [
+      "Diya's salary is not less than Farah's salary.",
+      "Charan's salary is less than Farah's salary."
+    ],
+    "options": [
+      "Only conclusion I follows",
+      "Only conclusion II follows",
+      "Both conclusions I and II follow",
+      "Neither conclusion I nor conclusion II follows"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Both conclusions I and II follow",
+    "mockSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain. “Diya's salary is greater than Farah's salary” means greater than; symbolically, Diya > Farah. “Gagan's salary is not less than Charan's salary” allows greater than or equal to; symbolically, Gagan ≥ Charan. “Charan's salary is less than Farah's salary” means less than; symbolically, Charan < Farah. Conclusion I: Diya's salary is not less than Farah's salary. The statements allow Diya > Farah, so it definitely follows. Conclusion II: Charan's salary is less than Farah's salary. The statements allow Charan < Farah, so it definitely follows. Therefore, both conclusions I and II follow.",
+    "learningSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain.\n\n“Diya's salary is greater than Farah's salary” means greater than; symbolically, Diya > Farah.\n\n“Gagan's salary is not less than Charan's salary” allows greater than or equal to; symbolically, Gagan ≥ Charan.\n\n“Charan's salary is less than Farah's salary” means less than; symbolically, Charan < Farah.\n\nConclusion I: Diya's salary is not less than Farah's salary. The statements allow Diya > Farah, so it definitely follows.\n\nConclusion II: Charan's salary is less than Farah's salary. The statements allow Charan < Farah, so it definitely follows.\n\nTherefore, both conclusions I and II follow.\n\nOnly conclusion I follows: This option keeps the wrong conclusion. Both conclusions are guaranteed.\n\nOnly conclusion II follows: This option keeps the wrong conclusion. Both conclusions are guaranteed.\n\nNeither conclusion I nor conclusion II follows: This option rejects both conclusions. Both conclusions are guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-002",
+      "DISHA-INE-003"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 48,
+    "recordId": "INE-CP005-A8F53FFC",
+    "authorityId": "EVALUATE_CONTEXTUAL_LINGUISTIC_CONCLUSIONS",
+    "seed": 11,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "context": "HEIGHT",
+    "topologyId": "CHAIN_WITH_IRRELEVANT_EDGE",
+    "stem": "Assuming the statements to be true, which conclusion or conclusions definitely follow?",
+    "statements": [
+      "Gagan's height is neither greater than nor equal to Farah's height.",
+      "Bina's height is equal to Diya's height.",
+      "Gagan's height is not less than Aman's height."
+    ],
+    "conclusions": [
+      "Farah's height is equal to Diya's height.",
+      "Diya's height is not less than Gagan's height."
+    ],
+    "options": [
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion II follows",
+      "Both conclusions I and II follow",
+      "Only conclusion I follows"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Neither conclusion I nor conclusion II follows",
+    "mockSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain. “Gagan's height is neither greater than nor equal to Farah's height” rules out greater than and equal to, so it means less than; symbolically, Gagan < Farah. “Bina's height is equal to Diya's height” means equal to; symbolically, Bina = Diya. “Gagan's height is not less than Aman's height” allows greater than or equal to; symbolically, Gagan ≥ Aman. Conclusion I: Farah's height is equal to Diya's height. The statements allow Farah < Diya, Farah = Diya, or Farah > Diya, so it is not guaranteed. Conclusion II: Diya's height is not less than Gagan's height. The statements allow Diya < Gagan, Diya = Gagan, or Diya > Gagan, so it is not guaranteed. Therefore, neither conclusion I nor conclusion II follows.",
+    "learningSolution": "First translate the verbal comparisons, then test each conclusion against the complete chain.\n\n“Gagan's height is neither greater than nor equal to Farah's height” rules out greater than and equal to, so it means less than; symbolically, Gagan < Farah.\n\n“Bina's height is equal to Diya's height” means equal to; symbolically, Bina = Diya.\n\n“Gagan's height is not less than Aman's height” allows greater than or equal to; symbolically, Gagan ≥ Aman.\n\nConclusion I: Farah's height is equal to Diya's height. The statements allow Farah < Diya, Farah = Diya, or Farah > Diya, so it is not guaranteed.\n\nConclusion II: Diya's height is not less than Gagan's height. The statements allow Diya < Gagan, Diya = Gagan, or Diya > Gagan, so it is not guaranteed.\n\nTherefore, neither conclusion I nor conclusion II follows.\n\nOnly conclusion II follows: This option keeps the wrong conclusion. Neither conclusion is guaranteed.\n\nBoth conclusions I and II follow: This option treats both conclusions as certain. Neither conclusion is guaranteed.\n\nOnly conclusion I follows: This option keeps the wrong conclusion. Neither conclusion is guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-001",
+      "AGG-INE-002",
+      "DISHA-INE-003"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  }
+]

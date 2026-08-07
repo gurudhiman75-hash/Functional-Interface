@@ -20,6 +20,8 @@ The product-wide four-option rule is supportable from the Aggarwal source, whose
 
 > **Decision: READY FOR MANUAL PROTOTYPE REVIEW. Keep permanent QLs, Question Studio visibility, and public release disabled.**
 
+**Approval update:** The user approved the revised English pack on 7 August 2026. This accepts the checkpoint discovery content; it does not enable release gates.
+
 ## Evidence reviewed
 
 | Source                                                                                                                                | Relevant material                         | Finding                                                                                                                                                 |

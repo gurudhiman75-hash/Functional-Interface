@@ -4,7 +4,7 @@
 
 **Implementation:** English prototype discovery complete
 
-**Manual review:** Pending
+**Manual review:** Approved by the user on 7 August 2026
 
 **Permanent QLs:** 0
 
@@ -35,4 +35,4 @@
 
 ## Gate
 
-The checkpoint remains a prototype until the English review pack is manually accepted. No permanent QL or release decision is implied by implementation completion.
+The English discovery pack is accepted. Permanent QL allocation, Question Studio visibility, and public release remain separate decisions and are still disabled.
