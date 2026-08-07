@@ -44,6 +44,7 @@ import {
   runPrb002Pipeline,
   type Prb002CanonicalProblemId,
 } from "./topics/Probability/PRB-002";
+import type { ProbabilityExamProfile } from "./topics/Probability/shared";
 
 export type QuantV4PackageId =
   | CoreQuantV4PackageId
@@ -58,6 +59,7 @@ export type QuantV4GenerationRequest = Omit<
   packageId?: QuantV4PackageId;
   archetypeId?: QuantV4PackageId;
   runtimeMode?: "CANONICAL_REVIEW" | "DYNAMIC_CANDIDATE";
+  examProfile?: ProbabilityExamProfile;
 };
 
 export type { QuantV4Difficulty, QuantV4Language, QuantV4PackageDefinition };
@@ -77,8 +79,18 @@ type RuntimePackageId =
   | "PRB-001"
   | "PRB-002";
 
-type RuntimeDefinition = QuantV4PackageDefinition & {
+type RuntimeDefinition = Omit<QuantV4PackageDefinition, "run"> & {
   packageId: RuntimePackageId;
+  run: (
+    cpId: string,
+    input: {
+      difficulty?: QuantV4Difficulty;
+      language?: QuantV4Language;
+      questionLanguageId?: string;
+      seed?: string;
+      examProfile?: ProbabilityExamProfile;
+    },
+  ) => Promise<any> | any;
 };
 
 const RAP_RUNTIME_PACKAGES: readonly RuntimeDefinition[] = [
@@ -161,6 +173,7 @@ const PRB_RUNTIME_PACKAGES: readonly RuntimeDefinition[] = [
         difficultyBand: input.difficulty,
         language: input.language,
         questionLanguageId: input.questionLanguageId,
+        examProfile: input.examProfile,
         seed: input.seed,
       }),
   },
@@ -176,6 +189,7 @@ const PRB_RUNTIME_PACKAGES: readonly RuntimeDefinition[] = [
         difficultyBand: input.difficulty,
         language: input.language,
         questionLanguageId: input.questionLanguageId,
+        examProfile: input.examProfile,
         seed: input.seed,
       }),
   },
@@ -384,6 +398,8 @@ function probabilityPackageForQuestionStudio(pkg: RuntimeDefinition) {
     canonicalProblems: pkg.cpIds.map((cpId) => ({ id: cpId, label: cpId })),
     supportedDifficulties: ["easy", "medium", "hard"],
     supportedLanguages: [...PRB_LANGUAGES],
+    supportedExamProfiles: ["SSC_CGL_CHSL", "SSC_CGL_JSO", "BANKING_PRELIMS", "BANKING_MAINS", "GENERIC_PRACTICE"],
+    optionCountByExamProfile: { SSC_CGL_CHSL: 4, SSC_CGL_JSO: 4, BANKING_PRELIMS: 5, BANKING_MAINS: 5, GENERIC_PRACTICE: 4 },
     enabled: true,
     runtimeMode: "AUTOMATED_PRODUCTION_QA",
     reviewStatus: "AUTOMATED_PRODUCTION_QA_PENDING_MANUAL_REVIEW",
@@ -469,6 +485,7 @@ async function generateWithRuntimePackage(
             difficulty: difficultyBand,
             language,
             questionLanguageId: request.questionLanguageId,
+            examProfile: request.examProfile,
             seed,
           });
     results.push({
