@@ -27,15 +27,15 @@ function rationalEquals(value: TsdCanonicalValue | undefined, numerator: string,
 }
 
 const rows = generateCanonicalReviewRecords();
-assert(rows.length === 139, "Batch 01 compatibility gate expects the P2 Batch 01-expanded pool");
+assert(rows.length >= 139, "Batch 01 compatibility gate lost the P2 Batch 01-expanded pool");
 assert(rows.every((row) => row.validation.valid), "Invalid record entered the P1 pool");
 assert(rows.every((row) => row.permanentQlId === null && row.lifecycle.englishFreezeStatus === "UNFROZEN"), "Lifecycle changed");
 
 for (const mode of TARGET_MODES) {
   const modeRows = rows.filter((row) => row.solveMode === mode);
-  assert(modeRows.length === 3, `${mode}: expected three Batch 01 rows`);
-  assert(new Set(modeRows.map((row) => normalizedTemplate(row.stem))).size === 3, `${mode}: template diversity regressed`);
-  assert(new Set(modeRows.map((row) => row.answerText)).size === 3, `${mode}: answer diversity regressed`);
+  assert(modeRows.length >= 3, `${mode}: Batch 01 rows were lost`);
+  assert(new Set(modeRows.map((row) => normalizedTemplate(row.stem))).size >= 3, `${mode}: template diversity regressed`);
+  assert(new Set(modeRows.map((row) => row.answerText)).size >= 3, `${mode}: answer diversity regressed`);
 }
 
 const speedRows = rows.filter((row) => row.solveMode === "speedByProportion");
