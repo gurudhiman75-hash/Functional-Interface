@@ -24,6 +24,10 @@ function scriptFor(locale: SerCp007Locale): RegExp {
   return locale === "hi-IN" ? DEVANAGARI : GURMUKHI;
 }
 
+function otherScriptFor(locale: SerCp007Locale): RegExp {
+  return locale === "hi-IN" ? GURMUKHI : DEVANAGARI;
+}
+
 function lastLine(value: string): string {
   return value.split("\n").at(-1)?.trim() ?? "";
 }
@@ -74,6 +78,7 @@ let explanationParityProofs = 0;
 let rendererParityProofs = 0;
 let lifecycleLockProofs = 0;
 let scriptProofs = 0;
+let mixedScriptProofs = 0;
 const reachedQls = new Set<string>();
 const fallbackPatterns = new Map<SerCp007Locale, Set<string>>(
   SER_CP007_LOCALES.map((locale) => [locale, new Set<string>()]),
@@ -84,6 +89,7 @@ const englishLeaks = new Map<SerCp007Locale, Set<string>>(
 
 for (const locale of SER_CP007_LOCALES) {
   const script = scriptFor(locale);
+  const otherScript = otherScriptFor(locale);
   for (const probe of SER_CP007_TEMPLATE_PROBES_V71) {
     for (const seed of [1, 2, 3]) {
       const english = generateSerCp007PermanentEnglishPackage(
@@ -157,6 +163,10 @@ for (const locale of SER_CP007_LOCALES) {
           localized.review.renderingContract.accessibleDescription,
           script,
         );
+        assert.doesNotMatch(
+          localized.review.renderingContract.accessibleDescription,
+          otherScript,
+        );
       }
       rendererParityProofs += 1;
 
@@ -167,6 +177,10 @@ for (const locale of SER_CP007_LOCALES) {
       assert.match(localized.question.explanation.rule, script);
       assert.match(localized.question.explanation.conclusion, script);
       scriptProofs += 1;
+
+      assert.doesNotMatch(localized.question.stem, otherScript);
+      assert.doesNotMatch(text, otherScript);
+      mixedScriptProofs += 1;
 
       for (const pattern of localized.review.localizationDiagnostics
         .fallbackSourceLines) {
@@ -238,6 +252,7 @@ console.log(
       explanationParityProofs,
       rendererParityProofs,
       scriptProofs,
+      mixedScriptProofs,
       lifecycleLockProofs,
       fallbackPatterns: fallbackSummary,
       englishProseLeaks: leakSummary,
