@@ -28,6 +28,7 @@ import { applyNumCp005FinalExplanationSafety } from "./release-review-final-expl
 import { applyNumCp005FinalExamQuestionCorrections } from "./final-exam-readiness-question-corrections";
 import { applyNumCp005FinalExamExplanationCorrections } from "./final-exam-readiness-explanations";
 import { applyNumCp005FinalQl066Safe } from "./final-exam-readiness-ql066-safe";
+import { applyNumCp005FinalDifficulty } from "./final-exam-readiness-difficulty";
 
 export function remediateNumCp005English(source) {
   let result;
@@ -73,19 +74,20 @@ export function remediateNumCp005English(source) {
   const finalQuestion = source.qlId === "NUM-QL-066"
     ? applyNumCp005FinalQl066Safe(source, corrected)
     : applyNumCp005FinalExamQuestionCorrections(source, corrected);
+  const difficultyQuestion = applyNumCp005FinalDifficulty(source, finalQuestion);
   const explanationInput = {
     qlId: source.qlId,
     seed: source.seed,
-    stem: finalQuestion.stem,
-    hiddenState: finalQuestion.hiddenState ?? source.hiddenState,
-    canonicalAnswer: finalQuestion.canonicalAnswer,
-    options: finalQuestion.options,
+    stem: difficultyQuestion.stem,
+    hiddenState: difficultyQuestion.hiddenState ?? source.hiddenState,
+    canonicalAnswer: difficultyQuestion.canonicalAnswer,
+    options: difficultyQuestion.options,
   };
   const initialExplanation = buildNumCp005StudentExplanation(explanationInput);
   const correctedExplanation = applyNumCp005ExplanationCorrections(
     explanationInput,
     initialExplanation,
-    finalQuestion.difficulty,
+    difficultyQuestion.difficulty,
   );
   const renderingSafeExplanation = applyNumCp005ReleaseReviewRenderingSafety(correctedExplanation);
   const policyCheckedExplanation = enforceNumCp005StudentExplanationPolicy(
@@ -98,7 +100,7 @@ export function remediateNumCp005English(source) {
   );
 
   return {
-    ...finalQuestion,
+    ...difficultyQuestion,
     explanation: applyNumCp005FinalExamExplanationCorrections(
       explanationInput,
       finalSafetyExplanation,
