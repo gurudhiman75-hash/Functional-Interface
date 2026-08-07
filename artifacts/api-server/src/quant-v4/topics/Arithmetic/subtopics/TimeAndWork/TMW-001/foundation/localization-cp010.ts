@@ -24,6 +24,7 @@ import {
   tmwCp010LocalizedTrapReason,
 } from "./localization-cp010-learning";
 import { polishTmwCp010Text } from "./localization-cp010-polish";
+import { remediateTmwCp010LocalizedEditorial } from "./cp010-editorial-review-remediation";
 
 export interface TmwCp010LocalizedOption extends TmwCp010Option {}
 
@@ -76,18 +77,32 @@ export function localizeTmwCp010Question(
   );
   if (trapIndex < 0) trapIndex = source.optionAudit.findIndex((option) => option.misconceptionId === trapId);
 
-  const stem = polish(renderTmwCp010LocalizedStem(source, language));
-  const opening = polish(tmwCp010LocalizedOpening(entry.ruleId, language));
+  const rawStem = polish(renderTmwCp010LocalizedStem(source, language));
+  const rawOpening = polish(tmwCp010LocalizedOpening(entry.ruleId, language));
   const formula = polish(source.explanation.formula);
-  const givens = tmwCp010LocalizedGivens(source, language).map(polish);
-  const steps = source.explanation.steps.map((step) => polish(localizeMathStep(step, language)));
-  const rawShortcut = tmwCp010LocalizedShortcut(source, answerText, language);
-  const shortcut = {
-    title: polish(rawShortcut.title),
-    steps: rawShortcut.steps.map(polish),
+  const rawGivens = tmwCp010LocalizedGivens(source, language).map(polish);
+  const rawSteps = source.explanation.steps.map((step) => polish(localizeMathStep(step, language)));
+  const rawShortcutSource = tmwCp010LocalizedShortcut(source, answerText, language);
+  const rawShortcut = {
+    title: polish(rawShortcutSource.title),
+    steps: rawShortcutSource.steps.map(polish),
   };
-  const trapExplanation = polish(tmwCp010LocalizedTrapReason(trapId, language));
-  const conclusion = polish(tmwCp010LocalizedConclusion(source, answerText, language));
+  const rawTrapExplanation = polish(tmwCp010LocalizedTrapReason(trapId, language));
+  const rawConclusion = polish(tmwCp010LocalizedConclusion(source, answerText, language));
+  const editorial = remediateTmwCp010LocalizedEditorial(
+    source,
+    {
+      stem: rawStem,
+      opening: rawOpening,
+      givens: rawGivens,
+      workedSteps: rawSteps,
+      shortcut: rawShortcut,
+      trapExplanation: rawTrapExplanation,
+      conclusion: rawConclusion,
+    },
+    answerText,
+    language,
+  );
   const errors = [...source.validation.errors];
 
   if (trapIndex < 0) errors.push("Localized common trap is not linked to an option");
@@ -99,22 +114,22 @@ export function localizeTmwCp010Question(
   if (options[source.correctIndex] !== answerText) {
     errors.push("Localized correct option text differs from localized answer text");
   }
-  if (!stem.trim()) errors.push("Localized stem is empty");
-  if (givens.length < 2) errors.push("Localized givens are incomplete");
-  if (steps.length < 3) errors.push("Localized worked steps are incomplete");
-  if (shortcut.steps.length < 2) errors.push("Localized shortcut is incomplete");
+  if (!editorial.stem.trim()) errors.push("Localized stem is empty");
+  if (editorial.givens.length < 2) errors.push("Localized givens are incomplete");
+  if (editorial.workedSteps.length < 3) errors.push("Localized worked steps are incomplete");
+  if (editorial.shortcut.steps.length < 2) errors.push("Localized shortcut is incomplete");
 
   const learnerText = [
-    stem,
+    editorial.stem,
     ...options,
-    opening,
+    editorial.opening,
     formula,
-    ...givens,
-    ...steps,
-    shortcut.title,
-    ...shortcut.steps,
-    trapExplanation,
-    conclusion,
+    ...editorial.givens,
+    ...editorial.workedSteps,
+    editorial.shortcut.title,
+    ...editorial.shortcut.steps,
+    editorial.trapExplanation,
+    editorial.conclusion,
   ].join(" ");
   if (language === "hi" && !/[\u0900-\u097F]/.test(learnerText)) errors.push("Hindi delivery has no Devanagari text");
   if (language === "pa" && !/[\u0A00-\u0A7F]/.test(learnerText)) errors.push("Punjabi delivery has no Gurmukhi text");
@@ -131,25 +146,25 @@ export function localizeTmwCp010Question(
     locale: displayLocale(language),
     sourceLanguage: "en",
     seed: source.seed,
-    stem,
+    stem: editorial.stem,
     parameters: source.parameters,
     solution: { ...source.solution, answerText },
     options,
     optionAudit,
     correctIndex: source.correctIndex,
     explanation: {
-      opening,
+      opening: editorial.opening,
       formula,
-      givens,
-      steps,
-      shortcut,
+      givens: editorial.givens,
+      steps: editorial.workedSteps,
+      shortcut: editorial.shortcut,
       commonTrap: {
         optionLabel: localizedOptionLabel(trapIndex, language),
         optionText: options[trapIndex] ?? options[0] ?? "",
         misconceptionId: trapId,
-        explanation: trapExplanation,
+        explanation: editorial.trapExplanation,
       },
-      conclusion,
+      conclusion: editorial.conclusion,
     },
     mathematicalFingerprint: source.mathematicalFingerprint,
     validation: { valid: errors.length === 0, errors },
