@@ -1,8 +1,8 @@
 import { createHash } from "node:crypto";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { INT_CP003_FINAL_REGISTRY } from "./cp003-exam-model";
 import {
-  INT_CP003_FINAL_REGISTRY,
   INT_CP003_QL_IDS,
   generateIntCp003ExamQuestion,
   type IntCp003ExamQuestion,
