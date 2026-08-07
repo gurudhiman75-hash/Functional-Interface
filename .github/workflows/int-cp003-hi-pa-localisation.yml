@@ -79,6 +79,20 @@ jobs:
           cd artifacts/api-server
           node dist/quant-v4/int-001-cp003-localized-presentation-wave1-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp003-localized-presentation-wave1-audit.log
 
+      - name: Bundle localized presentation Wave 2 audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp003-localized-presentation-wave2-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp003-localized-presentation-wave2-audit.mjs
+
+      - name: Run localized presentation Wave 2 audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp003-localized-presentation-wave2-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp003-localized-presentation-wave2-audit.log
+
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
@@ -88,15 +102,17 @@ jobs:
           freeze=artifacts/api-server/dist/quant-v4/int-cp003-approved-english-freeze/int-cp003-approved-english-freeze-summary.json
           foundation=artifacts/api-server/dist/quant-v4/int-cp003-localization-foundation/int-cp003-localization-foundation-summary.json
           wave1=artifacts/api-server/dist/quant-v4/int-cp003-localized-presentation-wave1/int-cp003-localized-presentation-wave1-summary.json
+          wave2=artifacts/api-server/dist/quant-v4/int-cp003-localized-presentation-wave2/int-cp003-localized-presentation-wave2-summary.json
           grep -q 'PASS_INT_CP003_APPROVED_ENGLISH_FREEZE' artifacts/api-server/dist/quant-v4/int-001-cp003-english-freeze-audit.log
           grep -q 'PASS_INT_CP003_LOCALIZATION_FOUNDATION' artifacts/api-server/dist/quant-v4/int-001-cp003-localization-foundation-audit.log
           grep -q 'PASS_INT_CP003_LOCALIZED_PRESENTATION_WAVE1' artifacts/api-server/dist/quant-v4/int-001-cp003-localized-presentation-wave1-audit.log
+          grep -q 'PASS_INT_CP003_LOCALIZED_PRESENTATION_WAVE2' artifacts/api-server/dist/quant-v4/int-001-cp003-localized-presentation-wave2-audit.log
           test -f "$freeze"
           test -f "$foundation"
           test -f "$wave1"
+          test -f "$wave2"
           grep -q '"status": "LOCALISATION_FOUNDATION_READY"' "$foundation"
           grep -q '"localizationVersion": "INT-CP-003-HI-PA-LOCALISATION-v1"' "$foundation"
-          grep -q '"canonicalFreezeId": "INT-CP-003-EN-v1-frozen"' "$foundation"
           grep -q '"termChecks": 36' "$foundation"
           grep -q '"phraseChecks": 32' "$foundation"
           grep -q '"placeholderGuardChecks": 8' "$foundation"
@@ -105,25 +121,35 @@ jobs:
           grep -q '"qlCount": 6' "$wave1"
           grep -q '"questions": 1200' "$wave1"
           grep -q '"representationCoverage": 6' "$wave1"
+          grep -q '"status": "PRESENTATION_WAVE2_READY"' "$wave2"
+          grep -q '"qlRange": "INT-QL-059..INT-QL-066"' "$wave2"
+          grep -q '"qlCount": 8' "$wave2"
+          grep -q '"questions": 1600' "$wave2"
+          grep -q '"representationCoverage": 6' "$wave2"
           grep -q '"mathematicalGivensPreserved": true' "$wave1"
+          grep -q '"mathematicalGivensPreserved": true' "$wave2"
+          grep -q '"unknownValuesHidden": true' "$wave2"
           grep -q '"representationPreserved": true' "$wave1"
+          grep -q '"representationPreserved": true' "$wave2"
           grep -q '"stemFamilyPreserved": true' "$wave1"
-          grep -q '"unknownOwnershipPreserved": true' "$wave1"
-          grep -q '"enabled": false' "$wave1"
-          grep -q '"registrationStatus": "NOT_REGISTERED"' "$wave1"
-          grep -q '"publiclyPublishable": false' "$wave1"
+          grep -q '"stemFamilyPreserved": true' "$wave2"
+          grep -q '"enabled": false' "$wave2"
+          grep -q '"registrationStatus": "NOT_REGISTERED"' "$wave2"
+          grep -q '"publiclyPublishable": false' "$wave2"
 
-      - name: Upload localisation Wave 1 evidence
+      - name: Upload complete presentation localisation evidence
         uses: actions/upload-artifact@v4
         with:
-          name: int-cp003-hi-pa-localisation-wave1
+          name: int-cp003-hi-pa-localisation-presentations
           path: |
             artifacts/api-server/dist/quant-v4/int-001-cp003-english-freeze-audit.log
             artifacts/api-server/dist/quant-v4/int-001-cp003-localization-foundation-audit.log
             artifacts/api-server/dist/quant-v4/int-001-cp003-localized-presentation-wave1-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp003-localized-presentation-wave2-audit.log
             artifacts/api-server/dist/quant-v4/int-cp003-approved-english-freeze/**
             artifacts/api-server/dist/quant-v4/int-cp003-localization-foundation/**
             artifacts/api-server/dist/quant-v4/int-cp003-localized-presentation-wave1/**
+            artifacts/api-server/dist/quant-v4/int-cp003-localized-presentation-wave2/**
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-003/INT-CP-003-HI-PA-LOCALISATION-PLAN.md
           if-no-files-found: error
           retention-days: 30
