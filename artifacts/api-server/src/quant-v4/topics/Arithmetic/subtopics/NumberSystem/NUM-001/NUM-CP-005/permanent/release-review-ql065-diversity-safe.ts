@@ -62,6 +62,5 @@ export function applyNumCp005Ql065DiversitySafe(source, result) {
     verifierAnswer: correct,
     hiddenState,
     difficulty,
-    mathematicalFingerprint: `${result.mathematicalFingerprint}|review-bound:${maximum}`,
   };
 }
