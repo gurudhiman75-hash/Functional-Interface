@@ -32,10 +32,10 @@ export const SAP_CP003_EXAM_READINESS_POLICY: Readonly<Record<SapCp003PrototypeI
   }),
   "SAP-CP003-PROT-DECIMAL-FRACTION-MIXED-EXPRESSION": Object.freeze({
     releaseTier: "SSC_STANDARD",
-    mockUse: "REMEDIATION_PENDING",
-    structuralRisk: "HIGH",
-    learnerUse: "Mixed decimal and fraction evaluation.",
-    mockWeightGuidance: "Hold from unrestricted mocks until cancellation-friendly values and genuinely different operation frames are implemented.",
+    mockUse: "SSC_AND_BANKING_ELIGIBLE",
+    structuralRisk: "MEDIUM",
+    learnerUse: "Evaluate decimal and fraction combinations through four exact, cancellation-friendly operation frames.",
+    mockWeightGuidance: "Controlled normal weight across fraction-of, mixed bracket, subtraction-chain and bracket-division frames.",
   }),
   "SAP-CP003-PROT-DECIMAL-PRODUCT-PLACE-VALUE": Object.freeze({
     releaseTier: "FOUNDATION_DRILL",
@@ -81,10 +81,10 @@ export const SAP_CP003_EXAM_READINESS_POLICY: Readonly<Record<SapCp003PrototypeI
   }),
   "SAP-CP003-PROT-CONVERT-TERMS-TO-FRACTIONS": Object.freeze({
     releaseTier: "ADVANCED_SPEED_PRACTICE",
-    mockUse: "SSC_ELIGIBLE",
+    mockUse: "SSC_AND_BANKING_ELIGIBLE",
     structuralRisk: "MEDIUM",
-    learnerUse: "Select a common exact fractional representation before evaluation.",
-    mockWeightGuidance: "Low SSC weight; prioritise expressions where conversion creates useful cancellation before banking eligibility.",
+    learnerUse: "Convert decimal and percentage terms to fractions across sum, product, signed-chain and division frames.",
+    mockWeightGuidance: "Controlled normal weight; all frames preserve exact representation switching and reduced-answer semantics.",
   }),
   "SAP-CP003-PROT-CONVERT-TERMS-TO-DECIMALS": Object.freeze({
     releaseTier: "SSC_STANDARD",
