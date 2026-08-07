@@ -26,9 +26,12 @@ function stable(value: unknown): string {
 function assertGrammar(question: MalCp004ClutterFreeQuestion): void {
   const prefix = `${question.permanentQlId}/${question.seed}`;
   const forbidden = [
-    /\bA (?:8\d*|18\d*|11)-litre/u,
+    /\bA (?:8\d*|18\d*|11)(?=[\s%-])/u,
+    /\ba (?:8\d*|18\d*|11)(?=[\s%-])/u,
+    /\ba alcohol\b/iu,
     /\blitres of solution contains\b/iu,
     /\blitres of water evaporates\b/iu,
+    /\blitres evaporates\b/iu,
     /\blitres of water is lost\b/iu,
     /^chemical A\b/u,
     /\bcomplete solution\b/iu,
