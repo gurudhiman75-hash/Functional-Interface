@@ -14,7 +14,7 @@ Final verified proof head:
 660c821deb7ac92288c0813e38c6fa89d56679ce
 ```
 
-The current branch contains only this sealed evidence record after the verified proof head. It does not alter localized runtime content, answers, options, traps or mathematical state.
+The branch contains this final evidence note after the verified proof head. It does not alter localized runtime content, answers, options, traps or mathematical state.
 
 ## Reviewed checkpoints
 
