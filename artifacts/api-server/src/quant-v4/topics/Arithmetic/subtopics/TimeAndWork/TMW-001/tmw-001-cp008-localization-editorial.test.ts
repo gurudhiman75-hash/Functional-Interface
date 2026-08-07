@@ -34,6 +34,7 @@ for (const entry of TMW_CP008_REGISTRY) {
     assert.equal(new Set(question.options).size, 4);
     assert.equal(question.options[question.correctIndex], question.solution.answerText);
     assert.notEqual(question.explanation.commonTrap.optionText, question.solution.answerText);
+    assert.ok(question.explanation.conclusion.includes(question.solution.answerText), `${entry.qlId}:${language}: conclusion answer`);
 
     if (["MONEY", "MONEY_TRIPLE"].includes(entry.answerType)) {
       assert.ok(question.options.every((option) => option.split(", ").every((part) => part.startsWith("₹"))), `${entry.qlId}:${language}: rupee delivery`);
@@ -51,22 +52,22 @@ for (const entry of TMW_CP008_REGISTRY) {
 
     switch (entry.solveMode) {
       case "findPaymentRatioFromContributionFactors":
-        assert.match(question.explanation.opening, language === "hi" ? /दक्षता.*कार्य-दिन.*दैनिक घंटे/ : /ਦੱਖਤਾ.*ਕੰਮ-ਦਿਨ.*ਰੋਜ਼ਾਨਾ ਘੰਟੇ/);
+        assert.match(question.explanation.opening, language === "hi" ? /दक्षता.*काम के दिन.*हर दिन काम के घंटे/ : /ਦੱਖਤਾ.*ਕੰਮ ਦੇ ਦਿਨ.*ਹਰ ਦਿਨ ਕੰਮ ਦੇ ਘੰਟੇ/);
         break;
       case "findResidualPayment":
-        assert.match(question.explanation.shortcut.title, language === "hi" ? /सीधा शेष/ : /ਸਿੱਧਾ ਬਾਕੀ/);
+        assert.match(question.explanation.shortcut.title, language === "hi" ? /कुल में से दिए भुगतान घटाएँ/ : /ਕੁੱਲ ਵਿੱਚੋਂ ਦਿੱਤੇ ਭੁਗਤਾਨ ਘਟਾਓ/);
         break;
       case "findPaymentAfterStagedParticipation":
-        assert.match(question.explanation.opening, language === "hi" ? /सक्रिय समय/ : /ਸਰਗਰਮ ਸਮਾਂ/);
+        assert.match(question.explanation.opening, language === "hi" ? /वास्तव में जितनी अवधि काम/ : /ਅਸਲ ਵਿੱਚ ਜਿੰਨੀ ਮਿਆਦ ਕੰਮ/);
         break;
       case "findPieceRatePaymentFromOutput":
         assert.match(question.stem, /पीस-रेट|ਪੀਸ-ਰੇਟ/);
         break;
       case "findBonusShareFromExtraContribution":
-        assert.match(question.explanation.opening, language === "hi" ? /लक्ष्य से अधिक/ : /ਟੀਚੇ ਤੋਂ ਵੱਧ/);
+        assert.match(question.explanation.opening, language === "hi" ? /निर्धारित लक्ष्य/ : /ਨਿਰਧਾਰਤ ਟੀਚਾ/);
         break;
       case "findPaymentAfterSignedContribution":
-        assert.match(question.explanation.opening, language === "hi" ? /शुद्ध स्वीकृत उत्पादन/ : /ਸ਼ੁੱਧ ਮਨਜ਼ੂਰ ਉਤਪਾਦਨ/);
+        assert.match(question.explanation.opening, language === "hi" ? /मान्य शुद्ध योगदान/ : /ਮਨਜ਼ੂਰ ਸ਼ੁੱਧ ਯੋਗਦਾਨ/);
         break;
     }
 
