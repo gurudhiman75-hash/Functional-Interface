@@ -75,6 +75,10 @@ for (const definition of SYL_QL_REGISTRY) {
       assert.equal(presentation.lifecycle.questionStudioEnabled, false);
       assert.equal(presentation.lifecycle.questionBankStatus, "NOT_STORED");
       assert.equal(presentation.lifecycle.testEligibility, "INELIGIBLE");
+      assert.equal(presentation.remediationEvidence.nativeEnglishEditorialStatus, "APPROVED_BY_PRODUCT_OWNER");
+      assert.equal(presentation.remediationEvidence.nativeHindiEditorialStatus, "APPROVED_BY_PRODUCT_OWNER");
+      assert.equal(presentation.remediationEvidence.nativePunjabiEditorialStatus, "APPROVED_BY_PRODUCT_OWNER");
+      assert.equal(presentation.remediationEvidence.humanViewportStatus, "EVIDENCE_READY_PENDING_APPROVAL");
 
       assert.equal(
         explanation.conclusionResults.length,
@@ -192,6 +196,7 @@ assert.equal(answerModeContradictions, 0);
 assert.equal(diagramModeContradictions, 0);
 assert.equal(unexplainedConclusions, 0);
 assert.equal(optionStatusLabelMismatches, 0);
+assert.equal(deadInconsistentOptionOccurrences, 0);
 assert.ok(modelRecords > 0);
 assert.ok(unsafeWitnessDiagramsOmitted > 0);
 
@@ -213,11 +218,13 @@ console.log(JSON.stringify({
     unexplainedDisplayedConclusions: unexplainedConclusions,
     optionStatusLabelMismatches,
   },
-  retainedReleaseBlockers: {
+  resolvedReviewItems: {
     deadInconsistentOptionOccurrences,
-    deadOptionDecision: "PENDING_SEPARATE_SOURCE_DECISION",
-    nativeEditorialReview: "PENDING",
-    humanViewportReview: "PENDING",
+    questionExplanationEditorialReview: "APPROVED_BY_PRODUCT_OWNER",
+    viewportEvidence: "READY_AT_360_412_768",
+  },
+  retainedReleaseBlockers: {
+    humanViewportReview: "EVIDENCE_READY_PENDING_APPROVAL",
     mockWeightCalibration: "PENDING_SEPARATE_SOURCE_DECISION",
   },
   lifecycle: {
