@@ -1,4 +1,11 @@
-import { add, multiply, parseNumericLiteral } from "./exact";
+import {
+  add,
+  formatRat,
+  formatTerminatingDecimal,
+  isTerminating,
+  multiply,
+  parseNumericLiteral,
+} from "./exact";
 import type { SapCp003Option, SapCp003Package } from "./types";
 
 function sanitiseDecimalFractionBracketDistractor(pkg: SapCp003Package): SapCp003Package {
@@ -13,11 +20,9 @@ function sanitiseDecimalFractionBracketDistractor(pkg: SapCp003Package): SapCp00
   const fraction = parseNumericLiteral(match[2]!)!;
   const quantity = parseNumericLiteral(match[3]!)!;
   const visibleWrongValue = add(multiply(decimal, quantity), fraction);
-  const visibleWrongText = visibleWrongValue.d === 1n
-    ? visibleWrongValue.n.toString()
-    : Number(visibleWrongValue.n) / Number(visibleWrongValue.d) % 1 === 0
-      ? (Number(visibleWrongValue.n) / Number(visibleWrongValue.d)).toString()
-      : `${visibleWrongValue.n}/${visibleWrongValue.d}`;
+  const visibleWrongText = isTerminating(visibleWrongValue)
+    ? formatTerminatingDecimal(visibleWrongValue)
+    : formatRat(visibleWrongValue);
 
   const options: readonly SapCp003Option[] = Object.freeze(pkg.options.map((option) =>
     option.misconceptionId === "MULTIPLIER_APPLIED_TO_DECIMAL_ONLY"
