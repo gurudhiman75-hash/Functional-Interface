@@ -48,13 +48,10 @@ jobs:
         run: |
           set -euo pipefail
           root="src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001"
-          mapfile -t files < <(find "$root" -maxdepth 2 -type f \(
-            -name 'cp0??-editorial-review-remediation*.ts' -o
-            -name 'cp0??-editorial-field-cleanup.ts' -o
-            -name 'localization-cp0??.ts' -o
-            -name 'tmw-001-cp0??-editorial-review.test.ts' -o
-            -name 'chapter-localized-runtime.ts'
-          \) | sort)
+          files=()
+          for cp in 001 002 003 004 005 006 007 008 009 010; do
+            files+=("${root}/tmw-001-cp${cp}-editorial-review.test.ts")
+          done
           pnpm exec tsc \
             --noEmit \
             --target es2022 \
