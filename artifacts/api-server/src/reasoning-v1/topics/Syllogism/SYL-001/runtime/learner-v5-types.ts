@@ -23,7 +23,8 @@ export type SylLearnerExplanationModeV5 =
 export type SylDiagramOmissionReasonV5 =
   | SylLearnerDiagramV4["omissionReason"]
   | "ANSWER_MODE_MISMATCH"
-  | "UNKNOWN_RELATION_NOT_DRAWN";
+  | "UNKNOWN_RELATION_NOT_DRAWN"
+  | "MODEL_TARGET_MISMATCH";
 
 export interface SylLearnerConclusionResultV5
   extends Omit<SylLearnerConclusionResultV4, "shortReason"> {
