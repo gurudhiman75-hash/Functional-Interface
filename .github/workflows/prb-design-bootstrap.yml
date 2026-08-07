@@ -79,7 +79,22 @@ jobs:
             artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/maturity-audit.ts
           )
           for test in "${tests[@]}"; do
-            npx --yes tsx "$test"
+            echo "Running $test"
+            set +e
+            npx --yes tsx "$test" > /tmp/probability-test.log 2>&1
+            status=$?
+            set -e
+            cat /tmp/probability-test.log
+            if [ "$status" -ne 0 ]; then
+              echo "::error title=Probability QA failed::$test"
+              while IFS= read -r line; do
+                line="${line//'%'/'%25'}"
+                line="${line//$'\r'/'%0D'}"
+                line="${line//$'\n'/'%0A'}"
+                echo "::error::$line"
+              done < /tmp/probability-test.log
+              exit "$status"
+            fi
           done
 
       - name: Commit materialized implementation
