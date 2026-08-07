@@ -16,6 +16,22 @@ import type {
 export const BLR_CP007_V4_QL034_COHERENT_NETWORK_AUTHORITY =
   "BLR_CP007_V4_QL034_COHERENT_NETWORK_REMODEL" as const;
 
+function hashText(value: string): number {
+  let hash = 0x811c9dc5;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 0x01000193);
+  }
+  return hash >>> 0;
+}
+
+function fingerprint(value: unknown): string {
+  const text = JSON.stringify(value);
+  const first = hashText(text).toString(16).padStart(8, "0");
+  const second = hashText(`${text}::final-v4`).toString(16).padStart(8, "0");
+  return `${first}${second}${second}${first}`;
+}
+
 function relationText(relationId: BlrCp006Relation): string {
   return relationDisplay(relationId).toLocaleLowerCase("en-IN");
 }
@@ -35,6 +51,13 @@ function targetSentence(question: GeneratedBlrCp007EditorialV4Question): string 
 function ensurePeriod(value: string): string {
   const text = value.trim();
   return /[.!?]$/.test(text) ? text : `${text}.`;
+}
+
+function polishInheritedStem(stem: string): string {
+  return stem
+    .replace(/\band makes (?=[A-Z]+ is\b)/g, "so that ")
+    .replace(/\bthat makes (?=[A-Z]+ is\b)/g, "that shows that ")
+    .replace(/\bthat make (?=[A-Z]+ is\b)/g, "that show that ");
 }
 
 function remodelStem(question: GeneratedBlrCp007EditorialV4Question): string {
@@ -97,10 +120,47 @@ function recommendedUse(
     : "STANDARD_MOCK";
 }
 
-function releaseConnectedQl034(
+function applyFinalFingerprint(
   question: GeneratedBlrCp007EditorialV4Question,
 ): GeneratedBlrCp007EditorialV4Question {
-  if (question.qlId !== "BLR-QL-034") return question;
+  const finalFingerprint = fingerprint({
+    sourceV3SemanticFingerprint: question.metadata.sourceV3SemanticFingerprint,
+    qlId: question.qlId,
+    sourcePrototypeId: question.sourcePrototypeId,
+    stem: question.stem,
+    sharedPrompt: question.sharedPrompt,
+    codeKey: question.codeKey,
+    options: question.options.map((option) => ({
+      text: option.text,
+      studentExplanation: option.studentExplanation,
+    })),
+    explanation: {
+      steps: question.explanation.steps,
+      conclusion: question.explanation.conclusion,
+      shortcut: question.explanation.shortcut,
+      commonTrap: question.explanation.commonTrap,
+    },
+    difficulty: question.metadata.difficulty,
+    disposition: question.metadata.disposition,
+    recommendedUse: question.metadata.recommendedUse,
+  });
+  return {
+    ...question,
+    metadata: {
+      ...question.metadata,
+      v4EditorialFingerprint: finalFingerprint,
+    },
+  };
+}
+
+function releaseConnectedQl034(
+  sourceQuestion: GeneratedBlrCp007EditorialV4Question,
+): GeneratedBlrCp007EditorialV4Question {
+  const question = {
+    ...sourceQuestion,
+    stem: polishInheritedStem(sourceQuestion.stem),
+  };
+  if (question.qlId !== "BLR-QL-034") return applyFinalFingerprint(question);
   const components = question.metadata.candidateNetworkComponentCount;
   if (components !== 1) {
     throw new Error(`${question.itemId}: QL-034 candidate network has ${components ?? "unknown"} components.`);
@@ -128,7 +188,7 @@ function releaseConnectedQl034(
       .filter((line) => !/inferred parent/i.test(line))
       .join("\n"),
   };
-  return {
+  return applyFinalFingerprint({
     ...question,
     stem: remodelStem(question),
     options,
@@ -156,7 +216,7 @@ function releaseConnectedQl034(
       recommendedUse: use,
       activeEditorialBlockers: blockers,
     },
-  };
+  });
 }
 
 export function generateBlrCp007EditorialV4Wave2Bank(): readonly GeneratedBlrCp007EditorialV4Question[] {
