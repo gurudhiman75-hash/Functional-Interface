@@ -9,12 +9,16 @@ on:
       - New-main
     types: [opened, reopened, synchronize]
     paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/options.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/ql-registry.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-types.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-dead-option-remediation.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-editorial-polish.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-model-target-remediation.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/generator-v5.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-dead-option-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-editorial-polish.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-model-target-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/export-review-v5.ts
@@ -87,6 +91,19 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/reasoning-v1/syl-001-v5-model-target-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-v5-model-target-audit.log
 
+      - name: Bundle V5 dead-option audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-dead-option-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-v5-dead-option-audit.test.mjs
+
+      - name: Run exhaustive V5 dead-option audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-v5-dead-option-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-v5-dead-option-audit.log
+
       - name: Bundle V5 review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -108,6 +125,7 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/syl-001-v5-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-v5-editorial-polish.log
             artifacts/api-server/dist/reasoning-v1/syl-001-v5-model-target-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-v5-dead-option-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-review-v5/**
           if-no-files-found: error
           retention-days: 30
