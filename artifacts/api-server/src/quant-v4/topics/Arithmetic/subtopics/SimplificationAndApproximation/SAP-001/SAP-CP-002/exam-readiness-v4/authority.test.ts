@@ -38,6 +38,8 @@ for (const pkg of sweep) {
   assert.equal(pkg.validation.surfaceSyntaxPassed, true);
   assert.equal(pkg.validation.symbolNormalizationPassed, true);
   assert.equal(pkg.validation.explanationCompletenessPassed, true);
+  assert.doesNotMatch(pkg.stem, /Find the value:\s*the blank/i);
+  assert.doesNotMatch(pkg.stem, /Evaluate\s+\*|expression:\s*\*/i);
   assert.equal(pkg.lifecycle.active, false);
   assert.equal(pkg.lifecycle.questionStudioDiscoverable, false);
   assert.equal(pkg.lifecycle.questionBankWritable, false);
@@ -90,6 +92,10 @@ for (const pkg of sweep) {
     assert.equal(pkg.options.filter((option) => option.satisfiesRequiredForm).length, 1);
   }
   if (pkg.permanentQlId === "SAP-QL-033") {
+    assert.match(pkg.stem, /\nGiven:/);
+    assert.match(pkg.stem, /\nStep 1:/);
+    assert.match(pkg.stem, /\nStep 2:/);
+    assert.match(pkg.stem, /\nStep 3:/);
     assert.match(pkg.explanation.methodId, /FIRST_INVALID_TRANSFORMATION/);
     assert.ok(pkg.explanation.stepByStep.some((step) => /exact value|equivalent/i.test(step)));
   }
@@ -117,6 +123,8 @@ assert.equal(records.filter((record) => /SAFE_FALLBACK/i.test(record.explanation
 assert.equal(records.filter((record) => !record.validation.finalWorkingMatchesAnswer).length, 0);
 assert.equal(records.filter((record) => !record.validation.surfaceSyntaxPassed).length, 0);
 assert.equal(records.filter((record) => !record.validation.symbolNormalizationPassed).length, 0);
+assert.equal(records.filter((record) => /Find the value:\s*the blank/i.test(record.stem)).length, 0);
+assert.equal(records.filter((record) => record.permanentQlId === "SAP-QL-033" && !/\nGiven:\n?/.test(record.stem)).length, 0);
 
 console.log(JSON.stringify({
   status: "PASS_SAP_CP002_EXAM_READINESS_V4_AUTHORITY",
