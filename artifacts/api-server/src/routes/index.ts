@@ -72,12 +72,14 @@ import publishedTestRunnerRouter from "./published-test-runner";
 import attemptReliabilityRouter from "./attempt-reliability";
 import canonicalAttemptResultsRouter from "./canonical-attempt-results";
 import canonicalStudentReadRouter from "./canonical-student-read";
+import studentAccountRecoveryRouter from "./student-account-recovery";
 import studentTestSeriesRouter from "./student-test-series";
 import adminSessionRouter from "./admin-session";
 import retiredLegacyRouter from "./retired-legacy";
 
 const router: IRouter = Router();
 router.use(healthRouter);
+router.use("/account-recovery", studentAccountRecoveryRouter);
 router.use("/users", usersRouter);
 router.use("/categories", categoriesRouter);
 router.use("/subcategories", subcategoriesRouter);

@@ -18,6 +18,8 @@ on:
       - artifacts/api-server/src/routes/admin-students.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/examtree/src/lib/auth.ts
+      - artifacts/examtree/src/lib/account-recovery-contract.ts
+      - artifacts/examtree/src/lib/account-recovery-contract.test.ts
       - artifacts/examtree/src/pages/account-recovery.tsx
       - artifacts/examtree/src/pages/login.tsx
       - artifacts/examtree/src/App.tsx
@@ -49,6 +51,8 @@ on:
       - artifacts/api-server/src/routes/admin-students.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/examtree/src/lib/auth.ts
+      - artifacts/examtree/src/lib/account-recovery-contract.ts
+      - artifacts/examtree/src/lib/account-recovery-contract.test.ts
       - artifacts/examtree/src/pages/account-recovery.tsx
       - artifacts/examtree/src/pages/login.tsx
       - artifacts/examtree/src/App.tsx
@@ -95,6 +99,7 @@ jobs:
 
       - name: Enforce canonical RBAC, lifecycle and recovery safeguards
         run: |
+          grep -F 'router.use("/account-recovery", studentAccountRecoveryRouter)' artifacts/api-server/src/routes/index.ts
           grep -F 'router.use("/admin/students", adminStudentAccountRecoveryRouter)' artifacts/api-server/src/routes/index.ts
           grep -F 'router.use("/admin/students", adminStudentRecoveryRequestsRouter)' artifacts/api-server/src/routes/index.ts
           grep -F 'router.use("/admin/students", adminStudentLifecycleConsistencyRouter)' artifacts/api-server/src/routes/index.ts
@@ -126,9 +131,11 @@ jobs:
           grep -F 'SESSION_REVOKED' artifacts/api-server/src/middlewares/auth.ts
           grep -F 'ACCOUNT_RECOVERY_COMPLETED' artifacts/examtree/src/lib/auth.ts
           grep -F 'account-recovery-completed' artifacts/examtree/src/lib/auth.ts
-          grep -F 'Can’t access your account?' artifacts/examtree/src/pages/login.tsx
+          grep -F 'Can’t access your account?' artifacts/examtree/src/App.tsx
           grep -F '/account-recovery' artifacts/examtree/src/App.tsx
+          grep -F 'sendPasswordResetEmail' artifacts/examtree/src/pages/account-recovery.tsx
           grep -F '/account-recovery/request' artifacts/examtree/src/pages/account-recovery.tsx
+          grep -F 'PASSWORD_RESET_ACCEPTED_MESSAGE' artifacts/examtree/src/lib/account-recovery-contract.ts
           grep -F 'recoverStudentFirebaseIdentity' artifacts/admin-app/src/features/students/api.ts
           grep -F 'recoveryRequestId' artifacts/admin-app/src/features/students/api.ts
           grep -F 'Open verified recovery' artifacts/admin-app/src/pages/users/RecoveryRequestsPage.tsx
@@ -148,6 +155,7 @@ jobs:
           grep -R 'FIREBASE_RECOVERY_IDENTITY_CONFLICT' artifacts/api-server/dist >/dev/null
           grep -R 'ACCOUNT_RECOVERY_COMPLETED' artifacts/api-server/dist >/dev/null
           grep -R 'CLOSED_REQUEST_COOLDOWN_HOURS' artifacts/api-server/dist >/dev/null
+          grep -R 'student-account-recovery' artifacts/api-server/dist >/dev/null
           grep -R 'revokeRefreshTokens' artifacts/api-server/dist >/dev/null
           grep -R 'SESSION_REVOKED' artifacts/api-server/dist >/dev/null
 
@@ -155,6 +163,11 @@ jobs:
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/lib/admin-student-administration.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-student-administration.test.mjs
           node artifacts/api-server/dist/admin-student-administration.test.mjs
+
+      - name: Test web account recovery contracts
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild ../examtree/src/lib/account-recovery-contract.test.ts --bundle --packages=external --platform=node --format=esm --outfile=../examtree/dist/account-recovery-contract.test.mjs
+          node artifacts/examtree/dist/account-recovery-contract.test.mjs
 
       - name: Typecheck admin application
         run: pnpm run typecheck:admin
