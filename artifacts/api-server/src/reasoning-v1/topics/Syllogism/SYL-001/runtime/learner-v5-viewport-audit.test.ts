@@ -10,7 +10,8 @@ import {
 const locales: readonly SylLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 let records = 0;
 let enabledDiagrams = 0;
-let relationMapFallbacks = 0;
+let focusedVennFallbacks = 0;
+let nonVennVisuals = 0;
 let longestStem = 0;
 let longestOption = 0;
 let longestExplanation = 0;
@@ -33,6 +34,7 @@ for (const definition of SYL_QL_REGISTRY) {
     for (const locale of locales) {
       const question = generateSylQuestionV5(definition.qlId, seed, locale);
       const presentation = question.learnerPresentationV5;
+      const diagramSvg = presentation.diagram.svg ?? "";
       records += 1;
 
       assert.equal(presentation.remediationEvidence.humanViewportStatus, "EVIDENCE_READY_PENDING_APPROVAL");
@@ -52,26 +54,36 @@ for (const definition of SYL_QL_REGISTRY) {
       );
 
       assert.equal(presentation.learnerExplanation.showDiagram, true);
-      assert.equal(presentation.diagram.enabled, true, `${definition.qlId}/${seed}/${locale}: visual is mandatory`);
+      assert.equal(presentation.diagram.enabled, true, `${definition.qlId}/${seed}/${locale}: Venn diagram is mandatory`);
       enabledDiagrams += 1;
-      if (presentation.diagram.mode === "RELATION_MAP") relationMapFallbacks += 1;
+      if (presentation.diagram.semanticSignature.startsWith("syl-v5:focused-venn:")) {
+        focusedVennFallbacks += 1;
+        assert.match(diagramSvg, /class="examtree-venn-svg"/u);
+      }
       assert.equal(presentation.diagram.diagramCount, 1);
       assert.equal(presentation.diagram.mobileViewBoxWidth, 360);
       assert.equal(presentation.diagram.omissionReason, null);
-      assert.ok(presentation.diagram.svg);
+      assert.ok(diagramSvg);
       assert.ok(presentation.diagram.caption?.trim());
       assert.ok(presentation.diagram.accessibleDescription?.trim());
-      assert.match(presentation.diagram.svg ?? "", /<svg\b/u);
-      assert.match(presentation.diagram.svg ?? "", /viewBox=/u);
-      assert.doesNotMatch(presentation.diagram.svg ?? "", /<script\b/iu);
-      assert.doesNotMatch(presentation.diagram.svg ?? "", /<foreignObject\b/iu);
+      assert.match(presentation.diagram.mode, /^VENN_/u, `${definition.qlId}/${seed}/${locale}: non-Venn mode`);
+      assert.match(diagramSvg, /<svg\b/u);
+      assert.match(diagramSvg, /viewBox=/u);
+      assert.match(diagramSvg, /<(?:circle|ellipse)\b/u, `${definition.qlId}/${seed}/${locale}: no Venn circles`);
+      assert.doesNotMatch(diagramSvg, /relation map|relation-map|node-link|arrow map/iu);
+      assert.doesNotMatch(diagramSvg, /<script\b/iu);
+      assert.doesNotMatch(diagramSvg, /<foreignObject\b/iu);
+      if (!/^VENN_/u.test(presentation.diagram.mode) || !/<(?:circle|ellipse)\b/u.test(diagramSvg)) {
+        nonVennVisuals += 1;
+      }
     }
   }
 }
 
 assert.equal(records, 18 * 80 * 3);
 assert.equal(enabledDiagrams, records);
-assert.ok(relationMapFallbacks > 0);
+assert.equal(nonVennVisuals, 0);
+assert.ok(focusedVennFallbacks > 0);
 
 console.log(JSON.stringify({
   status: "PASS_SYL_001_V5_VIEWPORT_EVIDENCE_CONTRACT",
@@ -81,7 +93,8 @@ console.log(JSON.stringify({
     required: records,
     enabled: enabledDiagrams,
     missing: records - enabledDiagrams,
-    relationMapFallbacks,
+    focusedVennFallbacks,
+    nonVennVisuals,
   },
   longestContent: {
     stemCharacters: longestStem,
