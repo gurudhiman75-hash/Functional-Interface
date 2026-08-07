@@ -3,15 +3,18 @@ import {
   completeAmountForState,
   completeAmountFromNominal,
   deepFreeze,
+  effectiveAnnualRate,
   periodicRate,
   rat,
   sub,
   type Cp004Explanation,
   type Cp004MathematicalState,
+  type Cp004Option,
   type Cp004Representation,
   type Rational,
 } from "./cp004-frequency-math";
 import {
+  decimal,
   frequencyNoun,
   moneyText,
   percentText,
@@ -39,7 +42,11 @@ function exactDecimalText(value: Rational): string {
 }
 
 function exactReferenceMoney(value: Rational): string {
-  return `₹${exactDecimalText(value)}`;
+  const display = exactDecimalText(value);
+  if (display.includes("/")) return `₹${display}`;
+  const [whole, fraction] = display.split(".");
+  if (fraction === undefined) return `₹${whole}`;
+  return `₹${whole}.${fraction.padEnd(2, "0")}`;
 }
 
 function periodCountText(state: Cp004MathematicalState): string {
@@ -50,6 +57,14 @@ export function hardenCp004ExplanationV3(
   state: Cp004MathematicalState,
   original: Cp004Explanation,
 ): Cp004Explanation {
+  if (state.qlId === "INT-QL-076") {
+    const effective = `${decimal(effectiveAnnualRate(state.nominalAnnualRatePercent, state.frequency), 2)}%`;
+    const steps = Object.freeze(original.steps.map((step) => step.includes("Therefore, the effective annual rate")
+      ? `Therefore, the effective annual rate, correct to two decimal places, is ${effective}.`
+      : step));
+    return deepFreeze({ ...original, steps });
+  }
+
   if (state.qlId === "INT-QL-069") {
     const amount = completeAmountForState(state);
     const periodRate = periodicRate(state.nominalAnnualRatePercent, state.frequency);
@@ -103,7 +118,7 @@ export function hardenCp004ExplanationV3(
     );
     const referenceRatio = rat(referenceBrokenAmount.numerator, referenceBrokenAmount.denominator * 100n);
     const steps = Object.freeze([
-      `Start with a reference principal of ₹100. After ${state.fullYears} complete compounded year${state.fullYears === 1 ? "" : "s"}: ₹100 × (1 + ${percentText(state.nominalAnnualRatePercent)})^${state.fullYears} = ${exactReferenceMoney(referenceAfterWholeYears)}.`,
+      `Start with a reference principal of ₹100. After ${state.fullYears} complete year${state.fullYears === 1 ? "" : "s"} of annual compounding: ₹100 × (1 + ${percentText(state.nominalAnnualRatePercent)})^${state.fullYears} = ${exactReferenceMoney(referenceAfterWholeYears)}.`,
       `Simple interest for the final ${state.tailMonths} months = ${exactReferenceMoney(referenceAfterWholeYears)} × ${percentText(state.nominalAnnualRatePercent)} × ${state.tailMonths}/12 = ${exactReferenceMoney(referenceTailInterest)}.`,
       `Thus ₹100 becomes ${exactReferenceMoney(referenceAfterWholeYears)} + ${exactReferenceMoney(referenceTailInterest)} = ${exactReferenceMoney(referenceBrokenAmount)}. The exact A/P ratio is ${rationalText(referenceRatio)}.`,
       `Principal = ${moneyText(amount)} × 100 ÷ ${exactDecimalText(referenceBrokenAmount)} = ${moneyText(state.principal)}.`,
@@ -119,6 +134,17 @@ export function hardenCp004ExplanationV3(
   return original;
 }
 
+export function hardenCp004OptionsV3(
+  state: Cp004MathematicalState,
+  original: readonly Cp004Option[],
+): readonly Cp004Option[] {
+  if (state.qlId !== "INT-QL-076") return original;
+  return Object.freeze(original.map((option) => Object.freeze({
+    ...option,
+    text: `${decimal(option.value, 2)}%`,
+  })));
+}
+
 export function hardenCp004PresentationV3(
   original: Readonly<{ representation: Cp004Representation; stemFamilyId: string; stem: string }>,
 ): Readonly<{ representation: Cp004Representation; stemFamilyId: string; stem: string }> {
@@ -131,6 +157,7 @@ export function hardenCp004PresentationV3(
 export function assertCp004ReviewV3(
   state: Cp004MathematicalState,
   presentation: Readonly<{ stem: string }>,
+  options: readonly Cp004Option[],
   explanation: Cp004Explanation,
 ): void {
   if (/^an investment plan/u.test(presentation.stem)) {
@@ -138,6 +165,9 @@ export function assertCp004ReviewV3(
   }
   if (/ earns [0-9.]+% in every (?:year|half-year|quarter|month)\b/u.test(presentation.stem)) {
     throw new Error(`${state.qlId}: unnatural direct-period rate wording reached the stem.`);
+  }
+  if (state.qlId === "INT-QL-076" && options.some((option) => !/^\d+\.\d{2}%$/u.test(option.text))) {
+    throw new Error(`${state.qlId}: effective-rate options are not displayed uniformly to two decimal places.`);
   }
   if (!INVERSE_PRINCIPAL_QLS.has(state.qlId)) return;
 
