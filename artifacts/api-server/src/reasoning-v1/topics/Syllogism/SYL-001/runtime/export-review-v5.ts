@@ -63,8 +63,13 @@ const modalDiagnosticRecords = questions.filter((question) =>
 const enabledDiagramRecords = questions.filter((question) =>
   question.learnerPresentationV5.diagram.enabled
   && Boolean(question.learnerPresentationV5.diagram.svg)).length;
-const relationMapRecords = questions.filter((question) =>
-  question.learnerPresentationV5.diagram.mode === "RELATION_MAP").length;
+const focusedVennFallbackRecords = questions.filter((question) =>
+  question.learnerPresentationV5.diagram.semanticSignature.startsWith("syl-v5:focused-venn:")).length;
+const nonVennRecords = questions.filter((question) => {
+  const diagram = question.learnerPresentationV5.diagram;
+  const svg = diagram.svg ?? "";
+  return !/^VENN_/u.test(diagram.mode) || !/<(?:circle|ellipse)\b/u.test(svg);
+}).length;
 const editorialStatuses = questions[0]?.learnerPresentationV5.remediationEvidence;
 
 const summary = {
@@ -80,7 +85,8 @@ const summary = {
     requiredRecords: questions.length,
     enabledRecords: enabledDiagramRecords,
     missingRecords: questions.length - enabledDiagramRecords,
-    relationMapFallbackRecords: relationMapRecords,
+    focusedVennFallbackRecords,
+    nonVennRecords,
   },
   modelEvidence: {
     requiredRecords: questions.filter((question) => question.learnerPresentationV5.modelEvidence.required).length,
@@ -98,8 +104,8 @@ const summary = {
     concreteDualModels: true,
     logicalStatusSeparatedFromTaskDisposition: true,
     nonEmptyDirectionVisibleBeforeAttempt: true,
-    allRecordsHaveSafeVisual: enabledDiagramRecords === questions.length,
-    unsafeUnknownRelationVisualsUseRelationMap: true,
+    allRecordsHaveVennDiagram: enabledDiagramRecords === questions.length && nonVennRecords === 0,
+    unsafeUnknownRelationsUseFocusedVenn: true,
     deadInconsistentOptionRemoved: deadInconsistentOptions === 0,
     modalDiagnosticRecords,
     modalDiagnosticOptionCount: 3,
@@ -149,13 +155,13 @@ const markdown: string[] = [
   `- Logical questions: ${summary.logicalQuestions}`,
   `- English/Hindi/Punjabi: ${summary.languages["en-IN"]}/${summary.languages["hi-IN"]}/${summary.languages["pa-IN"]}`,
   "- Question and explanation content approved by the product owner on 2026-08-07.",
-  `- Visual coverage: ${summary.diagramCoverage.enabledRecords}/${summary.diagramCoverage.requiredRecords}; missing: ${summary.diagramCoverage.missingRecords}.`,
-  `- Safe relation-map fallbacks: ${summary.diagramCoverage.relationMapFallbackRecords}.`,
-  "- Exact Venn diagrams are retained where justified; otherwise a relation map shows only stated or forced links.",
+  `- Venn coverage: ${summary.diagramCoverage.enabledRecords}/${summary.diagramCoverage.requiredRecords}; missing: ${summary.diagramCoverage.missingRecords}; non-Venn visuals: ${summary.diagramCoverage.nonVennRecords}.`,
+  `- Focused Venn fallbacks: ${summary.diagramCoverage.focusedVennFallbackRecords}.`,
+  "- Every learner visual uses circles, overlap, separation or witness marks; relation maps are not permitted.",
   "- QL-008 explanation and diagram modes are derived from the actual pair status.",
   "- QL-009 and every mask question explain each displayed conclusion.",
   "- Counterexample, possibility and dual-model explanations narrate canonical models.",
-  "- Unknown witness-transfer relations are never drawn as proved separation.",
+  "- Unknown witness-transfer relations use focused Venn panels without presenting unstated separation as a rule.",
   "- Logical option status is displayed separately from task disposition.",
   "- The non-empty-class direction is visible before the attempt.",
   "- Modal diagnostic QLs use the exhaustive three live statuses: definitely true, possible but not definite, and impossible.",
