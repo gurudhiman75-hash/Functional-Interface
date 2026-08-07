@@ -25,6 +25,8 @@ import { applyNumCp005Ql065DiversitySafe } from "./release-review-ql065-diversit
 import { applyNumCp005Ql068CorrectnessSafe } from "./release-review-ql068-correctness-safe";
 import { applyNumCp005ReleaseReviewRenderingSafety } from "./release-review-rendering-safe";
 import { applyNumCp005FinalExplanationSafety } from "./release-review-final-explanation-safe";
+import { applyNumCp005FinalExamQuestionCorrections } from "./final-exam-readiness-question-corrections";
+import { applyNumCp005FinalExamExplanationCorrections } from "./final-exam-readiness-explanations";
 
 export function remediateNumCp005English(source) {
   let result;
@@ -67,31 +69,36 @@ export function remediateNumCp005English(source) {
           : source.qlId === "NUM-QL-068"
             ? applyNumCp005Ql068CorrectnessSafe(source, result)
             : applyNumCp005QuestionCorrections(source, result);
+  const finalQuestion = applyNumCp005FinalExamQuestionCorrections(source, corrected);
   const explanationInput = {
     qlId: source.qlId,
     seed: source.seed,
-    stem: corrected.stem,
-    hiddenState: corrected.hiddenState ?? source.hiddenState,
-    canonicalAnswer: corrected.canonicalAnswer,
-    options: corrected.options,
+    stem: finalQuestion.stem,
+    hiddenState: finalQuestion.hiddenState ?? source.hiddenState,
+    canonicalAnswer: finalQuestion.canonicalAnswer,
+    options: finalQuestion.options,
   };
   const initialExplanation = buildNumCp005StudentExplanation(explanationInput);
   const correctedExplanation = applyNumCp005ExplanationCorrections(
     explanationInput,
     initialExplanation,
-    corrected.difficulty,
+    finalQuestion.difficulty,
   );
   const renderingSafeExplanation = applyNumCp005ReleaseReviewRenderingSafety(correctedExplanation);
   const policyCheckedExplanation = enforceNumCp005StudentExplanationPolicy(
     explanationInput,
     renderingSafeExplanation,
   );
+  const finalSafetyExplanation = applyNumCp005FinalExplanationSafety(
+    explanationInput,
+    policyCheckedExplanation,
+  );
 
   return {
-    ...corrected,
-    explanation: applyNumCp005FinalExplanationSafety(
+    ...finalQuestion,
+    explanation: applyNumCp005FinalExamExplanationCorrections(
       explanationInput,
-      policyCheckedExplanation,
+      finalSafetyExplanation,
     ),
   };
 }
