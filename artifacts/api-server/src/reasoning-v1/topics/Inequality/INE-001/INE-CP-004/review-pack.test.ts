@@ -8,7 +8,7 @@ import {
 const rows = buildIneCp004ReviewPack();
 assert.equal(rows.length, 48);
 assert.equal(new Set(rows.map((row) => row.authorityId)).size, 4);
-assert.equal(new Set(rows.map((row) => row.topologyId)).size, 8);
+assert.equal(new Set(rows.map((row) => row.topologyId)).size, 12);
 assert.ok(rows.every((row) => row.statements.length >= 2));
 assert.ok(rows.every((row) => row.options.length === 4));
 assert.ok(
@@ -18,6 +18,7 @@ assert.ok(
   rows.every((row) => row.options[row.correctIndex] === row.correctOption),
 );
 assert.ok(rows.every((row) => row.mockSolution.length > 100));
+assert.ok(rows.every((row) => row.mockSolution.length < 750));
 assert.ok(rows.every((row) => row.learningSolution.length > 150));
 assert.ok(rows.every((row) => row.sourceLedgerIds.length > 0));
 assert.ok(rows.every((row) => row.permanentQlId === null));

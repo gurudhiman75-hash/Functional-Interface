@@ -27,10 +27,17 @@ This correctly handles conditional pairs. For example, `A > B` versus `A = B` is
 ## Discovery safeguards
 
 - graph and model-enumeration solvers must agree;
-- all eight topologies include formal complementary evidence;
+- all twelve topologies include formal complementary evidence;
+- the longer Banking structures contain up to five displayed relations;
 - reversal forms are generated and checked canonically;
 - options have explicit misconception ownership;
 - every generated question has exactly four unique answer options;
 - explanations show individual non-definiteness, mutual exclusivity, and joint exhaustiveness;
+- exam-facing stems and mock solutions use concise source-shaped language;
+- mock assembly must mix CP-004 records with CP-003 non-complementary outcomes to prevent answer-category leakage;
 - source-ledger IDs are attached to every authority;
 - permanent QLs and Question Studio visibility remain disabled.
+
+## Exam boundary
+
+The two conclusion-mask authorities are Banking mock prototypes under the product's four-option rule. The guided classification authorities teach the same reasoning but are not labelled as SSC or Banking mock questions. CP-004 must not be published as a standalone mock set because every valid CP-004 mock answer contains an either-or result.

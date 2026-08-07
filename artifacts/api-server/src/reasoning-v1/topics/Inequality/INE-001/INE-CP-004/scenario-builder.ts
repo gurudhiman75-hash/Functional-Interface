@@ -156,6 +156,58 @@ function baseGraphFor(seed: number): BaseGraph {
       query: { leftId: "E1", rightId: "E2" },
       definiteConclusion: c("E4", "GREATER_THAN", "E5", "C1"),
     },
+    {
+      baseId: "THREE_EDGE_GTE_EQUALITY_CHAIN",
+      topologyId: "THREE_EDGE_GTE_QUERY_WITH_LONG_STRICT_PROOF",
+      statements: [
+        c("E1", "GREATER_THAN_OR_EQUAL", "E3", "S1"),
+        c("E3", "EQUAL_TO", "E4", "S2"),
+        c("E4", "GREATER_THAN_OR_EQUAL", "E2", "S3"),
+        c("E4", "GREATER_THAN_OR_EQUAL", "E5", "S4"),
+        c("E5", "GREATER_THAN", "E6", "S5"),
+      ],
+      query: { leftId: "E1", rightId: "E2" },
+      definiteConclusion: c("E3", "GREATER_THAN", "E6", "C1"),
+    },
+    {
+      baseId: "LONG_SHARED_UPPER_FREE_ENDPOINTS",
+      topologyId: "LONG_SHARED_UPPER_BRANCH_WITH_FREE_ENDPOINTS",
+      statements: [
+        c("E3", "GREATER_THAN", "E4", "S1"),
+        c("E4", "EQUAL_TO", "E5", "S2"),
+        c("E5", "GREATER_THAN", "E1", "S3"),
+        c("E5", "GREATER_THAN", "E2", "S4"),
+        c("E4", "GREATER_THAN", "E6", "S5"),
+      ],
+      query: { leftId: "E1", rightId: "E2" },
+      definiteConclusion: c("E3", "GREATER_THAN", "E2", "C1"),
+    },
+    {
+      baseId: "TWO_LONG_ARMS_TO_COMMON_BOUND",
+      topologyId: "TWO_LONG_ARMS_WITH_FREE_ENDPOINTS",
+      statements: [
+        c("E1", "GREATER_THAN", "E3", "S1"),
+        c("E3", "GREATER_THAN_OR_EQUAL", "E5", "S2"),
+        c("E2", "GREATER_THAN", "E4", "S3"),
+        c("E4", "GREATER_THAN_OR_EQUAL", "E5", "S4"),
+        c("E3", "EQUAL_TO", "E4", "S5"),
+      ],
+      query: { leftId: "E1", rightId: "E2" },
+      definiteConclusion: c("E1", "GREATER_THAN", "E5", "C1"),
+    },
+    {
+      baseId: "THREE_EDGE_LTE_EQUALITY_CHAIN",
+      topologyId: "THREE_EDGE_LTE_QUERY_WITH_EQUALITY_PROOF",
+      statements: [
+        c("E1", "LESS_THAN_OR_EQUAL", "E3", "S1"),
+        c("E3", "EQUAL_TO", "E4", "S2"),
+        c("E4", "LESS_THAN_OR_EQUAL", "E2", "S3"),
+        c("E4", "GREATER_THAN_OR_EQUAL", "E5", "S4"),
+        c("E5", "GREATER_THAN", "E6", "S5"),
+      ],
+      query: { leftId: "E1", rightId: "E2" },
+      definiteConclusion: c("E3", "GREATER_THAN", "E6", "C1"),
+    },
   ];
   return bases[((seed % bases.length) + bases.length) % bases.length]!;
 }
@@ -264,7 +316,7 @@ export function buildIneCp004Scenario(
   const base = baseGraphFor(seed);
   const pool = pairPool(base);
   const random = new SeededRandom(
-    seed ^ Number.parseInt(stableHash([prototypeId, "scenario-v1"]), 16),
+    seed ^ Number.parseInt(stableHash([prototypeId, "scenario-v2"]), 16),
   );
   let conclusions: readonly ComparisonConstraint[] = [];
   let candidatePairs: readonly IneCp004ConclusionPair[] | undefined;

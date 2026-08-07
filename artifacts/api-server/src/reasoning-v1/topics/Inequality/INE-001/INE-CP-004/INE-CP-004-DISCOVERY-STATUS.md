@@ -22,10 +22,16 @@
 - pair classification and valid-pair selection;
 - four-option standard-exam response scheme across every authority;
 - definite conclusion plus either-or three-conclusion scheme;
-- eight graph topologies and controlled irrelevant evidence;
-- chain-first explanations with explicit relation-domain coverage;
+- twelve graph topologies, including five-relation Banking structures;
+- concise chain-first mock explanations with deeper guided-learning coverage;
 - deterministic 48-question English review export;
 - exact supplied-book source-ledger mappings.
+
+## Exam-readiness boundary
+
+- Banking mock shape: implemented as a four-option product variant.
+- SSC mock claim: not made; guided authorities are concept practice only.
+- Mock assembly: CP-004 either-or records must be mixed with CP-003 non-complementary outcomes before any exam simulation.
 
 ## Gate
 

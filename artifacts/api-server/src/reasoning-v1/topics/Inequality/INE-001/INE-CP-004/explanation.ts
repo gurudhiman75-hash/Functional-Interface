@@ -124,20 +124,20 @@ function pairReason(
   );
   const chain = usefulChain(pair.first, scenario);
   if (evidence.validEitherOr) {
-    return `${chain} The valid possibilities are ${domain}. Conclusion ${labels[0]} covers ${first}, while conclusion ${labels[1]} covers ${second}. Neither conclusion is certain by itself. They cannot both be true, and together they cover every valid possibility.`;
+    return `${chain} So the relation can be ${domain}. Conclusion ${labels[0]} matches ${first}, while conclusion ${labels[1]} matches ${second}. Neither follows on its own, but exactly one of them must be true.`;
   }
   if (evidence.status === "NOT_EXHAUSTIVE") {
-    return `${chain} The valid possibilities are ${domain}. Conclusion ${labels[0]} covers ${first}, while conclusion ${labels[1]} covers ${second}. Together, they leave at least one valid case uncovered.`;
+    return `${chain} The relation may be ${domain}. Conclusion ${labels[0]} matches ${first}, while conclusion ${labels[1]} matches ${second}. At least one possible case is missed, so this is not an either-or pair.`;
   }
-  return `${chain} The valid possibilities are ${domain}. Conclusion ${labels[0]} covers ${first}, while conclusion ${labels[1]} covers ${second}. Their coverage overlaps, so both conclusions can be true in the same case.`;
+  return `${chain} The relation may be ${domain}. Conclusion ${labels[0]} matches ${first}, while conclusion ${labels[1]} matches ${second}. The conclusions overlap because both can be true in the same case.`;
 }
 
 function statusWarning(evidence: IneCp004ComplementEvidence): string {
   if (evidence.validEitherOr)
-    return "The conclusions are individually uncertain, mutually exclusive, and jointly exhaustive.";
+    return "Neither conclusion follows alone, but together they cover every possible case without overlapping.";
   if (evidence.status === "NOT_EXHAUSTIVE")
     return "The pair misses at least one relation still permitted by the statements.";
-  return "The two conclusions overlap, so they are not mutually exclusive.";
+  return "Both conclusions can be true in the same case, so the pair is not either-or.";
 }
 
 export function buildIneCp004Explanation(

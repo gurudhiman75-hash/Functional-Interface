@@ -111,9 +111,10 @@ export interface GeneratedIneCp004Question {
   explanation: IneCp001Explanation;
   solutions: { mock: string; learning: IneCp001Explanation };
   metadata: {
-    runtimeVersion: "ine-cp004-prototype-v2";
+    runtimeVersion: "ine-cp004-prototype-v3";
     competency: "COMPLEMENTARY_EXHAUSTIVENESS_REASONING";
     reviewStatus: "PENDING_MANUAL_REVIEW";
+    mockAssemblyPolicy: "MIX_WITH_CP003_NON_COMPLEMENTARY_OUTCOMES";
     deliveryProfile: "GUIDED_CONCEPT" | "BANKING_MOCK_PROTOTYPE";
     topologyId: string;
     structuralFingerprint: string;

@@ -228,6 +228,12 @@ export function validateIneCp004Question(
   ) {
     errors.push("CP-004 discovery records must remain unreleased prototypes.");
   }
+  if (
+    question.metadata.mockAssemblyPolicy !==
+    "MIX_WITH_CP003_NON_COMPLEMENTARY_OUTCOMES"
+  ) {
+    errors.push("CP-004 mock records require a mixed-outcome assembly policy.");
+  }
   checkLearnerText(question, errors);
   return { valid: errors.length === 0, errors };
 }

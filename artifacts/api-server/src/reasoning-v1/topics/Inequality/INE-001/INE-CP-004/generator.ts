@@ -10,7 +10,17 @@ import { validateIneCp004Question } from "./validator";
 
 function mockSolutionFor(
   explanation: GeneratedIneCp004Question["explanation"],
+  taskKind: GeneratedIneCp004Question["structuredScenario"]["taskKind"],
+  correctIndex: number,
 ): string {
+  if (taskKind === "SELECT_PAIR") {
+    return [
+      explanation.proofSteps[correctIndex],
+      `Therefore, option ${correctIndex + 1} is the valid either-or pair.`,
+    ]
+      .filter(Boolean)
+      .join(" ");
+  }
   return [
     explanation.ruleStatement,
     ...explanation.proofSteps,
@@ -90,11 +100,12 @@ export function generateIneCp004Question(
       ? "How should conclusions I and II be evaluated as a pair?"
       : scenario.taskKind === "SELECT_PAIR"
         ? "Which option contains a valid either-or pair?"
-        : "Which of the following conclusions follow from the statements?";
+        : "Assuming the following statements to be true, which conclusion or conclusions definitely follow?";
   const difficulty: GeneratedIneCp004Question["difficulty"] =
     scenario.taskKind === "SELECT_PAIR" ||
-    scenario.taskKind === "EVALUATE_THREE_CONCLUSIONS" ||
-    scenario.statements.length >= 4
+    scenario.statements.length >= 5 ||
+    (scenario.taskKind === "EVALUATE_THREE_CONCLUSIONS" &&
+      scenario.statements.length >= 4)
       ? "HARD"
       : "MEDIUM";
   const structuralFingerprint = stableHash([
@@ -125,11 +136,19 @@ export function generateIneCp004Question(
     options: optionResult.options,
     correctIndex: optionResult.correctIndex,
     explanation,
-    solutions: { mock: mockSolutionFor(explanation), learning: explanation },
+    solutions: {
+      mock: mockSolutionFor(
+        explanation,
+        scenario.taskKind,
+        optionResult.correctIndex,
+      ),
+      learning: explanation,
+    },
     metadata: {
-      runtimeVersion: "ine-cp004-prototype-v2",
+      runtimeVersion: "ine-cp004-prototype-v3",
       competency: "COMPLEMENTARY_EXHAUSTIVENESS_REASONING",
       reviewStatus: "PENDING_MANUAL_REVIEW",
+      mockAssemblyPolicy: "MIX_WITH_CP003_NON_COMPLEMENTARY_OUTCOMES",
       deliveryProfile: contract.deliveryProfile,
       topologyId: scenario.topologyId,
       structuralFingerprint,

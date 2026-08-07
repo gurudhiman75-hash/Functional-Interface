@@ -32,6 +32,7 @@ let conditionalStrictEqualityCount = 0;
 let universalStrictInclusiveCount = 0;
 let generatedCount = 0;
 const twoConclusionMasks = new Set<string>();
+let maximumStatementCount = 0;
 
 for (const contract of INE_CP004_PROTOTYPE_CONTRACTS) {
   for (let seed = 0; seed < 12; seed += 1) {
@@ -46,8 +47,12 @@ for (const contract of INE_CP004_PROTOTYPE_CONTRACTS) {
     assert.equal(validation.valid, true, validation.errors.join(" "));
     assert.equal(question.checkpointId, "INE-CP-004");
     assert.equal(question.authorityId, contract.authorityId);
-    assert.equal(question.metadata.runtimeVersion, "ine-cp004-prototype-v2");
+    assert.equal(question.metadata.runtimeVersion, "ine-cp004-prototype-v3");
     assert.equal(question.metadata.deliveryProfile, contract.deliveryProfile);
+    assert.equal(
+      question.metadata.mockAssemblyPolicy,
+      "MIX_WITH_CP003_NON_COMPLEMENTARY_OUTCOMES",
+    );
     assert.deepEqual(
       question.metadata.sourceLedgerIds,
       contract.sourceLedgerIds,
@@ -72,6 +77,7 @@ for (const contract of INE_CP004_PROTOTYPE_CONTRACTS) {
       expectedOptionCount - 1,
     );
     assert.ok(question.solutions.mock.length > 100);
+    assert.ok(question.solutions.mock.length < 750);
     assert.match(question.recordId, /^INE-CP004-[0-9A-F]{8}$/);
     assert.match(question.metadata.contentHash, /^[0-9a-f]{8}$/);
     assert.match(question.metadata.structuralFingerprint, /^[0-9a-f]{8}$/);
@@ -92,6 +98,15 @@ for (const contract of INE_CP004_PROTOTYPE_CONTRACTS) {
       assert.equal(
         question.options[question.correctIndex]!.twoConclusionMask,
         "EITHER_I_OR_II",
+      );
+    }
+    if (contract.deliveryProfile === "BANKING_MOCK_PROTOTYPE") {
+      assert.equal(
+        question.stem,
+        "Assuming the following statements to be true, which conclusion or conclusions definitely follow?",
+      );
+      assert.ok(
+        !/jointly exhaustive|mutually exclusive/i.test(question.solutions.mock),
       );
     }
     if (contract.taskKind === "EVALUATE_THREE_CONCLUSIONS") {
@@ -171,12 +186,16 @@ for (const contract of INE_CP004_PROTOTYPE_CONTRACTS) {
 
     topologies.add(question.metadata.topologyId);
     taskKinds.add(question.metadata.taskKind);
+    maximumStatementCount = Math.max(
+      maximumStatementCount,
+      question.displayedStatements.length,
+    );
     generatedCount += 1;
   }
 }
 
 assert.equal(generatedCount, 48);
-assert.equal(topologies.size, 8);
+assert.equal(topologies.size, 12);
 assert.equal(taskKinds.size, 4);
 assert.deepEqual([...pairStatuses].sort(), [
   "NOT_EXCLUSIVE",
@@ -186,6 +205,7 @@ assert.deepEqual([...pairStatuses].sort(), [
 assert.ok(reversedPairCount > 0);
 assert.ok(conditionalStrictEqualityCount > 0);
 assert.ok(universalStrictInclusiveCount > 0);
+assert.equal(maximumStatementCount, 5);
 assert.deepEqual([...twoConclusionMasks].sort(), [
   "BOTH",
   "EITHER_I_OR_II",
@@ -206,5 +226,6 @@ console.log("INE-CP-004 complementary-reasoning audit passed.", {
   reversedPairCount,
   conditionalStrictEqualityCount,
   universalStrictInclusiveCount,
+  maximumStatementCount,
   permanentQlCount: 0,
 });
