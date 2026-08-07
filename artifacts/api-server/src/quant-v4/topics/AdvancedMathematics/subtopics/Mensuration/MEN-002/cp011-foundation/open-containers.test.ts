@@ -9,7 +9,7 @@ import {
   getMenCp011OpenContainerDefinition,
   getMenCp011OpenContainerPrototypeIds,
   proveMenCp011OpenCuboidOwnership,
-} from "./open-containers";
+} from "./open-containers-runtime";
 
 const prototypeIds = getMenCp011OpenContainerPrototypeIds();
 assert.deepEqual(prototypeIds, [
