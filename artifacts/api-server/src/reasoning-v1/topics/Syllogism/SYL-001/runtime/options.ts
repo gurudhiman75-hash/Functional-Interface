@@ -25,11 +25,15 @@ const PAIR_FOUR: readonly PairSemanticStatus[] = [
   "NEITHER_FOLLOWS",
 ];
 const PAIR_FIVE: readonly PairSemanticStatus[] = [...PAIR_FOUR, "EITHER_OR_FOLLOWS"];
+
+// Premises are generated from satisfiable scenario authorities and are independently
+// solver-checked before options are built. Therefore PREMISSES_INCONSISTENT can never
+// be a live answer in these four modal diagnostic QLs. The learner-facing modal space
+// is the exhaustive three-way classification below.
 const MODAL: readonly ModalAnswer[] = [
   "DEFINITELY_TRUE",
   "POSSIBLY_TRUE_NOT_DEFINITE",
   "IMPOSSIBLE",
-  "PREMISES_INCONSISTENT",
 ];
 const PAIR_CLASSES: readonly PairClassificationStatus[] = [
   "EITHER_OR",
