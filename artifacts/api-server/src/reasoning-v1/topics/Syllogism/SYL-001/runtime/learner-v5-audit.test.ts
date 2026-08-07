@@ -51,7 +51,8 @@ let ql008EitherOrRecords = 0;
 let ql008NonEitherOrRecords = 0;
 let ql009Records = 0;
 let modelRecords = 0;
-let unsafeWitnessDiagramsOmitted = 0;
+let unsafeWitnessDiagramsReplaced = 0;
+let relationMapFallbacks = 0;
 let answerModeContradictions = 0;
 let diagramModeContradictions = 0;
 let unexplainedConclusions = 0;
@@ -79,6 +80,14 @@ for (const definition of SYL_QL_REGISTRY) {
       assert.equal(presentation.remediationEvidence.nativeHindiEditorialStatus, "APPROVED_BY_PRODUCT_OWNER");
       assert.equal(presentation.remediationEvidence.nativePunjabiEditorialStatus, "APPROVED_BY_PRODUCT_OWNER");
       assert.equal(presentation.remediationEvidence.humanViewportStatus, "EVIDENCE_READY_PENDING_APPROVAL");
+
+      assert.equal(explanation.showDiagram, true, `${definition.qlId}/${seed}/${locale}: learner explanation hides its visual`);
+      assert.equal(presentation.diagram.enabled, true, `${definition.qlId}/${seed}/${locale}: missing compulsory diagram`);
+      assert.equal(presentation.diagram.diagramCount, 1, `${definition.qlId}/${seed}/${locale}: expected exactly one diagram`);
+      assert.ok(presentation.diagram.svg, `${definition.qlId}/${seed}/${locale}: diagram SVG is empty`);
+      assert.match(presentation.diagram.svg ?? "", /<svg\b/u);
+      assert.equal(presentation.diagram.omissionReason, null);
+      if (presentation.diagram.mode === "RELATION_MAP") relationMapFallbacks += 1;
 
       assert.equal(
         explanation.conclusionResults.length,
@@ -113,8 +122,7 @@ for (const definition of SYL_QL_REGISTRY) {
           `${definition.qlId}/${seed}/${locale}: either-or explanation selected from task identity instead of answer semantics`,
         );
 
-        const diagramIsEitherOr = presentation.diagram.enabled
-          && presentation.diagram.mode === "VENN_EITHER_OR";
+        const diagramIsEitherOr = presentation.diagram.mode === "VENN_EITHER_OR";
         if (diagramIsEitherOr && !isEitherOr) diagramModeContradictions += 1;
         assert.ok(
           !diagramIsEitherOr || isEitherOr,
@@ -176,9 +184,11 @@ for (const definition of SYL_QL_REGISTRY) {
       const hasUnsafeWitnessGeometry = question.learnerPresentationV4.diagram.mode === "VENN_WITNESS_TRANSFER"
         && hasUnknownPremisePair(question.structuredPrompt.premises);
       if (hasUnsafeWitnessGeometry) {
-        unsafeWitnessDiagramsOmitted += 1;
-        assert.equal(presentation.diagram.enabled, false);
-        assert.equal(presentation.diagram.omissionReason, "UNKNOWN_RELATION_NOT_DRAWN");
+        unsafeWitnessDiagramsReplaced += 1;
+        assert.equal(presentation.diagram.mode, "RELATION_MAP");
+        assert.equal(presentation.diagram.enabled, true);
+        assert.equal(presentation.diagram.omissionReason, null);
+        assert.ok(presentation.diagram.svg);
       }
 
       deadInconsistentOptionOccurrences += question.options.filter((option) =>
@@ -198,7 +208,8 @@ assert.equal(unexplainedConclusions, 0);
 assert.equal(optionStatusLabelMismatches, 0);
 assert.equal(deadInconsistentOptionOccurrences, 0);
 assert.ok(modelRecords > 0);
-assert.ok(unsafeWitnessDiagramsOmitted > 0);
+assert.ok(unsafeWitnessDiagramsReplaced > 0);
+assert.ok(relationMapFallbacks > 0);
 
 console.log(JSON.stringify({
   status: "PASS_SYL_001_V5_EXAM_READINESS_REMEDIATION",
@@ -211,7 +222,12 @@ console.log(JSON.stringify({
   },
   ql009Records,
   modelRecords,
-  unsafeWitnessDiagramsOmitted,
+  diagramCoverage: {
+    required: records,
+    enabled: records,
+    relationMapFallbacks,
+    unsafeWitnessDiagramsReplaced,
+  },
   gates: {
     explanationAnswerContradictions: answerModeContradictions,
     diagramAnswerContradictions: diagramModeContradictions,
@@ -222,6 +238,7 @@ console.log(JSON.stringify({
     deadInconsistentOptionOccurrences,
     questionExplanationEditorialReview: "APPROVED_BY_PRODUCT_OWNER",
     viewportEvidence: "READY_AT_360_412_768",
+    diagramCoverage: "ALL_RECORDS_HAVE_SAFE_VISUAL",
   },
   retainedReleaseBlockers: {
     humanViewportReview: "EVIDENCE_READY_PENDING_APPROVAL",
