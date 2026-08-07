@@ -25,6 +25,7 @@ import {
 import { polishTmwCp009Text } from "./localization-cp009-polish";
 import { getTmwCp009Entry } from "./cp009-registry";
 import { remediateTmwCp009LocalizedEditorial } from "./cp009-editorial-review-remediation";
+import { finalizeTmwCp009LocalizedEditorial } from "./cp009-editorial-finalizer";
 
 export interface TmwCp009LocalizedOption extends TmwCp009Option {}
 
@@ -80,7 +81,7 @@ export function localizeTmwCp009Question(
   };
   const rawTrapExplanation = polish(tmwCp009LocalizedTrapReason(trapId, language));
   const rawConclusion = polish(tmwCp009LocalizedConclusion(source, answerText, language));
-  const editorial = remediateTmwCp009LocalizedEditorial(
+  const remediated = remediateTmwCp009LocalizedEditorial(
     source,
     {
       stem: rawStem,
@@ -91,6 +92,12 @@ export function localizeTmwCp009Question(
       trapExplanation: rawTrapExplanation,
       conclusion: rawConclusion,
     },
+    answerText,
+    language,
+  );
+  const editorial = finalizeTmwCp009LocalizedEditorial(
+    source,
+    remediated,
     answerText,
     language,
   );
