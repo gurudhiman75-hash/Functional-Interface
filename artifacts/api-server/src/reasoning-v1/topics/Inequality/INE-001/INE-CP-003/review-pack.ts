@@ -16,6 +16,7 @@ export interface IneCp003ReviewRow {
   stem: string;
   statements: readonly string[];
   conclusion?: string;
+  conclusions?: readonly string[];
   options: readonly string[];
   correctIndex: number;
   correctOption: string;
@@ -24,6 +25,8 @@ export interface IneCp003ReviewRow {
   mockSolution: string;
   learningSolution: string;
   contentHash: string;
+  structuralFingerprint: string;
+  sourceLedgerIds: readonly string[];
   reviewStatus: string;
   permanentQlId: null;
   questionStudioVisible: false;
@@ -66,6 +69,7 @@ export function buildIneCp003ReviewPack(
         stem: question.stem,
         statements: question.displayedStatements,
         conclusion: question.displayedConclusion,
+        conclusions: question.displayedConclusions,
         options: question.options.map((option) => option.value),
         correctIndex: question.correctIndex,
         correctOption: question.options[question.correctIndex]!.value,
@@ -74,6 +78,8 @@ export function buildIneCp003ReviewPack(
         mockSolution: question.solutions.mock,
         learningSolution: explanationText(question.solutions.learning),
         contentHash: question.metadata.contentHash,
+        structuralFingerprint: question.metadata.structuralFingerprint,
+        sourceLedgerIds: question.metadata.sourceLedgerIds,
         reviewStatus: question.metadata.reviewStatus,
         permanentQlId: null,
         questionStudioVisible: false,
@@ -90,10 +96,14 @@ export function renderIneCp003ReviewMarkdown(
     const options = row.options
       .map((entry, optionIndex) => `${optionIndex + 1}. ${entry}`)
       .join("\n");
+    const displayedConclusions = row.conclusions?.map(
+      (conclusion, conclusionIndex) =>
+        `${conclusionIndex === 0 ? "I" : "II"}. ${conclusion}`,
+    );
     return [
       `## ${index + 1}. ${row.authorityId} — seed ${row.seed}`,
       "",
-      `**Record:** ${row.recordId} · **Difficulty:** ${row.difficulty} · **Release tier:** ${row.releaseTier} · **Topology:** ${row.topologyId}`,
+      `**Record:** ${row.recordId} · **Difficulty:** ${row.difficulty} · **Profile:** ${row.releaseTier} · **Topology:** ${row.topologyId}`,
       "",
       row.stem,
       "",
@@ -101,6 +111,9 @@ export function renderIneCp003ReviewMarkdown(
       "",
       statements,
       ...(row.conclusion ? ["", "### Conclusion", "", row.conclusion] : []),
+      ...(displayedConclusions
+        ? ["", "### Conclusions", "", ...displayedConclusions]
+        : []),
       "",
       "### Options",
       "",
@@ -118,9 +131,9 @@ export function renderIneCp003ReviewMarkdown(
     ].join("\n");
   });
   return [
-    "# INE-CP-003 English Prototype Review Pack",
+    "# INE-CP-003 Revised English Prototype Review Pack",
     "",
-    "This pack contains 12 questions for each provisional authority. Permanent QLs remain unallocated, and Question Studio visibility remains disabled.",
+    "This pack contains 12 questions for each provisional authority. It separates guided, diagnostic, and mock-format prototypes. Permanent QLs remain unallocated, and Question Studio visibility remains disabled.",
     "",
     sections.join("\n\n"),
     "",

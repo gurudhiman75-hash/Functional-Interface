@@ -12,12 +12,13 @@ function difficultyFor(
   scenario: ReturnType<typeof buildIneCp003Scenario>,
   possibleRelationCount: number,
 ): GeneratedIneCp003Question["difficulty"] {
-  if (scenario.taskKind === "SELECT_CONCLUSION") {
-    return scenario.statements.length >= 4 ? "HARD" : "MEDIUM";
-  }
-  if (scenario.taskKind === "SELECT_RELATION_SET") {
-    return possibleRelationCount >= 3 ? "HARD" : "MEDIUM";
-  }
+  const statementLoad = scenario.statements.length;
+  if (scenario.taskKind === "EVALUATE_CONCLUSION_SET")
+    return statementLoad >= 5 ? "HARD" : "MEDIUM";
+  if (scenario.taskKind === "SELECT_CONCLUSION")
+    return statementLoad >= 5 ? "HARD" : "MEDIUM";
+  if (scenario.taskKind === "SELECT_RELATION_SET")
+    return statementLoad >= 5 || possibleRelationCount >= 3 ? "HARD" : "MEDIUM";
   if (
     scenario.taskKind === "CLASSIFY_CONCLUSION" &&
     scenario.statements.length <= 2 &&
@@ -29,11 +30,16 @@ function difficultyFor(
 }
 
 function releaseTierFor(
-  difficulty: GeneratedIneCp003Question["difficulty"],
+  scenario: ReturnType<typeof buildIneCp003Scenario>,
 ): GeneratedIneCp003Question["metadata"]["releaseTier"] {
-  if (difficulty === "EASY") return "SSC_STANDARD_MOCK";
-  if (difficulty === "HARD") return "ADVANCED_PRACTICE";
-  return "BANKING_PRELIMS";
+  if (scenario.taskKind === "EVALUATE_CONCLUSION_SET")
+    return "MOCK_FORMAT_PROTOTYPE";
+  if (
+    scenario.taskKind === "CLASSIFY_CONCLUSION" ||
+    scenario.taskKind === "SELECT_RELATION_SET"
+  )
+    return "GUIDED_CONCEPT";
+  return "DIAGNOSTIC_PRACTICE";
 }
 
 function mockSolutionFor(
@@ -89,27 +95,53 @@ export function generateIneCp003Question(
     scenario.taskKind === "CLASSIFY_CONCLUSION"
       ? formatStatement(scenario.conclusions[0]!, scenario.entityNames)
       : undefined;
+  const displayedConclusions =
+    scenario.taskKind === "EVALUATE_CONCLUSION_SET"
+      ? scenario.conclusions.map((conclusion) =>
+          formatStatement(conclusion, scenario.entityNames),
+        )
+      : undefined;
   const difficulty = difficultyFor(
     scenario,
     optionResult.possibleAtomicRelations?.length ?? 0,
   );
-  const recordId = `INE-CP003-${stableHash([prototypeId, seed, "record-v1"]).toUpperCase()}`;
+  const normalizedStructure = scenario.statements
+    .map((statement) => {
+      if (statement.relation === "LESS_THAN")
+        return `${statement.rightId}:GREATER_THAN:${statement.leftId}`;
+      if (statement.relation === "LESS_THAN_OR_EQUAL")
+        return `${statement.rightId}:GREATER_THAN_OR_EQUAL:${statement.leftId}`;
+      if (statement.relation === "EQUAL_TO")
+        return `${[statement.leftId, statement.rightId].sort().join(":EQUAL_TO:")}`;
+      return `${statement.leftId}:${statement.relation}:${statement.rightId}`;
+    })
+    .sort();
+  const structuralFingerprint = stableHash([
+    scenario.topologyId,
+    ...normalizedStructure,
+    scenario.taskKind,
+  ]);
+  const recordId = `INE-CP003-${stableHash([prototypeId, seed, "record-v2"]).toUpperCase()}`;
   const answerType: GeneratedIneCp003Question["answerType"] =
     scenario.taskKind === "CLASSIFY_CONCLUSION"
       ? "CONCLUSION_TRUTH"
       : scenario.taskKind === "SELECT_CONCLUSION"
         ? "CONCLUSION_SELECTION"
-        : "POSSIBLE_RELATION_SET";
+        : scenario.taskKind === "EVALUATE_CONCLUSION_SET"
+          ? "CONCLUSION_MASK"
+          : "POSSIBLE_RELATION_SET";
   const stem =
     scenario.taskKind === "CLASSIFY_CONCLUSION"
       ? "Based only on the statements, how should the conclusion be classified?"
-      : scenario.taskKind === "SELECT_RELATION_SET"
-        ? `Which option lists every possible relation between ${scenario.entityNames[scenario.query!.leftId]} and ${scenario.entityNames[scenario.query!.rightId]}?`
-        : scenario.targetTruth === "DEFINITELY_TRUE"
-          ? "Which conclusion is definitely true?"
-          : scenario.targetTruth === "POSSIBLY_TRUE"
-            ? "Which conclusion is possible, but not definitely true?"
-            : "Which conclusion is impossible?";
+      : scenario.taskKind === "EVALUATE_CONCLUSION_SET"
+        ? "Which of the following conclusions definitely follow from the statements?"
+        : scenario.taskKind === "SELECT_RELATION_SET"
+          ? `Which option lists every possible relation between ${scenario.entityNames[scenario.query!.leftId]} and ${scenario.entityNames[scenario.query!.rightId]}?`
+          : scenario.targetTruth === "DEFINITELY_TRUE"
+            ? "Which conclusion is definitely true?"
+            : scenario.targetTruth === "POSSIBLY_TRUE"
+              ? "Which conclusion is possible, but not definitely true?"
+              : "Which conclusion is impossible?";
 
   const question: GeneratedIneCp003Question = {
     recordId,
@@ -129,17 +161,19 @@ export function generateIneCp003Question(
     stem,
     displayedStatements,
     displayedConclusion,
+    displayedConclusions,
     structuredScenario: scenario,
     options: optionResult.options,
     correctIndex: optionResult.correctIndex,
     explanation,
     solutions: { mock: mockSolutionFor(explanation), learning: explanation },
     metadata: {
-      runtimeVersion: "ine-cp003-prototype-v1",
+      runtimeVersion: "ine-cp003-prototype-v2",
       competency: "CONCLUSION_CERTAINTY_REASONING",
-      reviewStatus: "PENDING_MANUAL_REVIEW",
-      releaseTier: releaseTierFor(difficulty),
+      reviewStatus: "REVISION_REVIEW_REQUIRED",
+      releaseTier: releaseTierFor(scenario),
       topologyId: scenario.topologyId,
+      structuralFingerprint,
       taskKind: scenario.taskKind,
       explanationMode: scenario.explanationKind,
       statementCount: scenario.statements.length,
@@ -151,6 +185,7 @@ export function generateIneCp003Question(
         recordId,
         ...displayedStatements,
         displayedConclusion ?? "",
+        ...(displayedConclusions ?? []),
         ...optionResult.options.map((option) => option.value),
       ]),
       independentSolverAgreed: true,
@@ -158,6 +193,7 @@ export function generateIneCp003Question(
       distractorErrorLabels: optionResult.options
         .filter((option) => !option.isCorrect)
         .map((option) => option.errorLabel!),
+      sourceLedgerIds: contract.sourceLedgerIds,
     },
   };
   const validation = validateIneCp003Question(question);

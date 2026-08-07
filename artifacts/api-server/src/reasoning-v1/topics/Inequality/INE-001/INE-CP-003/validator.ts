@@ -2,7 +2,11 @@ import { evaluateConclusion } from "../foundation/conclusion-evaluator";
 import { verifySolverAgreement } from "../foundation/solver-agreement";
 import type { AtomicOrder, ComparisonConstraint } from "../foundation/types";
 import { formatStatement } from "../INE-CP-001/presentation";
-import { CP003_TRUTH_LABELS, formatAtomicRelationSet } from "./option-builder";
+import {
+  CP003_CONCLUSION_MASK_LABELS,
+  CP003_TRUTH_LABELS,
+  formatAtomicRelationSet,
+} from "./option-builder";
 import type {
   GeneratedIneCp003Question,
   IneCp003ValidationResult,
@@ -35,6 +39,7 @@ function checkLearnerText(
     stem: question.stem,
     statements: question.displayedStatements,
     conclusion: question.displayedConclusion,
+    conclusions: question.displayedConclusions,
     options: question.options.map((option) => option.value),
     solutions: question.solutions,
   });
@@ -44,7 +49,7 @@ function checkLearnerText(
   if (/\b(?:undefined|null|NaN)\b/i.test(learnerText)) {
     errors.push("Learner-facing text contains a missing-value placeholder.");
   }
-  if (/â€”|â‰|ï¿½/.test(learnerText)) {
+  if (/â€œ|â€|â‰|Ã|ï¿½|�/.test(learnerText)) {
     errors.push("Learner-facing text contains damaged character encoding.");
   }
 }
@@ -54,12 +59,17 @@ export function validateIneCp003Question(
 ): IneCp003ValidationResult {
   const errors: string[] = [];
   const scenario = question.structuredScenario;
+  const expectedOptionCount =
+    scenario.taskKind === "CLASSIFY_CONCLUSION" ? 3 : 4;
 
-  if (question.options.length !== 4) {
-    errors.push("Exactly four options are required.");
+  if (question.options.length !== expectedOptionCount) {
+    errors.push(`Exactly ${expectedOptionCount} options are required.`);
   }
-  if (new Set(question.options.map((option) => option.value)).size !== 4) {
-    errors.push("All four option texts must be unique.");
+  if (
+    new Set(question.options.map((option) => option.value)).size !==
+    expectedOptionCount
+  ) {
+    errors.push("All option texts must be unique.");
   }
   if (question.options.filter((option) => option.isCorrect).length !== 1) {
     errors.push("Exactly one option must be marked correct.");
@@ -74,7 +84,10 @@ export function validateIneCp003Question(
   ) {
     errors.push("Every distractor requires a misconception label.");
   }
-  if (question.explanation.distractorAnalysis.length !== 3) {
+  if (
+    question.explanation.distractorAnalysis.length !==
+    expectedOptionCount - 1
+  ) {
     errors.push("Every distractor requires a learner-facing explanation.");
   }
   if (scenario.statements.length === 0) {
@@ -165,6 +178,47 @@ export function validateIneCp003Question(
         formatStatement(evaluation.conclusion, scenario.entityNames)
       ) {
         errors.push(`Option “${option.value}” is rendered incorrectly.`);
+      }
+    }
+  } else if (scenario.taskKind === "EVALUATE_CONCLUSION_SET") {
+    if (scenario.conclusions.length !== 2) {
+      errors.push("Conclusion-set questions require exactly two conclusions.");
+    }
+    const evaluations = scenario.conclusions.map((conclusion) =>
+      evaluateConclusion(scenario.statements, conclusion),
+    );
+    const firstFollows = evaluations[0]?.truth === "DEFINITELY_TRUE";
+    const secondFollows = evaluations[1]?.truth === "DEFINITELY_TRUE";
+    const expectedMask = firstFollows
+      ? secondFollows
+        ? "BOTH"
+        : "ONLY_I"
+      : secondFollows
+        ? "ONLY_II"
+        : "NEITHER";
+    if (correct?.conclusionMask !== expectedMask) {
+      errors.push("The marked conclusion mask does not match solver evidence.");
+    }
+    if (
+      question.displayedConclusions?.length !== 2 ||
+      question.displayedConclusions.some(
+        (displayed, index) =>
+          displayed !==
+          formatStatement(scenario.conclusions[index]!, scenario.entityNames),
+      )
+    ) {
+      errors.push("Displayed conclusions do not match their structures.");
+    }
+    const optionMasks = question.options.map((option) => option.conclusionMask);
+    if (optionMasks.some((mask) => !mask) || new Set(optionMasks).size !== 4) {
+      errors.push("All four conclusion masks must appear exactly once.");
+    }
+    for (const option of question.options) {
+      if (
+        !option.conclusionMask ||
+        option.value !== CP003_CONCLUSION_MASK_LABELS[option.conclusionMask]
+      ) {
+        errors.push(`Option “${option.value}” has an invalid conclusion mask.`);
       }
     }
   } else {

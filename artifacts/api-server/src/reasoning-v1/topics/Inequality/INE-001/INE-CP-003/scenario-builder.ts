@@ -7,7 +7,11 @@ import type {
   ConclusionTruth,
 } from "../foundation/types";
 import { getIneCp003PrototypeContract } from "./contracts";
-import type { IneCp003PrototypeId, IneCp003Scenario } from "./types";
+import type {
+  IneCp003ConclusionMask,
+  IneCp003PrototypeId,
+  IneCp003Scenario,
+} from "./types";
 
 const NAMES = ["A", "B", "C", "D", "P", "Q", "R", "S"] as const;
 const RELATIONS: readonly ComparisonRelation[] = [
@@ -61,7 +65,7 @@ interface BaseGraph {
 }
 
 function baseGraphFor(seed: number): BaseGraph {
-  const variant = ((seed % 6) + 6) % 6;
+  const variant = ((seed % 12) + 12) % 12;
   const bases: readonly BaseGraph[] = [
     {
       baseId: "INCLUSIVE_STRICT_CHAIN",
@@ -124,6 +128,77 @@ function baseGraphFor(seed: number): BaseGraph {
       ],
       relationQuery: { leftId: "E1", rightId: "E4" },
     },
+    {
+      baseId: "FIVE_STEP_CHAIN_WITH_SIDE_EDGE",
+      topologyId: "FIVE_STEP_CHAIN_WITH_IRRELEVANT_EDGE",
+      statements: [
+        c("E1", "GREATER_THAN_OR_EQUAL", "E2", "S1"),
+        c("E2", "EQUAL_TO", "E3", "S2"),
+        c("E3", "GREATER_THAN", "E4", "S3"),
+        c("E4", "GREATER_THAN_OR_EQUAL", "E5", "S4"),
+        c("E6", "LESS_THAN", "E2", "S5"),
+      ],
+      relationQuery: { leftId: "E1", rightId: "E5" },
+    },
+    {
+      baseId: "EQUALITY_START_WITH_BRANCH",
+      topologyId: "EQUALITY_AT_START_WITH_CONVERGING_BRANCH",
+      statements: [
+        c("E1", "EQUAL_TO", "E2", "S1"),
+        c("E2", "GREATER_THAN_OR_EQUAL", "E3", "S2"),
+        c("E3", "GREATER_THAN", "E4", "S3"),
+        c("E2", "GREATER_THAN", "E5", "S4"),
+        c("E5", "GREATER_THAN_OR_EQUAL", "E4", "S5"),
+      ],
+      relationQuery: { leftId: "E3", rightId: "E5" },
+    },
+    {
+      baseId: "EQUALITY_END_WITH_IRRELEVANT_COMPONENT",
+      topologyId: "LONG_CHAIN_EQUALITY_AT_END",
+      statements: [
+        c("E1", "GREATER_THAN", "E2", "S1"),
+        c("E2", "GREATER_THAN_OR_EQUAL", "E3", "S2"),
+        c("E3", "GREATER_THAN_OR_EQUAL", "E4", "S3"),
+        c("E4", "EQUAL_TO", "E5", "S4"),
+        c("E6", "GREATER_THAN", "E7", "S5"),
+      ],
+      relationQuery: { leftId: "E1", rightId: "E5" },
+    },
+    {
+      baseId: "TWO_INDEPENDENT_CHAINS",
+      topologyId: "TWO_INDEPENDENT_CHAINS",
+      statements: [
+        c("E1", "GREATER_THAN", "E2", "S1"),
+        c("E2", "GREATER_THAN_OR_EQUAL", "E3", "S2"),
+        c("E4", "EQUAL_TO", "E5", "S3"),
+        c("E5", "GREATER_THAN", "E6", "S4"),
+      ],
+      relationQuery: { leftId: "E3", rightId: "E4" },
+    },
+    {
+      baseId: "CONVERGING_BRANCH_TO_TAIL",
+      topologyId: "CONVERGING_BRANCH_WITH_TAIL",
+      statements: [
+        c("E1", "GREATER_THAN_OR_EQUAL", "E2", "S1"),
+        c("E1", "GREATER_THAN", "E3", "S2"),
+        c("E2", "GREATER_THAN", "E4", "S3"),
+        c("E3", "GREATER_THAN_OR_EQUAL", "E4", "S4"),
+        c("E4", "GREATER_THAN_OR_EQUAL", "E5", "S5"),
+      ],
+      relationQuery: { leftId: "E2", rightId: "E3" },
+    },
+    {
+      baseId: "LONG_WEAK_CHAIN_WITH_STRICT_BRANCH",
+      topologyId: "LONG_INCLUSIVE_CHAIN_WITH_SIDE_BRANCH",
+      statements: [
+        c("E1", "GREATER_THAN_OR_EQUAL", "E2", "S1"),
+        c("E2", "GREATER_THAN_OR_EQUAL", "E3", "S2"),
+        c("E3", "EQUAL_TO", "E4", "S3"),
+        c("E4", "GREATER_THAN_OR_EQUAL", "E5", "S4"),
+        c("E6", "GREATER_THAN", "E2", "S5"),
+      ],
+      relationQuery: { leftId: "E1", rightId: "E5" },
+    },
   ];
   const selected = bases[variant]!;
   if (Math.floor(Math.abs(seed) / 6) % 2 === 0) return selected;
@@ -134,6 +209,61 @@ function baseGraphFor(seed: number): BaseGraph {
       rightId: selected.relationQuery.leftId,
     },
   };
+}
+
+function unorderedPairKey(conclusion: ComparisonConstraint): string {
+  return [conclusion.leftId, conclusion.rightId].sort().join(":");
+}
+
+function selectTwoConclusions(
+  statements: readonly ComparisonConstraint[],
+  mask: IneCp003ConclusionMask,
+  random: SeededRandom,
+  seed: number,
+): readonly ComparisonConstraint[] {
+  const pool = conclusionPool(statements);
+  const nonFollowingTruth: ConclusionTruth =
+    Math.abs(seed) % 2 === 0 ? "POSSIBLY_TRUE" : "IMPOSSIBLE";
+  const desiredTruths: readonly ConclusionTruth[] =
+    mask === "ONLY_I"
+      ? ["DEFINITELY_TRUE", nonFollowingTruth]
+      : mask === "ONLY_II"
+        ? [nonFollowingTruth, "DEFINITELY_TRUE"]
+        : mask === "BOTH"
+          ? ["DEFINITELY_TRUE", "DEFINITELY_TRUE"]
+          : [nonFollowingTruth, nonFollowingTruth];
+  const selected: Array<{
+    conclusion: ComparisonConstraint;
+    truth: ConclusionTruth;
+  }> = [];
+
+  for (const truth of desiredTruths) {
+    const usedKeys = new Set(
+      selected.map((entry) => canonicalConclusionKey(entry.conclusion)),
+    );
+    const usedPairs = new Set(
+      selected.map((entry) => unorderedPairKey(entry.conclusion)),
+    );
+    const matching = pool.filter(
+      (candidate) =>
+        candidate.truth === truth &&
+        !usedKeys.has(canonicalConclusionKey(candidate.conclusion)),
+    );
+    const differentPair = matching.filter(
+      (candidate) => !usedPairs.has(unorderedPairKey(candidate.conclusion)),
+    );
+    if (matching.length === 0) {
+      throw new Error(`No ${truth} conclusion is available for ${mask}.`);
+    }
+    selected.push(
+      random.pick(differentPair.length > 0 ? differentPair : matching),
+    );
+  }
+
+  return selected.map((entry, index) => ({
+    ...entry.conclusion,
+    sourceStatementId: `C${index + 1}`,
+  }));
 }
 
 function canonicalConclusionKey(conclusion: ComparisonConstraint): string {
@@ -321,6 +451,16 @@ export function buildIneCp003Scenario(
   } else if (contract.taskKind === "SELECT_RELATION_SET") {
     query = base.relationQuery;
     explanationKind = "POSSIBLE_RELATION_SET";
+  } else if (contract.taskKind === "EVALUATE_CONCLUSION_SET") {
+    const masks: readonly IneCp003ConclusionMask[] = [
+      "ONLY_I",
+      "ONLY_II",
+      "NEITHER",
+      "BOTH",
+    ];
+    const mask = masks[((seed % masks.length) + masks.length) % masks.length]!;
+    conclusions = selectTwoConclusions(base.statements, mask, random, seed);
+    explanationKind = "CONCLUSION_SET_AUDIT";
   } else {
     const inclusiveOnly =
       prototypeId === "INE-CP003-PROT-EVALUATE-INCLUSIVE-CONCLUSION";

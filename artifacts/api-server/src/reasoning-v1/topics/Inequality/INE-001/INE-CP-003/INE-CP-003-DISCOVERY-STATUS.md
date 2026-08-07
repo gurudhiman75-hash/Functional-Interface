@@ -2,9 +2,9 @@
 
 **Checkpoint:** INE-CP-003 — Definite, Possible, and Impossible Conclusions
 
-**Implementation:** Complete for English prototype discovery
+**Implementation:** Revised English prototype complete
 
-**Manual review:** Completed — revision required
+**Manual review:** First review completed; revised pack awaiting second review
 
 **Book audit:** Completed against all relevant pages in four supplied PDFs
 
@@ -16,40 +16,44 @@
 
 ## Implemented
 
-- six provisional authority contracts;
-- deterministic scenario generation over six graph topologies;
+- seven provisional authority contracts;
+- deterministic scenario generation over 12 graph topologies;
 - definite, possible, and impossible conclusion evaluation;
 - complete possible-relation-set questions;
 - strict and inclusive conclusion handling;
-- misconception-owned four-option construction;
-- mock and learning explanations (naturalness revision required);
+- honest three-option truth classification with no artificial contradiction distractor;
+- four-option, two-conclusion response masks for Only I, Only II, Neither, and Both;
+- misconception-owned option construction;
+- short, chain-first mock explanations and natural learning explanations;
 - numeric supporting and rejecting witnesses for non-definite claims;
 - independent graph-solver/model-enumerator agreement checks;
 - structural, semantic, lifecycle, and learner-text validation;
-- 72-question English review export with balanced answer positions.
+- normalized structural fingerprints and source-ledger mappings;
+- 84-question revised English review export with separately balanced answer positions.
 
 ## Automated audit result
 
-- 120 generated questions across six authorities;
-- 30 correct answers in each option position;
+- 84 generated questions across seven authorities in the focused audit;
+- 8 answers in each position across the three-choice authorities;
+- 15 answers in each position across the four-choice authorities;
 - all five displayed comparison operators covered;
 - all three conclusion truth classes covered;
-- all three CP-003 task kinds covered;
+- all four CP-003 task kinds covered;
+- all four non-either conclusion masks covered;
+- all 12 graph topologies covered;
 - no solver disagreements or inconsistent graphs;
 - no permanent QL allocation or release flag changes.
 
 ## Manual review decision
 
-The solver and validation model are accepted for continued discovery. The current records are not accepted as SSC or banking mock questions because their response contracts do not match the dominant book/platform multi-conclusion format.
+The solver and validation model remain accepted. The first review's required implementation changes are complete, including source-shaped two-conclusion masks, corrected option cardinality, natural explanations, honest delivery profiles, source provenance, and expanded structural diversity.
 
-Before permanent QLs, CP-003 must:
+Before permanent QLs, CP-003 must now:
 
-- reclassify the current records as guided or diagnostic prototypes;
-- remove the routine contradiction distractor from exam-facing questions;
-- use shorter, chain-first, naturally written explanations;
-- expand beyond six base graph topologies;
-- map proposed authorities to the supplied-book source ledger;
-- add source-shaped response masks only within settled CP-003/CP-004 ownership.
+- pass a second manual review of the revised 84-question English pack;
+- confirm the four-choice mock-format prototype against the product's exam profile;
+- retain CP-004 ownership of complementary/either-or proof;
+- receive an explicit permanent-QL decision.
 
 See [INE-CP-003-BOOK-AND-PLATFORM-CRITICAL-REVIEW.md](./INE-CP-003-BOOK-AND-PLATFORM-CRITICAL-REVIEW.md) and [INE-CP-003-SOURCE-LEDGER.md](./INE-CP-003-SOURCE-LEDGER.md).
 

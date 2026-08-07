@@ -11,7 +11,8 @@ export type IneCp003PrototypeId =
   | "INE-CP003-PROT-SELECT-POSSIBLE-CONCLUSION"
   | "INE-CP003-PROT-SELECT-IMPOSSIBLE-CONCLUSION"
   | "INE-CP003-PROT-IDENTIFY-POSSIBLE-RELATIONS"
-  | "INE-CP003-PROT-EVALUATE-INCLUSIVE-CONCLUSION";
+  | "INE-CP003-PROT-EVALUATE-INCLUSIVE-CONCLUSION"
+  | "INE-CP003-PROT-EVALUATE-TWO-CONCLUSIONS";
 
 export type IneCp003AuthorityId =
   | "CLASSIFY_SINGLE_CONCLUSION_TRUTH"
@@ -19,23 +20,28 @@ export type IneCp003AuthorityId =
   | "IDENTIFY_POSSIBLY_TRUE_CONCLUSION"
   | "IDENTIFY_IMPOSSIBLE_CONCLUSION"
   | "IDENTIFY_ALL_POSSIBLE_RELATIONS"
-  | "EVALUATE_INCLUSIVE_CONCLUSION_TRUTH";
+  | "EVALUATE_INCLUSIVE_CONCLUSION_TRUTH"
+  | "EVALUATE_TWO_CONCLUSIONS";
 
 export type IneCp003TaskKind =
   | "CLASSIFY_CONCLUSION"
   | "SELECT_CONCLUSION"
-  | "SELECT_RELATION_SET";
+  | "SELECT_RELATION_SET"
+  | "EVALUATE_CONCLUSION_SET";
 
 export type IneCp003ExplanationKind =
   | "TRUTH_CLASSIFICATION"
   | "CONCLUSION_AUDIT"
   | "POSSIBLE_RELATION_SET"
-  | "INCLUSIVE_TRUTH_CLASSIFICATION";
+  | "INCLUSIVE_TRUTH_CLASSIFICATION"
+  | "CONCLUSION_SET_AUDIT";
 
 export type IneCp003ReleaseTier =
-  | "SSC_STANDARD_MOCK"
-  | "BANKING_PRELIMS"
-  | "ADVANCED_PRACTICE";
+  | "GUIDED_CONCEPT"
+  | "DIAGNOSTIC_PRACTICE"
+  | "MOCK_FORMAT_PROTOTYPE";
+
+export type IneCp003ConclusionMask = "ONLY_I" | "ONLY_II" | "NEITHER" | "BOTH";
 
 export interface IneCp003Scenario {
   scenarioId: string;
@@ -56,6 +62,7 @@ export interface IneCp003Option {
   truth?: ConclusionTruth;
   conclusion?: ComparisonConstraint;
   atomicRelations?: readonly AtomicOrder[];
+  conclusionMask?: IneCp003ConclusionMask;
 }
 
 export interface GeneratedIneCp003Question {
@@ -75,21 +82,24 @@ export interface GeneratedIneCp003Question {
   answerType:
     | "CONCLUSION_TRUTH"
     | "CONCLUSION_SELECTION"
-    | "POSSIBLE_RELATION_SET";
+    | "POSSIBLE_RELATION_SET"
+    | "CONCLUSION_MASK";
   stem: string;
   displayedStatements: readonly string[];
   displayedConclusion?: string;
+  displayedConclusions?: readonly string[];
   structuredScenario: IneCp003Scenario;
   options: readonly IneCp003Option[];
   correctIndex: number;
   explanation: IneCp001Explanation;
   solutions: { mock: string; learning: IneCp001Explanation };
   metadata: {
-    runtimeVersion: "ine-cp003-prototype-v1";
+    runtimeVersion: "ine-cp003-prototype-v2";
     competency: "CONCLUSION_CERTAINTY_REASONING";
-    reviewStatus: "PENDING_MANUAL_REVIEW";
+    reviewStatus: "REVISION_REVIEW_REQUIRED";
     releaseTier: IneCp003ReleaseTier;
     topologyId: string;
+    structuralFingerprint: string;
     taskKind: IneCp003TaskKind;
     explanationMode: IneCp003ExplanationKind;
     statementCount: number;
@@ -101,6 +111,7 @@ export interface GeneratedIneCp003Question {
     independentSolverAgreed: true;
     graphConsistent: true;
     distractorErrorLabels: readonly string[];
+    sourceLedgerIds: readonly string[];
   };
 }
 

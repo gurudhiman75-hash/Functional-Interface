@@ -11,6 +11,7 @@ export interface IneCp003PrototypeContract {
   targetTruth?: "DEFINITELY_TRUE" | "POSSIBLY_TRUE" | "IMPOSSIBLE";
   status: "PROTOTYPE";
   permanentQlId: null;
+  sourceLedgerIds: readonly string[];
 }
 
 export const INE_CP003_PROTOTYPE_CONTRACTS: readonly IneCp003PrototypeContract[] =
@@ -21,6 +22,7 @@ export const INE_CP003_PROTOTYPE_CONTRACTS: readonly IneCp003PrototypeContract[]
       taskKind: "CLASSIFY_CONCLUSION",
       status: "PROTOTYPE",
       permanentQlId: null,
+      sourceLedgerIds: ["AGG-INE-001", "DISHA-INE-002"],
     },
     {
       prototypeId: "INE-CP003-PROT-SELECT-DEFINITE-CONCLUSION",
@@ -29,6 +31,7 @@ export const INE_CP003_PROTOTYPE_CONTRACTS: readonly IneCp003PrototypeContract[]
       targetTruth: "DEFINITELY_TRUE",
       status: "PROTOTYPE",
       permanentQlId: null,
+      sourceLedgerIds: ["AGG-INE-004", "DISHA-INE-003"],
     },
     {
       prototypeId: "INE-CP003-PROT-SELECT-POSSIBLE-CONCLUSION",
@@ -37,6 +40,7 @@ export const INE_CP003_PROTOTYPE_CONTRACTS: readonly IneCp003PrototypeContract[]
       targetTruth: "POSSIBLY_TRUE",
       status: "PROTOTYPE",
       permanentQlId: null,
+      sourceLedgerIds: ["AGG-INE-005", "DISHA-INE-006"],
     },
     {
       prototypeId: "INE-CP003-PROT-SELECT-IMPOSSIBLE-CONCLUSION",
@@ -45,6 +49,7 @@ export const INE_CP003_PROTOTYPE_CONTRACTS: readonly IneCp003PrototypeContract[]
       targetTruth: "IMPOSSIBLE",
       status: "PROTOTYPE",
       permanentQlId: null,
+      sourceLedgerIds: ["AGG-INE-004", "DISHA-INE-003"],
     },
     {
       prototypeId: "INE-CP003-PROT-IDENTIFY-POSSIBLE-RELATIONS",
@@ -52,6 +57,7 @@ export const INE_CP003_PROTOTYPE_CONTRACTS: readonly IneCp003PrototypeContract[]
       taskKind: "SELECT_RELATION_SET",
       status: "PROTOTYPE",
       permanentQlId: null,
+      sourceLedgerIds: ["AGG-INE-001", "DISHA-INE-002"],
     },
     {
       prototypeId: "INE-CP003-PROT-EVALUATE-INCLUSIVE-CONCLUSION",
@@ -59,6 +65,15 @@ export const INE_CP003_PROTOTYPE_CONTRACTS: readonly IneCp003PrototypeContract[]
       taskKind: "CLASSIFY_CONCLUSION",
       status: "PROTOTYPE",
       permanentQlId: null,
+      sourceLedgerIds: ["AGG-INE-001", "DISHA-INE-002"],
+    },
+    {
+      prototypeId: "INE-CP003-PROT-EVALUATE-TWO-CONCLUSIONS",
+      authorityId: "EVALUATE_TWO_CONCLUSIONS",
+      taskKind: "EVALUATE_CONCLUSION_SET",
+      status: "PROTOTYPE",
+      permanentQlId: null,
+      sourceLedgerIds: ["AGG-INE-002", "DISHA-INE-003"],
     },
   ];
 

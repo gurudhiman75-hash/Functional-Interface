@@ -20,14 +20,32 @@ The mismatch is the learner-facing contract. The two primary book chapters mainl
 
 > **Decision: CONDITIONAL HOLD — retain the CP-003 solver and prototype authorities, but do not allocate permanent QLs or release the current records as SSC/banking mocks.**
 
+## Post-review implementation update
+
+The required code changes from this review were completed on 7 August 2026. The revised pack is ready for a second manual review, but it remains unreleased.
+
+| Review finding                                                    | Implemented response                                                                                                       |
+| ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Four choices were forced onto a three-outcome classification task | Classification now uses exactly three meaningful options                                                                   |
+| Routine contradiction distractor                                  | Removed from every CP-003 learner-facing option set                                                                        |
+| No source-shaped multi-conclusion contract                        | Added `EVALUATE_TWO_CONCLUSIONS` with Only I, Only II, Neither, and Both masks                                             |
+| Either-or ownership risk                                          | Complementary/either-or proof remains explicitly reserved for CP-004                                                       |
+| SSC/Banking labels overclaimed readiness                          | Replaced by `GUIDED_CONCEPT`, `DIAGNOSTIC_PRACTICE`, and `MOCK_FORMAT_PROTOTYPE`                                           |
+| Robotic explanations                                              | Replaced by decisive-chain-first mock solutions and natural witness explanations                                           |
+| Equality links hidden from explanations                           | Equality statements used in a proof are now shown in the learner-facing chain                                              |
+| Six underlying structures                                         | Expanded to 12 normalized graph topologies, including long chains, branches, independent chains, and irrelevant statements |
+| Missing record provenance                                         | Every authority now carries exact source-ledger IDs and a normalized structural fingerprint                                |
+
+The original findings below are retained as the audit record. Items described as blockers should be read together with this remediation table.
+
 ## Book audit and source roles
 
-| Supplied PDF | Relevant pages inspected | Source role | Finding |
-| --- | --- | --- | --- |
-| Premil Aggarwal and Tanuj Aggarwal, *A New Approach to Reasoning for Competitions* | PDF 438–443; printed 27-1–27-6 | Primary | Dedicated Inequalities chapter: ordinary and coded statements, two/three conclusions, four response masks, and chain-first solutions |
-| Gajendra Kumar and Abhishek Banerjee, *Verbal & Non-Verbal Reasoning for Competitive Exams with Practice Sets* | PDF 175–187; printed 171–183 | Primary | Dedicated Inequality chapter with 87 questions across four difficulty bands; mainly two/three conclusions and five banking-style response masks |
-| Jaikishan and Premkishan, *How to Crack Test of Reasoning in All Competitive Exams* | PDF 176–180; printed 170–174 | Auxiliary | Mathematical Operations chapter; only its coded relational conclusion examples are relevant to response-mask design |
-| Meenakshi Upadhyay and Arun Sharma, *How to Prepare for Verbal Ability and Reading Comprehension for CAT* | Whole-book metadata and inequality search checked | Excluded | This is a verbal-ability/reading-comprehension book. Its uses of “inequality” concern passage content, not reasoning inequalities |
+| Supplied PDF                                                                                                   | Relevant pages inspected                          | Source role | Finding                                                                                                                                         |
+| -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Premil Aggarwal and Tanuj Aggarwal, _A New Approach to Reasoning for Competitions_                             | PDF 438–443; printed 27-1–27-6                    | Primary     | Dedicated Inequalities chapter: ordinary and coded statements, two/three conclusions, four response masks, and chain-first solutions            |
+| Gajendra Kumar and Abhishek Banerjee, _Verbal & Non-Verbal Reasoning for Competitive Exams with Practice Sets_ | PDF 175–187; printed 171–183                      | Primary     | Dedicated Inequality chapter with 87 questions across four difficulty bands; mainly two/three conclusions and five banking-style response masks |
+| Jaikishan and Premkishan, _How to Crack Test of Reasoning in All Competitive Exams_                            | PDF 176–180; printed 170–174                      | Auxiliary   | Mathematical Operations chapter; only its coded relational conclusion examples are relevant to response-mask design                             |
+| Meenakshi Upadhyay and Arun Sharma, _How to Prepare for Verbal Ability and Reading Comprehension for CAT_      | Whole-book metadata and inequality search checked | Excluded    | This is a verbal-ability/reading-comprehension book. Its uses of “inequality” concern passage content, not reasoning inequalities               |
 
 The detailed record is in [INE-CP-003-SOURCE-LEDGER.md](./INE-CP-003-SOURCE-LEDGER.md).
 
@@ -49,17 +67,17 @@ Where an individual source item or public platform conflicts with formal semanti
 
 ## Source-design alignment
 
-| CP-003 requirement | Current implementation | Assessment |
-| --- | --- | --- |
-| Distinguish definite, possible, and impossible conclusions | All three classes are generated and independently checked | Pass |
-| Determine all possible atomic relations | 12 relation-set records cover one-, two-, and three-relation domains | Pass as guided learning |
-| Test inclusive conclusions without promoting `≥` or `≤` to strict relations | Dedicated inclusive authority; balanced truth classes | Pass |
-| Provide witnesses for non-definite claims | Supporting and rejecting numeric arrangements are emitted | Pass |
-| Use all five ordinary symbols | `>`, `<`, `=`, `≥`, and `≤` all occur | Pass |
-| Preserve a formal solver rather than textbook priority guessing | Graph solver and finite-model enumerator agree | Strong pass |
-| Match book-shaped conclusion/option contracts | No numbered conclusion-mask authority exists | Blocker for mock release |
-| Attach exact source provenance | Supplied-book ledger now exists; record-level mapping is still absent | Partial |
-| Demonstrate source saturation | Four supplied books are classified; broader saturation is not yet demonstrated | Pending |
+| CP-003 requirement                                                          | Current implementation                                                         | Assessment               |
+| --------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | ------------------------ |
+| Distinguish definite, possible, and impossible conclusions                  | All three classes are generated and independently checked                      | Pass                     |
+| Determine all possible atomic relations                                     | 12 relation-set records cover one-, two-, and three-relation domains           | Pass as guided learning  |
+| Test inclusive conclusions without promoting `≥` or `≤` to strict relations | Dedicated inclusive authority; balanced truth classes                          | Pass                     |
+| Provide witnesses for non-definite claims                                   | Supporting and rejecting numeric arrangements are emitted                      | Pass                     |
+| Use all five ordinary symbols                                               | `>`, `<`, `=`, `≥`, and `≤` all occur                                          | Pass                     |
+| Preserve a formal solver rather than textbook priority guessing             | Graph solver and finite-model enumerator agree                                 | Strong pass              |
+| Match book-shaped conclusion/option contracts                               | No numbered conclusion-mask authority exists                                   | Blocker for mock release |
+| Attach exact source provenance                                              | Supplied-book ledger now exists; record-level mapping is still absent          | Partial                  |
+| Demonstrate source saturation                                               | Four supplied books are classified; broader saturation is not yet demonstrated | Pending                  |
 
 ## Platform benchmark
 
@@ -76,21 +94,21 @@ Platform material is evidence of question shape, not mathematical authority. Edi
 
 ## Measured audit of the 72-record pack
 
-| Measure | Result | Assessment |
-| --- | ---: | --- |
-| Records | 72 | Adequate first review sample |
-| Provisional authorities | 6 | Matches implementation contract |
-| Correct answer positions | 18 / 18 / 18 / 18 | Excellent |
-| Unique content hashes | 72 | Pass, but not structural proof |
-| Underlying topologies | 6 | Too narrow for production |
-| Statement counts | 12 with 2; 36 with 3; 24 with 4 | No long exam chains |
-| Easy / Medium / Hard | 4 / 50 / 18 | Poorly calibrated |
-| SSC / Banking / Advanced labels | 4 / 50 / 18 | Unsupported by response format |
-| Classification truth classes | 8 definite / 8 possible / 8 impossible | Excellent balance |
-| Directly repeated classification conclusions | 0 of 24 | Strong |
-| Correct selection using a directly compared pair | 2 of 36 | Acceptable for strictness teaching; not hard |
-| Mock-solution length | 32–74 words; average 53.7 | Usually longer than needed |
-| Learning-solution length | 73–173 words; average 119.6 | Useful but repetitive |
+| Measure                                          |                                 Result | Assessment                                   |
+| ------------------------------------------------ | -------------------------------------: | -------------------------------------------- |
+| Records                                          |                                     72 | Adequate first review sample                 |
+| Provisional authorities                          |                                      6 | Matches implementation contract              |
+| Correct answer positions                         |                      18 / 18 / 18 / 18 | Excellent                                    |
+| Unique content hashes                            |                                     72 | Pass, but not structural proof               |
+| Underlying topologies                            |                                      6 | Too narrow for production                    |
+| Statement counts                                 |        12 with 2; 36 with 3; 24 with 4 | No long exam chains                          |
+| Easy / Medium / Hard                             |                            4 / 50 / 18 | Poorly calibrated                            |
+| SSC / Banking / Advanced labels                  |                            4 / 50 / 18 | Unsupported by response format               |
+| Classification truth classes                     | 8 definite / 8 possible / 8 impossible | Excellent balance                            |
+| Directly repeated classification conclusions     |                                0 of 24 | Strong                                       |
+| Correct selection using a directly compared pair |                                2 of 36 | Acceptable for strictness teaching; not hard |
+| Mock-solution length                             |              32–74 words; average 53.7 | Usually longer than needed                   |
+| Learning-solution length                         |            73–173 words; average 119.6 | Useful but repetitive                        |
 
 All five statement operators are present: 76 `>`, 44 `<`, 34 `≥`, 50 `≤`, and 24 `=` occurrences.
 
@@ -118,7 +136,7 @@ For a possibly true conclusion, the learning solution provides one valid arrange
 
 The 72-record pack places exactly 18 answers in each position. The position schedule is namespaced by task, avoiding one shared seed pattern across authorities.
 
-## Release blockers
+## Original release blockers
 
 ### 1. No source-shaped conclusion-mask authority
 
@@ -216,23 +234,23 @@ Admit only exact four-option forms supported by the source ledger. Use short cha
 
 ## Readiness scores
 
-| Area | Score |
-| --- | ---: |
-| Formal logical correctness | 9.5/10 |
-| Source-design coverage | 8.5/10 |
-| Supplied-book provenance | 8/10 |
-| Record-to-page provenance | 4/10 |
-| Option correctness | 9/10 |
+| Area                        |  Score |
+| --------------------------- | -----: |
+| Formal logical correctness  | 9.5/10 |
+| Source-design coverage      | 8.5/10 |
+| Supplied-book provenance    |   8/10 |
+| Record-to-page provenance   |   4/10 |
+| Option correctness          |   9/10 |
 | Source-shaped option design | 4.5/10 |
-| Guided-learning value | 8/10 |
-| Explanation naturalness | 6.5/10 |
-| Structural diversity | 5/10 |
-| SSC mock realism | 4.5/10 |
-| Banking mock realism | 5/10 |
-| Production readiness | 4.5/10 |
+| Guided-learning value       |   8/10 |
+| Explanation naturalness     | 6.5/10 |
+| Structural diversity        |   5/10 |
+| SSC mock realism            | 4.5/10 |
+| Banking mock realism        |   5/10 |
+| Production readiness        | 4.5/10 |
 
-## Final decision
+## Final decision after remediation
 
-Retain the CP-003 engine. Its treatment of strict, inclusive, possible, and impossible relations is dependable and sometimes more mathematically reliable than shortcut-led preparation material.
+Retain the revised CP-003 engine and submit the regenerated 84-question English pack for a second manual review. The implementation now addresses the option-contract, explanation, profile, diversity, and authority-level provenance findings.
 
-Reclassify the current 72 records as guided or diagnostic prototypes. Keep permanent QL allocation, English freeze, Question Studio exposure, and mock-test eligibility disabled until the response contracts, explanations, structural diversity, and record-level provenance are remediated.
+Permanent QL allocation, English freeze, Question Studio exposure, and public mock-test eligibility remain disabled until that second review is explicitly accepted.

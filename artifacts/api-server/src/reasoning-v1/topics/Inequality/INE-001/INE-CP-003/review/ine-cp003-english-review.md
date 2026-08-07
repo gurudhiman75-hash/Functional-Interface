@@ -1,10 +1,10 @@
-# INE-CP-003 English Prototype Review Pack
+# INE-CP-003 Revised English Prototype Review Pack
 
-This pack contains 12 questions for each provisional authority. Permanent QLs remain unallocated, and Question Studio visibility remains disabled.
+This pack contains 12 questions for each provisional authority. It separates guided, diagnostic, and mock-format prototypes. Permanent QLs remain unallocated, and Question Studio visibility remains disabled.
 
 ## 1. CLASSIFY_SINGLE_CONCLUSION_TRUTH — seed 0
 
-**Record:** INE-CP003-C5C5A52F · **Difficulty:** EASY · **Release tier:** SSC_STANDARD_MOCK · **Topology:** INCLUSIVE_THEN_STRICT_CHAIN
+**Record:** INE-CP003-C6C5A6C2 · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Topology:** INCLUSIVE_THEN_STRICT_CHAIN
 
 Based only on the statements, how should the conclusion be classified?
 
@@ -22,31 +22,28 @@ Q ≥ S
 1. Possibly true, but not definite
 2. Definitely true
 3. Impossible
-4. The statements are contradictory
 
 **Correct:** 2. Definitely true
 
 ### Mock solution
 
-First find every relation the statements allow, then see whether Q ≥ S holds in all, some, or none of those cases. The statements allow only Q > S, and every allowed case satisfies Q ≥ S. The conclusion is definitely true. Therefore, the conclusion is definitely true.
+Combine P ≤ Q and P > S. This gives Q > S. This proves Q ≥ S. So the conclusion is definitely true.
 
 ### Learning solution
 
-First find every relation the statements allow, then see whether Q ≥ S holds in all, some, or none of those cases.
+Combine P ≤ Q and P > S. This gives Q > S.
 
-The statements allow only Q > S, and every allowed case satisfies Q ≥ S. The conclusion is definitely true.
+This proves Q ≥ S.
 
-Therefore, the conclusion is definitely true.
+So the conclusion is definitely true.
 
-Possibly true, but not definite: A possible conclusion needs at least one valid arrangement that supports it and another that rejects it.
+Possibly true, but not definite: The chain proves the conclusion in every valid arrangement, not merely one of them.
 
-Impossible: A conclusion is impossible only when no allowed arrangement can satisfy it.
-
-The statements are contradictory: The statements are consistent; no contradiction is present.
+Impossible: The chain proves the conclusion, so calling it impossible reverses the result.
 
 ## 2. CLASSIFY_SINGLE_CONCLUSION_TRUTH — seed 1
 
-**Record:** INE-CP003-C94AEAE4 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** BRANCHES_WITH_SHARED_BOUNDS
+**Record:** INE-CP003-CC4AEF9D · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** BRANCHES_WITH_SHARED_BOUNDS
 
 Based only on the statements, how should the conclusion be classified?
 
@@ -63,38 +60,35 @@ P ≤ B
 
 ### Options
 
-1. The statements are contradictory
-2. Impossible
+1. Impossible
+2. Definitely true
 3. Possibly true, but not definite
-4. Definitely true
 
 **Correct:** 3. Possibly true, but not definite
 
 ### Mock solution
 
-First find every relation the statements allow, then see whether P ≤ B holds in all, some, or none of those cases. The statements allow P < B or P = B or P > B. At least one allowed case satisfies P ≤ B, but another does not, so the conclusion is possible rather than definite. Therefore, the conclusion is possibly true, but not definite.
+There is no chain fixing the relation between P and B; either may be greater, or they may be equal. P ≤ B works in one valid case but fails in another. It is possible, not certain. So the conclusion is possibly true, but not definite.
 
 ### Learning solution
 
-First find every relation the statements allow, then see whether P ≤ B holds in all, some, or none of those cases.
+There is no chain fixing the relation between P and B; either may be greater, or they may be equal.
 
-The statements allow P < B or P = B or P > B. At least one allowed case satisfies P ≤ B, but another does not, so the conclusion is possible rather than definite.
+P ≤ B works in one valid case but fails in another. It is possible, not certain.
 
-B=2, C=3, D=0, P=1 satisfies the statements and gives P < B, so the conclusion can hold.
+For example, B = 2, C = 3, D = 0, and P = 1 satisfies every statement and gives P < B.
 
-B=0, C=2, D=0, P=1 also satisfies the statements but gives P > B, so the conclusion is not guaranteed.
+But B = 0, C = 2, D = 0, and P = 1 also satisfies every statement and gives P > B. This is why the conclusion is not guaranteed.
 
-Therefore, the conclusion is possibly true, but not definite.
+So the conclusion is possibly true, but not definite.
 
-The statements are contradictory: The statements are consistent; no contradiction is present.
+Impossible: At least one valid arrangement supports the conclusion, so it is not impossible.
 
-Impossible: A conclusion is impossible only when no allowed arrangement can satisfy it.
-
-Definitely true: A conclusion is definite only when every allowed arrangement makes it true.
+Definitely true: This treats a result that works only sometimes as if it must always hold.
 
 ## 3. CLASSIFY_SINGLE_CONCLUSION_TRUTH — seed 2
 
-**Record:** INE-CP003-CEAA751D · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** EQUALITY_AND_STRICT_CHAIN
+**Record:** INE-CP003-CBAA7064 · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** EQUALITY_AND_STRICT_CHAIN
 
 Based only on the statements, how should the conclusion be classified?
 
@@ -110,34 +104,31 @@ S > R
 
 ### Options
 
-1. The statements are contradictory
+1. Impossible
 2. Definitely true
 3. Possibly true, but not definite
-4. Impossible
 
-**Correct:** 4. Impossible
+**Correct:** 1. Impossible
 
 ### Mock solution
 
-First find every relation the statements allow, then see whether S > R holds in all, some, or none of those cases. The statements allow only S < R or S = R. None of those cases satisfies S > R, so the conclusion is impossible. Therefore, the conclusion is impossible.
+Combine S ≤ P and P = R. This leaves S < R or S = R possible. None of those possibilities satisfies S > R, so the conclusion cannot be true. So the conclusion is impossible.
 
 ### Learning solution
 
-First find every relation the statements allow, then see whether S > R holds in all, some, or none of those cases.
+Combine S ≤ P and P = R. This leaves S < R or S = R possible.
 
-The statements allow only S < R or S = R. None of those cases satisfies S > R, so the conclusion is impossible.
+None of those possibilities satisfies S > R, so the conclusion cannot be true.
 
-Therefore, the conclusion is impossible.
+So the conclusion is impossible.
 
-The statements are contradictory: The statements are consistent; no contradiction is present.
+Definitely true: The permitted relation is the opposite of the conclusion, so it cannot be definite.
 
-Definitely true: A conclusion is definite only when every allowed arrangement makes it true.
-
-Possibly true, but not definite: A possible conclusion needs at least one valid arrangement that supports it and another that rejects it.
+Possibly true, but not definite: No valid arrangement supports the conclusion, so it is not possible.
 
 ## 4. CLASSIFY_SINGLE_CONCLUSION_TRUTH — seed 3
 
-**Record:** INE-CP003-DC045FCA · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** FOUR_NODE_MIXED_CHAIN
+**Record:** INE-CP003-DB045E37 · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** FOUR_NODE_MIXED_CHAIN
 
 Based only on the statements, how should the conclusion be classified?
 
@@ -153,34 +144,31 @@ Q < S
 
 ### Options
 
-1. Definitely true
-2. Impossible
-3. Possibly true, but not definite
-4. The statements are contradictory
+1. Possibly true, but not definite
+2. Definitely true
+3. Impossible
 
-**Correct:** 1. Definitely true
+**Correct:** 2. Definitely true
 
 ### Mock solution
 
-First find every relation the statements allow, then see whether Q < S holds in all, some, or none of those cases. The statements allow only Q < S, and every allowed case satisfies Q < S. The conclusion is definitely true. Therefore, the conclusion is definitely true.
+Combine Q < A and A = S. This gives Q < S. This proves Q < S. So the conclusion is definitely true.
 
 ### Learning solution
 
-First find every relation the statements allow, then see whether Q < S holds in all, some, or none of those cases.
+Combine Q < A and A = S. This gives Q < S.
 
-The statements allow only Q < S, and every allowed case satisfies Q < S. The conclusion is definitely true.
+This proves Q < S.
 
-Therefore, the conclusion is definitely true.
+So the conclusion is definitely true.
 
-Impossible: A conclusion is impossible only when no allowed arrangement can satisfy it.
+Possibly true, but not definite: The chain proves the conclusion in every valid arrangement, not merely one of them.
 
-Possibly true, but not definite: A possible conclusion needs at least one valid arrangement that supports it and another that rejects it.
-
-The statements are contradictory: The statements are consistent; no contradiction is present.
+Impossible: The chain proves the conclusion, so calling it impossible reverses the result.
 
 ## 5. CLASSIFY_SINGLE_CONCLUSION_TRUTH — seed 4
 
-**Record:** INE-CP003-BBA2977B · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** DIAMOND_WITH_MIXED_STRICTNESS
+**Record:** INE-CP003-BCA2990E · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** DIAMOND_WITH_MIXED_STRICTNESS
 
 Based only on the statements, how should the conclusion be classified?
 
@@ -197,38 +185,35 @@ P > S
 
 ### Options
 
-1. The statements are contradictory
+1. Possibly true, but not definite
 2. Impossible
-3. Possibly true, but not definite
-4. Definitely true
+3. Definitely true
 
-**Correct:** 3. Possibly true, but not definite
+**Correct:** 1. Possibly true, but not definite
 
 ### Mock solution
 
-First find every relation the statements allow, then see whether P > S holds in all, some, or none of those cases. The statements allow P < S or P = S or P > S. At least one allowed case satisfies P > S, but another does not, so the conclusion is possible rather than definite. Therefore, the conclusion is possibly true, but not definite.
+There is no chain fixing the relation between P and S; either may be greater, or they may be equal. P > S works in one valid case but fails in another. It is possible, not certain. So the conclusion is possibly true, but not definite.
 
 ### Learning solution
 
-First find every relation the statements allow, then see whether P > S holds in all, some, or none of those cases.
+There is no chain fixing the relation between P and S; either may be greater, or they may be equal.
 
-The statements allow P < S or P = S or P > S. At least one allowed case satisfies P > S, but another does not, so the conclusion is possible rather than definite.
+P > S works in one valid case but fails in another. It is possible, not certain.
 
-P=2, Q=3, R=0, S=1 satisfies the statements and gives P > S, so the conclusion can hold.
+For example, P = 2, Q = 3, R = 0, and S = 1 satisfies every statement and gives P > S.
 
-P=0, Q=1, R=0, S=1 also satisfies the statements but gives P < S, so the conclusion is not guaranteed.
+But P = 0, Q = 1, R = 0, and S = 1 also satisfies every statement and gives P < S. This is why the conclusion is not guaranteed.
 
-Therefore, the conclusion is possibly true, but not definite.
+So the conclusion is possibly true, but not definite.
 
-The statements are contradictory: The statements are consistent; no contradiction is present.
+Impossible: At least one valid arrangement supports the conclusion, so it is not impossible.
 
-Impossible: A conclusion is impossible only when no allowed arrangement can satisfy it.
-
-Definitely true: A conclusion is definite only when every allowed arrangement makes it true.
+Definitely true: This treats a result that works only sometimes as if it must always hold.
 
 ## 6. CLASSIFY_SINGLE_CONCLUSION_TRUTH — seed 5
 
-**Record:** INE-CP003-AA7ACFB0 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** CHAIN_PLUS_DISCONNECTED_COMPONENT
+**Record:** INE-CP003-AD7AD469 · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** CHAIN_PLUS_DISCONNECTED_COMPONENT
 
 Based only on the statements, how should the conclusion be classified?
 
@@ -244,301 +229,290 @@ R = C
 
 ### Options
 
-1. Possibly true, but not definite
-2. Impossible
-3. Definitely true
-4. The statements are contradictory
-
-**Correct:** 2. Impossible
-
-### Mock solution
-
-First find every relation the statements allow, then see whether R = C holds in all, some, or none of those cases. The statements allow only R < C. None of those cases satisfies R = C, so the conclusion is impossible. Therefore, the conclusion is impossible.
-
-### Learning solution
-
-First find every relation the statements allow, then see whether R = C holds in all, some, or none of those cases.
-
-The statements allow only R < C. None of those cases satisfies R = C, so the conclusion is impossible.
-
-Therefore, the conclusion is impossible.
-
-Possibly true, but not definite: A possible conclusion needs at least one valid arrangement that supports it and another that rejects it.
-
-Definitely true: A conclusion is definite only when every allowed arrangement makes it true.
-
-The statements are contradictory: The statements are consistent; no contradiction is present.
-
-## 7. CLASSIFY_SINGLE_CONCLUSION_TRUTH — seed 6
-
-**Record:** INE-CP003-9A734669 · **Difficulty:** EASY · **Release tier:** SSC_STANDARD_MOCK · **Topology:** INCLUSIVE_THEN_STRICT_CHAIN
-
-Based only on the statements, how should the conclusion be classified?
-
-### Statements
-
-- Q > R
-- Q ≤ D
-
-### Conclusion
-
-R ≤ D
-
-### Options
-
 1. Definitely true
 2. Possibly true, but not definite
-3. The statements are contradictory
-4. Impossible
-
-**Correct:** 1. Definitely true
-
-### Mock solution
-
-First find every relation the statements allow, then see whether R ≤ D holds in all, some, or none of those cases. The statements allow only R < D, and every allowed case satisfies R ≤ D. The conclusion is definitely true. Therefore, the conclusion is definitely true.
-
-### Learning solution
-
-First find every relation the statements allow, then see whether R ≤ D holds in all, some, or none of those cases.
-
-The statements allow only R < D, and every allowed case satisfies R ≤ D. The conclusion is definitely true.
-
-Therefore, the conclusion is definitely true.
-
-Possibly true, but not definite: A possible conclusion needs at least one valid arrangement that supports it and another that rejects it.
-
-The statements are contradictory: The statements are consistent; no contradiction is present.
-
-Impossible: A conclusion is impossible only when no allowed arrangement can satisfy it.
-
-## 8. CLASSIFY_SINGLE_CONCLUSION_TRUTH — seed 7
-
-**Record:** INE-CP003-B25F8DE6 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** BRANCHES_WITH_SHARED_BOUNDS
-
-Based only on the statements, how should the conclusion be classified?
-
-### Statements
-
-- Q > R
-- C < R
-- Q > A
-- A ≥ C
-
-### Conclusion
-
-A ≤ R
-
-### Options
-
-1. Impossible
-2. Definitely true
-3. The statements are contradictory
-4. Possibly true, but not definite
-
-**Correct:** 4. Possibly true, but not definite
-
-### Mock solution
-
-First find every relation the statements allow, then see whether A ≤ R holds in all, some, or none of those cases. The statements allow A < R or A = R or A > R. At least one allowed case satisfies A ≤ R, but another does not, so the conclusion is possible rather than definite. Therefore, the conclusion is possibly true, but not definite.
-
-### Learning solution
-
-First find every relation the statements allow, then see whether A ≤ R holds in all, some, or none of those cases.
-
-The statements allow A < R or A = R or A > R. At least one allowed case satisfies A ≤ R, but another does not, so the conclusion is possible rather than definite.
-
-A=0, C=0, Q=2, R=1 satisfies the statements and gives A < R, so the conclusion can hold.
-
-A=2, C=0, Q=3, R=1 also satisfies the statements but gives A > R, so the conclusion is not guaranteed.
-
-Therefore, the conclusion is possibly true, but not definite.
-
-Impossible: A conclusion is impossible only when no allowed arrangement can satisfy it.
-
-Definitely true: A conclusion is definite only when every allowed arrangement makes it true.
-
-The statements are contradictory: The statements are consistent; no contradiction is present.
-
-## 9. CLASSIFY_SINGLE_CONCLUSION_TRUTH — seed 8
-
-**Record:** INE-CP003-23EAEEC7 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** EQUALITY_AND_STRICT_CHAIN
-
-Based only on the statements, how should the conclusion be classified?
-
-### Statements
-
-- B > R
-- B ≤ Q
-- Q = S
-
-### Conclusion
-
-Q < R
-
-### Options
-
-1. Possibly true, but not definite
-2. Definitely true
 3. Impossible
-4. The statements are contradictory
 
 **Correct:** 3. Impossible
 
 ### Mock solution
 
-First find every relation the statements allow, then see whether Q < R holds in all, some, or none of those cases. The statements allow only Q > R. None of those cases satisfies Q < R, so the conclusion is impossible. Therefore, the conclusion is impossible.
+Combine C ≥ P and P > R. This gives R < C. R < C contradicts R = C, so the conclusion cannot be true. So the conclusion is impossible.
 
 ### Learning solution
 
-First find every relation the statements allow, then see whether Q < R holds in all, some, or none of those cases.
+Combine C ≥ P and P > R. This gives R < C.
 
-The statements allow only Q > R. None of those cases satisfies Q < R, so the conclusion is impossible.
+R < C contradicts R = C, so the conclusion cannot be true.
 
-Therefore, the conclusion is impossible.
+So the conclusion is impossible.
 
-Possibly true, but not definite: A possible conclusion needs at least one valid arrangement that supports it and another that rejects it.
+Definitely true: The permitted relation is the opposite of the conclusion, so it cannot be definite.
 
-Definitely true: A conclusion is definite only when every allowed arrangement makes it true.
+Possibly true, but not definite: No valid arrangement supports the conclusion, so it is not possible.
 
-The statements are contradictory: The statements are consistent; no contradiction is present.
+## 7. CLASSIFY_SINGLE_CONCLUSION_TRUTH — seed 6
+
+**Record:** INE-CP003-977341B0 · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** FIVE_STEP_CHAIN_WITH_IRRELEVANT_EDGE
+
+Based only on the statements, how should the conclusion be classified?
+
+### Statements
+
+- D < R
+- P < S
+- R ≤ C
+- Q ≤ P
+- R = S
+
+### Conclusion
+
+R ≥ P
+
+### Options
+
+1. Impossible
+2. Definitely true
+3. Possibly true, but not definite
+
+**Correct:** 2. Definitely true
+
+### Mock solution
+
+Combine P < S and R = S. This gives R > P. This proves R ≥ P. So the conclusion is definitely true.
+
+### Learning solution
+
+Combine P < S and R = S. This gives R > P.
+
+This proves R ≥ P.
+
+So the conclusion is definitely true.
+
+Impossible: The chain proves the conclusion, so calling it impossible reverses the result.
+
+Possibly true, but not definite: The chain proves the conclusion in every valid arrangement, not merely one of them.
+
+## 8. CLASSIFY_SINGLE_CONCLUSION_TRUTH — seed 7
+
+**Record:** INE-CP003-B15F8C53 · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** EQUALITY_AT_START_WITH_CONVERGING_BRANCH
+
+Based only on the statements, how should the conclusion be classified?
+
+### Statements
+
+- S ≥ B
+- D ≥ A
+- S < D
+- R = D
+- A > B
+
+### Conclusion
+
+S ≥ A
+
+### Options
+
+1. Possibly true, but not definite
+2. Definitely true
+3. Impossible
+
+**Correct:** 1. Possibly true, but not definite
+
+### Mock solution
+
+There is no chain fixing the relation between S and A; either may be greater, or they may be equal. S ≥ A works in one valid case but fails in another. It is possible, not certain. So the conclusion is possibly true, but not definite.
+
+### Learning solution
+
+There is no chain fixing the relation between S and A; either may be greater, or they may be equal.
+
+S ≥ A works in one valid case but fails in another. It is possible, not certain.
+
+For example, A = 1, B = 0, D = 2, R = 2, and S = 1 satisfies every statement and gives S = A.
+
+But A = 1, B = 0, D = 1, R = 1, and S = 0 also satisfies every statement and gives S < A. This is why the conclusion is not guaranteed.
+
+So the conclusion is possibly true, but not definite.
+
+Definitely true: This treats a result that works only sometimes as if it must always hold.
+
+Impossible: At least one valid arrangement supports the conclusion, so it is not impossible.
+
+## 9. CLASSIFY_SINGLE_CONCLUSION_TRUTH — seed 8
+
+**Record:** INE-CP003-24EAF05A · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** LONG_CHAIN_EQUALITY_AT_END
+
+Based only on the statements, how should the conclusion be classified?
+
+### Statements
+
+- P = S
+- A > Q
+- B ≤ R
+- B ≥ P
+- R < C
+
+### Conclusion
+
+C ≤ S
+
+### Options
+
+1. Possibly true, but not definite
+2. Definitely true
+3. Impossible
+
+**Correct:** 3. Impossible
+
+### Mock solution
+
+Combine R < C, B ≤ R, B ≥ P, and P = S. This gives C > S. C > S contradicts C ≤ S, so the conclusion cannot be true. So the conclusion is impossible.
+
+### Learning solution
+
+Combine R < C, B ≤ R, B ≥ P, and P = S. This gives C > S.
+
+C > S contradicts C ≤ S, so the conclusion cannot be true.
+
+So the conclusion is impossible.
+
+Possibly true, but not definite: No valid arrangement supports the conclusion, so it is not possible.
+
+Definitely true: The permitted relation is the opposite of the conclusion, so it cannot be definite.
 
 ## 10. CLASSIFY_SINGLE_CONCLUSION_TRUTH — seed 9
 
-**Record:** INE-CP003-D103047C · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** FOUR_NODE_MIXED_CHAIN
+**Record:** INE-CP003-D4030935 · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** TWO_INDEPENDENT_CHAINS
 
 Based only on the statements, how should the conclusion be classified?
 
 ### Statements
 
-- Q ≤ A
-- Q = R
-- S < R
+- S ≥ B
+- S < A
+- R = Q
+- R > D
 
 ### Conclusion
 
-A ≥ S
+D < Q
 
 ### Options
 
-1. Definitely true
-2. The statements are contradictory
-3. Possibly true, but not definite
-4. Impossible
+1. Impossible
+2. Possibly true, but not definite
+3. Definitely true
 
-**Correct:** 1. Definitely true
+**Correct:** 3. Definitely true
 
 ### Mock solution
 
-First find every relation the statements allow, then see whether A ≥ S holds in all, some, or none of those cases. The statements allow only A > S, and every allowed case satisfies A ≥ S. The conclusion is definitely true. Therefore, the conclusion is definitely true.
+Combine R > D and R = Q. This gives D < Q. This proves D < Q. So the conclusion is definitely true.
 
 ### Learning solution
 
-First find every relation the statements allow, then see whether A ≥ S holds in all, some, or none of those cases.
+Combine R > D and R = Q. This gives D < Q.
 
-The statements allow only A > S, and every allowed case satisfies A ≥ S. The conclusion is definitely true.
+This proves D < Q.
 
-Therefore, the conclusion is definitely true.
+So the conclusion is definitely true.
 
-The statements are contradictory: The statements are consistent; no contradiction is present.
+Impossible: The chain proves the conclusion, so calling it impossible reverses the result.
 
-Possibly true, but not definite: A possible conclusion needs at least one valid arrangement that supports it and another that rejects it.
-
-Impossible: A conclusion is impossible only when no allowed arrangement can satisfy it.
+Possibly true, but not definite: The chain proves the conclusion in every valid arrangement, not merely one of them.
 
 ## 11. CLASSIFY_SINGLE_CONCLUSION_TRUTH — seed 10
 
-**Record:** INE-CP003-45064A22 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** DIAMOND_WITH_MIXED_STRICTNESS
+**Record:** INE-CP003-4406488F · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** CONVERGING_BRANCH_WITH_TAIL
 
 Based only on the statements, how should the conclusion be classified?
 
 ### Statements
 
-- S > Q
-- P > D
-- P ≤ S
-- D ≤ Q
+- R ≤ D
+- S > R
+- Q > D
+- S ≤ Q
+- P ≤ R
 
 ### Conclusion
 
-Q = P
+S ≤ D
 
 ### Options
 
-1. The statements are contradictory
-2. Possibly true, but not definite
-3. Impossible
-4. Definitely true
+1. Possibly true, but not definite
+2. Impossible
+3. Definitely true
 
-**Correct:** 2. Possibly true, but not definite
+**Correct:** 1. Possibly true, but not definite
 
 ### Mock solution
 
-First find every relation the statements allow, then see whether Q = P holds in all, some, or none of those cases. The statements allow Q < P or Q = P or Q > P. At least one allowed case satisfies Q = P, but another does not, so the conclusion is possible rather than definite. Therefore, the conclusion is possibly true, but not definite.
+There is no chain fixing the relation between S and D; either may be greater, or they may be equal. S ≤ D works in one valid case but fails in another. It is possible, not certain. So the conclusion is possibly true, but not definite.
 
 ### Learning solution
 
-First find every relation the statements allow, then see whether Q = P holds in all, some, or none of those cases.
+There is no chain fixing the relation between S and D; either may be greater, or they may be equal.
 
-The statements allow Q < P or Q = P or Q > P. At least one allowed case satisfies Q = P, but another does not, so the conclusion is possible rather than definite.
+S ≤ D works in one valid case but fails in another. It is possible, not certain.
 
-D=0, P=1, Q=1, S=2 satisfies the statements and gives Q = P, so the conclusion can hold.
+For example, D = 2, P = 0, Q = 3, R = 0, and S = 1 satisfies every statement and gives S < D.
 
-D=0, P=1, Q=0, S=1 also satisfies the statements but gives Q < P, so the conclusion is not guaranteed.
+But D = 0, P = 0, Q = 1, R = 0, and S = 1 also satisfies every statement and gives S > D. This is why the conclusion is not guaranteed.
 
-Therefore, the conclusion is possibly true, but not definite.
+So the conclusion is possibly true, but not definite.
 
-The statements are contradictory: The statements are consistent; no contradiction is present.
+Impossible: At least one valid arrangement supports the conclusion, so it is not impossible.
 
-Impossible: A conclusion is impossible only when no allowed arrangement can satisfy it.
-
-Definitely true: A conclusion is definite only when every allowed arrangement makes it true.
+Definitely true: This treats a result that works only sometimes as if it must always hold.
 
 ## 12. CLASSIFY_SINGLE_CONCLUSION_TRUTH — seed 11
 
-**Record:** INE-CP003-D274BB95 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** CHAIN_PLUS_DISCONNECTED_COMPONENT
+**Record:** INE-CP003-CF74B6DC · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** LONG_INCLUSIVE_CHAIN_WITH_SIDE_BRANCH
 
 Based only on the statements, how should the conclusion be classified?
 
 ### Statements
 
-- C < A
-- A ≤ R
-- Q < D
+- C ≤ P
+- A ≥ D
+- A = C
+- P ≤ B
+- S > P
 
 ### Conclusion
 
-R < C
+D > P
 
 ### Options
 
-1. The statements are contradictory
-2. Possibly true, but not definite
+1. Possibly true, but not definite
+2. Impossible
 3. Definitely true
-4. Impossible
 
-**Correct:** 4. Impossible
+**Correct:** 2. Impossible
 
 ### Mock solution
 
-First find every relation the statements allow, then see whether R < C holds in all, some, or none of those cases. The statements allow only R > C. None of those cases satisfies R < C, so the conclusion is impossible. Therefore, the conclusion is impossible.
+Combine C ≤ P, A ≥ D, and A = C. This leaves D < P or D = P possible. None of those possibilities satisfies D > P, so the conclusion cannot be true. So the conclusion is impossible.
 
 ### Learning solution
 
-First find every relation the statements allow, then see whether R < C holds in all, some, or none of those cases.
+Combine C ≤ P, A ≥ D, and A = C. This leaves D < P or D = P possible.
 
-The statements allow only R > C. None of those cases satisfies R < C, so the conclusion is impossible.
+None of those possibilities satisfies D > P, so the conclusion cannot be true.
 
-Therefore, the conclusion is impossible.
+So the conclusion is impossible.
 
-The statements are contradictory: The statements are consistent; no contradiction is present.
+Possibly true, but not definite: No valid arrangement supports the conclusion, so it is not possible.
 
-Possibly true, but not definite: A possible conclusion needs at least one valid arrangement that supports it and another that rejects it.
-
-Definitely true: A conclusion is definite only when every allowed arrangement makes it true.
+Definitely true: The permitted relation is the opposite of the conclusion, so it cannot be definite.
 
 ## 13. IDENTIFY_DEFINITELY_TRUE_CONCLUSION — seed 0
 
-**Record:** INE-CP003-49652371 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** INCLUSIVE_THEN_STRICT_CHAIN
+**Record:** INE-CP003-46651EB8 · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** INCLUSIVE_THEN_STRICT_CHAIN
 
 Which conclusion is definitely true?
 
@@ -558,25 +532,31 @@ Which conclusion is definitely true?
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only Q < P, and every allowed case satisfies Q < P. The conclusion is definitely true. So option 3, Q < P, is the only conclusion that must be true.
+Check each option against the shortest useful chain. Option 1: Combine S ≤ P. This leaves S < P or S = P possible. S < P works in one valid case but fails in another. It is possible, not certain. Option 2: Combine S ≤ P. This leaves P = S or P > S possible. P ≤ S works in one valid case but fails in another. It is possible, not certain. Option 3: Combine S ≤ P and S > Q. This gives Q < P. This proves Q < P. Option 4: Combine S > Q. This gives Q < S. Q < S contradicts Q ≥ S, so the conclusion cannot be true. Therefore, option 3 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow only Q < P, and every allowed case satisfies Q < P. The conclusion is definitely true.
+Option 1: Combine S ≤ P. This leaves S < P or S = P possible. S < P works in one valid case but fails in another. It is possible, not certain.
 
-So option 3, Q < P, is the only conclusion that must be true.
+Option 2: Combine S ≤ P. This leaves P = S or P > S possible. P ≤ S works in one valid case but fails in another. It is possible, not certain.
 
-S < P: The statements allow S < P or S = P. At least one allowed case satisfies S < P, but another does not, so the conclusion is possible rather than definite.
+Option 3: Combine S ≤ P and S > Q. This gives Q < P. This proves Q < P.
 
-P ≤ S: The statements allow P = S or P > S. At least one allowed case satisfies P ≤ S, but another does not, so the conclusion is possible rather than definite.
+Option 4: Combine S > Q. This gives Q < S. Q < S contradicts Q ≥ S, so the conclusion cannot be true.
 
-Q ≥ S: The statements allow only Q < S. None of those cases satisfies Q ≥ S, so the conclusion is impossible.
+Therefore, option 3 is the only conclusion with the required truth status.
+
+S < P: S < P works in one valid case but fails in another. It is possible, not certain.
+
+P ≤ S: P ≤ S works in one valid case but fails in another. It is possible, not certain.
+
+Q ≥ S: Q < S contradicts Q ≥ S, so the conclusion cannot be true.
 
 ## 14. IDENTIFY_DEFINITELY_TRUE_CONCLUSION — seed 1
 
-**Record:** INE-CP003-ECA5D16E · **Difficulty:** HARD · **Release tier:** ADVANCED_PRACTICE · **Topology:** BRANCHES_WITH_SHARED_BOUNDS
+**Record:** INE-CP003-EBA5CFDB · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** BRANCHES_WITH_SHARED_BOUNDS
 
 Which conclusion is definitely true?
 
@@ -598,25 +578,31 @@ Which conclusion is definitely true?
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only C < A, and every allowed case satisfies C ≤ A. The conclusion is definitely true. So option 4, C ≤ A, is the only conclusion that must be true.
+Check each option against the shortest useful chain. Option 1: There is no chain fixing the relation between B and D; either may be greater, or they may be equal. B ≤ D works in one valid case but fails in another. It is possible, not certain. Option 2: Combine C ≤ B. This leaves B = C or B > C possible. B = C works in one valid case but fails in another. It is possible, not certain. Option 3: Combine D > C. This gives D > C. D > C contradicts D < C, so the conclusion cannot be true. Option 4: Combine A > D and D > C. This gives C < A. This proves C ≤ A. Therefore, option 4 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow only C < A, and every allowed case satisfies C ≤ A. The conclusion is definitely true.
+Option 1: There is no chain fixing the relation between B and D; either may be greater, or they may be equal. B ≤ D works in one valid case but fails in another. It is possible, not certain.
 
-So option 4, C ≤ A, is the only conclusion that must be true.
+Option 2: Combine C ≤ B. This leaves B = C or B > C possible. B = C works in one valid case but fails in another. It is possible, not certain.
 
-B ≤ D: The statements allow B < D or B = D or B > D. At least one allowed case satisfies B ≤ D, but another does not, so the conclusion is possible rather than definite.
+Option 3: Combine D > C. This gives D > C. D > C contradicts D < C, so the conclusion cannot be true.
 
-B = C: The statements allow B = C or B > C. At least one allowed case satisfies B = C, but another does not, so the conclusion is possible rather than definite.
+Option 4: Combine A > D and D > C. This gives C < A. This proves C ≤ A.
 
-D < C: The statements allow only D > C. None of those cases satisfies D < C, so the conclusion is impossible.
+Therefore, option 4 is the only conclusion with the required truth status.
+
+B ≤ D: B ≤ D works in one valid case but fails in another. It is possible, not certain.
+
+B = C: B = C works in one valid case but fails in another. It is possible, not certain.
+
+D < C: D > C contradicts D < C, so the conclusion cannot be true.
 
 ## 15. IDENTIFY_DEFINITELY_TRUE_CONCLUSION — seed 2
 
-**Record:** INE-CP003-18D509A3 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** EQUALITY_AND_STRICT_CHAIN
+**Record:** INE-CP003-19D50B36 · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** EQUALITY_AND_STRICT_CHAIN
 
 Which conclusion is definitely true?
 
@@ -637,25 +623,31 @@ Which conclusion is definitely true?
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only C < S, and every allowed case satisfies C < S. The conclusion is definitely true. So option 1, C < S, is the only conclusion that must be true.
+Check each option against the shortest useful chain. Option 1: Combine P ≥ Q, Q > C, and S = P. This gives C < S. This proves C < S. Option 2: Combine P ≥ Q and S = P. This leaves S = Q or S > Q possible. S = Q works in one valid case but fails in another. It is possible, not certain. Option 3: Combine Q > C. This gives Q > C. Q > C contradicts Q = C, so the conclusion cannot be true. Option 4: Combine P ≥ Q and S = P. This leaves S = Q or S > Q possible. S ≤ Q works in one valid case but fails in another. It is possible, not certain. Therefore, option 1 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow only C < S, and every allowed case satisfies C < S. The conclusion is definitely true.
+Option 1: Combine P ≥ Q, Q > C, and S = P. This gives C < S. This proves C < S.
 
-So option 1, C < S, is the only conclusion that must be true.
+Option 2: Combine P ≥ Q and S = P. This leaves S = Q or S > Q possible. S = Q works in one valid case but fails in another. It is possible, not certain.
 
-S = Q: The statements allow S = Q or S > Q. At least one allowed case satisfies S = Q, but another does not, so the conclusion is possible rather than definite.
+Option 3: Combine Q > C. This gives Q > C. Q > C contradicts Q = C, so the conclusion cannot be true.
 
-Q = C: The statements allow only Q > C. None of those cases satisfies Q = C, so the conclusion is impossible.
+Option 4: Combine P ≥ Q and S = P. This leaves S = Q or S > Q possible. S ≤ Q works in one valid case but fails in another. It is possible, not certain.
 
-S ≤ Q: The statements allow S = Q or S > Q. At least one allowed case satisfies S ≤ Q, but another does not, so the conclusion is possible rather than definite.
+Therefore, option 1 is the only conclusion with the required truth status.
+
+S = Q: S = Q works in one valid case but fails in another. It is possible, not certain.
+
+Q = C: Q > C contradicts Q = C, so the conclusion cannot be true.
+
+S ≤ Q: S ≤ Q works in one valid case but fails in another. It is possible, not certain.
 
 ## 16. IDENTIFY_DEFINITELY_TRUE_CONCLUSION — seed 3
 
-**Record:** INE-CP003-375FACF8 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** FOUR_NODE_MIXED_CHAIN
+**Record:** INE-CP003-3A5FB1B1 · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** FOUR_NODE_MIXED_CHAIN
 
 Which conclusion is definitely true?
 
@@ -676,25 +668,31 @@ Which conclusion is definitely true?
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only R < D, and every allowed case satisfies R ≤ D. The conclusion is definitely true. So option 2, R ≤ D, is the only conclusion that must be true.
+Check each option against the shortest useful chain. Option 1: Combine A ≥ D and D = B. This leaves D < A or D = A possible. D < A works in one valid case but fails in another. It is possible, not certain. Option 2: Combine B > R and D = B. This gives R < D. This proves R ≤ D. Option 3: Combine A ≥ D and D = B. This leaves D < A or D = A possible. D = A works in one valid case but fails in another. It is possible, not certain. Option 4: Combine A ≥ D, B > R, and D = B. This gives A > R. A > R contradicts A < R, so the conclusion cannot be true. Therefore, option 2 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow only R < D, and every allowed case satisfies R ≤ D. The conclusion is definitely true.
+Option 1: Combine A ≥ D and D = B. This leaves D < A or D = A possible. D < A works in one valid case but fails in another. It is possible, not certain.
 
-So option 2, R ≤ D, is the only conclusion that must be true.
+Option 2: Combine B > R and D = B. This gives R < D. This proves R ≤ D.
 
-D < A: The statements allow D < A or D = A. At least one allowed case satisfies D < A, but another does not, so the conclusion is possible rather than definite.
+Option 3: Combine A ≥ D and D = B. This leaves D < A or D = A possible. D = A works in one valid case but fails in another. It is possible, not certain.
 
-D = A: The statements allow D < A or D = A. At least one allowed case satisfies D = A, but another does not, so the conclusion is possible rather than definite.
+Option 4: Combine A ≥ D, B > R, and D = B. This gives A > R. A > R contradicts A < R, so the conclusion cannot be true.
 
-A < R: The statements allow only A > R. None of those cases satisfies A < R, so the conclusion is impossible.
+Therefore, option 2 is the only conclusion with the required truth status.
+
+D < A: D < A works in one valid case but fails in another. It is possible, not certain.
+
+D = A: D = A works in one valid case but fails in another. It is possible, not certain.
+
+A < R: A > R contradicts A < R, so the conclusion cannot be true.
 
 ## 17. IDENTIFY_DEFINITELY_TRUE_CONCLUSION — seed 4
 
-**Record:** INE-CP003-975F6505 · **Difficulty:** HARD · **Release tier:** ADVANCED_PRACTICE · **Topology:** DIAMOND_WITH_MIXED_STRICTNESS
+**Record:** INE-CP003-945F604C · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** DIAMOND_WITH_MIXED_STRICTNESS
 
 Which conclusion is definitely true?
 
@@ -716,25 +714,31 @@ Which conclusion is definitely true?
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only S > A, and every allowed case satisfies S > A. The conclusion is definitely true. So option 2, S > A, is the only conclusion that must be true.
+Check each option against the shortest useful chain. Option 1: Combine D ≥ A. This leaves D = A or D > A possible. D = A works in one valid case but fails in another. It is possible, not certain. Option 2: Combine P ≤ S and P > A. This gives S > A. This proves S > A. Option 3: There is no chain fixing the relation between D and P; either may be greater, or they may be equal. D > P works in one valid case but fails in another. It is possible, not certain. Option 4: Combine P ≤ S and P > A. This gives S > A. S > A contradicts S = A, so the conclusion cannot be true. Therefore, option 2 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow only S > A, and every allowed case satisfies S > A. The conclusion is definitely true.
+Option 1: Combine D ≥ A. This leaves D = A or D > A possible. D = A works in one valid case but fails in another. It is possible, not certain.
 
-So option 2, S > A, is the only conclusion that must be true.
+Option 2: Combine P ≤ S and P > A. This gives S > A. This proves S > A.
 
-D = A: The statements allow D = A or D > A. At least one allowed case satisfies D = A, but another does not, so the conclusion is possible rather than definite.
+Option 3: There is no chain fixing the relation between D and P; either may be greater, or they may be equal. D > P works in one valid case but fails in another. It is possible, not certain.
 
-D > P: The statements allow D < P or D = P or D > P. At least one allowed case satisfies D > P, but another does not, so the conclusion is possible rather than definite.
+Option 4: Combine P ≤ S and P > A. This gives S > A. S > A contradicts S = A, so the conclusion cannot be true.
 
-S = A: The statements allow only S > A. None of those cases satisfies S = A, so the conclusion is impossible.
+Therefore, option 2 is the only conclusion with the required truth status.
+
+D = A: D = A works in one valid case but fails in another. It is possible, not certain.
+
+D > P: D > P works in one valid case but fails in another. It is possible, not certain.
+
+S = A: S > A contradicts S = A, so the conclusion cannot be true.
 
 ## 18. IDENTIFY_DEFINITELY_TRUE_CONCLUSION — seed 5
 
-**Record:** INE-CP003-81012AD2 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** CHAIN_PLUS_DISCONNECTED_COMPONENT
+**Record:** INE-CP003-8001293F · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** CHAIN_PLUS_DISCONNECTED_COMPONENT
 
 Which conclusion is definitely true?
 
@@ -755,260 +759,312 @@ Which conclusion is definitely true?
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only R > B, and every allowed case satisfies R ≥ B. The conclusion is definitely true. So option 4, R ≥ B, is the only conclusion that must be true.
+Check each option against the shortest useful chain. Option 1: There is no chain fixing the relation between C and B; either may be greater, or they may be equal. C ≥ B works in one valid case but fails in another. It is possible, not certain. Option 2: Combine P ≤ R and P > B. This gives B < R. B < R contradicts B > R, so the conclusion cannot be true. Option 3: There is no chain fixing the relation between S and P; either may be greater, or they may be equal. S ≤ P works in one valid case but fails in another. It is possible, not certain. Option 4: Combine P ≤ R and P > B. This gives R > B. This proves R ≥ B. Therefore, option 4 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow only R > B, and every allowed case satisfies R ≥ B. The conclusion is definitely true.
+Option 1: There is no chain fixing the relation between C and B; either may be greater, or they may be equal. C ≥ B works in one valid case but fails in another. It is possible, not certain.
 
-So option 4, R ≥ B, is the only conclusion that must be true.
+Option 2: Combine P ≤ R and P > B. This gives B < R. B < R contradicts B > R, so the conclusion cannot be true.
 
-C ≥ B: The statements allow C < B or C = B or C > B. At least one allowed case satisfies C ≥ B, but another does not, so the conclusion is possible rather than definite.
+Option 3: There is no chain fixing the relation between S and P; either may be greater, or they may be equal. S ≤ P works in one valid case but fails in another. It is possible, not certain.
 
-B > R: The statements allow only B < R. None of those cases satisfies B > R, so the conclusion is impossible.
+Option 4: Combine P ≤ R and P > B. This gives R > B. This proves R ≥ B.
 
-S ≤ P: The statements allow S < P or S = P or S > P. At least one allowed case satisfies S ≤ P, but another does not, so the conclusion is possible rather than definite.
+Therefore, option 4 is the only conclusion with the required truth status.
+
+C ≥ B: C ≥ B works in one valid case but fails in another. It is possible, not certain.
+
+B > R: B < R contradicts B > R, so the conclusion cannot be true.
+
+S ≤ P: S ≤ P works in one valid case but fails in another. It is possible, not certain.
 
 ## 19. IDENTIFY_DEFINITELY_TRUE_CONCLUSION — seed 6
 
-**Record:** INE-CP003-4CAFD697 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** INCLUSIVE_THEN_STRICT_CHAIN
+**Record:** INE-CP003-4DAFD82A · **Difficulty:** HARD · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** FIVE_STEP_CHAIN_WITH_IRRELEVANT_EDGE
 
 Which conclusion is definitely true?
 
 ### Statements
 
-- Q > R
-- Q ≤ B
+- C > S
+- B ≤ R
+- C ≤ D
+- C = Q
+- R < Q
 
 ### Options
 
-1. R ≤ B
-2. Q = B
-3. Q < B
-4. R ≥ B
+1. Q > S
+2. R = C
+3. C = D
+4. S = R
 
-**Correct:** 1. R ≤ B
+**Correct:** 1. Q > S
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only R < B, and every allowed case satisfies R ≤ B. The conclusion is definitely true. So option 1, R ≤ B, is the only conclusion that must be true.
+Check each option against the shortest useful chain. Option 1: Combine C > S and C = Q. This gives Q > S. This proves Q > S. Option 2: Combine R < Q and C = Q. This gives R < C. R < C contradicts R = C, so the conclusion cannot be true. Option 3: Combine C ≤ D and C = Q. This leaves C < D or C = D possible. C = D works in one valid case but fails in another. It is possible, not certain. Option 4: There is no chain fixing the relation between S and R; either may be greater, or they may be equal. S = R works in one valid case but fails in another. It is possible, not certain. Therefore, option 1 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow only R < B, and every allowed case satisfies R ≤ B. The conclusion is definitely true.
+Option 1: Combine C > S and C = Q. This gives Q > S. This proves Q > S.
 
-So option 1, R ≤ B, is the only conclusion that must be true.
+Option 2: Combine R < Q and C = Q. This gives R < C. R < C contradicts R = C, so the conclusion cannot be true.
 
-Q = B: The statements allow Q < B or Q = B. At least one allowed case satisfies Q = B, but another does not, so the conclusion is possible rather than definite.
+Option 3: Combine C ≤ D and C = Q. This leaves C < D or C = D possible. C = D works in one valid case but fails in another. It is possible, not certain.
 
-Q < B: The statements allow Q < B or Q = B. At least one allowed case satisfies Q < B, but another does not, so the conclusion is possible rather than definite.
+Option 4: There is no chain fixing the relation between S and R; either may be greater, or they may be equal. S = R works in one valid case but fails in another. It is possible, not certain.
 
-R ≥ B: The statements allow only R < B. None of those cases satisfies R ≥ B, so the conclusion is impossible.
+Therefore, option 1 is the only conclusion with the required truth status.
+
+R = C: R < C contradicts R = C, so the conclusion cannot be true.
+
+C = D: C = D works in one valid case but fails in another. It is possible, not certain.
+
+S = R: S = R works in one valid case but fails in another. It is possible, not certain.
 
 ## 20. IDENTIFY_DEFINITELY_TRUE_CONCLUSION — seed 7
 
-**Record:** INE-CP003-C835070C · **Difficulty:** HARD · **Release tier:** ADVANCED_PRACTICE · **Topology:** BRANCHES_WITH_SHARED_BOUNDS
+**Record:** INE-CP003-CB350BC5 · **Difficulty:** HARD · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** EQUALITY_AT_START_WITH_CONVERGING_BRANCH
 
 Which conclusion is definitely true?
 
 ### Statements
 
-- B < P
-- S ≥ B
-- P < D
-- S < D
+- D ≤ C
+- Q ≤ R
+- R < C
+- D > Q
+- C = P
 
 ### Options
 
-1. S < P
-2. B ≥ S
-3. B ≤ D
-4. B ≥ D
+1. D ≥ P
+2. R = Q
+3. C > Q
+4. R > C
 
-**Correct:** 3. B ≤ D
+**Correct:** 3. C > Q
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only B < D, and every allowed case satisfies B ≤ D. The conclusion is definitely true. So option 3, B ≤ D, is the only conclusion that must be true.
+Check each option against the shortest useful chain. Option 1: Combine D ≤ C and C = P. This leaves D < P or D = P possible. D ≥ P works in one valid case but fails in another. It is possible, not certain. Option 2: Combine Q ≤ R. This leaves R = Q or R > Q possible. R = Q works in one valid case but fails in another. It is possible, not certain. Option 3: Combine D ≤ C, D > Q, and C = P. This gives C > Q. This proves C > Q. Option 4: Combine R < C and C = P. This gives R < C. R < C contradicts R > C, so the conclusion cannot be true. Therefore, option 3 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow only B < D, and every allowed case satisfies B ≤ D. The conclusion is definitely true.
+Option 1: Combine D ≤ C and C = P. This leaves D < P or D = P possible. D ≥ P works in one valid case but fails in another. It is possible, not certain.
 
-So option 3, B ≤ D, is the only conclusion that must be true.
+Option 2: Combine Q ≤ R. This leaves R = Q or R > Q possible. R = Q works in one valid case but fails in another. It is possible, not certain.
 
-S < P: The statements allow S < P or S = P or S > P. At least one allowed case satisfies S < P, but another does not, so the conclusion is possible rather than definite.
+Option 3: Combine D ≤ C, D > Q, and C = P. This gives C > Q. This proves C > Q.
 
-B ≥ S: The statements allow B < S or B = S. At least one allowed case satisfies B ≥ S, but another does not, so the conclusion is possible rather than definite.
+Option 4: Combine R < C and C = P. This gives R < C. R < C contradicts R > C, so the conclusion cannot be true.
 
-B ≥ D: The statements allow only B < D. None of those cases satisfies B ≥ D, so the conclusion is impossible.
+Therefore, option 3 is the only conclusion with the required truth status.
+
+D ≥ P: D ≥ P works in one valid case but fails in another. It is possible, not certain.
+
+R = Q: R = Q works in one valid case but fails in another. It is possible, not certain.
+
+R > C: R < C contradicts R > C, so the conclusion cannot be true.
 
 ## 21. IDENTIFY_DEFINITELY_TRUE_CONCLUSION — seed 8
 
-**Record:** INE-CP003-00692CB9 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** EQUALITY_AND_STRICT_CHAIN
+**Record:** INE-CP003-FD692800 · **Difficulty:** HARD · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** LONG_CHAIN_EQUALITY_AT_END
 
 Which conclusion is definitely true?
 
 ### Statements
 
-- B > P
-- R ≥ B
-- R = D
+- P = S
+- A < R
+- B < D
+- Q ≥ P
+- B ≥ Q
 
 ### Options
 
-1. D = B
-2. D ≥ B
-3. P > R
-4. R ≤ B
+1. S = B
+2. D > Q
+3. B < Q
+4. S = A
 
-**Correct:** 2. D ≥ B
+**Correct:** 2. D > Q
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only D = B or D > B, and every allowed case satisfies D ≥ B. The conclusion is definitely true. So option 2, D ≥ B, is the only conclusion that must be true.
+Check each option against the shortest useful chain. Option 1: Combine B ≥ Q, Q ≥ P, and P = S. This leaves S < B or S = B possible. S = B works in one valid case but fails in another. It is possible, not certain. Option 2: Combine B < D and B ≥ Q. This gives D > Q. This proves D > Q. Option 3: Combine B ≥ Q. This leaves B = Q or B > Q possible. None of those possibilities satisfies B < Q, so the conclusion cannot be true. Option 4: Combine P = S. This leaves S < A, S = A, or S > A possible. S = A works in one valid case but fails in another. It is possible, not certain. Therefore, option 2 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow only D = B or D > B, and every allowed case satisfies D ≥ B. The conclusion is definitely true.
+Option 1: Combine B ≥ Q, Q ≥ P, and P = S. This leaves S < B or S = B possible. S = B works in one valid case but fails in another. It is possible, not certain.
 
-So option 2, D ≥ B, is the only conclusion that must be true.
+Option 2: Combine B < D and B ≥ Q. This gives D > Q. This proves D > Q.
 
-D = B: The statements allow D = B or D > B. At least one allowed case satisfies D = B, but another does not, so the conclusion is possible rather than definite.
+Option 3: Combine B ≥ Q. This leaves B = Q or B > Q possible. None of those possibilities satisfies B < Q, so the conclusion cannot be true.
 
-P > R: The statements allow only P < R. None of those cases satisfies P > R, so the conclusion is impossible.
+Option 4: Combine P = S. This leaves S < A, S = A, or S > A possible. S = A works in one valid case but fails in another. It is possible, not certain.
 
-R ≤ B: The statements allow R = B or R > B. At least one allowed case satisfies R ≤ B, but another does not, so the conclusion is possible rather than definite.
+Therefore, option 2 is the only conclusion with the required truth status.
+
+S = B: S = B works in one valid case but fails in another. It is possible, not certain.
+
+B < Q: None of those possibilities satisfies B < Q, so the conclusion cannot be true.
+
+S = A: S = A works in one valid case but fails in another. It is possible, not certain.
 
 ## 22. IDENTIFY_DEFINITELY_TRUE_CONCLUSION — seed 9
 
-**Record:** INE-CP003-8F6F8E36 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** FOUR_NODE_MIXED_CHAIN
+**Record:** INE-CP003-8E6F8CA3 · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** TWO_INDEPENDENT_CHAINS
 
 Which conclusion is definitely true?
 
 ### Statements
 
-- D ≤ Q
-- D = B
-- C < B
+- R < B
+- R ≥ P
+- D = C
+- D > A
 
 ### Options
 
-1. Q ≤ B
-2. Q = B
-3. Q > C
-4. D = C
+1. P ≤ D
+2. P ≤ A
+3. B ≥ P
+4. C < A
 
-**Correct:** 3. Q > C
+**Correct:** 3. B ≥ P
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only Q > C, and every allowed case satisfies Q > C. The conclusion is definitely true. So option 3, Q > C, is the only conclusion that must be true.
+Check each option against the shortest useful chain. Option 1: Combine D = C. This leaves P < D, P = D, or P > D possible. P ≤ D works in one valid case but fails in another. It is possible, not certain. Option 2: There is no chain fixing the relation between P and A; either may be greater, or they may be equal. P ≤ A works in one valid case but fails in another. It is possible, not certain. Option 3: Combine R < B and R ≥ P. This gives B > P. This proves B ≥ P. Option 4: Combine D > A and D = C. This gives C > A. C > A contradicts C < A, so the conclusion cannot be true. Therefore, option 3 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow only Q > C, and every allowed case satisfies Q > C. The conclusion is definitely true.
+Option 1: Combine D = C. This leaves P < D, P = D, or P > D possible. P ≤ D works in one valid case but fails in another. It is possible, not certain.
 
-So option 3, Q > C, is the only conclusion that must be true.
+Option 2: There is no chain fixing the relation between P and A; either may be greater, or they may be equal. P ≤ A works in one valid case but fails in another. It is possible, not certain.
 
-Q ≤ B: The statements allow Q = B or Q > B. At least one allowed case satisfies Q ≤ B, but another does not, so the conclusion is possible rather than definite.
+Option 3: Combine R < B and R ≥ P. This gives B > P. This proves B ≥ P.
 
-Q = B: The statements allow Q = B or Q > B. At least one allowed case satisfies Q = B, but another does not, so the conclusion is possible rather than definite.
+Option 4: Combine D > A and D = C. This gives C > A. C > A contradicts C < A, so the conclusion cannot be true.
 
-D = C: The statements allow only D > C. None of those cases satisfies D = C, so the conclusion is impossible.
+Therefore, option 3 is the only conclusion with the required truth status.
+
+P ≤ D: P ≤ D works in one valid case but fails in another. It is possible, not certain.
+
+P ≤ A: P ≤ A works in one valid case but fails in another. It is possible, not certain.
+
+C < A: C > A contradicts C < A, so the conclusion cannot be true.
 
 ## 23. IDENTIFY_DEFINITELY_TRUE_CONCLUSION — seed 10
 
-**Record:** INE-CP003-611079A0 · **Difficulty:** HARD · **Release tier:** ADVANCED_PRACTICE · **Topology:** DIAMOND_WITH_MIXED_STRICTNESS
+**Record:** INE-CP003-64107E59 · **Difficulty:** HARD · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** CONVERGING_BRANCH_WITH_TAIL
 
 Which conclusion is definitely true?
 
 ### Statements
 
+- A ≤ D
+- S > D
+- S ≥ B
+- A ≥ R
 - A < B
-- B ≥ R
-- Q ≤ A
-- R > Q
 
 ### Options
 
-1. B > Q
-2. B = Q
-3. R < B
-4. A = Q
+1. A ≤ S
+2. S ≤ R
+3. B = S
+4. A > R
 
-**Correct:** 1. B > Q
+**Correct:** 1. A ≤ S
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only B > Q, and every allowed case satisfies B > Q. The conclusion is definitely true. So option 1, B > Q, is the only conclusion that must be true.
+Check each option against the shortest useful chain. Option 1: Combine S > D and A ≤ D. This gives A < S. This proves A ≤ S. Option 2: Combine S > D, A ≤ D, and A ≥ R. This gives S > R. S > R contradicts S ≤ R, so the conclusion cannot be true. Option 3: Combine S ≥ B. This leaves B < S or B = S possible. B = S works in one valid case but fails in another. It is possible, not certain. Option 4: Combine A ≥ R. This leaves A = R or A > R possible. A > R works in one valid case but fails in another. It is possible, not certain. Therefore, option 1 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow only B > Q, and every allowed case satisfies B > Q. The conclusion is definitely true.
+Option 1: Combine S > D and A ≤ D. This gives A < S. This proves A ≤ S.
 
-So option 1, B > Q, is the only conclusion that must be true.
+Option 2: Combine S > D, A ≤ D, and A ≥ R. This gives S > R. S > R contradicts S ≤ R, so the conclusion cannot be true.
 
-B = Q: The statements allow only B > Q. None of those cases satisfies B = Q, so the conclusion is impossible.
+Option 3: Combine S ≥ B. This leaves B < S or B = S possible. B = S works in one valid case but fails in another. It is possible, not certain.
 
-R < B: The statements allow R < B or R = B. At least one allowed case satisfies R < B, but another does not, so the conclusion is possible rather than definite.
+Option 4: Combine A ≥ R. This leaves A = R or A > R possible. A > R works in one valid case but fails in another. It is possible, not certain.
 
-A = Q: The statements allow A = Q or A > Q. At least one allowed case satisfies A = Q, but another does not, so the conclusion is possible rather than definite.
+Therefore, option 1 is the only conclusion with the required truth status.
+
+S ≤ R: S > R contradicts S ≤ R, so the conclusion cannot be true.
+
+B = S: B = S works in one valid case but fails in another. It is possible, not certain.
+
+A > R: A > R works in one valid case but fails in another. It is possible, not certain.
 
 ## 24. IDENTIFY_DEFINITELY_TRUE_CONCLUSION — seed 11
 
-**Record:** INE-CP003-A5B3F92B · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** CHAIN_PLUS_DISCONNECTED_COMPONENT
+**Record:** INE-CP003-A6B3FABE · **Difficulty:** HARD · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** LONG_INCLUSIVE_CHAIN_WITH_SIDE_BRANCH
 
 Which conclusion is definitely true?
 
 ### Statements
 
-- S ≤ D
-- S > P
-- B > C
+- P ≤ Q
+- P ≥ B
+- S ≥ R
+- B = S
+- C > P
 
 ### Options
 
-1. P ≥ D
-2. D < B
-3. S = D
-4. D > P
+1. P = Q
+2. B = Q
+3. P = C
+4. R ≤ Q
 
-**Correct:** 4. D > P
+**Correct:** 4. R ≤ Q
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only D > P, and every allowed case satisfies D > P. The conclusion is definitely true. So option 4, D > P, is the only conclusion that must be true.
+Check each option against the shortest useful chain. Option 1: Combine P ≤ Q. This leaves P < Q or P = Q possible. P = Q works in one valid case but fails in another. It is possible, not certain. Option 2: Combine P ≤ Q, P ≥ B, and B = S. This leaves B < Q or B = Q possible. B = Q works in one valid case but fails in another. It is possible, not certain. Option 3: Combine C > P. This gives P < C. P < C contradicts P = C, so the conclusion cannot be true. Option 4: Combine P ≤ Q, P ≥ B, S ≥ R, and B = S. This leaves R < Q or R = Q possible. This proves R ≤ Q. Therefore, option 4 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow only D > P, and every allowed case satisfies D > P. The conclusion is definitely true.
+Option 1: Combine P ≤ Q. This leaves P < Q or P = Q possible. P = Q works in one valid case but fails in another. It is possible, not certain.
 
-So option 4, D > P, is the only conclusion that must be true.
+Option 2: Combine P ≤ Q, P ≥ B, and B = S. This leaves B < Q or B = Q possible. B = Q works in one valid case but fails in another. It is possible, not certain.
 
-P ≥ D: The statements allow only P < D. None of those cases satisfies P ≥ D, so the conclusion is impossible.
+Option 3: Combine C > P. This gives P < C. P < C contradicts P = C, so the conclusion cannot be true.
 
-D < B: The statements allow D < B or D = B or D > B. At least one allowed case satisfies D < B, but another does not, so the conclusion is possible rather than definite.
+Option 4: Combine P ≤ Q, P ≥ B, S ≥ R, and B = S. This leaves R < Q or R = Q possible. This proves R ≤ Q.
 
-S = D: The statements allow S < D or S = D. At least one allowed case satisfies S = D, but another does not, so the conclusion is possible rather than definite.
+Therefore, option 4 is the only conclusion with the required truth status.
+
+P = Q: P = Q works in one valid case but fails in another. It is possible, not certain.
+
+B = Q: B = Q works in one valid case but fails in another. It is possible, not certain.
+
+P = C: P < C contradicts P = C, so the conclusion cannot be true.
 
 ## 25. IDENTIFY_POSSIBLY_TRUE_CONCLUSION — seed 0
 
-**Record:** INE-CP003-F7428FB0 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** INCLUSIVE_THEN_STRICT_CHAIN
+**Record:** INE-CP003-FA429469 · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** INCLUSIVE_THEN_STRICT_CHAIN
 
 Which conclusion is possible, but not definitely true?
 
@@ -1028,29 +1084,35 @@ Which conclusion is possible, but not definitely true?
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow P < S or P = S. At least one allowed case satisfies P ≥ S, but another does not, so the conclusion is possible rather than definite. So option 3, P ≥ S, is the only conclusion that can be true but is not guaranteed.
+Check each option against the shortest useful chain. Option 1: Combine S ≥ P and R < P. This gives S > R. This proves S ≥ R. Option 2: Combine S ≥ P. This leaves P < S or P = S possible. This proves P ≤ S. Option 3: Combine S ≥ P. This leaves P < S or P = S possible. P ≥ S works in one valid case but fails in another. It is possible, not certain. Option 4: Combine S ≥ P and R < P. This gives R < S. R < S contradicts R ≥ S, so the conclusion cannot be true. Therefore, option 3 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow P < S or P = S. At least one allowed case satisfies P ≥ S, but another does not, so the conclusion is possible rather than definite.
+Option 1: Combine S ≥ P and R < P. This gives S > R. This proves S ≥ R.
 
-P=1, R=0, S=1 satisfies the statements and gives P = S, so the conclusion can hold.
+Option 2: Combine S ≥ P. This leaves P < S or P = S possible. This proves P ≤ S.
 
-P=1, R=0, S=2 also satisfies the statements but gives P < S, so the conclusion is not guaranteed.
+Option 3: Combine S ≥ P. This leaves P < S or P = S possible. P ≥ S works in one valid case but fails in another. It is possible, not certain.
 
-So option 3, P ≥ S, is the only conclusion that can be true but is not guaranteed.
+Option 4: Combine S ≥ P and R < P. This gives R < S. R < S contradicts R ≥ S, so the conclusion cannot be true.
 
-S ≥ R: The statements allow only S > R, and every allowed case satisfies S ≥ R. The conclusion is definitely true.
+For example, P = 1, R = 0, and S = 1 satisfies every statement and gives P = S.
 
-P ≤ S: The statements allow only P < S or P = S, and every allowed case satisfies P ≤ S. The conclusion is definitely true.
+But P = 1, R = 0, and S = 2 also satisfies every statement and gives P < S. This is why the conclusion is not guaranteed.
 
-R ≥ S: The statements allow only R < S. None of those cases satisfies R ≥ S, so the conclusion is impossible.
+Therefore, option 3 is the only conclusion with the required truth status.
+
+S ≥ R: This proves S ≥ R.
+
+P ≤ S: This proves P ≤ S.
+
+R ≥ S: R < S contradicts R ≥ S, so the conclusion cannot be true.
 
 ## 26. IDENTIFY_POSSIBLY_TRUE_CONCLUSION — seed 1
 
-**Record:** INE-CP003-086A577B · **Difficulty:** HARD · **Release tier:** ADVANCED_PRACTICE · **Topology:** BRANCHES_WITH_SHARED_BOUNDS
+**Record:** INE-CP003-096A590E · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** BRANCHES_WITH_SHARED_BOUNDS
 
 Which conclusion is possible, but not definitely true?
 
@@ -1072,29 +1134,35 @@ Which conclusion is possible, but not definitely true?
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow P < A or P = A or P > A. At least one allowed case satisfies P ≥ A, but another does not, so the conclusion is possible rather than definite. So option 1, P ≥ A, is the only conclusion that can be true but is not guaranteed.
+Check each option against the shortest useful chain. Option 1: There is no chain fixing the relation between P and A; either may be greater, or they may be equal. P ≥ A works in one valid case but fails in another. It is possible, not certain. Option 2: Combine A < S and C ≤ A. This gives S > C. This proves S ≥ C. Option 3: Combine A < S. This gives S > A. This proves S ≥ A. Option 4: Combine A < S. This gives A < S. A < S contradicts A > S, so the conclusion cannot be true. Therefore, option 1 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow P < A or P = A or P > A. At least one allowed case satisfies P ≥ A, but another does not, so the conclusion is possible rather than definite.
+Option 1: There is no chain fixing the relation between P and A; either may be greater, or they may be equal. P ≥ A works in one valid case but fails in another. It is possible, not certain.
 
-A=1, C=0, P=1, S=2 satisfies the statements and gives P = A, so the conclusion can hold.
+Option 2: Combine A < S and C ≤ A. This gives S > C. This proves S ≥ C.
 
-A=2, C=0, P=1, S=3 also satisfies the statements but gives P < A, so the conclusion is not guaranteed.
+Option 3: Combine A < S. This gives S > A. This proves S ≥ A.
 
-So option 1, P ≥ A, is the only conclusion that can be true but is not guaranteed.
+Option 4: Combine A < S. This gives A < S. A < S contradicts A > S, so the conclusion cannot be true.
 
-S ≥ C: The statements allow only S > C, and every allowed case satisfies S ≥ C. The conclusion is definitely true.
+For example, A = 1, C = 0, P = 1, and S = 2 satisfies every statement and gives P = A.
 
-S ≥ A: The statements allow only S > A, and every allowed case satisfies S ≥ A. The conclusion is definitely true.
+But A = 2, C = 0, P = 1, and S = 3 also satisfies every statement and gives P < A. This is why the conclusion is not guaranteed.
 
-A > S: The statements allow only A < S. None of those cases satisfies A > S, so the conclusion is impossible.
+Therefore, option 1 is the only conclusion with the required truth status.
+
+S ≥ C: This proves S ≥ C.
+
+S ≥ A: This proves S ≥ A.
+
+A > S: A < S contradicts A > S, so the conclusion cannot be true.
 
 ## 27. IDENTIFY_POSSIBLY_TRUE_CONCLUSION — seed 2
 
-**Record:** INE-CP003-FF274DE6 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** EQUALITY_AND_STRICT_CHAIN
+**Record:** INE-CP003-FE274C53 · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** EQUALITY_AND_STRICT_CHAIN
 
 Which conclusion is possible, but not definitely true?
 
@@ -1115,29 +1183,35 @@ Which conclusion is possible, but not definitely true?
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow P = C or P > C. At least one allowed case satisfies P = C, but another does not, so the conclusion is possible rather than definite. So option 2, P = C, is the only conclusion that can be true but is not guaranteed.
+Check each option against the shortest useful chain. Option 1: Combine D < C. This gives D < C. This proves D ≤ C. Option 2: Combine C ≤ R and P = R. This leaves P = C or P > C possible. P = C works in one valid case but fails in another. It is possible, not certain. Option 3: Combine C ≤ R, D < C, and P = R. This gives R > D. This proves R ≥ D. Option 4: Combine D < C. This gives D < C. D < C contradicts D > C, so the conclusion cannot be true. Therefore, option 2 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow P = C or P > C. At least one allowed case satisfies P = C, but another does not, so the conclusion is possible rather than definite.
+Option 1: Combine D < C. This gives D < C. This proves D ≤ C.
 
-C=1, D=0, P=1, R=1 satisfies the statements and gives P = C, so the conclusion can hold.
+Option 2: Combine C ≤ R and P = R. This leaves P = C or P > C possible. P = C works in one valid case but fails in another. It is possible, not certain.
 
-C=1, D=0, P=2, R=2 also satisfies the statements but gives P > C, so the conclusion is not guaranteed.
+Option 3: Combine C ≤ R, D < C, and P = R. This gives R > D. This proves R ≥ D.
 
-So option 2, P = C, is the only conclusion that can be true but is not guaranteed.
+Option 4: Combine D < C. This gives D < C. D < C contradicts D > C, so the conclusion cannot be true.
 
-D ≤ C: The statements allow only D < C, and every allowed case satisfies D ≤ C. The conclusion is definitely true.
+For example, C = 1, D = 0, P = 1, and R = 1 satisfies every statement and gives P = C.
 
-R ≥ D: The statements allow only R > D, and every allowed case satisfies R ≥ D. The conclusion is definitely true.
+But C = 1, D = 0, P = 2, and R = 2 also satisfies every statement and gives P > C. This is why the conclusion is not guaranteed.
 
-D > C: The statements allow only D < C. None of those cases satisfies D > C, so the conclusion is impossible.
+Therefore, option 2 is the only conclusion with the required truth status.
+
+D ≤ C: This proves D ≤ C.
+
+R ≥ D: This proves R ≥ D.
+
+D > C: D < C contradicts D > C, so the conclusion cannot be true.
 
 ## 28. IDENTIFY_POSSIBLY_TRUE_CONCLUSION — seed 3
 
-**Record:** INE-CP003-E73B0669 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** FOUR_NODE_MIXED_CHAIN
+**Record:** INE-CP003-E43B01B0 · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** FOUR_NODE_MIXED_CHAIN
 
 Which conclusion is possible, but not definitely true?
 
@@ -1158,29 +1232,35 @@ Which conclusion is possible, but not definitely true?
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow R < D or R = D. At least one allowed case satisfies R < D, but another does not, so the conclusion is possible rather than definite. So option 4, R < D, is the only conclusion that can be true but is not guaranteed.
+Check each option against the shortest useful chain. Option 1: Combine R > S and Q = R. This gives Q > S. This proves Q ≥ S. Option 2: Combine D ≥ Q and Q = R. This leaves D = Q or D > Q possible. None of those possibilities satisfies D < Q, so the conclusion cannot be true. Option 3: Combine Q = R. This gives Q = R. This proves Q ≥ R. Option 4: Combine D ≥ Q and Q = R. This leaves R < D or R = D possible. R < D works in one valid case but fails in another. It is possible, not certain. Therefore, option 4 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow R < D or R = D. At least one allowed case satisfies R < D, but another does not, so the conclusion is possible rather than definite.
+Option 1: Combine R > S and Q = R. This gives Q > S. This proves Q ≥ S.
 
-D=2, Q=1, R=1, S=0 satisfies the statements and gives R < D, so the conclusion can hold.
+Option 2: Combine D ≥ Q and Q = R. This leaves D = Q or D > Q possible. None of those possibilities satisfies D < Q, so the conclusion cannot be true.
 
-D=1, Q=1, R=1, S=0 also satisfies the statements but gives R = D, so the conclusion is not guaranteed.
+Option 3: Combine Q = R. This gives Q = R. This proves Q ≥ R.
 
-So option 4, R < D, is the only conclusion that can be true but is not guaranteed.
+Option 4: Combine D ≥ Q and Q = R. This leaves R < D or R = D possible. R < D works in one valid case but fails in another. It is possible, not certain.
 
-Q ≥ S: The statements allow only Q > S, and every allowed case satisfies Q ≥ S. The conclusion is definitely true.
+For example, D = 2, Q = 1, R = 1, and S = 0 satisfies every statement and gives R < D.
 
-D < Q: The statements allow only D = Q or D > Q. None of those cases satisfies D < Q, so the conclusion is impossible.
+But D = 1, Q = 1, R = 1, and S = 0 also satisfies every statement and gives R = D. This is why the conclusion is not guaranteed.
 
-Q ≥ R: The statements allow only Q = R, and every allowed case satisfies Q ≥ R. The conclusion is definitely true.
+Therefore, option 4 is the only conclusion with the required truth status.
+
+Q ≥ S: This proves Q ≥ S.
+
+D < Q: None of those possibilities satisfies D < Q, so the conclusion cannot be true.
+
+Q ≥ R: This proves Q ≥ R.
 
 ## 29. IDENTIFY_POSSIBLY_TRUE_CONCLUSION — seed 4
 
-**Record:** INE-CP003-1612AAE4 · **Difficulty:** HARD · **Release tier:** ADVANCED_PRACTICE · **Topology:** DIAMOND_WITH_MIXED_STRICTNESS
+**Record:** INE-CP003-1912AF9D · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** DIAMOND_WITH_MIXED_STRICTNESS
 
 Which conclusion is possible, but not definitely true?
 
@@ -1202,29 +1282,35 @@ Which conclusion is possible, but not definitely true?
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow D < Q or D = Q or D > Q. At least one allowed case satisfies D = Q, but another does not, so the conclusion is possible rather than definite. So option 2, D = Q, is the only conclusion that can be true but is not guaranteed.
+Check each option against the shortest useful chain. Option 1: Combine C < Q. This gives C < Q. This proves C < Q. Option 2: There is no chain fixing the relation between D and Q; either may be greater, or they may be equal. D = Q works in one valid case but fails in another. It is possible, not certain. Option 3: Combine D < S and C ≤ D. This gives S > C. This proves S > C. Option 4: Combine C < Q. This gives Q > C. Q > C contradicts Q ≤ C, so the conclusion cannot be true. Therefore, option 2 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow D < Q or D = Q or D > Q. At least one allowed case satisfies D = Q, but another does not, so the conclusion is possible rather than definite.
+Option 1: Combine C < Q. This gives C < Q. This proves C < Q.
 
-C=0, D=1, Q=1, S=2 satisfies the statements and gives D = Q, so the conclusion can hold.
+Option 2: There is no chain fixing the relation between D and Q; either may be greater, or they may be equal. D = Q works in one valid case but fails in another. It is possible, not certain.
 
-C=0, D=0, Q=1, S=1 also satisfies the statements but gives D < Q, so the conclusion is not guaranteed.
+Option 3: Combine D < S and C ≤ D. This gives S > C. This proves S > C.
 
-So option 2, D = Q, is the only conclusion that can be true but is not guaranteed.
+Option 4: Combine C < Q. This gives Q > C. Q > C contradicts Q ≤ C, so the conclusion cannot be true.
 
-C < Q: The statements allow only C < Q, and every allowed case satisfies C < Q. The conclusion is definitely true.
+For example, C = 0, D = 1, Q = 1, and S = 2 satisfies every statement and gives D = Q.
 
-S > C: The statements allow only S > C, and every allowed case satisfies S > C. The conclusion is definitely true.
+But C = 0, D = 0, Q = 1, and S = 1 also satisfies every statement and gives D < Q. This is why the conclusion is not guaranteed.
 
-Q ≤ C: The statements allow only Q > C. None of those cases satisfies Q ≤ C, so the conclusion is impossible.
+Therefore, option 2 is the only conclusion with the required truth status.
+
+C < Q: This proves C < Q.
+
+S > C: This proves S > C.
+
+Q ≤ C: Q > C contradicts Q ≤ C, so the conclusion cannot be true.
 
 ## 30. IDENTIFY_POSSIBLY_TRUE_CONCLUSION — seed 5
 
-**Record:** INE-CP003-128D652F · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** CHAIN_PLUS_DISCONNECTED_COMPONENT
+**Record:** INE-CP003-138D66C2 · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** CHAIN_PLUS_DISCONNECTED_COMPONENT
 
 Which conclusion is possible, but not definitely true?
 
@@ -1245,288 +1331,340 @@ Which conclusion is possible, but not definitely true?
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow P < R or P = R or P > R. At least one allowed case satisfies P > R, but another does not, so the conclusion is possible rather than definite. So option 1, P > R, is the only conclusion that can be true but is not guaranteed.
+Check each option against the shortest useful chain. Option 1: There is no chain fixing the relation between P and R; either may be greater, or they may be equal. P > R works in one valid case but fails in another. It is possible, not certain. Option 2: Combine S ≤ D and S > P. This gives D > P. This proves D ≥ P. Option 3: Combine S ≤ D and S > P. This gives P < D. This proves P < D. Option 4: Combine S > P. This gives S > P. S > P contradicts S < P, so the conclusion cannot be true. Therefore, option 1 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow P < R or P = R or P > R. At least one allowed case satisfies P > R, but another does not, so the conclusion is possible rather than definite.
+Option 1: There is no chain fixing the relation between P and R; either may be greater, or they may be equal. P > R works in one valid case but fails in another. It is possible, not certain.
 
-B=1, D=2, P=1, R=0, S=2 satisfies the statements and gives P > R, so the conclusion can hold.
+Option 2: Combine S ≤ D and S > P. This gives D > P. This proves D ≥ P.
 
-B=2, D=1, P=0, R=1, S=1 also satisfies the statements but gives P < R, so the conclusion is not guaranteed.
+Option 3: Combine S ≤ D and S > P. This gives P < D. This proves P < D.
 
-So option 1, P > R, is the only conclusion that can be true but is not guaranteed.
+Option 4: Combine S > P. This gives S > P. S > P contradicts S < P, so the conclusion cannot be true.
 
-D ≥ P: The statements allow only D > P, and every allowed case satisfies D ≥ P. The conclusion is definitely true.
+For example, B = 1, D = 2, P = 1, R = 0, and S = 2 satisfies every statement and gives P > R.
 
-P < D: The statements allow only P < D, and every allowed case satisfies P < D. The conclusion is definitely true.
+But B = 2, D = 1, P = 0, R = 1, and S = 1 also satisfies every statement and gives P < R. This is why the conclusion is not guaranteed.
 
-S < P: The statements allow only S > P. None of those cases satisfies S < P, so the conclusion is impossible.
+Therefore, option 1 is the only conclusion with the required truth status.
+
+D ≥ P: This proves D ≥ P.
+
+P < D: This proves P < D.
+
+S < P: S > P contradicts S < P, so the conclusion cannot be true.
 
 ## 31. IDENTIFY_POSSIBLY_TRUE_CONCLUSION — seed 6
 
-**Record:** INE-CP003-28CC1FCA · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** INCLUSIVE_THEN_STRICT_CHAIN
+**Record:** INE-CP003-27CC1E37 · **Difficulty:** HARD · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** FIVE_STEP_CHAIN_WITH_IRRELEVANT_EDGE
 
 Which conclusion is possible, but not definitely true?
 
 ### Statements
 
-- S > B
-- S ≤ Q
+- R < B
+- R ≥ S
+- P > D
+- P = B
+- P ≤ C
 
 ### Options
 
-1. S ≥ B
-2. B > S
-3. Q ≤ S
-4. S ≤ Q
+1. B > S
+2. P < D
+3. S < D
+4. C ≥ R
 
-**Correct:** 3. Q ≤ S
+**Correct:** 3. S < D
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow Q = S or Q > S. At least one allowed case satisfies Q ≤ S, but another does not, so the conclusion is possible rather than definite. So option 3, Q ≤ S, is the only conclusion that can be true but is not guaranteed.
+Check each option against the shortest useful chain. Option 1: Combine R < B, R ≥ S, and P = B. This gives B > S. This proves B > S. Option 2: Combine P > D and P = B. This gives P > D. P > D contradicts P < D, so the conclusion cannot be true. Option 3: There is no chain fixing the relation between S and D; either may be greater, or they may be equal. S < D works in one valid case but fails in another. It is possible, not certain. Option 4: Combine P ≤ C, R < B, and P = B. This gives C > R. This proves C ≥ R. Therefore, option 3 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow Q = S or Q > S. At least one allowed case satisfies Q ≤ S, but another does not, so the conclusion is possible rather than definite.
+Option 1: Combine R < B, R ≥ S, and P = B. This gives B > S. This proves B > S.
 
-B=0, Q=1, S=1 satisfies the statements and gives Q = S, so the conclusion can hold.
+Option 2: Combine P > D and P = B. This gives P > D. P > D contradicts P < D, so the conclusion cannot be true.
 
-B=0, Q=2, S=1 also satisfies the statements but gives Q > S, so the conclusion is not guaranteed.
+Option 3: There is no chain fixing the relation between S and D; either may be greater, or they may be equal. S < D works in one valid case but fails in another. It is possible, not certain.
 
-So option 3, Q ≤ S, is the only conclusion that can be true but is not guaranteed.
+Option 4: Combine P ≤ C, R < B, and P = B. This gives C > R. This proves C ≥ R.
 
-S ≥ B: The statements allow only S > B, and every allowed case satisfies S ≥ B. The conclusion is definitely true.
+For example, B = 2, C = 2, D = 1, P = 2, R = 0, and S = 0 satisfies every statement and gives S < D.
 
-B > S: The statements allow only B < S. None of those cases satisfies B > S, so the conclusion is impossible.
+But B = 1, C = 1, D = 0, P = 1, R = 0, and S = 0 also satisfies every statement and gives S = D. This is why the conclusion is not guaranteed.
 
-S ≤ Q: The statements allow only S < Q or S = Q, and every allowed case satisfies S ≤ Q. The conclusion is definitely true.
+Therefore, option 3 is the only conclusion with the required truth status.
+
+B > S: This proves B > S.
+
+P < D: P > D contradicts P < D, so the conclusion cannot be true.
+
+C ≥ R: This proves C ≥ R.
 
 ## 32. IDENTIFY_POSSIBLY_TRUE_CONCLUSION — seed 7
 
-**Record:** INE-CP003-1B72351D · **Difficulty:** HARD · **Release tier:** ADVANCED_PRACTICE · **Topology:** BRANCHES_WITH_SHARED_BOUNDS
+**Record:** INE-CP003-18723064 · **Difficulty:** HARD · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** EQUALITY_AT_START_WITH_CONVERGING_BRANCH
 
 Which conclusion is possible, but not definitely true?
 
 ### Statements
 
-- P > C
-- Q ≤ B
-- C > Q
-- B < P
+- C < B
+- P ≥ B
+- P > R
+- C ≤ R
+- P = Q
 
 ### Options
 
-1. C = P
-2. Q < P
-3. C > Q
-4. B = C
+1. R > Q
+2. P ≥ R
+3. P ≥ B
+4. B < R
 
-**Correct:** 4. B = C
+**Correct:** 4. B < R
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow B < C or B = C or B > C. At least one allowed case satisfies B = C, but another does not, so the conclusion is possible rather than definite. So option 4, B = C, is the only conclusion that can be true but is not guaranteed.
+Check each option against the shortest useful chain. Option 1: Combine P > R and P = Q. This gives R < Q. R < Q contradicts R > Q, so the conclusion cannot be true. Option 2: Combine P > R and P = Q. This gives P > R. This proves P ≥ R. Option 3: Combine P ≥ B and P = Q. This leaves P = B or P > B possible. This proves P ≥ B. Option 4: There is no chain fixing the relation between B and R; either may be greater, or they may be equal. B < R works in one valid case but fails in another. It is possible, not certain. Therefore, option 4 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow B < C or B = C or B > C. At least one allowed case satisfies B = C, but another does not, so the conclusion is possible rather than definite.
+Option 1: Combine P > R and P = Q. This gives R < Q. R < Q contradicts R > Q, so the conclusion cannot be true.
 
-B=1, C=1, P=2, Q=0 satisfies the statements and gives B = C, so the conclusion can hold.
+Option 2: Combine P > R and P = Q. This gives P > R. This proves P ≥ R.
 
-B=0, C=1, P=2, Q=0 also satisfies the statements but gives B < C, so the conclusion is not guaranteed.
+Option 3: Combine P ≥ B and P = Q. This leaves P = B or P > B possible. This proves P ≥ B.
 
-So option 4, B = C, is the only conclusion that can be true but is not guaranteed.
+Option 4: There is no chain fixing the relation between B and R; either may be greater, or they may be equal. B < R works in one valid case but fails in another. It is possible, not certain.
 
-C = P: The statements allow only C < P. None of those cases satisfies C = P, so the conclusion is impossible.
+For example, B = 1, C = 0, P = 3, Q = 3, and R = 2 satisfies every statement and gives B < R.
 
-Q < P: The statements allow only Q < P, and every allowed case satisfies Q < P. The conclusion is definitely true.
+But B = 1, C = 0, P = 2, Q = 2, and R = 1 also satisfies every statement and gives B = R. This is why the conclusion is not guaranteed.
 
-C > Q: The statements allow only C > Q, and every allowed case satisfies C > Q. The conclusion is definitely true.
+Therefore, option 4 is the only conclusion with the required truth status.
+
+R > Q: R < Q contradicts R > Q, so the conclusion cannot be true.
+
+P ≥ R: This proves P ≥ R.
+
+P ≥ B: This proves P ≥ B.
 
 ## 33. IDENTIFY_POSSIBLY_TRUE_CONCLUSION — seed 8
 
-**Record:** INE-CP003-E99F84E8 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** EQUALITY_AND_STRICT_CHAIN
+**Record:** INE-CP003-EC9F89A1 · **Difficulty:** HARD · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** LONG_CHAIN_EQUALITY_AT_END
 
 Which conclusion is possible, but not definitely true?
 
 ### Statements
 
-- B > C
-- S = Q
-- B ≤ S
+- A < D
+- C ≥ B
+- C ≤ S
+- S < R
+- B = Q
 
 ### Options
 
-1. C ≤ Q
-2. B = Q
-3. B > Q
-4. Q ≥ S
+1. C ≤ S
+2. C < A
+3. C = R
+4. C ≤ R
 
-**Correct:** 2. B = Q
+**Correct:** 2. C < A
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow B < Q or B = Q. At least one allowed case satisfies B = Q, but another does not, so the conclusion is possible rather than definite. So option 2, B = Q, is the only conclusion that can be true but is not guaranteed.
+Check each option against the shortest useful chain. Option 1: Combine C ≤ S. This leaves C < S or C = S possible. This proves C ≤ S. Option 2: There is no chain fixing the relation between C and A; either may be greater, or they may be equal. C < A works in one valid case but fails in another. It is possible, not certain. Option 3: Combine S < R and C ≤ S. This gives C < R. C < R contradicts C = R, so the conclusion cannot be true. Option 4: Combine S < R and C ≤ S. This gives C < R. This proves C ≤ R. Therefore, option 2 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow B < Q or B = Q. At least one allowed case satisfies B = Q, but another does not, so the conclusion is possible rather than definite.
+Option 1: Combine C ≤ S. This leaves C < S or C = S possible. This proves C ≤ S.
 
-B=1, C=0, Q=1, S=1 satisfies the statements and gives B = Q, so the conclusion can hold.
+Option 2: There is no chain fixing the relation between C and A; either may be greater, or they may be equal. C < A works in one valid case but fails in another. It is possible, not certain.
 
-B=1, C=0, Q=2, S=2 also satisfies the statements but gives B < Q, so the conclusion is not guaranteed.
+Option 3: Combine S < R and C ≤ S. This gives C < R. C < R contradicts C = R, so the conclusion cannot be true.
 
-So option 2, B = Q, is the only conclusion that can be true but is not guaranteed.
+Option 4: Combine S < R and C ≤ S. This gives C < R. This proves C ≤ R.
 
-C ≤ Q: The statements allow only C < Q, and every allowed case satisfies C ≤ Q. The conclusion is definitely true.
+For example, A = 1, B = 0, C = 0, D = 2, Q = 0, R = 1, and S = 0 satisfies every statement and gives C < A.
 
-B > Q: The statements allow only B < Q or B = Q. None of those cases satisfies B > Q, so the conclusion is impossible.
+But A = 0, B = 0, C = 0, D = 1, Q = 0, R = 1, and S = 0 also satisfies every statement and gives C = A. This is why the conclusion is not guaranteed.
 
-Q ≥ S: The statements allow only Q = S, and every allowed case satisfies Q ≥ S. The conclusion is definitely true.
+Therefore, option 2 is the only conclusion with the required truth status.
+
+C ≤ S: This proves C ≤ S.
+
+C = R: C < R contradicts C = R, so the conclusion cannot be true.
+
+C ≤ R: This proves C ≤ R.
 
 ## 34. IDENTIFY_POSSIBLY_TRUE_CONCLUSION — seed 9
 
-**Record:** INE-CP003-832BE353 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** FOUR_NODE_MIXED_CHAIN
+**Record:** INE-CP003-842BE4E6 · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** TWO_INDEPENDENT_CHAINS
 
 Which conclusion is possible, but not definitely true?
 
 ### Statements
 
-- R ≥ A
-- S = A
-- S > B
+- B ≤ A
+- R > A
+- S = C
+- C > Q
 
 ### Options
 
-1. R ≥ A
-2. A ≥ S
-3. R > S
-4. R ≤ B
+1. R > A
+2. S = C
+3. R = S
+4. B = R
 
-**Correct:** 3. R > S
+**Correct:** 3. R = S
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow R = S or R > S. At least one allowed case satisfies R > S, but another does not, so the conclusion is possible rather than definite. So option 3, R > S, is the only conclusion that can be true but is not guaranteed.
+Check each option against the shortest useful chain. Option 1: Combine R > A. This gives R > A. This proves R > A. Option 2: Combine S = C. This gives S = C. This proves S = C. Option 3: Combine S = C. This leaves R < S, R = S, or R > S possible. R = S works in one valid case but fails in another. It is possible, not certain. Option 4: Combine R > A and B ≤ A. This gives B < R. B < R contradicts B = R, so the conclusion cannot be true. Therefore, option 3 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow R = S or R > S. At least one allowed case satisfies R > S, but another does not, so the conclusion is possible rather than definite.
+Option 1: Combine R > A. This gives R > A. This proves R > A.
 
-A=1, B=0, R=2, S=1 satisfies the statements and gives R > S, so the conclusion can hold.
+Option 2: Combine S = C. This gives S = C. This proves S = C.
 
-A=1, B=0, R=1, S=1 also satisfies the statements but gives R = S, so the conclusion is not guaranteed.
+Option 3: Combine S = C. This leaves R < S, R = S, or R > S possible. R = S works in one valid case but fails in another. It is possible, not certain.
 
-So option 3, R > S, is the only conclusion that can be true but is not guaranteed.
+Option 4: Combine R > A and B ≤ A. This gives B < R. B < R contradicts B = R, so the conclusion cannot be true.
 
-R ≥ A: The statements allow only R = A or R > A, and every allowed case satisfies R ≥ A. The conclusion is definitely true.
+For example, A = 0, B = 0, C = 1, Q = 0, R = 1, and S = 1 satisfies every statement and gives R = S.
 
-A ≥ S: The statements allow only A = S, and every allowed case satisfies A ≥ S. The conclusion is definitely true.
+But A = 0, B = 0, C = 2, Q = 0, R = 1, and S = 2 also satisfies every statement and gives R < S. This is why the conclusion is not guaranteed.
 
-R ≤ B: The statements allow only R > B. None of those cases satisfies R ≤ B, so the conclusion is impossible.
+Therefore, option 3 is the only conclusion with the required truth status.
+
+R > A: This proves R > A.
+
+S = C: This proves S = C.
+
+B = R: B < R contradicts B = R, so the conclusion cannot be true.
 
 ## 35. IDENTIFY_POSSIBLY_TRUE_CONCLUSION — seed 10
 
-**Record:** INE-CP003-EB6C01DF · **Difficulty:** HARD · **Release tier:** ADVANCED_PRACTICE · **Topology:** DIAMOND_WITH_MIXED_STRICTNESS
+**Record:** INE-CP003-EC6C0372 · **Difficulty:** HARD · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** CONVERGING_BRANCH_WITH_TAIL
 
 Which conclusion is possible, but not definitely true?
 
 ### Statements
 
-- B ≥ Q
+- C ≥ R
 - S ≥ D
-- B > S
-- D < Q
+- B < S
+- B ≥ C
+- D > C
 
 ### Options
 
-1. D > S
-2. Q > D
-3. B ≥ D
-4. S > Q
+1. C < R
+2. R ≤ D
+3. C ≤ D
+4. D = B
 
-**Correct:** 4. S > Q
+**Correct:** 4. D = B
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow S < Q or S = Q or S > Q. At least one allowed case satisfies S > Q, but another does not, so the conclusion is possible rather than definite. So option 4, S > Q, is the only conclusion that can be true but is not guaranteed.
+Check each option against the shortest useful chain. Option 1: Combine C ≥ R. This leaves C = R or C > R possible. None of those possibilities satisfies C < R, so the conclusion cannot be true. Option 2: Combine D > C and C ≥ R. This gives R < D. This proves R ≤ D. Option 3: Combine D > C. This gives C < D. This proves C ≤ D. Option 4: There is no chain fixing the relation between D and B; either may be greater, or they may be equal. D = B works in one valid case but fails in another. It is possible, not certain. Therefore, option 4 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow S < Q or S = Q or S > Q. At least one allowed case satisfies S > Q, but another does not, so the conclusion is possible rather than definite.
+Option 1: Combine C ≥ R. This leaves C = R or C > R possible. None of those possibilities satisfies C < R, so the conclusion cannot be true.
 
-B=3, D=0, Q=1, S=2 satisfies the statements and gives S > Q, so the conclusion can hold.
+Option 2: Combine D > C and C ≥ R. This gives R < D. This proves R ≤ D.
 
-B=1, D=0, Q=1, S=0 also satisfies the statements but gives S < Q, so the conclusion is not guaranteed.
+Option 3: Combine D > C. This gives C < D. This proves C ≤ D.
 
-So option 4, S > Q, is the only conclusion that can be true but is not guaranteed.
+Option 4: There is no chain fixing the relation between D and B; either may be greater, or they may be equal. D = B works in one valid case but fails in another. It is possible, not certain.
 
-D > S: The statements allow only D < S or D = S. None of those cases satisfies D > S, so the conclusion is impossible.
+For example, B = 1, C = 0, D = 1, R = 0, and S = 2 satisfies every statement and gives D = B.
 
-Q > D: The statements allow only Q > D, and every allowed case satisfies Q > D. The conclusion is definitely true.
+But B = 2, C = 0, D = 1, R = 0, and S = 3 also satisfies every statement and gives D < B. This is why the conclusion is not guaranteed.
 
-B ≥ D: The statements allow only B > D, and every allowed case satisfies B ≥ D. The conclusion is definitely true.
+Therefore, option 4 is the only conclusion with the required truth status.
+
+C < R: None of those possibilities satisfies C < R, so the conclusion cannot be true.
+
+R ≤ D: This proves R ≤ D.
+
+C ≤ D: This proves C ≤ D.
 
 ## 36. IDENTIFY_POSSIBLY_TRUE_CONCLUSION — seed 11
 
-**Record:** INE-CP003-169EE194 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** CHAIN_PLUS_DISCONNECTED_COMPONENT
+**Record:** INE-CP003-199EE64D · **Difficulty:** HARD · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** LONG_INCLUSIVE_CHAIN_WITH_SIDE_BRANCH
 
 Which conclusion is possible, but not definitely true?
 
 ### Statements
 
-- C ≤ P
-- A < C
-- S < B
+- C ≤ S
+- D ≤ C
+- R = D
+- R ≥ A
+- B > C
 
 ### Options
 
-1. S > C
-2. C = A
-3. C > A
-4. P ≥ A
+1. B ≤ S
+2. D ≥ R
+3. A > D
+4. A ≤ C
 
-**Correct:** 1. S > C
+**Correct:** 1. B ≤ S
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow S < C or S = C or S > C. At least one allowed case satisfies S > C, but another does not, so the conclusion is possible rather than definite. So option 1, S > C, is the only conclusion that can be true but is not guaranteed.
+Check each option against the shortest useful chain. Option 1: There is no chain fixing the relation between B and S; either may be greater, or they may be equal. B ≤ S works in one valid case but fails in another. It is possible, not certain. Option 2: Combine R = D. This gives D = R. This proves D ≥ R. Option 3: Combine R ≥ A and R = D. This leaves A < D or A = D possible. None of those possibilities satisfies A > D, so the conclusion cannot be true. Option 4: Combine D ≤ C, R ≥ A, and R = D. This leaves A < C or A = C possible. This proves A ≤ C. Therefore, option 1 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow S < C or S = C or S > C. At least one allowed case satisfies S > C, but another does not, so the conclusion is possible rather than definite.
+Option 1: There is no chain fixing the relation between B and S; either may be greater, or they may be equal. B ≤ S works in one valid case but fails in another. It is possible, not certain.
 
-A=0, B=3, C=1, P=1, S=2 satisfies the statements and gives S > C, so the conclusion can hold.
+Option 2: Combine R = D. This gives D = R. This proves D ≥ R.
 
-A=0, B=1, C=1, P=1, S=0 also satisfies the statements but gives S < C, so the conclusion is not guaranteed.
+Option 3: Combine R ≥ A and R = D. This leaves A < D or A = D possible. None of those possibilities satisfies A > D, so the conclusion cannot be true.
 
-So option 1, S > C, is the only conclusion that can be true but is not guaranteed.
+Option 4: Combine D ≤ C, R ≥ A, and R = D. This leaves A < C or A = C possible. This proves A ≤ C.
 
-C = A: The statements allow only C > A. None of those cases satisfies C = A, so the conclusion is impossible.
+For example, A = 0, B = 1, C = 0, D = 0, R = 0, and S = 2 satisfies every statement and gives B < S.
 
-C > A: The statements allow only C > A, and every allowed case satisfies C > A. The conclusion is definitely true.
+But A = 0, B = 1, C = 0, D = 0, R = 0, and S = 0 also satisfies every statement and gives B > S. This is why the conclusion is not guaranteed.
 
-P ≥ A: The statements allow only P > A, and every allowed case satisfies P ≥ A. The conclusion is definitely true.
+Therefore, option 1 is the only conclusion with the required truth status.
+
+D ≥ R: This proves D ≥ R.
+
+A > D: None of those possibilities satisfies A > D, so the conclusion cannot be true.
+
+A ≤ C: This proves A ≤ C.
 
 ## 37. IDENTIFY_IMPOSSIBLE_CONCLUSION — seed 0
 
-**Record:** INE-CP003-879CCFDE · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** INCLUSIVE_THEN_STRICT_CHAIN
+**Record:** INE-CP003-869CCE4B · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** INCLUSIVE_THEN_STRICT_CHAIN
 
 Which conclusion is impossible?
 
@@ -1546,25 +1684,31 @@ Which conclusion is impossible?
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only A < P. None of those cases satisfies A ≥ P, so the conclusion is impossible. So option 1, A ≥ P, is the only conclusion that cannot be true.
+Check each option against the shortest useful chain. Option 1: Combine S ≤ P and A < S. This gives A < P. A < P contradicts A ≥ P, so the conclusion cannot be true. Option 2: Combine A < S. This gives A < S. This proves A ≤ S. Option 3: Combine S ≤ P. This leaves P = S or P > S possible. P > S works in one valid case but fails in another. It is possible, not certain. Option 4: Combine S ≤ P and A < S. This gives P > A. This proves P > A. Therefore, option 1 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow only A < P. None of those cases satisfies A ≥ P, so the conclusion is impossible.
+Option 1: Combine S ≤ P and A < S. This gives A < P. A < P contradicts A ≥ P, so the conclusion cannot be true.
 
-So option 1, A ≥ P, is the only conclusion that cannot be true.
+Option 2: Combine A < S. This gives A < S. This proves A ≤ S.
 
-A ≤ S: The statements allow only A < S, and every allowed case satisfies A ≤ S. The conclusion is definitely true.
+Option 3: Combine S ≤ P. This leaves P = S or P > S possible. P > S works in one valid case but fails in another. It is possible, not certain.
 
-P > S: The statements allow P = S or P > S. At least one allowed case satisfies P > S, but another does not, so the conclusion is possible rather than definite.
+Option 4: Combine S ≤ P and A < S. This gives P > A. This proves P > A.
 
-P > A: The statements allow only P > A, and every allowed case satisfies P > A. The conclusion is definitely true.
+Therefore, option 1 is the only conclusion with the required truth status.
+
+A ≤ S: This proves A ≤ S.
+
+P > S: P > S works in one valid case but fails in another. It is possible, not certain.
+
+P > A: This proves P > A.
 
 ## 38. IDENTIFY_IMPOSSIBLE_CONCLUSION — seed 1
 
-**Record:** INE-CP003-A152BEE1 · **Difficulty:** HARD · **Release tier:** ADVANCED_PRACTICE · **Topology:** BRANCHES_WITH_SHARED_BOUNDS
+**Record:** INE-CP003-9E52BA28 · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** BRANCHES_WITH_SHARED_BOUNDS
 
 Which conclusion is impossible?
 
@@ -1586,25 +1730,31 @@ Which conclusion is impossible?
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only B > R. None of those cases satisfies B < R, so the conclusion is impossible. So option 3, B < R, is the only conclusion that cannot be true.
+Check each option against the shortest useful chain. Option 1: Combine P > R. This gives P > R. This proves P ≥ R. Option 2: Combine C < B. This gives C < B. This proves C < B. Option 3: Combine B > P and P > R. This gives B > R. B > R contradicts B < R, so the conclusion cannot be true. Option 4: Combine R ≤ C. This leaves C = R or C > R possible. C > R works in one valid case but fails in another. It is possible, not certain. Therefore, option 3 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow only B > R. None of those cases satisfies B < R, so the conclusion is impossible.
+Option 1: Combine P > R. This gives P > R. This proves P ≥ R.
 
-So option 3, B < R, is the only conclusion that cannot be true.
+Option 2: Combine C < B. This gives C < B. This proves C < B.
 
-P ≥ R: The statements allow only P > R, and every allowed case satisfies P ≥ R. The conclusion is definitely true.
+Option 3: Combine B > P and P > R. This gives B > R. B > R contradicts B < R, so the conclusion cannot be true.
 
-C < B: The statements allow only C < B, and every allowed case satisfies C < B. The conclusion is definitely true.
+Option 4: Combine R ≤ C. This leaves C = R or C > R possible. C > R works in one valid case but fails in another. It is possible, not certain.
 
-C > R: The statements allow C = R or C > R. At least one allowed case satisfies C > R, but another does not, so the conclusion is possible rather than definite.
+Therefore, option 3 is the only conclusion with the required truth status.
+
+P ≥ R: This proves P ≥ R.
+
+C < B: This proves C < B.
+
+C > R: C > R works in one valid case but fails in another. It is possible, not certain.
 
 ## 39. IDENTIFY_IMPOSSIBLE_CONCLUSION — seed 2
 
-**Record:** INE-CP003-0B7FBFA8 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** EQUALITY_AND_STRICT_CHAIN
+**Record:** INE-CP003-0E7FC461 · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** EQUALITY_AND_STRICT_CHAIN
 
 Which conclusion is impossible?
 
@@ -1625,25 +1775,31 @@ Which conclusion is impossible?
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only P < B or P = B. None of those cases satisfies P > B, so the conclusion is impossible. So option 2, P > B, is the only conclusion that cannot be true.
+Check each option against the shortest useful chain. Option 1: Combine P ≤ R and B = R. This leaves R = P or R > P possible. R = P works in one valid case but fails in another. It is possible, not certain. Option 2: Combine P ≤ R and B = R. This leaves P < B or P = B possible. None of those possibilities satisfies P > B, so the conclusion cannot be true. Option 3: Combine P ≤ R and B = R. This leaves P < B or P = B possible. This proves P ≤ B. Option 4: Combine P ≤ R, P > S, and B = R. This gives R > S. This proves R > S. Therefore, option 2 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow only P < B or P = B. None of those cases satisfies P > B, so the conclusion is impossible.
+Option 1: Combine P ≤ R and B = R. This leaves R = P or R > P possible. R = P works in one valid case but fails in another. It is possible, not certain.
 
-So option 2, P > B, is the only conclusion that cannot be true.
+Option 2: Combine P ≤ R and B = R. This leaves P < B or P = B possible. None of those possibilities satisfies P > B, so the conclusion cannot be true.
 
-R = P: The statements allow R = P or R > P. At least one allowed case satisfies R = P, but another does not, so the conclusion is possible rather than definite.
+Option 3: Combine P ≤ R and B = R. This leaves P < B or P = B possible. This proves P ≤ B.
 
-P ≤ B: The statements allow only P < B or P = B, and every allowed case satisfies P ≤ B. The conclusion is definitely true.
+Option 4: Combine P ≤ R, P > S, and B = R. This gives R > S. This proves R > S.
 
-R > S: The statements allow only R > S, and every allowed case satisfies R > S. The conclusion is definitely true.
+Therefore, option 2 is the only conclusion with the required truth status.
+
+R = P: R = P works in one valid case but fails in another. It is possible, not certain.
+
+P ≤ B: This proves P ≤ B.
+
+R > S: This proves R > S.
 
 ## 40. IDENTIFY_IMPOSSIBLE_CONCLUSION — seed 3
 
-**Record:** INE-CP003-D84CC313 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** FOUR_NODE_MIXED_CHAIN
+**Record:** INE-CP003-D94CC4A6 · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** FOUR_NODE_MIXED_CHAIN
 
 Which conclusion is impossible?
 
@@ -1664,25 +1820,31 @@ Which conclusion is impossible?
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only R > D. None of those cases satisfies R < D, so the conclusion is impossible. So option 4, R < D, is the only conclusion that cannot be true.
+Check each option against the shortest useful chain. Option 1: Combine C ≥ R, B > D, and B = R. This gives C > D. This proves C > D. Option 2: Combine C ≥ R and B = R. This leaves R < C or R = C possible. R ≥ C works in one valid case but fails in another. It is possible, not certain. Option 3: Combine B > D and B = R. This gives R > D. This proves R > D. Option 4: Combine B > D and B = R. This gives R > D. R > D contradicts R < D, so the conclusion cannot be true. Therefore, option 4 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow only R > D. None of those cases satisfies R < D, so the conclusion is impossible.
+Option 1: Combine C ≥ R, B > D, and B = R. This gives C > D. This proves C > D.
 
-So option 4, R < D, is the only conclusion that cannot be true.
+Option 2: Combine C ≥ R and B = R. This leaves R < C or R = C possible. R ≥ C works in one valid case but fails in another. It is possible, not certain.
 
-C > D: The statements allow only C > D, and every allowed case satisfies C > D. The conclusion is definitely true.
+Option 3: Combine B > D and B = R. This gives R > D. This proves R > D.
 
-R ≥ C: The statements allow R < C or R = C. At least one allowed case satisfies R ≥ C, but another does not, so the conclusion is possible rather than definite.
+Option 4: Combine B > D and B = R. This gives R > D. R > D contradicts R < D, so the conclusion cannot be true.
 
-R > D: The statements allow only R > D, and every allowed case satisfies R > D. The conclusion is definitely true.
+Therefore, option 4 is the only conclusion with the required truth status.
+
+C > D: This proves C > D.
+
+R ≥ C: R ≥ C works in one valid case but fails in another. It is possible, not certain.
+
+R > D: This proves R > D.
 
 ## 41. IDENTIFY_IMPOSSIBLE_CONCLUSION — seed 4
 
-**Record:** INE-CP003-B9D75382 · **Difficulty:** HARD · **Release tier:** ADVANCED_PRACTICE · **Topology:** DIAMOND_WITH_MIXED_STRICTNESS
+**Record:** INE-CP003-B8D751EF · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** DIAMOND_WITH_MIXED_STRICTNESS
 
 Which conclusion is impossible?
 
@@ -1704,25 +1866,31 @@ Which conclusion is impossible?
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only Q > D. None of those cases satisfies Q = D, so the conclusion is impossible. So option 3, Q = D, is the only conclusion that cannot be true.
+Check each option against the shortest useful chain. Option 1: Combine S > D. This gives D < S. This proves D < S. Option 2: Combine D ≤ A. This leaves A = D or A > D possible. This proves A ≥ D. Option 3: Combine A < Q and D ≤ A. This gives Q > D. Q > D contradicts Q = D, so the conclusion cannot be true. Option 4: Combine D ≤ A. This leaves D < A or D = A possible. D ≥ A works in one valid case but fails in another. It is possible, not certain. Therefore, option 3 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow only Q > D. None of those cases satisfies Q = D, so the conclusion is impossible.
+Option 1: Combine S > D. This gives D < S. This proves D < S.
 
-So option 3, Q = D, is the only conclusion that cannot be true.
+Option 2: Combine D ≤ A. This leaves A = D or A > D possible. This proves A ≥ D.
 
-D < S: The statements allow only D < S, and every allowed case satisfies D < S. The conclusion is definitely true.
+Option 3: Combine A < Q and D ≤ A. This gives Q > D. Q > D contradicts Q = D, so the conclusion cannot be true.
 
-A ≥ D: The statements allow only A = D or A > D, and every allowed case satisfies A ≥ D. The conclusion is definitely true.
+Option 4: Combine D ≤ A. This leaves D < A or D = A possible. D ≥ A works in one valid case but fails in another. It is possible, not certain.
 
-D ≥ A: The statements allow D < A or D = A. At least one allowed case satisfies D ≥ A, but another does not, so the conclusion is possible rather than definite.
+Therefore, option 3 is the only conclusion with the required truth status.
+
+D < S: This proves D < S.
+
+A ≥ D: This proves A ≥ D.
+
+D ≥ A: D ≥ A works in one valid case but fails in another. It is possible, not certain.
 
 ## 42. IDENTIFY_IMPOSSIBLE_CONCLUSION — seed 5
 
-**Record:** INE-CP003-E0EE8C75 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** CHAIN_PLUS_DISCONNECTED_COMPONENT
+**Record:** INE-CP003-DDEE87BC · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** CHAIN_PLUS_DISCONNECTED_COMPONENT
 
 Which conclusion is impossible?
 
@@ -1743,260 +1911,312 @@ Which conclusion is impossible?
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only Q > B. None of those cases satisfies Q = B, so the conclusion is impossible. So option 1, Q = B, is the only conclusion that cannot be true.
+Check each option against the shortest useful chain. Option 1: Combine Q ≥ D and D > B. This gives Q > B. Q > B contradicts Q = B, so the conclusion cannot be true. Option 2: Combine D > B. This gives D > B. This proves D > B. Option 3: Combine Q ≥ D and D > B. This gives Q > B. This proves Q > B. Option 4: There is no chain fixing the relation between P and D; either may be greater, or they may be equal. P < D works in one valid case but fails in another. It is possible, not certain. Therefore, option 1 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow only Q > B. None of those cases satisfies Q = B, so the conclusion is impossible.
+Option 1: Combine Q ≥ D and D > B. This gives Q > B. Q > B contradicts Q = B, so the conclusion cannot be true.
 
-So option 1, Q = B, is the only conclusion that cannot be true.
+Option 2: Combine D > B. This gives D > B. This proves D > B.
 
-D > B: The statements allow only D > B, and every allowed case satisfies D > B. The conclusion is definitely true.
+Option 3: Combine Q ≥ D and D > B. This gives Q > B. This proves Q > B.
 
-Q > B: The statements allow only Q > B, and every allowed case satisfies Q > B. The conclusion is definitely true.
+Option 4: There is no chain fixing the relation between P and D; either may be greater, or they may be equal. P < D works in one valid case but fails in another. It is possible, not certain.
 
-P < D: The statements allow P < D or P = D or P > D. At least one allowed case satisfies P < D, but another does not, so the conclusion is possible rather than definite.
+Therefore, option 1 is the only conclusion with the required truth status.
+
+D > B: This proves D > B.
+
+Q > B: This proves Q > B.
+
+P < D: P < D works in one valid case but fails in another. It is possible, not certain.
 
 ## 43. IDENTIFY_IMPOSSIBLE_CONCLUSION — seed 6
 
-**Record:** INE-CP003-793BB23C · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** INCLUSIVE_THEN_STRICT_CHAIN
+**Record:** INE-CP003-7C3BB6F5 · **Difficulty:** HARD · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** FIVE_STEP_CHAIN_WITH_IRRELEVANT_EDGE
 
 Which conclusion is impossible?
 
 ### Statements
 
-- A ≤ B
-- A > D
+- B > Q
+- B ≤ A
+- B = R
+- R > S
+- S ≥ C
+
+### Options
+
+1. Q < R
+2. A < Q
+3. Q < A
+4. C ≥ Q
+
+**Correct:** 2. A < Q
+
+### Mock solution
+
+Check each option against the shortest useful chain. Option 1: Combine B > Q and B = R. This gives Q < R. This proves Q < R. Option 2: Combine B ≤ A, B > Q, and B = R. This gives A > Q. A > Q contradicts A < Q, so the conclusion cannot be true. Option 3: Combine B ≤ A, B > Q, and B = R. This gives Q < A. This proves Q < A. Option 4: There is no chain fixing the relation between C and Q; either may be greater, or they may be equal. C ≥ Q works in one valid case but fails in another. It is possible, not certain. Therefore, option 2 is the only conclusion with the required truth status.
+
+### Learning solution
+
+Check each option against the shortest useful chain.
+
+Option 1: Combine B > Q and B = R. This gives Q < R. This proves Q < R.
+
+Option 2: Combine B ≤ A, B > Q, and B = R. This gives A > Q. A > Q contradicts A < Q, so the conclusion cannot be true.
+
+Option 3: Combine B ≤ A, B > Q, and B = R. This gives Q < A. This proves Q < A.
+
+Option 4: There is no chain fixing the relation between C and Q; either may be greater, or they may be equal. C ≥ Q works in one valid case but fails in another. It is possible, not certain.
+
+Therefore, option 2 is the only conclusion with the required truth status.
+
+Q < R: This proves Q < R.
+
+Q < A: This proves Q < A.
+
+C ≥ Q: C ≥ Q works in one valid case but fails in another. It is possible, not certain.
+
+## 44. IDENTIFY_IMPOSSIBLE_CONCLUSION — seed 7
+
+**Record:** INE-CP003-B5F4761A · **Difficulty:** HARD · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** EQUALITY_AT_START_WITH_CONVERGING_BRANCH
+
+Which conclusion is impossible?
+
+### Statements
+
+- P ≥ S
+- R ≥ D
+- S > D
+- P > R
+- P = B
+
+### Options
+
+1. R > S
+2. B = P
+3. S > D
+4. D = B
+
+**Correct:** 4. D = B
+
+### Mock solution
+
+Check each option against the shortest useful chain. Option 1: There is no chain fixing the relation between R and S; either may be greater, or they may be equal. R > S works in one valid case but fails in another. It is possible, not certain. Option 2: Combine P = B. This gives B = P. This proves B = P. Option 3: Combine S > D. This gives S > D. This proves S > D. Option 4: Combine P ≥ S, S > D, and P = B. This gives D < B. D < B contradicts D = B, so the conclusion cannot be true. Therefore, option 4 is the only conclusion with the required truth status.
+
+### Learning solution
+
+Check each option against the shortest useful chain.
+
+Option 1: There is no chain fixing the relation between R and S; either may be greater, or they may be equal. R > S works in one valid case but fails in another. It is possible, not certain.
+
+Option 2: Combine P = B. This gives B = P. This proves B = P.
+
+Option 3: Combine S > D. This gives S > D. This proves S > D.
+
+Option 4: Combine P ≥ S, S > D, and P = B. This gives D < B. D < B contradicts D = B, so the conclusion cannot be true.
+
+Therefore, option 4 is the only conclusion with the required truth status.
+
+R > S: R > S works in one valid case but fails in another. It is possible, not certain.
+
+B = P: This proves B = P.
+
+S > D: This proves S > D.
+
+## 45. IDENTIFY_IMPOSSIBLE_CONCLUSION — seed 8
+
+**Record:** INE-CP003-71F24F13 · **Difficulty:** HARD · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** LONG_CHAIN_EQUALITY_AT_END
+
+Which conclusion is impossible?
+
+### Statements
+
+- D ≤ C
+- R ≥ C
+- R < A
+- B = D
+- P < Q
+
+### Options
+
+1. D ≤ B
+2. A ≤ C
+3. Q > P
+4. P ≥ C
+
+**Correct:** 2. A ≤ C
+
+### Mock solution
+
+Check each option against the shortest useful chain. Option 1: Combine B = D. This gives D = B. This proves D ≤ B. Option 2: Combine R < A and R ≥ C. This gives A > C. A > C contradicts A ≤ C, so the conclusion cannot be true. Option 3: Combine P < Q. This gives Q > P. This proves Q > P. Option 4: There is no chain fixing the relation between P and C; either may be greater, or they may be equal. P ≥ C works in one valid case but fails in another. It is possible, not certain. Therefore, option 2 is the only conclusion with the required truth status.
+
+### Learning solution
+
+Check each option against the shortest useful chain.
+
+Option 1: Combine B = D. This gives D = B. This proves D ≤ B.
+
+Option 2: Combine R < A and R ≥ C. This gives A > C. A > C contradicts A ≤ C, so the conclusion cannot be true.
+
+Option 3: Combine P < Q. This gives Q > P. This proves Q > P.
+
+Option 4: There is no chain fixing the relation between P and C; either may be greater, or they may be equal. P ≥ C works in one valid case but fails in another. It is possible, not certain.
+
+Therefore, option 2 is the only conclusion with the required truth status.
+
+D ≤ B: This proves D ≤ B.
+
+Q > P: This proves Q > P.
+
+P ≥ C: P ≥ C works in one valid case but fails in another. It is possible, not certain.
+
+## 46. IDENTIFY_IMPOSSIBLE_CONCLUSION — seed 9
+
+**Record:** INE-CP003-C9E4E170 · **Difficulty:** MEDIUM · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** TWO_INDEPENDENT_CHAINS
+
+Which conclusion is impossible?
+
+### Statements
+
+- R ≥ A
+- B = D
+- R < P
+- D > S
+
+### Options
+
+1. B ≤ D
+2. D ≥ R
+3. A = P
+4. B = D
+
+**Correct:** 3. A = P
+
+### Mock solution
+
+Check each option against the shortest useful chain. Option 1: Combine B = D. This gives B = D. This proves B ≤ D. Option 2: Combine B = D. This leaves D < R, D = R, or D > R possible. D ≥ R works in one valid case but fails in another. It is possible, not certain. Option 3: Combine R < P and R ≥ A. This gives A < P. A < P contradicts A = P, so the conclusion cannot be true. Option 4: Combine B = D. This gives B = D. This proves B = D. Therefore, option 3 is the only conclusion with the required truth status.
+
+### Learning solution
+
+Check each option against the shortest useful chain.
+
+Option 1: Combine B = D. This gives B = D. This proves B ≤ D.
+
+Option 2: Combine B = D. This leaves D < R, D = R, or D > R possible. D ≥ R works in one valid case but fails in another. It is possible, not certain.
+
+Option 3: Combine R < P and R ≥ A. This gives A < P. A < P contradicts A = P, so the conclusion cannot be true.
+
+Option 4: Combine B = D. This gives B = D. This proves B = D.
+
+Therefore, option 3 is the only conclusion with the required truth status.
+
+B ≤ D: This proves B ≤ D.
+
+D ≥ R: D ≥ R works in one valid case but fails in another. It is possible, not certain.
+
+B = D: This proves B = D.
+
+## 47. IDENTIFY_IMPOSSIBLE_CONCLUSION — seed 10
+
+**Record:** INE-CP003-94953060 · **Difficulty:** HARD · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** CONVERGING_BRANCH_WITH_TAIL
+
+Which conclusion is impossible?
+
+### Statements
+
+- B < P
+- S > Q
+- Q ≥ B
+- C ≤ B
+- P ≤ S
+
+### Options
+
+1. C = S
+2. S ≥ C
+3. B < P
+4. C ≥ B
+
+**Correct:** 1. C = S
+
+### Mock solution
+
+Check each option against the shortest useful chain. Option 1: Combine S > Q, Q ≥ B, and C ≤ B. This gives C < S. C < S contradicts C = S, so the conclusion cannot be true. Option 2: Combine S > Q, Q ≥ B, and C ≤ B. This gives S > C. This proves S ≥ C. Option 3: Combine B < P. This gives B < P. This proves B < P. Option 4: Combine C ≤ B. This leaves C < B or C = B possible. C ≥ B works in one valid case but fails in another. It is possible, not certain. Therefore, option 1 is the only conclusion with the required truth status.
+
+### Learning solution
+
+Check each option against the shortest useful chain.
+
+Option 1: Combine S > Q, Q ≥ B, and C ≤ B. This gives C < S. C < S contradicts C = S, so the conclusion cannot be true.
+
+Option 2: Combine S > Q, Q ≥ B, and C ≤ B. This gives S > C. This proves S ≥ C.
+
+Option 3: Combine B < P. This gives B < P. This proves B < P.
+
+Option 4: Combine C ≤ B. This leaves C < B or C = B possible. C ≥ B works in one valid case but fails in another. It is possible, not certain.
+
+Therefore, option 1 is the only conclusion with the required truth status.
+
+S ≥ C: This proves S ≥ C.
+
+B < P: This proves B < P.
+
+C ≥ B: C ≥ B works in one valid case but fails in another. It is possible, not certain.
+
+## 48. IDENTIFY_IMPOSSIBLE_CONCLUSION — seed 11
+
+**Record:** INE-CP003-D1D9DC83 · **Difficulty:** HARD · **Profile:** DIAGNOSTIC_PRACTICE · **Topology:** LONG_INCLUSIVE_CHAIN_WITH_SIDE_BRANCH
+
+Which conclusion is impossible?
+
+### Statements
+
+- C ≥ P
+- A > P
+- P ≥ B
+- B = D
+- S ≤ D
 
 ### Options
 
 1. A ≥ D
-2. B = D
-3. A ≥ B
-4. B > D
+2. B > S
+3. B < A
+4. A < D
 
-**Correct:** 2. B = D
-
-### Mock solution
-
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only B > D. None of those cases satisfies B = D, so the conclusion is impossible. So option 2, B = D, is the only conclusion that cannot be true.
-
-### Learning solution
-
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
-
-The statements allow only B > D. None of those cases satisfies B = D, so the conclusion is impossible.
-
-So option 2, B = D, is the only conclusion that cannot be true.
-
-A ≥ D: The statements allow only A > D, and every allowed case satisfies A ≥ D. The conclusion is definitely true.
-
-A ≥ B: The statements allow A < B or A = B. At least one allowed case satisfies A ≥ B, but another does not, so the conclusion is possible rather than definite.
-
-B > D: The statements allow only B > D, and every allowed case satisfies B > D. The conclusion is definitely true.
-
-## 44. IDENTIFY_IMPOSSIBLE_CONCLUSION — seed 7
-
-**Record:** INE-CP003-B4F47487 · **Difficulty:** HARD · **Release tier:** ADVANCED_PRACTICE · **Topology:** BRANCHES_WITH_SHARED_BOUNDS
-
-Which conclusion is impossible?
-
-### Statements
-
-- C > Q
-- D > C
-- R ≥ Q
-- R < D
-
-### Options
-
-1. C > Q
-2. D > R
-3. R ≤ C
-4. Q > D
-
-**Correct:** 4. Q > D
+**Correct:** 4. A < D
 
 ### Mock solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only Q < D. None of those cases satisfies Q > D, so the conclusion is impossible. So option 4, Q > D, is the only conclusion that cannot be true.
+Check each option against the shortest useful chain. Option 1: Combine A > P, P ≥ B, and B = D. This gives A > D. This proves A ≥ D. Option 2: Combine S ≤ D and B = D. This leaves B = S or B > S possible. B > S works in one valid case but fails in another. It is possible, not certain. Option 3: Combine A > P, P ≥ B, and B = D. This gives B < A. This proves B < A. Option 4: Combine A > P, P ≥ B, and B = D. This gives A > D. A > D contradicts A < D, so the conclusion cannot be true. Therefore, option 4 is the only conclusion with the required truth status.
 
 ### Learning solution
 
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
+Check each option against the shortest useful chain.
 
-The statements allow only Q < D. None of those cases satisfies Q > D, so the conclusion is impossible.
+Option 1: Combine A > P, P ≥ B, and B = D. This gives A > D. This proves A ≥ D.
 
-So option 4, Q > D, is the only conclusion that cannot be true.
+Option 2: Combine S ≤ D and B = D. This leaves B = S or B > S possible. B > S works in one valid case but fails in another. It is possible, not certain.
 
-C > Q: The statements allow only C > Q, and every allowed case satisfies C > Q. The conclusion is definitely true.
+Option 3: Combine A > P, P ≥ B, and B = D. This gives B < A. This proves B < A.
 
-D > R: The statements allow only D > R, and every allowed case satisfies D > R. The conclusion is definitely true.
+Option 4: Combine A > P, P ≥ B, and B = D. This gives A > D. A > D contradicts A < D, so the conclusion cannot be true.
 
-R ≤ C: The statements allow R < C or R = C or R > C. At least one allowed case satisfies R ≤ C, but another does not, so the conclusion is possible rather than definite.
+Therefore, option 4 is the only conclusion with the required truth status.
 
-## 45. IDENTIFY_IMPOSSIBLE_CONCLUSION — seed 8
+A ≥ D: This proves A ≥ D.
 
-**Record:** INE-CP003-72F250A6 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** EQUALITY_AND_STRICT_CHAIN
+B > S: B > S works in one valid case but fails in another. It is possible, not certain.
 
-Which conclusion is impossible?
-
-### Statements
-
-- S = C
-- S ≥ A
-- R < A
-
-### Options
-
-1. R ≤ S
-2. R > C
-3. S = A
-4. A > R
-
-**Correct:** 2. R > C
-
-### Mock solution
-
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only R < C. None of those cases satisfies R > C, so the conclusion is impossible. So option 2, R > C, is the only conclusion that cannot be true.
-
-### Learning solution
-
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
-
-The statements allow only R < C. None of those cases satisfies R > C, so the conclusion is impossible.
-
-So option 2, R > C, is the only conclusion that cannot be true.
-
-R ≤ S: The statements allow only R < S, and every allowed case satisfies R ≤ S. The conclusion is definitely true.
-
-S = A: The statements allow S = A or S > A. At least one allowed case satisfies S = A, but another does not, so the conclusion is possible rather than definite.
-
-A > R: The statements allow only A > R, and every allowed case satisfies A > R. The conclusion is definitely true.
-
-## 46. IDENTIFY_IMPOSSIBLE_CONCLUSION — seed 9
-
-**Record:** INE-CP003-CCE4E629 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** FOUR_NODE_MIXED_CHAIN
-
-Which conclusion is impossible?
-
-### Statements
-
-- A = S
-- A ≤ D
-- S > R
-
-### Options
-
-1. D > S
-2. A ≤ S
-3. D = R
-4. S ≤ A
-
-**Correct:** 3. D = R
-
-### Mock solution
-
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only D > R. None of those cases satisfies D = R, so the conclusion is impossible. So option 3, D = R, is the only conclusion that cannot be true.
-
-### Learning solution
-
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
-
-The statements allow only D > R. None of those cases satisfies D = R, so the conclusion is impossible.
-
-So option 3, D = R, is the only conclusion that cannot be true.
-
-D > S: The statements allow D = S or D > S. At least one allowed case satisfies D > S, but another does not, so the conclusion is possible rather than definite.
-
-A ≤ S: The statements allow only A = S, and every allowed case satisfies A ≤ S. The conclusion is definitely true.
-
-S ≤ A: The statements allow only S = A, and every allowed case satisfies S ≤ A. The conclusion is definitely true.
-
-## 47. IDENTIFY_IMPOSSIBLE_CONCLUSION — seed 10
-
-**Record:** INE-CP003-97953519 · **Difficulty:** HARD · **Release tier:** ADVANCED_PRACTICE · **Topology:** DIAMOND_WITH_MIXED_STRICTNESS
-
-Which conclusion is impossible?
-
-### Statements
-
-- P > C
-- B < R
-- B ≥ C
-- P ≤ R
-
-### Options
-
-1. R = C
-2. C ≤ R
-3. C ≥ B
-4. C < R
-
-**Correct:** 1. R = C
-
-### Mock solution
-
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only R > C. None of those cases satisfies R = C, so the conclusion is impossible. So option 1, R = C, is the only conclusion that cannot be true.
-
-### Learning solution
-
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
-
-The statements allow only R > C. None of those cases satisfies R = C, so the conclusion is impossible.
-
-So option 1, R = C, is the only conclusion that cannot be true.
-
-C ≤ R: The statements allow only C < R, and every allowed case satisfies C ≤ R. The conclusion is definitely true.
-
-C ≥ B: The statements allow C < B or C = B. At least one allowed case satisfies C ≥ B, but another does not, so the conclusion is possible rather than definite.
-
-C < R: The statements allow only C < R, and every allowed case satisfies C < R. The conclusion is definitely true.
-
-## 48. IDENTIFY_IMPOSSIBLE_CONCLUSION — seed 11
-
-**Record:** INE-CP003-D2D9DE16 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** CHAIN_PLUS_DISCONNECTED_COMPONENT
-
-Which conclusion is impossible?
-
-### Statements
-
-- C ≥ B
-- B > Q
-- A > D
-
-### Options
-
-1. A ≥ Q
-2. Q ≤ B
-3. A ≥ D
-4. C = Q
-
-**Correct:** 4. C = Q
-
-### Mock solution
-
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold. The statements allow only C > Q. None of those cases satisfies C = Q, so the conclusion is impossible. So option 4, C = Q, is the only conclusion that cannot be true.
-
-### Learning solution
-
-Check each conclusion against what the statements allow: it must either always hold, hold only in some cases, or never hold.
-
-The statements allow only C > Q. None of those cases satisfies C = Q, so the conclusion is impossible.
-
-So option 4, C = Q, is the only conclusion that cannot be true.
-
-A ≥ Q: The statements allow A < Q or A = Q or A > Q. At least one allowed case satisfies A ≥ Q, but another does not, so the conclusion is possible rather than definite.
-
-Q ≤ B: The statements allow only Q < B, and every allowed case satisfies Q ≤ B. The conclusion is definitely true.
-
-A ≥ D: The statements allow only A > D, and every allowed case satisfies A ≥ D. The conclusion is definitely true.
+B < A: This proves B < A.
 
 ## 49. IDENTIFY_ALL_POSSIBLE_RELATIONS — seed 0
 
-**Record:** INE-CP003-427C70C2 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** INCLUSIVE_THEN_STRICT_CHAIN
+**Record:** INE-CP003-417C6F2F · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** INCLUSIVE_THEN_STRICT_CHAIN
 
 Which option lists every possible relation between S and Q?
 
@@ -2016,29 +2236,29 @@ Which option lists every possible relation between S and Q?
 
 ### Mock solution
 
-List every relation between S and Q that can occur without breaking a statement. The complete possible set is S = Q or S > Q. Therefore, option 2 gives all and only the possible relations.
+Combine Q ≤ S. This leaves S = Q or S > Q possible. So the complete set is S = Q or S > Q. Option 2 includes every valid relation and no invalid one.
 
 ### Learning solution
 
-List every relation between S and Q that can occur without breaking a statement.
+Combine Q ≤ S. This leaves S = Q or S > Q possible.
 
-The complete possible set is S = Q or S > Q.
+So the complete set is S = Q or S > Q.
 
-B=0, Q=1, S=1 gives S = Q.
+For S = Q, one valid arrangement is B = 0, Q = 1, and S = 1.
 
-B=0, Q=1, S=2 gives S > Q.
+For S > Q, one valid arrangement is B = 0, Q = 1, and S = 2.
 
-Therefore, option 2 gives all and only the possible relations.
+Option 2 includes every valid relation and no invalid one.
 
-S < Q or S = Q: This option includes a relation that the statements do not permit.
+S < Q or S = Q: This option adds a relation that breaks at least one statement.
 
-S = Q: This option leaves out a relation demonstrated by a valid arrangement.
+S = Q: This option misses a relation that a valid arrangement demonstrates.
 
-S > Q: This option leaves out a relation demonstrated by a valid arrangement.
+S > Q: This option misses a relation that a valid arrangement demonstrates.
 
 ## 50. IDENTIFY_ALL_POSSIBLE_RELATIONS — seed 1
 
-**Record:** INE-CP003-EAC1DFB5 · **Difficulty:** HARD · **Release tier:** ADVANCED_PRACTICE · **Topology:** BRANCHES_WITH_SHARED_BOUNDS
+**Record:** INE-CP003-E7C1DAFC · **Difficulty:** HARD · **Profile:** GUIDED_CONCEPT · **Topology:** BRANCHES_WITH_SHARED_BOUNDS
 
 Which option lists every possible relation between R and S?
 
@@ -2060,31 +2280,31 @@ Which option lists every possible relation between R and S?
 
 ### Mock solution
 
-List every relation between R and S that can occur without breaking a statement. The complete possible set is R < S, R = S, or R > S. Therefore, option 1 gives all and only the possible relations.
+There is no chain fixing the relation between R and S; either may be greater, or they may be equal. So the complete set is R < S, R = S, or R > S. Option 1 includes every valid relation and no invalid one.
 
 ### Learning solution
 
-List every relation between R and S that can occur without breaking a statement.
+There is no chain fixing the relation between R and S; either may be greater, or they may be equal.
 
-The complete possible set is R < S, R = S, or R > S.
+So the complete set is R < S, R = S, or R > S.
 
-A=2, C=0, R=0, S=1 gives R < S.
+For R < S, one valid arrangement is A = 2, C = 0, R = 0, and S = 1.
 
-A=2, C=0, R=1, S=1 gives R = S.
+For R = S, one valid arrangement is A = 2, C = 0, R = 1, and S = 1.
 
-A=3, C=0, R=2, S=1 gives R > S.
+For R > S, one valid arrangement is A = 3, C = 0, R = 2, and S = 1.
 
-Therefore, option 1 gives all and only the possible relations.
+Option 1 includes every valid relation and no invalid one.
 
-R = S: This option leaves out a relation demonstrated by a valid arrangement.
+R = S: This option misses a relation that a valid arrangement demonstrates.
 
-R > S: This option leaves out a relation demonstrated by a valid arrangement.
+R > S: This option misses a relation that a valid arrangement demonstrates.
 
-R < S: This option leaves out a relation demonstrated by a valid arrangement.
+R < S: This option misses a relation that a valid arrangement demonstrates.
 
 ## 51. IDENTIFY_ALL_POSSIBLE_RELATIONS — seed 2
 
-**Record:** INE-CP003-BBF82D7C · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** EQUALITY_AND_STRICT_CHAIN
+**Record:** INE-CP003-BEF83235 · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** EQUALITY_AND_STRICT_CHAIN
 
 Which option lists every possible relation between Q and D?
 
@@ -2105,27 +2325,27 @@ Which option lists every possible relation between Q and D?
 
 ### Mock solution
 
-List every relation between Q and D that can occur without breaking a statement. The complete possible set is Q = D. Therefore, option 3 gives all and only the possible relations.
+Combine D = Q. This gives Q = D. So the complete set is Q = D. Option 3 includes every valid relation and no invalid one.
 
 ### Learning solution
 
-List every relation between Q and D that can occur without breaking a statement.
+Combine D = Q. This gives Q = D.
 
-The complete possible set is Q = D.
+So the complete set is Q = D.
 
-C=0, D=1, Q=1, S=1 gives Q = D.
+For Q = D, one valid arrangement is C = 0, D = 1, Q = 1, and S = 1.
 
-Therefore, option 3 gives all and only the possible relations.
+Option 3 includes every valid relation and no invalid one.
 
-Q < D: This option includes a relation that the statements do not permit.
+Q < D: This option adds a relation that breaks at least one statement.
 
-Q < D or Q = D: This option includes a relation that the statements do not permit.
+Q < D or Q = D: This option adds a relation that breaks at least one statement.
 
-Q < D, Q = D, or Q > D: This option includes a relation that the statements do not permit.
+Q < D, Q = D, or Q > D: This option adds a relation that breaks at least one statement.
 
 ## 52. IDENTIFY_ALL_POSSIBLE_RELATIONS — seed 3
 
-**Record:** INE-CP003-0EE017C7 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** FOUR_NODE_MIXED_CHAIN
+**Record:** INE-CP003-0FE0195A · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** FOUR_NODE_MIXED_CHAIN
 
 Which option lists every possible relation between A and B?
 
@@ -2146,27 +2366,27 @@ Which option lists every possible relation between A and B?
 
 ### Mock solution
 
-List every relation between A and B that can occur without breaking a statement. The complete possible set is A > B. Therefore, option 4 gives all and only the possible relations.
+Combine A ≥ S, B < C, and S = C. This gives A > B. So the complete set is A > B. Option 4 includes every valid relation and no invalid one.
 
 ### Learning solution
 
-List every relation between A and B that can occur without breaking a statement.
+Combine A ≥ S, B < C, and S = C. This gives A > B.
 
-The complete possible set is A > B.
+So the complete set is A > B.
 
-A=1, B=0, C=1, S=1 gives A > B.
+For A > B, one valid arrangement is A = 1, B = 0, C = 1, and S = 1.
 
-Therefore, option 4 gives all and only the possible relations.
+Option 4 includes every valid relation and no invalid one.
 
-A < B or A = B: This option includes a relation that the statements do not permit.
+A < B or A = B: This option adds a relation that breaks at least one statement.
 
-A < B: This option includes a relation that the statements do not permit.
+A < B: This option adds a relation that breaks at least one statement.
 
-A < B, A = B, or A > B: This option includes a relation that the statements do not permit.
+A < B, A = B, or A > B: This option adds a relation that breaks at least one statement.
 
 ## 53. IDENTIFY_ALL_POSSIBLE_RELATIONS — seed 4
 
-**Record:** INE-CP003-8B43A81E · **Difficulty:** HARD · **Release tier:** ADVANCED_PRACTICE · **Topology:** DIAMOND_WITH_MIXED_STRICTNESS
+**Record:** INE-CP003-8A43A68B · **Difficulty:** HARD · **Profile:** GUIDED_CONCEPT · **Topology:** DIAMOND_WITH_MIXED_STRICTNESS
 
 Which option lists every possible relation between P and A?
 
@@ -2188,31 +2408,31 @@ Which option lists every possible relation between P and A?
 
 ### Mock solution
 
-List every relation between P and A that can occur without breaking a statement. The complete possible set is P < A, P = A, or P > A. Therefore, option 1 gives all and only the possible relations.
+There is no chain fixing the relation between P and A; either may be greater, or they may be equal. So the complete set is P < A, P = A, or P > A. Option 1 includes every valid relation and no invalid one.
 
 ### Learning solution
 
-List every relation between P and A that can occur without breaking a statement.
+There is no chain fixing the relation between P and A; either may be greater, or they may be equal.
 
-The complete possible set is P < A, P = A, or P > A.
+So the complete set is P < A, P = A, or P > A.
 
-A=2, D=3, P=1, R=0 gives P < A.
+For P < A, one valid arrangement is A = 2, D = 3, P = 1, and R = 0.
 
-A=1, D=2, P=1, R=0 gives P = A.
+For P = A, one valid arrangement is A = 1, D = 2, P = 1, and R = 0.
 
-A=0, D=1, P=1, R=0 gives P > A.
+For P > A, one valid arrangement is A = 0, D = 1, P = 1, and R = 0.
 
-Therefore, option 1 gives all and only the possible relations.
+Option 1 includes every valid relation and no invalid one.
 
-P = A: This option leaves out a relation demonstrated by a valid arrangement.
+P = A: This option misses a relation that a valid arrangement demonstrates.
 
-P < A: This option leaves out a relation demonstrated by a valid arrangement.
+P < A: This option misses a relation that a valid arrangement demonstrates.
 
-P = A or P > A: This option leaves out a relation demonstrated by a valid arrangement.
+P = A or P > A: This option misses a relation that a valid arrangement demonstrates.
 
 ## 54. IDENTIFY_ALL_POSSIBLE_RELATIONS — seed 5
 
-**Record:** INE-CP003-E3743C21 · **Difficulty:** HARD · **Release tier:** ADVANCED_PRACTICE · **Topology:** CHAIN_PLUS_DISCONNECTED_COMPONENT
+**Record:** INE-CP003-E0743768 · **Difficulty:** HARD · **Profile:** GUIDED_CONCEPT · **Topology:** CHAIN_PLUS_DISCONNECTED_COMPONENT
 
 Which option lists every possible relation between S and D?
 
@@ -2233,292 +2453,302 @@ Which option lists every possible relation between S and D?
 
 ### Mock solution
 
-List every relation between S and D that can occur without breaking a statement. The complete possible set is S < D, S = D, or S > D. Therefore, option 3 gives all and only the possible relations.
+There is no chain fixing the relation between S and D; either may be greater, or they may be equal. So the complete set is S < D, S = D, or S > D. Option 3 includes every valid relation and no invalid one.
 
 ### Learning solution
 
-List every relation between S and D that can occur without breaking a statement.
+There is no chain fixing the relation between S and D; either may be greater, or they may be equal.
 
-The complete possible set is S < D, S = D, or S > D.
+So the complete set is S < D, S = D, or S > D.
 
-A=1, D=2, P=0, Q=0, S=1 gives S < D.
+For S < D, one valid arrangement is A = 1, D = 2, P = 0, Q = 0, and S = 1.
 
-A=1, D=1, P=0, Q=0, S=1 gives S = D.
+For S = D, one valid arrangement is A = 1, D = 1, P = 0, Q = 0, and S = 1.
 
-A=1, D=1, P=0, Q=0, S=2 gives S > D.
+For S > D, one valid arrangement is A = 1, D = 1, P = 0, Q = 0, and S = 2.
 
-Therefore, option 3 gives all and only the possible relations.
+Option 3 includes every valid relation and no invalid one.
 
-S = D: This option leaves out a relation demonstrated by a valid arrangement.
+S = D: This option misses a relation that a valid arrangement demonstrates.
 
-S < D: This option leaves out a relation demonstrated by a valid arrangement.
+S < D: This option misses a relation that a valid arrangement demonstrates.
 
-S < D or S = D: This option leaves out a relation demonstrated by a valid arrangement.
+S < D or S = D: This option misses a relation that a valid arrangement demonstrates.
 
 ## 55. IDENTIFY_ALL_POSSIBLE_RELATIONS — seed 6
 
-**Record:** INE-CP003-87CCEDE8 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** INCLUSIVE_THEN_STRICT_CHAIN
+**Record:** INE-CP003-8ACCF2A1 · **Difficulty:** HARD · **Profile:** GUIDED_CONCEPT · **Topology:** FIVE_STEP_CHAIN_WITH_IRRELEVANT_EDGE
 
-Which option lists every possible relation between S and B?
+Which option lists every possible relation between Q and A?
 
 ### Statements
 
-- B ≥ S
-- A < S
+- A ≥ S
+- C ≥ Q
+- R = S
+- R > C
+- S > B
 
 ### Options
 
-1. S = B or S > B
-2. S < B or S = B
-3. S = B
-4. S < B
+1. Q > A
+2. Q < A
+3. Q = A or Q > A
+4. Q < A, Q = A, or Q > A
 
-**Correct:** 2. S < B or S = B
+**Correct:** 2. Q < A
 
 ### Mock solution
 
-List every relation between S and B that can occur without breaking a statement. The complete possible set is S < B or S = B. Therefore, option 2 gives all and only the possible relations.
+Combine A ≥ S, R > C, C ≥ Q, and R = S. This gives Q < A. So the complete set is Q < A. Option 2 includes every valid relation and no invalid one.
 
 ### Learning solution
 
-List every relation between S and B that can occur without breaking a statement.
+Combine A ≥ S, R > C, C ≥ Q, and R = S. This gives Q < A.
 
-The complete possible set is S < B or S = B.
+So the complete set is Q < A.
 
-A=0, B=2, S=1 gives S < B.
+For Q < A, one valid arrangement is A = 1, B = 0, C = 0, Q = 0, R = 1, and S = 1.
 
-A=0, B=1, S=1 gives S = B.
+Option 2 includes every valid relation and no invalid one.
 
-Therefore, option 2 gives all and only the possible relations.
+Q > A: This option adds a relation that breaks at least one statement.
 
-S = B or S > B: This option includes a relation that the statements do not permit.
+Q = A or Q > A: This option adds a relation that breaks at least one statement.
 
-S = B: This option leaves out a relation demonstrated by a valid arrangement.
-
-S < B: This option leaves out a relation demonstrated by a valid arrangement.
+Q < A, Q = A, or Q > A: This option adds a relation that breaks at least one statement.
 
 ## 56. IDENTIFY_ALL_POSSIBLE_RELATIONS — seed 7
 
-**Record:** INE-CP003-21594C53 · **Difficulty:** HARD · **Release tier:** ADVANCED_PRACTICE · **Topology:** BRANCHES_WITH_SHARED_BOUNDS
+**Record:** INE-CP003-22594DE6 · **Difficulty:** HARD · **Profile:** GUIDED_CONCEPT · **Topology:** EQUALITY_AT_START_WITH_CONVERGING_BRANCH
 
-Which option lists every possible relation between P and R?
+Which option lists every possible relation between D and P?
 
 ### Statements
 
-- S > P
-- R ≥ Q
-- Q < P
-- S > R
+- R ≥ P
+- P > Q
+- D < R
+- Q ≤ D
+- S = R
 
 ### Options
 
-1. P = R or P > R
-2. P < R or P = R
-3. P < R
-4. P < R, P = R, or P > R
+1. D < P
+2. D = P
+3. D > P
+4. D < P, D = P, or D > P
 
-**Correct:** 4. P < R, P = R, or P > R
+**Correct:** 4. D < P, D = P, or D > P
 
 ### Mock solution
 
-List every relation between P and R that can occur without breaking a statement. The complete possible set is P < R, P = R, or P > R. Therefore, option 4 gives all and only the possible relations.
+There is no chain fixing the relation between D and P; either may be greater, or they may be equal. So the complete set is D < P, D = P, or D > P. Option 4 includes every valid relation and no invalid one.
 
 ### Learning solution
 
-List every relation between P and R that can occur without breaking a statement.
+There is no chain fixing the relation between D and P; either may be greater, or they may be equal.
 
-The complete possible set is P < R, P = R, or P > R.
+So the complete set is D < P, D = P, or D > P.
 
-P=1, Q=0, R=2, S=3 gives P < R.
+For D < P, one valid arrangement is D = 0, P = 1, Q = 0, R = 1, and S = 1.
 
-P=1, Q=0, R=1, S=2 gives P = R.
+For D = P, one valid arrangement is D = 1, P = 1, Q = 0, R = 2, and S = 2.
 
-P=1, Q=0, R=0, S=2 gives P > R.
+For D > P, one valid arrangement is D = 2, P = 1, Q = 0, R = 3, and S = 3.
 
-Therefore, option 4 gives all and only the possible relations.
+Option 4 includes every valid relation and no invalid one.
 
-P = R or P > R: This option leaves out a relation demonstrated by a valid arrangement.
+D < P: This option misses a relation that a valid arrangement demonstrates.
 
-P < R or P = R: This option leaves out a relation demonstrated by a valid arrangement.
+D = P: This option misses a relation that a valid arrangement demonstrates.
 
-P < R: This option leaves out a relation demonstrated by a valid arrangement.
+D > P: This option misses a relation that a valid arrangement demonstrates.
 
 ## 57. IDENTIFY_ALL_POSSIBLE_RELATIONS — seed 8
 
-**Record:** INE-CP003-C6F988CA · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** EQUALITY_AND_STRICT_CHAIN
+**Record:** INE-CP003-C5F98737 · **Difficulty:** HARD · **Profile:** GUIDED_CONCEPT · **Topology:** LONG_CHAIN_EQUALITY_AT_END
 
-Which option lists every possible relation between R and C?
+Which option lists every possible relation between A and R?
 
 ### Statements
 
-- R ≥ A
-- R = C
-- S < A
+- D ≤ S
+- C < B
+- P ≥ S
+- P < R
+- A = D
 
 ### Options
 
-1. R < C or R = C
-2. R > C
-3. R = C or R > C
-4. R = C
+1. A > R
+2. A < R or A = R
+3. A < R, A = R, or A > R
+4. A < R
 
-**Correct:** 4. R = C
+**Correct:** 4. A < R
 
 ### Mock solution
 
-List every relation between R and C that can occur without breaking a statement. The complete possible set is R = C. Therefore, option 4 gives all and only the possible relations.
+Combine P < R, P ≥ S, D ≤ S, and A = D. This gives A < R. So the complete set is A < R. Option 4 includes every valid relation and no invalid one.
 
 ### Learning solution
 
-List every relation between R and C that can occur without breaking a statement.
+Combine P < R, P ≥ S, D ≤ S, and A = D. This gives A < R.
 
-The complete possible set is R = C.
+So the complete set is A < R.
 
-A=1, C=1, R=1, S=0 gives R = C.
+For A < R, one valid arrangement is A = 0, B = 1, C = 0, D = 0, P = 0, R = 1, and S = 0.
 
-Therefore, option 4 gives all and only the possible relations.
+Option 4 includes every valid relation and no invalid one.
 
-R < C or R = C: This option includes a relation that the statements do not permit.
+A > R: This option adds a relation that breaks at least one statement.
 
-R > C: This option includes a relation that the statements do not permit.
+A < R or A = R: This option adds a relation that breaks at least one statement.
 
-R = C or R > C: This option includes a relation that the statements do not permit.
+A < R, A = R, or A > R: This option adds a relation that breaks at least one statement.
 
 ## 58. IDENTIFY_ALL_POSSIBLE_RELATIONS — seed 9
 
-**Record:** INE-CP003-B99F9E1D · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** FOUR_NODE_MIXED_CHAIN
+**Record:** INE-CP003-B69F9964 · **Difficulty:** HARD · **Profile:** GUIDED_CONCEPT · **Topology:** TWO_INDEPENDENT_CHAINS
 
-Which option lists every possible relation between Q and D?
+Which option lists every possible relation between C and D?
 
 ### Statements
 
-- R = C
-- R > Q
-- C ≤ D
+- C = R
+- R > B
+- D ≤ S
+- S < Q
 
 ### Options
 
-1. Q < D
-2. Q = D or Q > D
-3. Q < D, Q = D, or Q > D
-4. Q < D or Q = D
+1. C < D, C = D, or C > D
+2. C = D
+3. C > D
+4. C < D or C = D
 
-**Correct:** 1. Q < D
+**Correct:** 1. C < D, C = D, or C > D
 
 ### Mock solution
 
-List every relation between Q and D that can occur without breaking a statement. The complete possible set is Q < D. Therefore, option 1 gives all and only the possible relations.
+Combine C = R. This leaves C < D, C = D, or C > D possible. So the complete set is C < D, C = D, or C > D. Option 1 includes every valid relation and no invalid one.
 
 ### Learning solution
 
-List every relation between Q and D that can occur without breaking a statement.
+Combine C = R. This leaves C < D, C = D, or C > D possible.
 
-The complete possible set is Q < D.
+So the complete set is C < D, C = D, or C > D.
 
-C=1, D=1, Q=0, R=1 gives Q < D.
+For C < D, one valid arrangement is B = 0, C = 1, D = 2, Q = 3, R = 1, and S = 2.
 
-Therefore, option 1 gives all and only the possible relations.
+For C = D, one valid arrangement is B = 0, C = 1, D = 1, Q = 2, R = 1, and S = 1.
 
-Q = D or Q > D: This option includes a relation that the statements do not permit.
+For C > D, one valid arrangement is B = 0, C = 1, D = 0, Q = 1, R = 1, and S = 0.
 
-Q < D, Q = D, or Q > D: This option includes a relation that the statements do not permit.
+Option 1 includes every valid relation and no invalid one.
 
-Q < D or Q = D: This option includes a relation that the statements do not permit.
+C = D: This option misses a relation that a valid arrangement demonstrates.
+
+C > D: This option misses a relation that a valid arrangement demonstrates.
+
+C < D or C = D: This option misses a relation that a valid arrangement demonstrates.
 
 ## 59. IDENTIFY_ALL_POSSIBLE_RELATIONS — seed 10
 
-**Record:** INE-CP003-97431AE5 · **Difficulty:** HARD · **Release tier:** ADVANCED_PRACTICE · **Topology:** DIAMOND_WITH_MIXED_STRICTNESS
+**Record:** INE-CP003-9443162C · **Difficulty:** HARD · **Profile:** GUIDED_CONCEPT · **Topology:** CONVERGING_BRANCH_WITH_TAIL
 
-Which option lists every possible relation between Q and S?
+Which option lists every possible relation between R and D?
 
 ### Statements
 
-- D ≥ S
-- S > R
-- R ≤ Q
-- D > Q
+- P > R
+- P ≥ D
+- D > C
+- S ≤ C
+- C ≤ R
 
 ### Options
 
-1. Q < S or Q = S
-2. Q < S
-3. Q < S, Q = S, or Q > S
-4. Q = S
+1. R = D or R > D
+2. R < D or R = D
+3. R < D, R = D, or R > D
+4. R < D
 
-**Correct:** 3. Q < S, Q = S, or Q > S
+**Correct:** 3. R < D, R = D, or R > D
 
 ### Mock solution
 
-List every relation between Q and S that can occur without breaking a statement. The complete possible set is Q < S, Q = S, or Q > S. Therefore, option 3 gives all and only the possible relations.
+There is no chain fixing the relation between R and D; either may be greater, or they may be equal. So the complete set is R < D, R = D, or R > D. Option 3 includes every valid relation and no invalid one.
 
 ### Learning solution
 
-List every relation between Q and S that can occur without breaking a statement.
+There is no chain fixing the relation between R and D; either may be greater, or they may be equal.
 
-The complete possible set is Q < S, Q = S, or Q > S.
+So the complete set is R < D, R = D, or R > D.
 
-D=1, Q=0, R=0, S=1 gives Q < S.
+For R < D, one valid arrangement is C = 0, D = 1, P = 1, R = 0, and S = 0.
 
-D=2, Q=1, R=0, S=1 gives Q = S.
+For R = D, one valid arrangement is C = 0, D = 1, P = 2, R = 1, and S = 0.
 
-D=3, Q=2, R=0, S=1 gives Q > S.
+For R > D, one valid arrangement is C = 0, D = 1, P = 3, R = 2, and S = 0.
 
-Therefore, option 3 gives all and only the possible relations.
+Option 3 includes every valid relation and no invalid one.
 
-Q < S or Q = S: This option leaves out a relation demonstrated by a valid arrangement.
+R = D or R > D: This option misses a relation that a valid arrangement demonstrates.
 
-Q < S: This option leaves out a relation demonstrated by a valid arrangement.
+R < D or R = D: This option misses a relation that a valid arrangement demonstrates.
 
-Q = S: This option leaves out a relation demonstrated by a valid arrangement.
+R < D: This option misses a relation that a valid arrangement demonstrates.
 
 ## 60. IDENTIFY_ALL_POSSIBLE_RELATIONS — seed 11
 
-**Record:** INE-CP003-7B0535B2 · **Difficulty:** HARD · **Release tier:** ADVANCED_PRACTICE · **Topology:** CHAIN_PLUS_DISCONNECTED_COMPONENT
+**Record:** INE-CP003-7A05341F · **Difficulty:** HARD · **Profile:** GUIDED_CONCEPT · **Topology:** LONG_INCLUSIVE_CHAIN_WITH_SIDE_BRANCH
 
-Which option lists every possible relation between C and P?
+Which option lists every possible relation between D and B?
 
 ### Statements
 
-- R ≤ P
-- S < C
-- R > B
+- C ≥ R
+- D ≤ Q
+- C ≤ B
+- C < P
+- Q = R
 
 ### Options
 
-1. C < P
-2. C < P, C = P, or C > P
-3. C = P or C > P
-4. C = P
+1. D = B
+2. D < B or D = B
+3. D > B
+4. D = B or D > B
 
-**Correct:** 2. C < P, C = P, or C > P
+**Correct:** 2. D < B or D = B
 
 ### Mock solution
 
-List every relation between C and P that can occur without breaking a statement. The complete possible set is C < P, C = P, or C > P. Therefore, option 2 gives all and only the possible relations.
+Combine C ≤ B, C ≥ R, D ≤ Q, and Q = R. This leaves D < B or D = B possible. So the complete set is D < B or D = B. Option 2 includes every valid relation and no invalid one.
 
 ### Learning solution
 
-List every relation between C and P that can occur without breaking a statement.
+Combine C ≤ B, C ≥ R, D ≤ Q, and Q = R. This leaves D < B or D = B possible.
 
-The complete possible set is C < P, C = P, or C > P.
+So the complete set is D < B or D = B.
 
-B=0, C=1, P=2, R=1, S=0 gives C < P.
+For D < B, one valid arrangement is B = 1, C = 0, D = 0, P = 1, Q = 0, and R = 0.
 
-B=0, C=1, P=1, R=1, S=0 gives C = P.
+For D = B, one valid arrangement is B = 0, C = 0, D = 0, P = 1, Q = 0, and R = 0.
 
-B=0, C=2, P=1, R=1, S=0 gives C > P.
+Option 2 includes every valid relation and no invalid one.
 
-Therefore, option 2 gives all and only the possible relations.
+D = B: This option misses a relation that a valid arrangement demonstrates.
 
-C < P: This option leaves out a relation demonstrated by a valid arrangement.
+D > B: This option misses a relation that a valid arrangement demonstrates.
 
-C = P or C > P: This option leaves out a relation demonstrated by a valid arrangement.
-
-C = P: This option leaves out a relation demonstrated by a valid arrangement.
+D = B or D > B: This option adds a relation that breaks at least one statement.
 
 ## 61. EVALUATE_INCLUSIVE_CONCLUSION_TRUTH — seed 0
 
-**Record:** INE-CP003-EF0ED996 · **Difficulty:** EASY · **Release tier:** SSC_STANDARD_MOCK · **Topology:** INCLUSIVE_THEN_STRICT_CHAIN
+**Record:** INE-CP003-EE0ED803 · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Topology:** INCLUSIVE_THEN_STRICT_CHAIN
 
 Based only on the statements, how should the conclusion be classified?
 
@@ -2536,31 +2766,28 @@ S ≥ P
 1. Definitely true
 2. Possibly true, but not definite
 3. Impossible
-4. The statements are contradictory
 
 **Correct:** 1. Definitely true
 
 ### Mock solution
 
-First find every relation the statements allow, then see whether S ≥ P holds in all, some, or none of those cases. The statements allow only S > P, and every allowed case satisfies S ≥ P. The conclusion is definitely true. Therefore, the conclusion is definitely true.
+Combine A ≤ S and P < A. This gives S > P. This proves S ≥ P. So the conclusion is definitely true.
 
 ### Learning solution
 
-First find every relation the statements allow, then see whether S ≥ P holds in all, some, or none of those cases.
+Combine A ≤ S and P < A. This gives S > P.
 
-The statements allow only S > P, and every allowed case satisfies S ≥ P. The conclusion is definitely true.
+This proves S ≥ P.
 
-Therefore, the conclusion is definitely true.
+So the conclusion is definitely true.
 
-Possibly true, but not definite: A possible conclusion needs at least one valid arrangement that supports it and another that rejects it.
+Possibly true, but not definite: The chain proves the conclusion in every valid arrangement, not merely one of them.
 
-Impossible: A conclusion is impossible only when no allowed arrangement can satisfy it.
-
-The statements are contradictory: The statements are consistent; no contradiction is present.
+Impossible: The chain proves the conclusion, so calling it impossible reverses the result.
 
 ## 62. EVALUATE_INCLUSIVE_CONCLUSION_TRUTH — seed 1
 
-**Record:** INE-CP003-B3CA3099 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** BRANCHES_WITH_SHARED_BOUNDS
+**Record:** INE-CP003-B0CA2BE0 · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** BRANCHES_WITH_SHARED_BOUNDS
 
 Based only on the statements, how should the conclusion be classified?
 
@@ -2577,38 +2804,35 @@ P ≥ A
 
 ### Options
 
-1. The statements are contradictory
+1. Impossible
 2. Possibly true, but not definite
-3. Impossible
-4. Definitely true
+3. Definitely true
 
 **Correct:** 2. Possibly true, but not definite
 
 ### Mock solution
 
-First find every relation the statements allow, then see whether P ≥ A holds in all, some, or none of those cases. The statements allow P < A or P = A or P > A. At least one allowed case satisfies P ≥ A, but another does not, so the conclusion is possible rather than definite. Therefore, the conclusion is possibly true, but not definite.
+There is no chain fixing the relation between P and A; either may be greater, or they may be equal. P ≥ A works in one valid case but fails in another. It is possible, not certain. So the conclusion is possibly true, but not definite.
 
 ### Learning solution
 
-First find every relation the statements allow, then see whether P ≥ A holds in all, some, or none of those cases.
+There is no chain fixing the relation between P and A; either may be greater, or they may be equal.
 
-The statements allow P < A or P = A or P > A. At least one allowed case satisfies P ≥ A, but another does not, so the conclusion is possible rather than definite.
+P ≥ A works in one valid case but fails in another. It is possible, not certain.
 
-A=1, C=2, P=1, Q=0 satisfies the statements and gives P = A, so the conclusion can hold.
+For example, A = 1, C = 2, P = 1, and Q = 0 satisfies every statement and gives P = A.
 
-A=2, C=3, P=1, Q=0 also satisfies the statements but gives P < A, so the conclusion is not guaranteed.
+But A = 2, C = 3, P = 1, and Q = 0 also satisfies every statement and gives P < A. This is why the conclusion is not guaranteed.
 
-Therefore, the conclusion is possibly true, but not definite.
+So the conclusion is possibly true, but not definite.
 
-The statements are contradictory: The statements are consistent; no contradiction is present.
+Impossible: At least one valid arrangement supports the conclusion, so it is not impossible.
 
-Impossible: A conclusion is impossible only when no allowed arrangement can satisfy it.
-
-Definitely true: A conclusion is definite only when every allowed arrangement makes it true.
+Definitely true: This treats a result that works only sometimes as if it must always hold.
 
 ## 63. EVALUATE_INCLUSIVE_CONCLUSION_TRUTH — seed 2
 
-**Record:** INE-CP003-4F8283E0 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** EQUALITY_AND_STRICT_CHAIN
+**Record:** INE-CP003-52828899 · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** EQUALITY_AND_STRICT_CHAIN
 
 Based only on the statements, how should the conclusion be classified?
 
@@ -2624,34 +2848,31 @@ P ≤ C
 
 ### Options
 
-1. The statements are contradictory
-2. Definitely true
+1. Definitely true
+2. Possibly true, but not definite
 3. Impossible
-4. Possibly true, but not definite
 
 **Correct:** 3. Impossible
 
 ### Mock solution
 
-First find every relation the statements allow, then see whether P ≤ C holds in all, some, or none of those cases. The statements allow only P > C. None of those cases satisfies P ≤ C, so the conclusion is impossible. Therefore, the conclusion is impossible.
+Combine B ≤ P, C < B, and P = R. This gives P > C. P > C contradicts P ≤ C, so the conclusion cannot be true. So the conclusion is impossible.
 
 ### Learning solution
 
-First find every relation the statements allow, then see whether P ≤ C holds in all, some, or none of those cases.
+Combine B ≤ P, C < B, and P = R. This gives P > C.
 
-The statements allow only P > C. None of those cases satisfies P ≤ C, so the conclusion is impossible.
+P > C contradicts P ≤ C, so the conclusion cannot be true.
 
-Therefore, the conclusion is impossible.
+So the conclusion is impossible.
 
-The statements are contradictory: The statements are consistent; no contradiction is present.
+Definitely true: The permitted relation is the opposite of the conclusion, so it cannot be definite.
 
-Definitely true: A conclusion is definite only when every allowed arrangement makes it true.
-
-Possibly true, but not definite: A possible conclusion needs at least one valid arrangement that supports it and another that rejects it.
+Possibly true, but not definite: No valid arrangement supports the conclusion, so it is not possible.
 
 ## 64. EVALUATE_INCLUSIVE_CONCLUSION_TRUTH — seed 3
 
-**Record:** INE-CP003-D1C5A96B · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** FOUR_NODE_MIXED_CHAIN
+**Record:** INE-CP003-D2C5AAFE · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** FOUR_NODE_MIXED_CHAIN
 
 Based only on the statements, how should the conclusion be classified?
 
@@ -2667,34 +2888,31 @@ D ≤ P
 
 ### Options
 
-1. Impossible
-2. Possibly true, but not definite
-3. The statements are contradictory
-4. Definitely true
+1. Possibly true, but not definite
+2. Definitely true
+3. Impossible
 
-**Correct:** 4. Definitely true
+**Correct:** 2. Definitely true
 
 ### Mock solution
 
-First find every relation the statements allow, then see whether D ≤ P holds in all, some, or none of those cases. The statements allow only D < P, and every allowed case satisfies D ≤ P. The conclusion is definitely true. Therefore, the conclusion is definitely true.
+Combine P ≥ S, D < R, and S = R. This gives D < P. This proves D ≤ P. So the conclusion is definitely true.
 
 ### Learning solution
 
-First find every relation the statements allow, then see whether D ≤ P holds in all, some, or none of those cases.
+Combine P ≥ S, D < R, and S = R. This gives D < P.
 
-The statements allow only D < P, and every allowed case satisfies D ≤ P. The conclusion is definitely true.
+This proves D ≤ P.
 
-Therefore, the conclusion is definitely true.
+So the conclusion is definitely true.
 
-Impossible: A conclusion is impossible only when no allowed arrangement can satisfy it.
+Possibly true, but not definite: The chain proves the conclusion in every valid arrangement, not merely one of them.
 
-Possibly true, but not definite: A possible conclusion needs at least one valid arrangement that supports it and another that rejects it.
-
-The statements are contradictory: The statements are consistent; no contradiction is present.
+Impossible: The chain proves the conclusion, so calling it impossible reverses the result.
 
 ## 65. EVALUATE_INCLUSIVE_CONCLUSION_TRUTH — seed 4
 
-**Record:** INE-CP003-05918DFA · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** DIAMOND_WITH_MIXED_STRICTNESS
+**Record:** INE-CP003-04918C67 · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** DIAMOND_WITH_MIXED_STRICTNESS
 
 Based only on the statements, how should the conclusion be classified?
 
@@ -2711,38 +2929,35 @@ B ≥ D
 
 ### Options
 
-1. The statements are contradictory
-2. Impossible
+1. Impossible
+2. Definitely true
 3. Possibly true, but not definite
-4. Definitely true
 
 **Correct:** 3. Possibly true, but not definite
 
 ### Mock solution
 
-First find every relation the statements allow, then see whether B ≥ D holds in all, some, or none of those cases. The statements allow B < D or B = D or B > D. At least one allowed case satisfies B ≥ D, but another does not, so the conclusion is possible rather than definite. Therefore, the conclusion is possibly true, but not definite.
+There is no chain fixing the relation between B and D; either may be greater, or they may be equal. B ≥ D works in one valid case but fails in another. It is possible, not certain. So the conclusion is possibly true, but not definite.
 
 ### Learning solution
 
-First find every relation the statements allow, then see whether B ≥ D holds in all, some, or none of those cases.
+There is no chain fixing the relation between B and D; either may be greater, or they may be equal.
 
-The statements allow B < D or B = D or B > D. At least one allowed case satisfies B ≥ D, but another does not, so the conclusion is possible rather than definite.
+B ≥ D works in one valid case but fails in another. It is possible, not certain.
 
-B=1, D=1, Q=2, S=0 satisfies the statements and gives B = D, so the conclusion can hold.
+For example, B = 1, D = 1, Q = 2, and S = 0 satisfies every statement and gives B = D.
 
-B=0, D=1, Q=1, S=0 also satisfies the statements but gives B < D, so the conclusion is not guaranteed.
+But B = 0, D = 1, Q = 1, and S = 0 also satisfies every statement and gives B < D. This is why the conclusion is not guaranteed.
 
-Therefore, the conclusion is possibly true, but not definite.
+So the conclusion is possibly true, but not definite.
 
-The statements are contradictory: The statements are consistent; no contradiction is present.
+Impossible: At least one valid arrangement supports the conclusion, so it is not impossible.
 
-Impossible: A conclusion is impossible only when no allowed arrangement can satisfy it.
-
-Definitely true: A conclusion is definite only when every allowed arrangement makes it true.
+Definitely true: This treats a result that works only sometimes as if it must always hold.
 
 ## 66. EVALUATE_INCLUSIVE_CONCLUSION_TRUTH — seed 5
 
-**Record:** INE-CP003-944ED48D · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** CHAIN_PLUS_DISCONNECTED_COMPONENT
+**Record:** INE-CP003-914ECFD4 · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** CHAIN_PLUS_DISCONNECTED_COMPONENT
 
 Based only on the statements, how should the conclusion be classified?
 
@@ -2758,41 +2973,83 @@ Q ≤ A
 
 ### Options
 
-1. Possibly true, but not definite
+1. Impossible
 2. Definitely true
-3. The statements are contradictory
-4. Impossible
+3. Possibly true, but not definite
 
-**Correct:** 4. Impossible
+**Correct:** 1. Impossible
 
 ### Mock solution
 
-First find every relation the statements allow, then see whether Q ≤ A holds in all, some, or none of those cases. The statements allow only Q > A. None of those cases satisfies Q ≤ A, so the conclusion is impossible. Therefore, the conclusion is impossible.
+Combine S ≤ Q and S > A. This gives Q > A. Q > A contradicts Q ≤ A, so the conclusion cannot be true. So the conclusion is impossible.
 
 ### Learning solution
 
-First find every relation the statements allow, then see whether Q ≤ A holds in all, some, or none of those cases.
+Combine S ≤ Q and S > A. This gives Q > A.
 
-The statements allow only Q > A. None of those cases satisfies Q ≤ A, so the conclusion is impossible.
+Q > A contradicts Q ≤ A, so the conclusion cannot be true.
 
-Therefore, the conclusion is impossible.
+So the conclusion is impossible.
 
-Possibly true, but not definite: A possible conclusion needs at least one valid arrangement that supports it and another that rejects it.
+Definitely true: The permitted relation is the opposite of the conclusion, so it cannot be definite.
 
-Definitely true: A conclusion is definite only when every allowed arrangement makes it true.
-
-The statements are contradictory: The statements are consistent; no contradiction is present.
+Possibly true, but not definite: No valid arrangement supports the conclusion, so it is not possible.
 
 ## 67. EVALUATE_INCLUSIVE_CONCLUSION_TRUTH — seed 6
 
-**Record:** INE-CP003-A3B65F14 · **Difficulty:** EASY · **Release tier:** SSC_STANDARD_MOCK · **Topology:** INCLUSIVE_THEN_STRICT_CHAIN
+**Record:** INE-CP003-A6B663CD · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** FIVE_STEP_CHAIN_WITH_IRRELEVANT_EDGE
 
 Based only on the statements, how should the conclusion be classified?
 
 ### Statements
 
-- P < R
-- R ≤ A
+- B = P
+- P ≤ A
+- P > D
+- R ≥ S
+- R < B
+
+### Conclusion
+
+D ≤ B
+
+### Options
+
+1. Impossible
+2. Possibly true, but not definite
+3. Definitely true
+
+**Correct:** 3. Definitely true
+
+### Mock solution
+
+Combine P > D and B = P. This gives D < B. This proves D ≤ B. So the conclusion is definitely true.
+
+### Learning solution
+
+Combine P > D and B = P. This gives D < B.
+
+This proves D ≤ B.
+
+So the conclusion is definitely true.
+
+Impossible: The chain proves the conclusion, so calling it impossible reverses the result.
+
+Possibly true, but not definite: The chain proves the conclusion in every valid arrangement, not merely one of them.
+
+## 68. EVALUATE_INCLUSIVE_CONCLUSION_TRUTH — seed 7
+
+**Record:** INE-CP003-798380F2 · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** EQUALITY_AT_START_WITH_CONVERGING_BRANCH
+
+Based only on the statements, how should the conclusion be classified?
+
+### Statements
+
+- P ≤ D
+- Q ≤ A
+- D > A
+- Q < P
+- C = D
 
 ### Conclusion
 
@@ -2802,250 +3059,797 @@ P ≤ A
 
 1. Definitely true
 2. Possibly true, but not definite
-3. The statements are contradictory
-4. Impossible
+3. Impossible
 
-**Correct:** 1. Definitely true
+**Correct:** 2. Possibly true, but not definite
 
 ### Mock solution
 
-First find every relation the statements allow, then see whether P ≤ A holds in all, some, or none of those cases. The statements allow only P < A, and every allowed case satisfies P ≤ A. The conclusion is definitely true. Therefore, the conclusion is definitely true.
+There is no chain fixing the relation between P and A; either may be greater, or they may be equal. P ≤ A works in one valid case but fails in another. It is possible, not certain. So the conclusion is possibly true, but not definite.
 
 ### Learning solution
 
-First find every relation the statements allow, then see whether P ≤ A holds in all, some, or none of those cases.
+There is no chain fixing the relation between P and A; either may be greater, or they may be equal.
 
-The statements allow only P < A, and every allowed case satisfies P ≤ A. The conclusion is definitely true.
+P ≤ A works in one valid case but fails in another. It is possible, not certain.
 
-Therefore, the conclusion is definitely true.
+For example, A = 2, C = 3, D = 3, P = 1, and Q = 0 satisfies every statement and gives P < A.
 
-Possibly true, but not definite: A possible conclusion needs at least one valid arrangement that supports it and another that rejects it.
+But A = 0, C = 1, D = 1, P = 1, and Q = 0 also satisfies every statement and gives P > A. This is why the conclusion is not guaranteed.
 
-The statements are contradictory: The statements are consistent; no contradiction is present.
+So the conclusion is possibly true, but not definite.
 
-Impossible: A conclusion is impossible only when no allowed arrangement can satisfy it.
+Definitely true: This treats a result that works only sometimes as if it must always hold.
 
-## 68. EVALUATE_INCLUSIVE_CONCLUSION_TRUTH — seed 7
+Impossible: At least one valid arrangement supports the conclusion, so it is not impossible.
 
-**Record:** INE-CP003-78837F5F · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** BRANCHES_WITH_SHARED_BOUNDS
+## 69. EVALUATE_INCLUSIVE_CONCLUSION_TRUTH — seed 8
+
+**Record:** INE-CP003-AD493A3B · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** LONG_CHAIN_EQUALITY_AT_END
 
 Based only on the statements, how should the conclusion be classified?
 
 ### Statements
 
-- S > P
-- P ≤ C
-- S < R
-- R > C
+- R > B
+- S < A
+- Q ≥ D
+- D = C
+- Q ≤ B
 
 ### Conclusion
 
-S ≥ C
+R ≤ C
 
 ### Options
 
 1. Impossible
 2. Possibly true, but not definite
 3. Definitely true
-4. The statements are contradictory
-
-**Correct:** 2. Possibly true, but not definite
-
-### Mock solution
-
-First find every relation the statements allow, then see whether S ≥ C holds in all, some, or none of those cases. The statements allow S < C or S = C or S > C. At least one allowed case satisfies S ≥ C, but another does not, so the conclusion is possible rather than definite. Therefore, the conclusion is possibly true, but not definite.
-
-### Learning solution
-
-First find every relation the statements allow, then see whether S ≥ C holds in all, some, or none of those cases.
-
-The statements allow S < C or S = C or S > C. At least one allowed case satisfies S ≥ C, but another does not, so the conclusion is possible rather than definite.
-
-C=1, P=0, R=2, S=1 satisfies the statements and gives S = C, so the conclusion can hold.
-
-C=2, P=0, R=3, S=1 also satisfies the statements but gives S < C, so the conclusion is not guaranteed.
-
-Therefore, the conclusion is possibly true, but not definite.
-
-Impossible: A conclusion is impossible only when no allowed arrangement can satisfy it.
-
-Definitely true: A conclusion is definite only when every allowed arrangement makes it true.
-
-The statements are contradictory: The statements are consistent; no contradiction is present.
-
-## 69. EVALUATE_INCLUSIVE_CONCLUSION_TRUTH — seed 8
-
-**Record:** INE-CP003-AE493BCE · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** EQUALITY_AND_STRICT_CHAIN
-
-Based only on the statements, how should the conclusion be classified?
-
-### Statements
-
-- P = C
-- B > A
-- B ≤ C
-
-### Conclusion
-
-C ≤ A
-
-### Options
-
-1. Possibly true, but not definite
-2. Definitely true
-3. Impossible
-4. The statements are contradictory
-
-**Correct:** 3. Impossible
-
-### Mock solution
-
-First find every relation the statements allow, then see whether C ≤ A holds in all, some, or none of those cases. The statements allow only C > A. None of those cases satisfies C ≤ A, so the conclusion is impossible. Therefore, the conclusion is impossible.
-
-### Learning solution
-
-First find every relation the statements allow, then see whether C ≤ A holds in all, some, or none of those cases.
-
-The statements allow only C > A. None of those cases satisfies C ≤ A, so the conclusion is impossible.
-
-Therefore, the conclusion is impossible.
-
-Possibly true, but not definite: A possible conclusion needs at least one valid arrangement that supports it and another that rejects it.
-
-Definitely true: A conclusion is definite only when every allowed arrangement makes it true.
-
-The statements are contradictory: The statements are consistent; no contradiction is present.
-
-## 70. EVALUATE_INCLUSIVE_CONCLUSION_TRUTH — seed 9
-
-**Record:** INE-CP003-549F3DD1 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** FOUR_NODE_MIXED_CHAIN
-
-Based only on the statements, how should the conclusion be classified?
-
-### Statements
-
-- S = B
-- S ≤ R
-- B > C
-
-### Conclusion
-
-C ≤ R
-
-### Options
-
-1. The statements are contradictory
-2. Possibly true, but not definite
-3. Impossible
-4. Definitely true
-
-**Correct:** 4. Definitely true
-
-### Mock solution
-
-First find every relation the statements allow, then see whether C ≤ R holds in all, some, or none of those cases. The statements allow only C < R, and every allowed case satisfies C ≤ R. The conclusion is definitely true. Therefore, the conclusion is definitely true.
-
-### Learning solution
-
-First find every relation the statements allow, then see whether C ≤ R holds in all, some, or none of those cases.
-
-The statements allow only C < R, and every allowed case satisfies C ≤ R. The conclusion is definitely true.
-
-Therefore, the conclusion is definitely true.
-
-The statements are contradictory: The statements are consistent; no contradiction is present.
-
-Possibly true, but not definite: A possible conclusion needs at least one valid arrangement that supports it and another that rejects it.
-
-Impossible: A conclusion is impossible only when no allowed arrangement can satisfy it.
-
-## 71. EVALUATE_INCLUSIVE_CONCLUSION_TRUTH — seed 10
-
-**Record:** INE-CP003-22DE6EE1 · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** DIAMOND_WITH_MIXED_STRICTNESS
-
-Based only on the statements, how should the conclusion be classified?
-
-### Statements
-
-- C ≤ B
-- R ≤ P
-- P < B
-- C > R
-
-### Conclusion
-
-C ≤ P
-
-### Options
-
-1. The statements are contradictory
-2. Possibly true, but not definite
-3. Impossible
-4. Definitely true
-
-**Correct:** 2. Possibly true, but not definite
-
-### Mock solution
-
-First find every relation the statements allow, then see whether C ≤ P holds in all, some, or none of those cases. The statements allow C < P or C = P or C > P. At least one allowed case satisfies C ≤ P, but another does not, so the conclusion is possible rather than definite. Therefore, the conclusion is possibly true, but not definite.
-
-### Learning solution
-
-First find every relation the statements allow, then see whether C ≤ P holds in all, some, or none of those cases.
-
-The statements allow C < P or C = P or C > P. At least one allowed case satisfies C ≤ P, but another does not, so the conclusion is possible rather than definite.
-
-B=3, C=1, P=2, R=0 satisfies the statements and gives C < P, so the conclusion can hold.
-
-B=1, C=1, P=0, R=0 also satisfies the statements but gives C > P, so the conclusion is not guaranteed.
-
-Therefore, the conclusion is possibly true, but not definite.
-
-The statements are contradictory: The statements are consistent; no contradiction is present.
-
-Impossible: A conclusion is impossible only when no allowed arrangement can satisfy it.
-
-Definitely true: A conclusion is definite only when every allowed arrangement makes it true.
-
-## 72. EVALUATE_INCLUSIVE_CONCLUSION_TRUTH — seed 11
-
-**Record:** INE-CP003-09287FDE · **Difficulty:** MEDIUM · **Release tier:** BANKING_PRELIMS · **Topology:** CHAIN_PLUS_DISCONNECTED_COMPONENT
-
-Based only on the statements, how should the conclusion be classified?
-
-### Statements
-
-- C ≥ Q
-- Q > R
-- A > S
-
-### Conclusion
-
-C ≤ R
-
-### Options
-
-1. Impossible
-2. The statements are contradictory
-3. Possibly true, but not definite
-4. Definitely true
 
 **Correct:** 1. Impossible
 
 ### Mock solution
 
-First find every relation the statements allow, then see whether C ≤ R holds in all, some, or none of those cases. The statements allow only C > R. None of those cases satisfies C ≤ R, so the conclusion is impossible. Therefore, the conclusion is impossible.
+Combine R > B, Q ≤ B, Q ≥ D, and D = C. This gives R > C. R > C contradicts R ≤ C, so the conclusion cannot be true. So the conclusion is impossible.
 
 ### Learning solution
 
-First find every relation the statements allow, then see whether C ≤ R holds in all, some, or none of those cases.
+Combine R > B, Q ≤ B, Q ≥ D, and D = C. This gives R > C.
 
-The statements allow only C > R. None of those cases satisfies C ≤ R, so the conclusion is impossible.
+R > C contradicts R ≤ C, so the conclusion cannot be true.
 
-Therefore, the conclusion is impossible.
+So the conclusion is impossible.
 
-The statements are contradictory: The statements are consistent; no contradiction is present.
+Possibly true, but not definite: No valid arrangement supports the conclusion, so it is not possible.
 
-Possibly true, but not definite: A possible conclusion needs at least one valid arrangement that supports it and another that rejects it.
+Definitely true: The permitted relation is the opposite of the conclusion, so it cannot be definite.
 
-Definitely true: A conclusion is definite only when every allowed arrangement makes it true.
+## 70. EVALUATE_INCLUSIVE_CONCLUSION_TRUTH — seed 9
+
+**Record:** INE-CP003-519F3918 · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** TWO_INDEPENDENT_CHAINS
+
+Based only on the statements, how should the conclusion be classified?
+
+### Statements
+
+- R ≥ B
+- S = C
+- R < A
+- P < C
+
+### Conclusion
+
+S ≥ P
+
+### Options
+
+1. Impossible
+2. Definitely true
+3. Possibly true, but not definite
+
+**Correct:** 2. Definitely true
+
+### Mock solution
+
+Combine P < C and S = C. This gives S > P. This proves S ≥ P. So the conclusion is definitely true.
+
+### Learning solution
+
+Combine P < C and S = C. This gives S > P.
+
+This proves S ≥ P.
+
+So the conclusion is definitely true.
+
+Impossible: The chain proves the conclusion, so calling it impossible reverses the result.
+
+Possibly true, but not definite: The chain proves the conclusion in every valid arrangement, not merely one of them.
+
+## 71. EVALUATE_INCLUSIVE_CONCLUSION_TRUTH — seed 10
+
+**Record:** INE-CP003-1FDE6A28 · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** CONVERGING_BRANCH_WITH_TAIL
+
+Based only on the statements, how should the conclusion be classified?
+
+### Statements
+
+- Q ≥ S
+- D ≤ C
+- Q ≤ B
+- Q < D
+- C > B
+
+### Conclusion
+
+B ≤ S
+
+### Options
+
+1. Impossible
+2. Definitely true
+3. Possibly true, but not definite
+
+**Correct:** 3. Possibly true, but not definite
+
+### Mock solution
+
+Combine Q ≤ B and Q ≥ S. This leaves B = S or B > S possible. B ≤ S works in one valid case but fails in another. It is possible, not certain. So the conclusion is possibly true, but not definite.
+
+### Learning solution
+
+Combine Q ≤ B and Q ≥ S. This leaves B = S or B > S possible.
+
+B ≤ S works in one valid case but fails in another. It is possible, not certain.
+
+For example, B = 0, C = 1, D = 1, Q = 0, and S = 0 satisfies every statement and gives B = S.
+
+But B = 1, C = 2, D = 1, Q = 0, and S = 0 also satisfies every statement and gives B > S. This is why the conclusion is not guaranteed.
+
+So the conclusion is possibly true, but not definite.
+
+Impossible: At least one valid arrangement supports the conclusion, so it is not impossible.
+
+Definitely true: This treats a result that works only sometimes as if it must always hold.
+
+## 72. EVALUATE_INCLUSIVE_CONCLUSION_TRUTH — seed 11
+
+**Record:** INE-CP003-08287E4B · **Difficulty:** MEDIUM · **Profile:** GUIDED_CONCEPT · **Topology:** LONG_INCLUSIVE_CHAIN_WITH_SIDE_BRANCH
+
+Based only on the statements, how should the conclusion be classified?
+
+### Statements
+
+- D ≥ S
+- C ≥ Q
+- P ≥ D
+- S = C
+- D < A
+
+### Conclusion
+
+Q ≥ A
+
+### Options
+
+1. Impossible
+2. Possibly true, but not definite
+3. Definitely true
+
+**Correct:** 1. Impossible
+
+### Mock solution
+
+Combine D < A, D ≥ S, C ≥ Q, and S = C. This gives Q < A. Q < A contradicts Q ≥ A, so the conclusion cannot be true. So the conclusion is impossible.
+
+### Learning solution
+
+Combine D < A, D ≥ S, C ≥ Q, and S = C. This gives Q < A.
+
+Q < A contradicts Q ≥ A, so the conclusion cannot be true.
+
+So the conclusion is impossible.
+
+Possibly true, but not definite: No valid arrangement supports the conclusion, so it is not possible.
+
+Definitely true: The permitted relation is the opposite of the conclusion, so it cannot be definite.
+
+## 73. EVALUATE_TWO_CONCLUSIONS — seed 0
+
+**Record:** INE-CP003-A3F6F280 · **Difficulty:** MEDIUM · **Profile:** MOCK_FORMAT_PROTOTYPE · **Topology:** INCLUSIVE_THEN_STRICT_CHAIN
+
+Which of the following conclusions definitely follow from the statements?
+
+### Statements
+
+- R ≥ Q
+- Q > C
+
+### Conclusions
+
+I. R > C
+II. Q = R
+
+### Options
+
+1. Neither conclusion I nor conclusion II follows
+2. Only conclusion I follows
+3. Only conclusion II follows
+4. Both conclusions I and II follow
+
+**Correct:** 2. Only conclusion I follows
+
+### Mock solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements. Conclusion I: Combine R ≥ Q and Q > C. This gives R > C. This proves R > C. Conclusion II: Combine R ≥ Q. This leaves Q < R or Q = R possible. Q = R works in one valid case but fails in another. It is possible, not certain. Hence, only conclusion I follows.
+
+### Learning solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements.
+
+Conclusion I: Combine R ≥ Q and Q > C. This gives R > C. This proves R > C.
+
+Conclusion II: Combine R ≥ Q. This leaves Q < R or Q = R possible. Q = R works in one valid case but fails in another. It is possible, not certain.
+
+For example, C = 0, Q = 1, and R = 1 satisfies every statement and gives Q = R.
+
+But C = 0, Q = 1, and R = 2 also satisfies every statement and gives Q < R. This is why the conclusion is not guaranteed.
+
+Hence, only conclusion I follows.
+
+Neither conclusion I nor conclusion II follows: This option leaves out a conclusion that the chain proves.
+
+Only conclusion II follows: This option rejects the proven conclusion and accepts the one that is not guaranteed.
+
+Both conclusions I and II follow: This option counts a conclusion that is not guaranteed.
+
+## 74. EVALUATE_TWO_CONCLUSIONS — seed 1
+
+**Record:** INE-CP003-34FD5723 · **Difficulty:** MEDIUM · **Profile:** MOCK_FORMAT_PROTOTYPE · **Topology:** BRANCHES_WITH_SHARED_BOUNDS
+
+Which of the following conclusions definitely follow from the statements?
+
+### Statements
+
+- Q > D
+- B < C
+- Q > C
+- B ≤ D
+
+### Conclusions
+
+I. C < B
+II. D ≥ B
+
+### Options
+
+1. Both conclusions I and II follow
+2. Only conclusion I follows
+3. Neither conclusion I nor conclusion II follows
+4. Only conclusion II follows
+
+**Correct:** 4. Only conclusion II follows
+
+### Mock solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements. Conclusion I: Combine B < C. This gives C > B. C > B contradicts C < B, so the conclusion cannot be true. Conclusion II: Combine B ≤ D. This leaves D = B or D > B possible. This proves D ≥ B. Hence, only conclusion II follows.
+
+### Learning solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements.
+
+Conclusion I: Combine B < C. This gives C > B. C > B contradicts C < B, so the conclusion cannot be true.
+
+Conclusion II: Combine B ≤ D. This leaves D = B or D > B possible. This proves D ≥ B.
+
+Hence, only conclusion II follows.
+
+Both conclusions I and II follow: This option counts a conclusion that is not guaranteed.
+
+Only conclusion I follows: This option rejects the proven conclusion and accepts the one that is not guaranteed.
+
+Neither conclusion I nor conclusion II follows: This option leaves out a conclusion that the chain proves.
+
+## 75. EVALUATE_TWO_CONCLUSIONS — seed 2
+
+**Record:** INE-CP003-6FAC231E · **Difficulty:** MEDIUM · **Profile:** MOCK_FORMAT_PROTOTYPE · **Topology:** EQUALITY_AND_STRICT_CHAIN
+
+Which of the following conclusions definitely follow from the statements?
+
+### Statements
+
+- Q = C
+- S > R
+- S ≤ Q
+
+### Conclusions
+
+I. S < Q
+II. C = S
+
+### Options
+
+1. Both conclusions I and II follow
+2. Only conclusion II follows
+3. Neither conclusion I nor conclusion II follows
+4. Only conclusion I follows
+
+**Correct:** 3. Neither conclusion I nor conclusion II follows
+
+### Mock solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements. Conclusion I: Combine S ≤ Q and Q = C. This leaves S < Q or S = Q possible. S < Q works in one valid case but fails in another. It is possible, not certain. Conclusion II: Combine S ≤ Q and Q = C. This leaves C = S or C > S possible. C = S works in one valid case but fails in another. It is possible, not certain. Hence, neither conclusion I nor conclusion II follows.
+
+### Learning solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements.
+
+Conclusion I: Combine S ≤ Q and Q = C. This leaves S < Q or S = Q possible. S < Q works in one valid case but fails in another. It is possible, not certain.
+
+Conclusion II: Combine S ≤ Q and Q = C. This leaves C = S or C > S possible. C = S works in one valid case but fails in another. It is possible, not certain.
+
+For example, C = 2, Q = 2, R = 0, and S = 1 satisfies every statement and gives S < Q.
+
+But C = 1, Q = 1, R = 0, and S = 1 also satisfies every statement and gives S = Q. This is why the conclusion is not guaranteed.
+
+For example, C = 1, Q = 1, R = 0, and S = 1 satisfies every statement and gives C = S.
+
+But C = 2, Q = 2, R = 0, and S = 1 also satisfies every statement and gives C > S. This is why the conclusion is not guaranteed.
+
+Hence, neither conclusion I nor conclusion II follows.
+
+Both conclusions I and II follow: This option counts a conclusion that is not guaranteed.
+
+Only conclusion II follows: This option counts a conclusion that is not guaranteed.
+
+Only conclusion I follows: This option counts a conclusion that is not guaranteed.
+
+## 76. EVALUATE_TWO_CONCLUSIONS — seed 3
+
+**Record:** INE-CP003-62CC2F39 · **Difficulty:** MEDIUM · **Profile:** MOCK_FORMAT_PROTOTYPE · **Topology:** FOUR_NODE_MIXED_CHAIN
+
+Which of the following conclusions definitely follow from the statements?
+
+### Statements
+
+- C ≤ B
+- C = S
+- A < S
+
+### Conclusions
+
+I. S ≥ C
+II. S ≤ B
+
+### Options
+
+1. Both conclusions I and II follow
+2. Only conclusion I follows
+3. Neither conclusion I nor conclusion II follows
+4. Only conclusion II follows
+
+**Correct:** 1. Both conclusions I and II follow
+
+### Mock solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements. Conclusion I: Combine C = S. This gives S = C. This proves S ≥ C. Conclusion II: Combine C ≤ B and C = S. This leaves S < B or S = B possible. This proves S ≤ B. Hence, both conclusions I and II follow.
+
+### Learning solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements.
+
+Conclusion I: Combine C = S. This gives S = C. This proves S ≥ C.
+
+Conclusion II: Combine C ≤ B and C = S. This leaves S < B or S = B possible. This proves S ≤ B.
+
+Hence, both conclusions I and II follow.
+
+Only conclusion I follows: This option leaves out a conclusion that the chain proves.
+
+Neither conclusion I nor conclusion II follows: This option leaves out a conclusion that the chain proves.
+
+Only conclusion II follows: This option leaves out a conclusion that the chain proves.
+
+## 77. EVALUATE_TWO_CONCLUSIONS — seed 4
+
+**Record:** INE-CP003-3CB1D6F4 · **Difficulty:** MEDIUM · **Profile:** MOCK_FORMAT_PROTOTYPE · **Topology:** DIAMOND_WITH_MIXED_STRICTNESS
+
+Which of the following conclusions definitely follow from the statements?
+
+### Statements
+
+- R ≤ Q
+- S < Q
+- B ≤ S
+- R > B
+
+### Conclusions
+
+I. Q > B
+II. B = S
+
+### Options
+
+1. Only conclusion II follows
+2. Neither conclusion I nor conclusion II follows
+3. Only conclusion I follows
+4. Both conclusions I and II follow
+
+**Correct:** 3. Only conclusion I follows
+
+### Mock solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements. Conclusion I: Combine R ≤ Q and R > B. This gives Q > B. This proves Q > B. Conclusion II: Combine B ≤ S. This leaves B < S or B = S possible. B = S works in one valid case but fails in another. It is possible, not certain. Hence, only conclusion I follows.
+
+### Learning solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements.
+
+Conclusion I: Combine R ≤ Q and R > B. This gives Q > B. This proves Q > B.
+
+Conclusion II: Combine B ≤ S. This leaves B < S or B = S possible. B = S works in one valid case but fails in another. It is possible, not certain.
+
+For example, B = 0, Q = 1, R = 1, and S = 0 satisfies every statement and gives B = S.
+
+But B = 0, Q = 2, R = 1, and S = 1 also satisfies every statement and gives B < S. This is why the conclusion is not guaranteed.
+
+Hence, only conclusion I follows.
+
+Only conclusion II follows: This option rejects the proven conclusion and accepts the one that is not guaranteed.
+
+Neither conclusion I nor conclusion II follows: This option leaves out a conclusion that the chain proves.
+
+Both conclusions I and II follow: This option counts a conclusion that is not guaranteed.
+
+## 78. EVALUATE_TWO_CONCLUSIONS — seed 5
+
+**Record:** INE-CP003-EDDFFD07 · **Difficulty:** MEDIUM · **Profile:** MOCK_FORMAT_PROTOTYPE · **Topology:** CHAIN_PLUS_DISCONNECTED_COMPONENT
+
+Which of the following conclusions definitely follow from the statements?
+
+### Statements
+
+- P ≤ Q
+- S > A
+- C < P
+
+### Conclusions
+
+I. C = P
+II. S ≥ A
+
+### Options
+
+1. Both conclusions I and II follow
+2. Only conclusion I follows
+3. Neither conclusion I nor conclusion II follows
+4. Only conclusion II follows
+
+**Correct:** 4. Only conclusion II follows
+
+### Mock solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements. Conclusion I: Combine C < P. This gives C < P. C < P contradicts C = P, so the conclusion cannot be true. Conclusion II: Combine S > A. This gives S > A. This proves S ≥ A. Hence, only conclusion II follows.
+
+### Learning solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements.
+
+Conclusion I: Combine C < P. This gives C < P. C < P contradicts C = P, so the conclusion cannot be true.
+
+Conclusion II: Combine S > A. This gives S > A. This proves S ≥ A.
+
+Hence, only conclusion II follows.
+
+Both conclusions I and II follow: This option counts a conclusion that is not guaranteed.
+
+Only conclusion I follows: This option rejects the proven conclusion and accepts the one that is not guaranteed.
+
+Neither conclusion I nor conclusion II follows: This option leaves out a conclusion that the chain proves.
+
+## 79. EVALUATE_TWO_CONCLUSIONS — seed 6
+
+**Record:** INE-CP003-BC252C92 · **Difficulty:** HARD · **Profile:** MOCK_FORMAT_PROTOTYPE · **Topology:** FIVE_STEP_CHAIN_WITH_IRRELEVANT_EDGE
+
+Which of the following conclusions definitely follow from the statements?
+
+### Statements
+
+- A = S
+- R ≥ D
+- A > R
+- C ≥ S
+- S > B
+
+### Conclusions
+
+I. R > D
+II. R < B
+
+### Options
+
+1. Neither conclusion I nor conclusion II follows
+2. Only conclusion II follows
+3. Both conclusions I and II follow
+4. Only conclusion I follows
+
+**Correct:** 1. Neither conclusion I nor conclusion II follows
+
+### Mock solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements. Conclusion I: Combine R ≥ D. This leaves R = D or R > D possible. R > D works in one valid case but fails in another. It is possible, not certain. Conclusion II: There is no chain fixing the relation between R and B; either may be greater, or they may be equal. R < B works in one valid case but fails in another. It is possible, not certain. Hence, neither conclusion I nor conclusion II follows.
+
+### Learning solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements.
+
+Conclusion I: Combine R ≥ D. This leaves R = D or R > D possible. R > D works in one valid case but fails in another. It is possible, not certain.
+
+Conclusion II: There is no chain fixing the relation between R and B; either may be greater, or they may be equal. R < B works in one valid case but fails in another. It is possible, not certain.
+
+For example, A = 2, B = 0, C = 2, D = 0, R = 1, and S = 2 satisfies every statement and gives R > D.
+
+But A = 1, B = 0, C = 1, D = 0, R = 0, and S = 1 also satisfies every statement and gives R = D. This is why the conclusion is not guaranteed.
+
+For example, A = 2, B = 1, C = 2, D = 0, R = 0, and S = 2 satisfies every statement and gives R < B.
+
+But A = 1, B = 0, C = 1, D = 0, R = 0, and S = 1 also satisfies every statement and gives R = B. This is why the conclusion is not guaranteed.
+
+Hence, neither conclusion I nor conclusion II follows.
+
+Only conclusion II follows: This option counts a conclusion that is not guaranteed.
+
+Both conclusions I and II follow: This option counts a conclusion that is not guaranteed.
+
+Only conclusion I follows: This option counts a conclusion that is not guaranteed.
+
+## 80. EVALUATE_TWO_CONCLUSIONS — seed 7
+
+**Record:** INE-CP003-A4FBFCED · **Difficulty:** HARD · **Profile:** MOCK_FORMAT_PROTOTYPE · **Topology:** EQUALITY_AT_START_WITH_CONVERGING_BRANCH
+
+Which of the following conclusions definitely follow from the statements?
+
+### Statements
+
+- C > B
+- D ≤ C
+- P < D
+- P ≤ B
+- R = C
+
+### Conclusions
+
+I. B ≥ P
+II. R ≥ B
+
+### Options
+
+1. Neither conclusion I nor conclusion II follows
+2. Both conclusions I and II follow
+3. Only conclusion I follows
+4. Only conclusion II follows
+
+**Correct:** 2. Both conclusions I and II follow
+
+### Mock solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements. Conclusion I: Combine P ≤ B. This leaves B = P or B > P possible. This proves B ≥ P. Conclusion II: Combine C > B and R = C. This gives R > B. This proves R ≥ B. Hence, both conclusions I and II follow.
+
+### Learning solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements.
+
+Conclusion I: Combine P ≤ B. This leaves B = P or B > P possible. This proves B ≥ P.
+
+Conclusion II: Combine C > B and R = C. This gives R > B. This proves R ≥ B.
+
+Hence, both conclusions I and II follow.
+
+Neither conclusion I nor conclusion II follows: This option leaves out a conclusion that the chain proves.
+
+Only conclusion I follows: This option leaves out a conclusion that the chain proves.
+
+Only conclusion II follows: This option leaves out a conclusion that the chain proves.
+
+## 81. EVALUATE_TWO_CONCLUSIONS — seed 8
+
+**Record:** INE-CP003-ECF2E938 · **Difficulty:** HARD · **Profile:** MOCK_FORMAT_PROTOTYPE · **Topology:** LONG_CHAIN_EQUALITY_AT_END
+
+Which of the following conclusions definitely follow from the statements?
+
+### Statements
+
+- D < A
+- S = C
+- R < Q
+- C ≤ B
+- B ≤ R
+
+### Conclusions
+
+I. Q > B
+II. A > S
+
+### Options
+
+1. Only conclusion II follows
+2. Neither conclusion I nor conclusion II follows
+3. Only conclusion I follows
+4. Both conclusions I and II follow
+
+**Correct:** 3. Only conclusion I follows
+
+### Mock solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements. Conclusion I: Combine R < Q and B ≤ R. This gives Q > B. This proves Q > B. Conclusion II: Combine S = C. This leaves A < S, A = S, or A > S possible. A > S works in one valid case but fails in another. It is possible, not certain. Hence, only conclusion I follows.
+
+### Learning solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements.
+
+Conclusion I: Combine R < Q and B ≤ R. This gives Q > B. This proves Q > B.
+
+Conclusion II: Combine S = C. This leaves A < S, A = S, or A > S possible. A > S works in one valid case but fails in another. It is possible, not certain.
+
+For example, A = 1, B = 0, C = 0, D = 0, Q = 1, R = 0, and S = 0 satisfies every statement and gives A > S.
+
+But A = 1, B = 2, C = 2, D = 0, Q = 3, R = 2, and S = 2 also satisfies every statement and gives A < S. This is why the conclusion is not guaranteed.
+
+Hence, only conclusion I follows.
+
+Only conclusion II follows: This option rejects the proven conclusion and accepts the one that is not guaranteed.
+
+Neither conclusion I nor conclusion II follows: This option leaves out a conclusion that the chain proves.
+
+Both conclusions I and II follow: This option counts a conclusion that is not guaranteed.
+
+## 82. EVALUATE_TWO_CONCLUSIONS — seed 9
+
+**Record:** INE-CP003-92339A5B · **Difficulty:** MEDIUM · **Profile:** MOCK_FORMAT_PROTOTYPE · **Topology:** TWO_INDEPENDENT_CHAINS
+
+Which of the following conclusions definitely follow from the statements?
+
+### Statements
+
+- A = Q
+- R < D
+- B < Q
+- S ≤ R
+
+### Conclusions
+
+I. B > Q
+II. A ≥ B
+
+### Options
+
+1. Only conclusion II follows
+2. Both conclusions I and II follow
+3. Only conclusion I follows
+4. Neither conclusion I nor conclusion II follows
+
+**Correct:** 1. Only conclusion II follows
+
+### Mock solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements. Conclusion I: Combine B < Q and A = Q. This gives B < Q. B < Q contradicts B > Q, so the conclusion cannot be true. Conclusion II: Combine B < Q and A = Q. This gives A > B. This proves A ≥ B. Hence, only conclusion II follows.
+
+### Learning solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements.
+
+Conclusion I: Combine B < Q and A = Q. This gives B < Q. B < Q contradicts B > Q, so the conclusion cannot be true.
+
+Conclusion II: Combine B < Q and A = Q. This gives A > B. This proves A ≥ B.
+
+Hence, only conclusion II follows.
+
+Both conclusions I and II follow: This option counts a conclusion that is not guaranteed.
+
+Only conclusion I follows: This option rejects the proven conclusion and accepts the one that is not guaranteed.
+
+Neither conclusion I nor conclusion II follows: This option leaves out a conclusion that the chain proves.
+
+## 83. EVALUATE_TWO_CONCLUSIONS — seed 10
+
+**Record:** INE-CP003-DE32BE71 · **Difficulty:** HARD · **Profile:** MOCK_FORMAT_PROTOTYPE · **Topology:** CONVERGING_BRANCH_WITH_TAIL
+
+Which of the following conclusions definitely follow from the statements?
+
+### Statements
+
+- P > D
+- P ≥ Q
+- S ≤ A
+- D ≥ A
+- Q > A
+
+### Conclusions
+
+I. D > S
+II. S = A
+
+### Options
+
+1. Only conclusion II follows
+2. Neither conclusion I nor conclusion II follows
+3. Both conclusions I and II follow
+4. Only conclusion I follows
+
+**Correct:** 2. Neither conclusion I nor conclusion II follows
+
+### Mock solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements. Conclusion I: Combine D ≥ A and S ≤ A. This leaves D = S or D > S possible. D > S works in one valid case but fails in another. It is possible, not certain. Conclusion II: Combine S ≤ A. This leaves S < A or S = A possible. S = A works in one valid case but fails in another. It is possible, not certain. Hence, neither conclusion I nor conclusion II follows.
+
+### Learning solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements.
+
+Conclusion I: Combine D ≥ A and S ≤ A. This leaves D = S or D > S possible. D > S works in one valid case but fails in another. It is possible, not certain.
+
+Conclusion II: Combine S ≤ A. This leaves S < A or S = A possible. S = A works in one valid case but fails in another. It is possible, not certain.
+
+For example, A = 0, D = 1, P = 2, Q = 1, and S = 0 satisfies every statement and gives D > S.
+
+But A = 0, D = 0, P = 1, Q = 1, and S = 0 also satisfies every statement and gives D = S. This is why the conclusion is not guaranteed.
+
+For example, A = 0, D = 0, P = 1, Q = 1, and S = 0 satisfies every statement and gives S = A.
+
+But A = 1, D = 1, P = 2, Q = 2, and S = 0 also satisfies every statement and gives S < A. This is why the conclusion is not guaranteed.
+
+Hence, neither conclusion I nor conclusion II follows.
+
+Only conclusion II follows: This option counts a conclusion that is not guaranteed.
+
+Both conclusions I and II follow: This option counts a conclusion that is not guaranteed.
+
+Only conclusion I follows: This option counts a conclusion that is not guaranteed.
+
+## 84. EVALUATE_TWO_CONCLUSIONS — seed 11
+
+**Record:** INE-CP003-A0A344F6 · **Difficulty:** HARD · **Profile:** MOCK_FORMAT_PROTOTYPE · **Topology:** LONG_INCLUSIVE_CHAIN_WITH_SIDE_BRANCH
+
+Which of the following conclusions definitely follow from the statements?
+
+### Statements
+
+- B < R
+- Q ≤ B
+- A ≥ P
+- A = Q
+- B ≤ C
+
+### Conclusions
+
+I. A = Q
+II. C ≥ B
+
+### Options
+
+1. Only conclusion I follows
+2. Only conclusion II follows
+3. Neither conclusion I nor conclusion II follows
+4. Both conclusions I and II follow
+
+**Correct:** 4. Both conclusions I and II follow
+
+### Mock solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements. Conclusion I: Combine A = Q. This gives A = Q. This proves A = Q. Conclusion II: Combine B ≤ C. This leaves C = B or C > B possible. This proves C ≥ B. Hence, both conclusions I and II follow.
+
+### Learning solution
+
+A conclusion follows only when it is true in every arrangement allowed by the statements.
+
+Conclusion I: Combine A = Q. This gives A = Q. This proves A = Q.
+
+Conclusion II: Combine B ≤ C. This leaves C = B or C > B possible. This proves C ≥ B.
+
+Hence, both conclusions I and II follow.
+
+Only conclusion I follows: This option leaves out a conclusion that the chain proves.
+
+Only conclusion II follows: This option leaves out a conclusion that the chain proves.
+
+Neither conclusion I nor conclusion II follows: This option leaves out a conclusion that the chain proves.
