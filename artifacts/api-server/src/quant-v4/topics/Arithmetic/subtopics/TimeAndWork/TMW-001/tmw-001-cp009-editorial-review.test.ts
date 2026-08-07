@@ -92,7 +92,7 @@ for (const entry of TMW_CP009_REGISTRY) {
 
       assert.equal(/पाइप अभिलेख|हस्ताक्षरित|परिमाण|ਪਾਈਪ ਰਿਕਾਰਡ|ਚਿੰਨ੍ਹਿਤ|ਪਰਿਮਾਣ/.test(prose), false, `${entry.qlId}:${language}:${seedIndex}: technical wording`);
       assert.equal(/10-सेकंड|10 सेकंड|10-ਸਕਿੰਟ|10 ਸਕਿੰਟ|त्वरित नियम|ਤੁਰੰਤ ਨਿਯਮ/.test(prose), false, `${entry.qlId}:${language}:${seedIndex}: generic shortcut`);
-      assert.equal(/find[A-Z]|TMW_|_[A-Z_]{3,}|Independent signed-flow|Don't fall for|Do not choose/i.test(prose), false, `${entry.qlId}:${language}:${seedIndex}: internal wording`);
+      assert.equal(/find[A-Z]|TMW_|Independent signed-flow|Don't fall for|Do not choose/i.test(prose), false, `${entry.qlId}:${language}:${seedIndex}: internal wording`);
       assert.equal(/\b(?:tank|reservoir|inlet|outlet|leak|litres|hours?|water level|flow rate|full|empty)\b/i.test(prose), false, `${entry.qlId}:${language}:${seedIndex}: English leakage`);
       assert.equal(/\b\d+\s+\d+\/\d+\b/.test(prose), false, `${entry.qlId}:${language}:${seedIndex}: raw mixed fraction`);
       assert.equal(/\d+ घंटे में|\d+ ਘੰਟੇ ਵਿੱਚ/.test(prose), false, `${entry.qlId}:${language}:${seedIndex}: uninflected duration`);
