@@ -46,13 +46,20 @@ jobs:
           artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-exam-ready-v7-release-gates.test.ts
           rnk-cp004-exam-ready-v7-release-output
 
-      - name: Upload RNK-CP-004 Remodel V7 review evidence
+      - name: Enforce approved English source and inverse expansion
+        run: >-
+          npx --yes tsx
+          artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-source-inverse-v1-gates.test.ts
+          rnk-cp004-source-inverse-v1-output
+
+      - name: Upload RNK-CP-004 approved-English expansion evidence
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp004-english-remodel-v7-review-pending
+          name: rnk-001-cp004-approved-english-source-inverse-active
           path: |
             rnk-cp004-discovery-output
             rnk-cp004-exam-ready-v6-regression-output
             rnk-cp004-exam-ready-v7-base-output
             rnk-cp004-exam-ready-v7-release-output
+            rnk-cp004-source-inverse-v1-output
           retention-days: 14
