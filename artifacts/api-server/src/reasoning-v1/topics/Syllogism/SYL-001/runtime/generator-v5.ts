@@ -33,7 +33,7 @@ export function generateSylQuestionV5(
           ),
           termLabels,
         ),
-        termLabels,
+        assignment,
       ),
     ),
   );
