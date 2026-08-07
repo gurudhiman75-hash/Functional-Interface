@@ -29,7 +29,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 1 — PRB-QL-001 (Easy)
 
-**Question:** A box contains 15 tokens, of which 6 are marked. One token is selected at random. What is the probability that it is marked?
+**Question:** A batch contains 15 bulbs, of which 6 are defective. One bulb is selected at random. What is the probability that it is defective?
 
 **Options:**
 
@@ -40,13 +40,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 2/5
 
-**Explanation:** There are 15 tokens in all, and 6 are marked. So the probability is 6/15 = 2/5.
+**Explanation:** The batch has 15 bulbs, of which 6 are defective. So the probability is 6/15 = 2/5.
 
 ---
 
 #### Question 2 — PRB-QL-002 (Easy)
 
-**Question:** One applicant is selected at random from 32 applicants. The probability that the applicant is qualified is 1/2. How many applicants are qualified?
+**Question:** A company has 32 employees. If one employee is selected at random, the probability that the employee is a woman is 1/2. How many women work in the company?
 
 **Options:**
 
@@ -57,13 +57,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 16
 
-**Explanation:** Qualified applicants make up 1/2 of all 32 applicants. Required number = 32 × 1/2 = 16.
+**Explanation:** Female employees make up 1/2 of all 32 employees. Required number = 32 × 1/2 = 16.
 
 ---
 
 #### Question 3 — PRB-QL-003 (Easy)
 
-**Question:** A bag contains 18 red tokens. If a token drawn at random is red with probability 1/2, how many tokens are in the bag?
+**Question:** A bag contains 18 red balls. If a ball drawn at random is red with probability 1/2, how many balls are in the bag?
 
 **Options:**
 
@@ -74,7 +74,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 36
 
-**Explanation:** 18 red tokens represent 1/2 of the full group. Total tokens = 18 ÷ 1/2 = 36.
+**Explanation:** 18 red balls represent 1/2 of the full group. Total balls = 18 ÷ 1/2 = 36.
 
 ---
 
@@ -97,7 +97,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 5 — PRB-QL-005 (Easy)
 
-**Question:** A box contains 5 red, 7 blue and 5 green tokens. One token is selected at random. What is the probability of selecting a blue token?
+**Question:** A bag contains 5 red, 7 blue and 5 green balls. One ball is drawn at random. What is the probability of drawing a blue ball?
 
 **Options:**
 
@@ -108,13 +108,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 7/17
 
-**Explanation:** The box has 17 tokens altogether. 7 of them are blue. So the probability is 7/17.
+**Explanation:** The bag has 17 balls altogether. 7 of them are blue. So the probability is 7/17.
 
 ---
 
 #### Question 6 — PRB-QL-006 (Easy)
 
-**Question:** A box contains 40 tickets. The probability of drawing a winning ticket is 3/5. How many winning tickets are in the box?
+**Question:** A box contains 40 lottery tickets. The probability of drawing a prize-winning ticket is 3/5. How many prize-winning tickets are in the box?
 
 **Options:**
 
@@ -125,13 +125,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 24
 
-**Explanation:** Winning tickets make up 3/5 of all 40 tickets. Required number = 40 × 3/5 = 24.
+**Explanation:** Prize-winning tickets make up 3/5 of all 40 tickets. Required number = 40 × 3/5 = 24.
 
 ---
 
 #### Question 7 — PRB-QL-007 (Easy)
 
-**Question:** A bag contains 24 counters, of which 14 are marked. One counter is selected at random. What is the probability that it is marked?
+**Question:** A bag contains 24 balls, of which 14 are red. One ball is drawn at random. What is the probability that it is red?
 
 **Options:**
 
@@ -142,7 +142,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 7/12
 
-**Explanation:** There are 24 counters in all, and 14 are marked. So the probability is 14/24 = 7/12.
+**Explanation:** The bag has 24 balls, of which 14 are red. So the probability is 14/24 = 7/12.
 
 ---
 
@@ -165,7 +165,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 9 — PRB-QL-009 (Easy)
 
-**Question:** A bag contains 16 red tokens. If a token drawn at random is red with probability 8/9, how many tokens are in the bag?
+**Question:** A bag contains 16 red balls. If a ball drawn at random is red with probability 8/9, how many balls are in the bag?
 
 **Options:**
 
@@ -176,7 +176,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 18
 
-**Explanation:** 16 red tokens represent 8/9 of the full group. Total tokens = 16 ÷ 8/9 = 18.
+**Explanation:** 16 red balls represent 8/9 of the full group. Total balls = 16 ÷ 8/9 = 18.
 
 ---
 
@@ -199,7 +199,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 11 — PRB-QL-011 (Easy)
 
-**Question:** A box contains 8 red, 8 blue and 10 green tokens. One token is selected at random. What is the probability of selecting a green token?
+**Question:** A bag contains 8 red, 8 blue and 10 green balls. One ball is drawn at random. What is the probability of drawing a green ball?
 
 **Options:**
 
@@ -210,13 +210,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 5/13
 
-**Explanation:** The box has 26 tokens altogether. 10 of them are green. So the probability is 10/26 = 5/13.
+**Explanation:** The bag has 26 balls altogether. 10 of them are green. So the probability is 10/26 = 5/13.
 
 ---
 
 #### Question 12 — PRB-QL-012 (Easy)
 
-**Question:** A box contains 72 tickets. The probability of drawing a winning ticket is 7/12. How many winning tickets are in the box?
+**Question:** A box contains 72 lottery tickets. The probability of drawing a prize-winning ticket is 7/12. How many prize-winning tickets are in the box?
 
 **Options:**
 
@@ -227,13 +227,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 42
 
-**Explanation:** Winning tickets make up 7/12 of all 72 tickets. Required number = 72 × 7/12 = 42.
+**Explanation:** Prize-winning tickets make up 7/12 of all 72 tickets. Required number = 72 × 7/12 = 42.
 
 ---
 
 #### Question 13 — PRB-QL-013 (Easy)
 
-**Question:** A box contains 22 tickets, of which 2 are marked. One ticket is selected at random. What is the probability that it is marked?
+**Question:** A box contains 22 lottery tickets, of which 2 are prize-winning. One ticket is drawn at random. What is the probability that it is prize-winning?
 
 **Options:**
 
@@ -244,13 +244,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/11
 
-**Explanation:** There are 22 tickets in all, and 2 are marked. So the probability is 2/22 = 1/11.
+**Explanation:** There are 22 lottery tickets in all, and 2 are prize-winning. So the probability is 2/22 = 1/11.
 
 ---
 
 #### Question 14 — PRB-QL-014 (Easy)
 
-**Question:** One applicant is selected at random from 54 applicants. The probability that the applicant is qualified is 2/3. How many applicants are qualified?
+**Question:** A company has 54 employees. If one employee is selected at random, the probability that the employee is a woman is 2/3. How many women work in the company?
 
 **Options:**
 
@@ -261,13 +261,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 36
 
-**Explanation:** Qualified applicants make up 2/3 of all 54 applicants. Required number = 54 × 2/3 = 36.
+**Explanation:** Female employees make up 2/3 of all 54 employees. Required number = 54 × 2/3 = 36.
 
 ---
 
 #### Question 15 — PRB-QL-015 (Easy)
 
-**Question:** A folder contains 28 approved applications. If an application selected at random is approved with probability 7/11, how many applications are in the folder?
+**Question:** A bank approved 28 loan applications. If a randomly selected application was approved with probability 7/11, how many loan applications were received?
 
 **Options:**
 
@@ -278,7 +278,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 44
 
-**Explanation:** 28 approved files represent 7/11 of the full group. Total files = 28 ÷ 7/11 = 44.
+**Explanation:** 28 approved applications represent 7/11 of the full group. Total applications = 28 ÷ 7/11 = 44.
 
 ---
 
@@ -382,7 +382,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 15/16
 
-**Explanation:** It is easier to remove the one case with no heads: all tails. P(at least one head) = 1 - 1/16 = 15/16.
+**Explanation:** The only sequence with no head is TTTT. So P(at least one head) = 1 - P(TTTT) = 1 - 1/16 = 15/16.
 
 ---
 
@@ -399,7 +399,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 3/8
 
-**Explanation:** Choose the toss on which the head appears: C(3,1) = 3 ways. There are 8 H/T sequences. So the probability is 3/8.
+**Explanation:** For exactly one head, the favourable sequences are HTT, THT, TTH. 3 of the 8 H/T sequences work. So the probability is 3/8.
 
 ---
 
@@ -416,7 +416,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 3/8
 
-**Explanation:** Choose the 2 tosses that show heads: C(3,2) = 3 ways. There are 8 H/T sequences. So the probability is 3/8.
+**Explanation:** For exactly 2 heads, the favourable sequences are HHT, HTH, THH. 3 of the 8 H/T sequences work. So the probability is 3/8.
 
 ---
 
@@ -433,7 +433,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 11/16
 
-**Explanation:** At most 2 heads means 0, 1 or 2 heads. Required sequences = C(4,0) + C(4,1) + C(4,2) = 11. So the probability is 11/16.
+**Explanation:** The favourable sequences are HHTT, HTHT, HTTH, HTTT, THHT, THTH, THTT, TTHH, TTHT, TTTH, TTTT. 11 of the 16 H/T sequences work. So the probability is 11/16.
 
 ---
 
@@ -450,7 +450,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/8
 
-**Explanation:** All tosses show the same face only for all heads or all tails: 2 sequences. So the probability is 2/16 = 1/8.
+**Explanation:** All tosses show the same face only in HHHH and TTTT. So the probability is 2/16 = 1/8.
 
 ---
 
@@ -484,7 +484,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 7/8
 
-**Explanation:** It is easier to remove the one case with no heads: all tails. P(at least one head) = 1 - 1/8 = 7/8.
+**Explanation:** The only sequence with no head is TTT. So P(at least one head) = 1 - P(TTT) = 1 - 1/8 = 7/8.
 
 ---
 
@@ -501,7 +501,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/4
 
-**Explanation:** Choose the toss on which the head appears: C(4,1) = 4 ways. There are 16 H/T sequences. So the probability is 4/16 = 1/4.
+**Explanation:** For exactly one head, the favourable sequences are HTTT, THTT, TTHT, TTTH. 4 of the 16 H/T sequences work. So the probability is 4/16 = 1/4.
 
 ---
 
@@ -518,7 +518,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/4
 
-**Explanation:** Choose the 3 tosses that show heads: C(4,3) = 4 ways. There are 16 H/T sequences. So the probability is 4/16 = 1/4.
+**Explanation:** For exactly 3 heads, the favourable sequences are HHHT, HHTH, HTHH, THHH. 4 of the 16 H/T sequences work. So the probability is 4/16 = 1/4.
 
 ---
 
@@ -535,7 +535,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 7/8
 
-**Explanation:** At most 2 heads means 0, 1 or 2 heads. Required sequences = C(3,0) + C(3,1) + C(3,2) = 7. So the probability is 7/8.
+**Explanation:** The favourable sequences are HHT, HTH, HTT, THH, THT, TTH, TTT. 7 of the 8 H/T sequences work. So the probability is 7/8.
 
 ---
 
@@ -554,7 +554,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/4
 
-**Explanation:** TT is one exact sequence among 4 possible H/T sequences. So the probability is 1/4.
+**Explanation:** The possible sequences are HH, HT, TH, TT. TT is one of these sequences. So the probability is 1/4.
 
 ---
 
@@ -622,7 +622,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/4
 
-**Explanation:** TH is one exact sequence among 4 possible H/T sequences. So the probability is 1/4.
+**Explanation:** The possible sequences are HH, HT, TH, TT. TH is one of these sequences. So the probability is 1/4.
 
 ---
 
@@ -639,7 +639,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/2
 
-**Explanation:** Choose the toss on which the head appears: C(2,1) = 2 ways. There are 4 H/T sequences. So the probability is 2/4 = 1/2.
+**Explanation:** For exactly one head, the favourable sequences are HT, TH. 2 of the 4 H/T sequences work. So the probability is 2/4 = 1/2.
 
 ---
 
@@ -673,7 +673,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/2
 
-**Explanation:** Both numbers are even in 3 × 3 ways and both are odd in 3 × 3 ways: 18 ways. So the probability is 18/36 = 1/2.
+**Explanation:** Odd faces are 1, 3, 5 and even faces are 2, 4, 6. Same parity means odd-odd or even-even. Required ordered pairs = 3 × 3 + 3 × 3 = 18. So the probability is 18/36 = 1/2.
 
 ---
 
@@ -690,7 +690,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 11/32
 
-**Explanation:** There are 11 prime numbers from 1 to 32. So the probability is 11/32.
+**Explanation:** The required integers are 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31. So the probability is 11/32.
 
 ---
 
@@ -707,7 +707,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 3/8
 
-**Explanation:** Choose the 2 tosses that show heads: C(4,2) = 6 ways. There are 16 H/T sequences. So the probability is 6/16 = 3/8.
+**Explanation:** For exactly 2 heads, the favourable sequences are HHTT, HTHT, HTTH, THHT, THTH, TTHH. 6 of the 16 H/T sequences work. So the probability is 6/16 = 3/8.
 
 ---
 
@@ -775,7 +775,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/8
 
-**Explanation:** TTT is one exact sequence among 8 possible H/T sequences. So the probability is 1/8.
+**Explanation:** The possible sequences are HHH, HHT, HTH, HTT, THH, THT, TTH, TTT. TTT is one of these sequences. So the probability is 1/8.
 
 ---
 
@@ -1620,7 +1620,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/2
 
-**Explanation:** There are 20 multiples of 2; these form the restricted group. 10 of them are also divisible by 4. So the probability is 10/20 = 1/2.
+**Explanation:** The restricted numbers are 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40. Among them, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40 are divisible by 4. So the probability is 10/20 = 1/2.
 
 ---
 
@@ -1638,7 +1638,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/2
 
-**Explanation:** There are 12 multiples of 2; these form the restricted group. 6 of them are also divisible by 4. So the probability is 6/12 = 1/2.
+**Explanation:** The restricted numbers are 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24. Among them, 4, 8, 12, 16, 20, 24 are divisible by 4. So the probability is 6/12 = 1/2.
 
 ---
 
@@ -1656,7 +1656,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/2
 
-**Explanation:** There are 18 multiples of 2; these form the restricted group. 9 of them are also divisible by 4. So the probability is 9/18 = 1/2.
+**Explanation:** The restricted numbers are 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36. Among them, 4, 8, 12, 16, 20, 24, 28, 32, 36 are divisible by 4. So the probability is 9/18 = 1/2.
 
 ---
 
@@ -1674,7 +1674,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/2
 
-**Explanation:** There are 10 multiples of 2; these form the restricted group. 5 of them are also divisible by 4. So the probability is 5/10 = 1/2.
+**Explanation:** The restricted numbers are 2, 4, 6, 8, 10, 12, 14, 16, 18, 20. Among them, 4, 8, 12, 16, 20 are divisible by 4. So the probability is 5/10 = 1/2.
 
 ---
 

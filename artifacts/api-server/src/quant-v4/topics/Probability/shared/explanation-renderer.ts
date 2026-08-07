@@ -38,6 +38,36 @@ function factorial(value: number): number {
   return result;
 }
 
+function coinSequences(tosses: number): string[] {
+  let sequences = [""];
+  for (let toss = 0; toss < tosses; toss += 1) sequences = sequences.flatMap((prefix) => [`${prefix}H`, `${prefix}T`]);
+  return sequences;
+}
+
+function headCount(sequence: string): number {
+  return [...sequence].filter((face) => face === "H").length;
+}
+
+function sequenceList(sequences: string[]): string {
+  return sequences.join(", ");
+}
+
+function integerRangeMatches(parameters: GeneratedParameters): number[] {
+  const lower = n(parameters, "lower", 1), upper = n(parameters, "upper");
+  const property = s(parameters, "property");
+  const divisor = n(parameters, "divisor", 1);
+  const isPrime = (value: number) => value > 1 && Array.from({ length: Math.max(0, Math.floor(Math.sqrt(value)) - 1) }, (_, index) => index + 2).every((factor) => value % factor !== 0);
+  return Array.from({ length: upper - lower + 1 }, (_, index) => lower + index).filter((value) => {
+    if (property === "DIVISIBLE") return value % divisor === 0;
+    if (property === "EVEN") return value % 2 === 0;
+    if (property === "PRIME") return isPrime(value);
+    if (property === "COMPOSITE") return value > 1 && !isPrime(value);
+    if (property === "GREATER_THAN") return value > n(parameters, "threshold");
+    if (property === "LESS_THAN") return value < n(parameters, "threshold");
+    return false;
+  });
+}
+
 function probabilityCalculation(favourable: number | bigint, total: number | bigint, answer: string): string {
   const raw = `${favourable}/${total}`;
   return raw === answer ? `So the probability is ${answer}.` : `So the probability is ${raw} = ${answer}.`;
@@ -46,27 +76,23 @@ function probabilityCalculation(favourable: number | bigint, total: number | big
 function contextNoun(context: string): string {
   if (/tickets?/i.test(context)) return "tickets";
   if (/bulbs?/i.test(context)) return "bulbs";
-  if (/counters?/i.test(context)) return "counters";
-  if (/applicants?/i.test(context)) return "applicants";
-  if (/coupons?/i.test(context)) return "coupons";
-  if (/tokens?/i.test(context)) return "tokens";
+  if (/candidates?/i.test(context)) return "candidates";
+  if (/employees?/i.test(context)) return "employees";
   if (/applications?/i.test(context)) return "applications";
-  if (/attempts?|trials?/i.test(context)) return "attempts";
-  if (/files?/i.test(context)) return "files";
-  return "items";
+  if (/balls?/i.test(context)) return "balls";
+  return "people";
 }
 
 function contextDescription(context: string): string {
-  if (/winning/i.test(context)) return "winning";
+  if (/winning|prize-winning/i.test(context)) return "prize-winning";
   if (/defective/i.test(context)) return "defective";
-  if (/marked/i.test(context)) return "marked";
   if (/qualified/i.test(context)) return "qualified";
+  if (/female/i.test(context)) return "female";
   if (/red/i.test(context)) return "red";
-  if (/approved|selected/i.test(context)) return "approved";
+  if (/approved/i.test(context)) return "approved";
   if (/successful/i.test(context)) return "successful";
   return context.trim();
 }
-
 function colourCount(parameters: GeneratedParameters, colour: string): number {
   return n(parameters, colour.toLowerCase());
 }
@@ -109,15 +135,14 @@ function suitSingular(suit: string): string {
 }
 
 function renderDirectExplanation(parameters: GeneratedParameters, solved: SolvedProbability): string[] {
-  const total = n(parameters, "total");
-  const favourable = n(parameters, "favourable");
-  const object = s(parameters, "object", "items");
-  return [
-    `There are ${total} ${object} in all, and ${favourable} are marked.`,
-    probabilityCalculation(favourable, total, solved.exactDisplay),
-  ];
+  const total = n(parameters, "total"), favourable = n(parameters, "favourable");
+  const scenario = s(parameters, "scenario", "LOTTERY_TICKETS");
+  let reason = `There are ${total} lottery tickets in all, and ${favourable} are prize-winning.`;
+  if (scenario === "DEFECTIVE_BULBS") reason = `The batch has ${total} bulbs, of which ${favourable} are defective.`;
+  if (scenario === "RED_BALLS") reason = `The bag has ${total} balls, of which ${favourable} are red.`;
+  if (scenario === "MATHEMATICS_BOOKS") reason = `The shelf has ${total} books, of which ${favourable} are Mathematics books.`;
+  return [reason, probabilityCalculation(favourable, total, solved.exactDisplay)];
 }
-
 function renderReverseFavourable(parameters: GeneratedParameters, solved: SolvedProbability): string[] {
   const total = n(parameters, "total");
   const probability = fraction(n(parameters, "probabilityNumerator"), n(parameters, "probabilityDenominator", 1));
@@ -178,7 +203,7 @@ export function renderProbabilityExplanation(
     const targetCount = colourCount(parameters, target);
     const all = red + blue + green;
     return [
-      `The box has ${all} tokens altogether. ${targetCount} of them are ${target}.`,
+      `The bag has ${all} balls altogether. ${targetCount} of them are ${target}.`,
       probabilityCalculation(targetCount, all, solved.exactDisplay),
     ];
   }
@@ -193,13 +218,13 @@ export function renderProbabilityExplanation(
 
   if (mode === "findAtLeastOneUsingComplement") {
     const trials = n(parameters, "trials");
+    const allTails = "T".repeat(trials);
     const noHeads = fraction(1, 2 ** trials);
     return [
-      `It is easier to remove the one case with no heads: all tails.`,
-      `P(at least one head) = 1 - ${noHeads} = ${solved.exactDisplay}.`,
+      `The only sequence with no head is ${allTails}.`,
+      `So P(at least one head) = 1 - P(${allTails}) = 1 - ${noHeads} = ${solved.exactDisplay}.`,
     ];
   }
-
   if (mode === "findNoneProbability") {
     const trials = n(parameters, "trials");
     return [
@@ -211,44 +236,38 @@ export function renderProbabilityExplanation(
   if (["findExactlyOneSuccess", "findExactlyKSuccessSmallCase", "findCoinHeadCountProbability"].includes(mode)) {
     const tosses = n(parameters, "trials", n(parameters, "tosses"));
     const heads = mode === "findExactlyOneSuccess" ? 1 : n(parameters, mode === "findCoinHeadCountProbability" ? "heads" : "k", 1);
-    const ways = choose(tosses, heads);
-    const selectionReason = heads === 1
-      ? `Choose the toss on which the head appears: C(${tosses},1) = ${ways} ways.`
-      : `Choose the ${heads} tosses that show heads: C(${tosses},${heads}) = ${ways} ways.`;
+    const matches = coinSequences(tosses).filter((sequence) => headCount(sequence) === heads);
     return [
-      selectionReason,
-      `There are ${2 ** tosses} H/T sequences. ${probabilityCalculation(ways, 2 ** tosses, solved.exactDisplay)}`,
+      `For exactly ${heads === 1 ? "one head" : `${heads} heads`}, the favourable sequences are ${sequenceList(matches)}.`,
+      `${matches.length} of the ${2 ** tosses} H/T sequences work. ${probabilityCalculation(matches.length, 2 ** tosses, solved.exactDisplay)}`,
     ];
   }
-
   if (mode === "findAtMostKSuccessSmallCase") {
-    const tosses = n(parameters, "trials");
-    const k = n(parameters, "k");
-    const parts = Array.from({ length: k + 1 }, (_, heads) => `C(${tosses},${heads})`).join(" + ");
-    const range = k === 1 ? "0 or 1 head" : k === 2 ? "0, 1 or 2 heads" : `0 to ${k} heads`;
-    return [
-      `At most ${k} ${plural(k, "head")} means ${range}. Required sequences = ${parts} = ${favourable ?? 0n}.`,
-      probabilityCalculation(favourable ?? 0n, total ?? BigInt(2 ** tosses), solved.exactDisplay),
-    ];
+    const tosses = n(parameters, "trials"), k = n(parameters, "k");
+    const allSequences = coinSequences(tosses);
+    const matches = allSequences.filter((sequence) => headCount(sequence) <= k);
+    const excluded = allSequences.filter((sequence) => headCount(sequence) > k);
+    const detail = matches.length <= 16
+      ? `The favourable sequences are ${sequenceList(matches)}.`
+      : `It is shorter to exclude ${sequenceList(excluded)}; every other sequence has at most ${k} heads.`;
+    return [detail, `${matches.length} of the ${allSequences.length} H/T sequences work. ${probabilityCalculation(matches.length, allSequences.length, solved.exactDisplay)}`];
   }
-
   if (mode === "findAllSuccessOrNotAll") {
     const tosses = n(parameters, "trials");
+    const allHeads = "H".repeat(tosses), allTails = "T".repeat(tosses);
     return [
-      `All tosses show the same face only for all heads or all tails: 2 sequences.`,
+      `All tosses show the same face only in ${allHeads} and ${allTails}.`,
       probabilityCalculation(2, 2 ** tosses, solved.exactDisplay),
     ];
   }
-
   if (mode === "findCoinPatternProbability") {
-    const tosses = n(parameters, "tosses");
-    const pattern = s(parameters, "pattern");
-    return [
-      `${pattern} is one exact sequence among ${2 ** tosses} possible H/T sequences.`,
-      probabilityCalculation(1, 2 ** tosses, solved.exactDisplay),
-    ];
+    const tosses = n(parameters, "tosses"), pattern = s(parameters, "pattern");
+    const outcomes = coinSequences(tosses);
+    const universe = outcomes.length <= 8
+      ? `The possible sequences are ${sequenceList(outcomes)}.`
+      : `There are 2^${tosses} = ${outcomes.length} possible H/T sequences.`;
+    return [universe, `${pattern} is one of these sequences. ${probabilityCalculation(1, outcomes.length, solved.exactDisplay)}`];
   }
-
   if (mode === "findSingleDieEventProbability") {
     const faces = singleDieFaces(parameters);
     return [
@@ -278,16 +297,15 @@ export function renderProbabilityExplanation(
     }
     if (kind === "SAME_PARITY") {
       return [
-        `Both numbers are even in 3 × 3 ways and both are odd in 3 × 3 ways: 18 ways.`,
-        probabilityCalculation(18, 36, solved.exactDisplay),
+        `Odd faces are 1, 3, 5 and even faces are 2, 4, 6. Same parity means odd-odd or even-even.`,
+        `Required ordered pairs = 3 × 3 + 3 × 3 = 18. ${probabilityCalculation(18, 36, solved.exactDisplay)}`,
       ];
     }
     return [
-      `Odd-even can occur in either order: 3 × 3 + 3 × 3 = 18 ways.`,
-      probabilityCalculation(18, 36, solved.exactDisplay),
+      `Odd faces are 1, 3, 5 and even faces are 2, 4, 6. Different parity means odd-even or even-odd.`,
+      `Required ordered pairs = 3 × 3 + 3 × 3 = 18. ${probabilityCalculation(18, 36, solved.exactDisplay)}`,
     ];
   }
-
   if (mode === "findSpinnerEventProbability") {
     const sectors = n(parameters, "sectors"), marked = n(parameters, "favourableSectors");
     return [`${marked} of the ${sectors} equal sectors are shaded.`, probabilityCalculation(marked, sectors, solved.exactDisplay)];
@@ -304,17 +322,13 @@ export function renderProbabilityExplanation(
 
   if (mode === "findNumberRangePropertyProbability") {
     const lower = n(parameters, "lower", 1), upper = n(parameters, "upper");
-    const property = s(parameters, "property");
-    const count = Number(favourable ?? 0n);
+    const matches = integerRangeMatches(parameters);
     const rangeSize = upper - lower + 1;
-    let reason = `There are ${count} numbers in the range that satisfy the condition.`;
-    if (property === "DIVISIBLE") reason = `The multiples of ${n(parameters, "divisor")} in the range number ${count}.`;
-    if (property === "EVEN") reason = `There are ${count} even numbers from ${lower} to ${upper}.`;
-    if (property === "PRIME") reason = `There are ${count} prime numbers from ${lower} to ${upper}.`;
-    if (property === "COMPOSITE") reason = `There are ${count} composite numbers from ${lower} to ${upper}.`;
-    return [reason, probabilityCalculation(count, rangeSize, solved.exactDisplay)];
+    const shown = matches.length <= 15
+      ? `The required integers are ${matches.join(", ")}.`
+      : `The first required integers are ${matches.slice(0, 10).join(", ")}; there are ${matches.length} in all.`;
+    return [shown, probabilityCalculation(matches.length, rangeSize, solved.exactDisplay)];
   }
-
   if (["findRankProbability", "findSuitProbability", "findColourProbability", "findFaceCardProbability", "findCardPropertyIntersection"].includes(mode)) {
     const rank = s(parameters, "rank", "king");
     const suit = suitSingular(s(parameters, "suit", "spades"));
@@ -449,14 +463,13 @@ export function renderProbabilityExplanation(
 
   if (mode === "findConditionalNumberProbability") {
     const upper = n(parameters, "upper"), conditionDivisor = n(parameters, "conditionDivisor"), targetDivisor = n(parameters, "targetDivisor");
-    const conditionCount = Math.floor(upper / conditionDivisor);
-    const targetCount = Math.floor(upper / targetDivisor);
+    const restricted = Array.from({ length: Math.floor(upper / conditionDivisor) }, (_, index) => (index + 1) * conditionDivisor);
+    const required = restricted.filter((value) => value % targetDivisor === 0);
     return [
-      `There are ${conditionCount} multiples of ${conditionDivisor}; these form the restricted group.`,
-      `${targetCount} of them are also divisible by ${targetDivisor}. ${probabilityCalculation(targetCount, conditionCount, solved.exactDisplay)}`,
+      `The restricted numbers are ${restricted.join(", ")}.`,
+      `Among them, ${required.join(", ")} are divisible by ${targetDivisor}. ${probabilityCalculation(required.length, restricted.length, solved.exactDisplay)}`,
     ];
   }
-
   if (mode === "findConditionalUrnProbability") {
     const red = n(parameters, "red"), all = red + n(parameters, "blue");
     return [

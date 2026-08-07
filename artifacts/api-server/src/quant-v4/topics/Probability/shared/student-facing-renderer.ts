@@ -61,28 +61,35 @@ function oppositeEvent(eventLabel: string): string {
   return "the event does not occur";
 }
 
+function directProbabilityStem(p: GeneratedParameters): string {
+  const total = num(p, "total"), favourable = num(p, "favourable");
+  const scenario = text(p, "scenario", "LOTTERY_TICKETS");
+  if (scenario === "DEFECTIVE_BULBS") return `A batch contains ${total} bulbs, of which ${favourable} are defective. One bulb is selected at random. What is the probability that it is defective?`;
+  if (scenario === "RED_BALLS") return `A bag contains ${total} balls, of which ${favourable} are red. One ball is drawn at random. What is the probability that it is red?`;
+  if (scenario === "MATHEMATICS_BOOKS") return `A shelf contains ${total} books, of which ${favourable} are Mathematics books. One book is selected at random. What is the probability that it is a Mathematics book?`;
+  return `A box contains ${total} lottery tickets, of which ${favourable} are prize-winning. One ticket is drawn at random. What is the probability that it is prize-winning?`;
+}
+
 function reverseFavourableStem(p: GeneratedParameters): string {
   const total = num(p, "total");
   const probability = frac(num(p, "probabilityNumerator"), num(p, "probabilityDenominator", 1));
-  const context = text(p, "context", "marked items");
-  if (/winning tickets?/i.test(context)) return `A box contains ${total} tickets. The probability of drawing a winning ticket is ${probability}. How many winning tickets are in the box?`;
+  const context = text(p, "context", "winning tickets");
+  if (/winning tickets?/i.test(context)) return `A box contains ${total} lottery tickets. The probability of drawing a prize-winning ticket is ${probability}. How many prize-winning tickets are in the box?`;
   if (/defective bulbs?/i.test(context)) return `A batch contains ${total} bulbs. If one bulb is selected at random, the probability that it is defective is ${probability}. How many bulbs are defective?`;
-  if (/marked counters?/i.test(context)) return `A bag contains ${total} counters. The probability of selecting a marked counter is ${probability}. How many counters are marked?`;
-  if (/qualified applicants?/i.test(context)) return `One applicant is selected at random from ${total} applicants. The probability that the applicant is qualified is ${probability}. How many applicants are qualified?`;
-  return `A collection has ${total} items. The probability of selecting a required item is ${probability}. How many required items are there?`;
+  if (/qualified candidates?/i.test(context)) return `One candidate is selected at random from ${total} candidates. The probability that the candidate has qualified is ${probability}. How many candidates have qualified?`;
+  if (/female employees?/i.test(context)) return `A company has ${total} employees. If one employee is selected at random, the probability that the employee is a woman is ${probability}. How many women work in the company?`;
+  return `A group has ${total} people. The probability that a randomly selected person satisfies the stated condition is ${probability}. How many people satisfy it?`;
 }
-
 function reverseTotalStem(p: GeneratedParameters): string {
   const favourable = num(p, "favourable");
   const probability = frac(num(p, "probabilityNumerator"), num(p, "probabilityDenominator", 1));
-  const context = text(p, "context", "required items");
-  if (/winning coupons?/i.test(context)) return `A box contains ${favourable} winning coupons. If the probability of drawing a winning coupon is ${probability}, how many coupons are in the box altogether?`;
-  if (/red tokens?/i.test(context)) return `A bag contains ${favourable} red tokens. If a token drawn at random is red with probability ${probability}, how many tokens are in the bag?`;
-  if (/approved applications?|selected files?/i.test(context)) return `A folder contains ${favourable} approved applications. If an application selected at random is approved with probability ${probability}, how many applications are in the folder?`;
-  if (/successful attempts?|successful trials?/i.test(context)) return `An experiment had ${favourable} successful attempts. If the probability of success was ${probability}, how many attempts were made?`;
-  return `A group contains ${favourable} required items. If the probability of selecting one is ${probability}, how many items are in the group?`;
+  const context = text(p, "context", "winning tickets");
+  if (/winning tickets?/i.test(context)) return `A box contains ${favourable} prize-winning lottery tickets. If the probability of drawing a prize-winning ticket is ${probability}, how many lottery tickets are in the box altogether?`;
+  if (/red balls?/i.test(context)) return `A bag contains ${favourable} red balls. If a ball drawn at random is red with probability ${probability}, how many balls are in the bag?`;
+  if (/approved loan applications?/i.test(context)) return `A bank approved ${favourable} loan applications. If a randomly selected application was approved with probability ${probability}, how many loan applications were received?`;
+  if (/successful candidates?/i.test(context)) return `${favourable} candidates passed an examination. If a randomly selected candidate passed with probability ${probability}, how many candidates appeared in the examination?`;
+  return `${favourable} people satisfy a condition. If a randomly selected person satisfies it with probability ${probability}, how many people are in the group?`;
 }
-
 function committeeStem(entry: ProbabilityTaskRegistryEntry, p: GeneratedParameters, solved: SolvedProbability): string {
   const men = num(p, "men"), women = num(p, "women"), size = num(p, "committeeSize"), required = num(p, "requiredWomen", 1);
   if (entry.solveMode === "findRestrictedSelectionProbability") return `A ${size}-member committee is chosen at random from ${men} men and ${women} women. What is the probability that the committee includes at least one woman?`;
@@ -108,10 +115,8 @@ export function renderStudentFacingStem(entry: ProbabilityTaskRegistryEntry, p: 
   if (entry.cpId === "PRB-CP-008" && ["findSelectionProbabilityUsingCombination", "findCommitteeCompositionProbability", "findRestrictedSelectionProbability", "findReverseCountFromProbability"].includes(mode)) return tidy(committeeStem(entry, p, solved));
 
   switch (mode) {
-    case "findDirectProbability": {
-      const total = num(p, "total"), favourable = num(p, "favourable"), object = text(p, "object", "tokens");
-      return tidy(`${containerFor(object)} contains ${total} ${object}, of which ${favourable} are marked. One ${singularObject(object)} is selected at random. What is the probability that it is marked?`);
-    }
+    case "findDirectProbability":
+      return tidy(directProbabilityStem(p));
     case "findFavourableOutcomeCount":
     case "findMissingEventCountFromProbability":
       return tidy(reverseFavourableStem(p));
@@ -120,7 +125,7 @@ export function renderStudentFacingStem(entry: ProbabilityTaskRegistryEntry, p: 
     case "identifyImpossibleCertainOrPossibleEvent":
       return tidy(`An integer is selected at random from 1 to ${num(p, "n")}. What is the probability that it is ${text(p, "eventLabel", eventName(event))}?`);
     case "findProbabilityFromSimpleFrequencyTable":
-      return tidy(`A box contains ${red} red, ${blue} blue and ${num(p, "green")} green tokens. One token is selected at random. What is the probability of selecting a ${text(p, "target", "red")} token?`);
+      return tidy(`A bag contains ${red} red, ${blue} blue and ${num(p, "green")} green balls. One ball is drawn at random. What is the probability of drawing a ${text(p, "target", "red")} ball?`);
     case "findComplementProbability": {
       const label = text(p, "eventLabel", "the event occurs");
       return tidy(`The probability that ${label} is ${frac(num(p, "givenNumerator"), num(p, "givenDenominator", 1))}. What is the probability that ${oppositeEvent(label)}?`);

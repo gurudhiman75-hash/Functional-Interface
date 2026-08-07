@@ -44,6 +44,19 @@ function hasGenericExplanation(explanation: string[]): boolean {
   return explanation.some((line) => genericPatterns.some((pattern) => pattern.test(line.trim())));
 }
 
+function hasConcreteOutcomeEvidence(entry: ProbabilityTaskRegistryEntry, explanation: string[]): boolean {
+  const value = explanation.join(" ");
+  const coinModes = [
+    "findAtLeastOneUsingComplement", "findNoneProbability", "findExactlyOneSuccess", "findExactlyKSuccessSmallCase",
+    "findAtMostKSuccessSmallCase", "findAllSuccessOrNotAll", "findCoinPatternProbability", "findCoinHeadCountProbability",
+  ];
+  if (coinModes.includes(entry.solveMode)) return /\b[HT]{2,5}\b/.test(value);
+  if (["findTwoDiceSumProbability", "findTwoDiceProductOrParityProbability"].includes(entry.solveMode)) return /\(\d,\d\)/.test(value) || /Odd faces are 1, 3, 5/.test(value);
+  if (entry.solveMode === "findSingleDieEventProbability") return /favourable faces are/i.test(value);
+  if (entry.solveMode === "findNumberRangePropertyProbability") return /required integers are|first required integers are/i.test(value);
+  return true;
+}
+
 export function validateProbabilityQuestion(args: {
   entry: ProbabilityTaskRegistryEntry;
   language: ProbabilityQuestionLanguageEntry;
@@ -84,6 +97,7 @@ export function validateProbabilityQuestion(args: {
     /\bequally likely items\b/i,
     /\bit does not happen\b/i,
     /\ba ace\b/i,
+    /\b(?:tokens?|counters?|selected files?)\b/i,
     /\bsatisf(?:y|ies) A(?:\s+or\s+B|\s+and\s+B)?\b/i,
   ];
   checks.push(check("natural-exam-language", forbiddenStemPatterns.every((pattern) => !pattern.test(stem)), "The stem contains internal, abstract or artificial template language."));
@@ -94,6 +108,7 @@ export function validateProbabilityQuestion(args: {
   const explanationText = explanation.join(" "), explanationWords = words(explanationText);
   checks.push(check("simple-explanation-length", explanationWords >= 12 && explanationWords <= 120, `Explanation has ${explanationWords} words; expected 12-120.`));
   checks.push(check("contextual-explanation", !hasGenericExplanation(explanation), "The explanation states generic counts or uses unnatural instructional wording."));
+  checks.push(check("concrete-outcome-visibility", hasConcreteOutcomeEvidence(entry, explanation), "Small outcome spaces must show the actual H/T sequences, die faces, dice pairs or qualifying integers."));
   checks.push(check("no-qa-jargon-in-explanation", !/(typed event|independent check|permitted range|generated parameter|review trail|publication|validator|renderer|fingerprint|canonical universe)/i.test(explanationText), "The explanation contains internal QA language."));
   checks.push(check("no-adjacent-duplicate-lines", explanation.every((line, index) => index === 0 || line.trim() !== explanation[index - 1]!.trim()), "The explanation repeats the same line."));
 

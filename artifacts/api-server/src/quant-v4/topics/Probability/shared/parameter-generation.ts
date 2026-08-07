@@ -14,16 +14,20 @@ function generateProbabilityParametersCore(entry: ProbabilityTaskRegistryEntry, 
   const random = seededRandom(`${seed}:${entry.qlId}:parameters`);
   const mode = entry.solveMode;
   if (mode === "findDirectProbability") {
-    const [min, max] = difficultyRange(entry, [10, 24], [18, 36], [28, 48]); const total = randomInt(random, min, max);
-    return { total, favourable: randomInt(random, 2, total - 2), object: pickRandom(random, ["tickets", "tokens", "counters", "cards"] as const) };
+    const [min, max] = difficultyRange(entry, [10, 24], [18, 36], [28, 48]);
+    const total = randomInt(random, min, max);
+    const favourable = randomInt(random, 2, total - 2);
+    const scenario = pickRandom(random, ["LOTTERY_TICKETS", "DEFECTIVE_BULBS", "RED_BALLS", "MATHEMATICS_BOOKS"] as const);
+    const object = scenario === "LOTTERY_TICKETS" ? "tickets" : scenario === "DEFECTIVE_BULBS" ? "bulbs" : scenario === "RED_BALLS" ? "balls" : "books";
+    return { total, favourable, scenario, object };
   }
   if (mode === "findFavourableOutcomeCount" || mode === "findMissingEventCountFromProbability") {
     const fraction = reducedFraction(random); const scale = randomInt(random, 2, 6);
-    return { probabilityNumerator: fraction.numerator, probabilityDenominator: fraction.denominator, total: fraction.denominator * scale, favourable: fraction.numerator * scale, context: pickRandom(random, ["winning tickets", "defective bulbs", "marked counters", "qualified applicants"] as const) };
+    return { probabilityNumerator: fraction.numerator, probabilityDenominator: fraction.denominator, total: fraction.denominator * scale, favourable: fraction.numerator * scale, context: pickRandom(random, ["winning tickets", "defective bulbs", "qualified candidates", "female employees"] as const) };
   }
   if (mode === "findTotalOutcomeCount") {
     const fraction = reducedFraction(random); const scale = randomInt(random, 2, 6);
-    return { probabilityNumerator: fraction.numerator, probabilityDenominator: fraction.denominator, total: fraction.denominator * scale, favourable: fraction.numerator * scale, context: pickRandom(random, ["winning coupons", "red tokens", "selected files", "successful trials"] as const) };
+    return { probabilityNumerator: fraction.numerator, probabilityDenominator: fraction.denominator, total: fraction.denominator * scale, favourable: fraction.numerator * scale, context: pickRandom(random, ["winning tickets", "red balls", "approved loan applications", "successful candidates"] as const) };
   }
   if (mode === "identifyImpossibleCertainOrPossibleEvent") {
     const n = randomInt(random, 8, 30); const state = pickRandom(random, ["CERTAIN", "IMPOSSIBLE", "POSSIBLE"] as const);
