@@ -1,6 +1,7 @@
 import type { SylLocale, TermId } from "../foundation/types";
 import { generateSylQuestionV4 } from "./generator-v4";
 import { buildLearnerPresentationV5 } from "./learner-v5";
+import { markDeadOptionRemediationV5 } from "./learner-v5-dead-option-remediation";
 import { polishLearnerPresentationV5 } from "./learner-v5-editorial-polish";
 import { remediateModelTargetV5 } from "./learner-v5-model-target-remediation";
 import type { GeneratedSylQuestionV5 } from "./learner-v5-types";
@@ -18,13 +19,15 @@ export function generateSylQuestionV5(
   const termLabels = Object.fromEntries(
     termOrder.map((termId) => [termId, assignment[termId].labels[locale]]),
   ) as Readonly<Record<TermId, string>>;
-  const learnerPresentationV5 = remediateModelTargetV5(
-    question,
-    polishLearnerPresentationV5(
+  const learnerPresentationV5 = markDeadOptionRemediationV5(
+    remediateModelTargetV5(
       question,
-      buildLearnerPresentationV5(question, termLabels),
+      polishLearnerPresentationV5(
+        question,
+        buildLearnerPresentationV5(question, termLabels),
+      ),
+      termLabels,
     ),
-    termLabels,
   );
 
   return {
