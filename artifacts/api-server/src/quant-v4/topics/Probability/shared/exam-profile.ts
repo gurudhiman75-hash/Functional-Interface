@@ -1,11 +1,6 @@
-import type { ProbabilityCanonicalProblemId, ProbabilityPackageId, ProbabilityTaskRegistryEntry } from "./types";
+import type { ProbabilityCanonicalProblemId, ProbabilityExamProfile, ProbabilityPackageId, ProbabilityTaskRegistryEntry } from "./types";
 
-export type ProbabilityExamProfile =
-  | "SSC_CGL_CHSL"
-  | "SSC_CGL_JSO"
-  | "BANKING_PRELIMS"
-  | "BANKING_MAINS"
-  | "GENERIC_PRACTICE";
+export type { ProbabilityExamProfile } from "./types";
 
 export interface ProbabilityExamProfileConfig {
   id: ProbabilityExamProfile;
