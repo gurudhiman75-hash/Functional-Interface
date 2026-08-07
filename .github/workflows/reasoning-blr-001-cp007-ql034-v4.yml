@@ -55,7 +55,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v4-wave2.test.ts | tee cp007-v4-wave2.log
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v4-wave2.test.ts 2>&1 | tee cp007-v4-wave2.log
 
       - name: Export QL-034 human-review pack
         shell: bash
