@@ -19,12 +19,26 @@ V5 does not independently enable Question Studio, question-bank storage, mock-te
 - Possible-but-not-definite explanations use distinct true and false canonical models.
 - Every narrated model is checked against the premises and claimed truth value.
 
-### Diagram safety
+### Venn-only learner visuals
 
-- Stale answer-mismatched diagrams are omitted.
-- Unknown witness-transfer relations are never drawn as proved separation.
+Every learner record must contain one genuine circle-based Venn visual.
+
+- Existing exact Venn diagrams are retained where their geometry is justified.
+- A record that previously omitted an unsafe or unhelpful diagram now receives a focused Venn diagram.
+- Focused diagrams use circles, overlap, separation, containment and witness `×` marks.
+- Uncertain conclusions use true/false or possible-arrangement Venn panels rather than arrow maps.
+- Unknown relations are never presented as proved separation.
+- Relation maps, node-link maps and arrow-map fallbacks are prohibited.
 - Genuine QL-009 either-or diagrams remain available.
 - Responsive diagrams use a 360-unit mobile viewBox and scale to the available width.
+
+The exhaustive contract requires:
+
+```text
+enabled Venn diagrams: 4,320 / 4,320
+missing diagrams:      0
+non-Venn visuals:      0
+```
 
 ### Option remediation
 
@@ -81,6 +95,9 @@ It contains all 324 review records and provides width, language and QL controls.
 - wrapping for long learner text;
 - flexible option columns;
 - responsive SVG diagrams;
+- one Venn diagram per record;
+- circle or ellipse geometry in every diagram;
+- no relation-map terminology or non-Venn diagram mode;
 - no script or `foreignObject` content inside learner diagrams.
 
 Current status:
@@ -108,7 +125,9 @@ It rejects:
 - dead inconsistent-premise options;
 - modal status omissions or duplicates;
 - changes to non-modal option counts;
-- unsafe unknown-relation diagrams;
+- missing Venn diagrams;
+- relation-map or node-map visuals;
+- unsafe unknown-relation geometry;
 - editorial-status regressions;
 - viewport-contract regressions;
 - any delivery-lifecycle activation.
