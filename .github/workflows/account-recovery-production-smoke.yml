@@ -1,0 +1,87 @@
+name: Monitor account recovery production
+
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/examtree/src/pages/account-recovery.tsx
+      - artifacts/examtree/src/lib/account-recovery-contract.ts
+      - artifacts/api-server/src/routes/student-account-recovery.ts
+      - artifacts/api-server/src/routes/index.ts
+      - scripts/verify-account-recovery-production.mjs
+      - .github/workflows/account-recovery-production-smoke.yml
+  push:
+    branches: [New-main]
+    paths:
+      - artifacts/examtree/src/pages/account-recovery.tsx
+      - artifacts/examtree/src/lib/account-recovery-contract.ts
+      - artifacts/api-server/src/routes/student-account-recovery.ts
+      - artifacts/api-server/src/routes/index.ts
+      - scripts/verify-account-recovery-production.mjs
+      - .github/workflows/account-recovery-production-smoke.yml
+  schedule:
+    - cron: '43 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      web_origin:
+        description: Firebase Hosting origin
+        required: false
+        default: https://sarbedutech.web.app
+      api_origin:
+        description: Render API origin without /api
+        required: false
+        default: https://examtree-new.onrender.com
+
+permissions:
+  contents: read
+
+concurrency:
+  group: account-recovery-production-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  production-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      EXAMTREE_WEB_ORIGIN: ${{ inputs.web_origin || vars.EXAMTREE_PRODUCTION_WEB_ORIGIN || 'https://sarbedutech.web.app' }}
+      EXAMTREE_API_ORIGIN: ${{ inputs.api_origin || vars.EXAMTREE_PRODUCTION_BASE_URL || 'https://examtree-new.onrender.com' }}
+      EXAMTREE_RECOVERY_REPORT_PATH: artifacts/reports/account-recovery-production-smoke.json
+      EXAMTREE_RECOVERY_SMOKE_ATTEMPTS: '8'
+      EXAMTREE_RECOVERY_SMOKE_INITIAL_DELAY_MS: '4000'
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate smoke syntax
+        run: node --check scripts/verify-account-recovery-production.mjs
+
+      - name: Enforce canonical web API base
+        run: |
+          grep -F "import { API_BASE_URL } from '@/lib/api';" artifacts/examtree/src/pages/account-recovery.tsx
+          ! grep -F 'VITE_API_URL' artifacts/examtree/src/pages/account-recovery.tsx
+
+      - name: Probe live recovery surfaces
+        id: smoke
+        continue-on-error: true
+        run: node scripts/verify-account-recovery-production.mjs
+
+      - name: Upload recovery production evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: account-recovery-production-${{ github.run_id }}
+          path: artifacts/reports/account-recovery-production-smoke.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Enforce production result after merge
+        if: github.event_name != 'pull_request'
+        run: test '${{ steps.smoke.outcome }}' = 'success'
