@@ -22,6 +22,7 @@ import { applyNumCp005Ql058EdgeSafe } from "./release-review-ql058-edge-safe";
 import { applyNumCp005Ql059EdgeSafe } from "./release-review-ql059-edge-safe";
 import { applyNumCp005Ql063DifficultySafe } from "./release-review-ql063-difficulty-safe";
 import { applyNumCp005Ql065DiversitySafe } from "./release-review-ql065-diversity-safe";
+import { applyNumCp005ReleaseReviewRenderingSafety } from "./release-review-rendering-safe";
 
 export function remediateNumCp005English(source) {
   let result;
@@ -76,10 +77,11 @@ export function remediateNumCp005English(source) {
     initialExplanation,
     corrected.difficulty,
   );
+  const renderingSafeExplanation = applyNumCp005ReleaseReviewRenderingSafety(correctedExplanation);
 
   return {
     ...corrected,
-    explanation: enforceNumCp005StudentExplanationPolicy(explanationInput, correctedExplanation),
+    explanation: enforceNumCp005StudentExplanationPolicy(explanationInput, renderingSafeExplanation),
   };
 }
 
