@@ -54,7 +54,7 @@ export function renderStudentFacingStem(entry: ProbabilityTaskRegistryEntry, p: 
     case "findMissingEventCountFromProbability":
       return tidy(`There are ${num(p, "total")} equally likely outcomes. The probability of selecting one of the ${text(p, "context", "favourable outcomes")} is ${frac(num(p, "probabilityNumerator"), num(p, "probabilityDenominator", 1))}. How many ${text(p, "context", "favourable outcomes")} are there?`);
     case "findTotalOutcomeCount":
-      return tidy(`${num(p, "favourable")} outcomes are ${text(p, "context", "favourable")}. If their probability is ${frac(num(p, "probabilityNumerator"), num(p, "probabilityDenominator", 1))}, how many equally likely outcomes are there in total?`);
+      return tidy(`A group contains ${num(p, "favourable")} ${text(p, "context", "favourable outcomes")}. If the probability of selecting one of them is ${frac(num(p, "probabilityNumerator"), num(p, "probabilityDenominator", 1))}, how many equally likely items are there in total?`);
     case "identifyImpossibleCertainOrPossibleEvent":
       return tidy(`One integer is chosen at random from 1 to ${num(p, "n")}. What is the probability that it is ${text(p, "eventLabel", eventName(event))}?`);
     case "findProbabilityFromSimpleFrequencyTable":

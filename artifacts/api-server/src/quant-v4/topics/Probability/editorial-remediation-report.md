@@ -4,13 +4,14 @@
 
 - Source QLs validated: **216**
 - Human-review questions regenerated: **135**
+- Unique visible review questions: **135/135**
 - PRB-001 review set: **75** questions using the SSC CGL/CHSL profile and four options
 - PRB-002 review set: **60** questions using the Banking Mains profile and five options
 - Average review explanation length: **15.8 words**
 
 ## Student-facing standard
 
-Questions now use direct exam language. Internal enum names, artificial template introductions, unused variables and invalid displayed probabilities are blocked. Singular and plural forms are rendered from the actual number. Difficulty is based on the number of reasoning steps rather than stem length.
+Questions now use direct exam language. Internal enum names, artificial template introductions, unused variables and invalid displayed probabilities are blocked. Singular and plural forms are rendered from the actual number. Difficulty is based on the number of reasoning steps rather than stem length. Exact duplicate visible questions are rejected during review generation; a different valid QL is substituted when necessary.
 
 Explanations follow a deliberately simple pattern:
 
