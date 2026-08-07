@@ -6,11 +6,16 @@ import { answerText, isProbability } from "./rational";
 function words(text: string): number { return text.trim().split(/\s+/).filter(Boolean).length; }
 function check(name: string, passed: boolean, message: string, blocker = true): ValidationCheck { return { name, passed, message: passed ? "passed" : message, blocker }; }
 function probabilityLiteralsAreValid(stem: string): boolean {
-  const pattern = /probability[^.?!]{0,100}?(?:is|=)\s*(-?\d+(?:\.\d+)?(?:\/\d+)?)/gi;
-  for (const match of stem.matchAll(pattern)) {
-    const raw = match[1]!;
-    const value = raw.includes("/") ? Number(raw.split("/")[0]) / Number(raw.split("/")[1]) : Number(raw);
-    if (!Number.isFinite(value) || value < 0 || value > 1) return false;
+  const patterns = [
+    /\bprobability\s*(?:is|=)\s*(-?\d+(?:\.\d+)?(?:\/\d+)?)/gi,
+    /\bP\([^)]*\)\s*=\s*(-?\d+(?:\.\d+)?(?:\/\d+)?)/g,
+  ];
+  for (const pattern of patterns) {
+    for (const match of stem.matchAll(pattern)) {
+      const raw = match[1]!;
+      const value = raw.includes("/") ? Number(raw.split("/")[0]) / Number(raw.split("/")[1]) : Number(raw);
+      if (!Number.isFinite(value) || value < 0 || value > 1) return false;
+    }
   }
   return true;
 }
@@ -78,7 +83,7 @@ export function validateProbabilityQuestion(args: {
     checks.push(check("valid-urn-state", red > 0 && blue > 0 && draws > 0 && draws <= red + blue, "Urn state or draw count is infeasible."));
   }
   if (entry.replacementPolicy !== "NOT_APPLICABLE") checks.push(check("replacement-clarity", /replacement|replaced|without replacement|with replacement/i.test(`${stem} ${solved.evidence.replacementReason ?? ""}`), "Replacement policy is not explicit."));
-  if (entry.orderPolicy !== "UNORDERED" && (experiment.stages.length > 1 || ["PRB-CP-006", "PRB-CP-008"].includes(entry.cpId))) checks.push(check("order-clarity", /first|second|successive|position|post|line|number|toss|one after another/i.test(`${stem} ${solved.evidence.sampleSpaceReason}`), "Order policy is not explicit."));
+  if (entry.orderPolicy !== "UNORDERED" && (experiment.stages.length > 1 || ["PRB-CP-006", "PRB-CP-008"].includes(entry.cpId))) checks.push(check("order-clarity", /first|second|successive|position|post|line|number|toss|one after another|two fair dice|dice are rolled together/i.test(`${stem} ${solved.evidence.sampleSpaceReason}`), "Order policy is not explicit."));
   if (entry.answerDimension === "COUNT") checks.push(check("count-answer", solved.answer.kind === "COUNT", "Registry expects a count answer."));
   else checks.push(check("probability-answer", solved.answer.kind === "PROBABILITY", "Registry expects a probability answer."));
 
