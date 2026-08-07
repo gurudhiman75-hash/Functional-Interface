@@ -14,6 +14,10 @@ import {
 import { ql065CalculationSafeFinal } from "./english-remediation-065-calculation-safe";
 import { buildNumCp005StudentExplanation } from "./student-friendly-explanations";
 import { enforceNumCp005StudentExplanationPolicy } from "./student-explanation-policy";
+import {
+  applyNumCp005ExplanationCorrections,
+  applyNumCp005QuestionCorrections,
+} from "./release-review-corrections";
 
 export function remediateNumCp005English(source) {
   let result;
@@ -45,19 +49,25 @@ export function remediateNumCp005English(source) {
     default: throw new Error(`Unsupported NUM-CP-005 QL: ${source.qlId}`);
   }
 
+  const corrected = applyNumCp005QuestionCorrections(source, result);
   const explanationInput = {
     qlId: source.qlId,
     seed: source.seed,
-    stem: result.stem,
-    hiddenState: source.hiddenState,
-    canonicalAnswer: result.canonicalAnswer,
-    options: result.options,
+    stem: corrected.stem,
+    hiddenState: corrected.hiddenState ?? source.hiddenState,
+    canonicalAnswer: corrected.canonicalAnswer,
+    options: corrected.options,
   };
-  const explanation = buildNumCp005StudentExplanation(explanationInput);
+  const initialExplanation = buildNumCp005StudentExplanation(explanationInput);
+  const correctedExplanation = applyNumCp005ExplanationCorrections(
+    explanationInput,
+    initialExplanation,
+    corrected.difficulty,
+  );
 
   return {
-    ...result,
-    explanation: enforceNumCp005StudentExplanationPolicy(explanationInput, explanation),
+    ...corrected,
+    explanation: enforceNumCp005StudentExplanationPolicy(explanationInput, correctedExplanation),
   };
 }
 
