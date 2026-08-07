@@ -78,7 +78,7 @@ for (const question of bank) {
   assert(!/\b(?:red|blue|green|white|black|amber|silver|gold)\b/i.test(learnerText));
   assert(!/\b(?:WRONG_|CLAIM_|BROKEN_CHAIN|TOKENS_SWAPPED|FIRST_TOKEN_WRONG|SECOND_TOKEN_WRONG)\b/.test(learnerText));
   assert(!/<strong>Therefore:<\/strong>\s*Therefore/i.test(learnerText));
-  assert(!/\bto make\s+[A-Z]+\s+is\b/i.test(question.stem));
+  assert(!/\b(?:and makes|that makes|that make|to make)\s+[A-Z]+\s+is\b/i.test(question.stem));
   assert(!/\binferred parent\b/i.test(learnerText));
 
   if (question.metadata.disposition === "FOUNDATION_PRACTICE") {
