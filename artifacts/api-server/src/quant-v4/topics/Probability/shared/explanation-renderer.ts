@@ -222,8 +222,9 @@ export function renderProbabilityExplanation(
     const tosses = n(parameters, "trials");
     const k = n(parameters, "k");
     const parts = Array.from({ length: k + 1 }, (_, heads) => `C(${tosses},${heads})`).join(" + ");
+    const range = k === 1 ? "0 or 1 head" : `0, 1, ..., ${k} heads`;
     return [
-      `At most ${k} heads means 0, 1, ..., ${k} heads. Required sequences = ${parts} = ${favourable ?? 0n}.`,
+      `At most ${k} ${plural(k, "head")} means ${range}. Required sequences = ${parts} = ${favourable ?? 0n}.`,
       probabilityCalculation(favourable ?? 0n, total ?? BigInt(2 ** tosses), solved.exactDisplay),
     ];
   }

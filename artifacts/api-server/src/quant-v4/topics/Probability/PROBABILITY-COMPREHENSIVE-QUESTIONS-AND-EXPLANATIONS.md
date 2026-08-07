@@ -29,7 +29,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 1 — PRB-QL-001 (Easy)
 
-**Question:** A box contains 15 tokens. Of these, 6 are marked. One is chosen at random. What is the probability of choosing a marked token?
+**Question:** A box contains 15 tokens, of which 6 are marked. One token is selected at random. What is the probability that it is marked?
 
 **Options:**
 
@@ -40,13 +40,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 2/5
 
-**Explanation:** Favourable outcomes = 6. Total outcomes = 15. Probability = 6/15 = 2/5.
+**Explanation:** There are 15 tokens in all, and 6 are marked. So the probability is 6/15 = 2/5.
 
 ---
 
 #### Question 2 — PRB-QL-002 (Easy)
 
-**Question:** There are 32 equally likely outcomes. The probability of selecting one of the qualified applicants is 1/2. How many qualified applicants are there?
+**Question:** One applicant is selected at random from 32 applicants. The probability that the applicant is qualified is 1/2. How many applicants are qualified?
 
 **Options:**
 
@@ -57,13 +57,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 16
 
-**Explanation:** Favourable outcomes = total outcomes × probability. 32 × 1/2 = 16.
+**Explanation:** Qualified applicants make up 1/2 of all 32 applicants. Required number = 32 × 1/2 = 16.
 
 ---
 
 #### Question 3 — PRB-QL-003 (Easy)
 
-**Question:** A group contains 18 red tokens. If the probability of selecting one of them is 1/2, how many equally likely items are there in total?
+**Question:** A bag contains 18 red tokens. If a token drawn at random is red with probability 1/2, how many tokens are in the bag?
 
 **Options:**
 
@@ -74,13 +74,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 36
 
-**Explanation:** Total outcomes = favourable outcomes ÷ probability. 18 ÷ 1/2 = 36.
+**Explanation:** 18 red tokens represent 1/2 of the full group. Total tokens = 18 ÷ 1/2 = 36.
 
 ---
 
 #### Question 4 — PRB-QL-004 (Easy)
 
-**Question:** One integer is chosen at random from 1 to 8. What is the probability that it is an integer not exceeding 8?
+**Question:** An integer is selected at random from 1 to 8. What is the probability that it is an integer not exceeding 8?
 
 **Options:**
 
@@ -91,13 +91,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1
 
-**Explanation:** Favourable outcomes = 8. Total outcomes = 8. Probability = 8/8 = 1.
+**Explanation:** Every integer from 1 to 8 satisfies the condition. So the probability is 8/8 = 1.
 
 ---
 
 #### Question 5 — PRB-QL-005 (Easy)
 
-**Question:** A box contains 5 red, 7 blue and 5 green tokens. One token is chosen at random. What is the probability that it is blue?
+**Question:** A box contains 5 red, 7 blue and 5 green tokens. One token is selected at random. What is the probability of selecting a blue token?
 
 **Options:**
 
@@ -108,13 +108,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 7/17
 
-**Explanation:** Favourable outcomes = 7. Total outcomes = 17. Probability = 7/17 = 7/17.
+**Explanation:** The box has 17 tokens altogether. 7 of them are blue. So the probability is 7/17.
 
 ---
 
 #### Question 6 — PRB-QL-006 (Easy)
 
-**Question:** There are 40 equally likely outcomes. The probability of selecting one of the winning tickets is 3/5. How many winning tickets are there?
+**Question:** A box contains 40 tickets. The probability of drawing a winning ticket is 3/5. How many winning tickets are in the box?
 
 **Options:**
 
@@ -125,13 +125,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 24
 
-**Explanation:** Favourable outcomes = total outcomes × probability. 40 × 3/5 = 24.
+**Explanation:** Winning tickets make up 3/5 of all 40 tickets. Required number = 40 × 3/5 = 24.
 
 ---
 
 #### Question 7 — PRB-QL-007 (Easy)
 
-**Question:** A box contains 24 counters. Of these, 14 are marked. One is chosen at random. What is the probability of choosing a marked counter?
+**Question:** A bag contains 24 counters, of which 14 are marked. One counter is selected at random. What is the probability that it is marked?
 
 **Options:**
 
@@ -142,13 +142,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 7/12
 
-**Explanation:** Favourable outcomes = 14. Total outcomes = 24. Probability = 14/24 = 7/12.
+**Explanation:** There are 24 counters in all, and 14 are marked. So the probability is 14/24 = 7/12.
 
 ---
 
 #### Question 8 — PRB-QL-008 (Easy)
 
-**Question:** There are 18 equally likely outcomes. The probability of selecting one of the defective bulbs is 1/2. How many defective bulbs are there?
+**Question:** A batch contains 18 bulbs. If one bulb is selected at random, the probability that it is defective is 1/2. How many bulbs are defective?
 
 **Options:**
 
@@ -159,13 +159,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 9
 
-**Explanation:** Favourable outcomes = total outcomes × probability. 18 × 1/2 = 9.
+**Explanation:** Defective bulbs make up 1/2 of all 18 bulbs. Required number = 18 × 1/2 = 9.
 
 ---
 
 #### Question 9 — PRB-QL-009 (Easy)
 
-**Question:** A group contains 16 red tokens. If the probability of selecting one of them is 8/9, how many equally likely items are there in total?
+**Question:** A bag contains 16 red tokens. If a token drawn at random is red with probability 8/9, how many tokens are in the bag?
 
 **Options:**
 
@@ -176,13 +176,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 18
 
-**Explanation:** Total outcomes = favourable outcomes ÷ probability. 16 ÷ 8/9 = 18.
+**Explanation:** 16 red tokens represent 8/9 of the full group. Total tokens = 16 ÷ 8/9 = 18.
 
 ---
 
 #### Question 10 — PRB-QL-010 (Easy)
 
-**Question:** One integer is chosen at random from 1 to 21. What is the probability that it is an integer not exceeding 21?
+**Question:** An integer is selected at random from 1 to 21. What is the probability that it is an integer not exceeding 21?
 
 **Options:**
 
@@ -193,13 +193,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1
 
-**Explanation:** Favourable outcomes = 21. Total outcomes = 21. Probability = 21/21 = 1.
+**Explanation:** Every integer from 1 to 21 satisfies the condition. So the probability is 21/21 = 1.
 
 ---
 
 #### Question 11 — PRB-QL-011 (Easy)
 
-**Question:** A box contains 8 red, 8 blue and 10 green tokens. One token is chosen at random. What is the probability that it is green?
+**Question:** A box contains 8 red, 8 blue and 10 green tokens. One token is selected at random. What is the probability of selecting a green token?
 
 **Options:**
 
@@ -210,13 +210,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 5/13
 
-**Explanation:** Favourable outcomes = 10. Total outcomes = 26. Probability = 10/26 = 5/13.
+**Explanation:** The box has 26 tokens altogether. 10 of them are green. So the probability is 10/26 = 5/13.
 
 ---
 
 #### Question 12 — PRB-QL-012 (Easy)
 
-**Question:** There are 72 equally likely outcomes. The probability of selecting one of the winning tickets is 7/12. How many winning tickets are there?
+**Question:** A box contains 72 tickets. The probability of drawing a winning ticket is 7/12. How many winning tickets are in the box?
 
 **Options:**
 
@@ -227,13 +227,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 42
 
-**Explanation:** Favourable outcomes = total outcomes × probability. 72 × 7/12 = 42.
+**Explanation:** Winning tickets make up 7/12 of all 72 tickets. Required number = 72 × 7/12 = 42.
 
 ---
 
 #### Question 13 — PRB-QL-013 (Easy)
 
-**Question:** A box contains 22 tickets. Of these, 2 are marked. One is chosen at random. What is the probability of choosing a marked ticket?
+**Question:** A box contains 22 tickets, of which 2 are marked. One ticket is selected at random. What is the probability that it is marked?
 
 **Options:**
 
@@ -244,13 +244,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/11
 
-**Explanation:** Favourable outcomes = 2. Total outcomes = 22. Probability = 2/22 = 1/11.
+**Explanation:** There are 22 tickets in all, and 2 are marked. So the probability is 2/22 = 1/11.
 
 ---
 
 #### Question 14 — PRB-QL-014 (Easy)
 
-**Question:** There are 54 equally likely outcomes. The probability of selecting one of the qualified applicants is 2/3. How many qualified applicants are there?
+**Question:** One applicant is selected at random from 54 applicants. The probability that the applicant is qualified is 2/3. How many applicants are qualified?
 
 **Options:**
 
@@ -261,13 +261,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 36
 
-**Explanation:** Favourable outcomes = total outcomes × probability. 54 × 2/3 = 36.
+**Explanation:** Qualified applicants make up 2/3 of all 54 applicants. Required number = 54 × 2/3 = 36.
 
 ---
 
 #### Question 15 — PRB-QL-015 (Easy)
 
-**Question:** A group contains 28 selected files. If the probability of selecting one of them is 7/11, how many equally likely items are there in total?
+**Question:** A folder contains 28 approved applications. If an application selected at random is approved with probability 7/11, how many applications are in the folder?
 
 **Options:**
 
@@ -278,7 +278,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 44
 
-**Explanation:** Total outcomes = favourable outcomes ÷ probability. 28 ÷ 7/11 = 44.
+**Explanation:** 28 approved files represent 7/11 of the full group. Total files = 28 ÷ 7/11 = 44.
 
 ---
 
@@ -286,7 +286,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 16 — PRB-QL-101 (Easy)
 
-**Question:** The probability that a candidate qualifies is 1/13. What is the probability that it does not happen?
+**Question:** The probability that a candidate qualifies is 1/13. What is the probability that the candidate does not qualify?
 
 **Options:**
 
@@ -297,13 +297,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 12/13
 
-**Explanation:** The event and its opposite add up to 1. Required probability = 1 - 1/13 = 12/13.
+**Explanation:** An event and its opposite have total probability 1. Required probability = 1 - 1/13 = 12/13.
 
 ---
 
 #### Question 17 — PRB-QL-103 (Easy)
 
-**Question:** A fair coin is tossed 2 times. What is the probability of getting no head?
+**Question:** A fair coin is tossed 2 times. What is the probability of getting no heads?
 
 **Options:**
 
@@ -314,13 +314,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/4
 
-**Explanation:** Only one sequence has no head: all tails. Probability = 1/4 = 1/4.
+**Explanation:** No heads means every toss must be a tail. Only TT works. Out of 4 sequences, 1 works. So the probability is 1/4.
 
 ---
 
 #### Question 18 — PRB-QL-108 (Easy)
 
-**Question:** The probability that a candidate qualifies is 1/3. What is the probability that it does not happen?
+**Question:** The probability that a candidate qualifies is 1/3. What is the probability that the candidate does not qualify?
 
 **Options:**
 
@@ -331,13 +331,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 2/3
 
-**Explanation:** The event and its opposite add up to 1. Required probability = 1 - 1/3 = 2/3.
+**Explanation:** An event and its opposite have total probability 1. Required probability = 1 - 1/3 = 2/3.
 
 ---
 
 #### Question 19 — PRB-QL-110 (Easy)
 
-**Question:** A fair coin is tossed 3 times. What is the probability of getting no head?
+**Question:** A fair coin is tossed 3 times. What is the probability of getting no heads?
 
 **Options:**
 
@@ -348,13 +348,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/8
 
-**Explanation:** Only one sequence has no head: all tails. Probability = 1/8 = 1/8.
+**Explanation:** No heads means every toss must be a tail. Only TTT works. Out of 8 sequences, 1 works. So the probability is 1/8.
 
 ---
 
 #### Question 20 — PRB-QL-115 (Easy)
 
-**Question:** The probability that a train arrives on time is 5/11. What is the probability that it does not happen?
+**Question:** The probability that a train arrives on time is 5/11. What is the probability that the train does not arrive on time?
 
 **Options:**
 
@@ -365,7 +365,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 6/11
 
-**Explanation:** The event and its opposite add up to 1. Required probability = 1 - 5/11 = 6/11.
+**Explanation:** An event and its opposite have total probability 1. Required probability = 1 - 5/11 = 6/11.
 
 ---
 
@@ -382,7 +382,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 15/16
 
-**Explanation:** It is easier to subtract the case of no head. P(at least one head) = 1 - 1/16 = 15/16.
+**Explanation:** It is easier to remove the one case with no heads: all tails. P(at least one head) = 1 - 1/16 = 15/16.
 
 ---
 
@@ -399,7 +399,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 3/8
 
-**Explanation:** Total coin-toss sequences = 2^3 = 8. Required sequences = 3. Probability = 3/8 = 3/8.
+**Explanation:** Choose which 1 of the 3 tosses are heads: C(3,1) = 3 ways. There are 8 H/T sequences. So the probability is 3/8.
 
 ---
 
@@ -416,7 +416,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 3/8
 
-**Explanation:** Total coin-toss sequences = 2^3 = 8. Required sequences = 3. Probability = 3/8 = 3/8.
+**Explanation:** Choose which 1 of the 3 tosses are heads: C(3,1) = 3 ways. There are 8 H/T sequences. So the probability is 3/8.
 
 ---
 
@@ -433,7 +433,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 11/16
 
-**Explanation:** Total coin-toss sequences = 2^4 = 16. Required sequences = 11. Probability = 11/16 = 11/16.
+**Explanation:** At most 2 heads means 0, 1, ..., 2 heads. Required sequences = C(4,0) + C(4,1) + C(4,2) = 11. So the probability is 11/16.
 
 ---
 
@@ -450,13 +450,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/8
 
-**Explanation:** Total coin-toss sequences = 2^4 = 16. Required sequences = 2. Probability = 2/16 = 1/8.
+**Explanation:** All tosses show the same face only for all heads or all tails: 2 sequences. So the probability is 2/16 = 1/8.
 
 ---
 
 #### Question 26 — PRB-QL-122 (Easy)
 
-**Question:** The probability that a machine passes inspection is 6/11. What is the probability that it does not happen?
+**Question:** The probability that a machine passes inspection is 6/11. What is the probability that the machine fails the inspection?
 
 **Options:**
 
@@ -467,7 +467,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 5/11
 
-**Explanation:** The event and its opposite add up to 1. Required probability = 1 - 6/11 = 5/11.
+**Explanation:** An event and its opposite have total probability 1. Required probability = 1 - 6/11 = 5/11.
 
 ---
 
@@ -484,7 +484,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 7/8
 
-**Explanation:** It is easier to subtract the case of no head. P(at least one head) = 1 - 1/8 = 7/8.
+**Explanation:** It is easier to remove the one case with no heads: all tails. P(at least one head) = 1 - 1/8 = 7/8.
 
 ---
 
@@ -501,7 +501,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/4
 
-**Explanation:** Total coin-toss sequences = 2^4 = 16. Required sequences = 4. Probability = 4/16 = 1/4.
+**Explanation:** Choose which 1 of the 4 tosses are heads: C(4,1) = 4 ways. There are 16 H/T sequences. So the probability is 4/16 = 1/4.
 
 ---
 
@@ -518,7 +518,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 3/8
 
-**Explanation:** Total coin-toss sequences = 2^3 = 8. Required sequences = 3. Probability = 3/8 = 3/8.
+**Explanation:** Choose which 2 of the 3 tosses are heads: C(3,2) = 3 ways. There are 8 H/T sequences. So the probability is 3/8.
 
 ---
 
@@ -535,7 +535,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 7/8
 
-**Explanation:** Total coin-toss sequences = 2^3 = 8. Required sequences = 7. Probability = 7/8 = 7/8.
+**Explanation:** At most 2 heads means 0, 1, ..., 2 heads. Required sequences = C(3,0) + C(3,1) + C(3,2) = 7. So the probability is 7/8.
 
 ---
 
@@ -543,7 +543,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 31 — PRB-QL-201 (Easy)
 
-**Question:** A fair coin is tossed 2 times. What is the probability of getting the exact sequence TT?
+**Question:** A fair coin is tossed 2 times. What is the probability of obtaining the sequence TT?
 
 **Options:**
 
@@ -554,13 +554,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/4
 
-**Explanation:** Total coin-toss sequences = 2^2 = 4. Required sequences = 1. Probability = 1/4 = 1/4.
+**Explanation:** TT is one exact sequence among 4 possible H/T sequences. So the probability is 1/4.
 
 ---
 
 #### Question 32 — PRB-QL-203 (Easy)
 
-**Question:** A fair six-sided die is rolled once. What is the probability of getting a number that is prime?
+**Question:** A fair die is rolled once. What is the probability of rolling a number that is prime?
 
 **Options:**
 
@@ -571,13 +571,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 1/2
 
-**Explanation:** Total possible outcomes = 6. Favourable outcomes = 3. Probability = 3/6 = 1/2.
+**Explanation:** The favourable faces are 2, 3, 5; there are 3. So the probability is 3/6 = 1/2.
 
 ---
 
 #### Question 33 — PRB-QL-206 (Easy)
 
-**Question:** A fair spinner has 6 equal sectors, of which 2 are shaded. What is the probability of landing on a shaded sector?
+**Question:** A spinner has 6 equal sectors, of which 2 are shaded. If it is spun once, what is the probability that it stops on a shaded sector?
 
 **Options:**
 
@@ -588,13 +588,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 1/3
 
-**Explanation:** Total possible outcomes = 6. Favourable outcomes = 2. Probability = 2/6 = 1/3.
+**Explanation:** 2 of the 6 equal sectors are shaded. So the probability is 2/6 = 1/3.
 
 ---
 
 #### Question 34 — PRB-QL-208 (Easy)
 
-**Question:** A fair spinner has 16 equal sectors. The probability of landing on a marked sector is 7/8. How many sectors are marked?
+**Question:** A spinner has 16 equal sectors. The probability that it stops on a marked sector is 7/8. How many sectors are marked?
 
 **Options:**
 
@@ -605,13 +605,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 14
 
-**Explanation:** Marked sectors = total sectors × probability. 16 × 7/8 = 14.
+**Explanation:** The marked part is 7/8 of all 16 sectors. Marked sectors = 16 × 7/8 = 14.
 
 ---
 
 #### Question 35 — PRB-QL-209 (Easy)
 
-**Question:** A fair coin is tossed 2 times. What is the probability of getting the exact sequence TH?
+**Question:** A fair coin is tossed 2 times. What is the probability of obtaining the sequence TH?
 
 **Options:**
 
@@ -622,7 +622,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/4
 
-**Explanation:** Total coin-toss sequences = 2^2 = 4. Required sequences = 1. Probability = 1/4 = 1/4.
+**Explanation:** TH is one exact sequence among 4 possible H/T sequences. So the probability is 1/4.
 
 ---
 
@@ -639,13 +639,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/2
 
-**Explanation:** Total coin-toss sequences = 2^2 = 4. Required sequences = 2. Probability = 2/4 = 1/2.
+**Explanation:** Choose which 1 of the 2 tosses are heads: C(2,1) = 2 ways. There are 4 H/T sequences. So the probability is 2/4 = 1/2.
 
 ---
 
 #### Question 37 — PRB-QL-204 (Medium)
 
-**Question:** Two fair dice are rolled together. What is the probability that their sum is 5?
+**Question:** Two fair dice are rolled. What is the probability that the sum of the numbers obtained is 5?
 
 **Options:**
 
@@ -656,13 +656,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 1/9
 
-**Explanation:** Total possible outcomes = 36. Favourable outcomes = 4. Probability = 4/36 = 1/9.
+**Explanation:** Two dice have 6 × 6 = 36 ordered outcomes. The pairs with sum 5 are (1,4), (2,3), (3,2), (4,1). So the probability is 4/36 = 1/9.
 
 ---
 
 #### Question 38 — PRB-QL-205 (Medium)
 
-**Question:** Two fair dice are rolled together. What is the probability that both numbers have the same parity?
+**Question:** Two fair dice are rolled. What is the probability that both numbers are even or both are odd?
 
 **Options:**
 
@@ -673,13 +673,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/2
 
-**Explanation:** Total possible outcomes = 36. Favourable outcomes = 18. Probability = 18/36 = 1/2.
+**Explanation:** Both numbers are even in 3 × 3 ways and both are odd in 3 × 3 ways: 18 ways. So the probability is 18/36 = 1/2.
 
 ---
 
 #### Question 39 — PRB-QL-207 (Medium)
 
-**Question:** One integer is chosen at random from 1 to 32, inclusive. What is the probability that it is prime?
+**Question:** An integer is selected at random from 1 to 32. What is the probability that it is prime?
 
 **Options:**
 
@@ -690,7 +690,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 11/32
 
-**Explanation:** Total possible outcomes = 32. Favourable outcomes = 11. Probability = 11/32 = 11/32.
+**Explanation:** There are 11 prime numbers from 1 to 32. So the probability is 11/32.
 
 ---
 
@@ -707,13 +707,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 1/4
 
-**Explanation:** Total coin-toss sequences = 2^4 = 16. Required sequences = 4. Probability = 4/16 = 1/4.
+**Explanation:** Choose which 3 of the 4 tosses are heads: C(4,3) = 4 ways. There are 16 H/T sequences. So the probability is 4/16 = 1/4.
 
 ---
 
 #### Question 41 — PRB-QL-211 (Easy)
 
-**Question:** A fair six-sided die is rolled once. What is the probability of getting a number that is greater than 4?
+**Question:** A fair die is rolled once. What is the probability of rolling a number that is greater than 4?
 
 **Options:**
 
@@ -724,13 +724,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/3
 
-**Explanation:** Total possible outcomes = 6. Favourable outcomes = 2. Probability = 2/6 = 1/3.
+**Explanation:** The favourable faces are 5, 6; there are 2. So the probability is 2/6 = 1/3.
 
 ---
 
 #### Question 42 — PRB-QL-214 (Easy)
 
-**Question:** A fair spinner has 12 equal sectors, of which 6 are shaded. What is the probability of landing on a shaded sector?
+**Question:** A spinner has 12 equal sectors, of which 6 are shaded. If it is spun once, what is the probability that it stops on a shaded sector?
 
 **Options:**
 
@@ -741,13 +741,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/2
 
-**Explanation:** Total possible outcomes = 12. Favourable outcomes = 6. Probability = 6/12 = 1/2.
+**Explanation:** 6 of the 12 equal sectors are shaded. So the probability is 6/12 = 1/2.
 
 ---
 
 #### Question 43 — PRB-QL-216 (Easy)
 
-**Question:** A fair spinner has 12 equal sectors. The probability of landing on a marked sector is 1/3. How many sectors are marked?
+**Question:** A spinner has 12 equal sectors. The probability that it stops on a marked sector is 1/3. How many sectors are marked?
 
 **Options:**
 
@@ -758,13 +758,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 4
 
-**Explanation:** Marked sectors = total sectors × probability. 12 × 1/3 = 4.
+**Explanation:** The marked part is 1/3 of all 12 sectors. Marked sectors = 12 × 1/3 = 4.
 
 ---
 
 #### Question 44 — PRB-QL-217 (Easy)
 
-**Question:** A fair coin is tossed 3 times. What is the probability of getting the exact sequence TTT?
+**Question:** A fair coin is tossed 3 times. What is the probability of obtaining the sequence TTT?
 
 **Options:**
 
@@ -775,13 +775,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/8
 
-**Explanation:** Total coin-toss sequences = 2^3 = 8. Required sequences = 1. Probability = 1/8 = 1/8.
+**Explanation:** TTT is one exact sequence among 8 possible H/T sequences. So the probability is 1/8.
 
 ---
 
 #### Question 45 — PRB-QL-219 (Easy)
 
-**Question:** A fair six-sided die is rolled once. What is the probability of getting a number that is even?
+**Question:** A fair die is rolled once. What is the probability of rolling a number that is even?
 
 **Options:**
 
@@ -792,7 +792,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 1/2
 
-**Explanation:** Total possible outcomes = 6. Favourable outcomes = 3. Probability = 3/6 = 1/2.
+**Explanation:** The favourable faces are 2, 4, 6; there are 3. So the probability is 3/6 = 1/2.
 
 ---
 
@@ -800,7 +800,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 46 — PRB-QL-301 (Easy)
 
-**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability that it is a queen?
+**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability of drawing a queen?
 
 **Options:**
 
@@ -811,13 +811,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/13
 
-**Explanation:** A standard deck has 52 cards. Cards satisfying the condition = 4. Probability = 4/52 = 1/13.
+**Explanation:** There are 4 queens, one in each suit. So the probability is 4/52 = 1/13.
 
 ---
 
 #### Question 47 — PRB-QL-302 (Easy)
 
-**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability that it is a spades card?
+**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability of drawing a spade?
 
 **Options:**
 
@@ -828,13 +828,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/4
 
-**Explanation:** A standard deck has 52 cards. Cards satisfying the condition = 13. Probability = 13/52 = 1/4.
+**Explanation:** A spade suit contains 13 cards. So the probability is 13/52 = 1/4.
 
 ---
 
 #### Question 48 — PRB-QL-303 (Easy)
 
-**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability that it is red?
+**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability of drawing a red card?
 
 **Options:**
 
@@ -845,13 +845,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/2
 
-**Explanation:** A standard deck has 52 cards. Cards satisfying the condition = 26. Probability = 26/52 = 1/2.
+**Explanation:** The deck has 26 red cards. So the probability is 26/52 = 1/2.
 
 ---
 
 #### Question 49 — PRB-QL-304 (Easy)
 
-**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability that it is a face card?
+**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability of drawing a face card?
 
 **Options:**
 
@@ -862,13 +862,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 3/13
 
-**Explanation:** A standard deck has 52 cards. Cards satisfying the condition = 12. Probability = 12/52 = 3/13.
+**Explanation:** Each suit has a jack, queen and king, so there are 3 × 4 = 12 face cards. So the probability is 12/52 = 3/13.
 
 ---
 
 #### Question 50 — PRB-QL-307 (Easy)
 
-**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability that it is the jack of clubs?
+**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability of drawing the jack of clubs?
 
 **Options:**
 
@@ -879,13 +879,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/52
 
-**Explanation:** A standard deck has 52 cards. Cards satisfying the condition = 1. Probability = 1/52 = 1/52.
+**Explanation:** Only one card is both the jack and a club: the jack of clubs. So the probability is 1/52.
 
 ---
 
 #### Question 51 — PRB-QL-305 (Medium)
 
-**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability that it is a ace or a hearts card?
+**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability of drawing a ace or a heart?
 
 **Options:**
 
@@ -896,13 +896,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 4/13
 
-**Explanation:** Add the rank cards and suit cards, then subtract the one card counted twice. Favourable cards = 16. Probability = 16/52 = 4/13.
+**Explanation:** There are 4 aces and 13 hearts. The ace of hearts is counted twice, so subtract 1. Required cards = 4 + 13 - 1 = 16. So the probability is 16/52 = 4/13.
 
 ---
 
 #### Question 52 — PRB-QL-306 (Medium)
 
-**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability that it is not a clubs card?
+**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability of drawing not a club?
 
 **Options:**
 
@@ -913,13 +913,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 3/4
 
-**Explanation:** Cards not in the named suit = 52 - 13 = 39. Probability = 39/52 = 3/4.
+**Explanation:** A deck has 13 clubs, so cards that are not clubs = 52 - 13 = 39. So the probability is 39/52 = 3/4.
 
 ---
 
 #### Question 53 — PRB-QL-313 (Medium)
 
-**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability that it is a jack or a hearts card?
+**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability of drawing a jack or a heart?
 
 **Options:**
 
@@ -930,13 +930,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 4/13
 
-**Explanation:** Add the rank cards and suit cards, then subtract the one card counted twice. Favourable cards = 16. Probability = 16/52 = 4/13.
+**Explanation:** There are 4 jacks and 13 hearts. The jack of hearts is counted twice, so subtract 1. Required cards = 4 + 13 - 1 = 16. So the probability is 16/52 = 4/13.
 
 ---
 
 #### Question 54 — PRB-QL-314 (Medium)
 
-**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability that it is not a spades card?
+**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability of drawing not a spade?
 
 **Options:**
 
@@ -947,13 +947,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 3/4
 
-**Explanation:** Cards not in the named suit = 52 - 13 = 39. Probability = 39/52 = 3/4.
+**Explanation:** A deck has 13 spades, so cards that are not spades = 52 - 13 = 39. So the probability is 39/52 = 3/4.
 
 ---
 
 #### Question 55 — PRB-QL-321 (Medium)
 
-**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability that it is a queen or a diamonds card?
+**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability of drawing a queen or a diamond?
 
 **Options:**
 
@@ -964,13 +964,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 4/13
 
-**Explanation:** Add the rank cards and suit cards, then subtract the one card counted twice. Favourable cards = 16. Probability = 16/52 = 4/13.
+**Explanation:** There are 4 queens and 13 diamonds. The queen of diamonds is counted twice, so subtract 1. Required cards = 4 + 13 - 1 = 16. So the probability is 16/52 = 4/13.
 
 ---
 
 #### Question 56 — PRB-QL-308 (Easy)
 
-**Question:** In a standard deck of 52 cards, the probability of drawing a ace is 1/13. How many cards satisfy this condition?
+**Question:** In a standard deck, the probability of drawing a ace is 1/13. How many cards satisfy this condition?
 
 **Options:**
 
@@ -981,13 +981,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 4
 
-**Explanation:** Required cards = 52 × given probability. Required cards = 4.
+**Explanation:** The required cards form 1/13 of the 52-card deck. Required cards = 52 × 1/13 = 4.
 
 ---
 
 #### Question 57 — PRB-QL-309 (Easy)
 
-**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability that it is a jack?
+**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability of drawing a jack?
 
 **Options:**
 
@@ -998,13 +998,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 1/13
 
-**Explanation:** A standard deck has 52 cards. Cards satisfying the condition = 4. Probability = 4/52 = 1/13.
+**Explanation:** There are 4 jacks, one in each suit. So the probability is 4/52 = 1/13.
 
 ---
 
 #### Question 58 — PRB-QL-310 (Easy)
 
-**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability that it is a clubs card?
+**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability of drawing a club?
 
 **Options:**
 
@@ -1015,13 +1015,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/4
 
-**Explanation:** A standard deck has 52 cards. Cards satisfying the condition = 13. Probability = 13/52 = 1/4.
+**Explanation:** A club suit contains 13 cards. So the probability is 13/52 = 1/4.
 
 ---
 
 #### Question 59 — PRB-QL-311 (Easy)
 
-**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability that it is black?
+**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability of drawing a black card?
 
 **Options:**
 
@@ -1032,13 +1032,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/2
 
-**Explanation:** A standard deck has 52 cards. Cards satisfying the condition = 26. Probability = 26/52 = 1/2.
+**Explanation:** The deck has 26 black cards. So the probability is 26/52 = 1/2.
 
 ---
 
 #### Question 60 — PRB-QL-315 (Easy)
 
-**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability that it is the jack of hearts?
+**Question:** One card is drawn at random from a standard deck of 52 cards. What is the probability of drawing the jack of hearts?
 
 **Options:**
 
@@ -1049,7 +1049,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 1/52
 
-**Explanation:** A standard deck has 52 cards. Cards satisfying the condition = 1. Probability = 1/52 = 1/52.
+**Explanation:** Only one card is both the jack and a heart: the jack of hearts. So the probability is 1/52.
 
 ---
 
@@ -1068,7 +1068,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/2
 
-**Explanation:** Total balls = 4 + 4 = 8. Probability of red = 4/8 = 1/2.
+**Explanation:** The bag has 8 balls, of which 4 are red. So the probability is 4/8 = 1/2.
 
 ---
 
@@ -1085,7 +1085,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 8
 
-**Explanation:** Red balls = total balls × probability. Red balls = 8.
+**Explanation:** Red balls form 8/13 of all 13 balls. Red balls = 13 × 8/13 = 8.
 
 ---
 
@@ -1102,7 +1102,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 6/11
 
-**Explanation:** Total balls = 6 + 5 = 11. Probability of red = 6/11 = 6/11.
+**Explanation:** The bag has 11 balls, of which 6 are red. So the probability is 6/11.
 
 ---
 
@@ -1119,7 +1119,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 9
 
-**Explanation:** Red balls = total balls × probability. Red balls = 9.
+**Explanation:** Red balls form 9/16 of all 16 balls. Red balls = 16 × 9/16 = 9.
 
 ---
 
@@ -1136,13 +1136,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 2/3
 
-**Explanation:** Total balls = 8 + 4 = 12. Probability of red = 8/12 = 2/3.
+**Explanation:** The bag has 12 balls, of which 8 are red. So the probability is 8/12 = 2/3.
 
 ---
 
 #### Question 66 — PRB-QL-402 (Medium)
 
-**Question:** A bag contains 8 red and 5 blue balls. 2 balls are drawn together without replacement. What is the probability that all drawn balls are of the same colour?
+**Question:** A bag contains 8 red and 5 blue balls. 2 balls are drawn together without replacement. What is the probability that all the drawn balls are of the same colour?
 
 **Options:**
 
@@ -1153,13 +1153,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 19/39
 
-**Explanation:** Total selections = 78. Required selections = 38. Probability = 38/78 = 19/39.
+**Explanation:** Total selections = C(13,2) = 78. All one colour: C(8,2) + C(5,2) = 38. So the probability is 38/78 = 19/39.
 
 ---
 
 #### Question 67 — PRB-QL-403 (Medium)
 
-**Question:** A bag contains 8 red and 5 blue balls. 2 balls are drawn together without replacement. What is the probability that both colours are represented?
+**Question:** A bag contains 8 red and 5 blue balls. Two balls are drawn together without replacement. What is the probability of drawing one red and one blue ball?
 
 **Options:**
 
@@ -1170,13 +1170,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 20/39
 
-**Explanation:** Total selections = 78. Required selections = 40. Probability = 40/78 = 20/39.
+**Explanation:** Total selections = C(13,2) = 78. Use all selections minus all-red and all-blue selections: 78 - C(8,2) - C(5,2) = 40. So the probability is 40/78 = 20/39.
 
 ---
 
 #### Question 68 — PRB-QL-404 (Medium)
 
-**Question:** A bag contains 8 red and 8 blue balls. 2 balls are drawn together without replacement. What is the probability that exactly 1 ball is red?
+**Question:** A bag contains 8 red and 8 blue balls. 2 balls are drawn together without replacement. What is the probability that exactly 1 of the drawn balls is red?
 
 **Options:**
 
@@ -1187,13 +1187,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 8/15
 
-**Explanation:** Total selections = 120. Required selections = 64. Probability = 64/120 = 8/15.
+**Explanation:** Total selections = C(16,2) = 120. Choose 1 red and 1 blue: C(8,1) × C(8,1) = 64. So the probability is 64/120 = 8/15.
 
 ---
 
 #### Question 69 — PRB-QL-405 (Medium)
 
-**Question:** A bag contains 4 red and 7 blue balls. 2 balls are drawn together without replacement. What is the probability that no red ball is drawn?
+**Question:** A bag contains 4 red and 7 blue balls. 2 balls are drawn together without replacement. What is the probability that all the drawn balls are blue?
 
 **Options:**
 
@@ -1204,7 +1204,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 21/55
 
-**Explanation:** Total selections = 55. Required selections = 21. Probability = 21/55 = 21/55.
+**Explanation:** Total selections = C(11,2) = 55. No red means all 2 balls are blue: C(7,2) = 21. So the probability is 21/55.
 
 ---
 
@@ -1221,7 +1221,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 23/35
 
-**Explanation:** Total selections = 105. Required selections = 69. Probability = 69/105 = 23/35.
+**Explanation:** Total selections = C(15,2) = 105. Subtract the all-blue selections: 105 - C(9,2) = 69. So the probability is 69/105 = 23/35.
 
 ---
 
@@ -1238,7 +1238,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 9
 
-**Explanation:** Red balls = total balls × probability. Red balls = 9.
+**Explanation:** Red balls form 3/5 of all 15 balls. Red balls = 15 × 3/5 = 9.
 
 ---
 
@@ -1255,13 +1255,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 5/14
 
-**Explanation:** Total balls = 5 + 9 = 14. Probability of red = 5/14 = 5/14.
+**Explanation:** The bag has 14 balls, of which 5 are red. So the probability is 5/14.
 
 ---
 
 #### Question 73 — PRB-QL-408 (Medium)
 
-**Question:** A bag contains 6 red and 4 blue balls. 2 balls are drawn together without replacement. What is the probability that exactly 1 ball is red?
+**Question:** A bag contains 6 red and 4 blue balls. 2 balls are drawn together without replacement. What is the probability that exactly 1 of the drawn balls is red?
 
 **Options:**
 
@@ -1272,13 +1272,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 8/15
 
-**Explanation:** Total selections = 45. Required selections = 24. Probability = 24/45 = 8/15.
+**Explanation:** Total selections = C(10,2) = 45. Choose 1 red and 1 blue: C(6,1) × C(4,1) = 24. So the probability is 24/45 = 8/15.
 
 ---
 
 #### Question 74 — PRB-QL-410 (Medium)
 
-**Question:** A bag contains 4 red and 8 blue balls. 2 balls are drawn together without replacement. What is the probability that all drawn balls are of the same colour?
+**Question:** A bag contains 4 red and 8 blue balls. 2 balls are drawn together without replacement. What is the probability that all the drawn balls are of the same colour?
 
 **Options:**
 
@@ -1289,13 +1289,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 17/33
 
-**Explanation:** Total selections = 66. Required selections = 34. Probability = 34/66 = 17/33.
+**Explanation:** Total selections = C(12,2) = 66. All one colour: C(4,2) + C(8,2) = 34. So the probability is 34/66 = 17/33.
 
 ---
 
 #### Question 75 — PRB-QL-411 (Medium)
 
-**Question:** A bag contains 4 red and 7 blue balls. 2 balls are drawn together without replacement. What is the probability that both colours are represented?
+**Question:** A bag contains 4 red and 7 blue balls. Two balls are drawn together without replacement. What is the probability of drawing one red and one blue ball?
 
 **Options:**
 
@@ -1306,7 +1306,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 28/55
 
-**Explanation:** Total selections = 55. Required selections = 28. Probability = 28/55 = 28/55.
+**Explanation:** Total selections = C(11,2) = 55. Use all selections minus all-red and all-blue selections: 55 - C(4,2) - C(7,2) = 28. So the probability is 28/55.
 
 ---
 
@@ -1318,7 +1318,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 76 — PRB-QL-501 (Medium)
 
-**Question:** A bag contains 6 red and 8 blue balls. A ball is drawn, replaced, and another ball is drawn. What is the probability that both balls are red?
+**Question:** A bag contains 6 red and 8 blue balls. One ball is drawn and replaced before a second ball is drawn. What is the probability that both balls are red?
 
 **Options:**
 
@@ -1330,13 +1330,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 9/49
 
-**Explanation:** With replacement, the bag is unchanged after the first draw. Probability = 6/14 × 6/14 = 9/49.
+**Explanation:** Because the first ball is replaced, the chance of red stays 6/14 on both draws. P(both red) = 6/14 × 6/14 = 9/49.
 
 ---
 
 #### Question 77 — PRB-QL-502 (Medium)
 
-**Question:** A bag contains 7 red and 5 blue balls. Two balls are drawn one after another without replacement. What is the probability that both are red?
+**Question:** A bag contains 7 red and 5 blue balls. Two balls are drawn successively without replacement. What is the probability that both balls are red?
 
 **Options:**
 
@@ -1348,13 +1348,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 7/22
 
-**Explanation:** After one red ball is drawn, 6 red balls remain out of 11. Probability = 7/12 × 6/11 = 7/22.
+**Explanation:** After drawing one red ball, 6 red balls remain among 11 balls. P(both red) = 7/12 × 6/11 = 7/22.
 
 ---
 
 #### Question 78 — PRB-QL-503 (Medium)
 
-**Question:** A bag contains 9 red and 4 blue balls. A ball is drawn, replaced, and another ball is drawn. What is the probability that both balls are red?
+**Question:** A bag contains 9 red and 4 blue balls. One ball is drawn and replaced before a second ball is drawn. What is the probability that both balls are red?
 
 **Options:**
 
@@ -1366,13 +1366,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 81/169
 
-**Explanation:** With replacement, the bag is unchanged after the first draw. Probability = 9/13 × 9/13 = 81/169.
+**Explanation:** Because the first ball is replaced, the chance of red stays 9/13 on both draws. P(both red) = 9/13 × 9/13 = 81/169.
 
 ---
 
 #### Question 79 — PRB-QL-504 (Medium)
 
-**Question:** A bag contains 9 red and 9 blue balls. Two balls are drawn one after another without replacement. What is the probability that both are red?
+**Question:** A bag contains 9 red and 9 blue balls. Two balls are drawn successively without replacement. What is the probability that both balls are red?
 
 **Options:**
 
@@ -1384,13 +1384,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 4/17
 
-**Explanation:** After one red ball is drawn, 8 red balls remain out of 17. Probability = 9/18 × 8/17 = 4/17.
+**Explanation:** After drawing one red ball, 8 red balls remain among 17 balls. P(both red) = 9/18 × 8/17 = 4/17.
 
 ---
 
 #### Question 80 — PRB-QL-505 (Medium)
 
-**Question:** A bag contains 8 red and 7 blue balls. Two balls are drawn one after another without replacement. What is the probability of drawing a red ball first and a blue ball second?
+**Question:** A bag contains 8 red and 7 blue balls. Two balls are drawn successively without replacement. What is the probability of drawing a red ball followed by a blue ball?
 
 **Options:**
 
@@ -1402,13 +1402,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 4/15
 
-**Explanation:** First draw red, then draw blue from the remaining balls. Probability = 8/15 × 7/14 = 4/15.
+**Explanation:** The first draw must be red; then 7 blue balls remain among 14 balls. P(red then blue) = 8/15 × 7/14 = 4/15.
 
 ---
 
 #### Question 81 — PRB-QL-506 (Medium)
 
-**Question:** A bag contains 5 red and 7 blue balls. Two balls are drawn one after another without replacement. What is the probability that both balls are of the same colour?
+**Question:** A bag contains 5 red and 7 blue balls. Two balls are drawn successively without replacement. What is the probability that both balls have the same colour?
 
 **Options:**
 
@@ -1420,13 +1420,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 31/66
 
-**Explanation:** Add the valid colour orders. Probability = 62/132 = 31/66.
+**Explanation:** Same colour means red-red or blue-blue. P = 5/12 × 4/11 + 7/12 × 6/11 = 31/66.
 
 ---
 
 #### Question 82 — PRB-QL-507 (Medium)
 
-**Question:** A bag contains 9 red and 8 blue balls. Two balls are drawn one after another without replacement. What is the probability that the balls are of different colours?
+**Question:** A bag contains 9 red and 8 blue balls. Two balls are drawn successively without replacement. What is the probability that the two balls have different colours?
 
 **Options:**
 
@@ -1438,13 +1438,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 9/17
 
-**Explanation:** Add the valid colour orders. Probability = 144/272 = 9/17.
+**Explanation:** Different colours means red-blue or blue-red. P = 9/17 × 8/16 + 8/17 × 9/16 = 9/17.
 
 ---
 
 #### Question 83 — PRB-QL-508 (Medium)
 
-**Question:** A bag contains 4 red and 5 blue balls. Two draws are made with replacement. What is the probability of getting at least one red ball?
+**Question:** A bag contains 4 red and 5 blue balls. Two balls are drawn with replacement. What is the probability of drawing at least one red ball?
 
 **Options:**
 
@@ -1456,13 +1456,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 56/81
 
-**Explanation:** Subtract the chance of getting blue both times. P(at least one red) = 1 - (5/9 × 5/9) = 56/81.
+**Explanation:** The only unwanted case is blue on both draws. Replacement keeps the chance of blue at 5/9. P(at least one red) = 1 - (5/9 × 5/9) = 56/81.
 
 ---
 
 #### Question 84 — PRB-QL-509 (Medium)
 
-**Question:** A bag contains 7 red and 6 blue balls. A ball is drawn, replaced, and another ball is drawn. What is the probability that both balls are red?
+**Question:** A bag contains 7 red and 6 blue balls. One ball is drawn and replaced before a second ball is drawn. What is the probability that both balls are red?
 
 **Options:**
 
@@ -1474,13 +1474,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 49/169
 
-**Explanation:** With replacement, the bag is unchanged after the first draw. Probability = 7/13 × 7/13 = 49/169.
+**Explanation:** Because the first ball is replaced, the chance of red stays 7/13 on both draws. P(both red) = 7/13 × 7/13 = 49/169.
 
 ---
 
 #### Question 85 — PRB-QL-510 (Medium)
 
-**Question:** A bag contains 9 red and 4 blue balls. Two balls are drawn one after another without replacement. What is the probability that both are red?
+**Question:** A bag contains 9 red and 4 blue balls. Two balls are drawn successively without replacement. What is the probability that both balls are red?
 
 **Options:**
 
@@ -1492,13 +1492,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 6/13
 
-**Explanation:** After one red ball is drawn, 8 red balls remain out of 12. Probability = 9/13 × 8/12 = 6/13.
+**Explanation:** After drawing one red ball, 8 red balls remain among 12 balls. P(both red) = 9/13 × 8/12 = 6/13.
 
 ---
 
 #### Question 86 — PRB-QL-511 (Medium)
 
-**Question:** A bag contains 5 red and 6 blue balls. A ball is drawn, replaced, and another ball is drawn. What is the probability that both balls are red?
+**Question:** A bag contains 5 red and 6 blue balls. One ball is drawn and replaced before a second ball is drawn. What is the probability that both balls are red?
 
 **Options:**
 
@@ -1510,13 +1510,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 25/121
 
-**Explanation:** With replacement, the bag is unchanged after the first draw. Probability = 5/11 × 5/11 = 25/121.
+**Explanation:** Because the first ball is replaced, the chance of red stays 5/11 on both draws. P(both red) = 5/11 × 5/11 = 25/121.
 
 ---
 
 #### Question 87 — PRB-QL-512 (Medium)
 
-**Question:** A bag contains 5 red and 8 blue balls. Two balls are drawn one after another without replacement. What is the probability that both are red?
+**Question:** A bag contains 5 red and 8 blue balls. Two balls are drawn successively without replacement. What is the probability that both balls are red?
 
 **Options:**
 
@@ -1528,13 +1528,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 5/39
 
-**Explanation:** After one red ball is drawn, 4 red balls remain out of 12. Probability = 5/13 × 4/12 = 5/39.
+**Explanation:** After drawing one red ball, 4 red balls remain among 12 balls. P(both red) = 5/13 × 4/12 = 5/39.
 
 ---
 
 #### Question 88 — PRB-QL-513 (Medium)
 
-**Question:** A bag contains 8 red and 4 blue balls. Two balls are drawn one after another without replacement. What is the probability of drawing a red ball first and a blue ball second?
+**Question:** A bag contains 8 red and 4 blue balls. Two balls are drawn successively without replacement. What is the probability of drawing a red ball followed by a blue ball?
 
 **Options:**
 
@@ -1546,13 +1546,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 8/33
 
-**Explanation:** First draw red, then draw blue from the remaining balls. Probability = 8/12 × 4/11 = 8/33.
+**Explanation:** The first draw must be red; then 4 blue balls remain among 11 balls. P(red then blue) = 8/12 × 4/11 = 8/33.
 
 ---
 
 #### Question 89 — PRB-QL-514 (Medium)
 
-**Question:** A bag contains 4 red and 4 blue balls. Two balls are drawn one after another without replacement. What is the probability that both balls are of the same colour?
+**Question:** A bag contains 4 red and 4 blue balls. Two balls are drawn successively without replacement. What is the probability that both balls have the same colour?
 
 **Options:**
 
@@ -1564,13 +1564,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 3/7
 
-**Explanation:** Add the valid colour orders. Probability = 24/56 = 3/7.
+**Explanation:** Same colour means red-red or blue-blue. P = 4/8 × 3/7 + 4/8 × 3/7 = 3/7.
 
 ---
 
 #### Question 90 — PRB-QL-515 (Medium)
 
-**Question:** A bag contains 6 red and 9 blue balls. Two balls are drawn one after another without replacement. What is the probability that the balls are of different colours?
+**Question:** A bag contains 6 red and 9 blue balls. Two balls are drawn successively without replacement. What is the probability that the two balls have different colours?
 
 **Options:**
 
@@ -1582,7 +1582,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 18/35
 
-**Explanation:** Add the valid colour orders. Probability = 108/210 = 18/35.
+**Explanation:** Different colours means red-blue or blue-red. P = 6/15 × 9/14 + 9/15 × 6/14 = 18/35.
 
 ---
 
@@ -1590,7 +1590,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 91 — PRB-QL-602 (Easy)
 
-**Question:** A card drawn from a standard deck is known to be a face card. What is the probability that it is a king?
+**Question:** A card is drawn from a standard deck and is known to be a face card. What is the probability that it is a king?
 
 **Options:**
 
@@ -1602,13 +1602,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/3
 
-**Explanation:** The given condition leaves 12 possible cases. 4 of them satisfy the required event. Probability = 4/12 = 1/3.
+**Explanation:** The condition limits the deck to the 12 face cards. Four of these are kings. So the probability is 4/12 = 1/3.
 
 ---
 
 #### Question 92 — PRB-QL-603 (Easy)
 
-**Question:** An integer chosen from 1 to 40 is known to be divisible by 2. What is the probability that it is also divisible by 4?
+**Question:** An integer selected from 1 to 40 is known to be divisible by 2. What is the probability that it is also divisible by 4?
 
 **Options:**
 
@@ -1620,13 +1620,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/2
 
-**Explanation:** The given condition leaves 20 possible cases. 10 of them satisfy the required event. Probability = 10/20 = 1/2.
+**Explanation:** There are 20 multiples of 2; these form the restricted group. 10 of them are also divisible by 4. So the probability is 10/20 = 1/2.
 
 ---
 
 #### Question 93 — PRB-QL-609 (Easy)
 
-**Question:** An integer chosen from 1 to 24 is known to be divisible by 2. What is the probability that it is also divisible by 4?
+**Question:** An integer selected from 1 to 24 is known to be divisible by 2. What is the probability that it is also divisible by 4?
 
 **Options:**
 
@@ -1638,13 +1638,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/2
 
-**Explanation:** The given condition leaves 12 possible cases. 6 of them satisfy the required event. Probability = 6/12 = 1/2.
+**Explanation:** There are 12 multiples of 2; these form the restricted group. 6 of them are also divisible by 4. So the probability is 6/12 = 1/2.
 
 ---
 
 #### Question 94 — PRB-QL-615 (Easy)
 
-**Question:** An integer chosen from 1 to 36 is known to be divisible by 2. What is the probability that it is also divisible by 4?
+**Question:** An integer selected from 1 to 36 is known to be divisible by 2. What is the probability that it is also divisible by 4?
 
 **Options:**
 
@@ -1656,13 +1656,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/2
 
-**Explanation:** The given condition leaves 18 possible cases. 9 of them satisfy the required event. Probability = 9/18 = 1/2.
+**Explanation:** There are 18 multiples of 2; these form the restricted group. 9 of them are also divisible by 4. So the probability is 9/18 = 1/2.
 
 ---
 
 #### Question 95 — PRB-QL-621 (Easy)
 
-**Question:** An integer chosen from 1 to 20 is known to be divisible by 2. What is the probability that it is also divisible by 4?
+**Question:** An integer selected from 1 to 20 is known to be divisible by 2. What is the probability that it is also divisible by 4?
 
 **Options:**
 
@@ -1674,13 +1674,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/2
 
-**Explanation:** The given condition leaves 10 possible cases. 5 of them satisfy the required event. Probability = 5/10 = 1/2.
+**Explanation:** There are 10 multiples of 2; these form the restricted group. 5 of them are also divisible by 4. So the probability is 5/10 = 1/2.
 
 ---
 
 #### Question 96 — PRB-QL-601 (Medium)
 
-**Question:** 8 students passed Mathematics, and 3 of them also passed English. One student is chosen from those who passed Mathematics. What is the probability that the student also passed English?
+**Question:** Of the 8 students who passed Mathematics, 3 also passed English. One of the Mathematics-pass students is selected at random. What is the probability that the selected student also passed English?
 
 **Options:**
 
@@ -1692,13 +1692,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 3/8
 
-**Explanation:** The given condition leaves 8 possible cases. 3 of them satisfy the required event. Probability = 3/8 = 3/8.
+**Explanation:** The student is chosen only from the 8 students who passed Mathematics. 3 of them also passed English. So the probability is 3/8.
 
 ---
 
 #### Question 97 — PRB-QL-604 (Medium)
 
-**Question:** A bag contains 7 red and 8 blue balls. The first ball drawn without replacement is known to be red. What is the probability that the next ball is also red?
+**Question:** A bag contains 7 red and 8 blue balls. Two balls are drawn without replacement. Given that the first ball is red, what is the probability that the second ball is also red?
 
 **Options:**
 
@@ -1710,13 +1710,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 3/7
 
-**Explanation:** The given condition leaves 14 possible cases. 6 of them satisfy the required event. Probability = 6/14 = 3/7.
+**Explanation:** The first ball was red, so 6 red balls remain among 14 balls. So the probability is 6/14 = 3/7.
 
 ---
 
 #### Question 98 — PRB-QL-605 (Medium)
 
-**Question:** Among 24 shortlisted, the probability of being certified is 1/8. How many are certified?
+**Question:** Among 24 shortlisted candidates, the probability that a randomly selected candidate is certified is 1/8. How many candidates are certified?
 
 **Options:**
 
@@ -1728,13 +1728,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 3
 
-**Explanation:** Required count = restricted total × conditional probability. 24 × 1/8 = 3.
+**Explanation:** Certified candidates form 1/8 of the 24 shortlisted candidates. Certified candidates = 24 × 1/8 = 3.
 
 ---
 
 #### Question 99 — PRB-QL-606 (Medium)
 
-**Question:** 17 students passed Mathematics, and 7 of them also passed English. One student is chosen from those who passed Mathematics. What is the probability that the student also passed English?
+**Question:** Of the 17 students who passed Mathematics, 7 also passed English. One of the Mathematics-pass students is selected at random. What is the probability that the selected student also passed English?
 
 **Options:**
 
@@ -1746,13 +1746,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 7/17
 
-**Explanation:** The given condition leaves 17 possible cases. 7 of them satisfy the required event. Probability = 7/17 = 7/17.
+**Explanation:** The student is chosen only from the 17 students who passed Mathematics. 7 of them also passed English. So the probability is 7/17.
 
 ---
 
 #### Question 100 — PRB-QL-607 (Medium)
 
-**Question:** 14 students passed Mathematics, and 7 of them also passed English. One student is chosen from those who passed Mathematics. What is the probability that the student also passed English?
+**Question:** Of the 14 students who passed Mathematics, 7 also passed English. One of the Mathematics-pass students is selected at random. What is the probability that the selected student also passed English?
 
 **Options:**
 
@@ -1764,13 +1764,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 1/2
 
-**Explanation:** The given condition leaves 14 possible cases. 7 of them satisfy the required event. Probability = 7/14 = 1/2.
+**Explanation:** The student is chosen only from the 14 students who passed Mathematics. 7 of them also passed English. So the probability is 7/14 = 1/2.
 
 ---
 
 #### Question 101 — PRB-QL-610 (Medium)
 
-**Question:** A bag contains 7 red and 4 blue balls. The first ball drawn without replacement is known to be red. What is the probability that the next ball is also red?
+**Question:** A bag contains 7 red and 4 blue balls. Two balls are drawn without replacement. Given that the first ball is red, what is the probability that the second ball is also red?
 
 **Options:**
 
@@ -1782,13 +1782,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 3/5
 
-**Explanation:** The given condition leaves 10 possible cases. 6 of them satisfy the required event. Probability = 6/10 = 3/5.
+**Explanation:** The first ball was red, so 6 red balls remain among 10 balls. So the probability is 6/10 = 3/5.
 
 ---
 
 #### Question 102 — PRB-QL-611 (Medium)
 
-**Question:** Among 29 shortlisted, the probability of being certified is 16/29. How many are certified?
+**Question:** Among 29 shortlisted candidates, the probability that a randomly selected candidate is certified is 16/29. How many candidates are certified?
 
 **Options:**
 
@@ -1800,13 +1800,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 16
 
-**Explanation:** Required count = restricted total × conditional probability. 29 × 16/29 = 16.
+**Explanation:** Certified candidates form 16/29 of the 29 shortlisted candidates. Certified candidates = 29 × 16/29 = 16.
 
 ---
 
 #### Question 103 — PRB-QL-612 (Medium)
 
-**Question:** 15 students passed Mathematics, and 13 of them also passed English. One student is chosen from those who passed Mathematics. What is the probability that the student also passed English?
+**Question:** Of the 15 students who passed Mathematics, 13 also passed English. One of the Mathematics-pass students is selected at random. What is the probability that the selected student also passed English?
 
 **Options:**
 
@@ -1818,13 +1818,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 13/15
 
-**Explanation:** The given condition leaves 15 possible cases. 13 of them satisfy the required event. Probability = 13/15 = 13/15.
+**Explanation:** The student is chosen only from the 15 students who passed Mathematics. 13 of them also passed English. So the probability is 13/15.
 
 ---
 
 #### Question 104 — PRB-QL-613 (Medium)
 
-**Question:** 15 students passed Mathematics, and 10 of them also passed English. One student is chosen from those who passed Mathematics. What is the probability that the student also passed English?
+**Question:** Of the 15 students who passed Mathematics, 10 also passed English. One of the Mathematics-pass students is selected at random. What is the probability that the selected student also passed English?
 
 **Options:**
 
@@ -1836,13 +1836,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 2/3
 
-**Explanation:** The given condition leaves 15 possible cases. 10 of them satisfy the required event. Probability = 10/15 = 2/3.
+**Explanation:** The student is chosen only from the 15 students who passed Mathematics. 10 of them also passed English. So the probability is 10/15 = 2/3.
 
 ---
 
 #### Question 105 — PRB-QL-616 (Medium)
 
-**Question:** A bag contains 9 red and 4 blue balls. The first ball drawn without replacement is known to be red. What is the probability that the next ball is also red?
+**Question:** A bag contains 9 red and 4 blue balls. Two balls are drawn without replacement. Given that the first ball is red, what is the probability that the second ball is also red?
 
 **Options:**
 
@@ -1854,7 +1854,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 2/3
 
-**Explanation:** The given condition leaves 12 possible cases. 8 of them satisfy the required event. Probability = 8/12 = 2/3.
+**Explanation:** The first ball was red, so 8 red balls remain among 12 balls. So the probability is 8/12 = 2/3.
 
 ---
 
@@ -1862,7 +1862,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 106 — PRB-QL-703 (Easy)
 
-**Question:** 5 people are arranged at random in a line. What is the probability that a specified person is first?
+**Question:** 5 people stand in a random order. What is the probability that a particular person is first?
 
 **Options:**
 
@@ -1874,13 +1874,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/5
 
-**Explanation:** Total possible arrangements or selections = 120. Required cases = 24. Probability = 24/120 = 1/5.
+**Explanation:** Each of the 5 people is equally likely to occupy the first position. So the probability for the specified person is 1/5 = 1/5.
 
 ---
 
 #### Question 107 — PRB-QL-711 (Easy)
 
-**Question:** 7 people are arranged at random in a line. What is the probability that a specified person is first?
+**Question:** 7 people stand in a random order. What is the probability that a particular person is first?
 
 **Options:**
 
@@ -1892,13 +1892,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 1/7
 
-**Explanation:** Total possible arrangements or selections = 5040. Required cases = 720. Probability = 720/5040 = 1/7.
+**Explanation:** Each of the 7 people is equally likely to occupy the first position. So the probability for the specified person is 1/7 = 1/7.
 
 ---
 
 #### Question 108 — PRB-QL-719 (Easy)
 
-**Question:** 6 people are arranged at random in a line. What is the probability that a specified person is first?
+**Question:** 6 people stand in a random order. What is the probability that a particular person is first?
 
 **Options:**
 
@@ -1910,13 +1910,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 1/6
 
-**Explanation:** Total possible arrangements or selections = 720. Required cases = 120. Probability = 120/720 = 1/6.
+**Explanation:** Each of the 6 people is equally likely to occupy the first position. So the probability for the specified person is 1/6 = 1/6.
 
 ---
 
 #### Question 109 — PRB-QL-701 (Medium)
 
-**Question:** A committee of 3 is chosen at random from 5 men and 8 women. What is the probability that exactly 1 woman is selected?
+**Question:** A 3-member committee is chosen at random from 5 men and 8 women. What is the probability that it contains exactly 1 woman?
 
 **Options:**
 
@@ -1928,13 +1928,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 40/143
 
-**Explanation:** Total possible arrangements or selections = 286. Required cases = 80. Probability = 80/286 = 40/143.
+**Explanation:** Total committees = C(13,3) = 286. Required committees = C(8,1) × C(5,2) = 80. So the probability is 80/286 = 40/143.
 
 ---
 
 #### Question 110 — PRB-QL-704 (Medium)
 
-**Question:** 5 people are arranged at random in a line. What is the probability that two specified people are not adjacent?
+**Question:** 5 people stand in a random order. What is the probability that two particular people are not next to each other?
 
 **Options:**
 
@@ -1946,13 +1946,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 3/5
 
-**Explanation:** Total possible arrangements or selections = 120. Required cases = 72. Probability = 72/120 = 3/5.
+**Explanation:** Total arrangements = 5! = 120. Adjacent arrangements = 2 × 4! = 48. Non-adjacent arrangements = 120 - 48. So the probability is 72/120 = 3/5.
 
 ---
 
 #### Question 111 — PRB-QL-709 (Medium)
 
-**Question:** A committee of 3 is chosen at random from 10 men and 6 women. What is the probability that exactly 1 woman is selected?
+**Question:** A 3-member committee is chosen at random from 10 men and 6 women. What is the probability that it contains exactly 1 woman?
 
 **Options:**
 
@@ -1964,13 +1964,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 27/56
 
-**Explanation:** Total possible arrangements or selections = 560. Required cases = 270. Probability = 270/560 = 27/56.
+**Explanation:** Total committees = C(16,3) = 560. Required committees = C(6,1) × C(10,2) = 270. So the probability is 270/560 = 27/56.
 
 ---
 
 #### Question 112 — PRB-QL-712 (Medium)
 
-**Question:** 7 people are arranged at random in a line. What is the probability that two specified people are not adjacent?
+**Question:** 7 people stand in a random order. What is the probability that two particular people are not next to each other?
 
 **Options:**
 
@@ -1982,13 +1982,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 5/7
 
-**Explanation:** Total possible arrangements or selections = 5040. Required cases = 3600. Probability = 3600/5040 = 5/7.
+**Explanation:** Total arrangements = 7! = 5040. Adjacent arrangements = 2 × 6! = 1440. Non-adjacent arrangements = 5040 - 1440. So the probability is 3600/5040 = 5/7.
 
 ---
 
 #### Question 113 — PRB-QL-717 (Medium)
 
-**Question:** A committee of 3 is chosen at random from 10 men and 5 women. What is the probability that exactly 1 woman is selected?
+**Question:** A 3-member committee is chosen at random from 10 men and 5 women. What is the probability that it contains exactly 1 woman?
 
 **Options:**
 
@@ -2000,13 +2000,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 45/91
 
-**Explanation:** Total possible arrangements or selections = 455. Required cases = 225. Probability = 225/455 = 45/91.
+**Explanation:** Total committees = C(15,3) = 455. Required committees = C(5,1) × C(10,2) = 225. So the probability is 225/455 = 45/91.
 
 ---
 
 #### Question 114 — PRB-QL-702 (Hard)
 
-**Question:** A committee of 4 is chosen at random from 8 men and 6 women. What is the probability that exactly 1 woman is selected?
+**Question:** A 4-member committee is chosen at random from 8 men and 6 women. What is the probability that it contains exactly 1 woman?
 
 **Options:**
 
@@ -2018,13 +2018,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 48/143
 
-**Explanation:** Total possible arrangements or selections = 1001. Required cases = 336. Probability = 336/1001 = 48/143.
+**Explanation:** Total committees = C(14,4) = 1001. Required committees = C(6,1) × C(8,3) = 336. So the probability is 336/1001 = 48/143.
 
 ---
 
 #### Question 115 — PRB-QL-705 (Hard)
 
-**Question:** 4 distinct posts are assigned at random from 8 men and 6 women. What is the probability that the first post is assigned to a woman?
+**Question:** 4 distinct posts are assigned at random among 8 men and 6 women. What is the probability that the first post is assigned to a woman?
 
 **Options:**
 
@@ -2036,13 +2036,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 3/7
 
-**Explanation:** Total possible arrangements or selections = 24024. Required cases = 10296. Probability = 10296/24024 = 3/7.
+**Explanation:** Any one of the 14 people can receive the first post, and 6 of them are women. So the probability is 6/14 = 3/7.
 
 ---
 
 #### Question 116 — PRB-QL-706 (Hard)
 
-**Question:** A 4-digit number is formed without repetition using digits 1 to 8. What is the probability that the number is even?
+**Question:** A 4-digit number is formed without repetition using the digits 1 to 8. What is the probability that the number is even?
 
 **Options:**
 
@@ -2054,13 +2054,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/2
 
-**Explanation:** Total possible arrangements or selections = 1680. Required cases = 840. Probability = 840/1680 = 1/2.
+**Explanation:** Total numbers = 8P4 = 1680. For an even number, the last digit has 4 choices. The other places can be filled in 210 ways, so required numbers = 4 × 210 = 840. Probability = 1/2.
 
 ---
 
 #### Question 117 — PRB-QL-707 (Hard)
 
-**Question:** A committee of 4 is chosen at random from 6 men and 7 women. What is the probability that at least one woman is selected?
+**Question:** A 4-member committee is chosen at random from 6 men and 7 women. What is the probability that the committee includes at least one woman?
 
 **Options:**
 
@@ -2072,13 +2072,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 140/143
 
-**Explanation:** Total possible arrangements or selections = 715. Required cases = 700. Probability = 700/715 = 140/143.
+**Explanation:** Total committees = C(13,4) = 715. Committees with no woman = C(6,4) = 15. Committees with at least one woman = 715 - 15 = 700. So the probability is 700/715 = 140/143.
 
 ---
 
 #### Question 118 — PRB-QL-708 (Hard)
 
-**Question:** A 4-member committee is chosen from 5 men and 9 women. The probability of selecting exactly 1 woman is 90/1001. How many such committees are possible?
+**Question:** A 4-member committee is chosen from 5 men and 9 women. The probability that it contains exactly 1 woman is 90/1001. How many such committees can be formed?
 
 **Options:**
 
@@ -2090,13 +2090,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 90
 
-**Explanation:** Total possible selections = 1001. Required selections = 90.
+**Explanation:** Choose 1 woman and 3 men. Required committees = C(9,1) × C(5,3) = 90.
 
 ---
 
 #### Question 119 — PRB-QL-720 (Medium)
 
-**Question:** 6 people are arranged at random in a line. What is the probability that two specified people are adjacent?
+**Question:** 6 people stand in a random order. What is the probability that two particular people are next to each other?
 
 **Options:**
 
@@ -2108,13 +2108,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 1/3
 
-**Explanation:** Total possible arrangements or selections = 720. Required cases = 240. Probability = 240/720 = 1/3.
+**Explanation:** Treat the two specified people as one block; they can swap places in 2 ways. Adjacent arrangements = 2 × 5! = 240, out of 6! = 720. Probability = 1/3.
 
 ---
 
 #### Question 120 — PRB-QL-725 (Medium)
 
-**Question:** A committee of 3 is chosen at random from 9 men and 6 women. What is the probability that exactly 1 woman is selected?
+**Question:** A 3-member committee is chosen at random from 9 men and 6 women. What is the probability that it contains exactly 1 woman?
 
 **Options:**
 
@@ -2126,7 +2126,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 216/455
 
-**Explanation:** Total possible arrangements or selections = 455. Required cases = 216. Probability = 216/455 = 216/455.
+**Explanation:** Total committees = C(15,3) = 455. Required committees = C(6,1) × C(9,2) = 216. So the probability is 216/455.
 
 ---
 
@@ -2134,7 +2134,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 121 — PRB-QL-805 (Easy)
 
-**Question:** A and B are mutually exclusive. If P(A) = 3/10 and P(B) = 1/10, find P(A ∪ B).
+**Question:** A candidate may receive Award A or Award B, but cannot receive both. If P(A) = 3/10 and P(B) = 1/10, what is the probability of receiving either award?
 
 **Options:**
 
@@ -2146,13 +2146,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 2/5
 
-**Explanation:** Mutually exclusive events cannot happen together. P(A ∪ B) = P(A) + P(B) = 2/5.
+**Explanation:** The two events cannot occur together, so there is no overlap to subtract. P(A or B) = 3/10 + 1/10 = 2/5.
 
 ---
 
 #### Question 122 — PRB-QL-806 (Easy)
 
-**Question:** A and B are independent. If P(A) = 3/7 and P(B) = 3/4, find P(A ∩ B).
+**Question:** The probabilities that a candidate clears Section A and Section B are 3/7 and 3/4, respectively. The results are independent. What is the probability that the candidate clears both sections?
 
 **Options:**
 
@@ -2164,13 +2164,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 9/28
 
-**Explanation:** For independent events, multiply the probabilities. P(A ∩ B) = P(A) × P(B) = 9/28.
+**Explanation:** The events are independent, so one result does not change the other. P(both) = 3/7 × 3/4 = 9/28.
 
 ---
 
 #### Question 123 — PRB-QL-813 (Easy)
 
-**Question:** A and B are mutually exclusive. If P(A) = 1/10 and P(B) = 1/10, find P(A ∪ B).
+**Question:** A candidate may receive Award A or Award B, but cannot receive both. If P(A) = 1/10 and P(B) = 1/10, what is the probability of receiving either award?
 
 **Options:**
 
@@ -2182,13 +2182,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/5
 
-**Explanation:** Mutually exclusive events cannot happen together. P(A ∪ B) = P(A) + P(B) = 1/5.
+**Explanation:** The two events cannot occur together, so there is no overlap to subtract. P(A or B) = 1/10 + 1/10 = 1/5.
 
 ---
 
 #### Question 124 — PRB-QL-814 (Easy)
 
-**Question:** A and B are independent. If P(A) = 6/7 and P(B) = 4/5, find P(A ∩ B).
+**Question:** The probabilities that a candidate clears Section A and Section B are 6/7 and 4/5, respectively. The results are independent. What is the probability that the candidate clears both sections?
 
 **Options:**
 
@@ -2200,13 +2200,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 24/35
 
-**Explanation:** For independent events, multiply the probabilities. P(A ∩ B) = P(A) × P(B) = 24/35.
+**Explanation:** The events are independent, so one result does not change the other. P(both) = 6/7 × 4/5 = 24/35.
 
 ---
 
 #### Question 125 — PRB-QL-821 (Easy)
 
-**Question:** A and B are mutually exclusive. If P(A) = 1/5 and P(B) = 1/5, find P(A ∪ B).
+**Question:** A candidate may receive Award A or Award B, but cannot receive both. If P(A) = 1/5 and P(B) = 1/5, what is the probability of receiving either award?
 
 **Options:**
 
@@ -2218,13 +2218,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 2/5
 
-**Explanation:** Mutually exclusive events cannot happen together. P(A ∪ B) = P(A) + P(B) = 2/5.
+**Explanation:** The two events cannot occur together, so there is no overlap to subtract. P(A or B) = 1/5 + 1/5 = 2/5.
 
 ---
 
 #### Question 126 — PRB-QL-801 (Medium)
 
-**Question:** In a group of 100 people, 25 satisfy A, 29 satisfy B, and 6 satisfy both. What is the probability that a randomly chosen person satisfies A or B?
+**Question:** In a group of 100 students, 25 passed Mathematics, 29 passed English and 6 passed both subjects. What is the probability that a randomly selected student passed at least one subject?
 
 **Options:**
 
@@ -2236,13 +2236,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 12/25
 
-**Explanation:** Use P(A ∪ B) = P(A) + P(B) - P(A ∩ B). Probability = 48/100 = 12/25.
+**Explanation:** Add both groups and subtract the 6 people counted twice: 25 + 29 - 6 = 48. So the probability is 48/100 = 12/25.
 
 ---
 
 #### Question 127 — PRB-QL-802 (Medium)
 
-**Question:** In a group of 90 people, 11 satisfy both A and B. What is the probability that a randomly chosen person satisfies both A and B?
+**Question:** In a group of 90 students, 11 passed both Mathematics and English. What is the probability that a randomly selected student passed both subjects?
 
 **Options:**
 
@@ -2254,13 +2254,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 11/90
 
-**Explanation:** Both A and B occur in 11 out of 90 cases. Probability = 11/90 = 11/90.
+**Explanation:** The overlap contains 11 people out of 90. So the probability is 11/90.
 
 ---
 
 #### Question 128 — PRB-QL-803 (Medium)
 
-**Question:** P(A) = 38/81, P(B) = 11/27 and P(A ∩ B) = 1/27. What is the probability that exactly one of A and B occurs?
+**Question:** In a group of 81 students, 38 passed Mathematics, 33 passed English and 3 passed both. What is the probability that a randomly selected student passed exactly one subject?
 
 **Options:**
 
@@ -2272,13 +2272,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 65/81
 
-**Explanation:** Exactly one event = A only + B only. P(exactly one) = P(A) + P(B) - 2P(A ∩ B) = 65/81.
+**Explanation:** Remove the overlap from both groups: 38 + 33 - 2 × 3 = 65. So the probability is 65/81.
 
 ---
 
 #### Question 129 — PRB-QL-804 (Medium)
 
-**Question:** P(A) = 29/51, P(B) = 38/51 and P(A ∩ B) = 16/51. What is the probability that neither A nor B occurs?
+**Question:** In a group of 51 students, 29 passed Mathematics, 38 passed English and 16 passed both. What is the probability that a randomly selected student passed neither subject?
 
 **Options:**
 
@@ -2290,13 +2290,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 0
 
-**Explanation:** First find P(A ∪ B). P(neither) = 1 - P(A ∪ B) = 0.
+**Explanation:** At least one event occurs for 51 people, so neither occurs for 51 - 51 = 0. So the probability is 0/51 = 0.
 
 ---
 
 #### Question 130 — PRB-QL-809 (Medium)
 
-**Question:** In a group of 64 people, 30 satisfy A, 27 satisfy B, and 10 satisfy both. What is the probability that a randomly chosen person satisfies A or B?
+**Question:** In a group of 64 students, 30 passed Mathematics, 27 passed English and 10 passed both subjects. What is the probability that a randomly selected student passed at least one subject?
 
 **Options:**
 
@@ -2308,13 +2308,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 47/64
 
-**Explanation:** Use P(A ∪ B) = P(A) + P(B) - P(A ∩ B). Probability = 47/64 = 47/64.
+**Explanation:** Add both groups and subtract the 10 people counted twice: 30 + 27 - 10 = 47. So the probability is 47/64.
 
 ---
 
 #### Question 131 — PRB-QL-807 (Hard)
 
-**Question:** P(A) = 18/35, P(B) = 23/70 and P(A ∪ B) = 27/35. Find P(A ∩ B).
+**Question:** For a group of 70 students, P(Mathematics) = 18/35, P(English) = 23/70 and P(Mathematics or English) = 27/35. Find P(Mathematics and English).
 
 **Options:**
 
@@ -2326,13 +2326,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/14
 
-**Explanation:** Use P(A ∪ B) = P(A) + P(B) - P(A ∩ B). P(A ∩ B) = P(A) + P(B) - P(A ∪ B) = 1/14.
+**Explanation:** Use A + B - both = A or B. Both = 36 + 23 - 54 = 5. So the probability is 5/70 = 1/14.
 
 ---
 
 #### Question 132 — PRB-QL-808 (Hard)
 
-**Question:** P(A) = 37/59, P(B) = 21/59 and P(A ∩ B) = 10/59. What is the probability that exactly one of A and B occurs?
+**Question:** In a group of 59 students, 37 passed Mathematics, 21 passed English and 10 passed both. What is the probability that a randomly selected student passed exactly one subject?
 
 **Options:**
 
@@ -2344,13 +2344,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 38/59
 
-**Explanation:** Exactly one event = A only + B only. P(exactly one) = P(A) + P(B) - 2P(A ∩ B) = 38/59.
+**Explanation:** Remove the overlap from both groups: 37 + 21 - 2 × 10 = 38. So the probability is 38/59.
 
 ---
 
 #### Question 133 — PRB-QL-815 (Hard)
 
-**Question:** P(A) = 23/76, P(B) = 6/19 and P(A ∪ B) = 1/2. Find P(A ∩ B).
+**Question:** For a group of 76 students, P(Mathematics) = 23/76, P(English) = 6/19 and P(Mathematics or English) = 1/2. Find P(Mathematics and English).
 
 **Options:**
 
@@ -2362,13 +2362,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 9/76
 
-**Explanation:** Use P(A ∪ B) = P(A) + P(B) - P(A ∩ B). P(A ∩ B) = P(A) + P(B) - P(A ∪ B) = 9/76.
+**Explanation:** Use A + B - both = A or B. Both = 23 + 24 - 38 = 9. So the probability is 9/76.
 
 ---
 
 #### Question 134 — PRB-QL-816 (Hard)
 
-**Question:** P(A) = 19/82, P(B) = 19/82 and P(A ∩ B) = 3/41. What is the probability that exactly one of A and B occurs?
+**Question:** In a group of 82 students, 19 passed Mathematics, 19 passed English and 6 passed both. What is the probability that a randomly selected student passed exactly one subject?
 
 **Options:**
 
@@ -2380,13 +2380,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 13/41
 
-**Explanation:** Exactly one event = A only + B only. P(exactly one) = P(A) + P(B) - 2P(A ∩ B) = 13/41.
+**Explanation:** Remove the overlap from both groups: 19 + 19 - 2 × 6 = 26. So the probability is 26/82 = 13/41.
 
 ---
 
 #### Question 135 — PRB-QL-823 (Hard)
 
-**Question:** P(A) = 25/99, P(B) = 28/99 and P(A ∪ B) = 43/99. Find P(A ∩ B).
+**Question:** For a group of 99 students, P(Mathematics) = 25/99, P(English) = 28/99 and P(Mathematics or English) = 43/99. Find P(Mathematics and English).
 
 **Options:**
 
@@ -2398,6 +2398,6 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 10/99
 
-**Explanation:** Use P(A ∪ B) = P(A) + P(B) - P(A ∩ B). P(A ∩ B) = P(A) + P(B) - P(A ∪ B) = 10/99.
+**Explanation:** Use A + B - both = A or B. Both = 25 + 28 - 43 = 10. So the probability is 10/99.
 
 ---
