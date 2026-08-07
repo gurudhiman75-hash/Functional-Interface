@@ -4,6 +4,17 @@ import { buildExplanationV4, difficultyV4, normalizeMathDisplay, validateV4 } fr
 import { buildOptionDraftsV4, normalizedAnswerV4, normalizedStemV4, orderOptionsV4 } from "./options";
 import type { SapCp002ExamReadinessV4Package } from "./types";
 
+function proofStem(stem: string): string {
+  let output = stem;
+  const stacked = /⟦([^⟦⟧]+)⟧\s*⁄\s*⟦([^⟦⟧]+)⟧/g;
+  for (let pass = 0; pass < 12; pass += 1) {
+    const next = output.replace(stacked, "(($1) ÷ ($2))");
+    if (next === output) break;
+    output = next;
+  }
+  return output;
+}
+
 export function generateSapCp002ExamReadinessV4Package(
   prototypeId: SapCp002PrototypeId,
   seed: number,
@@ -19,7 +30,7 @@ export function generateSapCp002ExamReadinessV4Package(
   const options = orderOptionsV4(v3, drafts);
   const correctIndex = options.findIndex((option) => option.isCorrect);
   if (correctIndex < 0) throw new Error(`${prototypeId}/${seed}: V4 has no correct option.`);
-  const explanation = buildExplanationV4(v3, stem, answer, options);
+  const explanation = buildExplanationV4(v3, proofStem(stem), answer, options);
   const difficulty = difficultyV4(v3, stem);
   const canonicalPayloadKey = v3.canonicalPayloadKey
     .replace(/^SAP_CP002_CANONICAL_V3\|/, "SAP_CP002_CANONICAL_V4|")
