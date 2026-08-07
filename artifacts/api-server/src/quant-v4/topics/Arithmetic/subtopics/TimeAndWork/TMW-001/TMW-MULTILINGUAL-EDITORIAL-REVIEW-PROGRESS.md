@@ -14,7 +14,7 @@ Verified proof head:
 660c821deb7ac92288c0813e38c6fa89d56679ce
 ```
 
-Subsequent commits update only this evidence record. They do not alter localized runtime content, answers, options, traps or mathematical state.
+The branch commits after the verified proof head are documentation-only evidence updates. They do not alter localized runtime content, answers, options, traps or mathematical state.
 
 ## Reviewed checkpoints
 
