@@ -27,6 +27,7 @@ import { applyNumCp005ReleaseReviewRenderingSafety } from "./release-review-rend
 import { applyNumCp005FinalExplanationSafety } from "./release-review-final-explanation-safe";
 import { applyNumCp005FinalExamQuestionCorrections } from "./final-exam-readiness-question-corrections";
 import { applyNumCp005FinalExamExplanationCorrections } from "./final-exam-readiness-explanations";
+import { applyNumCp005FinalQl066Safe } from "./final-exam-readiness-ql066-safe";
 
 export function remediateNumCp005English(source) {
   let result;
@@ -69,7 +70,9 @@ export function remediateNumCp005English(source) {
           : source.qlId === "NUM-QL-068"
             ? applyNumCp005Ql068CorrectnessSafe(source, result)
             : applyNumCp005QuestionCorrections(source, result);
-  const finalQuestion = applyNumCp005FinalExamQuestionCorrections(source, corrected);
+  const finalQuestion = source.qlId === "NUM-QL-066"
+    ? applyNumCp005FinalQl066Safe(source, corrected)
+    : applyNumCp005FinalExamQuestionCorrections(source, corrected);
   const explanationInput = {
     qlId: source.qlId,
     seed: source.seed,
