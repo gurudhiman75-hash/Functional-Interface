@@ -1,0 +1,1860 @@
+[
+  {
+    "index": 1,
+    "recordId": "INE-CP006-DC8A74E2",
+    "authorityId": "DECODE_FIXED_MAP_RELATION",
+    "seed": 0,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "DIRECT_GREATER_THAN",
+    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
+    "codeKey": [
+      "A % B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A @ B means A is equal to B.",
+      "A & B means A is greater than or equal to B.",
+      "A # B means A is less than or equal to B."
+    ],
+    "statements": [
+      "P % B"
+    ],
+    "options": [
+      "P ≤ B",
+      "P > B",
+      "P < B",
+      "P ≥ B"
+    ],
+    "correctIndex": 1,
+    "correctOption": "P > B",
+    "mockSolution": "From the supplied key, % means greater than (>). Therefore, P % B decodes to P > B. So the matching ordinary relation is P > B.",
+    "learningSolution": "From the supplied key, % means greater than (>).\n\nTherefore, P % B decodes to P > B.\n\nSo the matching ordinary relation is P > B.\n\nP ≤ B: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nP < B: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nP ≥ B: This is weaker than the strict greater-than relation proved by the decoded chain.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 2,
+    "recordId": "INE-CP006-39ACA455",
+    "authorityId": "DECODE_FIXED_MAP_RELATION",
+    "seed": 1,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "GEOMETRIC",
+    "topologyId": "DIRECT_GREATER_THAN",
+    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
+    "codeKey": [
+      "A ◆ B means A is greater than B.",
+      "A ▲ B means A is less than B.",
+      "A ■ B means A is equal to B.",
+      "A ★ B means A is greater than or equal to B.",
+      "A ● B means A is less than or equal to B."
+    ],
+    "statements": [
+      "P ◆ A"
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "P ≥ A",
+      "P = A",
+      "P > A"
+    ],
+    "correctIndex": 3,
+    "correctOption": "P > A",
+    "mockSolution": "From the supplied key, ◆ means greater than (>). Therefore, P ◆ A decodes to P > A. So the matching ordinary relation is P > A.",
+    "learningSolution": "From the supplied key, ◆ means greater than (>).\n\nTherefore, P ◆ A decodes to P > A.\n\nSo the matching ordinary relation is P > A.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nP ≥ A: This is weaker than the strict greater-than relation proved by the decoded chain.\n\nP = A: The decoded statements do not force the two values to be equal.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 3,
+    "recordId": "INE-CP006-528A759C",
+    "authorityId": "DECODE_FIXED_MAP_RELATION",
+    "seed": 2,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "CIRCLED_OPERATORS",
+    "topologyId": "DIRECT_EQUAL_TO",
+    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
+    "codeKey": [
+      "A ⊕ B means A is greater than B.",
+      "A ⊗ B means A is less than B.",
+      "A ⊘ B means A is equal to B.",
+      "A ⊙ B means A is greater than or equal to B.",
+      "A ⊖ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "A ⊘ C"
+    ],
+    "options": [
+      "A ≤ C",
+      "A < C",
+      "A = C",
+      "The relation cannot be determined"
+    ],
+    "correctIndex": 2,
+    "correctOption": "A = C",
+    "mockSolution": "From the supplied key, ⊘ means equal to (=). Therefore, A ⊘ C decodes to A = C. So the matching ordinary relation is A = C.",
+    "learningSolution": "From the supplied key, ⊘ means equal to (=).\n\nTherefore, A ⊘ C decodes to A = C.\n\nSo the matching ordinary relation is A = C.\n\nA ≤ C: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nA < C: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 4,
+    "recordId": "INE-CP006-02404867",
+    "authorityId": "DECODE_FIXED_MAP_RELATION",
+    "seed": 3,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "MIXED_MARKS",
+    "topologyId": "DIRECT_LESS_THAN_OR_EQUAL",
+    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
+    "codeKey": [
+      "A ! B means A is greater than B.",
+      "A ~ B means A is less than B.",
+      "A + B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A ? B means A is less than or equal to B."
+    ],
+    "statements": [
+      "A ? B"
+    ],
+    "options": [
+      "A ≤ B",
+      "A ≥ B",
+      "A > B",
+      "A = B"
+    ],
+    "correctIndex": 0,
+    "correctOption": "A ≤ B",
+    "mockSolution": "From the supplied key, ? means less than or equal to (≤). Therefore, A ? B decodes to A ≤ B. So the matching ordinary relation is A ≤ B.",
+    "learningSolution": "From the supplied key, ? means less than or equal to (≤).\n\nTherefore, A ? B decodes to A ≤ B.\n\nSo the matching ordinary relation is A ≤ B.\n\nA ≥ B: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nA > B: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nA = B: The decoded relation allows both less than and equal to, so this option is too specific.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 5,
+    "recordId": "INE-CP006-3E8AD83E",
+    "authorityId": "DECODE_FIXED_MAP_RELATION",
+    "seed": 4,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "DIRECT_GREATER_THAN_OR_EQUAL",
+    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
+    "codeKey": [
+      "A & B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A % B means A is equal to B.",
+      "A # B means A is greater than or equal to B.",
+      "A @ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "B # Q"
+    ],
+    "options": [
+      "B ≥ Q",
+      "B = Q",
+      "The relation cannot be determined",
+      "B > Q"
+    ],
+    "correctIndex": 0,
+    "correctOption": "B ≥ Q",
+    "mockSolution": "From the supplied key, # means greater than or equal to (≥). Therefore, B # Q decodes to B ≥ Q. So the matching ordinary relation is B ≥ Q.",
+    "learningSolution": "From the supplied key, # means greater than or equal to (≥).\n\nTherefore, B # Q decodes to B ≥ Q.\n\nSo the matching ordinary relation is B ≥ Q.\n\nB = Q: The decoded relation allows both greater than and equal to, so this option is too specific.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nB > Q: The decoded relation allows both greater than and equal to, so this option is too specific.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 6,
+    "recordId": "INE-CP006-355C4B41",
+    "authorityId": "DECODE_FIXED_MAP_RELATION",
+    "seed": 5,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "GEOMETRIC",
+    "topologyId": "DIRECT_LESS_THAN",
+    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
+    "codeKey": [
+      "A ■ B means A is greater than B.",
+      "A ◆ B means A is less than B.",
+      "A ▲ B means A is equal to B.",
+      "A ● B means A is greater than or equal to B.",
+      "A ★ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "C ◆ A"
+    ],
+    "options": [
+      "C = A",
+      "C > A",
+      "C < A",
+      "The relation cannot be determined"
+    ],
+    "correctIndex": 2,
+    "correctOption": "C < A",
+    "mockSolution": "From the supplied key, ◆ means less than (<). Therefore, C ◆ A decodes to C < A. So the matching ordinary relation is C < A.",
+    "learningSolution": "From the supplied key, ◆ means less than (<).\n\nTherefore, C ◆ A decodes to C < A.\n\nSo the matching ordinary relation is C < A.\n\nC = A: The decoded statements do not force the two values to be equal.\n\nC > A: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 7,
+    "recordId": "INE-CP006-7ED53288",
+    "authorityId": "DECODE_FIXED_MAP_RELATION",
+    "seed": 6,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "CIRCLED_OPERATORS",
+    "topologyId": "DIRECT_GREATER_THAN",
+    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
+    "codeKey": [
+      "A ⊗ B means A is greater than B.",
+      "A ⊕ B means A is less than B.",
+      "A ⊙ B means A is equal to B.",
+      "A ⊘ B means A is greater than or equal to B.",
+      "A ⊖ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "B ⊗ Q"
+    ],
+    "options": [
+      "B < Q",
+      "B ≥ Q",
+      "B = Q",
+      "B > Q"
+    ],
+    "correctIndex": 3,
+    "correctOption": "B > Q",
+    "mockSolution": "From the supplied key, ⊗ means greater than (>). Therefore, B ⊗ Q decodes to B > Q. So the matching ordinary relation is B > Q.",
+    "learningSolution": "From the supplied key, ⊗ means greater than (>).\n\nTherefore, B ⊗ Q decodes to B > Q.\n\nSo the matching ordinary relation is B > Q.\n\nB < Q: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nB ≥ Q: This is weaker than the strict greater-than relation proved by the decoded chain.\n\nB = Q: The decoded statements do not force the two values to be equal.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 8,
+    "recordId": "INE-CP006-EE5A5373",
+    "authorityId": "DECODE_FIXED_MAP_RELATION",
+    "seed": 7,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "MIXED_MARKS",
+    "topologyId": "DIRECT_EQUAL_TO",
+    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
+    "codeKey": [
+      "A ? B means A is greater than B.",
+      "A ~ B means A is less than B.",
+      "A ! B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A + B means A is less than or equal to B."
+    ],
+    "statements": [
+      "P ! D"
+    ],
+    "options": [
+      "P < D",
+      "P = D",
+      "The relation cannot be determined",
+      "P > D"
+    ],
+    "correctIndex": 1,
+    "correctOption": "P = D",
+    "mockSolution": "From the supplied key, ! means equal to (=). Therefore, P ! D decodes to P = D. So the matching ordinary relation is P = D.",
+    "learningSolution": "From the supplied key, ! means equal to (=).\n\nTherefore, P ! D decodes to P = D.\n\nSo the matching ordinary relation is P = D.\n\nP < D: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nP > D: This option uses the wrong direction or the wrong degree of certainty after decoding.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 9,
+    "recordId": "INE-CP006-17A32EEA",
+    "authorityId": "DECODE_FIXED_MAP_RELATION",
+    "seed": 8,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "DIRECT_LESS_THAN_OR_EQUAL",
+    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
+    "codeKey": [
+      "A # B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A @ B means A is equal to B.",
+      "A & B means A is greater than or equal to B.",
+      "A % B means A is less than or equal to B."
+    ],
+    "statements": [
+      "Q % C"
+    ],
+    "options": [
+      "Q = C",
+      "Q ≥ C",
+      "Q > C",
+      "Q ≤ C"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Q ≤ C",
+    "mockSolution": "From the supplied key, % means less than or equal to (≤). Therefore, Q % C decodes to Q ≤ C. So the matching ordinary relation is Q ≤ C.",
+    "learningSolution": "From the supplied key, % means less than or equal to (≤).\n\nTherefore, Q % C decodes to Q ≤ C.\n\nSo the matching ordinary relation is Q ≤ C.\n\nQ = C: The decoded relation allows both less than and equal to, so this option is too specific.\n\nQ ≥ C: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nQ > C: This option uses the wrong direction or the wrong degree of certainty after decoding.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 10,
+    "recordId": "INE-CP006-D7A39D3D",
+    "authorityId": "DECODE_FIXED_MAP_RELATION",
+    "seed": 9,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "GEOMETRIC",
+    "topologyId": "DIRECT_GREATER_THAN_OR_EQUAL",
+    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
+    "codeKey": [
+      "A ■ B means A is greater than B.",
+      "A ◆ B means A is less than B.",
+      "A ▲ B means A is equal to B.",
+      "A ★ B means A is greater than or equal to B.",
+      "A ● B means A is less than or equal to B."
+    ],
+    "statements": [
+      "D ★ C"
+    ],
+    "options": [
+      "D ≤ C",
+      "D ≥ C",
+      "The relation cannot be determined",
+      "D < C"
+    ],
+    "correctIndex": 1,
+    "correctOption": "D ≥ C",
+    "mockSolution": "From the supplied key, ★ means greater than or equal to (≥). Therefore, D ★ C decodes to D ≥ C. So the matching ordinary relation is D ≥ C.",
+    "learningSolution": "From the supplied key, ★ means greater than or equal to (≥).\n\nTherefore, D ★ C decodes to D ≥ C.\n\nSo the matching ordinary relation is D ≥ C.\n\nD ≤ C: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nD < C: This option uses the wrong direction or the wrong degree of certainty after decoding.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 11,
+    "recordId": "INE-CP006-8567D585",
+    "authorityId": "DECODE_FIXED_MAP_RELATION",
+    "seed": 10,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "CIRCLED_OPERATORS",
+    "topologyId": "DIRECT_LESS_THAN",
+    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
+    "codeKey": [
+      "A ⊙ B means A is greater than B.",
+      "A ⊖ B means A is less than B.",
+      "A ⊕ B means A is equal to B.",
+      "A ⊘ B means A is greater than or equal to B.",
+      "A ⊗ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "B ⊖ A"
+    ],
+    "options": [
+      "B > A",
+      "B = A",
+      "B < A",
+      "B ≤ A"
+    ],
+    "correctIndex": 2,
+    "correctOption": "B < A",
+    "mockSolution": "From the supplied key, ⊖ means less than (<). Therefore, B ⊖ A decodes to B < A. So the matching ordinary relation is B < A.",
+    "learningSolution": "From the supplied key, ⊖ means less than (<).\n\nTherefore, B ⊖ A decodes to B < A.\n\nSo the matching ordinary relation is B < A.\n\nB > A: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nB = A: The decoded statements do not force the two values to be equal.\n\nB ≤ A: This is weaker than the strict less-than relation proved by the decoded chain.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 12,
+    "recordId": "INE-CP006-6F099B52",
+    "authorityId": "DECODE_FIXED_MAP_RELATION",
+    "seed": 11,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "MIXED_MARKS",
+    "topologyId": "DIRECT_GREATER_THAN",
+    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
+    "codeKey": [
+      "A ^ B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ~ B means A is equal to B.",
+      "A ! B means A is greater than or equal to B.",
+      "A ? B means A is less than or equal to B."
+    ],
+    "statements": [
+      "Q ^ C"
+    ],
+    "options": [
+      "Q > C",
+      "Q ≥ C",
+      "Q ≤ C",
+      "The relation cannot be determined"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Q > C",
+    "mockSolution": "From the supplied key, ^ means greater than (>). Therefore, Q ^ C decodes to Q > C. So the matching ordinary relation is Q > C.",
+    "learningSolution": "From the supplied key, ^ means greater than (>).\n\nTherefore, Q ^ C decodes to Q > C.\n\nSo the matching ordinary relation is Q > C.\n\nQ ≥ C: This is weaker than the strict greater-than relation proved by the decoded chain.\n\nQ ≤ C: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 13,
+    "recordId": "INE-CP006-7750019E",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 0,
+    "difficulty": "EASY",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "DIRECT_STRICT",
+    "stem": "After decoding the statements, what is the strongest definite relation between C and Q?",
+    "codeKey": [
+      "A % B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A @ B means A is equal to B.",
+      "A & B means A is greater than or equal to B.",
+      "A # B means A is less than or equal to B."
+    ],
+    "statements": [
+      "C % Q"
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "C > Q",
+      "C = Q",
+      "C ≥ Q"
+    ],
+    "correctIndex": 1,
+    "correctOption": "C > Q",
+    "mockSolution": "Replace every code symbol with its meaning before combining the chain. The key says % means greater than, so C % Q becomes C > Q. The decoded statements allow C > Q. Therefore, C > Q is the strongest definite relation.",
+    "learningSolution": "Replace every code symbol with its meaning before combining the chain.\n\nThe key says % means greater than, so C % Q becomes C > Q.\n\nThe decoded statements allow C > Q.\n\nTherefore, C > Q is the strongest definite relation.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nC = Q: The decoded statements do not force the two values to be equal.\n\nC ≥ Q: This is weaker than the strict greater-than relation proved by the decoded chain.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 14,
+    "recordId": "INE-CP006-CF8095A1",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 1,
+    "difficulty": "EASY",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "GEOMETRIC",
+    "topologyId": "DIRECT_INCLUSIVE",
+    "stem": "After decoding the statements, what is the strongest definite relation between D and A?",
+    "codeKey": [
+      "A ◆ B means A is greater than B.",
+      "A ▲ B means A is less than B.",
+      "A ■ B means A is equal to B.",
+      "A ★ B means A is greater than or equal to B.",
+      "A ● B means A is less than or equal to B."
+    ],
+    "statements": [
+      "D ● A"
+    ],
+    "options": [
+      "D ≤ A",
+      "D = A",
+      "The relation cannot be determined",
+      "D > A"
+    ],
+    "correctIndex": 0,
+    "correctOption": "D ≤ A",
+    "mockSolution": "Replace every code symbol with its meaning before combining the chain. The key says ● means less than or equal to, so D ● A becomes D ≤ A. The decoded statements allow D < A or D = A. Therefore, D ≤ A is the strongest definite relation.",
+    "learningSolution": "Replace every code symbol with its meaning before combining the chain.\n\nThe key says ● means less than or equal to, so D ● A becomes D ≤ A.\n\nThe decoded statements allow D < A or D = A.\n\nTherefore, D ≤ A is the strongest definite relation.\n\nD = A: The decoded relation allows both less than and equal to, so this option is too specific.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nD > A: This option uses the wrong direction or the wrong degree of certainty after decoding.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 15,
+    "recordId": "INE-CP006-73D94768",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 2,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "CIRCLED_OPERATORS",
+    "topologyId": "TWO_EDGE_STRICT_CHAIN",
+    "stem": "After decoding the statements, what is the strongest definite relation between D and Q?",
+    "codeKey": [
+      "A ⊕ B means A is greater than B.",
+      "A ⊗ B means A is less than B.",
+      "A ⊘ B means A is equal to B.",
+      "A ⊙ B means A is greater than or equal to B.",
+      "A ⊖ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "Q ⊗ B ⊗ D"
+    ],
+    "options": [
+      "D ≤ Q",
+      "The relation cannot be determined",
+      "D > Q",
+      "D < Q"
+    ],
+    "correctIndex": 2,
+    "correctOption": "D > Q",
+    "mockSolution": "Replace every code symbol with its meaning before combining the chain. The key says ⊗ means less than, so Q ⊗ B becomes Q < B. The key says ⊗ means less than, so B ⊗ D becomes B < D. The decoded statements allow D > Q. Therefore, D > Q is the strongest definite relation.",
+    "learningSolution": "Replace every code symbol with its meaning before combining the chain.\n\nThe key says ⊗ means less than, so Q ⊗ B becomes Q < B.\n\nThe key says ⊗ means less than, so B ⊗ D becomes B < D.\n\nThe decoded statements allow D > Q.\n\nTherefore, D > Q is the strongest definite relation.\n\nD ≤ Q: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nD < Q: This option uses the wrong direction or the wrong degree of certainty after decoding.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 16,
+    "recordId": "INE-CP006-0D65A5D3",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 3,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "MIXED_MARKS",
+    "topologyId": "INCLUSIVE_STRICT_CHAIN",
+    "stem": "After decoding the statements, what is the strongest definite relation between B and C?",
+    "codeKey": [
+      "A ! B means A is greater than B.",
+      "A ~ B means A is less than B.",
+      "A + B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A ? B means A is less than or equal to B."
+    ],
+    "statements": [
+      "B ^ Q ! C"
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "B = C",
+      "B ≤ C",
+      "B > C"
+    ],
+    "correctIndex": 3,
+    "correctOption": "B > C",
+    "mockSolution": "Replace every code symbol with its meaning before combining the chain. The key says ^ means greater than or equal to, so B ^ Q becomes B ≥ Q. The key says ! means greater than, so Q ! C becomes Q > C. The decoded statements allow B > C. Therefore, B > C is the strongest definite relation.",
+    "learningSolution": "Replace every code symbol with its meaning before combining the chain.\n\nThe key says ^ means greater than or equal to, so B ^ Q becomes B ≥ Q.\n\nThe key says ! means greater than, so Q ! C becomes Q > C.\n\nThe decoded statements allow B > C.\n\nTherefore, B > C is the strongest definite relation.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nB = C: The decoded statements do not force the two values to be equal.\n\nB ≤ C: This option uses the wrong direction or the wrong degree of certainty after decoding.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 17,
+    "recordId": "INE-CP006-2E88CA42",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 4,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "EQUALITY_BRIDGE",
+    "stem": "After decoding the statements, what is the strongest definite relation between P and D?",
+    "codeKey": [
+      "A & B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A % B means A is equal to B.",
+      "A # B means A is greater than or equal to B.",
+      "A @ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "D % C @ P"
+    ],
+    "options": [
+      "P ≥ D",
+      "P ≤ D",
+      "The relation cannot be determined",
+      "P < D"
+    ],
+    "correctIndex": 0,
+    "correctOption": "P ≥ D",
+    "mockSolution": "Replace every code symbol with its meaning before combining the chain. The key says % means equal to, so D % C becomes D = C. The key says @ means less than or equal to, so C @ P becomes C ≤ P. The decoded statements allow P = D or P > D. Therefore, P ≥ D is the strongest definite relation.",
+    "learningSolution": "Replace every code symbol with its meaning before combining the chain.\n\nThe key says % means equal to, so D % C becomes D = C.\n\nThe key says @ means less than or equal to, so C @ P becomes C ≤ P.\n\nThe decoded statements allow P = D or P > D.\n\nTherefore, P ≥ D is the strongest definite relation.\n\nP ≤ D: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nP < D: This option uses the wrong direction or the wrong degree of certainty after decoding.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 18,
+    "recordId": "INE-CP006-D6CE3935",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 5,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "GEOMETRIC",
+    "topologyId": "THREE_EDGE_WEAK_CHAIN",
+    "stem": "After decoding the statements, what is the strongest definite relation between P and B?",
+    "codeKey": [
+      "A ■ B means A is greater than B.",
+      "A ◆ B means A is less than B.",
+      "A ▲ B means A is equal to B.",
+      "A ● B means A is greater than or equal to B.",
+      "A ★ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "P ★ A ▲ C ★ B"
+    ],
+    "options": [
+      "P ≥ B",
+      "P ≤ B",
+      "The relation cannot be determined",
+      "P = B"
+    ],
+    "correctIndex": 1,
+    "correctOption": "P ≤ B",
+    "mockSolution": "Replace every code symbol with its meaning before combining the chain. The key says ★ means less than or equal to, so P ★ A becomes P ≤ A. The key says ▲ means equal to, so A ▲ C becomes A = C. The key says ★ means less than or equal to, so C ★ B becomes C ≤ B. The decoded statements allow P < B or P = B. Therefore, P ≤ B is the strongest definite relation.",
+    "learningSolution": "Replace every code symbol with its meaning before combining the chain.\n\nThe key says ★ means less than or equal to, so P ★ A becomes P ≤ A.\n\nThe key says ▲ means equal to, so A ▲ C becomes A = C.\n\nThe key says ★ means less than or equal to, so C ★ B becomes C ≤ B.\n\nThe decoded statements allow P < B or P = B.\n\nTherefore, P ≤ B is the strongest definite relation.\n\nP ≥ B: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nP = B: The decoded relation allows both less than and equal to, so this option is too specific.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 19,
+    "recordId": "INE-CP006-A80486FC",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 6,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "CIRCLED_OPERATORS",
+    "topologyId": "SHARED_UPPER_FREE_ENDPOINTS",
+    "stem": "After decoding the statements, what is the strongest definite relation between C and P?",
+    "codeKey": [
+      "A ⊗ B means A is greater than B.",
+      "A ⊕ B means A is less than B.",
+      "A ⊙ B means A is equal to B.",
+      "A ⊘ B means A is greater than or equal to B.",
+      "A ⊖ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "P ⊕ Q",
+      "C ⊕ Q"
+    ],
+    "options": [
+      "C = P",
+      "C < P",
+      "The relation cannot be determined",
+      "C > P"
+    ],
+    "correctIndex": 2,
+    "correctOption": "The relation cannot be determined",
+    "mockSolution": "Replace every code symbol with its meaning before combining the chain. The key says ⊕ means less than, so P ⊕ Q becomes P < Q. The key says ⊕ means less than, so C ⊕ Q becomes C < Q. The decoded statements allow C < P, C = P, or C > P. Therefore, the relation between C and P cannot be determined.",
+    "learningSolution": "Replace every code symbol with its meaning before combining the chain.\n\nThe key says ⊕ means less than, so P ⊕ Q becomes P < Q.\n\nThe key says ⊕ means less than, so C ⊕ Q becomes C < Q.\n\nThe decoded statements allow C < P, C = P, or C > P.\n\nTherefore, the relation between C and P cannot be determined.\n\nC = P: After decoding, the statements still allow more than one relation, so this option is too definite.\n\nC < P: After decoding, the statements still allow more than one relation, so this option is too definite.\n\nC > P: After decoding, the statements still allow more than one relation, so this option is too definite.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 20,
+    "recordId": "INE-CP006-FAEC7147",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 7,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "MIXED_MARKS",
+    "topologyId": "DISCONNECTED_COMPONENTS",
+    "stem": "After decoding the statements, what is the strongest definite relation between B and P?",
+    "codeKey": [
+      "A ? B means A is greater than B.",
+      "A ~ B means A is less than B.",
+      "A ! B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A + B means A is less than or equal to B."
+    ],
+    "statements": [
+      "D ? B",
+      "P ~ Q"
+    ],
+    "options": [
+      "B > P",
+      "B ≥ P",
+      "B = P",
+      "The relation cannot be determined"
+    ],
+    "correctIndex": 3,
+    "correctOption": "The relation cannot be determined",
+    "mockSolution": "Replace every code symbol with its meaning before combining the chain. The key says ? means greater than, so D ? B becomes D > B. The key says ~ means less than, so P ~ Q becomes P < Q. The decoded statements allow B < P, B = P, or B > P. Therefore, the relation between B and P cannot be determined.",
+    "learningSolution": "Replace every code symbol with its meaning before combining the chain.\n\nThe key says ? means greater than, so D ? B becomes D > B.\n\nThe key says ~ means less than, so P ~ Q becomes P < Q.\n\nThe decoded statements allow B < P, B = P, or B > P.\n\nTherefore, the relation between B and P cannot be determined.\n\nB > P: After decoding, the statements still allow more than one relation, so this option is too definite.\n\nB ≥ P: After decoding, the statements still allow more than one relation, so this option is too definite.\n\nB = P: After decoding, the statements still allow more than one relation, so this option is too definite.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 21,
+    "recordId": "INE-CP006-89611066",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 8,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "FOUR_EDGE_MIXED_CHAIN",
+    "stem": "After decoding the statements, what is the strongest definite relation between D and A?",
+    "codeKey": [
+      "A # B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A @ B means A is equal to B.",
+      "A & B means A is greater than or equal to B.",
+      "A % B means A is less than or equal to B."
+    ],
+    "statements": [
+      "D & P @ C # Q & A"
+    ],
+    "options": [
+      "D < A",
+      "D > A",
+      "The relation cannot be determined",
+      "D = A"
+    ],
+    "correctIndex": 1,
+    "correctOption": "D > A",
+    "mockSolution": "Replace every code symbol with its meaning before combining the chain. The key says & means greater than or equal to, so D & P becomes D ≥ P. The key says @ means equal to, so P @ C becomes P = C. The key says # means greater than, so C # Q becomes C > Q. The key says & means greater than or equal to, so Q & A becomes Q ≥ A. The decoded statements allow D > A. Therefore, D > A is the strongest definite relation.",
+    "learningSolution": "Replace every code symbol with its meaning before combining the chain.\n\nThe key says & means greater than or equal to, so D & P becomes D ≥ P.\n\nThe key says @ means equal to, so P @ C becomes P = C.\n\nThe key says # means greater than, so C # Q becomes C > Q.\n\nThe key says & means greater than or equal to, so Q & A becomes Q ≥ A.\n\nThe decoded statements allow D > A.\n\nTherefore, D > A is the strongest definite relation.\n\nD < A: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nD = A: The decoded statements do not force the two values to be equal.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 22,
+    "recordId": "INE-CP006-7174C8E9",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 9,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "GEOMETRIC",
+    "topologyId": "FOUR_EDGE_WEAK_CHAIN",
+    "stem": "After decoding the statements, what is the strongest definite relation between B and A?",
+    "codeKey": [
+      "A ■ B means A is greater than B.",
+      "A ◆ B means A is less than B.",
+      "A ▲ B means A is equal to B.",
+      "A ★ B means A is greater than or equal to B.",
+      "A ● B means A is less than or equal to B."
+    ],
+    "statements": [
+      "A ● C ▲ Q ● P ▲ B"
+    ],
+    "options": [
+      "B = A",
+      "B < A",
+      "B ≥ A",
+      "B ≤ A"
+    ],
+    "correctIndex": 2,
+    "correctOption": "B ≥ A",
+    "mockSolution": "Replace every code symbol with its meaning before combining the chain. The key says ● means less than or equal to, so A ● C becomes A ≤ C. The key says ▲ means equal to, so C ▲ Q becomes C = Q. The key says ● means less than or equal to, so Q ● P becomes Q ≤ P. The key says ▲ means equal to, so P ▲ B becomes P = B. The decoded statements allow B = A or B > A. Therefore, B ≥ A is the strongest definite relation.",
+    "learningSolution": "Replace every code symbol with its meaning before combining the chain.\n\nThe key says ● means less than or equal to, so A ● C becomes A ≤ C.\n\nThe key says ▲ means equal to, so C ▲ Q becomes C = Q.\n\nThe key says ● means less than or equal to, so Q ● P becomes Q ≤ P.\n\nThe key says ▲ means equal to, so P ▲ B becomes P = B.\n\nThe decoded statements allow B = A or B > A.\n\nTherefore, B ≥ A is the strongest definite relation.\n\nB = A: The decoded relation allows both greater than and equal to, so this option is too specific.\n\nB < A: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nB ≤ A: This option uses the wrong direction or the wrong degree of certainty after decoding.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 23,
+    "recordId": "INE-CP006-ACBB3B59",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 10,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "CIRCLED_OPERATORS",
+    "topologyId": "CONVERGING_BRANCH",
+    "stem": "After decoding the statements, what is the strongest definite relation between C and B?",
+    "codeKey": [
+      "A ⊙ B means A is greater than B.",
+      "A ⊖ B means A is less than B.",
+      "A ⊕ B means A is equal to B.",
+      "A ⊘ B means A is greater than or equal to B.",
+      "A ⊗ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "B ⊖ Q",
+      "A ⊗ C",
+      "A ⊖ B"
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "C ≥ B",
+      "C < B",
+      "C ≤ B"
+    ],
+    "correctIndex": 0,
+    "correctOption": "The relation cannot be determined",
+    "mockSolution": "Replace every code symbol with its meaning before combining the chain. The key says ⊖ means less than, so B ⊖ Q becomes B < Q. The key says ⊗ means less than or equal to, so A ⊗ C becomes A ≤ C. The key says ⊖ means less than, so A ⊖ B becomes A < B. The decoded statements allow C < B, C = B, or C > B. Therefore, the relation between C and B cannot be determined.",
+    "learningSolution": "Replace every code symbol with its meaning before combining the chain.\n\nThe key says ⊖ means less than, so B ⊖ Q becomes B < Q.\n\nThe key says ⊗ means less than or equal to, so A ⊗ C becomes A ≤ C.\n\nThe key says ⊖ means less than, so A ⊖ B becomes A < B.\n\nThe decoded statements allow C < B, C = B, or C > B.\n\nTherefore, the relation between C and B cannot be determined.\n\nC ≥ B: After decoding, the statements still allow more than one relation, so this option is too definite.\n\nC < B: After decoding, the statements still allow more than one relation, so this option is too definite.\n\nC ≤ B: After decoding, the statements still allow more than one relation, so this option is too definite.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 24,
+    "recordId": "INE-CP006-F3670C56",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 11,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "MIXED_MARKS",
+    "topologyId": "CHAIN_WITH_IRRELEVANT_EDGE",
+    "stem": "After decoding the statements, what is the strongest definite relation between P and Q?",
+    "codeKey": [
+      "A ^ B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ~ B means A is equal to B.",
+      "A ! B means A is greater than or equal to B.",
+      "A ? B means A is less than or equal to B."
+    ],
+    "statements": [
+      "Q ^ C ! P",
+      "B ~ A"
+    ],
+    "options": [
+      "P > Q",
+      "P ≤ Q",
+      "P = Q",
+      "P < Q"
+    ],
+    "correctIndex": 3,
+    "correctOption": "P < Q",
+    "mockSolution": "Replace every code symbol with its meaning before combining the chain. The key says ^ means greater than, so Q ^ C becomes Q > C. The key says ! means greater than or equal to, so C ! P becomes C ≥ P. The key says ~ means equal to, so B ~ A becomes B = A. The decoded statements allow P < Q. Therefore, P < Q is the strongest definite relation.",
+    "learningSolution": "Replace every code symbol with its meaning before combining the chain.\n\nThe key says ^ means greater than, so Q ^ C becomes Q > C.\n\nThe key says ! means greater than or equal to, so C ! P becomes C ≥ P.\n\nThe key says ~ means equal to, so B ~ A becomes B = A.\n\nThe decoded statements allow P < Q.\n\nTherefore, P < Q is the strongest definite relation.\n\nP > Q: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nP ≤ Q: This is weaker than the strict less-than relation proved by the decoded chain.\n\nP = Q: The decoded statements do not force the two values to be equal.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 25,
+    "recordId": "INE-CP006-C0ADCD4F",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 0,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "TWO_EDGE_STRICT_CHAIN",
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A % B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A @ B means A is equal to B.",
+      "A & B means A is greater than or equal to B.",
+      "A # B means A is less than or equal to B."
+    ],
+    "statements": [
+      "Q % B % P"
+    ],
+    "conclusions": [
+      "B & P",
+      "Q $ B"
+    ],
+    "options": [
+      "Only conclusion I follows",
+      "Both conclusions I and II follow",
+      "Only conclusion II follows",
+      "Neither conclusion I nor conclusion II follows"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Only conclusion I follows",
+    "mockSolution": "Decode the statements first, then decode and test each conclusion separately. The key says % means greater than, so Q % B becomes Q > B. The key says % means greater than, so B % P becomes B > P. Conclusion I, B & P, means B ≥ P. The decoded statements allow B > P, so it definitely follows. Conclusion II, Q $ B, means Q < B. The decoded statements allow Q > B, so it is not guaranteed. Therefore, only conclusion I follows.",
+    "learningSolution": "Decode the statements first, then decode and test each conclusion separately.\n\nThe key says % means greater than, so Q % B becomes Q > B.\n\nThe key says % means greater than, so B % P becomes B > P.\n\nConclusion I, B & P, means B ≥ P. The decoded statements allow B > P, so it definitely follows.\n\nConclusion II, Q $ B, means Q < B. The decoded statements allow Q > B, so it is not guaranteed.\n\nTherefore, only conclusion I follows.\n\nBoth conclusions I and II follow: This choice accepts both conclusions. Only conclusion I is guaranteed.\n\nOnly conclusion II follows: This choice keeps the wrong conclusion. Only conclusion I is guaranteed.\n\nNeither conclusion I nor conclusion II follows: This choice rejects both conclusions. Only conclusion I is guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 26,
+    "recordId": "INE-CP006-3831B684",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 1,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "GEOMETRIC",
+    "topologyId": "INCLUSIVE_STRICT_CHAIN",
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A ◆ B means A is greater than B.",
+      "A ▲ B means A is less than B.",
+      "A ■ B means A is equal to B.",
+      "A ★ B means A is greater than or equal to B.",
+      "A ● B means A is less than or equal to B."
+    ],
+    "statements": [
+      "P ★ Q ◆ A"
+    ],
+    "conclusions": [
+      "P ● A",
+      "Q ★ A"
+    ],
+    "options": [
+      "Only conclusion I follows",
+      "Both conclusions I and II follow",
+      "Only conclusion II follows",
+      "Neither conclusion I nor conclusion II follows"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Only conclusion II follows",
+    "mockSolution": "Decode the statements first, then decode and test each conclusion separately. The key says ★ means greater than or equal to, so P ★ Q becomes P ≥ Q. The key says ◆ means greater than, so Q ◆ A becomes Q > A. Conclusion I, P ● A, means P ≤ A. The decoded statements allow P > A, so it is not guaranteed. Conclusion II, Q ★ A, means Q ≥ A. The decoded statements allow Q > A, so it definitely follows. Therefore, only conclusion II follows.",
+    "learningSolution": "Decode the statements first, then decode and test each conclusion separately.\n\nThe key says ★ means greater than or equal to, so P ★ Q becomes P ≥ Q.\n\nThe key says ◆ means greater than, so Q ◆ A becomes Q > A.\n\nConclusion I, P ● A, means P ≤ A. The decoded statements allow P > A, so it is not guaranteed.\n\nConclusion II, Q ★ A, means Q ≥ A. The decoded statements allow Q > A, so it definitely follows.\n\nTherefore, only conclusion II follows.\n\nOnly conclusion I follows: This choice keeps the wrong conclusion. Only conclusion II is guaranteed.\n\nBoth conclusions I and II follow: This choice accepts both conclusions. Only conclusion II is guaranteed.\n\nNeither conclusion I nor conclusion II follows: This choice rejects both conclusions. Only conclusion II is guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 27,
+    "recordId": "INE-CP006-8A47653D",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 2,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "CIRCLED_OPERATORS",
+    "topologyId": "TWO_EDGE_STRICT_CHAIN",
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A ⊕ B means A is greater than B.",
+      "A ⊗ B means A is less than B.",
+      "A ⊘ B means A is equal to B.",
+      "A ⊙ B means A is greater than or equal to B.",
+      "A ⊖ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "D ⊕ A ⊕ C"
+    ],
+    "conclusions": [
+      "D ⊕ A",
+      "D ⊕ C"
+    ],
+    "options": [
+      "Neither conclusion I nor conclusion II follows",
+      "Both conclusions I and II follow",
+      "Only conclusion I follows",
+      "Only conclusion II follows"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Both conclusions I and II follow",
+    "mockSolution": "Decode the statements first, then decode and test each conclusion separately. The key says ⊕ means greater than, so D ⊕ A becomes D > A. The key says ⊕ means greater than, so A ⊕ C becomes A > C. Conclusion I, D ⊕ A, means D > A. The decoded statements allow D > A, so it definitely follows. Conclusion II, D ⊕ C, means D > C. The decoded statements allow D > C, so it definitely follows. Therefore, both conclusions I and II follow.",
+    "learningSolution": "Decode the statements first, then decode and test each conclusion separately.\n\nThe key says ⊕ means greater than, so D ⊕ A becomes D > A.\n\nThe key says ⊕ means greater than, so A ⊕ C becomes A > C.\n\nConclusion I, D ⊕ A, means D > A. The decoded statements allow D > A, so it definitely follows.\n\nConclusion II, D ⊕ C, means D > C. The decoded statements allow D > C, so it definitely follows.\n\nTherefore, both conclusions I and II follow.\n\nNeither conclusion I nor conclusion II follows: This choice rejects both conclusions. Both conclusions are guaranteed.\n\nOnly conclusion I follows: This choice keeps the wrong conclusion. Both conclusions are guaranteed.\n\nOnly conclusion II follows: This choice keeps the wrong conclusion. Both conclusions are guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 28,
+    "recordId": "INE-CP006-CA46F6EA",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 3,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "MIXED_MARKS",
+    "topologyId": "INCLUSIVE_STRICT_CHAIN",
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A ! B means A is greater than B.",
+      "A ~ B means A is less than B.",
+      "A + B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A ? B means A is less than or equal to B."
+    ],
+    "statements": [
+      "D ~ P ? Q"
+    ],
+    "conclusions": [
+      "Q ~ D",
+      "Q + P"
+    ],
+    "options": [
+      "Both conclusions I and II follow",
+      "Only conclusion II follows",
+      "Only conclusion I follows",
+      "Neither conclusion I nor conclusion II follows"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Neither conclusion I nor conclusion II follows",
+    "mockSolution": "Decode the statements first, then decode and test each conclusion separately. The key says ~ means less than, so D ~ P becomes D < P. The key says ? means less than or equal to, so P ? Q becomes P ≤ Q. Conclusion I, Q ~ D, means Q < D. The decoded statements allow Q > D, so it is not guaranteed. Conclusion II, Q + P, means Q = P. The decoded statements allow Q = P or Q > P, so it is not guaranteed. Therefore, neither conclusion I nor conclusion II follows.",
+    "learningSolution": "Decode the statements first, then decode and test each conclusion separately.\n\nThe key says ~ means less than, so D ~ P becomes D < P.\n\nThe key says ? means less than or equal to, so P ? Q becomes P ≤ Q.\n\nConclusion I, Q ~ D, means Q < D. The decoded statements allow Q > D, so it is not guaranteed.\n\nConclusion II, Q + P, means Q = P. The decoded statements allow Q = P or Q > P, so it is not guaranteed.\n\nTherefore, neither conclusion I nor conclusion II follows.\n\nBoth conclusions I and II follow: This choice accepts both conclusions. Neither conclusion is guaranteed.\n\nOnly conclusion II follows: This choice keeps the wrong conclusion. Neither conclusion is guaranteed.\n\nOnly conclusion I follows: This choice keeps the wrong conclusion. Neither conclusion is guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 29,
+    "recordId": "INE-CP006-F0DC241B",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 4,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "EQUALITY_BRIDGE",
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A & B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A % B means A is equal to B.",
+      "A # B means A is greater than or equal to B.",
+      "A @ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "C % D @ B"
+    ],
+    "conclusions": [
+      "D @ B",
+      "C % B"
+    ],
+    "options": [
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion I follows",
+      "Both conclusions I and II follow",
+      "Only conclusion II follows"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Only conclusion I follows",
+    "mockSolution": "Decode the statements first, then decode and test each conclusion separately. The key says % means equal to, so C % D becomes C = D. The key says @ means less than or equal to, so D @ B becomes D ≤ B. Conclusion I, D @ B, means D ≤ B. The decoded statements allow D < B or D = B, so it definitely follows. Conclusion II, C % B, means C = B. The decoded statements allow C < B or C = B, so it is not guaranteed. Therefore, only conclusion I follows.",
+    "learningSolution": "Decode the statements first, then decode and test each conclusion separately.\n\nThe key says % means equal to, so C % D becomes C = D.\n\nThe key says @ means less than or equal to, so D @ B becomes D ≤ B.\n\nConclusion I, D @ B, means D ≤ B. The decoded statements allow D < B or D = B, so it definitely follows.\n\nConclusion II, C % B, means C = B. The decoded statements allow C < B or C = B, so it is not guaranteed.\n\nTherefore, only conclusion I follows.\n\nNeither conclusion I nor conclusion II follows: This choice rejects both conclusions. Only conclusion I is guaranteed.\n\nBoth conclusions I and II follow: This choice accepts both conclusions. Only conclusion I is guaranteed.\n\nOnly conclusion II follows: This choice keeps the wrong conclusion. Only conclusion I is guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 30,
+    "recordId": "INE-CP006-AC5E49D0",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 5,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "GEOMETRIC",
+    "topologyId": "THREE_EDGE_WEAK_CHAIN",
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A ■ B means A is greater than B.",
+      "A ◆ B means A is less than B.",
+      "A ▲ B means A is equal to B.",
+      "A ● B means A is greater than or equal to B.",
+      "A ★ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "A ● D ▲ Q ● P"
+    ],
+    "conclusions": [
+      "D ■ P",
+      "D ▲ Q"
+    ],
+    "options": [
+      "Neither conclusion I nor conclusion II follows",
+      "Both conclusions I and II follow",
+      "Only conclusion I follows",
+      "Only conclusion II follows"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Only conclusion II follows",
+    "mockSolution": "Decode the statements first, then decode and test each conclusion separately. The key says ● means greater than or equal to, so A ● D becomes A ≥ D. The key says ▲ means equal to, so D ▲ Q becomes D = Q. The key says ● means greater than or equal to, so Q ● P becomes Q ≥ P. Conclusion I, D ■ P, means D > P. The decoded statements allow D = P or D > P, so it is not guaranteed. Conclusion II, D ▲ Q, means D = Q. The decoded statements allow D = Q, so it definitely follows. Therefore, only conclusion II follows.",
+    "learningSolution": "Decode the statements first, then decode and test each conclusion separately.\n\nThe key says ● means greater than or equal to, so A ● D becomes A ≥ D.\n\nThe key says ▲ means equal to, so D ▲ Q becomes D = Q.\n\nThe key says ● means greater than or equal to, so Q ● P becomes Q ≥ P.\n\nConclusion I, D ■ P, means D > P. The decoded statements allow D = P or D > P, so it is not guaranteed.\n\nConclusion II, D ▲ Q, means D = Q. The decoded statements allow D = Q, so it definitely follows.\n\nTherefore, only conclusion II follows.\n\nNeither conclusion I nor conclusion II follows: This choice rejects both conclusions. Only conclusion II is guaranteed.\n\nBoth conclusions I and II follow: This choice accepts both conclusions. Only conclusion II is guaranteed.\n\nOnly conclusion I follows: This choice keeps the wrong conclusion. Only conclusion II is guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 31,
+    "recordId": "INE-CP006-FF387309",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 6,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "CIRCLED_OPERATORS",
+    "topologyId": "SHARED_UPPER_FREE_ENDPOINTS",
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A ⊗ B means A is greater than B.",
+      "A ⊕ B means A is less than B.",
+      "A ⊙ B means A is equal to B.",
+      "A ⊘ B means A is greater than or equal to B.",
+      "A ⊖ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "A ⊗ B",
+      "A ⊗ C"
+    ],
+    "conclusions": [
+      "C ⊖ A",
+      "B ⊖ A"
+    ],
+    "options": [
+      "Only conclusion II follows",
+      "Neither conclusion I nor conclusion II follows",
+      "Both conclusions I and II follow",
+      "Only conclusion I follows"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Both conclusions I and II follow",
+    "mockSolution": "Decode the statements first, then decode and test each conclusion separately. The key says ⊗ means greater than, so A ⊗ B becomes A > B. The key says ⊗ means greater than, so A ⊗ C becomes A > C. Conclusion I, C ⊖ A, means C ≤ A. The decoded statements allow C < A, so it definitely follows. Conclusion II, B ⊖ A, means B ≤ A. The decoded statements allow B < A, so it definitely follows. Therefore, both conclusions I and II follow.",
+    "learningSolution": "Decode the statements first, then decode and test each conclusion separately.\n\nThe key says ⊗ means greater than, so A ⊗ B becomes A > B.\n\nThe key says ⊗ means greater than, so A ⊗ C becomes A > C.\n\nConclusion I, C ⊖ A, means C ≤ A. The decoded statements allow C < A, so it definitely follows.\n\nConclusion II, B ⊖ A, means B ≤ A. The decoded statements allow B < A, so it definitely follows.\n\nTherefore, both conclusions I and II follow.\n\nOnly conclusion II follows: This choice keeps the wrong conclusion. Both conclusions are guaranteed.\n\nNeither conclusion I nor conclusion II follows: This choice rejects both conclusions. Both conclusions are guaranteed.\n\nOnly conclusion I follows: This choice keeps the wrong conclusion. Both conclusions are guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 32,
+    "recordId": "INE-CP006-272EBB86",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 7,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "MIXED_MARKS",
+    "topologyId": "DISCONNECTED_COMPONENTS",
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A ? B means A is greater than B.",
+      "A ~ B means A is less than B.",
+      "A ! B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A + B means A is less than or equal to B."
+    ],
+    "statements": [
+      "C ? B",
+      "P ~ Q"
+    ],
+    "conclusions": [
+      "P ! C",
+      "Q ~ P"
+    ],
+    "options": [
+      "Neither conclusion I nor conclusion II follows",
+      "Both conclusions I and II follow",
+      "Only conclusion I follows",
+      "Only conclusion II follows"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Neither conclusion I nor conclusion II follows",
+    "mockSolution": "Decode the statements first, then decode and test each conclusion separately. The key says ? means greater than, so C ? B becomes C > B. The key says ~ means less than, so P ~ Q becomes P < Q. Conclusion I, P ! C, means P = C. The decoded statements allow P < C, P = C, or P > C, so it is not guaranteed. Conclusion II, Q ~ P, means Q < P. The decoded statements allow Q > P, so it is not guaranteed. Therefore, neither conclusion I nor conclusion II follows.",
+    "learningSolution": "Decode the statements first, then decode and test each conclusion separately.\n\nThe key says ? means greater than, so C ? B becomes C > B.\n\nThe key says ~ means less than, so P ~ Q becomes P < Q.\n\nConclusion I, P ! C, means P = C. The decoded statements allow P < C, P = C, or P > C, so it is not guaranteed.\n\nConclusion II, Q ~ P, means Q < P. The decoded statements allow Q > P, so it is not guaranteed.\n\nTherefore, neither conclusion I nor conclusion II follows.\n\nBoth conclusions I and II follow: This choice accepts both conclusions. Neither conclusion is guaranteed.\n\nOnly conclusion I follows: This choice keeps the wrong conclusion. Neither conclusion is guaranteed.\n\nOnly conclusion II follows: This choice keeps the wrong conclusion. Neither conclusion is guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 33,
+    "recordId": "INE-CP006-B4E41067",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 8,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "FOUR_EDGE_MIXED_CHAIN",
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A # B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A @ B means A is equal to B.",
+      "A & B means A is greater than or equal to B.",
+      "A % B means A is less than or equal to B."
+    ],
+    "statements": [
+      "B & A @ P # Q & C"
+    ],
+    "conclusions": [
+      "B & C",
+      "A $ Q"
+    ],
+    "options": [
+      "Neither conclusion I nor conclusion II follows",
+      "Both conclusions I and II follow",
+      "Only conclusion I follows",
+      "Only conclusion II follows"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Only conclusion I follows",
+    "mockSolution": "Decode the statements first, then decode and test each conclusion separately. The key says & means greater than or equal to, so B & A becomes B ≥ A. The key says @ means equal to, so A @ P becomes A = P. The key says # means greater than, so P # Q becomes P > Q. The key says & means greater than or equal to, so Q & C becomes Q ≥ C. Conclusion I, B & C, means B ≥ C. The decoded statements allow B > C, so it definitely follows. Conclusion II, A $ Q, means A < Q. The decoded statements allow A > Q, so it is not guaranteed. Therefore, only conclusion I follows.",
+    "learningSolution": "Decode the statements first, then decode and test each conclusion separately.\n\nThe key says & means greater than or equal to, so B & A becomes B ≥ A.\n\nThe key says @ means equal to, so A @ P becomes A = P.\n\nThe key says # means greater than, so P # Q becomes P > Q.\n\nThe key says & means greater than or equal to, so Q & C becomes Q ≥ C.\n\nConclusion I, B & C, means B ≥ C. The decoded statements allow B > C, so it definitely follows.\n\nConclusion II, A $ Q, means A < Q. The decoded statements allow A > Q, so it is not guaranteed.\n\nTherefore, only conclusion I follows.\n\nNeither conclusion I nor conclusion II follows: This choice rejects both conclusions. Only conclusion I is guaranteed.\n\nBoth conclusions I and II follow: This choice accepts both conclusions. Only conclusion I is guaranteed.\n\nOnly conclusion II follows: This choice keeps the wrong conclusion. Only conclusion I is guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 34,
+    "recordId": "INE-CP006-052E3D9C",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 9,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "GEOMETRIC",
+    "topologyId": "FOUR_EDGE_WEAK_CHAIN",
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A ■ B means A is greater than B.",
+      "A ◆ B means A is less than B.",
+      "A ▲ B means A is equal to B.",
+      "A ★ B means A is greater than or equal to B.",
+      "A ● B means A is less than or equal to B."
+    ],
+    "statements": [
+      "C ▲ D ★ P ▲ B ★ A"
+    ],
+    "conclusions": [
+      "A ■ P",
+      "D ▲ C"
+    ],
+    "options": [
+      "Only conclusion I follows",
+      "Only conclusion II follows",
+      "Both conclusions I and II follow",
+      "Neither conclusion I nor conclusion II follows"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Only conclusion II follows",
+    "mockSolution": "Decode the statements first, then decode and test each conclusion separately. The key says ▲ means equal to, so C ▲ D becomes C = D. The key says ★ means greater than or equal to, so D ★ P becomes D ≥ P. The key says ▲ means equal to, so P ▲ B becomes P = B. The key says ★ means greater than or equal to, so B ★ A becomes B ≥ A. Conclusion I, A ■ P, means A > P. The decoded statements allow A < P or A = P, so it is not guaranteed. Conclusion II, D ▲ C, means D = C. The decoded statements allow D = C, so it definitely follows. Therefore, only conclusion II follows.",
+    "learningSolution": "Decode the statements first, then decode and test each conclusion separately.\n\nThe key says ▲ means equal to, so C ▲ D becomes C = D.\n\nThe key says ★ means greater than or equal to, so D ★ P becomes D ≥ P.\n\nThe key says ▲ means equal to, so P ▲ B becomes P = B.\n\nThe key says ★ means greater than or equal to, so B ★ A becomes B ≥ A.\n\nConclusion I, A ■ P, means A > P. The decoded statements allow A < P or A = P, so it is not guaranteed.\n\nConclusion II, D ▲ C, means D = C. The decoded statements allow D = C, so it definitely follows.\n\nTherefore, only conclusion II follows.\n\nOnly conclusion I follows: This choice keeps the wrong conclusion. Only conclusion II is guaranteed.\n\nBoth conclusions I and II follow: This choice accepts both conclusions. Only conclusion II is guaranteed.\n\nNeither conclusion I nor conclusion II follows: This choice rejects both conclusions. Only conclusion II is guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 35,
+    "recordId": "INE-CP006-D78687C2",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 10,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "CIRCLED_OPERATORS",
+    "topologyId": "CONVERGING_BRANCH",
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A ⊙ B means A is greater than B.",
+      "A ⊖ B means A is less than B.",
+      "A ⊕ B means A is equal to B.",
+      "A ⊘ B means A is greater than or equal to B.",
+      "A ⊗ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "Q ⊖ D",
+      "C ⊗ P",
+      "C ⊖ Q"
+    ],
+    "conclusions": [
+      "C ⊗ D",
+      "Q ⊘ C"
+    ],
+    "options": [
+      "Only conclusion II follows",
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion I follows",
+      "Both conclusions I and II follow"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Both conclusions I and II follow",
+    "mockSolution": "Decode the statements first, then decode and test each conclusion separately. The key says ⊖ means less than, so Q ⊖ D becomes Q < D. The key says ⊗ means less than or equal to, so C ⊗ P becomes C ≤ P. The key says ⊖ means less than, so C ⊖ Q becomes C < Q. Conclusion I, C ⊗ D, means C ≤ D. The decoded statements allow C < D, so it definitely follows. Conclusion II, Q ⊘ C, means Q ≥ C. The decoded statements allow Q > C, so it definitely follows. Therefore, both conclusions I and II follow.",
+    "learningSolution": "Decode the statements first, then decode and test each conclusion separately.\n\nThe key says ⊖ means less than, so Q ⊖ D becomes Q < D.\n\nThe key says ⊗ means less than or equal to, so C ⊗ P becomes C ≤ P.\n\nThe key says ⊖ means less than, so C ⊖ Q becomes C < Q.\n\nConclusion I, C ⊗ D, means C ≤ D. The decoded statements allow C < D, so it definitely follows.\n\nConclusion II, Q ⊘ C, means Q ≥ C. The decoded statements allow Q > C, so it definitely follows.\n\nTherefore, both conclusions I and II follow.\n\nOnly conclusion II follows: This choice keeps the wrong conclusion. Both conclusions are guaranteed.\n\nNeither conclusion I nor conclusion II follows: This choice rejects both conclusions. Both conclusions are guaranteed.\n\nOnly conclusion I follows: This choice keeps the wrong conclusion. Both conclusions are guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 36,
+    "recordId": "INE-CP006-7FCBF6B5",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 11,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolSetId": "MIXED_MARKS",
+    "topologyId": "CHAIN_WITH_IRRELEVANT_EDGE",
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A ^ B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ~ B means A is equal to B.",
+      "A ! B means A is greater than or equal to B.",
+      "A ? B means A is less than or equal to B."
+    ],
+    "statements": [
+      "B ^ P ! C",
+      "Q ~ D"
+    ],
+    "conclusions": [
+      "C ! Q",
+      "P ^ D"
+    ],
+    "options": [
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion II follows",
+      "Only conclusion I follows",
+      "Both conclusions I and II follow"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Neither conclusion I nor conclusion II follows",
+    "mockSolution": "Decode the statements first, then decode and test each conclusion separately. The key says ^ means greater than, so B ^ P becomes B > P. The key says ! means greater than or equal to, so P ! C becomes P ≥ C. The key says ~ means equal to, so Q ~ D becomes Q = D. Conclusion I, C ! Q, means C ≥ Q. The decoded statements allow C < Q, C = Q, or C > Q, so it is not guaranteed. Conclusion II, P ^ D, means P > D. The decoded statements allow P < D, P = D, or P > D, so it is not guaranteed. Therefore, neither conclusion I nor conclusion II follows.",
+    "learningSolution": "Decode the statements first, then decode and test each conclusion separately.\n\nThe key says ^ means greater than, so B ^ P becomes B > P.\n\nThe key says ! means greater than or equal to, so P ! C becomes P ≥ C.\n\nThe key says ~ means equal to, so Q ~ D becomes Q = D.\n\nConclusion I, C ! Q, means C ≥ Q. The decoded statements allow C < Q, C = Q, or C > Q, so it is not guaranteed.\n\nConclusion II, P ^ D, means P > D. The decoded statements allow P < D, P = D, or P > D, so it is not guaranteed.\n\nTherefore, neither conclusion I nor conclusion II follows.\n\nOnly conclusion II follows: This choice keeps the wrong conclusion. Neither conclusion is guaranteed.\n\nOnly conclusion I follows: This choice keeps the wrong conclusion. Neither conclusion is guaranteed.\n\nBoth conclusions I and II follow: This choice accepts both conclusions. Neither conclusion is guaranteed.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 37,
+    "recordId": "INE-CP006-B827BE76",
+    "authorityId": "ENCODE_FIXED_MAP_RELATION",
+    "seed": 0,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "DIRECT_LESS_THAN",
+    "stem": "According to the supplied code key, which option correctly encodes the ordinary relation?",
+    "codeKey": [
+      "A % B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A @ B means A is equal to B.",
+      "A & B means A is greater than or equal to B.",
+      "A # B means A is less than or equal to B."
+    ],
+    "statements": [
+      "A < P"
+    ],
+    "options": [
+      "A & P",
+      "A $ P",
+      "A # P",
+      "A @ P"
+    ],
+    "correctIndex": 1,
+    "correctOption": "A $ P",
+    "mockSolution": "The required relation is A < P. In the supplied key, $ represents less than (<). Therefore, the correct coded form is A $ P.",
+    "learningSolution": "The required relation is A < P.\n\nIn the supplied key, $ represents less than (<).\n\nTherefore, the correct coded form is A $ P.\n\nA & P: Its code symbol represents greater than or equal to, not less than.\n\nA # P: Its code symbol represents less than or equal to, not less than.\n\nA @ P: Its code symbol represents equal to, not less than.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 38,
+    "recordId": "INE-CP006-9B832AF9",
+    "authorityId": "ENCODE_FIXED_MAP_RELATION",
+    "seed": 1,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "GEOMETRIC",
+    "topologyId": "DIRECT_GREATER_THAN",
+    "stem": "According to the supplied code key, which option correctly encodes the ordinary relation?",
+    "codeKey": [
+      "A ◆ B means A is greater than B.",
+      "A ▲ B means A is less than B.",
+      "A ■ B means A is equal to B.",
+      "A ★ B means A is greater than or equal to B.",
+      "A ● B means A is less than or equal to B."
+    ],
+    "statements": [
+      "Q > C"
+    ],
+    "options": [
+      "Q ▲ C",
+      "Q ★ C",
+      "Q ◆ C",
+      "Q ■ C"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Q ◆ C",
+    "mockSolution": "The required relation is Q > C. In the supplied key, ◆ represents greater than (>). Therefore, the correct coded form is Q ◆ C.",
+    "learningSolution": "The required relation is Q > C.\n\nIn the supplied key, ◆ represents greater than (>).\n\nTherefore, the correct coded form is Q ◆ C.\n\nQ ▲ C: Its code symbol represents less than, not greater than.\n\nQ ★ C: Its code symbol represents greater than or equal to, not greater than.\n\nQ ■ C: Its code symbol represents equal to, not greater than.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 39,
+    "recordId": "INE-CP006-AEF00640",
+    "authorityId": "ENCODE_FIXED_MAP_RELATION",
+    "seed": 2,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "CIRCLED_OPERATORS",
+    "topologyId": "DIRECT_EQUAL_TO",
+    "stem": "According to the supplied code key, which option correctly encodes the ordinary relation?",
+    "codeKey": [
+      "A ⊕ B means A is greater than B.",
+      "A ⊗ B means A is less than B.",
+      "A ⊘ B means A is equal to B.",
+      "A ⊙ B means A is greater than or equal to B.",
+      "A ⊖ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "Q = A"
+    ],
+    "options": [
+      "Q ⊗ A",
+      "Q ⊖ A",
+      "Q ⊙ A",
+      "Q ⊘ A"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Q ⊘ A",
+    "mockSolution": "The required relation is Q = A. In the supplied key, ⊘ represents equal to (=). Therefore, the correct coded form is Q ⊘ A.",
+    "learningSolution": "The required relation is Q = A.\n\nIn the supplied key, ⊘ represents equal to (=).\n\nTherefore, the correct coded form is Q ⊘ A.\n\nQ ⊗ A: Its code symbol represents less than, not equal to.\n\nQ ⊖ A: Its code symbol represents less than or equal to, not equal to.\n\nQ ⊙ A: Its code symbol represents greater than or equal to, not equal to.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 40,
+    "recordId": "INE-CP006-7119E64B",
+    "authorityId": "ENCODE_FIXED_MAP_RELATION",
+    "seed": 3,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "MIXED_MARKS",
+    "topologyId": "DIRECT_GREATER_THAN_OR_EQUAL",
+    "stem": "According to the supplied code key, which option correctly encodes the ordinary relation?",
+    "codeKey": [
+      "A ! B means A is greater than B.",
+      "A ~ B means A is less than B.",
+      "A + B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A ? B means A is less than or equal to B."
+    ],
+    "statements": [
+      "D ≥ B"
+    ],
+    "options": [
+      "D ^ B",
+      "D ! B",
+      "D + B",
+      "D ? B"
+    ],
+    "correctIndex": 0,
+    "correctOption": "D ^ B",
+    "mockSolution": "The required relation is D ≥ B. In the supplied key, ^ represents greater than or equal to (≥). Therefore, the correct coded form is D ^ B.",
+    "learningSolution": "The required relation is D ≥ B.\n\nIn the supplied key, ^ represents greater than or equal to (≥).\n\nTherefore, the correct coded form is D ^ B.\n\nD ! B: Its code symbol represents greater than, not greater than or equal to.\n\nD + B: Its code symbol represents equal to, not greater than or equal to.\n\nD ? B: Its code symbol represents less than or equal to, not greater than or equal to.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 41,
+    "recordId": "INE-CP006-8D3F745A",
+    "authorityId": "ENCODE_FIXED_MAP_RELATION",
+    "seed": 4,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "DIRECT_LESS_THAN_OR_EQUAL",
+    "stem": "According to the supplied code key, which option correctly encodes the ordinary relation?",
+    "codeKey": [
+      "A & B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A % B means A is equal to B.",
+      "A # B means A is greater than or equal to B.",
+      "A @ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "Q ≤ P"
+    ],
+    "options": [
+      "Q # P",
+      "Q @ P",
+      "Q % P",
+      "Q & P"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Q @ P",
+    "mockSolution": "The required relation is Q ≤ P. In the supplied key, @ represents less than or equal to (≤). Therefore, the correct coded form is Q @ P.",
+    "learningSolution": "The required relation is Q ≤ P.\n\nIn the supplied key, @ represents less than or equal to (≤).\n\nTherefore, the correct coded form is Q @ P.\n\nQ # P: Its code symbol represents greater than or equal to, not less than or equal to.\n\nQ % P: Its code symbol represents equal to, not less than or equal to.\n\nQ & P: Its code symbol represents greater than, not less than or equal to.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 42,
+    "recordId": "INE-CP006-A8A3156D",
+    "authorityId": "ENCODE_FIXED_MAP_RELATION",
+    "seed": 5,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "GEOMETRIC",
+    "topologyId": "DIRECT_GREATER_THAN",
+    "stem": "According to the supplied code key, which option correctly encodes the ordinary relation?",
+    "codeKey": [
+      "A ■ B means A is greater than B.",
+      "A ◆ B means A is less than B.",
+      "A ▲ B means A is equal to B.",
+      "A ● B means A is greater than or equal to B.",
+      "A ★ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "D > Q"
+    ],
+    "options": [
+      "D ◆ Q",
+      "D ★ Q",
+      "D ● Q",
+      "D ■ Q"
+    ],
+    "correctIndex": 3,
+    "correctOption": "D ■ Q",
+    "mockSolution": "The required relation is D > Q. In the supplied key, ■ represents greater than (>). Therefore, the correct coded form is D ■ Q.",
+    "learningSolution": "The required relation is D > Q.\n\nIn the supplied key, ■ represents greater than (>).\n\nTherefore, the correct coded form is D ■ Q.\n\nD ◆ Q: Its code symbol represents less than, not greater than.\n\nD ★ Q: Its code symbol represents less than or equal to, not greater than.\n\nD ● Q: Its code symbol represents greater than or equal to, not greater than.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 43,
+    "recordId": "INE-CP006-E78B23F4",
+    "authorityId": "ENCODE_FIXED_MAP_RELATION",
+    "seed": 6,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "CIRCLED_OPERATORS",
+    "topologyId": "DIRECT_LESS_THAN",
+    "stem": "According to the supplied code key, which option correctly encodes the ordinary relation?",
+    "codeKey": [
+      "A ⊗ B means A is greater than B.",
+      "A ⊕ B means A is less than B.",
+      "A ⊙ B means A is equal to B.",
+      "A ⊘ B means A is greater than or equal to B.",
+      "A ⊖ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "Q < P"
+    ],
+    "options": [
+      "Q ⊕ P",
+      "Q ⊘ P",
+      "Q ⊖ P",
+      "Q ⊗ P"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Q ⊕ P",
+    "mockSolution": "The required relation is Q < P. In the supplied key, ⊕ represents less than (<). Therefore, the correct coded form is Q ⊕ P.",
+    "learningSolution": "The required relation is Q < P.\n\nIn the supplied key, ⊕ represents less than (<).\n\nTherefore, the correct coded form is Q ⊕ P.\n\nQ ⊘ P: Its code symbol represents greater than or equal to, not less than.\n\nQ ⊖ P: Its code symbol represents less than or equal to, not less than.\n\nQ ⊗ P: Its code symbol represents greater than, not less than.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 44,
+    "recordId": "INE-CP006-01123EBF",
+    "authorityId": "ENCODE_FIXED_MAP_RELATION",
+    "seed": 7,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "MIXED_MARKS",
+    "topologyId": "DIRECT_EQUAL_TO",
+    "stem": "According to the supplied code key, which option correctly encodes the ordinary relation?",
+    "codeKey": [
+      "A ? B means A is greater than B.",
+      "A ~ B means A is less than B.",
+      "A ! B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A + B means A is less than or equal to B."
+    ],
+    "statements": [
+      "Q = P"
+    ],
+    "options": [
+      "Q + P",
+      "Q ? P",
+      "Q ! P",
+      "Q ~ P"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Q ! P",
+    "mockSolution": "The required relation is Q = P. In the supplied key, ! represents equal to (=). Therefore, the correct coded form is Q ! P.",
+    "learningSolution": "The required relation is Q = P.\n\nIn the supplied key, ! represents equal to (=).\n\nTherefore, the correct coded form is Q ! P.\n\nQ + P: Its code symbol represents less than or equal to, not equal to.\n\nQ ? P: Its code symbol represents greater than, not equal to.\n\nQ ~ P: Its code symbol represents less than, not equal to.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 45,
+    "recordId": "INE-CP006-D83FD6AE",
+    "authorityId": "ENCODE_FIXED_MAP_RELATION",
+    "seed": 8,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "DIRECT_LESS_THAN_OR_EQUAL",
+    "stem": "According to the supplied code key, which option correctly encodes the ordinary relation?",
+    "codeKey": [
+      "A # B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A @ B means A is equal to B.",
+      "A & B means A is greater than or equal to B.",
+      "A % B means A is less than or equal to B."
+    ],
+    "statements": [
+      "A ≤ Q"
+    ],
+    "options": [
+      "A % Q",
+      "A $ Q",
+      "A @ Q",
+      "A # Q"
+    ],
+    "correctIndex": 0,
+    "correctOption": "A % Q",
+    "mockSolution": "The required relation is A ≤ Q. In the supplied key, % represents less than or equal to (≤). Therefore, the correct coded form is A % Q.",
+    "learningSolution": "The required relation is A ≤ Q.\n\nIn the supplied key, % represents less than or equal to (≤).\n\nTherefore, the correct coded form is A % Q.\n\nA $ Q: Its code symbol represents less than, not less than or equal to.\n\nA @ Q: Its code symbol represents equal to, not less than or equal to.\n\nA # Q: Its code symbol represents greater than, not less than or equal to.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 46,
+    "recordId": "INE-CP006-5396C3B1",
+    "authorityId": "ENCODE_FIXED_MAP_RELATION",
+    "seed": 9,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "GEOMETRIC",
+    "topologyId": "DIRECT_LESS_THAN_OR_EQUAL",
+    "stem": "According to the supplied code key, which option correctly encodes the ordinary relation?",
+    "codeKey": [
+      "A ■ B means A is greater than B.",
+      "A ◆ B means A is less than B.",
+      "A ▲ B means A is equal to B.",
+      "A ★ B means A is greater than or equal to B.",
+      "A ● B means A is less than or equal to B."
+    ],
+    "statements": [
+      "C ≤ B"
+    ],
+    "options": [
+      "C ■ B",
+      "C ◆ B",
+      "C ● B",
+      "C ▲ B"
+    ],
+    "correctIndex": 2,
+    "correctOption": "C ● B",
+    "mockSolution": "The required relation is C ≤ B. In the supplied key, ● represents less than or equal to (≤). Therefore, the correct coded form is C ● B.",
+    "learningSolution": "The required relation is C ≤ B.\n\nIn the supplied key, ● represents less than or equal to (≤).\n\nTherefore, the correct coded form is C ● B.\n\nC ■ B: Its code symbol represents greater than, not less than or equal to.\n\nC ◆ B: Its code symbol represents less than, not less than or equal to.\n\nC ▲ B: Its code symbol represents equal to, not less than or equal to.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 47,
+    "recordId": "INE-CP006-763D57C1",
+    "authorityId": "ENCODE_FIXED_MAP_RELATION",
+    "seed": 10,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "CIRCLED_OPERATORS",
+    "topologyId": "DIRECT_LESS_THAN",
+    "stem": "According to the supplied code key, which option correctly encodes the ordinary relation?",
+    "codeKey": [
+      "A ⊙ B means A is greater than B.",
+      "A ⊖ B means A is less than B.",
+      "A ⊕ B means A is equal to B.",
+      "A ⊘ B means A is greater than or equal to B.",
+      "A ⊗ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "C < Q"
+    ],
+    "options": [
+      "C ⊗ Q",
+      "C ⊖ Q",
+      "C ⊘ Q",
+      "C ⊙ Q"
+    ],
+    "correctIndex": 1,
+    "correctOption": "C ⊖ Q",
+    "mockSolution": "The required relation is C < Q. In the supplied key, ⊖ represents less than (<). Therefore, the correct coded form is C ⊖ Q.",
+    "learningSolution": "The required relation is C < Q.\n\nIn the supplied key, ⊖ represents less than (<).\n\nTherefore, the correct coded form is C ⊖ Q.\n\nC ⊗ Q: Its code symbol represents less than or equal to, not less than.\n\nC ⊘ Q: Its code symbol represents greater than or equal to, not less than.\n\nC ⊙ Q: Its code symbol represents greater than, not less than.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 48,
+    "recordId": "INE-CP006-7F6BE4BE",
+    "authorityId": "ENCODE_FIXED_MAP_RELATION",
+    "seed": 11,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolSetId": "MIXED_MARKS",
+    "topologyId": "DIRECT_GREATER_THAN",
+    "stem": "According to the supplied code key, which option correctly encodes the ordinary relation?",
+    "codeKey": [
+      "A ^ B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ~ B means A is equal to B.",
+      "A ! B means A is greater than or equal to B.",
+      "A ? B means A is less than or equal to B."
+    ],
+    "statements": [
+      "B > A"
+    ],
+    "options": [
+      "B + A",
+      "B ? A",
+      "B ~ A",
+      "B ^ A"
+    ],
+    "correctIndex": 3,
+    "correctOption": "B ^ A",
+    "mockSolution": "The required relation is B > A. In the supplied key, ^ represents greater than (>). Therefore, the correct coded form is B ^ A.",
+    "learningSolution": "The required relation is B > A.\n\nIn the supplied key, ^ represents greater than (>).\n\nTherefore, the correct coded form is B ^ A.\n\nB + A: Its code symbol represents less than, not greater than.\n\nB ? A: Its code symbol represents less than or equal to, not greater than.\n\nB ~ A: Its code symbol represents equal to, not greater than.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  }
+]
