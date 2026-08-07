@@ -6,10 +6,9 @@ export type TsdContextQuestion = TsdCp001GeneratedQuestion | TsdCp002GeneratedQu
 const CONTEXT_REPLACEMENTS = Object.freeze([
   ["A cyclist covers part of a journey", "A motorcycle covers part of a journey"],
   ["A cyclist travels at", "A motorcycle travels at"],
-  ["A rider covers", "A motorcyclist covers"],
-  ["A rider travels", "A motorcyclist travels"],
-  ["A rider goes", "A motorcyclist goes"],
-  ["A rider wants", "A motorcyclist wants"],
+  ["A rider", "A motorcyclist"],
+  ["a rider", "a motorcyclist"],
+  ["rider's speed", "motorcyclist's speed"],
   ["then rides at", "then continues at"],
   ["A courier covers", "During a controlled route test, a courier van covers"],
   ["A field engineer travels", "During a controlled road trial, a test vehicle travels"],
