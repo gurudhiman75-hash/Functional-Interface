@@ -1,4 +1,5 @@
 export * from "./types";
+export * from "./proof-types";
 export * from "./geometry";
 export * from "./transform";
 export * from "./normalize";
@@ -7,4 +8,7 @@ export * from "./transform-validator";
 export * from "./symmetry";
 export * from "./clock";
 export * from "./glyph-authority";
+export * from "./seed";
+export * from "./seeded-composition";
+export * from "./transform-proof-generator";
 export * from "./svg-renderer";
