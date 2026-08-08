@@ -35,11 +35,12 @@ if (ambiguityDetails.length > 0) {
   console.error(JSON.stringify({ semanticAmbiguities: ambiguityDetails }, null, 2));
 }
 
-assert.equal(BLR_CP007_V4_WAVE3_FINAL_REVIEW_AUTHORITY, "BLR_CP007_V4_WAVE3_FINAL_HUMAN_REVIEW_CANDIDATE");
+assert.equal(BLR_CP007_V4_WAVE3_FINAL_REVIEW_AUTHORITY, "BLR_CP007_V4_WAVE3_PRODUCT_OWNER_APPROVED");
 assert.equal(bank.length, 168);
 assert.deepEqual(answerPositions, [42, 42, 42, 42]);
 assert.equal(telemetry.semanticAmbiguityCount, 0);
 assert.equal(telemetry.malformedLearnerExplanationCount, 0);
+assert.equal(telemetry.redundantRelationQualifierCount, 0);
 assert.equal(telemetry.ql032BlankMeaningMismatchCount, 0);
 assert.equal(telemetry.learnerTokenWordOccurrences, 0);
 assert.equal(telemetry.codePersonCollisionCount, 0);
@@ -91,7 +92,8 @@ for (const question of bank) {
   assert.equal(question.questionStudioVisible, false);
   assert.equal(question.questionBankEligible, false);
   assert.equal(question.mockTestEligible, false);
-  assert.deepEqual(question.metadata.activeEditorialBlockers, ["HUMAN_EDITORIAL_APPROVAL_PENDING"]);
+  assert.deepEqual(question.metadata.activeEditorialBlockers, ["ENGLISH_FREEZE_PENDING"]);
+  assert.deepEqual(question.v4ReviewProof.activeEditorialBlockers, ["ENGLISH_FREEZE_PENDING"]);
   const learnerFields = [
     question.sharedPrompt,
     question.stem,
@@ -105,6 +107,7 @@ for (const question of bank) {
   const learnerText = learnerFields.join("\n");
   assert(!/\btoken(?:s)?\b/i.test(learnerText));
   assert(!/\b(?:red|blue|green|white|black|amber|silver|gold)\b/i.test(learnerText));
+  assert(!/\b(?:marriage-based|blood-based)\b/i.test(learnerText));
   for (const field of learnerFields) {
     assert(!/\bso\s+[A-Z]+\s+is\b[^.]*\bis not established\b/i.test(field));
     assert(!/\bthat\s+[A-Z]+\s+is\b[^.]*\bis not established\b/i.test(field));
@@ -129,5 +132,5 @@ console.log(JSON.stringify({
   answerPositions,
   uniqueStemCount: stems.size,
   uniqueFingerprintCount: fingerprints.size,
-  verdict: "BLR-CP-007 V4 WAVE 3 FINAL CORPUS PASSED; PRODUCT-OWNER APPROVAL REQUIRED",
+  verdict: "BLR-CP-007 V4 WAVE 3 PRODUCT-OWNER APPROVED CORPUS PASSED; ENGLISH FREEZE PENDING",
 }, null, 2));
