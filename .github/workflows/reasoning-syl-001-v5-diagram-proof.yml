@@ -1,0 +1,72 @@
+name: Validate SYL-001 V5 complete diagram proofs
+
+on:
+  pull_request:
+    branches:
+      - feat/syl-001-learner-v4
+      - feat/syl-001-structured-proof-v3
+      - feat/syl-001-full-runtime
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-witness-proof.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-existential-completeness.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-witness-closure-finalizer.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-directional-containment-safety.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-diagram-completion.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-exact-venn.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-exact-venn-safety.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-diagram-proof-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-diagram-proof-v3-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-directional-containment-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/generator-v5.ts
+      - .github/workflows/reasoning-syl-001-v5-diagram-proof.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-syl-001-v5-diagram-proof-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-complete-diagram-proofs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle complete diagram proof audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-diagram-proof-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-v5-diagram-proof-audit.test.mjs
+
+      - name: Run complete diagram proof audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-v5-diagram-proof-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-v5-diagram-proof-audit.log
+
+      - name: Upload complete diagram proof evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: syl-001-v5-complete-diagram-proof-audit
+          path: artifacts/api-server/dist/reasoning-v1/syl-001-v5-diagram-proof-audit.log
+          if-no-files-found: error
+          retention-days: 30
