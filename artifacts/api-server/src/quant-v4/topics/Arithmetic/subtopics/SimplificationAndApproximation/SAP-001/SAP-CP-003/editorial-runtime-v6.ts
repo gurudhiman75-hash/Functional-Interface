@@ -100,8 +100,9 @@ export function generateSapCp003Sweep(
 }
 
 export const SAP_CP003_EDITORIAL_V3_STATE = Object.freeze({
-  status: "EDITORIAL_REMEDIATION_V3_HUMAN_REVIEW_PENDING" as const,
-  explanationReview: "FULL_300_QUESTION_CANDIDATE_PENDING_HUMAN_APPROVAL" as const,
+  status: "EDITORIAL_REMEDIATION_V3_HUMAN_REVIEW_APPROVED" as const,
+  explanationReview: "FULL_300_QUESTION_HUMAN_APPROVED" as const,
+  approvalAuthority: "PRODUCT_OWNER_APPROVED_2026_08_08" as const,
   active: false as const,
   questionStudioDiscoverable: false as const,
   questionBankWritable: false as const,
