@@ -1,14 +1,14 @@
 # TMW-001 Multilingual Editorial Review Progress
 
-Status: **assistant review in progress through CP-010; human approval pending**.
+Status: **assistant review complete across CP-001 through CP-011; human approval pending**.
 
 Exact reviewed implementation and verified proof head:
 
 ```text
-7b70f8264632c3d6df906c81feb9efe5b1a5102c
+04bac810f1a7583161aebe055129bc6283b081d2
 ```
 
-Subsequent branch commits only add the CP-010 evidence record and update this progress document. They do not alter localized runtime content, answers, options, traps, formulas or mathematical state.
+Subsequent branch commits only add CP-011 evidence documentation and update this progress record. They do not alter localized runtime content, answers, options, traps, formulas or mathematical state.
 
 ## Reviewed checkpoints
 
@@ -24,43 +24,45 @@ Subsequent branch commits only add the CP-010 evidence record and update this pr
 | TMW-CP-008 | 13 | 26 | 312 | Assistant review complete; human approval pending |
 | TMW-CP-009 | 18 | 36 | 432 | Assistant review complete; human approval pending |
 | TMW-CP-010 | 18 | 36 | 432 | Assistant review complete; human approval pending |
-| **Total** | **192** | **384** | **4,608** | **Zero open automated findings** |
+| TMW-CP-011 | 19 | 38 | 456 | Assistant review complete; human approval pending |
+| **Total** | **211** | **422** | **5,064** | **Zero open automated findings** |
 
 ## Verified evidence
 
 Cumulative editorial workflow:
 
 ```text
-Run: 31185269175
-Artifact: 8996463633
-Digest: sha256:6f616bdd07830af536ac540fa42bc2f0a78f0e94a170c94f2fbfe234d62a13ae
-Reviewed QLs: 192
-Native rows: 384
-Deterministic native packages: 4,608
+Run: 31186711952
+Artifact: 8997042226
+Digest: sha256:2b2c3fc25ba1c6c34a228e75e124d658a4010f315cc7024bcd73f74636676e1f
+Reviewed QLs: 211
+Native rows: 422
+Deterministic native packages: 5,064
 Open automated findings: 0
 ```
 
-CP-010 dedicated localisation proof:
+CP-011 dedicated localisation proof:
 
 ```text
-Run: 31185268865
-Artifact: 8996485028
-Digest: sha256:9e591cb1a57b6cc2434ef147924f9ac081ddc10db85809d2773a880236723409
-QLs: 18
-All-seed deterministic native packages: 720
-Permanent editorial-review packages: 432
-Hindi distinct stems: 248
-Punjabi distinct stems: 248
-Distinct method-specific shortcut titles: 18 Hindi and 18 Punjabi
+Run: 31186724174
+Artifact: 8997050850
+Digest: sha256:3f1330ca7c8cbdd92179c1081a1698cb362da3ac111a1ec69eb90bbd81311ec7
+QLs: 19
+All-seed deterministic native packages: 760
+Permanent editorial-review packages: 456
+Hindi distinct stems: 255
+Punjabi distinct stems: 255
+Distinct method-specific shortcut titles: 19 Hindi and 19 Punjabi
+Distinct method-specific openings: 19 Hindi and 19 Punjabi
 Open automated findings: 0
 ```
 
 Full chapter parity:
 
 ```text
-Run: 31185268873
-Artifact: 8996491921
-Digest: sha256:436dc34a6f9a9214ebde8472e283d113e7dfd5b2d2cfebecaf4c8e4e6e0fecf1
+Run: 31186713631
+Artifact: 8997044260
+Digest: sha256:b62774f1739c9e3d3dc074da73c0221d5cd9012e1229010345bb9fdec69cd966
 QLs: 211
 English packages: 2,532
 Localized packages: 5,064
@@ -78,13 +80,13 @@ Assistant review checks native-language naturalness, grammar, terminology, stem 
 
 This progress record does not set `editorialStatus: APPROVED`, does not enable publication, and does not represent product-owner/native-speaker approval.
 
-## Remaining assistant-review frontier
+## Remaining gates
 
-```text
-TMW-CP-011
-TMW-QL-193 through TMW-QL-211
-```
+There is no remaining assistant checkpoint-review frontier. The remaining work is human-governed:
 
-CP-011 contains the final 19 permanent QLs. It remains the only checkpoint outside assistant multilingual editorial review.
+1. obtain explicit product-owner/native-speaker review of all 422 localized rows;
+2. apply any accepted human findings and rerun complete parity and editorial proofs;
+3. record a separate immutable multilingual manual-freeze checkpoint;
+4. consider Question Studio integration only after manual freeze.
 
 All 211 Hindi and 211 Punjabi rows remain `AWAITING_HUMAN_REVIEW` until explicit human approval and a separate immutable multilingual manual-freeze checkpoint.
