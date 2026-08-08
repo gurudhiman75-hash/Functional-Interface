@@ -57,12 +57,33 @@ function asText(value: unknown) {
   return typeof value === 'string' ? value : '';
 }
 
+function asRecord(value: unknown): Record<string, unknown> {
+  return value && typeof value === 'object' && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : {};
+}
+
 function firstText(payload: Record<string, unknown> | null, keys: string[], fallback = '—') {
   for (const key of keys) {
     const value = asText(payload?.[key]).trim();
     if (value) return value;
   }
   return fallback;
+}
+
+function lifecycleValue(payload: Record<string, unknown> | null, key: string) {
+  if (payload && payload[key] !== undefined) return payload[key];
+  return asRecord(payload?.generationContext)[key];
+}
+
+function lifecycleText(payload: Record<string, unknown> | null, key: string, fallback = '—') {
+  const value = asText(lifecycleValue(payload, key)).trim();
+  return value || fallback;
+}
+
+function isReviewOnlyPayload(payload: Record<string, unknown> | null) {
+  return lifecycleText(payload, 'questionBankStatus', '').toUpperCase() === 'NOT_STORED'
+    && lifecycleValue(payload, 'questionBankWritable') === false;
 }
 
 function itemOptions(payload: Record<string, unknown> | null) {
@@ -155,6 +176,27 @@ export function QuestionStudioLivePage() {
     [dashboard.runs],
   );
 
+  const itemById = useMemo(
+    () => new Map(allItems.map(({ item }) => [item.id, item])),
+    [allItems],
+  );
+
+  const selectedItems = useMemo(
+    () => [...selectedIds].map((id) => itemById.get(id)).filter((item): item is QuestionStudioItem => Boolean(item)),
+    [itemById, selectedIds],
+  );
+
+  const selectedReviewOnlyCount = useMemo(
+    () => selectedItems.filter((item) => isReviewOnlyPayload(item.payload)).length,
+    [selectedItems],
+  );
+
+  const approvalButtonLabel = selectedItems.length > 0 && selectedReviewOnlyCount === selectedItems.length
+    ? 'Approve review only'
+    : selectedReviewOnlyCount > 0
+      ? 'Approve mixed selection'
+      : 'Approve';
+
   const filteredRuns = useMemo(() => {
     const normalizedSearch = search.trim().toLowerCase();
     return dashboard.runs
@@ -246,14 +288,16 @@ export function QuestionStudioLivePage() {
 
   const handleGenerate = async () => {
     if (!activePackage) {
-      showToast.error('Generation package required', 'Select an enabled Quant V4 package.');
+      showToast.error('Generation package required', 'Select an enabled generation package.');
       return;
     }
     try {
       const selectedExam = EXAMS.find((entry) => entry.code === exam);
       const result = await generate({
         exam: selectedExam?.name ?? exam,
-        subject: 'Quantitative Aptitude',
+        subject: activePackage.generationDomain === 'reasoning-v1'
+          ? 'General Intelligence & Reasoning'
+          : 'Quantitative Aptitude',
         difficulty,
         count: Math.min(capabilities.maxBatchSize, Math.max(1, count)),
         packageId: activePackage.packageId,
@@ -263,7 +307,14 @@ export function QuestionStudioLivePage() {
         seed: seed.trim() || undefined,
       });
       setExpandedRuns((current) => new Set(current).add(result.id));
-      showToast.success('Generation run created', `${result.publicCode} produced ${result.itemCount} review items.`);
+      if (result.questionBankStatus === 'NOT_STORED') {
+        showToast.success(
+          'Review-only run created',
+          `${result.publicCode} produced ${result.itemCount} item(s). Question Bank and test release remain disabled.`,
+        );
+      } else {
+        showToast.success('Generation run created', `${result.publicCode} produced ${result.itemCount} review items.`);
+      }
     } catch (caught) {
       showToast.error('Generation failed', caught instanceof Error ? caught.message : 'Unable to generate questions.');
     }
@@ -288,7 +339,25 @@ export function QuestionStudioLivePage() {
       });
       setSelectedIds(new Set());
       setReason('');
-      showToast.success('Review state updated', `${result.updatedCount} item(s) moved to ${formatStatus(status)}.`);
+
+      if (status === 'approved' && result.reviewOnlyApprovedCount === result.updatedCount && result.updatedCount > 0) {
+        showToast.success(
+          'Review-only approval complete',
+          `${result.reviewOnlyApprovedCount} item(s) approved for editorial review. No Question Bank records were created.`,
+        );
+      } else if (status === 'approved' && result.reviewOnlyApprovedCount > 0) {
+        showToast.success(
+          'Mixed approval complete',
+          `${result.convertedCount} item(s) converted to Question Bank; ${result.reviewOnlyApprovedCount} item(s) approved for review only.`,
+        );
+      } else if (status === 'approved') {
+        showToast.success(
+          'Approval complete',
+          `${result.convertedCount} item(s) approved and converted to Question Bank.`,
+        );
+      } else {
+        showToast.success('Review state updated', `${result.updatedCount} item(s) moved to ${formatStatus(status)}.`);
+      }
     } catch (caught) {
       showToast.error('Review update failed', caught instanceof Error ? caught.message : 'Unable to update review state.');
     }
@@ -300,7 +369,7 @@ export function QuestionStudioLivePage() {
     <div className="space-y-6">
       <PageHeader
         title="Question Studio"
-        description="Generate Quant V4 questions, review immutable run items, and control their production lifecycle from Neon."
+        description="Generate Quant and Reasoning review batches, inspect immutable items, and apply lifecycle-safe editorial decisions from Neon."
         icon={<Sparkles className="h-5 w-5" />}
         actions={(
           <>
@@ -339,7 +408,7 @@ export function QuestionStudioLivePage() {
             <Sparkles className="h-4 w-4 text-primary" /> Create generation run
           </CardTitle>
           <p className="text-xs text-muted-foreground">
-            Uses ExamTree Quant V4 and persists the run, item records, immutable payload versions, audit event, and outbox event in one transaction.
+            Uses the selected ExamTree generator and persists the run, immutable item versions, audit event, and outbox event in one transaction.
           </p>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -402,9 +471,20 @@ export function QuestionStudioLivePage() {
           </div>
 
           {activePackage && (
-            <div className="rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground">
+            <div className="flex flex-wrap items-center gap-2 rounded-lg border bg-muted/20 px-3 py-2 text-xs text-muted-foreground">
               <span className="font-semibold text-foreground">{activePackage.topic} · {activePackage.subtopic}</span>
-              {' '}· {activePackage.cpIds.length} active canonical problem(s) · {capabilities.generationSystem}
+              <span>· {activePackage.cpIds.length} active canonical problem(s)</span>
+              <span>· {activePackage.generationDomain ?? capabilities.generationSystem}</span>
+              {activePackage.runtimeMode && <Badge variant="outline" className="text-[10px]">{formatStatus(activePackage.runtimeMode)}</Badge>}
+              {activePackage.questionBankWritable === false && (
+                <Badge variant="secondary" className="text-[10px]">Review only · not stored</Badge>
+              )}
+              {activePackage.testEligible === false && (
+                <Badge variant="outline" className="text-[10px]">Test release disabled</Badge>
+              )}
+              {activePackage.publiclyPublishable === false && (
+                <Badge variant="outline" className="text-[10px]">Public release disabled</Badge>
+              )}
             </div>
           )}
         </CardContent>
@@ -443,7 +523,7 @@ export function QuestionStudioLivePage() {
             </Field>
             <div className="flex flex-wrap gap-2">
               <Button onClick={() => void applyStatus('approved')} disabled={updating || selectedIds.size === 0 || !canReview}>
-                <CheckCircle2 className="mr-1.5 h-4 w-4" /> Approve
+                <CheckCircle2 className="mr-1.5 h-4 w-4" /> {approvalButtonLabel}
               </Button>
               <Button variant="outline" onClick={() => void applyStatus('needs_fix')} disabled={updating || selectedIds.size === 0 || !canReview}>
                 <AlertTriangle className="mr-1.5 h-4 w-4" /> Needs fix
@@ -456,6 +536,12 @@ export function QuestionStudioLivePage() {
               </Button>
             </div>
           </div>
+
+          {selectedReviewOnlyCount > 0 && (
+            <div className="rounded-lg border border-warning/30 bg-warning/5 px-3 py-2 text-xs text-warning">
+              {selectedReviewOnlyCount} selected item(s) are review-only. Approval will not create Question Bank records or enable test/public release.
+            </div>
+          )}
         </CardHeader>
 
         <CardContent className="p-0">
@@ -509,6 +595,9 @@ export function QuestionStudioLivePage() {
                           <StatusBadge tone={runStatusTone(run.status)} dot>{formatStatus(run.status)}</StatusBadge>
                           <Badge variant="secondary" className="text-[10px]">{items.length} visible / {run.items.length} total</Badge>
                           <Badge variant="outline" className="text-[10px]">Attempt {run.attemptNumber}</Badge>
+                          {run.items.some((item) => isReviewOnlyPayload(item.payload)) && (
+                            <Badge variant="secondary" className="text-[10px]">Review-only run</Badge>
+                          )}
                         </div>
                         <p className="mt-1 text-xs text-muted-foreground">
                           {runSnapshotText(run, 'exam')} · {runSnapshotText(run, 'subject')} · {runSnapshotText(run, 'difficulty')} · {runSnapshotText(run, 'packageId', runSnapshotText(run, 'patternId'))}
@@ -638,6 +727,9 @@ function GeneratedItemRow({
   const options = itemOptions(item.payload);
   const explanation = firstText(item.payload, ['explanation'], 'No explanation recorded.');
   const correctIndex = Number(item.payload?.correctIndex ?? item.payload?.correct ?? -1);
+  const reviewOnly = isReviewOnlyPayload(item.payload);
+  const testEligible = lifecycleValue(item.payload, 'testEligible');
+  const publiclyPublishable = lifecycleValue(item.payload, 'publiclyPublishable');
 
   return (
     <div className="border-b px-4 py-3 last:border-b-0">
@@ -652,6 +744,8 @@ function GeneratedItemRow({
             <StatusBadge tone={itemStatusTone(item.status)}>{formatStatus(item.status)}</StatusBadge>
             <Badge variant="outline" className="text-[10px]">{firstText(item.payload, ['difficulty', 'difficultyLabel'], 'Unrated')}</Badge>
             <Badge variant="outline" className="text-[10px]">{firstText(item.payload, ['patternId', 'packageId'], 'Pattern pending')}</Badge>
+            {reviewOnly && <Badge variant="secondary" className="text-[10px]">Review only · not stored</Badge>}
+            {testEligible === false && <Badge variant="outline" className="text-[10px]">Test-ineligible</Badge>}
           </div>
           <p className="mt-2 text-sm leading-relaxed">{stem}</p>
           {item.retryReason && <p className="mt-2 text-xs text-warning">Review reason: {item.retryReason}</p>}
@@ -680,6 +774,12 @@ function GeneratedItemRow({
               <span>Subtopic: {firstText(item.payload, ['subtopic'])}</span>
               <span>Language: {firstText(item.payload, ['language'])}</span>
               <span>Seed: {firstText(item.payload, ['seed'])}</span>
+              <span>Runtime: {formatStatus(lifecycleText(item.payload, 'runtimeMode'))}</span>
+              <span>Review status: {formatStatus(lifecycleText(item.payload, 'reviewStatus'))}</span>
+              <span>Question Bank: {formatStatus(lifecycleText(item.payload, 'questionBankStatus'))}</span>
+              <span>Test eligibility: {formatStatus(lifecycleText(item.payload, 'testEligibility'))}</span>
+              <span>Public release: {publiclyPublishable === false ? 'Disabled' : 'Eligible'}</span>
+              <span>Accepted question: {item.acceptedQuestionId ?? (reviewOnly ? 'Not created (review only)' : 'Pending')}</span>
             </div>
           </div>
         </div>
