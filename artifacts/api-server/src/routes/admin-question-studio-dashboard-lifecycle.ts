@@ -105,7 +105,8 @@ router.get(
         ORDER BY r.updated_at DESC
       `;
 
-      const itemsByRun = new Map<string, typeof items>();
+      type DashboardItem = (typeof items)[number];
+      const itemsByRun = new Map<string, DashboardItem[]>();
       for (const item of items) {
         const runId = String(item.generationRunId);
         const bucket = itemsByRun.get(runId) ?? [];
