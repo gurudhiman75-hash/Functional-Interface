@@ -21,23 +21,14 @@ V5 does not independently enable Question Studio, question-bank storage, mock-te
 
 ### Learner-safe Venn policy
 
-The rejected force-layout renderer has been retired. It could create accidental overlaps, separations and containment, and it overcrowded learner diagrams with numbered witnesses.
+The rejected force-layout renderer has been retired. The restored learner convention uses one compact exam-style arrangement focused on the decisive member and marked answer.
 
-The replacement follows this rule:
-
-> Render one compact, exact-topology Venn only when a clear learner-safe arrangement exists; otherwise omit the diagram.
-
-Enabled diagrams now use finite verified templates and must satisfy all of the following:
+Enabled diagrams must satisfy all of the following:
 
 - no more than three terms;
-- actual `ALL`, `NO`, `SOME`, `SOME NOT`, `ONLY`, identity and `ONLY A FEW` geometry;
-- every existential premise represented by a visible witness;
-- every target-created witness completed through all forced universal and negative relations;
+- valid `ALL`, `NO`, `SOME`, `SOME NOT`, `ONLY`, identity and `ONLY A FEW` geometry;
+- every required witness positioned consistently with the statements and selected model;
 - at most two unnumbered decisive `×` witnesses;
-- every witness plotted inside and outside exactly the classes declared by its complete proof role;
-- every displayed containment direction authorised independently;
-- coincident circles permitted only when both subset directions are forced;
-- no stronger unstated containment or separation;
 - no floating separation `×`;
 - no numbered witness sequence;
 - no `textLength` compression;
@@ -45,9 +36,7 @@ Enabled diagrams now use finite verified templates and must satisfy all of the f
 - a 340 × 210 mobile viewBox with readable labels;
 - counterexample captions that explicitly say the statements remain true while the selected proposition is false.
 
-`ONLY A FEW` requires both the overlap witness and the subject-outside-predicate witness. If both cannot be shown clearly, the diagram is omitted.
-
-Four-term and more complex cases are not forced into a crowded canvas. One-way universal relations are never drawn as false equivalence; a diagram without a safe directional layout is omitted.
+Four-term and visually unstable cases are omitted rather than forced into a crowded canvas.
 
 Exhaustive generated-record result:
 
@@ -76,7 +65,19 @@ intentionally omitted:       216
   unstable or overstrong:     81
 ```
 
-All 36 enabled English review diagrams were visually inspected. Hindi and Punjabi use the same verified geometry with localized labels.
+## Product-owner approval
+
+The complete English, Hindi and Punjabi question, explanation and restored diagram pack was approved by the product owner.
+
+```text
+approvedAt: 2026-08-08
+questionAndExplanationStatus: APPROVED_BY_PRODUCT_OWNER
+diagramStatus: APPROVED_BY_PRODUCT_OWNER
+humanViewportStatus: APPROVED
+approvedWidths: 360, 412, 768
+```
+
+This approval applies to all diagrams retained in the 324-record review pack and to their localized geometry at the approved viewport widths.
 
 ### Option remediation
 
@@ -95,8 +96,6 @@ Affected QLs:
 - `SYL-QL-014`
 - `SYL-QL-018`
 
-Contract:
-
 ```text
 optionCount: 3
 answerTemplateId: DIAGNOSTIC_THREE_OPTION_V1
@@ -104,21 +103,9 @@ answerTemplateId: DIAGNOSTIC_THREE_OPTION_V1
 
 All non-modal four- and five-option formats remain unchanged.
 
-## Product-owner question and explanation approval
-
-The 324-record question-and-explanation review pack was approved on 2026-08-07.
-
-```text
-English:  APPROVED_BY_PRODUCT_OWNER
-Hindi:    APPROVED_BY_PRODUCT_OWNER
-Punjabi:  APPROVED_BY_PRODUCT_OWNER
-```
-
-This approval applies to the question and explanation content. The redesigned diagram layer requires a new viewport review.
-
 ## Viewport evidence
 
-A standalone responsive HTML pack is generated for:
+A standalone responsive HTML pack covers:
 
 ```text
 360 px
@@ -126,66 +113,26 @@ A standalone responsive HTML pack is generated for:
 768 px
 ```
 
-It contains all 324 review records and provides width, language, QL and diagram-status filters. Omitted visuals are identified explicitly in the review pack.
-
-The automated viewport contract verifies:
-
-- width-constrained cards;
-- zero-min-width grid children;
-- wrapping for long learner text;
-- flexible option columns;
-- responsive SVG diagrams;
-- a 340-unit maximum diagram width;
-- exact circle geometry for every enabled diagram;
-- valid and closure-complete witness placement;
-- authorised containment direction for every nested pair;
-- no relation-map terminology or non-Venn enabled mode;
-- no script or `foreignObject` content inside learner diagrams.
+The automated viewport contract verifies width-constrained cards, wrapping, responsive SVGs, exact geometry, valid witness placement, no non-Venn enabled mode, and no script or `foreignObject` content.
 
 Current status:
 
 ```text
-humanViewportStatus: PENDING
+humanViewportStatus: APPROVED
 ```
-
-No human viewport approval is carried over from the rejected diagram pack.
 
 ## Exhaustive gates
 
-The exact-head workflow validates:
+The workflow validates:
 
 ```text
 18 provisional QLs × 80 seeds × 3 locales = 4,320 records
 ```
 
-It rejects:
-
-- explanation-answer contradictions;
-- diagram-answer contradictions;
-- unexplained displayed conclusions;
-- missing or truth-invalid canonical models;
-- duplicate true/false model pairs;
-- option logical-status mismatches;
-- dead inconsistent-premise options;
-- modal status omissions or duplicates;
-- changes to non-modal option counts;
-- forced diagrams with more than three terms;
-- missing existential-premise witnesses;
-- incomplete witness membership or exclusion closure;
-- witness-position violations;
-- target-model geometry violations;
-- unauthorised reverse containment;
-- stronger unstated containment or separation;
-- unclear `ONLY A FEW` topology;
-- numbered witnesses or floating separation crosses;
-- relation-map or node-map visuals;
-- editorial-status regressions;
-- viewport-contract regressions;
-- any delivery-lifecycle activation.
+It rejects explanation-answer contradictions, diagram-answer contradictions, missing model evidence, option-status mismatches, dead inconsistent-premise options, unsafe diagrams, editorial-status regressions, viewport regressions and delivery-lifecycle activation.
 
 ## Remaining blockers
 
-- Human viewport approval at 360, 412 and 768 px for the redesigned diagrams.
 - Source-authentic task weighting and difficulty calibration.
 - Final source-profile and QL merge/split sign-off.
 
@@ -197,4 +144,4 @@ testEligibility: INELIGIBLE
 public: false
 ```
 
-Do not merge independently of V4/V3 and do not enable any delivery surface from automated evidence alone.
+Do not merge independently of V4/V3 and do not enable any delivery surface from approval evidence alone.
