@@ -10,6 +10,7 @@ import { buildRenderContext, renderQuestionStem } from "./probability-formatter"
 import { renderStudentFacingStem } from "./student-facing-renderer";
 import { explanationWordCount, renderProbabilityExplanation } from "./explanation-renderer";
 import { remodelProbabilityExplanation, remodelProbabilityStem } from "./exam-depth-remodeler";
+import { renderProbabilityMathLines, renderProbabilityMathText } from "./math-text";
 import { validateProbabilityQuestion } from "./validator";
 import { calibrateEntryDifficulty, assessProbabilityDifficulty } from "./difficulty-calibrator";
 import { isEntryAllowedForExamProfile, resolveProbabilityExamProfile, type ProbabilityExamProfileConfig } from "./exam-profile";
@@ -72,11 +73,15 @@ export function runProbabilityPackagePipeline(
   const renderContext = buildRenderContext(parameters, solved);
   const legacyStem = renderQuestionStem(language, renderContext);
   const baseStem = renderStudentFacingStem(entry, parameters, solved, event, legacyStem);
-  const stem = remodelProbabilityStem(entry, parameters, solved, baseStem);
+  const plainStem = remodelProbabilityStem(entry, parameters, solved, baseStem);
   const baseExplanation = renderProbabilityExplanation(entry, language, parameters, solved, verification, visuals);
-  const explanation = remodelProbabilityExplanation(entry, parameters, solved, baseExplanation);
+  const plainExplanation = remodelProbabilityExplanation(entry, parameters, solved, baseExplanation);
   const difficultyAssessment = assessProbabilityDifficulty(entry, parameters);
-  const validation = validateProbabilityQuestion({ entry, language, parameters, experiment, stem, solved, options, explanation, verification, examProfile });
+  const validation = validateProbabilityQuestion({ entry, language, parameters, experiment, stem: plainStem, solved, options, explanation: plainExplanation, verification, examProfile });
+
+  const stem = renderProbabilityMathText(plainStem);
+  const renderedOptions = options.options.map(renderProbabilityMathText);
+  const explanation = renderProbabilityMathLines(plainExplanation);
 
   const parameterFingerprint = fingerprint({ entry: entry.qlId, examProfile: examProfile.id, parameters, experiment, event });
   const mathematicalFingerprint = fingerprint({ entry: entry.qlId, solveMode: entry.solveMode, event, answer: solved.exactDisplay, evidence: solved.evidence });
@@ -97,9 +102,9 @@ export function runProbabilityPackagePipeline(
     taskKind: entry.taskKind,
     solveMode: entry.solveMode,
     stem,
-    options: options.options,
+    options: renderedOptions,
     correctIndex: options.correctIndex,
-    answer: solved.exactDisplay,
+    answer: renderProbabilityMathText(solved.exactDisplay),
     parameters: {
       ...parameters,
       packageId: libraries.packageId,
@@ -148,7 +153,7 @@ export function runProbabilityPackagePipeline(
       visualStrategies: visuals.map((visual) => visual.strategyId),
       difficultyAssessment,
     },
-    explanation: { explanationId: `${entry.qlId}-${entry.explanationStrategyId}-EXAM-DEPTH-V4`, lines: explanation, wordCount: explanationWordCount(explanation), visuals },
+    explanation: { explanationId: `${entry.qlId}-${entry.explanationStrategyId}-EXAM-DEPTH-V5`, lines: explanation, wordCount: explanationWordCount(plainExplanation), visuals },
     validation,
     maturity: "PRODUCTION_QA",
     publiclyPublishable: false,
@@ -161,8 +166,8 @@ export function runProbabilityPackagePipeline(
       examProfile: examProfile.id,
       examProfileLabel: examProfile.label,
       taskRegistryContractVersion: "PRB-TASK-REGISTRY-V1",
-      studentRendererVersion: "PRB-EXAM-DEPTH-RENDERER-V4",
-      explanationVersion: "PRB-EXAM-DEPTH-EXPLANATION-V4",
+      studentRendererVersion: "PRB-MATHJAX-RENDERER-V5",
+      explanationVersion: "PRB-MATHJAX-EXPLANATION-V5",
       experimentModelVersion: "PRB-EXPERIMENT-V1",
       eventAstVersion: "PRB-EVENT-AST-V1",
       difficulty: difficultyAssessment.difficulty,
