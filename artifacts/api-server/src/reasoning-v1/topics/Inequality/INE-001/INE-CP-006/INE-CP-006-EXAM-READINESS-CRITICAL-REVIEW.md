@@ -49,7 +49,7 @@ Conclusion records use two conclusions by default and selected hard three-conclu
 
 ### 7. Explanations are learner-facing
 
-Solutions translate the coded statements into one readable ordinary-language chain rather than repeating a mechanical decoding sentence for every symbol. They then explain what the chain forces or still allows. Distractor feedback names the offered interpretation and contrasts it with the conclusion set actually supported.
+Each question shows one compact explanation. It decodes the statements, states the conclusion result, and gives the answer. Separate mock/learning blocks, formal proof narration, and distractor-by-distractor commentary are deliberately hidden from the learner.
 
 ### 8. Unsupported exam labels are blocked
 
@@ -83,7 +83,7 @@ Exam-practice records are marked `BANKING_REGULATORY_PRACTICE_ONLY`, `ENGLISH_ON
 | Punjab state exams, English |                     4.5/10 |             2/10 | Supplementary practice only; post-specific evidence is still required                                                     |
 | Punjab state exams, Punjabi |                       1/10 |             1/10 | Not release-ready without Punjabi rendering and native bilingual QA                                                       |
 | Formal logical correctness  |                     9.5/10 |                — | Independent solvers and complete semantic/display validation agree                                                        |
-| Explanation quality         |                       9/10 |                — | Natural and explicit after the decoding-first rewrite                                                                     |
+| Explanation quality         |                       9/10 |                — | One concise decoding-first explanation is shown                                                                           |
 
 ## Remaining release gates
 

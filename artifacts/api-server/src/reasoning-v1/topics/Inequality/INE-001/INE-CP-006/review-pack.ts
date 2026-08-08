@@ -22,28 +22,10 @@ export interface IneCp006ReviewRow {
   options: readonly string[];
   correctIndex: number;
   correctOption: string;
-  mockSolution: string;
-  learningSolution: string;
+  explanation: string;
   sourceLedgerIds: readonly string[];
   permanentQlId: null;
   questionStudioVisible: false;
-}
-
-function learningText(
-  question: ReturnType<typeof generateIneCp006Question>,
-): string {
-  const explanation = question.explanation;
-  return [
-    explanation.ruleStatement,
-    ...explanation.normalizedStatements,
-    ...explanation.proofSteps,
-    explanation.conclusion,
-    ...explanation.distractorAnalysis.map(
-      (entry) => `${entry.optionValue}: ${entry.studentWarning}`,
-    ),
-  ]
-    .filter(Boolean)
-    .join("\n\n");
 }
 
 export const INE_CP006_REVIEW_ALLOCATION: Readonly<
@@ -83,8 +65,7 @@ export function buildIneCp006ReviewPack(): IneCp006ReviewRow[] {
           options: question.options.map((entry) => entry.value),
           correctIndex: question.correctIndex,
           correctOption: question.options[question.correctIndex]!.value,
-          mockSolution: question.solutions.mock,
-          learningSolution: learningText(question),
+          explanation: question.solutions.mock,
           sourceLedgerIds: question.metadata.sourceLedgerIds,
           permanentQlId: null,
           questionStudioVisible: false,
@@ -129,13 +110,9 @@ export function renderIneCp006ReviewMarkdown(
       "",
       `**Correct:** ${row.correctIndex + 1}. ${row.correctOption}`,
       "",
-      "### Mock solution",
+      "### Explanation",
       "",
-      row.mockSolution,
-      "",
-      "### Learning solution",
-      "",
-      row.learningSolution,
+      row.explanation,
     ].join("\n"),
   );
   return [

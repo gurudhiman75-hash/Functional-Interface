@@ -31,6 +31,6 @@ The 48-question review export is weighted toward exam-shaped work: 17 chain-solv
 - conclusion options are generated from formally evaluated truth subsets and always remain exactly four;
 - conclusions use distinct entity pairs, excluding unlabelled either-or leakage;
 - graph and model-enumeration solvers must agree;
-- explanations decode before reasoning and give option-specific feedback;
+- each question shows one short decoding-first explanation without option-by-option commentary;
 - map recovery and missing-operator tasks remain in CP-007;
 - permanent QLs and Question Studio visibility remain disabled.

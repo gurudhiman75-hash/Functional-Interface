@@ -31,8 +31,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "Q > B",
-    "mockSolution": "From the supplied key, ▲ means greater than (>). Therefore, Q ▲ B decodes to Q > B. So the matching ordinary relation is Q > B.",
-    "learningSolution": "From the supplied key, ▲ means greater than (>).\n\nTherefore, Q ▲ B decodes to Q > B.\n\nSo the matching ordinary relation is Q > B.\n\nQ ≤ B: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nQ = B: The decoded statements do not force the two values to be equal.\n\nQ < B: This option uses the wrong direction or the wrong degree of certainty after decoding.",
+    "explanation": "▲ means greater than. So Q ▲ B means Q > B.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"
@@ -72,8 +71,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "P > A",
-    "mockSolution": "From the supplied key, ⊖ means greater than (>). Therefore, P ⊖ A decodes to P > A. So the matching ordinary relation is P > A.",
-    "learningSolution": "From the supplied key, ⊖ means greater than (>).\n\nTherefore, P ⊖ A decodes to P > A.\n\nSo the matching ordinary relation is P > A.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nP = A: The decoded statements do not force the two values to be equal.\n\nP < A: This option uses the wrong direction or the wrong degree of certainty after decoding.",
+    "explanation": "⊖ means greater than. So P ⊖ A means P > A.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"
@@ -113,8 +111,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "A = D",
-    "mockSolution": "From the supplied key, ★ means equal to (=). Therefore, A ★ D decodes to A = D. So the matching ordinary relation is A = D.",
-    "learningSolution": "From the supplied key, ★ means equal to (=).\n\nTherefore, A ★ D decodes to A = D.\n\nSo the matching ordinary relation is A = D.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nA < D: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nA ≥ D: This option uses the wrong direction or the wrong degree of certainty after decoding.",
+    "explanation": "★ means equal to. So A ★ D means A = D.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"
@@ -154,8 +151,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "B ≤ C",
-    "mockSolution": "From the supplied key, ⊕ means less than or equal to (≤). Therefore, B ⊕ C decodes to B ≤ C. So the matching ordinary relation is B ≤ C.",
-    "learningSolution": "From the supplied key, ⊕ means less than or equal to (≤).\n\nTherefore, B ⊕ C decodes to B ≤ C.\n\nSo the matching ordinary relation is B ≤ C.\n\nB = C: The decoded relation allows both less than and equal to, so this option is too specific.\n\nB < C: The decoded relation allows both less than and equal to, so this option is too specific.\n\nB ≥ C: This option uses the wrong direction or the wrong degree of certainty after decoding.",
+    "explanation": "⊕ means less than or equal to. So B ⊕ C means B ≤ C.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"
@@ -195,8 +191,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "B ≥ R",
-    "mockSolution": "From the supplied key, ▲ means greater than or equal to (≥). Therefore, B ▲ R decodes to B ≥ R. So the matching ordinary relation is B ≥ R.",
-    "learningSolution": "From the supplied key, ▲ means greater than or equal to (≥).\n\nTherefore, B ▲ R decodes to B ≥ R.\n\nSo the matching ordinary relation is B ≥ R.\n\nB > R: The decoded relation allows both greater than and equal to, so this option is too specific.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nB ≤ R: This option uses the wrong direction or the wrong degree of certainty after decoding.",
+    "explanation": "▲ means greater than or equal to. So B ▲ R means B ≥ R.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"
@@ -236,8 +231,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "R < A",
-    "mockSolution": "From the supplied key, ⊗ means less than (<). Therefore, R ⊗ A decodes to R < A. So the matching ordinary relation is R < A.",
-    "learningSolution": "From the supplied key, ⊗ means less than (<).\n\nTherefore, R ⊗ A decodes to R < A.\n\nSo the matching ordinary relation is R < A.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nR > A: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nR = A: The decoded statements do not force the two values to be equal.",
+    "explanation": "⊗ means less than. So R ⊗ A means R < A.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"
@@ -277,8 +271,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "R > Q",
-    "mockSolution": "From the supplied key, ◆ means greater than (>). Therefore, R ◆ Q decodes to R > Q. So the matching ordinary relation is R > Q.",
-    "learningSolution": "From the supplied key, ◆ means greater than (>).\n\nTherefore, R ◆ Q decodes to R > Q.\n\nSo the matching ordinary relation is R > Q.\n\nR < Q: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nR ≤ Q: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nR ≥ Q: This is weaker than the strict greater-than relation proved by the decoded chain.",
+    "explanation": "◆ means greater than. So R ◆ Q means R > Q.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"
@@ -318,8 +311,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "C > R",
-    "mockSolution": "Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives C > R. For C and R, the chain forces C > R. Therefore, C > R is the strongest definite relation.",
-    "learningSolution": "Translate the symbols first, and then follow the chain only in the direction asked.\n\nReplacing the code symbols gives C > R.\n\nFor C and R, the chain forces C > R.\n\nTherefore, C > R is the strongest definite relation.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nC = R: The decoded statements do not force the two values to be equal.\n\nC ≥ R: This is weaker than the strict greater-than relation proved by the decoded chain.",
+    "explanation": "Decode the statements: C > R. So C > R.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -360,8 +352,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "A ≤ Q",
-    "mockSolution": "Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives A ≤ Q. For A and Q, the statements still allow A < Q or A = Q. Therefore, A ≤ Q is the strongest definite relation.",
-    "learningSolution": "Translate the symbols first, and then follow the chain only in the direction asked.\n\nReplacing the code symbols gives A ≤ Q.\n\nFor A and Q, the statements still allow A < Q or A = Q.\n\nTherefore, A ≤ Q is the strongest definite relation.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nA < Q: The decoded relation allows both less than and equal to, so this option is too specific.\n\nA > Q: This option uses the wrong direction or the wrong degree of certainty after decoding.",
+    "explanation": "Decode the statements: A ≤ Q. So A ≤ Q.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -402,8 +393,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "P > B",
-    "mockSolution": "Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives B < Q and Q < P. For P and B, the chain forces P > B. Therefore, P > B is the strongest definite relation.",
-    "learningSolution": "Translate the symbols first, and then follow the chain only in the direction asked.\n\nReplacing the code symbols gives B < Q and Q < P.\n\nFor P and B, the chain forces P > B.\n\nTherefore, P > B is the strongest definite relation.\n\nP = B: The decoded statements do not force the two values to be equal.\n\nP ≥ B: This is weaker than the strict greater-than relation proved by the decoded chain.\n\nP < B: This option uses the wrong direction or the wrong degree of certainty after decoding.",
+    "explanation": "Decode the statements: B < Q and Q < P. So P > B.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -444,8 +434,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "D > A",
-    "mockSolution": "Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives D ≥ Q and Q > A. For D and A, the chain forces D > A. Therefore, D > A is the strongest definite relation.",
-    "learningSolution": "Translate the symbols first, and then follow the chain only in the direction asked.\n\nReplacing the code symbols gives D ≥ Q and Q > A.\n\nFor D and A, the chain forces D > A.\n\nTherefore, D > A is the strongest definite relation.\n\nD ≥ A: This is weaker than the strict greater-than relation proved by the decoded chain.\n\nD ≤ A: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nD < A: This option uses the wrong direction or the wrong degree of certainty after decoding.",
+    "explanation": "Decode the statements: D ≥ Q and Q > A. So D > A.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -486,8 +475,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "C ≥ P",
-    "mockSolution": "Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives P = D and D ≤ C. For C and P, the statements still allow C = P or C > P. Therefore, C ≥ P is the strongest definite relation.",
-    "learningSolution": "Translate the symbols first, and then follow the chain only in the direction asked.\n\nReplacing the code symbols gives P = D and D ≤ C.\n\nFor C and P, the statements still allow C = P or C > P.\n\nTherefore, C ≥ P is the strongest definite relation.\n\nC ≤ P: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nC < P: This option uses the wrong direction or the wrong degree of certainty after decoding.",
+    "explanation": "Decode the statements: P = D and D ≤ C. So C ≥ P.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -528,8 +516,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "A ≤ B",
-    "mockSolution": "Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives A ≤ D, D = C, and C ≤ B. For A and B, the statements still allow A < B or A = B. Therefore, A ≤ B is the strongest definite relation.",
-    "learningSolution": "Translate the symbols first, and then follow the chain only in the direction asked.\n\nReplacing the code symbols gives A ≤ D, D = C, and C ≤ B.\n\nFor A and B, the statements still allow A < B or A = B.\n\nTherefore, A ≤ B is the strongest definite relation.\n\nA ≥ B: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nA = B: The decoded relation allows both less than and equal to, so this option is too specific.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.",
+    "explanation": "Decode the statements: A ≤ D, D = C, and C ≤ B. So A ≤ B.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -571,8 +558,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "The relation cannot be determined",
-    "mockSolution": "Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives D < Q and C < Q. For C and D, the statements still allow C < D, C = D, or C > D. Therefore, the relation between C and D cannot be determined.",
-    "learningSolution": "Translate the symbols first, and then follow the chain only in the direction asked.\n\nReplacing the code symbols gives D < Q and C < Q.\n\nFor C and D, the statements still allow C < D, C = D, or C > D.\n\nTherefore, the relation between C and D cannot be determined.\n\nC ≥ D: After decoding, the statements still allow more than one relation, so this option is too definite.\n\nC < D: After decoding, the statements still allow more than one relation, so this option is too definite.\n\nC = D: After decoding, the statements still allow more than one relation, so this option is too definite.",
+    "explanation": "Decode the statements: D < Q and C < Q. There is no definite relation between C and D.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -614,8 +600,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "The relation cannot be determined",
-    "mockSolution": "Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives P > Q and R < A. For Q and R, the statements still allow Q < R, Q = R, or Q > R. Therefore, the relation between Q and R cannot be determined.",
-    "learningSolution": "Translate the symbols first, and then follow the chain only in the direction asked.\n\nReplacing the code symbols gives P > Q and R < A.\n\nFor Q and R, the statements still allow Q < R, Q = R, or Q > R.\n\nTherefore, the relation between Q and R cannot be determined.\n\nQ < R: After decoding, the statements still allow more than one relation, so this option is too definite.\n\nQ ≤ R: After decoding, the statements still allow more than one relation, so this option is too definite.\n\nQ = R: After decoding, the statements still allow more than one relation, so this option is too definite.",
+    "explanation": "Decode the statements: P > Q and R < A. There is no definite relation between Q and R.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -656,8 +641,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "C > R",
-    "mockSolution": "Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives C ≥ P, P = Q, Q > D, and D ≥ R. For C and R, the chain forces C > R. Therefore, C > R is the strongest definite relation.",
-    "learningSolution": "Translate the symbols first, and then follow the chain only in the direction asked.\n\nReplacing the code symbols gives C ≥ P, P = Q, Q > D, and D ≥ R.\n\nFor C and R, the chain forces C > R.\n\nTherefore, C > R is the strongest definite relation.\n\nC < R: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nC = R: The decoded statements do not force the two values to be equal.",
+    "explanation": "Decode the statements: C ≥ P, P = Q, Q > D, and D ≥ R. So C > R.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -698,8 +682,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "Q ≥ R",
-    "mockSolution": "Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives R ≤ A, A = P, P ≤ C, and C = Q. For Q and R, the statements still allow Q = R or Q > R. Therefore, Q ≥ R is the strongest definite relation.",
-    "learningSolution": "Translate the symbols first, and then follow the chain only in the direction asked.\n\nReplacing the code symbols gives R ≤ A, A = P, P ≤ C, and C = Q.\n\nFor Q and R, the statements still allow Q = R or Q > R.\n\nTherefore, Q ≥ R is the strongest definite relation.\n\nQ ≤ R: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nQ > R: The decoded relation allows both greater than and equal to, so this option is too specific.\n\nQ = R: The decoded relation allows both greater than and equal to, so this option is too specific.",
+    "explanation": "Decode the statements: R ≤ A, A = P, P ≤ C, and C = Q. So Q ≥ R.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -742,8 +725,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "The relation cannot be determined",
-    "mockSolution": "Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives B < A, R ≤ C, and R < B. For C and B, the statements still allow C < B, C = B, or C > B. Therefore, the relation between C and B cannot be determined.",
-    "learningSolution": "Translate the symbols first, and then follow the chain only in the direction asked.\n\nReplacing the code symbols gives B < A, R ≤ C, and R < B.\n\nFor C and B, the statements still allow C < B, C = B, or C > B.\n\nTherefore, the relation between C and B cannot be determined.\n\nC ≤ B: After decoding, the statements still allow more than one relation, so this option is too definite.\n\nC > B: After decoding, the statements still allow more than one relation, so this option is too definite.\n\nC < B: After decoding, the statements still allow more than one relation, so this option is too definite.",
+    "explanation": "Decode the statements: B < A, R ≤ C, and R < B. There is no definite relation between C and B.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -785,8 +767,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "Q < R",
-    "mockSolution": "Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives R > P, P ≥ Q, and B = C. For Q and R, the chain forces Q < R. Therefore, Q < R is the strongest definite relation.",
-    "learningSolution": "Translate the symbols first, and then follow the chain only in the direction asked.\n\nReplacing the code symbols gives R > P, P ≥ Q, and B = C.\n\nFor Q and R, the chain forces Q < R.\n\nTherefore, Q < R is the strongest definite relation.\n\nQ > R: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nQ = R: The decoded statements do not force the two values to be equal.",
+    "explanation": "Decode the statements: R > P, P ≥ Q, and B = C. So Q < R.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -827,8 +808,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "A > Q",
-    "mockSolution": "Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives Q < B, B ≤ R, R = D, D < C, and C ≤ A. For A and Q, the chain forces A > Q. Therefore, A > Q is the strongest definite relation.",
-    "learningSolution": "Translate the symbols first, and then follow the chain only in the direction asked.\n\nReplacing the code symbols gives Q < B, B ≤ R, R = D, D < C, and C ≤ A.\n\nFor A and Q, the chain forces A > Q.\n\nTherefore, A > Q is the strongest definite relation.\n\nA ≥ Q: This is weaker than the strict greater-than relation proved by the decoded chain.\n\nA < Q: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.",
+    "explanation": "Decode the statements: Q < B, B ≤ R, R = D, D < C, and C ≤ A. So A > Q.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -869,8 +849,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "D > P",
-    "mockSolution": "Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives P ≤ A, A < B, B ≤ Q, Q = R, R < C, and C ≤ D. For D and P, the chain forces D > P. Therefore, D > P is the strongest definite relation.",
-    "learningSolution": "Translate the symbols first, and then follow the chain only in the direction asked.\n\nReplacing the code symbols gives P ≤ A, A < B, B ≤ Q, Q = R, R < C, and C ≤ D.\n\nFor D and P, the chain forces D > P.\n\nTherefore, D > P is the strongest definite relation.\n\nD = P: The decoded statements do not force the two values to be equal.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nD < P: This option uses the wrong direction or the wrong degree of certainty after decoding.",
+    "explanation": "Decode the statements: P ≤ A, A < B, B ≤ Q, Q = R, R < C, and C ≤ D. So D > P.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -913,8 +892,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "A > Q",
-    "mockSolution": "Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives Q < D, C < A, Q < B, B = D, D ≤ C, C < P, and P ≤ A. For A and Q, the chain forces A > Q. Therefore, A > Q is the strongest definite relation.",
-    "learningSolution": "Translate the symbols first, and then follow the chain only in the direction asked.\n\nReplacing the code symbols gives Q < D, C < A, Q < B, B = D, D ≤ C, C < P, and P ≤ A.\n\nFor A and Q, the chain forces A > Q.\n\nTherefore, A > Q is the strongest definite relation.\n\nA = Q: The decoded statements do not force the two values to be equal.\n\nA ≤ Q: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nA ≥ Q: This is weaker than the strict greater-than relation proved by the decoded chain.",
+    "explanation": "Decode the statements: Q < D, C < A, Q < B, B = D, D ≤ C, C < P, and P ≤ A. So A > Q.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -958,8 +936,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "Q > R",
-    "mockSolution": "Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives Q > P, D > B, C > R, Q > D, D ≥ P, P = C, C > B, and B ≥ R. For Q and R, the chain forces Q > R. Therefore, Q > R is the strongest definite relation.",
-    "learningSolution": "Translate the symbols first, and then follow the chain only in the direction asked.\n\nReplacing the code symbols gives Q > P, D > B, C > R, Q > D, D ≥ P, P = C, C > B, and B ≥ R.\n\nFor Q and R, the chain forces Q > R.\n\nTherefore, Q > R is the strongest definite relation.\n\nQ < R: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nQ ≤ R: This option uses the wrong direction or the wrong degree of certainty after decoding.\n\nQ ≥ R: This is weaker than the strict greater-than relation proved by the decoded chain.",
+    "explanation": "Decode the statements: Q > P, D > B, C > R, Q > D, D ≥ P, P = C, C > B, and B ≥ R. So Q > R.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -1000,8 +977,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "P < R",
-    "mockSolution": "Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives P < R. For P and R, the chain forces P < R. Therefore, P < R is the strongest definite relation.",
-    "learningSolution": "Translate the symbols first, and then follow the chain only in the direction asked.\n\nReplacing the code symbols gives P < R.\n\nFor P and R, the chain forces P < R.\n\nTherefore, P < R is the strongest definite relation.\n\nP ≤ R: This is weaker than the strict less-than relation proved by the decoded chain.\n\nThe relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.\n\nP > R: This option uses the wrong direction or the wrong degree of certainty after decoding.",
+    "explanation": "Decode the statements: P < R. So P < R.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "AGG-INE-004",
@@ -1046,8 +1022,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "Only conclusion I follows",
-    "mockSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives B > R and R > C. Conclusion I (R & C) says R ≥ C. The statements force R > C, so this conclusion follows. Conclusion II (B $ R) says B < R. The statements force B > R, so this conclusion does not follow. Therefore, only conclusion I follows.",
-    "learningSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.\n\nReplacing the code symbols gives B > R and R > C.\n\nConclusion I (R & C) says R ≥ C. The statements force R > C, so this conclusion follows.\n\nConclusion II (B $ R) says B < R. The statements force B > R, so this conclusion does not follow.\n\nTherefore, only conclusion I follows.\n\nBoth conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion I follows.\n\nOnly conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.\n\nNeither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.",
+    "explanation": "Decode the statements: B > R and R > C. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1092,8 +1067,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "Only conclusion II follows",
-    "mockSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives R ≥ D and D > A. Conclusion I (R + A) says R ≤ A. The statements force R > A, so this conclusion does not follow. Conclusion II (D ~ A) says D ≥ A. The statements force D > A, so this conclusion follows. Therefore, only conclusion II follows.",
-    "learningSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.\n\nReplacing the code symbols gives R ≥ D and D > A.\n\nConclusion I (R + A) says R ≤ A. The statements force R > A, so this conclusion does not follow.\n\nConclusion II (D ~ A) says D ≥ A. The statements force D > A, so this conclusion follows.\n\nTherefore, only conclusion II follows.\n\nNeither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion II follows.\n\nBoth conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion II follows.\n\nOnly conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Only conclusion II follows.",
+    "explanation": "Decode the statements: R ≥ D and D > A. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1138,8 +1112,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "Both conclusions I and II follow",
-    "mockSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives P > D and D > A. Conclusion I (P % D) says P > D. The statements force P > D, so this conclusion follows. Conclusion II (P % A) says P > A. The statements force P > A, so this conclusion follows. Therefore, both conclusions I and II follow.",
-    "learningSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.\n\nReplacing the code symbols gives P > D and D > A.\n\nConclusion I (P % D) says P > D. The statements force P > D, so this conclusion follows.\n\nConclusion II (P % A) says P > A. The statements force P > A, so this conclusion follows.\n\nTherefore, both conclusions I and II follow.\n\nOnly conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Both conclusions I and II follow.\n\nOnly conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Both conclusions I and II follow.\n\nNeither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Both conclusions I and II follow.",
+    "explanation": "Decode the statements: P > D and D > A. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1184,8 +1157,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "Neither conclusion I nor conclusion II follows",
-    "mockSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives C < Q and Q ≤ R. Conclusion I (R + C) says R < C. The statements force R > C, so this conclusion does not follow. Conclusion II (R ^ Q) says R = Q. The statements still allow R = Q or R > Q, so this conclusion is not certain. Therefore, neither conclusion I nor conclusion II follows.",
-    "learningSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.\n\nReplacing the code symbols gives C < Q and Q ≤ R.\n\nConclusion I (R + C) says R < C. The statements force R > C, so this conclusion does not follow.\n\nConclusion II (R ^ Q) says R = Q. The statements still allow R = Q or R > Q, so this conclusion is not certain.\n\nTherefore, neither conclusion I nor conclusion II follows.\n\nOnly conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.\n\nOnly conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.\n\nBoth conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.",
+    "explanation": "Decode the statements: C < Q and Q ≤ R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1230,8 +1202,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "Only conclusion I follows",
-    "mockSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives D = P and P ≤ Q. Conclusion I (P @ Q) says P ≤ Q. The statements still allow P < Q or P = Q, so this conclusion is not certain. Conclusion II (D % Q) says D = Q. The statements still allow D < Q or D = Q, so this conclusion is not certain. Therefore, only conclusion I follows.",
-    "learningSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.\n\nReplacing the code symbols gives D = P and P ≤ Q.\n\nConclusion I (P @ Q) says P ≤ Q. The statements still allow P < Q or P = Q, so this conclusion is not certain.\n\nConclusion II (D % Q) says D = Q. The statements still allow D < Q or D = Q, so this conclusion is not certain.\n\nTherefore, only conclusion I follows.\n\nNeither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.\n\nBoth conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion I follows.\n\nOnly conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.",
+    "explanation": "Decode the statements: D = P and P ≤ Q. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1276,8 +1247,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "Only conclusion II follows",
-    "mockSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives Q ≥ A, A = P, and P ≥ R. Conclusion I (A ~ R) says A > R. The statements still allow A = R or A > R, so this conclusion is not certain. Conclusion II (A ! P) says A = P. The statements force A = P, so this conclusion follows. Therefore, only conclusion II follows.",
-    "learningSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.\n\nReplacing the code symbols gives Q ≥ A, A = P, and P ≥ R.\n\nConclusion I (A ~ R) says A > R. The statements still allow A = R or A > R, so this conclusion is not certain.\n\nConclusion II (A ! P) says A = P. The statements force A = P, so this conclusion follows.\n\nTherefore, only conclusion II follows.\n\nOnly conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Only conclusion II follows.\n\nNeither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion II follows.\n\nBoth conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion II follows.",
+    "explanation": "Decode the statements: Q ≥ A, A = P, and P ≥ R. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1323,8 +1293,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "Both conclusions I and II follow",
-    "mockSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives D > B and D > C. Conclusion I (C & D) says C ≤ D. The statements force C < D, so this conclusion follows. Conclusion II (B & D) says B ≤ D. The statements force B < D, so this conclusion follows. Therefore, both conclusions I and II follow.",
-    "learningSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.\n\nReplacing the code symbols gives D > B and D > C.\n\nConclusion I (C & D) says C ≤ D. The statements force C < D, so this conclusion follows.\n\nConclusion II (B & D) says B ≤ D. The statements force B < D, so this conclusion follows.\n\nTherefore, both conclusions I and II follow.\n\nOnly conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Both conclusions I and II follow.\n\nOnly conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Both conclusions I and II follow.\n\nNeither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Both conclusions I and II follow.",
+    "explanation": "Decode the statements: D > B and D > C. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1370,8 +1339,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "Neither conclusion I nor conclusion II follows",
-    "mockSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives C > A and Q < R. Conclusion I (Q + C) says Q = C. The statements still allow Q < C, Q = C, or Q > C, so this conclusion is not certain. Conclusion II (R ? Q) says R < Q. The statements force R > Q, so this conclusion does not follow. Therefore, neither conclusion I nor conclusion II follows.",
-    "learningSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.\n\nReplacing the code symbols gives C > A and Q < R.\n\nConclusion I (Q + C) says Q = C. The statements still allow Q < C, Q = C, or Q > C, so this conclusion is not certain.\n\nConclusion II (R ? Q) says R < Q. The statements force R > Q, so this conclusion does not follow.\n\nTherefore, neither conclusion I nor conclusion II follows.\n\nOnly conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.\n\nBoth conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.\n\nOnly conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.",
+    "explanation": "Decode the statements: C > A and Q < R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1416,8 +1384,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "Only conclusion I follows",
-    "mockSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives A ≥ Q, Q = B, B > R, and R ≥ P. Conclusion I (A & P) says A ≥ P. The statements force A > P, so this conclusion follows. Conclusion II (Q $ R) says Q < R. The statements force Q > R, so this conclusion does not follow. Therefore, only conclusion I follows.",
-    "learningSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.\n\nReplacing the code symbols gives A ≥ Q, Q = B, B > R, and R ≥ P.\n\nConclusion I (A & P) says A ≥ P. The statements force A > P, so this conclusion follows.\n\nConclusion II (Q $ R) says Q < R. The statements force Q > R, so this conclusion does not follow.\n\nTherefore, only conclusion I follows.\n\nNeither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.\n\nBoth conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion I follows.\n\nOnly conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.",
+    "explanation": "Decode the statements: A ≥ Q, Q = B, B > R, and R ≥ P. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1462,8 +1429,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "Only conclusion II follows",
-    "mockSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives P = D, D ≥ Q, Q = A, and A ≥ B. Conclusion I (B ~ Q) says B > Q. The statements still allow B < Q or B = Q, so this conclusion is not certain. Conclusion II (D ! P) says D = P. The statements force D = P, so this conclusion follows. Therefore, only conclusion II follows.",
-    "learningSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.\n\nReplacing the code symbols gives P = D, D ≥ Q, Q = A, and A ≥ B.\n\nConclusion I (B ~ Q) says B > Q. The statements still allow B < Q or B = Q, so this conclusion is not certain.\n\nConclusion II (D ! P) says D = P. The statements force D = P, so this conclusion follows.\n\nTherefore, only conclusion II follows.\n\nBoth conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion II follows.\n\nOnly conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Only conclusion II follows.\n\nNeither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion II follows.",
+    "explanation": "Decode the statements: P = D, D ≥ Q, Q = A, and A ≥ B. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1510,8 +1476,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "Both conclusions I and II follow",
-    "mockSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives C < D, Q ≤ R, and Q < C. Conclusion I (Q % D) says Q ≤ D. The statements force Q < D, so this conclusion follows. Conclusion II (C @ Q) says C ≥ Q. The statements force C > Q, so this conclusion follows. Therefore, both conclusions I and II follow.",
-    "learningSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.\n\nReplacing the code symbols gives C < D, Q ≤ R, and Q < C.\n\nConclusion I (Q % D) says Q ≤ D. The statements force Q < D, so this conclusion follows.\n\nConclusion II (C @ Q) says C ≥ Q. The statements force C > Q, so this conclusion follows.\n\nTherefore, both conclusions I and II follow.\n\nNeither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Both conclusions I and II follow.\n\nOnly conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Both conclusions I and II follow.\n\nOnly conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Both conclusions I and II follow.",
+    "explanation": "Decode the statements: C < D, Q ≤ R, and Q < C. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1557,8 +1522,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "Neither conclusion I nor conclusion II follows",
-    "mockSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives D > B, B ≥ Q, and C = R. Conclusion I (Q ! C) says Q ≥ C. The statements still allow Q < C, Q = C, or Q > C, so this conclusion is not certain. Conclusion II (B ^ R) says B > R. The statements still allow B < R, B = R, or B > R, so this conclusion is not certain. Therefore, neither conclusion I nor conclusion II follows.",
-    "learningSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.\n\nReplacing the code symbols gives D > B, B ≥ Q, and C = R.\n\nConclusion I (Q ! C) says Q ≥ C. The statements still allow Q < C, Q = C, or Q > C, so this conclusion is not certain.\n\nConclusion II (B ^ R) says B > R. The statements still allow B < R, B = R, or B > R, so this conclusion is not certain.\n\nTherefore, neither conclusion I nor conclusion II follows.\n\nOnly conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.\n\nOnly conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.\n\nBoth conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.",
+    "explanation": "Decode the statements: D > B, B ≥ Q, and C = R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1604,8 +1568,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "Only conclusions I and III follow",
-    "mockSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives D ≥ B, B > P, P = R, R ≥ C, and C > A. Conclusion I (D $ R) says D > R. The statements force D > R, so this conclusion follows. Conclusion II (D % C) says D ≤ C. The statements force D > C, so this conclusion does not follow. Conclusion III (R $ A) says R > A. The statements force R > A, so this conclusion follows. Therefore, only conclusions I and III follow.",
-    "learningSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.\n\nReplacing the code symbols gives D ≥ B, B > P, P = R, R ≥ C, and C > A.\n\nConclusion I (D $ R) says D > R. The statements force D > R, so this conclusion follows.\n\nConclusion II (D % C) says D ≤ C. The statements force D > C, so this conclusion does not follow.\n\nConclusion III (R $ A) says R > A. The statements force R > A, so this conclusion follows.\n\nTherefore, only conclusions I and III follow.\n\nOnly conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Only conclusions I and III follow.\n\nOnly conclusion III follows: Only conclusion III follows, but checking each conclusion separately gives: Only conclusions I and III follow.\n\nOnly conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Only conclusions I and III follow.",
+    "explanation": "Decode the statements: D ≥ B, B > P, P = R, R ≥ C, and C > A. Therefore, conclusion I follows, conclusion II does not follow, and conclusion III follows. Answer: Only conclusions I and III follow.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1651,8 +1614,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "Only conclusions II and III follow",
-    "mockSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives D ≥ R, R > C, C = A, A ≥ B, B > Q, and Q ≥ P. Conclusion I (Q ! B) says Q = B. The statements force Q < B, so this conclusion does not follow. Conclusion II (A ^ C) says A ≥ C. The statements force A = C, so this conclusion follows. Conclusion III (Q ~ C) says Q ≤ C. The statements force Q < C, so this conclusion follows. Therefore, only conclusions II and III follow.",
-    "learningSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.\n\nReplacing the code symbols gives D ≥ R, R > C, C = A, A ≥ B, B > Q, and Q ≥ P.\n\nConclusion I (Q ! B) says Q = B. The statements force Q < B, so this conclusion does not follow.\n\nConclusion II (A ^ C) says A ≥ C. The statements force A = C, so this conclusion follows.\n\nConclusion III (Q ~ C) says Q ≤ C. The statements force Q < C, so this conclusion follows.\n\nTherefore, only conclusions II and III follow.\n\nOnly conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Only conclusions II and III follow.\n\nOnly conclusion III follows: Only conclusion III follows, but checking each conclusion separately gives: Only conclusions II and III follow.\n\nOnly conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Only conclusions II and III follow.",
+    "explanation": "Decode the statements: D ≥ R, R > C, C = A, A ≥ B, B > Q, and Q ≥ P. Therefore, conclusion I does not follow, conclusion II follows, and conclusion III follows. Answer: Only conclusions II and III follow.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1700,8 +1662,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "All three conclusions follow",
-    "mockSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives P ≥ C, C > D, D ≥ Q, Q = B, B > R, P > D, and Q > R. Conclusion I (Q # B) says Q = B. The statements force Q = B, so this conclusion follows. Conclusion II (C @ D) says C ≥ D. The statements force C > D, so this conclusion follows. Conclusion III (P @ C) says P ≥ C. The statements still allow P = C or P > C, so this conclusion is not certain. Therefore, all three conclusions follow.",
-    "learningSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.\n\nReplacing the code symbols gives P ≥ C, C > D, D ≥ Q, Q = B, B > R, P > D, and Q > R.\n\nConclusion I (Q # B) says Q = B. The statements force Q = B, so this conclusion follows.\n\nConclusion II (C @ D) says C ≥ D. The statements force C > D, so this conclusion follows.\n\nConclusion III (P @ C) says P ≥ C. The statements still allow P = C or P > C, so this conclusion is not certain.\n\nTherefore, all three conclusions follow.\n\nOnly conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: All three conclusions follow.\n\nOnly conclusion III follows: Only conclusion III follows, but checking each conclusion separately gives: All three conclusions follow.\n\nOnly conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: All three conclusions follow.",
+    "explanation": "Decode the statements: P ≥ C, C > D, D ≥ Q, Q = B, B > R, P > D, and Q > R. Therefore, conclusion I follows, conclusion II follows, and conclusion III follows. Answer: All three conclusions follow.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1750,8 +1711,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "None of the conclusions follow",
-    "mockSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives B > Q, P > A, D > C, B > P, P ≥ Q, Q = D, D > A, and A ≥ C. Conclusion I (C ^ A) says C ≥ A. The statements still allow C < A or C = A, so this conclusion is not certain. Conclusion II (A ! P) says A = P. The statements force A < P, so this conclusion does not follow. Conclusion III (Q + B) says Q > B. The statements force Q < B, so this conclusion does not follow. Therefore, none of the conclusions follow.",
-    "learningSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.\n\nReplacing the code symbols gives B > Q, P > A, D > C, B > P, P ≥ Q, Q = D, D > A, and A ≥ C.\n\nConclusion I (C ^ A) says C ≥ A. The statements still allow C < A or C = A, so this conclusion is not certain.\n\nConclusion II (A ! P) says A = P. The statements force A < P, so this conclusion does not follow.\n\nConclusion III (Q + B) says Q > B. The statements force Q < B, so this conclusion does not follow.\n\nTherefore, none of the conclusions follow.\n\nOnly conclusion III follows: Only conclusion III follows, but checking each conclusion separately gives: None of the conclusions follow.\n\nOnly conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: None of the conclusions follow.\n\nOnly conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: None of the conclusions follow.",
+    "explanation": "Decode the statements: B > Q, P > A, D > C, B > P, P ≥ Q, Q = D, D > A, and A ≥ C. Therefore, conclusion I does not follow, conclusion II does not follow, and conclusion III does not follow. Answer: None of the conclusions follow.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1796,8 +1756,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "Only conclusion I follows",
-    "mockSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives A > B and B > Q. Conclusion I (A $ Q) says A ≥ Q. The statements force A > Q, so this conclusion follows. Conclusion II (A & B) says A = B. The statements force A > B, so this conclusion does not follow. Therefore, only conclusion I follows.",
-    "learningSolution": "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.\n\nReplacing the code symbols gives A > B and B > Q.\n\nConclusion I (A $ Q) says A ≥ Q. The statements force A > Q, so this conclusion follows.\n\nConclusion II (A & B) says A = B. The statements force A > B, so this conclusion does not follow.\n\nTherefore, only conclusion I follows.\n\nBoth conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion I follows.\n\nOnly conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.\n\nNeither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.",
+    "explanation": "Decode the statements: A > B and B > Q. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.",
     "sourceLedgerIds": [
       "AGG-INE-004",
       "DISHA-INE-004",
@@ -1838,8 +1797,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "D ■ A",
-    "mockSolution": "The required relation is D < A. In the supplied key, ■ represents less than (<). Therefore, the correct coded form is D ■ A.",
-    "learningSolution": "The required relation is D < A.\n\nIn the supplied key, ■ represents less than (<).\n\nTherefore, the correct coded form is D ■ A.\n\nD ★ A: Its code symbol represents equal to, not less than.\n\nD ● A: Its code symbol represents less than or equal to, not less than.\n\nD ◆ A: Its code symbol represents greater than or equal to, not less than.",
+    "explanation": "■ means less than. So D < A is written as D ■ A.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"
@@ -1879,8 +1837,7 @@
     ],
     "correctIndex": 2,
     "correctOption": "C ⊖ D",
-    "mockSolution": "The required relation is C > D. In the supplied key, ⊖ represents greater than (>). Therefore, the correct coded form is C ⊖ D.",
-    "learningSolution": "The required relation is C > D.\n\nIn the supplied key, ⊖ represents greater than (>).\n\nTherefore, the correct coded form is C ⊖ D.\n\nC ⊕ D: Its code symbol represents equal to, not greater than.\n\nC ⊘ D: Its code symbol represents less than or equal to, not greater than.\n\nC ⊙ D: Its code symbol represents greater than or equal to, not greater than.",
+    "explanation": "⊖ means greater than. So C > D is written as C ⊖ D.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"
@@ -1920,8 +1877,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "A ★ D",
-    "mockSolution": "The required relation is A = D. In the supplied key, ★ represents equal to (=). Therefore, the correct coded form is A ★ D.",
-    "learningSolution": "The required relation is A = D.\n\nIn the supplied key, ★ represents equal to (=).\n\nTherefore, the correct coded form is A ★ D.\n\nA ▲ D: Its code symbol represents greater than or equal to, not equal to.\n\nA ◆ D: Its code symbol represents greater than, not equal to.\n\nA ● D: Its code symbol represents less than, not equal to.",
+    "explanation": "★ means equal to. So A = D is written as A ★ D.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"
@@ -1961,8 +1917,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "P ⊖ B",
-    "mockSolution": "The required relation is P ≥ B. In the supplied key, ⊖ represents greater than or equal to (≥). Therefore, the correct coded form is P ⊖ B.",
-    "learningSolution": "The required relation is P ≥ B.\n\nIn the supplied key, ⊖ represents greater than or equal to (≥).\n\nTherefore, the correct coded form is P ⊖ B.\n\nP ⊕ B: Its code symbol represents less than or equal to, not greater than or equal to.\n\nP ⊙ B: Its code symbol represents equal to, not greater than or equal to.\n\nP ⊘ B: Its code symbol represents greater than, not greater than or equal to.",
+    "explanation": "⊖ means greater than or equal to. So P ≥ B is written as P ⊖ B.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"
@@ -2002,8 +1957,7 @@
     ],
     "correctIndex": 1,
     "correctOption": "D ◆ Q",
-    "mockSolution": "The required relation is D ≤ Q. In the supplied key, ◆ represents less than or equal to (≤). Therefore, the correct coded form is D ◆ Q.",
-    "learningSolution": "The required relation is D ≤ Q.\n\nIn the supplied key, ◆ represents less than or equal to (≤).\n\nTherefore, the correct coded form is D ◆ Q.\n\nD ● Q: Its code symbol represents greater than, not less than or equal to.\n\nD ★ Q: Its code symbol represents less than, not less than or equal to.\n\nD ▲ Q: Its code symbol represents greater than or equal to, not less than or equal to.",
+    "explanation": "◆ means less than or equal to. So D ≤ Q is written as D ◆ Q.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"
@@ -2043,8 +1997,7 @@
     ],
     "correctIndex": 3,
     "correctOption": "R ⊖ P",
-    "mockSolution": "The required relation is R > P. In the supplied key, ⊖ represents greater than (>). Therefore, the correct coded form is R ⊖ P.",
-    "learningSolution": "The required relation is R > P.\n\nIn the supplied key, ⊖ represents greater than (>).\n\nTherefore, the correct coded form is R ⊖ P.\n\nR ⊘ P: Its code symbol represents equal to, not greater than.\n\nR ⊕ P: Its code symbol represents greater than or equal to, not greater than.\n\nR ⊗ P: Its code symbol represents less than, not greater than.",
+    "explanation": "⊖ means greater than. So R > P is written as R ⊖ P.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"
@@ -2084,8 +2037,7 @@
     ],
     "correctIndex": 0,
     "correctOption": "P ■ C",
-    "mockSolution": "The required relation is P < C. In the supplied key, ■ represents less than (<). Therefore, the correct coded form is P ■ C.",
-    "learningSolution": "The required relation is P < C.\n\nIn the supplied key, ■ represents less than (<).\n\nTherefore, the correct coded form is P ■ C.\n\nP ● C: Its code symbol represents less than or equal to, not less than.\n\nP ▲ C: Its code symbol represents greater than or equal to, not less than.\n\nP ◆ C: Its code symbol represents greater than, not less than.",
+    "explanation": "■ means less than. So P < C is written as P ■ C.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"

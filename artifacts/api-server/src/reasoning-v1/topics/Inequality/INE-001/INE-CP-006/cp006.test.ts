@@ -47,9 +47,9 @@ for (const contract of INE_CP006_PROTOTYPE_CONTRACTS) {
     assert.equal(new Set(question.options.map((entry) => entry.value)).size, 4);
     assert.equal(question.options.filter((entry) => entry.isCorrect).length, 1);
     assert.equal(question.options[question.correctIndex]?.isCorrect, true);
-    assert.equal(question.explanation.distractorAnalysis.length, 3);
-    assert.ok(question.solutions.mock.length > 80);
-    assert.ok(question.solutions.mock.length < 1500);
+    assert.equal(question.explanation.distractorAnalysis.length, 0);
+    assert.ok(question.solutions.mock.length > 30);
+    assert.ok(question.solutions.mock.length < 600);
     assert.equal(question.permanentQlId, null);
     assert.equal(question.questionStudioVisible, false);
     assert.match(question.recordId, /^INE-CP006-[0-9A-F]{8}$/);

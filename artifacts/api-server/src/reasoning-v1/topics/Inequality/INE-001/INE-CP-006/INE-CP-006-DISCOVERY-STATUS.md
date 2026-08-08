@@ -26,7 +26,7 @@
 - selected hard three-conclusion questions with formally generated four-option truth subsets;
 - exactly four unique options per question;
 - balanced correct positions;
-- natural decoding-first explanations with option-specific feedback;
+- one short decoding-first explanation per question, with no distractor commentary;
 - semantic-to-display validation for code keys, statements, conclusions, and options;
 - explicit rejection of unlabelled either-or conclusion pairs;
 - deterministic 48-question English review export weighted 34 exam-shaped to 14 guided questions;

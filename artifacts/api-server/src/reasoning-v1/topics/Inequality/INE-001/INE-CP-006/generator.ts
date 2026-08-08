@@ -143,6 +143,7 @@ export function generateIneCp006Question(
         ...displayedStatements,
         ...(displayedConclusions ?? []),
         ...optionResult.options.map((entry) => entry.value),
+        mockSolution(explanation),
       ]),
       independentSolverAgreed: true,
       graphConsistent: true,

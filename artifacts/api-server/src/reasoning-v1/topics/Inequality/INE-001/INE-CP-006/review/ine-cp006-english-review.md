@@ -29,23 +29,9 @@ According to the supplied code key, which ordinary relation has exactly the same
 
 **Correct:** 2. Q > B
 
-### Mock solution
+### Explanation
 
-From the supplied key, ▲ means greater than (>). Therefore, Q ▲ B decodes to Q > B. So the matching ordinary relation is Q > B.
-
-### Learning solution
-
-From the supplied key, ▲ means greater than (>).
-
-Therefore, Q ▲ B decodes to Q > B.
-
-So the matching ordinary relation is Q > B.
-
-Q ≤ B: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-Q = B: The decoded statements do not force the two values to be equal.
-
-Q < B: This option uses the wrong direction or the wrong degree of certainty after decoding.
+▲ means greater than. So Q ▲ B means Q > B.
 
 ## 2. DECODE_FIXED_MAP_RELATION — seed 1
 
@@ -74,23 +60,9 @@ According to the supplied code key, which ordinary relation has exactly the same
 
 **Correct:** 4. P > A
 
-### Mock solution
+### Explanation
 
-From the supplied key, ⊖ means greater than (>). Therefore, P ⊖ A decodes to P > A. So the matching ordinary relation is P > A.
-
-### Learning solution
-
-From the supplied key, ⊖ means greater than (>).
-
-Therefore, P ⊖ A decodes to P > A.
-
-So the matching ordinary relation is P > A.
-
-The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
-
-P = A: The decoded statements do not force the two values to be equal.
-
-P < A: This option uses the wrong direction or the wrong degree of certainty after decoding.
+⊖ means greater than. So P ⊖ A means P > A.
 
 ## 3. DECODE_FIXED_MAP_RELATION — seed 2
 
@@ -119,23 +91,9 @@ According to the supplied code key, which ordinary relation has exactly the same
 
 **Correct:** 3. A = D
 
-### Mock solution
+### Explanation
 
-From the supplied key, ★ means equal to (=). Therefore, A ★ D decodes to A = D. So the matching ordinary relation is A = D.
-
-### Learning solution
-
-From the supplied key, ★ means equal to (=).
-
-Therefore, A ★ D decodes to A = D.
-
-So the matching ordinary relation is A = D.
-
-The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
-
-A < D: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-A ≥ D: This option uses the wrong direction or the wrong degree of certainty after decoding.
+★ means equal to. So A ★ D means A = D.
 
 ## 4. DECODE_FIXED_MAP_RELATION — seed 3
 
@@ -164,23 +122,9 @@ According to the supplied code key, which ordinary relation has exactly the same
 
 **Correct:** 1. B ≤ C
 
-### Mock solution
+### Explanation
 
-From the supplied key, ⊕ means less than or equal to (≤). Therefore, B ⊕ C decodes to B ≤ C. So the matching ordinary relation is B ≤ C.
-
-### Learning solution
-
-From the supplied key, ⊕ means less than or equal to (≤).
-
-Therefore, B ⊕ C decodes to B ≤ C.
-
-So the matching ordinary relation is B ≤ C.
-
-B = C: The decoded relation allows both less than and equal to, so this option is too specific.
-
-B < C: The decoded relation allows both less than and equal to, so this option is too specific.
-
-B ≥ C: This option uses the wrong direction or the wrong degree of certainty after decoding.
+⊕ means less than or equal to. So B ⊕ C means B ≤ C.
 
 ## 5. DECODE_FIXED_MAP_RELATION — seed 4
 
@@ -209,23 +153,9 @@ According to the supplied code key, which ordinary relation has exactly the same
 
 **Correct:** 1. B ≥ R
 
-### Mock solution
+### Explanation
 
-From the supplied key, ▲ means greater than or equal to (≥). Therefore, B ▲ R decodes to B ≥ R. So the matching ordinary relation is B ≥ R.
-
-### Learning solution
-
-From the supplied key, ▲ means greater than or equal to (≥).
-
-Therefore, B ▲ R decodes to B ≥ R.
-
-So the matching ordinary relation is B ≥ R.
-
-B > R: The decoded relation allows both greater than and equal to, so this option is too specific.
-
-The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
-
-B ≤ R: This option uses the wrong direction or the wrong degree of certainty after decoding.
+▲ means greater than or equal to. So B ▲ R means B ≥ R.
 
 ## 6. DECODE_FIXED_MAP_RELATION — seed 5
 
@@ -254,23 +184,9 @@ According to the supplied code key, which ordinary relation has exactly the same
 
 **Correct:** 3. R < A
 
-### Mock solution
+### Explanation
 
-From the supplied key, ⊗ means less than (<). Therefore, R ⊗ A decodes to R < A. So the matching ordinary relation is R < A.
-
-### Learning solution
-
-From the supplied key, ⊗ means less than (<).
-
-Therefore, R ⊗ A decodes to R < A.
-
-So the matching ordinary relation is R < A.
-
-The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
-
-R > A: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-R = A: The decoded statements do not force the two values to be equal.
+⊗ means less than. So R ⊗ A means R < A.
 
 ## 7. DECODE_FIXED_MAP_RELATION — seed 6
 
@@ -299,23 +215,9 @@ According to the supplied code key, which ordinary relation has exactly the same
 
 **Correct:** 4. R > Q
 
-### Mock solution
+### Explanation
 
-From the supplied key, ◆ means greater than (>). Therefore, R ◆ Q decodes to R > Q. So the matching ordinary relation is R > Q.
-
-### Learning solution
-
-From the supplied key, ◆ means greater than (>).
-
-Therefore, R ◆ Q decodes to R > Q.
-
-So the matching ordinary relation is R > Q.
-
-R < Q: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-R ≤ Q: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-R ≥ Q: This is weaker than the strict greater-than relation proved by the decoded chain.
+◆ means greater than. So R ◆ Q means R > Q.
 
 ## 8. SOLVE_FIXED_MAP_CODED_CHAIN — seed 0
 
@@ -344,25 +246,9 @@ After decoding the statements, what is the strongest definite relation between C
 
 **Correct:** 2. C > R
 
-### Mock solution
+### Explanation
 
-Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives C > R. For C and R, the chain forces C > R. Therefore, C > R is the strongest definite relation.
-
-### Learning solution
-
-Translate the symbols first, and then follow the chain only in the direction asked.
-
-Replacing the code symbols gives C > R.
-
-For C and R, the chain forces C > R.
-
-Therefore, C > R is the strongest definite relation.
-
-The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
-
-C = R: The decoded statements do not force the two values to be equal.
-
-C ≥ R: This is weaker than the strict greater-than relation proved by the decoded chain.
+Decode the statements: C > R. So C > R.
 
 ## 9. SOLVE_FIXED_MAP_CODED_CHAIN — seed 1
 
@@ -391,25 +277,9 @@ After decoding the statements, what is the strongest definite relation between A
 
 **Correct:** 1. A ≤ Q
 
-### Mock solution
+### Explanation
 
-Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives A ≤ Q. For A and Q, the statements still allow A < Q or A = Q. Therefore, A ≤ Q is the strongest definite relation.
-
-### Learning solution
-
-Translate the symbols first, and then follow the chain only in the direction asked.
-
-Replacing the code symbols gives A ≤ Q.
-
-For A and Q, the statements still allow A < Q or A = Q.
-
-Therefore, A ≤ Q is the strongest definite relation.
-
-The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
-
-A < Q: The decoded relation allows both less than and equal to, so this option is too specific.
-
-A > Q: This option uses the wrong direction or the wrong degree of certainty after decoding.
+Decode the statements: A ≤ Q. So A ≤ Q.
 
 ## 10. SOLVE_FIXED_MAP_CODED_CHAIN — seed 2
 
@@ -438,25 +308,9 @@ After decoding the statements, what is the strongest definite relation between P
 
 **Correct:** 3. P > B
 
-### Mock solution
+### Explanation
 
-Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives B < Q and Q < P. For P and B, the chain forces P > B. Therefore, P > B is the strongest definite relation.
-
-### Learning solution
-
-Translate the symbols first, and then follow the chain only in the direction asked.
-
-Replacing the code symbols gives B < Q and Q < P.
-
-For P and B, the chain forces P > B.
-
-Therefore, P > B is the strongest definite relation.
-
-P = B: The decoded statements do not force the two values to be equal.
-
-P ≥ B: This is weaker than the strict greater-than relation proved by the decoded chain.
-
-P < B: This option uses the wrong direction or the wrong degree of certainty after decoding.
+Decode the statements: B < Q and Q < P. So P > B.
 
 ## 11. SOLVE_FIXED_MAP_CODED_CHAIN — seed 3
 
@@ -485,25 +339,9 @@ After decoding the statements, what is the strongest definite relation between D
 
 **Correct:** 4. D > A
 
-### Mock solution
+### Explanation
 
-Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives D ≥ Q and Q > A. For D and A, the chain forces D > A. Therefore, D > A is the strongest definite relation.
-
-### Learning solution
-
-Translate the symbols first, and then follow the chain only in the direction asked.
-
-Replacing the code symbols gives D ≥ Q and Q > A.
-
-For D and A, the chain forces D > A.
-
-Therefore, D > A is the strongest definite relation.
-
-D ≥ A: This is weaker than the strict greater-than relation proved by the decoded chain.
-
-D ≤ A: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-D < A: This option uses the wrong direction or the wrong degree of certainty after decoding.
+Decode the statements: D ≥ Q and Q > A. So D > A.
 
 ## 12. SOLVE_FIXED_MAP_CODED_CHAIN — seed 4
 
@@ -532,25 +370,9 @@ After decoding the statements, what is the strongest definite relation between C
 
 **Correct:** 1. C ≥ P
 
-### Mock solution
+### Explanation
 
-Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives P = D and D ≤ C. For C and P, the statements still allow C = P or C > P. Therefore, C ≥ P is the strongest definite relation.
-
-### Learning solution
-
-Translate the symbols first, and then follow the chain only in the direction asked.
-
-Replacing the code symbols gives P = D and D ≤ C.
-
-For C and P, the statements still allow C = P or C > P.
-
-Therefore, C ≥ P is the strongest definite relation.
-
-C ≤ P: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
-
-C < P: This option uses the wrong direction or the wrong degree of certainty after decoding.
+Decode the statements: P = D and D ≤ C. So C ≥ P.
 
 ## 13. SOLVE_FIXED_MAP_CODED_CHAIN — seed 5
 
@@ -579,25 +401,9 @@ After decoding the statements, what is the strongest definite relation between A
 
 **Correct:** 2. A ≤ B
 
-### Mock solution
+### Explanation
 
-Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives A ≤ D, D = C, and C ≤ B. For A and B, the statements still allow A < B or A = B. Therefore, A ≤ B is the strongest definite relation.
-
-### Learning solution
-
-Translate the symbols first, and then follow the chain only in the direction asked.
-
-Replacing the code symbols gives A ≤ D, D = C, and C ≤ B.
-
-For A and B, the statements still allow A < B or A = B.
-
-Therefore, A ≤ B is the strongest definite relation.
-
-A ≥ B: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-A = B: The decoded relation allows both less than and equal to, so this option is too specific.
-
-The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
+Decode the statements: A ≤ D, D = C, and C ≤ B. So A ≤ B.
 
 ## 14. SOLVE_FIXED_MAP_CODED_CHAIN — seed 6
 
@@ -627,25 +433,9 @@ After decoding the statements, what is the strongest definite relation between C
 
 **Correct:** 3. The relation cannot be determined
 
-### Mock solution
+### Explanation
 
-Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives D < Q and C < Q. For C and D, the statements still allow C < D, C = D, or C > D. Therefore, the relation between C and D cannot be determined.
-
-### Learning solution
-
-Translate the symbols first, and then follow the chain only in the direction asked.
-
-Replacing the code symbols gives D < Q and C < Q.
-
-For C and D, the statements still allow C < D, C = D, or C > D.
-
-Therefore, the relation between C and D cannot be determined.
-
-C ≥ D: After decoding, the statements still allow more than one relation, so this option is too definite.
-
-C < D: After decoding, the statements still allow more than one relation, so this option is too definite.
-
-C = D: After decoding, the statements still allow more than one relation, so this option is too definite.
+Decode the statements: D < Q and C < Q. There is no definite relation between C and D.
 
 ## 15. SOLVE_FIXED_MAP_CODED_CHAIN — seed 7
 
@@ -675,25 +465,9 @@ After decoding the statements, what is the strongest definite relation between Q
 
 **Correct:** 4. The relation cannot be determined
 
-### Mock solution
+### Explanation
 
-Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives P > Q and R < A. For Q and R, the statements still allow Q < R, Q = R, or Q > R. Therefore, the relation between Q and R cannot be determined.
-
-### Learning solution
-
-Translate the symbols first, and then follow the chain only in the direction asked.
-
-Replacing the code symbols gives P > Q and R < A.
-
-For Q and R, the statements still allow Q < R, Q = R, or Q > R.
-
-Therefore, the relation between Q and R cannot be determined.
-
-Q < R: After decoding, the statements still allow more than one relation, so this option is too definite.
-
-Q ≤ R: After decoding, the statements still allow more than one relation, so this option is too definite.
-
-Q = R: After decoding, the statements still allow more than one relation, so this option is too definite.
+Decode the statements: P > Q and R < A. There is no definite relation between Q and R.
 
 ## 16. SOLVE_FIXED_MAP_CODED_CHAIN — seed 8
 
@@ -722,25 +496,9 @@ After decoding the statements, what is the strongest definite relation between C
 
 **Correct:** 2. C > R
 
-### Mock solution
+### Explanation
 
-Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives C ≥ P, P = Q, Q > D, and D ≥ R. For C and R, the chain forces C > R. Therefore, C > R is the strongest definite relation.
-
-### Learning solution
-
-Translate the symbols first, and then follow the chain only in the direction asked.
-
-Replacing the code symbols gives C ≥ P, P = Q, Q > D, and D ≥ R.
-
-For C and R, the chain forces C > R.
-
-Therefore, C > R is the strongest definite relation.
-
-C < R: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
-
-C = R: The decoded statements do not force the two values to be equal.
+Decode the statements: C ≥ P, P = Q, Q > D, and D ≥ R. So C > R.
 
 ## 17. SOLVE_FIXED_MAP_CODED_CHAIN — seed 9
 
@@ -769,25 +527,9 @@ After decoding the statements, what is the strongest definite relation between Q
 
 **Correct:** 3. Q ≥ R
 
-### Mock solution
+### Explanation
 
-Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives R ≤ A, A = P, P ≤ C, and C = Q. For Q and R, the statements still allow Q = R or Q > R. Therefore, Q ≥ R is the strongest definite relation.
-
-### Learning solution
-
-Translate the symbols first, and then follow the chain only in the direction asked.
-
-Replacing the code symbols gives R ≤ A, A = P, P ≤ C, and C = Q.
-
-For Q and R, the statements still allow Q = R or Q > R.
-
-Therefore, Q ≥ R is the strongest definite relation.
-
-Q ≤ R: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-Q > R: The decoded relation allows both greater than and equal to, so this option is too specific.
-
-Q = R: The decoded relation allows both greater than and equal to, so this option is too specific.
+Decode the statements: R ≤ A, A = P, P ≤ C, and C = Q. So Q ≥ R.
 
 ## 18. SOLVE_FIXED_MAP_CODED_CHAIN — seed 10
 
@@ -818,25 +560,9 @@ After decoding the statements, what is the strongest definite relation between C
 
 **Correct:** 1. The relation cannot be determined
 
-### Mock solution
+### Explanation
 
-Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives B < A, R ≤ C, and R < B. For C and B, the statements still allow C < B, C = B, or C > B. Therefore, the relation between C and B cannot be determined.
-
-### Learning solution
-
-Translate the symbols first, and then follow the chain only in the direction asked.
-
-Replacing the code symbols gives B < A, R ≤ C, and R < B.
-
-For C and B, the statements still allow C < B, C = B, or C > B.
-
-Therefore, the relation between C and B cannot be determined.
-
-C ≤ B: After decoding, the statements still allow more than one relation, so this option is too definite.
-
-C > B: After decoding, the statements still allow more than one relation, so this option is too definite.
-
-C < B: After decoding, the statements still allow more than one relation, so this option is too definite.
+Decode the statements: B < A, R ≤ C, and R < B. There is no definite relation between C and B.
 
 ## 19. SOLVE_FIXED_MAP_CODED_CHAIN — seed 11
 
@@ -866,25 +592,9 @@ After decoding the statements, what is the strongest definite relation between Q
 
 **Correct:** 4. Q < R
 
-### Mock solution
+### Explanation
 
-Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives R > P, P ≥ Q, and B = C. For Q and R, the chain forces Q < R. Therefore, Q < R is the strongest definite relation.
-
-### Learning solution
-
-Translate the symbols first, and then follow the chain only in the direction asked.
-
-Replacing the code symbols gives R > P, P ≥ Q, and B = C.
-
-For Q and R, the chain forces Q < R.
-
-Therefore, Q < R is the strongest definite relation.
-
-Q > R: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
-
-Q = R: The decoded statements do not force the two values to be equal.
+Decode the statements: R > P, P ≥ Q, and B = C. So Q < R.
 
 ## 20. SOLVE_FIXED_MAP_CODED_CHAIN — seed 12
 
@@ -913,25 +623,9 @@ After decoding the statements, what is the strongest definite relation between A
 
 **Correct:** 4. A > Q
 
-### Mock solution
+### Explanation
 
-Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives Q < B, B ≤ R, R = D, D < C, and C ≤ A. For A and Q, the chain forces A > Q. Therefore, A > Q is the strongest definite relation.
-
-### Learning solution
-
-Translate the symbols first, and then follow the chain only in the direction asked.
-
-Replacing the code symbols gives Q < B, B ≤ R, R = D, D < C, and C ≤ A.
-
-For A and Q, the chain forces A > Q.
-
-Therefore, A > Q is the strongest definite relation.
-
-A ≥ Q: This is weaker than the strict greater-than relation proved by the decoded chain.
-
-A < Q: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
+Decode the statements: Q < B, B ≤ R, R = D, D < C, and C ≤ A. So A > Q.
 
 ## 21. SOLVE_FIXED_MAP_CODED_CHAIN — seed 13
 
@@ -960,25 +654,9 @@ After decoding the statements, what is the strongest definite relation between D
 
 **Correct:** 3. D > P
 
-### Mock solution
+### Explanation
 
-Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives P ≤ A, A < B, B ≤ Q, Q = R, R < C, and C ≤ D. For D and P, the chain forces D > P. Therefore, D > P is the strongest definite relation.
-
-### Learning solution
-
-Translate the symbols first, and then follow the chain only in the direction asked.
-
-Replacing the code symbols gives P ≤ A, A < B, B ≤ Q, Q = R, R < C, and C ≤ D.
-
-For D and P, the chain forces D > P.
-
-Therefore, D > P is the strongest definite relation.
-
-D = P: The decoded statements do not force the two values to be equal.
-
-The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
-
-D < P: This option uses the wrong direction or the wrong degree of certainty after decoding.
+Decode the statements: P ≤ A, A < B, B ≤ Q, Q = R, R < C, and C ≤ D. So D > P.
 
 ## 22. SOLVE_FIXED_MAP_CODED_CHAIN — seed 14
 
@@ -1009,25 +687,9 @@ After decoding the statements, what is the strongest definite relation between A
 
 **Correct:** 2. A > Q
 
-### Mock solution
+### Explanation
 
-Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives Q < D, C < A, Q < B, B = D, D ≤ C, C < P, and P ≤ A. For A and Q, the chain forces A > Q. Therefore, A > Q is the strongest definite relation.
-
-### Learning solution
-
-Translate the symbols first, and then follow the chain only in the direction asked.
-
-Replacing the code symbols gives Q < D, C < A, Q < B, B = D, D ≤ C, C < P, and P ≤ A.
-
-For A and Q, the chain forces A > Q.
-
-Therefore, A > Q is the strongest definite relation.
-
-A = Q: The decoded statements do not force the two values to be equal.
-
-A ≤ Q: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-A ≥ Q: This is weaker than the strict greater-than relation proved by the decoded chain.
+Decode the statements: Q < D, C < A, Q < B, B = D, D ≤ C, C < P, and P ≤ A. So A > Q.
 
 ## 23. SOLVE_FIXED_MAP_CODED_CHAIN — seed 15
 
@@ -1059,25 +721,9 @@ After decoding the statements, what is the strongest definite relation between Q
 
 **Correct:** 1. Q > R
 
-### Mock solution
+### Explanation
 
-Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives Q > P, D > B, C > R, Q > D, D ≥ P, P = C, C > B, and B ≥ R. For Q and R, the chain forces Q > R. Therefore, Q > R is the strongest definite relation.
-
-### Learning solution
-
-Translate the symbols first, and then follow the chain only in the direction asked.
-
-Replacing the code symbols gives Q > P, D > B, C > R, Q > D, D ≥ P, P = C, C > B, and B ≥ R.
-
-For Q and R, the chain forces Q > R.
-
-Therefore, Q > R is the strongest definite relation.
-
-Q < R: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-Q ≤ R: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-Q ≥ R: This is weaker than the strict greater-than relation proved by the decoded chain.
+Decode the statements: Q > P, D > B, C > R, Q > D, D ≥ P, P = C, C > B, and B ≥ R. So Q > R.
 
 ## 24. SOLVE_FIXED_MAP_CODED_CHAIN — seed 16
 
@@ -1106,25 +752,9 @@ After decoding the statements, what is the strongest definite relation between P
 
 **Correct:** 3. P < R
 
-### Mock solution
+### Explanation
 
-Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives P < R. For P and R, the chain forces P < R. Therefore, P < R is the strongest definite relation.
-
-### Learning solution
-
-Translate the symbols first, and then follow the chain only in the direction asked.
-
-Replacing the code symbols gives P < R.
-
-For P and R, the chain forces P < R.
-
-Therefore, P < R is the strongest definite relation.
-
-P ≤ R: This is weaker than the strict less-than relation proved by the decoded chain.
-
-The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
-
-P > R: This option uses the wrong direction or the wrong degree of certainty after decoding.
+Decode the statements: P < R. So P < R.
 
 ## 25. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 0
 
@@ -1158,27 +788,9 @@ II. B $ R
 
 **Correct:** 1. Only conclusion I follows
 
-### Mock solution
+### Explanation
 
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives B > R and R > C. Conclusion I (R & C) says R ≥ C. The statements force R > C, so this conclusion follows. Conclusion II (B $ R) says B < R. The statements force B > R, so this conclusion does not follow. Therefore, only conclusion I follows.
-
-### Learning solution
-
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
-
-Replacing the code symbols gives B > R and R > C.
-
-Conclusion I (R & C) says R ≥ C. The statements force R > C, so this conclusion follows.
-
-Conclusion II (B $ R) says B < R. The statements force B > R, so this conclusion does not follow.
-
-Therefore, only conclusion I follows.
-
-Both conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion I follows.
-
-Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.
-
-Neither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.
+Decode the statements: B > R and R > C. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.
 
 ## 26. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 1
 
@@ -1212,27 +824,9 @@ II. D ~ A
 
 **Correct:** 3. Only conclusion II follows
 
-### Mock solution
+### Explanation
 
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives R ≥ D and D > A. Conclusion I (R + A) says R ≤ A. The statements force R > A, so this conclusion does not follow. Conclusion II (D ~ A) says D ≥ A. The statements force D > A, so this conclusion follows. Therefore, only conclusion II follows.
-
-### Learning solution
-
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
-
-Replacing the code symbols gives R ≥ D and D > A.
-
-Conclusion I (R + A) says R ≤ A. The statements force R > A, so this conclusion does not follow.
-
-Conclusion II (D ~ A) says D ≥ A. The statements force D > A, so this conclusion follows.
-
-Therefore, only conclusion II follows.
-
-Neither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion II follows.
-
-Both conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion II follows.
-
-Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Only conclusion II follows.
+Decode the statements: R ≥ D and D > A. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.
 
 ## 27. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 2
 
@@ -1266,27 +860,9 @@ II. P % A
 
 **Correct:** 2. Both conclusions I and II follow
 
-### Mock solution
+### Explanation
 
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives P > D and D > A. Conclusion I (P % D) says P > D. The statements force P > D, so this conclusion follows. Conclusion II (P % A) says P > A. The statements force P > A, so this conclusion follows. Therefore, both conclusions I and II follow.
-
-### Learning solution
-
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
-
-Replacing the code symbols gives P > D and D > A.
-
-Conclusion I (P % D) says P > D. The statements force P > D, so this conclusion follows.
-
-Conclusion II (P % A) says P > A. The statements force P > A, so this conclusion follows.
-
-Therefore, both conclusions I and II follow.
-
-Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Both conclusions I and II follow.
-
-Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Both conclusions I and II follow.
-
-Neither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Both conclusions I and II follow.
+Decode the statements: P > D and D > A. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.
 
 ## 28. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 3
 
@@ -1320,27 +896,9 @@ II. R ^ Q
 
 **Correct:** 4. Neither conclusion I nor conclusion II follows
 
-### Mock solution
+### Explanation
 
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives C < Q and Q ≤ R. Conclusion I (R + C) says R < C. The statements force R > C, so this conclusion does not follow. Conclusion II (R ^ Q) says R = Q. The statements still allow R = Q or R > Q, so this conclusion is not certain. Therefore, neither conclusion I nor conclusion II follows.
-
-### Learning solution
-
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
-
-Replacing the code symbols gives C < Q and Q ≤ R.
-
-Conclusion I (R + C) says R < C. The statements force R > C, so this conclusion does not follow.
-
-Conclusion II (R ^ Q) says R = Q. The statements still allow R = Q or R > Q, so this conclusion is not certain.
-
-Therefore, neither conclusion I nor conclusion II follows.
-
-Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.
-
-Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.
-
-Both conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.
+Decode the statements: C < Q and Q ≤ R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.
 
 ## 29. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 4
 
@@ -1374,27 +932,9 @@ II. D % Q
 
 **Correct:** 2. Only conclusion I follows
 
-### Mock solution
+### Explanation
 
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives D = P and P ≤ Q. Conclusion I (P @ Q) says P ≤ Q. The statements still allow P < Q or P = Q, so this conclusion is not certain. Conclusion II (D % Q) says D = Q. The statements still allow D < Q or D = Q, so this conclusion is not certain. Therefore, only conclusion I follows.
-
-### Learning solution
-
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
-
-Replacing the code symbols gives D = P and P ≤ Q.
-
-Conclusion I (P @ Q) says P ≤ Q. The statements still allow P < Q or P = Q, so this conclusion is not certain.
-
-Conclusion II (D % Q) says D = Q. The statements still allow D < Q or D = Q, so this conclusion is not certain.
-
-Therefore, only conclusion I follows.
-
-Neither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.
-
-Both conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion I follows.
-
-Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.
+Decode the statements: D = P and P ≤ Q. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.
 
 ## 30. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 5
 
@@ -1428,27 +968,9 @@ II. A ! P
 
 **Correct:** 4. Only conclusion II follows
 
-### Mock solution
+### Explanation
 
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives Q ≥ A, A = P, and P ≥ R. Conclusion I (A ~ R) says A > R. The statements still allow A = R or A > R, so this conclusion is not certain. Conclusion II (A ! P) says A = P. The statements force A = P, so this conclusion follows. Therefore, only conclusion II follows.
-
-### Learning solution
-
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
-
-Replacing the code symbols gives Q ≥ A, A = P, and P ≥ R.
-
-Conclusion I (A ~ R) says A > R. The statements still allow A = R or A > R, so this conclusion is not certain.
-
-Conclusion II (A ! P) says A = P. The statements force A = P, so this conclusion follows.
-
-Therefore, only conclusion II follows.
-
-Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Only conclusion II follows.
-
-Neither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion II follows.
-
-Both conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion II follows.
+Decode the statements: Q ≥ A, A = P, and P ≥ R. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.
 
 ## 31. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 6
 
@@ -1483,27 +1005,9 @@ II. B & D
 
 **Correct:** 3. Both conclusions I and II follow
 
-### Mock solution
+### Explanation
 
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives D > B and D > C. Conclusion I (C & D) says C ≤ D. The statements force C < D, so this conclusion follows. Conclusion II (B & D) says B ≤ D. The statements force B < D, so this conclusion follows. Therefore, both conclusions I and II follow.
-
-### Learning solution
-
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
-
-Replacing the code symbols gives D > B and D > C.
-
-Conclusion I (C & D) says C ≤ D. The statements force C < D, so this conclusion follows.
-
-Conclusion II (B & D) says B ≤ D. The statements force B < D, so this conclusion follows.
-
-Therefore, both conclusions I and II follow.
-
-Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Both conclusions I and II follow.
-
-Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Both conclusions I and II follow.
-
-Neither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Both conclusions I and II follow.
+Decode the statements: D > B and D > C. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.
 
 ## 32. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 7
 
@@ -1538,27 +1042,9 @@ II. R ? Q
 
 **Correct:** 1. Neither conclusion I nor conclusion II follows
 
-### Mock solution
+### Explanation
 
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives C > A and Q < R. Conclusion I (Q + C) says Q = C. The statements still allow Q < C, Q = C, or Q > C, so this conclusion is not certain. Conclusion II (R ? Q) says R < Q. The statements force R > Q, so this conclusion does not follow. Therefore, neither conclusion I nor conclusion II follows.
-
-### Learning solution
-
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
-
-Replacing the code symbols gives C > A and Q < R.
-
-Conclusion I (Q + C) says Q = C. The statements still allow Q < C, Q = C, or Q > C, so this conclusion is not certain.
-
-Conclusion II (R ? Q) says R < Q. The statements force R > Q, so this conclusion does not follow.
-
-Therefore, neither conclusion I nor conclusion II follows.
-
-Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.
-
-Both conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.
-
-Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.
+Decode the statements: C > A and Q < R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.
 
 ## 33. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 8
 
@@ -1592,27 +1078,9 @@ II. Q $ R
 
 **Correct:** 3. Only conclusion I follows
 
-### Mock solution
+### Explanation
 
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives A ≥ Q, Q = B, B > R, and R ≥ P. Conclusion I (A & P) says A ≥ P. The statements force A > P, so this conclusion follows. Conclusion II (Q $ R) says Q < R. The statements force Q > R, so this conclusion does not follow. Therefore, only conclusion I follows.
-
-### Learning solution
-
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
-
-Replacing the code symbols gives A ≥ Q, Q = B, B > R, and R ≥ P.
-
-Conclusion I (A & P) says A ≥ P. The statements force A > P, so this conclusion follows.
-
-Conclusion II (Q $ R) says Q < R. The statements force Q > R, so this conclusion does not follow.
-
-Therefore, only conclusion I follows.
-
-Neither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.
-
-Both conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion I follows.
-
-Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.
+Decode the statements: A ≥ Q, Q = B, B > R, and R ≥ P. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.
 
 ## 34. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 9
 
@@ -1646,27 +1114,9 @@ II. D ! P
 
 **Correct:** 2. Only conclusion II follows
 
-### Mock solution
+### Explanation
 
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives P = D, D ≥ Q, Q = A, and A ≥ B. Conclusion I (B ~ Q) says B > Q. The statements still allow B < Q or B = Q, so this conclusion is not certain. Conclusion II (D ! P) says D = P. The statements force D = P, so this conclusion follows. Therefore, only conclusion II follows.
-
-### Learning solution
-
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
-
-Replacing the code symbols gives P = D, D ≥ Q, Q = A, and A ≥ B.
-
-Conclusion I (B ~ Q) says B > Q. The statements still allow B < Q or B = Q, so this conclusion is not certain.
-
-Conclusion II (D ! P) says D = P. The statements force D = P, so this conclusion follows.
-
-Therefore, only conclusion II follows.
-
-Both conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion II follows.
-
-Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Only conclusion II follows.
-
-Neither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion II follows.
+Decode the statements: P = D, D ≥ Q, Q = A, and A ≥ B. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.
 
 ## 35. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 10
 
@@ -1702,27 +1152,9 @@ II. C @ Q
 
 **Correct:** 4. Both conclusions I and II follow
 
-### Mock solution
+### Explanation
 
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives C < D, Q ≤ R, and Q < C. Conclusion I (Q % D) says Q ≤ D. The statements force Q < D, so this conclusion follows. Conclusion II (C @ Q) says C ≥ Q. The statements force C > Q, so this conclusion follows. Therefore, both conclusions I and II follow.
-
-### Learning solution
-
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
-
-Replacing the code symbols gives C < D, Q ≤ R, and Q < C.
-
-Conclusion I (Q % D) says Q ≤ D. The statements force Q < D, so this conclusion follows.
-
-Conclusion II (C @ Q) says C ≥ Q. The statements force C > Q, so this conclusion follows.
-
-Therefore, both conclusions I and II follow.
-
-Neither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Both conclusions I and II follow.
-
-Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Both conclusions I and II follow.
-
-Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Both conclusions I and II follow.
+Decode the statements: C < D, Q ≤ R, and Q < C. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.
 
 ## 36. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 11
 
@@ -1757,27 +1189,9 @@ II. B ^ R
 
 **Correct:** 1. Neither conclusion I nor conclusion II follows
 
-### Mock solution
+### Explanation
 
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives D > B, B ≥ Q, and C = R. Conclusion I (Q ! C) says Q ≥ C. The statements still allow Q < C, Q = C, or Q > C, so this conclusion is not certain. Conclusion II (B ^ R) says B > R. The statements still allow B < R, B = R, or B > R, so this conclusion is not certain. Therefore, neither conclusion I nor conclusion II follows.
-
-### Learning solution
-
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
-
-Replacing the code symbols gives D > B, B ≥ Q, and C = R.
-
-Conclusion I (Q ! C) says Q ≥ C. The statements still allow Q < C, Q = C, or Q > C, so this conclusion is not certain.
-
-Conclusion II (B ^ R) says B > R. The statements still allow B < R, B = R, or B > R, so this conclusion is not certain.
-
-Therefore, neither conclusion I nor conclusion II follows.
-
-Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.
-
-Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.
-
-Both conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.
+Decode the statements: D > B, B ≥ Q, and C = R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.
 
 ## 37. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 12
 
@@ -1812,29 +1226,9 @@ III. R $ A
 
 **Correct:** 1. Only conclusions I and III follow
 
-### Mock solution
+### Explanation
 
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives D ≥ B, B > P, P = R, R ≥ C, and C > A. Conclusion I (D $ R) says D > R. The statements force D > R, so this conclusion follows. Conclusion II (D % C) says D ≤ C. The statements force D > C, so this conclusion does not follow. Conclusion III (R $ A) says R > A. The statements force R > A, so this conclusion follows. Therefore, only conclusions I and III follow.
-
-### Learning solution
-
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
-
-Replacing the code symbols gives D ≥ B, B > P, P = R, R ≥ C, and C > A.
-
-Conclusion I (D $ R) says D > R. The statements force D > R, so this conclusion follows.
-
-Conclusion II (D % C) says D ≤ C. The statements force D > C, so this conclusion does not follow.
-
-Conclusion III (R $ A) says R > A. The statements force R > A, so this conclusion follows.
-
-Therefore, only conclusions I and III follow.
-
-Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Only conclusions I and III follow.
-
-Only conclusion III follows: Only conclusion III follows, but checking each conclusion separately gives: Only conclusions I and III follow.
-
-Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Only conclusions I and III follow.
+Decode the statements: D ≥ B, B > P, P = R, R ≥ C, and C > A. Therefore, conclusion I follows, conclusion II does not follow, and conclusion III follows. Answer: Only conclusions I and III follow.
 
 ## 38. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 13
 
@@ -1869,29 +1263,9 @@ III. Q ~ C
 
 **Correct:** 3. Only conclusions II and III follow
 
-### Mock solution
+### Explanation
 
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives D ≥ R, R > C, C = A, A ≥ B, B > Q, and Q ≥ P. Conclusion I (Q ! B) says Q = B. The statements force Q < B, so this conclusion does not follow. Conclusion II (A ^ C) says A ≥ C. The statements force A = C, so this conclusion follows. Conclusion III (Q ~ C) says Q ≤ C. The statements force Q < C, so this conclusion follows. Therefore, only conclusions II and III follow.
-
-### Learning solution
-
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
-
-Replacing the code symbols gives D ≥ R, R > C, C = A, A ≥ B, B > Q, and Q ≥ P.
-
-Conclusion I (Q ! B) says Q = B. The statements force Q < B, so this conclusion does not follow.
-
-Conclusion II (A ^ C) says A ≥ C. The statements force A = C, so this conclusion follows.
-
-Conclusion III (Q ~ C) says Q ≤ C. The statements force Q < C, so this conclusion follows.
-
-Therefore, only conclusions II and III follow.
-
-Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Only conclusions II and III follow.
-
-Only conclusion III follows: Only conclusion III follows, but checking each conclusion separately gives: Only conclusions II and III follow.
-
-Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Only conclusions II and III follow.
+Decode the statements: D ≥ R, R > C, C = A, A ≥ B, B > Q, and Q ≥ P. Therefore, conclusion I does not follow, conclusion II follows, and conclusion III follows. Answer: Only conclusions II and III follow.
 
 ## 39. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 14
 
@@ -1928,29 +1302,9 @@ III. P @ C
 
 **Correct:** 4. All three conclusions follow
 
-### Mock solution
+### Explanation
 
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives P ≥ C, C > D, D ≥ Q, Q = B, B > R, P > D, and Q > R. Conclusion I (Q # B) says Q = B. The statements force Q = B, so this conclusion follows. Conclusion II (C @ D) says C ≥ D. The statements force C > D, so this conclusion follows. Conclusion III (P @ C) says P ≥ C. The statements still allow P = C or P > C, so this conclusion is not certain. Therefore, all three conclusions follow.
-
-### Learning solution
-
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
-
-Replacing the code symbols gives P ≥ C, C > D, D ≥ Q, Q = B, B > R, P > D, and Q > R.
-
-Conclusion I (Q # B) says Q = B. The statements force Q = B, so this conclusion follows.
-
-Conclusion II (C @ D) says C ≥ D. The statements force C > D, so this conclusion follows.
-
-Conclusion III (P @ C) says P ≥ C. The statements still allow P = C or P > C, so this conclusion is not certain.
-
-Therefore, all three conclusions follow.
-
-Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: All three conclusions follow.
-
-Only conclusion III follows: Only conclusion III follows, but checking each conclusion separately gives: All three conclusions follow.
-
-Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: All three conclusions follow.
+Decode the statements: P ≥ C, C > D, D ≥ Q, Q = B, B > R, P > D, and Q > R. Therefore, conclusion I follows, conclusion II follows, and conclusion III follows. Answer: All three conclusions follow.
 
 ## 40. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 15
 
@@ -1988,29 +1342,9 @@ III. Q + B
 
 **Correct:** 2. None of the conclusions follow
 
-### Mock solution
+### Explanation
 
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives B > Q, P > A, D > C, B > P, P ≥ Q, Q = D, D > A, and A ≥ C. Conclusion I (C ^ A) says C ≥ A. The statements still allow C < A or C = A, so this conclusion is not certain. Conclusion II (A ! P) says A = P. The statements force A < P, so this conclusion does not follow. Conclusion III (Q + B) says Q > B. The statements force Q < B, so this conclusion does not follow. Therefore, none of the conclusions follow.
-
-### Learning solution
-
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
-
-Replacing the code symbols gives B > Q, P > A, D > C, B > P, P ≥ Q, Q = D, D > A, and A ≥ C.
-
-Conclusion I (C ^ A) says C ≥ A. The statements still allow C < A or C = A, so this conclusion is not certain.
-
-Conclusion II (A ! P) says A = P. The statements force A < P, so this conclusion does not follow.
-
-Conclusion III (Q + B) says Q > B. The statements force Q < B, so this conclusion does not follow.
-
-Therefore, none of the conclusions follow.
-
-Only conclusion III follows: Only conclusion III follows, but checking each conclusion separately gives: None of the conclusions follow.
-
-Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: None of the conclusions follow.
-
-Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: None of the conclusions follow.
+Decode the statements: B > Q, P > A, D > C, B > P, P ≥ Q, Q = D, D > A, and A ≥ C. Therefore, conclusion I does not follow, conclusion II does not follow, and conclusion III does not follow. Answer: None of the conclusions follow.
 
 ## 41. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 16
 
@@ -2044,27 +1378,9 @@ II. A & B
 
 **Correct:** 4. Only conclusion I follows
 
-### Mock solution
+### Explanation
 
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives A > B and B > Q. Conclusion I (A $ Q) says A ≥ Q. The statements force A > Q, so this conclusion follows. Conclusion II (A & B) says A = B. The statements force A > B, so this conclusion does not follow. Therefore, only conclusion I follows.
-
-### Learning solution
-
-First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
-
-Replacing the code symbols gives A > B and B > Q.
-
-Conclusion I (A $ Q) says A ≥ Q. The statements force A > Q, so this conclusion follows.
-
-Conclusion II (A & B) says A = B. The statements force A > B, so this conclusion does not follow.
-
-Therefore, only conclusion I follows.
-
-Both conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion I follows.
-
-Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.
-
-Neither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.
+Decode the statements: A > B and B > Q. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.
 
 ## 42. ENCODE_FIXED_MAP_RELATION — seed 0
 
@@ -2093,23 +1409,9 @@ According to the supplied code key, which option correctly encodes the ordinary 
 
 **Correct:** 2. D ■ A
 
-### Mock solution
+### Explanation
 
-The required relation is D < A. In the supplied key, ■ represents less than (<). Therefore, the correct coded form is D ■ A.
-
-### Learning solution
-
-The required relation is D < A.
-
-In the supplied key, ■ represents less than (<).
-
-Therefore, the correct coded form is D ■ A.
-
-D ★ A: Its code symbol represents equal to, not less than.
-
-D ● A: Its code symbol represents less than or equal to, not less than.
-
-D ◆ A: Its code symbol represents greater than or equal to, not less than.
+■ means less than. So D < A is written as D ■ A.
 
 ## 43. ENCODE_FIXED_MAP_RELATION — seed 1
 
@@ -2138,23 +1440,9 @@ According to the supplied code key, which option correctly encodes the ordinary 
 
 **Correct:** 3. C ⊖ D
 
-### Mock solution
+### Explanation
 
-The required relation is C > D. In the supplied key, ⊖ represents greater than (>). Therefore, the correct coded form is C ⊖ D.
-
-### Learning solution
-
-The required relation is C > D.
-
-In the supplied key, ⊖ represents greater than (>).
-
-Therefore, the correct coded form is C ⊖ D.
-
-C ⊕ D: Its code symbol represents equal to, not greater than.
-
-C ⊘ D: Its code symbol represents less than or equal to, not greater than.
-
-C ⊙ D: Its code symbol represents greater than or equal to, not greater than.
+⊖ means greater than. So C > D is written as C ⊖ D.
 
 ## 44. ENCODE_FIXED_MAP_RELATION — seed 2
 
@@ -2183,23 +1471,9 @@ According to the supplied code key, which option correctly encodes the ordinary 
 
 **Correct:** 4. A ★ D
 
-### Mock solution
+### Explanation
 
-The required relation is A = D. In the supplied key, ★ represents equal to (=). Therefore, the correct coded form is A ★ D.
-
-### Learning solution
-
-The required relation is A = D.
-
-In the supplied key, ★ represents equal to (=).
-
-Therefore, the correct coded form is A ★ D.
-
-A ▲ D: Its code symbol represents greater than or equal to, not equal to.
-
-A ◆ D: Its code symbol represents greater than, not equal to.
-
-A ● D: Its code symbol represents less than, not equal to.
+★ means equal to. So A = D is written as A ★ D.
 
 ## 45. ENCODE_FIXED_MAP_RELATION — seed 3
 
@@ -2228,23 +1502,9 @@ According to the supplied code key, which option correctly encodes the ordinary 
 
 **Correct:** 1. P ⊖ B
 
-### Mock solution
+### Explanation
 
-The required relation is P ≥ B. In the supplied key, ⊖ represents greater than or equal to (≥). Therefore, the correct coded form is P ⊖ B.
-
-### Learning solution
-
-The required relation is P ≥ B.
-
-In the supplied key, ⊖ represents greater than or equal to (≥).
-
-Therefore, the correct coded form is P ⊖ B.
-
-P ⊕ B: Its code symbol represents less than or equal to, not greater than or equal to.
-
-P ⊙ B: Its code symbol represents equal to, not greater than or equal to.
-
-P ⊘ B: Its code symbol represents greater than, not greater than or equal to.
+⊖ means greater than or equal to. So P ≥ B is written as P ⊖ B.
 
 ## 46. ENCODE_FIXED_MAP_RELATION — seed 4
 
@@ -2273,23 +1533,9 @@ According to the supplied code key, which option correctly encodes the ordinary 
 
 **Correct:** 2. D ◆ Q
 
-### Mock solution
+### Explanation
 
-The required relation is D ≤ Q. In the supplied key, ◆ represents less than or equal to (≤). Therefore, the correct coded form is D ◆ Q.
-
-### Learning solution
-
-The required relation is D ≤ Q.
-
-In the supplied key, ◆ represents less than or equal to (≤).
-
-Therefore, the correct coded form is D ◆ Q.
-
-D ● Q: Its code symbol represents greater than, not less than or equal to.
-
-D ★ Q: Its code symbol represents less than, not less than or equal to.
-
-D ▲ Q: Its code symbol represents greater than or equal to, not less than or equal to.
+◆ means less than or equal to. So D ≤ Q is written as D ◆ Q.
 
 ## 47. ENCODE_FIXED_MAP_RELATION — seed 5
 
@@ -2318,23 +1564,9 @@ According to the supplied code key, which option correctly encodes the ordinary 
 
 **Correct:** 4. R ⊖ P
 
-### Mock solution
+### Explanation
 
-The required relation is R > P. In the supplied key, ⊖ represents greater than (>). Therefore, the correct coded form is R ⊖ P.
-
-### Learning solution
-
-The required relation is R > P.
-
-In the supplied key, ⊖ represents greater than (>).
-
-Therefore, the correct coded form is R ⊖ P.
-
-R ⊘ P: Its code symbol represents equal to, not greater than.
-
-R ⊕ P: Its code symbol represents greater than or equal to, not greater than.
-
-R ⊗ P: Its code symbol represents less than, not greater than.
+⊖ means greater than. So R > P is written as R ⊖ P.
 
 ## 48. ENCODE_FIXED_MAP_RELATION — seed 6
 
@@ -2363,20 +1595,6 @@ According to the supplied code key, which option correctly encodes the ordinary 
 
 **Correct:** 1. P ■ C
 
-### Mock solution
+### Explanation
 
-The required relation is P < C. In the supplied key, ■ represents less than (<). Therefore, the correct coded form is P ■ C.
-
-### Learning solution
-
-The required relation is P < C.
-
-In the supplied key, ■ represents less than (<).
-
-Therefore, the correct coded form is P ■ C.
-
-P ● C: Its code symbol represents less than or equal to, not less than.
-
-P ▲ C: Its code symbol represents greater than or equal to, not less than.
-
-P ◆ C: Its code symbol represents greater than, not less than.
+■ means less than. So P < C is written as P ■ C.

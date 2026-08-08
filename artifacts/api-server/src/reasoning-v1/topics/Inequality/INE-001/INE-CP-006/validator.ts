@@ -37,8 +37,10 @@ export function validateIneCp006Question(
       .some((entry) => !entry.errorLabel)
   )
     errors.push("Every distractor needs a misconception label.");
-  if (question.explanation.distractorAnalysis.length !== 3)
-    errors.push("Every distractor needs learner-facing feedback.");
+  if (question.explanation.distractorAnalysis.length !== 0)
+    errors.push(
+      "CP-006 displays one simple explanation without option commentary.",
+    );
 
   const relations = Object.keys(scenario.codeMap.symbolByRelation);
   const symbols = Object.values(scenario.codeMap.symbolByRelation);
@@ -133,7 +135,7 @@ export function validateIneCp006Question(
     if (!supportedConclusionCount) {
       errors.push("Conclusion questions require two or three conclusions.");
     } else {
-      const conclusionCount = scenario.conclusions.length;
+      const conclusionCount = scenario.conclusions.length as 2 | 3;
       const truths = scenario.conclusions.map(
         (entry) => evaluateConclusion(scenario.statements, entry).truth,
       );

@@ -52,15 +52,16 @@ for (const row of rows) {
   assert.equal(row.options.length, 4);
   assert.equal(new Set(row.options).size, 4);
   assert.equal(row.correctOption, row.options[row.correctIndex]);
-  assert.ok(row.mockSolution.length > 80);
-  assert.ok(row.learningSolution.length > 160);
+  assert.ok(row.explanation.length > 30);
+  assert.ok(row.explanation.length < 600);
   assert.equal(row.permanentQlId, null);
   assert.equal(row.questionStudioVisible, false);
 }
 const markdown = renderIneCp006ReviewMarkdown(rows);
 assert.match(markdown, /# INE-CP-006 English Prototype Review Pack/);
 assert.match(markdown, /### Code key/);
-assert.match(markdown, /### Learning solution/);
+assert.match(markdown, /### Explanation/);
+assert.doesNotMatch(markdown, /### (?:Mock|Learning) solution/);
 assert.match(markdown, /34 questions to exam-shaped chain solving/);
 assert.match(markdown, /III\./);
 assert.ok(!/\b(?:undefined|null|NaN)\b/i.test(markdown));
