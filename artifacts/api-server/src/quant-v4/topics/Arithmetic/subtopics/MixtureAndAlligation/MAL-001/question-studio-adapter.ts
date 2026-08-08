@@ -23,7 +23,7 @@ import {
   type MalCp004PermanentQlId,
 } from "./foundation/cp004-permanent-runtime";
 import type { MalCp004ProductReviewQuestion } from "./foundation/cp004-product-review-remediation-v3";
-import { runMalCp004EnglishProductReviewV4Pipeline } from "./foundation/cp004-product-review-runtime-v4";
+import { runMalCp004EnglishProductReviewV5Pipeline } from "./foundation/cp004-product-review-runtime-v5";
 
 export const MAL_001_QUESTION_STUDIO_CP_IDS = [
   "MAL-CP-001",
@@ -163,7 +163,7 @@ export function runMal001QuestionStudioPipeline(
     MAL_CP004_PERMANENT_ALLOCATION,
     input,
   ) as MalCp004PermanentQlId;
-  return runMalCp004EnglishProductReviewV4Pipeline({
+  return runMalCp004EnglishProductReviewV5Pipeline({
     questionLanguageId,
     seed: input.seed,
     language: "en",
