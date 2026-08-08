@@ -153,19 +153,25 @@ export function generateBlrCp007EditorialV4Wave3FinalBank(): readonly GeneratedB
   });
 }
 
-function visibleLearnerText(question: GeneratedBlrCp007EditorialV4Question): string {
-  return JSON.stringify({
-    sharedPrompt: question.sharedPrompt,
-    stem: question.stem,
-    options: question.options.map((option) => ({ text: option.text, explanation: option.studentExplanation })),
-    explanation: {
-      steps: question.explanation.steps,
-      conclusion: question.explanation.conclusion,
-      shortcut: question.explanation.shortcut,
-      commonTrap: question.explanation.commonTrap,
-      optionAnalysis: question.explanation.optionAnalysis.map((analysis) => analysis.explanation),
-    },
-  });
+function visibleLearnerFields(question: GeneratedBlrCp007EditorialV4Question): readonly string[] {
+  return [
+    question.sharedPrompt,
+    question.stem,
+    ...question.options.map((option) => option.text),
+    ...question.options.map((option) => option.studentExplanation),
+    ...question.explanation.steps,
+    question.explanation.conclusion,
+    question.explanation.shortcut ?? "",
+    question.explanation.commonTrap ?? "",
+    ...question.explanation.optionAnalysis.map((analysis) => analysis.explanation),
+  ];
+}
+
+function hasMalformedExplanation(question: GeneratedBlrCp007EditorialV4Question): boolean {
+  return visibleLearnerFields(question).some((field) =>
+    /\bso\s+[A-Z]+\s+is\b[^.]*\bis not established\b/i.test(field) ||
+    /\bthat\s+[A-Z]+\s+is\b[^.]*\bis not established\b/i.test(field),
+  );
 }
 
 export function buildBlrCp007EditorialV4Wave3FinalTelemetry(
@@ -178,10 +184,7 @@ export function buildBlrCp007EditorialV4Wave3FinalTelemetry(
     question.qlId !== "BLR-QL-035" &&
     question.options.filter((option) => option.targetRelationSatisfied).length !== 1,
   ).length;
-  const malformedLearnerExplanationCount = bank.filter((question) =>
-    /\bso\s+[A-Z]+\s+is\b[^.]*\bis not established\b/i.test(visibleLearnerText(question)) ||
-    /\bthat\s+[A-Z]+\s+is\b[^.]*\bis not established\b/i.test(visibleLearnerText(question)),
-  ).length;
+  const malformedLearnerExplanationCount = bank.filter(hasMalformedExplanation).length;
   const keySizes = bank.map((question) => question.codeKey.length);
   return {
     ...base,
