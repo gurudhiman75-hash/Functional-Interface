@@ -43,8 +43,9 @@ function assertRequiredFacts(
   const state = source.mathematicalState;
   const amount = completeAmountForState(state);
   const compoundInterest = sub(amount, state.principal);
-  const required = [percentText(state.nominalAnnualRatePercent)];
+  const required: string[] = [];
 
+  if (qlId !== "INT-QL-071") required.push(percentText(state.nominalAnnualRatePercent));
   if (qlId !== "INT-QL-069" && qlId !== "INT-QL-070") required.push(moneyText(state.principal));
   if (qlId === "INT-QL-069" || qlId === "INT-QL-071" || qlId === "INT-QL-072") required.push(moneyText(amount));
   if (qlId === "INT-QL-070") required.push(moneyText(compoundInterest));
