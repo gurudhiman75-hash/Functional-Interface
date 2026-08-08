@@ -2,7 +2,7 @@
 
 ## Status
 
-`IMPLEMENTED_AWAITING_EXACT_HEAD_CI`
+`EXACT_HEAD_PROOF_PASSED_AWAITING_FINAL_STATUS_RUN`
 
 This proof wave is stacked on the approved FAN-001 visual-remediation head. It remains prototype evidence only and does not allocate permanent QLs.
 
@@ -40,7 +40,35 @@ For every question, the solver evaluates the complete approved FCL property auth
 
 A negative regression fixture proves that a quartet with two valid separating properties is rejected.
 
-## Editorial proof
+## Visual and editorial review
+
+The complete eight-question review artifact was inspected manually. The odd figure is visually supported in every question, arrow and marker layers remain visible, count segments are legible, and no answer depends on drawing quality or accidental spacing.
+
+The shading/count question includes both valid forms of the rule—open with an even count and shaded with an odd count—so it cannot be solved by shading alone. Orientation explanations use student-facing directions instead of internal quarter-turn codes.
+
+## Validated implementation proof
+
+```text
+Head:        253ae84c0b41a66a6dcc450f449332118cfae776
+Workflow:    Validate SPA-FND-001 FCL-001 proof
+Run:         31251252479 — PASS
+Artifact:    spa-fcl-001-editorial-review
+Artifact ID: 9020070271
+Digest:      sha256:e3779cb5e39f6ddd5d91a07ce9d95af5aef49c81f28f8c32a00e1abf06f6555a
+Status:      PASS_SPA_FND_001_FCL_001_PROOF
+```
+
+Passed proof layers:
+
+```text
+PASS_SPA_FND_001_FOUNDATION_RUNTIME
+PASS_SPA_FND_001_MIRROR_WATER_PROOF
+PASS_SPA_FND_001_WAVE_03_PERCEPTUAL_REMEDIATION
+PASS_SPA_FND_001_FAN_001_VISUAL_REMEDIATION
+PASS_SPA_FND_001_FCL_001_PROOF
+```
+
+## Editorial proof artifact
 
 The workflow generates deterministic JSON and responsive HTML containing:
 
@@ -60,10 +88,4 @@ Question Bank writes:         false
 Mock-test eligibility:        false
 Public publication:           false
 API/database schema changes:  none
-```
-
-## Required exact-head status
-
-```text
-PASS_SPA_FND_001_FCL_001_PROOF
 ```
