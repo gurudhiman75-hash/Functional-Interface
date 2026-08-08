@@ -8,6 +8,7 @@ import "./spherical-shells.test";
 import "./hidden-face-exposure.test";
 import "./cost-lining.test";
 import "./ratio-percent.test";
+import "./conical-material.test";
 import assert from "node:assert/strict";
 import { getMenCp011FoundationPrototypeIds } from "./registry";
 import { generateMenCp011FoundationPrototype } from "./runtime";
