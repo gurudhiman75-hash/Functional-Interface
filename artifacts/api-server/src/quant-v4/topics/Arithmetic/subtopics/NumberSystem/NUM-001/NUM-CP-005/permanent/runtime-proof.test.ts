@@ -51,9 +51,9 @@ for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
     verifierChecks += 1;
     assert(first.verifierAnswer === first.canonicalAnswer, `${qlId}/${seed}: independent verifier mismatch`);
     assert(first.permanentIdentityFrozen, `${qlId}/${seed}: identity not frozen`);
-    assert(first.allocationStatus === "EDITORIAL_REMEDIATION_AWAITING_PRODUCT_OWNER_REVIEW", `${qlId}/${seed}: allocation status`);
-    assert(first.reviewStatus === "CRITICAL_REVIEW_REMEDIATED_AWAITING_APPROVAL", `${qlId}/${seed}: review status`);
-    assert(first.maturity === "ENGLISH_EDITORIAL_REVIEW", `${qlId}/${seed}: maturity`);
+    assert(first.allocationStatus === "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION", `${qlId}/${seed}: allocation status`);
+    assert(first.reviewStatus === "PRODUCT_OWNER_COMPLETION_AUTHORISED", `${qlId}/${seed}: review status`);
+    assert(first.maturity === "ENGLISH_IMPLEMENTATION_FROZEN", `${qlId}/${seed}: maturity`);
     assert(!first.lifecycle.active, `${qlId}/${seed}: active leak`);
     assert(!first.lifecycle.questionStudioDiscoverable, `${qlId}/${seed}: Question Studio leak`);
     assert(!first.lifecycle.questionBankWritable, `${qlId}/${seed}: Question Bank leak`);
@@ -90,7 +90,7 @@ try {
 assert(unsupportedLanguageRejected, "unsupported language must be rejected");
 
 console.log(JSON.stringify({
-  status: "PASS_NUM_CP005_PERMANENT_ENGLISH_EDITORIAL_REVIEW_RUNTIME",
+  status: "PASS_NUM_CP005_PERMANENT_ENGLISH_IMPLEMENTATION_FROZEN_RUNTIME",
   permanentQlCount: NUM_CP005_PERMANENT_QL_IDS.length,
   solveModeCount: new Set(NUM_CP005_PERMANENT_ALLOCATION.map((entry) => entry.solveModeId)).size,
   seedsPerQl,
@@ -109,7 +109,7 @@ console.log(JSON.stringify({
   ),
   uniformEasyDifficultyQls: [...uniformEasyDifficultyQls],
   unsupportedLanguageRejected,
-  reviewStatus: "CRITICAL_REVIEW_REMEDIATED_AWAITING_APPROVAL",
+  reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED",
   questionStudioDiscoverableCount: 0,
   questionBankWritableCount: 0,
   testEligibleCount: 0,
