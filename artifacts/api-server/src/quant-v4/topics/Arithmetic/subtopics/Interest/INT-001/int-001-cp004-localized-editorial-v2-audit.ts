@@ -20,14 +20,12 @@ const bannedShared = [
   "सही। यह विकल्प प्रश्न की सभी ब्याज-शर्तों को पूरा करता है।",
   "ਸਹੀ। ਇਹ ਚੋਣ ਪ੍ਰਸ਼ਨ ਦੀਆਂ ਸਾਰੀਆਂ ਵਿਆਜ-ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਦੀ ਹੈ।",
 ] as const;
-
 const bannedHindiGrammar = [
   /\d+वीं माह/gu,
   /\d+वीं वर्ष/gu,
   /\d+वीं अर्धवर्ष/gu,
   /अवधि का गुणक लागू या उलटें/gu,
 ] as const;
-
 const bannedPunjabiGrammar = [
   /\d+ਵੀਂ ਮਹੀਨਾ/gu,
   /\d+ਵੀਂ ਸਾਲ/gu,
@@ -52,19 +50,12 @@ const representationCounts = new Map<string, number>();
 for (const locale of locales) {
   correctFeedbackByLocale.set(locale, new Set());
   firstLinesByLocale.set(locale, new Set());
+
   for (const qlId of INT_CP004_QL_IDS) {
     for (let index = 0; index < seedsPerQl; index += 1) {
       const seed = `int-cp004-editorial-v4-audit:${qlId}:${index}`;
       const question = generateIntCp004LocalizedQuestion({ qlId, seed, locale });
-      questionCases += 1;
-
-      for (const banned of bannedShared) {
-        assert(!question.stem.includes(banned), `${qlId}/${seed}/${locale}: learner-facing stem contains banned text: ${banned}`);
-      }
-      learnerIdLeakChecks += bannedShared.length;
-
-      const grammarPatterns = locale === "hi-IN" ? bannedHindiGrammar : bannedPunjabiGrammar;
-      const fullText = [
+      const learnerText = [
         question.stem,
         ...question.options.flatMap((option) => [option.text, option.feedback]),
         question.explanation.whatAsked,
@@ -72,9 +63,15 @@ for (const locale of locales) {
         question.explanation.finalAnswer,
         question.explanation.commonMistake,
       ].join("\n");
-      for (const pattern of grammarPatterns) {
+      questionCases += 1;
+
+      for (const banned of bannedShared) {
+        assert(!question.stem.includes(banned), `${qlId}/${seed}/${locale}: learner-facing stem contains banned text: ${banned}`);
+        learnerIdLeakChecks += 1;
+      }
+      for (const pattern of locale === "hi-IN" ? bannedHindiGrammar : bannedPunjabiGrammar) {
         pattern.lastIndex = 0;
-        assert(!pattern.test(fullText), `${qlId}/${seed}/${locale}: banned grammar pattern ${pattern} found.`);
+        assert(!pattern.test(learnerText), `${qlId}/${seed}/${locale}: banned grammar pattern ${pattern} found.`);
         grammarChecks += 1;
       }
 
@@ -88,10 +85,14 @@ for (const locale of locales) {
         assert(question.stem.split("\n").filter((line) => line.startsWith("|")).length >= 4, `${qlId}/${seed}/${locale}: structured table is too shallow.`);
       }
       if (question.representation === "TERMS_TABLE") {
-        assert(question.stem.includes("**प्रश्न:**"), `${qlId}/${seed}/${locale}: terms table has no direct localized question heading.`);
+        const heading = locale === "hi-IN" ? "**प्रश्न:**" : "**ਪ੍ਰਸ਼ਨ:**";
+        assert(question.stem.includes(heading), `${qlId}/${seed}/${locale}: terms table has no direct localized question heading.`);
       }
       if (question.representation === "BALANCE_RECORD") {
-        assert(locale === "hi-IN" ? question.stem.includes("खाते") : question.stem.includes("ਖਾਤੇ"), `${qlId}/${seed}/${locale}: balance record is not presented as an account record.`);
+        const accountWord = locale === "hi-IN" ? "खाते" : "ਖਾਤੇ";
+        const genericRow = locale === "hi-IN" ? "आरंभिक प्रविष्टि" : "ਸ਼ੁਰੂਆਤੀ ਦਰਜ";
+        assert(question.stem.includes(accountWord), `${qlId}/${seed}/${locale}: balance record lacks an account context.`);
+        assert(!question.stem.includes(genericRow), `${qlId}/${seed}/${locale}: balance record still hides the first fact behind a generic label.`);
       }
       if (question.representation === "SCHEME_COMPARISON") {
         assert(locale === "hi-IN" ? question.stem.includes("योजना") : question.stem.includes("ਯੋਜਨਾ"), `${qlId}/${seed}/${locale}: scheme representation lacks a learner-facing scheme frame.`);
