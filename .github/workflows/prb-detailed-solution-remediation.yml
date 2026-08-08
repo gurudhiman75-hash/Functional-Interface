@@ -24,6 +24,7 @@ jobs:
       - name: Apply polished worked-solution remediation
         run: |
           python scripts/prb_solution_polish_patch.py
+          python scripts/prb_final_editorial_polish.py
           python - <<'PY'
           from pathlib import Path
           path = Path("artifacts/api-server/src/quant-v4/topics/Probability/shared/validator.ts")
@@ -95,6 +96,8 @@ jobs:
                   raise SystemExit(f"{row['qlId']}: wrong coin method on successive draw")
               if re.search(r"=\s*([^ ]+)\s*=\s*\1(?:\.|\s|$)", explanation):
                   raise SystemExit(f"{row['qlId']}: duplicated reduced value")
+              if re.search(r"Step \d+ — X\s*=", explanation):
+                  raise SystemExit(f"{row['qlId']}: lowercase algebraic variable was incorrectly capitalised")
               if row["validationValid"] != "true":
                   raise SystemExit(f"{row['qlId']}: validation failed")
 
@@ -137,5 +140,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "${targets[@]}"
           git diff --cached --check
-          git commit -m "refactor(probability): polish detailed worked solutions [skip ci]"
+          git commit -m "refactor(probability): finalize worked-solution explanations [skip ci]"
           git push
