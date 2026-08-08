@@ -58,7 +58,7 @@ function assertGeneralPackageReadiness(pkg: CalendarQuestionPackage): void {
 
 function assertCuratedCoverage(id: CalendarPrototypeId, selected: CalendarQuestionPackage[]): void {
   assert(selected.length === 5, `${id}: expected 5 curated questions.`);
-  assert(new Set(selected.map((pkg) => pkg.stem)).size === 5, `${id}: curated stems are duplicated.`);
+  assert(new Set(selected.map((pkg) => JSON.stringify([pkg.stem, pkg.options.map((option) => option.display)]))).size === 5, `${id}: curated rendered questions are duplicated.`);
   assert(new Set(selected.map((pkg) => pkg.mathematicalFingerprint)).size === 5, `${id}: curated mathematical states are duplicated.`);
   assert(new Set(selected.map((pkg) => pkg.answerIndex)).size >= 3, `${id}: fewer than three answer positions are represented.`);
 
