@@ -7,6 +7,7 @@ import {
   type SapCp004Package,
   type SapCp004PrototypeId,
 } from "./editorial-runtime";
+import { applySapCp004ExplanationRemediation } from "./explanation-remediation-v2";
 
 export {
   SAP_CP004_CATALOGUE,
@@ -143,12 +144,22 @@ function parityAware(pkg: SapCp004Package): SapCp004Package {
   });
 }
 
-export function generateSapCp004Package(
+export function generateSapCp004PreExplanationPackage(
   prototypeId: SapCp004PrototypeId,
   seed: number,
   targetCorrectIndex?: number,
 ): SapCp004Package {
   return parityAware(generateEditorialPackage(prototypeId, seed, targetCorrectIndex));
+}
+
+export function generateSapCp004Package(
+  prototypeId: SapCp004PrototypeId,
+  seed: number,
+  targetCorrectIndex?: number,
+): SapCp004Package {
+  return applySapCp004ExplanationRemediation(
+    generateSapCp004PreExplanationPackage(prototypeId, seed, targetCorrectIndex),
+  );
 }
 
 export function generateSapCp004Sweep(seedsPerPrototype: number): readonly SapCp004Package[] {
