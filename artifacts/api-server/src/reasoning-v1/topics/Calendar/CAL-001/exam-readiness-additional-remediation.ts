@@ -3,11 +3,13 @@ import type {
   CalendarQuestionPackage,
   GregorianDate,
   Locale,
+  Month,
   SemanticValue,
 } from "./types.ts";
 import {
   DeterministicRandom,
   mod7,
+  ordinalDaysInMonth,
   ordinalDifference,
   ordinalLeapYear,
   ordinalWeekday,
@@ -17,6 +19,7 @@ import {
 import {
   formatDate,
   makeExplanation,
+  monthName,
   t,
   weekdayName,
   type Problem,
@@ -110,6 +113,125 @@ function centuryBoundaryProblem(seed: number, locale: Locale, rng: Deterministic
   };
 }
 
+function pickYearByLeapStatus(rng: DeterministicRandom, leap: boolean): number {
+  for (let attempt = 0; attempt < 1000; attempt++) {
+    const year = rng.int(1900, 2099);
+    if (ordinalLeapYear(year) === leap) return year;
+  }
+  throw new Error(`Unable to select a ${leap ? "leap" : "ordinary"} review year.`);
+}
+
+function monthBoundaryProblem(
+  id: "CAL-PQL-037" | "CAL-PQL-038",
+  seed: number,
+  locale: Locale,
+  rng: DeterministicRandom,
+): Problem {
+  const pattern = seed % 4;
+  let year: number;
+  let month: Month;
+
+  if (pattern === 0) {
+    year = pickYearByLeapStatus(rng, false);
+    month = 2;
+  } else if (pattern === 1) {
+    year = pickYearByLeapStatus(rng, true);
+    month = 2;
+  } else if (pattern === 2) {
+    year = rng.int(1900, 2099);
+    month = rng.pick([4, 6, 9, 11]);
+  } else {
+    year = rng.int(1900, 2099);
+    month = rng.pick([1, 3, 5, 7, 8, 10, 12]);
+  }
+
+  const length = ordinalDaysInMonth(year, month);
+  const first = ordinalWeekday({ year, month, day: 1 });
+  const last = ordinalWeekday({ year, month, day: length });
+  const forward = id === "CAL-PQL-037";
+  const anchor = forward ? first : last;
+  const signedShift = forward ? length - 1 : -(length - 1);
+  const answer = forward ? last : first;
+  const direction = forward ? 1 : -1;
+
+  return {
+    queryType: forward ? "LAST_WEEKDAY_FROM_FIRST_MONTH" : "FIRST_WEEKDAY_FROM_LAST_MONTH",
+    facts: {
+      year,
+      month,
+      anchorWeekday: anchor,
+      targetWeekday: answer,
+      signedDayShift: signedShift,
+    },
+    answer,
+    groundTruth: {
+      method: "ORDINAL",
+      segments: [{ first }, { last }, { monthLength: length }],
+      answer,
+    },
+    teachingTrace: {
+      method: "MOD7_SHIFT",
+      segments: [{ monthLength: length }, { signedShift }, { remainder: mod7(signedShift) }],
+      answer: weekdayShift(anchor, signedShift),
+    },
+    stem: forward
+      ? t(
+          locale,
+          `${monthName(month, locale)} ${year} begins on ${weekdayName(first, locale)}. Which weekday does its last day fall on?`,
+          `${monthName(month, locale)} ${year} का पहला दिन ${weekdayName(first, locale)} है। अंतिम दिन कौन-सा वार है?`,
+          `${monthName(month, locale)} ${year} ਦਾ ਪਹਿਲਾ ਦਿਨ ${weekdayName(first, locale)} ਹੈ। ਆਖ਼ਰੀ ਦਿਨ ਕਿਹੜਾ ਵਾਰ ਹੈ?`,
+        )
+      : t(
+          locale,
+          `${monthName(month, locale)} ${year} ends on ${weekdayName(last, locale)}. Which weekday does its first day fall on?`,
+          `${monthName(month, locale)} ${year} का अंतिम दिन ${weekdayName(last, locale)} है। पहला दिन कौन-सा वार है?`,
+          `${monthName(month, locale)} ${year} ਦਾ ਆਖ਼ਰੀ ਦਿਨ ${weekdayName(last, locale)} ਹੈ। ਪਹਿਲਾ ਦਿਨ ਕਿਹੜਾ ਵਾਰ ਹੈ?`,
+        ),
+    wrongs: [
+      {
+        value: weekdayShift(anchor, direction * length),
+        misconceptionId: "FIRST_LAST_DAY_OFF_BY_ONE",
+        derivation: { usedMonthLengthInsteadOfLengthMinusOne: true, usedShift: direction * length },
+      },
+      {
+        value: weekdayShift(anchor, direction * (length + 1)),
+        misconceptionId: "COUNTED_ANCHOR_AS_DAY_ONE",
+        derivation: { countedBothBoundaryDaysAgain: true, usedShift: direction * (length + 1) },
+      },
+      {
+        value: weekdayShift(anchor, direction * (length + 2)),
+        misconceptionId: "FAILED_MOD7_REDUCTION",
+        derivation: { usedIncorrectRemainder: mod7(direction * (length + 2)) },
+      },
+      {
+        value: weekdayShift(anchor, -signedShift),
+        misconceptionId: "FORWARD_BACKWARD_REVERSAL",
+        derivation: { reversedDirection: true, usedShift: -signedShift },
+      },
+    ],
+    explanation: makeExplanation(
+      locale,
+      `${monthName(month, locale)} ${year} has ${length} days.`,
+      "The first and last dates are separated by month length minus one days; use the negative of that shift for the inverse form.",
+      [
+        `Required signed shift = ${forward ? "" : "−"}(${length} − 1) = ${signedShift}.`,
+        `${signedShift} mod 7 = ${mod7(signedShift)}.`,
+        `${weekdayName(anchor, locale)} shifted by ${signedShift} day(s) gives ${weekdayName(answer, locale)}.`,
+      ],
+      weekdayName(answer, locale),
+      "Using the month length itself counts one boundary twice and moves the weekday by one extra day.",
+    ),
+    coverage: {
+      usesBackwardMovement: !forward,
+    },
+    difficultyDimensions: {
+      D2ReverseReasoning: !forward,
+      D4LeapDayExposure: month === 2 && length === 29,
+      D8InverseReasoning: !forward,
+    },
+  };
+}
+
 export function buildAdditionalExamReadyProblemOverride(
   id: CalendarPrototypeId,
   seed: number,
@@ -117,6 +239,7 @@ export function buildAdditionalExamReadyProblemOverride(
   rng: DeterministicRandom,
 ): Problem | null {
   if (id === "CAL-PQL-027") return centuryBoundaryProblem(seed, locale, rng);
+  if (id === "CAL-PQL-037" || id === "CAL-PQL-038") return monthBoundaryProblem(id, seed, locale, rng);
   return null;
 }
 
