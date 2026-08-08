@@ -212,7 +212,9 @@ function inverseCrossYearProblem(locale: Locale, rng: DeterministicRandom): Prob
 
 function centuryBlockProblem(seed: number, locale: Locale): Problem {
   const reviewCycle = [100, 200, 300, 400, 700] as const;
-  const years = reviewCycle[seed % reviewCycle.length]!;
+  const years = seed < reviewCycle.length
+    ? reviewCycle[seed]!
+    : 100 * ((seed % 12) + 1);
   const answer = oddDaysInCompleteYears(years);
   const exactDays = ordinalDifference(
     { year: 1, month: 1, day: 1 },
