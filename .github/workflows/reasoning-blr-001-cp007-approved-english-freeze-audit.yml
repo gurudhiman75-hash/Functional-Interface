@@ -16,6 +16,10 @@ on:
 permissions:
   contents: read
 
+defaults:
+  run:
+    shell: bash
+
 concurrency:
   group: blr-001-cp007-approved-english-freeze-${{ github.ref }}
   cancel-in-progress: true
@@ -47,10 +51,9 @@ jobs:
 
       - name: Export approved English-freeze review pack
         run: |
-          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/export-blr-001-approved-english-freeze-audit.ts blr-001-approved-english-freeze-audit-output | tee blr-001-approved-english-freeze-export.log
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/export-blr-001-approved-english-freeze-audit-reviewed.ts blr-001-approved-english-freeze-audit-output | tee blr-001-approved-english-freeze-export.log
 
       - name: Verify review-pack contracts
-        shell: bash
         run: |
           set -euo pipefail
           OUT=blr-001-approved-english-freeze-audit-output
@@ -62,6 +65,7 @@ jobs:
           test -f "$OUT/BLR-001-APPROVED-ENGLISH-FREEZE-AUDIT.md"
           grep -q '"approvedCorpusQuestionCount": 168' "$OUT/blr-001-approved-english-freeze-audit-summary.json"
           grep -q '"permanentQlCount": 35' "$OUT/blr-001-approved-english-freeze-audit-summary.json"
+          grep -q '"acceptedExamDirectiveStemCount": 12' "$OUT/blr-001-approved-english-freeze-audit-summary.json"
           grep -q '"blockerCount": 0' "$OUT/blr-001-approved-english-freeze-audit-summary.json"
           grep -q '"verdict": "APPROVED_CORPUS_ENGLISH_FREEZE_REVIEW_CANDIDATE"' "$OUT/blr-001-approved-english-freeze-audit-summary.json"
           grep -q '@media(max-width:800px)' "$OUT/blr-001-approved-english-freeze-audit-review.html"
