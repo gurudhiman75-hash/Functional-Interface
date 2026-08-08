@@ -7,6 +7,33 @@ import type {
   NumCp005LocalizedRuntimeInput,
 } from "./types";
 
+interface PrimePowerState {
+  readonly prime: number;
+  readonly exponent: number;
+}
+
+function ql054LegacyParserStem(
+  english: ReturnType<typeof runNumCp005PermanentPipeline>,
+): string {
+  const hiddenPrime = Number(english.hiddenState.hiddenPrime);
+  const targetDivisorCount = String(english.hiddenState.targetDivisorCount);
+  const factorState = english.hiddenState.factorState;
+  if (!Number.isInteger(hiddenPrime) || !Array.isArray(factorState)) {
+    throw new Error(
+      `${english.questionLanguageId}/${english.seed}: incomplete QL-054 localisation state`,
+    );
+  }
+
+  const expression = (factorState as readonly PrimePowerState[])
+    .map(({ prime, exponent }) => {
+      if (prime === hiddenPrime) return `${prime}^x`;
+      return exponent === 1 ? String(prime) : `${prime}^${exponent}`;
+    })
+    .join(" × ");
+
+  return `n = ${expression} has exactly ${targetDivisorCount} positive divisors, find x.`;
+}
+
 export function generateNumCp005LocalizedQuestion(
   input: NumCp005LocalizedRuntimeInput,
 ): NumCp005LocalizedQuestion {
@@ -15,6 +42,13 @@ export function generateNumCp005LocalizedQuestion(
     seed: input.seed,
     language: "en",
   });
+
+  const localisationEnglish = english.questionLanguageId === "NUM-QL-054"
+    ? Object.freeze({
+        ...english,
+        stem: ql054LegacyParserStem(english),
+      })
+    : english;
 
   const sumStateKey = english.questionLanguageId === "NUM-QL-061"
     ? "propertyKind"
@@ -25,7 +59,7 @@ export function generateNumCp005LocalizedQuestion(
   let localized: NumCp005LocalizedQuestion;
   if (requiresSumLabel && sumStateKey) {
     const adaptedEnglish = Object.freeze({
-      ...english,
+      ...localisationEnglish,
       hiddenState: Object.freeze({
         ...english.hiddenState,
         [sumStateKey]: "TOTAL_DIVISORS",
@@ -44,7 +78,7 @@ export function generateNumCp005LocalizedQuestion(
       stem: adaptedLocalized.stem.replace(countLabel, sumLabel),
     });
   } else {
-    localized = localizeNumCp005Question(english, input.locale);
+    localized = localizeNumCp005Question(localisationEnglish, input.locale);
   }
 
   return applyNumCp005FinalLearnerTextCleanup(
