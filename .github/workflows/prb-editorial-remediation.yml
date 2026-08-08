@@ -53,6 +53,9 @@ jobs:
       - name: Generate comprehensive Markdown
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/generate-comprehensive-questions.ts
 
+      - name: Generate standalone review HTML
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/generate-review-html.ts
+
       - name: Permanent exam-depth audit
         run: python artifacts/api-server/src/quant-v4/topics/Probability/exam-depth-review-audit.py
 
@@ -151,22 +154,34 @@ jobs:
                       if marker not in block:
                           raise SystemExit(f"{markdown_name}: question block {number} is missing {marker}")
 
+          html_path = root / "PROBABILITY-REVIEW-QUESTIONS-AND-EXPLANATIONS.html"
+          html = html_path.read_text(encoding="utf-8")
+          if html.count('class="question-card"') != 135:
+              raise SystemExit("Standalone HTML does not contain 135 question cards")
+          for fragment in ("C(14, 4)", "14!/(4!", "C(8, 3)", "336/1001", "48/143"):
+              if fragment not in html:
+                  raise SystemExit(f"Standalone HTML is missing calculation fragment: {fragment}")
+          if "\\(" in html or "\\)" in html or re.search(r"<script\s+src=", html, re.I):
+              raise SystemExit("Standalone HTML contains an unresolved or external formula dependency")
+
           print({
               "questions": len(rows),
               "unique": len(visible_keys),
               "averageExplanationWords": round(overall_average, 1),
               "mediumHardAverageWords": round(medium_hard_average, 1),
+              "standaloneHtml": html_path.name,
           })
           PY
           git diff --check
 
-      - name: Upload detailed review Markdown
+      - name: Upload detailed review package
         uses: actions/upload-artifact@v4
         with:
           name: probability-detailed-worked-solutions
           path: |
             artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md
             artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-REVIEW-QUESTIONS-AND-EXPLANATIONS.md
+            artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-REVIEW-QUESTIONS-AND-EXPLANATIONS.html
           if-no-files-found: error
           retention-days: 7
 
@@ -180,6 +195,7 @@ jobs:
             artifacts/api-server/src/quant-v4/topics/Probability/editorial-remediation-report.md
             artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md
             artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-REVIEW-QUESTIONS-AND-EXPLANATIONS.md
+            artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-REVIEW-QUESTIONS-AND-EXPLANATIONS.html
           )
           if [ -z "$(git status --porcelain -- "${targets[@]}")" ]; then
             exit 0
