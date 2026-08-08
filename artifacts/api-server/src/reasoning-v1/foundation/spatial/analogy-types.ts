@@ -17,14 +17,19 @@ export type SpatialAnalogyMarkerPosition =
   | "BOTTOM_LEFT";
 
 export type SpatialAnalogyDirection = "UP" | "RIGHT" | "DOWN" | "LEFT";
+export type SpatialAnalogyQuarterTurn = 0 | 1 | 2 | 3;
+export type SpatialAnalogySegmentAnchor = "TOP" | "RIGHT" | "BOTTOM" | "LEFT";
 
 export interface SpatialAnalogyFigureState {
   outerShape: SpatialAnalogyShape;
   innerShape: SpatialAnalogyShape;
+  outerRotationQuarter: SpatialAnalogyQuarterTurn;
+  innerRotationQuarter: SpatialAnalogyQuarterTurn;
   markerPosition: SpatialAnalogyMarkerPosition;
   direction: SpatialAnalogyDirection;
   shadedInner: boolean;
   segmentCount: 1 | 2 | 3 | 4;
+  segmentAnchor: SpatialAnalogySegmentAnchor;
 }
 
 export type SpatialAnalogyRuleId =
@@ -45,9 +50,7 @@ export type SpatialAnalogyRuleId =
   | "COMPOUND_ROTATE_90_CCW_TOGGLE_SHADING"
   | "NO_CHANGE";
 
-export type SpatialAnalogyRuleComplexity =
-  | "SINGLE_STEP"
-  | "COMPOUND_TWO_STEP";
+export type SpatialAnalogyRuleComplexity = "SINGLE_STEP" | "COMPOUND_TWO_STEP";
 
 export type SpatialAnalogyMisconceptionLabel =
   | "WRONG_ROTATION_DIRECTION"
@@ -90,12 +93,10 @@ export interface SpatialAnalogySolverEvidence {
   inferredRuleIds: SpatialAnalogyRuleId[];
   expectedRuleId: SpatialAnalogyRuleId;
   ambiguityCheck: "PASS";
-  stateFingerprints: {
-    a: string;
-    b: string;
-    c: string;
-    correct: string;
-  };
+  geometricTransformCheck: "PASS" | "NOT_APPLICABLE";
+  visualDeltaCheck: "PASS";
+  visibleRoleCheck: "PASS";
+  stateFingerprints: { a: string; b: string; c: string; correct: string };
   optionLabels: SpatialAnalogyProofOption["label"][];
   optionRuleIds: SpatialAnalogyRuleId[];
   optionStateFingerprints: string[];
@@ -110,6 +111,12 @@ export interface SpatialAnalogyReviewMetadata {
   ambiguityCheck: "PASS";
   optionUniquenessCheck: "PASS";
   deterministicRegenerationCheck: "PASS";
+  geometricTransformCheck: "PASS" | "NOT_APPLICABLE";
+  visualDeltaCheck: "PASS";
+  visibleRoleCheck: "PASS";
+  expectedChangedFeatures: string[];
+  actualChangedFeatures: string[];
+  changedVisualRoles: string[];
   recommendedFigurePixels: number;
   recommendedOptionPixels: number;
 }
@@ -153,9 +160,5 @@ export interface SpatialAnalogyProofGeneratorInput {
   ruleId: SpatialAnalogyRuleId;
   aState: SpatialAnalogyFigureState;
   cState: SpatialAnalogyFigureState;
-  distractors: readonly [
-    SpatialAnalogyDistractorInput,
-    SpatialAnalogyDistractorInput,
-    SpatialAnalogyDistractorInput,
-  ];
+  distractors: readonly [SpatialAnalogyDistractorInput, SpatialAnalogyDistractorInput, SpatialAnalogyDistractorInput];
 }
