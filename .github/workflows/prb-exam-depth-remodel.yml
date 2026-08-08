@@ -48,6 +48,25 @@ jobs:
       - name: PRB-001 deterministic package proof
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/package.test.ts
 
+      - name: Inspect event-algebra validation
+        run: |
+          cat > artifacts/api-server/src/quant-v4/topics/Probability/debug-exam-depth.ts <<'TS'
+          import { runPrb002Pipeline } from "./PRB-002/index";
+          const question = runPrb002Pipeline("PRB-CP-009", {
+            questionLanguageId: "PRB-QL-808",
+            seed: "PRB-002:forced:PRB-QL-808",
+          });
+          console.log(JSON.stringify({
+            qlId: question.questionLanguageId,
+            stem: question.stem,
+            explanation: question.explanation.lines,
+            explanationWords: question.explanation.wordCount,
+            failedChecks: question.validation.checks.filter((item) => !item.passed),
+          }, null, 2));
+          TS
+          npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/debug-exam-depth.ts
+          rm artifacts/api-server/src/quant-v4/topics/Probability/debug-exam-depth.ts
+
       - name: PRB-002 deterministic package proof
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/package.test.ts
 
