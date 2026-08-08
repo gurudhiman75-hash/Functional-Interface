@@ -10,6 +10,7 @@ import { buildRenderContext, renderQuestionStem } from "./probability-formatter"
 import { renderStudentFacingStem } from "./student-facing-renderer";
 import { explanationWordCount, renderProbabilityExplanation } from "./explanation-renderer";
 import { remodelProbabilityExplanation, remodelProbabilityStem } from "./exam-depth-remodeler";
+import { remodelTeachingCalculation } from "./teaching-calculation-remodeler";
 import { renderProbabilityMathLines, renderProbabilityMathText } from "./math-text";
 import { validateProbabilityQuestion } from "./validator";
 import { calibrateEntryDifficulty, assessProbabilityDifficulty } from "./difficulty-calibrator";
@@ -75,7 +76,8 @@ export function runProbabilityPackagePipeline(
   const baseStem = renderStudentFacingStem(entry, parameters, solved, event, legacyStem);
   const plainStem = remodelProbabilityStem(entry, parameters, solved, baseStem);
   const baseExplanation = renderProbabilityExplanation(entry, language, parameters, solved, verification, visuals);
-  const plainExplanation = remodelProbabilityExplanation(entry, parameters, solved, baseExplanation);
+  const examDepthExplanation = remodelProbabilityExplanation(entry, parameters, solved, baseExplanation);
+  const plainExplanation = remodelTeachingCalculation(entry, parameters, solved, examDepthExplanation);
   const difficultyAssessment = assessProbabilityDifficulty(entry, parameters);
   const validation = validateProbabilityQuestion({ entry, language, parameters, experiment, stem: plainStem, solved, options, explanation: plainExplanation, verification, examProfile });
 
@@ -153,7 +155,7 @@ export function runProbabilityPackagePipeline(
       visualStrategies: visuals.map((visual) => visual.strategyId),
       difficultyAssessment,
     },
-    explanation: { explanationId: `${entry.qlId}-${entry.explanationStrategyId}-EXAM-DEPTH-V5`, lines: explanation, wordCount: explanationWordCount(plainExplanation), visuals },
+    explanation: { explanationId: `${entry.qlId}-${entry.explanationStrategyId}-CALCULATION-TEACHING-V6`, lines: explanation, wordCount: explanationWordCount(plainExplanation), visuals },
     validation,
     maturity: "PRODUCTION_QA",
     publiclyPublishable: false,
@@ -167,7 +169,7 @@ export function runProbabilityPackagePipeline(
       examProfileLabel: examProfile.label,
       taskRegistryContractVersion: "PRB-TASK-REGISTRY-V1",
       studentRendererVersion: "PRB-MATHJAX-RENDERER-V5",
-      explanationVersion: "PRB-MATHJAX-EXPLANATION-V5",
+      explanationVersion: "PRB-CALCULATION-TEACHING-V6",
       experimentModelVersion: "PRB-EXPERIMENT-V1",
       eventAstVersion: "PRB-EVENT-AST-V1",
       difficulty: difficultyAssessment.difficulty,
