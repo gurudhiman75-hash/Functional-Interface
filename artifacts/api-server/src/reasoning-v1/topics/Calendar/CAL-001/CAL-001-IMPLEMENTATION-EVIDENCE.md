@@ -8,6 +8,8 @@
 - Permanent QLs: 0
 - Locales rendered: `en-IN`, `hi-IN`, `pa-IN`
 - Lifecycle: closed discovery; no storage/test/publication activation
+- English editorial review: approved on `2026-08-08`
+- Formal English discovery/identity freeze: pending source and authority audits
 
 ## Foundation
 
@@ -60,26 +62,40 @@ The proof includes the fixed dates mandated by the design, exhaustive ordinal ro
 - option diagnoses state the actual displayed wrong value and its error method;
 - structured explanations carry observation, rule, actual working and conclusion.
 
-## Review pack
+## Review evidence
 
-`review-export.ts` creates:
+The exam-readiness export produces:
 
-- 12 English candidates per prototype;
-- 528 total candidates;
+- 5 curated English questions per provisional authority;
+- 220 curated English questions in total;
+- 12 extended-audit candidates per provisional authority;
+- 528 extended-audit English questions in total;
 - JSON with full semantic and lifecycle evidence;
 - CSV for editorial sorting;
 - Markdown samples for human reading.
 
+The project owner approved the corrected English review evidence on `2026-08-08`. The approved scope and retained locks are recorded in `CAL-001-ENGLISH-EDITORIAL-APPROVAL.md`.
+
+Accepted review integrity:
+
+```text
+Future-date “was” defects          0
+Duplicate-option rows              0
+Empty explanation conclusions      0
+Answer/explanation disagreements   0
+```
+
 ## Deliberately unpassed gates
 
-The following are external editorial/governance decisions and remain false in code:
+The following remain external editorial/governance decisions and remain false in code:
 
 - final source audit;
-- merge/split, inverse and gap audits;
+- final merge/split, inverse and gap audits;
+- formal English discovery/identity freeze;
 - permanent QL allocation;
-- English human freeze;
 - Hindi human freeze;
 - Punjabi human freeze;
+- multilingual parity freeze;
 - Question Bank writes;
 - mock-test eligibility;
 - public publication.
