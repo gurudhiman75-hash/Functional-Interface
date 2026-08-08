@@ -78,6 +78,7 @@ assert(distinctFingerprints.size === questions.length,
   `expanded review contains duplicate question records: ${JSON.stringify(repeatedQuestionGroups)}`);
 assert(distinctExplanations.size === questions.length,
   `expanded review contains repeated explanations: ${JSON.stringify(repeatedExplanationGroups)}`);
+assert(questions.every((question) => question.deliveryPolicy), "expanded review contains missing delivery policy");
 
 const outputDirectory = join(process.cwd(), "dist", "quant-v4");
 mkdirSync(outputDirectory, { recursive: true });
@@ -89,7 +90,7 @@ const csvPath = join(outputDirectory, "num-001-cp005-permanent-english-review.cs
 writeFileSync(jsonPath, JSON.stringify(questions, null, 2));
 
 const markdownHeader = [
-  "# NUM-CP-005 — Publication-Ready English Review Pack",
+  "# NUM-CP-005 — Final Editorial-Freeze Review Pack",
   "",
   `- Permanent QLs: ${NUM_CP005_PERMANENT_ALLOCATION.length}`,
   `- Direct QLs: 10 questions each`,
@@ -101,6 +102,7 @@ const markdownHeader = [
   `- Standard mock questions: ${tierCounts.STANDARD_MOCK ?? 0}`,
   `- Advanced practice questions: ${tierCounts.ADVANCED_PRACTICE ?? 0}`,
   `- Guided learning questions: ${tierCounts.GUIDED_LEARNING ?? 0}`,
+  "- Delivery controls are included for mock frequency, practice frequency and minimum spacing",
   "- Status: manual product-owner review required; all delivery gates remain closed",
   "",
   "---",
@@ -116,6 +118,7 @@ const markdownBody = questions.map((question) => [
   `- Review sampling tier: ${advancedReviewQls.has(question.questionLanguageId) ? "ADVANCED_OR_INVERSE" : "DIRECT"}`,
   `- Exam use tier: ${question.examUseTier}`,
   `- Difficulty: ${question.difficulty}`,
+  `- Delivery: max ${question.deliveryPolicy.maxPerMock} per mock; max ${question.deliveryPolicy.maxPerPracticeSession} per practice session; minimum gap ${question.deliveryPolicy.minimumQuestionGap}`,
   `- Semantic: ${question.answerSemantic}`,
   `- Representation: ${question.representation}`,
   "",
@@ -144,12 +147,15 @@ function csvCell(value) {
   return `"${text.replaceAll('"', '""')}"`;
 }
 const csvRows = [
-  ["qlId", "seed", "reviewTier", "examUseTier", "authorityId", "solveModeId", "prototypeId", "difficulty", "semantic", "representation", "stem", "answer"],
+  ["qlId", "seed", "reviewTier", "examUseTier", "maxPerMock", "maxPerPracticeSession", "minimumQuestionGap", "authorityId", "solveModeId", "prototypeId", "difficulty", "semantic", "representation", "stem", "answer"],
   ...questions.map((question) => [
     question.questionLanguageId,
     question.seed,
     advancedReviewQls.has(question.questionLanguageId) ? "ADVANCED_OR_INVERSE" : "DIRECT",
     question.examUseTier,
+    question.deliveryPolicy.maxPerMock,
+    question.deliveryPolicy.maxPerPracticeSession,
+    question.deliveryPolicy.minimumQuestionGap,
     question.authorityId,
     question.solveModeId,
     question.temporaryPrototypeId,
@@ -163,7 +169,7 @@ const csvRows = [
 writeFileSync(csvPath, csvRows);
 
 console.log(JSON.stringify({
-  status: "PASS_NUM_CP005_PUBLICATION_READY_ENGLISH_REVIEW_EXPORT",
+  status: "PASS_NUM_CP005_FINAL_EDITORIAL_FREEZE_REVIEW_EXPORT",
   permanentQlCount: NUM_CP005_PERMANENT_ALLOCATION.length,
   directQuestionsPerQl: 10,
   advancedQuestionsPerQl: 15,
@@ -172,6 +178,7 @@ console.log(JSON.stringify({
   distinctStemCount: distinctStems.size,
   distinctQuestionRecordCount: distinctFingerprints.size,
   distinctExplanationCount: distinctExplanations.size,
+  deliveryPolicyCount: questions.filter((question) => question.deliveryPolicy).length,
   examUseTierCounts: tierCounts,
   jsonPath,
   markdownPath,
