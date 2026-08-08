@@ -5,6 +5,7 @@ import { localizeNumCp005Question } from "./localizer";
 import type {
   NumCp005LocalizedQuestion,
   NumCp005LocalizedRuntimeInput,
+  NumCp005TranslatedLocale,
 } from "./types";
 
 interface PrimePowerState {
@@ -62,6 +63,52 @@ function expressionParserCompatibleEnglish(english: EnglishQuestion): EnglishQue
   return english;
 }
 
+function localizeQl068ComparisonAnalysis(
+  analysis: string,
+  locale: NumCp005TranslatedLocale,
+): string {
+  const match = analysis.match(/^A has (.+?); B has (.+?); (.+)$/u);
+  if (!match) {
+    throw new Error(`NUM-QL-068 comparison analysis format changed: ${analysis}`);
+  }
+
+  const valueA = match[1]!;
+  const valueB = match[2]!;
+  const outcome = match[3]!;
+  const hi = locale === "hi-IN";
+  const outcomeText = outcome === "Number A has more."
+    ? hi ? "A का मान अधिक है।" : "A ਦਾ ਮੁੱਲ ਵੱਧ ਹੈ।"
+    : outcome === "Number B has more."
+      ? hi ? "B का मान अधिक है।" : "B ਦਾ ਮੁੱਲ ਵੱਧ ਹੈ।"
+      : outcome === "Both numbers have the same value."
+        ? hi ? "A और B दोनों का मान समान है।" : "A ਅਤੇ B ਦੋਵਾਂ ਦਾ ਮੁੱਲ ਇੱਕੋ ਹੈ।"
+        : outcome === "Cannot determine."
+          ? hi ? "दिए गए मानों से निर्णय नहीं किया जा सकता।" : "ਦਿੱਤੇ ਮੁੱਲਾਂ ਤੋਂ ਫੈਸਲਾ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।"
+          : null;
+
+  if (!outcomeText) {
+    throw new Error(`NUM-QL-068 comparison outcome format changed: ${outcome}`);
+  }
+
+  return hi
+    ? `A का मान ${valueA} है; B का मान ${valueB} है; ${outcomeText}`
+    : `A ਦਾ ਮੁੱਲ ${valueA} ਹੈ; B ਦਾ ਮੁੱਲ ${valueB} ਹੈ; ${outcomeText}`;
+}
+
+function localizeQl068OptionAnalyses(
+  question: NumCp005LocalizedQuestion,
+): NumCp005LocalizedQuestion {
+  if (question.questionLanguageId !== "NUM-QL-068") return question;
+
+  return Object.freeze({
+    ...question,
+    options: Object.freeze(question.options.map((option) => Object.freeze({
+      ...option,
+      analysis: localizeQl068ComparisonAnalysis(option.analysis, question.locale),
+    }))),
+  });
+}
+
 export function generateNumCp005LocalizedQuestion(
   input: NumCp005LocalizedRuntimeInput,
 ): NumCp005LocalizedQuestion {
@@ -104,7 +151,8 @@ export function generateNumCp005LocalizedQuestion(
     localized = localizeNumCp005Question(localisationEnglish, input.locale);
   }
 
-  return applyNumCp005FinalLearnerTextCleanup(
+  const hardened = applyNumCp005FinalLearnerTextCleanup(
     hardenNumCp005LocalizedQuestion(english, localized),
   );
+  return localizeQl068OptionAnalyses(hardened);
 }
