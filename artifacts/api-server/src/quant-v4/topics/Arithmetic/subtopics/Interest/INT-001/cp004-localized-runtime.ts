@@ -24,6 +24,7 @@ import {
   renderCp004LocalizedPresentationWave3,
 } from "./cp004-localized-presentation-wave3";
 import type {
+  IntCp004LocalizedExplanation,
   IntCp004LocalizedLocale,
   IntCp004LocalizedQuestion,
   IntCp004LocalizedRuntimeInput,
@@ -68,7 +69,24 @@ function localizedStem(
   // Keep the legacy renderer reachable for ownership regression, while the
   // learner-facing runtime is rebuilt by the human-language editorial layer.
   legacyLocalizedStem(source, locale);
-  return renderCp004LocalizedEditorialV3Stem(source, locale);
+  const stem = renderCp004LocalizedEditorialV3Stem(source, locale);
+  return locale === "pa-IN"
+    ? stem.replaceAll("| ਪ੍ਰਸ਼ਨ | विवरण |", "| ਪ੍ਰਸ਼ਨ | ਵੇਰਵਾ |")
+    : stem;
+}
+
+function cleanExplanation(
+  explanation: IntCp004LocalizedExplanation,
+  locale: IntCp004LocalizedLocale,
+): IntCp004LocalizedExplanation {
+  const duplicate = locale === "hi-IN" ? "अंतिम उत्तर: अंतिम उत्तर:" : "ਅੰਤਿਮ ਉੱਤਰ: ਅੰਤਿਮ ਉੱਤਰ:";
+  const single = locale === "hi-IN" ? "अंतिम उत्तर:" : "ਅੰਤਿਮ ਉੱਤਰ:";
+  return Object.freeze({
+    whatAsked: explanation.whatAsked,
+    steps: explanation.steps,
+    finalAnswer: explanation.finalAnswer.replace(duplicate, single),
+    commonMistake: explanation.commonMistake,
+  });
 }
 
 export function localizeIntCp004EnglishFrozenQuestion(
@@ -82,7 +100,10 @@ export function localizeIntCp004EnglishFrozenQuestion(
   const correctAnswer = options[source.correctIndex]?.text;
   if (!correctAnswer) throw new Error(`${source.qlId}/${source.seed}/${locale}: localized correct answer is missing.`);
   const baseExplanation = localizeCp004Explanation(source, locale);
-  const explanation = remediateCp004LocalizedExplanationV3(source, locale, baseExplanation);
+  const explanation = cleanExplanation(
+    remediateCp004LocalizedExplanationV3(source, locale, baseExplanation),
+    locale,
+  );
 
   const lifecycle = {
     permanentQlId: source.qlId,
