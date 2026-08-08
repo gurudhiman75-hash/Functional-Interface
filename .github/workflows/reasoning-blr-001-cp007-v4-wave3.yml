@@ -1,0 +1,113 @@
+name: Reasoning BLR-001 CP-007 V4 Wave 3
+
+on:
+  push:
+    branches:
+      - remediate/blr-001-cp007-v4-self-review-fixes
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/**"
+      - ".github/workflows/reasoning-blr-001-cp007-v4-wave3.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/**"
+      - ".github/workflows/reasoning-blr-001-cp007-v4-wave3.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blr-001-cp007-v4-wave3-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-v4-wave3-self-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prove CP-006 source runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-006/cp006-runtime.test.ts 2>&1 | tee cp006-source.log
+
+      - name: Prove CP-007 V3 retained authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v3-authority.test.ts 2>&1 | tee cp007-v3.log
+
+      - name: Prove CP-007 V4 Wave 1 baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v4.test.ts 2>&1 | tee cp007-v4-wave1.log
+
+      - name: Prove CP-007 V4 Wave 2 baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v4-wave2.test.ts 2>&1 | tee cp007-v4-wave2.log
+
+      - name: Prove CP-007 V4 Wave 3 self-review remediation
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v4-wave3.test.ts 2>&1 | tee cp007-v4-wave3.log
+
+      - name: Export Wave 3 human-review pack
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-cp007-editorial-v4-wave3-review.ts cp007-editorial-v4-wave3-review-output 2>&1 | tee cp007-v4-wave3-export.log
+
+      - name: Verify Wave 3 artifact contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=cp007-editorial-v4-wave3-review-output
+          test -f "$OUT/blr-cp007-v4-wave3-summary.json"
+          test -f "$OUT/blr-cp007-v4-wave3-records.jsonl"
+          test -f "$OUT/blr-cp007-v4-wave3-records.csv"
+          test -f "$OUT/blr-cp007-v4-wave3-review.html"
+          test -f "$OUT/BLR-CP-007-V4-WAVE3-REVIEW.md"
+          test "$(wc -l < "$OUT/blr-cp007-v4-wave3-records.jsonl")" -eq 168
+          grep -q '"ql032BlankMeaningMismatchCount": 0' "$OUT/blr-cp007-v4-wave3-summary.json"
+          grep -q '"learnerTokenWordOccurrences": 0' "$OUT/blr-cp007-v4-wave3-summary.json"
+          grep -q '"codePersonCollisionCount": 0' "$OUT/blr-cp007-v4-wave3-summary.json"
+          grep -q '"ql031SinglePositionDerivedDistractorCount": 0' "$OUT/blr-cp007-v4-wave3-summary.json"
+          grep -q '"ql033FixedBlankOptionCount": 0' "$OUT/blr-cp007-v4-wave3-summary.json"
+          grep -q '"ql034DistinctDecisiveStructureCount": 16' "$OUT/blr-cp007-v4-wave3-summary.json"
+          grep -q '"ql034BroadTargetCount": 0' "$OUT/blr-cp007-v4-wave3-summary.json"
+          grep -q '"directValidityEasyCount": 16' "$OUT/blr-cp007-v4-wave3-summary.json"
+
+      - name: Upload Wave 3 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-v4-wave3-logs
+          path: |
+            cp006-source.log
+            cp007-v3.log
+            cp007-v4-wave1.log
+            cp007-v4-wave2.log
+            cp007-v4-wave3.log
+            cp007-v4-wave3-export.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload Wave 3 human-review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-v4-wave3-human-review
+          path: cp007-editorial-v4-wave3-review-output
+          if-no-files-found: error
+          retention-days: 30
