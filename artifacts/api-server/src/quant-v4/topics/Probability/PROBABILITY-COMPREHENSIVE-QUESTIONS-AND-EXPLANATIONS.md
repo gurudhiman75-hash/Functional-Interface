@@ -1506,12 +1506,15 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
-1. Because the 2 pens are selected together, their order does not matter; use combinations.
-2. The number of possible selections of pens is \(\binom{13}{2}\) = 78.
-3. Selections of one colour = \(\binom{8}{2}\) + \(\binom{5}{2}\) = 38.
-4. The required probability is \(\frac{38}{78}\) = \(\frac{19}{39}\).
-- **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
+- **Method:** Since the pens are selected together, order does not matter. Use \(\binom{n}{r}\) = n!/[r!(n-r)!], then use probability = favourable selections \(\div\) total selections.
+1. Total possible selections of pens = \(\binom{13}{2}\).
+2. \(\binom{13}{2}\) = 13!/(2! \(\times\) 11!) = (13 \(\times\) 12)/(2 \(\times\) 1) = 78.
+3. Red-only pens: \(\binom{8}{2}\) = 8!/(2! \(\times\) 6!) = (8 \(\times\) 7)/(2 \(\times\) 1) = 28.
+4. Blue-only pens: \(\binom{5}{2}\) = 5!/(2! \(\times\) 3!) = (5 \(\times\) 4)/(2 \(\times\) 1) = 10.
+5. Favourable selections of pens = 28 + 10 = 38.
+6. Probability = favourable cases \(\div\) total cases = \(\frac{38}{78}\).
+- **Simplification:** Divide the numerator and denominator by 2: (38 \(\div\) 2)/(78 \(\div\) 2) = \(\frac{19}{39}\).
+- **Key point:** \(\binom{n}{r}\) is used because selecting the same pens in a different order does not create a new selection.
 - **Answer:** The required probability is \(\frac{19}{39}\).
 
 ---
@@ -1531,12 +1534,13 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
-1. Because the 2 coloured stones are selected together, their order does not matter; use combinations.
-2. The number of possible selections of coloured stones is \(\binom{13}{2}\) = 78.
-3. Select one red and one blue stone: \(\binom{8}{1}\) \(\times\) \(\binom{5}{1}\) = 40.
-4. The required probability is \(\frac{40}{78}\) = \(\frac{20}{39}\).
-- **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
+- **Method:** Since the coloured stones are selected together, order does not matter. Use \(\binom{n}{r}\) = n!/[r!(n-r)!], then use probability = favourable selections \(\div\) total selections.
+1. Total possible selections of coloured stones = \(\binom{13}{2}\).
+2. \(\binom{13}{2}\) = 13!/(2! \(\times\) 11!) = (13 \(\times\) 12)/(2 \(\times\) 1) = 78.
+3. Choose 1 red stone and 1 blue stone: \(\binom{8}{1}\) \(\times\) \(\binom{5}{1}\) = 8 \(\times\) 5 = 40.
+4. Probability = favourable cases \(\div\) total cases = \(\frac{40}{78}\).
+- **Simplification:** Divide the numerator and denominator by 2: (40 \(\div\) 2)/(78 \(\div\) 2) = \(\frac{20}{39}\).
+- **Key point:** \(\binom{n}{r}\) is used because selecting the same coloured stones in a different order does not create a new selection.
 - **Answer:** The required probability is \(\frac{20}{39}\).
 
 ---
@@ -1556,12 +1560,15 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
-1. Because the 2 balls are selected together, their order does not matter; use combinations.
-2. The number of possible selections of balls is \(\binom{16}{2}\) = 120.
-3. Choose 1 red and 1 blue balls: \(\binom{8}{1}\) \(\times\) \(\binom{8}{1}\) = 64.
-4. The required probability is \(\frac{64}{120}\) = \(\frac{8}{15}\).
-- **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
+- **Method:** Since the balls are selected together, order does not matter. Use \(\binom{n}{r}\) = n!/[r!(n-r)!], then use probability = favourable selections \(\div\) total selections.
+1. Total possible selections of balls = \(\binom{16}{2}\).
+2. \(\binom{16}{2}\) = 16!/(2! \(\times\) 14!) = (16 \(\times\) 15)/(2 \(\times\) 1) = 120.
+3. Ways to choose the red balls: \(\binom{8}{1}\) = 8.
+4. Ways to choose the blue balls: \(\binom{8}{1}\) = 8.
+5. Favourable selections of balls = 8 \(\times\) 8 = 64.
+6. Probability = favourable cases \(\div\) total cases = \(\frac{64}{120}\).
+- **Simplification:** Divide the numerator and denominator by 8: (64 \(\div\) 8)/(120 \(\div\) 8) = \(\frac{8}{15}\).
+- **Key point:** \(\binom{n}{r}\) is used because selecting the same balls in a different order does not create a new selection.
 - **Answer:** The required probability is \(\frac{8}{15}\).
 
 ---
@@ -1581,12 +1588,12 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
-1. Because the 2 marbles are selected together, their order does not matter; use combinations.
-2. The number of possible selections of marbles is \(\binom{11}{2}\) = 55.
-3. No red marble means all 2 selected marbles are blue: \(\binom{7}{2}\) = 21.
-4. The required probability is \(\frac{21}{55}\).
-- **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
+- **Method:** Since the marbles are selected together, order does not matter. Use \(\binom{n}{r}\) = n!/[r!(n-r)!], then use probability = favourable selections \(\div\) total selections.
+1. Total possible selections of marbles = \(\binom{11}{2}\).
+2. \(\binom{11}{2}\) = 11!/(2! \(\times\) 9!) = (11 \(\times\) 10)/(2 \(\times\) 1) = 55.
+3. No red marble means all selected marbles are blue: \(\binom{7}{2}\) = 7!/(2! \(\times\) 5!) = (7 \(\times\) 6)/(2 \(\times\) 1) = 21.
+4. Probability = favourable cases \(\div\) total cases = \(\frac{21}{55}\).
+- **Key point:** \(\binom{n}{r}\) is used because selecting the same marbles in a different order does not create a new selection.
 - **Answer:** The required probability is \(\frac{21}{55}\).
 
 ---
@@ -1606,12 +1613,14 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** The objects are selected together, so use combinations and count the required event through its shorter complement.
-1. Because the 2 pens are selected together, their order does not matter; use combinations.
-2. The number of possible selections of pens is \(\binom{15}{2}\) = 105.
-3. Use the complement of selecting only blue pens: 105 - \(\binom{9}{2}\) = 69.
-4. The required probability is \(\frac{69}{105}\) = \(\frac{23}{35}\).
-- **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
+- **Method:** Since the pens are selected together, order does not matter. Use \(\binom{n}{r}\) = n!/[r!(n-r)!], then use probability = favourable selections \(\div\) total selections.
+1. Total possible selections of pens = \(\binom{15}{2}\).
+2. \(\binom{15}{2}\) = 15!/(2! \(\times\) 13!) = (15 \(\times\) 14)/(2 \(\times\) 1) = 105.
+3. Use the complement. Selections of pens with no red pen: \(\binom{9}{2}\) = 9!/(2! \(\times\) 7!) = (9 \(\times\) 8)/(2 \(\times\) 1) = 36.
+4. Favourable selections of pens = 105 - 36 = 69.
+5. Probability = favourable cases \(\div\) total cases = \(\frac{69}{105}\).
+- **Simplification:** Divide the numerator and denominator by 3: (69 \(\div\) 3)/(105 \(\div\) 3) = \(\frac{23}{35}\).
+- **Key point:** \(\binom{n}{r}\) is used because selecting the same pens in a different order does not create a new selection.
 - **Answer:** The required probability is \(\frac{23}{35}\).
 
 ---
@@ -1677,12 +1686,15 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
-1. Because the 2 balls are selected together, their order does not matter; use combinations.
-2. The number of possible selections of balls is \(\binom{10}{2}\) = 45.
-3. Choose 1 red and 1 blue balls: \(\binom{6}{1}\) \(\times\) \(\binom{4}{1}\) = 24.
-4. The required probability is \(\frac{24}{45}\) = \(\frac{8}{15}\).
-- **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
+- **Method:** Since the balls are selected together, order does not matter. Use \(\binom{n}{r}\) = n!/[r!(n-r)!], then use probability = favourable selections \(\div\) total selections.
+1. Total possible selections of balls = \(\binom{10}{2}\).
+2. \(\binom{10}{2}\) = 10!/(2! \(\times\) 8!) = (10 \(\times\) 9)/(2 \(\times\) 1) = 45.
+3. Ways to choose the red balls: \(\binom{6}{1}\) = 6.
+4. Ways to choose the blue balls: \(\binom{4}{1}\) = 4.
+5. Favourable selections of balls = 6 \(\times\) 4 = 24.
+6. Probability = favourable cases \(\div\) total cases = \(\frac{24}{45}\).
+- **Simplification:** Divide the numerator and denominator by 3: (24 \(\div\) 3)/(45 \(\div\) 3) = \(\frac{8}{15}\).
+- **Key point:** \(\binom{n}{r}\) is used because selecting the same balls in a different order does not create a new selection.
 - **Answer:** The required probability is \(\frac{8}{15}\).
 
 ---
@@ -1702,12 +1714,15 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
-1. Because the 2 pens are selected together, their order does not matter; use combinations.
-2. The number of possible selections of pens is \(\binom{12}{2}\) = 66.
-3. Selections of one colour = \(\binom{4}{2}\) + \(\binom{8}{2}\) = 34.
-4. The required probability is \(\frac{34}{66}\) = \(\frac{17}{33}\).
-- **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
+- **Method:** Since the pens are selected together, order does not matter. Use \(\binom{n}{r}\) = n!/[r!(n-r)!], then use probability = favourable selections \(\div\) total selections.
+1. Total possible selections of pens = \(\binom{12}{2}\).
+2. \(\binom{12}{2}\) = 12!/(2! \(\times\) 10!) = (12 \(\times\) 11)/(2 \(\times\) 1) = 66.
+3. Red-only pens: \(\binom{4}{2}\) = 4!/(2! \(\times\) 2!) = (4 \(\times\) 3)/(2 \(\times\) 1) = 6.
+4. Blue-only pens: \(\binom{8}{2}\) = 8!/(2! \(\times\) 6!) = (8 \(\times\) 7)/(2 \(\times\) 1) = 28.
+5. Favourable selections of pens = 6 + 28 = 34.
+6. Probability = favourable cases \(\div\) total cases = \(\frac{34}{66}\).
+- **Simplification:** Divide the numerator and denominator by 2: (34 \(\div\) 2)/(66 \(\div\) 2) = \(\frac{17}{33}\).
+- **Key point:** \(\binom{n}{r}\) is used because selecting the same pens in a different order does not create a new selection.
 - **Answer:** The required probability is \(\frac{17}{33}\).
 
 ---
@@ -1727,12 +1742,12 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
-1. Because the 2 coloured stones are selected together, their order does not matter; use combinations.
-2. The number of possible selections of coloured stones is \(\binom{11}{2}\) = 55.
-3. Select one red and one blue stone: \(\binom{4}{1}\) \(\times\) \(\binom{7}{1}\) = 28.
-4. The required probability is \(\frac{28}{55}\).
-- **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
+- **Method:** Since the coloured stones are selected together, order does not matter. Use \(\binom{n}{r}\) = n!/[r!(n-r)!], then use probability = favourable selections \(\div\) total selections.
+1. Total possible selections of coloured stones = \(\binom{11}{2}\).
+2. \(\binom{11}{2}\) = 11!/(2! \(\times\) 9!) = (11 \(\times\) 10)/(2 \(\times\) 1) = 55.
+3. Choose 1 red stone and 1 blue stone: \(\binom{4}{1}\) \(\times\) \(\binom{7}{1}\) = 4 \(\times\) 7 = 28.
+4. Probability = favourable cases \(\div\) total cases = \(\frac{28}{55}\).
+- **Key point:** \(\binom{n}{r}\) is used because selecting the same coloured stones in a different order does not create a new selection.
 - **Answer:** The required probability is \(\frac{28}{55}\).
 
 ---
@@ -2576,11 +2591,15 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** A committee is unordered, so use combinations for both the complete set of committees and the required composition.
-1. The total number of committees is \(\binom{13}{3}\) = 286.
-2. For the required composition, choose 1 from 8 women and 2 from 5 men: \(\binom{8}{1}\) \(\times\) \(\binom{5}{2}\) = 80.
-3. The required probability is \(\frac{80}{286}\) = \(\frac{40}{143}\).
-- **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
+- **Method:** A committee is an unordered selection. Use \(\binom{n}{r}\) = n!/[r!(n-r)!]. For a probability, divide the number of required committees by the total number of committees.
+1. Total committees = \(\binom{13}{3}\).
+2. \(\binom{13}{3}\) = 13!/(3! \(\times\) 10!) = (13 \(\times\) 12 \(\times\) 11)/(3 \(\times\) 2 \(\times\) 1) = 286.
+3. Choose 1 woman from 8: \(\binom{8}{1}\) = 8.
+4. Choose 2 men from 5: \(\binom{5}{2}\) = 5!/(2! \(\times\) 3!) = (5 \(\times\) 4)/(2 \(\times\) 1) = 10.
+5. Required committees = 8 \(\times\) 10 = 80.
+6. Probability = favourable cases \(\div\) total cases = \(\frac{80}{286}\).
+- **Simplification:** Divide the numerator and denominator by 2: (80 \(\div\) 2)/(286 \(\div\) 2) = \(\frac{40}{143}\).
+- **Key point:** Combinations count each committee once because changing the order of the same members does not create a different committee.
 - **Answer:** The required probability is \(\frac{40}{143}\).
 
 ---
@@ -2601,11 +2620,13 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Count all queue arrangements, treat the two specified candidates as one block to count adjacent arrangements, and subtract from the total.
-1. There are 5! = 120 unrestricted arrangements.
-2. If the two specified candidates are treated as one block, adjacent arrangements = 2 \(\times\) 4! = 48.
-3. Non-adjacent arrangements = 120 - 48 = 72, so the probability is \(\frac{3}{5}\).
-- **Key point:** The probability is valid because every admissible arrangement is treated as equally likely.
+- **Method:** For n distinct people, total linear arrangements = n!. To count two specified people together, treat them as one block and multiply by 2 for their internal order.
+1. Total arrangements = 5! = 5 \(\times\) 4 \(\times\) 3 \(\times\) 2 \(\times\) 1 = 120.
+2. Adjacent arrangements = 2 \(\times\) 4! = 2 \(\times\) 4 \(\times\) 3 \(\times\) 2 \(\times\) 1 = 48.
+3. Non-adjacent arrangements = 120 - 48 = 72.
+4. Probability = favourable cases \(\div\) total cases = \(\frac{72}{120}\).
+- **Simplification:** Divide the numerator and denominator by 24: (72 \(\div\) 24)/(120 \(\div\) 24) = \(\frac{3}{5}\).
+- **Key point:** The two specified people can appear inside the block in either order.
 - **Answer:** The required probability is \(\frac{3}{5}\).
 
 ---
@@ -2626,11 +2647,15 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** A committee is unordered, so use combinations for both the complete set of committees and the required composition.
-1. The total number of committees is \(\binom{16}{3}\) = 560.
-2. For the required composition, choose 1 from 6 women and 2 from 10 men: \(\binom{6}{1}\) \(\times\) \(\binom{10}{2}\) = 270.
-3. The required probability is \(\frac{270}{560}\) = \(\frac{27}{56}\).
-- **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
+- **Method:** A committee is an unordered selection. Use \(\binom{n}{r}\) = n!/[r!(n-r)!]. For a probability, divide the number of required committees by the total number of committees.
+1. Total committees = \(\binom{16}{3}\).
+2. \(\binom{16}{3}\) = 16!/(3! \(\times\) 13!) = (16 \(\times\) 15 \(\times\) 14)/(3 \(\times\) 2 \(\times\) 1) = 560.
+3. Choose 1 woman from 6: \(\binom{6}{1}\) = 6.
+4. Choose 2 men from 10: \(\binom{10}{2}\) = 10!/(2! \(\times\) 8!) = (10 \(\times\) 9)/(2 \(\times\) 1) = 45.
+5. Required committees = 6 \(\times\) 45 = 270.
+6. Probability = favourable cases \(\div\) total cases = \(\frac{270}{560}\).
+- **Simplification:** Divide the numerator and denominator by 10: (270 \(\div\) 10)/(560 \(\div\) 10) = \(\frac{27}{56}\).
+- **Key point:** Combinations count each committee once because changing the order of the same members does not create a different committee.
 - **Answer:** The required probability is \(\frac{27}{56}\).
 
 ---
@@ -2651,11 +2676,13 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Count all queue arrangements, treat the two specified candidates as one block to count adjacent arrangements, and subtract from the total.
-1. There are 7! = 5040 unrestricted arrangements.
-2. If the two specified candidates are treated as one block, adjacent arrangements = 2 \(\times\) 6! = 1440.
-3. Non-adjacent arrangements = 5040 - 1440 = 3600, so the probability is \(\frac{5}{7}\).
-- **Key point:** The probability is valid because every admissible arrangement is treated as equally likely.
+- **Method:** For n distinct people, total linear arrangements = n!. To count two specified people together, treat them as one block and multiply by 2 for their internal order.
+1. Total arrangements = 7! = 7 \(\times\) 6 \(\times\) 5 \(\times\) 4 \(\times\) 3 \(\times\) 2 \(\times\) 1 = 5040.
+2. Adjacent arrangements = 2 \(\times\) 6! = 2 \(\times\) 6 \(\times\) 5 \(\times\) 4 \(\times\) 3 \(\times\) 2 \(\times\) 1 = 1440.
+3. Non-adjacent arrangements = 5040 - 1440 = 3600.
+4. Probability = favourable cases \(\div\) total cases = \(\frac{3600}{5040}\).
+- **Simplification:** Divide the numerator and denominator by 720: (3600 \(\div\) 720)/(5040 \(\div\) 720) = \(\frac{5}{7}\).
+- **Key point:** The two specified people can appear inside the block in either order.
 - **Answer:** The required probability is \(\frac{5}{7}\).
 
 ---
@@ -2676,11 +2703,15 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** A committee is unordered, so use combinations for both the complete set of committees and the required composition.
-1. The total number of committees is \(\binom{15}{3}\) = 455.
-2. For the required composition, choose 1 from 5 women and 2 from 10 men: \(\binom{5}{1}\) \(\times\) \(\binom{10}{2}\) = 225.
-3. The required probability is \(\frac{225}{455}\) = \(\frac{45}{91}\).
-- **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
+- **Method:** A committee is an unordered selection. Use \(\binom{n}{r}\) = n!/[r!(n-r)!]. For a probability, divide the number of required committees by the total number of committees.
+1. Total committees = \(\binom{15}{3}\).
+2. \(\binom{15}{3}\) = 15!/(3! \(\times\) 12!) = (15 \(\times\) 14 \(\times\) 13)/(3 \(\times\) 2 \(\times\) 1) = 455.
+3. Choose 1 woman from 5: \(\binom{5}{1}\) = 5.
+4. Choose 2 men from 10: \(\binom{10}{2}\) = 10!/(2! \(\times\) 8!) = (10 \(\times\) 9)/(2 \(\times\) 1) = 45.
+5. Required committees = 5 \(\times\) 45 = 225.
+6. Probability = favourable cases \(\div\) total cases = \(\frac{225}{455}\).
+- **Simplification:** Divide the numerator and denominator by 5: (225 \(\div\) 5)/(455 \(\div\) 5) = \(\frac{45}{91}\).
+- **Key point:** Combinations count each committee once because changing the order of the same members does not create a different committee.
 - **Answer:** The required probability is \(\frac{45}{91}\).
 
 ---
@@ -2701,11 +2732,15 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** A committee is unordered, so use combinations for both the complete set of committees and the required composition.
-1. The total number of committees is \(\binom{14}{4}\) = 1001.
-2. For the required composition, choose 1 from 6 women and 3 from 8 men: \(\binom{6}{1}\) \(\times\) \(\binom{8}{3}\) = 336.
-3. The required probability is \(\frac{336}{1001}\) = \(\frac{48}{143}\).
-- **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
+- **Method:** A committee is an unordered selection. Use \(\binom{n}{r}\) = n!/[r!(n-r)!]. For a probability, divide the number of required committees by the total number of committees.
+1. Total committees = \(\binom{14}{4}\).
+2. \(\binom{14}{4}\) = 14!/(4! \(\times\) 10!) = (14 \(\times\) 13 \(\times\) 12 \(\times\) 11)/(4 \(\times\) 3 \(\times\) 2 \(\times\) 1) = 1001.
+3. Choose 1 woman from 6: \(\binom{6}{1}\) = 6.
+4. Choose 3 men from 8: \(\binom{8}{3}\) = 8!/(3! \(\times\) 5!) = (8 \(\times\) 7 \(\times\) 6)/(3 \(\times\) 2 \(\times\) 1) = 56.
+5. Required committees = 6 \(\times\) 56 = 336.
+6. Probability = favourable cases \(\div\) total cases = \(\frac{336}{1001}\).
+- **Simplification:** Divide the numerator and denominator by 7: (336 \(\div\) 7)/(1001 \(\div\) 7) = \(\frac{48}{143}\).
+- **Key point:** Combinations count each committee once because changing the order of the same members does not create a different committee.
 - **Answer:** The required probability is \(\frac{48}{143}\).
 
 ---
@@ -2751,11 +2786,13 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Count all admissible digit arrangements, then count those whose final digit satisfies the required number property.
-1. Without repetition, the total number of 4-digit numbers is 8P4 = 1680.
-2. An even number must end in one of the 4 available even digits. After fixing the last digit, the remaining places can be filled in 210 ways.
-3. Thus, favourable numbers = 4 \(\times\) 210 = 840, and the probability is \(\frac{1}{2}\).
-- **Key point:** The probability is valid because every admissible arrangement is treated as equally likely.
+- **Method:** Without repetition, use nPr = n!/(n-r)! for ordered digit arrangements. An even number must have an even final digit.
+1. Total numbers: 8P4 = 8!/4! = 8 \(\times\) 7 \(\times\) 6 \(\times\) 5 = 1680.
+2. The final digit has 4 even choices. After fixing it, the other 3 places can be filled in 210 ways.
+3. Favourable even numbers = 4 \(\times\) 210 = 840.
+4. Probability = favourable cases \(\div\) total cases = \(\frac{840}{1680}\).
+- **Simplification:** Divide the numerator and denominator by 840: (840 \(\div\) 840)/(1680 \(\div\) 840) = \(\frac{1}{2}\).
+- **Key point:** Position matters in a number, so permutations—not combinations—are required.
 - **Answer:** The required probability is \(\frac{1}{2}\).
 
 ---
@@ -2776,11 +2813,14 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** A committee is unordered. Count all committees with combinations and subtract the committees excluded by the condition.
-1. There are \(\binom{13}{4}\) = 715 possible committees.
-2. Use the complement: committees with no woman = \(\binom{6}{4}\) = 15.
-3. Favourable committees = 715 - 15 = 700, giving probability \(\frac{140}{143}\).
-- **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
+- **Method:** A committee is an unordered selection. Use \(\binom{n}{r}\) = n!/[r!(n-r)!]. For a probability, divide the number of required committees by the total number of committees.
+1. Total committees = \(\binom{13}{4}\).
+2. \(\binom{13}{4}\) = 13!/(4! \(\times\) 9!) = (13 \(\times\) 12 \(\times\) 11 \(\times\) 10)/(4 \(\times\) 3 \(\times\) 2 \(\times\) 1) = 715.
+3. Use the complement. Committees containing no woman are all-men committees: \(\binom{6}{4}\) = 6!/(4! \(\times\) 2!) = (6 \(\times\) 5)/(2 \(\times\) 1) = 15.
+4. Committees with at least one woman = 715 - 15 = 700.
+5. Probability = favourable cases \(\div\) total cases = \(\frac{700}{715}\).
+- **Simplification:** Divide the numerator and denominator by 5: (700 \(\div\) 5)/(715 \(\div\) 5) = \(\frac{140}{143}\).
+- **Key point:** Combinations count each committee once because changing the order of the same members does not create a different committee.
 - **Answer:** The required probability is \(\frac{140}{143}\).
 
 ---
@@ -2801,11 +2841,11 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Use \(P\!\left(E\right)\) = favourable cases \(\div\) total cases and rearrange the relation to find the missing count.
-1. Choose 1 woman from 9 and 3 men from 5.
-2. Required committees = \(\binom{9}{1}\) \(\times\) \(\binom{5}{3}\) = 90.
-3. The required count is 90.
-- **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
+- **Method:** A committee is an unordered selection. Use \(\binom{n}{r}\) = n!/[r!(n-r)!]. For a probability, divide the number of required committees by the total number of committees.
+1. Choose 1 woman from 9: \(\binom{9}{1}\) = 9.
+2. Choose 3 men from 5: \(\binom{5}{3}\) = 5!/(3! \(\times\) 2!) = (5 \(\times\) 4)/(2 \(\times\) 1) = 10.
+3. Required committees = 9 \(\times\) 10 = 90.
+- **Key point:** The order in which committee members are named is irrelevant, so each committee must be counted only once.
 - **Answer:** The required number is 90.
 
 ---
@@ -2826,11 +2866,12 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Count all queue arrangements, treat the two specified candidates as one block to count adjacent arrangements, and subtract from the total.
-1. There are 6! = 720 unrestricted arrangements.
-2. Treat the two specified candidates as one block; the block can be internally ordered in 2 ways. Thus, adjacent arrangements = 2 \(\times\) 5! = 240.
-3. The required probability is \(\frac{240}{720}\) = \(\frac{1}{3}\).
-- **Key point:** The probability is valid because every admissible arrangement is treated as equally likely.
+- **Method:** For n distinct people, total linear arrangements = n!. To count two specified people together, treat them as one block and multiply by 2 for their internal order.
+1. Total arrangements = 6! = 6 \(\times\) 5 \(\times\) 4 \(\times\) 3 \(\times\) 2 \(\times\) 1 = 720.
+2. Adjacent arrangements = 2 \(\times\) 5! = 2 \(\times\) 5 \(\times\) 4 \(\times\) 3 \(\times\) 2 \(\times\) 1 = 240.
+3. Probability = favourable cases \(\div\) total cases = \(\frac{240}{720}\).
+- **Simplification:** Divide the numerator and denominator by 240: (240 \(\div\) 240)/(720 \(\div\) 240) = \(\frac{1}{3}\).
+- **Key point:** The two specified people can appear inside the block in either order.
 - **Answer:** The required probability is \(\frac{1}{3}\).
 
 ---
@@ -2851,11 +2892,14 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** A committee is unordered, so use combinations for both the complete set of committees and the required composition.
-1. The total number of committees is \(\binom{15}{3}\) = 455.
-2. For the required composition, choose 1 from 6 women and 2 from 9 men: \(\binom{6}{1}\) \(\times\) \(\binom{9}{2}\) = 216.
-3. The required probability is \(\frac{216}{455}\).
-- **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
+- **Method:** A committee is an unordered selection. Use \(\binom{n}{r}\) = n!/[r!(n-r)!]. For a probability, divide the number of required committees by the total number of committees.
+1. Total committees = \(\binom{15}{3}\).
+2. \(\binom{15}{3}\) = 15!/(3! \(\times\) 12!) = (15 \(\times\) 14 \(\times\) 13)/(3 \(\times\) 2 \(\times\) 1) = 455.
+3. Choose 1 woman from 6: \(\binom{6}{1}\) = 6.
+4. Choose 2 men from 9: \(\binom{9}{2}\) = 9!/(2! \(\times\) 7!) = (9 \(\times\) 8)/(2 \(\times\) 1) = 36.
+5. Required committees = 6 \(\times\) 36 = 216.
+6. Probability = favourable cases \(\div\) total cases = \(\frac{216}{455}\).
+- **Key point:** Combinations count each committee once because changing the order of the same members does not create a different committee.
 - **Answer:** The required probability is \(\frac{216}{455}\).
 
 ---
