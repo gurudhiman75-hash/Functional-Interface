@@ -15,6 +15,17 @@ export const INT_CP004_PRESENTATION_WAVE3_QL_IDS = Object.freeze([
 
 export type IntCp004PresentationWave3QlId = typeof INT_CP004_PRESENTATION_WAVE3_QL_IDS[number];
 
+function polishBrokenPeriodInterestPrompt(
+  source: IntCp004EnglishFrozenQuestion,
+  locale: IntCp004LocalizedLocale,
+  stem: string,
+): string {
+  if (source.qlId !== "INT-QL-080") return stem;
+  return locale === "hi-IN"
+    ? stem.replace("चक्रवृद्धि ब्याज ज्ञात कीजिए।", "कुल ब्याज ज्ञात कीजिए।")
+    : stem.replace("ਚੱਕਰਵੱਧੀ ਵਿਆਜ ਪਤਾ ਲਗਾਓ।", "ਕੁੱਲ ਵਿਆਜ ਪਤਾ ਲਗਾਓ।");
+}
+
 export function renderCp004LocalizedPresentationWave3(
   source: IntCp004EnglishFrozenQuestion,
   locale: IntCp004LocalizedLocale,
@@ -22,5 +33,9 @@ export function renderCp004LocalizedPresentationWave3(
   if (!(INT_CP004_PRESENTATION_WAVE3_QL_IDS as readonly IntCp004QlId[]).includes(source.qlId)) {
     throw new Error(`${source.qlId}: unsupported CP-004 presentation Wave 3 QL.`);
   }
-  return renderCp004EditorialStemV2(source, locale);
+  return polishBrokenPeriodInterestPrompt(
+    source,
+    locale,
+    renderCp004EditorialStemV2(source, locale),
+  );
 }
