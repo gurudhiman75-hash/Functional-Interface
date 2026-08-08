@@ -7,7 +7,7 @@ import {
   SAP_CP003_PROTOTYPE_TO_PERMANENT_QL,
 } from "../permanent-runtime/runtime";
 import { generateSapCp003ReviewRecords } from "../review-export";
-import { SAP_CP003_ENGLISH_MANUAL_FREEZE_CANDIDATE } from "./candidate";
+import { SAP_CP003_ENGLISH_MANUAL_FREEZE } from "./candidate";
 
 function sha256(value: unknown): string {
   return createHash("sha256").update(JSON.stringify(value)).digest("hex");
@@ -51,7 +51,7 @@ function reviewSurface(record: ReturnType<typeof generateSapCp003ReviewRecords>[
   };
 }
 
-const outputPath = resolve(process.argv[2] ?? "dist/SAP-CP-003-ENGLISH-MANUAL-FREEZE-CANDIDATE.md");
+const outputPath = resolve(process.argv[2] ?? "dist/SAP-CP-003-ENGLISH-MANUAL-FREEZE.md");
 const generated = generateSapCp003Sweep(100);
 const review = generateSapCp003ReviewRecords();
 const generatedSurfaceDigest = sha256(generated.map(generatedSurface));
@@ -59,16 +59,16 @@ const reviewSurfaceDigest = sha256(review.map(reviewSurface));
 const authorityByPrototype = new Map(SAP_CP003_PERMANENT_ALLOCATION.map((item) => [item.prototypeId, item]));
 
 const lines: string[] = [
-  "# SAP-CP-003 — English Manual-Freeze Candidate",
+  "# SAP-CP-003 — English Manual Freeze",
   "",
-  `**Locale:** ${SAP_CP003_ENGLISH_MANUAL_FREEZE_CANDIDATE.locale}  `,
-  `**Permanent QLs:** ${SAP_CP003_ENGLISH_MANUAL_FREEZE_CANDIDATE.permanentQlRange}  `,
-  `**Candidate status:** ${SAP_CP003_ENGLISH_MANUAL_FREEZE_CANDIDATE.status}  `,
-  `**Approval boundary:** ${SAP_CP003_ENGLISH_MANUAL_FREEZE_CANDIDATE.approvalBoundary}  `,
-  `**Source approved head:** \`${SAP_CP003_ENGLISH_MANUAL_FREEZE_CANDIDATE.sourceApprovedHead}\`  `,
-  `**Source merge commit:** \`${SAP_CP003_ENGLISH_MANUAL_FREEZE_CANDIDATE.sourceMergeCommit}\`  `,
+  `**Locale:** ${SAP_CP003_ENGLISH_MANUAL_FREEZE.locale}  `,
+  `**Permanent QLs:** ${SAP_CP003_ENGLISH_MANUAL_FREEZE.permanentQlRange}  `,
+  `**Freeze status:** ${SAP_CP003_ENGLISH_MANUAL_FREEZE.status}  `,
+  `**Freeze approval:** ${SAP_CP003_ENGLISH_MANUAL_FREEZE.freezeApproval}  `,
+  `**Source approved head:** \`${SAP_CP003_ENGLISH_MANUAL_FREEZE.sourceApprovedHead}\`  `,
+  `**Source merge commit:** \`${SAP_CP003_ENGLISH_MANUAL_FREEZE.sourceMergeCommit}\`  `,
   "",
-  "This candidate fingerprints the exact approved English question, option, answer, distractor-analysis, difficulty and explanation surface. It does not declare the manual freeze final and does not activate any product lifecycle capability.",
+  "The exact approved English question, option, answer, distractor-analysis, difficulty and explanation surface is frozen. Any later change must explicitly reopen the English freeze and update the pinned fingerprints.",
   "",
   "## Exact-surface fingerprints",
   "",
@@ -98,9 +98,9 @@ for (const allocation of SAP_CP003_PERMANENT_ALLOCATION) {
 
 lines.push(
   "",
-  "## Freeze declaration boundary",
+  "## Lifecycle boundary",
   "",
-  "The following remain false until a separate explicit freeze declaration and later lifecycle approvals:",
+  "The English content is frozen, but no product activation is authorised:",
   "",
   "```text",
   "active:                      false",
@@ -108,13 +108,9 @@ lines.push(
   "questionBankWritable:        false",
   "testEligible:                false",
   "publiclyPublishable:         false",
-  "localisation:                not started by this candidate",
-  "English manual freeze:       not yet declared",
+  "localisation:                pending",
+  "English manual freeze:       approved",
   "```",
-  "",
-  "## Required next decision",
-  "",
-  "Explicit product-owner approval is required to convert this candidate into the final English manual freeze. No implicit approval is inferred from the earlier editorial approval or merge.",
   "",
 );
 
@@ -122,12 +118,12 @@ mkdirSync(dirname(outputPath), { recursive: true });
 writeFileSync(outputPath, lines.join("\n"), "utf8");
 
 console.log(JSON.stringify({
-  status: "WROTE_SAP_CP003_ENGLISH_MANUAL_FREEZE_CANDIDATE_REPORT",
+  status: "WROTE_SAP_CP003_ENGLISH_MANUAL_FREEZE_REPORT",
   outputPath,
   generatedPackages: generated.length,
   reviewQuestions: review.length,
   generatedSurfaceDigest,
   reviewSurfaceDigest,
-  approvalBoundary: SAP_CP003_ENGLISH_MANUAL_FREEZE_CANDIDATE.approvalBoundary,
-  lifecycle: "INACTIVE_FREEZE_NOT_YET_DECLARED",
+  freezeApproval: SAP_CP003_ENGLISH_MANUAL_FREEZE.freezeApproval,
+  lifecycle: "INACTIVE_ENGLISH_FROZEN",
 }, null, 2));
