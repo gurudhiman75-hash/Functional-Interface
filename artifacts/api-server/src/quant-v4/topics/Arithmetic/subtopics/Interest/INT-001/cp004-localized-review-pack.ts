@@ -121,12 +121,11 @@ function desiredStemFamily(qlId: IntCp004QlId, frameIndex: number): string {
 
 function selectEnglishReviewSource(
   qlId: IntCp004QlId,
-  qlIndex: number,
   frameIndex: number,
 ): IntCp004EnglishFrozenQuestion {
   const expectedFamily = desiredStemFamily(qlId, frameIndex);
   const expectedRepresentation = REPRESENTATION_BY_FRAME[frameIndex];
-  const desiredCorrectIndex = (qlIndex + frameIndex) % 4;
+  const desiredCorrectIndex = (frameIndex + 1) % 4;
 
   for (let candidate = 0; candidate < 10_000; candidate += 1) {
     const seed = `int-cp004-hi-pa-review:${qlId}:frame-${frameIndex + 1}:candidate-${candidate}`;
@@ -197,9 +196,9 @@ export function buildIntCp004LocalizedReviewPack(
 ): IntCp004LocalizedReviewPack {
   const questions: IntCp004LocalizedReviewQuestion[] = [];
 
-  for (const [qlIndex, qlId] of INT_CP004_QL_IDS.entries()) {
+  for (const qlId of INT_CP004_QL_IDS) {
     for (let frameIndex = 0; frameIndex < INT_CP004_REVIEW_QUESTIONS_PER_QL; frameIndex += 1) {
-      const source = selectEnglishReviewSource(qlId, qlIndex, frameIndex);
+      const source = selectEnglishReviewSource(qlId, frameIndex);
       const localized = localizeIntCp004EnglishFrozenQuestion(source, locale);
       questions.push(toReviewQuestion(localized, questions.length + 1, frameIndex + 1));
     }
