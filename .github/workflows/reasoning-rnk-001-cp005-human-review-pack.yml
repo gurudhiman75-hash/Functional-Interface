@@ -35,7 +35,8 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          ./artifacts/api-server/node_modules/.bin/tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-human-review-export.ts | tee rnk-cp005-human-review-export.log
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-human-review-export.ts --bundle --platform=node --format=esm --outfile=dist/rnk-cp005-human-review-export.mjs
+          node artifacts/api-server/dist/rnk-cp005-human-review-export.mjs | tee rnk-cp005-human-review-export.log
           test -s artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/generated/RNK-CP-005-HUMAN-REVIEW-PACK-24Q.md
 
       - name: Upload human review pack
