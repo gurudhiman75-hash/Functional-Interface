@@ -156,14 +156,16 @@ assert.ok(review.every((record) => record.options.filter((option) => !option.isC
 const mockUseTiers = [...new Set(Object.values(SAP_CP003_EXAM_READINESS_POLICY).map((policy) => policy.mockUse))].sort();
 assert.deepEqual(mockUseTiers, ["FOUNDATION_ONLY", "SSC_AND_BANKING_ELIGIBLE", "SSC_ELIGIBLE"].sort());
 assert.equal(Object.values(SAP_CP003_EXAM_READINESS_POLICY).filter((policy) => policy.mockUse === "REMEDIATION_PENDING").length, 0);
-assert.equal(SAP_CP003_EDITORIAL_V3_STATE.status, "EDITORIAL_REMEDIATION_V3_HUMAN_REVIEW_PENDING");
+assert.equal(SAP_CP003_EDITORIAL_V3_STATE.status, "EDITORIAL_REMEDIATION_V3_HUMAN_REVIEW_APPROVED");
+assert.equal(SAP_CP003_EDITORIAL_V3_STATE.explanationReview, "FULL_300_QUESTION_HUMAN_APPROVED");
+assert.equal(SAP_CP003_EDITORIAL_V3_STATE.approvalAuthority, "PRODUCT_OWNER_APPROVED_2026_08_08");
 assert.equal(SAP_CP003_EDITORIAL_V3_STATE.active, false);
 assert.equal(SAP_CP003_EDITORIAL_V3_STATE.questionStudioDiscoverable, false);
 assert.equal(SAP_CP003_EDITORIAL_V3_STATE.testEligible, false);
 assert.equal(Object.keys(SAP_CP003_PROTOTYPE_TO_PERMANENT_QL).length, 19);
 
 console.log(JSON.stringify({
-  status: "PASS_SAP_CP003_EDITORIAL_REMEDIATION_V3_AUTHORITY",
+  status: "PASS_SAP_CP003_EDITORIAL_REMEDIATION_V3_APPROVED_AUTHORITY",
   packagesTested: sweep.length,
   uniqueGenerationIdentities: new Set(sweep.map((pkg) => pkg.generationIdentity)).size,
   reviewQuestions: review.length,
@@ -183,5 +185,6 @@ console.log(JSON.stringify({
   },
   reviewForwardCycleRate: Number((forwardCycleTransitions(reviewSequence) / (reviewSequence.length - 1)).toFixed(4)),
   mockUseTiers,
-  lifecycle: "INACTIVE_HUMAN_REVIEW_PENDING",
+  approvalAuthority: SAP_CP003_EDITORIAL_V3_STATE.approvalAuthority,
+  lifecycle: "INACTIVE_HUMAN_REVIEW_APPROVED_AWAITING_MERGE_AUTHORIZATION",
 }, null, 2));
