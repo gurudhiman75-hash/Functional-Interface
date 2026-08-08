@@ -1,0 +1,71 @@
+name: Validate RNK-001 Book Ownership Audit
+
+on:
+  push:
+    branches:
+      - audit/rnk-001-book-to-ql-ownership-reset
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/**
+      - artifacts/api-server/src/reasoning-v1/question-studio-registry.ts
+      - artifacts/api-server/src/reasoning-v1/question-studio-registry.test.ts
+      - .github/workflows/reasoning-rnk-001-book-ownership-audit.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rnk-book-ownership-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-ownership-reset:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate RNK ownership reset
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/rnk-001-book-ownership-reset.test.ts \
+            | tee rnk-book-ownership-reset.log
+
+      - name: Validate discovery-only Question Studio registry
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/question-studio-registry.test.ts \
+            | tee rnk-question-studio-registry.log
+
+      - name: Build API server
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server build \
+            | tee rnk-book-ownership-api-build.log
+
+      - name: Upload ownership-audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-book-to-ql-ownership-audit-evidence
+          path: |
+            rnk-book-ownership-reset.log
+            rnk-question-studio-registry.log
+            rnk-book-ownership-api-build.log
+          if-no-files-found: ignore
+          retention-days: 14
