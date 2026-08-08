@@ -16,7 +16,7 @@ export function applyNumCp005FinalQl057WordingSafety(input, explanation) {
       if (unrestricted) {
         value = value.replace(
           "The smallest value satisfying both conditions is",
-          "The smallest value with the required divisor count is",
+          "The smallest value satisfying the required divisor count is",
         );
       }
       return value;
