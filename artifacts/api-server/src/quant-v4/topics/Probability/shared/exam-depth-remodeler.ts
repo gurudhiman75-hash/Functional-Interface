@@ -50,7 +50,7 @@ function simplifiedRatio(left: number, right: number): string {
   return `${left / divisor}:${right / divisor}`;
 }
 
-function probabilityLine(favourable: number | bigint, total: number | bigint, answer: string): string {
+function probabilityLine(favourable: number | bigint | string, total: number | bigint | string, answer: string): string {
   const raw = `${favourable}/${total}`;
   return raw === answer
     ? `Therefore, the required probability is ${answer}.`
@@ -159,8 +159,8 @@ function renderEventGroupStem(entry: ProbabilityTaskRegistryEntry, parameters: G
   const aText = groupAction(context, a, context.subjectA);
   const bText = groupAction(context, b, context.subjectB);
   const bothText = context.action === "play"
-    ? `${both} play both games`
-    : `${both} ${context.groupNoun} satisfy both conditions`;
+    ? `${both} ${both === 1 ? context.groupNoun.slice(0, -1) : context.groupNoun} ${both === 1 ? "plays" : "play"} both games`
+    : `${both} ${both === 1 ? context.groupNoun.slice(0, -1) : context.groupNoun} ${both === 1 ? "satisfies" : "satisfy"} both conditions`;
 
   if (mode === "findUnionProbability") {
     return `In a group of ${total} ${context.groupNoun}, ${aText}, ${bText}, and ${bothText}. What is the probability that a randomly selected ${context.groupNoun.slice(0, -1)} satisfies at least one condition?`;
@@ -352,7 +352,7 @@ function conditionalExplanation(entry: ProbabilityTaskRegistryEntry, parameters:
     const restricted = numberValue(parameters, "restrictedTotal"), favourable = numberValue(parameters, "favourable");
     const probability = fraction(favourable, restricted);
     return [
-      `Let the required number be x. Within the restricted group, x/${restricted} = ${probability}.`,
+      `Because the selection is made only from the restricted group, let the required number be x. Then x/${restricted} = ${probability}.`,
       `Hence, x = ${restricted} × ${probability} = ${solved.exactDisplay}.`,
       `Therefore, ${solved.exactDisplay} people satisfy the required condition.`,
     ];

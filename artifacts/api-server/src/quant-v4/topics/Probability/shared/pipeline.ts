@@ -9,6 +9,7 @@ import { generateProbabilityOptions } from "./option-generator";
 import { buildRenderContext, renderQuestionStem } from "./probability-formatter";
 import { renderStudentFacingStem } from "./student-facing-renderer";
 import { explanationWordCount, renderProbabilityExplanation } from "./explanation-renderer";
+import { remodelProbabilityExplanation, remodelProbabilityStem } from "./exam-depth-remodeler";
 import { validateProbabilityQuestion } from "./validator";
 import { calibrateEntryDifficulty, assessProbabilityDifficulty } from "./difficulty-calibrator";
 import { isEntryAllowedForExamProfile, resolveProbabilityExamProfile, type ProbabilityExamProfileConfig } from "./exam-profile";
@@ -70,8 +71,10 @@ export function runProbabilityPackagePipeline(
   const options = generateProbabilityOptions(entry, parameters, solved, seed, examProfile.optionCount);
   const renderContext = buildRenderContext(parameters, solved);
   const legacyStem = renderQuestionStem(language, renderContext);
-  const stem = renderStudentFacingStem(entry, parameters, solved, event, legacyStem);
-  const explanation = renderProbabilityExplanation(entry, language, parameters, solved, verification, visuals);
+  const baseStem = renderStudentFacingStem(entry, parameters, solved, event, legacyStem);
+  const stem = remodelProbabilityStem(entry, parameters, solved, baseStem);
+  const baseExplanation = renderProbabilityExplanation(entry, language, parameters, solved, verification, visuals);
+  const explanation = remodelProbabilityExplanation(entry, parameters, solved, baseExplanation);
   const difficultyAssessment = assessProbabilityDifficulty(entry, parameters);
   const validation = validateProbabilityQuestion({ entry, language, parameters, experiment, stem, solved, options, explanation, verification, examProfile });
 
@@ -145,7 +148,7 @@ export function runProbabilityPackagePipeline(
       visualStrategies: visuals.map((visual) => visual.strategyId),
       difficultyAssessment,
     },
-    explanation: { explanationId: `${entry.qlId}-${entry.explanationStrategyId}-CONCRETE-V3`, lines: explanation, wordCount: explanationWordCount(explanation), visuals },
+    explanation: { explanationId: `${entry.qlId}-${entry.explanationStrategyId}-EXAM-DEPTH-V4`, lines: explanation, wordCount: explanationWordCount(explanation), visuals },
     validation,
     maturity: "PRODUCTION_QA",
     publiclyPublishable: false,
@@ -158,8 +161,8 @@ export function runProbabilityPackagePipeline(
       examProfile: examProfile.id,
       examProfileLabel: examProfile.label,
       taskRegistryContractVersion: "PRB-TASK-REGISTRY-V1",
-      studentRendererVersion: "PRB-STUDENT-RENDERER-V3",
-      explanationVersion: "PRB-CONCRETE-EXPLANATION-V3",
+      studentRendererVersion: "PRB-EXAM-DEPTH-RENDERER-V4",
+      explanationVersion: "PRB-EXAM-DEPTH-EXPLANATION-V4",
       experimentModelVersion: "PRB-EXPERIMENT-V1",
       eventAstVersion: "PRB-EVENT-AST-V1",
       difficulty: difficultyAssessment.difficulty,

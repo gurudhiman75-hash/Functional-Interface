@@ -57,6 +57,27 @@ function hasConcreteOutcomeEvidence(entry: ProbabilityTaskRegistryEntry, explana
   return true;
 }
 
+
+const EXAM_DEPTH_MODES = new Set([
+  "findSimultaneousSameTypeProbability", "findSimultaneousDifferentTypeProbability", "findExactCompositionProbability",
+  "findSelectionProbabilityUsingCombination", "findNoObjectOfTypeProbability", "findAtLeastOneObjectOfType",
+  "findSuccessiveIndependentProbability", "findWithReplacementProbability", "findSuccessiveDependentProbability",
+  "findWithoutReplacementProbability", "findOrderedDrawSequenceProbability", "findSameTypeInSuccessiveDraws",
+  "findDifferentTypesInSuccessiveDraws", "findAtLeastOneAcrossIndependentStages",
+  "findConditionalProbabilityByCounting", "findConditionalFromTwoWayTable", "findConditionalCardProbability",
+  "findConditionalUrnProbability", "findReverseConditionalCount", "findCommitteeCompositionProbability",
+  "findRestrictedSelectionProbability", "findReverseCountFromProbability", "findTogetherOrApartProbability",
+  "findPositionRestrictionProbability", "findNumberFormationProbability", "findUnionProbability",
+  "findIntersectionProbability", "findExactlyOneOfTwoEvents", "findMixedEventExpressionProbability",
+  "findNeitherEventProbability", "findMissingIntersectionOrUnionProbability", "findMutuallyExclusiveUnion",
+  "findIndependentIntersection",
+]);
+
+function hasMethodDecision(explanation: string[]): boolean {
+  const value = explanation.join(" ");
+  return /because|since|condition|use combinations|order|replacement|replaced|removed|without replacement|complement|restricted sample space|restricted group|sample space|overlap|counted twice|one block|last digit|first post|mutually exclusive|independent|both orders|possible selections|required people|C\(|P\(/i.test(value);
+}
+
 export function validateProbabilityQuestion(args: {
   entry: ProbabilityTaskRegistryEntry;
   language: ProbabilityQuestionLanguageEntry;
@@ -107,6 +128,8 @@ export function validateProbabilityQuestion(args: {
   checks.push(check("concise-stem", stemWords >= 7 && stemWords <= 62, `Stem has ${stemWords} words; expected 7-62.`));
   const explanationText = explanation.join(" "), explanationWords = words(explanationText);
   checks.push(check("simple-explanation-length", explanationWords >= 12 && explanationWords <= 120, `Explanation has ${explanationWords} words; expected 12-120.`));
+  checks.push(check("difficulty-appropriate-explanation-depth", entry.difficulty === "Easy" || explanationWords >= 20, `Medium/Hard explanation has only ${explanationWords} words; expected at least 20.`));
+  checks.push(check("exam-depth-decision-path", !EXAM_DEPTH_MODES.has(entry.solveMode) || (explanation.length >= 3 && hasMethodDecision(explanation)), "A multi-step explanation must state the method decision and show at least three reasoning lines."));
   checks.push(check("contextual-explanation", !hasGenericExplanation(explanation), "The explanation states generic counts or uses unnatural instructional wording."));
   checks.push(check("concrete-outcome-visibility", hasConcreteOutcomeEvidence(entry, explanation), "Small outcome spaces must show the actual H/T sequences, die faces, dice pairs or qualifying integers."));
   checks.push(check("no-qa-jargon-in-explanation", !/(typed event|independent check|permitted range|generated parameter|review trail|publication|validator|renderer|fingerprint|canonical universe)/i.test(explanationText), "The explanation contains internal QA language."));
