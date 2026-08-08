@@ -28,6 +28,8 @@ assert.equal(
   "PENDING_MANUAL_ASSISTIVE_TECHNOLOGY_EXECUTION",
 );
 assert.equal(rnk.freezeState, "PARTIAL_CHAPTER_ENGLISH_DISCOVERY_FROZEN");
+assert.equal(rnk.freezeVersion, "RNK_CP004_AND_CP005_ENGLISH_DISCOVERY_FREEZE_V2");
+assert.equal(rnk.runtimeVersion, "RNK_CP004_AND_CP005_PERMANENT_RUNTIME_V2");
 assert.deepEqual(rnk.permanentQlRange, {
   first: "RNK-QL-027",
   last: "RNK-QL-043",
@@ -36,7 +38,7 @@ assert.deepEqual(rnk.permanentQlRange, {
 assert.equal(rnk.permanentQuestionCount, 3264);
 assert.equal(
   rnk.projectionSha256,
-  "af80523ef6b9ef073a34ffe43d6174ba90fa7130831811ce85226b36e8a1b5c5",
+  "080af7fa6787f6752208c0504dce45bc0498c23eb7df7091a4130619ecfb4c2e",
 );
 assert.equal(rnk.checkpointFreezes.length, 2);
 assert.deepEqual(rnk.checkpointFreezes[0], {
@@ -54,8 +56,8 @@ assert.deepEqual(rnk.checkpointFreezes[0], {
 });
 assert.deepEqual(rnk.checkpointFreezes[1], {
   checkpointId: "RNK-CP-005",
-  freezeVersion: "RNK_CP005_ENGLISH_DISCOVERY_FREEZE_V1",
-  runtimeVersion: "RNK_CP005_PERMANENT_RUNTIME_V1",
+  freezeVersion: "RNK_CP005_ENGLISH_REASONING_REMODEL_FREEZE_V2",
+  runtimeVersion: "RNK_CP005_PERMANENT_RUNTIME_V2",
   permanentQlRange: {
     first: "RNK-QL-036",
     last: "RNK-QL-043",
@@ -63,7 +65,7 @@ assert.deepEqual(rnk.checkpointFreezes[1], {
   },
   permanentQuestionCount: 1536,
   projectionSha256:
-    "021079af803fb43bc1a51296290fed7b9c0654f508fb665f41847c5981448305",
+    "c1d205d2d49d3fe97bf3049d65c8d2b57e8594eb99abb57982384a4fa6605d8f",
 });
 
 assert.equal(
@@ -130,6 +132,8 @@ console.log(
       packageId: rnk.packageId,
       mode: rnk.runtimeMode,
       checkpointIds: rnk.cpIds,
+      freezeVersion: rnk.freezeVersion,
+      runtimeVersion: rnk.runtimeVersion,
       permanentQlRange: rnk.permanentQlRange,
       permanentQuestionCount: rnk.permanentQuestionCount,
       generationAllowed: rnk.generationAllowed,
