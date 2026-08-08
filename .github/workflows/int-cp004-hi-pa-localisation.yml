@@ -76,6 +76,20 @@ jobs:
           cd artifacts/api-server
           node dist/quant-v4/int-001-cp004-localized-presentation-wave1-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localized-presentation-wave1-audit.log
 
+      - name: Bundle localised presentation Wave 2 audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localized-presentation-wave2-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-localized-presentation-wave2-audit.mjs
+
+      - name: Run localised presentation Wave 2 audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-localized-presentation-wave2-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localized-presentation-wave2-audit.log
+
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
@@ -85,22 +99,27 @@ jobs:
           grep -q 'PASS_INT_CP004_APPROVED_ENGLISH_FREEZE' artifacts/api-server/dist/quant-v4/int-001-cp004-english-freeze-audit.log
           grep -q 'PASS_INT_CP004_LOCALIZATION_FOUNDATION' artifacts/api-server/dist/quant-v4/int-001-cp004-localization-foundation-audit.log
           grep -q 'PASS_INT_CP004_LOCALIZED_PRESENTATION_WAVE1' artifacts/api-server/dist/quant-v4/int-001-cp004-localized-presentation-wave1-audit.log
+          grep -q 'PASS_INT_CP004_LOCALIZED_PRESENTATION_WAVE2' artifacts/api-server/dist/quant-v4/int-001-cp004-localized-presentation-wave2-audit.log
           test -f artifacts/api-server/dist/quant-v4/int-cp004-localization-foundation/int-cp004-localization-foundation-summary.json
           test -f artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave1/int-cp004-localized-presentation-wave1-summary.json
+          test -f artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave2/int-cp004-localized-presentation-wave2-summary.json
           grep -q '"qlCount": 19' artifacts/api-server/dist/quant-v4/int-cp004-localization-foundation/int-cp004-localization-foundation-summary.json
           grep -q '"cases": 1200' artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave1/int-cp004-localized-presentation-wave1-summary.json
-          grep -q '"publiclyPublishable": false' artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave1/int-cp004-localized-presentation-wave1-summary.json
+          grep -q '"cases": 1200' artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave2/int-cp004-localized-presentation-wave2-summary.json
+          grep -q '"publiclyPublishable": false' artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave2/int-cp004-localized-presentation-wave2-summary.json
 
       - name: Upload CP-004 localisation evidence
         uses: actions/upload-artifact@v4
         with:
-          name: int-cp004-hi-pa-localisation-wave1
+          name: int-cp004-hi-pa-localisation-presentations-wave2
           path: |
             artifacts/api-server/dist/quant-v4/int-001-cp004-english-freeze-audit.log
             artifacts/api-server/dist/quant-v4/int-001-cp004-localization-foundation-audit.log
             artifacts/api-server/dist/quant-v4/int-001-cp004-localized-presentation-wave1-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-localized-presentation-wave2-audit.log
             artifacts/api-server/dist/quant-v4/int-cp004-localization-foundation/**
             artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave1/**
+            artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave2/**
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-004/INT-CP-004-HI-PA-LOCALISATION-PLAN.md
           if-no-files-found: error
           retention-days: 30
