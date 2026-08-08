@@ -1,11 +1,7 @@
 import { evaluateConclusion } from "../foundation/conclusion-evaluator";
 import { strongestDefiniteRelation } from "../foundation/relations";
 import { assertSolverAgreement } from "../foundation/solver-agreement";
-import type {
-  AtomicOrder,
-  ComparisonConstraint,
-  ComparisonRelation,
-} from "../foundation/types";
+import type { AtomicOrder, ComparisonRelation } from "../foundation/types";
 import { formatStatement } from "../INE-CP-001/presentation";
 import type { IneCp001Explanation } from "../INE-CP-001/types";
 import {
@@ -13,7 +9,7 @@ import {
   ordinaryRelationWords,
   renderCodedConstraint,
 } from "./coded-renderer";
-import { CP006_MASK_LABELS } from "./option-builder";
+import { conclusionMaskLabel } from "./conclusion-masks";
 import type { IneCp006Option, IneCp006Scenario } from "./types";
 
 function atomicDomainText(
@@ -30,18 +26,27 @@ function atomicDomainText(
   return `${values[0]}, ${values[1]}, or ${values[2]}`;
 }
 
-function decodedStep(
-  entry: ComparisonConstraint,
-  scenario: IneCp006Scenario,
-): string {
-  const symbol = scenario.codeMap.symbolByRelation[entry.relation];
-  const coded = renderCodedConstraint(
-    entry,
-    scenario.codeMap,
-    scenario.entityNames,
+function naturalList(values: readonly string[]): string {
+  if (values.length <= 1) return values[0] ?? "";
+  if (values.length === 2) return `${values[0]} and ${values[1]}`;
+  return `${values.slice(0, -1).join(", ")}, and ${values.at(-1)}`;
+}
+
+function decodedSummary(scenario: IneCp006Scenario): string {
+  const ordinaryStatements = scenario.statements.map((entry) =>
+    formatStatement(entry, scenario.entityNames),
   );
-  const ordinary = formatStatement(entry, scenario.entityNames);
-  return `The key says ${symbol} means ${ordinaryRelationWords(entry.relation)}, so ${coded} becomes ${ordinary}.`;
+  return `Replacing the code symbols gives ${naturalList(ordinaryStatements)}.`;
+}
+
+function evidenceSentence(
+  domain: readonly AtomicOrder[],
+  domainText: string,
+  follows: boolean,
+): string {
+  if (domain.length === 1)
+    return `The statements force ${domainText}, so this conclusion ${follows ? "follows" : "does not follow"}.`;
+  return `The statements still allow ${domainText}, so this conclusion is not certain.`;
 }
 
 function relationLabel(
@@ -93,19 +98,10 @@ function conclusionWarning(
   option: IneCp006Option,
   scenario: IneCp006Scenario,
 ): string {
-  const correctSummary =
-    scenario.expectedMask === "ONLY_I"
-      ? "Only conclusion I is guaranteed."
-      : scenario.expectedMask === "ONLY_II"
-        ? "Only conclusion II is guaranteed."
-        : scenario.expectedMask === "BOTH"
-          ? "Both conclusions are guaranteed."
-          : "Neither conclusion is guaranteed.";
-  if (option.conclusionMask === "BOTH")
-    return `This choice accepts both conclusions. ${correctSummary}`;
-  if (option.conclusionMask === "NEITHER")
-    return `This choice rejects both conclusions. ${correctSummary}`;
-  return `This choice keeps the wrong conclusion. ${correctSummary}`;
+  const count = scenario.conclusions.length as 2 | 3;
+  const correctSummary = conclusionMaskLabel(scenario.expectedMask!, count);
+  const offered = conclusionMaskLabel(option.conclusionMask!, count);
+  return `${offered}, but checking each conclusion separately gives: ${correctSummary}.`;
 }
 
 export function buildIneCp006Explanation(
@@ -167,9 +163,7 @@ export function buildIneCp006Explanation(
     };
   }
 
-  const translations = scenario.statements.map((entry) =>
-    decodedStep(entry, scenario),
-  );
+  const translation = decodedSummary(scenario);
   if (scenario.taskKind === "EVALUATE_CONCLUSIONS") {
     const evaluations = scenario.conclusions.map((entry) =>
       evaluateConclusion(scenario.statements, entry),
@@ -188,13 +182,16 @@ export function buildIneCp006Explanation(
         left,
         right,
       );
-      return `Conclusion ${index === 0 ? "I" : "II"}, ${coded}, means ${ordinary}. The decoded statements allow ${domain}, so it ${entry.truth === "DEFINITELY_TRUE" ? "definitely follows" : "is not guaranteed"}.`;
+      return `Conclusion ${["I", "II", "III"][index]} (${coded}) says ${ordinary}. ${evidenceSentence(entry.pairEvidence.possibleAtomicRelations, domain, entry.truth === "DEFINITELY_TRUE")}`;
     });
-    const maskLabel = CP006_MASK_LABELS[scenario.expectedMask!];
+    const maskLabel = conclusionMaskLabel(
+      scenario.expectedMask!,
+      scenario.conclusions.length as 2 | 3,
+    );
     return {
       ruleStatement:
-        "Decode the statements first, then decode and test each conclusion separately.",
-      normalizedStatements: translations,
+        "First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.",
+      normalizedStatements: [translation],
       proofSteps: audit,
       modelWitnesses: [],
       conclusion: `Therefore, ${maskLabel[0]!.toLowerCase()}${maskLabel.slice(1)}.`,
@@ -227,9 +224,13 @@ export function buildIneCp006Explanation(
   );
   return {
     ruleStatement:
-      "Replace every code symbol with its meaning before combining the chain.",
-    normalizedStatements: translations,
-    proofSteps: [`The decoded statements allow ${domain}.`],
+      "Translate the symbols first, and then follow the chain only in the direction asked.",
+    normalizedStatements: [translation],
+    proofSteps: [
+      agreement.modelEvidence.possibleAtomicRelations.length === 1
+        ? `For ${left} and ${right}, the chain forces ${domain}.`
+        : `For ${left} and ${right}, the statements still allow ${domain}.`,
+    ],
     modelWitnesses: [],
     conclusion: strongest
       ? `Therefore, ${relationLabel(strongest, scenario)} is the strongest definite relation.`

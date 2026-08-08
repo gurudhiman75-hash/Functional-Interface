@@ -23,8 +23,25 @@ export type IneCp006TaskKind =
   | "EVALUATE_CONCLUSIONS"
   | "ENCODE_RELATION";
 
+export type IneCp006SymbolProfile =
+  | "ASCII_EXAM_PROFILE"
+  | "UNICODE_GUIDED_PROFILE";
+
+export type IneCp006ExamApplicability =
+  | "BANKING_REGULATORY_PRACTICE_ONLY"
+  | "GUIDED_CONCEPT_ONLY";
+
 export type IneCp006AnswerSemantic = ComparisonRelation | "INDETERMINATE";
-export type IneCp006ConclusionMask = "ONLY_I" | "ONLY_II" | "BOTH" | "NEITHER";
+export type IneCp006ConclusionMask =
+  | "ONLY_I"
+  | "ONLY_II"
+  | "BOTH"
+  | "NEITHER"
+  | "ONLY_III"
+  | "I_AND_II"
+  | "I_AND_III"
+  | "II_AND_III"
+  | "ALL_THREE";
 
 export interface IneCp006CodeMap {
   mapId: string;
@@ -88,9 +105,13 @@ export interface GeneratedIneCp006Question {
   explanation: IneCp001Explanation;
   solutions: { mock: string; learning: IneCp001Explanation };
   metadata: {
-    runtimeVersion: "ine-cp006-prototype-v1";
+    runtimeVersion: "ine-cp006-prototype-v2";
     reviewStatus: "PENDING_MANUAL_REVIEW";
     deliveryProfile: "GUIDED_CONCEPT" | "EXAM_PRACTICE_PROTOTYPE";
+    symbolProfile: IneCp006SymbolProfile;
+    examApplicability: IneCp006ExamApplicability;
+    localeReadiness: "ENGLISH_ONLY";
+    releaseGate: "MANUAL_REVIEW_REQUIRED";
     topologyId: string;
     taskKind: IneCp006TaskKind;
     symbolSetId: string;

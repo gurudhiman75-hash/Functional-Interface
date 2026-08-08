@@ -7,21 +7,15 @@ import {
   renderCodedConstraint,
   renderCodedExpressions,
 } from "./coded-renderer";
-import { CP006_MASK_LABELS, relationOptionText } from "./option-builder";
+import {
+  conclusionMaskForTruths,
+  conclusionMasksForCount,
+} from "./conclusion-masks";
+import { relationOptionText } from "./option-builder";
 import type {
   GeneratedIneCp006Question,
-  IneCp006ConclusionMask,
   IneCp006ValidationResult,
 } from "./types";
-
-function expectedMask(truths: readonly string[]): IneCp006ConclusionMask {
-  const first = truths[0] === "DEFINITELY_TRUE";
-  const second = truths[1] === "DEFINITELY_TRUE";
-  if (first && second) return "BOTH";
-  if (first) return "ONLY_I";
-  if (second) return "ONLY_II";
-  return "NEITHER";
-}
 
 export function validateIneCp006Question(
   question: GeneratedIneCp006Question,
@@ -57,6 +51,31 @@ export function validateIneCp006Question(
     question.metadata.codeKeySize !== 5
   )
     errors.push("CP-006 requires a complete bijective five-symbol code key.");
+  const asciiExamSets = new Set(["ASCII_CLASSIC", "ASCII_ALTERNATE"]);
+  const unicodeGuidedSets = new Set(["GEOMETRIC", "CIRCLED_OPERATORS"]);
+  if (
+    question.metadata.symbolProfile === "ASCII_EXAM_PROFILE" &&
+    !asciiExamSets.has(scenario.codeMap.symbolSetId)
+  )
+    errors.push("Exam-practice questions must use an ASCII symbol set.");
+  if (
+    question.metadata.symbolProfile === "UNICODE_GUIDED_PROFILE" &&
+    !unicodeGuidedSets.has(scenario.codeMap.symbolSetId)
+  )
+    errors.push("Unicode symbol sets are restricted to guided practice.");
+  if (
+    (question.metadata.deliveryProfile === "EXAM_PRACTICE_PROTOTYPE" &&
+      question.metadata.examApplicability !==
+        "BANKING_REGULATORY_PRACTICE_ONLY") ||
+    (question.metadata.deliveryProfile === "GUIDED_CONCEPT" &&
+      question.metadata.examApplicability !== "GUIDED_CONCEPT_ONLY")
+  )
+    errors.push("Delivery profile and exam applicability do not agree.");
+  if (
+    question.metadata.localeReadiness !== "ENGLISH_ONLY" ||
+    question.metadata.releaseGate !== "MANUAL_REVIEW_REQUIRED"
+  )
+    errors.push("CP-006 must remain English-only and manually gated.");
   const expectedKey = renderCodeKey(scenario.codeMap);
   if (
     JSON.stringify(expectedKey) !== JSON.stringify(scenario.keyEntries) ||
@@ -109,32 +128,42 @@ export function validateIneCp006Question(
 
   const correct = question.options[question.correctIndex];
   if (scenario.taskKind === "EVALUATE_CONCLUSIONS") {
-    const truths = scenario.conclusions.map(
-      (entry) => evaluateConclusion(scenario.statements, entry).truth,
-    );
-    const mask = expectedMask(truths);
+    const supportedConclusionCount =
+      scenario.conclusions.length === 2 || scenario.conclusions.length === 3;
+    if (!supportedConclusionCount) {
+      errors.push("Conclusion questions require two or three conclusions.");
+    } else {
+      const conclusionCount = scenario.conclusions.length;
+      const truths = scenario.conclusions.map(
+        (entry) => evaluateConclusion(scenario.statements, entry).truth,
+      );
+      const mask = conclusionMaskForTruths(
+        truths.map((truth) => truth === "DEFINITELY_TRUE"),
+      );
+      if (mask !== scenario.expectedMask || correct?.conclusionMask !== mask)
+        errors.push("Conclusion mask does not match formal truth values.");
+      if (
+        new Set(question.options.map((entry) => entry.conclusionMask)).size !==
+          4 ||
+        question.options.some(
+          (entry) =>
+            !entry.conclusionMask ||
+            !conclusionMasksForCount(conclusionCount).includes(
+              entry.conclusionMask,
+            ),
+        )
+      )
+        errors.push("Conclusion options must be four valid, distinct masks.");
+    }
     if (
-      scenario.conclusions.length !== 2 ||
-      mask !== scenario.expectedMask ||
-      correct?.conclusionMask !== mask
-    )
-      errors.push("Conclusion mask does not match formal truth values.");
-    if (
-      scenario.conclusions.length === 2 &&
+      scenario.conclusions.length >= 2 &&
       new Set(
         scenario.conclusions.map((entry) =>
           [entry.leftId, entry.rightId].sort().join(":"),
         ),
-      ).size !== 2
+      ).size !== scenario.conclusions.length
     )
-      errors.push(
-        "CP-006 four-mask conclusions must not create an either-or pair.",
-      );
-    if (
-      new Set(question.options.map((entry) => entry.conclusionMask)).size !==
-      Object.keys(CP006_MASK_LABELS).length
-    )
-      errors.push("All four conclusion masks must appear once.");
+      errors.push("CP-006 conclusions must use distinct entity pairs.");
   } else if (scenario.taskKind === "ENCODE_RELATION") {
     if (correct?.encodedRelation !== scenario.ordinaryRelation?.relation)
       errors.push("Marked code does not encode the required relation.");

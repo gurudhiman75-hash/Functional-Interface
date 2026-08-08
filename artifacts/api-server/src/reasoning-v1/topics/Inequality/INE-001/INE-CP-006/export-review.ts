@@ -7,9 +7,8 @@ import {
 
 export async function exportIneCp006ReviewPack(
   outputDirectory: string,
-  seedsPerAuthority = 12,
 ): Promise<{ jsonPath: string; markdownPath: string; rowCount: number }> {
-  const rows = buildIneCp006ReviewPack(seedsPerAuthority);
+  const rows = buildIneCp006ReviewPack();
   await fs.mkdir(outputDirectory, { recursive: true });
   const jsonPath = path.join(outputDirectory, "ine-cp006-english-review.json");
   const markdownPath = path.join(

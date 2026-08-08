@@ -21,8 +21,12 @@ import type {
   IneCp006PrototypeId,
   IneCp006Scenario,
 } from "./types";
+import {
+  conclusionMasksForCount,
+  truthPatternForConclusionMask,
+} from "./conclusion-masks";
 
-const LETTERS = ["A", "B", "C", "D", "P", "Q"] as const;
+const LETTERS = ["A", "B", "C", "D", "P", "Q", "R"] as const;
 const RELATIONS: readonly ComparisonRelation[] = [
   "GREATER_THAN",
   "LESS_THAN",
@@ -163,6 +167,60 @@ function baseGraphFor(seed: number): BaseGraph {
       ],
       query: { leftId: "E1", rightId: "E3" },
     },
+    {
+      baseId: "FIVE_EDGE_MIXED",
+      topologyId: "FIVE_EDGE_MIXED_CHAIN",
+      statements: [
+        c("E1", "GREATER_THAN_OR_EQUAL", "E2", "S1"),
+        c("E2", "GREATER_THAN", "E3", "S2"),
+        c("E3", "EQUAL_TO", "E4", "S3"),
+        c("E4", "GREATER_THAN_OR_EQUAL", "E5", "S4"),
+        c("E5", "GREATER_THAN", "E6", "S5"),
+      ],
+      query: { leftId: "E1", rightId: "E6" },
+    },
+    {
+      baseId: "SIX_EDGE_MIXED",
+      topologyId: "SIX_EDGE_MIXED_CHAIN",
+      statements: [
+        c("E1", "LESS_THAN_OR_EQUAL", "E2", "S1"),
+        c("E2", "LESS_THAN", "E3", "S2"),
+        c("E3", "LESS_THAN_OR_EQUAL", "E4", "S3"),
+        c("E4", "EQUAL_TO", "E5", "S4"),
+        c("E5", "LESS_THAN", "E6", "S5"),
+        c("E6", "LESS_THAN_OR_EQUAL", "E7", "S6"),
+      ],
+      query: { leftId: "E1", rightId: "E7" },
+    },
+    {
+      baseId: "SEVEN_STATEMENT_NETWORK",
+      topologyId: "FIVE_EDGE_CHAIN_WITH_TWO_SUPPORTS",
+      statements: [
+        c("E1", "GREATER_THAN_OR_EQUAL", "E2", "S1"),
+        c("E2", "GREATER_THAN", "E3", "S2"),
+        c("E3", "GREATER_THAN_OR_EQUAL", "E4", "S3"),
+        c("E4", "EQUAL_TO", "E5", "S4"),
+        c("E5", "GREATER_THAN", "E6", "S5"),
+        c("E1", "GREATER_THAN", "E3", "S6"),
+        c("E4", "GREATER_THAN", "E6", "S7"),
+      ],
+      query: { leftId: "E1", rightId: "E6" },
+    },
+    {
+      baseId: "EIGHT_STATEMENT_NETWORK",
+      topologyId: "FIVE_EDGE_CHAIN_WITH_THREE_SUPPORTS",
+      statements: [
+        c("E1", "LESS_THAN_OR_EQUAL", "E2", "S1"),
+        c("E2", "LESS_THAN", "E3", "S2"),
+        c("E3", "EQUAL_TO", "E4", "S3"),
+        c("E4", "LESS_THAN_OR_EQUAL", "E5", "S4"),
+        c("E5", "LESS_THAN", "E6", "S5"),
+        c("E1", "LESS_THAN", "E3", "S6"),
+        c("E2", "LESS_THAN", "E5", "S7"),
+        c("E4", "LESS_THAN", "E6", "S8"),
+      ],
+      query: { leftId: "E1", rightId: "E6" },
+    },
   ];
   return bases[((seed % bases.length) + bases.length) % bases.length]!;
 }
@@ -229,23 +287,15 @@ function conclusionPool(statements: readonly ComparisonConstraint[]) {
 
 function selectConclusions(
   statements: readonly ComparisonConstraint[],
-  mask: IneCp006ConclusionMask,
+  truthPattern: readonly boolean[],
   random: SeededRandom,
 ): readonly ComparisonConstraint[] {
-  const desired: readonly boolean[] =
-    mask === "ONLY_I"
-      ? [true, false]
-      : mask === "ONLY_II"
-        ? [false, true]
-        : mask === "BOTH"
-          ? [true, true]
-          : [false, false];
   const pool = conclusionPool(statements);
   const selected: Array<{
     conclusion: ComparisonConstraint;
     truth: ConclusionTruth;
   }> = [];
-  for (const mustFollow of desired) {
+  for (const mustFollow of truthPattern) {
     const usedKeys = new Set(
       selected.map((entry) => canonicalKey(entry.conclusion)),
     );
@@ -261,7 +311,9 @@ function selectConclusions(
       (entry) => !usedPairs.has(pairKey(entry.conclusion)),
     );
     if (available.length === 0)
-      throw new Error(`No conclusion available for ${mask}.`);
+      throw new Error(
+        `No conclusion available for truth pattern ${truthPattern.join("/")}.`,
+      );
     selected.push(random.pick(available));
   }
   return selected.map((entry, index) => ({
@@ -288,7 +340,7 @@ export function buildIneCp006Scenario(
   const random = new SeededRandom(
     seed ^ Number.parseInt(stableHash([prototypeId, "cp006-scenario-v1"]), 16),
   );
-  const codeMap = buildIneCp006CodeMap(seed);
+  const codeMap = buildIneCp006CodeMap(seed, contract.symbolProfile);
   let base = baseGraphFor(seed);
   if (
     contract.taskKind === "EVALUATE_CONCLUSIONS" &&
@@ -323,15 +375,15 @@ export function buildIneCp006Scenario(
   }
 
   if (contract.taskKind === "EVALUATE_CONCLUSIONS") {
-    const masks: readonly IneCp006ConclusionMask[] = [
-      "ONLY_I",
-      "ONLY_II",
-      "BOTH",
-      "NEITHER",
-    ];
+    const conclusionCount: 2 | 3 = statements.length >= 5 ? 3 : 2;
+    const masks = conclusionMasksForCount(conclusionCount);
     expectedMask =
       masks[((seed % masks.length) + masks.length) % masks.length]!;
-    conclusions = selectConclusions(statements, expectedMask, random);
+    conclusions = selectConclusions(
+      statements,
+      truthPatternForConclusionMask(expectedMask, conclusionCount),
+      random,
+    );
     query = undefined;
   } else if (
     contract.taskKind === "SOLVE_RELATION" &&

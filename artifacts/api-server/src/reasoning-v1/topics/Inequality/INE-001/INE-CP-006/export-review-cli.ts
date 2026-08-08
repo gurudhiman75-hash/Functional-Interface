@@ -8,9 +8,5 @@ const outputDirectory = path.resolve(
       "src/reasoning-v1/topics/Inequality/INE-001/INE-CP-006/review",
     ),
 );
-const seedsPerAuthority = Number.parseInt(process.argv[3] ?? "12", 10);
-const result = await exportIneCp006ReviewPack(
-  outputDirectory,
-  seedsPerAuthority,
-);
+const result = await exportIneCp006ReviewPack(outputDirectory);
 console.log("INE-CP-006 English review pack exported.", result);

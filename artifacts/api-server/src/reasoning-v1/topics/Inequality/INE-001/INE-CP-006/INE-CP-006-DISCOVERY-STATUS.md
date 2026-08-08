@@ -2,13 +2,13 @@
 
 **Checkpoint:** INE-CP-006 — Coded Inequality: Fixed Maps
 
-**Implementation:** English prototype discovery complete
+**Implementation:** English prototype discovery v2 complete
 
 **Manual review:** Pending
 
-**Critical self-review:** Complete; ready for user review
+**Critical self-review:** Complete; readiness findings implemented and ready for user review
 
-**Exam readiness:** Banking/regulatory exam-practice ready; not universal Banking, SSC, Railways, PSSSB, or PPSC mock/PYQ ready
+**Exam readiness:** Banking/regulatory practice prototype ready; not a universal Banking, SSC, Railways, PSSSB, PPSC, or Punjab mock/PYQ pack
 
 **Permanent QLs:** 0
 
@@ -20,15 +20,17 @@
 
 - four provisional fixed-map coded authorities;
 - complete bijective five-symbol keys;
-- four symbol-shape families;
+- separate ASCII exam and Unicode guided symbol profiles;
 - decode, solve, conclusion-evaluation, and encode tasks;
-- direct and reversed chains with up to four statements;
+- direct and reversed chains and networks with up to eight statements;
+- selected hard three-conclusion questions with formally generated four-option truth subsets;
 - exactly four unique options per question;
 - balanced correct positions;
 - natural decoding-first explanations with option-specific feedback;
 - semantic-to-display validation for code keys, statements, conclusions, and options;
 - explicit rejection of unlabelled either-or conclusion pairs;
-- deterministic 48-question English review export.
+- deterministic 48-question English review export weighted 34 exam-shaped to 14 guided questions;
+- explicit English-only, manual-review, and Banking-practice-only release metadata.
 
 ## Boundary
 

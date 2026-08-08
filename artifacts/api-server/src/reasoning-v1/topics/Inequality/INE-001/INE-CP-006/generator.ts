@@ -34,7 +34,8 @@ function difficultyFor(
     scenario.statements.length === 1
   )
     return "EASY";
-  if (scenario.statements.length >= 4) return "HARD";
+  if (scenario.statements.length >= 4 || scenario.conclusions.length === 3)
+    return "HARD";
   if (
     scenario.taskKind === "EVALUATE_CONCLUSIONS" &&
     scenario.statements.length >= 3
@@ -95,7 +96,7 @@ export function generateIneCp006Question(
           ? "Using the supplied code key, which conclusion or conclusions definitely follow?"
           : `After decoding the statements, what is the strongest definite relation between ${queryNames[0]} and ${queryNames[1]}?`;
   const question: GeneratedIneCp006Question = {
-    recordId: `INE-CP006-${stableHash([prototypeId, seed, "record-v1"]).toUpperCase()}`,
+    recordId: `INE-CP006-${stableHash([prototypeId, seed, "record-v2"]).toUpperCase()}`,
     packageId: "INE-001",
     checkpointId: "INE-CP-006",
     prototypeId,
@@ -124,9 +125,13 @@ export function generateIneCp006Question(
     explanation,
     solutions: { mock: mockSolution(explanation), learning: explanation },
     metadata: {
-      runtimeVersion: "ine-cp006-prototype-v1",
+      runtimeVersion: "ine-cp006-prototype-v2",
       reviewStatus: "PENDING_MANUAL_REVIEW",
       deliveryProfile: contract.deliveryProfile,
+      symbolProfile: contract.symbolProfile,
+      examApplicability: contract.examApplicability,
+      localeReadiness: "ENGLISH_ONLY",
+      releaseGate: "MANUAL_REVIEW_REQUIRED",
       topologyId: scenario.topologyId,
       taskKind: scenario.taskKind,
       symbolSetId: scenario.codeMap.symbolSetId,

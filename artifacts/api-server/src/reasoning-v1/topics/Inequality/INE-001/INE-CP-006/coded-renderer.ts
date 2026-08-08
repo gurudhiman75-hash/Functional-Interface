@@ -3,7 +3,11 @@ import type {
   ComparisonConstraint,
   ComparisonRelation,
 } from "../foundation/types";
-import type { IneCp006CodeMap, IneCp006KeyEntry } from "./types";
+import type {
+  IneCp006CodeMap,
+  IneCp006KeyEntry,
+  IneCp006SymbolProfile,
+} from "./types";
 
 const RELATIONS: readonly ComparisonRelation[] = [
   "GREATER_THAN",
@@ -13,12 +17,21 @@ const RELATIONS: readonly ComparisonRelation[] = [
   "LESS_THAN_OR_EQUAL",
 ];
 
-const SYMBOL_SETS = [
-  { id: "ASCII_CLASSIC", symbols: ["@", "#", "$", "%", "&"] },
-  { id: "GEOMETRIC", symbols: ["★", "◆", "●", "■", "▲"] },
-  { id: "CIRCLED_OPERATORS", symbols: ["⊕", "⊗", "⊙", "⊖", "⊘"] },
-  { id: "MIXED_MARKS", symbols: ["!", "^", "~", "+", "?"] },
-] as const;
+const SYMBOL_SETS: Readonly<
+  Record<
+    IneCp006SymbolProfile,
+    readonly { id: string; symbols: readonly string[] }[]
+  >
+> = {
+  ASCII_EXAM_PROFILE: [
+    { id: "ASCII_CLASSIC", symbols: ["@", "#", "$", "%", "&"] },
+    { id: "ASCII_ALTERNATE", symbols: ["!", "^", "~", "+", "?"] },
+  ],
+  UNICODE_GUIDED_PROFILE: [
+    { id: "GEOMETRIC", symbols: ["★", "◆", "●", "■", "▲"] },
+    { id: "CIRCLED_OPERATORS", symbols: ["⊕", "⊗", "⊙", "⊖", "⊘"] },
+  ],
+};
 
 const RELATION_SYMBOL: Readonly<Record<ComparisonRelation, string>> = {
   GREATER_THAN: ">",
@@ -44,10 +57,14 @@ export function ordinaryRelationWords(relation: ComparisonRelation): string {
   return RELATION_WORDS[relation];
 }
 
-export function buildIneCp006CodeMap(seed: number): IneCp006CodeMap {
+export function buildIneCp006CodeMap(
+  seed: number,
+  profile: IneCp006SymbolProfile,
+): IneCp006CodeMap {
+  const profileSets = SYMBOL_SETS[profile];
   const symbolSet =
-    SYMBOL_SETS[
-      ((seed % SYMBOL_SETS.length) + SYMBOL_SETS.length) % SYMBOL_SETS.length
+    profileSets[
+      ((seed % profileSets.length) + profileSets.length) % profileSets.length
     ]!;
   const random = new SeededRandom(
     seed ^ Number.parseInt(stableHash(["cp006-code-map-v1", symbolSet.id]), 16),

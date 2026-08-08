@@ -1,12 +1,12 @@
 # INE-CP-006 English and Exam-Readiness Critical Review
 
-**Review date:** 7 August 2026
+**Review date:** 8 August 2026
 
 **Scope:** 48 deterministic English fixed-map coded-inequality prototypes
 
 ## Overall verdict
 
-The logical and decoding layers are strong and the revised pack is ready for manual English prototype review. Its coded-chain and coded-conclusion authorities are substantially closer to Banking and regulatory exam practice than CP-005's fully verbal variants. It is still a four-option product prototype, not a universal Banking, SSC, Railways, PSSSB, or PPSC previous-year set.
+The logical and decoding layers are strong, and the v2 pack fixes the main readiness weaknesses found in the first self-review. Exam-shaped questions now dominate the pack, use ASCII symbols only, reach eight statements, and include selected three-conclusion cases. Unicode symbols are isolated in guided learning. The result is ready for manual English prototype review and credible Banking/regulatory practice, but it is still a four-option product prototype rather than a universal Banking, SSC, Railways, PSSSB, PPSC, or Punjab previous-year set.
 
 > **Decision: READY FOR MANUAL PROTOTYPE REVIEW. Keep permanent QLs, Question Studio visibility, localization, and public release disabled.**
 
@@ -35,50 +35,64 @@ The generator never treats a decorative code symbol as logical authority. It fir
 
 Every record has exactly four unique options, supported by the Aggarwal source and the user's product rule. Disha and current Banking/regulatory practice frequently use five governed masks. CP-006 must not claim to reproduce every IBPS/SBI/RBI interface.
 
-### 4. Either-or leakage is blocked
+### 4. Exam symbols and guided symbols are separated
 
-The four conclusion masks are Only I, Only II, Both, and Neither. The scenario builder and validator require the two conclusions to concern different entity pairs, preventing a complementary pair from being incorrectly labelled Neither. Either-or reasoning remains owned by CP-004 and can be integrated later under an explicit response contract.
+All chain-solving and conclusion-evaluation records use `ASCII_EXAM_PROFILE`. Geometric and circled operators are confined to `UNICODE_GUIDED_PROFILE`. This prevents decorative glyphs from diluting exam realism or becoming an avoidable rendering dependency in the exam-practice pack.
 
-### 5. Explanations are learner-facing
+### 5. The pack is weighted toward exam-shaped work
 
-Every solution identifies the relevant code symbol, states its ordinary meaning, decodes the chain, and only then evaluates the requested relation. Distractor feedback distinguishes wrong code selection, reversed direction, excessive certainty, equality not forced, weaker inclusive relations, and indeterminate cases.
+The review allocation is 17 solve, 17 evaluate, 7 decode, and 7 encode. This puts 34 of 48 records in exam practice. The exam-practice subset contains only 3 easy questions, with 16 medium and 15 hard questions.
+
+### 6. Two- and three-conclusion logic is formally controlled
+
+Conclusion records use two conclusions by default and selected hard three-conclusion cases. Every conclusion is independently evaluated. The correct truth subset and all displayed alternatives are generated from the same formal result. Exactly four unique options are retained. Distinct entity pairs prevent unlabelled either-or leakage.
+
+### 7. Explanations are learner-facing
+
+Solutions translate the coded statements into one readable ordinary-language chain rather than repeating a mechanical decoding sentence for every symbol. They then explain what the chain forces or still allows. Distractor feedback names the offered interpretation and contrasts it with the conclusion set actually supported.
+
+### 8. Unsupported exam labels are blocked
+
+Exam-practice records are marked `BANKING_REGULATORY_PRACTICE_ONLY`, `ENGLISH_ONLY`, and `MANUAL_REVIEW_REQUIRED`. CP-006 does not claim SSC, Railways, PSSSB, PPSC, Punjabi, Hindi, mock, or PYQ readiness.
 
 ## Pack audit
 
-| Measure                                     |                       Result |
-| ------------------------------------------- | ---------------------------: |
-| Questions                                   |                           48 |
-| Provisional authorities                     |                            4 |
-| Questions per authority                     |                           12 |
-| Code-key size                               |          5 in every question |
-| Symbol-shape families                       |                            4 |
-| Distinct deterministic maps                 |                           12 |
-| Answer options                              |                    Exactly 4 |
-| Correct-position distribution per authority |                3 / 3 / 3 / 3 |
-| Topologies                                  |                           17 |
-| Maximum statements                          |                            4 |
-| Difficulty distribution                     | 26 easy / 15 medium / 7 hard |
-| Permanent QLs                               |                            0 |
+| Measure                                    |                                       Result |
+| ------------------------------------------ | -------------------------------------------: |
+| Questions                                  |                                           48 |
+| Provisional authorities                    |                                            4 |
+| Authority allocation                       | 7 decode / 17 solve / 17 evaluate / 7 encode |
+| Code-key size                              |                          5 in every question |
+| Symbol-shape families                      |                                            4 |
+| Distinct deterministic maps in review pack |                                           24 |
+| Answer options                             |                                    Exactly 4 |
+| Correct-position spread per authority      |         Each position differs by at most one |
+| Topologies                                 |                                           21 |
+| Maximum statements                         |                                            8 |
+| Conclusion counts                          |   2, with selected hard 3-conclusion records |
+| Difficulty distribution                    |                17 easy / 16 medium / 15 hard |
+| Exam/guided distribution                   |                          34 exam / 14 guided |
+| Permanent QLs                              |                                            0 |
 
 ## Readiness scorecard
 
-| Target                      | Concept/practice readiness | Mock/PYQ realism | Decision                                                                                              |
-| --------------------------- | -------------------------: | ---------------: | ----------------------------------------------------------------------------------------------------- |
-| Banking and regulatory      |                       9/10 |           6.5/10 | Strong coded practice; add five-mask profiles and longer source-calibrated sets before mock labelling |
-| SSC and Railways            |                     5.5/10 |           2.5/10 | Broad symbolic-reasoning relevance only; no verified fixed-map frequency claim                        |
-| Punjab state exams, English |                       5/10 |           2.5/10 | Supplementary practice only; keep PSSSB/PPSC labels off                                               |
-| Punjab state exams, Punjabi |                     1.5/10 |             1/10 | Not release-ready without Punjabi rendering and bilingual QA                                          |
-| Formal logical correctness  |                     9.5/10 |                — | Independent solvers and complete semantic/display validation agree                                    |
-| Explanation quality         |                       9/10 |                — | Natural and explicit after the decoding-first rewrite                                                 |
+| Target                      | Concept/practice readiness | Mock/PYQ realism | Decision                                                                                                                  |
+| --------------------------- | -------------------------: | ---------------: | ------------------------------------------------------------------------------------------------------------------------- |
+| Banking and regulatory      |                       9/10 |           6.5/10 | Strong four-option coded practice; a separate evidence-led five-choice profile is still needed for interfaces that use it |
+| SSC and Railways            |                     4.5/10 |             2/10 | Broad symbolic-reasoning relevance only; no verified fixed-map frequency claim                                            |
+| Punjab state exams, English |                     4.5/10 |             2/10 | Supplementary practice only; post-specific evidence is still required                                                     |
+| Punjab state exams, Punjabi |                       1/10 |             1/10 | Not release-ready without Punjabi rendering and native bilingual QA                                                       |
+| Formal logical correctness  |                     9.5/10 |                — | Independent solvers and complete semantic/display validation agree                                                        |
+| Explanation quality         |                       9/10 |                — | Natural and explicit after the decoding-first rewrite                                                                     |
 
 ## Remaining release gates
 
 Before permanent QLs or public release:
 
 1. manually review the downloadable 48-question English pack;
-2. approve the four symbol families and key wording;
-3. retain separate four- and five-option exam profiles where evidence requires them;
-4. calibrate longer Banking/regulatory chains against verified PYQs;
+2. calibrate the v2 Banking distribution against a verified, exam-year-labelled PYQ sample;
+3. add a separate five-choice response profile only where the source interface requires it;
+4. create post-specific SSC, Railways, PSSSB, PPSC, and Punjab evidence ledgers before enabling those labels;
 5. complete Punjabi/Hindi rendering and native-language QA before regional release;
 6. keep map recovery and missing operators in CP-007.
 

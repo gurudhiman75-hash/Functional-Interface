@@ -1,6 +1,8 @@
 import type {
   IneCp006AuthorityId,
   IneCp006PrototypeId,
+  IneCp006ExamApplicability,
+  IneCp006SymbolProfile,
   IneCp006TaskKind,
 } from "./types";
 
@@ -9,6 +11,8 @@ export interface IneCp006PrototypeContract {
   authorityId: IneCp006AuthorityId;
   taskKind: IneCp006TaskKind;
   deliveryProfile: "GUIDED_CONCEPT" | "EXAM_PRACTICE_PROTOTYPE";
+  symbolProfile: IneCp006SymbolProfile;
+  examApplicability: IneCp006ExamApplicability;
   status: "PROTOTYPE";
   permanentQlId: null;
   sourceLedgerIds: readonly string[];
@@ -21,6 +25,8 @@ export const INE_CP006_PROTOTYPE_CONTRACTS: readonly IneCp006PrototypeContract[]
       authorityId: "DECODE_FIXED_MAP_RELATION",
       taskKind: "DECODE_RELATION",
       deliveryProfile: "GUIDED_CONCEPT",
+      symbolProfile: "UNICODE_GUIDED_PROFILE",
+      examApplicability: "GUIDED_CONCEPT_ONLY",
       status: "PROTOTYPE",
       permanentQlId: null,
       sourceLedgerIds: ["AGG-INE-003", "DISHA-INE-004"],
@@ -30,6 +36,8 @@ export const INE_CP006_PROTOTYPE_CONTRACTS: readonly IneCp006PrototypeContract[]
       authorityId: "SOLVE_FIXED_MAP_CODED_CHAIN",
       taskKind: "SOLVE_RELATION",
       deliveryProfile: "EXAM_PRACTICE_PROTOTYPE",
+      symbolProfile: "ASCII_EXAM_PROFILE",
+      examApplicability: "BANKING_REGULATORY_PRACTICE_ONLY",
       status: "PROTOTYPE",
       permanentQlId: null,
       sourceLedgerIds: ["AGG-INE-003", "AGG-INE-004", "AGG-INE-005"],
@@ -39,6 +47,8 @@ export const INE_CP006_PROTOTYPE_CONTRACTS: readonly IneCp006PrototypeContract[]
       authorityId: "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
       taskKind: "EVALUATE_CONCLUSIONS",
       deliveryProfile: "EXAM_PRACTICE_PROTOTYPE",
+      symbolProfile: "ASCII_EXAM_PROFILE",
+      examApplicability: "BANKING_REGULATORY_PRACTICE_ONLY",
       status: "PROTOTYPE",
       permanentQlId: null,
       sourceLedgerIds: ["AGG-INE-004", "DISHA-INE-004", "DISHA-INE-006"],
@@ -48,6 +58,8 @@ export const INE_CP006_PROTOTYPE_CONTRACTS: readonly IneCp006PrototypeContract[]
       authorityId: "ENCODE_FIXED_MAP_RELATION",
       taskKind: "ENCODE_RELATION",
       deliveryProfile: "GUIDED_CONCEPT",
+      symbolProfile: "UNICODE_GUIDED_PROFILE",
+      examApplicability: "GUIDED_CONCEPT_ONLY",
       status: "PROTOTYPE",
       permanentQlId: null,
       sourceLedgerIds: ["AGG-INE-003", "DISHA-INE-004"],

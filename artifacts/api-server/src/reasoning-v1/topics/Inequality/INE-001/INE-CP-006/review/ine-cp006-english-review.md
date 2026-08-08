@@ -1,552 +1,327 @@
 # INE-CP-006 English Prototype Review Pack
 
-This pack contains 12 questions for each provisional fixed-map coded-inequality authority. Every question supplies a complete five-symbol key and exactly four answer options. These are product prototypes, not previous-year questions. Permanent QLs and Question Studio visibility remain disabled.
+This 48-question pack intentionally gives 34 questions to exam-shaped chain solving and conclusion evaluation, and 14 to guided decoding and encoding. Exam-practice records use ASCII symbols only; Unicode symbols are isolated in guided records. Every question supplies a complete five-symbol key and exactly four answer options. These are product prototypes, not previous-year questions. The current exam applicability is Banking/regulatory practice only; SSC, Railways, and Punjab labels remain disabled pending verified post-specific evidence. Permanent QLs and Question Studio visibility remain disabled.
 
 ## 1. DECODE_FIXED_MAP_RELATION — seed 0
 
-**Record:** INE-CP006-DC8A74E2 · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** ASCII_CLASSIC · **Topology:** DIRECT_GREATER_THAN
+**Record:** INE-CP006-DB8A734F · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/GEOMETRIC · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_GREATER_THAN
 
 According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?
 
 ### Code key
 
-- A % B means A is greater than B.
-- A $ B means A is less than B.
-- A @ B means A is equal to B.
-- A & B means A is greater than or equal to B.
-- A # B means A is less than or equal to B.
-
-### Statements
-
-- P % B
-
-### Options
-
-1. P ≤ B
-2. P > B
-3. P < B
-4. P ≥ B
-
-**Correct:** 2. P > B
-
-### Mock solution
-
-From the supplied key, % means greater than (>). Therefore, P % B decodes to P > B. So the matching ordinary relation is P > B.
-
-### Learning solution
-
-From the supplied key, % means greater than (>).
-
-Therefore, P % B decodes to P > B.
-
-So the matching ordinary relation is P > B.
-
-P ≤ B: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-P < B: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-P ≥ B: This is weaker than the strict greater-than relation proved by the decoded chain.
-
-## 2. DECODE_FIXED_MAP_RELATION — seed 1
-
-**Record:** INE-CP006-39ACA455 · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** GEOMETRIC · **Topology:** DIRECT_GREATER_THAN
-
-According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?
-
-### Code key
-
-- A ◆ B means A is greater than B.
-- A ▲ B means A is less than B.
-- A ■ B means A is equal to B.
-- A ★ B means A is greater than or equal to B.
+- A ▲ B means A is greater than B.
+- A ■ B means A is less than B.
+- A ★ B means A is equal to B.
+- A ◆ B means A is greater than or equal to B.
 - A ● B means A is less than or equal to B.
 
 ### Statements
 
-- P ◆ A
+- Q ▲ B
+
+### Options
+
+1. Q ≤ B
+2. Q > B
+3. Q = B
+4. Q < B
+
+**Correct:** 2. Q > B
+
+### Mock solution
+
+From the supplied key, ▲ means greater than (>). Therefore, Q ▲ B decodes to Q > B. So the matching ordinary relation is Q > B.
+
+### Learning solution
+
+From the supplied key, ▲ means greater than (>).
+
+Therefore, Q ▲ B decodes to Q > B.
+
+So the matching ordinary relation is Q > B.
+
+Q ≤ B: This option uses the wrong direction or the wrong degree of certainty after decoding.
+
+Q = B: The decoded statements do not force the two values to be equal.
+
+Q < B: This option uses the wrong direction or the wrong degree of certainty after decoding.
+
+## 2. DECODE_FIXED_MAP_RELATION — seed 1
+
+**Record:** INE-CP006-36AC9F9C · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/CIRCLED_OPERATORS · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_GREATER_THAN
+
+According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?
+
+### Code key
+
+- A ⊖ B means A is greater than B.
+- A ⊗ B means A is less than B.
+- A ⊕ B means A is equal to B.
+- A ⊙ B means A is greater than or equal to B.
+- A ⊘ B means A is less than or equal to B.
+
+### Statements
+
+- P ⊖ A
 
 ### Options
 
 1. The relation cannot be determined
-2. P ≥ A
-3. P = A
+2. P = A
+3. P < A
 4. P > A
 
 **Correct:** 4. P > A
 
 ### Mock solution
 
-From the supplied key, ◆ means greater than (>). Therefore, P ◆ A decodes to P > A. So the matching ordinary relation is P > A.
+From the supplied key, ⊖ means greater than (>). Therefore, P ⊖ A decodes to P > A. So the matching ordinary relation is P > A.
 
 ### Learning solution
 
-From the supplied key, ◆ means greater than (>).
+From the supplied key, ⊖ means greater than (>).
 
-Therefore, P ◆ A decodes to P > A.
+Therefore, P ⊖ A decodes to P > A.
 
 So the matching ordinary relation is P > A.
 
 The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
 
-P ≥ A: This is weaker than the strict greater-than relation proved by the decoded chain.
-
 P = A: The decoded statements do not force the two values to be equal.
+
+P < A: This option uses the wrong direction or the wrong degree of certainty after decoding.
 
 ## 3. DECODE_FIXED_MAP_RELATION — seed 2
 
-**Record:** INE-CP006-528A759C · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** CIRCLED_OPERATORS · **Topology:** DIRECT_EQUAL_TO
+**Record:** INE-CP006-558A7A55 · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/GEOMETRIC · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_EQUAL_TO
 
 According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?
 
 ### Code key
 
-- A ⊕ B means A is greater than B.
-- A ⊗ B means A is less than B.
-- A ⊘ B means A is equal to B.
-- A ⊙ B means A is greater than or equal to B.
-- A ⊖ B means A is less than or equal to B.
+- A ◆ B means A is greater than B.
+- A ● B means A is less than B.
+- A ★ B means A is equal to B.
+- A ▲ B means A is greater than or equal to B.
+- A ■ B means A is less than or equal to B.
 
 ### Statements
 
-- A ⊘ C
+- A ★ D
 
 ### Options
 
-1. A ≤ C
-2. A < C
-3. A = C
-4. The relation cannot be determined
+1. The relation cannot be determined
+2. A < D
+3. A = D
+4. A ≥ D
 
-**Correct:** 3. A = C
+**Correct:** 3. A = D
 
 ### Mock solution
 
-From the supplied key, ⊘ means equal to (=). Therefore, A ⊘ C decodes to A = C. So the matching ordinary relation is A = C.
+From the supplied key, ★ means equal to (=). Therefore, A ★ D decodes to A = D. So the matching ordinary relation is A = D.
 
 ### Learning solution
 
-From the supplied key, ⊘ means equal to (=).
+From the supplied key, ★ means equal to (=).
 
-Therefore, A ⊘ C decodes to A = C.
+Therefore, A ★ D decodes to A = D.
 
-So the matching ordinary relation is A = C.
-
-A ≤ C: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-A < C: This option uses the wrong direction or the wrong degree of certainty after decoding.
+So the matching ordinary relation is A = D.
 
 The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
+
+A < D: This option uses the wrong direction or the wrong degree of certainty after decoding.
+
+A ≥ D: This option uses the wrong direction or the wrong degree of certainty after decoding.
 
 ## 4. DECODE_FIXED_MAP_RELATION — seed 3
 
-**Record:** INE-CP006-02404867 · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** MIXED_MARKS · **Topology:** DIRECT_LESS_THAN_OR_EQUAL
+**Record:** INE-CP006-034049FA · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/CIRCLED_OPERATORS · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_LESS_THAN_OR_EQUAL
 
 According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?
 
 ### Code key
 
-- A ! B means A is greater than B.
-- A ~ B means A is less than B.
-- A + B means A is equal to B.
-- A ^ B means A is greater than or equal to B.
-- A ? B means A is less than or equal to B.
+- A ⊘ B means A is greater than B.
+- A ⊗ B means A is less than B.
+- A ⊙ B means A is equal to B.
+- A ⊖ B means A is greater than or equal to B.
+- A ⊕ B means A is less than or equal to B.
 
 ### Statements
 
-- A ? B
+- B ⊕ C
 
 ### Options
 
-1. A ≤ B
-2. A ≥ B
-3. A > B
-4. A = B
+1. B ≤ C
+2. B = C
+3. B < C
+4. B ≥ C
 
-**Correct:** 1. A ≤ B
+**Correct:** 1. B ≤ C
 
 ### Mock solution
 
-From the supplied key, ? means less than or equal to (≤). Therefore, A ? B decodes to A ≤ B. So the matching ordinary relation is A ≤ B.
+From the supplied key, ⊕ means less than or equal to (≤). Therefore, B ⊕ C decodes to B ≤ C. So the matching ordinary relation is B ≤ C.
 
 ### Learning solution
 
-From the supplied key, ? means less than or equal to (≤).
+From the supplied key, ⊕ means less than or equal to (≤).
 
-Therefore, A ? B decodes to A ≤ B.
+Therefore, B ⊕ C decodes to B ≤ C.
 
-So the matching ordinary relation is A ≤ B.
+So the matching ordinary relation is B ≤ C.
 
-A ≥ B: This option uses the wrong direction or the wrong degree of certainty after decoding.
+B = C: The decoded relation allows both less than and equal to, so this option is too specific.
 
-A > B: This option uses the wrong direction or the wrong degree of certainty after decoding.
+B < C: The decoded relation allows both less than and equal to, so this option is too specific.
 
-A = B: The decoded relation allows both less than and equal to, so this option is too specific.
+B ≥ C: This option uses the wrong direction or the wrong degree of certainty after decoding.
 
 ## 5. DECODE_FIXED_MAP_RELATION — seed 4
 
-**Record:** INE-CP006-3E8AD83E · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** ASCII_CLASSIC · **Topology:** DIRECT_GREATER_THAN_OR_EQUAL
+**Record:** INE-CP006-3D8AD6AB · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/GEOMETRIC · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_GREATER_THAN_OR_EQUAL
 
 According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?
 
 ### Code key
 
-- A & B means A is greater than B.
-- A $ B means A is less than B.
-- A % B means A is equal to B.
-- A # B means A is greater than or equal to B.
-- A @ B means A is less than or equal to B.
+- A ● B means A is greater than B.
+- A ★ B means A is less than B.
+- A ■ B means A is equal to B.
+- A ▲ B means A is greater than or equal to B.
+- A ◆ B means A is less than or equal to B.
 
 ### Statements
 
-- B # Q
+- B ▲ R
 
 ### Options
 
-1. B ≥ Q
-2. B = Q
+1. B ≥ R
+2. B > R
 3. The relation cannot be determined
-4. B > Q
+4. B ≤ R
 
-**Correct:** 1. B ≥ Q
+**Correct:** 1. B ≥ R
 
 ### Mock solution
 
-From the supplied key, # means greater than or equal to (≥). Therefore, B # Q decodes to B ≥ Q. So the matching ordinary relation is B ≥ Q.
+From the supplied key, ▲ means greater than or equal to (≥). Therefore, B ▲ R decodes to B ≥ R. So the matching ordinary relation is B ≥ R.
 
 ### Learning solution
 
-From the supplied key, # means greater than or equal to (≥).
+From the supplied key, ▲ means greater than or equal to (≥).
 
-Therefore, B # Q decodes to B ≥ Q.
+Therefore, B ▲ R decodes to B ≥ R.
 
-So the matching ordinary relation is B ≥ Q.
+So the matching ordinary relation is B ≥ R.
 
-B = Q: The decoded relation allows both greater than and equal to, so this option is too specific.
+B > R: The decoded relation allows both greater than and equal to, so this option is too specific.
 
 The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
 
-B > Q: The decoded relation allows both greater than and equal to, so this option is too specific.
+B ≤ R: This option uses the wrong direction or the wrong degree of certainty after decoding.
 
 ## 6. DECODE_FIXED_MAP_RELATION — seed 5
 
-**Record:** INE-CP006-355C4B41 · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** GEOMETRIC · **Topology:** DIRECT_LESS_THAN
+**Record:** INE-CP006-325C4688 · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/CIRCLED_OPERATORS · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_LESS_THAN
 
 According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?
 
 ### Code key
 
-- A ■ B means A is greater than B.
-- A ◆ B means A is less than B.
-- A ▲ B means A is equal to B.
-- A ● B means A is greater than or equal to B.
-- A ★ B means A is less than or equal to B.
+- A ⊖ B means A is greater than B.
+- A ⊗ B means A is less than B.
+- A ⊘ B means A is equal to B.
+- A ⊕ B means A is greater than or equal to B.
+- A ⊙ B means A is less than or equal to B.
 
 ### Statements
 
-- C ◆ A
+- R ⊗ A
 
 ### Options
 
-1. C = A
-2. C > A
-3. C < A
-4. The relation cannot be determined
+1. The relation cannot be determined
+2. R > A
+3. R < A
+4. R = A
 
-**Correct:** 3. C < A
+**Correct:** 3. R < A
 
 ### Mock solution
 
-From the supplied key, ◆ means less than (<). Therefore, C ◆ A decodes to C < A. So the matching ordinary relation is C < A.
+From the supplied key, ⊗ means less than (<). Therefore, R ⊗ A decodes to R < A. So the matching ordinary relation is R < A.
 
 ### Learning solution
 
-From the supplied key, ◆ means less than (<).
+From the supplied key, ⊗ means less than (<).
 
-Therefore, C ◆ A decodes to C < A.
+Therefore, R ⊗ A decodes to R < A.
 
-So the matching ordinary relation is C < A.
-
-C = A: The decoded statements do not force the two values to be equal.
-
-C > A: This option uses the wrong direction or the wrong degree of certainty after decoding.
+So the matching ordinary relation is R < A.
 
 The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
+
+R > A: This option uses the wrong direction or the wrong degree of certainty after decoding.
+
+R = A: The decoded statements do not force the two values to be equal.
 
 ## 7. DECODE_FIXED_MAP_RELATION — seed 6
 
-**Record:** INE-CP006-7ED53288 · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** CIRCLED_OPERATORS · **Topology:** DIRECT_GREATER_THAN
+**Record:** INE-CP006-81D53741 · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/GEOMETRIC · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_GREATER_THAN
 
 According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?
 
 ### Code key
 
-- A ⊗ B means A is greater than B.
-- A ⊕ B means A is less than B.
-- A ⊙ B means A is equal to B.
-- A ⊘ B means A is greater than or equal to B.
-- A ⊖ B means A is less than or equal to B.
-
-### Statements
-
-- B ⊗ Q
-
-### Options
-
-1. B < Q
-2. B ≥ Q
-3. B = Q
-4. B > Q
-
-**Correct:** 4. B > Q
-
-### Mock solution
-
-From the supplied key, ⊗ means greater than (>). Therefore, B ⊗ Q decodes to B > Q. So the matching ordinary relation is B > Q.
-
-### Learning solution
-
-From the supplied key, ⊗ means greater than (>).
-
-Therefore, B ⊗ Q decodes to B > Q.
-
-So the matching ordinary relation is B > Q.
-
-B < Q: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-B ≥ Q: This is weaker than the strict greater-than relation proved by the decoded chain.
-
-B = Q: The decoded statements do not force the two values to be equal.
-
-## 8. DECODE_FIXED_MAP_RELATION — seed 7
-
-**Record:** INE-CP006-EE5A5373 · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** MIXED_MARKS · **Topology:** DIRECT_EQUAL_TO
-
-According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?
-
-### Code key
-
-- A ? B means A is greater than B.
-- A ~ B means A is less than B.
-- A ! B means A is equal to B.
-- A ^ B means A is greater than or equal to B.
-- A + B means A is less than or equal to B.
-
-### Statements
-
-- P ! D
-
-### Options
-
-1. P < D
-2. P = D
-3. The relation cannot be determined
-4. P > D
-
-**Correct:** 2. P = D
-
-### Mock solution
-
-From the supplied key, ! means equal to (=). Therefore, P ! D decodes to P = D. So the matching ordinary relation is P = D.
-
-### Learning solution
-
-From the supplied key, ! means equal to (=).
-
-Therefore, P ! D decodes to P = D.
-
-So the matching ordinary relation is P = D.
-
-P < D: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
-
-P > D: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-## 9. DECODE_FIXED_MAP_RELATION — seed 8
-
-**Record:** INE-CP006-17A32EEA · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** ASCII_CLASSIC · **Topology:** DIRECT_LESS_THAN_OR_EQUAL
-
-According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?
-
-### Code key
-
-- A # B means A is greater than B.
-- A $ B means A is less than B.
-- A @ B means A is equal to B.
-- A & B means A is greater than or equal to B.
-- A % B means A is less than or equal to B.
-
-### Statements
-
-- Q % C
-
-### Options
-
-1. Q = C
-2. Q ≥ C
-3. Q > C
-4. Q ≤ C
-
-**Correct:** 4. Q ≤ C
-
-### Mock solution
-
-From the supplied key, % means less than or equal to (≤). Therefore, Q % C decodes to Q ≤ C. So the matching ordinary relation is Q ≤ C.
-
-### Learning solution
-
-From the supplied key, % means less than or equal to (≤).
-
-Therefore, Q % C decodes to Q ≤ C.
-
-So the matching ordinary relation is Q ≤ C.
-
-Q = C: The decoded relation allows both less than and equal to, so this option is too specific.
-
-Q ≥ C: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-Q > C: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-## 10. DECODE_FIXED_MAP_RELATION — seed 9
-
-**Record:** INE-CP006-D7A39D3D · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** GEOMETRIC · **Topology:** DIRECT_GREATER_THAN_OR_EQUAL
-
-According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?
-
-### Code key
-
-- A ■ B means A is greater than B.
-- A ◆ B means A is less than B.
-- A ▲ B means A is equal to B.
-- A ★ B means A is greater than or equal to B.
+- A ◆ B means A is greater than B.
+- A ■ B means A is less than B.
+- A ★ B means A is equal to B.
+- A ▲ B means A is greater than or equal to B.
 - A ● B means A is less than or equal to B.
 
 ### Statements
 
-- D ★ C
+- R ◆ Q
 
 ### Options
 
-1. D ≤ C
-2. D ≥ C
-3. The relation cannot be determined
-4. D < C
+1. R < Q
+2. R ≤ Q
+3. R ≥ Q
+4. R > Q
 
-**Correct:** 2. D ≥ C
-
-### Mock solution
-
-From the supplied key, ★ means greater than or equal to (≥). Therefore, D ★ C decodes to D ≥ C. So the matching ordinary relation is D ≥ C.
-
-### Learning solution
-
-From the supplied key, ★ means greater than or equal to (≥).
-
-Therefore, D ★ C decodes to D ≥ C.
-
-So the matching ordinary relation is D ≥ C.
-
-D ≤ C: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
-
-D < C: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-## 11. DECODE_FIXED_MAP_RELATION — seed 10
-
-**Record:** INE-CP006-8567D585 · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** CIRCLED_OPERATORS · **Topology:** DIRECT_LESS_THAN
-
-According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?
-
-### Code key
-
-- A ⊙ B means A is greater than B.
-- A ⊖ B means A is less than B.
-- A ⊕ B means A is equal to B.
-- A ⊘ B means A is greater than or equal to B.
-- A ⊗ B means A is less than or equal to B.
-
-### Statements
-
-- B ⊖ A
-
-### Options
-
-1. B > A
-2. B = A
-3. B < A
-4. B ≤ A
-
-**Correct:** 3. B < A
+**Correct:** 4. R > Q
 
 ### Mock solution
 
-From the supplied key, ⊖ means less than (<). Therefore, B ⊖ A decodes to B < A. So the matching ordinary relation is B < A.
+From the supplied key, ◆ means greater than (>). Therefore, R ◆ Q decodes to R > Q. So the matching ordinary relation is R > Q.
 
 ### Learning solution
 
-From the supplied key, ⊖ means less than (<).
+From the supplied key, ◆ means greater than (>).
 
-Therefore, B ⊖ A decodes to B < A.
+Therefore, R ◆ Q decodes to R > Q.
 
-So the matching ordinary relation is B < A.
+So the matching ordinary relation is R > Q.
 
-B > A: This option uses the wrong direction or the wrong degree of certainty after decoding.
+R < Q: This option uses the wrong direction or the wrong degree of certainty after decoding.
 
-B = A: The decoded statements do not force the two values to be equal.
+R ≤ Q: This option uses the wrong direction or the wrong degree of certainty after decoding.
 
-B ≤ A: This is weaker than the strict less-than relation proved by the decoded chain.
+R ≥ Q: This is weaker than the strict greater-than relation proved by the decoded chain.
 
-## 12. DECODE_FIXED_MAP_RELATION — seed 11
+## 8. SOLVE_FIXED_MAP_CODED_CHAIN — seed 0
 
-**Record:** INE-CP006-6F099B52 · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** MIXED_MARKS · **Topology:** DIRECT_GREATER_THAN
+**Record:** INE-CP006-7650000B · **Difficulty:** EASY · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 1 · **Topology:** DIRECT_STRICT
 
-According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?
-
-### Code key
-
-- A ^ B means A is greater than B.
-- A + B means A is less than B.
-- A ~ B means A is equal to B.
-- A ! B means A is greater than or equal to B.
-- A ? B means A is less than or equal to B.
-
-### Statements
-
-- Q ^ C
-
-### Options
-
-1. Q > C
-2. Q ≥ C
-3. Q ≤ C
-4. The relation cannot be determined
-
-**Correct:** 1. Q > C
-
-### Mock solution
-
-From the supplied key, ^ means greater than (>). Therefore, Q ^ C decodes to Q > C. So the matching ordinary relation is Q > C.
-
-### Learning solution
-
-From the supplied key, ^ means greater than (>).
-
-Therefore, Q ^ C decodes to Q > C.
-
-So the matching ordinary relation is Q > C.
-
-Q ≥ C: This is weaker than the strict greater-than relation proved by the decoded chain.
-
-Q ≤ C: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
-
-## 13. SOLVE_FIXED_MAP_CODED_CHAIN — seed 0
-
-**Record:** INE-CP006-7750019E · **Difficulty:** EASY · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** ASCII_CLASSIC · **Topology:** DIRECT_STRICT
-
-After decoding the statements, what is the strongest definite relation between C and Q?
+After decoding the statements, what is the strongest definite relation between C and R?
 
 ### Code key
 
@@ -558,187 +333,183 @@ After decoding the statements, what is the strongest definite relation between C
 
 ### Statements
 
-- C % Q
+- C % R
 
 ### Options
 
 1. The relation cannot be determined
-2. C > Q
-3. C = Q
-4. C ≥ Q
+2. C > R
+3. C = R
+4. C ≥ R
 
-**Correct:** 2. C > Q
+**Correct:** 2. C > R
 
 ### Mock solution
 
-Replace every code symbol with its meaning before combining the chain. The key says % means greater than, so C % Q becomes C > Q. The decoded statements allow C > Q. Therefore, C > Q is the strongest definite relation.
+Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives C > R. For C and R, the chain forces C > R. Therefore, C > R is the strongest definite relation.
 
 ### Learning solution
 
-Replace every code symbol with its meaning before combining the chain.
+Translate the symbols first, and then follow the chain only in the direction asked.
 
-The key says % means greater than, so C % Q becomes C > Q.
+Replacing the code symbols gives C > R.
 
-The decoded statements allow C > Q.
+For C and R, the chain forces C > R.
 
-Therefore, C > Q is the strongest definite relation.
+Therefore, C > R is the strongest definite relation.
 
 The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
 
-C = Q: The decoded statements do not force the two values to be equal.
+C = R: The decoded statements do not force the two values to be equal.
 
-C ≥ Q: This is weaker than the strict greater-than relation proved by the decoded chain.
+C ≥ R: This is weaker than the strict greater-than relation proved by the decoded chain.
 
-## 14. SOLVE_FIXED_MAP_CODED_CHAIN — seed 1
+## 9. SOLVE_FIXED_MAP_CODED_CHAIN — seed 1
 
-**Record:** INE-CP006-CF8095A1 · **Difficulty:** EASY · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** GEOMETRIC · **Topology:** DIRECT_INCLUSIVE
+**Record:** INE-CP006-CC8090E8 · **Difficulty:** EASY · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 1 · **Topology:** DIRECT_INCLUSIVE
+
+After decoding the statements, what is the strongest definite relation between A and Q?
+
+### Code key
+
+- A ^ B means A is greater than B.
+- A ? B means A is less than B.
+- A ! B means A is equal to B.
+- A ~ B means A is greater than or equal to B.
+- A + B means A is less than or equal to B.
+
+### Statements
+
+- A + Q
+
+### Options
+
+1. A ≤ Q
+2. The relation cannot be determined
+3. A < Q
+4. A > Q
+
+**Correct:** 1. A ≤ Q
+
+### Mock solution
+
+Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives A ≤ Q. For A and Q, the statements still allow A < Q or A = Q. Therefore, A ≤ Q is the strongest definite relation.
+
+### Learning solution
+
+Translate the symbols first, and then follow the chain only in the direction asked.
+
+Replacing the code symbols gives A ≤ Q.
+
+For A and Q, the statements still allow A < Q or A = Q.
+
+Therefore, A ≤ Q is the strongest definite relation.
+
+The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
+
+A < Q: The decoded relation allows both less than and equal to, so this option is too specific.
+
+A > Q: This option uses the wrong direction or the wrong degree of certainty after decoding.
+
+## 10. SOLVE_FIXED_MAP_CODED_CHAIN — seed 2
+
+**Record:** INE-CP006-76D94C21 · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 2 · **Topology:** TWO_EDGE_STRICT_CHAIN
+
+After decoding the statements, what is the strongest definite relation between P and B?
+
+### Code key
+
+- A % B means A is greater than B.
+- A $ B means A is less than B.
+- A # B means A is equal to B.
+- A @ B means A is greater than or equal to B.
+- A & B means A is less than or equal to B.
+
+### Statements
+
+- B $ Q $ P
+
+### Options
+
+1. P = B
+2. P ≥ B
+3. P > B
+4. P < B
+
+**Correct:** 3. P > B
+
+### Mock solution
+
+Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives B < Q and Q < P. For P and B, the chain forces P > B. Therefore, P > B is the strongest definite relation.
+
+### Learning solution
+
+Translate the symbols first, and then follow the chain only in the direction asked.
+
+Replacing the code symbols gives B < Q and Q < P.
+
+For P and B, the chain forces P > B.
+
+Therefore, P > B is the strongest definite relation.
+
+P = B: The decoded statements do not force the two values to be equal.
+
+P ≥ B: This is weaker than the strict greater-than relation proved by the decoded chain.
+
+P < B: This option uses the wrong direction or the wrong degree of certainty after decoding.
+
+## 11. SOLVE_FIXED_MAP_CODED_CHAIN — seed 3
+
+**Record:** INE-CP006-0E65A766 · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 2 · **Topology:** INCLUSIVE_STRICT_CHAIN
 
 After decoding the statements, what is the strongest definite relation between D and A?
 
 ### Code key
 
-- A ◆ B means A is greater than B.
-- A ▲ B means A is less than B.
-- A ■ B means A is equal to B.
-- A ★ B means A is greater than or equal to B.
-- A ● B means A is less than or equal to B.
+- A ~ B means A is greater than B.
+- A + B means A is less than B.
+- A ^ B means A is equal to B.
+- A ? B means A is greater than or equal to B.
+- A ! B means A is less than or equal to B.
 
 ### Statements
 
-- D ● A
+- D ? Q ~ A
 
 ### Options
 
-1. D ≤ A
-2. D = A
-3. The relation cannot be determined
+1. D ≥ A
+2. D ≤ A
+3. D < A
 4. D > A
 
-**Correct:** 1. D ≤ A
+**Correct:** 4. D > A
 
 ### Mock solution
 
-Replace every code symbol with its meaning before combining the chain. The key says ● means less than or equal to, so D ● A becomes D ≤ A. The decoded statements allow D < A or D = A. Therefore, D ≤ A is the strongest definite relation.
+Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives D ≥ Q and Q > A. For D and A, the chain forces D > A. Therefore, D > A is the strongest definite relation.
 
 ### Learning solution
 
-Replace every code symbol with its meaning before combining the chain.
+Translate the symbols first, and then follow the chain only in the direction asked.
 
-The key says ● means less than or equal to, so D ● A becomes D ≤ A.
+Replacing the code symbols gives D ≥ Q and Q > A.
 
-The decoded statements allow D < A or D = A.
+For D and A, the chain forces D > A.
 
-Therefore, D ≤ A is the strongest definite relation.
+Therefore, D > A is the strongest definite relation.
 
-D = A: The decoded relation allows both less than and equal to, so this option is too specific.
+D ≥ A: This is weaker than the strict greater-than relation proved by the decoded chain.
 
-The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
+D ≤ A: This option uses the wrong direction or the wrong degree of certainty after decoding.
 
-D > A: This option uses the wrong direction or the wrong degree of certainty after decoding.
+D < A: This option uses the wrong direction or the wrong degree of certainty after decoding.
 
-## 15. SOLVE_FIXED_MAP_CODED_CHAIN — seed 2
+## 12. SOLVE_FIXED_MAP_CODED_CHAIN — seed 4
 
-**Record:** INE-CP006-73D94768 · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** CIRCLED_OPERATORS · **Topology:** TWO_EDGE_STRICT_CHAIN
+**Record:** INE-CP006-2D88C8AF · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 2 · **Topology:** EQUALITY_BRIDGE
 
-After decoding the statements, what is the strongest definite relation between D and Q?
-
-### Code key
-
-- A ⊕ B means A is greater than B.
-- A ⊗ B means A is less than B.
-- A ⊘ B means A is equal to B.
-- A ⊙ B means A is greater than or equal to B.
-- A ⊖ B means A is less than or equal to B.
-
-### Statements
-
-- Q ⊗ B ⊗ D
-
-### Options
-
-1. D ≤ Q
-2. The relation cannot be determined
-3. D > Q
-4. D < Q
-
-**Correct:** 3. D > Q
-
-### Mock solution
-
-Replace every code symbol with its meaning before combining the chain. The key says ⊗ means less than, so Q ⊗ B becomes Q < B. The key says ⊗ means less than, so B ⊗ D becomes B < D. The decoded statements allow D > Q. Therefore, D > Q is the strongest definite relation.
-
-### Learning solution
-
-Replace every code symbol with its meaning before combining the chain.
-
-The key says ⊗ means less than, so Q ⊗ B becomes Q < B.
-
-The key says ⊗ means less than, so B ⊗ D becomes B < D.
-
-The decoded statements allow D > Q.
-
-Therefore, D > Q is the strongest definite relation.
-
-D ≤ Q: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
-
-D < Q: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-## 16. SOLVE_FIXED_MAP_CODED_CHAIN — seed 3
-
-**Record:** INE-CP006-0D65A5D3 · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** MIXED_MARKS · **Topology:** INCLUSIVE_STRICT_CHAIN
-
-After decoding the statements, what is the strongest definite relation between B and C?
-
-### Code key
-
-- A ! B means A is greater than B.
-- A ~ B means A is less than B.
-- A + B means A is equal to B.
-- A ^ B means A is greater than or equal to B.
-- A ? B means A is less than or equal to B.
-
-### Statements
-
-- B ^ Q ! C
-
-### Options
-
-1. The relation cannot be determined
-2. B = C
-3. B ≤ C
-4. B > C
-
-**Correct:** 4. B > C
-
-### Mock solution
-
-Replace every code symbol with its meaning before combining the chain. The key says ^ means greater than or equal to, so B ^ Q becomes B ≥ Q. The key says ! means greater than, so Q ! C becomes Q > C. The decoded statements allow B > C. Therefore, B > C is the strongest definite relation.
-
-### Learning solution
-
-Replace every code symbol with its meaning before combining the chain.
-
-The key says ^ means greater than or equal to, so B ^ Q becomes B ≥ Q.
-
-The key says ! means greater than, so Q ! C becomes Q > C.
-
-The decoded statements allow B > C.
-
-Therefore, B > C is the strongest definite relation.
-
-The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
-
-B = C: The decoded statements do not force the two values to be equal.
-
-B ≤ C: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-## 17. SOLVE_FIXED_MAP_CODED_CHAIN — seed 4
-
-**Record:** INE-CP006-2E88CA42 · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** ASCII_CLASSIC · **Topology:** EQUALITY_BRIDGE
-
-After decoding the statements, what is the strongest definite relation between P and D?
+After decoding the statements, what is the strongest definite relation between C and P?
 
 ### Code key
 
@@ -750,195 +521,185 @@ After decoding the statements, what is the strongest definite relation between P
 
 ### Statements
 
-- D % C @ P
+- P % D @ C
 
 ### Options
 
-1. P ≥ D
-2. P ≤ D
+1. C ≥ P
+2. C ≤ P
 3. The relation cannot be determined
-4. P < D
+4. C < P
 
-**Correct:** 1. P ≥ D
+**Correct:** 1. C ≥ P
 
 ### Mock solution
 
-Replace every code symbol with its meaning before combining the chain. The key says % means equal to, so D % C becomes D = C. The key says @ means less than or equal to, so C @ P becomes C ≤ P. The decoded statements allow P = D or P > D. Therefore, P ≥ D is the strongest definite relation.
+Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives P = D and D ≤ C. For C and P, the statements still allow C = P or C > P. Therefore, C ≥ P is the strongest definite relation.
 
 ### Learning solution
 
-Replace every code symbol with its meaning before combining the chain.
+Translate the symbols first, and then follow the chain only in the direction asked.
 
-The key says % means equal to, so D % C becomes D = C.
+Replacing the code symbols gives P = D and D ≤ C.
 
-The key says @ means less than or equal to, so C @ P becomes C ≤ P.
+For C and P, the statements still allow C = P or C > P.
 
-The decoded statements allow P = D or P > D.
+Therefore, C ≥ P is the strongest definite relation.
 
-Therefore, P ≥ D is the strongest definite relation.
-
-P ≤ D: This option uses the wrong direction or the wrong degree of certainty after decoding.
+C ≤ P: This option uses the wrong direction or the wrong degree of certainty after decoding.
 
 The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
 
-P < D: This option uses the wrong direction or the wrong degree of certainty after decoding.
+C < P: This option uses the wrong direction or the wrong degree of certainty after decoding.
 
-## 18. SOLVE_FIXED_MAP_CODED_CHAIN — seed 5
+## 13. SOLVE_FIXED_MAP_CODED_CHAIN — seed 5
 
-**Record:** INE-CP006-D6CE3935 · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** GEOMETRIC · **Topology:** THREE_EDGE_WEAK_CHAIN
+**Record:** INE-CP006-D3CE347C · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** THREE_EDGE_WEAK_CHAIN
 
-After decoding the statements, what is the strongest definite relation between P and B?
+After decoding the statements, what is the strongest definite relation between A and B?
 
 ### Code key
 
-- A ■ B means A is greater than B.
-- A ◆ B means A is less than B.
-- A ▲ B means A is equal to B.
-- A ● B means A is greater than or equal to B.
-- A ★ B means A is less than or equal to B.
+- A ~ B means A is greater than B.
+- A + B means A is less than B.
+- A ! B means A is equal to B.
+- A ^ B means A is greater than or equal to B.
+- A ? B means A is less than or equal to B.
 
 ### Statements
 
-- P ★ A ▲ C ★ B
+- A ? D ! C ? B
 
 ### Options
 
-1. P ≥ B
-2. P ≤ B
-3. The relation cannot be determined
-4. P = B
+1. A ≥ B
+2. A ≤ B
+3. A = B
+4. The relation cannot be determined
 
-**Correct:** 2. P ≤ B
+**Correct:** 2. A ≤ B
 
 ### Mock solution
 
-Replace every code symbol with its meaning before combining the chain. The key says ★ means less than or equal to, so P ★ A becomes P ≤ A. The key says ▲ means equal to, so A ▲ C becomes A = C. The key says ★ means less than or equal to, so C ★ B becomes C ≤ B. The decoded statements allow P < B or P = B. Therefore, P ≤ B is the strongest definite relation.
+Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives A ≤ D, D = C, and C ≤ B. For A and B, the statements still allow A < B or A = B. Therefore, A ≤ B is the strongest definite relation.
 
 ### Learning solution
 
-Replace every code symbol with its meaning before combining the chain.
+Translate the symbols first, and then follow the chain only in the direction asked.
 
-The key says ★ means less than or equal to, so P ★ A becomes P ≤ A.
+Replacing the code symbols gives A ≤ D, D = C, and C ≤ B.
 
-The key says ▲ means equal to, so A ▲ C becomes A = C.
+For A and B, the statements still allow A < B or A = B.
 
-The key says ★ means less than or equal to, so C ★ B becomes C ≤ B.
+Therefore, A ≤ B is the strongest definite relation.
 
-The decoded statements allow P < B or P = B.
+A ≥ B: This option uses the wrong direction or the wrong degree of certainty after decoding.
 
-Therefore, P ≤ B is the strongest definite relation.
-
-P ≥ B: This option uses the wrong direction or the wrong degree of certainty after decoding.
+A = B: The decoded relation allows both less than and equal to, so this option is too specific.
 
 The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
 
-P = B: The decoded relation allows both less than and equal to, so this option is too specific.
+## 14. SOLVE_FIXED_MAP_CODED_CHAIN — seed 6
 
-## 19. SOLVE_FIXED_MAP_CODED_CHAIN — seed 6
+**Record:** INE-CP006-AB048BB5 · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 2 · **Topology:** SHARED_UPPER_FREE_ENDPOINTS
 
-**Record:** INE-CP006-A80486FC · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** CIRCLED_OPERATORS · **Topology:** SHARED_UPPER_FREE_ENDPOINTS
-
-After decoding the statements, what is the strongest definite relation between C and P?
+After decoding the statements, what is the strongest definite relation between C and D?
 
 ### Code key
 
-- A ⊗ B means A is greater than B.
-- A ⊕ B means A is less than B.
-- A ⊙ B means A is equal to B.
-- A ⊘ B means A is greater than or equal to B.
-- A ⊖ B means A is less than or equal to B.
+- A @ B means A is greater than B.
+- A $ B means A is less than B.
+- A # B means A is equal to B.
+- A % B means A is greater than or equal to B.
+- A & B means A is less than or equal to B.
 
 ### Statements
 
-- P ⊕ Q
-- C ⊕ Q
+- D $ Q
+- C $ Q
 
 ### Options
 
-1. C = P
-2. C < P
+1. C ≥ D
+2. C < D
 3. The relation cannot be determined
-4. C > P
+4. C = D
 
 **Correct:** 3. The relation cannot be determined
 
 ### Mock solution
 
-Replace every code symbol with its meaning before combining the chain. The key says ⊕ means less than, so P ⊕ Q becomes P < Q. The key says ⊕ means less than, so C ⊕ Q becomes C < Q. The decoded statements allow C < P, C = P, or C > P. Therefore, the relation between C and P cannot be determined.
+Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives D < Q and C < Q. For C and D, the statements still allow C < D, C = D, or C > D. Therefore, the relation between C and D cannot be determined.
 
 ### Learning solution
 
-Replace every code symbol with its meaning before combining the chain.
+Translate the symbols first, and then follow the chain only in the direction asked.
 
-The key says ⊕ means less than, so P ⊕ Q becomes P < Q.
+Replacing the code symbols gives D < Q and C < Q.
 
-The key says ⊕ means less than, so C ⊕ Q becomes C < Q.
+For C and D, the statements still allow C < D, C = D, or C > D.
 
-The decoded statements allow C < P, C = P, or C > P.
+Therefore, the relation between C and D cannot be determined.
 
-Therefore, the relation between C and P cannot be determined.
+C ≥ D: After decoding, the statements still allow more than one relation, so this option is too definite.
 
-C = P: After decoding, the statements still allow more than one relation, so this option is too definite.
+C < D: After decoding, the statements still allow more than one relation, so this option is too definite.
 
-C < P: After decoding, the statements still allow more than one relation, so this option is too definite.
+C = D: After decoding, the statements still allow more than one relation, so this option is too definite.
 
-C > P: After decoding, the statements still allow more than one relation, so this option is too definite.
+## 15. SOLVE_FIXED_MAP_CODED_CHAIN — seed 7
 
-## 20. SOLVE_FIXED_MAP_CODED_CHAIN — seed 7
+**Record:** INE-CP006-FBEC72DA · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 2 · **Topology:** DISCONNECTED_COMPONENTS
 
-**Record:** INE-CP006-FAEC7147 · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** MIXED_MARKS · **Topology:** DISCONNECTED_COMPONENTS
-
-After decoding the statements, what is the strongest definite relation between B and P?
+After decoding the statements, what is the strongest definite relation between Q and R?
 
 ### Code key
 
-- A ? B means A is greater than B.
-- A ~ B means A is less than B.
-- A ! B means A is equal to B.
-- A ^ B means A is greater than or equal to B.
-- A + B means A is less than or equal to B.
+- A ! B means A is greater than B.
+- A ? B means A is less than B.
+- A + B means A is equal to B.
+- A ~ B means A is greater than or equal to B.
+- A ^ B means A is less than or equal to B.
 
 ### Statements
 
-- D ? B
-- P ~ Q
+- P ! Q
+- R ? A
 
 ### Options
 
-1. B > P
-2. B ≥ P
-3. B = P
+1. Q < R
+2. Q ≤ R
+3. Q = R
 4. The relation cannot be determined
 
 **Correct:** 4. The relation cannot be determined
 
 ### Mock solution
 
-Replace every code symbol with its meaning before combining the chain. The key says ? means greater than, so D ? B becomes D > B. The key says ~ means less than, so P ~ Q becomes P < Q. The decoded statements allow B < P, B = P, or B > P. Therefore, the relation between B and P cannot be determined.
+Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives P > Q and R < A. For Q and R, the statements still allow Q < R, Q = R, or Q > R. Therefore, the relation between Q and R cannot be determined.
 
 ### Learning solution
 
-Replace every code symbol with its meaning before combining the chain.
+Translate the symbols first, and then follow the chain only in the direction asked.
 
-The key says ? means greater than, so D ? B becomes D > B.
+Replacing the code symbols gives P > Q and R < A.
 
-The key says ~ means less than, so P ~ Q becomes P < Q.
+For Q and R, the statements still allow Q < R, Q = R, or Q > R.
 
-The decoded statements allow B < P, B = P, or B > P.
+Therefore, the relation between Q and R cannot be determined.
 
-Therefore, the relation between B and P cannot be determined.
+Q < R: After decoding, the statements still allow more than one relation, so this option is too definite.
 
-B > P: After decoding, the statements still allow more than one relation, so this option is too definite.
+Q ≤ R: After decoding, the statements still allow more than one relation, so this option is too definite.
 
-B ≥ P: After decoding, the statements still allow more than one relation, so this option is too definite.
+Q = R: After decoding, the statements still allow more than one relation, so this option is too definite.
 
-B = P: After decoding, the statements still allow more than one relation, so this option is too definite.
+## 16. SOLVE_FIXED_MAP_CODED_CHAIN — seed 8
 
-## 21. SOLVE_FIXED_MAP_CODED_CHAIN — seed 8
+**Record:** INE-CP006-88610ED3 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_MIXED_CHAIN
 
-**Record:** INE-CP006-89611066 · **Difficulty:** HARD · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** ASCII_CLASSIC · **Topology:** FOUR_EDGE_MIXED_CHAIN
-
-After decoding the statements, what is the strongest definite relation between D and A?
+After decoding the statements, what is the strongest definite relation between C and R?
 
 ### Code key
 
@@ -950,154 +711,138 @@ After decoding the statements, what is the strongest definite relation between D
 
 ### Statements
 
-- D & P @ C # Q & A
+- C & P @ Q # D & R
 
 ### Options
 
-1. D < A
-2. D > A
+1. C < R
+2. C > R
 3. The relation cannot be determined
-4. D = A
+4. C = R
 
-**Correct:** 2. D > A
+**Correct:** 2. C > R
 
 ### Mock solution
 
-Replace every code symbol with its meaning before combining the chain. The key says & means greater than or equal to, so D & P becomes D ≥ P. The key says @ means equal to, so P @ C becomes P = C. The key says # means greater than, so C # Q becomes C > Q. The key says & means greater than or equal to, so Q & A becomes Q ≥ A. The decoded statements allow D > A. Therefore, D > A is the strongest definite relation.
+Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives C ≥ P, P = Q, Q > D, and D ≥ R. For C and R, the chain forces C > R. Therefore, C > R is the strongest definite relation.
 
 ### Learning solution
 
-Replace every code symbol with its meaning before combining the chain.
+Translate the symbols first, and then follow the chain only in the direction asked.
 
-The key says & means greater than or equal to, so D & P becomes D ≥ P.
+Replacing the code symbols gives C ≥ P, P = Q, Q > D, and D ≥ R.
 
-The key says @ means equal to, so P @ C becomes P = C.
+For C and R, the chain forces C > R.
 
-The key says # means greater than, so C # Q becomes C > Q.
+Therefore, C > R is the strongest definite relation.
 
-The key says & means greater than or equal to, so Q & A becomes Q ≥ A.
-
-The decoded statements allow D > A.
-
-Therefore, D > A is the strongest definite relation.
-
-D < A: This option uses the wrong direction or the wrong degree of certainty after decoding.
+C < R: This option uses the wrong direction or the wrong degree of certainty after decoding.
 
 The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
 
-D = A: The decoded statements do not force the two values to be equal.
+C = R: The decoded statements do not force the two values to be equal.
 
-## 22. SOLVE_FIXED_MAP_CODED_CHAIN — seed 9
+## 17. SOLVE_FIXED_MAP_CODED_CHAIN — seed 9
 
-**Record:** INE-CP006-7174C8E9 · **Difficulty:** HARD · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** GEOMETRIC · **Topology:** FOUR_EDGE_WEAK_CHAIN
+**Record:** INE-CP006-6E74C430 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_WEAK_CHAIN
 
-After decoding the statements, what is the strongest definite relation between B and A?
+After decoding the statements, what is the strongest definite relation between Q and R?
 
 ### Code key
 
-- A ■ B means A is greater than B.
-- A ◆ B means A is less than B.
-- A ▲ B means A is equal to B.
-- A ★ B means A is greater than or equal to B.
-- A ● B means A is less than or equal to B.
+- A ~ B means A is greater than B.
+- A ? B means A is less than B.
+- A ! B means A is equal to B.
+- A ^ B means A is greater than or equal to B.
+- A + B means A is less than or equal to B.
 
 ### Statements
 
-- A ● C ▲ Q ● P ▲ B
+- R + A ! P + C ! Q
 
 ### Options
 
-1. B = A
-2. B < A
-3. B ≥ A
-4. B ≤ A
+1. Q ≤ R
+2. Q > R
+3. Q ≥ R
+4. Q = R
 
-**Correct:** 3. B ≥ A
+**Correct:** 3. Q ≥ R
 
 ### Mock solution
 
-Replace every code symbol with its meaning before combining the chain. The key says ● means less than or equal to, so A ● C becomes A ≤ C. The key says ▲ means equal to, so C ▲ Q becomes C = Q. The key says ● means less than or equal to, so Q ● P becomes Q ≤ P. The key says ▲ means equal to, so P ▲ B becomes P = B. The decoded statements allow B = A or B > A. Therefore, B ≥ A is the strongest definite relation.
+Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives R ≤ A, A = P, P ≤ C, and C = Q. For Q and R, the statements still allow Q = R or Q > R. Therefore, Q ≥ R is the strongest definite relation.
 
 ### Learning solution
 
-Replace every code symbol with its meaning before combining the chain.
+Translate the symbols first, and then follow the chain only in the direction asked.
 
-The key says ● means less than or equal to, so A ● C becomes A ≤ C.
+Replacing the code symbols gives R ≤ A, A = P, P ≤ C, and C = Q.
 
-The key says ▲ means equal to, so C ▲ Q becomes C = Q.
+For Q and R, the statements still allow Q = R or Q > R.
 
-The key says ● means less than or equal to, so Q ● P becomes Q ≤ P.
+Therefore, Q ≥ R is the strongest definite relation.
 
-The key says ▲ means equal to, so P ▲ B becomes P = B.
+Q ≤ R: This option uses the wrong direction or the wrong degree of certainty after decoding.
 
-The decoded statements allow B = A or B > A.
+Q > R: The decoded relation allows both greater than and equal to, so this option is too specific.
 
-Therefore, B ≥ A is the strongest definite relation.
+Q = R: The decoded relation allows both greater than and equal to, so this option is too specific.
 
-B = A: The decoded relation allows both greater than and equal to, so this option is too specific.
+## 18. SOLVE_FIXED_MAP_CODED_CHAIN — seed 10
 
-B < A: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-B ≤ A: This option uses the wrong direction or the wrong degree of certainty after decoding.
-
-## 23. SOLVE_FIXED_MAP_CODED_CHAIN — seed 10
-
-**Record:** INE-CP006-ACBB3B59 · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** CIRCLED_OPERATORS · **Topology:** CONVERGING_BRANCH
+**Record:** INE-CP006-A9BB36A0 · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** CONVERGING_BRANCH
 
 After decoding the statements, what is the strongest definite relation between C and B?
 
 ### Code key
 
-- A ⊙ B means A is greater than B.
-- A ⊖ B means A is less than B.
-- A ⊕ B means A is equal to B.
-- A ⊘ B means A is greater than or equal to B.
-- A ⊗ B means A is less than or equal to B.
+- A $ B means A is greater than B.
+- A # B means A is less than B.
+- A & B means A is equal to B.
+- A @ B means A is greater than or equal to B.
+- A % B means A is less than or equal to B.
 
 ### Statements
 
-- B ⊖ Q
-- A ⊗ C
-- A ⊖ B
+- B # A
+- R % C
+- R # B
 
 ### Options
 
 1. The relation cannot be determined
-2. C ≥ B
-3. C < B
-4. C ≤ B
+2. C ≤ B
+3. C > B
+4. C < B
 
 **Correct:** 1. The relation cannot be determined
 
 ### Mock solution
 
-Replace every code symbol with its meaning before combining the chain. The key says ⊖ means less than, so B ⊖ Q becomes B < Q. The key says ⊗ means less than or equal to, so A ⊗ C becomes A ≤ C. The key says ⊖ means less than, so A ⊖ B becomes A < B. The decoded statements allow C < B, C = B, or C > B. Therefore, the relation between C and B cannot be determined.
+Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives B < A, R ≤ C, and R < B. For C and B, the statements still allow C < B, C = B, or C > B. Therefore, the relation between C and B cannot be determined.
 
 ### Learning solution
 
-Replace every code symbol with its meaning before combining the chain.
+Translate the symbols first, and then follow the chain only in the direction asked.
 
-The key says ⊖ means less than, so B ⊖ Q becomes B < Q.
+Replacing the code symbols gives B < A, R ≤ C, and R < B.
 
-The key says ⊗ means less than or equal to, so A ⊗ C becomes A ≤ C.
-
-The key says ⊖ means less than, so A ⊖ B becomes A < B.
-
-The decoded statements allow C < B, C = B, or C > B.
+For C and B, the statements still allow C < B, C = B, or C > B.
 
 Therefore, the relation between C and B cannot be determined.
 
-C ≥ B: After decoding, the statements still allow more than one relation, so this option is too definite.
+C ≤ B: After decoding, the statements still allow more than one relation, so this option is too definite.
+
+C > B: After decoding, the statements still allow more than one relation, so this option is too definite.
 
 C < B: After decoding, the statements still allow more than one relation, so this option is too definite.
 
-C ≤ B: After decoding, the statements still allow more than one relation, so this option is too definite.
+## 19. SOLVE_FIXED_MAP_CODED_CHAIN — seed 11
 
-## 24. SOLVE_FIXED_MAP_CODED_CHAIN — seed 11
+**Record:** INE-CP006-F2670AC3 · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** CHAIN_WITH_IRRELEVANT_EDGE
 
-**Record:** INE-CP006-F3670C56 · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** MIXED_MARKS · **Topology:** CHAIN_WITH_IRRELEVANT_EDGE
-
-After decoding the statements, what is the strongest definite relation between P and Q?
+After decoding the statements, what is the strongest definite relation between Q and R?
 
 ### Code key
 
@@ -1109,45 +854,281 @@ After decoding the statements, what is the strongest definite relation between P
 
 ### Statements
 
-- Q ^ C ! P
-- B ~ A
+- R ^ P ! Q
+- B ~ C
 
 ### Options
 
-1. P > Q
-2. P ≤ Q
-3. P = Q
-4. P < Q
+1. Q > R
+2. The relation cannot be determined
+3. Q = R
+4. Q < R
 
-**Correct:** 4. P < Q
+**Correct:** 4. Q < R
 
 ### Mock solution
 
-Replace every code symbol with its meaning before combining the chain. The key says ^ means greater than, so Q ^ C becomes Q > C. The key says ! means greater than or equal to, so C ! P becomes C ≥ P. The key says ~ means equal to, so B ~ A becomes B = A. The decoded statements allow P < Q. Therefore, P < Q is the strongest definite relation.
+Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives R > P, P ≥ Q, and B = C. For Q and R, the chain forces Q < R. Therefore, Q < R is the strongest definite relation.
 
 ### Learning solution
 
-Replace every code symbol with its meaning before combining the chain.
+Translate the symbols first, and then follow the chain only in the direction asked.
 
-The key says ^ means greater than, so Q ^ C becomes Q > C.
+Replacing the code symbols gives R > P, P ≥ Q, and B = C.
 
-The key says ! means greater than or equal to, so C ! P becomes C ≥ P.
+For Q and R, the chain forces Q < R.
 
-The key says ~ means equal to, so B ~ A becomes B = A.
+Therefore, Q < R is the strongest definite relation.
 
-The decoded statements allow P < Q.
+Q > R: This option uses the wrong direction or the wrong degree of certainty after decoding.
 
-Therefore, P < Q is the strongest definite relation.
+The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
 
-P > Q: This option uses the wrong direction or the wrong degree of certainty after decoding.
+Q = R: The decoded statements do not force the two values to be equal.
 
-P ≤ Q: This is weaker than the strict less-than relation proved by the decoded chain.
+## 20. SOLVE_FIXED_MAP_CODED_CHAIN — seed 12
 
-P = Q: The decoded statements do not force the two values to be equal.
+**Record:** INE-CP006-32577ABE · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 5 · **Topology:** FIVE_EDGE_MIXED_CHAIN
+
+After decoding the statements, what is the strongest definite relation between A and Q?
+
+### Code key
+
+- A $ B means A is greater than B.
+- A # B means A is less than B.
+- A & B means A is equal to B.
+- A @ B means A is greater than or equal to B.
+- A % B means A is less than or equal to B.
+
+### Statements
+
+- Q # B % R & D # C % A
+
+### Options
+
+1. A ≥ Q
+2. A < Q
+3. The relation cannot be determined
+4. A > Q
+
+**Correct:** 4. A > Q
+
+### Mock solution
+
+Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives Q < B, B ≤ R, R = D, D < C, and C ≤ A. For A and Q, the chain forces A > Q. Therefore, A > Q is the strongest definite relation.
+
+### Learning solution
+
+Translate the symbols first, and then follow the chain only in the direction asked.
+
+Replacing the code symbols gives Q < B, B ≤ R, R = D, D < C, and C ≤ A.
+
+For A and Q, the chain forces A > Q.
+
+Therefore, A > Q is the strongest definite relation.
+
+A ≥ Q: This is weaker than the strict greater-than relation proved by the decoded chain.
+
+A < Q: This option uses the wrong direction or the wrong degree of certainty after decoding.
+
+The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
+
+## 21. SOLVE_FIXED_MAP_CODED_CHAIN — seed 13
+
+**Record:** INE-CP006-EFB3FE59 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 6 · **Topology:** SIX_EDGE_MIXED_CHAIN
+
+After decoding the statements, what is the strongest definite relation between D and P?
+
+### Code key
+
+- A ? B means A is greater than B.
+- A + B means A is less than B.
+- A ! B means A is equal to B.
+- A ^ B means A is greater than or equal to B.
+- A ~ B means A is less than or equal to B.
+
+### Statements
+
+- P ~ A + B ~ Q ! R + C ~ D
+
+### Options
+
+1. D = P
+2. The relation cannot be determined
+3. D > P
+4. D < P
+
+**Correct:** 3. D > P
+
+### Mock solution
+
+Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives P ≤ A, A < B, B ≤ Q, Q = R, R < C, and C ≤ D. For D and P, the chain forces D > P. Therefore, D > P is the strongest definite relation.
+
+### Learning solution
+
+Translate the symbols first, and then follow the chain only in the direction asked.
+
+Replacing the code symbols gives P ≤ A, A < B, B ≤ Q, Q = R, R < C, and C ≤ D.
+
+For D and P, the chain forces D > P.
+
+Therefore, D > P is the strongest definite relation.
+
+D = P: The decoded statements do not force the two values to be equal.
+
+The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
+
+D < P: This option uses the wrong direction or the wrong degree of certainty after decoding.
+
+## 22. SOLVE_FIXED_MAP_CODED_CHAIN — seed 14
+
+**Record:** INE-CP006-1D1FB094 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 7 · **Topology:** FIVE_EDGE_CHAIN_WITH_TWO_SUPPORTS
+
+After decoding the statements, what is the strongest definite relation between A and Q?
+
+### Code key
+
+- A $ B means A is greater than B.
+- A % B means A is less than B.
+- A # B means A is equal to B.
+- A @ B means A is greater than or equal to B.
+- A & B means A is less than or equal to B.
+
+### Statements
+
+- Q % D
+- C % A
+- Q % B # D & C % P & A
+
+### Options
+
+1. A = Q
+2. A > Q
+3. A ≤ Q
+4. A ≥ Q
+
+**Correct:** 2. A > Q
+
+### Mock solution
+
+Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives Q < D, C < A, Q < B, B = D, D ≤ C, C < P, and P ≤ A. For A and Q, the chain forces A > Q. Therefore, A > Q is the strongest definite relation.
+
+### Learning solution
+
+Translate the symbols first, and then follow the chain only in the direction asked.
+
+Replacing the code symbols gives Q < D, C < A, Q < B, B = D, D ≤ C, C < P, and P ≤ A.
+
+For A and Q, the chain forces A > Q.
+
+Therefore, A > Q is the strongest definite relation.
+
+A = Q: The decoded statements do not force the two values to be equal.
+
+A ≤ Q: This option uses the wrong direction or the wrong degree of certainty after decoding.
+
+A ≥ Q: This is weaker than the strict greater-than relation proved by the decoded chain.
+
+## 23. SOLVE_FIXED_MAP_CODED_CHAIN — seed 15
+
+**Record:** INE-CP006-0E2B6327 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 8 · **Topology:** FIVE_EDGE_CHAIN_WITH_THREE_SUPPORTS
+
+After decoding the statements, what is the strongest definite relation between Q and R?
+
+### Code key
+
+- A + B means A is greater than B.
+- A ? B means A is less than B.
+- A ! B means A is equal to B.
+- A ^ B means A is greater than or equal to B.
+- A ~ B means A is less than or equal to B.
+
+### Statements
+
+- Q + P
+- D + B
+- C + R
+- Q + D ^ P ! C + B ^ R
+
+### Options
+
+1. Q > R
+2. Q < R
+3. Q ≤ R
+4. Q ≥ R
+
+**Correct:** 1. Q > R
+
+### Mock solution
+
+Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives Q > P, D > B, C > R, Q > D, D ≥ P, P = C, C > B, and B ≥ R. For Q and R, the chain forces Q > R. Therefore, Q > R is the strongest definite relation.
+
+### Learning solution
+
+Translate the symbols first, and then follow the chain only in the direction asked.
+
+Replacing the code symbols gives Q > P, D > B, C > R, Q > D, D ≥ P, P = C, C > B, and B ≥ R.
+
+For Q and R, the chain forces Q > R.
+
+Therefore, Q > R is the strongest definite relation.
+
+Q < R: This option uses the wrong direction or the wrong degree of certainty after decoding.
+
+Q ≤ R: This option uses the wrong direction or the wrong degree of certainty after decoding.
+
+Q ≥ R: This is weaker than the strict greater-than relation proved by the decoded chain.
+
+## 24. SOLVE_FIXED_MAP_CODED_CHAIN — seed 16
+
+**Record:** INE-CP006-A4D619B2 · **Difficulty:** EASY · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 1 · **Topology:** DIRECT_STRICT
+
+After decoding the statements, what is the strongest definite relation between P and R?
+
+### Code key
+
+- A # B means A is greater than B.
+- A @ B means A is less than B.
+- A & B means A is equal to B.
+- A $ B means A is greater than or equal to B.
+- A % B means A is less than or equal to B.
+
+### Statements
+
+- P @ R
+
+### Options
+
+1. P ≤ R
+2. The relation cannot be determined
+3. P < R
+4. P > R
+
+**Correct:** 3. P < R
+
+### Mock solution
+
+Translate the symbols first, and then follow the chain only in the direction asked. Replacing the code symbols gives P < R. For P and R, the chain forces P < R. Therefore, P < R is the strongest definite relation.
+
+### Learning solution
+
+Translate the symbols first, and then follow the chain only in the direction asked.
+
+Replacing the code symbols gives P < R.
+
+For P and R, the chain forces P < R.
+
+Therefore, P < R is the strongest definite relation.
+
+P ≤ R: This is weaker than the strict less-than relation proved by the decoded chain.
+
+The relation cannot be determined: The decoded chain gives a definite relation, so the answer is not indeterminate.
+
+P > R: This option uses the wrong direction or the wrong degree of certainty after decoding.
 
 ## 25. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 0
 
-**Record:** INE-CP006-C0ADCD4F · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** ASCII_CLASSIC · **Topology:** TWO_EDGE_STRICT_CHAIN
+**Record:** INE-CP006-C1ADCEE2 · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 2 · **Topology:** TWO_EDGE_STRICT_CHAIN
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -1161,12 +1142,12 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 
 ### Statements
 
-- Q % B % P
+- B % R % C
 
 ### Conclusions
 
-I. B & P
-II. Q $ B
+I. R & C
+II. B $ R
 
 ### Options
 
@@ -1179,50 +1160,102 @@ II. Q $ B
 
 ### Mock solution
 
-Decode the statements first, then decode and test each conclusion separately. The key says % means greater than, so Q % B becomes Q > B. The key says % means greater than, so B % P becomes B > P. Conclusion I, B & P, means B ≥ P. The decoded statements allow B > P, so it definitely follows. Conclusion II, Q $ B, means Q < B. The decoded statements allow Q > B, so it is not guaranteed. Therefore, only conclusion I follows.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives B > R and R > C. Conclusion I (R & C) says R ≥ C. The statements force R > C, so this conclusion follows. Conclusion II (B $ R) says B < R. The statements force B > R, so this conclusion does not follow. Therefore, only conclusion I follows.
 
 ### Learning solution
 
-Decode the statements first, then decode and test each conclusion separately.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
 
-The key says % means greater than, so Q % B becomes Q > B.
+Replacing the code symbols gives B > R and R > C.
 
-The key says % means greater than, so B % P becomes B > P.
+Conclusion I (R & C) says R ≥ C. The statements force R > C, so this conclusion follows.
 
-Conclusion I, B & P, means B ≥ P. The decoded statements allow B > P, so it definitely follows.
-
-Conclusion II, Q $ B, means Q < B. The decoded statements allow Q > B, so it is not guaranteed.
+Conclusion II (B $ R) says B < R. The statements force B > R, so this conclusion does not follow.
 
 Therefore, only conclusion I follows.
 
-Both conclusions I and II follow: This choice accepts both conclusions. Only conclusion I is guaranteed.
+Both conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion I follows.
 
-Only conclusion II follows: This choice keeps the wrong conclusion. Only conclusion I is guaranteed.
+Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.
 
-Neither conclusion I nor conclusion II follows: This choice rejects both conclusions. Only conclusion I is guaranteed.
+Neither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.
 
 ## 26. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 1
 
-**Record:** INE-CP006-3831B684 · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** GEOMETRIC · **Topology:** INCLUSIVE_STRICT_CHAIN
+**Record:** INE-CP006-3B31BB3D · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 2 · **Topology:** INCLUSIVE_STRICT_CHAIN
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
 ### Code key
 
-- A ◆ B means A is greater than B.
-- A ▲ B means A is less than B.
-- A ■ B means A is equal to B.
-- A ★ B means A is greater than or equal to B.
-- A ● B means A is less than or equal to B.
+- A ^ B means A is greater than B.
+- A ? B means A is less than B.
+- A ! B means A is equal to B.
+- A ~ B means A is greater than or equal to B.
+- A + B means A is less than or equal to B.
 
 ### Statements
 
-- P ★ Q ◆ A
+- R ~ D ^ A
 
 ### Conclusions
 
-I. P ● A
-II. Q ★ A
+I. R + A
+II. D ~ A
+
+### Options
+
+1. Neither conclusion I nor conclusion II follows
+2. Both conclusions I and II follow
+3. Only conclusion II follows
+4. Only conclusion I follows
+
+**Correct:** 3. Only conclusion II follows
+
+### Mock solution
+
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives R ≥ D and D > A. Conclusion I (R + A) says R ≤ A. The statements force R > A, so this conclusion does not follow. Conclusion II (D ~ A) says D ≥ A. The statements force D > A, so this conclusion follows. Therefore, only conclusion II follows.
+
+### Learning solution
+
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
+
+Replacing the code symbols gives R ≥ D and D > A.
+
+Conclusion I (R + A) says R ≤ A. The statements force R > A, so this conclusion does not follow.
+
+Conclusion II (D ~ A) says D ≥ A. The statements force D > A, so this conclusion follows.
+
+Therefore, only conclusion II follows.
+
+Neither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion II follows.
+
+Both conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion II follows.
+
+Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Only conclusion II follows.
+
+## 27. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 2
+
+**Record:** INE-CP006-87476084 · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 2 · **Topology:** TWO_EDGE_STRICT_CHAIN
+
+Using the supplied code key, which conclusion or conclusions definitely follow?
+
+### Code key
+
+- A % B means A is greater than B.
+- A $ B means A is less than B.
+- A # B means A is equal to B.
+- A @ B means A is greater than or equal to B.
+- A & B means A is less than or equal to B.
+
+### Statements
+
+- P % D % A
+
+### Conclusions
+
+I. P % D
+II. P % A
 
 ### Options
 
@@ -1231,147 +1264,87 @@ II. Q ★ A
 3. Only conclusion II follows
 4. Neither conclusion I nor conclusion II follows
 
-**Correct:** 3. Only conclusion II follows
-
-### Mock solution
-
-Decode the statements first, then decode and test each conclusion separately. The key says ★ means greater than or equal to, so P ★ Q becomes P ≥ Q. The key says ◆ means greater than, so Q ◆ A becomes Q > A. Conclusion I, P ● A, means P ≤ A. The decoded statements allow P > A, so it is not guaranteed. Conclusion II, Q ★ A, means Q ≥ A. The decoded statements allow Q > A, so it definitely follows. Therefore, only conclusion II follows.
-
-### Learning solution
-
-Decode the statements first, then decode and test each conclusion separately.
-
-The key says ★ means greater than or equal to, so P ★ Q becomes P ≥ Q.
-
-The key says ◆ means greater than, so Q ◆ A becomes Q > A.
-
-Conclusion I, P ● A, means P ≤ A. The decoded statements allow P > A, so it is not guaranteed.
-
-Conclusion II, Q ★ A, means Q ≥ A. The decoded statements allow Q > A, so it definitely follows.
-
-Therefore, only conclusion II follows.
-
-Only conclusion I follows: This choice keeps the wrong conclusion. Only conclusion II is guaranteed.
-
-Both conclusions I and II follow: This choice accepts both conclusions. Only conclusion II is guaranteed.
-
-Neither conclusion I nor conclusion II follows: This choice rejects both conclusions. Only conclusion II is guaranteed.
-
-## 27. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 2
-
-**Record:** INE-CP006-8A47653D · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** CIRCLED_OPERATORS · **Topology:** TWO_EDGE_STRICT_CHAIN
-
-Using the supplied code key, which conclusion or conclusions definitely follow?
-
-### Code key
-
-- A ⊕ B means A is greater than B.
-- A ⊗ B means A is less than B.
-- A ⊘ B means A is equal to B.
-- A ⊙ B means A is greater than or equal to B.
-- A ⊖ B means A is less than or equal to B.
-
-### Statements
-
-- D ⊕ A ⊕ C
-
-### Conclusions
-
-I. D ⊕ A
-II. D ⊕ C
-
-### Options
-
-1. Neither conclusion I nor conclusion II follows
-2. Both conclusions I and II follow
-3. Only conclusion I follows
-4. Only conclusion II follows
-
 **Correct:** 2. Both conclusions I and II follow
 
 ### Mock solution
 
-Decode the statements first, then decode and test each conclusion separately. The key says ⊕ means greater than, so D ⊕ A becomes D > A. The key says ⊕ means greater than, so A ⊕ C becomes A > C. Conclusion I, D ⊕ A, means D > A. The decoded statements allow D > A, so it definitely follows. Conclusion II, D ⊕ C, means D > C. The decoded statements allow D > C, so it definitely follows. Therefore, both conclusions I and II follow.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives P > D and D > A. Conclusion I (P % D) says P > D. The statements force P > D, so this conclusion follows. Conclusion II (P % A) says P > A. The statements force P > A, so this conclusion follows. Therefore, both conclusions I and II follow.
 
 ### Learning solution
 
-Decode the statements first, then decode and test each conclusion separately.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
 
-The key says ⊕ means greater than, so D ⊕ A becomes D > A.
+Replacing the code symbols gives P > D and D > A.
 
-The key says ⊕ means greater than, so A ⊕ C becomes A > C.
+Conclusion I (P % D) says P > D. The statements force P > D, so this conclusion follows.
 
-Conclusion I, D ⊕ A, means D > A. The decoded statements allow D > A, so it definitely follows.
-
-Conclusion II, D ⊕ C, means D > C. The decoded statements allow D > C, so it definitely follows.
+Conclusion II (P % A) says P > A. The statements force P > A, so this conclusion follows.
 
 Therefore, both conclusions I and II follow.
 
-Neither conclusion I nor conclusion II follows: This choice rejects both conclusions. Both conclusions are guaranteed.
+Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Both conclusions I and II follow.
 
-Only conclusion I follows: This choice keeps the wrong conclusion. Both conclusions are guaranteed.
+Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Both conclusions I and II follow.
 
-Only conclusion II follows: This choice keeps the wrong conclusion. Both conclusions are guaranteed.
+Neither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Both conclusions I and II follow.
 
 ## 28. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 3
 
-**Record:** INE-CP006-CA46F6EA · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** MIXED_MARKS · **Topology:** INCLUSIVE_STRICT_CHAIN
+**Record:** INE-CP006-C946F557 · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 2 · **Topology:** INCLUSIVE_STRICT_CHAIN
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
 ### Code key
 
-- A ! B means A is greater than B.
-- A ~ B means A is less than B.
-- A + B means A is equal to B.
-- A ^ B means A is greater than or equal to B.
-- A ? B means A is less than or equal to B.
+- A ~ B means A is greater than B.
+- A + B means A is less than B.
+- A ^ B means A is equal to B.
+- A ? B means A is greater than or equal to B.
+- A ! B means A is less than or equal to B.
 
 ### Statements
 
-- D ~ P ? Q
+- C + Q ! R
 
 ### Conclusions
 
-I. Q ~ D
-II. Q + P
+I. R + C
+II. R ^ Q
 
 ### Options
 
-1. Both conclusions I and II follow
-2. Only conclusion II follows
-3. Only conclusion I follows
+1. Only conclusion II follows
+2. Only conclusion I follows
+3. Both conclusions I and II follow
 4. Neither conclusion I nor conclusion II follows
 
 **Correct:** 4. Neither conclusion I nor conclusion II follows
 
 ### Mock solution
 
-Decode the statements first, then decode and test each conclusion separately. The key says ~ means less than, so D ~ P becomes D < P. The key says ? means less than or equal to, so P ? Q becomes P ≤ Q. Conclusion I, Q ~ D, means Q < D. The decoded statements allow Q > D, so it is not guaranteed. Conclusion II, Q + P, means Q = P. The decoded statements allow Q = P or Q > P, so it is not guaranteed. Therefore, neither conclusion I nor conclusion II follows.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives C < Q and Q ≤ R. Conclusion I (R + C) says R < C. The statements force R > C, so this conclusion does not follow. Conclusion II (R ^ Q) says R = Q. The statements still allow R = Q or R > Q, so this conclusion is not certain. Therefore, neither conclusion I nor conclusion II follows.
 
 ### Learning solution
 
-Decode the statements first, then decode and test each conclusion separately.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
 
-The key says ~ means less than, so D ~ P becomes D < P.
+Replacing the code symbols gives C < Q and Q ≤ R.
 
-The key says ? means less than or equal to, so P ? Q becomes P ≤ Q.
+Conclusion I (R + C) says R < C. The statements force R > C, so this conclusion does not follow.
 
-Conclusion I, Q ~ D, means Q < D. The decoded statements allow Q > D, so it is not guaranteed.
-
-Conclusion II, Q + P, means Q = P. The decoded statements allow Q = P or Q > P, so it is not guaranteed.
+Conclusion II (R ^ Q) says R = Q. The statements still allow R = Q or R > Q, so this conclusion is not certain.
 
 Therefore, neither conclusion I nor conclusion II follows.
 
-Both conclusions I and II follow: This choice accepts both conclusions. Neither conclusion is guaranteed.
+Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.
 
-Only conclusion II follows: This choice keeps the wrong conclusion. Neither conclusion is guaranteed.
+Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.
 
-Only conclusion I follows: This choice keeps the wrong conclusion. Neither conclusion is guaranteed.
+Both conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.
 
 ## 29. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 4
 
-**Record:** INE-CP006-F0DC241B · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** ASCII_CLASSIC · **Topology:** EQUALITY_BRIDGE
+**Record:** INE-CP006-F1DC25AE · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 2 · **Topology:** EQUALITY_BRIDGE
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -1385,12 +1358,12 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 
 ### Statements
 
-- C % D @ B
+- D % P @ Q
 
 ### Conclusions
 
-I. D @ B
-II. C % B
+I. P @ Q
+II. D % Q
 
 ### Options
 
@@ -1403,203 +1376,193 @@ II. C % B
 
 ### Mock solution
 
-Decode the statements first, then decode and test each conclusion separately. The key says % means equal to, so C % D becomes C = D. The key says @ means less than or equal to, so D @ B becomes D ≤ B. Conclusion I, D @ B, means D ≤ B. The decoded statements allow D < B or D = B, so it definitely follows. Conclusion II, C % B, means C = B. The decoded statements allow C < B or C = B, so it is not guaranteed. Therefore, only conclusion I follows.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives D = P and P ≤ Q. Conclusion I (P @ Q) says P ≤ Q. The statements still allow P < Q or P = Q, so this conclusion is not certain. Conclusion II (D % Q) says D = Q. The statements still allow D < Q or D = Q, so this conclusion is not certain. Therefore, only conclusion I follows.
 
 ### Learning solution
 
-Decode the statements first, then decode and test each conclusion separately.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
 
-The key says % means equal to, so C % D becomes C = D.
+Replacing the code symbols gives D = P and P ≤ Q.
 
-The key says @ means less than or equal to, so D @ B becomes D ≤ B.
+Conclusion I (P @ Q) says P ≤ Q. The statements still allow P < Q or P = Q, so this conclusion is not certain.
 
-Conclusion I, D @ B, means D ≤ B. The decoded statements allow D < B or D = B, so it definitely follows.
-
-Conclusion II, C % B, means C = B. The decoded statements allow C < B or C = B, so it is not guaranteed.
+Conclusion II (D % Q) says D = Q. The statements still allow D < Q or D = Q, so this conclusion is not certain.
 
 Therefore, only conclusion I follows.
 
-Neither conclusion I nor conclusion II follows: This choice rejects both conclusions. Only conclusion I is guaranteed.
+Neither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.
 
-Both conclusions I and II follow: This choice accepts both conclusions. Only conclusion I is guaranteed.
+Both conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion I follows.
 
-Only conclusion II follows: This choice keeps the wrong conclusion. Only conclusion I is guaranteed.
+Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.
 
 ## 30. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 5
 
-**Record:** INE-CP006-AC5E49D0 · **Difficulty:** HARD · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** GEOMETRIC · **Topology:** THREE_EDGE_WEAK_CHAIN
+**Record:** INE-CP006-AF5E4E89 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** THREE_EDGE_WEAK_CHAIN
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
 ### Code key
 
-- A ■ B means A is greater than B.
-- A ◆ B means A is less than B.
-- A ▲ B means A is equal to B.
-- A ● B means A is greater than or equal to B.
-- A ★ B means A is less than or equal to B.
+- A ~ B means A is greater than B.
+- A + B means A is less than B.
+- A ! B means A is equal to B.
+- A ^ B means A is greater than or equal to B.
+- A ? B means A is less than or equal to B.
 
 ### Statements
 
-- A ● D ▲ Q ● P
+- Q ^ A ! P ^ R
 
 ### Conclusions
 
-I. D ■ P
-II. D ▲ Q
+I. A ~ R
+II. A ! P
 
 ### Options
 
-1. Neither conclusion I nor conclusion II follows
-2. Both conclusions I and II follow
-3. Only conclusion I follows
+1. Only conclusion I follows
+2. Neither conclusion I nor conclusion II follows
+3. Both conclusions I and II follow
 4. Only conclusion II follows
 
 **Correct:** 4. Only conclusion II follows
 
 ### Mock solution
 
-Decode the statements first, then decode and test each conclusion separately. The key says ● means greater than or equal to, so A ● D becomes A ≥ D. The key says ▲ means equal to, so D ▲ Q becomes D = Q. The key says ● means greater than or equal to, so Q ● P becomes Q ≥ P. Conclusion I, D ■ P, means D > P. The decoded statements allow D = P or D > P, so it is not guaranteed. Conclusion II, D ▲ Q, means D = Q. The decoded statements allow D = Q, so it definitely follows. Therefore, only conclusion II follows.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives Q ≥ A, A = P, and P ≥ R. Conclusion I (A ~ R) says A > R. The statements still allow A = R or A > R, so this conclusion is not certain. Conclusion II (A ! P) says A = P. The statements force A = P, so this conclusion follows. Therefore, only conclusion II follows.
 
 ### Learning solution
 
-Decode the statements first, then decode and test each conclusion separately.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
 
-The key says ● means greater than or equal to, so A ● D becomes A ≥ D.
+Replacing the code symbols gives Q ≥ A, A = P, and P ≥ R.
 
-The key says ▲ means equal to, so D ▲ Q becomes D = Q.
+Conclusion I (A ~ R) says A > R. The statements still allow A = R or A > R, so this conclusion is not certain.
 
-The key says ● means greater than or equal to, so Q ● P becomes Q ≥ P.
-
-Conclusion I, D ■ P, means D > P. The decoded statements allow D = P or D > P, so it is not guaranteed.
-
-Conclusion II, D ▲ Q, means D = Q. The decoded statements allow D = Q, so it definitely follows.
+Conclusion II (A ! P) says A = P. The statements force A = P, so this conclusion follows.
 
 Therefore, only conclusion II follows.
 
-Neither conclusion I nor conclusion II follows: This choice rejects both conclusions. Only conclusion II is guaranteed.
+Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Only conclusion II follows.
 
-Both conclusions I and II follow: This choice accepts both conclusions. Only conclusion II is guaranteed.
+Neither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion II follows.
 
-Only conclusion I follows: This choice keeps the wrong conclusion. Only conclusion II is guaranteed.
+Both conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion II follows.
 
 ## 31. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 6
 
-**Record:** INE-CP006-FF387309 · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** CIRCLED_OPERATORS · **Topology:** SHARED_UPPER_FREE_ENDPOINTS
+**Record:** INE-CP006-FC386E50 · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 2 · **Topology:** SHARED_UPPER_FREE_ENDPOINTS
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
 ### Code key
 
-- A ⊗ B means A is greater than B.
-- A ⊕ B means A is less than B.
-- A ⊙ B means A is equal to B.
-- A ⊘ B means A is greater than or equal to B.
-- A ⊖ B means A is less than or equal to B.
+- A @ B means A is greater than B.
+- A $ B means A is less than B.
+- A # B means A is equal to B.
+- A % B means A is greater than or equal to B.
+- A & B means A is less than or equal to B.
 
 ### Statements
 
-- A ⊗ B
-- A ⊗ C
+- D @ B
+- D @ C
 
 ### Conclusions
 
-I. C ⊖ A
-II. B ⊖ A
+I. C & D
+II. B & D
 
 ### Options
 
 1. Only conclusion II follows
-2. Neither conclusion I nor conclusion II follows
+2. Only conclusion I follows
 3. Both conclusions I and II follow
-4. Only conclusion I follows
+4. Neither conclusion I nor conclusion II follows
 
 **Correct:** 3. Both conclusions I and II follow
 
 ### Mock solution
 
-Decode the statements first, then decode and test each conclusion separately. The key says ⊗ means greater than, so A ⊗ B becomes A > B. The key says ⊗ means greater than, so A ⊗ C becomes A > C. Conclusion I, C ⊖ A, means C ≤ A. The decoded statements allow C < A, so it definitely follows. Conclusion II, B ⊖ A, means B ≤ A. The decoded statements allow B < A, so it definitely follows. Therefore, both conclusions I and II follow.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives D > B and D > C. Conclusion I (C & D) says C ≤ D. The statements force C < D, so this conclusion follows. Conclusion II (B & D) says B ≤ D. The statements force B < D, so this conclusion follows. Therefore, both conclusions I and II follow.
 
 ### Learning solution
 
-Decode the statements first, then decode and test each conclusion separately.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
 
-The key says ⊗ means greater than, so A ⊗ B becomes A > B.
+Replacing the code symbols gives D > B and D > C.
 
-The key says ⊗ means greater than, so A ⊗ C becomes A > C.
+Conclusion I (C & D) says C ≤ D. The statements force C < D, so this conclusion follows.
 
-Conclusion I, C ⊖ A, means C ≤ A. The decoded statements allow C < A, so it definitely follows.
-
-Conclusion II, B ⊖ A, means B ≤ A. The decoded statements allow B < A, so it definitely follows.
+Conclusion II (B & D) says B ≤ D. The statements force B < D, so this conclusion follows.
 
 Therefore, both conclusions I and II follow.
 
-Only conclusion II follows: This choice keeps the wrong conclusion. Both conclusions are guaranteed.
+Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Both conclusions I and II follow.
 
-Neither conclusion I nor conclusion II follows: This choice rejects both conclusions. Both conclusions are guaranteed.
+Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Both conclusions I and II follow.
 
-Only conclusion I follows: This choice keeps the wrong conclusion. Both conclusions are guaranteed.
+Neither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Both conclusions I and II follow.
 
 ## 32. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 7
 
-**Record:** INE-CP006-272EBB86 · **Difficulty:** MEDIUM · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** MIXED_MARKS · **Topology:** DISCONNECTED_COMPONENTS
+**Record:** INE-CP006-262EB9F3 · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 2 · **Topology:** DISCONNECTED_COMPONENTS
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
 ### Code key
 
-- A ? B means A is greater than B.
-- A ~ B means A is less than B.
-- A ! B means A is equal to B.
-- A ^ B means A is greater than or equal to B.
-- A + B means A is less than or equal to B.
+- A ! B means A is greater than B.
+- A ? B means A is less than B.
+- A + B means A is equal to B.
+- A ~ B means A is greater than or equal to B.
+- A ^ B means A is less than or equal to B.
 
 ### Statements
 
-- C ? B
-- P ~ Q
+- C ! A
+- Q ? R
 
 ### Conclusions
 
-I. P ! C
-II. Q ~ P
+I. Q + C
+II. R ? Q
 
 ### Options
 
 1. Neither conclusion I nor conclusion II follows
-2. Both conclusions I and II follow
-3. Only conclusion I follows
-4. Only conclusion II follows
+2. Only conclusion II follows
+3. Both conclusions I and II follow
+4. Only conclusion I follows
 
 **Correct:** 1. Neither conclusion I nor conclusion II follows
 
 ### Mock solution
 
-Decode the statements first, then decode and test each conclusion separately. The key says ? means greater than, so C ? B becomes C > B. The key says ~ means less than, so P ~ Q becomes P < Q. Conclusion I, P ! C, means P = C. The decoded statements allow P < C, P = C, or P > C, so it is not guaranteed. Conclusion II, Q ~ P, means Q < P. The decoded statements allow Q > P, so it is not guaranteed. Therefore, neither conclusion I nor conclusion II follows.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives C > A and Q < R. Conclusion I (Q + C) says Q = C. The statements still allow Q < C, Q = C, or Q > C, so this conclusion is not certain. Conclusion II (R ? Q) says R < Q. The statements force R > Q, so this conclusion does not follow. Therefore, neither conclusion I nor conclusion II follows.
 
 ### Learning solution
 
-Decode the statements first, then decode and test each conclusion separately.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
 
-The key says ? means greater than, so C ? B becomes C > B.
+Replacing the code symbols gives C > A and Q < R.
 
-The key says ~ means less than, so P ~ Q becomes P < Q.
+Conclusion I (Q + C) says Q = C. The statements still allow Q < C, Q = C, or Q > C, so this conclusion is not certain.
 
-Conclusion I, P ! C, means P = C. The decoded statements allow P < C, P = C, or P > C, so it is not guaranteed.
-
-Conclusion II, Q ~ P, means Q < P. The decoded statements allow Q > P, so it is not guaranteed.
+Conclusion II (R ? Q) says R < Q. The statements force R > Q, so this conclusion does not follow.
 
 Therefore, neither conclusion I nor conclusion II follows.
 
-Both conclusions I and II follow: This choice accepts both conclusions. Neither conclusion is guaranteed.
+Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.
 
-Only conclusion I follows: This choice keeps the wrong conclusion. Neither conclusion is guaranteed.
+Both conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.
 
-Only conclusion II follows: This choice keeps the wrong conclusion. Neither conclusion is guaranteed.
+Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.
 
 ## 33. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 8
 
-**Record:** INE-CP006-B4E41067 · **Difficulty:** HARD · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** ASCII_CLASSIC · **Topology:** FOUR_EDGE_MIXED_CHAIN
+**Record:** INE-CP006-B5E411FA · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_MIXED_CHAIN
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -1613,12 +1576,12 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 
 ### Statements
 
-- B & A @ P # Q & C
+- A & Q @ B # R & P
 
 ### Conclusions
 
-I. B & C
-II. A $ Q
+I. A & P
+II. Q $ R
 
 ### Options
 
@@ -1631,155 +1594,139 @@ II. A $ Q
 
 ### Mock solution
 
-Decode the statements first, then decode and test each conclusion separately. The key says & means greater than or equal to, so B & A becomes B ≥ A. The key says @ means equal to, so A @ P becomes A = P. The key says # means greater than, so P # Q becomes P > Q. The key says & means greater than or equal to, so Q & C becomes Q ≥ C. Conclusion I, B & C, means B ≥ C. The decoded statements allow B > C, so it definitely follows. Conclusion II, A $ Q, means A < Q. The decoded statements allow A > Q, so it is not guaranteed. Therefore, only conclusion I follows.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives A ≥ Q, Q = B, B > R, and R ≥ P. Conclusion I (A & P) says A ≥ P. The statements force A > P, so this conclusion follows. Conclusion II (Q $ R) says Q < R. The statements force Q > R, so this conclusion does not follow. Therefore, only conclusion I follows.
 
 ### Learning solution
 
-Decode the statements first, then decode and test each conclusion separately.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
 
-The key says & means greater than or equal to, so B & A becomes B ≥ A.
+Replacing the code symbols gives A ≥ Q, Q = B, B > R, and R ≥ P.
 
-The key says @ means equal to, so A @ P becomes A = P.
+Conclusion I (A & P) says A ≥ P. The statements force A > P, so this conclusion follows.
 
-The key says # means greater than, so P # Q becomes P > Q.
-
-The key says & means greater than or equal to, so Q & C becomes Q ≥ C.
-
-Conclusion I, B & C, means B ≥ C. The decoded statements allow B > C, so it definitely follows.
-
-Conclusion II, A $ Q, means A < Q. The decoded statements allow A > Q, so it is not guaranteed.
+Conclusion II (Q $ R) says Q < R. The statements force Q > R, so this conclusion does not follow.
 
 Therefore, only conclusion I follows.
 
-Neither conclusion I nor conclusion II follows: This choice rejects both conclusions. Only conclusion I is guaranteed.
+Neither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.
 
-Both conclusions I and II follow: This choice accepts both conclusions. Only conclusion I is guaranteed.
+Both conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion I follows.
 
-Only conclusion II follows: This choice keeps the wrong conclusion. Only conclusion I is guaranteed.
+Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.
 
 ## 34. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 9
 
-**Record:** INE-CP006-052E3D9C · **Difficulty:** HARD · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** GEOMETRIC · **Topology:** FOUR_EDGE_WEAK_CHAIN
+**Record:** INE-CP006-082E4255 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 4 · **Topology:** FOUR_EDGE_WEAK_CHAIN
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
 ### Code key
 
-- A ■ B means A is greater than B.
-- A ◆ B means A is less than B.
-- A ▲ B means A is equal to B.
-- A ★ B means A is greater than or equal to B.
-- A ● B means A is less than or equal to B.
+- A ~ B means A is greater than B.
+- A ? B means A is less than B.
+- A ! B means A is equal to B.
+- A ^ B means A is greater than or equal to B.
+- A + B means A is less than or equal to B.
 
 ### Statements
 
-- C ▲ D ★ P ▲ B ★ A
+- P ! D ^ Q ! A ^ B
 
 ### Conclusions
 
-I. A ■ P
-II. D ▲ C
+I. B ~ Q
+II. D ! P
 
 ### Options
 
-1. Only conclusion I follows
+1. Both conclusions I and II follow
 2. Only conclusion II follows
-3. Both conclusions I and II follow
+3. Only conclusion I follows
 4. Neither conclusion I nor conclusion II follows
 
 **Correct:** 2. Only conclusion II follows
 
 ### Mock solution
 
-Decode the statements first, then decode and test each conclusion separately. The key says ▲ means equal to, so C ▲ D becomes C = D. The key says ★ means greater than or equal to, so D ★ P becomes D ≥ P. The key says ▲ means equal to, so P ▲ B becomes P = B. The key says ★ means greater than or equal to, so B ★ A becomes B ≥ A. Conclusion I, A ■ P, means A > P. The decoded statements allow A < P or A = P, so it is not guaranteed. Conclusion II, D ▲ C, means D = C. The decoded statements allow D = C, so it definitely follows. Therefore, only conclusion II follows.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives P = D, D ≥ Q, Q = A, and A ≥ B. Conclusion I (B ~ Q) says B > Q. The statements still allow B < Q or B = Q, so this conclusion is not certain. Conclusion II (D ! P) says D = P. The statements force D = P, so this conclusion follows. Therefore, only conclusion II follows.
 
 ### Learning solution
 
-Decode the statements first, then decode and test each conclusion separately.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
 
-The key says ▲ means equal to, so C ▲ D becomes C = D.
+Replacing the code symbols gives P = D, D ≥ Q, Q = A, and A ≥ B.
 
-The key says ★ means greater than or equal to, so D ★ P becomes D ≥ P.
+Conclusion I (B ~ Q) says B > Q. The statements still allow B < Q or B = Q, so this conclusion is not certain.
 
-The key says ▲ means equal to, so P ▲ B becomes P = B.
-
-The key says ★ means greater than or equal to, so B ★ A becomes B ≥ A.
-
-Conclusion I, A ■ P, means A > P. The decoded statements allow A < P or A = P, so it is not guaranteed.
-
-Conclusion II, D ▲ C, means D = C. The decoded statements allow D = C, so it definitely follows.
+Conclusion II (D ! P) says D = P. The statements force D = P, so this conclusion follows.
 
 Therefore, only conclusion II follows.
 
-Only conclusion I follows: This choice keeps the wrong conclusion. Only conclusion II is guaranteed.
+Both conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion II follows.
 
-Both conclusions I and II follow: This choice accepts both conclusions. Only conclusion II is guaranteed.
+Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Only conclusion II follows.
 
-Neither conclusion I nor conclusion II follows: This choice rejects both conclusions. Only conclusion II is guaranteed.
+Neither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion II follows.
 
 ## 35. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 10
 
-**Record:** INE-CP006-D78687C2 · **Difficulty:** HARD · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** CIRCLED_OPERATORS · **Topology:** CONVERGING_BRANCH
+**Record:** INE-CP006-D686862F · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** CONVERGING_BRANCH
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
 ### Code key
 
-- A ⊙ B means A is greater than B.
-- A ⊖ B means A is less than B.
-- A ⊕ B means A is equal to B.
-- A ⊘ B means A is greater than or equal to B.
-- A ⊗ B means A is less than or equal to B.
+- A $ B means A is greater than B.
+- A # B means A is less than B.
+- A & B means A is equal to B.
+- A @ B means A is greater than or equal to B.
+- A % B means A is less than or equal to B.
 
 ### Statements
 
-- Q ⊖ D
-- C ⊗ P
-- C ⊖ Q
+- C # D
+- Q % R
+- Q # C
 
 ### Conclusions
 
-I. C ⊗ D
-II. Q ⊘ C
+I. Q % D
+II. C @ Q
 
 ### Options
 
-1. Only conclusion II follows
-2. Neither conclusion I nor conclusion II follows
-3. Only conclusion I follows
+1. Neither conclusion I nor conclusion II follows
+2. Only conclusion I follows
+3. Only conclusion II follows
 4. Both conclusions I and II follow
 
 **Correct:** 4. Both conclusions I and II follow
 
 ### Mock solution
 
-Decode the statements first, then decode and test each conclusion separately. The key says ⊖ means less than, so Q ⊖ D becomes Q < D. The key says ⊗ means less than or equal to, so C ⊗ P becomes C ≤ P. The key says ⊖ means less than, so C ⊖ Q becomes C < Q. Conclusion I, C ⊗ D, means C ≤ D. The decoded statements allow C < D, so it definitely follows. Conclusion II, Q ⊘ C, means Q ≥ C. The decoded statements allow Q > C, so it definitely follows. Therefore, both conclusions I and II follow.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives C < D, Q ≤ R, and Q < C. Conclusion I (Q % D) says Q ≤ D. The statements force Q < D, so this conclusion follows. Conclusion II (C @ Q) says C ≥ Q. The statements force C > Q, so this conclusion follows. Therefore, both conclusions I and II follow.
 
 ### Learning solution
 
-Decode the statements first, then decode and test each conclusion separately.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
 
-The key says ⊖ means less than, so Q ⊖ D becomes Q < D.
+Replacing the code symbols gives C < D, Q ≤ R, and Q < C.
 
-The key says ⊗ means less than or equal to, so C ⊗ P becomes C ≤ P.
+Conclusion I (Q % D) says Q ≤ D. The statements force Q < D, so this conclusion follows.
 
-The key says ⊖ means less than, so C ⊖ Q becomes C < Q.
-
-Conclusion I, C ⊗ D, means C ≤ D. The decoded statements allow C < D, so it definitely follows.
-
-Conclusion II, Q ⊘ C, means Q ≥ C. The decoded statements allow Q > C, so it definitely follows.
+Conclusion II (C @ Q) says C ≥ Q. The statements force C > Q, so this conclusion follows.
 
 Therefore, both conclusions I and II follow.
 
-Only conclusion II follows: This choice keeps the wrong conclusion. Both conclusions are guaranteed.
+Neither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Both conclusions I and II follow.
 
-Neither conclusion I nor conclusion II follows: This choice rejects both conclusions. Both conclusions are guaranteed.
+Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Both conclusions I and II follow.
 
-Only conclusion I follows: This choice keeps the wrong conclusion. Both conclusions are guaranteed.
+Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Both conclusions I and II follow.
 
 ## 36. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 11
 
-**Record:** INE-CP006-7FCBF6B5 · **Difficulty:** HARD · **Profile:** EXAM_PRACTICE_PROTOTYPE · **Symbol set:** MIXED_MARKS · **Topology:** CHAIN_WITH_IRRELEVANT_EDGE
+**Record:** INE-CP006-7CCBF1FC · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 3 · **Topology:** CHAIN_WITH_IRRELEVANT_EDGE
 
 Using the supplied code key, which conclusion or conclusions definitely follow?
 
@@ -1793,13 +1740,13 @@ Using the supplied code key, which conclusion or conclusions definitely follow?
 
 ### Statements
 
-- B ^ P ! C
-- Q ~ D
+- D ^ B ! Q
+- C ~ R
 
 ### Conclusions
 
-I. C ! Q
-II. P ^ D
+I. Q ! C
+II. B ^ R
 
 ### Options
 
@@ -1812,566 +1759,624 @@ II. P ^ D
 
 ### Mock solution
 
-Decode the statements first, then decode and test each conclusion separately. The key says ^ means greater than, so B ^ P becomes B > P. The key says ! means greater than or equal to, so P ! C becomes P ≥ C. The key says ~ means equal to, so Q ~ D becomes Q = D. Conclusion I, C ! Q, means C ≥ Q. The decoded statements allow C < Q, C = Q, or C > Q, so it is not guaranteed. Conclusion II, P ^ D, means P > D. The decoded statements allow P < D, P = D, or P > D, so it is not guaranteed. Therefore, neither conclusion I nor conclusion II follows.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives D > B, B ≥ Q, and C = R. Conclusion I (Q ! C) says Q ≥ C. The statements still allow Q < C, Q = C, or Q > C, so this conclusion is not certain. Conclusion II (B ^ R) says B > R. The statements still allow B < R, B = R, or B > R, so this conclusion is not certain. Therefore, neither conclusion I nor conclusion II follows.
 
 ### Learning solution
 
-Decode the statements first, then decode and test each conclusion separately.
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
 
-The key says ^ means greater than, so B ^ P becomes B > P.
+Replacing the code symbols gives D > B, B ≥ Q, and C = R.
 
-The key says ! means greater than or equal to, so P ! C becomes P ≥ C.
+Conclusion I (Q ! C) says Q ≥ C. The statements still allow Q < C, Q = C, or Q > C, so this conclusion is not certain.
 
-The key says ~ means equal to, so Q ~ D becomes Q = D.
-
-Conclusion I, C ! Q, means C ≥ Q. The decoded statements allow C < Q, C = Q, or C > Q, so it is not guaranteed.
-
-Conclusion II, P ^ D, means P > D. The decoded statements allow P < D, P = D, or P > D, so it is not guaranteed.
+Conclusion II (B ^ R) says B > R. The statements still allow B < R, B = R, or B > R, so this conclusion is not certain.
 
 Therefore, neither conclusion I nor conclusion II follows.
 
-Only conclusion II follows: This choice keeps the wrong conclusion. Neither conclusion is guaranteed.
+Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.
 
-Only conclusion I follows: This choice keeps the wrong conclusion. Neither conclusion is guaranteed.
+Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.
 
-Both conclusions I and II follow: This choice accepts both conclusions. Neither conclusion is guaranteed.
+Both conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Neither conclusion I nor conclusion II follows.
 
-## 37. ENCODE_FIXED_MAP_RELATION — seed 0
+## 37. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 12
 
-**Record:** INE-CP006-B827BE76 · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** ASCII_CLASSIC · **Topology:** DIRECT_LESS_THAN
+**Record:** INE-CP006-54024935 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 5 · **Topology:** FIVE_EDGE_MIXED_CHAIN
+
+Using the supplied code key, which conclusion or conclusions definitely follow?
+
+### Code key
+
+- A $ B means A is greater than B.
+- A # B means A is less than B.
+- A & B means A is equal to B.
+- A @ B means A is greater than or equal to B.
+- A % B means A is less than or equal to B.
+
+### Statements
+
+- D @ B $ P & R @ C $ A
+
+### Conclusions
+
+I. D $ R
+II. D % C
+III. R $ A
+
+### Options
+
+1. Only conclusions I and III follow
+2. Only conclusion II follows
+3. Only conclusion III follows
+4. Only conclusion I follows
+
+**Correct:** 1. Only conclusions I and III follow
+
+### Mock solution
+
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives D ≥ B, B > P, P = R, R ≥ C, and C > A. Conclusion I (D $ R) says D > R. The statements force D > R, so this conclusion follows. Conclusion II (D % C) says D ≤ C. The statements force D > C, so this conclusion does not follow. Conclusion III (R $ A) says R > A. The statements force R > A, so this conclusion follows. Therefore, only conclusions I and III follow.
+
+### Learning solution
+
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
+
+Replacing the code symbols gives D ≥ B, B > P, P = R, R ≥ C, and C > A.
+
+Conclusion I (D $ R) says D > R. The statements force D > R, so this conclusion follows.
+
+Conclusion II (D % C) says D ≤ C. The statements force D > C, so this conclusion does not follow.
+
+Conclusion III (R $ A) says R > A. The statements force R > A, so this conclusion follows.
+
+Therefore, only conclusions I and III follow.
+
+Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Only conclusions I and III follow.
+
+Only conclusion III follows: Only conclusion III follows, but checking each conclusion separately gives: Only conclusions I and III follow.
+
+Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Only conclusions I and III follow.
+
+## 38. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 13
+
+**Record:** INE-CP006-A4EA305A · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 6 · **Topology:** SIX_EDGE_MIXED_CHAIN
+
+Using the supplied code key, which conclusion or conclusions definitely follow?
+
+### Code key
+
+- A ? B means A is greater than B.
+- A + B means A is less than B.
+- A ! B means A is equal to B.
+- A ^ B means A is greater than or equal to B.
+- A ~ B means A is less than or equal to B.
+
+### Statements
+
+- D ^ R ? C ! A ^ B ? Q ^ P
+
+### Conclusions
+
+I. Q ! B
+II. A ^ C
+III. Q ~ C
+
+### Options
+
+1. Only conclusion I follows
+2. Only conclusion III follows
+3. Only conclusions II and III follow
+4. Only conclusion II follows
+
+**Correct:** 3. Only conclusions II and III follow
+
+### Mock solution
+
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives D ≥ R, R > C, C = A, A ≥ B, B > Q, and Q ≥ P. Conclusion I (Q ! B) says Q = B. The statements force Q < B, so this conclusion does not follow. Conclusion II (A ^ C) says A ≥ C. The statements force A = C, so this conclusion follows. Conclusion III (Q ~ C) says Q ≤ C. The statements force Q < C, so this conclusion follows. Therefore, only conclusions II and III follow.
+
+### Learning solution
+
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
+
+Replacing the code symbols gives D ≥ R, R > C, C = A, A ≥ B, B > Q, and Q ≥ P.
+
+Conclusion I (Q ! B) says Q = B. The statements force Q < B, so this conclusion does not follow.
+
+Conclusion II (A ^ C) says A ≥ C. The statements force A = C, so this conclusion follows.
+
+Conclusion III (Q ~ C) says Q ≤ C. The statements force Q < C, so this conclusion follows.
+
+Therefore, only conclusions II and III follow.
+
+Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: Only conclusions II and III follow.
+
+Only conclusion III follows: Only conclusion III follows, but checking each conclusion separately gives: Only conclusions II and III follow.
+
+Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Only conclusions II and III follow.
+
+## 39. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 14
+
+**Record:** INE-CP006-1F4DBD8B · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 7 · **Topology:** FIVE_EDGE_CHAIN_WITH_TWO_SUPPORTS
+
+Using the supplied code key, which conclusion or conclusions definitely follow?
+
+### Code key
+
+- A $ B means A is greater than B.
+- A % B means A is less than B.
+- A # B means A is equal to B.
+- A @ B means A is greater than or equal to B.
+- A & B means A is less than or equal to B.
+
+### Statements
+
+- P @ C $ D @ Q # B $ R
+- P $ D
+- Q $ R
+
+### Conclusions
+
+I. Q # B
+II. C @ D
+III. P @ C
+
+### Options
+
+1. Only conclusion I follows
+2. Only conclusion III follows
+3. Only conclusion II follows
+4. All three conclusions follow
+
+**Correct:** 4. All three conclusions follow
+
+### Mock solution
+
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives P ≥ C, C > D, D ≥ Q, Q = B, B > R, P > D, and Q > R. Conclusion I (Q # B) says Q = B. The statements force Q = B, so this conclusion follows. Conclusion II (C @ D) says C ≥ D. The statements force C > D, so this conclusion follows. Conclusion III (P @ C) says P ≥ C. The statements still allow P = C or P > C, so this conclusion is not certain. Therefore, all three conclusions follow.
+
+### Learning solution
+
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
+
+Replacing the code symbols gives P ≥ C, C > D, D ≥ Q, Q = B, B > R, P > D, and Q > R.
+
+Conclusion I (Q # B) says Q = B. The statements force Q = B, so this conclusion follows.
+
+Conclusion II (C @ D) says C ≥ D. The statements force C > D, so this conclusion follows.
+
+Conclusion III (P @ C) says P ≥ C. The statements still allow P = C or P > C, so this conclusion is not certain.
+
+Therefore, all three conclusions follow.
+
+Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: All three conclusions follow.
+
+Only conclusion III follows: Only conclusion III follows, but checking each conclusion separately gives: All three conclusions follow.
+
+Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: All three conclusions follow.
+
+## 40. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 15
+
+**Record:** INE-CP006-757E4E68 · **Difficulty:** HARD · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_ALTERNATE · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 8 · **Topology:** FIVE_EDGE_CHAIN_WITH_THREE_SUPPORTS
+
+Using the supplied code key, which conclusion or conclusions definitely follow?
+
+### Code key
+
+- A + B means A is greater than B.
+- A ? B means A is less than B.
+- A ! B means A is equal to B.
+- A ^ B means A is greater than or equal to B.
+- A ~ B means A is less than or equal to B.
+
+### Statements
+
+- B + Q
+- P + A
+- D + C
+- B + P ^ Q ! D + A ^ C
+
+### Conclusions
+
+I. C ^ A
+II. A ! P
+III. Q + B
+
+### Options
+
+1. Only conclusion III follows
+2. None of the conclusions follow
+3. Only conclusion II follows
+4. Only conclusion I follows
+
+**Correct:** 2. None of the conclusions follow
+
+### Mock solution
+
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives B > Q, P > A, D > C, B > P, P ≥ Q, Q = D, D > A, and A ≥ C. Conclusion I (C ^ A) says C ≥ A. The statements still allow C < A or C = A, so this conclusion is not certain. Conclusion II (A ! P) says A = P. The statements force A < P, so this conclusion does not follow. Conclusion III (Q + B) says Q > B. The statements force Q < B, so this conclusion does not follow. Therefore, none of the conclusions follow.
+
+### Learning solution
+
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
+
+Replacing the code symbols gives B > Q, P > A, D > C, B > P, P ≥ Q, Q = D, D > A, and A ≥ C.
+
+Conclusion I (C ^ A) says C ≥ A. The statements still allow C < A or C = A, so this conclusion is not certain.
+
+Conclusion II (A ! P) says A = P. The statements force A < P, so this conclusion does not follow.
+
+Conclusion III (Q + B) says Q > B. The statements force Q < B, so this conclusion does not follow.
+
+Therefore, none of the conclusions follow.
+
+Only conclusion III follows: Only conclusion III follows, but checking each conclusion separately gives: None of the conclusions follow.
+
+Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: None of the conclusions follow.
+
+Only conclusion I follows: Only conclusion I follows, but checking each conclusion separately gives: None of the conclusions follow.
+
+## 41. EVALUATE_FIXED_MAP_CODED_CONCLUSIONS — seed 16
+
+**Record:** INE-CP006-1FD709A1 · **Difficulty:** MEDIUM · **Delivery:** EXAM_PRACTICE_PROTOTYPE · **Symbols:** ASCII_EXAM_PROFILE/ASCII_CLASSIC · **Applicability:** BANKING_REGULATORY_PRACTICE_ONLY · **Statements:** 2 · **Topology:** TWO_EDGE_STRICT_CHAIN
+
+Using the supplied code key, which conclusion or conclusions definitely follow?
+
+### Code key
+
+- A # B means A is greater than B.
+- A @ B means A is less than B.
+- A & B means A is equal to B.
+- A $ B means A is greater than or equal to B.
+- A % B means A is less than or equal to B.
+
+### Statements
+
+- A # B # Q
+
+### Conclusions
+
+I. A $ Q
+II. A & B
+
+### Options
+
+1. Both conclusions I and II follow
+2. Only conclusion II follows
+3. Neither conclusion I nor conclusion II follows
+4. Only conclusion I follows
+
+**Correct:** 4. Only conclusion I follows
+
+### Mock solution
+
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another. Replacing the code symbols gives A > B and B > Q. Conclusion I (A $ Q) says A ≥ Q. The statements force A > Q, so this conclusion follows. Conclusion II (A & B) says A = B. The statements force A > B, so this conclusion does not follow. Therefore, only conclusion I follows.
+
+### Learning solution
+
+First translate the code key. Then check each conclusion on its own; one conclusion cannot borrow support from another.
+
+Replacing the code symbols gives A > B and B > Q.
+
+Conclusion I (A $ Q) says A ≥ Q. The statements force A > Q, so this conclusion follows.
+
+Conclusion II (A & B) says A = B. The statements force A > B, so this conclusion does not follow.
+
+Therefore, only conclusion I follows.
+
+Both conclusions I and II follow: Both conclusions I and II follow, but checking each conclusion separately gives: Only conclusion I follows.
+
+Only conclusion II follows: Only conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.
+
+Neither conclusion I nor conclusion II follows: Neither conclusion I nor conclusion II follows, but checking each conclusion separately gives: Only conclusion I follows.
+
+## 42. ENCODE_FIXED_MAP_RELATION — seed 0
+
+**Record:** INE-CP006-B727BCE3 · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/GEOMETRIC · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_LESS_THAN
 
 According to the supplied code key, which option correctly encodes the ordinary relation?
 
 ### Code key
 
-- A % B means A is greater than B.
-- A $ B means A is less than B.
-- A @ B means A is equal to B.
-- A & B means A is greater than or equal to B.
-- A # B means A is less than or equal to B.
+- A ▲ B means A is greater than B.
+- A ■ B means A is less than B.
+- A ★ B means A is equal to B.
+- A ◆ B means A is greater than or equal to B.
+- A ● B means A is less than or equal to B.
 
 ### Statements
 
-- A < P
+- D < A
 
 ### Options
 
-1. A & P
-2. A $ P
-3. A # P
-4. A @ P
+1. D ★ A
+2. D ■ A
+3. D ● A
+4. D ◆ A
 
-**Correct:** 2. A $ P
+**Correct:** 2. D ■ A
 
 ### Mock solution
 
-The required relation is A < P. In the supplied key, $ represents less than (<). Therefore, the correct coded form is A $ P.
+The required relation is D < A. In the supplied key, ■ represents less than (<). Therefore, the correct coded form is D ■ A.
 
 ### Learning solution
 
-The required relation is A < P.
+The required relation is D < A.
 
-In the supplied key, $ represents less than (<).
+In the supplied key, ■ represents less than (<).
 
-Therefore, the correct coded form is A $ P.
+Therefore, the correct coded form is D ■ A.
 
-A & P: Its code symbol represents greater than or equal to, not less than.
+D ★ A: Its code symbol represents equal to, not less than.
 
-A # P: Its code symbol represents less than or equal to, not less than.
+D ● A: Its code symbol represents less than or equal to, not less than.
 
-A @ P: Its code symbol represents equal to, not less than.
+D ◆ A: Its code symbol represents greater than or equal to, not less than.
 
-## 38. ENCODE_FIXED_MAP_RELATION — seed 1
+## 43. ENCODE_FIXED_MAP_RELATION — seed 1
 
-**Record:** INE-CP006-9B832AF9 · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** GEOMETRIC · **Topology:** DIRECT_GREATER_THAN
+**Record:** INE-CP006-98832640 · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/CIRCLED_OPERATORS · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_GREATER_THAN
+
+According to the supplied code key, which option correctly encodes the ordinary relation?
+
+### Code key
+
+- A ⊖ B means A is greater than B.
+- A ⊗ B means A is less than B.
+- A ⊕ B means A is equal to B.
+- A ⊙ B means A is greater than or equal to B.
+- A ⊘ B means A is less than or equal to B.
+
+### Statements
+
+- C > D
+
+### Options
+
+1. C ⊕ D
+2. C ⊘ D
+3. C ⊖ D
+4. C ⊙ D
+
+**Correct:** 3. C ⊖ D
+
+### Mock solution
+
+The required relation is C > D. In the supplied key, ⊖ represents greater than (>). Therefore, the correct coded form is C ⊖ D.
+
+### Learning solution
+
+The required relation is C > D.
+
+In the supplied key, ⊖ represents greater than (>).
+
+Therefore, the correct coded form is C ⊖ D.
+
+C ⊕ D: Its code symbol represents equal to, not greater than.
+
+C ⊘ D: Its code symbol represents less than or equal to, not greater than.
+
+C ⊙ D: Its code symbol represents greater than or equal to, not greater than.
+
+## 44. ENCODE_FIXED_MAP_RELATION — seed 2
+
+**Record:** INE-CP006-B1F00AF9 · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/GEOMETRIC · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_EQUAL_TO
 
 According to the supplied code key, which option correctly encodes the ordinary relation?
 
 ### Code key
 
 - A ◆ B means A is greater than B.
-- A ▲ B means A is less than B.
-- A ■ B means A is equal to B.
-- A ★ B means A is greater than or equal to B.
-- A ● B means A is less than or equal to B.
+- A ● B means A is less than B.
+- A ★ B means A is equal to B.
+- A ▲ B means A is greater than or equal to B.
+- A ■ B means A is less than or equal to B.
 
 ### Statements
 
-- Q > C
+- A = D
 
 ### Options
 
-1. Q ▲ C
-2. Q ★ C
-3. Q ◆ C
-4. Q ■ C
+1. A ▲ D
+2. A ◆ D
+3. A ● D
+4. A ★ D
 
-**Correct:** 3. Q ◆ C
+**Correct:** 4. A ★ D
 
 ### Mock solution
 
-The required relation is Q > C. In the supplied key, ◆ represents greater than (>). Therefore, the correct coded form is Q ◆ C.
+The required relation is A = D. In the supplied key, ★ represents equal to (=). Therefore, the correct coded form is A ★ D.
 
 ### Learning solution
 
-The required relation is Q > C.
+The required relation is A = D.
 
-In the supplied key, ◆ represents greater than (>).
+In the supplied key, ★ represents equal to (=).
 
-Therefore, the correct coded form is Q ◆ C.
+Therefore, the correct coded form is A ★ D.
 
-Q ▲ C: Its code symbol represents less than, not greater than.
+A ▲ D: Its code symbol represents greater than or equal to, not equal to.
 
-Q ★ C: Its code symbol represents greater than or equal to, not greater than.
+A ◆ D: Its code symbol represents greater than, not equal to.
 
-Q ■ C: Its code symbol represents equal to, not greater than.
+A ● D: Its code symbol represents less than, not equal to.
 
-## 39. ENCODE_FIXED_MAP_RELATION — seed 2
+## 45. ENCODE_FIXED_MAP_RELATION — seed 3
 
-**Record:** INE-CP006-AEF00640 · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** CIRCLED_OPERATORS · **Topology:** DIRECT_EQUAL_TO
+**Record:** INE-CP006-7219E7DE · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/CIRCLED_OPERATORS · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_GREATER_THAN_OR_EQUAL
 
 According to the supplied code key, which option correctly encodes the ordinary relation?
 
 ### Code key
 
-- A ⊕ B means A is greater than B.
+- A ⊘ B means A is greater than B.
+- A ⊗ B means A is less than B.
+- A ⊙ B means A is equal to B.
+- A ⊖ B means A is greater than or equal to B.
+- A ⊕ B means A is less than or equal to B.
+
+### Statements
+
+- P ≥ B
+
+### Options
+
+1. P ⊖ B
+2. P ⊕ B
+3. P ⊙ B
+4. P ⊘ B
+
+**Correct:** 1. P ⊖ B
+
+### Mock solution
+
+The required relation is P ≥ B. In the supplied key, ⊖ represents greater than or equal to (≥). Therefore, the correct coded form is P ⊖ B.
+
+### Learning solution
+
+The required relation is P ≥ B.
+
+In the supplied key, ⊖ represents greater than or equal to (≥).
+
+Therefore, the correct coded form is P ⊖ B.
+
+P ⊕ B: Its code symbol represents less than or equal to, not greater than or equal to.
+
+P ⊙ B: Its code symbol represents equal to, not greater than or equal to.
+
+P ⊘ B: Its code symbol represents greater than, not greater than or equal to.
+
+## 46. ENCODE_FIXED_MAP_RELATION — seed 4
+
+**Record:** INE-CP006-8C3F72C7 · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/GEOMETRIC · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_LESS_THAN_OR_EQUAL
+
+According to the supplied code key, which option correctly encodes the ordinary relation?
+
+### Code key
+
+- A ● B means A is greater than B.
+- A ★ B means A is less than B.
+- A ■ B means A is equal to B.
+- A ▲ B means A is greater than or equal to B.
+- A ◆ B means A is less than or equal to B.
+
+### Statements
+
+- D ≤ Q
+
+### Options
+
+1. D ● Q
+2. D ◆ Q
+3. D ★ Q
+4. D ▲ Q
+
+**Correct:** 2. D ◆ Q
+
+### Mock solution
+
+The required relation is D ≤ Q. In the supplied key, ◆ represents less than or equal to (≤). Therefore, the correct coded form is D ◆ Q.
+
+### Learning solution
+
+The required relation is D ≤ Q.
+
+In the supplied key, ◆ represents less than or equal to (≤).
+
+Therefore, the correct coded form is D ◆ Q.
+
+D ● Q: Its code symbol represents greater than, not less than or equal to.
+
+D ★ Q: Its code symbol represents less than, not less than or equal to.
+
+D ▲ Q: Its code symbol represents greater than or equal to, not less than or equal to.
+
+## 47. ENCODE_FIXED_MAP_RELATION — seed 5
+
+**Record:** INE-CP006-A5A310B4 · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/CIRCLED_OPERATORS · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_GREATER_THAN
+
+According to the supplied code key, which option correctly encodes the ordinary relation?
+
+### Code key
+
+- A ⊖ B means A is greater than B.
 - A ⊗ B means A is less than B.
 - A ⊘ B means A is equal to B.
-- A ⊙ B means A is greater than or equal to B.
-- A ⊖ B means A is less than or equal to B.
+- A ⊕ B means A is greater than or equal to B.
+- A ⊙ B means A is less than or equal to B.
 
 ### Statements
 
-- Q = A
+- R > P
 
 ### Options
 
-1. Q ⊗ A
-2. Q ⊖ A
-3. Q ⊙ A
-4. Q ⊘ A
+1. R ⊘ P
+2. R ⊕ P
+3. R ⊗ P
+4. R ⊖ P
 
-**Correct:** 4. Q ⊘ A
+**Correct:** 4. R ⊖ P
 
 ### Mock solution
 
-The required relation is Q = A. In the supplied key, ⊘ represents equal to (=). Therefore, the correct coded form is Q ⊘ A.
+The required relation is R > P. In the supplied key, ⊖ represents greater than (>). Therefore, the correct coded form is R ⊖ P.
 
 ### Learning solution
 
-The required relation is Q = A.
+The required relation is R > P.
 
-In the supplied key, ⊘ represents equal to (=).
+In the supplied key, ⊖ represents greater than (>).
 
-Therefore, the correct coded form is Q ⊘ A.
+Therefore, the correct coded form is R ⊖ P.
 
-Q ⊗ A: Its code symbol represents less than, not equal to.
+R ⊘ P: Its code symbol represents equal to, not greater than.
 
-Q ⊖ A: Its code symbol represents less than or equal to, not equal to.
+R ⊕ P: Its code symbol represents greater than or equal to, not greater than.
 
-Q ⊙ A: Its code symbol represents greater than or equal to, not equal to.
+R ⊗ P: Its code symbol represents less than, not greater than.
 
-## 40. ENCODE_FIXED_MAP_RELATION — seed 3
+## 48. ENCODE_FIXED_MAP_RELATION — seed 6
 
-**Record:** INE-CP006-7119E64B · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** MIXED_MARKS · **Topology:** DIRECT_GREATER_THAN_OR_EQUAL
+**Record:** INE-CP006-EA8B28AD · **Difficulty:** EASY · **Delivery:** GUIDED_CONCEPT · **Symbols:** UNICODE_GUIDED_PROFILE/GEOMETRIC · **Applicability:** GUIDED_CONCEPT_ONLY · **Statements:** 1 · **Topology:** DIRECT_LESS_THAN
 
 According to the supplied code key, which option correctly encodes the ordinary relation?
 
 ### Code key
 
-- A ! B means A is greater than B.
-- A ~ B means A is less than B.
-- A + B means A is equal to B.
-- A ^ B means A is greater than or equal to B.
-- A ? B means A is less than or equal to B.
-
-### Statements
-
-- D ≥ B
-
-### Options
-
-1. D ^ B
-2. D ! B
-3. D + B
-4. D ? B
-
-**Correct:** 1. D ^ B
-
-### Mock solution
-
-The required relation is D ≥ B. In the supplied key, ^ represents greater than or equal to (≥). Therefore, the correct coded form is D ^ B.
-
-### Learning solution
-
-The required relation is D ≥ B.
-
-In the supplied key, ^ represents greater than or equal to (≥).
-
-Therefore, the correct coded form is D ^ B.
-
-D ! B: Its code symbol represents greater than, not greater than or equal to.
-
-D + B: Its code symbol represents equal to, not greater than or equal to.
-
-D ? B: Its code symbol represents less than or equal to, not greater than or equal to.
-
-## 41. ENCODE_FIXED_MAP_RELATION — seed 4
-
-**Record:** INE-CP006-8D3F745A · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** ASCII_CLASSIC · **Topology:** DIRECT_LESS_THAN_OR_EQUAL
-
-According to the supplied code key, which option correctly encodes the ordinary relation?
-
-### Code key
-
-- A & B means A is greater than B.
-- A $ B means A is less than B.
-- A % B means A is equal to B.
-- A # B means A is greater than or equal to B.
-- A @ B means A is less than or equal to B.
-
-### Statements
-
-- Q ≤ P
-
-### Options
-
-1. Q # P
-2. Q @ P
-3. Q % P
-4. Q & P
-
-**Correct:** 2. Q @ P
-
-### Mock solution
-
-The required relation is Q ≤ P. In the supplied key, @ represents less than or equal to (≤). Therefore, the correct coded form is Q @ P.
-
-### Learning solution
-
-The required relation is Q ≤ P.
-
-In the supplied key, @ represents less than or equal to (≤).
-
-Therefore, the correct coded form is Q @ P.
-
-Q # P: Its code symbol represents greater than or equal to, not less than or equal to.
-
-Q % P: Its code symbol represents equal to, not less than or equal to.
-
-Q & P: Its code symbol represents greater than, not less than or equal to.
-
-## 42. ENCODE_FIXED_MAP_RELATION — seed 5
-
-**Record:** INE-CP006-A8A3156D · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** GEOMETRIC · **Topology:** DIRECT_GREATER_THAN
-
-According to the supplied code key, which option correctly encodes the ordinary relation?
-
-### Code key
-
-- A ■ B means A is greater than B.
-- A ◆ B means A is less than B.
-- A ▲ B means A is equal to B.
-- A ● B means A is greater than or equal to B.
-- A ★ B means A is less than or equal to B.
-
-### Statements
-
-- D > Q
-
-### Options
-
-1. D ◆ Q
-2. D ★ Q
-3. D ● Q
-4. D ■ Q
-
-**Correct:** 4. D ■ Q
-
-### Mock solution
-
-The required relation is D > Q. In the supplied key, ■ represents greater than (>). Therefore, the correct coded form is D ■ Q.
-
-### Learning solution
-
-The required relation is D > Q.
-
-In the supplied key, ■ represents greater than (>).
-
-Therefore, the correct coded form is D ■ Q.
-
-D ◆ Q: Its code symbol represents less than, not greater than.
-
-D ★ Q: Its code symbol represents less than or equal to, not greater than.
-
-D ● Q: Its code symbol represents greater than or equal to, not greater than.
-
-## 43. ENCODE_FIXED_MAP_RELATION — seed 6
-
-**Record:** INE-CP006-E78B23F4 · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** CIRCLED_OPERATORS · **Topology:** DIRECT_LESS_THAN
-
-According to the supplied code key, which option correctly encodes the ordinary relation?
-
-### Code key
-
-- A ⊗ B means A is greater than B.
-- A ⊕ B means A is less than B.
-- A ⊙ B means A is equal to B.
-- A ⊘ B means A is greater than or equal to B.
-- A ⊖ B means A is less than or equal to B.
-
-### Statements
-
-- Q < P
-
-### Options
-
-1. Q ⊕ P
-2. Q ⊘ P
-3. Q ⊖ P
-4. Q ⊗ P
-
-**Correct:** 1. Q ⊕ P
-
-### Mock solution
-
-The required relation is Q < P. In the supplied key, ⊕ represents less than (<). Therefore, the correct coded form is Q ⊕ P.
-
-### Learning solution
-
-The required relation is Q < P.
-
-In the supplied key, ⊕ represents less than (<).
-
-Therefore, the correct coded form is Q ⊕ P.
-
-Q ⊘ P: Its code symbol represents greater than or equal to, not less than.
-
-Q ⊖ P: Its code symbol represents less than or equal to, not less than.
-
-Q ⊗ P: Its code symbol represents greater than, not less than.
-
-## 44. ENCODE_FIXED_MAP_RELATION — seed 7
-
-**Record:** INE-CP006-01123EBF · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** MIXED_MARKS · **Topology:** DIRECT_EQUAL_TO
-
-According to the supplied code key, which option correctly encodes the ordinary relation?
-
-### Code key
-
-- A ? B means A is greater than B.
-- A ~ B means A is less than B.
-- A ! B means A is equal to B.
-- A ^ B means A is greater than or equal to B.
-- A + B means A is less than or equal to B.
-
-### Statements
-
-- Q = P
-
-### Options
-
-1. Q + P
-2. Q ? P
-3. Q ! P
-4. Q ~ P
-
-**Correct:** 3. Q ! P
-
-### Mock solution
-
-The required relation is Q = P. In the supplied key, ! represents equal to (=). Therefore, the correct coded form is Q ! P.
-
-### Learning solution
-
-The required relation is Q = P.
-
-In the supplied key, ! represents equal to (=).
-
-Therefore, the correct coded form is Q ! P.
-
-Q + P: Its code symbol represents less than or equal to, not equal to.
-
-Q ? P: Its code symbol represents greater than, not equal to.
-
-Q ~ P: Its code symbol represents less than, not equal to.
-
-## 45. ENCODE_FIXED_MAP_RELATION — seed 8
-
-**Record:** INE-CP006-D83FD6AE · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** ASCII_CLASSIC · **Topology:** DIRECT_LESS_THAN_OR_EQUAL
-
-According to the supplied code key, which option correctly encodes the ordinary relation?
-
-### Code key
-
-- A # B means A is greater than B.
-- A $ B means A is less than B.
-- A @ B means A is equal to B.
-- A & B means A is greater than or equal to B.
-- A % B means A is less than or equal to B.
-
-### Statements
-
-- A ≤ Q
-
-### Options
-
-1. A % Q
-2. A $ Q
-3. A @ Q
-4. A # Q
-
-**Correct:** 1. A % Q
-
-### Mock solution
-
-The required relation is A ≤ Q. In the supplied key, % represents less than or equal to (≤). Therefore, the correct coded form is A % Q.
-
-### Learning solution
-
-The required relation is A ≤ Q.
-
-In the supplied key, % represents less than or equal to (≤).
-
-Therefore, the correct coded form is A % Q.
-
-A $ Q: Its code symbol represents less than, not less than or equal to.
-
-A @ Q: Its code symbol represents equal to, not less than or equal to.
-
-A # Q: Its code symbol represents greater than, not less than or equal to.
-
-## 46. ENCODE_FIXED_MAP_RELATION — seed 9
-
-**Record:** INE-CP006-5396C3B1 · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** GEOMETRIC · **Topology:** DIRECT_LESS_THAN_OR_EQUAL
-
-According to the supplied code key, which option correctly encodes the ordinary relation?
-
-### Code key
-
-- A ■ B means A is greater than B.
-- A ◆ B means A is less than B.
-- A ▲ B means A is equal to B.
-- A ★ B means A is greater than or equal to B.
+- A ◆ B means A is greater than B.
+- A ■ B means A is less than B.
+- A ★ B means A is equal to B.
+- A ▲ B means A is greater than or equal to B.
 - A ● B means A is less than or equal to B.
 
 ### Statements
 
-- C ≤ B
+- P < C
 
 ### Options
 
-1. C ■ B
-2. C ◆ B
-3. C ● B
-4. C ▲ B
+1. P ■ C
+2. P ● C
+3. P ▲ C
+4. P ◆ C
 
-**Correct:** 3. C ● B
-
-### Mock solution
-
-The required relation is C ≤ B. In the supplied key, ● represents less than or equal to (≤). Therefore, the correct coded form is C ● B.
-
-### Learning solution
-
-The required relation is C ≤ B.
-
-In the supplied key, ● represents less than or equal to (≤).
-
-Therefore, the correct coded form is C ● B.
-
-C ■ B: Its code symbol represents greater than, not less than or equal to.
-
-C ◆ B: Its code symbol represents less than, not less than or equal to.
-
-C ▲ B: Its code symbol represents equal to, not less than or equal to.
-
-## 47. ENCODE_FIXED_MAP_RELATION — seed 10
-
-**Record:** INE-CP006-763D57C1 · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** CIRCLED_OPERATORS · **Topology:** DIRECT_LESS_THAN
-
-According to the supplied code key, which option correctly encodes the ordinary relation?
-
-### Code key
-
-- A ⊙ B means A is greater than B.
-- A ⊖ B means A is less than B.
-- A ⊕ B means A is equal to B.
-- A ⊘ B means A is greater than or equal to B.
-- A ⊗ B means A is less than or equal to B.
-
-### Statements
-
-- C < Q
-
-### Options
-
-1. C ⊗ Q
-2. C ⊖ Q
-3. C ⊘ Q
-4. C ⊙ Q
-
-**Correct:** 2. C ⊖ Q
+**Correct:** 1. P ■ C
 
 ### Mock solution
 
-The required relation is C < Q. In the supplied key, ⊖ represents less than (<). Therefore, the correct coded form is C ⊖ Q.
+The required relation is P < C. In the supplied key, ■ represents less than (<). Therefore, the correct coded form is P ■ C.
 
 ### Learning solution
 
-The required relation is C < Q.
+The required relation is P < C.
 
-In the supplied key, ⊖ represents less than (<).
+In the supplied key, ■ represents less than (<).
 
-Therefore, the correct coded form is C ⊖ Q.
+Therefore, the correct coded form is P ■ C.
 
-C ⊗ Q: Its code symbol represents less than or equal to, not less than.
+P ● C: Its code symbol represents less than or equal to, not less than.
 
-C ⊘ Q: Its code symbol represents greater than or equal to, not less than.
+P ▲ C: Its code symbol represents greater than or equal to, not less than.
 
-C ⊙ Q: Its code symbol represents greater than, not less than.
-
-## 48. ENCODE_FIXED_MAP_RELATION — seed 11
-
-**Record:** INE-CP006-7F6BE4BE · **Difficulty:** EASY · **Profile:** GUIDED_CONCEPT · **Symbol set:** MIXED_MARKS · **Topology:** DIRECT_GREATER_THAN
-
-According to the supplied code key, which option correctly encodes the ordinary relation?
-
-### Code key
-
-- A ^ B means A is greater than B.
-- A + B means A is less than B.
-- A ~ B means A is equal to B.
-- A ! B means A is greater than or equal to B.
-- A ? B means A is less than or equal to B.
-
-### Statements
-
-- B > A
-
-### Options
-
-1. B + A
-2. B ? A
-3. B ~ A
-4. B ^ A
-
-**Correct:** 4. B ^ A
-
-### Mock solution
-
-The required relation is B > A. In the supplied key, ^ represents greater than (>). Therefore, the correct coded form is B ^ A.
-
-### Learning solution
-
-The required relation is B > A.
-
-In the supplied key, ^ represents greater than (>).
-
-Therefore, the correct coded form is B ^ A.
-
-B + A: Its code symbol represents less than, not greater than.
-
-B ? A: Its code symbol represents less than or equal to, not greater than.
-
-B ~ A: Its code symbol represents equal to, not greater than.
+P ◆ C: Its code symbol represents greater than, not less than.

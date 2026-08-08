@@ -7,21 +7,16 @@ import {
   ordinaryRelationSymbol,
   renderCodedConstraint,
 } from "./coded-renderer";
+import {
+  conclusionMaskLabel,
+  conclusionMasksForCount,
+} from "./conclusion-masks";
 import type {
   IneCp006AnswerSemantic,
   IneCp006ConclusionMask,
   IneCp006Option,
   IneCp006Scenario,
 } from "./types";
-
-export const CP006_MASK_LABELS: Readonly<
-  Record<IneCp006ConclusionMask, string>
-> = {
-  ONLY_I: "Only conclusion I follows",
-  ONLY_II: "Only conclusion II follows",
-  BOTH: "Both conclusions I and II follow",
-  NEITHER: "Neither conclusion I nor conclusion II follows",
-};
 
 function balancedIndex(namespace: string, seed: number): number {
   const normalized = (Number.isFinite(seed) ? Math.trunc(seed) : 0) >>> 0;
@@ -86,18 +81,21 @@ export function buildIneCp006Options(
   );
 
   if (scenario.taskKind === "EVALUATE_CONCLUSIONS") {
+    const conclusionCount = scenario.conclusions.length as 2 | 3;
+    const masks = conclusionMasksForCount(conclusionCount);
     const correctMask = scenario.expectedMask!;
     const correct: IneCp006Option = {
-      value: CP006_MASK_LABELS[correctMask],
+      value: conclusionMaskLabel(correctMask, conclusionCount),
       conclusionMask: correctMask,
       isCorrect: true,
     };
     const distractors = random.shuffle(
-      (Object.keys(CP006_MASK_LABELS) as IneCp006ConclusionMask[])
+      masks
         .filter((mask) => mask !== correctMask)
+        .slice(0, 3)
         .map(
           (mask): IneCp006Option => ({
-            value: CP006_MASK_LABELS[mask],
+            value: conclusionMaskLabel(mask, conclusionCount),
             conclusionMask: mask,
             isCorrect: false,
             errorLabel: "MISCLASSIFIED_CONCLUSION_SET",
