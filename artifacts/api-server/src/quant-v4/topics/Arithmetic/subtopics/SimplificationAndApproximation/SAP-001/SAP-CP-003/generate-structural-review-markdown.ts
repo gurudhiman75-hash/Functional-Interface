@@ -51,8 +51,8 @@ const lines: string[] = [
   "",
   "**Checkpoint:** Decimals, Percentages and Exact Representation Switching  ",
   "**Permanent QLs:** SAP-QL-034 through SAP-QL-052  ",
-  "**Status:** Editorial remediation V3 candidate; human review pending  ",
-  "**Product lifecycle:** Inactive  ",
+  "**Status:** Human editorial review approved on 2026-08-08  ",
+  "**Product lifecycle:** Inactive; merge and activation require separate authorisation  ",
   "",
   "## Corpus integrity snapshot",
   "",
@@ -105,7 +105,7 @@ for (const record of records) {
 mkdirSync(dirname(outputPath), { recursive: true });
 writeFileSync(outputPath, lines.join("\n"), "utf8");
 console.log(JSON.stringify({
-  status: "WROTE_SAP_CP003_STRUCTURAL_REVIEW_V3",
+  status: "WROTE_SAP_CP003_STRUCTURAL_REVIEW_V3_APPROVED",
   outputPath,
   questionCount: records.length,
   answerPositionCounts: { A: positionCounts[0], B: positionCounts[1], C: positionCounts[2], D: positionCounts[3] },
@@ -114,5 +114,5 @@ console.log(JSON.stringify({
   cyclicFourWindows,
   distinctFourGrams: fourGrams.size,
   maximumSamePositionRun,
-  lifecycle: "INACTIVE_HUMAN_REVIEW_PENDING",
+  lifecycle: "INACTIVE_HUMAN_REVIEW_APPROVED_AWAITING_MERGE_AUTHORIZATION",
 }, null, 2));
