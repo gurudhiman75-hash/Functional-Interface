@@ -13,7 +13,7 @@ reasoning version:      RNK_CP005_REASONING_REMODEL_V2
 language version:       RNK_CP005_EXAM_LANGUAGE_V2
 runtime version:        RNK_CP005_PERMANENT_RUNTIME_V2
 freeze version:         RNK_CP005_ENGLISH_REASONING_REMODEL_FREEZE_V2
-projection SHA-256:     c1d205d2d49d3fe97bf3049d65c8d2b57e8594eb99abb57982384a4fa6605d8f
+projection SHA-256:     8ab6d6ab6965aec6be32753bec5d7f083f2b1b03810609b1b2bb40ea02ae8822
 ```
 
 ## Remediation accepted
@@ -45,6 +45,8 @@ shared set seeds:           192
 possible authorities/set:     8
 recommended assembly/set:      4
 direct-rank exposure:           0
+unrelated pair options:         0
+target-as-own-neighbour:        0
 normalized duplicates:         0
 ```
 
@@ -107,6 +109,8 @@ The English review pack contains 144 representative questions:
 - explicit reconstruction instructions;
 - no complete displayed ranking;
 - unique visible-evidence reconstruction;
+- pair-relation options that compare only the named pair;
+- neighbour options that exclude the target person;
 - complete question-specific explanations;
 - four option analyses per question;
 - no internal IDs in learner text;
@@ -122,6 +126,8 @@ Automated gates prove:
 - exactly one visible-evidence solution per set;
 - identical passage fingerprints across linked authorities;
 - independent answer replay for all 1,536 questions;
+- all 192 pair questions use only the named pair in every option;
+- all 192 neighbour questions exclude the target as an option;
 - unique four-option construction;
 - exact answer-position balance;
 - zero duplicate permanent mathematical fingerprints;
@@ -132,8 +138,8 @@ Automated gates prove:
 
 ```text
 CP-004:                 39c35edb20d0452ccec4018a1166cefa5f8c445d92c968c601e59158aed4a97f
-CP-005 V2:              c1d205d2d49d3fe97bf3049d65c8d2b57e8594eb99abb57982384a4fa6605d8f
-combined:               080af7fa6787f6752208c0504dce45bc0498c23eb7df7091a4130619ecfb4c2e
+CP-005 V2:              8ab6d6ab6965aec6be32753bec5d7f083f2b1b03810609b1b2bb40ea02ae8822
+combined:               ef24476ee421e6c8de926a2a02d68f5e9a76333a10289ef66ae83dc97d78c0de
 ```
 
 ## Frozen lifecycle
