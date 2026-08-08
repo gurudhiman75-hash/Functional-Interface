@@ -206,7 +206,11 @@ function personIds(question: GeneratedBlrCp007EditorialV4Question): Set<string> 
 }
 
 function ql031SinglePosition(question: GeneratedBlrCp007EditorialV4Question): boolean {
-  if (question.qlId !== "BLR-QL-031" || question.query.kind !== "SELECT_EXPRESSION") return false;
+  if (
+    question.qlId !== "BLR-QL-031" ||
+    question.query.kind !== "SELECT_EXPRESSION" ||
+    question.sourcePrototypeId.includes("SELECT-DIRECT")
+  ) return false;
   const correct = question.options[question.correctIndex]!.completedStatements;
   if (correct.length < 2) return false;
   const changed = question.options
