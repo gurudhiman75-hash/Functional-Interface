@@ -3,8 +3,11 @@ import { buildBlr001ApprovedEnglishFreezeReviewedAudit } from "./blr-001-approve
 
 const result = buildBlr001ApprovedEnglishFreezeReviewedAudit();
 
-if (result.blockerFindings.length > 0) {
-  console.error(JSON.stringify({ blockers: result.blockerFindings.slice(0, 100) }, null, 2));
+if (result.blockerFindings.length > 0 || result.warningFindings.length > 0) {
+  console.error(JSON.stringify({
+    blockers: result.blockerFindings.slice(0, 100),
+    warnings: result.warningFindings.slice(0, 100),
+  }, null, 2));
 }
 
 assert.equal(result.chapterBaselineVerdict, "CHAPTER_ENGLISH_GAP_FREEZE_CANDIDATE");
@@ -22,7 +25,9 @@ assert.equal(result.editorialFingerprintCount, 168);
 assert(result.maximumShortcutRepeat <= 8);
 assert(result.maximumTrapRepeat <= 8);
 assert.equal(result.acceptedExamDirectiveStemCount, 12);
+assert.equal(result.acceptedStructuredStemCount, 28);
 assert.equal(result.blockerCount, 0, result.blockerFindings.slice(0, 30).map((finding) => `${finding.code}: ${finding.itemId} — ${finding.detail}`).join("\n"));
+assert.equal(result.warningCount, 0, result.warningFindings.slice(0, 30).map((finding) => `${finding.code}: ${finding.itemId} — ${finding.detail}`).join("\n"));
 assert.equal(result.verdict, "APPROVED_CORPUS_ENGLISH_FREEZE_REVIEW_CANDIDATE");
 assert.equal(result.manualEnglishFreezeRequired, true);
 
@@ -47,6 +52,7 @@ console.log(JSON.stringify({
   maximumExplanationWords: result.maximumExplanationWords,
   averageExplanationWords: result.averageExplanationWords,
   acceptedExamDirectiveStemCount: result.acceptedExamDirectiveStemCount,
+  acceptedStructuredStemCount: result.acceptedStructuredStemCount,
   blockerCount: result.blockerCount,
   warningCount: result.warningCount,
   verdict: result.verdict,
