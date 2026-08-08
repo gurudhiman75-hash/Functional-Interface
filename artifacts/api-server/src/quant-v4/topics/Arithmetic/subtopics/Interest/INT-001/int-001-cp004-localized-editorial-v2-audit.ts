@@ -88,7 +88,7 @@ for (const locale of locales) {
         assert(question.stem.split("\n").filter((line) => line.startsWith("|")).length >= 4, `${qlId}/${seed}/${locale}: structured table is too shallow.`);
       }
       if (question.representation === "TERMS_TABLE") {
-        assert(locale === "hi-IN" ? question.stem.includes("ज्ञात कीजिए") : question.stem.includes("ਪਤਾ ਲਗਾਓ"), `${qlId}/${seed}/${locale}: terms table has no direct task.`);
+        assert(question.stem.includes("**प्रश्न:**"), `${qlId}/${seed}/${locale}: terms table has no direct localized question heading.`);
       }
       if (question.representation === "BALANCE_RECORD") {
         assert(locale === "hi-IN" ? question.stem.includes("खाते") : question.stem.includes("ਖਾਤੇ"), `${qlId}/${seed}/${locale}: balance record is not presented as an account record.`);
