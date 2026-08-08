@@ -40,10 +40,15 @@ function selectionScore(candidate: CalendarQuestionPackage, selected: readonly C
   return score;
 }
 
+function renderedQuestionKey(pkg: CalendarQuestionPackage): string {
+  return JSON.stringify([pkg.stem, pkg.options.map((option) => option.display)]);
+}
+
 function isUnique(candidate: CalendarQuestionPackage, selected: readonly CalendarQuestionPackage[]): boolean {
+  const candidateRenderedKey = renderedQuestionKey(candidate);
   return !selected.some((pkg) =>
     pkg.mathematicalFingerprint === candidate.mathematicalFingerprint
-    || pkg.stem === candidate.stem,
+    || renderedQuestionKey(pkg) === candidateRenderedKey,
   );
 }
 
@@ -144,7 +149,7 @@ export const CALENDAR_CURATED_REVIEW_POLICY = {
   selectedPerPrototype: REVIEW_COUNT,
   selectionGoals: [
     "authority-specific mandatory edge coverage",
-    "unique stems and mathematical fingerprints",
+    "unique rendered questions and mathematical fingerprints",
     "at least three correct-answer positions",
     "difficulty and template variation",
     "approximately four of five ordinary examples in the 1900–2099 exam-natural year range",
