@@ -6,6 +6,10 @@ import {
   type ConvertedQuestion,
   type QuestionSqlExecutor,
 } from "../lib/admin-question-conversion";
+import {
+  getGeneratedItemApprovalDisposition,
+  type GeneratedItemApprovalMode,
+} from "../lib/admin-question-studio-approval-policy";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
@@ -13,8 +17,6 @@ import { authenticate } from "../middlewares/auth";
 const router = Router();
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const STATUSES = new Set(["unreviewed", "needs_fix", "approved", "rejected"]);
-
-type ApprovalMode = "question_bank" | "review_only";
 
 type ItemResult = {
   itemId: string;
@@ -24,41 +26,13 @@ type ItemResult = {
   ok: boolean;
   code?: string;
   message?: string;
-  approvalMode?: ApprovalMode | null;
+  approvalMode?: GeneratedItemApprovalMode | null;
   conversionSkippedReason?: string | null;
   convertedQuestion?: ConvertedQuestion | null;
 };
 
 function text(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
-}
-
-function record(value: unknown): Record<string, unknown> {
-  return value && typeof value === "object" && !Array.isArray(value)
-    ? value as Record<string, unknown>
-    : {};
-}
-
-function approvalDisposition(value: unknown): Readonly<{
-  mode: ApprovalMode;
-  reason: string | null;
-}> {
-  const payload = record(value);
-  const generationContext = record(payload.generationContext);
-  const questionBankStatus = text(
-    payload.questionBankStatus ?? generationContext.questionBankStatus,
-  ).toUpperCase();
-  const questionBankWritable =
-    payload.questionBankWritable ?? generationContext.questionBankWritable;
-
-  if (questionBankStatus === "NOT_STORED" && questionBankWritable === false) {
-    return Object.freeze({
-      mode: "review_only" as const,
-      reason: "Payload explicitly disables Question Bank storage",
-    });
-  }
-
-  return Object.freeze({ mode: "question_bank" as const, reason: null });
 }
 
 function failure(itemId: string, error: unknown): ItemResult {
@@ -155,11 +129,11 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
           WHERE id = ${itemId}::uuid
         `;
 
-        let approvalMode: ApprovalMode | null = null;
+        let approvalMode: GeneratedItemApprovalMode | null = null;
         let conversionSkippedReason: string | null = null;
         let convertedQuestion: ConvertedQuestion | null = null;
         if (status === "approved") {
-          const disposition = approvalDisposition(item.payload);
+          const disposition = getGeneratedItemApprovalDisposition(item.payload);
           approvalMode = disposition.mode;
           conversionSkippedReason = disposition.reason;
 
