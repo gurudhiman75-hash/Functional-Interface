@@ -10,7 +10,7 @@ export function markQuestionExplanationApprovalV5(
       nativeEnglishEditorialStatus: "APPROVED_BY_PRODUCT_OWNER",
       nativeHindiEditorialStatus: "APPROVED_BY_PRODUCT_OWNER",
       nativePunjabiEditorialStatus: "APPROVED_BY_PRODUCT_OWNER",
-      humanViewportStatus: "EVIDENCE_READY_PENDING_APPROVAL",
+      humanViewportStatus: "PENDING",
     },
   };
 }
