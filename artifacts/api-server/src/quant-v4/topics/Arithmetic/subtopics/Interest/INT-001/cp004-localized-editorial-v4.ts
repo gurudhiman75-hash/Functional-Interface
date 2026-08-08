@@ -139,36 +139,21 @@ function facts(locale: IntCp004LocalizedLocale, source: IntCp004EnglishFrozenQue
   const perPeriodRate = hi ? "हर बार की ब्याज दर" : "ਹਰ ਵਾਰ ਦੀ ਵਿਆਜ ਦਰ";
 
   switch (source.qlId) {
-    case "INT-QL-067": case "INT-QL-068":
-      return [[principal, moneyText(s.principal)], [annualRate, percentText(s.nominalAnnualRatePercent)], [creditRule, interval(locale, s.frequency)], [time, duration(locale, s.periods, s.frequency)]];
-    case "INT-QL-069":
-      return [[finalAmount, moneyText(amount)], [annualRate, percentText(s.nominalAnnualRatePercent)], [creditRule, interval(locale, s.frequency)], [time, duration(locale, s.periods, s.frequency)]];
-    case "INT-QL-070":
-      return [[givenInterest, moneyText(compoundInterest)], [annualRate, percentText(s.nominalAnnualRatePercent)], [creditRule, interval(locale, s.frequency)], [time, duration(locale, s.periods, s.frequency)]];
-    case "INT-QL-071":
-      return [[principal, moneyText(s.principal)], [finalAmount, moneyText(amount)], [creditRule, interval(locale, s.frequency)], [time, duration(locale, s.periods, s.frequency)]];
-    case "INT-QL-072":
-      return [[principal, moneyText(s.principal)], [finalAmount, moneyText(amount)], [annualRate, percentText(s.nominalAnnualRatePercent)], [creditRule, interval(locale, s.frequency)]];
-    case "INT-QL-073": case "INT-QL-074":
-      return [[principal, moneyText(s.principal)], [perPeriodRate, percentText(s.periodicRatePercent)], [creditRule, interval(locale, s.frequency)], [hi ? "कुल अवधियाँ" : "ਕੁੱਲ ਵਾਰ", periodCount(locale, s.periods, s.frequency)]];
-    case "INT-QL-075":
-      return [[principal, moneyText(s.principal)], [annualRate, percentText(s.nominalAnnualRatePercent)], [time, years(locale, s.years)], [hi ? "योजना 1" : "ਯੋਜਨਾ 1", `${frequencyName(locale, s.frequency)} ${hi ? "चक्रवृद्धि" : "ਚੱਕਰਵੱਧੀ"}`], [hi ? "योजना 2" : "ਯੋਜਨਾ 2", `${frequencyName(locale, s.comparisonFrequency)} ${hi ? "चक्रवृद्धि" : "ਚੱਕਰਵੱਧੀ"}`]];
-    case "INT-QL-076":
-      return [[principal, moneyText(s.principal)], [hi ? "घोषित वार्षिक दर" : "ਘੋਸ਼ਿਤ ਸਾਲਾਨਾ ਦਰ", percentText(s.nominalAnnualRatePercent)], [creditRule, interval(locale, s.frequency)], [time, years(locale, 1)]];
-    case "INT-QL-077":
-      return [[hi ? "प्रभावी वार्षिक दर" : "ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ", percentText(effectiveRate)], [creditRule, interval(locale, s.frequency)]];
-    case "INT-QL-078":
-      return [[principal, moneyText(s.principal)], [annualRate, percentText(s.nominalAnnualRatePercent)], [time, years(locale, s.years)], [finalAmount, moneyText(amount)]];
-    case "INT-QL-079": case "INT-QL-080":
-      return [[principal, moneyText(s.principal)], [annualRate, percentText(s.nominalAnnualRatePercent)], [hi ? "पहला चरण" : "ਪਹਿਲਾ ਪੜਾਅ", `${years(locale, s.fullYears)} ${hi ? "तक वार्षिक चक्रवृद्धि" : "ਤੱਕ ਸਾਲਾਨਾ ਚੱਕਰਵੱਧੀ"}`], [hi ? "अंतिम चरण" : "ਅੰਤਿਮ ਪੜਾਅ", `${months(locale, s.tailMonths)} ${hi ? "के लिए साधारण ब्याज" : "ਲਈ ਸਧਾਰਣ ਵਿਆਜ"}`]];
-    case "INT-QL-081":
-      return [[annualRate, percentText(s.nominalAnnualRatePercent)], [hi ? "पहला चरण" : "ਪਹਿਲਾ ਪੜਾਅ", `${years(locale, s.fullYears)} ${hi ? "तक वार्षिक चक्रवृद्धि" : "ਤੱਕ ਸਾਲਾਨਾ ਚੱਕਰਵੱਧੀ"}`], [hi ? "अंतिम चरण" : "ਅੰਤਿਮ ਪੜਾਅ", `${months(locale, s.tailMonths)} ${hi ? "के लिए साधारण ब्याज" : "ਲਈ ਸਧਾਰਣ ਵਿਆਜ"}`], [finalAmount, moneyText(brokenAmount)]];
-    case "INT-QL-082":
-      return [[principal, moneyText(s.principal)], [hi ? "पहला चरण" : "ਪਹਿਲਾ ਪੜਾਅ", `${years(locale, s.fullYears)} ${hi ? "तक वार्षिक चक्रवृद्धि" : "ਤੱਕ ਸਾਲਾਨਾ ਚੱਕਰਵੱਧੀ"}`], [hi ? "अंतिम चरण" : "ਅੰਤਿਮ ਪੜਾਅ", `${months(locale, s.tailMonths)} ${hi ? "के लिए उसी दर से साधारण ब्याज" : "ਲਈ ਉਸੇ ਦਰ ਨਾਲ ਸਧਾਰਣ ਵਿਆਜ"}`], [finalAmount, moneyText(brokenAmount)]];
-    case "INT-QL-083":
-      return [[principal, moneyText(s.principal)], [annualRate, percentText(s.nominalAnnualRatePercent)], [hi ? "अंतिम अतिरिक्त समय" : "ਅੰਤਿਮ ਵਾਧੂ ਸਮਾਂ", months(locale, s.tailMonths)], [hi ? "अतिरिक्त समय का ब्याज" : "ਵਾਧੂ ਸਮੇਂ ਦਾ ਵਿਆਜ", hi ? "साधारण ब्याज" : "ਸਧਾਰਣ ਵਿਆਜ"], [finalAmount, moneyText(brokenAmount)]];
-    case "INT-QL-084": case "INT-QL-085":
-      return [[principal, moneyText(s.principal)], [annualRate, percentText(s.nominalAnnualRatePercent)], [hi ? "पहला चरण" : "ਪਹਿਲਾ ਪੜਾਅ", `${years(locale, s.firstYears)}; ${interval(locale, s.firstFrequency)} ${hi ? "ब्याज जोड़ा गया" : "ਵਿਆਜ ਜੋੜਿਆ ਗਿਆ"}`], [hi ? "दूसरा चरण" : "ਦੂਜਾ ਪੜਾਅ", `${years(locale, s.secondYears)}; ${interval(locale, s.secondFrequency)} ${hi ? "ब्याज जोड़ा गया" : "ਵਿਆਜ ਜੋੜਿਆ ਗਿਆ"}`]];
+    case "INT-QL-067": case "INT-QL-068": return [[principal, moneyText(s.principal)], [annualRate, percentText(s.nominalAnnualRatePercent)], [creditRule, interval(locale, s.frequency)], [time, duration(locale, s.periods, s.frequency)]];
+    case "INT-QL-069": return [[finalAmount, moneyText(amount)], [annualRate, percentText(s.nominalAnnualRatePercent)], [creditRule, interval(locale, s.frequency)], [time, duration(locale, s.periods, s.frequency)]];
+    case "INT-QL-070": return [[givenInterest, moneyText(compoundInterest)], [annualRate, percentText(s.nominalAnnualRatePercent)], [creditRule, interval(locale, s.frequency)], [time, duration(locale, s.periods, s.frequency)]];
+    case "INT-QL-071": return [[principal, moneyText(s.principal)], [finalAmount, moneyText(amount)], [creditRule, interval(locale, s.frequency)], [time, duration(locale, s.periods, s.frequency)]];
+    case "INT-QL-072": return [[principal, moneyText(s.principal)], [finalAmount, moneyText(amount)], [annualRate, percentText(s.nominalAnnualRatePercent)], [creditRule, interval(locale, s.frequency)]];
+    case "INT-QL-073": case "INT-QL-074": return [[principal, moneyText(s.principal)], [perPeriodRate, percentText(s.periodicRatePercent)], [creditRule, interval(locale, s.frequency)], [hi ? "कुल अवधियाँ" : "ਕੁੱਲ ਵਾਰ", periodCount(locale, s.periods, s.frequency)]];
+    case "INT-QL-075": return [[principal, moneyText(s.principal)], [annualRate, percentText(s.nominalAnnualRatePercent)], [time, years(locale, s.years)], [hi ? "योजना 1" : "ਯੋਜਨਾ 1", `${frequencyName(locale, s.frequency)} ${hi ? "चक्रवृद्धि" : "ਚੱਕਰਵੱਧੀ"}`], [hi ? "योजना 2" : "ਯੋਜਨਾ 2", `${frequencyName(locale, s.comparisonFrequency)} ${hi ? "चक्रवृद्धि" : "ਚੱਕਰਵੱਧੀ"}`]];
+    case "INT-QL-076": return [[principal, moneyText(s.principal)], [hi ? "घोषित वार्षिक दर" : "ਘੋਸ਼ਿਤ ਸਾਲਾਨਾ ਦਰ", percentText(s.nominalAnnualRatePercent)], [creditRule, interval(locale, s.frequency)], [time, years(locale, 1)]];
+    case "INT-QL-077": return [[hi ? "प्रभावी वार्षिक दर" : "ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ", percentText(effectiveRate)], [creditRule, interval(locale, s.frequency)]];
+    case "INT-QL-078": return [[principal, moneyText(s.principal)], [annualRate, percentText(s.nominalAnnualRatePercent)], [time, years(locale, s.years)], [finalAmount, moneyText(amount)]];
+    case "INT-QL-079": case "INT-QL-080": return [[principal, moneyText(s.principal)], [annualRate, percentText(s.nominalAnnualRatePercent)], [hi ? "पहला चरण" : "ਪਹਿਲਾ ਪੜਾਅ", `${years(locale, s.fullYears)} ${hi ? "तक वार्षिक चक्रवृद्धि" : "ਤੱਕ ਸਾਲਾਨਾ ਚੱਕਰਵੱਧੀ"}`], [hi ? "अंतिम चरण" : "ਅੰਤਿਮ ਪੜਾਅ", `${months(locale, s.tailMonths)} ${hi ? "के लिए साधारण ब्याज" : "ਲਈ ਸਧਾਰਣ ਵਿਆਜ"}`]];
+    case "INT-QL-081": return [[annualRate, percentText(s.nominalAnnualRatePercent)], [hi ? "पहला चरण" : "ਪਹਿਲਾ ਪੜਾਅ", `${years(locale, s.fullYears)} ${hi ? "तक वार्षिक चक्रवृद्धि" : "ਤੱਕ ਸਾਲਾਨਾ ਚੱਕਰਵੱਧੀ"}`], [hi ? "अंतिम चरण" : "ਅੰਤਿਮ ਪੜਾਅ", `${months(locale, s.tailMonths)} ${hi ? "के लिए साधारण ब्याज" : "ਲਈ ਸਧਾਰਣ ਵਿਆਜ"}`], [finalAmount, moneyText(brokenAmount)]];
+    case "INT-QL-082": return [[principal, moneyText(s.principal)], [hi ? "पहला चरण" : "ਪਹਿਲਾ ਪੜਾਅ", `${years(locale, s.fullYears)} ${hi ? "तक वार्षिक चक्रवृद्धि" : "ਤੱਕ ਸਾਲਾਨਾ ਚੱਕਰਵੱਧੀ"}`], [hi ? "अंतिम चरण" : "ਅੰਤਿਮ ਪੜਾਅ", `${months(locale, s.tailMonths)} ${hi ? "के लिए उसी दर से साधारण ब्याज" : "ਲਈ ਉਸੇ ਦਰ ਨਾਲ ਸਧਾਰਣ ਵਿਆਜ"}`], [finalAmount, moneyText(brokenAmount)]];
+    case "INT-QL-083": return [[principal, moneyText(s.principal)], [annualRate, percentText(s.nominalAnnualRatePercent)], [hi ? "अंतिम अतिरिक्त समय" : "ਅੰਤਿਮ ਵਾਧੂ ਸਮਾਂ", months(locale, s.tailMonths)], [hi ? "अतिरिक्त समय का ब्याज" : "ਵਾਧੂ ਸਮੇਂ ਦਾ ਵਿਆਜ", hi ? "साधारण ब्याज" : "ਸਧਾਰਣ ਵਿਆਜ"], [finalAmount, moneyText(brokenAmount)]];
+    case "INT-QL-084": case "INT-QL-085": return [[principal, moneyText(s.principal)], [annualRate, percentText(s.nominalAnnualRatePercent)], [hi ? "पहला चरण" : "ਪਹਿਲਾ ਪੜਾਅ", `${years(locale, s.firstYears)}; ${interval(locale, s.firstFrequency)} ${hi ? "ब्याज जोड़ा गया" : "ਵਿਆਜ ਜੋੜਿਆ ਗਿਆ"}`], [hi ? "दूसरा चरण" : "ਦੂਜਾ ਪੜਾਅ", `${years(locale, s.secondYears)}; ${interval(locale, s.secondFrequency)} ${hi ? "ब्याज जोड़ा गया" : "ਵਿਆਜ ਜੋੜਿਆ ਗਿਆ"}`]];
   }
 }
 
@@ -187,10 +172,7 @@ function domainIntro(locale: IntCp004LocalizedLocale, source: IntCp004EnglishFro
       if (effective) return "ब्याज योजना का आवश्यक विवरण नीचे दिया गया है।";
       return "निवेश की शर्तें नीचे दी गई हैं।";
     }
-    if (representation === "BALANCE_RECORD") {
-      if (broken || phased) return "खाते में दर्ज ब्याज-क्रम को ध्यान से पढ़िए।";
-      return "खाते में दर्ज जानकारी के आधार पर प्रश्न हल कीजिए।";
-    }
+    if (representation === "BALANCE_RECORD") return broken || phased ? "खाते में दर्ज ब्याज-क्रम को ध्यान से पढ़िए।" : "खाते में दर्ज जानकारी के आधार पर प्रश्न हल कीजिए।";
     if (source.qlId === "INT-QL-075") return "एक ही निवेश के लिए बैंक की दो योजनाएँ नीचे दी गई हैं।";
     if (phased) return "इस निवेश में ब्याज जोड़ने का नियम बीच में बदलता है।";
     if (effective) return "बैंक द्वारा दी गई ब्याज योजना का सार नीचे है।";
@@ -202,10 +184,7 @@ function domainIntro(locale: IntCp004LocalizedLocale, source: IntCp004EnglishFro
     if (effective) return "ਵਿਆਜ ਯੋਜਨਾ ਦਾ ਲੋੜੀਂਦਾ ਵੇਰਵਾ ਹੇਠਾਂ ਦਿੱਤਾ ਹੈ।";
     return "ਨਿਵੇਸ਼ ਦੀਆਂ ਸ਼ਰਤਾਂ ਹੇਠਾਂ ਦਿੱਤੀਆਂ ਹਨ।";
   }
-  if (representation === "BALANCE_RECORD") {
-    if (broken || phased) return "ਖਾਤੇ ਵਿੱਚ ਦਰਜ ਵਿਆਜ-ਕ੍ਰਮ ਨੂੰ ਧਿਆਨ ਨਾਲ ਪੜ੍ਹੋ।";
-    return "ਖਾਤੇ ਵਿੱਚ ਦਰਜ ਜਾਣਕਾਰੀ ਦੇ ਆਧਾਰ ਉੱਤੇ ਪ੍ਰਸ਼ਨ ਹੱਲ ਕਰੋ।";
-  }
+  if (representation === "BALANCE_RECORD") return broken || phased ? "ਖਾਤੇ ਵਿੱਚ ਦਰਜ ਵਿਆਜ-ਕ੍ਰਮ ਨੂੰ ਧਿਆਨ ਨਾਲ ਪੜ੍ਹੋ।" : "ਖਾਤੇ ਵਿੱਚ ਦਰਜ ਜਾਣਕਾਰੀ ਦੇ ਆਧਾਰ ਉੱਤੇ ਪ੍ਰਸ਼ਨ ਹੱਲ ਕਰੋ।";
   if (source.qlId === "INT-QL-075") return "ਇੱਕੋ ਨਿਵੇਸ਼ ਲਈ ਬੈਂਕ ਦੀਆਂ ਦੋ ਯੋਜਨਾਵਾਂ ਹੇਠਾਂ ਦਿੱਤੀਆਂ ਹਨ।";
   if (phased) return "ਇਸ ਨਿਵੇਸ਼ ਵਿੱਚ ਵਿਆਜ ਜੋੜਨ ਦਾ ਨਿਯਮ ਵਿਚਕਾਰ ਬਦਲਦਾ ਹੈ।";
   if (effective) return "ਬੈਂਕ ਵੱਲੋਂ ਦਿੱਤੀ ਵਿਆਜ ਯੋਜਨਾ ਦਾ ਸਾਰ ਹੇਠਾਂ ਹੈ।";
@@ -214,37 +193,22 @@ function domainIntro(locale: IntCp004LocalizedLocale, source: IntCp004EnglishFro
 
 function renderTermsTable(locale: IntCp004LocalizedLocale, source: IntCp004EnglishFrozenQuestion): string {
   const hi = locale === "hi-IN";
-  return `${domainIntro(locale, source, "TERMS_TABLE")}\n\n${table(
-    hi ? ["दी गई जानकारी", "मान"] : ["ਦਿੱਤੀ ਜਾਣਕਾਰੀ", "ਮੁੱਲ"],
-    facts(locale, source),
-  )}\n\n**${hi ? "ज्ञात कीजिए" : "ਪਤਾ ਲਗਾਓ"}:** ${questionPrompt(locale, source)}`;
+  return `${domainIntro(locale, source, "TERMS_TABLE")}\n\n${table(hi ? ["दी गई जानकारी", "मान"] : ["ਦਿੱਤੀ ਜਾਣਕਾਰੀ", "ਮੁੱਲ"], facts(locale, source))}\n\n**${hi ? "ज्ञात कीजिए" : "ਪਤਾ ਲਗਾਓ"}:** ${questionPrompt(locale, source)}`;
 }
 
 function renderBalanceRecord(locale: IntCp004LocalizedLocale, source: IntCp004EnglishFrozenQuestion): string {
   const hi = locale === "hi-IN";
-  const rows = facts(locale, source).map(([label, value], index) => [
-    index === 0 ? (hi ? "आरंभिक प्रविष्टि" : "ਸ਼ੁਰੂਆਤੀ ਦਰਜ") : label,
-    value,
-  ] as const);
-  return `${domainIntro(locale, source, "BALANCE_RECORD")}\n\n${table(
-    hi ? ["खाते की प्रविष्टि", "दर्ज विवरण"] : ["ਖਾਤੇ ਦੀ ਦਰਜ", "ਦਰਜ ਵੇਰਵਾ"],
-    rows,
-  )}\n\n**${hi ? "प्रश्न" : "ਪ੍ਰਸ਼ਨ"}:** ${questionPrompt(locale, source)}`;
+  const rows = facts(locale, source).map(([label, value], index) => [index === 0 ? (hi ? "आरंभिक प्रविष्टि" : "ਸ਼ੁਰੂਆਤੀ ਦਰਜ") : label, value] as const);
+  return `${domainIntro(locale, source, "BALANCE_RECORD")}\n\n${table(hi ? ["खाते की प्रविष्टि", "दर्ज विवरण"] : ["ਖਾਤੇ ਦੀ ਦਰਜ", "ਦਰਜ ਵੇਰਵਾ"], rows)}\n\n**${hi ? "प्रश्न" : "ਪ੍ਰਸ਼ਨ"}:** ${questionPrompt(locale, source)}`;
 }
 
 function renderScheme(locale: IntCp004LocalizedLocale, source: IntCp004EnglishFrozenQuestion): string {
   const hi = locale === "hi-IN";
-  const rows = facts(locale, source);
-  const headers: readonly [string, string] = source.qlId === "INT-QL-075"
-    ? (hi ? ["योजना/शर्त", "विवरण"] : ["ਯੋਜਨਾ/ਸ਼ਰਤ", "ਵੇਰਵਾ"])
-    : (hi ? ["योजना की शर्त", "विवरण"] : ["ਯੋਜਨਾ ਦੀ ਸ਼ਰਤ", "ਵੇਰਵਾ"]);
-  return `${domainIntro(locale, source, "SCHEME_COMPARISON")}\n\n${table(headers, rows)}\n\n**${hi ? "पूछा गया" : "ਪੁੱਛਿਆ ਗਿਆ"}:** ${questionPrompt(locale, source)}`;
+  const headers: readonly [string, string] = source.qlId === "INT-QL-075" ? (hi ? ["योजना/शर्त", "विवरण"] : ["ਯੋਜਨਾ/ਸ਼ਰਤ", "ਵੇਰਵਾ"]) : (hi ? ["योजना की शर्त", "विवरण"] : ["ਯੋਜਨਾ ਦੀ ਸ਼ਰਤ", "ਵੇਰਵਾ"]);
+  return `${domainIntro(locale, source, "SCHEME_COMPARISON")}\n\n${table(headers, facts(locale, source))}\n\n**${hi ? "पूछा गया" : "ਪੁੱਛਿਆ ਗਿਆ"}:** ${questionPrompt(locale, source)}`;
 }
 
-export function renderCp004LocalizedEditorialV4Stem(
-  source: IntCp004EnglishFrozenQuestion,
-  locale: IntCp004LocalizedLocale,
-): string {
+export function renderCp004LocalizedEditorialV4Stem(source: IntCp004EnglishFrozenQuestion, locale: IntCp004LocalizedLocale): string {
   const prose = extractNaturalQuestion(source, locale);
   let stem: string;
   switch (source.representation) {
@@ -291,7 +255,6 @@ function wrongFeedback(source: IntCp004EnglishFrozenQuestion, option: IntCp004Lo
   const frequency = frequencyName(locale, s.frequency);
   const first = frequencyName(locale, s.firstFrequency);
   const second = frequencyName(locale, s.secondFrequency);
-
   switch (option.misconceptionId) {
     case "USED_SIMPLE_INTEREST": return hi ? `यह परिणाम साधारण ब्याज लगाने से आता है। यहाँ ${percentText(rate)} की दर से कुल ${count} चक्रवृद्धि करनी है।` : `ਇਹ ਨਤੀਜਾ ਸਧਾਰਣ ਵਿਆਜ ਲਗਾਉਣ ਨਾਲ ਆਉਂਦਾ ਹੈ। ਇੱਥੇ ${percentText(rate)} ਦੀ ਦਰ ਨਾਲ ਕੁੱਲ ${count} ਚੱਕਰਵੱਧੀ ਕਰਨੀ ਹੈ।`;
     case "MISSED_ONE_PERIOD": case "ONE_PERIOD_SHORT": return hi ? `इसमें केवल ${oneLess} लिए गए हैं, जबकि प्रश्न में कुल ${count} हैं।` : `ਇਸ ਵਿੱਚ ਕੇਵਲ ${oneLess} ਲਏ ਗਏ ਹਨ, ਜਦਕਿ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਕੁੱਲ ${count} ਹਨ।`;
@@ -329,21 +292,12 @@ function wrongFeedback(source: IntCp004EnglishFrozenQuestion, option: IntCp004Lo
   }
 }
 
-export function remediateCp004LocalizedOptionsV4(
-  source: IntCp004EnglishFrozenQuestion,
-  options: readonly IntCp004LocalizedOption[],
-  locale: IntCp004LocalizedLocale,
-): readonly IntCp004LocalizedOption[] {
-  return Object.freeze(options.map((option) => Object.freeze({
-    ...option,
-    feedback: option.isCorrect ? correctFeedback(source, option, locale) : wrongFeedback(source, option, locale),
-  })));
+export function remediateCp004LocalizedOptionsV4(source: IntCp004EnglishFrozenQuestion, options: readonly IntCp004LocalizedOption[], locale: IntCp004LocalizedLocale): readonly IntCp004LocalizedOption[] {
+  return Object.freeze(options.map((option) => Object.freeze({ ...option, feedback: option.isCorrect ? correctFeedback(source, option, locale) : wrongFeedback(source, option, locale) })));
 }
 
 function cleanAnswer(locale: IntCp004LocalizedLocale, finalAnswer: string): string {
-  if (locale === "hi-IN") {
-    return finalAnswer.replace(/^अतः सही उत्तर\s*/u, "").replace(/^सही उत्तर\s*/u, "").replace(/\s*है।$/u, "").replace(/।$/u, "").trim();
-  }
+  if (locale === "hi-IN") return finalAnswer.replace(/^अतः सही उत्तर\s*/u, "").replace(/^सही उत्तर\s*/u, "").replace(/\s*है।$/u, "").replace(/।$/u, "").trim();
   return finalAnswer.replace(/^ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ\s*/u, "").replace(/^ਸਹੀ ਉੱਤਰ\s*/u, "").replace(/\s*ਹੈ।$/u, "").replace(/।$/u, "").trim();
 }
 
@@ -378,8 +332,7 @@ function commonMistakeV4(source: IntCp004EnglishFrozenQuestion, locale: IntCp004
   const rate = periodicRate(s.nominalAnnualRatePercent, s.frequency);
   const count = periodCount(locale, s.periods, s.frequency);
   switch (source.qlId) {
-    case "INT-QL-067": case "INT-QL-068": case "INT-QL-069": case "INT-QL-070": case "INT-QL-071": case "INT-QL-072":
-      return hi ? `${percentText(s.nominalAnnualRatePercent)} वार्षिक दर को सीधे हर अवधि पर न लगाएँ; ${interval(locale, s.frequency)} की दर ${percentText(rate)} और कुल ${count} हैं।` : `${percentText(s.nominalAnnualRatePercent)} ਸਾਲਾਨਾ ਦਰ ਨੂੰ ਸਿੱਧਾ ਹਰ ਮਿਆਦ ਉੱਤੇ ਨਾ ਲਗਾਓ; ${interval(locale, s.frequency)} ਦੀ ਦਰ ${percentText(rate)} ਅਤੇ ਕੁੱਲ ${count} ਹਨ।`;
+    case "INT-QL-067": case "INT-QL-068": case "INT-QL-069": case "INT-QL-070": case "INT-QL-071": case "INT-QL-072": return hi ? `${percentText(s.nominalAnnualRatePercent)} वार्षिक दर को सीधे हर अवधि पर न लगाएँ; ${interval(locale, s.frequency)} की दर ${percentText(rate)} और कुल ${count} हैं।` : `${percentText(s.nominalAnnualRatePercent)} ਸਾਲਾਨਾ ਦਰ ਨੂੰ ਸਿੱਧਾ ਹਰ ਮਿਆਦ ਉੱਤੇ ਨਾ ਲਗਾਓ; ${interval(locale, s.frequency)} ਦੀ ਦਰ ${percentText(rate)} ਅਤੇ ਕੁੱਲ ${count} ਹਨ।`;
     case "INT-QL-073": case "INT-QL-074": return hi ? `${percentText(s.periodicRatePercent)} पहले से हर बार की दर है; इसे ${s.frequency} से दोबारा न बाँटें।` : `${percentText(s.periodicRatePercent)} ਪਹਿਲਾਂ ਹੀ ਹਰ ਵਾਰ ਦੀ ਦਰ ਹੈ; ਇਸ ਨੂੰ ${s.frequency} ਨਾਲ ਦੁਬਾਰਾ ਨਾ ਵੰਡੋ।`;
     case "INT-QL-075": return hi ? "दोनों योजनाओं में मूलधन, वार्षिक दर और समय समान रखें; केवल ब्याज जोड़ने की आवृत्ति बदलती है।" : "ਦੋਵੇਂ ਯੋਜਨਾਵਾਂ ਵਿੱਚ ਮੂਲਧਨ, ਸਾਲਾਨਾ ਦਰ ਅਤੇ ਸਮਾਂ ਇੱਕੋ ਰੱਖੋ; ਕੇਵਲ ਵਿਆਜ ਜੋੜਨ ਦੀ ਗਿਣਤੀ ਬਦਲਦੀ ਹੈ।";
     case "INT-QL-076": return hi ? "घोषित वार्षिक दर को प्रभावी दर न मानें; एक वर्ष के भीतर हुई सभी चक्रवृद्धियाँ शामिल करें।" : "ਘੋਸ਼ਿਤ ਸਾਲਾਨਾ ਦਰ ਨੂੰ ਪ੍ਰਭਾਵੀ ਦਰ ਨਾ ਮੰਨੋ; ਇੱਕ ਸਾਲ ਦੇ ਅੰਦਰ ਹੋਈਆਂ ਸਾਰੀਆਂ ਚੱਕਰਵੱਧੀਆਂ ਸ਼ਾਮਲ ਕਰੋ।";
@@ -399,24 +352,15 @@ function improveSteps(source: IntCp004EnglishFrozenQuestion, locale: IntCp004Loc
     if (/ਕੁੱਲ (?:ਵਿਆਜ-|ਚੱਕਰਵੱਧੀ )?ਮਿਆਦਾਂ\s*=\s*\d+/u.test(next)) next = countSentence;
     if (source.qlId === "INT-QL-076" && /₹100 .*₹100.*%/u.test(next)) {
       const effective = effectiveAnnualRate(s.nominalAnnualRatePercent, s.frequency);
-      next = locale === "hi-IN" ? `₹100 पर एक वर्ष का ब्याज = ${percentText(effective)} के बराबर है; इसलिए प्रभावी वार्षिक दर ${percentText(effective)} है।` : `₹100 ਉੱਤੇ ਇੱਕ ਸਾਲ ਦਾ ਵਿਆਜ ${percentText(effective)} ਦੇ ਬਰਾਬਰ ਹੈ; ਇਸ ਲਈ ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ ${percentText(effective)} ਹੈ।`;
+      next = locale === "hi-IN" ? `₹100 पर एक वर्ष में ब्याज ${moneyText(effective)} है; इसलिए प्रभावी वार्षिक दर ${percentText(effective)} है।` : `₹100 ਉੱਤੇ ਇੱਕ ਸਾਲ ਵਿੱਚ ਵਿਆਜ ${moneyText(effective)} ਹੈ; ਇਸ ਲਈ ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ ${percentText(effective)} ਹੈ।`;
     }
     return next;
   }));
 }
 
-export function remediateCp004LocalizedExplanationV4(
-  source: IntCp004EnglishFrozenQuestion,
-  locale: IntCp004LocalizedLocale,
-  explanation: IntCp004LocalizedExplanation,
-): IntCp004LocalizedExplanation {
+export function remediateCp004LocalizedExplanationV4(source: IntCp004EnglishFrozenQuestion, locale: IntCp004LocalizedLocale, explanation: IntCp004LocalizedExplanation): IntCp004LocalizedExplanation {
   const answer = cleanAnswer(locale, explanation.finalAnswer);
-  const remediated = Object.freeze({
-    ...explanation,
-    steps: improveSteps(source, locale, explanation.steps),
-    finalAnswer: finalAnswerV4(source, locale, answer),
-    commonMistake: commonMistakeV4(source, locale),
-  });
+  const remediated = Object.freeze({ ...explanation, steps: improveSteps(source, locale, explanation.steps), finalAnswer: finalAnswerV4(source, locale, answer), commonMistake: commonMistakeV4(source, locale) });
   assertCp004LocalizedText(locale, [remediated.whatAsked, ...remediated.steps, remediated.finalAnswer, remediated.commonMistake].join("\n"), `${source.qlId}/${source.seed}/${locale}/editorial-v4-explanation`);
   return remediated;
 }
