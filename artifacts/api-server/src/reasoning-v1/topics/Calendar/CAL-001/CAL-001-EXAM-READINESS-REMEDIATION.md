@@ -1,8 +1,23 @@
 # CAL-001 Exam-Readiness Remediation
 
-Status: **implemented in discovery runtime; English human freeze remains closed**
+Status: **implemented in discovery runtime; English editorial review approved; formal discovery/identity freeze remains pending**
 
 This remediation responds to the CP-wise and provisional-QL-wise editorial review of the 220-question review set. It improves generated English questions without allocating permanent QLs or enabling Question Bank, tests, or publication.
+
+## English editorial approval
+
+The project owner approved the corrected English review pack on `2026-08-08`.
+
+Approval covers:
+
+- all 10 checkpoints;
+- all 44 provisional authorities;
+- 5 curated questions per authority;
+- 220 curated English questions;
+- the 528-question extended English audit pool;
+- question wording, option quality, misconception traps and student explanations.
+
+The approval closes the English editorial-review gate for the current discovery runtime. It does not declare the formal English discovery/identity freeze because final source, merge/split, inverse and gap decisions remain open. See `CAL-001-ENGLISH-EDITORIAL-APPROVAL.md`.
 
 ## Implemented corrections
 
@@ -66,7 +81,7 @@ This remediation responds to the CP-wise and provisional-QL-wise editorial revie
 
 ## Merge, split, and inverse audit decisions
 
-The following discovery authorities remain separate until source coverage and human review determine the permanent QL model:
+The following discovery authorities remain separate until source coverage and the final authority audit determine the permanent QL model:
 
 | Discovery authorities | Audit decision before permanent allocation |
 |---|---|
@@ -76,7 +91,7 @@ The following discovery authorities remain separate until source coverage and hu
 | CAL-PQL-035 and CAL-PQL-036 | Proven inverse pair. Candidate for one year-boundary authority with known boundary parameter. |
 | CAL-PQL-037 and CAL-PQL-038 | Proven inverse pair. Candidate for one month-boundary authority with known boundary parameter. |
 
-No discovery authority is deleted in this remediation because the chapter design requires source audit, merge/split audit, inverse audit, gap audit, and human freezes before permanent QL allocation.
+No discovery authority is deleted in this remediation because the chapter design requires source audit, merge/split audit, inverse audit and gap audit before permanent QL allocation.
 
 ## Automated acceptance gates
 
@@ -94,11 +109,18 @@ The new proof checks:
 - all authority-specific curated coverage rules;
 - lifecycle locks and permanent QL count of zero.
 
-## Gates intentionally still closed
+## Current governance gates
+
+Approved:
+
+- English editorial review of the corrected 220-question curated pack and 528-question audit pool.
+
+Still closed:
 
 - Final source audit
+- Final merge/split, inverse and gap audits
+- Formal English discovery/identity freeze
 - Permanent QL allocation
-- English human freeze
 - Hindi human freeze
 - Punjabi human freeze
 - Multilingual human parity
