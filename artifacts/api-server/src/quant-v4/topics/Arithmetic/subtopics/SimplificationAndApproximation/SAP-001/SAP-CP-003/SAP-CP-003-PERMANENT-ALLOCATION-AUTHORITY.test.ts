@@ -39,8 +39,8 @@ for (const pkg of sweep) {
   assert.equal(pkg.permanentQlId, SAP_CP003_PROTOTYPE_TO_PERMANENT_QL[pkg.prototypeId]);
   assert.equal(pkg.lifecycle.permanentQlId, pkg.permanentQlId);
   assert.equal(pkg.lifecycle.identityStatus, "PERMANENT_ID_ALLOCATED");
-  assert.equal(pkg.lifecycle.contentStatus, "QUESTIONS_AND_EXPLANATIONS_REOPENED_EDITORIAL_REMEDIATION_V3");
-  assert.equal(pkg.approvalStatus, "QUESTIONS_AND_EXPLANATIONS_REOPENED_FOR_EDITORIAL_REMEDIATION");
+  assert.equal(pkg.lifecycle.contentStatus, "QUESTIONS_AND_EXPLANATIONS_APPROVED_EDITORIAL_V3");
+  assert.equal(pkg.approvalStatus, "QUESTIONS_AND_EXPLANATIONS_APPROVED_EDITORIAL_V3");
   assert.equal(pkg.options.length, 4);
   assert.equal(new Set(pkg.options.map((option) => option.value)).size, 4);
   assert.equal(pkg.options.filter((option) => option.isCorrect).length, 1);
@@ -71,7 +71,7 @@ for (const qlId of SAP_CP003_PERMANENT_QL_IDS) {
   const entry = SAP_PERMANENT_QL_BY_ID[qlId];
   assert.equal(entry.checkpointId, "SAP-CP-003");
   assert.equal(entry.allocationStatus, "PERMANENT_ID_ALLOCATED_INACTIVE");
-  assert.equal(entry.englishStatus, "QUESTION_AND_EXPLANATION_REVIEW_REOPENED_EDITORIAL_REMEDIATION_V3");
+  assert.equal(entry.englishStatus, "QUESTION_AND_EXPLANATION_REVIEW_APPROVED_EDITORIAL_V3");
   assert.equal(entry.allocationApproval, "PRODUCT_OWNER_APPROVED_CP003_QA_2026_08_07");
   assert.equal(entry.active, false);
   assert.equal(entry.questionStudioDiscoverable, false);
@@ -82,12 +82,13 @@ for (const qlId of SAP_CP003_PERMANENT_QL_IDS) {
 
 assert.equal(SAP_CP003_PERMANENT_STATE.permanentQlRange, "SAP-QL-034..SAP-QL-052");
 assert.equal(SAP_CP003_PERMANENT_STATE.nextAvailableQlId, "SAP-QL-053");
-assert.equal(SAP_CP003_PERMANENT_STATE.questionAndAnswerReview, "REOPENED_EDITORIAL_REMEDIATION_V3");
-assert.equal(SAP_CP003_PERMANENT_STATE.fullEditorialReview, "FULL_300_QUESTION_CANDIDATE_PENDING_HUMAN_APPROVAL");
-assert.equal(SAP_CP003_PERMANENT_STATE.englishExplanationFreeze, "BLOCKED_PENDING_RENEWED_QA_APPROVAL");
+assert.equal(SAP_CP003_PERMANENT_STATE.editorialApproval, "PRODUCT_OWNER_APPROVED_CP003_EDITORIAL_V3_2026_08_08");
+assert.equal(SAP_CP003_PERMANENT_STATE.questionAndAnswerReview, "APPROVED_EDITORIAL_REMEDIATION_V3");
+assert.equal(SAP_CP003_PERMANENT_STATE.fullEditorialReview, "FULL_300_QUESTION_HUMAN_APPROVED");
+assert.equal(SAP_CP003_PERMANENT_STATE.englishExplanationFreeze, "HUMAN_APPROVED_PENDING_MERGE");
 
 console.log(JSON.stringify({
-  status: "PASS_SAP_CP003_PERMANENT_IDENTITY_EDITORIAL_V3_REVIEW_AUTHORITY",
+  status: "PASS_SAP_CP003_PERMANENT_IDENTITY_EDITORIAL_V3_APPROVED_AUTHORITY",
   permanentQlRange: SAP_CP003_PERMANENT_STATE.permanentQlRange,
   permanentQlCount: SAP_CP003_PERMANENT_QL_IDS.length,
   packagesTested: sweep.length,
@@ -97,5 +98,6 @@ console.log(JSON.stringify({
   contentReview: SAP_CP003_PERMANENT_STATE.questionAndAnswerReview,
   fullEditorialReview: SAP_CP003_PERMANENT_STATE.fullEditorialReview,
   explanationFreeze: SAP_CP003_PERMANENT_STATE.englishExplanationFreeze,
-  lifecycle: "INACTIVE",
+  approvalAuthority: SAP_CP003_PERMANENT_STATE.editorialApproval,
+  lifecycle: "INACTIVE_AWAITING_MERGE_AUTHORIZATION",
 }, null, 2));
