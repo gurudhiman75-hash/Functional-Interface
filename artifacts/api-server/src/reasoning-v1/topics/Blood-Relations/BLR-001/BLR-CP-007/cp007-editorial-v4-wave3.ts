@@ -28,7 +28,7 @@ import {
   targetSentence,
   type Target,
 } from "./cp007-editorial-v4-wave3-safe-core";
-import { remodelQl034 } from "./cp007-editorial-v4-wave3-ql034";
+import { remodelQl034 } from "./cp007-editorial-v4-wave3-ql034-compact";
 
 export const BLR_CP007_V4_WAVE3_SELF_REVIEW_AUTHORITY =
   "BLR_CP007_V4_SELF_REVIEW_REMEDIATION" as const;
@@ -71,6 +71,55 @@ function validityStem(question: GeneratedBlrCp007EditorialV4Question): string {
     ? correctLeads[question.seed % correctLeads.length]
     : incorrectLeads[question.seed % incorrectLeads.length];
   return `${lead} Consider all four ${direct ? "direct" : "derived"} relation options.`;
+}
+
+function validityGuidance(question: GeneratedBlrCp007EditorialV4Question): { shortcut: string; commonTrap: string } {
+  const direct = question.sourcePrototypeId.includes("DIRECT");
+  const correct = question.query.kind === "SELECT_VALIDITY" && question.query.desiredStatus === "VALID";
+  const directShortcuts = [
+    "Decode each direct symbol and compare the result with its written relation.",
+    "Check person order first, then check whether the named direct relation matches.",
+    "Translate the symbol literally before judging the accompanying statement.",
+    "Verify the subject, reference person and relation in that order.",
+    "Treat every option independently; one correct-looking word is not enough.",
+    "Match the direct code meaning without reversing the pair.",
+    "Compare the decoded statement with the interpretation word for word.",
+    "Use the key to test direction and gender together.",
+  ] as const;
+  const derivedShortcuts = [
+    "Decode both links, derive the final relation, and then test the written claim.",
+    "Trace the complete two-link path before deciding whether the interpretation matches.",
+    "Find the actual derived relation first; compare the claim only afterward.",
+    "Check each direct link and then combine them into one final relation.",
+    "Ignore the option wording until the coded family path has been solved.",
+    "Mark the generation change and marriage link before evaluating the claim.",
+    "Work from the coded chain to the relation, not from the claim back to the code.",
+    "Verify the full path because a correct first link can still lead to a wrong conclusion.",
+  ] as const;
+  const correctTraps = [
+    "A graph-valid code is not enough if the written interpretation names a different relation.",
+    "Do not select an option merely because the people appear in the correct order.",
+    "Gender and direction must both agree with the code.",
+    "A related family term can still be incorrect if it belongs to another generation.",
+    "Do not infer a relation from the claim before decoding the symbols.",
+    "Check the entire statement, not only the first relation word.",
+    "Parent and child directions are common sources of false matches.",
+    "Marriage-based and blood-based routes must not be treated as interchangeable.",
+  ] as const;
+  const incorrectTraps = [
+    "The task asks for the mismatch; three options are expected to be correctly interpreted.",
+    "Do not select the most complex option without checking whether its claim actually fails.",
+    "An unfamiliar relation is not automatically the incorrect option.",
+    "A valid code can still be the answer when its written interpretation is wrong.",
+    "Look for the precise mismatch rather than a generally unusual-looking statement.",
+    "Do not stop after finding one valid option; the required choice is the invalid interpretation.",
+    "Check whether the error is direction, gender or generation before selecting.",
+    "The incorrect option may differ from the actual relation by only one word.",
+  ] as const;
+  return {
+    shortcut: (direct ? directShortcuts : derivedShortcuts)[question.seed % 8],
+    commonTrap: (correct ? correctTraps : incorrectTraps)[question.seed % 8],
+  };
 }
 
 function remodelQl035(
@@ -117,6 +166,7 @@ function remodelQl035(
   const correct = options[question.correctIndex]!;
   const sourceCorrect = candidates[question.correctIndex]!;
   const evaluated = evaluate(codeKey, correct.completedStatements, sourceCorrect.claim!, `${question.itemId}-VALIDITY-FINAL`);
+  const guidance = validityGuidance(question);
   return {
     ...question,
     keyStyle: "SYMBOL",
@@ -133,10 +183,7 @@ function remodelQl035(
       ...question.explanation,
       steps: correct.decodedAssertions,
       conclusion: `Option ${OPTION_LABELS[question.correctIndex]} is the required ${question.query.desiredStatus === "VALID" ? "correct" : "incorrect"} statement.`,
-      shortcut: "Decode each option and compare its actual relation with the written interpretation.",
-      commonTrap: question.query.desiredStatus === "VALID"
-        ? "Do not select an option whose code is valid but whose written interpretation is wrong."
-        : "The question asks for the incorrect interpretation, not merely the most complex option.",
+      ...guidance,
       optionAnalysis: options.map((option, index) => ({
         optionLabel: OPTION_LABELS[index]!,
         optionText: option.text,
@@ -277,7 +324,9 @@ export function buildBlrCp007EditorialV4Wave3Telemetry(
     ql031SinglePositionDerivedDistractorCount: bank.filter(ql031SinglePosition).length,
     ql033FixedBlankOptionCount: bank.filter(ql033FixedBlank).length,
     ql034DistinctDecisiveStructureCount: new Set(ql034.map((question) =>
-      question.topologyId.replace(/-(?:M|F)-[PQRS]$/, ""),
+      question.topologyId
+        .replace(/-COMPACT$/, "")
+        .replace(/-(?:M|F)-[PQRS]$/, ""),
     )).size,
     ql034BroadTargetCount: ql034.filter((question) =>
       ["UNCLE_OR_AUNT", "NEPHEW_OR_NIECE"].includes(question.reviewProof.targetRelation ?? ""),
