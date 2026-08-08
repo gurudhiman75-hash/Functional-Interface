@@ -56,7 +56,7 @@ export interface SerPermanentQlRegistryEntry {
   readonly allocationStatus: "PERMANENT_ID_ALLOCATED_INACTIVE";
   readonly englishStatus: "ENGLISH_MANUAL_FREEZE_APPROVED";
   readonly allocationApproval: "PRODUCT_OWNER_APPROVED_2026_08_07";
-  readonly localizationStatus: "NOT_STARTED";
+  readonly localizationStatus: "IMPLEMENTED_PENDING_MANUAL_REVIEW";
   readonly active: false;
   readonly questionStudioDiscoverable: false;
   readonly questionBankWritable: false;
@@ -267,7 +267,7 @@ const entries: readonly SerPermanentQlRegistryEntry[] = [
     allocationStatus: "PERMANENT_ID_ALLOCATED_INACTIVE" as const,
     englishStatus: "ENGLISH_MANUAL_FREEZE_APPROVED" as const,
     allocationApproval: "PRODUCT_OWNER_APPROVED_2026_08_07" as const,
-    localizationStatus: "NOT_STARTED" as const,
+    localizationStatus: "IMPLEMENTED_PENDING_MANUAL_REVIEW" as const,
     active: false as const,
     questionStudioDiscoverable: false as const,
     questionBankWritable: false as const,
@@ -296,7 +296,7 @@ export const SER_PERMANENT_QL_BY_AUTHORITY: Readonly<
 );
 
 export const SER_PERMANENT_QL_REGISTRY_STATE = Object.freeze({
-  registryVersion: 1,
+  registryVersion: 2,
   allocatedCheckpointCount: 1,
   allocatedTemplateCount: 13,
   frozenPrototypeTemplateCount: 140,
