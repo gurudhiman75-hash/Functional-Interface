@@ -137,7 +137,7 @@ function ql063(source, result) {
 function safePrimePool(a, b, seed) {
   const all = [3, 5, 7, 11, 13];
   const eligible = all.filter((prime) => 2 ** Math.max(0, a) * prime ** Math.max(0, b) <= 6_000);
-  const pool = eligible.length >= 2 ? eligible : [3, 5];
+  const pool = eligible.length > 0 ? eligible : [3];
   const desired = Math.min(pool.length, 2 + ((seed - 1) % 3));
   const rotated = pool.map((_value, index) => pool[(index + seed - 1) % pool.length]);
   return rotated.slice(0, desired).sort((x, y) => x - y);
