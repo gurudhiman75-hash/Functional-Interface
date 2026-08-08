@@ -91,7 +91,7 @@ jobs:
           grep -q '"codePersonCollisionCount": 0' "$OUT/blr-cp007-v4-wave3-summary.json"
           grep -q '"ql031SinglePositionDerivedDistractorCount": 0' "$OUT/blr-cp007-v4-wave3-summary.json"
           grep -q '"ql033FixedBlankOptionCount": 0' "$OUT/blr-cp007-v4-wave3-summary.json"
-          grep -q '"ql034DistinctDecisiveStructureCount": 16' "$OUT/blr-cp007-v4-wave3-summary.json"
+          grep -q '"ql034DistinctDecisiveStructureCount": 18' "$OUT/blr-cp007-v4-wave3-summary.json"
           grep -q '"ql034BroadTargetCount": 0' "$OUT/blr-cp007-v4-wave3-summary.json"
           grep -q '"directValidityEasyCount": 16' "$OUT/blr-cp007-v4-wave3-summary.json"
 
