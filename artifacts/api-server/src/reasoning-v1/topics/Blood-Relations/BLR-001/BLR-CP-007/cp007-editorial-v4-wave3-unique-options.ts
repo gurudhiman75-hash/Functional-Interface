@@ -18,7 +18,7 @@ import {
 import {
   remodelQl031 as remodelQl031Base,
   remodelQl032 as remodelQl032Base,
-} from "./cp007-editorial-v4-wave3-safe-core";
+} from "./cp007-editorial-v4-wave3-wording-core";
 import type { BlrCp006CodeDefinition } from "../BLR-CP-006/cp006-model";
 
 export {
@@ -37,7 +37,7 @@ export {
   statementText,
   targetSentence,
   type Target,
-} from "./cp007-editorial-v4-wave3-safe-core";
+} from "./cp007-editorial-v4-wave3-wording-core";
 
 function relationFor(
   codeKey: readonly BlrCp006CodeDefinition[],
