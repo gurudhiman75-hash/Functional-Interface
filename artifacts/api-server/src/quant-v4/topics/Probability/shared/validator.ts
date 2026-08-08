@@ -29,6 +29,17 @@ function hasGrammarDefect(value: string): boolean {
   }
   return /\b1\s+are\b/i.test(value);
 }
+function hasStemExplanationContextAgreement(stem: string, explanation: string[]): boolean {
+  const value = explanation.join(" ");
+  const rules = [
+    { stem: /\bpens?\b/i, explanation: /\bpens?\b/i },
+    { stem: /\bmarbles?\b/i, explanation: /\bmarbles?\b/i },
+    { stem: /\bcoloured stones?\b/i, explanation: /\bstones?\b/i },
+    { stem: /\bballs?\b/i, explanation: /\bballs?\b/i },
+  ];
+  return rules.every((rule) => !rule.stem.test(stem) || rule.explanation.test(value));
+}
+
 function hasGenericExplanation(explanation: string[]): boolean {
   const genericPatterns = [
     /^Favourable outcomes\s*=/i,
@@ -131,6 +142,7 @@ export function validateProbabilityQuestion(args: {
   checks.push(check("difficulty-appropriate-explanation-depth", entry.difficulty === "Easy" || explanationWords >= 20, `Medium/Hard explanation has only ${explanationWords} words; expected at least 20.`));
   checks.push(check("exam-depth-decision-path", !EXAM_DEPTH_MODES.has(entry.solveMode) || (explanation.length >= 3 && hasMethodDecision(explanation)), "A multi-step explanation must state the method decision and show at least three reasoning lines."));
   checks.push(check("contextual-explanation", !hasGenericExplanation(explanation), "The explanation states generic counts or uses unnatural instructional wording."));
+  checks.push(check("stem-explanation-context-agreement", hasStemExplanationContextAgreement(stem, explanation), "The explanation changes the object named in the question stem."));
   checks.push(check("concrete-outcome-visibility", hasConcreteOutcomeEvidence(entry, explanation), "Small outcome spaces must show the actual H/T sequences, die faces, dice pairs or qualifying integers."));
   checks.push(check("no-qa-jargon-in-explanation", !/(typed event|independent check|permitted range|generated parameter|review trail|publication|validator|renderer|fingerprint|canonical universe)/i.test(explanationText), "The explanation contains internal QA language."));
   checks.push(check("no-adjacent-duplicate-lines", explanation.every((line, index) => index === 0 || line.trim() !== explanation[index - 1]!.trim()), "The explanation repeats the same line."));

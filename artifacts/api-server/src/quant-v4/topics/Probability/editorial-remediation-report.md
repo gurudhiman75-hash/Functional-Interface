@@ -7,19 +7,20 @@
 - Unique visible review questions: **135/135**
 - PRB-001 review set: **75** questions using the SSC CGL/CHSL profile and four options
 - PRB-002 review set: **60** questions using the Banking Mains profile and five options
-- Average review explanation length: **29.2 words**
+- Average review explanation length: **30.6 words**
 
 ## Student-facing standard
 
 Questions now use direct exam language. Internal enum names, artificial template introductions, unused variables and invalid displayed probabilities are blocked. Singular and plural forms are rendered from the actual number. Difficulty is based on the number of reasoning steps rather than stem length. Exact duplicate visible questions are rejected during review generation; a different valid QL is substituted when necessary.
 
-Explanations follow a deliberately simple pattern:
+Explanations follow an exam-depth pattern:
 
-1. Identify the total cases.
-2. Count the required cases.
-3. Divide and simplify.
+1. State why the selected method applies.
+2. Identify the complete or restricted sample space.
+3. Count the required cases, showing concrete outcomes when the set is small.
+4. Form and simplify the final probability.
 
-For complement, conditional, successive-draw and event-algebra questions, only the shortest necessary method is shown. Internal QA terminology is never displayed to students.
+Combination questions explain what is being chosen; replacement, order, overlap and conditional restrictions are stated explicitly. The object named in the stem remains the same throughout the explanation. Internal QA terminology is never displayed to students.
 
 ## Exam profiles
 

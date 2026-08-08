@@ -74,6 +74,21 @@ function objectContext(entry: ProbabilityTaskRegistryEntry): ObjectContext {
   return contexts[variant(entry, contexts.length)]!;
 }
 
+
+function frequencyContext(entry: ProbabilityTaskRegistryEntry): ObjectContext {
+  const contexts: ObjectContext[] = [
+    { container: "A bag", item: "balls", singular: "ball", selectionVerb: "drawn" },
+    { container: "A box", item: "pens", singular: "pen", selectionVerb: "selected" },
+    { container: "A jar", item: "marbles", singular: "marble", selectionVerb: "selected" },
+    { container: "A pouch", item: "coloured stones", singular: "stone", selectionVerb: "drawn" },
+  ];
+  return contexts[variant(entry, contexts.length)]!;
+}
+
+function definiteContainer(container: string): string {
+  return container.replace(/^A /, "The ");
+}
+
 interface GroupContext {
   subjectA: string;
   subjectB: string;
@@ -194,15 +209,14 @@ export function remodelProbabilityStem(
     "findOrderedDrawSequenceProbability", "findSameTypeInSuccessiveDraws", "findDifferentTypesInSuccessiveDraws",
     "findAtLeastOneAcrossIndependentStages",
   ];
-  if (objectModes.includes(mode)) return tidy(renderObjectStem(entry, parameters, baseStem));
+  if (objectModes.includes(mode) && (mode !== "findSelectionProbabilityUsingCombination" || entry.cpId === "PRB-CP-005")) return tidy(renderObjectStem(entry, parameters, baseStem));
 
   if (mode === "findProbabilityFromSimpleFrequencyTable") {
-    const red = numberValue(parameters, "red"), blue = numberValue(parameters, "blue"), green = numberValue(parameters, "green");
-    const target = textValue(parameters, "target", "red");
-    const contexts = ["balls in a bag", "pens in a box", "marbles in a jar", "coloured stones in a pouch"];
-    const [item, container] = contexts[variant(entry, contexts.length)]!.split(" in a ");
-    return tidy(`A ${container} contains ${red} red, ${blue} blue and ${green} green ${item}. One is selected at random. What is the probability that it is ${target}?`);
-  }
+  const red = numberValue(parameters, "red"), blue = numberValue(parameters, "blue"), green = numberValue(parameters, "green");
+  const target = textValue(parameters, "target", "red");
+  const context = frequencyContext(entry);
+  return tidy(`${context.container} contains ${red} red, ${blue} blue and ${green} green ${context.item}. One ${context.singular} is ${context.selectionVerb} at random. What is the probability that it is ${target}?`);
+}
 
   if (mode === "findNumberRangePropertyProbability") {
     const lower = numberValue(parameters, "lower", 1), upper = numberValue(parameters, "upper");
@@ -252,26 +266,27 @@ export function remodelProbabilityStem(
 function simultaneousExplanation(entry: ProbabilityTaskRegistryEntry, parameters: GeneratedParameters, solved: SolvedProbability): string[] {
   const mode = entry.solveMode;
   const red = numberValue(parameters, "red"), blue = numberValue(parameters, "blue"), draw = numberValue(parameters, "draw");
+  const context = objectContext(entry);
   const totalItems = red + blue;
   const totalSelections = choose(totalItems, draw);
   const favourable = solved.evidence.favourableOutcomeCount?.toString() ?? "0";
   const lines = [
-    `Because the ${draw} items are selected together, their order does not matter; use combinations.`,
-    `The number of possible selections is C(${totalItems},${draw}) = ${totalSelections}.`,
+    `Because the ${draw} ${context.item} are selected together, their order does not matter; use combinations.`,
+    `The number of possible selections of ${context.item} is C(${totalItems},${draw}) = ${totalSelections}.`,
   ];
 
   if (mode === "findSimultaneousSameTypeProbability") {
     lines.push(`Selections of one colour = C(${red},${draw}) + C(${blue},${draw}) = ${favourable}.`);
   } else if (mode === "findSimultaneousDifferentTypeProbability") {
-    if (draw === 2) lines.push(`Select one red and one blue item: C(${red},1) × C(${blue},1) = ${favourable}.`);
+    if (draw === 2) lines.push(`Select one red and one blue ${context.singular}: C(${red},1) × C(${blue},1) = ${favourable}.`);
     else lines.push(`Subtract the all-red and all-blue selections: ${totalSelections} - C(${red},${draw}) - C(${blue},${draw}) = ${favourable}.`);
   } else if (["findExactCompositionProbability", "findSelectionProbabilityUsingCombination"].includes(mode)) {
     const exactRed = numberValue(parameters, "exactRed", 1);
-    lines.push(`Choose ${exactRed} red and ${draw - exactRed} blue: C(${red},${exactRed}) × C(${blue},${draw - exactRed}) = ${favourable}.`);
+    lines.push(`Choose ${exactRed} red and ${draw - exactRed} blue ${context.item}: C(${red},${exactRed}) × C(${blue},${draw - exactRed}) = ${favourable}.`);
   } else if (mode === "findNoObjectOfTypeProbability") {
-    lines.push(`No red item means all ${draw} selected items are blue: C(${blue},${draw}) = ${favourable}.`);
+    lines.push(`No red ${context.singular} means all ${draw} selected ${context.item} are blue: C(${blue},${draw}) = ${favourable}.`);
   } else {
-    lines.push(`Use the complement of selecting only blue items: ${totalSelections} - C(${blue},${draw}) = ${favourable}.`);
+    lines.push(`Use the complement of selecting only blue ${context.item}: ${totalSelections} - C(${blue},${draw}) = ${favourable}.`);
   }
   lines.push(probabilityLine(favourable, totalSelections, solved.exactDisplay));
   return lines;
@@ -280,46 +295,47 @@ function simultaneousExplanation(entry: ProbabilityTaskRegistryEntry, parameters
 function successiveExplanation(entry: ProbabilityTaskRegistryEntry, parameters: GeneratedParameters, solved: SolvedProbability): string[] {
   const mode = entry.solveMode;
   const red = numberValue(parameters, "red"), blue = numberValue(parameters, "blue"), total = red + blue;
+  const context = objectContext(entry);
 
   if (["findSuccessiveIndependentProbability", "findWithReplacementProbability"].includes(mode)) {
     return [
-      `The first item is replaced, so the composition remains ${red} red and ${blue} blue before the second selection.`,
-      `Thus, P(red on each selection) = ${red}/${total}.`,
-      `P(both red) = ${red}/${total} × ${red}/${total} = ${solved.exactDisplay}.`,
+      `The first ${context.singular} is replaced, so the container again has ${red} red and ${blue} blue ${context.item} before the second selection.`,
+      `Thus, P(red ${context.singular} on each selection) = ${red}/${total}.`,
+      `P(both red ${context.item}) = ${red}/${total} × ${red}/${total} = ${solved.exactDisplay}.`,
     ];
   }
   if (["findSuccessiveDependentProbability", "findWithoutReplacementProbability"].includes(mode)) {
     return [
-      `On the first selection, P(red) = ${red}/${total}.`,
-      `After one red item is removed, ${red - 1} red items remain among ${total - 1} items.`,
-      `P(both red) = ${red}/${total} × ${red - 1}/${total - 1} = ${solved.exactDisplay}.`,
+      `On the first selection, P(red ${context.singular}) = ${red}/${total}.`,
+      `After one red ${context.singular} is removed, ${red - 1} red ${context.item} remain among ${total - 1} ${context.item}.`,
+      `P(both red ${context.item}) = ${red}/${total} × ${red - 1}/${total - 1} = ${solved.exactDisplay}.`,
     ];
   }
   if (mode === "findOrderedDrawSequenceProbability") {
     return [
-      `The order is fixed: red must occur first and blue second.`,
+      `The order is fixed: a red ${context.singular} must occur first and a blue ${context.singular} second.`,
       `P(red first) = ${red}/${total}; after that, P(blue second) = ${blue}/${total - 1}.`,
       `Required probability = ${red}/${total} × ${blue}/${total - 1} = ${solved.exactDisplay}.`,
     ];
   }
   if (mode === "findSameTypeInSuccessiveDraws") {
     return [
-      `The same colour can occur in two disjoint ways: red-red or blue-blue.`,
+      `The same colour can occur in two disjoint ways for the ${context.item}: red-red or blue-blue.`,
       `P(red-red) = ${red}/${total} × ${red - 1}/${total - 1}, and P(blue-blue) = ${blue}/${total} × ${blue - 1}/${total - 1}.`,
       `Adding the two cases gives ${solved.exactDisplay}.`,
     ];
   }
   if (mode === "findDifferentTypesInSuccessiveDraws") {
     return [
-      `Different colours can occur as red-blue or blue-red, so both orders must be counted.`,
+      `Different colours can occur as red-blue or blue-red, so both orders of the ${context.item} must be counted.`,
       `P = ${red}/${total} × ${blue}/${total - 1} + ${blue}/${total} × ${red}/${total - 1}.`,
       `After simplification, the required probability is ${solved.exactDisplay}.`,
     ];
   }
   return [
-    `Use the complement: at least one red item fails only when both selections are blue.`,
-    `Replacement keeps P(blue) = ${blue}/${total} on both selections.`,
-    `P(at least one red) = 1 - (${blue}/${total} × ${blue}/${total}) = ${solved.exactDisplay}.`,
+    `Use the complement: at least one red ${context.singular} fails only when both selected ${context.item} are blue.`,
+    `Replacement keeps P(blue ${context.singular}) = ${blue}/${total} on both selections.`,
+    `P(at least one red ${context.singular}) = 1 - (${blue}/${total} × ${blue}/${total}) = ${solved.exactDisplay}.`,
   ];
 }
 
@@ -343,8 +359,8 @@ function conditionalExplanation(entry: ProbabilityTaskRegistryEntry, parameters:
   if (mode === "findConditionalUrnProbability") {
     const red = numberValue(parameters, "red"), blue = numberValue(parameters, "blue"), total = red + blue;
     return [
-      `The condition tells us that the first selected item was red and was not replaced.`,
-      `Therefore, ${red - 1} red items remain among ${total - 1} items for the second selection.`,
+      `The condition tells us that the first selected ball was red and was not replaced.`,
+      `Therefore, ${red - 1} red balls remain among ${total - 1} balls for the second selection.`,
       probabilityLine(red - 1, total - 1, solved.exactDisplay),
     ];
   }
@@ -503,6 +519,38 @@ export function remodelProbabilityExplanation(
 ): string[] {
   const mode = entry.solveMode;
   let explanation = baseExplanation;
+
+  if (mode === "findProbabilityFromSimpleFrequencyTable") {
+  const red = numberValue(parameters, "red"), blue = numberValue(parameters, "blue"), green = numberValue(parameters, "green");
+  const target = textValue(parameters, "target", "red");
+  const context = frequencyContext(entry);
+  const total = red + blue + green;
+  const targetCount = target === "red" ? red : target === "blue" ? blue : green;
+  explanation = [
+    `${definiteContainer(context.container)} contains ${total} ${context.item} altogether: ${red} red, ${blue} blue and ${green} green.`,
+    `${targetCount} of the ${total} ${context.item} are ${target}.`,
+    probabilityLine(targetCount, total, solved.exactDisplay),
+  ];
+}
+
+if (["findSingleDrawColourProbability", "findMissingObjectCountFromProbability"].includes(mode)) {
+  const red = numberValue(parameters, "red"), blue = numberValue(parameters, "blue"), total = red + blue;
+  const context = objectContext(entry);
+  if (mode === "findSingleDrawColourProbability") {
+    explanation = [
+      `${definiteContainer(context.container)} contains ${total} ${context.item}, of which ${red} are red.`,
+      `Thus, ${red} of the ${total} equally possible ${context.item} are favourable.`,
+      probabilityLine(red, total, solved.exactDisplay),
+    ];
+  } else {
+    const probability = fraction(red, total);
+    explanation = [
+      `Red ${context.item} make up ${probability} of all ${total} ${context.item}.`,
+      `Required number of red ${context.item} = ${total} × ${probability} = ${red}.`,
+      `Therefore, there are ${solved.exactDisplay} red ${context.item}.`,
+    ];
+  }
+}
 
   const simultaneousModes = [
     "findSimultaneousSameTypeProbability", "findSimultaneousDifferentTypeProbability", "findExactCompositionProbability",

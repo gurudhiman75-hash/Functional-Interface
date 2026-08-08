@@ -98,7 +98,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 5 — PRB-QL-005 (Easy)
 
-**Question:** A box contains 5 red, 7 blue and 5 green pens. One is selected at random. What is the probability that it is blue?
+**Question:** A box contains 5 red, 7 blue and 5 green pens. One pen is selected at random. What is the probability that it is blue?
 
 **Options:**
 
@@ -109,7 +109,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 7/17
 
-**Explanation:** The bag has 17 balls altogether. 7 of them are blue. So the probability is 7/17.
+**Explanation:** The box contains 17 pens altogether: 5 red, 7 blue and 5 green. 7 of the 17 pens are blue. Therefore, the required probability is 7/17.
 
 ---
 
@@ -200,7 +200,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 11 — PRB-QL-011 (Easy)
 
-**Question:** A pouch contains 8 red, 8 blue and 10 green coloured stones. One is selected at random. What is the probability that it is green?
+**Question:** A pouch contains 8 red, 8 blue and 10 green coloured stones. One stone is drawn at random. What is the probability that it is green?
 
 **Options:**
 
@@ -211,7 +211,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 5/13
 
-**Explanation:** The bag has 26 balls altogether. 10 of them are green. So the probability is 10/26 = 5/13.
+**Explanation:** The pouch contains 26 coloured stones altogether: 8 red, 8 blue and 10 green. 10 of the 26 coloured stones are green. Therefore, the required probability is 10/26 = 5/13.
 
 ---
 
@@ -1069,7 +1069,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/2
 
-**Explanation:** The bag has 8 balls, of which 4 are red. So the probability is 4/8 = 1/2.
+**Explanation:** The jar contains 8 marbles, of which 4 are red. Thus, 4 of the 8 equally possible marbles are favourable. Therefore, the required probability is 4/8 = 1/2.
 
 ---
 
@@ -1086,7 +1086,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 8
 
-**Explanation:** Red balls form 8/13 of all 13 balls. Red balls = 13 × 8/13 = 8.
+**Explanation:** Red coloured stones make up 8/13 of all 13 coloured stones. Required number of red coloured stones = 13 × 8/13 = 8. Therefore, there are 8 red coloured stones.
 
 ---
 
@@ -1103,7 +1103,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 6/11
 
-**Explanation:** The bag has 11 balls, of which 6 are red. So the probability is 6/11.
+**Explanation:** The jar contains 11 marbles, of which 6 are red. Thus, 6 of the 11 equally possible marbles are favourable. Therefore, the required probability is 6/11.
 
 ---
 
@@ -1120,7 +1120,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 9
 
-**Explanation:** Red balls form 9/16 of all 16 balls. Red balls = 16 × 9/16 = 9.
+**Explanation:** Red coloured stones make up 9/16 of all 16 coloured stones. Required number of red coloured stones = 16 × 9/16 = 9. Therefore, there are 9 red coloured stones.
 
 ---
 
@@ -1137,7 +1137,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 2/3
 
-**Explanation:** The bag has 12 balls, of which 8 are red. So the probability is 8/12 = 2/3.
+**Explanation:** The jar contains 12 marbles, of which 8 are red. Thus, 8 of the 12 equally possible marbles are favourable. Therefore, the required probability is 8/12 = 2/3.
 
 ---
 
@@ -1154,7 +1154,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 19/39
 
-**Explanation:** Because the 2 items are selected together, their order does not matter; use combinations. The number of possible selections is C(13,2) = 78. Selections of one colour = C(8,2) + C(5,2) = 38. Therefore, the required probability is 38/78 = 19/39.
+**Explanation:** Because the 2 pens are selected together, their order does not matter; use combinations. The number of possible selections of pens is C(13,2) = 78. Selections of one colour = C(8,2) + C(5,2) = 38. Therefore, the required probability is 38/78 = 19/39.
 
 ---
 
@@ -1171,7 +1171,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 20/39
 
-**Explanation:** Because the 2 items are selected together, their order does not matter; use combinations. The number of possible selections is C(13,2) = 78. Select one red and one blue item: C(8,1) × C(5,1) = 40. Therefore, the required probability is 40/78 = 20/39.
+**Explanation:** Because the 2 coloured stones are selected together, their order does not matter; use combinations. The number of possible selections of coloured stones is C(13,2) = 78. Select one red and one blue stone: C(8,1) × C(5,1) = 40. Therefore, the required probability is 40/78 = 20/39.
 
 ---
 
@@ -1188,7 +1188,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 8/15
 
-**Explanation:** Because the 2 items are selected together, their order does not matter; use combinations. The number of possible selections is C(16,2) = 120. Choose 1 red and 1 blue: C(8,1) × C(8,1) = 64. Therefore, the required probability is 64/120 = 8/15.
+**Explanation:** Because the 2 balls are selected together, their order does not matter; use combinations. The number of possible selections of balls is C(16,2) = 120. Choose 1 red and 1 blue balls: C(8,1) × C(8,1) = 64. Therefore, the required probability is 64/120 = 8/15.
 
 ---
 
@@ -1205,7 +1205,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 21/55
 
-**Explanation:** Because the 2 items are selected together, their order does not matter; use combinations. The number of possible selections is C(11,2) = 55. No red item means all 2 selected items are blue: C(7,2) = 21. Therefore, the required probability is 21/55.
+**Explanation:** Because the 2 marbles are selected together, their order does not matter; use combinations. The number of possible selections of marbles is C(11,2) = 55. No red marble means all 2 selected marbles are blue: C(7,2) = 21. Therefore, the required probability is 21/55.
 
 ---
 
@@ -1222,7 +1222,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 23/35
 
-**Explanation:** Because the 2 items are selected together, their order does not matter; use combinations. The number of possible selections is C(15,2) = 105. Use the complement of selecting only blue items: 105 - C(9,2) = 69. Therefore, the required probability is 69/105 = 23/35.
+**Explanation:** Because the 2 pens are selected together, their order does not matter; use combinations. The number of possible selections of pens is C(15,2) = 105. Use the complement of selecting only blue pens: 105 - C(9,2) = 69. Therefore, the required probability is 69/105 = 23/35.
 
 ---
 
@@ -1239,7 +1239,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 9
 
-**Explanation:** Red balls form 3/5 of all 15 balls. Red balls = 15 × 3/5 = 9.
+**Explanation:** Red coloured stones make up 3/5 of all 15 coloured stones. Required number of red coloured stones = 15 × 3/5 = 9. Therefore, there are 9 red coloured stones.
 
 ---
 
@@ -1256,7 +1256,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 5/14
 
-**Explanation:** The bag has 14 balls, of which 5 are red. So the probability is 5/14.
+**Explanation:** The jar contains 14 marbles, of which 5 are red. Thus, 5 of the 14 equally possible marbles are favourable. Therefore, the required probability is 5/14.
 
 ---
 
@@ -1273,7 +1273,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 8/15
 
-**Explanation:** Because the 2 items are selected together, their order does not matter; use combinations. The number of possible selections is C(10,2) = 45. Choose 1 red and 1 blue: C(6,1) × C(4,1) = 24. Therefore, the required probability is 24/45 = 8/15.
+**Explanation:** Because the 2 balls are selected together, their order does not matter; use combinations. The number of possible selections of balls is C(10,2) = 45. Choose 1 red and 1 blue balls: C(6,1) × C(4,1) = 24. Therefore, the required probability is 24/45 = 8/15.
 
 ---
 
@@ -1290,7 +1290,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 17/33
 
-**Explanation:** Because the 2 items are selected together, their order does not matter; use combinations. The number of possible selections is C(12,2) = 66. Selections of one colour = C(4,2) + C(8,2) = 34. Therefore, the required probability is 34/66 = 17/33.
+**Explanation:** Because the 2 pens are selected together, their order does not matter; use combinations. The number of possible selections of pens is C(12,2) = 66. Selections of one colour = C(4,2) + C(8,2) = 34. Therefore, the required probability is 34/66 = 17/33.
 
 ---
 
@@ -1307,7 +1307,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 28/55
 
-**Explanation:** Because the 2 items are selected together, their order does not matter; use combinations. The number of possible selections is C(11,2) = 55. Select one red and one blue item: C(4,1) × C(7,1) = 28. Therefore, the required probability is 28/55.
+**Explanation:** Because the 2 coloured stones are selected together, their order does not matter; use combinations. The number of possible selections of coloured stones is C(11,2) = 55. Select one red and one blue stone: C(4,1) × C(7,1) = 28. Therefore, the required probability is 28/55.
 
 ---
 
@@ -1331,7 +1331,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 9/49
 
-**Explanation:** The first item is replaced, so the composition remains 6 red and 8 blue before the second selection. Thus, P(red on each selection) = 6/14. P(both red) = 6/14 × 6/14 = 9/49.
+**Explanation:** The first marble is replaced, so the container again has 6 red and 8 blue marbles before the second selection. Thus, P(red marble on each selection) = 6/14. P(both red marbles) = 6/14 × 6/14 = 9/49.
 
 ---
 
@@ -1349,7 +1349,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 7/22
 
-**Explanation:** On the first selection, P(red) = 7/12. After one red item is removed, 6 red items remain among 11 items. P(both red) = 7/12 × 6/11 = 7/22.
+**Explanation:** On the first selection, P(red pen) = 7/12. After one red pen is removed, 6 red pens remain among 11 pens. P(both red pens) = 7/12 × 6/11 = 7/22.
 
 ---
 
@@ -1367,7 +1367,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 81/169
 
-**Explanation:** The first item is replaced, so the composition remains 9 red and 4 blue before the second selection. Thus, P(red on each selection) = 9/13. P(both red) = 9/13 × 9/13 = 81/169.
+**Explanation:** The first stone is replaced, so the container again has 9 red and 4 blue coloured stones before the second selection. Thus, P(red stone on each selection) = 9/13. P(both red coloured stones) = 9/13 × 9/13 = 81/169.
 
 ---
 
@@ -1385,7 +1385,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 4/17
 
-**Explanation:** On the first selection, P(red) = 9/18. After one red item is removed, 8 red items remain among 17 items. P(both red) = 9/18 × 8/17 = 4/17.
+**Explanation:** On the first selection, P(red ball) = 9/18. After one red ball is removed, 8 red balls remain among 17 balls. P(both red balls) = 9/18 × 8/17 = 4/17.
 
 ---
 
@@ -1403,7 +1403,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 4/15
 
-**Explanation:** The order is fixed: red must occur first and blue second. P(red first) = 8/15; after that, P(blue second) = 7/14. Required probability = 8/15 × 7/14 = 4/15.
+**Explanation:** The order is fixed: a red marble must occur first and a blue marble second. P(red first) = 8/15; after that, P(blue second) = 7/14. Required probability = 8/15 × 7/14 = 4/15.
 
 ---
 
@@ -1421,7 +1421,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 31/66
 
-**Explanation:** The same colour can occur in two disjoint ways: red-red or blue-blue. P(red-red) = 5/12 × 4/11, and P(blue-blue) = 7/12 × 6/11. Adding the two cases gives 31/66.
+**Explanation:** The same colour can occur in two disjoint ways for the pens: red-red or blue-blue. P(red-red) = 5/12 × 4/11, and P(blue-blue) = 7/12 × 6/11. Adding the two cases gives 31/66.
 
 ---
 
@@ -1439,7 +1439,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 9/17
 
-**Explanation:** Different colours can occur as red-blue or blue-red, so both orders must be counted. P = 9/17 × 8/16 + 8/17 × 9/16. After simplification, the required probability is 9/17.
+**Explanation:** Different colours can occur as red-blue or blue-red, so both orders of the coloured stones must be counted. P = 9/17 × 8/16 + 8/17 × 9/16. After simplification, the required probability is 9/17.
 
 ---
 
@@ -1457,7 +1457,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 56/81
 
-**Explanation:** Use the complement: at least one red item fails only when both selections are blue. Replacement keeps P(blue) = 5/9 on both selections. P(at least one red) = 1 - (5/9 × 5/9) = 56/81.
+**Explanation:** Use the complement: at least one red ball fails only when both selected balls are blue. Replacement keeps P(blue ball) = 5/9 on both selections. P(at least one red ball) = 1 - (5/9 × 5/9) = 56/81.
 
 ---
 
@@ -1475,7 +1475,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 49/169
 
-**Explanation:** The first item is replaced, so the composition remains 7 red and 6 blue before the second selection. Thus, P(red on each selection) = 7/13. P(both red) = 7/13 × 7/13 = 49/169.
+**Explanation:** The first marble is replaced, so the container again has 7 red and 6 blue marbles before the second selection. Thus, P(red marble on each selection) = 7/13. P(both red marbles) = 7/13 × 7/13 = 49/169.
 
 ---
 
@@ -1493,7 +1493,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 6/13
 
-**Explanation:** On the first selection, P(red) = 9/13. After one red item is removed, 8 red items remain among 12 items. P(both red) = 9/13 × 8/12 = 6/13.
+**Explanation:** On the first selection, P(red pen) = 9/13. After one red pen is removed, 8 red pens remain among 12 pens. P(both red pens) = 9/13 × 8/12 = 6/13.
 
 ---
 
@@ -1511,7 +1511,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 25/121
 
-**Explanation:** The first item is replaced, so the composition remains 5 red and 6 blue before the second selection. Thus, P(red on each selection) = 5/11. P(both red) = 5/11 × 5/11 = 25/121.
+**Explanation:** The first stone is replaced, so the container again has 5 red and 6 blue coloured stones before the second selection. Thus, P(red stone on each selection) = 5/11. P(both red coloured stones) = 5/11 × 5/11 = 25/121.
 
 ---
 
@@ -1529,7 +1529,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 5/39
 
-**Explanation:** On the first selection, P(red) = 5/13. After one red item is removed, 4 red items remain among 12 items. P(both red) = 5/13 × 4/12 = 5/39.
+**Explanation:** On the first selection, P(red ball) = 5/13. After one red ball is removed, 4 red balls remain among 12 balls. P(both red balls) = 5/13 × 4/12 = 5/39.
 
 ---
 
@@ -1547,7 +1547,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 8/33
 
-**Explanation:** The order is fixed: red must occur first and blue second. P(red first) = 8/12; after that, P(blue second) = 4/11. Required probability = 8/12 × 4/11 = 8/33.
+**Explanation:** The order is fixed: a red marble must occur first and a blue marble second. P(red first) = 8/12; after that, P(blue second) = 4/11. Required probability = 8/12 × 4/11 = 8/33.
 
 ---
 
@@ -1565,7 +1565,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 3/7
 
-**Explanation:** The same colour can occur in two disjoint ways: red-red or blue-blue. P(red-red) = 4/8 × 3/7, and P(blue-blue) = 4/8 × 3/7. Adding the two cases gives 3/7.
+**Explanation:** The same colour can occur in two disjoint ways for the pens: red-red or blue-blue. P(red-red) = 4/8 × 3/7, and P(blue-blue) = 4/8 × 3/7. Adding the two cases gives 3/7.
 
 ---
 
@@ -1583,7 +1583,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 18/35
 
-**Explanation:** Different colours can occur as red-blue or blue-red, so both orders must be counted. P = 6/15 × 9/14 + 9/15 × 6/14. After simplification, the required probability is 18/35.
+**Explanation:** Different colours can occur as red-blue or blue-red, so both orders of the coloured stones must be counted. P = 6/15 × 9/14 + 9/15 × 6/14. After simplification, the required probability is 18/35.
 
 ---
 
@@ -1711,7 +1711,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 3/7
 
-**Explanation:** The condition tells us that the first selected item was red and was not replaced. Therefore, 6 red items remain among 14 items for the second selection. Therefore, the required probability is 6/14 = 3/7.
+**Explanation:** The condition tells us that the first selected ball was red and was not replaced. Therefore, 6 red balls remain among 14 balls for the second selection. Therefore, the required probability is 6/14 = 3/7.
 
 ---
 
@@ -1783,7 +1783,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 3/5
 
-**Explanation:** The condition tells us that the first selected item was red and was not replaced. Therefore, 6 red items remain among 10 items for the second selection. Therefore, the required probability is 6/10 = 3/5.
+**Explanation:** The condition tells us that the first selected ball was red and was not replaced. Therefore, 6 red balls remain among 10 balls for the second selection. Therefore, the required probability is 6/10 = 3/5.
 
 ---
 
@@ -1855,7 +1855,7 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 2/3
 
-**Explanation:** The condition tells us that the first selected item was red and was not replaced. Therefore, 8 red items remain among 12 items for the second selection. Therefore, the required probability is 8/12 = 2/3.
+**Explanation:** The condition tells us that the first selected ball was red and was not replaced. Therefore, 8 red balls remain among 12 balls for the second selection. Therefore, the required probability is 8/12 = 2/3.
 
 ---
 
@@ -1917,7 +1917,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 109 — PRB-QL-701 (Medium)
 
-**Question:** A jar contains 0 red and 0 blue marbles. 1 marbles are selected together without replacement. What is the probability that exactly one selected marble is red?
+**Question:** A 3-member committee is chosen at random from 5 men and 8 women. What is the probability that it contains exactly 1 woman?
 
 **Options:**
 
@@ -1953,7 +1953,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 111 — PRB-QL-709 (Medium)
 
-**Question:** A jar contains 0 red and 0 blue marbles. 1 marbles are selected together without replacement. What is the probability that exactly one selected marble is red?
+**Question:** A 3-member committee is chosen at random from 10 men and 6 women. What is the probability that it contains exactly 1 woman?
 
 **Options:**
 
@@ -1989,7 +1989,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 113 — PRB-QL-717 (Medium)
 
-**Question:** A jar contains 0 red and 0 blue marbles. 1 marbles are selected together without replacement. What is the probability that exactly one selected marble is red?
+**Question:** A 3-member committee is chosen at random from 10 men and 5 women. What is the probability that it contains exactly 1 woman?
 
 **Options:**
 
@@ -2115,7 +2115,7 @@ For successive draws, complements, conditional probability and counting question
 
 #### Question 120 — PRB-QL-725 (Medium)
 
-**Question:** A jar contains 0 red and 0 blue marbles. 1 marbles are selected together without replacement. What is the probability that exactly one selected marble is red?
+**Question:** A 3-member committee is chosen at random from 9 men and 6 women. What is the probability that it contains exactly 1 woman?
 
 **Options:**
 

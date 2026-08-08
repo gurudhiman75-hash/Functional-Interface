@@ -113,6 +113,17 @@ def audit() -> None:
         if banned.search(row["stem"]):
             raise SystemExit(f"{row['qlId']}: artificial context remains in stem")
 
+    context_rules = [
+        (re.compile(r"\bpens?\b", re.I), re.compile(r"\bpens?\b", re.I), "pen"),
+        (re.compile(r"\bmarbles?\b", re.I), re.compile(r"\bmarbles?\b", re.I), "marble"),
+        (re.compile(r"\bcoloured stones?\b", re.I), re.compile(r"\bstones?\b", re.I), "stone"),
+        (re.compile(r"\bballs?\b", re.I), re.compile(r"\bballs?\b", re.I), "ball"),
+    ]
+    for row in rows:
+        for stem_pattern, explanation_pattern, label in context_rules:
+            if stem_pattern.search(row["stem"]) and not explanation_pattern.search(row["explanation"]):
+                raise SystemExit(f"{row['qlId']}: {label} context is missing from the explanation")
+
     explanation_lengths = [len(row["explanation"].split()) for row in rows]
     if mean(explanation_lengths) < 24:
         raise SystemExit(f"Average explanation length is only {mean(explanation_lengths):.1f} words; expected at least 24")
