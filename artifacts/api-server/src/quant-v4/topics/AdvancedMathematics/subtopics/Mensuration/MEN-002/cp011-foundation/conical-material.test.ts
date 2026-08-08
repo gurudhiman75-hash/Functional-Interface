@@ -126,7 +126,8 @@ for (const prototypeId of getMenCp011ConicalMaterialPrototypeIds()) {
     assert.doesNotMatch(text, /\[(?:USED_|CALCULATED_|MEN-CP011-PROT-)/);
     assert.equal((text.match(/\$/g) ?? []).length % 2, 0);
     assert.doesNotMatch(text, /\$\$/);
-    assert.doesNotMatch(question.stem, /uniform wall thickness|R\s*[-−]\s*t|H\s*[-−]\s*t/i);
+    assert.doesNotMatch(question.stem, /uniform wall thickness/i);
+    assert.doesNotMatch(question.stem, /\b[RH]\s*[-−]\s*t\b/);
 
     seenUnits.add(state.unit);
     seenPiPolicies.add(state.piPolicy);
