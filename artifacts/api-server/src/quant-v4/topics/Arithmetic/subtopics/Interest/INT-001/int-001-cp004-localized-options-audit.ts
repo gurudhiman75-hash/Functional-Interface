@@ -19,6 +19,10 @@ function fail(message: string): never {
   throw new Error(message);
 }
 
+function stableJson(value: unknown): string {
+  return JSON.stringify(value, (_, item) => typeof item === "bigint" ? item.toString() : item);
+}
+
 const EXPECTED_MISCONCEPTIONS = Object.freeze([
   "CORRECT",
   "USED_SIMPLE_INTEREST",
@@ -83,7 +87,7 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
       questionCases += 1;
 
       deterministicChecks += 1;
-      if (JSON.stringify(localized) !== JSON.stringify(replay)) {
+      if (stableJson(localized) !== stableJson(replay)) {
         fail(`${qlId}/${seed}/${locale}: option localisation is not deterministic.`);
       }
       if (localized.length !== 4) fail(`${qlId}/${seed}/${locale}: expected four options.`);
