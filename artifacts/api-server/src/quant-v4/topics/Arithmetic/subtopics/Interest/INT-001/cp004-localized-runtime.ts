@@ -7,10 +7,12 @@ import {
 import { localizeCp004Explanation } from "./cp004-localized-explanations";
 import { remediateCp004LocalizedExplanationV3 } from "./cp004-localized-explanation-remediation-v3";
 import { localizeCp004Options } from "./cp004-localized-options";
+import { remediateCp004LocalizedOptions } from "./cp004-localized-editorial-v3";
 import {
-  remediateCp004LocalizedOptions,
-  renderCp004LocalizedEditorialV3Stem,
-} from "./cp004-localized-editorial-v3";
+  remediateCp004LocalizedExplanationV4,
+  remediateCp004LocalizedOptionsV4,
+  renderCp004LocalizedEditorialV4Stem,
+} from "./cp004-localized-editorial-v4";
 import {
   INT_CP004_PRESENTATION_WAVE1_QL_IDS,
   renderCp004LocalizedPresentationWave1,
@@ -69,10 +71,7 @@ function localizedStem(
   // Keep the legacy renderer reachable for ownership regression, while the
   // learner-facing runtime is rebuilt by the human-language editorial layer.
   legacyLocalizedStem(source, locale);
-  const stem = renderCp004LocalizedEditorialV3Stem(source, locale);
-  return locale === "pa-IN"
-    ? stem.replaceAll("| ਪ੍ਰਸ਼ਨ | विवरण |", "| ਪ੍ਰਸ਼ਨ | ਵੇਰਵਾ |")
-    : stem;
+  return renderCp004LocalizedEditorialV4Stem(source, locale);
 }
 
 function cleanExplanation(
@@ -96,12 +95,14 @@ export function localizeIntCp004EnglishFrozenQuestion(
   const language = languageForCp004Locale(locale);
   const stem = localizedStem(source, locale);
   const baseOptions = localizeCp004Options(source, locale);
-  const options = remediateCp004LocalizedOptions(baseOptions, locale);
+  const editorialV3Options = remediateCp004LocalizedOptions(baseOptions, locale);
+  const options = remediateCp004LocalizedOptionsV4(source, editorialV3Options, locale);
   const correctAnswer = options[source.correctIndex]?.text;
   if (!correctAnswer) throw new Error(`${source.qlId}/${source.seed}/${locale}: localized correct answer is missing.`);
   const baseExplanation = localizeCp004Explanation(source, locale);
+  const editorialV3Explanation = remediateCp004LocalizedExplanationV3(source, locale, baseExplanation);
   const explanation = cleanExplanation(
-    remediateCp004LocalizedExplanationV3(source, locale, baseExplanation),
+    remediateCp004LocalizedExplanationV4(source, locale, editorialV3Explanation),
     locale,
   );
 
