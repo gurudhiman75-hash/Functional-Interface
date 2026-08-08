@@ -1,7 +1,7 @@
 # Probability — Review Questions and Explanations
 
 > ExamTree English editorial-review set for SSC and banking examinations.
-> Every explanation uses the shortest complete method possible.
+> Every explanation is presented as a student-friendly worked solution with method, numbered calculation and final answer.
 
 ## Coverage Summary
 
@@ -13,14 +13,16 @@
 
 ## Explanation Standard
 
-Most solutions follow three simple steps:
+Every solution is arranged for quick student reading:
 
-1. Find the total possible cases.
-2. Find the required cases.
-3. Divide and simplify.
+1. **Method:** the exact probability idea used in the question.
+2. **Numbered working:** values, sample space and required cases shown in order.
+3. **Simplification:** included only when the reduction is not already visible in the calculation.
+4. **Key point:** added for multi-step questions to explain the important trap or reasoning decision.
+5. **Answer:** the final exact probability or count.
 
-For small coin, dice and number sample spaces, the actual outcomes are shown. For larger spaces, compact counting is used.
-For successive draws, complements, conditional probability and counting questions, only the extra step actually needed is shown.
+Small coin, dice and number sample spaces show their actual outcomes. Larger spaces use combinations or structured counting.
+The solution avoids repeated formulas, generic padding and method labels unrelated to the question.
 
 ## PRB-001 — SSC CGL/CHSL
 
@@ -41,7 +43,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 2/5
 
-**Explanation:** Approach — Identify the equally likely total cases, count the cases satisfying the condition, and use probability = favourable cases ÷ total cases. Step 1 — The batch has 15 bulbs, of which 6 are defective. Step 2 — The probability is 6/15 = 2/5. Simplification — Divide the numerator and denominator by 3: 6/15 = 2/5 = 2/5. Why this works — Every elementary case is equally likely, so the ratio of favourable cases to total cases is the required probability. Answer — The required probability is 2/5.
+**Explanation:**
+
+- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+1. The batch has 15 bulbs, of which 6 are defective.
+2. The probability is 6/15 = 2/5.
+- **Answer:** The required probability is 2/5.
 
 ---
 
@@ -58,7 +65,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 16
 
-**Explanation:** Approach — Work backwards from probability = favourable cases ÷ total cases, and solve for the missing count. Step 1 — Female employees make up 1/2 of all 32 employees. Step 2 — Required number = 32 × 1/2 = 16. Why this works — Substituting the derived count back into favourable cases ÷ total cases reproduces the probability stated in the question. Answer — The required number is 16.
+**Explanation:**
+
+- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
+1. Female employees make up 1/2 of all 32 employees.
+2. Required number = 32 × 1/2 = 16.
+- **Answer:** The required number is 16.
 
 ---
 
@@ -75,7 +87,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 36
 
-**Explanation:** Approach — Work backwards from probability = favourable cases ÷ total cases, and solve for the missing count. Step 1 — 18 red balls represent 1/2 of the full group. Step 2 — Total balls = 18 ÷ 1/2 = 36. Why this works — Substituting the derived count back into favourable cases ÷ total cases reproduces the probability stated in the question. Answer — The required number is 36.
+**Explanation:**
+
+- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
+1. 18 red balls represent 1/2 of the full group.
+2. Total balls = 18 ÷ 1/2 = 36.
+- **Answer:** The required number is 36.
 
 ---
 
@@ -92,7 +109,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1
 
-**Explanation:** Approach — Identify the equally likely total cases, count the cases satisfying the condition, and use probability = favourable cases ÷ total cases. Step 1 — Every integer from 1 to 8 satisfies the condition. Step 2 — The probability is 8/8 = 1. Simplification — Divide the numerator and denominator by 8: 8/8 = 1/1 = 1. Why this works — Every elementary case is equally likely, so the ratio of favourable cases to total cases is the required probability. Answer — The required probability is 1.
+**Explanation:**
+
+- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+1. Every integer from 1 to 8 satisfies the condition.
+2. The probability is 8/8 = 1.
+- **Answer:** The required probability is 1.
 
 ---
 
@@ -109,7 +131,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 7/17
 
-**Explanation:** Approach — Identify the equally likely total cases, count the cases satisfying the condition, and use probability = favourable cases ÷ total cases. Step 1 — The box contains 17 pens altogether: 5 red, 7 blue and 5 green. Step 2 — 7 of the 17 pens are blue. Step 3 — The required probability is 7/17. Why this works — Every elementary case is equally likely, so the ratio of favourable cases to total cases is the required probability. Answer — The required probability is 7/17.
+**Explanation:**
+
+- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+1. The box contains 17 pens altogether: 5 red, 7 blue and 5 green.
+2. 7 of the 17 pens are blue.
+3. The required probability is 7/17.
+- **Answer:** The required probability is 7/17.
 
 ---
 
@@ -126,7 +154,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 24
 
-**Explanation:** Approach — Work backwards from probability = favourable cases ÷ total cases, and solve for the missing count. Step 1 — Prize-winning tickets make up 3/5 of all 40 tickets. Step 2 — Required number = 40 × 3/5 = 24. Why this works — Substituting the derived count back into favourable cases ÷ total cases reproduces the probability stated in the question. Answer — The required number is 24.
+**Explanation:**
+
+- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
+1. Prize-winning tickets make up 3/5 of all 40 tickets.
+2. Required number = 40 × 3/5 = 24.
+- **Answer:** The required number is 24.
 
 ---
 
@@ -143,7 +176,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 7/12
 
-**Explanation:** Approach — Identify the equally likely total cases, count the cases satisfying the condition, and use probability = favourable cases ÷ total cases. Step 1 — The bag has 24 balls, of which 14 are red. Step 2 — The probability is 14/24 = 7/12. Simplification — Divide the numerator and denominator by 2: 14/24 = 7/12 = 7/12. Why this works — Every elementary case is equally likely, so the ratio of favourable cases to total cases is the required probability. Answer — The required probability is 7/12.
+**Explanation:**
+
+- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+1. The bag has 24 balls, of which 14 are red.
+2. The probability is 14/24 = 7/12.
+- **Answer:** The required probability is 7/12.
 
 ---
 
@@ -160,7 +198,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 9
 
-**Explanation:** Approach — Work backwards from probability = favourable cases ÷ total cases, and solve for the missing count. Step 1 — Defective bulbs make up 1/2 of all 18 bulbs. Step 2 — Required number = 18 × 1/2 = 9. Why this works — Substituting the derived count back into favourable cases ÷ total cases reproduces the probability stated in the question. Answer — The required number is 9.
+**Explanation:**
+
+- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
+1. Defective bulbs make up 1/2 of all 18 bulbs.
+2. Required number = 18 × 1/2 = 9.
+- **Answer:** The required number is 9.
 
 ---
 
@@ -177,7 +220,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 18
 
-**Explanation:** Approach — Work backwards from probability = favourable cases ÷ total cases, and solve for the missing count. Step 1 — 16 red balls represent 8/9 of the full group. Step 2 — Total balls = 16 ÷ 8/9 = 18. Why this works — Substituting the derived count back into favourable cases ÷ total cases reproduces the probability stated in the question. Answer — The required number is 18.
+**Explanation:**
+
+- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
+1. 16 red balls represent 8/9 of the full group.
+2. Total balls = 16 ÷ 8/9 = 18.
+- **Answer:** The required number is 18.
 
 ---
 
@@ -194,7 +242,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1
 
-**Explanation:** Approach — Identify the equally likely total cases, count the cases satisfying the condition, and use probability = favourable cases ÷ total cases. Step 1 — Every integer from 1 to 21 satisfies the condition. Step 2 — The probability is 21/21 = 1. Simplification — Divide the numerator and denominator by 21: 21/21 = 1/1 = 1. Why this works — Every elementary case is equally likely, so the ratio of favourable cases to total cases is the required probability. Answer — The required probability is 1.
+**Explanation:**
+
+- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+1. Every integer from 1 to 21 satisfies the condition.
+2. The probability is 21/21 = 1.
+- **Answer:** The required probability is 1.
 
 ---
 
@@ -211,7 +264,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 5/13
 
-**Explanation:** Approach — Identify the equally likely total cases, count the cases satisfying the condition, and use probability = favourable cases ÷ total cases. Step 1 — The pouch contains 26 coloured stones altogether: 8 red, 8 blue and 10 green. Step 2 — 10 of the 26 coloured stones are green. Step 3 — The required probability is 10/26 = 5/13. Simplification — Divide the numerator and denominator by 2: 10/26 = 5/13 = 5/13. Why this works — Every elementary case is equally likely, so the ratio of favourable cases to total cases is the required probability. Answer — The required probability is 5/13.
+**Explanation:**
+
+- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+1. The pouch contains 26 coloured stones altogether: 8 red, 8 blue and 10 green.
+2. 10 of the 26 coloured stones are green.
+3. The required probability is 10/26 = 5/13.
+- **Answer:** The required probability is 5/13.
 
 ---
 
@@ -228,7 +287,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 42
 
-**Explanation:** Approach — Work backwards from probability = favourable cases ÷ total cases, and solve for the missing count. Step 1 — Prize-winning tickets make up 7/12 of all 72 tickets. Step 2 — Required number = 72 × 7/12 = 42. Why this works — Substituting the derived count back into favourable cases ÷ total cases reproduces the probability stated in the question. Answer — The required number is 42.
+**Explanation:**
+
+- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
+1. Prize-winning tickets make up 7/12 of all 72 tickets.
+2. Required number = 72 × 7/12 = 42.
+- **Answer:** The required number is 42.
 
 ---
 
@@ -245,7 +309,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/11
 
-**Explanation:** Approach — Identify the equally likely total cases, count the cases satisfying the condition, and use probability = favourable cases ÷ total cases. Step 1 — There are 22 lottery tickets in all, and 2 are prize-winning. Step 2 — The probability is 2/22 = 1/11. Simplification — Divide the numerator and denominator by 2: 2/22 = 1/11 = 1/11. Why this works — Every elementary case is equally likely, so the ratio of favourable cases to total cases is the required probability. Answer — The required probability is 1/11.
+**Explanation:**
+
+- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+1. There are 22 lottery tickets in all, and 2 are prize-winning.
+2. The probability is 2/22 = 1/11.
+- **Answer:** The required probability is 1/11.
 
 ---
 
@@ -262,7 +331,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 36
 
-**Explanation:** Approach — Work backwards from probability = favourable cases ÷ total cases, and solve for the missing count. Step 1 — Female employees make up 2/3 of all 54 employees. Step 2 — Required number = 54 × 2/3 = 36. Why this works — Substituting the derived count back into favourable cases ÷ total cases reproduces the probability stated in the question. Answer — The required number is 36.
+**Explanation:**
+
+- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
+1. Female employees make up 2/3 of all 54 employees.
+2. Required number = 54 × 2/3 = 36.
+- **Answer:** The required number is 36.
 
 ---
 
@@ -279,7 +353,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 44
 
-**Explanation:** Approach — Work backwards from probability = favourable cases ÷ total cases, and solve for the missing count. Step 1 — 28 approved applications represent 7/11 of the full group. Step 2 — Total applications = 28 ÷ 7/11 = 44. Why this works — Substituting the derived count back into favourable cases ÷ total cases reproduces the probability stated in the question. Answer — The required number is 44.
+**Explanation:**
+
+- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
+1. 28 approved applications represent 7/11 of the full group.
+2. Total applications = 28 ÷ 7/11 = 44.
+- **Answer:** The required number is 44.
 
 ---
 
@@ -298,7 +377,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 12/13
 
-**Explanation:** Approach — Use the complementary event because it is shorter to count the unwanted case and subtract its probability from 1. Step 1 — An event and its opposite have total probability 1. Step 2 — Required probability = 1 - 1/13 = 12/13. Why this works — The required event and its complement are disjoint and together cover every possible outcome, so their probabilities add to 1. Answer — The required probability is 12/13.
+**Explanation:**
+
+- **Method:** The required event is the opposite of the given event, so use P(not E) = 1 − P(E).
+1. An event and its opposite have total probability 1.
+2. Required probability = 1 - 1/13 = 12/13.
+- **Answer:** The required probability is 12/13.
 
 ---
 
@@ -315,7 +399,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/4
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — No heads means every toss must be a tail. Only TT works. Step 2 — Out of 4 sequences, 1 works. So the probability is 1/4. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 1/4.
+**Explanation:**
+
+- **Method:** With 2 fair tosses there are 2^2 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+1. No heads means every toss must be a tail. Only TT works.
+2. Out of 4 sequences, 1 works. So the probability is 1/4.
+- **Answer:** The required probability is 1/4.
 
 ---
 
@@ -332,7 +421,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 2/3
 
-**Explanation:** Approach — Use the complementary event because it is shorter to count the unwanted case and subtract its probability from 1. Step 1 — An event and its opposite have total probability 1. Step 2 — Required probability = 1 - 1/3 = 2/3. Why this works — The required event and its complement are disjoint and together cover every possible outcome, so their probabilities add to 1. Answer — The required probability is 2/3.
+**Explanation:**
+
+- **Method:** The required event is the opposite of the given event, so use P(not E) = 1 − P(E).
+1. An event and its opposite have total probability 1.
+2. Required probability = 1 - 1/3 = 2/3.
+- **Answer:** The required probability is 2/3.
 
 ---
 
@@ -349,7 +443,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/8
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — No heads means every toss must be a tail. Only TTT works. Step 2 — Out of 8 sequences, 1 works. So the probability is 1/8. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 1/8.
+**Explanation:**
+
+- **Method:** With 3 fair tosses there are 2^3 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+1. No heads means every toss must be a tail. Only TTT works.
+2. Out of 8 sequences, 1 works. So the probability is 1/8.
+- **Answer:** The required probability is 1/8.
 
 ---
 
@@ -366,7 +465,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 6/11
 
-**Explanation:** Approach — Use the complementary event because it is shorter to count the unwanted case and subtract its probability from 1. Step 1 — An event and its opposite have total probability 1. Step 2 — Required probability = 1 - 5/11 = 6/11. Why this works — The required event and its complement are disjoint and together cover every possible outcome, so their probabilities add to 1. Answer — The required probability is 6/11.
+**Explanation:**
+
+- **Method:** The required event is the opposite of the given event, so use P(not E) = 1 − P(E).
+1. An event and its opposite have total probability 1.
+2. Required probability = 1 - 5/11 = 6/11.
+- **Answer:** The required probability is 6/11.
 
 ---
 
@@ -383,7 +487,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 15/16
 
-**Explanation:** Approach — Use the complementary event because it is shorter to count the unwanted case and subtract its probability from 1. Step 1 — The only sequence with no head is TTTT. Step 2 — P(at least one head) = 1 - P(TTTT) = 1 - 1/16 = 15/16. Why this works — The required event and its complement are disjoint and together cover every possible outcome, so their probabilities add to 1. Answer — The required probability is 15/16.
+**Explanation:**
+
+- **Method:** Use the complement. With 4 fair tosses there are 2^4 equally likely H/T sequences, and it is shorter to exclude the sequence with no head.
+1. The only sequence with no head is TTTT.
+2. P(at least one head) = 1 - P(TTTT) = 1 - 1/16 = 15/16.
+- **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
+- **Answer:** The required probability is 15/16.
 
 ---
 
@@ -400,7 +510,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 3/8
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — For exactly one head, the favourable sequences are HTT, THT, TTH. Step 2 — 3 of the 8 H/T sequences work. So the probability is 3/8. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 3/8.
+**Explanation:**
+
+- **Method:** With 3 fair tosses there are 2^3 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+1. For exactly one head, the favourable sequences are HTT, THT, TTH.
+2. 3 of the 8 H/T sequences work. So the probability is 3/8.
+- **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
+- **Answer:** The required probability is 3/8.
 
 ---
 
@@ -417,7 +533,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 3/8
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — For exactly 2 heads, the favourable sequences are HHT, HTH, THH. Step 2 — 3 of the 8 H/T sequences work. So the probability is 3/8. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 3/8.
+**Explanation:**
+
+- **Method:** With 3 fair tosses there are 2^3 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+1. For exactly 2 heads, the favourable sequences are HHT, HTH, THH.
+2. 3 of the 8 H/T sequences work. So the probability is 3/8.
+- **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
+- **Answer:** The required probability is 3/8.
 
 ---
 
@@ -434,7 +556,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 11/16
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — The favourable sequences are HHTT, HTHT, HTTH, HTTT, THHT, THTH, THTT, TTHH, TTHT, TTTH, TTTT. Step 2 — 11 of the 16 H/T sequences work. So the probability is 11/16. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 11/16.
+**Explanation:**
+
+- **Method:** With 4 fair tosses there are 2^4 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+1. The favourable sequences are HHTT, HTHT, HTTH, HTTT, THHT, THTH, THTT, TTHH, TTHT, TTTH, TTTT.
+2. 11 of the 16 H/T sequences work. So the probability is 11/16.
+- **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
+- **Answer:** The required probability is 11/16.
 
 ---
 
@@ -451,7 +579,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/8
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — All tosses show the same face only in HHHH and TTTT. Step 2 — The probability is 2/16 = 1/8. Simplification — Divide the numerator and denominator by 2: 2/16 = 1/8 = 1/8. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 1/8.
+**Explanation:**
+
+- **Method:** With 4 fair tosses there are 2^4 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+1. All tosses show the same face only in HHHH and TTTT.
+2. The probability is 2/16 = 1/8.
+- **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
+- **Answer:** The required probability is 1/8.
 
 ---
 
@@ -468,7 +602,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 5/11
 
-**Explanation:** Approach — Use the complementary event because it is shorter to count the unwanted case and subtract its probability from 1. Step 1 — An event and its opposite have total probability 1. Step 2 — Required probability = 1 - 6/11 = 5/11. Why this works — The required event and its complement are disjoint and together cover every possible outcome, so their probabilities add to 1. Answer — The required probability is 5/11.
+**Explanation:**
+
+- **Method:** The required event is the opposite of the given event, so use P(not E) = 1 − P(E).
+1. An event and its opposite have total probability 1.
+2. Required probability = 1 - 6/11 = 5/11.
+- **Answer:** The required probability is 5/11.
 
 ---
 
@@ -485,7 +624,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 7/8
 
-**Explanation:** Approach — Use the complementary event because it is shorter to count the unwanted case and subtract its probability from 1. Step 1 — The only sequence with no head is TTT. Step 2 — P(at least one head) = 1 - P(TTT) = 1 - 1/8 = 7/8. Why this works — The required event and its complement are disjoint and together cover every possible outcome, so their probabilities add to 1. Answer — The required probability is 7/8.
+**Explanation:**
+
+- **Method:** Use the complement. With 3 fair tosses there are 2^3 equally likely H/T sequences, and it is shorter to exclude the sequence with no head.
+1. The only sequence with no head is TTT.
+2. P(at least one head) = 1 - P(TTT) = 1 - 1/8 = 7/8.
+- **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
+- **Answer:** The required probability is 7/8.
 
 ---
 
@@ -502,7 +647,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/4
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — For exactly one head, the favourable sequences are HTTT, THTT, TTHT, TTTH. Step 2 — 4 of the 16 H/T sequences work. So the probability is 4/16 = 1/4. Simplification — Divide the numerator and denominator by 4: 4/16 = 1/4 = 1/4. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 1/4.
+**Explanation:**
+
+- **Method:** With 4 fair tosses there are 2^4 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+1. For exactly one head, the favourable sequences are HTTT, THTT, TTHT, TTTH.
+2. 4 of the 16 H/T sequences work. So the probability is 4/16 = 1/4.
+- **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
+- **Answer:** The required probability is 1/4.
 
 ---
 
@@ -519,7 +670,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/4
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — For exactly 3 heads, the favourable sequences are HHHT, HHTH, HTHH, THHH. Step 2 — 4 of the 16 H/T sequences work. So the probability is 4/16 = 1/4. Simplification — Divide the numerator and denominator by 4: 4/16 = 1/4 = 1/4. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 1/4.
+**Explanation:**
+
+- **Method:** With 4 fair tosses there are 2^4 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+1. For exactly 3 heads, the favourable sequences are HHHT, HHTH, HTHH, THHH.
+2. 4 of the 16 H/T sequences work. So the probability is 4/16 = 1/4.
+- **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
+- **Answer:** The required probability is 1/4.
 
 ---
 
@@ -536,7 +693,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 7/8
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — The favourable sequences are HHT, HTH, HTT, THH, THT, TTH, TTT. Step 2 — 7 of the 8 H/T sequences work. So the probability is 7/8. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 7/8.
+**Explanation:**
+
+- **Method:** With 3 fair tosses there are 2^3 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+1. The favourable sequences are HHT, HTH, HTT, THH, THT, TTH, TTT.
+2. 7 of the 8 H/T sequences work. So the probability is 7/8.
+- **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
+- **Answer:** The required probability is 7/8.
 
 ---
 
@@ -555,7 +718,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/4
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — The possible sequences are HH, HT, TH, TT. Step 2 — TT is one of these sequences. So the probability is 1/4. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 1/4.
+**Explanation:**
+
+- **Method:** With 2 fair tosses there are 2^2 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+1. The possible sequences are HH, HT, TH, TT.
+2. TT is one of these sequences. So the probability is 1/4.
+- **Answer:** The required probability is 1/4.
 
 ---
 
@@ -572,7 +740,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 1/2
 
-**Explanation:** Approach — Treat the result as an ordered outcome; for two dice, (first die, second die) gives 6 × 6 = 36 equally likely pairs. Step 1 — The favourable faces are 2, 3, 5; there are 3. Step 2 — The probability is 3/6 = 1/2. Simplification — Divide the numerator and denominator by 3: 3/6 = 1/2 = 1/2. Why this works — Each ordered die result is equally likely; counting ordered pairs prevents (a,b) and (b,a) from being incorrectly treated as one case. Answer — The required probability is 1/2.
+**Explanation:**
+
+- **Method:** A fair die has six equally likely faces; list the faces satisfying the condition and divide their count by 6.
+1. The favourable faces are 2, 3, 5; there are 3.
+2. The probability is 3/6 = 1/2.
+- **Answer:** The required probability is 1/2.
 
 ---
 
@@ -589,7 +762,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 1/3
 
-**Explanation:** Approach — Identify the equally likely total cases, count the cases satisfying the condition, and use probability = favourable cases ÷ total cases. Step 1 — 2 of the 6 equal sectors are shaded. Step 2 — The probability is 2/6 = 1/3. Simplification — Divide the numerator and denominator by 2: 2/6 = 1/3 = 1/3. Why this works — Every elementary case is equally likely, so the ratio of favourable cases to total cases is the required probability. Answer — The required probability is 1/3.
+**Explanation:**
+
+- **Method:** The spinner sectors are equal, so probability is favourable sectors ÷ total sectors.
+1. 2 of the 6 equal sectors are shaded.
+2. The probability is 2/6 = 1/3.
+- **Answer:** The required probability is 1/3.
 
 ---
 
@@ -606,7 +784,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 14
 
-**Explanation:** Approach — Work backwards from probability = favourable cases ÷ total cases, and solve for the missing count. Step 1 — The marked part is 7/8 of all 16 sectors. Step 2 — Marked sectors = 16 × 7/8 = 14. Why this works — Substituting the derived count back into favourable cases ÷ total cases reproduces the probability stated in the question. Answer — The required number is 14.
+**Explanation:**
+
+- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
+1. The marked part is 7/8 of all 16 sectors.
+2. Marked sectors = 16 × 7/8 = 14.
+- **Answer:** The required number is 14.
 
 ---
 
@@ -623,7 +806,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/4
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — The possible sequences are HH, HT, TH, TT. Step 2 — TH is one of these sequences. So the probability is 1/4. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 1/4.
+**Explanation:**
+
+- **Method:** With 2 fair tosses there are 2^2 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+1. The possible sequences are HH, HT, TH, TT.
+2. TH is one of these sequences. So the probability is 1/4.
+- **Answer:** The required probability is 1/4.
 
 ---
 
@@ -640,7 +828,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/2
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — For exactly one head, the favourable sequences are HT, TH. Step 2 — 2 of the 4 H/T sequences work. So the probability is 2/4 = 1/2. Simplification — Divide the numerator and denominator by 2: 2/4 = 1/2 = 1/2. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 1/2.
+**Explanation:**
+
+- **Method:** With 2 fair tosses there are 2^2 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+1. For exactly one head, the favourable sequences are HT, TH.
+2. 2 of the 4 H/T sequences work. So the probability is 2/4 = 1/2.
+- **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
+- **Answer:** The required probability is 1/2.
 
 ---
 
@@ -657,7 +851,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 1/9
 
-**Explanation:** Approach — Treat the result as an ordered outcome; for two dice, (first die, second die) gives 6 × 6 = 36 equally likely pairs. Step 1 — Two dice have 6 × 6 = 36 ordered outcomes. The pairs with sum 5 are (1,4), (2,3), (3,2), (4,1). Step 2 — The probability is 4/36 = 1/9. Simplification — Divide the numerator and denominator by 4: 4/36 = 1/9 = 1/9. Why this works — Each ordered die result is equally likely; counting ordered pairs prevents (a,b) and (b,a) from being incorrectly treated as one case. Answer — The required probability is 1/9.
+**Explanation:**
+
+- **Method:** Treat the outcomes as ordered pairs. Two fair dice produce 6 × 6 = 36 equally likely pairs (first die, second die).
+1. Two dice have 6 × 6 = 36 ordered outcomes. The pairs with sum 5 are (1,4), (2,3), (3,2), (4,1).
+2. The probability is 4/36 = 1/9.
+- **Key point:** For distinguishable dice, (a,b) and (b,a) are different outcomes unless a = b.
+- **Answer:** The required probability is 1/9.
 
 ---
 
@@ -674,7 +874,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/2
 
-**Explanation:** Approach — Treat the result as an ordered outcome; for two dice, (first die, second die) gives 6 × 6 = 36 equally likely pairs. Step 1 — Odd faces are 1, 3, 5 and even faces are 2, 4, 6. Same parity means odd-odd or even-even. Step 2 — Required ordered pairs = 3 × 3 + 3 × 3 = 18. So the probability is 18/36 = 1/2. Simplification — Divide the numerator and denominator by 18: 18/36 = 1/2 = 1/2. Why this works — Each ordered die result is equally likely; counting ordered pairs prevents (a,b) and (b,a) from being incorrectly treated as one case. Answer — The required probability is 1/2.
+**Explanation:**
+
+- **Method:** Treat the outcomes as ordered pairs. Two fair dice produce 6 × 6 = 36 equally likely pairs (first die, second die).
+1. Odd faces are 1, 3, 5 and even faces are 2, 4, 6. Same parity means odd-odd or even-even.
+2. Required ordered pairs = 3 × 3 + 3 × 3 = 18. So the probability is 18/36 = 1/2.
+- **Key point:** For distinguishable dice, (a,b) and (b,a) are different outcomes unless a = b.
+- **Answer:** The required probability is 1/2.
 
 ---
 
@@ -691,7 +897,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 11/32
 
-**Explanation:** Approach — Identify the equally likely total cases, count the cases satisfying the condition, and use probability = favourable cases ÷ total cases. Step 1 — The required integers are 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31. Step 2 — The probability is 11/32. Why this works — Every elementary case is equally likely, so the ratio of favourable cases to total cases is the required probability. Answer — The required probability is 11/32.
+**Explanation:**
+
+- **Method:** Every integer in the stated range is equally likely; list or count those satisfying the number property.
+1. The required integers are 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31.
+2. The probability is 11/32.
+- **Answer:** The required probability is 11/32.
 
 ---
 
@@ -708,7 +919,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 3/8
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — For exactly 2 heads, the favourable sequences are HHTT, HTHT, HTTH, THHT, THTH, TTHH. Step 2 — 6 of the 16 H/T sequences work. So the probability is 6/16 = 3/8. Simplification — Divide the numerator and denominator by 2: 6/16 = 3/8 = 3/8. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 3/8.
+**Explanation:**
+
+- **Method:** With 4 fair tosses there are 2^4 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+1. For exactly 2 heads, the favourable sequences are HHTT, HTHT, HTTH, THHT, THTH, TTHH.
+2. 6 of the 16 H/T sequences work. So the probability is 6/16 = 3/8.
+- **Key point:** Sequences with the same number of heads but in different positions are distinct outcomes.
+- **Answer:** The required probability is 3/8.
 
 ---
 
@@ -725,7 +942,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/3
 
-**Explanation:** Approach — Treat the result as an ordered outcome; for two dice, (first die, second die) gives 6 × 6 = 36 equally likely pairs. Step 1 — The favourable faces are 5, 6; there are 2. Step 2 — The probability is 2/6 = 1/3. Simplification — Divide the numerator and denominator by 2: 2/6 = 1/3 = 1/3. Why this works — Each ordered die result is equally likely; counting ordered pairs prevents (a,b) and (b,a) from being incorrectly treated as one case. Answer — The required probability is 1/3.
+**Explanation:**
+
+- **Method:** A fair die has six equally likely faces; list the faces satisfying the condition and divide their count by 6.
+1. The favourable faces are 5, 6; there are 2.
+2. The probability is 2/6 = 1/3.
+- **Answer:** The required probability is 1/3.
 
 ---
 
@@ -742,7 +964,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/2
 
-**Explanation:** Approach — Identify the equally likely total cases, count the cases satisfying the condition, and use probability = favourable cases ÷ total cases. Step 1 — 6 of the 12 equal sectors are shaded. Step 2 — The probability is 6/12 = 1/2. Simplification — Divide the numerator and denominator by 6: 6/12 = 1/2 = 1/2. Why this works — Every elementary case is equally likely, so the ratio of favourable cases to total cases is the required probability. Answer — The required probability is 1/2.
+**Explanation:**
+
+- **Method:** The spinner sectors are equal, so probability is favourable sectors ÷ total sectors.
+1. 6 of the 12 equal sectors are shaded.
+2. The probability is 6/12 = 1/2.
+- **Answer:** The required probability is 1/2.
 
 ---
 
@@ -759,7 +986,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 4
 
-**Explanation:** Approach — Work backwards from probability = favourable cases ÷ total cases, and solve for the missing count. Step 1 — The marked part is 1/3 of all 12 sectors. Step 2 — Marked sectors = 12 × 1/3 = 4. Why this works — Substituting the derived count back into favourable cases ÷ total cases reproduces the probability stated in the question. Answer — The required number is 4.
+**Explanation:**
+
+- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
+1. The marked part is 1/3 of all 12 sectors.
+2. Marked sectors = 12 × 1/3 = 4.
+- **Answer:** The required number is 4.
 
 ---
 
@@ -776,7 +1008,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/8
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — The possible sequences are HHH, HHT, HTH, HTT, THH, THT, TTH, TTT. Step 2 — TTT is one of these sequences. So the probability is 1/8. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 1/8.
+**Explanation:**
+
+- **Method:** With 3 fair tosses there are 2^3 equally likely H/T sequences; count the sequences satisfying the stated head condition.
+1. The possible sequences are HHH, HHT, HTH, HTT, THH, THT, TTH, TTT.
+2. TTT is one of these sequences. So the probability is 1/8.
+- **Answer:** The required probability is 1/8.
 
 ---
 
@@ -793,7 +1030,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 1/2
 
-**Explanation:** Approach — Treat the result as an ordered outcome; for two dice, (first die, second die) gives 6 × 6 = 36 equally likely pairs. Step 1 — The favourable faces are 2, 4, 6; there are 3. Step 2 — The probability is 3/6 = 1/2. Simplification — Divide the numerator and denominator by 3: 3/6 = 1/2 = 1/2. Why this works — Each ordered die result is equally likely; counting ordered pairs prevents (a,b) and (b,a) from being incorrectly treated as one case. Answer — The required probability is 1/2.
+**Explanation:**
+
+- **Method:** A fair die has six equally likely faces; list the faces satisfying the condition and divide their count by 6.
+1. The favourable faces are 2, 4, 6; there are 3.
+2. The probability is 3/6 = 1/2.
+- **Answer:** The required probability is 1/2.
 
 ---
 
@@ -812,7 +1054,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/13
 
-**Explanation:** Approach — Use the standard 52-card deck counts and adjust for any card that belongs to both required groups. Step 1 — There are 4 queens, one in each suit. Step 2 — The probability is 4/52 = 1/13. Simplification — Divide the numerator and denominator by 4: 4/52 = 1/13 = 1/13. Why this works — Each card is equally likely to be drawn, so the required card count over 52 gives the probability; any overlap must be counted only once. Answer — The required probability is 1/13.
+**Explanation:**
+
+- **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
+1. There are 4 queens, one in each suit.
+2. The probability is 4/52 = 1/13.
+- **Answer:** The required probability is 1/13.
 
 ---
 
@@ -829,7 +1076,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/4
 
-**Explanation:** Approach — Use the standard 52-card deck counts and adjust for any card that belongs to both required groups. Step 1 — There are 13 spades in a standard deck. Step 2 — The probability is 13/52 = 1/4. Simplification — Divide the numerator and denominator by 13: 13/52 = 1/4 = 1/4. Why this works — Each card is equally likely to be drawn, so the required card count over 52 gives the probability; any overlap must be counted only once. Answer — The required probability is 1/4.
+**Explanation:**
+
+- **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
+1. There are 13 spades in a standard deck.
+2. The probability is 13/52 = 1/4.
+- **Answer:** The required probability is 1/4.
 
 ---
 
@@ -846,7 +1098,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/2
 
-**Explanation:** Approach — Use the standard 52-card deck counts and adjust for any card that belongs to both required groups. Step 1 — The deck has 26 red cards. Step 2 — The probability is 26/52 = 1/2. Simplification — Divide the numerator and denominator by 26: 26/52 = 1/2 = 1/2. Why this works — Each card is equally likely to be drawn, so the required card count over 52 gives the probability; any overlap must be counted only once. Answer — The required probability is 1/2.
+**Explanation:**
+
+- **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
+1. The deck has 26 red cards.
+2. The probability is 26/52 = 1/2.
+- **Answer:** The required probability is 1/2.
 
 ---
 
@@ -863,7 +1120,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 3/13
 
-**Explanation:** Approach — Use the standard 52-card deck counts and adjust for any card that belongs to both required groups. Step 1 — Each suit has a jack, queen and king, so there are 3 × 4 = 12 face cards. Step 2 — The probability is 12/52 = 3/13. Simplification — Divide the numerator and denominator by 4: 12/52 = 3/13 = 3/13. Why this works — Each card is equally likely to be drawn, so the required card count over 52 gives the probability; any overlap must be counted only once. Answer — The required probability is 3/13.
+**Explanation:**
+
+- **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
+1. Each suit has a jack, queen and king, so there are 3 × 4 = 12 face cards.
+2. The probability is 12/52 = 3/13.
+- **Answer:** The required probability is 3/13.
 
 ---
 
@@ -880,7 +1142,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/52
 
-**Explanation:** Approach — Use the standard 52-card deck counts and adjust for any card that belongs to both required groups. Step 1 — Only one card is both the jack and a club: the jack of clubs. Step 2 — The probability is 1/52. Why this works — Each card is equally likely to be drawn, so the required card count over 52 gives the probability; any overlap must be counted only once. Answer — The required probability is 1/52.
+**Explanation:**
+
+- **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
+1. Only one card is both the jack and a club: the jack of clubs.
+2. The probability is 1/52.
+- **Answer:** The required probability is 1/52.
 
 ---
 
@@ -897,7 +1164,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 4/13
 
-**Explanation:** Approach — Use the standard 52-card deck counts and adjust for any card that belongs to both required groups. Step 1 — There are 4 aces and 13 hearts. The ace of hearts is counted twice, so subtract 1. Step 2 — Required cards = 4 + 13 - 1 = 16. So the probability is 16/52 = 4/13. Simplification — Divide the numerator and denominator by 4: 16/52 = 4/13 = 4/13. Why this works — Each card is equally likely to be drawn, so the required card count over 52 gives the probability; any overlap must be counted only once. Answer — The required probability is 4/13.
+**Explanation:**
+
+- **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
+1. There are 4 aces and 13 hearts. The ace of hearts is counted twice, so subtract 1.
+2. Required cards = 4 + 13 - 1 = 16. So the probability is 16/52 = 4/13.
+- **Key point:** The card common to the rank and suit groups must be subtracted once after the two counts are added.
+- **Answer:** The required probability is 4/13.
 
 ---
 
@@ -914,7 +1187,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 3/4
 
-**Explanation:** Approach — Use the complementary event because it is shorter to count the unwanted case and subtract its probability from 1. Step 1 — A deck has 13 clubs, so cards that are not clubs = 52 - 13 = 39. Step 2 — The probability is 39/52 = 3/4. Simplification — Divide the numerator and denominator by 13: 39/52 = 3/4 = 3/4. Why this works — The required event and its complement are disjoint and together cover every possible outcome, so their probabilities add to 1. Answer — The required probability is 3/4.
+**Explanation:**
+
+- **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
+1. A deck has 13 clubs, so cards that are not clubs = 52 - 13 = 39.
+2. The probability is 39/52 = 3/4.
+- **Answer:** The required probability is 3/4.
 
 ---
 
@@ -931,7 +1209,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 4/13
 
-**Explanation:** Approach — Use the standard 52-card deck counts and adjust for any card that belongs to both required groups. Step 1 — There are 4 jacks and 13 hearts. The jack of hearts is counted twice, so subtract 1. Step 2 — Required cards = 4 + 13 - 1 = 16. So the probability is 16/52 = 4/13. Simplification — Divide the numerator and denominator by 4: 16/52 = 4/13 = 4/13. Why this works — Each card is equally likely to be drawn, so the required card count over 52 gives the probability; any overlap must be counted only once. Answer — The required probability is 4/13.
+**Explanation:**
+
+- **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
+1. There are 4 jacks and 13 hearts. The jack of hearts is counted twice, so subtract 1.
+2. Required cards = 4 + 13 - 1 = 16. So the probability is 16/52 = 4/13.
+- **Key point:** The card common to the rank and suit groups must be subtracted once after the two counts are added.
+- **Answer:** The required probability is 4/13.
 
 ---
 
@@ -948,7 +1232,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 3/4
 
-**Explanation:** Approach — Use the complementary event because it is shorter to count the unwanted case and subtract its probability from 1. Step 1 — A deck has 13 spades, so cards that are not spades = 52 - 13 = 39. Step 2 — The probability is 39/52 = 3/4. Simplification — Divide the numerator and denominator by 13: 39/52 = 3/4 = 3/4. Why this works — The required event and its complement are disjoint and together cover every possible outcome, so their probabilities add to 1. Answer — The required probability is 3/4.
+**Explanation:**
+
+- **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
+1. A deck has 13 spades, so cards that are not spades = 52 - 13 = 39.
+2. The probability is 39/52 = 3/4.
+- **Answer:** The required probability is 3/4.
 
 ---
 
@@ -965,7 +1254,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 4/13
 
-**Explanation:** Approach — Use the standard 52-card deck counts and adjust for any card that belongs to both required groups. Step 1 — There are 4 queens and 13 diamonds. The queen of diamonds is counted twice, so subtract 1. Step 2 — Required cards = 4 + 13 - 1 = 16. So the probability is 16/52 = 4/13. Simplification — Divide the numerator and denominator by 4: 16/52 = 4/13 = 4/13. Why this works — Each card is equally likely to be drawn, so the required card count over 52 gives the probability; any overlap must be counted only once. Answer — The required probability is 4/13.
+**Explanation:**
+
+- **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
+1. There are 4 queens and 13 diamonds. The queen of diamonds is counted twice, so subtract 1.
+2. Required cards = 4 + 13 - 1 = 16. So the probability is 16/52 = 4/13.
+- **Key point:** The card common to the rank and suit groups must be subtracted once after the two counts are added.
+- **Answer:** The required probability is 4/13.
 
 ---
 
@@ -982,7 +1277,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 4
 
-**Explanation:** Approach — Work backwards from probability = favourable cases ÷ total cases, and solve for the missing count. Step 1 — The required cards form 1/13 of the 52-card deck. Step 2 — Required cards = 52 × 1/13 = 4. Why this works — Substituting the derived count back into favourable cases ÷ total cases reproduces the probability stated in the question. Answer — The required number is 4.
+**Explanation:**
+
+- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
+1. The required cards form 1/13 of the 52-card deck.
+2. Required cards = 52 × 1/13 = 4.
+- **Answer:** The required number is 4.
 
 ---
 
@@ -999,7 +1299,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 1/13
 
-**Explanation:** Approach — Use the standard 52-card deck counts and adjust for any card that belongs to both required groups. Step 1 — There are 4 jacks, one in each suit. Step 2 — The probability is 4/52 = 1/13. Simplification — Divide the numerator and denominator by 4: 4/52 = 1/13 = 1/13. Why this works — Each card is equally likely to be drawn, so the required card count over 52 gives the probability; any overlap must be counted only once. Answer — The required probability is 1/13.
+**Explanation:**
+
+- **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
+1. There are 4 jacks, one in each suit.
+2. The probability is 4/52 = 1/13.
+- **Answer:** The required probability is 1/13.
 
 ---
 
@@ -1016,7 +1321,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/4
 
-**Explanation:** Approach — Use the standard 52-card deck counts and adjust for any card that belongs to both required groups. Step 1 — There are 13 clubs in a standard deck. Step 2 — The probability is 13/52 = 1/4. Simplification — Divide the numerator and denominator by 13: 13/52 = 1/4 = 1/4. Why this works — Each card is equally likely to be drawn, so the required card count over 52 gives the probability; any overlap must be counted only once. Answer — The required probability is 1/4.
+**Explanation:**
+
+- **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
+1. There are 13 clubs in a standard deck.
+2. The probability is 13/52 = 1/4.
+- **Answer:** The required probability is 1/4.
 
 ---
 
@@ -1033,7 +1343,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/2
 
-**Explanation:** Approach — Use the standard 52-card deck counts and adjust for any card that belongs to both required groups. Step 1 — The deck has 26 black cards. Step 2 — The probability is 26/52 = 1/2. Simplification — Divide the numerator and denominator by 26: 26/52 = 1/2 = 1/2. Why this works — Each card is equally likely to be drawn, so the required card count over 52 gives the probability; any overlap must be counted only once. Answer — The required probability is 1/2.
+**Explanation:**
+
+- **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
+1. The deck has 26 black cards.
+2. The probability is 26/52 = 1/2.
+- **Answer:** The required probability is 1/2.
 
 ---
 
@@ -1050,7 +1365,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 1/52
 
-**Explanation:** Approach — Use the standard 52-card deck counts and adjust for any card that belongs to both required groups. Step 1 — Only one card is both the jack and a heart: the jack of hearts. Step 2 — The probability is 1/52. Why this works — Each card is equally likely to be drawn, so the required card count over 52 gives the probability; any overlap must be counted only once. Answer — The required probability is 1/52.
+**Explanation:**
+
+- **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
+1. Only one card is both the jack and a heart: the jack of hearts.
+2. The probability is 1/52.
+- **Answer:** The required probability is 1/52.
 
 ---
 
@@ -1069,7 +1389,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/2
 
-**Explanation:** Approach — Use the standard 52-card deck counts and adjust for any card that belongs to both required groups. Step 1 — The jar contains 8 marbles, of which 4 are red. Step 2 — Thus, 4 of the 8 equally possible marbles are favourable. Step 3 — The required probability is 4/8 = 1/2. Simplification — Divide the numerator and denominator by 4: 4/8 = 1/2 = 1/2. Why this works — Each card is equally likely to be drawn, so the required card count over 52 gives the probability; any overlap must be counted only once. Answer — The required probability is 1/2.
+**Explanation:**
+
+- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+1. The jar contains 8 marbles, of which 4 are red.
+2. Thus, 4 of the 8 equally possible marbles are favourable.
+3. The required probability is 4/8 = 1/2.
+- **Answer:** The required probability is 1/2.
 
 ---
 
@@ -1086,7 +1412,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 8
 
-**Explanation:** Approach — Work backwards from probability = favourable cases ÷ total cases, and solve for the missing count. Step 1 — Red coloured stones make up 8/13 of all 13 coloured stones. Step 2 — Required number of red coloured stones = 13 × 8/13 = 8. Step 3 — There are 8 red coloured stones. Why this works — Substituting the derived count back into favourable cases ÷ total cases reproduces the probability stated in the question. Answer — The required number is 8.
+**Explanation:**
+
+- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
+1. Red coloured stones make up 8/13 of all 13 coloured stones.
+2. Required number of red coloured stones = 13 × 8/13 = 8.
+3. There are 8 red coloured stones.
+- **Answer:** The required number is 8.
 
 ---
 
@@ -1103,7 +1435,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 6/11
 
-**Explanation:** Approach — Use the standard 52-card deck counts and adjust for any card that belongs to both required groups. Step 1 — The jar contains 11 marbles, of which 6 are red. Step 2 — Thus, 6 of the 11 equally possible marbles are favourable. Step 3 — The required probability is 6/11. Why this works — Each card is equally likely to be drawn, so the required card count over 52 gives the probability; any overlap must be counted only once. Answer — The required probability is 6/11.
+**Explanation:**
+
+- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+1. The jar contains 11 marbles, of which 6 are red.
+2. Thus, 6 of the 11 equally possible marbles are favourable.
+3. The required probability is 6/11.
+- **Answer:** The required probability is 6/11.
 
 ---
 
@@ -1120,7 +1458,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 9
 
-**Explanation:** Approach — Work backwards from probability = favourable cases ÷ total cases, and solve for the missing count. Step 1 — Red coloured stones make up 9/16 of all 16 coloured stones. Step 2 — Required number of red coloured stones = 16 × 9/16 = 9. Step 3 — There are 9 red coloured stones. Why this works — Substituting the derived count back into favourable cases ÷ total cases reproduces the probability stated in the question. Answer — The required number is 9.
+**Explanation:**
+
+- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
+1. Red coloured stones make up 9/16 of all 16 coloured stones.
+2. Required number of red coloured stones = 16 × 9/16 = 9.
+3. There are 9 red coloured stones.
+- **Answer:** The required number is 9.
 
 ---
 
@@ -1137,7 +1481,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 2/3
 
-**Explanation:** Approach — Use the standard 52-card deck counts and adjust for any card that belongs to both required groups. Step 1 — The jar contains 12 marbles, of which 8 are red. Step 2 — Thus, 8 of the 12 equally possible marbles are favourable. Step 3 — The required probability is 8/12 = 2/3. Simplification — Divide the numerator and denominator by 4: 8/12 = 2/3 = 2/3. Why this works — Each card is equally likely to be drawn, so the required card count over 52 gives the probability; any overlap must be counted only once. Answer — The required probability is 2/3.
+**Explanation:**
+
+- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+1. The jar contains 12 marbles, of which 8 are red.
+2. Thus, 8 of the 12 equally possible marbles are favourable.
+3. The required probability is 8/12 = 2/3.
+- **Answer:** The required probability is 2/3.
 
 ---
 
@@ -1154,7 +1504,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 19/39
 
-**Explanation:** Approach — The objects are selected together, so order does not matter; count selections with combinations. Step 1 — Because the 2 pens are selected together, their order does not matter; use combinations. Step 2 — The number of possible selections of pens is C(13,2) = 78. Step 3 — Selections of one colour = C(8,2) + C(5,2) = 38. Step 4 — The required probability is 38/78 = 19/39. Simplification — Divide the numerator and denominator by 2: 38/78 = 19/39 = 19/39. Why this works — Each selected group is counted exactly once by combinations because changing the order of the same selected objects does not create a new selection. Answer — The required probability is 19/39.
+**Explanation:**
+
+- **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
+1. Because the 2 pens are selected together, their order does not matter; use combinations.
+2. The number of possible selections of pens is C(13,2) = 78.
+3. Selections of one colour = C(8,2) + C(5,2) = 38.
+4. The required probability is 38/78 = 19/39.
+- **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
+- **Answer:** The required probability is 19/39.
 
 ---
 
@@ -1171,7 +1529,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 20/39
 
-**Explanation:** Approach — The objects are selected together, so order does not matter; count selections with combinations. Step 1 — Because the 2 coloured stones are selected together, their order does not matter; use combinations. Step 2 — The number of possible selections of coloured stones is C(13,2) = 78. Step 3 — Select one red and one blue stone: C(8,1) × C(5,1) = 40. Step 4 — The required probability is 40/78 = 20/39. Simplification — Divide the numerator and denominator by 2: 40/78 = 20/39 = 20/39. Why this works — Each selected group is counted exactly once by combinations because changing the order of the same selected objects does not create a new selection. Answer — The required probability is 20/39.
+**Explanation:**
+
+- **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
+1. Because the 2 coloured stones are selected together, their order does not matter; use combinations.
+2. The number of possible selections of coloured stones is C(13,2) = 78.
+3. Select one red and one blue stone: C(8,1) × C(5,1) = 40.
+4. The required probability is 40/78 = 20/39.
+- **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
+- **Answer:** The required probability is 20/39.
 
 ---
 
@@ -1188,7 +1554,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 8/15
 
-**Explanation:** Approach — The objects are selected together, so order does not matter; count selections with combinations. Step 1 — Because the 2 balls are selected together, their order does not matter; use combinations. Step 2 — The number of possible selections of balls is C(16,2) = 120. Step 3 — Choose 1 red and 1 blue balls: C(8,1) × C(8,1) = 64. Step 4 — The required probability is 64/120 = 8/15. Simplification — Divide the numerator and denominator by 8: 64/120 = 8/15 = 8/15. Why this works — Each selected group is counted exactly once by combinations because changing the order of the same selected objects does not create a new selection. Answer — The required probability is 8/15.
+**Explanation:**
+
+- **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
+1. Because the 2 balls are selected together, their order does not matter; use combinations.
+2. The number of possible selections of balls is C(16,2) = 120.
+3. Choose 1 red and 1 blue balls: C(8,1) × C(8,1) = 64.
+4. The required probability is 64/120 = 8/15.
+- **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
+- **Answer:** The required probability is 8/15.
 
 ---
 
@@ -1205,7 +1579,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 21/55
 
-**Explanation:** Approach — The objects are selected together, so order does not matter; count selections with combinations. Step 1 — Because the 2 marbles are selected together, their order does not matter; use combinations. Step 2 — The number of possible selections of marbles is C(11,2) = 55. Step 3 — No red marble means all 2 selected marbles are blue: C(7,2) = 21. Step 4 — The required probability is 21/55. Why this works — Each selected group is counted exactly once by combinations because changing the order of the same selected objects does not create a new selection. Answer — The required probability is 21/55.
+**Explanation:**
+
+- **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
+1. Because the 2 marbles are selected together, their order does not matter; use combinations.
+2. The number of possible selections of marbles is C(11,2) = 55.
+3. No red marble means all 2 selected marbles are blue: C(7,2) = 21.
+4. The required probability is 21/55.
+- **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
+- **Answer:** The required probability is 21/55.
 
 ---
 
@@ -1222,7 +1604,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 23/35
 
-**Explanation:** Approach — Use the complementary event because it is shorter to count the unwanted case and subtract its probability from 1. Step 1 — Because the 2 pens are selected together, their order does not matter; use combinations. Step 2 — The number of possible selections of pens is C(15,2) = 105. Step 3 — Use the complement of selecting only blue pens: 105 - C(9,2) = 69. Step 4 — The required probability is 69/105 = 23/35. Simplification — Divide the numerator and denominator by 3: 69/105 = 23/35 = 23/35. Why this works — The required event and its complement are disjoint and together cover every possible outcome, so their probabilities add to 1. Answer — The required probability is 23/35.
+**Explanation:**
+
+- **Method:** The objects are selected together, so use combinations and count the required event through its shorter complement.
+1. Because the 2 pens are selected together, their order does not matter; use combinations.
+2. The number of possible selections of pens is C(15,2) = 105.
+3. Use the complement of selecting only blue pens: 105 - C(9,2) = 69.
+4. The required probability is 69/105 = 23/35.
+- **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
+- **Answer:** The required probability is 23/35.
 
 ---
 
@@ -1239,7 +1629,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 9
 
-**Explanation:** Approach — Work backwards from probability = favourable cases ÷ total cases, and solve for the missing count. Step 1 — Red coloured stones make up 3/5 of all 15 coloured stones. Step 2 — Required number of red coloured stones = 15 × 3/5 = 9. Step 3 — There are 9 red coloured stones. Why this works — Substituting the derived count back into favourable cases ÷ total cases reproduces the probability stated in the question. Answer — The required number is 9.
+**Explanation:**
+
+- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
+1. Red coloured stones make up 3/5 of all 15 coloured stones.
+2. Required number of red coloured stones = 15 × 3/5 = 9.
+3. There are 9 red coloured stones.
+- **Answer:** The required number is 9.
 
 ---
 
@@ -1256,7 +1652,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 5/14
 
-**Explanation:** Approach — Use the standard 52-card deck counts and adjust for any card that belongs to both required groups. Step 1 — The jar contains 14 marbles, of which 5 are red. Step 2 — Thus, 5 of the 14 equally possible marbles are favourable. Step 3 — The required probability is 5/14. Why this works — Each card is equally likely to be drawn, so the required card count over 52 gives the probability; any overlap must be counted only once. Answer — The required probability is 5/14.
+**Explanation:**
+
+- **Method:** For one random selection, use P(required event) = favourable cases ÷ total equally likely cases.
+1. The jar contains 14 marbles, of which 5 are red.
+2. Thus, 5 of the 14 equally possible marbles are favourable.
+3. The required probability is 5/14.
+- **Answer:** The required probability is 5/14.
 
 ---
 
@@ -1273,7 +1675,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 8/15
 
-**Explanation:** Approach — The objects are selected together, so order does not matter; count selections with combinations. Step 1 — Because the 2 balls are selected together, their order does not matter; use combinations. Step 2 — The number of possible selections of balls is C(10,2) = 45. Step 3 — Choose 1 red and 1 blue balls: C(6,1) × C(4,1) = 24. Step 4 — The required probability is 24/45 = 8/15. Simplification — Divide the numerator and denominator by 3: 24/45 = 8/15 = 8/15. Why this works — Each selected group is counted exactly once by combinations because changing the order of the same selected objects does not create a new selection. Answer — The required probability is 8/15.
+**Explanation:**
+
+- **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
+1. Because the 2 balls are selected together, their order does not matter; use combinations.
+2. The number of possible selections of balls is C(10,2) = 45.
+3. Choose 1 red and 1 blue balls: C(6,1) × C(4,1) = 24.
+4. The required probability is 24/45 = 8/15.
+- **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
+- **Answer:** The required probability is 8/15.
 
 ---
 
@@ -1290,7 +1700,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 17/33
 
-**Explanation:** Approach — The objects are selected together, so order does not matter; count selections with combinations. Step 1 — Because the 2 pens are selected together, their order does not matter; use combinations. Step 2 — The number of possible selections of pens is C(12,2) = 66. Step 3 — Selections of one colour = C(4,2) + C(8,2) = 34. Step 4 — The required probability is 34/66 = 17/33. Simplification — Divide the numerator and denominator by 2: 34/66 = 17/33 = 17/33. Why this works — Each selected group is counted exactly once by combinations because changing the order of the same selected objects does not create a new selection. Answer — The required probability is 17/33.
+**Explanation:**
+
+- **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
+1. Because the 2 pens are selected together, their order does not matter; use combinations.
+2. The number of possible selections of pens is C(12,2) = 66.
+3. Selections of one colour = C(4,2) + C(8,2) = 34.
+4. The required probability is 34/66 = 17/33.
+- **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
+- **Answer:** The required probability is 17/33.
 
 ---
 
@@ -1307,7 +1725,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 28/55
 
-**Explanation:** Approach — The objects are selected together, so order does not matter; count selections with combinations. Step 1 — Because the 2 coloured stones are selected together, their order does not matter; use combinations. Step 2 — The number of possible selections of coloured stones is C(11,2) = 55. Step 3 — Select one red and one blue stone: C(4,1) × C(7,1) = 28. Step 4 — The required probability is 28/55. Why this works — Each selected group is counted exactly once by combinations because changing the order of the same selected objects does not create a new selection. Answer — The required probability is 28/55.
+**Explanation:**
+
+- **Method:** The objects are selected together, so order does not matter; use combinations for the total and required selections.
+1. Because the 2 coloured stones are selected together, their order does not matter; use combinations.
+2. The number of possible selections of coloured stones is C(11,2) = 55.
+3. Select one red and one blue stone: C(4,1) × C(7,1) = 28.
+4. The required probability is 28/55.
+- **Key point:** Changing the order of the same selected objects does not create a new selection, which is why combinations are used.
+- **Answer:** The required probability is 28/55.
 
 ---
 
@@ -1331,7 +1757,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 9/49
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — The first marble is replaced, so the container again has 6 red and 8 blue marbles before the second selection. Step 2 — Thus, P(red marble on each selection) = 6/14. Step 3 — P(both red marbles) = 6/14 × 6/14 = 9/49. Simplification — Divide the numerator and denominator by 4: 36/196 = 9/49 = 9/49. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 9/49.
+**Explanation:**
+
+- **Method:** Follow the two selections in order. Replacement restores the original contents, so the second-stage probability uses the same denominator.
+1. The first marble is replaced, so the container again has 6 red and 8 blue marbles before the second selection.
+2. Thus, P(red marble on each selection) = 6/14.
+3. P(both red marbles) = 6/14 × 6/14 = 9/49.
+- **Simplification:** 36/196 = (36 ÷ 4)/(196 ÷ 4) = 9/49.
+- **Key point:** Replacement makes the two stage probabilities use the original composition each time.
+- **Answer:** The required probability is 9/49.
 
 ---
 
@@ -1349,7 +1783,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 7/22
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — On the first selection, P(red pen) = 7/12. Step 2 — After one red pen is removed, 6 red pens remain among 11 pens. Step 3 — P(both red pens) = 7/12 × 6/11 = 7/22. Simplification — Divide the numerator and denominator by 6: 42/132 = 7/22 = 7/22. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 7/22.
+**Explanation:**
+
+- **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
+1. On the first selection, P(red pen) = 7/12.
+2. After one red pen is removed, 6 red pens remain among 11 pens.
+3. P(both red pens) = 7/12 × 6/11 = 7/22.
+- **Simplification:** 42/132 = (42 ÷ 6)/(132 ÷ 6) = 7/22.
+- **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
+- **Answer:** The required probability is 7/22.
 
 ---
 
@@ -1367,7 +1809,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 81/169
 
-**Explanation:** Approach — Follow the selections in order and multiply the stage probabilities, updating the contents whenever an object is not replaced. Step 1 — The first stone is replaced, so the container again has 9 red and 4 blue coloured stones before the second selection. Step 2 — Thus, P(red stone on each selection) = 9/13. Step 3 — P(both red coloured stones) = 9/13 × 9/13 = 81/169. Why this works — Both stages must occur along the same path, so their probabilities are multiplied; without replacement, the second numerator and denominator change. Answer — The required probability is 81/169.
+**Explanation:**
+
+- **Method:** Follow the two selections in order. Replacement restores the original contents, so the second-stage probability uses the same denominator.
+1. The first stone is replaced, so the container again has 9 red and 4 blue coloured stones before the second selection.
+2. Thus, P(red stone on each selection) = 9/13.
+3. P(both red coloured stones) = 9/13 × 9/13 = 81/169.
+- **Key point:** Replacement makes the two stage probabilities use the original composition each time.
+- **Answer:** The required probability is 81/169.
 
 ---
 
@@ -1385,7 +1834,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 4/17
 
-**Explanation:** Approach — Follow the selections in order and multiply the stage probabilities, updating the contents whenever an object is not replaced. Step 1 — On the first selection, P(red ball) = 9/18. Step 2 — After one red ball is removed, 8 red balls remain among 17 balls. Step 3 — P(both red balls) = 9/18 × 8/17 = 4/17. Simplification — Divide the numerator and denominator by 18: 72/306 = 4/17 = 4/17. Why this works — Both stages must occur along the same path, so their probabilities are multiplied; without replacement, the second numerator and denominator change. Answer — The required probability is 4/17.
+**Explanation:**
+
+- **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
+1. On the first selection, P(red ball) = 9/18.
+2. After one red ball is removed, 8 red balls remain among 17 balls.
+3. P(both red balls) = 9/18 × 8/17 = 4/17.
+- **Simplification:** 72/306 = (72 ÷ 18)/(306 ÷ 18) = 4/17.
+- **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
+- **Answer:** The required probability is 4/17.
 
 ---
 
@@ -1403,7 +1860,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 4/15
 
-**Explanation:** Approach — Follow the selections in order and multiply the stage probabilities, updating the contents whenever an object is not replaced. Step 1 — The order is fixed: a red marble must occur first and a blue marble second. Step 2 — P(red first) = 8/15; after that, P(blue second) = 7/14. Step 3 — Required probability = 8/15 × 7/14 = 4/15. Simplification — Divide the numerator and denominator by 14: 56/210 = 4/15 = 4/15. Why this works — Both stages must occur along the same path, so their probabilities are multiplied; without replacement, the second numerator and denominator change. Answer — The required probability is 4/15.
+**Explanation:**
+
+- **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
+1. The order is fixed: a red marble must occur first and a blue marble second.
+2. P(red first) = 8/15; after that, P(blue second) = 7/14.
+3. Required probability = 8/15 × 7/14 = 4/15.
+- **Simplification:** 56/210 = (56 ÷ 14)/(210 ÷ 14) = 4/15.
+- **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
+- **Answer:** The required probability is 4/15.
 
 ---
 
@@ -1421,7 +1886,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 31/66
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — The same colour can occur in two disjoint ways for the pens: red-red or blue-blue. Step 2 — P(red-red) = 5/12 × 4/11, and P(blue-blue) = 7/12 × 6/11. Step 3 — Adding the two cases gives 31/66. Simplification — Divide the numerator and denominator by 2: 62/132 = 31/66 = 31/66. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 31/66.
+**Explanation:**
+
+- **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
+1. The same colour can occur in two disjoint ways for the pens: red-red or blue-blue.
+2. P(red-red) = 5/12 × 4/11, and P(blue-blue) = 7/12 × 6/11.
+3. Adding the two cases gives 31/66.
+- **Simplification:** 62/132 = (62 ÷ 2)/(132 ÷ 2) = 31/66.
+- **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
+- **Answer:** The required probability is 31/66.
 
 ---
 
@@ -1439,7 +1912,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 9/17
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — Different colours can occur as red-blue or blue-red, so both orders of the coloured stones must be counted. Step 2 — P = 9/17 × 8/16 + 8/17 × 9/16. Step 3 — After simplification, the required probability is 9/17. Simplification — Divide the numerator and denominator by 16: 144/272 = 9/17 = 9/17. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 9/17.
+**Explanation:**
+
+- **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
+1. Different colours can occur as red-blue or blue-red, so both orders of the coloured stones must be counted.
+2. P = 9/17 × 8/16 + 8/17 × 9/16.
+3. After simplification, the required probability is 9/17.
+- **Simplification:** 144/272 = (144 ÷ 16)/(272 ÷ 16) = 9/17.
+- **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
+- **Answer:** The required probability is 9/17.
 
 ---
 
@@ -1457,7 +1938,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 56/81
 
-**Explanation:** Approach — Use the complementary event because it is shorter to count the unwanted case and subtract its probability from 1. Step 1 — Use the complement: at least one red ball fails only when both selected balls are blue. Step 2 — Replacement keeps P(blue ball) = 5/9 on both selections. Step 3 — P(at least one red ball) = 1 - (5/9 × 5/9) = 56/81. Why this works — The required event and its complement are disjoint and together cover every possible outcome, so their probabilities add to 1. Answer — The required probability is 56/81.
+**Explanation:**
+
+- **Method:** Follow the two selections in order. Replacement restores the original contents, so the second-stage probability uses the same denominator.
+1. Use the complement: at least one red ball fails only when both selected balls are blue.
+2. Replacement keeps P(blue ball) = 5/9 on both selections.
+3. P(at least one red ball) = 1 - (5/9 × 5/9) = 56/81.
+- **Key point:** Replacement makes the two stage probabilities use the original composition each time.
+- **Answer:** The required probability is 56/81.
 
 ---
 
@@ -1475,7 +1963,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 49/169
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — The first marble is replaced, so the container again has 7 red and 6 blue marbles before the second selection. Step 2 — Thus, P(red marble on each selection) = 7/13. Step 3 — P(both red marbles) = 7/13 × 7/13 = 49/169. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 49/169.
+**Explanation:**
+
+- **Method:** Follow the two selections in order. Replacement restores the original contents, so the second-stage probability uses the same denominator.
+1. The first marble is replaced, so the container again has 7 red and 6 blue marbles before the second selection.
+2. Thus, P(red marble on each selection) = 7/13.
+3. P(both red marbles) = 7/13 × 7/13 = 49/169.
+- **Key point:** Replacement makes the two stage probabilities use the original composition each time.
+- **Answer:** The required probability is 49/169.
 
 ---
 
@@ -1493,7 +1988,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 6/13
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — On the first selection, P(red pen) = 9/13. Step 2 — After one red pen is removed, 8 red pens remain among 12 pens. Step 3 — P(both red pens) = 9/13 × 8/12 = 6/13. Simplification — Divide the numerator and denominator by 12: 72/156 = 6/13 = 6/13. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 6/13.
+**Explanation:**
+
+- **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
+1. On the first selection, P(red pen) = 9/13.
+2. After one red pen is removed, 8 red pens remain among 12 pens.
+3. P(both red pens) = 9/13 × 8/12 = 6/13.
+- **Simplification:** 72/156 = (72 ÷ 12)/(156 ÷ 12) = 6/13.
+- **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
+- **Answer:** The required probability is 6/13.
 
 ---
 
@@ -1511,7 +2014,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 25/121
 
-**Explanation:** Approach — Follow the selections in order and multiply the stage probabilities, updating the contents whenever an object is not replaced. Step 1 — The first stone is replaced, so the container again has 5 red and 6 blue coloured stones before the second selection. Step 2 — Thus, P(red stone on each selection) = 5/11. Step 3 — P(both red coloured stones) = 5/11 × 5/11 = 25/121. Why this works — Both stages must occur along the same path, so their probabilities are multiplied; without replacement, the second numerator and denominator change. Answer — The required probability is 25/121.
+**Explanation:**
+
+- **Method:** Follow the two selections in order. Replacement restores the original contents, so the second-stage probability uses the same denominator.
+1. The first stone is replaced, so the container again has 5 red and 6 blue coloured stones before the second selection.
+2. Thus, P(red stone on each selection) = 5/11.
+3. P(both red coloured stones) = 5/11 × 5/11 = 25/121.
+- **Key point:** Replacement makes the two stage probabilities use the original composition each time.
+- **Answer:** The required probability is 25/121.
 
 ---
 
@@ -1529,7 +2039,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 5/39
 
-**Explanation:** Approach — Follow the selections in order and multiply the stage probabilities, updating the contents whenever an object is not replaced. Step 1 — On the first selection, P(red ball) = 5/13. Step 2 — After one red ball is removed, 4 red balls remain among 12 balls. Step 3 — P(both red balls) = 5/13 × 4/12 = 5/39. Simplification — Divide the numerator and denominator by 4: 20/156 = 5/39 = 5/39. Why this works — Both stages must occur along the same path, so their probabilities are multiplied; without replacement, the second numerator and denominator change. Answer — The required probability is 5/39.
+**Explanation:**
+
+- **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
+1. On the first selection, P(red ball) = 5/13.
+2. After one red ball is removed, 4 red balls remain among 12 balls.
+3. P(both red balls) = 5/13 × 4/12 = 5/39.
+- **Simplification:** 20/156 = (20 ÷ 4)/(156 ÷ 4) = 5/39.
+- **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
+- **Answer:** The required probability is 5/39.
 
 ---
 
@@ -1547,7 +2065,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 8/33
 
-**Explanation:** Approach — Follow the selections in order and multiply the stage probabilities, updating the contents whenever an object is not replaced. Step 1 — The order is fixed: a red marble must occur first and a blue marble second. Step 2 — P(red first) = 8/12; after that, P(blue second) = 4/11. Step 3 — Required probability = 8/12 × 4/11 = 8/33. Simplification — Divide the numerator and denominator by 4: 32/132 = 8/33 = 8/33. Why this works — Both stages must occur along the same path, so their probabilities are multiplied; without replacement, the second numerator and denominator change. Answer — The required probability is 8/33.
+**Explanation:**
+
+- **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
+1. The order is fixed: a red marble must occur first and a blue marble second.
+2. P(red first) = 8/12; after that, P(blue second) = 4/11.
+3. Required probability = 8/12 × 4/11 = 8/33.
+- **Simplification:** 32/132 = (32 ÷ 4)/(132 ÷ 4) = 8/33.
+- **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
+- **Answer:** The required probability is 8/33.
 
 ---
 
@@ -1565,7 +2091,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 3/7
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — The same colour can occur in two disjoint ways for the pens: red-red or blue-blue. Step 2 — P(red-red) = 4/8 × 3/7, and P(blue-blue) = 4/8 × 3/7. Step 3 — Adding the two cases gives 3/7. Simplification — Divide the numerator and denominator by 8: 24/56 = 3/7 = 3/7. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 3/7.
+**Explanation:**
+
+- **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
+1. The same colour can occur in two disjoint ways for the pens: red-red or blue-blue.
+2. P(red-red) = 4/8 × 3/7, and P(blue-blue) = 4/8 × 3/7.
+3. Adding the two cases gives 3/7.
+- **Simplification:** 24/56 = (24 ÷ 8)/(56 ÷ 8) = 3/7.
+- **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
+- **Answer:** The required probability is 3/7.
 
 ---
 
@@ -1583,7 +2117,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 18/35
 
-**Explanation:** Approach — For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition. Step 1 — Different colours can occur as red-blue or blue-red, so both orders of the coloured stones must be counted. Step 2 — P = 6/15 × 9/14 + 9/15 × 6/14. Step 3 — After simplification, the required probability is 18/35. Simplification — Divide the numerator and denominator by 6: 108/210 = 18/35 = 18/35. Why this works — A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability. Answer — The required probability is 18/35.
+**Explanation:**
+
+- **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
+1. Different colours can occur as red-blue or blue-red, so both orders of the coloured stones must be counted.
+2. P = 6/15 × 9/14 + 9/15 × 6/14.
+3. After simplification, the required probability is 18/35.
+- **Simplification:** 108/210 = (108 ÷ 6)/(210 ÷ 6) = 18/35.
+- **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
+- **Answer:** The required probability is 18/35.
 
 ---
 
@@ -1603,7 +2145,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/3
 
-**Explanation:** Approach — Use the standard 52-card deck counts and adjust for any card that belongs to both required groups. Step 1 — Knowing that the card is a face card reduces the sample space to the 12 jacks, queens and kings. Step 2 — Exactly 4 of these 12 face cards are kings. Step 3 — The required probability is 4/12 = 1/3. Simplification — Divide the numerator and denominator by 4: 4/12 = 1/3 = 1/3. Why this works — Each card is equally likely to be drawn, so the required card count over 52 gives the probability; any overlap must be counted only once. Answer — The required probability is 1/3.
+**Explanation:**
+
+- **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
+1. Knowing that the card is a face card reduces the sample space to the 12 jacks, queens and kings.
+2. Exactly 4 of these 12 face cards are kings.
+3. The required probability is 4/12 = 1/3.
+- **Answer:** The required probability is 1/3.
 
 ---
 
@@ -1621,7 +2169,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/2
 
-**Explanation:** Approach — First restrict the sample space to the outcomes allowed by the given condition, and then form favourable ÷ restricted total. Step 1 — The restricted numbers are 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40. Step 2 — Among them, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40 are divisible by 4. So the probability is 10/20 = 1/2. Simplification — Divide the numerator and denominator by 10: 10/20 = 1/2 = 1/2. Why this works — Once the condition is known, outcomes outside the restricted group are impossible and must not remain in the denominator. Answer — The required probability is 1/2.
+**Explanation:**
+
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+1. The restricted numbers are 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40.
+2. Among them, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40 are divisible by 4. So the probability is 10/20 = 1/2.
+- **Answer:** The required probability is 1/2.
 
 ---
 
@@ -1639,7 +2192,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/2
 
-**Explanation:** Approach — First restrict the sample space to the outcomes allowed by the given condition, and then form favourable ÷ restricted total. Step 1 — The restricted numbers are 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24. Step 2 — Among them, 4, 8, 12, 16, 20, 24 are divisible by 4. So the probability is 6/12 = 1/2. Simplification — Divide the numerator and denominator by 6: 6/12 = 1/2 = 1/2. Why this works — Once the condition is known, outcomes outside the restricted group are impossible and must not remain in the denominator. Answer — The required probability is 1/2.
+**Explanation:**
+
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+1. The restricted numbers are 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24.
+2. Among them, 4, 8, 12, 16, 20, 24 are divisible by 4. So the probability is 6/12 = 1/2.
+- **Answer:** The required probability is 1/2.
 
 ---
 
@@ -1657,7 +2215,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 1/2
 
-**Explanation:** Approach — First restrict the sample space to the outcomes allowed by the given condition, and then form favourable ÷ restricted total. Step 1 — The restricted numbers are 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36. Step 2 — Among them, 4, 8, 12, 16, 20, 24, 28, 32, 36 are divisible by 4. So the probability is 9/18 = 1/2. Simplification — Divide the numerator and denominator by 9: 9/18 = 1/2 = 1/2. Why this works — Once the condition is known, outcomes outside the restricted group are impossible and must not remain in the denominator. Answer — The required probability is 1/2.
+**Explanation:**
+
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+1. The restricted numbers are 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36.
+2. Among them, 4, 8, 12, 16, 20, 24, 28, 32, 36 are divisible by 4. So the probability is 9/18 = 1/2.
+- **Answer:** The required probability is 1/2.
 
 ---
 
@@ -1675,7 +2238,12 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/2
 
-**Explanation:** Approach — First restrict the sample space to the outcomes allowed by the given condition, and then form favourable ÷ restricted total. Step 1 — The restricted numbers are 2, 4, 6, 8, 10, 12, 14, 16, 18, 20. Step 2 — Among them, 4, 8, 12, 16, 20 are divisible by 4. So the probability is 5/10 = 1/2. Simplification — Divide the numerator and denominator by 5: 5/10 = 1/2 = 1/2. Why this works — Once the condition is known, outcomes outside the restricted group are impossible and must not remain in the denominator. Answer — The required probability is 1/2.
+**Explanation:**
+
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+1. The restricted numbers are 2, 4, 6, 8, 10, 12, 14, 16, 18, 20.
+2. Among them, 4, 8, 12, 16, 20 are divisible by 4. So the probability is 5/10 = 1/2.
+- **Answer:** The required probability is 1/2.
 
 ---
 
@@ -1693,7 +2261,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 3/8
 
-**Explanation:** Approach — First restrict the sample space to the outcomes allowed by the given condition, and then form favourable ÷ restricted total. Step 1 — The given condition restricts the sample space to the 8 people who satisfy the first condition. Step 2 — 3 of these 8 people also satisfy the second condition. Step 3 — The required probability is 3/8. Why this works — Once the condition is known, outcomes outside the restricted group are impossible and must not remain in the denominator. Answer — The required probability is 3/8.
+**Explanation:**
+
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+1. The given condition restricts the sample space to the 8 people who satisfy the first condition.
+2. 3 of these 8 people also satisfy the second condition.
+3. The required probability is 3/8.
+- **Key point:** The condition changes the denominator: outcomes outside the restricted group cannot be selected.
+- **Answer:** The required probability is 3/8.
 
 ---
 
@@ -1711,7 +2286,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 3/7
 
-**Explanation:** Approach — First restrict the sample space to the outcomes allowed by the given condition, and then form favourable ÷ restricted total. Step 1 — The condition tells us that the first selected ball was red and was not replaced. Step 2 — 6 red balls remain among 14 balls for the second selection. Step 3 — The required probability is 6/14 = 3/7. Simplification — Divide the numerator and denominator by 2: 6/14 = 3/7 = 3/7. Why this works — Once the condition is known, outcomes outside the restricted group are impossible and must not remain in the denominator. Answer — The required probability is 3/7.
+**Explanation:**
+
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+1. The condition tells us that the first selected ball was red and was not replaced.
+2. 6 red balls remain among 14 balls for the second selection.
+3. The required probability is 6/14 = 3/7.
+- **Key point:** The condition changes the denominator: outcomes outside the restricted group cannot be selected.
+- **Answer:** The required probability is 3/7.
 
 ---
 
@@ -1729,7 +2311,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 3
 
-**Explanation:** Approach — Work backwards from probability = favourable cases ÷ total cases, and solve for the missing count. Step 1 — Because the selection is made only from the restricted group, let the required number be x. Then x/24 = 1/8. Step 2 — X = 24 × 1/8 = 3. Step 3 — 3 people satisfy the required condition. Why this works — Substituting the derived count back into favourable cases ÷ total cases reproduces the probability stated in the question. Answer — The required number is 3.
+**Explanation:**
+
+- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
+1. Because the selection is made only from the restricted group, let the required number be x. Then x/24 = 1/8.
+2. X = 24 × 1/8 = 3.
+3. 3 people satisfy the required condition.
+- **Key point:** The condition changes the denominator: outcomes outside the restricted group cannot be selected.
+- **Answer:** The required number is 3.
 
 ---
 
@@ -1747,7 +2336,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 7/17
 
-**Explanation:** Approach — First restrict the sample space to the outcomes allowed by the given condition, and then form favourable ÷ restricted total. Step 1 — The given condition restricts the sample space to the 17 people who satisfy the first condition. Step 2 — 7 of these 17 people also satisfy the second condition. Step 3 — The required probability is 7/17. Why this works — Once the condition is known, outcomes outside the restricted group are impossible and must not remain in the denominator. Answer — The required probability is 7/17.
+**Explanation:**
+
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+1. The given condition restricts the sample space to the 17 people who satisfy the first condition.
+2. 7 of these 17 people also satisfy the second condition.
+3. The required probability is 7/17.
+- **Key point:** The condition changes the denominator: outcomes outside the restricted group cannot be selected.
+- **Answer:** The required probability is 7/17.
 
 ---
 
@@ -1765,7 +2361,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 1/2
 
-**Explanation:** Approach — First restrict the sample space to the outcomes allowed by the given condition, and then form favourable ÷ restricted total. Step 1 — The given condition restricts the sample space to the 14 people who satisfy the first condition. Step 2 — 7 of these 14 people also satisfy the second condition. Step 3 — The required probability is 7/14 = 1/2. Simplification — Divide the numerator and denominator by 7: 7/14 = 1/2 = 1/2. Why this works — Once the condition is known, outcomes outside the restricted group are impossible and must not remain in the denominator. Answer — The required probability is 1/2.
+**Explanation:**
+
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+1. The given condition restricts the sample space to the 14 people who satisfy the first condition.
+2. 7 of these 14 people also satisfy the second condition.
+3. The required probability is 7/14 = 1/2.
+- **Key point:** The condition changes the denominator: outcomes outside the restricted group cannot be selected.
+- **Answer:** The required probability is 1/2.
 
 ---
 
@@ -1783,7 +2386,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 3/5
 
-**Explanation:** Approach — First restrict the sample space to the outcomes allowed by the given condition, and then form favourable ÷ restricted total. Step 1 — The condition tells us that the first selected ball was red and was not replaced. Step 2 — 6 red balls remain among 10 balls for the second selection. Step 3 — The required probability is 6/10 = 3/5. Simplification — Divide the numerator and denominator by 2: 6/10 = 3/5 = 3/5. Why this works — Once the condition is known, outcomes outside the restricted group are impossible and must not remain in the denominator. Answer — The required probability is 3/5.
+**Explanation:**
+
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+1. The condition tells us that the first selected ball was red and was not replaced.
+2. 6 red balls remain among 10 balls for the second selection.
+3. The required probability is 6/10 = 3/5.
+- **Key point:** The condition changes the denominator: outcomes outside the restricted group cannot be selected.
+- **Answer:** The required probability is 3/5.
 
 ---
 
@@ -1801,7 +2411,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 16
 
-**Explanation:** Approach — Work backwards from probability = favourable cases ÷ total cases, and solve for the missing count. Step 1 — Because the selection is made only from the restricted group, let the required number be x. Then x/29 = 16/29. Step 2 — X = 29 × 16/29 = 16. Step 3 — 16 people satisfy the required condition. Why this works — Substituting the derived count back into favourable cases ÷ total cases reproduces the probability stated in the question. Answer — The required number is 16.
+**Explanation:**
+
+- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
+1. Because the selection is made only from the restricted group, let the required number be x. Then x/29 = 16/29.
+2. X = 29 × 16/29 = 16.
+3. 16 people satisfy the required condition.
+- **Key point:** The condition changes the denominator: outcomes outside the restricted group cannot be selected.
+- **Answer:** The required number is 16.
 
 ---
 
@@ -1819,7 +2436,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 13/15
 
-**Explanation:** Approach — First restrict the sample space to the outcomes allowed by the given condition, and then form favourable ÷ restricted total. Step 1 — The given condition restricts the sample space to the 15 people who satisfy the first condition. Step 2 — 13 of these 15 people also satisfy the second condition. Step 3 — The required probability is 13/15. Why this works — Once the condition is known, outcomes outside the restricted group are impossible and must not remain in the denominator. Answer — The required probability is 13/15.
+**Explanation:**
+
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+1. The given condition restricts the sample space to the 15 people who satisfy the first condition.
+2. 13 of these 15 people also satisfy the second condition.
+3. The required probability is 13/15.
+- **Key point:** The condition changes the denominator: outcomes outside the restricted group cannot be selected.
+- **Answer:** The required probability is 13/15.
 
 ---
 
@@ -1837,7 +2461,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 2/3
 
-**Explanation:** Approach — First restrict the sample space to the outcomes allowed by the given condition, and then form favourable ÷ restricted total. Step 1 — The given condition restricts the sample space to the 15 people who satisfy the first condition. Step 2 — 10 of these 15 people also satisfy the second condition. Step 3 — The required probability is 10/15 = 2/3. Simplification — Divide the numerator and denominator by 5: 10/15 = 2/3 = 2/3. Why this works — Once the condition is known, outcomes outside the restricted group are impossible and must not remain in the denominator. Answer — The required probability is 2/3.
+**Explanation:**
+
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+1. The given condition restricts the sample space to the 15 people who satisfy the first condition.
+2. 10 of these 15 people also satisfy the second condition.
+3. The required probability is 10/15 = 2/3.
+- **Key point:** The condition changes the denominator: outcomes outside the restricted group cannot be selected.
+- **Answer:** The required probability is 2/3.
 
 ---
 
@@ -1855,7 +2486,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 2/3
 
-**Explanation:** Approach — First restrict the sample space to the outcomes allowed by the given condition, and then form favourable ÷ restricted total. Step 1 — The condition tells us that the first selected ball was red and was not replaced. Step 2 — 8 red balls remain among 12 balls for the second selection. Step 3 — The required probability is 8/12 = 2/3. Simplification — Divide the numerator and denominator by 4: 8/12 = 2/3 = 2/3. Why this works — Once the condition is known, outcomes outside the restricted group are impossible and must not remain in the denominator. Answer — The required probability is 2/3.
+**Explanation:**
+
+- **Method:** First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.
+1. The condition tells us that the first selected ball was red and was not replaced.
+2. 8 red balls remain among 12 balls for the second selection.
+3. The required probability is 8/12 = 2/3.
+- **Key point:** The condition changes the denominator: outcomes outside the restricted group cannot be selected.
+- **Answer:** The required probability is 2/3.
 
 ---
 
@@ -1875,7 +2513,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/5
 
-**Explanation:** Approach — Count all equally likely arrangements first, then count only the arrangements that satisfy the stated position or adjacency condition. Step 1 — Each of the 5 candidates can occupy the first position in the queue. Step 2 — Only one of these 5 possibilities places the specified candidate first. Step 3 — The required probability is 1/5. Simplification — Divide the numerator and denominator by 24: 24/120 = 1/5 = 1/5. Why this works — All admissible arrangements are equally likely, and the restriction count selects precisely the arrangements described in the question. Answer — The required probability is 1/5.
+**Explanation:**
+
+- **Method:** Count all equally likely arrangements first, then count only those satisfying the stated position, adjacency or last-digit restriction.
+1. Each of the 5 candidates can occupy the first position in the queue.
+2. Only one of these 5 possibilities places the specified candidate first.
+3. The required probability is 1/5.
+- **Simplification:** 24/120 = (24 ÷ 24)/(120 ÷ 24) = 1/5.
+- **Answer:** The required probability is 1/5.
 
 ---
 
@@ -1893,7 +2538,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 1/7
 
-**Explanation:** Approach — Count all equally likely arrangements first, then count only the arrangements that satisfy the stated position or adjacency condition. Step 1 — Each of the 7 candidates can occupy the first position in the queue. Step 2 — Only one of these 7 possibilities places the specified candidate first. Step 3 — The required probability is 1/7. Simplification — Divide the numerator and denominator by 720: 720/5040 = 1/7 = 1/7. Why this works — All admissible arrangements are equally likely, and the restriction count selects precisely the arrangements described in the question. Answer — The required probability is 1/7.
+**Explanation:**
+
+- **Method:** Count all equally likely arrangements first, then count only those satisfying the stated position, adjacency or last-digit restriction.
+1. Each of the 7 candidates can occupy the first position in the queue.
+2. Only one of these 7 possibilities places the specified candidate first.
+3. The required probability is 1/7.
+- **Simplification:** 720/5040 = (720 ÷ 720)/(5040 ÷ 720) = 1/7.
+- **Answer:** The required probability is 1/7.
 
 ---
 
@@ -1911,7 +2563,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 1/6
 
-**Explanation:** Approach — Count all equally likely arrangements first, then count only the arrangements that satisfy the stated position or adjacency condition. Step 1 — Each of the 6 candidates can occupy the first position in the queue. Step 2 — Only one of these 6 possibilities places the specified candidate first. Step 3 — The required probability is 1/6. Simplification — Divide the numerator and denominator by 120: 120/720 = 1/6 = 1/6. Why this works — All admissible arrangements are equally likely, and the restriction count selects precisely the arrangements described in the question. Answer — The required probability is 1/6.
+**Explanation:**
+
+- **Method:** Count all equally likely arrangements first, then count only those satisfying the stated position, adjacency or last-digit restriction.
+1. Each of the 6 candidates can occupy the first position in the queue.
+2. Only one of these 6 possibilities places the specified candidate first.
+3. The required probability is 1/6.
+- **Simplification:** 120/720 = (120 ÷ 120)/(720 ÷ 120) = 1/6.
+- **Answer:** The required probability is 1/6.
 
 ---
 
@@ -1929,7 +2588,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 40/143
 
-**Explanation:** Approach — A committee is an unordered selection, so use combinations for both the complete set of committees and the required composition. Step 1 — The total number of committees is C(13,3) = 286. Step 2 — For the required composition, choose 1 from 8 women and 2 from 5 men: C(8,1) × C(5,2) = 80. Step 3 — The required probability is 80/286 = 40/143. Simplification — Divide the numerator and denominator by 2: 80/286 = 40/143 = 40/143. Why this works — Choosing the required members uniquely determines a committee, so the product of the combination counts includes every valid committee exactly once. Answer — The required probability is 40/143.
+**Explanation:**
+
+- **Method:** A committee is unordered, so use combinations for both the complete set of committees and the required composition.
+1. The total number of committees is C(13,3) = 286.
+2. For the required composition, choose 1 from 8 women and 2 from 5 men: C(8,1) × C(5,2) = 80.
+3. The required probability is 80/286 = 40/143.
+- **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
+- **Answer:** The required probability is 40/143.
 
 ---
 
@@ -1947,7 +2613,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 3/5
 
-**Explanation:** Approach — Count all equally likely arrangements first, then count only the arrangements that satisfy the stated position or adjacency condition. Step 1 — There are 5! = 120 unrestricted arrangements. Step 2 — If the two specified candidates are treated as one block, adjacent arrangements = 2 × 4! = 48. Step 3 — Non-adjacent arrangements = 120 - 48 = 72, so the probability is 3/5. Simplification — Divide the numerator and denominator by 24: 72/120 = 3/5 = 3/5. Why this works — All admissible arrangements are equally likely, and the restriction count selects precisely the arrangements described in the question. Answer — The required probability is 3/5.
+**Explanation:**
+
+- **Method:** Count all equally likely arrangements first, then count only those satisfying the stated position, adjacency or last-digit restriction.
+1. There are 5! = 120 unrestricted arrangements.
+2. If the two specified candidates are treated as one block, adjacent arrangements = 2 × 4! = 48.
+3. Non-adjacent arrangements = 120 - 48 = 72, so the probability is 3/5.
+- **Simplification:** 72/120 = (72 ÷ 24)/(120 ÷ 24) = 3/5.
+- **Key point:** The probability is valid because every admissible arrangement is treated as equally likely.
+- **Answer:** The required probability is 3/5.
 
 ---
 
@@ -1965,7 +2639,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 27/56
 
-**Explanation:** Approach — A committee is an unordered selection, so use combinations for both the complete set of committees and the required composition. Step 1 — The total number of committees is C(16,3) = 560. Step 2 — For the required composition, choose 1 from 6 women and 2 from 10 men: C(6,1) × C(10,2) = 270. Step 3 — The required probability is 270/560 = 27/56. Simplification — Divide the numerator and denominator by 10: 270/560 = 27/56 = 27/56. Why this works — Choosing the required members uniquely determines a committee, so the product of the combination counts includes every valid committee exactly once. Answer — The required probability is 27/56.
+**Explanation:**
+
+- **Method:** A committee is unordered, so use combinations for both the complete set of committees and the required composition.
+1. The total number of committees is C(16,3) = 560.
+2. For the required composition, choose 1 from 6 women and 2 from 10 men: C(6,1) × C(10,2) = 270.
+3. The required probability is 270/560 = 27/56.
+- **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
+- **Answer:** The required probability is 27/56.
 
 ---
 
@@ -1983,7 +2664,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 5/7
 
-**Explanation:** Approach — Count all equally likely arrangements first, then count only the arrangements that satisfy the stated position or adjacency condition. Step 1 — There are 7! = 5040 unrestricted arrangements. Step 2 — If the two specified candidates are treated as one block, adjacent arrangements = 2 × 6! = 1440. Step 3 — Non-adjacent arrangements = 5040 - 1440 = 3600, so the probability is 5/7. Simplification — Divide the numerator and denominator by 720: 3600/5040 = 5/7 = 5/7. Why this works — All admissible arrangements are equally likely, and the restriction count selects precisely the arrangements described in the question. Answer — The required probability is 5/7.
+**Explanation:**
+
+- **Method:** Count all equally likely arrangements first, then count only those satisfying the stated position, adjacency or last-digit restriction.
+1. There are 7! = 5040 unrestricted arrangements.
+2. If the two specified candidates are treated as one block, adjacent arrangements = 2 × 6! = 1440.
+3. Non-adjacent arrangements = 5040 - 1440 = 3600, so the probability is 5/7.
+- **Simplification:** 3600/5040 = (3600 ÷ 720)/(5040 ÷ 720) = 5/7.
+- **Key point:** The probability is valid because every admissible arrangement is treated as equally likely.
+- **Answer:** The required probability is 5/7.
 
 ---
 
@@ -2001,7 +2690,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 45/91
 
-**Explanation:** Approach — A committee is an unordered selection, so use combinations for both the complete set of committees and the required composition. Step 1 — The total number of committees is C(15,3) = 455. Step 2 — For the required composition, choose 1 from 5 women and 2 from 10 men: C(5,1) × C(10,2) = 225. Step 3 — The required probability is 225/455 = 45/91. Simplification — Divide the numerator and denominator by 5: 225/455 = 45/91 = 45/91. Why this works — Choosing the required members uniquely determines a committee, so the product of the combination counts includes every valid committee exactly once. Answer — The required probability is 45/91.
+**Explanation:**
+
+- **Method:** A committee is unordered, so use combinations for both the complete set of committees and the required composition.
+1. The total number of committees is C(15,3) = 455.
+2. For the required composition, choose 1 from 5 women and 2 from 10 men: C(5,1) × C(10,2) = 225.
+3. The required probability is 225/455 = 45/91.
+- **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
+- **Answer:** The required probability is 45/91.
 
 ---
 
@@ -2019,7 +2715,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 48/143
 
-**Explanation:** Approach — A committee is an unordered selection, so use combinations for both the complete set of committees and the required composition. Step 1 — The total number of committees is C(14,4) = 1001. Step 2 — For the required composition, choose 1 from 6 women and 3 from 8 men: C(6,1) × C(8,3) = 336. Step 3 — The required probability is 336/1001 = 48/143. Simplification — Divide the numerator and denominator by 7: 336/1001 = 48/143 = 48/143. Why this works — Choosing the required members uniquely determines a committee, so the product of the combination counts includes every valid committee exactly once. Answer — The required probability is 48/143.
+**Explanation:**
+
+- **Method:** A committee is unordered, so use combinations for both the complete set of committees and the required composition.
+1. The total number of committees is C(14,4) = 1001.
+2. For the required composition, choose 1 from 6 women and 3 from 8 men: C(6,1) × C(8,3) = 336.
+3. The required probability is 336/1001 = 48/143.
+- **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
+- **Answer:** The required probability is 48/143.
 
 ---
 
@@ -2037,7 +2740,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 3/7
 
-**Explanation:** Approach — Count all equally likely arrangements first, then count only the arrangements that satisfy the stated position or adjacency condition. Step 1 — Any of the 14 people can receive the first post. Step 2 — 6 of these 14 people are women, and the remaining posts do not affect who receives the first post. Step 3 — The required probability is 6/14 = 3/7. Simplification — Divide the numerator and denominator by 3432: 10296/24024 = 3/7 = 3/7. Why this works — All admissible arrangements are equally likely, and the restriction count selects precisely the arrangements described in the question. Answer — The required probability is 3/7.
+**Explanation:**
+
+- **Method:** Count all equally likely arrangements first, then count only those satisfying the stated position, adjacency or last-digit restriction.
+1. Any of the 14 people can receive the first post.
+2. 6 of these 14 people are women, and the remaining posts do not affect who receives the first post.
+3. The required probability is 6/14 = 3/7.
+- **Simplification:** 10296/24024 = (10296 ÷ 3432)/(24024 ÷ 3432) = 3/7.
+- **Key point:** The probability is valid because every admissible arrangement is treated as equally likely.
+- **Answer:** The required probability is 3/7.
 
 ---
 
@@ -2055,7 +2766,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/2
 
-**Explanation:** Approach — Count all equally likely arrangements first, then count only the arrangements that satisfy the stated position or adjacency condition. Step 1 — Without repetition, the total number of 4-digit numbers is 8P4 = 1680. Step 2 — An even number must end in one of the 4 available even digits. After fixing the last digit, the remaining places can be filled in 210 ways. Step 3 — Thus, favourable numbers = 4 × 210 = 840, and the probability is 1/2. Simplification — Divide the numerator and denominator by 840: 840/1680 = 1/2 = 1/2. Why this works — All admissible arrangements are equally likely, and the restriction count selects precisely the arrangements described in the question. Answer — The required probability is 1/2.
+**Explanation:**
+
+- **Method:** Count all equally likely arrangements first, then count only those satisfying the stated position, adjacency or last-digit restriction.
+1. Without repetition, the total number of 4-digit numbers is 8P4 = 1680.
+2. An even number must end in one of the 4 available even digits. After fixing the last digit, the remaining places can be filled in 210 ways.
+3. Thus, favourable numbers = 4 × 210 = 840, and the probability is 1/2.
+- **Simplification:** 840/1680 = (840 ÷ 840)/(1680 ÷ 840) = 1/2.
+- **Key point:** The probability is valid because every admissible arrangement is treated as equally likely.
+- **Answer:** The required probability is 1/2.
 
 ---
 
@@ -2073,7 +2792,15 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 140/143
 
-**Explanation:** Approach — Use the complementary event because it is shorter to count the unwanted case and subtract its probability from 1. Step 1 — There are C(13,4) = 715 possible committees. Step 2 — Use the complement: committees with no woman = C(6,4) = 15. Step 3 — Favourable committees = 715 - 15 = 700, giving probability 140/143. Simplification — Divide the numerator and denominator by 5: 700/715 = 140/143 = 140/143. Why this works — The required event and its complement are disjoint and together cover every possible outcome, so their probabilities add to 1. Answer — The required probability is 140/143.
+**Explanation:**
+
+- **Method:** A committee is unordered. Count all committees with combinations and subtract the committees excluded by the condition.
+1. There are C(13,4) = 715 possible committees.
+2. Use the complement: committees with no woman = C(6,4) = 15.
+3. Favourable committees = 715 - 15 = 700, giving probability 140/143.
+- **Simplification:** 700/715 = (700 ÷ 5)/(715 ÷ 5) = 140/143.
+- **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
+- **Answer:** The required probability is 140/143.
 
 ---
 
@@ -2091,7 +2818,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 90
 
-**Explanation:** Approach — Work backwards from probability = favourable cases ÷ total cases, and solve for the missing count. Step 1 — Choose 1 woman from 9 and 3 men from 5. Step 2 — Required committees = C(9,1) × C(5,3) = 90. Step 3 — The required count is 90. Why this works — Substituting the derived count back into favourable cases ÷ total cases reproduces the probability stated in the question. Answer — The required number is 90.
+**Explanation:**
+
+- **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
+1. Choose 1 woman from 9 and 3 men from 5.
+2. Required committees = C(9,1) × C(5,3) = 90.
+3. The required count is 90.
+- **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
+- **Answer:** The required number is 90.
 
 ---
 
@@ -2109,7 +2843,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 1/3
 
-**Explanation:** Approach — Count all equally likely arrangements first, then count only the arrangements that satisfy the stated position or adjacency condition. Step 1 — There are 6! = 720 unrestricted arrangements. Step 2 — Treat the two specified candidates as one block; the block can be internally ordered in 2 ways. Thus, adjacent arrangements = 2 × 5! = 240. Step 3 — The required probability is 240/720 = 1/3. Simplification — Divide the numerator and denominator by 240: 240/720 = 1/3 = 1/3. Why this works — All admissible arrangements are equally likely, and the restriction count selects precisely the arrangements described in the question. Answer — The required probability is 1/3.
+**Explanation:**
+
+- **Method:** Count all equally likely arrangements first, then count only those satisfying the stated position, adjacency or last-digit restriction.
+1. There are 6! = 720 unrestricted arrangements.
+2. Treat the two specified candidates as one block; the block can be internally ordered in 2 ways. Thus, adjacent arrangements = 2 × 5! = 240.
+3. The required probability is 240/720 = 1/3.
+- **Key point:** The probability is valid because every admissible arrangement is treated as equally likely.
+- **Answer:** The required probability is 1/3.
 
 ---
 
@@ -2127,7 +2868,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 216/455
 
-**Explanation:** Approach — A committee is an unordered selection, so use combinations for both the complete set of committees and the required composition. Step 1 — The total number of committees is C(15,3) = 455. Step 2 — For the required composition, choose 1 from 6 women and 2 from 9 men: C(6,1) × C(9,2) = 216. Step 3 — The required probability is 216/455. Why this works — Choosing the required members uniquely determines a committee, so the product of the combination counts includes every valid committee exactly once. Answer — The required probability is 216/455.
+**Explanation:**
+
+- **Method:** A committee is unordered, so use combinations for both the complete set of committees and the required composition.
+1. The total number of committees is C(15,3) = 455.
+2. For the required composition, choose 1 from 6 women and 2 from 9 men: C(6,1) × C(9,2) = 216.
+3. The required probability is 216/455.
+- **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
+- **Answer:** The required probability is 216/455.
 
 ---
 
@@ -2147,7 +2895,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 2/5
 
-**Explanation:** Approach — The events cannot occur together, so their probabilities are added without subtracting any overlap. Step 1 — The two events are mutually exclusive, so they cannot happen together and there is no overlap to subtract. Step 2 — P(A or B) = P(A) + P(B) = 3/10 + 1/10. Step 3 — The required probability is 2/5. Why this works — Mutually exclusive events have no common outcome, so simple addition counts every favourable outcome exactly once. Answer — The required probability is 2/5.
+**Explanation:**
+
+- **Method:** The events are mutually exclusive, so add their probabilities; there is no overlap to subtract.
+1. The two events are mutually exclusive, so they cannot happen together and there is no overlap to subtract.
+2. P(A or B) = P(A) + P(B) = 3/10 + 1/10.
+3. The required probability is 2/5.
+- **Answer:** The required probability is 2/5.
 
 ---
 
@@ -2165,7 +2919,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** B. 9/28
 
-**Explanation:** Approach — The events are independent, so the probability that both occur is the product of their individual probabilities. Step 1 — The two results are independent, so the outcome of one does not change the probability of the other. Step 2 — P(both) = P(A) × P(B) = 3/7 × 3/4. Step 3 — The required probability is 9/28. Why this works — Independence means the first result does not alter the second probability, making multiplication valid. Answer — The required probability is 9/28.
+**Explanation:**
+
+- **Method:** The events are independent, so multiply their probabilities to obtain the probability that both occur.
+1. The two results are independent, so the outcome of one does not change the probability of the other.
+2. P(both) = P(A) × P(B) = 3/7 × 3/4.
+3. The required probability is 9/28.
+- **Answer:** The required probability is 9/28.
 
 ---
 
@@ -2183,7 +2943,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 1/5
 
-**Explanation:** Approach — The events cannot occur together, so their probabilities are added without subtracting any overlap. Step 1 — The two events are mutually exclusive, so they cannot happen together and there is no overlap to subtract. Step 2 — P(A or B) = P(A) + P(B) = 1/10 + 1/10. Step 3 — The required probability is 1/5. Why this works — Mutually exclusive events have no common outcome, so simple addition counts every favourable outcome exactly once. Answer — The required probability is 1/5.
+**Explanation:**
+
+- **Method:** The events are mutually exclusive, so add their probabilities; there is no overlap to subtract.
+1. The two events are mutually exclusive, so they cannot happen together and there is no overlap to subtract.
+2. P(A or B) = P(A) + P(B) = 1/10 + 1/10.
+3. The required probability is 1/5.
+- **Answer:** The required probability is 1/5.
 
 ---
 
@@ -2201,7 +2967,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 24/35
 
-**Explanation:** Approach — The events are independent, so the probability that both occur is the product of their individual probabilities. Step 1 — The two results are independent, so the outcome of one does not change the probability of the other. Step 2 — P(both) = P(A) × P(B) = 6/7 × 4/5. Step 3 — The required probability is 24/35. Why this works — Independence means the first result does not alter the second probability, making multiplication valid. Answer — The required probability is 24/35.
+**Explanation:**
+
+- **Method:** The events are independent, so multiply their probabilities to obtain the probability that both occur.
+1. The two results are independent, so the outcome of one does not change the probability of the other.
+2. P(both) = P(A) × P(B) = 6/7 × 4/5.
+3. The required probability is 24/35.
+- **Answer:** The required probability is 24/35.
 
 ---
 
@@ -2219,7 +2991,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 2/5
 
-**Explanation:** Approach — The events cannot occur together, so their probabilities are added without subtracting any overlap. Step 1 — The two events are mutually exclusive, so they cannot happen together and there is no overlap to subtract. Step 2 — P(A or B) = P(A) + P(B) = 1/5 + 1/5. Step 3 — The required probability is 2/5. Why this works — Mutually exclusive events have no common outcome, so simple addition counts every favourable outcome exactly once. Answer — The required probability is 2/5.
+**Explanation:**
+
+- **Method:** The events are mutually exclusive, so add their probabilities; there is no overlap to subtract.
+1. The two events are mutually exclusive, so they cannot happen together and there is no overlap to subtract.
+2. P(A or B) = P(A) + P(B) = 1/5 + 1/5.
+3. The required probability is 2/5.
+- **Answer:** The required probability is 2/5.
 
 ---
 
@@ -2237,7 +3015,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 12/25
 
-**Explanation:** Approach — Use inclusion–exclusion so that members belonging to both groups are not counted twice. Step 1 — Use n(A ∪ B) = n(A) + n(B) - n(A ∩ B), because the 6 people in both groups would otherwise be counted twice. Step 2 — Required people = 25 + 29 - 6 = 48. Step 3 — The required probability is 48/100 = 12/25. Simplification — Divide the numerator and denominator by 4: 48/100 = 12/25 = 12/25. Why this works — Adding the two group counts includes the overlap twice, so inclusion–exclusion removes the extra copy before the probability is formed. Answer — The required probability is 12/25.
+**Explanation:**
+
+- **Method:** Use inclusion–exclusion so that members belonging to both groups are not counted twice.
+1. Use n(A ∪ B) = n(A) + n(B) - n(A ∩ B), because the 6 people in both groups would otherwise be counted twice.
+2. Required people = 25 + 29 - 6 = 48.
+3. The required probability is 48/100 = 12/25.
+- **Key point:** Adding two group counts includes their overlap twice; inclusion–exclusion corrects that double counting.
+- **Answer:** The required probability is 12/25.
 
 ---
 
@@ -2255,7 +3040,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 11/90
 
-**Explanation:** Approach — The required event is the overlap of the two groups, so compare the number in both groups with the complete group. Step 1 — The intersection means the people who satisfy both cricket and football. Step 2 — The question gives this overlap directly as 11 out of 90. Step 3 — The required probability is 11/90. Why this works — The intersection contains only members satisfying both conditions, which is exactly the overlap supplied in the data. Answer — The required probability is 11/90.
+**Explanation:**
+
+- **Method:** The required event is the overlap of the two groups; compare that overlap with the complete group.
+1. The intersection means the people who satisfy both cricket and football.
+2. The question gives this overlap directly as 11 out of 90.
+3. The required probability is 11/90.
+- **Answer:** The required probability is 11/90.
 
 ---
 
@@ -2273,7 +3064,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 65/81
 
-**Explanation:** Approach — Use inclusion–exclusion so that members belonging to both groups are not counted twice. Step 1 — For exactly one condition, remove the overlap once from each group. Step 2 — Required people = 38 + 33 - 2 × 3 = 65. Step 3 — The required probability is 65/81. Why this works — Adding the two group counts includes the overlap twice, so inclusion–exclusion removes the extra copy before the probability is formed. Answer — The required probability is 65/81.
+**Explanation:**
+
+- **Method:** Use inclusion–exclusion so that members belonging to both groups are not counted twice.
+1. For exactly one condition, remove the overlap once from each group.
+2. Required people = 38 + 33 - 2 × 3 = 65.
+3. The required probability is 65/81.
+- **Key point:** Adding two group counts includes their overlap twice; inclusion–exclusion corrects that double counting.
+- **Answer:** The required probability is 65/81.
 
 ---
 
@@ -2291,7 +3089,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** E. 0
 
-**Explanation:** Approach — Use the complementary event because it is shorter to count the unwanted case and subtract its probability from 1. Step 1 — First find those satisfying at least one condition: 29 + 38 - 16 = 51. Step 2 — People satisfying neither condition = 51 - 51 = 0. Step 3 — The required probability is 0/51 = 0. Simplification — Divide the numerator and denominator by 51: 0/51 = 0/1 = 0. Why this works — The required event and its complement are disjoint and together cover every possible outcome, so their probabilities add to 1. Answer — The required probability is 0.
+**Explanation:**
+
+- **Method:** Use inclusion–exclusion to find those in at least one group, then subtract that count from the total.
+1. First find those satisfying at least one condition: 29 + 38 - 16 = 51.
+2. People satisfying neither condition = 51 - 51 = 0.
+3. The required probability is 0/51 = 0.
+- **Key point:** Adding two group counts includes their overlap twice; inclusion–exclusion corrects that double counting.
+- **Answer:** The required probability is 0.
 
 ---
 
@@ -2309,7 +3114,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 47/64
 
-**Explanation:** Approach — Use inclusion–exclusion so that members belonging to both groups are not counted twice. Step 1 — Use n(A ∪ B) = n(A) + n(B) - n(A ∩ B), because the 10 people in both groups would otherwise be counted twice. Step 2 — Required people = 30 + 27 - 10 = 47. Step 3 — The required probability is 47/64. Why this works — Adding the two group counts includes the overlap twice, so inclusion–exclusion removes the extra copy before the probability is formed. Answer — The required probability is 47/64.
+**Explanation:**
+
+- **Method:** Use inclusion–exclusion so that members belonging to both groups are not counted twice.
+1. Use n(A ∪ B) = n(A) + n(B) - n(A ∩ B), because the 10 people in both groups would otherwise be counted twice.
+2. Required people = 30 + 27 - 10 = 47.
+3. The required probability is 47/64.
+- **Key point:** Adding two group counts includes their overlap twice; inclusion–exclusion corrects that double counting.
+- **Answer:** The required probability is 47/64.
 
 ---
 
@@ -2327,7 +3139,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 1/14
 
-**Explanation:** Approach — Use inclusion–exclusion so that members belonging to both groups are not counted twice. Step 1 — Apply P(A ∪ B) = P(A) + P(B) - P(A ∩ B). Step 2 — In counts, the overlap is 36 + 23 - 54 = 5. Step 3 — The required probability is 5/70 = 1/14. Simplification — Divide the numerator and denominator by 5: 5/70 = 1/14 = 1/14. Why this works — Adding the two group counts includes the overlap twice, so inclusion–exclusion removes the extra copy before the probability is formed. Answer — The required probability is 1/14.
+**Explanation:**
+
+- **Method:** Use inclusion–exclusion so that members belonging to both groups are not counted twice.
+1. Apply P(A ∪ B) = P(A) + P(B) - P(A ∩ B).
+2. In counts, the overlap is 36 + 23 - 54 = 5.
+3. The required probability is 5/70 = 1/14.
+- **Key point:** Adding two group counts includes their overlap twice; inclusion–exclusion corrects that double counting.
+- **Answer:** The required probability is 1/14.
 
 ---
 
@@ -2345,7 +3164,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** A. 38/59
 
-**Explanation:** Approach — Use inclusion–exclusion so that members belonging to both groups are not counted twice. Step 1 — For exactly one condition, remove the overlap once from each group. Step 2 — Required people = 37 + 21 - 2 × 10 = 38. Step 3 — The required probability is 38/59. Why this works — Adding the two group counts includes the overlap twice, so inclusion–exclusion removes the extra copy before the probability is formed. Answer — The required probability is 38/59.
+**Explanation:**
+
+- **Method:** Use inclusion–exclusion so that members belonging to both groups are not counted twice.
+1. For exactly one condition, remove the overlap once from each group.
+2. Required people = 37 + 21 - 2 × 10 = 38.
+3. The required probability is 38/59.
+- **Key point:** Adding two group counts includes their overlap twice; inclusion–exclusion corrects that double counting.
+- **Answer:** The required probability is 38/59.
 
 ---
 
@@ -2363,7 +3189,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 9/76
 
-**Explanation:** Approach — Use inclusion–exclusion so that members belonging to both groups are not counted twice. Step 1 — Apply P(A ∪ B) = P(A) + P(B) - P(A ∩ B). Step 2 — In counts, the overlap is 23 + 24 - 38 = 9. Step 3 — The required probability is 9/76. Why this works — Adding the two group counts includes the overlap twice, so inclusion–exclusion removes the extra copy before the probability is formed. Answer — The required probability is 9/76.
+**Explanation:**
+
+- **Method:** Use inclusion–exclusion so that members belonging to both groups are not counted twice.
+1. Apply P(A ∪ B) = P(A) + P(B) - P(A ∩ B).
+2. In counts, the overlap is 23 + 24 - 38 = 9.
+3. The required probability is 9/76.
+- **Key point:** Adding two group counts includes their overlap twice; inclusion–exclusion corrects that double counting.
+- **Answer:** The required probability is 9/76.
 
 ---
 
@@ -2381,7 +3214,14 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** D. 13/41
 
-**Explanation:** Approach — Use inclusion–exclusion so that members belonging to both groups are not counted twice. Step 1 — For exactly one condition, remove the overlap once from each group. Step 2 — Required people = 19 + 19 - 2 × 6 = 26. Step 3 — The required probability is 26/82 = 13/41. Simplification — Divide the numerator and denominator by 2: 26/82 = 13/41 = 13/41. Why this works — Adding the two group counts includes the overlap twice, so inclusion–exclusion removes the extra copy before the probability is formed. Answer — The required probability is 13/41.
+**Explanation:**
+
+- **Method:** Use inclusion–exclusion so that members belonging to both groups are not counted twice.
+1. For exactly one condition, remove the overlap once from each group.
+2. Required people = 19 + 19 - 2 × 6 = 26.
+3. The required probability is 26/82 = 13/41.
+- **Key point:** Adding two group counts includes their overlap twice; inclusion–exclusion corrects that double counting.
+- **Answer:** The required probability is 13/41.
 
 ---
 
@@ -2399,6 +3239,13 @@ For successive draws, complements, conditional probability and counting question
 
 **Correct answer:** C. 10/99
 
-**Explanation:** Approach — Use inclusion–exclusion so that members belonging to both groups are not counted twice. Step 1 — Apply P(A ∪ B) = P(A) + P(B) - P(A ∩ B). Step 2 — In counts, the overlap is 25 + 28 - 43 = 10. Step 3 — The required probability is 10/99. Why this works — Adding the two group counts includes the overlap twice, so inclusion–exclusion removes the extra copy before the probability is formed. Answer — The required probability is 10/99.
+**Explanation:**
+
+- **Method:** Use inclusion–exclusion so that members belonging to both groups are not counted twice.
+1. Apply P(A ∪ B) = P(A) + P(B) - P(A ∩ B).
+2. In counts, the overlap is 25 + 28 - 43 = 10.
+3. The required probability is 10/99.
+- **Key point:** Adding two group counts includes their overlap twice; inclusion–exclusion corrects that double counting.
+- **Answer:** The required probability is 10/99.
 
 ---

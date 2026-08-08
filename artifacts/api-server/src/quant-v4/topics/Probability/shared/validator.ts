@@ -138,11 +138,11 @@ export function validateProbabilityQuestion(args: {
   const stemWords = words(stem);
   checks.push(check("concise-stem", stemWords >= 7 && stemWords <= 62, `Stem has ${stemWords} words; expected 7-62.`));
   const explanationText = explanation.join(" "), explanationWords = words(explanationText);
-  const minimumExplanationWords = entry.difficulty === "Easy" ? 32 : entry.difficulty === "Medium" ? 48 : 55;
-  const minimumExplanationLines = entry.difficulty === "Easy" ? 4 : 5;
-  checks.push(check("detailed-explanation-length", explanationWords >= minimumExplanationWords && explanationWords <= 220, `Explanation has ${explanationWords} words; expected ${minimumExplanationWords}-220 for ${entry.difficulty}.`));
+  const minimumExplanationWords = entry.difficulty === "Easy" ? 28 : entry.difficulty === "Medium" ? 45 : 55;
+  const minimumExplanationLines = entry.difficulty === "Hard" ? 5 : 4;
+  checks.push(check("detailed-explanation-length", explanationWords >= minimumExplanationWords && explanationWords <= 200, `Explanation has ${explanationWords} words; expected ${minimumExplanationWords}-200 for ${entry.difficulty}.`));
   checks.push(check("worked-solution-line-depth", explanation.length >= minimumExplanationLines, `${entry.difficulty} explanation has ${explanation.length} lines; expected at least ${minimumExplanationLines}.`));
-  checks.push(check("worked-solution-structure", /^Approach —/.test(explanation[0] ?? "") && explanation.some((line) => /^Why this works —/.test(line)) && /^Answer —/.test(explanation[explanation.length - 1] ?? ""), "Explanation must contain an approach, worked steps, method justification and a final answer line."));
+  checks.push(check("worked-solution-structure", /^Method —/.test(explanation[0] ?? "") && explanation.some((line) => /^Step 1 —/.test(line)) && /^Answer —/.test(explanation[explanation.length - 1] ?? ""), "Explanation must contain a method, numbered working and a final answer line."));
   checks.push(check("exam-depth-decision-path", !EXAM_DEPTH_MODES.has(entry.solveMode) || (explanation.length >= 5 && hasMethodDecision(explanation)), "A multi-step explanation must state the method decision and show at least five reasoning lines."));
   checks.push(check("contextual-explanation", !hasGenericExplanation(explanation), "The explanation states generic counts or uses unnatural instructional wording."));
   checks.push(check("stem-explanation-context-agreement", hasStemExplanationContextAgreement(stem, explanation), "The explanation changes the object named in the question stem."));

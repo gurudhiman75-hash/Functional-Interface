@@ -108,6 +108,23 @@ function optionLines(row: ReviewRow): string[] {
     .map(({ option, letter }) => `- **${letter}.** ${option}`);
 }
 
+function explanationLines(explanation: string): string[] {
+  const parts = explanation
+    .split(/(?=(?:Method|Step \d+|Simplification|Key point|Answer) — )/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+
+  return parts.map((part) => {
+    const match = part.match(/^(Method|Step (\d+)|Simplification|Key point|Answer) — (.*)$/);
+    if (!match) return part;
+    const label = match[1]!;
+    const stepNumber = match[2];
+    const body = match[3]!;
+    if (label.startsWith("Step") && stepNumber) return `${stepNumber}. ${body}`;
+    return `- **${label}:** ${body}`;
+  });
+}
+
 function renderPackage(packageId: "PRB-001" | "PRB-002", rows: ReviewRow[], startNumber: number): { lines: string[]; nextNumber: number } {
   const lines: string[] = [];
   const profile = profileLabel(rows[0]?.examProfile ?? "");
@@ -135,7 +152,9 @@ function renderPackage(packageId: "PRB-001" | "PRB-002", rows: ReviewRow[], star
       lines.push("");
       lines.push(`**Correct answer:** ${row.correctOption}. ${row.answer}`);
       lines.push("");
-      lines.push(`**Explanation:** ${row.explanation}`);
+      lines.push("**Explanation:**");
+      lines.push("");
+      lines.push(...explanationLines(row.explanation));
       lines.push("");
       lines.push("---");
       lines.push("");
@@ -171,7 +190,7 @@ function buildMarkdown(title: string): string {
     `# ${title}`,
     "",
     "> ExamTree English editorial-review set for SSC and banking examinations.",
-    "> Every explanation uses the shortest complete method possible.",
+    "> Every explanation is presented as a student-friendly worked solution with method, numbered calculation and final answer.",
     "",
     "## Coverage Summary",
     "",
@@ -183,14 +202,16 @@ function buildMarkdown(title: string): string {
     "",
     "## Explanation Standard",
     "",
-    "Most solutions follow three simple steps:",
+    "Every solution is arranged for quick student reading:",
     "",
-    "1. Find the total possible cases.",
-    "2. Find the required cases.",
-    "3. Divide and simplify.",
+    "1. **Method:** the exact probability idea used in the question.",
+    "2. **Numbered working:** values, sample space and required cases shown in order.",
+    "3. **Simplification:** included only when the reduction is not already visible in the calculation.",
+    "4. **Key point:** added for multi-step questions to explain the important trap or reasoning decision.",
+    "5. **Answer:** the final exact probability or count.",
     "",
-    "For small coin, dice and number sample spaces, the actual outcomes are shown. For larger spaces, compact counting is used.",
-    "For successive draws, complements, conditional probability and counting questions, only the extra step actually needed is shown.",
+    "Small coin, dice and number sample spaces show their actual outcomes. Larger spaces use combinations or structured counting.",
+    "The solution avoids repeated formulas, generic padding and method labels unrelated to the question.",
     "",
   ];
 

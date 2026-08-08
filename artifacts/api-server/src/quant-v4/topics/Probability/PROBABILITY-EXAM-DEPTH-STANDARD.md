@@ -98,10 +98,10 @@ The object named in the question must remain unchanged throughout its explanatio
 
 Every learner explanation must read as a complete worked solution rather than a compressed answer key. The visible order is:
 
-1. **Approach** — name the exact idea being used and why it is suitable.
+1. **Method** — name the exact idea used in the question; never attach a coin, card or arrangement method to an unrelated family.
 2. **Numbered steps** — use the values from the question to establish the sample space, derive missing quantities and count the required cases.
-3. **Simplification** — show how the final fraction is reduced whenever reduction is needed.
-4. **Why this works** — explain why the counting rule, complement, conditional restriction, multiplication rule or inclusion–exclusion step is valid.
+3. **Simplification** — show reduction only when it has not already been displayed in the calculation.
+4. **Key point** — for multi-step questions, explain the decisive trap or rule, such as order, replacement, overlap or restricted denominator.
 5. **Answer** — state the exact final probability or count in a separate closing line.
 
 An explanation must not become “detailed” merely by repeating the question or adding generic theory. Every added sentence must clarify the actual numerical reasoning of that question.

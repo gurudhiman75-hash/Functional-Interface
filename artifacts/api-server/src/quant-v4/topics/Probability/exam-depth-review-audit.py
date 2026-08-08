@@ -124,9 +124,20 @@ def audit() -> None:
             if stem_pattern.search(row["stem"]) and not explanation_pattern.search(row["explanation"]):
                 raise SystemExit(f"{row['qlId']}: {label} context is missing from the explanation")
 
+    successive_modes = {
+        "findSuccessiveIndependentProbability", "findWithReplacementProbability", "findSuccessiveDependentProbability",
+        "findWithoutReplacementProbability", "findOrderedDrawSequenceProbability", "findSameTypeInSuccessiveDraws",
+        "findDifferentTypesInSuccessiveDraws", "findAtLeastOneAcrossIndependentStages",
+    }
+    for row in rows:
+        if row["solveMode"] in successive_modes and re.search(r"coin toss|H/T sequence", row["explanation"], re.I):
+            raise SystemExit(f"{row['qlId']}: successive-draw solution received a coin method")
+        if re.search(r"=\s*([^ ]+)\s*=\s*(?:\.|\s|$)", row["explanation"]):
+            raise SystemExit(f"{row['qlId']}: explanation repeats the same reduced value")
+
     explanation_lengths = [len(row["explanation"].split()) for row in rows]
-    if mean(explanation_lengths) < 52:
-        raise SystemExit(f"Average explanation length is only {mean(explanation_lengths):.1f} words; expected at least 52")
+    if mean(explanation_lengths) < 50:
+        raise SystemExit(f"Average explanation length is only {mean(explanation_lengths):.1f} words; expected at least 50")
 
     medium_hard = [row for row in rows if row["difficulty"] in {"Medium", "Hard"}]
     medium_hard_lengths = [len(row["explanation"].split()) for row in medium_hard]
@@ -135,7 +146,7 @@ def audit() -> None:
 
     for row in rows:
         explanation = row["explanation"]
-        if "Approach —" not in explanation or "Why this works —" not in explanation or "Answer —" not in explanation:
+        if "Method —" not in explanation or "Step 1 —" not in explanation or "Answer —" not in explanation:
             raise SystemExit(f"{row['qlId']}: worked-solution structure is incomplete")
         if not re.search(r"Step 1 —", explanation):
             raise SystemExit(f"{row['qlId']}: numbered working is missing")
