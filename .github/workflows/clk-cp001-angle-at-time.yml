@@ -71,8 +71,10 @@ jobs:
           node dist/reasoning-v1/clock/clock-foundation.test.mjs
       - name: Run CLK-CP-001 discovery proof
         run: |
+          set -o pipefail
           cd artifacts/api-server
-          node dist/reasoning-v1/clock/clock-cp001-angle-at-time.test.mjs
+          node dist/reasoning-v1/clock/clock-cp001-angle-at-time.test.mjs \
+            2>&1 | tee dist/reasoning-v1/clock/clk-cp001-proof.log
       - name: Run spatial foundation regression
         run: |
           cd artifacts/api-server
@@ -85,11 +87,13 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/spatial/spatial-glyph-digit-clock-proof.test.mjs
-      - name: Upload CLK-CP-001 editorial review
+      - name: Upload CLK-CP-001 diagnostics and editorial review
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: clk-cp001-angle-at-time-editorial-review
+          name: clk-cp001-angle-at-time-diagnostics
           path: |
+            artifacts/api-server/dist/reasoning-v1/clock/clk-cp001-proof.log
             artifacts/api-server/dist/reasoning-v1/clock/clk-cp001-editorial-review.json
             artifacts/api-server/dist/reasoning-v1/clock/clk-cp001-editorial-review.html
-          if-no-files-found: error
+          if-no-files-found: warn
