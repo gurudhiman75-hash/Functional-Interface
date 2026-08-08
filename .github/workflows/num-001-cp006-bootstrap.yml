@@ -38,7 +38,7 @@ jobs:
           echo "4f8573a3b5b3b65524636ee08691149e9fd879f54fb4aaf2cd8bc89eae5b14fc  /tmp/num-cp006-completion.tar.gz" | sha256sum --check
           tar -xzf /tmp/num-cp006-completion.tar.gz -C .
           rm -rf .github/num-cp006-bootstrap
-          rm -f .github/workflows/num-001-cp006-bootstrap.yml
+          rm -f .github/workflows/num-001-cp006-completion-freeze.yml
 
       - name: Commit materialized source
         shell: bash
