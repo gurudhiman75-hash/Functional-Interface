@@ -33,6 +33,8 @@ import { applyNumCp005FinalQl054Safe } from "./final-exam-readiness-ql054-safe";
 import { applyNumCp005FinalDifficulty } from "./final-exam-readiness-difficulty";
 import { applyNumCp005FinalPublicationReadinessCorrections } from "./final-publication-readiness-corrections";
 import { applyNumCp005FinalPublicationDifficulty } from "./final-publication-difficulty-safe";
+import { applyNumCp005FinalEditorialFreezeQuestionCorrections } from "./final-editorial-freeze-question-corrections";
+import { applyNumCp005FinalEditorialFreezeExplanation } from "./final-editorial-freeze-explanations";
 import {
   applyNumCp005FinalQl053Diversity,
   applyNumCp005FinalQl059Diversity,
@@ -97,19 +99,23 @@ export function remediateNumCp005English(source) {
     source,
     publicationQuestion,
   );
+  const editorialFreezeQuestion = applyNumCp005FinalEditorialFreezeQuestionCorrections(
+    source,
+    publicationDifficultyQuestion,
+  );
   const explanationInput = {
     qlId: source.qlId,
     seed: source.seed,
-    stem: publicationDifficultyQuestion.stem,
-    hiddenState: publicationDifficultyQuestion.hiddenState ?? source.hiddenState,
-    canonicalAnswer: publicationDifficultyQuestion.canonicalAnswer,
-    options: publicationDifficultyQuestion.options,
+    stem: editorialFreezeQuestion.stem,
+    hiddenState: editorialFreezeQuestion.hiddenState ?? source.hiddenState,
+    canonicalAnswer: editorialFreezeQuestion.canonicalAnswer,
+    options: editorialFreezeQuestion.options,
   };
   const initialExplanation = buildNumCp005StudentExplanation(explanationInput);
   const correctedExplanation = applyNumCp005ExplanationCorrections(
     explanationInput,
     initialExplanation,
-    publicationDifficultyQuestion.difficulty,
+    editorialFreezeQuestion.difficulty,
   );
   const renderingSafeExplanation = applyNumCp005ReleaseReviewRenderingSafety(correctedExplanation);
   const policyCheckedExplanation = enforceNumCp005StudentExplanationPolicy(
@@ -124,12 +130,16 @@ export function remediateNumCp005English(source) {
     explanationInput,
     finalSafetyExplanation,
   );
+  const uniqueExplanation = applyNumCp005ExplanationUniqueness(
+    explanationInput,
+    examExplanation,
+  );
 
   return {
-    ...publicationDifficultyQuestion,
-    explanation: applyNumCp005ExplanationUniqueness(
+    ...editorialFreezeQuestion,
+    explanation: applyNumCp005FinalEditorialFreezeExplanation(
       explanationInput,
-      examExplanation,
+      uniqueExplanation,
     ),
   };
 }
