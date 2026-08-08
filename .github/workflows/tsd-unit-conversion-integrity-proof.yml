@@ -58,6 +58,7 @@ jobs:
             method-derived-distractor-proof \
             ratio-option-integrity-proof \
             unit-conversion-integrity-proof \
+            unit-conversion-seed-sweep-proof \
             canonical-review-export
           do
             pnpm --dir artifacts/api-server exec esbuild "$ROOT/$proof.ts" --bundle --platform=node --format=esm --outfile="$OUT/$proof.mjs"
@@ -89,6 +90,7 @@ jobs:
             method-derived-distractor-proof \
             ratio-option-integrity-proof \
             unit-conversion-integrity-proof \
+            unit-conversion-seed-sweep-proof \
             canonical-review-export
           do
             node "$OUT/$proof.mjs" | tee "$OUT/$proof.log"
@@ -106,5 +108,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tsd-unit-conversion-integrity-review
-          path: artifacts/api-server/dist/quant-v4/tsd-001/unit-conversion-integrity
+          path: |
+            artifacts/api-server/dist/quant-v4/tsd-001/unit-conversion-integrity
+            artifacts/api-server/dist/quant-v4/tsd-001/canonical-review
           if-no-files-found: error
