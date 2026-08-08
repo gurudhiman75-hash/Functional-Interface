@@ -1,6 +1,6 @@
 # SER-CP-007 — Question Studio Integration Readiness Audit
 
-Status: `IMPLEMENTED_PENDING_WORKFLOW_PROOF`
+Status: `APPROVED_INACTIVE_READINESS_PROOF_COMPLETE`
 
 Authority: `SER_CP007_QUESTION_STUDIO_INTEGRATION_READINESS_AUDIT_V1`
 
@@ -27,7 +27,7 @@ Projected payloads per proof seed:    420
 
 ## Implemented readiness projection
 
-`ser-cp-007-question-studio-readiness.ts` now builds a deterministic read-only projection from the frozen English and localized runtimes.
+`ser-cp-007-question-studio-readiness.ts` builds a deterministic read-only projection from the frozen English and localized runtimes.
 
 Every projection carries:
 
@@ -58,11 +58,11 @@ testEligible:               false
 publiclyPublishable:        false
 ```
 
-The current Question Bank converter must reject every readiness payload because `questionBankStatus` is `NOT_STORED`.
+The current Question Bank converter rejects every readiness payload because `questionBankStatus` is `NOT_STORED`.
 
-## Executable proof scope
+## Executable proof result
 
-The readiness test must prove, for one deterministic seed:
+The approved workflow proved, for one deterministic seed:
 
 ```text
 English projections:                  140
@@ -77,7 +77,19 @@ Question Bank rejection proofs:       420
 Deterministic regeneration proofs:      1
 ```
 
-The test also proves that no duplicate template-seed-locale identity is produced and that all 13 permanent QLs are represented in every locale.
+It also proved that no duplicate template-seed-locale identity is produced and that all 13 permanent QLs are represented in every locale.
+
+## Workflow evidence
+
+```text
+Workflow: Validate SER-001 CP-007 Question Studio readiness
+Run:      31243322015
+Head:     d9a6d4901ddd2de5704a7a703dadfb1268546b19
+Job:      validate-inactive-readiness
+Result:   SUCCESS
+```
+
+The API build, multilingual inactive-readiness proof, evidence copy and evidence upload all completed successfully.
 
 ## Deliberately not implemented
 
@@ -93,7 +105,7 @@ The following remain outside this checkpoint:
 
 ## Readiness result
 
-The chapter is structurally ready for a separately approved integration proposal once the executable workflow is green. Readiness is not activation.
+The chapter is structurally ready for a separately approved Question Studio integration proposal. Readiness is not activation, and all downstream gates remain closed.
 
 ## Next authority
 
