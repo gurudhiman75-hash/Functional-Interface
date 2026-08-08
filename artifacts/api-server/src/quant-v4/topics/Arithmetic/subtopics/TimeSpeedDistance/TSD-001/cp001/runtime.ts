@@ -8,6 +8,7 @@ import {
   stableStringify,
 } from "./runtime-base";
 import { remodelCp001FinalEditorial } from "./final-editorial-remediation";
+import { remodelFinalProportionFeedback } from "./final-proportion-feedback";
 import { remodelPaceOptionFeedback } from "./pace-option-feedback";
 import { unitConversionOptionPackage } from "./unit-conversion-options";
 import { remodelUnitConversionOptionFeedback } from "./unit-conversion-option-feedback";
@@ -98,8 +99,10 @@ function remodelPaceQuestion(
 }
 
 function remodelQuestion(question: TsdCp001GeneratedQuestion): TsdCp001GeneratedQuestion {
-  return remodelCp001FinalEditorial(
-    remodelPaceQuestion(remodelConversionQuestion(question)),
+  return remodelFinalProportionFeedback(
+    remodelCp001FinalEditorial(
+      remodelPaceQuestion(remodelConversionQuestion(question)),
+    ),
   );
 }
 
