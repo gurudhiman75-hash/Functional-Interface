@@ -11,9 +11,9 @@ export const BLR_CP007_MULTILINGUAL_RUNTIME_VERSION =
 
 export type BlrCp007TranslatedLocale = "hi-IN" | "pa-IN";
 
-const RELATION_LABELS: Readonly<
-  Record<BlrCp006Relation, Readonly<Record<BlrCp007TranslatedLocale, string>>>
-> = {
+type LocalizedText = Readonly<Record<BlrCp007TranslatedLocale, string>>;
+
+const RELATION_LABELS: Readonly<Record<BlrCp006Relation, LocalizedText>> = {
   FATHER: { "hi-IN": "पिता", "pa-IN": "ਪਿਤਾ" },
   MOTHER: { "hi-IN": "माता", "pa-IN": "ਮਾਤਾ" },
   SON: { "hi-IN": "पुत्र", "pa-IN": "ਪੁੱਤਰ" },
@@ -51,8 +51,8 @@ const RELATION_LABELS: Readonly<
     "pa-IN": "ਭਤੀਜਾ/ਭਾਣਜਾ ਜਾਂ ਭਤੀਜੀ/ਭਾਣਜੀ",
   },
   COUSIN: {
-    "hi-IN": "चचेरा/ममेरा भाई या बहन",
-    "pa-IN": "ਚਚੇਰਾ/ਮਮੇਰਾ ਭਰਾ ਜਾਂ ਭੈਣ",
+    "hi-IN": "चचेरा/ममेरा/फुफेरा/मौसेरा भाई या बहन",
+    "pa-IN": "ਚਚੇਰਾ/ਮਮੇਰਾ/ਫੁਫੇਰਾ/ਮਾਸੇਰਾ ਭਰਾ ਜਾਂ ਭੈਣ",
   },
   FATHER_IN_LAW: { "hi-IN": "ससुर", "pa-IN": "ਸਹੁਰਾ" },
   MOTHER_IN_LAW: { "hi-IN": "सास", "pa-IN": "ਸੱਸ" },
@@ -61,16 +61,80 @@ const RELATION_LABELS: Readonly<
   DAUGHTER_IN_LAW: { "hi-IN": "बहू", "pa-IN": "ਨੂੰਹ" },
   CHILD_IN_LAW: { "hi-IN": "दामाद या बहू", "pa-IN": "ਜਵਾਈ ਜਾਂ ਨੂੰਹ" },
   BROTHER_IN_LAW: {
-    "hi-IN": "विवाह-संबंध से भाई",
-    "pa-IN": "ਵਿਆਹ ਰਾਹੀਂ ਭਰਾ",
+    "hi-IN": "साला/बहनोई/देवर/जेठ",
+    "pa-IN": "ਸਾਲਾ/ਜੀਜਾ/ਦਿਉਰ/ਜੇਠ",
   },
   SISTER_IN_LAW: {
-    "hi-IN": "विवाह-संबंध से बहन",
-    "pa-IN": "ਵਿਆਹ ਰਾਹੀਂ ਭੈਣ",
+    "hi-IN": "साली/ननद/भाभी/जेठानी/देवरानी",
+    "pa-IN": "ਸਾਲੀ/ਨਣਦ/ਭਰਜਾਈ/ਜੇਠਾਣੀ/ਦਿਉਰਾਣੀ",
   },
   SIBLING_IN_LAW: {
-    "hi-IN": "विवाह-संबंध से भाई या बहन",
+    "hi-IN": "विवाह-संबंधी भाई या बहन",
     "pa-IN": "ਵਿਆਹ ਰਾਹੀਂ ਭਰਾ ਜਾਂ ਭੈਣ",
+  },
+};
+
+const RELATION_ROLE_PHRASES: Readonly<Record<BlrCp006Relation, LocalizedText>> = {
+  FATHER: { "hi-IN": "का पिता", "pa-IN": "ਦਾ ਪਿਤਾ" },
+  MOTHER: { "hi-IN": "की माता", "pa-IN": "ਦੀ ਮਾਤਾ" },
+  SON: { "hi-IN": "का पुत्र", "pa-IN": "ਦਾ ਪੁੱਤਰ" },
+  DAUGHTER: { "hi-IN": "की पुत्री", "pa-IN": "ਦੀ ਧੀ" },
+  BROTHER: { "hi-IN": "का भाई", "pa-IN": "ਦਾ ਭਰਾ" },
+  SISTER: { "hi-IN": "की बहन", "pa-IN": "ਦੀ ਭੈਣ" },
+  HUSBAND: { "hi-IN": "का पति", "pa-IN": "ਦਾ ਪਤੀ" },
+  WIFE: { "hi-IN": "की पत्नी", "pa-IN": "ਦੀ ਪਤਨੀ" },
+  PARENT: {
+    "hi-IN": "के माता-पिता में से एक",
+    "pa-IN": "ਦੇ ਮਾਤਾ-ਪਿਤਾ ਵਿੱਚੋਂ ਇੱਕ",
+  },
+  CHILD: { "hi-IN": "की संतान", "pa-IN": "ਦੀ ਸੰਤਾਨ" },
+  SIBLING: { "hi-IN": "का भाई या बहन", "pa-IN": "ਦਾ ਭਰਾ ਜਾਂ ਭੈਣ" },
+  SPOUSE: { "hi-IN": "का पति या पत्नी", "pa-IN": "ਦਾ ਪਤੀ ਜਾਂ ਪਤਨੀ" },
+  GRANDFATHER: { "hi-IN": "का दादा या नाना", "pa-IN": "ਦਾ ਦਾਦਾ ਜਾਂ ਨਾਨਾ" },
+  GRANDMOTHER: { "hi-IN": "की दादी या नानी", "pa-IN": "ਦੀ ਦਾਦੀ ਜਾਂ ਨਾਨੀ" },
+  GRANDPARENT: {
+    "hi-IN": "के दादा-दादी या नाना-नानी में से एक",
+    "pa-IN": "ਦੇ ਦਾਦਾ-ਦਾਦੀ ਜਾਂ ਨਾਨਾ-ਨਾਨੀ ਵਿੱਚੋਂ ਇੱਕ",
+  },
+  GRANDSON: { "hi-IN": "का पोता या नाती", "pa-IN": "ਦਾ ਪੋਤਾ ਜਾਂ ਦੋਹਤਾ" },
+  GRANDDAUGHTER: { "hi-IN": "की पोती या नातिन", "pa-IN": "ਦੀ ਪੋਤੀ ਜਾਂ ਦੋਹਤੀ" },
+  GRANDCHILD: {
+    "hi-IN": "का पोता/पोती या नाती/नातिन",
+    "pa-IN": "ਦਾ ਪੋਤਾ/ਪੋਤੀ ਜਾਂ ਦੋਹਤਾ/ਦੋਹਤੀ",
+  },
+  UNCLE: { "hi-IN": "का चाचा या मामा", "pa-IN": "ਦਾ ਚਾਚਾ ਜਾਂ ਮਾਮਾ" },
+  AUNT: { "hi-IN": "की बुआ या मौसी", "pa-IN": "ਦੀ ਭੂਆ ਜਾਂ ਮਾਸੀ" },
+  UNCLE_OR_AUNT: {
+    "hi-IN": "का चाचा/मामा या बुआ/मौसी",
+    "pa-IN": "ਦਾ ਚਾਚਾ/ਮਾਮਾ ਜਾਂ ਭੂਆ/ਮਾਸੀ",
+  },
+  NEPHEW: { "hi-IN": "का भतीजा या भांजा", "pa-IN": "ਦਾ ਭਤੀਜਾ ਜਾਂ ਭਾਣਜਾ" },
+  NIECE: { "hi-IN": "की भतीजी या भांजी", "pa-IN": "ਦੀ ਭਤੀਜੀ ਜਾਂ ਭਾਣਜੀ" },
+  NEPHEW_OR_NIECE: {
+    "hi-IN": "का भतीजा/भांजा या भतीजी/भांजी",
+    "pa-IN": "ਦਾ ਭਤੀਜਾ/ਭਾਣਜਾ ਜਾਂ ਭਤੀਜੀ/ਭਾਣਜੀ",
+  },
+  COUSIN: {
+    "hi-IN": "का चचेरा/ममेरा/फुफेरा/मौसेरा भाई या बहन",
+    "pa-IN": "ਦਾ ਚਚੇਰਾ/ਮਮੇਰਾ/ਫੁਫੇਰਾ/ਮਾਸੇਰਾ ਭਰਾ ਜਾਂ ਭੈਣ",
+  },
+  FATHER_IN_LAW: { "hi-IN": "का ससुर", "pa-IN": "ਦਾ ਸਹੁਰਾ" },
+  MOTHER_IN_LAW: { "hi-IN": "की सास", "pa-IN": "ਦੀ ਸੱਸ" },
+  PARENT_IN_LAW: { "hi-IN": "की सास या ससुर", "pa-IN": "ਦੀ ਸੱਸ ਜਾਂ ਸਹੁਰਾ" },
+  SON_IN_LAW: { "hi-IN": "का दामाद", "pa-IN": "ਦਾ ਜਵਾਈ" },
+  DAUGHTER_IN_LAW: { "hi-IN": "की बहू", "pa-IN": "ਦੀ ਨੂੰਹ" },
+  CHILD_IN_LAW: { "hi-IN": "का दामाद या बहू", "pa-IN": "ਦਾ ਜਵਾਈ ਜਾਂ ਨੂੰਹ" },
+  BROTHER_IN_LAW: {
+    "hi-IN": "का साला/बहनोई/देवर/जेठ",
+    "pa-IN": "ਦਾ ਸਾਲਾ/ਜੀਜਾ/ਦਿਉਰ/ਜੇਠ",
+  },
+  SISTER_IN_LAW: {
+    "hi-IN": "की साली/ननद/भाभी/जेठानी/देवरानी",
+    "pa-IN": "ਦੀ ਸਾਲੀ/ਨਣਦ/ਭਰਜਾਈ/ਜੇਠਾਣੀ/ਦਿਉਰਾਣੀ",
+  },
+  SIBLING_IN_LAW: {
+    "hi-IN": "का विवाह-संबंधी भाई या बहन",
+    "pa-IN": "ਦਾ ਵਿਆਹ ਰਾਹੀਂ ਭਰਾ ਜਾਂ ਭੈਣ",
   },
 };
 
@@ -87,10 +151,10 @@ export function localizedBlrCp007RelationStatement(
   referenceId: string,
   locale: BlrCp007TranslatedLocale,
 ): string {
-  const relation = localizedBlrCp007RelationLabel(relationId, locale);
+  const role = RELATION_ROLE_PHRASES[relationId][locale];
   return locale === "hi-IN"
-    ? `${subjectId} का ${referenceId} से संबंध “${relation}” है।`
-    : `${subjectId} ਦਾ ${referenceId} ਨਾਲ ਸੰਬੰਧ “${relation}” ਹੈ।`;
+    ? `${subjectId}, ${referenceId} ${role} है।`
+    : `${subjectId}, ${referenceId} ${role} ਹੈ।`;
 }
 
 export function localizedBlrCp007TargetClause(
@@ -99,10 +163,10 @@ export function localizedBlrCp007TargetClause(
   referenceId: string,
   locale: BlrCp007TranslatedLocale,
 ): string {
-  const relation = localizedBlrCp007RelationLabel(relationId, locale);
+  const role = RELATION_ROLE_PHRASES[relationId][locale];
   return locale === "hi-IN"
-    ? `${subjectId} का ${referenceId} से संबंध “${relation}” हो`
-    : `${subjectId} ਦਾ ${referenceId} ਨਾਲ ਸੰਬੰਧ “${relation}” ਹੋਵੇ`;
+    ? `${subjectId}, ${referenceId} ${role} हो`
+    : `${subjectId}, ${referenceId} ${role} ਹੋਵੇ`;
 }
 
 export function localizedBlrCp007CodeMeaning(
