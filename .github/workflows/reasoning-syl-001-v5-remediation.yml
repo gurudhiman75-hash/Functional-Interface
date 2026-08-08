@@ -15,12 +15,14 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-dead-option-remediation.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-diagram-completion.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-single-answer-venn.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-editorial-polish.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-model-target-remediation.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-review-status.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-viewport-contract.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/generator-v5.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-audit.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-single-answer-venn-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-dead-option-audit.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-editorial-polish.test.ts
       - artifacts/api-server/src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-model-target-audit.test.ts
@@ -70,6 +72,19 @@ jobs:
         run: |
           set -o pipefail
           node artifacts/api-server/dist/reasoning-v1/syl-001-v5-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-v5-audit.log
+
+      - name: Bundle single-answer Venn audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Syllogism/SYL-001/runtime/learner-v5-single-answer-venn-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/syl-001-v5-single-answer-venn-audit.test.mjs
+
+      - name: Run exhaustive single-answer Venn audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/syl-001-v5-single-answer-venn-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/reasoning-v1/syl-001-v5-single-answer-venn-audit.log
 
       - name: Bundle V5 editorial polish audit
         run: >-
@@ -167,6 +182,7 @@ jobs:
           name: syl-001-v5-exam-readiness-remediation
           path: |
             artifacts/api-server/dist/reasoning-v1/syl-001-v5-audit.log
+            artifacts/api-server/dist/reasoning-v1/syl-001-v5-single-answer-venn-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-v5-editorial-polish.log
             artifacts/api-server/dist/reasoning-v1/syl-001-v5-model-target-audit.log
             artifacts/api-server/dist/reasoning-v1/syl-001-v5-dead-option-audit.log
