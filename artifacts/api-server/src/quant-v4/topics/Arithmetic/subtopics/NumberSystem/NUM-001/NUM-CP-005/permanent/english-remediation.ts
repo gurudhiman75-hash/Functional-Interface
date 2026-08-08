@@ -36,6 +36,7 @@ import { applyNumCp005FinalPublicationDifficulty } from "./final-publication-dif
 import { applyNumCp005FinalEditorialFreezeQuestionCorrections } from "./final-editorial-freeze-question-corrections";
 import { applyNumCp005FinalEditorialFreezeExplanation } from "./final-editorial-freeze-explanations";
 import { applyNumCp005FinalQl049Derivation } from "./final-editorial-freeze-ql049-safe";
+import { applyNumCp005FinalQl057WordingSafety } from "./final-editorial-freeze-ql057-wording-safe";
 import {
   applyNumCp005FinalQl053Diversity,
   applyNumCp005FinalQl059Diversity,
@@ -139,13 +140,17 @@ export function remediateNumCp005English(source) {
     explanationInput,
     uniqueExplanation,
   );
+  const derivationSafeExplanation = applyNumCp005FinalQl049Derivation(
+    explanationInput,
+    uniqueExplanation,
+    editorialFreezeExplanation,
+  );
 
   return {
     ...editorialFreezeQuestion,
-    explanation: applyNumCp005FinalQl049Derivation(
+    explanation: applyNumCp005FinalQl057WordingSafety(
       explanationInput,
-      uniqueExplanation,
-      editorialFreezeExplanation,
+      derivationSafeExplanation,
     ),
   };
 }
