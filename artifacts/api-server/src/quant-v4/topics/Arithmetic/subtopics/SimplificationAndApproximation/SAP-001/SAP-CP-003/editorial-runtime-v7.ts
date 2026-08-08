@@ -1,3 +1,4 @@
+import { applySapCp003DistractorPlausibilityV3 } from "./distractor-plausibility-v3";
 import { hash32 } from "./exact";
 import {
   generateSapCp003Package as generateV6Package,
@@ -79,7 +80,8 @@ export function generateSapCp003Package(
   prototypeId: SapCp003PrototypeId,
   seed: number,
 ): SapCp003Package {
-  return balanceAnswerPosition(generateV6Package(prototypeId, seed));
+  const qualityReady = applySapCp003DistractorPlausibilityV3(generateV6Package(prototypeId, seed));
+  return balanceAnswerPosition(qualityReady);
 }
 
 export function generateSapCp003Sweep(
