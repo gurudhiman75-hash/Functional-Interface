@@ -77,6 +77,9 @@ function selectReviewQuestions(
     usedContexts.add(candidate.context);
   }
 
+  if (usedContexts.size !== 4) {
+    throw new Error(`${prototypeId}: review sample covers only ${usedContexts.size} contexts`);
+  }
   return selected;
 }
 
