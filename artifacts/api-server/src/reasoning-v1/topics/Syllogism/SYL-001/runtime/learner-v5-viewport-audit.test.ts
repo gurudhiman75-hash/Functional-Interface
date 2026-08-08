@@ -10,7 +10,9 @@ import {
 const locales: readonly SylLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 let records = 0;
 let enabledDiagrams = 0;
-let focusedVennFallbacks = 0;
+let omittedDiagrams = 0;
+let omittedComplex = 0;
+let omittedUnstable = 0;
 let nonVennVisuals = 0;
 let longestStem = 0;
 let longestOption = 0;
@@ -24,6 +26,7 @@ for (const requiredRule of [
   "grid-template-columns: 28px minmax(0, 1fr)",
   ".diagram svg",
   "width: 100%",
+  "max-width: 340px",
   "height: auto",
 ]) {
   assert.ok(SYL_V5_VIEWPORT_CSS.includes(requiredRule), `Viewport CSS lacks ${requiredRule}.`);
@@ -37,7 +40,7 @@ for (const definition of SYL_QL_REGISTRY) {
       const diagramSvg = presentation.diagram.svg ?? "";
       records += 1;
 
-      assert.equal(presentation.remediationEvidence.humanViewportStatus, "EVIDENCE_READY_PENDING_APPROVAL");
+      assert.equal(presentation.remediationEvidence.humanViewportStatus, "PENDING");
       assert.ok(question.stem.trim().length > 0);
       assert.ok(question.options.length >= 3 && question.options.length <= 5);
       assert.equal(new Set(question.options.map((option) => option.text)).size, question.options.length);
@@ -53,26 +56,36 @@ for (const definition of SYL_QL_REGISTRY) {
           + presentation.learnerExplanation.conclusion.length,
       );
 
-      assert.equal(presentation.learnerExplanation.showDiagram, true);
-      assert.equal(presentation.diagram.enabled, true, `${definition.qlId}/${seed}/${locale}: Venn diagram is mandatory`);
-      enabledDiagrams += 1;
-      if (presentation.diagram.semanticSignature.startsWith("syl-v5:focused-venn:")) {
-        focusedVennFallbacks += 1;
-        assert.match(diagramSvg, /class="examtree-venn-svg"/u);
+      if (!presentation.diagram.enabled) {
+        omittedDiagrams += 1;
+        assert.equal(presentation.learnerExplanation.showDiagram, false);
+        assert.equal(presentation.diagram.diagramCount, 0);
+        assert.equal(presentation.diagram.mode, "OMITTED_NOT_USEFUL");
+        assert.equal(presentation.diagram.svg, null);
+        assert.equal(presentation.diagram.caption, null);
+        assert.equal(presentation.diagram.accessibleDescription, null);
+        if (presentation.diagram.omissionReason === "MORE_THAN_THREE_TERMS") omittedComplex += 1;
+        else if (presentation.diagram.omissionReason === "NO_STABLE_SIMPLE_VENN") omittedUnstable += 1;
+        else assert.fail(`${definition.qlId}/${seed}/${locale}: unexpected omission reason`);
+        continue;
       }
+
+      enabledDiagrams += 1;
+      assert.equal(presentation.learnerExplanation.showDiagram, true);
       assert.equal(presentation.diagram.diagramCount, 1);
-      assert.equal(presentation.diagram.mobileViewBoxWidth, 360);
+      assert.equal(presentation.diagram.mobileViewBoxWidth, 340);
       assert.equal(presentation.diagram.omissionReason, null);
       assert.ok(diagramSvg);
       assert.ok(presentation.diagram.caption?.trim());
       assert.ok(presentation.diagram.accessibleDescription?.trim());
-      assert.match(presentation.diagram.mode, /^VENN_/u, `${definition.qlId}/${seed}/${locale}: non-Venn mode`);
+      assert.match(presentation.diagram.mode, /^VENN_/u);
       assert.match(diagramSvg, /<svg\b/u);
-      assert.match(diagramSvg, /viewBox=/u);
-      assert.match(diagramSvg, /<(?:circle|ellipse)\b/u, `${definition.qlId}/${seed}/${locale}: no Venn circles`);
+      assert.match(diagramSvg, /viewBox="0 0 340 210"/u);
+      assert.match(diagramSvg, /<(?:circle|ellipse)\b/u);
+      assert.match(diagramSvg, /font-size:13px/u);
+      assert.doesNotMatch(diagramSvg, /textLength=|lengthAdjust=|separation-mark|×[1-9]/u);
       assert.doesNotMatch(diagramSvg, /relation map|relation-map|node-link|arrow map/iu);
-      assert.doesNotMatch(diagramSvg, /<script\b/iu);
-      assert.doesNotMatch(diagramSvg, /<foreignObject\b/iu);
+      assert.doesNotMatch(diagramSvg, /<script\b|<foreignObject\b/iu);
       if (!/^VENN_/u.test(presentation.diagram.mode) || !/<(?:circle|ellipse)\b/u.test(diagramSvg)) {
         nonVennVisuals += 1;
       }
@@ -81,19 +94,20 @@ for (const definition of SYL_QL_REGISTRY) {
 }
 
 assert.equal(records, 18 * 80 * 3);
-assert.equal(enabledDiagrams, records);
+assert.ok(enabledDiagrams > 0);
+assert.ok(omittedDiagrams > 0);
+assert.ok(omittedComplex > 0);
 assert.equal(nonVennVisuals, 0);
-assert.ok(focusedVennFallbacks > 0);
 
 console.log(JSON.stringify({
   status: "PASS_SYL_001_V5_VIEWPORT_EVIDENCE_CONTRACT",
   records,
   widths: SYL_V5_VIEWPORT_WIDTHS,
   diagramCoverage: {
-    required: records,
     enabled: enabledDiagrams,
-    missing: records - enabledDiagrams,
-    focusedVennFallbacks,
+    omitted: omittedDiagrams,
+    omittedComplex,
+    omittedUnstable,
     nonVennVisuals,
   },
   longestContent: {
@@ -107,6 +121,7 @@ console.log(JSON.stringify({
     overflowWrapAnywhere: true,
     flexibleOptionColumn: true,
     responsiveSvg: true,
+    readableDiagramWidth: 340,
   },
-  humanViewportStatus: "EVIDENCE_READY_PENDING_APPROVAL",
+  humanViewportStatus: "PENDING_AFTER_DIAGRAM_REDESIGN",
 }, null, 2));
