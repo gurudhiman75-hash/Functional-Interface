@@ -2,7 +2,7 @@
 
 ## Status
 
-`IMPLEMENTED_AWAITING_EXACT_HEAD_CI`
+`EXACT_HEAD_PROOF_PASSED`
 
 This wave is stacked on the validated Wave 02 Mirror/Water proof branch. It remains prototype evidence only and does not allocate permanent QLs.
 
@@ -49,6 +49,25 @@ D: 5
 - deterministic editorial review JSON containing source SVG, option SVGs, metadata and explanations;
 - exact-head artifact upload for manual review.
 
+## Exact-head proof
+
+```text
+Head:      195e857d0a0ea00056a475df310c99e47498b086
+Workflow:  Validate SPA-FND-001 glyph digit clock proof
+Run:       31239418295
+Result:    PASS
+Artifact:  spa-wave-03-editorial-review
+Artifact ID: 9016514906
+```
+
+Passed statuses:
+
+```text
+PASS_SPA_FND_001_FOUNDATION_RUNTIME
+PASS_SPA_FND_001_MIRROR_WATER_PROOF
+PASS_SPA_FND_001_GLYPH_DIGIT_CLOCK_PROOF
+```
+
 ## Regression boundary
 
 Wave 03 CI reruns:
@@ -66,14 +85,6 @@ Question Bank writes:         false
 Mock-test eligibility:        false
 Public publication:           false
 API/database schema changes:  none
-```
-
-## Expected statuses
-
-```text
-PASS_SPA_FND_001_FOUNDATION_RUNTIME
-PASS_SPA_FND_001_MIRROR_WATER_PROOF
-PASS_SPA_FND_001_GLYPH_DIGIT_CLOCK_PROOF
 ```
 
 ## Still deferred
