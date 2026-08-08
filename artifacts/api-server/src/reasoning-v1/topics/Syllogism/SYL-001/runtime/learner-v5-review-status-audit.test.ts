@@ -8,7 +8,7 @@ let records = 0;
 let approvedEnglish = 0;
 let approvedHindi = 0;
 let approvedPunjabi = 0;
-let viewportEvidenceReady = 0;
+let viewportPending = 0;
 
 for (const definition of SYL_QL_REGISTRY) {
   for (let seed = 0; seed < 80; seed += 1) {
@@ -20,12 +20,12 @@ for (const definition of SYL_QL_REGISTRY) {
       assert.equal(evidence.nativeEnglishEditorialStatus, "APPROVED_BY_PRODUCT_OWNER");
       assert.equal(evidence.nativeHindiEditorialStatus, "APPROVED_BY_PRODUCT_OWNER");
       assert.equal(evidence.nativePunjabiEditorialStatus, "APPROVED_BY_PRODUCT_OWNER");
-      assert.equal(evidence.humanViewportStatus, "EVIDENCE_READY_PENDING_APPROVAL");
+      assert.equal(evidence.humanViewportStatus, "PENDING");
 
       approvedEnglish += 1;
       approvedHindi += 1;
       approvedPunjabi += 1;
-      viewportEvidenceReady += 1;
+      viewportPending += 1;
     }
   }
 }
@@ -41,6 +41,6 @@ console.log(JSON.stringify({
     Punjabi: approvedPunjabi,
     authority: "PRODUCT_OWNER_APPROVAL",
   },
-  viewportEvidenceReady,
-  humanViewportStatus: "EVIDENCE_READY_PENDING_APPROVAL",
+  viewportPending,
+  humanViewportStatus: "PENDING_AFTER_DIAGRAM_REDESIGN",
 }, null, 2));
