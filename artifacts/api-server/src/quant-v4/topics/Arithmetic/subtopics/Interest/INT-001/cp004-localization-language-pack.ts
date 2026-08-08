@@ -31,59 +31,59 @@ export type IntCp004AuthorityTerm =
 
 const HINDI_TERMS: Readonly<Record<IntCp004AuthorityTerm, string>> = Object.freeze({
   AMOUNT: "राशि",
-  ANNUAL_RATE: "वार्षिक दर",
-  BALANCE: "शेष राशि",
+  ANNUAL_RATE: "वार्षिक ब्याज दर",
+  BALANCE: "खाते की राशि",
   COMPOUND_INTEREST: "चक्रवृद्धि ब्याज",
-  COMPOUNDING_FREQUENCY: "चक्रवृद्धि की आवृत्ति",
+  COMPOUNDING_FREQUENCY: "ब्याज जोड़ने का अंतराल",
   CORRECT: "सही",
   DIFFERENCE: "अंतर",
-  DURATION: "अवधि",
+  DURATION: "समय",
   EFFECTIVE_ANNUAL_RATE: "प्रभावी वार्षिक दर",
-  FINAL_AMOUNT: "अंतिम राशि",
+  FINAL_AMOUNT: "कुल राशि",
   FIND: "ज्ञात कीजिए",
-  FREQUENCY: "आवृत्ति",
-  FULL_YEAR: "पूर्ण वर्ष",
+  FREQUENCY: "ब्याज जोड़ने का तरीका",
+  FULL_YEAR: "पूरा वर्ष",
   INTEREST: "ब्याज",
   INVESTMENT: "निवेश",
-  MATURITY_AMOUNT: "परिपक्वता राशि",
-  NOMINAL_ANNUAL_RATE: "नाममात्र वार्षिक दर",
-  PERIOD: "अवधि",
-  PERIOD_RATE: "प्रति अवधि दर",
+  MATURITY_AMOUNT: "परिपक्वता पर राशि",
+  NOMINAL_ANNUAL_RATE: "घोषित वार्षिक दर",
+  PERIOD: "चक्रवृद्धि अवधि",
+  PERIOD_RATE: "हर अवधि की ब्याज दर",
   PRINCIPAL: "मूलधन",
-  RATE: "दर",
-  SCHEDULE: "ब्याज गणना क्रम",
+  RATE: "ब्याज दर",
+  SCHEDULE: "ब्याज जोड़ने का क्रम",
   SCHEME: "योजना",
   SIMPLE_INTEREST: "साधारण ब्याज",
-  TAIL_PERIOD: "अंतिम आंशिक अवधि",
+  TAIL_PERIOD: "अंतिम अतिरिक्त महीने",
   TIME: "समय",
 });
 
 const PUNJABI_TERMS: Readonly<Record<IntCp004AuthorityTerm, string>> = Object.freeze({
   AMOUNT: "ਰਕਮ",
-  ANNUAL_RATE: "ਸਾਲਾਨਾ ਦਰ",
-  BALANCE: "ਬਕਾਇਆ ਰਕਮ",
+  ANNUAL_RATE: "ਸਾਲਾਨਾ ਵਿਆਜ ਦਰ",
+  BALANCE: "ਖਾਤੇ ਦੀ ਰਕਮ",
   COMPOUND_INTEREST: "ਚੱਕਰਵੱਧੀ ਵਿਆਜ",
-  COMPOUNDING_FREQUENCY: "ਚੱਕਰਵੱਧੀ ਦੀ ਆਵ੍ਰਿਤੀ",
+  COMPOUNDING_FREQUENCY: "ਵਿਆਜ ਜੋੜਨ ਦਾ ਅੰਤਰਾਲ",
   CORRECT: "ਸਹੀ",
   DIFFERENCE: "ਅੰਤਰ",
-  DURATION: "ਮਿਆਦ",
+  DURATION: "ਸਮਾਂ",
   EFFECTIVE_ANNUAL_RATE: "ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ",
-  FINAL_AMOUNT: "ਅੰਤਿਮ ਰਕਮ",
-  FIND: "ਪਤਾ ਕਰੋ",
-  FREQUENCY: "ਆਵ੍ਰਿਤੀ",
+  FINAL_AMOUNT: "ਕੁੱਲ ਰਕਮ",
+  FIND: "ਪਤਾ ਲਗਾਓ",
+  FREQUENCY: "ਵਿਆਜ ਜੋੜਨ ਦਾ ਤਰੀਕਾ",
   FULL_YEAR: "ਪੂਰਾ ਸਾਲ",
   INTEREST: "ਵਿਆਜ",
   INVESTMENT: "ਨਿਵੇਸ਼",
-  MATURITY_AMOUNT: "ਮਿਆਦ ਪੂਰੀ ਹੋਣ ਦੀ ਰਕਮ",
-  NOMINAL_ANNUAL_RATE: "ਨਾਮਮਾਤਰ ਸਾਲਾਨਾ ਦਰ",
-  PERIOD: "ਅਵਧੀ",
-  PERIOD_RATE: "ਹਰ ਅਵਧੀ ਦੀ ਦਰ",
+  MATURITY_AMOUNT: "ਮਿਆਦ ਪੂਰੀ ਹੋਣ ਉੱਤੇ ਰਕਮ",
+  NOMINAL_ANNUAL_RATE: "ਦੱਸੀ ਗਈ ਸਾਲਾਨਾ ਦਰ",
+  PERIOD: "ਚੱਕਰਵੱਧੀ ਮਿਆਦ",
+  PERIOD_RATE: "ਹਰ ਮਿਆਦ ਦੀ ਵਿਆਜ ਦਰ",
   PRINCIPAL: "ਮੂਲਧਨ",
-  RATE: "ਦਰ",
-  SCHEDULE: "ਵਿਆਜ ਗਿਣਤੀ ਕ੍ਰਮ",
+  RATE: "ਵਿਆਜ ਦਰ",
+  SCHEDULE: "ਵਿਆਜ ਜੋੜਨ ਦਾ ਕ੍ਰਮ",
   SCHEME: "ਯੋਜਨਾ",
   SIMPLE_INTEREST: "ਸਧਾਰਣ ਵਿਆਜ",
-  TAIL_PERIOD: "ਅੰਤਿਮ ਅਧੂਰੀ ਅਵਧੀ",
+  TAIL_PERIOD: "ਅਖੀਰਲੇ ਵਾਧੂ ਮਹੀਨੇ",
   TIME: "ਸਮਾਂ",
 });
 
@@ -102,8 +102,8 @@ export function cp004FrequencyLabel(locale: IntCp004LocalizedLocale, frequency: 
   if (locale === "hi-IN") {
     switch (frequency) {
       case 1: return "वार्षिक";
-      case 2: return "अर्धवार्षिक";
-      case 4: return "त्रैमासिक";
+      case 2: return "छमाही";
+      case 4: return "तिमाही";
       case 12: return "मासिक";
     }
   }
@@ -111,7 +111,41 @@ export function cp004FrequencyLabel(locale: IntCp004LocalizedLocale, frequency: 
     case 1: return "ਸਾਲਾਨਾ";
     case 2: return "ਛਿਮਾਹੀ";
     case 4: return "ਤਿਮਾਹੀ";
-    case 12: return "ਮਾਸਿਕ";
+    case 12: return "ਮਹੀਨਾਵਾਰ";
+  }
+}
+
+export function cp004FrequencyIntervalText(locale: IntCp004LocalizedLocale, frequency: Cp004Frequency): string {
+  if (locale === "hi-IN") {
+    switch (frequency) {
+      case 1: return "हर वर्ष";
+      case 2: return "हर छमाही";
+      case 4: return "हर तिमाही";
+      case 12: return "हर महीने";
+    }
+  }
+  switch (frequency) {
+    case 1: return "ਹਰ ਸਾਲ";
+    case 2: return "ਹਰ ਛੇ ਮਹੀਨੇ";
+    case 4: return "ਹਰ ਤਿੰਨ ਮਹੀਨੇ";
+    case 12: return "ਹਰ ਮਹੀਨੇ";
+  }
+}
+
+export function cp004CreditedTimesText(locale: IntCp004LocalizedLocale, frequency: Cp004Frequency): string {
+  if (locale === "hi-IN") {
+    switch (frequency) {
+      case 1: return "वर्ष में एक बार";
+      case 2: return "वर्ष में दो बार";
+      case 4: return "वर्ष में चार बार";
+      case 12: return "हर माह";
+    }
+  }
+  switch (frequency) {
+    case 1: return "ਸਾਲ ਵਿੱਚ ਇੱਕ ਵਾਰ";
+    case 2: return "ਸਾਲ ਵਿੱਚ ਦੋ ਵਾਰ";
+    case 4: return "ਸਾਲ ਵਿੱਚ ਚਾਰ ਵਾਰ";
+    case 12: return "ਹਰ ਮਹੀਨੇ";
   }
 }
 
@@ -119,9 +153,9 @@ export function cp004PeriodNoun(locale: IntCp004LocalizedLocale, frequency: Cp00
   if (locale === "hi-IN") {
     switch (frequency) {
       case 1: return "वर्ष";
-      case 2: return "अर्धवर्ष";
+      case 2: return "छमाही";
       case 4: return "तिमाही";
-      case 12: return "माह";
+      case 12: return "महीना";
     }
   }
   switch (frequency) {
@@ -134,33 +168,51 @@ export function cp004PeriodNoun(locale: IntCp004LocalizedLocale, frequency: Cp00
 
 export function cp004PeriodsText(locale: IntCp004LocalizedLocale, periods: number, frequency: Cp004Frequency): string {
   if (!Number.isInteger(periods) || periods < 1) throw new Error(`Invalid period count: ${periods}`);
-  const noun = cp004PeriodNoun(locale, frequency);
-  return locale === "hi-IN" ? `${periods} ${noun}` : `${periods} ${noun}`;
+  if (locale === "hi-IN") {
+    switch (frequency) {
+      case 1: return `${periods} वर्ष`;
+      case 2: return periods === 1 ? "1 छमाही" : `${periods} छमाहियाँ`;
+      case 4: return periods === 1 ? "1 तिमाही" : `${periods} तिमाहियाँ`;
+      case 12: return periods === 1 ? "1 महीना" : `${periods} महीने`;
+    }
+  }
+  switch (frequency) {
+    case 1: return periods === 1 ? "1 ਸਾਲ" : `${periods} ਸਾਲ`;
+    case 2: return periods === 1 ? "1 ਛਿਮਾਹੀ" : `${periods} ਛਿਮਾਹੀਆਂ`;
+    case 4: return periods === 1 ? "1 ਤਿਮਾਹੀ" : `${periods} ਤਿਮਾਹੀਆਂ`;
+    case 12: return periods === 1 ? "1 ਮਹੀਨਾ" : `${periods} ਮਹੀਨੇ`;
+  }
 }
 
 export function cp004YearsText(locale: IntCp004LocalizedLocale, years: number): string {
   if (!Number.isInteger(years) || years < 1) throw new Error(`Invalid year count: ${years}`);
-  return locale === "hi-IN" ? `${years} वर्ष` : `${years} ਸਾਲ`;
+  return locale === "hi-IN"
+    ? `${years} वर्ष`
+    : years === 1 ? "1 ਸਾਲ" : `${years} ਸਾਲ`;
 }
 
 export function cp004MonthsText(locale: IntCp004LocalizedLocale, months: number): string {
   if (!Number.isInteger(months) || months < 1) throw new Error(`Invalid month count: ${months}`);
-  return locale === "hi-IN" ? `${months} माह` : `${months} ਮਹੀਨੇ`;
+  return locale === "hi-IN"
+    ? months === 1 ? "1 महीना" : `${months} महीने`
+    : months === 1 ? "1 ਮਹੀਨਾ" : `${months} ਮਹੀਨੇ`;
 }
 
 export function cp004CompoundingText(locale: IntCp004LocalizedLocale, frequency: Cp004Frequency): string {
-  const label = cp004FrequencyLabel(locale, frequency);
+  const interval = cp004FrequencyIntervalText(locale, frequency);
   return locale === "hi-IN"
-    ? `ब्याज ${label} चक्रवृद्धि आधार पर जोड़ा जाता है`
-    : `ਵਿਆਜ ${label} ਚੱਕਰਵੱਧੀ ਆਧਾਰ 'ਤੇ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ`;
+    ? `ब्याज ${interval} मूलधन में जोड़ा जाता है`
+    : `ਵਿਆਜ ${interval} ਮੂਲਧਨ ਵਿੱਚ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ`;
 }
 
 export function cp004FindPrompt(locale: IntCp004LocalizedLocale, target: string): string {
-  return locale === "hi-IN" ? `${target} ज्ञात कीजिए।` : `${target} ਪਤਾ ਕਰੋ।`;
+  return locale === "hi-IN" ? `${target} ज्ञात कीजिए।` : `${target} ਪਤਾ ਲਗਾਓ।`;
 }
 
 export function cp004CorrectFeedback(locale: IntCp004LocalizedLocale): string {
-  return locale === "hi-IN" ? "सही उत्तर।" : "ਸਹੀ ਉੱਤਰ।";
+  return locale === "hi-IN"
+    ? "सही। यह विकल्प प्रश्न की सभी ब्याज-शर्तों को पूरा करता है।"
+    : "ਸਹੀ। ਇਹ ਚੋਣ ਪ੍ਰਸ਼ਨ ਦੀਆਂ ਸਾਰੀਆਂ ਵਿਆਜ-ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਦੀ ਹੈ।";
 }
 
 export function cp004CommonMistakeTitle(locale: IntCp004LocalizedLocale): string {
@@ -172,13 +224,13 @@ export function cp004SolutionTitle(locale: IntCp004LocalizedLocale): string {
 }
 
 export function cp004WhatAskedText(locale: IntCp004LocalizedLocale, target: string): string {
-  return locale === "hi-IN" ? `हमें ${target} ज्ञात करना है।` : `ਸਾਨੂੰ ${target} ਪਤਾ ਕਰਨਾ ਹੈ।`;
+  return locale === "hi-IN" ? `हमें ${target} ज्ञात करना है।` : `ਸਾਨੂੰ ${target} ਪਤਾ ਲਗਾਉਣਾ ਹੈ।`;
 }
 
 function isUniversalMathExpression(text: string): boolean {
   const trimmed = text.trim();
   return /[=×÷+−\-]/u.test(trimmed)
-    && /^[\s0-9₹%.,()/=×÷+−\-APCI।]+$/u.test(trimmed);
+    && /^[\s0-9₹%.,()/=×÷+−\-^APCInr।]+$/u.test(trimmed);
 }
 
 export function assertCp004LocalizedText(locale: IntCp004LocalizedLocale, text: string, label: string): void {
