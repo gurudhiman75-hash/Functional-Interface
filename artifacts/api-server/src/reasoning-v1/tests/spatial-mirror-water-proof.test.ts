@@ -52,7 +52,8 @@ function assertQuestion(
   assert.equal(question.chapterCode, expectedChapter);
   assert.equal(question.options.length, 4);
   assert(question.correctOptionIndex >= 0 && question.correctOptionIndex < 4);
-  assert.equal(question.explanationSteps.length, 3);
+  assert.equal(question.explanationSteps.length, 4);
+  assert(question.learnerExplanation);
   assert.equal(question.reviewMetadata.equivalentCandidateCheck, "PASS");
   assert.equal(question.reviewMetadata.clockGeometryCheck, "NOT_APPLICABLE");
   assert.equal(question.reviewMetadata.clockShortcutCheck, "NOT_APPLICABLE");
