@@ -7,6 +7,7 @@ import {
   type SapCp004Package,
   type SapCp004PrototypeId,
 } from "./runtime-v3";
+import { generateSapCp004Package as generateV2Package } from "./runtime-v2";
 
 export {
   SAP_CP004_CATALOGUE,
@@ -56,7 +57,7 @@ function options(answer: bigint, specs: readonly WrongSpec[], correctIndex: numb
       wrong.push({
         value,
         misconceptionId: "NEARBY_FINAL_ARITHMETIC_SLIP",
-        analysis: "This nearby result comes from a small arithmetic slip after the main factorial or signed-power step.",
+        analysis: "This nearby result comes from a small arithmetic slip after the main factorial, signed-power or grouped-division step.",
       });
     }
     offset += 1n;
@@ -77,6 +78,76 @@ function options(answer: bigint, specs: readonly WrongSpec[], correctIndex: numb
     }
   }
   return Object.freeze(result);
+}
+
+function safeGroupedPowerDivision(
+  seed: number,
+  targetCorrectIndex?: number,
+): SapCp004Package {
+  const prototypeId = "SAP-CP004-PROT-POWER-MIXED-EXPRESSION" as const;
+  const basePackage = generateV2Package(prototypeId, seed, targetCorrectIndex);
+  const base = basePackage.oracle.data.base!;
+  const exponent = basePackage.oracle.data.exponent!;
+  const powered = power(BigInt(base), exponent);
+  const divisor = 2 + (seed % 4);
+  const remainder = Number(powered % BigInt(divisor));
+  const adjustment = ((divisor - remainder) % divisor) + divisor * (1 + (seed % 3));
+  const answer = (powered + BigInt(adjustment)) / BigInt(divisor);
+  const wrong = options(answer, [
+    {
+      value: powered + (BigInt(adjustment) / BigInt(divisor)),
+      misconceptionId: "DIVISION_APPLIED_ONLY_TO_ADJUSTMENT",
+      analysis: "This divides only the added number rather than the complete grouped numerator inside the brackets.",
+    },
+    {
+      value: powered + BigInt(adjustment),
+      misconceptionId: "FINAL_DIVISION_IGNORED",
+      analysis: "This evaluates the grouped sum but stops before carrying out the displayed division by the outside divisor.",
+    },
+    {
+      value: BigInt(base * exponent + adjustment) / BigInt(divisor),
+      misconceptionId: "EXPONENT_AS_MULTIPLICATION",
+      analysis: "This uses base × exponent inside the grouped numerator instead of evaluating the power by repeated multiplication.",
+    },
+  ], basePackage.correctIndex);
+  const stem = `Evaluate (${base}^${exponent} + ${adjustment}) ÷ ${divisor}.`;
+  const oracle = Object.freeze({
+    kind: basePackage.oracle.kind,
+    data: Object.freeze({ base, exponent, adjustment, divisor, mode: 3 }),
+  });
+  const explanation = Object.freeze({
+    coreConcept: "Evaluate the power inside the brackets, complete the grouped sum, and divide the whole grouped value last.",
+    steps: Object.freeze([
+      `${base}^${exponent} = ${powered}.`,
+      `${powered} + ${adjustment} = ${powered + BigInt(adjustment)}.`,
+      `${powered + BigInt(adjustment)} ÷ ${divisor} = ${answer}.`,
+    ]),
+    finalAnswer: `Therefore, the exact value is ${answer}.`,
+  });
+  const errors: string[] = [];
+  if (new Set(wrong.map((option) => option.value)).size !== 4) errors.push("The grouped-division options are not distinct.");
+  if (wrong[basePackage.correctIndex]?.value !== answer.toString()) errors.push("The grouped-division correct option is not answer-bound.");
+  if (wrong.filter((option) => !option.isCorrect).some((option) => !option.misconceptionId || option.analysis.length < 30)) errors.push("A grouped-division distractor lacks analysis.");
+  const canonicalPayloadKey = JSON.stringify({
+    prototypeId,
+    stem,
+    answer: answer.toString(),
+    difficulty: "MEDIUM",
+    oracle,
+  });
+  return Object.freeze({
+    ...basePackage,
+    difficulty: "MEDIUM",
+    frameId: "SAP-CP004-POWER-MIXED-STRUCT-4",
+    stem,
+    canonicalAnswer: answer.toString(),
+    options: wrong,
+    explanation,
+    oracle,
+    canonicalPayloadKey,
+    generationIdentity: `${basePackage.generationIdentity}:V3-SAFE-DIVISION`,
+    validation: Object.freeze({ ok: errors.length === 0, errors: Object.freeze(errors) }),
+  });
 }
 
 function replaceOptions(pkg: SapCp004Package, answer: bigint, wrong: readonly WrongSpec[]): SapCp004Package {
@@ -151,7 +222,11 @@ export function generateSapCp004Package(
   seed: number,
   targetCorrectIndex?: number,
 ): SapCp004Package {
-  return editorialise(generateV3Package(prototypeId, seed, targetCorrectIndex));
+  const mode = (seed - 1) % 4;
+  const generated = prototypeId === "SAP-CP004-PROT-POWER-MIXED-EXPRESSION" && mode === 3
+    ? safeGroupedPowerDivision(seed, targetCorrectIndex)
+    : generateV3Package(prototypeId, seed, targetCorrectIndex);
+  return editorialise(generated);
 }
 
 export function generateSapCp004Sweep(seedsPerPrototype: number): readonly SapCp004Package[] {
