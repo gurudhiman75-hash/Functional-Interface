@@ -53,9 +53,13 @@ export interface SylLearnerOptionAnalysisV5
 }
 
 export interface SylLearnerDiagramV5
-  extends Omit<SylLearnerDiagramV4, "mode" | "omissionReason"> {
+  extends Omit<
+    SylLearnerDiagramV4,
+    "mode" | "omissionReason" | "mobileViewBoxWidth"
+  > {
   mode: SylDiagramModeV5;
   omissionReason: SylDiagramOmissionReasonV5;
+  mobileViewBoxWidth: 340;
 }
 
 export interface SylLearnerModelEvidenceV5 {
@@ -77,6 +81,11 @@ export type SylViewportReviewStatusV5 =
   | "EVIDENCE_READY_PENDING_APPROVAL"
   | "APPROVED";
 
+export type SylDiagramEditorialStatusV5 =
+  | "REJECTED"
+  | "REMEDIATED_PENDING_PRODUCT_OWNER_REVIEW"
+  | "APPROVED";
+
 export interface SylLearnerRemediationEvidenceV5 {
   answerDerivedExplanationMode: true;
   answerDerivedDiagramMode: true;
@@ -87,6 +96,7 @@ export interface SylLearnerRemediationEvidenceV5 {
   nativeEnglishEditorialStatus: SylEditorialReviewStatusV5;
   nativeHindiEditorialStatus: SylEditorialReviewStatusV5;
   nativePunjabiEditorialStatus: SylEditorialReviewStatusV5;
+  diagramEditorialStatus: SylDiagramEditorialStatusV5;
   humanViewportStatus: SylViewportReviewStatusV5;
   deadOptionRemediationStatus:
     | "PENDING_SEPARATE_SOURCE_DECISION"
