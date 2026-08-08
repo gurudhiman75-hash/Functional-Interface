@@ -1,0 +1,104 @@
+name: Validate SER-001 Question Studio integration
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/lib/admin-question-conversion.ts
+      - artifacts/api-server/src/reasoning-v1/generation-engine.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-PERMANENT-QL-REGISTRY.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-FREEZE/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-LOCALIZATION/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-QUESTION-STUDIO-READINESS/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-QUESTION-STUDIO-INTEGRATION/**
+      - artifacts/api-server/src/routes/admin-question-studio-series.ts
+      - artifacts/api-server/src/routes/index.ts
+      - .github/workflows/ser-001-question-studio-integration.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ser-001-question-studio-integration-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-review-only-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare integration evidence directory
+        run: mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/question-studio-integration
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Prove live review-only Question Studio integration
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-QUESTION-STUDIO-INTEGRATION
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/question-studio-integration
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/ser-cp-007-question-studio-integration.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/ser-cp-007-question-studio-integration.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-007-question-studio-integration.test.mjs") \
+            | tee "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Proof.json"
+          grep -q 'PASS_SER_CP007_QUESTION_STUDIO_INTEGRATION_COMPLETE' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Proof.json"
+          grep -q '"frozenTemplates": 140' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Proof.json"
+          grep -q '"permanentQls": 13' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Proof.json"
+          grep -q '"liveReviewPayloads": 420' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Proof.json"
+          grep -q '"optionProofs": 420' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Proof.json"
+          grep -q '"reviewActivationProofs": 420' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Proof.json"
+          grep -q '"downstreamLockProofs": 420' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Proof.json"
+          grep -q '"questionBankRejectionProofs": 420' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Proof.json"
+          grep -q '"targetedQlProofs": 39' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Proof.json"
+          grep -q '"active": true' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Proof.json"
+          grep -q '"questionStudioDiscoverable": true' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Proof.json"
+          grep -q '"questionBankStatus": "NOT_STORED"' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Proof.json"
+          grep -q '"questionBankWritable": false' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Proof.json"
+          grep -q '"testEligibility": "INELIGIBLE"' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Proof.json"
+          grep -q '"testEligible": false' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Proof.json"
+          grep -q '"publiclyPublishable": false' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Proof.json"
+
+      - name: Upload integration evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: ser-001-question-studio-integration
+          path: artifacts/api-server/dist/reasoning-v1/ser-001/question-studio-integration/
+          if-no-files-found: error
+          retention-days: 30
