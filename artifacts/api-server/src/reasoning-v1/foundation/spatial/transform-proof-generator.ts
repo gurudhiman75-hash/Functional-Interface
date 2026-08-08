@@ -1,5 +1,6 @@
 import { spatialSceneSemanticFingerprint } from "./normalize";
 import type {
+  SpatialLearnerExplanation,
   SpatialProofChapterCode,
   SpatialProofOption,
   SpatialTransformProofQuestion,
@@ -73,21 +74,15 @@ function buildExplanationSteps(
 
   return [
     {
-      id: "observe-reflection-axis",
-      operation: "OBSERVE_REFLECTION_AXIS",
+      id: "observe",
+      operation: "OBSERVATION",
       sourceNodeIds: sourceScene.nodes.map((node) => node.id),
-      highlightNodeIds: sourceScene.nodes.map((node) => node.id),
-      evidence: {
-        axisKind,
-        axisCoordinate: SPATIAL_PROOF_AXIS,
-      },
+      evidence: { stimulusKind: "SEEDED_GEOMETRIC_COMPOSITION", axisKind },
     },
     {
-      id: "apply-coordinate-reflection",
-      operation: requestedTransform,
+      id: "rule",
+      operation: "EXACT_REFLECTION_RULE",
       sourceNodeIds: sourceScene.nodes.map((node) => node.id),
-      resultNodeIds: correctScene.nodes.map((node) => node.id),
-      highlightNodeIds: ["marker", "orientation-mark", "secondary-shape"],
       evidence: {
         requestedTransform,
         rule:
@@ -97,7 +92,15 @@ function buildExplanationSteps(
       },
     },
     {
-      id: "verify-correct-option",
+      id: "application",
+      operation: requestedTransform,
+      sourceNodeIds: sourceScene.nodes.map((node) => node.id),
+      resultNodeIds: correctScene.nodes.map((node) => node.id),
+      highlightNodeIds: ["marker", "orientation-mark", "secondary-shape"],
+      evidence: { transformedNodeCount: sourceScene.nodes.length },
+    },
+    {
+      id: "check",
       operation: "VERIFY_CORRECT_OPTION",
       sourceNodeIds: sourceScene.nodes.map((node) => node.id),
       resultNodeIds: correctScene.nodes.map((node) => node.id),
@@ -112,6 +115,25 @@ function buildExplanationSteps(
       },
     },
   ];
+}
+
+function buildLearnerExplanation(
+  requestedTransform: SpatialTransformProofGeneratorInput["requestedTransform"],
+  correctOptionIndex: number,
+): SpatialLearnerExplanation {
+  const isMirror = requestedTransform === "REFLECT_VERTICAL";
+  return {
+    observation: isMirror
+      ? "The mirror line is vertical, so every marked point must move to the opposite side at the same height."
+      : "The water line is horizontal, so every marked point must move above or below it at the same horizontal position.",
+    rule: isMirror
+      ? "Exchange left and right while keeping all top–bottom positions unchanged."
+      : "Exchange top and bottom while keeping all left–right positions unchanged.",
+    application: isMirror
+      ? "Reflect the main figure, marker, orientation line and secondary shape across the vertical axis."
+      : "Reflect the main figure, marker, orientation line and secondary shape across the horizontal axis.",
+    check: `Option ${correctOptionIndex + 1} is the only complete reflection; the other options use the wrong axis, rotate the figure, or reflect only one part.`,
+  };
 }
 
 export function generateSpatialTransformProofQuestion(
@@ -205,18 +227,13 @@ export function generateSpatialTransformProofQuestion(
   const sourceFingerprint = spatialSceneSemanticFingerprint(sourceScene);
   const correctFingerprint = spatialSceneSemanticFingerprint(correctScene);
   const symmetryProfile = classifySpatialSceneSymmetry(sourceScene, axes);
-  const explanationSteps = buildExplanationSteps(
-    sourceScene,
-    correctScene,
-    input.requestedTransform,
-    correctOptionIndex,
-  );
 
   return {
     familyCode: "SPA-001",
     chapterCode: input.chapterCode,
     prototypeId: input.prototypeId,
     seed: input.seed,
+    stimulusKind: "SEEDED_GEOMETRIC_COMPOSITION",
     requestedTransform: input.requestedTransform,
     instructionKey: input.instructionKey,
     sourceScene,
@@ -249,7 +266,16 @@ export function generateSpatialTransformProofQuestion(
       clockGeometryCheck: "NOT_APPLICABLE",
       clockShortcutCheck: "NOT_APPLICABLE",
     },
-    explanationSteps,
+    explanationSteps: buildExplanationSteps(
+      sourceScene,
+      correctScene,
+      input.requestedTransform,
+      correctOptionIndex,
+    ),
+    learnerExplanation: buildLearnerExplanation(
+      input.requestedTransform,
+      correctOptionIndex,
+    ),
     lifecycle: {
       permanentQlId: null,
       questionStudioDiscoverable: false,
