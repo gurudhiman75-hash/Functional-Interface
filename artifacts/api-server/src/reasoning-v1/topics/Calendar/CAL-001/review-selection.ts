@@ -1,105 +1,152 @@
-import type { CalendarPrototypeId, CalendarQuestionPackage } from "./types.ts";
-import { semanticKey } from "./foundation.ts";
-import { CALENDAR_PROTOTYPES } from "./registry.ts";
+import type { CalendarPrototypeId, CalendarQuestionPackage, Locale } from "./types.ts";
+import { ordinalDaysInMonth } from "./foundation.ts";
 import { generateCalendarQuestion } from "./runtime.ts";
 import { primaryYearsForReview } from "./exam-readiness-remediation.ts";
 
-const REVIEW_COUNT_PER_PROTOTYPE = 5;
-const REVIEW_POOL_SIZE = 256;
+const POOL_SIZE = 256;
+const REVIEW_COUNT = 5;
 
-function answerPositionCoverage(pkg: CalendarQuestionPackage): string {
-  return String(pkg.answerIndex);
+function canonicalKey(pkg: CalendarQuestionPackage): string {
+  return JSON.stringify(pkg.canonicalAnswer);
 }
 
-function monthLengthCoverage(pkg: CalendarQuestionPackage): string | null {
-  const year = Number(pkg.facts.year ?? pkg.facts.targetDate?.year);
-  const month = Number(pkg.facts.month ?? pkg.facts.targetDate?.month);
-  if (!Number.isInteger(year) || !Number.isInteger(month)) return null;
-  const length = new Date(Date.UTC(year, month, 0)).getUTCDate();
-  return String(length);
+function trueCoverageKeys(pkg: CalendarQuestionPackage): string[] {
+  return Object.entries(pkg.coverageFlags)
+    .filter(([, value]) => value)
+    .map(([key]) => key);
 }
 
-function mandatoryCategory(id: CalendarPrototypeId, pkg: CalendarQuestionPackage): string | null {
-  if (id === "CAL-PQL-012") return String(pkg.facts.countSemantics);
-  if (id === "CAL-PQL-013") return String(pkg.canonicalAnswer);
-  if (id === "CAL-PQL-017") return pkg.coverageFlags.usesBackwardMovement ? "BACKWARD" : "FORWARD";
-  if (id === "CAL-PQL-021") return String(pkg.canonicalAnswer);
-  if (id === "CAL-PQL-026") return String(pkg.facts.year);
-  if (id === "CAL-PQL-027") return pkg.coverageFlags.usesDivisibleBy400Year ? "DIVISIBLE_BY_400" : "ORDINARY_CENTURY";
-  if (["CAL-PQL-035", "CAL-PQL-036", "CAL-PQL-042", "CAL-PQL-043"].includes(id)) {
-    return Number(pkg.facts.year) % 4 === 0 && (Number(pkg.facts.year) % 100 !== 0 || Number(pkg.facts.year) % 400 === 0) ? "LEAP" : "ORDINARY";
-  }
-  if (["CAL-PQL-037", "CAL-PQL-038", "CAL-PQL-040", "CAL-PQL-041"].includes(id)) return monthLengthCoverage(pkg);
-  return null;
-}
-
-function requiredCategories(id: CalendarPrototypeId): readonly string[] {
-  if (id === "CAL-PQL-012") return ["INCLUSIVE_BOTH", "EXCLUSIVE_BOTH"];
-  if (id === "CAL-PQL-013") return ["YES_CONTAINS_LEAP_DAY", "NO_LEAP_DAY_IN_SPAN"];
-  if (id === "CAL-PQL-017") return ["FORWARD", "BACKWARD"];
-  if (id === "CAL-PQL-021") return ["ORDINARY_YEAR", "LEAP_YEAR", "ORDINARY_CENTURY_YEAR", "LEAP_CENTURY_YEAR"];
-  if (id === "CAL-PQL-026") return ["100", "200", "300", "400", "700"];
-  if (id === "CAL-PQL-027") return ["DIVISIBLE_BY_400", "ORDINARY_CENTURY"];
-  if (["CAL-PQL-035", "CAL-PQL-036", "CAL-PQL-042", "CAL-PQL-043"].includes(id)) return ["ORDINARY", "LEAP"];
-  if (["CAL-PQL-037", "CAL-PQL-038", "CAL-PQL-040", "CAL-PQL-041"].includes(id)) return ["28", "29", "30", "31"];
-  return [];
-}
-
-function preferredYearBonus(pkg: CalendarQuestionPackage): number {
+function preferredYearCandidate(pkg: CalendarQuestionPackage): boolean {
   const years = primaryYearsForReview(pkg);
-  if (!years.length) return 0;
-  return years.every((year) => year >= 1900 && year <= 2099) ? 8 : 0;
+  return years.length === 0 || years.every((year) => year >= 1900 && year <= 2099);
 }
 
-function candidateScore(candidate: CalendarQuestionPackage, selected: CalendarQuestionPackage[]): number {
-  const answerPositions = new Set(selected.map(answerPositionCoverage));
-  const difficulties = new Set(selected.map((pkg) => pkg.difficulty));
-  const templates = new Set(selected.map((pkg) => pkg.stemTemplateId));
-  const answers = new Set(selected.map((pkg) => semanticKey(pkg.canonicalAnswer)));
-  const coverage = new Set(selected.flatMap((pkg) => Object.entries(pkg.coverageFlags).filter(([, value]) => value).map(([key]) => key)));
-  const mandatory = new Set(selected.map((pkg) => mandatoryCategory(pkg.prototypeAuthority, pkg)).filter((value): value is string => Boolean(value)));
-  const candidateMandatory = mandatoryCategory(candidate.prototypeAuthority, candidate);
+function selectionScore(candidate: CalendarQuestionPackage, selected: readonly CalendarQuestionPackage[]): number {
+  const selectedAnswerPositions = new Set(selected.map((pkg) => pkg.answerIndex));
+  const selectedDifficulties = new Set(selected.map((pkg) => pkg.difficulty));
+  const selectedTemplates = new Set(selected.map((pkg) => pkg.stemTemplateId));
+  const selectedAnswers = new Set(selected.map(canonicalKey));
+  const selectedCoverage = new Set(selected.flatMap(trueCoverageKeys));
+  const candidateCoverage = trueCoverageKeys(candidate);
 
-  let score = preferredYearBonus(candidate);
-  if (!answerPositions.has(answerPositionCoverage(candidate))) score += 30;
-  if (!difficulties.has(candidate.difficulty)) score += 20;
-  if (!templates.has(candidate.stemTemplateId)) score += 12;
-  if (!answers.has(semanticKey(candidate.canonicalAnswer))) score += 8;
-  if (candidateMandatory && !mandatory.has(candidateMandatory)) score += 80;
-  for (const [key, value] of Object.entries(candidate.coverageFlags)) if (value && !coverage.has(key)) score += 6;
-  score += Math.min(candidate.seed, 40) / 100;
+  let score = 0;
+  if (!selectedAnswerPositions.has(candidate.answerIndex)) score += 50;
+  if (!selectedDifficulties.has(candidate.difficulty)) score += 24;
+  if (!selectedTemplates.has(candidate.stemTemplateId)) score += 12;
+  if (!selectedAnswers.has(canonicalKey(candidate))) score += 8;
+  score += candidateCoverage.filter((key) => !selectedCoverage.has(key)).length * 9;
+  if (preferredYearCandidate(candidate) && selected.filter(preferredYearCandidate).length < 4) score += 14;
+  score += Math.min(candidate.seed, 20) / 100;
   return score;
 }
 
-export function selectCuratedReviewQuestions(id: CalendarPrototypeId): CalendarQuestionPackage[] {
-  const pool = Array.from({ length: REVIEW_POOL_SIZE }, (_, seed) => generateCalendarQuestion(id, seed, "en-IN"));
+function isUnique(candidate: CalendarQuestionPackage, selected: readonly CalendarQuestionPackage[]): boolean {
+  return !selected.some((pkg) =>
+    pkg.mathematicalFingerprint === candidate.mathematicalFingerprint
+    || pkg.stem === candidate.stem,
+  );
+}
+
+function addBestMatch(
+  candidates: readonly CalendarQuestionPackage[],
+  selected: CalendarQuestionPackage[],
+  predicate: (pkg: CalendarQuestionPackage) => boolean,
+  label: string,
+): void {
+  const eligible = candidates
+    .filter(predicate)
+    .filter((candidate) => isUnique(candidate, selected))
+    .sort((a, b) => selectionScore(b, selected) - selectionScore(a, selected) || a.seed - b.seed);
+  const best = eligible[0];
+  if (!best) throw new Error(`Unable to satisfy curated review requirement: ${label}.`);
+  selected.push(best);
+}
+
+function mandatoryPredicates(id: CalendarPrototypeId): Array<{ label: string; predicate: (pkg: CalendarQuestionPackage) => boolean }> {
+  switch (id) {
+    case "CAL-PQL-012":
+      return [
+        { label: `${id} inclusive count`, predicate: (pkg) => pkg.facts.countSemantics === "INCLUSIVE_BOTH" },
+        { label: `${id} exclusive count`, predicate: (pkg) => pkg.facts.countSemantics === "EXCLUSIVE_BOTH" },
+      ];
+    case "CAL-PQL-013":
+      return [
+        { label: `${id} contains leap day`, predicate: (pkg) => pkg.canonicalAnswer === "YES_CONTAINS_LEAP_DAY" },
+        { label: `${id} excludes leap day`, predicate: (pkg) => pkg.canonicalAnswer === "NO_LEAP_DAY_IN_SPAN" },
+      ];
+    case "CAL-PQL-017":
+      return [
+        { label: `${id} forward adjacent-year movement`, predicate: (pkg) => !pkg.coverageFlags.usesBackwardMovement },
+        { label: `${id} backward adjacent-year movement`, predicate: (pkg) => pkg.coverageFlags.usesBackwardMovement },
+      ];
+    case "CAL-PQL-021":
+      return ["ORDINARY_YEAR", "LEAP_YEAR", "ORDINARY_CENTURY_YEAR", "LEAP_CENTURY_YEAR"].map((classification) => ({
+        label: `${id} ${classification}`,
+        predicate: (pkg) => pkg.canonicalAnswer === classification,
+      }));
+    case "CAL-PQL-026":
+      return [100, 200, 300, 400, 700].map((years) => ({
+        label: `${id} ${years}-year block`,
+        predicate: (pkg) => pkg.facts.year === years,
+      }));
+    case "CAL-PQL-027":
+      return [
+        { label: `${id} ordinary century boundary`, predicate: (pkg) => pkg.coverageFlags.usesCenturyYear && !pkg.coverageFlags.usesDivisibleBy400Year },
+        { label: `${id} divisible-by-400 boundary`, predicate: (pkg) => pkg.coverageFlags.usesDivisibleBy400Year },
+      ];
+    case "CAL-PQL-035":
+    case "CAL-PQL-036":
+    case "CAL-PQL-042":
+    case "CAL-PQL-043":
+      return [
+        { label: `${id} ordinary year`, predicate: (pkg) => typeof pkg.facts.year === "number" && pkg.facts.year % 4 !== 0 },
+        { label: `${id} leap year`, predicate: (pkg) => typeof pkg.facts.year === "number" && pkg.facts.year % 4 === 0 && (pkg.facts.year % 100 !== 0 || pkg.facts.year % 400 === 0) },
+      ];
+    case "CAL-PQL-037":
+    case "CAL-PQL-038":
+    case "CAL-PQL-040":
+    case "CAL-PQL-041":
+      return [28, 29, 30, 31].map((length) => ({
+        label: `${id} ${length}-day month`,
+        predicate: (pkg) => typeof pkg.facts.year === "number"
+          && typeof pkg.facts.month === "number"
+          && ordinalDaysInMonth(pkg.facts.year, pkg.facts.month) === length,
+      }));
+    default:
+      return [];
+  }
+}
+
+export function selectExamReadyReviewQuestions(
+  id: CalendarPrototypeId,
+  locale: Locale = "en-IN",
+  count = REVIEW_COUNT,
+): CalendarQuestionPackage[] {
+  if (count !== REVIEW_COUNT) throw new Error(`CAL-001 curated review is fixed at ${REVIEW_COUNT} questions per provisional QL.`);
+  const candidates = Array.from({ length: POOL_SIZE }, (_, seed) => generateCalendarQuestion(id, seed, locale));
   const selected: CalendarQuestionPackage[] = [];
-  const usedStems = new Set<string>();
-  const usedFingerprints = new Set<string>();
 
-  for (const category of requiredCategories(id)) {
-    const match = pool.find((pkg) => mandatoryCategory(id, pkg) === category && !usedStems.has(pkg.stem) && !usedFingerprints.has(pkg.mathematicalFingerprint));
-    if (!match) throw new Error(`${id}: no review candidate covers mandatory category ${category}.`);
-    selected.push(match);
-    usedStems.add(match.stem);
-    usedFingerprints.add(match.mathematicalFingerprint);
+  for (const requirement of mandatoryPredicates(id)) {
+    addBestMatch(candidates, selected, requirement.predicate, requirement.label);
   }
 
-  while (selected.length < REVIEW_COUNT_PER_PROTOTYPE) {
-    const candidates = pool.filter((pkg) => !usedStems.has(pkg.stem) && !usedFingerprints.has(pkg.mathematicalFingerprint));
-    if (!candidates.length) throw new Error(`${id}: unable to select ${REVIEW_COUNT_PER_PROTOTYPE} unique review candidates.`);
-    candidates.sort((a, b) => candidateScore(b, selected) - candidateScore(a, selected) || a.seed - b.seed);
-    const next = candidates[0]!;
-    selected.push(next);
-    usedStems.add(next.stem);
-    usedFingerprints.add(next.mathematicalFingerprint);
+  while (selected.length < count) {
+    addBestMatch(candidates, selected, () => true, `${id} general variation ${selected.length + 1}`);
   }
 
-  const answerPositions = new Set(selected.map((pkg) => pkg.answerIndex));
-  if (answerPositions.size < 3) throw new Error(`${id}: curated review selection does not cover at least three answer positions.`);
-  return selected.sort((a, b) => a.difficulty.localeCompare(b.difficulty) || a.seed - b.seed);
+  const answerPositionCount = new Set(selected.map((pkg) => pkg.answerIndex)).size;
+  if (answerPositionCount < 3) throw new Error(`${id}: curated review covers only ${answerPositionCount} answer positions.`);
+  return selected.sort((a, b) => a.seed - b.seed);
 }
 
-export function buildCuratedCalendarReviewSet(): CalendarQuestionPackage[] {
-  return CALENDAR_PROTOTYPES.flatMap((definition) => selectCuratedReviewQuestions(definition.id));
-}
+export const CALENDAR_CURATED_REVIEW_POLICY = {
+  candidatesPerPrototype: POOL_SIZE,
+  selectedPerPrototype: REVIEW_COUNT,
+  selectionGoals: [
+    "authority-specific mandatory edge coverage",
+    "unique stems and mathematical fingerprints",
+    "at least three correct-answer positions",
+    "difficulty and template variation",
+    "approximately four of five ordinary examples in the 1900–2099 exam-natural year range",
+  ],
+} as const;
