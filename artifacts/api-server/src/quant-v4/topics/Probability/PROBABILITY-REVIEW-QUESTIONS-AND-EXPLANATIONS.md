@@ -1,4 +1,4 @@
-# Probability — Comprehensive Questions and Explanations
+# Probability — Review Questions and Explanations
 
 > ExamTree English editorial-review set for SSC and banking examinations.
 > Every explanation uses the shortest complete method possible.
