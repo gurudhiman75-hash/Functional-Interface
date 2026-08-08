@@ -3,7 +3,7 @@ import {
   generateSapCp004Package,
   type SapCp004Package,
   type SapCp004PrototypeId,
-} from "./runtime";
+} from "./runtime-v2";
 
 export interface SapCp004ReviewRecord extends SapCp004Package {
   readonly questionId: string;
@@ -15,39 +15,45 @@ const REVIEW_COUNT_BY_PROTOTYPE: Readonly<Record<SapCp004PrototypeId, number>> =
   ) as Record<SapCp004PrototypeId, number>,
 );
 
-function hash(value: string): number {
-  let state = 2166136261 >>> 0;
-  for (const char of value) {
-    state ^= char.charCodeAt(0);
-    state = Math.imul(state, 16777619) >>> 0;
-  }
-  state ^= state >>> 16;
+function nextState(value: number): number {
+  let state = value >>> 0;
+  state ^= (state << 13) >>> 0;
+  state ^= state >>> 17;
+  state ^= (state << 5) >>> 0;
   return state >>> 0;
 }
 
+function createsTriple(sequence: readonly number[], index: number): boolean {
+  for (let cursor = Math.max(2, index - 2); cursor <= Math.min(sequence.length - 1, index + 2); cursor += 1) {
+    if (sequence[cursor] === sequence[cursor - 1] && sequence[cursor] === sequence[cursor - 2]) return true;
+  }
+  return false;
+}
+
 function reviewAnswerPositionSequence(): readonly number[] {
-  const permutations: readonly (readonly number[])[] = [
-    [0, 1, 2, 3], [0, 1, 3, 2], [0, 2, 1, 3], [0, 2, 3, 1], [0, 3, 1, 2], [0, 3, 2, 1],
-    [1, 0, 2, 3], [1, 0, 3, 2], [1, 2, 0, 3], [1, 2, 3, 0], [1, 3, 0, 2], [1, 3, 2, 0],
-    [2, 0, 1, 3], [2, 0, 3, 1], [2, 1, 0, 3], [2, 1, 3, 0], [2, 3, 0, 1], [2, 3, 1, 0],
-    [3, 0, 1, 2], [3, 0, 2, 1], [3, 1, 0, 2], [3, 1, 2, 0], [3, 2, 0, 1], [3, 2, 1, 0],
-  ];
-  const positions: number[] = [];
-  let previous = -1;
-  for (let block = 0; block < 75; block += 1) {
-    const offset = hash(`SAP-CP004-REVIEW-BLOCK-${block}`) % permutations.length;
-    let selected: readonly number[] | undefined;
-    for (let attempt = 0; attempt < permutations.length; attempt += 1) {
-      const candidate = permutations[(offset + attempt * 7) % permutations.length]!;
-      if (candidate[0] !== previous) {
-        selected = candidate;
+  const positions = [0, 1, 2, 3].flatMap((position) => Array.from({ length: 75 }, () => position));
+  let state = 0x5a17c0de;
+  for (let index = positions.length - 1; index > 0; index -= 1) {
+    state = nextState(state);
+    const swapIndex = state % (index + 1);
+    [positions[index], positions[swapIndex]] = [positions[swapIndex]!, positions[index]!];
+  }
+
+  for (let index = 2; index < positions.length; index += 1) {
+    if (positions[index] !== positions[index - 1] || positions[index] !== positions[index - 2]) continue;
+    let repaired = false;
+    for (let swapIndex = index + 1; swapIndex < positions.length; swapIndex += 1) {
+      if (positions[swapIndex] === positions[index]) continue;
+      [positions[index], positions[swapIndex]] = [positions[swapIndex]!, positions[index]!];
+      if (!createsTriple(positions, index) && !createsTriple(positions, swapIndex)) {
+        repaired = true;
         break;
       }
+      [positions[index], positions[swapIndex]] = [positions[swapIndex]!, positions[index]!];
     }
-    selected ??= permutations[offset]!;
-    positions.push(...selected);
-    previous = selected[3]!;
+    if (!repaired) throw new Error(`Unable to repair a three-answer run at review index ${index}.`);
   }
+
   return Object.freeze(positions);
 }
 
