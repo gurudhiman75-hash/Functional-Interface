@@ -42,6 +42,20 @@ function exactPeriodRatePhrase(
   return locale === "hi-IN" ? `${interval} की दर` : `${interval} ਦੀ ਦਰ`;
 }
 
+function replaceGenericPeriodRate(
+  text: string,
+  locale: IntCp004LocalizedLocale,
+  frequency: Cp004Frequency,
+): string {
+  const exact = exactPeriodRatePhrase(locale, frequency);
+  if (locale === "hi-IN") {
+    return text
+      .replaceAll("हर अवधि की दर", exact)
+      .replaceAll("प्रति अवधि दर", exact);
+  }
+  return text.replaceAll("ਹਰ ਮਿਆਦ ਦੀ ਦਰ", exact);
+}
+
 function polishStep(
   source: IntCp004EnglishFrozenQuestion,
   locale: IntCp004LocalizedLocale,
@@ -49,18 +63,32 @@ function polishStep(
   index: number,
 ): string {
   let polished = polishFormulaFractions(step);
-  const generic = locale === "hi-IN" ? "प्रति अवधि दर" : "ਹਰ ਮਿਆਦ ਦੀ ਦਰ";
 
+  if (source.qlId === "INT-QL-073" || source.qlId === "INT-QL-074") {
+    polished = replaceGenericPeriodRate(polished, locale, source.mathematicalState.frequency);
+  }
   if (source.qlId === "INT-QL-077" && index === 1) {
-    polished = polished.replace(generic, exactPeriodRatePhrase(locale, source.mathematicalState.frequency));
+    polished = replaceGenericPeriodRate(polished, locale, source.mathematicalState.frequency);
   }
   if ((source.qlId === "INT-QL-084" || source.qlId === "INT-QL-085") && index === 0) {
-    polished = polished.replace(generic, exactPeriodRatePhrase(locale, source.mathematicalState.firstFrequency));
+    polished = replaceGenericPeriodRate(polished, locale, source.mathematicalState.firstFrequency);
   }
   if ((source.qlId === "INT-QL-084" || source.qlId === "INT-QL-085") && index === 1) {
-    polished = polished.replace(generic, exactPeriodRatePhrase(locale, source.mathematicalState.secondFrequency));
+    polished = replaceGenericPeriodRate(polished, locale, source.mathematicalState.secondFrequency);
   }
 
+  return polished;
+}
+
+function polishNarrativeField(
+  source: IntCp004EnglishFrozenQuestion,
+  locale: IntCp004LocalizedLocale,
+  text: string,
+): string {
+  let polished = polishFormulaFractions(text);
+  if (source.qlId === "INT-QL-073" || source.qlId === "INT-QL-074") {
+    polished = replaceGenericPeriodRate(polished, locale, source.mathematicalState.frequency);
+  }
   return polished;
 }
 
@@ -70,12 +98,15 @@ export function localizeCp004Explanation(
 ): IntCp004LocalizedExplanation {
   const base = localizeCp004ExplanationEditorialV2(source, locale);
   const explanation: IntCp004LocalizedExplanation = Object.freeze({
-    whatAsked: base.whatAsked,
+    whatAsked: polishNarrativeField(source, locale, base.whatAsked),
     steps: Object.freeze(base.steps.map((step, index) => polishStep(source, locale, step, index))),
-    finalAnswer: base.finalAnswer,
-    commonMistake: base.commonMistake,
+    finalAnswer: polishNarrativeField(source, locale, base.finalAnswer),
+    commonMistake: polishNarrativeField(source, locale, base.commonMistake),
   });
 
+  assertCp004LocalizedText(locale, explanation.whatAsked, `${source.qlId}/${source.seed}/${locale}/polished-what-asked`);
+  assertCp004LocalizedText(locale, explanation.finalAnswer, `${source.qlId}/${source.seed}/${locale}/polished-final-answer`);
+  assertCp004LocalizedText(locale, explanation.commonMistake, `${source.qlId}/${source.seed}/${locale}/polished-common-mistake`);
   for (const [index, step] of explanation.steps.entries()) {
     assertCp004LocalizedText(locale, step, `${source.qlId}/${source.seed}/${locale}/polished-step-${index + 1}`);
   }
