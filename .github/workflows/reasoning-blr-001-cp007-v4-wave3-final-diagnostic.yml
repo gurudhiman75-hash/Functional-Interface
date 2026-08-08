@@ -1,0 +1,24 @@
+name: Reasoning BLR-001 CP-007 V4 Wave 3 Final Diagnostic
+
+on:
+  push:
+    branches:
+      - remediate/blr-001-cp007-v4-self-review-fixes
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/**"
+      - ".github/workflows/reasoning-blr-001-cp007-v4-wave3-final-diagnostic.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Report semantic ambiguities
+        run: npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v4-wave3-final-diagnostic.ts
