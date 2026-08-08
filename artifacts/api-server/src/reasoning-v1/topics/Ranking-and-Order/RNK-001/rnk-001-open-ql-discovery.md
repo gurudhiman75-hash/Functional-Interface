@@ -1,6 +1,6 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001 through CP-004 are frozen at `RNK-QL-001..035`; `RNK-QL-036` is unallocated and CP-005 ownership is reset to partial-order discovery.**
+Status: **CP-001 through CP-004 are frozen at `RNK-QL-001..035`; CP-005 editorial discovery is ready and `RNK-QL-036` remains unallocated.**
 
 This register prevents premature chapter sizing. Counts are discovery evidence, never quotas.
 
@@ -111,12 +111,12 @@ normalised semantic duplicates: 0
 ### Corrected ownership boundary
 
 ```text
-exact unique multi-entity strict order               -> RNK-CP-004
+exact unique multi-entity strict order                -> RNK-CP-004
 partial order / possible / impossible / indeterminate -> RNK-CP-005
-shared passage or linked-question structure           -> assembly infrastructure
-height/age/marks/performance comparison wording       -> CP-004 surface parameter
-clue-heavy left/right adjacency and facing             -> Seating Arrangement
-statement I/II sufficiency labels                      -> Data Sufficiency
+shared passage or linked-question structure            -> assembly infrastructure
+height/age/marks/performance comparison wording        -> CP-004 surface parameter
+clue-heavy left/right adjacency and facing              -> Seating Arrangement
+statement I/II sufficiency labels                       -> Data Sufficiency
 ```
 
 Open CP-004 English discovery dimensions: `0`.
@@ -135,7 +135,7 @@ Audit conclusions:
 - immediate left/right placement, neighbours, facing and extreme-seat reconstruction belong to Seating Arrangement;
 - the remaining genuine ranking gap is incomplete comparison information and uncertainty across multiple valid orders.
 
-## 6. Open next checkpoint — RNK-CP-005
+## 6. Active checkpoint — RNK-CP-005
 
 ### Ownership
 
@@ -143,34 +143,79 @@ Audit conclusions:
 PARTIAL_ORDER_AND_RANKING_UNCERTAINTY
 ```
 
-Candidate source forms:
+### Executable discovery
 
 ```text
-DEFINITELY_TRUE
-DEFINITELY_FALSE
-POSSIBLE
-IMPOSSIBLE
-CANNOT_BE_DETERMINED
-MINIMUM_POSSIBLE_RANK
-MAXIMUM_POSSIBLE_RANK
-UNIQUE_OR_MULTIPLE_ORDERS
+raw prototypes:                    8
+questions per raw prototype:      32
+raw discovery questions:         256
+raw answer positions:      64 / 64 / 64 / 64
+valid complete orders/question:  >=2
+permanent QLs:                     0
 ```
 
-These labels are provisional source forms, not QLs.
+All answers are independently evaluated against every complete ranking compatible with the learner-visible comparisons and any fixed-rank anchor.
 
-### Entry gates
-
-CP-005 may not allocate `RNK-QL-036` until it has:
+### Editorial candidates
 
 ```text
-book and exam-source evidence
+DEFINITELY_TRUE_RELATION
+POSSIBLE_RELATION
+IMPOSSIBLE_RELATION
+PAIR_RELATION_CANNOT_BE_DETERMINED
+MINIMUM_POSSIBLE_RANK
+MAXIMUM_POSSIBLE_RANK
+DEFINITE_RANK_OR_INDETERMINATE
+```
+
+Editorial evidence:
+
+```text
+candidate families:               7
+questions per candidate:         24
+questions checked:              168
+answer positions:       42 / 42 / 42 / 42
+permanent QLs:                    0
+```
+
+### Rejected source form
+
+```text
+ORDER_UNIQUENESS_STATUS
+```
+
+It always produced the same multiple-ranking answer inside this checkpoint and overlapped existing strict-order uniqueness ownership.
+
+### Editorial protections
+
+- correct must-be-true relations must be derived through at least two comparisons;
+- correct cannot-be-true relations cannot be only a reversed direct clue;
+- definite ranks cannot be copied from a fixed-rank statement;
+- possible answers require a valid witness ranking;
+- indeterminate relations require two valid rankings with opposite pair orders;
+- explanations avoid raw permutation counts;
+- Seating Arrangement vocabulary and geometry are rejected.
+
+### Merge/split questions still open
+
+```text
+partial-order definite relation vs RNK-QL-034
+possible + impossible + pair-indeterminate relation classification
+minimum + maximum possible rank as one direction-parameter authority
+definite rank vs exact-rank indeterminacy
+```
+
+The seven source forms are not seven presumed QLs.
+
+### Entry gates before `RNK-QL-036`
+
+```text
+human review of editorial pack
+-> exam-frequency evidence
 -> ownership proof against CP-004 and Data Sufficiency
--> bounded partial-order enumeration
--> all-valid-orders answer proof
--> ambiguity and contradiction gates
--> realistic SSC/banking English review pack
 -> merge/split audit
--> manual approval
+-> difficulty and distractor calibration
+-> manual English approval
 ```
 
 ### Explicit exclusions
@@ -183,6 +228,8 @@ facing and neighbour geometry
 strict total orders already owned by CP-004
 attribute vocabulary without a new solver contract
 ```
+
+See `RNK-CP-005/RNK-CP-005-PARTIAL-ORDER-DISCOVERY-STATUS-V1.md`.
 
 ## 7. Later checkpoints remain unallocated
 
@@ -215,6 +262,7 @@ age/speed/marks arithmetic as main burden       -> relevant Quant chapter
 ```text
 cumulative permanent range:   RNK-QL-001..035
 next available RNK ID:        RNK-QL-036
+CP-005 editorial discovery:   ready
 CP-005 permanent QLs:         0
 CP-001 discovery frozen:      true
 CP-002 discovery frozen:      true
