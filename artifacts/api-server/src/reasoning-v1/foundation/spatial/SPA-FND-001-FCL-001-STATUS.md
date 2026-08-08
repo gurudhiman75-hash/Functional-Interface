@@ -2,7 +2,7 @@
 
 ## Status
 
-`EXACT_HEAD_PROOF_PASSED_AWAITING_FINAL_STATUS_RUN`
+`EXACT_HEAD_PROOF_PASSED`
 
 This proof wave is stacked on the approved FAN-001 visual-remediation head. It remains prototype evidence only and does not allocate permanent QLs.
 
@@ -46,16 +46,17 @@ The complete eight-question review artifact was inspected manually. The odd figu
 
 The shading/count question includes both valid forms of the rule—open with an even count and shaded with an odd count—so it cannot be solved by shading alone. Orientation explanations use student-facing directions instead of internal quarter-turn codes.
 
-## Validated implementation proof
+## Validated proof
 
 ```text
-Head:        253ae84c0b41a66a6dcc450f449332118cfae776
-Workflow:    Validate SPA-FND-001 FCL-001 proof
-Run:         31251252479 — PASS
-Artifact:    spa-fcl-001-editorial-review
-Artifact ID: 9020070271
-Digest:      sha256:e3779cb5e39f6ddd5d91a07ce9d95af5aef49c81f28f8c32a00e1abf06f6555a
-Status:      PASS_SPA_FND_001_FCL_001_PROOF
+Implementation head: 253ae84c0b41a66a6dcc450f449332118cfae776
+Status head:         be28b9bd221dcc76eb596371d1d422756eb6c417
+Workflow:            Validate SPA-FND-001 FCL-001 proof
+Run:                 31251308380 — PASS
+Artifact:            spa-fcl-001-editorial-review
+Artifact ID:         9020085614
+Digest:              sha256:f1b905168554cf32c603314fb145774fded27c5365a1f1aeba04cd04fbb36187
+Status:              PASS_SPA_FND_001_FCL_001_PROOF
 ```
 
 Passed proof layers:
