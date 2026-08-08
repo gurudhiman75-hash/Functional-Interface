@@ -9,8 +9,6 @@ export const BLR_CP007_ENGLISH_FREEZE_APPROVED_AT = "2026-08-08" as const;
 export const BLR_CP007_ENGLISH_FREEZE_REVIEW_NOTE =
   "Product-owner explicitly approved English freeze on 2026-08-08. The learner-facing English corpus is frozen. Localisation may begin; Question Studio and product delivery remain locked." as const;
 
-type EmptyBlockers = readonly [];
-
 export type GeneratedBlrCp007EnglishFrozenQuestion = Omit<
   GeneratedBlrCp007EditorialV4Question,
   "metadata" | "reviewProof" | "v4ReviewProof"
@@ -22,14 +20,14 @@ export type GeneratedBlrCp007EnglishFrozenQuestion = Omit<
     GeneratedBlrCp007EditorialV4Question["metadata"],
     "activeEditorialBlockers"
   > & {
-    activeEditorialBlockers: EmptyBlockers;
+    activeEditorialBlockers: readonly string[];
     englishFreezeStatus: typeof BLR_CP007_ENGLISH_FREEZE_AUTHORITY;
   };
   v4ReviewProof: Omit<
     GeneratedBlrCp007EditorialV4Question["v4ReviewProof"],
     "activeEditorialBlockers" | "humanReviewRequired"
   > & {
-    activeEditorialBlockers: EmptyBlockers;
+    activeEditorialBlockers: readonly string[];
     humanReviewRequired: false;
   };
   englishFreezeProof: {
@@ -52,12 +50,12 @@ export function generateBlrCp007EnglishFrozenBank(): readonly GeneratedBlrCp007E
     },
     metadata: {
       ...question.metadata,
-      activeEditorialBlockers: [] as const,
+      activeEditorialBlockers: [],
       englishFreezeStatus: BLR_CP007_ENGLISH_FREEZE_AUTHORITY,
     },
     v4ReviewProof: {
       ...question.v4ReviewProof,
-      activeEditorialBlockers: [] as const,
+      activeEditorialBlockers: [],
       humanReviewRequired: false,
     },
     englishFreezeProof: {
@@ -77,7 +75,9 @@ export function generateBlrCp007EnglishFrozenBank(): readonly GeneratedBlrCp007E
   }));
 }
 
-function learnerProjection(question: GeneratedBlrCp007EditorialV4Question): unknown {
+type LearnerProjectionSource = GeneratedBlrCp007EditorialV4Question | GeneratedBlrCp007EnglishFrozenQuestion;
+
+function learnerProjection(question: LearnerProjectionSource): unknown {
   return {
     itemId: question.itemId,
     qlId: question.qlId,
