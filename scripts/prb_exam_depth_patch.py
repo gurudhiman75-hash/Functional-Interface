@@ -29,6 +29,12 @@ replace_once(
     : `${both} ${both === 1 ? context.groupNoun.slice(0, -1) : context.groupNoun} ${both === 1 ? "satisfies" : "satisfy"} both conditions`;''',
     "singular event overlap wording",
 )
+replace_once(
+    remodeler,
+    '      `Let the required number be x. Within the restricted group, x/${restricted} = ${probability}.`,',
+    '      `Because the selection is made only from the restricted group, let the required number be x. Then x/${restricted} = ${probability}.`,',
+    "reverse conditional denominator explanation",
+)
 
 pipeline = ROOT / "shared/pipeline.ts"
 replace_once(
