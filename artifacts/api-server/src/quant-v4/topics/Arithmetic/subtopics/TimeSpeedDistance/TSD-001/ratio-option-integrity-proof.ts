@@ -90,6 +90,7 @@ function assertReasonSemantics(
   const lower = reason.toLowerCase();
   assert(reason.split(/\s+/).length <= 34, `${question.questionLanguageId}: ratio reason is too long`);
   assert(!/different result|rules it out|does not survive|appears after|can be reached only/i.test(reason), `${question.questionLanguageId}: generic ratio rejection remains`);
+  assert(!/(\d+:\d+) = \1/.test(reason), `${question.questionLanguageId}: duplicate ratio identity remains`);
   switch (misconceptionId) {
     case "INVERT_REQUIRED_RATIO":
       assert(lower.includes("reverses") || lower.includes("inverse"), `${question.questionLanguageId}: inverse reason is not explicit`);
