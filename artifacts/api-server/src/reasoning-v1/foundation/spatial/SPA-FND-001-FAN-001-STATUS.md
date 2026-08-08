@@ -43,12 +43,12 @@ Rule coverage:
 ## Validated remediation proof
 
 ```text
-Head:       eb2fae4dac76e933440ee74039bcc1f96937e10c
+Head:       f4de5af835ca859f7ee3dc589dc2196736bf9d9e
 Workflow:   Validate SPA-FND-001 FAN-001 proof
-Run:        31248446996 — PASS
+Run:        31248627658 — PASS
 Artifact:   spa-fan-001-editorial-review
-Artifact ID: 9019231252
-Digest:     sha256:aac9e03e6b85eab383d2bc86d0740fe18d454df2cb1f4d2147c2ab1011bb4962
+Artifact ID: 9019284458
+Digest:     sha256:4c18b6a9e8d9c4701533fdb6bddb88045d88c9a07f627828243e14f7738a1053
 Status:     PASS_SPA_FND_001_FAN_001_VISUAL_REMEDIATION
 ```
 
@@ -61,7 +61,7 @@ PASS_SPA_FND_001_WAVE_03_PERCEPTUAL_REMEDIATION
 PASS_SPA_FND_001_FAN_001_VISUAL_REMEDIATION
 ```
 
-The regenerated HTML was also manually inspected as a 10-question contact sheet. All ten A→B transformations and correct C→answer applications were visually consistent. The earlier malformed rotation pattern no longer appears.
+The regenerated HTML was manually inspected as a 10-question contact sheet. All ten A→B transformations and correct C→answer applications were visually consistent. The earlier malformed rotation pattern no longer appears.
 
 ## Lifecycle lock
 
