@@ -8,6 +8,9 @@ import {
 import {
   correctExactVennWitnessProofV5,
 } from "./learner-v5-witness-proof";
+import {
+  finalizeWitnessClosureV5,
+} from "./learner-v5-witness-closure-finalizer";
 import type {
   SylDiagramModeV5,
   SylLearnerPresentationV5,
@@ -81,10 +84,15 @@ export function completeRequiredDiagramV5(
     presentation,
     initiallyRendered,
   );
-  const rendered = enforceExistentialCompletenessV5(
+  const existentialComplete = enforceExistentialCompletenessV5(
     question,
     presentation,
     proofCorrected,
+  );
+  const rendered = finalizeWitnessClosureV5(
+    question,
+    presentation,
+    existentialComplete,
   );
 
   if (!rendered.enabled) {
