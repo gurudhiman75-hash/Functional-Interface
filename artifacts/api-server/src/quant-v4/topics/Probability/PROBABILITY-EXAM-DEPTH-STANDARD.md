@@ -22,6 +22,8 @@ Use familiar settings such as:
 
 Do not use artificial student-facing nouns such as tokens, counters, selected files, canonical outcomes or abstract generated items.
 
+In event-algebra questions, use natural phrases such as “meets at least one condition,” “satisfies both conditions,” or the actual subjects and activities. Do not expose abstract labels such as “satisfies A” or “satisfies B.”
+
 ### 1.2 Match the reasoning depth to the difficulty
 
 - **Easy:** one clear probability idea, with the complete count visible.
