@@ -7,23 +7,27 @@ on:
     paths:
       - "artifacts/api-server/src/reasoning-v1/**"
       - "artifacts/api-server/src/routes/admin-question-studio-series.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-series-http-contract.test.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-dashboard-lifecycle.ts"
       - "artifacts/api-server/src/routes/index.ts"
       - "artifacts/api-server/src/lib/admin-question-studio-approval-policy.ts"
       - "artifacts/api-server/src/lib/admin-question-studio-approval-policy.test.ts"
       - "artifacts/admin-app/src/features/question-studio/api.ts"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioLivePage.tsx"
       - ".github/workflows/validate-ser-001-question-studio.yml"
   pull_request:
     paths:
       - "artifacts/api-server/src/reasoning-v1/**"
       - "artifacts/api-server/src/routes/admin-question-studio-series.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-series-http-contract.test.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-dashboard-lifecycle.ts"
       - "artifacts/api-server/src/routes/index.ts"
       - "artifacts/api-server/src/lib/admin-question-studio-approval-policy.ts"
       - "artifacts/api-server/src/lib/admin-question-studio-approval-policy.test.ts"
       - "artifacts/admin-app/src/features/question-studio/api.ts"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioLivePage.tsx"
       - ".github/workflows/validate-ser-001-question-studio.yml"
   workflow_dispatch:
 
@@ -81,6 +85,21 @@ jobs:
           node src/lib/.admin-question-studio-approval-policy.test.mjs \
             2>&1 | tee -a "$GITHUB_WORKSPACE/ser-approval-policy.log"
 
+      - name: Exercise HTTP auth and multi-domain dispatch
+        id: http_contract
+        if: always()
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          pnpm exec esbuild \
+            src/routes/admin-question-studio-series-http-contract.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/routes/.admin-question-studio-series-http-contract.test.mjs \
+            2>&1 | tee "$GITHUB_WORKSPACE/ser-http-contract.log"
+          node src/routes/.admin-question-studio-series-http-contract.test.mjs \
+            2>&1 | tee -a "$GITHUB_WORKSPACE/ser-http-contract.log"
+
       - name: Run 420-payload multilingual Series proof
         id: series_proof
         if: always()
@@ -127,6 +146,7 @@ jobs:
             api-build.log
             admin-typecheck.log
             ser-approval-policy.log
+            ser-http-contract.log
             ser-question-studio-integration.log
             pnl-series-regression.log
           if-no-files-found: warn
@@ -138,6 +158,7 @@ jobs:
           API_BUILD_OUTCOME: ${{ steps.api_build.outcome }}
           ADMIN_TYPECHECK_OUTCOME: ${{ steps.admin_typecheck.outcome }}
           APPROVAL_POLICY_OUTCOME: ${{ steps.approval_policy.outcome }}
+          HTTP_CONTRACT_OUTCOME: ${{ steps.http_contract.outcome }}
           SERIES_PROOF_OUTCOME: ${{ steps.series_proof.outcome }}
           PNL_REGRESSION_OUTCOME: ${{ steps.pnl_regression.outcome }}
         run: |
@@ -161,12 +182,14 @@ jobs:
           report_failure "API build failed" "$API_BUILD_OUTCOME" api-build.log
           report_failure "Admin typecheck failed" "$ADMIN_TYPECHECK_OUTCOME" admin-typecheck.log
           report_failure "Review-only approval proof failed" "$APPROVAL_POLICY_OUTCOME" ser-approval-policy.log
+          report_failure "HTTP auth and dispatch proof failed" "$HTTP_CONTRACT_OUTCOME" ser-http-contract.log
           report_failure "Series 420-payload proof failed" "$SERIES_PROOF_OUTCOME" ser-question-studio-integration.log
           report_failure "PNL canonical regression failed" "$PNL_REGRESSION_OUTCOME" pnl-series-regression.log
 
           if [ "$API_BUILD_OUTCOME" != "success" ] \
             || [ "$ADMIN_TYPECHECK_OUTCOME" != "success" ] \
             || [ "$APPROVAL_POLICY_OUTCOME" != "success" ] \
+            || [ "$HTTP_CONTRACT_OUTCOME" != "success" ] \
             || [ "$SERIES_PROOF_OUTCOME" != "success" ] \
             || [ "$PNL_REGRESSION_OUTCOME" != "success" ]; then
             exit 1
