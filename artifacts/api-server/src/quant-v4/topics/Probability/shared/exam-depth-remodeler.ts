@@ -569,6 +569,9 @@ function workedSolutionMethod(entry: ProbabilityTaskRegistryEntry, parameters: G
       ? "A fair die has six equally likely faces; list the faces satisfying the condition and divide their count by 6."
       : "Treat the outcomes as ordered pairs. Two fair dice produce 6 × 6 = 36 equally likely pairs (first die, second die).";
   }
+  if (mode === "findConditionalCardProbability") {
+    return "Use only the cards allowed by the given condition as the sample space; cards outside that restricted set are no longer possible.";
+  }
   if (cardModes.has(mode)) {
     return "Use the standard 52-card deck counts, and count any card belonging to two required groups only once.";
   }
@@ -583,9 +586,6 @@ function workedSolutionMethod(entry: ProbabilityTaskRegistryEntry, parameters: G
     }
     return "Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.";
   }
-  if (mode === "findConditionalCardProbability") {
-    return "Use only the cards allowed by the given condition as the sample space; cards outside that restricted set are no longer possible.";
-  }
   if (conditionalModes.has(mode)) {
     return "First restrict the sample space to the outcomes allowed by the given condition, then use favourable cases ÷ restricted total.";
   }
@@ -594,8 +594,17 @@ function workedSolutionMethod(entry: ProbabilityTaskRegistryEntry, parameters: G
       ? "A committee is unordered. Count all committees with combinations and subtract the committees excluded by the condition."
       : "A committee is unordered, so use combinations for both the complete set of committees and the required composition.";
   }
-  if (arrangementModes.has(mode)) {
-    return "Count all equally likely arrangements first, then count only those satisfying the stated position, adjacency or last-digit restriction.";
+  if (mode === "findRandomArrangementPropertyProbability") {
+    return "Use symmetry: in a random queue, every candidate is equally likely to occupy the first position.";
+  }
+  if (mode === "findTogetherOrApartProbability") {
+    return "Count all queue arrangements, treat the two specified candidates as one block to count adjacent arrangements, and subtract from the total.";
+  }
+  if (mode === "findPositionRestrictionProbability") {
+    return "Count all arrangements first, then count the arrangements in which the specified person occupies one of the allowed positions.";
+  }
+  if (mode === "findNumberFormationProbability") {
+    return "Count all admissible digit arrangements, then count those whose final digit satisfies the required number property.";
   }
   if (eventModes.has(mode)) {
     if (mode === "findIntersectionProbability") return "The required event is the overlap of the two groups; compare that overlap with the complete group.";
@@ -659,7 +668,11 @@ function workedSolutionKeyPoint(entry: ProbabilityTaskRegistryEntry): string | n
       ? "Replacement makes the two stage probabilities use the original composition each time."
       : "Because the first object is not returned, the second probability is based on one fewer object.";
   }
-  if (conditionalModes.has(mode)) return "The condition changes the denominator: outcomes outside the restricted group cannot be selected.";
+  if (mode === "findConditionalUrnProbability") return "After the known first draw, the second draw is made only from the remaining objects, so both remaining counts must be used.";
+  if (mode === "findConditionalCardProbability") return "Once the card type is known, that restricted card group—not the full deck—becomes the denominator.";
+  if (mode === "findConditionalNumberProbability") return "Only numbers satisfying the given divisibility condition belong to the denominator.";
+  if (mode === "findReverseConditionalCount") return "The shortlisted group is the complete sample space here, so its size is the denominator of the probability relation.";
+  if (conditionalModes.has(mode)) return "The group named in the condition becomes the new sample space and therefore the new denominator.";
   if (entry.cpId === "PRB-CP-008" && committeeModes.has(mode)) return "Combinations count each committee once because the order in which its members are named is irrelevant.";
   if (["findTogetherOrApartProbability", "findRandomArrangementPropertyProbability", "findPositionRestrictionProbability", "findNumberFormationProbability"].includes(mode)) {
     return "The probability is valid because every admissible arrangement is treated as equally likely.";
@@ -682,8 +695,8 @@ function workedSolutionSimplification(solved: SolvedProbability, core: string[])
   const favourable = solved.evidence.favourableOutcomeCount;
   const total = solved.evidence.totalOutcomeCount;
   if (favourable === undefined || total === undefined || total === 0n) return null;
+  if (core.some((line) => line.includes(solved.exactDisplay))) return null;
   const raw = `${favourable}/${total}`;
-  if (core.some((line) => line.includes(raw) && line.includes(solved.exactDisplay))) return null;
   const divisor = bigintGcd(favourable, total);
   if (divisor <= 1n) return null;
   return `${raw} = (${favourable} ÷ ${divisor})/(${total} ÷ ${divisor}) = ${favourable / divisor}/${total / divisor}.`;
@@ -694,6 +707,7 @@ function capitaliseSentence(value: string): string {
     .replace(/^Method\s+—\s*/i, "")
     .replace(/^(?:Therefore|Hence|So),?\s+/i, "")
     .trim();
+  if (/^[a-z]\s*=/.test(cleaned)) return cleaned;
   return cleaned.length === 0 ? cleaned : `${cleaned[0]!.toUpperCase()}${cleaned.slice(1)}`;
 }
 

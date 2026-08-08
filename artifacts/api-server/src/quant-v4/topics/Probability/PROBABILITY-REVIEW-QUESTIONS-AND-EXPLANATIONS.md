@@ -1763,7 +1763,6 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 1. The first marble is replaced, so the container again has 6 red and 8 blue marbles before the second selection.
 2. Thus, P(red marble on each selection) = 6/14.
 3. P(both red marbles) = 6/14 × 6/14 = 9/49.
-- **Simplification:** 36/196 = (36 ÷ 4)/(196 ÷ 4) = 9/49.
 - **Key point:** Replacement makes the two stage probabilities use the original composition each time.
 - **Answer:** The required probability is 9/49.
 
@@ -1789,7 +1788,6 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 1. On the first selection, P(red pen) = 7/12.
 2. After one red pen is removed, 6 red pens remain among 11 pens.
 3. P(both red pens) = 7/12 × 6/11 = 7/22.
-- **Simplification:** 42/132 = (42 ÷ 6)/(132 ÷ 6) = 7/22.
 - **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
 - **Answer:** The required probability is 7/22.
 
@@ -1840,7 +1838,6 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 1. On the first selection, P(red ball) = 9/18.
 2. After one red ball is removed, 8 red balls remain among 17 balls.
 3. P(both red balls) = 9/18 × 8/17 = 4/17.
-- **Simplification:** 72/306 = (72 ÷ 18)/(306 ÷ 18) = 4/17.
 - **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
 - **Answer:** The required probability is 4/17.
 
@@ -1866,7 +1863,6 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 1. The order is fixed: a red marble must occur first and a blue marble second.
 2. P(red first) = 8/15; after that, P(blue second) = 7/14.
 3. Required probability = 8/15 × 7/14 = 4/15.
-- **Simplification:** 56/210 = (56 ÷ 14)/(210 ÷ 14) = 4/15.
 - **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
 - **Answer:** The required probability is 4/15.
 
@@ -1892,7 +1888,6 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 1. The same colour can occur in two disjoint ways for the pens: red-red or blue-blue.
 2. P(red-red) = 5/12 × 4/11, and P(blue-blue) = 7/12 × 6/11.
 3. Adding the two cases gives 31/66.
-- **Simplification:** 62/132 = (62 ÷ 2)/(132 ÷ 2) = 31/66.
 - **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
 - **Answer:** The required probability is 31/66.
 
@@ -1918,7 +1913,6 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 1. Different colours can occur as red-blue or blue-red, so both orders of the coloured stones must be counted.
 2. P = 9/17 × 8/16 + 8/17 × 9/16.
 3. After simplification, the required probability is 9/17.
-- **Simplification:** 144/272 = (144 ÷ 16)/(272 ÷ 16) = 9/17.
 - **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
 - **Answer:** The required probability is 9/17.
 
@@ -1994,7 +1988,6 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 1. On the first selection, P(red pen) = 9/13.
 2. After one red pen is removed, 8 red pens remain among 12 pens.
 3. P(both red pens) = 9/13 × 8/12 = 6/13.
-- **Simplification:** 72/156 = (72 ÷ 12)/(156 ÷ 12) = 6/13.
 - **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
 - **Answer:** The required probability is 6/13.
 
@@ -2045,7 +2038,6 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 1. On the first selection, P(red ball) = 5/13.
 2. After one red ball is removed, 4 red balls remain among 12 balls.
 3. P(both red balls) = 5/13 × 4/12 = 5/39.
-- **Simplification:** 20/156 = (20 ÷ 4)/(156 ÷ 4) = 5/39.
 - **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
 - **Answer:** The required probability is 5/39.
 
@@ -2071,7 +2063,6 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 1. The order is fixed: a red marble must occur first and a blue marble second.
 2. P(red first) = 8/12; after that, P(blue second) = 4/11.
 3. Required probability = 8/12 × 4/11 = 8/33.
-- **Simplification:** 32/132 = (32 ÷ 4)/(132 ÷ 4) = 8/33.
 - **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
 - **Answer:** The required probability is 8/33.
 
@@ -2097,7 +2088,6 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 1. The same colour can occur in two disjoint ways for the pens: red-red or blue-blue.
 2. P(red-red) = 4/8 × 3/7, and P(blue-blue) = 4/8 × 3/7.
 3. Adding the two cases gives 3/7.
-- **Simplification:** 24/56 = (24 ÷ 8)/(56 ÷ 8) = 3/7.
 - **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
 - **Answer:** The required probability is 3/7.
 
@@ -2123,7 +2113,6 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 1. Different colours can occur as red-blue or blue-red, so both orders of the coloured stones must be counted.
 2. P = 6/15 × 9/14 + 9/15 × 6/14.
 3. After simplification, the required probability is 18/35.
-- **Simplification:** 108/210 = (108 ÷ 6)/(210 ÷ 6) = 18/35.
 - **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
 - **Answer:** The required probability is 18/35.
 
@@ -2147,7 +2136,7 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Use the standard 52-card deck counts, and count any card belonging to two required groups only once.
+- **Method:** Use only the cards allowed by the given condition as the sample space; cards outside that restricted set are no longer possible.
 1. Knowing that the card is a face card reduces the sample space to the 12 jacks, queens and kings.
 2. Exactly 4 of these 12 face cards are kings.
 3. The required probability is 4/12 = 1/3.
@@ -2267,7 +2256,7 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 1. The given condition restricts the sample space to the 8 people who satisfy the first condition.
 2. 3 of these 8 people also satisfy the second condition.
 3. The required probability is 3/8.
-- **Key point:** The condition changes the denominator: outcomes outside the restricted group cannot be selected.
+- **Key point:** The group named in the condition becomes the new sample space and therefore the new denominator.
 - **Answer:** The required probability is 3/8.
 
 ---
@@ -2292,7 +2281,7 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 1. The condition tells us that the first selected ball was red and was not replaced.
 2. 6 red balls remain among 14 balls for the second selection.
 3. The required probability is 6/14 = 3/7.
-- **Key point:** The condition changes the denominator: outcomes outside the restricted group cannot be selected.
+- **Key point:** After the known first draw, the second draw is made only from the remaining objects, so both remaining counts must be used.
 - **Answer:** The required probability is 3/7.
 
 ---
@@ -2315,9 +2304,9 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 - **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
 1. Because the selection is made only from the restricted group, let the required number be x. Then x/24 = 1/8.
-2. X = 24 × 1/8 = 3.
+2. x = 24 × 1/8 = 3.
 3. 3 people satisfy the required condition.
-- **Key point:** The condition changes the denominator: outcomes outside the restricted group cannot be selected.
+- **Key point:** The shortlisted group is the complete sample space here, so its size is the denominator of the probability relation.
 - **Answer:** The required number is 3.
 
 ---
@@ -2342,7 +2331,7 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 1. The given condition restricts the sample space to the 17 people who satisfy the first condition.
 2. 7 of these 17 people also satisfy the second condition.
 3. The required probability is 7/17.
-- **Key point:** The condition changes the denominator: outcomes outside the restricted group cannot be selected.
+- **Key point:** The group named in the condition becomes the new sample space and therefore the new denominator.
 - **Answer:** The required probability is 7/17.
 
 ---
@@ -2367,7 +2356,7 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 1. The given condition restricts the sample space to the 14 people who satisfy the first condition.
 2. 7 of these 14 people also satisfy the second condition.
 3. The required probability is 7/14 = 1/2.
-- **Key point:** The condition changes the denominator: outcomes outside the restricted group cannot be selected.
+- **Key point:** The group named in the condition becomes the new sample space and therefore the new denominator.
 - **Answer:** The required probability is 1/2.
 
 ---
@@ -2392,7 +2381,7 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 1. The condition tells us that the first selected ball was red and was not replaced.
 2. 6 red balls remain among 10 balls for the second selection.
 3. The required probability is 6/10 = 3/5.
-- **Key point:** The condition changes the denominator: outcomes outside the restricted group cannot be selected.
+- **Key point:** After the known first draw, the second draw is made only from the remaining objects, so both remaining counts must be used.
 - **Answer:** The required probability is 3/5.
 
 ---
@@ -2415,9 +2404,9 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 - **Method:** Use P(E) = favourable cases ÷ total cases and rearrange the relation to find the missing count.
 1. Because the selection is made only from the restricted group, let the required number be x. Then x/29 = 16/29.
-2. X = 29 × 16/29 = 16.
+2. x = 29 × 16/29 = 16.
 3. 16 people satisfy the required condition.
-- **Key point:** The condition changes the denominator: outcomes outside the restricted group cannot be selected.
+- **Key point:** The shortlisted group is the complete sample space here, so its size is the denominator of the probability relation.
 - **Answer:** The required number is 16.
 
 ---
@@ -2442,7 +2431,7 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 1. The given condition restricts the sample space to the 15 people who satisfy the first condition.
 2. 13 of these 15 people also satisfy the second condition.
 3. The required probability is 13/15.
-- **Key point:** The condition changes the denominator: outcomes outside the restricted group cannot be selected.
+- **Key point:** The group named in the condition becomes the new sample space and therefore the new denominator.
 - **Answer:** The required probability is 13/15.
 
 ---
@@ -2467,7 +2456,7 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 1. The given condition restricts the sample space to the 15 people who satisfy the first condition.
 2. 10 of these 15 people also satisfy the second condition.
 3. The required probability is 10/15 = 2/3.
-- **Key point:** The condition changes the denominator: outcomes outside the restricted group cannot be selected.
+- **Key point:** The group named in the condition becomes the new sample space and therefore the new denominator.
 - **Answer:** The required probability is 2/3.
 
 ---
@@ -2492,7 +2481,7 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 1. The condition tells us that the first selected ball was red and was not replaced.
 2. 8 red balls remain among 12 balls for the second selection.
 3. The required probability is 8/12 = 2/3.
-- **Key point:** The condition changes the denominator: outcomes outside the restricted group cannot be selected.
+- **Key point:** After the known first draw, the second draw is made only from the remaining objects, so both remaining counts must be used.
 - **Answer:** The required probability is 2/3.
 
 ---
@@ -2515,11 +2504,10 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Count all equally likely arrangements first, then count only those satisfying the stated position, adjacency or last-digit restriction.
+- **Method:** Use symmetry: in a random queue, every candidate is equally likely to occupy the first position.
 1. Each of the 5 candidates can occupy the first position in the queue.
 2. Only one of these 5 possibilities places the specified candidate first.
 3. The required probability is 1/5.
-- **Simplification:** 24/120 = (24 ÷ 24)/(120 ÷ 24) = 1/5.
 - **Answer:** The required probability is 1/5.
 
 ---
@@ -2540,11 +2528,10 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Count all equally likely arrangements first, then count only those satisfying the stated position, adjacency or last-digit restriction.
+- **Method:** Use symmetry: in a random queue, every candidate is equally likely to occupy the first position.
 1. Each of the 7 candidates can occupy the first position in the queue.
 2. Only one of these 7 possibilities places the specified candidate first.
 3. The required probability is 1/7.
-- **Simplification:** 720/5040 = (720 ÷ 720)/(5040 ÷ 720) = 1/7.
 - **Answer:** The required probability is 1/7.
 
 ---
@@ -2565,11 +2552,10 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Count all equally likely arrangements first, then count only those satisfying the stated position, adjacency or last-digit restriction.
+- **Method:** Use symmetry: in a random queue, every candidate is equally likely to occupy the first position.
 1. Each of the 6 candidates can occupy the first position in the queue.
 2. Only one of these 6 possibilities places the specified candidate first.
 3. The required probability is 1/6.
-- **Simplification:** 120/720 = (120 ÷ 120)/(720 ÷ 120) = 1/6.
 - **Answer:** The required probability is 1/6.
 
 ---
@@ -2615,11 +2601,10 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Count all equally likely arrangements first, then count only those satisfying the stated position, adjacency or last-digit restriction.
+- **Method:** Count all queue arrangements, treat the two specified candidates as one block to count adjacent arrangements, and subtract from the total.
 1. There are 5! = 120 unrestricted arrangements.
 2. If the two specified candidates are treated as one block, adjacent arrangements = 2 × 4! = 48.
 3. Non-adjacent arrangements = 120 - 48 = 72, so the probability is 3/5.
-- **Simplification:** 72/120 = (72 ÷ 24)/(120 ÷ 24) = 3/5.
 - **Key point:** The probability is valid because every admissible arrangement is treated as equally likely.
 - **Answer:** The required probability is 3/5.
 
@@ -2666,11 +2651,10 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Count all equally likely arrangements first, then count only those satisfying the stated position, adjacency or last-digit restriction.
+- **Method:** Count all queue arrangements, treat the two specified candidates as one block to count adjacent arrangements, and subtract from the total.
 1. There are 7! = 5040 unrestricted arrangements.
 2. If the two specified candidates are treated as one block, adjacent arrangements = 2 × 6! = 1440.
 3. Non-adjacent arrangements = 5040 - 1440 = 3600, so the probability is 5/7.
-- **Simplification:** 3600/5040 = (3600 ÷ 720)/(5040 ÷ 720) = 5/7.
 - **Key point:** The probability is valid because every admissible arrangement is treated as equally likely.
 - **Answer:** The required probability is 5/7.
 
@@ -2742,11 +2726,10 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Count all equally likely arrangements first, then count only those satisfying the stated position, adjacency or last-digit restriction.
+- **Method:** Count all arrangements first, then count the arrangements in which the specified person occupies one of the allowed positions.
 1. Any of the 14 people can receive the first post.
 2. 6 of these 14 people are women, and the remaining posts do not affect who receives the first post.
 3. The required probability is 6/14 = 3/7.
-- **Simplification:** 10296/24024 = (10296 ÷ 3432)/(24024 ÷ 3432) = 3/7.
 - **Key point:** The probability is valid because every admissible arrangement is treated as equally likely.
 - **Answer:** The required probability is 3/7.
 
@@ -2768,11 +2751,10 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Count all equally likely arrangements first, then count only those satisfying the stated position, adjacency or last-digit restriction.
+- **Method:** Count all admissible digit arrangements, then count those whose final digit satisfies the required number property.
 1. Without repetition, the total number of 4-digit numbers is 8P4 = 1680.
 2. An even number must end in one of the 4 available even digits. After fixing the last digit, the remaining places can be filled in 210 ways.
 3. Thus, favourable numbers = 4 × 210 = 840, and the probability is 1/2.
-- **Simplification:** 840/1680 = (840 ÷ 840)/(1680 ÷ 840) = 1/2.
 - **Key point:** The probability is valid because every admissible arrangement is treated as equally likely.
 - **Answer:** The required probability is 1/2.
 
@@ -2798,7 +2780,6 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 1. There are C(13,4) = 715 possible committees.
 2. Use the complement: committees with no woman = C(6,4) = 15.
 3. Favourable committees = 715 - 15 = 700, giving probability 140/143.
-- **Simplification:** 700/715 = (700 ÷ 5)/(715 ÷ 5) = 140/143.
 - **Key point:** Combinations count each committee once because the order in which its members are named is irrelevant.
 - **Answer:** The required probability is 140/143.
 
@@ -2845,7 +2826,7 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Count all equally likely arrangements first, then count only those satisfying the stated position, adjacency or last-digit restriction.
+- **Method:** Count all queue arrangements, treat the two specified candidates as one block to count adjacent arrangements, and subtract from the total.
 1. There are 6! = 720 unrestricted arrangements.
 2. Treat the two specified candidates as one block; the block can be internally ordered in 2 ways. Thus, adjacent arrangements = 2 × 5! = 240.
 3. The required probability is 240/720 = 1/3.
