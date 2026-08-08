@@ -7,6 +7,13 @@ import { MAL_CP005_DISCOVERY_PROTOTYPE_IDS, type MalCp005DiscoveryQuestion } fro
 function fail(message:string):never { throw new Error(message); }
 function assert(condition:unknown,message:string):asserts condition { if(!condition)fail(message); }
 
+function parseDisplayedPercent(text:string):number {
+  const match=text.match(/^(-?\d+)(?: (\d+)\/(\d+))?%$/u);
+  if(!match) fail(`Cannot parse displayed percentage: ${text}`);
+  const whole=Number(match[1]); const numerator=match[2]?Number(match[2]):0; const denominator=match[3]?Number(match[3]):1;
+  return whole + Math.sign(whole || 1) * numerator/denominator;
+}
+
 assert(MAL_CP005_DISCOVERY_PROTOTYPE_IDS.length===12,"Expected twelve CP-005 Wave 01 discovery prototypes.");
 assert(MAL_CP005_DISCOVERY_REGISTRY.length===12,"CP-005 registry count changed.");
 assert(MAL_CP005_BOUNDARY_LEDGER.length===6,"CP-005 boundary ledger count changed.");
@@ -32,6 +39,7 @@ for(const prototypeId of MAL_CP005_DISCOVERY_PROTOTYPE_IDS){
     assert(first.sourceEvidenceStatus==="REFERENCE_AND_LEGACY_RECOVERED_PENDING_FIXTURE_NORMALIZATION","CP-005 source maturity was overstated."); assert(first.sourceEvidenceIds.length>=5,"Source trace is incomplete.");
     assert(first.stem.endsWith("?"),"Stem is not interrogative."); assert(first.options.length===4,"Question does not have four options."); assert(new Set(first.options).size===4,"Options are not unique."); assert(first.options[first.correctIndex]===first.answer,"Correct option does not match answer."); assert(first.optionAudit.filter(x=>x.isCorrect).length===1,"Option audit must contain exactly one correct answer."); assert(new Set(first.optionAudit.map(x=>x.misconceptionId)).size===4,"Distractor authorities are not distinct.");
     assert(first.commercialLedger.rows.length>=1,"Commercial ledger is empty."); assert(first.explanation.calculation.length>=2,"Explanation is too shallow."); assert(first.explanation.conclusion.includes(first.answer),"Conclusion omits canonical answer.");
+    if(first.answerSemantic==="ADULTERANT_PERCENT_OF_MIXTURE") assert(first.options.every(option=>{const value=parseDisplayedPercent(option);return value>=0&&value<=100;}),"A final-mixture percentage option lies outside 0% to 100%.");
     assert(!/false weight|short measure|short weight/iu.test(JSON.stringify({stem:first.stem,explanation:first.explanation,ledger:first.commercialLedger})),"PNL-owned false-quantity content entered CP-005 learner output.");
     for(const option of first.optionAudit)misconceptionCounts.set(option.misconceptionId,(misconceptionCounts.get(option.misconceptionId)??0)+1);
     prototypeFingerprints.add(first.mathematicalFingerprint); fingerprints.add(first.mathematicalFingerprint); stems.add(first.stem); answers.add(first.answer); answerPositionCounts[first.correctIndex]+=1; generatedCount+=1; if(reviewFingerprints.size<5&&!reviewFingerprints.has(first.mathematicalFingerprint)){reviewFingerprints.add(first.mathematicalFingerprint);reviewRows.push(first);}
