@@ -2,6 +2,9 @@ import type { GeneratedSylQuestionV4 } from "./learner-v4-types";
 import type { TermAssignment } from "./localization";
 import { renderExactVennV5 } from "./learner-v5-exact-venn";
 import { exactVennAddsUnstatedStrongRelationV5 } from "./learner-v5-exact-venn-safety";
+import {
+  correctExactVennWitnessProofV5,
+} from "./learner-v5-witness-proof";
 import type {
   SylDiagramModeV5,
   SylLearnerPresentationV5,
@@ -69,7 +72,13 @@ export function completeRequiredDiagramV5(
   presentation: SylLearnerPresentationV5,
   assignment: TermAssignment,
 ): SylLearnerPresentationV5 {
-  const rendered = renderExactVennV5(question, presentation, assignment);
+  const initiallyRendered = renderExactVennV5(question, presentation, assignment);
+  const rendered = correctExactVennWitnessProofV5(
+    question,
+    presentation,
+    initiallyRendered,
+  );
+
   if (!rendered.enabled) {
     return omittedPresentation(
       presentation,
