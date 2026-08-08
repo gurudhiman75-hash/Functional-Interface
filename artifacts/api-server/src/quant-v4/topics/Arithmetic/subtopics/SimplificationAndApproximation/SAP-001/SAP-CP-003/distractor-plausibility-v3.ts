@@ -13,23 +13,25 @@ import {
 } from "./exact";
 import type { SapCp003Option, SapCp003Package, SapCp003PrototypeId } from "./types";
 
-function absolute(value: Rat): Rat {
-  return value.n < 0n ? rat(-value.n, value.d) : value;
-}
-
 function numeric(value: Rat): number {
   return Number(value.n) / Number(value.d);
 }
 
-function displayLikeAnswer(value: Rat, answer: string): string {
-  if (answer.endsWith("%")) return formatPercentLiteral(value);
-  if (answer.includes("/")) return formatRat(value);
+function requestsReducedFraction(pkg: SapCp003Package): boolean {
+  return /reduced fraction/i.test(pkg.stem);
+}
+
+function displayLikeQuestion(value: Rat, pkg: SapCp003Package): string {
+  if (pkg.canonicalAnswer.endsWith("%")) return formatPercentLiteral(value);
+  if (requestsReducedFraction(pkg) || pkg.canonicalAnswer.includes("/")) return formatRat(value);
   return isTerminating(value) ? formatTerminatingDecimal(value) : formatRat(value);
 }
 
-function nearbyStep(answer: Rat, display: string): Rat {
-  if (display.endsWith("%")) return rat(1n, 16n);
-  if (display.includes("/")) return rat(1n, answer.d <= 16n ? answer.d : 16n);
+function nearbyStep(answer: Rat, pkg: SapCp003Package): Rat {
+  if (pkg.canonicalAnswer.endsWith("%")) return rat(1n, 16n);
+  if (requestsReducedFraction(pkg) || pkg.canonicalAnswer.includes("/")) {
+    return rat(1n, answer.d <= 16n ? answer.d : 16n);
+  }
   const magnitude = Math.abs(numeric(answer));
   if (magnitude >= 100) return rat(BigInt(Math.max(2, Math.round(magnitude * 0.05))));
   if (magnitude >= 20) return rat(2n);
@@ -81,7 +83,7 @@ function improveNumericDistractors(pkg: SapCp003Package): SapCp003Package {
     .filter((entry): entry is { option: SapCp003Option; value: Rat } => Boolean(entry.value));
   if (parsedWrongs.some((entry) => isCrediblyClose(correct, entry.value))) return pkg;
 
-  const step = nearbyStep(correct, pkg.canonicalAnswer);
+  const step = nearbyStep(correct, pkg);
   const candidates = [
     add(correct, step),
     subtract(correct, step),
@@ -94,7 +96,7 @@ function improveNumericDistractors(pkg: SapCp003Package): SapCp003Package {
   let candidateDisplay: string | undefined;
   for (const value of candidates) {
     if (positiveAnswer && value.n < 0n) continue;
-    const display = displayLikeAnswer(value, pkg.canonicalAnswer);
+    const display = displayLikeQuestion(value, pkg);
     if (used.has(display)) continue;
     const parsed = parseNumericLiteral(display);
     if (!parsed || !isCrediblyClose(correct, parsed)) continue;
