@@ -106,6 +106,9 @@ jobs:
       - name: Generate comprehensive Markdown
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/generate-comprehensive-questions.ts
 
+      - name: Permanent exam-depth audit
+        run: python artifacts/api-server/src/quant-v4/topics/Probability/exam-depth-review-audit.py
+
       - name: Verify generated review evidence
         run: |
           python - <<'PY'
@@ -146,24 +149,30 @@ jobs:
                   if row["explanation"].startswith(banned_explanation_starts):
                       raise SystemExit(f"{package_id}: generic explanation in {row['qlId']}")
 
-          markdown = Path("artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md").read_text()
-          checks = {
-              "questions": markdown.count("\n#### Question "),
-              "answers": markdown.count("\n**Correct answer:**"),
-              "explanations": markdown.count("\n**Explanation:**"),
-          }
-          if checks != {"questions": 135, "answers": 135, "explanations": 135}:
-              raise SystemExit(f"Markdown coverage mismatch: {checks}")
+          for markdown_name in (
+              "PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md",
+              "PROBABILITY-REVIEW-QUESTIONS-AND-EXPLANATIONS.md",
+          ):
+              markdown = Path(f"artifacts/api-server/src/quant-v4/topics/Probability/{markdown_name}").read_text()
+              checks = {
+                  "questions": markdown.count("\n#### Question "),
+                  "answers": markdown.count("\n**Correct answer:**"),
+                  "explanations": markdown.count("\n**Explanation:**"),
+              }
+              if checks != {"questions": 135, "answers": 135, "explanations": 135}:
+                  raise SystemExit(f"{markdown_name} coverage mismatch: {checks}")
           if len(all_keys) != 135:
               raise SystemExit(f"Expected 135 unique visible questions, found {len(all_keys)}")
           PY
           git diff --check
 
-      - name: Upload comprehensive Markdown
+      - name: Upload review Markdown files
         uses: actions/upload-artifact@v4
         with:
-          name: probability-contextual-questions
-          path: artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md
+          name: probability-cutting-edge-review
+          path: |
+            artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md
+            artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-REVIEW-QUESTIONS-AND-EXPLANATIONS.md
           if-no-files-found: error
           retention-days: 7
 
@@ -176,6 +185,7 @@ jobs:
             artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/human-review-en.csv
             artifacts/api-server/src/quant-v4/topics/Probability/editorial-remediation-report.md
             artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md
+            artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-REVIEW-QUESTIONS-AND-EXPLANATIONS.md
           )
           if [ -z "$(git status --porcelain -- "${targets[@]}")" ]; then
             exit 0
@@ -184,5 +194,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "${targets[@]}"
           git diff --cached --check
-          git commit -m "docs(probability): regenerate contextual review evidence [skip ci]"
+          git commit -m "docs(probability): regenerate exam-depth review evidence [skip ci]"
           git push
