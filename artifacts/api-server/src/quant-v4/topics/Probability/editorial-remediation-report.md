@@ -7,20 +7,21 @@
 - Unique visible review questions: **135/135**
 - PRB-001 review set: **75** questions using the SSC CGL/CHSL profile and four options
 - PRB-002 review set: **60** questions using the Banking Mains profile and five options
-- Average review explanation length: **30.6 words**
+- Average review explanation length: **94.7 words**
 
 ## Student-facing standard
 
 Questions now use direct exam language. Internal enum names, artificial template introductions, unused variables and invalid displayed probabilities are blocked. Singular and plural forms are rendered from the actual number. Difficulty is based on the number of reasoning steps rather than stem length. Exact duplicate visible questions are rejected during review generation; a different valid QL is substituted when necessary.
 
-Explanations follow an exam-depth pattern:
+Explanations now use a visible worked-solution pattern:
 
-1. State why the selected method applies.
-2. Identify the complete or restricted sample space.
-3. Count the required cases, showing concrete outcomes when the set is small.
-4. Form and simplify the final probability.
+1. **Approach:** state the exact probability idea and why it fits.
+2. **Numbered working:** establish the sample space, derive any missing value and count the required cases.
+3. **Simplification:** reduce the fraction explicitly when reduction is required.
+4. **Why this works:** explain why the counting or probability rule is valid.
+5. **Answer:** close with the exact required probability or count.
 
-Combination questions explain what is being chosen; replacement, order, overlap and conditional restrictions are stated explicitly. The object named in the stem remains the same throughout the explanation. Internal QA terminology is never displayed to students.
+Combination questions explain what is being chosen; replacement, order, overlap and conditional restrictions are stated explicitly. Small sample spaces display their actual outcomes. The object named in the stem remains the same throughout the explanation. Internal QA terminology is never displayed to students.
 
 ## Exam profiles
 

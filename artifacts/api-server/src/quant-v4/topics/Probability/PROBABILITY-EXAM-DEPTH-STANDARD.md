@@ -94,6 +94,18 @@ Example:
 
 The object named in the question must remain unchanged throughout its explanation. A question about pens must be explained using pens, a question about marbles using marbles, and a question about a committee using people and committees. Shared solve modes must be scoped by canonical problem so that a committee question can never be rendered as a coloured-object question.
 
+## 2.6 Worked-solution presentation
+
+Every learner explanation must read as a complete worked solution rather than a compressed answer key. The visible order is:
+
+1. **Approach** — name the exact idea being used and why it is suitable.
+2. **Numbered steps** — use the values from the question to establish the sample space, derive missing quantities and count the required cases.
+3. **Simplification** — show how the final fraction is reduced whenever reduction is needed.
+4. **Why this works** — explain why the counting rule, complement, conditional restriction, multiplication rule or inclusion–exclusion step is valid.
+5. **Answer** — state the exact final probability or count in a separate closing line.
+
+An explanation must not become “detailed” merely by repeating the question or adding generic theory. Every added sentence must clarify the actual numerical reasoning of that question.
+
 ## 3. Distractor standard
 
 Options should represent recognisable mistakes, including:

@@ -511,6 +511,158 @@ function methodLead(entry: ProbabilityTaskRegistryEntry): string {
   return "Method — translate the condition into the correct restricted sample space before calculating the probability.";
 }
 
+
+function workedSolutionApproach(entry: ProbabilityTaskRegistryEntry): string {
+  const mode = entry.solveMode;
+
+  if (["findFavourableOutcomeCount", "findMissingEventCountFromProbability", "findTotalOutcomeCount", "findMissingObjectCountFromProbability", "findMissingDeckCountOrEventCount", "findReverseDiceOrSpinnerEventCount", "findReverseConditionalCount", "findReverseCountFromProbability"].includes(mode)) {
+    return "Work backwards from probability = favourable cases ÷ total cases, and solve for the missing count.";
+  }
+  if (["findComplementProbability", "findAtLeastOneUsingComplement", "findAtLeastOneObjectOfType", "findAtLeastOneAcrossIndependentStages", "findComplementCardProbability", "findRestrictedSelectionProbability", "findNeitherEventProbability"].includes(mode)) {
+    return "Use the complementary event because it is shorter to count the unwanted case and subtract its probability from 1.";
+  }
+  if (/Coin|Head|Success|None|AllSuccess|AtMost|AtLeastOneUsingComplement/.test(mode)) {
+    return "For fair coin tosses, every H/T sequence is equally likely, so count the sequences that satisfy the condition.";
+  }
+  if (/Dice|Die/.test(mode)) {
+    return "Treat the result as an ordered outcome; for two dice, (first die, second die) gives 6 × 6 = 36 equally likely pairs.";
+  }
+  if (/Card|Deck|Rank|Suit|Colour|Face/.test(mode)) {
+    return "Use the standard 52-card deck counts and adjust for any card that belongs to both required groups.";
+  }
+  if (["findSimultaneousSameTypeProbability", "findSimultaneousDifferentTypeProbability", "findExactCompositionProbability", "findSelectionProbabilityUsingCombination", "findNoObjectOfTypeProbability"].includes(mode) && entry.cpId === "PRB-CP-005") {
+    return "The objects are selected together, so order does not matter; count selections with combinations.";
+  }
+  if (["findSuccessiveIndependentProbability", "findWithReplacementProbability", "findSuccessiveDependentProbability", "findWithoutReplacementProbability", "findOrderedDrawSequenceProbability", "findSameTypeInSuccessiveDraws", "findDifferentTypesInSuccessiveDraws"].includes(mode)) {
+    return "Follow the selections in order and multiply the stage probabilities, updating the contents whenever an object is not replaced.";
+  }
+  if (/Conditional/.test(mode)) {
+    return "First restrict the sample space to the outcomes allowed by the given condition, and then form favourable ÷ restricted total.";
+  }
+  if (["findCommitteeCompositionProbability", "findRestrictedSelectionProbability", "findSelectionProbabilityUsingCombination", "findReverseCountFromProbability"].includes(mode) && entry.cpId === "PRB-CP-008") {
+    return "A committee is an unordered selection, so use combinations for both the complete set of committees and the required composition.";
+  }
+  if (["findTogetherOrApartProbability", "findRandomArrangementPropertyProbability", "findPositionRestrictionProbability", "findNumberFormationProbability"].includes(mode)) {
+    return "Count all equally likely arrangements first, then count only the arrangements that satisfy the stated position or adjacency condition.";
+  }
+  if (["findUnionProbability", "findExactlyOneOfTwoEvents", "findMixedEventExpressionProbability", "findNeitherEventProbability", "findMissingIntersectionOrUnionProbability"].includes(mode)) {
+    return "Use inclusion–exclusion so that members belonging to both groups are not counted twice.";
+  }
+  if (mode === "findIntersectionProbability") {
+    return "The required event is the overlap of the two groups, so compare the number in both groups with the complete group.";
+  }
+  if (mode === "findMutuallyExclusiveUnion") {
+    return "The events cannot occur together, so their probabilities are added without subtracting any overlap.";
+  }
+  if (mode === "findIndependentIntersection") {
+    return "The events are independent, so the probability that both occur is the product of their individual probabilities.";
+  }
+  return "Identify the equally likely total cases, count the cases satisfying the condition, and use probability = favourable cases ÷ total cases.";
+}
+
+function workedSolutionReason(entry: ProbabilityTaskRegistryEntry): string {
+  const mode = entry.solveMode;
+
+  if (["findFavourableOutcomeCount", "findMissingEventCountFromProbability", "findTotalOutcomeCount", "findMissingObjectCountFromProbability", "findMissingDeckCountOrEventCount", "findReverseDiceOrSpinnerEventCount", "findReverseConditionalCount", "findReverseCountFromProbability"].includes(mode)) {
+    return "Substituting the derived count back into favourable cases ÷ total cases reproduces the probability stated in the question.";
+  }
+  if (["findComplementProbability", "findAtLeastOneUsingComplement", "findAtLeastOneObjectOfType", "findAtLeastOneAcrossIndependentStages", "findComplementCardProbability", "findRestrictedSelectionProbability", "findNeitherEventProbability"].includes(mode)) {
+    return "The required event and its complement are disjoint and together cover every possible outcome, so their probabilities add to 1.";
+  }
+  if (/Coin|Head|Success|None|AllSuccess|AtMost/.test(mode)) {
+    return "A fair coin makes every sequence of the same length equally likely, so counting valid sequences gives the exact probability.";
+  }
+  if (/Dice|Die/.test(mode)) {
+    return "Each ordered die result is equally likely; counting ordered pairs prevents (a,b) and (b,a) from being incorrectly treated as one case.";
+  }
+  if (/Card|Deck|Rank|Suit|Colour|Face/.test(mode)) {
+    return "Each card is equally likely to be drawn, so the required card count over 52 gives the probability; any overlap must be counted only once.";
+  }
+  if (["findSimultaneousSameTypeProbability", "findSimultaneousDifferentTypeProbability", "findExactCompositionProbability", "findSelectionProbabilityUsingCombination", "findNoObjectOfTypeProbability"].includes(mode) && entry.cpId === "PRB-CP-005") {
+    return "Each selected group is counted exactly once by combinations because changing the order of the same selected objects does not create a new selection.";
+  }
+  if (["findSuccessiveIndependentProbability", "findWithReplacementProbability", "findSuccessiveDependentProbability", "findWithoutReplacementProbability", "findOrderedDrawSequenceProbability", "findSameTypeInSuccessiveDraws", "findDifferentTypesInSuccessiveDraws"].includes(mode)) {
+    return "Both stages must occur along the same path, so their probabilities are multiplied; without replacement, the second numerator and denominator change.";
+  }
+  if (/Conditional/.test(mode)) {
+    return "Once the condition is known, outcomes outside the restricted group are impossible and must not remain in the denominator.";
+  }
+  if (["findCommitteeCompositionProbability", "findRestrictedSelectionProbability", "findSelectionProbabilityUsingCombination", "findReverseCountFromProbability"].includes(mode) && entry.cpId === "PRB-CP-008") {
+    return "Choosing the required members uniquely determines a committee, so the product of the combination counts includes every valid committee exactly once.";
+  }
+  if (["findTogetherOrApartProbability", "findRandomArrangementPropertyProbability", "findPositionRestrictionProbability", "findNumberFormationProbability"].includes(mode)) {
+    return "All admissible arrangements are equally likely, and the restriction count selects precisely the arrangements described in the question.";
+  }
+  if (["findUnionProbability", "findExactlyOneOfTwoEvents", "findMixedEventExpressionProbability", "findNeitherEventProbability", "findMissingIntersectionOrUnionProbability"].includes(mode)) {
+    return "Adding the two group counts includes the overlap twice, so inclusion–exclusion removes the extra copy before the probability is formed.";
+  }
+  if (mode === "findIntersectionProbability") {
+    return "The intersection contains only members satisfying both conditions, which is exactly the overlap supplied in the data.";
+  }
+  if (mode === "findMutuallyExclusiveUnion") {
+    return "Mutually exclusive events have no common outcome, so simple addition counts every favourable outcome exactly once.";
+  }
+  if (mode === "findIndependentIntersection") {
+    return "Independence means the first result does not alter the second probability, making multiplication valid.";
+  }
+  return "Every elementary case is equally likely, so the ratio of favourable cases to total cases is the required probability.";
+}
+
+function bigintGcd(left: bigint, right: bigint): bigint {
+  let a = left < 0n ? -left : left;
+  let b = right < 0n ? -right : right;
+  while (b !== 0n) [a, b] = [b, a % b];
+  return a === 0n ? 1n : a;
+}
+
+function workedSolutionSimplification(solved: SolvedProbability): string | null {
+  if (solved.answer.kind !== "PROBABILITY") return null;
+  const favourable = solved.evidence.favourableOutcomeCount;
+  const total = solved.evidence.totalOutcomeCount;
+  if (favourable === undefined || total === undefined || total === 0n) return null;
+  const divisor = bigintGcd(favourable, total);
+  if (divisor <= 1n) return null;
+  return `Divide the numerator and denominator by ${divisor}: ${favourable}/${total} = ${favourable / divisor}/${total / divisor} = ${solved.exactDisplay}.`;
+}
+
+function capitaliseSentence(value: string): string {
+  const cleaned = value
+    .replace(/^Method\s+—\s*/i, "")
+    .replace(/^(?:Therefore|Hence|So),?\s+/i, "")
+    .trim();
+  return cleaned.length === 0 ? cleaned : `${cleaned[0]!.toUpperCase()}${cleaned.slice(1)}`;
+}
+
+function buildDetailedWorkedSolution(
+  entry: ProbabilityTaskRegistryEntry,
+  solved: SolvedProbability,
+  explanation: string[],
+): string[] {
+  const core = explanation
+    .map(tidy)
+    .filter(Boolean)
+    .filter((line) => !/^Method\s+—/i.test(line));
+
+  const result: string[] = [`Approach — ${workedSolutionApproach(entry)}`];
+  core.forEach((line, index) => {
+    result.push(`Step ${index + 1} — ${capitaliseSentence(line)}`);
+  });
+
+  const simplification = workedSolutionSimplification(solved);
+  if (simplification && !core.some((line) => /divide (?:the )?numerator|lowest terms/i.test(line))) {
+    result.push(`Simplification — ${simplification}`);
+  }
+
+  result.push(`Why this works — ${workedSolutionReason(entry)}`);
+  result.push(
+    solved.answer.kind === "COUNT"
+      ? `Answer — The required number is ${solved.exactDisplay}.`
+      : `Answer — The required probability is ${solved.exactDisplay}.`,
+  );
+
+  return result.map(tidy).filter(Boolean);
+}
+
 export function remodelProbabilityExplanation(
   entry: ProbabilityTaskRegistryEntry,
   parameters: GeneratedParameters,
@@ -615,5 +767,5 @@ if (["findSingleDrawColourProbability", "findMissingObjectCountFromProbability"]
     explanation = [methodLead(entry), ...explanation];
   }
 
-  return explanation.map(tidy).filter(Boolean);
+  return buildDetailedWorkedSolution(entry, solved, explanation);
 }

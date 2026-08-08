@@ -12,7 +12,7 @@ for (const entry of listPrb001QuestionEntries()) {
   assert(question.validation.valid, `${entry.qlId}: ${question.validation.checks.filter((item) => !item.passed).map((item) => item.name).join(", ")}`);
   assert(!badStem.test(question.stem), `${entry.qlId}: artificial stem language`);
   assert(!badExplanation.test(question.explanation.lines.join(" ")), `${entry.qlId}: QA language leaked into explanation`);
-  assert(question.explanation.wordCount <= 105, `${entry.qlId}: explanation is too long`);
+  assert(question.explanation.wordCount <= 220, `${entry.qlId}: explanation is too long`);
   questions += 1; explanationWords += question.explanation.wordCount;
   if (question.options.length === 4) fourOptionQuestions += 1; else if (question.options.length === 5) fiveOptionQuestions += 1;
 }
@@ -21,7 +21,7 @@ for (const entry of listPrb002QuestionEntries()) {
   assert(question.validation.valid, `${entry.qlId}: ${question.validation.checks.filter((item) => !item.passed).map((item) => item.name).join(", ")}`);
   assert(!badStem.test(question.stem), `${entry.qlId}: artificial stem language`);
   assert(!badExplanation.test(question.explanation.lines.join(" ")), `${entry.qlId}: QA language leaked into explanation`);
-  assert(question.explanation.wordCount <= 105, `${entry.qlId}: explanation is too long`);
+  assert(question.explanation.wordCount <= 220, `${entry.qlId}: explanation is too long`);
   questions += 1; explanationWords += question.explanation.wordCount;
   if (question.options.length === 4) fourOptionQuestions += 1; else if (question.options.length === 5) fiveOptionQuestions += 1;
 }

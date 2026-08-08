@@ -125,18 +125,25 @@ def audit() -> None:
                 raise SystemExit(f"{row['qlId']}: {label} context is missing from the explanation")
 
     explanation_lengths = [len(row["explanation"].split()) for row in rows]
-    if mean(explanation_lengths) < 24:
-        raise SystemExit(f"Average explanation length is only {mean(explanation_lengths):.1f} words; expected at least 24")
+    if mean(explanation_lengths) < 52:
+        raise SystemExit(f"Average explanation length is only {mean(explanation_lengths):.1f} words; expected at least 52")
 
     medium_hard = [row for row in rows if row["difficulty"] in {"Medium", "Hard"}]
     medium_hard_lengths = [len(row["explanation"].split()) for row in medium_hard]
-    if not medium_hard_lengths or mean(medium_hard_lengths) < 30:
-        raise SystemExit(f"Medium/Hard explanation average is {mean(medium_hard_lengths):.1f}; expected at least 30")
+    if not medium_hard_lengths or mean(medium_hard_lengths) < 62:
+        raise SystemExit(f"Medium/Hard explanation average is {mean(medium_hard_lengths):.1f}; expected at least 62")
+
+    for row in rows:
+        explanation = row["explanation"]
+        if "Approach —" not in explanation or "Why this works —" not in explanation or "Answer —" not in explanation:
+            raise SystemExit(f"{row['qlId']}: worked-solution structure is incomplete")
+        if not re.search(r"Step 1 —", explanation):
+            raise SystemExit(f"{row['qlId']}: numbered working is missing")
 
     for row in rows:
         if row["solveMode"] in DEPTH_MODES:
             words = len(row["explanation"].split())
-            if words < 22:
+            if words < 48:
                 raise SystemExit(f"{row['qlId']}: multi-step explanation is too short ({words} words)")
             if not DECISION_MARKERS.search(row["explanation"]):
                 raise SystemExit(f"{row['qlId']}: explanation does not reveal the method decision")
