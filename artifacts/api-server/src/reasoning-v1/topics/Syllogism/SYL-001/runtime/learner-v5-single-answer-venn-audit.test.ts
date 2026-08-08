@@ -13,6 +13,11 @@ interface Shape {
   r: number;
 }
 
+interface Authority {
+  subset: ReadonlySet<string>;
+  disjoint: ReadonlySet<string>;
+}
+
 const locales: readonly SylLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 const EPSILON = 2;
 let records = 0;
@@ -22,7 +27,16 @@ let omittedMoreThanThree = 0;
 let omittedUnstable = 0;
 let geometryFailures = 0;
 let witnessFailures = 0;
+let strongerUnstatedRelations = 0;
 let maximumWitnesses = 0;
+
+function relationKey(subject: TermId, predicate: TermId): string {
+  return `${subject}>${predicate}`;
+}
+
+function pairKey(left: TermId, right: TermId): string {
+  return [left, right].sort().join("|");
+}
 
 function pairDistance(left: Shape, right: Shape): number {
   return Math.hypot(left.cx - right.cx, left.cy - right.cy);
@@ -40,6 +54,68 @@ function overlaps(left: Shape, right: Shape): boolean {
   return pairDistance(left, right) < left.r + right.r - 5;
 }
 
+function properOverlap(left: Shape, right: Shape): boolean {
+  return overlaps(left, right) && !contains(left, right) && !contains(right, left);
+}
+
+function buildAuthority(
+  premises: readonly SurfacePremise[],
+  terms: readonly TermId[],
+): Authority {
+  const subset = new Set<string>();
+  const disjointPairs = new Set<string>();
+  terms.forEach((term) => subset.add(relationKey(term, term)));
+  for (const premise of premises) {
+    if (premise.form === "ALL" || premise.form === "ARE_ONLY") {
+      subset.add(relationKey(premise.subject, premise.predicate));
+    } else if (premise.form === "ONLY") {
+      subset.add(relationKey(premise.predicate, premise.subject));
+    } else if (premise.form === "IDENTITY") {
+      subset.add(relationKey(premise.subject, premise.predicate));
+      subset.add(relationKey(premise.predicate, premise.subject));
+    } else if (premise.form === "NO") {
+      disjointPairs.add(pairKey(premise.subject, premise.predicate));
+    }
+  }
+
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const left of terms) {
+      for (const middle of terms) {
+        if (!subset.has(relationKey(left, middle))) continue;
+        for (const right of terms) {
+          if (subset.has(relationKey(middle, right)) && !subset.has(relationKey(left, right))) {
+            subset.add(relationKey(left, right));
+            changed = true;
+          }
+        }
+      }
+    }
+  }
+
+  changed = true;
+  while (changed) {
+    changed = false;
+    for (const pair of [...disjointPairs]) {
+      const [left, right] = pair.split("|") as [TermId, TermId];
+      const leftSubsets = terms.filter((term) => subset.has(relationKey(term, left)));
+      const rightSubsets = terms.filter((term) => subset.has(relationKey(term, right)));
+      for (const a of leftSubsets) {
+        for (const b of rightSubsets) {
+          if (a === b) continue;
+          const derived = pairKey(a, b);
+          if (!disjointPairs.has(derived)) {
+            disjointPairs.add(derived);
+            changed = true;
+          }
+        }
+      }
+    }
+  }
+  return { subset, disjoint: disjointPairs };
+}
+
 function parseShapes(svg: string): ReadonlyMap<TermId, Shape> {
   const result = new Map<TermId, Shape>();
   for (const match of svg.matchAll(/<g data-set="([^"]+)" data-cx="([\d.]+)" data-cy="([\d.]+)" data-r="([\d.]+)">/gu)) {
@@ -52,10 +128,18 @@ function parseShapes(svg: string): ReadonlyMap<TermId, Shape> {
   return result;
 }
 
-function validatePremise(premise: SurfacePremise, shapes: ReadonlyMap<TermId, Shape>): boolean {
+function validatePremise(
+  premise: SurfacePremise,
+  shapes: ReadonlyMap<TermId, Shape>,
+  authority: Authority,
+): boolean {
   const subject = shapes.get(premise.subject);
   const predicate = shapes.get(premise.predicate);
   if (!subject || !predicate) return false;
+  const subjectInPredicate = authority.subset.has(relationKey(premise.subject, premise.predicate));
+  const predicateInSubject = authority.subset.has(relationKey(premise.predicate, premise.subject));
+  const forcedDisjoint = authority.disjoint.has(pairKey(premise.subject, premise.predicate));
+
   switch (premise.form) {
     case "ALL":
     case "ARE_ONLY":
@@ -68,15 +152,44 @@ function validatePremise(premise: SurfacePremise, shapes: ReadonlyMap<TermId, Sh
       return disjoint(subject, predicate);
     case "SOME":
     case "A_FEW":
-      return overlaps(subject, predicate);
+      return overlaps(subject, predicate)
+        && (subjectInPredicate || predicateInSubject || properOverlap(subject, predicate));
     case "SOME_NOT":
     case "NOT_ALL":
-      return !contains(predicate, subject);
+      if (contains(predicate, subject)) return false;
+      if (forcedDisjoint) return disjoint(subject, predicate);
+      if (predicateInSubject) return contains(subject, predicate);
+      return properOverlap(subject, predicate);
     case "ONLY_A_FEW":
-      return overlaps(subject, predicate) && !contains(predicate, subject);
+      return properOverlap(subject, predicate);
     case "FEW":
       return false;
   }
+}
+
+function hasUnforcedStrongRelation(
+  terms: readonly TermId[],
+  shapes: ReadonlyMap<TermId, Shape>,
+  authority: Authority,
+  premises: readonly SurfacePremise[],
+): boolean {
+  const mentionedPairs = new Set(premises.map((premise) => pairKey(premise.subject, premise.predicate)));
+  for (let left = 0; left < terms.length; left += 1) {
+    for (let right = left + 1; right < terms.length; right += 1) {
+      const a = terms[left];
+      const b = terms[right];
+      if (mentionedPairs.has(pairKey(a, b))) continue;
+      if (
+        authority.subset.has(relationKey(a, b))
+        || authority.subset.has(relationKey(b, a))
+        || authority.disjoint.has(pairKey(a, b))
+      ) continue;
+      const shapeA = shapes.get(a)!;
+      const shapeB = shapes.get(b)!;
+      if (contains(shapeA, shapeB) || contains(shapeB, shapeA) || disjoint(shapeA, shapeB)) return true;
+    }
+  }
+  return false;
 }
 
 function inside(point: { x: number; y: number }, shape: Shape): boolean {
@@ -106,10 +219,11 @@ for (const definition of SYL_QL_REGISTRY) {
       const question = generateSylQuestionV5(definition.qlId, seed, locale);
       const presentation = question.learnerPresentationV5;
       const svg = presentation.diagram.svg ?? "";
-      const premiseTerms = new Set(question.structuredPrompt.premises.flatMap((premise) => [
+      const terms = [...new Set(question.structuredPrompt.premises.flatMap((premise) => [
         premise.subject,
         premise.predicate,
-      ]));
+      ]))] as TermId[];
+      const authority = buildAuthority(question.structuredPrompt.premises, terms);
       records += 1;
 
       if (!presentation.diagram.enabled) {
@@ -125,7 +239,7 @@ for (const definition of SYL_QL_REGISTRY) {
         );
         if (presentation.diagram.omissionReason === "MORE_THAN_THREE_TERMS") {
           omittedMoreThanThree += 1;
-          assert.ok(premiseTerms.size > 3);
+          assert.ok(terms.length > 3);
         } else {
           omittedUnstable += 1;
         }
@@ -133,7 +247,7 @@ for (const definition of SYL_QL_REGISTRY) {
       }
 
       diagrams += 1;
-      assert.ok(premiseTerms.size <= 3, `${definition.qlId}/${seed}/${locale}: complex diagram was forced`);
+      assert.ok(terms.length <= 3, `${definition.qlId}/${seed}/${locale}: complex diagram was forced`);
       assert.equal(presentation.learnerExplanation.showDiagram, true);
       assert.equal(presentation.diagram.diagramCount, 1);
       assert.equal(presentation.diagram.omissionReason, null);
@@ -148,12 +262,25 @@ for (const definition of SYL_QL_REGISTRY) {
       assert.match(svg, /font-size:22px/u);
 
       const shapes = parseShapes(svg);
-      assert.equal(shapes.size, premiseTerms.size);
+      assert.equal(shapes.size, terms.length);
       for (const premise of question.structuredPrompt.premises) {
-        const valid = validatePremise(premise, shapes);
+        const valid = validatePremise(premise, shapes, authority);
         if (!valid) geometryFailures += 1;
-        assert.ok(valid, `${definition.qlId}/${seed}/${locale}: SVG geometry contradicts ${premise.form} ${premise.subject}/${premise.predicate}`);
+        assert.ok(valid, `${definition.qlId}/${seed}/${locale}: SVG topology contradicts or overstates ${premise.form} ${premise.subject}/${premise.predicate}`);
       }
+
+      const unforcedStrongRelation = hasUnforcedStrongRelation(
+        terms,
+        shapes,
+        authority,
+        question.structuredPrompt.premises,
+      );
+      if (unforcedStrongRelation) strongerUnstatedRelations += 1;
+      assert.equal(
+        unforcedStrongRelation,
+        false,
+        `${definition.qlId}/${seed}/${locale}: diagram adds unstated containment or separation`,
+      );
 
       const witnessCount = [...svg.matchAll(/data-witness="decisive"/gu)].length;
       maximumWitnesses = Math.max(maximumWitnesses, witnessCount);
@@ -163,7 +290,7 @@ for (const definition of SYL_QL_REGISTRY) {
       assert.ok(validWitnesses, `${definition.qlId}/${seed}/${locale}: witness membership does not match its plotted point`);
       assert.ok(presentation.diagram.caption?.trim());
       assert.ok(presentation.diagram.accessibleDescription?.trim());
-      assert.ok(presentation.diagram.semanticSignature.startsWith("syl-v5:learner-safe-venn:enabled:"));
+      assert.ok(presentation.diagram.semanticSignature.startsWith("syl-v5:exact-venn:enabled:"));
     }
   }
 }
@@ -174,10 +301,11 @@ assert.ok(omitted > 0);
 assert.ok(omittedMoreThanThree > 0);
 assert.equal(geometryFailures, 0);
 assert.equal(witnessFailures, 0);
+assert.equal(strongerUnstatedRelations, 0);
 assert.ok(maximumWitnesses <= 2);
 
 console.log(JSON.stringify({
-  status: "PASS_SYL_001_V5_LEARNER_SAFE_VENN",
+  status: "PASS_SYL_001_V5_EXACT_LEARNER_VENN",
   records,
   diagrams,
   omitted,
@@ -185,12 +313,14 @@ console.log(JSON.stringify({
   omittedUnstable,
   geometryFailures,
   witnessFailures,
+  strongerUnstatedRelations,
   maximumWitnesses,
   contract: {
     maximumTermsPerDiagram: 3,
     maximumWitnessesPerDiagram: 2,
     separationCrosses: 0,
     numberedWitnesses: 0,
+    strongerUnstatedRelations: 0,
     mobileViewBox: "340 x 210",
     unstableLayoutsAreOmitted: true,
   },
