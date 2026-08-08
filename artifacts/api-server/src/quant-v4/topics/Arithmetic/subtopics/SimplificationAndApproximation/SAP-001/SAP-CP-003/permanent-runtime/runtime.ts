@@ -40,11 +40,11 @@ export const SAP_CP003_PROTOTYPE_TO_PERMANENT_QL: Readonly<Record<SapCp003Protot
 export interface SapCp003PermanentPackage extends Omit<SapCp003Package, "lifecycle"> {
   readonly permanentQlId: SapCp003PermanentQlId;
   readonly allocationStatus: "PERMANENT_ID_ALLOCATED_INACTIVE";
-  readonly approvalStatus: "QUESTIONS_AND_EXPLANATIONS_REOPENED_FOR_EDITORIAL_REMEDIATION";
+  readonly approvalStatus: "QUESTIONS_AND_EXPLANATIONS_APPROVED_EDITORIAL_V3";
   readonly lifecycle: {
     readonly permanentQlId: SapCp003PermanentQlId;
     readonly identityStatus: "PERMANENT_ID_ALLOCATED";
-    readonly contentStatus: "QUESTIONS_AND_EXPLANATIONS_REOPENED_EDITORIAL_REMEDIATION_V3";
+    readonly contentStatus: "QUESTIONS_AND_EXPLANATIONS_APPROVED_EDITORIAL_V3";
     readonly active: false;
     readonly questionStudioDiscoverable: false;
     readonly questionBankWritable: false;
@@ -63,11 +63,11 @@ export function generateSapCp003PermanentPackage(
     ...reviewed,
     permanentQlId,
     allocationStatus: "PERMANENT_ID_ALLOCATED_INACTIVE" as const,
-    approvalStatus: "QUESTIONS_AND_EXPLANATIONS_REOPENED_FOR_EDITORIAL_REMEDIATION" as const,
+    approvalStatus: "QUESTIONS_AND_EXPLANATIONS_APPROVED_EDITORIAL_V3" as const,
     lifecycle: Object.freeze({
       permanentQlId,
       identityStatus: "PERMANENT_ID_ALLOCATED" as const,
-      contentStatus: "QUESTIONS_AND_EXPLANATIONS_REOPENED_EDITORIAL_REMEDIATION_V3" as const,
+      contentStatus: "QUESTIONS_AND_EXPLANATIONS_APPROVED_EDITORIAL_V3" as const,
       active: false as const,
       questionStudioDiscoverable: false as const,
       questionBankWritable: false as const,
@@ -111,9 +111,10 @@ export const SAP_CP003_PERMANENT_STATE = Object.freeze({
   permanentQlCount: SAP_CP003_PERMANENT_QL_IDS.length,
   nextAvailableQlId: "SAP-QL-053" as const,
   allocationApproval: "PRODUCT_OWNER_APPROVED_CP003_QA_2026_08_07" as const,
-  questionAndAnswerReview: "REOPENED_EDITORIAL_REMEDIATION_V3" as const,
-  fullEditorialReview: "FULL_300_QUESTION_CANDIDATE_PENDING_HUMAN_APPROVAL" as const,
-  englishExplanationFreeze: "BLOCKED_PENDING_RENEWED_QA_APPROVAL" as const,
+  editorialApproval: "PRODUCT_OWNER_APPROVED_CP003_EDITORIAL_V3_2026_08_08" as const,
+  questionAndAnswerReview: "APPROVED_EDITORIAL_REMEDIATION_V3" as const,
+  fullEditorialReview: "FULL_300_QUESTION_HUMAN_APPROVED" as const,
+  englishExplanationFreeze: "HUMAN_APPROVED_PENDING_MERGE" as const,
   active: false as const,
   questionStudioDiscoverable: false as const,
   questionBankWritable: false as const,
