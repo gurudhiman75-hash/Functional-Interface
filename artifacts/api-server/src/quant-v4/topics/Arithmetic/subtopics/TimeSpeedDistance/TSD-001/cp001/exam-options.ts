@@ -114,21 +114,21 @@ export function examOptionPackage(
         const metresPerSecond = multiply(correct, r(5, 18));
         candidates = [
           [metresPerSecond, "OMIT_UNIT_CONVERSION"],
-          [multiply(metresPerSecond, r(3)), "USE_THREE_INSTEAD_OF_THREE_POINT_SIX"],
-          [multiply(metresPerSecond, r(4)), "USE_FOUR_INSTEAD_OF_THREE_POINT_SIX"],
+          [multiply(metresPerSecond, r(3)), "USE_WRONG_CONVERSION_FACTOR"],
+          [multiply(metresPerSecond, r(4)), "USE_WRONG_CONVERSION_FACTOR"],
         ];
       } else if (input.outputUnit === "MPS") {
         const kilometresPerHour = multiply(correct, r(18, 5));
         candidates = [
           [kilometresPerHour, "OMIT_UNIT_CONVERSION"],
-          [divide(kilometresPerHour, r(3)), "USE_THREE_INSTEAD_OF_THREE_POINT_SIX"],
-          [divide(kilometresPerHour, r(4)), "USE_FOUR_INSTEAD_OF_THREE_POINT_SIX"],
+          [divide(kilometresPerHour, r(3)), "USE_WRONG_CONVERSION_FACTOR"],
+          [divide(kilometresPerHour, r(4)), "USE_WRONG_CONVERSION_FACTOR"],
         ];
       } else if (input.outputUnit === "M_PER_MINUTE") {
         candidates = [
           [divide(input.distance, input.duration), "OMIT_UNIT_CONVERSION"],
-          [divide(correct, r(10)), "USE_HUNDRED_INSTEAD_OF_THOUSAND"],
-          [multiply(correct, r(10)), "USE_TEN_THOUSAND_INSTEAD_OF_THOUSAND"],
+          [divide(correct, r(10)), "USE_WRONG_CONVERSION_FACTOR"],
+          [multiply(correct, r(10)), "USE_WRONG_CONVERSION_FACTOR"],
         ];
       } else {
         return fallback;
