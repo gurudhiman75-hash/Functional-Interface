@@ -1,0 +1,88 @@
+name: Export SER-001 CP-007 native-language review
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-LOCALIZATION/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-PERMANENT-QL-REGISTRY.ts"
+      - ".github/workflows/ser-001-cp007-native-language-review.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ser-001-cp007-native-language-review-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  export-native-language-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare review evidence directory
+        run: mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp007-native-language-review
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Export 104 English Hindi Punjabi review triplets
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-LOCALIZATION
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-native-language-review
+          FILE="$EVIDENCE/SER-001-Hindi-Punjabi-Native-Language-Review-104.md"
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/export-native-language-review-104.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/export-native-language-review-104.mjs"
+          (cd artifacts/api-server && node "$OUT/export-native-language-review-104.mjs") > "$FILE"
+
+      - name: Validate native-language review pack
+        run: |
+          set -euo pipefail
+          FILE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-native-language-review/SER-001-Hindi-Punjabi-Native-Language-Review-104.md
+          grep -q '^# SER-001 Hindi and Punjabi Native-Language Review — 104 Triplets$' "$FILE"
+          grep -q '^Review triplets: 104$' "$FILE"
+          grep -q '^Localized candidate records: 208$' "$FILE"
+          grep -q '^Permanent QLs represented: 13$' "$FILE"
+          grep -q '^Records per permanent QL: 8$' "$FILE"
+          grep -q '^Question Studio: disabled$' "$FILE"
+          grep -q '^Public publication: disabled$' "$FILE"
+          REVIEW_COUNT=$(grep -c '^## Review Item [0-9][0-9][0-9]$' "$FILE")
+          HINDI_COUNT=$(grep -c '^### Hindi candidate$' "$FILE")
+          PUNJABI_COUNT=$(grep -c '^### Punjabi candidate$' "$FILE")
+          ENGLISH_COUNT=$(grep -c '^### English frozen reference$' "$FILE")
+          test "$REVIEW_COUNT" -eq 104
+          test "$HINDI_COUNT" -eq 104
+          test "$PUNJABI_COUNT" -eq 104
+          test "$ENGLISH_COUNT" -eq 104
+          for QL in $(seq -w 1 13); do
+            COUNT=$(grep -c "\\`SER-QL-0${QL}\\`" "$FILE")
+            test "$COUNT" -eq 8
+          done
+
+      - name: Upload native-language review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ser-001-cp007-native-language-review-104
+          path: artifacts/api-server/dist/reasoning-v1/ser-001/cp007-native-language-review/
+          if-no-files-found: error
+          retention-days: 30
