@@ -79,6 +79,22 @@ function relationLabel(key: string, context: RnkCp005ContextFamily): string {
   }
 }
 
+function samePositionLabel(
+  context: RnkCp005ContextFamily,
+  first: string,
+  second: string,
+): string {
+  switch (context) {
+    case "ROW": return `${first} and ${second} are standing at the same position`;
+    case "QUEUE": return `${first} and ${second} occupy the same place in the queue`;
+    case "RACE_FINISH": return `${first} and ${second} finished at the same position`;
+    case "MERIT_LIST":
+    case "INTERVIEW_SHORTLIST":
+    case "PERFORMANCE_ORDER":
+      return `${first} and ${second} have the same rank`;
+  }
+}
+
 function endpointQuestion(context: RnkCp005ContextFamily, direction: RnkCp005Direction): string {
   const start = direction === "START";
   switch (context) {
@@ -173,7 +189,106 @@ function questionText(query: RnkCp005Query, context: RnkCp005ContextFamily): str
   }
 }
 
+function placeCorrectOption(
+  correct: RnkCp005Option,
+  distractors: readonly RnkCp005Option[],
+  correctIndex: number,
+): readonly RnkCp005Option[] {
+  const output: RnkCp005Option[] = [];
+  let distractorIndex = 0;
+  for (let index = 0; index < 4; index += 1) {
+    if (index === correctIndex) {
+      output.push(correct);
+    } else {
+      output.push(distractors[distractorIndex]);
+      distractorIndex += 1;
+    }
+  }
+  return output;
+}
+
+function pairRelationOptions(question: RnkCp005ReasoningQuestion): readonly RnkCp005Option[] {
+  if (question.query.kind !== "PAIR_RELATION") return question.options;
+  const { first, second } = question.query;
+  const [earlier, later] = question.answerKey.split(">");
+  const correct: RnkCp005Option = {
+    answerKey: question.answerKey,
+    label: relationLabel(question.answerKey, question.sharedPassage.contextFamily),
+    misconceptionId: "CORRECT_PAIR_RELATION",
+    explanation: "This direction agrees with the two names' positions in the uniquely reconstructed order",
+  };
+  const distractors: readonly RnkCp005Option[] = [
+    {
+      answerKey: `${later}>${earlier}`,
+      label: relationLabel(`${later}>${earlier}`, question.sharedPassage.contextFamily),
+      misconceptionId: "REVERSED_PAIR_RELATION",
+      explanation: "This reverses the relative order of the same two named people",
+    },
+    {
+      answerKey: `SAME_POSITION:${first}:${second}`,
+      label: samePositionLabel(question.sharedPassage.contextFamily, first, second),
+      misconceptionId: "SAME_POSITION_PAIR",
+      explanation: "The shared ranking assigns every person a different position, so the two cannot occupy one place",
+    },
+    {
+      answerKey: `UNDETERMINED:${first}:${second}`,
+      label: `The relative order of ${first} and ${second} cannot be determined`,
+      misconceptionId: "PAIR_RELATION_UNDETERMINED",
+      explanation: "The complete order is uniquely reconstructable, so their relative order is determined",
+    },
+  ];
+  return placeCorrectOption(correct, distractors, question.correctIndex);
+}
+
+function immediateNeighbourOptions(question: RnkCp005ReasoningQuestion): readonly RnkCp005Option[] {
+  if (question.query.kind !== "IMMEDIATE_NEIGHBOUR") return question.options;
+  const solved = solveRnkCp005ReasoningPassage(question.sharedPassage);
+  const order = solved.order;
+  const targetIndex = order.indexOf(question.query.target);
+  const answerIndex = order.indexOf(question.answerKey);
+  if (targetIndex < 0 || answerIndex < 0) throw new Error("Immediate-neighbour option target missing from order");
+
+  const oppositeIndex = question.query.direction === "BEFORE" ? targetIndex + 1 : targetIndex - 1;
+  const twoAwayIndex = question.query.direction === "BEFORE" ? targetIndex - 2 : targetIndex + 2;
+  const preferred = [order[oppositeIndex], order[twoAwayIndex], order[0], order[order.length - 1]];
+  const distractorNames = [...new Set([
+    ...preferred,
+    ...order,
+  ].filter((name): name is string => Boolean(name) && name !== question.query.target && name !== question.answerKey))].slice(0, 3);
+  if (distractorNames.length !== 3) throw new Error("Unable to build three immediate-neighbour distractors");
+
+  const correct: RnkCp005Option = {
+    answerKey: question.answerKey,
+    label: question.answerKey,
+    misconceptionId: "CORRECT_IMMEDIATE_NEIGHBOUR",
+    explanation: "This person is directly next to the target on the requested side",
+  };
+  const distractors = distractorNames.map((name) => {
+    const position = order.indexOf(name);
+    const distance = Math.abs(position - targetIndex);
+    const misconceptionId = position === oppositeIndex
+      ? "OPPOSITE_SIDE_NEIGHBOUR"
+      : distance === 2
+        ? "TWO_PLACES_AWAY"
+        : "OTHER_VALID_ENTITY";
+    const explanation = position === oppositeIndex
+      ? "This person is immediately next to the target, but on the opposite side"
+      : distance === 2
+        ? "This person is two positions away rather than immediately adjacent"
+        : "This person occupies another valid position but is not the requested immediate neighbour";
+    return {
+      answerKey: name,
+      label: name,
+      misconceptionId,
+      explanation,
+    } satisfies RnkCp005Option;
+  });
+  return placeCorrectOption(correct, distractors, question.correctIndex);
+}
+
 function polishedOptions(question: RnkCp005ReasoningQuestion): readonly RnkCp005Option[] {
+  if (question.query.kind === "PAIR_RELATION") return pairRelationOptions(question);
+  if (question.query.kind === "IMMEDIATE_NEIGHBOUR") return immediateNeighbourOptions(question);
   if (question.answerSemantic !== "RELATION") return question.options;
   return question.options.map((option) => ({
     ...option,
