@@ -2,14 +2,30 @@
 
 ## Current decision
 
-**NOT FROZEN.**
+**ENGLISH MOCK FREEZE APPROVED.**
 
-Automated design, implementation and QA gates are clean. The package cannot be frozen because the required human editorial review has not yet been signed off.
+PRB-001 is approved for English SSC, banking-prelims and Punjab recruitment-style practice and scored mocks. This is an English mock-readiness freeze, not a multilingual or public-publication freeze.
 
-## Required before freeze
+## Human approval
 
-1. Complete all 75 rows in `human-review-en.csv`.
-2. Resolve every editorial or mathematical issue identified by the reviewer.
-3. Re-run package, residual, diversity, duplicate, multilingual and Question Studio audits.
-4. Record reviewer identity, approval date and approved commit SHA.
-5. Only then change public/test eligibility in a separate reviewed PR.
+- Reviewer/owner: Gurbaj Singh
+- Approval date: 2026-08-08
+- Approval basis: final human review of the regenerated 135-question Probability review, including the corrected self-contained mathematical rendering
+- Approved branch commit: `4b8d65b5df44c74dcf6b85ac1dd011bca06ed8ba`
+- Blocking workflow: Probability editorial remediation run `31251921954` — passed
+
+## Approved controls
+
+1. All generated questions retain exact mathematical verification and deterministic validation.
+2. `PRB-QL-004` and `PRB-QL-010` are learning-only certainty diagnostics and must not enter scored mocks.
+3. Every question carries a mock-family identifier and `maxPerMock: 1`, preventing same-template repetition in a single mock.
+4. Routine questions retain their source labels for compatibility but carry an independently audited effective mock difficulty.
+5. English questions are marked `APPROVED_EDITORIAL_ENGLISH` and mock eligible according to their per-question policy.
+
+## Remaining outside this freeze
+
+- Hindi and Punjabi localisation/parity review
+- public publication
+- unrestricted question-bank release without family-level selection controls
+
+Any change to mathematics, stems, answer keys, option generation, explanation logic or mock-family policy requires the full Probability workflow to pass again before the English mock freeze can be retained.
