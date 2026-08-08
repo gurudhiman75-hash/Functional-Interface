@@ -5,6 +5,7 @@ import "./open-containers.test";
 import "./inverse-thickness-length.test";
 import "./hollow-boxes.test";
 import "./spherical-shells.test";
+import "./hidden-face-exposure.test";
 import assert from "node:assert/strict";
 import { getMenCp011FoundationPrototypeIds } from "./registry";
 import { generateMenCp011FoundationPrototype } from "./runtime";
