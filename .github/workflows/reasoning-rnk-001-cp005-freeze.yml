@@ -63,6 +63,13 @@ jobs:
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-editorial-gates.test.ts \
             | tee rnk-cp005-editorial.log
 
+      - name: Validate CP-005 pair and neighbour options
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-option-quality-v2.test.ts \
+            | tee rnk-cp005-option-quality.log
+
       - name: Validate CP-005 permanent projection
         run: |
           set -o pipefail
@@ -92,6 +99,7 @@ jobs:
             rnk-cp005-foundation.log
             rnk-cp005-reasoning-remodel.log
             rnk-cp005-editorial.log
+            rnk-cp005-option-quality.log
             rnk-cp005-permanent-freeze.log
             rnk-question-studio-registry.log
             rnk-cp005-api-build.log
