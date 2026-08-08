@@ -1,6 +1,9 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { INT_CP004_QL_IDS } from "./cp004-frequency-math";
+import {
+  INT_CP004_QL_IDS,
+  completeAmountFromNominal,
+} from "./cp004-frequency-math";
 import { moneyText, percentText } from "./cp004-frequency-options";
 import { generateIntCp004EnglishFrozenQuestion } from "./cp004-english-frozen-runtime";
 import {
@@ -10,16 +13,28 @@ import {
 } from "./cp004-localization-language-pack";
 import { localizeCp004Explanation } from "./cp004-localized-explanations";
 import { localizeCp004Options } from "./cp004-localized-options";
-import { renderCp004EditorialStemV2 } from "./cp004-localized-editorial-v2";
+import { renderCp004LocalizedPresentationWave1 } from "./cp004-localized-presentation-wave1";
+import { renderCp004LocalizedPresentationWave2 } from "./cp004-localized-presentation-wave2";
+import { renderCp004LocalizedPresentationWave3 } from "./cp004-localized-presentation-wave3";
 
 function fail(message: string): never {
   throw new Error(message);
 }
 
-const BANNED_LANGUAGE = /(?:नाममात्र|ਨਾਮਮਾਤਰ|चक्रवृद्धि की आवृत्ति|ਚੱਕਰਵੱਧੀ ਦੀ ਆਵ੍ਰਿਤੀ|अवधि-संख्या|ਅਵਧੀ-ਗਿਣਤੀ|प्रति-अवधि|ਹਰ-ਅਵਧੀ|निवेश खाते का उपलब्ध विवरण|ਨਿਵੇਸ਼ ਖਾਤੇ ਦਾ ਉਪਲਬਧ ਵੇਰਵਾ|ब्याज योजना और अवधि का क्रम|ਵਿਆਜ ਯੋਜਨਾ ਅਤੇ ਮਿਆਦ ਦਾ ਕ੍ਰਮ)/u;
+const BANNED_LANGUAGE = /(?:नाममात्र|ਨਾਮਮਾਤਰ|चक्रवृद्धि की आवृत्ति|ਚੱਕਰਵੱਧੀ ਦੀ ਆਵ੍ਰਿਤੀ|अवधि-संख्या|ਅਵਧੀ-ਗਿਣਤੀ|प्रति-अवधि|ਹਰ-ਅਵਧੀ|प्रति अवधि दर|ਹਰ ਮਿਆਦ ਦੀ ਦਰ|निवेश खाते का उपलब्ध विवरण|ਨਿਵੇਸ਼ ਖਾਤੇ ਦਾ ਉਪਲਬਧ ਵੇਰਵਾ|ब्याज योजना और अवधि का क्रम|ਵਿਆਜ ਯੋਜਨਾ ਅਤੇ ਮਿਆਦ ਦਾ ਕ੍ਰਮ)/u;
 const BAD_HINDI_ORDINAL = /\b\d+(?:वीं|वाँ|वें)\s+(?:माह|महीना|वर्ष|अर्धवर्ष|तिमाही)/u;
 const BAD_PUNJABI_ORDINAL = /\b\d+ਵੀਂ\s+(?:ਮਹੀਨਾ|ਸਾਲ|ਛਿਮਾਹੀ|ਤਿਮਾਹੀ)/u;
 const ROUNDING_CHAIN = /(?:के बाद राशि|ਤੋਂ ਬਾਅਦ ਰਕਮ)\s*=\s*₹[\d,.]+\s*×/u;
+const AMBIGUOUS_FRACTION_RATE = /\b\d+\/\d+\/100\b/u;
+
+function renderStem(
+  source: ReturnType<typeof generateIntCp004EnglishFrozenQuestion>,
+  locale: "hi-IN" | "pa-IN",
+): string {
+  if (source.qlId <= "INT-QL-072") return renderCp004LocalizedPresentationWave1(source, locale);
+  if (source.qlId <= "INT-QL-078") return renderCp004LocalizedPresentationWave2(source, locale);
+  return renderCp004LocalizedPresentationWave3(source, locale);
+}
 
 let questionCases = 0;
 let stemChecks = 0;
@@ -32,6 +47,9 @@ let inverseDerivationChecks = 0;
 let optionTestingChecks = 0;
 let conciseSolutionChecks = 0;
 let roundingSafetyChecks = 0;
+let formulaClarityChecks = 0;
+let frequencyComparisonLeakChecks = 0;
+let brokenPeriodPromptChecks = 0;
 let representationChecks = 0;
 const qlCounts: Record<string, number> = {};
 const maximumStepsByQl: Record<string, number> = {};
@@ -41,7 +59,7 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
     for (let index = 0; index < 100; index += 1) {
       const seed = `int-cp004-editorial-v2:${qlId}:${index}`;
       const source = generateIntCp004EnglishFrozenQuestion(qlId, seed);
-      const stem = renderCp004EditorialStemV2(source, locale);
+      const stem = renderStem(source, locale);
       const options = localizeCp004Options(source, locale);
       const explanation = localizeCp004Explanation(source, locale);
       const learnerText = [
@@ -100,6 +118,11 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
         fail(`${qlId}/${seed}/${locale}: rounded intermediate balance is reused in a visible multiplication.`);
       }
 
+      formulaClarityChecks += 1;
+      if (AMBIGUOUS_FRACTION_RATE.test(learnerText)) {
+        fail(`${qlId}/${seed}/${locale}: an unparenthesized fractional percentage appears as x/y/100.`);
+      }
+
       if (qlId === "INT-QL-073" || qlId === "INT-QL-074") {
         explicitPeriodChecks += 3;
         const state = source.mathematicalState;
@@ -131,6 +154,39 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
           fail(`${qlId}/${seed}/${locale}: answer rate is substituted without an explicit option check.`);
         }
       }
+
+      if (qlId === "INT-QL-075") {
+        frequencyComparisonLeakChecks += 1;
+        if (structured) {
+          const state = source.mathematicalState;
+          const firstAmount = completeAmountFromNominal(
+            state.principal,
+            state.nominalAnnualRatePercent,
+            state.frequency,
+            state.frequency * state.years,
+          );
+          const secondAmount = completeAmountFromNominal(
+            state.principal,
+            state.nominalAnnualRatePercent,
+            state.comparisonFrequency,
+            state.comparisonFrequency * state.years,
+          );
+          if (stem.includes(moneyText(firstAmount)) || stem.includes(moneyText(secondAmount))) {
+            fail(`${qlId}/${seed}/${locale}: comparison stem reveals a computed scheme amount.`);
+          }
+        }
+      }
+
+      if (qlId === "INT-QL-080") {
+        brokenPeriodPromptChecks += 1;
+        const expected = locale === "hi-IN" ? "कुल ब्याज" : "ਕੁੱਲ ਵਿਆਜ";
+        const rejected = locale === "hi-IN"
+          ? "चक्रवृद्धि ब्याज ज्ञात कीजिए"
+          : "ਚੱਕਰਵੱਧੀ ਵਿਆਜ ਪਤਾ ਲਗਾਓ";
+        if (!stem.includes(expected) || stem.includes(rejected)) {
+          fail(`${qlId}/${seed}/${locale}: broken-period question must ask for total interest.`);
+        }
+      }
     }
   }
 }
@@ -142,6 +198,8 @@ for (const [key, count] of Object.entries(qlCounts)) {
 if (explicitPeriodChecks !== 1200) fail(`Expected 1,200 direct-period checks, received ${explicitPeriodChecks}.`);
 if (inverseDerivationChecks !== 600) fail(`Expected 600 inverse-principal checks, received ${inverseDerivationChecks}.`);
 if (optionTestingChecks !== 600) fail(`Expected 600 option-testing checks, received ${optionTestingChecks}.`);
+if (frequencyComparisonLeakChecks !== 200) fail(`Expected 200 comparison-leak checks, received ${frequencyComparisonLeakChecks}.`);
+if (brokenPeriodPromptChecks !== 200) fail(`Expected 200 broken-period prompt checks, received ${brokenPeriodPromptChecks}.`);
 
 const outputDirectory = join(process.cwd(), "dist", "quant-v4", "int-cp004-localized-editorial-v2");
 mkdirSync(outputDirectory, { recursive: true });
@@ -161,6 +219,9 @@ const summary = {
   optionTestingChecks,
   conciseSolutionChecks,
   roundingSafetyChecks,
+  formulaClarityChecks,
+  frequencyComparisonLeakChecks,
+  brokenPeriodPromptChecks,
   representationChecks,
   maximumStepsByQl,
   rejectedTerms: [
@@ -172,6 +233,8 @@ const summary = {
     "circular inverse derivations",
     "hidden option substitution",
     "rounded balance chains",
+    "ambiguous x/y/100 rate notation",
+    "computed scheme amounts in comparison stems",
   ],
   lifecycle: {
     enabled: false,
