@@ -19,6 +19,16 @@ replace_once(
     "function probabilityLine(favourable: number | bigint | string, total: number | bigint | string, answer: string): string {",
     "rendered evidence count typing",
 )
+replace_once(
+    remodeler,
+    '''  const bothText = context.action === "play"
+    ? `${both} play both games`
+    : `${both} ${context.groupNoun} satisfy both conditions`;''',
+    '''  const bothText = context.action === "play"
+    ? `${both} ${both === 1 ? context.groupNoun.slice(0, -1) : context.groupNoun} ${both === 1 ? "plays" : "play"} both games`
+    : `${both} ${both === 1 ? context.groupNoun.slice(0, -1) : context.groupNoun} ${both === 1 ? "satisfies" : "satisfy"} both conditions`;''',
+    "singular event overlap wording",
+)
 
 pipeline = ROOT / "shared/pipeline.ts"
 replace_once(
