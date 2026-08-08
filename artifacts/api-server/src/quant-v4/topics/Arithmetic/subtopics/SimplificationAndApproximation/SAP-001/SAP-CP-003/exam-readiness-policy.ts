@@ -33,7 +33,7 @@ export const SAP_CP003_EXAM_READINESS_POLICY: Readonly<Record<SapCp003PrototypeI
   "SAP-CP003-PROT-DECIMAL-FRACTION-MIXED-EXPRESSION": Object.freeze({
     releaseTier: "SSC_STANDARD",
     mockUse: "SSC_AND_BANKING_ELIGIBLE",
-    structuralRisk: "LOW",
+    structuralRisk: "MEDIUM",
     learnerUse: "Evaluate decimal and fraction combinations through four exact, cancellation-friendly operation frames.",
     mockWeightGuidance: "Normal controlled weight across fraction-of, mixed bracket, subtraction-chain and bracket-division frames.",
   }),
