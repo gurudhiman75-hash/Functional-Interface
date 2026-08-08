@@ -92,19 +92,23 @@ for (const question of bank) {
   assert.equal(question.questionBankEligible, false);
   assert.equal(question.mockTestEligible, false);
   assert.deepEqual(question.metadata.activeEditorialBlockers, ["HUMAN_EDITORIAL_APPROVAL_PENDING"]);
-  const learnerText = JSON.stringify({
-    sharedPrompt: question.sharedPrompt,
-    stem: question.stem,
-    options: question.options.map((option) => ({ text: option.text, explanation: option.studentExplanation })),
-    steps: question.explanation.steps,
-    conclusion: question.explanation.conclusion,
-    shortcut: question.explanation.shortcut,
-    commonTrap: question.explanation.commonTrap,
-  });
+  const learnerFields = [
+    question.sharedPrompt,
+    question.stem,
+    ...question.options.map((option) => option.text),
+    ...question.options.map((option) => option.studentExplanation),
+    ...question.explanation.steps,
+    question.explanation.conclusion,
+    question.explanation.shortcut ?? "",
+    question.explanation.commonTrap ?? "",
+  ];
+  const learnerText = learnerFields.join("\n");
   assert(!/\btoken(?:s)?\b/i.test(learnerText));
   assert(!/\b(?:red|blue|green|white|black|amber|silver|gold)\b/i.test(learnerText));
-  assert(!/\bso\s+[A-Z]+\s+is\b[^.]*\bis not established\b/i.test(learnerText));
-  assert(!/\bthat\s+[A-Z]+\s+is\b[^.]*\bis not established\b/i.test(learnerText));
+  for (const field of learnerFields) {
+    assert(!/\bso\s+[A-Z]+\s+is\b[^.]*\bis not established\b/i.test(field));
+    assert(!/\bthat\s+[A-Z]+\s+is\b[^.]*\bis not established\b/i.test(field));
+  }
   if (question.delivery.mode === "SHARED_SET") {
     const setId = question.delivery.setId!;
     sharedSets.set(setId, [...(sharedSets.get(setId) ?? []), question]);
