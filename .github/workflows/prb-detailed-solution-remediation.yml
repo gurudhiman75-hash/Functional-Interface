@@ -21,20 +21,8 @@ jobs:
         with:
           node-version: 20
 
-      - name: Apply polished worked-solution remediation
-        run: |
-          python scripts/prb_solution_polish_patch.py
-          python scripts/prb_final_editorial_polish.py
-          python - <<'PY'
-          from pathlib import Path
-          path = Path("artifacts/api-server/src/quant-v4/topics/Probability/shared/validator.ts")
-          text = path.read_text(encoding="utf-8")
-          text = text.replace(
-              'const minimumExplanationLines = entry.difficulty === "Easy" ? 4 : 5;',
-              'const minimumExplanationLines = entry.difficulty === "Hard" ? 5 : 4;',
-          )
-          path.write_text(text, encoding="utf-8")
-          PY
+      - name: Apply final worked-solution editorial polish
+        run: python scripts/prb_final_editorial_polish.py
 
       - name: Probability TypeScript integration
         run: >-
