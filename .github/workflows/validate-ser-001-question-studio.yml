@@ -1,0 +1,113 @@
+name: Validate SER-001 Question Studio integration
+
+on:
+  push:
+    branches:
+      - salvage/ser-001-clean-integration
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/**"
+      - "artifacts/api-server/src/routes/admin-question-studio-series.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-dashboard-lifecycle.ts"
+      - "artifacts/api-server/src/routes/index.ts"
+      - "artifacts/api-server/src/lib/admin-question-studio-approval-policy.ts"
+      - "artifacts/api-server/src/lib/admin-question-studio-approval-policy.test.ts"
+      - "artifacts/admin-app/src/features/question-studio/api.ts"
+      - ".github/workflows/validate-ser-001-question-studio.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/**"
+      - "artifacts/api-server/src/routes/admin-question-studio-series.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-dashboard-lifecycle.ts"
+      - "artifacts/api-server/src/routes/index.ts"
+      - "artifacts/api-server/src/lib/admin-question-studio-approval-policy.ts"
+      - "artifacts/api-server/src/lib/admin-question-studio-approval-policy.test.ts"
+      - "artifacts/admin-app/src/features/question-studio/api.ts"
+      - ".github/workflows/validate-ser-001-question-studio.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-series-review-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API TypeScript contracts
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck admin Question Studio contracts
+        run: pnpm --dir artifacts/admin-app typecheck
+
+      - name: Prove explicit review-only approval boundary
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          pnpm exec esbuild \
+            src/lib/admin-question-studio-approval-policy.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/lib/.admin-question-studio-approval-policy.test.mjs \
+            2>&1 | tee "$GITHUB_WORKSPACE/ser-approval-policy.log"
+          node src/lib/.admin-question-studio-approval-policy.test.mjs \
+            2>&1 | tee -a "$GITHUB_WORKSPACE/ser-approval-policy.log"
+
+      - name: Run 420-payload multilingual Series proof
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Series/SER-001/SER-CP-007-QUESTION-STUDIO-INTEGRATION/ser-cp-007-question-studio-integration.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-QUESTION-STUDIO-INTEGRATION/.ser-cp-007-question-studio-integration.test.mjs \
+            2>&1 | tee "$GITHUB_WORKSPACE/ser-question-studio-integration.log"
+          node src/reasoning-v1/topics/Series/SER-001/SER-CP-007-QUESTION-STUDIO-INTEGRATION/.ser-cp-007-question-studio-integration.test.mjs \
+            2>&1 | tee -a "$GITHUB_WORKSPACE/ser-question-studio-integration.log"
+
+      - name: Run PNL canonical-review regression proof
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          pnpm exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-review-runtime.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-review-runtime.ser-regression.test.mjs \
+            2>&1 | tee "$GITHUB_WORKSPACE/pnl-series-regression.log"
+          node src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-review-runtime.ser-regression.test.mjs \
+            2>&1 | tee -a "$GITHUB_WORKSPACE/pnl-series-regression.log"
+          pnpm exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-integration.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-integration.ser-regression.test.mjs \
+            2>&1 | tee -a "$GITHUB_WORKSPACE/pnl-series-regression.log"
+          node src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-integration.ser-regression.test.mjs \
+            2>&1 | tee -a "$GITHUB_WORKSPACE/pnl-series-regression.log"
+
+      - name: Upload merge-gate proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ser-001-question-studio-merge-gate
+          path: |
+            ser-approval-policy.log
+            ser-question-studio-integration.log
+            pnl-series-regression.log
+          if-no-files-found: warn
+          retention-days: 14
