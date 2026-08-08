@@ -72,7 +72,7 @@ for (const definition of SYL_QL_REGISTRY) {
       assert.equal(presentation.remediationEvidence.nativeEnglishEditorialStatus, "APPROVED_BY_PRODUCT_OWNER");
       assert.equal(presentation.remediationEvidence.nativeHindiEditorialStatus, "APPROVED_BY_PRODUCT_OWNER");
       assert.equal(presentation.remediationEvidence.nativePunjabiEditorialStatus, "APPROVED_BY_PRODUCT_OWNER");
-      assert.equal(presentation.remediationEvidence.humanViewportStatus, "PENDING");
+      assert.equal(presentation.remediationEvidence.humanViewportStatus, "APPROVED");
 
       if (presentation.diagram.enabled) {
         enabledDiagrams += 1;
@@ -208,9 +208,9 @@ console.log(JSON.stringify({
     deadInconsistentOptionOccurrences,
     questionExplanationEditorialReview: "APPROVED_BY_PRODUCT_OWNER",
     diagramPolicy: "VERIFIED_SIMPLE_VENN_OR_OMIT",
+    humanViewportReview: "APPROVED_BY_PRODUCT_OWNER",
   },
   retainedReleaseBlockers: {
-    humanViewportReview: "PENDING_AFTER_DIAGRAM_REDESIGN",
     mockWeightCalibration: "PENDING_SEPARATE_SOURCE_DECISION",
   },
   lifecycle: {
