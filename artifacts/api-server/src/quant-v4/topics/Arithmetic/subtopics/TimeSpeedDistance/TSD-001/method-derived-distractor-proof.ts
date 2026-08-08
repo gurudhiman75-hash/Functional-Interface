@@ -166,7 +166,7 @@ for (const question of direct) methodDerivedWrongOptions += assertExpectedOption
 for (const question of mixed) methodDerivedWrongOptions += assertExpectedOptions(question, expectedMixed(question));
 for (const question of elapsed) methodDerivedWrongOptions += assertExpectedOptions(question, expectedElapsed(question));
 for (const question of deadline) methodDerivedWrongOptions += assertExpectedOptions(question, expectedDeadline(question));
-assert(methodDerivedWrongOptions === 43, `Expected 43 method-derived wrong options, received ${methodDerivedWrongOptions}`);
+assert(methodDerivedWrongOptions === 57, `Expected 57 method-derived wrong options, received ${methodDerivedWrongOptions}`);
 
 for (const question of cp001) {
   question.optionAudit.forEach((audit, index) => {
