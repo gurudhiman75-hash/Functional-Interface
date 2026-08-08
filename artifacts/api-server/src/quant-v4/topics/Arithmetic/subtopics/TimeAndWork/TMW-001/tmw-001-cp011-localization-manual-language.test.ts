@@ -8,6 +8,7 @@ const titles: Record<TmwLocalizedLanguage, Set<string>> = { hi: new Set(), pa: n
 const internalPattern = /find[A-Z]|TMW_|misconceptionId|publiclyPublishable/;
 const englishPattern = /\b(?:output|rate|target|worker|crew|day|days|total|threshold|table|deadline|increase|decrease|multiplier|files|components|booklets|cartons|sections|crates|arithmetic|geometric|sequence)\b/i;
 const genericPattern = /10-सेकंड|10-ਸਕਿੰਟ|सही नियम लिखें|ठीक नियम लिखो|ਸਹੀ ਨਿਯਮ ਲਿਖੋ|एक ही दिन की दर सभी दिनों|ਇੱਕੋ ਦਿਨ ਦੀ ਦਰ ਸਾਰੇ ਦਿਨਾਂ|संबंधित औसत, अवधि या दर|ਸੰਬੰਧਿਤ ਔਸਤ, ਮਿਆਦ ਜਾਂ ਦਰ/;
+const unexplainedTeachingSymbolPattern = /(?<![A-Za-z0-9_])(?:AP|GP|[adknqrtG])(?![A-Za-z0-9_])/;
 let checked = 0;
 
 for (const entry of TMW_CP_011_REGISTRY) {
@@ -34,6 +35,7 @@ for (const entry of TMW_CP_011_REGISTRY) {
       const internal = find(internalPattern);
       const english = find(englishPattern);
       const generic = find(genericPattern);
+      const unexplainedTeachingSymbol = find(unexplainedTeachingSymbolPattern);
       const devanagari = language === "pa" ? find(/[\u0900-\u0963\u0966-\u097F]/) : undefined;
       const gurmukhi = language === "hi" ? find(/[\u0A00-\u0A7F]/) : undefined;
       const rawMixed = find(/\b\d+\s+\d+\/\d+\b/);
@@ -46,6 +48,7 @@ for (const entry of TMW_CP_011_REGISTRY) {
       assert.equal(internal, undefined, `${context}: internal wording in ${describe(internal)}`);
       assert.equal(english, undefined, `${context}: English wording in ${describe(english)}`);
       assert.equal(generic, undefined, `${context}: generic wording in ${describe(generic)}`);
+      assert.equal(unexplainedTeachingSymbol, undefined, `${context}: unexplained teaching symbol in ${describe(unexplainedTeachingSymbol)}`);
       assert.equal(devanagari, undefined, `${context}: Devanagari leakage in ${describe(devanagari)}`);
       assert.equal(gurmukhi, undefined, `${context}: Gurmukhi leakage in ${describe(gurmukhi)}`);
       assert.equal(rawMixed, undefined, `${context}: raw mixed fraction in ${describe(rawMixed)}`);
