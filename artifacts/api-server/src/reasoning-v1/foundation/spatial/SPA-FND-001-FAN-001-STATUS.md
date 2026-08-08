@@ -43,13 +43,14 @@ Rule coverage:
 ## Validated remediation proof
 
 ```text
-Head:       f4de5af835ca859f7ee3dc589dc2196736bf9d9e
-Workflow:   Validate SPA-FND-001 FAN-001 proof
-Run:        31248627658 — PASS
-Artifact:   spa-fan-001-editorial-review
-Artifact ID: 9019284458
-Digest:     sha256:4c18b6a9e8d9c4701533fdb6bddb88045d88c9a07f627828243e14f7738a1053
-Status:     PASS_SPA_FND_001_FAN_001_VISUAL_REMEDIATION
+Implementation head: f4de5af835ca859f7ee3dc589dc2196736bf9d9e
+Final PR head:       37773afcd5f4653d6c54e7616c88f2bf88fe0f97
+Workflow:            Validate SPA-FND-001 FAN-001 proof
+Final run:           31248665424 — PASS
+Artifact:            spa-fan-001-editorial-review
+Artifact ID:         9019296540
+Digest:              sha256:a1c986dd8cdf64dc1f110bf62aa2a4adb4270f70ad83df1840b0e1c9d21a50e4
+Status:              PASS_SPA_FND_001_FAN_001_VISUAL_REMEDIATION
 ```
 
 Passed proof layers:
