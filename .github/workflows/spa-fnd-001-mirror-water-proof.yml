@@ -1,0 +1,60 @@
+name: Validate SPA-FND-001 Mirror Water proof
+
+on:
+  pull_request:
+    branches:
+      - feat/spa-fnd-001-visual-runtime
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/**
+      - artifacts/api-server/src/reasoning-v1/topics/Non-Verbal-Reasoning/Mirror-Images/MIR-001/**
+      - artifacts/api-server/src/reasoning-v1/topics/Non-Verbal-Reasoning/Water-Images/WAT-001/**
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-mirror-water-proof.test.ts
+      - .github/workflows/spa-fnd-001-mirror-water-proof.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: spa-fnd-001-mirror-water-proof-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-mirror-water-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle foundation regression proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-foundation.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-foundation.test.mjs
+      - name: Run foundation regression proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-foundation.test.mjs
+      - name: Bundle Mirror Water corpus proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-mirror-water-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-mirror-water-proof.test.mjs
+      - name: Run Mirror Water corpus proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-mirror-water-proof.test.mjs
