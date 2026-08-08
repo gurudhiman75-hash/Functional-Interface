@@ -17,6 +17,21 @@ function changedPositions(
   return changed;
 }
 
+function visibleText(question: GeneratedBlrCp007EditorialV4Question): string {
+  return JSON.stringify({
+    sharedPrompt: question.sharedPrompt,
+    stem: question.stem,
+    options: question.options.map((option) => ({ text: option.text, explanation: option.studentExplanation })),
+    explanation: {
+      steps: question.explanation.steps,
+      conclusion: question.explanation.conclusion,
+      shortcut: question.explanation.shortcut,
+      commonTrap: question.explanation.commonTrap,
+      optionAnalysis: question.explanation.optionAnalysis.map((analysis) => analysis.explanation),
+    },
+  });
+}
+
 const bank = generateBlrCp007EditorialV4Wave3FinalBank();
 const telemetry = buildBlrCp007EditorialV4Wave3FinalTelemetry(bank);
 const ql031ResidualDistractorGaps = bank
@@ -51,9 +66,16 @@ const semanticAmbiguities = bank
       })),
     }];
   });
+const malformedLearnerMatches = bank.flatMap((question) => {
+  const text = visibleText(question);
+  const first = text.match(/\bso\s+[A-Z]+\s+is\b[^.]*\bis not established\b/i)?.[0];
+  const second = text.match(/\bthat\s+[A-Z]+\s+is\b[^.]*\bis not established\b/i)?.[0];
+  return first || second ? [{ itemId: question.itemId, qlId: question.qlId, match: first ?? second }] : [];
+});
 
 console.log(JSON.stringify({
   telemetry,
   ql031ResidualDistractorGaps,
   semanticAmbiguities,
+  malformedLearnerMatches,
 }, null, 2));
