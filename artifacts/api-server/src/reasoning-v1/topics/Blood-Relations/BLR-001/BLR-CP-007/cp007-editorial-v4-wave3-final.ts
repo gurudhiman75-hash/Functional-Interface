@@ -5,6 +5,7 @@ import {
   generateBlrCp007EditorialV4Wave3Bank,
   type BlrCp007V4Wave3Telemetry,
 } from "./cp007-editorial-v4-wave3";
+import { remodelQl034 as remodelSecureQl034 } from "./cp007-editorial-v4-wave3-ql034-secure";
 import { fingerprint, promptFor, targetSentence } from "./cp007-editorial-v4-wave3-core";
 
 export const BLR_CP007_V4_WAVE3_FINAL_REVIEW_AUTHORITY =
@@ -13,6 +14,7 @@ export const BLR_CP007_V4_WAVE3_FINAL_REVIEW_AUTHORITY =
 export interface BlrCp007V4Wave3FinalTelemetry extends BlrCp007V4Wave3Telemetry {
   semanticAmbiguityCount: number;
   malformedLearnerExplanationCount: number;
+  ql034AnswerMentionedInTargetCount: number;
   ql034MaximumStatementCount: number;
   ql034AverageStatementCount: number;
   maximumDisplayedCodeKeySize: number;
@@ -124,7 +126,15 @@ function finalFingerprint(question: GeneratedBlrCp007EditorialV4Question): strin
 }
 
 export function generateBlrCp007EditorialV4Wave3FinalBank(): readonly GeneratedBlrCp007EditorialV4Question[] {
-  const polished = generateBlrCp007EditorialV4Wave3Bank().map(polishQl034);
+  let ql034Index = 0;
+  const secured = generateBlrCp007EditorialV4Wave3Bank().map((question) => {
+    if (question.qlId !== "BLR-QL-034") return question;
+    const index = ql034Index++;
+    return index >= 18 && index <= 25
+      ? remodelSecureQl034(question, index)
+      : question;
+  });
+  const polished = secured.map(polishQl034);
   const tokensByGroup = new Map<string, Set<string>>();
   for (const question of polished) {
     const group = deliveryGroup(question);
@@ -185,11 +195,16 @@ export function buildBlrCp007EditorialV4Wave3FinalTelemetry(
     question.options.filter((option) => option.targetRelationSatisfied).length !== 1,
   ).length;
   const malformedLearnerExplanationCount = bank.filter(hasMalformedExplanation).length;
+  const ql034AnswerMentionedInTargetCount = ql034.filter((question) => {
+    if (question.query.kind !== "MISSING_PERSON") return false;
+    return [question.query.target.subjectId, question.query.target.referenceId].includes(question.answer);
+  }).length;
   const keySizes = bank.map((question) => question.codeKey.length);
   return {
     ...base,
     semanticAmbiguityCount,
     malformedLearnerExplanationCount,
+    ql034AnswerMentionedInTargetCount,
     ql034MaximumStatementCount: Math.max(...statementCounts),
     ql034AverageStatementCount: Number((statementCounts.reduce((sum, value) => sum + value, 0) / statementCounts.length).toFixed(3)),
     maximumDisplayedCodeKeySize: Math.max(...keySizes),
