@@ -63,10 +63,15 @@ const modalDiagnosticRecords = questions.filter((question) =>
 const enabledDiagramRecords = questions.filter((question) =>
   question.learnerPresentationV5.diagram.enabled
   && Boolean(question.learnerPresentationV5.diagram.svg)).length;
-const focusedVennFallbackRecords = questions.filter((question) =>
-  question.learnerPresentationV5.diagram.semanticSignature.startsWith("syl-v5:focused-venn:")).length;
-const nonVennRecords = questions.filter((question) => {
+const omittedComplexRecords = questions.filter((question) =>
+  question.learnerPresentationV5.diagram.omissionReason === "MORE_THAN_THREE_TERMS").length;
+const omittedUnstableRecords = questions.filter((question) =>
+  question.learnerPresentationV5.diagram.omissionReason === "NO_STABLE_SIMPLE_VENN").length;
+const learnerSafeVennRecords = questions.filter((question) =>
+  question.learnerPresentationV5.diagram.semanticSignature.startsWith("syl-v5:learner-safe-venn:enabled:")).length;
+const nonVennEnabledRecords = questions.filter((question) => {
   const diagram = question.learnerPresentationV5.diagram;
+  if (!diagram.enabled) return false;
   const svg = diagram.svg ?? "";
   return !/^VENN_/u.test(diagram.mode) || !/<(?:circle|ellipse)\b/u.test(svg);
 }).length;
@@ -82,11 +87,20 @@ const summary = {
   explanationModes: countBy(questions.map((question) => question.learnerPresentationV5.learnerExplanation.mode)),
   diagramModes: countBy(questions.map((question) => question.learnerPresentationV5.diagram.mode)),
   diagramCoverage: {
-    requiredRecords: questions.length,
     enabledRecords: enabledDiagramRecords,
-    missingRecords: questions.length - enabledDiagramRecords,
-    focusedVennFallbackRecords,
-    nonVennRecords,
+    omittedRecords: questions.length - enabledDiagramRecords,
+    omittedComplexRecords,
+    omittedUnstableRecords,
+    learnerSafeVennRecords,
+    nonVennEnabledRecords,
+  },
+  diagramContract: {
+    maximumTermsPerEnabledDiagram: 3,
+    maximumWitnessesPerEnabledDiagram: 2,
+    numberedWitnesses: 0,
+    separationCrosses: 0,
+    forcedComplexLayouts: 0,
+    mobileViewBox: "340 x 210",
   },
   modelEvidence: {
     requiredRecords: questions.filter((question) => question.learnerPresentationV5.modelEvidence.required).length,
@@ -104,8 +118,8 @@ const summary = {
     concreteDualModels: true,
     logicalStatusSeparatedFromTaskDisposition: true,
     nonEmptyDirectionVisibleBeforeAttempt: true,
-    allRecordsHaveVennDiagram: enabledDiagramRecords === questions.length && nonVennRecords === 0,
-    unsafeUnknownRelationsUseFocusedVenn: true,
+    verifiedSimpleVennOrOmit: true,
+    forcedDiagramCoverageRemoved: true,
     deadInconsistentOptionRemoved: deadInconsistentOptions === 0,
     modalDiagnosticRecords,
     modalDiagnosticOptionCount: 3,
@@ -155,13 +169,16 @@ const markdown: string[] = [
   `- Logical questions: ${summary.logicalQuestions}`,
   `- English/Hindi/Punjabi: ${summary.languages["en-IN"]}/${summary.languages["hi-IN"]}/${summary.languages["pa-IN"]}`,
   "- Question and explanation content approved by the product owner on 2026-08-07.",
-  `- Venn coverage: ${summary.diagramCoverage.enabledRecords}/${summary.diagramCoverage.requiredRecords}; missing: ${summary.diagramCoverage.missingRecords}; non-Venn visuals: ${summary.diagramCoverage.nonVennRecords}.`,
-  `- Focused Venn fallbacks: ${summary.diagramCoverage.focusedVennFallbackRecords}.`,
-  "- Every learner visual uses circles, overlap, separation or witness marks; relation maps are not permitted.",
+  `- Learner-safe diagrams enabled: ${summary.diagramCoverage.enabledRecords}.`,
+  `- Complex diagrams intentionally omitted: ${summary.diagramCoverage.omittedComplexRecords}.`,
+  `- Unstable simple layouts intentionally omitted: ${summary.diagramCoverage.omittedUnstableRecords}.`,
+  `- Non-Venn enabled visuals: ${summary.diagramCoverage.nonVennEnabledRecords}.`,
+  "- Enabled diagrams use verified finite templates; force-layout geometry is prohibited.",
+  "- Enabled diagrams contain at most three terms and two unnumbered decisive witnesses.",
+  "- No floating separation ×, numbered witness series, textLength compression, relation maps or comparison panels are permitted.",
   "- QL-008 explanation and diagram modes are derived from the actual pair status.",
   "- QL-009 and every mask question explain each displayed conclusion.",
   "- Counterexample, possibility and dual-model explanations narrate canonical models.",
-  "- Unknown witness-transfer relations use focused Venn panels without presenting unstated separation as a rule.",
   "- Logical option status is displayed separately from task disposition.",
   "- The non-empty-class direction is visible before the attempt.",
   "- Modal diagnostic QLs use the exhaustive three live statuses: definitely true, possible but not definite, and impossible.",
@@ -169,7 +186,7 @@ const markdown: string[] = [
   "",
   "## Remaining blockers",
   "",
-  "- Human viewport approval at 360, 412 and 768 px: evidence ready, approval pending.",
+  "- Human viewport review must be repeated after the diagram redesign.",
   "- Source-authentic task weighting and difficulty calibration: pending.",
   "",
   "## Records",
@@ -196,9 +213,11 @@ for (const record of records) {
   record.explanation.shortReasoning.forEach((line) => markdown.push(`- ${line}`));
   markdown.push("");
   markdown.push(`**Conclusion:** ${record.explanation.conclusion}`);
+  markdown.push("");
   if (record.diagram.enabled && record.diagram.caption) {
-    markdown.push("");
     markdown.push(`**Diagram caption:** ${record.diagram.caption}`);
+  } else {
+    markdown.push(`**Diagram:** intentionally omitted (${record.diagram.omissionReason}).`);
   }
   markdown.push("");
 }
