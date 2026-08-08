@@ -5,6 +5,7 @@ import {
 } from "./editorial-runtime-v5";
 import { applySapCp003EditorialRemediationV3 } from "./editorial-remediation-v3";
 import { applySapCp003EditorialQualityV3 } from "./editorial-quality-v3";
+import { applySapCp003EditorialPresentationV3 } from "./editorial-presentation-v3";
 import { applySapCp003MissingPercentageV3 } from "./missing-percentage-v3";
 import {
   SAP_CP003_PROTOTYPE_IDS,
@@ -73,7 +74,8 @@ export function generateSapCp003Package(
     ? applySapCp003MissingPercentageV3(base)
     : applySapCp003EditorialRemediationV3(base);
   const qualityControlled = applySapCp003EditorialQualityV3(remediated);
-  return finalOptionShuffle(qualityControlled);
+  const presentationSafe = applySapCp003EditorialPresentationV3(qualityControlled);
+  return finalOptionShuffle(presentationSafe);
 }
 
 export function generateSapCp003Sweep(
