@@ -110,8 +110,19 @@ for (const question of bank) {
   assert(!/\btoken(?:s)?\b/i.test(JSON.stringify({
     sharedPrompt: question.sharedPrompt,
     stem: question.stem,
-    options: question.options,
-    explanation: question.explanation,
+    options: question.options.map((option) => ({
+      text: option.text,
+      explanation: option.studentExplanation,
+    })),
+    explanation: {
+      steps: question.explanation.steps,
+      conclusion: question.explanation.conclusion,
+      shortcut: question.explanation.shortcut,
+      commonTrap: question.explanation.commonTrap,
+      optionAnalysis: question.explanation.optionAnalysis.map((analysis) => analysis.explanation),
+      familySummary: question.explanation.familyTree.accessibleSummary,
+      familyAscii: question.explanation.familyTree.asciiFallback,
+    },
   })));
   const people = new Set(question.completedStatements.flatMap((statement) => [statement.leftId, statement.rightId]));
   for (const entry of question.codeKey) assert(!people.has(entry.token));
