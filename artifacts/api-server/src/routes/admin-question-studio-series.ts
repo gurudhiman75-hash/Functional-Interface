@@ -16,6 +16,10 @@ import { listQuantV4Packages } from "../quant-v4/generation-engine";
 const router = Router();
 const LANGUAGES = new Set(["en", "hi", "pa"]);
 const DIFFICULTIES = new Set(["Easy", "Medium", "Hard"]);
+const SERIES_PACKAGE_ID = "SER-001" as const;
+const SERIES_SUBJECT = "General Intelligence & Reasoning";
+const SERIES_TOPIC = "Series";
+const SERIES_SUBTOPIC = "Missing Figure / Missing Character Series";
 
 function asString(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
@@ -118,7 +122,7 @@ router.get(
 router.post(
   "/runs",
   (req, _res, next) => {
-    if (asString(req.body?.packageId) !== "SER-001") {
+    if (asString(req.body?.packageId) !== SERIES_PACKAGE_ID) {
       next("route");
       return;
     }
@@ -128,12 +132,11 @@ router.post(
   requireAdminPermission("content.generation.run"),
   async (req, res) => {
     const count = asPositiveInteger(req.body?.count, 5, 50);
-    const packageId = "SER-001" as const;
-    const topic = asString(req.body?.topic) || "Reasoning";
-    const subtopic = asString(req.body?.subtopic) || "Series";
+    const packageId = SERIES_PACKAGE_ID;
+    const topic = SERIES_TOPIC;
+    const subtopic = SERIES_SUBTOPIC;
     const exam = asString(req.body?.exam) || "SSC CGL";
-    const subject =
-      asString(req.body?.subject) || "General Intelligence & Reasoning";
+    const subject = SERIES_SUBJECT;
     const language = normalizeLanguage(req.body?.language);
     const difficulty = normalizeDifficulty(req.body?.difficulty);
     const seed = asString(req.body?.seed) || undefined;
@@ -230,9 +233,15 @@ router.post(
           const generated = generatedQuestions[index] as Record<string, any>;
           const payload = {
             ...generated,
+            subject,
+            topic,
+            subtopic,
             generationContext: {
               ...(generated.generationContext ?? {}),
               ...result.generationContext,
+              subject,
+              topic,
+              subtopic,
               authorityId:
                 generated.authorityId
                 ?? generated.generationContext?.authorityId
