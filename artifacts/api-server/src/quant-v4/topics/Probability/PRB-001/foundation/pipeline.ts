@@ -19,14 +19,24 @@ function applyMockPolicy(question: ProbabilityQuestion): ProbabilityQuestion {
   const entry = PRB_001_LIBRARIES.registry.find((item) => item.qlId === question.questionLanguageId);
   if (!entry) throw new Error(`Missing PRB-001 registry entry ${question.questionLanguageId}`);
   const mockPolicy = buildProbabilityMockPolicy(entry);
+  const testEligibility = mockPolicy.eligible ? "ELIGIBLE_WITH_FAMILY_LIMIT" : "LEARNING_ONLY";
   return {
     ...question,
-    parameters: { ...question.parameters, mockPolicy },
+    parameters: {
+      ...question.parameters,
+      mockPolicy,
+      reviewStatus: "APPROVED_EDITORIAL_ENGLISH",
+      questionBankStatus: mockPolicy.eligible ? "WRITABLE" : "NOT_STORED",
+      testEligibility,
+    },
     traceability: {
       ...question.traceability,
       mockPolicy,
-      testEligibility: mockPolicy.eligible ? "ELIGIBLE_WITH_FAMILY_LIMIT" : "LEARNING_ONLY",
+      reviewStatus: "APPROVED_EDITORIAL_ENGLISH",
+      questionBankStatus: mockPolicy.eligible ? "WRITABLE" : "NOT_STORED",
+      testEligibility,
       effectiveDifficulty: mockPolicy.effectiveDifficulty,
+      freezeStatus: "ENGLISH_MOCK_READY",
     },
   };
 }
