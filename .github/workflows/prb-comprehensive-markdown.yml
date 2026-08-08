@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: 20
 
-      - name: Generate comprehensive question file
+      - name: Generate comprehensive and review question files
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/generate-comprehensive-questions.ts
 
       - name: Verify Markdown coverage
@@ -32,43 +32,56 @@ jobs:
           python - <<'PY'
           from pathlib import Path
 
-          path = Path("artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md")
-          if not path.exists():
-              raise SystemExit("Comprehensive Markdown file was not generated.")
-
-          text = path.read_text()
-          checks = {
-              "questions": text.count("\n#### Question "),
-              "answers": text.count("\n**Correct answer:**"),
-              "explanations": text.count("\n**Explanation:**"),
+          root = Path("artifacts/api-server/src/quant-v4/topics/Probability")
+          files = {
+              "comprehensive": root / "PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md",
+              "review": root / "PROBABILITY-REVIEW-QUESTIONS-AND-EXPLANATIONS.md",
           }
-          if checks != {"questions": 135, "answers": 135, "explanations": 135}:
-              raise SystemExit(f"Markdown coverage mismatch: {checks}")
-          if "| PRB-001 | SSC CGL/CHSL | 75 | 4 |" not in text:
-              raise SystemExit("PRB-001 summary is missing.")
-          if "| PRB-002 | Banking Mains | 60 | 5 |" not in text:
-              raise SystemExit("PRB-002 summary is missing.")
+
+          for label, path in files.items():
+              if not path.exists():
+                  raise SystemExit(f"{label.title()} Markdown file was not generated.")
+
+              text = path.read_text()
+              checks = {
+                  "questions": text.count("\n#### Question "),
+                  "answers": text.count("\n**Correct answer:**"),
+                  "explanations": text.count("\n**Explanation:**"),
+              }
+              if checks != {"questions": 135, "answers": 135, "explanations": 135}:
+                  raise SystemExit(f"{label.title()} Markdown coverage mismatch: {checks}")
+              if "| PRB-001 | SSC CGL/CHSL | 75 | 4 |" not in text:
+                  raise SystemExit(f"{label.title()} PRB-001 summary is missing.")
+              if "| PRB-002 | Banking Mains | 60 | 5 |" not in text:
+                  raise SystemExit(f"{label.title()} PRB-002 summary is missing.")
+              if "HTT, THT, TTH" not in text:
+                  raise SystemExit(f"{label.title()} concrete coin outcomes are missing.")
+              if "(1,4), (2,3), (3,2), (4,1)" not in text:
+                  raise SystemExit(f"{label.title()} concrete dice outcomes are missing.")
           PY
           git diff --check
 
-      - name: Upload comprehensive Markdown
+      - name: Upload generated Markdown files
         uses: actions/upload-artifact@v4
         with:
-          name: probability-comprehensive-questions
-          path: artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md
+          name: probability-review-questions
+          path: |
+            artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md
+            artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-REVIEW-QUESTIONS-AND-EXPLANATIONS.md
           if-no-files-found: error
           retention-days: 7
 
       - name: Commit generated Markdown
         if: success()
         run: |
-          target="artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md"
-          if [ -z "$(git status --porcelain -- "$target")" ]; then
+          comprehensive="artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md"
+          review="artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-REVIEW-QUESTIONS-AND-EXPLANATIONS.md"
+          if [ -z "$(git status --porcelain -- "$comprehensive" "$review")" ]; then
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "$target"
+          git add "$comprehensive" "$review"
           git diff --cached --check
-          git commit -m "docs(probability): add 135 comprehensive questions and explanations [skip ci]"
+          git commit -m "docs(probability): generate 135 review questions and explanations [skip ci]"
           git push
