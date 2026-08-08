@@ -9,11 +9,10 @@ import {
 import { convertSpeed } from "../foundation/units";
 import type { TsdCp001Solution, TsdCp001SolveInput } from "./canonical-solver";
 import type {
-  DisplayContract,
   TsdCp001MisconceptionId,
   TsdCp001OptionAudit,
 } from "./runtime-types";
-import { formatAnswer, formatExamNumber } from "./runtime-support";
+import { formatExamNumber } from "./runtime-support";
 
 interface OptionSet {
   readonly options: readonly string[];
@@ -44,9 +43,14 @@ function placeOptions(
   };
 }
 
+function formatLikeCorrect(value: Rational, correctText: string): string {
+  const match = correctText.match(/^[-+]?(?:\d+\s+\d+\/\d+|\d+\/\d+|\d+(?:\.\d+)?)(.*)$/);
+  if (!match) throw new Error(`Cannot identify scalar answer unit in ${correctText}`);
+  return `${formatExamNumber(value)}${match[1]}`;
+}
+
 function buildScalarSet(
   solution: TsdCp001Solution,
-  display: DisplayContract,
   fallback: OptionSet,
   rawCandidates: readonly WrongCandidate[],
 ): OptionSet {
@@ -64,7 +68,7 @@ function buildScalarSet(
   const correct = fallback.optionAudit.find((option) => option.isCorrect);
   if (!correct) return fallback;
   const wrong = candidates.slice(0, 3).map(([value, misconceptionId]) => ({
-    text: formatAnswer({ ...solution, value } as TsdCp001Solution, display),
+    text: formatLikeCorrect(value, correct.text),
     misconceptionId,
     isCorrect: false,
   }));
@@ -197,7 +201,6 @@ function timeCandidates(
 export function unitConversionOptionPackage(
   input: TsdCp001SolveInput,
   solution: TsdCp001Solution,
-  display: DisplayContract,
   representation: string,
   fallback: OptionSet,
 ): OptionSet {
@@ -206,15 +209,15 @@ export function unitConversionOptionPackage(
       return equivalentSpeedSet(input, fallback);
     }
     const candidates = speedCandidates(input);
-    return candidates ? buildScalarSet(solution, display, fallback, candidates) : fallback;
+    return candidates ? buildScalarSet(solution, fallback, candidates) : fallback;
   }
   if (input.solveMode === "convertDistanceUnit") {
     const candidates = distanceCandidates(input);
-    return candidates ? buildScalarSet(solution, display, fallback, candidates) : fallback;
+    return candidates ? buildScalarSet(solution, fallback, candidates) : fallback;
   }
   if (input.solveMode === "convertTimeUnit") {
     const candidates = timeCandidates(input);
-    return candidates ? buildScalarSet(solution, display, fallback, candidates) : fallback;
+    return candidates ? buildScalarSet(solution, fallback, candidates) : fallback;
   }
   return fallback;
 }
