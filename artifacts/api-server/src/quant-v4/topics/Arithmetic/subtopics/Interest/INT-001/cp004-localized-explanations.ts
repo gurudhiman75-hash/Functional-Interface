@@ -56,13 +56,49 @@ function replaceGenericPeriodRate(
   return text.replaceAll("ਹਰ ਮਿਆਦ ਦੀ ਦਰ", exact);
 }
 
+function polishNaturalTeachingLanguage(
+  text: string,
+  locale: IntCp004LocalizedLocale,
+): string {
+  if (locale === "hi-IN") {
+    return text
+      .replaceAll(
+        "अज्ञात मूलधन को अनुपात में पहले से रखकर हल को गोल-गोल सिद्ध न करें।",
+        "उत्तर को पहले से मानकर उसी से मूलधन सिद्ध न करें।",
+      )
+      .replaceAll(
+        "अंतिम राशि से कोई गोल राशि सीधे न घटाएँ; दोनों गुणकों से भाग दें।",
+        "अंतिम राशि से कोई मनमानी राशि न घटाएँ; दोनों चरणों के संयुक्त गुणक से भाग दें।",
+      )
+      .replaceAll(
+        "उसे दोबारा वार्षिक संख्या से न बाँटें।",
+        "उसे वर्ष में ब्याज जोड़ने की संख्या से फिर न बाँटें।",
+      )
+      .replaceAll("हमें सीधे दी गई", "हमें प्रश्न में दी गई");
+  }
+  return text
+    .replaceAll(
+      "ਅਣਜਾਣ ਮੂਲਧਨ ਨੂੰ ਅਨੁਪਾਤ ਵਿੱਚ ਪਹਿਲਾਂ ਹੀ ਰੱਖ ਕੇ ਹੱਲ ਨੂੰ ਗੋਲ-ਗੋਲ ਸਾਬਤ ਨਾ ਕਰੋ।",
+      "ਉੱਤਰ ਨੂੰ ਪਹਿਲਾਂ ਹੀ ਮੰਨ ਕੇ ਉਸੇ ਨਾਲ ਮੂਲਧਨ ਸਾਬਤ ਨਾ ਕਰੋ।",
+    )
+    .replaceAll(
+      "ਅੰਤਿਮ ਰਕਮ ਵਿੱਚੋਂ ਕੋਈ ਗੋਲ ਰਕਮ ਸਿੱਧੀ ਨਾ ਘਟਾਓ; ਦੋਵਾਂ ਗੁਣਕਾਂ ਨਾਲ ਭਾਗ ਦਿਓ।",
+      "ਅੰਤਿਮ ਰਕਮ ਵਿੱਚੋਂ ਕੋਈ ਮਨਮਾਨੀ ਰਕਮ ਨਾ ਘਟਾਓ; ਦੋਵਾਂ ਪੜਾਵਾਂ ਦੇ ਸਾਂਝੇ ਗੁਣਕ ਨਾਲ ਭਾਗ ਦਿਓ।",
+    )
+    .replaceAll(
+      "ਇਸ ਨੂੰ ਮੁੜ ਸਾਲਾਨਾ ਗਿਣਤੀ ਨਾਲ ਨਾ ਵੰਡੋ।",
+      "ਇਸ ਨੂੰ ਸਾਲ ਵਿੱਚ ਵਿਆਜ ਜੋੜਨ ਦੀ ਗਿਣਤੀ ਨਾਲ ਮੁੜ ਨਾ ਵੰਡੋ।",
+    )
+    .replaceAll("ਸਾਨੂੰ ਸਿੱਧੀ ਦਿੱਤੀ", "ਸਾਨੂੰ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤੀ");
+}
+
 function polishStep(
   source: IntCp004EnglishFrozenQuestion,
   locale: IntCp004LocalizedLocale,
   step: string,
   index: number,
 ): string {
-  let polished = polishFormulaFractions(step);
+  let polished = polishNaturalTeachingLanguage(polishFormulaFractions(step), locale);
 
   if (source.qlId === "INT-QL-073" || source.qlId === "INT-QL-074") {
     polished = replaceGenericPeriodRate(polished, locale, source.mathematicalState.frequency);
@@ -85,7 +121,7 @@ function polishNarrativeField(
   locale: IntCp004LocalizedLocale,
   text: string,
 ): string {
-  let polished = polishFormulaFractions(text);
+  let polished = polishNaturalTeachingLanguage(polishFormulaFractions(text), locale);
   if (source.qlId === "INT-QL-073" || source.qlId === "INT-QL-074") {
     polished = replaceGenericPeriodRate(polished, locale, source.mathematicalState.frequency);
   }
