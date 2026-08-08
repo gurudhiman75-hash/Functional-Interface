@@ -63,8 +63,8 @@ export function buildSpatialWave03Corpus(): SpatialWave03Corpus {
   ];
 
   const water: SpatialTransformProofQuestion[] = [
-    generateWaterGeometricProofQuestion("WAT-GEO-A-032"),
     generateWaterGeometricProofQuestion("WAT-GEO-B-008"),
+    generateWaterGeometricProofQuestion("WAT-GEO-A-032"),
     generateWaterGeometricProofQuestion("WAT-GEO-C-015"),
     generateWaterDigitProofQuestion("WAT-SP-R16-002", [
       "DIGIT-2",
