@@ -1,10 +1,15 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { INT_CP004_QL_IDS } from "./cp004-frequency-math";
+import {
+  INT_CP004_QL_IDS,
+  completeAmountFromNominal,
+} from "./cp004-frequency-math";
+import { moneyText } from "./cp004-frequency-options";
 import { generateIntCp004EnglishFrozenQuestion } from "./cp004-english-frozen-runtime";
 import {
   INT_CP004_LOCALIZED_LOCALES,
   assertCp004LocalizedText,
+  cp004FrequencyLabel,
 } from "./cp004-localization-language-pack";
 import {
   INT_CP004_LOCALIZED_EXPLANATION_VERSION,
@@ -24,6 +29,7 @@ let scriptChecks = 0;
 let finalAnswerChecks = 0;
 let numericalEvidenceChecks = 0;
 let formulaChecks = 0;
+let frequencyComparisonChecks = 0;
 let englishFallbackChecks = 0;
 let sourceCopyGuards = 0;
 const qlCounts: Record<string, number> = {};
@@ -92,7 +98,23 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
       }
 
       formulaChecks += 1;
-      if (!/[=×÷+−]/u.test(combinedSteps)) {
+      if (qlId === "INT-QL-078") {
+        for (const frequency of [1, 2, 4, 12] as const) {
+          const candidate = completeAmountFromNominal(
+            source.mathematicalState.principal,
+            source.mathematicalState.nominalAnnualRatePercent,
+            frequency,
+            frequency * source.mathematicalState.years,
+          );
+          frequencyComparisonChecks += 2;
+          if (!combinedSteps.includes(cp004FrequencyLabel(locale, frequency))) {
+            fail(`${qlId}/${seed}/${locale}: schedule ${frequency} is missing from the comparison.`);
+          }
+          if (!combinedSteps.includes(moneyText(candidate))) {
+            fail(`${qlId}/${seed}/${locale}: computed amount for schedule ${frequency} is missing.`);
+          }
+        }
+      } else if (!/[=×÷+−]/u.test(combinedSteps)) {
         fail(`${qlId}/${seed}/${locale}: explanation lacks an explicit calculation relation.`);
       }
 
@@ -121,6 +143,9 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
 }
 
 if (questionCases !== 3800) fail(`Expected 3,800 bilingual explanation cases, received ${questionCases}.`);
+if (frequencyComparisonChecks !== 1600) {
+  fail(`Expected 1,600 frequency-comparison checks, received ${frequencyComparisonChecks}.`);
+}
 for (const [key, count] of Object.entries(qlCounts)) {
   if (count !== 100) fail(`${key}: expected 100 explanation cases, received ${count}.`);
 }
@@ -141,6 +166,7 @@ const summary = {
   finalAnswerChecks,
   numericalEvidenceChecks,
   formulaChecks,
+  frequencyComparisonChecks,
   englishFallbackChecks,
   sourceCopyGuards,
   minimumStepsByQl,
