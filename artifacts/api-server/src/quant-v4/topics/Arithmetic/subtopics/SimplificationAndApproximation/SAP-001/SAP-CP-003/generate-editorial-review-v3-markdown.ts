@@ -90,8 +90,8 @@ function difficultyRationale(pkg: SapCp003Package): string {
 function editorialDecision(pkg: SapCp003Package): string {
   const policy = SAP_CP003_EXAM_READINESS_POLICY[pkg.prototypeId];
   if (policy.mockUse === "FOUNDATION_ONLY") return "CONTROLLED_ACCEPT — FOUNDATION/DIAGNOSTIC POOL ONLY";
-  if (policy.mockUse === "SSC_ELIGIBLE") return "EDITORIAL CANDIDATE — SSC CHAPTER TEST / LOW MIXED-MOCK WEIGHT";
-  if (policy.mockUse === "SSC_AND_BANKING_ELIGIBLE") return "EDITORIAL CANDIDATE — SSC AND BANKING PRELIMS POOLS";
+  if (policy.mockUse === "SSC_ELIGIBLE") return "APPROVED — SSC CHAPTER TEST / LOW MIXED-MOCK WEIGHT";
+  if (policy.mockUse === "SSC_AND_BANKING_ELIGIBLE") return "APPROVED — SSC AND BANKING PRELIMS POOLS";
   return "HOLD — REMEDIATION REQUIRED";
 }
 
@@ -101,9 +101,9 @@ function examLikeness(pkg: SapCp003Package): string {
     return "Useful as a concept-builder or error-diagnosis item, but intentionally excluded from ordinary mixed mocks.";
   }
   if (policy.mockUse === "SSC_ELIGIBLE") {
-    return "Suitable for SSC chapter practice and controlled mock use; use the policy weight to avoid over-representing a narrow skill.";
+    return "Approved for SSC chapter practice and controlled mock use; use the policy weight to avoid over-representing a narrow skill.";
   }
-  return "Suitable as a candidate for SSC and banking-prelims simplification practice, subject to final human review of wording and local option realism.";
+  return "Approved for SSC and banking-prelims simplification practice under the documented mock-weight guidance.";
 }
 
 function numeric(value: Rat): number {
@@ -147,10 +147,11 @@ const lines: string[] = [
   "",
   "**Checkpoint:** Decimals, Percentages and Exact Representation Switching  ",
   "**Permanent QLs:** SAP-QL-034 through SAP-QL-052  ",
-  "**Status:** Automated editorial-remediation candidate; human review pending  ",
-  "**Lifecycle:** Inactive; Question Studio, question-bank writes, test eligibility and publication remain disabled  ",
+  "**Status:** Human editorial review approved on 2026-08-08  ",
+  "**Approval authority:** Product owner  ",
+  "**Lifecycle:** Inactive; Question Studio, question-bank writes, test eligibility and publication remain disabled pending separate authorisation  ",
   "",
-  "This file reviews the exact current V3 question surface. It includes the complete student explanation, every distractor route, question-specific difficulty reasoning, option-proximity evidence, exam-likeness guidance and a provisional editorial decision. The decisions are evidence for human review, not a declaration of approval.",
+  "This file records the exact V3 question surface approved after full review. It includes the complete student explanation, every distractor route, question-specific difficulty reasoning, option-proximity evidence, exam-likeness guidance and the approved editorial decision.",
   "",
   "## Corpus summary",
   "",
@@ -208,7 +209,7 @@ packages.forEach((pkg, index) => {
     `- **Option quality:** ${optionQuality(pkg)}`,
     `- **Exam likeness:** ${examLikeness(pkg)}`,
     `- **Pool guidance:** ${policy.mockWeightGuidance}`,
-    `- **Human approval:** PENDING`,
+    `- **Human approval:** APPROVED — 2026-08-08`,
     "",
     "---",
     "",
@@ -218,7 +219,7 @@ packages.forEach((pkg, index) => {
 mkdirSync(dirname(outputPath), { recursive: true });
 writeFileSync(outputPath, lines.join("\n"), "utf8");
 console.log(JSON.stringify({
-  status: "WROTE_SAP_CP003_FULL_EDITORIAL_REVIEW_V3",
+  status: "WROTE_SAP_CP003_FULL_EDITORIAL_REVIEW_V3_APPROVED",
   outputPath,
   questionCount: packages.length,
   uniquePayloads: new Set(packages.map((pkg) => pkg.canonicalPayloadKey)).size,
@@ -226,5 +227,6 @@ console.log(JSON.stringify({
   explanations: packages.filter((pkg) => pkg.explanation.steps.length > 0).length,
   distractorAnalyses: packages.reduce((count, pkg) => count + pkg.options.filter((option) => !option.isCorrect && option.analysis.length > 0).length, 0),
   questionSpecificDifficultyRationales: packages.length,
-  lifecycle: "INACTIVE_HUMAN_REVIEW_PENDING",
+  approvalAuthority: "PRODUCT_OWNER_APPROVED_2026_08_08",
+  lifecycle: "INACTIVE_HUMAN_REVIEW_APPROVED_AWAITING_MERGE_AUTHORIZATION",
 }, null, 2));
