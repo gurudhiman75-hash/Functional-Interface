@@ -44,6 +44,35 @@ export interface BlrCp007V4Wave3Telemetry extends BlrCp007EditorialV4Telemetry {
   directValidityEasyCount: number;
 }
 
+function validityStem(question: GeneratedBlrCp007EditorialV4Question): string {
+  if (question.query.kind !== "SELECT_VALIDITY") return question.stem;
+  const direct = question.sourcePrototypeId.includes("DIRECT");
+  const correctLeads = [
+    "Which option correctly matches its coded statement with the written interpretation?",
+    "In which option does the stated family relation agree with the coded expression?",
+    "Which coded statement has been interpreted correctly?",
+    "Select the option whose written relation is fully supported by its code.",
+    "Which option gives a valid interpretation of the coded family relation?",
+    "Identify the coded statement whose accompanying interpretation is accurate.",
+    "Which option preserves both the code direction and the stated relation?",
+    "Choose the option in which the code and its interpretation are consistent.",
+  ] as const;
+  const incorrectLeads = [
+    "Which option incorrectly interprets its coded statement?",
+    "In which option does the stated family relation disagree with the code?",
+    "Which coded statement has been interpreted incorrectly?",
+    "Select the option whose written relation is not supported by its code.",
+    "Which option gives an invalid interpretation of the coded family relation?",
+    "Identify the coded statement whose accompanying interpretation is inaccurate.",
+    "Which option fails to preserve the code direction or the stated relation?",
+    "Choose the option in which the code and its interpretation are inconsistent.",
+  ] as const;
+  const lead = question.query.desiredStatus === "VALID"
+    ? correctLeads[question.seed % correctLeads.length]
+    : incorrectLeads[question.seed % incorrectLeads.length];
+  return `${lead} Consider all four ${direct ? "direct" : "derived"} relation options.`;
+}
+
 function remodelQl035(
   question: GeneratedBlrCp007EditorialV4Question,
   codeKey: readonly BlrCp006CodeDefinition[],
@@ -94,9 +123,7 @@ function remodelQl035(
     codeKey,
     sharedPrompt: promptFor(codeKey),
     query: { kind: "SELECT_VALIDITY", desiredStatus: question.query.desiredStatus, candidates },
-    stem: question.query.desiredStatus === "VALID"
-      ? "Which coded statement and interpretation is correct?"
-      : "Which coded statement and interpretation is incorrect?",
+    stem: validityStem(question),
     options,
     answer: correct.text,
     completedStatements: correct.completedStatements,
