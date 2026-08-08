@@ -1,3 +1,4 @@
+import { clockTimeToHandAnglesNumbers } from "../temporal";
 import { normalizeAngleDeg } from "./geometry";
 import type {
   SpatialClockHandAngles,
@@ -38,16 +39,18 @@ export function totalMinutesToClockTime(totalMinutes: number): SpatialClockTime 
 }
 
 /**
- * Angles are measured clockwise from 12 o'clock.
- * The hour hand advances continuously by 0.5 degrees per minute.
+ * Spatial adapter over the shared exact temporal authority.
+ * Angles are measured clockwise from 12 o'clock and the hour hand advances
+ * continuously through the minute value.
  */
 export function clockTimeToHandAngles(
   time: SpatialClockTime,
 ): SpatialClockHandAngles {
   assertValidClockTime(time);
+  const exactAuthority = clockTimeToHandAnglesNumbers(time);
   return {
-    hourAngleDeg: normalizeAngleDeg((time.hour % 12) * 30 + time.minute * 0.5),
-    minuteAngleDeg: normalizeAngleDeg(time.minute * 6),
+    hourAngleDeg: exactAuthority.hourAngleDeg,
+    minuteAngleDeg: exactAuthority.minuteAngleDeg,
   };
 }
 
