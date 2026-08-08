@@ -5,4 +5,4 @@ Object.defineProperty(BigInt.prototype, "toJSON", {
   configurable: true,
 });
 
-await import("./unit-conversion-integrity-proof-core");
+await import("./unit-conversion-integrity-proof-stacked-core");
