@@ -9,11 +9,12 @@ import { remodelQl034 as remodelSecureQl034 } from "./cp007-editorial-v4-wave3-q
 import { fingerprint, promptFor, targetSentence } from "./cp007-editorial-v4-wave3-core";
 
 export const BLR_CP007_V4_WAVE3_FINAL_REVIEW_AUTHORITY =
-  "BLR_CP007_V4_WAVE3_FINAL_HUMAN_REVIEW_CANDIDATE" as const;
+  "BLR_CP007_V4_WAVE3_PRODUCT_OWNER_APPROVED" as const;
 
 export interface BlrCp007V4Wave3FinalTelemetry extends BlrCp007V4Wave3Telemetry {
   semanticAmbiguityCount: number;
   malformedLearnerExplanationCount: number;
+  redundantRelationQualifierCount: number;
   ql034AnswerMentionedInTargetCount: number;
   ql034MaximumStatementCount: number;
   ql034AverageStatementCount: number;
@@ -88,6 +89,67 @@ function polishQl034(
   };
 }
 
+function approvedWording(text: string): string {
+  return text
+    .replace(
+      "Which coded chain correctly establishes the marriage-based relation that ",
+      "Which coded chain correctly establishes that ",
+    )
+    .replace(
+      "Marriage-based and blood-based routes must not be treated as interchangeable.",
+      "Check every link in order; changing a spouse, parent or sibling link changes the result.",
+    )
+    .replace(
+      "Mark the marriage link first, then connect the blood relation on the correct side.",
+      "Identify the spouse link first, then trace the remaining family link on the correct side.",
+    )
+    .replace(
+      "Do not confuse sibling-of-spouse with spouse-of-sibling; both are in-law routes but use different chains.",
+      "Do not confuse a spouse’s sibling with a sibling’s spouse; the two chains are different.",
+    )
+    .replace(
+      "Identify the blood link and marriage link independently, then place them in blank order.",
+      "Determine the two direct relations separately, then place their symbols in blank order.",
+    )
+    .replace(
+      "In-law relations depend on which side of the marriage each blood relation belongs to.",
+      "For an in-law relation, the order of the spouse and parent or sibling links matters.",
+    );
+}
+
+function polishApprovedWording(
+  question: GeneratedBlrCp007EditorialV4Question,
+): GeneratedBlrCp007EditorialV4Question {
+  const options = question.options.map((option) => ({
+    ...option,
+    text: approvedWording(option.text),
+    studentExplanation: approvedWording(option.studentExplanation),
+  }));
+  return {
+    ...question,
+    sharedPrompt: approvedWording(question.sharedPrompt),
+    stem: approvedWording(question.stem),
+    options,
+    answer: approvedWording(question.answer),
+    explanation: {
+      ...question.explanation,
+      steps: question.explanation.steps.map(approvedWording),
+      conclusion: approvedWording(question.explanation.conclusion),
+      shortcut: question.explanation.shortcut
+        ? approvedWording(question.explanation.shortcut)
+        : question.explanation.shortcut,
+      commonTrap: question.explanation.commonTrap
+        ? approvedWording(question.explanation.commonTrap)
+        : question.explanation.commonTrap,
+      optionAnalysis: question.explanation.optionAnalysis.map((analysis, index) => ({
+        ...analysis,
+        optionText: options[index]!.text,
+        explanation: options[index]!.studentExplanation,
+      })),
+    },
+  };
+}
+
 function deliveryGroup(question: GeneratedBlrCp007EditorialV4Question): string {
   return question.delivery.mode === "SHARED_SET"
     ? question.delivery.setId!
@@ -134,7 +196,7 @@ export function generateBlrCp007EditorialV4Wave3FinalBank(): readonly GeneratedB
       ? remodelSecureQl034(question, index)
       : question;
   });
-  const polished = secured.map(polishQl034);
+  const polished = secured.map(polishQl034).map(polishApprovedWording);
   const tokensByGroup = new Map<string, Set<string>>();
   for (const question of polished) {
     const group = deliveryGroup(question);
@@ -153,11 +215,16 @@ export function generateBlrCp007EditorialV4Wave3FinalBank(): readonly GeneratedB
       reviewProof: {
         ...question.reviewProof,
         semanticFingerprint: editorialFingerprint,
-        reviewerNote: `${question.reviewProof.reviewerNote} Final learner-facing key and explanation polish applied; product-owner approval remains required.`,
+        reviewerNote: `${question.reviewProof.reviewerNote} Product-owner approved with final learner-facing wording polish; English freeze remains pending.`,
       },
       metadata: {
         ...question.metadata,
         v4EditorialFingerprint: editorialFingerprint,
+        activeEditorialBlockers: ["ENGLISH_FREEZE_PENDING"],
+      },
+      v4ReviewProof: {
+        ...question.v4ReviewProof,
+        activeEditorialBlockers: ["ENGLISH_FREEZE_PENDING"],
       },
     };
   });
@@ -195,6 +262,9 @@ export function buildBlrCp007EditorialV4Wave3FinalTelemetry(
     question.options.filter((option) => option.targetRelationSatisfied).length !== 1,
   ).length;
   const malformedLearnerExplanationCount = bank.filter(hasMalformedExplanation).length;
+  const redundantRelationQualifierCount = bank.reduce((sum, question) =>
+    sum + visibleLearnerFields(question).reduce((fieldSum, field) =>
+      fieldSum + (field.match(/\b(?:marriage-based|blood-based)\b/gi)?.length ?? 0), 0), 0);
   const ql034AnswerMentionedInTargetCount = ql034.filter((question) => {
     if (question.query.kind !== "MISSING_PERSON") return false;
     return [question.query.target.subjectId, question.query.target.referenceId].includes(question.answer);
@@ -204,6 +274,7 @@ export function buildBlrCp007EditorialV4Wave3FinalTelemetry(
     ...base,
     semanticAmbiguityCount,
     malformedLearnerExplanationCount,
+    redundantRelationQualifierCount,
     ql034AnswerMentionedInTargetCount,
     ql034MaximumStatementCount: Math.max(...statementCounts),
     ql034AverageStatementCount: Number((statementCounts.reduce((sum, value) => sum + value, 0) / statementCounts.length).toFixed(3)),
