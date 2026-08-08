@@ -19,6 +19,7 @@ import {
   applyAdditionalExamReadinessRemediation,
   buildAdditionalExamReadyProblemOverride,
 } from "./exam-readiness-additional-remediation.ts";
+import { buildFrequencyExamReadyProblemOverride } from "./exam-readiness-frequency-remediation.ts";
 
 const CLOSED_LIFECYCLE = {
   discoveryStatus: "EXECUTABLE_DISCOVERY" as const,
@@ -44,7 +45,8 @@ export function generateCalendarQuestion(prototypeAuthority: CalendarPrototypeId
 
   for (let attempt = 0; attempt < 256; attempt++) {
     const rng = new DeterministicRandom(`${prototypeAuthority}:${seed}:scenario:${attempt}`);
-    const candidate = buildAdditionalExamReadyProblemOverride(prototypeAuthority, seed, locale, rng)
+    const candidate = buildFrequencyExamReadyProblemOverride(prototypeAuthority, seed, locale, rng)
+      ?? buildAdditionalExamReadyProblemOverride(prototypeAuthority, seed, locale, rng)
       ?? buildExamReadyProblemOverride(prototypeAuthority, seed, locale, rng)
       ?? shiftProblem(prototypeAuthority, seed, locale, rng)
       ?? dateRelationProblem(prototypeAuthority, seed, locale, rng)
