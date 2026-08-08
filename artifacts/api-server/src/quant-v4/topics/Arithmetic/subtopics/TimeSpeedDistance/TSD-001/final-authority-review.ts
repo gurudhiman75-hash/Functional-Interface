@@ -1,4 +1,5 @@
 import { remodelCp001ClockOptionLabels } from "./cp001/clock-option-label-integrity";
+import { remodelCp001FinalEditorial } from "./cp001/final-editorial-remediation";
 import { TSD_CP001_FROZEN_AUTHORITIES } from "./cp001/freeze-registry";
 import { generateP1DiversityBatch04Cp001Supplements } from "./cp001/p1-diversity-batch-04-supplements";
 import { generateP2DiversityBatch02Supplements } from "./cp001/p2-diversity-batch-02-supplements";
@@ -93,8 +94,10 @@ function cp002FinalRepresentation(row: TsdCp002GeneratedQuestion): string {
 
 function cp001Record(row: TsdCp001GeneratedQuestion): TsdFinalReviewRecord {
   const remediated = remodelTsdContext(
-    remodelCp001ClockOptionLabels(
-      remodelCp001ProportionOptionLabels(row),
+    remodelCp001FinalEditorial(
+      remodelCp001ClockOptionLabels(
+        remodelCp001ProportionOptionLabels(row),
+      ),
     ),
   );
   const authority = finalAuthorityByKey(cp001AuthorityKey(remediated));
