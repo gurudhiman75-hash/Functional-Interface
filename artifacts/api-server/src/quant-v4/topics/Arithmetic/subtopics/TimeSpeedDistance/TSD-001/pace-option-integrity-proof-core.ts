@@ -120,6 +120,7 @@ assert(coreRows.length === publicRows.length, "CP-001 core and public review cou
 
 let paceFeedbackRows = 0;
 let conversionRows = 0;
+let finalEditorialRows = 0;
 for (let index = 0; index < coreRows.length; index += 1) {
   const core = coreRows[index];
   const current = publicRows[index];
@@ -130,6 +131,11 @@ for (let index = 0; index < coreRows.length; index += 1) {
   const conversion = current.solveMode === "convertSpeedUnit"
     || current.solveMode === "convertDistanceUnit"
     || current.solveMode === "convertTimeUnit";
+  const finalEditorial = current.solveMode === "distanceByProportion"
+    || current.solveMode === "timeByProportion"
+    || current.solveMode === "speedByProportion"
+    || current.solveMode === "arrivalClockTime"
+    || current.solveMode === "departureClockTime";
 
   if (pace) {
     assert(JSON.stringify(core.options) === JSON.stringify(current.options), `${current.questionLanguageId}: public wrapper changed pace options`);
@@ -140,12 +146,17 @@ for (let index = 0; index < coreRows.length; index += 1) {
     paceFeedbackRows += 1;
   } else if (conversion) {
     conversionRows += 1;
+  } else if (finalEditorial) {
+    assert(core.answerText === current.answerText, `${current.questionLanguageId}: final editorial layer changed the correct answer`);
+    assert(core.correctIndex === current.correctIndex, `${current.questionLanguageId}: final editorial layer changed the correct position`);
+    finalEditorialRows += 1;
   } else {
     assert(JSON.stringify(core) === JSON.stringify(current), `${current.questionLanguageId}: unrelated public-runtime output changed`);
   }
 }
 assert(paceFeedbackRows === 9, `Expected nine pace feedback rows, received ${paceFeedbackRows}`);
 assert(conversionRows === 9, `Expected nine inherited conversion rows, received ${conversionRows}`);
+assert(finalEditorialRows === 15, `Expected fifteen declared final-editorial rows, received ${finalEditorialRows}`);
 
 const rows = generateFinalAuthorityReview();
 assert(rows.length === 153, `Expected 153 records, received ${rows.length}`);
@@ -221,6 +232,7 @@ console.log(JSON.stringify({
   distanceFromPaceRows: distanceFromPaceRows.length,
   paceFeedbackRows,
   inheritedConversionRows: conversionRows,
+  finalEditorialRows,
   verifiedWrongOptions,
   correctPositions,
   permanentQls: rows.filter((row) => row.permanentQlId !== null).length,
