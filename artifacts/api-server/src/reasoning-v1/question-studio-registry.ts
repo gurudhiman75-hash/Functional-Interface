@@ -53,7 +53,7 @@ export type ReasoningV1QuestionStudioPackage = Readonly<{
     count: 17;
   }>;
   permanentQuestionCount: 3264;
-  projectionSha256: "080af7fa6787f6752208c0504dce45bc0498c23eb7df7091a4130619ecfb4c2e";
+  projectionSha256: "ef24476ee421e6c8de926a2a02d68f5e9a76333a10289ef66ae83dc97d78c0de";
   checkpointFreezes: readonly [ReasoningV1CheckpointFreeze, ReasoningV1CheckpointFreeze];
 }> & ReasoningV1QuestionStudioLifecycle;
 
@@ -108,7 +108,7 @@ const RNK_001_PACKAGE: ReasoningV1QuestionStudioPackage = Object.freeze({
   }),
   permanentQuestionCount: 3264,
   projectionSha256:
-    "080af7fa6787f6752208c0504dce45bc0498c23eb7df7091a4130619ecfb4c2e",
+    "ef24476ee421e6c8de926a2a02d68f5e9a76333a10289ef66ae83dc97d78c0de",
   checkpointFreezes: Object.freeze([
     Object.freeze({
       checkpointId: "RNK-CP-004",
@@ -134,7 +134,7 @@ const RNK_001_PACKAGE: ReasoningV1QuestionStudioPackage = Object.freeze({
       }),
       permanentQuestionCount: 1536,
       projectionSha256:
-        "c1d205d2d49d3fe97bf3049d65c8d2b57e8594eb99abb57982384a4fa6605d8f",
+        "8ab6d6ab6965aec6be32753bec5d7f083f2b1b03810609b1b2bb40ea02ae8822",
     }),
   ]),
   generationAllowed: false,
