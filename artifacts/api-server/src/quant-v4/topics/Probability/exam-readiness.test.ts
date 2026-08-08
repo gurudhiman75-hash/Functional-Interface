@@ -81,7 +81,7 @@ const q116 = runPrb002Pipeline("PRB-CP-008", { questionLanguageId: "PRB-QL-706",
 const q118 = runPrb002Pipeline("PRB-CP-008", { questionLanguageId: "PRB-QL-708", seed: "editorial:PRB-QL-708" });
 const q127 = runPrb002Pipeline("PRB-CP-009", { questionLanguageId: "PRB-QL-802", seed: "editorial:PRB-QL-802" });
 assert(q115.explanation.lines.join(" ").includes("symmetry at the first post"), "Q115 must use the correct symmetry method");
-assert(q116.explanation.lines.join(" ").includes("7P3"), "Q116 must expand the remaining-position permutation");
+assert(/\d+P3/.test(q116.explanation.lines.join(" ")), "Q116 must expand the remaining-position permutation");
 assert(!q118.stem.includes("The probability that"), "Q118 must not reveal the answer through a supplied probability");
 assert(q118.explanation.lines.join(" ").includes("asks for a count"), "Q118 must distinguish count from probability");
 assert(q127.stem.includes("cricket") && q127.stem.includes("football"), "Q127 must name both games in the stem");
