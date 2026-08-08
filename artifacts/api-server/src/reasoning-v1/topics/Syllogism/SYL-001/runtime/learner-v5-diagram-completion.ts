@@ -3,6 +3,9 @@ import type { TermAssignment } from "./localization";
 import { renderExactVennV5 } from "./learner-v5-exact-venn";
 import { exactVennAddsUnstatedStrongRelationV5 } from "./learner-v5-exact-venn-safety";
 import {
+  enforceExistentialCompletenessV5,
+} from "./learner-v5-existential-completeness";
+import {
   correctExactVennWitnessProofV5,
 } from "./learner-v5-witness-proof";
 import type {
@@ -73,10 +76,15 @@ export function completeRequiredDiagramV5(
   assignment: TermAssignment,
 ): SylLearnerPresentationV5 {
   const initiallyRendered = renderExactVennV5(question, presentation, assignment);
-  const rendered = correctExactVennWitnessProofV5(
+  const proofCorrected = correctExactVennWitnessProofV5(
     question,
     presentation,
     initiallyRendered,
+  );
+  const rendered = enforceExistentialCompletenessV5(
+    question,
+    presentation,
+    proofCorrected,
   );
 
   if (!rendered.enabled) {
