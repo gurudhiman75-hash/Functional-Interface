@@ -3,7 +3,8 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = dirname(fileURLToPath(import.meta.url));
-const outputPath = join(root, "PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md");
+const comprehensiveOutputPath = join(root, "PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md");
+const reviewOutputPath = join(root, "PROBABILITY-REVIEW-QUESTIONS-AND-EXPLANATIONS.md");
 
 interface ReviewRow {
   packageId: string;
@@ -145,6 +146,15 @@ function renderPackage(packageId: "PRB-001" | "PRB-002", rows: ReviewRow[], star
   return { lines, nextNumber: questionNumber };
 }
 
+function verifyMarkdown(output: string, label: string): void {
+  const questionHeadingCount = (output.match(/^#### Question /gm) ?? []).length;
+  const answerCount = (output.match(/^\*\*Correct answer:\*\*/gm) ?? []).length;
+  const explanationCount = (output.match(/^\*\*Explanation:\*\*/gm) ?? []).length;
+  if (questionHeadingCount !== 135 || answerCount !== 135 || explanationCount !== 135) {
+    throw new Error(`${label} proof failed: questions=${questionHeadingCount}, answers=${answerCount}, explanations=${explanationCount}.`);
+  }
+}
+
 const prb001 = readReviewFile("PRB-001");
 const prb002 = readReviewFile("PRB-002");
 const allRows = [...prb001, ...prb002];
@@ -154,51 +164,55 @@ if (prb002.length !== 60) throw new Error(`Expected 60 PRB-002 questions, found 
 if (allRows.length !== 135) throw new Error(`Expected 135 total questions, found ${allRows.length}.`);
 
 const uniqueVisibleQuestions = new Set(allRows.map((row) => `${row.stem.toLowerCase().replace(/\s+/g, " ").trim()}|${row.answer}`));
-if (uniqueVisibleQuestions.size !== allRows.length) throw new Error("Comprehensive Markdown source contains duplicate visible questions.");
+if (uniqueVisibleQuestions.size !== allRows.length) throw new Error("Markdown source contains duplicate visible questions.");
 
-const markdown: string[] = [
-  "# Probability — Comprehensive Questions and Explanations",
-  "",
-  "> ExamTree English editorial-review set for SSC and banking examinations.",
-  "> Every explanation uses the shortest complete method possible.",
-  "",
-  "## Coverage Summary",
-  "",
-  "| Package | Exam profile | Questions | Options per question |",
-  "|---|---|---:|---:|",
-  "| PRB-001 | SSC CGL/CHSL | 75 | 4 |",
-  "| PRB-002 | Banking Mains | 60 | 5 |",
-  "| **Total** | — | **135** | — |",
-  "",
-  "## Explanation Standard",
-  "",
-  "Most solutions follow three simple steps:",
-  "",
-  "1. Find the total possible cases.",
-  "2. Find the required cases.",
-  "3. Divide and simplify.",
-  "",
-  "For successive draws, complements, conditional probability and counting questions, only the extra step actually needed is shown.",
-  "",
-];
+function buildMarkdown(title: string): string {
+  const markdown: string[] = [
+    `# ${title}`,
+    "",
+    "> ExamTree English editorial-review set for SSC and banking examinations.",
+    "> Every explanation uses the shortest complete method possible.",
+    "",
+    "## Coverage Summary",
+    "",
+    "| Package | Exam profile | Questions | Options per question |",
+    "|---|---|---:|---:|",
+    "| PRB-001 | SSC CGL/CHSL | 75 | 4 |",
+    "| PRB-002 | Banking Mains | 60 | 5 |",
+    "| **Total** | — | **135** | — |",
+    "",
+    "## Explanation Standard",
+    "",
+    "Most solutions follow three simple steps:",
+    "",
+    "1. Find the total possible cases.",
+    "2. Find the required cases.",
+    "3. Divide and simplify.",
+    "",
+    "For small coin, dice and number sample spaces, the actual outcomes are shown. For larger spaces, compact counting is used.",
+    "For successive draws, complements, conditional probability and counting questions, only the extra step actually needed is shown.",
+    "",
+  ];
 
-const firstPackage = renderPackage("PRB-001", prb001, 1);
-markdown.push(...firstPackage.lines);
-const secondPackage = renderPackage("PRB-002", prb002, firstPackage.nextNumber);
-markdown.push(...secondPackage.lines);
-
-const output = `${markdown.join("\n").trim()}\n`;
-writeFileSync(outputPath, output);
-
-const questionHeadingCount = (output.match(/^#### Question /gm) ?? []).length;
-const answerCount = (output.match(/^\*\*Correct answer:\*\*/gm) ?? []).length;
-const explanationCount = (output.match(/^\*\*Explanation:\*\*/gm) ?? []).length;
-if (questionHeadingCount !== 135 || answerCount !== 135 || explanationCount !== 135) {
-  throw new Error(`Markdown proof failed: questions=${questionHeadingCount}, answers=${answerCount}, explanations=${explanationCount}.`);
+  const firstPackage = renderPackage("PRB-001", prb001, 1);
+  markdown.push(...firstPackage.lines);
+  const secondPackage = renderPackage("PRB-002", prb002, firstPackage.nextNumber);
+  markdown.push(...secondPackage.lines);
+  return `${markdown.join("\n").trim()}\n`;
 }
 
+const comprehensiveOutput = buildMarkdown("Probability — Comprehensive Questions and Explanations");
+const reviewOutput = buildMarkdown("Probability — Review Questions and Explanations");
+
+verifyMarkdown(comprehensiveOutput, "Comprehensive Markdown");
+verifyMarkdown(reviewOutput, "Review Markdown");
+
+writeFileSync(comprehensiveOutputPath, comprehensiveOutput);
+writeFileSync(reviewOutputPath, reviewOutput);
+
 console.log(JSON.stringify({
-  outputPath,
+  comprehensiveOutputPath,
+  reviewOutputPath,
   questions: allRows.length,
   uniqueVisibleQuestions: uniqueVisibleQuestions.size,
   prb001: prb001.length,
