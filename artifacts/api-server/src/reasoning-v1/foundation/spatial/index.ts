@@ -3,4 +3,8 @@ export * from "./geometry";
 export * from "./transform";
 export * from "./normalize";
 export * from "./validator";
+export * from "./transform-validator";
+export * from "./symmetry";
+export * from "./clock";
+export * from "./glyph-authority";
 export * from "./svg-renderer";
