@@ -18,6 +18,22 @@ function makeRecurringConversionExplicit(pkg: SapCp003Package): SapCp003Package 
   });
 }
 
+function addInverseVerification(pkg: SapCp003Package): SapCp003Package {
+  if (pkg.taskDirection !== "INVERSE") return pkg;
+  if (pkg.explanation.steps.some((step) => /check/i.test(step))) return pkg;
+  const steps = Object.freeze([
+    ...pkg.explanation.steps,
+    ensureSentence(`Check: substituting ${pkg.canonicalAnswer} for the missing value in the original question reproduces the displayed equality`),
+  ]);
+  return Object.freeze({
+    ...pkg,
+    explanation: Object.freeze({
+      ...pkg.explanation,
+      steps,
+    }),
+  });
+}
+
 export function applySapCp003EditorialPresentationV3(pkg: SapCp003Package): SapCp003Package {
-  return makeRecurringConversionExplicit(pkg);
+  return addInverseVerification(makeRecurringConversionExplicit(pkg));
 }
