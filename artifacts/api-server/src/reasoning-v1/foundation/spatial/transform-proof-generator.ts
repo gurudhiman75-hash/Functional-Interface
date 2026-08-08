@@ -1,4 +1,5 @@
 import { spatialSceneSemanticFingerprint } from "./normalize";
+import { validateMarkerClearance } from "./perceptual-validator";
 import type {
   SpatialLearnerExplanation,
   SpatialProofChapterCode,
@@ -16,7 +17,10 @@ import {
 } from "./symmetry";
 import { validateSpatialTransformQuestion } from "./transform-validator";
 import type {
+  SpatialCircleNode,
   SpatialExplanationStep,
+  SpatialNode,
+  SpatialPoint,
   SpatialRequestedTransform,
   SpatialScene,
   SpatialTransformCandidate,
@@ -77,7 +81,11 @@ function buildExplanationSteps(
       id: "observe",
       operation: "OBSERVATION",
       sourceNodeIds: sourceScene.nodes.map((node) => node.id),
-      evidence: { stimulusKind: "SEEDED_GEOMETRIC_COMPOSITION", axisKind },
+      evidence: {
+        stimulusKind: "SEEDED_GEOMETRIC_COMPOSITION",
+        axisKind,
+        templateKind: String(sourceScene.metadata?.templateKind ?? "UNSPECIFIED"),
+      },
     },
     {
       id: "rule",
@@ -117,22 +125,75 @@ function buildExplanationSteps(
   ];
 }
 
+function nodeAnchor(node: SpatialNode | undefined): SpatialPoint | null {
+  if (!node) return null;
+  if (node.kind === "circle" || node.kind === "arc") return node.center;
+  if (node.kind === "line") {
+    return {
+      x: (node.start.x + node.end.x) / 2,
+      y: (node.start.y + node.end.y) / 2,
+    };
+  }
+  const points = node.points;
+  return {
+    x: points.reduce((sum, point) => sum + point.x, 0) / points.length,
+    y: points.reduce((sum, point) => sum + point.y, 0) / points.length,
+  };
+}
+
+function horizontalSide(point: SpatialPoint): string {
+  return point.x < SPATIAL_PROOF_AXIS ? "left" : "right";
+}
+
+function verticalSide(point: SpatialPoint): string {
+  return point.y < SPATIAL_PROOF_AXIS ? "upper" : "lower";
+}
+
+function positionLabel(point: SpatialPoint): string {
+  return `${verticalSide(point)}-${horizontalSide(point)}`;
+}
+
 function buildLearnerExplanation(
+  sourceScene: SpatialScene,
+  correctScene: SpatialScene,
   requestedTransform: SpatialTransformProofGeneratorInput["requestedTransform"],
   correctOptionIndex: number,
 ): SpatialLearnerExplanation {
   const isMirror = requestedTransform === "REFLECT_VERTICAL";
+  const sourceMarker = sourceScene.nodes.find(
+    (node): node is SpatialCircleNode => node.id === "marker" && node.kind === "circle",
+  );
+  const correctMarker = correctScene.nodes.find(
+    (node): node is SpatialCircleNode => node.id === "marker" && node.kind === "circle",
+  );
+  const sourceSecondary = nodeAnchor(
+    sourceScene.nodes.find((node) => node.id === "secondary-shape"),
+  );
+  const correctSecondary = nodeAnchor(
+    correctScene.nodes.find((node) => node.id === "secondary-shape"),
+  );
+  const markerMovement =
+    sourceMarker && correctMarker
+      ? `The black marker moves from the ${positionLabel(
+          sourceMarker.center,
+        )} area to the ${positionLabel(correctMarker.center)} area.`
+      : "Track the black marker first.";
+  const secondaryMovement =
+    sourceSecondary && correctSecondary
+      ? `The secondary figure moves from ${positionLabel(
+          sourceSecondary,
+        )} to ${positionLabel(correctSecondary)}.`
+      : "Then track the secondary figure.";
+
   return {
     observation: isMirror
-      ? "The mirror line is vertical, so every marked point must move to the opposite side at the same height."
-      : "The water line is horizontal, so every marked point must move above or below it at the same horizontal position.",
+      ? `${markerMovement} Its height must remain unchanged because the mirror line is vertical.`
+      : `${markerMovement} Its horizontal position must remain unchanged because the water line is horizontal.`,
     rule: isMirror
-      ? "Exchange left and right while keeping all top–bottom positions unchanged."
-      : "Exchange top and bottom while keeping all left–right positions unchanged.",
-    application: isMirror
-      ? "Reflect the main figure, marker, orientation line and secondary shape across the vertical axis."
-      : "Reflect the main figure, marker, orientation line and secondary shape across the horizontal axis.",
-    check: `Option ${correctOptionIndex + 1} is the only complete reflection; the other options use the wrong axis, rotate the figure, or reflect only one part.`,
+      ? "Exchange left and right for every part while keeping all upper–lower positions unchanged."
+      : "Exchange upper and lower positions for every part while keeping all left–right positions unchanged.",
+    application: `${secondaryMovement} The orientation mark must also reverse with the complete figure; it cannot remain in its original position.`,
+    check: `Option ${correctOptionIndex + 1} is the only complete reflection. The other choices use the wrong axis, rotate the whole figure, or move only the black marker.`,
   };
 }
 
@@ -174,6 +235,25 @@ export function generateSpatialTransformProofQuestion(
     `${sourceScene.id}-rotation-substitution`,
   );
   const partialScene = buildPartialReflectionCandidate(sourceScene, correctScene);
+
+  const clearanceChecks = [
+    sourceScene,
+    correctScene,
+    axisConfusionScene,
+    rotationScene,
+    partialScene,
+  ].map((scene) => validateMarkerClearance(scene));
+  const failedClearance = clearanceChecks.find((result) => !result.ok);
+  if (failedClearance) {
+    throw new Error(
+      `Geometric option collision for '${input.seed}': ${failedClearance.errors.join(
+        " | ",
+      )}`,
+    );
+  }
+  const minimumMarkerClearance = Math.min(
+    ...clearanceChecks.map((result) => result.minimumDistance),
+  );
 
   const unshuffledOptions: SpatialProofOption[] = [
     {
@@ -265,6 +345,9 @@ export function generateSpatialTransformProofQuestion(
       equivalentCandidateCheck: "PASS",
       clockGeometryCheck: "NOT_APPLICABLE",
       clockShortcutCheck: "NOT_APPLICABLE",
+      perceptualSeparationCheck: "PASS",
+      minimumMarkerClearance,
+      recommendedOptionPixels: 150,
     },
     explanationSteps: buildExplanationSteps(
       sourceScene,
@@ -273,6 +356,8 @@ export function generateSpatialTransformProofQuestion(
       correctOptionIndex,
     ),
     learnerExplanation: buildLearnerExplanation(
+      sourceScene,
+      correctScene,
       input.requestedTransform,
       correctOptionIndex,
     ),

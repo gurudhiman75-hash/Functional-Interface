@@ -4,6 +4,7 @@ import {
   SPATIAL_SCENE_VERSION,
   type SpatialClockHandAngles,
   type SpatialClockTime,
+  type SpatialNode,
   type SpatialScene,
 } from "./types";
 
@@ -11,6 +12,25 @@ const CLOCK_CENTER = { x: 50, y: 50 } as const;
 
 function clockPoint(angleClockwiseFromTwelve: number, radius: number) {
   return pointAtAngle(CLOCK_CENTER, radius, angleClockwiseFromTwelve - 90);
+}
+
+function buildClockTicks(): SpatialNode[] {
+  return Array.from({ length: 12 }, (_, index) => {
+    const angle = index * 30;
+    const major = index % 3 === 0;
+    return {
+      kind: "line" as const,
+      id: `clock-tick-${index}`,
+      role: "clock-tick",
+      start: clockPoint(angle, major ? 33 : 35),
+      end: clockPoint(angle, 40),
+      style: {
+        stroke: "#111",
+        strokeWidth: major ? 2.3 : 1.35,
+        lineCap: "round" as const,
+      },
+    };
+  });
 }
 
 export function buildClockSceneFromAngles(
@@ -30,21 +50,14 @@ export function buildClockSceneFromAngles(
         radius: 40,
         style: { stroke: "#111", strokeWidth: 2, fill: "none" },
       },
-      {
-        kind: "line",
-        id: "twelve-marker",
-        role: "clock-orientation-marker",
-        start: { x: 50, y: 10 },
-        end: { x: 50, y: 17 },
-        style: { stroke: "#111", strokeWidth: 2.5, lineCap: "round" },
-      },
+      ...buildClockTicks(),
       {
         kind: "line",
         id: "hour-hand",
         role: "hour-hand",
         start: { ...CLOCK_CENTER },
         end: clockPoint(angles.hourAngleDeg, 23),
-        style: { stroke: "#111", strokeWidth: 3.5, lineCap: "round" },
+        style: { stroke: "#111", strokeWidth: 3.6, lineCap: "round" },
       },
       {
         kind: "line",
@@ -63,7 +76,11 @@ export function buildClockSceneFromAngles(
         style: { stroke: "#111", strokeWidth: 1, fill: "#111" },
       },
     ],
-    metadata: { semanticRole: "ANALOG_CLOCK" },
+    metadata: {
+      semanticRole: "ANALOG_CLOCK",
+      clockFaceAuthority: "TWELVE_SYMMETRIC_TICKS_V2",
+      recommendedRenderPixels: 190,
+    },
   };
 }
 

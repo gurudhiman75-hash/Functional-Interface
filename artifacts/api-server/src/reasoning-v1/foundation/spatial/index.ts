@@ -16,5 +16,7 @@ export * from "./proof-packaging";
 export * from "./transform-proof-generator";
 export * from "./glyph-string-proof-generator";
 export * from "./clock-proof-generator";
+export * from "./perceptual-validator";
+export * from "./presentation-axis";
 export * from "./editorial-review-export";
 export * from "./svg-renderer";

@@ -6,11 +6,7 @@ import {
   validateMirrorClockCrossCheck,
   WATER_CLOCK_PRESENTATION_POLICY,
 } from "./clock";
-import {
-  buildClockScene,
-  buildSnappedHourClockScene,
-  SPATIAL_CLOCK_AXIS,
-} from "./clock-scene";
+import { buildClockScene, SPATIAL_CLOCK_AXIS } from "./clock-scene";
 import { spatialSceneSemanticFingerprint } from "./normalize";
 import {
   assertValidSpatialProofOptions,
@@ -25,16 +21,14 @@ import type {
   SpatialProofOption,
   SpatialTransformProofQuestion,
 } from "./proof-types";
+import { validateClockOptionPerceptualSeparation } from "./perceptual-validator";
 import { SpatialSeededRandom } from "./seed";
 import {
   classifySpatialSceneSymmetry,
   transformSceneByRequestedOperation,
   type SpatialSymmetryAxes,
 } from "./symmetry";
-import type {
-  SpatialClockTime,
-  SpatialRequestedTransform,
-} from "./types";
+import type { SpatialClockTime, SpatialRequestedTransform } from "./types";
 
 export interface ClockProofInput {
   seed: string;
@@ -50,6 +44,17 @@ export interface ClockProofInput {
 
 function formatTime(time: SpatialClockTime): string {
   return `${time.hour}:${String(time.minute).padStart(2, "0")}`;
+}
+
+function shiftHour(time: SpatialClockTime, delta: number): SpatialClockTime {
+  const zeroBased = ((time.hour % 12) + delta + 12) % 12;
+  return { hour: zeroBased === 0 ? 12 : zeroBased, minute: time.minute };
+}
+
+function mirrorArithmetic(source: SpatialClockTime, result: SpatialClockTime): string {
+  return source.minute === 0
+    ? `12:00 − ${formatTime(source)} = ${formatTime(result)}`
+    : `11:60 − ${formatTime(source)} = ${formatTime(result)}`;
 }
 
 export function generateClockProofQuestion(
@@ -94,21 +99,14 @@ export function generateClockProofQuestion(
     `${sourceScene.id}-rotation`,
   );
 
+  const isMirror = input.requestedTransform === "REFLECT_VERTICAL";
+  const shortcutTime = isMirror ? mirrorClockTimeShortcut(input.time) : undefined;
   let fourthOption: SpatialProofOption;
-  if (input.requestedTransform === "REFLECT_VERTICAL") {
-    const snappedSource = buildSnappedHourClockScene(
-      input.time,
-      `${sourceScene.id}-snapped-source`,
-    );
-    const snappedReflection = transformSceneByRequestedOperation(
-      snappedSource,
-      "REFLECT_VERTICAL",
-      axes,
-      `${sourceScene.id}-snapped-reflection`,
-    );
+  if (isMirror) {
+    const borrowErrorTime = shiftHour(shortcutTime!, 1);
     fourthOption = makeSpatialProofOption(
-      "CLOCK_HOUR_HAND_SNAPPED",
-      snappedReflection,
+      "CLOCK_SHORTCUT_BORROW_ERROR",
+      buildClockScene(borrowErrorTime, `${sourceScene.id}-borrow-error`),
     );
   } else {
     fourthOption = makeSpatialProofOption("UNCHANGED_STIMULUS", {
@@ -121,10 +119,7 @@ export function generateClockProofQuestion(
   const options = random.shuffle([
     makeSpatialProofOption("CORRECT_REFLECTION", correctScene),
     makeSpatialProofOption("AXIS_CONFUSION", axisConfusionScene),
-    makeSpatialProofOption(
-      "ROTATION_SUBSTITUTED_FOR_REFLECTION",
-      rotationScene,
-    ),
+    makeSpatialProofOption("ROTATION_SUBSTITUTED_FOR_REFLECTION", rotationScene),
     fourthOption,
   ]);
   const correctOptionIndex = options.findIndex(
@@ -140,39 +135,43 @@ export function generateClockProofQuestion(
     options,
   );
 
+  const perceptual = validateClockOptionPerceptualSeparation(options, 8);
+  if (!perceptual.ok) {
+    throw new Error(
+      `Clock options are not visually separable for '${input.seed}': ${perceptual.errors.join(
+        " | ",
+      )}`,
+    );
+  }
+
   const sourceAngles = clockTimeToHandAngles(input.time);
-  const reflectedAngles =
-    input.requestedTransform === "REFLECT_VERTICAL"
-      ? reflectClockHandsVertically(sourceAngles)
-      : reflectClockHandsHorizontally(sourceAngles);
-  const isMirror = input.requestedTransform === "REFLECT_VERTICAL";
+  const reflectedAngles = isMirror
+    ? reflectClockHandsVertically(sourceAngles)
+    : reflectClockHandsHorizontally(sourceAngles);
   const mirrorCheck = isMirror ? validateMirrorClockCrossCheck(input.time) : null;
   if (mirrorCheck && !mirrorCheck.ok) {
     throw new Error(`Mirror clock cross-check failed for ${formatTime(input.time)}.`);
   }
 
-  const shortcutTime = isMirror ? mirrorClockTimeShortcut(input.time) : undefined;
   const sourceFingerprint = spatialSceneSemanticFingerprint(sourceScene);
   const correctFingerprint = spatialSceneSemanticFingerprint(correctScene);
   const symmetryProfile = classifySpatialSceneSymmetry(sourceScene, axes);
   const learnerExplanation: SpatialLearnerExplanation = isMirror
     ? {
         observation:
-          "The mirror line passes through 12 and 6, so each hand reflects left to right.",
+          "The vertical mirror line keeps the 12–6 axis fixed and moves both hands to the opposite side.",
         rule:
-          "For a mirror-clock question, subtract the actual time from 12:00 on a 12-hour cycle.",
-        application: `For ${formatTime(input.time)}, the shortcut gives ${formatTime(
-          shortcutTime!,
-        )}; the independent coordinate reflection gives the same hand positions.`,
-        check: `Option ${correctOptionIndex + 1} has both hands in the verified mirror positions. The snapped-hour option is wrong because the hour hand advances continuously.`,
+          "Subtract the shown time from 12:00. When minutes are non-zero, borrow one hour and write 11:60 before subtracting.",
+        application: `${mirrorArithmetic(input.time, shortcutTime!)}. Independent coordinate reflection gives the same two hand positions.`,
+        check: `Option ${correctOptionIndex + 1} has both verified hand positions. The borrow-error option keeps the minutes but places the hour hand one hour too far ahead.`,
       }
     : {
         observation:
-          "The water line is horizontal, so every point on both hands moves equally above or below the centre.",
+          "The horizontal water line keeps left–right positions fixed and moves every point on both hands equally above or below the centre.",
         rule:
-          "Reflect the hand angles geometrically across the 3–9 axis; do not apply a stated-time shortcut.",
-        application: `The hour hand moves from ${sourceAngles.hourAngleDeg}° to ${reflectedAngles.hourAngleDeg}°, and the minute hand moves from ${sourceAngles.minuteAngleDeg}° to ${reflectedAngles.minuteAngleDeg}°.`,
-        check: `Option ${correctOptionIndex + 1} alone shows the complete horizontal reflection. The answer is evaluated as a diagram, not as a stated time.`,
+          "Reflect the hand angles across the 3–9 axis. A water image is checked as a diagram, not by applying a mirror-time shortcut.",
+        application: `The hour hand moves from ${sourceAngles.hourAngleDeg}° to ${reflectedAngles.hourAngleDeg}°, while the minute hand moves from ${sourceAngles.minuteAngleDeg}° to ${reflectedAngles.minuteAngleDeg}°.`,
+        check: `Option ${correctOptionIndex + 1} alone shows the complete horizontal reflection. The symmetric 12-tick face makes the hand positions directly comparable.`,
       };
 
   return {
@@ -206,6 +205,7 @@ export function generateClockProofQuestion(
         presentationPolicy: isMirror
           ? "TIME_OR_DIAGRAM"
           : WATER_CLOCK_PRESENTATION_POLICY,
+        minimumOptionEndpointDistance: perceptual.minimumDistance,
       },
     },
     reviewMetadata: {
@@ -219,6 +219,9 @@ export function generateClockProofQuestion(
       equivalentCandidateCheck: "PASS",
       clockGeometryCheck: "PASS",
       clockShortcutCheck: isMirror ? "PASS" : "NOT_APPLICABLE",
+      perceptualSeparationCheck: "PASS",
+      minimumVisualEndpointDistance: perceptual.minimumDistance,
+      recommendedOptionPixels: 190,
     },
     explanationSteps: buildSpatialProofExplanationSteps(
       sourceScene,

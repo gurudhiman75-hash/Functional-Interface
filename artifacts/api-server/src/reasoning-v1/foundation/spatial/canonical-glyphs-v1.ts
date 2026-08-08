@@ -15,7 +15,7 @@ const GLYPH_VIEWBOX = { minX: 0, minY: 0, width: 20, height: 20 } as const;
 const GLYPH_CENTER = { x: 10, y: 10 } as const;
 const STROKE = {
   stroke: "#111",
-  strokeWidth: 2,
+  strokeWidth: 2.2,
   fill: "none",
   lineCap: "round" as const,
   lineJoin: "round" as const,
@@ -62,7 +62,7 @@ function entry(
     localeMode: script === "LATIN" ? "SCRIPT_SPECIFIC" : "INSTRUCTION_LOCALISED",
     canonicalScene,
     symmetry,
-    authorityVersion: "PROOF-V1",
+    authorityVersion: "PROOF-V2-LEGIBILITY",
   };
 }
 
@@ -91,10 +91,14 @@ export const SPATIAL_PROOF_GLYPH_AUTHORITY: readonly SpatialGlyphAuthorityEntry[
     "LATIN",
     scene("GLYPH-LATIN-P", [
       line("stem", 3, 2, 3, 18),
-      line("top", 3, 2, 14, 2),
-      line("right", 14, 2, 17, 5),
-      line("right-lower", 17, 5, 14, 10),
-      line("middle", 14, 10, 3, 10),
+      polyline("rounded-bowl", [
+        [3, 2],
+        [12, 2],
+        [16, 4],
+        [17, 7],
+        [15, 10],
+        [3, 10],
+      ]),
     ]),
     { vertical: false, horizontal: false, rotational180: false },
   ),
@@ -103,11 +107,15 @@ export const SPATIAL_PROOF_GLYPH_AUTHORITY: readonly SpatialGlyphAuthorityEntry[
     "LATIN",
     scene("GLYPH-LATIN-R", [
       line("stem", 3, 2, 3, 18),
-      line("top", 3, 2, 14, 2),
-      line("right", 14, 2, 17, 5),
-      line("right-lower", 17, 5, 14, 10),
-      line("middle", 14, 10, 3, 10),
-      line("leg", 10, 10, 17, 18),
+      polyline("rounded-bowl", [
+        [3, 2],
+        [12, 2],
+        [16, 4],
+        [17, 7],
+        [15, 10],
+        [3, 10],
+      ]),
+      line("leg", 10, 10, 18, 18),
     ]),
     { vertical: false, horizontal: false, rotational180: false },
   ),
@@ -132,7 +140,8 @@ export const SPATIAL_PROOF_GLYPH_AUTHORITY: readonly SpatialGlyphAuthorityEntry[
         radius: 7,
         style: STROKE,
       },
-      line("tail", 11, 12, 17, 18),
+      line("tail-inside", 11, 11, 14, 14),
+      line("tail-outside", 14, 14, 18, 18),
     ]),
     { vertical: false, horizontal: false, rotational180: false },
   ),
@@ -156,12 +165,9 @@ export const SPATIAL_PROOF_GLYPH_AUTHORITY: readonly SpatialGlyphAuthorityEntry[
     "DIGIT-4",
     "WESTERN_ARABIC_DIGIT",
     scene("GLYPH-DIGIT-4", [
-      polyline("diagonal", [
-        [14, 2],
-        [3, 12],
-        [18, 12],
-      ]),
-      line("stem", 14, 2, 14, 18),
+      line("left-diagonal", 14, 2, 4, 12),
+      line("crossbar", 4, 12, 18, 12),
+      line("upright-stem", 14, 2, 14, 18),
     ]),
     { vertical: false, horizontal: false, rotational180: false },
   ),
@@ -270,6 +276,8 @@ export function buildGlyphStringScene(input: BuildGlyphStringSceneInput): Spatia
     metadata: {
       semanticRole: "CANONICAL_VECTOR_GLYPH_STRING",
       glyphCount: input.glyphIds.length,
+      glyphAuthorityVersion: "PROOF-V2-LEGIBILITY",
+      recommendedRenderPixels: 150,
     },
   };
 }

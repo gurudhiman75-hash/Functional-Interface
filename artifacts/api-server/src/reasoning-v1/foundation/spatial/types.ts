@@ -149,6 +149,10 @@ export interface SpatialReviewMetadata {
   equivalentCandidateCheck: "PASS" | "FAIL";
   clockGeometryCheck?: "PASS" | "FAIL" | "NOT_APPLICABLE";
   clockShortcutCheck?: "PASS" | "FAIL" | "NOT_APPLICABLE";
+  perceptualSeparationCheck?: "PASS" | "FAIL" | "NOT_APPLICABLE";
+  minimumVisualEndpointDistance?: number;
+  minimumMarkerClearance?: number;
+  recommendedOptionPixels?: number;
 }
 
 export interface SpatialExplanationStep {

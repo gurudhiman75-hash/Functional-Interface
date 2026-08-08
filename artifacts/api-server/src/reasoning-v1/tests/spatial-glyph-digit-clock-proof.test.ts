@@ -7,6 +7,8 @@ import {
   renderSpatialSceneToSvg,
   spatialSceneSemanticFingerprint,
   transformSceneByRequestedOperation,
+  validateClockOptionPerceptualSeparation,
+  validateMarkerClearance,
   validateSpatialOptionUniqueness,
   validateSpatialProofGlyphAuthority,
   type SpatialTransformProofQuestion,
@@ -92,6 +94,54 @@ function assertQuestion(question: SpatialTransformProofQuestion): void {
   }
 }
 
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function buildReviewHtml(
+  editorialExport: ReturnType<typeof buildSpatialEditorialReviewExport>,
+): string {
+  const rows = editorialExport.rows
+    .map(
+      (row, index) => `
+<section class="question ${row.stimulusKind === "ANALOG_CLOCK" ? "clock" : ""}">
+  <h2>Question ${index + 1} · ${escapeHtml(row.chapterCode)}</h2>
+  <p>${row.requestedTransform === "REFLECT_VERTICAL" ? "Choose the correct mirror image." : "Choose the correct water image."}</p>
+  <div class="source" style="--size:${row.recommendedOptionPixels}px">${row.sourceSvg}</div>
+  <div class="options" style="--size:${row.recommendedOptionPixels}px">
+    ${row.optionSvgs
+      .map(
+        (svg, optionIndex) => `<div class="option"><strong>${String.fromCharCode(
+          65 + optionIndex,
+        )}</strong>${svg}</div>`,
+      )
+      .join("\n")}
+  </div>
+  <details>
+    <summary>Answer and editorial evidence</summary>
+    <p><strong>Answer:</strong> ${String.fromCharCode(64 + row.correctOptionNumber)}</p>
+    <p><strong>Observation:</strong> ${escapeHtml(row.learnerExplanation?.observation ?? "")}</p>
+    <p><strong>Rule:</strong> ${escapeHtml(row.learnerExplanation?.rule ?? "")}</p>
+    <p><strong>Application:</strong> ${escapeHtml(row.learnerExplanation?.application ?? "")}</p>
+    <p><strong>Check:</strong> ${escapeHtml(row.learnerExplanation?.check ?? "")}</p>
+    <p><strong>Option labels:</strong> ${escapeHtml(row.optionLabels.join(" · "))}</p>
+  </details>
+</section>`,
+    )
+    .join("\n");
+
+  return `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SPA Wave 03 remediated review</title>
+<style>
+body{font-family:Arial,sans-serif;max-width:1160px;margin:auto;padding:24px;background:#f8fafc;color:#111827}.question{background:white;border:1px solid #d1d5db;border-radius:12px;padding:20px;margin:0 0 24px}.source{width:var(--size);max-width:100%;margin:16px auto}.source svg,.option svg{width:100%;height:auto}.options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.option{border:1px solid #9ca3af;border-radius:8px;padding:10px;min-width:0}.option strong{display:block}.clock .options{gap:18px}.clock .option{padding:14px}details{margin-top:16px}summary{cursor:pointer;font-weight:700}@media(max-width:760px){.options{grid-template-columns:repeat(2,minmax(0,1fr))}.question{padding:14px}}
+</style></head><body><h1>SPA Wave 03 — Remediated Review Corpus</h1>${rows}</body></html>`;
+}
+
 validateSpatialProofGlyphAuthority();
 
 const firstCorpus = buildSpatialWave03Corpus();
@@ -120,9 +170,16 @@ assert.deepEqual(stimulusCounts, {
   ANALOG_CLOCK: 3,
 });
 
-const answerPositions = firstCorpus.all.reduce(
-  (counts, question) => {
-    counts[question.correctOptionIndex] += 1;
+const answerSequence = firstCorpus.all.map((question) => question.correctOptionIndex);
+assert.deepEqual(answerSequence, [
+  2, 0, 3, 1, 0, 2, 1, 3, 1, 3, 0, 2, 2, 0, 3, 1, 3, 1, 2, 0,
+]);
+for (let index = 1; index < answerSequence.length; index += 1) {
+  assert.notEqual(answerSequence[index], answerSequence[index - 1]);
+}
+const answerPositions = answerSequence.reduce(
+  (counts, position) => {
+    counts[position] += 1;
     return counts;
   },
   [0, 0, 0, 0],
@@ -137,6 +194,22 @@ assert.equal(
   ).size,
   firstCorpus.all.length,
 );
+
+const geometricQuestions = firstCorpus.all.filter(
+  (question) => question.stimulusKind === "SEEDED_GEOMETRIC_COMPOSITION",
+);
+const templateKinds = new Set(
+  geometricQuestions.map((question) => question.sourceScene.metadata?.templateKind),
+);
+assert(templateKinds.size >= 3);
+for (const question of geometricQuestions) {
+  assert.equal(question.reviewMetadata.perceptualSeparationCheck, "PASS");
+  assert((question.reviewMetadata.minimumMarkerClearance ?? 0) >= 4);
+  for (const option of question.options) {
+    const clearance = validateMarkerClearance(option.scene);
+    assert.equal(clearance.ok, true, clearance.errors.join(" | "));
+  }
+}
 
 const latinQuestions = firstCorpus.all.filter(
   (question) => question.stimulusKind === "LATIN_GLYPH_STRING",
@@ -168,12 +241,39 @@ assert(
     (question) =>
       question.reviewMetadata.clockGeometryCheck === "PASS" &&
       question.reviewMetadata.clockShortcutCheck === "PASS" &&
+      question.reviewMetadata.perceptualSeparationCheck === "PASS" &&
       question.solverEvidence.clock?.shortcutCrossCheck === "PASS" &&
-      question.solverEvidence.clock?.presentationPolicy === "TIME_OR_DIAGRAM",
+      question.solverEvidence.clock?.presentationPolicy === "TIME_OR_DIAGRAM" &&
+      (question.solverEvidence.clock?.minimumOptionEndpointDistance ?? 0) >= 8,
   ),
 );
 assert.equal(mirrorClocks[0]!.solverEvidence.clock!.sourceAngles.hourAngleDeg, 70);
 assert.equal(mirrorClocks[1]!.solverEvidence.clock!.sourceAngles.hourAngleDeg, 137.5);
+assert(
+  mirrorClocks.every((question) =>
+    question.options.some(
+      (option) => option.label === "CLOCK_SHORTCUT_BORROW_ERROR",
+    ),
+  ),
+);
+assert(
+  mirrorClocks.every(
+    (question) =>
+      !question.options.some((option) => option.label === "CLOCK_HOUR_HAND_SNAPPED"),
+  ),
+);
+
+const allClocks = firstCorpus.all.filter(
+  (question) => question.stimulusKind === "ANALOG_CLOCK",
+);
+for (const question of allClocks) {
+  assert.equal(
+    question.sourceScene.nodes.filter((node) => node.role === "clock-tick").length,
+    12,
+  );
+  const perceptual = validateClockOptionPerceptualSeparation(question.options, 8);
+  assert.equal(perceptual.ok, true, perceptual.errors.join(" | "));
+}
 
 const waterClocks = firstCorpus.water.filter(
   (question) => question.stimulusKind === "ANALOG_CLOCK",
@@ -190,7 +290,7 @@ assert.equal(
 );
 
 const editorialExport = buildSpatialEditorialReviewExport(firstCorpus.all);
-assert.equal(editorialExport.schemaVersion, "1.0");
+assert.equal(editorialExport.schemaVersion, "1.1");
 assert.equal(editorialExport.questionCount, 20);
 assert.equal(editorialExport.rows.length, 20);
 assert(
@@ -198,7 +298,9 @@ assert(
     (row) =>
       row.learnerExplanation !== undefined &&
       row.sourceSvg.startsWith("<svg ") &&
-      row.optionSvgs.length === 4,
+      row.sourceSvg.includes("reflection-axis-presentation") &&
+      row.optionSvgs.length === 4 &&
+      row.optionSvgs.every((svg) => !svg.includes("reflection-axis-presentation")),
   ),
 );
 
@@ -208,29 +310,40 @@ writeFileSync(
   `${JSON.stringify(editorialExport, null, 2)}\n`,
   "utf8",
 );
+writeFileSync(
+  "dist/reasoning-v1/spatial/spa-wave-03-editorial-review.html",
+  buildReviewHtml(editorialExport),
+  "utf8",
+);
 
 console.log(
   JSON.stringify(
     {
-      status: "PASS_SPA_FND_001_GLYPH_DIGIT_CLOCK_PROOF",
+      status: "PASS_SPA_FND_001_WAVE_03_PERCEPTUAL_REMEDIATION",
       corpus: {
         total: firstCorpus.all.length,
         mirror: firstCorpus.mirror.length,
         water: firstCorpus.water.length,
         stimulusCounts,
         answerPositions,
+        answerSequence,
+        geometricTemplateKinds: [...templateKinds],
       },
       checks: {
-        canonicalGlyphAuthority: true,
+        canonicalGlyphAuthorityV2: true,
         deterministicRegeneration: true,
         independentSolve: true,
-        fourUniqueOptions: true,
-        balancedAnswerPositions: true,
-        continuousClockHourHand: true,
+        semanticOptionUniqueness: true,
+        nonPredictableBalancedAnswerOrder: true,
+        geometricCollisionClearance: true,
+        diverseGeometricTemplates: true,
+        twelveTickClockFace: true,
+        clockPerceptualSeparation: true,
         mirrorClockDualProof: true,
         waterClockDiagramOnly: true,
-        learnerExplanation: true,
-        editorialReviewExport: true,
+        explicitPresentationAxis: true,
+        questionSpecificExplanation: true,
+        editorialJsonAndHtml: true,
         lifecycleIsolation: true,
       },
     },

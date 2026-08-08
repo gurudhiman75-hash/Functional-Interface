@@ -23,7 +23,8 @@ export type SpatialMisconceptionLabel =
   | "ORDER_REVERSED_GLYPHS_UNCHANGED"
   | "GLYPHS_REFLECTED_ORDER_UNCHANGED"
   | "UNCHANGED_STIMULUS"
-  | "CLOCK_HOUR_HAND_SNAPPED";
+  | "CLOCK_HOUR_HAND_SNAPPED"
+  | "CLOCK_SHORTCUT_BORROW_ERROR";
 
 export interface SpatialProofOption {
   label: "CORRECT_REFLECTION" | SpatialMisconceptionLabel;
@@ -45,6 +46,7 @@ export interface SpatialClockProofEvidence {
   shortcutTime?: SpatialClockTime;
   shortcutCrossCheck?: "PASS" | "NOT_APPLICABLE";
   presentationPolicy: "TIME_OR_DIAGRAM" | "DIAGRAM_ONLY";
+  minimumOptionEndpointDistance?: number;
 }
 
 export interface SpatialTransformSolverEvidence {

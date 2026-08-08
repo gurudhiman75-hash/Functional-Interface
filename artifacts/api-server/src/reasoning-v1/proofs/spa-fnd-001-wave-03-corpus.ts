@@ -20,71 +20,71 @@ export interface SpatialWave03Corpus {
 
 export function buildSpatialWave03Corpus(): SpatialWave03Corpus {
   const mirror: SpatialTransformProofQuestion[] = [
-    generateMirrorGeometricProofQuestion("MIR-PROOF-004"),
-    generateMirrorGeometricProofQuestion("MIR-PROOF-007"),
-    generateMirrorGeometricProofQuestion("MIR-PROOF-008"),
-    generateMirrorGeometricProofQuestion("MIR-PROOF-009"),
-    generateMirrorDigitProofQuestion("MIR-W3-004", [
+    generateMirrorGeometricProofQuestion("MIR-GEO-A-003"),
+    generateMirrorGeometricProofQuestion("MIR-GEO-B-012"),
+    generateMirrorGeometricProofQuestion("MIR-GEO-C-006"),
+    generateMirrorGeometricProofQuestion("MIR-GEO-D-022"),
+    generateMirrorDigitProofQuestion("MIR-SP-R5-006", [
       "DIGIT-2",
       "DIGIT-4",
       "DIGIT-7",
     ]),
-    generateMirrorDigitProofQuestion("MIR-W3-005", [
+    generateMirrorDigitProofQuestion("MIR-SP-R6-008", [
       "DIGIT-5",
       "DIGIT-2",
     ]),
-    generateMirrorDigitProofQuestion("MIR-W3-007", [
+    generateMirrorDigitProofQuestion("MIR-SP-R7-003", [
       "DIGIT-7",
       "DIGIT-4",
       "DIGIT-5",
     ]),
-    generateMirrorLatinGlyphProofQuestion("MIR-W3-019", [
+    generateMirrorLatinGlyphProofQuestion("MIR-SP-R8-002", [
       "LATIN-F",
       "LATIN-R",
       "LATIN-L",
     ]),
-    generateMirrorLatinGlyphProofQuestion("MIR-W3-023", [
+    generateMirrorLatinGlyphProofQuestion("MIR-SP-R9-004", [
       "LATIN-P",
       "LATIN-K",
     ]),
-    generateMirrorLatinGlyphProofQuestion("MIR-W3-003", [
+    generateMirrorLatinGlyphProofQuestion("MIR-SP-R10-006", [
       "LATIN-Q",
       "LATIN-F",
       "LATIN-P",
     ]),
-    generateMirrorClockProofQuestion("MIR-CLOCK-W3-009", {
+    generateMirrorClockProofQuestion("MIR-CLK-R11-007", {
       hour: 2,
       minute: 20,
     }),
-    generateMirrorClockProofQuestion("MIR-CLOCK-W3-011", {
+    generateMirrorClockProofQuestion("MIR-CLK-R12-001", {
       hour: 4,
       minute: 35,
     }),
   ];
 
   const water: SpatialTransformProofQuestion[] = [
-    generateWaterGeometricProofQuestion("WAT-PROOF-003"),
-    generateWaterGeometricProofQuestion("WAT-PROOF-011"),
-    generateWaterGeometricProofQuestion("WAT-PROOF-009"),
-    generateWaterDigitProofQuestion("WAT-W3-001", [
+    generateWaterGeometricProofQuestion("WAT-GEO-A-032"),
+    generateWaterGeometricProofQuestion("WAT-GEO-B-008"),
+    generateWaterGeometricProofQuestion("WAT-GEO-C-015"),
+    generateWaterDigitProofQuestion("WAT-SP-R16-002", [
       "DIGIT-2",
       "DIGIT-5",
       "DIGIT-7",
     ]),
-    generateWaterDigitProofQuestion("WAT-W3-006", [
+    generateWaterDigitProofQuestion("WAT-SP-R17-001", [
       "DIGIT-4",
       "DIGIT-2",
     ]),
-    generateWaterLatinGlyphProofQuestion("WAT-W3-007", [
+    generateWaterLatinGlyphProofQuestion("WAT-SP-R18-002", [
       "LATIN-R",
       "LATIN-F",
     ]),
-    generateWaterLatinGlyphProofQuestion("WAT-W3-008", [
+    generateWaterLatinGlyphProofQuestion("WAT-SP-R19-002", [
       "LATIN-Q",
       "LATIN-L",
       "LATIN-P",
     ]),
-    generateWaterClockProofQuestion("WAT-CLOCK-W3-005", {
+    generateWaterClockProofQuestion("WAT-CLK-R20-010", {
       hour: 2,
       minute: 0,
     }),
