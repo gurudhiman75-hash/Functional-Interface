@@ -86,10 +86,10 @@ export function buildSpatialFcl001ProofCorpus(): SpatialClassificationProofQuest
       propertyId: "SHADING_MATCHES_ODD_SEGMENTS",
       expectedOddIndex: 0,
       states: [
-        figure("PENTAGON", "TRIANGLE", 3, 1, "BOTTOM_LEFT", "UP", false, 1, "TOP"),
-        figure("TRIANGLE", "PENTAGON", 3, 0, "TOP_RIGHT", "RIGHT", true, 3, "LEFT"),
-        figure("SQUARE", "CIRCLE", 0, 0, "TOP_LEFT", "UP", true, 3, "BOTTOM"),
-        figure("SQUARE", "TRIANGLE", 0, 0, "TOP_LEFT", "RIGHT", true, 1, "BOTTOM"),
+        figure("CIRCLE", "TRIANGLE", 0, 1, "TOP_RIGHT", "DOWN", true, 2, "RIGHT"),
+        figure("PENTAGON", "TRIANGLE", 2, 2, "BOTTOM_RIGHT", "DOWN", false, 2, "BOTTOM"),
+        figure("SQUARE", "TRIANGLE", 0, 3, "BOTTOM_RIGHT", "LEFT", true, 1, "TOP"),
+        figure("TRIANGLE", "SQUARE", 0, 0, "BOTTOM_LEFT", "DOWN", true, 1, "RIGHT"),
       ],
     }),
     generateFigureClassificationProofQuestion({
