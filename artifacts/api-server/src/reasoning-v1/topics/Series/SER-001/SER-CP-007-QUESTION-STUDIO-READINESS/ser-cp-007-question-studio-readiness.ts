@@ -6,8 +6,10 @@ import {
 } from "../SER-CP-007-ENGLISH-FREEZE/ser-cp-007-permanent-runtime";
 import {
   generateSerCp007PermanentLocalizedPackage,
-  type SerCp007Locale,
 } from "../SER-CP-007-LOCALIZATION/ser-cp-007-localized-runtime-final";
+import type {
+  SerCp007Locale,
+} from "../SER-CP-007-LOCALIZATION/ser-cp-007-localized-runtime";
 import type {
   SerCp007PermanentQlId,
 } from "../SER-PERMANENT-QL-REGISTRY";
