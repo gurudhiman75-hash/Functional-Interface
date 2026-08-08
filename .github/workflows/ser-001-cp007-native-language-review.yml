@@ -74,7 +74,7 @@ jobs:
           test "$PUNJABI_COUNT" -eq 104
           test "$ENGLISH_COUNT" -eq 104
           for QL in $(seq -w 1 13); do
-            COUNT=$(grep -c "\\`SER-QL-0${QL}\\`" "$FILE")
+            COUNT=$(grep -c "Permanent QL:.*SER-QL-0${QL}" "$FILE")
             test "$COUNT" -eq 8
           done
 
