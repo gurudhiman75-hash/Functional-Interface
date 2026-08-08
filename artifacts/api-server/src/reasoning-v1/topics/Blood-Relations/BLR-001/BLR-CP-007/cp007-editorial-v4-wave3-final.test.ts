@@ -11,6 +11,29 @@ const answerPositions = [0, 1, 2, 3].map((index) =>
   bank.filter((question) => question.correctIndex === index).length,
 );
 const sharedSets = new Map<string, typeof bank[number][]>();
+const ambiguityDetails = bank
+  .filter((question) => question.qlId !== "BLR-QL-035")
+  .flatMap((question) => {
+    const satisfying = question.options
+      .map((option, index) => ({
+        index,
+        text: option.text,
+        semanticKey: option.semanticKey,
+        actualRelation: option.actualRelation,
+        markedCorrect: option.isCorrectAnswerForTask,
+      }))
+      .filter((_, index) => question.options[index]!.targetRelationSatisfied);
+    return satisfying.length === 1 ? [] : [{
+      itemId: question.itemId,
+      qlId: question.qlId,
+      prototype: question.sourcePrototypeId,
+      target: "target" in question.query ? question.query.target : null,
+      satisfying,
+    }];
+  });
+if (ambiguityDetails.length > 0) {
+  console.error(JSON.stringify({ semanticAmbiguities: ambiguityDetails }, null, 2));
+}
 
 assert.equal(BLR_CP007_V4_WAVE3_FINAL_REVIEW_AUTHORITY, "BLR_CP007_V4_WAVE3_FINAL_HUMAN_REVIEW_CANDIDATE");
 assert.equal(bank.length, 168);
