@@ -7,7 +7,7 @@ import {
 } from "./permanent-runtime/runtime";
 import { generateSapCp003ReviewRecords } from "./review-export";
 
-const outputPath = resolve(process.argv[2] ?? "dist/SAP-CP-003-300-STRUCTURAL-REVIEW-V2.md");
+const outputPath = resolve(process.argv[2] ?? "dist/SAP-CP-003-300-STRUCTURAL-REVIEW-V3.md");
 const records = generateSapCp003ReviewRecords();
 const labels = ["A", "B", "C", "D"] as const;
 const titleByPrototype = new Map(SAP_CP003_PERMANENT_ALLOCATION.map((entry) => [entry.prototypeId, entry.title]));
@@ -47,11 +47,11 @@ for (const record of records) {
 }
 
 const lines: string[] = [
-  "# SAP-CP-003 — 300-Question Structural Review V2",
+  "# SAP-CP-003 — 300-Question Structural Review V3",
   "",
   "**Checkpoint:** Decimals, Percentages and Exact Representation Switching  ",
   "**Permanent QLs:** SAP-QL-034 through SAP-QL-052  ",
-  "**Status:** Structural remediation candidate; human review pending  ",
+  "**Status:** Editorial remediation V3 candidate; human review pending  ",
   "**Product lifecycle:** Inactive  ",
   "",
   "## Corpus integrity snapshot",
@@ -105,7 +105,7 @@ for (const record of records) {
 mkdirSync(dirname(outputPath), { recursive: true });
 writeFileSync(outputPath, lines.join("\n"), "utf8");
 console.log(JSON.stringify({
-  status: "WROTE_SAP_CP003_STRUCTURAL_REVIEW_V2",
+  status: "WROTE_SAP_CP003_STRUCTURAL_REVIEW_V3",
   outputPath,
   questionCount: records.length,
   answerPositionCounts: { A: positionCounts[0], B: positionCounts[1], C: positionCounts[2], D: positionCounts[3] },
@@ -114,4 +114,5 @@ console.log(JSON.stringify({
   cyclicFourWindows,
   distinctFourGrams: fourGrams.size,
   maximumSamePositionRun,
+  lifecycle: "INACTIVE_HUMAN_REVIEW_PENDING",
 }, null, 2));
