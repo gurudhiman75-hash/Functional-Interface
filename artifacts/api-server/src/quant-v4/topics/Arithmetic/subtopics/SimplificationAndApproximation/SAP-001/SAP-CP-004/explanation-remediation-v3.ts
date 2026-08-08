@@ -16,6 +16,12 @@ function gcd(a: bigint, b: bigint): bigint {
   return x || 1n;
 }
 
+function ordinalName(index: number): string {
+  if (index === 4) return "fourth";
+  if (index === 5) return "fifth";
+  return `${index}th`;
+}
+
 function explanation(coreConcept: string, steps: readonly string[], answer: string): Explanation {
   return Object.freeze({
     coreConcept,
@@ -66,6 +72,37 @@ function refine(pkg: SapCp004Package): SapCp004Package {
     }
   }
 
+  if (pkg.prototypeId === "SAP-CP004-PROT-FRACTION-POWER") {
+    const numerator = BigInt(data.numerator!);
+    const denominator = BigInt(data.denominator!);
+    const exponent = data.exponent!;
+    const common = gcd(numerator, denominator);
+    if (common > 1n) {
+      const reducedNumerator = numerator / common;
+      const reducedDenominator = denominator / common;
+      revised = explanation(
+        "Fast method: reduce the fraction first, then apply the power to the smaller numerator and denominator.",
+        [
+          `${numerator}/${denominator} = ${reducedNumerator}/${reducedDenominator}.`,
+          `(${reducedNumerator}/${reducedDenominator})^${exponent} = ${power(reducedNumerator, exponent)}/${power(reducedDenominator, exponent)}.`,
+        ],
+        pkg.canonicalAnswer,
+      );
+    }
+  }
+
+  if (pkg.prototypeId === "SAP-CP004-PROT-BOUNDED-NTH-ROOT") {
+    const root = data.root!;
+    const index = data.index!;
+    const radicand = data.radicand!;
+    const ordinal = ordinalName(index);
+    revised = explanation(
+      `Recognise the perfect ${ordinal} power; the principal ${ordinal} root is the positive base that produces it.`,
+      [`${root}^${index} = ${radicand}.`, `So the principal ${ordinal} root of ${radicand} is ${root}.`],
+      pkg.canonicalAnswer,
+    );
+  }
+
   if (pkg.prototypeId === "SAP-CP004-PROT-EXACT-ROOT-OF-FRACTION") {
     const numeratorRoot = BigInt(data.numeratorRoot!);
     const denominatorRoot = BigInt(data.denominatorRoot!);
@@ -104,7 +141,7 @@ function refine(pkg: SapCp004Package): SapCp004Package {
         ? `√(${base}^2)`
         : `∛(${base}^3)`;
     revised = explanation(
-      `Fast method: do not expand the large power or product; the matching root and power structure undo each other for this positive base.`,
+      "Fast method: do not expand the large power or product; the matching root and power structure undo each other for this positive base.",
       [`${displayedStructure} = ${base}.`, `${base} + ${data.add!} = ${pkg.canonicalAnswer}.`],
       pkg.canonicalAnswer,
     );
@@ -113,6 +150,9 @@ function refine(pkg: SapCp004Package): SapCp004Package {
   const errors = [...pkg.validation.errors];
   if (revised.steps.length < 2 || revised.steps.length > 4) errors.push("The refined explanation must contain two to four focused steps.");
   if (revised.finalAnswer !== `Answer: ${pkg.canonicalAnswer}.`) errors.push("The refined explanation final line is not exactly answer-bound.");
+  if (revised.steps.some((step) => /=\s*(-?\d+(?:\/\d+)?)\s*=\s*\1\.$/.test(step))) {
+    errors.push("A repeated terminal result remains in the refined explanation.");
+  }
 
   return Object.freeze({
     ...pkg,
