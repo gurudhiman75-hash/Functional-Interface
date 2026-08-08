@@ -165,8 +165,8 @@ export function localizedBlrCp007TargetClause(
 ): string {
   const role = RELATION_ROLE_PHRASES[relationId][locale];
   return locale === "hi-IN"
-    ? `${subjectId}, ${referenceId} ${role} हो`
-    : `${subjectId}, ${referenceId} ${role} ਹੋਵੇ`;
+    ? `${subjectId}, ${referenceId} ${role} है`
+    : `${subjectId}, ${referenceId} ${role} ਹੈ`;
 }
 
 export function localizedBlrCp007CodeMeaning(
@@ -186,7 +186,7 @@ export function localizedBlrCp007SharedPrompt(
   const meanings = codeKey.map((definition) => localizedBlrCp007CodeMeaning(definition, locale));
   return locale === "hi-IN"
     ? `इन संकेतों के अर्थ हैं: ${meanings.join("; ")}। हर कूटित जोड़ी को बाएँ से दाएँ पढ़ें।`
-    : `ਇਨ੍ਹਾਂ ਸੰਕੇਤਾਂ ਦੇ ਅਰਥ ਹਨ: ${meanings.join("; ")}। ਹਰ ਕੋਡਿਤ ਜੋੜੀ ਨੂੰ ਖੱਬੇ ਤੋਂ ਸੱਜੇ ਪੜ੍ਹੋ।`;
+    : `ਦਿੱਤੇ ਗਏ ਸੰਕੇਤਾਂ ਦੇ ਅਰਥ ਇਹ ਹਨ: ${meanings.join("; ")}। ਹਰ ਕੋਡਿਤ ਜੋੜੀ ਨੂੰ ਖੱਬੇ ਤੋਂ ਸੱਜੇ ਪੜ੍ਹੋ।`;
 }
 
 export function localizedBlrCp007DirectStatement(
