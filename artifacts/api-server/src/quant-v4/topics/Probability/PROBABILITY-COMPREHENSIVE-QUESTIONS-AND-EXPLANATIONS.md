@@ -1899,11 +1899,12 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
-1. The same colour can occur in two disjoint ways for the pens: red-red or blue-blue.
-2. \(P\!\left(red-red\right)\) = \(\frac{5}{12}\) \(\times\) \(\frac{4}{11}\), and \(P\!\left(blue-blue\right)\) = \(\frac{7}{12}\) \(\times\) \(\frac{6}{11}\).
-3. Adding the two cases gives \(\frac{31}{66}\).
-- **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
+- **Method:** The pens can have the same colour in two mutually exclusive orders: red-red or blue-blue. Calculate both probabilities and add them.
+1. \(P\!\left(red-red\right)\) = \(\frac{5}{12}\) \(\times\) \(\frac{4}{11}\) = \(\frac{20}{132}\).
+2. \(P\!\left(blue-blue\right)\) = \(\frac{7}{12}\) \(\times\) \(\frac{6}{11}\) = \(\frac{42}{132}\).
+3. \(P\!\left(same colour\right)\) = \(\frac{20}{132}\) + \(\frac{42}{132}\) = \(\frac{62}{132}\).
+- **Simplification:** Divide the numerator and denominator by 2: (62 \(\div\) 2)/(132 \(\div\) 2) = \(\frac{31}{66}\).
+- **Key point:** Red-red and blue-blue cannot occur together, so their probabilities are added.
 - **Answer:** The required probability is \(\frac{31}{66}\).
 
 ---
@@ -1924,11 +1925,12 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
-1. Different colours can occur as red-blue or blue-red, so both orders of the coloured stones must be counted.
-2. P = \(\frac{9}{17}\) \(\times\) \(\frac{8}{16}\) + \(\frac{8}{17}\) \(\times\) \(\frac{9}{16}\).
-3. After simplification, the required probability is \(\frac{9}{17}\).
-- **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
+- **Method:** Different colours can occur in two mutually exclusive orders for the coloured stones: red-blue or blue-red. Calculate both and add them.
+1. \(P\!\left(red-blue\right)\) = \(\frac{9}{17}\) \(\times\) \(\frac{8}{16}\) = \(\frac{72}{272}\).
+2. \(P\!\left(blue-red\right)\) = \(\frac{8}{17}\) \(\times\) \(\frac{9}{16}\) = \(\frac{72}{272}\).
+3. \(P\!\left(different colours\right)\) = \(\frac{72}{272}\) + \(\frac{72}{272}\) = \(\frac{144}{272}\).
+- **Simplification:** Divide the numerator and denominator by 16: (144 \(\div\) 16)/(272 \(\div\) 16) = \(\frac{9}{17}\).
+- **Key point:** Both possible colour orders must be included because the draws are successive.
 - **Answer:** The required probability is \(\frac{9}{17}\).
 
 ---
@@ -2099,11 +2101,12 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
-1. The same colour can occur in two disjoint ways for the pens: red-red or blue-blue.
-2. \(P\!\left(red-red\right)\) = \(\frac{4}{8}\) \(\times\) \(\frac{3}{7}\), and \(P\!\left(blue-blue\right)\) = \(\frac{4}{8}\) \(\times\) \(\frac{3}{7}\).
-3. Adding the two cases gives \(\frac{3}{7}\).
-- **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
+- **Method:** The pens can have the same colour in two mutually exclusive orders: red-red or blue-blue. Calculate both probabilities and add them.
+1. \(P\!\left(red-red\right)\) = \(\frac{4}{8}\) \(\times\) \(\frac{3}{7}\) = \(\frac{12}{56}\).
+2. \(P\!\left(blue-blue\right)\) = \(\frac{4}{8}\) \(\times\) \(\frac{3}{7}\) = \(\frac{12}{56}\).
+3. \(P\!\left(same colour\right)\) = \(\frac{12}{56}\) + \(\frac{12}{56}\) = \(\frac{24}{56}\).
+- **Simplification:** Divide the numerator and denominator by 8: (24 \(\div\) 8)/(56 \(\div\) 8) = \(\frac{3}{7}\).
+- **Key point:** Red-red and blue-blue cannot occur together, so their probabilities are added.
 - **Answer:** The required probability is \(\frac{3}{7}\).
 
 ---
@@ -2124,11 +2127,12 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Follow the selections in order and multiply the stage probabilities. Without replacement, update both the remaining favourable count and the total before the second selection.
-1. Different colours can occur as red-blue or blue-red, so both orders of the coloured stones must be counted.
-2. P = \(\frac{6}{15}\) \(\times\) \(\frac{9}{14}\) + \(\frac{9}{15}\) \(\times\) \(\frac{6}{14}\).
-3. After simplification, the required probability is \(\frac{18}{35}\).
-- **Key point:** Because the first object is not returned, the second probability is based on one fewer object.
+- **Method:** Different colours can occur in two mutually exclusive orders for the coloured stones: red-blue or blue-red. Calculate both and add them.
+1. \(P\!\left(red-blue\right)\) = \(\frac{6}{15}\) \(\times\) \(\frac{9}{14}\) = \(\frac{54}{210}\).
+2. \(P\!\left(blue-red\right)\) = \(\frac{9}{15}\) \(\times\) \(\frac{6}{14}\) = \(\frac{54}{210}\).
+3. \(P\!\left(different colours\right)\) = \(\frac{54}{210}\) + \(\frac{54}{210}\) = \(\frac{108}{210}\).
+- **Simplification:** Divide the numerator and denominator by 6: (108 \(\div\) 6)/(210 \(\div\) 6) = \(\frac{18}{35}\).
+- **Key point:** Both possible colour orders must be included because the draws are successive.
 - **Answer:** The required probability is \(\frac{18}{35}\).
 
 ---
@@ -2761,11 +2765,11 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Count all arrangements first, then count the arrangements in which the specified person occupies one of the allowed positions.
-1. Any of the 14 people can receive the first post.
-2. 6 of these 14 people are women, and the remaining posts do not affect who receives the first post.
-3. The required probability is \(\frac{6}{14}\) = \(\frac{3}{7}\).
-- **Key point:** The probability is valid because every admissible arrangement is treated as equally likely.
+- **Method:** Use symmetry at the first post. Every person is equally likely to receive that post, so compare the number of women with the total number of people.
+1. There are 14 people altogether: 8 men + 6 women = 14.
+2. 6 of the 14 people are women, so \(P\!\left(first post goes to a woman\right)\) = \(\frac{6}{14}\).
+3. \(\frac{6}{14}\) = \(\frac{3}{7}\).
+- **Key point:** Assignments to the remaining posts do not change the probability for the first post.
 - **Answer:** The required probability is \(\frac{3}{7}\).
 
 ---
@@ -2786,13 +2790,13 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** Without repetition, use nPr = n!/(n-r)! for ordered digit arrangements. An even number must have an even final digit.
-1. Total numbers: 8P4 = 8!/4! = 8 \(\times\) 7 \(\times\) 6 \(\times\) 5 = 1680.
-2. The final digit has 4 even choices. After fixing it, the other 3 places can be filled in 210 ways.
+- **Method:** Position matters, so use permutations. For an even number, first fix an even unit digit and then arrange the remaining digits.
+1. Total 4-digit numbers = 8P4 = 8!/4! = 8 \(\times\) 7 \(\times\) 6 \(\times\) 5 = 1680.
+2. The unit digit has 4 even choices. After fixing it, the remaining 3 positions can be filled in 7P3 = 7!/4! = 7 \(\times\) 6 \(\times\) 5 = 210 ways.
 3. Favourable even numbers = 4 \(\times\) 210 = 840.
 4. Probability = favourable cases \(\div\) total cases = \(\frac{840}{1680}\).
 - **Simplification:** Divide the numerator and denominator by 840: (840 \(\div\) 840)/(1680 \(\div\) 840) = \(\frac{1}{2}\).
-- **Key point:** Position matters in a number, so permutations—not combinations—are required.
+- **Key point:** Once the unit digit is fixed, it cannot be reused in the other positions.
 - **Answer:** The required probability is \(\frac{1}{2}\).
 
 ---
@@ -2827,7 +2831,7 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 #### Question 118 — PRB-QL-708 (Hard)
 
-**Question:** A 4-member committee is chosen from 5 men and 9 women. The probability that it contains exactly 1 woman is \(\frac{90}{1001}\). How many such committees can be formed?
+**Question:** A 4-member committee is formed from 5 men and 9 women. How many committees contain exactly 1 woman?
 
 **Options:**
 
@@ -2841,12 +2845,12 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 **Explanation:**
 
-- **Method:** A committee is an unordered selection. Use \(\binom{n}{r}\) = n!/[r!(n-r)!]. For a probability, divide the number of required committees by the total number of committees.
-1. Choose 1 woman from 9: \(\binom{9}{1}\) = 9.
-2. Choose 3 men from 5: \(\binom{5}{3}\) = 5!/(3! \(\times\) 2!) = (5 \(\times\) 4)/(2 \(\times\) 1) = 10.
+- **Method:** A committee is an unordered selection. Choose the required women and men separately with combinations, then multiply the independent choices.
+1. Ways to choose 1 woman: \(\binom{9}{1}\) = 9.
+2. Ways to choose 3 men: \(\binom{5}{3}\) = 5!/(3! \(\times\) 2!) = (5 \(\times\) 4)/(2 \(\times\) 1) = 10.
 3. Required committees = 9 \(\times\) 10 = 90.
-- **Key point:** The order in which committee members are named is irrelevant, so each committee must be counted only once.
-- **Answer:** The required number is 90.
+- **Key point:** No division by the total number of committees is needed because the question asks for a count, not a probability.
+- **Answer:** The required number of committees is 90.
 
 ---
 
@@ -3053,7 +3057,7 @@ The solution avoids repeated formulas, generic padding and method labels unrelat
 
 #### Question 127 — PRB-QL-802 (Medium)
 
-**Question:** In a group of 90 students, 11 students play both games. What is the probability that a randomly selected student meets both conditions?
+**Question:** In a group of 90 students, 11 students play both cricket and football. What is the probability that a randomly selected student plays both games?
 
 **Options:**
 
