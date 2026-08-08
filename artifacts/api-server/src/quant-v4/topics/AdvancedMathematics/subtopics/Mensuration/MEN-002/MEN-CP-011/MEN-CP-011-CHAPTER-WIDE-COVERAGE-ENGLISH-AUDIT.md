@@ -3,7 +3,7 @@
 ## Status
 
 ```text
-Audit authority:              MEN-CP011-CHAPTER-WIDE-COVERAGE-ENGLISH-AUDIT-V3
+Audit authority:              MEN-CP011-CHAPTER-WIDE-COVERAGE-ENGLISH-AUDIT-V4
 Permanent QLs:                0
 English freeze:               not granted
 Question Studio:              disabled
@@ -12,72 +12,27 @@ Test eligibility:             INELIGIBLE
 Public publication:           false
 ```
 
-The executable V3 audit derives its evidence from every currently implemented MEN-CP-011 review generator. It replaces the earlier 18-family V2 snapshot after adding joined and placed-solid hidden-face exposure.
+The executable V4 audit derives evidence from every currently implemented MEN-CP-011 review generator. It replaces the 20-family V3 snapshot after adding open-container sheet cost and inner-lining cost.
 
 ## Current executable boundary
 
-The chapter now contains 20 direct review-only runtime families across seven waves.
-
-### Pipe material volume and inverse core — 4 families
+The chapter now contains 22 direct review-only runtime families across eight executable waves:
 
 ```text
-MEN-CP011-PROT-HOLLOW-CYLINDER-MATERIAL-VOLUME
-MEN-CP011-PROT-HOLLOW-CYLINDER-MATERIAL-VOLUME-DIAMETERS
-MEN-CP011-PROT-PIPE-MATERIAL-VOLUME-FROM-THICKNESS
-MEN-CP011-PROT-PIPE-INNER-RADIUS-FROM-MATERIAL-VOLUME
-```
-
-### Hollow-pipe surface exposure — 6 families
-
-```text
-MEN-CP011-PROT-OUTER-CURVED-SURFACE-AREA
-MEN-CP011-PROT-INNER-CURVED-SURFACE-AREA
-MEN-CP011-PROT-BOTH-CURVED-SURFACES-AREA
-MEN-CP011-PROT-ONE-ANNULAR-END-AREA
-MEN-CP011-PROT-BOTH-ANNULAR-ENDS-AREA
-MEN-CP011-PROT-COMPLETE-TUBE-SURFACE-AREA
-```
-
-### Open-cylinder exposure — 2 families
-
-```text
-MEN-CP011-PROT-OPEN-CYLINDER-ONE-END-AREA
-MEN-CP011-PROT-OPEN-CYLINDER-BOTH-ENDS-AREA
+Pipe material and inverse core:        4
+Hollow-pipe surface exposure:          6
+Open-cylinder exposure:                2
+Additional pipe inverses:              2
+Hollow cube and cuboid:                 2
+Spherical and hemispherical shells:     2
+Joined and placed hidden faces:         2
+Open-sheet and inner-lining cost:       2
+Total direct runtime families:         22
 ```
 
 The direct open-top cuboid sheet-area candidate remains owned by the existing `MEN-CP-007 / MEN-CP007-PROT-OPEN-TOP-BOX-AREA` authority and is not duplicated.
 
-### Additional pipe inverses — 2 families
-
-```text
-MEN-CP011-PROT-PIPE-THICKNESS-FROM-MATERIAL-VOLUME
-MEN-CP011-PROT-PIPE-LENGTH-FROM-MATERIAL-VOLUME
-```
-
-### Hollow rectangular solids — 2 families
-
-```text
-MEN-CP011-PROT-HOLLOW-CUBE-MATERIAL-VOLUME
-MEN-CP011-PROT-HOLLOW-CUBOID-MATERIAL-VOLUME
-```
-
-### Spherical shells — 2 families
-
-```text
-MEN-CP011-PROT-SPHERICAL-SHELL-MATERIAL-VOLUME
-MEN-CP011-PROT-HEMISPHERICAL-SHELL-MATERIAL-VOLUME
-```
-
-### Hidden-face exposure — 2 families
-
-```text
-MEN-CP011-PROT-JOINED-CUBES-EXPOSED-AREA
-MEN-CP011-PROT-CUBOID-ON-FLOOR-PAINTED-AREA
-```
-
-## V3 review matrix
-
-The current executable audit constructs 296 records:
+## V4 review matrix
 
 ```text
 Pipe material and inverse core:       48
@@ -87,15 +42,16 @@ Inverse thickness and length:         32
 Hollow cube and cuboid:               32
 Spherical and hemispherical shells:   48
 Joined and placed hidden faces:       32
-Total:                               296
-Correct positions:                   A74 B74 C74 D74
-Direct runtime families:              20
+Cost and inner lining:                32
+Total:                               328
+Correct positions:                   A82 B82 C82 D82
+Direct runtime families:              22
 ```
 
 The audit requires:
 
-- 296 unique exact stems;
-- 296 unique stem-and-option packages;
+- 328 unique exact stems;
+- 328 unique stem-and-option packages;
 - four unique options and one correct answer per item;
 - independent mathematical verification for every item;
 - three natural wrong-option explanations per item;
@@ -106,46 +62,40 @@ The audit requires:
 ## Coverage progress against the initial 20 candidates
 
 ```text
-Implemented, equivalent or correctly reassigned: 16 / 20
-Still missing:                                  4 / 20
+Implemented, equivalent or correctly reassigned: 18 / 20
+Still missing:                                  2 / 20
 ```
 
 The remaining initial candidates are:
 
 ```text
-MEN-CP011-PROT-OPEN-CONTAINER-SHEET-COST
-MEN-CP011-PROT-INNER-LINING-COST
 MEN-CP011-PROT-MATERIAL-VOLUME-RATIO
 MEN-CP011-PROT-MATERIAL-VOLUME-PERCENT-CHANGE
 ```
 
 The pipe-length inverse remains an additional discovered family beyond the original 20-candidate list.
 
-## Hidden-face coverage added in V3
+## Cost coverage added in V4
 
-### Joined cubes
-
-The runtime covers rows, one-layer rectangular arrangements and three-dimensional blocks. It proves the hidden-contact ledger:
+### Open-container sheet cost
 
 ```text
-exposed faces = 6N − 2J
+sheet area = 2πrh + πr² = πr(2h+r)
+sheet cost = sheet area × rate per m²
 ```
 
-and independently reconstructs the result from the bounding cuboid:
+The top is open and contributes zero material area.
+
+### Inner-lining cost
 
 ```text
-A = 2a²(xy + yz + zx)
+lining area = inner curved wall + inner bottom
+lining cost = lining area × rate per m²
 ```
 
-### Cuboid placed on a floor
+The open mouth is absent and receives no lining.
 
-The floor-contact base contributes zero painted area:
-
-```text
-painted area = LB + 2LH + 2BH
-```
-
-The independent shortcut is total surface area minus one `LB` base.
+Both cost families use exact declared numeric π policies (`22/7` and `3.14 = 157/50`) and exact rupee answers.
 
 ## Coverage verdict
 
@@ -157,13 +107,13 @@ Covered:
 - hollow cube and hollow cuboid material volume;
 - spherical and hemispherical shell material volume;
 - joined cubes and floor-placed cuboid hidden-face exposure;
+- open-container sheet cost and inner-lining cost;
 - centimetre, metre and mixed-unit profiles where applicable;
 - exact π, declared `22/7` and declared `3.14 = 157/50`;
 - prompt/solution diagram separation and learner/admin isolation.
 
 Still missing:
 
-- open-container sheet cost and inner-lining cost;
 - material-volume ratio and percentage-change applications;
 - conical shells as an additional discovery axis;
 - direct source normalisation and neighbouring-CP ownership closure;
@@ -173,9 +123,9 @@ Therefore `CHAPTER_COVERAGE_INCOMPLETE` remains active.
 
 ## English verdict
 
-The V3 audit checks the complete current corpus for malformed TeX, unbalanced delimiters, learner-visible internal codes, duplicate stems/packages, option defects, missing wrong-option explanations, lifecycle leakage and learner/admin surface leakage.
+The V4 audit checks the complete current corpus for malformed TeX, unbalanced delimiters, learner-visible internal codes, duplicate stems/packages, option defects, missing wrong-option explanations, lifecycle leakage and learner/admin surface leakage.
 
-Automated technical cleanliness does not by itself grant final SSC/banking editorial approval. Human review remains required for real-exam naturalness, stem economy, option plausibility, explanation usefulness, terminology, difficulty, context variety and final permanent QL compression.
+Automated technical cleanliness does not grant final SSC/banking editorial approval. Human review remains required for real-exam naturalness, stem economy, option plausibility, explanation usefulness, terminology, difficulty, context variety and final permanent QL compression.
 
 English remains **unfrozen**.
 
@@ -189,7 +139,7 @@ men-cp011-chapter-wide-english-audit.json
 men-cp011-chapter-wide-english-review.md
 ```
 
-The JSON artifact contains all 296 review rows. The Markdown artifact records the coverage ledger and representative evidence from all 20 runtime families.
+The JSON artifact contains all 328 review rows. The Markdown artifact records the coverage ledger and representative evidence from all 22 runtime families.
 
 ## Active blockers
 
@@ -204,8 +154,7 @@ No permanent QL allocation, localisation, Question Studio exposure, Question Ban
 
 ## Recommended next implementation order
 
-1. Open-container sheet cost and inner-lining cost.
-2. Material-volume ratio and percentage-change families.
-3. Conical-shell ownership and executable discovery.
-4. Direct source normalisation and chapter-wide ownership audit.
-5. Human English review, compression and only then permanent QL allocation.
+1. Material-volume ratio and percentage-change families.
+2. Conical-shell ownership and executable discovery.
+3. Direct source normalisation and chapter-wide ownership audit.
+4. Human English review, compression and only then permanent QL allocation.
