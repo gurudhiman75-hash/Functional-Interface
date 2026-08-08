@@ -24,6 +24,7 @@ import { examWorkingLines } from "./exam-working";
 import { editorialStem, inlineMathText } from "./pedagogy";
 import { remodelCp001Stem } from "./editorial-remodel";
 import { buildHumanExplanation } from "./human-explanation";
+import { remodelMethodDerivedOptionFeedback } from "./method-derived-option-feedback";
 import {
   proportionWorkingLines,
   remodelProportionExplanation,
@@ -168,9 +169,13 @@ export function generateCp001Candidate(
   const representationFingerprint = equivalentRepresentation?.fingerprintSuffix
     ?? (input.solveMode === "convertSpeedUnit" ? SCALAR_SPEED_FINGERPRINT : "representation:STANDARD");
   const representation = representationFingerprint.replace(/^representation:/, "");
-  const explanation = remodelProportionExplanation(
+  const explanation = remodelMethodDerivedOptionFeedback(
     input,
-    buildHumanExplanation(authority, input, display, working, optionSet.optionAudit, answerText, seed),
+    solution,
+    remodelProportionExplanation(
+      input,
+      buildHumanExplanation(authority, input, display, working, optionSet.optionAudit, answerText, seed),
+    ),
   );
   const base = {
     chapterId: "TSD-001" as const,
