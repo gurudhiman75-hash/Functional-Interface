@@ -1,6 +1,6 @@
 # RNK-001 — Ranking and Order
 
-Status: **CP-001 through CP-004 English discovery frozen at `RNK-QL-001..035`; CP-005 onward remains open.**
+Status: **CP-001 through CP-004 English discovery frozen at `RNK-QL-001..035`; CP-005 ownership reset to partial-order discovery.**
 
 Student-facing chapter: **Ranking and Order**  
 Reasoning V1 package: `RNK-001`  
@@ -12,8 +12,9 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/
 2. `../../../REASONING-V1-ARCHITECTURE.md`;
 3. `RNK-001-END-TO-END-DESIGN.md`;
 4. `rnk-001-open-ql-discovery.md`;
-5. checkpoint manifest amendments;
-6. checkpoint-specific review, source, consolidation, permanent-runtime and freeze records.
+5. `RNK-001-BOOK-TO-QL-AUDIT-2026-08-08.md`;
+6. checkpoint manifest amendments;
+7. checkpoint-specific review, source, consolidation, permanent-runtime and freeze records.
 
 ## Checkpoint map
 
@@ -22,11 +23,11 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/
 | `RNK-CP-001` | one-person rank arithmetic, side counts, totals and exact-middle inverses | frozen: `RNK-QL-001..009` |
 | `RNK-CP-002` | two-person positions, separation, comparison and mixed-end total constraints | frozen: `RNK-QL-010..017` |
 | `RNK-CP-003` | interchange, movement, overtaking, insertion/removal and changed-rank transformations | frozen: `RNK-QL-018..026` |
-| `RNK-CP-004` | exact multi-entity comparison and explicit order reconstruction | frozen: `RNK-QL-027..035` |
-| `RNK-CP-005` | presentation-led and shared ranking sets | planned |
-| `RNK-CP-006` | attribute-led ranking ownership extensions | planned ownership audit |
-| `RNK-CP-007` | partial-order, definite/possible and uniqueness semantics | planned |
-| `RNK-CP-008` | advanced synthesis | planned |
+| `RNK-CP-004` | exact multi-entity comparison and strict order reconstruction | frozen: `RNK-QL-027..035` |
+| `RNK-CP-005` | partial order, definite/possible/impossible, cannot determine, uniqueness and possible-rank bounds | ownership discovery next |
+| `RNK-CP-006` | non-strict or tied-ranking source audit | unallocated; evidence required |
+| `RNK-CP-007` | advanced mixed ranking transformations | unallocated; gap audit required |
+| `RNK-CP-008` | reserved | shared-set assembly is infrastructure, not a QL family |
 
 ## Frozen inventory
 
@@ -57,7 +58,7 @@ RNK-QL-021  people passed from rank change
 RNK-QL-022  target rank after insertion
 RNK-QL-023  target rank after removal
 RNK-QL-024  own rank after sequential moves
-RNK-QL-025  target-rank effect of another person’s move
+RNK-QL-025  target-rank effect of another person's move
 RNK-QL-026  own rank with movement and membership change
 ```
 
@@ -67,15 +68,32 @@ RNK-QL-026  own rank with movement and membership change
 RNK-QL-027  endpoint entity, highest or lowest
 RNK-QL-028  entity at explicit or derived-middle position
 RNK-QL-029  rank of a named entity from top or bottom
-RNK-QL-030  complete order in requested direction
+RNK-QL-030  complete strict order in requested direction
 RNK-QL-031  relative direction of a named pair
 RNK-QL-032  exact rank difference and direction of a pair
-RNK-QL-033  immediate neighbour above or below
-RNK-QL-034  definitely true transitive relation
-RNK-QL-035  comparison sufficient to make the order unique
+RNK-QL-033  immediate neighbour above or below in a strict ranking
+RNK-QL-034  definitely true transitive relation in a strict order
+RNK-QL-035  comparison sufficient to make a strict order unique
 ```
 
 Next available RNK identity: `RNK-QL-036`.
+
+## Book-to-QL audit decision
+
+The 2026-08-08 audit compared the frozen inventory with a dedicated Ranking chapter and with a banking-oriented arrangement reference.
+
+It confirmed:
+
+- standard top/bottom, left/right and front/back rank arithmetic is covered by CP-001 and CP-002;
+- interchange and movement are covered by CP-003;
+- strict comparison ranking is covered by CP-004;
+- clue-heavy left/right placement, neighbours, facing and extreme seats belong to Seating Arrangement;
+- shared directions followed by several questions are a delivery format, not a new reasoning authority;
+- height, age, marks and performance wording does not create a new QL when the solver remains strict comparison ranking.
+
+The rejected `presentation-led and shared ranking sets` proposal allocates no permanent QLs. `RNK-QL-036..043` remain available.
+
+See `RNK-001-BOOK-TO-QL-AUDIT-2026-08-08.md`.
 
 ## CP-004 freeze summary
 
@@ -124,17 +142,23 @@ construct a valid hidden ranking state
   -> pin the permanent projection digest
 ```
 
+For CP-005 partial-order discovery, the solver must enumerate or otherwise prove all valid orders before classifying a statement as definite, possible, impossible or indeterminate.
+
 ## Ownership boundaries
 
 - one-person rank arithmetic → CP-001;
 - relationships between two fixed positions → CP-002;
 - interchange, movement, overtaking, insertion or removal → CP-003;
-- unique three-or-more-person order reconstruction → CP-004;
-- presentation-led or shared ranking sets → CP-005/CP-008;
-- attribute-led height, age, marks and weight ranking → CP-006;
-- multi-person partial-order uncertainty → CP-007;
+- unique three-or-more-person strict order reconstruction → CP-004;
+- incomplete comparison graphs and ranking uncertainty → CP-005;
+- tied or non-strict ranking → CP-006 only after source evidence;
+- shared passage/caselet structure → assembly infrastructure, not a QL;
+- top/bottom, left/right and front/back → renderer parameters when no placement geometry is involved;
+- height/age/marks/performance comparison wording → CP-004 parameter when strict comparison is the burden;
+- clue-heavy adjacency, facing and seat placement → Seating Arrangement;
+- multi-attribute assignment → Logic Puzzles;
 - statement-wise sufficiency → Data Sufficiency;
-- facing/adjacency geometry → Seating Arrangement.
+- arithmetic-heavy age, marks, score or speed calculation → relevant Quant chapter.
 
 ## Current lifecycle
 
@@ -145,6 +169,7 @@ CP-001 discovery frozen:         true
 CP-002 discovery frozen:         true
 CP-003 discovery frozen:         true
 CP-004 discovery frozen:         true
+CP-005 permanent QLs:            0
 chapter-wide freeze:             false
 Hindi/Punjabi:                   not started
 Question Studio:                 disabled
