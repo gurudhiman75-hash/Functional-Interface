@@ -2,9 +2,10 @@
 
 **Checkpoint:** `NUM-CP-005 — Divisors and Divisor Functions`  
 **Permanent QL range:** `NUM-QL-046..NUM-QL-069`  
-**Review pack:** 72 English questions, 3 seeds per QL  
-**Trigger:** critical exam-readiness audit after the earlier technical English freeze  
-**Lifecycle after this change:** editorial review; all delivery gates remain closed
+**Final review pack:** 290 English questions  
+**Approval date:** 2026-08-08  
+**Approval:** product-owner approved English freeze  
+**Delivery state:** inactive; all downstream delivery gates remain closed
 
 ## Why the technical freeze was reopened
 
@@ -25,14 +26,14 @@ The mathematical authorities were correct, but the learner-facing contract conta
 
 ### One-correct-option contract
 
-- Semantic option normalisation now rejects equivalent empty-set forms.
+- Semantic option normalisation rejects equivalent empty-set forms.
 - `NUM-QL-066` no-solution cases receive distinct misconception sets.
 - `NUM-QL-069` uses four mutually exclusive data-sufficiency categories.
 - Every wrong option carries a question-specific misconception ID and analysis.
 
 ### Distractors
 
-The permanent English layer now constructs distractors from governed wrong methods, including:
+The permanent English layer constructs distractors from governed wrong methods, including:
 
 - adding exponent choices instead of multiplying;
 - forgetting the zero-exponent choice;
@@ -48,7 +49,7 @@ The audit rejects renewed dominance of universal answer±1/±2 options.
 
 ### Explanations
 
-Every QL now owns a calculation-complete explanation mode. The learner sees:
+Every QL owns a calculation-complete explanation mode. The learner sees:
 
 - the exact exponent-choice product;
 - total-minus-odd calculations for even divisors;
@@ -56,18 +57,22 @@ Every QL now owns a calculation-complete explanation mode. The learner sees:
 - factor-pair translation for inverse exponent problems;
 - candidate sets for data sufficiency;
 - direct division for divisor-pair completion;
-- explicit verification of bounds, parity and uniqueness.
+- explicit verification of bounds, parity and uniqueness;
+- structural exponent-pattern proofs for bounded greatest-integer questions;
+- complete statement-set derivations for data sufficiency.
 
 Generic warning blocks were replaced with three traps tied to the displayed question.
 
-### Exam realism
+### Exam realism and delivery control
 
 - Divisor products are asked and answered symbolically rather than as huge raw integers.
 - Prime-power reconstruction remains in exponential form when expansion adds no conceptual value.
-- Long 32-row divisor-pair tables are replaced by the decisive pair equation.
-- Bounded maximum options all satisfy the visible parity requirement.
+- Long divisor-pair tables are replaced by the decisive pair equation.
+- Bounded maximum options satisfy the visible parity requirement.
 - Claim and comparison options contain computed values rather than dead “cannot determine” choices.
-- Bounded inverse classification asks for the exact number of ordered pairs, avoiding an impossible “infinitely many” option.
+- Bounded inverse classification asks for the exact number of ordered pairs.
+- Guided-learning families are excluded from normal mocks.
+- Advanced-practice and repetitive families have explicit per-mock, per-session and spacing limits.
 
 ### Mathematical rendering
 
@@ -77,8 +82,6 @@ All prime-power expressions are emitted as one delimited LaTeX expression, for e
 \(2^{3} \times 3^{2}\)
 ```
 
-This prevents the exponent of the second base from being emitted as a detached or left-positioned superscript.
-
 The audit rejects:
 
 - unbraced power markup such as `2^3` in learner-facing text;
@@ -86,12 +89,12 @@ The audit rejects:
 - unbalanced inline-math delimiters;
 - huge raw divisor-product integers.
 
-## Lifecycle
+## Approved lifecycle
 
 ```text
-allocationStatus:             EDITORIAL_REMEDIATION_AWAITING_PRODUCT_OWNER_REVIEW
-maturity:                     ENGLISH_EDITORIAL_REVIEW
-reviewStatus:                 CRITICAL_REVIEW_REMEDIATED_AWAITING_APPROVAL
+allocationStatus:             PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION
+maturity:                     ENGLISH_IMPLEMENTATION_FROZEN
+reviewStatus:                 PRODUCT_OWNER_COMPLETION_AUTHORISED
 active:                       false
 questionStudioDiscoverable:   false
 questionBankWritable:         false
@@ -99,8 +102,18 @@ testEligible:                 false
 publiclyPublishable:          false
 ```
 
-Permanent QL identities, authority mappings and solve-mode identities remain frozen. This remediation does not activate Question Studio or any downstream delivery surface.
+Permanent QL identities, authority mappings, solve-mode identities and the approved English implementation are frozen.
 
-## Approval boundary
+Approval does **not** activate Question Studio, Question Bank, tests or public delivery. Localisation refresh, multilingual review and later delivery activation remain separate controlled phases.
 
-Passing executable proofs establishes technical and editorial remediation readiness. It does not grant final product-owner approval. A fresh 72-question English review artifact must be reviewed before any English re-freeze or localisation refresh.
+## Approval evidence
+
+The approved head passed:
+
+- 2,880-question permanent runtime validation;
+- deterministic replay and independent verifier checks;
+- semantic option checks;
+- English remediation audit;
+- final exam-readiness audit;
+- final editorial-freeze audit;
+- 290-question expanded review export with distinct stems, complete question records and explanations.
