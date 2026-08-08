@@ -20,10 +20,10 @@ import {
 } from "./foundation/cp003-permanent-runtime";
 import {
   MAL_CP004_PERMANENT_ALLOCATION,
-  runMalCp004EnglishReleasePipeline,
   type MalCp004PermanentQlId,
-  type MalCp004ReleasedQuestion,
 } from "./foundation/cp004-permanent-runtime";
+import type { MalCp004ProductReviewQuestion } from "./foundation/cp004-product-review-remediation-v3";
+import { runMalCp004EnglishProductReviewV7Pipeline } from "./foundation/cp004-product-review-runtime-v7";
 
 export const MAL_001_QUESTION_STUDIO_CP_IDS = [
   "MAL-CP-001",
@@ -45,7 +45,7 @@ export type Mal001QuestionStudioQuestion =
   | MalCp001ReleasedQuestion
   | MalCp002ReleasedQuestion
   | MalCp003ReleasedQuestion
-  | MalCp004ReleasedQuestion;
+  | MalCp004ProductReviewQuestion;
 
 type Difficulty = "Easy" | "Medium" | "Hard";
 
@@ -163,7 +163,7 @@ export function runMal001QuestionStudioPipeline(
     MAL_CP004_PERMANENT_ALLOCATION,
     input,
   ) as MalCp004PermanentQlId;
-  return runMalCp004EnglishReleasePipeline({
+  return runMalCp004EnglishProductReviewV7Pipeline({
     questionLanguageId,
     seed: input.seed,
     language: "en",

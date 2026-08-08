@@ -1,0 +1,112 @@
+name: Validate MAL-CP-004 solution-first English V2
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - ".github/workflows/mal-cp004-clutter-free-v2.yml"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-mal-cp004-solution-first-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle MAL-CP-004 solution-first V2 audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp004-solution-first-v2-audit.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/mal-001-cp004-solution-first-v2-audit.mjs
+
+      - name: Run MAL-CP-004 solution-first V2 audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/mal-001-cp004-solution-first-v2-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-cp004-solution-first-v2-audit.log
+
+      - name: Bundle MAL-CP-004 final grammar and review audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp004-solution-first-v2-finalize-review.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/mal-001-cp004-solution-first-v2-finalize-review.mjs
+
+      - name: Finalize grammar-polished review evidence
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/mal-001-cp004-solution-first-v2-finalize-review.mjs 2>&1 | tee dist/quant-v4/mal-001-cp004-solution-first-v2-finalize-review.log
+
+      - name: Bundle MAL-CP-004 polished product-review proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp004-product-review-v7-audit.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/mal-001-cp004-product-review-v7-audit.mjs
+
+      - name: Run MAL-CP-004 polished product-review proof
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/mal-001-cp004-product-review-v7-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-cp004-product-review-v7-audit.log
+
+      - name: Bundle MAL-QL-038 option plausibility proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp004-ql038-option-plausibility-audit.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/mal-001-cp004-ql038-option-plausibility-audit.mjs
+
+      - name: Run MAL-QL-038 option plausibility proof
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/mal-001-cp004-ql038-option-plausibility-audit.mjs 2>&1 | tee dist/quant-v4/mal-001-cp004-ql038-option-plausibility-audit.log
+
+      - name: Upload MAL-CP-004 solution-first V2 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mal-cp004-solution-first-v2-review
+          path: |
+            artifacts/api-server/dist/quant-v4/mal-001-cp004-solution-first-v2-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp004-solution-first-v2-finalize-review.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp004-product-review-v7-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp004-ql038-option-plausibility-audit.log
+            artifacts/api-server/dist/quant-v4/mal-cp004-solution-first-v2-review.json
+            artifacts/api-server/dist/quant-v4/MAL-CP-004-SOLUTION-FIRST-V2-100Q-REVIEW.md
+            artifacts/api-server/dist/quant-v4/mal-cp004-product-review-v7-review.json
+          if-no-files-found: error
+          retention-days: 14
