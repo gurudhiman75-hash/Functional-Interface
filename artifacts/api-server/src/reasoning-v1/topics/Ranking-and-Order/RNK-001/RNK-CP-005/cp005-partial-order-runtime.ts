@@ -37,9 +37,16 @@ export function generateRnkCp005DiscoveryQuestion(
   if (trueIndexes.length !== 1) {
     throw new Error(`${question.discoveryId} has ${trueIndexes.length} true options`);
   }
+
+  const options = [...question.options];
+  const [correctOption] = options.splice(trueIndexes[0]!, 1);
+  const desiredIndex = seed % 4;
+  options.splice(desiredIndex, 0, correctOption!);
+
   return {
     ...question,
-    correctIndex: trueIndexes[0]!,
+    options,
+    correctIndex: desiredIndex,
   };
 }
 
