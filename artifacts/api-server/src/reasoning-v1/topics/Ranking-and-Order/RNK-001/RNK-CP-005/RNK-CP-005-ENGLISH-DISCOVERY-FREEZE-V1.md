@@ -10,8 +10,9 @@ ownership:              presentation-led and shared ranking sets
 permanent QL range:     RNK-QL-036..043
 next available QL:      RNK-QL-044
 runtime version:        RNK_CP005_PERMANENT_RUNTIME_V1
+language version:       RNK_CP005_EXAM_LANGUAGE_V1
 freeze version:         RNK_CP005_ENGLISH_DISCOVERY_FREEZE_V1
-projection SHA-256:     3fcc8981c4eb66b04cc455605da5d2f89a29555a48a7c17bd2e3d51403fa2c29
+projection SHA-256:     021079af803fb43bc1a51296290fed7b9c0654f508fb665f41847c5981448305
 ```
 
 ## Permanent assignments
@@ -75,8 +76,6 @@ MEDIUM:               1,284
 HARD:                   120
 ```
 
-Difficulty reflects presentation and query burden. Context alone does not change difficulty.
-
 ## Review evidence
 
 The English review pack contains 144 representative questions:
@@ -86,7 +85,9 @@ The English review pack contains 144 representative questions:
 - all three presentation modes;
 - complete question-specific explanations;
 - four value-specific option analyses per question;
-- no internal IDs in learner text.
+- no internal IDs in learner text;
+- context-specific exam language;
+- regression bans for known awkward direction phrases.
 
 Automated gates prove:
 
@@ -97,6 +98,7 @@ Automated gates prove:
 - independent answer replay;
 - exact answer-position balance;
 - complete renderer metadata;
+- exam-language regression safety;
 - frozen lifecycle locks;
 - pinned projection digest.
 
@@ -116,7 +118,7 @@ hindiPunjabi:           NOT_STARTED
 
 Any change to a frozen question-bearing field requires:
 
-1. a replacement runtime version;
+1. a replacement runtime or language version;
 2. a new projection digest;
 3. complete CP-005 foundation, editorial and permanent-gate reruns;
 4. an explicit freeze amendment;

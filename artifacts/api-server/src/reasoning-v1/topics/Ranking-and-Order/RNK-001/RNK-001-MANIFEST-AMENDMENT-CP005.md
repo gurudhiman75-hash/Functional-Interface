@@ -4,8 +4,6 @@ Status: **accepted into RNK-001 English discovery inventory**
 
 ## Permanent allocation
 
-CP-005 allocates eight permanent Question Language authorities:
-
 ```text
 RNK-QL-036  SHARED_ENDPOINT_ENTITY
 RNK-QL-037  SHARED_ENTITY_AT_POSITION
@@ -17,7 +15,7 @@ RNK-QL-042  SHARED_COMPLETE_ORDER
 RNK-QL-043  SHARED_TRUE_STATEMENT
 ```
 
-The next available RNK identity is `RNK-QL-044`.
+Next available RNK identity: `RNK-QL-044`.
 
 ## Ownership amendment
 
@@ -29,11 +27,14 @@ Standalone exact-order reconstruction remains CP-004 even when its surface conte
 
 ```text
 runtime:                RNK_CP005_PERMANENT_RUNTIME_V1
+language layer:         RNK_CP005_EXAM_LANGUAGE_V1
 freeze:                 RNK_CP005_ENGLISH_DISCOVERY_FREEZE_V1
 permanent questions:    1,536
 shared sets:            192
-projection SHA-256:     3fcc8981c4eb66b04cc455605da5d2f89a29555a48a7c17bd2e3d51403fa2c29
+projection SHA-256:     021079af803fb43bc1a51296290fed7b9c0654f508fb665f41847c5981448305
 ```
+
+The exam-language layer applies context-specific row, queue, merit-list, race, shortlist and performance wording before review and permanent projection. Its learner-facing output is part of the pinned digest.
 
 ## Cumulative chapter inventory
 

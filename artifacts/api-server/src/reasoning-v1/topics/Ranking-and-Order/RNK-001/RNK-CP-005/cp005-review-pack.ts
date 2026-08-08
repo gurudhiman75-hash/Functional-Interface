@@ -1,8 +1,8 @@
 import {
   RNK_CP005_AUTHORITY_IDS,
-  generateRnkCp005Question,
   type RnkCp005Question,
 } from "./cp005-foundation";
+import { generateRnkCp005ExamReadyQuestion } from "./cp005-exam-language-v1";
 
 export const RNK_CP005_REVIEW_SEEDS = [
   0, 1, 2, 3, 4, 5,
@@ -13,7 +13,7 @@ export const RNK_CP005_REVIEW_SEEDS = [
 export function buildRnkCp005EnglishReviewPack(): readonly RnkCp005Question[] {
   return RNK_CP005_AUTHORITY_IDS.flatMap((authorityId) =>
     RNK_CP005_REVIEW_SEEDS.map((seed, index) =>
-      generateRnkCp005Question(authorityId, seed, index % 4),
+      generateRnkCp005ExamReadyQuestion(authorityId, seed, index % 4),
     ),
   );
 }

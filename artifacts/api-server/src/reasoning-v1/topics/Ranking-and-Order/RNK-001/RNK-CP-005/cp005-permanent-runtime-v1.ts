@@ -1,14 +1,14 @@
 import { createHash } from "node:crypto";
 import {
   RNK_CP005_AUTHORITY_IDS,
-  generateRnkCp005Question,
   type RnkCp005AuthorityId,
   type RnkCp005Question,
 } from "./cp005-foundation";
+import { generateRnkCp005ExamReadyQuestion } from "./cp005-exam-language-v1";
 
 export const RNK_CP005_PERMANENT_RUNTIME_VERSION = "RNK_CP005_PERMANENT_RUNTIME_V1" as const;
 export const RNK_CP005_ENGLISH_DISCOVERY_FREEZE_VERSION = "RNK_CP005_ENGLISH_DISCOVERY_FREEZE_V1" as const;
-export const RNK_CP005_EXPECTED_PROJECTION_SHA256 = "3fcc8981c4eb66b04cc455605da5d2f89a29555a48a7c17bd2e3d51403fa2c29" as const;
+export const RNK_CP005_EXPECTED_PROJECTION_SHA256 = "021079af803fb43bc1a51296290fed7b9c0654f508fb665f41847c5981448305" as const;
 
 export const RNK_CP005_PERMANENT_AUTHORITY_ASSIGNMENTS = [
   { qlId: "RNK-QL-036", authorityId: "SHARED_ENDPOINT_ENTITY" },
@@ -53,7 +53,7 @@ function permanentQuestionsFor(
   const output: RnkCp005PermanentQuestion[] = [];
   for (let seed = 0; seed < 192; seed += 1) {
     const permanentOrdinalWithinAuthority = seed + 1;
-    const base = generateRnkCp005Question(authorityId, seed, seed % 4);
+    const base = generateRnkCp005ExamReadyQuestion(authorityId, seed, seed % 4);
     output.push({
       ...base,
       permanentQlId: qlId,

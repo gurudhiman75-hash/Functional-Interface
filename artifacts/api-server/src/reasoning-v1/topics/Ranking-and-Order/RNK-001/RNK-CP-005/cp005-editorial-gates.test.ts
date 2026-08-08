@@ -9,6 +9,19 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+const BANNED_AWKWARD_PHRASES = [
+  "top end",
+  "last end",
+  "lowest end",
+  "read from the first",
+  "read from the highest",
+  "towards the last of",
+  "towards the lowest of",
+  "top side",
+  "last side",
+  "highest side",
+] as const;
+
 const pack = buildRnkCp005EnglishReviewPack();
 assert(pack.length === 144, `Expected 144 review questions, found ${pack.length}`);
 
@@ -26,6 +39,17 @@ for (const question of pack) {
   assert(question.visibleExplanation.stepByStepSolution.length === 4, `${question.authorityId}:${question.seed}: explanation step count`);
   assert(question.visibleExplanation.examSpeedShortcut.length >= 40, `${question.authorityId}:${question.seed}: shortcut too weak`);
   assert(question.options.every((option) => option.explanation.length >= 20), `${question.authorityId}:${question.seed}: weak option analysis`);
+  const learnerText = [
+    question.sharedPassage.instruction,
+    question.stem,
+    question.answer,
+    ...question.options.map((option) => option.label),
+    question.visibleExplanation.mentalPicture,
+    ...question.visibleExplanation.stepByStepSolution,
+  ].join(" ").toLowerCase();
+  for (const phrase of BANNED_AWKWARD_PHRASES) {
+    assert(!learnerText.includes(phrase), `${question.authorityId}:${question.seed}: awkward phrase '${phrase}'`);
+  }
   stems.add(question.stem);
 }
 for (const authorityId of RNK_CP005_AUTHORITY_IDS) {
@@ -41,5 +65,5 @@ console.log(JSON.stringify({
   authorities: Object.fromEntries(authorityCounts),
   contexts: [...contexts],
   presentationModes: [...modes],
-  distinctQuestionStems: stems.size,
+  repeatedFullStems: pack.length - stems.size,
 }, null, 2));
