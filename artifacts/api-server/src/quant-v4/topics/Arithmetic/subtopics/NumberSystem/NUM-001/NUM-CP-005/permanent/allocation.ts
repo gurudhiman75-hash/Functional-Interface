@@ -92,6 +92,8 @@ export const NUM_CP005_PERMANENT_ALLOCATION =
     sourceEvidence: [
       "NUM-CP-005-SOURCE-GAP-AND-MERGE-SPLIT-AUDIT",
       ...authority.prototypeIds,
+      "NUM-CP-005-ENGLISH-EXAM-READINESS-REMEDIATION",
+      "NUM-CP-005-PRODUCT-OWNER-ENGLISH-FREEZE-APPROVAL",
     ],
     difficultyPolicy: "STATE_DERIVED" as const,
     language: "en" as const,

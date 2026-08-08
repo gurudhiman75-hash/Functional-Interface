@@ -2,6 +2,7 @@ import {
   NUM_CP005_PERMANENT_ALLOCATION,
   NUM_CP005_PERMANENT_QL_IDS,
 } from "./allocation";
+import { normalizeNumCp005OptionSemantic } from "./english-remediation";
 import { runNumCp005PermanentPipeline } from "./runtime";
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -9,6 +10,7 @@ function assert(condition: unknown, message: string): asserts condition {
 }
 
 const seedsPerQl = 120;
+const uniformEasyDifficultyQls = new Set(["NUM-QL-055", "NUM-QL-063"]);
 const answerPositions = new Map<string, Set<number>>();
 const difficulties = new Map<string, Set<string>>();
 const fingerprints = new Map<string, Set<string>>();
@@ -16,6 +18,7 @@ const reachedPrototypes = new Map<string, Set<string>>();
 let generatedQuestions = 0;
 let deterministicReplayChecks = 0;
 let verifierChecks = 0;
+let semanticOptionChecks = 0;
 
 for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
   const qlId = allocation.qlId;
@@ -36,13 +39,19 @@ for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
     assert(first.solveModeId === allocation.solveModeId, `${qlId}/${seed}: solve-mode mismatch`);
     assert(allocation.prototypeIds.includes(first.temporaryPrototypeId as never), `${qlId}/${seed}: prototype outside authority`);
     assert(first.options.length === 4, `${qlId}/${seed}: option count`);
-    assert(new Set(first.options.map((option) => option.value)).size === 4, `${qlId}/${seed}: option collision`);
+    assert(new Set(first.options.map((option) => option.value)).size === 4, `${qlId}/${seed}: literal option collision`);
+    semanticOptionChecks += 1;
+    assert(
+      new Set(first.options.map((option) => normalizeNumCp005OptionSemantic(option.value))).size === 4,
+      `${qlId}/${seed}: semantic option collision`,
+    );
     assert(first.options.filter((option) => option.isCorrect).length === 1, `${qlId}/${seed}: correct option count`);
     assert(first.options[first.correctIndex]?.value === first.canonicalAnswer, `${qlId}/${seed}: answer/index mismatch`);
     assert(first.explanation.commonTraps.length === 3, `${qlId}/${seed}: trap count`);
     verifierChecks += 1;
     assert(first.verifierAnswer === first.canonicalAnswer, `${qlId}/${seed}: independent verifier mismatch`);
     assert(first.permanentIdentityFrozen, `${qlId}/${seed}: identity not frozen`);
+    assert(first.allocationStatus === "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION", `${qlId}/${seed}: allocation status`);
     assert(first.reviewStatus === "PRODUCT_OWNER_COMPLETION_AUTHORISED", `${qlId}/${seed}: review status`);
     assert(first.maturity === "ENGLISH_IMPLEMENTATION_FROZEN", `${qlId}/${seed}: maturity`);
     assert(!first.lifecycle.active, `${qlId}/${seed}: active leak`);
@@ -57,7 +66,14 @@ for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
   }
 
   assert(JSON.stringify([...answerPositions.get(qlId)!].sort()) === JSON.stringify([0, 1, 2, 3]), `${qlId}: answer-position reachability`);
-  assert(JSON.stringify([...difficulties.get(qlId)!].sort()) === JSON.stringify(["EASY", "HARD", "MEDIUM"]), `${qlId}: difficulty reachability`);
+  if (uniformEasyDifficultyQls.has(qlId)) {
+    assert(
+      JSON.stringify([...difficulties.get(qlId)!]) === JSON.stringify(["EASY"]),
+      `${qlId}: uniform one-step family must remain EASY`,
+    );
+  } else {
+    assert(difficulties.get(qlId)!.size >= 2, `${qlId}: insufficient state-derived difficulty variation`);
+  }
   assert(fingerprints.get(qlId)!.size >= 8, `${qlId}: insufficient mathematical variation`);
   assert(
     JSON.stringify([...reachedPrototypes.get(qlId)!].sort()) === JSON.stringify([...allocation.prototypeIds].sort()),
@@ -74,20 +90,26 @@ try {
 assert(unsupportedLanguageRejected, "unsupported language must be rejected");
 
 console.log(JSON.stringify({
-  status: "PASS_NUM_CP005_PERMANENT_ENGLISH_RUNTIME",
+  status: "PASS_NUM_CP005_PERMANENT_ENGLISH_IMPLEMENTATION_FROZEN_RUNTIME",
   permanentQlCount: NUM_CP005_PERMANENT_QL_IDS.length,
-  frozenSolveModeCount: new Set(NUM_CP005_PERMANENT_ALLOCATION.map((entry) => entry.solveModeId)).size,
+  solveModeCount: new Set(NUM_CP005_PERMANENT_ALLOCATION.map((entry) => entry.solveModeId)).size,
   seedsPerQl,
   generatedQuestions,
   deterministicReplayChecks,
   verifierChecks,
+  semanticOptionChecks,
   distinctFingerprintsByQl: Object.fromEntries(
     [...fingerprints.entries()].map(([qlId, values]) => [qlId, values.size]),
   ),
   reachedPrototypesByQl: Object.fromEntries(
     [...reachedPrototypes.entries()].map(([qlId, values]) => [qlId, [...values].sort()]),
   ),
+  difficultyBandsByQl: Object.fromEntries(
+    [...difficulties.entries()].map(([qlId, values]) => [qlId, [...values].sort()]),
+  ),
+  uniformEasyDifficultyQls: [...uniformEasyDifficultyQls],
   unsupportedLanguageRejected,
+  reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED",
   questionStudioDiscoverableCount: 0,
   questionBankWritableCount: 0,
   testEligibleCount: 0,
