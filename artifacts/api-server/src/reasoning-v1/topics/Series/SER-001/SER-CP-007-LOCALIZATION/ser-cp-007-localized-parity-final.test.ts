@@ -8,7 +8,9 @@ import {
   type SerCp007Locale,
 } from "./ser-cp-007-localized-runtime-final";
 
-const DEVANAGARI = /[\u0900-\u097F]/;
+// U+0964 and U+0965 are shared Indic danda punctuation, so they are not
+// evidence of Hindi learner prose inside a Punjabi package.
+const DEVANAGARI = /[\u0900-\u0963\u0966-\u097F]/;
 const GURMUKHI = /[\u0A00-\u0A7F]/;
 const ALLOWED_ASCII = new Set([
   "details",
