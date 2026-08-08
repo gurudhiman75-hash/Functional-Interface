@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - feat/rnk-001-cp005-discovery-freeze
+      - fix/rnk-001-cp005-reasoning-remodel
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/**
       - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/README.md
@@ -40,12 +41,19 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Validate CP-005 shared-set foundation
+      - name: Validate CP-005 structural foundation
         run: |
           set -o pipefail
           pnpm dlx tsx \
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-foundation.test.ts \
             | tee rnk-cp005-foundation.log
+
+      - name: Validate CP-005 reasoning remodel
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-reasoning-remodel-v2.test.ts \
+            | tee rnk-cp005-reasoning-remodel.log
 
       - name: Validate CP-005 English editorial review pack
         run: |
@@ -58,7 +66,7 @@ jobs:
         run: |
           set -o pipefail
           pnpm dlx tsx \
-            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-permanent-runtime-v1-gates.test.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-permanent-runtime-v2-gates.test.ts \
             | tee rnk-cp005-permanent-freeze.log
 
       - name: Validate discovery-only Question Studio registry
@@ -78,9 +86,10 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp005-english-discovery-freeze-evidence
+          name: rnk-001-cp005-english-reasoning-remodel-evidence
           path: |
             rnk-cp005-foundation.log
+            rnk-cp005-reasoning-remodel.log
             rnk-cp005-editorial.log
             rnk-cp005-permanent-freeze.log
             rnk-question-studio-registry.log
