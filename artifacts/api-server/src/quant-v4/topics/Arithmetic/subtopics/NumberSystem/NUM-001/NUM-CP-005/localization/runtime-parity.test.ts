@@ -3,7 +3,7 @@ import {
   NUM_CP005_PERMANENT_QL_IDS,
 } from "../permanent/allocation";
 import { runNumCp005PermanentPipeline } from "../permanent/runtime";
-import { translateNumCp005OptionValue } from "./language-pack";
+import { translateNumCp005LocalizedOptionValue } from "./dynamic-option-translation";
 import { generateNumCp005LocalizedQuestion } from "./runtime";
 import type { NumCp005TranslatedLocale } from "./types";
 
@@ -72,14 +72,28 @@ for (const locale of LOCALES) {
 
       english.options.forEach((option, index) => {
         const translated = localized.options[index]!;
-        assert(translated.value === translateNumCp005OptionValue(option.value, locale), `${allocation.qlId}/${seed}/${locale}: option value mismatch`);
+        assert(
+          translated.value === translateNumCp005LocalizedOptionValue(allocation.qlId, option.value, locale),
+          `${allocation.qlId}/${seed}/${locale}: option value mismatch`,
+        );
         assert(translated.isCorrect === option.isCorrect, `${allocation.qlId}/${seed}/${locale}: option correctness mismatch`);
         assert(translated.misconceptionId === option.misconceptionId, `${allocation.qlId}/${seed}/${locale}: misconception mismatch`);
       });
 
-      const expectedAnswer = translateNumCp005OptionValue(english.canonicalAnswer, locale);
+      const expectedAnswer = translateNumCp005LocalizedOptionValue(
+        allocation.qlId,
+        english.canonicalAnswer,
+        locale,
+      );
       assert(localized.canonicalAnswer === expectedAnswer, `${allocation.qlId}/${seed}/${locale}: answer translation mismatch`);
-      assert(localized.verifierAnswer === translateNumCp005OptionValue(english.verifierAnswer, locale), `${allocation.qlId}/${seed}/${locale}: verifier translation mismatch`);
+      assert(
+        localized.verifierAnswer === translateNumCp005LocalizedOptionValue(
+          allocation.qlId,
+          english.verifierAnswer,
+          locale,
+        ),
+        `${allocation.qlId}/${seed}/${locale}: verifier translation mismatch`,
+      );
       assert(localized.options[localized.correctIndex]?.value === localized.canonicalAnswer, `${allocation.qlId}/${seed}/${locale}: localized answer/index mismatch`);
       assert(localized.localization.canonicalAnswer === english.canonicalAnswer, `${allocation.qlId}/${seed}/${locale}: canonical answer trace mismatch`);
       assert(localized.localization.canonicalVerifierAnswer === english.verifierAnswer, `${allocation.qlId}/${seed}/${locale}: canonical verifier trace mismatch`);

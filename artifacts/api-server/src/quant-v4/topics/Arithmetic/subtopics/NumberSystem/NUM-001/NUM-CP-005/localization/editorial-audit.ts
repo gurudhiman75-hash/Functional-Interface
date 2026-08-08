@@ -22,6 +22,7 @@ let invalidValueLeaks = 0;
 let crossQlStemCollisions = 0;
 let maximumProseStemCharacters = 0;
 let maximumStructuredStemCharacters = 0;
+const EnglishLeakSamples: string[] = [];
 const exactStemCountByLocale = new Map<NumCp005TranslatedLocale, Set<string>>(
   LOCALES.map((locale) => [locale, new Set<string>()]),
 );
@@ -89,7 +90,18 @@ for (const locale of LOCALES) {
         ...question.explanation.commonTraps,
         question.explanation.finalAnswer,
       ].join("\n");
-      if (ENGLISH_PROSE.test(learnerText)) EnglishLeakViolations += 1;
+      const EnglishLeak = learnerText.match(ENGLISH_PROSE);
+      if (EnglishLeak) {
+        EnglishLeakViolations += 1;
+        if (EnglishLeakSamples.length < 24) {
+          const index = EnglishLeak.index ?? 0;
+          const context = learnerText.slice(Math.max(0, index - 55), index + EnglishLeak[0].length + 85)
+            .replace(/\s+/g, " ");
+          EnglishLeakSamples.push(
+            `${allocation.qlId}/${seed}/${locale}: ${EnglishLeak[0]} :: ${context}`,
+          );
+        }
+      }
       if (INTERNAL_ID.test(learnerText)) internalIdLeaks += 1;
       if (INVALID_VALUE.test(learnerText)) invalidValueLeaks += 1;
 
@@ -106,11 +118,15 @@ for (const locale of LOCALES) {
   }
 }
 
+if (EnglishLeakSamples.length > 0) {
+  console.error(JSON.stringify({ EnglishLeakViolations, EnglishLeakSamples }, null, 2));
+}
+
 assert(generatedAuditQuestions === 1_728, "audit corpus size");
 assert(crossQlStemCollisions === 0, "cross-QL localized stem collision");
 assert(lifecycleViolations === 0, "lifecycle violations");
 assert(optionViolations === 0, "option violations");
-assert(EnglishLeakViolations === 0, "English prose leaks");
+assert(EnglishLeakViolations === 0, `English prose leaks: ${EnglishLeakSamples.join(" | ")}`);
 assert(internalIdLeaks === 0, "internal identity leaks");
 assert(invalidValueLeaks === 0, "invalid value leaks");
 
@@ -130,6 +146,7 @@ console.log(JSON.stringify({
   lifecycleViolations,
   optionViolations,
   EnglishLeakViolations,
+  EnglishLeakSamples,
   internalIdLeaks,
   invalidValueLeaks,
   localizationStatus: "EXECUTABLE_REVIEW_REQUIRED",
