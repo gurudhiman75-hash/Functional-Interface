@@ -53,16 +53,17 @@ The learner-facing layer was remodelled rather than lightly edited. The current 
 - QL-080 described as compound interest instead of total interest;
 - awkward teaching phrases such as `गोल-गोल सिद्ध`, `गोल राशि`, and `वार्षिक संख्या`.
 
-## Validated checkpoint
+## Validated implementation checkpoint
 
 ```text
-Branch:          feat/int-cp004-hi-pa-localisation
-Validated head:  f36db52d05c19eb3afa4bc9618897c950ee58628
-Workflow run:    31246203474 — PASS
-Artifact ID:     9018572889
-Artifact digest: sha256:3d44e9d7326874f3c4fce1595bb8ad5f87420946a9212cd4dda85b8f036e0686
-Isolation run:   31246203475 — PASS
+Implementation head: f36db52d05c19eb3afa4bc9618897c950ee58628
+Workflow run:       31246203474 — PASS
+Artifact ID:        9018572889
+Artifact digest:    sha256:3d44e9d7326874f3c4fce1595bb8ad5f87420946a9212cd4dda85b8f036e0686
+Isolation run:      31246203475 — PASS
 ```
+
+The documentation-only follow-up commit was separately replayed through the same validation suite.
 
 Editorial evidence:
 
