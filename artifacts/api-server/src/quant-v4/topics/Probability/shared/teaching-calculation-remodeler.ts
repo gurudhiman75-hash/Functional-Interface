@@ -36,6 +36,30 @@ function descendingProduct(start: number, count: number): number[] {
   return Array.from({ length: count }, (_, index) => start - index);
 }
 
+function plural(count: number, singular: string, pluralForm = `${singular}s`): string {
+  return count === 1 ? singular : pluralForm;
+}
+
+function qlNumber(entry: ProbabilityTaskRegistryEntry): number {
+  const match = entry.qlId.match(/(\d+)$/);
+  return match ? Number(match[1]) : 0;
+}
+
+interface ObjectContext {
+  item: string;
+  singular: string;
+}
+
+function objectContext(entry: ProbabilityTaskRegistryEntry): ObjectContext {
+  const contexts: ObjectContext[] = [
+    { item: "balls", singular: "ball" },
+    { item: "marbles", singular: "marble" },
+    { item: "pens", singular: "pen" },
+    { item: "coloured stones", singular: "stone" },
+  ];
+  return contexts[qlNumber(entry) % contexts.length]!;
+}
+
 function combinationExpansion(total: number, selected: number): string {
   const result = choose(total, selected);
   if (selected === 0 || selected === total) return `C(${total},${selected}) = 1.`;
@@ -70,12 +94,13 @@ function simultaneousSelectionExplanation(
   const red = numberValue(parameters, "red");
   const blue = numberValue(parameters, "blue");
   const draw = numberValue(parameters, "draw", 2);
+  const context = objectContext(entry);
   const totalItems = red + blue;
   const totalSelections = choose(totalItems, draw);
   const favourable = Number(solved.evidence.favourableOutcomeCount ?? 0n);
   const lines: string[] = [
-    "Method — Since the objects are selected together, order does not matter. Use C(n,r) = n!/[r!(n-r)!], then use probability = favourable selections ÷ total selections.",
-    `Step 1 — Total possible selections = C(${totalItems},${draw}).`,
+    `Method — Since the ${context.item} are selected together, order does not matter. Use C(n,r) = n!/[r!(n-r)!], then use probability = favourable selections ÷ total selections.`,
+    `Step 1 — Total possible selections of ${context.item} = C(${totalItems},${draw}).`,
     `Step 2 — ${combinationExpansion(totalItems, draw)}`,
   ];
 
@@ -83,50 +108,50 @@ function simultaneousSelectionExplanation(
   if (mode === "findSimultaneousSameTypeProbability") {
     const redWays = choose(red, draw);
     const blueWays = choose(blue, draw);
-    lines.push(`Step ${nextStep} — Red-only selections: ${combinationExpansion(red, draw)}`);
+    lines.push(`Step ${nextStep} — Red-only ${context.item}: ${combinationExpansion(red, draw)}`);
     nextStep += 1;
-    lines.push(`Step ${nextStep} — Blue-only selections: ${combinationExpansion(blue, draw)}`);
+    lines.push(`Step ${nextStep} — Blue-only ${context.item}: ${combinationExpansion(blue, draw)}`);
     nextStep += 1;
-    lines.push(`Step ${nextStep} — Favourable selections = ${redWays} + ${blueWays} = ${favourable}.`);
+    lines.push(`Step ${nextStep} — Favourable selections of ${context.item} = ${redWays} + ${blueWays} = ${favourable}.`);
     nextStep += 1;
   } else if (mode === "findSimultaneousDifferentTypeProbability" && draw === 2) {
     const redWays = choose(red, 1);
     const blueWays = choose(blue, 1);
-    lines.push(`Step ${nextStep} — Choose 1 red and 1 blue: C(${red},1) × C(${blue},1) = ${redWays} × ${blueWays} = ${favourable}.`);
+    lines.push(`Step ${nextStep} — Choose 1 red ${context.singular} and 1 blue ${context.singular}: C(${red},1) × C(${blue},1) = ${redWays} × ${blueWays} = ${favourable}.`);
     nextStep += 1;
   } else if (mode === "findSimultaneousDifferentTypeProbability") {
     const allRed = choose(red, draw);
     const allBlue = choose(blue, draw);
-    lines.push(`Step ${nextStep} — All-red selections: ${combinationExpansion(red, draw)}`);
+    lines.push(`Step ${nextStep} — All-red selections of ${context.item}: ${combinationExpansion(red, draw)}`);
     nextStep += 1;
-    lines.push(`Step ${nextStep} — All-blue selections: ${combinationExpansion(blue, draw)}`);
+    lines.push(`Step ${nextStep} — All-blue selections of ${context.item}: ${combinationExpansion(blue, draw)}`);
     nextStep += 1;
-    lines.push(`Step ${nextStep} — Favourable selections = ${totalSelections} - ${allRed} - ${allBlue} = ${favourable}.`);
+    lines.push(`Step ${nextStep} — Favourable selections of ${context.item} = ${totalSelections} - ${allRed} - ${allBlue} = ${favourable}.`);
     nextStep += 1;
   } else if (["findExactCompositionProbability", "findSelectionProbabilityUsingCombination"].includes(mode)) {
     const exactRed = numberValue(parameters, "exactRed", 1);
     const exactBlue = draw - exactRed;
     const redWays = choose(red, exactRed);
     const blueWays = choose(blue, exactBlue);
-    lines.push(`Step ${nextStep} — Red selections: ${combinationExpansion(red, exactRed)}`);
+    lines.push(`Step ${nextStep} — Ways to choose the red ${context.item}: ${combinationExpansion(red, exactRed)}`);
     nextStep += 1;
-    lines.push(`Step ${nextStep} — Blue selections: ${combinationExpansion(blue, exactBlue)}`);
+    lines.push(`Step ${nextStep} — Ways to choose the blue ${context.item}: ${combinationExpansion(blue, exactBlue)}`);
     nextStep += 1;
-    lines.push(`Step ${nextStep} — Favourable selections = ${redWays} × ${blueWays} = ${favourable}.`);
+    lines.push(`Step ${nextStep} — Favourable selections of ${context.item} = ${redWays} × ${blueWays} = ${favourable}.`);
     nextStep += 1;
   } else if (mode === "findNoObjectOfTypeProbability") {
-    lines.push(`Step ${nextStep} — No red means all selected objects are blue: ${combinationExpansion(blue, draw)}`);
+    lines.push(`Step ${nextStep} — No red ${context.singular} means all selected ${context.item} are blue: ${combinationExpansion(blue, draw)}`);
     nextStep += 1;
   } else if (mode === "findAtLeastOneObjectOfType") {
     const allBlue = choose(blue, draw);
-    lines.push(`Step ${nextStep} — Use the complement. Selections with no red: ${combinationExpansion(blue, draw)}`);
+    lines.push(`Step ${nextStep} — Use the complement. Selections of ${context.item} with no red ${context.singular}: ${combinationExpansion(blue, draw)}`);
     nextStep += 1;
-    lines.push(`Step ${nextStep} — Favourable selections = ${totalSelections} - ${allBlue} = ${favourable}.`);
+    lines.push(`Step ${nextStep} — Favourable selections of ${context.item} = ${totalSelections} - ${allBlue} = ${favourable}.`);
     nextStep += 1;
   }
 
   probabilityClosing(lines, favourable, totalSelections, solved.exactDisplay, nextStep);
-  lines.push("Key point — C(n,r) is used because selecting the same objects in a different order does not create a new selection.");
+  lines.push(`Key point — C(n,r) is used because selecting the same ${context.item} in a different order does not create a new selection.`);
   lines.push(`Answer — The required probability is ${solved.exactDisplay}.`);
   return lines;
 }
@@ -144,6 +169,8 @@ function committeeExplanation(
   const requiredMen = committeeSize - requiredWomen;
   const totalPeople = men + women;
   const totalCommittees = choose(totalPeople, committeeSize);
+  const womenLabel = plural(requiredWomen, "woman", "women");
+  const menLabel = plural(requiredMen, "man", "men");
   const lines: string[] = [
     "Method — A committee is an unordered selection. Use C(n,r) = n!/[r!(n-r)!]. For a probability, divide the number of required committees by the total number of committees.",
   ];
@@ -151,8 +178,8 @@ function committeeExplanation(
   if (mode === "findReverseCountFromProbability") {
     const womenWays = choose(women, requiredWomen);
     const menWays = choose(men, requiredMen);
-    lines.push(`Step 1 — Choose ${requiredWomen} woman/women from ${women}: ${combinationExpansion(women, requiredWomen)}`);
-    lines.push(`Step 2 — Choose ${requiredMen} man/men from ${men}: ${combinationExpansion(men, requiredMen)}`);
+    lines.push(`Step 1 — Choose ${requiredWomen} ${womenLabel} from ${women}: ${combinationExpansion(women, requiredWomen)}`);
+    lines.push(`Step 2 — Choose ${requiredMen} ${menLabel} from ${men}: ${combinationExpansion(men, requiredMen)}`);
     lines.push(`Step 3 — Required committees = ${womenWays} × ${menWays} = ${solved.exactDisplay}.`);
     lines.push("Key point — The order in which committee members are named is irrelevant, so each committee must be counted only once.");
     lines.push(`Answer — The required number is ${solved.exactDisplay}.`);
@@ -172,8 +199,8 @@ function committeeExplanation(
     const womenWays = choose(women, requiredWomen);
     const menWays = choose(men, requiredMen);
     const favourable = womenWays * menWays;
-    lines.push(`Step 3 — Choose ${requiredWomen} woman/women from ${women}: ${combinationExpansion(women, requiredWomen)}`);
-    lines.push(`Step 4 — Choose ${requiredMen} man/men from ${men}: ${combinationExpansion(men, requiredMen)}`);
+    lines.push(`Step 3 — Choose ${requiredWomen} ${womenLabel} from ${women}: ${combinationExpansion(women, requiredWomen)}`);
+    lines.push(`Step 4 — Choose ${requiredMen} ${menLabel} from ${men}: ${combinationExpansion(men, requiredMen)}`);
     lines.push(`Step 5 — Required committees = ${womenWays} × ${menWays} = ${favourable}.`);
     probabilityClosing(lines, favourable, totalCommittees, solved.exactDisplay, 6);
   }
