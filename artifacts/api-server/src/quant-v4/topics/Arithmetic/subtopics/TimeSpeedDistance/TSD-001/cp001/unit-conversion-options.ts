@@ -134,6 +134,13 @@ function speedCandidates(
       [multiply(input.value, rational(60)), "REVERSE_UNIT_CONVERSION"],
     ];
   }
+  if (input.from === "KMPH" && input.to === "M_PER_MINUTE") {
+    return [
+      [input.value, "OMIT_UNIT_CONVERSION"],
+      [multiply(input.value, rational(1000)), "CONVERT_ONLY_ONE_UNIT"],
+      [divide(input.value, rational(60)), "CONVERT_ONLY_ONE_UNIT"],
+    ];
+  }
   if (input.from === "MPS" && input.to === "KMPH") {
     return [
       [multiply(input.value, rational(3)), "USE_WRONG_CONVERSION_FACTOR"],
@@ -154,11 +161,25 @@ function speedCandidates(
 function distanceCandidates(
   input: Extract<TsdCp001SolveInput, { solveMode: "convertDistanceUnit" }>,
 ): readonly WrongCandidate[] | null {
+  if (input.from === "KM" && input.to === "M") {
+    return [
+      [input.value, "OMIT_UNIT_CONVERSION"],
+      [multiply(input.value, rational(100)), "USE_WRONG_CONVERSION_FACTOR"],
+      [multiply(input.value, rational(10000)), "USE_WRONG_CONVERSION_FACTOR"],
+    ];
+  }
   if (input.from === "M" && input.to === "KM") {
     return [
       [input.value, "OMIT_UNIT_CONVERSION"],
       [divide(input.value, rational(100)), "USE_WRONG_CONVERSION_FACTOR"],
       [divide(input.value, rational(10000)), "USE_WRONG_CONVERSION_FACTOR"],
+    ];
+  }
+  if (input.from === "CM" && input.to === "M") {
+    return [
+      [input.value, "OMIT_UNIT_CONVERSION"],
+      [divide(input.value, rational(10)), "USE_WRONG_CONVERSION_FACTOR"],
+      [divide(input.value, rational(1000)), "USE_WRONG_CONVERSION_FACTOR"],
     ];
   }
   if (input.from === "M" && input.to === "CM") {
@@ -175,6 +196,13 @@ function distanceCandidates(
       [divide(input.value, rational(100)), "USE_WRONG_CONVERSION_FACTOR"],
     ];
   }
+  if (input.from === "KM" && input.to === "CM") {
+    return [
+      [input.value, "OMIT_UNIT_CONVERSION"],
+      [multiply(input.value, rational(1000)), "CONVERT_ONLY_ONE_UNIT"],
+      [multiply(input.value, rational(100)), "CONVERT_ONLY_ONE_UNIT"],
+    ];
+  }
   return null;
 }
 
@@ -188,11 +216,32 @@ function timeCandidates(
       [multiply(input.value, rational(3600)), "USE_WRONG_CONVERSION_FACTOR"],
     ];
   }
+  if (input.from === "MINUTE" && input.to === "HOUR") {
+    return [
+      [input.value, "OMIT_UNIT_CONVERSION"],
+      [multiply(input.value, rational(60)), "REVERSE_UNIT_CONVERSION"],
+      [divide(input.value, rational(100)), "USE_WRONG_CONVERSION_FACTOR"],
+    ];
+  }
+  if (input.from === "DAY" && input.to === "HOUR") {
+    return [
+      [input.value, "OMIT_UNIT_CONVERSION"],
+      [divide(input.value, rational(24)), "REVERSE_UNIT_CONVERSION"],
+      [multiply(input.value, rational(60)), "USE_WRONG_CONVERSION_FACTOR"],
+    ];
+  }
   if (input.from === "SECOND" && input.to === "HOUR") {
     return [
       [input.value, "OMIT_UNIT_CONVERSION"],
       [divide(input.value, rational(60)), "CONVERT_ONLY_ONE_UNIT"],
       [divide(divide(input.value, rational(60)), rational(24)), "USE_WRONG_CONVERSION_FACTOR"],
+    ];
+  }
+  if (input.from === "MINUTE" && input.to === "SECOND") {
+    return [
+      [input.value, "OMIT_UNIT_CONVERSION"],
+      [divide(input.value, rational(60)), "REVERSE_UNIT_CONVERSION"],
+      [multiply(input.value, rational(100)), "USE_WRONG_CONVERSION_FACTOR"],
     ];
   }
   if (input.from === "MINUTE" && input.to === "DAY") {
