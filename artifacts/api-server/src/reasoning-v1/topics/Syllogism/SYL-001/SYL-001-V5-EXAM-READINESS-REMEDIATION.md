@@ -31,8 +31,12 @@ Enabled diagrams now use finite verified templates and must satisfy all of the f
 
 - no more than three terms;
 - actual `ALL`, `NO`, `SOME`, `SOME NOT`, `ONLY`, identity and `ONLY A FEW` geometry;
+- every existential premise represented by a visible witness;
+- every target-created witness completed through all forced universal and negative relations;
 - at most two unnumbered decisive `×` witnesses;
-- every witness plotted inside and outside exactly the classes declared by its proof role;
+- every witness plotted inside and outside exactly the classes declared by its complete proof role;
+- every displayed containment direction authorised independently;
+- coincident circles permitted only when both subset directions are forced;
 - no stronger unstated containment or separation;
 - no floating separation `×`;
 - no numbered witness sequence;
@@ -41,33 +45,38 @@ Enabled diagrams now use finite verified templates and must satisfy all of the f
 - a 340 × 210 mobile viewBox with readable labels;
 - counterexample captions that explicitly say the statements remain true while the selected proposition is false.
 
-`ONLY A FEW` uses a genuine partial overlap with visible subject-only area. If a clear template is unavailable, the diagram is omitted.
+`ONLY A FEW` requires both the overlap witness and the subject-outside-predicate witness. If both cannot be shown clearly, the diagram is omitted.
 
-Four-term and more complex cases are not forced into a crowded canvas. They are omitted unless a separately verified template is introduced later.
+Four-term and more complex cases are not forced into a crowded canvas. One-way universal relations are never drawn as false equivalence; a diagram without a safe directional layout is omitted.
 
 Exhaustive generated-record result:
 
 ```text
-records checked:                 4,320
-enabled exact Venn diagrams:     2,364
-intentionally omitted:           1,956
-  more than three terms:         1,887
-  no stable simple arrangement:     69
-geometry failures:                   0
-witness-placement failures:          0
-stronger unstated relations:          0
-non-Venn enabled visuals:             0
-maximum witnesses per diagram:        2
+records checked:                         4,320
+enabled exact Venn diagrams:             1,479
+intentionally omitted:                   2,841
+  more than three terms:                 1,887
+  no fully exact simple arrangement:       954
+existential premise failures:                0
+target-model failures:                       0
+witness closure failures:                    0
+witness-position failures:                   0
+witness-set mismatches:                      0
+unauthorised containment directions:         0
+non-Venn enabled visuals:                    0
+maximum witnesses per diagram:               2
 ```
 
 The 324-record human-review pack contains:
 
 ```text
-enabled exact Venn diagrams: 183
-intentionally omitted:       141
+enabled exact Venn diagrams: 108
+intentionally omitted:       216
   complex:                   135
-  unstable:                    6
+  unstable or overstrong:     81
 ```
+
+All 36 enabled English review diagrams were visually inspected. Hindi and Punjabi use the same verified geometry with localized labels.
 
 ### Option remediation
 
@@ -128,7 +137,8 @@ The automated viewport contract verifies:
 - responsive SVG diagrams;
 - a 340-unit maximum diagram width;
 - exact circle geometry for every enabled diagram;
-- valid witness placement;
+- valid and closure-complete witness placement;
+- authorised containment direction for every nested pair;
 - no relation-map terminology or non-Venn enabled mode;
 - no script or `foreignObject` content inside learner diagrams.
 
@@ -160,8 +170,11 @@ It rejects:
 - modal status omissions or duplicates;
 - changes to non-modal option counts;
 - forced diagrams with more than three terms;
-- premise-geometry violations;
+- missing existential-premise witnesses;
+- incomplete witness membership or exclusion closure;
 - witness-position violations;
+- target-model geometry violations;
+- unauthorised reverse containment;
 - stronger unstated containment or separation;
 - unclear `ONLY A FEW` topology;
 - numbered witnesses or floating separation crosses;
