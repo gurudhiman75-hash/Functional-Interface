@@ -224,7 +224,20 @@ const routeIndex = readFileSync("src/routes/index.ts", "utf8");
 assert.match(seriesRoute, /listReasoningV1Packages/);
 assert.match(seriesRoute, /listQuantV4Packages/);
 assert.match(seriesRoute, /generationSystems: \["quant-v4", "reasoning-v1"\]/);
-assert.match(seriesRoute, /asString\(req\.body\?\.packageId\) !== "SER-001"/);
+assert.match(seriesRoute, /const SERIES_PACKAGE_ID = "SER-001" as const/);
+assert.match(seriesRoute, /const SERIES_SUBJECT = "General Intelligence & Reasoning"/);
+assert.match(seriesRoute, /const SERIES_TOPIC = "Series"/);
+assert.match(
+  seriesRoute,
+  /const SERIES_SUBTOPIC = "Missing Figure \/ Missing Character Series"/,
+);
+assert.match(
+  seriesRoute,
+  /asString\(req\.body\?\.packageId\) !== SERIES_PACKAGE_ID/,
+);
+assert.match(seriesRoute, /const subject = SERIES_SUBJECT/);
+assert.match(seriesRoute, /const topic = SERIES_TOPIC/);
+assert.match(seriesRoute, /const subtopic = SERIES_SUBTOPIC/);
 assert.match(seriesRoute, /next\("route"\)/);
 assert.match(seriesRoute, /'reasoning-v1'/);
 assert.match(routeIndex, /adminQuestionStudioSeriesRouter/);
@@ -258,6 +271,7 @@ console.log(JSON.stringify({
   adminCapabilityProofs: 1,
   adminDispatchProofs: 1,
   routeMountProofs: 1,
+  taxonomyContractProofs: 1,
   active: true,
   questionStudioDiscoverable: true,
   questionBankStatus: "NOT_STORED",
