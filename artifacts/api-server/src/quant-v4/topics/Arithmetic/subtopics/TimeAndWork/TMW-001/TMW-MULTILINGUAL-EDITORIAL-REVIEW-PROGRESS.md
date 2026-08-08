@@ -5,10 +5,10 @@ Status: **assistant review complete across CP-001 through CP-011; human approval
 Exact reviewed implementation and verified proof head:
 
 ```text
-04bac810f1a7583161aebe055129bc6283b081d2
+412f1da0b362a87a46a10e7c42a2c611ecd26f0b
 ```
 
-Subsequent branch commits only add CP-011 evidence documentation and update this progress record. They do not alter localized runtime content, answers, options, traps, formulas or mathematical state.
+The final assistant remediation pass naturalized CP-011 teaching prose that still exposed unexplained progression abbreviations or single-letter variables. It also added an all-seed guard so those symbols cannot re-enter learner-facing Hindi/Punjabi prose without failing validation. English mathematics, answers, options, misconception identities, fingerprints and lifecycle locks remain unchanged.
 
 ## Reviewed checkpoints
 
@@ -32,9 +32,9 @@ Subsequent branch commits only add CP-011 evidence documentation and update this
 Cumulative editorial workflow:
 
 ```text
-Run: 31186711952
-Artifact: 8997042226
-Digest: sha256:2b2c3fc25ba1c6c34a228e75e124d658a4010f315cc7024bcd73f74636676e1f
+Run: 31246569601
+Artifact: 9018683880
+Digest: sha256:3393989b477590310e60abd404e0cb91890b069ee6815ce622cf4819b26d08a4
 Reviewed QLs: 211
 Native rows: 422
 Deterministic native packages: 5,064
@@ -44,9 +44,9 @@ Open automated findings: 0
 CP-011 dedicated localisation proof:
 
 ```text
-Run: 31186724174
-Artifact: 8997050850
-Digest: sha256:3f1330ca7c8cbdd92179c1081a1698cb362da3ac111a1ec69eb90bbd81311ec7
+Run: 31246569558
+Artifact: 9018688273
+Digest: sha256:9847a2a35b47a544a3c14065c107e1be84b66e483957d1d660cb67ed412d5993
 QLs: 19
 All-seed deterministic native packages: 760
 Permanent editorial-review packages: 456
@@ -54,15 +54,16 @@ Hindi distinct stems: 255
 Punjabi distinct stems: 255
 Distinct method-specific shortcut titles: 19 Hindi and 19 Punjabi
 Distinct method-specific openings: 19 Hindi and 19 Punjabi
+Unexplained teaching-symbol findings: 0
 Open automated findings: 0
 ```
 
 Full chapter parity:
 
 ```text
-Run: 31186713631
-Artifact: 8997044260
-Digest: sha256:b62774f1739c9e3d3dc074da73c0221d5cd9012e1229010345bb9fdec69cd966
+Run: 31246569534
+Artifact: 9018688608
+Digest: sha256:1a6503e9f50dd9973f30e335b9b07f11e5f7b188d1b46ea0d3f00a5c3bbbae5d
 QLs: 211
 English packages: 2,532
 Localized packages: 5,064

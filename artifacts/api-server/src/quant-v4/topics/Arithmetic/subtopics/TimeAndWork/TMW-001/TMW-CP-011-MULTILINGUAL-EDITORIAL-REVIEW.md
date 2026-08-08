@@ -5,10 +5,8 @@ Status: **assistant editorial review complete; human approval pending**.
 Reviewed implementation and verified proof head:
 
 ```text
-04bac810f1a7583161aebe055129bc6283b081d2
+412f1da0b362a87a46a10e7c42a2c611ecd26f0b
 ```
-
-Subsequent commits may add evidence documentation only. They do not change localized runtime content, mathematical state, answers, options, traps or formulas.
 
 ## Scope
 
@@ -25,21 +23,14 @@ Subsequent commits may add evidence documentation only. They do not change local
 ## Accepted remediation
 
 - replaced broad sequence-family explanations with a separate learner-facing method for each of the 19 solve modes;
-- taught arithmetic daily-rate questions through first rate, daily change, last rate and arithmetic-progression total without treating the first or last rate as constant;
-- taught completion under changing arithmetic rates by separating completed whole days from the final partial day;
-- isolated unknown first rate and unknown daily change directly from the arithmetic total instead of reporting an average as the requested value;
-- distinguished geometric multiplication from arithmetic addition and taught geometric totals, inverse initial rate and inverse multiplier reasoning separately;
-- handled threshold-rate switches with correct pre-switch and post-switch day counts, including inverse threshold day and inverse post-threshold rate questions;
-- taught varying-crew schedules day by day, preserving per-worker rate and stopping at the actual completion point rather than using a full-schedule average;
-- combined two changing agent sequences without omitting the peer sequence;
-- treated decreasing or opposing output with the correct sign instead of adding the negative sequence;
-- preserved the order of explicit daily-rate tables when finding output or completion time;
-- taught deadline adjustments as the output gap spread over the applicable days, distinct from planned rate, new rate or overall average;
-- distinguished requested rate change from the resulting post-threshold rate;
-- replaced generic countdown shortcut headings with 19 solve-mode-specific Hindi headings and 19 solve-mode-specific Punjabi headings;
-- rewrote misconception explanations to name the exact distractor and the precise counting, progression, threshold, crew, sign, table or adjustment error;
-- removed learner-facing internal identifiers and English instructional leakage while retaining standard mathematical notation where needed;
-- added answer-type-specific conclusions for output, time, rate, rate change, multiplier and day-index answers;
+- taught arithmetic and geometric changing-rate questions with natural Hindi/Punjabi descriptions rather than unexplained `AP`, `GP` or single-letter teaching variables;
+- removed q/r multiplier inconsistency and the k/t unknown-threshold-day inconsistency from learner prose while preserving formulas;
+- made seed-dependent misconception explanations use the same natural terminology;
+- added a permanent all-seed guard that scans learner-facing prose after math is removed and blocks unexplained progression abbreviations or teaching variables;
+- taught completion under changing rates by separating completed whole days from the final partial day;
+- handled inverse first-rate, daily-change, multiplier, threshold-day and post-threshold-rate questions without substituting averages or adjacent quantities;
+- handled threshold switches, varying crews, combined and signed sequences, explicit rate tables and deadline adjustments with solve-mode-specific teaching;
+- rewrote misconception explanations to name the exact distractor and precise error;
 - preserved English parameters, answer values, option values, correct indices, misconception identities, formulas, worked mathematics and mathematical fingerprints.
 
 ## Verified evidence
@@ -47,13 +38,14 @@ Subsequent commits may add evidence documentation only. They do not change local
 Dedicated CP-011 workflow:
 
 ```text
-Run: 31186724174
-Artifact: 8997050850
-Digest: sha256:3f1330ca7c8cbdd92179c1081a1698cb362da3ac111a1ec69eb90bbd81311ec7
+Run: 31246569558
+Artifact: 9018688273
+Digest: sha256:9847a2a35b47a544a3c14065c107e1be84b66e483957d1d660cb67ed412d5993
 All-seed packages: 760
 Permanent editorial-review packages: 456
 Hindi packages: 228
 Punjabi packages: 228
+Unexplained teaching-symbol findings: 0
 Open automated findings: 0
 Result: PASS
 ```
@@ -61,9 +53,9 @@ Result: PASS
 Cumulative CP-001 through CP-011 editorial workflow:
 
 ```text
-Run: 31186711952
-Artifact: 8997042226
-Digest: sha256:2b2c3fc25ba1c6c34a228e75e124d658a4010f315cc7024bcd73f74636676e1f
+Run: 31246569601
+Artifact: 9018683880
+Digest: sha256:3393989b477590310e60abd404e0cb91890b069ee6815ce622cf4819b26d08a4
 Reviewed QLs: 211
 Native rows: 422
 Deterministic native packages: 5,064
@@ -74,9 +66,9 @@ Result: PASS
 Complete multilingual chapter parity:
 
 ```text
-Run: 31186713631
-Artifact: 8997044260
-Digest: sha256:b62774f1739c9e3d3dc074da73c0221d5cd9012e1229010345bb9fdec69cd966
+Run: 31246569534
+Artifact: 9018688608
+Digest: sha256:1a6503e9f50dd9973f30e335b9b07f11e5f7b188d1b46ea0d3f00a5c3bbbae5d
 QLs: 211
 English packages: 2,532
 Localized packages and exact parity checks: 5,064
