@@ -2,6 +2,7 @@ import type { GeneratedBlrCp007EditorialV4Question } from "./cp007-editorial-v4-
 import {
   remodelQl031 as remodelQl031Base,
   remodelQl032 as remodelQl032Base,
+  targetSentence as targetSentenceBase,
 } from "./cp007-editorial-v4-wave3-core";
 import type { BlrCp006CodeDefinition } from "../BLR-CP-006/cp006-model";
 
@@ -48,11 +49,34 @@ function collisionSafeQuestion(
   return requiresEvidence ? renameSourcePerson(question, "G", "G0") : question;
 }
 
+function ql031Stem(question: GeneratedBlrCp007EditorialV4Question): string {
+  if (question.query.kind !== "SELECT_EXPRESSION") return question.stem;
+  const target = targetSentenceBase(question.query.target);
+  const prototype = question.sourcePrototypeId;
+  if (prototype.includes("SELECT-DIRECT-FORWARD")) {
+    return `Which left-to-right coded statement shows that ${target}?`;
+  }
+  if (prototype.includes("SELECT-DIRECT-REVERSE")) {
+    return `Which coded statement, after applying the inverse relation, shows that ${target}?`;
+  }
+  if (prototype.includes("SELECT-TWO-LINK-FORWARD")) {
+    return `Which two-link coded family chain establishes that ${target}?`;
+  }
+  if (prototype.includes("SELECT-TWO-LINK-REVERSE")) {
+    return `Which two-link coded chain, with both relation directions checked, establishes that ${target}?`;
+  }
+  if (prototype.includes("SELECT-THREE-LINK")) {
+    return `Which three-link coded family chain establishes that ${target}?`;
+  }
+  return `Which coded chain correctly establishes the marriage-based relation that ${target}?`;
+}
+
 export function remodelQl031(
   question: GeneratedBlrCp007EditorialV4Question,
   codeKey: readonly BlrCp006CodeDefinition[],
 ): GeneratedBlrCp007EditorialV4Question {
-  return remodelQl031Base(collisionSafeQuestion(question), codeKey);
+  const remodelled = remodelQl031Base(collisionSafeQuestion(question), codeKey);
+  return { ...remodelled, stem: ql031Stem(remodelled) };
 }
 
 export function remodelQl032(
