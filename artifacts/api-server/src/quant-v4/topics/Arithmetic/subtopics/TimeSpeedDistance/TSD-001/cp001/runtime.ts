@@ -7,6 +7,7 @@ import {
   generateCp001ReviewRows as generateCoreCp001ReviewRows,
   stableStringify,
 } from "./runtime-base";
+import { remodelPaceOptionFeedback } from "./pace-option-feedback";
 import { unitConversionOptionPackage } from "./unit-conversion-options";
 import { remodelUnitConversionOptionFeedback } from "./unit-conversion-option-feedback";
 
@@ -76,16 +77,39 @@ function remodelConversionQuestion(
   });
 }
 
+function remodelPaceQuestion(
+  question: TsdCp001GeneratedQuestion,
+): TsdCp001GeneratedQuestion {
+  if (
+    question.input.solveMode !== "speedFromPace"
+    && question.input.solveMode !== "paceFromSpeed"
+    && question.input.solveMode !== "distanceFromPaceAndTime"
+  ) return question;
+
+  return Object.freeze({
+    ...question,
+    explanation: remodelPaceOptionFeedback(
+      question.input,
+      question.answerText,
+      question.explanation,
+    ),
+  });
+}
+
+function remodelQuestion(question: TsdCp001GeneratedQuestion): TsdCp001GeneratedQuestion {
+  return remodelPaceQuestion(remodelConversionQuestion(question));
+}
+
 export function generateCp001Candidate(
   ...args: Parameters<typeof generateCoreCp001Candidate>
 ): TsdCp001GeneratedQuestion {
-  return remodelConversionQuestion(generateCoreCp001Candidate(...args));
+  return remodelQuestion(generateCoreCp001Candidate(...args));
 }
 
 export function generateCp001ReviewRows(
   ...args: Parameters<typeof generateCoreCp001ReviewRows>
 ): TsdCp001GeneratedQuestion[] {
-  return generateCoreCp001ReviewRows(...args).map(remodelConversionQuestion);
+  return generateCoreCp001ReviewRows(...args).map(remodelQuestion);
 }
 
 export {
