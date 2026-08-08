@@ -170,16 +170,6 @@ It rejects:
 - viewport-contract regressions;
 - any delivery-lifecycle activation.
 
-## Exact-head evidence
-
-```text
-head:         61d8d5bbaee3ee47a45e678e09bf7c532a1f579c
-workflow run: 31241970027
-result:       SUCCESS
-artifact:     9017321067
-digest:       sha256:513da33c46cfbe303a9a0273c8e41b32d6b0096d67f243001a12e6202e8c0d95
-```
-
 ## Remaining blockers
 
 - Human viewport approval at 360, 412 and 768 px for the redesigned diagrams.
