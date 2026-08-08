@@ -265,10 +265,24 @@ export function buildSeededAsymmetricComposition(seed: string): SpatialScene {
 
     const vertical = transformSceneByRequestedOperation(scene, "REFLECT_VERTICAL", axes);
     const horizontal = transformSceneByRequestedOperation(scene, "REFLECT_HORIZONTAL", axes);
+    const markerOnly = (transformed: SpatialScene, suffix: string): SpatialScene => {
+      const transformedMarker = transformed.nodes.find((node) => node.id === "marker");
+      return {
+        ...scene,
+        id: `${scene.id}-${suffix}`,
+        nodes: scene.nodes.map((node) =>
+          node.id === "marker" && transformedMarker ? transformedMarker : node,
+        ),
+      };
+    };
+    const verticalMarkerOnly = markerOnly(vertical, "vertical-marker-only");
+    const horizontalMarkerOnly = markerOnly(horizontal, "horizontal-marker-only");
     if (
       !validateMarkerClearance(scene).ok ||
       !validateMarkerClearance(vertical).ok ||
-      !validateMarkerClearance(horizontal).ok
+      !validateMarkerClearance(horizontal).ok ||
+      !validateMarkerClearance(verticalMarkerOnly).ok ||
+      !validateMarkerClearance(horizontalMarkerOnly).ok
     ) {
       continue;
     }
