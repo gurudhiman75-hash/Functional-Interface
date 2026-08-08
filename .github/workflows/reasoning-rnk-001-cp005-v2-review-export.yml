@@ -1,0 +1,60 @@
+name: Export RNK-001 CP-005 V2 Human Review Pack
+
+on:
+  push:
+    branches:
+      - fix/rnk-001-cp005-reasoning-remodel
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-v2-human-review-export.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-exam-language-v2.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-reasoning-remodel-v2.ts
+      - .github/workflows/reasoning-rnk-001-cp005-v2-review-export.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  export-review-pack:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Compile and generate V2 review pack
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-v2-human-review-export.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/reasoning/rnk-cp005-v2-human-review-export.mjs
+          node artifacts/api-server/dist/reasoning/rnk-cp005-v2-human-review-export.mjs \
+            | tee rnk-cp005-v2-human-review-export.log
+          test -s artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/generated/RNK-CP-005-V2-HUMAN-REVIEW-PACK-24Q.md
+          grep -q '"directRankExposureCount": 0' rnk-cp005-v2-human-review-export.log
+
+      - name: Upload V2 human review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-cp005-v2-human-review-pack-24q
+          if-no-files-found: error
+          retention-days: 14
+          path: |
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/generated/RNK-CP-005-V2-HUMAN-REVIEW-PACK-24Q.md
+            rnk-cp005-v2-human-review-export.log
