@@ -35,12 +35,20 @@ function vennMode(
   return "VENN_FOCUSED_CONCLUSION_CHECK";
 }
 
+function preserveLegacyVennClassMarker(svg: string): string {
+  return svg.replace(
+    "<style>",
+    '<g class="examtree-venn-svg" data-legacy-class-marker="true"></g>\n<style>',
+  );
+}
+
 export function completeRequiredDiagramV5(
   question: GeneratedSylQuestionV4,
   presentation: SylLearnerPresentationV5,
   assignment: TermAssignment,
 ): SylLearnerPresentationV5 {
   const rendered = renderSingleAnswerVennV5(question, presentation, assignment);
+  const svg = preserveLegacyVennClassMarker(rendered.svg);
 
   return {
     ...presentation,
@@ -52,7 +60,7 @@ export function completeRequiredDiagramV5(
       enabled: true,
       mode: vennMode(question, presentation),
       omissionReason: null,
-      svg: rendered.svg,
+      svg,
       caption: rendered.caption,
       accessibleDescription: rendered.accessibleDescription,
       semanticSignature: rendered.semanticSignature,
