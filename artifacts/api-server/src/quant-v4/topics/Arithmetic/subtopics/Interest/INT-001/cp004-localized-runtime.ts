@@ -52,6 +52,35 @@ function includesQlId(ids: readonly IntCp004QlId[], qlId: IntCp004QlId): boolean
   return ids.includes(qlId);
 }
 
+function polishLocalizedText(locale: IntCp004LocalizedLocale, text: string): string {
+  if (locale === "hi-IN") {
+    return text
+      .replace(/कुल (\d+) तिमाहियाँ बाद/gu, "$1 तिमाहियों के बाद")
+      .replace(/कुल (\d+) महीने बाद/gu, "$1 महीनों के बाद")
+      .replace(/दी गई राशि या ब्याज से पूरा वृद्धि-गुणक हटाने पर/gu, "दी गई राशि या ब्याज को पूरे चक्रवृद्धि गुणक से भाग देने पर")
+      .replace(/दिए गए वृद्धि-गुणक तक पहुँचने के लिए/gu, "दी गई राशि तक पहुँचने के लिए")
+      .replace(/अलग-अलग ब्याज-नियम/gu, "ब्याज जोड़ने के अलग-अलग नियम")
+      .replace(/ब्याज-क्रम/gu, "ब्याज जोड़ने का क्रम")
+      .replace(/ब्याज-नियम/gu, "ब्याज जोड़ने का नियम")
+      .replace(/अवधियाँ = (\d+)/gu, "कुल $1 बार ब्याज जोड़ा गया")
+      .replace(/अवधियों की संख्या/gu, "ब्याज जोड़ने की कुल संख्या")
+      .replace(/हर अवधि/gu, "हर बार");
+  }
+  return text
+    .replace(/ਕੁੱਲ (\d+) ਤਿਮਾਹੀਆਂ ਬਾਅਦ/gu, "$1 ਤਿਮਾਹੀਆਂ ਤੋਂ ਬਾਅਦ")
+    .replace(/ਕੁੱਲ (\d+) ਮਹੀਨੇ ਬਾਅਦ/gu, "$1 ਮਹੀਨਿਆਂ ਤੋਂ ਬਾਅਦ")
+    .replace(/ਦੱਸੀ ਗਈ ਸਾਲਾਨਾ ਵਿਆਜ ਦਰ/gu, "ਘੋਸ਼ਿਤ ਸਾਲਾਨਾ ਵਿਆਜ ਦਰ")
+    .replace(/ਦੋਵਾਂ ਅੰਤਿਮ ਰਕਮਾਂ/gu, "ਦੋਵੇਂ ਯੋਜਨਾਵਾਂ ਦੀਆਂ ਅੰਤਿਮ ਰਕਮਾਂ")
+    .replace(/ਦਿੱਤੀ ਰਕਮ ਜਾਂ ਵਿਆਜ ਵਿੱਚੋਂ ਪੂਰਾ ਵਾਧਾ-ਗੁਣਕ ਹਟਾਉਣ ਉੱਤੇ/gu, "ਦਿੱਤੀ ਰਕਮ ਜਾਂ ਵਿਆਜ ਨੂੰ ਪੂਰੇ ਚੱਕਰਵੱਧੀ ਗੁਣਕ ਨਾਲ ਭਾਗ ਦੇਣ ਉੱਤੇ")
+    .replace(/ਦਿੱਤੇ ਵਾਧਾ-ਗੁਣਕ ਤੱਕ ਪਹੁੰਚਣ ਲਈ/gu, "ਦਿੱਤੀ ਰਕਮ ਤੱਕ ਪਹੁੰਚਣ ਲਈ")
+    .replace(/ਵੱਖ-ਵੱਖ ਵਿਆਜ-ਨਿਯਮ/gu, "ਵਿਆਜ ਜੋੜਨ ਦੇ ਵੱਖ-ਵੱਖ ਨਿਯਮ")
+    .replace(/ਵਿਆਜ-ਕ੍ਰਮ/gu, "ਵਿਆਜ ਜੋੜਨ ਦਾ ਕ੍ਰਮ")
+    .replace(/ਵਿਆਜ-ਨਿਯਮ/gu, "ਵਿਆਜ ਜੋੜਨ ਦਾ ਨਿਯਮ")
+    .replace(/ਮਿਆਦਾਂ = (\d+)/gu, "ਕੁੱਲ $1 ਵਾਰ ਵਿਆਜ ਜੋੜਿਆ ਗਿਆ")
+    .replace(/ਮਿਆਦਾਂ ਦੀ ਗਿਣਤੀ/gu, "ਵਿਆਜ ਜੋੜਨ ਦੀ ਕੁੱਲ ਗਿਣਤੀ")
+    .replace(/ਹਰ ਮਿਆਦ/gu, "ਹਰ ਵਾਰ");
+}
+
 function legacyLocalizedStem(
   source: IntCp004EnglishFrozenQuestion,
   locale: IntCp004LocalizedLocale,
@@ -106,7 +135,7 @@ function polishLocalizedStem(
       `| ${balanceRecordFirstLabel(source, locale)} |`,
     );
   }
-  return polished;
+  return polishLocalizedText(locale, polished);
 }
 
 function localizedStem(
@@ -137,15 +166,15 @@ function cleanExplanation(
   const correctedEffectiveRateStep = locale === "hi-IN"
     ? `₹100 पर एक वर्ष में ब्याज ${moneyText(effective)} है; इसलिए प्रभावी वार्षिक दर ${percentText(effective)} है।`
     : `₹100 ਉੱਤੇ ਇੱਕ ਸਾਲ ਵਿੱਚ ਵਿਆਜ ${moneyText(effective)} ਹੈ; ਇਸ ਲਈ ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ ${percentText(effective)} ਹੈ।`;
-  const steps = source.qlId === "INT-QL-076"
+  const unitSafeSteps = source.qlId === "INT-QL-076"
     ? explanation.steps.map((step) => /₹100[^\n]*=[^\n]*%/u.test(step) ? correctedEffectiveRateStep : step)
     : explanation.steps;
 
   return Object.freeze({
-    whatAsked: explanation.whatAsked,
-    steps: Object.freeze([...steps]),
-    finalAnswer: explanation.finalAnswer.replace(duplicate, single),
-    commonMistake: explanation.commonMistake,
+    whatAsked: polishLocalizedText(locale, explanation.whatAsked),
+    steps: Object.freeze(unitSafeSteps.map((step) => polishLocalizedText(locale, step))),
+    finalAnswer: polishLocalizedText(locale, explanation.finalAnswer.replace(duplicate, single)),
+    commonMistake: polishLocalizedText(locale, explanation.commonMistake),
   });
 }
 
@@ -157,7 +186,11 @@ export function localizeIntCp004EnglishFrozenQuestion(
   const stem = localizedStem(source, locale);
   const baseOptions = localizeCp004Options(source, locale);
   const editorialV3Options = remediateCp004LocalizedOptions(baseOptions, locale);
-  const options = remediateCp004LocalizedOptionsV4(source, editorialV3Options, locale);
+  const editorialV4Options = remediateCp004LocalizedOptionsV4(source, editorialV3Options, locale);
+  const options = Object.freeze(editorialV4Options.map((option) => Object.freeze({
+    ...option,
+    feedback: polishLocalizedText(locale, option.feedback),
+  })));
   const correctAnswer = options[source.correctIndex]?.text;
   if (!correctAnswer) throw new Error(`${source.qlId}/${source.seed}/${locale}: localized correct answer is missing.`);
   const baseExplanation = localizeCp004Explanation(source, locale);
