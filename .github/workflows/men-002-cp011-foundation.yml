@@ -44,15 +44,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          pnpm --dir artifacts/api-server exec esbuild \
+          cd artifacts/api-server
+          node src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp011-foundation/bundle-with-canonical-shell.mjs \
             src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp011-foundation/foundation.test.ts \
-            --bundle \
-            --packages=external \
-            --platform=node \
-            --format=esm \
-            --alias:./spherical-shells=./spherical-shells-canonical.ts \
-            --outfile=dist/quant-v4/men-cp011-foundation-wave-01.test.mjs
-          node artifacts/api-server/dist/quant-v4/men-cp011-foundation-wave-01.test.mjs
+            dist/quant-v4/men-cp011-foundation-wave-01.test.mjs
+          node dist/quant-v4/men-cp011-foundation-wave-01.test.mjs
 
       - name: Export MEN-CP-011 open-container review evidence
         shell: bash
@@ -103,15 +99,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp011-foundation/spherical-shells-review-export.ts \
-            --bundle \
-            --packages=external \
-            --platform=node \
-            --format=esm \
-            --alias:./spherical-shells=./spherical-shells-canonical.ts \
-            --outfile=dist/quant-v4/men-cp011-spherical-shells-wave01-review.mjs
           cd artifacts/api-server
+          node src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp011-foundation/bundle-with-canonical-shell.mjs \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp011-foundation/spherical-shells-review-export.ts \
+            dist/quant-v4/men-cp011-spherical-shells-wave01-review.mjs
           node dist/quant-v4/men-cp011-spherical-shells-wave01-review.mjs \
             2>&1 | tee dist/quant-v4/men-cp011-spherical-shells-wave01-review.log
 
