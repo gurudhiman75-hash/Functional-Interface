@@ -185,8 +185,9 @@ function naturalizeTrap(
 
 export function remediateTmwCp011TeachingLanguage(
   question: TmwCp011LocalizedQuestion,
+  qlId: string,
 ): TmwCp011LocalizedQuestion {
-  const copy = TEACHING_COPY[question.qlId];
+  const copy = TEACHING_COPY[qlId];
   const language = question.language;
   const currentExplanation = question.explanation;
   const shortcut = copy?.shortcut
@@ -199,7 +200,7 @@ export function remediateTmwCp011TeachingLanguage(
     ? [pick(copy.workedLead, language), ...currentExplanation.steps.slice(1)]
     : currentExplanation.steps;
   const trapExplanation = naturalizeTrap(
-    question.qlId,
+    qlId,
     currentExplanation.commonTrap.explanation,
     language,
   );
