@@ -57,8 +57,8 @@ interface NumCp005TemporaryPackage {
 
 export interface NumCp005PermanentLifecycle {
   readonly permanentQlId: NumCp005PermanentQlId;
-  readonly maturity: "ENGLISH_EDITORIAL_REVIEW";
-  readonly reviewStatus: "CRITICAL_REVIEW_REMEDIATED_AWAITING_APPROVAL";
+  readonly maturity: "ENGLISH_IMPLEMENTATION_FROZEN";
+  readonly reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED";
   readonly questionBankStatus: "NOT_STORED";
   readonly testEligibility: "INELIGIBLE";
   readonly active: false;
@@ -96,10 +96,10 @@ export interface NumCp005PermanentQuestion {
   readonly explanation: NumCp005Explanation;
   readonly sourceAncestry: readonly string[];
   readonly prototypeAncestry: readonly string[];
-  readonly allocationStatus: "EDITORIAL_REMEDIATION_AWAITING_PRODUCT_OWNER_REVIEW";
+  readonly allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION";
   readonly permanentIdentityFrozen: true;
-  readonly reviewStatus: "CRITICAL_REVIEW_REMEDIATED_AWAITING_APPROVAL";
-  readonly maturity: "ENGLISH_EDITORIAL_REVIEW";
+  readonly reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED";
+  readonly maturity: "ENGLISH_IMPLEMENTATION_FROZEN";
   readonly lifecycle: NumCp005PermanentLifecycle;
   readonly traceability: Readonly<{
     packageId: "NUM-001";
@@ -193,8 +193,8 @@ export function runNumCp005PermanentPipeline(
 
   const lifecycle: NumCp005PermanentLifecycle = {
     permanentQlId: allocation.qlId,
-    maturity: "ENGLISH_EDITORIAL_REVIEW",
-    reviewStatus: "CRITICAL_REVIEW_REMEDIATED_AWAITING_APPROVAL",
+    maturity: "ENGLISH_IMPLEMENTATION_FROZEN",
+    reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED",
     questionBankStatus: "NOT_STORED",
     testEligibility: "INELIGIBLE",
     active: false,
@@ -217,10 +217,10 @@ export function runNumCp005PermanentPipeline(
     seed,
     sourceSeed,
     language: "en",
-    allocationStatus: "EDITORIAL_REMEDIATION_AWAITING_PRODUCT_OWNER_REVIEW",
+    allocationStatus: "PRODUCT_OWNER_APPROVED_INACTIVE_ENGLISH_IMPLEMENTATION",
     permanentIdentityFrozen: true,
-    reviewStatus: "CRITICAL_REVIEW_REMEDIATED_AWAITING_APPROVAL",
-    maturity: "ENGLISH_EDITORIAL_REVIEW",
+    reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED",
+    maturity: "ENGLISH_IMPLEMENTATION_FROZEN",
     lifecycle,
     traceability: {
       packageId: "NUM-001",
