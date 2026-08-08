@@ -59,6 +59,22 @@ jobs:
           dist/quant-v4/SAP-CP-004-300-FULL-ENGLISH-REVIEW.md
           dist/quant-v4/SAP-CP-004-300-FULL-ENGLISH-REVIEW.html
 
+      - name: Bundle HTML rendering verifier
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-004/fix-review-html.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/fix-sap-cp004-review-html.mjs
+
+      - name: Fix and verify HTML math rendering
+        working-directory: artifacts/api-server
+        run: >-
+          node dist/quant-v4/fix-sap-cp004-review-html.mjs
+          dist/quant-v4/SAP-CP-004-300-FULL-ENGLISH-REVIEW.html
+
       - name: Upload CP-004 review evidence
         uses: actions/upload-artifact@v4
         with:
