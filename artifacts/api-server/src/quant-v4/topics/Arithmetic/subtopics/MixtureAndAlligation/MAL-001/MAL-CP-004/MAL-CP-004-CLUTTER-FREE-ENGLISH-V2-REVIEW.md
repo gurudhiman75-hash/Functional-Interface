@@ -1,130 +1,134 @@
 # MAL-CP-004 — Solution-First English V2 Review Candidate
 
-## Purpose
+## Status
 
-The first `MAL-CP-004` English release was mathematically sound, but its learner-facing explanation was unnecessarily crowded. It forced a concept heading, a step-by-step heading, a shortcut, a verification, a repeated conclusion and three detailed option analyses into nearly every question.
+This is a **presentation candidate pending product review**. It is not a second approved release.
 
-Product-owner review also identified repeated numerical review cases, awkward generated contexts, ambiguous fraction notation, weak distractors, an imbalanced review sample and the absence of alligation-cross support in question families where it is genuinely useful.
+```text
+Released mathematical authority: MAL-CP004-EN-v1
+V2 candidate:                    MAL-CP004-EN-v2
+Core runtime:                    MAL-CP004-EN-PERMANENT-RUNTIME-V1
+Presentation runtime:            MAL-CP004-EN-PRESENTATION-RUNTIME-V2
+Product-review remediation:      MAL-CP004-EN-PRODUCT-REVIEW-REMEDIATION-V3
+Presentation review:             PENDING_PRODUCT_REVIEW
+Candidate runtime mode:          REVIEW_ONLY
+Candidate Question Bank writes:  disabled
+Candidate test/public delivery:  disabled
+Question Studio:                 review preview only
+```
 
-## Final V2 learner contract
+The released V1 mathematical authority remains available independently. The V2 presentation cannot claim `APPROVED`, `RELEASED`, Question Bank, mock-test or public-delivery status before explicit acceptance.
 
-The default learner view now contains:
+## Learner contract
+
+The default learner view contains only:
 
 1. **Solution** — one to four number-specific lines;
 2. **Answer** — the concise final value.
 
-`More help` is collapsed by default and contains:
+`More help` remains collapsed and may contain:
 
 - one QL-specific common mistake;
 - verification only for `MAL-QL-045` and `MAL-QL-047`;
-- an alternative alligation cross only for applicable `MAL-QL-041` and `MAL-QL-042` questions.
+- an alternative alligation cross only for `MAL-QL-041` and `MAL-QL-042`.
 
-The learner payload does not contain:
+The default view contains no forced Method heading, separate Calculation heading, Fast Method, Quick Check or learner-facing analysis of all wrong options.
 
-- a compulsory Method section;
-- a separate Calculation section;
-- a forced Fast Method or 10-Second Shortcut;
-- a visible Quick Check;
-- three compulsory wrong-option explanations.
+## Responsive alligation policy
 
-Detailed option audit data remains internal for validation.
-
-## Selective alligation-cross policy
-
-Alligation is shown only when the problem can naturally be treated as mixing the original solution with an ingredient of known extreme concentration:
+Alligation is available only when one ingredient has a known extreme concentration:
 
 - `MAL-QL-041`: original solution mixed with `0%` water;
 - `MAL-QL-042`: original solution mixed with `100%` pure solute.
 
-Each applicable alternative contains:
+The optional method carries the shared structured directive:
 
-- the two source concentrations;
+```text
+[[EXAMTREE_ALLIGATION_SVG_V1:<validated-base64url-payload>]]
+```
+
+The existing responsive `AlligationDiagram` renderer therefore displays the cross. A separate ASCII or preformatted cross is not the presentation authority.
+
+Each applicable method retains:
+
+- both source concentrations;
 - the target concentration;
-- the crossed percentage-point differences;
+- crossed percentage-point differences;
 - the reduced quantity ratio;
-- the number-specific calculation that reproduces the exact released answer.
+- the number-specific calculation and result.
 
-Alligation is not shown for direct component questions, evaporation, known-volume concentration changes, inverse-volume reconstruction or moisture questions. In those families it would be artificial or less clear than conservation.
+Alligation remains omitted from direct percentage, evaporation, known solvent-change, inverse-volume and moisture families.
 
-The alligation cross remains under `More help`; it never enlarges the default learner view.
+## Value-quality policy for MAL-QL-038
 
-## QL-specific explanation depth
+`MAL-QL-038` is an Easy direct-percentage family. The review candidate deterministically selects a source-backed state whose requested component quantity is an integer.
 
-- `MAL-QL-038..040`: exactly one worked calculation line;
-- `MAL-QL-041..044`: two or three direct conserved-quantity lines;
-- `MAL-QL-045`: explicit one-variable evaporation equation;
-- `MAL-QL-046..047`: dry-matter conservation in two or three lines.
+The selector:
 
-All arithmetic uses MathJax. Ambiguous chained forms such as `1/4V` or `6/25/5` are rejected.
+1. starts with the requested seed;
+2. retains it when the answer is integral;
+3. otherwise tries deterministic derived seeds;
+4. records both the requested and selected seed;
+5. verifies the selected state against the released V1 mathematical runtime.
 
-## Editorial remediation
+This removes avoidable answers such as `50 2/5 litres` from the Easy surface without inventing a new formula or QL.
 
-V2 is an editorial overlay over the frozen mathematical runtime. It may improve:
+## Distractor policy
 
-- stem grammar and exam voice;
-- context realism;
-- option values and ordering;
-- misconception labels;
-- learner-facing explanation;
-- optional alligation help;
-- presentation reasoning graph.
+All ten QLs now use only method-derived distractors. Arbitrary nearby values, arithmetic offsets and `±10% of total` fillers are forbidden.
 
-It must preserve exactly:
+For `MAL-QL-038`, authorised errors include:
+
+- using the complementary component;
+- copying the printed percentage as litres;
+- subtracting the percentage number from the total;
+- dividing by 100 twice;
+- applying the component fraction twice;
+- reporting the total mixture.
+
+Other QLs retain calculation-specific errors such as using the wrong denominator, reporting an intermediate total, confusing solute with solvent, applying the wrong conserved quantity or using the wrong moisture fraction.
+
+Every displayed wrong option has one named misconception authority and is independently checked against the exact answer.
+
+## Preserved mathematical authority
+
+The candidate preserves:
 
 - permanent QLs `MAL-QL-038..047`;
 - core runtime `MAL-CP004-EN-PERMANENT-RUNTIME-V1`;
-- exact mathematical state;
-- exact answer value and text;
-- mathematical fingerprint;
-- source evidence;
-- difficulty, task direction and answer semantic;
-- Question Studio, Question Bank, test and publication permissions.
+- source evidence and ownership;
+- task direction, answer semantic and difficulty;
+- exact solver and verifier authority.
 
-## Numerical diversity correction
+For ordinary QLs, the requested seed maps to the same V1 state. For `MAL-QL-038`, any deterministic value-quality reselection is compared with V1 using the recorded selected seed.
 
-`MAL-QL-045` originally had only eight inverse-evaporation numerical cases. Four clean cases were added to the source-backed case pool, increasing it to twelve and making a ten-question duplicate-free human review possible.
+## Explanation depth
 
-The review pack now contains:
+- `MAL-QL-038..040`: one worked calculation line;
+- `MAL-QL-041..044`: two or three conserved-quantity lines;
+- `MAL-QL-045`: explicit one-variable evaporation equation;
+- `MAL-QL-046..047`: dry-matter conservation in two or three lines.
 
-- ten questions per permanent QL;
-- 100 distinct mathematical states;
-- no numerical clone in the review sample;
-- exactly 25 correct answers in each option position;
-- 20 alligation crosses, covering all ten review questions in both applicable QLs.
+Arithmetic remains MathJax-ready. Ambiguous chained division is rejected.
 
-## Candidate identity
+## Executable proof target
 
 ```text
-release candidate:       MAL-CP004-EN-v2
-core runtime:            MAL-CP004-EN-PERMANENT-RUNTIME-V1
-presentation runtime:    MAL-CP004-EN-PRESENTATION-RUNTIME-V2
-presentation contract:   MAL-CP004-EN-SOLUTION-FIRST-PRESENTATION-V2
-alligation help:         MAL-CP004-EN-SELECTIVE-ALLIGATION-CROSS-V2
-permanent QL range:      MAL-QL-038..MAL-QL-047
-languages:               English only
-human review:            pending
-merge:                   not authorised before review
+Permanent QLs × seeds:                10 × 200
+Candidate questions:                      2,000
+Deterministic repeats:                     2,000
+Selected-state parity with released V1:   2,000
+Question Studio candidate parity:          2,000
+Method-derived wrong options:              6,000
+Integral MAL-QL-038 answers:                 200
+Responsive shared alligation visuals:        400
+Non-applicable alligation omissions:        1,600
+Human-review questions:                      100
+Distinct review states:                      100
+Review answer positions:             25/25/25/25
+Review responsive alligation crosses:          20
 ```
 
-## Executable evidence target
+## Merge boundary
 
-```text
-10 permanent QLs × 200 seeds:     2,000 questions
-Deterministic repeats:             2,000
-Exact mathematical parity checks:  2,000
-Question Studio route checks:      2,000
-Applicable alligation crosses:       400
-Non-applicable alligation omissions:1,600
-Human-review alligation crosses:       20
-Forced Fast Method sections:             0
-Learner-facing option analyses:          0
-Human-review questions:                100
-Distinct review mathematical states:   100
-Answer positions:                25/25/25/25
-Maximum visible solution:            19 words
-Maximum solution length:              3 lines
-```
-
-## Lifecycle boundary
-
-This branch remains a review candidate. Hindi and Punjabi remain excluded. The PR must remain unmerged until the regenerated 100-question English review pack is accepted by the product owner.
+The branch remains draft and unmerged. Product acceptance, presentation activation, Question Bank writes, mock-test eligibility, publication, Hindi and Punjabi remain separate later decisions.
