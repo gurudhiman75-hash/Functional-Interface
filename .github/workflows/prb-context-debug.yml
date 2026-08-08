@@ -1,0 +1,39 @@
+name: Probability context debug
+
+on:
+  push:
+    branches:
+      - feat/prb-probability-end-to-end
+    paths:
+      - ".github/workflows/prb-context-debug.yml"
+  workflow_dispatch:
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Apply candidate remediation
+        run: python scripts/prb_context_consistency_patch.py
+      - name: Inspect PRB-QL-701
+        run: |
+          cat > artifacts/api-server/src/quant-v4/topics/Probability/debug-context.ts <<'TS'
+          import { runPrb002Pipeline } from "./PRB-002/index";
+
+          const question = runPrb002Pipeline("PRB-CP-008", {
+            questionLanguageId: "PRB-QL-701",
+            seed: "PRB-002:forced:PRB-QL-701",
+          });
+
+          console.log(JSON.stringify({
+            qlId: question.questionLanguageId,
+            stem: question.stem,
+            explanation: question.explanation.lines,
+            explanationWords: question.explanation.wordCount,
+            failedChecks: question.validation.checks.filter((item) => !item.passed),
+          }, null, 2));
+          TS
+          npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/debug-context.ts
