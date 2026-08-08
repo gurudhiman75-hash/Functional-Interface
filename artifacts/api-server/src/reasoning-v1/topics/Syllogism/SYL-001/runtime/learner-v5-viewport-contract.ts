@@ -68,7 +68,7 @@ details { margin-top: 12px; }
 summary { min-height: 40px; cursor: pointer; font-weight: 700; }
 .reason-list { display: grid; gap: 8px; padding-left: 20px; }
 .diagram { margin-top: 14px; padding: 10px; border: 1px solid #dce2e8; border-radius: 10px; overflow: hidden; }
-.diagram svg { display: block; width: 100%; max-width: 360px; height: auto; margin: 0 auto; }
+.diagram svg { display: block; width: 100%; max-width: 340px; height: auto; margin: 0 auto; }
 [hidden] { display: none !important; }
 @media (max-width: 420px) {
   body { padding: 8px; }
