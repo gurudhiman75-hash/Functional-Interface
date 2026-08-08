@@ -90,6 +90,10 @@ Example:
 - **Ordered selection:** red-blue and blue-red are different cases.
 - **Simultaneous selection:** order does not matter, so combinations are used.
 
+### 2.6 Keep the stem and explanation in the same context
+
+The object named in the question must remain unchanged throughout its explanation. A question about pens must be explained using pens, a question about marbles using marbles, and a question about a committee using people and committees. Shared solve modes must be scoped by canonical problem so that a committee question can never be rendered as a coloured-object question.
+
 ## 3. Distractor standard
 
 Options should represent recognisable mistakes, including:
@@ -129,6 +133,8 @@ A generated review set is acceptable only when:
 - every medium or hard multi-step explanation reveals the method decision;
 - small outcome spaces display concrete outcomes;
 - no artificial context nouns appear;
+- the stem and explanation preserve the same object and situation;
+- shared solve modes are routed to the correct canonical problem family;
 - context families are sufficiently varied;
 - stems and answers are visibly unique;
 - explanation depth is appropriate to difficulty;
