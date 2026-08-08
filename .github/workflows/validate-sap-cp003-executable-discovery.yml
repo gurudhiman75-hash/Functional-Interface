@@ -78,6 +78,19 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/sap-cp003-editorial-v3-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp003-editorial-v3-authority.log
 
+      - name: Bundle distractor plausibility authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-003/SAP-CP-003-DISTRACTOR-PLAUSIBILITY-V3-AUTHORITY.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp003-distractor-plausibility-v3-authority.test.mjs
+
+      - name: Run distractor plausibility authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/sap-cp003-distractor-plausibility-v3-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp003-distractor-plausibility-v3-authority.log
+
       - name: Bundle compact review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -123,6 +136,7 @@ jobs:
             artifacts/api-server/dist/quant-v4/sap-cp003-structural-remediation-v2-authority.log
             artifacts/api-server/dist/quant-v4/sap-cp003-structural-v2-presentation-authority.log
             artifacts/api-server/dist/quant-v4/sap-cp003-editorial-v3-authority.log
+            artifacts/api-server/dist/quant-v4/sap-cp003-distractor-plausibility-v3-authority.log
             artifacts/api-server/dist/quant-v4/SAP-CP-003-300-QUESTIONS-AND-ANSWERS-V3.md
             artifacts/api-server/dist/quant-v4/SAP-CP-003-300-FULL-EDITORIAL-REVIEW-V3.md
             artifacts/api-server/dist/quant-v4/SAP-CP-003-300-STRUCTURAL-REVIEW-V3.md
