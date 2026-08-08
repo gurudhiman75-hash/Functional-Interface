@@ -113,11 +113,14 @@ export function freeBlendSellingRateQuestion(seed: string): MalCp005DiscoveryQue
   const request:Extract<MalCp005SolveRequest,{mode:"FREE_BLEND_SELLING_RATE_FROM_RATIO_AND_TARGET_PROFIT"}>={mode:"FREE_BLEND_SELLING_RATE_FROM_RATIO_AND_TARGET_PROFIT",pureQuantity:pure,adulterantQuantity:adulterant,pureUnitCost:pureCost,targetProfitPercent:targetProfit};
   const sellingRate=expectRate(solveMalCp005(request)); const total=addRational(pure,adulterant); const average=divideRational(multiplyRational(pure,pureCost),total);
   const answer=rateText(sellingRate,selected.unit);
+  const profitOnPureUnit = multiplyRational(pureCost, divideRational(targetProfit, HUNDRED));
+  const marginRate = divideRational(multiplyRational(average, HUNDRED), subtractRational(HUNDRED, targetProfit));
   const options=buildOptions(answer,[
     {text:rateText(average,selected.unit),misconceptionId:"forgot_target_profit"},
     {text:rateText(divideRational(multiplyRational(pureCost,addRational(HUNDRED,targetProfit)),HUNDRED),selected.unit),misconceptionId:"ignored_free_adulterant"},
     {text:rateText(pureCost,selected.unit),misconceptionId:"reported_pure_product_cost"},
-    {text:rateText(multiplyRational(pureCost,divideRational(targetProfit,HUNDRED)),selected.unit),misconceptionId:"reported_profit_amount_per_pure_unit"},
+    {text:rateText(addRational(average, profitOnPureUnit),selected.unit),misconceptionId:"added_profit_on_pure_cost_to_mixture_cost"},
+    {text:rateText(marginRate,selected.unit),misconceptionId:"treated_profit_as_margin_on_selling_price"},
   ],`${seed}:options`);
   return packageQuestion({prototypeId,seed,request,
     stem:`Pure ${selected.product} costs ${rateText(pureCost,selected.unit)}. A ${selected.actor} mixes pure ${selected.product} and ${selected.adulterant} in the ratio ${selected.pure}:${selected.adulterantQty}. At what rate should the mixture be sold to earn ${percentText(targetProfit)} profit?`,answer,options,
