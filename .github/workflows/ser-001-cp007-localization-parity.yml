@@ -44,7 +44,7 @@ jobs:
             --bundle --platform=node --format=esm \
             --outfile="$OUT/ser-cp-007-localized-parity-final.test.mjs"
           (cd artifacts/api-server && node "$OUT/ser-cp-007-localized-parity-final.test.mjs") \
-            | tee "$EVIDENCE/SER-CP-007-Hindi-Punjabi-Localization-Parity-Proof.json"
+            2>&1 | tee "$EVIDENCE/SER-CP-007-Hindi-Punjabi-Localization-Parity-Proof.json"
           grep -q 'PASS_SER_CP007_HINDI_PUNJABI_LOCALIZATION_PARITY_CANDIDATE' \
             "$EVIDENCE/SER-CP-007-Hindi-Punjabi-Localization-Parity-Proof.json"
           grep -q '"localizedPackages": 840' \
@@ -53,6 +53,7 @@ jobs:
             "$EVIDENCE/SER-CP-007-Hindi-Punjabi-Localization-Parity-Proof.json"
 
       - name: Upload localization parity evidence
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: ser-001-cp007-hindi-punjabi-localization-parity
