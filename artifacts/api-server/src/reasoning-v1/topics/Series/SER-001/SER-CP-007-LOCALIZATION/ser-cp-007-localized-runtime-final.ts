@@ -17,7 +17,7 @@ export type {
 } from "./ser-cp-007-localized-runtime";
 
 export const SER_CP007_LOCALIZATION_FINALIZATION_VERSION =
-  "SER_CP007_HI_PA_LOCALIZATION_FINALIZATION_V2" as const;
+  "SER_CP007_HI_PA_LOCALIZATION_FINALIZATION_V3" as const;
 
 function language(locale: SerCp007Locale, hi: string, pa: string): string {
   return locale === "hi-IN" ? hi : pa;
@@ -81,8 +81,10 @@ function localizeResidualLearnerProse(
       if (!translation) return token;
       return locale === "hi-IN" ? translation[0] : translation[1];
     })
-    .replace(/\s{2,}/g, " ")
-    .replace(/\s+([,.;:!?।])/g, "$1")
+    // Normalize horizontal spacing without destroying Markdown line structure.
+    .replace(/[^\S\r\n]{2,}/g, " ")
+    // Keep a visible space before '?' because it can be a series placeholder.
+    .replace(/[^\S\r\n]+([,.;:!।])/g, "$1")
     .trim();
 }
 
