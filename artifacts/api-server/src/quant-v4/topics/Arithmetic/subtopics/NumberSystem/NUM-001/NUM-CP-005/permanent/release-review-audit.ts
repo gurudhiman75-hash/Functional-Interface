@@ -223,7 +223,7 @@ for (const allocation of NUM_CP005_PERMANENT_ALLOCATION) {
     }
 
     if (allocation.qlId === "NUM-QL-063") {
-      assert(/^If one factor of /u.test(question.stem),
+      assert(/^If one factor of |^In the divisor-pair table for /u.test(question.stem),
         `${allocation.qlId}/${seed}: unnatural pair-row wording`);
       const n = Number(question.hiddenState.integerValue);
       const visible = Number(question.hiddenState.visiblePartner);
