@@ -1,7 +1,17 @@
+import {
+  divide,
+  multiply,
+  rational,
+  type Rational,
+} from "../foundation/rational";
 import { convertSpeed } from "../foundation/units";
 import type { TsdCp001SolveInput } from "./canonical-solver";
 import type { TsdCp001Explanation, TsdCp001OptionAnalysis } from "./runtime-types";
 import { formatExamNumber } from "./runtime-support";
+
+function startsWithValue(option: TsdCp001OptionAnalysis, value: Rational): boolean {
+  return option.text.startsWith(`${formatExamNumber(value)} `);
+}
 
 function speedReason(
   input: Extract<TsdCp001SolveInput, { solveMode: "convertSpeedUnit" }>,
@@ -39,11 +49,7 @@ function speedReason(
     if (option.misconceptionId === "OMIT_UNIT_CONVERSION") {
       return `⚠️ ${option.text}: it copies ${value}; m/s to km/h requires multiplying by 3.6.`;
     }
-    const usedFactor = option.text.startsWith(`${formatExamNumber(input.value)} `)
-      ? "1"
-      : option.text.startsWith(`${formatExamNumber({ numerator: input.value.numerator * 3n, denominator: input.value.denominator })} `)
-        ? "3"
-        : "4";
+    const usedFactor = startsWithValue(option, multiply(input.value, rational(3))) ? "3" : "4";
     return `⚠️ ${option.text}: it uses × ${usedFactor}; the exact m/s-to-km/h factor is 3.6.`;
   }
 
@@ -51,7 +57,8 @@ function speedReason(
     if (option.misconceptionId === "OMIT_UNIT_CONVERSION") {
       return `⚠️ ${option.text}: it copies ${value}; km/h to m/s requires dividing by 3.6.`;
     }
-    return `⚠️ ${option.text}: it uses a rounded divisor; the exact km/h-to-m/s divisor is 3.6.`;
+    const usedDivisor = startsWithValue(option, divide(input.value, rational(3))) ? "3" : "4";
+    return `⚠️ ${option.text}: it divides by ${usedDivisor}; the exact km/h-to-m/s divisor is 3.6.`;
   }
 
   return option.reason;
@@ -66,12 +73,12 @@ function distanceReason(
     return `⚠️ ${option.text}: it copies ${value} without changing the distance unit.`;
   }
   if (input.from === "M" && input.to === "KM") {
-    return option.text.startsWith("24 ")
+    return startsWithValue(option, divide(input.value, rational(100)))
       ? `⚠️ ${option.text}: it uses 100 metres per kilometre; use 1000 metres per kilometre.`
       : `⚠️ ${option.text}: it uses 10,000 metres per kilometre; use 1000 metres per kilometre.`;
   }
   if (input.from === "M" && input.to === "CM") {
-    return option.text.startsWith("7000 ")
+    return startsWithValue(option, multiply(input.value, rational(1000)))
       ? `⚠️ ${option.text}: it uses 1000 millimetres per metre; centimetres require × 100.`
       : `⚠️ ${option.text}: it uses 10 decimetres per metre; centimetres require × 100.`;
   }
@@ -92,7 +99,7 @@ function timeReason(
     return `⚠️ ${option.text}: it copies ${value} without changing the time unit.`;
   }
   if (input.from === "HOUR" && input.to === "MINUTE") {
-    return option.text.startsWith("72 ")
+    return startsWithValue(option, multiply(input.value, rational(24)))
       ? `⚠️ ${option.text}: it uses 24, the hours-per-day factor; hours to minutes requires × 60.`
       : `⚠️ ${option.text}: it converts hours to seconds with × 3600, then wrongly labels the result minutes.`;
   }
