@@ -133,7 +133,7 @@ const cp003Entries: readonly SapPermanentQlRegistryEntry[] = SAP_CP003_PROTOTYPE
   representations: authority.representations,
   prototypeAncestry: Object.freeze([authority.prototypeId]),
   allocationStatus: "PERMANENT_ID_ALLOCATED_INACTIVE" as const,
-  englishStatus: "QUESTION_AND_EXPLANATION_REVIEW_APPROVED_EDITORIAL_V3" as const,
+  englishStatus: "ENGLISH_MANUAL_FREEZE_APPROVED" as const,
   allocationApproval: "PRODUCT_OWNER_APPROVED_CP003_QA_2026_08_07" as const,
   active: false as const,
   questionStudioDiscoverable: false as const,
