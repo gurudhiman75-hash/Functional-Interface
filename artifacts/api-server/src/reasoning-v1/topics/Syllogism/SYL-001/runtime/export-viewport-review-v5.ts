@@ -32,6 +32,12 @@ function optionLetter(index: number): string {
   return String.fromCharCode(65 + index);
 }
 
+function omissionLabel(reason: string | null): string {
+  if (reason === "MORE_THAN_THREE_TERMS") return "Diagram intentionally omitted: more than three sets.";
+  if (reason === "NO_STABLE_SIMPLE_VENN") return "Diagram intentionally omitted: no clear simple Venn template.";
+  return "Diagram intentionally omitted.";
+}
+
 function questionCard(question: ReturnType<typeof generateSylQuestionV5>): string {
   const answer = question.options[question.correctIndex]?.text ?? "";
   const options = question.options.map((option, index) => `
@@ -42,23 +48,24 @@ function questionCard(question: ReturnType<typeof generateSylQuestionV5>): strin
   const reasons = question.learnerPresentationV5.learnerExplanation.shortReasoning
     .map((reason) => `<li class="reason">${escapeHtml(reason)}</li>`)
     .join("");
-  const diagram = question.learnerPresentationV5.diagram.enabled
-    && question.learnerPresentationV5.diagram.svg
-    ? `<div class="diagram" role="img" aria-label="${escapeHtml(question.learnerPresentationV5.diagram.accessibleDescription ?? "Syllogism diagram")}">
-        ${question.learnerPresentationV5.diagram.svg}
-        ${question.learnerPresentationV5.diagram.caption
-          ? `<p class="diagram-caption">${escapeHtml(question.learnerPresentationV5.diagram.caption)}</p>`
+  const diagramState = question.learnerPresentationV5.diagram;
+  const diagram = diagramState.enabled && diagramState.svg
+    ? `<div class="diagram" role="img" aria-label="${escapeHtml(diagramState.accessibleDescription ?? "Syllogism diagram")}">
+        ${diagramState.svg}
+        ${diagramState.caption
+          ? `<p class="diagram-caption">${escapeHtml(diagramState.caption)}</p>`
           : ""}
       </div>`
-    : "";
+    : `<p class="diagram-omitted" data-omission-reason="${escapeHtml(diagramState.omissionReason ?? "UNKNOWN")}">${escapeHtml(omissionLabel(diagramState.omissionReason))}</p>`;
 
-  return `<article class="question-card" data-locale="${question.locale}" data-ql="${question.qlId}">
+  return `<article class="question-card" data-locale="${question.locale}" data-ql="${question.qlId}" data-diagram="${diagramState.enabled ? "ENABLED" : "OMITTED"}">
     <div class="meta">
       <span class="badge">${question.qlId}</span>
       <span class="badge">seed ${question.seed}</span>
       <span class="badge">${question.locale}</span>
       <span class="badge">${question.difficulty}</span>
       <span class="badge">${escapeHtml(question.metadata.taskKind)}</span>
+      <span class="badge">diagram ${diagramState.enabled ? "enabled" : "omitted"}</span>
     </div>
     <p class="direction" dir="auto">${escapeHtml(question.learnerPresentationV5.preTestDirection)}</p>
     <div class="stem" dir="auto">${escapeHtml(question.stem)}</div>
@@ -84,12 +91,14 @@ const html = `<!doctype html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SYL-001 V5 Viewport Review</title>
-  <style>${SYL_V5_VIEWPORT_CSS}</style>
+  <title>SYL-001 V5 Exact Venn Review</title>
+  <style>${SYL_V5_VIEWPORT_CSS}
+.diagram-omitted { margin-top: 14px; padding: 10px; border: 1px dashed #aeb8c2; border-radius: 10px; background: #f8fafb; color: #475569; }
+  </style>
 </head>
 <body>
   <header class="toolbar">
-    <strong>SYL-001 V5 Viewport Review</strong>
+    <strong>SYL-001 V5 Exact Venn Review</strong>
     ${widthButtons}
     <label>Language
       <select id="locale-filter">
@@ -105,6 +114,13 @@ const html = `<!doctype html>
         ${qlOptions}
       </select>
     </label>
+    <label>Diagram
+      <select id="diagram-filter">
+        <option value="ALL">All</option>
+        <option value="ENABLED">Enabled only</option>
+        <option value="OMITTED">Omitted only</option>
+      </select>
+    </label>
     <span id="visible-count" class="badge"></span>
   </header>
   <main class="device-shell">
@@ -116,6 +132,7 @@ const html = `<!doctype html>
     const device = document.getElementById("device");
     const localeFilter = document.getElementById("locale-filter");
     const qlFilter = document.getElementById("ql-filter");
+    const diagramFilter = document.getElementById("diagram-filter");
     const visibleCount = document.getElementById("visible-count");
     const cards = [...document.querySelectorAll(".question-card")];
 
@@ -124,7 +141,8 @@ const html = `<!doctype html>
       for (const card of cards) {
         const localeMatches = localeFilter.value === "ALL" || card.dataset.locale === localeFilter.value;
         const qlMatches = qlFilter.value === "ALL" || card.dataset.ql === qlFilter.value;
-        card.hidden = !(localeMatches && qlMatches);
+        const diagramMatches = diagramFilter.value === "ALL" || card.dataset.diagram === diagramFilter.value;
+        card.hidden = !(localeMatches && qlMatches && diagramMatches);
         if (!card.hidden) visible += 1;
       }
       visibleCount.textContent = visible + " records";
@@ -140,11 +158,18 @@ const html = `<!doctype html>
     }
     localeFilter.addEventListener("change", applyFilters);
     qlFilter.addEventListener("change", applyFilters);
+    diagramFilter.addEventListener("change", applyFilters);
     applyFilters();
   </script>
 </body>
 </html>`;
 
+const enabledDiagrams = questions.filter((question) => question.learnerPresentationV5.diagram.enabled).length;
+const omittedComplex = questions.filter((question) =>
+  question.learnerPresentationV5.diagram.omissionReason === "MORE_THAN_THREE_TERMS").length;
+const omittedUnstable = questions.filter((question) =>
+  question.learnerPresentationV5.diagram.omissionReason === "NO_STABLE_SIMPLE_VENN").length;
+const evidence = questions[0]?.learnerPresentationV5.remediationEvidence;
 const summary = {
   authority: "SYL_001_EXAM_READINESS_REMEDIATION_V5",
   schemaVersion: "syl-learner-v5-viewport-review-v1",
@@ -155,9 +180,14 @@ const summary = {
     locale,
     questions.filter((question) => question.locale === locale).length,
   ])),
-  enabledDiagrams: questions.filter((question) => question.learnerPresentationV5.diagram.enabled).length,
+  diagramCoverage: {
+    enabled: enabledDiagrams,
+    omitted: questions.length - enabledDiagrams,
+    omittedComplex,
+    omittedUnstable,
+  },
   editorialStatus: "APPROVED_BY_PRODUCT_OWNER",
-  humanViewportStatus: "EVIDENCE_READY_PENDING_APPROVAL",
+  humanViewportStatus: evidence?.humanViewportStatus ?? "PENDING",
 };
 
 writeFileSync(resolve(outputDir, "SYL-001-V5-VIEWPORT-REVIEW.html"), html, "utf8");
