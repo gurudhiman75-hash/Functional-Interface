@@ -18,7 +18,7 @@ permissions:
 jobs:
   validate-int-cp004-hi-pa-localisation:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -104,6 +104,34 @@ jobs:
           cd artifacts/api-server
           node dist/quant-v4/int-001-cp004-localized-presentation-wave3-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localized-presentation-wave3-audit.log
 
+      - name: Bundle localised options audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localized-options-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-localized-options-audit.mjs
+
+      - name: Run localised options audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-localized-options-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localized-options-audit.log
+
+      - name: Bundle localised explanations audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-localized-explanations-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/int-001-cp004-localized-explanations-audit.mjs
+
+      - name: Run localised explanations audit
+        shell: bash --noprofile --norc -e -o pipefail {0}
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/quant-v4/int-001-cp004-localized-explanations-audit.mjs 2>&1 | tee dist/quant-v4/int-001-cp004-localized-explanations-audit.log
+
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
@@ -115,30 +143,33 @@ jobs:
           grep -q 'PASS_INT_CP004_LOCALIZED_PRESENTATION_WAVE1' artifacts/api-server/dist/quant-v4/int-001-cp004-localized-presentation-wave1-audit.log
           grep -q 'PASS_INT_CP004_LOCALIZED_PRESENTATION_WAVE2' artifacts/api-server/dist/quant-v4/int-001-cp004-localized-presentation-wave2-audit.log
           grep -q 'PASS_INT_CP004_LOCALIZED_PRESENTATION_WAVE3' artifacts/api-server/dist/quant-v4/int-001-cp004-localized-presentation-wave3-audit.log
-          test -f artifacts/api-server/dist/quant-v4/int-cp004-localization-foundation/int-cp004-localization-foundation-summary.json
-          test -f artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave1/int-cp004-localized-presentation-wave1-summary.json
-          test -f artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave2/int-cp004-localized-presentation-wave2-summary.json
-          test -f artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave3/int-cp004-localized-presentation-wave3-summary.json
-          grep -q '"qlCount": 19' artifacts/api-server/dist/quant-v4/int-cp004-localization-foundation/int-cp004-localization-foundation-summary.json
-          grep -q '"cases": 1200' artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave1/int-cp004-localized-presentation-wave1-summary.json
-          grep -q '"cases": 1200' artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave2/int-cp004-localized-presentation-wave2-summary.json
-          grep -q '"cases": 1400' artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave3/int-cp004-localized-presentation-wave3-summary.json
-          grep -q '"publiclyPublishable": false' artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave3/int-cp004-localized-presentation-wave3-summary.json
+          grep -q 'PASS_INT_CP004_LOCALIZED_OPTIONS' artifacts/api-server/dist/quant-v4/int-001-cp004-localized-options-audit.log
+          grep -q 'PASS_INT_CP004_LOCALIZED_EXPLANATIONS' artifacts/api-server/dist/quant-v4/int-001-cp004-localized-explanations-audit.log
+          test -f artifacts/api-server/dist/quant-v4/int-cp004-localized-options/int-cp004-localized-options-summary.json
+          test -f artifacts/api-server/dist/quant-v4/int-cp004-localized-explanations/int-cp004-localized-explanations-summary.json
+          grep -q '"questionCases": 3800' artifacts/api-server/dist/quant-v4/int-cp004-localized-options/int-cp004-localized-options-summary.json
+          grep -q '"optionChecks": 15200' artifacts/api-server/dist/quant-v4/int-cp004-localized-options/int-cp004-localized-options-summary.json
+          grep -q '"questionCases": 3800' artifacts/api-server/dist/quant-v4/int-cp004-localized-explanations/int-cp004-localized-explanations-summary.json
+          grep -q '"publiclyPublishable": false' artifacts/api-server/dist/quant-v4/int-cp004-localized-explanations/int-cp004-localized-explanations-summary.json
 
       - name: Upload CP-004 localisation evidence
         uses: actions/upload-artifact@v4
         with:
-          name: int-cp004-hi-pa-localisation-all-presentations
+          name: int-cp004-hi-pa-localisation-options-explanations
           path: |
             artifacts/api-server/dist/quant-v4/int-001-cp004-english-freeze-audit.log
             artifacts/api-server/dist/quant-v4/int-001-cp004-localization-foundation-audit.log
             artifacts/api-server/dist/quant-v4/int-001-cp004-localized-presentation-wave1-audit.log
             artifacts/api-server/dist/quant-v4/int-001-cp004-localized-presentation-wave2-audit.log
             artifacts/api-server/dist/quant-v4/int-001-cp004-localized-presentation-wave3-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-localized-options-audit.log
+            artifacts/api-server/dist/quant-v4/int-001-cp004-localized-explanations-audit.log
             artifacts/api-server/dist/quant-v4/int-cp004-localization-foundation/**
             artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave1/**
             artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave2/**
             artifacts/api-server/dist/quant-v4/int-cp004-localized-presentation-wave3/**
+            artifacts/api-server/dist/quant-v4/int-cp004-localized-options/**
+            artifacts/api-server/dist/quant-v4/int-cp004-localized-explanations/**
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-004/INT-CP-004-HI-PA-LOCALISATION-PLAN.md
           if-no-files-found: error
           retention-days: 30
