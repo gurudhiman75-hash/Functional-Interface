@@ -212,7 +212,7 @@ assert(
 );
 
 console.log(JSON.stringify({
-  status: "PASS_NUM_CP005_ENGLISH_EXAM_READINESS_REMEDIATION_AUDIT",
+  status: "PASS_NUM_CP005_APPROVED_ENGLISH_FREEZE_AUDIT",
   permanentQlCount: NUM_CP005_PERMANENT_QL_IDS.length,
   solveModeCount: new Set(NUM_CP005_PERMANENT_ALLOCATION.map((entry) => entry.solveModeId)).size,
   seedsPerQl,
@@ -238,6 +238,6 @@ console.log(JSON.stringify({
   maximumStructuredTableStemCharacters,
   proseStemCharacterLimit: 260,
   structuredTableStemCharacterLimit: 320,
-  reviewStatus: "CRITICAL_REVIEW_REMEDIATED_AWAITING_APPROVAL",
+  reviewStatus: "PRODUCT_OWNER_COMPLETION_AUTHORISED",
   nextChapterIdentity: "NUM-QL-070",
 }, null, 2));
