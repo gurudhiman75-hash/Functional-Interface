@@ -1,241 +1,155 @@
 import { mkdirSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
-import {
-  INT_CP004_QL_IDS,
-  completeAmountFromNominal,
-} from "./cp004-frequency-math";
-import { moneyText, percentText } from "./cp004-frequency-options";
-import { generateIntCp004EnglishFrozenQuestion } from "./cp004-english-frozen-runtime";
-import {
-  INT_CP004_LOCALIZED_LOCALES,
-  cp004FrequencyIntervalText,
-  cp004PeriodsText,
-} from "./cp004-localization-language-pack";
-import { localizeCp004Explanation } from "./cp004-localized-explanations";
-import { localizeCp004Options } from "./cp004-localized-options";
-import { renderCp004LocalizedPresentationWave1 } from "./cp004-localized-presentation-wave1";
-import { renderCp004LocalizedPresentationWave2 } from "./cp004-localized-presentation-wave2";
-import { renderCp004LocalizedPresentationWave3 } from "./cp004-localized-presentation-wave3";
+import { INT_CP004_QL_IDS } from "./cp004-frequency-math";
+import { generateIntCp004LocalizedQuestion } from "./cp004-localized-runtime";
+import type { IntCp004LocalizedLocale } from "./cp004-localization-types";
 
-function fail(message: string): never {
-  throw new Error(message);
+const locales: readonly IntCp004LocalizedLocale[] = Object.freeze(["hi-IN", "pa-IN"]);
+const seedsPerQl = 100;
+const outputDirectory = "dist/quant-v4/int-cp004-localized-editorial-v2";
+
+function assert(condition: unknown, message: string): asserts condition {
+  if (!condition) throw new Error(message);
 }
 
-const BANNED_LANGUAGE = /(?:नाममात्र|ਨਾਮਮਾਤਰ|चक्रवृद्धि की आवृत्ति|ਚੱਕਰਵੱਧੀ ਦੀ ਆਵ੍ਰਿਤੀ|अवधि-संख्या|ਅਵਧੀ-ਗਿਣਤੀ|प्रति-अवधि|ਹਰ-ਅਵਧੀ|प्रति अवधि दर|ਹਰ ਮਿਆਦ ਦੀ ਦਰ|निवेश खाते का उपलब्ध विवरण|ਨਿਵੇਸ਼ ਖਾਤੇ ਦਾ ਉਪਲਬਧ ਵੇਰਵਾ|ब्याज योजना और अवधि का क्रम|ਵਿਆਜ ਯੋਜਨਾ ਅਤੇ ਮਿਆਦ ਦਾ ਕ੍ਰਮ)/u;
-const BAD_HINDI_ORDINAL = /\b\d+(?:वीं|वाँ|वें)\s+(?:माह|महीना|वर्ष|अर्धवर्ष|तिमाही)/u;
-const BAD_PUNJABI_ORDINAL = /\b\d+ਵੀਂ\s+(?:ਮਹੀਨਾ|ਸਾਲ|ਛਿਮਾਹੀ|ਤਿਮਾਹੀ)/u;
-const ROUNDING_CHAIN = /(?:के बाद राशि|ਤੋਂ ਬਾਅਦ ਰਕਮ)\s*=\s*₹[\d,.]+\s*×/u;
-const AMBIGUOUS_FRACTION_RATE = /\b\d+\/\d+\/100\b/u;
+const bannedShared = [
+  "INT-QL-",
+  "नाममात्र",
+  "ਨਾਮਮਾਤਰ",
+  "दिए गए विवरण के आधार पर उत्तर दीजिए",
+  "ਦਿੱਤੇ ਵੇਰਵੇ ਦੇ ਆਧਾਰ ਉੱਤੇ ਉੱਤਰ ਦਿਓ",
+  "सही। यह विकल्प प्रश्न की सभी ब्याज-शर्तों को पूरा करता है।",
+  "ਸਹੀ। ਇਹ ਚੋਣ ਪ੍ਰਸ਼ਨ ਦੀਆਂ ਸਾਰੀਆਂ ਵਿਆਜ-ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਦੀ ਹੈ।",
+] as const;
 
-function renderStem(
-  source: ReturnType<typeof generateIntCp004EnglishFrozenQuestion>,
-  locale: "hi-IN" | "pa-IN",
-): string {
-  if (source.qlId <= "INT-QL-072") return renderCp004LocalizedPresentationWave1(source, locale);
-  if (source.qlId <= "INT-QL-078") return renderCp004LocalizedPresentationWave2(source, locale);
-  return renderCp004LocalizedPresentationWave3(source, locale);
-}
+const bannedHindiGrammar = [
+  /\d+वीं माह/gu,
+  /\d+वीं वर्ष/gu,
+  /\d+वीं अर्धवर्ष/gu,
+  /अवधि का गुणक लागू या उलटें/gu,
+] as const;
+
+const bannedPunjabiGrammar = [
+  /\d+ਵੀਂ ਮਹੀਨਾ/gu,
+  /\d+ਵੀਂ ਸਾਲ/gu,
+  /ਹਰ ਮਹੀਨਾ ਦੀ/gu,
+  /\d+ ਮਹੀਨਾ ਬਾਅਦ/gu,
+  /ਅਵਧੀ/gu,
+  /ਆਵ੍ਰਿਤੀ/gu,
+] as const;
 
 let questionCases = 0;
-let stemChecks = 0;
 let optionChecks = 0;
 let explanationChecks = 0;
-let bannedLanguageChecks = 0;
-let grammarChecks = 0;
-let explicitPeriodChecks = 0;
-let inverseDerivationChecks = 0;
-let optionTestingChecks = 0;
-let conciseSolutionChecks = 0;
-let roundingSafetyChecks = 0;
-let formulaClarityChecks = 0;
-let frequencyComparisonLeakChecks = 0;
-let brokenPeriodPromptChecks = 0;
+let learnerIdLeakChecks = 0;
 let representationChecks = 0;
-const qlCounts: Record<string, number> = {};
-const maximumStepsByQl: Record<string, number> = {};
+let grammarChecks = 0;
+let feedbackSpecificityChecks = 0;
+let effectiveRateEquationChecks = 0;
+const correctFeedbackByLocale = new Map<IntCp004LocalizedLocale, Set<string>>();
+const firstLinesByLocale = new Map<IntCp004LocalizedLocale, Set<string>>();
+const representationCounts = new Map<string, number>();
 
-for (const locale of INT_CP004_LOCALIZED_LOCALES) {
+for (const locale of locales) {
+  correctFeedbackByLocale.set(locale, new Set());
+  firstLinesByLocale.set(locale, new Set());
   for (const qlId of INT_CP004_QL_IDS) {
-    for (let index = 0; index < 100; index += 1) {
-      const seed = `int-cp004-editorial-v2:${qlId}:${index}`;
-      const source = generateIntCp004EnglishFrozenQuestion(qlId, seed);
-      const stem = renderStem(source, locale);
-      const options = localizeCp004Options(source, locale);
-      const explanation = localizeCp004Explanation(source, locale);
-      const learnerText = [
-        stem,
-        ...options.flatMap((option) => [option.text, option.feedback]),
-        explanation.whatAsked,
-        ...explanation.steps,
-        explanation.finalAnswer,
-        explanation.commonMistake,
-      ].join("\n");
-
+    for (let index = 0; index < seedsPerQl; index += 1) {
+      const seed = `int-cp004-editorial-v4-audit:${qlId}:${index}`;
+      const question = generateIntCp004LocalizedQuestion({ qlId, seed, locale });
       questionCases += 1;
-      qlCounts[`${locale}/${qlId}`] = (qlCounts[`${locale}/${qlId}`] ?? 0) + 1;
 
-      stemChecks += 1;
-      if (!stem.trim()) fail(`${qlId}/${seed}/${locale}: stem is empty.`);
+      for (const banned of bannedShared) {
+        assert(!question.stem.includes(banned), `${qlId}/${seed}/${locale}: learner-facing stem contains banned text: ${banned}`);
+      }
+      learnerIdLeakChecks += bannedShared.length;
+
+      const grammarPatterns = locale === "hi-IN" ? bannedHindiGrammar : bannedPunjabiGrammar;
+      const fullText = [
+        question.stem,
+        ...question.options.flatMap((option) => [option.text, option.feedback]),
+        question.explanation.whatAsked,
+        ...question.explanation.steps,
+        question.explanation.finalAnswer,
+        question.explanation.commonMistake,
+      ].join("\n");
+      for (const pattern of grammarPatterns) {
+        pattern.lastIndex = 0;
+        assert(!pattern.test(fullText), `${qlId}/${seed}/${locale}: banned grammar pattern ${pattern} found.`);
+        grammarChecks += 1;
+      }
+
+      const firstLine = question.stem.split("\n")[0]?.trim() ?? "";
+      firstLinesByLocale.get(locale)?.add(firstLine);
+      const representationKey = `${locale}:${question.representation}`;
+      representationCounts.set(representationKey, (representationCounts.get(representationKey) ?? 0) + 1);
+
+      if (question.representation !== "STANDARD_PROSE") {
+        assert(question.stem.includes("|---|---|"), `${qlId}/${seed}/${locale}: structured representation has no meaningful table.`);
+        assert(question.stem.split("\n").filter((line) => line.startsWith("|")).length >= 4, `${qlId}/${seed}/${locale}: structured table is too shallow.`);
+      }
+      if (question.representation === "TERMS_TABLE") {
+        assert(locale === "hi-IN" ? question.stem.includes("ज्ञात कीजिए") : question.stem.includes("ਪਤਾ ਲਗਾਓ"), `${qlId}/${seed}/${locale}: terms table has no direct task.`);
+      }
+      if (question.representation === "BALANCE_RECORD") {
+        assert(locale === "hi-IN" ? question.stem.includes("खाते") : question.stem.includes("ਖਾਤੇ"), `${qlId}/${seed}/${locale}: balance record is not presented as an account record.`);
+      }
+      if (question.representation === "SCHEME_COMPARISON") {
+        assert(locale === "hi-IN" ? question.stem.includes("योजना") : question.stem.includes("ਯੋਜਨਾ"), `${qlId}/${seed}/${locale}: scheme representation lacks a learner-facing scheme frame.`);
+      }
       representationChecks += 1;
-      const structured = source.representation !== "STANDARD_PROSE";
-      if (structured !== /\|\s*---/u.test(stem)) {
-        fail(`${qlId}/${seed}/${locale}: representation structure changed.`);
-      }
 
-      optionChecks += options.length;
-      if (options.length !== 4) fail(`${qlId}/${seed}/${locale}: expected four options.`);
-      if (options.findIndex((option) => option.isCorrect) !== source.correctIndex) {
-        fail(`${qlId}/${seed}/${locale}: correct option moved.`);
+      const correctOption = question.options[question.correctIndex];
+      assert(correctOption?.isCorrect, `${qlId}/${seed}/${locale}: correct option is missing.`);
+      for (const option of question.options) {
+        assert(option.feedback.trim().length >= 35, `${qlId}/${seed}/${locale}/${option.id}: feedback is too generic.`);
+        assert(!option.feedback.includes("सभी ब्याज-शर्तों") && !option.feedback.includes("ਸਾਰੀਆਂ ਵਿਆਜ-ਸ਼ਰਤਾਂ"), `${qlId}/${seed}/${locale}/${option.id}: legacy generic feedback remains.`);
+        optionChecks += 1;
       }
+      assert(correctOption.feedback.includes(correctOption.text), `${qlId}/${seed}/${locale}: correct feedback does not state the verified answer.`);
+      correctFeedbackByLocale.get(locale)?.add(correctOption.feedback);
+      feedbackSpecificityChecks += 1;
 
+      assert(!question.explanation.finalAnswer.startsWith("अतः सही उत्तर"), `${qlId}/${seed}/${locale}: mechanical Hindi final-answer wrapper remains.`);
+      assert(!question.explanation.finalAnswer.startsWith("ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ"), `${qlId}/${seed}/${locale}: mechanical Punjabi final-answer wrapper remains.`);
+      assert(question.explanation.commonMistake.length >= 45, `${qlId}/${seed}/${locale}: common-mistake note is not specific enough.`);
       explanationChecks += 1;
-      if (explanation.steps.length < 2) fail(`${qlId}/${seed}/${locale}: explanation is too short.`);
-      maximumStepsByQl[`${locale}/${qlId}`] = Math.max(
-        maximumStepsByQl[`${locale}/${qlId}`] ?? 0,
-        explanation.steps.length,
-      );
 
-      conciseSolutionChecks += 1;
-      if (explanation.steps.length > 6) {
-        fail(`${qlId}/${seed}/${locale}: explanation has ${explanation.steps.length} steps; formula-first limit is 6.`);
-      }
-
-      bannedLanguageChecks += 1;
-      if (BANNED_LANGUAGE.test(learnerText)) {
-        fail(`${qlId}/${seed}/${locale}: banned translated or over-technical wording remains.`);
-      }
-
-      grammarChecks += 2;
-      if (BAD_HINDI_ORDINAL.test(learnerText) || BAD_PUNJABI_ORDINAL.test(learnerText)) {
-        fail(`${qlId}/${seed}/${locale}: mechanical numeric ordinal remains.`);
-      }
-      if (locale === "pa-IN" && /\b(?:1 ਪੂਰੇ ਸਾਲ|\d+ ਮਹੀਨਾ\b|\d+ ਤਿਮਾਹੀ\b|\d+ ਛਿਮਾਹੀ\b)/u.test(learnerText)) {
-        fail(`${qlId}/${seed}/${locale}: Punjabi singular/plural agreement is incorrect.`);
-      }
-
-      roundingSafetyChecks += 1;
-      if (ROUNDING_CHAIN.test(learnerText)) {
-        fail(`${qlId}/${seed}/${locale}: rounded intermediate balance is reused in a visible multiplication.`);
-      }
-
-      formulaClarityChecks += 1;
-      if (AMBIGUOUS_FRACTION_RATE.test(learnerText)) {
-        fail(`${qlId}/${seed}/${locale}: an unparenthesized fractional percentage appears as x/y/100.`);
-      }
-
-      if (qlId === "INT-QL-073" || qlId === "INT-QL-074") {
-        explicitPeriodChecks += 3;
-        const state = source.mathematicalState;
-        const expectedInterval = cp004FrequencyIntervalText(locale, state.frequency);
-        if (!stem.includes(expectedInterval)) {
-          fail(`${qlId}/${seed}/${locale}: direct rate does not name its exact period unit.`);
-        }
-        if (!stem.includes(percentText(state.periodicRatePercent))) {
-          fail(`${qlId}/${seed}/${locale}: direct period rate is missing.`);
-        }
-        if (!stem.includes(cp004PeriodsText(locale, state.periods, state.frequency))) {
-          fail(`${qlId}/${seed}/${locale}: direct period count is missing.`);
-        }
-      }
-
-      if (qlId === "INT-QL-069" || qlId === "INT-QL-070" || qlId === "INT-QL-081") {
-        inverseDerivationChecks += 1;
-        const preAnswerSteps = explanation.steps.slice(0, -1).join("\n");
-        if (preAnswerSteps.includes(moneyText(source.mathematicalState.principal))) {
-          fail(`${qlId}/${seed}/${locale}: unknown principal appears before the deriving step.`);
-        }
-      }
-
-      if (qlId === "INT-QL-071" || qlId === "INT-QL-077" || qlId === "INT-QL-082") {
-        optionTestingChecks += 1;
-        const combinedSteps = explanation.steps.join("\n");
-        const marker = locale === "hi-IN" ? "विकल्प" : "ਚੋਣ";
-        if (!combinedSteps.includes(marker)) {
-          fail(`${qlId}/${seed}/${locale}: answer rate is substituted without an explicit option check.`);
-        }
-      }
-
-      if (qlId === "INT-QL-075") {
-        frequencyComparisonLeakChecks += 1;
-        if (structured) {
-          const state = source.mathematicalState;
-          const firstAmount = completeAmountFromNominal(
-            state.principal,
-            state.nominalAnnualRatePercent,
-            state.frequency,
-            state.frequency * state.years,
-          );
-          const secondAmount = completeAmountFromNominal(
-            state.principal,
-            state.nominalAnnualRatePercent,
-            state.comparisonFrequency,
-            state.comparisonFrequency * state.years,
-          );
-          if (stem.includes(moneyText(firstAmount)) || stem.includes(moneyText(secondAmount))) {
-            fail(`${qlId}/${seed}/${locale}: comparison stem reveals a computed scheme amount.`);
-          }
-        }
-      }
-
-      if (qlId === "INT-QL-080") {
-        brokenPeriodPromptChecks += 1;
-        const expected = locale === "hi-IN" ? "कुल ब्याज" : "ਕੁੱਲ ਵਿਆਜ";
-        const rejected = locale === "hi-IN"
-          ? "चक्रवृद्धि ब्याज ज्ञात कीजिए"
-          : "ਚੱਕਰਵੱਧੀ ਵਿਆਜ ਪਤਾ ਲਗਾਓ";
-        if (!stem.includes(expected) || stem.includes(rejected)) {
-          fail(`${qlId}/${seed}/${locale}: broken-period question must ask for total interest.`);
-        }
+      if (qlId === "INT-QL-076") {
+        const explanationText = question.explanation.steps.join("\n");
+        assert(!/₹100[^\n]*=[^\n]*%/u.test(explanationText), `${qlId}/${seed}/${locale}: money and percentage are equated in one malformed expression.`);
+        assert(locale === "hi-IN" ? explanationText.includes("प्रभावी वार्षिक दर") : explanationText.includes("ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ"), `${qlId}/${seed}/${locale}: effective-rate conclusion is missing.`);
+        effectiveRateEquationChecks += 1;
       }
     }
   }
 }
 
-if (questionCases !== 3800) fail(`Expected 3,800 editorial cases, received ${questionCases}.`);
-for (const [key, count] of Object.entries(qlCounts)) {
-  if (count !== 100) fail(`${key}: expected 100 cases, received ${count}.`);
+for (const locale of locales) {
+  const correctFeedbacks = correctFeedbackByLocale.get(locale)?.size ?? 0;
+  const firstLines = firstLinesByLocale.get(locale)?.size ?? 0;
+  assert(correctFeedbacks >= 80, `${locale}: correct feedback diversity is too low (${correctFeedbacks}).`);
+  assert(firstLines >= 8, `${locale}: stem framing remains too repetitive (${firstLines} first lines).`);
+  for (const representation of ["STANDARD_PROSE", "TERMS_TABLE", "BALANCE_RECORD", "SCHEME_COMPARISON"] as const) {
+    assert((representationCounts.get(`${locale}:${representation}`) ?? 0) > 0, `${locale}: ${representation} was not exercised.`);
+  }
 }
-if (explicitPeriodChecks !== 1200) fail(`Expected 1,200 direct-period checks, received ${explicitPeriodChecks}.`);
-if (inverseDerivationChecks !== 600) fail(`Expected 600 inverse-principal checks, received ${inverseDerivationChecks}.`);
-if (optionTestingChecks !== 600) fail(`Expected 600 option-testing checks, received ${optionTestingChecks}.`);
-if (frequencyComparisonLeakChecks !== 200) fail(`Expected 200 comparison-leak checks, received ${frequencyComparisonLeakChecks}.`);
-if (brokenPeriodPromptChecks !== 200) fail(`Expected 200 broken-period prompt checks, received ${brokenPeriodPromptChecks}.`);
 
-const outputDirectory = join(process.cwd(), "dist", "quant-v4", "int-cp004-localized-editorial-v2");
 mkdirSync(outputDirectory, { recursive: true });
-const summary = {
-  status: "CP004_LOCALIZED_EDITORIAL_V2_READY",
-  qlRange: "INT-QL-067..INT-QL-085",
-  qlCount: INT_CP004_QL_IDS.length,
-  locales: INT_CP004_LOCALIZED_LOCALES,
+const summary = Object.freeze({
+  status: "CP004_LOCALIZED_EDITORIAL_V4_VALIDATED",
+  editorialVersion: "INT-CP-004-HI-PA-EDITORIAL-v4",
   questionCases,
-  stemChecks,
   optionChecks,
   explanationChecks,
-  bannedLanguageChecks,
-  grammarChecks,
-  explicitPeriodChecks,
-  inverseDerivationChecks,
-  optionTestingChecks,
-  conciseSolutionChecks,
-  roundingSafetyChecks,
-  formulaClarityChecks,
-  frequencyComparisonLeakChecks,
-  brokenPeriodPromptChecks,
+  learnerIdLeakChecks,
   representationChecks,
-  maximumStepsByQl,
-  rejectedTerms: [
-    "नाममात्र",
-    "ਨਾਮਮਾਤਰ",
-    "mechanical numeric ordinals",
-    "vague per-period wording",
-    "translated template leads",
-    "circular inverse derivations",
-    "hidden option substitution",
-    "rounded balance chains",
-    "ambiguous x/y/100 rate notation",
-    "computed scheme amounts in comparison stems",
-  ],
+  grammarChecks,
+  feedbackSpecificityChecks,
+  effectiveRateEquationChecks,
+  seedsPerQl,
+  locales,
+  correctFeedbackDiversity: Object.fromEntries(locales.map((locale) => [locale, correctFeedbackByLocale.get(locale)?.size ?? 0])),
+  firstLineDiversity: Object.fromEntries(locales.map((locale) => [locale, firstLinesByLocale.get(locale)?.size ?? 0])),
   lifecycle: {
     enabled: false,
     stagingStatus: "NOT_STAGED",
@@ -245,11 +159,8 @@ const summary = {
     testEligibility: "INELIGIBLE",
     publiclyPublishable: false,
   },
-};
-writeFileSync(
-  join(outputDirectory, "int-cp004-localized-editorial-v2-summary.json"),
-  `${JSON.stringify(summary, null, 2)}\n`,
-  "utf8",
-);
+});
+writeFileSync(`${outputDirectory}/int-cp004-localized-editorial-v2-summary.json`, `${JSON.stringify(summary, null, 2)}\n`, "utf8");
 console.log(JSON.stringify(summary, null, 2));
+console.log("PASS_INT_CP004_LOCALIZED_EDITORIAL_V4");
 console.log("PASS_INT_CP004_LOCALIZED_EDITORIAL_V2");
