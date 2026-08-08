@@ -67,8 +67,8 @@ const omittedComplexRecords = questions.filter((question) =>
   question.learnerPresentationV5.diagram.omissionReason === "MORE_THAN_THREE_TERMS").length;
 const omittedUnstableRecords = questions.filter((question) =>
   question.learnerPresentationV5.diagram.omissionReason === "NO_STABLE_SIMPLE_VENN").length;
-const learnerSafeVennRecords = questions.filter((question) =>
-  question.learnerPresentationV5.diagram.semanticSignature.startsWith("syl-v5:learner-safe-venn:enabled:")).length;
+const exactVennRecords = questions.filter((question) =>
+  question.learnerPresentationV5.diagram.semanticSignature.startsWith("syl-v5:exact-venn:enabled:")).length;
 const nonVennEnabledRecords = questions.filter((question) => {
   const diagram = question.learnerPresentationV5.diagram;
   if (!diagram.enabled) return false;
@@ -91,7 +91,7 @@ const summary = {
     omittedRecords: questions.length - enabledDiagramRecords,
     omittedComplexRecords,
     omittedUnstableRecords,
-    learnerSafeVennRecords,
+    exactVennRecords,
     nonVennEnabledRecords,
   },
   diagramContract: {
@@ -99,6 +99,7 @@ const summary = {
     maximumWitnessesPerEnabledDiagram: 2,
     numberedWitnesses: 0,
     separationCrosses: 0,
+    strongerUnstatedRelations: 0,
     forcedComplexLayouts: 0,
     mobileViewBox: "340 x 210",
   },
@@ -118,7 +119,7 @@ const summary = {
     concreteDualModels: true,
     logicalStatusSeparatedFromTaskDisposition: true,
     nonEmptyDirectionVisibleBeforeAttempt: true,
-    verifiedSimpleVennOrOmit: true,
+    exactTopologyVennOrOmit: true,
     forcedDiagramCoverageRemoved: true,
     deadInconsistentOptionRemoved: deadInconsistentOptions === 0,
     modalDiagnosticRecords,
@@ -169,11 +170,12 @@ const markdown: string[] = [
   `- Logical questions: ${summary.logicalQuestions}`,
   `- English/Hindi/Punjabi: ${summary.languages["en-IN"]}/${summary.languages["hi-IN"]}/${summary.languages["pa-IN"]}`,
   "- Question and explanation content approved by the product owner on 2026-08-07.",
-  `- Learner-safe diagrams enabled: ${summary.diagramCoverage.enabledRecords}.`,
+  `- Exact-topology diagrams enabled: ${summary.diagramCoverage.enabledRecords}.`,
   `- Complex diagrams intentionally omitted: ${summary.diagramCoverage.omittedComplexRecords}.`,
   `- Unstable simple layouts intentionally omitted: ${summary.diagramCoverage.omittedUnstableRecords}.`,
   `- Non-Venn enabled visuals: ${summary.diagramCoverage.nonVennEnabledRecords}.`,
   "- Enabled diagrams use verified finite templates; force-layout geometry is prohibited.",
+  "- Some/some-not relations use genuine overlap unless containment or separation is forced by the premises or marked model.",
   "- Enabled diagrams contain at most three terms and two unnumbered decisive witnesses.",
   "- No floating separation ×, numbered witness series, textLength compression, relation maps or comparison panels are permitted.",
   "- QL-008 explanation and diagram modes are derived from the actual pair status.",
