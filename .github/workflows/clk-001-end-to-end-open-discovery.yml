@@ -1,0 +1,81 @@
+name: Validate CLK-001 end-to-end open discovery
+
+on:
+  pull_request:
+    branches:
+      - feat/clk-001-cp001-angle-at-time
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/foundation/temporal/**
+      - artifacts/api-server/src/reasoning-v1/foundation/temporal/**
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/clock.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Clocks/CLK-001/**
+      - artifacts/api-server/src/reasoning-v1/tests/clock-foundation.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-cp001-angle-at-time.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-end-to-end-open-discovery.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-foundation.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-mirror-water-proof.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-glyph-digit-clock-proof.test.ts
+      - .github/workflows/clk-001-end-to-end-open-discovery.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: clk-001-e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-end-to-end:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle proofs
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/clock
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          for test in clock-foundation clock-cp001-angle-at-time clock-end-to-end-open-discovery; do
+            pnpm --dir artifacts/api-server exec esbuild \
+              src/reasoning-v1/tests/${test}.test.ts \
+              --bundle --platform=node --format=esm \
+              --outfile=dist/reasoning-v1/clock/${test}.test.mjs
+          done
+          for test in spatial-foundation spatial-mirror-water-proof spatial-glyph-digit-clock-proof; do
+            pnpm --dir artifacts/api-server exec esbuild \
+              src/reasoning-v1/tests/${test}.test.ts \
+              --bundle --platform=node --format=esm \
+              --outfile=dist/reasoning-v1/spatial/${test}.test.mjs
+          done
+      - name: Run exact clock foundation proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/clock/clock-foundation.test.mjs
+      - name: Run inherited angle-at-time proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/clock/clock-cp001-angle-at-time.test.mjs
+      - name: Run complete V2 domain proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/clock/clock-end-to-end-open-discovery.test.mjs | tee dist/reasoning-v1/clock/clk-001-end-to-end-proof.json
+      - name: Run spatial regressions
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-foundation.test.mjs
+          node dist/reasoning-v1/spatial/spatial-mirror-water-proof.test.mjs
+          node dist/reasoning-v1/spatial/spatial-glyph-digit-clock-proof.test.mjs
+      - name: Upload proof evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: clk-001-end-to-end-open-discovery-proof
+          path: artifacts/api-server/dist/reasoning-v1/clock/clk-001-end-to-end-proof.json
+          if-no-files-found: error
