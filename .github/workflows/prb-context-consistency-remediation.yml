@@ -28,36 +28,20 @@ jobs:
 
           root = Path("artifacts/api-server/src/quant-v4/topics/Probability")
 
-          def replace_once(path: Path, old: str, new: str, label: str):
-              text = path.read_text()
-              if new in text:
-                  return
-              if old not in text:
-                  raise SystemExit(f"Could not patch {label} in {path}")
-              path.write_text(text.replace(old, new, 1))
+          def replace_region(text: str, start_marker: str, end_marker: str, replacement: str, label: str) -> str:
+              start = text.find(start_marker)
+              if start < 0:
+                  raise SystemExit(f"Missing start marker for {label}")
+              end = text.find(end_marker, start)
+              if end < 0:
+                  raise SystemExit(f"Missing end marker for {label}")
+              return text[:start] + replacement + text[end:]
 
           remodeler = root / "shared/exam-depth-remodeler.ts"
-          replace_once(
-              remodeler,
-              '''function objectContext(entry: ProbabilityTaskRegistryEntry): ObjectContext {
-            const contexts: ObjectContext[] = [
-              { container: "A bag", item: "balls", singular: "ball", selectionVerb: "drawn" },
-              { container: "A jar", item: "marbles", singular: "marble", selectionVerb: "selected" },
-              { container: "A box", item: "pens", singular: "pen", selectionVerb: "selected" },
-              { container: "A pouch", item: "coloured stones", singular: "stone", selectionVerb: "drawn" },
-            ];
-            return contexts[variant(entry, contexts.length)]!;
-          }
-          ''',
-              '''function objectContext(entry: ProbabilityTaskRegistryEntry): ObjectContext {
-            const contexts: ObjectContext[] = [
-              { container: "A bag", item: "balls", singular: "ball", selectionVerb: "drawn" },
-              { container: "A jar", item: "marbles", singular: "marble", selectionVerb: "selected" },
-              { container: "A box", item: "pens", singular: "pen", selectionVerb: "selected" },
-              { container: "A pouch", item: "coloured stones", singular: "stone", selectionVerb: "drawn" },
-            ];
-            return contexts[variant(entry, contexts.length)]!;
-          }
+          text = remodeler.read_text()
+
+          helper_marker = "\ninterface GroupContext {"
+          helpers = '''
 
           function frequencyContext(entry: ProbabilityTaskRegistryEntry): ObjectContext {
             const contexts: ObjectContext[] = [
@@ -72,59 +56,29 @@ jobs:
           function definiteContainer(container: string): string {
             return container.replace(/^A /, "The ");
           }
-          ''',
-              "context helpers",
-          )
-          replace_once(
-              remodeler,
-              '''  if (mode === "findProbabilityFromSimpleFrequencyTable") {
-            const red = numberValue(parameters, "red"), blue = numberValue(parameters, "blue"), green = numberValue(parameters, "green");
-            const target = textValue(parameters, "target", "red");
-            const contexts = ["balls in a bag", "pens in a box", "marbles in a jar", "coloured stones in a pouch"];
-            const [item, container] = contexts[variant(entry, contexts.length)]!.split(" in a ");
-            return tidy(`A ${container} contains ${red} red, ${blue} blue and ${green} green ${item}. One is selected at random. What is the probability that it is ${target}?`);
-          }
-          ''',
-              '''  if (mode === "findProbabilityFromSimpleFrequencyTable") {
+          '''
+          if "function frequencyContext" not in text:
+              if helper_marker not in text:
+                  raise SystemExit("Could not insert context helpers")
+              text = text.replace(helper_marker, helpers + helper_marker, 1)
+
+          frequency_block = '''  if (mode === "findProbabilityFromSimpleFrequencyTable") {
             const red = numberValue(parameters, "red"), blue = numberValue(parameters, "blue"), green = numberValue(parameters, "green");
             const target = textValue(parameters, "target", "red");
             const context = frequencyContext(entry);
             return tidy(`${context.container} contains ${red} red, ${blue} blue and ${green} green ${context.item}. One ${context.singular} is ${context.selectionVerb} at random. What is the probability that it is ${target}?`);
           }
-          ''',
-              "frequency stem context",
-          )
-          replace_once(
-              remodeler,
-              '''function simultaneousExplanation(entry: ProbabilityTaskRegistryEntry, parameters: GeneratedParameters, solved: SolvedProbability): string[] {
-            const mode = entry.solveMode;
-            const red = numberValue(parameters, "red"), blue = numberValue(parameters, "blue"), draw = numberValue(parameters, "draw");
-            const totalItems = red + blue;
-            const totalSelections = choose(totalItems, draw);
-            const favourable = solved.evidence.favourableOutcomeCount?.toString() ?? "0";
-            const lines = [
-              `Because the ${draw} items are selected together, their order does not matter; use combinations.`,
-              `The number of possible selections is C(${totalItems},${draw}) = ${totalSelections}.`,
-            ];
 
-            if (mode === "findSimultaneousSameTypeProbability") {
-              lines.push(`Selections of one colour = C(${red},${draw}) + C(${blue},${draw}) = ${favourable}.`);
-            } else if (mode === "findSimultaneousDifferentTypeProbability") {
-              if (draw === 2) lines.push(`Select one red and one blue item: C(${red},1) × C(${blue},1) = ${favourable}.`);
-              else lines.push(`Subtract the all-red and all-blue selections: ${totalSelections} - C(${red},${draw}) - C(${blue},${draw}) = ${favourable}.`);
-            } else if (["findExactCompositionProbability", "findSelectionProbabilityUsingCombination"].includes(mode)) {
-              const exactRed = numberValue(parameters, "exactRed", 1);
-              lines.push(`Choose ${exactRed} red and ${draw - exactRed} blue: C(${red},${exactRed}) × C(${blue},${draw - exactRed}) = ${favourable}.`);
-            } else if (mode === "findNoObjectOfTypeProbability") {
-              lines.push(`No red item means all ${draw} selected items are blue: C(${blue},${draw}) = ${favourable}.`);
-            } else {
-              lines.push(`Use the complement of selecting only blue items: ${totalSelections} - C(${blue},${draw}) = ${favourable}.`);
-            }
-            lines.push(probabilityLine(favourable, totalSelections, solved.exactDisplay));
-            return lines;
-          }
-          ''',
-              '''function simultaneousExplanation(entry: ProbabilityTaskRegistryEntry, parameters: GeneratedParameters, solved: SolvedProbability): string[] {
+          '''
+          text = replace_region(
+              text,
+              '  if (mode === "findProbabilityFromSimpleFrequencyTable") {',
+              '  if (mode === "findNumberRangePropertyProbability") {',
+              frequency_block,
+              "frequency stem",
+          )
+
+          simultaneous_block = '''function simultaneousExplanation(entry: ProbabilityTaskRegistryEntry, parameters: GeneratedParameters, solved: SolvedProbability): string[] {
             const mode = entry.solveMode;
             const red = numberValue(parameters, "red"), blue = numberValue(parameters, "blue"), draw = numberValue(parameters, "draw");
             const context = objectContext(entry);
@@ -152,58 +106,17 @@ jobs:
             lines.push(probabilityLine(favourable, totalSelections, solved.exactDisplay));
             return lines;
           }
-          ''',
-              "simultaneous explanation nouns",
-          )
-          replace_once(
-              remodeler,
-              '''function successiveExplanation(entry: ProbabilityTaskRegistryEntry, parameters: GeneratedParameters, solved: SolvedProbability): string[] {
-            const mode = entry.solveMode;
-            const red = numberValue(parameters, "red"), blue = numberValue(parameters, "blue"), total = red + blue;
 
-            if (["findSuccessiveIndependentProbability", "findWithReplacementProbability"].includes(mode)) {
-              return [
-                `The first item is replaced, so the composition remains ${red} red and ${blue} blue before the second selection.`,
-                `Thus, P(red on each selection) = ${red}/${total}.`,
-                `P(both red) = ${red}/${total} × ${red}/${total} = ${solved.exactDisplay}.`,
-              ];
-            }
-            if (["findSuccessiveDependentProbability", "findWithoutReplacementProbability"].includes(mode)) {
-              return [
-                `On the first selection, P(red) = ${red}/${total}.`,
-                `After one red item is removed, ${red - 1} red items remain among ${total - 1} items.`,
-                `P(both red) = ${red}/${total} × ${red - 1}/${total - 1} = ${solved.exactDisplay}.`,
-              ];
-            }
-            if (mode === "findOrderedDrawSequenceProbability") {
-              return [
-                `The order is fixed: red must occur first and blue second.`,
-                `P(red first) = ${red}/${total}; after that, P(blue second) = ${blue}/${total - 1}.`,
-                `Required probability = ${red}/${total} × ${blue}/${total - 1} = ${solved.exactDisplay}.`,
-              ];
-            }
-            if (mode === "findSameTypeInSuccessiveDraws") {
-              return [
-                `The same colour can occur in two disjoint ways: red-red or blue-blue.`,
-                `P(red-red) = ${red}/${total} × ${red - 1}/${total - 1}, and P(blue-blue) = ${blue}/${total} × ${blue - 1}/${total - 1}.`,
-                `Adding the two cases gives ${solved.exactDisplay}.`,
-              ];
-            }
-            if (mode === "findDifferentTypesInSuccessiveDraws") {
-              return [
-                `Different colours can occur as red-blue or blue-red, so both orders must be counted.`,
-                `P = ${red}/${total} × ${blue}/${total - 1} + ${blue}/${total} × ${red}/${total - 1}.`,
-                `After simplification, the required probability is ${solved.exactDisplay}.`,
-              ];
-            }
-            return [
-              `Use the complement: at least one red item fails only when both selections are blue.`,
-              `Replacement keeps P(blue) = ${blue}/${total} on both selections.`,
-              `P(at least one red) = 1 - (${blue}/${total} × ${blue}/${total}) = ${solved.exactDisplay}.`,
-            ];
-          }
-          ''',
-              '''function successiveExplanation(entry: ProbabilityTaskRegistryEntry, parameters: GeneratedParameters, solved: SolvedProbability): string[] {
+          '''
+          text = replace_region(
+              text,
+              "function simultaneousExplanation(",
+              "function successiveExplanation(",
+              simultaneous_block,
+              "simultaneous explanations",
+          )
+
+          successive_block = '''function successiveExplanation(entry: ProbabilityTaskRegistryEntry, parameters: GeneratedParameters, solved: SolvedProbability): string[] {
             const mode = entry.solveMode;
             const red = numberValue(parameters, "red"), blue = numberValue(parameters, "blue"), total = red + blue;
             const context = objectContext(entry);
@@ -211,7 +124,7 @@ jobs:
             if (["findSuccessiveIndependentProbability", "findWithReplacementProbability"].includes(mode)) {
               return [
                 `The first ${context.singular} is replaced, so the container again has ${red} red and ${blue} blue ${context.item} before the second selection.`,
-                `Thus, P(red on each selection) = ${red}/${total}.`,
+                `Thus, P(red ${context.singular} on each selection) = ${red}/${total}.`,
                 `P(both red ${context.item}) = ${red}/${total} × ${red}/${total} = ${solved.exactDisplay}.`,
               ];
             }
@@ -231,8 +144,8 @@ jobs:
             }
             if (mode === "findSameTypeInSuccessiveDraws") {
               return [
-                `The same colour can occur in two disjoint ways: red-red or blue-blue.`,
-                `For the ${context.item}, P(red-red) = ${red}/${total} × ${red - 1}/${total - 1}, and P(blue-blue) = ${blue}/${total} × ${blue - 1}/${total - 1}.`,
+                `The same colour can occur in two disjoint ways for the ${context.item}: red-red or blue-blue.`,
+                `P(red-red) = ${red}/${total} × ${red - 1}/${total - 1}, and P(blue-blue) = ${blue}/${total} × ${blue - 1}/${total - 1}.`,
                 `Adding the two cases gives ${solved.exactDisplay}.`,
               ];
             }
@@ -249,17 +162,19 @@ jobs:
               `P(at least one red ${context.singular}) = 1 - (${blue}/${total} × ${blue}/${total}) = ${solved.exactDisplay}.`,
             ];
           }
-          ''',
-              "successive explanation nouns",
+
+          '''
+          text = replace_region(
+              text,
+              "function successiveExplanation(",
+              "function conditionalExplanation(",
+              successive_block,
+              "successive explanations",
           )
-          replace_once(
-              remodeler,
-              '''  const simultaneousModes = [
-            "findSimultaneousSameTypeProbability", "findSimultaneousDifferentTypeProbability", "findExactCompositionProbability",
-            "findSelectionProbabilityUsingCombination", "findNoObjectOfTypeProbability", "findAtLeastOneObjectOfType",
-          ];
-          ''',
-              '''  if (mode === "findProbabilityFromSimpleFrequencyTable") {
+
+          insertion_marker = '''  const simultaneousModes = [
+          '''
+          direct_explanations = '''  if (mode === "findProbabilityFromSimpleFrequencyTable") {
             const red = numberValue(parameters, "red"), blue = numberValue(parameters, "blue"), green = numberValue(parameters, "green");
             const target = textValue(parameters, "target", "red");
             const context = frequencyContext(entry);
@@ -291,20 +206,18 @@ jobs:
             }
           }
 
-          const simultaneousModes = [
-            "findSimultaneousSameTypeProbability", "findSimultaneousDifferentTypeProbability", "findExactCompositionProbability",
-            "findSelectionProbabilityUsingCombination", "findNoObjectOfTypeProbability", "findAtLeastOneObjectOfType",
-          ];
-          ''',
-              "direct context explanations",
-          )
+          '''
+          if direct_explanations.strip() not in text:
+              if insertion_marker not in text:
+                  raise SystemExit("Could not insert direct context explanations")
+              text = text.replace(insertion_marker, direct_explanations + insertion_marker, 1)
+
+          remodeler.write_text(text)
 
           validator = root / "shared/validator.ts"
-          replace_once(
-              validator,
-              '''function hasGenericExplanation(explanation: string[]): boolean {
-          ''',
-              '''function hasStemExplanationContextAgreement(stem: string, explanation: string[]): boolean {
+          text = validator.read_text()
+          helper_marker = "function hasGenericExplanation(explanation: string[]): boolean {"
+          validator_helper = '''function hasStemExplanationContextAgreement(stem: string, explanation: string[]): boolean {
             const value = explanation.join(" ");
             const rules = [
               { stem: /\\bpens?\\b/i, explanation: /\\bpens?\\b/i },
@@ -315,52 +228,49 @@ jobs:
             return rules.every((rule) => !rule.stem.test(stem) || rule.explanation.test(value));
           }
 
-          function hasGenericExplanation(explanation: string[]): boolean {
-          ''',
-              "validator context helper",
-          )
-          replace_once(
-              validator,
-              '''  checks.push(check("contextual-explanation", !hasGenericExplanation(explanation), "The explanation states generic counts or uses unnatural instructional wording."));
-          ''',
-              '''  checks.push(check("contextual-explanation", !hasGenericExplanation(explanation), "The explanation states generic counts or uses unnatural instructional wording."));
-            checks.push(check("stem-explanation-context-agreement", hasStemExplanationContextAgreement(stem, explanation), "The explanation changes the object named in the question stem."));
-          ''',
-              "validator context check",
-          )
+          '''
+          if "function hasStemExplanationContextAgreement" not in text:
+              if helper_marker not in text:
+                  raise SystemExit("Could not insert validator context helper")
+              text = text.replace(helper_marker, validator_helper + helper_marker, 1)
+          check_marker = '  checks.push(check("contextual-explanation", !hasGenericExplanation(explanation), "The explanation states generic counts or uses unnatural instructional wording."));\n'
+          context_check = '  checks.push(check("stem-explanation-context-agreement", hasStemExplanationContextAgreement(stem, explanation), "The explanation changes the object named in the question stem."));\n'
+          if context_check not in text:
+              if check_marker not in text:
+                  raise SystemExit("Could not insert validator context check")
+              text = text.replace(check_marker, check_marker + context_check, 1)
+          validator.write_text(text)
 
           audit = root / "exam-depth-review-audit.py"
-          replace_once(
-              audit,
-              '''    banned = re.compile(r"\\b(tokens?|counters?|selected files?)\\b", re.I)
-            for row in rows:
-                if banned.search(row["stem"]):
-                    raise SystemExit(f"{row['qlId']}: artificial context remains in stem")
-          ''',
-              '''    banned = re.compile(r"\\b(tokens?|counters?|selected files?)\\b", re.I)
-            context_rules = [
-                (re.compile(r"\\bpens?\\b", re.I), re.compile(r"\\bpens?\\b", re.I), "pen"),
-                (re.compile(r"\\bmarbles?\\b", re.I), re.compile(r"\\bmarbles?\\b", re.I), "marble"),
-                (re.compile(r"\\bcoloured stones?\\b", re.I), re.compile(r"\\bstones?\\b", re.I), "stone"),
-                (re.compile(r"\\bballs?\\b", re.I), re.compile(r"\\bballs?\\b", re.I), "ball"),
-            ]
-            for row in rows:
-                if banned.search(row["stem"]):
-                    raise SystemExit(f"{row['qlId']}: artificial context remains in stem")
-                for stem_pattern, explanation_pattern, label in context_rules:
-                    if stem_pattern.search(row["stem"]) and not explanation_pattern.search(row["explanation"]):
-                        raise SystemExit(f"{row['qlId']}: {label} context is missing from the explanation")
-          ''',
-              "audit context agreement",
-          )
+          text = audit.read_text()
+          audit_marker = "    explanation_lengths = [len(row[\"explanation\"].split()) for row in rows]\n"
+          audit_block = '''    context_rules = [
+              (re.compile(r"\\bpens?\\b", re.I), re.compile(r"\\bpens?\\b", re.I), "pen"),
+              (re.compile(r"\\bmarbles?\\b", re.I), re.compile(r"\\bmarbles?\\b", re.I), "marble"),
+              (re.compile(r"\\bcoloured stones?\\b", re.I), re.compile(r"\\bstones?\\b", re.I), "stone"),
+              (re.compile(r"\\bballs?\\b", re.I), re.compile(r"\\bballs?\\b", re.I), "ball"),
+          ]
+          for row in rows:
+              for stem_pattern, explanation_pattern, label in context_rules:
+                  if stem_pattern.search(row["stem"]) and not explanation_pattern.search(row["explanation"]):
+                      raise SystemExit(f"{row['qlId']}: {label} context is missing from the explanation")
+
+          '''
+          if "context is missing from the explanation" not in text:
+              if audit_marker not in text:
+                  raise SystemExit("Could not insert audit context agreement")
+              text = text.replace(audit_marker, audit_block + audit_marker, 1)
+          audit.write_text(text)
 
           generator = root / "generate-exam-review.ts"
-          replace_once(
-              generator,
-              '''Explanations follow a deliberately simple pattern:\\n\\n1. Identify the total cases.\\n2. Count the required cases.\\n3. Divide and simplify.\\n\\nFor complement, conditional, successive-draw and event-algebra questions, only the shortest necessary method is shown. Internal QA terminology is never displayed to students.''',
-              '''Explanations follow an exam-depth pattern:\\n\\n1. State why the selected method applies.\\n2. Identify the complete or restricted sample space.\\n3. Count the required cases, showing concrete outcomes when the set is small.\\n4. Form and simplify the final probability.\\n\\nCombination questions explain what is being chosen; replacement, order, overlap and conditional restrictions are stated explicitly. The object named in the stem remains the same throughout the explanation. Internal QA terminology is never displayed to students.''',
-              "report explanation standard",
-          )
+          text = generator.read_text()
+          old = "Explanations follow a deliberately simple pattern:\\n\\n1. Identify the total cases.\\n2. Count the required cases.\\n3. Divide and simplify.\\n\\nFor complement, conditional, successive-draw and event-algebra questions, only the shortest necessary method is shown. Internal QA terminology is never displayed to students."
+          new = "Explanations follow an exam-depth pattern:\\n\\n1. State why the selected method applies.\\n2. Identify the complete or restricted sample space.\\n3. Count the required cases, showing concrete outcomes when the set is small.\\n4. Form and simplify the final probability.\\n\\nCombination questions explain what is being chosen; replacement, order, overlap and conditional restrictions are stated explicitly. The object named in the stem remains the same throughout the explanation. Internal QA terminology is never displayed to students."
+          if new not in text:
+              if old not in text:
+                  raise SystemExit("Could not update report standard")
+              text = text.replace(old, new, 1)
+          generator.write_text(text)
           PY
 
       - name: Probability TypeScript integration
@@ -375,17 +285,12 @@ jobs:
           --skipLibCheck
           artifacts/api-server/src/quant-v4/topics/Probability/exam-readiness.test.ts
 
-      - name: PRB-001 deterministic package proof
-        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/package.test.ts
-
-      - name: PRB-002 deterministic package proof
-        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/package.test.ts
-
-      - name: SSC and banking editorial readiness proof
-        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/exam-readiness.test.ts
-
-      - name: Question Studio exam-profile smoke
-        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/question-studio-profile.test.ts
+      - name: Complete Probability proof
+        run: |
+          npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/package.test.ts
+          npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/package.test.ts
+          npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/exam-readiness.test.ts
+          npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/question-studio-profile.test.ts
 
       - name: Regenerate and audit review evidence
         run: |
