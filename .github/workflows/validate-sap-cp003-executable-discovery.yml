@@ -39,18 +39,57 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle authority
+      - name: Bundle structural authority
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-003/authority.test.ts
           --bundle --platform=node --format=esm
-          --outfile=dist/quant-v4/sap-cp003-executable-discovery-authority.test.mjs
+          --outfile=dist/quant-v4/sap-cp003-structural-remediation-v2-authority.test.mjs
 
-      - name: Run authority
+      - name: Run structural authority
         shell: bash
         run: |
           set -o pipefail
-          node artifacts/api-server/dist/quant-v4/sap-cp003-executable-discovery-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp003-executable-discovery-authority.log
+          node artifacts/api-server/dist/quant-v4/sap-cp003-structural-remediation-v2-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp003-structural-remediation-v2-authority.log
+
+      - name: Bundle presentation authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-003/SAP-CP-003-STRUCTURAL-V2-PRESENTATION-AUTHORITY.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp003-structural-v2-presentation-authority.test.mjs
+
+      - name: Run presentation authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/sap-cp003-structural-v2-presentation-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp003-structural-v2-presentation-authority.log
+
+      - name: Bundle editorial V3 authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-003/SAP-CP-003-EDITORIAL-V3-AUTHORITY.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp003-editorial-v3-authority.test.mjs
+
+      - name: Run editorial V3 authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/sap-cp003-editorial-v3-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp003-editorial-v3-authority.log
+
+      - name: Bundle distractor plausibility authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-003/SAP-CP-003-DISTRACTOR-PLAUSIBILITY-V3-AUTHORITY.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp003-distractor-plausibility-v3-authority.test.mjs
+
+      - name: Run distractor plausibility authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/sap-cp003-distractor-plausibility-v3-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/sap-cp003-distractor-plausibility-v3-authority.log
 
       - name: Bundle compact review exporter
         run: >-
@@ -59,18 +98,47 @@ jobs:
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/sap-cp003-compact-review.mjs
 
-      - name: Generate compact 300-question review
+      - name: Generate compact 300-question review V3
         run: >-
           node artifacts/api-server/dist/quant-v4/sap-cp003-compact-review.mjs
-          artifacts/api-server/dist/quant-v4/SAP-CP-003-300-QUESTIONS-AND-ANSWERS.md
+          artifacts/api-server/dist/quant-v4/SAP-CP-003-300-QUESTIONS-AND-ANSWERS-V3.md
+
+      - name: Bundle full editorial review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-003/generate-editorial-review-v3-markdown.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp003-full-editorial-review-v3.mjs
+
+      - name: Generate full 300-question editorial review V3
+        run: >-
+          node artifacts/api-server/dist/quant-v4/sap-cp003-full-editorial-review-v3.mjs
+          artifacts/api-server/dist/quant-v4/SAP-CP-003-300-FULL-EDITORIAL-REVIEW-V3.md
+
+      - name: Bundle structural review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-003/generate-structural-review-markdown.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/sap-cp003-structural-review.mjs
+
+      - name: Generate structural review
+        run: >-
+          node artifacts/api-server/dist/quant-v4/sap-cp003-structural-review.mjs
+          artifacts/api-server/dist/quant-v4/SAP-CP-003-300-STRUCTURAL-REVIEW-V3.md
 
       - name: Upload evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: sap-cp003-executable-discovery-review
+          name: sap-cp003-editorial-remediation-v3-review
           path: |
-            artifacts/api-server/dist/quant-v4/sap-cp003-executable-discovery-authority.log
-            artifacts/api-server/dist/quant-v4/SAP-CP-003-300-QUESTIONS-AND-ANSWERS.md
+            artifacts/api-server/dist/quant-v4/sap-cp003-structural-remediation-v2-authority.log
+            artifacts/api-server/dist/quant-v4/sap-cp003-structural-v2-presentation-authority.log
+            artifacts/api-server/dist/quant-v4/sap-cp003-editorial-v3-authority.log
+            artifacts/api-server/dist/quant-v4/sap-cp003-distractor-plausibility-v3-authority.log
+            artifacts/api-server/dist/quant-v4/SAP-CP-003-300-QUESTIONS-AND-ANSWERS-V3.md
+            artifacts/api-server/dist/quant-v4/SAP-CP-003-300-FULL-EDITORIAL-REVIEW-V3.md
+            artifacts/api-server/dist/quant-v4/SAP-CP-003-300-STRUCTURAL-REVIEW-V3.md
           if-no-files-found: error
           retention-days: 30
