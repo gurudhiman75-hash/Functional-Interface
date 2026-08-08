@@ -77,7 +77,6 @@ function requiredFacts(
         moneyText(completeAmountForState(state)),
         percentText(state.nominalAnnualRatePercent),
         cp004YearsText(locale, state.years),
-        ...([1, 2, 4, 12] as const).map((frequency) => cp004FrequencyLabel(locale, frequency)),
       ];
     default:
       throw new Error(`${source.qlId}: unsupported Wave 2 fact audit.`);
@@ -91,6 +90,7 @@ let factChecks = 0;
 let answerLeakChecks = 0;
 let representationChecks = 0;
 let englishFallbackChecks = 0;
+let frequencyChoiceChecks = 0;
 const representationByLocale: Record<string, Set<string>> = {};
 const qlCounts: Record<string, number> = {};
 
@@ -114,6 +114,14 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
       factChecks += 1;
       for (const fact of requiredFacts(source, locale)) {
         if (!stem.includes(fact)) fail(`${qlId}/${seed}/${locale}: required fact '${fact}' is missing.`);
+      }
+
+      if (qlId === "INT-QL-078" && source.representation === "STANDARD_PROSE") {
+        for (const frequency of [1, 2, 4, 12] as const) {
+          frequencyChoiceChecks += 1;
+          const label = cp004FrequencyLabel(locale, frequency);
+          if (!stem.includes(label)) fail(`${qlId}/${seed}/${locale}: prose choice '${label}' is missing.`);
+        }
       }
 
       answerLeakChecks += 1;
@@ -143,6 +151,7 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
 }
 
 if (cases !== 1200) fail(`Expected 1,200 bilingual Wave 2 cases, received ${cases}.`);
+if (frequencyChoiceChecks === 0) fail("Wave 2 did not audit any prose frequency-choice list.");
 for (const [key, count] of Object.entries(qlCounts)) {
   if (count !== 100) fail(`${key}: expected 100 cases, received ${count}.`);
 }
@@ -166,6 +175,7 @@ const summary = {
   answerLeakChecks,
   representationChecks,
   englishFallbackChecks,
+  frequencyChoiceChecks,
   representationCoverage: Object.fromEntries(
     INT_CP004_LOCALIZED_LOCALES.map((locale) => [locale, representationByLocale[locale]!.size]),
   ),
