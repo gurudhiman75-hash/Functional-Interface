@@ -65,7 +65,8 @@ export interface SapPermanentQlRegistryEntry {
   readonly englishStatus:
     | "ENGLISH_MANUAL_FREEZE_APPROVED"
     | "QUESTION_AND_ANSWER_REVIEW_APPROVED_EXPLANATION_FREEZE_PENDING"
-    | "QUESTION_AND_ANSWER_REVIEW_REOPENED_STRUCTURAL_REMEDIATION_V2";
+    | "QUESTION_AND_ANSWER_REVIEW_REOPENED_STRUCTURAL_REMEDIATION_V2"
+    | "QUESTION_AND_EXPLANATION_REVIEW_REOPENED_EDITORIAL_REMEDIATION_V3";
   readonly allocationApproval:
     | "PRODUCT_OWNER_APPROVED_2026_08_03"
     | "PRODUCT_OWNER_DIRECTED_CP002_COMPLETION_2026_08_04"
@@ -131,7 +132,7 @@ const cp003Entries: readonly SapPermanentQlRegistryEntry[] = SAP_CP003_PROTOTYPE
   representations: authority.representations,
   prototypeAncestry: Object.freeze([authority.prototypeId]),
   allocationStatus: "PERMANENT_ID_ALLOCATED_INACTIVE" as const,
-  englishStatus: "QUESTION_AND_ANSWER_REVIEW_REOPENED_STRUCTURAL_REMEDIATION_V2" as const,
+  englishStatus: "QUESTION_AND_EXPLANATION_REVIEW_REOPENED_EDITORIAL_REMEDIATION_V3" as const,
   allocationApproval: "PRODUCT_OWNER_APPROVED_CP003_QA_2026_08_07" as const,
   active: false as const,
   questionStudioDiscoverable: false as const,
