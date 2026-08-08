@@ -67,7 +67,9 @@ function localizeQl068ComparisonAnalysis(
   analysis: string,
   locale: NumCp005TranslatedLocale,
 ): string {
-  const match = analysis.match(/^A has (.+?); B has (.+?); (.+)$/u);
+  const match = analysis.match(
+    /A has (.+?); B has (.+?); (Number A has more\.|Number B has more\.|Both numbers have the same value\.|Cannot determine\.)/u,
+  );
   if (!match) {
     throw new Error(`NUM-QL-068 comparison analysis format changed: ${analysis}`);
   }
@@ -90,9 +92,11 @@ function localizeQl068ComparisonAnalysis(
     throw new Error(`NUM-QL-068 comparison outcome format changed: ${outcome}`);
   }
 
-  return hi
+  const translatedComparison = hi
     ? `A का मान ${valueA} है; B का मान ${valueB} है; ${outcomeText}`
     : `A ਦਾ ਮੁੱਲ ${valueA} ਹੈ; B ਦਾ ਮੁੱਲ ${valueB} ਹੈ; ${outcomeText}`;
+
+  return analysis.replace(match[0], translatedComparison);
 }
 
 function localizeQl068OptionAnalyses(
