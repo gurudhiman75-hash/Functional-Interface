@@ -52,11 +52,36 @@ function renderAnswer(question: RnkCp005DiscoveryQuestion, number: number): stri
   ];
 }
 
+function selectReviewQuestions(
+  prototypeId: RnkCp005EditorialCandidateId,
+): readonly RnkCp005DiscoveryQuestion[] {
+  const pool = Array.from({ length: 80 }, (_, ordinal) =>
+    generateRnkCp005EditorialCandidate(prototypeId, ordinal),
+  );
+  const selected: RnkCp005DiscoveryQuestion[] = [];
+  const usedContexts = new Set<string>();
+
+  for (let desiredIndex = 0; desiredIndex < 4; desiredIndex += 1) {
+    const positionCandidates = pool.filter(
+      (question) =>
+        question.correctIndex === desiredIndex &&
+        !selected.some((selectedQuestion) => selectedQuestion.seed === question.seed),
+    );
+    const candidate =
+      positionCandidates.find((question) => !usedContexts.has(question.context)) ??
+      positionCandidates[0];
+    if (!candidate) {
+      throw new Error(`${prototypeId}: no review candidate for option ${desiredIndex}`);
+    }
+    selected.push(candidate);
+    usedContexts.add(candidate.context);
+  }
+
+  return selected;
+}
+
 const questions = RNK_CP005_EDITORIAL_CANDIDATE_IDS.flatMap(
-  (prototypeId: RnkCp005EditorialCandidateId) =>
-    Array.from({ length: 4 }, (_, ordinal) =>
-      generateRnkCp005EditorialCandidate(prototypeId, ordinal),
-    ),
+  (prototypeId: RnkCp005EditorialCandidateId) => selectReviewQuestions(prototypeId),
 );
 
 const output: string[] = [
@@ -75,7 +100,8 @@ const output: string[] = [
   "- definite-rank answers copied from a fixed-rank clue;",
   "- Seating Arrangement vocabulary or geometry;",
   "- long permutation counts in learner explanations;",
-  "- verbose repeated prefixes inside relation options.",
+  "- verbose repeated prefixes inside relation options;",
+  "- review samples concentrated in only one ranking context.",
   "",
   "### Human review focus",
   "",
@@ -130,6 +156,22 @@ console.log(
         RNK_CP005_EDITORIAL_CANDIDATE_IDS.map((prototypeId) => [
           prototypeId,
           questions.filter((question) => question.prototypeId === prototypeId).length,
+        ]),
+      ),
+      contexts: Object.fromEntries(
+        [...new Set(questions.map((question) => question.context))].map((context) => [
+          context,
+          questions.filter((question) => question.context === context).length,
+        ]),
+      ),
+      distinctContextsPerFamily: Object.fromEntries(
+        RNK_CP005_EDITORIAL_CANDIDATE_IDS.map((prototypeId) => [
+          prototypeId,
+          new Set(
+            questions
+              .filter((question) => question.prototypeId === prototypeId)
+              .map((question) => question.context),
+          ).size,
         ]),
       ),
       rejectedFamilies: RNK_CP005_REJECTED_DISCOVERY_IDS,
