@@ -8,9 +8,14 @@ Executable discovery implementation of the Calendar master design for Reasoning 
 foundation.ts                 Gregorian, odd-day, span, repetition, frequency and PRNG engines
 registry.ts                   44 provisional prototype authorities across CAL-CP-001…010
 runtime-shared.ts             semantic rendering, options, explanations and difficulty helpers
-runtime-cp001-003.ts          checkpoint generators for basic/date/leap-boundary authorities
-runtime-cp004-007.ts          absolute-date, cross-year, leap and century generators
-runtime-cp008-010.ts          repetition, boundary and weekday-frequency generators
+runtime-cp001.ts              basic weekday-shift authorities
+runtime-cp002.ts              ordinary date-relation authorities
+runtime-cp003.ts              leap-boundary and count-semantics authorities
+runtime-cp004-005.ts          absolute-date and cross-year authorities
+runtime-cp006-007.ts          leap-classification and century authorities
+runtime-cp008.ts              calendar-repetition authorities
+runtime-cp009.ts              month/year boundary authorities
+runtime-cp010.ts              weekday-frequency authorities
 runtime.ts                    deterministic package orchestration and lifecycle closure
 verifier.ts                   package-level independent recomputation and lifecycle checks
 foundation-proof.test.ts      exhaustive 1600–2399 and 1,000-seed-per-prototype proof
