@@ -1,0 +1,91 @@
+name: Reasoning BLR-001 CP-007 Hindi Punjabi Localisation
+
+on:
+  push:
+    branches:
+      - localize/blr-001-cp007-hi-pa-v1
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
+      - ".github/workflows/reasoning-blr-001-cp007-hi-pa-localisation.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
+      - ".github/workflows/reasoning-blr-001-cp007-hi-pa-localisation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blr-001-cp007-hi-pa-localisation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-localisation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prove frozen English authority
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-english-frozen.test.ts | tee english-freeze.log
+
+      - name: Prove Hindi and Punjabi executable parity
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-multilingual-localisation.test.ts | tee multilingual-parity.log
+
+      - name: Export Hindi and Punjabi review pack
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-cp007-multilingual-localisation-review.ts blr-cp007-hi-pa-localisation-output | tee localisation-export.log
+
+      - name: Verify review-pack contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=blr-cp007-hi-pa-localisation-output
+          test -f "$OUT/blr-cp007-hi-pa-localisation-summary.json"
+          test -f "$OUT/blr-cp007-hi-pa-localised-bank.json"
+          test -f "$OUT/BLR-CP-007-HINDI-PUNJABI-LOCALISATION-REVIEW.md"
+          test -f "$OUT/blr-cp007-hi-pa-localisation-review.html"
+          grep -q '"englishCount": 168' "$OUT/blr-cp007-hi-pa-localisation-summary.json"
+          grep -q '"hindiCount": 168' "$OUT/blr-cp007-hi-pa-localisation-summary.json"
+          grep -q '"punjabiCount": 168' "$OUT/blr-cp007-hi-pa-localisation-summary.json"
+          grep -q '"localizedQuestionCount": 336' "$OUT/blr-cp007-hi-pa-localisation-summary.json"
+          grep -q '"targetRelationCount": 27' "$OUT/blr-cp007-hi-pa-localisation-summary.json"
+          grep -q '"hindiSemanticParity": true' "$OUT/blr-cp007-hi-pa-localisation-summary.json"
+          grep -q '"punjabiSemanticParity": true' "$OUT/blr-cp007-hi-pa-localisation-summary.json"
+          grep -q '"codeParityMismatchCount": 0' "$OUT/blr-cp007-hi-pa-localisation-summary.json"
+          grep -q '"hindiScriptCompleteCount": 168' "$OUT/blr-cp007-hi-pa-localisation-summary.json"
+          grep -q '"punjabiScriptCompleteCount": 168' "$OUT/blr-cp007-hi-pa-localisation-summary.json"
+          grep -q '"placeholderCount": 0' "$OUT/blr-cp007-hi-pa-localisation-summary.json"
+          grep -q '"humanReviewPendingCount": 336' "$OUT/blr-cp007-hi-pa-localisation-summary.json"
+          grep -q '"productDeliveryEnabledCount": 0' "$OUT/blr-cp007-hi-pa-localisation-summary.json"
+          grep -q '"verdict": "BLR_CP007_HI_PA_EXECUTABLE_PARITY_PROVED__HUMAN_LANGUAGE_REVIEW_REQUIRED"' "$OUT/blr-cp007-hi-pa-localisation-summary.json"
+          grep -q '@media(max-width:1100px)' "$OUT/blr-cp007-hi-pa-localisation-review.html"
+
+      - name: Upload localisation logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-hi-pa-localisation-logs
+          path: |
+            english-freeze.log
+            multilingual-parity.log
+            localisation-export.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload Hindi and Punjabi review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-hi-pa-localisation-review
+          path: blr-cp007-hi-pa-localisation-output
+          if-no-files-found: error
+          retention-days: 30
