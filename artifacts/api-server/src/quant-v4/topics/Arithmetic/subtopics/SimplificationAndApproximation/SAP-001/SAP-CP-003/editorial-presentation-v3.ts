@@ -34,6 +34,17 @@ function addInverseVerification(pkg: SapCp003Package): SapCp003Package {
   });
 }
 
+function bindFinalAnswer(pkg: SapCp003Package): SapCp003Package {
+  if (pkg.explanation.finalAnswer.includes(pkg.canonicalAnswer)) return pkg;
+  return Object.freeze({
+    ...pkg,
+    explanation: Object.freeze({
+      ...pkg.explanation,
+      finalAnswer: ensureSentence(`Therefore, the correct answer is ${pkg.canonicalAnswer}`),
+    }),
+  });
+}
+
 export function applySapCp003EditorialPresentationV3(pkg: SapCp003Package): SapCp003Package {
-  return addInverseVerification(makeRecurringConversionExplicit(pkg));
+  return bindFinalAnswer(addInverseVerification(makeRecurringConversionExplicit(pkg)));
 }
