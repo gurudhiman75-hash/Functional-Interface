@@ -45,6 +45,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild
           src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp011-foundation/shell-technical-clean-debug.ts
           --bundle --packages=external --platform=node --format=esm
+          --alias:./spherical-shells=./spherical-shells-canonical.ts
           --outfile=dist/quant-v4/men-cp011-shell-technical-clean-debug.mjs
 
       - name: Run shell technical-clean diagnostics
@@ -55,6 +56,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild
           src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp011-foundation/chapter-wide-current-audit.ts
           --bundle --packages=external --platform=node --format=esm
+          --alias:./spherical-shells=./spherical-shells-canonical.ts
           --outfile=dist/quant-v4/men-cp011-chapter-wide-english-audit.mjs
 
       - name: Run current chapter-wide audit V2
