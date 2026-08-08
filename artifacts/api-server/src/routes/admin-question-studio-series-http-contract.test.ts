@@ -18,16 +18,18 @@ const [
 const app = express();
 app.use(express.json());
 
-// Mount the domain dispatcher first so the test can prove that a non-Series
-// request leaves the Series POST /runs route before authentication or storage.
-// The protected bulk and dashboard routers remain mounted and are exercised
-// below through real HTTP requests.
+// Mount the domain dispatcher first and its sentinel Quant fallback directly
+// after it. This isolates the Series POST /runs dispatch contract from the
+// shared routers' independent authentication middleware.
 app.use("/admin/question-studio", seriesRouter);
-app.use("/admin/question-studio", bulkRouter);
-app.use("/admin/question-studio", dashboardRouter);
 app.post("/admin/question-studio/runs", (_req, res) => {
   res.status(418).json({ generationSystem: "legacy-quant-fallback" });
 });
+
+// These routers remain mounted and are exercised below through their real HTTP
+// authentication boundaries.
+app.use("/admin/question-studio", bulkRouter);
+app.use("/admin/question-studio", dashboardRouter);
 
 const server = app.listen(0, "127.0.0.1");
 await new Promise<void>((resolve, reject) => {
