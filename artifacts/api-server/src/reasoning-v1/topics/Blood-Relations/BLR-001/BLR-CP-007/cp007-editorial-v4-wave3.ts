@@ -27,7 +27,7 @@ import {
   statementText,
   targetSentence,
   type Target,
-} from "./cp007-editorial-v4-wave3-core";
+} from "./cp007-editorial-v4-wave3-safe-core";
 import { remodelQl034 } from "./cp007-editorial-v4-wave3-ql034";
 
 export const BLR_CP007_V4_WAVE3_SELF_REVIEW_AUTHORITY =
