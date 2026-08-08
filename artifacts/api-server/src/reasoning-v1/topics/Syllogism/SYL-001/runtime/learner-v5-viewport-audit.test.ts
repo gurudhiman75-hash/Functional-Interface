@@ -40,7 +40,7 @@ for (const definition of SYL_QL_REGISTRY) {
       const diagramSvg = presentation.diagram.svg ?? "";
       records += 1;
 
-      assert.equal(presentation.remediationEvidence.humanViewportStatus, "PENDING");
+      assert.equal(presentation.remediationEvidence.humanViewportStatus, "APPROVED");
       assert.ok(question.stem.trim().length > 0);
       assert.ok(question.options.length >= 3 && question.options.length <= 5);
       assert.equal(new Set(question.options.map((option) => option.text)).size, question.options.length);
@@ -123,5 +123,5 @@ console.log(JSON.stringify({
     responsiveSvg: true,
     readableDiagramWidth: 340,
   },
-  humanViewportStatus: "PENDING_AFTER_DIAGRAM_REDESIGN",
+  humanViewportStatus: "APPROVED_BY_PRODUCT_OWNER",
 }, null, 2));
