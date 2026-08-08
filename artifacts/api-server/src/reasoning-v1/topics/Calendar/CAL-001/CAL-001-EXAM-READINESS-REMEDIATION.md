@@ -30,7 +30,8 @@ This remediation responds to the CP-wise and provisional-QL-wise editorial revie
 
 5. **CAL-PQL-026 century-block coverage**
    - The deterministic review cycle covers 100, 200, 300, 400, and 700 years.
-   - This proves the 100→5, 200→3, 300→1, 400→0 rule and one composite case.
+   - Wider seeds retain at least 12 distinct century-block mathematical states for generator-diversity proof.
+   - This proves the 100→5, 200→3, 300→1, 400→0 rule and composite cases.
 
 6. **Ordinary checkpoint boundary safety**
    - CAL-PQL-007 rejects scenarios crossing 29 February.
@@ -46,7 +47,8 @@ This remediation responds to the CP-wise and provisional-QL-wise editorial revie
 
 9. **Authority-specific review selection**
    - Every provisional QL is sampled from a 256-seed candidate pool.
-   - Five questions are selected with unique stems and mathematical fingerprints, at least three correct-answer positions, and difficulty/template variation.
+   - Five questions are selected with unique rendered questions and mathematical fingerprints, at least three correct-answer positions, and difficulty/template variation.
+   - Generic stem templates may repeat only when the instantiated facts and displayed options form a different review question.
    - Mandatory review coverage includes:
      - inclusive and exclusive counts;
      - leap-day present and absent outcomes;
