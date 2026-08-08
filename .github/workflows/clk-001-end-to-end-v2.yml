@@ -1,0 +1,95 @@
+name: Validate CLK-001 end-to-end open discovery V2
+
+on:
+  pull_request:
+    branches:
+      - feat/clk-001-foundation-exact-kinematics
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/foundation/temporal/**
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/clock.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Clocks/CLK-001/**
+      - artifacts/api-server/src/reasoning-v1/CLK-001-FAMILY-F-MANIFEST-AMENDMENT.md
+      - artifacts/api-server/src/reasoning-v1/tests/clock-end-to-end-v2.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/clock-foundation.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-foundation.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-mirror-water-proof.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-glyph-digit-clock-proof.test.ts
+      - .github/workflows/clk-001-end-to-end-v2.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: clk-e2e-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-clock-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle Clock V2 and regression proofs
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/clock-v2
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/clock-end-to-end-v2.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/clock-v2/clock-end-to-end-v2.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/clock-foundation.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/clock-v2/clock-foundation.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-foundation.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-foundation.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-mirror-water-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-mirror-water-proof.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-glyph-digit-clock-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-glyph-digit-clock-proof.test.mjs
+      - name: Run exact clock foundation regression
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/clock-v2/clock-foundation.test.mjs
+      - name: Run CLK-001 end-to-end V2 proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/clock-v2/clock-end-to-end-v2.test.mjs
+      - name: Run spatial foundation regression
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-foundation.test.mjs
+      - name: Run Mirror and Water regression
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-mirror-water-proof.test.mjs
+      - name: Run clock renderer regression corpus
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-glyph-digit-clock-proof.test.mjs
+      - name: Upload CLK-001 V2 proof and review artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: clk-001-end-to-end-v2-proof-and-review
+          path: artifacts/api-server/dist/reasoning-v1/clock-v2/**
+          if-no-files-found: error

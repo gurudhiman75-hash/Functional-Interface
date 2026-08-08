@@ -1,8 +1,5 @@
 import { CLOCK_DESIGN_AUTHORITY, CLOCK_TASK_CATALOG, checkpointForClockTask, type ClockTaskId } from "./catalog";
-import { solveEventPrototype } from "./families/events";
-import { solveFaultyClockFamily } from "./families/faulty";
-import { solveInterchangeMixedFamily } from "./families/interchange-mixed";
-import { solveMirrorDiagramFamily } from "./families/mirror-diagram";
+import { solveRemainingPrototype } from "./families/remaining";
 import { solveMotionOrAnglePrototype } from "./families/motion-angle";
 import { solveStrikeFamily } from "./families/strikes";
 import type { SolvedClockPrototype } from "./solver-types";
@@ -29,11 +26,8 @@ function solvePrototype(input: {
   const familyInput = input;
   const solved =
     solveMotionOrAnglePrototype(familyInput) ??
-    solveEventPrototype(familyInput) ??
-    solveFaultyClockFamily(familyInput) ??
     solveStrikeFamily(familyInput) ??
-    solveMirrorDiagramFamily(familyInput) ??
-    solveInterchangeMixedFamily(familyInput);
+    solveRemainingPrototype(familyInput);
   if (!solved) {
     throw new Error(`No CLK-001 solver owns task ${input.taskId}.`);
   }
