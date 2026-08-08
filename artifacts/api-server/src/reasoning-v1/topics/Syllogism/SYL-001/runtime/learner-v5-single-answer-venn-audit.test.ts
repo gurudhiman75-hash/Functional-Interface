@@ -1,10 +1,13 @@
 import assert from "node:assert/strict";
 import type {
+  CanonicalConclusion,
   SurfacePremise,
   SylLocale,
   TermId,
 } from "../foundation/types";
 import { generateSylQuestionV5 } from "./generator-v5";
+import { resolveModelTargetV5 } from "./learner-v5-model-target-remediation";
+import type { SylLearnerExplanationModeV5 } from "./learner-v5-types";
 import { SYL_QL_REGISTRY } from "./ql-registry";
 
 interface Shape {
@@ -16,6 +19,12 @@ interface Shape {
 interface Authority {
   subset: ReadonlySet<string>;
   disjoint: ReadonlySet<string>;
+}
+
+interface AuthorityRelation {
+  form: "ALL" | "NO" | "SOME" | "SOME_NOT";
+  subject: TermId;
+  predicate: TermId;
 }
 
 const locales: readonly SylLocale[] = ["en-IN", "hi-IN", "pa-IN"];
@@ -58,8 +67,39 @@ function properOverlap(left: Shape, right: Shape): boolean {
   return overlaps(left, right) && !contains(left, right) && !contains(right, left);
 }
 
+function targetRelation(
+  conclusion: CanonicalConclusion,
+  mode: SylLearnerExplanationModeV5,
+): AuthorityRelation {
+  const negate = mode === "COUNTEREXAMPLE" || mode === "DIRECT_CONTRADICTION";
+  if (!negate) return conclusion;
+  switch (conclusion.form) {
+    case "ALL":
+      return { form: "SOME_NOT", subject: conclusion.subject, predicate: conclusion.predicate };
+    case "NO":
+      return { form: "SOME", subject: conclusion.subject, predicate: conclusion.predicate };
+    case "SOME":
+      return { form: "NO", subject: conclusion.subject, predicate: conclusion.predicate };
+    case "SOME_NOT":
+      return { form: "ALL", subject: conclusion.subject, predicate: conclusion.predicate };
+  }
+}
+
+function usesTargetAuthority(mode: SylLearnerExplanationModeV5): boolean {
+  return new Set([
+    "DIRECT_CHAIN",
+    "WITNESS_TRANSFER",
+    "DIRECT_CONTRADICTION",
+    "COUNTEREXAMPLE",
+    "POSSIBILITY_MODEL",
+    "POSSIBLE_NOT_DEFINITE",
+    "DUAL_MODEL",
+  ]).has(mode);
+}
+
 function buildAuthority(
   premises: readonly SurfacePremise[],
+  target: AuthorityRelation | null,
   terms: readonly TermId[],
 ): Authority {
   const subset = new Set<string>();
@@ -77,6 +117,8 @@ function buildAuthority(
       disjointPairs.add(pairKey(premise.subject, premise.predicate));
     }
   }
+  if (target?.form === "ALL") subset.add(relationKey(target.subject, target.predicate));
+  if (target?.form === "NO") disjointPairs.add(pairKey(target.subject, target.predicate));
 
   let changed = true;
   while (changed) {
@@ -172,8 +214,10 @@ function hasUnforcedStrongRelation(
   shapes: ReadonlyMap<TermId, Shape>,
   authority: Authority,
   premises: readonly SurfacePremise[],
+  target: AuthorityRelation | null,
 ): boolean {
   const mentionedPairs = new Set(premises.map((premise) => pairKey(premise.subject, premise.predicate)));
+  if (target) mentionedPairs.add(pairKey(target.subject, target.predicate));
   for (let left = 0; left < terms.length; left += 1) {
     for (let right = left + 1; right < terms.length; right += 1) {
       const a = terms[left];
@@ -223,7 +267,10 @@ for (const definition of SYL_QL_REGISTRY) {
         premise.subject,
         premise.predicate,
       ]))] as TermId[];
-      const authority = buildAuthority(question.structuredPrompt.premises, terms);
+      const target = usesTargetAuthority(presentation.learnerExplanation.mode)
+        ? targetRelation(resolveModelTargetV5(question).canonical, presentation.learnerExplanation.mode)
+        : null;
+      const authority = buildAuthority(question.structuredPrompt.premises, target, terms);
       records += 1;
 
       if (!presentation.diagram.enabled) {
@@ -274,6 +321,7 @@ for (const definition of SYL_QL_REGISTRY) {
         shapes,
         authority,
         question.structuredPrompt.premises,
+        target,
       );
       if (unforcedStrongRelation) strongerUnstatedRelations += 1;
       assert.equal(
