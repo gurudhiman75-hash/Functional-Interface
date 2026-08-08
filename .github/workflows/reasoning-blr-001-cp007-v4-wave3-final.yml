@@ -57,6 +57,12 @@ jobs:
           set -euo pipefail
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v4-wave3-final.test.ts 2>&1 | tee cp007-v4-wave3-final.log
 
+      - name: Reject QL-034 target-name shortcuts
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v4-wave3-no-target-shortcut.test.ts 2>&1 | tee cp007-v4-wave3-target-shortcut.log
+
       - name: Export final review pack
         shell: bash
         run: |
@@ -76,6 +82,7 @@ jobs:
           test "$(wc -l < "$OUT/blr-cp007-v4-wave3-final-records.jsonl")" -eq 168
           grep -q '"semanticAmbiguityCount": 0' "$OUT/blr-cp007-v4-wave3-final-summary.json"
           grep -q '"malformedLearnerExplanationCount": 0' "$OUT/blr-cp007-v4-wave3-final-summary.json"
+          grep -q '"ql034AnswerMentionedInTargetCount": 0' "$OUT/blr-cp007-v4-wave3-final-summary.json"
           grep -q '"ql032BlankMeaningMismatchCount": 0' "$OUT/blr-cp007-v4-wave3-final-summary.json"
           grep -q '"learnerTokenWordOccurrences": 0' "$OUT/blr-cp007-v4-wave3-final-summary.json"
           grep -q '"codePersonCollisionCount": 0' "$OUT/blr-cp007-v4-wave3-final-summary.json"
@@ -94,6 +101,7 @@ jobs:
             cp007-v3.log
             cp007-v4-wave3.log
             cp007-v4-wave3-final.log
+            cp007-v4-wave3-target-shortcut.log
             cp007-v4-wave3-final-export.log
           if-no-files-found: warn
           retention-days: 14
