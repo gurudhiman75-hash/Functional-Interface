@@ -7,10 +7,8 @@ import {
   serializeIntCp004LocalizedReviewPack,
   sha256Text,
 } from "./cp004-localized-review-pack";
-import {
-  INT_CP004_LOCALIZED_LOCALES,
-  type IntCp004LocalizedLocale,
-} from "./cp004-localization-language-pack";
+import { INT_CP004_LOCALIZED_LOCALES } from "./cp004-localization-language-pack";
+import type { IntCp004LocalizedLocale } from "./cp004-localization-types";
 
 const OUTPUT_DIRECTORY = join(
   process.cwd(),
