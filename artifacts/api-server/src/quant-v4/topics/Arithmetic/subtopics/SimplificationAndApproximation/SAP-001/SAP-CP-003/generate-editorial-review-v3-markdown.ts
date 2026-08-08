@@ -1,7 +1,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { SAP_CP003_EXAM_READINESS_POLICY } from "./exam-readiness-policy";
-import { sameDisplayedValue } from "./exact";
+import { parseNumericLiteral, sameDisplayedValue, subtract, type Rat } from "./exact";
 import { generateSapCp003Package } from "./editorial-runtime";
 import {
   SAP_CP003_PROTOTYPE_TO_PERMANENT_QL,
@@ -15,6 +15,28 @@ import {
 const TARGETS: Readonly<Record<SapCp003PrototypeId, number>> = Object.freeze(
   Object.fromEntries(SAP_CP003_PROTOTYPE_IDS.map((prototypeId, index) => [prototypeId, index < 15 ? 16 : 15])) as Record<SapCp003PrototypeId, number>,
 );
+
+const FAMILY_LABELS: Readonly<Record<SapCp003PrototypeId, string>> = Object.freeze({
+  "SAP-CP003-PROT-TERMINATING-DECIMAL-EXPRESSION": "terminating-decimal BODMAS",
+  "SAP-CP003-PROT-DECIMAL-FRACTION-MIXED-EXPRESSION": "mixed decimal–fraction evaluation",
+  "SAP-CP003-PROT-DECIMAL-PRODUCT-PLACE-VALUE": "decimal multiplication and place value",
+  "SAP-CP003-PROT-DECIMAL-DIVISION-POWER-OF-TEN": "power-of-ten decimal shift",
+  "SAP-CP003-PROT-DECIMAL-DIVISION-COMPATIBLE-FACTOR": "compatible decimal division",
+  "SAP-CP003-PROT-PERCENTAGE-AS-NUMERIC-FACTOR": "percentage-factor conversion",
+  "SAP-CP003-PROT-PERCENT-OF-QUANTITY-IN-EXPRESSION": "percentage-of scope control",
+  "SAP-CP003-PROT-MIXED-PERCENT-FRACTION-DECIMAL": "three-representation exact arithmetic",
+  "SAP-CP003-PROT-CONVERT-TERMS-TO-FRACTIONS": "fraction-target representation switching",
+  "SAP-CP003-PROT-CONVERT-TERMS-TO-DECIMALS": "decimal-target representation switching",
+  "SAP-CP003-PROT-KNOWN-FRACTION-DECIMAL-EQUIVALENCE": "benchmark fraction–decimal equivalence",
+  "SAP-CP003-PROT-RECURRING-DECIMAL-IN-EXPRESSION": "recurring-decimal exact conversion",
+  "SAP-CP003-PROT-COMPLEMENTARY-PERCENTAGE-EXPRESSION": "complementary-percentage reasoning",
+  "SAP-CP003-PROT-SUCCESSIVE-PERCENT-FACTORS": "successive percentage factors",
+  "SAP-CP003-PROT-MISSING-DECIMAL-OPERAND": "missing decimal inverse operation",
+  "SAP-CP003-PROT-MISSING-PERCENTAGE-LITERAL": "missing percentage reverse calculation",
+  "SAP-CP003-PROT-COMPARE-FRACTION-DECIMAL-PERCENT": "cross-representation comparison",
+  "SAP-CP003-PROT-SELECT-CORRECT-DECIMAL-PLACEMENT": "decimal-placement diagnosis",
+  "SAP-CP003-PROT-IDENTIFY-INCORRECT-CONVERSION-STEP": "first-error diagnosis",
+});
 
 function selectReviewPackages(): readonly SapCp003Package[] {
   const packages: SapCp003Package[] = [];
@@ -40,14 +62,29 @@ function selectReviewPackages(): readonly SapCp003Package[] {
   return Object.freeze(packages);
 }
 
+function representationCount(stem: string): number {
+  return [/%/, /\d+\/\d+/, /\d+\.\d+/, /recurring/i].filter((pattern) => pattern.test(stem)).length;
+}
+
 function difficultyRationale(pkg: SapCp003Package): string {
+  const family = FAMILY_LABELS[pkg.prototypeId];
+  const stepCount = pkg.explanation.steps.length;
+  const representations = representationCount(pkg.stem);
+  const bracketDemand = pkg.stem.includes("(") ? "one visible bracket/scope decision" : "no nested bracket";
+  const inverseOrDiagnosis = pkg.taskDirection === "INVERSE"
+    ? " The student must reverse the displayed operation and verify the recovered value."
+    : pkg.taskDirection === "DIAGNOSIS"
+      ? " The student must inspect equalities in order and stop at the first value-changing step."
+      : pkg.taskDirection === "COMPARISON"
+        ? " The student must decide whether the displayed bases permit a valid comparison."
+        : "";
   if (pkg.difficulty === "EASY") {
-    return "One familiar conversion or inverse operation is sufficient; the arithmetic is short and the main risk is a basic sign or place-value error.";
+    return `This ${family} item has ${stepCount} short solution step${stepCount === 1 ? "" : "s"}, ${bracketDemand}, and ${representations || 1} visible numeric representation type${representations === 1 ? "" : "s"}. The main risk is one familiar conversion, sign or place-value mistake.${inverseOrDiagnosis}`;
   }
   if (pkg.difficulty === "HARD") {
-    return "The item combines nested scope, several representations, a diagnostic decision or a multi-stage reverse calculation; at least three deliberate decisions are required.";
+    return `This ${family} item requires ${stepCount} linked solution steps, ${bracketDemand}, and ${representations || 1} representation type${representations === 1 ? "" : "s"}. Multiple scope/conversion decisions must remain exact under timed conditions.${inverseOrDiagnosis}`;
   }
-  return "The item requires a representation switch or two linked operations, but the numbers remain compatible enough for an SSC-level timed solution.";
+  return `This ${family} item requires ${stepCount} linked solution steps, ${bracketDemand}, and ${representations || 1} representation type${representations === 1 ? "" : "s"}. The numbers remain compatible, but at least two deliberate operations or conversions are required.${inverseOrDiagnosis}`;
 }
 
 function editorialDecision(pkg: SapCp003Package): string {
@@ -69,6 +106,17 @@ function examLikeness(pkg: SapCp003Package): string {
   return "Suitable as a candidate for SSC and banking-prelims simplification practice, subject to final human review of wording and local option realism.";
 }
 
+function numeric(value: Rat): number {
+  return Number(value.n) / Number(value.d);
+}
+
+function isCrediblyClose(correct: Rat, option: Rat): boolean {
+  const correctNumber = numeric(correct);
+  const difference = Math.abs(numeric(subtract(option, correct)));
+  const allowance = Math.max(Math.abs(correctNumber) * 0.5, Math.abs(correctNumber) < 1 ? 0.1 : 0.5);
+  return difference <= allowance;
+}
+
 function optionQuality(pkg: SapCp003Package): string {
   const wrongs = pkg.options.filter((option) => !option.isCorrect);
   const bound = wrongs.filter((option) => Boolean(option.misconceptionId)).length;
@@ -78,7 +126,17 @@ function optionQuality(pkg: SapCp003Package): string {
       if (sameDisplayedValue(pkg.options[left]!.value, pkg.options[right]!.value)) equivalentPairs += 1;
     }
   }
-  return `${bound}/3 distractors are misconception-bound; ${equivalentPairs} numerically equivalent option pairs; answer position is deterministically shuffled.`;
+  const correct = parseNumericLiteral(pkg.canonicalAnswer);
+  const closeDistractors = correct
+    ? wrongs
+      .map((option) => parseNumericLiteral(option.value))
+      .filter((value): value is Rat => Boolean(value))
+      .filter((value) => isCrediblyClose(correct, value)).length
+    : null;
+  const proximity = closeDistractors === null
+    ? "proximity is not applicable to this relation/diagnosis option set"
+    : `${closeDistractors}/3 distractors lie within the defined credible magnitude band`;
+  return `${bound}/3 distractors are misconception-bound; ${proximity}; ${equivalentPairs} numerically equivalent option pairs; answer position is deterministically shuffled.`;
 }
 
 const outputPath = resolve(process.argv[2] ?? "dist/SAP-CP-003-300-FULL-EDITORIAL-REVIEW-V3.md");
@@ -92,7 +150,7 @@ const lines: string[] = [
   "**Status:** Automated editorial-remediation candidate; human review pending  ",
   "**Lifecycle:** Inactive; Question Studio, question-bank writes, test eligibility and publication remain disabled  ",
   "",
-  "This file reviews the exact current V3 question surface. It includes the complete student explanation, every distractor route, difficulty reasoning, exam-likeness guidance and a provisional editorial decision. The decisions are evidence for human review, not a declaration of approval.",
+  "This file reviews the exact current V3 question surface. It includes the complete student explanation, every distractor route, question-specific difficulty reasoning, option-proximity evidence, exam-likeness guidance and a provisional editorial decision. The decisions are evidence for human review, not a declaration of approval.",
   "",
   "## Corpus summary",
   "",
@@ -167,5 +225,6 @@ console.log(JSON.stringify({
   prototypeCount: new Set(packages.map((pkg) => pkg.prototypeId)).size,
   explanations: packages.filter((pkg) => pkg.explanation.steps.length > 0).length,
   distractorAnalyses: packages.reduce((count, pkg) => count + pkg.options.filter((option) => !option.isCorrect && option.analysis.length > 0).length, 0),
+  questionSpecificDifficultyRationales: packages.length,
   lifecycle: "INACTIVE_HUMAN_REVIEW_PENDING",
 }, null, 2));
