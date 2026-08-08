@@ -1,0 +1,128 @@
+name: Probability exam-depth remodel
+
+on:
+  push:
+    branches:
+      - feat/prb-probability-end-to-end
+    paths:
+      - "scripts/prb_exam_depth_patch.py"
+      - ".github/workflows/prb-exam-depth-remodel.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  remodel-and-prove:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Apply exam-depth integration
+        run: python scripts/prb_exam_depth_patch.py
+
+      - name: Verify source integration markers
+        run: |
+          grep -q 'remodelProbabilityStem' artifacts/api-server/src/quant-v4/topics/Probability/shared/pipeline.ts
+          grep -q 'PRB-EXAM-DEPTH-RENDERER-V4' artifacts/api-server/src/quant-v4/topics/Probability/shared/pipeline.ts
+          grep -q 'exam-depth-decision-path' artifacts/api-server/src/quant-v4/topics/Probability/shared/validator.ts
+          grep -q 'Permanent exam-depth audit' .github/workflows/prb-editorial-remediation.yml
+          git diff --check
+
+      - name: Probability TypeScript integration
+        run: >-
+          npx -y -p typescript@5.6.3 tsc
+          --noEmit
+          --target ES2020
+          --module commonjs
+          --moduleResolution node
+          --resolveJsonModule
+          --esModuleInterop
+          --skipLibCheck
+          artifacts/api-server/src/quant-v4/topics/Probability/exam-readiness.test.ts
+
+      - name: PRB-001 deterministic package proof
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/package.test.ts
+
+      - name: PRB-002 deterministic package proof
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/package.test.ts
+
+      - name: SSC and banking editorial readiness proof
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/exam-readiness.test.ts
+
+      - name: Question Studio exam-profile smoke
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/question-studio-profile.test.ts
+
+      - name: Regenerate review evidence
+        run: |
+          npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/generate-exam-review.ts
+          npx -y tsx artifacts/api-server/src/quant-v4/topics/Probability/generate-comprehensive-questions.ts
+
+      - name: Run permanent exam-depth audit
+        run: python artifacts/api-server/src/quant-v4/topics/Probability/exam-depth-review-audit.py
+
+      - name: Verify benchmark features in generated rows
+        run: |
+          python - <<'PY'
+          import csv
+          import re
+          from pathlib import Path
+
+          root = Path("artifacts/api-server/src/quant-v4/topics/Probability")
+          rows = []
+          for package in ("PRB-001", "PRB-002"):
+              rows.extend(csv.DictReader((root / package / "human-review-en.csv").open()))
+
+          combined_stems = "\n".join(row["stem"] for row in rows)
+          for term in ("marbles", "pens", "stones", "queue", "candidates", "committee", "tickets"):
+              if term.lower() not in combined_stems.lower():
+                  raise SystemExit(f"Expected context family missing from review set: {term}")
+
+          coin_rows = [row for row in rows if "coin" in row["stem"].lower()]
+          if not coin_rows or not all(re.search(r"\b[HT]{2,5}\b", row["explanation"]) for row in coin_rows):
+              raise SystemExit("Coin outcome evidence is incomplete")
+
+          dice_rows = [row for row in rows if "two fair dice" in row["stem"].lower()]
+          if dice_rows and not all(re.search(r"\(\d,\d\)|odd faces are|even faces are", row["explanation"], re.I) for row in dice_rows):
+              raise SystemExit("Dice outcome evidence is incomplete")
+
+          if any(re.search(r"\b(tokens?|counters?|selected files?)\b", row["stem"], re.I) for row in rows):
+              raise SystemExit("Artificial context remains")
+          PY
+          git diff --check
+
+      - name: Upload revised review Markdown
+        uses: actions/upload-artifact@v4
+        with:
+          name: probability-exam-depth-review
+          path: |
+            artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-REVIEW-QUESTIONS-AND-EXPLANATIONS.md
+            artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Commit verified source and evidence
+        run: |
+          targets=(
+            artifacts/api-server/src/quant-v4/topics/Probability/shared/pipeline.ts
+            artifacts/api-server/src/quant-v4/topics/Probability/shared/validator.ts
+            .github/workflows/prb-editorial-remediation.yml
+            artifacts/api-server/src/quant-v4/topics/Probability/PRB-001/human-review-en.csv
+            artifacts/api-server/src/quant-v4/topics/Probability/PRB-002/human-review-en.csv
+            artifacts/api-server/src/quant-v4/topics/Probability/editorial-remediation-report.md
+            artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md
+            artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-REVIEW-QUESTIONS-AND-EXPLANATIONS.md
+          )
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "${targets[@]}"
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "feat(probability): remodel chapter to competitive-exam depth [skip ci]"
+          git push
