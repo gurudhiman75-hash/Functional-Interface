@@ -66,7 +66,7 @@ const EXAM_DEPTH_MODES = new Set([
 
 function hasMethodDecision(explanation: string[]): boolean {
   const value = explanation.join(" ");
-  return /because|since|use combinations|order does not matter|replacement|without replacement|complement|restricted sample space|sample space|overlap|counted twice|one block|last digit|mutually exclusive|independent|both orders|possible selections|required people|C\\(|P\\(/i.test(value);
+  return /because|since|condition|use combinations|order|replacement|replaced|removed|without replacement|complement|restricted sample space|restricted group|sample space|overlap|counted twice|one block|last digit|first post|mutually exclusive|independent|both orders|possible selections|required people|C\\(|P\\(/i.test(value);
 }
 '''
 replace_once(
