@@ -1,127 +1,28 @@
 # RNK-CP-005 — English Discovery Freeze V1
 
-Status: **ENGLISH_DISCOVERY_FREEZE_READY**
+Status: **SUPERSEDED — DO NOT USE AS THE AUTHORITATIVE CP-005 PROJECTION**
 
-## Frozen identity
+V1 is retained only as historical evidence. Human review found that its complete rank tables and already ordered ledgers could turn several questions into direct lookup exercises.
+
+The authoritative replacement is:
 
 ```text
-checkpoint:             RNK-CP-005
-ownership:              presentation-led and shared ranking sets
-permanent QL range:     RNK-QL-036..043
-next available QL:      RNK-QL-044
+freeze:                 RNK_CP005_ENGLISH_REASONING_REMODEL_FREEZE_V2
+runtime:                RNK_CP005_PERMANENT_RUNTIME_V2
+reasoning remodel:      RNK_CP005_REASONING_REMODEL_V2
+exam language:          RNK_CP005_EXAM_LANGUAGE_V2
+projection SHA-256:     c1d205d2d49d3fe97bf3049d65c8d2b57e8594eb99abb57982384a4fa6605d8f
+```
+
+See `RNK-CP-005-ENGLISH-REASONING-REMODEL-FREEZE-V2.md`.
+
+## Historical V1 identity
+
+```text
 runtime version:        RNK_CP005_PERMANENT_RUNTIME_V1
 language version:       RNK_CP005_EXAM_LANGUAGE_V1
 freeze version:         RNK_CP005_ENGLISH_DISCOVERY_FREEZE_V1
 projection SHA-256:     021079af803fb43bc1a51296290fed7b9c0654f508fb665f41847c5981448305
 ```
 
-## Permanent assignments
-
-| QL | Authority |
-|---|---|
-| `RNK-QL-036` | shared-set endpoint entity |
-| `RNK-QL-037` | shared-set entity at position |
-| `RNK-QL-038` | shared-set rank of named entity |
-| `RNK-QL-039` | shared-set pair relation |
-| `RNK-QL-040` | shared-set exact rank gap |
-| `RNK-QL-041` | shared-set immediate neighbour |
-| `RNK-QL-042` | shared-set complete order |
-| `RNK-QL-043` | shared-set definitely true statement |
-
-## Frozen projection
-
-```text
-permanent authorities:       8
-questions per authority:   192
-permanent questions:      1,536
-shared set seeds:           192
-possible authorities/set:     8
-recommended assembly/set:      4
-normalized duplicates:         0
-```
-
-Each QL has exact answer-position counts:
-
-```text
-A: 48
-B: 48
-C: 48
-D: 48
-```
-
-## Context coverage
-
-```text
-ROW:                    256
-QUEUE:                  256
-MERIT_LIST:             256
-RACE_FINISH:            256
-INTERVIEW_SHORTLIST:    256
-PERFORMANCE_ORDER:      256
-```
-
-## Presentation coverage
-
-```text
-RANK_TABLE:             528
-ORDER_LEDGER:           528
-COMPARISON_CLUES:       480
-```
-
-## Difficulty coverage
-
-```text
-EASY:                   132
-MEDIUM:               1,284
-HARD:                   120
-```
-
-## Review evidence
-
-The English review pack contains 144 representative questions:
-
-- 18 per authority;
-- all six contexts;
-- all three presentation modes;
-- complete question-specific explanations;
-- four value-specific option analyses per question;
-- no internal IDs in learner text;
-- context-specific exam language;
-- regression bans for known awkward direction phrases.
-
-Automated gates prove:
-
-- deterministic generation;
-- unique passage reconstruction;
-- identical passage fingerprints across linked authorities;
-- unique four-option construction;
-- independent answer replay;
-- exact answer-position balance;
-- complete renderer metadata;
-- exam-language regression safety;
-- frozen lifecycle locks;
-- pinned projection digest.
-
-## Frozen lifecycle
-
-```text
-discoveryFrozen:        true
-questionStudio:         DISABLED
-persistence:            DISABLED
-questionBank:           NOT_STORED
-testEligibility:        INELIGIBLE
-publicPublication:      false
-hindiPunjabi:           NOT_STARTED
-```
-
-## Change policy
-
-Any change to a frozen question-bearing field requires:
-
-1. a replacement runtime or language version;
-2. a new projection digest;
-3. complete CP-005 foundation, editorial and permanent-gate reruns;
-4. an explicit freeze amendment;
-5. no activation of Question Studio, Question Bank, test eligibility or publication without their separate gates.
-
-This freeze does not claim completion of the separate human NVDA and VoiceOver validation tracked for the CP-004 renderer.
+V1 allocated the same permanent identities `RNK-QL-036..043`, but its question-bearing projection is invalidated by V2. No Question Studio activation, persistence, Question Bank conversion, test eligibility or publication was authorized under V1.
