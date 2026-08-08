@@ -7,6 +7,7 @@ import {
   generateCp001ReviewRows as generateCoreCp001ReviewRows,
   stableStringify,
 } from "./runtime-base";
+import { remodelCp001FinalEditorial } from "./final-editorial-remediation";
 import { remodelPaceOptionFeedback } from "./pace-option-feedback";
 import { unitConversionOptionPackage } from "./unit-conversion-options";
 import { remodelUnitConversionOptionFeedback } from "./unit-conversion-option-feedback";
@@ -97,7 +98,9 @@ function remodelPaceQuestion(
 }
 
 function remodelQuestion(question: TsdCp001GeneratedQuestion): TsdCp001GeneratedQuestion {
-  return remodelPaceQuestion(remodelConversionQuestion(question));
+  return remodelCp001FinalEditorial(
+    remodelPaceQuestion(remodelConversionQuestion(question)),
+  );
 }
 
 export function generateCp001Candidate(
