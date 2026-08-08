@@ -6,6 +6,7 @@ on:
       - feat/clk-001-cp001-angle-at-time
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
+      - artifacts/api-server/src/foundation/temporal/**
       - artifacts/api-server/src/reasoning-v1/foundation/temporal/**
       - artifacts/api-server/src/reasoning-v1/foundation/spatial/clock.ts
       - artifacts/api-server/src/reasoning-v1/topics/Clocks/CLK-001/**
