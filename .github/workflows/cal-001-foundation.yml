@@ -5,6 +5,7 @@ on:
     branches:
       - feat/reasoning-cal-001-end-to-end-foundation
       - fix/cal-001-exam-readiness-remediation
+      - feat/cal-001-final-discovery-freeze
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/**
       - artifacts/api-server/src/reasoning-v1/CAL-001-FAMILY-F-MANIFEST-AMENDMENT.md
@@ -79,22 +80,32 @@ jobs:
           pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/exam-readiness-proof.test.ts 2>&1 | tee /tmp/cal-001-exam-readiness-proof.log
           echo "${PIPESTATUS[0]}" > /tmp/cal-001-exam-readiness-proof-exit
           exit 0
+      - name: Run final source-gap and permanent-identity freeze proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/final-discovery-freeze.test.ts 2>&1 | tee /tmp/cal-001-final-discovery-freeze.log
+          echo "${PIPESTATUS[0]}" > /tmp/cal-001-final-discovery-freeze-exit
+          exit 0
       - name: Publish proof diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cal-001-foundation-and-exam-readiness-proof
+          name: cal-001-foundation-exam-readiness-and-final-freeze-proof
           path: |
             /tmp/cal-001-foundation-proof.log
             /tmp/cal-001-foundation-proof-exit
             /tmp/cal-001-exam-readiness-proof.log
             /tmp/cal-001-exam-readiness-proof-exit
+            /tmp/cal-001-final-discovery-freeze.log
+            /tmp/cal-001-final-discovery-freeze-exit
           if-no-files-found: error
           retention-days: 14
       - name: Enforce proof results
         run: |
           test "$(cat /tmp/cal-001-foundation-proof-exit)" = "0"
           test "$(cat /tmp/cal-001-exam-readiness-proof-exit)" = "0"
+          test "$(cat /tmp/cal-001-final-discovery-freeze-exit)" = "0"
 
   review-export:
     runs-on: ubuntu-latest
@@ -106,14 +117,18 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Generate full audit and curated five-per-QL English review packs
+      - name: Generate approved discovery review packs
         env:
           CAL_REVIEW_OUTPUT_DIR: /tmp/cal-001-review
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/review-export.ts
+      - name: Generate source-gap review pack
+        env:
+          CAL_REVIEW_OUTPUT_DIR: /tmp/cal-001-review
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/source-gap-review-export.ts
       - name: Publish review packs
         uses: actions/upload-artifact@v4
         with:
-          name: cal-001-english-exam-readiness-review
+          name: cal-001-english-review-and-source-gap-freeze-evidence
           path: /tmp/cal-001-review/**
           if-no-files-found: error
           retention-days: 14
