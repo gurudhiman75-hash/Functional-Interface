@@ -1,4 +1,4 @@
-# INT-CP-004 Hindi and Punjabi Localisation Plan
+# INT-CP-004 Hindi and Punjabi localisation plan
 
 ## Canonical source
 
@@ -14,7 +14,7 @@ Locales:                 hi-IN, pa-IN
 
 ## Non-negotiable parity
 
-Hindi and Punjabi must preserve the frozen English authority exactly for:
+Hindi and Punjabi preserve the frozen English authority exactly for:
 
 - permanent QL identity;
 - mathematical state and canonical solution;
@@ -27,26 +27,85 @@ Hindi and Punjabi must preserve the frozen English authority exactly for:
 
 Only learner-facing language may change.
 
-## Implementation waves
+## Completed implementation
 
-1. **Foundation** — localisation types, terminology authority, frequency/duration helpers, script guards and lifecycle contract.
-2. **Presentation Wave 1** — `INT-QL-067..INT-QL-072`: complete-period amount, compound interest, principal, nominal rate and duration.
-3. **Presentation Wave 2** — `INT-QL-073..INT-QL-078`: direct period rates, frequency comparison and effective annual rate.
-4. **Presentation Wave 3** — `INT-QL-079..INT-QL-085`: broken periods and mixed-frequency intervals.
-5. **Options and feedback** — localise display and misconception feedback without changing option ownership or order.
-6. **Explanations** — rebuild Hindi and Punjabi explanations from the frozen mathematical state and approved solution structure; do not translate completed English paragraphs mechanically.
-7. **Executable runtime and parity audit** — generate all 19 QLs in both locales, compare every protected field with the English freeze, and reject English fallback or placeholders.
-8. **Review packs and multilingual freeze** — produce separate 76-question Hindi and Punjabi reviews, apply human corrections, then create an immutable multilingual freeze.
+1. Localisation types, terminology authority, script guards and lifecycle contract.
+2. Native Hindi and Punjabi stems for `INT-QL-067..INT-QL-085`.
+3. Localised option display and misconception-specific feedback.
+4. Formula-first, question-specific explanations.
+5. Executable bilingual runtime and frozen-English parity audit.
+6. Separate 76-question Hindi and Punjabi human-review packs.
+7. Editorial remediation after critical human review.
 
-## Editorial requirements
+## Editorial remediation v2
 
-- Natural exam-style Hindi and Punjabi suitable for SSC, Banking and Punjab-state preparation.
-- Standard mathematical notation, Indian currency formatting and the approved numerical precision.
-- No method hints in stems.
-- Unknown values must remain unknown in tables and records.
-- High-rate examples must remain neutral investment or mathematical contexts.
-- Structured representations must remain genuine tables, records, comparisons or timelines.
-- Explanations must be question-specific and student-friendly.
+The learner-facing layer was remodelled rather than lightly edited. The current implementation rejects:
+
+- `नाममात्र / ਨਾਮਮਾਤਰ` in learner-facing text;
+- translated template leads;
+- mechanical numeric ordinals and wrong singular/plural forms;
+- vague direct-period-rate wording;
+- circular inverse-principal explanations;
+- hidden answer-rate substitution;
+- long month-by-month rounded balance chains;
+- ambiguous `x/y/100` percentage notation;
+- computed scheme amounts revealed inside QL-075 stems;
+- QL-080 described as compound interest instead of total interest;
+- awkward teaching phrases such as `गोल-गोल सिद्ध`, `गोल राशि`, and `वार्षिक संख्या`.
+
+## Validated checkpoint
+
+```text
+Branch:          feat/int-cp004-hi-pa-localisation
+Validated head:  f36db52d05c19eb3afa4bc9618897c950ee58628
+Workflow run:    31246203474 — PASS
+Artifact ID:     9018572889
+Artifact digest: sha256:3d44e9d7326874f3c4fce1595bb8ad5f87420946a9212cd4dda85b8f036e0686
+Isolation run:   31246203475 — PASS
+```
+
+Editorial evidence:
+
+```text
+Bilingual question cases:       3,800
+Stem checks:                    3,800
+Option checks:                 15,200
+Explanation checks:             3,800
+Grammar checks:                 7,600
+Explicit-period checks:         1,200
+Inverse-derivation checks:        600
+Explicit option-test checks:      600
+Concise-solution checks:         3,800
+Rounding-safety checks:          3,800
+Formula-clarity checks:          3,800
+Comparison-leak checks:            200
+Broken-period-prompt checks:       200
+Maximum explanation length:     5 steps
+```
+
+Review packs:
+
+```text
+Questions per locale:          76
+Questions per QL:               4
+Answer positions A/B/C/D: 19/19/19/19
+Representations:          19 each
+Shared canonical seeds:         76
+Hindi Markdown SHA-256:  c903a5373b572649679f2960b2253ed39f0fb6f9a36f0019637e439c4595df3a
+Punjabi Markdown SHA-256: fe9fb98a3c5ea919046365a79d6b5cb7333fc6f82bd0e3e76b8327928dd4b5a4
+```
+
+## Remaining gate
+
+The implementation remains under human Hindi and Punjabi linguistic and exam-readiness review. It is not yet approved for multilingual freeze or delivery.
+
+Review should inspect:
+
+- natural exam-style wording;
+- terminology familiar to SSC, banking and Punjab-state-exam students;
+- grammatical fluency;
+- option-feedback clarity;
+- concise and student-friendly worked solutions.
 
 ## Lifecycle boundary
 
@@ -62,4 +121,4 @@ testEligibility:             INELIGIBLE
 publiclyPublishable:         false
 ```
 
-Localisation does not authorize merge, staging, registration, Question Studio discovery, Question Bank storage, test use or publication.
+No step in this phase authorizes merge, staging, registration, Question Studio discovery, Question Bank storage, test use, multilingual freeze or publication.
