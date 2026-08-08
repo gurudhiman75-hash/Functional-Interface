@@ -12,6 +12,7 @@ on:
       - artifacts/api-server/src/reasoning-v1/question-studio-registry.ts
       - artifacts/api-server/src/reasoning-v1/question-studio-registry.test.ts
       - .github/workflows/reasoning-rnk-001-cp005-freeze.yml
+      - .github/workflows/reasoning-rnk-001-cp005-v2-review-export.yml
   workflow_dispatch:
 
 permissions:
