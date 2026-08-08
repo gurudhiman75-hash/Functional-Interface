@@ -143,15 +143,13 @@ jobs:
               "PROBABILITY-REVIEW-QUESTIONS-AND-EXPLANATIONS.md",
           ):
               markdown = (root / markdown_name).read_text(encoding="utf-8")
-              coverage = {
-                  "questions": markdown.count("\n#### Question "),
-                  "answers": markdown.count("\n**Correct answer:**"),
-                  "explanations": markdown.count("\n**Explanation:**"),
-                  "methods": markdown.count("**Method:**"),
-              }
-              expected_coverage = {"questions": 135, "answers": 135, "explanations": 135, "methods": 135}
-              if coverage != expected_coverage:
-                  raise SystemExit(f"{markdown_name} coverage mismatch: {coverage}")
+              question_blocks = markdown.split("\n#### Question ")[1:]
+              if len(question_blocks) != 135:
+                  raise SystemExit(f"{markdown_name}: expected 135 question blocks, found {len(question_blocks)}")
+              for number, block in enumerate(question_blocks, start=1):
+                  for marker in ("\n**Correct answer:**", "\n**Explanation:**", "**Method:**", "**Answer:**"):
+                      if marker not in block:
+                          raise SystemExit(f"{markdown_name}: question block {number} is missing {marker}")
 
           print({
               "questions": len(rows),
