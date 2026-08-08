@@ -1,0 +1,47 @@
+name: Export RNK-001 CP-005 Human Review Pack
+
+on:
+  push:
+    branches:
+      - review/rnk-001-cp005-human-review-pack
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-human-review-export.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-foundation.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-exam-language-v1.ts
+      - .github/workflows/reasoning-rnk-001-cp005-human-review-pack.yml
+  workflow_dispatch:
+
+jobs:
+  export-review-pack:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate human review pack
+        run: |
+          pnpm exec tsx artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-human-review-export.ts | tee rnk-cp005-human-review-export.log
+
+      - name: Upload human review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-cp005-human-review-pack-24q
+          if-no-files-found: error
+          retention-days: 14
+          path: |
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/generated/RNK-CP-005-HUMAN-REVIEW-PACK-24Q.md
+            rnk-cp005-human-review-export.log
