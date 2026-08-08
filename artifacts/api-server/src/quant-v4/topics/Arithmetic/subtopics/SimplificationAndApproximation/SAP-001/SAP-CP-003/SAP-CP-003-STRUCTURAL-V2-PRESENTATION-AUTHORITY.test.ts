@@ -120,14 +120,15 @@ assert.deepEqual(
 
 assert.equal(SAP_CP003_PERMANENT_STATE.permanentQlRange, "SAP-QL-034..SAP-QL-052");
 assert.equal(SAP_CP003_PERMANENT_STATE.nextAvailableQlId, "SAP-QL-053");
-assert.equal(SAP_CP003_PERMANENT_STATE.questionAndAnswerReview, "REOPENED_STRUCTURAL_REMEDIATION_V2");
+assert.equal(SAP_CP003_PERMANENT_STATE.questionAndAnswerReview, "REOPENED_EDITORIAL_REMEDIATION_V3");
+assert.equal(SAP_CP003_PERMANENT_STATE.fullEditorialReview, "FULL_300_QUESTION_CANDIDATE_PENDING_HUMAN_APPROVAL");
 assert.equal(SAP_CP003_PERMANENT_STATE.englishExplanationFreeze, "BLOCKED_PENDING_RENEWED_QA_APPROVAL");
 assert.equal(SAP_CP003_PERMANENT_STATE.active, false);
 assert.equal(SAP_CP003_PERMANENT_STATE.questionStudioDiscoverable, false);
 assert.equal(SAP_CP003_PERMANENT_STATE.testEligible, false);
 
 console.log(JSON.stringify({
-  status: "PASS_SAP_CP003_STRUCTURAL_V2_PRESENTATION_AUTHORITY",
+  status: "PASS_SAP_CP003_EDITORIAL_V3_PRESENTATION_AUTHORITY",
   decimalPlacementPackagesChecked: placementPackages,
   hiddenLeadingZeroDefects: 0,
   decimalFractionFrameCount: decimalFractionFrames.size,
@@ -142,6 +143,7 @@ console.log(JSON.stringify({
   remediationPendingPolicyCount: 0,
   permanentQlRange: SAP_CP003_PERMANENT_STATE.permanentQlRange,
   nextAvailableQlId: SAP_CP003_PERMANENT_STATE.nextAvailableQlId,
+  fullEditorialReview: SAP_CP003_PERMANENT_STATE.fullEditorialReview,
   explanationFreeze: SAP_CP003_PERMANENT_STATE.englishExplanationFreeze,
   lifecycle: "INACTIVE",
 }, null, 2));
