@@ -57,6 +57,12 @@ jobs:
           set -euo pipefail
           npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v4-wave2.test.ts 2>&1 | tee cp007-v4-wave2.log
 
+      - name: Report residual Wave 3 distractor gaps
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v4-wave3-diagnostic.ts 2>&1 | tee cp007-v4-wave3-diagnostic.log
+
       - name: Prove CP-007 V4 Wave 3 self-review remediation
         shell: bash
         run: |
@@ -99,6 +105,7 @@ jobs:
             cp007-v3.log
             cp007-v4-wave1.log
             cp007-v4-wave2.log
+            cp007-v4-wave3-diagnostic.log
             cp007-v4-wave3.log
             cp007-v4-wave3-export.log
           if-no-files-found: warn
