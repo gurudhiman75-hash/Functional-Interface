@@ -12,6 +12,14 @@ def replace_once(path: Path, old: str, new: str, label: str) -> None:
     path.write_text(text.replace(old, new, 1))
 
 
+remodeler = ROOT / "shared/exam-depth-remodeler.ts"
+replace_once(
+    remodeler,
+    "function probabilityLine(favourable: number | bigint, total: number | bigint, answer: string): string {",
+    "function probabilityLine(favourable: number | bigint | string, total: number | bigint | string, answer: string): string {",
+    "rendered evidence count typing",
+)
+
 pipeline = ROOT / "shared/pipeline.ts"
 replace_once(
     pipeline,
