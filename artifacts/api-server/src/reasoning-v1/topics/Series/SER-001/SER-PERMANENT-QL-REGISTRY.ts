@@ -56,7 +56,8 @@ export interface SerPermanentQlRegistryEntry {
   readonly allocationStatus: "PERMANENT_ID_ALLOCATED_INACTIVE";
   readonly englishStatus: "ENGLISH_MANUAL_FREEZE_APPROVED";
   readonly allocationApproval: "PRODUCT_OWNER_APPROVED_2026_08_07";
-  readonly localizationStatus: "IMPLEMENTED_PENDING_MANUAL_REVIEW";
+  readonly localizationStatus: "MULTILINGUAL_MANUAL_FREEZE_APPROVED";
+  readonly localizationApproval: "PRODUCT_OWNER_APPROVED_2026_08_08";
   readonly active: false;
   readonly questionStudioDiscoverable: false;
   readonly questionBankWritable: false;
@@ -267,7 +268,8 @@ const entries: readonly SerPermanentQlRegistryEntry[] = [
     allocationStatus: "PERMANENT_ID_ALLOCATED_INACTIVE" as const,
     englishStatus: "ENGLISH_MANUAL_FREEZE_APPROVED" as const,
     allocationApproval: "PRODUCT_OWNER_APPROVED_2026_08_07" as const,
-    localizationStatus: "IMPLEMENTED_PENDING_MANUAL_REVIEW" as const,
+    localizationStatus: "MULTILINGUAL_MANUAL_FREEZE_APPROVED" as const,
+    localizationApproval: "PRODUCT_OWNER_APPROVED_2026_08_08" as const,
     active: false as const,
     questionStudioDiscoverable: false as const,
     questionBankWritable: false as const,
@@ -296,11 +298,12 @@ export const SER_PERMANENT_QL_BY_AUTHORITY: Readonly<
 );
 
 export const SER_PERMANENT_QL_REGISTRY_STATE = Object.freeze({
-  registryVersion: 2,
+  registryVersion: 3,
   allocatedCheckpointCount: 1,
   allocatedTemplateCount: 13,
   frozenPrototypeTemplateCount: 140,
   frozenLearnerReleasePoolCount: 135,
+  multilingualFrozenQlCount: 13,
   firstAllocatedId: "SER-QL-001" as const,
   lastAllocatedId: "SER-QL-013" as const,
   nextAvailableId: "SER-QL-014" as const,
