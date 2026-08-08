@@ -13,10 +13,10 @@ export type ReasoningV1CheckpointFreeze = Readonly<{
   checkpointId: "RNK-CP-004" | "RNK-CP-005";
   freezeVersion:
     | "RNK_CP004_ENGLISH_DISCOVERY_FREEZE_V1"
-    | "RNK_CP005_ENGLISH_DISCOVERY_FREEZE_V1";
+    | "RNK_CP005_ENGLISH_REASONING_REMODEL_FREEZE_V2";
   runtimeVersion:
     | "RNK_CP004_PERMANENT_RUNTIME_V1"
-    | "RNK_CP005_PERMANENT_RUNTIME_V1";
+    | "RNK_CP005_PERMANENT_RUNTIME_V2";
   permanentQlRange: Readonly<{
     first: string;
     last: string;
@@ -45,15 +45,15 @@ export type ReasoningV1QuestionStudioPackage = Readonly<{
   supportedRuntimeModes: readonly ["DISCOVERY_ONLY"];
   dynamicCandidateCpIds: readonly [];
   freezeState: "PARTIAL_CHAPTER_ENGLISH_DISCOVERY_FROZEN";
-  freezeVersion: "RNK_CP004_AND_CP005_ENGLISH_DISCOVERY_FREEZE_V1";
-  runtimeVersion: "RNK_CP004_AND_CP005_PERMANENT_RUNTIME_V1";
+  freezeVersion: "RNK_CP004_AND_CP005_ENGLISH_DISCOVERY_FREEZE_V2";
+  runtimeVersion: "RNK_CP004_AND_CP005_PERMANENT_RUNTIME_V2";
   permanentQlRange: Readonly<{
     first: "RNK-QL-027";
     last: "RNK-QL-043";
     count: 17;
   }>;
   permanentQuestionCount: 3264;
-  projectionSha256: "af80523ef6b9ef073a34ffe43d6174ba90fa7130831811ce85226b36e8a1b5c5";
+  projectionSha256: "080af7fa6787f6752208c0504dce45bc0498c23eb7df7091a4130619ecfb4c2e";
   checkpointFreezes: readonly [ReasoningV1CheckpointFreeze, ReasoningV1CheckpointFreeze];
 }> & ReasoningV1QuestionStudioLifecycle;
 
@@ -99,8 +99,8 @@ const RNK_001_PACKAGE: ReasoningV1QuestionStudioPackage = Object.freeze({
   supportedRuntimeModes: Object.freeze(["DISCOVERY_ONLY"]),
   dynamicCandidateCpIds: Object.freeze([]),
   freezeState: "PARTIAL_CHAPTER_ENGLISH_DISCOVERY_FROZEN",
-  freezeVersion: "RNK_CP004_AND_CP005_ENGLISH_DISCOVERY_FREEZE_V1",
-  runtimeVersion: "RNK_CP004_AND_CP005_PERMANENT_RUNTIME_V1",
+  freezeVersion: "RNK_CP004_AND_CP005_ENGLISH_DISCOVERY_FREEZE_V2",
+  runtimeVersion: "RNK_CP004_AND_CP005_PERMANENT_RUNTIME_V2",
   permanentQlRange: Object.freeze({
     first: "RNK-QL-027",
     last: "RNK-QL-043",
@@ -108,7 +108,7 @@ const RNK_001_PACKAGE: ReasoningV1QuestionStudioPackage = Object.freeze({
   }),
   permanentQuestionCount: 3264,
   projectionSha256:
-    "af80523ef6b9ef073a34ffe43d6174ba90fa7130831811ce85226b36e8a1b5c5",
+    "080af7fa6787f6752208c0504dce45bc0498c23eb7df7091a4130619ecfb4c2e",
   checkpointFreezes: Object.freeze([
     Object.freeze({
       checkpointId: "RNK-CP-004",
@@ -125,8 +125,8 @@ const RNK_001_PACKAGE: ReasoningV1QuestionStudioPackage = Object.freeze({
     }),
     Object.freeze({
       checkpointId: "RNK-CP-005",
-      freezeVersion: "RNK_CP005_ENGLISH_DISCOVERY_FREEZE_V1",
-      runtimeVersion: "RNK_CP005_PERMANENT_RUNTIME_V1",
+      freezeVersion: "RNK_CP005_ENGLISH_REASONING_REMODEL_FREEZE_V2",
+      runtimeVersion: "RNK_CP005_PERMANENT_RUNTIME_V2",
       permanentQlRange: Object.freeze({
         first: "RNK-QL-036",
         last: "RNK-QL-043",
@@ -134,7 +134,7 @@ const RNK_001_PACKAGE: ReasoningV1QuestionStudioPackage = Object.freeze({
       }),
       permanentQuestionCount: 1536,
       projectionSha256:
-        "021079af803fb43bc1a51296290fed7b9c0654f508fb665f41847c5981448305",
+        "c1d205d2d49d3fe97bf3049d65c8d2b57e8594eb99abb57982384a4fa6605d8f",
     }),
   ]),
   generationAllowed: false,
