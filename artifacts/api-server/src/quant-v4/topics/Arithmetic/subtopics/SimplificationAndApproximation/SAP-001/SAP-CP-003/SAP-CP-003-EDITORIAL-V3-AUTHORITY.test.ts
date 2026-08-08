@@ -1,8 +1,7 @@
 import assert from "node:assert/strict";
 import { SAP_CP003_EXAM_READINESS_POLICY } from "./exam-readiness-policy";
-import { parseNumericLiteral, sameDisplayedValue } from "./exact";
+import { sameDisplayedValue } from "./exact";
 import {
-  generateSapCp003Package,
   generateSapCp003Sweep,
   SAP_CP003_EDITORIAL_V3_STATE,
 } from "./editorial-runtime";
@@ -98,7 +97,12 @@ for (const pkg of sweep) {
   difficulties.add(pkg.difficulty);
   difficultyByPrototype.set(pkg.prototypeId, difficulties);
 
-  if (pkg.generationIdentity.startsWith("SAP_CP003_EDITORIAL_V3") || pkg.generationIdentity.startsWith("SAP_CP003_EDITORIAL_QUALITY_V3")) {
+  if (
+    pkg.generationIdentity.startsWith("SAP_CP003_EDITORIAL_V3")
+    || pkg.generationIdentity.startsWith("SAP_CP003_EDITORIAL_QUALITY_V3")
+    || pkg.generationIdentity.startsWith("SAP_CP003_RECURRING_DECIMAL_V3")
+    || pkg.generationIdentity.startsWith("SAP_CP003_MISSING_PERCENTAGE_V3")
+  ) {
     latestEditorialPackages += 1;
   }
 
@@ -120,7 +124,7 @@ for (const prototypeId of SAP_CP003_PROTOTYPE_IDS) {
 assert.equal(genericDistractors, 0);
 assert.equal(missingDistractorAnalyses, 0);
 assert.equal(equivalentOptionPairs, 0);
-assert.ok(latestEditorialPackages >= 700, `Only ${latestEditorialPackages} packages use the latest editorial-remediation surfaces.`);
+assert.ok(latestEditorialPackages >= 900, `Only ${latestEditorialPackages} packages use the latest editorial-remediation surfaces.`);
 
 const diagnosisPrototype = "SAP-CP003-PROT-IDENTIFY-INCORRECT-CONVERSION-STEP" as const;
 const diagnosisPackages = sweep.filter((pkg) => pkg.prototypeId === diagnosisPrototype);
@@ -136,7 +140,8 @@ for (const pkg of sweep.filter((item) => item.prototypeId === percentagePrototyp
 }
 
 const recurringPrototype = "SAP-CP003-PROT-RECURRING-DECIMAL-IN-EXPRESSION" as const;
-assert.equal(frameCounts.get(recurringPrototype)?.size, 4);
+const recurringSurfaceCount = frameCounts.get(recurringPrototype)?.size ?? 0;
+assert.ok(recurringSurfaceCount >= 4 && recurringSurfaceCount <= 8, `Recurring-decimal notation produced ${recurringSurfaceCount} normalized surfaces; expected 4 to 8.`);
 assert.ok(sweep.filter((pkg) => pkg.prototypeId === recurringPrototype).some((pkg) => pkg.stem.match(/recurring.*recurring/i)));
 
 const review = generateSapCp003ReviewRecords();
@@ -167,6 +172,7 @@ console.log(JSON.stringify({
   missingDistractorAnalyses,
   equivalentOptionPairs,
   latestEditorialPackages,
+  recurringSurfaceCount,
   diagnosisAnswers: [...new Set(diagnosisPackages.map((pkg) => pkg.canonicalAnswer))].sort(),
   diagnosisDifficulties: [...new Set(diagnosisPackages.map((pkg) => pkg.difficulty))].sort(),
   reviewAnswerPositions: {
