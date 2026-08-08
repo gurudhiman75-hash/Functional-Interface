@@ -2,7 +2,7 @@
 
 ## Status
 
-`IMPLEMENTED_AWAITING_EXACT_HEAD_CI`
+`EXACT_HEAD_CI_PASSED`
 
 This wave is stacked on the validated visual foundation. It remains prototype evidence only and does not allocate permanent Question Logic IDs.
 
@@ -35,6 +35,7 @@ Mirror Images: 12
 Water Images:   8
 Total:         20
 Correct slots: A5 / B5 / C5 / D5
+Unique sources: 20
 ```
 
 Every question has:
@@ -48,6 +49,23 @@ Every question has:
 - no Question Studio discovery;
 - no Question Bank or test eligibility.
 
+## Exact-head validation
+
+```text
+Workflow: Validate SPA-FND-001 Mirror Water proof
+Run:      31237414816
+Result:   PASS
+```
+
+Passed proof statuses:
+
+```text
+PASS_SPA_FND_001_FOUNDATION_RUNTIME
+PASS_SPA_FND_001_MIRROR_WATER_PROOF
+```
+
+The workflow built the API server, reran the complete foundation regression proof, bundled the seeded corpus proof and executed all 20 questions successfully.
+
 ## Explicitly deferred
 
 - production exam checkpoint design;
@@ -58,10 +76,3 @@ Every question has:
 - Question Studio integration;
 - remaining Figure Analogy, Classification and Series proof questions;
 - full 48-question cross-chapter runtime proof.
-
-## Expected proof statuses
-
-```text
-PASS_SPA_FND_001_FOUNDATION_RUNTIME
-PASS_SPA_FND_001_MIRROR_WATER_PROOF
-```
