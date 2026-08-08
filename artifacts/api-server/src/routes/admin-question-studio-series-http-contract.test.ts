@@ -17,9 +17,14 @@ const [
 
 const app = express();
 app.use(express.json());
+
+// Mount the domain dispatcher first so the test can prove that a non-Series
+// request leaves the Series POST /runs route before authentication or storage.
+// The protected bulk and dashboard routers remain mounted and are exercised
+// below through real HTTP requests.
+app.use("/admin/question-studio", seriesRouter);
 app.use("/admin/question-studio", bulkRouter);
 app.use("/admin/question-studio", dashboardRouter);
-app.use("/admin/question-studio", seriesRouter);
 app.post("/admin/question-studio/runs", (_req, res) => {
   res.status(418).json({ generationSystem: "legacy-quant-fallback" });
 });
