@@ -1,3 +1,4 @@
+import { runBankingMainsProbabilityChallenge } from "../../banking-mains-challenge-runtime";
 import { runProbabilityPackagePipeline } from "../../shared/pipeline";
 import {
   buildProbabilityMockPolicy,
@@ -67,13 +68,22 @@ function applyExamReadinessRemediation(question: ProbabilityQuestion): Probabili
           ...question.difficultyAssessment,
           reason: `${question.difficultyAssessment.reason} Effective mock tier: ${mockPolicy.effectiveDifficulty}; the registry label is retained for compatibility.`,
         },
-    parameters: { ...question.parameters, mockPolicy },
+    parameters: {
+      ...question.parameters,
+      mockPolicy,
+      reviewStatus: "APPROVED_EDITORIAL_ENGLISH",
+      questionBankStatus: "WRITABLE",
+      testEligibility: mockPolicy.eligible ? "ELIGIBLE_WITH_FAMILY_LIMIT" : "LEARNING_ONLY",
+    },
     traceability: {
       ...question.traceability,
       mockPolicy,
+      reviewStatus: "APPROVED_EDITORIAL_ENGLISH",
+      questionBankStatus: "WRITABLE",
       testEligibility: mockPolicy.eligible ? "ELIGIBLE_WITH_FAMILY_LIMIT" : "LEARNING_ONLY",
       effectiveDifficulty: mockPolicy.effectiveDifficulty,
       academicRemediationVersion: "PRB-EXAM-READINESS-V7",
+      freezeStatus: "ENGLISH_MOCK_READY",
     },
   };
 }
@@ -82,5 +92,17 @@ export function runPrb002Pipeline(
   cpId: Prb002CanonicalProblemId = PRB_002_CP_IDS[0],
   input: ProbabilityGenerationInput = {},
 ): ProbabilityQuestion {
-  return applyExamReadinessRemediation(runProbabilityPackagePipeline(PRB_002_LIBRARIES, cpId, input));
+  const requestedDifficulty = input.difficultyBand ?? input.difficulty;
+  const useBankingMainsChallengePool =
+    input.examProfile === "BANKING_MAINS" &&
+    requestedDifficulty === "Hard" &&
+    !input.questionLanguageId;
+
+  if (useBankingMainsChallengePool) {
+    return runBankingMainsProbabilityChallenge(input.seed);
+  }
+
+  return applyExamReadinessRemediation(
+    runProbabilityPackagePipeline(PRB_002_LIBRARIES, cpId, input),
+  );
 }
