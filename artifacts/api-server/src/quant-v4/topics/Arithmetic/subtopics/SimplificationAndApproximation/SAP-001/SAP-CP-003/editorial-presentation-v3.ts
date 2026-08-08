@@ -34,6 +34,20 @@ function addInverseVerification(pkg: SapCp003Package): SapCp003Package {
   });
 }
 
+function distinguishDiagnosisSurface(pkg: SapCp003Package): SapCp003Package {
+  if (pkg.prototypeId !== "SAP-CP003-PROT-IDENTIFY-INCORRECT-CONVERSION-STEP") return pkg;
+  const prefixByAnswer: Readonly<Record<string, string>> = Object.freeze({
+    "Step 1": "Review this three-step solution for",
+    "Step 2": "A student records the following working for",
+    "Step 3": "Consider the displayed calculation for",
+    "No error": "Examine the following solution for",
+  });
+  const prefix = prefixByAnswer[pkg.canonicalAnswer];
+  if (!prefix) return pkg;
+  const stem = pkg.stem.replace(/^A student evaluates /, `${prefix} `);
+  return stem === pkg.stem ? pkg : Object.freeze({ ...pkg, stem });
+}
+
 function bindFinalAnswer(pkg: SapCp003Package): SapCp003Package {
   if (pkg.explanation.finalAnswer.includes(pkg.canonicalAnswer)) return pkg;
   return Object.freeze({
@@ -46,5 +60,8 @@ function bindFinalAnswer(pkg: SapCp003Package): SapCp003Package {
 }
 
 export function applySapCp003EditorialPresentationV3(pkg: SapCp003Package): SapCp003Package {
-  return bindFinalAnswer(addInverseVerification(makeRecurringConversionExplicit(pkg)));
+  const recurringReady = makeRecurringConversionExplicit(pkg);
+  const inverseReady = addInverseVerification(recurringReady);
+  const diagnosisReady = distinguishDiagnosisSurface(inverseReady);
+  return bindFinalAnswer(diagnosisReady);
 }
