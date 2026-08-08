@@ -9,6 +9,7 @@ import { generateIntCp004EnglishFrozenQuestion } from "./cp004-english-frozen-ru
 import {
   INT_CP004_LOCALIZED_LOCALES,
   assertCp004LocalizedText,
+  cp004FrequencyIntervalText,
   cp004FrequencyLabel,
   cp004PeriodsText,
   cp004YearsText,
@@ -58,8 +59,6 @@ function requiredFacts(
         moneyText(state.principal),
         percentText(state.nominalAnnualRatePercent),
         cp004YearsText(locale, state.years),
-        cp004FrequencyLabel(locale, state.frequency),
-        cp004FrequencyLabel(locale, state.comparisonFrequency),
       ];
     case "INT-QL-076":
       return [
@@ -83,6 +82,15 @@ function requiredFacts(
   }
 }
 
+function hasFrequencyWording(
+  stem: string,
+  locale: IntCp004LocalizedLocale,
+  frequency: 1 | 2 | 4 | 12,
+): boolean {
+  return stem.includes(cp004FrequencyLabel(locale, frequency))
+    || stem.includes(cp004FrequencyIntervalText(locale, frequency));
+}
+
 let cases = 0;
 let deterministicChecks = 0;
 let scriptChecks = 0;
@@ -91,6 +99,7 @@ let answerLeakChecks = 0;
 let representationChecks = 0;
 let englishFallbackChecks = 0;
 let frequencyChoiceChecks = 0;
+let comparisonFrequencyWordingChecks = 0;
 const representationByLocale: Record<string, Set<string>> = {};
 const qlCounts: Record<string, number> = {};
 
@@ -114,6 +123,16 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
       factChecks += 1;
       for (const fact of requiredFacts(source, locale)) {
         if (!stem.includes(fact)) fail(`${qlId}/${seed}/${locale}: required fact '${fact}' is missing.`);
+      }
+
+      if (qlId === "INT-QL-075") {
+        comparisonFrequencyWordingChecks += 2;
+        if (!hasFrequencyWording(stem, locale, source.mathematicalState.frequency)) {
+          fail(`${qlId}/${seed}/${locale}: first comparison frequency is missing.`);
+        }
+        if (!hasFrequencyWording(stem, locale, source.mathematicalState.comparisonFrequency)) {
+          fail(`${qlId}/${seed}/${locale}: second comparison frequency is missing.`);
+        }
       }
 
       if (qlId === "INT-QL-078" && source.representation === "STANDARD_PROSE") {
@@ -151,6 +170,9 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
 }
 
 if (cases !== 1200) fail(`Expected 1,200 bilingual Wave 2 cases, received ${cases}.`);
+if (comparisonFrequencyWordingChecks !== 400) {
+  fail(`Expected 400 comparison-frequency checks, received ${comparisonFrequencyWordingChecks}.`);
+}
 if (frequencyChoiceChecks === 0) fail("Wave 2 did not audit any prose frequency-choice list.");
 for (const [key, count] of Object.entries(qlCounts)) {
   if (count !== 100) fail(`${key}: expected 100 cases, received ${count}.`);
@@ -176,6 +198,7 @@ const summary = {
   representationChecks,
   englishFallbackChecks,
   frequencyChoiceChecks,
+  comparisonFrequencyWordingChecks,
   representationCoverage: Object.fromEntries(
     INT_CP004_LOCALIZED_LOCALES.map((locale) => [locale, representationByLocale[locale]!.size]),
   ),
