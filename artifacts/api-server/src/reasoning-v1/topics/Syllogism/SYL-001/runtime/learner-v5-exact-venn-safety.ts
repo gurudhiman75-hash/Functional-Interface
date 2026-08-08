@@ -49,6 +49,14 @@ function disjoint(left: Shape, right: Shape): boolean {
   return distance(left, right) >= left.r + right.r + 3;
 }
 
+function overlaps(left: Shape, right: Shape): boolean {
+  return distance(left, right) < left.r + right.r - 5;
+}
+
+function properOverlap(left: Shape, right: Shape): boolean {
+  return overlaps(left, right) && !contains(left, right) && !contains(right, left);
+}
+
 function parseShapes(svg: string): ReadonlyMap<TermId, Shape> {
   const result = new Map<TermId, Shape>();
   for (const match of svg.matchAll(/<g data-set="([^"]+)" data-cx="([\d.]+)" data-cy="([\d.]+)" data-r="([\d.]+)">/gu)) {
@@ -163,6 +171,13 @@ export function exactVennAddsUnstatedStrongRelationV5(
     premise.predicate,
   ]))] as TermId[];
   if (shapes.size !== terms.length) return true;
+
+  for (const premise of question.structuredPrompt.premises) {
+    if (premise.form !== "ONLY_A_FEW") continue;
+    const subject = shapes.get(premise.subject);
+    const predicate = shapes.get(premise.predicate);
+    if (!subject || !predicate || !properOverlap(subject, predicate)) return true;
+  }
 
   const target = usesTargetAuthority(presentation.learnerExplanation.mode)
     ? targetRelation(resolveModelTargetV5(question).canonical, presentation.learnerExplanation.mode)
