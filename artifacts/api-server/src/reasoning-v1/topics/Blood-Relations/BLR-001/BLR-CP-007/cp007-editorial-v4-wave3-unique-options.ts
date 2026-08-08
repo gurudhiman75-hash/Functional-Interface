@@ -1,6 +1,7 @@
 import type {
   BlrCp006CodedStatement,
   BlrCp006DirectRelation,
+  BlrCp006Relation,
 } from "../BLR-CP-006/cp006-model";
 import type { BlrCp007ExpressionCandidate } from "./cp007-model";
 import type { BlrCp007V3Option } from "./cp007-editorial-v3-model";
@@ -10,12 +11,14 @@ import {
   OPTION_LABELS,
   evaluate,
   relationText,
-  remodelQl031 as remodelQl031Base,
-  remodelQl032 as remodelQl032Base,
   statementText,
   targetSentence,
   tokenFor,
 } from "./cp007-editorial-v4-wave3-core";
+import {
+  remodelQl031 as remodelQl031Base,
+  remodelQl032 as remodelQl032Base,
+} from "./cp007-editorial-v4-wave3-safe-core";
 import type { BlrCp006CodeDefinition } from "../BLR-CP-006/cp006-model";
 
 export {
@@ -46,11 +49,11 @@ function relationFor(
 }
 
 function wrongExplanation(
-  target: { subjectId: string; relationId: string; referenceId: string },
-  actual?: string,
+  target: { subjectId: string; relationId: BlrCp006Relation; referenceId: string },
+  actual?: BlrCp006Relation,
 ): string {
   if (actual) {
-    return `The decoded statement makes ${target.subjectId} the ${relationText(actual as never)} of ${target.referenceId}, not the ${relationText(target.relationId as never)}.`;
+    return `The decoded statement makes ${target.subjectId} the ${relationText(actual)} of ${target.referenceId}, not the ${relationText(target.relationId)}.`;
   }
   return `The decoded statement does not establish the required relation between ${target.subjectId} and ${target.referenceId}.`;
 }
@@ -59,10 +62,10 @@ function selectUniqueWrongRelations(
   question: GeneratedBlrCp007EditorialV4Question,
   correctRelation: BlrCp006DirectRelation,
   buildStatements: (relationId: BlrCp006DirectRelation) => readonly BlrCp006CodedStatement[],
-): readonly { relationId: BlrCp006DirectRelation; statements: readonly BlrCp006CodedStatement[]; actual?: string; decoded: readonly string[] }[] {
+): readonly { relationId: BlrCp006DirectRelation; statements: readonly BlrCp006CodedStatement[]; actual?: BlrCp006Relation; decoded: readonly string[] }[] {
   const target = "target" in question.query ? question.query.target : undefined;
   if (!target) throw new Error(`${question.itemId}: query target missing.`);
-  const candidates: { relationId: BlrCp006DirectRelation; statements: readonly BlrCp006CodedStatement[]; actual?: string; decoded: readonly string[] }[] = [];
+  const candidates: { relationId: BlrCp006DirectRelation; statements: readonly BlrCp006CodedStatement[]; actual?: BlrCp006Relation; decoded: readonly string[] }[] = [];
   for (const relationId of DIRECT_RELATIONS) {
     if (relationId === correctRelation) continue;
     try {
@@ -145,7 +148,7 @@ function rebuildReverseQl031(
     targetRelationSatisfied: false,
     isCorrectAnswerForTask: false,
     failureCode: "WRONG_RELATION",
-    actualRelation: candidate.actual as never,
+    actualRelation: candidate.actual,
     studentExplanation: wrongExplanation(target, candidate.actual),
   }));
   let wrongIndex = 0;
@@ -218,7 +221,7 @@ function rebuildReverseQl032(
       targetRelationSatisfied: false,
       isCorrectAnswerForTask: false,
       failureCode: "WRONG_RELATION",
-      actualRelation: candidate.actual as never,
+      actualRelation: candidate.actual,
       studentExplanation: `${symbol} means “is the ${relationText(candidate.relationId)} of”. ${wrongExplanation(target, candidate.actual)}`,
     };
   });
