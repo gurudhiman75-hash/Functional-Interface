@@ -1,4 +1,4 @@
-export const SAP_CP003_ENGLISH_MANUAL_FREEZE_CANDIDATE = Object.freeze({
+export const SAP_CP003_ENGLISH_MANUAL_FREEZE = Object.freeze({
   checkpointId: "SAP-CP-003" as const,
   locale: "en-IN" as const,
   permanentQlRange: "SAP-QL-034..SAP-QL-052" as const,
@@ -6,8 +6,9 @@ export const SAP_CP003_ENGLISH_MANUAL_FREEZE_CANDIDATE = Object.freeze({
   sourceApprovedHead: "c68b77444d5d0b3d8dd958cb1c27ba6c254168c2" as const,
   sourceMergeCommit: "da079875c2b55decce3d702eeef388196606fde8" as const,
   editorialApproval: "PRODUCT_OWNER_APPROVED_CP003_EDITORIAL_V3_2026_08_08" as const,
-  status: "ENGLISH_MANUAL_FREEZE_CANDIDATE_READY" as const,
-  approvalBoundary: "EXPLICIT_PRODUCT_OWNER_FREEZE_APPROVAL_REQUIRED" as const,
+  freezeApproval: "PRODUCT_OWNER_APPROVED_CP003_ENGLISH_FREEZE_2026_08_08" as const,
+  status: "ENGLISH_MANUAL_FREEZE_APPROVED" as const,
+  approvalBoundary: "FROZEN_BY_EXPLICIT_PRODUCT_OWNER_APPROVAL" as const,
   expectedGeneratedPackageCount: 1_900 as const,
   expectedReviewQuestionCount: 300 as const,
   expectedGeneratedSurfaceDigest: "d3736408628ac536f18941e1807bc4db835067d67bae8015933e6234f9e98f31" as const,
@@ -18,3 +19,6 @@ export const SAP_CP003_ENGLISH_MANUAL_FREEZE_CANDIDATE = Object.freeze({
   testEligible: false as const,
   publiclyPublishable: false as const,
 });
+
+// Compatibility alias retained for the candidate-era authority and workflow paths.
+export const SAP_CP003_ENGLISH_MANUAL_FREEZE_CANDIDATE = SAP_CP003_ENGLISH_MANUAL_FREEZE;
