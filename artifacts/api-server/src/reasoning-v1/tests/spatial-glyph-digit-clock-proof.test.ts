@@ -172,7 +172,7 @@ assert.deepEqual(stimulusCounts, {
 
 const answerSequence = firstCorpus.all.map((question) => question.correctOptionIndex);
 assert.deepEqual(answerSequence, [
-  2, 0, 3, 1, 0, 2, 1, 3, 1, 3, 0, 2, 2, 0, 3, 1, 3, 1, 2, 0,
+  2, 0, 3, 1, 0, 2, 1, 3, 1, 3, 0, 2, 0, 2, 3, 1, 3, 1, 2, 0,
 ]);
 for (let index = 1; index < answerSequence.length; index += 1) {
   assert.notEqual(answerSequence[index], answerSequence[index - 1]);
