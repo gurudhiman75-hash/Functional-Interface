@@ -26,21 +26,21 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle CP-004 calibrated authority
+      - name: Bundle CP-004 diversified authority
         working-directory: artifacts/api-server
         run: >-
           pnpm exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-004/authority-v2.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-004/authority-v3.test.ts
           --bundle
           --platform=node
           --format=esm
-          --outfile=dist/quant-v4/sap-cp004-calibrated-english-candidate-authority.test.mjs
+          --outfile=dist/quant-v4/sap-cp004-diversified-english-candidate-authority.test.mjs
 
-      - name: Run CP-004 calibrated authority
+      - name: Run CP-004 diversified authority
         working-directory: artifacts/api-server
         run: >-
-          node dist/quant-v4/sap-cp004-calibrated-english-candidate-authority.test.mjs
-          | tee dist/quant-v4/sap-cp004-calibrated-english-candidate-authority.log
+          node dist/quant-v4/sap-cp004-diversified-english-candidate-authority.test.mjs
+          | tee dist/quant-v4/sap-cp004-diversified-english-candidate-authority.log
 
       - name: Bundle CP-004 review exporter
         working-directory: artifacts/api-server
@@ -78,10 +78,10 @@ jobs:
       - name: Upload CP-004 review evidence
         uses: actions/upload-artifact@v4
         with:
-          name: sap-cp004-calibrated-english-candidate-review
+          name: sap-cp004-diversified-english-candidate-review
           path: |
             artifacts/api-server/dist/quant-v4/SAP-CP-004-300-FULL-ENGLISH-REVIEW.md
             artifacts/api-server/dist/quant-v4/SAP-CP-004-300-FULL-ENGLISH-REVIEW.html
-            artifacts/api-server/dist/quant-v4/sap-cp004-calibrated-english-candidate-authority.log
+            artifacts/api-server/dist/quant-v4/sap-cp004-diversified-english-candidate-authority.log
           if-no-files-found: error
           retention-days: 30
