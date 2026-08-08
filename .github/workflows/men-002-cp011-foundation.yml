@@ -50,6 +50,7 @@ jobs:
             --packages=external \
             --platform=node \
             --format=esm \
+            --alias:./spherical-shells=./spherical-shells-canonical.ts \
             --outfile=dist/quant-v4/men-cp011-foundation-wave-01.test.mjs
           node artifacts/api-server/dist/quant-v4/men-cp011-foundation-wave-01.test.mjs
 
@@ -108,6 +109,7 @@ jobs:
             --packages=external \
             --platform=node \
             --format=esm \
+            --alias:./spherical-shells=./spherical-shells-canonical.ts \
             --outfile=dist/quant-v4/men-cp011-spherical-shells-wave01-review.mjs
           cd artifacts/api-server
           node dist/quant-v4/men-cp011-spherical-shells-wave01-review.mjs \
