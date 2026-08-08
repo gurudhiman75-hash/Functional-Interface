@@ -1,0 +1,90 @@
+name: Reasoning BLR-001 CP-007 Manual English Freeze Decision
+
+on:
+  push:
+    branches:
+      - review/blr-001-cp007-manual-english-freeze-decision
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
+      - ".github/workflows/reasoning-blr-001-cp007-manual-english-freeze-decision.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/**"
+      - ".github/workflows/reasoning-blr-001-cp007-manual-english-freeze-decision.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blr-001-cp007-manual-english-freeze-decision-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-manual-freeze-decision:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prove approved final corpus
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-editorial-v4-wave3-final.test.ts | tee cp007-final.log
+
+      - name: Prove renewed English audit
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/blr-001-approved-english-freeze-audit-reviewed.test.ts | tee approved-english-audit.log
+
+      - name: Prove manual English-freeze decision candidate
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/cp007-english-freeze-decision-candidate.test.ts | tee manual-freeze-decision.log
+
+      - name: Export manual English-freeze decision pack
+        run: |
+          npx --yes tsx@4.20.6 artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/BLR-CP-007/export-cp007-english-freeze-decision-candidate.ts blr-cp007-english-freeze-decision-output | tee manual-freeze-export.log
+
+      - name: Verify decision-pack contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=blr-cp007-english-freeze-decision-output
+          test -f "$OUT/blr-cp007-english-freeze-decision-summary.json"
+          test -f "$OUT/BLR-CP-007-MANUAL-ENGLISH-FREEZE-DECISION.md"
+          test -f "$OUT/blr-cp007-english-freeze-decision-review.html"
+          grep -q '"recordCount": 168' "$OUT/blr-cp007-english-freeze-decision-summary.json"
+          grep -q '"targetRelationCount": 27' "$OUT/blr-cp007-english-freeze-decision-summary.json"
+          grep -q '"balancedCounterpartPairCount": 13' "$OUT/blr-cp007-english-freeze-decision-summary.json"
+          grep -q '"learnerCorpusChanged": false' "$OUT/blr-cp007-english-freeze-decision-summary.json"
+          grep -q '"staleReviewNoteCount": 0' "$OUT/blr-cp007-english-freeze-decision-summary.json"
+          grep -q '"englishFreezePendingCount": 168' "$OUT/blr-cp007-english-freeze-decision-summary.json"
+          grep -q '"productDeliveryEnabledCount": 0' "$OUT/blr-cp007-english-freeze-decision-summary.json"
+          grep -q '"recommendation": "FREEZE_RECOMMENDED_PENDING_EXPLICIT_APPROVAL"' "$OUT/blr-cp007-english-freeze-decision-summary.json"
+          grep -q '"verdict": "BLR_CP007_MANUAL_ENGLISH_FREEZE_DECISION_READY"' "$OUT/blr-cp007-english-freeze-decision-summary.json"
+          grep -q '@media(max-width:800px)' "$OUT/blr-cp007-english-freeze-decision-review.html"
+
+      - name: Upload decision logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-manual-english-freeze-decision-logs
+          path: |
+            cp007-final.log
+            approved-english-audit.log
+            manual-freeze-decision.log
+            manual-freeze-export.log
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload manual English-freeze decision pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: blr-001-cp007-manual-english-freeze-decision
+          path: blr-cp007-english-freeze-decision-output
+          if-no-files-found: error
+          retention-days: 30
