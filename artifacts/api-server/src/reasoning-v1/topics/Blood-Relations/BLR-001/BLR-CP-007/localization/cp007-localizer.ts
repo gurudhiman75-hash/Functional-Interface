@@ -138,13 +138,13 @@ function localizedStem(
     );
     const hindi = [
       `कौन-सी कूटित श्रृंखला से यह सिद्ध होता है कि ${clause}?`,
-      `सही कूटित विकल्प चुनिए, जिससे ${clause}।`,
+      `सही कूटित विकल्प चुनिए, जिससे यह सिद्ध होता है कि ${clause}।`,
       `बाएँ से दाएँ पढ़ने पर कौन-सा विकल्प यह संबंध स्थापित करता है कि ${clause}?`,
       `कौन-सा कूटित कथन अपेक्षित संबंध बनाता है, अर्थात ${clause}?`,
     ];
     const punjabi = [
       `ਕਿਹੜੀ ਕੋਡਿਤ ਲੜੀ ਤੋਂ ਇਹ ਸਾਬਤ ਹੁੰਦਾ ਹੈ ਕਿ ${clause}?`,
-      `ਸਹੀ ਕੋਡਿਤ ਵਿਕਲਪ ਚੁਣੋ, ਜਿਸ ਨਾਲ ${clause}।`,
+      `ਸਹੀ ਕੋਡਿਤ ਵਿਕਲਪ ਚੁਣੋ, ਜਿਸ ਨਾਲ ਇਹ ਸਾਬਤ ਹੁੰਦਾ ਹੈ ਕਿ ${clause}।`,
       `ਖੱਬੇ ਤੋਂ ਸੱਜੇ ਪੜ੍ਹਨ ਉੱਤੇ ਕਿਹੜਾ ਵਿਕਲਪ ਇਹ ਸੰਬੰਧ ਬਣਾਉਂਦਾ ਹੈ ਕਿ ${clause}?`,
       `ਕਿਹੜਾ ਕੋਡਿਤ ਕਥਨ ਲੋੜੀਂਦਾ ਸੰਬੰਧ ਬਣਾਉਂਦਾ ਹੈ, ਅਰਥਾਤ ${clause}?`,
     ];
@@ -159,8 +159,8 @@ function localizedStem(
       locale,
     );
     const lead = locale === "hi-IN"
-      ? `? की जगह कौन-सा संकेत आएगा, ताकि ${clause}?`
-      : `? ਦੀ ਥਾਂ ਕਿਹੜਾ ਸੰਕੇਤ ਆਵੇਗਾ, ਤਾਂ ਜੋ ${clause}?`;
+      ? `? की जगह कौन-सा संकेत आएगा, जिससे यह सिद्ध होता है कि ${clause}?`
+      : `? ਦੀ ਥਾਂ ਕਿਹੜਾ ਸੰਕੇਤ ਆਵੇਗਾ, ਜਿਸ ਨਾਲ ਇਹ ਸਾਬਤ ਹੁੰਦਾ ਹੈ ਕਿ ${clause}?`;
     return `${lead}\n\n${expressionBlock(question.query.expressionLines)}`;
   }
 
@@ -172,8 +172,8 @@ function localizedStem(
       locale,
     );
     const lead = locale === "hi-IN"
-      ? `रिक्त स्थानों के क्रम में दो संकेत चुनिए, ताकि ${clause}।`
-      : `ਖਾਲੀ ਥਾਵਾਂ ਦੇ ਕ੍ਰਮ ਵਿੱਚ ਦੋ ਸੰਕੇਤ ਚੁਣੋ, ਤਾਂ ਜੋ ${clause}।`;
+      ? `रिक्त स्थानों के क्रम में दो संकेत चुनिए, जिससे यह सिद्ध होता है कि ${clause}।`
+      : `ਖਾਲੀ ਥਾਵਾਂ ਦੇ ਕ੍ਰਮ ਵਿੱਚ ਦੋ ਸੰਕੇਤ ਚੁਣੋ, ਜਿਸ ਨਾਲ ਇਹ ਸਾਬਤ ਹੁੰਦਾ ਹੈ ਕਿ ${clause}।`;
     return `${lead}\n\n${expressionBlock(question.query.expressionLines)}`;
   }
 
@@ -186,8 +186,8 @@ function localizedStem(
     );
     const candidates = question.query.candidatePersonIds.join(", ");
     const lead = locale === "hi-IN"
-      ? `? की जगह कौन-सा व्यक्ति आएगा, ताकि ${clause}?\nउम्मीदवार: ${candidates}`
-      : `? ਦੀ ਥਾਂ ਕਿਹੜਾ ਵਿਅਕਤੀ ਆਵੇਗਾ, ਤਾਂ ਜੋ ${clause}?\nਉਮੀਦਵਾਰ: ${candidates}`;
+      ? `? की जगह कौन-सा व्यक्ति आएगा, जिससे यह सिद्ध होता है कि ${clause}?\nउम्मीदवार: ${candidates}`
+      : `? ਦੀ ਥਾਂ ਕਿਹੜਾ ਵਿਅਕਤੀ ਆਵੇਗਾ, ਜਿਸ ਨਾਲ ਇਹ ਸਾਬਤ ਹੁੰਦਾ ਹੈ ਕਿ ${clause}?\nਉਮੀਦਵਾਰ: ${candidates}`;
     return `${lead}\n\n${expressionBlock(question.query.expressionLines)}`;
   }
 
