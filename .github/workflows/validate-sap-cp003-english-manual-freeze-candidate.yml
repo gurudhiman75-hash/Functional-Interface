@@ -1,0 +1,69 @@
+name: Validate SAP CP-003 English Manual-Freeze Candidate
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/**"
+      - ".github/workflows/validate-sap-cp003-english-manual-freeze-candidate.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-sap-cp003-english-manual-freeze-candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle English freeze candidate authority
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-003/SAP-CP-003-ENGLISH-MANUAL-FREEZE-CANDIDATE-AUTHORITY.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/sap-cp003-english-manual-freeze-candidate-authority.test.mjs
+
+      - name: Run English freeze candidate authority
+        working-directory: artifacts/api-server
+        run: >-
+          node dist/quant-v4/sap-cp003-english-manual-freeze-candidate-authority.test.mjs
+          | tee dist/quant-v4/sap-cp003-english-manual-freeze-candidate-authority.log
+
+      - name: Bundle English freeze candidate report generator
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-003/english-freeze/generate-candidate-report.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/generate-sap-cp003-english-manual-freeze-candidate-report.mjs
+
+      - name: Generate English freeze candidate report
+        working-directory: artifacts/api-server
+        run: >-
+          node dist/quant-v4/generate-sap-cp003-english-manual-freeze-candidate-report.mjs
+          dist/quant-v4/SAP-CP-003-ENGLISH-MANUAL-FREEZE-CANDIDATE.md
+
+      - name: Upload English freeze candidate evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sap-cp003-english-manual-freeze-candidate
+          path: |
+            artifacts/api-server/dist/quant-v4/SAP-CP-003-ENGLISH-MANUAL-FREEZE-CANDIDATE.md
+            artifacts/api-server/dist/quant-v4/sap-cp003-english-manual-freeze-candidate-authority.log
+          if-no-files-found: error
+          retention-days: 30

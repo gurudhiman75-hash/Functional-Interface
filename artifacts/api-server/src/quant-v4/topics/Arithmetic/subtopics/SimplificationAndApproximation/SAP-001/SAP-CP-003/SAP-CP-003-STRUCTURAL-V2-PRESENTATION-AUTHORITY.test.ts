@@ -121,15 +121,16 @@ assert.deepEqual(
 assert.equal(SAP_CP003_PERMANENT_STATE.permanentQlRange, "SAP-QL-034..SAP-QL-052");
 assert.equal(SAP_CP003_PERMANENT_STATE.nextAvailableQlId, "SAP-QL-053");
 assert.equal(SAP_CP003_PERMANENT_STATE.editorialApproval, "PRODUCT_OWNER_APPROVED_CP003_EDITORIAL_V3_2026_08_08");
+assert.equal(SAP_CP003_PERMANENT_STATE.freezeApproval, "PRODUCT_OWNER_APPROVED_CP003_ENGLISH_FREEZE_2026_08_08");
 assert.equal(SAP_CP003_PERMANENT_STATE.questionAndAnswerReview, "APPROVED_EDITORIAL_REMEDIATION_V3");
 assert.equal(SAP_CP003_PERMANENT_STATE.fullEditorialReview, "FULL_300_QUESTION_HUMAN_APPROVED");
-assert.equal(SAP_CP003_PERMANENT_STATE.englishExplanationFreeze, "HUMAN_APPROVED_PENDING_MERGE");
+assert.equal(SAP_CP003_PERMANENT_STATE.englishExplanationFreeze, "ENGLISH_MANUAL_FREEZE_APPROVED");
 assert.equal(SAP_CP003_PERMANENT_STATE.active, false);
 assert.equal(SAP_CP003_PERMANENT_STATE.questionStudioDiscoverable, false);
 assert.equal(SAP_CP003_PERMANENT_STATE.testEligible, false);
 
 console.log(JSON.stringify({
-  status: "PASS_SAP_CP003_EDITORIAL_V3_PRESENTATION_APPROVED_AUTHORITY",
+  status: "PASS_SAP_CP003_EDITORIAL_V3_PRESENTATION_FROZEN_AUTHORITY",
   decimalPlacementPackagesChecked: placementPackages,
   hiddenLeadingZeroDefects: 0,
   decimalFractionFrameCount: decimalFractionFrames.size,
@@ -146,6 +147,6 @@ console.log(JSON.stringify({
   nextAvailableQlId: SAP_CP003_PERMANENT_STATE.nextAvailableQlId,
   fullEditorialReview: SAP_CP003_PERMANENT_STATE.fullEditorialReview,
   explanationFreeze: SAP_CP003_PERMANENT_STATE.englishExplanationFreeze,
-  approvalAuthority: SAP_CP003_PERMANENT_STATE.editorialApproval,
-  lifecycle: "INACTIVE_AWAITING_MERGE_AUTHORIZATION",
+  approvalAuthority: SAP_CP003_PERMANENT_STATE.freezeApproval,
+  lifecycle: "INACTIVE_ENGLISH_FROZEN",
 }, null, 2));
