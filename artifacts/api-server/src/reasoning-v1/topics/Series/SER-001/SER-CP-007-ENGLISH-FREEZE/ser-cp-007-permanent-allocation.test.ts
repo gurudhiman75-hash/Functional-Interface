@@ -79,7 +79,8 @@ assert.equal(
   ),
   140,
 );
-assert.equal(SER_PERMANENT_QL_REGISTRY_STATE.registryVersion, 2);
+assert.equal(SER_PERMANENT_QL_REGISTRY_STATE.registryVersion, 3);
+assert.equal(SER_PERMANENT_QL_REGISTRY_STATE.multilingualFrozenQlCount, 13);
 assert.equal(SER_PERMANENT_QL_REGISTRY_STATE.nextAvailableId, "SER-QL-014");
 assert.equal(SER_CP007_ENGLISH_FREEZE_STATE.approvalDate, "2026-08-07");
 
@@ -125,7 +126,11 @@ for (const entry of SER_PERMANENT_QL_REGISTRY) {
   assert.equal(entry.allocationApproval, "PRODUCT_OWNER_APPROVED_2026_08_07");
   assert.equal(
     entry.localizationStatus,
-    "IMPLEMENTED_PENDING_MANUAL_REVIEW",
+    "MULTILINGUAL_MANUAL_FREEZE_APPROVED",
+  );
+  assert.equal(
+    entry.localizationApproval,
+    "PRODUCT_OWNER_APPROVED_2026_08_08",
   );
   assert.equal(entry.active, false);
   assert.equal(entry.questionStudioDiscoverable, false);
@@ -230,9 +235,12 @@ console.log(
     {
       status: "PASS_SER_CP007_ENGLISH_FREEZE_AND_PERMANENT_ALLOCATION",
       approvalDate: "2026-08-07",
+      multilingualApprovalDate: "2026-08-08",
       permanentQlRange: SER_PERMANENT_QL_REGISTRY_STATE.allocatedRange,
       nextAvailablePermanentQlId: SER_PERMANENT_QL_REGISTRY_STATE.nextAvailableId,
       permanentQlsAllocatedInactive: SER_PERMANENT_QL_REGISTRY.length,
+      multilingualFrozenQls:
+        SER_PERMANENT_QL_REGISTRY_STATE.multilingualFrozenQlCount,
       frozenPrototypeTemplates: SER_CP007_FROZEN_TEMPLATE_AUTHORITIES.length,
       frozenLearnerReleasePools: selection.primary.length,
       standardPrimaryCandidates: selection.standardPrimary.length,
@@ -248,7 +256,7 @@ console.log(
       reachedPermanentQls: reachedPermanentQls.size,
       reachedDifficulties: [...reachedDifficulties].sort(),
       reachedAnswerPositions: [...reachedAnswerPositions].sort(),
-      localizationStatus: "IMPLEMENTED_PENDING_MANUAL_REVIEW",
+      localizationStatus: "MULTILINGUAL_MANUAL_FREEZE_APPROVED",
       lifecycle: {
         questionStudioDiscoverable: false,
         questionBankWritable: false,
@@ -256,7 +264,7 @@ console.log(
         publiclyPublishable: false,
       },
       nextAuthority:
-        "SER_CP007_HINDI_PUNJABI_NATIVE_LANGUAGE_MANUAL_REVIEW",
+        "SER_CP007_QUESTION_STUDIO_INTEGRATION_READINESS_AUDIT",
     },
     null,
     2,
