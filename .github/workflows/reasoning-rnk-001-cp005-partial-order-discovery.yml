@@ -47,12 +47,19 @@ jobs:
             artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-partial-order-discovery.test.ts \
             | tee rnk-cp005-partial-order-discovery.log
 
-      - name: Generate human review pack
+      - name: Validate editorial candidates
         run: |
           set -o pipefail
           pnpm dlx tsx \
-            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-partial-order-review-export.ts \
-            | tee rnk-cp005-review-export.log
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-partial-order-editorial.test.ts \
+            | tee rnk-cp005-partial-order-editorial.log
+
+      - name: Generate editorial review pack
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-partial-order-editorial-review-export.ts \
+            | tee rnk-cp005-editorial-review-export.log
 
       - name: Validate ownership reset remains intact
         run: |
@@ -81,18 +88,19 @@ jobs:
           name: rnk-001-cp005-partial-order-discovery-evidence
           path: |
             rnk-cp005-partial-order-discovery.log
-            rnk-cp005-review-export.log
+            rnk-cp005-partial-order-editorial.log
+            rnk-cp005-editorial-review-export.log
             rnk-book-ownership-reset.log
             rnk-question-studio-registry.log
             rnk-cp005-api-build.log
           if-no-files-found: ignore
           retention-days: 14
 
-      - name: Upload human review pack
+      - name: Upload editorial review pack
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: rnk-001-cp005-partial-order-review-32q
-          path: artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/generated/RNK-CP-005-PARTIAL-ORDER-DISCOVERY-REVIEW-32Q.md
+          name: rnk-001-cp005-partial-order-editorial-review-28q
+          path: artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/generated/RNK-CP-005-PARTIAL-ORDER-EDITORIAL-REVIEW-28Q.md
           if-no-files-found: error
           retention-days: 14
