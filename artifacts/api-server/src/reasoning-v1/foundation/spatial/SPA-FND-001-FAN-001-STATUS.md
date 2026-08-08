@@ -2,9 +2,9 @@
 
 ## Status
 
-`VISUAL_REMEDIATION_IMPLEMENTED_AWAITING_EXACT_HEAD_CI`
+`EXACT_HEAD_VISUAL_REMEDIATION_PASSED`
 
-The first FAN proof passed deterministic state tests but failed manual visual review because the old rotation authority moved only the marker and arrow while leaving shape orientation and segment placement fixed. That proof result is superseded and must not be treated as editorial approval.
+The first FAN proof passed deterministic state tests but failed manual visual review because the old rotation authority moved only the marker and arrow while leaving shape orientation and segment placement fixed. That original proof result is superseded and must not be treated as editorial approval.
 
 ## Corrective architecture
 
@@ -40,13 +40,28 @@ Rule coverage:
 9. inner/outer exchange;
 10. complete rotation plus shading inversion.
 
-## Required exact-head status
+## Validated remediation proof
 
 ```text
+Head:       eb2fae4dac76e933440ee74039bcc1f96937e10c
+Workflow:   Validate SPA-FND-001 FAN-001 proof
+Run:        31248446996 — PASS
+Artifact:   spa-fan-001-editorial-review
+Artifact ID: 9019231252
+Digest:     sha256:aac9e03e6b85eab383d2bc86d0740fe18d454df2cb1f4d2147c2ab1011bb4962
+Status:     PASS_SPA_FND_001_FAN_001_VISUAL_REMEDIATION
+```
+
+Passed proof layers:
+
+```text
+PASS_SPA_FND_001_FOUNDATION_RUNTIME
+PASS_SPA_FND_001_MIRROR_WATER_PROOF
+PASS_SPA_FND_001_WAVE_03_PERCEPTUAL_REMEDIATION
 PASS_SPA_FND_001_FAN_001_VISUAL_REMEDIATION
 ```
 
-The workflow must also rerun the foundation, Wave 02 and remediated Wave 03 proof layers.
+The regenerated HTML was also manually inspected as a 10-question contact sheet. All ten A→B transformations and correct C→answer applications were visually consistent. The earlier malformed rotation pattern no longer appears.
 
 ## Lifecycle lock
 
