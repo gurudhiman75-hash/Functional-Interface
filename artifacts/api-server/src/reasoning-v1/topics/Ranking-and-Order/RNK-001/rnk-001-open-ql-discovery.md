@@ -1,6 +1,6 @@
 # RNK-001 — Open QL Discovery Register
 
-Status: **CP-001 through CP-004 are frozen at `RNK-QL-001..035`; `RNK-QL-036` is the next available identity.**
+Status: **CP-001 through CP-004 are frozen at `RNK-QL-001..035`; `RNK-QL-036` is unallocated and CP-005 ownership is reset to partial-order discovery.**
 
 This register prevents premature chapter sizing. Counts are discovery evidence, never quotas.
 
@@ -96,21 +96,6 @@ ENTITY_AT_EXACT_RANK + MIDDLE_ENTITY
 
 Endpoint direction and explicit-versus-derived position are parameters, not separate QLs. Named rank, complete order, pair direction, exact distance, immediate neighbour, definitely-true relation and missing comparison retain distinct proof or answer contracts.
 
-### Source and inverse record
-
-Inverse presentation was audited across 2,640 discovery records and a targeted 36-question review pack.
-
-Permanent runtime inverse coverage:
-
-```text
-canonical:                               1,488
-person at a rank from bottom:               48
-rank of a named entity from bottom:          96
-complete order from lowest to highest:       96
-```
-
-No inverse form created a duplicate authority identity.
-
 ### Permanent runtime evidence
 
 ```text
@@ -123,42 +108,97 @@ answer positions per QL: 48 / 48 / 48 / 48
 normalised semantic duplicates: 0
 ```
 
-### Ownership boundary
+### Corrected ownership boundary
 
 ```text
-exact unique multi-entity order                  -> RNK-CP-004
-row/queue/merit/race presentation-led forms       -> RNK-CP-005
-height/age/marks/weight attribute-led forms       -> RNK-CP-006
-possible/impossible/cannot-determine partial order -> RNK-CP-007
-shared multi-question ranking sets                 -> RNK-CP-008
-statement I/II sufficiency labels                  -> Data Sufficiency
+exact unique multi-entity strict order               -> RNK-CP-004
+partial order / possible / impossible / indeterminate -> RNK-CP-005
+shared passage or linked-question structure           -> assembly infrastructure
+height/age/marks/performance comparison wording       -> CP-004 surface parameter
+clue-heavy left/right adjacency and facing             -> Seating Arrangement
+statement I/II sufficiency labels                      -> Data Sufficiency
 ```
-
-`DEFINITELY_FALSE_RELATION` remains unallocated without additional source proof. Possible, impossible, cannot-determine and minimum/maximum possible-rank forms remain excluded to RNK-CP-007.
 
 Open CP-004 English discovery dimensions: `0`.
 
 Question Studio disclosure/mobile/accessibility integration and Hindi/Punjabi localisation remain downstream product work, not open English authority discovery.
 
-## 5. Open later checkpoints
+## 5. Book-to-QL audit
 
-### RNK-CP-005 — Presentation-led and shared ranking sets
+The audit in `RNK-001-BOOK-TO-QL-AUDIT-2026-08-08.md` maps standard competitive-exam ranking forms to `RNK-QL-001..035`.
 
-Row, queue, merit-list and race-order presentations, plus shared evidence where ownership is primarily presentation or caselet structure.
+Audit conclusions:
 
-### RNK-CP-006 — Attribute-led ranking ownership
+- ordinary rank arithmetic, two-position relations, interchange/movement and strict comparison ranking are already covered;
+- row, queue, merit-list, race and attribute wording are presentation or context parameters unless their solver changes;
+- shared passages are not permanent authority identities;
+- immediate left/right placement, neighbours, facing and extreme-seat reconstruction belong to Seating Arrangement;
+- the remaining genuine ranking gap is incomplete comparison information and uncertainty across multiple valid orders.
 
-Height, age, marks, weight and performance when comparison language and localisation materially affect the contract.
+## 6. Open next checkpoint — RNK-CP-005
 
-### RNK-CP-007 — Partial order and uncertainty
+### Ownership
 
-Definite, possible, impossible, cannot determine, minimum/maximum rank and uniqueness.
+```text
+PARTIAL_ORDER_AND_RANKING_UNCERTAINTY
+```
 
-### RNK-CP-008 — Advanced synthesis
+Candidate source forms:
 
-Multi-stage narratives, bounded grid/table forms and mixed ranking evidence.
+```text
+DEFINITELY_TRUE
+DEFINITELY_FALSE
+POSSIBLE
+IMPOSSIBLE
+CANNOT_BE_DETERMINED
+MINIMUM_POSSIBLE_RANK
+MAXIMUM_POSSIBLE_RANK
+UNIQUE_OR_MULTIPLE_ORDERS
+```
 
-## 6. Protected exclusions
+These labels are provisional source forms, not QLs.
+
+### Entry gates
+
+CP-005 may not allocate `RNK-QL-036` until it has:
+
+```text
+book and exam-source evidence
+-> ownership proof against CP-004 and Data Sufficiency
+-> bounded partial-order enumeration
+-> all-valid-orders answer proof
+-> ambiguity and contradiction gates
+-> realistic SSC/banking English review pack
+-> merge/split audit
+-> manual approval
+```
+
+### Explicit exclusions
+
+```text
+shared-set-only variants
+complete rank tables followed by lookup questions
+linear seating or row reconstruction from adjacency
+facing and neighbour geometry
+strict total orders already owned by CP-004
+attribute vocabulary without a new solver contract
+```
+
+## 7. Later checkpoints remain unallocated
+
+### RNK-CP-006 — Non-strict or tied-ranking source audit
+
+No implementation or permanent QL allocation without strong exam evidence. Attribute words alone do not create this checkpoint.
+
+### RNK-CP-007 — Advanced mixed ranking transformations
+
+Open only after CP-005 and a fresh chapter-gap audit.
+
+### RNK-CP-008 — Reserved
+
+Shared passages and linked-question assembly are infrastructure and may reuse existing authorities without new QLs.
+
+## 8. Protected exclusions
 
 ```text
 lexicographic/dictionary position              -> Word and Dictionary Order
@@ -170,11 +210,12 @@ alphabet position without a ranked group       -> Alphabet Test
 age/speed/marks arithmetic as main burden       -> relevant Quant chapter
 ```
 
-## 7. Current lifecycle
+## 9. Current lifecycle
 
 ```text
 cumulative permanent range:   RNK-QL-001..035
 next available RNK ID:        RNK-QL-036
+CP-005 permanent QLs:         0
 CP-001 discovery frozen:      true
 CP-002 discovery frozen:      true
 CP-003 discovery frozen:      true
