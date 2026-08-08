@@ -22,6 +22,7 @@ export * from "./editorial-review-export";
 export * from "./analogy-types";
 export * from "./analogy-rule-authority";
 export * from "./analogy-scene";
+export * from "./analogy-visual-validator";
 export * from "./analogy-proof-generator";
 export * from "./analogy-editorial-export";
 export * from "./svg-renderer";
