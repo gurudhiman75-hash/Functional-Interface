@@ -1,6 +1,6 @@
 # RNK-001 — Ranking and Order
 
-Status: **CP-001 through CP-004 English discovery frozen at `RNK-QL-001..035`; CP-005 onward remains open.**
+Status: **CP-001 through CP-005 English discovery frozen at `RNK-QL-001..043`; CP-006 onward remains open.**
 
 Student-facing chapter: **Ranking and Order**  
 Reasoning V1 package: `RNK-001`  
@@ -23,7 +23,7 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/
 | `RNK-CP-002` | two-person positions, separation, comparison and mixed-end total constraints | frozen: `RNK-QL-010..017` |
 | `RNK-CP-003` | interchange, movement, overtaking, insertion/removal and changed-rank transformations | frozen: `RNK-QL-018..026` |
 | `RNK-CP-004` | exact multi-entity comparison and explicit order reconstruction | frozen: `RNK-QL-027..035` |
-| `RNK-CP-005` | presentation-led and shared ranking sets | planned |
+| `RNK-CP-005` | presentation-led tables, ledgers and shared ranking sets | frozen: `RNK-QL-036..043` |
 | `RNK-CP-006` | attribute-led ranking ownership extensions | planned ownership audit |
 | `RNK-CP-007` | partial-order, definite/possible and uniqueness semantics | planned |
 | `RNK-CP-008` | advanced synthesis | planned |
@@ -75,7 +75,20 @@ RNK-QL-034  definitely true transitive relation
 RNK-QL-035  comparison sufficient to make the order unique
 ```
 
-Next available RNK identity: `RNK-QL-036`.
+### CP-005 — `RNK-QL-036..043`
+
+```text
+RNK-QL-036  shared-set endpoint entity
+RNK-QL-037  shared-set entity at requested position
+RNK-QL-038  shared-set rank of a named entity
+RNK-QL-039  shared-set relative order of a named pair
+RNK-QL-040  shared-set exact rank gap
+RNK-QL-041  shared-set immediate neighbour
+RNK-QL-042  shared-set complete order
+RNK-QL-043  shared-set definitely true statement
+```
+
+Next available RNK identity: `RNK-QL-044`.
 
 ## CP-004 freeze summary
 
@@ -93,6 +106,24 @@ Highest/lowest and explicit-rank/middle forms were consolidated after proof-cont
 
 The permanent CP-004 runtime contains 470 Easy, 1,106 Medium and 152 Hard questions, six contexts represented 288 times each, exact `48/48/48/48` answer-position balance per QL and zero normalised semantic duplicates.
 
+## CP-005 freeze summary
+
+```text
+English review corpus:          144
+presentation modes:               3
+contexts:                         6
+frozen authorities:               8
+shared sets:                    192
+permanent runtime:            1,536
+questions per authority:         192
+freeze version:             RNK_CP005_ENGLISH_DISCOVERY_FREEZE_V1
+projection: sha256:3fcc8981c4eb66b04cc455605da5d2f89a29555a48a7c17bd2e3d51403fa2c29
+```
+
+CP-005 distinguishes shared-set ownership from CP-004 standalone ownership. Every set has one stable passage identity and one independently reconstructed order reused by linked questions. The runtime supports rank tables, ordered ledgers and comparison-clue passages across row, queue, merit-list, race, shortlist and performance contexts.
+
+The permanent CP-005 runtime contains 132 Easy, 1,284 Medium and 120 Hard questions, exact `48/48/48/48` answer-position balance per QL and zero duplicate mathematical fingerprints.
+
 ## Proof summary
 
 ```text
@@ -100,6 +131,7 @@ CP-001: 13 prototypes / 3,120 discovery / 54 approved / 9 authorities
 CP-002: 13 prototypes / 3,120 discovery / 48 approved / 8 authorities / 1,536 permanent
 CP-003: 13 prototypes / 3,120 discovery / 78 approved / 9 authorities / 1,728 permanent
 CP-004: 11 source forms / 2,640 discovery / 132 approved / 9 authorities / 1,728 permanent
+CP-005: 3 presentation modes / 192 shared sets / 144 review / 8 authorities / 1,536 permanent
 ```
 
 Approved English projections:
@@ -108,6 +140,7 @@ Approved English projections:
 CP-002  sha256:e1853b8864453ebcdbe88aa6f3ca5fedf9f7b7140c28a3b5ad5da8a0c4855430
 CP-003  sha256:6457a50fdde7673f9e66fe607a47a5c38a4c921489ed387b72c87ef8a22947d5
 CP-004  sha256:39c35edb20d0452ccec4018a1166cefa5f8c445d92c968c601e59158aed4a97f
+CP-005  sha256:3fcc8981c4eb66b04cc455605da5d2f89a29555a48a7c17bd2e3d51403fa2c29
 ```
 
 ## Construction model
@@ -124,31 +157,43 @@ construct a valid hidden ranking state
   -> pin the permanent projection digest
 ```
 
+For CP-005, one additional invariant applies:
+
+```text
+one shared passage
+  -> one stable shared-set fingerprint
+  -> multiple linked authority questions
+  -> identical reconstructed order across the set
+```
+
 ## Ownership boundaries
 
 - one-person rank arithmetic → CP-001;
 - relationships between two fixed positions → CP-002;
 - interchange, movement, overtaking, insertion or removal → CP-003;
-- unique three-or-more-person order reconstruction → CP-004;
-- presentation-led or shared ranking sets → CP-005/CP-008;
+- unique standalone three-or-more-person order reconstruction → CP-004;
+- reusable presentation-led or shared ranking sets → CP-005;
 - attribute-led height, age, marks and weight ranking → CP-006;
 - multi-person partial-order uncertainty → CP-007;
+- advanced mixed shared synthesis → CP-008;
 - statement-wise sufficiency → Data Sufficiency;
 - facing/adjacency geometry → Seating Arrangement.
 
 ## Current lifecycle
 
 ```text
-cumulative permanent range:      RNK-QL-001..035
-next available ID:               RNK-QL-036
+cumulative permanent range:      RNK-QL-001..043
+next available ID:               RNK-QL-044
 CP-001 discovery frozen:         true
 CP-002 discovery frozen:         true
 CP-003 discovery frozen:         true
 CP-004 discovery frozen:         true
+CP-005 discovery frozen:         true
 chapter-wide freeze:             false
 Hindi/Punjabi:                   not started
 Question Studio:                 disabled
 Question Bank:                   NOT_STORED
 test eligibility:                INELIGIBLE
 public publication:              false
+manual NVDA/VoiceOver gate:      pending
 ```

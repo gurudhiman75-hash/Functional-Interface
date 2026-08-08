@@ -9,6 +9,23 @@ export type ReasoningV1QuestionStudioLifecycle = Readonly<{
   screenReaderValidation: "PENDING_MANUAL_ASSISTIVE_TECHNOLOGY_EXECUTION";
 }>;
 
+export type ReasoningV1CheckpointFreeze = Readonly<{
+  checkpointId: "RNK-CP-004" | "RNK-CP-005";
+  freezeVersion:
+    | "RNK_CP004_ENGLISH_DISCOVERY_FREEZE_V1"
+    | "RNK_CP005_ENGLISH_DISCOVERY_FREEZE_V1";
+  runtimeVersion:
+    | "RNK_CP004_PERMANENT_RUNTIME_V1"
+    | "RNK_CP005_PERMANENT_RUNTIME_V1";
+  permanentQlRange: Readonly<{
+    first: string;
+    last: string;
+    count: number;
+  }>;
+  permanentQuestionCount: number;
+  projectionSha256: string;
+}>;
+
 export type ReasoningV1QuestionStudioPackage = Readonly<{
   id: string;
   packageId: string;
@@ -20,23 +37,24 @@ export type ReasoningV1QuestionStudioPackage = Readonly<{
   name: string;
   label: string;
   generationDomain: "reasoning-v1";
-  cpIds: readonly string[];
+  cpIds: readonly ["RNK-CP-004", "RNK-CP-005"];
   supportedDifficulties: readonly ["easy", "medium", "hard"];
   supportedLanguages: readonly ["en"];
   enabled: false;
   runtimeMode: "DISCOVERY_ONLY";
   supportedRuntimeModes: readonly ["DISCOVERY_ONLY"];
   dynamicCandidateCpIds: readonly [];
-  freezeState: "ENGLISH_DISCOVERY_FREEZE_READY";
-  freezeVersion: "RNK_CP004_ENGLISH_DISCOVERY_FREEZE_V1";
-  runtimeVersion: "RNK_CP004_PERMANENT_RUNTIME_V1";
+  freezeState: "PARTIAL_CHAPTER_ENGLISH_DISCOVERY_FROZEN";
+  freezeVersion: "RNK_CP004_AND_CP005_ENGLISH_DISCOVERY_FREEZE_V1";
+  runtimeVersion: "RNK_CP004_AND_CP005_PERMANENT_RUNTIME_V1";
   permanentQlRange: Readonly<{
     first: "RNK-QL-027";
-    last: "RNK-QL-035";
-    count: 9;
+    last: "RNK-QL-043";
+    count: 17;
   }>;
-  permanentQuestionCount: 1728;
-  projectionSha256: "39c35edb20d0452ccec4018a1166cefa5f8c445d92c968c601e59158aed4a97f";
+  permanentQuestionCount: 3264;
+  projectionSha256: "b9e1df032824aaea99170eb9b6b6c053de0d5f3c1ce8508f0c8cb51865f17305";
+  checkpointFreezes: readonly [ReasoningV1CheckpointFreeze, ReasoningV1CheckpointFreeze];
 }> & ReasoningV1QuestionStudioLifecycle;
 
 export type ReasoningV1QuestionStudioSelection = Readonly<{
@@ -73,24 +91,52 @@ const RNK_001_PACKAGE: ReasoningV1QuestionStudioPackage = Object.freeze({
   name: "RNK-001 Ranking and Order",
   label: "Ranking and Order — Discovery Only",
   generationDomain: "reasoning-v1",
-  cpIds: Object.freeze(["RNK-CP-004"]),
+  cpIds: Object.freeze(["RNK-CP-004", "RNK-CP-005"]),
   supportedDifficulties: Object.freeze(["easy", "medium", "hard"]),
   supportedLanguages: Object.freeze(["en"]),
   enabled: false,
   runtimeMode: "DISCOVERY_ONLY",
   supportedRuntimeModes: Object.freeze(["DISCOVERY_ONLY"]),
   dynamicCandidateCpIds: Object.freeze([]),
-  freezeState: "ENGLISH_DISCOVERY_FREEZE_READY",
-  freezeVersion: "RNK_CP004_ENGLISH_DISCOVERY_FREEZE_V1",
-  runtimeVersion: "RNK_CP004_PERMANENT_RUNTIME_V1",
+  freezeState: "PARTIAL_CHAPTER_ENGLISH_DISCOVERY_FROZEN",
+  freezeVersion: "RNK_CP004_AND_CP005_ENGLISH_DISCOVERY_FREEZE_V1",
+  runtimeVersion: "RNK_CP004_AND_CP005_PERMANENT_RUNTIME_V1",
   permanentQlRange: Object.freeze({
     first: "RNK-QL-027",
-    last: "RNK-QL-035",
-    count: 9,
+    last: "RNK-QL-043",
+    count: 17,
   }),
-  permanentQuestionCount: 1728,
+  permanentQuestionCount: 3264,
   projectionSha256:
-    "39c35edb20d0452ccec4018a1166cefa5f8c445d92c968c601e59158aed4a97f",
+    "b9e1df032824aaea99170eb9b6b6c053de0d5f3c1ce8508f0c8cb51865f17305",
+  checkpointFreezes: Object.freeze([
+    Object.freeze({
+      checkpointId: "RNK-CP-004",
+      freezeVersion: "RNK_CP004_ENGLISH_DISCOVERY_FREEZE_V1",
+      runtimeVersion: "RNK_CP004_PERMANENT_RUNTIME_V1",
+      permanentQlRange: Object.freeze({
+        first: "RNK-QL-027",
+        last: "RNK-QL-035",
+        count: 9,
+      }),
+      permanentQuestionCount: 1728,
+      projectionSha256:
+        "39c35edb20d0452ccec4018a1166cefa5f8c445d92c968c601e59158aed4a97f",
+    }),
+    Object.freeze({
+      checkpointId: "RNK-CP-005",
+      freezeVersion: "RNK_CP005_ENGLISH_DISCOVERY_FREEZE_V1",
+      runtimeVersion: "RNK_CP005_PERMANENT_RUNTIME_V1",
+      permanentQlRange: Object.freeze({
+        first: "RNK-QL-036",
+        last: "RNK-QL-043",
+        count: 8,
+      }),
+      permanentQuestionCount: 1536,
+      projectionSha256:
+        "3fcc8981c4eb66b04cc455605da5d2f89a29555a48a7c17bd2e3d51403fa2c29",
+    }),
+  ]),
   generationAllowed: false,
   persistenceAllowed: false,
   approvalAllowed: false,

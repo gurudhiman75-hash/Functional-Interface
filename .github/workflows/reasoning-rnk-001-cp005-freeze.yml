@@ -1,0 +1,89 @@
+name: Validate RNK-001 CP-005 English Discovery Freeze
+
+on:
+  push:
+    branches:
+      - feat/rnk-001-cp005-discovery-freeze
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/**
+      - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/README.md
+      - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-001-MANIFEST-AMENDMENT-CP005.md
+      - artifacts/api-server/src/reasoning-v1/question-studio-registry.ts
+      - artifacts/api-server/src/reasoning-v1/question-studio-registry.test.ts
+      - .github/workflows/reasoning-rnk-001-cp005-freeze.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rnk-cp005-freeze-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  cp005-english-discovery-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate CP-005 shared-set foundation
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-foundation.test.ts \
+            | tee rnk-cp005-foundation.log
+
+      - name: Validate CP-005 English editorial review pack
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-editorial-gates.test.ts \
+            | tee rnk-cp005-editorial.log
+
+      - name: Validate CP-005 permanent projection
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-005/cp005-permanent-runtime-v1-gates.test.ts \
+            | tee rnk-cp005-permanent-freeze.log
+
+      - name: Validate discovery-only Question Studio registry
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/question-studio-registry.test.ts \
+            | tee rnk-question-studio-registry.log
+
+      - name: Build API server
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server build \
+            | tee rnk-cp005-api-build.log
+
+      - name: Upload CP-005 freeze evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-cp005-english-discovery-freeze-evidence
+          path: |
+            rnk-cp005-foundation.log
+            rnk-cp005-editorial.log
+            rnk-cp005-permanent-freeze.log
+            rnk-question-studio-registry.log
+            rnk-cp005-api-build.log
+          if-no-files-found: ignore
+          retention-days: 14
