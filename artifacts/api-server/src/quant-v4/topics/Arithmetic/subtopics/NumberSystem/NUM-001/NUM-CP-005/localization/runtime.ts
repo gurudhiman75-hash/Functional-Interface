@@ -1,11 +1,11 @@
 import { runNumCp005PermanentPipeline } from "../permanent/runtime";
+import { translateNumCp005LocalizedOptionValue } from "./dynamic-option-translation";
 import { applyNumCp005FinalLearnerTextCleanup } from "./final-learner-text-cleanup";
 import { hardenNumCp005LocalizedQuestion } from "./linguistic-hardening";
 import { localizeNumCp005Question } from "./localizer";
 import type {
   NumCp005LocalizedQuestion,
   NumCp005LocalizedRuntimeInput,
-  NumCp005TranslatedLocale,
 } from "./types";
 
 interface PrimePowerState {
@@ -63,53 +63,63 @@ function expressionParserCompatibleEnglish(english: EnglishQuestion): EnglishQue
   return english;
 }
 
-function localizeQl068ComparisonAnalysis(
-  analysis: string,
-  locale: NumCp005TranslatedLocale,
+function replaceDynamicOptionText(
+  text: string,
+  replacements: readonly (readonly [string, string])[],
 ): string {
-  const match = analysis.match(
-    /A has (.+?); B has (.+?); (Number A has more\.|Number B has more\.|Both numbers have the same value\.|Cannot determine\.)/u,
+  return replacements.reduce(
+    (result, [english, localized]) => result.replaceAll(english, localized),
+    text,
   );
-  if (!match) {
-    throw new Error(`NUM-QL-068 comparison analysis format changed: ${analysis}`);
-  }
-
-  const valueA = match[1]!;
-  const valueB = match[2]!;
-  const outcome = match[3]!;
-  const hi = locale === "hi-IN";
-  const outcomeText = outcome === "Number A has more."
-    ? hi ? "A का मान अधिक है।" : "A ਦਾ ਮੁੱਲ ਵੱਧ ਹੈ।"
-    : outcome === "Number B has more."
-      ? hi ? "B का मान अधिक है।" : "B ਦਾ ਮੁੱਲ ਵੱਧ ਹੈ।"
-      : outcome === "Both numbers have the same value."
-        ? hi ? "A और B दोनों का मान समान है।" : "A ਅਤੇ B ਦੋਵਾਂ ਦਾ ਮੁੱਲ ਇੱਕੋ ਹੈ।"
-        : outcome === "Cannot determine."
-          ? hi ? "दिए गए मानों से निर्णय नहीं किया जा सकता।" : "ਦਿੱਤੇ ਮੁੱਲਾਂ ਤੋਂ ਫੈਸਲਾ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।"
-          : null;
-
-  if (!outcomeText) {
-    throw new Error(`NUM-QL-068 comparison outcome format changed: ${outcome}`);
-  }
-
-  const translatedComparison = hi
-    ? `A का मान ${valueA} है; B का मान ${valueB} है; ${outcomeText}`
-    : `A ਦਾ ਮੁੱਲ ${valueA} ਹੈ; B ਦਾ ਮੁੱਲ ${valueB} ਹੈ; ${outcomeText}`;
-
-  return analysis.replace(match[0], translatedComparison);
 }
 
-function localizeQl068OptionAnalyses(
+function localizeDynamicOptionText(
+  english: EnglishQuestion,
   question: NumCp005LocalizedQuestion,
 ): NumCp005LocalizedQuestion {
-  if (question.questionLanguageId !== "NUM-QL-068") return question;
+  if (
+    english.questionLanguageId !== "NUM-QL-068"
+    && english.questionLanguageId !== "NUM-QL-069"
+  ) return question;
+
+  const replacements = english.options.map((option) => Object.freeze([
+    option.value,
+    translateNumCp005LocalizedOptionValue(
+      english.questionLanguageId,
+      option.value,
+      question.locale,
+    ),
+  ] as const));
+  const replace = (text: string) => replaceDynamicOptionText(text, replacements);
+  const canonicalAnswer = translateNumCp005LocalizedOptionValue(
+    english.questionLanguageId,
+    english.canonicalAnswer,
+    question.locale,
+  );
+  const verifierAnswer = translateNumCp005LocalizedOptionValue(
+    english.questionLanguageId,
+    english.verifierAnswer,
+    question.locale,
+  );
 
   return Object.freeze({
     ...question,
-    options: Object.freeze(question.options.map((option) => Object.freeze({
+    options: Object.freeze(question.options.map((option, index) => Object.freeze({
       ...option,
-      analysis: localizeQl068ComparisonAnalysis(option.analysis, question.locale),
+      value: replacements[index]![1],
+      analysis: replace(option.analysis),
     }))),
+    canonicalAnswer,
+    verifierAnswer,
+    explanation: Object.freeze({
+      ...question.explanation,
+      coreConcept: replace(question.explanation.coreConcept),
+      givenDataAndStrategy: replace(question.explanation.givenDataAndStrategy),
+      stepByStep: Object.freeze(question.explanation.stepByStep.map(replace)),
+      examSpeedMethod: replace(question.explanation.examSpeedMethod),
+      commonTraps: Object.freeze(question.explanation.commonTraps.map(replace)),
+      finalAnswer: replace(question.explanation.finalAnswer),
+    }),
   });
 }
 
@@ -158,5 +168,5 @@ export function generateNumCp005LocalizedQuestion(
   const hardened = applyNumCp005FinalLearnerTextCleanup(
     hardenNumCp005LocalizedQuestion(english, localized),
   );
-  return localizeQl068OptionAnalyses(hardened);
+  return localizeDynamicOptionText(english, hardened);
 }
