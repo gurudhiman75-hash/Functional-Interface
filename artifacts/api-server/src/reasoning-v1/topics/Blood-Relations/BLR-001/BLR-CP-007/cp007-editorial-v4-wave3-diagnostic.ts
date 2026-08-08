@@ -1,4 +1,7 @@
-import { generateBlrCp007EditorialV4Wave3Bank } from "./cp007-editorial-v4-wave3";
+import {
+  buildBlrCp007EditorialV4Wave3FinalTelemetry,
+  generateBlrCp007EditorialV4Wave3FinalBank,
+} from "./cp007-editorial-v4-wave3-final";
 import type { GeneratedBlrCp007EditorialV4Question } from "./cp007-editorial-v4-model";
 
 function changedPositions(
@@ -14,7 +17,9 @@ function changedPositions(
   return changed;
 }
 
-const gaps = generateBlrCp007EditorialV4Wave3Bank()
+const bank = generateBlrCp007EditorialV4Wave3FinalBank();
+const telemetry = buildBlrCp007EditorialV4Wave3FinalTelemetry(bank);
+const ql031ResidualDistractorGaps = bank
   .filter((question) => question.qlId === "BLR-QL-031" && question.query.kind === "SELECT_EXPRESSION")
   .flatMap((question) => {
     const correct = question.options[question.correctIndex]!.completedStatements;
@@ -30,4 +35,25 @@ const gaps = generateBlrCp007EditorialV4Wave3Bank()
       changes,
     }] : [];
   });
-console.log(JSON.stringify({ ql031ResidualDistractorGaps: gaps }, null, 2));
+const semanticAmbiguities = bank
+  .filter((question) => question.qlId !== "BLR-QL-035")
+  .flatMap((question) => {
+    const satisfying = question.options.filter((option) => option.targetRelationSatisfied);
+    return satisfying.length === 1 ? [] : [{
+      itemId: question.itemId,
+      qlId: question.qlId,
+      prototype: question.sourcePrototypeId,
+      satisfying: satisfying.map((option) => ({
+        text: option.text,
+        semanticKey: option.semanticKey,
+        actualRelation: option.actualRelation,
+        markedCorrect: option.isCorrectAnswerForTask,
+      })),
+    }];
+  });
+
+console.log(JSON.stringify({
+  telemetry,
+  ql031ResidualDistractorGaps,
+  semanticAmbiguities,
+}, null, 2));
