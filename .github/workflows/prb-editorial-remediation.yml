@@ -23,59 +23,6 @@ jobs:
         with:
           node-version: 20
 
-      - name: Wire exam profiles into Question Studio
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          path = Path("artifacts/api-server/src/quant-v4/generation-engine.ts")
-          text = path.read_text()
-
-          def ensure(old: str, new: str, label: str):
-              global text
-              if new in text:
-                  return
-              if old not in text:
-                  raise SystemExit(f"Could not patch {label}")
-              text = text.replace(old, new, 1)
-
-          ensure(
-              '} from "./topics/Probability/PRB-002";\n',
-              '} from "./topics/Probability/PRB-002";\nimport type { ProbabilityExamProfile } from "./topics/Probability/shared";\n',
-              "ProbabilityExamProfile import",
-          )
-          ensure(
-              '  runtimeMode?: "CANONICAL_REVIEW" | "DYNAMIC_CANDIDATE";\n};',
-              '  runtimeMode?: "CANONICAL_REVIEW" | "DYNAMIC_CANDIDATE";\n  examProfile?: ProbabilityExamProfile;\n};',
-              "request exam profile",
-          )
-          ensure(
-              'type RuntimeDefinition = QuantV4PackageDefinition & {\n  packageId: RuntimePackageId;\n};',
-              'type RuntimeDefinition = Omit<QuantV4PackageDefinition, "run"> & {\n  packageId: RuntimePackageId;\n  run: (\n    cpId: string,\n    input: {\n      difficulty?: QuantV4Difficulty;\n      language?: QuantV4Language;\n      questionLanguageId?: string;\n      seed?: string;\n      examProfile?: ProbabilityExamProfile;\n    },\n  ) => Promise<any> | any;\n};',
-              "runtime input type",
-          )
-          ensure(
-              '''      runPrb001Pipeline(cpId as Prb001CanonicalProblemId, {\n        difficultyBand: input.difficulty,\n        language: input.language,\n        questionLanguageId: input.questionLanguageId,\n        seed: input.seed,\n      }),''',
-              '''      runPrb001Pipeline(cpId as Prb001CanonicalProblemId, {\n        difficultyBand: input.difficulty,\n        language: input.language,\n        questionLanguageId: input.questionLanguageId,\n        examProfile: input.examProfile,\n        seed: input.seed,\n      }),''',
-              "PRB-001 profile forwarding",
-          )
-          ensure(
-              '''      runPrb002Pipeline(cpId as Prb002CanonicalProblemId, {\n        difficultyBand: input.difficulty,\n        language: input.language,\n        questionLanguageId: input.questionLanguageId,\n        seed: input.seed,\n      }),''',
-              '''      runPrb002Pipeline(cpId as Prb002CanonicalProblemId, {\n        difficultyBand: input.difficulty,\n        language: input.language,\n        questionLanguageId: input.questionLanguageId,\n        examProfile: input.examProfile,\n        seed: input.seed,\n      }),''',
-              "PRB-002 profile forwarding",
-          )
-          ensure(
-              '''            questionLanguageId: request.questionLanguageId,\n            seed,\n          });''',
-              '''            questionLanguageId: request.questionLanguageId,\n            examProfile: request.examProfile,\n            seed,\n          });''',
-              "runtime profile forwarding",
-          )
-          ensure(
-              '    supportedLanguages: [...PRB_LANGUAGES],\n    enabled: true,',
-              '    supportedLanguages: [...PRB_LANGUAGES],\n    supportedExamProfiles: ["SSC_CGL_CHSL", "SSC_CGL_JSO", "BANKING_PRELIMS", "BANKING_MAINS", "GENERIC_PRACTICE"],\n    optionCountByExamProfile: { SSC_CGL_CHSL: 4, SSC_CGL_JSO: 4, BANKING_PRELIMS: 5, BANKING_MAINS: 5, GENERIC_PRACTICE: 4 },\n    enabled: true,',
-              "Question Studio profile metadata",
-          )
-          path.write_text(text)
-          PY
-
       - name: Probability TypeScript integration
         run: >-
           npx -y -p typescript@5.6.3 tsc
@@ -109,67 +56,116 @@ jobs:
       - name: Permanent exam-depth audit
         run: python artifacts/api-server/src/quant-v4/topics/Probability/exam-depth-review-audit.py
 
-      - name: Verify generated review evidence
+      - name: Verify detailed worked-solution evidence
         run: |
           python - <<'PY'
           import csv
+          import re
           from pathlib import Path
+          from statistics import mean
 
+          root = Path("artifacts/api-server/src/quant-v4/topics/Probability")
           expected = {
               "PRB-001": (75, 4, "SSC_CGL_CHSL"),
               "PRB-002": (60, 5, "BANKING_MAINS"),
           }
-          all_keys = set()
-          for package_id, (count, option_count, profile) in expected.items():
-              path = Path(f"artifacts/api-server/src/quant-v4/topics/Probability/{package_id}/human-review-en.csv")
-              rows = list(csv.DictReader(path.open()))
-              if len(rows) != count:
-                  raise SystemExit(f"{package_id}: expected {count} rows, found {len(rows)}")
-              package_keys = set()
-              for row in rows:
+          successive_modes = {
+              "findSuccessiveIndependentProbability",
+              "findWithReplacementProbability",
+              "findSuccessiveDependentProbability",
+              "findWithoutReplacementProbability",
+              "findOrderedDrawSequenceProbability",
+              "findSameTypeInSuccessiveDraws",
+              "findDifferentTypesInSuccessiveDraws",
+              "findAtLeastOneAcrossIndependentStages",
+          }
+
+          rows = []
+          visible_keys = set()
+          for package_id, (expected_count, option_count, profile) in expected.items():
+              path = root / package_id / "human-review-en.csv"
+              package_rows = list(csv.DictReader(path.open(encoding="utf-8")))
+              if len(package_rows) != expected_count:
+                  raise SystemExit(f"{package_id}: expected {expected_count} rows, found {len(package_rows)}")
+
+              for row in package_rows:
+                  ql_id = row["qlId"]
                   key = (" ".join(row["stem"].lower().split()), row["answer"])
-                  if key in package_keys or key in all_keys:
-                      raise SystemExit(f"Duplicate visible question: {row['stem']}")
-                  package_keys.add(key)
-                  all_keys.add(key)
+                  if key in visible_keys:
+                      raise SystemExit(f"Duplicate visible question at {ql_id}: {row['stem']}")
+                  visible_keys.add(key)
+
                   if row["examProfile"] != profile:
-                      raise SystemExit(f"{package_id}: wrong exam profile")
+                      raise SystemExit(f"{ql_id}: expected profile {profile}")
                   options = [row[f"option{letter}"] for letter in "ABCDE" if row[f"option{letter}"]]
                   if len(options) != option_count or len(set(options)) != option_count:
-                      raise SystemExit(f"{package_id}: invalid options for {row['qlId']}")
+                      raise SystemExit(f"{ql_id}: invalid option set")
                   if row["validationValid"] != "true":
-                      raise SystemExit(f"{package_id}: invalid review row {row['qlId']}")
-                  explanation_words = len(row["explanation"].split())
-                  if not 12 <= explanation_words <= 120:
-                      raise SystemExit(f"{package_id}: unsuitable explanation length for {row['qlId']}: {explanation_words}")
-                  banned_stem = ["equally likely items", "it does not happen", "satisfies A", "satisfies B"]
+                      raise SystemExit(f"{ql_id}: generated row failed validation")
+
+                  explanation = row["explanation"]
+                  words = len(explanation.split())
+                  minimum = 28 if row["difficulty"] == "Easy" else 45 if row["difficulty"] == "Medium" else 55
+                  if not minimum <= words <= 200:
+                      raise SystemExit(f"{ql_id}: explanation has {words} words; expected {minimum}-200")
+                  for marker in ("Method —", "Step 1 —", "Answer —"):
+                      if marker not in explanation:
+                          raise SystemExit(f"{ql_id}: missing worked-solution marker {marker}")
+
+                  banned_stem = ("equally likely items", "it does not happen", "satisfies A", "satisfies B")
                   if any(phrase.lower() in row["stem"].lower() for phrase in banned_stem):
-                      raise SystemExit(f"{package_id}: unnatural stem language in {row['qlId']}")
-                  banned_explanation_starts = ("Favourable outcomes =", "Total outcomes =", "Total possible outcomes =")
-                  if row["explanation"].startswith(banned_explanation_starts):
-                      raise SystemExit(f"{package_id}: generic explanation in {row['qlId']}")
+                      raise SystemExit(f"{ql_id}: unnatural stem language")
+                  banned_starts = ("Favourable outcomes =", "Total outcomes =", "Total possible outcomes =")
+                  if explanation.startswith(banned_starts):
+                      raise SystemExit(f"{ql_id}: generic answer-key explanation")
+                  if row["solveMode"] in successive_modes and re.search(r"coin toss|H/T sequence", explanation, re.I):
+                      raise SystemExit(f"{ql_id}: successive-draw solution received a coin method")
+                  if re.search(r"=\s*([^ ]+)\s*=\s*\1(?:\.|\s|$)", explanation):
+                      raise SystemExit(f"{ql_id}: repeated the same reduced result")
+                  if re.search(r"Step \d+ — X\s*=", explanation):
+                      raise SystemExit(f"{ql_id}: algebraic variable x was incorrectly capitalised")
+
+                  rows.append(row)
+
+          if len(visible_keys) != 135:
+              raise SystemExit(f"Expected 135 unique visible questions, found {len(visible_keys)}")
+
+          overall_average = mean(len(row["explanation"].split()) for row in rows)
+          medium_hard = [row for row in rows if row["difficulty"] in {"Medium", "Hard"}]
+          medium_hard_average = mean(len(row["explanation"].split()) for row in medium_hard)
+          if overall_average < 50 or medium_hard_average < 62:
+              raise SystemExit(
+                  f"Explanation depth too low: overall={overall_average:.1f}, medium/hard={medium_hard_average:.1f}"
+              )
 
           for markdown_name in (
               "PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md",
               "PROBABILITY-REVIEW-QUESTIONS-AND-EXPLANATIONS.md",
           ):
-              markdown = Path(f"artifacts/api-server/src/quant-v4/topics/Probability/{markdown_name}").read_text()
-              checks = {
+              markdown = (root / markdown_name).read_text(encoding="utf-8")
+              coverage = {
                   "questions": markdown.count("\n#### Question "),
                   "answers": markdown.count("\n**Correct answer:**"),
                   "explanations": markdown.count("\n**Explanation:**"),
+                  "methods": markdown.count("**Method:**"),
               }
-              if checks != {"questions": 135, "answers": 135, "explanations": 135}:
-                  raise SystemExit(f"{markdown_name} coverage mismatch: {checks}")
-          if len(all_keys) != 135:
-              raise SystemExit(f"Expected 135 unique visible questions, found {len(all_keys)}")
+              expected_coverage = {"questions": 135, "answers": 135, "explanations": 135, "methods": 135}
+              if coverage != expected_coverage:
+                  raise SystemExit(f"{markdown_name} coverage mismatch: {coverage}")
+
+          print({
+              "questions": len(rows),
+              "unique": len(visible_keys),
+              "averageExplanationWords": round(overall_average, 1),
+              "mediumHardAverageWords": round(medium_hard_average, 1),
+          })
           PY
           git diff --check
 
-      - name: Upload review Markdown files
+      - name: Upload detailed review Markdown
         uses: actions/upload-artifact@v4
         with:
-          name: probability-cutting-edge-review
+          name: probability-detailed-worked-solutions
           path: |
             artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-COMPREHENSIVE-QUESTIONS-AND-EXPLANATIONS.md
             artifacts/api-server/src/quant-v4/topics/Probability/PROBABILITY-REVIEW-QUESTIONS-AND-EXPLANATIONS.md
@@ -194,5 +190,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "${targets[@]}"
           git diff --cached --check
-          git commit -m "docs(probability): regenerate exam-depth review evidence [skip ci]"
+          git commit -m "docs(probability): regenerate detailed review evidence [skip ci]"
           git push
