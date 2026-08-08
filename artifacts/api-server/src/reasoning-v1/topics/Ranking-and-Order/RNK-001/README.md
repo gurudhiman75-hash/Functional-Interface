@@ -1,6 +1,6 @@
 # RNK-001 — Ranking and Order
 
-Status: **CP-001 through CP-004 English discovery frozen at `RNK-QL-001..035`; CP-005 ownership reset to partial-order discovery.**
+Status: **CP-001 through CP-004 English discovery frozen at `RNK-QL-001..035`; CP-005 partial-order editorial discovery is active with no permanent QL allocated.**
 
 Student-facing chapter: **Ranking and Order**  
 Reasoning V1 package: `RNK-001`  
@@ -24,7 +24,7 @@ Canonical root: `artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/
 | `RNK-CP-002` | two-person positions, separation, comparison and mixed-end total constraints | frozen: `RNK-QL-010..017` |
 | `RNK-CP-003` | interchange, movement, overtaking, insertion/removal and changed-rank transformations | frozen: `RNK-QL-018..026` |
 | `RNK-CP-004` | exact multi-entity comparison and strict order reconstruction | frozen: `RNK-QL-027..035` |
-| `RNK-CP-005` | partial order, definite/possible/impossible, cannot determine, uniqueness and possible-rank bounds | ownership discovery next |
+| `RNK-CP-005` | partial order, relation certainty, rank bounds and exact-rank indeterminacy | editorial discovery: 7 candidates, 0 QLs |
 | `RNK-CP-006` | non-strict or tied-ranking source audit | unallocated; evidence required |
 | `RNK-CP-007` | advanced mixed ranking transformations | unallocated; gap audit required |
 | `RNK-CP-008` | reserved | shared-set assembly is infrastructure, not a QL family |
@@ -111,6 +111,25 @@ Highest/lowest and explicit-rank/middle forms were consolidated after proof-cont
 
 The permanent CP-004 runtime contains 470 Easy, 1,106 Medium and 152 Hard questions, six contexts represented 288 times each, exact `48/48/48/48` answer-position balance per QL and zero normalised semantic duplicates.
 
+## CP-005 discovery summary
+
+```text
+raw prototypes:                    8
+raw discovery questions:         256
+raw answer positions:      64 / 64 / 64 / 64
+editorial candidates:              7
+editorial questions checked:     168
+editorial answer positions: 42 / 42 / 42 / 42
+rejected prototypes:               1
+permanent QLs:                     0
+```
+
+The rejected prototype is `ORDER_UNIQUENESS_STATUS`. It repeatedly projected the same multiple-order conclusion and overlapped existing uniqueness ownership.
+
+The seven surviving source forms remain provisional. Before `RNK-QL-036` can be allocated, the merge/split audit must determine whether relation-certainty forms consolidate together, whether rank bounds merge by direction, and whether partial-order definite relation extends or duplicates `RNK-QL-034`.
+
+See `RNK-CP-005/RNK-CP-005-PARTIAL-ORDER-DISCOVERY-STATUS-V1.md`.
+
 ## Proof summary
 
 ```text
@@ -118,6 +137,7 @@ CP-001: 13 prototypes / 3,120 discovery / 54 approved / 9 authorities
 CP-002: 13 prototypes / 3,120 discovery / 48 approved / 8 authorities / 1,536 permanent
 CP-003: 13 prototypes / 3,120 discovery / 78 approved / 9 authorities / 1,728 permanent
 CP-004: 11 source forms / 2,640 discovery / 132 approved / 9 authorities / 1,728 permanent
+CP-005: 8 raw prototypes / 256 discovery / 7 editorial candidates / 168 checked / 0 permanent
 ```
 
 Approved English projections:
@@ -127,6 +147,8 @@ CP-002  sha256:e1853b8864453ebcdbe88aa6f3ca5fedf9f7b7140c28a3b5ad5da8a0c4855430
 CP-003  sha256:6457a50fdde7673f9e66fe607a47a5c38a4c921489ed387b72c87ef8a22947d5
 CP-004  sha256:39c35edb20d0452ccec4018a1166cefa5f8c445d92c968c601e59158aed4a97f
 ```
+
+CP-005 has no permanent projection because no QL is frozen.
 
 ## Construction model
 
@@ -142,7 +164,7 @@ construct a valid hidden ranking state
   -> pin the permanent projection digest
 ```
 
-For CP-005 partial-order discovery, the solver must enumerate or otherwise prove all valid orders before classifying a statement as definite, possible, impossible or indeterminate.
+For CP-005 partial-order discovery, the solver enumerates all valid orders before classifying a statement as definite, possible, impossible or indeterminate. Editorial explanations use transitive chains or one/two witness rankings rather than raw permutation counts.
 
 ## Ownership boundaries
 
@@ -169,6 +191,7 @@ CP-001 discovery frozen:         true
 CP-002 discovery frozen:         true
 CP-003 discovery frozen:         true
 CP-004 discovery frozen:         true
+CP-005 editorial discovery:      ready
 CP-005 permanent QLs:            0
 chapter-wide freeze:             false
 Hindi/Punjabi:                   not started
