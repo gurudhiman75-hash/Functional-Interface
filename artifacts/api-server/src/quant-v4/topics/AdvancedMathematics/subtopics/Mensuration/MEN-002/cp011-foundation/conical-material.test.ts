@@ -100,7 +100,7 @@ for (const prototypeId of getMenCp011ConicalMaterialPrototypeIds()) {
     } else {
       assert.equal(state.scaleNumerator, null);
       assert.equal(state.scaleDenominator, null);
-      assert.match(question.stem, /inner|cavity|void/i);
+      assert.match(question.stem, /inner|cavity|void|hollow/i);
       assert.match(question.verification.method, /coefficient verifier/i);
     }
 
