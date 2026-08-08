@@ -12,9 +12,9 @@ interface PrimePowerState {
   readonly exponent: number;
 }
 
-function ql054LegacyParserStem(
-  english: ReturnType<typeof runNumCp005PermanentPipeline>,
-): string {
+type EnglishQuestion = ReturnType<typeof runNumCp005PermanentPipeline>;
+
+function ql054LegacyParserStem(english: EnglishQuestion): string {
   const hiddenPrime = Number(english.hiddenState.hiddenPrime);
   const targetDivisorCount = String(english.hiddenState.targetDivisorCount);
   const factorState = english.hiddenState.factorState;
@@ -34,6 +34,34 @@ function ql054LegacyParserStem(
   return `n = ${expression} has exactly ${targetDivisorCount} positive divisors, find x.`;
 }
 
+function expressionParserCompatibleEnglish(english: EnglishQuestion): EnglishQuestion {
+  if (english.questionLanguageId === "NUM-QL-054") {
+    return Object.freeze({
+      ...english,
+      stem: ql054LegacyParserStem(english),
+    });
+  }
+
+  if (
+    english.questionLanguageId === "NUM-QL-064"
+    || english.questionLanguageId === "NUM-QL-065"
+  ) {
+    const maximumExponent = Number(english.hiddenState.maximumExponent);
+    const targetDivisorCount = Number(english.hiddenState.targetDivisorCount);
+    if (!Number.isInteger(maximumExponent) || !Number.isInteger(targetDivisorCount)) {
+      throw new Error(
+        `${english.questionLanguageId}/${english.seed}: incomplete exponent-pair localisation state`,
+      );
+    }
+    return Object.freeze({
+      ...english,
+      stem: `For n = p^x × q^y, where 0 ≤ x,y ≤ ${maximumExponent}, use target divisor count ${targetDivisorCount}.`,
+    });
+  }
+
+  return english;
+}
+
 export function generateNumCp005LocalizedQuestion(
   input: NumCp005LocalizedRuntimeInput,
 ): NumCp005LocalizedQuestion {
@@ -43,12 +71,7 @@ export function generateNumCp005LocalizedQuestion(
     language: "en",
   });
 
-  const localisationEnglish = english.questionLanguageId === "NUM-QL-054"
-    ? Object.freeze({
-        ...english,
-        stem: ql054LegacyParserStem(english),
-      })
-    : english;
+  const localisationEnglish = expressionParserCompatibleEnglish(english);
 
   const sumStateKey = english.questionLanguageId === "NUM-QL-061"
     ? "propertyKind"
