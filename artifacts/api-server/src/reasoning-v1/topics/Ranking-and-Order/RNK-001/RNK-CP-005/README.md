@@ -1,20 +1,34 @@
-# RNK-CP-005 — Presentation-led and Shared Ranking Sets
+# RNK-CP-005 — Shared Ranking Sets Requiring Reconstruction
 
-Status: **English discovery frozen at `RNK-QL-036..043`; activation remains disabled.**
+Status: **English reasoning remodel frozen at `RNK-QL-036..043`; activation remains disabled.**
+
+## Why CP-005 was remodelled
+
+The first CP-005 projection allowed complete rank tables and already ordered ledgers. Questions such as “Who is third?” then became direct lookup rather than ranking reasoning.
+
+That presentation is no longer authoritative.
+
+The V2 runtime enforces this rule:
+
+> The shared information may provide clues and limited anchors, but it must not display the complete final ranking.
+
+Every permanent set is independently solved from the learner-visible clues and is rejected unless exactly one complete order is possible.
 
 ## Ownership
 
-CP-005 owns ranking questions whose defining burden is a reusable shared presentation rather than a new rank formula. One evidence block is reconstructed once and supports linked questions.
+CP-005 owns ranking questions whose defining burden is a reusable shared evidence block. Students reconstruct the common order once and answer several linked questions from it.
 
 Included:
 
-- rank tables, ordered ledgers and comparison-clue passages;
-- rows and queues;
-- merit lists and interview shortlists;
-- race finishing orders and performance rankings.
+- partial-rank tables combined with comparison clues;
+- mixed clue ledgers whose statements are deliberately out of order;
+- comparison, immediate-position and rank-gap clue sets;
+- rows, queues, merit lists, interview shortlists, races and performance rankings.
 
 Excluded:
 
+- complete rank tables followed by lookup questions;
+- already ordered name lists followed by lookup questions;
 - standalone rank arithmetic, CP-001/CP-002;
 - interchange or movement, CP-003;
 - standalone explicit-order reconstruction, CP-004;
@@ -37,51 +51,66 @@ RNK-QL-043  shared-set definitely true statement
 
 Next available identity: `RNK-QL-044`.
 
-## Shared-set contract
+## Visible-evidence contract
 
 Every set contains:
 
-- stable `sharedSetId` and seed;
-- one context family;
-- one presentation mode and renderer class;
 - six to eight unique entities;
-- complete displayed evidence;
-- one unique independently reconstructed order;
-- one shared-passage fingerprint reused by all linked questions.
+- a stable shared-set identity and fingerprint;
+- incomplete learner-visible evidence;
+- at most one directly stated rank anchor;
+- shuffled ordering relations;
+- at least one rank-gap clue;
+- immediate-position clues where appropriate;
+- exactly one independently reconstructed order;
+- eight possible authority questions, of which product assembly should normally select four.
 
-The runtime exposes eight possible authority questions per set. Product assembly should normally select four and reuse the same displayed evidence.
+Permanent gates reject:
 
-## Presentation modes
+- a rank row for every entity;
+- a pre-arranged complete name order;
+- clues that omit an entity;
+- zero-solution or multi-solution passages;
+- linked questions that reconstruct different orders.
 
-| Mode | Renderer | Evidence contract |
-|---|---|---|
-| `RANK_TABLE` | `STRUCTURED_TABLE` | shuffled entity/rank rows |
-| `ORDER_LEDGER` | `ORDERED_LEDGER` | start-to-end ordered rows |
-| `COMPARISON_CLUES` | `STRUCTURED_TEXT` | complete adjacent comparison chain |
+## Evidence modes
 
-## Exam-language layer
+| Evidence mode | What the student sees | Permanent questions |
+|---|---|---:|
+| `PARTIAL_RANK_TABLE` | one rank anchor plus shuffled relation and gap clues | 528 |
+| `MIXED_CLUE_LEDGER` | mixed fixed-rank, immediate, comparison and gap statements | 528 |
+| `COMPARISON_CLUES` | shuffled relative/immediate comparisons with a validating gap clue | 480 |
 
-`RNK_CP005_EXAM_LANGUAGE_V1` adapts learner wording by context rather than substituting generic direction words. It provides natural constructions such as:
+The old internal labels `RANK_TABLE` and `ORDER_LEDGER` remain only as structural seed categories. They no longer authorize a complete displayed table or ordered list.
 
-- extreme left/right for rows;
-- front/back and ahead/behind for queues;
-- first/last and above/below for merit lists and shortlists;
-- finished first/last/before/after for race results;
-- highest/lowest performer and ranked above/below for performance orders.
-
-Editorial gates reject known awkward constructions including `top end`, `last end`, `lowest end`, generic `side` wording and unnatural `towards ... of` phrases.
-
-## Permanent runtime
+## Reasoning and language layers
 
 ```text
-runtime version:       RNK_CP005_PERMANENT_RUNTIME_V1
-language version:      RNK_CP005_EXAM_LANGUAGE_V1
-freeze version:        RNK_CP005_ENGLISH_DISCOVERY_FREEZE_V1
-permanent QLs:         RNK-QL-036..043
-questions per QL:      192
-permanent questions:   1,536
-shared sets:           192
-projection SHA-256:    021079af803fb43bc1a51296290fed7b9c0654f508fb665f41847c5981448305
+reasoning remodel:      RNK_CP005_REASONING_REMODEL_V2
+exam language:          RNK_CP005_EXAM_LANGUAGE_V2
+runtime:                RNK_CP005_PERMANENT_RUNTIME_V2
+freeze:                 RNK_CP005_ENGLISH_REASONING_REMODEL_FREEZE_V2
+```
+
+The reasoning layer converts structural hidden orders into incomplete evidence and verifies uniqueness from that evidence alone.
+
+The exam-language layer:
+
+- tells students explicitly to reconstruct the order;
+- uses context-specific row, queue, merit, race, shortlist and performance wording;
+- explains how fixed ranks, immediate relations and gaps combine;
+- shows the reconstructed common line only inside the solution;
+- provides option-specific misconception analysis.
+
+## Permanent projection
+
+```text
+permanent QLs:          RNK-QL-036..043
+questions per QL:       192
+permanent questions:    1,536
+shared sets:            192
+direct-rank exposure:   0
+projection SHA-256:     c1d205d2d49d3fe97bf3049d65c8d2b57e8594eb99abb57982384a4fa6605d8f
 ```
 
 Coverage:
@@ -94,16 +123,16 @@ RACE_FINISH:            256
 INTERVIEW_SHORTLIST:    256
 PERFORMANCE_ORDER:      256
 
-RANK_TABLE:             528
-ORDER_LEDGER:           528
+PARTIAL_RANK_TABLE:     528
+MIXED_CLUE_LEDGER:      528
 COMPARISON_CLUES:       480
 
-Easy:                   132
-Medium:               1,284
-Hard:                   120
+Easy:                   128
+Medium:                 896
+Hard:                   512
 ```
 
-Each QL has exact `48/48/48/48` answer-position balance. Permanent-gate review found zero duplicate mathematical fingerprints.
+Each QL retains exact `48/48/48/48` answer-position balance and zero duplicate permanent mathematical fingerprints.
 
 ## English review pack
 
@@ -111,22 +140,23 @@ The representative review pack contains 144 questions:
 
 - 18 per authority;
 - all six contexts;
-- all three presentation modes;
-- all four answer positions;
+- all three evidence modes;
+- no complete displayed ranking;
+- unique visible-evidence reconstruction;
 - complete option-specific explanations;
 - no internal identifier leakage;
-- no banned awkward context phrases.
+- no banned awkward direction phrases.
 
 ## Lifecycle
 
 ```text
-discovery frozen:       true
-Question Studio:        DISABLED
-persistence:            DISABLED
-Question Bank:          NOT_STORED
-test eligibility:       INELIGIBLE
-public publication:     false
-Hindi/Punjabi:          NOT_STARTED
+reasoning remodel frozen: true
+Question Studio:          DISABLED
+persistence:              DISABLED
+Question Bank:            NOT_STORED
+test eligibility:         INELIGIBLE
+public publication:       false
+Hindi/Punjabi:            NOT_STARTED
 ```
 
 CP-005 completion does not close the separate CP-004 manual NVDA/VoiceOver gate and does not authorize generation or publication.
