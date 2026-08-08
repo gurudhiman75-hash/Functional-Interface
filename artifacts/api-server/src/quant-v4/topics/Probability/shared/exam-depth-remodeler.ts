@@ -160,7 +160,7 @@ function renderEventGroupStem(entry: ProbabilityTaskRegistryEntry, parameters: G
   const bText = groupAction(context, b, context.subjectB);
   const bothText = context.action === "play"
     ? `${both} ${both === 1 ? context.groupNoun.slice(0, -1) : context.groupNoun} ${both === 1 ? "plays" : "play"} both games`
-    : `${both} ${both === 1 ? context.groupNoun.slice(0, -1) : context.groupNoun} ${both === 1 ? "satisfies" : "satisfy"} both conditions`;
+    : `${both} ${both === 1 ? context.groupNoun.slice(0, -1) : context.groupNoun} ${both === 1 ? "meets" : "meet"} both conditions`;
 
   if (mode === "findUnionProbability") {
     return `In a group of ${total} ${context.groupNoun}, ${aText}, ${bText}, and ${bothText}. What is the probability that a randomly selected ${context.groupNoun.slice(0, -1)} meets at least one condition?`;
