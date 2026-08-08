@@ -35,36 +35,34 @@ function vennMode(
   return "VENN_FOCUSED_CONCLUSION_CHECK";
 }
 
-function preserveLegacyVennClassMarker(svg: string): string {
-  return svg.replace(
-    "<style>",
-    '<g class="examtree-venn-svg" data-legacy-class-marker="true"></g>\n<style>',
-  );
-}
-
-function normalizeSvgTypography(svg: string): string {
-  return svg
-    .replace(
-      '.set-label{font:750 14px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#0f172a;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round}',
-      '.set-label{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px;font-weight:700;fill:#0f172a}',
-    )
-    .replace(
-      '.witness{font:900 22px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#111827;paint-order:stroke;stroke:#fff;stroke-width:2px}',
-      '.witness{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:22px;font-weight:800;fill:#111827}',
-    )
-    .replace(
-      '.separation-mark{font:800 23px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#475569;paint-order:stroke;stroke:#fff;stroke-width:2px}',
-      '.separation-mark{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:23px;font-weight:800;fill:#475569}',
-    );
-}
-
 export function completeRequiredDiagramV5(
   question: GeneratedSylQuestionV4,
   presentation: SylLearnerPresentationV5,
   assignment: TermAssignment,
 ): SylLearnerPresentationV5 {
   const rendered = renderSingleAnswerVennV5(question, presentation, assignment);
-  const svg = normalizeSvgTypography(preserveLegacyVennClassMarker(rendered.svg));
+  if (!rendered.enabled) {
+    return {
+      ...presentation,
+      learnerExplanation: {
+        ...presentation.learnerExplanation,
+        showDiagram: false,
+      },
+      diagram: {
+        enabled: false,
+        mode: "OMITTED_NOT_USEFUL",
+        omissionReason: rendered.omissionReason,
+        svg: null,
+        caption: null,
+        accessibleDescription: null,
+        semanticSignature: rendered.semanticSignature,
+        modelSignature: rendered.modelSignature ?? presentation.diagram.modelSignature,
+        answerSentenceEmbedded: false,
+        mobileViewBoxWidth: 340,
+        diagramCount: 0,
+      },
+    };
+  }
 
   return {
     ...presentation,
@@ -76,13 +74,13 @@ export function completeRequiredDiagramV5(
       enabled: true,
       mode: vennMode(question, presentation),
       omissionReason: null,
-      svg,
+      svg: rendered.svg,
       caption: rendered.caption,
       accessibleDescription: rendered.accessibleDescription,
       semanticSignature: rendered.semanticSignature,
       modelSignature: rendered.modelSignature ?? presentation.diagram.modelSignature,
       answerSentenceEmbedded: false,
-      mobileViewBoxWidth: 360,
+      mobileViewBoxWidth: 340,
       diagramCount: 1,
     },
   };
