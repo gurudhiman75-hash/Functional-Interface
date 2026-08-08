@@ -6,7 +6,7 @@ import {
   enumerateRnkCp005ValidOrders,
   RNK_CP005_PARTIAL_ORDER_DISCOVERY_VERSION,
   RNK_CP005_PROTOTYPE_IDS,
-} from "./cp005-partial-order-discovery";
+} from "./cp005-partial-order-runtime";
 
 const corpus = buildRnkCp005DiscoveryCorpus(32);
 assert.equal(corpus.length, RNK_CP005_PROTOTYPE_IDS.length * 32);
