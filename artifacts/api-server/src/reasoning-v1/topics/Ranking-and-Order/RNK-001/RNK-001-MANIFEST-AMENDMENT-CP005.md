@@ -1,6 +1,6 @@
 # RNK-001 Manifest Amendment — CP-005
 
-Status: **accepted into RNK-001 English discovery inventory**
+Status: **accepted into RNK-001 English discovery inventory after reasoning remodel**
 
 ## Permanent allocation
 
@@ -19,22 +19,39 @@ Next available RNK identity: `RNK-QL-044`.
 
 ## Ownership amendment
 
-CP-005 owns reusable shared ranking passages and structured presentations. A question belongs here only when its runtime contract includes a stable shared-set identity and the evidence is intended to support multiple linked questions.
+CP-005 owns reusable shared ranking evidence. A question belongs here only when:
+
+- the runtime contract includes a stable shared-set identity;
+- one evidence block supports multiple linked questions;
+- the learner must reconstruct the common order;
+- the complete rank sequence is not already displayed.
+
+Complete rank tables and already ordered ledgers followed by direct lookup questions are explicitly excluded.
 
 Standalone exact-order reconstruction remains CP-004 even when its surface context mentions a row, queue, merit list or race.
 
 ## Runtime amendment
 
 ```text
-runtime:                RNK_CP005_PERMANENT_RUNTIME_V1
-language layer:         RNK_CP005_EXAM_LANGUAGE_V1
-freeze:                 RNK_CP005_ENGLISH_DISCOVERY_FREEZE_V1
+reasoning remodel:      RNK_CP005_REASONING_REMODEL_V2
+language layer:         RNK_CP005_EXAM_LANGUAGE_V2
+runtime:                RNK_CP005_PERMANENT_RUNTIME_V2
+freeze:                 RNK_CP005_ENGLISH_REASONING_REMODEL_FREEZE_V2
 permanent questions:    1,536
 shared sets:            192
-projection SHA-256:     021079af803fb43bc1a51296290fed7b9c0654f508fb665f41847c5981448305
+direct-rank exposure:   0
+projection SHA-256:     c1d205d2d49d3fe97bf3049d65c8d2b57e8594eb99abb57982384a4fa6605d8f
 ```
 
-The exam-language layer applies context-specific row, queue, merit-list, race, shortlist and performance wording before review and permanent projection. Its learner-facing output is part of the pinned digest.
+Every shared set is solved independently from learner-visible fixed-rank, comparison, immediate-position and rank-gap clues. A set is rejected unless those clues determine exactly one order.
+
+## Cumulative registered projection
+
+```text
+CP-004 projection:      39c35edb20d0452ccec4018a1166cefa5f8c445d92c968c601e59158aed4a97f
+CP-005 projection:      c1d205d2d49d3fe97bf3049d65c8d2b57e8594eb99abb57982384a4fa6605d8f
+combined projection:    080af7fa6787f6752208c0504dce45bc0498c23eb7df7091a4130619ecfb4c2e
+```
 
 ## Cumulative chapter inventory
 
