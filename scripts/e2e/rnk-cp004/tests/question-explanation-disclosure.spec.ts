@@ -23,9 +23,9 @@ for (const width of requiredWidths) {
     expect(initialOverflow.documentOverflow).toBeLessThanOrEqual(1);
     expect(initialOverflow.bodyOverflow).toBeLessThanOrEqual(1);
 
-    const disclosure = page.getByRole('button', {
-      name: 'Show why the other options are wrong',
-    });
+    const disclosure = page.locator('button[aria-controls^="question-explanation-options-"]');
+    await expect(disclosure).toHaveCount(1);
+    await expect(disclosure).toHaveAccessibleName('Show why the other options are wrong');
     await expect(disclosure).toHaveAttribute('aria-expanded', 'false');
 
     await page.keyboard.press('Tab');
@@ -56,6 +56,7 @@ for (const width of requiredWidths) {
 
     await page.keyboard.press('Space');
     await expect(disclosure).toHaveAttribute('aria-expanded', 'false');
+    await expect(disclosure).toHaveAccessibleName('Show why the other options are wrong');
     await expect(disclosure).toBeFocused();
   });
 }
