@@ -230,7 +230,7 @@ export function cp004WhatAskedText(locale: IntCp004LocalizedLocale, target: stri
 function isUniversalMathExpression(text: string): boolean {
   const trimmed = text.trim();
   return /[=×÷+−\-]/u.test(trimmed)
-    && /^[\s0-9₹%.,()/=×÷+−\-^APCInr।]+$/u.test(trimmed);
+    && /^[\s0-9₹%.,()\[\]\/ =×÷+−\-^APCInr।]+$/u.test(trimmed);
 }
 
 export function assertCp004LocalizedText(locale: IntCp004LocalizedLocale, text: string, label: string): void {
