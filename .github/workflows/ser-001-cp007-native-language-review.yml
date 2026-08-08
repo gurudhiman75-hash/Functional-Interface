@@ -69,10 +69,18 @@ jobs:
           HINDI_COUNT=$(grep -c '^### Hindi candidate$' "$FILE")
           PUNJABI_COUNT=$(grep -c '^### Punjabi candidate$' "$FILE")
           ENGLISH_COUNT=$(grep -c '^### English frozen reference$' "$FILE")
+          HINDI_ANSWER_COUNT=$(grep -c '^\*\*उत्तर:\*\*' "$FILE")
+          PUNJABI_ANSWER_COUNT=$(grep -c '^\*\*ਉੱਤਰ:\*\*' "$FILE")
+          HINDI_SOLUTION_COUNT=$(grep -c '^### समाधान$' "$FILE")
+          PUNJABI_SOLUTION_COUNT=$(grep -c '^### ਹੱਲ$' "$FILE")
           test "$REVIEW_COUNT" -eq 104
           test "$HINDI_COUNT" -eq 104
           test "$PUNJABI_COUNT" -eq 104
           test "$ENGLISH_COUNT" -eq 104
+          test "$HINDI_ANSWER_COUNT" -eq 104
+          test "$PUNJABI_ANSWER_COUNT" -eq 104
+          test "$HINDI_SOLUTION_COUNT" -eq 104
+          test "$PUNJABI_SOLUTION_COUNT" -eq 104
           for QL in $(seq -w 1 13); do
             COUNT=$(grep -c "Permanent QL:.*SER-QL-0${QL}" "$FILE")
             test "$COUNT" -eq 8
