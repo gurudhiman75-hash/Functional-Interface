@@ -44,6 +44,24 @@ jobs:
           node dist/quant-v4/sap-cp004-final-diversified-english-authority.test.mjs \
             | tee dist/quant-v4/sap-cp004-final-diversified-english-authority.log
 
+      - name: Bundle CP-004 explanation authority
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-001/SAP-CP-004/explanation-authority-v3.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/sap-cp004-explanation-remediation-v3-authority.test.mjs
+
+      - name: Run CP-004 explanation authority
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          node dist/quant-v4/sap-cp004-explanation-remediation-v3-authority.test.mjs \
+            | tee dist/quant-v4/sap-cp004-explanation-remediation-v3-authority.log
+
       - name: Bundle CP-004 review exporter
         working-directory: artifacts/api-server
         run: >-
@@ -80,10 +98,11 @@ jobs:
       - name: Upload CP-004 review evidence
         uses: actions/upload-artifact@v4
         with:
-          name: sap-cp004-final-diversified-english-review
+          name: sap-cp004-explanation-remediation-v3-review
           path: |
             artifacts/api-server/dist/quant-v4/SAP-CP-004-300-FULL-ENGLISH-REVIEW.md
             artifacts/api-server/dist/quant-v4/SAP-CP-004-300-FULL-ENGLISH-REVIEW.html
             artifacts/api-server/dist/quant-v4/sap-cp004-final-diversified-english-authority.log
+            artifacts/api-server/dist/quant-v4/sap-cp004-explanation-remediation-v3-authority.log
           if-no-files-found: error
           retention-days: 30
