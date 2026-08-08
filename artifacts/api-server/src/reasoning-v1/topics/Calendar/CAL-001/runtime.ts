@@ -10,6 +10,11 @@ import { leapCenturyProblem } from "./runtime-cp006-007.ts";
 import { repetitionBoundaryFrequencyProblem } from "./runtime-cp008.ts";
 import { boundaryProblem } from "./runtime-cp009.ts";
 import { frequencyProblem } from "./runtime-cp010.ts";
+import {
+  applyExamReadinessRemediation,
+  buildExamReadyProblemOverride,
+  shouldAcceptExamReadyProblem,
+} from "./exam-readiness-remediation.ts";
 
 const CLOSED_LIFECYCLE = {
   discoveryStatus: "EXECUTABLE_DISCOVERY" as const,
@@ -35,7 +40,8 @@ export function generateCalendarQuestion(prototypeAuthority: CalendarPrototypeId
 
   for (let attempt = 0; attempt < 256; attempt++) {
     const rng = new DeterministicRandom(`${prototypeAuthority}:${seed}:scenario:${attempt}`);
-    const candidate = shiftProblem(prototypeAuthority, seed, locale, rng)
+    const candidate = buildExamReadyProblemOverride(prototypeAuthority, seed, locale, rng)
+      ?? shiftProblem(prototypeAuthority, seed, locale, rng)
       ?? dateRelationProblem(prototypeAuthority, seed, locale, rng)
       ?? leapBoundaryProblem(prototypeAuthority, seed, locale, rng)
       ?? absoluteAndYearProblem(prototypeAuthority, seed, locale, rng)
@@ -45,6 +51,7 @@ export function generateCalendarQuestion(prototypeAuthority: CalendarPrototypeId
       ?? frequencyProblem(prototypeAuthority, seed, locale, rng);
     if (!candidate) throw new Error(`No generator implemented for ${prototypeAuthority}.`);
 
+    if (!shouldAcceptExamReadyProblem(prototypeAuthority, seed, candidate)) continue;
     if (semanticKey(candidate.groundTruth.answer) !== semanticKey(candidate.answer)) throw new Error(`${prototypeAuthority}: ground-truth disagreement.`);
     if (semanticKey(candidate.teachingTrace.answer) !== semanticKey(candidate.answer)) throw new Error(`${prototypeAuthority}: teaching-trace disagreement.`);
 
@@ -61,7 +68,7 @@ export function generateCalendarQuestion(prototypeAuthority: CalendarPrototypeId
   }
 
   if (!problem || !options || answerIndex === null) {
-    throw new Error(`${prototypeAuthority}: unable to construct three semantically unique method-derived distractors after 256 deterministic attempts.`);
+    throw new Error(`${prototypeAuthority}: unable to construct an exam-ready scenario with three semantically unique method-derived distractors after 256 deterministic attempts.`);
   }
   problem.facts.generationAttempt = acceptedAttempt;
 
@@ -111,9 +118,11 @@ export function generateCalendarQuestion(prototypeAuthority: CalendarPrototypeId
     lifecycle: { ...CLOSED_LIFECYCLE },
   };
 
-  const optionKeys = pkg.options.map((option) => semanticKey(option.semanticValue));
-  if (pkg.options.length !== 4 || new Set(optionKeys).size !== 4) throw new Error(`${prototypeAuthority}: options are not semantically unique.`);
-  if (pkg.options.filter((option) => option.isCorrect).length !== 1) throw new Error(`${prototypeAuthority}: expected exactly one correct option.`);
-  if (!pkg.options[pkg.answerIndex]?.isCorrect) throw new Error(`${prototypeAuthority}: answer index mismatch.`);
-  return pkg;
+  const remediated = applyExamReadinessRemediation(pkg);
+  const optionKeys = remediated.options.map((option) => semanticKey(option.semanticValue));
+  if (remediated.options.length !== 4 || new Set(optionKeys).size !== 4) throw new Error(`${prototypeAuthority}: options are not semantically unique.`);
+  if (new Set(remediated.options.map((option) => option.display)).size !== 4) throw new Error(`${prototypeAuthority}: option labels are not textually unique.`);
+  if (remediated.options.filter((option) => option.isCorrect).length !== 1) throw new Error(`${prototypeAuthority}: expected exactly one correct option.`);
+  if (!remediated.options[remediated.answerIndex]?.isCorrect) throw new Error(`${prototypeAuthority}: answer index mismatch.`);
+  return remediated;
 }
