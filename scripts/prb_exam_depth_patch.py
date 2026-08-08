@@ -35,6 +35,12 @@ replace_once(
     '      `Because the selection is made only from the restricted group, let the required number be x. Then x/${restricted} = ${probability}.`,',
     "reverse conditional denominator explanation",
 )
+replace_once(
+    remodeler,
+    "satisfies at least one condition?",
+    "meets at least one condition?",
+    "natural at-least-one event wording",
+)
 
 pipeline = ROOT / "shared/pipeline.ts"
 replace_once(
