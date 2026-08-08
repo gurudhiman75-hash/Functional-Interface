@@ -40,9 +40,9 @@ function speedReason(
       return `⚠️ ${option.text}: it copies ${value}; km/min to km/h requires × 60.`;
     }
     if (option.misconceptionId === "REVERSE_UNIT_CONVERSION") {
-      return `⚠️ ${option.text}: it divides by 60, but changing per minute to per hour requires multiplying by 60.`;
+      return `⚠️ ${option.text}: it divides by 60; per minute to per hour requires multiplying by 60.`;
     }
-    return `⚠️ ${option.text}: it uses 3600 seconds per hour; the given rate is per minute, so use × 60.`;
+    return `⚠️ ${option.text}: it uses 3600 seconds per hour; this rate is per minute, so use × 60.`;
   }
 
   if (input.from === "M_PER_MINUTE" && input.to === "MPS") {
@@ -52,7 +52,17 @@ function speedReason(
     if (option.misconceptionId === "REVERSE_UNIT_CONVERSION") {
       return `⚠️ ${option.text}: it multiplies by 60; m/min to m/s requires dividing by 60.`;
     }
-    return `⚠️ ${option.text}: it uses 100 seconds per minute; the correct factor is 60 seconds per minute.`;
+    return `⚠️ ${option.text}: it uses 100 seconds per minute; the correct factor is 60.`;
+  }
+
+  if (input.from === "KMPH" && input.to === "M_PER_MINUTE") {
+    if (option.misconceptionId === "OMIT_UNIT_CONVERSION") {
+      return `⚠️ ${option.text}: it copies ${value}; both kilometres and hours must be converted.`;
+    }
+    if (startsWithValue(option, multiply(input.value, rational(1000)))) {
+      return `⚠️ ${option.text}: it converts kilometres to metres but leaves the rate per hour instead of per minute.`;
+    }
+    return `⚠️ ${option.text}: it changes hours to minutes but leaves kilometres unconverted; multiply by 1000 as well.`;
   }
 
   if (input.from === "MPS" && input.to === "KMPH") {
@@ -82,10 +92,20 @@ function distanceReason(
   if (option.misconceptionId === "OMIT_UNIT_CONVERSION") {
     return `⚠️ ${option.text}: it copies ${value} without changing the distance unit.`;
   }
+  if (input.from === "KM" && input.to === "M") {
+    return startsWithValue(option, multiply(input.value, rational(100)))
+      ? `⚠️ ${option.text}: it uses 100 metres per kilometre; use 1000.`
+      : `⚠️ ${option.text}: it uses 10,000 metres per kilometre; use 1000.`;
+  }
   if (input.from === "M" && input.to === "KM") {
     return startsWithValue(option, divide(input.value, rational(100)))
-      ? `⚠️ ${option.text}: it uses 100 metres per kilometre; use 1000 metres per kilometre.`
-      : `⚠️ ${option.text}: it uses 10,000 metres per kilometre; use 1000 metres per kilometre.`;
+      ? `⚠️ ${option.text}: it uses 100 metres per kilometre; use 1000.`
+      : `⚠️ ${option.text}: it uses 10,000 metres per kilometre; use 1000.`;
+  }
+  if (input.from === "CM" && input.to === "M") {
+    return startsWithValue(option, divide(input.value, rational(10)))
+      ? `⚠️ ${option.text}: it uses 10 centimetres per metre; use 100.`
+      : `⚠️ ${option.text}: it uses 1000 centimetres per metre; use 100.`;
   }
   if (input.from === "M" && input.to === "CM") {
     return startsWithValue(option, multiply(input.value, rational(1000)))
@@ -95,7 +115,12 @@ function distanceReason(
   if (input.from === "MM" && input.to === "CM") {
     return option.misconceptionId === "REVERSE_UNIT_CONVERSION"
       ? `⚠️ ${option.text}: it multiplies by 10; millimetres to centimetres requires dividing by 10.`
-      : `⚠️ ${option.text}: it uses 100 millimetres per centimetre; the correct relation is 10 millimetres per centimetre.`;
+      : `⚠️ ${option.text}: it uses 100 millimetres per centimetre; the correct relation is 10.`;
+  }
+  if (input.from === "KM" && input.to === "CM") {
+    return startsWithValue(option, multiply(input.value, rational(1000)))
+      ? `⚠️ ${option.text}: it stops after converting kilometres to metres and labels the metre result centimetres.`
+      : `⚠️ ${option.text}: it applies metres-to-centimetres directly and misses the kilometres-to-metres step.`;
   }
   return option.reason;
 }
@@ -111,12 +136,27 @@ function timeReason(
   if (input.from === "HOUR" && input.to === "MINUTE") {
     return startsWithValue(option, multiply(input.value, rational(24)))
       ? `⚠️ ${option.text}: it uses 24, the hours-per-day factor; hours to minutes requires × 60.`
-      : `⚠️ ${option.text}: it converts hours to seconds with × 3600, then wrongly labels the result minutes.`;
+      : `⚠️ ${option.text}: it converts hours to seconds with × 3600, then labels the result minutes.`;
+  }
+  if (input.from === "MINUTE" && input.to === "HOUR") {
+    return option.misconceptionId === "REVERSE_UNIT_CONVERSION"
+      ? `⚠️ ${option.text}: it multiplies by 60; minutes to hours requires dividing by 60.`
+      : `⚠️ ${option.text}: it uses 100 minutes per hour; the correct factor is 60.`;
+  }
+  if (input.from === "DAY" && input.to === "HOUR") {
+    return option.misconceptionId === "REVERSE_UNIT_CONVERSION"
+      ? `⚠️ ${option.text}: it divides by 24; days to hours requires multiplying by 24.`
+      : `⚠️ ${option.text}: it uses the 60-minute factor; one day contains 24 hours.`;
   }
   if (input.from === "SECOND" && input.to === "HOUR") {
     return option.misconceptionId === "CONVERT_ONLY_ONE_UNIT"
-      ? `⚠️ ${option.text}: ${value} ÷ 60 gives minutes; divide by 60 once more to get hours.`
+      ? `⚠️ ${option.text}: ${value} ÷ 60 gives minutes; divide by 60 again to get hours.`
       : `⚠️ ${option.text}: after converting to minutes, it divides by 24 instead of 60.`;
+  }
+  if (input.from === "MINUTE" && input.to === "SECOND") {
+    return option.misconceptionId === "REVERSE_UNIT_CONVERSION"
+      ? `⚠️ ${option.text}: it divides by 60; minutes to seconds requires multiplying by 60.`
+      : `⚠️ ${option.text}: it uses 100 seconds per minute; the correct factor is 60.`;
   }
   if (input.from === "MINUTE" && input.to === "DAY") {
     return option.misconceptionId === "CONVERT_ONLY_ONE_UNIT"
