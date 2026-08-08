@@ -1,8 +1,9 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import {
-  runMalCp004EnglishSolutionFirstV2Pipeline,
-} from "./foundation/cp004-solution-first-grammar-v2";
+  runMalCp004EnglishAlligationV2Pipeline,
+  type MalCp004AlligationQuestion,
+} from "./foundation/cp004-alligation-help-v2";
 import {
   MAL_CP004_PERMANENT_ALLOCATION,
   type MalCp004PermanentQlId,
@@ -52,19 +53,47 @@ function assertGrammar(question: MalCp004ClutterFreeQuestion): void {
   assert(given?.text === question.stem, `${prefix}: reasoning graph has stale stem text.`);
 }
 
+function assertAlligationPolicy(question: MalCp004AlligationQuestion): boolean {
+  const expected =
+    question.permanentQlId === "MAL-QL-041" ||
+    question.permanentQlId === "MAL-QL-042";
+  const alternative = question.explanation.optionalHelp.alternativeMethod;
+  assert(
+    expected === Boolean(alternative),
+    `${question.permanentQlId}/${question.seed}: alligation applicability is wrong.`,
+  );
+  if (!alternative) return false;
+  assert(
+    alternative.title === "Alternative method: Alligation cross" &&
+      alternative.crossLines.length === 3,
+    `${question.permanentQlId}/${question.seed}: alligation cross is incomplete.`,
+  );
+  assert(
+    alternative.calculation.includes(question.answer.replace(/\s+(?:litres|kg)$/u, "")),
+    `${question.permanentQlId}/${question.seed}: alligation does not reach the answer.`,
+  );
+  return true;
+}
+
 let grammarAuditCount = 0;
+let runtimeAlligationCount = 0;
 for (const allocation of MAL_CP004_PERMANENT_ALLOCATION) {
   for (let index = 0; index < 200; index += 1) {
-    const question = runMalCp004EnglishSolutionFirstV2Pipeline({
+    const question = runMalCp004EnglishAlligationV2Pipeline({
       questionLanguageId: allocation.qlId,
       seed: `mal-cp004-solution-first-v2:${allocation.qlId}:${index}`,
       language: "en",
     });
     assertGrammar(question);
+    if (assertAlligationPolicy(question)) runtimeAlligationCount += 1;
     grammarAuditCount += 1;
   }
 }
 assert(grammarAuditCount === 2_000, "Grammar audit did not cover 2,000 questions.");
+assert(
+  runtimeAlligationCount === 400,
+  `Expected 400 applicable alligation questions, received ${runtimeAlligationCount}.`,
+);
 
 const outputDir = resolve(process.cwd(), "dist/quant-v4");
 const jsonPath = resolve(outputDir, "mal-cp004-solution-first-v2-review.json");
@@ -80,17 +109,25 @@ const raw = JSON.parse(readFileSync(jsonPath, "utf8")) as {
 };
 
 const reviewRows = raw.reviewRows.map((row) =>
-  runMalCp004EnglishSolutionFirstV2Pipeline({
+  runMalCp004EnglishAlligationV2Pipeline({
     questionLanguageId: row.permanentQlId as MalCp004PermanentQlId,
     seed: row.seed,
     language: "en",
   }),
 );
-for (const question of reviewRows) assertGrammar(question);
+let reviewAlligationCount = 0;
+for (const question of reviewRows) {
+  assertGrammar(question);
+  if (assertAlligationPolicy(question)) reviewAlligationCount += 1;
+}
 assert(reviewRows.length === 100, "Final review pack does not contain 100 questions.");
 assert(
   new Set(reviewRows.map((question) => question.mathematicalFingerprint)).size === 100,
   "Final review pack repeats a mathematical state.",
+);
+assert(
+  reviewAlligationCount === 20,
+  `Expected 20 review alligation crosses, received ${reviewAlligationCount}.`,
 );
 const answerPositionCounts = [0, 0, 0, 0];
 for (const question of reviewRows) answerPositionCounts[question.correctIndex] += 1;
@@ -101,7 +138,12 @@ assert(
 
 writeFileSync(
   jsonPath,
-  `${stable({ ...raw, answerPositionCounts, reviewRows })}\n`,
+  `${stable({
+    ...raw,
+    answerPositionCounts,
+    alligationQuestionCount: reviewAlligationCount,
+    reviewRows,
+  })}\n`,
   "utf8",
 );
 
@@ -113,6 +155,8 @@ const markdown: string[] = [
   "The exact mathematics, answer and permanent QL identity remain unchanged. V2 improves the stem, distractors and learner-facing solution.",
   "",
   "This review contains ten distinct numerical states per QL and exactly 25 correct answers in each option position.",
+  "",
+  "Alligation cross is shown under More help only for MAL-QL-041 and MAL-QL-042, where the second ingredient is 0% water or 100% pure solute.",
   "",
 ];
 for (const [index, question] of reviewRows.entries()) {
@@ -139,6 +183,23 @@ for (const [index, question] of reviewRows.entries()) {
     `**Common mistake:** ${question.explanation.optionalHelp.commonMistake}`,
     "",
   );
+  const alternative = question.explanation.optionalHelp.alternativeMethod;
+  if (alternative) {
+    markdown.push(
+      `**${alternative.title}**`,
+      "",
+      "```text",
+      ...alternative.crossLines,
+      "```",
+      "",
+      `**${alternative.ratioLabel}:** ${alternative.ratio}`,
+      "",
+      alternative.calculation,
+      "",
+      alternative.result,
+      "",
+    );
+  }
   if (question.explanation.optionalHelp.verification) {
     markdown.push("**Verification**", "", question.explanation.optionalHelp.verification, "");
   }
@@ -150,11 +211,13 @@ writeFileSync(
   "utf8",
 );
 
-console.log("PASS_MAL_CP004_SOLUTION_FIRST_V2_GRAMMAR");
+console.log("PASS_MAL_CP004_SOLUTION_FIRST_V2_GRAMMAR_AND_ALLIGATION");
 console.log(
   JSON.stringify({
     grammarAuditCount,
+    runtimeAlligationCount,
     reviewQuestionCount: reviewRows.length,
+    reviewAlligationCount,
     uniqueReviewStateCount: 100,
     answerPositionCounts,
   }),
