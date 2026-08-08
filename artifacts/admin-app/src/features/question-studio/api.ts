@@ -18,6 +18,19 @@ export type GenerationItemStatus =
   | 'approved'
   | 'rejected';
 
+export type GenerationApprovalMode = 'question_bank' | 'review_only';
+
+export interface QuestionStudioItemPayload extends Record<string, unknown> {
+  runtimeMode?: string;
+  reviewStatus?: string;
+  questionBankStatus?: string;
+  questionBankWritable?: boolean;
+  testEligibility?: string;
+  testEligible?: boolean;
+  publiclyPublishable?: boolean;
+  generationContext?: Record<string, unknown>;
+}
+
 export interface QuestionStudioItem {
   id: string;
   generationRunId: string;
@@ -31,7 +44,7 @@ export interface QuestionStudioItem {
   createdAt: string;
   updatedAt: string;
   versionId: string | null;
-  payload: Record<string, unknown> | null;
+  payload: QuestionStudioItemPayload | null;
 }
 
 export interface QuestionStudioRun {
@@ -81,12 +94,26 @@ export interface GenerationPackage {
   subtopic: string;
   label: string;
   enabled: boolean;
+  active?: boolean;
+  questionStudioDiscoverable?: boolean;
+  generationDomain?: string;
   cpIds: string[];
+  permanentQlIds?: string[];
   supportedLanguages: string[];
+  runtimeMode?: string;
+  supportedRuntimeModes?: string[];
+  dynamicCandidateCpIds?: string[];
+  reviewStatus?: string;
+  questionBankStatus?: string;
+  questionBankWritable?: boolean;
+  testEligibility?: string;
+  testEligible?: boolean;
+  publiclyPublishable?: boolean;
 }
 
 export interface QuestionStudioCapabilities {
   generationSystem: string;
+  generationSystems?: string[];
   packages: GenerationPackage[];
   difficulties: string[];
   languages: string[];
@@ -104,6 +131,9 @@ export interface CreateGenerationRunInput {
   subtopic?: string;
   language: string;
   seed?: string;
+  runtimeMode?: string;
+  canonicalProblemId?: string;
+  questionLanguageId?: string;
 }
 
 export interface ConvertedQuestion {
@@ -183,6 +213,11 @@ export function createGenerationRun(input: CreateGenerationRunInput) {
     status: GenerationRunStatus;
     itemCount: number;
     generationSystem: string;
+    packageId?: string;
+    runtimeMode?: string;
+    questionBankStatus?: string;
+    testEligibility?: string;
+    publiclyPublishable?: boolean;
   }>(
     '/admin/question-studio/runs',
     { method: 'POST', body: JSON.stringify(input) },
@@ -201,11 +236,17 @@ export function updateGenerationItems(input: {
       generationRunId: string;
       previousStatus: GenerationItemStatus;
       status: GenerationItemStatus;
+      approvalMode: GenerationApprovalMode | null;
+      conversionSkippedReason: string | null;
       convertedQuestion: ConvertedQuestion | null;
     }>;
     updatedCount: number;
     converted: ConvertedQuestion[];
     convertedCount: number;
+    reviewOnlyApprovedCount: number;
+    attempted: number;
+    succeeded: number;
+    failed: number;
   }>(
     '/admin/question-studio/items/bulk',
     { method: 'PATCH', body: JSON.stringify(input) },
