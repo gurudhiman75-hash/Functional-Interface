@@ -77,6 +77,8 @@ Every generated explanation is checked for:
 - fewer than three different question checks;
 - mismatch between the explanation and the correct answer.
 
-## Lifecycle
+## Approved lifecycle
 
-This wording remodel does not activate Question Studio, Question Bank, tests or public delivery. The English pack remains under product-owner review.
+This explanation standard is part of the product-owner-approved, frozen English implementation for `NUM-CP-005`.
+
+Approval does not activate Question Studio, Question Bank, tests or public delivery. Those delivery gates remain disabled until separately authorised.
