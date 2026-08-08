@@ -31,48 +31,59 @@ export interface IneCp006ReviewRow {
 export const INE_CP006_REVIEW_ALLOCATION: Readonly<
   Record<IneCp006AuthorityId, number>
 > = {
-  DECODE_FIXED_MAP_RELATION: 7,
-  SOLVE_FIXED_MAP_CODED_CHAIN: 17,
-  EVALUATE_FIXED_MAP_CODED_CONCLUSIONS: 17,
-  ENCODE_FIXED_MAP_RELATION: 7,
+  DECODE_FIXED_MAP_RELATION: 4,
+  SOLVE_FIXED_MAP_CODED_CHAIN: 20,
+  EVALUATE_FIXED_MAP_CODED_CONCLUSIONS: 20,
+  ENCODE_FIXED_MAP_RELATION: 4,
 };
 
 export function buildIneCp006ReviewPack(): IneCp006ReviewRow[] {
-  let index = 0;
-  return INE_CP006_PROTOTYPE_CONTRACTS.flatMap((contract) =>
-    Array.from(
-      { length: INE_CP006_REVIEW_ALLOCATION[contract.authorityId] },
-      (_, seed) => {
-        const question = generateIneCp006Question(contract.prototypeId, seed);
-        index += 1;
-        return {
-          index,
-          recordId: question.recordId,
-          authorityId: question.authorityId,
-          seed,
-          difficulty: question.difficulty,
-          deliveryProfile: question.metadata.deliveryProfile,
-          symbolProfile: question.metadata.symbolProfile,
-          examApplicability: question.metadata.examApplicability,
-          symbolSetId: question.metadata.symbolSetId,
-          topologyId: question.metadata.topologyId,
-          statementCount: question.structuredScenario.statements.length,
-          conclusionCount: question.structuredScenario.conclusions.length,
-          stem: question.stem,
-          codeKey: question.displayedCodeKey,
-          statements: question.displayedStatements,
-          conclusions: question.displayedConclusions,
-          options: question.options.map((entry) => entry.value),
-          correctIndex: question.correctIndex,
-          correctOption: question.options[question.correctIndex]!.value,
-          explanation: question.solutions.mock,
-          sourceLedgerIds: question.metadata.sourceLedgerIds,
-          permanentQlId: null,
-          questionStudioVisible: false,
-        };
+  const contract = (authorityId: IneCp006AuthorityId) =>
+    INE_CP006_PROTOTYPE_CONTRACTS.find(
+      (entry) => entry.authorityId === authorityId,
+    )!;
+  const schedule = [
+    ...Array.from({ length: 20 }, (_, seed) => [
+      { contract: contract("SOLVE_FIXED_MAP_CODED_CHAIN"), seed },
+      {
+        contract: contract("EVALUATE_FIXED_MAP_CODED_CONCLUSIONS"),
+        seed,
       },
-    ),
-  );
+    ]).flat(),
+    ...Array.from({ length: 4 }, (_, seed) => [
+      { contract: contract("DECODE_FIXED_MAP_RELATION"), seed },
+      { contract: contract("ENCODE_FIXED_MAP_RELATION"), seed },
+    ]).flat(),
+  ];
+
+  return schedule.map(({ contract: entry, seed }, index) => {
+    const question = generateIneCp006Question(entry.prototypeId, seed);
+    return {
+      index: index + 1,
+      recordId: question.recordId,
+      authorityId: question.authorityId,
+      seed,
+      difficulty: question.difficulty,
+      deliveryProfile: question.metadata.deliveryProfile,
+      symbolProfile: question.metadata.symbolProfile,
+      examApplicability: question.metadata.examApplicability,
+      symbolSetId: question.metadata.symbolSetId,
+      topologyId: question.metadata.topologyId,
+      statementCount: question.structuredScenario.statements.length,
+      conclusionCount: question.structuredScenario.conclusions.length,
+      stem: question.stem,
+      codeKey: question.displayedCodeKey,
+      statements: question.displayedStatements,
+      conclusions: question.displayedConclusions,
+      options: question.options.map((option) => option.value),
+      correctIndex: question.correctIndex,
+      correctOption: question.options[question.correctIndex]!.value,
+      explanation: question.solutions.mock,
+      sourceLedgerIds: question.metadata.sourceLedgerIds,
+      permanentQlId: null,
+      questionStudioVisible: false,
+    };
+  });
 }
 
 export function renderIneCp006ReviewMarkdown(
@@ -118,7 +129,7 @@ export function renderIneCp006ReviewMarkdown(
   return [
     "# INE-CP-006 English Prototype Review Pack",
     "",
-    "This 48-question pack intentionally gives 34 questions to exam-shaped chain solving and conclusion evaluation, and 14 to guided decoding and encoding. Exam-practice records use ASCII symbols only; Unicode symbols are isolated in guided records. Every question supplies a complete five-symbol key and exactly four answer options. These are product prototypes, not previous-year questions. The current exam applicability is Banking/regulatory practice only; SSC, Railways, and Punjab labels remain disabled pending verified post-specific evidence. Permanent QLs and Question Studio visibility remain disabled.",
+    "This 48-question pack gives 40 questions to exam-shaped chain solving and conclusion evaluation, and 8 to guided decoding and encoding. The exam questions come first and use three-to-eight-statement scenarios; no one- or two-step exam items are included. Exam-practice records use ASCII symbols; Unicode symbols are isolated in guided records. Every question supplies a complete five-symbol key and exactly four answer options. These are product prototypes, not previous-year questions. The current exam applicability is Banking/regulatory practice only; SSC, Railways, and Punjab labels remain disabled pending verified post-specific evidence. Permanent QLs and Question Studio visibility remain disabled.",
     "",
     sections.join("\n\n"),
     "",

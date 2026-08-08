@@ -18,7 +18,7 @@ INE-CP-006 supplies a complete five-symbol code key, decodes every coded stateme
 - exam-practice metadata is limited to `BANKING_REGULATORY_PRACTICE_ONLY`;
 - SSC, Railways, PSSSB, PPSC, Punjab-post, Hindi, and Punjabi release labels are not assigned by CP-006.
 
-The 48-question review export is weighted toward exam-shaped work: 17 chain-solving questions, 17 conclusion-evaluation questions, 7 guided decoding questions, and 7 guided encoding questions.
+The 48-question review export is weighted toward harder exam-shaped work: 20 chain-solving questions, 20 conclusion-evaluation questions, 4 guided decoding questions, and 4 guided encoding questions. Exam questions use at least three statements and appear before the guided items.
 
 ## Discovery safeguards
 
@@ -26,10 +26,12 @@ The 48-question review export is weighted toward exam-shaped work: 17 chain-solv
 - every map is bijective and uses five distinct symbols;
 - coded text is reproduced from structured relations rather than parsed as arbitrary text;
 - direct, reversed, strict, inclusive, equality, branch, disconnected, and five-to-eight-statement cases are covered;
+- one- and two-statement scenarios are excluded from exam practice;
 - every question has exactly four unique options;
 - conclusion questions include two-conclusion and selected hard three-conclusion forms;
 - conclusion options are generated from formally evaluated truth subsets and always remain exactly four;
 - conclusions use distinct entity pairs, excluding unlabelled either-or leakage;
+- at least one conclusion in every exam conclusion question requires a derived relation rather than copying a displayed pair;
 - graph and model-enumeration solvers must agree;
 - each question shows one short decoding-first explanation without option-by-option commentary;
 - map recovery and missing-operator tasks remain in CP-007;

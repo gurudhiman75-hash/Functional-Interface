@@ -1,6 +1,1763 @@
 [
   {
     "index": 1,
+    "recordId": "INE-CP006-7650000B",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 0,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "THREE_EDGE_WEAK_CHAIN",
+    "statementCount": 3,
+    "conclusionCount": 0,
+    "stem": "After decoding the statements, what is the strongest definite relation between C and Q?",
+    "codeKey": [
+      "A % B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A @ B means A is equal to B.",
+      "A & B means A is greater than or equal to B.",
+      "A # B means A is less than or equal to B."
+    ],
+    "statements": [
+      "C & R @ D & Q"
+    ],
+    "options": [
+      "C < Q",
+      "C ≥ Q",
+      "C > Q",
+      "C ≤ Q"
+    ],
+    "correctIndex": 1,
+    "correctOption": "C ≥ Q",
+    "explanation": "Decode the statements: C ≥ R, R = D, and D ≥ Q. So C ≥ Q.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 2,
+    "recordId": "INE-CP006-C1ADCEE2",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 0,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "THREE_EDGE_WEAK_CHAIN",
+    "statementCount": 3,
+    "conclusionCount": 2,
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A % B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A @ B means A is equal to B.",
+      "A & B means A is greater than or equal to B.",
+      "A # B means A is less than or equal to B."
+    ],
+    "statements": [
+      "B & R @ C & Q"
+    ],
+    "conclusions": [
+      "R & Q",
+      "B % C"
+    ],
+    "options": [
+      "Only conclusion I follows",
+      "Both conclusions I and II follow",
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion II follows"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Only conclusion I follows",
+    "explanation": "Decode the statements: B ≥ R, R = C, and C ≥ Q. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 3,
+    "recordId": "INE-CP006-CC8090E8",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 1,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_ALTERNATE",
+    "topologyId": "FOUR_EDGE_MIXED_CHAIN",
+    "statementCount": 4,
+    "conclusionCount": 0,
+    "stem": "After decoding the statements, what is the strongest definite relation between R and Q?",
+    "codeKey": [
+      "A ^ B means A is greater than B.",
+      "A ? B means A is less than B.",
+      "A ! B means A is equal to B.",
+      "A ~ B means A is greater than or equal to B.",
+      "A + B means A is less than or equal to B."
+    ],
+    "statements": [
+      "R + D ? B ! A + Q"
+    ],
+    "options": [
+      "R < Q",
+      "R > Q",
+      "R ≥ Q",
+      "The relation cannot be determined"
+    ],
+    "correctIndex": 0,
+    "correctOption": "R < Q",
+    "explanation": "Decode the statements: R ≤ D, D < B, B = A, and A ≤ Q. So R < Q.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 4,
+    "recordId": "INE-CP006-3B31BB3D",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 1,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_ALTERNATE",
+    "topologyId": "FOUR_EDGE_MIXED_CHAIN",
+    "statementCount": 4,
+    "conclusionCount": 2,
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A ^ B means A is greater than B.",
+      "A ? B means A is less than B.",
+      "A ! B means A is equal to B.",
+      "A ~ B means A is greater than or equal to B.",
+      "A + B means A is less than or equal to B."
+    ],
+    "statements": [
+      "R ~ D ! A ^ Q ~ P"
+    ],
+    "conclusions": [
+      "D ! Q",
+      "D ~ P"
+    ],
+    "options": [
+      "Both conclusions I and II follow",
+      "Only conclusion I follows",
+      "Only conclusion II follows",
+      "Neither conclusion I nor conclusion II follows"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Only conclusion II follows",
+    "explanation": "Decode the statements: R ≥ D, D = A, A > Q, and Q ≥ P. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 5,
+    "recordId": "INE-CP006-76D94C21",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 2,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "FOUR_EDGE_WEAK_CHAIN",
+    "statementCount": 4,
+    "conclusionCount": 0,
+    "stem": "After decoding the statements, what is the strongest definite relation between P and C?",
+    "codeKey": [
+      "A % B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A # B means A is equal to B.",
+      "A @ B means A is greater than or equal to B.",
+      "A & B means A is less than or equal to B."
+    ],
+    "statements": [
+      "C # R @ B # Q @ P"
+    ],
+    "options": [
+      "P < C",
+      "P > C",
+      "P ≤ C",
+      "P = C"
+    ],
+    "correctIndex": 2,
+    "correctOption": "P ≤ C",
+    "explanation": "Decode the statements: C = R, R ≥ B, B = Q, and Q ≥ P. So P ≤ C.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 6,
+    "recordId": "INE-CP006-87476084",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 2,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "FOUR_EDGE_WEAK_CHAIN",
+    "statementCount": 4,
+    "conclusionCount": 2,
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A % B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A # B means A is equal to B.",
+      "A @ B means A is greater than or equal to B.",
+      "A & B means A is less than or equal to B."
+    ],
+    "statements": [
+      "P & D # A & C # R"
+    ],
+    "conclusions": [
+      "P & A",
+      "P & C"
+    ],
+    "options": [
+      "Only conclusion I follows",
+      "Both conclusions I and II follow",
+      "Only conclusion II follows",
+      "Neither conclusion I nor conclusion II follows"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Both conclusions I and II follow",
+    "explanation": "Decode the statements: P ≤ D, D = A, A ≤ C, and C = R. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 7,
+    "recordId": "INE-CP006-0E65A766",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 3,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_ALTERNATE",
+    "topologyId": "CONVERGING_BRANCH",
+    "statementCount": 3,
+    "conclusionCount": 0,
+    "stem": "After decoding the statements, what is the strongest definite relation between D and Q?",
+    "codeKey": [
+      "A ~ B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ^ B means A is equal to B.",
+      "A ? B means A is greater than or equal to B.",
+      "A ! B means A is less than or equal to B."
+    ],
+    "statements": [
+      "D ~ A",
+      "Q ? A",
+      "C ~ D"
+    ],
+    "options": [
+      "D > Q",
+      "D ≤ Q",
+      "D < Q",
+      "The relation cannot be determined"
+    ],
+    "correctIndex": 3,
+    "correctOption": "The relation cannot be determined",
+    "explanation": "Decode the statements: D > A, Q ≥ A, and C > D. There is no definite relation between D and Q.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 8,
+    "recordId": "INE-CP006-C946F557",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 3,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_ALTERNATE",
+    "topologyId": "CHAIN_WITH_IRRELEVANT_EDGE",
+    "statementCount": 3,
+    "conclusionCount": 2,
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A ~ B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ^ B means A is equal to B.",
+      "A ? B means A is greater than or equal to B.",
+      "A ! B means A is less than or equal to B."
+    ],
+    "statements": [
+      "D ^ P",
+      "C ! Q + R"
+    ],
+    "conclusions": [
+      "R ^ C",
+      "Q ^ P"
+    ],
+    "options": [
+      "Only conclusion I follows",
+      "Only conclusion II follows",
+      "Both conclusions I and II follow",
+      "Neither conclusion I nor conclusion II follows"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Neither conclusion I nor conclusion II follows",
+    "explanation": "Decode the statements: D = P, C ≤ Q, and Q < R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 9,
+    "recordId": "INE-CP006-2D88C8AF",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 4,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "CHAIN_WITH_IRRELEVANT_EDGE",
+    "statementCount": 3,
+    "conclusionCount": 0,
+    "stem": "After decoding the statements, what is the strongest definite relation between C and P?",
+    "codeKey": [
+      "A & B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A % B means A is equal to B.",
+      "A # B means A is greater than or equal to B.",
+      "A @ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "P & D # C",
+      "Q % A"
+    ],
+    "options": [
+      "C < P",
+      "The relation cannot be determined",
+      "C = P",
+      "C ≤ P"
+    ],
+    "correctIndex": 0,
+    "correctOption": "C < P",
+    "explanation": "Decode the statements: P > D, D ≥ C, and Q = A. So C < P.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 10,
+    "recordId": "INE-CP006-F1DC25AE",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 4,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "FIVE_EDGE_MIXED_CHAIN",
+    "statementCount": 5,
+    "conclusionCount": 3,
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A & B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A % B means A is equal to B.",
+      "A # B means A is greater than or equal to B.",
+      "A @ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "Q # P & C % R # D & B"
+    ],
+    "conclusions": [
+      "R & B",
+      "P @ B",
+      "Q & R"
+    ],
+    "options": [
+      "Only conclusion I follows",
+      "Only conclusions I and III follow",
+      "Only conclusion II follows",
+      "Only conclusion III follows"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Only conclusions I and III follow",
+    "explanation": "Decode the statements: Q ≥ P, P > C, C = R, R ≥ D, and D > B. Therefore, conclusion I follows, conclusion II does not follow, and conclusion III follows. Answer: Only conclusions I and III follow.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 11,
+    "recordId": "INE-CP006-D3CE347C",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 5,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_ALTERNATE",
+    "topologyId": "FIVE_EDGE_MIXED_CHAIN",
+    "statementCount": 5,
+    "conclusionCount": 0,
+    "stem": "After decoding the statements, what is the strongest definite relation between P and B?",
+    "codeKey": [
+      "A ~ B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ! B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A ? B means A is less than or equal to B."
+    ],
+    "statements": [
+      "P + Q ? A ! D + C ? B"
+    ],
+    "options": [
+      "P = B",
+      "P < B",
+      "The relation cannot be determined",
+      "P ≤ B"
+    ],
+    "correctIndex": 1,
+    "correctOption": "P < B",
+    "explanation": "Decode the statements: P < Q, Q ≤ A, A = D, D < C, and C ≤ B. So P < B.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 12,
+    "recordId": "INE-CP006-AF5E4E89",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 5,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_ALTERNATE",
+    "topologyId": "SIX_EDGE_MIXED_CHAIN",
+    "statementCount": 6,
+    "conclusionCount": 3,
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A ~ B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ! B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A ? B means A is less than or equal to B."
+    ],
+    "statements": [
+      "R ? B + A ? Q ! C + D ? P"
+    ],
+    "conclusions": [
+      "A ~ D",
+      "B + C",
+      "R + D"
+    ],
+    "options": [
+      "Only conclusion III follows",
+      "Only conclusion I follows",
+      "Only conclusion II follows",
+      "Only conclusions II and III follow"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Only conclusions II and III follow",
+    "explanation": "Decode the statements: R ≤ B, B < A, A ≤ Q, Q = C, C < D, and D ≤ P. Therefore, conclusion I does not follow, conclusion II follows, and conclusion III follows. Answer: Only conclusions II and III follow.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 13,
+    "recordId": "INE-CP006-AB048BB5",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 6,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "SIX_EDGE_MIXED_CHAIN",
+    "statementCount": 6,
+    "conclusionCount": 0,
+    "stem": "After decoding the statements, what is the strongest definite relation between C and P?",
+    "codeKey": [
+      "A @ B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A # B means A is equal to B.",
+      "A % B means A is greater than or equal to B.",
+      "A & B means A is less than or equal to B."
+    ],
+    "statements": [
+      "P % A @ B # R % Q @ D % C"
+    ],
+    "options": [
+      "C > P",
+      "C = P",
+      "C < P",
+      "The relation cannot be determined"
+    ],
+    "correctIndex": 2,
+    "correctOption": "C < P",
+    "explanation": "Decode the statements: P ≥ A, A > B, B = R, R ≥ Q, Q > D, and D ≥ C. So C < P.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 14,
+    "recordId": "INE-CP006-FC386E50",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 6,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "FIVE_EDGE_CHAIN_WITH_TWO_SUPPORTS",
+    "statementCount": 7,
+    "conclusionCount": 3,
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A @ B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A # B means A is equal to B.",
+      "A % B means A is greater than or equal to B.",
+      "A & B means A is less than or equal to B."
+    ],
+    "statements": [
+      "C % B @ D % P # A @ R",
+      "C @ D",
+      "P @ R"
+    ],
+    "conclusions": [
+      "D @ R",
+      "B % A",
+      "B % R"
+    ],
+    "options": [
+      "Only conclusion I follows",
+      "Only conclusion III follows",
+      "All three conclusions follow",
+      "Only conclusion II follows"
+    ],
+    "correctIndex": 2,
+    "correctOption": "All three conclusions follow",
+    "explanation": "Decode the statements: C ≥ B, B > D, D ≥ P, P = A, A > R, C > D, and P > R. Therefore, conclusion I follows, conclusion II follows, and conclusion III follows. Answer: All three conclusions follow.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 15,
+    "recordId": "INE-CP006-FBEC72DA",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 7,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_ALTERNATE",
+    "topologyId": "FIVE_EDGE_CHAIN_WITH_TWO_SUPPORTS",
+    "statementCount": 7,
+    "conclusionCount": 0,
+    "stem": "After decoding the statements, what is the strongest definite relation between P and B?",
+    "codeKey": [
+      "A ! B means A is greater than B.",
+      "A ? B means A is less than B.",
+      "A + B means A is equal to B.",
+      "A ~ B means A is greater than or equal to B.",
+      "A ^ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "P ~ Q ! R ~ A + D ! B",
+      "P ! R",
+      "A ! B"
+    ],
+    "options": [
+      "P = B",
+      "P ≥ B",
+      "The relation cannot be determined",
+      "P > B"
+    ],
+    "correctIndex": 3,
+    "correctOption": "P > B",
+    "explanation": "Decode the statements: P ≥ Q, Q > R, R ≥ A, A = D, D > B, P > R, and A > B. So P > B.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 16,
+    "recordId": "INE-CP006-262EB9F3",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 7,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_ALTERNATE",
+    "topologyId": "FIVE_EDGE_CHAIN_WITH_THREE_SUPPORTS",
+    "statementCount": 8,
+    "conclusionCount": 3,
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A ! B means A is greater than B.",
+      "A ? B means A is less than B.",
+      "A + B means A is equal to B.",
+      "A ~ B means A is greater than or equal to B.",
+      "A ^ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "P ! A",
+      "C ! D",
+      "Q ! R",
+      "P ! C ~ A + Q ! D ~ R"
+    ],
+    "conclusions": [
+      "Q + C",
+      "R ! A",
+      "D ! P"
+    ],
+    "options": [
+      "None of the conclusions follow",
+      "Only conclusion III follows",
+      "Only conclusion I follows",
+      "Only conclusion II follows"
+    ],
+    "correctIndex": 0,
+    "correctOption": "None of the conclusions follow",
+    "explanation": "Decode the statements: P > A, C > D, Q > R, P > C, C ≥ A, A = Q, Q > D, and D ≥ R. Therefore, conclusion I does not follow, conclusion II does not follow, and conclusion III does not follow. Answer: None of the conclusions follow.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 17,
+    "recordId": "INE-CP006-88610ED3",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 8,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "FIVE_EDGE_CHAIN_WITH_THREE_SUPPORTS",
+    "statementCount": 8,
+    "conclusionCount": 0,
+    "stem": "After decoding the statements, what is the strongest definite relation between C and A?",
+    "codeKey": [
+      "A # B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A @ B means A is equal to B.",
+      "A & B means A is greater than or equal to B.",
+      "A % B means A is less than or equal to B."
+    ],
+    "statements": [
+      "C % P $ Q @ D % R $ A",
+      "C $ Q",
+      "P $ R",
+      "D $ A"
+    ],
+    "options": [
+      "C ≤ A",
+      "C < A",
+      "C ≥ A",
+      "C > A"
+    ],
+    "correctIndex": 1,
+    "correctOption": "C < A",
+    "explanation": "Decode the statements: C ≤ P, P < Q, Q = D, D ≤ R, R < A, C < Q, P < R, and D < A. So C < A.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 18,
+    "recordId": "INE-CP006-B5E411FA",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 8,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "THREE_EDGE_WEAK_CHAIN",
+    "statementCount": 3,
+    "conclusionCount": 2,
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A # B means A is greater than B.",
+      "A $ B means A is less than B.",
+      "A @ B means A is equal to B.",
+      "A & B means A is greater than or equal to B.",
+      "A % B means A is less than or equal to B."
+    ],
+    "statements": [
+      "A & Q @ B & R"
+    ],
+    "conclusions": [
+      "A & B",
+      "A % R"
+    ],
+    "options": [
+      "Only conclusion II follows",
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion I follows",
+      "Both conclusions I and II follow"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Only conclusion I follows",
+    "explanation": "Decode the statements: A ≥ Q, Q = B, and B ≥ R. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 19,
+    "recordId": "INE-CP006-6E74C430",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 9,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_ALTERNATE",
+    "topologyId": "THREE_EDGE_WEAK_CHAIN",
+    "statementCount": 3,
+    "conclusionCount": 0,
+    "stem": "After decoding the statements, what is the strongest definite relation between C and R?",
+    "codeKey": [
+      "A ~ B means A is greater than B.",
+      "A ? B means A is less than B.",
+      "A ! B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A + B means A is less than or equal to B."
+    ],
+    "statements": [
+      "R ^ A ! P ^ C"
+    ],
+    "options": [
+      "C = R",
+      "C ≥ R",
+      "C ≤ R",
+      "C > R"
+    ],
+    "correctIndex": 2,
+    "correctOption": "C ≤ R",
+    "explanation": "Decode the statements: R ≥ A, A = P, and P ≥ C. So C ≤ R.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 20,
+    "recordId": "INE-CP006-082E4255",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 9,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_ALTERNATE",
+    "topologyId": "FOUR_EDGE_MIXED_CHAIN",
+    "statementCount": 4,
+    "conclusionCount": 2,
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A ~ B means A is greater than B.",
+      "A ? B means A is less than B.",
+      "A ! B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A + B means A is less than or equal to B."
+    ],
+    "statements": [
+      "P + D ? Q ! A + B"
+    ],
+    "conclusions": [
+      "B ! Q",
+      "Q ~ P"
+    ],
+    "options": [
+      "Only conclusion I follows",
+      "Only conclusion II follows",
+      "Both conclusions I and II follow",
+      "Neither conclusion I nor conclusion II follows"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Only conclusion II follows",
+    "explanation": "Decode the statements: P ≤ D, D < Q, Q = A, and A ≤ B. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 21,
+    "recordId": "INE-CP006-A9BB36A0",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 10,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "FOUR_EDGE_MIXED_CHAIN",
+    "statementCount": 4,
+    "conclusionCount": 0,
+    "stem": "After decoding the statements, what is the strongest definite relation between P and B?",
+    "codeKey": [
+      "A $ B means A is greater than B.",
+      "A # B means A is less than B.",
+      "A & B means A is equal to B.",
+      "A @ B means A is greater than or equal to B.",
+      "A % B means A is less than or equal to B."
+    ],
+    "statements": [
+      "P % A # R & C % B"
+    ],
+    "options": [
+      "P < B",
+      "P > B",
+      "The relation cannot be determined",
+      "P = B"
+    ],
+    "correctIndex": 0,
+    "correctOption": "P < B",
+    "explanation": "Decode the statements: P ≤ A, A < R, R = C, and C ≤ B. So P < B.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 22,
+    "recordId": "INE-CP006-D686862F",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 10,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "FOUR_EDGE_WEAK_CHAIN",
+    "statementCount": 4,
+    "conclusionCount": 2,
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A $ B means A is greater than B.",
+      "A # B means A is less than B.",
+      "A & B means A is equal to B.",
+      "A @ B means A is greater than or equal to B.",
+      "A % B means A is less than or equal to B."
+    ],
+    "statements": [
+      "P & D @ Q & R @ C"
+    ],
+    "conclusions": [
+      "Q % P",
+      "C % D"
+    ],
+    "options": [
+      "Only conclusion II follows",
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion I follows",
+      "Both conclusions I and II follow"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Both conclusions I and II follow",
+    "explanation": "Decode the statements: P = D, D ≥ Q, Q = R, and R ≥ C. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 23,
+    "recordId": "INE-CP006-F2670AC3",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 11,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_ALTERNATE",
+    "topologyId": "FOUR_EDGE_WEAK_CHAIN",
+    "statementCount": 4,
+    "conclusionCount": 0,
+    "stem": "After decoding the statements, what is the strongest definite relation between C and R?",
+    "codeKey": [
+      "A ^ B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ~ B means A is equal to B.",
+      "A ! B means A is greater than or equal to B.",
+      "A ? B means A is less than or equal to B."
+    ],
+    "statements": [
+      "R ? P ~ Q ? B ~ C"
+    ],
+    "options": [
+      "C = R",
+      "C < R",
+      "C > R",
+      "C ≥ R"
+    ],
+    "correctIndex": 3,
+    "correctOption": "C ≥ R",
+    "explanation": "Decode the statements: R ≤ P, P = Q, Q ≤ B, and B = C. So C ≥ R.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 24,
+    "recordId": "INE-CP006-7CCBF1FC",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 11,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_ALTERNATE",
+    "topologyId": "CHAIN_WITH_IRRELEVANT_EDGE",
+    "statementCount": 3,
+    "conclusionCount": 2,
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A ^ B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ~ B means A is equal to B.",
+      "A ! B means A is greater than or equal to B.",
+      "A ? B means A is less than or equal to B."
+    ],
+    "statements": [
+      "D ^ B ! Q",
+      "C ~ R"
+    ],
+    "conclusions": [
+      "D ? Q",
+      "Q ^ C"
+    ],
+    "options": [
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion II follows",
+      "Only conclusion I follows",
+      "Both conclusions I and II follow"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Neither conclusion I nor conclusion II follows",
+    "explanation": "Decode the statements: D > B, B ≥ Q, and C = R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 25,
+    "recordId": "INE-CP006-32577ABE",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 12,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "CONVERGING_BRANCH",
+    "statementCount": 3,
+    "conclusionCount": 0,
+    "stem": "After decoding the statements, what is the strongest definite relation between A and C?",
+    "codeKey": [
+      "A $ B means A is greater than B.",
+      "A # B means A is less than B.",
+      "A & B means A is equal to B.",
+      "A @ B means A is greater than or equal to B.",
+      "A % B means A is less than or equal to B."
+    ],
+    "statements": [
+      "A # R",
+      "D % C",
+      "D # A"
+    ],
+    "options": [
+      "A = C",
+      "A > C",
+      "A ≥ C",
+      "The relation cannot be determined"
+    ],
+    "correctIndex": 3,
+    "correctOption": "The relation cannot be determined",
+    "explanation": "Decode the statements: A < R, D ≤ C, and D < A. There is no definite relation between A and C.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 26,
+    "recordId": "INE-CP006-54024935",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 12,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "FIVE_EDGE_MIXED_CHAIN",
+    "statementCount": 5,
+    "conclusionCount": 3,
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A $ B means A is greater than B.",
+      "A # B means A is less than B.",
+      "A & B means A is equal to B.",
+      "A @ B means A is greater than or equal to B.",
+      "A % B means A is less than or equal to B."
+    ],
+    "statements": [
+      "D @ B $ P & R @ C $ A"
+    ],
+    "conclusions": [
+      "D $ R",
+      "D % C",
+      "P @ A"
+    ],
+    "options": [
+      "Only conclusions I and III follow",
+      "Only conclusion II follows",
+      "Only conclusion III follows",
+      "Only conclusion I follows"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Only conclusions I and III follow",
+    "explanation": "Decode the statements: D ≥ B, B > P, P = R, R ≥ C, and C > A. Therefore, conclusion I follows, conclusion II does not follow, and conclusion III follows. Answer: Only conclusions I and III follow.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 27,
+    "recordId": "INE-CP006-EFB3FE59",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 13,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_ALTERNATE",
+    "topologyId": "CHAIN_WITH_IRRELEVANT_EDGE",
+    "statementCount": 3,
+    "conclusionCount": 0,
+    "stem": "After decoding the statements, what is the strongest definite relation between B and P?",
+    "codeKey": [
+      "A ? B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ! B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A ~ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "P ? A ^ B",
+      "Q ! R"
+    ],
+    "options": [
+      "B = P",
+      "The relation cannot be determined",
+      "B < P",
+      "B > P"
+    ],
+    "correctIndex": 2,
+    "correctOption": "B < P",
+    "explanation": "Decode the statements: P > A, A ≥ B, and Q = R. So B < P.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 28,
+    "recordId": "INE-CP006-A4EA305A",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 13,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_ALTERNATE",
+    "topologyId": "SIX_EDGE_MIXED_CHAIN",
+    "statementCount": 6,
+    "conclusionCount": 3,
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A ? B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ! B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A ~ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "D ^ R ? C ! A ^ B ? Q ^ P"
+    ],
+    "conclusions": [
+      "P ^ D",
+      "B + D",
+      "Q + C"
+    ],
+    "options": [
+      "Only conclusion I follows",
+      "Only conclusion III follows",
+      "Only conclusions II and III follow",
+      "Only conclusion II follows"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Only conclusions II and III follow",
+    "explanation": "Decode the statements: D ≥ R, R > C, C = A, A ≥ B, B > Q, and Q ≥ P. Therefore, conclusion I does not follow, conclusion II follows, and conclusion III follows. Answer: Only conclusions II and III follow.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 29,
+    "recordId": "INE-CP006-1D1FB094",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 14,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "FIVE_EDGE_MIXED_CHAIN",
+    "statementCount": 5,
+    "conclusionCount": 0,
+    "stem": "After decoding the statements, what is the strongest definite relation between A and Q?",
+    "codeKey": [
+      "A $ B means A is greater than B.",
+      "A % B means A is less than B.",
+      "A # B means A is equal to B.",
+      "A @ B means A is greater than or equal to B.",
+      "A & B means A is less than or equal to B."
+    ],
+    "statements": [
+      "Q % B & D # C % P & A"
+    ],
+    "options": [
+      "A < Q",
+      "A > Q",
+      "A = Q",
+      "The relation cannot be determined"
+    ],
+    "correctIndex": 1,
+    "correctOption": "A > Q",
+    "explanation": "Decode the statements: Q < B, B ≤ D, D = C, C < P, and P ≤ A. So A > Q.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 30,
+    "recordId": "INE-CP006-1F4DBD8B",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 14,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "FIVE_EDGE_CHAIN_WITH_TWO_SUPPORTS",
+    "statementCount": 7,
+    "conclusionCount": 3,
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A $ B means A is greater than B.",
+      "A % B means A is less than B.",
+      "A # B means A is equal to B.",
+      "A @ B means A is greater than or equal to B.",
+      "A & B means A is less than or equal to B."
+    ],
+    "statements": [
+      "P @ C $ D @ Q # B $ R",
+      "P $ D",
+      "Q $ R"
+    ],
+    "conclusions": [
+      "C @ R",
+      "P @ R",
+      "P $ Q"
+    ],
+    "options": [
+      "Only conclusion I follows",
+      "Only conclusion III follows",
+      "Only conclusion II follows",
+      "All three conclusions follow"
+    ],
+    "correctIndex": 3,
+    "correctOption": "All three conclusions follow",
+    "explanation": "Decode the statements: P ≥ C, C > D, D ≥ Q, Q = B, B > R, P > D, and Q > R. Therefore, conclusion I follows, conclusion II follows, and conclusion III follows. Answer: All three conclusions follow.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 31,
+    "recordId": "INE-CP006-0E2B6327",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 15,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_ALTERNATE",
+    "topologyId": "SIX_EDGE_MIXED_CHAIN",
+    "statementCount": 6,
+    "conclusionCount": 0,
+    "stem": "After decoding the statements, what is the strongest definite relation between A and R?",
+    "codeKey": [
+      "A + B means A is greater than B.",
+      "A ? B means A is less than B.",
+      "A ! B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A ~ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "A ^ Q + D ! P ^ C + B ^ R"
+    ],
+    "options": [
+      "A > R",
+      "A < R",
+      "A ≥ R",
+      "The relation cannot be determined"
+    ],
+    "correctIndex": 0,
+    "correctOption": "A > R",
+    "explanation": "Decode the statements: A ≥ Q, Q > D, D = P, P ≥ C, C > B, and B ≥ R. So A > R.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 32,
+    "recordId": "INE-CP006-757E4E68",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 15,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_ALTERNATE",
+    "topologyId": "FIVE_EDGE_CHAIN_WITH_THREE_SUPPORTS",
+    "statementCount": 8,
+    "conclusionCount": 3,
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A + B means A is greater than B.",
+      "A ? B means A is less than B.",
+      "A ! B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A ~ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "B + Q",
+      "P + A",
+      "D + C",
+      "B + P ^ Q ! D + A ^ C"
+    ],
+    "conclusions": [
+      "C ! Q",
+      "A ^ Q",
+      "D + B"
+    ],
+    "options": [
+      "Only conclusion III follows",
+      "None of the conclusions follow",
+      "Only conclusion II follows",
+      "Only conclusion I follows"
+    ],
+    "correctIndex": 1,
+    "correctOption": "None of the conclusions follow",
+    "explanation": "Decode the statements: B > Q, P > A, D > C, B > P, P ≥ Q, Q = D, D > A, and A ≥ C. Therefore, conclusion I does not follow, conclusion II does not follow, and conclusion III does not follow. Answer: None of the conclusions follow.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 33,
+    "recordId": "INE-CP006-A4D619B2",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 16,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "FIVE_EDGE_CHAIN_WITH_TWO_SUPPORTS",
+    "statementCount": 7,
+    "conclusionCount": 0,
+    "stem": "After decoding the statements, what is the strongest definite relation between D and R?",
+    "codeKey": [
+      "A # B means A is greater than B.",
+      "A @ B means A is less than B.",
+      "A & B means A is equal to B.",
+      "A $ B means A is greater than or equal to B.",
+      "A % B means A is less than or equal to B."
+    ],
+    "statements": [
+      "D @ A",
+      "B @ R",
+      "D @ Q & A % B @ P % R"
+    ],
+    "options": [
+      "D ≥ R",
+      "D = R",
+      "D < R",
+      "D > R"
+    ],
+    "correctIndex": 2,
+    "correctOption": "D < R",
+    "explanation": "Decode the statements: D < A, B < R, D < Q, Q = A, A ≤ B, B < P, and P ≤ R. So D < R.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 34,
+    "recordId": "INE-CP006-1FD709A1",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 16,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "THREE_EDGE_WEAK_CHAIN",
+    "statementCount": 3,
+    "conclusionCount": 2,
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A # B means A is greater than B.",
+      "A @ B means A is less than B.",
+      "A & B means A is equal to B.",
+      "A $ B means A is greater than or equal to B.",
+      "A % B means A is less than or equal to B."
+    ],
+    "statements": [
+      "A $ B & Q $ P"
+    ],
+    "conclusions": [
+      "A $ P",
+      "A @ Q"
+    ],
+    "options": [
+      "Both conclusions I and II follow",
+      "Only conclusion II follows",
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion I follows"
+    ],
+    "correctIndex": 3,
+    "correctOption": "Only conclusion I follows",
+    "explanation": "Decode the statements: A ≥ B, B = Q, and Q ≥ P. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 35,
+    "recordId": "INE-CP006-AAC8BB8D",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 17,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_ALTERNATE",
+    "topologyId": "FIVE_EDGE_CHAIN_WITH_THREE_SUPPORTS",
+    "statementCount": 8,
+    "conclusionCount": 0,
+    "stem": "After decoding the statements, what is the strongest definite relation between Q and P?",
+    "codeKey": [
+      "A ~ B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ? B means A is equal to B.",
+      "A ! B means A is greater than or equal to B.",
+      "A ^ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "Q ~ B",
+      "C ~ A",
+      "R ~ P",
+      "Q ~ C ! B ? R ~ A ! P"
+    ],
+    "options": [
+      "Q = P",
+      "Q > P",
+      "Q < P",
+      "Q ≤ P"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Q > P",
+    "explanation": "Decode the statements: Q > B, C > A, R > P, Q > C, C ≥ B, B = R, R > A, and A ≥ P. So Q > P.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 36,
+    "recordId": "INE-CP006-B76364E6",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 17,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_ALTERNATE",
+    "topologyId": "FOUR_EDGE_MIXED_CHAIN",
+    "statementCount": 4,
+    "conclusionCount": 2,
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A ~ B means A is greater than B.",
+      "A + B means A is less than B.",
+      "A ? B means A is equal to B.",
+      "A ! B means A is greater than or equal to B.",
+      "A ^ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "Q ^ R + C ? A ^ D"
+    ],
+    "conclusions": [
+      "D + R",
+      "D ~ Q"
+    ],
+    "options": [
+      "Both conclusions I and II follow",
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion II follows",
+      "Only conclusion I follows"
+    ],
+    "correctIndex": 2,
+    "correctOption": "Only conclusion II follows",
+    "explanation": "Decode the statements: Q ≤ R, R < C, C = A, and A ≤ D. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 37,
+    "recordId": "INE-CP006-10D451D8",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 18,
+    "difficulty": "MEDIUM",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "THREE_EDGE_WEAK_CHAIN",
+    "statementCount": 3,
+    "conclusionCount": 0,
+    "stem": "After decoding the statements, what is the strongest definite relation between C and R?",
+    "codeKey": [
+      "A $ B means A is greater than B.",
+      "A & B means A is less than B.",
+      "A % B means A is equal to B.",
+      "A @ B means A is greater than or equal to B.",
+      "A # B means A is less than or equal to B."
+    ],
+    "statements": [
+      "C @ D % P @ R"
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "C < R",
+      "C > R",
+      "C ≥ R"
+    ],
+    "correctIndex": 3,
+    "correctOption": "C ≥ R",
+    "explanation": "Decode the statements: C ≥ D, D = P, and P ≥ R. So C ≥ R.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 38,
+    "recordId": "INE-CP006-5B039E37",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 18,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_CLASSIC",
+    "topologyId": "FOUR_EDGE_WEAK_CHAIN",
+    "statementCount": 4,
+    "conclusionCount": 2,
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A $ B means A is greater than B.",
+      "A & B means A is less than B.",
+      "A % B means A is equal to B.",
+      "A @ B means A is greater than or equal to B.",
+      "A # B means A is less than or equal to B."
+    ],
+    "statements": [
+      "Q % C @ R % P @ D"
+    ],
+    "conclusions": [
+      "P # Q",
+      "R # Q"
+    ],
+    "options": [
+      "Both conclusions I and II follow",
+      "Neither conclusion I nor conclusion II follows",
+      "Only conclusion II follows",
+      "Only conclusion I follows"
+    ],
+    "correctIndex": 0,
+    "correctOption": "Both conclusions I and II follow",
+    "explanation": "Decode the statements: Q = C, C ≥ R, R = P, and P ≥ D. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 39,
+    "recordId": "INE-CP006-ED686FFB",
+    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
+    "seed": 19,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_ALTERNATE",
+    "topologyId": "FOUR_EDGE_MIXED_CHAIN",
+    "statementCount": 4,
+    "conclusionCount": 0,
+    "stem": "After decoding the statements, what is the strongest definite relation between B and D?",
+    "codeKey": [
+      "A ? B means A is greater than B.",
+      "A ~ B means A is less than B.",
+      "A + B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A ! B means A is less than or equal to B."
+    ],
+    "statements": [
+      "B ^ R + Q ? A ^ D"
+    ],
+    "options": [
+      "B > D",
+      "B ≥ D",
+      "B ≤ D",
+      "B < D"
+    ],
+    "correctIndex": 0,
+    "correctOption": "B > D",
+    "explanation": "Decode the statements: B ≥ R, R = Q, Q > A, and A ≥ D. So B > D.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "AGG-INE-004",
+      "AGG-INE-005"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 40,
+    "recordId": "INE-CP006-4BA9B064",
+    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
+    "seed": 19,
+    "difficulty": "HARD",
+    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
+    "symbolProfile": "ASCII_EXAM_PROFILE",
+    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
+    "symbolSetId": "ASCII_ALTERNATE",
+    "topologyId": "CHAIN_WITH_IRRELEVANT_EDGE",
+    "statementCount": 3,
+    "conclusionCount": 2,
+    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
+    "codeKey": [
+      "A ? B means A is greater than B.",
+      "A ~ B means A is less than B.",
+      "A + B means A is equal to B.",
+      "A ^ B means A is greater than or equal to B.",
+      "A ! B means A is less than or equal to B."
+    ],
+    "statements": [
+      "C ? D ^ Q",
+      "B + R"
+    ],
+    "conclusions": [
+      "C ~ Q",
+      "C ! R"
+    ],
+    "options": [
+      "Only conclusion I follows",
+      "Neither conclusion I nor conclusion II follows",
+      "Both conclusions I and II follow",
+      "Only conclusion II follows"
+    ],
+    "correctIndex": 1,
+    "correctOption": "Neither conclusion I nor conclusion II follows",
+    "explanation": "Decode the statements: C > D, D ≥ Q, and B = R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.",
+    "sourceLedgerIds": [
+      "AGG-INE-004",
+      "DISHA-INE-004",
+      "DISHA-INE-006"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 41,
     "recordId": "INE-CP006-DB8A734F",
     "authorityId": "DECODE_FIXED_MAP_RELATION",
     "seed": 0,
@@ -35,1732 +1792,6 @@
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 2,
-    "recordId": "INE-CP006-36AC9F9C",
-    "authorityId": "DECODE_FIXED_MAP_RELATION",
-    "seed": 1,
-    "difficulty": "EASY",
-    "deliveryProfile": "GUIDED_CONCEPT",
-    "symbolProfile": "UNICODE_GUIDED_PROFILE",
-    "examApplicability": "GUIDED_CONCEPT_ONLY",
-    "symbolSetId": "CIRCLED_OPERATORS",
-    "topologyId": "DIRECT_GREATER_THAN",
-    "statementCount": 1,
-    "conclusionCount": 0,
-    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
-    "codeKey": [
-      "A ⊖ B means A is greater than B.",
-      "A ⊗ B means A is less than B.",
-      "A ⊕ B means A is equal to B.",
-      "A ⊙ B means A is greater than or equal to B.",
-      "A ⊘ B means A is less than or equal to B."
-    ],
-    "statements": [
-      "P ⊖ A"
-    ],
-    "options": [
-      "The relation cannot be determined",
-      "P = A",
-      "P < A",
-      "P > A"
-    ],
-    "correctIndex": 3,
-    "correctOption": "P > A",
-    "explanation": "⊖ means greater than. So P ⊖ A means P > A.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "DISHA-INE-004"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 3,
-    "recordId": "INE-CP006-558A7A55",
-    "authorityId": "DECODE_FIXED_MAP_RELATION",
-    "seed": 2,
-    "difficulty": "EASY",
-    "deliveryProfile": "GUIDED_CONCEPT",
-    "symbolProfile": "UNICODE_GUIDED_PROFILE",
-    "examApplicability": "GUIDED_CONCEPT_ONLY",
-    "symbolSetId": "GEOMETRIC",
-    "topologyId": "DIRECT_EQUAL_TO",
-    "statementCount": 1,
-    "conclusionCount": 0,
-    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
-    "codeKey": [
-      "A ◆ B means A is greater than B.",
-      "A ● B means A is less than B.",
-      "A ★ B means A is equal to B.",
-      "A ▲ B means A is greater than or equal to B.",
-      "A ■ B means A is less than or equal to B."
-    ],
-    "statements": [
-      "A ★ D"
-    ],
-    "options": [
-      "The relation cannot be determined",
-      "A < D",
-      "A = D",
-      "A ≥ D"
-    ],
-    "correctIndex": 2,
-    "correctOption": "A = D",
-    "explanation": "★ means equal to. So A ★ D means A = D.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "DISHA-INE-004"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 4,
-    "recordId": "INE-CP006-034049FA",
-    "authorityId": "DECODE_FIXED_MAP_RELATION",
-    "seed": 3,
-    "difficulty": "EASY",
-    "deliveryProfile": "GUIDED_CONCEPT",
-    "symbolProfile": "UNICODE_GUIDED_PROFILE",
-    "examApplicability": "GUIDED_CONCEPT_ONLY",
-    "symbolSetId": "CIRCLED_OPERATORS",
-    "topologyId": "DIRECT_LESS_THAN_OR_EQUAL",
-    "statementCount": 1,
-    "conclusionCount": 0,
-    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
-    "codeKey": [
-      "A ⊘ B means A is greater than B.",
-      "A ⊗ B means A is less than B.",
-      "A ⊙ B means A is equal to B.",
-      "A ⊖ B means A is greater than or equal to B.",
-      "A ⊕ B means A is less than or equal to B."
-    ],
-    "statements": [
-      "B ⊕ C"
-    ],
-    "options": [
-      "B ≤ C",
-      "B = C",
-      "B < C",
-      "B ≥ C"
-    ],
-    "correctIndex": 0,
-    "correctOption": "B ≤ C",
-    "explanation": "⊕ means less than or equal to. So B ⊕ C means B ≤ C.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "DISHA-INE-004"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 5,
-    "recordId": "INE-CP006-3D8AD6AB",
-    "authorityId": "DECODE_FIXED_MAP_RELATION",
-    "seed": 4,
-    "difficulty": "EASY",
-    "deliveryProfile": "GUIDED_CONCEPT",
-    "symbolProfile": "UNICODE_GUIDED_PROFILE",
-    "examApplicability": "GUIDED_CONCEPT_ONLY",
-    "symbolSetId": "GEOMETRIC",
-    "topologyId": "DIRECT_GREATER_THAN_OR_EQUAL",
-    "statementCount": 1,
-    "conclusionCount": 0,
-    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
-    "codeKey": [
-      "A ● B means A is greater than B.",
-      "A ★ B means A is less than B.",
-      "A ■ B means A is equal to B.",
-      "A ▲ B means A is greater than or equal to B.",
-      "A ◆ B means A is less than or equal to B."
-    ],
-    "statements": [
-      "B ▲ R"
-    ],
-    "options": [
-      "B ≥ R",
-      "B > R",
-      "The relation cannot be determined",
-      "B ≤ R"
-    ],
-    "correctIndex": 0,
-    "correctOption": "B ≥ R",
-    "explanation": "▲ means greater than or equal to. So B ▲ R means B ≥ R.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "DISHA-INE-004"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 6,
-    "recordId": "INE-CP006-325C4688",
-    "authorityId": "DECODE_FIXED_MAP_RELATION",
-    "seed": 5,
-    "difficulty": "EASY",
-    "deliveryProfile": "GUIDED_CONCEPT",
-    "symbolProfile": "UNICODE_GUIDED_PROFILE",
-    "examApplicability": "GUIDED_CONCEPT_ONLY",
-    "symbolSetId": "CIRCLED_OPERATORS",
-    "topologyId": "DIRECT_LESS_THAN",
-    "statementCount": 1,
-    "conclusionCount": 0,
-    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
-    "codeKey": [
-      "A ⊖ B means A is greater than B.",
-      "A ⊗ B means A is less than B.",
-      "A ⊘ B means A is equal to B.",
-      "A ⊕ B means A is greater than or equal to B.",
-      "A ⊙ B means A is less than or equal to B."
-    ],
-    "statements": [
-      "R ⊗ A"
-    ],
-    "options": [
-      "The relation cannot be determined",
-      "R > A",
-      "R < A",
-      "R = A"
-    ],
-    "correctIndex": 2,
-    "correctOption": "R < A",
-    "explanation": "⊗ means less than. So R ⊗ A means R < A.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "DISHA-INE-004"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 7,
-    "recordId": "INE-CP006-81D53741",
-    "authorityId": "DECODE_FIXED_MAP_RELATION",
-    "seed": 6,
-    "difficulty": "EASY",
-    "deliveryProfile": "GUIDED_CONCEPT",
-    "symbolProfile": "UNICODE_GUIDED_PROFILE",
-    "examApplicability": "GUIDED_CONCEPT_ONLY",
-    "symbolSetId": "GEOMETRIC",
-    "topologyId": "DIRECT_GREATER_THAN",
-    "statementCount": 1,
-    "conclusionCount": 0,
-    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
-    "codeKey": [
-      "A ◆ B means A is greater than B.",
-      "A ■ B means A is less than B.",
-      "A ★ B means A is equal to B.",
-      "A ▲ B means A is greater than or equal to B.",
-      "A ● B means A is less than or equal to B."
-    ],
-    "statements": [
-      "R ◆ Q"
-    ],
-    "options": [
-      "R < Q",
-      "R ≤ Q",
-      "R ≥ Q",
-      "R > Q"
-    ],
-    "correctIndex": 3,
-    "correctOption": "R > Q",
-    "explanation": "◆ means greater than. So R ◆ Q means R > Q.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "DISHA-INE-004"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 8,
-    "recordId": "INE-CP006-7650000B",
-    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
-    "seed": 0,
-    "difficulty": "EASY",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "DIRECT_STRICT",
-    "statementCount": 1,
-    "conclusionCount": 0,
-    "stem": "After decoding the statements, what is the strongest definite relation between C and R?",
-    "codeKey": [
-      "A % B means A is greater than B.",
-      "A $ B means A is less than B.",
-      "A @ B means A is equal to B.",
-      "A & B means A is greater than or equal to B.",
-      "A # B means A is less than or equal to B."
-    ],
-    "statements": [
-      "C % R"
-    ],
-    "options": [
-      "The relation cannot be determined",
-      "C > R",
-      "C = R",
-      "C ≥ R"
-    ],
-    "correctIndex": 1,
-    "correctOption": "C > R",
-    "explanation": "Decode the statements: C > R. So C > R.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "AGG-INE-004",
-      "AGG-INE-005"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 9,
-    "recordId": "INE-CP006-CC8090E8",
-    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
-    "seed": 1,
-    "difficulty": "EASY",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_ALTERNATE",
-    "topologyId": "DIRECT_INCLUSIVE",
-    "statementCount": 1,
-    "conclusionCount": 0,
-    "stem": "After decoding the statements, what is the strongest definite relation between A and Q?",
-    "codeKey": [
-      "A ^ B means A is greater than B.",
-      "A ? B means A is less than B.",
-      "A ! B means A is equal to B.",
-      "A ~ B means A is greater than or equal to B.",
-      "A + B means A is less than or equal to B."
-    ],
-    "statements": [
-      "A + Q"
-    ],
-    "options": [
-      "A ≤ Q",
-      "The relation cannot be determined",
-      "A < Q",
-      "A > Q"
-    ],
-    "correctIndex": 0,
-    "correctOption": "A ≤ Q",
-    "explanation": "Decode the statements: A ≤ Q. So A ≤ Q.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "AGG-INE-004",
-      "AGG-INE-005"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 10,
-    "recordId": "INE-CP006-76D94C21",
-    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
-    "seed": 2,
-    "difficulty": "MEDIUM",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "TWO_EDGE_STRICT_CHAIN",
-    "statementCount": 2,
-    "conclusionCount": 0,
-    "stem": "After decoding the statements, what is the strongest definite relation between P and B?",
-    "codeKey": [
-      "A % B means A is greater than B.",
-      "A $ B means A is less than B.",
-      "A # B means A is equal to B.",
-      "A @ B means A is greater than or equal to B.",
-      "A & B means A is less than or equal to B."
-    ],
-    "statements": [
-      "B $ Q $ P"
-    ],
-    "options": [
-      "P = B",
-      "P ≥ B",
-      "P > B",
-      "P < B"
-    ],
-    "correctIndex": 2,
-    "correctOption": "P > B",
-    "explanation": "Decode the statements: B < Q and Q < P. So P > B.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "AGG-INE-004",
-      "AGG-INE-005"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 11,
-    "recordId": "INE-CP006-0E65A766",
-    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
-    "seed": 3,
-    "difficulty": "MEDIUM",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_ALTERNATE",
-    "topologyId": "INCLUSIVE_STRICT_CHAIN",
-    "statementCount": 2,
-    "conclusionCount": 0,
-    "stem": "After decoding the statements, what is the strongest definite relation between D and A?",
-    "codeKey": [
-      "A ~ B means A is greater than B.",
-      "A + B means A is less than B.",
-      "A ^ B means A is equal to B.",
-      "A ? B means A is greater than or equal to B.",
-      "A ! B means A is less than or equal to B."
-    ],
-    "statements": [
-      "D ? Q ~ A"
-    ],
-    "options": [
-      "D ≥ A",
-      "D ≤ A",
-      "D < A",
-      "D > A"
-    ],
-    "correctIndex": 3,
-    "correctOption": "D > A",
-    "explanation": "Decode the statements: D ≥ Q and Q > A. So D > A.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "AGG-INE-004",
-      "AGG-INE-005"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 12,
-    "recordId": "INE-CP006-2D88C8AF",
-    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
-    "seed": 4,
-    "difficulty": "MEDIUM",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "EQUALITY_BRIDGE",
-    "statementCount": 2,
-    "conclusionCount": 0,
-    "stem": "After decoding the statements, what is the strongest definite relation between C and P?",
-    "codeKey": [
-      "A & B means A is greater than B.",
-      "A $ B means A is less than B.",
-      "A % B means A is equal to B.",
-      "A # B means A is greater than or equal to B.",
-      "A @ B means A is less than or equal to B."
-    ],
-    "statements": [
-      "P % D @ C"
-    ],
-    "options": [
-      "C ≥ P",
-      "C ≤ P",
-      "The relation cannot be determined",
-      "C < P"
-    ],
-    "correctIndex": 0,
-    "correctOption": "C ≥ P",
-    "explanation": "Decode the statements: P = D and D ≤ C. So C ≥ P.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "AGG-INE-004",
-      "AGG-INE-005"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 13,
-    "recordId": "INE-CP006-D3CE347C",
-    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
-    "seed": 5,
-    "difficulty": "MEDIUM",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_ALTERNATE",
-    "topologyId": "THREE_EDGE_WEAK_CHAIN",
-    "statementCount": 3,
-    "conclusionCount": 0,
-    "stem": "After decoding the statements, what is the strongest definite relation between A and B?",
-    "codeKey": [
-      "A ~ B means A is greater than B.",
-      "A + B means A is less than B.",
-      "A ! B means A is equal to B.",
-      "A ^ B means A is greater than or equal to B.",
-      "A ? B means A is less than or equal to B."
-    ],
-    "statements": [
-      "A ? D ! C ? B"
-    ],
-    "options": [
-      "A ≥ B",
-      "A ≤ B",
-      "A = B",
-      "The relation cannot be determined"
-    ],
-    "correctIndex": 1,
-    "correctOption": "A ≤ B",
-    "explanation": "Decode the statements: A ≤ D, D = C, and C ≤ B. So A ≤ B.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "AGG-INE-004",
-      "AGG-INE-005"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 14,
-    "recordId": "INE-CP006-AB048BB5",
-    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
-    "seed": 6,
-    "difficulty": "MEDIUM",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "SHARED_UPPER_FREE_ENDPOINTS",
-    "statementCount": 2,
-    "conclusionCount": 0,
-    "stem": "After decoding the statements, what is the strongest definite relation between C and D?",
-    "codeKey": [
-      "A @ B means A is greater than B.",
-      "A $ B means A is less than B.",
-      "A # B means A is equal to B.",
-      "A % B means A is greater than or equal to B.",
-      "A & B means A is less than or equal to B."
-    ],
-    "statements": [
-      "D $ Q",
-      "C $ Q"
-    ],
-    "options": [
-      "C ≥ D",
-      "C < D",
-      "The relation cannot be determined",
-      "C = D"
-    ],
-    "correctIndex": 2,
-    "correctOption": "The relation cannot be determined",
-    "explanation": "Decode the statements: D < Q and C < Q. There is no definite relation between C and D.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "AGG-INE-004",
-      "AGG-INE-005"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 15,
-    "recordId": "INE-CP006-FBEC72DA",
-    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
-    "seed": 7,
-    "difficulty": "MEDIUM",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_ALTERNATE",
-    "topologyId": "DISCONNECTED_COMPONENTS",
-    "statementCount": 2,
-    "conclusionCount": 0,
-    "stem": "After decoding the statements, what is the strongest definite relation between Q and R?",
-    "codeKey": [
-      "A ! B means A is greater than B.",
-      "A ? B means A is less than B.",
-      "A + B means A is equal to B.",
-      "A ~ B means A is greater than or equal to B.",
-      "A ^ B means A is less than or equal to B."
-    ],
-    "statements": [
-      "P ! Q",
-      "R ? A"
-    ],
-    "options": [
-      "Q < R",
-      "Q ≤ R",
-      "Q = R",
-      "The relation cannot be determined"
-    ],
-    "correctIndex": 3,
-    "correctOption": "The relation cannot be determined",
-    "explanation": "Decode the statements: P > Q and R < A. There is no definite relation between Q and R.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "AGG-INE-004",
-      "AGG-INE-005"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 16,
-    "recordId": "INE-CP006-88610ED3",
-    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
-    "seed": 8,
-    "difficulty": "HARD",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "FOUR_EDGE_MIXED_CHAIN",
-    "statementCount": 4,
-    "conclusionCount": 0,
-    "stem": "After decoding the statements, what is the strongest definite relation between C and R?",
-    "codeKey": [
-      "A # B means A is greater than B.",
-      "A $ B means A is less than B.",
-      "A @ B means A is equal to B.",
-      "A & B means A is greater than or equal to B.",
-      "A % B means A is less than or equal to B."
-    ],
-    "statements": [
-      "C & P @ Q # D & R"
-    ],
-    "options": [
-      "C < R",
-      "C > R",
-      "The relation cannot be determined",
-      "C = R"
-    ],
-    "correctIndex": 1,
-    "correctOption": "C > R",
-    "explanation": "Decode the statements: C ≥ P, P = Q, Q > D, and D ≥ R. So C > R.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "AGG-INE-004",
-      "AGG-INE-005"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 17,
-    "recordId": "INE-CP006-6E74C430",
-    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
-    "seed": 9,
-    "difficulty": "HARD",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_ALTERNATE",
-    "topologyId": "FOUR_EDGE_WEAK_CHAIN",
-    "statementCount": 4,
-    "conclusionCount": 0,
-    "stem": "After decoding the statements, what is the strongest definite relation between Q and R?",
-    "codeKey": [
-      "A ~ B means A is greater than B.",
-      "A ? B means A is less than B.",
-      "A ! B means A is equal to B.",
-      "A ^ B means A is greater than or equal to B.",
-      "A + B means A is less than or equal to B."
-    ],
-    "statements": [
-      "R + A ! P + C ! Q"
-    ],
-    "options": [
-      "Q ≤ R",
-      "Q > R",
-      "Q ≥ R",
-      "Q = R"
-    ],
-    "correctIndex": 2,
-    "correctOption": "Q ≥ R",
-    "explanation": "Decode the statements: R ≤ A, A = P, P ≤ C, and C = Q. So Q ≥ R.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "AGG-INE-004",
-      "AGG-INE-005"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 18,
-    "recordId": "INE-CP006-A9BB36A0",
-    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
-    "seed": 10,
-    "difficulty": "MEDIUM",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "CONVERGING_BRANCH",
-    "statementCount": 3,
-    "conclusionCount": 0,
-    "stem": "After decoding the statements, what is the strongest definite relation between C and B?",
-    "codeKey": [
-      "A $ B means A is greater than B.",
-      "A # B means A is less than B.",
-      "A & B means A is equal to B.",
-      "A @ B means A is greater than or equal to B.",
-      "A % B means A is less than or equal to B."
-    ],
-    "statements": [
-      "B # A",
-      "R % C",
-      "R # B"
-    ],
-    "options": [
-      "The relation cannot be determined",
-      "C ≤ B",
-      "C > B",
-      "C < B"
-    ],
-    "correctIndex": 0,
-    "correctOption": "The relation cannot be determined",
-    "explanation": "Decode the statements: B < A, R ≤ C, and R < B. There is no definite relation between C and B.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "AGG-INE-004",
-      "AGG-INE-005"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 19,
-    "recordId": "INE-CP006-F2670AC3",
-    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
-    "seed": 11,
-    "difficulty": "MEDIUM",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_ALTERNATE",
-    "topologyId": "CHAIN_WITH_IRRELEVANT_EDGE",
-    "statementCount": 3,
-    "conclusionCount": 0,
-    "stem": "After decoding the statements, what is the strongest definite relation between Q and R?",
-    "codeKey": [
-      "A ^ B means A is greater than B.",
-      "A + B means A is less than B.",
-      "A ~ B means A is equal to B.",
-      "A ! B means A is greater than or equal to B.",
-      "A ? B means A is less than or equal to B."
-    ],
-    "statements": [
-      "R ^ P ! Q",
-      "B ~ C"
-    ],
-    "options": [
-      "Q > R",
-      "The relation cannot be determined",
-      "Q = R",
-      "Q < R"
-    ],
-    "correctIndex": 3,
-    "correctOption": "Q < R",
-    "explanation": "Decode the statements: R > P, P ≥ Q, and B = C. So Q < R.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "AGG-INE-004",
-      "AGG-INE-005"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 20,
-    "recordId": "INE-CP006-32577ABE",
-    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
-    "seed": 12,
-    "difficulty": "HARD",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "FIVE_EDGE_MIXED_CHAIN",
-    "statementCount": 5,
-    "conclusionCount": 0,
-    "stem": "After decoding the statements, what is the strongest definite relation between A and Q?",
-    "codeKey": [
-      "A $ B means A is greater than B.",
-      "A # B means A is less than B.",
-      "A & B means A is equal to B.",
-      "A @ B means A is greater than or equal to B.",
-      "A % B means A is less than or equal to B."
-    ],
-    "statements": [
-      "Q # B % R & D # C % A"
-    ],
-    "options": [
-      "A ≥ Q",
-      "A < Q",
-      "The relation cannot be determined",
-      "A > Q"
-    ],
-    "correctIndex": 3,
-    "correctOption": "A > Q",
-    "explanation": "Decode the statements: Q < B, B ≤ R, R = D, D < C, and C ≤ A. So A > Q.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "AGG-INE-004",
-      "AGG-INE-005"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 21,
-    "recordId": "INE-CP006-EFB3FE59",
-    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
-    "seed": 13,
-    "difficulty": "HARD",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_ALTERNATE",
-    "topologyId": "SIX_EDGE_MIXED_CHAIN",
-    "statementCount": 6,
-    "conclusionCount": 0,
-    "stem": "After decoding the statements, what is the strongest definite relation between D and P?",
-    "codeKey": [
-      "A ? B means A is greater than B.",
-      "A + B means A is less than B.",
-      "A ! B means A is equal to B.",
-      "A ^ B means A is greater than or equal to B.",
-      "A ~ B means A is less than or equal to B."
-    ],
-    "statements": [
-      "P ~ A + B ~ Q ! R + C ~ D"
-    ],
-    "options": [
-      "D = P",
-      "The relation cannot be determined",
-      "D > P",
-      "D < P"
-    ],
-    "correctIndex": 2,
-    "correctOption": "D > P",
-    "explanation": "Decode the statements: P ≤ A, A < B, B ≤ Q, Q = R, R < C, and C ≤ D. So D > P.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "AGG-INE-004",
-      "AGG-INE-005"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 22,
-    "recordId": "INE-CP006-1D1FB094",
-    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
-    "seed": 14,
-    "difficulty": "HARD",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "FIVE_EDGE_CHAIN_WITH_TWO_SUPPORTS",
-    "statementCount": 7,
-    "conclusionCount": 0,
-    "stem": "After decoding the statements, what is the strongest definite relation between A and Q?",
-    "codeKey": [
-      "A $ B means A is greater than B.",
-      "A % B means A is less than B.",
-      "A # B means A is equal to B.",
-      "A @ B means A is greater than or equal to B.",
-      "A & B means A is less than or equal to B."
-    ],
-    "statements": [
-      "Q % D",
-      "C % A",
-      "Q % B # D & C % P & A"
-    ],
-    "options": [
-      "A = Q",
-      "A > Q",
-      "A ≤ Q",
-      "A ≥ Q"
-    ],
-    "correctIndex": 1,
-    "correctOption": "A > Q",
-    "explanation": "Decode the statements: Q < D, C < A, Q < B, B = D, D ≤ C, C < P, and P ≤ A. So A > Q.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "AGG-INE-004",
-      "AGG-INE-005"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 23,
-    "recordId": "INE-CP006-0E2B6327",
-    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
-    "seed": 15,
-    "difficulty": "HARD",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_ALTERNATE",
-    "topologyId": "FIVE_EDGE_CHAIN_WITH_THREE_SUPPORTS",
-    "statementCount": 8,
-    "conclusionCount": 0,
-    "stem": "After decoding the statements, what is the strongest definite relation between Q and R?",
-    "codeKey": [
-      "A + B means A is greater than B.",
-      "A ? B means A is less than B.",
-      "A ! B means A is equal to B.",
-      "A ^ B means A is greater than or equal to B.",
-      "A ~ B means A is less than or equal to B."
-    ],
-    "statements": [
-      "Q + P",
-      "D + B",
-      "C + R",
-      "Q + D ^ P ! C + B ^ R"
-    ],
-    "options": [
-      "Q > R",
-      "Q < R",
-      "Q ≤ R",
-      "Q ≥ R"
-    ],
-    "correctIndex": 0,
-    "correctOption": "Q > R",
-    "explanation": "Decode the statements: Q > P, D > B, C > R, Q > D, D ≥ P, P = C, C > B, and B ≥ R. So Q > R.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "AGG-INE-004",
-      "AGG-INE-005"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 24,
-    "recordId": "INE-CP006-A4D619B2",
-    "authorityId": "SOLVE_FIXED_MAP_CODED_CHAIN",
-    "seed": 16,
-    "difficulty": "EASY",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "DIRECT_STRICT",
-    "statementCount": 1,
-    "conclusionCount": 0,
-    "stem": "After decoding the statements, what is the strongest definite relation between P and R?",
-    "codeKey": [
-      "A # B means A is greater than B.",
-      "A @ B means A is less than B.",
-      "A & B means A is equal to B.",
-      "A $ B means A is greater than or equal to B.",
-      "A % B means A is less than or equal to B."
-    ],
-    "statements": [
-      "P @ R"
-    ],
-    "options": [
-      "P ≤ R",
-      "The relation cannot be determined",
-      "P < R",
-      "P > R"
-    ],
-    "correctIndex": 2,
-    "correctOption": "P < R",
-    "explanation": "Decode the statements: P < R. So P < R.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "AGG-INE-004",
-      "AGG-INE-005"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 25,
-    "recordId": "INE-CP006-C1ADCEE2",
-    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
-    "seed": 0,
-    "difficulty": "MEDIUM",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "TWO_EDGE_STRICT_CHAIN",
-    "statementCount": 2,
-    "conclusionCount": 2,
-    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
-    "codeKey": [
-      "A % B means A is greater than B.",
-      "A $ B means A is less than B.",
-      "A @ B means A is equal to B.",
-      "A & B means A is greater than or equal to B.",
-      "A # B means A is less than or equal to B."
-    ],
-    "statements": [
-      "B % R % C"
-    ],
-    "conclusions": [
-      "R & C",
-      "B $ R"
-    ],
-    "options": [
-      "Only conclusion I follows",
-      "Both conclusions I and II follow",
-      "Only conclusion II follows",
-      "Neither conclusion I nor conclusion II follows"
-    ],
-    "correctIndex": 0,
-    "correctOption": "Only conclusion I follows",
-    "explanation": "Decode the statements: B > R and R > C. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.",
-    "sourceLedgerIds": [
-      "AGG-INE-004",
-      "DISHA-INE-004",
-      "DISHA-INE-006"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 26,
-    "recordId": "INE-CP006-3B31BB3D",
-    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
-    "seed": 1,
-    "difficulty": "MEDIUM",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_ALTERNATE",
-    "topologyId": "INCLUSIVE_STRICT_CHAIN",
-    "statementCount": 2,
-    "conclusionCount": 2,
-    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
-    "codeKey": [
-      "A ^ B means A is greater than B.",
-      "A ? B means A is less than B.",
-      "A ! B means A is equal to B.",
-      "A ~ B means A is greater than or equal to B.",
-      "A + B means A is less than or equal to B."
-    ],
-    "statements": [
-      "R ~ D ^ A"
-    ],
-    "conclusions": [
-      "R + A",
-      "D ~ A"
-    ],
-    "options": [
-      "Neither conclusion I nor conclusion II follows",
-      "Both conclusions I and II follow",
-      "Only conclusion II follows",
-      "Only conclusion I follows"
-    ],
-    "correctIndex": 2,
-    "correctOption": "Only conclusion II follows",
-    "explanation": "Decode the statements: R ≥ D and D > A. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.",
-    "sourceLedgerIds": [
-      "AGG-INE-004",
-      "DISHA-INE-004",
-      "DISHA-INE-006"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 27,
-    "recordId": "INE-CP006-87476084",
-    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
-    "seed": 2,
-    "difficulty": "MEDIUM",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "TWO_EDGE_STRICT_CHAIN",
-    "statementCount": 2,
-    "conclusionCount": 2,
-    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
-    "codeKey": [
-      "A % B means A is greater than B.",
-      "A $ B means A is less than B.",
-      "A # B means A is equal to B.",
-      "A @ B means A is greater than or equal to B.",
-      "A & B means A is less than or equal to B."
-    ],
-    "statements": [
-      "P % D % A"
-    ],
-    "conclusions": [
-      "P % D",
-      "P % A"
-    ],
-    "options": [
-      "Only conclusion I follows",
-      "Both conclusions I and II follow",
-      "Only conclusion II follows",
-      "Neither conclusion I nor conclusion II follows"
-    ],
-    "correctIndex": 1,
-    "correctOption": "Both conclusions I and II follow",
-    "explanation": "Decode the statements: P > D and D > A. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.",
-    "sourceLedgerIds": [
-      "AGG-INE-004",
-      "DISHA-INE-004",
-      "DISHA-INE-006"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 28,
-    "recordId": "INE-CP006-C946F557",
-    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
-    "seed": 3,
-    "difficulty": "MEDIUM",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_ALTERNATE",
-    "topologyId": "INCLUSIVE_STRICT_CHAIN",
-    "statementCount": 2,
-    "conclusionCount": 2,
-    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
-    "codeKey": [
-      "A ~ B means A is greater than B.",
-      "A + B means A is less than B.",
-      "A ^ B means A is equal to B.",
-      "A ? B means A is greater than or equal to B.",
-      "A ! B means A is less than or equal to B."
-    ],
-    "statements": [
-      "C + Q ! R"
-    ],
-    "conclusions": [
-      "R + C",
-      "R ^ Q"
-    ],
-    "options": [
-      "Only conclusion II follows",
-      "Only conclusion I follows",
-      "Both conclusions I and II follow",
-      "Neither conclusion I nor conclusion II follows"
-    ],
-    "correctIndex": 3,
-    "correctOption": "Neither conclusion I nor conclusion II follows",
-    "explanation": "Decode the statements: C < Q and Q ≤ R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.",
-    "sourceLedgerIds": [
-      "AGG-INE-004",
-      "DISHA-INE-004",
-      "DISHA-INE-006"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 29,
-    "recordId": "INE-CP006-F1DC25AE",
-    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
-    "seed": 4,
-    "difficulty": "MEDIUM",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "EQUALITY_BRIDGE",
-    "statementCount": 2,
-    "conclusionCount": 2,
-    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
-    "codeKey": [
-      "A & B means A is greater than B.",
-      "A $ B means A is less than B.",
-      "A % B means A is equal to B.",
-      "A # B means A is greater than or equal to B.",
-      "A @ B means A is less than or equal to B."
-    ],
-    "statements": [
-      "D % P @ Q"
-    ],
-    "conclusions": [
-      "P @ Q",
-      "D % Q"
-    ],
-    "options": [
-      "Neither conclusion I nor conclusion II follows",
-      "Only conclusion I follows",
-      "Both conclusions I and II follow",
-      "Only conclusion II follows"
-    ],
-    "correctIndex": 1,
-    "correctOption": "Only conclusion I follows",
-    "explanation": "Decode the statements: D = P and P ≤ Q. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.",
-    "sourceLedgerIds": [
-      "AGG-INE-004",
-      "DISHA-INE-004",
-      "DISHA-INE-006"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 30,
-    "recordId": "INE-CP006-AF5E4E89",
-    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
-    "seed": 5,
-    "difficulty": "HARD",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_ALTERNATE",
-    "topologyId": "THREE_EDGE_WEAK_CHAIN",
-    "statementCount": 3,
-    "conclusionCount": 2,
-    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
-    "codeKey": [
-      "A ~ B means A is greater than B.",
-      "A + B means A is less than B.",
-      "A ! B means A is equal to B.",
-      "A ^ B means A is greater than or equal to B.",
-      "A ? B means A is less than or equal to B."
-    ],
-    "statements": [
-      "Q ^ A ! P ^ R"
-    ],
-    "conclusions": [
-      "A ~ R",
-      "A ! P"
-    ],
-    "options": [
-      "Only conclusion I follows",
-      "Neither conclusion I nor conclusion II follows",
-      "Both conclusions I and II follow",
-      "Only conclusion II follows"
-    ],
-    "correctIndex": 3,
-    "correctOption": "Only conclusion II follows",
-    "explanation": "Decode the statements: Q ≥ A, A = P, and P ≥ R. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.",
-    "sourceLedgerIds": [
-      "AGG-INE-004",
-      "DISHA-INE-004",
-      "DISHA-INE-006"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 31,
-    "recordId": "INE-CP006-FC386E50",
-    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
-    "seed": 6,
-    "difficulty": "MEDIUM",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "SHARED_UPPER_FREE_ENDPOINTS",
-    "statementCount": 2,
-    "conclusionCount": 2,
-    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
-    "codeKey": [
-      "A @ B means A is greater than B.",
-      "A $ B means A is less than B.",
-      "A # B means A is equal to B.",
-      "A % B means A is greater than or equal to B.",
-      "A & B means A is less than or equal to B."
-    ],
-    "statements": [
-      "D @ B",
-      "D @ C"
-    ],
-    "conclusions": [
-      "C & D",
-      "B & D"
-    ],
-    "options": [
-      "Only conclusion II follows",
-      "Only conclusion I follows",
-      "Both conclusions I and II follow",
-      "Neither conclusion I nor conclusion II follows"
-    ],
-    "correctIndex": 2,
-    "correctOption": "Both conclusions I and II follow",
-    "explanation": "Decode the statements: D > B and D > C. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.",
-    "sourceLedgerIds": [
-      "AGG-INE-004",
-      "DISHA-INE-004",
-      "DISHA-INE-006"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 32,
-    "recordId": "INE-CP006-262EB9F3",
-    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
-    "seed": 7,
-    "difficulty": "MEDIUM",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_ALTERNATE",
-    "topologyId": "DISCONNECTED_COMPONENTS",
-    "statementCount": 2,
-    "conclusionCount": 2,
-    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
-    "codeKey": [
-      "A ! B means A is greater than B.",
-      "A ? B means A is less than B.",
-      "A + B means A is equal to B.",
-      "A ~ B means A is greater than or equal to B.",
-      "A ^ B means A is less than or equal to B."
-    ],
-    "statements": [
-      "C ! A",
-      "Q ? R"
-    ],
-    "conclusions": [
-      "Q + C",
-      "R ? Q"
-    ],
-    "options": [
-      "Neither conclusion I nor conclusion II follows",
-      "Only conclusion II follows",
-      "Both conclusions I and II follow",
-      "Only conclusion I follows"
-    ],
-    "correctIndex": 0,
-    "correctOption": "Neither conclusion I nor conclusion II follows",
-    "explanation": "Decode the statements: C > A and Q < R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.",
-    "sourceLedgerIds": [
-      "AGG-INE-004",
-      "DISHA-INE-004",
-      "DISHA-INE-006"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 33,
-    "recordId": "INE-CP006-B5E411FA",
-    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
-    "seed": 8,
-    "difficulty": "HARD",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "FOUR_EDGE_MIXED_CHAIN",
-    "statementCount": 4,
-    "conclusionCount": 2,
-    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
-    "codeKey": [
-      "A # B means A is greater than B.",
-      "A $ B means A is less than B.",
-      "A @ B means A is equal to B.",
-      "A & B means A is greater than or equal to B.",
-      "A % B means A is less than or equal to B."
-    ],
-    "statements": [
-      "A & Q @ B # R & P"
-    ],
-    "conclusions": [
-      "A & P",
-      "Q $ R"
-    ],
-    "options": [
-      "Neither conclusion I nor conclusion II follows",
-      "Both conclusions I and II follow",
-      "Only conclusion I follows",
-      "Only conclusion II follows"
-    ],
-    "correctIndex": 2,
-    "correctOption": "Only conclusion I follows",
-    "explanation": "Decode the statements: A ≥ Q, Q = B, B > R, and R ≥ P. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.",
-    "sourceLedgerIds": [
-      "AGG-INE-004",
-      "DISHA-INE-004",
-      "DISHA-INE-006"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 34,
-    "recordId": "INE-CP006-082E4255",
-    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
-    "seed": 9,
-    "difficulty": "HARD",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_ALTERNATE",
-    "topologyId": "FOUR_EDGE_WEAK_CHAIN",
-    "statementCount": 4,
-    "conclusionCount": 2,
-    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
-    "codeKey": [
-      "A ~ B means A is greater than B.",
-      "A ? B means A is less than B.",
-      "A ! B means A is equal to B.",
-      "A ^ B means A is greater than or equal to B.",
-      "A + B means A is less than or equal to B."
-    ],
-    "statements": [
-      "P ! D ^ Q ! A ^ B"
-    ],
-    "conclusions": [
-      "B ~ Q",
-      "D ! P"
-    ],
-    "options": [
-      "Both conclusions I and II follow",
-      "Only conclusion II follows",
-      "Only conclusion I follows",
-      "Neither conclusion I nor conclusion II follows"
-    ],
-    "correctIndex": 1,
-    "correctOption": "Only conclusion II follows",
-    "explanation": "Decode the statements: P = D, D ≥ Q, Q = A, and A ≥ B. Therefore, conclusion I does not follow and conclusion II follows. Answer: Only conclusion II follows.",
-    "sourceLedgerIds": [
-      "AGG-INE-004",
-      "DISHA-INE-004",
-      "DISHA-INE-006"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 35,
-    "recordId": "INE-CP006-D686862F",
-    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
-    "seed": 10,
-    "difficulty": "HARD",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "CONVERGING_BRANCH",
-    "statementCount": 3,
-    "conclusionCount": 2,
-    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
-    "codeKey": [
-      "A $ B means A is greater than B.",
-      "A # B means A is less than B.",
-      "A & B means A is equal to B.",
-      "A @ B means A is greater than or equal to B.",
-      "A % B means A is less than or equal to B."
-    ],
-    "statements": [
-      "C # D",
-      "Q % R",
-      "Q # C"
-    ],
-    "conclusions": [
-      "Q % D",
-      "C @ Q"
-    ],
-    "options": [
-      "Neither conclusion I nor conclusion II follows",
-      "Only conclusion I follows",
-      "Only conclusion II follows",
-      "Both conclusions I and II follow"
-    ],
-    "correctIndex": 3,
-    "correctOption": "Both conclusions I and II follow",
-    "explanation": "Decode the statements: C < D, Q ≤ R, and Q < C. Therefore, conclusion I follows and conclusion II follows. Answer: Both conclusions I and II follow.",
-    "sourceLedgerIds": [
-      "AGG-INE-004",
-      "DISHA-INE-004",
-      "DISHA-INE-006"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 36,
-    "recordId": "INE-CP006-7CCBF1FC",
-    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
-    "seed": 11,
-    "difficulty": "HARD",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_ALTERNATE",
-    "topologyId": "CHAIN_WITH_IRRELEVANT_EDGE",
-    "statementCount": 3,
-    "conclusionCount": 2,
-    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
-    "codeKey": [
-      "A ^ B means A is greater than B.",
-      "A + B means A is less than B.",
-      "A ~ B means A is equal to B.",
-      "A ! B means A is greater than or equal to B.",
-      "A ? B means A is less than or equal to B."
-    ],
-    "statements": [
-      "D ^ B ! Q",
-      "C ~ R"
-    ],
-    "conclusions": [
-      "Q ! C",
-      "B ^ R"
-    ],
-    "options": [
-      "Neither conclusion I nor conclusion II follows",
-      "Only conclusion II follows",
-      "Only conclusion I follows",
-      "Both conclusions I and II follow"
-    ],
-    "correctIndex": 0,
-    "correctOption": "Neither conclusion I nor conclusion II follows",
-    "explanation": "Decode the statements: D > B, B ≥ Q, and C = R. Therefore, conclusion I does not follow and conclusion II does not follow. Answer: Neither conclusion I nor conclusion II follows.",
-    "sourceLedgerIds": [
-      "AGG-INE-004",
-      "DISHA-INE-004",
-      "DISHA-INE-006"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 37,
-    "recordId": "INE-CP006-54024935",
-    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
-    "seed": 12,
-    "difficulty": "HARD",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "FIVE_EDGE_MIXED_CHAIN",
-    "statementCount": 5,
-    "conclusionCount": 3,
-    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
-    "codeKey": [
-      "A $ B means A is greater than B.",
-      "A # B means A is less than B.",
-      "A & B means A is equal to B.",
-      "A @ B means A is greater than or equal to B.",
-      "A % B means A is less than or equal to B."
-    ],
-    "statements": [
-      "D @ B $ P & R @ C $ A"
-    ],
-    "conclusions": [
-      "D $ R",
-      "D % C",
-      "R $ A"
-    ],
-    "options": [
-      "Only conclusions I and III follow",
-      "Only conclusion II follows",
-      "Only conclusion III follows",
-      "Only conclusion I follows"
-    ],
-    "correctIndex": 0,
-    "correctOption": "Only conclusions I and III follow",
-    "explanation": "Decode the statements: D ≥ B, B > P, P = R, R ≥ C, and C > A. Therefore, conclusion I follows, conclusion II does not follow, and conclusion III follows. Answer: Only conclusions I and III follow.",
-    "sourceLedgerIds": [
-      "AGG-INE-004",
-      "DISHA-INE-004",
-      "DISHA-INE-006"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 38,
-    "recordId": "INE-CP006-A4EA305A",
-    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
-    "seed": 13,
-    "difficulty": "HARD",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_ALTERNATE",
-    "topologyId": "SIX_EDGE_MIXED_CHAIN",
-    "statementCount": 6,
-    "conclusionCount": 3,
-    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
-    "codeKey": [
-      "A ? B means A is greater than B.",
-      "A + B means A is less than B.",
-      "A ! B means A is equal to B.",
-      "A ^ B means A is greater than or equal to B.",
-      "A ~ B means A is less than or equal to B."
-    ],
-    "statements": [
-      "D ^ R ? C ! A ^ B ? Q ^ P"
-    ],
-    "conclusions": [
-      "Q ! B",
-      "A ^ C",
-      "Q ~ C"
-    ],
-    "options": [
-      "Only conclusion I follows",
-      "Only conclusion III follows",
-      "Only conclusions II and III follow",
-      "Only conclusion II follows"
-    ],
-    "correctIndex": 2,
-    "correctOption": "Only conclusions II and III follow",
-    "explanation": "Decode the statements: D ≥ R, R > C, C = A, A ≥ B, B > Q, and Q ≥ P. Therefore, conclusion I does not follow, conclusion II follows, and conclusion III follows. Answer: Only conclusions II and III follow.",
-    "sourceLedgerIds": [
-      "AGG-INE-004",
-      "DISHA-INE-004",
-      "DISHA-INE-006"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 39,
-    "recordId": "INE-CP006-1F4DBD8B",
-    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
-    "seed": 14,
-    "difficulty": "HARD",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "FIVE_EDGE_CHAIN_WITH_TWO_SUPPORTS",
-    "statementCount": 7,
-    "conclusionCount": 3,
-    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
-    "codeKey": [
-      "A $ B means A is greater than B.",
-      "A % B means A is less than B.",
-      "A # B means A is equal to B.",
-      "A @ B means A is greater than or equal to B.",
-      "A & B means A is less than or equal to B."
-    ],
-    "statements": [
-      "P @ C $ D @ Q # B $ R",
-      "P $ D",
-      "Q $ R"
-    ],
-    "conclusions": [
-      "Q # B",
-      "C @ D",
-      "P @ C"
-    ],
-    "options": [
-      "Only conclusion I follows",
-      "Only conclusion III follows",
-      "Only conclusion II follows",
-      "All three conclusions follow"
-    ],
-    "correctIndex": 3,
-    "correctOption": "All three conclusions follow",
-    "explanation": "Decode the statements: P ≥ C, C > D, D ≥ Q, Q = B, B > R, P > D, and Q > R. Therefore, conclusion I follows, conclusion II follows, and conclusion III follows. Answer: All three conclusions follow.",
-    "sourceLedgerIds": [
-      "AGG-INE-004",
-      "DISHA-INE-004",
-      "DISHA-INE-006"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 40,
-    "recordId": "INE-CP006-757E4E68",
-    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
-    "seed": 15,
-    "difficulty": "HARD",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_ALTERNATE",
-    "topologyId": "FIVE_EDGE_CHAIN_WITH_THREE_SUPPORTS",
-    "statementCount": 8,
-    "conclusionCount": 3,
-    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
-    "codeKey": [
-      "A + B means A is greater than B.",
-      "A ? B means A is less than B.",
-      "A ! B means A is equal to B.",
-      "A ^ B means A is greater than or equal to B.",
-      "A ~ B means A is less than or equal to B."
-    ],
-    "statements": [
-      "B + Q",
-      "P + A",
-      "D + C",
-      "B + P ^ Q ! D + A ^ C"
-    ],
-    "conclusions": [
-      "C ^ A",
-      "A ! P",
-      "Q + B"
-    ],
-    "options": [
-      "Only conclusion III follows",
-      "None of the conclusions follow",
-      "Only conclusion II follows",
-      "Only conclusion I follows"
-    ],
-    "correctIndex": 1,
-    "correctOption": "None of the conclusions follow",
-    "explanation": "Decode the statements: B > Q, P > A, D > C, B > P, P ≥ Q, Q = D, D > A, and A ≥ C. Therefore, conclusion I does not follow, conclusion II does not follow, and conclusion III does not follow. Answer: None of the conclusions follow.",
-    "sourceLedgerIds": [
-      "AGG-INE-004",
-      "DISHA-INE-004",
-      "DISHA-INE-006"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 41,
-    "recordId": "INE-CP006-1FD709A1",
-    "authorityId": "EVALUATE_FIXED_MAP_CODED_CONCLUSIONS",
-    "seed": 16,
-    "difficulty": "MEDIUM",
-    "deliveryProfile": "EXAM_PRACTICE_PROTOTYPE",
-    "symbolProfile": "ASCII_EXAM_PROFILE",
-    "examApplicability": "BANKING_REGULATORY_PRACTICE_ONLY",
-    "symbolSetId": "ASCII_CLASSIC",
-    "topologyId": "TWO_EDGE_STRICT_CHAIN",
-    "statementCount": 2,
-    "conclusionCount": 2,
-    "stem": "Using the supplied code key, which conclusion or conclusions definitely follow?",
-    "codeKey": [
-      "A # B means A is greater than B.",
-      "A @ B means A is less than B.",
-      "A & B means A is equal to B.",
-      "A $ B means A is greater than or equal to B.",
-      "A % B means A is less than or equal to B."
-    ],
-    "statements": [
-      "A # B # Q"
-    ],
-    "conclusions": [
-      "A $ Q",
-      "A & B"
-    ],
-    "options": [
-      "Both conclusions I and II follow",
-      "Only conclusion II follows",
-      "Neither conclusion I nor conclusion II follows",
-      "Only conclusion I follows"
-    ],
-    "correctIndex": 3,
-    "correctOption": "Only conclusion I follows",
-    "explanation": "Decode the statements: A > B and B > Q. Therefore, conclusion I follows and conclusion II does not follow. Answer: Only conclusion I follows.",
-    "sourceLedgerIds": [
-      "AGG-INE-004",
-      "DISHA-INE-004",
-      "DISHA-INE-006"
     ],
     "permanentQlId": null,
     "questionStudioVisible": false
@@ -1807,6 +1838,46 @@
   },
   {
     "index": 43,
+    "recordId": "INE-CP006-36AC9F9C",
+    "authorityId": "DECODE_FIXED_MAP_RELATION",
+    "seed": 1,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolProfile": "UNICODE_GUIDED_PROFILE",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "symbolSetId": "CIRCLED_OPERATORS",
+    "topologyId": "DIRECT_GREATER_THAN",
+    "statementCount": 1,
+    "conclusionCount": 0,
+    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
+    "codeKey": [
+      "A ⊖ B means A is greater than B.",
+      "A ⊗ B means A is less than B.",
+      "A ⊕ B means A is equal to B.",
+      "A ⊙ B means A is greater than or equal to B.",
+      "A ⊘ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "P ⊖ A"
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "P = A",
+      "P < A",
+      "P > A"
+    ],
+    "correctIndex": 3,
+    "correctOption": "P > A",
+    "explanation": "⊖ means greater than. So P ⊖ A means P > A.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 44,
     "recordId": "INE-CP006-98832640",
     "authorityId": "ENCODE_FIXED_MAP_RELATION",
     "seed": 1,
@@ -1846,7 +1917,47 @@
     "questionStudioVisible": false
   },
   {
-    "index": 44,
+    "index": 45,
+    "recordId": "INE-CP006-558A7A55",
+    "authorityId": "DECODE_FIXED_MAP_RELATION",
+    "seed": 2,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolProfile": "UNICODE_GUIDED_PROFILE",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "symbolSetId": "GEOMETRIC",
+    "topologyId": "DIRECT_EQUAL_TO",
+    "statementCount": 1,
+    "conclusionCount": 0,
+    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
+    "codeKey": [
+      "A ◆ B means A is greater than B.",
+      "A ● B means A is less than B.",
+      "A ★ B means A is equal to B.",
+      "A ▲ B means A is greater than or equal to B.",
+      "A ■ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "A ★ D"
+    ],
+    "options": [
+      "The relation cannot be determined",
+      "A < D",
+      "A = D",
+      "A ≥ D"
+    ],
+    "correctIndex": 2,
+    "correctOption": "A = D",
+    "explanation": "★ means equal to. So A ★ D means A = D.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 46,
     "recordId": "INE-CP006-B1F00AF9",
     "authorityId": "ENCODE_FIXED_MAP_RELATION",
     "seed": 2,
@@ -1886,7 +1997,47 @@
     "questionStudioVisible": false
   },
   {
-    "index": 45,
+    "index": 47,
+    "recordId": "INE-CP006-034049FA",
+    "authorityId": "DECODE_FIXED_MAP_RELATION",
+    "seed": 3,
+    "difficulty": "EASY",
+    "deliveryProfile": "GUIDED_CONCEPT",
+    "symbolProfile": "UNICODE_GUIDED_PROFILE",
+    "examApplicability": "GUIDED_CONCEPT_ONLY",
+    "symbolSetId": "CIRCLED_OPERATORS",
+    "topologyId": "DIRECT_LESS_THAN_OR_EQUAL",
+    "statementCount": 1,
+    "conclusionCount": 0,
+    "stem": "According to the supplied code key, which ordinary relation has exactly the same meaning as the coded statement?",
+    "codeKey": [
+      "A ⊘ B means A is greater than B.",
+      "A ⊗ B means A is less than B.",
+      "A ⊙ B means A is equal to B.",
+      "A ⊖ B means A is greater than or equal to B.",
+      "A ⊕ B means A is less than or equal to B."
+    ],
+    "statements": [
+      "B ⊕ C"
+    ],
+    "options": [
+      "B ≤ C",
+      "B = C",
+      "B < C",
+      "B ≥ C"
+    ],
+    "correctIndex": 0,
+    "correctOption": "B ≤ C",
+    "explanation": "⊕ means less than or equal to. So B ⊕ C means B ≤ C.",
+    "sourceLedgerIds": [
+      "AGG-INE-003",
+      "DISHA-INE-004"
+    ],
+    "permanentQlId": null,
+    "questionStudioVisible": false
+  },
+  {
+    "index": 48,
     "recordId": "INE-CP006-7219E7DE",
     "authorityId": "ENCODE_FIXED_MAP_RELATION",
     "seed": 3,
@@ -1918,126 +2069,6 @@
     "correctIndex": 0,
     "correctOption": "P ⊖ B",
     "explanation": "⊖ means greater than or equal to. So P ≥ B is written as P ⊖ B.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "DISHA-INE-004"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 46,
-    "recordId": "INE-CP006-8C3F72C7",
-    "authorityId": "ENCODE_FIXED_MAP_RELATION",
-    "seed": 4,
-    "difficulty": "EASY",
-    "deliveryProfile": "GUIDED_CONCEPT",
-    "symbolProfile": "UNICODE_GUIDED_PROFILE",
-    "examApplicability": "GUIDED_CONCEPT_ONLY",
-    "symbolSetId": "GEOMETRIC",
-    "topologyId": "DIRECT_LESS_THAN_OR_EQUAL",
-    "statementCount": 1,
-    "conclusionCount": 0,
-    "stem": "According to the supplied code key, which option correctly encodes the ordinary relation?",
-    "codeKey": [
-      "A ● B means A is greater than B.",
-      "A ★ B means A is less than B.",
-      "A ■ B means A is equal to B.",
-      "A ▲ B means A is greater than or equal to B.",
-      "A ◆ B means A is less than or equal to B."
-    ],
-    "statements": [
-      "D ≤ Q"
-    ],
-    "options": [
-      "D ● Q",
-      "D ◆ Q",
-      "D ★ Q",
-      "D ▲ Q"
-    ],
-    "correctIndex": 1,
-    "correctOption": "D ◆ Q",
-    "explanation": "◆ means less than or equal to. So D ≤ Q is written as D ◆ Q.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "DISHA-INE-004"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 47,
-    "recordId": "INE-CP006-A5A310B4",
-    "authorityId": "ENCODE_FIXED_MAP_RELATION",
-    "seed": 5,
-    "difficulty": "EASY",
-    "deliveryProfile": "GUIDED_CONCEPT",
-    "symbolProfile": "UNICODE_GUIDED_PROFILE",
-    "examApplicability": "GUIDED_CONCEPT_ONLY",
-    "symbolSetId": "CIRCLED_OPERATORS",
-    "topologyId": "DIRECT_GREATER_THAN",
-    "statementCount": 1,
-    "conclusionCount": 0,
-    "stem": "According to the supplied code key, which option correctly encodes the ordinary relation?",
-    "codeKey": [
-      "A ⊖ B means A is greater than B.",
-      "A ⊗ B means A is less than B.",
-      "A ⊘ B means A is equal to B.",
-      "A ⊕ B means A is greater than or equal to B.",
-      "A ⊙ B means A is less than or equal to B."
-    ],
-    "statements": [
-      "R > P"
-    ],
-    "options": [
-      "R ⊘ P",
-      "R ⊕ P",
-      "R ⊗ P",
-      "R ⊖ P"
-    ],
-    "correctIndex": 3,
-    "correctOption": "R ⊖ P",
-    "explanation": "⊖ means greater than. So R > P is written as R ⊖ P.",
-    "sourceLedgerIds": [
-      "AGG-INE-003",
-      "DISHA-INE-004"
-    ],
-    "permanentQlId": null,
-    "questionStudioVisible": false
-  },
-  {
-    "index": 48,
-    "recordId": "INE-CP006-EA8B28AD",
-    "authorityId": "ENCODE_FIXED_MAP_RELATION",
-    "seed": 6,
-    "difficulty": "EASY",
-    "deliveryProfile": "GUIDED_CONCEPT",
-    "symbolProfile": "UNICODE_GUIDED_PROFILE",
-    "examApplicability": "GUIDED_CONCEPT_ONLY",
-    "symbolSetId": "GEOMETRIC",
-    "topologyId": "DIRECT_LESS_THAN",
-    "statementCount": 1,
-    "conclusionCount": 0,
-    "stem": "According to the supplied code key, which option correctly encodes the ordinary relation?",
-    "codeKey": [
-      "A ◆ B means A is greater than B.",
-      "A ■ B means A is less than B.",
-      "A ★ B means A is equal to B.",
-      "A ▲ B means A is greater than or equal to B.",
-      "A ● B means A is less than or equal to B."
-    ],
-    "statements": [
-      "P < C"
-    ],
-    "options": [
-      "P ■ C",
-      "P ● C",
-      "P ▲ C",
-      "P ◆ C"
-    ],
-    "correctIndex": 0,
-    "correctOption": "P ■ C",
-    "explanation": "■ means less than. So P < C is written as P ■ C.",
     "sourceLedgerIds": [
       "AGG-INE-003",
       "DISHA-INE-004"

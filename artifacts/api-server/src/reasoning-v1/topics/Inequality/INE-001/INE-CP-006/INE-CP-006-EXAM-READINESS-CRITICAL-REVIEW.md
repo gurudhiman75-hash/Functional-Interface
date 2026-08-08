@@ -41,7 +41,7 @@ All chain-solving and conclusion-evaluation records use `ASCII_EXAM_PROFILE`. Ge
 
 ### 5. The pack is weighted toward exam-shaped work
 
-The review allocation is 17 solve, 17 evaluate, 7 decode, and 7 encode. This puts 34 of 48 records in exam practice. The exam-practice subset contains only 3 easy questions, with 16 medium and 15 hard questions.
+The review allocation is 20 solve, 20 evaluate, 4 decode, and 4 encode. This puts 40 of 48 records in exam practice and places them before the guided items. Exam questions contain three to eight statements; the full pack now has 8 easy, 7 medium, and 33 hard questions.
 
 ### 6. Two- and three-conclusion logic is formally controlled
 
@@ -61,17 +61,18 @@ Exam-practice records are marked `BANKING_REGULATORY_PRACTICE_ONLY`, `ENGLISH_ON
 | ------------------------------------------ | -------------------------------------------: |
 | Questions                                  |                                           48 |
 | Provisional authorities                    |                                            4 |
-| Authority allocation                       | 7 decode / 17 solve / 17 evaluate / 7 encode |
+| Authority allocation                       | 4 decode / 20 solve / 20 evaluate / 4 encode |
 | Code-key size                              |                          5 in every question |
 | Symbol-shape families                      |                                            4 |
 | Distinct deterministic maps in review pack |                                           24 |
 | Answer options                             |                                    Exactly 4 |
-| Correct-position spread per authority      |         Each position differs by at most one |
-| Topologies                                 |                                           21 |
+| Correct-position spread per authority      | 5/5/5/5 exam; 1/1/1/1 guided                |
+| Topologies                                 |                                           14 |
 | Maximum statements                         |                                            8 |
 | Conclusion counts                          |   2, with selected hard 3-conclusion records |
-| Difficulty distribution                    |                17 easy / 16 medium / 15 hard |
-| Exam/guided distribution                   |                          34 exam / 14 guided |
+| Minimum exam statements                    |                                            3 |
+| Difficulty distribution                    |                  8 easy / 7 medium / 33 hard |
+| Exam/guided distribution                   |                           40 exam / 8 guided |
 | Permanent QLs                              |                                            0 |
 
 ## Readiness scorecard

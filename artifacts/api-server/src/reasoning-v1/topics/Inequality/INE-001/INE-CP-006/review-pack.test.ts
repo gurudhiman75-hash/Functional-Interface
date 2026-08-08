@@ -16,21 +16,27 @@ assert.deepEqual(
     ]),
   ),
   {
-    DECODE_FIXED_MAP_RELATION: 7,
-    SOLVE_FIXED_MAP_CODED_CHAIN: 17,
-    EVALUATE_FIXED_MAP_CODED_CONCLUSIONS: 17,
-    ENCODE_FIXED_MAP_RELATION: 7,
+    SOLVE_FIXED_MAP_CODED_CHAIN: 20,
+    EVALUATE_FIXED_MAP_CODED_CONCLUSIONS: 20,
+    DECODE_FIXED_MAP_RELATION: 4,
+    ENCODE_FIXED_MAP_RELATION: 4,
   },
 );
 assert.equal(
   rows.filter((entry) => entry.deliveryProfile === "EXAM_PRACTICE_PROTOTYPE")
     .length,
-  34,
+  40,
 );
 assert.equal(
   rows.filter((entry) => entry.deliveryProfile === "GUIDED_CONCEPT").length,
-  14,
+  8,
 );
+assert.ok(
+  rows
+    .slice(0, 40)
+    .every((entry) => entry.deliveryProfile === "EXAM_PRACTICE_PROTOTYPE"),
+);
+assert.ok(rows.slice(0, 40).every((entry) => entry.statementCount >= 3));
 assert.ok(
   rows
     .filter((entry) => entry.deliveryProfile === "EXAM_PRACTICE_PROTOTYPE")
@@ -62,7 +68,7 @@ assert.match(markdown, /# INE-CP-006 English Prototype Review Pack/);
 assert.match(markdown, /### Code key/);
 assert.match(markdown, /### Explanation/);
 assert.doesNotMatch(markdown, /### (?:Mock|Learning) solution/);
-assert.match(markdown, /34 questions to exam-shaped chain solving/);
+assert.match(markdown, /40 questions to exam-shaped chain solving/);
 assert.match(markdown, /III\./);
 assert.ok(!/\b(?:undefined|null|NaN)\b/i.test(markdown));
 assert.ok(!/Ã¢â‚¬Å“|Ã¢â‚¬Â|Ã¢â€°|Ãƒ|Ã¯Â¿Â½|ï¿½/.test(markdown));

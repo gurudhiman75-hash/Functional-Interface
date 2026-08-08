@@ -29,7 +29,8 @@
 - one short decoding-first explanation per question, with no distractor commentary;
 - semantic-to-display validation for code keys, statements, conclusions, and options;
 - explicit rejection of unlabelled either-or conclusion pairs;
-- deterministic 48-question English review export weighted 34 exam-shaped to 14 guided questions;
+- deterministic 48-question English review export weighted 40 exam-shaped to 8 guided questions;
+- no one- or two-statement exam items, with inference-required conclusion cases;
 - explicit English-only, manual-review, and Banking-practice-only release metadata.
 
 ## Boundary

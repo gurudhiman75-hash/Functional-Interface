@@ -78,6 +78,11 @@ export function validateIneCp006Question(
     question.metadata.releaseGate !== "MANUAL_REVIEW_REQUIRED"
   )
     errors.push("CP-006 must remain English-only and manually gated.");
+  if (
+    question.metadata.deliveryProfile === "EXAM_PRACTICE_PROTOTYPE" &&
+    scenario.statements.length < 3
+  )
+    errors.push("Exam-practice questions require at least three statements.");
   const expectedKey = renderCodeKey(scenario.codeMap);
   if (
     JSON.stringify(expectedKey) !== JSON.stringify(scenario.keyEntries) ||
@@ -130,6 +135,19 @@ export function validateIneCp006Question(
 
   const correct = question.options[question.correctIndex];
   if (scenario.taskKind === "EVALUATE_CONCLUSIONS") {
+    const directPairs = new Set(
+      scenario.statements.map((entry) =>
+        [entry.leftId, entry.rightId].sort().join(":"),
+      ),
+    );
+    if (
+      scenario.conclusions.every((entry) =>
+        directPairs.has([entry.leftId, entry.rightId].sort().join(":")),
+      )
+    )
+      errors.push(
+        "At least one exam-practice conclusion must require inference.",
+      );
     const supportedConclusionCount =
       scenario.conclusions.length === 2 || scenario.conclusions.length === 3;
     if (!supportedConclusionCount) {

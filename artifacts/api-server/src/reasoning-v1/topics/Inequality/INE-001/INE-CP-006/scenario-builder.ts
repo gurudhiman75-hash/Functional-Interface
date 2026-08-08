@@ -35,6 +35,11 @@ const RELATIONS: readonly ComparisonRelation[] = [
   "LESS_THAN_OR_EQUAL",
 ];
 
+// Direct one-edge graphs are retained for guided learning only. Exam-practice
+// questions rotate through the remaining multi-statement graph families.
+const EXAM_BASE_SEEDS = [5, 8, 9, 10, 11, 12, 13, 14, 15] as const;
+const EVALUATION_BASE_SEEDS = [5, 8, 9, 11, 12, 13, 14, 15] as const;
+
 function c(
   leftId: string,
   relation: ComparisonRelation,
@@ -267,7 +272,10 @@ function conclusionPool(statements: readonly ComparisonConstraint[]) {
   const pool: Array<{
     conclusion: ComparisonConstraint;
     truth: ConclusionTruth;
+    directPair: boolean;
+    domainSize: number;
   }> = [];
+  const directPairs = new Set(statements.map(pairKey));
   for (let i = 0; i < entities.length; i += 1) {
     for (let j = i + 1; j < entities.length; j += 1) {
       for (const relation of RELATIONS) {
@@ -275,9 +283,12 @@ function conclusionPool(statements: readonly ComparisonConstraint[]) {
         const key = canonicalKey(conclusion);
         if (seen.has(key)) continue;
         seen.add(key);
+        const evaluation = evaluateConclusion(statements, conclusion);
         pool.push({
           conclusion,
-          truth: evaluateConclusion(statements, conclusion).truth,
+          truth: evaluation.truth,
+          directPair: directPairs.has(pairKey(conclusion)),
+          domainSize: evaluation.pairEvidence.possibleAtomicRelations.length,
         });
       }
     }
@@ -294,6 +305,8 @@ function selectConclusions(
   const selected: Array<{
     conclusion: ComparisonConstraint;
     truth: ConclusionTruth;
+    directPair: boolean;
+    domainSize: number;
   }> = [];
   for (const mustFollow of truthPattern) {
     const usedKeys = new Set(
@@ -310,11 +323,21 @@ function selectConclusions(
     const available = matches.filter(
       (entry) => !usedPairs.has(pairKey(entry.conclusion)),
     );
-    if (available.length === 0)
+    const inferred = available.filter((entry) => !entry.directPair);
+    const closeFalseChoices = inferred.filter(
+      (entry) => mustFollow || entry.domainSize < 3,
+    );
+    const candidates =
+      closeFalseChoices.length > 0
+        ? closeFalseChoices
+        : inferred.length > 0
+          ? inferred
+          : available;
+    if (candidates.length === 0)
       throw new Error(
         `No conclusion available for truth pattern ${truthPattern.join("/")}.`,
       );
-    selected.push(random.pick(available));
+    selected.push(random.pick(candidates));
   }
   return selected.map((entry, index) => ({
     ...entry.conclusion,
@@ -341,7 +364,18 @@ export function buildIneCp006Scenario(
     seed ^ Number.parseInt(stableHash([prototypeId, "cp006-scenario-v1"]), 16),
   );
   const codeMap = buildIneCp006CodeMap(seed, contract.symbolProfile);
-  let base = baseGraphFor(seed);
+  const examBaseSeeds =
+    contract.taskKind === "EVALUATE_CONCLUSIONS"
+      ? EVALUATION_BASE_SEEDS
+      : EXAM_BASE_SEEDS;
+  const baseSeed =
+    contract.deliveryProfile === "EXAM_PRACTICE_PROTOTYPE"
+      ? examBaseSeeds[
+          ((seed % examBaseSeeds.length) + examBaseSeeds.length) %
+            examBaseSeeds.length
+        ]!
+      : seed;
+  let base = baseGraphFor(baseSeed);
   if (
     contract.taskKind === "EVALUATE_CONCLUSIONS" &&
     base.statements.length < 2

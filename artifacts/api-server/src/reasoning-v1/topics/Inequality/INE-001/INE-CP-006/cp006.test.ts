@@ -83,6 +83,8 @@ for (const contract of INE_CP006_PROTOTYPE_CONTRACTS) {
     }
     assert.equal(question.metadata.localeReadiness, "ENGLISH_ONLY");
     assert.equal(question.metadata.releaseGate, "MANUAL_REVIEW_REQUIRED");
+    if (question.metadata.deliveryProfile === "EXAM_PRACTICE_PROTOTYPE")
+      assert.ok(question.structuredScenario.statements.length >= 3);
     codeMapIds.add(question.structuredScenario.codeMap.mapId);
     topologies.add(question.metadata.topologyId);
     difficultyCounts[question.difficulty] += 1;
@@ -105,6 +107,17 @@ for (const contract of INE_CP006_PROTOTYPE_CONTRACTS) {
         ).size,
         question.structuredScenario.conclusions.length,
       );
+      const directPairs = new Set(
+        question.structuredScenario.statements.map((entry) =>
+          [entry.leftId, entry.rightId].sort().join(":"),
+        ),
+      );
+      assert.ok(
+        question.structuredScenario.conclusions.some(
+          (entry) =>
+            !directPairs.has([entry.leftId, entry.rightId].sort().join(":")),
+        ),
+      );
     }
     maximumStatementCount = Math.max(
       maximumStatementCount,
@@ -119,7 +132,7 @@ assert.equal(symbolSets.size, 4);
 assert.equal(examSymbolSets.size, 2);
 assert.equal(guidedSymbolSets.size, 2);
 assert.equal(codeMapIds.size, 40);
-assert.ok(topologies.size >= 16);
+assert.ok(topologies.size >= 14);
 assert.equal(decodeRelations.size, 5);
 assert.equal(encodeRelations.size, 5);
 assert.ok(masks.size >= 6);
