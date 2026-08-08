@@ -175,11 +175,19 @@ export function cp004WhatAskedText(locale: IntCp004LocalizedLocale, target: stri
   return locale === "hi-IN" ? `हमें ${target} ज्ञात करना है।` : `ਸਾਨੂੰ ${target} ਪਤਾ ਕਰਨਾ ਹੈ।`;
 }
 
+function isUniversalMathExpression(text: string): boolean {
+  const trimmed = text.trim();
+  return /[=×÷+−\-]/u.test(trimmed)
+    && /^[\s0-9₹%.,()/=×÷+−\-APCI]+$/u.test(trimmed);
+}
+
 export function assertCp004LocalizedText(locale: IntCp004LocalizedLocale, text: string, label: string): void {
   if (!text.trim()) throw new Error(`${label}: localized text is empty.`);
-  const expectedScript = locale === "hi-IN" ? /[\u0900-\u097F]/u : /[\u0A00-\u0A7F]/u;
-  if (!expectedScript.test(text)) throw new Error(`${label}: localized text does not contain the expected script.`);
   if (/\b(?:TODO|TBD|placeholder|translate|translation pending)\b/iu.test(text)) {
     throw new Error(`${label}: localization placeholder reached learner content.`);
+  }
+  const expectedScript = locale === "hi-IN" ? /[\u0900-\u097F]/u : /[\u0A00-\u0A7F]/u;
+  if (!expectedScript.test(text) && !isUniversalMathExpression(text)) {
+    throw new Error(`${label}: localized text contains neither the expected script nor a universal mathematical expression.`);
   }
 }
