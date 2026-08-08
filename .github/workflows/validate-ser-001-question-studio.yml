@@ -52,12 +52,24 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build API TypeScript contracts
-        run: pnpm --dir artifacts/api-server build
+        id: api_build
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server build 2>&1 | tee api-build.log
 
       - name: Typecheck admin Question Studio contracts
-        run: pnpm --dir artifacts/admin-app typecheck
+        id: admin_typecheck
+        if: always()
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/admin-app typecheck 2>&1 | tee admin-typecheck.log
 
       - name: Prove explicit review-only approval boundary
+        id: approval_policy
+        if: always()
+        continue-on-error: true
         run: |
           set -o pipefail
           cd artifacts/api-server
@@ -70,6 +82,9 @@ jobs:
             2>&1 | tee -a "$GITHUB_WORKSPACE/ser-approval-policy.log"
 
       - name: Run 420-payload multilingual Series proof
+        id: series_proof
+        if: always()
+        continue-on-error: true
         run: |
           set -o pipefail
           cd artifacts/api-server
@@ -82,6 +97,9 @@ jobs:
             2>&1 | tee -a "$GITHUB_WORKSPACE/ser-question-studio-integration.log"
 
       - name: Run PNL canonical-review regression proof
+        id: pnl_regression
+        if: always()
+        continue-on-error: true
         run: |
           set -o pipefail
           cd artifacts/api-server
@@ -106,8 +124,50 @@ jobs:
         with:
           name: ser-001-question-studio-merge-gate
           path: |
+            api-build.log
+            admin-typecheck.log
             ser-approval-policy.log
             ser-question-studio-integration.log
             pnl-series-regression.log
           if-no-files-found: warn
           retention-days: 14
+
+      - name: Enforce complete merge gate
+        if: always()
+        env:
+          API_BUILD_OUTCOME: ${{ steps.api_build.outcome }}
+          ADMIN_TYPECHECK_OUTCOME: ${{ steps.admin_typecheck.outcome }}
+          APPROVAL_POLICY_OUTCOME: ${{ steps.approval_policy.outcome }}
+          SERIES_PROOF_OUTCOME: ${{ steps.series_proof.outcome }}
+          PNL_REGRESSION_OUTCOME: ${{ steps.pnl_regression.outcome }}
+        run: |
+          report_failure() {
+            local title="$1"
+            local outcome="$2"
+            local file="$3"
+            if [ "$outcome" = "success" ]; then
+              return
+            fi
+            local message="${title} ended with outcome ${outcome}."
+            if [ -f "$file" ]; then
+              message="$(tail -n 80 "$file")"
+            fi
+            message="${message//'%'/'%25'}"
+            message="${message//$'\r'/'%0D'}"
+            message="${message//$'\n'/'%0A'}"
+            echo "::error title=${title}::${message}"
+          }
+
+          report_failure "API build failed" "$API_BUILD_OUTCOME" api-build.log
+          report_failure "Admin typecheck failed" "$ADMIN_TYPECHECK_OUTCOME" admin-typecheck.log
+          report_failure "Review-only approval proof failed" "$APPROVAL_POLICY_OUTCOME" ser-approval-policy.log
+          report_failure "Series 420-payload proof failed" "$SERIES_PROOF_OUTCOME" ser-question-studio-integration.log
+          report_failure "PNL canonical regression failed" "$PNL_REGRESSION_OUTCOME" pnl-series-regression.log
+
+          if [ "$API_BUILD_OUTCOME" != "success" ] \
+            || [ "$ADMIN_TYPECHECK_OUTCOME" != "success" ] \
+            || [ "$APPROVAL_POLICY_OUTCOME" != "success" ] \
+            || [ "$SERIES_PROOF_OUTCOME" != "success" ] \
+            || [ "$PNL_REGRESSION_OUTCOME" != "success" ]; then
+            exit 1
+          fi
