@@ -19,6 +19,10 @@ function optionText(value: Rational, unit: string): string {
   return `${formatExamNumber(value)} ${unit}`;
 }
 
+function hourText(value: Rational): string {
+  return equals(value, rational(1)) ? "1 hour" : `${formatExamNumber(value)} hours`;
+}
+
 function directReason(
   input: Extract<TsdCp001SolveInput, {
     solveMode: "speedFromDistanceAndTime" | "timeFromDistanceAndSpeed";
@@ -113,10 +117,10 @@ function deadlineReason(
   );
   const hours = formatExamNumber(availableHours);
   if (option.misconceptionId === "ADD_ONE_HOUR_TO_INTERVAL") {
-    return `⚠️ ${option.text}: this allows ${formatExamNumber(add(availableHours, rational(1)))} hours instead of the exact ${hours}-hour window.`;
+    return `⚠️ ${option.text}: this allows ${hourText(add(availableHours, rational(1)))} instead of the exact ${hours}-hour window.`;
   }
   if (option.misconceptionId === "DROP_ONE_HOUR_FROM_INTERVAL") {
-    return `⚠️ ${option.text}: this allows ${formatExamNumber(subtract(availableHours, rational(1)))} hours instead of the exact ${hours}-hour window.`;
+    return `⚠️ ${option.text}: this allows ${hourText(subtract(availableHours, rational(1)))} instead of the exact ${hours}-hour window.`;
   }
   return `⚠️ ${option.text}: this multiplies distance by available time; speed is distance ÷ time.`;
 }
