@@ -127,6 +127,13 @@ function speedCandidates(
       [multiply(input.value, rational(3600)), "USE_WRONG_CONVERSION_FACTOR"],
     ];
   }
+  if (input.from === "M_PER_MINUTE" && input.to === "MPS") {
+    return [
+      [input.value, "OMIT_UNIT_CONVERSION"],
+      [divide(input.value, rational(100)), "USE_WRONG_CONVERSION_FACTOR"],
+      [multiply(input.value, rational(60)), "REVERSE_UNIT_CONVERSION"],
+    ];
+  }
   if (input.from === "MPS" && input.to === "KMPH") {
     return [
       [multiply(input.value, rational(3)), "USE_WRONG_CONVERSION_FACTOR"],
