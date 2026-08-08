@@ -1,6 +1,6 @@
 import type { GeneratedSylQuestionV4 } from "./learner-v4-types";
 import type { TermAssignment } from "./localization";
-import { renderSingleAnswerVennV5 } from "./learner-v5-single-answer-venn";
+import { renderExactVennV5 } from "./learner-v5-exact-venn";
 import type {
   SylDiagramModeV5,
   SylLearnerPresentationV5,
@@ -40,7 +40,7 @@ export function completeRequiredDiagramV5(
   presentation: SylLearnerPresentationV5,
   assignment: TermAssignment,
 ): SylLearnerPresentationV5 {
-  const rendered = renderSingleAnswerVennV5(question, presentation, assignment);
+  const rendered = renderExactVennV5(question, presentation, assignment);
   if (!rendered.enabled) {
     return {
       ...presentation,
