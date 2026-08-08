@@ -1,0 +1,89 @@
+name: Validate MEN-CP-011 conical surface and lining-cost wave
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp011-foundation/conical-surface-cost*.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp011-foundation/foundation.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-011/MEN-CP-011-CONICAL-SURFACE-COST-WAVE-01.md
+      - .github/workflows/men-002-cp011-conical-surface-cost.yml
+      - build-api.sh
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-men-002-cp011-conical-surface-cost-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-conical-surface-cost:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prove conical surface and lining-cost runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp011-foundation/conical-surface-cost.test.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/men-cp011-conical-surface-cost-wave01.test.mjs
+          node artifacts/api-server/dist/quant-v4/men-cp011-conical-surface-cost-wave01.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/men-cp011-conical-surface-cost-wave01.test.log
+
+      - name: Export conical surface and lining-cost review evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/cp011-foundation/conical-surface-cost-review-export.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/men-cp011-conical-surface-cost-wave01-review.mjs
+          cd artifacts/api-server
+          node dist/quant-v4/men-cp011-conical-surface-cost-wave01-review.mjs \
+            2>&1 | tee dist/quant-v4/men-cp011-conical-surface-cost-wave01-review.log
+
+      - name: Build production API bundle
+        shell: bash
+        run: bash build-api.sh
+
+      - name: Upload conical surface and lining-cost evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: men-cp011-conical-surface-cost-wave01-review
+          path: |
+            artifacts/api-server/dist/quant-v4/men-cp011-conical-surface-cost-wave01.test.log
+            artifacts/api-server/dist/quant-v4/men-cp011-conical-surface-cost-wave01-review.log
+            artifacts/api-server/dist/quant-v4/men-cp011-conical-surface-cost-wave01-review.json
+            artifacts/api-server/dist/quant-v4/men-cp011-conical-surface-cost-wave01-review.md
+          if-no-files-found: error
+          retention-days: 14
