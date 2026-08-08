@@ -7,6 +7,7 @@ import { applySapCp003EditorialRemediationV3 } from "./editorial-remediation-v3"
 import { applySapCp003EditorialQualityV3 } from "./editorial-quality-v3";
 import { applySapCp003EditorialPresentationV3 } from "./editorial-presentation-v3";
 import { applySapCp003MissingPercentageV3 } from "./missing-percentage-v3";
+import { applySapCp003RecurringDecimalV3 } from "./recurring-decimal-v3";
 import {
   SAP_CP003_PROTOTYPE_IDS,
   type SapCp003Option,
@@ -70,9 +71,14 @@ export function generateSapCp003Package(
   seed: number,
 ): SapCp003Package {
   const base = generateV5Package(prototypeId, seed);
-  const remediated = prototypeId === "SAP-CP003-PROT-MISSING-PERCENTAGE-LITERAL"
-    ? applySapCp003MissingPercentageV3(base)
-    : applySapCp003EditorialRemediationV3(base);
+  let remediated: SapCp003Package;
+  if (prototypeId === "SAP-CP003-PROT-MISSING-PERCENTAGE-LITERAL") {
+    remediated = applySapCp003MissingPercentageV3(base);
+  } else if (prototypeId === "SAP-CP003-PROT-RECURRING-DECIMAL-IN-EXPRESSION") {
+    remediated = applySapCp003RecurringDecimalV3(base);
+  } else {
+    remediated = applySapCp003EditorialRemediationV3(base);
+  }
   const qualityControlled = applySapCp003EditorialQualityV3(remediated);
   const presentationSafe = applySapCp003EditorialPresentationV3(qualityControlled);
   return finalOptionShuffle(presentationSafe);
