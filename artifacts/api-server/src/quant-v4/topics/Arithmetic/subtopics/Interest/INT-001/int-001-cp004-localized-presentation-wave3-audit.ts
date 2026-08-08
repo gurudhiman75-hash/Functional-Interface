@@ -8,6 +8,7 @@ import { generateIntCp004EnglishFrozenQuestion } from "./cp004-english-frozen-ru
 import {
   INT_CP004_LOCALIZED_LOCALES,
   assertCp004LocalizedText,
+  cp004FrequencyIntervalText,
   cp004FrequencyLabel,
   cp004MonthsText,
   cp004YearsText,
@@ -68,19 +69,27 @@ function requiredFacts(
         moneyText(state.principal),
         percentText(state.nominalAnnualRatePercent),
         cp004YearsText(locale, state.firstYears),
-        cp004FrequencyLabel(locale, state.firstFrequency),
         cp004YearsText(locale, state.secondYears),
-        cp004FrequencyLabel(locale, state.secondFrequency),
       ];
     default:
       throw new Error(`${source.qlId}: unsupported Wave 3 fact audit.`);
   }
 }
 
+function hasFrequencyWording(
+  stem: string,
+  locale: IntCp004LocalizedLocale,
+  frequency: 1 | 2 | 4 | 12,
+): boolean {
+  return stem.includes(cp004FrequencyLabel(locale, frequency))
+    || stem.includes(cp004FrequencyIntervalText(locale, frequency));
+}
+
 let cases = 0;
 let deterministicChecks = 0;
 let scriptChecks = 0;
 let factChecks = 0;
+let mixedFrequencyWordingChecks = 0;
 let answerLeakChecks = 0;
 let representationChecks = 0;
 let englishFallbackChecks = 0;
@@ -107,6 +116,16 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
       factChecks += 1;
       for (const fact of requiredFacts(source, locale)) {
         if (!stem.includes(fact)) fail(`${qlId}/${seed}/${locale}: required fact '${fact}' is missing.`);
+      }
+
+      if (qlId === "INT-QL-084" || qlId === "INT-QL-085") {
+        mixedFrequencyWordingChecks += 2;
+        if (!hasFrequencyWording(stem, locale, source.mathematicalState.firstFrequency)) {
+          fail(`${qlId}/${seed}/${locale}: first-stage frequency wording is missing.`);
+        }
+        if (!hasFrequencyWording(stem, locale, source.mathematicalState.secondFrequency)) {
+          fail(`${qlId}/${seed}/${locale}: second-stage frequency wording is missing.`);
+        }
       }
 
       answerLeakChecks += 1;
@@ -136,6 +155,9 @@ for (const locale of INT_CP004_LOCALIZED_LOCALES) {
 }
 
 if (cases !== 1400) fail(`Expected 1,400 bilingual Wave 3 cases, received ${cases}.`);
+if (mixedFrequencyWordingChecks !== 800) {
+  fail(`Expected 800 mixed-frequency wording checks, received ${mixedFrequencyWordingChecks}.`);
+}
 for (const [key, count] of Object.entries(qlCounts)) {
   if (count !== 100) fail(`${key}: expected 100 cases, received ${count}.`);
 }
@@ -156,6 +178,7 @@ const summary = {
   deterministicChecks,
   scriptChecks,
   factChecks,
+  mixedFrequencyWordingChecks,
   answerLeakChecks,
   representationChecks,
   englishFallbackChecks,
