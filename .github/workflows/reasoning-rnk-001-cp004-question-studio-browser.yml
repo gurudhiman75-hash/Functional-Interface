@@ -1,0 +1,85 @@
+name: Validate RNK-001 CP-004 Question Studio Browser Evidence
+
+on:
+  push:
+    branches:
+      - feat/rnk-001-cp004-question-studio-browser-validation
+    paths:
+      - artifacts/admin-app/rnk-cp004-renderer.html
+      - artifacts/admin-app/src/e2e/rnk-cp004-renderer.tsx
+      - artifacts/admin-app/src/features/question-studio/QuestionExplanationDisclosure.tsx
+      - artifacts/admin-app/vite.config.ts
+      - scripts/e2e/rnk-cp004/**
+      - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/**
+      - .github/workflows/reasoning-rnk-001-cp004-question-studio-browser.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rnk-cp004-question-studio-browser-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  chromium-mobile-and-keyboard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install isolated Playwright runner
+        run: npm install --prefix scripts/e2e --no-package-lock
+
+      - name: Install Chromium
+        run: scripts/e2e/node_modules/.bin/playwright install --with-deps chromium
+
+      - name: Build isolated RNK renderer evidence page
+        env:
+          VITE_RNK_CP004_RENDERER_E2E: 'true'
+        run: |
+          set -o pipefail
+          pnpm run build:admin | tee rnk-cp004-browser-admin-build.log
+
+      - name: Run mobile-width and keyboard browser checks
+        run: |
+          set -o pipefail
+          scripts/e2e/node_modules/.bin/playwright test \
+            --config scripts/e2e/rnk-cp004/playwright.config.ts \
+            | tee rnk-cp004-browser-tests.log
+
+      - name: Reproduce frozen CP-004 permanent projection
+        run: |
+          set -o pipefail
+          pnpm dlx tsx \
+            artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-004/cp004-permanent-runtime-v1-gates.test.ts \
+            rnk-cp004-browser-freeze-proof \
+            | tee rnk-cp004-browser-freeze-proof.log
+
+      - name: Upload browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rnk-001-cp004-question-studio-browser-evidence
+          path: |
+            rnk-cp004-browser-admin-build.log
+            rnk-cp004-browser-tests.log
+            rnk-cp004-browser-freeze-proof.log
+            rnk-cp004-browser-freeze-proof
+            playwright-report/rnk-cp004-browser
+            test-results/rnk-cp004-browser
+          if-no-files-found: ignore
+          retention-days: 14
