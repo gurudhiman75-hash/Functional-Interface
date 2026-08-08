@@ -1,4 +1,8 @@
-import type { IntCp004QlId } from "./cp004-frequency-math";
+import {
+  effectiveAnnualRate,
+  type IntCp004QlId,
+} from "./cp004-frequency-math";
+import { moneyText, percentText } from "./cp004-frequency-options";
 import { generateIntCp004EnglishFrozenQuestion } from "./cp004-english-frozen-runtime";
 import {
   INT_CP004_LOCALIZATION_VERSION,
@@ -64,6 +68,47 @@ function legacyLocalizedStem(
   throw new Error(`${source.qlId}: no CP-004 localized presentation owner.`);
 }
 
+function balanceRecordFirstLabel(
+  source: IntCp004EnglishFrozenQuestion,
+  locale: IntCp004LocalizedLocale,
+): string {
+  if (locale === "hi-IN") {
+    switch (source.qlId) {
+      case "INT-QL-069": return "अंतिम राशि";
+      case "INT-QL-070": return "दिया गया चक्रवृद्धि ब्याज";
+      case "INT-QL-077": return "प्रभावी वार्षिक दर";
+      case "INT-QL-081": return "वार्षिक ब्याज दर";
+      default: return "मूलधन";
+    }
+  }
+  switch (source.qlId) {
+    case "INT-QL-069": return "ਅੰਤਿਮ ਰਕਮ";
+    case "INT-QL-070": return "ਦਿੱਤਾ ਚੱਕਰਵੱਧੀ ਵਿਆਜ";
+    case "INT-QL-077": return "ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ";
+    case "INT-QL-081": return "ਸਾਲਾਨਾ ਵਿਆਜ ਦਰ";
+    default: return "ਮੂਲਧਨ";
+  }
+}
+
+function polishLocalizedStem(
+  source: IntCp004EnglishFrozenQuestion,
+  locale: IntCp004LocalizedLocale,
+  stem: string,
+): string {
+  let polished = locale === "hi-IN"
+    ? stem.replace("**ज्ञात कीजिए:**", "**प्रश्न:**")
+    : stem.replace("**ਪਤਾ ਲਗਾਓ:**", "**ਪ੍ਰਸ਼ਨ:**");
+
+  if (source.representation === "BALANCE_RECORD") {
+    const genericLabel = locale === "hi-IN" ? "| आरंभिक प्रविष्टि |" : "| ਸ਼ੁਰੂਆਤੀ ਦਰਜ |";
+    polished = polished.replace(
+      genericLabel,
+      `| ${balanceRecordFirstLabel(source, locale)} |`,
+    );
+  }
+  return polished;
+}
+
 function localizedStem(
   source: IntCp004EnglishFrozenQuestion,
   locale: IntCp004LocalizedLocale,
@@ -71,18 +116,34 @@ function localizedStem(
   // Keep the legacy renderer reachable for ownership regression, while the
   // learner-facing runtime is rebuilt by the human-language editorial layer.
   legacyLocalizedStem(source, locale);
-  return renderCp004LocalizedEditorialV4Stem(source, locale);
+  return polishLocalizedStem(
+    source,
+    locale,
+    renderCp004LocalizedEditorialV4Stem(source, locale),
+  );
 }
 
 function cleanExplanation(
+  source: IntCp004EnglishFrozenQuestion,
   explanation: IntCp004LocalizedExplanation,
   locale: IntCp004LocalizedLocale,
 ): IntCp004LocalizedExplanation {
   const duplicate = locale === "hi-IN" ? "अंतिम उत्तर: अंतिम उत्तर:" : "ਅੰਤਿਮ ਉੱਤਰ: ਅੰਤਿਮ ਉੱਤਰ:";
   const single = locale === "hi-IN" ? "अंतिम उत्तर:" : "ਅੰਤਿਮ ਉੱਤਰ:";
+  const effective = effectiveAnnualRate(
+    source.mathematicalState.nominalAnnualRatePercent,
+    source.mathematicalState.frequency,
+  );
+  const correctedEffectiveRateStep = locale === "hi-IN"
+    ? `₹100 पर एक वर्ष में ब्याज ${moneyText(effective)} है; इसलिए प्रभावी वार्षिक दर ${percentText(effective)} है।`
+    : `₹100 ਉੱਤੇ ਇੱਕ ਸਾਲ ਵਿੱਚ ਵਿਆਜ ${moneyText(effective)} ਹੈ; ਇਸ ਲਈ ਪ੍ਰਭਾਵੀ ਸਾਲਾਨਾ ਦਰ ${percentText(effective)} ਹੈ।`;
+  const steps = source.qlId === "INT-QL-076"
+    ? explanation.steps.map((step) => /₹100[^\n]*=[^\n]*%/u.test(step) ? correctedEffectiveRateStep : step)
+    : explanation.steps;
+
   return Object.freeze({
     whatAsked: explanation.whatAsked,
-    steps: explanation.steps,
+    steps: Object.freeze([...steps]),
     finalAnswer: explanation.finalAnswer.replace(duplicate, single),
     commonMistake: explanation.commonMistake,
   });
@@ -102,6 +163,7 @@ export function localizeIntCp004EnglishFrozenQuestion(
   const baseExplanation = localizeCp004Explanation(source, locale);
   const editorialV3Explanation = remediateCp004LocalizedExplanationV3(source, locale, baseExplanation);
   const explanation = cleanExplanation(
+    source,
     remediateCp004LocalizedExplanationV4(source, locale, editorialV3Explanation),
     locale,
   );
