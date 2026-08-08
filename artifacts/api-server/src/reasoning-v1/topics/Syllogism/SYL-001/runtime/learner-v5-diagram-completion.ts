@@ -1,6 +1,7 @@
 import type { GeneratedSylQuestionV4 } from "./learner-v4-types";
 import type { TermAssignment } from "./localization";
 import { renderExactVennV5 } from "./learner-v5-exact-venn";
+import { exactVennAddsUnstatedStrongRelationV5 } from "./learner-v5-exact-venn-safety";
 import type {
   SylDiagramModeV5,
   SylLearnerPresentationV5,
@@ -35,6 +36,34 @@ function vennMode(
   return "VENN_FOCUSED_CONCLUSION_CHECK";
 }
 
+function omittedPresentation(
+  presentation: SylLearnerPresentationV5,
+  reason: "MORE_THAN_THREE_TERMS" | "NO_STABLE_SIMPLE_VENN",
+  semanticSignature: string,
+  modelSignature: string | null,
+): SylLearnerPresentationV5 {
+  return {
+    ...presentation,
+    learnerExplanation: {
+      ...presentation.learnerExplanation,
+      showDiagram: false,
+    },
+    diagram: {
+      enabled: false,
+      mode: "OMITTED_NOT_USEFUL",
+      omissionReason: reason,
+      svg: null,
+      caption: null,
+      accessibleDescription: null,
+      semanticSignature,
+      modelSignature: modelSignature ?? presentation.diagram.modelSignature,
+      answerSentenceEmbedded: false,
+      mobileViewBoxWidth: 340,
+      diagramCount: 0,
+    },
+  };
+}
+
 export function completeRequiredDiagramV5(
   question: GeneratedSylQuestionV4,
   presentation: SylLearnerPresentationV5,
@@ -42,26 +71,26 @@ export function completeRequiredDiagramV5(
 ): SylLearnerPresentationV5 {
   const rendered = renderExactVennV5(question, presentation, assignment);
   if (!rendered.enabled) {
-    return {
-      ...presentation,
-      learnerExplanation: {
-        ...presentation.learnerExplanation,
-        showDiagram: false,
-      },
-      diagram: {
-        enabled: false,
-        mode: "OMITTED_NOT_USEFUL",
-        omissionReason: rendered.omissionReason,
-        svg: null,
-        caption: null,
-        accessibleDescription: null,
-        semanticSignature: rendered.semanticSignature,
-        modelSignature: rendered.modelSignature ?? presentation.diagram.modelSignature,
-        answerSentenceEmbedded: false,
-        mobileViewBoxWidth: 340,
-        diagramCount: 0,
-      },
-    };
+    return omittedPresentation(
+      presentation,
+      rendered.omissionReason === "MORE_THAN_THREE_TERMS"
+        ? "MORE_THAN_THREE_TERMS"
+        : "NO_STABLE_SIMPLE_VENN",
+      rendered.semanticSignature,
+      rendered.modelSignature,
+    );
+  }
+
+  if (
+    !rendered.svg
+    || exactVennAddsUnstatedStrongRelationV5(question, presentation, rendered.svg)
+  ) {
+    return omittedPresentation(
+      presentation,
+      "NO_STABLE_SIMPLE_VENN",
+      `syl-v5:exact-venn:omitted:unstated-strong-relation:${question.qlId}:${question.seed}:${question.locale}`,
+      rendered.modelSignature,
+    );
   }
 
   return {
