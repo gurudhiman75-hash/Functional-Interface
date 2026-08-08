@@ -81,7 +81,7 @@ assert.equal(telemetry.learnerTokenWordOccurrences, 0);
 assert.equal(telemetry.codePersonCollisionCount, 0);
 assert.equal(telemetry.ql031SinglePositionDerivedDistractorCount, 0);
 assert.equal(telemetry.ql033FixedBlankOptionCount, 0);
-assert.equal(telemetry.ql034DistinctDecisiveStructureCount, 16);
+assert.equal(telemetry.ql034DistinctDecisiveStructureCount, 18);
 assert.equal(telemetry.ql034BroadTargetCount, 0);
 assert.equal(telemetry.directValidityEasyCount, 16);
 assert.deepEqual(ql034AnswerCounts, { P: 8, Q: 8, R: 8, S: 8 });
