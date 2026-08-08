@@ -79,6 +79,7 @@ assert.equal(
   ),
   140,
 );
+assert.equal(SER_PERMANENT_QL_REGISTRY_STATE.registryVersion, 2);
 assert.equal(SER_PERMANENT_QL_REGISTRY_STATE.nextAvailableId, "SER-QL-014");
 assert.equal(SER_CP007_ENGLISH_FREEZE_STATE.approvalDate, "2026-08-07");
 
@@ -122,7 +123,10 @@ for (const entry of SER_PERMANENT_QL_REGISTRY) {
   assert.equal(entry.allocationStatus, "PERMANENT_ID_ALLOCATED_INACTIVE");
   assert.equal(entry.englishStatus, "ENGLISH_MANUAL_FREEZE_APPROVED");
   assert.equal(entry.allocationApproval, "PRODUCT_OWNER_APPROVED_2026_08_07");
-  assert.equal(entry.localizationStatus, "NOT_STARTED");
+  assert.equal(
+    entry.localizationStatus,
+    "IMPLEMENTED_PENDING_MANUAL_REVIEW",
+  );
   assert.equal(entry.active, false);
   assert.equal(entry.questionStudioDiscoverable, false);
   assert.equal(entry.questionBankWritable, false);
@@ -244,7 +248,7 @@ console.log(
       reachedPermanentQls: reachedPermanentQls.size,
       reachedDifficulties: [...reachedDifficulties].sort(),
       reachedAnswerPositions: [...reachedAnswerPositions].sort(),
-      localizationStatus: "NOT_STARTED",
+      localizationStatus: "IMPLEMENTED_PENDING_MANUAL_REVIEW",
       lifecycle: {
         questionStudioDiscoverable: false,
         questionBankWritable: false,
@@ -252,7 +256,7 @@ console.log(
         publiclyPublishable: false,
       },
       nextAuthority:
-        "SER_CP007_HINDI_PUNJABI_LOCALIZATION_AND_PARITY_PROOF",
+        "SER_CP007_HINDI_PUNJABI_NATIVE_LANGUAGE_MANUAL_REVIEW",
     },
     null,
     2,
