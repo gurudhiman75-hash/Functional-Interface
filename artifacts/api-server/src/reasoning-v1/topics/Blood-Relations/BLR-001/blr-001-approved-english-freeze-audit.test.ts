@@ -1,7 +1,7 @@
 import { strict as assert } from "node:assert";
-import { buildBlr001ApprovedEnglishFreezeAudit } from "./blr-001-approved-english-freeze-audit";
+import { buildBlr001ApprovedEnglishFreezeReviewedAudit } from "./blr-001-approved-english-freeze-audit-reviewed";
 
-const result = buildBlr001ApprovedEnglishFreezeAudit();
+const result = buildBlr001ApprovedEnglishFreezeReviewedAudit();
 
 if (result.blockerFindings.length > 0) {
   console.error(JSON.stringify({ blockers: result.blockerFindings.slice(0, 100) }, null, 2));
@@ -21,6 +21,7 @@ assert.equal(result.exactStemCount, 168);
 assert.equal(result.editorialFingerprintCount, 168);
 assert(result.maximumShortcutRepeat <= 8);
 assert(result.maximumTrapRepeat <= 8);
+assert.equal(result.acceptedExamDirectiveStemCount, 12);
 assert.equal(result.blockerCount, 0, result.blockerFindings.slice(0, 30).map((finding) => `${finding.code}: ${finding.itemId} — ${finding.detail}`).join("\n"));
 assert.equal(result.verdict, "APPROVED_CORPUS_ENGLISH_FREEZE_REVIEW_CANDIDATE");
 assert.equal(result.manualEnglishFreezeRequired, true);
@@ -45,6 +46,7 @@ console.log(JSON.stringify({
   averageOptionWords: result.averageOptionWords,
   maximumExplanationWords: result.maximumExplanationWords,
   averageExplanationWords: result.averageExplanationWords,
+  acceptedExamDirectiveStemCount: result.acceptedExamDirectiveStemCount,
   blockerCount: result.blockerCount,
   warningCount: result.warningCount,
   verdict: result.verdict,
