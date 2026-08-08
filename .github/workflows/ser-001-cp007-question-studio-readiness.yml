@@ -1,0 +1,99 @@
+name: Validate SER-001 CP-007 Question Studio readiness
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/lib/admin-question-conversion.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-PERMANENT-QL-REGISTRY.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-ENGLISH-FREEZE/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-LOCALIZATION/**
+      - artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-QUESTION-STUDIO-READINESS/**
+      - .github/workflows/ser-001-cp007-question-studio-readiness.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ser-001-cp007-question-studio-readiness-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-inactive-readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare readiness evidence directory
+        run: mkdir -p artifacts/api-server/dist/reasoning-v1/ser-001/cp007-question-studio-readiness
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Prove multilingual inactive integration readiness
+        run: |
+          set -euo pipefail
+          ROOT=src/reasoning-v1/topics/Series/SER-001/SER-CP-007-QUESTION-STUDIO-READINESS
+          OUT=dist/reasoning-v1/ser-001
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-question-studio-readiness
+          pnpm --dir artifacts/api-server exec esbuild \
+            "$ROOT/ser-cp-007-question-studio-readiness.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="$OUT/ser-cp-007-question-studio-readiness.test.mjs"
+          (cd artifacts/api-server && node "$OUT/ser-cp-007-question-studio-readiness.test.mjs") \
+            | tee "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Readiness-Proof.json"
+          grep -q 'PASS_SER_CP007_QUESTION_STUDIO_INTEGRATION_READINESS_INACTIVE' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Readiness-Proof.json"
+          grep -q '"frozenTemplates": 140' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Readiness-Proof.json"
+          grep -q '"permanentQls": 13' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Readiness-Proof.json"
+          grep -q '"projectedPayloads": 420' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Readiness-Proof.json"
+          grep -q '"optionIntegrityProofs": 420' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Readiness-Proof.json"
+          grep -q '"provenanceProofs": 420' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Readiness-Proof.json"
+          grep -q '"lifecycleLockProofs": 420' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Readiness-Proof.json"
+          grep -q '"questionBankRejectionProofs": 420' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Readiness-Proof.json"
+          grep -q '"questionStudioDiscoverable": false' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Readiness-Proof.json"
+          grep -q '"questionBankWritable": false' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Readiness-Proof.json"
+          grep -q '"testEligible": false' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Readiness-Proof.json"
+          grep -q '"publiclyPublishable": false' \
+            "$EVIDENCE/SER-CP-007-Question-Studio-Integration-Readiness-Proof.json"
+
+      - name: Copy readiness report into evidence
+        run: |
+          set -euo pipefail
+          ROOT=artifacts/api-server/src/reasoning-v1/topics/Series/SER-001/SER-CP-007-QUESTION-STUDIO-READINESS
+          EVIDENCE=artifacts/api-server/dist/reasoning-v1/ser-001/cp007-question-studio-readiness
+          cp "$ROOT/SER-CP-007-QUESTION-STUDIO-INTEGRATION-READINESS-AUDIT.md" "$EVIDENCE/"
+
+      - name: Upload readiness evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: ser-001-cp007-question-studio-readiness
+          path: artifacts/api-server/dist/reasoning-v1/ser-001/cp007-question-studio-readiness/
+          if-no-files-found: error
+          retention-days: 30
