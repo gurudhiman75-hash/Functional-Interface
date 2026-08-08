@@ -52,6 +52,9 @@ export function runTmwCp011LocalizedPipeline(input: {
   const source = runTmwCp011Pipeline(input.questionLanguageId, input.seed);
   const localized = localizeTmwCp011Question(source, input.language);
   const remediated = remediateTmwCp011LocalizedQuestion(source, localized);
-  const teachingRemediated = remediateTmwCp011TeachingLanguage(remediated);
+  const teachingRemediated = remediateTmwCp011TeachingLanguage(
+    remediated,
+    source.questionLanguageId,
+  );
   return removePunjabiDandaFalsePositive(teachingRemediated);
 }
