@@ -15,6 +15,10 @@ import {
   buildExamReadyProblemOverride,
   shouldAcceptExamReadyProblem,
 } from "./exam-readiness-remediation.ts";
+import {
+  applyAdditionalExamReadinessRemediation,
+  buildAdditionalExamReadyProblemOverride,
+} from "./exam-readiness-additional-remediation.ts";
 
 const CLOSED_LIFECYCLE = {
   discoveryStatus: "EXECUTABLE_DISCOVERY" as const,
@@ -40,7 +44,8 @@ export function generateCalendarQuestion(prototypeAuthority: CalendarPrototypeId
 
   for (let attempt = 0; attempt < 256; attempt++) {
     const rng = new DeterministicRandom(`${prototypeAuthority}:${seed}:scenario:${attempt}`);
-    const candidate = buildExamReadyProblemOverride(prototypeAuthority, seed, locale, rng)
+    const candidate = buildAdditionalExamReadyProblemOverride(prototypeAuthority, seed, locale, rng)
+      ?? buildExamReadyProblemOverride(prototypeAuthority, seed, locale, rng)
       ?? shiftProblem(prototypeAuthority, seed, locale, rng)
       ?? dateRelationProblem(prototypeAuthority, seed, locale, rng)
       ?? leapBoundaryProblem(prototypeAuthority, seed, locale, rng)
@@ -118,7 +123,7 @@ export function generateCalendarQuestion(prototypeAuthority: CalendarPrototypeId
     lifecycle: { ...CLOSED_LIFECYCLE },
   };
 
-  const remediated = applyExamReadinessRemediation(pkg);
+  const remediated = applyAdditionalExamReadinessRemediation(applyExamReadinessRemediation(pkg));
   const optionKeys = remediated.options.map((option) => semanticKey(option.semanticValue));
   if (remediated.options.length !== 4 || new Set(optionKeys).size !== 4) throw new Error(`${prototypeAuthority}: options are not semantically unique.`);
   if (new Set(remediated.options.map((option) => option.display)).size !== 4) throw new Error(`${prototypeAuthority}: option labels are not textually unique.`);
