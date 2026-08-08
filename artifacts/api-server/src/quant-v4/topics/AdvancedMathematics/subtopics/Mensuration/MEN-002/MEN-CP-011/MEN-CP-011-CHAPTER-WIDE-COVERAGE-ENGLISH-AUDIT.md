@@ -3,7 +3,7 @@
 ## Status
 
 ```text
-Audit authority:              MEN-CP011-CHAPTER-WIDE-COVERAGE-ENGLISH-AUDIT-V4
+Audit authority:              MEN-CP011-CHAPTER-WIDE-COVERAGE-ENGLISH-AUDIT-V5
 Permanent QLs:                0
 English freeze:               not granted
 Question Studio:              disabled
@@ -12,11 +12,11 @@ Test eligibility:             INELIGIBLE
 Public publication:           false
 ```
 
-The executable V4 audit derives evidence from every currently implemented MEN-CP-011 review generator. It replaces the 20-family V3 snapshot after adding open-container sheet cost and inner-lining cost.
+The executable V5 audit derives evidence from every currently implemented MEN-CP-011 review generator. It replaces the 22-family V4 snapshot after adding material-volume ratio and percentage-change applications.
 
 ## Current executable boundary
 
-The chapter now contains 22 direct review-only runtime families across eight executable waves:
+The chapter now contains 24 direct review-only runtime families across nine executable waves:
 
 ```text
 Pipe material and inverse core:        4
@@ -27,12 +27,13 @@ Hollow cube and cuboid:                 2
 Spherical and hemispherical shells:     2
 Joined and placed hidden faces:         2
 Open-sheet and inner-lining cost:       2
-Total direct runtime families:         22
+Material ratio and percentage change:   2
+Total direct runtime families:         24
 ```
 
 The direct open-top cuboid sheet-area candidate remains owned by the existing `MEN-CP-007 / MEN-CP007-PROT-OPEN-TOP-BOX-AREA` authority and is not duplicated.
 
-## V4 review matrix
+## V5 review matrix
 
 ```text
 Pipe material and inverse core:       48
@@ -43,63 +44,63 @@ Hollow cube and cuboid:               32
 Spherical and hemispherical shells:   48
 Joined and placed hidden faces:       32
 Cost and inner lining:                32
-Total:                               328
-Correct positions:                   A82 B82 C82 D82
-Direct runtime families:              22
+Material ratio and percentage change: 32
+Total:                               360
+Correct positions:                   A90 B90 C90 D90
+Direct runtime families:              24
 ```
 
 The audit requires:
 
-- 328 unique exact stems;
-- 328 unique stem-and-option packages;
+- 360 unique exact stems;
+- 360 unique stem-and-option packages;
 - four unique options and one correct answer per item;
 - independent mathematical verification for every item;
 - three natural wrong-option explanations per item;
 - complete learner/admin rendering separation;
 - all discovery lifecycle locks;
-- technically clean learner MathJax and prose.
+- technically clean, balanced and non-nested learner MathJax.
 
-## Coverage progress against the initial 20 candidates
-
-```text
-Implemented, equivalent or correctly reassigned: 18 / 20
-Still missing:                                  2 / 20
-```
-
-The remaining initial candidates are:
+## Initial 20-candidate architecture status
 
 ```text
-MEN-CP011-PROT-MATERIAL-VOLUME-RATIO
-MEN-CP011-PROT-MATERIAL-VOLUME-PERCENT-CHANGE
+Implemented, equivalent or correctly reassigned: 20 / 20
+Unresolved initial candidates:                    0 / 20
 ```
 
 The pipe-length inverse remains an additional discovered family beyond the original 20-candidate list.
 
-## Cost coverage added in V4
+Completing the initial architecture list does not itself grant chapter freeze. Additional discovery, ownership, editorial and lifecycle gates remain active.
 
-### Open-container sheet cost
+## Ratio and percentage coverage added in V5
 
-```text
-sheet area = 2πrh + πr² = πr(2h+r)
-sheet cost = sheet area × rate per m²
-```
+### Material-volume ratio
 
-The top is open and contributes zero material area.
-
-### Inner-lining cost
+For two hollow pipes:
 
 ```text
-lining area = inner curved wall + inner bottom
-lining cost = lining area × rate per m²
+V_A : V_B
+= πh_A(R_A²-r_A²) : πh_B(R_B²-r_B²)
+= h_A(R_A²-r_A²) : h_B(R_B²-r_B²)
 ```
 
-The open mouth is absent and receives no lining.
+The common `π` cancels. Each pipe's own length remains part of its material coefficient.
 
-Both cost families use exact declared numeric π policies (`22/7` and `3.14 = 157/50`) and exact rupee answers.
+### Percentage decrease after bore widening
+
+With the outer radius and length fixed:
+
+```text
+old coefficient = R²-r_old²
+new coefficient = R²-r_new²
+percentage decrease = [(old-new)/old] × 100
+```
+
+The common `πh` cancels. The lost material coefficient can be computed through the difference-of-squares identity.
 
 ## Coverage verdict
 
-Covered:
+Covered within the initial architecture:
 
 - hollow-pipe material volume, inverse radius, thickness and length;
 - inner, outer, combined and annular-end pipe surfaces;
@@ -108,22 +109,23 @@ Covered:
 - spherical and hemispherical shell material volume;
 - joined cubes and floor-placed cuboid hidden-face exposure;
 - open-container sheet cost and inner-lining cost;
+- material-volume ratio and percentage-change applications;
 - centimetre, metre and mixed-unit profiles where applicable;
 - exact π, declared `22/7` and declared `3.14 = 157/50`;
 - prompt/solution diagram separation and learner/admin isolation.
 
-Still missing:
+Still pending before chapter freeze:
 
-- material-volume ratio and percentage-change applications;
-- conical shells as an additional discovery axis;
+- conical-shell ownership and safe executable discovery;
 - direct source normalisation and neighbouring-CP ownership closure;
-- human English approval and permanent-family merge/split decisions.
+- human English approval and permanent-family merge/split decisions;
+- permanent QL allocation and multilingual parity proof.
 
-Therefore `CHAPTER_COVERAGE_INCOMPLETE` remains active.
+Therefore the broader chapter remains **not frozen** even though the initial 20-candidate architecture is complete.
 
 ## English verdict
 
-The V4 audit checks the complete current corpus for malformed TeX, unbalanced delimiters, learner-visible internal codes, duplicate stems/packages, option defects, missing wrong-option explanations, lifecycle leakage and learner/admin surface leakage.
+The V5 audit checks the complete current corpus for malformed TeX, nested or unbalanced MathJax, learner-visible internal codes, duplicate stems/packages, option defects, missing wrong-option explanations, lifecycle leakage and learner/admin surface leakage.
 
 Automated technical cleanliness does not grant final SSC/banking editorial approval. Human review remains required for real-exam naturalness, stem economy, option plausibility, explanation usefulness, terminology, difficulty, context variety and final permanent QL compression.
 
@@ -131,30 +133,34 @@ English remains **unfrozen**.
 
 ## Audit artifacts
 
-The workflow produces:
+The workflows produce:
 
 ```text
 men-cp011-chapter-wide-english-audit.log
 men-cp011-chapter-wide-english-audit.json
 men-cp011-chapter-wide-english-review.md
+men-cp011-ratio-percent-wave01-review.log
+men-cp011-ratio-percent-wave01-review.json
+men-cp011-ratio-percent-wave01-review.md
 ```
 
-The JSON artifact contains all 328 review rows. The Markdown artifact records the coverage ledger and representative evidence from all 22 runtime families.
+The chapter-wide JSON artifact contains all 360 review rows. The dedicated ratio/percentage artifact contains the balanced 32-record final-wave evidence.
 
 ## Active blockers
 
 ```text
-CHAPTER_COVERAGE_INCOMPLETE
+CONICAL_SHELL_OWNERSHIP_PENDING
 DIRECT_SOURCE_NORMALISATION_PENDING
 PERMANENT_QLS_UNALLOCATED
 MANUAL_ENGLISH_REVIEW_PENDING
+MULTILINGUAL_PARITY_PENDING
 ```
 
 No permanent QL allocation, localisation, Question Studio exposure, Question Bank storage, test eligibility or publication is authorised.
 
 ## Recommended next implementation order
 
-1. Material-volume ratio and percentage-change families.
-2. Conical-shell ownership and executable discovery.
-3. Direct source normalisation and chapter-wide ownership audit.
-4. Human English review, compression and only then permanent QL allocation.
+1. Conical-shell ownership and safe executable discovery.
+2. Direct source normalisation and chapter-wide ownership audit.
+3. Human English review and permanent-family compression.
+4. Permanent QL allocation, localisation and multilingual parity proof.

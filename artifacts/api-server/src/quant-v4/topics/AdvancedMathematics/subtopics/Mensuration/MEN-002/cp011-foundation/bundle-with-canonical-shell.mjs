@@ -28,5 +28,16 @@ await build({
         );
       },
     },
+    {
+      name: "men-cp011-canonical-ratio-percent",
+      setup(context) {
+        context.onResolve(
+          { filter: /^\.\/ratio-percent$/ },
+          (args) => ({
+            path: path.join(args.resolveDir, "ratio-percent-canonical.ts"),
+          }),
+        );
+      },
+    },
   ],
 });
