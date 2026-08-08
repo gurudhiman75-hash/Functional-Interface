@@ -4,6 +4,7 @@ import {
   type TmwCp011LocalizedQuestion,
 } from "./localization-cp011";
 import { remediateTmwCp011LocalizedQuestion } from "./cp011-editorial-review-remediation";
+import { remediateTmwCp011TeachingLanguage } from "./cp011-teaching-language-remediation";
 import type { TmwLocalizedLanguage } from "./localization-types";
 
 function learnerText(question: TmwCp011LocalizedQuestion): string {
@@ -51,5 +52,6 @@ export function runTmwCp011LocalizedPipeline(input: {
   const source = runTmwCp011Pipeline(input.questionLanguageId, input.seed);
   const localized = localizeTmwCp011Question(source, input.language);
   const remediated = remediateTmwCp011LocalizedQuestion(source, localized);
-  return removePunjabiDandaFalsePositive(remediated);
+  const teachingRemediated = remediateTmwCp011TeachingLanguage(remediated);
+  return removePunjabiDandaFalsePositive(teachingRemediated);
 }
