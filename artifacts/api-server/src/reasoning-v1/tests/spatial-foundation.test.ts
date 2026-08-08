@@ -1,16 +1,27 @@
 import assert from "node:assert/strict";
 import {
   SPATIAL_SCENE_VERSION,
+  WATER_CLOCK_PRESENTATION_POLICY,
   areSpatialScenesEquivalent,
+  buildStandardTransformCandidates,
+  classifySpatialSceneSymmetry,
+  clockTimeToHandAngles,
+  findClockTimeMatchingHandAngles,
+  reflectClockHandsHorizontally,
   reflectSceneHorizontally,
   reflectSceneVertically,
   renderSpatialSceneToSvg,
   rotateScene,
   spatialSceneSemanticFingerprint,
   translateScene,
+  validateMirrorClockCrossCheck,
+  validateSpatialGlyphAuthorityEntry,
   validateSpatialOptionUniqueness,
   validateSpatialScene,
+  validateSpatialTransformCandidateUniqueness,
+  validateSpatialTransformQuestion,
   type SpatialArcNode,
+  type SpatialGlyphAuthorityEntry,
   type SpatialScene,
 } from "../foundation/spatial";
 
@@ -157,6 +168,107 @@ assert.match(firstSvg, /data-spatial-version="1.0"/);
 assert.match(firstSvg, /data-node-id="triangle"/);
 assert.doesNotMatch(firstSvg, /<script|foreignObject|javascript:/i);
 
+const baseSymmetry = classifySpatialSceneSymmetry(baseScene);
+assert.deepEqual(baseSymmetry, {
+  vertical: false,
+  horizontal: false,
+  rotational180: false,
+});
+
+const standardCandidates = buildStandardTransformCandidates(baseScene);
+const standardCandidateValidation =
+  validateSpatialTransformCandidateUniqueness(standardCandidates);
+assert.equal(
+  standardCandidateValidation.ok,
+  true,
+  JSON.stringify(standardCandidateValidation.errors),
+);
+const transformQuestionValidation = validateSpatialTransformQuestion({
+  sourceScene: baseScene,
+  requestedTransform: "REFLECT_VERTICAL",
+  candidates: standardCandidates,
+});
+assert.equal(
+  transformQuestionValidation.ok,
+  true,
+  JSON.stringify(transformQuestionValidation.errors),
+);
+
+const symmetricScene: SpatialScene = {
+  version: SPATIAL_SCENE_VERSION,
+  id: "SPA-FND-TEST-SYMMETRIC",
+  viewBox: { minX: 0, minY: 0, width: 100, height: 100 },
+  nodes: [
+    {
+      kind: "circle",
+      id: "central-circle",
+      center: { x: 50, y: 50 },
+      radius: 15,
+      style: { stroke: "#111", strokeWidth: 2, fill: "none" },
+    },
+  ],
+};
+assert.deepEqual(classifySpatialSceneSymmetry(symmetricScene), {
+  vertical: true,
+  horizontal: true,
+  rotational180: true,
+});
+const degenerateQuestion = validateSpatialTransformQuestion({
+  sourceScene: symmetricScene,
+  requestedTransform: "REFLECT_VERTICAL",
+});
+assert.equal(degenerateQuestion.ok, false);
+assert(
+  degenerateQuestion.errors.some(
+    (entry) => entry.code === "SPA_ACCIDENTAL_SELF_SYMMETRY",
+  ),
+);
+const collidingCandidates = validateSpatialTransformCandidateUniqueness(
+  buildStandardTransformCandidates(symmetricScene),
+);
+assert.equal(collidingCandidates.ok, false);
+assert(
+  collidingCandidates.errors.some(
+    (entry) => entry.code === "SPA_EQUIVALENT_TRANSFORM_CANDIDATES",
+  ),
+);
+
+const mirrorClockProof = validateMirrorClockCrossCheck({ hour: 4, minute: 20 });
+assert.equal(mirrorClockProof.ok, true);
+assert.deepEqual(mirrorClockProof.shortcutTime, { hour: 7, minute: 40 });
+assert.equal(clockTimeToHandAngles({ hour: 4, minute: 20 }).hourAngleDeg, 130);
+
+const waterReflectedTwoOClock = reflectClockHandsHorizontally(
+  clockTimeToHandAngles({ hour: 2, minute: 0 }),
+);
+assert.deepEqual(waterReflectedTwoOClock, {
+  hourAngleDeg: 120,
+  minuteAngleDeg: 180,
+});
+assert.equal(findClockTimeMatchingHandAngles(waterReflectedTwoOClock), null);
+assert.equal(WATER_CLOCK_PRESENTATION_POLICY, "DIAGRAM_ONLY");
+
+const glyphEntry: SpatialGlyphAuthorityEntry = {
+  glyphId: "LATIN-PROOF-ASYMMETRIC",
+  script: "LATIN",
+  localeMode: "SCRIPT_SPECIFIC",
+  canonicalScene: baseScene,
+  symmetry: baseSymmetry,
+  authorityVersion: "SPA-GLYPH-PROOF-v1",
+};
+const glyphValidation = validateSpatialGlyphAuthorityEntry(glyphEntry);
+assert.equal(glyphValidation.ok, true, JSON.stringify(glyphValidation.errors));
+const invalidGlyphValidation = validateSpatialGlyphAuthorityEntry({
+  ...glyphEntry,
+  localeMode: "INSTRUCTION_LOCALISED",
+});
+assert.equal(invalidGlyphValidation.ok, false);
+assert(
+  invalidGlyphValidation.errors.some(
+    (entry) => entry.code === "SPA_GLYPH_SCRIPT_LOCALE_MODE_MISMATCH",
+  ),
+);
+
 console.log(
   JSON.stringify(
     {
@@ -172,6 +284,13 @@ console.log(
         equivalentOptionRejection: true,
         unsafeStyleRejection: true,
         deterministicSvg: true,
+        symmetryClassification: true,
+        accidentalSymmetryRejection: true,
+        transformCandidateCollisionRejection: true,
+        continuousClockHourHand: true,
+        mirrorClockDualProof: true,
+        waterClockDiagramOnlyPolicy: true,
+        scriptSpecificGlyphAuthority: true,
       },
     },
     null,
