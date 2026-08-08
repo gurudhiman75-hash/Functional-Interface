@@ -114,6 +114,10 @@ function approvedWording(text: string): string {
     .replace(
       "In-law relations depend on which side of the marriage each blood relation belongs to.",
       "For an in-law relation, the order of the spouse and parent or sibling links matters.",
+    )
+    .replace(
+      "A graph-valid code is not enough if the written interpretation names a different relation.",
+      "A correctly formed coded statement is still wrong if its written interpretation names a different relation.",
     );
 }
 
