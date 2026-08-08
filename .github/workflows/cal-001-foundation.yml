@@ -1,0 +1,107 @@
+name: Validate CAL-001 end-to-end foundation
+
+on:
+  push:
+    branches:
+      - feat/reasoning-cal-001-end-to-end-foundation
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/**
+      - artifacts/api-server/src/reasoning-v1/CAL-001-FAMILY-F-MANIFEST-AMENDMENT.md
+      - .github/workflows/cal-001-foundation.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/**
+      - artifacts/api-server/src/reasoning-v1/CAL-001-FAMILY-F-MANIFEST-AMENDMENT.md
+      - .github/workflows/cal-001-foundation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-cal-001-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/reasoning-v1/topics/Calendar/CAL-001 -name '*.ts' -print)
+
+  exhaustive-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Run Gregorian, generator and lifecycle proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/foundation-proof.test.ts 2>&1 | tee /tmp/cal-001-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/cal-001-proof-exit
+          exit 0
+      - name: Publish proof diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cal-001-foundation-proof
+          path: |
+            /tmp/cal-001-proof.log
+            /tmp/cal-001-proof-exit
+          if-no-files-found: error
+          retention-days: 14
+      - name: Enforce proof result
+        run: test "$(cat /tmp/cal-001-proof-exit)" = "0"
+
+  review-export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Generate 528-row English review pack
+        env:
+          CAL_REVIEW_OUTPUT_DIR: /tmp/cal-001-review
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/review-export.ts
+      - name: Publish review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: cal-001-english-prototype-review
+          path: /tmp/cal-001-review/**
+          if-no-files-found: error
+          retention-days: 14
