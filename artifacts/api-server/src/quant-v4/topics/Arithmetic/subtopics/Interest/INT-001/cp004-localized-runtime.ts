@@ -5,7 +5,12 @@ import {
   languageForCp004Locale,
 } from "./cp004-localization-language-pack";
 import { localizeCp004Explanation } from "./cp004-localized-explanations";
+import { remediateCp004LocalizedExplanationV3 } from "./cp004-localized-explanation-remediation-v3";
 import { localizeCp004Options } from "./cp004-localized-options";
+import {
+  remediateCp004LocalizedOptions,
+  renderCp004LocalizedEditorialV3Stem,
+} from "./cp004-localized-editorial-v3";
 import {
   INT_CP004_PRESENTATION_WAVE1_QL_IDS,
   renderCp004LocalizedPresentationWave1,
@@ -40,7 +45,7 @@ function includesQlId(ids: readonly IntCp004QlId[], qlId: IntCp004QlId): boolean
   return ids.includes(qlId);
 }
 
-function localizedStem(
+function legacyLocalizedStem(
   source: IntCp004EnglishFrozenQuestion,
   locale: IntCp004LocalizedLocale,
 ): string {
@@ -56,16 +61,28 @@ function localizedStem(
   throw new Error(`${source.qlId}: no CP-004 localized presentation owner.`);
 }
 
+function localizedStem(
+  source: IntCp004EnglishFrozenQuestion,
+  locale: IntCp004LocalizedLocale,
+): string {
+  // Keep the legacy renderer reachable for ownership regression, while the
+  // learner-facing runtime is rebuilt by the human-language editorial layer.
+  legacyLocalizedStem(source, locale);
+  return renderCp004LocalizedEditorialV3Stem(source, locale);
+}
+
 export function localizeIntCp004EnglishFrozenQuestion(
   source: IntCp004EnglishFrozenQuestion,
   locale: IntCp004LocalizedLocale,
 ): IntCp004LocalizedQuestion {
   const language = languageForCp004Locale(locale);
   const stem = localizedStem(source, locale);
-  const options = localizeCp004Options(source, locale);
+  const baseOptions = localizeCp004Options(source, locale);
+  const options = remediateCp004LocalizedOptions(baseOptions, locale);
   const correctAnswer = options[source.correctIndex]?.text;
   if (!correctAnswer) throw new Error(`${source.qlId}/${source.seed}/${locale}: localized correct answer is missing.`);
-  const explanation = localizeCp004Explanation(source, locale);
+  const baseExplanation = localizeCp004Explanation(source, locale);
+  const explanation = remediateCp004LocalizedExplanationV3(source, locale, baseExplanation);
 
   const lifecycle = {
     permanentQlId: source.qlId,
