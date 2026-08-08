@@ -60,6 +60,9 @@ function ql038Candidates(question: MalCp004ProductReviewQuestion): Candidate[] {
   const total = exact(question, "total");
   const answer = question.answerValue;
   const rate = divideRational(answer, total);
+  const complementRate = subtractRational(rational(1), rate);
+  const repeatedRequestedShare = multiplyRational(answer, rate);
+  const repeatedComplementShare = multiplyRational(answer, complementRate);
   return [
     {
       value: subtractRational(total, answer),
@@ -70,17 +73,25 @@ function ql038Candidates(question: MalCp004ProductReviewQuestion): Candidate[] {
       misconceptionId: "copied_percentage_as_litres",
     },
     {
-      value: divideRational(total, rate),
-      misconceptionId: "divided_by_component_fraction_instead_of_multiplying",
+      value: multiplyRational(complementRate, rational(100)),
+      misconceptionId: "copied_complement_percentage_as_litres",
     },
     {
-      value: multiplyRational(answer, rate),
+      value: repeatedRequestedShare,
       misconceptionId: "applied_component_fraction_twice",
+    },
+    {
+      value: repeatedComplementShare,
+      misconceptionId: "applied_complement_fraction_to_requested_component",
     },
     { value: total, misconceptionId: "reported_total_mixture" },
     {
-      value: subtractRational(total, multiplyRational(answer, rate)),
+      value: subtractRational(total, repeatedRequestedShare),
       misconceptionId: "subtracted_double_applied_share_from_total",
+    },
+    {
+      value: subtractRational(total, repeatedComplementShare),
+      misconceptionId: "subtracted_complement_share_from_total",
     },
   ];
 }
@@ -133,6 +144,13 @@ function acceptable(
   if (equalsRational(value, question.answerValue)) return false;
   if (question.answerUnit === "percent") {
     return compareRational(value, rational(1)) < 0;
+  }
+  if (question.permanentQlId === "MAL-QL-038") {
+    const total = exact(question, "total");
+    return (
+      compareRational(value, rational(1)) >= 0 &&
+      compareRational(value, total) <= 0
+    );
   }
   return true;
 }
@@ -216,7 +234,7 @@ function polishDirectQuestion(input: {
           name: "DIRECT_PERCENTAGE_OPTION_POLISH_V7",
           passed: true,
           message:
-            "Direct component and concentration questions use recognisable exam errors without tiny double-division quantities or awkward inflated denominators.",
+            "Direct component and concentration questions use recognisable exam errors without tiny, physically impossible or awkward inflated-denominator options.",
         },
       ],
     },
