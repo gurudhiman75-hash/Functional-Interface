@@ -55,7 +55,9 @@ runtime version:         RNK_CP005_PERMANENT_RUNTIME_V2
 language version:        RNK_CP005_EXAM_LANGUAGE_V2
 freeze version:          RNK_CP005_ENGLISH_REASONING_REMODEL_FREEZE_V2
 direct-rank exposure:    0
-projection SHA-256:      c1d205d2d49d3fe97bf3049d65c8d2b57e8594eb99abb57982384a4fa6605d8f
+unrelated pair options:  0
+target-own-neighbour:    0
+projection SHA-256:      8ab6d6ab6965aec6be32753bec5d7f083f2b1b03810609b1b2bb40ea02ae8822
 ```
 
 CP-005 now provides three evidence contracts:
@@ -70,6 +72,8 @@ Each set combines incomplete evidence such as one fixed-rank anchor, shuffled co
 
 It covers row, queue, merit-list, race-finish, interview-shortlist and performance-order contexts exactly 256 times each. Each permanent QL has `48/48/48/48` answer-position balance and the permanent gate reports zero duplicate mathematical fingerprints.
 
+The option-quality gate checks all 1,536 questions. All 192 pair questions keep every option focused on the named pair, and all 192 neighbour questions exclude the target from the answer choices.
+
 Difficulty after the remodel:
 
 ```text
@@ -82,7 +86,7 @@ Hard:     512
 
 ```text
 combined projection SHA-256:
-080af7fa6787f6752208c0504dce45bc0498c23eb7df7091a4130619ecfb4c2e
+ef24476ee421e6c8de926a2a02d68f5e9a76333a10289ef66ae83dc97d78c0de
 ```
 
 Question Studio remains discovery-only and blocked before generation or persistence.
@@ -105,20 +109,9 @@ construct a valid hidden ranking state
   -> solve that visible evidence independently
   -> reject complete answer exposure, cycles and ambiguity
   -> construct misconception-owned options
+  -> reject unrelated pair options and self-neighbour distractors
   -> render question-specific teaching
-  -> audit ownership and source inverses
-  -> consolidate by proof and answer contract
   -> pin the permanent projection digest
-```
-
-CP-005 adds:
-
-```text
-one incomplete shared evidence block
-  -> one stable passage fingerprint
-  -> exactly one reconstructed order
-  -> multiple linked authority questions
-  -> context-specific exam-language realization
 ```
 
 ## Ownership boundaries
