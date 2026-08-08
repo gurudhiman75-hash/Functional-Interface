@@ -3,7 +3,7 @@ import {
   generateSapCp004Package,
   type SapCp004Package,
   type SapCp004PrototypeId,
-} from "./runtime-v3";
+} from "./editorial-runtime";
 
 export interface SapCp004ReviewRecord extends SapCp004Package {
   readonly questionId: string;
