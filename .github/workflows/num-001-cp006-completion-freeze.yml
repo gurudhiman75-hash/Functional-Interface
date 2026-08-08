@@ -1,0 +1,180 @@
+name: Validate NUM-CP-006 completion and multilingual freeze
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**
+      - .github/workflows/num-001-cp006-completion-freeze.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-num-cp006-completion-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-num-cp006-completion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Wave 01 regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-006/wave01/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp006-wave01-completion-regression.mjs
+
+      - name: Run Wave 01 regression
+        run: node artifacts/api-server/dist/quant-v4/num-001-cp006-wave01-completion-regression.mjs
+
+      - name: Bundle source-gap and merge-split proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-006/audit/source-gap-and-merge-split.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp006-source-gap.test.mjs
+
+      - name: Run source-gap and merge-split proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp006-source-gap.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp006-source-gap.log
+
+      - name: Bundle permanent allocation proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-006/permanent/allocation.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp006-allocation.test.mjs
+
+      - name: Run permanent allocation proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp006-allocation.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp006-allocation.log
+
+      - name: Bundle chapter allocation registry proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/design/number-system-current-allocation-registry.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/number-system-current-allocation-registry.test.mjs
+
+      - name: Run chapter allocation registry proof
+        run: node artifacts/api-server/dist/quant-v4/number-system-current-allocation-registry.test.mjs
+
+      - name: Bundle permanent runtime proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-006/permanent/runtime-proof.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp006-permanent-runtime.test.mjs
+
+      - name: Run permanent runtime proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp006-permanent-runtime.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp006-permanent-runtime.log
+
+      - name: Bundle English freeze audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-006/permanent/english-freeze-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp006-english-freeze-audit.mjs
+
+      - name: Run English freeze audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp006-english-freeze-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp006-english-freeze-audit.log
+
+      - name: Bundle Hindi Punjabi mathematical parity proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-006/localization/runtime-parity.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp006-hi-pa-parity.test.mjs
+
+      - name: Run Hindi Punjabi mathematical parity proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp006-hi-pa-parity.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp006-hi-pa-parity.log
+
+      - name: Bundle Hindi Punjabi editorial audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-006/localization/editorial-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp006-hi-pa-editorial-audit.mjs
+
+      - name: Run Hindi Punjabi editorial audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-001-cp006-hi-pa-editorial-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-001-cp006-hi-pa-editorial-audit.log
+
+      - name: Bundle English review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-006/permanent/review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp006-english-review-export.mjs
+
+      - name: Generate English review pack
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/num-001-cp006-english-review-export.mjs
+
+      - name: Bundle multilingual review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-006/localization/review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-001-cp006-hi-pa-review-export.mjs
+
+      - name: Generate multilingual review pack
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/num-001-cp006-hi-pa-review-export.mjs
+
+      - name: Upload CP-006 completion evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-001-cp006-completion-multilingual-freeze
+          path: |
+            artifacts/api-server/dist/quant-v4/num-001-cp006-source-gap.log
+            artifacts/api-server/dist/quant-v4/num-001-cp006-allocation.log
+            artifacts/api-server/dist/quant-v4/num-001-cp006-permanent-runtime.log
+            artifacts/api-server/dist/quant-v4/num-001-cp006-english-freeze-audit.log
+            artifacts/api-server/dist/quant-v4/num-001-cp006-hi-pa-parity.log
+            artifacts/api-server/dist/quant-v4/num-001-cp006-hi-pa-editorial-audit.log
+            artifacts/api-server/dist/quant-v4/num-001-cp006-permanent-english-review.json
+            artifacts/api-server/dist/quant-v4/num-001-cp006-permanent-english-review.csv
+            artifacts/api-server/dist/quant-v4/num-001-cp006-permanent-english-review.md
+            artifacts/api-server/dist/quant-v4/num-001-cp006-hi-pa-review.json
+            artifacts/api-server/dist/quant-v4/num-001-cp006-hi-pa-review.csv
+            artifacts/api-server/dist/quant-v4/num-001-cp006-hi-pa-review.md
+          if-no-files-found: warn
+          retention-days: 14

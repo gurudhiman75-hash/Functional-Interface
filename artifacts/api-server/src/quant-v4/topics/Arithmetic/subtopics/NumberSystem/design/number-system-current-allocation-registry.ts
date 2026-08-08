@@ -53,12 +53,30 @@ export const NUMBER_SYSTEM_COMPLETED_CHECKPOINT_ALLOCATIONS = [
     testEligible: false,
     publiclyPublishable: false,
   },
+  {
+    cpId: "NUM-CP-006",
+    packageId: "NUM-001",
+    title: "HCF, LCM and Common-Alignment Applications",
+    firstQlNumber: 70,
+    lastQlNumber: 97,
+    permanentQlCount: 28,
+    frozenLearnerTemplateCount: 28,
+    frozenSolveModeCount: 28,
+    authorityRoute: "NUM-001/NUM-CP-006/permanent/allocation.ts",
+    maturity: "MULTILINGUAL_IMPLEMENTATION_FROZEN",
+    language: "en/hi/pa",
+    active: false,
+    questionStudioDiscoverable: false,
+    questionBankWritable: false,
+    testEligible: false,
+    publiclyPublishable: false,
+  },
 ] as const;
 
 export const NUMBER_SYSTEM_CURRENT_PERMANENT_QL_RANGE = {
   first: 1,
-  last: 69,
-  count: 69,
+  last: 97,
+  count: 97,
 } as const;
 
-export const NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT = 70 as const;
+export const NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT = 98 as const;
